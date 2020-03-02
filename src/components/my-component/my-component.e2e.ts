@@ -6,6 +6,6 @@ describe('my-component', () => {
 
     await page.setContent('<my-component></my-component>');
     const element = await page.find('my-component');
-    expect(element).toHaveClass('hydrateds');
+    expect(element).toHaveClass('hydrated');
   });
 });
