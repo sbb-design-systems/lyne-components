@@ -1,8 +1,0 @@
-[build]
-  base = "/"
-  publish = "/"
-
-  # 1. build components
-  # 2. write .npmrc file with npm auth token
-  # 3. publish package
-  command = "npm run build && echo '//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}' > .npmrc && npm publish"
