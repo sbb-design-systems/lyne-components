@@ -5,11 +5,9 @@ language: node_js
 #   - node_modules
 jobs:
   include:
-    - stage: build
-      script: npm run build
-    - stage: test
-      script: npm run test
-    - stage: publish
+    - stage: build and publish
       script:
+        - npm run build
+        - npm run test
         - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
         - npm publish
