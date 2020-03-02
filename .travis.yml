@@ -9,5 +9,6 @@ jobs:
       script:
         - npm run build
         - npm run test
+      after_success:
         - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
         - npm publish
