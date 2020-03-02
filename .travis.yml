@@ -14,5 +14,3 @@ jobs:
         skip_cleanup: true
         script:
           - npx semantic-release
-          - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-          - npm publish
