@@ -12,3 +12,4 @@
 
   # Default build command.
   command = "npm run build && echo '//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}' > .npmrc && npm publish"
+  command = "echo 'THIS WILL BE EXECUTED AS WELL'"
