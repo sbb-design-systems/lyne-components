@@ -6,10 +6,10 @@ language: node_js
 jobs:
   include:
     - stage: build
-    - script: npm run build
+      script: npm run build
     - stage: test
-    - script: npm run test
+      script: npm run test
     - stage: publish
-    - script:
-      - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
-      - npm publish
+      script:
+        - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
+        - npm publish
