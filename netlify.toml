@@ -11,4 +11,4 @@
   publish = "/"
 
   # Default build command.
-  command = "npm run build && npm publish"
+  command = "npm run build && echo '//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN} > ./.npmrc' && npm publish"
