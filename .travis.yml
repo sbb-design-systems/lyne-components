@@ -3,18 +3,14 @@ language: node_js
 cache:
   directories:
   - node_modules
-before_install:
-  - echo "1. BEFORE INSTALL"
 before_script:
-  - echo "2. BEFORE SCRIPT"
+  - echo "1. BEFORE SCRIPT"
 script:
-  - echo "3. SCRIPT"
+  - echo "2. SCRIPT"
   - npm run build
 after_failure:
-  - echo "4. AFTER FAILURE"
+  - echo "3. AFTER FAILURE"
 after_success:
   - echo "4. AFTER SUCCESS"
-before_deploy:
-  - echo "5. BEFORE DEPLOY"
 after_script:
-  - echo "8. AFTER SCRIPT"
+  - echo "5. AFTER SCRIPT"
