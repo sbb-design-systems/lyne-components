@@ -1,9 +1,9 @@
-[build]
+[[build]]
   command = "echo 'THIS WILL BE EXECUTED AS WELL'"
 
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
-[build]
+[[build]]
   # Directory to change to before starting a build.
   # This is where we will look for package.json/.nvmrc/etc.
   base = "/"
