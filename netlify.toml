@@ -11,4 +11,4 @@
   publish = "/"
 
   # Default build command.
-  command = "echo ${NPM_TOKEN} && npm run build && npm publish"
+  command = "npm run build && npm publish"
