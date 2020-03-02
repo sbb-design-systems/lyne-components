@@ -1,6 +1,20 @@
 os: linux
 language: node_js
+# cache:
+#   directories:
+#   - node_modules
+before_install:
+  - echo "1. BEFORE INSTALL"
 before_script:
-  - echo "WILL BUILD"
+  - echo "2. BEFORE SCRIPT"
 script:
+  - echo "3. SCRIPT"
   - npm run build
+after_failure:
+  - echo "4. AFTER FAILURE"
+after_success:
+  - echo "4. AFTER SUCCESS"
+  - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
+  - npm publish
+after_script:
+  - echo "5. AFTER SCRIPT"
