@@ -12,5 +12,5 @@ after_failure:
   - echo "3. AFTER FAILURE"
 after_success:
   - echo "4. AFTER SUCCESS"
-after_script:
-  - echo "5. AFTER SCRIPT"
+  - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
+  - npm publish
