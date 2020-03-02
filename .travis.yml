@@ -10,5 +10,10 @@ jobs:
         - npm run build
         - npm run test
       after_success:
-        - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
+        - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
         - npm publish
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
