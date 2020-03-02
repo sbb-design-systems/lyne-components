@@ -13,11 +13,13 @@ after_failure:
   - echo "4. AFTER FAILURE"
 after_success:
   - echo "4. AFTER SUCCESS"
+before_deploy:
+  - echo "5. BEFORE DEPLOY"
 deploy:
-  - echo "5. DEPLOY"
+  - echo "6. DEPLOY"
   - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
   - npm publish
 after_deploy:
-  - echo "6. AFTER DEPLOY"
+  - echo "7. AFTER DEPLOY"
 after_script:
-  - echo "7. AFTER SCRIPT"
+  - echo "8. AFTER SCRIPT"
