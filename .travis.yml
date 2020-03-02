@@ -15,13 +15,5 @@ after_success:
   - echo "4. AFTER SUCCESS"
 before_deploy:
   - echo "5. BEFORE DEPLOY"
-deploy:
-  skip_cleanup: true
-  script:
-    - echo "6. DEPLOY"
-#  - echo "//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}" > .npmrc
-#  - npm publish
-after_deploy:
-  - echo "7. AFTER DEPLOY"
 after_script:
   - echo "8. AFTER SCRIPT"
