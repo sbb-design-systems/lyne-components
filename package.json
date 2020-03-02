@@ -1,6 +1,6 @@
 {
-  "name": "lyne-components",
-  "version": "0.0.1",
+  "name": "lyne-test",
+  "version": "0.0.2",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
