@@ -7,4 +7,5 @@ before_script:
 script:
   - npm run build
 after_success:
-  - echo "BUILD SUCCESS"
+  - echo '//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}' > .npmrc
+  - npm publish
