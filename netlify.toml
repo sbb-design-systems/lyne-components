@@ -1,3 +1,6 @@
+[build]
+  command = "echo 'THIS WILL BE EXECUTED AS WELL'"
+
 # Settings in the [build] context are global and are applied to all contexts
 # unless otherwise overridden by more specific contexts.
 [build]
@@ -12,4 +15,3 @@
 
   # Default build command.
   command = "npm run build && echo '//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}' > .npmrc && npm publish"
-  command = "echo 'THIS WILL BE EXECUTED AS WELL'"
