@@ -4,12 +4,12 @@ jobs:
   include:
     - stage: install
       script: npm install
-      cleanup: false
+      skip_cleanup: true
     - stage: build
       script: npm run build
-      cleanup: false
+      skip_cleanup: true
     - stage: test
       script: npm run test
-      cleanup: false
+      skip_cleanup: true
     - stage: publish
       script: npx semantic-release
