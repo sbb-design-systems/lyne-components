@@ -10,5 +10,5 @@
 - Decide for Branching-Model
 - Add Merge Checks
 - Greenkeeper
-- Add Linter: 
+- Add Linter
 - Check vulnerabilities / auto scanner
