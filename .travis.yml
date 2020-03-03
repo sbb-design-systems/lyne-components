@@ -1,15 +1,16 @@
 os: linux
 language: node_js
+# cache:
+#   directories:
+#   - node_modules
 jobs:
   include:
-    - stage: install
-      script: npm install
-      skip_cleanup: true
-    - stage: build
-      script: npm run build
-      skip_cleanup: true
-    - stage: test
-      script: npm run test
-      skip_cleanup: true
-    - stage: publish
-      script: npx semantic-release
+    - stage: build and publish
+      script:
+        - npm run build
+        - npm run test
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
