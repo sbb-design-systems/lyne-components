@@ -10,7 +10,7 @@
 - Decide for Branching-Model
 - Add Merge Checks
 - Greenkeeper
-- Husky for easy GitHooks
-- Add commit lint
-- Add Linter
+- Husky for easy GitHook: https://github.com/typicode/husky
+- Add commit lint: https://github.com/conventional-changelog/commitlint
+- Add Linter: 
 - Check vulnerabilities / auto scanner
