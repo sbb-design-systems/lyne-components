@@ -12,3 +12,4 @@
 - Greenkeeper
 - Add Linter
 - Check vulnerabilities / auto scanner
+- Add Storybook
