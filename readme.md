@@ -10,3 +10,7 @@
 - Decide for Branching-Model
 - Add Merge Checks
 - Greenkeeper
+- Husky for easy GitHooks
+- Add commit lint
+- Add Linter
+- Check vulnerabilities / auto scanner
