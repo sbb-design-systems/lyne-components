@@ -1,13 +1,15 @@
 os: linux
 language: node_js
-# cache:
-#   directories:
-#   - node_modules
-script:
-  - npm run build
-  - npm run test
-deploy:
-  provider: script
-  cleanup: false
-  script:
-    - npx semantic-release
+jobs:
+  include:
+    - stage: install
+      script: npm install
+      cleanup: false
+    - stage: build
+      script: npm run build
+      cleanup: false
+    - stage: test
+      script: npm run test
+      cleanup: false
+    - stage: publish
+      script: npx semantic-release
