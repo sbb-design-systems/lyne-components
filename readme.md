@@ -19,3 +19,4 @@
   - update CHANGELOG.md in git repo
   - to update version in package.json
 - Remove semantic-release dependcy. It is executed via npx on travis (see travis.yml)
+- Repo -> Insights -> Community -> Fullfill checklist
