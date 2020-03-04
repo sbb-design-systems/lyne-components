@@ -11,5 +11,5 @@ jobs:
         - npm run test
       deploy:
         provider: script
-        skip_cleanup: true
+        cleanup: false
         script: npx semantic-release
