@@ -5,7 +5,6 @@
 - Rename package name to "lyne-components"
 - Decide for Branching-Model
 - Add Merge Checks
-- Greenkeeper
 - Add Linter
 - Check vulnerabilities / auto scanner
 - Add Storybook
