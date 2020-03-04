@@ -1,3 +1,11 @@
+# [3.1.0](https://github.com/lyne-design-system/lyne-components/compare/v3.0.0...v3.1.0) (2020-03-04)
+
+
+### Features
+
+* minor release test ([805f910](https://github.com/lyne-design-system/lyne-components/commit/805f91096ab780b6a7a47b1c340221dda003d806))
+* test minor release ([f5addd4](https://github.com/lyne-design-system/lyne-components/commit/f5addd4881f7d28653c53ec712e36530b8ac8712))
+
 # [3.0.0](https://github.com/lyne-design-system/lyne-components/compare/v2.0.13...v3.0.0) (2020-03-04)
 
 
