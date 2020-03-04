@@ -9,3 +9,4 @@
 - Add Storybook
 - Repo -> Insights -> Community -> Fullfill checklist
 - Semantic-release updates version in package.json, but in the package-lock.json it does not
+- Add section to README where we list all dependencies with explanation as of why we use them
