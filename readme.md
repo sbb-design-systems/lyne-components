@@ -8,3 +8,4 @@
 - Check vulnerabilities / auto scanner
 - Add Storybook
 - Repo -> Insights -> Community -> Fullfill checklist
+- test patch release
