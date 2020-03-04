@@ -14,11 +14,6 @@
     "dist/",
     "loader/"
   ],
-  "release": {
-    "branches": [
-      "master"
-    ]
-  },
   "scripts": {
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve",
