@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/lyne-design-system/lyne-components/compare/v4.0.1...v4.0.2) (2020-03-04)
+
+
+### Bug Fixes
+
+* remove .tool-versions ([03c35ed](https://github.com/lyne-design-system/lyne-components/commit/03c35ed3bff237b7afedfbee6651d82399f1f359))
+
 ## [4.0.1](https://github.com/lyne-design-system/lyne-components/compare/v4.0.0...v4.0.1) (2020-03-04)
 
 
