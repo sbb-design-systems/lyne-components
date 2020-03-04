@@ -9,6 +9,5 @@ script:
 deploy:
   provider: script
   cleanup: false
-  script:
-    - npm i -D @semantic-release/changelog @semantic-release/git
-    - npx semantic-release
+  skip_cleanup: true
+  script: npx semantic-release
