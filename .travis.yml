@@ -3,13 +3,10 @@ language: node_js
 # cache:
 #   directories:
 #   - node_modules
-jobs:
-  include:
-    - stage: build and publish
-      script:
-        - npm run build
-        - npm run test
-      deploy:
-        provider: script
-        cleanup: false
-        script: npx semantic-release
+script:
+  - npm run build
+  - npm run test
+deploy:
+  provider: script
+  cleanup: false
+  script: npx semantic-release
