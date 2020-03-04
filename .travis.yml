@@ -9,4 +9,4 @@ script:
 deploy:
   provider: script
   cleanup: false
-  script: npx semantic-release
+  script: npx @semantic-release/changelog @semantic-release/git semantic-release
