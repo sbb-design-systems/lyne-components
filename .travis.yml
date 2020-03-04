@@ -1,5 +1,8 @@
 os: linux
 language: node_js
+before_script:
+  - modules-audit:create
+  - modules-audit:process
 script:
   - npm run build
   - npm run test
