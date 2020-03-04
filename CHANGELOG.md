@@ -1,3 +1,11 @@
+## [4.0.1](https://github.com/lyne-design-system/lyne-components/compare/v4.0.0...v4.0.1) (2020-03-04)
+
+
+### Bug Fixes
+
+* check if deploy works without skip_cleanup ([d4a5617](https://github.com/lyne-design-system/lyne-components/commit/d4a56176465dbd1becbe4999b4ad04e7c7885b73))
+* try to fix skip cleanup in travis config ([8719074](https://github.com/lyne-design-system/lyne-components/commit/8719074ffd428220e0d8af5550f7db068107cf1b))
+
 # [4.0.0](https://github.com/lyne-design-system/lyne-components/compare/v3.1.0...v4.0.0) (2020-03-04)
 
 
