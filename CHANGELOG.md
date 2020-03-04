@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/lyne-design-system/lyne-components/compare/v2.0.13...v3.0.0) (2020-03-04)
+
+
+### Bug Fixes
+
+* breaking change test ([60c6115](https://github.com/lyne-design-system/lyne-components/commit/60c6115dbf660e54f832b8192ad9f3fd26773414))
+
+
+### BREAKING CHANGES
+
+* simulate breaking change
+
 ## [2.0.13](https://github.com/lyne-design-system/lyne-components/compare/v2.0.12...v2.0.13) (2020-03-04)
 
 
