@@ -1,3 +1,21 @@
+# [4.0.0](https://github.com/lyne-design-system/lyne-components/compare/v3.1.0...v4.0.0) (2020-03-04)
+
+
+### Bug Fixes
+
+* test patch release ([2305656](https://github.com/lyne-design-system/lyne-components/commit/2305656139321d755c8d676afa9534d3ac2fcfe9))
+
+
+### Features
+
+* test major release ([410168d](https://github.com/lyne-design-system/lyne-components/commit/410168d45fa465e935419182b24b707491ea204f))
+* test minor release ([13b0c56](https://github.com/lyne-design-system/lyne-components/commit/13b0c568e44ea049f562af999d30b2014fe33ed2))
+
+
+### BREAKING CHANGES
+
+* test major release
+
 # [3.1.0](https://github.com/lyne-design-system/lyne-components/compare/v3.0.0...v3.1.0) (2020-03-04)
 
 
