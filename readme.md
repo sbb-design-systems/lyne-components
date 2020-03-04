@@ -8,3 +8,4 @@
 - Check vulnerabilities / auto scanner
 - Add Storybook
 - Repo -> Insights -> Community -> Fullfill checklist
+- Semantic-release updates version in package.json, but in the package-lock.json it does not
