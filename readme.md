@@ -9,3 +9,4 @@
 - Add Storybook
 - Repo -> Insights -> Community -> Fullfill checklist
 - test patch release
+- test minor release
