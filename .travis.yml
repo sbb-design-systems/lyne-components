@@ -1,8 +1,8 @@
 os: linux
 language: node_js
-# cache:
-#   directories:
-#   - node_modules
+cache:
+  directories:
+    - node_modules
 script:
   - npm run build
   - npm run test
