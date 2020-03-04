@@ -36,11 +36,6 @@
     "puppeteer": "1.20.0",
     "semantic-release": "^17.0.4"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "license": "MIT",
   "repository": {
     "type": "git",
