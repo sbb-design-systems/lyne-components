@@ -9,4 +9,6 @@ script:
 deploy:
   provider: script
   cleanup: false
-  script: npx @semantic-release/changelog @semantic-release/git semantic-release
+  script:
+    - npm i -D @semantic-release/changelog @semantic-release/git
+    - npx semantic-release
