@@ -9,6 +9,7 @@
 - Repo -> Insights -> Community -> Fullfill checklist
 - Semantic-release updates version in package.json, but in the package-lock.json it does not
 - Prevent push to master
+- in storybook build, ommit webpack verbose mode since it is logging too much uniformative stuff
 
 # Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
