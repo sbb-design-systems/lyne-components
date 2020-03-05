@@ -13,12 +13,9 @@ jobs:
     #     script: npx semantic-release
     - stage: build and deploy storybook
       script:
+        - npm install netlify-cli -g
         - npm run build
       deploy:
-        provider: netlify
+        provider: script
         cleanup: false
-        dir: "storybook-static/"
-        site: $NETLIFY_SITE_ID
-        auth:
-          secure: "Bcjzx45aSHVkr0haFxylvObXkCpqw4mntlGmztkZRdRZ+9kZepdf6S7ZReDiJL+iXG1pdvAxf3LyUxhZtWQ92ZM+kmb4rSbISsK2lbA2fSZIYmZlPxCqX9mZvy5edQsKcBVVmftDuhmkPAyWX5/HsnndtgSqV8nsumMbRsTMSlypPcUfNp/jOD3F/8C5CTOt4Hb4qqJIeKkXiCoB9fpnTE3b+MT9XVeCbnzQ1TKyqp47hYs1LbTydwhVTpctkj9Sagyar07Vsrf0mnQoF/e7mzAOkfd2AXoPUcg+mnjNmguYovOKIf7hGjhPdd+FjFmDh4jx0/P9Sbe2YxcmynvyoYT0XPpR4wgnAb3+DU8W3T5Z7KyqMRTNTZDYTkkMR7X1XQInwWsVyXzBx6nabmGt6rsqCVYneql/+cdqm1JJUvV4KsxiZ6YHS3LwOYotgWGnHPXUViAmmrW3XsO0PioRKYpbh5WB+9CPlZb+NM4ONqEaTt7IpHV71PI/Hm5AqIWFOT+rtHH/i/lE0Ymqs7r3MTK/BbJt7KQxy2G7fT/A+5JPTe4Z2fTylwwEab+ktyecJBA8hEVFLKaXSZDmf7J2SHWfQGNhev4pBB7VzLoKqpdhs+mCw5VFRD1CdiN8oLgl6KDckbLasaIYk7vOOLhvGNItNT6p42AXQpoRJfW+Ewk="
-        edge: true
+        script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_AUTH -p ./storybook-static/
