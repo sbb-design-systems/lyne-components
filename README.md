@@ -10,6 +10,12 @@
 - Semantic-release updates version in package.json, but in the package-lock.json it does not
 - Prevent push to master
 
+# Issues
+- If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
+
+# Verify
+- If a travis release job is running, semantic-release did not run yet, and a new change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with both changes
+
 # npm
 
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
