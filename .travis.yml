@@ -1,16 +1,23 @@
 os: linux
 language: node_js
-script:
-  - npm run build
-  - npm run test
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: npx semantic-release
-deploy:
-  provider: netlify
-  cleanup: false
-  dir: "storybook-static/"
-  site: "af18ac9e2c60375b1bf8a3702f236d0c92a3fceef7245f621fdbebff3cea529e"
-  auth: $NETLIFY_AUTH
-  edge: true
+
+jobs:
+  include:
+    - stage: build and deploy packages
+      script:
+        - npm run build:stencil
+        - npm run test
+      deploy:
+        provider: script
+        skie_cleanup: true
+        script: npx semantic-release
+    - stage: build and deploy storybook
+      script:
+        - npm run build
+      deploy:
+        provider: netlify
+        cleanup: false
+        dir: "storybook-static/"
+        site: "af18ac9e2c60375b1bf8a3702f236d0c92a3fceef7245f621fdbebff3cea529e"
+        auth: $NETLIFY_AUTH
+        edge: true
