@@ -1,3 +1,13 @@
+# [4.1.0](https://github.com/lyne-design-system/lyne-components/compare/v4.0.2...v4.1.0) (2020-03-05)
+
+
+### Features
+
+* try to deploy storybook to netlify ([40c87c7](https://github.com/lyne-design-system/lyne-components/commit/40c87c70dc4004a0c2fe42c14515101b44d3db6f))
+* try to deploy storybook to netlify ([611ccc8](https://github.com/lyne-design-system/lyne-components/commit/611ccc8b96ca4e3c2dbb8758641cf651e6b3e75b))
+* try to deploy storybook to netlify ([b608300](https://github.com/lyne-design-system/lyne-components/commit/b60830073c82510824fa9eee7aa3bbb96348a9e0))
+* try to deploy storybook to netlify ([7b76d64](https://github.com/lyne-design-system/lyne-components/commit/7b76d646d398a422214078ea684e42390e14f338))
+
 ## [4.0.2](https://github.com/lyne-design-system/lyne-components/compare/v4.0.1...v4.0.2) (2020-03-04)
 
 
