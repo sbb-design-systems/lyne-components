@@ -5,11 +5,8 @@
 - Decide for Branching-Model
 - Add Merge Checks
 - Add Linter
-- Check vulnerabilities / auto scanner
-- Add Storybook
 - Repo -> Insights -> Community -> Fullfill checklist
 - Semantic-release updates version in package.json, but in the package-lock.json it does not
-- Add section to README where we list all dependencies with explanation as of why we use them
 - Prevent push to master
 
 # package.json
