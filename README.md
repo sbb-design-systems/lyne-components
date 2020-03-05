@@ -78,6 +78,7 @@ The storybook is deployed on netlify an can be found here: https://lyne-componen
 # Outputs
 
 |Folder|Explanation|
+|------|-----------|
 |./dist|main output target for stencil components|
 |./www|build target for stencil dev server|
 |./storybook-static|rendered static storybook site|
