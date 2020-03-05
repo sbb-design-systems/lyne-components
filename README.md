@@ -9,6 +9,15 @@
 - Semantic-release updates version in package.json, but in the package-lock.json it does not
 - Prevent push to master
 
+# npm
+
+The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
+
+# Storybook
+
+The storybook is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
+
+
 # package.json
 
 ## npm scripts
