@@ -3,14 +3,16 @@ language: node_js
 
 jobs:
   include:
-    # - stage: build and deploy packages
-    #   script:
-    #     - npm run build:stencil
-    #     - npm run test
-    #   deploy:
-    #     provider: script
-    #     skip_cleanup: true
-    #     script: npx semantic-release
+
+    - stage: build and deploy packages
+     script:
+       - npm run build:stencil
+       - npm run test
+     deploy:
+       provider: script
+       skip_cleanup: true
+       script: npx semantic-release
+
     - stage: build and deploy storybook
       script:
         - npm install netlify-cli -g
