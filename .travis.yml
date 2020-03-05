@@ -9,14 +9,14 @@ jobs:
         - npm run test
       deploy:
         provider: script
-        skie_cleanup: true
+        skip_cleanup: true
         script: npx semantic-release
     - stage: build and deploy storybook
       script:
         - npm run build
       deploy:
         provider: netlify
-        cleanup: false
+        skip_cleanup: true
         dir: "storybook-static/"
         site: "af18ac9e2c60375b1bf8a3702f236d0c92a3fceef7245f621fdbebff3cea529e"
         auth: $NETLIFY_AUTH
