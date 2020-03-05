@@ -14,18 +14,6 @@
 
 # package.json
 
-## Properties & Values used by StencilJS
-
-- main
-- module
-- es2015
-- es2017
-- types
-- collection
-- collection:main
-- unpk
-- files
-
 ## npm scripts
 
 | Script        | Purpose       |
