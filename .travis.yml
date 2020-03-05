@@ -10,12 +10,10 @@ jobs:
         - npm run test
         - npm run build:storybook
         - npm install netlify-cli -g
-        - netlify deploy --prod --message ${nextRelease.version} --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
       deploy:
         provider: script
         skip_cleanup: true
-        script:
-          - npx semantic-release
+        script: npx semantic-release && netlify deploy --prod --message ${nextRelease.version} --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
 
     # - stage: build and deploy storybook
     #   script:
