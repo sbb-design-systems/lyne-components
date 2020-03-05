@@ -3,6 +3,7 @@ language: node_js
 
 jobs:
   include:
+
     - stage: build and deploy packages
       script:
         - npm run build:stencil
@@ -11,6 +12,7 @@ jobs:
         provider: script
         skip_cleanup: true
         script: npx semantic-release
+
     - stage: build and deploy storybook
       script:
         - npm install netlify-cli -g
@@ -20,12 +22,3 @@ jobs:
         provider: script
         skip_cleanup: true
         script: netlify deploy --prod --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
-
-jobs:
-  include:
-    - stage: test
-      script: ./test 1
-    - # stage name not required, will continue to use `test`
-      script: ./test 2
-    - stage: deploy
-      script: ./deploy
