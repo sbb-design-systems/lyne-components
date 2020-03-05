@@ -1,3 +1,26 @@
+# [4.2.0](https://github.com/lyne-design-system/lyne-components/compare/v4.1.0...v4.2.0) (2020-03-05)
+
+
+### Bug Fixes
+
+* enable components deploy again in travis config ([8c3e88e](https://github.com/lyne-design-system/lyne-components/commit/8c3e88e70bcf6c64e715ec5c67bf36f284f42483))
+* fix table in readme and make netlify deploy prod ([7b49200](https://github.com/lyne-design-system/lyne-components/commit/7b49200959c7d194dad2c3e464b3dcdb0ff14b96))
+* fix yaml format ([ad5431f](https://github.com/lyne-design-system/lyne-components/commit/ad5431fcd5fb35bb4004c2b96f27591085b8bb60))
+* remove obsolete jobs from travis config ([4a5e2ae](https://github.com/lyne-design-system/lyne-components/commit/4a5e2ae66feb190085f953aa5be4505f07b5bda0))
+* update readme ([5e4b3b4](https://github.com/lyne-design-system/lyne-components/commit/5e4b3b475f01193a1b874577b6d7f85947fbbf14))
+
+
+### Features
+
+* try to deploy storybook to netlify ([ab07d04](https://github.com/lyne-design-system/lyne-components/commit/ab07d0459560bea98645c314a8d510ba5ff20a74))
+* try to deploy storybook to netlify ([322791b](https://github.com/lyne-design-system/lyne-components/commit/322791b87e1dfbf5783964c6cd966a013ad60b3d))
+* try to deploy storybook to netlify ([b59c72c](https://github.com/lyne-design-system/lyne-components/commit/b59c72c3236f7dc5704d76fd681d0db992d62e38))
+* try to deploy storybook to netlify ([01f9349](https://github.com/lyne-design-system/lyne-components/commit/01f934983d9178ad2ab28694216330cd5e6edcac))
+* try to deploy storybook to netlify ([7c1fb6e](https://github.com/lyne-design-system/lyne-components/commit/7c1fb6e3f500ad87781894297f58e4c30879598b))
+* try to deploy storybook to netlify ([547f6c7](https://github.com/lyne-design-system/lyne-components/commit/547f6c70393f43f3600a1bacfbf65bffb831ce2a))
+* try to deploy storybook to netlify ([3e88f40](https://github.com/lyne-design-system/lyne-components/commit/3e88f40b29d10f6433579e6f31cf0f6b1c4a8bf1))
+* try to deploy storybook to netlify ([bf2de8a](https://github.com/lyne-design-system/lyne-components/commit/bf2de8acbdf007d220d594c40526dd16a73fd56b))
+
 # [4.1.0](https://github.com/lyne-design-system/lyne-components/compare/v4.0.2...v4.1.0) (2020-03-05)
 
 
