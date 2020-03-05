@@ -8,20 +8,19 @@ jobs:
       script:
         - npm run build:stencil
         - npm run test
-        - npm run build:storybook
-        - npm install netlify-cli -g
       deploy:
         provider: script
         skip_cleanup: true
-        script: npx semantic-release && netlify deploy --prod --message ${nextRelease.version} --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+        script:
+          - npx semantic-release
 
-    # - stage: build and deploy storybook
-    #   script:
-    #     - npm install netlify-cli -g
-    #     - npm run build
-    #     - npm run test
-    #   deploy:
-    #     provider: script
-    #     skip_cleanup: true
-    #     script:
-    #       - netlify deploy --prod --message ${nextRelease.version} --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+    - stage: build and deploy storybook
+      script:
+        - npm install netlify-cli -g
+        - npm run build
+        - npm run test
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - netlify deploy --prod --message "Here we will write the current version" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
