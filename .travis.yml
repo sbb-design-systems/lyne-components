@@ -17,5 +17,5 @@ jobs:
         - npm run build
       deploy:
         provider: script
-        cleanup: false
-        script: netlify deploy -s $NETLIFY_SITE_ID -t $NETLIFY_AUTH -p ./storybook-static/
+        skip_cleanup: false
+        script: netlify deploy --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH --dir=./storybook-static/
