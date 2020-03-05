@@ -15,7 +15,8 @@ jobs:
       script:
         - npm install netlify-cli -g
         - npm run build
+        - npm run test
       deploy:
         provider: script
         skip_cleanup: true
-        script: netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH --dir ./storybook-static/
+        script: netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
