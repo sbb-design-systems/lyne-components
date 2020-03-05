@@ -12,6 +12,6 @@ export class MyComponent {
 	@Prop() sampleProperty: string = 'I am a property';
 
   render() {
-    return <div>Hello, Lyne! You look awesome: {this.sampleProperty}</div>;
+    return <div>Hello, Lyne! {this.sampleProperty}</div>;
   }
 }
