@@ -11,7 +11,8 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: npx semantic-release
+        script:
+          - npx semantic-release
 
     - stage: build and deploy storybook
       script:
@@ -21,4 +22,5 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: netlify deploy --prod --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+        script:
+          - netlify deploy --prod --message "${nextRelease.version}" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
