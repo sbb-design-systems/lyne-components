@@ -15,30 +15,42 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
-    "start": "stencil build --dev --watch --serve",
+    "build:stencil": "stencil build --docs",
+    "build:storybook": "build-storybook",
+    "build": "npm-run-all build:stencil build:storybook",
+    "start:stencil": "stencil build --dev --watch --serve",
+    "start:storybook": "start-storybook -p 6006",
+    "start": "npm-run-all --parallel start:stencil start:storybook",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.7",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
     "@stencil/core": "^1.8.8",
+    "@storybook/addon-notes": "^5.3.14",
+    "@storybook/html": "^5.3.14",
     "@types/jest": "24.0.25",
     "@types/puppeteer": "1.20.4",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.1.1",
     "husky": "^4.2.3",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
+    "npm-run-all": "^4.1.5",
     "puppeteer": "1.20.0",
-    "semantic-release": "^17.0.4"
+    "semantic-release": "^17.0.4",
+    "write-file-webpack-plugin": "^4.5.1"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/lyne-design-system/lyne-components.git"
-  }
+  },
+  "dependencies": {}
 }
