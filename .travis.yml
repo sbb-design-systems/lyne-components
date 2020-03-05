@@ -23,4 +23,4 @@ jobs:
         provider: script
         skip_cleanup: true
         script:
-          - netlify deploy --prod --message "${nextRelease.version}" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+          - netlify deploy --prod --message ${nextRelease.version} --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
