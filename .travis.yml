@@ -13,14 +13,16 @@ jobs:
         skip_cleanup: true
         script:
           - npx semantic-release
-
-    - stage: build and deploy storybook
-      script:
-        - npm install netlify-cli -g
-        - npm run build
-        - npm run test
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
+          - npm install netlify-cli -g
           - netlify deploy --prod --message ${nextRelease.version} --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+
+    # - stage: build and deploy storybook
+    #   script:
+    #     - npm install netlify-cli -g
+    #     - npm run build
+    #     - npm run test
+    #   deploy:
+    #     provider: script
+    #     skip_cleanup: true
+    #     script:
+    #       - netlify deploy --prod --message ${nextRelease.version} --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
