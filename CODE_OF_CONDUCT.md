@@ -85,7 +85,7 @@ Community leaders will follow these Community Impact Guidelines in determining t
 
 This Code of Conduct is adapted from
 
-* [Contributor Covenant][homepage], version 2.0, available at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html
+* [Contributor Covenant](https://www.contributor-covenant.org/), version 2.0, available at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html
 * [IBM Carbon code of conduct](https://github.com/carbon-design-system/carbon/blob/master/.github/CODE_OF_CONDUCT.md)
 * Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/diversity)
 
