@@ -66,8 +66,8 @@
 # Special Folders
 | File        | Purpose       |
 | ------------| ------------- |
-|ci|contains skripts that are used by the CI|
-|.storybook (folder)|main configuration for storybook setup|
+|./ci|contains skripts that are used by the CI|
+|./.storybook|main configuration for storybook setup|
 
 # Outputs
 |Folder|Explanation|
