@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lyne-design-system/lyne-components.svg?branch=master)](https://travis-ci.org/lyne-design-system/lyne-components) [![Greenkeeper badge](https://badges.greenkeeper.io/lyne-design-system/lyne-components.svg)](https://greenkeeper.io/) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 <h1 align="center">
   Lyne Components
 </h1>
@@ -6,9 +8,7 @@
 > and are based on standard compliant [Web Components](https://www.webcomponents.org/specs)
 > compiled by StencilJS and browsable through Storybook
 
-[![Build Status](https://travis-ci.org/lyne-design-system/lyne-components.svg?branch=master)](https://travis-ci.org/lyne-design-system/lyne-components) [![Greenkeeper badge](https://badges.greenkeeper.io/lyne-design-system/lyne-components.svg)](https://greenkeeper.io/) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-
-# Todo
+## Todo
 - Rename package name to "lyne-components"
 - Decide for Branching-Model
 - Add Merge Checks
@@ -21,6 +21,14 @@
   - RELEASING.md
   - DEVELOP.md
   - .github
+- npm script ```start``` runs stencil and storybook in parallel. We need sequential. Problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel.
+- In Storybook, css changes are not updated in watch mode
+
+# npm
+The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
+
+# Storybook
+The storybook is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
 
 ## 🙌 Contributing
 See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance! 👀
