@@ -1,3 +1,13 @@
+## [4.2.5](https://github.com/lyne-design-system/lyne-components/compare/v4.2.4...v4.2.5) (2020-03-05)
+
+
+### Bug Fixes
+
+* try to fix commit message for netlify deploy ([b9ca8cd](https://github.com/lyne-design-system/lyne-components/commit/b9ca8cdbff80bd8f9cbea3bae231ee60f8fb50f5))
+* try to fix commit message for netlify deploy ([7b74c7e](https://github.com/lyne-design-system/lyne-components/commit/7b74c7e7573489bb84d33727eb5a3f9e49524091))
+* try to fix commit message for netlify deploy ([9bda6f8](https://github.com/lyne-design-system/lyne-components/commit/9bda6f86c8b7156e41aca0855f29e00379acbb10))
+* try to fix travis config ([89d07ab](https://github.com/lyne-design-system/lyne-components/commit/89d07abbdddf86e1f3e800917de3bc8bc4714e95))
+
 ## [4.2.4](https://github.com/lyne-design-system/lyne-components/compare/v4.2.3...v4.2.4) (2020-03-05)
 
 
