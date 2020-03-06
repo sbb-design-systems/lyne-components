@@ -1,3 +1,11 @@
+## [5.2.1](https://github.com/lyne-design-system/lyne-components/compare/v5.2.0...v5.2.1) (2020-03-06)
+
+
+### Bug Fixes
+
+* add condition to run release urls script only if release was made ([7d47289](https://github.com/lyne-design-system/lyne-components/commit/7d472899d994b2fd3c1539bb5eaa6260aed32ff9))
+* try to fix git pushing DEPLOYMENTS.md ([e1b9922](https://github.com/lyne-design-system/lyne-components/commit/e1b992230d79a0749840ee3c6727120c400124d8))
+
 # [5.2.0](https://github.com/lyne-design-system/lyne-components/compare/v5.1.0...v5.2.0) (2020-03-06)
 
 
