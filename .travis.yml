@@ -20,11 +20,7 @@ jobs:
         create:
           name: build-workspace
           paths:
-            - dist
-            - loader
-            - .stencil
-            - node_modules
-            - .version
+            - /
       deploy:
         provider: script
         skip_cleanup: true
