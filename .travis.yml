@@ -34,4 +34,4 @@ jobs:
         - ./ci/netlify_deploy.sh
 
         # add DEPLOYMENTS.md
-        - npm run build:releaseurls
+        - test -f .version && npm run build:releaseurls
