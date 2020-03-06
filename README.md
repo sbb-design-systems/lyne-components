@@ -23,6 +23,9 @@
   - .github
 - npm script ```start``` runs stencil and storybook in parallel. We need sequential. Problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel.
 - In Storybook, css changes are not updated in watch mode
+- Different secrets and env-variables on git, travis and netlify.
+  - Document exactly which key is needed for what and where to generate it
+  - Before production: regenerate all keys
 
 # npm
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
