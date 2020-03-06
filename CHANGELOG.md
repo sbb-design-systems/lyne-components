@@ -1,3 +1,11 @@
+## [4.3.18](https://github.com/lyne-design-system/lyne-components/compare/v4.3.17...v4.3.18) (2020-03-06)
+
+
+### Bug Fixes
+
+* add release version to netlify deploy message ([fbe2ba2](https://github.com/lyne-design-system/lyne-components/commit/fbe2ba2ed4132286f27b0479db6cd87c7deb28bf))
+* fix travis config format ([d2edb4a](https://github.com/lyne-design-system/lyne-components/commit/d2edb4acc68bf1a29e32baa33ab277634e1e3765))
+
 ## [4.3.17](https://github.com/lyne-design-system/lyne-components/compare/v4.3.16...v4.3.17) (2020-03-06)
 
 
