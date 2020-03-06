@@ -9,7 +9,7 @@ jobs:
         - npm run build:stencil
         - npm run test
       workspaces:
-        name: build-workspace
+        name: default-workspace
         paths:
           - /
       deploy:
@@ -20,7 +20,7 @@ jobs:
 
     - stage: build and deploy storybook
       workspaces:
-        use: build-workspace
+        use: default-workspace
       script:
         - npm install netlify-cli -g
         - npm run build:storybook
