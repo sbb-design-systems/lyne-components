@@ -13,12 +13,7 @@ jobs:
         - npm run build:stencil
         - npm run test
       workspaces:
-        name: default-workspace
-        paths:
-          - /dist
-          - /loader
-          - /node_modules
-          - /.stencil
+        name: test-workspace
       deploy:
         provider: script
         skip_cleanup: true
@@ -27,7 +22,7 @@ jobs:
 
     - stage: build and deploy storybook
       workspaces:
-        use: default-workspace
+        use: test-workspace
       script:
         - npm install netlify-cli -g
         - npm run build:storybook
