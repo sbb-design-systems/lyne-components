@@ -16,6 +16,11 @@ jobs:
       script:
         - npm run build:stencil
         - npm run test
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
       workspaces:
         create:
           name: build-workspace
@@ -25,11 +30,6 @@ jobs:
             - .stencil
             - node_modules
             - tmpRelease
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
 
     - stage: build and deploy storybook
       install: skip
