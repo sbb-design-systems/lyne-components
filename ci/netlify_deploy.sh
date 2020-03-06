@@ -9,7 +9,8 @@ set -ev
 # version file name written by .releaserc
 VERSION_FILE=.version
 
-if [ -f "$VERSION_FILE" ]; then
+if [ -f "$VERSION_FILE" ];
+then
 
   # make storybook build
   npm run build:storybook
@@ -19,4 +20,6 @@ if [ -f "$VERSION_FILE" ]; then
 
   # deploy on netlify
   netlify deploy --prod --message "::`cat .version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+else
+  echo "-->> Skipping netlify depoly"
 fi
