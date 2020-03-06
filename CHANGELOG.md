@@ -1,3 +1,10 @@
+## [5.2.3](https://github.com/lyne-design-system/lyne-components/compare/v5.2.2...v5.2.3) (2020-03-06)
+
+
+### Bug Fixes
+
+* try to fix git push in travis config ([4fe572f](https://github.com/lyne-design-system/lyne-components/commit/4fe572fc6e8fbf26bf2e753edf0894a80c76b75e))
+
 ## [5.2.2](https://github.com/lyne-design-system/lyne-components/compare/v5.2.1...v5.2.2) (2020-03-06)
 
 
