@@ -2,6 +2,11 @@
 # is in Beta as of March 2020. Keep an eye on it!
 # https://docs.travis-ci.com/user/using-workspaces/
 
+# Save netlify deploy urls for all versions
+# 1. .release-rc -> write version to .version
+# 2. save netlify deploy details to netlify.json
+# 3. run netlify_urls.sh to update netlify_urls.json and populate NETLIFY.md
+
 os: linux
 language: node_js
 
@@ -20,7 +25,7 @@ jobs:
             - loader
             - .stencil
             - node_modules
-            - .version
+            - netlify
       deploy:
         provider: script
         skip_cleanup: true
@@ -34,17 +39,16 @@ jobs:
       script:
         - npm install netlify-cli -g
         - npm run build:storybook
-        - cat .version
       deploy:
         provider: script
         skip_cleanup: true
         script:
-          - netlify deploy --prod --message "Here we write the current version" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/ --json >> netlify.json
+          - netlify deploy --prod --message "Here we write the current version" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/ --json >> netlify/latest.json
 
     - stage: test versions
       install: skip
       workspaces:
         use: build-workspace
       skript:
-        - test -f .version && cat .version
-        - test -f netlify.json && cat netlify.json
+        - test -f netlify/.version && cat netlify/.version
+        - test -f netlify/netlify.json && cat netlify/netlify.json
