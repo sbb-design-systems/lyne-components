@@ -3,7 +3,7 @@
 # https://docs.travis-ci.com/user/using-workspaces/
 
 # Add release version as message to netlify deployment
-# 1. .releaserc -> write version to .version.md
+# 1. .releaserc -> write version to tempRelease/.version
 # 2. add --message in format: ::VERSION:: in netlify deploy
 
 os: linux
@@ -16,11 +16,6 @@ jobs:
       script:
         - npm run build:stencil
         - npm run test
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
       workspaces:
         create:
           name: build-workspace
@@ -29,7 +24,12 @@ jobs:
             - loader
             - .stencil
             - node_modules
-            - .version.md
+            - tempRelease
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
 
     - stage: build and deploy storybook
       install: skip
@@ -41,4 +41,4 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: test -f .version.md && netlify deploy --prod --message "::`cat .version.md`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+        script: test -f tempRelease/.version && netlify deploy --prod --message "::`cat tempRelease/.version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
