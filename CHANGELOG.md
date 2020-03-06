@@ -1,3 +1,18 @@
+# [4.3.0](https://github.com/lyne-design-system/lyne-components/compare/v4.2.5...v4.3.0) (2020-03-06)
+
+
+### Bug Fixes
+
+* add components.d.ts again and remove it from gitignore ([a5f4e98](https://github.com/lyne-design-system/lyne-components/commit/a5f4e9844041c75f4a01e8c54da523806312f694))
+* fix unit test for lyne-cta-button ([bffa0e1](https://github.com/lyne-design-system/lyne-components/commit/bffa0e13243abf5b2e14ff6b0d8c94b5208e5358))
+* remove components.d.ts and add it to gitignore ([7e6c02e](https://github.com/lyne-design-system/lyne-components/commit/7e6c02eb5b4fcc248d5fc80d947d253329104a7e))
+
+
+### Features
+
+* add knobs and actions to storybook main config and add readme to lyne-cta-button ([17f4ffa](https://github.com/lyne-design-system/lyne-components/commit/17f4ffa8ddfdde298492bfb75e2377292cf86c63))
+* remove my-component and add lyne-cta-button ([d5a35b9](https://github.com/lyne-design-system/lyne-components/commit/d5a35b9a289e982f9418a34242787a6df5c0ad90))
+
 ## [4.2.5](https://github.com/lyne-design-system/lyne-components/compare/v4.2.4...v4.2.5) (2020-03-05)
 
 
