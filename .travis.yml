@@ -25,7 +25,6 @@ jobs:
     - stage: build and deploy storybook
       workspaces:
         use: default-workspace
-      install: skip
       script:
         - node --version
         - npm install netlify-cli -g
