@@ -1,3 +1,10 @@
+## [4.3.20](https://github.com/lyne-design-system/lyne-components/compare/v4.3.19...v4.3.20) (2020-03-06)
+
+
+### Bug Fixes
+
+* fix netlify deploy including version number ([a51770e](https://github.com/lyne-design-system/lyne-components/commit/a51770ef3b289d1dfcad80b7da33fc9ffc641e10))
+
 ## [4.3.19](https://github.com/lyne-design-system/lyne-components/compare/v4.3.18...v4.3.19) (2020-03-06)
 
 
