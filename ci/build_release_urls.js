@@ -160,7 +160,7 @@ const pushToGit = (() => {
           return;
         }
 
-        simpleGit.pull((err) => {
+        simpleGit.pull('origin', 'master', (err) => {
           if (err) {
             console.log('-->> ! BUILD RELEASE URLS: Error pulling latest changes');
             console.log(err);
