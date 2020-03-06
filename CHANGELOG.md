@@ -1,3 +1,11 @@
+## [4.3.1](https://github.com/lyne-design-system/lyne-components/compare/v4.3.0...v4.3.1) (2020-03-06)
+
+
+### Bug Fixes
+
+* try to use travis workspaces ([0992804](https://github.com/lyne-design-system/lyne-components/commit/09928046eca277d0cefb89be0a9aca964be918f0))
+* try to use travis workspaces ([4219af8](https://github.com/lyne-design-system/lyne-components/commit/4219af802921b6719b1ed252ab88c3a572524859))
+
 # [4.3.0](https://github.com/lyne-design-system/lyne-components/compare/v4.2.5...v4.3.0) (2020-03-06)
 
 
