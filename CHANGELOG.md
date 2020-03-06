@@ -1,3 +1,11 @@
+# [5.2.0](https://github.com/lyne-design-system/lyne-components/compare/v5.1.0...v5.2.0) (2020-03-06)
+
+
+### Features
+
+* add script for url deployments to travis job ([0d731f4](https://github.com/lyne-design-system/lyne-components/commit/0d731f421634d8178c2c0754940d9c3fbb2913eb))
+* finish implementation for deployments urls script ([f7fb5d9](https://github.com/lyne-design-system/lyne-components/commit/f7fb5d966ac891ba2e40e9df5e783f9598aa56ad))
+
 # [5.1.0](https://github.com/lyne-design-system/lyne-components/compare/v5.0.0...v5.1.0) (2020-03-06)
 
 
