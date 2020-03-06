@@ -7,6 +7,9 @@
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     "@semantic-release/npm",
+    ["@semantic-release/exec", {
+      "prepareCmd": "echo ${nextRelease.version} > tmpRelease/.version"
+    }],
     ["@semantic-release/git", {
       "assets": [
         "package.json",
@@ -14,9 +17,6 @@
       ],
       "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
     }],
-    "@semantic-release/github",
-    ["@semantic-release/exec", {
-      "publishCmd": "echo ${nextRelease.version} > tmpRelease/.version"
-    }]
+    "@semantic-release/github"
   ]
 }
