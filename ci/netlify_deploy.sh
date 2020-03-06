@@ -1,10 +1,12 @@
 #!/bin/bash
 
+# this script is used in .travis.yml
+
 # -e: make sure command returns non-zero exit code as soon as somehting fails
 # -v: verbose mode
 set -ev
 
-# version file written by .releaserc
+# version file name written by .releaserc
 VERSION_FILE=.version
 
 if [ -f "$VERSION_FILE" ]; then
