@@ -8,6 +8,10 @@ jobs:
       script:
         - npm run build:stencil
         - npm run test
+      workspaces:
+        name: build-workspace
+        paths:
+          - /
       deploy:
         provider: script
         skip_cleanup: true
@@ -15,12 +19,15 @@ jobs:
           - npx semantic-release
 
     - stage: build and deploy storybook
+      workspaces:
+        use: build-workspace
       script:
         - npm install netlify-cli -g
-        - npm run build
-        - npm run test
+        - npm run build:storybook
       deploy:
         provider: script
         skip_cleanup: true
         script:
           - netlify deploy --prod --message "Here we write the current version" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+
+# https://docs.travis-ci.com/user/using-workspaces/
