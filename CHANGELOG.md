@@ -1,3 +1,10 @@
+## [4.3.39](https://github.com/lyne-design-system/lyne-components/compare/v4.3.38...v4.3.39) (2020-03-06)
+
+
+### Bug Fixes
+
+* try to add release version to netlify deploy message ([bb4e32f](https://github.com/lyne-design-system/lyne-components/commit/bb4e32f4d81bd753ff11c1c7471e550c5fa71bb2))
+
 ## [4.3.38](https://github.com/lyne-design-system/lyne-components/compare/v4.3.37...v4.3.38) (2020-03-06)
 
 
