@@ -32,6 +32,6 @@ jobs:
         - npx semantic-release
 
         # build storybook and run netlify deploy
-        - npm run build:storybook
-        - npm install netlify-cli -g
+        - test -f .version && npm run build:storybook
+        - test -f .version && npm install netlify-cli -g
         - test -f .version && netlify deploy --prod --message "::`cat .version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
