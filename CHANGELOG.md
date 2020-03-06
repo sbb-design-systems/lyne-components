@@ -1,3 +1,11 @@
+## [5.2.7](https://github.com/lyne-design-system/lyne-components/compare/v5.2.6...v5.2.7) (2020-03-06)
+
+
+### Bug Fixes
+
+* add correct git user for pushing DEPLOYMENTS.md ([213fbf3](https://github.com/lyne-design-system/lyne-components/commit/213fbf36b782207b6156be0f7499d7b4cb9c08a0))
+* try to DEPLOYMENTS.md push if there is no release ([2b7e962](https://github.com/lyne-design-system/lyne-components/commit/2b7e962bfa58cee512eabcd32755f8bf08d8d06d))
+
 ## [5.2.6](https://github.com/lyne-design-system/lyne-components/compare/v5.2.5...v5.2.6) (2020-03-06)
 
 
