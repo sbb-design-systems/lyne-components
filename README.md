@@ -28,6 +28,8 @@
   - Before production: regenerate all keys
 - refactor build_release_urls.js with promises
 - optimize storybook build (check .min...)
+- for DEPLOYMENTS.md: in which timezone should we format the date?
+- DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
 
 # npm
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
