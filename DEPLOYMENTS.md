@@ -1,7 +1,14 @@
 # Lyne Design System Releases
 
+ THIS FILE IS AUTO-GENERATED 
+
+## 5.2.0
+03/06/2020, 09:31 PM
+
+https://5e62b322e3bb3774903e4be6--lyne-components-storybook.netlify.com
+
 ## 5.1.0
-03/06/2020, 05:14 PM
+03/06/2020, 09:31 PM
 
 https://5e6276f0b14305468cae4b08--lyne-components-storybook.netlify.com
 
