@@ -1,3 +1,11 @@
+## [4.3.3](https://github.com/lyne-design-system/lyne-components/compare/v4.3.2...v4.3.3) (2020-03-06)
+
+
+### Bug Fixes
+
+* optimized travis workspaces ([b21077d](https://github.com/lyne-design-system/lyne-components/commit/b21077de3db3c7bb9336bb55b8729a5f76ccab02))
+* optimized travis workspaces ([c63a835](https://github.com/lyne-design-system/lyne-components/commit/c63a8351c67f048a441cb1851c021a1cc43e0e07))
+
 ## [4.3.2](https://github.com/lyne-design-system/lyne-components/compare/v4.3.1...v4.3.2) (2020-03-06)
 
 
