@@ -1,3 +1,7 @@
+# Add release version as message to netlify deployment
+# 1. .releaserc -> write version to .version
+# 2. add --message in format: ::VERSION:: in netlify deploy
+
 # Initially, we used travis stages and workspaces
 # https://docs.travis-ci.com/user/using-workspaces/
 # with stage1: build and deploy to npm
@@ -8,10 +12,6 @@
 # longer than neccessary.
 # Solution: For simplicity, we ommit stages and do everything in the script
 # block of one job.
-
-# Add release version as message to netlify deployment
-# 1. .releaserc -> write version to .version
-# 2. add --message in format: ::VERSION:: in netlify deploy
 
 os: linux
 language: node_js
@@ -25,13 +25,8 @@ jobs:
         - npm run build:stencil
         - npm run test
 
-        # we don't use the deploy step here. In semantic release, we write
-        # the version to .version which is saved in the workspace. Thus
-        # we would have to create the workspace after deploy step, which
-        # is not working, since deploy step shall be the last step in a job.
+        # run semantic release
         - npx semantic-release
 
         # build storybook and run netlify deploy
-        - test -f .version && npm run build:storybook
-        - test -f .version && npm install netlify-cli -g
-        - test -f .version && netlify deploy --prod --message "::`cat .version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+        - ./ci/netlify_deploy.sh
