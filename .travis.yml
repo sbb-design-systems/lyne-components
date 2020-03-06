@@ -41,4 +41,4 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: test -f ./tempRelease/.version && netlify deploy --prod --message "::`cat ./tempRelease/.version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+        script: test -f tempRelease/.version && netlify deploy --prod --message "::`cat tempRelease/.version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
