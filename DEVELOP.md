@@ -61,8 +61,13 @@
 |commitlint.config.js|configuration for commitlint|https://github.com/conventional-changelog/commitlint|
 |greenkeeper.json|configuration for greenkeeper|https://greenkeeper.io/docs.html|
 |stencil.config.json|stencilJS configuration|https://stenciljs.com/docs/config|
-|.storybook (folder)|main configuration for storybook setup|https://storybook.js.org/docs/basics/writing-stories/|
 |tsconfig.json|configurations for typeScript|https://www.typescriptlang.org/docs/handbook/tsconfig-json.html|
+
+# Special Folders
+| File        | Purpose       |
+| ------------| ------------- |
+|ci|contains skripts that are used by the CI|
+|.storybook (folder)|main configuration for storybook setup|
 
 # Outputs
 |Folder|Explanation|
