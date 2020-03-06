@@ -24,7 +24,7 @@ jobs:
             - loader
             - .stencil
             - node_modules
-            - .version.js
+            - version.js
       deploy:
         provider: script
         skip_cleanup: true
@@ -41,4 +41,4 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: test -f .version.js && netlify deploy --prod --message "::`cat .version.js`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+        script: test -f version.js && netlify deploy --prod --message "::`cat version.js`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
