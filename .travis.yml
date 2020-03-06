@@ -19,6 +19,7 @@ jobs:
             - dist
             - loader
             - .stencil
+            - node_modules
       deploy:
         provider: script
         skip_cleanup: true
@@ -26,6 +27,7 @@ jobs:
           - npx semantic-release
 
     - stage: build and deploy storybook
+      install: skip
       workspaces:
         use: test-workspace
       script:
