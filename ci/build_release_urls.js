@@ -136,6 +136,7 @@ const pushToGit = (() => {
   simpleGit.removeRemote('origin', (err) => {
     if (err) {
       console.log('-->> ! BUILD RELEASE URLS: Error removing git remote');
+      console.log(err);
       shell.exit(0);
       return;
     }
@@ -146,6 +147,7 @@ const pushToGit = (() => {
     simpleGit.addRemote('origin', gitUrl, (err) => {
       if (err) {
         console.log('-->> ! BUILD RELEASE URLS: Error adding git remote');
+        console.log(err);
         shell.exit(0);
         return;
       }
@@ -153,33 +155,45 @@ const pushToGit = (() => {
       simpleGit.checkout('master', (err) => {
         if (err) {
           console.log('-->> ! BUILD RELEASE URLS: Error checking out the master branch');
+          console.log(err);
           shell.exit(0);
           return;
         }
 
-        simpleGit.add('DEPLOYMENTS.md', (err) => {
+        simpleGit.pull((err) => {
           if (err) {
-            console.log('-->> ! BUILD RELEASE URLS: Error adding DEPLOYMENTS.md file');
+            console.log('-->> ! BUILD RELEASE URLS: Error pulling latest changes');
+            console.log(err);
             shell.exit(0);
             return;
           }
 
-          simpleGit.commit('chore(release): update DEPLOYMENTS.md [skip ci]', function(err) {
+          simpleGit.add('DEPLOYMENTS.md', (err) => {
             if (err) {
-              console.log('-->> ! BUILD RELEASE URLS: Error making commit');
+              console.log('-->> ! BUILD RELEASE URLS: Error adding DEPLOYMENTS.md file');
+              console.log(err);
               shell.exit(0);
               return;
             }
 
-            simpleGit.push(['-u', 'origin', 'master'], (err) => {
+            simpleGit.commit('chore(release): update DEPLOYMENTS.md [skip ci]', function(err) {
               if (err) {
-                console.log('-->> ! BUILD RELEASE URLS: Error pushing to master');
+                console.log('-->> ! BUILD RELEASE URLS: Error making commit');
                 shell.exit(0);
                 return;
               }
 
-              console.log('-->> BUILD RELEASE URLS: push finished');
-              shell.exit(0);
+              simpleGit.push(['-u', 'origin', 'master'], (err) => {
+                if (err) {
+                  console.log('-->> ! BUILD RELEASE URLS: Error pushing to master');
+                  console.log(err);
+                  shell.exit(0);
+                  return;
+                }
+
+                console.log('-->> BUILD RELEASE URLS: push finished');
+                shell.exit(0);
+              });
             });
           });
         });
