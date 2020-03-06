@@ -26,6 +26,7 @@
 
 const axios = require('axios');
 const simpleGit = require('simple-git')('./');
+const shell = require('shelljs');
 
 const netlifyToken = 'a98eb48accfd79f4ec30b34013b14ed02510f5e927494f8429ea6da42ec82d89';
 const netlifySiteId = '83d11a6b-364d-42da-831a-e0bd6997f954';
@@ -41,6 +42,7 @@ axios.request({
 }).then(response => {
   if (!response.data) {
     console.log('-->> ! BUILD RELEASE URLS: There are no deployments...');
+    shell.exit(0);
     return;
   }
 
@@ -52,6 +54,7 @@ axios.request({
 }).catch(error => {
   console.log('-->> ! BUILD RELEASE URLS: There was an error getting or parsing the results from netlify api');
   console.log(error);
+  shell.exit(0);
 });
 
 // ---------------------------------------------------------------------------
@@ -81,7 +84,7 @@ const processDeploys = ((data) => {
 });
 
 const formatResults = ((data) => {
-  let fileData = '# Lyne Design System Releases\n\n';
+  let fileData = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED \n\n';
 
   data.forEach((deployment) => {
     fileData += `## ${deployment.version}\n`;
@@ -99,6 +102,7 @@ const writeResultsToFile = ((results) => {
 
   if (results.length < 1) {
     console.log('-->> ! BUILD RELEASE URLS: There are no deployments with valid version numbers');
+    shell.exit(0);
     return;
   }
 
@@ -108,6 +112,7 @@ const writeResultsToFile = ((results) => {
     if(error) {
       console.log('-->> ! BUILD RELEASE URLS: Error writing the file');
       console.log(error);
+      shell.exit(0);
       return;
     }
 
@@ -126,28 +131,33 @@ const pushToGit = (() => {
   simpleGit.checkout('master', (err) => {
     if (err) {
       console.log('-->> ! BUILD RELEASE URLS: Error checking out the master branch');
+      shell.exit(0);
       return;
     }
 
     simpleGit.add('DEPLOYMENTS.md', (err) => {
       if (err) {
         console.log('-->> ! BUILD RELEASE URLS: Error adding DEPLOYMENTS.md file');
+        shell.exit(0);
         return;
       }
 
       simpleGit.commit('chore(release): update DEPLOYMENTS.md [skip ci]', function(err) {
         if (err) {
           console.log('-->> ! BUILD RELEASE URLS: Error making commit');
+          shell.exit(0);
           return;
         }
 
         simpleGit.push(['-u', 'origin', 'master'], (err) => {
           if (err) {
             console.log('-->> ! BUILD RELEASE URLS: Error pushing to master');
+            shell.exit(0);
             return;
           }
 
           console.log('-->> BUILD RELEASE URLS: push finished');
+          shell.exit(0);
         });
       });
     });
