@@ -1,3 +1,11 @@
+## [5.2.2](https://github.com/lyne-design-system/lyne-components/compare/v5.2.1...v5.2.2) (2020-03-06)
+
+
+### Bug Fixes
+
+* add test log to travis config ([e6ffe97](https://github.com/lyne-design-system/lyne-components/commit/e6ffe97f9c9c45d8421fee60f6a83fa4dccfae19))
+* add test log to travis config ([573bf77](https://github.com/lyne-design-system/lyne-components/commit/573bf770a1e20157076a63708f81470ec4fb5bc7))
+
 ## [5.2.1](https://github.com/lyne-design-system/lyne-components/compare/v5.2.0...v5.2.1) (2020-03-06)
 
 
