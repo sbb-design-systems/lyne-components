@@ -26,7 +26,6 @@ jobs:
       workspaces:
         use: default-workspace
       script:
-        - node --version
         - npm install netlify-cli -g
         - npm run build:storybook
       deploy:
