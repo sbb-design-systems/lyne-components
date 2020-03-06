@@ -27,6 +27,7 @@
   - Document exactly which key is needed for what and where to generate it
   - Before production: regenerate all keys
 - refactor build_release_urls.js with promises
+- optimize storybook build (check .min...)
 
 # npm
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
