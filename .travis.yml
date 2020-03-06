@@ -10,6 +10,11 @@ jobs:
         - npm run test
       workspaces:
         name: default-workspace
+        paths:
+          - /dist
+          - /.stencil
+          - /loader
+          - /node_modules
       deploy:
         provider: script
         skip_cleanup: true
@@ -17,9 +22,9 @@ jobs:
           - npx semantic-release
 
     - stage: build and deploy storybook
-      install: skip
       workspaces:
         use: default-workspace
+      install: skip
       script:
         - node --version
         - npm install netlify-cli -g
