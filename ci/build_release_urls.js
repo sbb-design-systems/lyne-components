@@ -132,34 +132,58 @@ const writeResultsToFile = ((results) => {
 // PUSH TO GIT
 // ---------------------------------------------------------------------------
 const pushToGit = (() => {
-  // simpleGit.addConfig('user.email', gitMail);
-  // simpleGit.addConfig('user.name', gitUser);
 
-  simpleGit.add('DEPLOYMENTS.md', (err) => {
+  simpleGit.removeRemote('origin', (err) => {
     if (err) {
-      console.log('-->> ! BUILD RELEASE URLS: Error adding DEPLOYMENTS.md file');
+      console.log('-->> ! BUILD RELEASE URLS: Error removing git remote');
       shell.exit(0);
       return;
     }
 
-    simpleGit.commit('chore(release): update DEPLOYMENTS.md [skip ci]', function(err) {
+    simpleGit.addConfig('user.email', gitMail);
+    simpleGit.addConfig('user.name', gitUser);
+
+    simpleGit.addRemote('origin', gitUrl, (err) => {
       if (err) {
-        console.log('-->> ! BUILD RELEASE URLS: Error making commit');
+        console.log('-->> ! BUILD RELEASE URLS: Error adding git remote');
         shell.exit(0);
         return;
       }
-/*
-      simpleGit.push(['-u', 'origin', 'master'], (err) => {
+
+      simpleGit.checkout('master', (err) => {
         if (err) {
-          console.log('-->> ! BUILD RELEASE URLS: Error pushing to master');
+          console.log('-->> ! BUILD RELEASE URLS: Error checking out the master branch');
           shell.exit(0);
           return;
         }
 
-        console.log('-->> BUILD RELEASE URLS: push finished');
-        shell.exit(0);
+        simpleGit.add('DEPLOYMENTS.md', (err) => {
+          if (err) {
+            console.log('-->> ! BUILD RELEASE URLS: Error adding DEPLOYMENTS.md file');
+            shell.exit(0);
+            return;
+          }
+
+          simpleGit.commit('chore(release): update DEPLOYMENTS.md [skip ci]', function(err) {
+            if (err) {
+              console.log('-->> ! BUILD RELEASE URLS: Error making commit');
+              shell.exit(0);
+              return;
+            }
+
+            simpleGit.push(['-u', 'origin', 'master'], (err) => {
+              if (err) {
+                console.log('-->> ! BUILD RELEASE URLS: Error pushing to master');
+                shell.exit(0);
+                return;
+              }
+
+              console.log('-->> BUILD RELEASE URLS: push finished');
+              shell.exit(0);
+            });
+          });
+        });
       });
-      */
     });
   });
 });
