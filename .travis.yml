@@ -34,6 +34,4 @@ jobs:
         - ./ci/netlify_deploy.sh
 
         # add DEPLOYMENTS.md
-        - echo "STATUS "
-        - git status
-        - test -f .version && node ./ci/build_release_urls.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --gitUser=lyne-admin --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL
+        - test -f .version && node ./ci/build_release_urls.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --gitUser=lyne-admin --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL && git push -u origin master
