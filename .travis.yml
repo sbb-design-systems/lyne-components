@@ -13,7 +13,8 @@ jobs:
         - npm run build:stencil
         - npm run test
       workspaces:
-        name: test-workspace
+        create:
+          name: test-workspace
       deploy:
         provider: script
         skip_cleanup: true
