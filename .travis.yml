@@ -8,18 +8,19 @@ language: node_js
 jobs:
   include:
 
-    - stage: build and deploy packages
+    - stage: build, test and deploy packages
       script:
         - npm run build:stencil
         - npm run test
       workspaces:
         create:
-          name: test-workspace
+          name: build-workspace
           paths:
             - dist
             - loader
             - .stencil
             - node_modules
+            - .version
       deploy:
         provider: script
         skip_cleanup: true
@@ -29,10 +30,11 @@ jobs:
     - stage: build and deploy storybook
       install: skip
       workspaces:
-        use: test-workspace
+        use: build-workspace
       script:
         - npm install netlify-cli -g
         - npm run build:storybook
+        - echo .version
       deploy:
         provider: script
         skip_cleanup: true

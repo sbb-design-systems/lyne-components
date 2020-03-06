@@ -57,5 +57,7 @@
     "type": "git",
     "url": "https://github.com/lyne-design-system/lyne-components.git"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@semantic-release/exec": "^5.0.0"
+  }
 }
