@@ -1,3 +1,10 @@
+## [5.2.8](https://github.com/lyne-design-system/lyne-components/compare/v5.2.7...v5.2.8) (2020-03-06)
+
+
+### Bug Fixes
+
+* make sure creation date is used from netlify api ([10b56a2](https://github.com/lyne-design-system/lyne-components/commit/10b56a27c0cfded2b33b87f8746668dba0a5e019))
+
 ## [5.2.7](https://github.com/lyne-design-system/lyne-components/compare/v5.2.6...v5.2.7) (2020-03-06)
 
 
