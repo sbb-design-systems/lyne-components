@@ -16,7 +16,13 @@ jobs:
       script:
         - npm run build:stencil
         - npm run test
+
+        # we don't use the deploy step here. In semantic release, we write
+        # the version to .version which is saved in the workspace. Thus
+        # we would have to create the workspace after deploy step, which
+        # is not working, since deploy step shall be the last step in a job.
         - npx semantic-release
+
       workspaces:
         create:
           name: build-workspace
@@ -25,7 +31,7 @@ jobs:
             - loader
             - .stencil
             - node_modules
-            - tmpRelease
+            - .version
 
     - stage: build and deploy storybook
       install: skip
@@ -37,4 +43,4 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: test -f tmpRelease/.version && netlify deploy --prod --message "::`cat tmpRelease/.version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+        script: test -f .version && netlify deploy --prod --message "::`cat .version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
