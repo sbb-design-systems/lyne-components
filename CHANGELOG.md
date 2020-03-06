@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/lyne-design-system/lyne-components/compare/v5.0.0...v5.1.0) (2020-03-06)
+
+
+### Features
+
+* add wip for creation of deployment urls ([f543026](https://github.com/lyne-design-system/lyne-components/commit/f543026a0b8e5cdc8ca9f047cfc03f2ca1d6a366))
+
 # [5.0.0](https://github.com/lyne-design-system/lyne-components/compare/v4.3.39...v5.0.0) (2020-03-06)
 
 
