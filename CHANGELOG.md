@@ -1,3 +1,15 @@
+# [5.0.0](https://github.com/lyne-design-system/lyne-components/compare/v4.3.39...v5.0.0) (2020-03-06)
+
+
+### Bug Fixes
+
+* test breaking change again ([83fbf36](https://github.com/lyne-design-system/lyne-components/commit/83fbf36d59318b5748d7f7324ab5938f6648b63f))
+
+
+### BREAKING CHANGES
+
+* test for breaking change
+
 ## [4.3.39](https://github.com/lyne-design-system/lyne-components/compare/v4.3.38...v4.3.39) (2020-03-06)
 
 
