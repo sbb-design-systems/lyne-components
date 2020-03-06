@@ -2,10 +2,9 @@
 # is in Beta as of March 2020. Keep an eye on it!
 # https://docs.travis-ci.com/user/using-workspaces/
 
-# Save netlify deploy urls for all versions
+# Add release version as message to netlify deployment
 # 1. .releaserc -> write version to .version
-# 2. save netlify deploy details to netlify.json
-# 3. run netlify_urls.sh to update netlify_urls.json and populate NETLIFY.md
+# 2. add --message in format: ::VERSION:: in netlify deploy
 
 os: linux
 language: node_js
@@ -25,9 +24,7 @@ jobs:
             - loader
             - .stencil
             - node_modules
-            - netlify
             - .version
-            - netlify_latest.json
       deploy:
         provider: script
         skip_cleanup: true
@@ -45,12 +42,4 @@ jobs:
         provider: script
         skip_cleanup: true
         script:
-          - netlify deploy --prod --message "Here we write the current version" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/ --json >> netlify_latest.json
-
-    - stage: test versions
-      install: skip
-      workspaces:
-        use: build-workspace
-      skript:
-        - test -f .version && cat .version
-        - test -f netlify_latest.json && cat netlify_latest.json
+          - [ -f .version ] && netlify deploy --prod --message "::`cat .version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
