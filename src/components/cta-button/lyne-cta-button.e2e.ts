@@ -1,11 +1,11 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('my-component', () => {
+describe('lyne-cta-button', () => {
   it('renders', async () => {
     const page = await newE2EPage();
+    await page.setContent('<lyne-cta-button></lyne-cta-button>');
 
-    await page.setContent('<my-component></my-component>');
-    const element = await page.find('my-component');
+    const element = await page.find('lyne-cta-button');
     expect(element).toHaveClass('hydrated');
   });
 });
