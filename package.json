@@ -55,7 +55,8 @@
     "semantic-release": "^17.0.4",
     "shelljs": "^0.8.3",
     "simple-git": "^1.131.0",
-    "write-file-webpack-plugin": "^4.5.1"
+    "write-file-webpack-plugin": "^4.5.1",
+    "yargs": "^15.1.0"
   },
   "license": "MIT",
   "repository": {
