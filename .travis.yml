@@ -1,3 +1,7 @@
+# We use travis worksapces to store artifacts over stages. This feature
+# is in Beta as of March 2020. Keep an eye on it!
+# https://docs.travis-ci.com/user/using-workspaces/
+
 os: linux
 language: node_js
 
@@ -12,9 +16,7 @@ jobs:
         name: default-workspace
         paths:
           - /dist
-          - /.stencil
           - /loader
-          - /node_modules
       deploy:
         provider: script
         skip_cleanup: true
@@ -34,5 +36,3 @@ jobs:
         skip_cleanup: true
         script:
           - netlify deploy --prod --message "Here we write the current version" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
-
-# https://docs.travis-ci.com/user/using-workspaces/
