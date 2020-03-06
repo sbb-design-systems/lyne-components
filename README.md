@@ -26,12 +26,15 @@
 - Different secrets and env-variables on git, travis and netlify.
   - Document exactly which key is needed for what and where to generate it
   - Before production: regenerate all keys
+- refactor build_release_urls.js with promises
 
 # npm
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
 
 # Storybook
 The storybook is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
+
+For a full list of deployments of all releases, please look here: https://github.com/lyne-design-system/lyne-components/blob/master/DEPLOYMENTS.md
 
 ## 🙌 Contributing
 See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance! 👀
