@@ -4,8 +4,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 
 const OUTPUT_DIR = '../dist';
-// Stencil names the project entry the same as the project
-// Look for the file `dist/<your-project-name>.js` to find out what to insert here
 const PROJECT_NAME = 'lyne-components';
 
 module.exports = {
