@@ -32,3 +32,6 @@ jobs:
 
         # build storybook and run netlify deploy
         - ./ci/netlify_deploy.sh
+
+        # add DEPLOYMENTS.md
+        - npm run build:releaseurls
