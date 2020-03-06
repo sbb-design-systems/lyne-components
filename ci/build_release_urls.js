@@ -20,9 +20,6 @@
  * 4. it pushes the .md file to our repo
  */
 
-// !!!!!!!!!!!!!!!!!!!! CHANGE NETLIFY TOKEN AND PUT IT AS ENV_VAR
-// !!!!!!!!!!!!!!!!!!!! PUT SITE ID AS ENV_VAR
-
 const axios = require('axios');
 const simpleGit = require('simple-git')('./');
 const shell = require('shelljs');
