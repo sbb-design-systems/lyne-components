@@ -75,7 +75,7 @@ const processDeploys = ((data) => {
     }
 
     const url = deploy.deploy_ssl_url;
-    const date = formatDate(deploy.updated_at);
+    const date = formatDate(deploy.created_at);
 
     results.push({
       version: versionNumber,
@@ -179,6 +179,7 @@ const pushToGit = (() => {
             simpleGit.commit('chore(release): update DEPLOYMENTS.md [skip ci]', function(err) {
               if (err) {
                 console.log('-->> ! BUILD RELEASE URLS: Error making commit');
+                console.log(err);
                 shell.exit(0);
                 return;
               }
