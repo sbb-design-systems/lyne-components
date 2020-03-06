@@ -8,7 +8,7 @@
     "@semantic-release/changelog",
     "@semantic-release/npm",
     ["@semantic-release/exec", {
-      "prepareCmd": "echo ${nextRelease.version} > tmpRelease/.version && echo 'this is PREPARE CMD' && cat tmpRelease/.version"
+      "prepareCmd": "mkdir tempRelease && echo ${nextRelease.version} > tmpRelease/.version"
     }],
     ["@semantic-release/git", {
       "assets": [
