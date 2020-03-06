@@ -13,7 +13,7 @@
         "CHANGELOG.md"
       ],
       "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
-      "cmd": "echo ${nextRelease.version} > tempRelease/.version"
+      "cmd": "echo ${nextRelease.version} > ./tempRelease/.version"
     }],
     "@semantic-release/github"
   ]
