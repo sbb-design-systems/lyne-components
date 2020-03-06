@@ -30,4 +30,4 @@ jobs:
         script:
           - netlify deploy --prod --message "Here we write the current version" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
 
-# https://docs.travis-ci.com/user/using-workspaces/
+#https://docs.travis-ci.com/user/using-workspaces/
