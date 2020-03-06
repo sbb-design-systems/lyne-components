@@ -18,11 +18,13 @@ language: node_js
 
 jobs:
   include:
-    - stage: build, test and deploy packages
+    - stage: build, test and deploy packages and storybook
       script:
 
-        # make stnecil production build and run tests
+        # make stnecil production build
         - npm run build:stencil
+
+        # run tests
         - npm run test
 
         # run semantic release

@@ -10,7 +10,13 @@ set -ev
 VERSION_FILE=.version
 
 if [ -f "$VERSION_FILE" ]; then
+
+  # make storybook build
   npm run build:storybook
+
+  # install netlify-cli
   npm install netlify-cli -g
+
+  # deploy on netlify
   netlify deploy --prod --message "::`cat .version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
 fi
