@@ -15,6 +15,10 @@ jobs:
       workspaces:
         create:
           name: test-workspace
+          paths:
+            - /dist
+            - /loader
+            - /.stencil
       deploy:
         provider: script
         skip_cleanup: true
