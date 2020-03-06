@@ -10,10 +10,6 @@ jobs:
         - npm run test
       workspaces:
         name: default-workspace
-        paths:
-          - /dist
-          - /loader
-          - /node_modules
       deploy:
         provider: script
         skip_cleanup: true
@@ -25,7 +21,7 @@ jobs:
       workspaces:
         use: default-workspace
       script:
-        - echo "node --version"
+        - node --version
         - npm install netlify-cli -g
         - npm run build:storybook
       deploy:
