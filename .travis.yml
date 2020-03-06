@@ -1,4 +1,4 @@
-# We use travis worksapces to store artifacts over stages. This feature
+# We use travis workspaces to store artifacts over stages. This feature
 # is in Beta as of March 2020. Keep an eye on it!
 # https://docs.travis-ci.com/user/using-workspaces/
 
@@ -16,9 +16,9 @@ jobs:
         create:
           name: test-workspace
           paths:
-            - /dist
-            - /loader
-            - /.stencil
+            - dist
+            - loader
+            - .stencil
       deploy:
         provider: script
         skip_cleanup: true
