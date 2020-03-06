@@ -1,6 +1,13 @@
-# We use travis workspaces to store artifacts over stages. This feature
-# is in Beta as of March 2020. Keep an eye on it!
+# Initially, we used travis stages and workspaces
 # https://docs.travis-ci.com/user/using-workspaces/
+# with stage1: build and deploy to npm
+# stage2: build storybook and deploy to netlify
+# Where stage2 takes up to 2 minutes.
+# The problem: if no new version is released, it is not possible to define
+# a condition so that stage2 is not run. Therefore the build would last 2 min
+# longer than neccessary.
+# Solution: For simplicity, we ommit stages and do everything in the script
+# block of one job.
 
 # Add release version as message to netlify deployment
 # 1. .releaserc -> write version to .version
@@ -11,9 +18,10 @@ language: node_js
 
 jobs:
   include:
-
     - stage: build, test and deploy packages
       script:
+
+        # make stnecil production build and run tests
         - npm run build:stencil
         - npm run test
 
@@ -23,24 +31,7 @@ jobs:
         # is not working, since deploy step shall be the last step in a job.
         - npx semantic-release
 
-      workspaces:
-        create:
-          name: build-workspace
-          paths:
-            - dist
-            - loader
-            - .stencil
-            - node_modules
-            - .version
-
-    - stage: build and deploy storybook
-      install: skip
-      workspaces:
-        use: build-workspace
-      script:
-        - npm install netlify-cli -g
+        # build storybook and run netlify deploy
         - npm run build:storybook
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script: test -f .version && netlify deploy --prod --message "::`cat .version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+        - npm install netlify-cli -g
+        - test -f .version && netlify deploy --prod --message "::`cat .version`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
