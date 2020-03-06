@@ -16,11 +16,7 @@ jobs:
       script:
         - npm run build:stencil
         - npm run test
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
+        - npx semantic-release
       workspaces:
         create:
           name: build-workspace
