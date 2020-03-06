@@ -11,7 +11,7 @@ jobs:
       workspaces:
         name: default-workspace
         paths:
-          - /
+          - /dist
       deploy:
         provider: script
         skip_cleanup: true
