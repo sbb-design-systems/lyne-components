@@ -1,3 +1,11 @@
+## [5.2.10](https://github.com/lyne-design-system/lyne-components/compare/v5.2.9...v5.2.10) (2020-03-07)
+
+
+### Bug Fixes
+
+* add more precise output ([ce799f9](https://github.com/lyne-design-system/lyne-components/commit/ce799f97f316a19c8746f289771317499e7f5c60))
+* call shell script instead of node command directly ([3958621](https://github.com/lyne-design-system/lyne-components/commit/39586219bff6318ab77e7e0809c3f2e02a69c4d9))
+
 ## [5.2.9](https://github.com/lyne-design-system/lyne-components/compare/v5.2.8...v5.2.9) (2020-03-07)
 
 
