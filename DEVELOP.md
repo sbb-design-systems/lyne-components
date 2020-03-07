@@ -6,13 +6,13 @@
 |build:stencil|used to create a production build for stencil components|
 |build:storybook|used to build storybook static site|
 |build|runs build:stencil and build:storybook in sequence|
+|generate|start the interactive component generator|
+|semantic-release|start a semantic release|
 |start:stencil|start the development server for stencil|
 |start:storybook|start the development server for storybook|
 |start|runs start:stencil and start:storybook in parallel|
 |test|run all unit and e2e tests|
 |test.watch|run all unit and e2e tests in watch mode|
-|generate|start the interactive component generator|
-|semantic-release|start a semantic release|
 
 ## devDependencies
 | Dependency        | Purpose       | Docs |
