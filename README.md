@@ -31,6 +31,7 @@
 - for DEPLOYMENTS.md: in which timezone should we format the date?
 - DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
 - ommit output when netlify_deploy.sh is called on travis
+- Make sure that all production files that are published are minified and compressed (dist/, loader/, storybook-static/)
 
 ## SemVer
 We use semantic versioning
