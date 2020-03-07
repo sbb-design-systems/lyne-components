@@ -10,6 +10,7 @@
 # -v: verbose mode
 set -ev
 
+
 # version file name written by .releaserc
 VERSION_FILE=.version
 
