@@ -1,3 +1,10 @@
+## [5.2.12](https://github.com/lyne-design-system/lyne-components/compare/v5.2.11...v5.2.12) (2020-03-07)
+
+
+### Bug Fixes
+
+* set correct url path for node script ([79244a5](https://github.com/lyne-design-system/lyne-components/commit/79244a597734d8a9faf21af1bcf063a322dc28a5))
+
 ## [5.2.11](https://github.com/lyne-design-system/lyne-components/compare/v5.2.10...v5.2.11) (2020-03-07)
 
 
