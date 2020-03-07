@@ -20,5 +20,5 @@ then
   node ./build_release_urls.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --gitUser=lyne-design-system --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL
 
 else
-  echo "-->> Skipping DEPLOYMENTS.md"
+  echo "-->> Skipping build_release_urls.js to create DEPLOYMENTS.md"
 fi
