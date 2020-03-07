@@ -32,7 +32,6 @@
 - DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
 - ommit output when netlify_deploy.sh is called on travis
 - update documentation to adhere to the latest changes
-- add the node command for DEPLOYMENTS.md used in travis job to a shell script
 
 # SemVer
 We use semantic versioning
