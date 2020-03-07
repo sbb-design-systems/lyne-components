@@ -34,6 +34,12 @@
 - update documentation to adhere to the latest changes
 - add the node command for DEPLOYMENTS.md used in travis job to a shell script
 
+# SemVer
+We use semantic versioning
+
+# Git Guardian
+Git Guardian is activated for this repo: https://dashboard.gitguardian.com/
+
 # npm
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
 
