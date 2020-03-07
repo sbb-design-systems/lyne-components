@@ -31,18 +31,17 @@
 - for DEPLOYMENTS.md: in which timezone should we format the date?
 - DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
 - ommit output when netlify_deploy.sh is called on travis
-- update documentation to adhere to the latest changes
 
-# SemVer
+## SemVer
 We use semantic versioning
 
-# Git Guardian
+## Git Guardian
 Git Guardian is activated for this repo: https://dashboard.gitguardian.com/
 
-# npm
+## npm
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
 
-# Storybook
+## Storybook
 The storybook is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
 
 For a full list of deployments of all releases, please look here: https://github.com/lyne-design-system/lyne-components/blob/master/DEPLOYMENTS.md

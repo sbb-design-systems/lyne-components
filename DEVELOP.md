@@ -37,6 +37,7 @@
 |@storybook/html|storybook for plain HTML snippets|https://github.com/storybookjs/storybook|
 |@types/jest|TypeScript definitions for jest|https://github.com/DefinitelyTyped/DefinitelyTyped#readme|
 |@types/puppeteer|TypeScript definitions for Puppeteer|https://github.com/DefinitelyTyped/DefinitelyTyped#readme|
+|axios|Promise based HTTP client for the browser and node.js|https://www.npmjs.com/package/axios|
 |babel-loader|webpack loader to transpile js files using babel. Used for Storybook integration|https://www.npmjs.com/package/babel-loader|
 |copy-webpack-plugin|copy files to build directory during webpack build. Used for Storybook integration|https://github.com/webpack-contrib/copy-webpack-plugin|
 |husky|easily add git hooks|https://github.com/typicode/husky|
@@ -46,7 +47,10 @@
 |npm-run-all|run npm-scripts in parallel or sequential|https://github.com/mysticatea/npm-run-all|
 |puppeteer|used for e2e tests|https://github.com/puppeteer/puppeteer#readme|
 |semantic-release|used to lint commit messages according to semantic-release guidelines|https://github.com/conventional-changelog/commitlint|
+|shelljs|used to support unix exit commands in node|https://www.npmjs.com/package/shelljs|
+|simple-git|A light weight interface for running git commands in any node.js application.|https://www.npmjs.com/package/simple-git|
 |write-file-webpack-plugin|write webpack dev server files to file system. Used for Storybook integration|https://github.com/gajus/write-file-webpack-plugin|
+|yargs|Easy parsing arguments from the command line|https://www.npmjs.com/package/yargs|
 
 # Config files
 | File        | Purpose       | Docs |
