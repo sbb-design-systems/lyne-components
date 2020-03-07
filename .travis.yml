@@ -34,4 +34,4 @@ jobs:
         - ./ci/netlify_deploy.sh
 
         # add DEPLOYMENTS.md
-        - test -f .version && node ./ci/build_release_urls.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --gitUser=lyne-design-system --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL || echo "-->> Skipping DEPLOYMENTS.md"
+        - ./ci/build_release_urls.sh
