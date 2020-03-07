@@ -9,6 +9,8 @@
 > compiled by StencilJS and browsable through Storybook
 
 ## Todo
+- refactor build_release_urls.js with promises
+- in travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 - Rename package name to "lyne-components"
 - Decide for Branching-Model
 - Add Merge Checks
@@ -21,20 +23,20 @@
 - Different secrets and env-variables on git, travis and netlify.
   - Document exactly which key is needed for what and where to generate it
   - Before production: regenerate all keys
-- refactor build_release_urls.js with promises
 - for DEPLOYMENTS.md: in which timezone should we format the date?
 - DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
-- ommit output when netlify_deploy.sh is called on travis
+- build_release_urls.js -> check if there is a limit in the deployments request. Do we get the latest 50? 100? Do we get all? Probably, we need to limit it so  the response does not take too long
+- ommit output when netlify_deploy.sh and build_release_urls.sh are called on travis
 - Make sure that all production files that are published are minified and compressed (dist/, loader/, storybook-static/)
-- In Deployments.md, write cleary that dev's should not change the fale
+- In Deployments.md, write cleary that dev's should not change the file
 - in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
-- in travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
 
 ## Verify
 - If a travis release job is running, semantic-release did not run yet, and a new change with a breaking change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with a new release containing both changes
+- For how long are deployments saved on netlify? Forever? 30 days? 1 year?
 
 ## SemVer
 We use semantic versioning
