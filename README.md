@@ -14,7 +14,7 @@
 - Add Merge Checks
 - Add Linter
 - Repo -> Insights -> Community -> Fullfill checklist
-- Semantic-release updates version in package.json, but in the package-lock.json it does not
+- Semantic-release updates version in package.json, but in the package-lock.json it does not. should we?
 - Prevent push to master
 - In Storybook build: ommit webpack verbose mode since it is logging too much uniformative stuff
 - npm script ```start``` runs stencil and storybook in parallel. We need sequential. Problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel.
@@ -28,6 +28,8 @@
 - DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
 - ommit output when netlify_deploy.sh is called on travis
 - Make sure that all production files that are published are minified and compressed (dist/, loader/, storybook-static/)
+- In Deployments.md, write cleary that dev's should not change the fale
+- in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
 
 ## SemVer
 We use semantic versioning
