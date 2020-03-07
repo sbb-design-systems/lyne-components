@@ -1,3 +1,11 @@
+## [5.2.13](https://github.com/lyne-design-system/lyne-components/compare/v5.2.12...v5.2.13) (2020-03-07)
+
+
+### Bug Fixes
+
+* add quiet mode to storybook build ([462f4d5](https://github.com/lyne-design-system/lyne-components/commit/462f4d5618b30c0a248cd0006734a967a8168d02))
+* fake commit to trigger release ([e0fe911](https://github.com/lyne-design-system/lyne-components/commit/e0fe9116a182d8fc4adb59de8284ac8a84c9f9c7))
+
 ## [5.2.12](https://github.com/lyne-design-system/lyne-components/compare/v5.2.11...v5.2.12) (2020-03-07)
 
 
