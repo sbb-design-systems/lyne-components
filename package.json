@@ -18,7 +18,6 @@
     "build:stencil": "stencil build --docs",
     "build:storybook": "build-storybook",
     "build": "npm-run-all --sequential build:stencil build:storybook",
-    "build:releaseurls": "node ./ci/build_release_urls.js",
     "start:stencil": "stencil build --dev --watch --docs",
     "start:storybook": "start-storybook -p 6006",
     "start": "npm-run-all --parallel start:stencil start:storybook",
