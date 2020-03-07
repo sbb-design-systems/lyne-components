@@ -1,9 +1,3 @@
-# Issues
-- If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
-
-# Verify
-- If a travis release job is running, semantic-release did not run yet, and a new change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with both changes
-
 # package.json
 
 ## npm scripts
