@@ -2,6 +2,11 @@
 
  THIS FILE IS AUTO-GENERATED 
 
+## 5.2.9
+03/07/2020, 02:14 PM
+
+https://5e63ac4b7a9ac87a0d5957b0--lyne-components-storybook.netlify.com
+
 ## 5.2.8
 03/06/2020, 10:54 PM
 

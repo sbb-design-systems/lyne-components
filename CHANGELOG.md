@@ -1,3 +1,10 @@
+## [5.2.9](https://github.com/lyne-design-system/lyne-components/compare/v5.2.8...v5.2.9) (2020-03-07)
+
+
+### Bug Fixes
+
+* accidently commited netlify token, see if ci works after renvew ([d12d54e](https://github.com/lyne-design-system/lyne-components/commit/d12d54e9e3c444f69c38dcee7145cfcf76476c91))
+
 ## [5.2.8](https://github.com/lyne-design-system/lyne-components/compare/v5.2.7...v5.2.8) (2020-03-06)
 
 
