@@ -28,12 +28,13 @@
 - Make sure that all production files that are published are minified and compressed (dist/, loader/, storybook-static/)
 - In Deployments.md, write cleary that dev's should not change the fale
 - in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
+- in travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
 
 ## Verify
-- If a travis release job is running, semantic-release did not run yet, and a new change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with both changes
+- If a travis release job is running, semantic-release did not run yet, and a new change with a breaking change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with a new release containing both changes
 
 ## SemVer
 We use semantic versioning
