@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "build:stencil": "stencil build --docs",
-    "build:storybook": "build-storybook",
+    "build:storybook": "build-storybook --quiet",
     "build": "npm-run-all --sequential build:stencil build:storybook",
     "start:stencil": "stencil build --dev --watch --docs",
     "start:storybook": "start-storybook -p 6006",
