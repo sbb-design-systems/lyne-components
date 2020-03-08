@@ -1,3 +1,10 @@
+## [5.2.14](https://github.com/lyne-design-system/lyne-components/compare/v5.2.13...v5.2.14) (2020-03-08)
+
+
+### Bug Fixes
+
+* use async/await to refactor code ([4f32ae9](https://github.com/lyne-design-system/lyne-components/commit/4f32ae91606dec6adbea152c736b7dc29e0e5f55))
+
 ## [5.2.13](https://github.com/lyne-design-system/lyne-components/compare/v5.2.12...v5.2.13) (2020-03-07)
 
 
