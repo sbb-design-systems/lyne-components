@@ -21,7 +21,7 @@
  */
 
  const axios = require('axios');
- const simpleGit = require('simple-git')('./');
+ const simpleGit = require('simple-git/promise')('./');
  const shell = require('shelljs');
  const fs = require('fs');
  const argv = require('yargs').argv;
@@ -46,18 +46,18 @@
     });
 
     if (!deployments.data) {
-      throw new Error('ERROR: no deployments received.');
+      throw new Error('-->> BUILD RELEASE URLS: no deployments received.');
     }
 
     if (deployments.data.length < 1) {
-      throw new Error('ERROR: no deployments received.');
+      throw new Error('-->> BUILD RELEASE URLS: no deployments received.');
     }
 
     // create an array of deployments with all needed data
     const results = processDeploys(deployments.data);
 
     if (results.length < 1) {
-      throw new Error('ERROR: no deployments with valid version number received.');
+      throw new Error('-->> BUILD RELEASE URLS: no deployments with valid version number received.');
     }
 
     // prepare content for .md file
@@ -69,6 +69,9 @@
 
     // commit and push .md file to git repo
     await pushToGit();
+
+    console.log('-->> BUILD RELEASE URLS: successcully created DEPLOYMENTS.md and pushed to git repo');
+    shell.exit(0);
 
   } catch (error) {
     console.log('-->> BUILD RELEASE URLS: error');
