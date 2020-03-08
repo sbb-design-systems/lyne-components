@@ -32,6 +32,8 @@
 - in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
 - we should remove the npm script ```semantic-release```. Might be a problem that a dev is able to start it from his local machine
 - Theoretically, we can remove devDependencie ```semantic-release``` since it is called via npx on travis
+- devide if we should fix dependencies/devDependencies in package json. If so, which ones? Why? Probably fix to minor version? Or Major?
+- Add deployment notifications on slack?
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
