@@ -1,6 +1,6 @@
 {
   "name": "lyne-test",
-  "version": "5.2.15",
+  "version": "5.2.16",
   "description": "Lyne Design System",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

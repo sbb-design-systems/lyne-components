@@ -1,3 +1,10 @@
+## [5.2.16](https://github.com/lyne-design-system/lyne-components/compare/v5.2.15...v5.2.16) (2020-03-09)
+
+
+### Bug Fixes
+
+* fake commit to trigger test deployment ([cc9b2f8](https://github.com/lyne-design-system/lyne-components/commit/cc9b2f8eff7215a5209f02f1cc400eb6967146e2))
+
 ## [5.2.15](https://github.com/lyne-design-system/lyne-components/compare/v5.2.14...v5.2.15) (2020-03-08)
 
 
