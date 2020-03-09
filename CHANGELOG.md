@@ -1,3 +1,11 @@
+## [5.2.26](https://github.com/lyne-design-system/lyne-components/compare/v5.2.25...v5.2.26) (2020-03-09)
+
+
+### Bug Fixes
+
+* fix issue with live-reload for css files not working ([cd4cd80](https://github.com/lyne-design-system/lyne-components/commit/cd4cd80977cc9cf723198f2862f9c836d327d721))
+* remove todo (commit as fix to trigger test release) ([a338350](https://github.com/lyne-design-system/lyne-components/commit/a33835083b888bd6ee4bdb1eb5a6ca04276c3dd5))
+
 ## [5.2.25](https://github.com/lyne-design-system/lyne-components/compare/v5.2.24...v5.2.25) (2020-03-09)
 
 
