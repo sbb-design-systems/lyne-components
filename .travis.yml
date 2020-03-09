@@ -19,7 +19,7 @@ language: node_js
 notifications:
   slack:
     template:
-      - "Build: %{build_number} | %{build_url}"
+      - "Build: <%{build_url}|%{build_number}>"
       - "Commit: %{commit}"
       - "Autor: %{author}"
       - "Result: %{result} in %{duration}"
