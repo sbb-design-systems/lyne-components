@@ -22,8 +22,9 @@
 |@babel/plugin-transform-react-jsx|Used to support jsx in storybook stories files|https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx|
 |@commitlint/cli|cli utility for semantic-release|https://github.com/conventional-changelog/commitlint|
 |@commitlint/config-conventional|stadard semantic-release convention rules|https://github.com/conventional-changelog/commitlint|
-|@semantic-release/changelog|generate a changelog file with all release notes|https://github.com/conventional-changelog/commitlint|
-|@semantic-release/git|allow semantic release to push back into the source github repo|https://github.com/conventional-changelog/commitlint|
+|@semantic-release/changelog|generate a changelog file with all release notes|https://github.com/semantic-release/changelog|
+|@semantic-release/exec|plugin to execute custom shell commands|https://github.com/semantic-release/exec|
+|@semantic-release/git|allow semantic release to push back into the source github repo|https://github.com/semantic-release/git|
 |@stencil/core|StencilJS core library|https://stenciljs.com/|
 |@storybook/addon-actions|Add actions to storybook stories|https://github.com/storybookjs/storybook/tree/master/addons/actions|
 |@storybook/addon-knobs|Add knobs to storybook stories|https://github.com/storybookjs/storybook/tree/next/addons/knobs|
@@ -40,7 +41,6 @@
 |jsx-dom|Used to support jsx in storybook stories files|https://github.com/proteriax/jsx-dom|
 |npm-run-all|run npm-scripts in parallel or sequential|https://github.com/mysticatea/npm-run-all|
 |puppeteer|used for e2e tests|https://github.com/puppeteer/puppeteer#readme|
-|semantic-release|used to lint commit messages according to semantic-release guidelines|https://github.com/conventional-changelog/commitlint|
 |shelljs|used to support unix exit commands in node|https://www.npmjs.com/package/shelljs|
 |simple-git|A light weight interface for running git commands in any node.js application.|https://www.npmjs.com/package/simple-git|
 |write-file-webpack-plugin|write webpack dev server files to file system. Used for Storybook integration|https://github.com/gajus/write-file-webpack-plugin|
