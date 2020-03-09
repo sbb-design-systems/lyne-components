@@ -41,6 +41,7 @@
 |jsx-dom|Used to support jsx in storybook stories files|https://github.com/proteriax/jsx-dom|
 |npm-run-all|run npm-scripts in parallel or sequential|https://github.com/mysticatea/npm-run-all|
 |puppeteer|used for e2e tests|https://github.com/puppeteer/puppeteer#readme|
+|semantic-release-slack-bot|Used to get slack notifications from semantic-release|https://github.com/juliuscc/semantic-release-slack-bot|
 |shelljs|used to support unix exit commands in node|https://www.npmjs.com/package/shelljs|
 |simple-git|A light weight interface for running git commands in any node.js application.|https://www.npmjs.com/package/simple-git|
 |write-file-webpack-plugin|write webpack dev server files to file system. Used for Storybook integration|https://github.com/gajus/write-file-webpack-plugin|
