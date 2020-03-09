@@ -17,7 +17,7 @@ if [ -f "$VERSION_FILE" ];
 then
 
   # make storybook build
-  npm run build:storybook
+  STORYBOOK_COMPONENTS_VERSION=5.2.3 npm run build:storybook
 
   # install netlify-cli
   npm install netlify-cli -g
