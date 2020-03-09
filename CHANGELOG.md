@@ -1,3 +1,10 @@
+## [5.2.28](https://github.com/lyne-design-system/lyne-components/compare/v5.2.27...v5.2.28) (2020-03-09)
+
+
+### Bug Fixes
+
+* omit ouput when callilng shell scripts in travis config ([c5513c7](https://github.com/lyne-design-system/lyne-components/commit/c5513c7b3f6bc58d63541afc3456d365e982c0f4))
+
 ## [5.2.27](https://github.com/lyne-design-system/lyne-components/compare/v5.2.26...v5.2.27) (2020-03-09)
 
 
