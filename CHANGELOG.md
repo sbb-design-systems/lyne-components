@@ -1,3 +1,11 @@
+## [5.2.19](https://github.com/lyne-design-system/lyne-components/compare/v5.2.18...v5.2.19) (2020-03-09)
+
+
+### Bug Fixes
+
+* fake commit to trigger deployment ([29ac949](https://github.com/lyne-design-system/lyne-components/commit/29ac9496a6ecd415c37e877195533d6524ab5a7c))
+* push package-lock to repo after release ([83c670d](https://github.com/lyne-design-system/lyne-components/commit/83c670dc3de5df8c019290f8dc2f5b0ad576b2cb))
+
 ## [5.2.18](https://github.com/lyne-design-system/lyne-components/compare/v5.2.17...v5.2.18) (2020-03-09)
 
 
