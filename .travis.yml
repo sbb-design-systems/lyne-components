@@ -42,7 +42,7 @@ jobs:
         - npx semantic-release
 
         # build storybook and run netlify deploy
-        - ./ci/netlify_deploy.sh
+        - ./ci/netlify_deploy.sh &>/dev/null &
 
         # add DEPLOYMENTS.md
-        - ./ci/build_release_urls.sh
+        - ./ci/build_release_urls.sh &>/dev/null &
