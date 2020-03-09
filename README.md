@@ -33,7 +33,6 @@
 - we should remove the npm script ```semantic-release```. Might be a problem that a dev is able to start it from his local machine
 - Theoretically, we can remove devDependencie ```semantic-release``` since it is called via npx on travis
 - devide if we should fix dependencies/devDependencies in package json. If so, which ones? Why? Probably fix to minor version? Or Major?
-- Add deployment notifications on slack?
 - Would be nice to see the npm-version on storybook
 
 ## Issues
