@@ -29,7 +29,6 @@
 - In Deployments.md, write cleary that dev's should not change the file
 - in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
 - decide if we should fix dependencies/devDependencies in package json. If so, which ones? Why? Probably fix to minor version? Or Major?
-- Would be nice to see the npm-version on storybook
 - Add yml linter (for .travis.yml)
 - Modify content of sustainability-policy file to match our own vision and policies.
 
