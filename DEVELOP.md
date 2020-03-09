@@ -22,9 +22,9 @@
 |@babel/plugin-transform-react-jsx|Used to support jsx in storybook stories files|https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx|
 |@commitlint/cli|cli utility for semantic-release|https://github.com/conventional-changelog/commitlint|
 |@commitlint/config-conventional|stadard semantic-release convention rules|https://github.com/conventional-changelog/commitlint|
-|@semantic-release/changelog|generate a changelog file with all release notes|https://github.com/semantic-release/changelog|
-|@semantic-release/exec|plugin to execute custom shell commands|https://github.com/semantic-release/exec|
-|@semantic-release/git|allow semantic release to push back into the source github repo|https://github.com/semantic-release/git|
+|@semantic-release/changelog|generate a changelog file with all release notes. Note: this package needs semantic-release packe. We call it on travis with npx on purpose, to prevent devs to call semantic-release locally|https://github.com/semantic-release/changelog|
+|@semantic-release/exec|plugin to execute custom shell commands. Note: this package needs semantic-release packe. We call it on travis with npx on purpose, to prevent devs to call semantic-release locally|https://github.com/semantic-release/exec|
+|@semantic-release/git|allow semantic release to push back into the source github repo. Note: this package needs semantic-release packe. We call it on travis with npx on purpose, to prevent devs to call semantic-release locally|https://github.com/semantic-release/git|
 |@stencil/core|StencilJS core library|https://stenciljs.com/|
 |@storybook/addon-actions|Add actions to storybook stories|https://github.com/storybookjs/storybook/tree/master/addons/actions|
 |@storybook/addon-knobs|Add knobs to storybook stories|https://github.com/storybookjs/storybook/tree/next/addons/knobs|
