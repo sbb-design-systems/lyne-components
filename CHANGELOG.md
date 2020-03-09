@@ -1,3 +1,11 @@
+## [5.2.17](https://github.com/lyne-design-system/lyne-components/compare/v5.2.16...v5.2.17) (2020-03-09)
+
+
+### Bug Fixes
+
+* add slack notifications to root in travis config ([c029742](https://github.com/lyne-design-system/lyne-components/commit/c0297428f48d627db2527b3945d7765997945a21))
+* fake commit to test slack notifications ([2ed43c1](https://github.com/lyne-design-system/lyne-components/commit/2ed43c1d1ccabfe6567bc95681aa9a2ab6b3d8b6))
+
 ## [5.2.16](https://github.com/lyne-design-system/lyne-components/compare/v5.2.15...v5.2.16) (2020-03-09)
 
 
