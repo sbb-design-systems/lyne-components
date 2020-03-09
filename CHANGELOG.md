@@ -1,3 +1,10 @@
+## [5.2.18](https://github.com/lyne-design-system/lyne-components/compare/v5.2.17...v5.2.18) (2020-03-09)
+
+
+### Bug Fixes
+
+* try to remove semantic-release dependency ([ecc5f30](https://github.com/lyne-design-system/lyne-components/commit/ecc5f30ee96f5f3d22ffc390cecd410036a017c4))
+
 ## [5.2.17](https://github.com/lyne-design-system/lyne-components/compare/v5.2.16...v5.2.17) (2020-03-09)
 
 
