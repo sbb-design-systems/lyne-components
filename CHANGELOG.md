@@ -1,3 +1,10 @@
+## [5.2.31](https://github.com/lyne-design-system/lyne-components/compare/v5.2.30...v5.2.31) (2020-03-09)
+
+
+### Bug Fixes
+
+* add slack-bot notification template ([1e2b96d](https://github.com/lyne-design-system/lyne-components/commit/1e2b96d61cabbbb10ee2248601b8794a488512f9))
+
 ## [5.2.30](https://github.com/lyne-design-system/lyne-components/compare/v5.2.29...v5.2.30) (2020-03-09)
 
 
