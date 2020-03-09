@@ -24,7 +24,6 @@
 - for DEPLOYMENTS.md: in which timezone should we format the date?
 - DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
 - build_release_urls.js -> check if there is a limit in the deployments request. Do we get the latest 50? 100? Do we get all? Probably, we need to limit it so  the response does not take too long
-- ommit output when netlify_deploy.sh and build_release_urls.sh are called on travis
 - Make sure that all production files that are published are minified and compressed (dist/, loader/, storybook-static/)
 - In Deployments.md, write cleary that dev's should not change the file
 - in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
