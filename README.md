@@ -9,14 +9,12 @@
 > compiled by StencilJS and browsable through Storybook
 
 ## Todo
-- refactor build_release_urls.js with promises
 - in travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 - Rename package name to "lyne-components"
 - Decide for Branching-Model
 - Add Merge Checks
 - Add Linter
 - Repo -> Insights -> Community -> Fullfill checklist
-- Semantic-release updates version in package.json, but in the package-lock.json it does not. should we?
 - Prevent push to master
 - npm script ```start``` runs stencil and storybook in parallel. We need sequential. Problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel.
 - In Storybook, css changes are not updated in watch mode
@@ -31,7 +29,6 @@
 - In Deployments.md, write cleary that dev's should not change the file
 - in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
 - we should remove the npm script ```semantic-release```. Might be a problem that a dev is able to start it from his local machine
-- Theoretically, we can remove devDependencie ```semantic-release``` since it is called via npx on travis
 - decide if we should fix dependencies/devDependencies in package json. If so, which ones? Why? Probably fix to minor version? Or Major?
 - Would be nice to see the npm-version on storybook
 - Add yml linter (for .travis.yml)
