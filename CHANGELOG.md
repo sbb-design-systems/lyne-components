@@ -1,3 +1,11 @@
+## [5.2.25](https://github.com/lyne-design-system/lyne-components/compare/v5.2.24...v5.2.25) (2020-03-09)
+
+
+### Bug Fixes
+
+* add components version to title in storybook ([3eeaac9](https://github.com/lyne-design-system/lyne-components/commit/3eeaac9810ab7b4f7fc31832d99dda7133e763e2))
+* make version in title conditional ([ee23b22](https://github.com/lyne-design-system/lyne-components/commit/ee23b220cb0e10c6f544da83a5afe6fb5e10fe75))
+
 ## [5.2.24](https://github.com/lyne-design-system/lyne-components/compare/v5.2.23...v5.2.24) (2020-03-09)
 
 
