@@ -20,7 +20,7 @@ notifications:
   slack:
     template:
       - "Build: <%{build_url}|%{build_number}>"
-      - "Commit: %{commit}"
+      - "Commit: <%{compare_url}|%{commit}>"
       - "Autor: %{author}"
       - "Result: %{result} in %{duration}"
     secure: vB5wQL+sq2HlZ3qY5bt1PL2nf309aUm2TPlEj1phjtZ+qoW5XwMUM6XebMoycmWaesHirK0v0AKWluQwJ6fTu9rDKDDASVc2v3u2vg8fxeYLnMoCSoEalpmS6kBcxmXwqlIJUfIG8ow1pkcaTeiKYK/2ZHCdn3ArQ6ouAKh1P//VtpR3Dc/aai+TInJBhprYrk31scVTw81rOQU3F3GPJuVS1lelvyOhjy+12gqYRWPzU6voBmaG7eYhyqEjGfJJS7p1DM3QpnDar18seOK8tKjSiThWPS9VHYcaBBh1mBslkshqU0jiPRMQNWPtw7lf/7ueRe1drQsMSABPeQlbTdGYSh+w48P24vl4xPoGdhI0LTLpzzjmTROBRJPtQ7krZTswjSNKnVgbU8gVZLDSI77BI1o9flQNF1PBYxzru10WlznlDdeZwRotdV3wVDdHtYLBUq6qs6NuLbYnVPDgIgclMdeYVHf9l0aTSFq2SSVV0Y8SpvAOweuQoZD6bf+5jnUvAKDdg4EVN7yR1mWANwOg3ahOZDVykpRFPYIAe4lN8QwT2CjqHrkF9zKpNmcrdR+P1WpFufFaZO1qFDat6phzw2DcSMZw1DdvRKFgu+1WCvOHAYJJfpS0SuOr5cm3U+noDFUoukSa37qqOEzXsNikb7oxNyCR0RNb+a9rrpY=
