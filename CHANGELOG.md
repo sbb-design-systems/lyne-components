@@ -1,3 +1,10 @@
+## [5.2.15](https://github.com/lyne-design-system/lyne-components/compare/v5.2.14...v5.2.15) (2020-03-08)
+
+
+### Bug Fixes
+
+* use simple-git/promise ([019c8f6](https://github.com/lyne-design-system/lyne-components/commit/019c8f6015b0e8b77a461802cfaa83c814b46160))
+
 ## [5.2.14](https://github.com/lyne-design-system/lyne-components/compare/v5.2.13...v5.2.14) (2020-03-08)
 
 
