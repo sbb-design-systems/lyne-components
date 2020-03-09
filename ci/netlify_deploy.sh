@@ -7,8 +7,7 @@
 
 # set flags for execution of this file:
 # -e: make sure command returns non-zero exit code as soon as somehting fails
-# -v: verbose mode
-set -ev
+set -e
 
 # version file name written by .releaserc
 VERSION_FILE=.version
