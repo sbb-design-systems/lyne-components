@@ -17,6 +17,7 @@
 - Repo -> Insights -> Community -> Fullfill checklist
 - Prevent push to master
 - npm script ```start``` runs stencil and storybook in parallel. We need sequential. Problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel.
+- npm script ```start``` runs 2 node scripts. To exit (stop the 2 servers), dev's need to press ctrl&c 2 times. Optimize it.
 - Different secrets and env-variables on git, travis and netlify.
   - Document exactly which key is needed for what and where to generate it
   - Before production: regenerate all keys
