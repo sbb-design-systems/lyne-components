@@ -1,3 +1,11 @@
+## [5.2.23](https://github.com/lyne-design-system/lyne-components/compare/v5.2.22...v5.2.23) (2020-03-09)
+
+
+### Bug Fixes
+
+* try to add dynamic components version as meta ([0c2af75](https://github.com/lyne-design-system/lyne-components/commit/0c2af75baa3bdb44118160813f5a20974b5bfeb5))
+* try to add dynamic components version as meta ([008cc53](https://github.com/lyne-design-system/lyne-components/commit/008cc53e64dad6d1b6a2ef7c68311c48ca360cd8))
+
 ## [5.2.22](https://github.com/lyne-design-system/lyne-components/compare/v5.2.21...v5.2.22) (2020-03-09)
 
 
