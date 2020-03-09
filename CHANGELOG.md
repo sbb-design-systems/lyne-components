@@ -1,3 +1,10 @@
+## [5.2.21](https://github.com/lyne-design-system/lyne-components/compare/v5.2.20...v5.2.21) (2020-03-09)
+
+
+### Bug Fixes
+
+* try to add tag to storybook html head ([ff4e789](https://github.com/lyne-design-system/lyne-components/commit/ff4e78997e88c32a87769c8ff86f2a17f3e9c030))
+
 ## [5.2.20](https://github.com/lyne-design-system/lyne-components/compare/v5.2.19...v5.2.20) (2020-03-09)
 
 
