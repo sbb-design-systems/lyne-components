@@ -1,3 +1,11 @@
+## [5.2.29](https://github.com/lyne-design-system/lyne-components/compare/v5.2.28...v5.2.29) (2020-03-09)
+
+
+### Bug Fixes
+
+* fake commit to trigger and test release ([27bb514](https://github.com/lyne-design-system/lyne-components/commit/27bb514a198179a913e93c220aca147d9279a613))
+* omit verbose mode in shell scripts ([810dda8](https://github.com/lyne-design-system/lyne-components/commit/810dda8ca9081c899f0c6b17f6defa965c0ac8a7))
+
 ## [5.2.28](https://github.com/lyne-design-system/lyne-components/compare/v5.2.27...v5.2.28) (2020-03-09)
 
 
