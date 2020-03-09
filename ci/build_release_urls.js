@@ -107,7 +107,7 @@ const processDeploys = ((data) => {
 });
 
 const formatResults = ((data) => {
-  let fileData = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED \n\n';
+  let fileData = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
 
   data.forEach((deployment) => {
     fileData += `## ${deployment.version}\n`;
