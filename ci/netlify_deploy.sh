@@ -16,7 +16,7 @@ VERSION_FILE=.version
 if [ -f "$VERSION_FILE" ];
 then
 
-  VERSION=cat .version
+  VERSION="$(cat .version)"
 
   # make storybook build
   STORYBOOK_COMPONENTS_VERSION=$VERSION npm run build:storybook
