@@ -25,7 +25,7 @@ then
   npm install netlify-cli -g
 
   # deploy on netlify
-  netlify deploy --prod --message "::`$VERSION`::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+  netlify deploy --prod --message "::$VERSION::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
 else
   echo "-->> Skipping netlify depoly"
 fi
