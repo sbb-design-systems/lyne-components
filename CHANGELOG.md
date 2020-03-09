@@ -1,3 +1,15 @@
+## [5.2.30](https://github.com/lyne-design-system/lyne-components/compare/v5.2.29...v5.2.30) (2020-03-09)
+
+
+### Bug Fixes
+
+* add semantic-release as devDependency again ([62f5665](https://github.com/lyne-design-system/lyne-components/commit/62f566570e01a0ddad6f927d7a1935da02673a11))
+* add slack-bot config ([82debc8](https://github.com/lyne-design-system/lyne-components/commit/82debc8e4548f10cdb924abe409618df0ecc552d))
+* call semantic-release with npm ([3b97789](https://github.com/lyne-design-system/lyne-components/commit/3b9778970a44b87bb6c5072d5339e403dcf23ad0))
+* move slack-bot config ([fc347df](https://github.com/lyne-design-system/lyne-components/commit/fc347dfaafeafefc4eb4689cb637b6ed218e9970))
+* move slack-bot config again ([e988052](https://github.com/lyne-design-system/lyne-components/commit/e9880525d68986a91b3a61d2f0f4126205254533))
+* try to fix slack config ([e36360c](https://github.com/lyne-design-system/lyne-components/commit/e36360c05b5ef97b65ea82bb30cd779ba574a335))
+
 ## [5.2.29](https://github.com/lyne-design-system/lyne-components/compare/v5.2.28...v5.2.29) (2020-03-09)
 
 
