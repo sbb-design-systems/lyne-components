@@ -1,3 +1,10 @@
+## [5.2.24](https://github.com/lyne-design-system/lyne-components/compare/v5.2.23...v5.2.24) (2020-03-09)
+
+
+### Bug Fixes
+
+* try to fix version in netlify deploy ([82d8f28](https://github.com/lyne-design-system/lyne-components/commit/82d8f28e5504bb9839a2a4783d7d4ed473222a25))
+
 ## [5.2.23](https://github.com/lyne-design-system/lyne-components/compare/v5.2.22...v5.2.23) (2020-03-09)
 
 
