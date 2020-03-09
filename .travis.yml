@@ -38,7 +38,7 @@ jobs:
         - npm run test
 
         # run semantic release
-        - npx semantic-release
+        - npm run semantic-release
 
         # build storybook and run netlify deploy
         - ./ci/netlify_deploy.sh
