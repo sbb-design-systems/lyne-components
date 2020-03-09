@@ -20,7 +20,7 @@
     "build": "npm-run-all --sequential build:stencil build:storybook",
     "generate": "stencil generate",
     "start:stencil": "stencil build --dev --watch --docs",
-    "start:storybook": "start-storybook -p 6006",
+    "start:storybook": "start-storybook -p 6006 -s www",
     "start": "npm-run-all --parallel start:stencil start:storybook",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
