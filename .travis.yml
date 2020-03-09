@@ -19,7 +19,6 @@ language: node_js
 notifications:
   slack:
     template:
-
       # This template config somehow breaks yaml syntax altough it is valid
       # syntax
       - "Build: <%{build_url}|%{build_number}>"
