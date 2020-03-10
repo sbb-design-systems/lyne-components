@@ -21,7 +21,7 @@ export class LyneCtaButton {
   @Prop() public label = 'Default button text';
 
   private handleClick = (event: UIEvent): void => {
-    this.onClick.emit(event);
+      this.onClick.emit(event);
   };
 
   public render(): JSX.Element {
