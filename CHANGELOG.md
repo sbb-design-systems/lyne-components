@@ -1,3 +1,15 @@
+## [5.2.34](https://github.com/lyne-design-system/lyne-components/compare/v5.2.33...v5.2.34) (2020-03-10)
+
+
+### Bug Fixes
+
+* commit eslint error to check ci pipeline ([fc62f9d](https://github.com/lyne-design-system/lyne-components/commit/fc62f9d6558fd7bd2c7134d2d00c6293399a16fa))
+* fix e2e test to check ci ([6e6cc36](https://github.com/lyne-design-system/lyne-components/commit/6e6cc3661149cacef152f36c583f55482c1f8c38))
+* fix linting issue to check ci ([d48f8e8](https://github.com/lyne-design-system/lyne-components/commit/d48f8e8fded14631afcae9da2125903660f3631d))
+* introduce e2e error to check ci ([dae5e08](https://github.com/lyne-design-system/lyne-components/commit/dae5e085b4ccc59f11db226df7ae3e2d390b603c))
+* make sure build immediately stops if a script returns non-zero ([5410dc5](https://github.com/lyne-design-system/lyne-components/commit/5410dc59ac715d6a81cae951dbf74429c7011998))
+* make sure build immediately stops if a script returns non-zero ([e6e3b27](https://github.com/lyne-design-system/lyne-components/commit/e6e3b27c43de049633dbd6a4e81ee0e19c5e236b))
+
 ## [5.2.33](https://github.com/lyne-design-system/lyne-components/compare/v5.2.32...v5.2.33) (2020-03-10)
 
 
