@@ -34,6 +34,11 @@
 - Stencil has a set of typescript-rules. It would make sense that we adhere to these:
   - https://stenciljs.com/docs/style-guide
   - https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own portation to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
+- add build script for https://github.com/thegreenwebfoundation/co2.js:
+  - determine which of our services are green (travis, netlifiy)
+  - calculate co2 emissions
+  - write values to md-file
+- Probably we could integrate https://www.sitespeed.io/?
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
