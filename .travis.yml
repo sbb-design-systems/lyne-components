@@ -40,6 +40,8 @@ jobs:
         # run tests
         - npm run test
 
+      after_success:
+
         # run semantic release
         - npm run semantic-release
 
