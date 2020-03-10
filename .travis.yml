@@ -31,6 +31,9 @@ jobs:
     - stage: build, test and deploy packages and storybook
       script:
 
+        # lint
+        - npm run lint
+
         # make stnecil production build
         - npm run build:stencil
 
