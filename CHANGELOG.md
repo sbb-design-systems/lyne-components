@@ -1,3 +1,10 @@
+## [5.2.32](https://github.com/lyne-design-system/lyne-components/compare/v5.2.31...v5.2.32) (2020-03-10)
+
+
+### Bug Fixes
+
+* changes to adhere to eslint rules ([9f06b7c](https://github.com/lyne-design-system/lyne-components/commit/9f06b7ca14ae6d63bd4353177c0d48450f709c46))
+
 ## [5.2.31](https://github.com/lyne-design-system/lyne-components/compare/v5.2.30...v5.2.31) (2020-03-09)
 
 
