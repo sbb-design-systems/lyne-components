@@ -1,31 +1,30 @@
 import {
   Component,
-  h,
-  Prop,
   Event,
-  EventEmitter
+  EventEmitter,
+  h,
+  Prop
 } from '@stencil/core';
 
 @Component({
-  tag: 'lyne-cta-button',
+  shadow: true,
   styleUrl: 'lyne-cta-button.css',
-  shadow: true
+  tag: 'lyne-cta-button'
 })
 
 export class LyneCtaButton {
 
   /** Event is triggered when button is clicked */
-  @Event() onClick: EventEmitter;
+  @Event() private onClick: EventEmitter;
 
   /** Label text to show on the button */
-  @Prop() label: string = 'Default button text';
+  @Prop() private label = 'Default button text';
 
-  handleClick(event: UIEvent) {
+  private handleClick = (event: UIEvent): void => {
     this.onClick.emit(event);
-  }
+  };
 
-  render() {
+  public render(): JSX.Element {
     return <button class='button' onClick={this.handleClick.bind(this)}>{this.label}</button>;
   }
-
 }
