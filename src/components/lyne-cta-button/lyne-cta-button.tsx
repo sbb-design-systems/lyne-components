@@ -15,10 +15,10 @@ import {
 export class LyneCtaButton {
 
   /** Event is triggered when button is clicked */
-  @Event() private onClick: EventEmitter;
+  @Event() public onClick: EventEmitter;
 
   /** Label text to show on the button */
-  @Prop() private label = 'Default button text';
+  @Prop() public label = 'Default button text';
 
   private handleClick = (event: UIEvent): void => {
     this.onClick.emit(event);
