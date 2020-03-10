@@ -13,7 +13,6 @@
 - Rename package name to "lyne-components"
 - Decide for Branching-Model
 - Add Merge Checks
-- Add Linter
 - Repo -> Insights -> Community -> Fullfill checklist
 - Prevent push to master
 - npm script ```start``` runs stencil and storybook in parallel. We need sequential. Problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel.
