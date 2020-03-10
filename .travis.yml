@@ -33,10 +33,12 @@ jobs:
       script:
 
         # lint
-        - npm run lint
+        # travis_terminate 1: make sure build immediately stops if the
+        # command exits with non-zero code
+        - npm run lint || travis_terminate 1
 
         # make stnecil production build
-        - npm run build:stencil
+        - npm run build:stencil || travis_terminate 1
 
         # run tests
         - npm run test
