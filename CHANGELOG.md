@@ -1,3 +1,10 @@
+## [5.2.35](https://github.com/lyne-design-system/lyne-components/compare/v5.2.34...v5.2.35) (2020-03-10)
+
+
+### Bug Fixes
+
+* remove travis_terminate from semantic-release ([eae84e7](https://github.com/lyne-design-system/lyne-components/commit/eae84e77f9bc2f6fcd563f4c70c3ec23eae17a8b))
+
 ## [5.2.34](https://github.com/lyne-design-system/lyne-components/compare/v5.2.33...v5.2.34) (2020-03-10)
 
 
