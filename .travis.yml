@@ -19,8 +19,8 @@ language: node_js
 notifications:
   slack:
     template:
-      # This template config somehow breaks yaml syntax altough it is valid
-      # syntax
+      # This template config somehow breaks yaml syntax
+      # in the editor alltough it is valid yaml syntax
       - "Build: <%{build_url}|%{build_number}>"
       - "Commit: <%{compare_url}|%{commit}>"
       - "Autor: %{author}"
