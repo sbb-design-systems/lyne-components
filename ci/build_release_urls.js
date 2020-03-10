@@ -6,7 +6,7 @@
 /**
  * Purpose:
  *
- * When deploying to netlify, the release number is send as title along
+ * When deploying to netlify, the release number is sent as title along
  * with the deployment. We use this to create a list with releases and links
  * to the according deployments on netlify.
  */
