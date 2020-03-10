@@ -46,7 +46,7 @@ jobs:
       after_success:
 
         # run semantic release
-        - npm run semantic-release || travis_terminate 1
+        - npm run semantic-release
 
         # build storybook and run netlify deploy
         - ./ci/netlify_deploy.sh
