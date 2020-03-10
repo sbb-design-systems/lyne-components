@@ -7,6 +7,7 @@
 |build:storybook|used to build storybook static site|
 |build|runs build:stencil and build:storybook in sequence|
 |generate|start the interactive component generator|
+|lint|run typescript-eslint|
 |semantic-release|start a semantic release|
 |start:stencil|start the development server for stencil|
 |start:storybook|start the development server for storybook|
@@ -32,9 +33,12 @@
 |@storybook/html|storybook for plain HTML snippets|https://github.com/storybookjs/storybook|
 |@types/jest|TypeScript definitions for jest|https://github.com/DefinitelyTyped/DefinitelyTyped#readme|
 |@types/puppeteer|TypeScript definitions for Puppeteer|https://github.com/DefinitelyTyped/DefinitelyTyped#readme|
+|@typescript-eslint/eslint-plugin|TypeScript support for ESLint|https://github.com/typescript-eslint/typescript-eslint|
+|@typescript-eslint/parser|TypeScript support for ESLint|https://github.com/typescript-eslint/typescript-eslint|
 |axios|Promise based HTTP client for the browser and node.js|https://www.npmjs.com/package/axios|
 |babel-loader|webpack loader to transpile js files using babel. Used for Storybook integration|https://www.npmjs.com/package/babel-loader|
 |copy-webpack-plugin|copy files to build directory during webpack build. Used for Storybook integration|https://github.com/webpack-contrib/copy-webpack-plugin|
+|eslint|Linter for JavaScript|https://github.com/eslint/eslint|
 |husky|easily add git hooks|https://github.com/typicode/husky|
 |jest|used for unit tests|https://jestjs.io/|
 |jest-cli|cli utility for jest|https://jestjs.io/|
@@ -53,6 +57,8 @@
 | ------------| ------------- | ---- |
 |.babelrc|base config for babel|https://babeljs.io/docs/en/config-files|
 |.editorconfig|coding style definitions|https://editorconfig.org/|
+|.eslintignore|Files to ignore for ESLint|https://eslint.org/docs/user-guide/configuring|
+|.eslintrc|Config for ESLint|https://eslint.org/docs/user-guide/configuring|
 |.gitignore|files git should ignore|https://git-scm.com/docs/gitignore|
 |.huskyrc.js|configurations for husky|https://github.com/typicode/husky|
 |.nvmrc|node version to use by nvm or asdf|https://github.com/nvm-sh/nvm|
