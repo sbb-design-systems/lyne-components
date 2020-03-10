@@ -1,3 +1,12 @@
+## [5.2.33](https://github.com/lyne-design-system/lyne-components/compare/v5.2.32...v5.2.33) (2020-03-10)
+
+
+### Bug Fixes
+
+* change scope uf private props in test component ([51fa08e](https://github.com/lyne-design-system/lyne-components/commit/51fa08e4f7ff5fe746da0dc17365d482e90224f1))
+* fake commit to trigger test release ([ba34073](https://github.com/lyne-design-system/lyne-components/commit/ba34073decd2913307e0da3c55c7ce341efb2e93))
+* make sure deployment is only run after scripts success ([ccdc6e4](https://github.com/lyne-design-system/lyne-components/commit/ccdc6e46472202e8ab3f7e1737c6814898c0d95c))
+
 ## [5.2.32](https://github.com/lyne-design-system/lyne-components/compare/v5.2.31...v5.2.32) (2020-03-10)
 
 
