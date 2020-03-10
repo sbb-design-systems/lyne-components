@@ -29,6 +29,11 @@
 - Add yml linter (for .travis.yml)
 - Modify content of sustainability-policy file to match our own vision and policies.
 - The release-badge in the readme.md file is out of sync sometimes...
+- ESLint: currently, we ignore ```*.spec.ts``` and ```*.e2e.ts``` files. Include them in linting and add corresponding rules
+- Rewrite js-files in ci-folder to typescript
+- Stencil has a set of typescript-rules. It would make sense that we adhere to these:
+  - https://stenciljs.com/docs/style-guide
+  - https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own portation to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
