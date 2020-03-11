@@ -1,3 +1,10 @@
+## [5.2.36](https://github.com/lyne-design-system/lyne-components/compare/v5.2.35...v5.2.36) (2020-03-11)
+
+
+### Bug Fixes
+
+* optimize webpack config for storybook ([6db773d](https://github.com/lyne-design-system/lyne-components/commit/6db773dbfbb2dc69adf7bb985c191aa795d3124e))
+
 ## [5.2.35](https://github.com/lyne-design-system/lyne-components/compare/v5.2.34...v5.2.35) (2020-03-10)
 
 
