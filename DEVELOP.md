@@ -27,6 +27,7 @@
 |@semantic-release/exec|plugin to execute custom shell commands.|https://github.com/semantic-release/exec|
 |@semantic-release/git|allow semantic release to push back into the source github repo.|https://github.com/semantic-release/git|
 |@stencil/core|StencilJS core library|https://stenciljs.com/|
+|@storybook/addon-a11y|a11y addons for storybook|https://www.npmjs.com/package/@storybook/addon-a11y|
 |@storybook/addon-actions|Add actions to storybook stories|https://github.com/storybookjs/storybook/tree/master/addons/actions|
 |@storybook/addon-knobs|Add knobs to storybook stories|https://github.com/storybookjs/storybook/tree/next/addons/knobs|
 |@storybook/addon-notes|allow for writing notes for stories. Used for storybook integration|https://github.com/storybookjs/storybook|

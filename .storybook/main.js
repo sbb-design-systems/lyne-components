@@ -27,6 +27,7 @@ const removeStyleLoaderFile = (rules) => {
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
+    '@storybook/addon-a11y/register',
     '@storybook/addon-notes/register',
     '@storybook/addon-knobs/register',
     '@storybook/addon-actions/register',
