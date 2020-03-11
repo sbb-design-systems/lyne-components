@@ -1,3 +1,10 @@
+## [5.2.37](https://github.com/lyne-design-system/lyne-components/compare/v5.2.36...v5.2.37) (2020-03-11)
+
+
+### Bug Fixes
+
+* try to add coverage to jest tests and pushing it back to repo ([c074fb7](https://github.com/lyne-design-system/lyne-components/commit/c074fb7c23ab4fd80b8ba4bc8ef2fa21b2b6f046))
+
 ## [5.2.36](https://github.com/lyne-design-system/lyne-components/compare/v5.2.35...v5.2.36) (2020-03-11)
 
 
