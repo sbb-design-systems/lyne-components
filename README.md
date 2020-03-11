@@ -22,6 +22,9 @@ For a full list of deployments of all releases, please look here: https://github
 ## Code Coverage
 Codecoverage is evalauted from Jest's --coverage output via https://codecov.io/
 
+## Additional Code Checks
+Additional checks are done with https://www.deepcode.ai/. Login there to see the reports.
+
 ## 🙌 Contributing
 See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance! 👀
 
