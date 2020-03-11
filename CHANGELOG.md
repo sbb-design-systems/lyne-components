@@ -1,3 +1,10 @@
+## [5.2.38](https://github.com/lyne-design-system/lyne-components/compare/v5.2.37...v5.2.38) (2020-03-11)
+
+
+### Bug Fixes
+
+* remove coverage folder ([9c69f42](https://github.com/lyne-design-system/lyne-components/commit/9c69f4297c8fcfb849e84fd132fa4c265a203a92))
+
 ## [5.2.37](https://github.com/lyne-design-system/lyne-components/compare/v5.2.36...v5.2.37) (2020-03-11)
 
 
