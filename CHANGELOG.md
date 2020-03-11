@@ -1,3 +1,11 @@
+## [5.2.43](https://github.com/lyne-design-system/lyne-components/compare/v5.2.42...v5.2.43) (2020-03-11)
+
+
+### Bug Fixes
+
+* move a11y to latest position ([5785e9c](https://github.com/lyne-design-system/lyne-components/commit/5785e9c74a9850a316534581f8136dda6f9d251a))
+* remove gitGuardian test ([8a9d804](https://github.com/lyne-design-system/lyne-components/commit/8a9d8044ee88128d43fdd39993810a9b35ec2f20))
+
 ## [5.2.42](https://github.com/lyne-design-system/lyne-components/compare/v5.2.41...v5.2.42) (2020-03-11)
 
 
