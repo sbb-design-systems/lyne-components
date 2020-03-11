@@ -4,15 +4,16 @@ export const config: Config = {
   namespace: 'lyne-components',
   outputTargets: [
     {
-      type: 'dist',
-      esmLoaderPath: '../loader'
+      esmLoaderPath: '../loader',
+      type: 'dist'
     },
     {
       type: 'docs-readme'
     },
     {
-      type: 'www',
-      serviceWorker: null // disable service workers
+      // disable service workers
+      serviceWorker: null,
+      type: 'www'
     }
   ]
 };
