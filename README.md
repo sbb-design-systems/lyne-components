@@ -30,7 +30,6 @@
 - Modify content of sustainability-policy file to match our own vision and policies.
 - The release-badge in the readme.md file is out of sync sometimes...
 - ESLint: currently, we ignore ```*.spec.ts``` and ```*.e2e.ts``` files. Include them in linting and add corresponding rules
-- Rewrite js-files in ci-folder to typescript
 - Stencil has a set of typescript-rules. It would make sense that we adhere to these:
   - https://stenciljs.com/docs/style-guide
   - https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own portation to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
@@ -39,10 +38,12 @@
   - calculate co2 emissions
   - write values to md-file
 - Probably we could integrate https://www.sitespeed.io/?
+- We currently only lint tsx files. but we must also lint .js files like configs for storybook
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
 - ESLint: an unused public property is not reported by eslint
+- Greenkeeper seems not to work properly: it creates a branch where it updates package-lock.json and after travis build, the branch is deleted...
 
 ## Verify
 - If a travis release job is running, semantic-release did not run yet, and a new change with a breaking change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with a new release containing both changes
