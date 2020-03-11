@@ -1,6 +1,23 @@
-# package.json
+## Git Guardian
+Git Guardian is activated for this repo: https://dashboard.gitguardian.com/
 
-## npm scripts
+## Storybook
+The storybook is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
+
+For a full list of deployments of all releases, please look here: https://github.com/lyne-design-system/lyne-components/blob/master/DEPLOYMENTS.md
+
+## Code Coverage
+Codecoverage is evalauted from Jest's --coverage output via https://codecov.io/
+
+## Additional Code Checks
+Additional checks are done with https://www.deepcode.ai/. Login there to see the reports.
+
+## npm
+The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
+
+## package.json
+
+### npm scripts
 | Script        | Purpose       |
 | ------------- | ------------- |
 |build:stencil|used to create a production build for stencil components|
@@ -15,7 +32,7 @@
 |test|run all unit and e2e tests|
 |test.watch|run all unit and e2e tests in watch mode|
 
-## devDependencies
+### devDependencies
 | Dependency        | Purpose       | Docs |
 | ----------------- | ------------- | ---- |
 |@babel/core|core babel library|https://github.com/babel/babel/tree/master/packages/babel-core|
@@ -54,7 +71,7 @@
 |write-file-webpack-plugin|write webpack dev server files to file system. Used for Storybook integration|https://github.com/gajus/write-file-webpack-plugin|
 |yargs|Easy parsing arguments from the command line|https://www.npmjs.com/package/yargs|
 
-# Config files
+## Config files
 | File        | Purpose       | Docs |
 | ------------| ------------- | ---- |
 |.babelrc|base config for babel|https://babeljs.io/docs/en/config-files|
@@ -72,13 +89,13 @@
 |stencil.config.json|stencilJS configuration|https://stenciljs.com/docs/config|
 |tsconfig.json|configurations for typeScript|https://www.typescriptlang.org/docs/handbook/tsconfig-json.html|
 
-# Special Folders
+## Special Folders
 | File        | Purpose       |
 | ------------| ------------- |
 |./ci|contains skripts that are used by the CI|
 |./.storybook|main configuration for storybook setup|
 
-# Outputs
+## Outputs
 |Folder|Explanation|
 |------|-----------|
 |./dist|main output target for stencil components|
