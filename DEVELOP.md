@@ -43,6 +43,7 @@
 |jest|used for unit tests|https://jestjs.io/|
 |jest-cli|cli utility for jest|https://jestjs.io/|
 |jsx-dom|Used to support jsx in storybook stories files|https://github.com/proteriax/jsx-dom|
+|mini-css-extract-plugin|webpack: extract css from js|https://webpack.js.org/plugins/mini-css-extract-plugin/|
 |npm-run-all|run npm-scripts in parallel or sequential|https://github.com/mysticatea/npm-run-all|
 |puppeteer|used for e2e tests|https://github.com/puppeteer/puppeteer#readme|
 |semantic-release|Used to start semantic release|https://github.com/semantic-release/semantic-release|
