@@ -20,20 +20,24 @@
  * 4. it pushes the .md file to our repo
  */
 
- const axios = require('axios');
- const simpleGit = require('simple-git/promise')('./');
- const shell = require('shelljs');
- const fs = require('fs');
- const argv = require('yargs').argv;
- const { promisify } = require("util");
+const axios = require('axios');
+const simpleGit = require('simple-git/promise')('./');
+const shell = require('shelljs');
+const fs = require('fs');
+const argv = require('yargs').argv;
+const { promisify } = require("util");
 
- const netlifyToken = argv.netlifyToken;
- const netlifySiteId = argv.netlifySiteId;
- const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
- const gitUser = argv.gitUser;
- const gitToken = argv.gitToken;
- const gitMail = argv.gitMail;
- const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
+const netlifyToken = argv.netlifyToken;
+const netlifySiteId = argv.netlifySiteId;
+const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
+const gitUser = argv.gitUser;
+const gitToken = argv.gitToken;
+const gitMail = argv.gitMail;
+const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
+
+const netlifiyToken = '25484f5dc65cdf24a744f9409da8f672e6960b8d453cb042ac3afb4db416f8e9';
+
+console.log(netlifyToken);
 
 (async () => {
 
