@@ -35,10 +35,6 @@ const gitToken = argv.gitToken;
 const gitMail = argv.gitMail;
 const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
 
-const netlifiyToken = '25484f5dc65cdf24a744f9409da8f672e6960b8d453cb042ac3afb4db416f8e9';
-
-console.log(netlifyToken);
-
 (async () => {
 
   try {
