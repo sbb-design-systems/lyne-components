@@ -28,10 +28,10 @@ const removeStyleLoaderFile = (rules) => {
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
-    '@storybook/addon-a11y/register',
     '@storybook/addon-notes/register',
     '@storybook/addon-knobs/register',
     '@storybook/addon-actions/register',
+    '@storybook/addon-a11y/register'
   ],
   // Custom webpack config to tell Storybook where to find the compiled files from Stencil
   async webpackFinal(config) {
