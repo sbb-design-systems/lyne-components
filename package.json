@@ -24,7 +24,7 @@
     "start:stencil": "stencil build --dev --watch --docs",
     "start:storybook": "start-storybook -p 6006 -s www",
     "start": "npm-run-all --parallel start:stencil start:storybook",
-    "test": "stencil test --spec --e2e",
+    "test": "stencil test --spec --e2e --coverage",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
   "devDependencies": {
