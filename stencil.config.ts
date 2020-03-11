@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import jestConfig from './.jest.config.js';
 
 export const config: Config = {
   namespace: 'lyne-components',
@@ -15,5 +16,6 @@ export const config: Config = {
       serviceWorker: null,
       type: 'www'
     }
-  ]
+  ],
+  testing: jestConfig
 };
