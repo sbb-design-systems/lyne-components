@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const OUTPUT_DIR = '../dist';
 const PROJECT_NAME = 'lyne-components';
@@ -33,7 +34,41 @@ module.exports = {
   // Custom webpack config to tell Storybook where to find the compiled files from Stencil
   async webpackFinal(config) {
 
+    // uncomment following statement to log the full webpack config
+    // or add ```--debug-webpack``` to the npm script ```build-storybook```
+    // console.dir(config, { depth: null }) || config
+
     config.module.rules = removeStyleLoaderFile(config.module.rules);
+
+    // source-maps
+    config.devtool = false;
+
+    // extract css from js
+    config.plugins.push(new MiniCssExtractPlugin);
+    config.module.rules[3].use.unshift(MiniCssExtractPlugin.loader);
+
+    // congiure splitChunks plugin
+    config.optimization.splitChunks = {
+      chunks: 'all',
+      minSize: 30000,
+      maxSize: 100000,
+      minChunks: 1,
+      maxAsyncRequests: 6,
+      maxInitialRequests: 4,
+      automaticNameDelimiter: '~',
+      automaticNameMaxLength: 30,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    };
 
     config.entry.push(path.join(__dirname, OUTPUT_DIR, `${PROJECT_NAME}.js`));
     fs.readdirSync(path.join(__dirname, OUTPUT_DIR, 'collection/components')).map(file => {
