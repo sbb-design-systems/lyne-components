@@ -1,3 +1,10 @@
+## [5.2.39](https://github.com/lyne-design-system/lyne-components/compare/v5.2.38...v5.2.39) (2020-03-11)
+
+
+### Bug Fixes
+
+* upload coverage report ([7f51d08](https://github.com/lyne-design-system/lyne-components/commit/7f51d08b82a46044c611856df8a19258d92ebc1e))
+
 ## [5.2.38](https://github.com/lyne-design-system/lyne-components/compare/v5.2.37...v5.2.38) (2020-03-11)
 
 
