@@ -8,9 +8,6 @@
 > and are based on standard compliant [Web Components](https://www.webcomponents.org/specs)
 > compiled by StencilJS and browsable through Storybook
 
-## SemVer
-We use semantic versioning
-
 ## Git Guardian
 Git Guardian is activated for this repo: https://dashboard.gitguardian.com/
 
