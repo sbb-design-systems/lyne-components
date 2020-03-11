@@ -63,6 +63,7 @@
 |.eslintrc|Config for ESLint|https://eslint.org/docs/user-guide/configuring|
 |.gitignore|files git should ignore|https://git-scm.com/docs/gitignore|
 |.huskyrc.js|configurations for husky|https://github.com/typicode/husky|
+|.jest.config.js|configuration for jest|https://jestjs.io/docs/en/configuration.html|
 |.nvmrc|node version to use by nvm or asdf|https://github.com/nvm-sh/nvm|
 |.releaserc|configuration for semantic-release|https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration|
 |.travis.yml|build configuration for travisCI|https://docs.travis-ci.com/user/customizing-the-build/|
