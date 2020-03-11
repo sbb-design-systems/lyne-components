@@ -1,3 +1,11 @@
+## [5.2.40](https://github.com/lyne-design-system/lyne-components/compare/v5.2.39...v5.2.40) (2020-03-11)
+
+
+### Bug Fixes
+
+* add a11y addon for storybook ([ac8dbcf](https://github.com/lyne-design-system/lyne-components/commit/ac8dbcfe3c88e456cdde349209f73049136185a4))
+* fake commit to trigger release ([c589265](https://github.com/lyne-design-system/lyne-components/commit/c5892658f418ce7428061bd85116775d0a75814e))
+
 ## [5.2.39](https://github.com/lyne-design-system/lyne-components/compare/v5.2.38...v5.2.39) (2020-03-11)
 
 
