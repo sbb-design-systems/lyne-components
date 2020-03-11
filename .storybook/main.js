@@ -16,6 +16,7 @@ const PROJECT_NAME = 'lyne-components';
 // Solution: So removing the forst use-rule from the webpack-config seems to fix
 // the issue.
 const removeStyleLoaderFile = (rules) => {
+
   return rules.map((rule) => {
     if (rule.test.toString().indexOf('.css$') !== -1) {
       rule.use.splice(0, 1);
