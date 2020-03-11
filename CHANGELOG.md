@@ -1,3 +1,10 @@
+## [5.2.42](https://github.com/lyne-design-system/lyne-components/compare/v5.2.41...v5.2.42) (2020-03-11)
+
+
+### Bug Fixes
+
+* test gitGuardian ([a1d314c](https://github.com/lyne-design-system/lyne-components/commit/a1d314c532c43dd6df3534f45dbcb405840c53ec))
+
 ## [5.2.41](https://github.com/lyne-design-system/lyne-components/compare/v5.2.40...v5.2.41) (2020-03-11)
 
 
