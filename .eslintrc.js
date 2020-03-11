@@ -271,7 +271,17 @@ module.exports = {
     'no-unneeded-ternary': 'error',
     'no-whitespace-before-property': 'error',
     'nonblock-statement-body-position': ['error', 'beside'],
-    'object-curly-newline': ['error', { 'multiline': true }],
+    'object-curly-newline': ['error', {
+      //'multiline': true,
+      'ObjectExpression': 'always',
+      'ObjectPattern': 'always',
+      'ImportDeclaration': {
+        'minProperties': 2
+      },
+      'ExportDeclaration': {
+        'minProperties': 2
+      }
+    }],
     'object-curly-spacing': ['error', 'always'],
     'object-property-newline': 'error',
     'one-var': 'off',
