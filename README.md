@@ -22,7 +22,6 @@
   - Before production: regenerate all keys
 - for DEPLOYMENTS.md: in which timezone should we format the date?
 - DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
-- build_release_urls.js -> check if there is a limit in the deployments request. Do we get the latest 50? 100? Do we get all? Probably, we need to limit it so  the response does not take too long
 - in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
 - decide if we should fix dependencies/devDependencies in package json. If so, which ones? Why? Probably fix to minor version? Or Major?
 - Add yml linter (for .travis.yml)
