@@ -1,3 +1,5 @@
 *.spec.ts
 *.e2e.ts
 /src/components.d.ts
+dist
+storybook-static
