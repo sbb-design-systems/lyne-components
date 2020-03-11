@@ -43,6 +43,9 @@ jobs:
         # run tests
         - npm run test
 
+        # upload coverage report
+        - bash <(curl -s https://codecov.io/bash)
+
       after_success:
 
         # run semantic release
