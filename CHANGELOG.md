@@ -1,3 +1,10 @@
+## [5.2.41](https://github.com/lyne-design-system/lyne-components/compare/v5.2.40...v5.2.41) (2020-03-11)
+
+
+### Bug Fixes
+
+* add jest config ([3d707da](https://github.com/lyne-design-system/lyne-components/commit/3d707daff1eee5d68a05767d799b5d5f472c4f0a))
+
 ## [5.2.40](https://github.com/lyne-design-system/lyne-components/compare/v5.2.39...v5.2.40) (2020-03-11)
 
 
