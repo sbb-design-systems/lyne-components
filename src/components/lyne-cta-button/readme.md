@@ -7,16 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description                      | Type     | Default                 |
-| -------- | --------- | -------------------------------- | -------- | ----------------------- |
-| `label`  | `label`   | Label text to show on the button | `string` | `'Default button text'` |
-
-
-## Events
-
-| Event     | Description                               | Type               |
-| --------- | ----------------------------------------- | ------------------ |
-| `onClick` | Event is triggered when button is clicked | `CustomEvent<any>` |
+| Property  | Attribute  | Description                                 | Type     | Default                 |
+| --------- | ---------- | ------------------------------------------- | -------- | ----------------------- |
+| `eventId` | `event-id` | Id which is send in the click event payload | `string` | `undefined`             |
+| `label`   | `label`    | Label text to show on the button            | `string` | `'Default button text'` |
 
 
 ----------------------------------------------
