@@ -22,20 +22,20 @@ module.exports = {
       jsx: true
     }
   },
-  // globals: {
-  //   'CustomEvent': 'on',
-  //   'console': 'on',
-  //   'localStorage': 'on',
-  //   'requestAnimationFrame': 'on',
-  //   'fetch': 'on',
-  //   'Headers': 'on',
-  //   'WebSocket': 'on',
-  //   'process': 'on',
-  //   'getComputedStyle': 'on',
-  //   'clearTimeout': 'on',
-  //   'clearInterval': 'on',
-  //   'AbortController': 'on'
-  // },
+  globals: {
+    'CustomEvent': 'readonly',
+    // 'console': 'on',
+    // 'localStorage': 'on',
+    // 'requestAnimationFrame': 'on',
+    // 'fetch': 'on',
+    // 'Headers': 'on',
+    // 'WebSocket': 'on',
+    // 'process': 'on',
+    // 'getComputedStyle': 'on',
+    // 'clearTimeout': 'on',
+    // 'clearInterval': 'on',
+    // 'AbortController': 'on'
+  },
   rules: {
 
     // ####################################################
