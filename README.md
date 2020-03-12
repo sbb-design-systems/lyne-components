@@ -8,8 +8,12 @@
 > and are based on standard compliant [Web Components](https://www.webcomponents.org/specs)
 > compiled by StencilJS and browsable through Storybook
 
+<br>
+
 ## ⚠️ Notice
-**Lyne Components are 🧪 experimental at this moment, with enthusiasm!**
+**Lyne Components are 🧪 experimental at this moment — with enthusiasm.<br>Don't use the project until it left it's infancy.**
+
+<br>
 
 ## Storybook
 The Storybook component browser for Lyne Components is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
