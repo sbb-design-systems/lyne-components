@@ -15,6 +15,14 @@ Additional checks are done with https://www.deepcode.ai/. Login there to see the
 ## npm
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
 
+## Linting:
+
+Typescript-ESLint is configured in this project. Make sure your editor catches eslint errors. Linting will be run on CI before test and build. If linting fails, the build will fail. To run ESLint on the command line run
+
+```bash
+npm run lint
+```
+
 ## package.json
 
 ### npm scripts
