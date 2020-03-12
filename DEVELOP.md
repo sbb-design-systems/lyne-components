@@ -1,22 +1,12 @@
-## Git Guardian
-Git Guardian is activated for this repo: https://dashboard.gitguardian.com/
-
 ## Storybook
-The storybook is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
+The Storybook component browser for Lyne Components is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
 
-For a full list of deployments of all releases, please look here: https://github.com/lyne-design-system/lyne-components/blob/master/DEPLOYMENTS.md
-
-## Code Coverage
-Codecoverage is evalauted from Jest's --coverage output via https://codecov.io/
-
-## Additional Code Checks
-Additional checks are done with https://www.deepcode.ai/. Login there to see the reports.
+For a full list of deployments of all releases, please see [DEPLOYMENTS](/DEPLOYMENTS.md).
 
 ## npm
 The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
 
-## Linting:
-
+## Linting
 Typescript-ESLint is configured in this project. Make sure your editor catches eslint errors. Linting will be run on CI before test and build. If linting fails, the build will fail. To run ESLint on the command line run
 
 ```bash
@@ -108,3 +98,14 @@ npm run lint
 |./dist|main output target for stencil components|
 |./www|build target for stencil dev server|
 |./storybook-static|rendered static storybook site|
+
+## Checks & monitoring
+
+### Git Guardian
+Git Guardian is activated for this repo: https://dashboard.gitguardian.com/
+
+### Code Coverage
+Codecoverage is evalauted from Jest's --coverage output via https://codecov.io/
+
+### Additional Code Checks
+Additional checks are done with https://www.deepcode.ai/. Login there to see the reports.
