@@ -34,7 +34,6 @@
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
 - ESLint: an unused public property is not reported by eslint
-- Greenkeeper seems not to work properly: it creates a branch where it updates package-lock.json and after travis build, the branch is deleted...
 
 ## Verify
 - If a travis release job is running, semantic-release did not run yet, and a new change with a breaking change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with a new release containing both changes
