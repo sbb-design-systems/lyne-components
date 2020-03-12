@@ -1,7 +1,14 @@
 {
   "name": "lyne-test",
   "version": "5.2.43",
+  "license": "MIT",
   "description": "Lyne Design System",
+  "keywords": [
+    "design system",
+    "web components",
+    "stencil",
+    "storybook"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -27,6 +34,7 @@
     "test": "stencil test --spec --e2e --coverage",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/plugin-syntax-jsx": "^7.8.3",
@@ -64,10 +72,8 @@
     "write-file-webpack-plugin": "^4.5.1",
     "yargs": "^15.1.0"
   },
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/lyne-design-system/lyne-components.git"
-  },
-  "dependencies": {}
+  }
 }
