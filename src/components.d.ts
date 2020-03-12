@@ -12,6 +12,10 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface LyneCtaButton {
     /**
+    * Id which is send in the click event payload
+    */
+    'eventId'?: string;
+    /**
     * Label text to show on the button
     */
     'label': string;
@@ -34,13 +38,13 @@ declare global {
 declare namespace LocalJSX {
   interface LyneCtaButton {
     /**
+    * Id which is send in the click event payload
+    */
+    'eventId'?: string;
+    /**
     * Label text to show on the button
     */
     'label'?: string;
-    /**
-    * Event is triggered when button is clicked
-    */
-    'onOnClick'?: (event: CustomEvent<any>) => void;
   }
 
   interface IntrinsicElements {

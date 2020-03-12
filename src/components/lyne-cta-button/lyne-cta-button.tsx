@@ -1,10 +1,10 @@
 import {
   Component,
-  Event,
-  EventEmitter,
+  Element,
   h,
   Prop
 } from '@stencil/core';
+import events from './lyne-cta-button.events';
 
 @Component({
   shadow: true,
@@ -14,17 +14,32 @@ import {
 
 export class LyneCtaButton {
 
-  /** Event is triggered when button is clicked */
-  @Event() public onClick: EventEmitter;
-
   /** Label text to show on the button */
   @Prop() public label = 'Default button text';
 
-  private handleClick = (event: UIEvent): void => {
-    this.onClick.emit(event);
+  /** Id which is send in the click event payload */
+  @Prop() public eventId?: string;
+
+  @Element() private element: HTMLElement;
+
+  private buttonClick = (): void => {
+
+    let eventDetail;
+
+    if (this.eventId) {
+      eventDetail = this.eventId;
+    }
+
+    const event = new CustomEvent(events.click, {
+      bubbles: true,
+      composed: true,
+      detail: eventDetail
+    });
+
+    this.element.dispatchEvent(event);
   };
 
   public render(): JSX.Element {
-    return <button class='button' onClick={this.handleClick.bind(this)}>{this.label}</button>;
+    return <button class='button' onClick={this.buttonClick}>{this.label}</button>;
   }
 }
