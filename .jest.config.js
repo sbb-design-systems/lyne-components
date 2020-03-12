@@ -15,7 +15,8 @@ const jestConfig = {
   modulePaths: [
     'src',
     '/node_modules/'
-  ]
+  ],
+  testMatch: '**/?(*.)+(spec|e2e).ts?(x)'
 };
 
 module.exports = jestConfig;
