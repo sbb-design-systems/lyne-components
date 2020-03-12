@@ -1,3 +1,10 @@
+# [5.4.0](https://github.com/lyne-design-system/lyne-components/compare/v5.3.0...v5.4.0) (2020-03-12)
+
+
+### Features
+
+* add bugs ([402cb6e](https://github.com/lyne-design-system/lyne-components/commit/402cb6e2015ffed0915f85e6ef76e7c8a2f788b6))
+
 # [5.3.0](https://github.com/lyne-design-system/lyne-components/compare/v5.2.43...v5.3.0) (2020-03-12)
 
 
