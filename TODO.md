@@ -30,6 +30,7 @@
 - If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
 - Config codecoverage for Jest
 - Integrate  https://webhint.io/docs/user-guide/
+- Code Coverage Report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
