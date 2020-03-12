@@ -8,6 +8,9 @@
 > and are based on standard compliant [Web Components](https://www.webcomponents.org/specs)
 > compiled by StencilJS and browsable through Storybook
 
+## ⚠️ Notice
+**Lyne Components are 🧪 experimental at this moment, with enthusiasm!**
+
 ## 🙌 Contributing
 See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance! 👀
 
