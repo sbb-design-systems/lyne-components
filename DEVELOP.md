@@ -1,11 +1,3 @@
-## Storybook
-The Storybook component browser for Lyne Components is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
-
-For a full list of deployments of all releases, please see [DEPLOYMENTS](/DEPLOYMENTS.md).
-
-## npm
-The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
-
 ## Linting
 Typescript-ESLint is configured in this project. Make sure your editor catches eslint errors. Linting will be run on CI before test and build. If linting fails, the build will fail. To run ESLint on the command line run
 
