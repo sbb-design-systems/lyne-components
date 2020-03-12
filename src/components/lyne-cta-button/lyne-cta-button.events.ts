@@ -1,3 +1,3 @@
 export default {
-	click: 'lyne-cta-button_click'
+  click: 'lyne-cta-button_click'
 };
