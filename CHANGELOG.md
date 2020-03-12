@@ -1,3 +1,10 @@
+# [5.3.0](https://github.com/lyne-design-system/lyne-components/compare/v5.2.43...v5.3.0) (2020-03-12)
+
+
+### Features
+
+* add keywords to package.json, moved license upwards ([c3648d9](https://github.com/lyne-design-system/lyne-components/commit/c3648d946edacd8e1a04a9bebd59328f1f7bb7de))
+
 ## [5.2.43](https://github.com/lyne-design-system/lyne-components/compare/v5.2.42...v5.2.43) (2020-03-11)
 
 
