@@ -93,7 +93,6 @@ npm run lint
 |.releaserc|configuration for semantic-release|https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration|
 |.travis.yml|build configuration for travisCI|https://docs.travis-ci.com/user/customizing-the-build/|
 |commitlint.config.js|configuration for commitlint|https://github.com/conventional-changelog/commitlint|
-|greenkeeper.json|configuration for greenkeeper|https://greenkeeper.io/docs.html|
 |stencil.config.json|stencilJS configuration|https://stenciljs.com/docs/config|
 |tsconfig.json|configurations for typeScript|https://www.typescriptlang.org/docs/handbook/tsconfig-json.html|
 
