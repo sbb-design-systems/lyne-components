@@ -11,17 +11,21 @@
 <br>
 
 ## ⚠️ Notice
-**Lyne Components are 🧪 experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy.**
+**Lyne Components are 🧪 experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy. See [TODO's](./TODO.md) here**
 
 <br>
 
-## Storybook
-The Storybook component browser for Lyne Components is deployed on netlify an can be found here: https://lyne-components-storybook.netlify.com
+
+## ⛩️ Storybook
+The Storybook component browser for Lyne Components is deployed on netlify and can be found here: https://lyne-components-storybook.netlify.com
 
 For a full list of deployments of all releases, please see [DEPLOYMENTS](/DEPLOYMENTS.md).
 
-## npm
-The production build of the components can be found here on npm: https://www.npmjs.com/package/lyne-test
+## 🚀 npm
+The current experimental build of Lyne Components can be found on npm: https://www.npmjs.com/package/lyne-test
+
+## 📚 Documentation
+Will be continously developed and added in the `docs` folder.
 
 ## 🙌 Contributing
 See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance! 👀
