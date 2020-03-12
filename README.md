@@ -11,7 +11,7 @@
 <br>
 
 ## ⚠️ Notice
-**Lyne Components are 🧪 experimental at this moment — with enthusiasm.<br>Don't use the project until it left it's infancy.**
+**Lyne Components are 🧪 experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy.**
 
 <br>
 
