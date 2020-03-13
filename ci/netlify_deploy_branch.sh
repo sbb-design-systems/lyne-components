@@ -9,8 +9,6 @@
 # -e: make sure command returns non-zero exit code as soon as somehting fails
 set -e
 
-BRANCH_NAME="https://github.com/lyne-design-system/lyne-components/tree/$1"
-
 # make storybook build
 npm run build:storybook
 
@@ -19,4 +17,4 @@ npm run build:storybook
 npm install netlify-cli -g > "/dev/null" 2>&1
 
 # deploy on netlify
-netlify deploy --message "++$BRANCH_NAME++" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+netlify deploy --message "++$1++" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
