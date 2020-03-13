@@ -49,6 +49,7 @@ const branchCommit = `chore(deploypreview): update ${branchFileName}.md [skip ci
 const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
 const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
 const config = {
+  branchBaseUrl: 'https://github.com/lyne-design-system/lyne-components/tree/',
   branch: isProdDeploy ? 'master' : branchName,
   targetFileName: isProdDeploy ? 'DEPLOYMENT' : 'BRANCHES',
   tagSeparator: isProdDeploy ? '::' : '++',
@@ -131,7 +132,9 @@ const formatResults = ((data) => {
   let fileData = config.fileDescription;
 
   data.forEach((deployment) => {
-    fileData += `## ${deployment.deployTag}\n`;
+    const deployTagString = isProdDeploy ? deployment.deployTag : config.branchBaseUrl + config.branchName;
+
+    fileData += `## ${deployTagString}\n`;
     fileData += `${deployment.date}\n\n`;
     fileData += `[${deployment.url}](${deployment.url})\n\n`;
   });
