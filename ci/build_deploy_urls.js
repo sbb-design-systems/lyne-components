@@ -118,11 +118,22 @@ const processDeploys = ((data) => {
     const url = deploy.deploy_ssl_url;
     const date = formatDate(deploy.created_at);
 
-    results.push({
-      deployTag: deployTag,
-      url: url,
-      date: date
-    });
+    if (isProdDeploy) {
+      results.push({
+        deployTag: deployTag,
+        url: url,
+        date: date
+      });
+    } else {
+      const alreadyThere = findDeployment(deployTag, results);
+      if (!alreadyThere) {
+        results.push({
+          deployTag: deployTag,
+          url: url,
+          date: date
+        });
+      }
+    }
   });
 
   return results;
@@ -140,6 +151,20 @@ const formatResults = ((data) => {
   });
 
   return fileData;
+
+});
+
+const findDeployment = ((deployTag, deployments) => {
+  let resultFound = false;
+
+  deployments.forEach((deployment) => {
+    if (deployment.deployTag === deployTag) {
+      resultFound = true;
+      return;
+    }
+  });
+
+  return resultFound;
 });
 
 // ---------------------------------------------------------------------------
