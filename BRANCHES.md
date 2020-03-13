@@ -3,9 +3,9 @@
  THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY 
 
 ## branch: [test-branch](https://github.com/lyne-design-system/lyne-components/tree/test-branch)
-03/13/2020, 02:18 PM
+03/13/2020, 04:19 PM
 
-[https://5e6b9651a9ca6f1afcd50adb--lyne-components-storybook.netlify.com](https://5e6b9651a9ca6f1afcd50adb--lyne-components-storybook.netlify.com)
+[https://5e6bb2858b1ad7210267f151--lyne-components-storybook.netlify.com](https://5e6bb2858b1ad7210267f151--lyne-components-storybook.netlify.com)
 
 ## branch: [test-branch](https://github.com/lyne-design-system/lyne-components/tree/test-branch)
 03/13/2020, 10:15 AM
