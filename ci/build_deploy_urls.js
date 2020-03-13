@@ -143,7 +143,7 @@ const formatResults = ((data) => {
   let fileData = config.fileDescription;
 
   data.forEach((deployment) => {
-    const deployTagString = isProdDeploy ? deployment.deployTag : config.branchBaseUrl + config.branch;
+    const deployTagString = isProdDeploy ? deployment.deployTag : `branch: [${config.branch}](${config.branchBaseUrl + config.branch})`;
 
     fileData += `## ${deployTagString}\n`;
     fileData += `${deployment.date}\n\n`;
