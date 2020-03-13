@@ -92,7 +92,7 @@ const config = {
     // commit and push .md file to git repo
     await pushToGit();
 
-    console.log('-->> BUILD RELEASE URLS: successcully created DEPLOYMENTS.md and pushed to git repo');
+    console.log(`-->> BUILD RELEASE URLS: successcully created ${config.targetFileName}.md and pushed to git repo`);
     shell.exit(0);
 
   } catch (error) {
@@ -132,7 +132,7 @@ const formatResults = ((data) => {
   let fileData = config.fileDescription;
 
   data.forEach((deployment) => {
-    const deployTagString = isProdDeploy ? deployment.deployTag : config.branchBaseUrl + config.branchName;
+    const deployTagString = isProdDeploy ? deployment.deployTag : config.branchBaseUrl + config.branch;
 
     fileData += `## ${deployTagString}\n`;
     fileData += `${deployment.date}\n\n`;
