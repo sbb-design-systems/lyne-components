@@ -78,4 +78,4 @@ jobs:
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
 
         # add BRANCHES.md
-        - ./ci/build_branch_urls.sh
+        - ./ci/build_branch_urls.sh $TRAVIS_BRANCH
