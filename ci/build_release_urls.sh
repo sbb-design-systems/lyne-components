@@ -18,6 +18,8 @@ then
   # run build_release_urls.js with neccessary arguments
   node ./ci/build_deploy_urls.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --gitUser=lyne-design-system --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL
 
+  # make sure that branch urls are created as well
+
 else
   echo "-->> Skipping build_release_urls.js to create DEPLOYMENTS.md"
 fi
