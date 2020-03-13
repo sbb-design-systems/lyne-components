@@ -72,6 +72,8 @@ jobs:
 
       after_success:
 
+        - echo $TRAVIS_BRANCH
+
         # build storybook and run netlify deploy
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
 
