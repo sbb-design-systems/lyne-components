@@ -9,6 +9,8 @@
 # -e: make sure command returns non-zero exit code as soon as somehting fails
 set -e
 
+# make storybook build
+STORYBOOK_COMPONENTS_VERSION=$VERSION npm run build:storybook
 
 # install netlify-cli. We send stdout/stderr to /dev/null since we're not
 # interested in the output from netlify-cli
