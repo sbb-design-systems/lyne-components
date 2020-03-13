@@ -85,6 +85,9 @@ const config = {
     // prepare content for .md file
     const formatedResults = formatResults(results);
 
+    // prepare git
+    await prepareGit();
+
     // write .md file
     const writeFile = promisify(fs.writeFile);
     await writeFile(`./${config.targetFileName}.md`, formatedResults)
@@ -171,15 +174,18 @@ const findDeployment = ((deployTag, deployments) => {
 // PUSH TO GIT
 // ---------------------------------------------------------------------------
 const pushToGit = async () => {
+  await simpleGit.pull('origin', config.branch);
+  await simpleGit.add(`${config.targetFileName}.md`);
+  await simpleGit.commit(config.commit);
+  await simpleGit.push(['-u', 'origin', config.branch]);
+};
+
+const prepareGit = async () => {
   await simpleGit.removeRemote('origin');
   simpleGit.addConfig('user.email', gitMail);
   simpleGit.addConfig('user.name', gitUser);
   await simpleGit.addRemote('origin', gitUrl);
   await simpleGit.checkout(config.branch);
-  await simpleGit.pull('origin', config.branch);
-  await simpleGit.add(`${config.targetFileName}.md`);
-  await simpleGit.commit(config.commit);
-  await simpleGit.push(['-u', 'origin', config.branch]);
 };
 
 // ---------------------------------------------------------------------------
