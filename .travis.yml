@@ -69,3 +69,8 @@ jobs:
 
         # run tests
         - npm run test
+
+      after_success:
+
+        # build storybook and run netlify deploy
+        - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
