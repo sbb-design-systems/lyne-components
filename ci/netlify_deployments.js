@@ -85,6 +85,14 @@ const processDeploys = ((data) => {
 });
 
 const getDeployType = ((title) => {
+  if (!title) {
+    return false;
+  }
+
+  if (title.length < 1) {
+    return false;
+  }
+
   const prodSplit = title.split(config.netlifyTitleSeparatorProd);
 
   if (prodSplit.length === 3) {
