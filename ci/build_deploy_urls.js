@@ -108,20 +108,12 @@ const pushToGit = async () => {
   const commit = isProdDeploy ? prodCommit : branchCommit;
   const branch = isProdDeploy ? 'master' : branchName;
 
-  await fs.access(`${fileName}`, fs.F_OK, async (err) => {
-    if (!err) {
-      await simpleGit.add(`${fileName}`);
-      await simpleGit.commit(commit);
-    }
-  });
+  await simpleGit.add(`${fileName}`);
+  await simpleGit.commit(commit);
 
   // commit deployments.json
-  await fs.access(`${config.deploymentsJsonName}`, fs.F_OK, async (err) => {
-    if (!err) {
-      await simpleGit.add(`./ci/${config.deploymentsJsonName}`);
-      await simpleGit.commit(`chore: update ${config.deploymentsJsonName} [skip ci]`);
-    }
-  });
+  await simpleGit.add(`./ci/${config.deploymentsJsonName}`);
+  await simpleGit.commit(`chore: update ${config.deploymentsJsonName} [skip ci]`);
 
   // push
   await simpleGit.push(['-u', 'origin', branch]);
