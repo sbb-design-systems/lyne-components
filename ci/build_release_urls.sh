@@ -24,9 +24,9 @@ then
   # run build_release_urls.js with neccessary arguments
   node ./ci/build_deploy_urls.js --gitUser=lyne-design-system --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL --prod=true
 
-  # make sure that branch urls are created as well
+  # run build_release_urls.js with neccessary arguments
+  node ./ci/build_deploy_urls.js --gitUser=lyne-design-system --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL --prod=false
 
-  # todo: make sure that branch urls are created as well
 
 else
   echo "-->> Skipping build_release_urls.js to create DEPLOYMENTS.md"
