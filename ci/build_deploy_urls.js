@@ -38,8 +38,6 @@ const isProdDeploy = argv.prod === 'true';
 
 const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
 const fileName = isProdDeploy ? config.prodFileName : config.branchFileName;
-const branchFileName = 'BRANCHES';
-
 
 (async () => {
 
@@ -106,7 +104,11 @@ const pushToGit = async () => {
   const prodCommit = `chore(release): update ${fileName} [skip ci]`;
   const branchCommit = `chore(deploypreview): update ${fileName} [skip ci]`;
   const commit = isProdDeploy ? prodCommit : branchCommit;
-  const branch = isProdDeploy ? 'master' : branchName;
+  let branch = 'master';
+
+  if (!isProdDeploy && branchName) {
+    branch = branchName;
+  }
 
   await simpleGit.add(`${fileName}`);
   await simpleGit.commit(commit);
