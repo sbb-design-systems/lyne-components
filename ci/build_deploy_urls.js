@@ -1,28 +1,3 @@
-/**
- * The script is called in shell scripts via .travis.yml
- */
-
-/**
- * Purpose:
- *
- *
- * When deploying to netlify, the release number (if no --branch is specified) or the
- * branch-url (if --branch is defined) is sent as title along with the deployment.
- * a: For releases, we create DEPLOYMENTS.md with a list of releases and urls
- * to the deployments on netlify
- * b: For branch builds, we create BRANCHES.md with a list of branch-urls to
- * github along with links to deploy previews on netlify
- */
-
-/**
- * Process:
- * 1. script makes a call to the netlify api to get all deployments
- * 2. it iterates over all deployments and creates an object with all
- * releases/branch-url's and deploy-urls
- * 3. these contents are written to the corresponding .md file
- * 4. it pushes the .md file to our repo
- */
-
 const simpleGit = require('simple-git/promise')('./');
 const shell = require('shelljs');
 const fs = require('fs');
