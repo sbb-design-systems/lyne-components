@@ -40,6 +40,24 @@ const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyn
 const fileName = isProdDeploy ? config.prodFileName : config.branchFileName;
 const branchFileName = 'BRANCHES';
 
+const formatResults = ((data) => {
+  const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
+  const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
+  let fileData = isProdDeploy ? prodDescription : branchDescription;
+
+  data.forEach((deployment) => {
+    const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${config.deploymentsJsonKeyTag}](${config.gitBaseUrl + config.deploymentsJsonKeyTag})`;
+    const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
+
+    fileData += `## ${deployTagString}\n`;
+    fileData += `${date}\n\n`;
+    fileData += `[${deployment[config.deploymentsJsonKeyUrl]}](${deployment[config.deploymentsJsonKeyUrl]})\n\n`;
+  });
+
+  return fileData;
+
+});
+
 (async () => {
 
   console.log('-->> BUILD DEPLOY URLS: start');
@@ -77,24 +95,6 @@ const branchFileName = 'BRANCHES';
     shell.exit(0);
   }
 })();
-
-const formatResults = ((data) => {
-  const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-  const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-  let fileData = isProdDeploy ? prodDescription : branchDescription;
-
-  data.forEach((deployment) => {
-    const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${config.deploymentsJsonKeyTag}](${config.gitBaseUrl + config.deploymentsJsonKeyTag})`;
-    const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
-
-    fileData += `## ${deployTagString}\n`;
-    fileData += `${date}\n\n`;
-    fileData += `[${deployment[config.deploymentsJsonKeyUrl]}](${deployment[config.deploymentsJsonKeyUrl]})\n\n`;
-  });
-
-  return fileData;
-
-});
 
 // ---------------------------------------------------------------------------
 // PUSH TO GIT
