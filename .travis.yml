@@ -55,7 +55,6 @@ jobs:
         - ./ci/netlify_deploy.sh
 
         # add DEPLOYMENTS.md
-        - ./ci/prepare_git.sh
         - ./ci/build_release_urls.sh
 
     - stage: build, test and deploy storybook for branches other than master
@@ -79,5 +78,4 @@ jobs:
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
 
         # add BRANCHES.md
-        - ./ci/prepare_git.sh
         - ./ci/build_branch_urls.sh $TRAVIS_BRANCH
