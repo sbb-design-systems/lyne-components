@@ -20,6 +20,8 @@ then
 
   # make sure that branch urls are created as well
 
+  # todo: make sure that branch urls are created as well
+
 else
   echo "-->> Skipping build_release_urls.js to create DEPLOYMENTS.md"
 fi
