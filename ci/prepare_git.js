@@ -35,28 +35,28 @@ const branch = isProdDeploy ? 'master' : branchName;
     await simpleGit.checkout(branch);
 
     // remove BRANCHES.md
-    fs.access(`./${config.branchFileName}.md`, fs.F_OK, async (err) => {
+    fs.access(`./${config.branchFileName}`, fs.F_OK, async (err) => {
       if (!err) {
-        await simpleGit.rm([`${config.branchFileName}.md`]);
-        await simpleGit.commit(`chore: remove ${config.branchFileName}.md [skip ci]`);
+        await simpleGit.rm([`${config.branchFileName}`]);
+        await simpleGit.commit(`chore: remove ${config.branchFileName} [skip ci]`);
       }
     });
 
     // remove DEPLOYMENTS.md
     if (isProdDeploy) {
-      fs.access(`./${config.prodFileName}.md`, fs.F_OK, async (err) => {
+      fs.access(`./${config.prodFileName}`, fs.F_OK, async (err) => {
         if (!err) {
-          await simpleGit.rm([`${config.prodFileName}.md`]);
-          await simpleGit.commit(`chore: remove ${config.prodFileName}.md [skip ci]`);
+          await simpleGit.rm([`${config.prodFileName}`]);
+          await simpleGit.commit(`chore: remove ${config.prodFileName} [skip ci]`);
         }
       });
     }
 
     // remove deployments.json
-    fs.access(`./ci/${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
+    fs.access(`./ci/${config.deploymentsJsonName}`, fs.F_OK, async (err) => {
       if (!err) {
-        await simpleGit.rm([`${config.deploymentsJsonName}.json`]);
-        await simpleGit.commit(`chore: remove ${config.deploymentsJsonName}.json [skip ci]`);
+        await simpleGit.rm([`./ci/${config.deploymentsJsonName}`]);
+        await simpleGit.commit(`chore: remove ${config.deploymentsJsonName} [skip ci]`);
       }
     });
 

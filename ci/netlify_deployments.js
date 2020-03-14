@@ -41,9 +41,9 @@ json[config.deploymentsJsonKeyPreview] = [];
 
     // write .md file
     const writeFile = promisify(fs.writeFile);
-    await writeFile(`./ci/${config.deploymentsJsonName}.json`, JSON.stringify(json));
+    await writeFile(`./ci/${config.deploymentsJsonName}`, JSON.stringify(json));
 
-    console.log(`-->> NETLIFY DEPLOYMENTS: successcully created ${config.deploymentsJsonName}.json`);
+    console.log(`-->> NETLIFY DEPLOYMENTS: successcully created ${config.deploymentsJsonName}`);
     shell.exit(0);
 
   } catch (error) {

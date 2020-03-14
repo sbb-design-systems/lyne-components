@@ -48,7 +48,7 @@ const branchFileName = 'BRANCHES';
   try {
 
     // try to read deployments.json
-    await fs.access(`./ci/${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
+    await fs.access(`./ci/${config.deploymentsJsonName}`, fs.F_OK, async (err) => {
       if (err) {
         console.log(`-->> BUILD DEPLOY URLS: ${config.deploymentsJsonName} not found`);
         shell.exit(0);
@@ -56,7 +56,7 @@ const branchFileName = 'BRANCHES';
     });
 
     const type = isProdDeploy ? config.deploymentsJsonKeyProd : config.deploymentsJsonKeyPreview;
-    const rawFile = fs.readFileSync(`./ci/${config.deploymentsJsonName}.json`);
+    const rawFile = fs.readFileSync(`./ci/${config.deploymentsJsonName}`);
     const deployments = JSON.parse(rawFile)[type];
 
     // prepare content for .md file
@@ -64,12 +64,12 @@ const branchFileName = 'BRANCHES';
 
     // write .md file
     const writeFile = promisify(fs.writeFile);
-    await writeFile(`./${fileName}.md`, formatedResults);
+    await writeFile(`./${fileName}`, formatedResults);
 
     // commit and push .md file to git repo
     await pushToGit();
 
-    console.log(`-->> BUILD DEPLOY URLS: successcully created ${fileName}.md and pushed to git repo`);
+    console.log(`-->> BUILD DEPLOY URLS: successcully created ${fileName} and pushed to git repo`);
     shell.exit(0);
 
   } catch (error) {
@@ -103,23 +103,23 @@ const pushToGit = async () => {
   }
 
   // commit BRANCHES.md & DEPLOYMENTS.md
-  const prodCommit = `chore(release): update ${fileName}.md [skip ci]`;
-  const branchCommit = `chore(deploypreview): update ${fileName}.md [skip ci]`;
+  const prodCommit = `chore(release): update ${fileName} [skip ci]`;
+  const branchCommit = `chore(deploypreview): update ${fileName} [skip ci]`;
   const commit = isProdDeploy ? prodCommit : branchCommit;
   const branch = isProdDeploy ? 'master' : branchName;
 
-  await fs.access(`${fileName}.md`, fs.F_OK, async (err) => {
+  await fs.access(`${fileName}`, fs.F_OK, async (err) => {
     if (!err) {
-      await simpleGit.add(`${fileName}.md`);
+      await simpleGit.add(`${fileName}`);
       await simpleGit.commit(commit);
     }
   });
 
   // commit deployments.json
-  await fs.access(`${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
+  await fs.access(`${config.deploymentsJsonName}`, fs.F_OK, async (err) => {
     if (!err) {
-      await simpleGit.add(`${config.deploymentsJsonName}.json`);
-      await simpleGit.commit(`chore: update ${config.deploymentsJsonName}.json [skip ci]`);
+      await simpleGit.add(`./ci/${config.deploymentsJsonName}`);
+      await simpleGit.commit(`chore: update ${config.deploymentsJsonName} [skip ci]`);
     }
   });
 
