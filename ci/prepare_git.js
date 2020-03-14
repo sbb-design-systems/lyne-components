@@ -34,11 +34,11 @@ const branch = isProdDeploy ? 'master' : branchName;
     await simpleGit.addRemote('origin', gitUrl);
     await simpleGit.checkout(branch);
 
-    await simpleGit.pull();
-
     if (!isProdDeploy && branchName) {
       await simpleGit.branch({'--set-upstream-to': `origin/${branch} ${branch}`});
     }
+
+    await simpleGit.pull();
 
     // remove BRANCHES.md
     await fs.access(`./${config.branchFileName}`, fs.F_OK, async (err) => {
