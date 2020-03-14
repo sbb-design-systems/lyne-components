@@ -1,7 +1,7 @@
 const config = {
-  branchFileName: 'BRANCHES',
-  prodFileName: 'DEPLOYMENT',
-  deploymentsJsonName: 'deployments',
+  branchFileName: 'BRANCHES.md',
+  prodFileName: 'DEPLOYMENT.md',
+  deploymentsJsonName: 'deployments.json',
   deploymentsJsonKeyProd: 'production',
   deploymentsJsonKeyPreview: 'preview',
   deploymentsJsonKeyTag: 'tag',
