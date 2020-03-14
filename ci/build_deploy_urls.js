@@ -85,7 +85,7 @@ const formatResults = ((data) => {
   let fileData = isProdDeploy ? prodDescription : branchDescription;
 
   data.forEach((deployment) => {
-    const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${config.deploymentsJsonKeyTag}](${config.gitBaseUrl + config.deploymentsJsonKeyTag})`;
+    const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${deployment[config.deploymentsJsonKeyTag]}](${config.gitBaseUrl + deployment[config.deploymentsJsonKeyTag]})`;
     const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
 
     fileData += `## ${deployTagString}\n`;
@@ -102,6 +102,7 @@ const pushToGit = async () => {
     return;
   }
 
+  // commit BRANCHES.md & DEPLOYMENTS.md
   const prodCommit = `chore(release): update ${fileName}.md [skip ci]`;
   const branchCommit = `chore(deploypreview): update ${fileName}.md [skip ci]`;
   const commit = isProdDeploy ? prodCommit : branchCommit;
@@ -109,6 +110,12 @@ const pushToGit = async () => {
 
   await simpleGit.add(`${fileName}.md`);
   await simpleGit.commit(commit);
+
+  // commit deployments.json
+  await simpleGit.add(`${config.deploymentsJsonName}.md`);
+  await simpleGit.commit(`chore: update ${config.deploymentsJsonName}.json [skip ci]`);
+
+  // push
   await simpleGit.push(['-u', 'origin', branch]);
 };
 
