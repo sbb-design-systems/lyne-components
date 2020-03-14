@@ -1,3 +1,11 @@
+## [5.4.4](https://github.com/lyne-design-system/lyne-components/compare/v5.4.3...v5.4.4) (2020-03-14)
+
+
+### Bug Fixes
+
+* typo ([78f9f20](https://github.com/lyne-design-system/lyne-components/commit/78f9f203a28db6b3a881e21f8833674f4559adb6))
+* typo ([11673e3](https://github.com/lyne-design-system/lyne-components/commit/11673e36a15ec12bbbfe202a97d9d206a0c5cc03))
+
 ## [5.4.3](https://github.com/lyne-design-system/lyne-components/compare/v5.4.2...v5.4.3) (2020-03-14)
 
 
