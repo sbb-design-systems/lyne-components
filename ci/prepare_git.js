@@ -33,7 +33,7 @@ const branch = isProdDeploy ? 'master' : branchName;
     await simpleGit.checkout(branch);
 
     // remove the relevant files.
-    fs.access(`${config.branchFileName}.md`, fs.F_OK, async (err) => {
+    fs.access(`./${config.branchFileName}.md`, fs.F_OK, async (err) => {
       if (!err) {
         await simpleGit.rm([`${config.branchFileName}.md`]);
         await simpleGit.commit(`chore: remove ${config.branchFileName}.md [skip-ci]`);
@@ -41,7 +41,7 @@ const branch = isProdDeploy ? 'master' : branchName;
     });
 
     if (isProdDeploy) {
-      fs.access(`${config.prodFileName}.md`, fs.F_OK, async (err) => {
+      fs.access(`./${config.prodFileName}.md`, fs.F_OK, async (err) => {
         if (!err) {
           await simpleGit.rm([`${config.prodFileName}.md`]);
           await simpleGit.commit(`chore: remove ${config.prodFileName}.md [skip-ci]`);
