@@ -3,7 +3,7 @@
 # this script is used in .travis.yml
 
 # this script is being made executable with
-# chmod ugo+x build_release_urls.sh
+# chmod ugo+x build_preview_urls.sh
 
 # set flags for execution of this file:
 # -e: make sure command returns non-zero exit code as soon as somehting fails
