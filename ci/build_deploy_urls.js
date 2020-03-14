@@ -47,26 +47,8 @@ const branchFileName = 'BRANCHES';
 
   try {
 
-    const formatResults = ((data) => {
-      const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-      const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-      let fileData = isProdDeploy ? prodDescription : branchDescription;
-
-      data.forEach((deployment) => {
-        const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${config.deploymentsJsonKeyTag}](${config.gitBaseUrl + config.deploymentsJsonKeyTag})`;
-        const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
-
-        fileData += `## ${deployTagString}\n`;
-        fileData += `${date}\n\n`;
-        fileData += `[${deployment[config.deploymentsJsonKeyUrl]}](${deployment[config.deploymentsJsonKeyUrl]})\n\n`;
-      });
-
-      return fileData;
-
-    });
-
     // try to read deployments.json
-    fs.access(`./ci/${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
+    await fs.access(`./ci/${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
       if (err) {
         console.log(`-->> BUILD DEPLOY URLS: ${config.deploymentsJsonName} not found`);
         shell.exit(0);
@@ -96,6 +78,24 @@ const branchFileName = 'BRANCHES';
     shell.exit(0);
   }
 })();
+
+const formatResults = ((data) => {
+  const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
+  const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
+  let fileData = isProdDeploy ? prodDescription : branchDescription;
+
+  data.forEach((deployment) => {
+    const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${config.deploymentsJsonKeyTag}](${config.gitBaseUrl + config.deploymentsJsonKeyTag})`;
+    const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
+
+    fileData += `## ${deployTagString}\n`;
+    fileData += `${date}\n\n`;
+    fileData += `[${deployment[config.deploymentsJsonKeyUrl]}](${deployment[config.deploymentsJsonKeyUrl]})\n\n`;
+  });
+
+  return fileData;
+
+});
 
 const pushToGit = async () => {
   if (!isProdDeploy && !branchName) {
