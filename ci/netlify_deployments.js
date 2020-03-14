@@ -103,7 +103,7 @@ const getDeployType = ((title) => {
 const findDeployment = ((deployTag, deployType) => {
   let resultFound = false;
 
-  json[deployTag].forEach((deployment) => {
+  json[deployType].forEach((deployment) => {
     if (deployment.deployTag === deployTag) {
       resultFound = true;
       return;
