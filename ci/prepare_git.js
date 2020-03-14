@@ -35,7 +35,7 @@ const branch = isProdDeploy ? 'master' : branchName;
     await simpleGit.checkout(branch);
 
     // remove BRANCHES.md
-    fs.access(`./${config.branchFileName}`, fs.F_OK, async (err) => {
+    await fs.access(`./${config.branchFileName}`, fs.F_OK, async (err) => {
       if (!err) {
         await simpleGit.rm([`${config.branchFileName}`]);
         await simpleGit.commit(`chore: remove ${config.branchFileName} [skip ci]`);
@@ -44,7 +44,7 @@ const branch = isProdDeploy ? 'master' : branchName;
 
     // remove DEPLOYMENTS.md
     if (isProdDeploy) {
-      fs.access(`./${config.prodFileName}`, fs.F_OK, async (err) => {
+      await fs.access(`./${config.prodFileName}`, fs.F_OK, async (err) => {
         if (!err) {
           await simpleGit.rm([`${config.prodFileName}`]);
           await simpleGit.commit(`chore: remove ${config.prodFileName} [skip ci]`);
@@ -53,14 +53,14 @@ const branch = isProdDeploy ? 'master' : branchName;
     }
 
     // remove deployments.json
-    fs.access(`./ci/${config.deploymentsJsonName}`, fs.F_OK, async (err) => {
+    await fs.access(`./ci/${config.deploymentsJsonName}`, fs.F_OK, async (err) => {
       if (!err) {
         await simpleGit.rm([`./ci/${config.deploymentsJsonName}`]);
         await simpleGit.commit(`chore: remove ${config.deploymentsJsonName} [skip ci]`);
       }
     });
 
-    await simpleGit.push('origin', branch);
+    await simpleGit.push(['-u', 'origin', branch]);
 
     console.log('-->> PREPARE GIT: successcull');
     shell.exit(0);
