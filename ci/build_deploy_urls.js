@@ -30,10 +30,6 @@ const fs = require('fs');
 const argv = require('yargs').argv;
 const { promisify } = require("util");
 
-// If undefined, a prod deployment will be made
-const branchName = argv.branch;
-const isProdDeploy = branchName === undefined;
-
 const netlifyToken = argv.netlifyToken;
 const netlifySiteId = argv.netlifySiteId;
 const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
@@ -41,6 +37,9 @@ const gitUser = argv.gitUser;
 const gitToken = argv.gitToken;
 const gitMail = argv.gitMail;
 const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
+
+const branchName = argv.branch;
+const isProdDeploy = argv.prod;
 
 const prodFileName = 'DEPLOYMENT';
 const branchFileName = 'BRANCHES';
@@ -59,6 +58,8 @@ const config = {
 
 (async () => {
 
+  console.log('-->> BUILD RELEASE URLS: start');
+
   try {
 
     // get results
@@ -68,22 +69,28 @@ const config = {
     });
 
     if (!deployments.data) {
-      throw new Error('-->> BUILD RELEASE URLS: no deployments received.');
+      console.log('-->> BUILD RELEASE URLS: no deployments received.');
+      shell.exit(0);
     }
 
     if (deployments.data.length < 1) {
-      throw new Error('-->> BUILD RELEASE URLS: no deployments received.');
+      console.log('-->> BUILD RELEASE URLS: no deployments received.');
+      shell.exit(0);
     }
 
     // create an array of deployments with all needed data
     const results = processDeploys(deployments.data);
 
     if (results.length < 1) {
-      throw new Error('-->> BUILD RELEASE URLS: no deployments with valid version number received.');
+      console.log('-->> BUILD RELEASE URLS: no deployments with valid version number received.');
+      shell.exit(0);
     }
 
     // prepare content for .md file
     const formatedResults = formatResults(results);
+
+    // prepare git
+    await prepareGit();
 
     // write .md file
     const writeFile = promisify(fs.writeFile);
@@ -92,7 +99,7 @@ const config = {
     // commit and push .md file to git repo
     await pushToGit();
 
-    console.log('-->> BUILD RELEASE URLS: successcully created DEPLOYMENTS.md and pushed to git repo');
+    console.log(`-->> BUILD RELEASE URLS: successcully created ${config.targetFileName}.md and pushed to git repo`);
     shell.exit(0);
 
   } catch (error) {
@@ -118,11 +125,16 @@ const processDeploys = ((data) => {
     const url = deploy.deploy_ssl_url;
     const date = formatDate(deploy.created_at);
 
-    results.push({
-      deployTag: deployTag,
-      url: url,
-      date: date
-    });
+    // this is only relevant for branch deploys. but it does not hurt release
+    // deploys, since we should never have 2 deploys with the same title
+    const alreadyThere = findDeployment(deployTag, results);
+    if (!alreadyThere) {
+      results.push({
+        deployTag: deployTag,
+        url: url,
+        date: date
+      });
+    }
   });
 
   return results;
@@ -132,7 +144,7 @@ const formatResults = ((data) => {
   let fileData = config.fileDescription;
 
   data.forEach((deployment) => {
-    const deployTagString = isProdDeploy ? deployment.deployTag : config.branchBaseUrl + config.branchName;
+    const deployTagString = isProdDeploy ? deployment.deployTag : `branch: [${config.branch}](${config.branchBaseUrl + config.branch})`;
 
     fileData += `## ${deployTagString}\n`;
     fileData += `${deployment.date}\n\n`;
@@ -140,21 +152,41 @@ const formatResults = ((data) => {
   });
 
   return fileData;
+
+});
+
+const findDeployment = ((deployTag, deployments) => {
+  let resultFound = false;
+
+  deployments.forEach((deployment) => {
+    if (deployment.deployTag === deployTag) {
+      resultFound = true;
+      return;
+    }
+  });
+
+  return resultFound;
 });
 
 // ---------------------------------------------------------------------------
 // PUSH TO GIT
 // ---------------------------------------------------------------------------
 const pushToGit = async () => {
+  await simpleGit.pull('origin', config.branch);
+  await simpleGit.add(`${config.targetFileName}.md`);
+  await simpleGit.commit(config.commit);
+  await simpleGit.push(['-u', 'origin', config.branch]);
+};
+
+const prepareGit = async () => {
   await simpleGit.removeRemote('origin');
   simpleGit.addConfig('user.email', gitMail);
   simpleGit.addConfig('user.name', gitUser);
   await simpleGit.addRemote('origin', gitUrl);
   await simpleGit.checkout(config.branch);
-  await simpleGit.pull('origin', config.branch);
-  await simpleGit.add(`${config.targetFileName}.md`);
-  await simpleGit.commit(config.commit);
-  await simpleGit.push(['-u', 'origin', config.branch]);
+
+  // we first remove the file first so that we don't run in the merge-conflicts
+  await simpleGit.rm([`${config.targetFileName}.md`]);
 };
 
 // ---------------------------------------------------------------------------
