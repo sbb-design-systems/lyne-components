@@ -2,7 +2,6 @@
 - in travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 - Rename package name to "lyne-components"
 - Decide for Branching-Model
-- Add Merge Checks
 - Repo -> Insights -> Community -> Fullfill checklist
 - Prevent push to master
 - npm script ```start``` runs stencil and storybook in parallel. We need sequential. Problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel.
@@ -12,7 +11,6 @@
   - Before production: regenerate all keys
 - for DEPLOYMENTS.md: in which timezone should we format the date?
 - DEPLOYMENTS.md might get large over time. Should we limit it to x releases?
-- in Deployments.md: if a dev is changing the content and pushing to the repo, might we run into merge-conflicts? if yes, how could build_release_urls.js handle these?
 - decide if we should fix dependencies/devDependencies in package json. If so, which ones? Why? Probably fix to minor version? Or Major?
 - Add yml linter (for .travis.yml)
 - Modify content of sustainability-policy file to match our own vision and policies.
@@ -31,6 +29,7 @@
 - Config codecoverage for Jest
 - Integrate  https://webhint.io/docs/user-guide/
 - Code Coverage Report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
+- npm package size is huge!
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240

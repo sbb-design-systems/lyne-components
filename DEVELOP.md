@@ -5,6 +5,10 @@ Typescript-ESLint is configured in this project. Make sure your editor catches e
 npm run lint
 ```
 
+## Branch Deployments
+
+If you commit and push your changes on a branch, a deploy preview is created on netlify. You find a list of all branches along with their netlify deploy url in the file BRANCHES.md
+
 ## package.json
 
 ### npm scripts
