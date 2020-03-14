@@ -44,6 +44,7 @@ const branch = isProdDeploy ? 'master' : branchName;
       }
     });
 
+
     // remove DEPLOYMENTS.md
     if (isProdDeploy) {
       await fs.access(`./${config.prodFileName}`, fs.F_OK, async (err) => {
