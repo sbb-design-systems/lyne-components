@@ -1,6 +1,6 @@
 const config = {
   branchFileName: 'BRANCHES.md',
-  prodFileName: 'DEPLOYMENT.md',
+  prodFileName: 'DEPLOYMENTS.md',
   deploymentsJsonName: 'deployments.json',
   deploymentsJsonKeyProd: 'production',
   deploymentsJsonKeyPreview: 'preview',
