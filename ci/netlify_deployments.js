@@ -7,6 +7,7 @@ const config = require('./config');
 
 const netlifyToken = argv.netlifyToken;
 const netlifySiteId = argv.netlifySiteId;
+const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
 
 // prepare final JSON
 const json = {};
