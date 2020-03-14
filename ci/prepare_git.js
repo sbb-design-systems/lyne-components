@@ -38,7 +38,7 @@ const branch = isProdDeploy ? 'master' : branchName;
     fs.access(`./${config.branchFileName}.md`, fs.F_OK, async (err) => {
       if (!err) {
         await simpleGit.rm([`${config.branchFileName}.md`]);
-        await simpleGit.commit(`chore: remove ${config.branchFileName}.md [skip-ci]`);
+        await simpleGit.commit(`chore: remove ${config.branchFileName}.md [skip ci]`);
       }
     });
 
@@ -47,7 +47,7 @@ const branch = isProdDeploy ? 'master' : branchName;
       fs.access(`./${config.prodFileName}.md`, fs.F_OK, async (err) => {
         if (!err) {
           await simpleGit.rm([`${config.prodFileName}.md`]);
-          await simpleGit.commit(`chore: remove ${config.prodFileName}.md [skip-ci]`);
+          await simpleGit.commit(`chore: remove ${config.prodFileName}.md [skip ci]`);
         }
       });
     }
@@ -56,7 +56,7 @@ const branch = isProdDeploy ? 'master' : branchName;
     fs.access(`./ci/${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
       if (!err) {
         await simpleGit.rm([`${config.deploymentsJsonName}.json`]);
-        await simpleGit.commit(`chore: remove ${config.deploymentsJsonName}.json [skip-ci]`);
+        await simpleGit.commit(`chore: remove ${config.deploymentsJsonName}.json [skip ci]`);
       }
     });
 
