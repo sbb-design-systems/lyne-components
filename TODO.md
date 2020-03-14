@@ -41,3 +41,4 @@
 - If a travis release job is running, semantic-release did not run yet, and a new change with a breaking change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with a new release containing both changes
 - For how long are deployments saved on netlify? Forever? 30 days? 1 year?
 - For merge checks on travis: make sure semantic-release and deploy does not run
+- After merging a PR, the script to generate the release urls might file. Check to make sure it does not run into merge-conflicts or similar
