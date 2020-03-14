@@ -1,3 +1,10 @@
+## [5.4.2](https://github.com/lyne-design-system/lyne-components/compare/v5.4.1...v5.4.2) (2020-03-14)
+
+
+### Bug Fixes
+
+* fake commit to trigger build ([4bf55b3](https://github.com/lyne-design-system/lyne-components/commit/4bf55b3d2561c92feacc299de5e383d15784ab6b))
+
 ## [5.4.1](https://github.com/lyne-design-system/lyne-components/compare/v5.4.0...v5.4.1) (2020-03-14)
 
 
