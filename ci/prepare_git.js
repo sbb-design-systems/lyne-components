@@ -35,8 +35,11 @@ const branch = isProdDeploy ? 'master' : branchName;
     // remove the relevant files.
     fs.access(`./${config.branchFileName}.md`, fs.F_OK, async (err) => {
       if (!err) {
+        console.log('found file');
         await simpleGit.rm([`${config.branchFileName}.md`]);
         await simpleGit.commit(`chore: remove ${config.branchFileName}.md [skip-ci]`);
+      } else {
+        console.log('not ound file');
       }
     });
 
