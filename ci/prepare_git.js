@@ -17,7 +17,7 @@ const gitUser = argv.gitUser;
 const gitToken = argv.gitToken;
 const gitMail = argv.gitMail;
 const branchName = argv.branch;
-const isProdDeploy = argv.prod;
+const isProdDeploy = argv.prod === 'true';
 
 const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
 const branch = isProdDeploy ? 'master' : branchName;
