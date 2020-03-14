@@ -1,12 +1,3 @@
-/**
- * This script is used by build_branch_urls.sh and build_release_urls.sh
- *
- * Purpose:
- * - make sure we are properly authenticated at git
- * - remove BRANCHES.md, DEPLOYMENTS.md and deployments.json files from git
- * to prevent potential merge conflicts.
- */
-
 const simpleGit = require('simple-git/promise')('./');
 const shell = require('shelljs');
 const argv = require('yargs').argv;
@@ -36,7 +27,7 @@ const branch = isProdDeploy ? 'master' : branchName;
 
     await simpleGit.pull('origin', branch);
 
-    // remove BRANCHES.md
+    // remove PREVIEWS.md
     await fs.access(`./${config.branchFileName}`, fs.F_OK, async (err) => {
       if (!err) {
         await simpleGit.rm([`${config.branchFileName}`]);
@@ -45,7 +36,7 @@ const branch = isProdDeploy ? 'master' : branchName;
     });
 
 
-    // remove DEPLOYMENTS.md
+    // remove RELEASES.md
     if (isProdDeploy) {
       await fs.access(`./${config.prodFileName}`, fs.F_OK, async (err) => {
         if (!err) {
@@ -55,7 +46,7 @@ const branch = isProdDeploy ? 'master' : branchName;
       });
     }
 
-    // remove deployments.json
+    // remove releases.json
     await fs.access(`./ci/${config.deploymentsJsonName}`, fs.F_OK, async (err) => {
       if (!err) {
         await simpleGit.rm([`./ci/${config.deploymentsJsonName}`]);
