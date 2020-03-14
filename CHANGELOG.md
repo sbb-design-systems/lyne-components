@@ -1,3 +1,11 @@
+## [5.4.6](https://github.com/lyne-design-system/lyne-components/compare/v5.4.5...v5.4.6) (2020-03-14)
+
+
+### Bug Fixes
+
+* change filenames ([5884fed](https://github.com/lyne-design-system/lyne-components/commit/5884fed998b9a4d2dbd7258940242fbe4b9bd9f8))
+* remove old files ([e377891](https://github.com/lyne-design-system/lyne-components/commit/e37789168d9f3c5a4a6d8d3fe866347a36b6a892))
+
 ## [5.4.5](https://github.com/lyne-design-system/lyne-components/compare/v5.4.4...v5.4.5) (2020-03-14)
 
 
