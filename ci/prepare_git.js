@@ -10,6 +10,7 @@
 const simpleGit = require('simple-git/promise')('./');
 const shell = require('shelljs');
 const argv = require('yargs').argv;
+const fs = require('fs');
 const config = require('./config');
 
 const gitUser = argv.gitUser;
@@ -32,12 +33,20 @@ const branch = isProdDeploy ? 'master' : branchName;
     await simpleGit.checkout(branch);
 
     // remove the relevant files.
-    await simpleGit.rm([`${config.branchFileName}.md`]);
-    await simpleGit.commit(`chore: remove ${config.branchFileName}.md [skip-ci]`);
+    fs.access(`${config.branchFileName}.md`, fs.F_OK, async (err) => {
+      if (!err) {
+        await simpleGit.rm([`${config.branchFileName}.md`]);
+        await simpleGit.commit(`chore: remove ${config.branchFileName}.md [skip-ci]`);
+      }
+    });
 
     if (isProdDeploy) {
-      await simpleGit.rm([`${config.prodFileName}.md`]);
-      await simpleGit.commit(`chore: remove ${config.prodFileName}.md [skip-ci]`);
+      fs.access(`${config.prodFileName}.md`, fs.F_OK, async (err) => {
+        if (!err) {
+          await simpleGit.rm([`${config.prodFileName}.md`]);
+          await simpleGit.commit(`chore: remove ${config.prodFileName}.md [skip-ci]`);
+        }
+      });
     }
 
     await simpleGit.push('origin', branch);
