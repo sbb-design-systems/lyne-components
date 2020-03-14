@@ -40,29 +40,30 @@ const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyn
 const fileName = isProdDeploy ? config.prodFileName : config.branchFileName;
 const branchFileName = 'BRANCHES';
 
-const formatResults = ((data) => {
-  const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-  const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-  let fileData = isProdDeploy ? prodDescription : branchDescription;
-
-  data.forEach((deployment) => {
-    const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${config.deploymentsJsonKeyTag}](${config.gitBaseUrl + config.deploymentsJsonKeyTag})`;
-    const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
-
-    fileData += `## ${deployTagString}\n`;
-    fileData += `${date}\n\n`;
-    fileData += `[${deployment[config.deploymentsJsonKeyUrl]}](${deployment[config.deploymentsJsonKeyUrl]})\n\n`;
-  });
-
-  return fileData;
-
-});
 
 (async () => {
 
   console.log('-->> BUILD DEPLOY URLS: start');
 
   try {
+
+    const formatResults = ((data) => {
+      const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
+      const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
+      let fileData = isProdDeploy ? prodDescription : branchDescription;
+
+      data.forEach((deployment) => {
+        const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${config.deploymentsJsonKeyTag}](${config.gitBaseUrl + config.deploymentsJsonKeyTag})`;
+        const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
+
+        fileData += `## ${deployTagString}\n`;
+        fileData += `${date}\n\n`;
+        fileData += `[${deployment[config.deploymentsJsonKeyUrl]}](${deployment[config.deploymentsJsonKeyUrl]})\n\n`;
+      });
+
+      return fileData;
+
+    });
 
     // try to read deployments.json
     fs.access(`./ci/${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
@@ -96,10 +97,11 @@ const formatResults = ((data) => {
   }
 })();
 
-// ---------------------------------------------------------------------------
-// PUSH TO GIT
-// ---------------------------------------------------------------------------
 const pushToGit = async () => {
+  if (!isProdDeploy && !branchName) {
+    return;
+  }
+
   const prodCommit = `chore(release): update ${fileName}.md [skip ci]`;
   const branchCommit = `chore(deploypreview): update ${fileName}.md [skip ci]`;
   const commit = isProdDeploy ? prodCommit : branchCommit;
@@ -110,9 +112,6 @@ const pushToGit = async () => {
   await simpleGit.push(['-u', 'origin', branch]);
 };
 
-// ---------------------------------------------------------------------------
-// HELPER METHODS
-// ---------------------------------------------------------------------------
 const formatDate = ((dateString) => {
   const dateObject = new Date(dateString);
   const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
