@@ -110,6 +110,8 @@ const pushToGit = async () => {
     branch = branchName;
   }
 
+  simpleGit().pull('origin', branch);
+
   await simpleGit.add(`${fileName}`);
   await simpleGit.commit(commit);
 
