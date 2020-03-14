@@ -1,3 +1,16 @@
+## [5.4.1](https://github.com/lyne-design-system/lyne-components/compare/v5.4.0...v5.4.1) (2020-03-14)
+
+
+### Bug Fixes
+
+* add full branch url to netlify deploy title ([5ab2d5f](https://github.com/lyne-design-system/lyne-components/commit/5ab2d5f903990b422a4018fec62bc4f149f857ab))
+* fix mismatch between branch name and branch url ([2222af1](https://github.com/lyne-design-system/lyne-components/commit/2222af10016839ae64b39398804127f0657cd613))
+* make sure only latest deployment is listed ([59f9513](https://github.com/lyne-design-system/lyne-components/commit/59f95130725981bdbab5fc9450db99a9356446bb))
+* make sure to build storybook before deploy ([438882c](https://github.com/lyne-design-system/lyne-components/commit/438882cf554a666d32fc873842996182c7e983b6))
+* pass branch name instead of branch url ([e6ab784](https://github.com/lyne-design-system/lyne-components/commit/e6ab78421064343c14e58d31eab58bce627843d4))
+* pass branch name instead of branch url ([a86e98a](https://github.com/lyne-design-system/lyne-components/commit/a86e98a2f0b801fa8676b27367565ee579f54bea))
+* pass branch parameter to build_branch_urls.sh ([1cbed83](https://github.com/lyne-design-system/lyne-components/commit/1cbed83101817ef3f8ea60838d02431588107be3))
+
 # [5.4.0](https://github.com/lyne-design-system/lyne-components/compare/v5.3.0...v5.4.0) (2020-03-12)
 
 
