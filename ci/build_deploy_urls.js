@@ -23,209 +23,96 @@
  * 4. it pushes the .md file to our repo
  */
 
-const axios = require('axios');
 const simpleGit = require('simple-git/promise')('./');
 const shell = require('shelljs');
 const fs = require('fs');
 const argv = require('yargs').argv;
 const { promisify } = require("util");
+const config = require('./config');
 
-const netlifyToken = argv.netlifyToken;
-const netlifySiteId = argv.netlifySiteId;
-const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
 const gitUser = argv.gitUser;
 const gitToken = argv.gitToken;
 const gitMail = argv.gitMail;
-const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
-
 const branchName = argv.branch;
 const isProdDeploy = argv.prod;
 
-const prodFileName = 'DEPLOYMENT';
+const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
+const fileName = isProdDeploy ? config.prodFileName : config.branchFileName;
 const branchFileName = 'BRANCHES';
-const prodCommit = `chore(release): update ${prodFileName}.md [skip ci]`;
-const branchCommit = `chore(deploypreview): update ${branchFileName}.md [skip ci]`;
-const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-const config = {
-  branchBaseUrl: 'https://github.com/lyne-design-system/lyne-components/tree/',
-  branch: isProdDeploy ? 'master' : branchName,
-  targetFileName: isProdDeploy ? 'DEPLOYMENT' : 'BRANCHES',
-  tagSeparator: isProdDeploy ? '::' : '++',
-  commit: isProdDeploy ? prodCommit : branchCommit,
-  fileDescription: isProdDeploy ? prodDescription : branchDescription
-};
 
 (async () => {
 
-  console.log('-->> BUILD RELEASE URLS: start');
+  console.log('-->> BUILD DEPLOY URLS: start');
 
   try {
 
-    // get results
-    const deployments = await axios.request({
-      method: "GET",
-      url: netlifyGetDeploysUrl
+    // try to read deployments.json
+    fs.access(`./ci/${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
+      if (err) {
+        console.log(`-->> BUILD DEPLOY URLS: ${config.deploymentsJsonName} not found`);
+        shell.exit(0);
+      }
     });
 
-    if (!deployments.data) {
-      console.log('-->> BUILD RELEASE URLS: no deployments received.');
-      shell.exit(0);
-    }
-
-    if (deployments.data.length < 1) {
-      console.log('-->> BUILD RELEASE URLS: no deployments received.');
-      shell.exit(0);
-    }
-
-    // create an array of deployments with all needed data
-    const results = processDeploys(deployments.data);
-
-    if (results.length < 1) {
-      console.log('-->> BUILD RELEASE URLS: no deployments with valid version number received.');
-      shell.exit(0);
-    }
+    const type = isProdDeploy ? config.deploymentsJsonKeyProd : config.deploymentsJsonKeyPreview;
+    const rawFile = fs.readFileSync(`./ci/${config.deploymentsJsonName}.json`);
+    const deployments = JSON.parse(rawFile)[type];
 
     // prepare content for .md file
-    const formatedResults = formatResults(results);
-
-    // prepare git
-    await prepareGit();
+    const formatedResults = formatResults(deployments);
 
     // write .md file
     const writeFile = promisify(fs.writeFile);
-    await writeFile(`./${config.targetFileName}.md`, formatedResults)
+    await writeFile(`./${fileName}.md`, formatedResults);
 
     // commit and push .md file to git repo
     await pushToGit();
 
-    console.log(`-->> BUILD RELEASE URLS: successcully created ${config.targetFileName}.md and pushed to git repo`);
+    console.log(`-->> BUILD DEPLOY URLS: successcully created ${fileName}.md and pushed to git repo`);
     shell.exit(0);
 
   } catch (error) {
-    console.log('-->> BUILD RELEASE URLS: error');
+    console.log('-->> BUILD DEPLOY URLS: error');
     console.log(error);
     shell.exit(0);
   }
 })();
 
-// ---------------------------------------------------------------------------
-// PROCESS DATA
-// ---------------------------------------------------------------------------
-const processDeploys = ((data) => {
-  const results = [];
-
-  data.forEach((deploy) => {
-    const deployTag = getDeployTag(deploy.title);
-
-    if (deployTag.length < 1) {
-      return;
-    }
-
-    const url = deploy.deploy_ssl_url;
-    const date = formatDate(deploy.created_at);
-
-    // this is only relevant for branch deploys. but it does not hurt release
-    // deploys, since we should never have 2 deploys with the same title
-    const alreadyThere = findDeployment(deployTag, results);
-    if (!alreadyThere) {
-      results.push({
-        deployTag: deployTag,
-        url: url,
-        date: date
-      });
-    }
-  });
-
-  return results;
-});
-
 const formatResults = ((data) => {
-  let fileData = config.fileDescription;
+  const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
+  const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
+  let fileData = isProdDeploy ? prodDescription : branchDescription;
 
   data.forEach((deployment) => {
-    const deployTagString = isProdDeploy ? deployment.deployTag : `branch: [${config.branch}](${config.branchBaseUrl + config.branch})`;
+    const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${config.deploymentsJsonKeyTag}](${config.gitBaseUrl + config.deploymentsJsonKeyTag})`;
+    const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
 
     fileData += `## ${deployTagString}\n`;
-    fileData += `${deployment.date}\n\n`;
-    fileData += `[${deployment.url}](${deployment.url})\n\n`;
+    fileData += `${date}\n\n`;
+    fileData += `[${deployment[config.deploymentsJsonKeyUrl]}](${deployment[config.deploymentsJsonKeyUrl]})\n\n`;
   });
 
   return fileData;
 
 });
 
-const findDeployment = ((deployTag, deployments) => {
-  let resultFound = false;
-
-  deployments.forEach((deployment) => {
-    if (deployment.deployTag === deployTag) {
-      resultFound = true;
-      return;
-    }
-  });
-
-  return resultFound;
-});
-
 // ---------------------------------------------------------------------------
 // PUSH TO GIT
 // ---------------------------------------------------------------------------
 const pushToGit = async () => {
-  await simpleGit.pull('origin', config.branch);
-  await simpleGit.add(`${config.targetFileName}.md`);
-  await simpleGit.commit(config.commit);
-  await simpleGit.push(['-u', 'origin', config.branch]);
-};
+  const prodCommit = `chore(release): update ${fileName}.md [skip ci]`;
+  const branchCommit = `chore(deploypreview): update ${fileName}.md [skip ci]`;
+  const commit = isProdDeploy ? prodCommit : branchCommit;
+  const branch = isProdDeploy ? 'master' : branchName;
 
-const prepareGit = async () => {
-  await simpleGit.removeRemote('origin');
-  simpleGit.addConfig('user.email', gitMail);
-  simpleGit.addConfig('user.name', gitUser);
-  await simpleGit.addRemote('origin', gitUrl);
-  await simpleGit.checkout(config.branch);
-
-  // we first remove the file first so that we don't run in the merge-conflicts
-  await simpleGit.rm([`${config.targetFileName}.md`]);
+  await simpleGit.add(`${fileName}.md`);
+  await simpleGit.commit(commit);
+  await simpleGit.push(['-u', 'origin', branch]);
 };
 
 // ---------------------------------------------------------------------------
 // HELPER METHODS
 // ---------------------------------------------------------------------------
-const getDeployTag = ((titleString) => {
-  const emptyTag = '';
-
-  if (!titleString) {
-    return emptyTag;
-  }
-
-  if (titleString.length < 1) {
-    return emptyTag;
-  }
-
-  const separatorSplits = titleString.split(config.tagSeparator);
-
-  if (separatorSplits.length !== 3) {
-    return emptyTag;
-  }
-
-  const tag = separatorSplits[1];
-
-  if (isProdDeploy) {
-    const splitByDots = tag.split('.');
-
-    if (splitByDots.length !== 3) {
-      return emptyTag;
-    }
-  } else {
-    if (tag.length < 1) {
-      return emptyTag;
-    }
-  }
-
-  return tag;
-});
-
 const formatDate = ((dateString) => {
   const dateObject = new Date(dateString);
   const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };

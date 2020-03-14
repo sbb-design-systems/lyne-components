@@ -15,8 +15,14 @@ VERSION_FILE=.version
 if [ -f "$VERSION_FILE" ];
 then
 
+  # prepare git
+  node ./ci/prepare_git.js --gitUser=lyne-design-system --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL --prod=true
+
+  # prcoess deployments and write to json file
+  node ./ci/netlify_deployments.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID
+
   # run build_release_urls.js with neccessary arguments
-  node ./ci/build_deploy_urls.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --gitUser=lyne-design-system --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL --prod=true
+  node ./ci/build_deploy_urls.js --gitUser=lyne-design-system --gitToken=$GH_PERSONAL_TOKEN --gitMail=$GH_MAIL --prod=true
 
   # make sure that branch urls are created as well
 

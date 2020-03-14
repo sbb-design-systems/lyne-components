@@ -1,10 +1,10 @@
 /**
- * This script is used by travis.yml
+ * This script is used by build_branch_urls.sh and build_release_urls.sh
  *
  * Purpose:
  * - make sure we are properly authenticated at git
- * - remove BRANCHES.md and DEPLOYMENTS.md files from git to prevent
- * potential merge conflicts.
+ * - remove BRANCHES.md, DEPLOYMENTS.md and deployments.json files from git
+ * to prevent potential merge conflicts.
  */
 
 const simpleGit = require('simple-git/promise')('./');
@@ -16,13 +16,15 @@ const config = require('./config');
 const gitUser = argv.gitUser;
 const gitToken = argv.gitToken;
 const gitMail = argv.gitMail;
-
-const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
 const branchName = argv.branch;
 const isProdDeploy = argv.prod;
+
+const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
 const branch = isProdDeploy ? 'master' : branchName;
 
 (async () => {
+
+  console.log('-->> PREPARE GIT: start');
 
   try {
     // make sure we are correctly authenticated at git.
@@ -32,17 +34,15 @@ const branch = isProdDeploy ? 'master' : branchName;
     await simpleGit.addRemote('origin', gitUrl);
     await simpleGit.checkout(branch);
 
-    // remove the relevant files.
+    // remove BRANCHES.md
     fs.access(`./${config.branchFileName}.md`, fs.F_OK, async (err) => {
       if (!err) {
-        console.log('found file');
         await simpleGit.rm([`${config.branchFileName}.md`]);
         await simpleGit.commit(`chore: remove ${config.branchFileName}.md [skip-ci]`);
-      } else {
-        console.log('not ound file');
       }
     });
 
+    // remove DEPLOYMENTS.md
     if (isProdDeploy) {
       fs.access(`./${config.prodFileName}.md`, fs.F_OK, async (err) => {
         if (!err) {
@@ -51,6 +51,14 @@ const branch = isProdDeploy ? 'master' : branchName;
         }
       });
     }
+
+    // remove deployments.json
+    fs.access(`./ci/${config.deploymentsJsonName}.json`, fs.F_OK, async (err) => {
+      if (!err) {
+        await simpleGit.rm([`${config.deploymentsJsonName}.json`]);
+        await simpleGit.commit(`chore: remove ${config.deploymentsJsonName}.json [skip-ci]`);
+      }
+    });
 
     await simpleGit.push('origin', branch);
 
