@@ -1,3 +1,10 @@
+## [5.4.5](https://github.com/lyne-design-system/lyne-components/compare/v5.4.4...v5.4.5) (2020-03-14)
+
+
+### Bug Fixes
+
+* correct DEPLOYMENTS file name ([e18d070](https://github.com/lyne-design-system/lyne-components/commit/e18d070b51473d1ff07616c2a66f0707b282fa19))
+
 ## [5.4.4](https://github.com/lyne-design-system/lyne-components/compare/v5.4.3...v5.4.4) (2020-03-14)
 
 
