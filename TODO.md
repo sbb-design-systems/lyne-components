@@ -31,6 +31,7 @@
 - Code Coverage Report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
 - npm package size is huge!
 - Add documentation for ci
+- Assumption: we delete branches after merging. In that case, we should just write branch-names in BRANCHES.md instead of links, since we're not sure how long those links will be valid.
 
 ## Issues
 - If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' -> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
