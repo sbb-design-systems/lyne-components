@@ -11,21 +11,20 @@
 <br>
 
 ## ⚠️ Notice
-**Lyne Components are 🧪 experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy. See [TODO's](./TODO.md) here**
+**Lyne Components are 🧪 experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy. See [TODOS](./TODOS.md) here**
 
 <br>
 
 
 ## ⛩️ Storybook
-The Storybook component browser for Lyne Components is deployed on netlify and can be found here: https://lyne-components-storybook.netlify.com
-
-For a full list of deployments of all releases, please see [DEPLOYMENTS](/DEPLOYMENTS.md).
+The Storybook component browser for Lyne Components is deployed on netlify and can be found [here](https://lyne-components-storybook.netlify.com).
+Please see here for a full list of all [DEPLOYMENTS](./DEPLOYMENTS.md) and / or [RELEASES](./RELEASES.md).
 
 ## 🚀 npm
-The current experimental build of Lyne Components can be found on npm: https://www.npmjs.com/package/lyne-test
+The current experimental build of Lyne Components can be found on [npm](https://www.npmjs.com/package/lyne-test).
 
 ## 📚 Documentation
-Will be continously developed and added in the `docs` folder.
+Will be continously developed and added to the [docs](docs/DOCS.md) folder.
 
 ## 🙌 Contributing
 See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance! 👀
@@ -34,12 +33,12 @@ See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance
 See [DEVELOP.md](./DEVELOP.md) for development docs.
 
 ## 🤖 Releasing
-You can find docs about our release process in [RELEASING.md](./RELEASING.md).
+You can find docs about our release process in [RELEASING.md](docs/RELEASING.md).
 
 ## 📝 License
 Licensed under the [MIT](/LICENSE).
 
-## Hall of Fame
-Build with https://sourcerer.io/
-
+## 🕶️ Hall of Fame
 [![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/0)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/0)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/1)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/1)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/2)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/2)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/3)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/3)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/4)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/4)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/5)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/5)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/6)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/6)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/7)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/7)
+
+Built with https://sourcerer.io/
