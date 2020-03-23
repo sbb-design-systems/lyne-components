@@ -27,7 +27,7 @@ The current experimental build of Lyne Components can be found on [npm](https://
 Will be continously developed and added to the [docs](docs/README.md) folder.
 
 ## 🙌 Contributing
-See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance! 👀
+See our [contributing guide](/.github/CONTRIBUTING.md) and check also our [code of conduct](./CODE_OF_CONDUCT.md) 👀.
 
 ## 👩🏾‍💻 Developing
 See [DEVELOP.md](./DEVELOP.md) for development docs.
