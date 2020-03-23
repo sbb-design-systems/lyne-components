@@ -3,7 +3,7 @@ const shell = require('shelljs');
 const fs = require('fs');
 const argv = require('yargs').argv;
 const { promisify } = require("util");
-const config = require('./config');
+const config = require('./deployments_config');
 
 const gitUser = argv.gitUser;
 const gitToken = argv.gitToken;

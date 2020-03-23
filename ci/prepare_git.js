@@ -2,7 +2,7 @@ const simpleGit = require('simple-git/promise')('./');
 const shell = require('shelljs');
 const argv = require('yargs').argv;
 const fs = require('fs');
-const config = require('./config');
+const config = require('./deployments_config');
 
 const gitUser = argv.gitUser;
 const gitToken = argv.gitToken;
