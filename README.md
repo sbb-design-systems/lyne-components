@@ -21,19 +21,13 @@ The Storybook component browser for Lyne Components is deployed on netlify and c
 Please see here for a full list of all [DEPLOYMENTS](./DEPLOYMENTS.md) and / or [RELEASES](./RELEASES.md).
 
 ## 🚀 npm
-The current experimental build of Lyne Components can be found on [npm](https://www.npmjs.com/package/lyne-test).
+The current **🧪 experimental** build of Lyne Components can be found on [npm](https://www.npmjs.com/package/lyne-test).
 
 ## 📚 Documentation
 Will be continously developed and added to the [docs](docs/README.md) folder.
 
 ## 🙌 Contributing
 See our [contributing guide](/.github/CONTRIBUTING.md) and check also our [code of conduct](./CODE_OF_CONDUCT.md) 👀.
-
-## 👩🏾‍💻 Developing
-See [DEVELOP.md](./DEVELOP.md) for development docs.
-
-## 🤖 Releasing
-You can find docs about our release process in [RELEASING.md](docs/RELEASING.md).
 
 ## 📝 License
 Licensed under the [MIT](/LICENSE).
