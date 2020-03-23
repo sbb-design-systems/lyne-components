@@ -3,9 +3,9 @@
  THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY 
 
 ## branch: [todo-branch](https://github.com/lyne-design-system/lyne-components/tree/todo-branch)
-03/20/2020, 09:06 PM
+03/23/2020, 09:30 AM
 
-[https://5e75303890508d628fa202b1--lyne-components-storybook.netlify.com](https://5e75303890508d628fa202b1--lyne-components-storybook.netlify.com)
+[https://5e78819d4fee5d535f561102--lyne-components-storybook.netlify.com](https://5e78819d4fee5d535f561102--lyne-components-storybook.netlify.com)
 
 ## branch: [docs-branch](https://github.com/lyne-design-system/lyne-components/tree/docs-branch)
 03/19/2020, 04:23 PM
