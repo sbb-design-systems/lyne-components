@@ -24,7 +24,7 @@ Please see here for a full list of all [DEPLOYMENTS](./DEPLOYMENTS.md) and / or 
 The current experimental build of Lyne Components can be found on [npm](https://www.npmjs.com/package/lyne-test).
 
 ## 📚 Documentation
-Will be continously developed and added to the [docs](docs/DOCS.md) folder.
+Will be continously developed and added to the [docs](docs/README.md) folder.
 
 ## 🙌 Contributing
 See [Contributing Guide](/.github/CONTRIBUTING.md) and thanks already in advance! 👀
