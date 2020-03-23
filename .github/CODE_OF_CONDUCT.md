@@ -1,5 +1,5 @@
 
-# Code of Conduct
+# Lyne Code of Conduct
 
 ## TL;DR
 
