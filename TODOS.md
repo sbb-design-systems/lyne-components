@@ -1,7 +1,8 @@
 # Todos
 
 ## git
-- [x] Prevent push to master
+- [ ] Prevent push to master
+  - [ ] Re-add `Require status checks to pass before merging` to [master](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to master
 - [ ] Decide for branching-model
 - [ ] Mono-repo vs. multi-repo
 
