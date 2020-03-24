@@ -1,3 +1,10 @@
+# [5.6.0](https://github.com/lyne-design-system/lyne-components/compare/v5.5.0...v5.6.0) (2020-03-24)
+
+
+### Features
+
+* fake commit to trigger deployment, change border color ([d538a9c](https://github.com/lyne-design-system/lyne-components/commit/d538a9c00a76ccac38e211317491937b6789e4cd))
+
 # [5.5.0](https://github.com/lyne-design-system/lyne-components/compare/v5.4.9...v5.5.0) (2020-03-24)
 
 
