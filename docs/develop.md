@@ -61,7 +61,6 @@ If you commit and push your changes on a branch, a deploy preview is created on 
 |semantic-release|Used to start semantic release|https://github.com/semantic-release/semantic-release|
 |semantic-release-slack-bot|Used to get slack notifications from semantic-release|https://github.com/juliuscc/semantic-release-slack-bot|
 |shelljs|used to support unix exit commands in node|https://www.npmjs.com/package/shelljs|
-|simple-git|A light weight interface for running git commands in any node.js application.|https://www.npmjs.com/package/simple-git|
 |write-file-webpack-plugin|write webpack dev server files to file system. Used for Storybook integration|https://github.com/gajus/write-file-webpack-plugin|
 |yargs|Easy parsing arguments from the command line|https://www.npmjs.com/package/yargs|
 

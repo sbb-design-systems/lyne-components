@@ -1,22 +1,15 @@
 const axios = require('axios');
-const shell = require('shelljs');
 const fs = require('fs');
-const argv = require('yargs').argv;
 const { promisify } = require("util");
-const config = require('./config');
-
-const netlifyToken = argv.netlifyToken;
-const netlifySiteId = argv.netlifySiteId;
-const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
+const config = require('./deployments_config');
 
 // prepare final JSON
 const json = {};
 json[config.deploymentsJsonKeyProd] = [];
 json[config.deploymentsJsonKeyPreview] = [];
 
-(async () => {
-
-  console.log('-->> NETLIFY DEPLOYMENTS: start');
+const netlifyDeployments = async (netlifyToken, netlifySiteId) => {
+  const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
 
   try {
 
@@ -27,13 +20,11 @@ json[config.deploymentsJsonKeyPreview] = [];
     });
 
     if (!deployments.data) {
-      console.log('-->> NETLIFY DEPLOYMENTS: no deployments received.');
-      shell.exit(0);
+      return Promise.reject('-->> NETLIFY DEPLOYMENTS: no deployments received.');
     }
 
     if (deployments.data.length < 1) {
-      console.log('-->> NETLIFY DEPLOYMENTS: no deployments received.');
-      shell.exit(0);
+      return Promise.reject('-->> NETLIFY DEPLOYMENTS: no deployments received.');
     }
 
     // create an array of deployments with all needed data
@@ -44,14 +35,11 @@ json[config.deploymentsJsonKeyPreview] = [];
     await writeFile(`./ci/${config.deploymentsJsonName}`, JSON.stringify(json));
 
     console.log(`-->> NETLIFY DEPLOYMENTS: successcully created ${config.deploymentsJsonName}`);
-    shell.exit(0);
-
+    return Promise.resolve();
   } catch (error) {
-    console.log('-->> NETLIFY DEPLOYMENTS: error');
-    console.log(error);
-    shell.exit(0);
+    return Promise.reject(error);
   }
-})();
+};
 
 // ---------------------------------------------------------------------------
 // PROCESS DATA
@@ -156,3 +144,5 @@ const getDeployTag = ((titleString, type) => {
 
   return tag;
 });
+
+module.exports = netlifyDeployments;
