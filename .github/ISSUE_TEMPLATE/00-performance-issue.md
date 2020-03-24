@@ -14,9 +14,10 @@ assignees: ''
 
 ## Tools
 
-> Consider using these tools for insights
+> Consider using these tools to gather valuable insights about the issue which help us to tackle the issue more effective  
 - https://webpagetest.org
 - https://developers.google.com/speed/pagespeed/insights
+- https://gtmetrix.com/
 
 ## Detailed description
 
