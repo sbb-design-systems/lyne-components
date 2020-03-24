@@ -33,7 +33,7 @@ const formatResults = (() => {
   previewData.forEach((item) => {
     const date = formatDate(item[config.deploymentsJsonKeyDate]);
     previewHtmlList.push(`
-      <li class="list-item">
+      <li class="${classListItem}">
         <span class="${classItemTitle}">Branch: ${item[config.deploymentsJsonKeyTag]}</span>
         <a class="${classItemLink}" href="${item[config.deploymentsJsonKeyUrl]}">View</a>
         <span class="${classItemDate}">${date}</span>
@@ -44,7 +44,7 @@ const formatResults = (() => {
   prodData.forEach((item) => {
     const date = formatDate(item[config.deploymentsJsonKeyDate]);
     prodHtmlList.push(`
-      <li class="list-item">
+      <li class="${classListItem}">
         <span class="${classItemTitle}">Version: ${item[config.deploymentsJsonKeyTag]}</span>
         <a class="${classItemLink}" href="${item[config.deploymentsJsonKeyUrl]}">View</a>
         <span class="${classItemDate}">${date}</span>
