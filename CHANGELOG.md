@@ -1,3 +1,10 @@
+## [5.4.8](https://github.com/lyne-design-system/lyne-components/compare/v5.4.7...v5.4.8) (2020-03-24)
+
+
+### Bug Fixes
+
+* use writeFileSync instead of writeFile ([10c1b31](https://github.com/lyne-design-system/lyne-components/commit/10c1b31580d0957bd2156072701490d131d75f3e))
+
 ## [5.4.7](https://github.com/lyne-design-system/lyne-components/compare/v5.4.6...v5.4.7) (2020-03-24)
 
 
