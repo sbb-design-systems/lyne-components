@@ -1,10 +1,11 @@
 # Todos
 
-## git
+## git(hub)
 - [ ] Prevent push to master
   - [ ] Re-add `Require status checks to pass before merging` to [master](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to master
 - [ ] Decide for branching-model
 - [ ] Mono-repo vs. multi-repo
+- [ ] Add Probot GitHub integration
 
 #### Check
 ✅ Nothing to check
@@ -84,8 +85,17 @@
 ✅ No issues
 
 ## Documentation
-- [ ] Repo -> Insights -> Community -> Fullfill checklist
-- [ ] Document realeasing process in [docs/RELEASING.md](docs/RELEASING.md)
+- [x] GitHub / Repo -> Insights -> Community -> Fullfill checklist
+  - [x] Add [CODE_OF_CONDUCT.md](/.github/CODE_OF_CONDUCT.md)
+  - [x] Add [CONTRIBUTING.md](/.github/CONTRIBUTING.md)
+  - [x] Add [SUPPORT.md](/.github/SUPPORT.md)
+  - [x] Add [issue](/.github/ISSUE_TEMPLATE) templates
+    - [x] Add accessibility issue tpl
+    - [x] Add performance issue tpl
+    - [x] Add feature request issue tpl
+    - [x] Add bug report issue tpl
+    - [x] Add question issue tpl
+- [x] Document realeasing process in [docs/RELEASING.md](docs/RELEASING.md)
 - [ ] Modify content of sustainability-policy file to match our own vision and policies.
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
 - [ ] Add documentation for CI / CD pipeline
