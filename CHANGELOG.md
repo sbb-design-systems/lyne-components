@@ -1,3 +1,15 @@
+# [5.5.0](https://github.com/lyne-design-system/lyne-components/compare/v5.4.9...v5.5.0) (2020-03-24)
+
+
+### Bug Fixes
+
+* use variable as class name ([ad3311c](https://github.com/lyne-design-system/lyne-components/commit/ad3311cb98add6ce2a9c1357c6586f2a3b75372b))
+
+
+### Features
+
+* optimize html page with tabs and stylings ([c012298](https://github.com/lyne-design-system/lyne-components/commit/c012298a3631bb0b07bdf5720b3aa1c0c124fcb1))
+
 ## [5.4.9](https://github.com/lyne-design-system/lyne-components/compare/v5.4.8...v5.4.9) (2020-03-24)
 
 
