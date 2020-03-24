@@ -26,6 +26,8 @@ assignees: ''
 
 > What version of the Lyne Design System are you using?
 
+> Is this related to a certain component of the Lyne Design System? If so, to which component?
+
 > What did you expect to happen?
 
 > What happened instead?
