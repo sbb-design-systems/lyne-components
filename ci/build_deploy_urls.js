@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { promisify } = require("util");
 const config = require('./deployments_config');
 
 const buildDeployUrls = async (deploymentsDir) => {
@@ -9,8 +8,8 @@ const buildDeployUrls = async (deploymentsDir) => {
     const formatedResults = formatResults();
 
     // write .md file
-    const writeFile = promisify(fs.writeFile);
-    await writeFile(`./${deploymentsDir}/${config.deploymentsPageFileName}`, formatedResults);
+    fs.mkdirSync(deploymentsDir);
+    fs.writeFileSync(`./${deploymentsDir}/${config.deploymentsPageFileName}`, formatedResults);
 
     console.log(`-->> BUILD DEPLOY URLS: successcully created ./${deploymentsDir}/${config.deploymentsPageFileName}`);
     return Promise.resolve();
