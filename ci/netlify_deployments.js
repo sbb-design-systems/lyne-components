@@ -1,6 +1,5 @@
 const axios = require('axios');
 const fs = require('fs');
-const { promisify } = require("util");
 const config = require('./deployments_config');
 
 // prepare final JSON
@@ -31,8 +30,7 @@ const netlifyDeployments = async (netlifyToken, netlifySiteId) => {
     processDeploys(deployments.data);
 
     // write .md file
-    const writeFile = promisify(fs.writeFile);
-    await writeFile(`./ci/${config.deploymentsJsonName}`, JSON.stringify(json));
+    fs.writeFileSync(`./ci/${config.deploymentsJsonName}`, JSON.stringify(json));
 
     console.log(`-->> NETLIFY DEPLOYMENTS: successcully created ${config.deploymentsJsonName}`);
     return Promise.resolve();
