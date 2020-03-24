@@ -25,14 +25,18 @@ const formatResults = (() => {
   const prodData = JSON.parse(deploymentsRawFile)[config.deploymentsJsonKeyProd];
   const previewHtmlList = [];
   const prodHtmlList = [];
+  const classListItem = 'list-item';
+  const classItemTitle = 'list-item-title';
+  const classItemLink = 'list-item-link';
+  const classItemDate = 'list-item-date';
 
   previewData.forEach((item) => {
     const date = formatDate(item[config.deploymentsJsonKeyDate]);
     previewHtmlList.push(`
-      <li>
-        <p>Branch: ${item[config.deploymentsJsonKeyTag]}</p>
-        <p>${date}</p>
-        <p><a href="${item[config.deploymentsJsonKeyUrl]}">View</a></p>
+      <li class="${classListItem}">
+        <span class="${classItemTitle}">Branch: ${item[config.deploymentsJsonKeyTag]}</span>
+        <a class="${classItemLink}" href="${item[config.deploymentsJsonKeyUrl]}">View</a>
+        <span class="${classItemDate}">${date}</span>
       </li>
     `);
   });
@@ -40,10 +44,10 @@ const formatResults = (() => {
   prodData.forEach((item) => {
     const date = formatDate(item[config.deploymentsJsonKeyDate]);
     prodHtmlList.push(`
-      <li>
-        <p>${item[config.deploymentsJsonKeyTag]}</p>
-        <p>${date}</p>
-        <p><a href="${item[config.deploymentsJsonKeyUrl]}">View</a></p>
+      <li class="${classListItem}">
+        <span class="${classItemTitle}">Version: ${item[config.deploymentsJsonKeyTag]}</span>
+        <a class="${classItemLink}" href="${item[config.deploymentsJsonKeyUrl]}">View</a>
+        <span class="${classItemDate}">${date}</span>
       </li>
     `);
   });

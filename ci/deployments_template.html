@@ -3,14 +3,182 @@
   <head>
     <meta charset="utf-8">
     <title>Lyne Design System - Deployments</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+      html {
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      body {
+        margin: 20px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #c60018;
+        transition: color 100ms ease-in;
+      }
+
+      a:hover {
+        color: #eb0000;
+      }
+
+      ul, ol {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .info {
+        border-bottom: 1px solid #000;
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+      }
+
+      .tabs {
+        padding: 20px 0;
+      }
+
+      .tab-list {
+        overflow: auto;
+      }
+
+      .tab-list-item {
+        display: block;
+        float: left;
+      }
+
+      .tab-list-item:not(:first-child) {
+        margin-left: 20px;
+      }
+
+      .tab-list-item-link {
+        display: block;
+        padding: 10px;
+        background-color: #ffffff;
+        transition-duration: 100ms;
+        transition-timing-function: ease-in;
+        transition-property: background-color, color;
+      }
+
+      .tab-list-item-link.is-active {
+        background-color: #eb0000;
+        color: #ffffff;
+
+      }
+
+      .section:not(.is-active) {
+        display: none;
+      }
+
+      .list-item {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding-bottom: 30px;
+      }
+
+      .list-item-title {
+        display: block;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .list-item-link {
+        display: block;
+        margin-left: 20px;
+      }
+
+      .list-item-date {
+        display: block;
+        flex: 100% 0 0;
+        padding-top: 6px;
+      }
+    </style>
   </head>
   <body>
     <h1>Lyne Design System - Deployments</h1>
 
-    <h2>Production</h2>
-    <ol>###PRODUCTION###</ol>
+    <section class="info">
+      <div>
+        <span>GitHub:</span>
+        <a href="https://github.com/lyne-design-system/lyne-components">https://github.com/lyne-design-system/lyne-components</a>
+      </div>
 
-    <h2>Preview</h2>
-    <ol>###PREVIEW###</ol>
+      <div>
+        <span>npm:</span>
+        <a href="https://www.npmjs.com/package/lyne-test">https://www.npmjs.com/package/lyne-test</a>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <div id="tabs" class="tabs">
+        <ul class="tab-list">
+          <li class="tab-list-item">
+            <a class="tab-list-item-link" href="#production" data-section-id="production">Production</a>
+          </li>
+          <li class="tab-list-item">
+            <a class="tab-list-item-link" href="#preview" data-section-id="preview">Previews</a>
+          </li>
+        </ul>
+      </div>
+
+      <section id="production" class="section">
+        <ol>###PRODUCTION###</ol>
+      </section>
+
+
+      <section id="preview" class="section">
+        <ol>###PREVIEW###</ol>
+      </section>
+    </div>
+
+    <script>
+      (function() {
+        const container = document.querySelector('.container');
+        const tablist = container.querySelector('#tabs');
+        const tabs = tablist.querySelectorAll('.tab-list-item-link');
+        const panels = container.querySelectorAll('.section');
+
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', e => {
+            e.preventDefault();
+            switchTab(e.currentTarget);
+          });
+        });
+
+        const switchTab = (tab) => {
+          removeActiveTab();
+          removeActiveSection();
+          setActiveTab(tab);
+          setActiveSection(tab);
+        }
+
+        const removeActiveTab = () => {
+          tabs.forEach(tab => {
+            tab.classList.remove('is-active');
+          });
+        }
+
+        const removeActiveSection = () => {
+          panels.forEach(panel => {
+            panel.classList.remove('is-active');
+          });
+        }
+
+        const setActiveTab = (tab) => {
+          tab.classList.add('is-active');
+        }
+
+        const setActiveSection = (tab) => {
+          const sectionToShow = tab.getAttribute('data-section-id');
+          const matchingSection = document.querySelector('#' + sectionToShow);
+          matchingSection.classList.add('is-active');
+        }
+
+        switchTab(tabs[0]);
+      })();
+    </script>
   </body>
 </html>
