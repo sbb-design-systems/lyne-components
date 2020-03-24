@@ -12,19 +12,19 @@ assignees: ''
 
 -->
 
-## Environment
+## Tools
 
-> Operating system
-
-> Browser
-
-> Automated testing tool and ruleset
+> Consider using these tools for insights
+- https://webpagetest.org
+- https://developers.google.com/speed/pagespeed/insights
 
 ## Detailed description
 
 > What version of the Lyne Design System are you using?
 
 > Is this issue related to a specific component?
+
+> Since when has this been noticed?
 
 ## Steps to reproduce the issue
 
