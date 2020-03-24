@@ -1,2 +1,54 @@
+# Releasing
+
 ## SemVer
-We use semantic versioning
+We adhere to the semantic versioning standard. With each merge into master, the potential next version is automatically determined by the ```sematic-release``` package.
+
+Only commits that adhere to the ```Conventional Commits``` standard ([https://www.conventionalcommits.org/](https://www.conventionalcommits.org/)) will trigger semantic releases accordingly.
+
+To make sure developers properly style their commit messages, we use ```husky``` together with ```commit-lint```.
+
+## Tools
+
+### Travis
+
+#### Environment Variables
+
+### GitHub
+
+### Netlify
+
+## Artefacts
+
+The following build artefacts are relevant for deployments:
+- ```./dist``` & ```./loader```: stencil components that are published to npm
+- ```./storybook-static```: the storybook instance that is deployed to netlify
+
+## Workflow
+Here is a list of all steps that are handled by the various tools when merging to master. For technical details, please refer to the following files:
+- ```./.travis.yml```: travis configuration
+- ```./ci/```: scripts executed by travis jobs
+- ```.releaserc```: configuration for ```semantic-release```
+
+### Before merge
+So you are ready to merge. Only if the following checks are passing, you're able to merge the pull request.
+  1. ```Deep Code``` analyzes the code
+  2. ```Git Guardian``` checks your code
+  3. ```Snyk``` checks all the dependencies for vulnerabilities
+  4. ```Tracis CI``` runs a build
+
+### After merge
+After you merge, Travis automatically starts it's job and runs the following steps:
+1. Linting: The project is checked for Lining errors. If an error is found, the Travis job breaks.
+2. Stencil components are build with ```npm run build:stencil```. If the build breaks, the Travis job breaks.
+3. Unit & e2e tests: all defined unit and e2e tests are executed. If any of the tests fails, the travis Job breaks.
+4. Code coverage: The coverage report from the tests is uploaded to [Codecov](https://codecov.io/bash).
+5. semantic-release: The ```semantic-release``` package analyzes all commit messages and determines the next version number, if any. Semantic-release is configured so that the new version number (if any), is written to the file ```.version``` on travis. If a new version was created:
+  1. It will be published to npm.
+  2. ```CHANGELOG.md``` will be updated and pushed back to the repo.
+  3. A new github-tag with the new version number is created.
+  4. The new version number gets updated in ```package.json``` and ```package-lock.json``` and pushed back to the repo.
+  5. A slack message is send out according to the template defined in ```.releaserc```
+6. netlify-cli: the cli to work with netlify is installed.
+7. Only if the ```.version``` file is found, the ```storybook-static``` folder will be deployed to netlify. We add the new version number as a title to the deployment.
+8. Deployments page: with the information from all netlify deployments, a html-file with all production and preview deployments is generated and published on netlify
+9. After all steps finished successfully, a slack message is send out according to the notifications-config in ```.travis.yml```
