@@ -1,3 +1,10 @@
+## [5.4.7](https://github.com/lyne-design-system/lyne-components/compare/v5.4.6...v5.4.7) (2020-03-24)
+
+
+### Bug Fixes
+
+* refactor ci build to publish deployments page instead of .md files ([578c743](https://github.com/lyne-design-system/lyne-components/commit/578c7435262a46cc56a68baaa2f9dfd54cac80f0))
+
 ## [5.4.6](https://github.com/lyne-design-system/lyne-components/compare/v5.4.5...v5.4.6) (2020-03-14)
 
 
