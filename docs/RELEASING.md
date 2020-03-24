@@ -11,8 +11,6 @@ To make sure developers properly style their commit messages, we use ```husky```
 
 ### Travis
 
-#### Environment Variables
-
 ### GitHub
 
 ### Netlify
@@ -49,6 +47,6 @@ After you merge, Travis automatically starts it's job and runs the following ste
   4. The new version number gets updated in ```package.json``` and ```package-lock.json``` and pushed back to the repo.
   5. A slack message is send out according to the template defined in ```.releaserc```
 6. netlify-cli: the cli to work with netlify is installed.
-7. Only if the ```.version``` file is found, the ```storybook-static``` folder will be deployed to netlify. We add the new version number as a title to the deployment.
+7. Only if the ```.version``` file is found, storybook build will be made and the ```storybook-static``` folder will be deployed to netlify. We add the new version number as a title to the deployment.
 8. Deployments page: with the information from all netlify deployments, a html-file with all production and preview deployments is generated and published on netlify
 9. After all steps finished successfully, a slack message is send out according to the notifications-config in ```.travis.yml```
