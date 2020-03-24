@@ -1,102 +1,61 @@
-const simpleGit = require('simple-git/promise')('./');
-const shell = require('shelljs');
 const fs = require('fs');
-const argv = require('yargs').argv;
 const { promisify } = require("util");
 const config = require('./deployments_config');
 
-const gitUser = argv.gitUser;
-const gitToken = argv.gitToken;
-const gitMail = argv.gitMail;
-const branchName = argv.branch;
-const isProdDeploy = argv.prod === 'true';
-
-const gitUrl = `https://${gitUser}:${gitToken}@github.com/lyne-design-system/lyne-components`;
-const fileName = isProdDeploy ? config.prodFileName : config.branchFileName;
-
-(async () => {
-
-  console.log('-->> BUILD DEPLOY URLS: start');
+const buildDeployUrls = async (deploymentsDir) => {
 
   try {
-
-    // try to read deployments.json
-    await fs.access(`./ci/${config.deploymentsJsonName}`, fs.F_OK, async (err) => {
-      if (err) {
-        console.log(`-->> BUILD DEPLOY URLS: ${config.deploymentsJsonName} not found`);
-        shell.exit(0);
-      }
-    });
-
-    const type = isProdDeploy ? config.deploymentsJsonKeyProd : config.deploymentsJsonKeyPreview;
-    const rawFile = fs.readFileSync(`./ci/${config.deploymentsJsonName}`);
-    const deployments = JSON.parse(rawFile)[type];
-
-    // prepare content for .md file
-    const formatedResults = formatResults(deployments);
+    // prepare content for .html file
+    const formatedResults = formatResults();
 
     // write .md file
     const writeFile = promisify(fs.writeFile);
-    await writeFile(`./${fileName}`, formatedResults);
+    await writeFile(`./${deploymentsDir}/${config.deploymentsPageFileName}`, formatedResults);
 
-    // commit and push .md file to git repo
-    await pushToGit();
-
-    console.log(`-->> BUILD DEPLOY URLS: successcully created ${fileName} and pushed to git repo`);
-    shell.exit(0);
-
+    console.log(`-->> BUILD DEPLOY URLS: successcully created ./${deploymentsDir}/${config.deploymentsPageFileName}`);
+    return Promise.resolve();
   } catch (error) {
-    console.log('-->> BUILD DEPLOY URLS: error');
-    console.log(error);
-    shell.exit(0);
+    return Promise.reject(error);
   }
-})();
+};
 
-const formatResults = ((data) => {
-  const prodDescription = '# Lyne Design System Releases\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-  const branchDescription = '# Lyne Design System Deploy Previews\n\n THIS FILE IS AUTO-GENERATED, PLEASE DO NOT CHANGE IT MANUALLY \n\n';
-  let fileData = isProdDeploy ? prodDescription : branchDescription;
+const formatResults = (() => {
+  const deploymentsRawFile = fs.readFileSync(`./ci/${config.deploymentsJsonName}`);
+  let htmlTemplate = fs.readFileSync(`./ci/${config.deploymentsPageTemplateFileName}`).toString();
+  const previewData = JSON.parse(deploymentsRawFile)[config.deploymentsJsonKeyPreview];
+  const prodData = JSON.parse(deploymentsRawFile)[config.deploymentsJsonKeyProd];
+  const previewHtmlList = [];
+  const prodHtmlList = [];
 
-  data.forEach((deployment) => {
-    const deployTagString = isProdDeploy ? deployment[config.deploymentsJsonKeyTag] : `branch: [${deployment[config.deploymentsJsonKeyTag]}](${config.gitBaseUrl + deployment[config.deploymentsJsonKeyTag]})`;
-    const date = formatDate(deployment[config.deploymentsJsonKeyDate]);
-
-    fileData += `## ${deployTagString}\n`;
-    fileData += `${date}\n\n`;
-    fileData += `[${deployment[config.deploymentsJsonKeyUrl]}](${deployment[config.deploymentsJsonKeyUrl]})\n\n`;
+  previewData.forEach((item) => {
+    const date = formatDate(item[config.deploymentsJsonKeyDate]);
+    previewHtmlList.push(`
+      <li>
+        <p>Branch: ${item[config.deploymentsJsonKeyTag]}</p>
+        <p>${date}</p>
+        <p><a href="${item[config.deploymentsJsonKeyUrl]}">View</a></p>
+      </li>
+    `);
   });
 
-  return fileData;
+  prodData.forEach((item) => {
+    const date = formatDate(item[config.deploymentsJsonKeyDate]);
+    prodHtmlList.push(`
+      <li>
+        <p>${item[config.deploymentsJsonKeyTag]}</p>
+        <p>${date}</p>
+        <p><a href="${item[config.deploymentsJsonKeyUrl]}">View</a></p>
+      </li>
+    `);
+  });
 
+  const previewHtml = previewHtmlList.join('');
+  const prodHtml = prodHtmlList.join('');
+  htmlTemplate = htmlTemplate.replace(config.deploymentsPagePlaceholderPreview, previewHtml);
+  htmlTemplate = htmlTemplate.replace(config.deploymentsPagePlaceholderProduction, prodHtml);
+
+  return htmlTemplate;
 });
-
-const pushToGit = async () => {
-  if (!isProdDeploy && !branchName) {
-    return;
-  }
-
-  // commit BRANCHES.md & DEPLOYMENTS.md
-  const prodCommit = `chore(release): update ${fileName} [skip ci]`;
-  const branchCommit = `chore(deploypreview): update ${fileName} [skip ci]`;
-  const commit = isProdDeploy ? prodCommit : branchCommit;
-  let branch = 'master';
-
-  if (!isProdDeploy && branchName) {
-    branch = branchName;
-  }
-
-  await simpleGit.pull('origin', branch);
-
-  await simpleGit.add(`${fileName}`);
-  await simpleGit.commit(commit);
-
-  // commit deployments.json
-  await simpleGit.add(`./ci/${config.deploymentsJsonName}`);
-  await simpleGit.commit(`chore: update ${config.deploymentsJsonName} [skip ci]`);
-
-  // push
-  await simpleGit.push(['-u', 'origin', branch]);
-};
 
 const formatDate = ((dateString) => {
   const dateObject = new Date(dateString);
@@ -105,3 +64,5 @@ const formatDate = ((dateString) => {
 
   return formattedDate;
 });
+
+module.exports = buildDeployUrls;

@@ -20,12 +20,9 @@ then
   # make storybook build
   STORYBOOK_COMPONENTS_VERSION=$VERSION npm run build:storybook
 
-  # install netlify-cli. We send stdout/stderr to /dev/null since we're not
-  # interested in the output from netlify-cli
-  npm install netlify-cli -g > "/dev/null" 2>&1
-
-  # deploy on netlify
+  # deploy storybook on netlify
   netlify deploy --prod --message "::$VERSION::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+
 else
   echo "-->> Skipping netlify depoly"
 fi
