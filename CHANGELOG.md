@@ -1,3 +1,10 @@
+## [5.4.9](https://github.com/lyne-design-system/lyne-components/compare/v5.4.8...v5.4.9) (2020-03-24)
+
+
+### Bug Fixes
+
+* add new page for deployments ([9c90d65](https://github.com/lyne-design-system/lyne-components/commit/9c90d6584e99448a9d930642e26445cb1e234692))
+
 ## [5.4.8](https://github.com/lyne-design-system/lyne-components/compare/v5.4.7...v5.4.8) (2020-03-24)
 
 
