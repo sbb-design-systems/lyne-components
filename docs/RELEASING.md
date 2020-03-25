@@ -31,7 +31,7 @@ The following build artefacts are relevant for deployments:
 - ```./dist``` & ```./loader```: stencil components that are published to npm
 - ```./storybook-static```: the storybook build that is deployed to netlify
 
-## Workflow
+## Workflow for master branch
 Here is a list of all steps that are handled by the various tools when merging to master. For technical details, please refer to the following files:
 - ```./.travis.yml```: travis configuration
 - ```./ci/```: scripts executed by travis jobs
@@ -60,3 +60,9 @@ After you merge, Travis automatically starts it's job and runs the following ste
 7. Only if the ```.version``` file is found, storybook build will be made and the ```storybook-static``` folder will be deployed to netlify. We add the new version number as a title to the deployment.
 8. Deployments page: with the information from all netlify deployments, a html-file with all production and preview deployments is generated and published on netlify
 9. After all steps finished successfully, a slack message is send out according to the notifications-config in ```.travis.yml```
+
+## Workflow for branches other than master
+This workflow is almost identical to the workflow for the master branch, except the following:
+4. Code coverage report is not created
+5. semantic-release is skipped
+7. A deployment to netlify will be made in any case. In contrast to the master branch, these deployments are not labeled as production, but as deploy previews. The title of the deployment is the name of the branch.
