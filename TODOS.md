@@ -1,5 +1,13 @@
 # Todos
 
+- [git(hub)](#github)
+- [Local dev setup / Stencil setup](#local-dev-setup--stencil-setup)
+- [Storybook](#storybook)
+- [CI / CD pipeline](#ci--cd-pipeline)
+- [Documentation](#documentation)
+- [Security](#security)
+
+
 ## git(hub)
 - [ ] Prevent push to master
   - [ ] Re-add `Require status checks to pass before merging` to [master](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to master
