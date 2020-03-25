@@ -35,7 +35,7 @@ So you are ready to merge. Only if the following checks are passing, you're able
 1. `Deep Code` analyzes the code
 2. `Git Guardian` checks your code
 3. `Snyk` checks all the dependencies for vulnerabilities
-4. `Tracis CI` runs a build
+4. `Travis CI` runs a build
 
 ### After merge
 After you merge, Travis automatically starts it's job and runs the following steps:
