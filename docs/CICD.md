@@ -87,7 +87,8 @@ We need a couple of Environment variables on Travis:
 ` `:
 ` `:
 ` `:
-` `: 
+` `:
+
 
 ## Netlify configuration
 
