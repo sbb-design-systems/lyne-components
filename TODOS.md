@@ -41,6 +41,7 @@
 
 #### Check
 - [ ] Storybook [Web Components](https://github.com/storybookjs/storybook/tree/next/app/web-components) integration in next major release. Replace current with upcoming if promising
+- [ ] Also have a look here https://github.com/ionic-team/stencil-sass/issues/15#issuecomment-603496922 
 
 #### Verify
 ✅ Nothing to verify
