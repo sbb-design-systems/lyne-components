@@ -10,7 +10,7 @@ Only the latest major version receives security fixes.
 
 Let’s keep things simple –
 
-The *Lyne* team takes all security concerns in *Lyne Design System* seriously. Thank you for improving the security of *Lyne*. We appreciate your efforts, responsible disclosure the information and will make every effort to acknowledge your contributions.
+The *Lyne* team takes all security concerns in *Lyne Design System* seriously. Thank you for improving the security of *Lyne*. We appreciate your efforts, responsibly disclosure your information and will make every effort to acknowledge your contributions.
 
 If you think you have identified a vulnerability or security related issue within *Lyne Design System*, please report it immediately to lyne-design-system@sbb.ch. If you are not sure, don’t worry. Better safe than sorry – just send an email. 
 
