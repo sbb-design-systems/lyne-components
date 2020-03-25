@@ -11,15 +11,21 @@ To make sure developers properly style their commit messages, we use ```husky```
 
 ### Travis
 
+CI & CD is done on Travis CI.
+
 ### GitHub
 
+Travis listens to changes in any branch on this repo.
+
 ### Netlify
+
+The storybook build is deployed to Netlify.
 
 ## Artefacts
 
 The following build artefacts are relevant for deployments:
 - ```./dist``` & ```./loader```: stencil components that are published to npm
-- ```./storybook-static```: the storybook instance that is deployed to netlify
+- ```./storybook-static```: the storybook build that is deployed to netlify
 
 ## Workflow
 Here is a list of all steps that are handled by the various tools when merging to master. For technical details, please refer to the following files:
