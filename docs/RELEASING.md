@@ -21,6 +21,10 @@ Travis listens to changes in any branch on this repo.
 
 The storybook build is deployed to Netlify.
 
+### Codecov
+
+A report for code coverage is created for each release and uploaded to [Codecov](https://codecov.io/bash).
+
 ## Artefacts
 
 The following build artefacts are relevant for deployments:
