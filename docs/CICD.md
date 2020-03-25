@@ -8,22 +8,10 @@ Only commits that adhere to the `Conventional Commits` standard ([https://www.co
 To make sure developers properly style their commit messages, we use `husky` together with `commit-lint`.
 
 ## Tools
-
-### Travis
-
-CI & CD is done on Travis CI.
-
-### GitHub
-
-Travis listens to changes in any branch on this repo.
-
-### Netlify
-
-The storybook build is deployed to Netlify.
-
-### Codecov
-
-A report for code coverage is created for each release and uploaded to [Codecov](https://codecov.io/bash).
+- Travis: CI & CD is done on Travis CI.
+- GitHub: Travis listens to changes in any branch on this repo.
+- Netlify: The storybook build and the deployments page are deployed to Netlify.
+- Codecov: A report for code coverage is created for each release and uploaded to [Codecov](https://codecov.io/bash).
 
 ## Artefacts
 
@@ -79,16 +67,13 @@ For the configuration of the Travis job, you can reference `./.travis.yml`.
 
 We need a couple of Environment variables on Travis:
 
-` `:
-` `:
-` `:
-` `:
-` `:
-` `:
-` `:
-` `:
-` `:
-
+`CODECOV_TOKEN`: token to publish to codecov
+`GH_TOKEN`: github access token. Used to checkout the repo and push to the repo, updated tags, create versions etc... CAUTION: this token needs to be namend exactly like this so that semantic-release plugin can use it.
+`NETLIFY_AUTH_TOKEN`: netlify token to use deploy command on netlify-cli
+`NETLIFY_SITE_ID`: app id of the netlify site (lyne-components-storybook)
+`NETLIFY_SITE_ID_DEPLOYMENTS`: app id of the netlify site (lyne-components-deployments)
+`NPM_TOKEN`: npm access token to be able to publish to npm. CAUTION: this token needs to be namend exactly like this so that semantic-release plugin can use it.
+`SLACK_WEBHOOK`: token to be able to post messages on slack.
 
 ## Netlify configuration
 
