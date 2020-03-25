@@ -52,7 +52,7 @@
 ## CI / CD pipeline
 - [x] In Travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 - [ ] Different secrets and env-variables on git, Travis and netlify.
-  - [ ] Document exactly which key is needed for what and where to generate it
+  - [x] Document exactly which key is needed for what and where to generate it
   - [ ] Before production: regenerate all keys
 - [ ] For the deployments page:
   - [ ] In which timezone should we format the date?
