@@ -7,7 +7,7 @@ npm run lint
 
 ## Branch Deployments
 
-If you commit and push your changes on a branch, a deploy preview is created on netlify. You find a list of all branches along with their netlify deploy url in the file BRANCHES.md
+If you commit and push your changes on a branch, a deploy preview is created on netlify. You find a list of all branches along with their netlify deploy url here: [https://lyne-components-deployments.netlify.com](https://lyne-components-deployments.netlify.com)
 
 ## package.json
 
