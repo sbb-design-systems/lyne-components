@@ -40,7 +40,7 @@
 - [ ] We should use [Storybook Docs](https://github.com/storybookjs/storybook/tree/next/addons/docs) instead of [Storybook Notes](https://github.com/storybookjs/storybook/tree/master/addons/notes) because they are [deprecated](https://github.com/storybookjs/storybook#deprecated-addons)
 
 #### Check
-- [ ] Storybook [Web Components](https://github.com/storybookjs/storybook/tree/next/app/web-components) integration in next major release. Replace current with upcoming if promising 
+- [ ] Storybook [Web Components](https://github.com/storybookjs/storybook/tree/next/app/web-components) integration in next major release. Replace current with upcoming if promising
 
 #### Verify
 ✅ Nothing to verify
@@ -50,13 +50,13 @@
 
 
 ## CI / CD pipeline
-- [ ] In Travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
+- [x] In Travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 - [ ] Different secrets and env-variables on git, Travis and netlify.
   - [ ] Document exactly which key is needed for what and where to generate it
   - [ ] Before production: regenerate all keys
-- [ ] For [DEPLOYMENTS.md](./DEPLOYMENTS.md) or [RELEASES.md](./RELEASES.md): 
+- [ ] For the deployments page:
   - [ ] In which timezone should we format the date?
-  - [ ] Files might get large over time. Should we limit it to x releases?
+  - [ ] The list of deployments might get large over time. Should we limit it to x releases?
 - [ ] Add yml linter (for .travis.yml)
 - [ ] Add build script for [thegreenwebfoundation](https://github.com/thegreenwebfoundation/co2.js):
   - [ ] Determine which of our services are green (Travis, netlifiy)
@@ -67,19 +67,21 @@
 - [ ] npm package size is huge!
 - [ ] Integrate [webhint](https://webhint.io/docs/user-guide/)
 - [ ] codecoverage
-  - [ ] Configure codecoverage for Jest
+  - [x] Configure codecoverage for Jest
   - [ ] codecoverage report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
-- [ ] Assumption: we delete branches after merging. In that case, we should just write branch-names in BRANCHES.md instead of links, since we're not sure how long those links will be valid.
-- [ ] When pushing to master, PREVIEWS.md is not created.
+- [ ] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
+- [x] When pushing to master, PREVIEWS.md is not created.
+- [ ] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
+  - option 1: keep javascript. In that case, we need to lint thes files with ESLint
+  - option 2: transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
 
 #### Check
 ✅ Nothing to check
 
 #### Verify
-- [ ] If a Travis release job is running, semantic-release did not run yet, and a new change with a breaking change is pushed to master, what happens? Travis should not make a new release, but make another build afterwards with a new release containing both changes
 - [ ] For how long are deployments saved on netlify? Forever? 30 days? 1 year?
-- [ ] For merge checks on Travis: make sure semantic-release and deploy does not run
-- [ ] After merging a PR, the script to generate the release urls might file. Check to make sure it does not run into merge-conflicts or similar
+- [x] For merge checks on Travis: make sure semantic-release and deploy does not run
+- [x] After merging a PR, the script to generate the release urls might fail. Check to make sure it does not run into merge-conflicts or similar
 
 #### Issues
 ✅ No issues
