@@ -26,11 +26,11 @@ Here is a list of all steps that are handled by the various tools when merging t
 - `.releaserc`: configuration for `semantic-release`
 
 ### Before merge
-So you are ready to merge. Only if the following checks are passing, you're able to merge the pull request.
-  1. `Deep Code` analyzes the code
-  2. `Git Guardian` checks your code
-  3. `Snyk` checks all the dependencies for vulnerabilities
-  4. `Tracis CI` runs a build
+So you are ready to merge. Only if the following checks are passing, you're able to merge the pull request:
+1. `Deep Code` analyzes the code
+2. `Git Guardian` checks your code
+3. `Snyk` checks all the dependencies for vulnerabilities
+4. `Tracis CI` runs a build
 
 ### After merge
 After you merge, Travis automatically starts it's job and runs the following steps:
@@ -67,13 +67,13 @@ For the configuration of the Travis job, you can reference `./.travis.yml`.
 
 We need a couple of Environment variables on Travis:
 
-`CODECOV_TOKEN`: token to publish to codecov
-`GH_TOKEN`: github access token. Used to checkout the repo and push to the repo, updated tags, create versions etc... CAUTION: this token needs to be namend exactly like this so that semantic-release plugin can use it.
-`NETLIFY_AUTH_TOKEN`: netlify token to use deploy command on netlify-cli
-`NETLIFY_SITE_ID`: app id of the netlify site (lyne-components-storybook)
-`NETLIFY_SITE_ID_DEPLOYMENTS`: app id of the netlify site (lyne-components-deployments)
-`NPM_TOKEN`: npm access token to be able to publish to npm. CAUTION: this token needs to be namend exactly like this so that semantic-release plugin can use it.
-`SLACK_WEBHOOK`: token to be able to post messages on slack.
+- `CODECOV_TOKEN`: token to publish to codecov
+- `GH_TOKEN`: github access token. Used to checkout the repo and push to the repo, updated tags, create versions etc... CAUTION: this token needs to be namend exactly like this so that semantic-release plugin can use it.
+- `NETLIFY_AUTH_TOKEN`: netlify token to use deploy command on netlify-cli
+- `NETLIFY_SITE_ID`: app id of the netlify site (lyne-components-storybook)
+- `NETLIFY_SITE_ID_DEPLOYMENTS`: app id of the netlify site (lyne-components-deployments)
+- `NPM_TOKEN`: npm access token to be able to publish to npm. CAUTION: this token needs to be namend exactly like this so that semantic-release plugin can use it.
+- `SLACK_WEBHOOK`: token to be able to post messages on slack.
 
 ## Netlify configuration
 
