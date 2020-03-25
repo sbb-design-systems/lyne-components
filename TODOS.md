@@ -97,10 +97,10 @@
     - [x] Add feature request issue tpl
     - [x] Add bug report issue tpl
     - [x] Add question issue tpl
-- [x] Document realeasing process in [docs/RELEASING.md](docs/RELEASING.md)
+- [x] Document realeasing process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
 - [ ] Modify content of sustainability-policy file to match our own vision and policies.
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
-- [ ] Add documentation for CI / CD pipeline
+- [X] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline
 - [ ] Document roadmap in [docs/ROADMAP.md](docs/ROADMAP.md)
 
 #### Check
