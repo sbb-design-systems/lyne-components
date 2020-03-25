@@ -112,3 +112,19 @@
 
 #### Issues
 ✅ No issues
+
+
+## Security
+- [ ] Admin permissions on repo for (certain) Lyne team members. Necessary to create security advisories and privately collaborate to fix vulnerabilities in a temporary private fork ... [see](https://help.github.com/en/github/managing-security-vulnerabilities/about-github-security-advisories)
+- [ ] Setup either https://hackerone.com/lyne-design-system or https://hackerone.com/sbb-cff-ffs similar to https://hackerone.com/github ... also check https://bounty.github.com/
+  - [ ] Update [security issue template](.github/ISSUE_TEMPLATE/00-security-issue.md) if needed
+  - [ ] Update [SECURITY.md](.github/SECURITY.md) if needed
+
+#### Check
+✅ Nothing to check
+
+#### Verify
+✅ Nothing to verify
+
+#### Issues
+✅ No issues
