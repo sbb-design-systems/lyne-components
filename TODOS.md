@@ -106,6 +106,7 @@
     - [x] Add feature request issue tpl
     - [x] Add bug report issue tpl
     - [x] Add question issue tpl
+  - [x] Add [SECURITY.md](/.github/SECURITY.md) policy and define process of how to deal with security issues / vulnerabilities
 - [x] Document realeasing process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
 - [ ] Modify content of sustainability-policy file to match our own vision and policies.
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
