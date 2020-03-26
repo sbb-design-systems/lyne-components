@@ -22,10 +22,11 @@
 ✅ Nothing to check
 
 #### Verify
-✅ Nothing to verify
+- [ ] Create PR A with fix, Create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
+- [ ] Create PRs with a fix (new version). Merge one after another, before the CI for the first merged PR is finished -> 2 new releases should be created
 
 #### Issues
-- [ ] If you commit a fix and the merge the latest master before pushing, semantic-release won't do a new release: 'The local branch master is behind the remote one, therefore a new version won't be published.' --> https://travis-ci.org/lyne-design-system/lyne-components/jobs/658782240
+✅ Nothing to verify
 
 ## Local dev setup / Stencil setup
 - [ ] Rename npm package name to ```lyne-components```
