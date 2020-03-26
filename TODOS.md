@@ -22,7 +22,7 @@
 ✅ Nothing to check
 
 #### Verify
-- [ ] Create PR A with fix, Create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
+- [ ] First create PR A with fix, then create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
 - [ ] Create PRs with a fix (new version). Merge one after another, before the CI for the first merged PR is finished -> 2 new releases should be created
 
 #### Issues
