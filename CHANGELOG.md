@@ -1,3 +1,10 @@
+## [5.6.3](https://github.com/lyne-design-system/lyne-components/compare/v5.6.2...v5.6.3) (2020-03-26)
+
+
+### Bug Fixes
+
+* test closing pr and issue ([5ddb5ec](https://github.com/lyne-design-system/lyne-components/commit/5ddb5ec4f29642406268fa3f69d95393431edd3c))
+
 ## [5.6.2](https://github.com/lyne-design-system/lyne-components/compare/v5.6.1...v5.6.2) (2020-03-26)
 
 
