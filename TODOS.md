@@ -14,6 +14,9 @@
 - [ ] Decide for branching-model
 - [ ] Mono-repo vs. multi-repo
 - [ ] Add Probot GitHub integration
+- [x] Setup Projects and Milestones
+- [x] Add pull request template
+- [ ] Configure actions. Greetings and Stale would make sense for us.
 
 #### Check
 ✅ Nothing to check
@@ -49,7 +52,7 @@
 
 #### Check
 - [ ] Storybook [Web Components](https://github.com/storybookjs/storybook/tree/next/app/web-components) integration in next major release. Replace current with upcoming if promising
-- [ ] Also have a look here https://github.com/ionic-team/stencil-sass/issues/15#issuecomment-603496922 
+- [ ] Also have a look here https://github.com/ionic-team/stencil-sass/issues/15#issuecomment-603496922
 
 #### Verify
 ✅ Nothing to verify
