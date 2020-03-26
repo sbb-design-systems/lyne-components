@@ -15,6 +15,7 @@
 
 os: linux
 language: node_js
+
 notifications:
   slack:
     template:
