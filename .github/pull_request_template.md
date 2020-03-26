@@ -17,6 +17,18 @@ Changes in this pull request:
 
 -
 
+## Browsers
+
+I tested the build on the following browsers:
+- [ ] Firefox Desktop
+- [ ] Chrome Desktop
+- [ ] Safari Desktop
+- [ ] Firefox Mobile
+- [ ] Chrome Mobile
+- [ ] Safari Mobile
+- [ ] Opera
+- [ ] Brave
+
 ## Pull request type
 
 <!-- Please do not submit updates to dependencies unless it fixes an issue. -->
