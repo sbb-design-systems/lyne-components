@@ -1,6 +1,7 @@
 # This workflow assigns our default project to new issues and new pull requests
 name: Assign new issues and PRs to default project's todo column
 on: [issues, pull_request]
+
 jobs:
   add-new-issues-to-project-column:
     runs-on: ubuntu-latest
