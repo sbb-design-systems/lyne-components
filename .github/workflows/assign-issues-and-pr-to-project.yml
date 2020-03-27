@@ -1,10 +1,10 @@
-name: Assign new issue to default project's todo column
+name: Assign new issues and PRs to default project's todo column
 on: [issues, pull_request]
 jobs:
   add-new-issues-to-project-column:
     runs-on: ubuntu-latest
     steps:
-    - name: assign-new-issue-to-project
+    - name: assign-new-issue-and-pr-to-project
       uses: docker://takanabe/github-actions-automate-projects:sandbox
       if: github.event_name == 'issues' && github.event.action == 'opened'
       env:
