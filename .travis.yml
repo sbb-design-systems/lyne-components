@@ -55,6 +55,7 @@ jobs:
         # interested in the output from netlify-cli
         - npm install netlify-cli -g > "/dev/null" 2>&1
 
+
         # build storybook and run netlify deploy
         - ./ci/netlify_deploy.sh
 
