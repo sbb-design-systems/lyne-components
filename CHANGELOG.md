@@ -1,3 +1,16 @@
+# [5.7.0](https://github.com/lyne-design-system/lyne-components/compare/v5.6.6...v5.7.0) (2020-03-27)
+
+
+### Bug Fixes
+
+* test commit ([3b7b978](https://github.com/lyne-design-system/lyne-components/commit/3b7b978aff5014515004aa3abacc83b6e3e2e611))
+* test fix 2 ([8de0fa4](https://github.com/lyne-design-system/lyne-components/commit/8de0fa44c8ae13a6f9aba1d17b11775247474c79))
+
+
+### Features
+
+* test feature ([b0c69ea](https://github.com/lyne-design-system/lyne-components/commit/b0c69ea2769d77af37ebcd13112ad96448a20397))
+
 ## [5.6.6](https://github.com/lyne-design-system/lyne-components/compare/v5.6.5...v5.6.6) (2020-03-27)
 
 
