@@ -1,3 +1,10 @@
+## [5.6.5](https://github.com/lyne-design-system/lyne-components/compare/v5.6.4...v5.6.5) (2020-03-27)
+
+
+### Bug Fixes
+
+* fake commit to test github workflows ([512d694](https://github.com/lyne-design-system/lyne-components/commit/512d694662011658e22269cff027fe6aa0e2f460))
+
 ## [5.6.4](https://github.com/lyne-design-system/lyne-components/compare/v5.6.3...v5.6.4) (2020-03-26)
 
 
