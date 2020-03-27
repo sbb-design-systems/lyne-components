@@ -1,10 +1,10 @@
-name: Add a new GitHub Project card linked to a GitHub issue to a specified project column
+name: Assign new issue to default project's todo column
 on: [issues, pull_request]
 jobs:
   add-new-issues-to-project-column:
     runs-on: ubuntu-latest
     steps:
-    - name: add-new-issues-to-repository-based-project-column
+    - name: assign-new-issue-to-project
       uses: docker://takanabe/github-actions-automate-projects:sandbox
       if: github.event_name == 'issues' && github.event.action == 'opened'
       env:
