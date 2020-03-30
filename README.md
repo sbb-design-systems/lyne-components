@@ -12,7 +12,7 @@
 <br>
 
 ## ⚠️ Notice
-***Lyne Components* are 🧪experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy. See [TODOS](./TODOS.md) here**.
+***Lyne Components* are 🧪experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy. Check out [TODOS](./TODOS.md) what all needs to be done first**.
 
 <br>
 
