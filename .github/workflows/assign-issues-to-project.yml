@@ -1,0 +1,16 @@
+# This workflow assigns our default project to new issues
+name: Assign new issues to default project's todo column
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-new-issues-to-project-column:
+    runs-on: ubuntu-latest
+    steps:
+    - name: assign-new-issue-to-project
+      uses: docker://takanabe/github-actions-automate-projects:sandbox
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_PROJECT_URL: https://github.com/lyne-design-system/lyne-components/projects/1
+        GITHUB_PROJECT_COLUMN_NAME: To do

@@ -18,6 +18,7 @@
 - [x] Add pull request template
 - [ ] Configure actions. Greetings and Stale would make sense for us.
 - [x] Pull Request Template & Issue template: make sure, the project lyne-components is automatically set when opening a pull request. I only know of the way to set it via url-params like this: https://github.com/lyne-design-system/lyne-components/issues/new?title=Bug+fix&projects=lyne-design-system/lyne-components/1. Probably, it might not even by possible (s. this forum thread): https://github.community/t5/How-to-use-Git-and-GitHub/Feature-Request-Allow-to-add-projects-to-the-issue-template/td-p/19605
+- [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
 
 #### Check
 ✅ Nothing to check
