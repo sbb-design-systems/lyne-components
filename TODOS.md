@@ -15,9 +15,20 @@
 - [ ] Mono-repo vs. multi-repo
 - [ ] Add Probot GitHub integration
 - [x] Setup Projects and Milestones
-- [x] Add pull request template
 - [ ] Configure actions. Greetings and Stale would make sense for us.
 - [x] Pull Request Template & Issue template: make sure, the project lyne-components is automatically set when opening a pull request. I only know of the way to set it via url-params like this: https://github.com/lyne-design-system/lyne-components/issues/new?title=Bug+fix&projects=lyne-design-system/lyne-components/1. Probably, it might not even by possible (s. this forum thread): https://github.community/t5/How-to-use-Git-and-GitHub/Feature-Request-Allow-to-add-projects-to-the-issue-template/td-p/19605
+- [x] GitHub / Repo -> Insights -> Community -> Fullfill checklist
+  - [x] Add [CODE_OF_CONDUCT.md](/.github/CODE_OF_CONDUCT.md)
+  - [x] Add [CONTRIBUTING.md](/.github/CONTRIBUTING.md)
+  - [x] Add [SUPPORT.md](/.github/SUPPORT.md)
+  - [x] Add [pull request template](/.github/pull_request_template.md)
+  - [x] Add [issue](/.github/ISSUE_TEMPLATE) templates
+    - [x] Add accessibility issue tpl
+    - [x] Add performance issue tpl
+    - [x] Add feature request issue tpl
+    - [x] Add bug report issue tpl
+    - [x] Add question issue tpl
+  - [x] Add [SECURITY.md](/.github/SECURITY.md) policy and define process of how to deal with security issues / vulnerabilities
 - [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
 
 #### Check
@@ -102,21 +113,12 @@
 ✅ No issues
 
 ## Documentation
-- [x] GitHub / Repo -> Insights -> Community -> Fullfill checklist
-  - [x] Add [CODE_OF_CONDUCT.md](/.github/CODE_OF_CONDUCT.md)
-  - [x] Add [CONTRIBUTING.md](/.github/CONTRIBUTING.md)
-  - [x] Add [SUPPORT.md](/.github/SUPPORT.md)
-  - [x] Add [issue](/.github/ISSUE_TEMPLATE) templates
-    - [x] Add accessibility issue tpl
-    - [x] Add performance issue tpl
-    - [x] Add feature request issue tpl
-    - [x] Add bug report issue tpl
-    - [x] Add question issue tpl
-  - [x] Add [SECURITY.md](/.github/SECURITY.md) policy and define process of how to deal with security issues / vulnerabilities
 - [x] Document realeasing process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
 - [ ] Modify content of sustainability-policy file to match our own vision and policies.
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
 - [X] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline
+- [ ] Define and document terminology in [docs/GLOSSARY.md](docs/GLOSSARY.md)
+- [X] Document vision in [docs/VISION.md](docs/VISION.md) 
 - [ ] Document roadmap in [docs/ROADMAP.md](docs/ROADMAP.md)
 
 #### Check
