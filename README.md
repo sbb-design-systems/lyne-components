@@ -26,6 +26,9 @@ The current **🧪 experimental** build of Lyne Components can be found on [npm]
 ## 📚 Documentation
 Will be continously developed and added to the [docs](docs/README.md) folder.
 
+## 🧰 Getting started
+To see how to use lyne-components in React, Angular, Vue, Svelte or Plain Javascript, please refer to [this](https://github.com/lyne-design-system/lyne-getting-started) Repo to see example implementations.
+
 ## 🙌 Contributing
 See our [contributing guide](/.github/CONTRIBUTING.md) and check also our [code of conduct](/.github/CODE_OF_CONDUCT.md) 👀.
 
