@@ -61,3 +61,28 @@ The system not only enables an optimised collaboration and integration workflow 
 - Longterm focus →
     - Sustainability 
     - Commitment
+
+## Potential which could be achieved thanks to *Lyne*
+- Better understanding
+- Clearer communication
+- Cross-company design language
+- Iterating faster
+- Central knowledge collection 
+- Easy on-boarding
+- Empowerment
+- Reducing the knowledge gap
+- Team member happiness (PO, UX, DevOps, Frontend, Backend)
+- Developer Experience (DX) of (component) consumers
+- Optimised patterns/code through consolidation
+- Cross platform usage and reusability
+- Clear feedback/review mechanisms
+- Consistent design throughout the SBB → One SBB
+- Maintainability
+- Faster implementation of projects (time to market)
+- Allows growth
+- No vendor lock in
+- Better QA
+- Built in a11y on component level for everybody
+- Data-driven decisions
+- Sustainability
+- Commitment
