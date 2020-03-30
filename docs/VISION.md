@@ -4,10 +4,10 @@
 The reference and building blocks to create consistent experiences across SBB digital products in a sustainable fashion with long term commitment.
 
 - [What *Lyne* is and why we need it](#what-lyne-is-and-why-we-need-it)
-- [What Lyne consists of](#what-lyne-consists-of)
-- [What Lyne does](#what-lyne-does)
-- [Lyne's advantages and the resulting chances](#lynes-advantages-and-the-resulting--chances)
-- [Potential which could be unlocked thanks to Lyne](#potential-which-could-be-unlocked-thanks-to-lyne)
+- [What *Lyne* consists of](#what-lyne-consists-of)
+- [What *Lyne* does](#what-lyne-does)
+- [*Lyne*'s advantages and the resulting chances](#lynes-advantages-and-the-resulting--chances)
+- [Potential which could be unlocked thanks to *Lyne*](#potential-which-could-be-unlocked-thanks-to-lyne)
 - [Risks](#risks)
 
 ## What *Lyne* is and why we need it
