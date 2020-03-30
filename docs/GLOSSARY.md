@@ -1,11 +1,11 @@
 # Glossary
-This page defines some terminology that is commonly used throughout the Lyne Design System.
+This page defines the terminology — our common vocabulary — which is used throughout *[Lyne Design System](#lyne)*.
 
 ## DS
-DS stands for **D**esign **S**ystem.
+DS stands for **D**esign **S**ystem. Check [Lyne](#lyne) what it means for us and how we define and describe a *Design System*.
 
 ## Lyne
-Is the product name of our Design System.
+Is the product name of our Design System — *Lyne Design System*.
 
 ## Lyne Components
 Lyne Components are the building blocks of the Lyne Design System and are based on standard compliant [Web Components](https://www.webcomponents.org/specs) compiled by [StencilJS](#stenciljs) and browsable through [Storybook](#storybook). In code context always referred as `lyne-components`.
