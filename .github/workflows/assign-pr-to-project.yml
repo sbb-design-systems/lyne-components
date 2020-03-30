@@ -1,0 +1,15 @@
+# This workflow assigns our default project to new pull requests
+name: Assign new PRs to default project's todo column
+on: [pull_request]
+
+jobs:
+  add-new-pr-to-project-column:
+    runs-on: ubuntu-latest
+    steps:
+    - name: assign-new-pr-to-project
+      uses: docker://takanabe/github-actions-automate-projects:v0.0.1
+      if: github.event_name == 'pull_request' && github.event.action == 'opened'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_PROJECT_URL: https://github.com/lyne-design-system/lyne-components/projects/1
+        GITHUB_PROJECT_COLUMN_NAME: To do
