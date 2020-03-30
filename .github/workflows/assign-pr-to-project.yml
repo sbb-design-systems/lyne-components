@@ -4,6 +4,7 @@ on:
   pull_request:
     types: [opened]
 
+
 jobs:
   add-new-pr-to-project-column:
     runs-on: ubuntu-latest
