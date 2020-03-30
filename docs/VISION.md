@@ -86,3 +86,14 @@ The system not only enables an optimised collaboration and integration workflow 
 - Data-driven decisions
 - Sustainability
 - Commitment
+
+## Risks
+General risks of a Design System which we always need to face and be aware of.
+
+- Single point of failure
+- Limits designers creativity
+- Governance difficulties
+    - Design System rejection/denial
+    - Missing adoption
+- Documentation — if not well enough documented
+- Funding difficulties
