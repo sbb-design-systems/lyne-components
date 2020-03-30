@@ -94,7 +94,7 @@ The *[Lyne Design System](./GLOSSARY.md#lyne)* not only enables an optimised col
 General risks of a Design System which we always need to face and be aware of.
 
 - Single point of failure
-- Limits designers creativity
+- Restrains designers creativity
 - Governance difficulties
     - Design System rejection/denial
     - Missing adoption
