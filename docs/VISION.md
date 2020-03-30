@@ -13,3 +13,51 @@ It is based on a intuitive, unique — the [Single Source of Truth](./GLOSSARY.m
 
 ## What *Lyne* does
 The system not only enables an optimised collaboration and integration workflow between the [Design System Core Team](./GLOSSARY.md#design-system-core-team) and consumers of *[Lyne Design System](./GLOSSARY.md#lyne)* but also accelerates the creation and development process (time to market) in a sustainable, maintainable, and long term committed fashion.
+
+
+## *Lyne*'s advantages and the resulting (→) chances
+
+- One language / terminology →
+    - Better understanding
+    - Clearer communication
+    - Cross-company design language
+    - Reducing the knowledge gap
+    - Iterating faster
+- Single source of truth (SSoT) →
+    - Central knowledge collection 
+    - Easy on-boarding
+    - Empowerment
+    - Reducing the knowledge gap
+- Efficient & optimised collaboration → 
+    - Team member happiness (PO, UX, DevOps, Frontend, Backend)
+    - Developer Experience of (component) consumers
+    - Clear feedback / Review mechanisms
+    - Iterating faster
+- Make things easier →
+    - Team member happiness (PO, UX, DevOps, Frontend, Backend)
+- Consolidation →
+    - Optimised patterns
+    - Optimised code
+- Consistency →
+    - Consistent design within the SBB → One SBB
+    - User Experience
+    - Design cohesiveness
+- Modular/flexible →
+    - Maintainability
+- Reusable →
+    - Faster implementation of projects (time to market)
+    - Cross platform usage and reusability
+- Technology/tool agnostic →
+    - Exchangeable
+    - Allows growth
+    - No vendor lock in
+    - Faster implementation of projects (time to market)
+- Well tested →
+    - Better QA
+- Accessible →
+    - Built in a11y
+- Measurable →
+    - Data-driven decisions
+- Longterm focus →
+    - Sustainability 
+    - Commitment
