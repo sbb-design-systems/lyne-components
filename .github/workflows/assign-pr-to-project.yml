@@ -10,7 +10,6 @@ jobs:
     steps:
     - name: assign-new-pr-to-project
       uses: docker://takanabe/github-actions-automate-projects:v0.0.1
-      if: github.event_name == 'pull_request' && github.event.action == 'opened'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_PROJECT_URL: https://github.com/lyne-design-system/lyne-components/projects/1
