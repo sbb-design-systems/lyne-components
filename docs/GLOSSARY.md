@@ -17,3 +17,15 @@ Lyne Components are the building blocks of the Lyne Design System and are based 
 ... is a deployment which is made after a new version number is created, e.g. from 2.1.0 to 2.1.1 or from 2.1.0 to 3.0.0. Deployments are made to different instances:
 - npm: all Stencil components
 - netlify: Storybook containing all Stencil components
+
+## Design Token
+
+## Design (Token) API
+
+## StencilJS
+
+## Storybook
+
+## npm
+
+## netlify
