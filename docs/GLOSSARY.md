@@ -2,7 +2,13 @@
 This page defines the terminology — our common vocabulary — which is used throughout [Lyne Design System](#lyne).
 
 ## Design System
-Check [Lyne](#lyne) what a *Design System* (**DS**) means for us and how we define and describe a *Design System*.
+
+### tl;dr
+- Systemic thinking about design
+- A shared language
+— A flexible, modular and adjustable system without vendor lock-in
+
+Check [Lyne](#lyne) what a *Design System* (**DS**) means for us specificly and how we define and describe a *Design System*.
 
 ## Lyne
 *Lyne* is the product name of our Design System — *Lyne Design System*.
@@ -23,21 +29,40 @@ A *Production Deployment* is a deployment which is made after a new version numb
 - netlify: Storybook containing all Stencil components
 
 ## Single Source of Truth
-The *Single Source of Truth* (**SSoT**) ...
+The *Single Source of Truth* (**SSoT**) 
 
 ## Design Token
+TBD/WIP
 
 ## Design (Token) API
-
-## Design System Core Team
+TBD/WIP
 
 ## StencilJS
+TBD/WIP
 
 ## Storybook
+TBD/WIP
 
 ## npm
+TBD/WIP
 
 ## netlify
+TBD/WIP
 
 ## Web Components
-See ... [Web Components](https://www.webcomponents.org/specs)
+TBD/WIP ... [Web Components](https://www.webcomponents.org/specs)
+
+## Design System Core Team
+TBD/WIP
+
+## Component Library
+TBD/WIP
+
+## Component Browser
+TBD/WIP
+
+## Design System Utilities / Helper
+TBD/WIP
+
+## Visual Regression Testing
+TBD/WIP
