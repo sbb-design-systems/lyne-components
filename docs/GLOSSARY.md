@@ -6,7 +6,7 @@ This page defines the terminology — our common vocabulary — which is used th
 ### tl;dr
 - Systemic thinking about design
 - A shared language
-— A flexible, modular and adjustable system without vendor lock-in
+- A flexible, modular and adjustable system without vendor lock-in
 
 Check [Lyne](#lyne) what a *Design System* (**DS**) means for us specificly and how we define and describe a *Design System*.
 
