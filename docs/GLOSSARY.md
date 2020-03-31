@@ -48,7 +48,7 @@ This could be:
   - P3
 - ...
   
-Check the [Design (Token) API knowlege section](/docs/knowhow/design-token-api/design-token-api.md) for more inputs or how this could look like.
+Check the [Design (Token) API knowlege section](/docs/knowhow/design-token-api/design-token-api.md) for more inputs or how this could look like. A visual representation/structure of the potential *Design Token API* can be found [here](/docs/knowhow/design-token-api/design-token-api.png).
 
 ## StencilJS
 TBD/WIP
