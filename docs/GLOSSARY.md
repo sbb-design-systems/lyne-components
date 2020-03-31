@@ -36,7 +36,7 @@ Definitions should only live at one place to ensure their accuracy. We define as
 
 > Technically speaking: design tokens are organised lists of key-value pairs that describe design decisions, Cristiano Rastelli
 
-This could be a color value, e.g. the `brand-color` within a certain format like `hex`. For more insights what a *Design Token* all could be checkout the [Design (Token) API knowlege section](docs/knowhow/design-token-api/design-token-api.md#design-token). 
+This could be a color value, e.g. the `brand-color` within a certain format like `hex`. For more insights what a *Design Token* all could be for us checkout the [Design (Token) API knowlege section](docs/knowhow/design-token-api/design-token-api.md#design-token). 
 
 ## Design (Token) API
 TBD/WIP
