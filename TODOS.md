@@ -30,6 +30,7 @@
     - [x] Add question issue tpl
   - [x] Add [SECURITY.md](/.github/SECURITY.md) policy and define process of how to deal with security issues / vulnerabilities
 - [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
+- [ ] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan
 
 #### Check
 ✅ Nothing to check
@@ -118,7 +119,7 @@
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
 - [X] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline
 - [ ] Define and document terminology in [docs/GLOSSARY.md](docs/GLOSSARY.md)
-- [X] Document vision in [docs/VISION.md](docs/VISION.md) 
+- [X] Document vision in [docs/VISION.md](docs/VISION.md)
 - [ ] Document roadmap in [docs/ROADMAP.md](docs/ROADMAP.md)
 
 #### Check
