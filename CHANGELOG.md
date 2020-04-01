@@ -1,3 +1,10 @@
+## [5.7.1](https://github.com/lyne-design-system/lyne-components/compare/v5.7.0...v5.7.1) (2020-04-01)
+
+
+### Bug Fixes
+
+* change incorrect link to the glossary#single-source-of-truth ([3a84547](https://github.com/lyne-design-system/lyne-components/commit/3a845478963d4a7faf6dde33d4dabba26f1c8b1f))
+
 # [5.7.0](https://github.com/lyne-design-system/lyne-components/compare/v5.6.6...v5.7.0) (2020-03-27)
 
 
