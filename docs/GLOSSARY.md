@@ -51,7 +51,9 @@ This could be:
 Check the [Design (Token) API knowlege section](/docs/knowhow/design-token-api/design-token-api.md) for more inputs or how this could look like. A visual representation/structure of the potential *Design Token API* can be found [here](/docs/knowhow/design-token-api/design-token-api.png).
 
 ## StencilJS
-*[Stencil](https://stenciljs.com/)* is a toolchain for building small, fast and standard compliant [Web Components](#web-components) — our [Lyne Components](#lyne-components) — which then power the [Lyne Design System](#lyne). *Stencil* is an integral part of Lyne. But *Stencil* is not a framework, it's a tool — a compiler — which generates plain, reusable Web Compontents but since it is a compiler can also generate framework specific wrappers and their corresponding bindings — called  [output targets](https://stenciljs.com/docs/output-targets). Output targets exist for [various frameworks](https://github.com/ionic-team/stencil-ds-plugins) — also called plugins — but are also used to generate the component documentation.
+*[Stencil](https://stenciljs.com/)* is a toolchain for building small, fast and standard compliant [Web Components](#web-components) — our [Lyne Components](#lyne-components) — which then power the [Lyne Design System](#lyne). *Stencil* is an integral part of Lyne. But *Stencil* is not a framework, it's a tool — a compiler — which generates plain, reusable Web Compontents. Since it is a compiler it can also generate framework specific wrappers and their corresponding bindings — called  [output targets](https://stenciljs.com/docs/output-targets). Output targets exist for [various frameworks](https://github.com/ionic-team/stencil-ds-plugins) — also called plugins — and are also used to generate the component documentation.
+
+TODO: Output targets need a better, more generic description since they are the base for dist too ...
 
 ## Storybook
 TBD/WIP
