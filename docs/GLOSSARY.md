@@ -18,7 +18,7 @@ Read our [VISION.md](./VISION.md) for a more detailed, **non-technical** underst
 For a more in depth and **technical** understanding of *Lyne* check out our [repo](/README.md) and our [documentation](./README.md).
 
 ## Lyne Components
-*Lyne Components* are the building blocks of the [Lyne Design System](#lyne) and are based on standard compliant [Web Components](#web-components) compiled by [StencilJS](#stenciljs) and browsable through [Storybook](#storybook). In code context *Lyne Components* are always referred as `lyne-components`.
+*Lyne* are the building blocks of the [Lyne Design System](#lyne) and are based on standard compliant [Web Components](#web-components) compiled by [StencilJS](#stenciljs) and browsable through [Storybook](#storybook). In code context *Lyne Components* are always referred as `lyne-components`.
 
 ## Preview Deployment
 A *Preview Deployment* is a deployment which is based on a branch ([see Git Branching](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)) other than `master`. If you work on a `feature-branch`, every push to git will trigger a ci-build. After success, a *Preview Deployment* is made. In contrast to the [Production Deployment](#production-deployment), the *Preview Deployment* only creates a [Storybook](#storybook) build and deploys it on [netlify](#netlify).
@@ -29,7 +29,7 @@ A *Production Deployment* is a deployment which is made after a new version numb
 - netlify: Storybook containing all Stencil components
 
 ## Single Source of Truth
-Definitions should only live at one place to ensure their accuracy. We define as our *Single Source of Truth* (**SSoT**) the [Design (Token) API](#design-token-api) which delivers always valid, unique [Design Tokens](#design-token).
+Definitions should only live in one place to ensure their accuracy. We define as our *Single Source of Truth* (**SSoT**) the [Design (Token) API](#design-token-api) which delivers always valid, unique [Design Tokens](#design-token).
 
 ## Design Token
 *Design Tokens* are design primitives. They contain actual values — design decisions — but can also be accompained by metadata. *Design Tokens* are delivered through the [Design (Token) API](#design-token-api).
@@ -51,7 +51,7 @@ This could be:
 Check the [Design (Token) API knowlege section](/docs/knowhow/design-token-api/design-token-api.md) for more inputs or how this could look like. A visual representation/structure of the potential *Design Token API* can be found [here](/docs/knowhow/design-token-api/design-token-api.png).
 
 ## StencilJS
-TBD/WIP
+*[Stencil](https://stenciljs.com/)* is a toolchain for building small, fast and standard compliant [Web Components](#web-components) — our [Lyne Components](#lyne-components) — which then power the [Lyne Design System](#lyne). *Stencil* is an integral part of Lyne. But *Stencil* is not a framework, it's a tool — a compiler — which generates plain, reusable Web Compontents but since it is a compiler can also generate framework specific wrappers and their corresponding bindings — called  [output targets](https://stenciljs.com/docs/output-targets). Output targets exist for [various frameworks](https://github.com/ionic-team/stencil-ds-plugins) — also called plugins — but are also used to generate the component documentation.
 
 ## Storybook
 TBD/WIP
@@ -78,4 +78,10 @@ TBD/WIP
 TBD/WIP
 
 ## Visual Regression Testing
+TBD/WIP
+
+## Lyne Documentation
+TBD/WIP
+
+## Documentation CMS
 TBD/WIP
