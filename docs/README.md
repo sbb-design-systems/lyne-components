@@ -1,6 +1,6 @@
 # Docs
 
-## 👩🏾‍💻 Developing
+## 👩🏼‍💻 Developing
 See [DEVELOP.md](./DEVELOP.md) for development documentation.
 
 ## 🤖 CI/CD
