@@ -1,3 +1,10 @@
+# [5.8.0](https://github.com/lyne-design-system/lyne-components/compare/v5.7.1...v5.8.0) (2020-04-05)
+
+
+### Features
+
+* use lyne-design-tokens package to style cta-button ([7daacce](https://github.com/lyne-design-system/lyne-components/commit/7daacce6463c1dd7f516441967ac200ffa103648))
+
 ## [5.7.1](https://github.com/lyne-design-system/lyne-components/compare/v5.7.0...v5.7.1) (2020-04-01)
 
 
