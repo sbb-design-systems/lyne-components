@@ -1,3 +1,10 @@
+## [5.8.1](https://github.com/lyne-design-system/lyne-components/compare/v5.8.0...v5.8.1) (2020-04-05)
+
+
+### Bug Fixes
+
+* use lyne-design-token to set button color ([1ad1829](https://github.com/lyne-design-system/lyne-components/commit/1ad1829ae7b76580a4b737ec4a2a5df3af962149))
+
 # [5.8.0](https://github.com/lyne-design-system/lyne-components/compare/v5.7.1...v5.8.0) (2020-04-05)
 
 
