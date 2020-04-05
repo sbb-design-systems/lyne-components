@@ -51,6 +51,7 @@
 - [ ] Stencil has a set of typescript-rules. It would make sense that we adhere to these:
   - [ ] https://stenciljs.com/docs/style-guide
   - [ ] https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own portation to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
+- [ ] Add React / Angular output targets https://github.com/ionic-team/stencil-ds-plugins
 - [ ] alongside unit and e2e tests, we might start using muation tests
 
 #### Check
