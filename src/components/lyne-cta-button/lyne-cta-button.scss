@@ -1,8 +1,23 @@
 :host {
   display: block;
 }
-$border: 4px;
+
 .button {
-	color: red;
-	border: $border solid green;
+  font-size: $size-font-base;
+  padding: calc(#{$size-font-base} / 2) $size-font-base;
+	color: #ffffff;
+  background-color: $color-base-red-regular;
+  transition: background-color ease-in 200ms;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.1rem;
+}
+
+.button:hover,
+.button:focus {
+  background-color: $color-base-red-medium;
+}
+
+.button:active {
+  background-color: $color-base-red-dark;
 }
