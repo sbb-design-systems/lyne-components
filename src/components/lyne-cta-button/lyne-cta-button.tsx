@@ -8,7 +8,7 @@ import events from './lyne-cta-button.events';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-cta-button.css',
+  styleUrl: 'lyne-cta-button.scss',
   tag: 'lyne-cta-button'
 })
 

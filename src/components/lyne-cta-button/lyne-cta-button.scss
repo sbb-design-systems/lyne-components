@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+$border: 4px;
+.button {
+	color: red;
+	border: $border solid green;
+}

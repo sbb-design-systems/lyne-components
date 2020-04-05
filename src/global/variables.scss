@@ -1,0 +1,50 @@
+// breakpoints
+// !!! keep this in sync with breakpoints in variables.tsx
+$breakpoint-large: 1025px;
+
+// fonts
+$font-base: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-roman: 'SBBWeb Roman', $font-base;
+$font-bold: 'SBBWeb Bold', $font-base;
+$font-size: 20px;
+$font-size-tablet: 24px;
+
+// colors
+$color-white: #ffffff;
+$color-red: #eb0000;
+$color-red-secondary: #C51416;
+$color-black: #000000;
+$color-black-73: #444444;
+$color-black-60: #767676;
+$color-black-50: #7d7d7d;
+$color-black-26: #bdbdbd;
+$color-black-20: #c7c7c7;
+$color-black-15: #d2d2d2;
+$color-black-13: #dddddd;
+$color-black-10: #e5e5e5;
+$color-black-7: #eaeaea;
+$color-black-5: #f6f6f6;
+
+// layout
+$ui-element-spacing: 20px;
+$ui-tablet-element-spacing: 25px;
+
+$ui-header-height: 72px;
+$ui-tablet-header-height: 80px;
+
+$ui-footer-height: 60px;
+
+$ui-header-summary-height: 84px;
+$ui-tablet-header-summary-height: 99px;
+
+$ui-borders-width: 2px;
+$ui-sidemenu-width: 400px;
+
+// animations
+$animation-reveal-translate-distance: 40px;
+$animation-reveal-translate: transform 250ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+$animation-reveal-opacity: opacity 250ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+
+$animation-active-state-duration: 100ms;
+$animation-active-state-timing-function: ease-in;
+$animation-active-state-primary-color-darken: darken($color-red, 7%);
