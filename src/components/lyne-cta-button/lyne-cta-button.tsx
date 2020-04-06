@@ -1,4 +1,3 @@
-import * as tokens from 'lyne-design-tokens/dist/js/tokens.es6';
 import {
   Component,
   Element,
@@ -6,6 +5,7 @@ import {
   Prop
 } from '@stencil/core';
 import events from './lyne-cta-button.events';
+import Tokens from 'lyne-design-tokens/dist/js/tokens.module';
 
 @Component({
   shadow: true,
@@ -41,7 +41,7 @@ export class LyneCtaButton {
 
   public render(): JSX.Element {
     const style = {
-      fontSize: tokens.SizeFontBase
+      fontSize: Tokens.SizeFontBase
     };
 
     return <button style={style} class='button' onClick={this.buttonClick}>{this.label}</button>;
