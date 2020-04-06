@@ -1,3 +1,12 @@
+## [5.8.2](https://github.com/lyne-design-system/lyne-components/compare/v5.8.1...v5.8.2) (2020-04-06)
+
+
+### Bug Fixes
+
+* add sample how to use tokens in js ([99b7292](https://github.com/lyne-design-system/lyne-components/commit/99b7292b50ca32d9fd8852f7e1d6b60288ee708a))
+* allow json to be imported in typescript ([c23e2ec](https://github.com/lyne-design-system/lyne-components/commit/c23e2ecda4db40c89f967bfc15512f82e809d53d))
+* make sure to import commonjs module from lyne-design-tokens ([9c8bef7](https://github.com/lyne-design-system/lyne-components/commit/9c8bef73974158c72fdd640521a9363deeaf7224))
+
 ## [5.8.1](https://github.com/lyne-design-system/lyne-components/compare/v5.8.0...v5.8.1) (2020-04-05)
 
 
