@@ -137,8 +137,8 @@
     <script>
       (function() {
         const container = document.querySelector('.container');
-        const tablist = container.querySelector('#tabs');
-        const tabs = tablist.querySelectorAll('.tab-list-item-link');
+        const tabList = container.querySelector('#tabs');
+        const tabs = tabList.querySelectorAll('.tab-list-item-link');
         const panels = container.querySelectorAll('.section');
 
         tabs.forEach((tab) => {
@@ -153,29 +153,29 @@
           removeActiveSection();
           setActiveTab(tab);
           setActiveSection(tab);
-        }
+        };
 
         const removeActiveTab = () => {
           tabs.forEach(tab => {
             tab.classList.remove('is-active');
           });
-        }
+        };
 
         const removeActiveSection = () => {
           panels.forEach(panel => {
             panel.classList.remove('is-active');
           });
-        }
+        };
 
         const setActiveTab = (tab) => {
           tab.classList.add('is-active');
-        }
+        };
 
         const setActiveSection = (tab) => {
           const sectionToShow = tab.getAttribute('data-section-id');
           const matchingSection = document.querySelector('#' + sectionToShow);
           matchingSection.classList.add('is-active');
-        }
+        };
 
         switchTab(tabs[0]);
       })();
