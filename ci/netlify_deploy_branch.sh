@@ -9,8 +9,8 @@
 # -e: make sure command returns non-zero exit code as soon as somehting fails
 set -e
 
-# make storybook build
+# make Storybook build
 npm run build:storybook
 
-# deploy storybook on netlify
+# deploy Storybook on Netlify
 netlify deploy --message "++$1++" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
