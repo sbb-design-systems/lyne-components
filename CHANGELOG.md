@@ -1,3 +1,10 @@
+## [5.8.4](https://github.com/lyne-design-system/lyne-components/compare/v5.8.3...v5.8.4) (2020-04-06)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([fc8c403](https://github.com/lyne-design-system/lyne-components/commit/fc8c40342297dac8f16e7fccea2ee40a43bcc104))
+
 ## [5.8.3](https://github.com/lyne-design-system/lyne-components/compare/v5.8.2...v5.8.3) (2020-04-06)
 
 
