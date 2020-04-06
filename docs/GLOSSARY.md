@@ -59,7 +59,7 @@ TODO: Output targets need a better, more generic description since they are the 
 *[Storybook](https://storybook.js.org)* is an open source tool for developing UI components in isolation. Besides being valuable during the development phase it is also used as a [Component Browser](#component-browser) for a wider, less technical audience. All our [Lyne Components](#lyne-components) are browsable through through *Storybook*. The latest *Storybook* release of Lyne Components can be found on [Netlify](https://lyne-components-storybook.netlify.com).
 
 ## npm
-*npm* is the world's largest software registry. It consists of code packages which can be shared
+*[npm](https://www.npmjs.com/)* stands for node package manager and is the world's largest software registry. The registry consists of shared code packages. [Lyne Components](#lyne-components) are published through and shared on *npm*. The latest build of Lyne Components can be found on *npm* as the [lyne-test](https://www.npmjs.com/package/lyne-test) package. For further instructions how to consume Lyne Components via *npm* read [DEVELOP.md](./DEVELOP.md). 
 
 ## Netlify
 TBD/WIP
