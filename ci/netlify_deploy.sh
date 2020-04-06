@@ -17,10 +17,10 @@ then
 
   VERSION="$(cat .version)"
 
-  # make storybook build
+  # make Storybook build
   STORYBOOK_COMPONENTS_VERSION=$VERSION npm run build:storybook
 
-  # deploy storybook on netlify
+  # deploy Storybook on Netlify
   netlify deploy --prod --message "::$VERSION::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
 
 else
