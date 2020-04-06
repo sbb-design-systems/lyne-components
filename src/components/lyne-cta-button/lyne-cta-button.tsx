@@ -5,6 +5,7 @@ import {
   Prop
 } from '@stencil/core';
 import events from './lyne-cta-button.events';
+import tokens from '../../global/variables';
 
 @Component({
   shadow: true,
@@ -23,7 +24,6 @@ export class LyneCtaButton {
   @Element() private element: HTMLElement;
 
   private buttonClick = (): void => {
-
     let eventDetail;
 
     if (this.eventId) {
@@ -40,6 +40,10 @@ export class LyneCtaButton {
   };
 
   public render(): JSX.Element {
-    return <button class='button' onClick={this.buttonClick}>{this.label}</button>;
+    const style = {
+      fontSize: tokens.SizeFontBase
+    };
+
+    return <button style={style} class='button' onClick={this.buttonClick}>{this.label}</button>;
   }
 }
