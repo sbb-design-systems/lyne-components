@@ -2,7 +2,7 @@ const jestConfig = {
   collectCoverageFrom: ['src/**/*.tsx'],
   coverageThreshold: {
     global: {
-      // example: setting functions thershold to 50, and after test we reach
+      // example: setting functions threshold to 50, and after test we reach
       // 30, the build will break
       branches: 0,
       functions: 0,
