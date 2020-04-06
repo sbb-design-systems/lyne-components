@@ -68,7 +68,7 @@ TBD/WIP
 TBD/WIP ... [Web Components](https://www.webcomponents.org/specs)
 
 ## Design System Core Team
-The *[Lyne](#lyne) Design System Core Team* consists of: @feerglas, @mbleuer, @sabrinaheid, @4aficiona2 and Daniel Schindler
+The *[Lyne](#lyne) Design System Core Team* consists of: Marius Bleuer(@mbleuer), Sabrina Heid(@sabrinaheid), Daniel Schindler, Yves Tscherry(@feerglas), Michael Zumstein(@4aficiona2)
 
 ## Component Library
 TBD/WIP
