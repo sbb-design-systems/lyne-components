@@ -17,15 +17,34 @@ assignees: ''
 > Consider using these tools to gather valuable insights about the issue which help us to tackle the issue more effective  
 - https://webpagetest.org
 - https://developers.google.com/speed/pagespeed/insights
-- https://gtmetrix.com/
+- https://developers.google.com/web/tools/lighthouse
+
+## Environment
+
+> Operating system (E.g. Windows 10)
+
+> Browser / Browser Version (E.g. Mozilla Firefox 74.0 (64-bit))
+
+> Network Environment (E.g. 3G)
+
+> Automated testing tool and ruleset (E.g Google Lighthouse)
+
+> Additional settings (save data active)
 
 ## Detailed description
 
-> What version of the Lyne Design System are you using?
+> What version of the Lyne Components are you using?
 
-> Is this issue related to a specific component?
+> Is the issue related to a specific component?
 
-> Since when has this been noticed?
+> Is the issue a general finding or specifically related to the usage of the 
+> Lyne Components within your application?
+
+> If the latter, can you provide us with a link to your application where 
+> the behaviour can be seen or replicated?
+
+> Since when has the issue been noticed? Can it be related to a specific 
+> Lyne Components version change?
 
 ## Steps to reproduce the issue
 
