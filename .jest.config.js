@@ -1,5 +1,3 @@
-const { defaults } = require('jest-config');
-
 const jestConfig = {
   collectCoverageFrom: ['src/**/*.tsx'],
   coverageThreshold: {
