@@ -8,7 +8,7 @@ This page defines the terminology — our common vocabulary — which is used th
 - A shared language
 - A flexible, modular and adjustable system without vendor lock-in
 
-Check [Lyne](#lyne) what a *Design System* (**DS**) means for us specificly and how we define and describe a *Design System*.
+Check [Lyne](#lyne) what a *Design System* (**DS**) means for us specifically and how we define and describe a *Design System*.
 
 ## Lyne
 *Lyne* is the product name of our Design System — *Lyne Design System*.
@@ -32,11 +32,11 @@ A *Production Deployment* is a deployment which is made after a new version numb
 Definitions should only live in one place to ensure their accuracy. We define as our *Single Source of Truth* (**SSoT**) the [Design (Token) API](#design-token-api) which delivers always valid, unique [Design Tokens](#design-token).
 
 ## Design Token
-*Design Tokens* are design primitives. They contain actual values — design decisions — but can also be accompained by metadata. *Design Tokens* are delivered through the [Design (Token) API](#design-token-api).
+*Design Tokens* are design primitives. They contain actual values — design decisions — but can also be accompanied by metadata. *Design Tokens* are delivered through the [Design (Token) API](#design-token-api).
 
-> Technically speaking: Design Tokens are organised lists of key-value pairs that describe design decisions, Cristiano Rastelli
+> Technically speaking: Design Tokens are organized lists of key-value pairs that describe design decisions, Cristiano Rastelli
 
-This could be a color value, e.g. the `brand-color` within a certain format like `hex`. For more insights what a *Design Token* all could be checkout the [Design (Token) API knowlege section](/docs/knowhow/design-token-api/design-token-api.md#design-token).
+This could be a color value, e.g. the `brand-color` within a certain format like `hex`. For more insights what a *Design Token* all could be checkout the [Design (Token) API knowledge section](/docs/knowhow/design-token-api/design-token-api.md#design-token).
 
 ## Design (Token) API
 The *Design Token API* — might also be called *Design API* — is the mechanism/interface to deliver all [Design Tokens](#design-token). The *Design Tokens* can have different formats and get delivered within the requested format depending on the consuming application
@@ -48,18 +48,18 @@ This could be:
   - P3
 - ...
   
-Check the [Design (Token) API knowlege section](/docs/knowhow/design-token-api/design-token-api.md) for more inputs or how this could look like. A visual representation/structure of the potential *Design Token API* can be found [here](/docs/knowhow/design-token-api/design-token-api.png).
+Check the [Design (Token) API knowledge section](/docs/knowhow/design-token-api/design-token-api.md) for more inputs or how this could look like. A visual representation/structure of the potential *Design Token API* can be found [here](/docs/knowhow/design-token-api/design-token-api.png).
 
 ## StencilJS
-*[Stencil](https://stenciljs.com/)* is an open source toolchain for building small, fast and standard compliant [Web Components](#web-components) — our [Lyne Components](#lyne-components) — which then power the [Lyne Design System](#lyne). *Stencil* is an integral part of Lyne. But *Stencil* is not a framework, it's a tool — a compiler — which generates plain, reusable Web Compontents. Since it is a compiler it can also generate framework specific wrappers and their corresponding bindings — called  [output targets](https://stenciljs.com/docs/output-targets). Output targets exist for [various frameworks](https://github.com/ionic-team/stencil-ds-plugins) — also called plugins — and are also used to generate the component documentation.
+*[Stencil](https://stenciljs.com/)* is an open source tool chain for building small, fast and standard compliant [Web Components](#web-components) — our [Lyne Components](#lyne-components) — which then power the [Lyne Design System](#lyne). *Stencil* is an integral part of Lyne. But *Stencil* is not a framework, it's a tool — a compiler — which generates plain, reusable Web Components. Since it is a compiler it can also generate framework specific wrappers and their corresponding bindings — called  [output targets](https://stenciljs.com/docs/output-targets). Output targets exist for [various frameworks](https://github.com/ionic-team/stencil-ds-plugins) — also called plugins — and are also used to generate the component documentation.
 
 TODO: Output targets need a better, more generic description since they are the base for dist too ...
 
 ## Storybook
-*[Storybook](https://storybook.js.org)* is an open source tool for developing UI components in isolation. Besides being valuable during the development phase it is also used as a [Component Browser](#component-browser) for a wider, less technical audience. All our [Lyne Components](#lyne-components) are browsable through through *Storybook*. The lastest *Storybook* release of Lyne Components can be found on [netlify](https://lyne-components-storybook.netlify.com).
+*[Storybook](https://storybook.js.org)* is an open source tool for developing UI components in isolation. Besides being valuable during the development phase it is also used as a [Component Browser](#component-browser) for a wider, less technical audience. All our [Lyne Components](#lyne-components) are browsable through through *Storybook*. The latest *Storybook* release of Lyne Components can be found on [netlify](https://lyne-components-storybook.netlify.com).
 
 ## npm
-TBD/WIP
+*npm* is the world's largest software registry. It consists of code packages which can be shared
 
 ## netlify
 TBD/WIP
