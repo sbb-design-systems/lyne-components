@@ -12,8 +12,8 @@ const PROJECT_NAME = 'lyne-components';
 // in the head of the html document.
 // The Problem: Storybook's default webpack-plugin
 // will extract the style and put it in a generic <style></style> tag.
-// Instead of the tag with the id, this tag get's updated by webpack.
-// Solution: So removing the forst use-rule from the webpack-config seems to fix
+// Instead of the tag with the id, this tag get's updated by Webpack.
+// Solution: So removing the first use-rule from the webpack-config seems to fix
 // the issue.
 const removeStyleLoaderFile = (rules) => {
 
@@ -33,7 +33,7 @@ module.exports = {
     '@storybook/addon-actions/register',
     '@storybook/addon-a11y/register'
   ],
-  // Custom webpack config to tell Storybook where to find the compiled files from Stencil
+  // Custom Webpack config to tell Storybook where to find the compiled files from Stencil
   async webpackFinal(config) {
 
     // uncomment following statement to log the full webpack config
@@ -49,7 +49,7 @@ module.exports = {
     config.plugins.push(new MiniCssExtractPlugin);
     config.module.rules[3].use.unshift(MiniCssExtractPlugin.loader);
 
-    // congiure splitChunks plugin
+    // configure splitChunks plugin
     config.optimization.splitChunks = {
       chunks: 'all',
       minSize: 30000,
@@ -74,7 +74,7 @@ module.exports = {
 
     config.entry.push(path.join(__dirname, OUTPUT_DIR, `${PROJECT_NAME}.js`));
     fs.readdirSync(path.join(__dirname, OUTPUT_DIR, 'collection/components')).map(file => {
-      jsFilePath = path.join(__dirname, OUTPUT_DIR, `collection/components/${file}/${file}.js`);
+      let jsFilePath = path.join(__dirname, OUTPUT_DIR, `collection/components/${file}/${file}.js`);
       try {
         if (fs.existsSync(jsFilePath)) {
           config.entry.push(jsFilePath);
