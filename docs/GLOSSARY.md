@@ -74,7 +74,7 @@ The *[Lyne](#lyne) Design System Core Team* consists of: Marius Bleuer(@mbleuer)
 TBD/WIP
 
 ## Component Browser
-TBD/WIP
+A *Component Browser* is used to develop and preview components in isolation. Throughout the [Lyne](#lyne) Design System we use [Storybook](#storybook) for either developing the component or reviewing the component afterwards.
 
 ## Visual Regression Testing
 TBD/WIP
