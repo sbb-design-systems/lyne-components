@@ -56,7 +56,7 @@ Check the [Design (Token) API knowlege section](/docs/knowhow/design-token-api/d
 TODO: Output targets need a better, more generic description since they are the base for dist too ...
 
 ## Storybook
-Storybook is an open source tool for developing UI components in isolation for React, Vue, and Angular.
+*[Storybook](https://storybook.js.org)* is an open source tool for developing UI components in isolation. Besides being valuable during the development phase it is also used as a [Component Browser](#component-browser) for a wider, less technical audience. All our [Lyne Components](#lyne-components) are browsable through through *Storybook*. The lastest *Storybook* release of Lyne Components can be found on [netlify](https://lyne-components-storybook.netlify.com).
 
 ## npm
 TBD/WIP
@@ -68,7 +68,7 @@ TBD/WIP
 TBD/WIP ... [Web Components](https://www.webcomponents.org/specs)
 
 ## Design System Core Team
-TBD/WIP
+The *[Lyne](#lyne) Design System Core Team* consists of: @feerglas, @mbleuer, @sabrinaheid, @4aficiona2 and Daniel Schindler
 
 ## Component Library
 TBD/WIP
