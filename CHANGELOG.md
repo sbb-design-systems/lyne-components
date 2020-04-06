@@ -1,3 +1,10 @@
+## [5.8.3](https://github.com/lyne-design-system/lyne-components/compare/v5.8.2...v5.8.3) (2020-04-06)
+
+
+### Bug Fixes
+
+* use lyne-design-tokens as commonjs instead of json ([0daa687](https://github.com/lyne-design-system/lyne-components/commit/0daa687f7f617bcdc49c3b61dadb2562e3a99c7d))
+
 ## [5.8.2](https://github.com/lyne-design-system/lyne-components/compare/v5.8.1...v5.8.2) (2020-04-06)
 
 
