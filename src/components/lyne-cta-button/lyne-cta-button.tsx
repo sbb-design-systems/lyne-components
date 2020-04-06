@@ -5,7 +5,7 @@ import {
   Prop
 } from '@stencil/core';
 import events from './lyne-cta-button.events';
-import Tokens from 'lyne-design-tokens/dist/js/tokens.module';
+import Tokens from 'lyne-design-tokens/dist/js/tokens.flat.json';
 
 @Component({
   shadow: true,
