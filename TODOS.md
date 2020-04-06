@@ -44,7 +44,8 @@
 
 ## Local dev setup / Stencil setup
 - [ ] Rename npm package name to ```lyne-components```
-- [ ] npm script ```start``` runs Stencil and Storybook in parallel. We need sequential. The problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel.
+- [ ] npm script ```start``` runs Stencil and Storybook in parallel. We need sequential. The problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel. Possible fix: `"build:stencil:dev": "stencil build --ci --dev --docs", "build:dev": "npm-run-all --sequential build:stencil:dev build:storybook", "develop": "npm-run-all --sequential build:dev start"`
+
 - [ ] npm script ```start``` runs 2 node scripts. To exit (stop the 2 servers), dev's need to press ctrl&c 2 times. Optimize it.
 - [ ] Decide if we should fix dependencies/devDependencies in `package.json`. If so, which ones? Why? Probably fix to minor version? Or Major?
 - [ ] ESLint: currently, we ignore ```*.spec.ts``` and ```*.e2e.ts``` files. Include them in linting and add corresponding rules
