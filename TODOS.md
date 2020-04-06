@@ -57,7 +57,7 @@
 - [ ] Add Angular output target https://github.com/ionic-team/stencil-ds-plugins. Note: angular output target is hard to implement since `ValueAccessorConfig` needs to be manually generated and kept up to date during development. This is the config that duet uses: [https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa](https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa)
 - [ ] alongside unit and e2e tests, we might start using muation tests
 - [x] after switching from css to scss, live reload no longer works for scss changes
-- [ ] optimize start script. Preffered solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
+- [ ] optimize start script. Preferred solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
 
 #### Check
 - [ ] Stencil ESLint / TSLint in https://github.com/ionic-team/stencil-eslint
@@ -106,14 +106,14 @@
 - [ ] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
 - [x] When pushing to master, PREVIEWS.md is not created.
 - [ ] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
-  - option 1: keep javascript. In that case, we need to lint thes files with ESLint
+  - option 1: keep javascript. In that case, we need to lint these files with ESLint
   - option 2: transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
 
 #### Check
 ✅ Nothing to check
 
 #### Verify
-- [ ] For how long are deployments saved on netlify? Forever? 30 days? 1 year?
+- [ ] For how long are deployments saved on Netlify? Forever? 30 days? 1 year?
 - [x] For merge checks on Travis: make sure semantic-release and deploy does not run
 - [x] After merging a PR, the script to generate the release urls might fail. Check to make sure it does not run into merge-conflicts or similar
 
@@ -121,8 +121,8 @@
 ✅ No issues
 
 ## Documentation
-- [x] Document realeasing process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
-- [ ] Modify content of sustainability-policy file to match our own vision and policies.
+- [x] Document releasing process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
+- [ ] Modify content of sustainability-policy file to match our own vision and policies.[docs/SUSTAINABILITY-POLICY.md](docs/SUSTAINABILITY-POLICY.md)
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
 - [X] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline
 - [ ] Define and document terminology in [docs/TERMINOLOGY.md](docs/TERMINOLOGY.md)
