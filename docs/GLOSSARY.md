@@ -76,9 +76,6 @@ TBD/WIP
 ## Component Browser
 TBD/WIP
 
-## Design System Utilities / Helper
-TBD/WIP
-
 ## Visual Regression Testing
 TBD/WIP
 
