@@ -62,7 +62,7 @@ TODO: Output targets need a better, more generic description since they are the 
 *[npm](https://www.npmjs.com/)* stands for node package manager and is the world's largest software registry. The registry consists of shared code packages. [Lyne Components](#lyne-components) are published through and shared on *npm*. The latest build of Lyne Components can be found on *npm* as the [lyne-test](https://www.npmjs.com/package/lyne-test) package. For further instructions how to consume Lyne Components via *npm* read [DEVELOP.md](./DEVELOP.md). 
 
 ## Netlify
-TBD/WIP
+*[Netlify](https://www.netlify.com/)* is an all-in-one platform for automating modern web projects. We use it as a static hosting platform and deploy our [Storybook](#storybook) build of [Lyne Components](#lyne-components) and our [deployments page](https://lyne-components-deployments.netlify.com)(list of all deployments) to *Netlify*. Since Lyne Components are an open source project Netlify services are free of usage.
 
 ## GitHub
 *GitHub* is world's leading software development platform. A code hosting platform for collaboration and version control. *GitHub* lets you (and others) work together on projects like the [Lyne](#lyne) Design System.
