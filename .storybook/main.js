@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const OUTPUT_DIR = '../dist';
 const PROJECT_NAME = 'lyne-components';
@@ -13,10 +12,9 @@ const PROJECT_NAME = 'lyne-components';
 // The Problem: Storybook's default webpack-plugin
 // will extract the style and put it in a generic <style></style> tag.
 // Instead of the tag with the id, this tag get's updated by webpack.
-// Solution: So removing the forst use-rule from the webpack-config seems to fix
+// Solution: Removing the first use-rule from the webpack-config seems to fix
 // the issue.
 const removeStyleLoaderFile = (rules) => {
-
   return rules.map((rule) => {
     if (rule.test.toString().indexOf('.css$') !== -1) {
       rule.use.splice(0, 1);
@@ -44,10 +42,6 @@ module.exports = {
 
     // source-maps
     config.devtool = false;
-
-    // extract css from js
-    config.plugins.push(new MiniCssExtractPlugin);
-    config.module.rules[3].use.unshift(MiniCssExtractPlugin.loader);
 
     // congiure splitChunks plugin
     config.optimization.splitChunks = {
