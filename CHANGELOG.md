@@ -1,3 +1,10 @@
+## [5.8.5](https://github.com/lyne-design-system/lyne-components/compare/v5.8.4...v5.8.5) (2020-04-07)
+
+
+### Bug Fixes
+
+* make scss live changes work and remove mini-css-extract-plugin ([5046e1c](https://github.com/lyne-design-system/lyne-components/commit/5046e1c73f991173ae7b68941f9dd545495eac3e))
+
 ## [5.8.4](https://github.com/lyne-design-system/lyne-components/compare/v5.8.3...v5.8.4) (2020-04-06)
 
 
