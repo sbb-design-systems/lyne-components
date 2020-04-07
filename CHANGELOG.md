@@ -1,3 +1,11 @@
+# [5.9.0](https://github.com/lyne-design-system/lyne-components/compare/v5.8.5...v5.9.0) (2020-04-07)
+
+
+### Features
+
+* add react output target ([2558218](https://github.com/lyne-design-system/lyne-components/commit/255821842ec2ea3426cb01c3cc4fcc005db79ac1))
+* add react output target ([d0db540](https://github.com/lyne-design-system/lyne-components/commit/d0db5406d7acbd2b34957f6729032c493a082265))
+
 ## [5.8.5](https://github.com/lyne-design-system/lyne-components/compare/v5.8.4...v5.8.5) (2020-04-07)
 
 
