@@ -55,7 +55,7 @@
   - [ ] https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own portation to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
 - [ ] Add React / Angular output targets https://github.com/ionic-team/stencil-ds-plugins
 - [ ] alongside unit and e2e tests, we might start using muation tests
-- [ ] after switching from css to scss, live reload no longer works for scss changes
+- [x] after switching from css to scss, live reload no longer works for scss changes
 - [ ] optimize start script. Preffered solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
 
 #### Check
