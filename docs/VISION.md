@@ -14,10 +14,10 @@ The reference and building blocks to create consistent experiences across SBB di
 The *[Lyne Design System](./GLOSSARY.md#lyne)* is a holistic approach towards a consistent, maintainable, cross-company design language for all SBB digital products/services for a better common understanding between stakeholders, designers and developers.
 
 ## What *Lyne* consists of
-The *[Lyne Design System](./GLOSSARY.md#lyne)* is based on a intuitive, unique — the [Single Source of Truth](./GLOSSARY.md#single-source-of-truth) — referential resource, including shared and well-documented guidelines, [terminologies](./GLOSSARY.md), processes and vocabulary ([Design Tokens](./GLOSSARY.md#design-token)), as well as centralised, vendor and framework agnostic basic building blocks ([Lyne Components](./GLOSSARY.md#lyne-components)).
+The *[Lyne Design System](./GLOSSARY.md#lyne)* is based on a intuitive, unique — the [Single Source of Truth](./GLOSSARY.md#single-source-of-truth) — referential resource, including shared and well-documented guidelines, [terminologies](./GLOSSARY.md), processes and vocabulary ([Design Tokens](./GLOSSARY.md#design-token)), as well as centralized, vendor and framework agnostic basic building blocks ([Lyne Components](./GLOSSARY.md#lyne-components)).
 
 ## What *Lyne* does
-The *[Lyne Design System](./GLOSSARY.md#lyne)* not only enables an optimised collaboration and integration workflow between the [Design System Core Team](./GLOSSARY.md#design-system-core-team) and consumers of *[Lyne Design System](./GLOSSARY.md#lyne)* but also accelerates the creation and development process (time to market) in a sustainable, maintainable, and long term committed fashion.
+The *[Lyne Design System](./GLOSSARY.md#lyne)* not only enables an optimized collaboration and integration workflow between the [Design System Core Team](./GLOSSARY.md#design-system-core-team) and consumers of *[Lyne Design System](./GLOSSARY.md#lyne)* but also accelerates the creation and development process (time to market) in a sustainable, maintainable, and long term committed fashion.
 
 ## *Lyne*'s advantages and the resulting (→) chances
 - One language / terminology →
@@ -31,7 +31,7 @@ The *[Lyne Design System](./GLOSSARY.md#lyne)* not only enables an optimised col
     - Easy on-boarding
     - Empowerment
     - Reducing the knowledge gap
-- Efficient & optimised collaboration → 
+- Efficient & optimized collaboration → 
     - Team member happiness (PO, UX, DevOps, Frontend, Backend)
     - Developer Experience of (component) consumers
     - Clear feedback / Review mechanisms
@@ -39,8 +39,8 @@ The *[Lyne Design System](./GLOSSARY.md#lyne)* not only enables an optimised col
 - Make things easier →
     - Team member happiness (PO, UX, DevOps, Frontend, Backend)
 - Consolidation →
-    - Optimised patterns
-    - Optimised code
+    - Optimized patterns
+    - Optimized code
 - Consistency →
     - Consistent design within the SBB → One SBB
     - User Experience
@@ -61,7 +61,7 @@ The *[Lyne Design System](./GLOSSARY.md#lyne)* not only enables an optimised col
     - Built in a11y
 - Measurable →
     - Data-driven decisions
-- Longterm focus →
+- Long term focus →
     - Sustainability 
     - Commitment
 
@@ -76,7 +76,7 @@ The *[Lyne Design System](./GLOSSARY.md#lyne)* not only enables an optimised col
 - Reducing the knowledge gap
 - Team member happiness (PO, UX, DevOps, Frontend, Backend)
 - Developer Experience (DX) of (component) consumers
-- Optimised patterns/code through consolidation
+- Optimized patterns/code through consolidation
 - Cross platform usage and reusability
 - Clear feedback/review mechanisms
 - Consistent design throughout the SBB → One SBB
