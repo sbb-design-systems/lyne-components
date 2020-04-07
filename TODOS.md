@@ -53,7 +53,8 @@
 - [ ] Stencil has a set of typescript-rules. It would make sense that we adhere to these:
   - [ ] https://stenciljs.com/docs/style-guide
   - [ ] https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own portation to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
-- [ ] Add React / Angular output targets https://github.com/ionic-team/stencil-ds-plugins
+- [x] Add React output target https://github.com/ionic-team/stencil-ds-plugins
+- [ ] Add Angular output target https://github.com/ionic-team/stencil-ds-plugins. Note: angular output target is hard to implement since `ValueAccessorConfig` needs to be manually generated and kept up to date during development. This is the config that duet uses: [https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa](https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa)
 - [ ] alongside unit and e2e tests, we might start using muation tests
 - [x] after switching from css to scss, live reload no longer works for scss changes
 - [ ] optimize start script. Preffered solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
