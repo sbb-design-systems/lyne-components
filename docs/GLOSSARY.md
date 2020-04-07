@@ -64,14 +64,17 @@ TODO: Output targets need a better, more generic description since they are the 
 ## Netlify
 TBD/WIP
 
+## GitHub
+*GitHub* is world's leading software development platform. A code hosting platform for collaboration and version control. *GitHub* lets you (and others) work together on projects like the [Lyne](#lyne) Design System.
+
 ## Web Components
-TBD/WIP ... [Web Components](https://www.webcomponents.org/specs)
+*[Web Components](https://www.webcomponents.org/specs)* are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps. *Web components* are based on existing web standards and are framework agnostic hence they do not have any dependency on a JavaScript framework and therefore will never be outdated. [Lyne Components](#lyne-components) are based on standard compliant *Web Components*.
 
 ## Design System Core Team
 The *[Lyne](#lyne) Design System Core Team* consists of: Marius Bleuer(@mbleuer), Sabrina Heid(@sabrinaheid), Daniel Schindler, Yves Tscherry(@feerglas), Michael Zumstein(@4aficiona2)
 
 ## Component Library
-TBD/WIP
+Throughout the [Lyne](#lyne) Design System we use the term *Component Library* as a set of [Web Components](#web-components) represented as [Lyne Components](#lyne-components).
 
 ## Component Browser
 A *Component Browser* is used to develop and preview components in isolation. Throughout the [Lyne](#lyne) Design System we use [Storybook](#storybook) for either developing the component or reviewing the component afterwards.
