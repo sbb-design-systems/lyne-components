@@ -15,6 +15,7 @@ If you commit and push your changes on a branch, a deploy preview is created on 
 | Script        | Purpose       |
 | ------------- | ------------- |
 |build:stencil|used to create a production build for stencil components|
+|build:stencil:dev|used to create a dev build for stencil components|
 |build:storybook|used to build storybook static site|
 |build|runs build:stencil and build:storybook in sequence|
 |generate|start the interactive component generator|
@@ -22,7 +23,7 @@ If you commit and push your changes on a branch, a deploy preview is created on 
 |semantic-release|start a semantic release|
 |start:stencil|start the development server for stencil|
 |start:storybook|start the development server for storybook|
-|start|runs start:stencil and start:storybook in parallel|
+|start|runs build:stencil:dev and then start:stencil and start:storybook in parallel|
 |test|run all unit and e2e tests|
 |test.watch|run all unit and e2e tests in watch mode|
 
@@ -55,7 +56,6 @@ If you commit and push your changes on a branch, a deploy preview is created on 
 |jest|used for unit tests|https://jestjs.io/|
 |jest-cli|cli utility for jest|https://jestjs.io/|
 |jsx-dom|Used to support jsx in storybook stories files|https://github.com/proteriax/jsx-dom|
-|mini-css-extract-plugin|webpack: extract css from js|https://webpack.js.org/plugins/mini-css-extract-plugin/|
 |npm-run-all|run npm-scripts in parallel or sequential|https://github.com/mysticatea/npm-run-all|
 |puppeteer|used for e2e tests|https://github.com/puppeteer/puppeteer#readme|
 |semantic-release|Used to start semantic release|https://github.com/semantic-release/semantic-release|

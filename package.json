@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "build:stencil": "stencil build --ci --prod --docs",
+    "build:stencil:dev": "stencil build --dev --docs",
     "build:storybook": "build-storybook --quiet",
     "build": "npm-run-all --sequential build:stencil build:storybook",
     "generate": "stencil generate",
@@ -29,7 +30,7 @@
     "semantic-release": "semantic-release",
     "start:stencil": "stencil build --dev --watch --docs",
     "start:storybook": "start-storybook -p 6006 -s www",
-    "start": "npm-run-all --parallel start:stencil start:storybook",
+    "start": "npm-run-all --sequential build:stencil:dev --parallel start:stencil start:storybook",
     "test": "stencil test --spec --e2e --coverage",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
@@ -63,7 +64,6 @@
     "jest-cli": "24.9.0",
     "jsx-dom": "^6.4.11",
     "lyne-design-tokens": "latest",
-    "mini-css-extract-plugin": "^0.9.0",
     "npm-run-all": "^4.1.5",
     "puppeteer": "1.20.0",
     "semantic-release": "^17.0.4",
