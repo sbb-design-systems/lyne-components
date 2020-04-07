@@ -68,7 +68,7 @@ module.exports = {
 
     config.entry.push(path.join(__dirname, OUTPUT_DIR, `${PROJECT_NAME}.js`));
     fs.readdirSync(path.join(__dirname, OUTPUT_DIR, 'collection/components')).map(file => {
-      let jsFilePath = path.join(__dirname, OUTPUT_DIR, `collection/components/${file}/${file}.js`);
+      const jsFilePath = path.join(__dirname, OUTPUT_DIR, `collection/components/${file}/${file}.js`);
       try {
         if (fs.existsSync(jsFilePath)) {
           config.entry.push(jsFilePath);
