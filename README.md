@@ -4,10 +4,10 @@
   Lyne Components
 </h1>
 
-> *Lyne Components* are the building blocks of the [Lyne Design System](/docs/GLOSSARY.md#lyne)
-> and are based on standard compliant [Web Components](/docs/GLOSSARY.md#web-components) 
-> compiled by [StencilJS](/docs/GLOSSARY.md#stenciljs) and
-> browsable through [Storybook](/docs/GLOSSARY.md#storybook)
+> *Lyne Components* are the building blocks of the [Lyne Design System](/docs/TERMINOLOGY.md#lyne)
+> and are based on standard compliant [Web Components](/docs/TERMINOLOGY.md#web-components) 
+> compiled by [StencilJS](/docs/TERMINOLOGY.md#stenciljs) and
+> browsable through [Storybook](/docs/TERMINOLOGY.md#storybook)
 
 <br>
 

@@ -125,7 +125,7 @@
 - [ ] Modify content of sustainability-policy file to match our own vision and policies.
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
 - [X] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline
-- [ ] Define and document terminology in [docs/GLOSSARY.md](docs/GLOSSARY.md)
+- [ ] Define and document terminology in [docs/TERMINOLOGY.md](docs/TERMINOLOGY.md)
 - [X] Document vision in [docs/VISION.md](docs/VISION.md)
 - [ ] Document roadmap in [docs/ROADMAP.md](docs/ROADMAP.md)
 
