@@ -67,6 +67,9 @@ TODO: Output targets need a better, more generic description since they are the 
 ## GitHub
 *GitHub* is world's leading software development platform. A code hosting platform for collaboration and version control. *GitHub* lets you (and others) work together on projects like the [Lyne](#lyne) Design System.
 
+## Component
+We define a *Component* as the smallest possible functional building block. *Components* are reusable and can be composed to [Composed Components](#composed-components). A *Component* is not a [Design Token](#design-token) but a *Component* can be built based on one or multiple Design Tokens. Within the [Lyne](#lyne) Design System a component is  always represented [Lyne Component](#lyne-component) — a [Web Component](#web-component) technically speaking. An example of a *Component* is a button which uses different Design Tokens for it's visual representation. 
+
 ## Web Components
 *[Web Components](https://www.webcomponents.org/specs)* are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps. *Web components* are based on existing web standards and are framework agnostic hence they do not have any dependency on a JavaScript framework and therefore will never be outdated. [Lyne Components](#lyne-components) are based on standard compliant *Web Components*.
 
