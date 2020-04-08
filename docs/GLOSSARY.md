@@ -71,7 +71,7 @@ TODO: Output targets need a better, more generic description since they are the 
 *[Web Components](https://www.webcomponents.org/specs)* are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps. *Web components* are based on existing web standards and are framework agnostic hence they do not have any dependency on a JavaScript framework and therefore will never be outdated. [Lyne Components](#lyne-components) are based on standard compliant *Web Components*.
 
 ## Design System Core Team
-The *[Lyne](#lyne) Design System Core Team* consists of: [Marius Bleuer](https://github.com/mbleuer), [Sabrina Heid](https://github.com/sabrinaheid), [Daniel Schindler](https://github.com/DanTheMen), Florian Stuerzinger, [Yves Tscherry](https://github.com/feerglas), [Michael Zumstein](https://github.com/4aficiona2)
+The *[Lyne](#lyne) Design System Core Team* consists by now of: [Marius Bleuer](https://github.com/mbleuer), [Sabrina Heid](https://github.com/sabrinaheid), [Daniel Schindler](https://github.com/DanTheMen), [Florian Stuerzinger](https://github.com/florianstuerzinger), [Yves Tscherry](https://github.com/feerglas), [Michael Zumstein](https://github.com/4aficiona2)
 
 ## Component Library
 Throughout the [Lyne](#lyne) Design System we use the term *Component Library* as a set of [Web Components](#web-components) represented as [Lyne Components](#lyne-components).
@@ -80,7 +80,7 @@ Throughout the [Lyne](#lyne) Design System we use the term *Component Library* a
 A *Component Browser* is used to develop and preview components in isolation. Throughout the [Lyne](#lyne) Design System we use [Storybook](#storybook) for either developing the component or reviewing the component afterwards.
 
 ## Visual Regression Testing
-TBD/WIP
+TBD/WIP 
 
 ## Lyne Documentation
 TBD/WIP
