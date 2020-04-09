@@ -1,3 +1,10 @@
+## [5.9.1](https://github.com/lyne-design-system/lyne-components/compare/v5.9.0...v5.9.1) (2020-04-09)
+
+
+### Bug Fixes
+
+* update docs ([caa5684](https://github.com/lyne-design-system/lyne-components/commit/caa568429c17e88a4c172646118ced4d107d5c27))
+
 # [5.9.0](https://github.com/lyne-design-system/lyne-components/compare/v5.8.5...v5.9.0) (2020-04-07)
 
 
