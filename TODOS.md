@@ -100,20 +100,20 @@
 - [ ] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
 - [ ] npm package size is huge!
 - [ ] Integrate [webhint](https://webhint.io/docs/user-guide/)
-- [ ] codecoverage
-  - [x] Configure codecoverage for Jest
-  - [ ] codecoverage report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
+- [ ] Code coverage
+  - [x] Configure Code coverage for Jest
+  - [ ] Code coverage report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
 - [ ] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
 - [x] When pushing to master, PREVIEWS.md is not created.
 - [ ] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
-  - option 1: keep javascript. In that case, we need to lint thes files with ESLint
-  - option 2: transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
+  - Option 1: Keep JavaScript. In that case, we need to lint these files with ESLint
+  - Option 2: Transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
 
 #### Check
 ✅ Nothing to check
 
 #### Verify
-- [ ] For how long are deployments saved on netlify? Forever? 30 days? 1 year?
+- [ ] For how long are deployments saved on Netlify? Forever? 30 days? 1 year?
 - [x] For merge checks on Travis: make sure semantic-release and deploy does not run
 - [x] After merging a PR, the script to generate the release urls might fail. Check to make sure it does not run into merge-conflicts or similar
 
@@ -121,7 +121,7 @@
 ✅ No issues
 
 ## Documentation
-- [x] Document realeasing process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
+- [x] Document release process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
 - [ ] Modify content of sustainability-policy file to match our own vision and policies.
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
 - [X] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline

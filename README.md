@@ -25,7 +25,7 @@ Please check [deployments](https://lyne-components-deployments.netlify.com)  for
 The current **🧪 experimental** build of Lyne Components can be found on [npm](https://www.npmjs.com/package/lyne-test).
 
 ## 📚 Documentation
-Check the [docs](docs/README.md) directory for our documentaion which we will continously enhance.
+Check the [docs](docs/README.md) directory for our documentation which we will continuously enhance.
 
 ## 🧰 Getting started
 To see how to use `lyne-components` in React, Angular, Vue, Svelte or Plain Javascript, please refer to [this](https://github.com/lyne-design-system/lyne-getting-started) repo to see example implementations.

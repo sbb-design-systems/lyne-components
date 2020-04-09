@@ -5,11 +5,11 @@ const buildDeployUrls = async (deploymentsDir) => {
 
   try {
     // prepare content for .html file
-    const formatedResults = formatResults();
+    const formattedResults = formatResults();
 
     // write .md file
     fs.mkdirSync(deploymentsDir);
-    fs.writeFileSync(`./${deploymentsDir}/${config.deploymentsPageFileName}`, formatedResults);
+    fs.writeFileSync(`./${deploymentsDir}/${config.deploymentsPageFileName}`, formattedResults);
 
     console.log(`-->> BUILD DEPLOY URLS: successcully created ./${deploymentsDir}/${config.deploymentsPageFileName}`);
     return Promise.resolve();

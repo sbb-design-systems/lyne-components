@@ -1,16 +1,16 @@
-# Add release version as message to netlify deployment
+# Add release version as message to Netlify deployment
 # 1. .releaserc -> write version to .version
 # 2. add --message in format: ::VERSION:: in netlify deploy
 
-# Initially, we used travis stages and workspaces
+# Initially, we used Travis's stages and workspaces
 # https://docs.travis-ci.com/user/using-workspaces/
-# with stage1: build and deploy to npm
-# stage2: build storybook and deploy to netlify
+# In stage1: Build and deploy to npm
+# In stage2: Build Storybook and deploy to Netlify
 # Where stage2 takes up to 2 minutes.
-# The problem: if no new version is released, it is not possible to define
+# The problem: If no new version is released, it is not possible to define
 # a condition so that stage2 is not run. Therefore the build would last 2 min
-# longer than neccessary.
-# Solution: For simplicity, we ommit stages and do everything in the script
+# longer than necessary.
+# Solution: For simplicity, we omit stages and do everything in the script
 # block of one job.
 
 os: linux
@@ -19,10 +19,10 @@ notifications:
   slack:
     template:
       # This template config somehow breaks yaml syntax
-      # in the editor alltough it is valid yaml syntax
+      # in the editor although it is valid yaml syntax
       - "Build: <%{build_url}|%{build_number}>"
       - "Commit: <%{compare_url}|%{commit}>"
-      - "Autor: %{author}"
+      - "Author: %{author}"
       - "Result: %{result} in %{duration}"
     secure: vB5wQL+sq2HlZ3qY5bt1PL2nf309aUm2TPlEj1phjtZ+qoW5XwMUM6XebMoycmWaesHirK0v0AKWluQwJ6fTu9rDKDDASVc2v3u2vg8fxeYLnMoCSoEalpmS6kBcxmXwqlIJUfIG8ow1pkcaTeiKYK/2ZHCdn3ArQ6ouAKh1P//VtpR3Dc/aai+TInJBhprYrk31scVTw81rOQU3F3GPJuVS1lelvyOhjy+12gqYRWPzU6voBmaG7eYhyqEjGfJJS7p1DM3QpnDar18seOK8tKjSiThWPS9VHYcaBBh1mBslkshqU0jiPRMQNWPtw7lf/7ueRe1drQsMSABPeQlbTdGYSh+w48P24vl4xPoGdhI0LTLpzzjmTROBRJPtQ7krZTswjSNKnVgbU8gVZLDSI77BI1o9flQNF1PBYxzru10WlznlDdeZwRotdV3wVDdHtYLBUq6qs6NuLbYnVPDgIgclMdeYVHf9l0aTSFq2SSVV0Y8SpvAOweuQoZD6bf+5jnUvAKDdg4EVN7yR1mWANwOg3ahOZDVykpRFPYIAe4lN8QwT2CjqHrkF9zKpNmcrdR+P1WpFufFaZO1qFDat6phzw2DcSMZw1DdvRKFgu+1WCvOHAYJJfpS0SuOr5cm3U+noDFUoukSa37qqOEzXsNikb7oxNyCR0RNb+a9rrpY=
 
@@ -34,13 +34,13 @@ jobs:
 
         # lint
         # travis_terminate 1: make sure build immediately stops if the
-        # command exits with non-zero code
+        # Command exits with non-zero code
         - npm run lint || travis_terminate 1
 
-        # make stnecil production build
+        # Make Stencil production build
         - npm run build:stencil || travis_terminate 1
 
-        # run tests
+        # Run tests
         - npm run test
 
         # upload coverage report
@@ -56,33 +56,33 @@ jobs:
         - npm install netlify-cli -g > "/dev/null" 2>&1
 
 
-        # build storybook and run netlify deploy
+        # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy.sh
 
-        # build and deploy the deployments page
+        # Build and deploy the deployments page
         - ./ci/build_deployments_page.sh
 
     - stage: build, test and deploy storybook for branches other than master
       if: branch != master
       script:
 
-        # lint
+        # Lint
         - npm run lint || travis_terminate 1
 
-        # make stnecil production build
+        # Make Stencil production build
         - npm run build:stencil || travis_terminate 1
 
-        # run tests
+        # Run tests
         - npm run test
 
       after_success:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
-        # interested in the output from netlify-cli
+        # Interested in the output from netlify-cli
         - npm install netlify-cli -g > "/dev/null" 2>&1
 
-        # build storybook and run netlify deploy
+        # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
 
-        # build and deploy the deployments page
+        # Build and deploy the deployments page
         - ./ci/build_deployments_page.sh

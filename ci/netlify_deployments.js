@@ -32,7 +32,7 @@ const netlifyDeployments = async (netlifyToken, netlifySiteId) => {
     // write .md file
     fs.writeFileSync(`./ci/${config.deploymentsJsonName}`, JSON.stringify(json));
 
-    console.log(`-->> NETLIFY DEPLOYMENTS: successcully created ${config.deploymentsJsonName}`);
+    console.log(`-->> NETLIFY DEPLOYMENTS: Successfully created ${config.deploymentsJsonName}`);
     return Promise.resolve();
   } catch (error) {
     return Promise.reject(error);
