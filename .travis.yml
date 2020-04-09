@@ -7,7 +7,7 @@
 # In stage1: Build and deploy to npm
 # In stage2: Build Storybook and deploy to Netlify
 # Where stage2 takes up to 2 minutes.
-# The problem: if no new version is released, it is not possible to define
+# The problem: If no new version is released, it is not possible to define
 # a condition so that stage2 is not run. Therefore the build would last 2 min
 # longer than necessary.
 # Solution: For simplicity, we omit stages and do everything in the script
