@@ -84,5 +84,5 @@ jobs:
         # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
 
-        # build and deploy the deployments page
+        # Build and deploy the deployments page
         - ./ci/build_deployments_page.sh
