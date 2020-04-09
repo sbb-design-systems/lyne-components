@@ -78,7 +78,7 @@ jobs:
       after_success:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
-        # interested in the output from netlify-cli
+        # Interested in the output from netlify-cli
         - npm install netlify-cli -g > "/dev/null" 2>&1
 
         # build Storybook and run Netlify deploy
