@@ -12,5 +12,5 @@ set -e
 # make Storybook build
 npm run build:storybook
 
-# deploy Storybook on Netlify
+# Deploy Storybook on Netlify
 netlify deploy --message "++$1++" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
