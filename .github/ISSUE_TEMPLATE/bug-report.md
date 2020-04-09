@@ -26,7 +26,7 @@ assignees: ''
 
 > Operating system (E.g. Windows 10)
 
-> Browser / Browser Version (E.g. Mozilla Firefox 74.0 (64-bit))
+> Browser / browser version (E.g. Mozilla Firefox 74.0 (64-bit))
 
 > Input Mode (e.g. Touch)
 
