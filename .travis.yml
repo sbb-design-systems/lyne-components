@@ -59,7 +59,7 @@ jobs:
         # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy.sh
 
-        # build and deploy the deployments page
+        # Build and deploy the deployments page
         - ./ci/build_deployments_page.sh
 
     - stage: build, test and deploy storybook for branches other than master
