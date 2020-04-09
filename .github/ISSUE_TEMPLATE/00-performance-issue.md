@@ -37,7 +37,7 @@ assignees: ''
 
 > Is the issue related to a specific component?
 
-> Is the issue a general finding or specifically related to the usage of the 
+> Is the issue a general finding or specifically related to the usage of  
 > Lyne Components within your application?
 
 > If the latter, can you provide us with a link to your application where 
