@@ -31,7 +31,7 @@
   - [x] Add [SECURITY.md](/.github/SECURITY.md) policy and define process of how to deal with security issues / vulnerabilities
 - [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
 - [ ] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan
-- [ ] Optimize Gibhub Workflow: if a user creates a pull request and assigns the PR to the project before the according workflow is run, the workflow is marked as failed
+- [ ] Optimize Gibhub Workflow: if a user creates a pull request and assigns it to the project before the according workflow is run, the workflow is marked as failed
 
 #### Check
 ✅ Nothing to check
