@@ -9,7 +9,7 @@
 # -e: make sure command returns non-zero exit code as soon as somehting fails
 set -e
 
-# make Storybook build
+# Make Storybook build
 npm run build:storybook
 
 # Deploy Storybook on Netlify
