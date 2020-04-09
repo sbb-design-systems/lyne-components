@@ -2,7 +2,7 @@
 # 1. .releaserc -> write version to .version
 # 2. add --message in format: ::VERSION:: in netlify deploy
 
-# Initially, we used travis stages and workspaces
+# Initially, we used Travis's stages and workspaces
 # https://docs.travis-ci.com/user/using-workspaces/
 # with stage1: build and deploy to npm
 # stage2: build Storybook and deploy to Netlify
