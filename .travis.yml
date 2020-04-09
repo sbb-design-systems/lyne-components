@@ -69,7 +69,7 @@ jobs:
         # lint
         - npm run lint || travis_terminate 1
 
-        # make Stencil production build
+        # Make Stencil production build
         - npm run build:stencil || travis_terminate 1
 
         # run tests
