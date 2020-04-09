@@ -18,7 +18,7 @@ assignees: ''
 
 > Operating system (E.g. Windows 10)
 
-> Browser / Browser Version (E.g. Mozilla Firefox 74.0 (64-bit))
+> Browser / browser version (E.g. Mozilla Firefox 74.0 (64-bit))
 
 > Automated testing tool and ruleset (E.g. axe - Web Accessibility Testing Extension)
 
@@ -28,7 +28,7 @@ assignees: ''
 
 ## Detailed description
 
-> What version of the Lyne Components are you using?
+> Which version of Lyne Components are you using?
 
 > Is the issue related to a specific component?
 
@@ -38,7 +38,7 @@ assignees: ''
 
 > What WCAG 2.1 checkpoint does the issue violate?
 
-> Is the issue a general finding or specifically related to the usage of the Lyne Components 
+> Is the issue a general finding or specifically related to the usage of Lyne Components 
 > within your application?
 
 > If the latter, can you provide us with a link to your application where the behaviour can 

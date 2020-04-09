@@ -25,7 +25,7 @@ assignees: ''
 
 > Browser / Browser Version (E.g. Mozilla Firefox 74.0 (64-bit))
 
-> Network Environment (E.g. 3G)
+> Network environment (E.g. 3G)
 
 > Automated testing tool and ruleset (E.g Google Lighthouse)
 
@@ -33,11 +33,11 @@ assignees: ''
 
 ## Detailed description
 
-> What version of the Lyne Components are you using?
+> What version of Lyne Components are you using?
 
 > Is the issue related to a specific component?
 
-> Is the issue a general finding or specifically related to the usage of the 
+> Is the issue a general finding or specifically related to the usage of  
 > Lyne Components within your application?
 
 > If the latter, can you provide us with a link to your application where 

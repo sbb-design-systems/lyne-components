@@ -8,7 +8,7 @@ contribution process, you are in the right place. First off, thank you for
 your interest!
 
 **Since we are in very early development phase, contributions are limited to 
-the core Lyne team. Once this project will be more mature, we invite
+the Lyne core team. Once this project will be more mature, we invite
 the community to participate and contribute to the Lyne Design System.**
 
 ## Code of conduct

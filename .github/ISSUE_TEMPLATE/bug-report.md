@@ -26,11 +26,11 @@ assignees: ''
 
 > Operating system (E.g. Windows 10)
 
-> Browser / Browser Version (E.g. Mozilla Firefox 74.0 (64-bit))
+> Browser / browser version (E.g. Mozilla Firefox 74.0 (64-bit))
 
-> Input Mode (e.g. Touch)
+> Input mode (e.g. touch)
 
-> Network Environment (E.g. 3G)
+> Network environment (E.g. 3G)
 
 > Additional settings (save data active)
 
@@ -43,7 +43,7 @@ assignees: ''
 > What did you expect to happen? What happened instead? What would you like to
 > see changed
 
-> What version of the Lyne Components are you using?
+> Which version of Lyne Components are you using?
 
 > What offering/product do you work on? Any pressing shipping or release dates we
 > should be aware of?
