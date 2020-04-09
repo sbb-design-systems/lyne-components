@@ -28,7 +28,7 @@ assignees: ''
 
 ## Detailed description
 
-> What version of the Lyne Components are you using?
+> Which version of Lyne Components are you using?
 
 > Is the issue related to a specific component?
 
