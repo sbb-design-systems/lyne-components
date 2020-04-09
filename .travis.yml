@@ -81,7 +81,7 @@ jobs:
         # Interested in the output from netlify-cli
         - npm install netlify-cli -g > "/dev/null" 2>&1
 
-        # build Storybook and run Netlify deploy
+        # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
 
         # build and deploy the deployments page
