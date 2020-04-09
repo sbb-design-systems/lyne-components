@@ -28,7 +28,7 @@ assignees: ''
 
 > Browser / browser version (E.g. Mozilla Firefox 74.0 (64-bit))
 
-> Input Mode (e.g. Touch)
+> Input mode (e.g. touch)
 
 > Network Environment (E.g. 3G)
 
