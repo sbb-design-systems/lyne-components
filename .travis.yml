@@ -56,7 +56,7 @@ jobs:
         - npm install netlify-cli -g > "/dev/null" 2>&1
 
 
-        # build Storybook and run Netlify deploy
+        # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy.sh
 
         # build and deploy the deployments page
