@@ -34,7 +34,7 @@ jobs:
 
         # lint
         # travis_terminate 1: make sure build immediately stops if the
-        # command exits with non-zero code
+        # Command exits with non-zero code
         - npm run lint || travis_terminate 1
 
         # make Stencil production build
