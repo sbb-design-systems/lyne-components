@@ -17,7 +17,7 @@ then
 
   VERSION="$(cat .version)"
 
-  # make Storybook build
+  # Make Storybook build
   STORYBOOK_COMPONENTS_VERSION=$VERSION npm run build:storybook
 
   # Deploy Storybook on Netlify
