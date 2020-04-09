@@ -49,7 +49,7 @@ module.exports = {
     config.plugins.push(new MiniCssExtractPlugin);
     config.module.rules[3].use.unshift(MiniCssExtractPlugin.loader);
 
-    // configure splitChunks plugin
+    // Configure splitChunks plugin
     config.optimization.splitChunks = {
       chunks: 'all',
       minSize: 30000,
