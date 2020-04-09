@@ -104,7 +104,7 @@
 - [x] When pushing to master, PREVIEWS.md is not created.
 - [ ] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
   - option 1: keep javascript. In that case, we need to lint these files with ESLint
-  - option 2: transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
+  - Option 2: Transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
 
 #### Check
 ✅ Nothing to check
