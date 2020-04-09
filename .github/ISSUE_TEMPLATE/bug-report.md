@@ -30,7 +30,7 @@ assignees: ''
 
 > Input mode (e.g. touch)
 
-> Network Environment (E.g. 3G)
+> Network environment (E.g. 3G)
 
 > Additional settings (save data active)
 
