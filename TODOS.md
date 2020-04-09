@@ -53,7 +53,7 @@
   - [ ] https://stenciljs.com/docs/style-guide
   - [ ] https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own porting to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
 - [ ] Add React / Angular output targets https://github.com/ionic-team/stencil-ds-plugins
-- [ ] alongside unit and e2e tests, we might start using mutation tests
+- [ ] Alongside unit and e2e tests, we might start using mutation tests
 - [ ] after switching from css to scss, live reload no longer works for scss changes
 
 #### Check
