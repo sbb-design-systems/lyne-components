@@ -43,7 +43,7 @@ assignees: ''
 > What did you expect to happen? What happened instead? What would you like to
 > see changed
 
-> What version of the Lyne Components are you using?
+> What version of Lyne Components are you using?
 
 > What offering/product do you work on? Any pressing shipping or release dates we
 > should be aware of?
