@@ -25,7 +25,7 @@ assignees: ''
 
 > Browser / Browser Version (E.g. Mozilla Firefox 74.0 (64-bit))
 
-> Network Environment (E.g. 3G)
+> Network environment (E.g. 3G)
 
 > Automated testing tool and ruleset (E.g Google Lighthouse)
 
