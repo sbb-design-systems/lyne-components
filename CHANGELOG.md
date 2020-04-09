@@ -1,3 +1,21 @@
+# [6.0.0](https://github.com/lyne-design-system/lyne-components/compare/v5.9.1...v6.0.0) (2020-04-09)
+
+
+### Bug Fixes
+
+* remove unnecessary test file ([67911a7](https://github.com/lyne-design-system/lyne-components/commit/67911a73640a8ea1df55e55724578c67af4e2572))
+* wow i had to introduce a breaking change ([f61f3f4](https://github.com/lyne-design-system/lyne-components/commit/f61f3f4d958a9dba23224c775d63b82d486c4287))
+
+
+### Features
+
+* add new shiny doc ([5d36ffd](https://github.com/lyne-design-system/lyne-components/commit/5d36ffdf46ff14a5688b90f0c59e70bd2f70b6b3))
+
+
+### BREAKING CHANGES
+
+* intorduced unwanted breaking change
+
 ## [5.9.1](https://github.com/lyne-design-system/lyne-components/compare/v5.9.0...v5.9.1) (2020-04-09)
 
 
