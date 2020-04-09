@@ -72,7 +72,7 @@ jobs:
         # Make Stencil production build
         - npm run build:stencil || travis_terminate 1
 
-        # run tests
+        # Run tests
         - npm run test
 
       after_success:
