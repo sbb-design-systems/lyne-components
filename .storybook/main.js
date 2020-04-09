@@ -13,7 +13,7 @@ const PROJECT_NAME = 'lyne-components';
 // The Problem: Storybook's default webpack-plugin
 // will extract the style and put it in a generic <style></style> tag.
 // Instead of the tag with the id, this tag get's updated by Webpack.
-// Solution: So removing the first use-rule from the webpack-config seems to fix
+// Solution: Removing the first use-rule from webpack-config seems to fix
 // the issue.
 const removeStyleLoaderFile = (rules) => {
 
