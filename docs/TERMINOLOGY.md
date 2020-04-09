@@ -1,4 +1,4 @@
-# Glossary
+# Terminology
 This page defines the terminology — our common vocabulary — which is used throughout [Lyne Design System](#lyne).
 
 ## Design System
