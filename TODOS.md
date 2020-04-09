@@ -103,7 +103,7 @@
 - [ ] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
 - [x] When pushing to master, PREVIEWS.md is not created.
 - [ ] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
-  - option 1: keep javascript. In that case, we need to lint these files with ESLint
+  - Option 1: Keep JavaScript. In that case, we need to lint these files with ESLint
   - Option 2: Transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
 
 #### Check
