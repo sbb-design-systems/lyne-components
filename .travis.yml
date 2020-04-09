@@ -4,7 +4,7 @@
 
 # Initially, we used Travis's stages and workspaces
 # https://docs.travis-ci.com/user/using-workspaces/
-# with stage1: build and deploy to npm
+# In stage1: Build and deploy to npm
 # stage2: build Storybook and deploy to Netlify
 # Where stage2 takes up to 2 minutes.
 # The problem: if no new version is released, it is not possible to define
