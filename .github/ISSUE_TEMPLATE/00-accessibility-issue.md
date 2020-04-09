@@ -38,7 +38,7 @@ assignees: ''
 
 > What WCAG 2.1 checkpoint does the issue violate?
 
-> Is the issue a general finding or specifically related to the usage of the Lyne Components 
+> Is the issue a general finding or specifically related to the usage of Lyne Components 
 > within your application?
 
 > If the latter, can you provide us with a link to your application where the behaviour can 
