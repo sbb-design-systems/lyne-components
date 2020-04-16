@@ -3,7 +3,7 @@ This page defines the terminology — our common vocabulary — which is used th
 
 ## Design System
 
-### tl;dr
+### TL;DR
 - Systemic thinking about design
 - A shared language
 - A flexible, modular and adjustable system without vendor lock-in
