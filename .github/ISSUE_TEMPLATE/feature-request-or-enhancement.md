@@ -1,7 +1,7 @@
 ---
 name: 'Feature request or enhancement 💡'
 about: Suggest an idea for this project
-title: '[DEFINE TITLE OF FEATURE REQUEST OR ENHANCEMENT]'
+title: ''
 labels: 'type: enhancement 💡'
 assignees: ''
 ---
