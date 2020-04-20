@@ -1,10 +1,10 @@
 ---
-name: Performance Issue 🚀
+name: Performance Issue 🚄
 about: Report a performance issue
 title: ''
-labels: 'type: perf 🚀'
+labels: 'type: perf 🚄'
 assignees: ''
----
+---git 
 
 <!-- Feel free to remove sections that aren't relevant.
 
