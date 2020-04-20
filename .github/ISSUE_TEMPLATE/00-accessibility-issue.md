@@ -1,7 +1,7 @@
 ---
 name: Accessibility Issue ♿
 about: Report an accessibility or usability issue
-title: '[DEFINE TITLE OF ISSUE]'
+title: ''
 labels: 'type: a11y ♿'
 assignees: ''
 ---
