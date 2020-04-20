@@ -20,7 +20,7 @@ details below!
 
 -->
 
-## What package(s) are you using?
+## Which package(s) are you using?
 
 <!--
   Add an x in one of the options below, for example:

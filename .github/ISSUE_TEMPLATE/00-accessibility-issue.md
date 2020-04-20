@@ -26,6 +26,17 @@ assignees: ''
 
 > Additional settings (e.g. Windows High Contrast Mode)
 
+## Which package(s) are you using?
+
+<!--
+  Add an x in one of the options below, for example:
+- [x] package name
+-->
+
+- [ ] `lyne-components`
+- [ ] `lyne-design-tokens`
+- [ ] `non package issue`
+
 ## Detailed description
 
 > Which [version](https://lyne-components-deployments.netlify.app/) of *Lyne Components* are you using?
