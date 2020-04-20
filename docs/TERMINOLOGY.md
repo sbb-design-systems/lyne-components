@@ -88,20 +88,16 @@ Throughout the [Lyne](#lyne) Design System we use the term *Component Library* a
 ## Component Browser
 A *Component Browser* is used to develop and preview components in isolation. Throughout the [Lyne](#lyne) Design System we use [Storybook](#storybook) for either developing the component or reviewing the component afterwards.
 
+# TBD/WIP 
+
 ## Visual Regression Testing
-TBD/WIP 
 
 ## Lyne Documentation
-TBD/WIP
 
 ## Documentation CMS
-TBD/WIP
 
 ## Dato CMS
-TBD/WIP
 
 ## Static Site Generator
-TBD/WIP
 
 ## Gridsome
-TBD/WIP
