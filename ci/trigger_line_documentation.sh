@@ -12,8 +12,8 @@ set -e
 # version file name written by .releaserc
 VERSION_FILE=.version
 
-#if [ -f "$VERSION_FILE" ];
-#then
+if [ -f "$VERSION_FILE" ];
+then
 
   echo "-->> trigger build on lyne-documentation"
 
@@ -32,3 +32,7 @@ VERSION_FILE=.version
      -H "Authorization: token $TRAVIS_TOKEN" \
      -d "$body" \
      https://api.travis-ci.org/repo/lyne-design-system%2Flyne-documentation/requests
+
+else
+  echo "-->> Skip trigger build of lyne-documentation"
+fi
