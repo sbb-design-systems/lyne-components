@@ -17,6 +17,9 @@ We value all of our community members, and thus want to foster a positive
 contribution environment. Please take a look at our
 [code of conduct](./CODE_OF_CONDUCT.md) before engaging in our workspaces.
 
+## Naming conventions
+WIP
+
 ## Prerequisites
 WIP
 
