@@ -28,6 +28,7 @@ details below!
 -->
 
 - [ ] `lyne-components`
+- [ ] `lyne-design-tokens`
 - [ ] `non package issue`
 
 ## Summary
