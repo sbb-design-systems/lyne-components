@@ -1,3 +1,10 @@
+# [6.2.0](https://github.com/lyne-design-system/lyne-components/compare/v6.1.0...v6.2.0) (2020-04-20)
+
+
+### Features
+
+* try to trigger build on lyne-documentation ([6c3cc3b](https://github.com/lyne-design-system/lyne-components/commit/6c3cc3b66a00bdfa550d666e2474de5d8e15228e))
+
 # [6.1.0](https://github.com/lyne-design-system/lyne-components/compare/v6.0.1...v6.1.0) (2020-04-20)
 
 
