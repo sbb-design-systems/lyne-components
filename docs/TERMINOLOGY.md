@@ -24,14 +24,14 @@ Throughout the [Lyne](#lyne) Design System we use the term *Component Library* a
 
 ### Design System
 
-☝🏾First of all the definition of a *Design System*(**DS**) varies. A *Design System* can be or include many things but the listed statements below define it most accurate for **us**: 
+☝🏾First of all the definitions for *Design System*(**DS**) vary. A *Design System* can be or include many things but the listed statements below define it most accurate for **us**: 
 
 - Systemic thinking about design (Miriam Suzanne)
 - A common, shared language
 - A flexible, modular and adjustable system without vendor lock-in
 - The Single Source of Truth
 
-Check [Lyne](#lyne) what a *Design System* means for us specifically and how we define and describe a *Design System*.
+Check [Lyne](#lyne) what a *Design System* means for us specifically and how we define and describe a *Design System* in more depth.
 
 ### Design System Core Team
 The *[Lyne](#lyne) Design System Core Team* is a multidisciplinary (so far UX, Frontend) team consisting of: [Marius Bleuer](https://github.com/mbleuer), [Sabrina Heid](https://github.com/sabrinaheid), [Daniel Schindler](https://github.com/DanTheMen), [Florian Stuerzinger](https://github.com/florianstuerzinger), [Yves Tscherry](https://github.com/feerglas), [Michael Zumstein](https://github.com/4aficiona2)
