@@ -1,3 +1,10 @@
+# [6.4.0](https://github.com/lyne-design-system/lyne-components/compare/v6.3.0...v6.4.0) (2020-04-20)
+
+
+### Features
+
+* fake commit to trigger release ([6709c9d](https://github.com/lyne-design-system/lyne-components/commit/6709c9d0c4f7509e4333167b1963d2199a5d94cf))
+
 # [6.3.0](https://github.com/lyne-design-system/lyne-components/compare/v6.2.0...v6.3.0) (2020-04-20)
 
 
