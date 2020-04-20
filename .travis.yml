@@ -52,7 +52,7 @@ jobs:
         - npm run semantic-release
 
         # trigger a build on lyne-documentation
-        - ./ci/trigger_line_documentation
+        - ./ci/trigger_line_documentation.sh
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # interested in the output from netlify-cli
