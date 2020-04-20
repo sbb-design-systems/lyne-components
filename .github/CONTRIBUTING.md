@@ -8,7 +8,7 @@ contribution process, you are in the right place. First off, thank you for
 your interest!
 
 **But since we are in very early development phase, contributions are limited to 
-the [Design System Core Team](./docs/TERMINOLOGY.md#design-system-core-team). Once this project will be more mature, we invite
+the [Design System Core Team](/docs/TERMINOLOGY.md#design-system-core-team). Once this project will be more mature, we invite
 the community to participate and contribute to the Lyne Design System.**
 
 ## Code of conduct
