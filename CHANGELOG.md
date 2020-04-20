@@ -1,3 +1,10 @@
+# [6.6.0](https://github.com/lyne-design-system/lyne-components/compare/v6.5.0...v6.6.0) (2020-04-20)
+
+
+### Features
+
+* add link to open new documentation issue ([2beb132](https://github.com/lyne-design-system/lyne-components/commit/2beb1325133fc5c8c2c37581d381370d459df703))
+
 # [6.5.0](https://github.com/lyne-design-system/lyne-components/compare/v6.4.0...v6.5.0) (2020-04-20)
 
 
