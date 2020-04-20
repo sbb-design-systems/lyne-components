@@ -11,8 +11,8 @@
 ## git(hub)
 - [ ] Prevent push to master
   - [ ] Re-add `Require status checks to pass before merging` to [master](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to master
-- [ ] Decide for branching-model
-- [ ] Mono-repo vs. multi-repo
+- [x] Decide for branching-model
+- [x] Mono-repo vs. multi-repo
 - [ ] Add Probot GitHub integration
 - [x] Setup Projects and Milestones
 - [ ] Configure actions. Greetings and Stale would make sense for us.
@@ -24,6 +24,7 @@
   - [x] Add [pull request template](/.github/pull_request_template.md)
   - [x] Add [issue](/.github/ISSUE_TEMPLATE) templates
     - [x] Add accessibility issue tpl
+    - [x] Add documentation issue tpl
     - [x] Add performance issue tpl
     - [x] Add feature request issue tpl
     - [x] Add bug report issue tpl
@@ -98,7 +99,7 @@
   - [ ] Write values to md-file
 - [ ] Probably we could integrate [sitespeed](https://www.sitespeed.io)
 - [ ] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
-- [ ] npm package size is huge!
+- [x] npm package size is huge!
 - [ ] Integrate [webhint](https://webhint.io/docs/user-guide/)
 - [ ] Code coverage
   - [x] Configure Code coverage for Jest
@@ -126,8 +127,8 @@
 - [x] Document release process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
 - [ ] Modify content of sustainability-policy file to match our own vision and policies.
 - [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
-- [X] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline
-- [ ] Define and document terminology in [docs/TERMINOLOGY.md](docs/TERMINOLOGY.md)
+- [x] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline
+- [x] Define and document terminology in [docs/TERMINOLOGY.md](docs/TERMINOLOGY.md)
 - [X] Document vision in [docs/VISION.md](docs/VISION.md)
 - [ ] Document roadmap in [docs/ROADMAP.md](docs/ROADMAP.md)
 
