@@ -1,7 +1,7 @@
 ---
 name: 'Bug Report 🐛'
 about: Something isn't working as expected? Report it here.
-title: '[DEFINE TITLE OF BUG]'
+title: ''
 labels: 'type: bug 🐛'
 assignees: ''
 ---
@@ -12,7 +12,7 @@ assignees: ''
 
 -->
 
-## What package(s) are you using?
+## Which package(s) are you using?
 
 <!--
   Add an x in one of the options below, for example:
@@ -24,13 +24,13 @@ assignees: ''
 
 ## Environment
 
-> Operating system (E.g. Windows 10)
+> Operating system (e.g. Windows 10)
 
-> Browser / browser version (E.g. Mozilla Firefox 74.0 (64-bit))
+> Browser / browser version (e.g. Mozilla Firefox 74.0 (64-bit))
 
 > Input mode (e.g. touch)
 
-> Network environment (E.g. 3G)
+> Network environment (e.g. 3G)
 
 > Additional settings (save data active)
 
@@ -38,12 +38,12 @@ assignees: ''
 
 > Describe in detail the issue you are having.
 
-> Is this issue related to a specific component?
-
 > What did you expect to happen? What happened instead? What would you like to
-> see changed
+> see changed?
 
-> Which version of Lyne Components are you using?
+> Which [version](https://lyne-components-deployments.netlify.app/) of *Lyne Components* are you using?
+
+> Is the issue related to a specific component? If so please provide the components Storybook link of the corresponding version.
 
 > What offering/product do you work on? Any pressing shipping or release dates we
 > should be aware of?
