@@ -12,23 +12,23 @@ set -e
 # version file name written by .releaserc
 VERSION_FILE=.version
 
-if [ -f "$VERSION_FILE" ];
-then
+#if [ -f "$VERSION_FILE" ];
+#then
 
   echo "-->> trigger build on lyne-documentation"
 
   # Send request to travis api to trigger build on lyne-documentation
+  body='{
+    "request": {
+      "branch":"master",
+      "message": "triggered by lyne-components change"
+    }
+  }'
 
-  curl \
-    -v \
-    -X POST \
-    -H "User-Agent: Github lyne-components" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -H "Authorization: token $TRAVIS_TOKEN" \
-    -H "Travis-API-Version: 3" \
-    -d "{'request':{'message':'Build triggered by lyne-components','branch':'master'}}" "https://api.travis-ci.org/repo/lyne-design-system%2Flyne-documentation/requests"
-
-else
-  echo "-->> Skip trigger build of lyne-documentation"
-fi
+  curl -s -X POST \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -H "Travis-API-Version: 3" \
+     -H "Authorization: token $TRAVIS_TOKEN" \
+     -d "$body" \
+     https://api.travis-ci.org/repo/lyne-design-system%2Flyne-documentation/requests
