@@ -10,7 +10,7 @@ assignees: ''
 
 Hi there! 👋 We hope everything is fine using our projects from the Lyne Design
 System. It looks like you might have a question about our work, so we wanted to
-share a couple resources that you could use if you have not tried them yet 🙂.
+share some resources that you could use if you have not tried them yet 🙂.
 
 You can find the Lyne Components documentation [here](https://github.com/lyne-design-system/lyne-components/docs). Also have first a 
 look at our [issues](https://github.com/lyne-design-system/lyne-components/issues) if your question/issue has been asked/raised before or even might have been solved. 
