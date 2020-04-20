@@ -18,6 +18,7 @@ then
   echo "-->> trigger build on lyne-documentation"
 
   # Send request to travis api to trigger build on lyne-documentation
+
   curl \
     -v \
     -X POST \
