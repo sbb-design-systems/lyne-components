@@ -20,7 +20,7 @@ assignees: ''
 
 > Browser / browser version (E.g. Mozilla Firefox 74.0 (64-bit))
 
-> Automated testing tool and ruleset (E.g. axe - Web Accessibility Testing Extension)
+> Automated testing tool and rule set (E.g. axe - Web Accessibility Testing Extension)
 
 > Assistive technology and version used to verify (E.g. NVDA version 2019.3.1)
 
@@ -28,9 +28,9 @@ assignees: ''
 
 ## Detailed description
 
-> Which version of Lyne Components are you using?
+> Which [version](https://lyne-components-deployments.netlify.app/) of *Lyne Components* are you using?
 
-> Is the issue related to a specific component?
+> Is the issue related to a specific component? If so please provide the components Storybook link of the corresponding version.
 
 > What did you expect to happen?
 
@@ -38,14 +38,14 @@ assignees: ''
 
 > What WCAG 2.1 checkpoint does the issue violate?
 
-> Is the issue a general finding or specifically related to the usage of Lyne Components 
+> Is the issue a general finding or specifically related to the usage of *Lyne Components* 
 > within your application?
 
 > If the latter, can you provide us with a link to your application where the behaviour can 
 > be seen or replicated?
 
 > Since when has the issue been noticed? Can it be related to a specific 
-> Lyne Components version change?
+> *Lyne Components* version change?
 
 ## Steps to reproduce the issue
 
