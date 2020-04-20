@@ -14,17 +14,17 @@ assignees: ''
 
 ## Environment
 
-> Type of device (E.g. Laptop with Touchscreen)
+> Type of device (e.g. Laptop with Touchscreen)
 
-> Operating system (E.g. Windows 10)
+> Operating system (e.g. Windows 10)
 
-> Browser / browser version (E.g. Mozilla Firefox 74.0 (64-bit))
+> Browser / browser version (e.g. Mozilla Firefox 74.0 (64-bit))
 
-> Automated testing tool and rule set (E.g. axe - Web Accessibility Testing Extension)
+> Automated testing tool and rule set (e.g. axe - Web Accessibility Testing Extension)
 
-> Assistive technology and version used to verify (E.g. NVDA version 2019.3.1)
+> Assistive technology and version used to verify (e.g. NVDA version 2019.3.1)
 
-> Additional settings (E.g. Windows High Contrast Mode)
+> Additional settings (e.g. Windows High Contrast Mode)
 
 ## Detailed description
 
