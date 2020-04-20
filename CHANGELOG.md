@@ -1,3 +1,15 @@
+# [6.7.0](https://github.com/lyne-design-system/lyne-components/compare/v6.6.0...v6.7.0) (2020-04-20)
+
+
+### Bug Fixes
+
+* revert broken github template header ([91b2b9b](https://github.com/lyne-design-system/lyne-components/commit/91b2b9b8a385cf837634677216a80d7957b2742b))
+
+
+### Features
+
+* add new documentation issue template ([8326255](https://github.com/lyne-design-system/lyne-components/commit/8326255cf436e57bd6fe0e75e73e4ddacd393555))
+
 # [6.6.0](https://github.com/lyne-design-system/lyne-components/compare/v6.5.0...v6.6.0) (2020-04-20)
 
 
