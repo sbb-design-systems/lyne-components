@@ -20,5 +20,5 @@ h2.title {
 h3.title {
   color: blue;
   font-weight: bold;
-  font-size: calc(2 * #{$size-font-base});
+  font-size: $size-font-base;
 }
