@@ -1,3 +1,11 @@
+# [6.5.0](https://github.com/lyne-design-system/lyne-components/compare/v6.4.0...v6.5.0) (2020-04-20)
+
+
+### Features
+
+* add todo. Fake commit to trigger release ([cf24238](https://github.com/lyne-design-system/lyne-components/commit/cf242384958a608ac1a3f1f3c997299d8170c501))
+* fake commit to trigger release ([bf3e667](https://github.com/lyne-design-system/lyne-components/commit/bf3e6676107d370374d454b6100730c9bf435e2f))
+
 # [6.4.0](https://github.com/lyne-design-system/lyne-components/compare/v6.3.0...v6.4.0) (2020-04-20)
 
 
