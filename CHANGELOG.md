@@ -1,3 +1,33 @@
+# [6.5.0](https://github.com/lyne-design-system/lyne-components/compare/v6.4.0...v6.5.0) (2020-04-20)
+
+
+### Features
+
+* add todo. Fake commit to trigger release ([cf24238](https://github.com/lyne-design-system/lyne-components/commit/cf242384958a608ac1a3f1f3c997299d8170c501))
+* fake commit to trigger release ([bf3e667](https://github.com/lyne-design-system/lyne-components/commit/bf3e6676107d370374d454b6100730c9bf435e2f))
+
+# [6.4.0](https://github.com/lyne-design-system/lyne-components/compare/v6.3.0...v6.4.0) (2020-04-20)
+
+
+### Features
+
+* fake commit to trigger release ([6709c9d](https://github.com/lyne-design-system/lyne-components/commit/6709c9d0c4f7509e4333167b1963d2199a5d94cf))
+
+# [6.3.0](https://github.com/lyne-design-system/lyne-components/compare/v6.2.0...v6.3.0) (2020-04-20)
+
+
+### Features
+
+* fake commit to trigger build ([6648e5b](https://github.com/lyne-design-system/lyne-components/commit/6648e5ba0055d1eaee3af449aab6f08dd0a94def))
+* fake commit to trigger release ([f9246f4](https://github.com/lyne-design-system/lyne-components/commit/f9246f4a65fea949e2a511621874b4b406650925))
+
+# [6.2.0](https://github.com/lyne-design-system/lyne-components/compare/v6.1.0...v6.2.0) (2020-04-20)
+
+
+### Features
+
+* try to trigger build on lyne-documentation ([6c3cc3b](https://github.com/lyne-design-system/lyne-components/commit/6c3cc3b66a00bdfa550d666e2474de5d8e15228e))
+
 # [6.1.0](https://github.com/lyne-design-system/lyne-components/compare/v6.0.1...v6.1.0) (2020-04-20)
 
 

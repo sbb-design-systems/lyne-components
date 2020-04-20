@@ -51,10 +51,12 @@ jobs:
         # run semantic release
         - npm run semantic-release
 
+        # trigger a build on lyne-documentation
+        - ./ci/trigger_line_documentation.sh
+
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # interested in the output from netlify-cli
         - npm install netlify-cli -g > "/dev/null" 2>&1
-
 
         # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy.sh
