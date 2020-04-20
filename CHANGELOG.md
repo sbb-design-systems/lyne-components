@@ -1,3 +1,17 @@
+# [6.1.0](https://github.com/lyne-design-system/lyne-components/compare/v6.0.1...v6.1.0) (2020-04-20)
+
+
+### Bug Fixes
+
+* fix font size for h3 ([4e3be43](https://github.com/lyne-design-system/lyne-components/commit/4e3be43ea9b993c22c0a2357c95631259af135bb))
+* remove green border ([e261320](https://github.com/lyne-design-system/lyne-components/commit/e261320f3cd9a83c4421337d34636a684f1cf55c))
+
+
+### Features
+
+* add level knob to title story ([a7cfa79](https://github.com/lyne-design-system/lyne-components/commit/a7cfa79b1f1f16984f264baf235fadfa92e6eb30))
+* add sample title component ([6834da3](https://github.com/lyne-design-system/lyne-components/commit/6834da350ea79b6a761c5369810b545f12d65fed))
+
 ## [6.0.1](https://github.com/lyne-design-system/lyne-components/compare/v6.0.0...v6.0.1) (2020-04-09)
 
 
