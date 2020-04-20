@@ -99,3 +99,6 @@ TBD/WIP
 
 ## Dato CMS
 TBD/WIP
+
+## Static Site Generator
+TBD/WIP
