@@ -1,7 +1,7 @@
 ---
 name: Performance Issue 🚀
 about: Report a performance issue
-title: '[DEFINE TITLE OF ISSUE]'
+title: ''
 labels: 'type: perf 🚀'
 assignees: ''
 ---
