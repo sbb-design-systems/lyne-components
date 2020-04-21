@@ -10,7 +10,12 @@ export const config: Config = {
       type: 'dist'
     },
     {
+      footer: '',
       type: 'docs-readme'
+    },
+    {
+      file: './dist/jsonDocs.json',
+      type: 'docs-json'
     },
     {
       // disable service workers
