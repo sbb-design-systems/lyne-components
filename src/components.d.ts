@@ -19,6 +19,11 @@ export namespace Components {
     * Label text to show on the button
     */
     'label': string;
+    /**
+    * @sampleDocTag sampleName - sampleValue
+    * @sampleDocTag2 sampleName2 - sampleValue2
+    */
+    'samplePropForJSDocs': string;
   }
   interface LyneTitle {
     /**
@@ -62,6 +67,11 @@ declare namespace LocalJSX {
     * Label text to show on the button
     */
     'label'?: string;
+    /**
+    * @sampleDocTag sampleName - sampleValue
+    * @sampleDocTag2 sampleName2 - sampleValue2
+    */
+    'samplePropForJSDocs'?: string;
   }
   interface LyneTitle {
     /**
