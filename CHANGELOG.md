@@ -1,3 +1,10 @@
+# [6.9.0](https://github.com/lyne-design-system/lyne-components/compare/v6.8.0...v6.9.0) (2020-04-21)
+
+
+### Features
+
+* add additional docs output target, render jsonDocs in own folder ([b22b946](https://github.com/lyne-design-system/lyne-components/commit/b22b9467597eb22f6bcde8da4552cdb869b1c725))
+
 # [6.8.0](https://github.com/lyne-design-system/lyne-components/compare/v6.7.0...v6.8.0) (2020-04-21)
 
 
