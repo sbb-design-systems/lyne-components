@@ -14,7 +14,12 @@ export const config: Config = {
       type: 'docs-readme'
     },
     {
-      file: './dist/jsonDocs.json',
+      dir: './dist/documentation',
+      footer: '',
+      type: 'docs-readme'
+    },
+    {
+      file: './dist/documentation/jsonDocs.json',
       type: 'docs-json'
     },
     {
