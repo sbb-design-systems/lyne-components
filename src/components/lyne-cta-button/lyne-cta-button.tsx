@@ -15,6 +15,12 @@ import Tokens from 'lyne-design-tokens/dist/js/tokens.commonjs';
 
 export class LyneCtaButton {
 
+  /**
+   * @sampleDocTag sampleName - sampleValue
+   * @sampleDocTag2 sampleName2 - sampleValue2
+   */
+  @Prop() public samplePropForJSDocs = 'sample prop';
+
   /** Label text to show on the button */
   @Prop() public label = 'Default button text';
 

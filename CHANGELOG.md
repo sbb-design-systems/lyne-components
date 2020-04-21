@@ -1,3 +1,36 @@
+# [6.9.0](https://github.com/lyne-design-system/lyne-components/compare/v6.8.0...v6.9.0) (2020-04-21)
+
+
+### Features
+
+* add additional docs output target, render jsonDocs in own folder ([b22b946](https://github.com/lyne-design-system/lyne-components/commit/b22b9467597eb22f6bcde8da4552cdb869b1c725))
+
+# [6.8.0](https://github.com/lyne-design-system/lyne-components/compare/v6.7.0...v6.8.0) (2020-04-21)
+
+
+### Features
+
+* update component readme. fake commit to trigger release ([83999ec](https://github.com/lyne-design-system/lyne-components/commit/83999ecd09878cef3cb180f3e48abd9d271d9939))
+
+# [6.7.0](https://github.com/lyne-design-system/lyne-components/compare/v6.6.0...v6.7.0) (2020-04-20)
+
+
+### Bug Fixes
+
+* revert broken github template header ([91b2b9b](https://github.com/lyne-design-system/lyne-components/commit/91b2b9b8a385cf837634677216a80d7957b2742b))
+
+
+### Features
+
+* add new documentation issue template ([8326255](https://github.com/lyne-design-system/lyne-components/commit/8326255cf436e57bd6fe0e75e73e4ddacd393555))
+
+# [6.6.0](https://github.com/lyne-design-system/lyne-components/compare/v6.5.0...v6.6.0) (2020-04-20)
+
+
+### Features
+
+* add link to open new documentation issue ([2beb132](https://github.com/lyne-design-system/lyne-components/commit/2beb1325133fc5c8c2c37581d381370d459df703))
+
 # [6.5.0](https://github.com/lyne-design-system/lyne-components/compare/v6.4.0...v6.5.0) (2020-04-20)
 
 

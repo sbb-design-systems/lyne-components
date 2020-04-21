@@ -1,7 +1,7 @@
 
 # Lyne Code of Conduct
 
-## TL;DR
+## tl;dr
 
 - **Be respectful & understanding.** Not all of us will agree all the time, but
   disagreement is no excuse for poor behavior or poor manners. It is important
