@@ -1,3 +1,10 @@
+# [6.11.0](https://github.com/lyne-design-system/lyne-components/compare/v6.10.0...v6.11.0) (2020-04-22)
+
+
+### Features
+
+* add sample code blocks. fake feature to trigger release ([1917ffd](https://github.com/lyne-design-system/lyne-components/commit/1917ffd06742cd6796eabf99a3a1697d00680bcc))
+
 # [6.10.0](https://github.com/lyne-design-system/lyne-components/compare/v6.9.0...v6.10.0) (2020-04-21)
 
 
