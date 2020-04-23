@@ -1,3 +1,10 @@
+# [6.12.0](https://github.com/lyne-design-system/lyne-components/compare/v6.11.1...v6.12.0) (2020-04-23)
+
+
+### Features
+
+* save and deploy deployments json instead of html ([1ac164d](https://github.com/lyne-design-system/lyne-components/commit/1ac164d289344916bf7ebbc2c05400adc92d8a56))
+
 ## [6.11.1](https://github.com/lyne-design-system/lyne-components/compare/v6.11.0...v6.11.1) (2020-04-22)
 
 
