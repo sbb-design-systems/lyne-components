@@ -41,7 +41,7 @@ assignees: ''
 > What did you expect to happen? What happened instead? What would you like to
 > see changed?
 
-> Which [version](https://lyne-components-deployments.netlify.app/) of *Lyne Components* are you using?
+> Which [version](https://lyne-documentation.netlify.app/deployments/) of *Lyne Components* are you using?
 
 > Is the issue related to a specific component? If so please provide the components Storybook link of the corresponding version.
 
