@@ -59,7 +59,7 @@ jobs:
         - ./ci/netlify_deploy.sh
 
         # Build and deploy the deployments json
-        - ./ci/build_deployments_page.sh
+        - ./ci/deployments.sh
 
         # trigger a build on lyne-documentation
         - ./ci/trigger_line_documentation.sh
@@ -87,4 +87,4 @@ jobs:
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
 
         # Build and deploy the deployments page
-        - ./ci/build_deployments_page.sh
+        - ./ci/deployments.sh
