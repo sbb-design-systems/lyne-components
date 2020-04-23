@@ -12,7 +12,7 @@ set -e
 DEPLOYMENTS_PAGE_DIR=NETLIFY_DEPLOYMENTS
 
 # build the deployments json
-node ./ci/build_deployments_page.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --deploymentsDir=$DEPLOYMENTS_PAGE_DIR
+node ./ci/deployments.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --deploymentsDir=$DEPLOYMENTS_PAGE_DIR
 
 # deploy deployments json
 netlify deploy --prod --site $NETLIFY_SITE_ID_DEPLOYMENTS --auth $NETLIFY_AUTH_TOKEN --dir ./$DEPLOYMENTS_PAGE_DIR/
