@@ -57,6 +57,8 @@ json[config.deploymentsJsonKeyPreview] = [];
     fs.writeFileSync(`./${deploymentsDir}/index.html`, '<html><body><p>This space is empty. It is only serving deployments.json for lyne-design-system. <a href="/deployments.json">deployments.json</a></p></body></html>');
 
     // write headers file
+    // since we want to fetch the deployments json from other origins (like
+    // in the SSG build) we allow all origins
     fs.writeFileSync(`./${deploymentsDir}/_headers`, '/*\n  Access-Control-Allow-Origin: *');
 
     console.log(`-->> NETLIFY DEPLOYMENTS: Successfully created ${config.deploymentsJsonName}`);
