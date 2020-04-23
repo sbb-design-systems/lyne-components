@@ -26,7 +26,7 @@
     "build:storybook": "build-storybook --quiet",
     "build": "npm-run-all --sequential build:stencil build:storybook",
     "generate": "stencil generate",
-    "lint": "npx eslint ./ --ext .ts,.tsx",
+    "lint": "eslint ./ --ext .ts,.tsx",
     "semantic-release": "semantic-release",
     "start:stencil": "stencil build --dev --watch --docs",
     "start:storybook": "start-storybook -p 6006 -s www",
