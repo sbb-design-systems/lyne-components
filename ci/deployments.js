@@ -8,11 +8,6 @@ const netlifyToken = argv.netlifyToken;
 const netlifySiteId = argv.netlifySiteId;
 const deploymentsDir = argv.deploymentsDir;
 
-// prepare final JSON
-const json = {};
-json[config.deploymentsJsonKeyProd] = [];
-json[config.deploymentsJsonKeyPreview] = [];
-
 // general configuration
 const config = {
   deploymentsJsonKeyDate: 'date',
@@ -21,13 +16,14 @@ const config = {
   deploymentsJsonKeyTag: 'tag',
   deploymentsJsonKeyUrl: 'url',
   deploymentsJsonName: 'deployments.json',
-  deploymentsPageFileName: 'index.html',
-  deploymentsPagePlaceholderPreview: '###PREVIEW###',
-  deploymentsPagePlaceholderProduction: '###PRODUCTION###',
-  deploymentsPageTemplateFileName: 'deployments_template.html',
   netlifyTitleSeparatorPreview: '++',
   netlifyTitleSeparatorProd: '::'
 };
+
+// prepare final JSON
+const json = {};
+json[config.deploymentsJsonKeyProd] = [];
+json[config.deploymentsJsonKeyPreview] = [];
 
 (async () => {
 
