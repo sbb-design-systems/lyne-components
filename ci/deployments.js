@@ -53,6 +53,12 @@ json[config.deploymentsJsonKeyPreview] = [];
     fs.mkdirSync(deploymentsDir);
     fs.writeFileSync(`./${deploymentsDir}/${config.deploymentsJsonName}`, JSON.stringify(json));
 
+    // write index file
+    fs.writeFileSync(`./${deploymentsDir}/index.html`, '<html><body><p>This space is empty. It is only serving deployments.json for lyne-design-system. <a href="/deployments.json">deployments.json</a></p></body></html>');
+
+    // write headers file
+    fs.writeFileSync(`./${deploymentsDir}/_headers`, '/*\n  Access-Control-Allow-Origin: *');
+
     console.log(`-->> NETLIFY DEPLOYMENTS: Successfully created ${config.deploymentsJsonName}`);
     shell.exit(0);
 
