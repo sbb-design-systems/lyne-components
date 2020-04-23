@@ -4,10 +4,10 @@
   Lyne Components
 </h1>
 
-> *Lyne Components* are the building blocks of the [Lyne Design System](/docs/TERMINOLOGY.md#lyne)
-> and are based on standard compliant [Web Components](/docs/TERMINOLOGY.md#web-components) 
-> compiled by [StencilJS](/docs/TERMINOLOGY.md#stenciljs) and
-> browsable through [Storybook](/docs/TERMINOLOGY.md#storybook)
+> *Lyne Components* are the building blocks of the [Lyne Design System](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#lyne)
+> and are based on standard compliant [Web Components](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#web-components) 
+> compiled by [StencilJS](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#stenciljs) and
+> browsable through [Storybook](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook)
 
 <br>
 
@@ -21,14 +21,14 @@
 The latest still **🧪 experimental** version of the Storybook component browser for *Lyne Components* can be found [here](https://lyne-components-storybook.netlify.com).
 Please check [deployments](https://lyne-components-deployments.netlify.com)  for a full list of all deployments.
 
-## 🚀 npm
+## 🍱 npm
 The current **🧪 experimental** build of Lyne Components can be found on [npm](https://www.npmjs.com/package/lyne-test).
+
+## 🚀 Getting started
+To see how to use `lyne-components` in React, Angular, Vue, Svelte or Plain Javascript, please refer to [this](https://github.com/lyne-design-system/lyne-getting-started) repo to see example implementations.
 
 ## 📚 Documentation
 Check the [docs](docs/README.md) directory for our documentation which we will continuously enhance.
-
-## 🧰 Getting started
-To see how to use `lyne-components` in React, Angular, Vue, Svelte or Plain Javascript, please refer to [this](https://github.com/lyne-design-system/lyne-getting-started) repo to see example implementations.
 
 ## 🙌 Contributing
 See our [contributing guide](/.github/CONTRIBUTING.md) and check also our [code of conduct](/.github/CODE_OF_CONDUCT.md) 👀.

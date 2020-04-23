@@ -1,3 +1,10 @@
+## [6.11.1](https://github.com/lyne-design-system/lyne-components/compare/v6.11.0...v6.11.1) (2020-04-22)
+
+
+### Bug Fixes
+
+* optimize slack notification format ([9a73f5a](https://github.com/lyne-design-system/lyne-components/commit/9a73f5ada9501b6f4e0e38678df9e7c321a546e6))
+
 # [6.11.0](https://github.com/lyne-design-system/lyne-components/compare/v6.10.0...v6.11.0) (2020-04-22)
 
 
