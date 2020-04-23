@@ -30,6 +30,7 @@ const netlifyDeployments = async (netlifyToken, netlifySiteId, deploymentsDir) =
     processDeploys(deployments.data);
 
     // write .json file
+    fs.mkdirSync(deploymentsDir);
     fs.writeFileSync(`./${deploymentsDir}/${config.deploymentsJsonName}`, JSON.stringify(json));
 
     console.log(`-->> NETLIFY DEPLOYMENTS: Successfully created ${config.deploymentsJsonName}`);
