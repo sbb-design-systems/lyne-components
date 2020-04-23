@@ -1,3 +1,10 @@
+## [6.12.3](https://github.com/lyne-design-system/lyne-components/compare/v6.12.2...v6.12.3) (2020-04-23)
+
+
+### Bug Fixes
+
+* add _headers file to netlify deployment along with index.html ([374cf4c](https://github.com/lyne-design-system/lyne-components/commit/374cf4c367d3f2333435748772fbfbc7394120dd))
+
 ## [6.12.2](https://github.com/lyne-design-system/lyne-components/compare/v6.12.1...v6.12.2) (2020-04-23)
 
 
