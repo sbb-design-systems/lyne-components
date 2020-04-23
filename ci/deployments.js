@@ -1,17 +1,39 @@
+const shell = require('shelljs');
+const argv = require('yargs').argv;
 const axios = require('axios');
 const fs = require('fs');
-const config = require('./deployments_config');
+
+// env variables
+const netlifyToken = argv.netlifyToken;
+const netlifySiteId = argv.netlifySiteId;
+const deploymentsDir = argv.deploymentsDir;
 
 // prepare final JSON
 const json = {};
 json[config.deploymentsJsonKeyProd] = [];
 json[config.deploymentsJsonKeyPreview] = [];
 
-const netlifyDeployments = async (netlifyToken, netlifySiteId, deploymentsDir) => {
+// general configuration
+const config = {
+  deploymentsJsonKeyDate: 'date',
+  deploymentsJsonKeyPreview: 'preview',
+  deploymentsJsonKeyProd: 'production',
+  deploymentsJsonKeyTag: 'tag',
+  deploymentsJsonKeyUrl: 'url',
+  deploymentsJsonName: 'deployments.json',
+  deploymentsPageFileName: 'index.html',
+  deploymentsPagePlaceholderPreview: '###PREVIEW###',
+  deploymentsPagePlaceholderProduction: '###PRODUCTION###',
+  deploymentsPageTemplateFileName: 'deployments_template.html',
+  netlifyTitleSeparatorPreview: '++',
+  netlifyTitleSeparatorProd: '::'
+};
+
+(async () => {
+
   const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
 
   try {
-
     // get results
     const deployments = await axios.request({
       method: 'GET',
@@ -19,11 +41,13 @@ const netlifyDeployments = async (netlifyToken, netlifySiteId, deploymentsDir) =
     });
 
     if (!deployments.data) {
-      return Promise.reject('-->> NETLIFY DEPLOYMENTS: no deployments received.');
+      console.log('-->> NETLIFY DEPLOYMENTS: no deployments received.');
+      shell.exit(0);
     }
 
     if (deployments.data.length < 1) {
-      return Promise.reject('-->> NETLIFY DEPLOYMENTS: no deployments received.');
+      console.log('-->> NETLIFY DEPLOYMENTS: no deployments received.');
+      shell.exit(0);
     }
 
     // create an array of deployments with all needed data
@@ -34,11 +58,14 @@ const netlifyDeployments = async (netlifyToken, netlifySiteId, deploymentsDir) =
     fs.writeFileSync(`./${deploymentsDir}/${config.deploymentsJsonName}`, JSON.stringify(json));
 
     console.log(`-->> NETLIFY DEPLOYMENTS: Successfully created ${config.deploymentsJsonName}`);
-    return Promise.resolve();
+    shell.exit(0);
+
   } catch (error) {
-    return Promise.reject(error);
+    console.log('-->> BUILD DEPLOYMENTS JSON: error');
+    console.log(error);
+    shell.exit(0);
   }
-};
+})();
 
 // ---------------------------------------------------------------------------
 // PROCESS DATA
@@ -143,5 +170,3 @@ const getDeployTag = ((titleString, type) => {
 
   return tag;
 });
-
-module.exports = netlifyDeployments;
