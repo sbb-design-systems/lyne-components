@@ -1,3 +1,10 @@
+## [6.12.1](https://github.com/lyne-design-system/lyne-components/compare/v6.12.0...v6.12.1) (2020-04-23)
+
+
+### Bug Fixes
+
+* make sure deployments dir is created ([110beed](https://github.com/lyne-design-system/lyne-components/commit/110beed3fbf11352d46ab45e2c954503487a8ea6))
+
 # [6.12.0](https://github.com/lyne-design-system/lyne-components/compare/v6.11.1...v6.12.0) (2020-04-23)
 
 
