@@ -19,7 +19,6 @@
 
 ## ⛩️ Storybook
 The latest still **🧪 experimental** version of the Storybook component browser for *Lyne Components* can be found [here](https://lyne-components-storybook.netlify.com).
-Please check [deployments](https://lyne-components-deployments.netlify.com)  for a full list of all deployments.
 
 ## 🍱 npm
 The current **🧪 experimental** build of Lyne Components can be found on [npm](https://www.npmjs.com/package/lyne-test).
