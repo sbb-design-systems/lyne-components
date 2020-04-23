@@ -7,7 +7,7 @@ const json = {};
 json[config.deploymentsJsonKeyProd] = [];
 json[config.deploymentsJsonKeyPreview] = [];
 
-const netlifyDeployments = async (netlifyToken, netlifySiteId) => {
+const netlifyDeployments = async (netlifyToken, netlifySiteId, deploymentsDir) => {
   const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
 
   try {
@@ -29,8 +29,8 @@ const netlifyDeployments = async (netlifyToken, netlifySiteId) => {
     // create an array of deployments with all needed data
     processDeploys(deployments.data);
 
-    // write .md file
-    fs.writeFileSync(`./ci/${config.deploymentsJsonName}`, JSON.stringify(json));
+    // write .json file
+    fs.writeFileSync(`./${deploymentsDir}/${config.deploymentsJsonName}`, JSON.stringify(json));
 
     console.log(`-->> NETLIFY DEPLOYMENTS: Successfully created ${config.deploymentsJsonName}`);
     return Promise.resolve();

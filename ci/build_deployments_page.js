@@ -9,12 +9,12 @@ const deploymentsDir = argv.deploymentsDir;
 
 (async () => {
   try {
-    await netlifyDeployments(netlifyToken, netlifySiteId);
-    await buildDeployUrls(deploymentsDir);
-    console.log('-->> BUILD DEPLOYMENTS PAGE: success');
+    await netlifyDeployments(netlifyToken, netlifySiteId, deploymentsDir);
+    // await buildDeployUrls(deploymentsDir);
+    console.log('-->> BUILD DEPLOYMENTS JSON: success');
     shell.exit(0);
   } catch (error) {
-    console.log('-->> BUILD DEPLOYMENTS PAGE: error');
+    console.log('-->> BUILD DEPLOYMENTS JSON: error');
     console.log(error);
     shell.exit(0);
   }

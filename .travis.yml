@@ -58,7 +58,7 @@ jobs:
         # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy.sh
 
-        # Build and deploy the deployments page
+        # Build and deploy the deployments json
         - ./ci/build_deployments_page.sh
 
         # trigger a build on lyne-documentation
