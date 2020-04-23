@@ -1,3 +1,10 @@
+## [6.12.2](https://github.com/lyne-design-system/lyne-components/compare/v6.12.1...v6.12.2) (2020-04-23)
+
+
+### Bug Fixes
+
+* fix shell script name ([f9ecc02](https://github.com/lyne-design-system/lyne-components/commit/f9ecc02bd4befb4a4663f9f8c607821c700c7702))
+
 ## [6.12.1](https://github.com/lyne-design-system/lyne-components/compare/v6.12.0...v6.12.1) (2020-04-23)
 
 
