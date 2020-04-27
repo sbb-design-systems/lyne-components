@@ -1,3 +1,10 @@
+# [6.13.0](https://github.com/lyne-design-system/lyne-components/compare/v6.12.3...v6.13.0) (2020-04-27)
+
+
+### Features
+
+* add sample mdx docspage ([93cc140](https://github.com/lyne-design-system/lyne-components/commit/93cc1406328cd8f8aadca062121fd615ef46594e))
+
 ## [6.12.3](https://github.com/lyne-design-system/lyne-components/compare/v6.12.2...v6.12.3) (2020-04-23)
 
 
