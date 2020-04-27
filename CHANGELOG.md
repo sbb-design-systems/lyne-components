@@ -1,3 +1,10 @@
+## [6.13.2](https://github.com/lyne-design-system/lyne-components/compare/v6.13.1...v6.13.2) (2020-04-27)
+
+
+### Bug Fixes
+
+* try to deploy dist and loader directories as well ([23c3723](https://github.com/lyne-design-system/lyne-components/commit/23c3723036e9cca06513a680ef0f23e8bd9597fe))
+
 ## [6.13.1](https://github.com/lyne-design-system/lyne-components/compare/v6.13.0...v6.13.1) (2020-04-27)
 
 
