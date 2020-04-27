@@ -35,7 +35,7 @@ module.exports = {
   async webpackFinal(config) {
 
     if (process.env.NODE_ENV !== 'development') {
-      return;
+      return config;
     }
 
     // Uncomment the following statement to log the full webpack config
