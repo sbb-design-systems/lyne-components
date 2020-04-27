@@ -21,7 +21,7 @@ then
   STORYBOOK_COMPONENTS_VERSION=$VERSION npm run build:storybook
 
   # Deploy Storybook on Netlify
-  netlify deploy --prod --message "::$VERSION::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+  netlify deploy --prod --message "::$VERSION::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/ ./dist/ ./loader/
 
 else
   echo "-->> Skipping netlify depoly"
