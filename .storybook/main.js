@@ -34,10 +34,6 @@ module.exports = {
   // Custom Webpack config to tell Storybook where to find the compiled files from Stencil
   async webpackFinal(config) {
 
-    if (process.env.NODE_ENV !== 'development') {
-      return config;
-    }
-
     // Uncomment the following statement to log the full webpack config
     // or add ```--debug-webpack``` to the npm script ```build-storybook```
     // console.dir(config, { depth: null }) || config
