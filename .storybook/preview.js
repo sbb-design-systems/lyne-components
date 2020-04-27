@@ -1,5 +1,5 @@
 import { addParameters } from '@storybook/html';
-import { defineCustomElements } from './dist/esm/loader.mjs';
+import { defineCustomElements } from '../storybook-static/dist/esm/loader.mjs';
 
 addParameters({ docs: { page: null } });
 
