@@ -1,3 +1,10 @@
+## [6.13.5](https://github.com/lyne-design-system/lyne-components/compare/v6.13.4...v6.13.5) (2020-04-27)
+
+
+### Bug Fixes
+
+* try to fix loader path ([6074148](https://github.com/lyne-design-system/lyne-components/commit/6074148f330e25f9753d8ce3206ae4eeca9c8c64))
+
 ## [6.13.4](https://github.com/lyne-design-system/lyne-components/compare/v6.13.3...v6.13.4) (2020-04-27)
 
 
