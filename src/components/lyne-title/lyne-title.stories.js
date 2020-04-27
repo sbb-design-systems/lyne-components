@@ -4,27 +4,67 @@ import { h } from 'jsx-dom';
 import { withA11y } from '@storybook/addon-a11y';
 import readme from './readme.md';
 
+const groupId = 'General'
+const textLabel = 'Title Text';
+const textDefaultValue = 'Sample Title';
+const levelLabel = 'Title Level';
+const levelOptions = {
+  'Level 1': '1',
+  'Level 2': '2',
+  'Level 3': '3'
+};
+
 storiesOf('lyne-title', module)
   .addDecorator(withKnobs)
   .addDecorator(withA11y)
   .add(
-    'Default',
+    'Default Level 1',
     () => {
 
-      const groupId = 'General'
-
-      const textLabel = 'Title Text';
-      const textDefaultValue = 'Sample Title';
       const textValue = text(textLabel, textDefaultValue, groupId);
+      const levelValue = radios(levelLabel, levelOptions, '1', groupId);
 
-      const levelLabel = 'Title Level';
-      const levelOptions = {
-        'Level 1': '1',
-        'Level 2': '2',
-        'Level 3': '3'
-      };
-      const levelDefaultValue = '1';
-      const levelValue = radios(levelLabel, levelOptions, levelDefaultValue, groupId);
+      return (
+        <lyne-title
+          text={textValue}
+          level={levelValue}
+        ></lyne-title>
+      );
+
+    },
+    {
+      notes: {
+        markdown: readme
+      }
+    }
+  )
+  .add(
+    'Level 2',
+    () => {
+
+      const textValue = text(textLabel, textDefaultValue, groupId);
+      const levelValue = radios(levelLabel, levelOptions, '2', groupId);
+
+      return (
+        <lyne-title
+          text={textValue}
+          level={levelValue}
+        ></lyne-title>
+      );
+
+    },
+    {
+      notes: {
+        markdown: readme
+      }
+    }
+  )
+  .add(
+    'Level 3',
+    () => {
+
+      const textValue = text(textLabel, textDefaultValue, groupId);
+      const levelValue = radios(levelLabel, levelOptions, '3', groupId);
 
       return (
         <lyne-title
