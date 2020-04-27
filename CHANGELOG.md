@@ -1,3 +1,11 @@
+## [6.13.3](https://github.com/lyne-design-system/lyne-components/compare/v6.13.2...v6.13.3) (2020-04-27)
+
+
+### Bug Fixes
+
+* move import to top ([0e2b8ae](https://github.com/lyne-design-system/lyne-components/commit/0e2b8ae5e8832417eb1a2a296a758a6262d100ed))
+* return config instead of undefined ([1635bf0](https://github.com/lyne-design-system/lyne-components/commit/1635bf0fcc99fbbccb89773a744c915d14aa2ca8))
+
 ## [6.13.2](https://github.com/lyne-design-system/lyne-components/compare/v6.13.1...v6.13.2) (2020-04-27)
 
 
