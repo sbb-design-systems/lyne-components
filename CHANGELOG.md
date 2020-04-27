@@ -1,3 +1,10 @@
+## [6.13.6](https://github.com/lyne-design-system/lyne-components/compare/v6.13.5...v6.13.6) (2020-04-27)
+
+
+### Bug Fixes
+
+* revert changes for storybook build to include static loader ([c887bff](https://github.com/lyne-design-system/lyne-components/commit/c887bffeace9989b834eb2777d7f857a917f41d3))
+
 ## [6.13.5](https://github.com/lyne-design-system/lyne-components/compare/v6.13.4...v6.13.5) (2020-04-27)
 
 
