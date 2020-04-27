@@ -1,3 +1,11 @@
+## [6.13.1](https://github.com/lyne-design-system/lyne-components/compare/v6.13.0...v6.13.1) (2020-04-27)
+
+
+### Bug Fixes
+
+* fix story name ([7e3f7aa](https://github.com/lyne-design-system/lyne-components/commit/7e3f7aa0e541b846bc80594abe4059b598e47afe))
+* try to load components via defineCustomElements in prod build ([9ee8265](https://github.com/lyne-design-system/lyne-components/commit/9ee8265044345a8e2449772a82df83e346387203))
+
 # [6.13.0](https://github.com/lyne-design-system/lyne-components/compare/v6.12.3...v6.13.0) (2020-04-27)
 
 
