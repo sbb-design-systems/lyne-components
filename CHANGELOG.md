@@ -1,3 +1,11 @@
+## [6.13.4](https://github.com/lyne-design-system/lyne-components/compare/v6.13.3...v6.13.4) (2020-04-27)
+
+
+### Bug Fixes
+
+* copy dist and loader folder to storybook folder ([72839e7](https://github.com/lyne-design-system/lyne-components/commit/72839e7bdd3c424803abbfc65ba44774b107215f))
+* correct reference to loader ([f3a8452](https://github.com/lyne-design-system/lyne-components/commit/f3a8452a8c6e00f1caef3819b59a4d43d9c6de4a))
+
 ## [6.13.3](https://github.com/lyne-design-system/lyne-components/compare/v6.13.2...v6.13.3) (2020-04-27)
 
 
