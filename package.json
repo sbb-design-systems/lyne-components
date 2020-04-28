@@ -23,7 +23,7 @@
   "scripts": {
     "build:stencil": "stencil build --ci --prod --docs",
     "build:stencil:dev": "stencil build --dev --docs",
-    "build:storybook": "build-storybook --quiet -s dist",
+    "build:storybook": "build-storybook --quiet",
     "build": "npm-run-all --sequential build:stencil build:storybook",
     "generate": "stencil generate",
     "lint": "eslint ./ --ext .ts,.tsx",
