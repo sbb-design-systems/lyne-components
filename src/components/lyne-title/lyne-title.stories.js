@@ -1,4 +1,4 @@
-import { storiesOf } from '@storybook/html';
+import { storiesOf, addParameters } from '@storybook/html';
 import { withKnobs, text, radios } from '@storybook/addon-knobs';
 import { h } from 'jsx-dom';
 import { withA11y } from '@storybook/addon-a11y';
@@ -17,6 +17,7 @@ const levelOptions = {
 storiesOf('lyne-title', module)
   .addDecorator(withKnobs)
   .addDecorator(withA11y)
+  .addParameters({ docs: { page: null } })
   .add(
     'Default Level 1',
     () => {
