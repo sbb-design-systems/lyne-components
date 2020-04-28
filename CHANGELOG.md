@@ -1,3 +1,10 @@
+## [6.13.12](https://github.com/lyne-design-system/lyne-components/compare/v6.13.11...v6.13.12) (2020-04-28)
+
+
+### Bug Fixes
+
+* don't load lyne-components in head ([a9e005a](https://github.com/lyne-design-system/lyne-components/commit/a9e005a013733ea8c1dd235089b32bd76f7346a1))
+
 ## [6.13.11](https://github.com/lyne-design-system/lyne-components/compare/v6.13.10...v6.13.11) (2020-04-28)
 
 
