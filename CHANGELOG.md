@@ -1,3 +1,10 @@
+## [6.13.8](https://github.com/lyne-design-system/lyne-components/compare/v6.13.7...v6.13.8) (2020-04-28)
+
+
+### Bug Fixes
+
+* use webpack config again ([8c77d30](https://github.com/lyne-design-system/lyne-components/commit/8c77d308dbe72abfaffee1cc3208173263e29629))
+
 ## [6.13.7](https://github.com/lyne-design-system/lyne-components/compare/v6.13.6...v6.13.7) (2020-04-28)
 
 
