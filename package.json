@@ -28,8 +28,8 @@
     "generate": "stencil generate",
     "lint": "eslint ./ --ext .ts,.tsx",
     "semantic-release": "semantic-release",
-    "start:stencil": "stencil build --dev --watch --docs",
-    "start:storybook": "start-storybook -p 6006 -s www",
+    "start:stencil": "stencil build --prod --watch --docs",
+    "start:storybook": "start-storybook -p 6006 -s dist",
     "start": "npm-run-all --sequential build:stencil:dev --parallel start:stencil start:storybook",
     "test": "stencil test --spec --e2e --coverage",
     "test.watch": "stencil test --spec --e2e --watchAll"
