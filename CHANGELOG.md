@@ -1,3 +1,10 @@
+## [6.13.10](https://github.com/lyne-design-system/lyne-components/compare/v6.13.9...v6.13.10) (2020-04-28)
+
+
+### Bug Fixes
+
+* remove lyne-cta-button from index ([fcf449a](https://github.com/lyne-design-system/lyne-components/commit/fcf449adecf86c191f75993d2c0a0091ad99212e))
+
 ## [6.13.9](https://github.com/lyne-design-system/lyne-components/compare/v6.13.8...v6.13.9) (2020-04-28)
 
 
