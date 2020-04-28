@@ -78,7 +78,7 @@ jobs:
         - npm run test || travis_terminate 1
 
         # Make Storybook build
-        npm run build:storybook
+        - npm run build:storybook
 
         # Send to chromatic
         - if [[ $TRAVIS_EVENT_TYPE != 'pull_request' ||  $TRAVIS_PULL_REQUEST_SLUG != $TRAVIS_REPO_SLUG ]]; then npm run chromatic; fi
