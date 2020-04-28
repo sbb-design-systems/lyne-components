@@ -25,7 +25,7 @@
     "build:stencil:dev": "stencil build --dev --docs",
     "build:storybook": "build-storybook --quiet",
     "build": "npm-run-all --sequential build:stencil build:storybook",
-    "chromatic": "chromatic --storybook-build-dir=./storybook-static",
+    "chromatic": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes",
     "generate": "stencil generate",
     "lint": "eslint ./ --ext .ts,.tsx",
     "semantic-release": "semantic-release",
