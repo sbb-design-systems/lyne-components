@@ -50,7 +50,6 @@ If you commit and push your changes on a branch, a deploy preview is created on 
 |@typescript-eslint/parser|TypeScript support for ESLint|https://github.com/typescript-eslint/typescript-eslint|
 |axios|Promise based HTTP client for the browser and node.js|https://www.npmjs.com/package/axios|
 |babel-loader|webpack loader to transpile js files using babel. Used for Storybook integration|https://www.npmjs.com/package/babel-loader|
-|copy-webpack-plugin|copy files to build directory during webpack build. Used for Storybook integration|https://github.com/webpack-contrib/copy-webpack-plugin|
 |eslint|Linter for JavaScript|https://github.com/eslint/eslint|
 |husky|easily add git hooks|https://github.com/typicode/husky|
 |jest|used for unit tests|https://jestjs.io/|
@@ -61,7 +60,6 @@ If you commit and push your changes on a branch, a deploy preview is created on 
 |semantic-release|Used to start semantic release|https://github.com/semantic-release/semantic-release|
 |semantic-release-slack-bot|Used to get slack notifications from semantic-release|https://github.com/juliuscc/semantic-release-slack-bot|
 |shelljs|used to support unix exit commands in node|https://www.npmjs.com/package/shelljs|
-|write-file-webpack-plugin|write webpack dev server files to file system. Used for Storybook integration|https://github.com/gajus/write-file-webpack-plugin|
 |yargs|Easy parsing arguments from the command line|https://www.npmjs.com/package/yargs|
 
 ## Config files
