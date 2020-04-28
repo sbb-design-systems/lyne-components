@@ -1,3 +1,13 @@
+## [6.13.11](https://github.com/lyne-design-system/lyne-components/compare/v6.13.10...v6.13.11) (2020-04-28)
+
+
+### Bug Fixes
+
+* enable docs again ([16d348f](https://github.com/lyne-design-system/lyne-components/commit/16d348f1153fbbb43d032957f8ff268161f4ecc3))
+* fix stories id ([3fa92cb](https://github.com/lyne-design-system/lyne-components/commit/3fa92cb6f17946d5ff5de9e95c4cae49f9dd3012))
+* rewrite story in cfm instead of storiesOf api ([3dbad2b](https://github.com/lyne-design-system/lyne-components/commit/3dbad2bd4662206fe6c4224315506a24b0f794d8))
+* rewrite story in cfm instead of storiesOf api ([abac03a](https://github.com/lyne-design-system/lyne-components/commit/abac03adeceb7f124faac23be0f0b060ba2f2aa7))
+
 ## [6.13.10](https://github.com/lyne-design-system/lyne-components/compare/v6.13.9...v6.13.10) (2020-04-28)
 
 
