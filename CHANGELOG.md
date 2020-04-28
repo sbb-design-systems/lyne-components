@@ -1,3 +1,11 @@
+## [6.13.7](https://github.com/lyne-design-system/lyne-components/compare/v6.13.6...v6.13.7) (2020-04-28)
+
+
+### Bug Fixes
+
+* load lyne-components in head ([3091ff5](https://github.com/lyne-design-system/lyne-components/commit/3091ff516250d9c6251c01af5134f0c409bfcda4))
+* temporary skip custom webpack config ([8b740e9](https://github.com/lyne-design-system/lyne-components/commit/8b740e96c6b498e889ab2e98961673a9f8ad65e5))
+
 ## [6.13.6](https://github.com/lyne-design-system/lyne-components/compare/v6.13.5...v6.13.6) (2020-04-27)
 
 
