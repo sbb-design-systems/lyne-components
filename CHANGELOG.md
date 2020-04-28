@@ -1,3 +1,13 @@
+## [6.13.9](https://github.com/lyne-design-system/lyne-components/compare/v6.13.8...v6.13.9) (2020-04-28)
+
+
+### Bug Fixes
+
+* remove custom webpack config ([002b681](https://github.com/lyne-design-system/lyne-components/commit/002b6815a8d72223c7c336207713d593a3715adf))
+* remove duplicated const declarations ([af37641](https://github.com/lyne-design-system/lyne-components/commit/af37641f8aa90a1bb7a8cff1f1c040913338360f))
+* serve storybook from stencil dist ([9fbba2b](https://github.com/lyne-design-system/lyne-components/commit/9fbba2ba3c7a23d3695e37b840716833e602510f))
+* statically load lyne-components in storybook ([d78d4f3](https://github.com/lyne-design-system/lyne-components/commit/d78d4f3b714665b82b3c3eae748e4c03aad84ca8))
+
 ## [6.13.8](https://github.com/lyne-design-system/lyne-components/compare/v6.13.7...v6.13.8) (2020-04-28)
 
 
