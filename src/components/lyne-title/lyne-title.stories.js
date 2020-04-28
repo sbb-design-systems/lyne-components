@@ -1,10 +1,7 @@
-import { storiesOf, addParameters } from '@storybook/html';
-import { withKnobs, text, radios } from '@storybook/addon-knobs';
+import { radios, text, withKnobs } from '@storybook/addon-knobs';
 import { h } from 'jsx-dom';
 import { withA11y } from '@storybook/addon-a11y';
-import readme from './readme.md';
 
-const groupId = 'General'
 const textLabel = 'Title Text';
 const textDefaultValue = 'Sample Title';
 const levelLabel = 'Title Level';
@@ -14,70 +11,25 @@ const levelOptions = {
   'Level 3': '3'
 };
 
-storiesOf('lyne-title', module)
-  .addDecorator(withKnobs)
-  .addDecorator(withA11y)
-  .addParameters({ docs: { page: null } })
-  .add(
-    'Default Level 1',
-    () => {
+export const level1 = () => <lyne-title
+  level={radios(levelLabel, levelOptions, '1')}
+  text={text(textLabel, textDefaultValue)}
+/>;
 
-      const textValue = text(textLabel, textDefaultValue, groupId);
-      const levelValue = radios(levelLabel, levelOptions, '1', groupId);
+export const level2 = () => <lyne-title
+  level={radios(levelLabel, levelOptions, '2')}
+  text={text(textLabel, textDefaultValue)}
+/>;
 
-      return (
-        <lyne-title
-          text={textValue}
-          level={levelValue}
-        ></lyne-title>
-      );
+export const level3 = () => <lyne-title
+  level={radios(levelLabel, levelOptions, '3')}
+  text={text(textLabel, textDefaultValue)}
+/>;
 
-    },
-    {
-      notes: {
-        markdown: readme
-      }
-    }
-  )
-  .add(
-    'Level 2',
-    () => {
-
-      const textValue = text(textLabel, textDefaultValue, groupId);
-      const levelValue = radios(levelLabel, levelOptions, '2', groupId);
-
-      return (
-        <lyne-title
-          text={textValue}
-          level={levelValue}
-        ></lyne-title>
-      );
-
-    },
-    {
-      notes: {
-        markdown: readme
-      }
-    }
-  )
-  .add(
-    'Level 3',
-    () => {
-
-      const textValue = text(textLabel, textDefaultValue, groupId);
-      const levelValue = radios(levelLabel, levelOptions, '3', groupId);
-
-      return (
-        <lyne-title
-          text={textValue}
-          level={levelValue}
-        ></lyne-title>
-      );
-
-    },
-    {
-      notes: {
-        markdown: readme
-      }
-    }
-  );
+export default {
+  decorators: [
+    withKnobs,
+    withA11y
+  ],
+  title: 'Heading'
+};
