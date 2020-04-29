@@ -25,7 +25,7 @@ export namespace Components {
     */
     'samplePropForJSDocs': string;
   }
-  interface LyneTitle {
+  interface LyneHeading {
     /**
     * Title level
     */
@@ -46,14 +46,14 @@ declare global {
     new (): HTMLLyneCtaButtonElement;
   };
 
-  interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {}
-  var HTMLLyneTitleElement: {
-    prototype: HTMLLyneTitleElement;
-    new (): HTMLLyneTitleElement;
+  interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {}
+  var HTMLLyneHeadingElement: {
+    prototype: HTMLLyneHeadingElement;
+    new (): HTMLLyneHeadingElement;
   };
   interface HTMLElementTagNameMap {
     'lyne-cta-button': HTMLLyneCtaButtonElement;
-    'lyne-title': HTMLLyneTitleElement;
+    'lyne-heading': HTMLLyneHeadingElement;
   }
 }
 
@@ -73,7 +73,7 @@ declare namespace LocalJSX {
     */
     'samplePropForJSDocs'?: string;
   }
-  interface LyneTitle {
+  interface LyneHeading {
     /**
     * Title level
     */
@@ -86,7 +86,7 @@ declare namespace LocalJSX {
 
   interface IntrinsicElements {
     'lyne-cta-button': LyneCtaButton;
-    'lyne-title': LyneTitle;
+    'lyne-heading': LyneHeading;
   }
 }
 
@@ -97,7 +97,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'lyne-cta-button': LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
-      'lyne-title': LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
+      'lyne-heading': LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
     }
   }
 }

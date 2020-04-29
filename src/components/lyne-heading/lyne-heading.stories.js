@@ -11,17 +11,17 @@ const levelOptions = {
   'Level 3': '3'
 };
 
-export const level1 = () => <lyne-title
+export const level1 = () => <lyne-heading
   level={radios(levelLabel, levelOptions, '1')}
   text={text(textLabel, textDefaultValue)}
 />;
 
-export const level2 = () => <lyne-title
+export const level2 = () => <lyne-heading
   level={radios(levelLabel, levelOptions, '2')}
   text={text(textLabel, textDefaultValue)}
 />;
 
-export const level3 = () => <lyne-title
+export const level3 = () => <lyne-heading
   level={radios(levelLabel, levelOptions, '3')}
   text={text(textLabel, textDefaultValue)}
 />;

@@ -6,11 +6,11 @@ import {
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-title.scss',
-  tag: 'lyne-title'
+  styleUrl: 'lyne-heading.scss',
+  tag: 'lyne-heading'
 })
 
-export class LyneTitle {
+export class LyneHeading {
 
   /** Text for the title */
   @Prop() public text = 'Default title text';
