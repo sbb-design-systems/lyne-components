@@ -1,3 +1,10 @@
+## [6.14.1](https://github.com/lyne-design-system/lyne-components/compare/v6.14.0...v6.14.1) (2020-04-29)
+
+
+### Bug Fixes
+
+* fix story ids ([1a2c938](https://github.com/lyne-design-system/lyne-components/commit/1a2c938f54586ca9d7e21159689ce16a83645afd))
+
 # [6.14.0](https://github.com/lyne-design-system/lyne-components/compare/v6.13.13...v6.14.0) (2020-04-29)
 
 
