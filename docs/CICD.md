@@ -51,14 +51,16 @@ After you merge, Travis automatically starts it's job and runs the following ste
   5. A slack message is send out according to the template defined in `.releaserc`
 6. netlify-cli: the cli to work with netlify is installed.
 7. Only if the `.version` file is found, storybook build will be made and the `storybook-static` folder will be deployed to netlify. We add the new version number as a title to the deployment.
-8. Deployments page: with the information from all netlify deployments, a html-file with all production and preview deployments is generated and published on netlify
-9. After all steps finished successfully, a slack message is send out according to the notifications-config in `.travis.yml`
+8. Deployments page: with the information from all netlify deployments, a html-file with all production and preview deployments is generated and published on netlify.
+9. Only if the `.version` file is found, the Travis Job for the repo `lyne-documentation` is triggered, so that it can make a build with the latest `lyne-componets`.
+10. After all steps finished successfully, a slack message is send out according to the notifications-config in `.travis.yml`.
 
 ## Workflow for branches other than master
 This workflow is almost identical to the workflow for the master branch, except the following (keep in mind that the travis job runs everytime you push to your branch):
-4. Code coverage report is not created
-5. semantic-release is skipped
+4. Code coverage report is not created.
+5. semantic-release is skipped.
 7. A deployment to netlify will be made in any case. In contrast to the master branch, these deployments are not labeled as production, but as deploy previews. The title of the deployment is the name of the branch.
+9. Trigger of `lyne-documentation` is skipped.
 
 The steps mentioned in "Before Merge" are only run if you have an open pull request for your branch.
 
@@ -79,6 +81,7 @@ We need a couple of Environment variables on Travis:
 - `NETLIFY_SITE_ID_DEPLOYMENTS`: app id of the netlify site (lyne-components-deployments)
 - `NPM_TOKEN`: npm access token to be able to publish to npm. CAUTION: this token needs to be namend exactly like this so that semantic-release plugin can use it.
 - `SLACK_WEBHOOK`: token to be able to post messages on slack.
+- `TRAVIS_TOKEN`: token to be able to talk to the travis api.
 
 ## Netlify configuration
 
