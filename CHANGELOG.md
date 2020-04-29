@@ -1,3 +1,19 @@
+# [6.14.0](https://github.com/lyne-design-system/lyne-components/compare/v6.13.13...v6.14.0) (2020-04-29)
+
+
+### Bug Fixes
+
+* move stories to their own preview blocks ([3e3dbdf](https://github.com/lyne-design-system/lyne-components/commit/3e3dbdf757495ae67b2cd0216a38fe131a221e27))
+* rename lyne-title to lyne-heading ([78590da](https://github.com/lyne-design-system/lyne-components/commit/78590da2bffc71f7db025650c4a4044f6fef38e0))
+* rename title ([1799198](https://github.com/lyne-design-system/lyne-components/commit/1799198cc63c509e7b2fe80a7fb5e0d9180580cf))
+* style on level class ([6710e3f](https://github.com/lyne-design-system/lyne-components/commit/6710e3fcbed1602630ce2380c16b1b0a62e30862))
+
+
+### Features
+
+* add option for semantic level and visual level ([b060a5a](https://github.com/lyne-design-system/lyne-components/commit/b060a5a3593e228af803501e3edaa3f403ed0767))
+* include visual and semantic level in stories ([1ac20fd](https://github.com/lyne-design-system/lyne-components/commit/1ac20fd96ed248b69f8f5e22d28cc50e90354591))
+
 ## [6.13.13](https://github.com/lyne-design-system/lyne-components/compare/v6.13.12...v6.13.13) (2020-04-29)
 
 
