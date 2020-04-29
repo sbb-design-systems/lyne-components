@@ -1,6 +1,7 @@
 import { radios, text, withKnobs } from '@storybook/addon-knobs';
 import { h } from 'jsx-dom';
 import { withA11y } from '@storybook/addon-a11y';
+import readme from './readme.md';
 
 const textLabel = 'Heading Text';
 const textDefaultValue = 'Sample Heading';
@@ -35,5 +36,13 @@ export default {
     withKnobs,
     withA11y
   ],
-  title: 'Heading'
+  title: 'Lyne Heading',
+  components: 'lyne-heading',
+  parameters: {
+    docs: {
+      extractComponentDescription: () => {
+        return readme;
+      }
+    }
+  }
 };
