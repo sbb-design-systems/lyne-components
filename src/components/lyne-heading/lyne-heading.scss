@@ -5,20 +5,20 @@
 .title {
   font-size: $size-font-base;
 	color: black;
-  border: 1px solid green;
+  margin: 0;
 }
 
-h1.title {
+.title--level1 {
   color: red;
   font-size: calc(3 * #{$size-font-base});
 }
 
-h2.title {
+.title--level2 {
   color: green;
   font-size: calc(2 * #{$size-font-base});
 }
 
-h3.title {
+.title--level3 {
   color: blue;
   font-weight: bold;
   font-size: $size-font-base;
