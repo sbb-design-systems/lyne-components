@@ -1,3 +1,25 @@
+## [6.13.13](https://github.com/lyne-design-system/lyne-components/compare/v6.13.12...v6.13.13) (2020-04-29)
+
+
+### Bug Fixes
+
+* add green border ([3213145](https://github.com/lyne-design-system/lyne-components/commit/32131453d1f66e5fed7c922f983e950313360769))
+* fix travis syntax ([db2bd44](https://github.com/lyne-design-system/lyne-components/commit/db2bd44786ff36dd4407b56f4c05b41159275f2f))
+* make sure build does not brake if chromatic detects changes ([fa8af62](https://github.com/lyne-design-system/lyne-components/commit/fa8af62f2fa03d79c1862f7609388a3b57bcd13e))
+* make sure to build storybook before chromatic ([fb68119](https://github.com/lyne-design-system/lyne-components/commit/fb681190d3ea9802a1d2c4f56701cd9776b81763))
+* move storybook build to shell script ([4dfd684](https://github.com/lyne-design-system/lyne-components/commit/4dfd6845f1908d50f8f2e0bb39b617552ade672b))
+* remove chromatic ([7c1e559](https://github.com/lyne-design-system/lyne-components/commit/7c1e559a277d99c038f88ea72f18ab7d83082096))
+* run tests in prod mode ([b1908cb](https://github.com/lyne-design-system/lyne-components/commit/b1908cb7b9810ddbe54e1bb9dc7c1a17c79400ad))
+* try to fix npm script ([ea58a9b](https://github.com/lyne-design-system/lyne-components/commit/ea58a9b7c12b32fcc94709fa79a979f6f60300ac))
+* try to fix npm script ([7378bde](https://github.com/lyne-design-system/lyne-components/commit/7378bded52a52f3924271047bad428008f7a649f))
+* try to fix npm script ([0c5f8cb](https://github.com/lyne-design-system/lyne-components/commit/0c5f8cb60b67930df6c4089367e517cdaf8aa6dc))
+* try to fix npm script ([65db22b](https://github.com/lyne-design-system/lyne-components/commit/65db22b730dae445ae0c727d005d14cacab00663))
+* try to fix npm script for chromatic ([13db85f](https://github.com/lyne-design-system/lyne-components/commit/13db85f6b70a30024982309be00caea56b99e550))
+* try to fix npm script for chromatic ([bf4b5ab](https://github.com/lyne-design-system/lyne-components/commit/bf4b5aba5a2ba3b8673b70efa1426a56ec069463))
+* try to fix npm script for chromatic ([ef5d5b3](https://github.com/lyne-design-system/lyne-components/commit/ef5d5b364f30aabbd7c686b9aaa6597ac57e99c3))
+* try to fix npm script for chromatic ([5915c31](https://github.com/lyne-design-system/lyne-components/commit/5915c31485b5e6fa75d6ba311346202ea46c8661))
+* try to fix npm script for chromatic ([19ef8e5](https://github.com/lyne-design-system/lyne-components/commit/19ef8e5b78d6dd501233aa85768083440a8e6916))
+
 ## [6.13.12](https://github.com/lyne-design-system/lyne-components/compare/v6.13.11...v6.13.12) (2020-04-28)
 
 
