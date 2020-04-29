@@ -12,16 +12,20 @@ import {
 
 export class LyneHeading {
 
-  /** Text for the title */
+  /** Text for the Heading */
   @Prop() public text = 'Default title text';
 
-  /** Title level */
-  @Prop() public level = '3';
+  /** Heading level */
+  @Prop() public level = '1';
+
+  /** Visual level for the heading */
+  @Prop() public visualLevel = '1';
 
   public render(): JSX.Element {
 
     const TagName = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const className = `title title--level${this.visualLevel}`;
 
-    return <TagName class='title'>{this.text}</TagName>;
+    return <TagName class={className}>{this.text}</TagName>;
   }
 }
