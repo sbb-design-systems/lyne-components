@@ -27,13 +27,17 @@ export namespace Components {
   }
   interface LyneHeading {
     /**
-    * Title level
+    * Heading level
     */
     'level': string;
     /**
-    * Text for the title
+    * Text for the Heading
     */
     'text': string;
+    /**
+    * Visual level for the heading
+    */
+    'visualLevel': string;
   }
 }
 
@@ -75,13 +79,17 @@ declare namespace LocalJSX {
   }
   interface LyneHeading {
     /**
-    * Title level
+    * Heading level
     */
     'level'?: string;
     /**
-    * Text for the title
+    * Text for the Heading
     */
     'text'?: string;
+    /**
+    * Visual level for the heading
+    */
+    'visualLevel'?: string;
   }
 
   interface IntrinsicElements {
