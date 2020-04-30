@@ -1,3 +1,17 @@
+## [6.14.2](https://github.com/lyne-design-system/lyne-components/compare/v6.14.1...v6.14.2) (2020-04-30)
+
+
+### Bug Fixes
+
+* fix chromatic ([bc0f99c](https://github.com/lyne-design-system/lyne-components/commit/bc0f99c48bb6ba30c1d53702b60575cccc8056f4))
+* fix chromatic ([213c5b9](https://github.com/lyne-design-system/lyne-components/commit/213c5b90453b439f8fbf4ba22b1d2c8585cdccbd))
+* try to fix chromatic ([0b6e670](https://github.com/lyne-design-system/lyne-components/commit/0b6e6708f5c269fb805029816a0daa7454213333))
+* try to fix chromatic ([43c6025](https://github.com/lyne-design-system/lyne-components/commit/43c602544b2297a5339f50f84aca4f88200ebb97))
+* try to fix chromatic ([6fc34cb](https://github.com/lyne-design-system/lyne-components/commit/6fc34cbcb1d5dbd8aebdbd2f48cc1f49f2421c4c))
+* try to fix chromatic ([7e7d515](https://github.com/lyne-design-system/lyne-components/commit/7e7d5156677fe1ed0e56845fe831dde41a2dc7a7))
+* try to fix chromatic ([39b059e](https://github.com/lyne-design-system/lyne-components/commit/39b059e7a13d9d357081e37bafc5dae41577a8c2))
+* try to fix chromatic ([1f6516b](https://github.com/lyne-design-system/lyne-components/commit/1f6516b0852919fd3d3c298d62ec2830edbb68b8))
+
 ## [6.14.1](https://github.com/lyne-design-system/lyne-components/compare/v6.14.0...v6.14.1) (2020-04-29)
 
 
