@@ -1,3 +1,10 @@
+## [6.14.3](https://github.com/lyne-design-system/lyne-components/compare/v6.14.2...v6.14.3) (2020-04-30)
+
+
+### Bug Fixes
+
+* make sure chromatic runs on master ([22c6eaf](https://github.com/lyne-design-system/lyne-components/commit/22c6eafb2c611abfd0598a6b2ddd774c7d840c78))
+
 ## [6.14.2](https://github.com/lyne-design-system/lyne-components/compare/v6.14.1...v6.14.2) (2020-04-30)
 
 
