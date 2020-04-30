@@ -1,3 +1,10 @@
+## [6.14.5](https://github.com/lyne-design-system/lyne-components/compare/v6.14.4...v6.14.5) (2020-04-30)
+
+
+### Bug Fixes
+
+* remove chromatic for master ([71ae7d1](https://github.com/lyne-design-system/lyne-components/commit/71ae7d1ed9ae59e30ac3aa8620b117be137ce4da))
+
 ## [6.14.4](https://github.com/lyne-design-system/lyne-components/compare/v6.14.3...v6.14.4) (2020-04-30)
 
 
