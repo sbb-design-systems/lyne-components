@@ -15,9 +15,8 @@
 
 os: linux
 language: node_js
+install: skip
 script:
-  - rm -rf node_modules
-  - npm cache clean --force
   - npm install
   - npm run build
   - npm run chromatic
