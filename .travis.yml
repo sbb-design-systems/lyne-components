@@ -15,7 +15,11 @@
 
 os: linux
 language: node_js
+
+# There is an issue with chromatic cli if install phase is handled by travis.
+# So we skip install and install npm dependencies manually in each stage.
 install: skip
+
 notifications:
   slack:
     template:
@@ -89,6 +93,12 @@ jobs:
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # Interested in the output from netlify-cli
         - npm install netlify-cli -g > "/dev/null" 2>&1
+
+        # Make Storybook build
+        - npm run build:storybook
+
+        # Send storybook to chromatic
+        - npm run chromatic
 
         # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
