@@ -1,3 +1,12 @@
+## [6.14.6](https://github.com/lyne-design-system/lyne-components/compare/v6.14.5...v6.14.6) (2020-05-01)
+
+
+### Bug Fixes
+
+* fix yml syntax ([b004cb8](https://github.com/lyne-design-system/lyne-components/commit/b004cb8eab89c0373fdb3747f2c86826d12059fd))
+* move chromatic var to npm scripts ([c60a340](https://github.com/lyne-design-system/lyne-components/commit/c60a34074b7c134b5640c6594aee579e8f01de19))
+* move storybook build and chromatic command to travis config ([ee0f387](https://github.com/lyne-design-system/lyne-components/commit/ee0f38725a0f53c15bd0393bdd21eea08720526b))
+
 ## [6.14.5](https://github.com/lyne-design-system/lyne-components/compare/v6.14.4...v6.14.5) (2020-04-30)
 
 
