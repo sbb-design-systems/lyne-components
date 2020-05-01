@@ -34,7 +34,7 @@ notifications:
 jobs:
   include:
     - stage: build, test and deploy packages and storybook for production
-      if: (branch = master AND type = push AND fork = false)
+      if: ((branch = master AND type != pull_request) AND fork = false)
       script:
 
         # install dependencies
@@ -80,7 +80,7 @@ jobs:
         - ./ci/trigger_line_documentation.sh
 
     - stage: build, test and deploy storybook for branches other than master
-      if: (branch != master AND type = push AND fork = false)
+      if: ((branch != master OR type = pull_request) AND fork = false)
       script:
 
         # install dependencies
