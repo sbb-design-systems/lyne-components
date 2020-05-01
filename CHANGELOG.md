@@ -1,3 +1,13 @@
+## [6.14.9](https://github.com/lyne-design-system/lyne-components/compare/v6.14.8...v6.14.9) (2020-05-01)
+
+
+### Bug Fixes
+
+* change color to yellow ([fe112b5](https://github.com/lyne-design-system/lyne-components/commit/fe112b5f273ce074cd31970d1fc16a49a120dff1))
+* fake commit to trigger build ([b06562d](https://github.com/lyne-design-system/lyne-components/commit/b06562dd6d492da539fe1b0524bb51a603c2e3d4))
+* fake commit to trigger build ([053afd2](https://github.com/lyne-design-system/lyne-components/commit/053afd211b082e7688a12cf79484284cd12ca32e))
+* fake commit to trigger build ([6a1a704](https://github.com/lyne-design-system/lyne-components/commit/6a1a704289c77a0d9181aa46ab99457b9a98f0df))
+
 ## [6.14.8](https://github.com/lyne-design-system/lyne-components/compare/v6.14.7...v6.14.8) (2020-05-01)
 
 
