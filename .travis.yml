@@ -106,7 +106,7 @@ jobs:
         - npm run build:storybook
 
         # Send storybook to chromatic
-        - npm run chromatic
+        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run chromatic; fi'
 
         # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
