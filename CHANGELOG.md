@@ -1,3 +1,14 @@
+## [6.14.7](https://github.com/lyne-design-system/lyne-components/compare/v6.14.6...v6.14.7) (2020-05-01)
+
+
+### Bug Fixes
+
+* try to build pull requests correctly ([bda100f](https://github.com/lyne-design-system/lyne-components/commit/bda100ffb77401302b56d3abf7fb71c0373a90ee))
+* try to build pull requests correctly ([9a6628f](https://github.com/lyne-design-system/lyne-components/commit/9a6628f256dcaca13ec64f595649ee3915e26ca2))
+* try to build pull requests correctly ([c257ec4](https://github.com/lyne-design-system/lyne-components/commit/c257ec45b33b263ebfc859615813543084d86167))
+* try to build pull requests correctly ([dc242ca](https://github.com/lyne-design-system/lyne-components/commit/dc242ca109bee50b0e91a2c5c039824b164aaca3))
+* try to build pull requests correctly ([f6b4a9a](https://github.com/lyne-design-system/lyne-components/commit/f6b4a9a1c327a39aeec52524ba8516bebaf636eb))
+
 ## [6.14.6](https://github.com/lyne-design-system/lyne-components/compare/v6.14.5...v6.14.6) (2020-05-01)
 
 
