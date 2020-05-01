@@ -1,3 +1,12 @@
+## [6.14.8](https://github.com/lyne-design-system/lyne-components/compare/v6.14.7...v6.14.8) (2020-05-01)
+
+
+### Bug Fixes
+
+* only run chromatic for pr builds ([5d9dcc9](https://github.com/lyne-design-system/lyne-components/commit/5d9dcc94b67a7b8f00b315beaa10b13eaf786c75))
+* try to build pull requests correctly ([4f00572](https://github.com/lyne-design-system/lyne-components/commit/4f0057259c0eef6e38015f4f6d2ba6644c811cbf))
+* try to build pull requests correctly ([0698544](https://github.com/lyne-design-system/lyne-components/commit/06985443f2fa8e470303da9558a8ff6dc4dbb3b3))
+
 ## [6.14.7](https://github.com/lyne-design-system/lyne-components/compare/v6.14.6...v6.14.7) (2020-05-01)
 
 
