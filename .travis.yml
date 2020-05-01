@@ -34,7 +34,7 @@ notifications:
 jobs:
   include:
     - stage: build, test and deploy packages and storybook for production
-      if: [ branch = master AND $TRAVIS_EVENT_TYPE != 'pull_request' ]
+      if: branch = master AND type = push AND fork = false
       script:
 
         # install dependencies
