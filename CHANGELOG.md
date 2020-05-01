@@ -1,3 +1,17 @@
+## [6.14.12](https://github.com/lyne-design-system/lyne-components/compare/v6.14.11...v6.14.12) (2020-05-01)
+
+
+### Bug Fixes
+
+* set border color to yellow ([ab4d719](https://github.com/lyne-design-system/lyne-components/commit/ab4d719bf4f3ab2764eef7c40c9a8c8ec4160f3c))
+
+## [6.14.11](https://github.com/lyne-design-system/lyne-components/compare/v6.14.10...v6.14.11) (2020-05-01)
+
+
+### Bug Fixes
+
+* set border to green ([997e63c](https://github.com/lyne-design-system/lyne-components/commit/997e63c56f1a8fde7390312659887a5921e45c67))
+
 ## [6.14.10](https://github.com/lyne-design-system/lyne-components/compare/v6.14.9...v6.14.10) (2020-05-01)
 
 
