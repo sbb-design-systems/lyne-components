@@ -1,3 +1,11 @@
+## [6.14.10](https://github.com/lyne-design-system/lyne-components/compare/v6.14.9...v6.14.10) (2020-05-01)
+
+
+### Bug Fixes
+
+* fake commit to trigger build ([ab3111c](https://github.com/lyne-design-system/lyne-components/commit/ab3111c5993e6dc51ae43f50c97becba97f41998))
+* set border color to red ([8d3234e](https://github.com/lyne-design-system/lyne-components/commit/8d3234e4e41e4560ea595a3b409524babdb7efb4))
+
 ## [6.14.9](https://github.com/lyne-design-system/lyne-components/compare/v6.14.8...v6.14.9) (2020-05-01)
 
 
