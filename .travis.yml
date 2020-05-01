@@ -34,7 +34,7 @@ notifications:
 jobs:
   include:
     - stage: build, test and deploy packages and storybook for production
-      if: branch = master AND $TRAVIS_PULL_REQUEST = false
+      if: branch = master AND [ "$TRAVIS_PULL_REQUEST" = "false" ]
       script:
 
         # install dependencies
@@ -80,7 +80,7 @@ jobs:
         - ./ci/trigger_line_documentation.sh
 
     - stage: build, test and deploy storybook for branches other than master
-      if: branch != master OR $TRAVIS_PULL_REQUEST = true
+      if: branch != master OR [ "$TRAVIS_PULL_REQUEST" = "true" ]
       script:
 
         # install dependencies
