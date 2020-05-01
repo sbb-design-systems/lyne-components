@@ -64,7 +64,7 @@ jobs:
 
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
-        - npm run chromatic --auto-accept-changes
+        - npm run chromatic:master
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # interested in the output from netlify-cli
