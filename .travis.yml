@@ -21,6 +21,7 @@ language: node_js
 install: skip
 
 notifications:
+
   slack:
     template:
       # This template config somehow breaks yaml syntax
