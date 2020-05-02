@@ -6,35 +6,35 @@ import readme from './readme.md';
 const textLabel = 'Sample Text';
 
 export const level1 = () => <lyne-test5
-  text={text(textLabel, 'Text 1')}
+  text={text(textLabel, 'Text 51')}
 />;
 
 export const level2 = () => <lyne-test5
-  text={text(textLabel, 'Text 2')}
+  text={text(textLabel, 'Text 52')}
 />;
 
 export const level3 = () => <lyne-test5
-  text={text(textLabel, 'Text 3')}
+  text={text(textLabel, 'Text 53')}
 />;
 
 export const level4 = () => <lyne-test5
-  text={text(textLabel, 'Text 4')}
+  text={text(textLabel, 'Text 54')}
 />;
 
 export const level5 = () => <lyne-test5
-  text={text(textLabel, 'Text 5')}
+  text={text(textLabel, 'Text 55')}
 />;
 
 export const level6 = () => <lyne-test5
-  text={text(textLabel, 'Text 6')}
+  text={text(textLabel, 'Text 56')}
 />;
 
 export const level7 = () => <lyne-test5
-  text={text(textLabel, 'Text 7')}
+  text={text(textLabel, 'Text 57')}
 />;
 
 export const level8 = () => <lyne-test5
-  text={text(textLabel, 'Text 8')}
+  text={text(textLabel, 'Text 58')}
 />;
 
 export default {
