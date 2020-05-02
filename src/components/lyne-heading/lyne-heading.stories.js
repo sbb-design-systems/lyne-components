@@ -31,6 +31,36 @@ export const level3 = () => <lyne-heading
   text={text(textLabel, textDefaultValue)}
 />;
 
+export const level3german = () => <lyne-heading
+  level={radios(levelLabel, levelOptions, '3')}
+  visual-level={radios(visualLevelLabel, levelOptions, '3')}
+  text={text(textLabel, 'Beispiel Titel')}
+/>;
+
+export const level3spanish = () => <lyne-heading
+  level={radios(levelLabel, levelOptions, '3')}
+  visual-level={radios(visualLevelLabel, levelOptions, '3')}
+  text={text(textLabel, 'Título de ejemplo')}
+/>;
+
+export const level3russian = () => <lyne-heading
+  level={radios(levelLabel, levelOptions, '3')}
+  visual-level={radios(visualLevelLabel, levelOptions, '3')}
+  text={text(textLabel, 'Пример заголовка')}
+/>;
+
+export const level3corean = () => <lyne-heading
+  level={radios(levelLabel, levelOptions, '3')}
+  visual-level={radios(visualLevelLabel, levelOptions, '3')}
+  text={text(textLabel, '제목 예')}
+/>;
+
+export const level3albania = () => <lyne-heading
+  level={radios(levelLabel, levelOptions, '3')}
+  visual-level={radios(visualLevelLabel, levelOptions, '3')}
+  text={text(textLabel, 'Titulli i shembullit')}
+/>;
+
 export default {
   decorators: [
     withKnobs,
