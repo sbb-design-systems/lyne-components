@@ -37,8 +37,14 @@ export default {
     withA11y
   ],
   title: 'Lyne Heading',
-  components: 'lyne-heading',
   parameters: {
+    chromatic: {
+      viewports: [
+        320,
+        764,
+        1200
+      ]
+    },
     docs: {
       extractComponentDescription: () => {
         return readme;
