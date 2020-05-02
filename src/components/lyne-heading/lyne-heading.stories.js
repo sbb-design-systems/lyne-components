@@ -42,7 +42,7 @@ export default {
       viewports: [
         320,
         764,
-        1200
+        1201
       ]
     },
     docs: {
