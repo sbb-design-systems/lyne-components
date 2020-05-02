@@ -39,6 +39,66 @@ export namespace Components {
     */
     'visualLevel': string;
   }
+  interface LyneTest1 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest10 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest2 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest3 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest4 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest5 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest6 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest7 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest8 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
+  interface LyneTest9 {
+    /**
+    * Just a sample text
+    */
+    'text': string;
+  }
 }
 
 declare global {
@@ -55,9 +115,79 @@ declare global {
     prototype: HTMLLyneHeadingElement;
     new (): HTMLLyneHeadingElement;
   };
+
+  interface HTMLLyneTest1Element extends Components.LyneTest1, HTMLStencilElement {}
+  var HTMLLyneTest1Element: {
+    prototype: HTMLLyneTest1Element;
+    new (): HTMLLyneTest1Element;
+  };
+
+  interface HTMLLyneTest10Element extends Components.LyneTest10, HTMLStencilElement {}
+  var HTMLLyneTest10Element: {
+    prototype: HTMLLyneTest10Element;
+    new (): HTMLLyneTest10Element;
+  };
+
+  interface HTMLLyneTest2Element extends Components.LyneTest2, HTMLStencilElement {}
+  var HTMLLyneTest2Element: {
+    prototype: HTMLLyneTest2Element;
+    new (): HTMLLyneTest2Element;
+  };
+
+  interface HTMLLyneTest3Element extends Components.LyneTest3, HTMLStencilElement {}
+  var HTMLLyneTest3Element: {
+    prototype: HTMLLyneTest3Element;
+    new (): HTMLLyneTest3Element;
+  };
+
+  interface HTMLLyneTest4Element extends Components.LyneTest4, HTMLStencilElement {}
+  var HTMLLyneTest4Element: {
+    prototype: HTMLLyneTest4Element;
+    new (): HTMLLyneTest4Element;
+  };
+
+  interface HTMLLyneTest5Element extends Components.LyneTest5, HTMLStencilElement {}
+  var HTMLLyneTest5Element: {
+    prototype: HTMLLyneTest5Element;
+    new (): HTMLLyneTest5Element;
+  };
+
+  interface HTMLLyneTest6Element extends Components.LyneTest6, HTMLStencilElement {}
+  var HTMLLyneTest6Element: {
+    prototype: HTMLLyneTest6Element;
+    new (): HTMLLyneTest6Element;
+  };
+
+  interface HTMLLyneTest7Element extends Components.LyneTest7, HTMLStencilElement {}
+  var HTMLLyneTest7Element: {
+    prototype: HTMLLyneTest7Element;
+    new (): HTMLLyneTest7Element;
+  };
+
+  interface HTMLLyneTest8Element extends Components.LyneTest8, HTMLStencilElement {}
+  var HTMLLyneTest8Element: {
+    prototype: HTMLLyneTest8Element;
+    new (): HTMLLyneTest8Element;
+  };
+
+  interface HTMLLyneTest9Element extends Components.LyneTest9, HTMLStencilElement {}
+  var HTMLLyneTest9Element: {
+    prototype: HTMLLyneTest9Element;
+    new (): HTMLLyneTest9Element;
+  };
   interface HTMLElementTagNameMap {
     'lyne-cta-button': HTMLLyneCtaButtonElement;
     'lyne-heading': HTMLLyneHeadingElement;
+    'lyne-test1': HTMLLyneTest1Element;
+    'lyne-test10': HTMLLyneTest10Element;
+    'lyne-test2': HTMLLyneTest2Element;
+    'lyne-test3': HTMLLyneTest3Element;
+    'lyne-test4': HTMLLyneTest4Element;
+    'lyne-test5': HTMLLyneTest5Element;
+    'lyne-test6': HTMLLyneTest6Element;
+    'lyne-test7': HTMLLyneTest7Element;
+    'lyne-test8': HTMLLyneTest8Element;
+    'lyne-test9': HTMLLyneTest9Element;
   }
 }
 
@@ -91,10 +221,80 @@ declare namespace LocalJSX {
     */
     'visualLevel'?: string;
   }
+  interface LyneTest1 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest10 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest2 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest3 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest4 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest5 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest6 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest7 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest8 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
+  interface LyneTest9 {
+    /**
+    * Just a sample text
+    */
+    'text'?: string;
+  }
 
   interface IntrinsicElements {
     'lyne-cta-button': LyneCtaButton;
     'lyne-heading': LyneHeading;
+    'lyne-test1': LyneTest1;
+    'lyne-test10': LyneTest10;
+    'lyne-test2': LyneTest2;
+    'lyne-test3': LyneTest3;
+    'lyne-test4': LyneTest4;
+    'lyne-test5': LyneTest5;
+    'lyne-test6': LyneTest6;
+    'lyne-test7': LyneTest7;
+    'lyne-test8': LyneTest8;
+    'lyne-test9': LyneTest9;
   }
 }
 
@@ -106,6 +306,16 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'lyne-cta-button': LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
       'lyne-heading': LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
+      'lyne-test1': LocalJSX.LyneTest1 & JSXBase.HTMLAttributes<HTMLLyneTest1Element>;
+      'lyne-test10': LocalJSX.LyneTest10 & JSXBase.HTMLAttributes<HTMLLyneTest10Element>;
+      'lyne-test2': LocalJSX.LyneTest2 & JSXBase.HTMLAttributes<HTMLLyneTest2Element>;
+      'lyne-test3': LocalJSX.LyneTest3 & JSXBase.HTMLAttributes<HTMLLyneTest3Element>;
+      'lyne-test4': LocalJSX.LyneTest4 & JSXBase.HTMLAttributes<HTMLLyneTest4Element>;
+      'lyne-test5': LocalJSX.LyneTest5 & JSXBase.HTMLAttributes<HTMLLyneTest5Element>;
+      'lyne-test6': LocalJSX.LyneTest6 & JSXBase.HTMLAttributes<HTMLLyneTest6Element>;
+      'lyne-test7': LocalJSX.LyneTest7 & JSXBase.HTMLAttributes<HTMLLyneTest7Element>;
+      'lyne-test8': LocalJSX.LyneTest8 & JSXBase.HTMLAttributes<HTMLLyneTest8Element>;
+      'lyne-test9': LocalJSX.LyneTest9 & JSXBase.HTMLAttributes<HTMLLyneTest9Element>;
     }
   }
 }
