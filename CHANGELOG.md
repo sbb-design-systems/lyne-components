@@ -1,3 +1,16 @@
+# [6.15.0](https://github.com/lyne-design-system/lyne-components/compare/v6.14.12...v6.15.0) (2020-05-02)
+
+
+### Bug Fixes
+
+* change widest viewport ([7938eb9](https://github.com/lyne-design-system/lyne-components/commit/7938eb99a7fc4cc711a6e9a2c958c82de142b25b))
+* remove border color ([71ed428](https://github.com/lyne-design-system/lyne-components/commit/71ed428dcc65afd2a97bf54cde51c0619986528c))
+
+
+### Features
+
+* add viewports to header story ([8c22917](https://github.com/lyne-design-system/lyne-components/commit/8c2291735643f2217bb060373c0447ae8324bd82))
+
 ## [6.14.12](https://github.com/lyne-design-system/lyne-components/compare/v6.14.11...v6.14.12) (2020-05-01)
 
 
