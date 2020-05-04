@@ -34,13 +34,9 @@
     "start": "npm-run-all --sequential build:stencil:dev --parallel start:stencil start:storybook",
     "test:dev": "stencil test --spec --e2e --coverage",
     "test:prod": "stencil test --prod --spec --e2e --coverage",
-    "test.watch": "stencil test --spec --e2e --watchAll",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "test.watch": "stencil test --spec --e2e --watchAll"
   },
-  "dependencies": {
-    "snyk": "^1.315.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/plugin-syntax-jsx": "^7.8.3",
@@ -86,6 +82,5 @@
   },
   "bugs": {
     "url": "https://github.com/lyne-design-system/lyne-components/issues"
-  },
-  "snyk": true
+  }
 }
