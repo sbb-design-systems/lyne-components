@@ -73,6 +73,7 @@
 ## Storybook
 - [ ] We currently only lint `.tsx` files. but we must also lint `.js` files like configs for Storybook
 - [x] We should use [Storybook Docs](https://github.com/storybookjs/storybook/tree/next/addons/docs) instead of [Storybook Notes](https://github.com/storybookjs/storybook/tree/master/addons/notes) because they are [deprecated](https://github.com/storybookjs/storybook#deprecated-addons)
+- [ ] Use gzip and brotli compression for dist files
 
 #### Check
 - [ ] Storybook [Web Components](https://github.com/storybookjs/storybook/tree/next/app/web-components) integration in next major release. Replace current with upcoming if promising
