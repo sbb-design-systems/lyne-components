@@ -1,3 +1,13 @@
+## [6.15.1](https://github.com/lyne-design-system/lyne-components/compare/v6.15.0...v6.15.1) (2020-05-04)
+
+
+### Bug Fixes
+
+* package.json, package-lock.json & .snyk to reduce vulnerabilities ([a1e2f6c](https://github.com/lyne-design-system/lyne-components/commit/a1e2f6cf7ab05198ea7e603fd5de35f262a710fe))
+* package.json, package-lock.json & .snyk to reduce vulnerabilities ([3ec8c43](https://github.com/lyne-design-system/lyne-components/commit/3ec8c43b46667860a192a240aedb106af8a9cf51))
+* package.json, package-lock.json & .snyk to reduce vulnerabilities ([388f6a5](https://github.com/lyne-design-system/lyne-components/commit/388f6a5ad963b4029fb826a5a14b1a6d085c106f))
+* remove snyk scripts, dependency and snyk property ([588e911](https://github.com/lyne-design-system/lyne-components/commit/588e91108876248b7e90f0bb6f529db2a9c82eaa))
+
 # [6.15.0](https://github.com/lyne-design-system/lyne-components/compare/v6.14.12...v6.15.0) (2020-05-02)
 
 
