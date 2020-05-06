@@ -1,3 +1,10 @@
+# [6.16.0](https://github.com/lyne-design-system/lyne-components/compare/v6.15.2...v6.16.0) (2020-05-06)
+
+
+### Features
+
+* add sample component ([b8f42d2](https://github.com/lyne-design-system/lyne-components/commit/b8f42d2cbefa7a6874edcfc3d401f242edf6c9bc))
+
 ## [6.15.2](https://github.com/lyne-design-system/lyne-components/compare/v6.15.1...v6.15.2) (2020-05-06)
 
 
