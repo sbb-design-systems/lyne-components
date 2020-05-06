@@ -273,7 +273,9 @@ module.exports = {
     'nonblock-statement-body-position': ['error', 'beside'],
     'object-curly-newline': ['error', {
       //'multiline': true,
-      'ObjectExpression': 'always',
+      'ObjectExpression': {
+        'minProperties': 1
+      },
       'ObjectPattern': 'always',
       'ImportDeclaration': {
         'minProperties': 2
