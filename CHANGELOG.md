@@ -1,3 +1,10 @@
+## [6.16.1](https://github.com/lyne-design-system/lyne-components/compare/v6.16.0...v6.16.1) (2020-05-06)
+
+
+### Bug Fixes
+
+* remove border color ([d750270](https://github.com/lyne-design-system/lyne-components/commit/d750270e4af728ee6ee85a3900e0ddc0e8089989))
+
 # [6.16.0](https://github.com/lyne-design-system/lyne-components/compare/v6.15.2...v6.16.0) (2020-05-06)
 
 
