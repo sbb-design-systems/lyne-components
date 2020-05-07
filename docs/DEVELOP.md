@@ -1,5 +1,5 @@
 ## Linting
-Typescript-ESLint is configured in this project. Make sure your editor catches eslint errors. Linting will be run on CI before test and build. If linting fails, the build will fail. To run ESLint on the command line run
+Typescript-ESLint is configured for this project. Make sure your editor catches ESLint errors. Linting will be run on CI before test and build. If linting fails, the build will fail. To run ESLint on the command line run
 
 ```bash
 npm run lint
@@ -7,7 +7,7 @@ npm run lint
 
 ## Branch Deployments
 
-If you commit and push your changes on a branch, a deploy preview is created on netlify. You find a list of all branches along with their netlify deploy url here: [https://lyne-documentation.netlify.app/en/deployments](https://lyne-documentation.netlify.app/en/deployments).
+If you commit and push your changes on a branch, a deploy preview is created on netlify. You find a list of all branches along with their Netlify deploy URL here: [https://lyne-documentation.netlify.app/en/deployments](https://lyne-documentation.netlify.app/en/deployments).
 ## package.json
 
 ### npm scripts
