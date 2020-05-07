@@ -17,8 +17,8 @@ You can find a list of all branches along with their Netlify deployment URL here
 | ------------- | ------------- |
 |`build:stencil`|Create a production build of Stencil components|
 |`build:stencil:dev`|Create a development build for Stencil components|
-|`build:storybook`|Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Story|ies](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story)|
-|`build`|Run build:stencil and build:storybook in sequence|
+|`build:storybook`|Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story)|
+|`build`|Run `build:stencil` and `build:storybook` sequential|
 |`generate`|Start the interactive component generator|
 |`lint`|Run TypeScript-ESLint|
 |`semantic-release`|Start a semantic release|
