@@ -25,7 +25,8 @@ You can find a list of all branches along with their Netlify deployment URL here
 |`start:stencil`|Start the development server for Stencil|
 |`start:storybook`|Start the development server for Storybook|
 |`start`|Run `build:stencil:dev`, then run `start:stencil` and `start:storybook` in parallel|
-|`test`|Run all unit and e2e tests|
+|`test:dev`|Run all unit and e2e tests for development environment|
+|`test:prod`|Run all unit and e2e tests for production environment|
 |`test.watch`|Run all unit and e2e tests in watch mode|
 
 ### devDependencies
