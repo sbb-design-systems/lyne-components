@@ -19,6 +19,8 @@ You can find a list of all branches along with their Netlify deployment URL here
 |`build:stencil:dev`|Create a development build for Stencil components|
 |`build:storybook`|Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story)|
 |`build`|Run `build:stencil` and `build:storybook` sequential|
+|`chromatic`|Make [Visual Regression Tests](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#visual-regression-test) based on [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story) and send them to Chromatic to be reviewed|
+|`chromatic:master`|Make [Visual Regression Tests](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#visual-regression-test) based on [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story) and send them to Chromatic to be reviewed|
 |`generate`|Start the interactive component generator|
 |`lint`|Run TypeScript-ESLint|
 |`semantic-release`|Start a semantic release|
