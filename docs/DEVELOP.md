@@ -1,5 +1,5 @@
 ## Linting
-Typescript-ESLint is configured for this project. Make sure your editor catches ESLint errors. Linting will be run on CI before test and build. If linting fails, the build will fail. To run ESLint on the command line run
+TypeScript-ESLint is configured for this project. Make sure your editor catches ESLint errors. Linting will be run on CI before the test and build step. If linting fails, the build will fail. To run ESLint on the command line run
 
 ```bash
 npm run lint
@@ -7,24 +7,26 @@ npm run lint
 
 ## Branch Deployments
 
-If you commit and push your changes on a branch, a deploy preview is created on netlify. You find a list of all branches along with their Netlify deploy URL here: [https://lyne-documentation.netlify.app/en/deployments](https://lyne-documentation.netlify.app/en/deployments).
+If you `commit` and `push` your changes on a branch, a [Preview Deployment](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#preview-deployment) is created on Netlify.
+
+You can find a list of all branches along with their Netlify deployment URL here: [https://lyne-documentation.netlify.app/en/deployments](https://lyne-documentation.netlify.app/en/deployments).
 ## package.json
 
 ### npm scripts
 | Script        | Purpose       |
 | ------------- | ------------- |
-|build:stencil|used to create a production build for stencil components|
-|build:stencil:dev|used to create a dev build for stencil components|
-|build:storybook|used to build storybook static site|
-|build|runs build:stencil and build:storybook in sequence|
-|generate|start the interactive component generator|
-|lint|run typescript-eslint|
-|semantic-release|start a semantic release|
-|start:stencil|start the development server for stencil|
-|start:storybook|start the development server for storybook|
-|start|runs build:stencil:dev and then start:stencil and start:storybook in parallel|
-|test|run all unit and e2e tests|
-|test.watch|run all unit and e2e tests in watch mode|
+|`build:stencil`|Create a production build of Stencil components|
+|`build:stencil:dev`|Create a development build for Stencil components|
+|`build:storybook`|Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Story|ies](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story)|
+|`build`|Run build:stencil and build:storybook in sequence|
+|`generate`|Start the interactive component generator|
+|`lint`|Run TypeScript-ESLint|
+|`semantic-release`|Start a semantic release|
+|`start:stencil`|Start the development server for Stencil|
+|`start:storybook`|Start the development server for Storybook|
+|`start`|Run `build:stencil:dev`, then run `start:stencil` and `start:storybook` in parallel|
+|`test`|Run all unit and e2e tests|
+|`test.watch`|Run all unit and e2e tests in watch mode|
 
 ### devDependencies
 | Dependency        | Purpose       | Docs |
