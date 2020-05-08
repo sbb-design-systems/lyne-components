@@ -1,3 +1,10 @@
+# [6.17.0](https://github.com/lyne-design-system/lyne-components/compare/v6.16.2...v6.17.0) (2020-05-08)
+
+
+### Features
+
+* temporary add lyne-link ([581fbcf](https://github.com/lyne-design-system/lyne-components/commit/581fbcf2b0a1d8b98e538e3460dcefaa7e6bb4c3))
+
 ## [6.16.2](https://github.com/lyne-design-system/lyne-components/compare/v6.16.1...v6.16.2) (2020-05-08)
 
 
