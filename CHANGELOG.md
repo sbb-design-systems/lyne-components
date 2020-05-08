@@ -1,3 +1,10 @@
+## [6.17.1](https://github.com/lyne-design-system/lyne-components/compare/v6.17.0...v6.17.1) (2020-05-08)
+
+
+### Bug Fixes
+
+* add correct version number when building storybook ([e0e6f58](https://github.com/lyne-design-system/lyne-components/commit/e0e6f580070ef6d5a7522b2ab4bd5004740a01c2))
+
 # [6.17.0](https://github.com/lyne-design-system/lyne-components/compare/v6.16.2...v6.17.0) (2020-05-08)
 
 
