@@ -1,3 +1,10 @@
+## [6.16.2](https://github.com/lyne-design-system/lyne-components/compare/v6.16.1...v6.16.2) (2020-05-08)
+
+
+### Bug Fixes
+
+* temporary remove link component ([1191fc9](https://github.com/lyne-design-system/lyne-components/commit/1191fc945811ff6056e8f92b45504b3b29d8a187))
+
 ## [6.16.1](https://github.com/lyne-design-system/lyne-components/compare/v6.16.0...v6.16.1) (2020-05-06)
 
 
