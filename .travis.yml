@@ -61,7 +61,7 @@ jobs:
         - npm run semantic-release
 
         # Make Storybook build
-        - STORYBOOK_COMPONENTS_VERSION=${nextRelease.version} npm run build:storybook
+        - STORYBOOK_COMPONENTS_VERSION=$(cat .version) npm run build:storybook
 
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
