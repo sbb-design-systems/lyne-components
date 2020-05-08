@@ -61,7 +61,7 @@ jobs:
         - npm run semantic-release
 
         # Make Storybook build
-        - STORYBOOK_COMPONENTS_VERSION=$VERSION npm run build:storybook
+        - STORYBOOK_COMPONENTS_VERSION=${nextRelease.version} npm run build:storybook
 
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
@@ -100,7 +100,7 @@ jobs:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # Interested in the output from netlify-cli
-        - npm install netlify-cli -g > "/dev/null" 2>&1
+        - 'if [ "$TRAVIS_PULL_REQUEST" === "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi'
 
         # Make Storybook build
         - npm run build:storybook
@@ -109,7 +109,7 @@ jobs:
         - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run chromatic; fi'
 
         # Build Storybook and run Netlify deploy
-        - ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH
+        - 'if [ "$TRAVIS_PULL_REQUEST" === "false" ]; then ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH; fi'
 
         # Build and deploy the deployments page
         - ./ci/deployments.sh
