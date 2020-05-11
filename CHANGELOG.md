@@ -1,3 +1,10 @@
+# [6.18.0](https://github.com/lyne-design-system/lyne-components/compare/v6.17.5...v6.18.0) (2020-05-11)
+
+
+### Features
+
+* add link component ([9d8f60f](https://github.com/lyne-design-system/lyne-components/commit/9d8f60f7c5eab97ce7974b10f36551014b0d247e))
+
 ## [6.17.5](https://github.com/lyne-design-system/lyne-components/compare/v6.17.4...v6.17.5) (2020-05-11)
 
 
