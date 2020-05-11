@@ -1,3 +1,10 @@
+## [6.17.5](https://github.com/lyne-design-system/lyne-components/compare/v6.17.4...v6.17.5) (2020-05-11)
+
+
+### Bug Fixes
+
+* adding heading component, remove link component ([2b88a5e](https://github.com/lyne-design-system/lyne-components/commit/2b88a5e9b14e7079bd5459f81a1f6c333492db94))
+
 ## [6.17.4](https://github.com/lyne-design-system/lyne-components/compare/v6.17.3...v6.17.4) (2020-05-11)
 
 
