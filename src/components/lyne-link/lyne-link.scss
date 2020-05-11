@@ -1,0 +1,10 @@
+.link {
+  color: red;
+  text-decoration: none;
+}
+
+.link:hover,
+.link:focus {
+  color: $color-base-red-medium;
+  text-decoration: underline;
+}
