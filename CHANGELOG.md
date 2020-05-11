@@ -1,3 +1,10 @@
+## [6.17.3](https://github.com/lyne-design-system/lyne-components/compare/v6.17.2...v6.17.3) (2020-05-11)
+
+
+### Bug Fixes
+
+* add green border to button ([81be2db](https://github.com/lyne-design-system/lyne-components/commit/81be2db04271f5a8b72991c57aaa028d1419ee6a))
+
 ## [6.17.2](https://github.com/lyne-design-system/lyne-components/compare/v6.17.1...v6.17.2) (2020-05-08)
 
 
