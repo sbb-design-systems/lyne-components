@@ -25,20 +25,6 @@ export namespace Components {
     */
     'samplePropForJSDocs': string;
   }
-  interface LyneHeading {
-    /**
-    * Heading level
-    */
-    'level': string;
-    /**
-    * Text for the Heading
-    */
-    'text': string;
-    /**
-    * Visual level for the heading
-    */
-    'visualLevel': string;
-  }
   interface LyneLink {
     /**
     * Link to use as href
@@ -64,12 +50,6 @@ declare global {
     new (): HTMLLyneCtaButtonElement;
   };
 
-  interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {}
-  var HTMLLyneHeadingElement: {
-    prototype: HTMLLyneHeadingElement;
-    new (): HTMLLyneHeadingElement;
-  };
-
   interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {}
   var HTMLLyneLinkElement: {
     prototype: HTMLLyneLinkElement;
@@ -77,7 +57,6 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     'lyne-cta-button': HTMLLyneCtaButtonElement;
-    'lyne-heading': HTMLLyneHeadingElement;
     'lyne-link': HTMLLyneLinkElement;
   }
 }
@@ -98,20 +77,6 @@ declare namespace LocalJSX {
     */
     'samplePropForJSDocs'?: string;
   }
-  interface LyneHeading {
-    /**
-    * Heading level
-    */
-    'level'?: string;
-    /**
-    * Text for the Heading
-    */
-    'text'?: string;
-    /**
-    * Visual level for the heading
-    */
-    'visualLevel'?: string;
-  }
   interface LyneLink {
     /**
     * Link to use as href
@@ -129,7 +94,6 @@ declare namespace LocalJSX {
 
   interface IntrinsicElements {
     'lyne-cta-button': LyneCtaButton;
-    'lyne-heading': LyneHeading;
     'lyne-link': LyneLink;
   }
 }
@@ -141,7 +105,6 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'lyne-cta-button': LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
-      'lyne-heading': LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
       'lyne-link': LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
     }
   }
