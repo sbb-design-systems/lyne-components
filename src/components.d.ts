@@ -25,19 +25,19 @@ export namespace Components {
     */
     'samplePropForJSDocs': string;
   }
-  interface LyneLink {
+  interface LyneHeading {
     /**
-    * Link to use as href
+    * Heading level
     */
-    'link': string;
+    'level': string;
     /**
-    * If true, target=_blank will be set on the link
-    */
-    'openInNewWindow': boolean;
-    /**
-    * Text to show for the link
+    * Text for the Heading
     */
     'text': string;
+    /**
+    * Visual level for the heading
+    */
+    'visualLevel': string;
   }
 }
 
@@ -50,14 +50,14 @@ declare global {
     new (): HTMLLyneCtaButtonElement;
   };
 
-  interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {}
-  var HTMLLyneLinkElement: {
-    prototype: HTMLLyneLinkElement;
-    new (): HTMLLyneLinkElement;
+  interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {}
+  var HTMLLyneHeadingElement: {
+    prototype: HTMLLyneHeadingElement;
+    new (): HTMLLyneHeadingElement;
   };
   interface HTMLElementTagNameMap {
     'lyne-cta-button': HTMLLyneCtaButtonElement;
-    'lyne-link': HTMLLyneLinkElement;
+    'lyne-heading': HTMLLyneHeadingElement;
   }
 }
 
@@ -77,24 +77,24 @@ declare namespace LocalJSX {
     */
     'samplePropForJSDocs'?: string;
   }
-  interface LyneLink {
+  interface LyneHeading {
     /**
-    * Link to use as href
+    * Heading level
     */
-    'link': string;
+    'level'?: string;
     /**
-    * If true, target=_blank will be set on the link
+    * Text for the Heading
     */
-    'openInNewWindow'?: boolean;
+    'text'?: string;
     /**
-    * Text to show for the link
+    * Visual level for the heading
     */
-    'text': string;
+    'visualLevel'?: string;
   }
 
   interface IntrinsicElements {
     'lyne-cta-button': LyneCtaButton;
-    'lyne-link': LyneLink;
+    'lyne-heading': LyneHeading;
   }
 }
 
@@ -105,7 +105,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'lyne-cta-button': LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
-      'lyne-link': LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
+      'lyne-heading': LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
     }
   }
 }

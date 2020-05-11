@@ -1,13 +1,13 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-link', () => {
+describe('lyne-heading', () => {
   let page,
     element;
 
   beforeEach(async () => {
 		page = await newE2EPage();
-		await page.setContent('<lyne-link></lyne-link>');
-		element = await page.find('lyne-link');
+		await page.setContent('<lyne-heading></lyne-heading>');
+		element = await page.find('lyne-heading');
 	});
 
   it('renders', async () => {
