@@ -39,6 +39,20 @@ export namespace Components {
     */
     'visualLevel': string;
   }
+  interface LyneLink {
+    /**
+    * Link to use as href
+    */
+    'link': string;
+    /**
+    * If true, target=_blank will be set on the link
+    */
+    'openInNewWindow': boolean;
+    /**
+    * Text to show for the link
+    */
+    'text': string;
+  }
 }
 
 declare global {
@@ -55,9 +69,16 @@ declare global {
     prototype: HTMLLyneHeadingElement;
     new (): HTMLLyneHeadingElement;
   };
+
+  interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {}
+  var HTMLLyneLinkElement: {
+    prototype: HTMLLyneLinkElement;
+    new (): HTMLLyneLinkElement;
+  };
   interface HTMLElementTagNameMap {
     'lyne-cta-button': HTMLLyneCtaButtonElement;
     'lyne-heading': HTMLLyneHeadingElement;
+    'lyne-link': HTMLLyneLinkElement;
   }
 }
 
@@ -91,10 +112,25 @@ declare namespace LocalJSX {
     */
     'visualLevel'?: string;
   }
+  interface LyneLink {
+    /**
+    * Link to use as href
+    */
+    'link': string;
+    /**
+    * If true, target=_blank will be set on the link
+    */
+    'openInNewWindow'?: boolean;
+    /**
+    * Text to show for the link
+    */
+    'text': string;
+  }
 
   interface IntrinsicElements {
     'lyne-cta-button': LyneCtaButton;
     'lyne-heading': LyneHeading;
+    'lyne-link': LyneLink;
   }
 }
 
@@ -106,6 +142,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'lyne-cta-button': LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
       'lyne-heading': LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
+      'lyne-link': LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
     }
   }
 }
