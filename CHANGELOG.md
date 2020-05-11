@@ -1,3 +1,10 @@
+## [6.18.2](https://github.com/lyne-design-system/lyne-components/compare/v6.18.1...v6.18.2) (2020-05-11)
+
+
+### Bug Fixes
+
+* typos ([20c63ba](https://github.com/lyne-design-system/lyne-components/commit/20c63bae11e41c3d3019993cb390504b0a9a3457))
+
 ## [6.18.1](https://github.com/lyne-design-system/lyne-components/compare/v6.18.0...v6.18.1) (2020-05-11)
 
 
