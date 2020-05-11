@@ -1,3 +1,10 @@
+# [6.19.0](https://github.com/lyne-design-system/lyne-components/compare/v6.18.2...v6.19.0) (2020-05-11)
+
+
+### Features
+
+* add simplified chinese title variant ([baac0ef](https://github.com/lyne-design-system/lyne-components/commit/baac0efc3de65d4f62775994038ad602ecd85b32))
+
 ## [6.18.2](https://github.com/lyne-design-system/lyne-components/compare/v6.18.1...v6.18.2) (2020-05-11)
 
 
