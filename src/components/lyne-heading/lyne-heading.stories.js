@@ -49,13 +49,13 @@ export const level3russian = () => <lyne-heading
   text={text(textLabel, 'Пример заголовка')}
 />;
 
-export const level3corean = () => <lyne-heading
+export const level3korean = () => <lyne-heading
   level={radios(levelLabel, levelOptions, '3')}
   visual-level={radios(visualLevelLabel, levelOptions, '3')}
   text={text(textLabel, '제목 예')}
 />;
 
-export const level3albania = () => <lyne-heading
+export const level3albanian = () => <lyne-heading
   level={radios(levelLabel, levelOptions, '3')}
   visual-level={radios(visualLevelLabel, levelOptions, '3')}
   text={text(textLabel, 'Titulli i shembullit')}
