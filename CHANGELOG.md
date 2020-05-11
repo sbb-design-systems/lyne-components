@@ -1,3 +1,10 @@
+## [6.18.1](https://github.com/lyne-design-system/lyne-components/compare/v6.18.0...v6.18.1) (2020-05-11)
+
+
+### Bug Fixes
+
+* remove green border ([08ec3b0](https://github.com/lyne-design-system/lyne-components/commit/08ec3b0499048b77efde78ecbff48ee1d64325f4))
+
 # [6.18.0](https://github.com/lyne-design-system/lyne-components/compare/v6.17.5...v6.18.0) (2020-05-11)
 
 
