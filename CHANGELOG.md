@@ -1,3 +1,10 @@
+## [6.19.1](https://github.com/lyne-design-system/lyne-components/compare/v6.19.0...v6.19.1) (2020-05-12)
+
+
+### Bug Fixes
+
+* add type definitions for heading component ([8d30aae](https://github.com/lyne-design-system/lyne-components/commit/8d30aae99552594e13985e24186f4fc6cc6bc473))
+
 # [6.19.0](https://github.com/lyne-design-system/lyne-components/compare/v6.18.2...v6.19.0) (2020-05-11)
 
 
