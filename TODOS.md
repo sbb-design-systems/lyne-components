@@ -60,6 +60,7 @@
 - [ ] alongside unit and e2e tests, we might start using muation tests
 - [x] after switching from css to scss, live reload no longer works for scss changes
 - [ ] optimize start script. Preffered solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
+- [ ] Typescript: string literal types -> documentation. Example: in lyne-heading, we limit the values for the level property with string literal types. Find away to automatically include those type definitions in documenation.
 
 #### Check
 - [ ] Stencil ESLint / TSLint in https://github.com/ionic-team/stencil-eslint
