@@ -3,6 +3,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
+import { InterfaceHeadingAttributes } from './lyne-heading.d';
 
 @Component({
   shadow: true,
@@ -16,10 +17,10 @@ export class LyneHeading {
   @Prop() public text = 'Default title text';
 
   /** Heading level */
-  @Prop() public level = '1';
+  @Prop() public level: InterfaceHeadingAttributes['level'] = '1';
 
   /** Visual level for the heading */
-  @Prop() public visualLevel = '1';
+  @Prop() public visualLevel: InterfaceHeadingAttributes['visualLevel'] = '1';
 
   public render(): JSX.Element {
 
