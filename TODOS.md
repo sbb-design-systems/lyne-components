@@ -116,7 +116,7 @@
   - Option 1: Keep JavaScript. In that case, we need to lint these files with ESLint
   - Option 2: Transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
 - [ ] add Webhook to netlify for Git PR: if a pr is created, add a link to the deploy preview from netlify
-- [ ] we have some dependencies that we always want to install in latest version, like line-design-tokens. We could add `npm up lyne-design-token` to the travis config. But it would be better if latest line-design-tokens would be installed after `npm install`. Find a way to do so.
+- [x] we have some dependencies that we always want to install in latest version, like line-design-tokens. We could add `npm up lyne-design-token` to the travis config. But it would be better if latest line-design-tokens would be installed after `npm install`. Find a way to do so.
 
 #### Check
 ✅ Nothing to check
