@@ -103,7 +103,7 @@
   - [ ] Calculate co2 emissions
   - [ ] Write values to md-file
 - [ ] Probably we could integrate [sitespeed](https://www.sitespeed.io)
-- [ ] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
+- [x] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
 - [x] npm package size is huge!
 - [ ] Integrate [webhint](https://webhint.io/docs/user-guide/)
 - [ ] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
