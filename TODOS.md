@@ -11,6 +11,12 @@
 ## git(hub)
 - [ ] Prevent push to master
   - [ ] Re-add `Require status checks to pass before merging` to [master](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to master
+- [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
+- [ ] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan
+- [ ] Gibhub Workflow
+  - [ ] Add Probot GitHub integration
+  - [ ] Optimize Gibhub Workflow: if a user creates a pull request and assigns it to the project before the according workflow is run, the workflow is marked as failed
+  - [ ] Configure actions. Greetings and Stale would make sense for us.
 - [x] Decide for branching-model
 - [x] Mono-repo vs. multi-repo
 - [x] Setup Projects and Milestones
@@ -28,12 +34,6 @@
     - [x] Add bug report issue tpl
     - [x] Add question issue tpl
   - [x] Add [SECURITY.md](/.github/SECURITY.md) policy and define process of how to deal with security issues / vulnerabilities
-- [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
-- [ ] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan
-- [ ] Gibhub Workflow
-  - [ ] Add Probot GitHub integration
-  - [ ] Optimize Gibhub Workflow: if a user creates a pull request and assigns it to the project before the according workflow is run, the workflow is marked as failed
-  - [ ] Configure actions. Greetings and Stale would make sense for us.
 
 #### Check
 ✅ Nothing to check
@@ -49,7 +49,7 @@
 - [ ] Rename npm package name to ```lyne-components```
 - [x] npm script ```start``` runs Stencil and Storybook in parallel. We need sequential. The problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel. Possible workaround: `"build:stencil:dev": "stencil build --ci --dev --docs", "build:dev": "npm-run-all --sequential build:stencil:dev build:storybook", "develop": "npm-run-all --sequential build:dev start"`
 
-- [x] npm script ```start``` runs 2 node scripts. To exit (stop the 2 servers), dev's need to press ctrl&c 2 times. Optimize it.
+
 - [ ] Decide if we should fix dependencies/devDependencies in `package.json`. If so, which ones? Why? Probably fix to minor version? Or Major?
 - [ ] ESLint: currently, we ignore ```*.spec.ts``` and ```*.e2e.ts``` files. Include them in linting and add corresponding rules
 - [ ] Stencil has a set of typescript-rules. It would make sense that we adhere to these:
@@ -58,11 +58,12 @@
 - [ ] Add React output target https://github.com/ionic-team/stencil-ds-plugins. We need to discuss if we really want that. It means, we would have to publish a separate package on npm.
 - [ ] Add Angular output target https://github.com/ionic-team/stencil-ds-plugins. Note: angular output target is hard to implement since `ValueAccessorConfig` needs to be manually generated and kept up to date during development. This is the config that duet uses: [https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa](https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa)
 - [ ] alongside unit and e2e tests, we might start using muation tests. We could possibly use https://stryker-mutator.io/ for that
-- [x] after switching from css to scss, live reload no longer works for scss changes
 - [ ] optimize start script. Preffered solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
 - [ ] Typescript: string literal types -> documentation. Example: in lyne-heading, we limit the values for the level property with string literal types. Find away to automatically include those type definitions in documenation.
 - [ ] Local npm dependencies vs. dependencies installed by travis: a developer installs a dependency, version 1.0.0. A month later, that dependency got several updates and is now on version 1.2.5. In a build, travis will install 1.2.5, while the developers are still on older version, as long as they don't run ```npm up``` or similar. We need to find a way to force developers to update dependencies, or make it easy for them.
 - [ ] To be consequent, we should write our stories in typescript as well
+- [x] npm script ```start``` runs 2 node scripts. To exit (stop the 2 servers), dev's need to press ctrl&c 2 times. Optimize it.
+- [x] after switching from css to scss, live reload no longer works for scss changes
 
 #### Check
 - [ ] Stencil ESLint / TSLint in https://github.com/ionic-team/stencil-eslint
@@ -75,8 +76,8 @@
 
 ## Storybook
 - [ ] We currently only lint `.tsx` files. but we must also lint `.js` files like configs for Storybook
-- [x] We should use [Storybook Docs](https://github.com/storybookjs/storybook/tree/next/addons/docs) instead of [Storybook Notes](https://github.com/storybookjs/storybook/tree/master/addons/notes) because they are [deprecated](https://github.com/storybookjs/storybook#deprecated-addons)
 - [ ] Use gzip and brotli compression for dist files
+- [x] We should use [Storybook Docs](https://github.com/storybookjs/storybook/tree/next/addons/docs) instead of [Storybook Notes](https://github.com/storybookjs/storybook/tree/master/addons/notes) because they are [deprecated](https://github.com/storybookjs/storybook#deprecated-addons)
 
 #### Check
 - [ ] Storybook [Web Components](https://github.com/storybookjs/storybook/tree/next/app/web-components) integration in next major release. Replace current with upcoming if promising
@@ -90,7 +91,6 @@
 
 
 ## CI / CD pipeline
-- [x] In Travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 - [ ] Different secrets and env-variables on git, Travis and netlify.
   - [x] Document exactly which key is needed for what and where to generate it
   - [ ] Before production: regenerate all keys
@@ -103,20 +103,21 @@
   - [ ] Calculate co2 emissions
   - [ ] Write values to md-file
 - [ ] Probably we could integrate [sitespeed](https://www.sitespeed.io)
-- [x] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
-- [x] npm package size is huge!
 - [ ] Integrate [webhint](https://webhint.io/docs/user-guide/)
-- [x] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
 - [ ] Code coverage
   - [x] Configure Code coverage for Jest
   - [ ] Code coverage report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
-- [x] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
-- [x] When pushing to master, PREVIEWS.md is not created.
 - [ ] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
   - Option 1: Keep JavaScript. In that case, we need to lint these files with ESLint
   - Option 2: Transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
 - [x] add Webhook to netlify for Git PR: if a pr is created, add a link to the deploy preview from netlify
 - [x] we have some dependencies that we always want to install in latest version, like line-design-tokens. We could add `npm up lyne-design-token` to the travis config. But it would be better if latest line-design-tokens would be installed after `npm install`. Find a way to do so.
+- [x] In Travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
+- [x] When pushing to master, PREVIEWS.md is not created.
+- [x] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
+- [x] npm package size is huge!
+- [x] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
+- [x] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
 
 #### Check
 ✅ Nothing to check
@@ -130,13 +131,13 @@
 ✅ No issues
 
 ## Documentation
+- [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
+- [ ] Document roadmap in [docs/ROADMAP.md](docs/ROADMAP.md)
 - [x] Document release process in [docs/RELEASING.md](docs/RELEASING.md) --> moved to [docs/CICD.md](docs/CICD.md) document
 - [x] Modify content of sustainability-policy file to match our own vision and policies.
-- [ ] The release-badge in the [README.md](./README.md) file is out of sync sometimes ...
 - [x] Add documentation for [docs/CICD.md](docs/CICD.md) pipeline
 - [x] Define and document terminology in [docs/TERMINOLOGY.md](docs/TERMINOLOGY.md)
 - [X] Document vision in [docs/VISION.md](docs/VISION.md)
-- [ ] Document roadmap in [docs/ROADMAP.md](docs/ROADMAP.md)
 
 #### Check
 ✅ Nothing to check
