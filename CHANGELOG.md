@@ -1,3 +1,10 @@
+## [6.19.4](https://github.com/lyne-design-system/lyne-components/compare/v6.19.3...v6.19.4) (2020-05-13)
+
+
+### Bug Fixes
+
+* check if documnetation is fetching newest lyne-test ([71d404a](https://github.com/lyne-design-system/lyne-components/commit/71d404a14a8c306552eea6ea10d0b7f3b900496c))
+
 ## [6.19.3](https://github.com/lyne-design-system/lyne-components/compare/v6.19.2...v6.19.3) (2020-05-13)
 
 
