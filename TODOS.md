@@ -61,6 +61,7 @@
 - [x] after switching from css to scss, live reload no longer works for scss changes
 - [ ] optimize start script. Preffered solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
 - [ ] Typescript: string literal types -> documentation. Example: in lyne-heading, we limit the values for the level property with string literal types. Find away to automatically include those type definitions in documenation.
+- [ ] Local npm dependencies vs. dependencies installed by travis: a developer installs a dependency, version 1.0.0. A month later, that dependency got several updates and is now on version 1.2.5. In a build, travis will install 1.2.5, while the developers are still on older version, as long as they don't run ```npm up``` or similar. We need to find a way to force developers to update dependencies, or make it easy for them.
 
 #### Check
 - [ ] Stencil ESLint / TSLint in https://github.com/ionic-team/stencil-eslint
