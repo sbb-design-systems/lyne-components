@@ -50,7 +50,7 @@ jobs:
         - npm run build:stencil || travis_terminate 1
 
         # Run tests
-        - npm run test:prod
+        - npm run test:prod || travis_terminate 1
 
         # upload coverage report
         - bash <(curl -s https://codecov.io/bash)
@@ -94,7 +94,7 @@ jobs:
         - npm run build:stencil || travis_terminate 1
 
         # Run tests
-        - npm run test:prod
+        - npm run test:prod || travis_terminate 1
 
       after_success:
 
