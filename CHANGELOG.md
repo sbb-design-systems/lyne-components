@@ -1,3 +1,10 @@
+## [6.19.3](https://github.com/lyne-design-system/lyne-components/compare/v6.19.2...v6.19.3) (2020-05-13)
+
+
+### Bug Fixes
+
+* fake commit to trigger build after design-token update ([895e977](https://github.com/lyne-design-system/lyne-components/commit/895e9779e2358deb3b3b4a22f7b27fff2b4db39b))
+
 ## [6.19.2](https://github.com/lyne-design-system/lyne-components/compare/v6.19.1...v6.19.2) (2020-05-13)
 
 
