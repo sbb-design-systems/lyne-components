@@ -100,7 +100,7 @@ jobs:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # Interested in the output from netlify-cli
-        - 'if [ "$TRAVIS_PULL_REQUEST" === "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi'
 
         # Make Storybook build
         - npm run build:storybook
@@ -109,7 +109,7 @@ jobs:
         - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run chromatic; fi'
 
         # Build Storybook and run Netlify deploy
-        - 'if [ "$TRAVIS_PULL_REQUEST" === "false" ]; then ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH; fi'
 
         # Build and deploy the deployments page
         - ./ci/deployments.sh
