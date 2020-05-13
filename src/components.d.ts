@@ -7,7 +7,9 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-
+import {
+  InterfaceHeadingAttributes,
+} from './components/lyne-heading/lyne-heading.d';
 
 export namespace Components {
   interface LyneCtaButton {
@@ -29,7 +31,7 @@ export namespace Components {
     /**
     * Heading level
     */
-    'level': string;
+    'level': InterfaceHeadingAttributes['level'];
     /**
     * Text for the Heading
     */
@@ -37,7 +39,7 @@ export namespace Components {
     /**
     * Visual level for the heading
     */
-    'visualLevel': string;
+    'visualLevel': InterfaceHeadingAttributes['visualLevel'];
   }
   interface LyneLink {
     /**
@@ -102,7 +104,7 @@ declare namespace LocalJSX {
     /**
     * Heading level
     */
-    'level'?: string;
+    'level'?: InterfaceHeadingAttributes['level'];
     /**
     * Text for the Heading
     */
@@ -110,7 +112,7 @@ declare namespace LocalJSX {
     /**
     * Visual level for the heading
     */
-    'visualLevel'?: string;
+    'visualLevel'?: InterfaceHeadingAttributes['visualLevel'];
   }
   interface LyneLink {
     /**
