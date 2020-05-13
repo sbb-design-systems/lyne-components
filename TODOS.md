@@ -110,7 +110,7 @@
 - [ ] Code coverage
   - [x] Configure Code coverage for Jest
   - [ ] Code coverage report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
-- [ ] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
+- [x] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
 - [x] When pushing to master, PREVIEWS.md is not created.
 - [ ] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
   - Option 1: Keep JavaScript. In that case, we need to lint these files with ESLint
