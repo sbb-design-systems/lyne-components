@@ -93,6 +93,9 @@
 
 
 ## CI / CD pipeline
+- [ ] ```package-lock.json``` mismatch. We need to find a way to handle it consitently. Preferred solution: currently, ```semnatic-release``` is responsible for pushing changes in ```package.json``` and ```package-lock.json``` back to the repo. We remove that step from ```semantic-release``` an make it is own step, which will always be run. To clarify on the issue, imagine the following to situations:
+  - situation a: we push a commit which will produce a new version. At the same time, a certain dependency got an update from 1.2.0 to 1.2.5. Travis will do a fresh ```npm install```, and since ```sematic-release``` will update the ```package-lock.json``` (write new version number), it will also have an update for the new version of the dependcy. It will then push the new ```package-lock.json``` back to the repo.
+  - situation b: we push a commit which will NOT produce a new version. At the same time, a certain dependency got an update from 1.2.0 to 1.2.5. Travis will do a fresh ```npm install```, and have a new version for the dependency in ```package-lock.json```. But since ```semantic-release``` is not triggered, the new ```package-lock.json``` won't be pushed back to the repo.
 - [ ] Different secrets and env-variables on git, Travis and netlify.
   - [x] Document exactly which key is needed for what and where to generate it
   - [ ] Before production: regenerate all keys
