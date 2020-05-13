@@ -106,7 +106,7 @@
 - [x] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
 - [x] npm package size is huge!
 - [ ] Integrate [webhint](https://webhint.io/docs/user-guide/)
-- [ ] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
+- [x] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
 - [ ] Code coverage
   - [x] Configure Code coverage for Jest
   - [ ] Code coverage report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
