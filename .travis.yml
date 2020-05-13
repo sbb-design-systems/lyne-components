@@ -27,6 +27,7 @@ notifications:
       # This template config somehow breaks yaml syntax
       # in the editor although it is valid yaml syntax
       - "Build: <%{build_url}|%{build_number}>"
+      - "Purpose: %{commit_subject}:%{commit_message}"
       - "Commit: <%{compare_url}|%{commit}>"
       - "Author: %{author}"
       - "Result: %{result} in %{duration}"
