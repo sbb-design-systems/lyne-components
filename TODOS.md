@@ -128,7 +128,10 @@
 ✅ Nothing to check
 
 #### Verify
-- [ ] For how long are deployments saved on Netlify? Forever? 30 days? 1 year?
+✅ Nothing to verify at the moment
+
+- [x] For how long are deployments saved on Netlify? Forever? 30 days? 1 year?
+  - [x] Forever until the site gets deleted ... see [here](https://community.netlify.com/t/does-each-deploy-preview-stay-available-forever/12601)
 - [x] For merge checks on Travis: make sure semantic-release and deploy does not run
 - [x] After merging a PR, the script to generate the release urls might fail. Check to make sure it does not run into merge-conflicts or similar
 
