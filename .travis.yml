@@ -46,11 +46,11 @@ jobs:
         # Command exits with non-zero code
         - npm run lint || travis_terminate 1
 
-        # Run tests
-        - npm run test:prod || travis_terminate 1
-
         # Make Stencil production build
         - npm run build:stencil || travis_terminate 1
+
+        # Run tests
+        - npm run test:prod || travis_terminate 1
 
         # upload coverage report
         - bash <(curl -s https://codecov.io/bash)
@@ -90,11 +90,11 @@ jobs:
         # Lint
         - npm run lint || travis_terminate 1
 
-        # Run tests
-        - npm run test:prod || travis_terminate 1
-
         # Make Stencil production build
         - npm run build:stencil || travis_terminate 1
+
+        # Run tests
+        - npm run test:prod || travis_terminate 1
 
       after_success:
 
