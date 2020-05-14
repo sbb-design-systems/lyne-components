@@ -1,3 +1,15 @@
+## [6.19.7](https://github.com/lyne-design-system/lyne-components/compare/v6.19.6...v6.19.7) (2020-05-14)
+
+
+### Reverts
+
+* Revert "fix: remove storybook docs, add bundle analyzer" ([9d2b955](https://github.com/lyne-design-system/lyne-components/commit/9d2b955c340d4fe8fb7fc52efdd4b460a6bfebf0))
+* Revert "docs: remove mdx" ([46a52e9](https://github.com/lyne-design-system/lyne-components/commit/46a52e9be866cee1e2d944ad526c375d1955e71e))
+* Revert "fix: remove addon docs" ([a655bfa](https://github.com/lyne-design-system/lyne-components/commit/a655bfa94a8a451e600b36d244134c5a235b3560))
+* Revert "fix: comment out webpack bundle analyzer" ([016d41c](https://github.com/lyne-design-system/lyne-components/commit/016d41c7e07734f261fe43516e7effbb469760e3))
+* Revert "docs: add todo" ([51d543a](https://github.com/lyne-design-system/lyne-components/commit/51d543a0e9f7ff020b99240c15b0e79469a0dc69))
+* Revert "fix: temporarly remove a11y addon" ([e38a1ac](https://github.com/lyne-design-system/lyne-components/commit/e38a1ac3402afb78689a3a3b09a209a1f882ea33))
+
 ## [6.19.6](https://github.com/lyne-design-system/lyne-components/compare/v6.19.5...v6.19.6) (2020-05-14)
 
 
