@@ -1,3 +1,11 @@
+## [6.19.10](https://github.com/lyne-design-system/lyne-components/compare/v6.19.9...v6.19.10) (2020-05-14)
+
+
+### Reverts
+
+* Revert "fix: fake commit to test merges" ([f9070a9](https://github.com/lyne-design-system/lyne-components/commit/f9070a9126c1697ffccbe48b42a4c5ccd1bb1fe6))
+* Revert "fix: fake commit to test merges" ([3386386](https://github.com/lyne-design-system/lyne-components/commit/33863860cd3c7f461133566b4f6437ee06d0dd7a))
+
 ## [6.19.9](https://github.com/lyne-design-system/lyne-components/compare/v6.19.8...v6.19.9) (2020-05-14)
 
 
