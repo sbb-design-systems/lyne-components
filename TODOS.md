@@ -43,7 +43,6 @@
 - [ ] Create PRs with a fix (new version). Merge one after another, before the CI for the first merged PR is finished -> 2 new releases should be created
 
 #### Issues
-
 ✅ Nothing to verify
 
 ## Local dev setup / Stencil setup
