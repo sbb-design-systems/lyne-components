@@ -1,5 +1,6 @@
 import { radios, text, withKnobs } from '@storybook/addon-knobs';
 import { h } from 'jsx-dom';
+import { withA11y } from '@storybook/addon-a11y';
 import readme from './readme.md';
 
 const newWindowLabel = 'Open Link in new window';
@@ -22,7 +23,8 @@ export const openNewWindow = () => <lyne-link
 
 export default {
   decorators: [
-    withKnobs
+    withKnobs,
+    withA11y
   ],
   title: 'Link',
   parameters: {

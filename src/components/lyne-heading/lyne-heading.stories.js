@@ -1,5 +1,6 @@
 import { radios, text, withKnobs } from '@storybook/addon-knobs';
 import { h } from 'jsx-dom';
+import { withA11y } from '@storybook/addon-a11y';
 import readme from './readme.md';
 
 const textLabel = 'Heading Text';
@@ -68,7 +69,8 @@ export const level3spanish = () => <lyne-heading
 
 export default {
   decorators: [
-    withKnobs
+    withKnobs,
+    withA11y
   ],
   title: 'Lyne Heading',
   parameters: {
