@@ -4534,3 +4534,5 @@ patch:
         patched: '2020-04-30T15:26:14.909Z'
     - chromatic > jest > jest-cli > @jest/core > jest-runner > jest-jasmine2 > jest-runtime > jest-config > babel-jest > @jest/transform > babel-plugin-istanbul > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash:
         patched: '2020-04-30T15:26:14.909Z'
+    - webpack-bundle-analyzer > lodash:
+        patched: '2020-05-14T08:22:43.678Z'
