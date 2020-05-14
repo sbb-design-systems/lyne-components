@@ -62,7 +62,7 @@
     "babel-loader": "^8.0.6",
     "chromatic": "^4.0.2",
     "eslint": "^6.8.0",
-    "husky": "^4.2.3",
+    "husky": "^4.2.5",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
     "jsx-dom": "^6.4.11",
