@@ -14,7 +14,7 @@ describe('lyne-link', () => {
         <mock:shadow-root>
           <a class="link" href="https://www.sbb.ch">Link text</a>
         </mock:shadow-root>
-      </lyne-heading>
+      </lyne-link>
     `);
   });
 
