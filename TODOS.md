@@ -67,6 +67,7 @@
 - [x] npm script ```start``` runs 2 node scripts. To exit (stop the 2 servers), dev's need to press ctrl&c 2 times. Optimize it.
 - [x] after switching from css to scss, live reload no longer works for scss changes
 
+
 #### Check
 - [ ] Stencil ESLint / TSLint in https://github.com/ionic-team/stencil-eslint
 
