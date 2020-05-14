@@ -1,3 +1,10 @@
+## [6.19.6](https://github.com/lyne-design-system/lyne-components/compare/v6.19.5...v6.19.6) (2020-05-14)
+
+
+### Bug Fixes
+
+* temporarly remove a11y addon ([c501b1b](https://github.com/lyne-design-system/lyne-components/commit/c501b1b37361759a25ab9d7166085c6cff2eb5bd))
+
 ## [6.19.5](https://github.com/lyne-design-system/lyne-components/compare/v6.19.4...v6.19.5) (2020-05-14)
 
 
