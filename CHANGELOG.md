@@ -1,3 +1,12 @@
+## [6.19.5](https://github.com/lyne-design-system/lyne-components/compare/v6.19.4...v6.19.5) (2020-05-14)
+
+
+### Bug Fixes
+
+* comment out webpack bundle analyzer ([ccfd056](https://github.com/lyne-design-system/lyne-components/commit/ccfd0562cab551c092525a20b7c520afd10bbb4e))
+* remove addon docs ([04baa84](https://github.com/lyne-design-system/lyne-components/commit/04baa84c537f0b787ce4896b8ec0ff9958732694))
+* remove storybook docs, add bundle analyzer ([b5a29a7](https://github.com/lyne-design-system/lyne-components/commit/b5a29a7958c8f12d7d88933a7f0895a8a32cc5c9))
+
 ## [6.19.4](https://github.com/lyne-design-system/lyne-components/compare/v6.19.3...v6.19.4) (2020-05-13)
 
 
