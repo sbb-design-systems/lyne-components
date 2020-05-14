@@ -12,7 +12,11 @@
 - [ ] Prevent push to master
   - [ ] Re-add `Require status checks to pass before merging` to [master](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to master
 - [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
-- [ ] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan
+- [x] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan. Possible alternatives:
+  - Renovate: only updates, no security pr's. obviously free
+  - depfu: updates and security pr's, free for open source
+  - Dependabot: updates and security pr's. free
+
 - [ ] Gibhub Workflow
   - [ ] Add Probot GitHub integration
   - [ ] Optimize Gibhub Workflow: if a user creates a pull request and assigns it to the project before the according workflow is run, the workflow is marked as failed
