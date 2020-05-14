@@ -261,7 +261,6 @@ module.exports = {
     'no-inline-comments': 'error',
     'no-lonely-if': 'off',
     'no-mixed-operators': 'error',
-    'no-mixed-spaces-and-tabs': 'error',
     'no-multi-assign': 'error',
     'no-multiple-empty-lines': ['error', { 'max': 1 }],
     'no-negated-condition': 'error',
