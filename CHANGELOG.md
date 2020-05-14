@@ -1,3 +1,10 @@
+## [6.19.9](https://github.com/lyne-design-system/lyne-components/compare/v6.19.8...v6.19.9) (2020-05-14)
+
+
+### Bug Fixes
+
+* fake commit to test merges ([1597da4](https://github.com/lyne-design-system/lyne-components/commit/1597da484b48aac36496422ba5bb19aa1abc280a))
+
 ## [6.19.8](https://github.com/lyne-design-system/lyne-components/compare/v6.19.7...v6.19.8) (2020-05-14)
 
 
