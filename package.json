@@ -22,7 +22,6 @@
   ],
   "scripts": {
     "build:stencil": "stencil build --ci --prod --docs",
-    "build:stencil:dev": "stencil build --dev --docs",
     "build:storybook": "build-storybook --quiet",
     "build": "npm-run-all --sequential build:stencil build:storybook",
     "chromatic": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes",
@@ -32,7 +31,7 @@
     "semantic-release": "semantic-release",
     "start:stencil": "stencil build --prod --watch --docs",
     "start:storybook": "start-storybook -p 6006 -s dist",
-    "start": "npm-run-all --sequential build:stencil:dev --parallel start:stencil start:storybook",
+    "start": "npm-run-all --sequential build:stencil --parallel start:stencil start:storybook",
     "test:dev": "stencil test --spec --e2e --coverage",
     "test:prod": "stencil test --prod --spec --e2e --coverage",
     "test:watch": "stencil test --spec --e2e --watchAll"
@@ -54,7 +53,7 @@
     "@storybook/addon-docs": "^5.3.18",
     "@storybook/addon-knobs": "^5.3.18",
     "@storybook/html": "^5.3.18",
-    "@types/jest": "24.0.25",
+    "@types/jest": "24.9.1",
     "@types/puppeteer": "1.20.4",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
