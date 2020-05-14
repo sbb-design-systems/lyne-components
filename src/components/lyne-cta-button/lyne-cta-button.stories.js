@@ -1,7 +1,6 @@
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { withActions, action } from '@storybook/addon-actions';
 import { h } from 'jsx-dom';
-import { withA11y } from '@storybook/addon-a11y';
 import events from './lyne-cta-button.events.ts';
 
 export const defaultButton = () => <lyne-cta-button
@@ -11,8 +10,7 @@ export const defaultButton = () => <lyne-cta-button
 
 export default {
   decorators: [
-    withKnobs,
-    withA11y
+    withKnobs
   ],
   title: 'Button'
 };
