@@ -57,7 +57,7 @@
     "@types/jest": "24.0.25",
     "@types/puppeteer": "1.20.4",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
-    "@typescript-eslint/parser": "^2.23.0",
+    "@typescript-eslint/parser": "^2.33.0",
     "axios": "^0.19.2",
     "babel-loader": "^8.0.6",
     "chromatic": "^4.0.2",
