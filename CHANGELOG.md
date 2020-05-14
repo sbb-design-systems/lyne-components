@@ -1,3 +1,11 @@
+## [6.19.11](https://github.com/lyne-design-system/lyne-components/compare/v6.19.10...v6.19.11) (2020-05-14)
+
+
+### Bug Fixes
+
+* fake commit to trigger build ([228901c](https://github.com/lyne-design-system/lyne-components/commit/228901ce8b9881e90bcab4c615ed2133ff396e00))
+* fix closing link tag ([cce36e5](https://github.com/lyne-design-system/lyne-components/commit/cce36e5e5ea5e7953745df9817c876d210d70835))
+
 ## [6.19.10](https://github.com/lyne-design-system/lyne-components/compare/v6.19.9...v6.19.10) (2020-05-14)
 
 
