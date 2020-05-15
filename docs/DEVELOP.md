@@ -16,7 +16,6 @@ You can find a list of all branches along with their Netlify deployment URL here
 | Script        | Purpose       |
 | ------------- | ------------- |
 |`build:stencil`|Create a production build of Stencil components|
-|`build:stencil:dev`|Create a development build for Stencil components|
 |`build:storybook`|Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story)|
 |`build`|Run `build:stencil` and `build:storybook` sequential|
 |`chromatic`|Make [Visual Regression Tests](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#visual-regression-test) based on [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story) and send them to Chromatic to be reviewed|

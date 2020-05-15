@@ -12,7 +12,11 @@
 - [ ] Prevent push to master
   - [ ] Re-add `Require status checks to pass before merging` to [master](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to master
 - [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
-- [ ] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan
+- [x] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan. Possible alternatives:
+  - Renovate: only updates, no security pr's. obviously free
+  - depfu: updates and security pr's, free for open source
+  - Dependabot: updates and security pr's. free
+
 - [ ] Gibhub Workflow
   - [ ] Add Probot GitHub integration
   - [ ] Optimize Gibhub Workflow: if a user creates a pull request and assigns it to the project before the according workflow is run, the workflow is marked as failed
@@ -39,8 +43,8 @@
 ✅ Nothing to check
 
 #### Verify
-- [ ] First create PR A with fix, then create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
-- [ ] Create PRs with a fix (new version). Merge one after another, before the CI for the first merged PR is finished -> 2 new releases should be created
+- [x] First create PR A with fix, then create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
+- [x] Create PRs with a fix (new version). Merge one after another, before the CI for the first merged PR is finished -> 2 new releases should be created
 
 #### Issues
 ✅ Nothing to verify
@@ -62,8 +66,11 @@
 - [x] Typescript: string literal types -> documentation. Example: in lyne-heading, we limit the values for the level property with string literal types. Find away to automatically include those type definitions in documenation.
 - [ ] Local npm dependencies vs. dependencies installed by travis: a developer installs a dependency, version 1.0.0. A month later, that dependency got several updates and is now on version 1.2.5. In a build, travis will install 1.2.5, while the developers are still on older version, as long as they don't run ```npm up``` or similar. We need to find a way to force developers to update dependencies, or make it easy for them.
 - [ ] To be consequent, we should write our stories in typescript as well
+- [ ] Maybe use scss/css linter
+- [ ] Decide if we use css or scss
 - [x] npm script ```start``` runs 2 node scripts. To exit (stop the 2 servers), dev's need to press ctrl&c 2 times. Optimize it.
 - [x] after switching from css to scss, live reload no longer works for scss changes
+
 
 #### Check
 - [ ] Stencil ESLint / TSLint in https://github.com/ionic-team/stencil-eslint
@@ -91,6 +98,9 @@
 
 
 ## CI / CD pipeline
+- [ ] ```package-lock.json``` mismatch. We need to find a way to handle it consitently. Preferred solution: currently, ```semnatic-release``` is responsible for pushing changes in ```package.json``` and ```package-lock.json``` back to the repo. We remove that step from ```semantic-release``` an make it is own step, which will always be run. To clarify on the issue, imagine the following to situations:
+  - situation a: we push a commit which will produce a new version. At the same time, a certain dependency got an update from 1.2.0 to 1.2.5. Travis will do a fresh ```npm install```, and since ```sematic-release``` will update the ```package-lock.json``` (write new version number), it will also have an update for the new version of the dependcy. It will then push the new ```package-lock.json``` back to the repo.
+  - situation b: we push a commit which will NOT produce a new version. At the same time, a certain dependency got an update from 1.2.0 to 1.2.5. Travis will do a fresh ```npm install```, and have a new version for the dependency in ```package-lock.json```. But since ```semantic-release``` is not triggered, the new ```package-lock.json``` won't be pushed back to the repo.
 - [ ] Different secrets and env-variables on git, Travis and netlify.
   - [x] Document exactly which key is needed for what and where to generate it
   - [ ] Before production: regenerate all keys

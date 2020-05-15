@@ -1,3 +1,61 @@
+## [6.19.11](https://github.com/lyne-design-system/lyne-components/compare/v6.19.10...v6.19.11) (2020-05-14)
+
+
+### Bug Fixes
+
+* fake commit to trigger build ([228901c](https://github.com/lyne-design-system/lyne-components/commit/228901ce8b9881e90bcab4c615ed2133ff396e00))
+* fix closing link tag ([cce36e5](https://github.com/lyne-design-system/lyne-components/commit/cce36e5e5ea5e7953745df9817c876d210d70835))
+
+## [6.19.10](https://github.com/lyne-design-system/lyne-components/compare/v6.19.9...v6.19.10) (2020-05-14)
+
+
+### Reverts
+
+* Revert "fix: fake commit to test merges" ([f9070a9](https://github.com/lyne-design-system/lyne-components/commit/f9070a9126c1697ffccbe48b42a4c5ccd1bb1fe6))
+* Revert "fix: fake commit to test merges" ([3386386](https://github.com/lyne-design-system/lyne-components/commit/33863860cd3c7f461133566b4f6437ee06d0dd7a))
+
+## [6.19.9](https://github.com/lyne-design-system/lyne-components/compare/v6.19.8...v6.19.9) (2020-05-14)
+
+
+### Bug Fixes
+
+* fake commit to test merges ([1597da4](https://github.com/lyne-design-system/lyne-components/commit/1597da484b48aac36496422ba5bb19aa1abc280a))
+
+## [6.19.8](https://github.com/lyne-design-system/lyne-components/compare/v6.19.7...v6.19.8) (2020-05-14)
+
+
+### Bug Fixes
+
+* fake commit to test merges ([268b9a9](https://github.com/lyne-design-system/lyne-components/commit/268b9a9b7da37179e1f1ef5e241cd0c9ac38e9d9))
+
+## [6.19.7](https://github.com/lyne-design-system/lyne-components/compare/v6.19.6...v6.19.7) (2020-05-14)
+
+
+### Reverts
+
+* Revert "fix: remove storybook docs, add bundle analyzer" ([9d2b955](https://github.com/lyne-design-system/lyne-components/commit/9d2b955c340d4fe8fb7fc52efdd4b460a6bfebf0))
+* Revert "docs: remove mdx" ([46a52e9](https://github.com/lyne-design-system/lyne-components/commit/46a52e9be866cee1e2d944ad526c375d1955e71e))
+* Revert "fix: remove addon docs" ([a655bfa](https://github.com/lyne-design-system/lyne-components/commit/a655bfa94a8a451e600b36d244134c5a235b3560))
+* Revert "fix: comment out webpack bundle analyzer" ([016d41c](https://github.com/lyne-design-system/lyne-components/commit/016d41c7e07734f261fe43516e7effbb469760e3))
+* Revert "docs: add todo" ([51d543a](https://github.com/lyne-design-system/lyne-components/commit/51d543a0e9f7ff020b99240c15b0e79469a0dc69))
+* Revert "fix: temporarly remove a11y addon" ([e38a1ac](https://github.com/lyne-design-system/lyne-components/commit/e38a1ac3402afb78689a3a3b09a209a1f882ea33))
+
+## [6.19.6](https://github.com/lyne-design-system/lyne-components/compare/v6.19.5...v6.19.6) (2020-05-14)
+
+
+### Bug Fixes
+
+* temporarly remove a11y addon ([c501b1b](https://github.com/lyne-design-system/lyne-components/commit/c501b1b37361759a25ab9d7166085c6cff2eb5bd))
+
+## [6.19.5](https://github.com/lyne-design-system/lyne-components/compare/v6.19.4...v6.19.5) (2020-05-14)
+
+
+### Bug Fixes
+
+* comment out webpack bundle analyzer ([ccfd056](https://github.com/lyne-design-system/lyne-components/commit/ccfd0562cab551c092525a20b7c520afd10bbb4e))
+* remove addon docs ([04baa84](https://github.com/lyne-design-system/lyne-components/commit/04baa84c537f0b787ce4896b8ec0ff9958732694))
+* remove storybook docs, add bundle analyzer ([b5a29a7](https://github.com/lyne-design-system/lyne-components/commit/b5a29a7958c8f12d7d88933a7f0895a8a32cc5c9))
+
 ## [6.19.4](https://github.com/lyne-design-system/lyne-components/compare/v6.19.3...v6.19.4) (2020-05-13)
 
 

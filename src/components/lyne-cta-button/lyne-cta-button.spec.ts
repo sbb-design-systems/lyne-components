@@ -2,11 +2,23 @@ import events from './lyne-cta-button.events';
 import { LyneCtaButton } from './lyne-cta-button';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-cta-button', (): void => {
+describe('lyne-cta-button', () => {
+  it('renders', async () => {
+    const {
+      root
+    } = await newSpecPage({
+      components: [LyneCtaButton],
+      html: '<lyne-cta-button label="Label"></lyne-cta-button>'
+    });
 
-  it('builds', () => {
-    expect(new LyneCtaButton())
-      .toBeTruthy();
+    expect(root)
+      .toEqualHtml(`
+        <lyne-cta-button label="Label">
+          <mock:shadow-root>
+            <button class="button" style="font-size: 1rem;">Label</button>
+          </mock:shadow-root>
+        </lyne-cta-button>
+      `);
   });
 
   it('Should emit click event on click with no paylod', async () => {
