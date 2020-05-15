@@ -303,7 +303,7 @@ module.exports = {
     ],
     'prefer-object-spread': 'error',
     'quote-props': ['error', 'consistent-as-needed'],
-    'quotes': ['error', 'single', {'allowTemplateLiterals': true}],
+    'quotes': ['error', 'single'],
     'semi-spacing': 'error',
     'semi-style': ['error', 'last'],
     'sort-keys': 'error',
