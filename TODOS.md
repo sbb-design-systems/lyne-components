@@ -51,7 +51,7 @@
 
 
 - [ ] Decide if we should fix dependencies/devDependencies in `package.json` to patch versions only (~1.0.0) or minor versions (^1.0.0) or to exact version (1.0.0). If so, which ones? Why? Probably fix to minor version? Or Major?
-- [ ] ESLint: currently, we ignore ```*.spec.ts``` and ```*.e2e.ts``` files. Include them in linting and add corresponding rules
+- [x] ESLint: currently, we ignore ```*.spec.ts``` and ```*.e2e.ts``` files. Include them in linting and add corresponding rules
 - [ ] Stencil has a set of typescript-rules. It would make sense that we adhere to these:
   - [ ] https://stenciljs.com/docs/style-guide
   - [ ] https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own portation to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
