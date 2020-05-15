@@ -1,3 +1,22 @@
+# [6.20.0](https://github.com/lyne-design-system/lyne-components/compare/v6.19.11...v6.20.0) (2020-05-15)
+
+
+### Bug Fixes
+
+* add rule that allows to use backticks ([d3c7027](https://github.com/lyne-design-system/lyne-components/commit/d3c70276ec5b76c452ec598988f97f73b965da80))
+* change test files to avoid lint errors ([c338eb4](https://github.com/lyne-design-system/lyne-components/commit/c338eb4a437a2687a07457632ab9b01cd69e44b3))
+* check todo ([06b1647](https://github.com/lyne-design-system/lyne-components/commit/06b1647059e16a8d7c4eea4807d43e159cdabf24))
+* remove allow backticks rule ([28bedd0](https://github.com/lyne-design-system/lyne-components/commit/28bedd0645591023e3f41a77867742d6279012d9))
+* remove duplicate key in eslintrc file ([3c9d5ed](https://github.com/lyne-design-system/lyne-components/commit/3c9d5ed44bfc878037df7f034c7e0dba67108265))
+* remove unused comma ([735d9c7](https://github.com/lyne-design-system/lyne-components/commit/735d9c74366ec3604514bed4117be7c1ce218804))
+* resolve merge conflicts ([6208f82](https://github.com/lyne-design-system/lyne-components/commit/6208f82bb5dc5c2763c5daca84e89e5148d11d13))
+
+
+### Features
+
+* add config for the eslint jest plugin ([a3da402](https://github.com/lyne-design-system/lyne-components/commit/a3da40265117080c4511e63ecc27935ba8c2e431))
+* add eslint jest plugin as a dependency ([27e7992](https://github.com/lyne-design-system/lyne-components/commit/27e799247b0e0748b18ac87af996cadd23fe43ad))
+
 ## [6.19.11](https://github.com/lyne-design-system/lyne-components/compare/v6.19.10...v6.19.11) (2020-05-14)
 
 
