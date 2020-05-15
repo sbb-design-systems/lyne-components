@@ -9,10 +9,12 @@ https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/esli
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: [
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'jest'
   ],
   extends: [
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:jest/recommended'
   ],
   parserOptions: {
     ecmaVersion: 6,
@@ -35,6 +37,9 @@ module.exports = {
     // 'clearTimeout': 'on',
     // 'clearInterval': 'on',
     // 'AbortController': 'on'
+  },
+  env: {
+    'jest/globals': true
   },
   rules: {
 
@@ -242,7 +247,7 @@ module.exports = {
     ],
     'max-lines': 'off',
     'max-lines-per-function': 'off',
-    'max-nested-callbacks': ['error', 2],
+    'max-nested-callbacks': ['error', 3],
     'max-params': 'off',
     'max-statements': 'off',
     'max-statements-per-line': ['error', { 'max': 1 }],
@@ -256,7 +261,6 @@ module.exports = {
     'no-inline-comments': 'error',
     'no-lonely-if': 'off',
     'no-mixed-operators': 'error',
-    'no-mixed-spaces-and-tabs': 'error',
     'no-multi-assign': 'error',
     'no-multiple-empty-lines': ['error', { 'max': 1 }],
     'no-negated-condition': 'error',
@@ -389,4 +393,4 @@ module.exports = {
     '@typescript-eslint/prefer-namespace-keyword': 'error',
     '@typescript-eslint/type-annotation-spacing': 'error'
   }
-}
+};
