@@ -16,7 +16,6 @@
   - Renovate: only updates, no security pr's. obviously free
   - depfu: updates and security pr's, free for open source
   - Dependabot: updates and security pr's. free
-- [ ] Check GitHub's integrated *Code scanning* https://github.com/features/security
 - [ ] Gibhub Workflow
   - [ ] Add Probot GitHub integration
   - [ ] Optimize Gibhub Workflow: if a user creates a pull request and assigns it to the project before the according workflow is run, the workflow is marked as failed
@@ -40,7 +39,7 @@
   - [x] Add [SECURITY.md](/.github/SECURITY.md) policy and define process of how to deal with security issues / vulnerabilities
 
 #### Check
-✅ Nothing to check
+- [ ] Check GitHub's integrated *Code scanning* https://github.com/features/security
 
 #### Verify
 - [x] First create PR A with fix, then create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
