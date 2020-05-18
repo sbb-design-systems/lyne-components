@@ -1,3 +1,10 @@
+## [6.20.1](https://github.com/lyne-design-system/lyne-components/compare/v6.20.0...v6.20.1) (2020-05-18)
+
+
+### Bug Fixes
+
+* reformat release message (fake fix to trigger release) ([6fdd027](https://github.com/lyne-design-system/lyne-components/commit/6fdd027b2a27ba807f7fb919dd3f70c5f11f7e4e))
+
 # [6.20.0](https://github.com/lyne-design-system/lyne-components/compare/v6.19.11...v6.20.0) (2020-05-15)
 
 
