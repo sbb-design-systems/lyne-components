@@ -40,7 +40,7 @@
 
 #### Check
 - [ ] Check GitHub's integrated *Code scanning* https://github.com/features/security
-
+  - [x]  Apply for limited public beta program https://github.com/features/security/advanced-security/signup?account=lyne-design-system
 #### Verify
 - [x] First create PR A with fix, then create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
 - [x] Create PRs with a fix (new version). Merge one after another, before the CI for the first merged PR is finished -> 2 new releases should be created
