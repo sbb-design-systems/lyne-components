@@ -16,7 +16,7 @@
   - Renovate: only updates, no security pr's. obviously free
   - depfu: updates and security pr's, free for open source
   - Dependabot: updates and security pr's. free
-
+- [ ] Check GitHub's integrated *Code scanning* https://github.com/features/security
 - [ ] Gibhub Workflow
   - [ ] Add Probot GitHub integration
   - [ ] Optimize Gibhub Workflow: if a user creates a pull request and assigns it to the project before the according workflow is run, the workflow is marked as failed
