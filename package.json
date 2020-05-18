@@ -61,7 +61,7 @@
     "babel-loader": "^8.1.0",
     "chromatic": "^4.0.2",
     "eslint": "^7.0.0",
-    "eslint-plugin-jest": "^23.11.0",
+    "eslint-plugin-jest": "^23.13.1",
     "husky": "^4.2.5",
     "jest": "26.0.1",
     "jest-cli": "26.0.1",
