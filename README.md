@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/lyne-design-system/lyne-components.svg?branch=master)](https://travis-ci.org/lyne-design-system/lyne-components) [![Known Vulnerabilities](https://snyk.io/test/github/lyne-design-system/lyne-components/badge.svg)](https://snyk.io/test/github/lyne-design-system/lyne-components) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![codecov](https://codecov.io/gh/lyne-design-system/lyne-components/branch/master/graph/badge.svg)](https://codecov.io/gh/lyne-design-system/lyne-components) [![Lyne Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://lyne-components-storybook.netlify.com) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/lyne-design-system/lyne-components?label=release) [![license: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/lyne-design-system/lyne-components.svg?branch=master)](https://travis-ci.org/lyne-design-system/lyne-components) [![Depfu](https://badges.depfu.com/badges/897ac34421058176b57fce2f577c7c01/overview.svg)](https://depfu.com/github/lyne-design-system/lyne-components?project_id=12758) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![codecov](https://codecov.io/gh/lyne-design-system/lyne-components/branch/master/graph/badge.svg)](https://codecov.io/gh/lyne-design-system/lyne-components) [![Lyne Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://lyne-components-storybook.netlify.com) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/lyne-design-system/lyne-components?label=release) [![license: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 <h1 align="center">
   Lyne Components
 </h1>
 
 > *Lyne Components* are the building blocks of the [Lyne Design System](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#lyne)
-> and are based on standard compliant [Web Components](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#web-components) 
+> and are based on standard compliant [Web Components](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#web-components)
 > compiled by [StencilJS](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#stenciljs) and
 > browsable through [Storybook](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook)
 
