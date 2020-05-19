@@ -1,6 +1,6 @@
 /src/components.d.ts
 dist
-storybook
+storybook-static
 
 # not ignored folders/files
 !.travis.yml
