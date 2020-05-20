@@ -17,6 +17,7 @@ export default {
   title: 'Button',
   parameters: {
     chromatic: {
+      delay: 1000,
       viewports: [
         320,
         764,
