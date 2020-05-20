@@ -130,6 +130,7 @@
 - [x] npm package size is huge!
 - [x] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
 - [x] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
+- [ ] chromatic sometimes takes a snapshot before a component has loaded in the dom. we currently add a delay of 1000ms to chromatic inside the stories files to prevent that. Probably, chromatic will imporove and we can remove the delay.
 
 #### Check
 ✅ Nothing to check

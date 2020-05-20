@@ -14,5 +14,15 @@ export default {
     withKnobs,
     withA11y
   ],
-  title: 'Button'
+  title: 'Button',
+  parameters: {
+    chromatic: {
+      delay: 1000,
+      viewports: [
+        320,
+        764,
+        1201
+      ]
+    }
+  }
 };
