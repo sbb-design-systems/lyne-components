@@ -1,3 +1,17 @@
+## [6.20.2](https://github.com/lyne-design-system/lyne-components/compare/v6.20.1...v6.20.2) (2020-05-20)
+
+
+### Bug Fixes
+
+* add config for the yaml linter ([09a5b6b](https://github.com/lyne-design-system/lyne-components/commit/09a5b6b09688120ff4e1e921f87e42f6535b04d8))
+* add empty obj to yml file to fix linter issue ([c6a3307](https://github.com/lyne-design-system/lyne-components/commit/c6a3307a5b69014bd36c91cca2bb820fd2145d86))
+* add [secure] package-lock.json ([6e265c2](https://github.com/lyne-design-system/lyne-components/commit/6e265c23eb92cf25a8022bd179b3ab065135cd52))
+* add storybook-static to the eslintignore file ([4dd15d7](https://github.com/lyne-design-system/lyne-components/commit/4dd15d76759e1a1e1421846a4e03af99d078cdd4))
+* add yaml lint plugin ([8c1301d](https://github.com/lyne-design-system/lyne-components/commit/8c1301db67fb2cbd6372d86f79deed76f4dd2501))
+* check todo ([05586c3](https://github.com/lyne-design-system/lyne-components/commit/05586c392b182d3249f45dc8ce7e13815921d4d0))
+* on the command lint run also the yml lint ([775bacd](https://github.com/lyne-design-system/lyne-components/commit/775bacd83edfe5cee44937d76feb4b3829a25754))
+* resolve merge conflicts ([09e8034](https://github.com/lyne-design-system/lyne-components/commit/09e80340029945e4627adcbff031251ee7a58d9a))
+
 ## [6.20.1](https://github.com/lyne-design-system/lyne-components/compare/v6.20.0...v6.20.1) (2020-05-18)
 
 

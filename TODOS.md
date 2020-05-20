@@ -106,7 +106,7 @@
 - [ ] For the deployments page:
   - [ ] In which timezone should we format the date?
   - [ ] The list of deployments might get large over time. Should we limit it to x releases?
-- [ ] Add yml linter (for .travis.yml)
+- [x] Add yml linter (for .travis.yml)
 - [ ] Add build script for [thegreenwebfoundation](https://github.com/thegreenwebfoundation/co2.js):
   - [ ] Determine which of our services are green (Travis, netlifiy)
   - [ ] Calculate co2 emissions

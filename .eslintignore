@@ -1,3 +1,7 @@
 /src/components.d.ts
 dist
 storybook-static
+
+# not ignored folders/files
+!.travis.yml
+!.github
