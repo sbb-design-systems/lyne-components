@@ -28,6 +28,13 @@ export default {
   ],
   title: 'Link',
   parameters: {
+    chromatic: {
+      viewports: [
+        320,
+        764,
+        1201
+      ]
+    },
     docs: {
       extractComponentDescription: () => {
         return readme;
