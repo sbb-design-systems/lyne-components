@@ -8,15 +8,6 @@ https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/esli
 
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint',
-    'jest',
-    'yaml'
-  ],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended'
-  ],
   parserOptions: {
     ecmaVersion: 6,
     //project: './tsconfig.json',
@@ -27,7 +18,9 @@ module.exports = {
   },
   globals: {
     'CustomEvent': 'readonly',
-    // 'console': 'on',
+    'console': 'readonly',
+    'module': 'readonly',
+    'require': 'readonly'
     // 'localStorage': 'on',
     // 'requestAnimationFrame': 'on',
     // 'fetch': 'on',
@@ -38,9 +31,6 @@ module.exports = {
     // 'clearTimeout': 'on',
     // 'clearInterval': 'on',
     // 'AbortController': 'on'
-  },
-  env: {
-    'jest/globals': true
   },
   rules: {
 
@@ -180,15 +170,8 @@ module.exports = {
     'no-undef': 'error',
     'no-undef-init': 'error',
     'no-undefined': 'off',
-
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['error', {
-      'vars': 'all',
-      'varsIgnorePattern': 'h'
-    }],
-
     'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': 'error',
 
     // ####################################################
     // Node.js
@@ -203,7 +186,6 @@ module.exports = {
     'no-process-env': 'off',
     'no-process-exit': 'error',
     'no-restricted-modules': 'off',
-    'no-sync': 'error',
 
     // ####################################################
     // Stylistic issues
@@ -277,7 +259,6 @@ module.exports = {
     'no-whitespace-before-property': 'error',
     'nonblock-statement-body-position': ['error', 'beside'],
     'object-curly-newline': ['error', {
-      //'multiline': true,
       'ObjectExpression': {
         'minProperties': 1
       },
@@ -319,18 +300,10 @@ module.exports = {
     'template-tag-spacing': 'error',
     'unicode-bom': 'error',
     'wrap-regex': 'error',
-
     'indent': 'off',
-    '@typescript-eslint/indent': ['error', 2],
-
     'semi': 'off',
-    '@typescript-eslint/semi': ['error'],
-
     'camelcase': 'off',
-    '@typescript-eslint/camelcase': 'error',
-
     'no-array-constructor': 'off',
-    '@typescript-eslint/no-array-constructor': 'error',
 
     // ####################################################
     // ECMAScript 6
@@ -371,27 +344,72 @@ module.exports = {
     'symbol-description': 'error',
     'template-curly-spacing': 'error',
     'yield-star-spacing': 'error',
-
-    // ####################################################
-    // typescript-eslint specific
-    // ####################################################
-    '@typescript-eslint/adjacent-overload-signatures': 'error',
-    '@typescript-eslint/array-type': 'error',
-    '@typescript-eslint/ban-types': 'error',
-    '@typescript-eslint/class-name-casing': 'error',
-    '@typescript-eslint/explicit-function-return-type': 'warn',
-    '@typescript-eslint/explicit-member-accessibility': 'error',
-    '@typescript-eslint/interface-name-prefix': 'error',
-    '@typescript-eslint/member-delimiter-style': 'error',
-    '@typescript-eslint/no-empty-interface': 'error',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-inferrable-types': 'error',
-    '@typescript-eslint/no-misused-new': 'error',
-    '@typescript-eslint/no-namespace': 'error',
-    '@typescript-eslint/no-non-null-assertion': 'error',
-    '@typescript-eslint/no-parameter-properties': 'error',
-    '@typescript-eslint/no-var-requires': 'error',
-    '@typescript-eslint/prefer-namespace-keyword': 'error',
-    '@typescript-eslint/type-annotation-spacing': 'error'
-  }
+  },
+  overrides: [
+    {
+      files: [
+        '*.ts',
+        '*.tsx'
+      ],
+      plugins: [
+        '@typescript-eslint'
+      ],
+      extends: [
+        'plugin:@typescript-eslint/recommended'
+      ],
+      rules: {
+        '@typescript-eslint/adjacent-overload-signatures': 'error',
+        '@typescript-eslint/array-type': 'error',
+        '@typescript-eslint/ban-types': 'error',
+        '@typescript-eslint/class-name-casing': 'error',
+        '@typescript-eslint/explicit-function-return-type': 'warn',
+        '@typescript-eslint/explicit-member-accessibility': 'error',
+        '@typescript-eslint/interface-name-prefix': 'error',
+        '@typescript-eslint/member-delimiter-style': 'error',
+        '@typescript-eslint/no-empty-interface': 'error',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-inferrable-types': 'error',
+        '@typescript-eslint/no-misused-new': 'error',
+        '@typescript-eslint/no-namespace': 'error',
+        '@typescript-eslint/no-non-null-assertion': 'error',
+        '@typescript-eslint/no-parameter-properties': 'error',
+        '@typescript-eslint/no-var-requires': 'error',
+        '@typescript-eslint/prefer-namespace-keyword': 'error',
+        '@typescript-eslint/type-annotation-spacing': 'error',
+        '@typescript-eslint/no-unused-vars': ['error', {
+          'vars': 'all',
+          'varsIgnorePattern': 'h'
+        }],
+        '@typescript-eslint/no-use-before-define': 'error',
+        '@typescript-eslint/indent': ['error', 2],
+        '@typescript-eslint/semi': ['error'],
+        '@typescript-eslint/camelcase': 'error',
+        '@typescript-eslint/no-array-constructor': 'error'
+      }
+    },
+    {
+      files: [
+        '*.yaml',
+        '*.yml'
+      ],
+      plugins: [
+        'yaml'
+      ]
+    },
+    {
+      files: [
+        '*e2e.ts',
+        '*spec.ts'
+      ],
+      plugins: [
+        'jest'
+      ],
+      extends: [
+        'plugin:jest/recommended'
+      ],
+      env: {
+        'jest/globals': true
+      }
+    }
+  ]
 };
