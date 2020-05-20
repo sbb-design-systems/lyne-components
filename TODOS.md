@@ -44,6 +44,9 @@
 #### Verify
 - [x] First create PR A with fix, then create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
 - [x] Create PRs with a fix (new version). Merge one after another, before the CI for the first merged PR is finished -> 2 new releases should be created
+- [ ] Releasing of merged pr's which are behind and ahead of master. If master is ahead of a pr at merge time, semantic-release will be skipped. A potential release will be made, as soon as a new pr is merged on a up-to-date master basis. No problems so far, behavior is ok. Is this the behavior we want? Example:
+  - This build should have triggered a release. But since master was ahead of the merged branch, release was skipped: https://travis-ci.org/github/lyne-design-system/lyne-components/builds/689137974
+  - The release was triggered later on, as soon as a branch got merged which itself has a merged state from the master, including the changes from the PR before: https://travis-ci.org/github/lyne-design-system/lyne-components/builds/689139711
 
 #### Issues
 ✅ Nothing to verify
@@ -127,6 +130,7 @@
 - [x] npm package size is huge!
 - [x] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
 - [x] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
+- [ ] chromatic sometimes takes a snapshot before a component has loaded in the dom. we currently add a delay of 1000ms to chromatic inside the stories files to prevent that. Probably, chromatic will imporove and we can remove the delay.
 
 #### Check
 ✅ Nothing to check
