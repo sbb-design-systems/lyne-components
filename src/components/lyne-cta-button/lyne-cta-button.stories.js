@@ -14,5 +14,14 @@ export default {
     withKnobs,
     withA11y
   ],
-  title: 'Button'
+  title: 'Button',
+  parameters: {
+    chromatic: {
+      viewports: [
+        320,
+        764,
+        1201
+      ]
+    }
+  }
 };
