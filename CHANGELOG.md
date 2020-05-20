@@ -1,3 +1,12 @@
+## [6.20.4](https://github.com/lyne-design-system/lyne-components/compare/v6.20.3...v6.20.4) (2020-05-20)
+
+
+### Bug Fixes
+
+* add chromatic delay before snapshopt ([fd69fac](https://github.com/lyne-design-system/lyne-components/commit/fd69fac1c17e6deeee35b4732eee84f40a77205d))
+* add chromatic delay before snapshopt ([8574902](https://github.com/lyne-design-system/lyne-components/commit/857490235fe23f9da73f1f08aef76ec7b8d8931d))
+* add chromatic delay before snapshopt ([d78a641](https://github.com/lyne-design-system/lyne-components/commit/d78a641f1629732be10bcb1cf20ab169942a01e1))
+
 ## [6.20.3](https://github.com/lyne-design-system/lyne-components/compare/v6.20.2...v6.20.3) (2020-05-20)
 
 
