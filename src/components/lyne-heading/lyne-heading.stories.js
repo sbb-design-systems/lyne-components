@@ -75,6 +75,7 @@ export default {
   title: 'Lyne Heading',
   parameters: {
     chromatic: {
+      delay: 1000,
       viewports: [
         320,
         764,
