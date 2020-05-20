@@ -30,7 +30,7 @@
     "lint": "npm run lint:ts && npm run lint:js && npm run lint:yml",
     "lint:ts": "eslint ./ --ext .ts,.tsx",
     "lint:js": "eslint ./ --ext .js",
-    "lint:yml": "eslint ./ --ext .yml",
+    "lint:yml": "eslint ./ --ext .yml,.yaml",
     "semantic-release": "semantic-release",
     "start:stencil": "stencil build --prod --watch --docs",
     "start:storybook": "start-storybook -p 6006 -s dist",
