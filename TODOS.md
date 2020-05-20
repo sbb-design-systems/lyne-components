@@ -119,7 +119,7 @@
 - [ ] Code coverage
   - [x] Configure Code coverage for Jest
   - [ ] Code coverage report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
-- [ ] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
+- [x] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
   - Option 1: Keep JavaScript. In that case, we need to lint these files with ESLint
   - Option 2: Transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
 - [x] add Webhook to netlify for Git PR: if a pr is created, add a link to the deploy preview from netlify
