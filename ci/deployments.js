@@ -7,14 +7,8 @@ const fs = require('fs');
 
 // env variables
 const {
-  netlifyToken
-} = argv;
-
-const {
-  netlifySiteId
-} = argv;
-
-const {
+  netlifyToken,
+  netlifySiteId,
   deploymentsDir
 } = argv;
 
