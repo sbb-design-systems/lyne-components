@@ -1,3 +1,18 @@
+# [6.21.0](https://github.com/lyne-design-system/lyne-components/compare/v6.20.4...v6.21.0) (2020-05-25)
+
+
+### Bug Fixes
+
+* add file extension .yaml to the lint command ([e300304](https://github.com/lyne-design-system/lyne-components/commit/e30030486832d2383f8adc5b326e04d7898b8c66))
+* add folders/files to the eslintignore file ([5d49185](https://github.com/lyne-design-system/lyne-components/commit/5d49185d576c3301862bf11c03062fa9ba54aeeb))
+* add overrides to the eslintrc file ([f6cb08f](https://github.com/lyne-design-system/lyne-components/commit/f6cb08ffb2925169485469ae494430cd5b913b9d))
+* fix lint errors ([359ff24](https://github.com/lyne-design-system/lyne-components/commit/359ff24359c66474c938b743148d8bf6228b620b))
+
+
+### Features
+
+* add lint:js command for linting js files ([640175d](https://github.com/lyne-design-system/lyne-components/commit/640175d0d1e70f0d260ad40ee0730a130f7de6cb))
+
 ## [6.20.4](https://github.com/lyne-design-system/lyne-components/compare/v6.20.3...v6.20.4) (2020-05-20)
 
 
