@@ -1,7 +1,7 @@
 dist/
 loader/
 src/components.d.ts
-src/components/*/*.stories.js
+src/components/**/*.stories.js
 storybook-static/
 www/
 .eslintrc.js
