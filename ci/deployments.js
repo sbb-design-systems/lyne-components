@@ -1,12 +1,16 @@
 const shell = require('shelljs');
-const argv = require('yargs').argv;
+const {
+  argv
+} = require('yargs');
 const axios = require('axios');
 const fs = require('fs');
 
 // env variables
-const netlifyToken = argv.netlifyToken;
-const netlifySiteId = argv.netlifySiteId;
-const deploymentsDir = argv.deploymentsDir;
+const {
+  netlifyToken,
+  netlifySiteId,
+  deploymentsDir
+} = argv;
 
 // general configuration
 const config = {
@@ -22,12 +26,13 @@ const config = {
 
 // prepare final JSON
 const json = {};
+
 json[config.deploymentsJsonKeyProd] = [];
 json[config.deploymentsJsonKeyPreview] = [];
 
 (async () => {
 
-  const netlifyGetDeploysUrl = 'https://api.netlify.com/api/v1/sites/' + netlifySiteId + '/deploys' + '?access_token=' + netlifyToken;
+  const netlifyGetDeploysUrl = `https://api.netlify.com/api/v1/sites/${netlifySiteId}/deploys?access_token=${netlifyToken}`;
 
   try {
     // get results
@@ -56,9 +61,11 @@ json[config.deploymentsJsonKeyPreview] = [];
     // write index file
     fs.writeFileSync(`./${deploymentsDir}/index.html`, '<html><body><p>This space is empty. It is only serving deployments.json for lyne-design-system. <a href="/deployments.json">deployments.json</a></p></body></html>');
 
-    // write headers file
-    // since we want to fetch the deployments json from other origins (like
-    // in the SSG build) we allow all origins
+    /*
+     * write headers file
+     * since we want to fetch the deployments json from other origins (like
+     * in the SSG build) we allow all origins
+     */
     fs.writeFileSync(`./${deploymentsDir}/_headers`, '/*\n  Access-Control-Allow-Origin: *');
 
     console.log(`-->> NETLIFY DEPLOYMENTS: Successfully created ${config.deploymentsJsonName}`);
@@ -71,9 +78,11 @@ json[config.deploymentsJsonKeyPreview] = [];
   }
 })();
 
-// ---------------------------------------------------------------------------
-// PROCESS DATA
-// ---------------------------------------------------------------------------
+/*
+ * ---------------------------------------------------------------------------
+ * PROCESS DATA
+ * ---------------------------------------------------------------------------
+ */
 const processDeploys = ((data) => {
   data.forEach((deploy) => {
     const deployType = getDeployType(deploy.title);
@@ -88,11 +97,15 @@ const processDeploys = ((data) => {
       const url = deploy.deploy_ssl_url;
       const date = deploy.created_at;
 
-      // this is only relevant for branch deploys. but it does not hurt release
-      // deploys, since we should never have 2 deploys with the same title
+      /*
+       * this is only relevant for branch deploys. but it does not hurt release
+       * deploys, since we should never have 2 deploys with the same title
+       */
       const alreadyThere = findDeployment(deployTag, deployType);
+
       if (!alreadyThere) {
         const newDeploy = {};
+
         newDeploy[config.deploymentsJsonKeyTag] = deployTag;
         newDeploy[config.deploymentsJsonKeyDate] = date;
         newDeploy[config.deploymentsJsonKeyUrl] = url;
@@ -132,7 +145,6 @@ const findDeployment = ((deployTag, deployType) => {
   json[deployType].forEach((deployment) => {
     if (deployment[config.deploymentsJsonKeyTag] === deployTag) {
       resultFound = true;
-      return;
     }
   });
 
@@ -142,7 +154,9 @@ const findDeployment = ((deployTag, deployType) => {
 const getDeployTag = ((titleString, type) => {
   const emptyTag = '';
   const isProd = type === config.deploymentsJsonKeyProd;
-  const separator = isProd ? config.netlifyTitleSeparatorProd : config.netlifyTitleSeparatorPreview;
+  const separator = isProd
+  ? config.netlifyTitleSeparatorProd
+  : config.netlifyTitleSeparatorPreview;
 
   if (!titleString) {
     return emptyTag;
@@ -158,7 +172,10 @@ const getDeployTag = ((titleString, type) => {
     return emptyTag;
   }
 
-  const tag = separatorSplits[1];
+  const [
+    ,
+    tag
+  ] = separatorSplits;
 
   if (isProd) {
     const splitByDots = tag.split('.');
