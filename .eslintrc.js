@@ -410,6 +410,18 @@ module.exports = {
       env: {
         'jest/globals': true
       }
+    },
+    {
+      files: [
+        '*.tsx',
+        '*.jsx'
+      ],
+      plugins: [
+        'jsx-a11y'
+      ],
+      extends: [
+        'plugin:jsx-a11y/recommended'
+      ]
     }
   ]
 };
