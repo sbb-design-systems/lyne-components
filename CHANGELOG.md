@@ -1,3 +1,11 @@
+## [6.21.1](https://github.com/lyne-design-system/lyne-components/compare/v6.21.0...v6.21.1) (2020-05-29)
+
+
+### Bug Fixes
+
+* add a11y jsx linter ([451527d](https://github.com/lyne-design-system/lyne-components/commit/451527da7d7c90ceeefc946d17e6f4575a2adaa9))
+* remove the duplicate lint .tsx command ([13c8f4f](https://github.com/lyne-design-system/lyne-components/commit/13c8f4f9474049455d94712288acaa895af977d8))
+
 # [6.21.0](https://github.com/lyne-design-system/lyne-components/compare/v6.20.4...v6.21.0) (2020-05-25)
 
 
