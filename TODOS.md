@@ -37,6 +37,7 @@
     - [x] Add bug report issue tpl
     - [x] Add question issue tpl
   - [x] Add [SECURITY.md](/.github/SECURITY.md) policy and define process of how to deal with security issues / vulnerabilities
+  - [ ] Dependabot: check if dependabot could also make pr's for major versions
 
 #### Check
 - [ ] Check GitHub's integrated *Code scanning* https://github.com/features/security
