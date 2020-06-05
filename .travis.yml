@@ -114,6 +114,3 @@ jobs:
 
         # Build and deploy the deployments page
         - ./ci/deployments.sh
-
-        # trigger a build on lyne-documentation
-        - ./ci/trigger_lyne_documentation.sh
