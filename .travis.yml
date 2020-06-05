@@ -97,6 +97,9 @@ jobs:
         # Run tests
         - npm run test:prod || travis_terminate 1
 
+        # upload coverage report
+        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash <(curl -s https://codecov.io/bash); fi'
+
       after_success:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
