@@ -22,7 +22,17 @@ export class LyneHeading {
   /** Visual level for the heading */
   @Prop() public visualLevel: InterfaceHeadingAttributes['visualLevel'] = '1';
 
+  private testFunc = (): number => {
+    const foo = 1;
+
+    return foo * 10;
+  };
+
   public render(): JSX.Element {
+
+    const testVal = this.testFunc();
+
+    console.log(testVal);
 
     const TagName = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
     const className = `title title--level${this.visualLevel}`;
