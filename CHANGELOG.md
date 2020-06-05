@@ -1,3 +1,10 @@
+## [6.21.3](https://github.com/lyne-design-system/lyne-components/compare/v6.21.2...v6.21.3) (2020-06-05)
+
+
+### Bug Fixes
+
+* run codecov on pr builds as well ([308530f](https://github.com/lyne-design-system/lyne-components/commit/308530f14ee59a1a1e3eb24e8080039ce6dd251c))
+
 ## [6.21.2](https://github.com/lyne-design-system/lyne-components/compare/v6.21.1...v6.21.2) (2020-06-05)
 
 
