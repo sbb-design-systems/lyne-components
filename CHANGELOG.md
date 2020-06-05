@@ -1,3 +1,10 @@
+## [6.21.2](https://github.com/lyne-design-system/lyne-components/compare/v6.21.1...v6.21.2) (2020-06-05)
+
+
+### Bug Fixes
+
+* remove lyne-documentation trigger for branches that are not master ([33e04d3](https://github.com/lyne-design-system/lyne-components/commit/33e04d38b4ea739db21515ed85d5582b9c79f589))
+
 ## [6.21.1](https://github.com/lyne-design-system/lyne-components/compare/v6.21.0...v6.21.1) (2020-05-29)
 
 
