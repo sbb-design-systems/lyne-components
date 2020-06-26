@@ -68,7 +68,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-yaml": "^0.2.0",
     "husky": "^4.2.5",
-    "jest": "26.0.1",
+    "jest": "26.1.0",
     "jest-cli": "26.0.1",
     "jsx-dom": "^6.4.15",
     "lyne-design-tokens": "latest",
