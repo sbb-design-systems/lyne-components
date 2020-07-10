@@ -1,3 +1,10 @@
+## [6.21.4](https://github.com/lyne-design-system/lyne-components/compare/v6.21.3...v6.21.4) (2020-07-10)
+
+
+### Bug Fixes
+
+* update design tokens ([c1c3e8f](https://github.com/lyne-design-system/lyne-components/commit/c1c3e8f646d0d71f6ab7f06ab84071dc9a6ed4b0))
+
 ## [6.21.3](https://github.com/lyne-design-system/lyne-components/compare/v6.21.2...v6.21.3) (2020-06-05)
 
 
