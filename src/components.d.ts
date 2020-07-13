@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { InterfaceHeadingAttributes, } from "./components/lyne-heading/lyne-heading.d";
+import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.d";
 export namespace Components {
     interface LyneCtaButton {
         /**
@@ -26,7 +26,7 @@ export namespace Components {
         /**
           * Heading level
          */
-        "level": InterfaceHeadingAttributes["level"];
+        "level": InterfaceHeadingAttributes['level'];
         /**
           * Text for the Heading
          */
@@ -34,7 +34,7 @@ export namespace Components {
         /**
           * Visual level for the heading
          */
-        "visualLevel": InterfaceHeadingAttributes["visualLevel"];
+        "visualLevel": InterfaceHeadingAttributes['visualLevel'];
     }
     interface LyneLink {
         /**
@@ -96,7 +96,7 @@ declare namespace LocalJSX {
         /**
           * Heading level
          */
-        "level"?: InterfaceHeadingAttributes["level"];
+        "level"?: InterfaceHeadingAttributes['level'];
         /**
           * Text for the Heading
          */
@@ -104,7 +104,7 @@ declare namespace LocalJSX {
         /**
           * Visual level for the heading
          */
-        "visualLevel"?: InterfaceHeadingAttributes["visualLevel"];
+        "visualLevel"?: InterfaceHeadingAttributes['visualLevel'];
     }
     interface LyneLink {
         /**
