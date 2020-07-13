@@ -1,3 +1,11 @@
+## [6.21.6](https://github.com/lyne-design-system/lyne-components/compare/v6.21.5...v6.21.6) (2020-07-13)
+
+
+### Bug Fixes
+
+* integrate new design token package ([ae93561](https://github.com/lyne-design-system/lyne-components/commit/ae93561091c5736fee1a6bc99e3f2f8ea7e36b9f))
+* wso ([a61eca3](https://github.com/lyne-design-system/lyne-components/commit/a61eca35c98baf8707cfff8d0d1c88edaf34b305))
+
 ## [6.21.5](https://github.com/lyne-design-system/lyne-components/compare/v6.21.4...v6.21.5) (2020-07-10)
 
 
