@@ -1,3 +1,10 @@
+## [6.21.7](https://github.com/lyne-design-system/lyne-components/compare/v6.21.6...v6.21.7) (2020-07-17)
+
+
+### Bug Fixes
+
+* update newest design-token package ([ac34a26](https://github.com/lyne-design-system/lyne-components/commit/ac34a263b7a0bdb98f13e006f800dc4f6d2a9331))
+
 ## [6.21.6](https://github.com/lyne-design-system/lyne-components/compare/v6.21.5...v6.21.6) (2020-07-13)
 
 
