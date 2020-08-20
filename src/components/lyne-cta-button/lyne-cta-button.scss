@@ -3,7 +3,7 @@
 }
 
 .button {
-  padding: calc(#{$font-size-regular} / 2) $font-size-regular;
+  padding: calc(#{$size-font-regular} / 2) $size-font-regular;
 	color: $color-white;
   background-color: $color-red-regular;
   transition: background-color ease-in 200ms;

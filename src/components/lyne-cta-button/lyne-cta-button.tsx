@@ -47,7 +47,7 @@ export class LyneCtaButton {
 
   public render(): JSX.Element {
     const style = {
-      fontSize: Tokens.FontSizeRegular
+      fontSize: Tokens.SizeFontRegular
     };
 
     return <button style={style} class='button' onClick={this.buttonClick}>{this.label}</button>;
