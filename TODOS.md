@@ -56,6 +56,7 @@
 - [ ] Rename npm package name to ```lyne-components```
 - [x] npm script ```start``` runs Stencil and Storybook in parallel. We need sequential. The problem is that ```start:stencil``` has no exit code since it is serving and watching, so the second sequential command ```start:storybook``` is not run. Quick fix is to run them parallel. Possible workaround: `"build:stencil:dev": "stencil build --ci --dev --docs", "build:dev": "npm-run-all --sequential build:stencil:dev build:storybook", "develop": "npm-run-all --sequential build:dev start"`
 - [ ] We have 2 servers running, 1 for stencil and 1 for storybook. If you run ```npm start```, and then press ```ctrl&c``` only 1 server is stopped, the other is still running (you can verify by pressing to up arrow key)
+- [ ] For storybook v6, ```addon-docs``` had to be removed since it is deprecated. Switch to mdx docs.
 
 - [ ] Decide if we should fix dependencies/devDependencies in `package.json` to patch versions only (~1.0.0) or minor versions (^1.0.0) or to exact version (1.0.0). If so, which ones? Why? Probably fix to minor version? Or Major?
 - [x] ESLint: currently, we ignore ```*.spec.ts``` and ```*.e2e.ts``` files. Include them in linting and add corresponding rules
