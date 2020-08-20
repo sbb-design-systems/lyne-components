@@ -55,7 +55,7 @@
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-docs": "^6.0.12",
     "@storybook/addon-knobs": "^6.0.12",
-    "@storybook/html": "^5.3.18",
+    "@storybook/html": "^6.0.13",
     "@types/jest": "26.0.10",
     "@types/puppeteer": "3.0.1",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
