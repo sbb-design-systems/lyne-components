@@ -1,3 +1,13 @@
+## [6.21.8](https://github.com/lyne-design-system/lyne-components/compare/v6.21.7...v6.21.8) (2020-08-20)
+
+
+### Bug Fixes
+
+* fix button test ([253fa7c](https://github.com/lyne-design-system/lyne-components/commit/253fa7cb76a15e02912bf330f718de84a9d3fbd4))
+* remove storybook addon for docs ([00a4220](https://github.com/lyne-design-system/lyne-components/commit/00a4220cd3d2fbd92d7e8bcce64baaa674864528))
+* use new variable names for design tokens ([45302d0](https://github.com/lyne-design-system/lyne-components/commit/45302d0425ed2d181608b7114f5fe3e28d05408b))
+* use new variable names for design tokens ([01b47e6](https://github.com/lyne-design-system/lyne-components/commit/01b47e68254165a8ce8c474df91c471fdf56a052))
+
 ## [6.21.7](https://github.com/lyne-design-system/lyne-components/compare/v6.21.6...v6.21.7) (2020-07-17)
 
 
