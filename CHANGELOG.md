@@ -1,3 +1,10 @@
+## [6.22.1](https://github.com/lyne-design-system/lyne-components/compare/v6.22.0...v6.22.1) (2020-08-27)
+
+
+### Bug Fixes
+
+* remove skip ci instruction ([29d750a](https://github.com/lyne-design-system/lyne-components/commit/29d750a7af594be19d3204b292c189344cf8a063))
+
 # [6.22.0](https://github.com/lyne-design-system/lyne-components/compare/v6.21.8...v6.22.0) (2020-08-27)
 
 
