@@ -1,3 +1,11 @@
+## [6.22.2](https://github.com/lyne-design-system/lyne-components/compare/v6.22.1...v6.22.2) (2020-08-27)
+
+
+### Bug Fixes
+
+* add log ([7c060c5](https://github.com/lyne-design-system/lyne-components/commit/7c060c5854b0c9301d6e35f5657f33f963d895a5))
+* use data instead of body attribute in axios request (triggered from design tokens build) ([e87e4ab](https://github.com/lyne-design-system/lyne-components/commit/e87e4ab9d95dba72cb3c9125b685bfb09eeb714b))
+
 ## [6.22.1](https://github.com/lyne-design-system/lyne-components/compare/v6.22.0...v6.22.1) (2020-08-27)
 
 
