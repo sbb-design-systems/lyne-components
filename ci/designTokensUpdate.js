@@ -17,9 +17,11 @@ const {
   try {
 
     if (eventType !== 'api') {
-      console.log('-->> This is not an build triggered via API, therefore skipping update of lyne-design-tokens');
+      console.log('-->> This is not a build triggered via API, therefore skipping update of lyne-design-tokens');
       shell.exit(0);
     }
+
+    console.log('-->> This is build triggered via API, therefore update lyne-design-tokens');
 
     // install lyne design tokens
     shell.exec('npm install --save-dev lyne-design-tokens');
