@@ -27,14 +27,14 @@ const {
     shell.exec('npm install --save-dev lyne-design-tokens');
 
     // commit package.json
-    const commitMessage = await getCommit(buildId);
+    const commitMessage = `${await getCommit(buildId)} [skip ci]`;
 
     await git.add([
       'package.json',
       'package-lock.json'
     ]);
 
-    await git.commit(`${commitMessage}`);
+    await git.commit(commitMessage);
 
     console.log('-->> commitMessage:', commitMessage);
 
