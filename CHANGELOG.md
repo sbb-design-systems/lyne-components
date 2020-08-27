@@ -1,3 +1,32 @@
+# [6.24.0](https://github.com/lyne-design-system/lyne-components/compare/v6.23.1...v6.24.0) (2020-08-27)
+
+
+### Features
+
+* revert red color (triggered from Figma) (triggered from design tokens build) [skip ci] ([9715c0d](https://github.com/lyne-design-system/lyne-components/commit/9715c0d4d4f9e78a131d6ab228d902ace5100fc8))
+
+## [6.23.1](https://github.com/lyne-design-system/lyne-components/compare/v6.23.0...v6.23.1) (2020-08-27)
+
+
+### Bug Fixes
+
+* change red color (triggered from Figma) (triggered from design tokens build) [skip ci] ([4fde5db](https://github.com/lyne-design-system/lyne-components/commit/4fde5db75f30b8e64a8708500efff3787cabc3e1))
+
+# [6.23.0](https://github.com/lyne-design-system/lyne-components/compare/v6.22.3...v6.23.0) (2020-08-27)
+
+
+### Features
+
+* revert green to red (triggered from Figma) (triggered from design tokens build) [skip ci] ([7a24c77](https://github.com/lyne-design-system/lyne-components/commit/7a24c77824c32828215a7046f904b9eab19721fb))
+
+## [6.22.3](https://github.com/lyne-design-system/lyne-components/compare/v6.22.2...v6.22.3) (2020-08-27)
+
+
+### Bug Fixes
+
+* add skip ci instruction again ([5e422c8](https://github.com/lyne-design-system/lyne-components/commit/5e422c8f3dc9c12e027c2670ac6cae44bfafb249))
+* test change red to green (triggered from Figma) (triggered from design tokens build) [skip ci] ([71440a3](https://github.com/lyne-design-system/lyne-components/commit/71440a30bd9dfd1399e179621096cbeaf0391663))
+
 ## [6.22.2](https://github.com/lyne-design-system/lyne-components/compare/v6.22.1...v6.22.2) (2020-08-27)
 
 
