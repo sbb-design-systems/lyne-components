@@ -20,7 +20,8 @@ module.exports = {
     'CustomEvent': 'readonly',
     'console': 'readonly',
     'module': 'readonly',
-    'require': 'readonly'
+    'require': 'readonly',
+    'process': 'readonly'
     // 'localStorage': 'on',
     // 'requestAnimationFrame': 'on',
     // 'fetch': 'on',

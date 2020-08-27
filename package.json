@@ -77,6 +77,7 @@
     "semantic-release": "^17.0.7",
     "semantic-release-slack-bot": "^1.6.2",
     "shelljs": "^0.8.4",
+    "simple-git": "~2.20.1",
     "yargs": "^15.3.1"
   },
   "author": "Lyne Team",
