@@ -42,6 +42,11 @@ jobs:
         # install dependencies
         - npm install
 
+        # it may me that we get an api request from design-tokens build. in that
+        # case, we need to install lyne-design-tokens an make an according
+        # commit
+        - node ./ci/designTokensUpdate.js --eventType=$TRAVIS_EVENT_TYPE --buildId=$TRAVIS_BUILD_ID
+
         # lint
         # travis_terminate 1: make sure build immediately stops if the
         # Command exits with non-zero code
@@ -87,11 +92,6 @@ jobs:
 
         # install dependencies
         - npm install
-
-        # it may me that we get an api request from design-tokens build. in that
-        # case, we need to install lyne-design-tokens an make an according
-        # commit
-        - node ./ci/designTokensUpdate.js --eventType=$TRAVIS_EVENT_TYPE --buildId=$TRAVIS_BUILD_ID
 
         # Lint
         - npm run lint || travis_terminate 1
