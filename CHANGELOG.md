@@ -1,3 +1,15 @@
+# [6.22.0](https://github.com/lyne-design-system/lyne-components/compare/v6.21.8...v6.22.0) (2020-08-27)
+
+
+### Bug Fixes
+
+* make design token update in correct job ([32b79d5](https://github.com/lyne-design-system/lyne-components/commit/32b79d5e1da4939d744360424712dc644c4fcbbc))
+
+
+### Features
+
+* conditionally update design tokens ([e07e21a](https://github.com/lyne-design-system/lyne-components/commit/e07e21a97acc1550a4fd9de29674c8c73f6bd63e))
+
 ## [6.21.8](https://github.com/lyne-design-system/lyne-components/compare/v6.21.7...v6.21.8) (2020-08-20)
 
 
