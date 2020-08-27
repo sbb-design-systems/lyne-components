@@ -32,7 +32,7 @@ const {
       'package-lock.json'
     ]);
 
-    await git.commit(`${commitMessage} [skip ci]`);
+    await git.commit(`${commitMessage}`);
 
     console.log('-->> commitMessage:', commitMessage);
 
