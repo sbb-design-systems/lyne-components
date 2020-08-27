@@ -1,3 +1,11 @@
+## [6.22.3](https://github.com/lyne-design-system/lyne-components/compare/v6.22.2...v6.22.3) (2020-08-27)
+
+
+### Bug Fixes
+
+* add skip ci instruction again ([5e422c8](https://github.com/lyne-design-system/lyne-components/commit/5e422c8f3dc9c12e027c2670ac6cae44bfafb249))
+* test change red to green (triggered from Figma) (triggered from design tokens build) [skip ci] ([71440a3](https://github.com/lyne-design-system/lyne-components/commit/71440a30bd9dfd1399e179621096cbeaf0391663))
+
 ## [6.22.2](https://github.com/lyne-design-system/lyne-components/compare/v6.22.1...v6.22.2) (2020-08-27)
 
 
