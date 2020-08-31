@@ -1,3 +1,10 @@
+## [6.24.1](https://github.com/lyne-design-system/lyne-components/compare/v6.24.0...v6.24.1) (2020-08-31)
+
+
+### Bug Fixes
+
+* change red-regular to pink-ish (triggered from Figma) (triggered from design tokens build) [skip ci] ([19555b5](https://github.com/lyne-design-system/lyne-components/commit/19555b5be66f7aa2e22c78e418e1dc2d1d8c7d5f))
+
 # [6.24.0](https://github.com/lyne-design-system/lyne-components/compare/v6.23.1...v6.24.0) (2020-08-27)
 
 
