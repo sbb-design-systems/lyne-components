@@ -1,3 +1,10 @@
+## [6.24.4](https://github.com/lyne-design-system/lyne-components/compare/v6.24.3...v6.24.4) (2020-09-02)
+
+
+### Bug Fixes
+
+* test workflow before review meeting (triggered from Figma) (triggered from design tokens build) [skip ci] ([b2e62f0](https://github.com/lyne-design-system/lyne-components/commit/b2e62f0d7146c6511a167864538fb54755d5ff0a))
+
 ## [6.24.3](https://github.com/lyne-design-system/lyne-components/compare/v6.24.2...v6.24.3) (2020-08-31)
 
 
