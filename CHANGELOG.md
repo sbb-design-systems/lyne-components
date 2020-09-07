@@ -1,3 +1,10 @@
+## [6.24.13](https://github.com/lyne-design-system/lyne-components/compare/v6.24.12...v6.24.13) (2020-09-07)
+
+
+### Bug Fixes
+
+* test (triggered from Figma) (triggered from design tokens build) [skip ci] ([7143185](https://github.com/lyne-design-system/lyne-components/commit/7143185983f0d6278a7cbef84ce89beb7f63ec3f))
+
 ## [6.24.12](https://github.com/lyne-design-system/lyne-components/compare/v6.24.11...v6.24.12) (2020-09-07)
 
 
