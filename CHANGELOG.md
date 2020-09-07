@@ -1,3 +1,10 @@
+# [6.25.0](https://github.com/lyne-design-system/lyne-components/compare/v6.24.14...v6.25.0) (2020-09-07)
+
+
+### Features
+
+* add sample icons after extract (triggered from design tokens build) [skip ci] ([f508734](https://github.com/lyne-design-system/lyne-components/commit/f5087349a3100d441821d8a6504a572d2fdc5cad))
+
 ## [6.24.14](https://github.com/lyne-design-system/lyne-components/compare/v6.24.13...v6.24.14) (2020-09-07)
 
 
