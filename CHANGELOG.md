@@ -1,3 +1,10 @@
+## [6.24.8](https://github.com/lyne-design-system/lyne-components/compare/v6.24.7...v6.24.8) (2020-09-07)
+
+
+### Bug Fixes
+
+* test pipeline (triggered from Figma) (triggered from design tokens build) [skip ci] ([1ea09b9](https://github.com/lyne-design-system/lyne-components/commit/1ea09b936dd609d7ed97432d5b963f8218d03e4a))
+
 ## [6.24.7](https://github.com/lyne-design-system/lyne-components/compare/v6.24.6...v6.24.7) (2020-09-03)
 
 
