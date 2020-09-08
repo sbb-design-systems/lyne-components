@@ -1,3 +1,10 @@
+## [6.26.1](https://github.com/lyne-design-system/lyne-components/compare/v6.26.0...v6.26.1) (2020-09-08)
+
+
+### Bug Fixes
+
+* rename icons (triggered from Figma) (triggered from icons build) [skip ci] ([417ba38](https://github.com/lyne-design-system/lyne-components/commit/417ba387e3ae070260d796d7b838ae78a53a6888))
+
 # [6.26.0](https://github.com/lyne-design-system/lyne-components/compare/v6.25.4...v6.26.0) (2020-09-08)
 
 
