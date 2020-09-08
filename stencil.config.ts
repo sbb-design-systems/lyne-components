@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import { inlineSvg } from 'stencil-inline-svg';
 import jestConfig from './.jest.config.js';
 import { sass } from '@stencil/sass';
 
@@ -29,6 +30,7 @@ export const config: Config = {
     }
   ],
   plugins: [
+    inlineSvg(),
     sass({
       injectGlobalPaths: ['src/global/variables.scss']
     })
