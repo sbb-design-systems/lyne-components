@@ -41,6 +41,7 @@ jobs:
 
         # install dependencies
         - npm install
+        - npm install lyne-design-tokens@latest lyne-icons@latest --save-dev
 
         # it may me that we get an api request from design-tokens build. in that
         # case, we need to install lyne-design-tokens an make an according
@@ -92,6 +93,7 @@ jobs:
 
         # install dependencies
         - npm install
+        - npm install lyne-design-tokens@latest lyne-icons@latest --save-dev
 
         # Lint
         - npm run lint || travis_terminate 1
