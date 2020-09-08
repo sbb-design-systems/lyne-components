@@ -52,8 +52,8 @@ export class LyneCtaButton {
     };
 
     return <button style={style} class='button' onClick={this.buttonClick}>
-      {this.label}
-      <div class='svg-container' innerHTML={Arrow} />
+      <span>{this.label}</span>
+      <span class='arrow' innerHTML={Arrow} />
     </button>;
   }
 }

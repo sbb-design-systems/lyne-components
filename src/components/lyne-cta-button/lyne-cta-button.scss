@@ -3,6 +3,8 @@
 }
 
 .button {
+  display: flex;
+  align-items: center;
   padding: calc(#{$size-font-regular} / 2) $size-font-regular;
 	color: $color-white;
   background-color: $color-red-regular;
@@ -19,4 +21,15 @@
 
 .button:active {
   background-color: $color-red-dark;
+}
+
+.arrow {
+  color: $color-white;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding-left: .5rem;
+}
+
+.arrow svg path {
+  fill: currentColor;
 }
