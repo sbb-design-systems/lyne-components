@@ -1,3 +1,10 @@
+## [6.25.4](https://github.com/lyne-design-system/lyne-components/compare/v6.25.3...v6.25.4) (2020-09-08)
+
+
+### Bug Fixes
+
+* update to latest storybook ([cd19829](https://github.com/lyne-design-system/lyne-components/commit/cd198298f18ee9473bd49e5157e4b99e88a6c19e))
+
 ## [6.25.3](https://github.com/lyne-design-system/lyne-components/compare/v6.25.2...v6.25.3) (2020-09-07)
 
 
