@@ -1,3 +1,11 @@
+# [6.26.0](https://github.com/lyne-design-system/lyne-components/compare/v6.25.4...v6.26.0) (2020-09-08)
+
+
+### Features
+
+* add arrow ([f5a4a9e](https://github.com/lyne-design-system/lyne-components/commit/f5a4a9ed06772ea59db9a1f1fb1cd5a9c8da0005))
+* add arrow to button ([8ec24c1](https://github.com/lyne-design-system/lyne-components/commit/8ec24c159b0619d0b8113753ee60eb9af4fc8f7d))
+
 ## [6.25.4](https://github.com/lyne-design-system/lyne-components/compare/v6.25.3...v6.25.4) (2020-09-08)
 
 
