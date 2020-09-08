@@ -1,3 +1,129 @@
+## [6.25.3](https://github.com/lyne-design-system/lyne-components/compare/v6.25.2...v6.25.3) (2020-09-07)
+
+
+### Bug Fixes
+
+* test pipline tokens only (triggered from Figma) (triggered from design tokens build) [skip ci] ([fd4484b](https://github.com/lyne-design-system/lyne-components/commit/fd4484b86b3cfe6eec9c31c4b54477c398ebfa67))
+
+## [6.25.2](https://github.com/lyne-design-system/lyne-components/compare/v6.25.1...v6.25.2) (2020-09-07)
+
+
+### Bug Fixes
+
+* test pipeline again (triggered from Figma) (triggered from design tokens build) [skip ci] ([b3df54f](https://github.com/lyne-design-system/lyne-components/commit/b3df54f223b65e6edf1d08136ff501836c38a459))
+
+## [6.25.1](https://github.com/lyne-design-system/lyne-components/compare/v6.25.0...v6.25.1) (2020-09-07)
+
+
+### Bug Fixes
+
+* test trigger (triggered from Figma) (triggered from design tokens build) [skip ci] ([56aeed2](https://github.com/lyne-design-system/lyne-components/commit/56aeed26b3f2a1bfd11e814744681ceccebf031a))
+
+# [6.25.0](https://github.com/lyne-design-system/lyne-components/compare/v6.24.14...v6.25.0) (2020-09-07)
+
+
+### Features
+
+* add sample icons after extract (triggered from design tokens build) [skip ci] ([f508734](https://github.com/lyne-design-system/lyne-components/commit/f5087349a3100d441821d8a6504a572d2fdc5cad))
+
+## [6.24.14](https://github.com/lyne-design-system/lyne-components/compare/v6.24.13...v6.24.14) (2020-09-07)
+
+
+### Bug Fixes
+
+* test (triggered from Figma) (triggered from design tokens build) [skip ci] ([54f4f39](https://github.com/lyne-design-system/lyne-components/commit/54f4f395b24a36b9cadb7f5ad5818e3ad995cfef))
+
+## [6.24.13](https://github.com/lyne-design-system/lyne-components/compare/v6.24.12...v6.24.13) (2020-09-07)
+
+
+### Bug Fixes
+
+* test (triggered from Figma) (triggered from design tokens build) [skip ci] ([7143185](https://github.com/lyne-design-system/lyne-components/commit/7143185983f0d6278a7cbef84ce89beb7f63ec3f))
+
+## [6.24.12](https://github.com/lyne-design-system/lyne-components/compare/v6.24.11...v6.24.12) (2020-09-07)
+
+
+### Bug Fixes
+
+* test pipeline (triggered from Figma) (triggered from design tokens build) [skip ci] ([a6350be](https://github.com/lyne-design-system/lyne-components/commit/a6350bea06b8896fb259b20582df22a119940cae))
+
+## [6.24.11](https://github.com/lyne-design-system/lyne-components/compare/v6.24.10...v6.24.11) (2020-09-07)
+
+
+### Bug Fixes
+
+* test new pipeline (triggered from Figma) (triggered from design tokens build) [skip ci] ([ed0d4be](https://github.com/lyne-design-system/lyne-components/commit/ed0d4be776673abbe30790b8b7c1f6107debef4b))
+
+## [6.24.10](https://github.com/lyne-design-system/lyne-components/compare/v6.24.9...v6.24.10) (2020-09-07)
+
+
+### Bug Fixes
+
+* test (triggered from Figma) (triggered from design tokens build) [skip ci] ([96d1875](https://github.com/lyne-design-system/lyne-components/commit/96d187539edfb7687a66938c6254642c709ce3c4))
+
+## [6.24.9](https://github.com/lyne-design-system/lyne-components/compare/v6.24.8...v6.24.9) (2020-09-07)
+
+
+### Bug Fixes
+
+* test (triggered from Figma) (triggered from design tokens build) [skip ci] ([8cc7e13](https://github.com/lyne-design-system/lyne-components/commit/8cc7e13922e315b52eb770781af1e5db4e4836e9))
+
+## [6.24.8](https://github.com/lyne-design-system/lyne-components/compare/v6.24.7...v6.24.8) (2020-09-07)
+
+
+### Bug Fixes
+
+* test pipeline (triggered from Figma) (triggered from design tokens build) [skip ci] ([1ea09b9](https://github.com/lyne-design-system/lyne-components/commit/1ea09b936dd609d7ed97432d5b963f8218d03e4a))
+
+## [6.24.7](https://github.com/lyne-design-system/lyne-components/compare/v6.24.6...v6.24.7) (2020-09-03)
+
+
+### Bug Fixes
+
+* revert green to red (triggered from Figma) (triggered from design tokens build) [skip ci] ([db7b7c5](https://github.com/lyne-design-system/lyne-components/commit/db7b7c546cbea9c772ce3d40ba1a883a46340f97))
+
+## [6.24.6](https://github.com/lyne-design-system/lyne-components/compare/v6.24.5...v6.24.6) (2020-09-03)
+
+
+### Bug Fixes
+
+* change red to green (triggered from Figma) (triggered from design tokens build) [skip ci] ([df9d266](https://github.com/lyne-design-system/lyne-components/commit/df9d266e2c10812ddcd2dc090e6ff7a6812fb713))
+
+## [6.24.5](https://github.com/lyne-design-system/lyne-components/compare/v6.24.4...v6.24.5) (2020-09-02)
+
+
+### Bug Fixes
+
+* revert test-change (triggered from Figma) (triggered from design tokens build) [skip ci] ([543d335](https://github.com/lyne-design-system/lyne-components/commit/543d335e6746482b19e181a824617b1a6019416f))
+
+## [6.24.4](https://github.com/lyne-design-system/lyne-components/compare/v6.24.3...v6.24.4) (2020-09-02)
+
+
+### Bug Fixes
+
+* test workflow before review meeting (triggered from Figma) (triggered from design tokens build) [skip ci] ([b2e62f0](https://github.com/lyne-design-system/lyne-components/commit/b2e62f0d7146c6511a167864538fb54755d5ff0a))
+
+## [6.24.3](https://github.com/lyne-design-system/lyne-components/compare/v6.24.2...v6.24.3) (2020-08-31)
+
+
+### Bug Fixes
+
+* try worflow 2 (triggered from Figma) (triggered from design tokens build) [skip ci] ([dbb5a9a](https://github.com/lyne-design-system/lyne-components/commit/dbb5a9a2d372656613917c4b5310a7f64740d415))
+
+## [6.24.2](https://github.com/lyne-design-system/lyne-components/compare/v6.24.1...v6.24.2) (2020-08-31)
+
+
+### Bug Fixes
+
+* revert color red-regular from pink-ish back to red (triggered from Figma) (triggered from design tokens build) [skip ci] ([53d8aa3](https://github.com/lyne-design-system/lyne-components/commit/53d8aa37497ad5080052fed6092ecdbc02909394))
+
+## [6.24.1](https://github.com/lyne-design-system/lyne-components/compare/v6.24.0...v6.24.1) (2020-08-31)
+
+
+### Bug Fixes
+
+* change red-regular to pink-ish (triggered from Figma) (triggered from design tokens build) [skip ci] ([19555b5](https://github.com/lyne-design-system/lyne-components/commit/19555b5be66f7aa2e22c78e418e1dc2d1d8c7d5f))
+
 # [6.24.0](https://github.com/lyne-design-system/lyne-components/compare/v6.23.1...v6.24.0) (2020-08-27)
 
 
