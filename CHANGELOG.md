@@ -1,3 +1,55 @@
+# [8.1.0](https://github.com/lyne-design-system/lyne-components/compare/v8.0.0...v8.1.0) (2020-09-08)
+
+
+### Features
+
+* add minus icon (triggered from Figma) (triggered from icons build) [skip ci] ([57fadda](https://github.com/lyne-design-system/lyne-components/commit/57faddade4bc70c07dbfe91a8fe1dbf61c3cc213))
+
+# [8.0.0](https://github.com/lyne-design-system/lyne-components/compare/v7.1.0...v8.0.0) (2020-09-08)
+
+
+### Bug Fixes
+
+* second time try workflow for major change ([6a9cedc](https://github.com/lyne-design-system/lyne-components/commit/6a9cedcdc18d711f9c494b7361c0e48157668eb9))
+
+
+### BREAKING CHANGES
+
+* test major release (triggered from Figma) (triggered from icons build) [skip ci]
+
+# [7.1.0](https://github.com/lyne-design-system/lyne-components/compare/v7.0.0...v7.1.0) (2020-09-08)
+
+
+### Features
+
+* add minus icon (triggered from Figma) (triggered from icons build) [skip ci] ([bae5b96](https://github.com/lyne-design-system/lyne-components/commit/bae5b96ff7a80e8db252957517b6a11a6344d9bb))
+
+# [7.0.0](https://github.com/lyne-design-system/lyne-components/compare/v6.27.0...v7.0.0) (2020-09-08)
+
+
+### Bug Fixes
+
+* try workflow for major change ([e0b8991](https://github.com/lyne-design-system/lyne-components/commit/e0b89912edaaa9bba3092e5a89c8a562117759a7))
+
+
+### BREAKING CHANGES
+
+* test major release (triggered from Figma) (triggered from design tokens build) [skip ci]
+
+# [6.27.0](https://github.com/lyne-design-system/lyne-components/compare/v6.26.2...v6.27.0) (2020-09-08)
+
+
+### Features
+
+* add minus icon (triggered from Figma) (triggered from icons build) [skip ci] ([d94ef2e](https://github.com/lyne-design-system/lyne-components/commit/d94ef2ebd3d75f83d546726cdaa7fd47409ff8de))
+
+## [6.26.2](https://github.com/lyne-design-system/lyne-components/compare/v6.26.1...v6.26.2) (2020-09-08)
+
+
+### Bug Fixes
+
+* allow minor versions of lyne packages ([63cfb6a](https://github.com/lyne-design-system/lyne-components/commit/63cfb6a25dbb1aafcbe9dfea7ef1f3e385ec709b))
+
 ## [6.26.1](https://github.com/lyne-design-system/lyne-components/compare/v6.26.0...v6.26.1) (2020-09-08)
 
 
