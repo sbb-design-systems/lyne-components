@@ -14,7 +14,11 @@ const jestConfig = {
     'src',
     '/node_modules/'
   ],
-  testMatch: '**/?(*.)+(spec|e2e).ts?(x)'
+  testMatch: '**/?(*.)+(spec|e2e).ts?(x)',
+  moduleNameMapper: {
+    '\\.svg$': '<rootDir>/jestAssetsTransformer.js'
+  }
+
 };
 
 module.exports = jestConfig;
