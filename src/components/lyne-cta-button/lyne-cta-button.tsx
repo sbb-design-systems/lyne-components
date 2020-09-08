@@ -4,6 +4,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
+import Arrow from 'lyne-icons/dist/icons/lyne-arrow.svg';
 import events from './lyne-cta-button.events';
 import Tokens from 'lyne-design-tokens/dist/js/tokens.commonjs';
 
@@ -50,6 +51,9 @@ export class LyneCtaButton {
       fontSize: Tokens.SizeFontRegular
     };
 
-    return <button style={style} class='button' onClick={this.buttonClick}>{this.label}</button>;
+    return <button style={style} class='button' onClick={this.buttonClick}>
+      {this.label}
+      <div class='svg-container' innerHTML={Arrow} />
+    </button>;
   }
 }
