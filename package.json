@@ -71,7 +71,7 @@
     "jest": "26.4.2",
     "jest-cli": "26.4.2",
     "jsx-dom": "^6.4.15",
-    "lyne-design-tokens": "^2.7.3",
+    "lyne-design-tokens": "~2.7.3",
     "lyne-icons": "~1.1.0",
     "npm-run-all": "^4.1.5",
     "puppeteer": "5.2.1",
