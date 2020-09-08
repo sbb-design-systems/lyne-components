@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   padding: calc(#{$size-font-regular} / 2) $size-font-regular;
-	color: $color-white;
+	color: $color-white-regular;
   background-color: $color-red-regular;
   transition: background-color ease-in 200ms;
   border: none;
@@ -16,15 +16,15 @@
 
 .button:hover,
 .button:focus {
-  background-color: $color-red-medium;
+  background-color: $color-red-1;
 }
 
 .button:active {
-  background-color: $color-red-dark;
+  background-color: $color-red-2;
 }
 
 .arrow {
-  color: $color-white;
+  color: $color-white-regular;
   width: 1.5rem;
   height: 1.5rem;
   padding-left: .5rem;
