@@ -1,3 +1,10 @@
+## [6.26.2](https://github.com/lyne-design-system/lyne-components/compare/v6.26.1...v6.26.2) (2020-09-08)
+
+
+### Bug Fixes
+
+* allow minor versions of lyne packages ([63cfb6a](https://github.com/lyne-design-system/lyne-components/commit/63cfb6a25dbb1aafcbe9dfea7ef1f3e385ec709b))
+
 ## [6.26.1](https://github.com/lyne-design-system/lyne-components/compare/v6.26.0...v6.26.1) (2020-09-08)
 
 
