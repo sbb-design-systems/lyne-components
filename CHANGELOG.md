@@ -1,3 +1,15 @@
+# [7.0.0](https://github.com/lyne-design-system/lyne-components/compare/v6.27.0...v7.0.0) (2020-09-08)
+
+
+### Bug Fixes
+
+* try workflow for major change ([e0b8991](https://github.com/lyne-design-system/lyne-components/commit/e0b89912edaaa9bba3092e5a89c8a562117759a7))
+
+
+### BREAKING CHANGES
+
+* test major release (triggered from Figma) (triggered from design tokens build) [skip ci]
+
 # [6.27.0](https://github.com/lyne-design-system/lyne-components/compare/v6.26.2...v6.27.0) (2020-09-08)
 
 
