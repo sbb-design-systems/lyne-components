@@ -1,3 +1,10 @@
+# [6.27.0](https://github.com/lyne-design-system/lyne-components/compare/v6.26.2...v6.27.0) (2020-09-08)
+
+
+### Features
+
+* add minus icon (triggered from Figma) (triggered from icons build) [skip ci] ([d94ef2e](https://github.com/lyne-design-system/lyne-components/commit/d94ef2ebd3d75f83d546726cdaa7fd47409ff8de))
+
 ## [6.26.2](https://github.com/lyne-design-system/lyne-components/compare/v6.26.1...v6.26.2) (2020-09-08)
 
 
