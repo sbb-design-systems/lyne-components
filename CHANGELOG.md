@@ -1,3 +1,15 @@
+# [8.0.0](https://github.com/lyne-design-system/lyne-components/compare/v7.1.0...v8.0.0) (2020-09-08)
+
+
+### Bug Fixes
+
+* second time try workflow for major change ([6a9cedc](https://github.com/lyne-design-system/lyne-components/commit/6a9cedcdc18d711f9c494b7361c0e48157668eb9))
+
+
+### BREAKING CHANGES
+
+* test major release (triggered from Figma) (triggered from icons build) [skip ci]
+
 # [7.1.0](https://github.com/lyne-design-system/lyne-components/compare/v7.0.0...v7.1.0) (2020-09-08)
 
 
