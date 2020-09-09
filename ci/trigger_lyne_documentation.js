@@ -3,7 +3,7 @@ const shell = require('shelljs');
 const triggerTravis = require('lyne-helper-trigger-travis');
 
 (async () => {
-  console.log('-->> trigger build on lyne-documentation');
+  console.log('-->> trigger build on lyne-documentation.');
 
   const token = argv(process.argv.slice(2))['t'];
 
