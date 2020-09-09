@@ -1,3 +1,25 @@
+## [8.1.3](https://github.com/lyne-design-system/lyne-components/compare/v8.1.2...v8.1.3) (2020-09-09)
+
+
+### Bug Fixes
+
+* changed font face to SBBWeb, added border-radius frame with 4 radius variants (triggered from Figma) (triggered from design tokens build) [skip ci] ([a000cb9](https://github.com/lyne-design-system/lyne-components/commit/a000cb9b70da4518d2d02a5bf189b969d9acaae2))
+
+## [8.1.2](https://github.com/lyne-design-system/lyne-components/compare/v8.1.1...v8.1.2) (2020-09-09)
+
+
+### Bug Fixes
+
+* update helper trigger travis [skip ci] ([c27a5a5](https://github.com/lyne-design-system/lyne-components/commit/c27a5a5d3c45707bf38022e349c505dcc1cd5d41))
+
+## [8.1.1](https://github.com/lyne-design-system/lyne-components/compare/v8.1.0...v8.1.1) (2020-09-08)
+
+
+### Bug Fixes
+
+* fake commit to trigger release ([e7c33b9](https://github.com/lyne-design-system/lyne-components/commit/e7c33b9e439416008bbaaf2df50261ec4d144e94))
+* fake commit to trigger release ([c8614b7](https://github.com/lyne-design-system/lyne-components/commit/c8614b759a21298fe01871b5acc96bcff5f13786))
+
 # [8.1.0](https://github.com/lyne-design-system/lyne-components/compare/v8.0.0...v8.1.0) (2020-09-08)
 
 
