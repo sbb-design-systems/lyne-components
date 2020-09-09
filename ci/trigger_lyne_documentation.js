@@ -11,7 +11,7 @@ const triggerTravis = require('lyne-helper-trigger-travis');
     branchName: 'master',
     message: 'triggered by lyne-components change',
     travisToken: token,
-    travisUrl: 'https://api.travis-ci.org/repo/lyne-design-system%2Flyne-components/requests'
+    travisUrl: 'https://api.travis-ci.org/repo/lyne-design-system%2Flyne-documentation/requests'
   });
 
   shell.exit(0);
