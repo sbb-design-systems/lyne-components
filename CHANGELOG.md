@@ -1,3 +1,10 @@
+## [8.1.2](https://github.com/lyne-design-system/lyne-components/compare/v8.1.1...v8.1.2) (2020-09-09)
+
+
+### Bug Fixes
+
+* update helper trigger travis [skip ci] ([c27a5a5](https://github.com/lyne-design-system/lyne-components/commit/c27a5a5d3c45707bf38022e349c505dcc1cd5d41))
+
 ## [8.1.1](https://github.com/lyne-design-system/lyne-components/compare/v8.1.0...v8.1.1) (2020-09-08)
 
 
