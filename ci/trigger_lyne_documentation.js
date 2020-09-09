@@ -3,8 +3,6 @@ const shell = require('shelljs');
 const triggerTravis = require('lyne-helper-trigger-travis');
 
 (async () => {
-  console.log('-->> trigger build on lyne-documentation.');
-
   const token = argv(process.argv.slice(2))['t'];
 
   await triggerTravis({
@@ -12,7 +10,15 @@ const triggerTravis = require('lyne-helper-trigger-travis');
     message: 'triggered by lyne-components change',
     travisToken: token,
     travisUrl: 'https://api.travis-ci.org/repo/lyne-design-system%2Flyne-documentation/requests'
-  });
+  })
+    .then(() => {
+      console.log('-->> triggered build on lyne-documentation');
+      shell.exit(0);
+    })
+    .catch((error) => {
+      console.log('-->> error while triggering build on lyne-documentation');
+      console.log(error);
+      shell.exit(1);
+    });
 
-  shell.exit(0);
 })();
