@@ -1,3 +1,10 @@
+## [8.1.6](https://github.com/lyne-design-system/lyne-components/compare/v8.1.5...v8.1.6) (2020-09-09)
+
+
+### Bug Fixes
+
+* use correct url for travis trigger url ([9e0e0b6](https://github.com/lyne-design-system/lyne-components/commit/9e0e0b65b2e9b263246673761025cece045951e6))
+
 ## [8.1.5](https://github.com/lyne-design-system/lyne-components/compare/v8.1.4...v8.1.5) (2020-09-09)
 
 
