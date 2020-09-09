@@ -1,3 +1,10 @@
+## [8.1.5](https://github.com/lyne-design-system/lyne-components/compare/v8.1.4...v8.1.5) (2020-09-09)
+
+
+### Bug Fixes
+
+* fake commit to trigger release ([c5e5957](https://github.com/lyne-design-system/lyne-components/commit/c5e5957a0431d921f3a3536ca296b9903617392c))
+
 ## [8.1.4](https://github.com/lyne-design-system/lyne-components/compare/v8.1.3...v8.1.4) (2020-09-09)
 
 
