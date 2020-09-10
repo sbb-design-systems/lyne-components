@@ -1,3 +1,10 @@
+## [8.1.7](https://github.com/lyne-design-system/lyne-components/compare/v8.1.6...v8.1.7) (2020-09-10)
+
+
+### Bug Fixes
+
+* changed Headline 1 font-size from 64px to 40px (triggered from Figma) (triggered from design tokens build) [skip ci] ([bf80fbc](https://github.com/lyne-design-system/lyne-components/commit/bf80fbcb06ff9453cd5091dc2031a3a181992743))
+
 ## [8.1.6](https://github.com/lyne-design-system/lyne-components/compare/v8.1.5...v8.1.6) (2020-09-09)
 
 
