@@ -4,7 +4,6 @@ src/components.d.ts
 src/components/**/*.stories.js
 storybook-static/
 www/
-.eslintrc.js
 
 # not ignored folders/files
 !.travis.yml
