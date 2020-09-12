@@ -1,3 +1,10 @@
+## [8.1.9](https://github.com/lyne-design-system/lyne-components/compare/v8.1.8...v8.1.9) (2020-09-12)
+
+
+### Bug Fixes
+
+* use figma api helper (fake fix commit to trigger release) (triggered from design tokens build) [skip ci] ([eed6f64](https://github.com/lyne-design-system/lyne-components/commit/eed6f64d0fd87126568b8be1e3db0f92f9f7e405))
+
 ## [8.1.8](https://github.com/lyne-design-system/lyne-components/compare/v8.1.7...v8.1.8) (2020-09-12)
 
 
