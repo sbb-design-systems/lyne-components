@@ -1,3 +1,10 @@
+## [8.1.8](https://github.com/lyne-design-system/lyne-components/compare/v8.1.7...v8.1.8) (2020-09-12)
+
+
+### Bug Fixes
+
+* use lyne figma helper (triggered from icons build) [skip ci] ([40402ec](https://github.com/lyne-design-system/lyne-components/commit/40402eca2efb1bd055b042663045cec7c89b56c2))
+
 ## [8.1.7](https://github.com/lyne-design-system/lyne-components/compare/v8.1.6...v8.1.7) (2020-09-10)
 
 
