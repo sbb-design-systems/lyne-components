@@ -1,3 +1,10 @@
+## [8.1.10](https://github.com/lyne-design-system/lyne-components/compare/v8.1.9...v8.1.10) (2020-09-13)
+
+
+### Bug Fixes
+
+* update lyne-helper-figma-api (triggered from icons build) [skip ci] ([0d726fa](https://github.com/lyne-design-system/lyne-components/commit/0d726faa1311e21ba78c0508c80ad2317f2e7aca))
+
 ## [8.1.9](https://github.com/lyne-design-system/lyne-components/compare/v8.1.8...v8.1.9) (2020-09-12)
 
 
