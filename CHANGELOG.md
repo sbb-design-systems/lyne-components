@@ -1,3 +1,10 @@
+## [8.1.12](https://github.com/lyne-design-system/lyne-components/compare/v8.1.11...v8.1.12) (2020-09-13)
+
+
+### Bug Fixes
+
+* update deps ([6381c8a](https://github.com/lyne-design-system/lyne-components/commit/6381c8a2cfde6119343d8d0eec2e8bec47275ca7))
+
 ## [8.1.11](https://github.com/lyne-design-system/lyne-components/compare/v8.1.10...v8.1.11) (2020-09-13)
 
 
