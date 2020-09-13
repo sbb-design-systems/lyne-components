@@ -1,3 +1,10 @@
+## [8.1.13](https://github.com/lyne-design-system/lyne-components/compare/v8.1.12...v8.1.13) (2020-09-13)
+
+
+### Bug Fixes
+
+* update trigger helper (triggered from icons build) [skip ci] ([936e28b](https://github.com/lyne-design-system/lyne-components/commit/936e28bbcf2b0bcd1254360de19971898df7b145))
+
 ## [8.1.12](https://github.com/lyne-design-system/lyne-components/compare/v8.1.11...v8.1.12) (2020-09-13)
 
 
