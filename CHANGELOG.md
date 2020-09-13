@@ -1,3 +1,10 @@
+## [8.1.11](https://github.com/lyne-design-system/lyne-components/compare/v8.1.10...v8.1.11) (2020-09-13)
+
+
+### Bug Fixes
+
+* fake commit to trigger release (triggered from icons build) [skip ci] ([bb014a6](https://github.com/lyne-design-system/lyne-components/commit/bb014a644fd1de24b71e3c9adb10ff5f27bafd18))
+
 ## [8.1.10](https://github.com/lyne-design-system/lyne-components/compare/v8.1.9...v8.1.10) (2020-09-13)
 
 
