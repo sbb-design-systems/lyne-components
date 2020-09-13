@@ -1,3 +1,10 @@
+## [8.1.14](https://github.com/lyne-design-system/lyne-components/compare/v8.1.13...v8.1.14) (2020-09-13)
+
+
+### Bug Fixes
+
+* update travis trigger ([433f3af](https://github.com/lyne-design-system/lyne-components/commit/433f3aff041a65a4722cf7312d858c3911fa0855))
+
 ## [8.1.13](https://github.com/lyne-design-system/lyne-components/compare/v8.1.12...v8.1.13) (2020-09-13)
 
 
