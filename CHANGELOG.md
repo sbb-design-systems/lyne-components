@@ -1,3 +1,10 @@
+## [8.1.17](https://github.com/lyne-design-system/lyne-components/compare/v8.1.16...v8.1.17) (2020-09-14)
+
+
+### Bug Fixes
+
+* try workflow with release (triggered from icons build) [skip ci] ([8807d4e](https://github.com/lyne-design-system/lyne-components/commit/8807d4e0320d833d76216de6d2680a60da384666))
+
 ## [8.1.16](https://github.com/lyne-design-system/lyne-components/compare/v8.1.15...v8.1.16) (2020-09-14)
 
 
