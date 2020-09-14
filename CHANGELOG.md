@@ -1,3 +1,10 @@
+## [8.1.19](https://github.com/lyne-design-system/lyne-components/compare/v8.1.18...v8.1.19) (2020-09-14)
+
+
+### Bug Fixes
+
+* revert green to red (triggered from Figma) (triggered from design tokens build) [skip ci] ([3b3b09c](https://github.com/lyne-design-system/lyne-components/commit/3b3b09cea66e467152377a06717dd1b43ffc1f3e))
+
 ## [8.1.18](https://github.com/lyne-design-system/lyne-components/compare/v8.1.17...v8.1.18) (2020-09-14)
 
 
