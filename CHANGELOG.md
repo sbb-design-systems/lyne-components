@@ -1,3 +1,10 @@
+## [8.1.16](https://github.com/lyne-design-system/lyne-components/compare/v8.1.15...v8.1.16) (2020-09-14)
+
+
+### Bug Fixes
+
+* make sure thatw documentation is build an branch builds as well ([8e855e3](https://github.com/lyne-design-system/lyne-components/commit/8e855e38f07d0bb260982eb4159ca1017cf52796))
+
 ## [8.1.15](https://github.com/lyne-design-system/lyne-components/compare/v8.1.14...v8.1.15) (2020-09-14)
 
 
