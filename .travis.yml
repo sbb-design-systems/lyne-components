@@ -124,3 +124,6 @@ jobs:
 
         # Build and deploy the deployments page
         - ./ci/deployments.sh
+
+        # trigger a build on lyne-documentation
+        - node ./ci/trigger_lyne_documentation.js -t $TRAVIS_TOKEN
