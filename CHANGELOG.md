@@ -1,3 +1,10 @@
+## [8.1.20](https://github.com/lyne-design-system/lyne-components/compare/v8.1.19...v8.1.20) (2020-09-21)
+
+
+### Bug Fixes
+
+* change (triggered from Figma) (triggered from design tokens build) [skip ci] ([5c9114a](https://github.com/lyne-design-system/lyne-components/commit/5c9114aadd27dde7407569408e60660ba0fa7714))
+
 ## [8.1.19](https://github.com/lyne-design-system/lyne-components/compare/v8.1.18...v8.1.19) (2020-09-14)
 
 
