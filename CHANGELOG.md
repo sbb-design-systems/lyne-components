@@ -1,3 +1,10 @@
+## [8.1.21](https://github.com/lyne-design-system/lyne-components/compare/v8.1.20...v8.1.21) (2020-09-21)
+
+
+### Bug Fixes
+
+* revert color to white (triggered from Figma) (triggered from design tokens build) [skip ci] ([e35ebc1](https://github.com/lyne-design-system/lyne-components/commit/e35ebc1667e095ca2e975471eeceefccb5658d5a))
+
 ## [8.1.20](https://github.com/lyne-design-system/lyne-components/compare/v8.1.19...v8.1.20) (2020-09-21)
 
 
