@@ -21,10 +21,10 @@ const {
       shell.exit(0);
     }
 
-    console.log('-->> This is build triggered via API, therefore update lyne-design-tokens');
+    console.log('-->> This build is triggered via API, therefore update lyne-design-tokens');
 
     // install lyne design tokens
-    shell.exec('npm install --save-dev lyne-design-tokens');
+    shell.exec('npm install --save-dev lyne-design-tokens@latest lyne-icons@latest');
 
     // commit package.json
     const commitMessage = `${await getCommit(buildId)} [skip ci]`;
