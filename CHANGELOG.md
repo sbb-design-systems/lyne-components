@@ -1,3 +1,11 @@
+## [8.1.23](https://github.com/lyne-design-system/lyne-components/compare/v8.1.22...v8.1.23) (2020-09-23)
+
+
+### Bug Fixes
+
+* don't install icons and tokens separately for branch builds ([96ac347](https://github.com/lyne-design-system/lyne-components/commit/96ac347b8dd8df61bc800ea23e2c0282ccde9985))
+* try to authenticate via set-url (triggered from icons build) [skip ci] ([8addbf5](https://github.com/lyne-design-system/lyne-components/commit/8addbf5b84ae66a6b40c60449ebbf307d72ad9fa))
+
 ## [8.1.22](https://github.com/lyne-design-system/lyne-components/compare/v8.1.21...v8.1.22) (2020-09-23)
 
 
