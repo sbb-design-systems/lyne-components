@@ -92,7 +92,6 @@ jobs:
 
         # install dependencies
         - npm install
-        - npm install lyne-design-tokens@latest lyne-icons@latest --save-dev
 
         # Lint
         - npm run lint || travis_terminate 1
