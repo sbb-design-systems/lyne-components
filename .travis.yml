@@ -41,11 +41,10 @@ jobs:
 
         # install dependencies
         - npm install
-        - npm install lyne-design-tokens@latest lyne-icons@latest --save-dev
 
-        # it may me that we get an api request from design-tokens build. in that
-        # case, we need to install lyne-design-tokens an make an according
-        # commit
+        # it may be that we get an api request from design-tokens build. in that
+        # case, we need to install lyne-design-tokens and lyne-icons
+        # an make an according commit
         - node ./ci/designTokensUpdate.js --eventType=$TRAVIS_EVENT_TYPE --buildId=$TRAVIS_BUILD_ID
 
         # lint
