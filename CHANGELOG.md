@@ -1,3 +1,10 @@
+## [8.1.25](https://github.com/lyne-design-system/lyne-components/compare/v8.1.24...v8.1.25) (2020-09-23)
+
+
+### Bug Fixes
+
+* fix issue with async copy method (triggered from icons build) [skip ci] ([5924602](https://github.com/lyne-design-system/lyne-components/commit/5924602d3d877166c00b5bd9aa810a84f9c2a7de))
+
 ## [8.1.24](https://github.com/lyne-design-system/lyne-components/compare/v8.1.23...v8.1.24) (2020-09-23)
 
 
