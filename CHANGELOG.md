@@ -1,3 +1,15 @@
+# [9.0.0](https://github.com/lyne-design-system/lyne-components/compare/v8.2.0...v9.0.0) (2020-09-23)
+
+
+### Features
+
+* manually increment version, try to fix semantic-release mismatch ([93adc9d](https://github.com/lyne-design-system/lyne-components/commit/93adc9d814ac2999871b57532fed91f7f3a72c48))
+
+
+### BREAKING CHANGES
+
+* trigger major release (triggered from icons build) [skip ci]
+
 # [8.2.0](https://github.com/lyne-design-system/lyne-components/compare/v8.1.25...v8.2.0) (2020-09-23)
 
 
