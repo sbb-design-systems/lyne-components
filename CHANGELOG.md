@@ -1,3 +1,10 @@
+## [8.1.22](https://github.com/lyne-design-system/lyne-components/compare/v8.1.21...v8.1.22) (2020-09-23)
+
+
+### Bug Fixes
+
+* make sure that newest version of lyne-icons are installed ([3e6039d](https://github.com/lyne-design-system/lyne-components/commit/3e6039de3993a620dab7429ffed6d8f9a1dae357))
+
 ## [8.1.21](https://github.com/lyne-design-system/lyne-components/compare/v8.1.20...v8.1.21) (2020-09-21)
 
 
