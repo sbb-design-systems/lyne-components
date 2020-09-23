@@ -1,3 +1,10 @@
+# [8.2.0](https://github.com/lyne-design-system/lyne-components/compare/v8.1.25...v8.2.0) (2020-09-23)
+
+
+### Features
+
+* test feature workflow (triggered from icons build) [skip ci] ([8618eb3](https://github.com/lyne-design-system/lyne-components/commit/8618eb33f011d71d36e9f1cf705e650a56ada55e))
+
 ## [8.1.25](https://github.com/lyne-design-system/lyne-components/compare/v8.1.24...v8.1.25) (2020-09-23)
 
 
