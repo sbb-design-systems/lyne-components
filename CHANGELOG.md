@@ -1,3 +1,10 @@
+## [8.1.24](https://github.com/lyne-design-system/lyne-components/compare/v8.1.23...v8.1.24) (2020-09-23)
+
+
+### Bug Fixes
+
+* use force push (triggered from icons build) [skip ci] ([3aa2731](https://github.com/lyne-design-system/lyne-components/commit/3aa273141a2357a62e5d633e5954e4988fd8a09e))
+
 ## [8.1.23](https://github.com/lyne-design-system/lyne-components/compare/v8.1.22...v8.1.23) (2020-09-23)
 
 
