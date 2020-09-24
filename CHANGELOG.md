@@ -1,3 +1,10 @@
+# [9.3.0](https://github.com/lyne-design-system/lyne-components/compare/v9.2.3...v9.3.0) (2020-09-24)
+
+
+### Features
+
+* add (triggered from Figma) (triggered from icons build) [skip ci] ([bb915c5](https://github.com/lyne-design-system/lyne-components/commit/bb915c550430e20b88b2b25888f655c577e7c86f))
+
 ## [9.2.3](https://github.com/lyne-design-system/lyne-components/compare/v9.2.2...v9.2.3) (2020-09-24)
 
 
