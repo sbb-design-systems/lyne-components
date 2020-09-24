@@ -134,6 +134,7 @@
 - [x] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
 - [ ] chromatic sometimes takes a snapshot before a component has loaded in the dom. we currently add a delay of 1000ms to chromatic inside the stories files to prevent that. Probably, chromatic will imporove and we can remove the delay.
 - Upload to codecov.io runs always into a timeout: `curl: (7) Failed to connect to codecov.io port 443: Connection timed out`
+- [ ] travis.yml, for master builds -> designTokensUpdate -> this might install newer versions of design-tokens and icons. after that, if no new version is released by semantic release, we must manually comit package.json and lock file and push it back to the repo.
 
 #### Check
 ✅ Nothing to check
