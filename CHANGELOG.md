@@ -1,3 +1,10 @@
+## [9.4.3](https://github.com/lyne-design-system/lyne-components/compare/v9.4.2...v9.4.3) (2020-09-24)
+
+
+### Bug Fixes
+
+* test (triggered from Figma) (triggered from icons build) [skip ci] ([1e771b6](https://github.com/lyne-design-system/lyne-components/commit/1e771b68274b1a8e144071c2a0dc83d48926fa8b))
+
 ## [9.4.2](https://github.com/lyne-design-system/lyne-components/compare/v9.4.1...v9.4.2) (2020-09-24)
 
 
