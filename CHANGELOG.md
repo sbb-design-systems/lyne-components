@@ -1,3 +1,10 @@
+## [9.2.1](https://github.com/lyne-design-system/lyne-components/compare/v9.2.0...v9.2.1) (2020-09-24)
+
+
+### Bug Fixes
+
+* linting issue (triggered from icons build) [skip ci] ([33062b5](https://github.com/lyne-design-system/lyne-components/commit/33062b53d7c219e9b30fec7a3b9054aaf356d63a))
+
 # [9.2.0](https://github.com/lyne-design-system/lyne-components/compare/v9.1.1...v9.2.0) (2020-09-24)
 
 
