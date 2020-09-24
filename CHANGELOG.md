@@ -1,3 +1,10 @@
+## [9.2.3](https://github.com/lyne-design-system/lyne-components/compare/v9.2.2...v9.2.3) (2020-09-24)
+
+
+### Bug Fixes
+
+* fake commit to trigger release (triggered from icons build) [skip ci] ([cbf20a6](https://github.com/lyne-design-system/lyne-components/commit/cbf20a65f6166fe0b563ab6532f3b0cb07e777c7))
+
 ## [9.2.2](https://github.com/lyne-design-system/lyne-components/compare/v9.2.1...v9.2.2) (2020-09-24)
 
 
