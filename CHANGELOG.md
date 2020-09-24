@@ -1,3 +1,10 @@
+## [9.4.1](https://github.com/lyne-design-system/lyne-components/compare/v9.4.0...v9.4.1) (2020-09-24)
+
+
+### Bug Fixes
+
+* correctly sort versions for html file (triggered from icons build) [skip ci] ([03aa782](https://github.com/lyne-design-system/lyne-components/commit/03aa78244ce8a913488bf5d76c1442f96d12507d))
+
 # [9.4.0](https://github.com/lyne-design-system/lyne-components/compare/v9.3.2...v9.4.0) (2020-09-24)
 
 
