@@ -1,3 +1,10 @@
+# [9.4.0](https://github.com/lyne-design-system/lyne-components/compare/v9.3.2...v9.4.0) (2020-09-24)
+
+
+### Features
+
+* create versions.json and index.html (triggered from icons build) [skip ci] ([523bb78](https://github.com/lyne-design-system/lyne-components/commit/523bb78dc875e916ab3af8d0970ca0717af47838))
+
 ## [9.3.2](https://github.com/lyne-design-system/lyne-components/compare/v9.3.1...v9.3.2) (2020-09-24)
 
 
