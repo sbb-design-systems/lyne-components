@@ -1,3 +1,10 @@
+## [9.2.2](https://github.com/lyne-design-system/lyne-components/compare/v9.2.1...v9.2.2) (2020-09-24)
+
+
+### Bug Fixes
+
+* add log (triggered from icons build) [skip ci] ([6b5899c](https://github.com/lyne-design-system/lyne-components/commit/6b5899caa63da3571571f1d57cb8b4b0b1c3a9bb))
+
 ## [9.2.1](https://github.com/lyne-design-system/lyne-components/compare/v9.2.0...v9.2.1) (2020-09-24)
 
 
