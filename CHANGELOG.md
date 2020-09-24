@@ -1,3 +1,10 @@
+## [9.1.1](https://github.com/lyne-design-system/lyne-components/compare/v9.1.0...v9.1.1) (2020-09-24)
+
+
+### Bug Fixes
+
+* remove obsolete git.add (triggered from icons build) [skip ci] ([aa3de4e](https://github.com/lyne-design-system/lyne-components/commit/aa3de4e91acce428a9f37dbd531c0219a4a9bce2))
+
 # [9.1.0](https://github.com/lyne-design-system/lyne-components/compare/v9.0.0...v9.1.0) (2020-09-23)
 
 
