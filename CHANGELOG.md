@@ -1,3 +1,10 @@
+## [9.4.2](https://github.com/lyne-design-system/lyne-components/compare/v9.4.1...v9.4.2) (2020-09-24)
+
+
+### Bug Fixes
+
+* install netlify (triggered from design tokens build) [skip ci] ([92fc1d9](https://github.com/lyne-design-system/lyne-components/commit/92fc1d9bf949fd89d747a7707359ed53c48b54da))
+
 ## [9.4.1](https://github.com/lyne-design-system/lyne-components/compare/v9.4.0...v9.4.1) (2020-09-24)
 
 
