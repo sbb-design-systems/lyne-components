@@ -1,3 +1,10 @@
+## [9.4.4](https://github.com/lyne-design-system/lyne-components/compare/v9.4.3...v9.4.4) (2020-09-28)
+
+
+### Bug Fixes
+
+* readding minus file (triggered from Figma) (triggered from icons build) [skip ci] ([b5372d6](https://github.com/lyne-design-system/lyne-components/commit/b5372d6c26944a1a59690526328695879097b474))
+
 ## [9.4.3](https://github.com/lyne-design-system/lyne-components/compare/v9.4.2...v9.4.3) (2020-09-24)
 
 
