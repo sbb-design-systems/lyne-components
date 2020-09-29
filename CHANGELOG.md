@@ -1,3 +1,59 @@
+## [9.4.5](https://github.com/lyne-design-system/lyne-components/compare/v9.4.4...v9.4.5) (2020-09-28)
+
+
+### Bug Fixes
+
+* readding minus file (triggered from Figma) (triggered from icons build) [skip ci] ([87f5099](https://github.com/lyne-design-system/lyne-components/commit/87f50998d241f0127b1b8119e119aa07f85238a0))
+
+## [9.4.4](https://github.com/lyne-design-system/lyne-components/compare/v9.4.3...v9.4.4) (2020-09-28)
+
+
+### Bug Fixes
+
+* readding minus file (triggered from Figma) (triggered from icons build) [skip ci] ([b5372d6](https://github.com/lyne-design-system/lyne-components/commit/b5372d6c26944a1a59690526328695879097b474))
+
+## [9.4.3](https://github.com/lyne-design-system/lyne-components/compare/v9.4.2...v9.4.3) (2020-09-24)
+
+
+### Bug Fixes
+
+* test (triggered from Figma) (triggered from icons build) [skip ci] ([1e771b6](https://github.com/lyne-design-system/lyne-components/commit/1e771b68274b1a8e144071c2a0dc83d48926fa8b))
+
+## [9.4.2](https://github.com/lyne-design-system/lyne-components/compare/v9.4.1...v9.4.2) (2020-09-24)
+
+
+### Bug Fixes
+
+* install netlify (triggered from design tokens build) [skip ci] ([92fc1d9](https://github.com/lyne-design-system/lyne-components/commit/92fc1d9bf949fd89d747a7707359ed53c48b54da))
+
+## [9.4.1](https://github.com/lyne-design-system/lyne-components/compare/v9.4.0...v9.4.1) (2020-09-24)
+
+
+### Bug Fixes
+
+* correctly sort versions for html file (triggered from icons build) [skip ci] ([03aa782](https://github.com/lyne-design-system/lyne-components/commit/03aa78244ce8a913488bf5d76c1442f96d12507d))
+
+# [9.4.0](https://github.com/lyne-design-system/lyne-components/compare/v9.3.2...v9.4.0) (2020-09-24)
+
+
+### Features
+
+* create versions.json and index.html (triggered from icons build) [skip ci] ([523bb78](https://github.com/lyne-design-system/lyne-components/commit/523bb78dc875e916ab3af8d0970ca0717af47838))
+
+## [9.3.2](https://github.com/lyne-design-system/lyne-components/compare/v9.3.1...v9.3.2) (2020-09-24)
+
+
+### Bug Fixes
+
+* readding minus file (triggered from Figma) (triggered from icons build) [skip ci] ([34afe38](https://github.com/lyne-design-system/lyne-components/commit/34afe38812cdbc73738506e775a97341e19bf97d))
+
+## [9.3.1](https://github.com/lyne-design-system/lyne-components/compare/v9.3.0...v9.3.1) (2020-09-24)
+
+
+### Bug Fixes
+
+* test add 3 (triggered from Figma) (triggered from icons build) [skip ci] ([b7949bd](https://github.com/lyne-design-system/lyne-components/commit/b7949bdf43943b6dade325551c2895f421a740b3))
+
 # [9.3.0](https://github.com/lyne-design-system/lyne-components/compare/v9.2.3...v9.3.0) (2020-09-24)
 
 
