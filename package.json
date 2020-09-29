@@ -57,7 +57,7 @@
     "@storybook/addon-knobs": "^6.0.21",
     "@storybook/html": "^6.0.21",
     "@types/jest": "26.0.10",
-    "@types/puppeteer": "3.0.1",
+    "@types/puppeteer": "3.0.2",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "axios": "^0.20.0",
