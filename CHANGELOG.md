@@ -1,3 +1,10 @@
+## [9.6.2](https://github.com/lyne-design-system/lyne-components/compare/v9.6.1...v9.6.2) (2020-09-30)
+
+
+### Bug Fixes
+
+* fix white color (triggered from Figma) (triggered from design tokens build) [skip ci] ([a6bdd05](https://github.com/lyne-design-system/lyne-components/commit/a6bdd05e5108d757aa90f2477fbd70ccba87285b))
+
 ## [9.6.1](https://github.com/lyne-design-system/lyne-components/compare/v9.6.0...v9.6.1) (2020-09-30)
 
 
