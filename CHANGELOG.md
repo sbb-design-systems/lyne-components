@@ -1,3 +1,10 @@
+## [9.6.3](https://github.com/lyne-design-system/lyne-components/compare/v9.6.2...v9.6.3) (2020-10-05)
+
+
+### Bug Fixes
+
+* change accent color to green (triggered from Figma) (triggered from design tokens build) [skip ci] ([b98f2b6](https://github.com/lyne-design-system/lyne-components/commit/b98f2b641b396f08d66b7b93267bd179ce10d91d))
+
 ## [9.6.2](https://github.com/lyne-design-system/lyne-components/compare/v9.6.1...v9.6.2) (2020-09-30)
 
 
