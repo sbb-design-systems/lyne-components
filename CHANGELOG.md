@@ -1,3 +1,45 @@
+## [9.6.4](https://github.com/lyne-design-system/lyne-components/compare/v9.6.3...v9.6.4) (2020-10-05)
+
+
+### Bug Fixes
+
+* correct color (triggered from Figma) (triggered from design tokens build) [skip ci] ([9fcc0d9](https://github.com/lyne-design-system/lyne-components/commit/9fcc0d914fd876c76b1fa03a97203da769bc7c7f))
+
+## [9.6.3](https://github.com/lyne-design-system/lyne-components/compare/v9.6.2...v9.6.3) (2020-10-05)
+
+
+### Bug Fixes
+
+* change accent color to green (triggered from Figma) (triggered from design tokens build) [skip ci] ([b98f2b6](https://github.com/lyne-design-system/lyne-components/commit/b98f2b641b396f08d66b7b93267bd179ce10d91d))
+
+## [9.6.2](https://github.com/lyne-design-system/lyne-components/compare/v9.6.1...v9.6.2) (2020-09-30)
+
+
+### Bug Fixes
+
+* fix white color (triggered from Figma) (triggered from design tokens build) [skip ci] ([a6bdd05](https://github.com/lyne-design-system/lyne-components/commit/a6bdd05e5108d757aa90f2477fbd70ccba87285b))
+
+## [9.6.1](https://github.com/lyne-design-system/lyne-components/compare/v9.6.0...v9.6.1) (2020-09-30)
+
+
+### Bug Fixes
+
+* test change white color to gray (triggered from Figma) (triggered from design tokens build) [skip ci] ([7e0d3da](https://github.com/lyne-design-system/lyne-components/commit/7e0d3da0b80b94b3c312a5f205d08596b5042ba5))
+
+# [9.6.0](https://github.com/lyne-design-system/lyne-components/compare/v9.5.0...v9.6.0) (2020-09-30)
+
+
+### Features
+
+* add minus (triggered from Figma) (triggered from icons build) [skip ci] ([918a43d](https://github.com/lyne-design-system/lyne-components/commit/918a43d8c5942b09dac58486d5816597c95f980d))
+
+# [9.5.0](https://github.com/lyne-design-system/lyne-components/compare/v9.4.5...v9.5.0) (2020-09-30)
+
+
+### Features
+
+* add minus (triggered from Figma) (triggered from icons build) [skip ci] ([2cdc939](https://github.com/lyne-design-system/lyne-components/commit/2cdc939fb36a6db5c781b49bf3ab13bf2a05b5c3))
+
 ## [9.4.5](https://github.com/lyne-design-system/lyne-components/compare/v9.4.4...v9.4.5) (2020-09-28)
 
 
