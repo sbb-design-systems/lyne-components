@@ -8,7 +8,7 @@ Only commits that adhere to the `Conventional Commits` standard ([https://www.co
 To make sure developers properly style their commit messages, we use `husky` together with `commit-lint`.
 
 ## Tools
-- [Travis](https://travis-ci.org/): CI & CD is done on Travis CI.
+- [Travis](https://travis-ci.com/): CI & CD is done on Travis CI.
 - [GitHub](https://github.com/lyne-design-system/lyne-components): Travis listens to changes in any branch on this repo.
 - [Netlify](https://app.netlify.com/): The storybook build and the deployments page are deployed to Netlify.
 - [Codecov](https://codecov.io/bash): A report for code coverage is created for each release and uploaded to Codecov.
