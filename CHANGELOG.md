@@ -1,3 +1,10 @@
+## [9.6.7](https://github.com/lyne-design-system/lyne-components/compare/v9.6.6...v9.6.7) (2020-10-29)
+
+
+### Bug Fixes
+
+* use com instead of org for travis url (triggered from design tokens build) [skip ci] ([606ea8b](https://github.com/lyne-design-system/lyne-components/commit/606ea8b7adf11bfb7b679e36b9498b903f948794))
+
 ## [9.6.6](https://github.com/lyne-design-system/lyne-components/compare/v9.6.5...v9.6.6) (2020-10-29)
 
 
