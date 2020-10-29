@@ -1,3 +1,11 @@
+## [9.6.6](https://github.com/lyne-design-system/lyne-components/compare/v9.6.5...v9.6.6) (2020-10-29)
+
+
+### Bug Fixes
+
+* make sure travis exits on script errors ([8783a86](https://github.com/lyne-design-system/lyne-components/commit/8783a86bcce401a3703907c43f97313040959bf5))
+* make sure travis exits on script errors ([5c22acb](https://github.com/lyne-design-system/lyne-components/commit/5c22acbd8a844e5e93211760cae25a20c374074a))
+
 ## [9.6.5](https://github.com/lyne-design-system/lyne-components/compare/v9.6.4...v9.6.5) (2020-10-29)
 
 
