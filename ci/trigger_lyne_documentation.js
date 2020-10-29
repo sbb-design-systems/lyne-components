@@ -9,7 +9,7 @@ const triggerTravis = require('lyne-helper-trigger-travis');
     branchName: 'master',
     message: 'triggered by lyne-components change',
     travisToken: token,
-    travisUrl: 'https://api.travis-ci.org/repo/lyne-design-system%2Flyne-documentation/requests'
+    travisUrl: 'https://api.travis-ci.com/repo/lyne-design-system%2Flyne-documentation/requests'
   })
     .then(() => {
       console.log('-->> triggered build on lyne-documentation');
