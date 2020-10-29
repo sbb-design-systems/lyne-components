@@ -60,7 +60,7 @@
     "@types/puppeteer": "3.0.2",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "babel-loader": "^8.1.0",
     "chromatic": "^5.0.0",
     "eslint": "^7.1.0",
