@@ -16,7 +16,7 @@ module.exports = async (id) => {
     const requestConfig = {
       headers: requestHeaders,
       method: 'GET',
-      url: `https://api.travis-ci.org/build/${id}`
+      url: `https://api.travis-ci.com/build/${id}`
     };
 
     const travisResponse = await axios.request(requestConfig);
