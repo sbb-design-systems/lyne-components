@@ -109,7 +109,7 @@ jobs:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # Interested in the output from netlify-cli
-        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi' || travis_terminate 1
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi'
 
         # Make Storybook build
         - npm run build:storybook || travis_terminate 1
@@ -121,7 +121,7 @@ jobs:
         - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH; fi'
 
         # Build and deploy the deployments page
-        - ./ci/deployments.sh || travis_terminate 1
+        - ./ci/deployments.sh
 
         # trigger a build on lyne-documentation
         - node ./ci/trigger_lyne_documentation.js -t $TRAVIS_TOKEN || travis_terminate 1
