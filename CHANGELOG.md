@@ -1,3 +1,10 @@
+## [9.6.5](https://github.com/lyne-design-system/lyne-components/compare/v9.6.4...v9.6.5) (2020-10-29)
+
+
+### Bug Fixes
+
+* move trigger travis command inside try/catch block ([36e33f0](https://github.com/lyne-design-system/lyne-components/commit/36e33f0e6e881fc97e31ea2f7759680769aa52c0))
+
 ## [9.6.4](https://github.com/lyne-design-system/lyne-components/compare/v9.6.3...v9.6.4) (2020-10-05)
 
 
