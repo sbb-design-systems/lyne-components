@@ -81,7 +81,7 @@
     "semantic-release": "^17.0.7",
     "semantic-release-slack-bot": "^1.6.2",
     "shelljs": "^0.8.4",
-    "simple-git": "~2.24.0",
+    "simple-git": "~2.31.0",
     "stencil-inline-svg": "~1.0.1",
     "yargs": "^16.0.3"
   },
