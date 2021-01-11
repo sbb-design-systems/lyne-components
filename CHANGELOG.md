@@ -1,3 +1,10 @@
+## [9.6.8](https://github.com/lyne-design-system/lyne-components/compare/v9.6.7...v9.6.8) (2021-01-11)
+
+
+### Bug Fixes
+
+* use fixed version for storbyook/html to prevent clashes with peer-deps from storybook ([394777d](https://github.com/lyne-design-system/lyne-components/commit/394777d34917d3b2ad00a41a0e62fc8e1d748603))
+
 ## [9.6.7](https://github.com/lyne-design-system/lyne-components/compare/v9.6.6...v9.6.7) (2020-10-29)
 
 
