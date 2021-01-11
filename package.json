@@ -1,6 +1,6 @@
 {
   "name": "lyne-test",
-  "version": "9.6.7",
+  "version": "9.6.8",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -55,9 +55,9 @@
     "@storybook/addon-actions": "^6.0.21",
     "@storybook/addon-docs": "^6.0.21",
     "@storybook/addon-knobs": "^6.0.21",
-    "@storybook/html": "6.0.21",
+    "@storybook/html": "6.1.11",
     "@types/jest": "26.0.15",
-    "@types/puppeteer": "5.4.1",
+    "@types/puppeteer": "5.4.2",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "axios": "^0.21.0",
