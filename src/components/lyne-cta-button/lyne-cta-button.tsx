@@ -54,6 +54,7 @@ export class LyneCtaButton {
     return <button style={style} class='button' onClick={this.buttonClick}>
       <span class='label'>{this.label}</span>
       <span class='arrow' innerHTML={Arrow} />
+      <lyne-link text='test link' link='https://www.sbb.ch'></lyne-link>
     </button>;
   }
 }
