@@ -1,3 +1,16 @@
+# [9.7.0](https://github.com/lyne-design-system/lyne-components/compare/v9.6.8...v9.7.0) (2021-01-25)
+
+
+### Bug Fixes
+
+* fix package-lock.json mismatch ([b59df7e](https://github.com/lyne-design-system/lyne-components/commit/b59df7eda7bb60bef261972def11ef0038348b1f))
+* fix test for button ([479e888](https://github.com/lyne-design-system/lyne-components/commit/479e888b5b00fe8d81f0fa577cf2303a8d07143e))
+
+
+### Features
+
+* add link to button to see dependency graph by mermaid ([2438bf6](https://github.com/lyne-design-system/lyne-components/commit/2438bf637a63bf54ef35669925aded9991871f1b))
+
 ## [9.6.8](https://github.com/lyne-design-system/lyne-components/compare/v9.6.7...v9.6.8) (2021-01-11)
 
 
