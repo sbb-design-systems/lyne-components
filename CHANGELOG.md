@@ -1,3 +1,10 @@
+## [9.7.2](https://github.com/lyne-design-system/lyne-components/compare/v9.7.1...v9.7.2) (2021-01-26)
+
+
+### Bug Fixes
+
+* make sure documentation is build even for branches other than master ([05d4dd3](https://github.com/lyne-design-system/lyne-components/commit/05d4dd3c9ce0bfabfcdbb9d1fc22a109a8b05506))
+
 ## [9.7.1](https://github.com/lyne-design-system/lyne-components/compare/v9.7.0...v9.7.1) (2021-01-26)
 
 
