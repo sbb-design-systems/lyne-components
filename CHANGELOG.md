@@ -1,3 +1,11 @@
+## [9.7.1](https://github.com/lyne-design-system/lyne-components/compare/v9.7.0...v9.7.1) (2021-01-26)
+
+
+### Bug Fixes
+
+* fix linting issues ([31a4dd1](https://github.com/lyne-design-system/lyne-components/commit/31a4dd12a259198e2668eb3b2dc9cc9dd10b0fe6))
+* remove deprecated rules and replace with new ones ([4f79593](https://github.com/lyne-design-system/lyne-components/commit/4f79593546250c6d6a20b0fa3e739bd5a16374fd))
+
 # [9.7.0](https://github.com/lyne-design-system/lyne-components/compare/v9.6.8...v9.7.0) (2021-01-25)
 
 
