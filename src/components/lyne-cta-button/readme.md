@@ -31,6 +31,19 @@ const foo = "bar";
 | `samplePropForJSDocs` | `sample-prop-for-j-s-docs` |                                             | `string` | `'sample prop'`         |
 
 
+## Dependencies
+
+### Depends on
+
+- [lyne-link](../lyne-link)
+
+### Graph
+```mermaid
+graph TD;
+  lyne-cta-button --> lyne-link
+  style lyne-cta-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 
