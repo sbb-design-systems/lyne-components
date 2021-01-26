@@ -31,16 +31,50 @@ baseConfig.overrides = [
       '@typescript-eslint/adjacent-overload-signatures': 'error',
       '@typescript-eslint/array-type': 'error',
       '@typescript-eslint/ban-types': 'error',
-      '@typescript-eslint/camelcase': 'error',
-      '@typescript-eslint/class-name-casing': 'error',
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/explicit-member-accessibility': 'error',
       '@typescript-eslint/indent': [
         'error',
         2
       ],
-      '@typescript-eslint/interface-name-prefix': 'error',
       '@typescript-eslint/member-delimiter-style': 'error',
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          custom: {
+            match: true,
+            regex: '^I[a-z]'
+          },
+          format: ['PascalCase'],
+          selector: 'interface'
+        },
+        {
+          format: ['camelCase'],
+          selector: 'default'
+        },
+        {
+          format: [
+            'camelCase',
+            'UPPER_CASE'
+          ],
+          selector: 'variable'
+        },
+        {
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
+          selector: 'parameter'
+        },
+        {
+          format: ['camelCase'],
+          leadingUnderscore: 'require',
+          modifiers: ['private'],
+          selector: 'memberLike'
+        },
+        {
+          format: ['PascalCase'],
+          selector: 'typeLike'
+        }
+      ],
       '@typescript-eslint/no-array-constructor': 'error',
       '@typescript-eslint/no-empty-interface': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
@@ -60,7 +94,8 @@ baseConfig.overrides = [
       '@typescript-eslint/no-var-requires': 'error',
       '@typescript-eslint/prefer-namespace-keyword': 'error',
       '@typescript-eslint/semi': ['error'],
-      '@typescript-eslint/type-annotation-spacing': 'error'
+      '@typescript-eslint/type-annotation-spacing': 'error',
+      'camelcase': 'off'
     }
   },
   {
