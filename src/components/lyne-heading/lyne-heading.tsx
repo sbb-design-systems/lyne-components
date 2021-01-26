@@ -24,9 +24,9 @@ export class LyneHeading {
 
   public render(): JSX.Element {
 
-    const TagName = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const TAGNAME = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
     const className = `title title--level${this.visualLevel}`;
 
-    return <TagName class={className}>{this.text}</TagName>;
+    return <TAGNAME class={className}>{this.text}</TAGNAME>;
   }
 }

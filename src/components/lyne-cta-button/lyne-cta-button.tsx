@@ -28,9 +28,9 @@ export class LyneCtaButton {
   /** Id which is send in the click event payload */
   @Prop() public eventId?: string;
 
-  @Element() private element: HTMLElement;
+  @Element() private _element: HTMLElement;
 
-  private buttonClick = (): void => {
+  private _buttonClick = (): void => {
     let eventDetail;
 
     if (this.eventId) {
@@ -43,7 +43,7 @@ export class LyneCtaButton {
       detail: eventDetail
     });
 
-    this.element.dispatchEvent(event);
+    this._element.dispatchEvent(event);
   };
 
   public render(): JSX.Element {
@@ -51,7 +51,7 @@ export class LyneCtaButton {
       fontSize: Tokens.SizeFontRegular
     };
 
-    return <button style={style} class='button' onClick={this.buttonClick}>
+    return <button style={style} class='button' onClick={this._buttonClick}>
       <span class='label'>{this.label}</span>
       <span class='arrow' innerHTML={Arrow} />
       <lyne-link text='test link' link='https://www.sbb.ch'></lyne-link>
