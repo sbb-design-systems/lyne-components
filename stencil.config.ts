@@ -5,6 +5,7 @@ import { sass } from '@stencil/sass';
 
 export const config: Config = {
   buildEs5: 'prod',
+
   namespace: 'lyne-components',
   outputTargets: [
     {
