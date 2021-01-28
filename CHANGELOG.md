@@ -1,3 +1,11 @@
+## [9.7.4](https://github.com/lyne-design-system/lyne-components/compare/v9.7.3...v9.7.4) (2021-01-28)
+
+
+### Bug Fixes
+
+* explicitly build es5 modules ([0c3cf85](https://github.com/lyne-design-system/lyne-components/commit/0c3cf85eca8811202fb2410beb2768b08c7e669f))
+* fake commit to trigger new version ([4dc1cfe](https://github.com/lyne-design-system/lyne-components/commit/4dc1cfe216dfb3e02b2800756fffb9d7e03469ec))
+
 ## [9.7.3](https://github.com/lyne-design-system/lyne-components/compare/v9.7.2...v9.7.3) (2021-01-28)
 
 
