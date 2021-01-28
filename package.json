@@ -8,14 +8,14 @@
     "stencil",
     "storybook"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.js",
   "es2015": "dist/esm/index.mjs",
   "es2017": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/lyne-components/lyne-components.js",
+  "unpkg": "dist/lyne-components/",
   "files": [
     "dist/",
     "loader/"
