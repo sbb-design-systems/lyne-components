@@ -1,3 +1,10 @@
+## [9.7.3](https://github.com/lyne-design-system/lyne-components/compare/v9.7.2...v9.7.3) (2021-01-28)
+
+
+### Bug Fixes
+
+* fix main and module entries. try to fix unpkg path ([a1fac6a](https://github.com/lyne-design-system/lyne-components/commit/a1fac6ace90c4015d21873d82251ef8acfb001de))
+
 ## [9.7.2](https://github.com/lyne-design-system/lyne-components/compare/v9.7.1...v9.7.2) (2021-01-26)
 
 
