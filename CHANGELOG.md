@@ -1,3 +1,10 @@
+## [9.8.1](https://github.com/lyne-design-system/lyne-components/compare/v9.8.0...v9.8.1) (2021-02-22)
+
+
+### Bug Fixes
+
+* add logs before pushing properites (triggered from design tokens build) [skip ci] ([7ec164d](https://github.com/lyne-design-system/lyne-components/commit/7ec164dac3bb4c84658e756a4a79ae64c412e091))
+
 # [9.8.0](https://github.com/lyne-design-system/lyne-components/compare/v9.7.4...v9.8.0) (2021-02-22)
 
 
