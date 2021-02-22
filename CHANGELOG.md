@@ -1,3 +1,10 @@
+# [9.8.0](https://github.com/lyne-design-system/lyne-components/compare/v9.7.4...v9.8.0) (2021-02-22)
+
+
+### Features
+
+* test workflow (triggered from Figma) (triggered from design tokens build) [skip ci] ([ec22218](https://github.com/lyne-design-system/lyne-components/commit/ec222181a024f3755d9292c7d419cd8ff99125fc))
+
 ## [9.7.4](https://github.com/lyne-design-system/lyne-components/compare/v9.7.3...v9.7.4) (2021-01-28)
 
 
