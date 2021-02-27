@@ -1,3 +1,11 @@
+## [9.8.4](https://github.com/lyne-design-system/lyne-components/compare/v9.8.3...v9.8.4) (2021-02-27)
+
+
+### Bug Fixes
+
+* adobt to latest changes ([226f514](https://github.com/lyne-design-system/lyne-components/commit/226f5148aa325831d55b7fa36d6150e4c8f63fb4))
+* remove link from button ([5c59d4c](https://github.com/lyne-design-system/lyne-components/commit/5c59d4c355b8f71818babad65e2afa2f54d6e369))
+
 ## [9.8.3](https://github.com/lyne-design-system/lyne-components/compare/v9.8.2...v9.8.3) (2021-02-22)
 
 
