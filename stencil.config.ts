@@ -1,11 +1,9 @@
-import { Config } from '@stencil/core';
 import { inlineSvg } from 'stencil-inline-svg';
 import jestConfig from './.jest.config.js';
 import { sass } from '@stencil/sass';
 
-export const config: Config = {
+export const config = {
   buildEs5: 'prod',
-
   namespace: 'lyne-components',
   outputTargets: [
     {
