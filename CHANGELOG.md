@@ -1,3 +1,10 @@
+## [9.9.2](https://github.com/lyne-design-system/lyne-components/compare/v9.9.1...v9.9.2) (2021-02-27)
+
+
+### Bug Fixes
+
+* test changing color-red-regular (triggered from Figma) (triggered from design tokens build) [skip ci] ([94739eb](https://github.com/lyne-design-system/lyne-components/commit/94739eb6a1a479f46043955d5a6a1df07c22d787))
+
 ## [9.9.1](https://github.com/lyne-design-system/lyne-components/compare/v9.9.0...v9.9.1) (2021-02-27)
 
 
