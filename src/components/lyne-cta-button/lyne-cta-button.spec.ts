@@ -18,7 +18,6 @@ describe('lyne-cta-button', () => {
             <button class="button" style="font-size: 16px;">
               <span class="label">Label</span>
               <span class="arrow"></span>
-              <lyne-link link="https://www.sbb.ch" text="test link"></lyne-link>
             </button>
           </mock:shadow-root>
         </lyne-cta-button>
