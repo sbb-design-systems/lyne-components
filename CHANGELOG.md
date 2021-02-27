@@ -1,3 +1,10 @@
+# [9.9.0](https://github.com/lyne-design-system/lyne-components/compare/v9.8.4...v9.9.0) (2021-02-27)
+
+
+### Features
+
+* add test arrow icon (triggered from Figma) (triggered from icons build) [skip ci] ([c7bd59c](https://github.com/lyne-design-system/lyne-components/commit/c7bd59c11d29f880f9c45a5899677f1d1f29ecc1))
+
 ## [9.8.4](https://github.com/lyne-design-system/lyne-components/compare/v9.8.3...v9.8.4) (2021-02-27)
 
 
