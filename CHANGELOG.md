@@ -1,3 +1,10 @@
+## [9.9.1](https://github.com/lyne-design-system/lyne-components/compare/v9.9.0...v9.9.1) (2021-02-27)
+
+
+### Bug Fixes
+
+* revert test change (triggered from Figma) (triggered from icons build) [skip ci] ([fc34c53](https://github.com/lyne-design-system/lyne-components/commit/fc34c53c720cb5b5a8e089bd86ad7bf0530b51f2))
+
 # [9.9.0](https://github.com/lyne-design-system/lyne-components/compare/v9.8.4...v9.9.0) (2021-02-27)
 
 
