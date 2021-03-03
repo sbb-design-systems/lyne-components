@@ -63,7 +63,7 @@
     "axios": "~0.21.1",
     "babel-loader": "^8.1.0",
     "chromatic": "~5.6.1",
-    "eslint": "~7.19.0",
+    "eslint": "~7.21.0",
     "eslint-plugin-jest": "^24.0.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-yaml": "^0.3.0",
