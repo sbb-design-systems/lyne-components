@@ -1,3 +1,10 @@
+## [9.9.17](https://github.com/lyne-design-system/lyne-components/compare/v9.9.16...v9.9.17) (2021-03-03)
+
+
+### Bug Fixes
+
+* revert test color change (triggered from Figma) (triggered from design tokens build) [skip ci] ([7a0db1e](https://github.com/lyne-design-system/lyne-components/commit/7a0db1e625a87ff65bdb1ef0da4351accaa34b28))
+
 ## [9.9.16](https://github.com/lyne-design-system/lyne-components/compare/v9.9.15...v9.9.16) (2021-03-02)
 
 
