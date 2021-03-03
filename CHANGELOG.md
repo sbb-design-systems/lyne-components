@@ -1,3 +1,10 @@
+## [9.9.18](https://github.com/lyne-design-system/lyne-components/compare/v9.9.17...v9.9.18) (2021-03-03)
+
+
+### Bug Fixes
+
+* enable dependabot after demo, reenable travis tasks after demo ([3753c2a](https://github.com/lyne-design-system/lyne-components/commit/3753c2aa7a6020175cb6ec1596610817c8cc64d4))
+
 ## [9.9.17](https://github.com/lyne-design-system/lyne-components/compare/v9.9.16...v9.9.17) (2021-03-03)
 
 
