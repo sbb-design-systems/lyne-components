@@ -1,3 +1,10 @@
+## [9.9.21](https://github.com/lyne-design-system/lyne-components/compare/v9.9.20...v9.9.21) (2021-05-06)
+
+
+### Bug Fixes
+
+* set correct color (triggered from Figma) (triggered from design tokens build) [skip ci] ([e64b572](https://github.com/lyne-design-system/lyne-components/commit/e64b5724794eb533ba16b2b99951b54020b5935e))
+
 ## [9.9.20](https://github.com/lyne-design-system/lyne-components/compare/v9.9.19...v9.9.20) (2021-05-06)
 
 
