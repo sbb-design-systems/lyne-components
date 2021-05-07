@@ -84,7 +84,7 @@
     "simple-git": "~2.37.0",
     "stencil-inline-svg": "~1.0.1",
     "typescript": "~4.2.2",
-    "yargs": "~16.2.0"
+    "yargs": "~17.0.1"
   },
   "author": "Lyne Team",
   "license": "MIT",
