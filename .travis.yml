@@ -56,12 +56,10 @@ jobs:
         - npm run build:stencil || travis_terminate 1
 
         # Run tests
-        # TODO enable after demo
-        # - npm run test:prod || travis_terminate 1
+        - npm run test:prod || travis_terminate 1
 
         # upload coverage report
-        # TODO enable after demo
-        # - bash <(curl -s https://codecov.io/bash)
+        - bash <(curl -s https://codecov.io/bash)
 
       after_success:
 
@@ -73,8 +71,7 @@ jobs:
 
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
-        # TODO enable after demo
-        # - npm run chromatic:master
+        - npm run chromatic:master
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # interested in the output from netlify-cli
