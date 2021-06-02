@@ -11,6 +11,9 @@ export const config = {
       type: 'dist'
     },
     {
+      type: 'dist-custom-elements-bundle'
+    },
+    {
       footer: '',
       type: 'docs-readme'
     },
