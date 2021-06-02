@@ -1,3 +1,10 @@
+# [9.10.0](https://github.com/lyne-design-system/lyne-components/compare/v9.9.25...v9.10.0) (2021-06-02)
+
+
+### Features
+
+* add custom elements bundle ([de530af](https://github.com/lyne-design-system/lyne-components/commit/de530afbbd50ea7cfe78a8adb07ffc55b989f282))
+
 ## [9.9.25](https://github.com/lyne-design-system/lyne-components/compare/v9.9.24...v9.9.25) (2021-05-06)
 
 
