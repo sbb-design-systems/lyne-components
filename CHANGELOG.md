@@ -1,3 +1,10 @@
+## [9.10.1](https://github.com/lyne-design-system/lyne-components/compare/v9.10.0...v9.10.1) (2021-06-03)
+
+
+### Bug Fixes
+
+* fix red color (triggered from Figma) (triggered from design tokens build) [skip ci] ([f0b6495](https://github.com/lyne-design-system/lyne-components/commit/f0b649594858b899902a9b0a57a07f326d6d1d2b))
+
 # [9.10.0](https://github.com/lyne-design-system/lyne-components/compare/v9.9.25...v9.10.0) (2021-06-02)
 
 
