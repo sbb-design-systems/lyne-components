@@ -1,3 +1,10 @@
+# [9.11.0](https://github.com/lyne-design-system/lyne-components/compare/v9.10.1...v9.11.0) (2021-06-10)
+
+
+### Features
+
+* add hydration dist bundle ([0e04273](https://github.com/lyne-design-system/lyne-components/commit/0e042738f02cd653b575af7b43df777870828dfc))
+
 ## [9.10.1](https://github.com/lyne-design-system/lyne-components/compare/v9.10.0...v9.10.1) (2021-06-03)
 
 
