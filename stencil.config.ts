@@ -7,6 +7,9 @@ export const config = {
   namespace: 'lyne-components',
   outputTargets: [
     {
+      type: 'dist-hydrate-script'
+    },
+    {
       esmLoaderPath: '../loader',
       type: 'dist'
     },

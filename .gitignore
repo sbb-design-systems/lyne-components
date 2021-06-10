@@ -1,6 +1,7 @@
 dist/
 www/
 loader/
+hydrate/
 storybook-static/
 coverage/
 

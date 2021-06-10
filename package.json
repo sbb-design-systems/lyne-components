@@ -18,7 +18,8 @@
   "unpkg": "dist/lyne-components/",
   "files": [
     "dist/",
-    "loader/"
+    "loader/",
+    "hydrate"
   ],
   "scripts": {
     "build:stencil": "stencil build --ci --prod --docs",
