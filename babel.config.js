@@ -6,6 +6,12 @@ module.exports = {
       {
         pragma: 'h'
       }
+    ],
+    [
+      '@babel/plugin-proposal-private-property-in-object',
+      {
+        loose: true
+      }
     ]
   ]
 };
