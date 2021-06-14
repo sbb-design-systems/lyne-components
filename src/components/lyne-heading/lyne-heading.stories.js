@@ -12,23 +12,23 @@ const levels = {
   ]
 };
 
-export const level1 = (args) => <lyne-heading
+export const heading = (args) => <lyne-heading
   {...args}
 />;
 
-level1.argTypes = {
+heading.argTypes = {
   'visual-level': levels,
   'level': levels
 };
 
-level1.args = {
+heading.args = {
   level: 1,
   'visual-level': 1,
   text: 'Sample Heading'
 };
 
 export default {
-  title: 'Lyne Heading',
+  title: 'typo/Heading',
   parameters: {
     chromatic: {
       delay: 1000,

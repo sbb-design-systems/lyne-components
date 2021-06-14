@@ -1,16 +1,16 @@
 import { h } from 'jsx-dom';
 import events from './lyne-cta-button.events.ts';
 
-export const defaultButton = (args) => <lyne-cta-button
+export const button = (args) => <lyne-cta-button
   {...args}
 />;
 
-defaultButton.args = {
+button.args = {
   label: 'Label'
 }
 
 export default {
-  title: 'Button',
+  title: 'forms/Button',
   parameters: {
     actions: {
       handles: [
