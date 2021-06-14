@@ -1,15 +1,15 @@
-import { withKnobs, text } from '@storybook/addon-knobs';
 import { h } from 'jsx-dom';
 import events from './lyne-cta-button.events.ts';
 
-export const defaultButton = () => <lyne-cta-button
-  label={text('label', 'Label')}
+export const defaultButton = (args) => <lyne-cta-button
+  {...args}
 />;
 
+defaultButton.args = {
+  label: 'Label'
+}
+
 export default {
-  decorators: [
-    withKnobs
-  ],
   title: 'Button',
   parameters: {
     actions: {
