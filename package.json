@@ -54,7 +54,6 @@
     "@stencil/sass": "~1.4.1",
     "@storybook/addon-a11y": "~6.2.9",
     "@storybook/addon-essentials": "~6.2.9",
-    "@storybook/addon-knobs": "~6.2.9",
     "@storybook/html": "~6.2.9",
     "@types/jest": "26.0.23",
     "@types/puppeteer": "5.4.3",
