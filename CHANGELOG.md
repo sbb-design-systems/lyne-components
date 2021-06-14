@@ -1,3 +1,11 @@
+## [9.11.1](https://github.com/lyne-design-system/lyne-components/compare/v9.11.0...v9.11.1) (2021-06-14)
+
+
+### Bug Fixes
+
+* properly register a11y plugin for storybook ([ffa0d84](https://github.com/lyne-design-system/lyne-components/commit/ffa0d84d38176917d02ddc18fa0c579d3602ccd1))
+* remove addon-a11y from stories ([98d7640](https://github.com/lyne-design-system/lyne-components/commit/98d7640926bb6e1708efa5b495fb6f3c19e53ceb))
+
 # [9.11.0](https://github.com/lyne-design-system/lyne-components/compare/v9.10.1...v9.11.0) (2021-06-10)
 
 
