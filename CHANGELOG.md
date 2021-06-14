@@ -1,3 +1,13 @@
+## [9.11.2](https://github.com/lyne-design-system/lyne-components/compare/v9.11.1...v9.11.2) (2021-06-14)
+
+
+### Bug Fixes
+
+* adobt config to use addon-essentials ([20a247c](https://github.com/lyne-design-system/lyne-components/commit/20a247cfafcf8f03fa25ee517f3dfd21e11f1eb7))
+* handle actions according to addon-essentials ([cfe99f5](https://github.com/lyne-design-system/lyne-components/commit/cfe99f5328b596d4cbd1a8c7c5a9656c8cfebf0e))
+* remove knobs ([9e68828](https://github.com/lyne-design-system/lyne-components/commit/9e68828b9b6616cd89d97e564a0ca5b10cbc3e6d))
+* rewrite stories to use controls instead of knobs ([bb9edea](https://github.com/lyne-design-system/lyne-components/commit/bb9edea214fcfee704b600b827cdcaa14490370b))
+
 ## [9.11.1](https://github.com/lyne-design-system/lyne-components/compare/v9.11.0...v9.11.1) (2021-06-14)
 
 
