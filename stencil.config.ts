@@ -28,11 +28,6 @@ export const config = {
     {
       file: './dist/documentation/jsonDocs.json',
       type: 'docs-json'
-    },
-    {
-      // disable service workers
-      serviceWorker: null,
-      type: 'www'
     }
   ],
   plugins: [
