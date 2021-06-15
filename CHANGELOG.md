@@ -1,3 +1,11 @@
+# [9.12.0](https://github.com/lyne-design-system/lyne-components/compare/v9.11.2...v9.12.0) (2021-06-15)
+
+
+### Features
+
+* add sample mdx file ([33eb501](https://github.com/lyne-design-system/lyne-components/commit/33eb501e4e556d4b36d9729410799cb508bfa78c))
+* make storybook structure with according naming ([01c3a53](https://github.com/lyne-design-system/lyne-components/commit/01c3a53bc09534fa4ddaa71baf75aa85827cf845))
+
 ## [9.11.2](https://github.com/lyne-design-system/lyne-components/compare/v9.11.1...v9.11.2) (2021-06-14)
 
 
