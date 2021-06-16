@@ -64,27 +64,27 @@ jobs:
       after_success:
 
         # run semantic release
-        - npm run semantic-release
+        - npm run semantic-release || travis_terminate 1
 
         # Make Storybook build
-        - STORYBOOK_COMPONENTS_VERSION=$(cat .version) npm run build:storybook
+        - STORYBOOK_COMPONENTS_VERSION=$(cat .version) npm run build:storybook || travis_terminate 1
 
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
-        - npm run chromatic:master
+        - npm run chromatic:master || travis_terminate 1
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # interested in the output from netlify-cli
         - npm install netlify-cli -g > "/dev/null" 2>&1
 
         # Build Storybook and run Netlify deploy
-        - ./ci/netlify_deploy.sh
+        - ./ci/netlify_deploy.sh || travis_terminate 1
 
         # Build and deploy the deployments json
-        - ./ci/deployments.sh
+        - ./ci/deployments.sh || travis_terminate 1
 
         # trigger a build on lyne-documentation
-        - node ./ci/trigger_lyne_documentation.js -t $TRAVIS_TOKEN
+        - node ./ci/trigger_lyne_documentation.js -t $TRAVIS_TOKEN || travis_terminate 1
 
     - stage: build, test and deploy storybook for branches other than master
       if: ((branch != master OR type = pull_request) AND fork = false)
@@ -121,7 +121,7 @@ jobs:
         - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH; fi'
 
         # Build and deploy the deployments page
-        - ./ci/deployments.sh
+        - ./ci/deployments.sh || travis_terminate 1
 
         # trigger a build on lyne-documentation
         # actually we trigger lyne-documentation so that release preview page
