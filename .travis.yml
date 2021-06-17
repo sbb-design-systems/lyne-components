@@ -14,11 +14,7 @@
 # block of one job.
 
 os: linux
-dist: focal
-group: edge
 language: node_js
-arch: arm64-graviton2
-virt: lxd
 
 # There is an issue with chromatic cli if install phase is handled by travis.
 # So we skip install and install npm dependencies manually in each stage.
@@ -44,7 +40,7 @@ jobs:
       script:
 
         # install dependencies
-        - npm install
+        - npm install || travis_terminate 1
 
         # it may be that we get an api request from design-tokens build. in that
         # case, we need to install lyne-design-tokens and lyne-icons
