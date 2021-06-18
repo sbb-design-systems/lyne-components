@@ -1,3 +1,15 @@
+# [9.13.0](https://github.com/lyne-design-system/lyne-components/compare/v9.12.0...v9.13.0) (2021-06-18)
+
+
+### Bug Fixes
+
+* diable shadow dom on button ([858deba](https://github.com/lyne-design-system/lyne-components/commit/858debad1144c88ed85fd73e9f33852245366ea0))
+
+
+### Features
+
+* add duplicated cta-button with open shadow dom ([c418950](https://github.com/lyne-design-system/lyne-components/commit/c4189501c652543521d22c37af069e39182b21b7))
+
 # [9.12.0](https://github.com/lyne-design-system/lyne-components/compare/v9.11.2...v9.12.0) (2021-06-15)
 
 
