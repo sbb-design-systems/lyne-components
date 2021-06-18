@@ -5,16 +5,16 @@ import {
   Prop
 } from '@stencil/core';
 import Arrow from 'lyne-icons/dist/icons/lyne-arrow.svg';
-import events from './lyne-cta-button.events';
+import events from './lyne-cta-button-no-shadow.events';
 import Tokens from 'lyne-design-tokens/dist/js/tokens.commonjs';
 
 @Component({
-  shadow: true,
-  styleUrl: 'lyne-cta-button.scss',
-  tag: 'lyne-cta-button'
+  shadow: false,
+  styleUrl: 'lyne-cta-button-no-shadow.scss',
+  tag: 'lyne-cta-button-no-shadow'
 })
 
-export class LyneCtaButton {
+export class LyneCtaButtonNoShadow {
 
   /**
    * @sampleDocTag sampleName - sampleValue

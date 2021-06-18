@@ -22,6 +22,21 @@ export namespace Components {
          */
         "samplePropForJSDocs": string;
     }
+    interface LyneCtaButtonNoShadow {
+        /**
+          * Id which is send in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * Label text to show on the button
+         */
+        "label": string;
+        /**
+          * @sampleDocTag sampleName - sampleValue
+          * @sampleDocTag2 sampleName2 - sampleValue2
+         */
+        "samplePropForJSDocs": string;
+    }
     interface LyneHeading {
         /**
           * Heading level
@@ -58,6 +73,12 @@ declare global {
         prototype: HTMLLyneCtaButtonElement;
         new (): HTMLLyneCtaButtonElement;
     };
+    interface HTMLLyneCtaButtonNoShadowElement extends Components.LyneCtaButtonNoShadow, HTMLStencilElement {
+    }
+    var HTMLLyneCtaButtonNoShadowElement: {
+        prototype: HTMLLyneCtaButtonNoShadowElement;
+        new (): HTMLLyneCtaButtonNoShadowElement;
+    };
     interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {
     }
     var HTMLLyneHeadingElement: {
@@ -72,12 +93,28 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "lyne-cta-button": HTMLLyneCtaButtonElement;
+        "lyne-cta-button-no-shadow": HTMLLyneCtaButtonNoShadowElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
     }
 }
 declare namespace LocalJSX {
     interface LyneCtaButton {
+        /**
+          * Id which is send in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * Label text to show on the button
+         */
+        "label"?: string;
+        /**
+          * @sampleDocTag sampleName - sampleValue
+          * @sampleDocTag2 sampleName2 - sampleValue2
+         */
+        "samplePropForJSDocs"?: string;
+    }
+    interface LyneCtaButtonNoShadow {
         /**
           * Id which is send in the click event payload
          */
@@ -122,6 +159,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "lyne-cta-button": LyneCtaButton;
+        "lyne-cta-button-no-shadow": LyneCtaButtonNoShadow;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
     }
@@ -131,6 +169,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "lyne-cta-button": LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
+            "lyne-cta-button-no-shadow": LocalJSX.LyneCtaButtonNoShadow & JSXBase.HTMLAttributes<HTMLLyneCtaButtonNoShadowElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
         }

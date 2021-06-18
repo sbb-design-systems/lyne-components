@@ -1,16 +1,16 @@
 import { h } from 'jsx-dom';
-import events from './lyne-cta-button.events.ts';
+import events from './lyne-cta-button-no-shadow.events.ts';
 
-export const button = (args) => <lyne-cta-button
+export const buttonNoShadow = (args) => <lyne-cta-button-no-shadow
   {...args}
 />;
 
-button.args = {
+buttonNoShadow.args = {
   label: 'Label'
 }
 
 export default {
-  title: 'Button',
+  title: 'ButtonNoShadow',
   parameters: {
     actions: {
       handles: [

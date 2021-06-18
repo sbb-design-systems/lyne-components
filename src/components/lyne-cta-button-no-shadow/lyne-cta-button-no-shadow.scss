@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: calc(#{$size-font-regular} / 2) $size-font-regular;
+	color: $color-white-regular;
+  background-color: $color-red-regular;
+  transition: background-color ease-in 200ms;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.1rem;
+}
+
+.button:hover,
+.button:focus {
+  background-color: $color-red-1;
+}
+
+.button:active {
+  background-color: $color-red-2;
+}
+
+.arrow {
+  color: $color-white-regular;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding-left: .5rem;
+}
+
+.arrow svg path {
+  fill: currentColor;
+}
