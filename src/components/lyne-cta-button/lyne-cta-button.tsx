@@ -9,7 +9,7 @@ import events from './lyne-cta-button.events';
 import Tokens from 'lyne-design-tokens/dist/js/tokens.commonjs';
 
 @Component({
-  shadow: true,
+  shadow: false,
   styleUrl: 'lyne-cta-button.scss',
   tag: 'lyne-cta-button'
 })
