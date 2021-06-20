@@ -1,3 +1,10 @@
+## [9.13.1](https://github.com/lyne-design-system/lyne-components/compare/v9.13.0...v9.13.1) (2021-06-20)
+
+
+### Bug Fixes
+
+* disable graviton again (triggered from design tokens build) [skip ci] ([f24e2bd](https://github.com/lyne-design-system/lyne-components/commit/f24e2bd9f12fb7aa821202b96771ab8fe9f52218))
+
 # [9.13.0](https://github.com/lyne-design-system/lyne-components/compare/v9.12.0...v9.13.0) (2021-06-18)
 
 
