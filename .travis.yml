@@ -121,7 +121,7 @@ jobs:
         - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH; fi'
 
         # Build and deploy the deployments page
-        - ./ci/deployments.sh || travis_terminate 1
+        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./ci/deployments.sh; fi'
 
         # trigger a build on lyne-documentation
         # actually we trigger lyne-documentation so that release preview page
