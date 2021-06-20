@@ -45,7 +45,7 @@ jobs:
         # it may be that we get an api request from design-tokens build. in that
         # case, we need to install lyne-design-tokens and lyne-icons
         # an make an according commit
-        - node ./ci/designTokensUpdate.js --eventType=$TRAVIS_EVENT_TYPE --buildId=$TRAVIS_BUILD_ID
+        - node ./ci/designTokensUpdate.js --eventType=$TRAVIS_EVENT_TYPE --buildId=$TRAVIS_BUILD_ID || travis_terminate 1
 
         # lint
         # travis_terminate 1: make sure build immediately stops if the
@@ -59,7 +59,7 @@ jobs:
         - npm run test:prod || travis_terminate 1
 
         # upload coverage report
-        - bash <(curl -s https://codecov.io/bash)
+        - bash <(curl -s https://codecov.io/bash) || travis_terminate 1
 
       after_success:
 
@@ -75,7 +75,7 @@ jobs:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # interested in the output from netlify-cli
-        - npm install netlify-cli -g > "/dev/null" 2>&1
+        - npm install netlify-cli -g > "/dev/null" 2>&1 || travis_terminate 1
 
         # Build Storybook and run Netlify deploy
         - ./ci/netlify_deploy.sh || travis_terminate 1
@@ -91,7 +91,7 @@ jobs:
       script:
 
         # install dependencies
-        - npm install
+        - npm install || travis_terminate 1
 
         # Lint
         - npm run lint || travis_terminate 1
@@ -103,22 +103,22 @@ jobs:
         - npm run test:prod || travis_terminate 1
 
         # upload coverage report
-        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash <(curl -s https://codecov.io/bash); fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash <(curl -s https://codecov.io/bash); fi' || travis_terminate 1
 
       after_success:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # Interested in the output from netlify-cli
-        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi' || travis_terminate 1
 
         # Make Storybook build
         - npm run build:storybook || travis_terminate 1
 
         # Send storybook to chromatic
-        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run chromatic; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm run chromatic; fi' || travis_terminate 1
 
         # Build Storybook and run Netlify deploy
-        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./ci/netlify_deploy_branch.sh $TRAVIS_BRANCH; fi' || travis_terminate 1
 
         # Build and deploy the deployments page
         - ./ci/deployments.sh || travis_terminate 1
