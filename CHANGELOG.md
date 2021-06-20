@@ -1,3 +1,10 @@
+## [9.13.2](https://github.com/lyne-design-system/lyne-components/compare/v9.13.1...v9.13.2) (2021-06-20)
+
+
+### Bug Fixes
+
+* make sure deployments script is not run for pr-builds ([9b040ba](https://github.com/lyne-design-system/lyne-components/commit/9b040ba21b17dda691b6b102fed0abee30c83d65))
+
 ## [9.13.1](https://github.com/lyne-design-system/lyne-components/compare/v9.13.0...v9.13.1) (2021-06-20)
 
 
