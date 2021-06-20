@@ -1,5 +1,3 @@
-# temporarly disabled. TODO enable after demo
-
 version: 2
 updates:
 - package-ecosystem: npm
