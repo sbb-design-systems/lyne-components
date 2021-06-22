@@ -1,3 +1,10 @@
+## [9.15.2](https://github.com/lyne-design-system/lyne-components/compare/v9.15.1...v9.15.2) (2021-06-22)
+
+
+### Bug Fixes
+
+* use correct const name ([c2df6ca](https://github.com/lyne-design-system/lyne-components/commit/c2df6cacdc565b42d7ac45dde4944a81fe5e7767))
+
 ## [9.15.1](https://github.com/lyne-design-system/lyne-components/compare/v9.15.0...v9.15.1) (2021-06-22)
 
 
