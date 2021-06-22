@@ -86,6 +86,9 @@ jobs:
         # trigger a build on lyne-documentation
         - node ./ci/trigger_lyne_documentation.js -t $TRAVIS_TOKEN || travis_terminate 1
 
+        # trigger a build on lyne-hydration-playground
+        - node ./ci/trigger_hydration_playground.js -t $TRAVIS_TOKEN || travis_terminate 1
+
     - stage: build, test and deploy storybook for branches other than master
       if: ((branch != master OR type = pull_request) AND fork = false)
       script:
