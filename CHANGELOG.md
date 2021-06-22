@@ -1,3 +1,10 @@
+## [9.15.5](https://github.com/lyne-design-system/lyne-components/compare/v9.15.4...v9.15.5) (2021-06-22)
+
+
+### Bug Fixes
+
+* fake commit to trigger release ([915d583](https://github.com/lyne-design-system/lyne-components/commit/915d583b8ca1169457a5189b6aa41e4df6ceb467))
+
 ## [9.15.4](https://github.com/lyne-design-system/lyne-components/compare/v9.15.3...v9.15.4) (2021-06-22)
 
 
