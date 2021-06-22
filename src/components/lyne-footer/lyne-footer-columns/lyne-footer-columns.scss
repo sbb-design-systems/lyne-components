@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  overflow: auto;
+  background: rgba(0, 0, 0, .2);
+  color: rgba(0, 0, 0, .8);
+  // font-family: $fontSbbRoman;
+}
+
+.footer-columns-list {
+  // @include resetList();
+  overflow: auto;
+  padding: 0 0 1rem;
+  margin-top: -.5rem;
+}
+
+@media (min-width: 1025px) {
+  .footer-columns-list {
+    padding: 0 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    overflow: hidden;
+  }
+}

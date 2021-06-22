@@ -1,0 +1,25 @@
+import { TestWindow } from '@stencil/core/testing';
+import { LyneFooterColumns } from './lyne-footer-columns';
+
+describe('lyne-footer-columns', () => {
+  it('should build', () => {
+    expect(new LyneFooterColumns()).toBeTruthy();
+  });
+
+  describe('rendering', () => {
+    let element: HTMLLyneFooterColumnsElement;
+    let testWindow: TestWindow;
+    beforeEach(async () => {
+      testWindow = new TestWindow();
+      element = await testWindow.load({
+        components: [LyneFooterColumns],
+        html: '<lyne-footer-columns>'
+        + '</lyne-footer-columns>'
+      });
+    });
+
+    it('creates the element', () => {
+      expect(element).toBeTruthy();
+    });
+  });
+});
