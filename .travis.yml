@@ -19,7 +19,6 @@ language: node_js
 # There is an issue with chromatic cli if install phase is handled by travis.
 # So we skip install and install npm dependencies manually in each stage.
 install: skip
-
 notifications:
   slack:
     template:
