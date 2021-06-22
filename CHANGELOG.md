@@ -1,3 +1,25 @@
+# [9.14.0](https://github.com/lyne-design-system/lyne-components/compare/v9.13.2...v9.14.0) (2021-06-22)
+
+
+### Bug Fixes
+
+* add hydrate to eslintignore ([20a1e56](https://github.com/lyne-design-system/lyne-components/commit/20a1e56dcdce183ab20775fdf2de1845133b87c2))
+* add keyboard and click event listeners to button inside li ([719fff8](https://github.com/lyne-design-system/lyne-components/commit/719fff8141e1fa8adad85eb69bdcc8f8d0042e4d))
+* replace tabs with spaces ([ab99fc3](https://github.com/lyne-design-system/lyne-components/commit/ab99fc3a7d0c03b2f0c88a586b72c7a8fb7c302a))
+
+
+### Features
+
+* add component footer container ([7714d31](https://github.com/lyne-design-system/lyne-components/commit/7714d31ff6a3ed35388c6c848a4f1566183c6e3b))
+* add component footer-bottom ([f261898](https://github.com/lyne-design-system/lyne-components/commit/f261898e29d40e4e90b6cdaaaf6ade6be960b344))
+* add component footer-column ([43f53e9](https://github.com/lyne-design-system/lyne-components/commit/43f53e9d634df3218f5b919a2846e2dbdc42cc9c))
+* add component footer-column-link-list ([f6dfd72](https://github.com/lyne-design-system/lyne-components/commit/f6dfd7274156f9bf56f52eead6ebb8de00c80de9))
+* add component footer-column-link-list-item ([bc59c88](https://github.com/lyne-design-system/lyne-components/commit/bc59c88b4b5841750a6dc7c0cb2bcb1abf877801))
+* add component footer-column-rte ([aac472b](https://github.com/lyne-design-system/lyne-components/commit/aac472bc07fb0b88d9d826e06e31b0af355a3da4))
+* add component footer-column-title ([35ffeea](https://github.com/lyne-design-system/lyne-components/commit/35ffeeacbd1e70328994ee0f436671eb66704d2e))
+* add component footer-columns ([096e245](https://github.com/lyne-design-system/lyne-components/commit/096e24529a19585acfea355b942954e02206bb72))
+* add component footer-links-bottom ([5a4b35a](https://github.com/lyne-design-system/lyne-components/commit/5a4b35a22b40751c9bc82e2d5c9b9f38002490a7))
+
 ## [9.13.2](https://github.com/lyne-design-system/lyne-components/compare/v9.13.1...v9.13.2) (2021-06-20)
 
 
