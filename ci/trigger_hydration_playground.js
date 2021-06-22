@@ -6,7 +6,7 @@ const {
 
 // env variables
 const {
-  token
+  travisToken
 } = argv;
 
 (async () => {
@@ -14,7 +14,7 @@ const {
     await triggerTravis({
       branchName: 'main',
       message: 'triggered by lyne-components change',
-      travisToken: token,
+      travisToken,
       travisUrl: 'https://api.travis-ci.com/repo/lyne-design-system%2Flyne-hydration-playground/requests'
     });
 
