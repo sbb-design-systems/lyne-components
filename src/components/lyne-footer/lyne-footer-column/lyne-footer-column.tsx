@@ -107,10 +107,14 @@ export class LyneFooterColumn {
     return [
       <li
         class='footer-columns-list-item'
-        onClick={this.toggleAccordion.bind(this)}
       >
-        <slot />
+        <button
+          onClick={this.toggleAccordion.bind(this)}
+          onKeyDown={this.toggleAccordion.bind(this)}
+        >
+          <slot />
+        </button>
       </li>
-    ]
+    ];
   }
 }
