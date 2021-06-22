@@ -1,3 +1,10 @@
+# [9.15.0](https://github.com/lyne-design-system/lyne-components/compare/v9.14.0...v9.15.0) (2021-06-22)
+
+
+### Features
+
+* trigger hydration playground after build ([4e960d5](https://github.com/lyne-design-system/lyne-components/commit/4e960d5a049a5e8100c27e67b958d71b67c16ff5))
+
 # [9.14.0](https://github.com/lyne-design-system/lyne-components/compare/v9.13.2...v9.14.0) (2021-06-22)
 
 
