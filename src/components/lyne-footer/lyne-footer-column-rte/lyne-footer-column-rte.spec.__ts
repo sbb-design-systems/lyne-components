@@ -1,0 +1,25 @@
+import { TestWindow } from '@stencil/core/testing';
+import { LyneFooterColumnRte } from './lyne-footer-column-rte';
+
+describe('lyne-footer-column-rte', () => {
+  it('should build', () => {
+    expect(new LyneFooterColumnRte()).toBeTruthy();
+  });
+
+  describe('rendering', () => {
+    let element: HTMLLyneFooterColumnRteElement;
+    let testWindow: TestWindow;
+    beforeEach(async () => {
+      testWindow = new TestWindow();
+      element = await testWindow.load({
+        components: [LyneFooterColumnRte],
+        html: '<lyne-footer-column-rte>'
+        + '</lyne-footer-column-rte>'
+      });
+    });
+
+    it('creates the element', () => {
+      expect(element).toBeTruthy();
+    });
+  });
+});
