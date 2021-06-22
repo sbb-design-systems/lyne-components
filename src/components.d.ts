@@ -37,6 +37,30 @@ export namespace Components {
          */
         "samplePropForJSDocs": string;
     }
+    interface LyneFooter {
+        "footertitle": string;
+    }
+    interface LyneFooterBottom {
+    }
+    interface LyneFooterColumn {
+    }
+    interface LyneFooterColumnLinkList {
+    }
+    interface LyneFooterColumnLinkListItem {
+        "external": string;
+        "href": string;
+        "label": string;
+    }
+    interface LyneFooterColumnRte {
+    }
+    interface LyneFooterColumnTitle {
+        "columntitle": string;
+    }
+    interface LyneFooterColumns {
+        "footertitle": string;
+    }
+    interface LyneFooterLinksBottom {
+    }
     interface LyneHeading {
         /**
           * Heading level
@@ -79,6 +103,60 @@ declare global {
         prototype: HTMLLyneCtaButtonNoShadowElement;
         new (): HTMLLyneCtaButtonNoShadowElement;
     };
+    interface HTMLLyneFooterElement extends Components.LyneFooter, HTMLStencilElement {
+    }
+    var HTMLLyneFooterElement: {
+        prototype: HTMLLyneFooterElement;
+        new (): HTMLLyneFooterElement;
+    };
+    interface HTMLLyneFooterBottomElement extends Components.LyneFooterBottom, HTMLStencilElement {
+    }
+    var HTMLLyneFooterBottomElement: {
+        prototype: HTMLLyneFooterBottomElement;
+        new (): HTMLLyneFooterBottomElement;
+    };
+    interface HTMLLyneFooterColumnElement extends Components.LyneFooterColumn, HTMLStencilElement {
+    }
+    var HTMLLyneFooterColumnElement: {
+        prototype: HTMLLyneFooterColumnElement;
+        new (): HTMLLyneFooterColumnElement;
+    };
+    interface HTMLLyneFooterColumnLinkListElement extends Components.LyneFooterColumnLinkList, HTMLStencilElement {
+    }
+    var HTMLLyneFooterColumnLinkListElement: {
+        prototype: HTMLLyneFooterColumnLinkListElement;
+        new (): HTMLLyneFooterColumnLinkListElement;
+    };
+    interface HTMLLyneFooterColumnLinkListItemElement extends Components.LyneFooterColumnLinkListItem, HTMLStencilElement {
+    }
+    var HTMLLyneFooterColumnLinkListItemElement: {
+        prototype: HTMLLyneFooterColumnLinkListItemElement;
+        new (): HTMLLyneFooterColumnLinkListItemElement;
+    };
+    interface HTMLLyneFooterColumnRteElement extends Components.LyneFooterColumnRte, HTMLStencilElement {
+    }
+    var HTMLLyneFooterColumnRteElement: {
+        prototype: HTMLLyneFooterColumnRteElement;
+        new (): HTMLLyneFooterColumnRteElement;
+    };
+    interface HTMLLyneFooterColumnTitleElement extends Components.LyneFooterColumnTitle, HTMLStencilElement {
+    }
+    var HTMLLyneFooterColumnTitleElement: {
+        prototype: HTMLLyneFooterColumnTitleElement;
+        new (): HTMLLyneFooterColumnTitleElement;
+    };
+    interface HTMLLyneFooterColumnsElement extends Components.LyneFooterColumns, HTMLStencilElement {
+    }
+    var HTMLLyneFooterColumnsElement: {
+        prototype: HTMLLyneFooterColumnsElement;
+        new (): HTMLLyneFooterColumnsElement;
+    };
+    interface HTMLLyneFooterLinksBottomElement extends Components.LyneFooterLinksBottom, HTMLStencilElement {
+    }
+    var HTMLLyneFooterLinksBottomElement: {
+        prototype: HTMLLyneFooterLinksBottomElement;
+        new (): HTMLLyneFooterLinksBottomElement;
+    };
     interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {
     }
     var HTMLLyneHeadingElement: {
@@ -94,6 +172,15 @@ declare global {
     interface HTMLElementTagNameMap {
         "lyne-cta-button": HTMLLyneCtaButtonElement;
         "lyne-cta-button-no-shadow": HTMLLyneCtaButtonNoShadowElement;
+        "lyne-footer": HTMLLyneFooterElement;
+        "lyne-footer-bottom": HTMLLyneFooterBottomElement;
+        "lyne-footer-column": HTMLLyneFooterColumnElement;
+        "lyne-footer-column-link-list": HTMLLyneFooterColumnLinkListElement;
+        "lyne-footer-column-link-list-item": HTMLLyneFooterColumnLinkListItemElement;
+        "lyne-footer-column-rte": HTMLLyneFooterColumnRteElement;
+        "lyne-footer-column-title": HTMLLyneFooterColumnTitleElement;
+        "lyne-footer-columns": HTMLLyneFooterColumnsElement;
+        "lyne-footer-links-bottom": HTMLLyneFooterLinksBottomElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
     }
@@ -129,6 +216,30 @@ declare namespace LocalJSX {
          */
         "samplePropForJSDocs"?: string;
     }
+    interface LyneFooter {
+        "footertitle"?: string;
+    }
+    interface LyneFooterBottom {
+    }
+    interface LyneFooterColumn {
+    }
+    interface LyneFooterColumnLinkList {
+    }
+    interface LyneFooterColumnLinkListItem {
+        "external"?: string;
+        "href"?: string;
+        "label"?: string;
+    }
+    interface LyneFooterColumnRte {
+    }
+    interface LyneFooterColumnTitle {
+        "columntitle"?: string;
+    }
+    interface LyneFooterColumns {
+        "footertitle"?: string;
+    }
+    interface LyneFooterLinksBottom {
+    }
     interface LyneHeading {
         /**
           * Heading level
@@ -160,6 +271,15 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "lyne-cta-button": LyneCtaButton;
         "lyne-cta-button-no-shadow": LyneCtaButtonNoShadow;
+        "lyne-footer": LyneFooter;
+        "lyne-footer-bottom": LyneFooterBottom;
+        "lyne-footer-column": LyneFooterColumn;
+        "lyne-footer-column-link-list": LyneFooterColumnLinkList;
+        "lyne-footer-column-link-list-item": LyneFooterColumnLinkListItem;
+        "lyne-footer-column-rte": LyneFooterColumnRte;
+        "lyne-footer-column-title": LyneFooterColumnTitle;
+        "lyne-footer-columns": LyneFooterColumns;
+        "lyne-footer-links-bottom": LyneFooterLinksBottom;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
     }
@@ -170,6 +290,15 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "lyne-cta-button": LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
             "lyne-cta-button-no-shadow": LocalJSX.LyneCtaButtonNoShadow & JSXBase.HTMLAttributes<HTMLLyneCtaButtonNoShadowElement>;
+            "lyne-footer": LocalJSX.LyneFooter & JSXBase.HTMLAttributes<HTMLLyneFooterElement>;
+            "lyne-footer-bottom": LocalJSX.LyneFooterBottom & JSXBase.HTMLAttributes<HTMLLyneFooterBottomElement>;
+            "lyne-footer-column": LocalJSX.LyneFooterColumn & JSXBase.HTMLAttributes<HTMLLyneFooterColumnElement>;
+            "lyne-footer-column-link-list": LocalJSX.LyneFooterColumnLinkList & JSXBase.HTMLAttributes<HTMLLyneFooterColumnLinkListElement>;
+            "lyne-footer-column-link-list-item": LocalJSX.LyneFooterColumnLinkListItem & JSXBase.HTMLAttributes<HTMLLyneFooterColumnLinkListItemElement>;
+            "lyne-footer-column-rte": LocalJSX.LyneFooterColumnRte & JSXBase.HTMLAttributes<HTMLLyneFooterColumnRteElement>;
+            "lyne-footer-column-title": LocalJSX.LyneFooterColumnTitle & JSXBase.HTMLAttributes<HTMLLyneFooterColumnTitleElement>;
+            "lyne-footer-columns": LocalJSX.LyneFooterColumns & JSXBase.HTMLAttributes<HTMLLyneFooterColumnsElement>;
+            "lyne-footer-links-bottom": LocalJSX.LyneFooterLinksBottom & JSXBase.HTMLAttributes<HTMLLyneFooterLinksBottomElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
         }
