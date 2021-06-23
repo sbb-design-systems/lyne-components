@@ -37,6 +37,21 @@ export namespace Components {
          */
         "samplePropForJSDocs": string;
     }
+    interface LyneCtaButtonScoped {
+        /**
+          * Id which is send in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * Label text to show on the button
+         */
+        "label": string;
+        /**
+          * @sampleDocTag sampleName - sampleValue
+          * @sampleDocTag2 sampleName2 - sampleValue2
+         */
+        "samplePropForJSDocs": string;
+    }
     interface LyneFooter {
         "footertitle": string;
     }
@@ -89,6 +104,26 @@ export namespace Components {
          */
         "text": string;
     }
+    interface LyneSeoTestNoShadow {
+        /**
+          * Title for the Test
+         */
+        "heading": string;
+        /**
+          * Text for the Test
+         */
+        "text": string;
+    }
+    interface LyneSeoTestShadow {
+        /**
+          * Title for the Test
+         */
+        "heading": string;
+        /**
+          * Text for the Test
+         */
+        "text": string;
+    }
 }
 declare global {
     interface HTMLLyneCtaButtonElement extends Components.LyneCtaButton, HTMLStencilElement {
@@ -102,6 +137,12 @@ declare global {
     var HTMLLyneCtaButtonNoShadowElement: {
         prototype: HTMLLyneCtaButtonNoShadowElement;
         new (): HTMLLyneCtaButtonNoShadowElement;
+    };
+    interface HTMLLyneCtaButtonScopedElement extends Components.LyneCtaButtonScoped, HTMLStencilElement {
+    }
+    var HTMLLyneCtaButtonScopedElement: {
+        prototype: HTMLLyneCtaButtonScopedElement;
+        new (): HTMLLyneCtaButtonScopedElement;
     };
     interface HTMLLyneFooterElement extends Components.LyneFooter, HTMLStencilElement {
     }
@@ -169,9 +210,22 @@ declare global {
         prototype: HTMLLyneLinkElement;
         new (): HTMLLyneLinkElement;
     };
+    interface HTMLLyneSeoTestNoShadowElement extends Components.LyneSeoTestNoShadow, HTMLStencilElement {
+    }
+    var HTMLLyneSeoTestNoShadowElement: {
+        prototype: HTMLLyneSeoTestNoShadowElement;
+        new (): HTMLLyneSeoTestNoShadowElement;
+    };
+    interface HTMLLyneSeoTestShadowElement extends Components.LyneSeoTestShadow, HTMLStencilElement {
+    }
+    var HTMLLyneSeoTestShadowElement: {
+        prototype: HTMLLyneSeoTestShadowElement;
+        new (): HTMLLyneSeoTestShadowElement;
+    };
     interface HTMLElementTagNameMap {
         "lyne-cta-button": HTMLLyneCtaButtonElement;
         "lyne-cta-button-no-shadow": HTMLLyneCtaButtonNoShadowElement;
+        "lyne-cta-button-scoped": HTMLLyneCtaButtonScopedElement;
         "lyne-footer": HTMLLyneFooterElement;
         "lyne-footer-bottom": HTMLLyneFooterBottomElement;
         "lyne-footer-column": HTMLLyneFooterColumnElement;
@@ -183,6 +237,8 @@ declare global {
         "lyne-footer-links-bottom": HTMLLyneFooterLinksBottomElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
+        "lyne-seo-test-no-shadow": HTMLLyneSeoTestNoShadowElement;
+        "lyne-seo-test-shadow": HTMLLyneSeoTestShadowElement;
     }
 }
 declare namespace LocalJSX {
@@ -202,6 +258,21 @@ declare namespace LocalJSX {
         "samplePropForJSDocs"?: string;
     }
     interface LyneCtaButtonNoShadow {
+        /**
+          * Id which is send in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * Label text to show on the button
+         */
+        "label"?: string;
+        /**
+          * @sampleDocTag sampleName - sampleValue
+          * @sampleDocTag2 sampleName2 - sampleValue2
+         */
+        "samplePropForJSDocs"?: string;
+    }
+    interface LyneCtaButtonScoped {
         /**
           * Id which is send in the click event payload
          */
@@ -268,9 +339,30 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
+    interface LyneSeoTestNoShadow {
+        /**
+          * Title for the Test
+         */
+        "heading"?: string;
+        /**
+          * Text for the Test
+         */
+        "text"?: string;
+    }
+    interface LyneSeoTestShadow {
+        /**
+          * Title for the Test
+         */
+        "heading"?: string;
+        /**
+          * Text for the Test
+         */
+        "text"?: string;
+    }
     interface IntrinsicElements {
         "lyne-cta-button": LyneCtaButton;
         "lyne-cta-button-no-shadow": LyneCtaButtonNoShadow;
+        "lyne-cta-button-scoped": LyneCtaButtonScoped;
         "lyne-footer": LyneFooter;
         "lyne-footer-bottom": LyneFooterBottom;
         "lyne-footer-column": LyneFooterColumn;
@@ -282,6 +374,8 @@ declare namespace LocalJSX {
         "lyne-footer-links-bottom": LyneFooterLinksBottom;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
+        "lyne-seo-test-no-shadow": LyneSeoTestNoShadow;
+        "lyne-seo-test-shadow": LyneSeoTestShadow;
     }
 }
 export { LocalJSX as JSX };
@@ -290,6 +384,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "lyne-cta-button": LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
             "lyne-cta-button-no-shadow": LocalJSX.LyneCtaButtonNoShadow & JSXBase.HTMLAttributes<HTMLLyneCtaButtonNoShadowElement>;
+            "lyne-cta-button-scoped": LocalJSX.LyneCtaButtonScoped & JSXBase.HTMLAttributes<HTMLLyneCtaButtonScopedElement>;
             "lyne-footer": LocalJSX.LyneFooter & JSXBase.HTMLAttributes<HTMLLyneFooterElement>;
             "lyne-footer-bottom": LocalJSX.LyneFooterBottom & JSXBase.HTMLAttributes<HTMLLyneFooterBottomElement>;
             "lyne-footer-column": LocalJSX.LyneFooterColumn & JSXBase.HTMLAttributes<HTMLLyneFooterColumnElement>;
@@ -301,6 +396,8 @@ declare module "@stencil/core" {
             "lyne-footer-links-bottom": LocalJSX.LyneFooterLinksBottom & JSXBase.HTMLAttributes<HTMLLyneFooterLinksBottomElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
+            "lyne-seo-test-no-shadow": LocalJSX.LyneSeoTestNoShadow & JSXBase.HTMLAttributes<HTMLLyneSeoTestNoShadowElement>;
+            "lyne-seo-test-shadow": LocalJSX.LyneSeoTestShadow & JSXBase.HTMLAttributes<HTMLLyneSeoTestShadowElement>;
         }
     }
 }
