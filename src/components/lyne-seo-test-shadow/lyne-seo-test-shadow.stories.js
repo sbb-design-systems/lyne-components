@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-export const seoWithShadow = (args) => <lyne-seo-test />;
+export const seoWithShadow = (args) => <lyne-seo-test-shadow />;
 
 export default {
   title: 'seoWithShadow',

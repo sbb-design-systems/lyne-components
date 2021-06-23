@@ -6,11 +6,11 @@ import {
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-seo-test.scss',
-  tag: 'lyne-seo-test'
+  styleUrl: 'lyne-seo-test-shadow.scss',
+  tag: 'lyne-seo-test-shadow'
 })
 
-export class LyneSeoTest {
+export class LyneSeoTestShadow {
 
   /** Title for the Test */
   @Prop() public heading = 'Default heading';
