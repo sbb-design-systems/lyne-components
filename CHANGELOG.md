@@ -1,3 +1,10 @@
+## [9.15.6](https://github.com/lyne-design-system/lyne-components/compare/v9.15.5...v9.15.6) (2021-06-23)
+
+
+### Bug Fixes
+
+* use componentWillLoad instead of componentDidLoad ([011c60e](https://github.com/lyne-design-system/lyne-components/commit/011c60e8805919df868ad6be90f03b95857d8b82))
+
 ## [9.15.5](https://github.com/lyne-design-system/lyne-components/compare/v9.15.4...v9.15.5) (2021-06-22)
 
 
