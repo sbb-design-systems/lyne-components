@@ -1,3 +1,17 @@
+# [9.16.0](https://github.com/lyne-design-system/lyne-components/compare/v9.15.6...v9.16.0) (2021-06-23)
+
+
+### Bug Fixes
+
+* rename component ([8ba67ac](https://github.com/lyne-design-system/lyne-components/commit/8ba67acd833b261a8d2724fb7a8c1a7523772083))
+
+
+### Features
+
+* add button with scoped styles ([3305c5e](https://github.com/lyne-design-system/lyne-components/commit/3305c5eccb1bc060fa9929c18c71df5dcbc8c7fe))
+* add component for seo test with no shadow root ([011fd8c](https://github.com/lyne-design-system/lyne-components/commit/011fd8c93cf3cb0dcd571cd9769e68760ddab8f7))
+* add componentn for seo test with shadow root ([f973a9d](https://github.com/lyne-design-system/lyne-components/commit/f973a9d8757fad3bbea44878363c40b0b072ef5d))
+
 ## [9.15.6](https://github.com/lyne-design-system/lyne-components/compare/v9.15.5...v9.15.6) (2021-06-23)
 
 
