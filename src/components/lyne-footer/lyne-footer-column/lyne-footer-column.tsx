@@ -18,7 +18,7 @@ export class LyneFooterColumn {
 
   private _titleElement: HTMLElement;
 
-  public componentDidLoad(): void {
+  public componentWillLoad(): void {
     const allAccordions = document.querySelectorAll('lyne-footer-column');
 
     this.accordions = Array.from(allAccordions)
