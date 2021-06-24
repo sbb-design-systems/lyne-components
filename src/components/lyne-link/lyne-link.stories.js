@@ -6,9 +6,9 @@ export const defaultLink = (args) => <lyne-link
 />;
 
 defaultLink.args = {
-  text: 'Link text',
-  link: 'https://www.sbb.ch',
-  'open-in-new-window': false
+  'link': 'https://www.sbb.ch',
+  'open-in-new-window': false,
+  'text': 'Link text'
 };
 
 export const openNewWindow = (args) => <lyne-link
@@ -16,13 +16,12 @@ export const openNewWindow = (args) => <lyne-link
 />;
 
 openNewWindow.args = {
-  text: 'Link text',
-  link: 'https://www.sbb.ch',
-  'open-in-new-window': true
+  'link': 'https://www.sbb.ch',
+  'open-in-new-window': true,
+  'text': 'Link text'
 };
 
 export default {
-  title: 'Link',
   parameters: {
     chromatic: {
       delay: 1000,
@@ -33,9 +32,8 @@ export default {
       ]
     },
     docs: {
-      extractComponentDescription: () => {
-        return readme;
-      }
+      extractComponentDescription: () => readme
     }
-  }
+  },
+  title: 'Link'
 };
