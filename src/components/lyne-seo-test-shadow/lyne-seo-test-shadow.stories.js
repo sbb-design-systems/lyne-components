@@ -1,10 +1,9 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-export const seoWithShadow = (args) => <lyne-seo-test-shadow />;
+export const seoWithShadow = () => <lyne-seo-test-shadow />;
 
 export default {
-  title: 'seoWithShadow',
   parameters: {
     chromatic: {
       delay: 1000,
@@ -15,9 +14,8 @@ export default {
       ]
     },
     docs: {
-      extractComponentDescription: () => {
-        return readme;
-      }
+      extractComponentDescription: () => readme
     }
-  }
+  },
+  title: 'seoWithShadow'
 };
