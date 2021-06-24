@@ -1,5 +1,5 @@
-import { h } from 'jsx-dom';
 import events from './lyne-cta-button.events.ts';
+import { h } from 'jsx-dom';
 
 export const button = (args) => <lyne-cta-button
   {...args}
@@ -7,15 +7,12 @@ export const button = (args) => <lyne-cta-button
 
 button.args = {
   label: 'Label'
-}
+};
 
 export default {
-  title: 'Button',
   parameters: {
     actions: {
-      handles: [
-        events.click
-      ],
+      handles: [events.click]
     },
     chromatic: {
       delay: 1000,
@@ -25,5 +22,6 @@ export default {
         1201
       ]
     }
-  }
+  },
+  title: 'Button'
 };
