@@ -1,3 +1,10 @@
+# [9.19.0](https://github.com/lyne-design-system/lyne-components/compare/v9.18.0...v9.19.0) (2021-06-24)
+
+
+### Features
+
+* add sample css variables to verify it works with shadow dom ([82b4015](https://github.com/lyne-design-system/lyne-components/commit/82b4015198429be6309c81d41781927effb156b5))
+
 # [9.18.0](https://github.com/lyne-design-system/lyne-components/compare/v9.17.0...v9.18.0) (2021-06-24)
 
 
