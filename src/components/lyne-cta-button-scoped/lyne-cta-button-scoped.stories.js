@@ -1,5 +1,5 @@
-import { h } from 'jsx-dom';
 import events from './lyne-cta-button-scoped.events.ts';
+import { h } from 'jsx-dom';
 
 export const buttonScoped = (args) => <lyne-cta-button-scoped
   {...args}
@@ -7,15 +7,12 @@ export const buttonScoped = (args) => <lyne-cta-button-scoped
 
 buttonScoped.args = {
   label: 'Label'
-}
+};
 
 export default {
-  title: 'ButtonScoped',
   parameters: {
     actions: {
-      handles: [
-        events.click
-      ],
+      handles: [events.click]
     },
     chromatic: {
       delay: 1000,
@@ -25,5 +22,6 @@ export default {
         1201
       ]
     }
-  }
+  },
+  title: 'ButtonScoped'
 };
