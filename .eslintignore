@@ -2,7 +2,6 @@ dist/
 loader/
 hydrate/
 src/components.d.ts
-src/components/**/*.stories.js
 storybook-static/
 www/
 
