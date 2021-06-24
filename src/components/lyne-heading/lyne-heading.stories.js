@@ -3,7 +3,7 @@ import readme from './readme.md';
 
 const levels = {
   control: {
-    type: 'radio',
+    type: 'radio'
   },
   options: [
     1,
@@ -17,18 +17,17 @@ export const heading = (args) => <lyne-heading
 />;
 
 heading.argTypes = {
-  'visual-level': levels,
-  'level': levels
+  'level': levels,
+  'visual-level': levels
 };
 
 heading.args = {
-  level: 1,
-  'visual-level': 1,
-  text: 'Sample Heading'
+  'level': 1,
+  'text': 'Sample Heading',
+  'visual-level': 1
 };
 
 export default {
-  title: 'typo/Heading',
   parameters: {
     chromatic: {
       delay: 1000,
@@ -39,9 +38,8 @@ export default {
       ]
     },
     docs: {
-      extractComponentDescription: () => {
-        return readme;
-      }
+      extractComponentDescription: () => readme
     }
-  }
+  },
+  title: 'typo/Heading'
 };
