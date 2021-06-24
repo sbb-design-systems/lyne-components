@@ -1,3 +1,15 @@
+# [9.18.0](https://github.com/lyne-design-system/lyne-components/compare/v9.17.0...v9.18.0) (2021-06-24)
+
+
+### Bug Fixes
+
+* override to ignore var h as undefined ([e6ff0fe](https://github.com/lyne-design-system/lyne-components/commit/e6ff0feb7f05aa6ea03500c938b91ad057d44fdd))
+
+
+### Features
+
+* exclude stories from eslintignore ([54a5a1f](https://github.com/lyne-design-system/lyne-components/commit/54a5a1fc7c68957da5a7b6c9a61acfd17bac0c0a))
+
 # [9.17.0](https://github.com/lyne-design-system/lyne-components/compare/v9.16.0...v9.17.0) (2021-06-24)
 
 
