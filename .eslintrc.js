@@ -21,6 +21,18 @@ baseConfig.globals = {
 
 baseConfig.overrides = [
   {
+    files: ['*.js'],
+    rules: {
+      'no-unused-vars': [
+        'error',
+        {
+          vars: 'all',
+          varsIgnorePattern: 'h'
+        }
+      ]
+    }
+  },
+  {
     extends: ['plugin:@typescript-eslint/recommended'],
     files: [
       '*.ts',
