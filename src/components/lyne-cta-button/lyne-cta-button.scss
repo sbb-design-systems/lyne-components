@@ -12,6 +12,8 @@
   border: none;
   cursor: pointer;
   border-radius: 0.1rem;
+
+  border: 5px solid var(--app-primary-color);
 }
 
 .button:hover,

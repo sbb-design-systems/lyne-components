@@ -1,1 +1,5 @@
 @import './node_modules/lyne-design-tokens/dist/scss/_variables.scss';
+
+:host {
+  --app-primary-color: blue;
+}
