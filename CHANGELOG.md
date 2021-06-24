@@ -1,3 +1,12 @@
+# [9.17.0](https://github.com/lyne-design-system/lyne-components/compare/v9.16.0...v9.17.0) (2021-06-24)
+
+
+### Features
+
+* add seo test component with no shadow and slot ([2c96527](https://github.com/lyne-design-system/lyne-components/commit/2c96527c89e4e27b0b11b3190def7edde5045ce7))
+* add seo test component with shadow and slot ([9460dce](https://github.com/lyne-design-system/lyne-components/commit/9460dce172798aae31255a554ceb860c6426efb3))
+* update after fresh build ([9d27bfd](https://github.com/lyne-design-system/lyne-components/commit/9d27bfd0e7c8176e68b71b3c33dcf122e2772d07))
+
 # [9.16.0](https://github.com/lyne-design-system/lyne-components/compare/v9.15.6...v9.16.0) (2021-06-23)
 
 
