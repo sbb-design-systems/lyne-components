@@ -4,7 +4,6 @@ import readme from './readme.md';
 export const footer = () => <lyne-footer />;
 
 export default {
-  title: 'Footer',
   parameters: {
     chromatic: {
       delay: 1000,
@@ -15,9 +14,8 @@ export default {
       ]
     },
     docs: {
-      extractComponentDescription: () => {
-        return readme;
-      }
+      extractComponentDescription: () => readme
     }
-  }
+  },
+  title: 'Footer'
 };
