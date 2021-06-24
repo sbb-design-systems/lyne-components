@@ -1,5 +1,5 @@
-import { h } from 'jsx-dom';
 import events from './lyne-cta-button-no-shadow.events.ts';
+import { h } from 'jsx-dom';
 
 export const buttonNoShadow = (args) => <lyne-cta-button-no-shadow
   {...args}
@@ -7,15 +7,12 @@ export const buttonNoShadow = (args) => <lyne-cta-button-no-shadow
 
 buttonNoShadow.args = {
   label: 'Label'
-}
+};
 
 export default {
-  title: 'ButtonNoShadow',
   parameters: {
     actions: {
-      handles: [
-        events.click
-      ],
+      handles: [events.click]
     },
     chromatic: {
       delay: 1000,
@@ -25,5 +22,6 @@ export default {
         1201
       ]
     }
-  }
+  },
+  title: 'ButtonNoShadow'
 };
