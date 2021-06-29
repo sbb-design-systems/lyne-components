@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.d";
 export namespace Components {
+    interface LyneAlert {
+    }
     interface LyneCtaButton {
         /**
           * Id which is send in the click event payload
@@ -130,6 +132,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLLyneAlertElement extends Components.LyneAlert, HTMLStencilElement {
+    }
+    var HTMLLyneAlertElement: {
+        prototype: HTMLLyneAlertElement;
+        new (): HTMLLyneAlertElement;
+    };
     interface HTMLLyneCtaButtonElement extends Components.LyneCtaButton, HTMLStencilElement {
     }
     var HTMLLyneCtaButtonElement: {
@@ -239,6 +247,7 @@ declare global {
         new (): HTMLLyneSeoTestShadowSlotElement;
     };
     interface HTMLElementTagNameMap {
+        "lyne-alert": HTMLLyneAlertElement;
         "lyne-cta-button": HTMLLyneCtaButtonElement;
         "lyne-cta-button-no-shadow": HTMLLyneCtaButtonNoShadowElement;
         "lyne-cta-button-scoped": HTMLLyneCtaButtonScopedElement;
@@ -260,6 +269,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface LyneAlert {
+    }
     interface LyneCtaButton {
         /**
           * Id which is send in the click event payload
@@ -382,6 +393,7 @@ declare namespace LocalJSX {
     interface LyneSeoTestShadowSlot {
     }
     interface IntrinsicElements {
+        "lyne-alert": LyneAlert;
         "lyne-cta-button": LyneCtaButton;
         "lyne-cta-button-no-shadow": LyneCtaButtonNoShadow;
         "lyne-cta-button-scoped": LyneCtaButtonScoped;
@@ -406,6 +418,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "lyne-alert": LocalJSX.LyneAlert & JSXBase.HTMLAttributes<HTMLLyneAlertElement>;
             "lyne-cta-button": LocalJSX.LyneCtaButton & JSXBase.HTMLAttributes<HTMLLyneCtaButtonElement>;
             "lyne-cta-button-no-shadow": LocalJSX.LyneCtaButtonNoShadow & JSXBase.HTMLAttributes<HTMLLyneCtaButtonNoShadowElement>;
             "lyne-cta-button-scoped": LocalJSX.LyneCtaButtonScoped & JSXBase.HTMLAttributes<HTMLLyneCtaButtonScopedElement>;
