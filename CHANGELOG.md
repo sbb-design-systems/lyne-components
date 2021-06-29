@@ -1,3 +1,10 @@
+# [9.20.0](https://github.com/lyne-design-system/lyne-components/compare/v9.19.1...v9.20.0) (2021-06-29)
+
+
+### Features
+
+* add sample alert component for ssr test ([aae8afc](https://github.com/lyne-design-system/lyne-components/commit/aae8afc3b63e7052747d3e5e48272fba2553cbab))
+
 ## [9.19.1](https://github.com/lyne-design-system/lyne-components/compare/v9.19.0...v9.19.1) (2021-06-29)
 
 
