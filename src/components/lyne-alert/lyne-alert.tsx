@@ -4,7 +4,7 @@ import {
 } from '@stencil/core';
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrl: 'lyne-alert.scss',
   tag: 'lyne-alert'
 })
