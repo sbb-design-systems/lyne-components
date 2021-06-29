@@ -1,3 +1,11 @@
+## [9.20.1](https://github.com/lyne-design-system/lyne-components/compare/v9.20.0...v9.20.1) (2021-06-29)
+
+
+### Bug Fixes
+
+* add meaningfull message in alert ([e65518d](https://github.com/lyne-design-system/lyne-components/commit/e65518d5f32f6f7825a57142045ac64a289c1a35))
+* enable shadow dom on alert ([8d5952c](https://github.com/lyne-design-system/lyne-components/commit/8d5952c17717ad62c29bb671e6798ffe48be3735))
+
 # [9.20.0](https://github.com/lyne-design-system/lyne-components/compare/v9.19.1...v9.20.0) (2021-06-29)
 
 
