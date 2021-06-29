@@ -1,3 +1,11 @@
+## [9.19.1](https://github.com/lyne-design-system/lyne-components/compare/v9.19.0...v9.19.1) (2021-06-29)
+
+
+### Bug Fixes
+
+* replace arrow icon with gear icon ([9b5927f](https://github.com/lyne-design-system/lyne-components/commit/9b5927fb8f04ef963b93f5682980fbe29bd2e232))
+* update lyne-icons ([60809c8](https://github.com/lyne-design-system/lyne-components/commit/60809c8930f90aea3205f1fc25a3ea9047ba667f))
+
 # [9.19.0](https://github.com/lyne-design-system/lyne-components/compare/v9.18.0...v9.19.0) (2021-06-24)
 
 
