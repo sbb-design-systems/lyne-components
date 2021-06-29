@@ -4,7 +4,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import Arrow from 'lyne-icons/dist/icons/lyne-arrow.svg';
+import ButtonIcon from 'lyne-icons/dist/icons/lyne-gears-small.svg';
 import events from './lyne-cta-button-no-shadow.events';
 import Tokens from 'lyne-design-tokens/dist/js/tokens.commonjs';
 
@@ -53,7 +53,7 @@ export class LyneCtaButtonNoShadow {
 
     return <button style={style} class='button' onClick={this._buttonClick}>
       <span class='label'>{this.label}</span>
-      <span class='arrow' innerHTML={Arrow} />
+      <span class='arrow' innerHTML={ButtonIcon} />
     </button>;
   }
 }
