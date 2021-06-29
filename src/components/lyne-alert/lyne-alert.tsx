@@ -12,7 +12,7 @@ import {
 export class LyneAlert {
   public toggleAlert(): void {
     /* eslint-disable no-alert */
-    alert('hey');
+    alert('This alert can only be shown, if client side java script is executed. For an SSR page that means, client side hydration was successfull.');
     /* eslint-enable no-alert */
   }
 
