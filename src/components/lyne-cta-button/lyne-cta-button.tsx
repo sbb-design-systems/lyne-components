@@ -4,7 +4,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import ButtonIcon from 'lyne-icons/dist/icons/lyne-gears-small.svg';
+import ButtonIcon from 'lyne-icons/dist/icons/lyne-service-bell-small.svg';
 import events from './lyne-cta-button.events';
 import Tokens from 'lyne-design-tokens/dist/js/tokens.commonjs';
 
