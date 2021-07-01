@@ -1,3 +1,15 @@
+# [9.21.0](https://github.com/lyne-design-system/lyne-components/compare/v9.20.1...v9.21.0) (2021-07-01)
+
+
+### Bug Fixes
+
+* use icon that actually exists ([c9ac4ab](https://github.com/lyne-design-system/lyne-components/commit/c9ac4ababdc31348a75fb6162e7c6af23dccdac6))
+
+
+### Features
+
+* slim icons before saving (triggered from icons build) [skip ci] ([4045896](https://github.com/lyne-design-system/lyne-components/commit/4045896f910d2937baf750f9e6a0d6659ad59c46))
+
 ## [9.20.1](https://github.com/lyne-design-system/lyne-components/compare/v9.20.0...v9.20.1) (2021-06-29)
 
 
