@@ -1,3 +1,10 @@
+## [9.22.5](https://github.com/lyne-design-system/lyne-components/compare/v9.22.4...v9.22.5) (2021-07-05)
+
+
+### Bug Fixes
+
+* fix glitch in bicycle-icon (triggered from Figma) (triggered from icons build) [skip ci] ([f017d7a](https://github.com/lyne-design-system/lyne-components/commit/f017d7a2c6b8f07e6301c43b5eee5e0f48cbc37b))
+
 ## [9.22.4](https://github.com/lyne-design-system/lyne-components/compare/v9.22.3...v9.22.4) (2021-07-05)
 
 
