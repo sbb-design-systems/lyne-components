@@ -1,3 +1,10 @@
+## [9.22.2](https://github.com/lyne-design-system/lyne-components/compare/v9.22.1...v9.22.2) (2021-07-05)
+
+
+### Bug Fixes
+
+* increase digit percision to 6 (triggered from icons build) [skip ci] ([68a6b98](https://github.com/lyne-design-system/lyne-components/commit/68a6b98cfba2535c9930a5777e6e6dfeb7a87f8e))
+
 ## [9.22.1](https://github.com/lyne-design-system/lyne-components/compare/v9.22.0...v9.22.1) (2021-07-05)
 
 
