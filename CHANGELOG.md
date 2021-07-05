@@ -1,3 +1,10 @@
+## [9.22.7](https://github.com/lyne-design-system/lyne-components/compare/v9.22.6...v9.22.7) (2021-07-05)
+
+
+### Bug Fixes
+
+* explicitly define pages with icon variants and use it as condition (triggered from icons build) [skip ci] ([bc4b8c8](https://github.com/lyne-design-system/lyne-components/commit/bc4b8c8a2a2f9f488403acd68ed5ce6aa6ee3d32))
+
 ## [9.22.6](https://github.com/lyne-design-system/lyne-components/compare/v9.22.5...v9.22.6) (2021-07-05)
 
 
