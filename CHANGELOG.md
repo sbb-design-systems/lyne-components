@@ -1,3 +1,10 @@
+# [9.22.0](https://github.com/lyne-design-system/lyne-components/compare/v9.21.5...v9.22.0) (2021-07-05)
+
+
+### Features
+
+* add font-face declaration to storybook so we can use sbb font as soon as we use it in components ([3dd1b37](https://github.com/lyne-design-system/lyne-components/commit/3dd1b37ea37889f27d20ba5b7f9d3e4373ede039))
+
 ## [9.21.5](https://github.com/lyne-design-system/lyne-components/compare/v9.21.4...v9.21.5) (2021-07-05)
 
 
