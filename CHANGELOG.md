@@ -1,3 +1,10 @@
+## [9.21.3](https://github.com/lyne-design-system/lyne-components/compare/v9.21.2...v9.21.3) (2021-07-05)
+
+
+### Bug Fixes
+
+* limit digits to 5 to fix glitches in some icons (triggered from icons build) [skip ci] ([c366710](https://github.com/lyne-design-system/lyne-components/commit/c36671089dbd76b5bb7e21534c8d7cb344ce0e7a))
+
 ## [9.21.2](https://github.com/lyne-design-system/lyne-components/compare/v9.21.1...v9.21.2) (2021-07-05)
 
 
