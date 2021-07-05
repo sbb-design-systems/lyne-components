@@ -1,3 +1,10 @@
+# [9.23.0](https://github.com/lyne-design-system/lyne-components/compare/v9.22.7...v9.23.0) (2021-07-05)
+
+
+### Features
+
+* add some timetable icons (triggered from Figma) (triggered from icons build) [skip ci] ([8581ef4](https://github.com/lyne-design-system/lyne-components/commit/8581ef48f108d1ef27dd6224612e7a354fd83f60))
+
 ## [9.22.7](https://github.com/lyne-design-system/lyne-components/compare/v9.22.6...v9.22.7) (2021-07-05)
 
 
