@@ -1,3 +1,10 @@
+## [9.21.5](https://github.com/lyne-design-system/lyne-components/compare/v9.21.4...v9.21.5) (2021-07-05)
+
+
+### Bug Fixes
+
+* fixed various icons glitches (triggered from Figma) (triggered from icons build) [skip ci] ([5497b81](https://github.com/lyne-design-system/lyne-components/commit/5497b816af133c723197b50415e1d216a7710b2e))
+
 ## [9.21.4](https://github.com/lyne-design-system/lyne-components/compare/v9.21.3...v9.21.4) (2021-07-05)
 
 
