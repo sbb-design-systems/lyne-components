@@ -1,3 +1,10 @@
+## [9.23.2](https://github.com/lyne-design-system/lyne-components/compare/v9.23.1...v9.23.2) (2021-07-21)
+
+
+### Bug Fixes
+
+* test workflow (triggered from Figma) (triggered from icons build) [skip ci] ([3d3a4cb](https://github.com/lyne-design-system/lyne-components/commit/3d3a4cbbc5eba9471fd15e97345ebbd4be53e820))
+
 ## [9.23.1](https://github.com/lyne-design-system/lyne-components/compare/v9.23.0...v9.23.1) (2021-07-21)
 
 
