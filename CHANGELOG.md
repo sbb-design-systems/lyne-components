@@ -1,3 +1,10 @@
+## [9.24.1](https://github.com/lyne-design-system/lyne-components/compare/v9.24.0...v9.24.1) (2021-07-26)
+
+
+### Bug Fixes
+
+* group Verkehrsmittel Icons and remove Slash from name (triggered from Figma) (triggered from icons build) [skip ci] ([c41c179](https://github.com/lyne-design-system/lyne-components/commit/c41c179d170deb410c70d35f8903efeb711ba780))
+
 # [9.24.0](https://github.com/lyne-design-system/lyne-components/compare/v9.23.2...v9.24.0) (2021-07-26)
 
 
