@@ -38,7 +38,8 @@
     "start": "npm-run-all --sequential build:stencil --parallel start:stencil start:storybook",
     "test:dev": "stencil test --spec --e2e --coverage",
     "test:prod": "stencil test --prod --spec --e2e --coverage",
-    "test:watch": "stencil test --spec --e2e --watchAll"
+    "test:watch": "stencil test --spec --e2e --watchAll",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/core": "~7.14.0",
