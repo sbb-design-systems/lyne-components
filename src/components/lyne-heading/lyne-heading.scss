@@ -3,23 +3,23 @@
 }
 
 .title {
-  font-size: $size-font-regular;
+  font-size: 1rem;
 	color: black;
   margin: 0;
 }
 
 .title--level1 {
   color: red;
-  font-size: calc(3 * #{$size-font-regular});
+  font-size: 3rem;
 }
 
 .title--level2 {
   color: green;
-  font-size: calc(2 * #{$size-font-regular});
+  font-size: 2rem;
 }
 
 .title--level3 {
   color: blue;
   font-weight: bold;
-  font-size: $size-font-regular;
+  font-size: 1rem;
 }

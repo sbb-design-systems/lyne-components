@@ -6,7 +6,6 @@ import {
 } from '@stencil/core';
 import ButtonIcon from 'lyne-icons/dist/icons/lyne-service-bell-small.svg';
 import events from './lyne-cta-button-scoped.events';
-import Tokens from 'lyne-design-tokens/dist/js/tokens.commonjs';
 
 @Component({
   scoped: true,
@@ -48,11 +47,7 @@ export class LyneCtaButtonScoped {
   };
 
   public render(): JSX.Element {
-    const style = {
-      fontSize: Tokens.SizeFontRegular
-    };
-
-    return <button style={style} class='button' onClick={this._buttonClick}>
+    return <button class='button' onClick={this._buttonClick}>
       <span class='label'>{this.label}</span>
       <span class='arrow' innerHTML={ButtonIcon} />
     </button>;

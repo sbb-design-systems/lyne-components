@@ -14,7 +14,7 @@ describe('lyne-cta-button-scoped', () => {
     expect(root)
       .toEqualHtml(`
         <lyne-cta-button-scoped label="Label">
-          <button class="button" style="font-size: 16px;">
+          <button class="button">
             <span class="label">Label</span>
             <span class="arrow"></span>
           </button>

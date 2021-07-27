@@ -15,7 +15,7 @@ describe('lyne-cta-button', () => {
       .toEqualHtml(`
         <lyne-cta-button label="Label">
           <mock:shadow-root>
-            <button class="button" style="font-size: 16px;">
+            <button class="button">
               <span class="label">Label</span>
               <span class="arrow"></span>
             </button>

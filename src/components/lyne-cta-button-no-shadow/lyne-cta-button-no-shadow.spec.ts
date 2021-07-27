@@ -14,7 +14,7 @@ describe('lyne-cta-button-no-shadow', () => {
     expect(root)
       .toEqualHtml(`
         <lyne-cta-button-no-shadow label="Label">
-          <button class="button" style="font-size: 16px;">
+          <button class="button">
             <span class="label">Label</span>
             <span class="arrow"></span>
           </button>
