@@ -26,7 +26,7 @@ export class LyneCtaButton {
   @Prop() public label = 'Default button text';
 
   /** Type of the button, like primary, secondary etc. */
-  @Prop() public type?: InterfaceButtonAttributes['type'] = 'primary';
+  @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
 
   /** Id which is send in the click event payload */
   @Prop() public eventId?: string;
@@ -50,7 +50,7 @@ export class LyneCtaButton {
   };
 
   public render(): JSX.Element {
-    const typeClass = `button button--${this.type}`;
+    const typeClass = `button button--${this.variant}`;
 
     return <button class={typeClass} onClick={this._buttonClick}>
       <span class='button__label'>{this.label}</span>
