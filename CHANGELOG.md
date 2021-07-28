@@ -1,3 +1,10 @@
+# [9.25.0](https://github.com/lyne-design-system/lyne-components/compare/v9.24.1...v9.25.0) (2021-07-28)
+
+
+### Features
+
+* output css variables in scss file (triggered from design tokens build) [skip ci] ([a82e0fb](https://github.com/lyne-design-system/lyne-components/commit/a82e0fb30b76ba9d9a733f327b614f23ee8e58ed))
+
 ## [9.24.1](https://github.com/lyne-design-system/lyne-components/compare/v9.24.0...v9.24.1) (2021-07-26)
 
 
