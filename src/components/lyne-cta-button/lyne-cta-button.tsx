@@ -26,7 +26,7 @@ export class LyneCtaButton {
   @Prop() public label = 'Default button text';
 
   /** Type of the button, like primary, secondary etc. */
-  @Prop() public type?: InterfaceButtonAttributes['type'];
+  @Prop() public type?: InterfaceButtonAttributes['type'] = 'primary';
 
   /** Id which is send in the click event payload */
   @Prop() public eventId?: string;
