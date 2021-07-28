@@ -1,3 +1,18 @@
+# [9.26.0](https://github.com/lyne-design-system/lyne-components/compare/v9.25.2...v9.26.0) (2021-07-28)
+
+
+### Bug Fixes
+
+* adopt new color names ([c83318e](https://github.com/lyne-design-system/lyne-components/commit/c83318e2ebe0651cdcc93f764dcf96f1b291409b))
+* use correct var names ([e86f315](https://github.com/lyne-design-system/lyne-components/commit/e86f3159c3fdef955486e87b89dd689803f72fc6))
+
+
+### Features
+
+* add css variables for all colors for all button variants ([a3c1757](https://github.com/lyne-design-system/lyne-components/commit/a3c1757b052eb393112cb0e10fbb9d8562e998b1))
+* add radio selection for button type ([200c185](https://github.com/lyne-design-system/lyne-components/commit/200c1855e9852a37e2881a05d54678356e541b7a))
+* define button class depending on button type ([113c6f1](https://github.com/lyne-design-system/lyne-components/commit/113c6f1314d52228e0218df0e91e921d80f3c8cc))
+
 ## [9.25.2](https://github.com/lyne-design-system/lyne-components/compare/v9.25.1...v9.25.2) (2021-07-28)
 
 
