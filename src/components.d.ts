@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { InterfaceButtonAttributes } from "./components/lyne-cta-button/lyne-cta-button.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.d";
 export namespace Components {
     interface LyneAlert {
@@ -23,6 +24,10 @@ export namespace Components {
           * @sampleDocTag2 sampleName2 - sampleValue2
          */
         "samplePropForJSDocs": string;
+        /**
+          * Type of the button, like primary, secondary etc.
+         */
+        "type"?: InterfaceButtonAttributes['type'];
     }
     interface LyneCtaButtonNoShadow {
         /**
@@ -285,6 +290,10 @@ declare namespace LocalJSX {
           * @sampleDocTag2 sampleName2 - sampleValue2
          */
         "samplePropForJSDocs"?: string;
+        /**
+          * Type of the button, like primary, secondary etc.
+         */
+        "type"?: InterfaceButtonAttributes['type'];
     }
     interface LyneCtaButtonNoShadow {
         /**
