@@ -47,8 +47,8 @@ export class LyneCtaButton {
 
   public render(): JSX.Element {
     return <button class='button' onClick={this._buttonClick}>
-      <span class='label'>{this.label}</span>
-      <span class='arrow' innerHTML={ButtonIcon} />
+      <span class='button__label'>{this.label}</span>
+      <span class='button__icon' innerHTML={ButtonIcon} />
     </button>;
   }
 }
