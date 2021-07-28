@@ -8,16 +8,16 @@ describe('lyne-cta-button', () => {
       root
     } = await newSpecPage({
       components: [LyneCtaButton],
-      html: '<lyne-cta-button label="Label"></lyne-cta-button>'
+      html: '<lyne-cta-button label="Label" type="secondary-negative"></lyne-cta-button>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-cta-button label="Label">
+        <lyne-cta-button label="Label" type="secondary-negative">
           <mock:shadow-root>
-            <button class="button">
-              <span class="label">Label</span>
-              <span class="arrow"></span>
+            <button class="button button--secondary-negative">
+              <span class="button__label">Label</span>
+              <span class="button__icon"></span>
             </button>
           </mock:shadow-root>
         </lyne-cta-button>
