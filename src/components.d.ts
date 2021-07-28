@@ -25,7 +25,7 @@ export namespace Components {
          */
         "samplePropForJSDocs": string;
         /**
-          * Type of the button, like primary, secondary etc.
+          * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
     }
@@ -291,7 +291,7 @@ declare namespace LocalJSX {
          */
         "samplePropForJSDocs"?: string;
         /**
-          * Type of the button, like primary, secondary etc.
+          * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
     }
