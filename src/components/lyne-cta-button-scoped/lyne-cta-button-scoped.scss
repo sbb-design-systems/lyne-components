@@ -6,27 +6,16 @@
   display: flex;
   align-items: center;
   padding: .5rem 1rem;
-	color: $color-white-regular;
-  background-color: $color-red-regular;
+	color: white;
+  background-color: red;
   transition: background-color ease-in 200ms;
   border: none;
   cursor: pointer;
   border-radius: 0.1rem;
-
-  border: 5px solid var(--app-primary-color);
-}
-
-.button:hover,
-.button:focus {
-  background-color: $color-red-125;
-}
-
-.button:active {
-  background-color: $color-red-150;
 }
 
 .arrow {
-  color: $color-white-regular;
+  color: white;
   width: 1.5rem;
   height: 1.5rem;
   padding-left: .5rem;

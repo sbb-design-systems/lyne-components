@@ -6,6 +6,7 @@ import {
 } from '@stencil/core';
 import ButtonIcon from 'lyne-icons/dist/icons/lyne-service-bell-small.svg';
 import events from './lyne-cta-button.events';
+import { InterfaceButtonAttributes } from './lyne-cta-button.d';
 
 @Component({
   shadow: true,
@@ -23,6 +24,9 @@ export class LyneCtaButton {
 
   /** Label text to show on the button */
   @Prop() public label = 'Default button text';
+
+  /** Variant of the button, like primary, secondary etc. */
+  @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
 
   /** Id which is send in the click event payload */
   @Prop() public eventId?: string;
@@ -46,9 +50,11 @@ export class LyneCtaButton {
   };
 
   public render(): JSX.Element {
-    return <button class='button' onClick={this._buttonClick}>
-      <span class='label'>{this.label}</span>
-      <span class='arrow' innerHTML={ButtonIcon} />
+    const typeClass = `button button--${this.variant}`;
+
+    return <button class={typeClass} onClick={this._buttonClick}>
+      <span class='button__label'>{this.label}</span>
+      <span class='button__icon' innerHTML={ButtonIcon} />
     </button>;
   }
 }

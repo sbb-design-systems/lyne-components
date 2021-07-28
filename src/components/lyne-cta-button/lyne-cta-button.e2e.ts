@@ -25,7 +25,7 @@ describe('lyne-cta-button', () => {
 
     element.setProperty('label', buttonText);
     await page.waitForChanges();
-    const button = await page.find('lyne-cta-button >>> .label');
+    const button = await page.find('lyne-cta-button >>> .button__label');
 
     expect(button.textContent)
       .toEqual(buttonText);
