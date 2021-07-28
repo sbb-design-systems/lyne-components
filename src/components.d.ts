@@ -27,7 +27,7 @@ export namespace Components {
         /**
           * Type of the button, like primary, secondary etc.
          */
-        "type"?: InterfaceButtonAttributes['type'];
+        "variant"?: InterfaceButtonAttributes['variant'];
     }
     interface LyneCtaButtonNoShadow {
         /**
@@ -293,7 +293,7 @@ declare namespace LocalJSX {
         /**
           * Type of the button, like primary, secondary etc.
          */
-        "type"?: InterfaceButtonAttributes['type'];
+        "variant"?: InterfaceButtonAttributes['variant'];
     }
     interface LyneCtaButtonNoShadow {
         /**
