@@ -1,3 +1,10 @@
+## [9.25.2](https://github.com/lyne-design-system/lyne-components/compare/v9.25.1...v9.25.2) (2021-07-28)
+
+
+### Bug Fixes
+
+* use :host selector instead of default :root (triggered from design tokens build) [skip ci] ([28bd6b8](https://github.com/lyne-design-system/lyne-components/commit/28bd6b89e40d11faa2cecb2f551c6a2bbf3f33f6))
+
 ## [9.25.1](https://github.com/lyne-design-system/lyne-components/compare/v9.25.0...v9.25.1) (2021-07-28)
 
 
