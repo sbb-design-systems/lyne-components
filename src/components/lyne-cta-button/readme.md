@@ -29,7 +29,7 @@ const foo = "bar";
 | `eventId`             | `event-id`                 | Id which is send in the click event payload      | `string`                                                                                                                                                 | `undefined`             |
 | `label`               | `label`                    | Label text to show on the button                 | `string`                                                                                                                                                 | `'Default button text'` |
 | `samplePropForJSDocs` | `sample-prop-for-j-s-docs` |                                                  | `string`                                                                                                                                                 | `'sample prop'`         |
-| `type`                | `type`                     | Type of the button, like primary, secondary etc. | `"primary" \| "primary-negative" \| "secondary" \| "secondary-negative" \| "tertiary" \| "tertiary-negative" \| "transparent" \| "transparent-negative"` | `undefined`             |
+| `type`                | `type`                     | Type of the button, like primary, secondary etc. | `"primary" \| "primary-negative" \| "secondary" \| "secondary-negative" \| "tertiary" \| "tertiary-negative" \| "transparent" \| "transparent-negative"` | `'primary'`             |
 
 
 ----------------------------------------------
