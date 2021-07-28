@@ -4,121 +4,121 @@
   // we use primary button styles as default values
   --color-active-background: var(--color-red-150);
   --color-active-border: var(--color-red-150);
-  --color-active-text: var(--color-black-14);
-  --color-default-background: var(--color-red-regular);
-  --color-default-border: var(--color-red-regular);
-  --color-default-text: var(--color-white-regular);
-  --color-disabled-background: var(--color-black-15);
-  --color-disabled-border: var(--color-black-15);
-  --color-disabled-text: var(--color-black-11);
+  --color-active-text: var(--color-cloud);
+  --color-default-background: var(--color-red-default);
+  --color-default-border: var(--color-red-default);
+  --color-default-text: var(--color-white-default);
+  --color-disabled-background: var(--color-milk);
+  --color-disabled-border: var(--color-milk);
+  --color-disabled-text: var(--color-platinum);
   --color-hover-background: var(--color-red-125);
   --color-hover-border: var(--color-red-125);
-  --color-hover-text: var(--color-black-15);
+  --color-hover-text: var(--color-milk);
 }
 
 .button--primary-negative {
-  --color-active-background: var(--color-black-14);
-  --color-active-border: var(--color-black-14);
+  --color-active-background: var(--color-cloud);
+  --color-active-border: var(--color-cloud);
   --color-active-text: var(--color-red-150);
-  --color-default-background: var(--color-white-regular);
-  --color-default-border: var(--color-white-regular);
-  --color-default-text: var(--color-red-regular);
+  --color-default-background: var(--color-white-default);
+  --color-default-border: var(--color-white-default);
+  --color-default-text: var(--color-red-default);
   --color-disabled-background: var(--color-black-alpha-10);
   --color-disabled-border: var(--color-black-alpha-10);
   --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: var(--color-black-15);
-  --color-hover-border: var(--color-black-15);
+  --color-hover-background: var(--color-milk);
+  --color-hover-border: var(--color-milk);
   --color-hover-text: var(--color-red-125);
 }
 
 .button--secondary {
-  --color-active-background: var(--color-black-14);
-  --color-active-border: var(--color-black-14);
-  --color-active-text: var(--color-black-4);
-  --color-default-background: var(--color-white-regular);
-  --color-default-border: var(--color-black-14);
-  --color-default-text: var(--color-black-2);
-  --color-disabled-background: var(--color-black-15);
-  --color-disabled-border: var(--color-black-15);
-  --color-disabled-text: var(--color-black-11);
-  --color-hover-background: var(--color-black-15);
-  --color-hover-border: var(--color-black-14);
-  --color-hover-text: var(--color-black-3);
+  --color-active-background: var(--color-cloud);
+  --color-active-border: var(--color-cloud);
+  --color-active-text: var(--color-anthracite);
+  --color-default-background: var(--color-white-default);
+  --color-default-border: var(--color-cloud);
+  --color-default-text: var(--color-charcoal);
+  --color-disabled-background: var(--color-milk);
+  --color-disabled-border: var(--color-milk);
+  --color-disabled-text: var(--color-platinum);
+  --color-hover-background: var(--color-milk);
+  --color-hover-border: var(--color-cloud);
+  --color-hover-text: var(--color-iron);
 }
 
 .button--secondary-negative {
-  --color-active-background: var(--color-red-regular);
-  --color-active-border: var(--color-black-14);
-  --color-active-text: var(--color-black-14);
-  --color-default-background: var(--color-red-regular);
-  --color-default-border: var(--color-white-regular);
-  --color-default-text: var(--color-white-regular);
+  --color-active-background: var(--color-red-default);
+  --color-active-border: var(--color-cloud);
+  --color-active-text: var(--color-cloud);
+  --color-default-background: var(--color-red-default);
+  --color-default-border: var(--color-white-default);
+  --color-default-text: var(--color-white-default);
   --color-disabled-background: var(--color-black-alpha-10);
   --color-disabled-border: var(--color-black-alpha-10);
   --color-disabled-text: var(--color-black-alpha-60);
-  --color-hover-background: var(--color-red-regular);
-  --color-hover-border: var(--color-black-15);
-  --color-hover-text: var(--color-black-15);
+  --color-hover-background: var(--color-red-default);
+  --color-hover-border: var(--color-milk);
+  --color-hover-text: var(--color-milk);
 }
 
 .button--tertiary {
-  --color-active-background: var(--color-white-regular);
-  --color-active-border: var(--color-black-2);
-  --color-active-text: var(--color-black-2);
-  --color-default-background: var(--color-white-regular);
-  --color-default-border: var(--color-black-5);
-  --color-default-text: var(--color-black-5);
+  --color-active-background: var(--color-white-default);
+  --color-active-border: var(--color-charcoal);
+  --color-active-text: var(--color-charcoal);
+  --color-default-background: var(--color-white-default);
+  --color-default-border: var(--color-granite);
+  --color-default-text: var(--color-granite);
   --color-disabled-background: var(--color-black-alpha-10);
   --color-disabled-border: var(--color-black-alpha-10);
-  --color-disabled-text: var(--color-white-regular);
-  --color-hover-background: var(--color-white-regular);
-  --color-hover-border: var(--color-black-regular);
-  --color-hover-text: var(--color-black-regular);
+  --color-disabled-text: var(--color-white-default);
+  --color-hover-background: var(--color-white-default);
+  --color-hover-border: var(--color-black-default);
+  --color-hover-text: var(--color-black-default);
 }
 
 .button--tertiary-negative {
-  --color-active-background: var(--color-red-regular);
-  --color-active-border: var(--color-black-14);
-  --color-active-text: var(--color-black-14);
-  --color-default-background: var(--color-red-regular);
-  --color-default-border: var(--color-white-regular);
-  --color-default-text: var(--color-white-regular);
+  --color-active-background: var(--color-red-default);
+  --color-active-border: var(--color-cloud);
+  --color-active-text: var(--color-cloud);
+  --color-default-background: var(--color-red-default);
+  --color-default-border: var(--color-white-default);
+  --color-default-text: var(--color-white-default);
   --color-disabled-background: var(--color-black-alpha-10);
   --color-disabled-border: var(--color-black-alpha-10);
   --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: var(--color-red-regular);
-  --color-hover-border: var(--color-black-15);
-  --color-hover-text: var(--color-black-15);
+  --color-hover-background: var(--color-red-default);
+  --color-hover-border: var(--color-milk);
+  --color-hover-text: var(--color-milk);
 }
 
 .button--transparent {
   --color-active-background: var(--color-black-alpha-70);
   --color-active-border: var(--color-black-alpha-70);
-  --color-active-text: var(--color-black-14);
+  --color-active-text: var(--color-cloud);
   --color-default-background: var(--color-black-alpha-50);
   --color-default-border: var(--color-black-alpha-50);
-  --color-default-text: var(--color-white-regular);
+  --color-default-text: var(--color-white-default);
   --color-disabled-background: var(--color-black-alpha-20);
   --color-disabled-border: var(--color-black-alpha-20);
-  --color-disabled-text: var(--color-black-15);
+  --color-disabled-text: var(--color-milk);
   --color-hover-background: var(--color-black-alpha-60);
   --color-hover-border: var(--color-black-alpha-60);
-  --color-hover-text: var(--color-black-15);
+  --color-hover-text: var(--color-milk);
 }
 
 .button--transparent-negative {
   --color-active-background: var(--color-white-alpha-70);
   --color-active-border: var(--color-white-alpha-70);
-  --color-active-text: var(--color-black-4);
+  --color-active-text: var(--color-anthracite);
   --color-default-background: var(--color-white-alpha-50);
   --color-default-border: var(--color-white-alpha-50);
-  --color-default-text: var(--color-black-2);
+  --color-default-text: var(--color-charcoal);
   --color-disabled-background: var(--color-white-alpha-20);
   --color-disabled-border: var(--color-white-alpha-20);
-  --color-disabled-text: var(--color-black-11);
+  --color-disabled-text: var(--color-platinum);
   --color-hover-background: var(--color-white-alpha-60);
   --color-hover-border: var(--color-white-alpha-60);
-  --color-hover-text: var(--color-black-3);
+  --color-hover-text: var(--color-iron);
 }
 
 .button {
