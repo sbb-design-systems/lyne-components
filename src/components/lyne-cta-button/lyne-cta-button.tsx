@@ -25,7 +25,7 @@ export class LyneCtaButton {
   /** Label text to show on the button */
   @Prop() public label = 'Default button text';
 
-  /** Type of the button, like primary, secondary etc. */
+  /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
 
   /** Id which is send in the click event payload */
