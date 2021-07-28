@@ -1,7 +1,7 @@
 import events from './lyne-cta-button.events.ts';
 import { h } from 'jsx-dom';
 
-const types = {
+const variants = {
   control: {
     type: 'radio'
   },
@@ -22,12 +22,12 @@ export const button = (args) => <lyne-cta-button
 />;
 
 button.argTypes = {
-  type: types
+  variant: variants
 };
 
 button.args = {
   label: 'Label',
-  type: types.options[0]
+  variant: variants.options[0]
 };
 
 export default {
