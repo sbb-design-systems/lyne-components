@@ -1,3 +1,24 @@
+## [9.25.2](https://github.com/lyne-design-system/lyne-components/compare/v9.25.1...v9.25.2) (2021-07-28)
+
+
+### Bug Fixes
+
+* use :host selector instead of default :root (triggered from design tokens build) [skip ci] ([28bd6b8](https://github.com/lyne-design-system/lyne-components/commit/28bd6b89e40d11faa2cecb2f551c6a2bbf3f33f6))
+
+## [9.25.1](https://github.com/lyne-design-system/lyne-components/compare/v9.25.0...v9.25.1) (2021-07-28)
+
+
+### Bug Fixes
+
+* enable all icons again (triggered from Figma) (triggered from icons build) [skip ci] ([1d8265a](https://github.com/lyne-design-system/lyne-components/commit/1d8265a06336a62c5edc59f37a2f389c7419b226))
+
+# [9.25.0](https://github.com/lyne-design-system/lyne-components/compare/v9.24.1...v9.25.0) (2021-07-28)
+
+
+### Features
+
+* output css variables in scss file (triggered from design tokens build) [skip ci] ([a82e0fb](https://github.com/lyne-design-system/lyne-components/commit/a82e0fb30b76ba9d9a733f327b614f23ee8e58ed))
+
 ## [9.24.1](https://github.com/lyne-design-system/lyne-components/compare/v9.24.0...v9.24.1) (2021-07-26)
 
 
