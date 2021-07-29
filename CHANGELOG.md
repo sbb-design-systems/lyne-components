@@ -1,3 +1,10 @@
+## [9.26.3](https://github.com/lyne-design-system/lyne-components/compare/v9.26.2...v9.26.3) (2021-07-29)
+
+
+### Bug Fixes
+
+* test 1 description field (triggered from Figma) (triggered from icons build) [skip ci] ([1e57a40](https://github.com/lyne-design-system/lyne-components/commit/1e57a40c6d294a7baf889f4753235520b3529130))
+
 ## [9.26.2](https://github.com/lyne-design-system/lyne-components/compare/v9.26.1...v9.26.2) (2021-07-29)
 
 
