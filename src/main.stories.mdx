@@ -1,10 +1,12 @@
-import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs';
 
 import * as Colors from 'lyne-design-tokens/dist/js/tokens.es6';
 
 <Meta title="Colors" />
 
 # Colors
+
+Sample implementation showing storybooks color palette.
 
 <ColorPalette>
   <ColorItem title="Color Red Regular" subtitle="Brand Colors" colors={[Colors.ColorRedDefault]} />
@@ -13,8 +15,8 @@ import * as Colors from 'lyne-design-tokens/dist/js/tokens.es6';
   <ColorItem
     title="Monochrome"
     colors={[
-      Colors.ColorBlack1,
-      Colors.ColorBlack2,
+      Colors.ColorBlackAlpha10,
+      Colors.ColorBlackAlpha20,
     ]}
   />
 </ColorPalette>
