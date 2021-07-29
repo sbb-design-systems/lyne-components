@@ -1,3 +1,10 @@
+## [9.26.8](https://github.com/lyne-design-system/lyne-components/compare/v9.26.7...v9.26.8) (2021-07-29)
+
+
+### Bug Fixes
+
+* fix description object for all kom-icons (triggered from Figma) (triggered from icons build) [skip ci] ([889365e](https://github.com/lyne-design-system/lyne-components/commit/889365e396cc3444b4c4c6de514efe2278b46636))
+
 ## [9.26.7](https://github.com/lyne-design-system/lyne-components/compare/v9.26.6...v9.26.7) (2021-07-29)
 
 
