@@ -1,3 +1,10 @@
+## [9.26.2](https://github.com/lyne-design-system/lyne-components/compare/v9.26.1...v9.26.2) (2021-07-29)
+
+
+### Bug Fixes
+
+* add keywords and meta-description in ui-icons (triggered from Figma) (triggered from icons build) [skip ci] ([f051bcf](https://github.com/lyne-design-system/lyne-components/commit/f051bcf848e6699969b33c47d4278da7b97bf742))
+
 ## [9.26.1](https://github.com/lyne-design-system/lyne-components/compare/v9.26.0...v9.26.1) (2021-07-29)
 
 
