@@ -2,54 +2,54 @@
   display: block;
 
   // we use primary button styles as default values
-  --color-active-background: var(--color-red-150);
-  --color-active-border: var(--color-red-150);
-  --color-active-text: var(--color-cloud);
+  --color-active-background: var(--color-red150-default);
+  --color-active-border: var(--color-red150-default);
+  --color-active-text: var(--color-cloud-default);
   --color-default-background: var(--color-red-default);
   --color-default-border: var(--color-red-default);
   --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-milk);
-  --color-disabled-border: var(--color-milk);
-  --color-disabled-text: var(--color-platinum);
-  --color-hover-background: var(--color-red-125);
-  --color-hover-border: var(--color-red-125);
-  --color-hover-text: var(--color-milk);
+  --color-disabled-background: var(--color-milk-default);
+  --color-disabled-border: var(--color-milk-default);
+  --color-disabled-text: var(--color-platinum-default);
+  --color-hover-background: var(--color-red125-default);
+  --color-hover-border: var(--color-red125-default);
+  --color-hover-text: var(--color-milk-default);
 }
 
 .button--primary-negative {
-  --color-active-background: var(--color-cloud);
-  --color-active-border: var(--color-cloud);
-  --color-active-text: var(--color-red-150);
+  --color-active-background: var(--color-cloud-default);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-red150-default);
   --color-default-background: var(--color-white-default);
   --color-default-border: var(--color-white-default);
   --color-default-text: var(--color-red-default);
   --color-disabled-background: var(--color-black-alpha-10);
   --color-disabled-border: var(--color-black-alpha-10);
   --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: var(--color-milk);
-  --color-hover-border: var(--color-milk);
-  --color-hover-text: var(--color-red-125);
+  --color-hover-background: var(--color-milk-default);
+  --color-hover-border: var(--color-milk-default);
+  --color-hover-text: var(--color-red125-default);
 }
 
 .button--secondary {
-  --color-active-background: var(--color-cloud);
-  --color-active-border: var(--color-cloud);
-  --color-active-text: var(--color-anthracite);
+  --color-active-background: var(--color-cloud-default);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-anthracite-default);
   --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-cloud);
-  --color-default-text: var(--color-charcoal);
-  --color-disabled-background: var(--color-milk);
-  --color-disabled-border: var(--color-milk);
-  --color-disabled-text: var(--color-platinum);
-  --color-hover-background: var(--color-milk);
-  --color-hover-border: var(--color-cloud);
-  --color-hover-text: var(--color-iron);
+  --color-default-border: var(--color-cloud-default);
+  --color-default-text: var(--color-charcoal-default);
+  --color-disabled-background: var(--color-milk-default);
+  --color-disabled-border: var(--color-milk-default);
+  --color-disabled-text: var(--color-platinum-default);
+  --color-hover-background: var(--color-milk-default);
+  --color-hover-border: var(--color-cloud-default);
+  --color-hover-text: var(--color-iron-default);
 }
 
 .button--secondary-negative {
   --color-active-background: var(--color-red-default);
-  --color-active-border: var(--color-cloud);
-  --color-active-text: var(--color-cloud);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-cloud-default);
   --color-default-background: var(--color-red-default);
   --color-default-border: var(--color-white-default);
   --color-default-text: var(--color-white-default);
@@ -57,17 +57,17 @@
   --color-disabled-border: var(--color-black-alpha-10);
   --color-disabled-text: var(--color-black-alpha-60);
   --color-hover-background: var(--color-red-default);
-  --color-hover-border: var(--color-milk);
-  --color-hover-text: var(--color-milk);
+  --color-hover-border: var(--color-milk-default);
+  --color-hover-text: var(--color-milk-default);
 }
 
 .button--tertiary {
   --color-active-background: var(--color-white-default);
-  --color-active-border: var(--color-charcoal);
-  --color-active-text: var(--color-charcoal);
+  --color-active-border: var(--color-charcoal-default);
+  --color-active-text: var(--color-charcoal-default);
   --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-granite);
-  --color-default-text: var(--color-granite);
+  --color-default-border: var(--color-granite-default);
+  --color-default-text: var(--color-granite-default);
   --color-disabled-background: var(--color-black-alpha-10);
   --color-disabled-border: var(--color-black-alpha-10);
   --color-disabled-text: var(--color-white-default);
@@ -78,8 +78,8 @@
 
 .button--tertiary-negative {
   --color-active-background: var(--color-red-default);
-  --color-active-border: var(--color-cloud);
-  --color-active-text: var(--color-cloud);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-cloud-default);
   --color-default-background: var(--color-red-default);
   --color-default-border: var(--color-white-default);
   --color-default-text: var(--color-white-default);
@@ -87,38 +87,38 @@
   --color-disabled-border: var(--color-black-alpha-10);
   --color-disabled-text: var(--color-white-alpha-60);
   --color-hover-background: var(--color-red-default);
-  --color-hover-border: var(--color-milk);
-  --color-hover-text: var(--color-milk);
+  --color-hover-border: var(--color-milk-default);
+  --color-hover-text: var(--color-milk-default);
 }
 
 .button--transparent {
   --color-active-background: var(--color-black-alpha-70);
   --color-active-border: var(--color-black-alpha-70);
-  --color-active-text: var(--color-cloud);
+  --color-active-text: var(--color-cloud-default);
   --color-default-background: var(--color-black-alpha-50);
   --color-default-border: var(--color-black-alpha-50);
   --color-default-text: var(--color-white-default);
   --color-disabled-background: var(--color-black-alpha-20);
   --color-disabled-border: var(--color-black-alpha-20);
-  --color-disabled-text: var(--color-milk);
+  --color-disabled-text: var(--color-milk-default);
   --color-hover-background: var(--color-black-alpha-60);
   --color-hover-border: var(--color-black-alpha-60);
-  --color-hover-text: var(--color-milk);
+  --color-hover-text: var(--color-milk-default);
 }
 
 .button--transparent-negative {
   --color-active-background: var(--color-white-alpha-70);
   --color-active-border: var(--color-white-alpha-70);
-  --color-active-text: var(--color-anthracite);
+  --color-active-text: var(--color-anthracite-default);
   --color-default-background: var(--color-white-alpha-50);
   --color-default-border: var(--color-white-alpha-50);
-  --color-default-text: var(--color-charcoal);
+  --color-default-text: var(--color-charcoal-default);
   --color-disabled-background: var(--color-white-alpha-20);
   --color-disabled-border: var(--color-white-alpha-20);
-  --color-disabled-text: var(--color-platinum);
+  --color-disabled-text: var(--color-platinum-default);
   --color-hover-background: var(--color-white-alpha-60);
   --color-hover-border: var(--color-white-alpha-60);
-  --color-hover-text: var(--color-iron);
+  --color-hover-text: var(--color-iron-default);
 }
 
 .button {
@@ -126,9 +126,10 @@
   align-items: center;
   padding: .5rem 1rem;
   transition: background-color cubic-bezier(.47, .1, 1, .63) 200ms;
-  border: none;
   cursor: pointer;
   border-radius: 0.1rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 
   color: var(--color-default-text);
   background-color: var(--color-default-background);
@@ -142,12 +143,13 @@
   border-color: var(--color-hover-border);
 }
 
+/*
 .button:active {
   color: var(--color-active-text);
   background-color: var(--color-active-background);
   border-color: var(--color-active-border);
 }
-
+*/
 .button__icon {
   color: white;
   width: 1.5rem;
