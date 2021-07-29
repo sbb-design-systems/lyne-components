@@ -1,3 +1,12 @@
+## [9.26.1](https://github.com/lyne-design-system/lyne-components/compare/v9.26.0...v9.26.1) (2021-07-29)
+
+
+### Bug Fixes
+
+* adopt new name for bell icon ([123942d](https://github.com/lyne-design-system/lyne-components/commit/123942d3e7ce83026e44f39fc17017dc01b8a97f))
+* adopt new name for bell icon ([c1de00b](https://github.com/lyne-design-system/lyne-components/commit/c1de00b5fcccc221f35c4db3f2f0cbc6903430f8))
+* adopt new name for bell icon ([f0f44ae](https://github.com/lyne-design-system/lyne-components/commit/f0f44aecc1b4063b8cb2d53dd4001ac839798aed))
+
 # [9.26.0](https://github.com/lyne-design-system/lyne-components/compare/v9.25.2...v9.26.0) (2021-07-28)
 
 
