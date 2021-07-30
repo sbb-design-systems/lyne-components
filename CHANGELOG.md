@@ -1,3 +1,10 @@
+## [9.26.11](https://github.com/lyne-design-system/lyne-components/compare/v9.26.10...v9.26.11) (2021-07-30)
+
+
+### Bug Fixes
+
+* enable all icons again (triggered from Figma) (triggered from icons build) [skip ci] ([a6bb3b1](https://github.com/lyne-design-system/lyne-components/commit/a6bb3b146f6a03c95b4f4f2f648dd588bfdcc16d))
+
 ## [9.26.10](https://github.com/lyne-design-system/lyne-components/compare/v9.26.9...v9.26.10) (2021-07-30)
 
 
