@@ -22,111 +22,6 @@
   --color-hover-shadow-2: var(--shadow-button-positive-primary-hover-1-color);
 }
 
-.button--primary-negative {
-  --color-active-background: var(--color-cloud-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-red150-default);
-  --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-white-default);
-  --color-default-text: var(--color-red-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: var(--color-milk-default);
-  --color-hover-border: var(--color-milk-default);
-  --color-hover-text: var(--color-red125-default);
-}
-
-.button--secondary {
-  --color-active-background: var(--color-cloud-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-anthracite-default);
-  --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-cloud-default);
-  --color-default-text: var(--color-charcoal-default);
-  --color-disabled-background: var(--color-milk-default);
-  --color-disabled-border: var(--color-milk-default);
-  --color-disabled-text: var(--color-platinum-default);
-  --color-hover-background: var(--color-milk-default);
-  --color-hover-border: var(--color-cloud-default);
-  --color-hover-text: var(--color-iron-default);
-}
-
-.button--secondary-negative {
-  --color-active-background: var(--color-red-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-cloud-default);
-  --color-default-background: var(--color-red-default);
-  --color-default-border: var(--color-white-default);
-  --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-black-alpha-60);
-  --color-hover-background: var(--color-red-default);
-  --color-hover-border: var(--color-milk-default);
-  --color-hover-text: var(--color-milk-default);
-}
-
-.button--tertiary {
-  --color-active-background: var(--color-white-default);
-  --color-active-border: var(--color-charcoal-default);
-  --color-active-text: var(--color-charcoal-default);
-  --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-granite-default);
-  --color-default-text: var(--color-granite-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-white-default);
-  --color-hover-background: var(--color-white-default);
-  --color-hover-border: var(--color-black-default);
-  --color-hover-text: var(--color-black-default);
-}
-
-.button--tertiary-negative {
-  --color-active-background: var(--color-red-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-cloud-default);
-  --color-default-background: var(--color-red-default);
-  --color-default-border: var(--color-white-default);
-  --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: var(--color-red-default);
-  --color-hover-border: var(--color-milk-default);
-  --color-hover-text: var(--color-milk-default);
-}
-
-.button--transparent {
-  --color-active-background: var(--color-black-alpha-70);
-  --color-active-border: var(--color-black-alpha-0);
-  --color-active-text: var(--color-cloud-default);
-  --color-default-background: var(--color-black-alpha-50);
-  --color-default-border: var(--color-black-alpha-0);
-  --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-black-alpha-20);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-milk-default);
-  --color-hover-background: var(--color-black-alpha-60);
-  --color-hover-border: var(--color-black-alpha-0);
-  --color-hover-text: var(--color-milk-default);
-}
-
-.button--transparent-negative {
-  --color-active-background: var(--color-white-alpha-70);
-  --color-active-border: var(--color-white-alpha-0);
-  --color-active-text: var(--color-anthracite-default);
-  --color-default-background: var(--color-white-alpha-50);
-  --color-default-border: var(--color-white-alpha-0);
-  --color-default-text: var(--color-charcoal-default);
-  --color-disabled-background: var(--color-white-alpha-20);
-  --color-disabled-border: var(--color-white-alpha-0);
-  --color-disabled-text: var(--color-platinum-default);
-  --color-hover-background: var(--color-white-alpha-60);
-  --color-hover-border: var(--color-white-alpha-0);
-  --color-hover-text: var(--color-iron-default);
-}
-
 .button {
   display: flex;
   align-items: center;
@@ -176,4 +71,151 @@
 
 .button__icon svg path {
   fill: currentColor;
+}
+
+.button--primary-negative {
+  --color-active-background: var(--color-cloud-default);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-red150-default);
+  --color-default-background: var(--color-white-default);
+  --color-default-border: var(--color-white-default);
+  --color-default-text: var(--color-red-default);
+  --color-disabled-background: var(--color-black-alpha-10);
+  --color-disabled-border: var(--color-black-alpha-0);
+  --color-disabled-text: var(--color-white-alpha-60);
+  --color-hover-background: var(--color-milk-default);
+  --color-hover-border: var(--color-milk-default);
+  --color-hover-text: var(--color-red125-default);
+
+  --color-default-shadow-1: var(--shadow-button-negative-primary-default-1-color);
+  --color-default-shadow-2: var(--shadow-button-negative-primary-default-1-color);
+  --color-hover-shadow-1: var(--shadow-button-negative-primary-hover-1-color);
+  --color-hover-shadow-2: var(--shadow-button-negative-primary-hover-1-color);
+
+  box-shadow:
+    rem($shadow-button-negative-primary-default-shadow-1-offset-x) rem($shadow-button-negative-primary-default-shadow-1-offset-y) rem($shadow-button-negative-primary-default-shadow-1-blur) rem($shadow-button-negative-primary-default-shadow-1-spread) var(--color-default-shadow-1),
+    rem($shadow-button-negative-primary-default-shadow-2-offset-x) rem($shadow-button-negative-primary-default-shadow-2-offset-y) rem($shadow-button-negative-primary-default-shadow-2-blur) rem($shadow-button-negative-primary-default-shadow-2-spread) var(--color-default-shadow-2);
+}
+
+.button--primary-negative:hover,
+.button--primary-negative:focus {
+  box-shadow:
+    rem($shadow-button-negative-primary-hover-shadow-1-offset-x) rem($shadow-button-negative-primary-hover-shadow-1-offset-y) rem($shadow-button-negative-primary-hover-shadow-1-blur) rem($shadow-button-negative-primary-hover-shadow-1-spread) var(--color-hover-shadow-1),
+    rem($shadow-button-negative-primary-hover-shadow-2-offset-x) rem($shadow-button-negative-primary-hover-shadow-2-offset-y) rem($shadow-button-negative-primary-hover-shadow-2-blur) rem($shadow-button-negative-primary-hover-shadow-2-spread) var(--color-hover-shadow-2);
+}
+
+.button--secondary {
+  --color-active-background: var(--color-cloud-default);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-anthracite-default);
+  --color-default-background: var(--color-white-default);
+  --color-default-border: var(--color-cloud-default);
+  --color-default-text: var(--color-charcoal-default);
+  --color-disabled-background: var(--color-milk-default);
+  --color-disabled-border: var(--color-milk-default);
+  --color-disabled-text: var(--color-platinum-default);
+  --color-hover-background: var(--color-milk-default);
+  --color-hover-border: var(--color-cloud-default);
+  --color-hover-text: var(--color-iron-default);
+
+  --color-default-shadow-1: var(--shadow-button-positive-secondary-default-1-color);
+  --color-default-shadow-2: var(--shadow-button-positive-secondary-default-1-color);
+  --color-hover-shadow-1: var(--shadow-button-positive-secondary-hover-1-color);
+  --color-hover-shadow-2: var(--shadow-button-positive-secondary-hover-1-color);
+
+  box-shadow:
+    rem($shadow-button-positive-secondary-default-shadow-1-offset-x) rem($shadow-button-positive-secondary-default-shadow-1-offset-y) rem($shadow-button-positive-secondary-default-shadow-1-blur) rem($shadow-button-positive-secondary-default-shadow-1-spread) var(--color-default-shadow-1),
+    rem($shadow-button-positive-secondary-default-shadow-2-offset-x) rem($shadow-button-positive-secondary-default-shadow-2-offset-y) rem($shadow-button-positive-secondary-default-shadow-2-blur) rem($shadow-button-positive-secondary-default-shadow-2-spread) var(--color-default-shadow-2);
+}
+
+.button--secondary:hover,
+.button--secondary:focus {
+  box-shadow:
+    rem($shadow-button-positive-secondary-hover-shadow-1-offset-x) rem($shadow-button-positive-secondary-hover-shadow-1-offset-y) rem($shadow-button-positive-secondary-hover-shadow-1-blur) rem($shadow-button-positive-secondary-hover-shadow-1-spread) var(--color-hover-shadow-1),
+    rem($shadow-button-positive-secondary-hover-shadow-2-offset-x) rem($shadow-button-positive-secondary-hover-shadow-2-offset-y) rem($shadow-button-positive-secondary-hover-shadow-2-blur) rem($shadow-button-positive-secondary-hover-shadow-2-spread) var(--color-hover-shadow-2);
+}
+
+.button--secondary-negative {
+  --color-active-background: var(--color-red-default);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-cloud-default);
+  --color-default-background: var(--color-red-default);
+  --color-default-border: var(--color-white-default);
+  --color-default-text: var(--color-white-default);
+  --color-disabled-background: var(--color-black-alpha-10);
+  --color-disabled-border: var(--color-black-alpha-0);
+  --color-disabled-text: var(--color-black-alpha-60);
+  --color-hover-background: var(--color-red-default);
+  --color-hover-border: var(--color-milk-default);
+  --color-hover-text: var(--color-milk-default);
+
+  box-shadow: none;
+}
+
+.button--tertiary {
+  --color-active-background: var(--color-white-default);
+  --color-active-border: var(--color-charcoal-default);
+  --color-active-text: var(--color-charcoal-default);
+  --color-default-background: var(--color-white-default);
+  --color-default-border: var(--color-granite-default);
+  --color-default-text: var(--color-granite-default);
+  --color-disabled-background: var(--color-black-alpha-10);
+  --color-disabled-border: var(--color-black-alpha-0);
+  --color-disabled-text: var(--color-white-default);
+  --color-hover-background: var(--color-white-default);
+  --color-hover-border: var(--color-black-default);
+  --color-hover-text: var(--color-black-default);
+
+  box-shadow: none;
+}
+
+.button--tertiary-negative {
+  --color-active-background: var(--color-red-default);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-cloud-default);
+  --color-default-background: var(--color-red-default);
+  --color-default-border: var(--color-white-default);
+  --color-default-text: var(--color-white-default);
+  --color-disabled-background: var(--color-black-alpha-10);
+  --color-disabled-border: var(--color-black-alpha-0);
+  --color-disabled-text: var(--color-white-alpha-60);
+  --color-hover-background: var(--color-red-default);
+  --color-hover-border: var(--color-milk-default);
+  --color-hover-text: var(--color-milk-default);
+
+  box-shadow: none;
+}
+
+.button--transparent {
+  --color-active-background: var(--color-black-alpha-70);
+  --color-active-border: var(--color-black-alpha-0);
+  --color-active-text: var(--color-cloud-default);
+  --color-default-background: var(--color-black-alpha-50);
+  --color-default-border: var(--color-black-alpha-0);
+  --color-default-text: var(--color-white-default);
+  --color-disabled-background: var(--color-black-alpha-20);
+  --color-disabled-border: var(--color-black-alpha-0);
+  --color-disabled-text: var(--color-milk-default);
+  --color-hover-background: var(--color-black-alpha-60);
+  --color-hover-border: var(--color-black-alpha-0);
+  --color-hover-text: var(--color-milk-default);
+
+  box-shadow: none;
+}
+
+.button--transparent-negative {
+  --color-active-background: var(--color-white-alpha-70);
+  --color-active-border: var(--color-white-alpha-0);
+  --color-active-text: var(--color-anthracite-default);
+  --color-default-background: var(--color-white-alpha-50);
+  --color-default-border: var(--color-white-alpha-0);
+  --color-default-text: var(--color-charcoal-default);
+  --color-disabled-background: var(--color-white-alpha-20);
+  --color-disabled-border: var(--color-white-alpha-0);
+  --color-disabled-text: var(--color-platinum-default);
+  --color-hover-background: var(--color-white-alpha-60);
+  --color-hover-border: var(--color-white-alpha-0);
+  --color-hover-text: var(--color-iron-default);
+
+  box-shadow: none;
 }
