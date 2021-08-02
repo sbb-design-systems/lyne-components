@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+.clock {
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+
+.clock__face,
+#clock__hand-hours,
+#clock__hand-minutes,
+#clock__hand-seconds {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: center center;
+  transform: rotateZ(0deg);
+}
+
