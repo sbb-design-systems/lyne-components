@@ -18,15 +18,8 @@
 
   --color-default-shadow-1: var(--shadow-button-positive-primary-default-1-color);
   --color-default-shadow-2: var(--shadow-button-positive-primary-default-1-color);
-  --blur-default-shadow-1: var(--shadow-button-positive-primary-default-shadow-1-blur);
-  --blur-default-shadow-2: var(--shadow-button-positive-primary-default-shadow-2-blur);
-  --spread-default-shadow-1: var(--shadow-button-positive-primary-default-shadow-1-spread);
-  --spread-default-shadow-2: var(--shadow-button-positive-primary-default-shadow-2-spread);
-  --offset-x-default-shadow-1: var(--shadow-button-positive-primary-default-shadow-1-offset-x);
-  --offset-x-default-shadow-2: var(--shadow-button-positive-primary-default-shadow-2-offset-x);
-  --offset-y-default-shadow-1: var(--shadow-button-positive-primary-default-shadow-1-offset-y);
-  --offset-y-default-shadow-2: var(--shadow-button-positive-primary-default-shadow-2-offset-y);
-
+  --color-hover-shadow-1: var(--shadow-button-positive-primary-hover-1-color);
+  --color-hover-shadow-2: var(--shadow-button-positive-primary-hover-1-color);
 }
 
 .button--primary-negative {
@@ -137,8 +130,10 @@
 .button {
   display: flex;
   align-items: center;
-  padding: rem(60);
-  transition: background-color cubic-bezier(.47, .1, 1, .63) 200ms;
+  padding: rem(8);
+  transition:
+    background-color cubic-bezier(.47, .1, 1, .63) 150ms,
+    box-shadow cubic-bezier(.47, .1, 1, .63) 150ms;
   cursor: pointer;
   border-radius: 0.1rem;
   outline: none;
@@ -148,6 +143,10 @@
   color: var(--color-default-text);
   background-color: var(--color-default-background);
   border: 1.5px solid var(--color-default-border);
+
+  box-shadow:
+    rem($shadow-button-positive-primary-default-shadow-1-offset-x) rem($shadow-button-positive-primary-default-shadow-1-offset-y) rem($shadow-button-positive-primary-default-shadow-1-blur) rem($shadow-button-positive-primary-default-shadow-1-spread) var(--color-default-shadow-1),
+    rem($shadow-button-positive-primary-default-shadow-2-offset-x) rem($shadow-button-positive-primary-default-shadow-2-offset-y) rem($shadow-button-positive-primary-default-shadow-2-blur) rem($shadow-button-positive-primary-default-shadow-2-spread) var(--color-default-shadow-2);
 }
 
 .button:hover,
@@ -155,6 +154,10 @@
   color: var(--color-hover-text);
   background-color: var(--color-hover-background);
   border-color: var(--color-hover-border);
+
+  box-shadow:
+    rem($shadow-button-positive-primary-hover-shadow-1-offset-x) rem($shadow-button-positive-primary-hover-shadow-1-offset-y) rem($shadow-button-positive-primary-hover-shadow-1-blur) rem($shadow-button-positive-primary-hover-shadow-1-spread) var(--color-hover-shadow-1),
+    rem($shadow-button-positive-primary-hover-shadow-2-offset-x) rem($shadow-button-positive-primary-hover-shadow-2-offset-y) rem($shadow-button-positive-primary-hover-shadow-2-blur) rem($shadow-button-positive-primary-hover-shadow-2-spread) var(--color-hover-shadow-2);
 }
 
 .button:active {
