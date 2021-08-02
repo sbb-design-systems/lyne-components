@@ -2,6 +2,7 @@
   display: block;
 
   // we use primary button styles as default values
+
   --color-active-background: var(--color-red150-default);
   --color-active-border: var(--color-red150-default);
   --color-active-text: var(--color-cloud-default);
@@ -14,6 +15,18 @@
   --color-hover-background: var(--color-red125-default);
   --color-hover-border: var(--color-red125-default);
   --color-hover-text: var(--color-milk-default);
+
+  --color-default-shadow-1: var(--shadow-button-positive-primary-default-1-color);
+  --color-default-shadow-2: var(--shadow-button-positive-primary-default-1-color);
+  --blur-default-shadow-1: var(--shadow-button-positive-primary-default-shadow-1-blur);
+  --blur-default-shadow-2: var(--shadow-button-positive-primary-default-shadow-2-blur);
+  --spread-default-shadow-1: var(--shadow-button-positive-primary-default-shadow-1-spread);
+  --spread-default-shadow-2: var(--shadow-button-positive-primary-default-shadow-2-spread);
+  --offset-x-default-shadow-1: var(--shadow-button-positive-primary-default-shadow-1-offset-x);
+  --offset-x-default-shadow-2: var(--shadow-button-positive-primary-default-shadow-2-offset-x);
+  --offset-y-default-shadow-1: var(--shadow-button-positive-primary-default-shadow-1-offset-y);
+  --offset-y-default-shadow-2: var(--shadow-button-positive-primary-default-shadow-2-offset-y);
+
 }
 
 .button--primary-negative {
@@ -124,7 +137,7 @@
 .button {
   display: flex;
   align-items: center;
-  padding: .5rem 1rem;
+  padding: rem(60);
   transition: background-color cubic-bezier(.47, .1, 1, .63) 200ms;
   cursor: pointer;
   border-radius: 0.1rem;
