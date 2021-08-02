@@ -145,7 +145,7 @@
 }
 
 .button:active {
-  color: green;
+  color: var(--color-active-text);
   background-color: var(--color-active-background);
   border-color: var(--color-active-border);
 }
