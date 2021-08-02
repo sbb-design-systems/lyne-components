@@ -1,0 +1,5 @@
+@function rem($size) {
+  // @return math.div($size, 16px) * 1rem;
+  $remSize: $size / var(--typo-default-font-size);
+  @return #{$remSize}rem;
+}
