@@ -1,14 +1,15 @@
 import {
   Component,
   h,
-  Element,
-  Prop
+  Element
 } from '@stencil/core';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg';
+
+const defaultSecondsAnimationDuration = 60;
 
 @Component({
   shadow: true,
@@ -20,59 +21,80 @@ export class LyneClock {
 
   @Element() private _element: HTMLElement;
 
-  /** Text for the Heading */
-  @Prop() public text = 'Default title text';
+  public initialMinute: boolean;
 
-  // private clockFace: HTMLElement;
   private clockHandHours: HTMLElement;
   private clockHandMinutes: HTMLElement;
   private clockHandSeconds: HTMLElement;
 
-  private cacheElements() {
-    // this.clockFace = this._element.shadowRoot.querySelector('#clock__face');
+  private hours: number;
+  private minutes: number;
+  private seconds: number;
+  private remainingSeconds: number;
+
+  private hoursAngle: number;
+  private minutesAngle: number;
+
+  private cacheElements(): void {
     this.clockHandHours = this._element.shadowRoot.querySelector('#clock__hand-hours');
     this.clockHandMinutes = this._element.shadowRoot.querySelector('#clock__hand-minutes');
     this.clockHandSeconds = this._element.shadowRoot.querySelector('#clock__hand-seconds');
   }
 
-  private setCurrentTime() {
+  private setCurrentTime(): void {
 
     let date = new Date(),
-      seconds = date.getSeconds(),
       minutes = date.getMinutes(),
       hours = date.getHours(),
-      hands;
+      seconds = date.getSeconds();
 
-    // Create an object with each hand and it's angle in degrees
-    hands = [
-      {
-        hand: this.clockHandHours,
-        angle: (hours * 30) + (minutes / 2)
-      },
-      {
-        hand: this.clockHandMinutes,
-        angle: (minutes * 6)
-      },
-      {
-        hand: this.clockHandSeconds,
-        angle: (seconds * 6)
-      }
-    ];
+    this.hours = hours;
+    this.minutes = minutes;
+    this.seconds = seconds;
+    this.remainingSeconds = defaultSecondsAnimationDuration - this.seconds;
 
-    for (let j = 0; j < hands.length; j++) {
-      hands[j].hand.style.setProperty('transform', 'rotateZ(' + hands[j].angle + 'deg)');
+    this.moveHandsInitially();
 
-      // Note start position for count first minute move
-      if (j === 2) {
-        this.clockHandSeconds.setAttribute('data-second-angle', hands[j].angle);
-        // this.clockHandSeconds.setAttribute('data-second', seconds);
-      }
-    }
+    this.clockHandSeconds.addEventListener('animationend', function() {
+      this.clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
+      this.moveMinuteHand();
+    }.bind(this));
+
+  };
+
+  public moveHandsInitially(): void {
+
+    this._element.style.setProperty('--seconds-animation-start-angle', this.seconds * 6 + 'deg');
+    this._element.style.setProperty('--seconds-animation-duration', this.remainingSeconds + 's');
+
+    this.clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
+
+    this.hoursAngle = (this.hours * 30) + (this.minutes / 2);
+
+    this.clockHandHours.style.setProperty('transform', 'rotateZ(' + this.hoursAngle + 'deg)');
+
+   this.setMinuteHand();
+  }
+
+  public setMinuteHand(): void {
+    this.minutesAngle = this.minutes * 6;
+    this.clockHandMinutes.style.setProperty('transform', 'rotateZ(' + this.minutesAngle + 'deg)');
+  };
+
+  public moveMinuteHand(): void {
+    this.minutes++;
+    this.setMinuteHand();
+
+    setInterval(function() {
+      this.minutes++;
+      this.setMinuteHand();
+    }.bind(this), defaultSecondsAnimationDuration * 1000);
 
   }
 
   public componentDidLoad(): void {
-    console.log('did load');
+    this.initialMinute = true;
+
     this.cacheElements();
     this.setCurrentTime();
   }

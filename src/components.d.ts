@@ -11,10 +11,6 @@ export namespace Components {
     interface LyneAlert {
     }
     interface LyneClock {
-        /**
-          * Text for the Heading
-         */
-        "text": string;
     }
     interface LyneCtaButton {
         /**
@@ -290,10 +286,6 @@ declare namespace LocalJSX {
     interface LyneAlert {
     }
     interface LyneClock {
-        /**
-          * Text for the Heading
-         */
-        "text"?: string;
     }
     interface LyneCtaButton {
         /**
