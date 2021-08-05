@@ -41,12 +41,12 @@ export class LyneClock {
     this.clockHandSeconds = this._element.shadowRoot.querySelector('#clock__hand-seconds');
   }
 
-  private setCurrentTime(): void {
+  public setCurrentTime(h?: number, m?: number, s?: number): void {
 
     let date = new Date(),
-      minutes = date.getMinutes(),
-      hours = date.getHours(),
-      seconds = date.getSeconds();
+      hours = h || date.getHours(),
+      minutes = m || date.getMinutes(),
+      seconds = s || date.getSeconds();
 
     this.hours = hours;
     this.minutes = minutes;
@@ -77,6 +77,7 @@ export class LyneClock {
   }
 
   public setMinuteHand(): void {
+    console.log('setMinuteHand');
     this.minutesAngle = this.minutes * 6;
     this.clockHandMinutes.style.setProperty('transform', 'rotateZ(' + this.minutesAngle + 'deg)');
   };
