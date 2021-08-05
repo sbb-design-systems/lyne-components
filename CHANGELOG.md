@@ -1,3 +1,10 @@
+## [9.26.13](https://github.com/lyne-design-system/lyne-components/compare/v9.26.12...v9.26.13) (2021-08-05)
+
+
+### Bug Fixes
+
+* use changed filenames ([5d38c3d](https://github.com/lyne-design-system/lyne-components/commit/5d38c3d23faca584c8fece6329f10cb5fba7e81e))
+
 ## [9.26.12](https://github.com/lyne-design-system/lyne-components/compare/v9.26.11...v9.26.12) (2021-07-30)
 
 
