@@ -1,3 +1,10 @@
+## [9.26.14](https://github.com/lyne-design-system/lyne-components/compare/v9.26.13...v9.26.14) (2021-08-06)
+
+
+### Bug Fixes
+
+* various issues (triggered from design tokens build) [skip ci] ([ca61ec1](https://github.com/lyne-design-system/lyne-components/commit/ca61ec155cf7dcfe67b078caac4b7b0ae264844b))
+
 ## [9.26.13](https://github.com/lyne-design-system/lyne-components/compare/v9.26.12...v9.26.13) (2021-08-05)
 
 
