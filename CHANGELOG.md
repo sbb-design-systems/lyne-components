@@ -1,3 +1,10 @@
+## [9.26.15](https://github.com/lyne-design-system/lyne-components/compare/v9.26.14...v9.26.15) (2021-08-06)
+
+
+### Bug Fixes
+
+* remove link from root url (triggered from design tokens build) [skip ci] ([f746210](https://github.com/lyne-design-system/lyne-components/commit/f7462108ac7498203bfd46eab916b8971be4d1d2))
+
 ## [9.26.14](https://github.com/lyne-design-system/lyne-components/compare/v9.26.13...v9.26.14) (2021-08-06)
 
 
