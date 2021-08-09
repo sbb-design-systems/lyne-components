@@ -1,7 +1,8 @@
 import {
   Component,
   h,
-  Element
+  Element,
+  Prop
 } from '@stencil/core';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg';
@@ -19,9 +20,10 @@ const defaultSecondsAnimationDuration = 60;
 
 export class LyneClock {
 
-  @Element() private _element: HTMLElement;
+  @Prop() public paused = false;
+  @Prop() public initialtime = 'now';
 
-  public initialMinute: boolean;
+  @Element() private _element: HTMLElement;
 
   private clockHandHours: HTMLElement;
   private clockHandMinutes: HTMLElement;
@@ -41,24 +43,21 @@ export class LyneClock {
     this.clockHandSeconds = this._element.shadowRoot.querySelector('#clock__hand-seconds');
   }
 
-  public setCurrentTime(h?: number, m?: number, s?: number): void {
+  public setCurrentTime(): void {
 
-    let date = new Date(),
-      hours = h || date.getHours(),
-      minutes = m || date.getMinutes(),
-      seconds = s || date.getSeconds();
+    if (this.initialtime === 'now') {
+      let date = new Date();
+      this.hours = date.getHours();
+      this.minutes = date.getMinutes();
+      this.seconds = date.getSeconds();
+    } else {
+      let predefinedTime = this.initialtime.split(':');
+      this.hours = +predefinedTime[0]; // the + converts the string to a number
+      this.minutes = +predefinedTime[1];
+      this.seconds = +predefinedTime[2];
+    }
 
-    this.hours = hours;
-    this.minutes = minutes;
-    this.seconds = seconds;
     this.remainingSeconds = defaultSecondsAnimationDuration - this.seconds;
-
-    this.moveHandsInitially();
-
-    this.clockHandSeconds.addEventListener('animationend', function() {
-      this.clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
-      this.moveMinuteHand();
-    }.bind(this));
 
   };
 
@@ -73,11 +72,11 @@ export class LyneClock {
 
     this.clockHandHours.style.setProperty('transform', 'rotateZ(' + this.hoursAngle + 'deg)');
 
-   this.setMinuteHand();
+    this.setMinuteHand();
+
   }
 
   public setMinuteHand(): void {
-    console.log('setMinuteHand');
     this.minutesAngle = this.minutes * 6;
     this.clockHandMinutes.style.setProperty('transform', 'rotateZ(' + this.minutesAngle + 'deg)');
   };
@@ -94,10 +93,17 @@ export class LyneClock {
   }
 
   public componentDidLoad(): void {
-    this.initialMinute = true;
 
     this.cacheElements();
     this.setCurrentTime();
+
+    this.moveHandsInitially();
+
+    this.clockHandSeconds.addEventListener('animationend', function() {
+      this.clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
+      this.moveMinuteHand();
+    }.bind(this));
+
   }
 
   public render(): any {

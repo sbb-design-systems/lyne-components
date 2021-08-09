@@ -11,6 +11,8 @@ export namespace Components {
     interface LyneAlert {
     }
     interface LyneClock {
+        "initialtime": string;
+        "paused": boolean;
     }
     interface LyneCtaButton {
         /**
@@ -286,6 +288,8 @@ declare namespace LocalJSX {
     interface LyneAlert {
     }
     interface LyneClock {
+        "initialtime"?: string;
+        "paused"?: boolean;
     }
     interface LyneCtaButton {
         /**

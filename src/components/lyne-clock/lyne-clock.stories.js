@@ -1,20 +1,33 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-export const clock = () => <lyne-clock />;
+export const clock = (args) => <lyne-clock {...args} />;
 
-const themes = {
+const state = {
+  'paused': false
+}
+
+const times = {
   control: {
-    type: 'radio'
+    type: 'select'
   },
   options: [
-    'light',
-    'dark'
+    'now',
+    '05:39:12',
+    '13:24:41',
+    '16:47:23',
+    '20:03:21',
+    '23:59:09'
   ]
 };
 
 clock.argTypes = {
-  Themes: themes
+  'initialtime': times
+};
+
+clock.args = {
+  'initialtime': times.options[0],
+  paused: false
 };
 
 export default {
