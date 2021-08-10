@@ -124,7 +124,8 @@
 .button {
   display: flex;
   align-items: center;
-  padding: prem(8) prem(16);
+  padding: 0 pxToRem(var(--spacing-fixed-10x));
+  height: pxToRem(var(--spacing-fixed-10x));
   transition: background-color cubic-bezier(.47, .1, 1, .63) 200ms;
   cursor: pointer;
   border-radius: 0.1rem;
@@ -133,7 +134,7 @@
   -moz-appearance: none;
   color: var(--color-default-text);
   background-color: var(--color-default-background);
-  border: prem(1.5) solid var(--color-default-border);
+  border: pxToRem(1.5) solid var(--color-default-border);
 }
 
 .button:hover,
