@@ -28,6 +28,9 @@ export class LyneCtaButton {
   /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
 
+  /** Set to true to get a disabled button */
+  @Prop() public disabled? = false;
+
   /** Id which is send in the click event payload */
   @Prop() public eventId?: string;
 
@@ -52,8 +55,8 @@ export class LyneCtaButton {
   public render(): JSX.Element {
     const typeClass = `button button--${this.variant}`;
 
-    return <button class={typeClass} onClick={this._buttonClick}>
-      <span class='button__label'>{this.label}</span>
+    return <button disabled={this.disabled} class={typeClass} onClick={this._buttonClick}>
+      <span>{this.label}</span>
       <span class='button__icon' innerHTML={ButtonIcon} />
     </button>;
   }
