@@ -1,6 +1,16 @@
 :host {
   display: block;
 
+  // TODO: missing design tokens
+  --border-width: 1.5;
+  --border-radius: 32;
+  --font-family: 'SBBWeb Bold';
+  --font-size: 14;
+  --letter-spacing: 0.01em;
+  --line-height: 1.4;
+  --transition-duration: 180ms;
+  --transition-easing-function: cubic-bezier(.47, .1, 1, .63);
+
   // we use primary button styles as default values
   --color-active-background: var(--color-red150-default);
   --color-active-border: var(--color-red150-default);
@@ -122,37 +132,66 @@
 }
 
 .button {
-  display: flex;
-  align-items: center;
-  padding: 0 pxToRem(var(--spacing-fixed-10x));
-  height: pxToRem(var(--spacing-fixed-10x));
-  transition: background-color cubic-bezier(.47, .1, 1, .63) 200ms;
-  cursor: pointer;
-  border-radius: 0.1rem;
-  outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  color: var(--color-default-text);
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-easing-function);
+  transition-property: background-color, color;
+
+  margin: 0;
+
+  outline: none;
+  border: pxToRem(var(--border-width)) solid var(--color-default-border);
+  border-radius: pxToRem(var(--border-radius));
+
   background-color: var(--color-default-background);
-  border: pxToRem(1.5) solid var(--color-default-border);
+
+  cursor: pointer;
+
+  padding: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width))) pxToRem(var(--spacing-fixed-10x));
+
+  color: var(--color-default-text);
+
+  font-family: var(--font-family);
+  font-size: pxToRem(var(--font-size));
+  font-weight: normal;
+  letter-spacing: var(--letter-spacing);
+  line-height: var(--line-height);
+
+  /*
+  @media screen and (-ms-high-contrast: active) {
+		border: pxToEm(1) solid windowText;
+	}
+  */
 }
 
-.button:hover,
-.button:focus {
+.button:disabled {
+  text-decoration: line-through;
+  color: var(--color-disabled-text);
+  background-color: var(--color-disabled-background);
+  border-color: var(--color-disabled-border);
+  cursor: default;
+}
+
+.button:hover:not(:disabled),
+.button:focus:not(:disabled) {
   color: var(--color-hover-text);
   background-color: var(--color-hover-background);
   border-color: var(--color-hover-border);
 }
 
-/*
-.button:active {
+.button:active:not(:disabled) {
   color: var(--color-active-text);
   background-color: var(--color-active-background);
   border-color: var(--color-active-border);
 }
-*/
+
 .button__icon {
-  color: white;
   width: 1.5rem;
   height: 1.5rem;
   padding-left: .5rem;
