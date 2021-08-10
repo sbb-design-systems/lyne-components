@@ -57,7 +57,7 @@ export class LyneCtaButton {
 
     return <button disabled={this.disabled} class={typeClass} onClick={this._buttonClick}>
       <span class='button__icon' innerHTML={ButtonIcon} />
-      <span>{this.label}</span>
+      <span class='button__label'>{this.label}</span>
     </button>;
   }
 }
