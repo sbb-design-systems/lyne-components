@@ -1,3 +1,10 @@
+## [9.26.16](https://github.com/lyne-design-system/lyne-components/compare/v9.26.15...v9.26.16) (2021-08-10)
+
+
+### Bug Fixes
+
+* add attributes in correct place (triggered from design tokens build) [skip ci] ([f422ffe](https://github.com/lyne-design-system/lyne-components/commit/f422ffef33ca86884778373d54e4fd24503792b2))
+
 ## [9.26.15](https://github.com/lyne-design-system/lyne-components/compare/v9.26.14...v9.26.15) (2021-08-06)
 
 
