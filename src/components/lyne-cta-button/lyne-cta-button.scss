@@ -124,17 +124,16 @@
 .button {
   display: flex;
   align-items: center;
-  padding: .5rem 1rem;
+  padding: prem(8) prem(16);
   transition: background-color cubic-bezier(.47, .1, 1, .63) 200ms;
   cursor: pointer;
   border-radius: 0.1rem;
   outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-
   color: var(--color-default-text);
   background-color: var(--color-default-background);
-  border: 1.5px solid var(--color-default-border);
+  border: prem(1.5) solid var(--color-default-border);
 }
 
 .button:hover,
