@@ -12,6 +12,10 @@ export namespace Components {
     }
     interface LyneCtaButton {
         /**
+          * Set to true to get a disabled button
+         */
+        "disabled"?: boolean;
+        /**
           * Id which is send in the click event payload
          */
         "eventId"?: string;
@@ -277,6 +281,10 @@ declare namespace LocalJSX {
     interface LyneAlert {
     }
     interface LyneCtaButton {
+        /**
+          * Set to true to get a disabled button
+         */
+        "disabled"?: boolean;
         /**
           * Id which is send in the click event payload
          */
