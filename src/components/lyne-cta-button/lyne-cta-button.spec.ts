@@ -16,8 +16,8 @@ describe('lyne-cta-button', () => {
         <lyne-cta-button label="Label" variant="secondary-negative">
           <mock:shadow-root>
             <button class="button button--secondary-negative">
-              <span class="button__label">Label</span>
               <span class="button__icon"></span>
+              <span class="button__label">Label</span>
             </button>
           </mock:shadow-root>
         </lyne-cta-button>
