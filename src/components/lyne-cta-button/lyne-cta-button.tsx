@@ -23,7 +23,7 @@ export class LyneCtaButton {
   @Prop() public samplePropForJSDocs = 'sample prop';
 
   /** Label text to show on the button */
-  @Prop() public label = 'Default button text';
+  @Prop() public label? = 'Default button text';
 
   /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
@@ -56,8 +56,8 @@ export class LyneCtaButton {
     const typeClass = `button button--${this.variant}`;
 
     return <button disabled={this.disabled} class={typeClass} onClick={this._buttonClick}>
-      <span>{this.label}</span>
       <span class='button__icon' innerHTML={ButtonIcon} />
+      <span>{this.label}</span>
     </button>;
   }
 }
