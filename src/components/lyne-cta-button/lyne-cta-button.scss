@@ -161,6 +161,17 @@
   */
 }
 
+.button__icon {
+  width: pxToRem(var(--icon-size-ui-small));
+  height: pxToRem(var(--icon-size-ui-small));
+  padding-right: pxToRem(var(--spacing-fixed-2x));
+  color: currentColor;
+}
+
+.button__icon svg path {
+  fill: currentColor;
+}
+
 .button:disabled {
   text-decoration: line-through;
   color: var(--color-disabled-text);
@@ -180,15 +191,4 @@
   color: var(--color-active-text);
   background-color: var(--color-active-background);
   border-color: var(--color-active-border);
-}
-
-.button__icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  padding-left: .5rem;
-  color: currentColor;
-}
-
-.button__icon svg path {
-  fill: currentColor;
 }
