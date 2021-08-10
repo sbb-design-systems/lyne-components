@@ -134,29 +134,20 @@
 .button {
   -webkit-appearance: none;
   -moz-appearance: none;
-
   box-sizing: border-box;
   display: flex;
   align-items: center;
-
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
   transition-property: background-color, color;
-
   margin: 0;
-
   outline: none;
   border: pxToRem(var(--border-width)) solid var(--color-default-border);
   border-radius: pxToRem(var(--border-radius));
-
   background-color: var(--color-default-background);
-
   cursor: pointer;
-
   padding: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width))) pxToRem(var(--spacing-fixed-10x));
-
   color: var(--color-default-text);
-
   font-family: var(--font-family);
   font-size: pxToRem(var(--font-size));
   font-weight: normal;
