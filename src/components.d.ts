@@ -22,7 +22,7 @@ export namespace Components {
         /**
           * Label text to show on the button
          */
-        "label": string;
+        "label"?: string;
         /**
           * @sampleDocTag sampleName - sampleValue
           * @sampleDocTag2 sampleName2 - sampleValue2
