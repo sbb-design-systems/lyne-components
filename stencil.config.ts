@@ -33,7 +33,10 @@ export const config = {
   plugins: [
     inlineSvg(),
     sass({
-      injectGlobalPaths: ['src/global/variables.scss']
+      injectGlobalPaths: [
+        'src/global/variables.scss',
+        'src/global/functions.scss'
+      ]
     })
   ],
   testing: jestConfig
