@@ -4,8 +4,8 @@ import readme from './readme.md';
 export const clock = (args) => <lyne-clock {...args} />;
 
 const state = {
-  'paused': false
-}
+  paused: false
+};
 
 const times = {
   control: {
@@ -17,17 +17,17 @@ const times = {
     '13:24:41',
     '16:47:23',
     '20:03:21',
-    '23:59:09'
+    '23:59:39'
   ]
 };
 
 clock.argTypes = {
-  'initialtime': times
+  initialtime: times
 };
 
 clock.args = {
-  'initialtime': times.options[0],
-  paused: false
+  initialtime: times.options[0],
+  paused: state.paused
 };
 
 export default {

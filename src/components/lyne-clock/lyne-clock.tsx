@@ -1,7 +1,7 @@
 import {
   Component,
-  h,
   Element,
+  h,
   Prop
 } from '@stencil/core';
 
@@ -25,94 +25,114 @@ export class LyneClock {
 
   @Element() private _element: HTMLElement;
 
-  private clockHandHours: HTMLElement;
-  private clockHandMinutes: HTMLElement;
-  private clockHandSeconds: HTMLElement;
+  private _clockHandHours: HTMLElement;
+  private _clockHandMinutes: HTMLElement;
+  private _clockHandSeconds: HTMLElement;
 
-  private hours: number;
-  private minutes: number;
-  private seconds: number;
-  private remainingSeconds: number;
+  private _hours: number;
+  private _minutes: number;
+  private _seconds: number;
 
-  private hoursAngle: number;
-  private minutesAngle: number;
+  private _remainingSeconds: number;
+  private _hoursAngle: number;
+  private _minutesAngle: number;
 
-  private cacheElements(): void {
-    this.clockHandHours = this._element.shadowRoot.querySelector('#clock__hand-hours');
-    this.clockHandMinutes = this._element.shadowRoot.querySelector('#clock__hand-minutes');
-    this.clockHandSeconds = this._element.shadowRoot.querySelector('#clock__hand-seconds');
+  private _handMovement: any;
+
+  private _cacheElements(): void {
+    this._clockHandHours = this._element.shadowRoot.querySelector('.clock__hand-hours');
+    this._clockHandMinutes = this._element.shadowRoot.querySelector('.clock__hand-minutes');
+    this._clockHandSeconds = this._element.shadowRoot.querySelector('.clock__hand-seconds');
   }
 
   public setCurrentTime(): void {
 
     if (this.initialtime === 'now') {
-      let date = new Date();
-      this.hours = date.getHours();
-      this.minutes = date.getMinutes();
-      this.seconds = date.getSeconds();
+      const date = new Date();
+
+      this._hours = date.getHours();
+      this._minutes = date.getMinutes();
+      this._seconds = date.getSeconds();
+
     } else {
-      let predefinedTime = this.initialtime.split(':');
-      this.hours = +predefinedTime[0]; // the + converts the string to a number
-      this.minutes = +predefinedTime[1];
-      this.seconds = +predefinedTime[2];
+      const predefinedTime = this.initialtime.split(':');
+
+      this._hours = Number(predefinedTime[0]);
+      this._minutes = Number(predefinedTime[1]);
+      this._seconds = Number(predefinedTime[2]);
     }
 
-    this.remainingSeconds = defaultSecondsAnimationDuration - this.seconds;
+    this._remainingSeconds = defaultSecondsAnimationDuration - this._seconds;
 
-  };
+  }
 
   public moveHandsInitially(): void {
 
-    this._element.style.setProperty('--seconds-animation-start-angle', this.seconds * 6 + 'deg');
-    this._element.style.setProperty('--seconds-animation-duration', this.remainingSeconds + 's');
+    this._element.style.setProperty('--clock-seconds-animation-start-angle', `${this._seconds * 6}deg`);
+    this._element.style.setProperty('--clock-seconds-animation-duration', `${this._remainingSeconds}s`);
 
-    this.clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
+    this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
 
-    this.hoursAngle = (this.hours * 30) + (this.minutes / 2);
+    this._hoursAngle = (this._hours * 30) + (this._minutes / 1.95);
 
-    this.clockHandHours.style.setProperty('transform', 'rotateZ(' + this.hoursAngle + 'deg)');
+    this._clockHandHours.style.setProperty('transform', `rotateZ(${this._hoursAngle}deg)`);
 
     this.setMinuteHand();
 
   }
 
   public setMinuteHand(): void {
-    this.minutesAngle = this.minutes * 6;
-    this.clockHandMinutes.style.setProperty('transform', 'rotateZ(' + this.minutesAngle + 'deg)');
-  };
+    this._minutesAngle = this._minutes * 6;
+    this._clockHandMinutes.style.setProperty('transform', `rotateZ(${this._minutesAngle}deg)`);
+  }
 
   public moveMinuteHand(): void {
-    this.minutes++;
+    this._minutes++;
     this.setMinuteHand();
 
-    setInterval(function() {
-      this.minutes++;
+    this._handMovement = setInterval(() => {
+      this._minutes++;
       this.setMinuteHand();
-    }.bind(this), defaultSecondsAnimationDuration * 1000);
+    }, defaultSecondsAnimationDuration * 1000);
+
+  }
+
+  public stopClock(): void {
+    clearInterval(this._handMovement);
+    this._element.style.setProperty('--clock-animation-play-state', 'paused');
+  }
+
+  public startClock(): void {
+    this._element.style.setProperty('--clock-animation-play-state', 'running');
+
+    this._clockHandSeconds.addEventListener('animationend', () => {
+      this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
+      this.moveMinuteHand();
+    });
 
   }
 
   public componentDidLoad(): void {
 
-    this.cacheElements();
+    this._cacheElements();
     this.setCurrentTime();
-
     this.moveHandsInitially();
 
-    this.clockHandSeconds.addEventListener('animationend', function() {
-      this.clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
-      this.moveMinuteHand();
-    }.bind(this));
+    if (this.paused) {
+      this.stopClock();
+    } else {
+      this.startClock();
+    }
 
   }
 
   public render(): any {
-    return <div class="clock">
-      <span id='clock__face' innerHTML={clockFaceSVG} />
-      <span id='clock__hand-hours' innerHTML={clockHandleHoursSVG} />
-      <span id='clock__hand-minutes' innerHTML={clockHandleMinutesSVG} />
-      <span id='clock__hand-seconds' innerHTML={clockHandleSecondsSVG} />
-    </div>
+    return <div class='clock'>
+      <span class='clock__face' innerHTML={clockFaceSVG} />
+      <span class='clock__hand-hours' innerHTML={clockHandleHoursSVG} />
+      <span class='clock__hand-minutes' innerHTML={clockHandleMinutesSVG} />
+      <span class='clock__hand-seconds' innerHTML={clockHandleSecondsSVG} />
+    </div>;
   }
 
 }
