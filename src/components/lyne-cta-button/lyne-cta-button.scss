@@ -153,7 +153,8 @@
   font-weight: normal;
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
-
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
   /*
   @media screen and (-ms-high-contrast: active) {
 		border: pxToEm(1) solid windowText;
