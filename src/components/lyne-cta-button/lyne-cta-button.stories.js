@@ -3,7 +3,7 @@ import { h } from 'jsx-dom';
 
 const variants = {
   control: {
-    type: 'radio'
+    type: 'select'
   },
   options: [
     'primary',
@@ -22,10 +22,12 @@ export const button = (args) => <lyne-cta-button
 />;
 
 button.argTypes = {
+  disabled: false,
   variant: variants
 };
 
 button.args = {
+  disabled: false,
   label: 'Label',
   variant: variants.options[0]
 };
