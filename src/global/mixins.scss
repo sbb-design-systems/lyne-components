@@ -10,6 +10,7 @@
   --focus-outline-width: 3;
 
   :host(.focus-visible) & {
+    outline-offset: pxToRem(var(--spacing-fixed-1x));
     outline: pxToRem(var(--focus-outline-width)) solid var(--focus-outline-color);
   }
 };
