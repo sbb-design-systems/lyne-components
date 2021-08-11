@@ -179,7 +179,7 @@
   color: currentColor;
 }
 
-.button__icon svg path {
+:host ::slotted(svg) {
   fill: currentColor;
 }
 
