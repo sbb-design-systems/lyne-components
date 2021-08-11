@@ -9,5 +9,8 @@
   --focus-outline-color: green;
   --focus-outline-width: 3;
 
-  outline: pxToRem(var(--focus-outline-width)) solid var(--focus-outline-color);
+  &:focus-visible,
+  :host(.focus-visible) & {
+    outline: pxToRem(var(--focus-outline-width)) solid var(--focus-outline-color) !important;
+  }
 };
