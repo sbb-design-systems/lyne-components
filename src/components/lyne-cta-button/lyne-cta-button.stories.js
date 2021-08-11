@@ -1,5 +1,25 @@
 import events from './lyne-cta-button.events.ts';
 import { h } from 'jsx-dom';
+import lyneIcons from 'lyne-icons/dist/icons.json';
+
+const getMarkupForSvg = (svgName) => {
+  const icon = lyneIcons.icons[svgName];
+  const frag = document.createRange()
+    .createContextualFragment(icon);
+
+  return frag.firstChild;
+};
+
+const icons = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'arrow-right-small',
+    'arrow-down-small',
+    'lyne-arrow-compass-small'
+  ]
+};
 
 const variants = {
   control: {
@@ -17,20 +37,28 @@ const variants = {
   ]
 };
 
-export const button = (args) => <lyne-cta-button
-  {...args}
-/>;
+const Template = (args) => (
+  <lyne-cta-button {...args}>
+    {getMarkupForSvg(args.icon)}
+  </lyne-cta-button>
+);
+
+export const button = Template.bind({});
 
 button.argTypes = {
   disabled: false,
+  icon: icons,
   variant: variants
 };
 
+/* eslint-disable sort-keys */
 button.args = {
-  disabled: false,
+  variant: variants.options[0],
   label: 'Label',
-  variant: variants.options[0]
+  icon: icons.options[0],
+  disabled: false
 };
+/* eslint-enable sort-keys */
 
 export default {
   parameters: {
