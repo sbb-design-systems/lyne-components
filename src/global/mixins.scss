@@ -2,4 +2,12 @@
   @media screen and (-ms-high-contrast: active) {
     @content
   }
-}
+};
+
+@mixin visibleFocus {
+  // TODO: missing design tokens
+  --focus-outline-color: green;
+  --focus-outline-width: 3;
+
+  outline: pxToRem(var(--focus-outline-width)) solid var(--focus-outline-color);
+};
