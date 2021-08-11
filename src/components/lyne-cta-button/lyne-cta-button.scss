@@ -156,11 +156,10 @@
   line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  /*
-  @media screen and (-ms-high-contrast: active) {
-		border: pxToEm(1) solid windowText;
-	}
-  */
+  
+  @include highContrastActive {
+    border: pxToRem(1) solid windowText;
+  }
 }
 
 .button__icon {
