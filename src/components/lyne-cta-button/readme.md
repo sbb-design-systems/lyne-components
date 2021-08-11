@@ -32,6 +32,13 @@ const foo = "bar";
 | `variant`  | `variant`  | Variant of the button, like primary, secondary etc. | `"primary" \| "primary-negative" \| "secondary" \| "secondary-negative" \| "tertiary" \| "tertiary-negative" \| "transparent" \| "transparent-negative"` | `'primary'`             |
 
 
+## Slots
+
+| Slot        | Description                                              |
+| ----------- | -------------------------------------------------------- |
+| `"unnamed"` | Slot to render svg icon. You must pass an <svg> element. |
+
+
 ----------------------------------------------
 
 
