@@ -24,11 +24,6 @@ export namespace Components {
          */
         "label"?: string;
         /**
-          * @sampleDocTag sampleName - sampleValue
-          * @sampleDocTag2 sampleName2 - sampleValue2
-         */
-        "samplePropForJSDocs": string;
-        /**
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
@@ -293,11 +288,6 @@ declare namespace LocalJSX {
           * Label text to show on the button
          */
         "label"?: string;
-        /**
-          * @sampleDocTag sampleName - sampleValue
-          * @sampleDocTag2 sampleName2 - sampleValue2
-         */
-        "samplePropForJSDocs"?: string;
         /**
           * Variant of the button, like primary, secondary etc.
          */
