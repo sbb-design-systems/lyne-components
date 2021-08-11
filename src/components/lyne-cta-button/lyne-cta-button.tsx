@@ -4,9 +4,12 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import ButtonIcon from 'lyne-icons/dist/icons/plus-small.svg';
 import events from './lyne-cta-button.events';
 import { InterfaceButtonAttributes } from './lyne-cta-button.d';
+
+/**
+ * @slot unnamed - Slot to render svg icon. You must pass an <svg> element.
+ */
 
 @Component({
   shadow: true,
@@ -50,7 +53,9 @@ export class LyneCtaButton {
     const typeClass = `button button--${this.variant}`;
 
     return <button disabled={this.disabled} class={typeClass} onClick={this._buttonClick}>
-      <span class='button__icon' innerHTML={ButtonIcon} />
+      <span class='button__icon'>
+        <slot />
+      </span>
       <span class='button__label'>{this.label}</span>
     </button>;
   }
