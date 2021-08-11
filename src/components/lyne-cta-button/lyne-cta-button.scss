@@ -147,8 +147,13 @@
   background-color: var(--color-default-background);
   cursor: pointer;
   padding: 0;
-  padding-block: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width)));
-  padding-inline: pxToRem(var(--spacing-fixed-10x));
+
+  // when using short hand padding-block and padding-inline, safari will not
+  // evaluate the expression...
+  padding-block-start: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width)));
+  padding-block-end: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width)));
+  padding-inline-start: pxToRem(var(--spacing-fixed-10x));
+  padding-inline-end: pxToRem(var(--spacing-fixed-10x));
   color: var(--color-default-text);
   font-family: var(--font-family);
   font-size: pxToRem(var(--font-size));
@@ -161,6 +166,9 @@
   @include highContrastActive {
     border: pxToRem(1) solid windowText;
   }
+
+  @include visibleFocus;
+
 }
 
 .button__icon {
@@ -188,10 +196,6 @@
   color: var(--color-hover-text);
   background-color: var(--color-hover-background);
   border-color: var(--color-hover-border);
-}
-
-.button:focus-visible:not(:disabled) {
-  @include visibleFocus;
 }
 
 .button:active:not(:disabled) {
