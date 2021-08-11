@@ -1,0 +1,5 @@
+@mixin highContrastActive {
+  @media screen and (-ms-high-contrast: active) {
+    @content
+  }
+}
