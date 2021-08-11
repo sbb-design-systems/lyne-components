@@ -28,7 +28,10 @@
 }
 
 .clock__hand-hours {
-  animation: rotate 43200s infinite linear;
+  animation-name: rotate;
+  animation-duration: 43200s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
   animation-play-state: var(--clock-animation-play-state);
 }
 
