@@ -4,6 +4,7 @@ import { sass } from '@stencil/sass';
 
 export const config = {
   buildEs5: 'prod',
+  globalScript: 'src/global/globals.js',
   namespace: 'lyne-components',
   outputTargets: [
     {
