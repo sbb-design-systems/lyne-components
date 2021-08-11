@@ -146,6 +146,7 @@
   border-radius: pxToRem(var(--border-radius));
   background-color: var(--color-default-background);
   cursor: pointer;
+  padding: 0;
   padding-block: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width)));
   padding-inline: pxToRem(var(--spacing-fixed-10x));
   color: var(--color-default-text);
@@ -187,6 +188,10 @@
   color: var(--color-hover-text);
   background-color: var(--color-hover-background);
   border-color: var(--color-hover-border);
+}
+
+.button:focus-visible:not(:disabled) {
+  @include visibleFocus;
 }
 
 .button:active:not(:disabled) {
