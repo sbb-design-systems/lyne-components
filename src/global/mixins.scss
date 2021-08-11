@@ -11,6 +11,6 @@
 
   &:focus-visible,
   :host(.focus-visible) & {
-    outline: pxToRem(var(--focus-outline-width)) solid var(--focus-outline-color) !important;
+    outline: pxToRem(var(--focus-outline-width)) solid var(--focus-outline-color);
   }
 };
