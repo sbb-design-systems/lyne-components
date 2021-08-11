@@ -146,7 +146,8 @@
   border-radius: pxToRem(var(--border-radius));
   background-color: var(--color-default-background);
   cursor: pointer;
-  padding: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width))) pxToRem(var(--spacing-fixed-10x));
+  padding-block: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width)));
+  padding-inline: pxToRem(var(--spacing-fixed-10x));
   color: var(--color-default-text);
   font-family: var(--font-family);
   font-size: pxToRem(var(--font-size));
@@ -163,9 +164,10 @@
 }
 
 .button__icon {
+  display: block;
   width: pxToRem(var(--icon-size-ui-small));
   height: pxToRem(var(--icon-size-ui-small));
-  padding-right: pxToRem(var(--spacing-fixed-2x));
+  margin-inline-end: pxToRem(var(--spacing-fixed-2x));
   color: currentColor;
 }
 
