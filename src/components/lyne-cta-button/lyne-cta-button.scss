@@ -14,6 +14,7 @@
 
   --padding-block: var(--spacing-fixed-4x);
   --padding-inline: var(--spacing-fixed-10x);
+  --icon-margin-inline-end: var(--spacing-fixed-2x);
 
   // we use primary button styles as default values
   --color-active-background: var(--color-red150-default);
@@ -144,6 +145,14 @@
   --padding-inline: var(--spacing-fixed-5x)
 }
 
+.button--icon-only {
+  --padding-inline: 0;
+  --icon-margin-inline-end: 0;
+
+  width: pxToRem(var(--min-height));
+  justify-content: center;
+}
+
 .button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -189,7 +198,7 @@
   display: block;
   width: pxToRem(var(--icon-size-ui-small));
   height: pxToRem(var(--icon-size-ui-small));
-  margin-inline-end: pxToRem(var(--spacing-fixed-2x));
+  margin-inline-end: pxToRem(var(--icon-margin-inline-end));
   color: currentColor;
 }
 
