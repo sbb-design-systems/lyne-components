@@ -20,7 +20,7 @@ import { InterfaceButtonAttributes } from './lyne-cta-button.d';
 export class LyneCtaButton {
 
   /** Label text to show on the button */
-  @Prop() public label? = 'Default button text';
+  @Prop() public label = 'Default button text';
 
   /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
