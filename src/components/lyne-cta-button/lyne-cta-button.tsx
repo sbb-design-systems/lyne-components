@@ -84,7 +84,7 @@ export class LyneCtaButton {
     const variantClass = `button--${this.variant}`;
     const iconClass = hasNoLabel
       ? 'button--icon-only'
-      : 0;
+      : '';
     const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass}`;
 
     return (
