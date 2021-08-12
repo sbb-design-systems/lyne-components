@@ -20,9 +20,17 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
+          * Define if icon should be shown or not
+         */
+        "icon"?: boolean;
+        /**
           * Label text to show on the button
          */
         "label"?: string;
+        /**
+          * Size variant, either large or small.
+         */
+        "size"?: InterfaceButtonAttributes['size'];
         /**
           * Variant of the button, like primary, secondary etc.
          */
@@ -285,9 +293,17 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
+          * Define if icon should be shown or not
+         */
+        "icon"?: boolean;
+        /**
           * Label text to show on the button
          */
         "label"?: string;
+        /**
+          * Size variant, either large or small.
+         */
+        "size"?: InterfaceButtonAttributes['size'];
         /**
           * Variant of the button, like primary, secondary etc.
          */
