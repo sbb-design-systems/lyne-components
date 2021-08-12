@@ -1,11 +1,8 @@
 :host {
   display: block;
-
+  --clock-hours-animation-start-angle: 0deg;
   --clock-seconds-animation-start-angle: 0deg;
-  --clock-seconds-animation-duration: 60s;
-  --clock-seconds-animation-iteration-count: 1;
   --clock-animation-play-state: paused;
-
 }
 
 .clock {
@@ -35,6 +32,13 @@
   animation-play-state: var(--clock-animation-play-state);
 }
 
+.clock__hand-hours.clock__hand-hours--initial-hour {
+  animation-name: handHoursAnimationInitialHour;
+  animation-iteration-count: 1;
+  animation-duration: var(--clock-hours-animation-duration);
+  animation-play-state: var(--clock-animation-play-state);
+}
+
 .clock__hand-minutes {
   transition: transform 0.2s cubic-bezier(.4,2.08,.55,.44);
 }
@@ -51,12 +55,21 @@
 
 .clock__hand-seconds.clock__hand-seconds--initial-minute {
   animation-name: handSecondsAnimationInitialMinute;
-  animation-iteration-count: var(--clockl-seconds-animation-iteration-count);
+  animation-iteration-count: 1;
   animation-duration: var(--clock-seconds-animation-duration);
   animation-play-state: var(--clock-animation-play-state);
 }
 
 @keyframes rotate {
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes handHoursAnimationInitialHour {
+  0% {
+    transform: rotateZ(var(--clock-hours-animation-start-angle));
+  }
   100% {
     transform: rotateZ(360deg);
   }

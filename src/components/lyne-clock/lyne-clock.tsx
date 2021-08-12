@@ -33,7 +33,11 @@ export class LyneClock {
   private _minutes: number;
   private _seconds: number;
 
+  private _defaultHoursAnimationDuration = 24;
+  private _defaultMinutesAnimationDuration = 60;
   private _defaultSecondsAnimationDuration = 60;
+  private _remainingHours: number;
+  private _remainingMinutes: number;
   private _remainingSeconds: number;
   private _hoursAngle: number;
   private _minutesAngle: number;
@@ -62,7 +66,7 @@ export class LyneClock {
     document.removeEventListener('visibilitychange', this._handlePageVisiblityChange.bind(this), false);
   }
 
-  private _setCurrentTime(): void {
+  private _getCurrentTime(): void {
 
     if (this.initialtime === 'now') {
       const date = new Date();
@@ -79,39 +83,49 @@ export class LyneClock {
       this._seconds = Number(predefinedTime[2]);
     }
 
+    this._remainingHours = this._defaultHoursAnimationDuration - this._hours;
+    this._remainingMinutes = this._defaultMinutesAnimationDuration - this._minutes;
     this._remainingSeconds = this._defaultSecondsAnimationDuration - this._seconds;
 
   }
 
   private _moveHandsInitially(): void {
 
+    this._element.style.setProperty('--clock-hours-animation-start-angle', `${(this._hours * 30) + (this._minutes / 2)}deg`);
+    this._element.style.setProperty('--clock-hours-animation-duration', `${(this._remainingHours * 3600) + (this._remainingMinutes * 60) + this._remainingSeconds}s`);
     this._element.style.setProperty('--clock-seconds-animation-start-angle', `${this._seconds * 6}deg`);
     this._element.style.setProperty('--clock-seconds-animation-duration', `${this._remainingSeconds}s`);
 
-    this._hoursAngle = (this._hours * 30) + (this._minutes / 2);
-
-    this._clockHandHours.style.setProperty('transform', `rotateZ(${this._hoursAngle}deg)`);
-
-    this._setMinuteHand();
+    this._setMinutesHand();
 
   }
 
-  private _setMinuteHand(): void {
+  private _setMinutesHand(): void {
     this._minutesAngle = this._minutes * 6;
     this._clockHandMinutes.style.setProperty('transform', `rotateZ(${this._minutesAngle}deg)`);
   }
 
-  private _moveMinuteHand(): void {
+  private _setHoursHand(): void {
+    this._getCurrentTime();
+    this._clockHandHours.classList.remove('clock__hand-hours--initial-hour');
+    this._hoursAngle = (this._hours * 30) + (this._minutes / 2);
+    this._clockHandHours.style.setProperty('transform', `rotateZ(${this._hoursAngle}deg)`);
+  }
 
+  private _moveMinutesHand(): void {
     this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
     this._clockHandSeconds.removeEventListener('animationend', moveMinuteHand);
 
     this._minutes++;
-    this._setMinuteHand();
+    this._setMinutesHand();
+
+    if (this._minutes === 60) {
+      this._setHoursHand();
+    }
 
     this._handMovement = setInterval(() => {
       this._minutes++;
-      this._setMinuteHand();
+      this._setMinutesHand();
     }, this._defaultSecondsAnimationDuration * 1000);
 
   }
@@ -129,12 +143,13 @@ export class LyneClock {
 
   private _startClock(): void {
 
-    moveMinuteHand = (): void => this._moveMinuteHand();
+    moveMinuteHand = (): void => this._moveMinutesHand();
 
-    this._setCurrentTime();
+    this._getCurrentTime();
     this._moveHandsInitially();
 
     this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
+    this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
     this._clockHandSeconds.addEventListener('animationend', moveMinuteHand);
     this._element.style.setProperty('--clock-animation-play-state', 'running');
 
