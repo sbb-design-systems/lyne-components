@@ -32,9 +32,21 @@ export namespace Components {
          */
         "label"?: string;
         /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+        /**
           * Size variant, either large or small.
          */
         "size"?: InterfaceButtonAttributes['size'];
+        /**
+          * The type attribute to use for the button
+         */
+        "type"?: InterfaceButtonAttributes['type'];
+        /**
+          * The value attribute to use for the button
+         */
+        "value"?: string;
         /**
           * Variant of the button, like primary, secondary etc.
          */
@@ -309,9 +321,21 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+        /**
           * Size variant, either large or small.
          */
         "size"?: InterfaceButtonAttributes['size'];
+        /**
+          * The type attribute to use for the button
+         */
+        "type"?: InterfaceButtonAttributes['type'];
+        /**
+          * The value attribute to use for the button
+         */
+        "value"?: string;
         /**
           * Variant of the button, like primary, secondary etc.
          */
