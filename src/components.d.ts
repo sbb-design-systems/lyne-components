@@ -26,7 +26,7 @@ export namespace Components {
         /**
           * Label text to show on the button
          */
-        "label"?: string;
+        "label": string;
         /**
           * Size variant, either large or small.
          */
