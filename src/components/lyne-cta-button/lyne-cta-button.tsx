@@ -20,7 +20,7 @@ import { InterfaceButtonAttributes } from './lyne-cta-button.d';
 export class LyneCtaButton {
 
   /** Label text to show on the button */
-  @Prop() public label = 'Default button text';
+  @Prop() public label? = 'Default button text';
 
   /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
@@ -56,9 +56,19 @@ export class LyneCtaButton {
   };
 
   public render(): JSX.Element {
+    const hasNoLabel = !this.label || this.label.length < 1;
+
+    // security exit, if neither label nor icon is provided via props
+    if (hasNoLabel && !this.icon) {
+      return <p>Config error: either label or icon must be provided</p>;
+    }
+
     const sizeClass = `button--${this.size}`;
     const variantClass = `button--${this.variant}`;
-    const buttonClass = `button ${variantClass} ${sizeClass}`;
+    const iconClass = hasNoLabel
+      ? 'button--icon-only'
+      : 0;
+    const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass}`;
 
     return (
       <button disabled={this.disabled} class={buttonClass} onClick={this._buttonClick}>
