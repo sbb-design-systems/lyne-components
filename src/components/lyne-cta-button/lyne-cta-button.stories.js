@@ -178,11 +178,6 @@ export default {
         764,
         1201
       ]
-    },
-    docs: {
-      source: {
-        type: 'code'
-      }
     }
   },
   title: 'Button'
