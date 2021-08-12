@@ -2,6 +2,8 @@ import events from './lyne-cta-button.events.ts';
 import { h } from 'jsx-dom';
 import lyneIcons from 'lyne-icons/dist/icons.json';
 
+// --- Helper methods
+
 const getMarkupForSvg = (svgName) => {
   const icon = lyneIcons.icons[svgName];
   const frag = document.createRange()
@@ -9,6 +11,23 @@ const getMarkupForSvg = (svgName) => {
 
   return frag.firstChild;
 };
+
+const wrapperStyle = (context) => {
+  const variantsWithBlackBg = [
+    'primary-negative',
+    'secondary-negative',
+    'tertiary-negative',
+    'transparent-negative'
+  ];
+
+  if (variantsWithBlackBg.indexOf(context.args.variant) === -1) {
+    return 'background-color: white;';
+  }
+
+  return 'background-color: black;';
+};
+
+// --- Component
 
 const Template = (args) => (
   <lyne-cta-button
@@ -23,6 +42,8 @@ const Template = (args) => (
 );
 
 export const button = Template.bind({});
+
+// --- Arg types
 
 const icon = {
   control: {
@@ -123,9 +144,19 @@ button.args = {
 /* eslint-enable sort-keys */
 
 export default {
+  decorators: [
+    (Story, context) => (
+      <div style={`${wrapperStyle(context)}padding: 2rem`}>
+        <Story/>
+      </div>
+    )
+  ],
   parameters: {
     actions: {
       handles: [events.click]
+    },
+    backgrounds: {
+      disable: true
     },
     chromatic: {
       delay: 1000,
