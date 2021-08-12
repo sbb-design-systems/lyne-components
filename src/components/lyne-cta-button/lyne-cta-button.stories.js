@@ -36,6 +36,7 @@ const Template = (args) => (
     label={args.label}
     variant={args.variant}
     size={args.size}
+    icon-description={args.iconDescription}
   >
     {getMarkupForSvg(args.iconslot)}
   </lyne-cta-button>
@@ -48,6 +49,15 @@ export const button = Template.bind({});
 const icon = {
   control: {
     type: 'boolean'
+  },
+  table: {
+    category: 'Properties'
+  }
+};
+
+const iconDescription = {
+  control: {
+    type: 'text'
   },
   table: {
     category: 'Properties'
@@ -130,7 +140,8 @@ button.argTypes = {
   disabled,
   label,
   icon,
-  iconslot
+  iconslot,
+  iconDescription
 };
 
 button.args = {
