@@ -10,7 +10,53 @@ const getMarkupForSvg = (svgName) => {
   return frag.firstChild;
 };
 
-const icons = {
+const Template = (args) => (
+  <lyne-cta-button
+    disabled={args.disabled}
+    icon={args.icon}
+    label={args.label}
+    variant={args.variant}
+    size={args.size}
+  >
+    {getMarkupForSvg(args.iconslot)}
+  </lyne-cta-button>
+);
+
+export const button = Template.bind({});
+
+const icon = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Properties'
+  }
+};
+
+const disabled = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Properties'
+  }
+};
+
+const label = {
+  control: {
+    type: 'text'
+  },
+  description: 'Overwritten description',
+  table: {
+    category: 'Properties',
+    type: {
+      detail: 'Something really really long',
+      summary: 'Something short'
+    }
+  }
+};
+
+const iconslot = {
   control: {
     type: 'select'
   },
@@ -18,10 +64,13 @@ const icons = {
     'arrow-right-small',
     'arrow-down-small',
     'lyne-arrow-compass-small'
-  ]
+  ],
+  table: {
+    category: 'Slots'
+  }
 };
 
-const variants = {
+const variant = {
   control: {
     type: 'select'
   },
@@ -34,29 +83,42 @@ const variants = {
     'tertiary-negative',
     'transparent',
     'transparent-negative'
-  ]
+  ],
+  table: {
+    category: 'Properties'
+  }
 };
 
-const Template = (args) => (
-  <lyne-cta-button {...args}>
-    {getMarkupForSvg(args.icon)}
-  </lyne-cta-button>
-);
-
-export const button = Template.bind({});
-
-button.argTypes = {
-  disabled: false,
-  icon: icons,
-  variant: variants
+const size = {
+  control: {
+    type: 'radio'
+  },
+  options: [
+    'large',
+    'small'
+  ],
+  table: {
+    category: 'Properties'
+  }
 };
 
 /* eslint-disable sort-keys */
+button.argTypes = {
+  variant,
+  size,
+  disabled,
+  label,
+  icon,
+  iconslot
+};
+
 button.args = {
-  variant: variants.options[0],
-  label: 'Label',
-  icon: icons.options[0],
-  disabled: false
+  variant: variant.options[0],
+  size: size.options[0],
+  disabled: false,
+  label: 'Button',
+  icon: true,
+  iconslot: iconslot.options[0]
 };
 /* eslint-enable sort-keys */
 
@@ -72,6 +134,11 @@ export default {
         764,
         1201
       ]
+    },
+    docs: {
+      source: {
+        type: 'code'
+      }
     }
   },
   title: 'Button'
