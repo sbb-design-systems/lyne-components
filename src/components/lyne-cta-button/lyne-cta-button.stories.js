@@ -51,7 +51,7 @@ const icon = {
     type: 'boolean'
   },
   table: {
-    category: 'Properties'
+    category: 'Icon'
   }
 };
 
@@ -60,30 +60,7 @@ const iconDescription = {
     type: 'text'
   },
   table: {
-    category: 'Properties'
-  }
-};
-
-const disabled = {
-  control: {
-    type: 'boolean'
-  },
-  table: {
-    category: 'Properties'
-  }
-};
-
-const label = {
-  control: {
-    type: 'text'
-  },
-  description: 'Overwritten description',
-  table: {
-    category: 'Properties',
-    type: {
-      detail: 'Something really really long',
-      summary: 'Something short'
-    }
+    category: 'Icon'
   }
 };
 
@@ -97,7 +74,30 @@ const iconslot = {
     'lyne-arrow-compass-small'
   ],
   table: {
-    category: 'Slots'
+    category: 'Icon'
+  }
+};
+
+const disabled = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'General properties'
+  }
+};
+
+const label = {
+  control: {
+    type: 'text'
+  },
+  description: 'Overwritten description',
+  table: {
+    category: 'General properties',
+    type: {
+      detail: 'Something really really long',
+      summary: 'Something short'
+    }
   }
 };
 
@@ -116,7 +116,7 @@ const variant = {
     'transparent-negative'
   ],
   table: {
-    category: 'Properties'
+    category: 'General properties'
   }
 };
 
@@ -129,7 +129,7 @@ const size = {
     'small'
   ],
   table: {
-    category: 'Properties'
+    category: 'General properties'
   }
 };
 
