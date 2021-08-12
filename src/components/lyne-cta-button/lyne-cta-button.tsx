@@ -25,11 +25,17 @@ export class LyneCtaButton {
   /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
 
+  /** Size variant, either large or small. */
+  @Prop() public size?: InterfaceButtonAttributes['size'] = 'large';
+
   /** Set to true to get a disabled button */
   @Prop() public disabled? = false;
 
   /** Id which is send in the click event payload */
   @Prop() public eventId?: string;
+
+  /** Define if icon should be shown or not */
+  @Prop() public icon? = false;
 
   @Element() private _element: HTMLElement;
 
@@ -50,13 +56,18 @@ export class LyneCtaButton {
   };
 
   public render(): JSX.Element {
-    const typeClass = `button button--${this.variant}`;
+    const sizeClass = `button--${this.size}`;
+    const variantClass = `button--${this.variant}`;
+    const buttonClass = `button ${variantClass} ${sizeClass}`;
 
-    return <button disabled={this.disabled} class={typeClass} onClick={this._buttonClick}>
-      <span class='button__icon'>
-        <slot />
-      </span>
-      <span class='button__label'>{this.label}</span>
-    </button>;
+    return (
+      <button disabled={this.disabled} class={buttonClass} onClick={this._buttonClick}>
+        {this.icon === true
+          ? <span class='button__icon'><slot /></span>
+          : ''
+        }
+        <span class='button__label'>{this.label}</span>
+      </button>
+    );
   }
 }
