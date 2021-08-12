@@ -8,8 +8,12 @@
   --font-size: 14;
   --letter-spacing: 0.01em;
   --line-height: 1.4;
+  --min-height: 56;
   --transition-duration: 180ms;
   --transition-easing-function: cubic-bezier(.47, .1, 1, .63);
+
+  --padding-block: var(--spacing-fixed-4x);
+  --padding-inline: var(--spacing-fixed-10x);
 
   // we use primary button styles as default values
   --color-active-background: var(--color-red150-default);
@@ -131,6 +135,15 @@
   --color-hover-text: var(--color-iron-default);
 }
 
+.button--small {
+  --border-width: 1;
+  --font-size: 12;
+  --min-height: 40;
+
+  --padding-block: var(--spacing-fixed-2x);
+  --padding-inline: var(--spacing-fixed-5x)
+}
+
 .button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -140,6 +153,7 @@
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
   transition-property: background-color, color;
+  min-height: pxToRem(var(--min-height));
   margin: 0;
   outline: none;
   border: pxToRem(var(--border-width)) solid var(--color-default-border);
@@ -150,10 +164,10 @@
 
   // when using short hand padding-block and padding-inline, safari will not
   // evaluate the expression...
-  padding-block-start: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width)));
-  padding-block-end: pxToRem(calc(var(--spacing-fixed-4x) - var(--border-width)));
-  padding-inline-start: pxToRem(var(--spacing-fixed-10x));
-  padding-inline-end: pxToRem(var(--spacing-fixed-10x));
+  padding-block-start: pxToRem(calc(var(--padding-block) - var(--border-width)));
+  padding-block-end: pxToRem(calc(var(--padding-block) - var(--border-width)));
+  padding-inline-start: pxToRem(var(--padding-inline));
+  padding-inline-end: pxToRem(var(--padding-inline));
   color: var(--color-default-text);
   font-family: var(--font-family);
   font-size: pxToRem(var(--font-size));
