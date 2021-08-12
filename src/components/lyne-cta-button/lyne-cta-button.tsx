@@ -37,6 +37,9 @@ export class LyneCtaButton {
   /** Define if icon should be shown or not */
   @Prop() public icon? = false;
 
+  /** Define if icon should be shown or not */
+  @Prop() public iconDescription?: string;
+
   @Element() private _element: HTMLElement;
 
   private _buttonClick = (): void => {
@@ -63,6 +66,11 @@ export class LyneCtaButton {
       return <p>Config error: either label or icon must be provided</p>;
     }
 
+    // security exit for icon only button with no icon description
+    if (hasNoLabel && this.icon && !this.iconDescription) {
+      return <p>Config error: you must provide an icon description</p>;
+    }
+
     const sizeClass = `button--${this.size}`;
     const variantClass = `button--${this.variant}`;
     const iconClass = hasNoLabel
@@ -72,11 +80,22 @@ export class LyneCtaButton {
 
     return (
       <button disabled={this.disabled} class={buttonClass} onClick={this._buttonClick}>
+
+        {this.icon && hasNoLabel && this.iconDescription
+          ? <span class='button__icon-description'>{this.iconDescription}</span>
+          : ''
+        }
+
         {this.icon === true
           ? <span class='button__icon'><slot /></span>
           : ''
         }
-        <span class='button__label'>{this.label}</span>
+
+        {hasNoLabel
+          ? ''
+          : <span class='button__label'>{this.label}</span>
+        }
+
       </button>
     );
   }
