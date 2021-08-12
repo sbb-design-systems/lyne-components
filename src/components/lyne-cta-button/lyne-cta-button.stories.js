@@ -37,6 +37,8 @@ const Template = (args) => (
     variant={args.variant}
     size={args.size}
     icon-description={args.iconDescription}
+    name='sample-name'
+    value='sample-value'
   >
     {getMarkupForSvg(args.iconslot)}
   </lyne-cta-button>
