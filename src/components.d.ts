@@ -24,6 +24,10 @@ export namespace Components {
          */
         "icon"?: boolean;
         /**
+          * Define if icon should be shown or not
+         */
+        "iconDescription"?: string;
+        /**
           * Label text to show on the button
          */
         "label"?: string;
@@ -296,6 +300,10 @@ declare namespace LocalJSX {
           * Define if icon should be shown or not
          */
         "icon"?: boolean;
+        /**
+          * Define if icon should be shown or not
+         */
+        "iconDescription"?: string;
         /**
           * Label text to show on the button
          */
