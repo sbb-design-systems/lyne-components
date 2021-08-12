@@ -40,6 +40,15 @@ export class LyneCtaButton {
   /** Define if icon should be shown or not */
   @Prop() public iconDescription?: string;
 
+  /** The type attribute to use for the button */
+  @Prop() public type?: InterfaceButtonAttributes['type'] = 'button';
+
+  /** The name attribute to use for the button */
+  @Prop() public name?: string;
+
+  /** The value attribute to use for the button */
+  @Prop() public value?: string;
+
   @Element() private _element: HTMLElement;
 
   private _buttonClick = (): void => {
@@ -79,7 +88,14 @@ export class LyneCtaButton {
     const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass}`;
 
     return (
-      <button disabled={this.disabled} class={buttonClass} onClick={this._buttonClick}>
+      <button
+        disabled={this.disabled}
+        class={buttonClass}
+        onClick={this._buttonClick}
+        type={this.type}
+        name={this.name}
+        value={this.value}
+      >
 
         {this.icon && hasNoLabel && this.iconDescription
           ? <span class='button__icon-description'>{this.iconDescription}</span>
