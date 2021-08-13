@@ -1,3 +1,25 @@
+## [9.26.19](https://github.com/lyne-design-system/lyne-components/compare/v9.26.18...v9.26.19) (2021-08-13)
+
+
+### Bug Fixes
+
+* remove size transform (triggered from design tokens build) [skip ci] ([d69381b](https://github.com/lyne-design-system/lyne-components/commit/d69381bfdc4862e80d8a1fc8ff80a1434fd35f28))
+
+## [9.26.18](https://github.com/lyne-design-system/lyne-components/compare/v9.26.17...v9.26.18) (2021-08-13)
+
+
+### Bug Fixes
+
+* fake commit to trigger release (triggered from design tokens build) [skip ci] ([ec61db2](https://github.com/lyne-design-system/lyne-components/commit/ec61db2987b6ac1df760a306996fb35eac5b6b98))
+
+## [9.26.17](https://github.com/lyne-design-system/lyne-components/compare/v9.26.16...v9.26.17) (2021-08-13)
+
+
+### Bug Fixes
+
+* fix syntax and exit on error ([761e11d](https://github.com/lyne-design-system/lyne-components/commit/761e11debf0db52c7ccec9f16961f159119d306e))
+* make sure netlify is installed in any case ([d5e89d8](https://github.com/lyne-design-system/lyne-components/commit/d5e89d83bb753f0c3d89a83cc3aaa3b2bfb7805b))
+
 ## [9.26.16](https://github.com/lyne-design-system/lyne-components/compare/v9.26.15...v9.26.16) (2021-08-10)
 
 
