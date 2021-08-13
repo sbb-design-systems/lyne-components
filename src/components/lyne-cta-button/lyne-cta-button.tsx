@@ -37,7 +37,7 @@ export class LyneCtaButton {
   /** Define if icon should be shown or not */
   @Prop() public icon? = false;
 
-  /** Define if icon should be shown or not */
+  /** If you use an icon without a label, you must provide an iconDescription */
   @Prop() public iconDescription?: string;
 
   /** The type attribute to use for the button */
