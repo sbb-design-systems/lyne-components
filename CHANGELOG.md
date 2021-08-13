@@ -1,3 +1,11 @@
+## [9.26.17](https://github.com/lyne-design-system/lyne-components/compare/v9.26.16...v9.26.17) (2021-08-13)
+
+
+### Bug Fixes
+
+* fix syntax and exit on error ([761e11d](https://github.com/lyne-design-system/lyne-components/commit/761e11debf0db52c7ccec9f16961f159119d306e))
+* make sure netlify is installed in any case ([d5e89d8](https://github.com/lyne-design-system/lyne-components/commit/d5e89d83bb753f0c3d89a83cc3aaa3b2bfb7805b))
+
 ## [9.26.16](https://github.com/lyne-design-system/lyne-components/compare/v9.26.15...v9.26.16) (2021-08-10)
 
 
