@@ -12,18 +12,45 @@ export namespace Components {
     }
     interface LyneCtaButton {
         /**
-          * Id which is send in the click event payload
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
+        /**
+          * Set to true to get a disabled button
+         */
+        "disabled"?: boolean;
+        /**
+          * Id which is sent in the click event payload
          */
         "eventId"?: string;
         /**
+          * Define if icon should be shown or not
+         */
+        "icon"?: boolean;
+        /**
+          * If you use an icon without a label, you must provide an iconDescription
+         */
+        "iconDescription"?: string;
+        /**
           * Label text to show on the button
          */
-        "label": string;
+        "label"?: string;
         /**
-          * @sampleDocTag sampleName - sampleValue
-          * @sampleDocTag2 sampleName2 - sampleValue2
+          * The name attribute to use for the button
          */
-        "samplePropForJSDocs": string;
+        "name"?: string;
+        /**
+          * Size variant, either large or small.
+         */
+        "size"?: InterfaceButtonAttributes['size'];
+        /**
+          * The type attribute to use for the button
+         */
+        "type"?: InterfaceButtonAttributes['type'];
+        /**
+          * The value attribute to use for the button
+         */
+        "value"?: string;
         /**
           * Variant of the button, like primary, secondary etc.
          */
@@ -278,18 +305,45 @@ declare namespace LocalJSX {
     }
     interface LyneCtaButton {
         /**
-          * Id which is send in the click event payload
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
+        /**
+          * Set to true to get a disabled button
+         */
+        "disabled"?: boolean;
+        /**
+          * Id which is sent in the click event payload
          */
         "eventId"?: string;
+        /**
+          * Define if icon should be shown or not
+         */
+        "icon"?: boolean;
+        /**
+          * If you use an icon without a label, you must provide an iconDescription
+         */
+        "iconDescription"?: string;
         /**
           * Label text to show on the button
          */
         "label"?: string;
         /**
-          * @sampleDocTag sampleName - sampleValue
-          * @sampleDocTag2 sampleName2 - sampleValue2
+          * The name attribute to use for the button
          */
-        "samplePropForJSDocs"?: string;
+        "name"?: string;
+        /**
+          * Size variant, either large or small.
+         */
+        "size"?: InterfaceButtonAttributes['size'];
+        /**
+          * The type attribute to use for the button
+         */
+        "type"?: InterfaceButtonAttributes['type'];
+        /**
+          * The value attribute to use for the button
+         */
+        "value"?: string;
         /**
           * Variant of the button, like primary, secondary etc.
          */

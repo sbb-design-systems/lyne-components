@@ -1,6 +1,12 @@
 :host {
   display: block;
 
+  // TODO: missing design tokens
+  --font-family: 'SBBWeb Bold';
+  --font-size: 14;
+  --letter-spacing: 0.01em;
+  --line-height: 1.4;
+
   // we use primary button styles as default values
   --color-active-background: var(--color-red150-default);
   --color-active-border: var(--color-red150-default);
@@ -14,6 +20,15 @@
   --color-hover-background: var(--color-red125-default);
   --color-hover-border: var(--color-red125-default);
   --color-hover-text: var(--color-milk-default);
+  
+  --border-width: var(--border-width-2x);
+  --border-radius: var(--border-radius-16x);
+  --min-height: var(--size-form-element-large-min-height);
+  --transition-duration: var(--animation-form-element-state-duration);
+  --transition-easing-function: var(--animation-form-element-state-easing);
+  --padding-block: var(--spacing-fixed-4x);
+  --padding-inline: var(--spacing-fixed-10x);
+  --icon-margin-inline-end: var(--spacing-fixed-2x);
 }
 
 .button--primary-negative {
@@ -121,44 +136,97 @@
   --color-hover-text: var(--color-iron-default);
 }
 
-.button {
-  display: flex;
-  align-items: center;
-  padding: 0 pxToRem(var(--spacing-fixed-10x));
-  height: pxToRem(var(--spacing-fixed-10x));
-  transition: background-color cubic-bezier(.47, .1, 1, .63) 200ms;
-  cursor: pointer;
-  border-radius: 0.1rem;
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  color: var(--color-default-text);
-  background-color: var(--color-default-background);
-  border: pxToRem(1.5) solid var(--color-default-border);
+.button--small {
+  --border-width: var(--border-width-1x);
+  --min-height: var(--size-form-element-small-min-height);
+  --padding-block: var(--spacing-fixed-2x);
+  --padding-inline: var(--spacing-fixed-5x);
+
+  // TODO: missing design tokens
+  --font-size: 12;
 }
 
-.button:hover,
-.button:focus {
+.button--icon-only {
+  --padding-inline: 0;
+  --icon-margin-inline-end: 0;
+
+  width: pxToRem(var(--min-height));
+  justify-content: center;
+}
+
+.button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-easing-function);
+  transition-property: background-color, color;
+  min-height: pxToRem(var(--min-height));
+  margin: 0;
+  outline: none;
+  border: pxToRem(var(--border-width)) solid var(--color-default-border);
+  border-radius: pxToRem(var(--border-radius));
+  background-color: var(--color-default-background);
+  padding: 0;
+
+  // when using short hand padding-block and padding-inline, safari will not
+  // evaluate the expression...
+  padding-block-start: pxToRem(calc(var(--padding-block) - var(--border-width)));
+  padding-block-end: pxToRem(calc(var(--padding-block) - var(--border-width)));
+  padding-inline-start: pxToRem(var(--padding-inline));
+  padding-inline-end: pxToRem(var(--padding-inline));
+  color: var(--color-default-text);
+  font-family: var(--font-family);
+  font-size: pxToRem(var(--font-size));
+  font-weight: normal;
+  letter-spacing: var(--letter-spacing);
+  line-height: var(--line-height);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  
+  @include highContrastActive {
+    border: pxToRem(1) solid windowText;
+  }
+
+  @include visibleFocus;
+
+}
+
+.button__icon {
+  display: block;
+  width: pxToRem(var(--size-icon-ui-small));
+  height: pxToRem(var(--size-icon-ui-small));
+  margin-inline-end: pxToRem(var(--icon-margin-inline-end));
+  color: currentColor;
+}
+
+.button__icon-description {
+  @include screenreaderOnly;
+}
+
+:host ::slotted(svg) {
+  fill: currentColor;
+}
+
+.button:disabled {
+  text-decoration: line-through;
+  color: var(--color-disabled-text);
+  background-color: var(--color-disabled-background);
+  border-color: var(--color-disabled-border);
+  cursor: default;
+}
+
+.button:hover:not(:disabled),
+.button:focus:not(:disabled) {
   color: var(--color-hover-text);
   background-color: var(--color-hover-background);
   border-color: var(--color-hover-border);
 }
 
-/*
-.button:active {
+.button:active:not(:disabled) {
   color: var(--color-active-text);
   background-color: var(--color-active-background);
   border-color: var(--color-active-border);
-}
-*/
-.button__icon {
-  color: white;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding-left: .5rem;
-  color: currentColor;
-}
-
-.button__icon svg path {
-  fill: currentColor;
 }
