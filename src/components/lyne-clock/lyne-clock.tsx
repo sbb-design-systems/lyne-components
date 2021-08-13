@@ -39,7 +39,7 @@ export class LyneClock {
   private _remainingHours: number;
   private _remainingMinutes: number;
   private _remainingSeconds: number;
-  private _hoursAngle: number;
+  // private _hoursAngle: number;
   private _minutesAngle: number;
 
   private _handMovement: any;
@@ -53,7 +53,7 @@ export class LyneClock {
   private _handlePageVisiblityChange(): void {
     if (document.visibilityState === 'hidden') {
       this._stopClock();
-    } else {
+    } else if (!this.paused) {
       this._startClock();
     }
   }
@@ -105,12 +105,12 @@ export class LyneClock {
     this._clockHandMinutes.style.setProperty('transform', `rotateZ(${this._minutesAngle}deg)`);
   }
 
-  private _setHoursHand(): void {
+  /* private _setHoursHand(): void {
     this._getCurrentTime();
     this._clockHandHours.classList.remove('clock__hand-hours--initial-hour');
     this._hoursAngle = (this._hours * 30) + (this._minutes / 2);
     this._clockHandHours.style.setProperty('transform', `rotateZ(${this._hoursAngle}deg)`);
-  }
+  } */
 
   private _moveMinutesHand(): void {
     this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
@@ -119,9 +119,9 @@ export class LyneClock {
     this._minutes++;
     this._setMinutesHand();
 
-    if (this._minutes === 60) {
+    /* if (this._minutes === 60) {
       this._setHoursHand();
-    }
+    } */
 
     this._handMovement = setInterval(() => {
       this._minutes++;
@@ -132,9 +132,14 @@ export class LyneClock {
 
   private _stopClock(): void {
 
-    this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
-    this._clockHandSeconds.removeEventListener('animationend', moveMinuteHand);
+    if (this.paused) {
+      this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
+      this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
+    } else {
+      this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
+    }
 
+    this._clockHandSeconds.removeEventListener('animationend', moveMinuteHand);
     clearInterval(this._handMovement);
 
     this._element.style.setProperty('--clock-animation-play-state', 'paused');
@@ -144,9 +149,6 @@ export class LyneClock {
   private _startClock(): void {
 
     moveMinuteHand = (): void => this._moveMinutesHand();
-
-    this._getCurrentTime();
-    this._moveHandsInitially();
 
     this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
     this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
@@ -161,6 +163,8 @@ export class LyneClock {
 
   public componentDidLoad(): void {
     this._cacheElements();
+    this._getCurrentTime();
+    this._moveHandsInitially();
 
     if (this.paused) {
       this._stopClock();

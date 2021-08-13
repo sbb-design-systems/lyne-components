@@ -71,7 +71,7 @@
     transform: rotateZ(var(--clock-hours-animation-start-angle));
   }
   100% {
-    transform: rotateZ(360deg);
+    transform: rotateZ(720deg);
   }
 }
 
