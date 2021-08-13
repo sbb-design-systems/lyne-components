@@ -13,18 +13,18 @@ const getMarkupForSvg = (svgName) => {
 };
 
 const wrapperStyle = (context) => {
-  const variantsWithBlackBg = [
+  const variantsWithRedBg = [
     'primary-negative',
     'secondary-negative',
     'tertiary-negative',
     'transparent-negative'
   ];
 
-  if (variantsWithBlackBg.indexOf(context.args.variant) === -1) {
+  if (variantsWithRedBg.indexOf(context.args.variant) === -1) {
     return 'background-color: white;';
   }
 
-  return 'background-color: black;';
+  return 'background-color: #eb0000;';
 };
 
 // --- Component
