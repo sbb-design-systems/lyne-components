@@ -28,7 +28,7 @@ export namespace Components {
          */
         "icon"?: boolean;
         /**
-          * Define if icon should be shown or not
+          * If you use an icon without a label, you must provide an iconDescription
          */
         "iconDescription"?: string;
         /**
@@ -321,7 +321,7 @@ declare namespace LocalJSX {
          */
         "icon"?: boolean;
         /**
-          * Define if icon should be shown or not
+          * If you use an icon without a label, you must provide an iconDescription
          */
         "iconDescription"?: string;
         /**
