@@ -4,8 +4,8 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import events from './lyne-cta-button.events';
-import { InterfaceButtonAttributes } from './lyne-cta-button.d';
+import events from './lyne-button.events';
+import { InterfaceButtonAttributes } from './lyne-button.d';
 
 /**
  * @slot unnamed - Slot to render svg icon. You must pass an <svg> element.
@@ -13,11 +13,11 @@ import { InterfaceButtonAttributes } from './lyne-cta-button.d';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-cta-button.scss',
-  tag: 'lyne-cta-button'
+  styleUrl: 'lyne-button.scss',
+  tag: 'lyne-button'
 })
 
-export class LyneCtaButton {
+export class LyneButton {
 
   /** Label text to show on the button */
   @Prop() public label? = 'Default button text';
