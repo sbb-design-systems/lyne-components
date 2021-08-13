@@ -1,3 +1,10 @@
+## [9.26.18](https://github.com/lyne-design-system/lyne-components/compare/v9.26.17...v9.26.18) (2021-08-13)
+
+
+### Bug Fixes
+
+* fake commit to trigger release (triggered from design tokens build) [skip ci] ([ec61db2](https://github.com/lyne-design-system/lyne-components/commit/ec61db2987b6ac1df760a306996fb35eac5b6b98))
+
 ## [9.26.17](https://github.com/lyne-design-system/lyne-components/compare/v9.26.16...v9.26.17) (2021-08-13)
 
 
