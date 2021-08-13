@@ -1,3 +1,10 @@
+## [9.26.19](https://github.com/lyne-design-system/lyne-components/compare/v9.26.18...v9.26.19) (2021-08-13)
+
+
+### Bug Fixes
+
+* remove size transform (triggered from design tokens build) [skip ci] ([d69381b](https://github.com/lyne-design-system/lyne-components/commit/d69381bfdc4862e80d8a1fc8ff80a1434fd35f28))
+
 ## [9.26.18](https://github.com/lyne-design-system/lyne-components/compare/v9.26.17...v9.26.18) (2021-08-13)
 
 
