@@ -40,7 +40,7 @@ const Template = (args) => (
     name='sample-name'
     value='sample-value'
   >
-    {getMarkupForSvg(args.iconslot)}
+    {getMarkupForSvg(args.iconSlot)}
   </lyne-cta-button>
 );
 
@@ -66,7 +66,7 @@ const iconDescription = {
   }
 };
 
-const iconslot = {
+const iconSlot = {
   control: {
     type: 'select'
   },
@@ -142,7 +142,7 @@ button.argTypes = {
   disabled,
   label,
   icon,
-  iconslot,
+  iconSlot,
   iconDescription
 };
 
@@ -152,7 +152,7 @@ button.args = {
   disabled: false,
   label: 'Button',
   icon: true,
-  iconslot: iconslot.options[0]
+  iconSlot: iconSlot.options[0]
 };
 /* eslint-enable sort-keys */
 
