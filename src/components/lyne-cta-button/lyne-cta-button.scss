@@ -140,7 +140,7 @@
   --border-width: var(--border-width-1x);
   --min-height: var(--size-form-element-small-min-height);
   --padding-block: var(--spacing-fixed-2x);
-  --padding-inline: var(--spacing-fixed-5x)
+  --padding-inline: var(--spacing-fixed-5x);
 
   // TODO: missing design tokens
   --font-size: 12;
@@ -196,8 +196,8 @@
 
 .button__icon {
   display: block;
-  width: pxToRem(var(--icon-size-ui-small));
-  height: pxToRem(var(--icon-size-ui-small));
+  width: pxToRem(var(--size-icon-ui-small));
+  height: pxToRem(var(--size-icon-ui-small));
   margin-inline-end: pxToRem(var(--icon-margin-inline-end));
   color: currentColor;
 }
