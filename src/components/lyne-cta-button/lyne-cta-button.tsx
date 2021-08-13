@@ -49,6 +49,12 @@ export class LyneCtaButton {
   /** The value attribute to use for the button */
   @Prop() public value?: string;
 
+  /**
+   * If you use the button to trigger another widget which itself is covering
+   * the page, you must provide an according attribute for aria-haspopup.
+   */
+  @Prop() public ariaHaspopup?: InterfaceButtonAttributes['popup'];
+
   @Element() private _element: HTMLElement;
 
   private _buttonClick = (): void => {
@@ -95,6 +101,7 @@ export class LyneCtaButton {
         type={this.type}
         name={this.name}
         value={this.value}
+        aria-haspopup={this.ariaHaspopup}
       >
 
         {this.icon && hasNoLabel && this.iconDescription
