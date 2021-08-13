@@ -12,6 +12,10 @@ export namespace Components {
     }
     interface LyneCtaButton {
         /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
+        /**
           * Set to true to get a disabled button
          */
         "disabled"?: boolean;
@@ -300,6 +304,10 @@ declare namespace LocalJSX {
     interface LyneAlert {
     }
     interface LyneCtaButton {
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
         /**
           * Set to true to get a disabled button
          */
