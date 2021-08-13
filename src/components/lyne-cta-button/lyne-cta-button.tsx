@@ -31,7 +31,7 @@ export class LyneCtaButton {
   /** Set to true to get a disabled button */
   @Prop() public disabled? = false;
 
-  /** Id which is send in the click event payload */
+  /** Id which is sent in the click event payload */
   @Prop() public eventId?: string;
 
   /** Define if icon should be shown or not */
