@@ -1,4 +1,4 @@
-import events from './lyne-cta-button.events.ts';
+import events from './lyne-button.events.ts';
 import { h } from 'jsx-dom';
 import lyneIcons from 'lyne-icons/dist/icons.json';
 
@@ -30,7 +30,7 @@ const wrapperStyle = (context) => {
 // --- Component
 
 const Template = (args) => (
-  <lyne-cta-button
+  <lyne-button
     disabled={args.disabled}
     icon={args.icon}
     label={args.label}
@@ -41,10 +41,10 @@ const Template = (args) => (
     value='sample-value'
   >
     {getMarkupForSvg(args.iconSlot)}
-  </lyne-cta-button>
+  </lyne-button>
 );
 
-export const button = Template.bind({});
+export const lyneButton = Template.bind({});
 
 // --- Arg types
 
@@ -136,7 +136,7 @@ const size = {
 };
 
 /* eslint-disable sort-keys */
-button.argTypes = {
+lyneButton.argTypes = {
   variant,
   size,
   disabled,
@@ -146,7 +146,7 @@ button.argTypes = {
   iconDescription
 };
 
-button.args = {
+lyneButton.args = {
   variant: variant.options[0],
   size: size.options[0],
   disabled: false,
@@ -180,5 +180,5 @@ export default {
       ]
     }
   },
-  title: 'Button'
+  title: 'lyne-button'
 };
