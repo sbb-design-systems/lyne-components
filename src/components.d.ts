@@ -16,7 +16,7 @@ export namespace Components {
          */
         "disabled"?: boolean;
         /**
-          * Id which is send in the click event payload
+          * Id which is sent in the click event payload
          */
         "eventId"?: string;
         /**
@@ -305,7 +305,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Id which is send in the click event payload
+          * Id which is sent in the click event payload
          */
         "eventId"?: string;
         /**
