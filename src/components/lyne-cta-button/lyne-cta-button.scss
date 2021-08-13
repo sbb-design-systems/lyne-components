@@ -2,19 +2,10 @@
   display: block;
 
   // TODO: missing design tokens
-  --border-width: 2;
-  --border-radius: 32;
   --font-family: 'SBBWeb Bold';
   --font-size: 14;
   --letter-spacing: 0.01em;
   --line-height: 1.4;
-  --min-height: 56;
-  --transition-duration: 180ms;
-  --transition-easing-function: cubic-bezier(.47, .1, 1, .63);
-
-  --padding-block: var(--spacing-fixed-4x);
-  --padding-inline: var(--spacing-fixed-10x);
-  --icon-margin-inline-end: var(--spacing-fixed-2x);
 
   // we use primary button styles as default values
   --color-active-background: var(--color-red150-default);
@@ -29,6 +20,15 @@
   --color-hover-background: var(--color-red125-default);
   --color-hover-border: var(--color-red125-default);
   --color-hover-text: var(--color-milk-default);
+  
+  --border-width: var(--border-width-2x);
+  --border-radius: var(--border-radius-16x);
+  --min-height: var(--size-form-element-large-min-height);
+  --transition-duration: var(--animation-form-element-state-duration);
+  --transition-easing-function: var(--animation-form-element-state-easing);
+  --padding-block: var(--spacing-fixed-4x);
+  --padding-inline: var(--spacing-fixed-10x);
+  --icon-margin-inline-end: var(--spacing-fixed-2x);
 }
 
 .button--primary-negative {
@@ -137,12 +137,13 @@
 }
 
 .button--small {
-  --border-width: 1;
-  --font-size: 12;
-  --min-height: 40;
-
+  --border-width: var(--border-width-1x);
+  --min-height: var(--size-form-element-small-min-height);
   --padding-block: var(--spacing-fixed-2x);
   --padding-inline: var(--spacing-fixed-5x)
+
+  // TODO: missing design tokens
+  --font-size: 12;
 }
 
 .button--icon-only {
