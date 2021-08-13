@@ -168,7 +168,6 @@
   border: pxToRem(var(--border-width)) solid var(--color-default-border);
   border-radius: pxToRem(var(--border-radius));
   background-color: var(--color-default-background);
-  cursor: pointer;
   padding: 0;
 
   // when using short hand padding-block and padding-inline, safari will not
