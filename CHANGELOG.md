@@ -1,3 +1,13 @@
+## [9.27.1](https://github.com/lyne-design-system/lyne-components/compare/v9.27.0...v9.27.1) (2021-08-14)
+
+
+### Bug Fixes
+
+* fake commit to trigger release (triggered from design tokens build) [skip ci] ([c5ff31d](https://github.com/lyne-design-system/lyne-components/commit/c5ff31d2e0087e93a46524ce184c22ecd88e4f70))
+* remove obsolete script ([59f91ef](https://github.com/lyne-design-system/lyne-components/commit/59f91ef6947d15e352aeedd8e2205f153d9c7ded))
+* remove obsolete script ([9961677](https://github.com/lyne-design-system/lyne-components/commit/99616773f0c8316c4b1eb9475aa9448b357a70ed))
+* remove trigger to hydration playground ([ff7597d](https://github.com/lyne-design-system/lyne-components/commit/ff7597dbc651ddff6a6bedebff2210eabc96c5b3))
+
 # [9.27.0](https://github.com/lyne-design-system/lyne-components/compare/v9.26.19...v9.27.0) (2021-08-13)
 
 
