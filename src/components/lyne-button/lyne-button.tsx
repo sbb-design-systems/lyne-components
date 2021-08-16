@@ -8,7 +8,7 @@ import events from './lyne-button.events';
 import { InterfaceButtonAttributes } from './lyne-button.d';
 
 /**
- * @slot unnamed - Slot to render svg icon. You must pass an <svg> element.
+ * @slot unnamed - Slot to render svg icon. You must pass an svg-element.
  */
 
 @Component({
