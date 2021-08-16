@@ -54,6 +54,10 @@ export namespace Components {
          */
         "variant"?: InterfaceButtonAttributes['variant'];
     }
+    interface LyneClock {
+        "initialtime": string;
+        "paused": boolean;
+    }
     interface LyneHeading {
         /**
           * Heading level
@@ -90,6 +94,12 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
+    interface HTMLLyneClockElement extends Components.LyneClock, HTMLStencilElement {
+    }
+    var HTMLLyneClockElement: {
+        prototype: HTMLLyneClockElement;
+        new (): HTMLLyneClockElement;
+    };
     interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {
     }
     var HTMLLyneHeadingElement: {
@@ -103,40 +113,14 @@ declare global {
         new (): HTMLLyneLinkElement;
     };
     interface HTMLElementTagNameMap {
-<<<<<<< HEAD
-        "lyne-alert": HTMLLyneAlertElement;
-        "lyne-clock": HTMLLyneClockElement;
-        "lyne-cta-button": HTMLLyneCtaButtonElement;
-        "lyne-cta-button-no-shadow": HTMLLyneCtaButtonNoShadowElement;
-        "lyne-cta-button-scoped": HTMLLyneCtaButtonScopedElement;
-        "lyne-footer": HTMLLyneFooterElement;
-        "lyne-footer-bottom": HTMLLyneFooterBottomElement;
-        "lyne-footer-column": HTMLLyneFooterColumnElement;
-        "lyne-footer-column-link-list": HTMLLyneFooterColumnLinkListElement;
-        "lyne-footer-column-link-list-item": HTMLLyneFooterColumnLinkListItemElement;
-        "lyne-footer-column-rte": HTMLLyneFooterColumnRteElement;
-        "lyne-footer-column-title": HTMLLyneFooterColumnTitleElement;
-        "lyne-footer-columns": HTMLLyneFooterColumnsElement;
-        "lyne-footer-links-bottom": HTMLLyneFooterLinksBottomElement;
-=======
         "lyne-button": HTMLLyneButtonElement;
->>>>>>> master
+        "lyne-clock": HTMLLyneClockElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
     }
 }
 declare namespace LocalJSX {
-<<<<<<< HEAD
-    interface LyneAlert {
-    }
-    interface LyneClock {
-        "initialtime"?: string;
-        "paused"?: boolean;
-    }
-    interface LyneCtaButton {
-=======
     interface LyneButton {
->>>>>>> master
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -182,6 +166,10 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceButtonAttributes['variant'];
     }
+    interface LyneClock {
+        "initialtime"?: string;
+        "paused"?: boolean;
+    }
     interface LyneHeading {
         /**
           * Heading level
@@ -212,6 +200,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
+        "lyne-clock": LyneClock;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
     }
@@ -221,6 +210,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
+            "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
         }
