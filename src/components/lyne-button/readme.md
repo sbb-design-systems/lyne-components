@@ -24,9 +24,9 @@
 
 ## Slots
 
-| Slot        | Description                                              |
-| ----------- | -------------------------------------------------------- |
-| `"unnamed"` | Slot to render svg icon. You must pass an <svg> element. |
+| Slot        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `"unnamed"` | Slot to render svg icon. You must pass an svg-element. |
 
 
 ----------------------------------------------
