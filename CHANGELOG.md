@@ -1,3 +1,10 @@
+## [9.27.2](https://github.com/lyne-design-system/lyne-components/compare/v9.27.1...v9.27.2) (2021-08-16)
+
+
+### Bug Fixes
+
+* render readme from stencil component ([ed48f84](https://github.com/lyne-design-system/lyne-components/commit/ed48f84a4a5d5373b8e70df606291aa5177fe7db))
+
 ## [9.27.1](https://github.com/lyne-design-system/lyne-components/compare/v9.27.0...v9.27.1) (2021-08-14)
 
 
