@@ -1,6 +1,7 @@
 import events from './lyne-button.events.ts';
 import { h } from 'jsx-dom';
 import lyneIcons from 'lyne-icons/dist/icons.json';
+import readme from './readme.md';
 
 // --- Helper methods
 
@@ -178,6 +179,9 @@ export default {
         764,
         1201
       ]
+    },
+    docs: {
+      extractComponentDescription: () => readme
     }
   },
   title: 'lyne-button'
