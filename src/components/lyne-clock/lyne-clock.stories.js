@@ -13,6 +13,7 @@ const times = {
   },
   options: [
     'now',
+    '01:59:27',
     '05:39:12',
     '10:59:13',
     '13:24:41',
@@ -32,6 +33,13 @@ clock.args = {
 };
 
 export default {
+  decorators: [
+    (Story, context) => (
+      <div style='max-width: 600px;'>
+        <Story/>
+      </div>
+    )
+  ],
   parameters: {
     chromatic: {
       delay: 1000,
