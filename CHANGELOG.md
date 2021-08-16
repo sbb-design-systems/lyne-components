@@ -1,3 +1,169 @@
+## [9.27.1](https://github.com/lyne-design-system/lyne-components/compare/v9.27.0...v9.27.1) (2021-08-14)
+
+
+### Bug Fixes
+
+* fake commit to trigger release (triggered from design tokens build) [skip ci] ([c5ff31d](https://github.com/lyne-design-system/lyne-components/commit/c5ff31d2e0087e93a46524ce184c22ecd88e4f70))
+* remove obsolete script ([59f91ef](https://github.com/lyne-design-system/lyne-components/commit/59f91ef6947d15e352aeedd8e2205f153d9c7ded))
+* remove obsolete script ([9961677](https://github.com/lyne-design-system/lyne-components/commit/99616773f0c8316c4b1eb9475aa9448b357a70ed))
+* remove trigger to hydration playground ([ff7597d](https://github.com/lyne-design-system/lyne-components/commit/ff7597dbc651ddff6a6bedebff2210eabc96c5b3))
+
+# [9.27.0](https://github.com/lyne-design-system/lyne-components/compare/v9.26.19...v9.27.0) (2021-08-13)
+
+
+### Bug Fixes
+
+* add min-height, define variables for small variant ([16bd746](https://github.com/lyne-design-system/lyne-components/commit/16bd746afe3c0017dfcdd87c6f97a77b73322d91))
+* add missing semicolon, use correct icon size design token ([fe5ed26](https://github.com/lyne-design-system/lyne-components/commit/fe5ed26518747778bf05bbe6a269df8894c5c4c5))
+* add offset to outline ([23042e9](https://github.com/lyne-design-system/lyne-components/commit/23042e93bd8f896a2adc55e6a7d4a4255b146e45))
+* change lyne-cta-button to lyne-button ([9e85616](https://github.com/lyne-design-system/lyne-components/commit/9e85616a0686a9e0b19ca076460822f17c2d47ab))
+* change lyne-cta-button to lyne-button ([4292f50](https://github.com/lyne-design-system/lyne-components/commit/4292f506de88f100f5b3ec6517a42d2ab3550879))
+* change lyne-cta-button to lyne-button ([dbb551d](https://github.com/lyne-design-system/lyne-components/commit/dbb551dde351888bd9b39250f8abf2bbd744f579))
+* change lyne-cta-button to lyne-button ([5419c02](https://github.com/lyne-design-system/lyne-components/commit/5419c02082cf2613c6da894a90ea462db7f9741d))
+* change lyne-cta-button to lyne-button ([9479d17](https://github.com/lyne-design-system/lyne-components/commit/9479d17c797ef00ac7d3feede0e80dc2742155c5))
+* change lyne-cta-button to lyne-button ([9a1f6a4](https://github.com/lyne-design-system/lyne-components/commit/9a1f6a45e12062fd590f9b1cc3455b8ba27dcc58))
+* change lyne-cta-button to lyne-button ([683e557](https://github.com/lyne-design-system/lyne-components/commit/683e5576ddf07cfa6759076a660f77041f14ff45))
+* change mediaquery for highContrast mode ([d6ca60f](https://github.com/lyne-design-system/lyne-components/commit/d6ca60f7cd8a39bec06bfd618cf29ca1e1e4427e))
+* don't use shorthand logical properties, refactor focus mixin ([bd12c09](https://github.com/lyne-design-system/lyne-components/commit/bd12c091953e3a2eab97d21b446c11c7dc16ff37))
+* make label optional ([5cda8a7](https://github.com/lyne-design-system/lyne-components/commit/5cda8a7076f687c9c5381a9c1111171881596466))
+* make label optional, add security return, add icon class ([9964160](https://github.com/lyne-design-system/lyne-components/commit/9964160d0fa91f6c5315226e47c2f62e91465129))
+* make label required ([be54a7b](https://github.com/lyne-design-system/lyne-components/commit/be54a7b22d997c16ebc4379505720860fdadca55))
+* make label required ([284680f](https://github.com/lyne-design-system/lyne-components/commit/284680f8c721bf0e164c672b31e509322de816b7))
+* remove important flag ([a3244f6](https://github.com/lyne-design-system/lyne-components/commit/a3244f692bdd2a65fafcae5fab768a2b77678fa1))
+* remove sample components ([02bc90c](https://github.com/lyne-design-system/lyne-components/commit/02bc90ccd0bd5645163260b97ea38a4ec6869d3c))
+* rename lyne-cta-button to lyne-button ([18dd0bf](https://github.com/lyne-design-system/lyne-components/commit/18dd0bf4829940ea0a709e47229100a5da7ed3d2))
+* rename lyne-cta-button to lyne-button ([265dc1f](https://github.com/lyne-design-system/lyne-components/commit/265dc1f0f6d9dd9a46aeb4027f1d475463706690))
+* rename lyne-cta-button to lyne-button ([0a33b60](https://github.com/lyne-design-system/lyne-components/commit/0a33b6007fd61e3a2fb201bb5dba403b7dd795e0))
+* rename lyne-cta-button to lyne-button ([8f604db](https://github.com/lyne-design-system/lyne-components/commit/8f604db4ec5e07a749fabe0994d9229e8276e05d))
+* rename lyne-cta-button to lyne-button ([481fd12](https://github.com/lyne-design-system/lyne-components/commit/481fd121ea3bc4dcd74308f49d833094ff13680e))
+* rename lyne-cta-button to lyne-button ([bca34e2](https://github.com/lyne-design-system/lyne-components/commit/bca34e26c3a547c1ad73424ea53743a6ccf588ee))
+* rename lyne-cta-button to lyne-button ([c0c303c](https://github.com/lyne-design-system/lyne-components/commit/c0c303cf523ef8fef19bc10ff9f08de2c2c72b16))
+* rename lyne-cta-button to lyne-button ([4e741cb](https://github.com/lyne-design-system/lyne-components/commit/4e741cb455a3caaf4fa6473a68786a412b2b185f))
+* rename lyne-cta-button to lyne-button ([7b97bf2](https://github.com/lyne-design-system/lyne-components/commit/7b97bf2a2b4b9fdf2f3ac0dd5b836a3cac9d47c9))
+* rename lyne-cta-button to lyne-button ([1a1345f](https://github.com/lyne-design-system/lyne-components/commit/1a1345f4d2fa30f572a1cd3615d84b91ac885056))
+* rename lyne-cta-button to lyne-button ([75e3628](https://github.com/lyne-design-system/lyne-components/commit/75e3628b2c649c7fcdff5cd5c1d2f4ba1f30916f))
+* rename lyne-cta-button to lyne-button ([31c289f](https://github.com/lyne-design-system/lyne-components/commit/31c289fd43ec34737711a986c2ac925b907ebd60))
+* rename lyne-cta-button to lyne-button ([22ffdbe](https://github.com/lyne-design-system/lyne-components/commit/22ffdbec2d0aa57ce6a0e63e5c3d837bb62ab03d))
+* rename lyne-cta-button to lyne-button ([d73b049](https://github.com/lyne-design-system/lyne-components/commit/d73b0499204f350ac317bbe094c9521d5347d6c6))
+* rename lyne-cta-button to lyne-button ([b467662](https://github.com/lyne-design-system/lyne-components/commit/b467662909ee5f64d58bf09d9ab59392608629c8))
+* rename lyne-cta-button to lyne-button ([44f9dfa](https://github.com/lyne-design-system/lyne-components/commit/44f9dfa60fb7c30717f7b15b2d12c7d7c6389961))
+* rename lyne-cta-button to lyne-button ([99afc15](https://github.com/lyne-design-system/lyne-components/commit/99afc1516268eb7426ba87fb5feac70381efed7c))
+* rename lyne-cta-button to lyne-button ([181314c](https://github.com/lyne-design-system/lyne-components/commit/181314c283223f6da83ef3056ec8fdd3732457b0))
+* return empty string instead of 0 ([fa4dca8](https://github.com/lyne-design-system/lyne-components/commit/fa4dca8f8e537e51a3892d108664d5a7cc3fde58))
+* set border-width to 2px ([8b1f363](https://github.com/lyne-design-system/lyne-components/commit/8b1f363a172e5bf794ce0ddfe35422c81d41d490))
+* set red bg on negative variants ([6c8289c](https://github.com/lyne-design-system/lyne-components/commit/6c8289c6e51d45f10dcf7793c0611fcc30d3e2c2))
+* use default cursor on buttons ([f5be035](https://github.com/lyne-design-system/lyne-components/commit/f5be0356f335125da7532c3352f7dcee45d00194))
+* use slotted selector for icon ([2d74717](https://github.com/lyne-design-system/lyne-components/commit/2d74717380b4375ceb755f108d17cc75cbf2fd14))
+
+
+### Features
+
+* add aria-haspopup attribute ([07f4168](https://github.com/lyne-design-system/lyne-components/commit/07f41689d108bac9f9281aa0c1fc7b82fbb6b5f1))
+* add control for icon description ([b82c4ee](https://github.com/lyne-design-system/lyne-components/commit/b82c4ee9ad3e1a66da7243b8fe294433598a803b))
+* add disabled attribute ([46c8f25](https://github.com/lyne-design-system/lyne-components/commit/46c8f254ab9d685afc7261bceee42755611c30ae))
+* add prop for icon description ([a96cb68](https://github.com/lyne-design-system/lyne-components/commit/a96cb681226c96fc6e5f120a0f4e456df8e9a389))
+* add property for aria-haspopup ([c45a045](https://github.com/lyne-design-system/lyne-components/commit/c45a045825820ff2efe407aaf164bf8202b939f9))
+* add size and icon properties ([4e9c743](https://github.com/lyne-design-system/lyne-components/commit/4e9c74384f480e9c4a902f8b3e688e61a5dff7e6))
+* add styles for icon-only variant ([eddd1a6](https://github.com/lyne-design-system/lyne-components/commit/eddd1a6dd4d52b81a42e61b6f53c458ed6771c6f))
+* add styling for icon description ([1e5eed5](https://github.com/lyne-design-system/lyne-components/commit/1e5eed5945b021674d30a7009b9ccb2d46838659))
+* enable choosing of button icon ([d0f2ea1](https://github.com/lyne-design-system/lyne-components/commit/d0f2ea1b90af5553218e67f82f8a4148f323f412))
+* include properties for type, name and value ([ad29c52](https://github.com/lyne-design-system/lyne-components/commit/ad29c52d5a369c55f0d5bf4b36adcc0481e2c4b0))
+* move icon left from text ([e3dee13](https://github.com/lyne-design-system/lyne-components/commit/e3dee137a770011636ee3f3a5a455fde3f798381))
+* style icon correctly ([0c1a4c7](https://github.com/lyne-design-system/lyne-components/commit/0c1a4c789675c2c9e231f5c202e09304de822ffe))
+
+## [9.26.19](https://github.com/lyne-design-system/lyne-components/compare/v9.26.18...v9.26.19) (2021-08-13)
+
+
+### Bug Fixes
+
+* remove size transform (triggered from design tokens build) [skip ci] ([d69381b](https://github.com/lyne-design-system/lyne-components/commit/d69381bfdc4862e80d8a1fc8ff80a1434fd35f28))
+
+## [9.26.18](https://github.com/lyne-design-system/lyne-components/compare/v9.26.17...v9.26.18) (2021-08-13)
+
+
+### Bug Fixes
+
+* fake commit to trigger release (triggered from design tokens build) [skip ci] ([ec61db2](https://github.com/lyne-design-system/lyne-components/commit/ec61db2987b6ac1df760a306996fb35eac5b6b98))
+
+## [9.26.17](https://github.com/lyne-design-system/lyne-components/compare/v9.26.16...v9.26.17) (2021-08-13)
+
+
+### Bug Fixes
+
+* fix syntax and exit on error ([761e11d](https://github.com/lyne-design-system/lyne-components/commit/761e11debf0db52c7ccec9f16961f159119d306e))
+* make sure netlify is installed in any case ([d5e89d8](https://github.com/lyne-design-system/lyne-components/commit/d5e89d83bb753f0c3d89a83cc3aaa3b2bfb7805b))
+
+## [9.26.16](https://github.com/lyne-design-system/lyne-components/compare/v9.26.15...v9.26.16) (2021-08-10)
+
+
+### Bug Fixes
+
+* add attributes in correct place (triggered from design tokens build) [skip ci] ([f422ffe](https://github.com/lyne-design-system/lyne-components/commit/f422ffef33ca86884778373d54e4fd24503792b2))
+
+## [9.26.15](https://github.com/lyne-design-system/lyne-components/compare/v9.26.14...v9.26.15) (2021-08-06)
+
+
+### Bug Fixes
+
+* remove link from root url (triggered from design tokens build) [skip ci] ([f746210](https://github.com/lyne-design-system/lyne-components/commit/f7462108ac7498203bfd46eab916b8971be4d1d2))
+
+## [9.26.14](https://github.com/lyne-design-system/lyne-components/compare/v9.26.13...v9.26.14) (2021-08-06)
+
+
+### Bug Fixes
+
+* various issues (triggered from design tokens build) [skip ci] ([ca61ec1](https://github.com/lyne-design-system/lyne-components/commit/ca61ec155cf7dcfe67b078caac4b7b0ae264844b))
+
+## [9.26.13](https://github.com/lyne-design-system/lyne-components/compare/v9.26.12...v9.26.13) (2021-08-05)
+
+
+### Bug Fixes
+
+* use changed filenames ([5d38c3d](https://github.com/lyne-design-system/lyne-components/commit/5d38c3d23faca584c8fece6329f10cb5fba7e81e))
+
+## [9.26.12](https://github.com/lyne-design-system/lyne-components/compare/v9.26.11...v9.26.12) (2021-07-30)
+
+
+### Bug Fixes
+
+* enable all icons again (triggered from Figma) (triggered from icons build) [skip ci] ([2c41100](https://github.com/lyne-design-system/lyne-components/commit/2c411009dc9a9ce693003cc3773cb771e5cb9606))
+
+## [9.26.11](https://github.com/lyne-design-system/lyne-components/compare/v9.26.10...v9.26.11) (2021-07-30)
+
+
+### Bug Fixes
+
+* enable all icons again (triggered from Figma) (triggered from icons build) [skip ci] ([a6bb3b1](https://github.com/lyne-design-system/lyne-components/commit/a6bb3b146f6a03c95b4f4f2f648dd588bfdcc16d))
+
+## [9.26.10](https://github.com/lyne-design-system/lyne-components/compare/v9.26.9...v9.26.10) (2021-07-30)
+
+
+### Bug Fixes
+
+* enable icons again (triggered from Figma) (triggered from icons build) [skip ci] ([1999200](https://github.com/lyne-design-system/lyne-components/commit/1999200494d6c0a57d9824788d0214587c311506))
+
+## [9.26.9](https://github.com/lyne-design-system/lyne-components/compare/v9.26.8...v9.26.9) (2021-07-29)
+
+
+### Bug Fixes
+
+* fake commit to trigger release (triggered from design tokens build) [skip ci] ([4cad1cc](https://github.com/lyne-design-system/lyne-components/commit/4cad1ccce576a8a787b853e079314580cc92643a))
+
+## [9.26.8](https://github.com/lyne-design-system/lyne-components/compare/v9.26.7...v9.26.8) (2021-07-29)
+
+
+### Bug Fixes
+
+* fix description object for all kom-icons (triggered from Figma) (triggered from icons build) [skip ci] ([889365e](https://github.com/lyne-design-system/lyne-components/commit/889365e396cc3444b4c4c6de514efe2278b46636))
+
+## [9.26.7](https://github.com/lyne-design-system/lyne-components/compare/v9.26.6...v9.26.7) (2021-07-29)
+
+
+### Bug Fixes
+
+* test icon description 4 (triggered from Figma) (triggered from icons build) [skip ci] ([46fd374](https://github.com/lyne-design-system/lyne-components/commit/46fd37434e9ce2c2d6ae252395848faf7d9e349f))
+
+>>>>>>> master
 ## [9.26.6](https://github.com/lyne-design-system/lyne-components/compare/v9.26.5...v9.26.6) (2021-07-29)
 
 
