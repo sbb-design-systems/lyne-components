@@ -84,7 +84,7 @@ export class LyneClock {
     }
 
     this._remainingSeconds = this._defaultSecondsAnimationDuration - this._seconds;
-    this._remainingMinutes =  this._defaultMinutesAnimationDuration - this._minutes;
+    this._remainingMinutes = this._defaultMinutesAnimationDuration - this._minutes;
     this._remainingHours = this._defaultHoursAnimationDuration - this._hours;
 
   }

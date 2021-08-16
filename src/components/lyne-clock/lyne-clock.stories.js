@@ -34,7 +34,7 @@ clock.args = {
 
 export default {
   decorators: [
-    (Story, context) => (
+    (Story) => (
       <div style='max-width: 600px;'>
         <Story/>
       </div>
