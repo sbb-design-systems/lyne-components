@@ -107,7 +107,7 @@ jobs:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # Interested in the output from netlify-cli
-        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi'
+        - npm install netlify-cli -g > "/dev/null" 2>&1 || travis_terminate 1
 
         # Make Storybook build
         - npm run build:storybook || travis_terminate 1

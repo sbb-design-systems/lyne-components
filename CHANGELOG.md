@@ -170,7 +170,6 @@
 
 * test icon description 4 (triggered from Figma) (triggered from icons build) [skip ci] ([46fd374](https://github.com/lyne-design-system/lyne-components/commit/46fd37434e9ce2c2d6ae252395848faf7d9e349f))
 
->>>>>>> master
 ## [9.26.6](https://github.com/lyne-design-system/lyne-components/compare/v9.26.5...v9.26.6) (2021-07-29)
 
 
