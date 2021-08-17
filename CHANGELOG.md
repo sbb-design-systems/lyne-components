@@ -1,3 +1,12 @@
+## [9.27.3](https://github.com/lyne-design-system/lyne-components/compare/v9.27.2...v9.27.3) (2021-08-17)
+
+
+### Bug Fixes
+
+* reference correct typings file ([744ab48](https://github.com/lyne-design-system/lyne-components/commit/744ab486ba8558a9a020101aff1ea0fe17a5e1b8))
+* reference correct typings file ([6e3728b](https://github.com/lyne-design-system/lyne-components/commit/6e3728b4d25024294de8fc27d81d32b161706b64))
+* reference correct typings file ([c1ef99c](https://github.com/lyne-design-system/lyne-components/commit/c1ef99c4768759e458c21bfc25aef978cf31e01d))
+
 ## [9.27.2](https://github.com/lyne-design-system/lyne-components/compare/v9.27.1...v9.27.2) (2021-08-16)
 
 
