@@ -9,7 +9,8 @@
   position: relative;
   width: 100%;
   height: 100%;
-  contain: content;
+  overflow: hidden;
+  contain: layout;
 }
 
 .clock__hand-hours,
@@ -32,7 +33,7 @@
   animation-play-state: var(--clock-animation-play-state);
 }
 
-.clock__hand-hours.clock__hand-hours--initial-hour {
+.clock__hand-hours--initial-hour {
   animation-name: handHoursAnimationInitialHour;
   animation-iteration-count: 1;
   animation-duration: var(--clock-hours-animation-duration);
@@ -53,7 +54,7 @@
   fill: var(--color-red-default);
 }
 
-.clock__hand-seconds.clock__hand-seconds--initial-minute {
+.clock__hand-seconds--initial-minute {
   animation-name: handSecondsAnimationInitialMinute;
   animation-iteration-count: 1;
   animation-duration: var(--clock-seconds-animation-duration);

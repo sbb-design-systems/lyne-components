@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.d";
+import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.d";
 export namespace Components {
     interface LyneButton {
@@ -55,8 +56,14 @@ export namespace Components {
         "variant"?: InterfaceButtonAttributes['variant'];
     }
     interface LyneClock {
-        "initialtime": string;
-        "paused": boolean;
+        /**
+          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
+         */
+        "initialTime"?: Time;
+        /**
+          * If set to true, the clock will be paused.
+         */
+        "paused"?: boolean;
     }
     interface LyneHeading {
         /**
@@ -167,7 +174,13 @@ declare namespace LocalJSX {
         "variant"?: InterfaceButtonAttributes['variant'];
     }
     interface LyneClock {
-        "initialtime"?: string;
+        /**
+          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
+         */
+        "initialTime"?: Time;
+        /**
+          * If set to true, the clock will be paused.
+         */
         "paused"?: boolean;
     }
     interface LyneHeading {

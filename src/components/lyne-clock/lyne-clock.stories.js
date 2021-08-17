@@ -1,7 +1,14 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-export const clock = (args) => <lyne-clock {...args} />;
+const Template = (args) => (
+  <lyne-clock
+    paused={args.paused}
+    initial-time={args.initialTime}
+  />
+);
+
+export const clock = Template.bind({});
 
 const state = {
   paused: false
@@ -24,11 +31,11 @@ const times = {
 };
 
 clock.argTypes = {
-  initialtime: times
+  initialTime: times
 };
 
 clock.args = {
-  initialtime: times.options[0],
+  initialTime: times.options[0],
   paused: state.paused
 };
 
