@@ -1,3 +1,10 @@
+# [9.28.0](https://github.com/lyne-design-system/lyne-components/compare/v9.27.3...v9.28.0) (2021-08-17)
+
+
+### Features
+
+* include script to trigger build on lyne-getting-started ([b88a521](https://github.com/lyne-design-system/lyne-components/commit/b88a521497483463d3805ed01fc9d1189138f892))
+
 ## [9.27.3](https://github.com/lyne-design-system/lyne-components/compare/v9.27.2...v9.27.3) (2021-08-17)
 
 
