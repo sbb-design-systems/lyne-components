@@ -14,16 +14,17 @@
 }
 
 .pearlchain {
-  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
 }
 
 .pearlchain--horizontal {
   width: 100%;
-  height: 60px;
+  height: pxToRem(#{var(--dot-size-large)});
 }
 
 .pearlchain--vertical {
-  width: 60px;
+  width: pxToRem(#{var(--dot-size-large)});
   height: 100%;
 }
 
@@ -48,9 +49,9 @@
 }
 
 .pearlchain__line:before {
-  left: calc(#{pxToRem(#{var(--dot-size-large)})} / -2);
+  left: 0;
 }
 
 .pearlchain__line:after {
-  right: calc(#{pxToRem(#{var(--dot-size-large)})} / -2);
+  right: 0;
 }
