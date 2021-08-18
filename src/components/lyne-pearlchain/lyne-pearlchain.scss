@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  --dot-size-large: 10;
+  --dot-size-small: 10;
+  --border-width: 2;
+
+  --color-default: var(--color-black-default);
+  --color-current-location: var(--color-red-default);
+  --color-cancellation: var(--color-red-default);
+  --color-past: var(--color-metal-default)
+}
+
+.pearlchain {
+  background: red;
+}
+
+.pearlchain--horizontal {
+  width: 100%;
+  height: 60px;
+}
+
+.pearlchain--vertical {
+  width: 60px;
+  height: 100%;
+}
