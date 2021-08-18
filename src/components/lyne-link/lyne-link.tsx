@@ -3,7 +3,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import { InterfaceLinkAttributes } from './lyne-link.d';
+import { InterfaceLinkAttributes } from './lyne-link.custom.d';
 
 @Component({
   shadow: true,

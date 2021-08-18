@@ -1,6 +1,6 @@
 {
   "name": "lyne-test",
-  "version": "9.27.2",
+  "version": "9.28.1",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -55,7 +55,7 @@
     "@storybook/addon-a11y": "~6.3.7",
     "@storybook/addon-essentials": "~6.3.7",
     "@storybook/html": "~6.3.7",
-    "@types/jest": "26.0.24",
+    "@types/jest": "27.0.1",
     "@types/puppeteer": "5.4.4",
     "@typescript-eslint/eslint-plugin": "~4.29.0",
     "@typescript-eslint/parser": "~4.29.0",
@@ -81,7 +81,7 @@
     "semantic-release": "~17.4.2",
     "semantic-release-slack-bot": "~2.1.0",
     "shelljs": "^0.8.4",
-    "simple-git": "~2.42.0",
+    "simple-git": "~2.44.0",
     "stencil-inline-svg": "^1.1.0",
     "typescript": "~4.3.2",
     "yargs": "~17.1.0"

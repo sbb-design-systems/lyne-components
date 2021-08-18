@@ -5,9 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.d";
+import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
-import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.d";
+import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
 export namespace Components {
     interface LyneButton {
         /**

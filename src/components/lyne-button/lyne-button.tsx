@@ -5,7 +5,7 @@ import {
   Prop
 } from '@stencil/core';
 import events from './lyne-button.events';
-import { InterfaceButtonAttributes } from './lyne-button.d';
+import { InterfaceButtonAttributes } from './lyne-button.custom.d';
 
 /**
  * @slot unnamed - Slot to render svg icon. You must pass an svg-element.

@@ -3,7 +3,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import { InterfaceHeadingAttributes } from './lyne-heading.d';
+import { InterfaceHeadingAttributes } from './lyne-heading.custom.d';
 
 @Component({
   shadow: true,

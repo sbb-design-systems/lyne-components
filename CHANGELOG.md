@@ -1,3 +1,26 @@
+## [9.28.1](https://github.com/lyne-design-system/lyne-components/compare/v9.28.0...v9.28.1) (2021-08-18)
+
+
+### Bug Fixes
+
+* add transition for border-color as well ([998e998](https://github.com/lyne-design-system/lyne-components/commit/998e9982375c1ce2d9c8e82b67054307e7223ab9))
+
+# [9.28.0](https://github.com/lyne-design-system/lyne-components/compare/v9.27.3...v9.28.0) (2021-08-17)
+
+
+### Features
+
+* include script to trigger build on lyne-getting-started ([b88a521](https://github.com/lyne-design-system/lyne-components/commit/b88a521497483463d3805ed01fc9d1189138f892))
+
+## [9.27.3](https://github.com/lyne-design-system/lyne-components/compare/v9.27.2...v9.27.3) (2021-08-17)
+
+
+### Bug Fixes
+
+* reference correct typings file ([744ab48](https://github.com/lyne-design-system/lyne-components/commit/744ab486ba8558a9a020101aff1ea0fe17a5e1b8))
+* reference correct typings file ([6e3728b](https://github.com/lyne-design-system/lyne-components/commit/6e3728b4d25024294de8fc27d81d32b161706b64))
+* reference correct typings file ([c1ef99c](https://github.com/lyne-design-system/lyne-components/commit/c1ef99c4768759e458c21bfc25aef978cf31e01d))
+
 ## [9.27.2](https://github.com/lyne-design-system/lyne-components/compare/v9.27.1...v9.27.2) (2021-08-16)
 
 
