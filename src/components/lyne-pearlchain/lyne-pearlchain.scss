@@ -4,7 +4,7 @@
   height: 100%;
 
   --dot-size-large: 10;
-  --dot-size-small: 10;
+  --dot-size-small: 8;
   --border-width: 2;
 
   --color-default: var(--color-black-default);
@@ -14,7 +14,7 @@
 }
 
 .pearlchain {
-  background: red;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .pearlchain--horizontal {
@@ -25,4 +25,32 @@
 .pearlchain--vertical {
   width: 60px;
   height: 100%;
+}
+
+.pearlchain__line {
+  position: relative;
+  width: 100%;
+  height: pxToRem(#{var(--border-width)});
+  background-color: var(--color-default);
+  border-radius: pxToRem(#{var(--border-width)});
+}
+
+// start and end points
+.pearlchain__line:before,
+.pearlchain__line:after {
+  content: '';
+  position: absolute;
+  width: pxToRem(#{var(--dot-size-large)});
+  height: pxToRem(#{var(--dot-size-large)});
+  background-color: var(--color-default);
+  border-radius: 100%;
+  top: calc(#{pxToRem(#{var(--dot-size-large)})} / -2 + #{pxToRem(#{var(--border-width)})} / 2);
+}
+
+.pearlchain__line:before {
+  left: calc(#{pxToRem(#{var(--dot-size-large)})} / -2);
+}
+
+.pearlchain__line:after {
+  right: calc(#{pxToRem(#{var(--dot-size-large)})} / -2);
 }
