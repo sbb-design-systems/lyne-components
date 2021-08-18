@@ -23,6 +23,12 @@
   bottom: 0;
   transform-origin: center center;
   transform: rotateZ(0deg);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.clock__hand-minutes {
+  transform-origin: 50% 49.675%;
 }
 
 .clock__hand-hours {

@@ -12,8 +12,8 @@ import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg';
 
 import { Time } from './lyne-clock.custom.d';
 
-let moveMinuteHand;
 let moveHoursHand;
+let moveMinutesHand;
 
 @Component({
   shadow: true,
@@ -70,6 +70,9 @@ export class LyneClock {
 
   private _removeEventListeners(): void {
     document.removeEventListener('visibilitychange', this._handlePageVisibilityChange.bind(this), false);
+    this._clockHandHours.removeEventListener('animationend', moveHoursHand);
+    this._clockHandSeconds.removeEventListener('animationend', moveMinutesHand);
+
   }
 
   private _getCurrentTime(): void {
@@ -98,14 +101,22 @@ export class LyneClock {
 
   private _moveHandsInitially(): void {
 
-    let hoursAnimationDuration = this._remainingSeconds;
+    let hoursAnimationDuration = 0;
 
     if (this._remainingSeconds > 0) {
-      hoursAnimationDuration += (this._remainingMinutes - 1) * 60;
+      hoursAnimationDuration = this._remainingSeconds;
     }
 
-    if (this._remainingHours > 0 && this._remainingMinutes > 0) {
+    if (this._remainingMinutes > 0 && this._remainingSeconds > 0) {
+      hoursAnimationDuration += (this._remainingMinutes - 1) * 60;
+    } else if (this._remainingMinutes > 0) {
+      hoursAnimationDuration += this._remainingMinutes * 60;
+    }
+
+    if (this._remainingHours > 0 && (this._remainingMinutes > 0 || this._remainingSeconds > 0)) {
       hoursAnimationDuration += (this._remainingHours - 1) * 3600;
+    } else if (this._remainingHours > 0) {
+      hoursAnimationDuration += this._remainingHours * 3600;
     }
 
     this._element.style.setProperty('--clock-hours-animation-start-angle', `${Math.ceil((this._hours * 30) + (this._minutes / 2))}deg`);
@@ -124,7 +135,9 @@ export class LyneClock {
 
   private _moveHoursHand(): void {
     this._clockHandHours.classList.remove('clock__hand-hours--initial-hour');
-    this._hoursAngle = (this._hours * 30) + (this._minutes / 2);
+    this._hoursAngle = Math.ceil((this._hours * 30) + (this._minutes / 2));
+
+    console.log(this._hoursAngle);
 
     if (this._hoursAngle === 720) {
       this._hoursAngle = 0;
@@ -136,8 +149,9 @@ export class LyneClock {
   }
 
   private _moveMinutesHand(): void {
+
     this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
-    this._clockHandSeconds.removeEventListener('animationend', moveMinuteHand);
+    this._clockHandSeconds.removeEventListener('animationend', moveMinutesHand);
 
     this._minutes++;
     this._setMinutesHand();
@@ -151,6 +165,9 @@ export class LyneClock {
 
   private _stopClock(): void {
 
+    this._clockHandHours.removeEventListener('animationend', moveHoursHand);
+    this._clockHandSeconds.removeEventListener('animationend', moveMinutesHand);
+
     if (this.paused) {
       this._getCurrentTime();
       this._moveHandsInitially();
@@ -158,10 +175,9 @@ export class LyneClock {
       this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
     } else {
       this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
+      this._clockHandHours.classList.remove('clock__hand-hours--initial-hour');
     }
 
-    this._clockHandHours.removeEventListener('animationend', moveHoursHand);
-    this._clockHandSeconds.removeEventListener('animationend', moveMinuteHand);
     clearInterval(this._handMovement);
 
     this._element.style.setProperty('--clock-animation-play-state', 'paused');
@@ -170,25 +186,31 @@ export class LyneClock {
 
   private _startClock(): void {
 
-    this._getCurrentTime();
-    this._moveHandsInitially();
+    const eventListenerOptions = {
+      passive: true
+    };
 
-    moveHoursHand = (): void => this._moveHoursHand();
-    moveMinuteHand = (): void => this._moveMinutesHand();
+    this._getCurrentTime();
 
     this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
     this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
-    this._clockHandHours.addEventListener('animationend', moveHoursHand);
-    this._clockHandSeconds.addEventListener('animationend', moveMinuteHand);
+
+    this._moveHandsInitially();
+
     this._element.style.setProperty('--clock-animation-play-state', 'running');
 
+
+    this._clockHandHours.addEventListener('animationend', moveHoursHand, eventListenerOptions);
+    this._clockHandSeconds.addEventListener('animationend', moveMinutesHand, eventListenerOptions);
+
   }
 
-  public componentWillLoad(): void {
+  public componentDidLoad(): void {
+
     this._addEventListeners();
-  }
 
-  public componentDidRender(): void {
+    moveHoursHand = (): void => this._moveHoursHand();
+    moveMinutesHand = (): void => this._moveMinutesHand();
 
     if (this.paused) {
       this._stopClock();
