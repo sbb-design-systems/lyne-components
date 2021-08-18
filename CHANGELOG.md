@@ -1,3 +1,10 @@
+## [9.28.1](https://github.com/lyne-design-system/lyne-components/compare/v9.28.0...v9.28.1) (2021-08-18)
+
+
+### Bug Fixes
+
+* add transition for border-color as well ([998e998](https://github.com/lyne-design-system/lyne-components/commit/998e9982375c1ce2d9c8e82b67054307e7223ab9))
+
 # [9.28.0](https://github.com/lyne-design-system/lyne-components/compare/v9.27.3...v9.28.0) (2021-08-17)
 
 
