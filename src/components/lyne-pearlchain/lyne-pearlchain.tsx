@@ -66,6 +66,7 @@ export class LynePearlchain {
 
     return (
       <div class={classes}>
+        <div class='pearlchain__line' />
       </div>
     );
   }
