@@ -1,6 +1,6 @@
 import { h } from 'jsx-dom';
-import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import readme from './readme.md';
 
 const Template = (args) => (
   <lyne-clock
@@ -25,19 +25,21 @@ const times = {
     '05:39:12',
     '09:48:13',
     '11:59:13',
-    '13:24:41',
-    '16:47:23',
+    '13:30:41',
+    '16:50:00',
     '20:03:21',
     '23:59:39'
   ]
 };
 
-// Stop the clock for Storybook an set time to given time
-
 clock.argTypes = {
   initialTime: times
 };
 
+/**
+ * Stop the clock for Chromatic visual regression tests
+ * and set time to given time
+ */
 if (isChromatic()) {
   clock.args = {
     initialTime: '09:43:59',
@@ -49,8 +51,6 @@ if (isChromatic()) {
     paused: state.paused
   };
 }
-
-
 
 export default {
   decorators: [
