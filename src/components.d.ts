@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
+import { InterfacePearlchainAttributes } from "./components/lyne-pearlchain/lyne-pearlchain.custom.d";
 export namespace Components {
     interface LyneButton {
         /**
@@ -82,6 +83,28 @@ export namespace Components {
          */
         "text": string;
     }
+    interface LynePearlchain {
+        /**
+          * If set to true, the arrival point will be marked as cancelled
+         */
+        "arrivalPointCancellation"?: boolean;
+        /**
+          * If set to true, the departure point will be marked as cancelled
+         */
+        "departurePointCancellation"?: boolean;
+        /**
+          * Stringified JSON to define the stations on the pearl-chain. Format: `{stations: [{location: number, cancellation?: boolean}]}` `location`: number between 0 and 100, which will represent the station on the pearl-chain `cancellation`: if set, the station will be marked as canceled. In this case, the connections to the previous and next stations will be marked as cancelled as well.
+         */
+        "stations"?: string;
+        /**
+          * Define, if the pearlchain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+         */
+        "status"?: InterfacePearlchainAttributes['status'];
+        /**
+          * If set, the pearlchain will be displayed vertically.
+         */
+        "vertical"?: boolean;
+    }
 }
 declare global {
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
@@ -102,10 +125,17 @@ declare global {
         prototype: HTMLLyneLinkElement;
         new (): HTMLLyneLinkElement;
     };
+    interface HTMLLynePearlchainElement extends Components.LynePearlchain, HTMLStencilElement {
+    }
+    var HTMLLynePearlchainElement: {
+        prototype: HTMLLynePearlchainElement;
+        new (): HTMLLynePearlchainElement;
+    };
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
+        "lyne-pearlchain": HTMLLynePearlchainElement;
     }
 }
 declare namespace LocalJSX {
@@ -183,10 +213,33 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
+    interface LynePearlchain {
+        /**
+          * If set to true, the arrival point will be marked as cancelled
+         */
+        "arrivalPointCancellation"?: boolean;
+        /**
+          * If set to true, the departure point will be marked as cancelled
+         */
+        "departurePointCancellation"?: boolean;
+        /**
+          * Stringified JSON to define the stations on the pearl-chain. Format: `{stations: [{location: number, cancellation?: boolean}]}` `location`: number between 0 and 100, which will represent the station on the pearl-chain `cancellation`: if set, the station will be marked as canceled. In this case, the connections to the previous and next stations will be marked as cancelled as well.
+         */
+        "stations"?: string;
+        /**
+          * Define, if the pearlchain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+         */
+        "status"?: InterfacePearlchainAttributes['status'];
+        /**
+          * If set, the pearlchain will be displayed vertically.
+         */
+        "vertical"?: boolean;
+    }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
+        "lyne-pearlchain": LynePearlchain;
     }
 }
 export { LocalJSX as JSX };
@@ -196,6 +249,7 @@ declare module "@stencil/core" {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
+            "lyne-pearlchain": LocalJSX.LynePearlchain & JSXBase.HTMLAttributes<HTMLLynePearlchainElement>;
         }
     }
 }
