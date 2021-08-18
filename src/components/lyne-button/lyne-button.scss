@@ -162,7 +162,7 @@
   align-items: center;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
-  transition-property: background-color, color;
+  transition-property: background-color, color, border-color;
   min-height: pxToRem(var(--min-height));
   margin: 0;
   outline: none;
