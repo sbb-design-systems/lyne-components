@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const Template = (args) => (
   <lyne-clock
@@ -22,7 +23,8 @@ const times = {
     'now',
     '01:59:27',
     '05:39:12',
-    '10:59:13',
+    '09:48:13',
+    '11:59:13',
     '13:24:41',
     '16:47:23',
     '20:03:21',
@@ -30,14 +32,25 @@ const times = {
   ]
 };
 
+// Stop the clock for Storybook an set time to given time
+
 clock.argTypes = {
   initialTime: times
 };
 
-clock.args = {
-  initialTime: times.options[0],
-  paused: state.paused
-};
+if (isChromatic()) {
+  clock.args = {
+    initialTime: '09:43:59',
+    paused: true
+  };
+} else {
+  clock.args = {
+    initialTime: times.options[0],
+    paused: state.paused
+  };
+}
+
+
 
 export default {
   decorators: [
