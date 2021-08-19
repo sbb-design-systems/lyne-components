@@ -17,8 +17,8 @@ let moveMinutesHand;
 let handMovement;
 
 const eventListenerOptions = {
-  passive: true,
-  once: true
+  once: true,
+  passive: true
 };
 
 @Component({
@@ -142,7 +142,7 @@ export class LyneClock {
 
     this._element.style.setProperty('--clock-hours-animation-start-angle', `${Math.ceil((this._hours * 30) + (this._minutes / 2))}deg`);
     this._element.style.setProperty('--clock-hours-animation-duration', `${hoursAnimationDuration}s`);
-    this._element.style.setProperty('--clock-seconds-animation-start-angle', `${Math.ceil(this._seconds * (360/58.5))}deg`);
+    this._element.style.setProperty('--clock-seconds-animation-start-angle', `${Math.ceil(this._seconds * (360 / 58.5))}deg`);
     this._element.style.setProperty('--clock-seconds-animation-duration', `${this._remainingSeconds}s`);
 
     this._setMinutesHand();
@@ -150,7 +150,6 @@ export class LyneClock {
     this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
     this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
     this._element.style.setProperty('--clock-animation-play-state', 'running');
-
 
   }
 
@@ -193,10 +192,6 @@ export class LyneClock {
   private _stopClock(): void {
 
     clearInterval(handMovement);
-
-    this._clockHandSeconds.style.animation = 'none';
-    this._clockHandSeconds.offsetHeight; /* trigger reflow */
-    this._clockHandSeconds.style.animation = null;
 
     if (this.paused) {
       this._moveHandsInitially();
