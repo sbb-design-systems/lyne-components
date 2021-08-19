@@ -22,7 +22,7 @@ export class LynePearlchain {
    * If it is currently running, provide a number between 0 and 100,
    * which will represent the current location on the pearl-chain.
    */
-  @Prop() public status?: InterfacePearlchainAttributes['status'] = 'future';
+  @Prop() public status?: InterfacePearlchainAttributes['status'] = 50;
 
   /** If set to true, the departure point will be marked as cancelled */
   @Prop() public departurePointCancellation?: boolean;
@@ -57,6 +57,10 @@ export class LynePearlchain {
       ]
     });
 
+    const {
+      stations
+    } = JSON.parse(this.stations);
+
     const verticalClass = this.vertical
       ? ' pearlchain--vertical'
       : ' pearlchain--horizontal';
@@ -66,7 +70,8 @@ export class LynePearlchain {
       : '';
 
     const classes = `pearlchain${verticalClass}${statusClass}`;
-    const statusStyle = this.status !== 'past' && this.status !== 'future'
+    const statusIsRunning = this.status !== 'past' && this.status !== 'future';
+    const statusStyle = statusIsRunning
       ? {
         '--status-position': `${this.status}%`
       }
@@ -75,9 +80,15 @@ export class LynePearlchain {
     return (
       <div class={classes}>
         <div class='pearlchain__line'>
+
+          {/* render stations */}
+          {stations.map((station) => <div class='pearlchain__station' style={{
+            left: `${station.location}%`
+          }}></div>)}
+
           {/* render current location point */}
-          {this.status !== 'past' && this.status !== 'future'
-            ? <span style={statusStyle} class='pearlchain__status'></span>
+          {statusIsRunning
+            ? <div style={statusStyle} class='pearlchain__status'></div>
             : ''
           }
         </div>
