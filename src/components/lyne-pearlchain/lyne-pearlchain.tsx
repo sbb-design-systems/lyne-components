@@ -40,26 +40,32 @@ export class LynePearlchain {
    * this case, the connections to the previous and next stations will
    * be marked as cancelled as well.
    */
-  @Prop() public stations?: string;
+  @Prop() public legs?: string;
 
   public render(): JSX.Element {
     this.vertical = false;
     this.departurePointCancellation = false;
     this.arrivalPointCancellation = false;
-    this.stations = JSON.stringify({
-      stations: [
+    this.legs = JSON.stringify({
+      legs: [
         {
-          location: 25
+          cancellation: true,
+          duration: 33.33
         },
         {
-          location: 75
+          cancellation: false,
+          duration: 33.33
+        },
+        {
+          cancellation: false,
+          duration: 33.33
         }
       ]
     });
 
     const {
-      stations
-    } = JSON.parse(this.stations);
+      legs
+    } = JSON.parse(this.legs);
 
     const verticalClass = this.vertical
       ? ' pearlchain--vertical'
@@ -79,19 +85,35 @@ export class LynePearlchain {
 
     return (
       <div class={classes}>
-        <div class='pearlchain__line'>
 
-          {/* render stations */}
-          {stations.map((station) => <div class='pearlchain__station' style={{
-            left: `${station.location}%`
-          }}></div>)}
+        {/* render legs */}
+        {legs.map((leg) => {
+          const legStyle = {
+            'flex-basis': `calc(${leg.duration}% - calc(var(--spacing-fixed-1x) / var(--typo-base-font-size) * 1rem))`
+          };
 
-          {/* render current location point */}
-          {statusIsRunning
-            ? <div style={statusStyle} class='pearlchain__status'></div>
-            : ''
-          }
-        </div>
+          const cancelClass = leg.cancellation
+            ? ' pearlchain__leg--cancellation'
+            : '';
+
+          return (
+            <div
+              class={`pearlchain__leg${cancelClass}`}
+              style={legStyle}
+            ></div>
+          );
+        })}
+
+        {/* render current location point */}
+        {statusIsRunning
+          ? (
+            <div
+              style={statusStyle}
+              class='pearlchain__status'
+            ></div>
+          )
+          : ''
+        }
       </div>
     );
   }
