@@ -1,10 +1,6 @@
-:host {
-  display: block;
-}
+@include host-component-properties;
 
 .title {
-  font-size: 1rem;
-	color: black;
   margin: 0;
 }
 
@@ -20,6 +16,5 @@
 
 .title--level3 {
   color: blue;
-  font-weight: bold;
   font-size: 1rem;
 }

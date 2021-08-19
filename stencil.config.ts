@@ -4,6 +4,7 @@ import { sass } from '@stencil/sass';
 
 export const config = {
   buildEs5: 'prod',
+  globalStyle: 'src/global/global.scss',
   namespace: 'lyne-components',
   outputTargets: [
     {
@@ -35,7 +36,8 @@ export const config = {
     sass({
       injectGlobalPaths: [
         'src/global/variables.scss',
-        'src/global/functions.scss'
+        'src/global/functions.scss',
+        'src/global/core/components/utilities.scss'
       ]
     })
   ],
