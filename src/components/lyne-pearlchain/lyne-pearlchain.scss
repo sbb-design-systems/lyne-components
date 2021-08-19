@@ -1,3 +1,13 @@
+@mixin dot {
+  content: '';
+  position: absolute;
+  width: pxToRem(#{var(--dot-size-large)});
+  height: pxToRem(#{var(--dot-size-large)});
+  border-radius: 100%;
+  top: calc(#{pxToRem(#{var(--dot-size-large)})} / -2 + #{pxToRem(#{var(--border-width)})} / 2);
+  transform: translateX(calc(-1 * #{pxToRem(#{var(--dot-size-large)})}));
+}
+
 :host {
   display: block;
   width: 100%;
@@ -16,6 +26,8 @@
 .pearlchain {
   display: flex;
   align-items: center;
+  color: var(--color-default);
+  padding: 0 0 0 pxToRem(#{var(--dot-size-large)});
 }
 
 .pearlchain--horizontal {
@@ -28,30 +40,41 @@
   height: 100%;
 }
 
+.perlchain--past {
+  color: var(--color-past);
+}
+
 .pearlchain__line {
   position: relative;
   width: 100%;
   height: pxToRem(#{var(--border-width)});
-  background-color: var(--color-default);
+  background-color: currentColor;
   border-radius: pxToRem(#{var(--border-width)});
 }
 
 // start and end points
 .pearlchain__line:before,
 .pearlchain__line:after {
-  content: '';
-  position: absolute;
-  width: pxToRem(#{var(--dot-size-large)});
-  height: pxToRem(#{var(--dot-size-large)});
-  background-color: var(--color-default);
-  border-radius: 100%;
-  top: calc(#{pxToRem(#{var(--dot-size-large)})} / -2 + #{pxToRem(#{var(--border-width)})} / 2);
+  @include dot;
+  background-color: currentColor;
+  z-index: 1;
 }
 
 .pearlchain__line:before {
-  left: 0;
+  left: 0%;
 }
 
 .pearlchain__line:after {
-  right: 0;
+  left: 100%;
+}
+
+.pearlchain__status {
+  @include dot;
+  transform:  none;
+  background-color: var(--color-current-location);
+
+  // --status-position: defined in .tsx file
+  left: calc(var(--status-position) - #{pxToRem(#{var(--dot-size-large)})});
+
+  z-index: 2;
 }
