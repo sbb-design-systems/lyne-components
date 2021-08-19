@@ -44,7 +44,6 @@ export class LynePearlchain {
 
   public render(): JSX.Element {
     this.vertical = false;
-    this.status = 'future';
     this.departurePointCancellation = false;
     this.arrivalPointCancellation = false;
     this.stations = JSON.stringify({
@@ -59,14 +58,29 @@ export class LynePearlchain {
     });
 
     const verticalClass = this.vertical
-      ? 'pearlchain--vertical'
-      : 'pearlchain--horizontal';
+      ? ' pearlchain--vertical'
+      : ' pearlchain--horizontal';
 
-    const classes = `pearlchain ${verticalClass}`;
+    const statusClass = this.status === 'past'
+      ? ' perlchain--past'
+      : '';
+
+    const classes = `pearlchain${verticalClass}${statusClass}`;
+    const statusStyle = this.status !== 'past' && this.status !== 'future'
+      ? {
+        '--status-position': `${this.status}%`
+      }
+      : {};
 
     return (
       <div class={classes}>
-        <div class='pearlchain__line' />
+        <div class='pearlchain__line'>
+          {/* render current location point */}
+          {this.status !== 'past' && this.status !== 'future'
+            ? <span style={statusStyle} class='pearlchain__status'></span>
+            : ''
+          }
+        </div>
       </div>
     );
   }
