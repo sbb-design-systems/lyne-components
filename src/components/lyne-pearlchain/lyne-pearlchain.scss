@@ -1,3 +1,5 @@
+// TODO: logical properties
+
 @mixin dot {
   content: '';
   position: absolute;
@@ -8,6 +10,9 @@
 
 :host {
   display: block;
+  
+  // TODO: for vertical variant only
+  height: 100%;
 
   --dot-size-large: 10;
   --dot-size-small: 8;
@@ -19,15 +24,18 @@
   --color-past: var(--color-metal-default)
 }
 
+$chainBlockPadding: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
+
 .pearlchain {
   position: relative;
   box-sizing: border-box;
   display: flex;
   flex-wrap: nowrap;
   color: var(--color-default);
+  width: 100%;
 
-  $topPadding: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
-  padding: $topPadding pxToRem(var(--dot-size-large)) $topPadding 0;
+  padding-block: $chainBlockPadding;
+  padding-inline-end: pxToRem(var(--dot-size-large));
   background-color: pink;
 }
 
@@ -53,16 +61,6 @@
   background-color: var(--color-cancellation);
 }
 
-.pearlchain--horizontal {
-  width: 100%;
-  // height: pxToRem(var(--dot-size-large));
-}
-
-.pearlchain--vertical {
-  // width: pxToRem(var(--dot-size-large));
-  height: 100%;
-}
-
 .perlchain--past {
   color: var(--color-past);
 }
@@ -71,14 +69,7 @@
   flex-shrink: 0;
   flex-grow: 0;
   position: relative;
-}
-
-.pearlchain--horizontal .pearlchain__leg {
   height: pxToRem(var(--border-width));
-} 
-
-.pearlchain--vertical .pearlchain__leg {
-  width: pxToRem(var(--border-width));
 }
 
 // dot on leg
