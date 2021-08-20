@@ -37,7 +37,6 @@ export default (jsonString: string): any => {
   let wrongKeyDetected = false;
   let durationIsMissing = false;
   let sum = 0;
-
   const allowedKeys = [
     'cancellation',
     'duration'
@@ -60,6 +59,13 @@ export default (jsonString: string): any => {
   });
 
   if (wrongKeyDetected || durationIsMissing) {
+    console.log(errorMessage);
+
+    return [];
+  }
+
+  // make sure there are at least 2 legs
+  if (legs.length < 2) {
     console.log(errorMessage);
 
     return [];
