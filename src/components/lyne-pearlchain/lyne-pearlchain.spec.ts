@@ -7,14 +7,17 @@ describe('lyne-pearlchain', () => {
       root
     } = await newSpecPage({
       components: [LynePearlchain],
-      html: '<lyne-pearlchain label="Label" variant="secondary-negative" icon="true" />'
+      html: '<lyne-pearlchain />'
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-pearlchain>
           <mock:shadow-root>
-            <div></div>
+            <div class="pearlchain">
+              <span class="pearlchain__line"></span>
+            </div>
+          </mock:shadow-root>
         </lyne-pearlchain>
       `);
   });
