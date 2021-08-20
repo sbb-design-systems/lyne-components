@@ -22,7 +22,7 @@ export class LynePearlchain {
    * If it is currently running, provide a number between 0 and 100,
    * which will represent the current location on the pearl-chain.
    */
-  @Prop() public status?: InterfacePearlchainAttributes['status'] = 50;
+  @Prop() public status?: InterfacePearlchainAttributes['status'] = 33;
 
   /** If set to true, the departure point will be marked as cancelled */
   @Prop() public departurePointCancellation?: boolean;
@@ -50,15 +50,15 @@ export class LynePearlchain {
       legs: [
         {
           cancellation: true,
-          duration: 33.33
+          duration: 25
         },
         {
           cancellation: false,
-          duration: 33.33
+          duration: 25
         },
         {
           cancellation: false,
-          duration: 33.33
+          duration: 50
         }
       ]
     });
@@ -79,7 +79,7 @@ export class LynePearlchain {
     const statusIsRunning = this.status !== 'past' && this.status !== 'future';
     const statusStyle = statusIsRunning
       ? {
-        '--status-position': `${this.status}%`
+        '--status-position': `${this.status}`
       }
       : {};
 
@@ -89,7 +89,7 @@ export class LynePearlchain {
         {/* render legs */}
         {legs.map((leg) => {
           const legStyle = {
-            'flex-basis': `calc(${leg.duration}% - calc(var(--spacing-fixed-1x) / var(--typo-base-font-size) * 1rem))`
+            'flex-basis': `${leg.duration}%`
           };
 
           const cancelClass = leg.cancellation
@@ -107,10 +107,10 @@ export class LynePearlchain {
         {/* render current location point */}
         {statusIsRunning
           ? (
-            <div
+            <span
               style={statusStyle}
               class='pearlchain__status'
-            ></div>
+            ></span>
           )
           : ''
         }
