@@ -1,8 +1,3 @@
-/**
- * TODO:
- * - storybook
- */
-
 import {
   Component,
   h,
