@@ -48,6 +48,11 @@
   right: 0;
 }
 
+.pearlchain--departure-cancellation:before,
+.pearlchain--arrival-cancellation:after {
+  background-color: var(--color-cancellation);
+}
+
 .pearlchain--horizontal {
   width: 100%;
   // height: pxToRem(var(--dot-size-large));
@@ -107,7 +112,7 @@
 }
 
 .pearlchain__leg--cancellation {
-  // color: var(--color-cancellation);
+  color: var(--color-cancellation);
 }
 
 .pearlchain__status {
