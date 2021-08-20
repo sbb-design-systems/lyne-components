@@ -8,14 +8,13 @@
 
 :host {
   display: block;
-  
-  // TODO: for vertical variant only
-  height: 100%;
 
   --dot-size-large: 10;
   --dot-size-small: 8;
-  --border-width: 2;
+  --border-width: var(--border-width-2x);
+  --spacing-small: var(--spacing-fixed-1x);
 
+  --color-white: var(--color-white-default);
   --color-default: var(--color-black-default);
   --color-current-location: var(--color-red-default);
   --color-cancellation: var(--color-red-default);
@@ -76,7 +75,7 @@
   box-sizing: border-box;
   top: calc(#{pxToRem(var(--dot-size))} / -2 + #{pxToRem(var(--border-width))} / 2);
   left: 0;
-  background-color: var(--color-white-default);
+  background-color: var(--color-white);
   border: pxToRem(var(--border-width)) solid currentColor;
   z-index: 2;
 }
@@ -86,7 +85,7 @@
   content: '';
   position: absolute;
   top: 0;
-  right: pxToRem(var(--spacing-fixed-1x));
+  right: pxToRem(var(--spacing-small));
   bottom: 0;
   left: 0;
   background-color: currentColor;
@@ -100,8 +99,8 @@
 
 .pearlchain__leg--cancellation:after {
   background-color: unset;
-  background-image: linear-gradient(to right, var(--color-cancellation) 0%, var(--color-cancellation) 50%, var(--color-white-default) 50%);
-  background-size: calc(2 * #{pxToRem(var(--spacing-fixed-1x))}) pxToRem(var(--border-width));
+  background-image: linear-gradient(to right, var(--color-cancellation) 0%, var(--color-cancellation) 50%, var(--color-white) 50%);
+  background-size: calc(2 * #{pxToRem(var(--spacing-small))}) pxToRem(var(--border-width));
   background-repeat: repeat-x;
 }
 
