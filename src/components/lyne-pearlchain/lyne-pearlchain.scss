@@ -30,7 +30,12 @@
   width: 100%;
   padding-block: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
   padding-inline-end: pxToRem(var(--dot-size-large));
-  background-color: pink;
+}
+
+.pearlchain__line {
+  height: pxToRem(var(--border-width));
+  width: 100%;
+  background-color: currentColor;
 }
 
 // first and last dot
