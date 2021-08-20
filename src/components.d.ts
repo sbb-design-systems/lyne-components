@@ -85,25 +85,13 @@ export namespace Components {
     }
     interface LynePearlchain {
         /**
-          * If set to true, the arrival point will be marked as cancelled
+          * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
          */
-        "arrivalPointCancellation"?: boolean;
-        /**
-          * If set to true, the departure point will be marked as cancelled
-         */
-        "departurePointCancellation"?: boolean;
-        /**
-          * Stringified JSON to define the stations on the pearl-chain. Format: `{stations: [{location: number, cancellation?: boolean}]}` `location`: number between 0 and 100, which will represent the station on the pearl-chain `cancellation`: if set, the station will be marked as canceled. In this case, the connections to the previous and next stations will be marked as cancelled as well.
-         */
-        "stations"?: string;
+        "legs"?: string;
         /**
           * Define, if the pearlchain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
          */
         "status"?: InterfacePearlchainAttributes['status'];
-        /**
-          * If set, the pearlchain will be displayed vertically.
-         */
-        "vertical"?: boolean;
     }
 }
 declare global {
@@ -215,25 +203,13 @@ declare namespace LocalJSX {
     }
     interface LynePearlchain {
         /**
-          * If set to true, the arrival point will be marked as cancelled
+          * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
          */
-        "arrivalPointCancellation"?: boolean;
-        /**
-          * If set to true, the departure point will be marked as cancelled
-         */
-        "departurePointCancellation"?: boolean;
-        /**
-          * Stringified JSON to define the stations on the pearl-chain. Format: `{stations: [{location: number, cancellation?: boolean}]}` `location`: number between 0 and 100, which will represent the station on the pearl-chain `cancellation`: if set, the station will be marked as canceled. In this case, the connections to the previous and next stations will be marked as cancelled as well.
-         */
-        "stations"?: string;
+        "legs"?: string;
         /**
           * Define, if the pearlchain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
          */
         "status"?: InterfacePearlchainAttributes['status'];
-        /**
-          * If set, the pearlchain will be displayed vertically.
-         */
-        "vertical"?: boolean;
     }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
