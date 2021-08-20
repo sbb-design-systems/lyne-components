@@ -13,10 +13,10 @@
   --dot-size-small: 8;
   --border-width: var(--border-width-2x);
   --spacing-small: var(--spacing-fixed-1x);
-
   --color-white: var(--color-white-default);
   --color-default: var(--color-black-default);
   --color-current-location: var(--color-red-default);
+  --color-current-location-dark: var(--color-red150-default);
   --color-cancellation: var(--color-red-default);
   --color-past: var(--color-metal-default)
 }
@@ -117,4 +117,14 @@
   $realPosition: calc(#{var(--status-position)} / 100 * #{$realChainLength});
   left: $realPosition;
 
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-current-location-dark);
+  }
+  40% {
+    box-shadow: 0 0 0 pxToRem(6) transparent;
+  }
 }
