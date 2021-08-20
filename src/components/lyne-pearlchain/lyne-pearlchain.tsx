@@ -1,6 +1,5 @@
 /**
  * TODO:
- * - validate json
  * - storybook
  */
 
@@ -26,13 +25,13 @@ export class LynePearlchain {
    * If it is currently running, provide a number between 0 and 100,
    * which will represent the current location on the pearl-chain.
    */
-  @Prop() public status?: InterfacePearlchainAttributes['status'] = 75;
+  @Prop() public status?: InterfacePearlchainAttributes['status'];
 
   /**
    * Stringified JSON to define the legs of the pearl-chain.
    * Format:
-   * `{legs: [{ cancellation: true, duration: 25}, ...]}`
-   * `duration`: number between 0% and 100%. Duration of the leg relative
+   * `{"legs": [{"cancellation": true, "duration": 25}, ...]}`
+   * `duration`: number between 0 and 100. Duration of the leg is relative
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    * `cancellation`: if set, the leg will be marked as canceled.
@@ -47,13 +46,18 @@ export class LynePearlchain {
       ? ' perlchain--past'
       : '';
 
-    const departureCancelClass = legs[0].cancellation
-      ? ' pearlchain--departure-cancellation'
-      : '';
+    let departureCancelClass = '';
+    let arrivalCancelClass = '';
 
-    const arrivalCancelClass = legs[legs.length - 1].cancellation
-      ? ' pearlchain--arrival-cancellation'
-      : '';
+    if (legs.length > 1) {
+      departureCancelClass = legs[0].cancellation
+        ? ' pearlchain--departure-cancellation'
+        : '';
+
+      arrivalCancelClass = legs[legs.length - 1].cancellation
+        ? ' pearlchain--arrival-cancellation'
+        : '';
+    }
 
     const classes = `pearlchain${statusClass}${departureCancelClass}${arrivalCancelClass}`;
     const statusIsRunning = this.status && this.status !== 'past' && this.status !== 'future';
@@ -91,6 +95,14 @@ export class LynePearlchain {
               style={statusStyle}
               class='pearlchain__status'
             ></span>
+          )
+          : ''
+        }
+
+        {/* render line container if no legs are provided */}
+        {legs.length < 2
+          ? (
+            <span class='pearlchain__line'></span>
           )
           : ''
         }
