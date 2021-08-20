@@ -7,7 +7,10 @@ import { InterfaceHeadingAttributes } from './lyne-heading.d';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-heading.scss',
+  styleUrls: {
+    default: 'lyne-heading.default.scss',
+    shared: 'lyne-heading.shared.scss'
+  },
   tag: 'lyne-heading'
 })
 

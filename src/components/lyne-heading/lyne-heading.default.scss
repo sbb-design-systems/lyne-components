@@ -1,0 +1,17 @@
+//*****************************************************************************
+// Important
+//
+// ...
+// ...
+//
+//*****************************************************************************
+
+// Import globally defined styles for single component usage
+@import "../../global/global.scss";
+
+// Import component styles
+@import "./lyne-heading.common.scss";
+
+:host {
+  background-color: turquoise;
+}
