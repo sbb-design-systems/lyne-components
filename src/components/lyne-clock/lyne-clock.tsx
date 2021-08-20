@@ -54,6 +54,7 @@ export class LyneClock {
   private _defaultHoursAnimationDuration = 24;
   private _defaultMinutesAnimationDuration = 60;
   private _defaultSecondsAnimationDuration = 60;
+  private _initialTimeOutDuration = 50;
   private _remainingHours: number;
   private _remainingMinutes: number;
   private _remainingSeconds: number;
@@ -221,7 +222,7 @@ export class LyneClock {
 
     setTimeout(() => {
       this._moveHandsInitially();
-    }, 10);
+    }, this._initialTimeOutDuration);
 
   }
 
