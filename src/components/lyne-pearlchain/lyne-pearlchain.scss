@@ -1,5 +1,3 @@
-// TODO: logical properties
-
 @mixin dot {
   content: '';
   position: absolute;
@@ -24,8 +22,6 @@
   --color-past: var(--color-metal-default)
 }
 
-$chainBlockPadding: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
-
 .pearlchain {
   position: relative;
   box-sizing: border-box;
@@ -33,8 +29,7 @@ $chainBlockPadding: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--bo
   flex-wrap: nowrap;
   color: var(--color-default);
   width: 100%;
-
-  padding-block: $chainBlockPadding;
+  padding-block: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
   padding-inline-end: pxToRem(var(--dot-size-large));
   background-color: pink;
 }
@@ -46,6 +41,7 @@ $chainBlockPadding: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--bo
   @include dot;
   background-color: currentColor;
   top: 0;
+  z-index: 2;
 }
 
 .pearlchain:before {
@@ -102,8 +98,11 @@ $chainBlockPadding: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--bo
   right: calc(-1 * #{pxToRem(var(--border-width))});
 }
 
-.pearlchain__leg--cancellation {
-  color: var(--color-cancellation);
+.pearlchain__leg--cancellation:after {
+  background-color: unset;
+  background-image: linear-gradient(to right, var(--color-cancellation) 0%, var(--color-cancellation) 50%, var(--color-white-default) 50%);
+  background-size: calc(2 * #{pxToRem(var(--spacing-fixed-1x))}) pxToRem(var(--border-width));
+  background-repeat: repeat-x;
 }
 
 .pearlchain__status {
