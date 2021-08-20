@@ -1,8 +1,7 @@
 /**
  * TODO:
  * - validate json
- * - red dot animation
- * - red line dashed
+ * - storybook
  */
 
 import {
@@ -11,6 +10,7 @@ import {
   Prop
 } from '@stencil/core';
 import { InterfacePearlchainAttributes } from './lyne-pearlchain.custom.d';
+import legsData from './lyne-pearlchain.helper';
 
 @Component({
   shadow: true,
@@ -29,15 +29,15 @@ export class LynePearlchain {
   @Prop() public status?: InterfacePearlchainAttributes['status'] = 75;
 
   /**
-   * Stringified JSON to define the stations on the pearl-chain.
+   * Stringified JSON to define the legs of the pearl-chain.
    * Format:
-   * `{stations: [{location: number, cancellation?: boolean}]}`
-   * `location`: number between 0 and 100, which will represent the
-   * station on the pearl-chain
-   * `cancellation`: if set, the station will be marked as canceled. In
-   * this case, the connections to the previous and next stations will
-   * be marked as cancelled as well.
+   * `{legs: [{ cancellation: true, duration: 25}, ...]}`
+   * `duration`: number between 0% and 100%. Duration of the leg relative
+   * to the total travel time. Example: departure 16:30, change at 16:40,
+   * arrival at 17:00. So the change should have a duration of 33.33%.
+   * `cancellation`: if set, the leg will be marked as canceled.
    */
+
   @Prop() public legs?: string;
 
   public render(): JSX.Element {
@@ -58,9 +58,7 @@ export class LynePearlchain {
       ]
     });
 
-    const {
-      legs
-    } = JSON.parse(this.legs);
+    const legs = legsData(this.legs);
 
     const statusClass = this.status === 'past'
       ? ' perlchain--past'
