@@ -1,3 +1,10 @@
+/**
+ * TODO:
+ * - validate json
+ * - red dot animation
+ * - red line dashed
+ */
+
 import {
   Component,
   h,
@@ -13,22 +20,13 @@ import { InterfacePearlchainAttributes } from './lyne-pearlchain.custom.d';
 
 export class LynePearlchain {
 
-  /** If set, the pearlchain will be displayed vertically. */
-  @Prop() public vertical?: boolean;
-
   /**
    * Define, if the pearlchain represents a connection in the past,
    * in the future or if it is a currently running connection.
    * If it is currently running, provide a number between 0 and 100,
    * which will represent the current location on the pearl-chain.
    */
-  @Prop() public status?: InterfacePearlchainAttributes['status'] = 33;
-
-  /** If set to true, the departure point will be marked as cancelled */
-  @Prop() public departurePointCancellation?: boolean;
-
-  /** If set to true, the arrival point will be marked as cancelled */
-  @Prop() public arrivalPointCancellation?: boolean;
+  @Prop() public status?: InterfacePearlchainAttributes['status'] = 75;
 
   /**
    * Stringified JSON to define the stations on the pearl-chain.
@@ -43,13 +41,10 @@ export class LynePearlchain {
   @Prop() public legs?: string;
 
   public render(): JSX.Element {
-    this.vertical = false;
-    this.departurePointCancellation = false;
-    this.arrivalPointCancellation = false;
     this.legs = JSON.stringify({
       legs: [
         {
-          cancellation: false,
+          cancellation: true,
           duration: 25
         },
         {
@@ -67,10 +62,6 @@ export class LynePearlchain {
       legs
     } = JSON.parse(this.legs);
 
-    const verticalClass = this.vertical
-      ? ' pearlchain--vertical'
-      : ' pearlchain--horizontal';
-
     const statusClass = this.status === 'past'
       ? ' perlchain--past'
       : '';
@@ -83,8 +74,8 @@ export class LynePearlchain {
       ? ' pearlchain--arrival-cancellation'
       : '';
 
-    const classes = `pearlchain${verticalClass}${statusClass}${departureCancelClass}${arrivalCancelClass}`;
-    const statusIsRunning = this.status !== 'past' && this.status !== 'future';
+    const classes = `pearlchain${statusClass}${departureCancelClass}${arrivalCancelClass}`;
+    const statusIsRunning = this.status && this.status !== 'past' && this.status !== 'future';
     const statusStyle = statusIsRunning
       ? {
         '--status-position': `${this.status}`
