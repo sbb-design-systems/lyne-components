@@ -41,23 +41,6 @@ export class LynePearlchain {
   @Prop() public legs?: string;
 
   public render(): JSX.Element {
-    this.legs = JSON.stringify({
-      legs: [
-        {
-          cancellation: true,
-          duration: 25
-        },
-        {
-          cancellation: false,
-          duration: 25
-        },
-        {
-          cancellation: false,
-          duration: 50
-        }
-      ]
-    });
-
     const legs = legsData(this.legs);
 
     const statusClass = this.status === 'past'
