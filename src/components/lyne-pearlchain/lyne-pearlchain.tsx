@@ -49,7 +49,7 @@ export class LynePearlchain {
     this.legs = JSON.stringify({
       legs: [
         {
-          cancellation: true,
+          cancellation: false,
           duration: 25
         },
         {
@@ -75,7 +75,15 @@ export class LynePearlchain {
       ? ' perlchain--past'
       : '';
 
-    const classes = `pearlchain${verticalClass}${statusClass}`;
+    const departureCancelClass = legs[0].cancellation
+      ? ' pearlchain--departure-cancellation'
+      : '';
+
+    const arrivalCancelClass = legs[legs.length - 1].cancellation
+      ? ' pearlchain--arrival-cancellation'
+      : '';
+
+    const classes = `pearlchain${verticalClass}${statusClass}${departureCancelClass}${arrivalCancelClass}`;
     const statusIsRunning = this.status !== 'past' && this.status !== 'future';
     const statusStyle = statusIsRunning
       ? {
