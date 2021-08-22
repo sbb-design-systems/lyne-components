@@ -32,7 +32,7 @@ export class LynePearlchain {
    * `cancellation`: if set, the leg will be marked as canceled.
    */
 
-  @Prop() public legs?: string;
+  @Prop() public legs!: string;
 
   public render(): JSX.Element {
     const legs = legsData(this.legs);
@@ -44,14 +44,22 @@ export class LynePearlchain {
     let departureCancelClass = '';
     let arrivalCancelClass = '';
 
-    if (legs.length > 1) {
+    if (legs.length > 0) {
       departureCancelClass = legs[0].cancellation
         ? ' pearlchain--departure-cancellation'
         : '';
 
-      arrivalCancelClass = legs[legs.length - 1].cancellation
-        ? ' pearlchain--arrival-cancellation'
-        : '';
+      if (legs.length > 1) {
+        arrivalCancelClass = legs[legs.length - 1].cancellation
+          ? ' pearlchain--arrival-cancellation'
+          : '';
+      }
+
+      if (legs.length === 1) {
+        arrivalCancelClass = legs[0].cancellation
+          ? ' pearlchain--arrival-cancellation'
+          : '';
+      }
     }
 
     const classes = `pearlchain${statusClass}${departureCancelClass}${arrivalCancelClass}`;
@@ -71,13 +79,13 @@ export class LynePearlchain {
             'flex-basis': `${leg.duration}%`
           };
 
-          const cancelClass = leg.cancellation
+          const legCancelClass = leg.cancellation
             ? ' pearlchain__leg--cancellation'
             : '';
 
           return (
             <div
-              class={`pearlchain__leg${cancelClass}`}
+              class={`pearlchain__leg${legCancelClass}`}
               style={legStyle}
             ></div>
           );
@@ -90,14 +98,6 @@ export class LynePearlchain {
               style={statusStyle}
               class='pearlchain__status'
             ></span>
-          )
-          : ''
-        }
-
-        {/* render line container if no legs are provided */}
-        {legs.length < 2
-          ? (
-            <span class='pearlchain__line'></span>
           )
           : ''
         }
