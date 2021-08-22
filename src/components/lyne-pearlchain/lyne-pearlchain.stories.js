@@ -7,7 +7,8 @@ const Template = ({
   cancelPart,
   ...args
 }) => {
-  const newLegsData = legs;
+
+  const newLegsData = JSON.parse(JSON.stringify(legs));
 
   newLegsData.legs.forEach((leg, index) => {
     if (cancelPart) {
@@ -32,20 +33,124 @@ export const Stops3 = Template.bind({});
 export const Stops4 = Template.bind({});
 export const Stops9 = Template.bind({});
 
+NoStops.argTypes = {
+  cancelPart: {
+    control: {
+      type: 'inline-check'
+    },
+    options: [1]
+  },
+  legs: {
+    table: {
+      disable: true
+    }
+  },
+  status: {
+    control: {
+      type: 'inline-radio'
+    },
+    options: [
+      false,
+      '0',
+      '25',
+      '33',
+      '50',
+      '66',
+      '75',
+      '100'
+    ]
+  }
+};
+
 NoStops.args = {
-  legs: sampleData.stop0
+  legs: sampleData.stop0,
+  status: false
+};
+
+Stop1.argTypes = {
+  cancelPart: {
+    control: {
+      type: 'inline-check'
+    },
+    options: [
+      1,
+      2
+    ]
+  },
+  legs: {
+    table: {
+      disable: true
+    }
+  }
 };
 
 Stop1.args = {
   legs: sampleData.stop1
 };
 
+Stops2.argTypes = {
+  cancelPart: {
+    control: {
+      type: 'inline-check'
+    },
+    options: [
+      1,
+      2,
+      3
+    ]
+  },
+  legs: {
+    table: {
+      disable: true
+    }
+  }
+};
+
 Stops2.args = {
   legs: sampleData.stop2
 };
 
+Stops3.argTypes = {
+  cancelPart: {
+    control: {
+      type: 'inline-check'
+    },
+    options: [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  legs: {
+    table: {
+      disable: true
+    }
+  }
+};
+
 Stops3.args = {
   legs: sampleData.stop3
+};
+
+Stops4.argTypes = {
+  cancelPart: {
+    control: {
+      type: 'inline-check'
+    },
+    options: [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  legs: {
+    table: {
+      disable: true
+    }
+  }
 };
 
 Stops4.args = {
@@ -104,3 +209,4 @@ export default {
   },
   title: 'lyne-pearlchain'
 };
+
