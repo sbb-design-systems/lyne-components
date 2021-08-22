@@ -64,8 +64,8 @@ export default (jsonString: string): any => {
     return [];
   }
 
-  // make sure there are at least 2 legs
-  if (legs.length < 2) {
+  // make sure there are at least 1 leg
+  if (legs.length < 1) {
     console.log(errorMessage);
 
     return [];
