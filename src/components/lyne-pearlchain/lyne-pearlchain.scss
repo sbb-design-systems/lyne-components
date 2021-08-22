@@ -32,12 +32,6 @@
   padding-inline-end: pxToRem(var(--dot-size-large));
 }
 
-.pearlchain__line {
-  height: pxToRem(var(--border-width));
-  width: 100%;
-  background-color: currentColor;
-}
-
 // first and last dot
 .pearlchain:before,
 .pearlchain:after {
@@ -109,8 +103,8 @@
 .pearlchain__leg--cancellation:after {
   background-color: unset;
   background-image: linear-gradient(to right, currentColor 0%, currentColor 50%, var(--color-white) 50%);
-  background-size: calc(2 * #{pxToRem(var(--spacing-small))}) pxToRem(var(--border-width));
   background-repeat: repeat-x;
+  background-size: calc(2 * #{pxToRem(var(--spacing-small))}) pxToRem(var(--border-width));
 }
 
 .pearlchain__status {
