@@ -1,8 +1,4 @@
 const generateLegsData = (items) => {
-  if (!items) {
-    return '';
-  }
-
   const legsData = {
     legs: []
   };
@@ -18,7 +14,12 @@ const generateLegsData = (items) => {
 };
 
 export default {
-  stop0: generateLegsData(),
+  stop0: generateLegsData([
+    [
+      false,
+      100
+    ]
+  ]),
   stop1: generateLegsData([
     [
       false,
