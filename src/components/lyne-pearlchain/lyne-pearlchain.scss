@@ -102,9 +102,13 @@
   right: calc(-1 * #{pxToRem(var(--border-width))});
 }
 
+.pearlchain__leg--cancellation {
+  color: var(--color-cancellation);
+}
+
 .pearlchain__leg--cancellation:after {
   background-color: unset;
-  background-image: linear-gradient(to right, var(--color-cancellation) 0%, var(--color-cancellation) 50%, var(--color-white) 50%);
+  background-image: linear-gradient(to right, currentColor 0%, currentColor 50%, var(--color-white) 50%);
   background-size: calc(2 * #{pxToRem(var(--spacing-small))}) pxToRem(var(--border-width));
   background-repeat: repeat-x;
 }
