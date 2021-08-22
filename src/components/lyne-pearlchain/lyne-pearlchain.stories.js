@@ -1,209 +1,84 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import sampleData from './lyne-pearlchain.sample-data';
 
-const legsData1 = {
-  legs: [
-    {
-      cancellation: false,
-      duration: 25
-    },
-    {
-      cancellation: false,
-      duration: 75
+const Template = ({
+  legs,
+  cancelPart,
+  ...args
+}) => {
+  const newLegsData = legs;
+
+  newLegsData.legs.forEach((leg, index) => {
+    if (cancelPart) {
+      leg.cancellation = cancelPart.indexOf(index + 1) !== -1;
+    } else {
+      leg.cancellation = false;
     }
-  ]
+  });
+
+  return (
+    <lyne-pearlchain
+      legs={JSON.stringify(newLegsData)}
+      {...args}
+    />
+  );
 };
 
-const legsData2 = {
-  legs: [
-    {
-      cancellation: false,
-      duration: 25
-    },
-    {
-      cancellation: false,
-      duration: 10
-    },
-    {
-      cancellation: false,
-      duration: 65
-    }
-  ]
+export const NoStops = Template.bind({});
+export const Stop1 = Template.bind({});
+export const Stops2 = Template.bind({});
+export const Stops3 = Template.bind({});
+export const Stops4 = Template.bind({});
+export const Stops9 = Template.bind({});
+
+NoStops.args = {
+  legs: sampleData.stop0
 };
 
-const legsData3 = {
-  legs: [
-    {
-      cancellation: false,
-      duration: 25
-    },
-    {
-      cancellation: false,
-      duration: 10
-    },
-    {
-      cancellation: false,
-      duration: 50
-    },
-    {
-      cancellation: false,
-      duration: 15
-    }
-  ]
+Stop1.args = {
+  legs: sampleData.stop1
 };
 
-const legsData4 = {
-  legs: [
-    {
-      cancellation: false,
-      duration: 25
-    },
-    {
-      cancellation: false,
-      duration: 10
-    },
-    {
-      cancellation: false,
-      duration: 8
-    },
-    {
-      cancellation: false,
-      duration: 15
-    },
-    {
-      cancellation: false,
-      duration: 42
-    }
-  ]
+Stops2.args = {
+  legs: sampleData.stop2
 };
 
-const legsData5 = {
-  legs: [
-    {
-      cancellation: false,
-      duration: 10
-    },
-    {
-      cancellation: false,
-      duration: 5
-    },
-    {
-      cancellation: false,
-      duration: 5
-    },
-    {
-      cancellation: false,
-      duration: 10
-    },
-    {
-      cancellation: false,
-      duration: 10
-    },
-    {
-      cancellation: false,
-      duration: 5
-    },
-    {
-      cancellation: false,
-      duration: 5
-    },
-    {
-      cancellation: false,
-      duration: 10
-    },
-    {
-      cancellation: false,
-      duration: 15
-    },
-    {
-      cancellation: false,
-      duration: 25
-    }
-  ]
+Stops3.args = {
+  legs: sampleData.stop3
 };
 
-const legsData = {
-  legsData0: '',
-  legsData1: JSON.stringify(legsData1),
-  legsData2: JSON.stringify(legsData2),
-  legsData3: JSON.stringify(legsData3),
-  legsData4: JSON.stringify(legsData4),
-  legsData5: JSON.stringify(legsData5)
+Stops4.args = {
+  legs: sampleData.stop4
 };
 
-const Template = (args) => (
-  <lyne-pearlchain
-    {...args}
-  />
-);
-
-export const FutureConnection = Template.bind({});
-export const PastConnection = Template.bind({});
-export const RunningConnection = Template.bind({});
-
-const legs = {
-  control: {
-    labels: {
-      legsData0: '0 stops',
-      legsData1: '1 stop',
-      legsData2: '2 stops',
-      legsData3: '3 stops',
-      legsData4: '4 stops',
-      legsData5: '9 stops'
+Stops9.argTypes = {
+  cancelPart: {
+    control: {
+      type: 'inline-check'
     },
-    type: 'inline-radio'
+    options: [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
   },
-  mapping: legsData,
-  options: Object.keys(legsData)
-};
-
-const status = {
-  control: {
-    max: 100,
-    min: 0,
-    step: 1,
-    type: 'range'
-  }
-};
-
-const globalArgTypes = {
-  legs
-};
-
-const globalArgs = {
-  legs: 'legsData0'
-};
-
-FutureConnection.argTypes = {
-  ...globalArgTypes
-};
-
-FutureConnection.args = {
-  ...globalArgs
-};
-
-PastConnection.argTypes = {
-  ...globalArgTypes,
-  status: {
+  legs: {
     table: {
       disable: true
     }
   }
 };
 
-PastConnection.args = {
-  ...globalArgs,
-  status: 'past'
-};
-
-RunningConnection.argTypes = {
-  ...globalArgTypes,
-  status
-};
-
-RunningConnection.args = {
-  ...globalArgs,
-  status: 50
+Stops9.args = {
+  legs: sampleData.stop9
 };
 
 export default {
