@@ -123,6 +123,10 @@
   animation: pulse 3s infinite;
 }
 
+.pearlchain__status--no-animation {
+  animation: unset;
+}
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 var(--color-current-location-dark);
