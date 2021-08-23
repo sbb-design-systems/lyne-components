@@ -1,6 +1,6 @@
 {
   "name": "lyne-test",
-  "version": "9.28.1",
+  "version": "9.29.0",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -50,7 +50,7 @@
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/exec": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
-    "@stencil/core": "~2.6.0",
+    "@stencil/core": "~2.7.0",
     "@stencil/sass": "~1.4.1",
     "@storybook/addon-a11y": "~6.3.7",
     "@storybook/addon-essentials": "~6.3.7",
