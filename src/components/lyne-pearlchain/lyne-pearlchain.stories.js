@@ -2,6 +2,8 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './lyne-pearlchain.sample-data';
 
+// TODO: is storybook
+
 const Template = ({
   legs,
   cancelPart,
@@ -33,6 +35,29 @@ export const Stops3 = Template.bind({});
 export const Stops4 = Template.bind({});
 export const Stops9 = Template.bind({});
 
+const status = {
+  control: {
+    type: 'inline-radio'
+  },
+  options: [
+    'past',
+    '0',
+    '25',
+    '33',
+    '50',
+    '66',
+    '75',
+    '100',
+    'future'
+  ]
+};
+
+const legs = {
+  table: {
+    disable: true
+  }
+};
+
 NoStops.argTypes = {
   cancelPart: {
     control: {
@@ -40,31 +65,13 @@ NoStops.argTypes = {
     },
     options: [1]
   },
-  legs: {
-    table: {
-      disable: true
-    }
-  },
-  status: {
-    control: {
-      type: 'inline-radio'
-    },
-    options: [
-      false,
-      '0',
-      '25',
-      '33',
-      '50',
-      '66',
-      '75',
-      '100'
-    ]
-  }
+  legs,
+  status
 };
 
 NoStops.args = {
   legs: sampleData.stop0,
-  status: false
+  status: 'future'
 };
 
 Stop1.argTypes = {
@@ -77,15 +84,13 @@ Stop1.argTypes = {
       2
     ]
   },
-  legs: {
-    table: {
-      disable: true
-    }
-  }
+  legs,
+  status
 };
 
 Stop1.args = {
-  legs: sampleData.stop1
+  legs: sampleData.stop1,
+  status: 'past'
 };
 
 Stops2.argTypes = {
@@ -99,15 +104,13 @@ Stops2.argTypes = {
       3
     ]
   },
-  legs: {
-    table: {
-      disable: true
-    }
-  }
+  legs,
+  status
 };
 
 Stops2.args = {
-  legs: sampleData.stop2
+  legs: sampleData.stop2,
+  status: '50'
 };
 
 Stops3.argTypes = {
@@ -122,15 +125,13 @@ Stops3.argTypes = {
       4
     ]
   },
-  legs: {
-    table: {
-      disable: true
-    }
-  }
+  legs,
+  status
 };
 
 Stops3.args = {
-  legs: sampleData.stop3
+  legs: sampleData.stop3,
+  status: 'future'
 };
 
 Stops4.argTypes = {
@@ -146,15 +147,13 @@ Stops4.argTypes = {
       5
     ]
   },
-  legs: {
-    table: {
-      disable: true
-    }
-  }
+  legs,
+  status
 };
 
 Stops4.args = {
-  legs: sampleData.stop4
+  legs: sampleData.stop4,
+  status: 'past'
 };
 
 Stops9.argTypes = {
@@ -175,15 +174,13 @@ Stops9.argTypes = {
       10
     ]
   },
-  legs: {
-    table: {
-      disable: true
-    }
-  }
+  legs,
+  status
 };
 
 Stops9.args = {
-  legs: sampleData.stop9
+  legs: sampleData.stop9,
+  status: '66'
 };
 
 export default {
