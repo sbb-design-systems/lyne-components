@@ -21,7 +21,7 @@
   --color-past: var(--color-metal-default);
 }
 
-.pearlchain {
+.pearl-chain {
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -33,8 +33,8 @@
 }
 
 // first and last dot
-.pearlchain:before,
-.pearlchain:after {
+.pearl-chain:before,
+.pearl-chain:after {
   --dot-size: var(--dot-size-large);
   @include dot;
   background-color: currentColor;
@@ -47,23 +47,23 @@
 
 }
 
-.pearlchain:before {
+.pearl-chain:before {
   left: 0;
 }
 
-.pearlchain:after {
+.pearl-chain:after {
   right: 0;
 }
 
-.pearlchain.pearlchain--past:before,
-.pearlchain.pearlchain--past:after {
+.pearl-chain.pearl-chain--past:before,
+.pearl-chain.pearl-chain--past:after {
   @media (forced-colors: active) {
     background-color: GrayText;
   }
 }
 
-.pearlchain--departure-cancellation:before,
-.pearlchain--arrival-cancellation:after {
+.pearl-chain--departure-cancellation:before,
+.pearl-chain--arrival-cancellation:after {
   color: var(--color-cancellation);
 
   @media (forced-colors: active) {
@@ -72,8 +72,8 @@
 
 }
 
-.pearlchain--departure-cancellation.pearlchain--past:before,
-.pearlchain--arrival-cancellation.pearlchain--past:after {
+.pearl-chain--departure-cancellation.pearl-chain--past:before,
+.pearl-chain--arrival-cancellation.pearl-chain--past:after {
   color: var(--color-past);
 
   @media (forced-colors: active) {
@@ -81,7 +81,7 @@
   }
 }
 
-.pearlchain--past {
+.pearl-chain--past {
   color: var(--color-past);
 
   @media (forced-colors: active) {
@@ -90,7 +90,7 @@
 
 }
 
-.pearlchain__leg {
+.pearl-chain__leg {
   flex-shrink: 0;
   flex-grow: 0;
   position: relative;
@@ -103,7 +103,7 @@
 }
 
 // dot on leg
-.pearlchain__leg:not(:first-child):before {
+.pearl-chain__leg:not(:first-child):before {
   --dot-size: var(--dot-size-small);
   @include dot;
 
@@ -115,7 +115,7 @@
   z-index: 2;
 
   @media (forced-colors: active) {
-    .pearlchain--past & {
+    .pearl-chain--past & {
       border-color: GrayText;
     }
   }
@@ -123,7 +123,7 @@
 }
 
 // line on leg
-.pearlchain__leg:after {
+.pearl-chain__leg:after {
   content: '';
   position: absolute;
   top: 0;
@@ -137,7 +137,7 @@
   @media (forced-colors: active) {
     background-color: CanvasText;
 
-    .pearlchain--past & {
+    .pearl-chain--past & {
       background-color: GrayText;
     }
 
@@ -145,14 +145,14 @@
 
 }
 
-.pearlchain__leg:last-of-type:after {
+.pearl-chain__leg:last-of-type:after {
   right: calc(-1 * #{pxToRem(var(--border-width))});
 }
 
-.pearlchain__leg--cancellation {
+.pearl-chain__leg--cancellation {
   color: var(--color-cancellation);
 
-  .pearlchain--past & {
+  .pearl-chain--past & {
     color: var(--color-past);
 
     @media (forced-colors: active) {
@@ -167,15 +167,15 @@
 
 }
 
-.pearlchain__leg--cancellation:after {
+.pearl-chain__leg--cancellation:after {
   background-color: unset;
   background-image: linear-gradient(to right, currentColor 0%, currentColor 50%, var(--color-white) 50%);
   background-repeat: repeat-x;
   background-size: calc(2 * #{pxToRem(var(--spacing-small))}) pxToRem(var(--border-width));
 }
 
-.pearlchain__leg--cancellation:after,
-.pearlchain--past .pearlchain__leg--cancellation:after {
+.pearl-chain__leg--cancellation:after,
+.pearl-chain--past .pearl-chain__leg--cancellation:after {
   @media (forced-colors: active) {
     background: none;
     border-top: pxToRem(1) dashed currentColor;
@@ -183,7 +183,7 @@
   }
 }
 
-.pearlchain__status {
+.pearl-chain__status {
   --dot-size: var(--dot-size-large);
   @include dot;
 
@@ -204,7 +204,7 @@
 
 }
 
-.pearlchain__status--no-animation {
+.pearl-chain__status--no-animation {
   animation: unset;
 }
 
