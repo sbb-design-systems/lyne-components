@@ -94,6 +94,10 @@ export namespace Components {
         "text": string;
     }
     interface LynePanel {
+        /**
+          * The text to show in the panel
+         */
+        "text"?: string;
     }
 }
 declare global {
@@ -221,6 +225,10 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LynePanel {
+        /**
+          * The text to show in the panel
+         */
+        "text"?: string;
     }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
