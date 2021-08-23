@@ -1,3 +1,39 @@
+# [9.29.0](https://github.com/lyne-design-system/lyne-components/compare/v9.28.1...v9.29.0) (2021-08-23)
+
+
+### Bug Fixes
+
+* adding comment and fixing linting errors in stories file ([60ea856](https://github.com/lyne-design-system/lyne-components/commit/60ea856bc1e31e8f0603e0acddf61b84a666048e))
+* clean up ([53e58c4](https://github.com/lyne-design-system/lyne-components/commit/53e58c4e1bcd6e1ec87a105f6ab0597027408454))
+* correcting time handling and animation ([7449936](https://github.com/lyne-design-system/lyne-components/commit/74499362c1ab06b6e6461982e614b10b504ad622))
+* fixing linting errors ([19be4e9](https://github.com/lyne-design-system/lyne-components/commit/19be4e9b72ef819c52ae006e18c2b71ea2a3cd5d))
+* include proper scss file ([9704915](https://github.com/lyne-design-system/lyne-components/commit/97049150bd5bd7677a56941b1d19c770fc967c5f))
+* include suggestions from pr review ([cf9ac36](https://github.com/lyne-design-system/lyne-components/commit/cf9ac36ea0537aa67da697a037bf034a0432c82a))
+* is adding improved hand placement and rotation ([791e397](https://github.com/lyne-design-system/lyne-components/commit/791e397482fd7a9ae80ec536c16f0faf7c250e86))
+* is reading stencil inline svg dependency ([382ce29](https://github.com/lyne-design-system/lyne-components/commit/382ce29d49cd95b1cd219d2d6979e192289145f8))
+* merging latest master ([e0bc01d](https://github.com/lyne-design-system/lyne-components/commit/e0bc01dec50b5c6e6015704ca6b6f979651d1289))
+* move definition of initial timeout duratition ([264a1d9](https://github.com/lyne-design-system/lyne-components/commit/264a1d9550df18770ee91a7d8172d9a86a7c10cc))
+* reverting mixed up main stories mdx ([09ee0c2](https://github.com/lyne-design-system/lyne-components/commit/09ee0c23e0ee7e676e1c6310d1947fa99657023e))
+* reverting mixed up main stories mdx ([60b96dd](https://github.com/lyne-design-system/lyne-components/commit/60b96dd5805a4678e7eddb2f4a136e10de0c1aa5))
+* take over recommendations from pr feedback ([1a3127d](https://github.com/lyne-design-system/lyne-components/commit/1a3127de8a86ff07967f4a908b784d89c81e2fb5))
+* taking over some additional changes from master ([96b656e](https://github.com/lyne-design-system/lyne-components/commit/96b656eda37974062835c3390f95b67db5a9028e))
+
+
+### Features
+
+* adding optional parameters in setCurrentTime ([92d8db6](https://github.com/lyne-design-system/lyne-components/commit/92d8db6023dbb66284626fd332d4f504b577ca78))
+* adding reworked hours hand movement ([b6ec00d](https://github.com/lyne-design-system/lyne-components/commit/b6ec00da513568b6288df4f3f8e3b30f061835c2))
+* adding wrapper and removing console logs ([efe4437](https://github.com/lyne-design-system/lyne-components/commit/efe443702493e16f0bae82f01872d74ac1d40418))
+* fixing eslint issues and adding paused state ([cefa91b](https://github.com/lyne-design-system/lyne-components/commit/cefa91bab360dbe0acc7c11a650c56f89a2822f6))
+* is adding first properties, playing with storybook config ([5dea899](https://github.com/lyne-design-system/lyne-components/commit/5dea899881429f68906f6b4907893397e3cb4e14))
+* is adding working clock example ([3a8f079](https://github.com/lyne-design-system/lyne-components/commit/3a8f079b07454f62562604d11593708d00a1d53e))
+* ist adding modified componeents.d.ts ([59d1b2b](https://github.com/lyne-design-system/lyne-components/commit/59d1b2b33853137c78bdb93e3e453eb9e25ae26b))
+* push current working state wip ([9a3c0f7](https://github.com/lyne-design-system/lyne-components/commit/9a3c0f76fc714a669a85f65b9bd7d389bdde49a3))
+* pushing latest working state ([368d6af](https://github.com/lyne-design-system/lyne-components/commit/368d6af50bc2a13239674d1aeb05a98bec483d64))
+* set explicit time for chromatic test ([a1409ce](https://github.com/lyne-design-system/lyne-components/commit/a1409ce21bc072c9bcf212cb802c9688dbf1303c))
+* working on clock example ([c34efaa](https://github.com/lyne-design-system/lyne-components/commit/c34efaa5b3847e4d477ca416f8fb76941c27f540))
+* working on clock module ([906c93a](https://github.com/lyne-design-system/lyne-components/commit/906c93ac9144b7ae73668d7d1933f53414d78a2d))
+
 ## [9.28.1](https://github.com/lyne-design-system/lyne-components/compare/v9.28.0...v9.28.1) (2021-08-18)
 
 
