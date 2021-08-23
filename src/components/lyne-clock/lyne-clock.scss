@@ -29,6 +29,12 @@
   backface-visibility: hidden;
 }
 
+.clock--not-initialized .clock__hand-hours,
+.clock--not-initialized .clock__hand-minutes,
+.clock--not-initialized .clock__hand-seconds {
+  display: none;
+}
+
 .clock__hand-minutes {
   transform-origin: 50% 49.625%;
 }

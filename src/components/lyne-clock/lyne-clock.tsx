@@ -2,7 +2,8 @@ import {
   Component,
   Element,
   h,
-  Prop
+  Prop,
+  State
 } from '@stencil/core';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg';
@@ -30,6 +31,12 @@ const eventListenerOptions = {
 export class LyneClock {
 
   @Element() private _element: HTMLElement;
+
+  /**
+   * We use _isInitialized to hide the hands of
+   * the clock till the calculations are ready
+   */
+  @State() private _isInitialized = false;
 
   /** If set to true, the clock will be paused. */
   @Prop() public paused? = false;
@@ -152,6 +159,8 @@ export class LyneClock {
     this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
     this._element.style.setProperty('--clock-animation-play-state', 'running');
 
+    this._isInitialized = true;
+
   }
 
   private _setMinutesHand(): void {
@@ -239,7 +248,12 @@ export class LyneClock {
   }
 
   public render(): JSX.Element {
-    return <div class='clock'>
+
+    const initClass = this._isInitialized
+      ? ''
+      : ' clock--not-initialized';
+
+    return <div class={`clock${initClass}`}>
       <span
         class='clock__face'
         innerHTML={clockFaceSVG}
