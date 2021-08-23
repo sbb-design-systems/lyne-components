@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
-import sampleData from './lyne-pearlchain.sample-data';
+import sampleData from './lyne-pearl-chain.sample-data';
 
 const Template = ({
   legs,
@@ -20,7 +20,7 @@ const Template = ({
   });
 
   return (
-    <lyne-pearlchain
+    <lyne-pearl-chain
       legs={JSON.stringify(newLegsData)}
       disable-animation={isChromatic}
       {...args}
@@ -204,6 +204,6 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-pearlchain'
+  title: 'lyne-pearl-chain'
 };
 
