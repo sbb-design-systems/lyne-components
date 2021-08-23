@@ -44,7 +44,7 @@ export class LynePearlchain {
     const legs = legsData(this.legs);
 
     const statusClass = this.status === 'past'
-      ? ' perlchain--past'
+      ? ' pearlchain--past'
       : '';
 
     let departureCancelClass = '';
