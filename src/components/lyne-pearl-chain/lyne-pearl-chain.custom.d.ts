@@ -1,3 +1,3 @@
-export interface InterfacePearlchainAttributes {
+export interface InterfacePearlChainAttributes {
   status: 'future' | 'past' | number;
 }
