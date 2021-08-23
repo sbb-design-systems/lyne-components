@@ -93,6 +93,8 @@ export namespace Components {
          */
         "text": string;
     }
+    interface LynePanel {
+    }
 }
 declare global {
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
@@ -119,11 +121,18 @@ declare global {
         prototype: HTMLLyneLinkElement;
         new (): HTMLLyneLinkElement;
     };
+    interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
+    }
+    var HTMLLynePanelElement: {
+        prototype: HTMLLynePanelElement;
+        new (): HTMLLynePanelElement;
+    };
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-clock": HTMLLyneClockElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
+        "lyne-panel": HTMLLynePanelElement;
     }
 }
 declare namespace LocalJSX {
@@ -211,11 +220,14 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
+    interface LynePanel {
+    }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
         "lyne-clock": LyneClock;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
+        "lyne-panel": LynePanel;
     }
 }
 export { LocalJSX as JSX };
@@ -226,6 +238,7 @@ declare module "@stencil/core" {
             "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
+            "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
         }
     }
 }
