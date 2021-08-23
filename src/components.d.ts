@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
+import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
 export namespace Components {
     interface LyneButton {
@@ -54,6 +55,16 @@ export namespace Components {
          */
         "variant"?: InterfaceButtonAttributes['variant'];
     }
+    interface LyneClock {
+        /**
+          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
+         */
+        "initialTime"?: Time;
+        /**
+          * If set to true, the clock will be paused.
+         */
+        "paused"?: boolean;
+    }
     interface LyneHeading {
         /**
           * Heading level
@@ -90,6 +101,12 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
+    interface HTMLLyneClockElement extends Components.LyneClock, HTMLStencilElement {
+    }
+    var HTMLLyneClockElement: {
+        prototype: HTMLLyneClockElement;
+        new (): HTMLLyneClockElement;
+    };
     interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {
     }
     var HTMLLyneHeadingElement: {
@@ -104,6 +121,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
+        "lyne-clock": HTMLLyneClockElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
     }
@@ -155,6 +173,16 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceButtonAttributes['variant'];
     }
+    interface LyneClock {
+        /**
+          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
+         */
+        "initialTime"?: Time;
+        /**
+          * If set to true, the clock will be paused.
+         */
+        "paused"?: boolean;
+    }
     interface LyneHeading {
         /**
           * Heading level
@@ -185,6 +213,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
+        "lyne-clock": LyneClock;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
     }
@@ -194,6 +223,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
+            "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
         }
