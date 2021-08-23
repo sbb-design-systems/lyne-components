@@ -22,7 +22,7 @@ const Template = ({
   return (
     <lyne-pearlchain
       legs={JSON.stringify(newLegsData)}
-      disableAnimation={isChromatic}
+      disable-animation={isChromatic}
       {...args}
     />
   );
