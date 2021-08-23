@@ -34,6 +34,12 @@ export class LynePearlchain {
 
   @Prop() public legs!: string;
 
+  /**
+   * Per default, the current location has a pulsating animation. You can
+   * disable the animation with this property.
+   */
+  @Prop() public disableAnimation?: boolean;
+
   public render(): JSX.Element {
     const legs = legsData(this.legs);
 
@@ -79,6 +85,10 @@ export class LynePearlchain {
       }
       : {};
 
+    const animationClass = this.disableAnimation
+      ? ' pearlchain__status--no-animation'
+      : '';
+
     return (
       <div class={classes}>
 
@@ -105,7 +115,7 @@ export class LynePearlchain {
           ? (
             <span
               style={statusStyle}
-              class='pearlchain__status'
+              class={`pearlchain__status${animationClass}`}
             ></span>
           )
           : ''
