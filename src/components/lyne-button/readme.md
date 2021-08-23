@@ -29,6 +29,19 @@
 | `"unnamed"` | Slot to render svg icon. You must pass an svg-element. |
 
 
+## Dependencies
+
+### Used by
+
+ - [lyne-panel](../lyne-panel)
+
+### Graph
+```mermaid
+graph TD;
+  lyne-panel --> lyne-button
+  style lyne-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 
