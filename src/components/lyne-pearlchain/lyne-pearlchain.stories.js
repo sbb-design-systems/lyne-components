@@ -1,8 +1,7 @@
 import { h } from 'jsx-dom';
+import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
 import sampleData from './lyne-pearlchain.sample-data';
-
-// TODO: is storybook
 
 const Template = ({
   legs,
@@ -23,6 +22,7 @@ const Template = ({
   return (
     <lyne-pearlchain
       legs={JSON.stringify(newLegsData)}
+      disableAnimation={isChromatic}
       {...args}
     />
   );
