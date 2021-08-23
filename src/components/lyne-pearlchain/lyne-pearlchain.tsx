@@ -64,6 +64,15 @@ export class LynePearlchain {
 
     const classes = `pearlchain${statusClass}${departureCancelClass}${arrivalCancelClass}`;
     const statusIsRunning = this.status && this.status !== 'past' && this.status !== 'future';
+
+    if (statusIsRunning) {
+      if (this.status > 100) {
+        this.status = 100;
+      } else if (this.status < 0) {
+        this.status = 0;
+      }
+    }
+
     const statusStyle = statusIsRunning
       ? {
         '--status-position': `${this.status}`
