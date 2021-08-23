@@ -85,6 +85,10 @@ export namespace Components {
     }
     interface LynePearlchain {
         /**
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
+         */
+        "disableAnimation"?: boolean;
+        /**
           * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
          */
         "legs": string;
@@ -202,6 +206,10 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LynePearlchain {
+        /**
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
+         */
+        "disableAnimation"?: boolean;
         /**
           * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
          */
