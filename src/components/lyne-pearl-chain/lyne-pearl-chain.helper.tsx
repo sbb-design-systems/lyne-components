@@ -8,12 +8,12 @@ export default (jsonString: string): any => {
   }
 
   // make sure that we have `leg` key in object
-  const errorMessage = 'lyne-pearlchain error: attribute legs has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
+  const errorMessage = 'lyne-pearl-chain error: attribute legs has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
   const jsonObject = JSON.parse(jsonString);
   const jsonObjectKeys = Object.keys(jsonObject);
 
   if (!jsonObjectKeys.includes('legs')) {
-    console.log(errorMessage);
+    console.warn(errorMessage);
 
     return [];
   }
@@ -24,7 +24,7 @@ export default (jsonString: string): any => {
   } = jsonObject;
 
   if (!Array.isArray(legs)) {
-    console.log(errorMessage);
+    console.warn(errorMessage);
 
     return [];
   }
@@ -59,20 +59,20 @@ export default (jsonString: string): any => {
   });
 
   if (wrongKeyDetected || durationIsMissing) {
-    console.log(errorMessage);
+    console.warn(errorMessage);
 
     return [];
   }
 
   // make sure there are at least 1 leg
   if (legs.length < 1) {
-    console.log(errorMessage);
+    console.warn(errorMessage);
 
     return [];
   }
 
   if (sum !== 100) {
-    console.log('lyne-pearlchain error: the sum of all durations should be equal to 100.');
+    console.warn('lyne-pearl-chain error: the sum of all durations should be equal to 100.');
 
     return [];
   }
