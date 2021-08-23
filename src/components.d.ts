@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
+import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 export namespace Components {
     interface LyneButton {
         /**
@@ -93,11 +94,19 @@ export namespace Components {
          */
         "text": string;
     }
-    interface LynePanel {
+    interface LynePearlChain {
         /**
-          * The text to show in the panel
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
-        "text"?: string;
+        "disableAnimation"?: boolean;
+        /**
+          * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
+         */
+        "legs": string;
+        /**
+          * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+         */
+        "status"?: InterfacePearlChainAttributes['status'];
     }
 }
 declare global {
@@ -125,18 +134,18 @@ declare global {
         prototype: HTMLLyneLinkElement;
         new (): HTMLLyneLinkElement;
     };
-    interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
+    interface HTMLLynePearlChainElement extends Components.LynePearlChain, HTMLStencilElement {
     }
-    var HTMLLynePanelElement: {
-        prototype: HTMLLynePanelElement;
-        new (): HTMLLynePanelElement;
+    var HTMLLynePearlChainElement: {
+        prototype: HTMLLynePearlChainElement;
+        new (): HTMLLynePearlChainElement;
     };
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-clock": HTMLLyneClockElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
-        "lyne-panel": HTMLLynePanelElement;
+        "lyne-pearl-chain": HTMLLynePearlChainElement;
     }
 }
 declare namespace LocalJSX {
@@ -224,18 +233,26 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
-    interface LynePanel {
+    interface LynePearlChain {
         /**
-          * The text to show in the panel
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
-        "text"?: string;
+        "disableAnimation"?: boolean;
+        /**
+          * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
+         */
+        "legs": string;
+        /**
+          * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+         */
+        "status"?: InterfacePearlChainAttributes['status'];
     }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
         "lyne-clock": LyneClock;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
-        "lyne-panel": LynePanel;
+        "lyne-pearl-chain": LynePearlChain;
     }
 }
 export { LocalJSX as JSX };
@@ -246,7 +263,7 @@ declare module "@stencil/core" {
             "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
-            "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
+            "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
         }
     }
 }

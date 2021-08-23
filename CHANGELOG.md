@@ -1,3 +1,10 @@
+## [9.29.1](https://github.com/lyne-design-system/lyne-components/compare/v9.29.0...v9.29.1) (2021-08-23)
+
+
+### Bug Fixes
+
+* adding aspect ratio for clock module ([088a01e](https://github.com/lyne-design-system/lyne-components/commit/088a01eba3306d37b6d187167932d84f655711e1))
+
 # [9.29.0](https://github.com/lyne-design-system/lyne-components/compare/v9.28.1...v9.29.0) (2021-08-23)
 
 
