@@ -3,24 +3,24 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import { InterfacePearlchainAttributes } from './lyne-pearlchain.custom.d';
-import legsData from './lyne-pearlchain.helper';
+import { InterfacePearlChainAttributes } from './lyne-pearl-chain.custom.d';
+import legsData from './lyne-pearl-chain.helper';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-pearlchain.scss',
-  tag: 'lyne-pearlchain'
+  styleUrl: 'lyne-pearl-chain.scss',
+  tag: 'lyne-pearl-chain'
 })
 
-export class LynePearlchain {
+export class LynePearlChain {
 
   /**
-   * Define, if the pearlchain represents a connection in the past,
+   * Define, if the pearl-chain represents a connection in the past,
    * in the future or if it is a currently running connection.
    * If it is currently running, provide a number between 0 and 100,
    * which will represent the current location on the pearl-chain.
    */
-  @Prop() public status?: InterfacePearlchainAttributes['status'];
+  @Prop() public status?: InterfacePearlChainAttributes['status'];
 
   /**
    * Stringified JSON to define the legs of the pearl-chain.
@@ -44,7 +44,7 @@ export class LynePearlchain {
     const legs = legsData(this.legs);
 
     const statusClass = this.status === 'past'
-      ? ' pearlchain--past'
+      ? ' pearl-chain--past'
       : '';
 
     let departureCancelClass = '';
@@ -52,23 +52,23 @@ export class LynePearlchain {
 
     if (legs.length > 0) {
       departureCancelClass = legs[0].cancellation
-        ? ' pearlchain--departure-cancellation'
+        ? ' pearl-chain--departure-cancellation'
         : '';
 
       if (legs.length > 1) {
         arrivalCancelClass = legs[legs.length - 1].cancellation
-          ? ' pearlchain--arrival-cancellation'
+          ? ' pearl-chain--arrival-cancellation'
           : '';
       }
 
       if (legs.length === 1) {
         arrivalCancelClass = legs[0].cancellation
-          ? ' pearlchain--arrival-cancellation'
+          ? ' pearl-chain--arrival-cancellation'
           : '';
       }
     }
 
-    const classes = `pearlchain${statusClass}${departureCancelClass}${arrivalCancelClass}`;
+    const classes = `pearl-chain${statusClass}${departureCancelClass}${arrivalCancelClass}`;
     const statusIsRunning = this.status && this.status !== 'past' && this.status !== 'future';
 
     if (statusIsRunning) {
@@ -86,7 +86,7 @@ export class LynePearlchain {
       : {};
 
     const animationClass = this.disableAnimation
-      ? ' pearlchain__status--no-animation'
+      ? ' pearl-chain__status--no-animation'
       : '';
 
     return (
@@ -99,12 +99,12 @@ export class LynePearlchain {
           };
 
           const legCancelClass = leg.cancellation
-            ? ' pearlchain__leg--cancellation'
+            ? ' pearl-chain__leg--cancellation'
             : '';
 
           return (
             <div
-              class={`pearlchain__leg${legCancelClass}`}
+              class={`pearl-chain__leg${legCancelClass}`}
               style={legStyle}
             ></div>
           );
@@ -115,7 +115,7 @@ export class LynePearlchain {
           ? (
             <span
               style={statusStyle}
-              class={`pearlchain__status${animationClass}`}
+              class={`pearl-chain__status${animationClass}`}
             ></span>
           )
           : ''
