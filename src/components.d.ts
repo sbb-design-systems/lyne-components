@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
-import { InterfacePearlchainAttributes } from "./components/lyne-pearlchain/lyne-pearlchain.custom.d";
+import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 export namespace Components {
     interface LyneButton {
         /**
@@ -83,7 +83,7 @@ export namespace Components {
          */
         "text": string;
     }
-    interface LynePearlchain {
+    interface LynePearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
@@ -93,9 +93,9 @@ export namespace Components {
          */
         "legs": string;
         /**
-          * Define, if the pearlchain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+          * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
          */
-        "status"?: InterfacePearlchainAttributes['status'];
+        "status"?: InterfacePearlChainAttributes['status'];
     }
 }
 declare global {
@@ -117,17 +117,17 @@ declare global {
         prototype: HTMLLyneLinkElement;
         new (): HTMLLyneLinkElement;
     };
-    interface HTMLLynePearlchainElement extends Components.LynePearlchain, HTMLStencilElement {
+    interface HTMLLynePearlChainElement extends Components.LynePearlChain, HTMLStencilElement {
     }
-    var HTMLLynePearlchainElement: {
-        prototype: HTMLLynePearlchainElement;
-        new (): HTMLLynePearlchainElement;
+    var HTMLLynePearlChainElement: {
+        prototype: HTMLLynePearlChainElement;
+        new (): HTMLLynePearlChainElement;
     };
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
-        "lyne-pearlchain": HTMLLynePearlchainElement;
+        "lyne-pearl-chain": HTMLLynePearlChainElement;
     }
 }
 declare namespace LocalJSX {
@@ -205,7 +205,7 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
-    interface LynePearlchain {
+    interface LynePearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
@@ -215,15 +215,15 @@ declare namespace LocalJSX {
          */
         "legs": string;
         /**
-          * Define, if the pearlchain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+          * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
          */
-        "status"?: InterfacePearlchainAttributes['status'];
+        "status"?: InterfacePearlChainAttributes['status'];
     }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
-        "lyne-pearlchain": LynePearlchain;
+        "lyne-pearl-chain": LynePearlChain;
     }
 }
 export { LocalJSX as JSX };
@@ -233,7 +233,7 @@ declare module "@stencil/core" {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
-            "lyne-pearlchain": LocalJSX.LynePearlchain & JSXBase.HTMLAttributes<HTMLLynePearlchainElement>;
+            "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
         }
     }
 }
