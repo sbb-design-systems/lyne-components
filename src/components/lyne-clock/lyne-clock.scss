@@ -11,8 +11,9 @@
   position: relative;
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  contain: layout;
+  contain: content;
 }
 
 .clock__hand-hours,
@@ -36,7 +37,9 @@
 }
 
 .clock__hand-minutes {
-  transform-origin: 50% 49.625%;
+  @supports not (aspect-ratio: 1 / 1) {
+    transform-origin: 50% 49.625%;
+  }
 }
 
 .clock__hand-hours {
