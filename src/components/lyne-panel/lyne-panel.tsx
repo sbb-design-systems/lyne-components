@@ -14,7 +14,7 @@ import { InterfacePanelAttributes } from './lyne-panel.custom.d';
 export class LynePanel {
 
   /** The text to show in the panel */
-  @Prop() public text? = 'Text inside of the panel.';
+  @Prop() public text!: string;
 
   /** Id which is sent in the click event payload for the button*/
   @Prop() public eventId?: string;
