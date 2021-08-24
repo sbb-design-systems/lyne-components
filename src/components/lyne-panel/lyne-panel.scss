@@ -43,9 +43,10 @@
   flex-direction: column;
   justify-content: center;
   width: pxToRem(var(--panel-width));
-  height: pxToRem(var(--panel-height));
+  min-height: pxToRem(var(--panel-height));
   margin: pxToRem(var(--triangle-height)) 0;
-  padding-inline: pxToRem(var(--panel-padding-inline));
+  padding-inline-start: pxToRem(var(--panel-padding-inline));
+  padding-inline-end: pxToRem(var(--panel-padding-inline));
   background-color: var(--background-color);
 }
 
@@ -56,6 +57,7 @@
   left: 0;
   width: 0;
   height: 0;
+  z-index: 0;
 }
 
 .lyne-panel:before {
@@ -80,8 +82,10 @@
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
+  z-index: 1;
 }
 
 .lyne-panel__button {
   margin-top: pxToRem(var(--button-margin));
+  z-index: 1;
 }
