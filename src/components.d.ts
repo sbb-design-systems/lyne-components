@@ -107,7 +107,7 @@ export namespace Components {
         /**
           * The text to show in the panel
          */
-        "text"?: string;
+        "text": string;
     }
     interface LynePearlChain {
         /**
@@ -267,7 +267,7 @@ declare namespace LocalJSX {
         /**
           * The text to show in the panel
          */
-        "text"?: string;
+        "text": string;
     }
     interface LynePearlChain {
         /**
