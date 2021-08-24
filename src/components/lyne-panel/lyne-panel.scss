@@ -34,7 +34,8 @@
   --background-color: var(--color-red-default);
   --text-color: var(--color-white-default);
 
-  margin: pxToRem(var(--triangle-height)) 0;
+  padding-block-start: pxToRem(var(--triangle-height));
+  padding-block-end: pxToRem(var(--triangle-height));
 
 }
 
