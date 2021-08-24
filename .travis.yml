@@ -81,11 +81,11 @@ jobs:
         # Build and deploy the deployments json
         - ./ci/deployments.sh || travis_terminate 1
 
-        # trigger a build on lyne-hydration-playground
-        - ./ci/trigger_hydration_playground.sh || travis_terminate 1
-
         # trigger a build on lyne-documentation
         - node ./ci/trigger_lyne_documentation.js -t $TRAVIS_TOKEN || travis_terminate 1
+
+        # trigger a build on lyne-examples
+        - node ./ci/trigger_lyne_examples.js -t $TRAVIS_TOKEN || travis_terminate 1
 
     - stage: build, test and deploy storybook for branches other than master
       if: ((branch != master OR type = pull_request) AND fork = false)
@@ -110,7 +110,7 @@ jobs:
 
         # install netlify-cli. We send stdout/stderr to /dev/null since we're not
         # Interested in the output from netlify-cli
-        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm install netlify-cli -g > "/dev/null" 2>&1; fi'
+        - npm install netlify-cli -g > "/dev/null" 2>&1 || travis_terminate 1
 
         # Make Storybook build
         - npm run build:storybook || travis_terminate 1
