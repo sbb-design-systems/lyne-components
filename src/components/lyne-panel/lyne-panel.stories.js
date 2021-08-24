@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { viewports } from '../../../.storybook/global-config';
 
 // --- Component
 
@@ -21,11 +22,7 @@ export default {
     },
     chromatic: {
       delay: 1000,
-      viewports: [
-        320,
-        764,
-        1201
-      ]
+      viewports
     },
     docs: {
       extractComponentDescription: () => readme
