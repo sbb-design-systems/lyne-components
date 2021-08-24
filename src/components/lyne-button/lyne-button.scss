@@ -29,6 +29,28 @@
   --padding-block: var(--spacing-fixed-4x);
   --padding-inline: var(--spacing-fixed-10x);
   --icon-margin-inline-end: var(--spacing-fixed-2x);
+
+  --shadow-1-default-color: var(--color-red-alpha-20);
+  --shadow-1-default-blur: calc(16 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-default-offset-x: 0;
+  --shadow-1-default-offset-y: calc(2 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-default-spread: 0;
+  --shadow-2-default-color: var(--color-red125-alpha-20);
+  --shadow-2-default-blur: calc(4 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-default-offset-x: 0;
+  --shadow-2-default-offset-y: calc(1 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-default-spread: 0;
+
+  --shadow-1-hover-color: var(--color-red-alpha-20);
+  --shadow-1-hover-blur: calc(8 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-hover-offset-x: 0;
+  --shadow-1-hover-offset-y: calc(1 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-hover-spread: 0;
+  --shadow-2-hover-color: var(--color-red125-alpha-20);
+  --shadow-2-hover-blur: calc(2 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-hover-offset-x: 0;
+  --shadow-2-hover-offset-y: calc(1 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-hover-spread: 0;
 }
 
 .button--primary-negative {
@@ -44,6 +66,28 @@
   --color-hover-background: var(--color-milk-default);
   --color-hover-border: var(--color-milk-default);
   --color-hover-text: var(--color-red125-default);
+
+  --shadow-1-default-color: var(--color-smoke-alpha-20);
+  --shadow-1-default-blur: calc(16 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-default-offset-x: 0;
+  --shadow-1-default-offset-y: calc(2 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-default-spread: 0;
+  --shadow-2-default-color: var(--color-metal-alpha-20);
+  --shadow-2-default-blur: calc(4 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-default-offset-x: 0;
+  --shadow-2-default-offset-y: calc(1 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-default-spread: 0;
+
+  --shadow-1-hover-color: var(--color-smoke-alpha-20);
+  --shadow-1-hover-blur: calc(16 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-hover-offset-x: 0;
+  --shadow-1-hover-offset-y: calc(2 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-hover-spread: 0;
+  --shadow-2-hover-color: var(--color-metal-alpha-20);
+  --shadow-2-hover-blur: calc(4 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-hover-offset-x: 0;
+  --shadow-2-hover-offset-y: calc(1 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-hover-spread: 0;
 }
 
 .button--secondary {
@@ -59,6 +103,28 @@
   --color-hover-background: var(--color-milk-default);
   --color-hover-border: var(--color-cloud-default);
   --color-hover-text: var(--color-iron-default);
+
+  --shadow-1-default-color: var(--color-platinum-alpha-20);
+  --shadow-1-default-blur: calc(16 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-default-offset-x: 0;
+  --shadow-1-default-offset-y: calc(2 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-default-spread: 0;
+  --shadow-2-default-color: var(--color-cement-alpha-20);
+  --shadow-2-default-blur: calc(4 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-default-offset-x: 0;
+  --shadow-2-default-offset-y: calc(1 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-default-spread: 0;
+
+  --shadow-1-hover-color: var(--color-platinum-alpha-20);
+  --shadow-1-hover-blur: calc(16 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-hover-offset-x: 0;
+  --shadow-1-hover-offset-y: calc(2 / var(--typo-base-font-size) * 1rem);
+  --shadow-1-hover-spread: 0;
+  --shadow-2-hover-color: var(--color-cement-alpha-20);
+  --shadow-2-hover-blur: calc(4 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-hover-offset-x: 0;
+  --shadow-2-hover-offset-y: calc(1 / var(--typo-base-font-size) * 1rem);
+  --shadow-2-hover-spread: 0;
 }
 
 .button--secondary-negative {
@@ -162,7 +228,7 @@
   align-items: center;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
-  transition-property: background-color, color, border-color;
+  transition-property: background-color, color, border-color, box-shadow;
   min-height: pxToRem(var(--min-height));
   margin: 0;
   outline: none;
@@ -185,6 +251,9 @@
   line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+
+  box-shadow: var(--shadow-1-default-offset-x) var(--shadow-1-default-offset-y) var(--shadow-1-default-blur) var(--shadow-1-default-spread) var(--shadow-1-default-color),
+  var(--shadow-2-default-offset-x) var(--shadow-2-default-offset-y) var(--shadow-2-default-blur) var(--shadow-2-default-spread) var(--shadow-2-default-color);
 
   @include highContrastActive {
     border: pxToRem(1) solid windowText;
@@ -223,10 +292,28 @@
   color: var(--color-hover-text);
   background-color: var(--color-hover-background);
   border-color: var(--color-hover-border);
+
+  box-shadow:
+    var(--shadow-1-hover-offset-x) var(--shadow-1-hover-offset-y) var(--shadow-1-hover-blur) var(--shadow-1-hover-spread) var(--shadow-1-hover-color),
+    var(--shadow-2-hover-offset-x) var(--shadow-2-hover-offset-y) var(--shadow-2-hover-blur) var(--shadow-2-hover-spread) var(--shadow-2-hover-color);
 }
 
 .button:active:not(:disabled) {
   color: var(--color-active-text);
   background-color: var(--color-active-background);
   border-color: var(--color-active-border);
+}
+
+.button--secondary-negative,
+.button--tertiary,
+.button--tertiary-negative,
+.button--transparent,
+.button--transparent-negative {
+  box-shadow: none;
+
+  &:hover, &:focus {
+    &:not(:disabled) {
+      box-shadow: none;
+    }
+  }
 }
