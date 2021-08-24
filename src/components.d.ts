@@ -97,6 +97,10 @@ export namespace Components {
     }
     interface LynePanel {
         /**
+          * The text to use as button text
+         */
+        "buttonText": string;
+        /**
           * Id which is sent in the click event payload for the button
          */
         "eventId"?: string;
@@ -256,6 +260,10 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LynePanel {
+        /**
+          * The text to use as button text
+         */
+        "buttonText": string;
         /**
           * Id which is sent in the click event payload for the button
          */
