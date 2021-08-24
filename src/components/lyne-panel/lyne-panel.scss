@@ -34,6 +34,8 @@
   --background-color: var(--color-red-default);
   --text-color: var(--color-white-default);
 
+  margin: pxToRem(var(--triangle-height)) 0;
+
 }
 
 .lyne-panel {
@@ -44,7 +46,6 @@
   justify-content: center;
   width: pxToRem(var(--panel-width));
   min-height: pxToRem(var(--panel-height));
-  margin: pxToRem(var(--triangle-height)) 0;
   padding-inline-start: pxToRem(var(--panel-padding-inline));
   padding-inline-end: pxToRem(var(--panel-padding-inline));
   background-color: var(--background-color);
