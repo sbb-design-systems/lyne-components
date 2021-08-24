@@ -7,9 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description                   | Type     | Default                       |
-| -------- | --------- | ----------------------------- | -------- | ----------------------------- |
-| `text`   | `text`    | The text to show in the panel | `string` | `'Text inside of the panel.'` |
+| Property  | Attribute  | Description                                                | Type                                                                    | Default                       |
+| --------- | ---------- | ---------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------- |
+| `eventId` | `event-id` | Id which is sent in the click event payload for the button | `string`                                                                | `undefined`                   |
+| `tag`     | `tag`      | The tag to use for the text element                        | `"h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "h6" \| "h7" \| "p" \| "span"` | `'p'`                         |
+| `text`    | `text`     | The text to show in the panel                              | `string`                                                                | `'Text inside of the panel.'` |
 
 
 ## Dependencies
