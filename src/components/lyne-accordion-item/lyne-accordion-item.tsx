@@ -24,7 +24,9 @@ export class LyneAccordionItem {
    */
   @Prop() public heading!: string;
 
-  /** Heading level */
+  /**
+   * Heading level
+   */
   @Prop() public headingLevel?: InterfaceAccordionItemAttributes['level'] = '1';
 
   public render(): JSX.Element {
@@ -33,20 +35,24 @@ export class LyneAccordionItem {
     return (
       <div class='accordion-item'>
 
-        <div class='accordion-item__head'>
+        <HEADING_TAGNAME class='accordion-item__heading'>
 
-          <div class='accordion-item__icon'>
-            <slot name='icon' />
-          </div>
+          <button class='accordion-item__button'>
 
-          <HEADING_TAGNAME class='accordion-item__title'>{this.heading}</HEADING_TAGNAME>
+            <div class='accordion-item__icon'>
+              <slot name='icon' />
+            </div>
 
-          <div
-            class='accordion-item__arrow'
-            innerHTML={chevronIcon}
-          />
+            <span class='accordion-item__title'>{this.heading}</span>
 
-        </div>
+            <div
+              class='accordion-item__arrow'
+              innerHTML={chevronIcon}
+            />
+
+          </button>
+
+        </HEADING_TAGNAME>
 
         <div class='accordion-item__body'>
           <slot name='content' />
