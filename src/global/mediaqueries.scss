@@ -1,0 +1,73 @@
+// Inspired by: https://github.com/sass-mq/sass-mq
+
+@import './node_modules/lyne-design-tokens/dist/scss/variables.scss';
+
+$mq-breakpoints: (
+  micro: $breakpoint-micro-min, // 360
+  small: $breakpoint-small-min, // 600
+  medium: $breakpoint-medium-min, // 840
+  large: $breakpoint-large-min, // 1024
+  wide: $breakpoint-wide-min, // 1280
+  ultra: $breakpoint-ultra-min // 1440
+) !default;
+
+$mq-media-type: all !default;
+
+@function mq-px2rem($px) {
+  @return calc(calc(#{$px} * 1rem) / #{$typo-base-font-size});
+}
+
+@function mq-get-breakpoint-width($name, $breakpoints: $mq-breakpoints) {
+  @if map-has-key($breakpoints, $name) {
+    @return map-get($breakpoints, $name);
+  } @else {
+    @warn "Breakpoint #{$name} wasn't found in $breakpoints.";
+  }
+}
+
+@mixin mq(
+  $from: false,
+  $until: false,
+  $and: false,
+  $media-type: $mq-media-type,
+  $breakpoints: $mq-breakpoints,
+) {
+  $min-width: 0;
+  $max-width: 0;
+  $media-query: '';
+
+  // From: this breakpoint (inclusive)
+  @if $from {
+    @if type-of($from) == number {
+      $min-width: mq-px2rem($from);
+    } @else {
+      $min-width: mq-px2rem(mq-get-breakpoint-width($from, $breakpoints));
+    }
+  }
+
+  // Until: that breakpoint (exclusive)
+  @if $until {
+    @if type-of($until) == number {
+      $max-width: mq-px2rem($until);
+    } @else {
+      $max-width: mq-px2rem(mq-get-breakpoint-width($until, $breakpoints)) - .01rem;
+    }
+  }
+
+  // Responsive support is enabled, output rules inside @media queries
+  @else {
+    @if $min-width != 0 { $media-query: '#{$media-query} and (min-width: #{$min-width})'; }
+    @if $max-width != 0 { $media-query: '#{$media-query} and (max-width: #{$max-width})'; }
+    @if $and { $media-query: '#{$media-query} and #{$and}'; }
+
+    // Remove unnecessary media query prefix 'all and '
+    @if ($media-type == 'all' and $media-query != '') {
+      $media-type: '';
+      $media-query: str-slice(unquote($media-query), 6);
+    }
+
+    @media #{$media-type + $media-query} {
+      @content;
+    }
+  }
+}
