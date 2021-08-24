@@ -8,10 +8,11 @@
 // in global/core/components/utilities.scss which each component needs to @extend
 
 html {
-  //line-height: 1.7rem; --> causes height problems???
+  line-height: 1.7rem;
 }
 
-body {
+body,
+:host {
   font-family: var(--lyne-font-sbbweb);
   // Does not work right now because CSS Vars are scoped for :host but should be available :root
   //font-family: var(--typo-default-font-family);

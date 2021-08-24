@@ -8,6 +8,17 @@
 <script nomodule="" src="/lyne-components/lyne-components.js"></script>
 -->
 
-<!-- Hack/workaround since not possible to change HTML attributes https://github.com/storybookjs/storybook/issues/11706 -->
-<!-- <script>document.documentElement.setAttribute('mode', 'shared')</script>
-<link rel="stylesheet" href="/lyne-components/lyne-components.css" /> -->
+<!--
+  Hack/workaround since it is not possible to change/add HTML attributes
+  in Storybook so they are added via JS,
+  see https://github.com/storybookjs/storybook/issues/11706
+-->
+<!--
+  Selfcontaining/encapsulated mode, default behaviour and is not necessary
+  to be set because if not set, defaults to this
+-->
+<!-- <script>document.documentElement.setAttribute('mode', 'default')</script> -->
+
+<!-- Shared mode, necessary to also define shared CSS file below -->
+<script>document.documentElement.setAttribute('mode', 'shared')</script>
+<link rel="stylesheet" href="/lyne-components/lyne-components.css" />

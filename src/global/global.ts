@@ -1,3 +1,11 @@
+// Polyfill for :focus-visible
+import 'focus-visible/dist/focus-visible.min';
+
+// Define component mode
+//
+// Pick component CSS file based on globally (<html> element) defined mode (default|shared)
+// @see https://github.com/ionic-team/ionic-framework/blob/main/core/src/global/ionic-global.ts
+
 import { setMode } from '@stencil/core';
 
 //import { Mode } from '../interface';
