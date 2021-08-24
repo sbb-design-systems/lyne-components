@@ -1,3 +1,10 @@
+## [9.30.1](https://github.com/lyne-design-system/lyne-components/compare/v9.30.0...v9.30.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* remove obsolete shadows (triggered from design tokens build) [skip ci] ([442cc38](https://github.com/lyne-design-system/lyne-components/commit/442cc3807e428ddd76e0554a7c1f8fe9201138c7))
+
 # [9.30.0](https://github.com/lyne-design-system/lyne-components/compare/v9.29.1...v9.30.0) (2021-08-23)
 
 
