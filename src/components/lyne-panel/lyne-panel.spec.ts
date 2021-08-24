@@ -7,12 +7,12 @@ describe('lyne-panel', () => {
       root
     } = await newSpecPage({
       components: [LynePanel],
-      html: '<lyne-panel text= "Example panel text"/>'
+      html: '<lyne-panel text="Example panel text" button-text="Button text" />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-panel text= "Example panel text">
+        <lyne-panel text="Example panel text" button-text="Button text">
           <mock:shadow-root>
             <div class="lyne-panel">
               <p class="lyne-panel__text">
