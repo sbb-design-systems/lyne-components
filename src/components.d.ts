@@ -10,6 +10,8 @@ import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 export namespace Components {
+    interface LyneAccordion {
+    }
     interface LyneButton {
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
@@ -110,6 +112,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLLyneAccordionElement extends Components.LyneAccordion, HTMLStencilElement {
+    }
+    var HTMLLyneAccordionElement: {
+        prototype: HTMLLyneAccordionElement;
+        new (): HTMLLyneAccordionElement;
+    };
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
     }
     var HTMLLyneButtonElement: {
@@ -141,6 +149,7 @@ declare global {
         new (): HTMLLynePearlChainElement;
     };
     interface HTMLElementTagNameMap {
+        "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-clock": HTMLLyneClockElement;
         "lyne-heading": HTMLLyneHeadingElement;
@@ -149,6 +158,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface LyneAccordion {
+    }
     interface LyneButton {
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
@@ -248,6 +259,7 @@ declare namespace LocalJSX {
         "status"?: InterfacePearlChainAttributes['status'];
     }
     interface IntrinsicElements {
+        "lyne-accordion": LyneAccordion;
         "lyne-button": LyneButton;
         "lyne-clock": LyneClock;
         "lyne-heading": LyneHeading;
@@ -259,6 +271,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
