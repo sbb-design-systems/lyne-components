@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
@@ -13,6 +14,14 @@ export namespace Components {
     interface LyneAccordion {
     }
     interface LyneAccordionItem {
+        /**
+          * Text to show as title for the accordion
+         */
+        "heading": string;
+        /**
+          * Heading level
+         */
+        "headingLevel"?: InterfaceAccordionItemAttributes['level'];
     }
     interface LyneButton {
         /**
@@ -170,6 +179,14 @@ declare namespace LocalJSX {
     interface LyneAccordion {
     }
     interface LyneAccordionItem {
+        /**
+          * Text to show as title for the accordion
+         */
+        "heading": string;
+        /**
+          * Heading level
+         */
+        "headingLevel"?: InterfaceAccordionItemAttributes['level'];
     }
     interface LyneButton {
         /**
