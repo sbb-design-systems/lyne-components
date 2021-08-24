@@ -8,13 +8,13 @@ export const parameters = {
   chromatic: {
     delay: 1000,
     viewports: [
-      `${DesignTokens.BreakpointZeroMax}px`,
-      `${DesignTokens.BreakpointMicroMax}px`,
-      `${DesignTokens.BreakpointSmallMax}px`,
-      `${DesignTokens.BreakpointMediumMax}px`,
-      `${DesignTokens.BreakpointLargeMax}px`,
-      `${DesignTokens.BreakpointWideMax}px`,
-      `${DesignTokens.BreakpointUltraMin}px`
+      DesignTokens.BreakpointZeroMax,
+      DesignTokens.BreakpointMicroMax,
+      DesignTokens.BreakpointSmallMax,
+      DesignTokens.BreakpointMediumMax,
+      DesignTokens.BreakpointLargeMax,
+      DesignTokens.BreakpointWideMax,
+      DesignTokens.BreakpointUltraMin
     ]
   }
 };
