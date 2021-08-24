@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { viewports } from '../../../.storybook/global-config';
 
 const Template = (args) => (
   <lyne-panel {...args} />
@@ -17,10 +16,6 @@ export default {
   parameters: {
     backgrounds: {
       disable: true
-    },
-    chromatic: {
-      delay: 1000,
-      viewports
     },
     docs: {
       extractComponentDescription: () => readme
