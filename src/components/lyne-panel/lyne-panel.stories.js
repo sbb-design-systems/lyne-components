@@ -9,6 +9,11 @@ const Template = (args) => (
 
 export const lynePanel = Template.bind({});
 
+lynePanel.args = {
+  buttonText: 'Sample button text',
+  text: 'Sample panel text'
+};
+
 export default {
   parameters: {
     backgrounds: {
