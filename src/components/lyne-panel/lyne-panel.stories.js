@@ -2,8 +2,6 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import { viewports } from '../../../.storybook/global-config';
 
-// --- Component
-
 const Template = (args) => (
   <lyne-panel {...args} />
 );
