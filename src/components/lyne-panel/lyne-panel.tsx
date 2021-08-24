@@ -16,6 +16,9 @@ export class LynePanel {
   /** The text to show in the panel */
   @Prop() public text!: string;
 
+  /** The text to use as button text */
+  @Prop() public buttonText!: string;
+
   /** Id which is sent in the click event payload for the button*/
   @Prop() public eventId?: string;
 
@@ -31,7 +34,7 @@ export class LynePanel {
 
         <lyne-button
           class='lyne-panel__button'
-          label='Button text'
+          label={this.buttonText}
           variant='secondary-negative'
           size='small'
           event-id={this.eventId}
