@@ -71,7 +71,7 @@
     "jest": "~26.6.1",
     "jest-cli": "26.6.3",
     "jsx-dom": "^7.0.1",
-    "lyne-design-tokens": "^3.14.3",
+    "lyne-design-tokens": "^3.14.4",
     "lyne-helper-eslint-config": "~1.0.1",
     "lyne-helper-trigger-travis": "~1.0.3",
     "lyne-icons": "^4.16.0",
