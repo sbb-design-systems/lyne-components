@@ -1,3 +1,61 @@
 :host {
   display: block;
+
+  // TODO: missing design tokens
+  --font-family: 'SBBWeb Roman';
+  --font-size-heading: 16;
+  --font-size-body: 14;
+  --letter-spacing: 0.01em;
+  --line-height: 1.4;
+
+  --color-heading: var(--color-black-default);
+  --color-chevron: var(--color-black-default);
+  --color-icon: var(--color-black-default);
+  --color-body: var(--color-black-default);
+}
+
+.accordion-item {
+  font-family: var(--font-family);
+  font-weight: normal;
+  letter-spacing: var(--letter-spacing);
+  line-height: var(--line-height);
+}
+
+.accordion-item__heading {
+
+}
+
+.accordion-item__button {
+  @include buttonReset;
+  font-size: pxToRem(var(--font-size-heading));
+  color: var(--color-heading);
+}
+
+.accordion-item__icon {
+  color: var(--color-icon);
+}
+
+.accordion-item__icon slot[name='icon'] {
+  fill: currentColor;
+}
+
+.accordion-item__title {
+
+}
+
+.accordion-item__chevron {
+  color: var(--color-chevron);
+}
+
+.accordion-item__chevron svg {
+  fill: currentColor;
+}
+
+.accordion-item__body {
+
+}
+
+.accordion-item__body slot[name='content'] {
+  font-size: pxToRem(var(--font-size-body));
+  color: var(--color-body);
 }
