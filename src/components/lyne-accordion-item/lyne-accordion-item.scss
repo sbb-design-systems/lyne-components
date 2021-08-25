@@ -20,6 +20,7 @@
   --header-padding-inline: var(--spacing-fixed-6x);
   --icon-padding-inline-end:  var(--spacing-fixed-3x);
   --body-padding-block: var(--spacing-fixed-5x);
+  --body-padding-inline: var(--spacing-fixed-6x);
 
   --border-radius-small: var(--border-radius-1x);
   --border-radius-large: var(--border-radius-8x);
@@ -47,6 +48,7 @@
 
 .accordion-item__heading {
   display: block;
+  margin: 0;
 }
 
 .accordion-item__button {
@@ -59,26 +61,21 @@
   color: var(--color-heading);
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
-
   padding-block-start: pxToRem(var(--header-padding-block));
   padding-block-end: pxToRem(var(--header-padding-block));
   padding-inline-start: pxToRem(var(--header-padding-inline));
   padding-inline-end: pxToRem(var(--header-padding-inline));
-
 }
 
 .accordion-item__icon {
   color: var(--color-icon);
-  
   flex-shrink: 0;
   flex-grow: 0;
-
 }
 
 ::slotted(svg[slot='icon']) {
   display: block;
   fill: currentColor;
-  // width: pxToRem(var(--icon-size));
   height: pxToRem(var(--icon-size));
   margin-inline-end: pxToRem(var(--icon-padding-inline-end));
 }
@@ -106,26 +103,29 @@
 }
 
 .accordion-item__body {
+  padding-inline-start: pxToRem(var(--body-padding-inline));
+  padding-inline-end: pxToRem(var(--body-padding-inline));
   padding-block-end: pxToRem(var(--body-padding-block));
-}
-
-::slotted(div[slot='content']) {
   font-size: pxToRem(var(--font-size-body));
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
   color: var(--color-body);
 }
 
-// .accordion-item__body slot[name='content']::slotted(*) {
-// slot[name='content']::slotted(*) {
-slot[name='content']::slotted(*) {
-  padding-bottom: 0;
-  padding-block-end: 0 !important;
-  margin-block-end: 0 !important;
-  margin-bottom: 0 !important;
-  color: red !important;
+.accordion-item--has-icon .accordion-item__body {
+  padding-inline-start: calc(#{pxToRem(var(--body-padding-inline))} + #{pxToRem(var(--icon-size))} + #{pxToRem(var(--icon-padding-inline-end))});
 }
 
+slot[name='content']::slotted(*:first-child) {
+  padding-top: 0;
+  padding-block-start: 0;
+  margin-block-start: 0;
+  margin-top: 0;
+}
 
-// ok -> ::slotted(div[slot='content'])
-// ok -> slot[name='content']::slotted(*)
+slot[name='content']::slotted(*:last-child) {
+  padding-bottom: 0;
+  padding-block-end: 0;
+  margin-block-end: 0;
+  margin-bottom: 0;
+}
