@@ -27,7 +27,7 @@ $mq-media-type: all !default;
 
 @mixin mq(
   $from: false,
-  $until: false,
+  $to: false,
   $and: false,
   $media-type: $mq-media-type,
   $breakpoints: $mq-breakpoints,
@@ -46,11 +46,11 @@ $mq-media-type: all !default;
   }
 
   // Until: that breakpoint (exclusive)
-  @if $until {
-    @if type-of($until) == number {
-      $max-width: mq-px2rem($until);
+  @if $to {
+    @if type-of($to) == number {
+      $max-width: mq-px2rem($to);
     } @else {
-      $max-width: mq-px2rem(mq-get-breakpoint-width($until, $breakpoints)) - .01rem;
+      $max-width: mq-px2rem(mq-get-breakpoint-width($to, $breakpoints)) - .01rem;
     }
   }
 
