@@ -1,3 +1,10 @@
+# [9.31.0](https://github.com/lyne-design-system/lyne-components/compare/v9.30.1...v9.31.0) (2021-08-25)
+
+
+### Features
+
+* add border-radius-4x (triggered from design tokens build) [skip ci] ([8ead15b](https://github.com/lyne-design-system/lyne-components/commit/8ead15b5d325733bf7d84990b987dc49d248d947))
+
 ## [9.30.1](https://github.com/lyne-design-system/lyne-components/compare/v9.30.0...v9.30.1) (2021-08-24)
 
 
