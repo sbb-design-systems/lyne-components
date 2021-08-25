@@ -38,6 +38,7 @@ export class LynePanel {
           variant='secondary-negative'
           size='small'
           event-id={this.eventId}
+          visual-button-only
         ></lyne-button>
 
       </div>
