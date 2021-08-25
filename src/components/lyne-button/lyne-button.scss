@@ -186,7 +186,7 @@
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 
-  @include highContrastActive {
+  @include ifForcedColors {
     border: pxToRem(1) solid windowText;
   }
 
