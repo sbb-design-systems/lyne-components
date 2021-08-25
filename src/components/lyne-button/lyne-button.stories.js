@@ -94,13 +94,8 @@ const label = {
   control: {
     type: 'text'
   },
-  description: 'Overwritten description',
   table: {
-    category: 'General properties',
-    type: {
-      detail: 'Something really really long',
-      summary: 'Something short'
-    }
+    category: 'General properties'
   }
 };
 

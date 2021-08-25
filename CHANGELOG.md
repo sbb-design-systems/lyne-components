@@ -1,3 +1,144 @@
+# [9.31.0](https://github.com/lyne-design-system/lyne-components/compare/v9.30.1...v9.31.0) (2021-08-25)
+
+
+### Features
+
+* add border-radius-4x (triggered from design tokens build) [skip ci] ([8ead15b](https://github.com/lyne-design-system/lyne-components/commit/8ead15b5d325733bf7d84990b987dc49d248d947))
+
+## [9.30.1](https://github.com/lyne-design-system/lyne-components/compare/v9.30.0...v9.30.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* remove obsolete shadows (triggered from design tokens build) [skip ci] ([442cc38](https://github.com/lyne-design-system/lyne-components/commit/442cc3807e428ddd76e0554a7c1f8fe9201138c7))
+
+# [9.30.0](https://github.com/lyne-design-system/lyne-components/compare/v9.29.1...v9.30.0) (2021-08-23)
+
+
+### Bug Fixes
+
+* add helper to check legs data ([40ed362](https://github.com/lyne-design-system/lyne-components/commit/40ed3628b7ab7839788436c83918567418540eb1))
+* adding various improvement for hcm and past styling ([b818285](https://github.com/lyne-design-system/lyne-components/commit/b8182858c5768fa42bdb7933ff33ad844619f149))
+* adopt new lyne-pearl-chain component name ([48f8b5b](https://github.com/lyne-design-system/lyne-components/commit/48f8b5ba235b32067c4e6e3f1354a7a31d86e62f))
+* adopt new lyne-pearl-chain component name ([b5c5f5a](https://github.com/lyne-design-system/lyne-components/commit/b5c5f5a442665a418f8f83344d21ac87b5ea3ce0))
+* adopt new lyne-pearl-chain component name ([dbb0726](https://github.com/lyne-design-system/lyne-components/commit/dbb072652c861f3f190f59209d58f13da0db86a9))
+* adopt new lyne-pearl-chain component name ([87185e7](https://github.com/lyne-design-system/lyne-components/commit/87185e7c1fd81427a238b71d98129cb9827df7d9))
+* adopt new lyne-pearl-chain component name ([79da5f3](https://github.com/lyne-design-system/lyne-components/commit/79da5f3dc60d8f1ba069a218bfdd7ade01c02a61))
+* adopt new lyne-pearl-chain component name ([39917b3](https://github.com/lyne-design-system/lyne-components/commit/39917b378e4285de12fd305d82cd41fb666d056e))
+* adopt new lyne-pearl-chain component name ([69cafb9](https://github.com/lyne-design-system/lyne-components/commit/69cafb90e3e1788b3d86a1152dc80218c47ffc47))
+* adopt new lyne-pearl-chain component name ([cd2ac65](https://github.com/lyne-design-system/lyne-components/commit/cd2ac65d1290d175290e4576c2c4c5debddb3d0c))
+* adopt new lyne-pearl-chain component name ([7a6190d](https://github.com/lyne-design-system/lyne-components/commit/7a6190d2d30b88139dc96e330097a4d21b644f52))
+* change condition for 1 leg ([6a53aaf](https://github.com/lyne-design-system/lyne-components/commit/6a53aaff978b3999102bac3fdc8472e3471492b4))
+* disable animation ([d74255c](https://github.com/lyne-design-system/lyne-components/commit/d74255c03b9116c519569100f9752c11503af88f))
+* disable animation in chromatic context ([76e472e](https://github.com/lyne-design-system/lyne-components/commit/76e472e867da77c6d98b55ee57f295f7c910f029))
+* fix render test ([4d8fc9c](https://github.com/lyne-design-system/lyne-components/commit/4d8fc9c909e7c7f88bca8cdf53e8e0cef712916e))
+* if leg is cancelled, mark dot as red as well ([d6f1812](https://github.com/lyne-design-system/lyne-components/commit/d6f1812e5932b2d1b4426a5c46daadfe70a7c502))
+* limit status to number between 0 and 100 ([540dcaf](https://github.com/lyne-design-system/lyne-components/commit/540dcaffaa2e9c64c4a3b6bf987da84df3d12ca1))
+* make cancellation line dotted ([9027ed9](https://github.com/lyne-design-system/lyne-components/commit/9027ed979a21371772497b77bdbe306c51473422))
+* make legs required, remove single line rendering ([17e7fde](https://github.com/lyne-design-system/lyne-components/commit/17e7fde3eec3eef5ee88650bbf22ac4b1752cb19))
+* properly stlye arrival and deparure dots when cancelled ([20ac9e7](https://github.com/lyne-design-system/lyne-components/commit/20ac9e7ccabd4ffe4b666289901177a7d6901e4c))
+* refactor from stations to legs ([a6bddc3](https://github.com/lyne-design-system/lyne-components/commit/a6bddc38da91ecb041adcf08c5e5b269c6d322bd))
+* refactor from stations to legs ([8f15455](https://github.com/lyne-design-system/lyne-components/commit/8f1545511130b25fa6ff989faa6e31065169eb32))
+* refactor stories, make story per stop variant ([06c3054](https://github.com/lyne-design-system/lyne-components/commit/06c30547531b4b0764aa58c5757b75d73d7b7c93))
+* refactor to correctly align dots ([081dcaf](https://github.com/lyne-design-system/lyne-components/commit/081dcaf8e9ab721543b70ff647c5fc6d4bb64ef8))
+* refactor to correctly align dots ([cff6b77](https://github.com/lyne-design-system/lyne-components/commit/cff6b776d348c38201f03483b31fb970c6bec445))
+* remove obsolete condition, add 1 leg for stop0 ([6c0a804](https://github.com/lyne-design-system/lyne-components/commit/6c0a804aec60af63eb35cc6f3cf1375675b4f8f3))
+* remove obsolete selector ([8210b9f](https://github.com/lyne-design-system/lyne-components/commit/8210b9f6759a2eabe14e6658cbf42e2680f1d073))
+* remove styles for vertical variant ([28bd196](https://github.com/lyne-design-system/lyne-components/commit/28bd1967cafaf7069ed56e311b0cea6465dca21a))
+* remove unneeded properties, remove vertical variant ([2ce6103](https://github.com/lyne-design-system/lyne-components/commit/2ce61039c773284bf30beb38d34e3f2425bd45ee))
+* rename component to pearl-chain ([3abf777](https://github.com/lyne-design-system/lyne-components/commit/3abf777c8b77966cbbc9ec0031dfcb34e234783d))
+* rename component to pearl-chain ([50fa0d6](https://github.com/lyne-design-system/lyne-components/commit/50fa0d6c2b583a47b1e69c3e8efedb8aac3cd3c7))
+* rename component to pearl-chain ([a174b0a](https://github.com/lyne-design-system/lyne-components/commit/a174b0a8d84f0ec7f0e96da68ff280b7f1762a94))
+* rename component to pearl-chain ([aa1ff04](https://github.com/lyne-design-system/lyne-components/commit/aa1ff0468d9b410853d1f91e59cc0aa268318143))
+* rename component to pearl-chain ([a8f3a19](https://github.com/lyne-design-system/lyne-components/commit/a8f3a19a36e4bc8a3a5d3b5c6964cfd47809af00))
+* rename component to pearl-chain ([6475ccc](https://github.com/lyne-design-system/lyne-components/commit/6475ccce4984ee264968012018d80ab21f713cbd))
+* rename component to pearl-chain ([86b4684](https://github.com/lyne-design-system/lyne-components/commit/86b46848015c338e0b08858ec927b89a53eabb84))
+* rename component to pearl-chain ([8b5fea9](https://github.com/lyne-design-system/lyne-components/commit/8b5fea9182ed3c51ddecf9e5fdde897fb487a66c))
+* rename component to pearl-chain ([0fa81c8](https://github.com/lyne-design-system/lyne-components/commit/0fa81c8679fe978df43da8a18938c99bca6a15da))
+* rename component to pearl-chain ([449df53](https://github.com/lyne-design-system/lyne-components/commit/449df53884b503397b81ef92bba8a772db397859))
+* rename component to pearl-chain ([f7226c1](https://github.com/lyne-design-system/lyne-components/commit/f7226c1a94244d7f8d7c173da716c051dad02c33))
+* rename component to pearl-chain ([07c53fb](https://github.com/lyne-design-system/lyne-components/commit/07c53fbe1561ace81c84e6a705cd62fa642def10))
+* rename component to pearl-chain ([6abbb82](https://github.com/lyne-design-system/lyne-components/commit/6abbb82df474c69eb8dce1cebb3781c8f184cf50))
+* rename component to pearl-chain ([ae35c1f](https://github.com/lyne-design-system/lyne-components/commit/ae35c1f99d17278f5254425476981052f1676394))
+* rename component to pearl-chain ([19ff6ac](https://github.com/lyne-design-system/lyne-components/commit/19ff6ac9d1891718b4b6cf3c4b51465b4be53ab1))
+* rename component to pearl-chain ([0683473](https://github.com/lyne-design-system/lyne-components/commit/068347397fe6eec5129e0e38ccd26847570615d1))
+* rename component to pearl-chain ([2fb51c9](https://github.com/lyne-design-system/lyne-components/commit/2fb51c98644e05271cfa75e1a1d08c4dbe18109e))
+* rename component to pearl-chain ([761face](https://github.com/lyne-design-system/lyne-components/commit/761faceadceed813153d1ba8956dab31a959d02a))
+* render line container if no legs are provided ([7f138f0](https://github.com/lyne-design-system/lyne-components/commit/7f138f002a242b21a8c2498886ad8f3203987366))
+* return if not enough legs are present ([dca4fbe](https://github.com/lyne-design-system/lyne-components/commit/dca4fbe518017e2561b60aee962b781d5f821b4c))
+* style line if no legs are provided ([d30c4a1](https://github.com/lyne-design-system/lyne-components/commit/d30c4a1e26567e1a66ff067d03f83dfe5600fa23))
+* use correct attribute name for disable-animation ([1d20969](https://github.com/lyne-design-system/lyne-components/commit/1d209695f5e96d94c9b7b4274093bc1eb20fd568))
+* use legs data helper to get legs data ([106b732](https://github.com/lyne-design-system/lyne-components/commit/106b732983dbcc1f6d1497015babbff4c3a19405))
+
+
+### Features
+
+*  add stories for future,  past and running connections ([296508e](https://github.com/lyne-design-system/lyne-components/commit/296508ee5d8a5fef326073634c1bc2f30f470e6f))
+* add appropriate status to all stories ([b2f3888](https://github.com/lyne-design-system/lyne-components/commit/b2f388812172b95c4f2c2fe979e9c41bdf3b2f0b))
+* add cancellation classes for departure and arrival ([3cb7c95](https://github.com/lyne-design-system/lyne-components/commit/3cb7c95c3949b6bd05ffd1c225f83fc2e3a24f7e))
+* add current location status ([6430f26](https://github.com/lyne-design-system/lyne-components/commit/6430f26bb095d9538fe1eb213bb649d34be19041))
+* add current location status ([f04fb78](https://github.com/lyne-design-system/lyne-components/commit/f04fb78f2d32052622a8d43a2ab5fa1b286ac1ed))
+* add div for drawing the line ([0b4aae2](https://github.com/lyne-design-system/lyne-components/commit/0b4aae28a442e355b7a52d6ec72e84254ba93dc3))
+* add e2e file for pearlchain ([f0c1512](https://github.com/lyne-design-system/lyne-components/commit/f0c15125393a6425610682f8466ff14f49dc2bc5))
+* add helper file to generate sample leg data ([810db2f](https://github.com/lyne-design-system/lyne-components/commit/810db2ff63672d715c29358cc607213831c524dd))
+* add interface file for pearlchain, define status interface ([b6aeaf2](https://github.com/lyne-design-system/lyne-components/commit/b6aeaf22a0f80301f1f63aadd3ccc4bc6ee3dd5a))
+* add prop to disable animation on status ([eefec7d](https://github.com/lyne-design-system/lyne-components/commit/eefec7d5af41acdb52379f47e905712793d9e074))
+* add pulse animation to current location dot ([4ba2078](https://github.com/lyne-design-system/lyne-components/commit/4ba2078614e93891d5c3453bfd9ec2e52b03ecaa))
+* add readme file ([26f1a44](https://github.com/lyne-design-system/lyne-components/commit/26f1a442324596729886487e097321eb9907031f))
+* add scss file for pearlchain, define basic variables ([d8214dc](https://github.com/lyne-design-system/lyne-components/commit/d8214dcca6182b102d51499a28c6cf34911a65e2))
+* add spec file for pearlchain ([0ff1dfb](https://github.com/lyne-design-system/lyne-components/commit/0ff1dfba0d259ee29b3d165220b615560a15f626))
+* add stories file for pearlchain ([f2ca991](https://github.com/lyne-design-system/lyne-components/commit/f2ca99131a86964b5c6eea03312b1235e43290f4))
+* add styling  for the line ([b29daa0](https://github.com/lyne-design-system/lyne-components/commit/b29daa0bdefaa6db1e1e77de6aca1bb4f26f97e5))
+* add tsx file for pearlchain, add basic properties ([18b0b49](https://github.com/lyne-design-system/lyne-components/commit/18b0b49738f706afef2d7b8baaff0da3910edfeb))
+* display station markers ([8e5b9d2](https://github.com/lyne-design-system/lyne-components/commit/8e5b9d2be949ba65ff2fe01ef759ed8b2911d179))
+* finalize stories ([b4a0814](https://github.com/lyne-design-system/lyne-components/commit/b4a0814b23a657fc32b48fc6bae06e50b8b3d615))
+* properly align  line and dots in  container ([0f8063f](https://github.com/lyne-design-system/lyne-components/commit/0f8063f59ed4665e5ea37adf89abb3bdb028b730))
+* render stations containers ([f3650d2](https://github.com/lyne-design-system/lyne-components/commit/f3650d2054394c921d0ede1a5c8b0c5b5d2d023d))
+* start defining stories ([366d36f](https://github.com/lyne-design-system/lyne-components/commit/366d36ff6ac32fd3bfa045c99ff45584f15ab3a2))
+
+## [9.29.1](https://github.com/lyne-design-system/lyne-components/compare/v9.29.0...v9.29.1) (2021-08-23)
+
+
+### Bug Fixes
+
+* adding aspect ratio for clock module ([088a01e](https://github.com/lyne-design-system/lyne-components/commit/088a01eba3306d37b6d187167932d84f655711e1))
+
+# [9.29.0](https://github.com/lyne-design-system/lyne-components/compare/v9.28.1...v9.29.0) (2021-08-23)
+
+
+### Bug Fixes
+
+* adding comment and fixing linting errors in stories file ([60ea856](https://github.com/lyne-design-system/lyne-components/commit/60ea856bc1e31e8f0603e0acddf61b84a666048e))
+* clean up ([53e58c4](https://github.com/lyne-design-system/lyne-components/commit/53e58c4e1bcd6e1ec87a105f6ab0597027408454))
+* correcting time handling and animation ([7449936](https://github.com/lyne-design-system/lyne-components/commit/74499362c1ab06b6e6461982e614b10b504ad622))
+* fixing linting errors ([19be4e9](https://github.com/lyne-design-system/lyne-components/commit/19be4e9b72ef819c52ae006e18c2b71ea2a3cd5d))
+* include proper scss file ([9704915](https://github.com/lyne-design-system/lyne-components/commit/97049150bd5bd7677a56941b1d19c770fc967c5f))
+* include suggestions from pr review ([cf9ac36](https://github.com/lyne-design-system/lyne-components/commit/cf9ac36ea0537aa67da697a037bf034a0432c82a))
+* is adding improved hand placement and rotation ([791e397](https://github.com/lyne-design-system/lyne-components/commit/791e397482fd7a9ae80ec536c16f0faf7c250e86))
+* is reading stencil inline svg dependency ([382ce29](https://github.com/lyne-design-system/lyne-components/commit/382ce29d49cd95b1cd219d2d6979e192289145f8))
+* merging latest master ([e0bc01d](https://github.com/lyne-design-system/lyne-components/commit/e0bc01dec50b5c6e6015704ca6b6f979651d1289))
+* move definition of initial timeout duratition ([264a1d9](https://github.com/lyne-design-system/lyne-components/commit/264a1d9550df18770ee91a7d8172d9a86a7c10cc))
+* reverting mixed up main stories mdx ([09ee0c2](https://github.com/lyne-design-system/lyne-components/commit/09ee0c23e0ee7e676e1c6310d1947fa99657023e))
+* reverting mixed up main stories mdx ([60b96dd](https://github.com/lyne-design-system/lyne-components/commit/60b96dd5805a4678e7eddb2f4a136e10de0c1aa5))
+* take over recommendations from pr feedback ([1a3127d](https://github.com/lyne-design-system/lyne-components/commit/1a3127de8a86ff07967f4a908b784d89c81e2fb5))
+* taking over some additional changes from master ([96b656e](https://github.com/lyne-design-system/lyne-components/commit/96b656eda37974062835c3390f95b67db5a9028e))
+
+
+### Features
+
+* adding optional parameters in setCurrentTime ([92d8db6](https://github.com/lyne-design-system/lyne-components/commit/92d8db6023dbb66284626fd332d4f504b577ca78))
+* adding reworked hours hand movement ([b6ec00d](https://github.com/lyne-design-system/lyne-components/commit/b6ec00da513568b6288df4f3f8e3b30f061835c2))
+* adding wrapper and removing console logs ([efe4437](https://github.com/lyne-design-system/lyne-components/commit/efe443702493e16f0bae82f01872d74ac1d40418))
+* fixing eslint issues and adding paused state ([cefa91b](https://github.com/lyne-design-system/lyne-components/commit/cefa91bab360dbe0acc7c11a650c56f89a2822f6))
+* is adding first properties, playing with storybook config ([5dea899](https://github.com/lyne-design-system/lyne-components/commit/5dea899881429f68906f6b4907893397e3cb4e14))
+* is adding working clock example ([3a8f079](https://github.com/lyne-design-system/lyne-components/commit/3a8f079b07454f62562604d11593708d00a1d53e))
+* ist adding modified componeents.d.ts ([59d1b2b](https://github.com/lyne-design-system/lyne-components/commit/59d1b2b33853137c78bdb93e3e453eb9e25ae26b))
+* push current working state wip ([9a3c0f7](https://github.com/lyne-design-system/lyne-components/commit/9a3c0f76fc714a669a85f65b9bd7d389bdde49a3))
+* pushing latest working state ([368d6af](https://github.com/lyne-design-system/lyne-components/commit/368d6af50bc2a13239674d1aeb05a98bec483d64))
+* set explicit time for chromatic test ([a1409ce](https://github.com/lyne-design-system/lyne-components/commit/a1409ce21bc072c9bcf212cb802c9688dbf1303c))
+* working on clock example ([c34efaa](https://github.com/lyne-design-system/lyne-components/commit/c34efaa5b3847e4d477ca416f8fb76941c27f540))
+* working on clock module ([906c93a](https://github.com/lyne-design-system/lyne-components/commit/906c93ac9144b7ae73668d7d1933f53414d78a2d))
+
 ## [9.28.1](https://github.com/lyne-design-system/lyne-components/compare/v9.28.0...v9.28.1) (2021-08-18)
 
 

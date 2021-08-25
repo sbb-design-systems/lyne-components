@@ -20,7 +20,7 @@
   --color-hover-background: var(--color-red125-default);
   --color-hover-border: var(--color-red125-default);
   --color-hover-text: var(--color-milk-default);
-  
+
   --border-width: var(--border-width-2x);
   --border-radius: var(--border-radius-16x);
   --min-height: var(--size-form-element-large-min-height);
@@ -185,7 +185,7 @@
   line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  
+
   @include highContrastActive {
     border: pxToRem(1) solid windowText;
   }
