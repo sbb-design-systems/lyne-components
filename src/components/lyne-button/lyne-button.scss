@@ -252,15 +252,19 @@
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 
-  box-shadow: var(--shadow-1-default-offset-x) var(--shadow-1-default-offset-y) var(--shadow-1-default-blur) var(--shadow-1-default-spread) var(--shadow-1-default-color),
-  var(--shadow-2-default-offset-x) var(--shadow-2-default-offset-y) var(--shadow-2-default-blur) var(--shadow-2-default-spread) var(--shadow-2-default-color);
-
   @include highContrastActive {
     border: pxToRem(1) solid windowText;
   }
 
   @include visibleFocus;
 
+}
+
+.button--primary:not(:disabled),
+.button--secondary:not(:disabled),
+.button--primary-negative:not(:disabled) {
+  box-shadow: var(--shadow-1-default-offset-x) var(--shadow-1-default-offset-y) var(--shadow-1-default-blur) var(--shadow-1-default-spread) var(--shadow-1-default-color),
+  var(--shadow-2-default-offset-x) var(--shadow-2-default-offset-y) var(--shadow-2-default-blur) var(--shadow-2-default-spread) var(--shadow-2-default-color);
 }
 
 .button__icon {
