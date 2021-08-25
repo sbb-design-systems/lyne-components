@@ -56,6 +56,10 @@ export namespace Components {
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
+        /**
+          * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
+         */
+        "visualButtonOnly"?: boolean;
     }
     interface LyneClock {
         /**
@@ -220,6 +224,10 @@ declare namespace LocalJSX {
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
+        /**
+          * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
+         */
+        "visualButtonOnly"?: boolean;
     }
     interface LyneClock {
         /**
