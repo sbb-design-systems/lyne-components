@@ -36,10 +36,10 @@ export const config = {
     inlineSvg(),
     sass({
       injectGlobalPaths: [
-        'src/global/variables.scss',
+        'src/global/global.scss',
+        'src/global/core/components/utilities.scss',
         'src/global/functions.scss',
-        'src/global/mixins.scss',
-        'src/global/core/components/utilities.scss'
+        'src/global/mixins.scss'
       ]
     })
   ],

@@ -5,8 +5,8 @@
 //
 //*****************************************************************************
 
-%box-reset {
-  box-sizing: border-box;
+%host-reset {
+  display: block;
   padding: 0;
   margin: 0;
   background: transparent;
@@ -16,14 +16,8 @@
 }
 
 @mixin host-component-properties {
-  *,
-  *::after,
-  *::before {
-    @extend %box-reset;
-  }
   :host {
-    @extend %box-reset;
-    display: block;
-    width: 100%;
+    // box-sizing defined globally and inherited
+    @extend %host-reset;
   }
 }

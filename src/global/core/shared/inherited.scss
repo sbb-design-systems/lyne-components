@@ -8,13 +8,10 @@
 // in global/core/components/utilities.scss which each component needs to @extend
 
 html {
-  line-height: 1.7rem;
+  line-height: var(--typo-font-style-text-1-regular-zero-to-small-line-height);
 }
 
-body,
-:host {
-  font-family: var(--lyne-font-sbbweb);
-  // Does not work right now because CSS Vars are scoped for :host but should be available :root
-  //font-family: var(--typo-default-font-family);
-  color: black;
+body {
+  font-family: var(--typo-default-font-family);
+  color: var(--typo-default-font-color);
 }

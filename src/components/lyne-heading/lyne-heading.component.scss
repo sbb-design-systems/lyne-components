@@ -1,16 +1,18 @@
 @include host-component-properties;
 
+.title {
+  font-family: var(--typo-font-style-title-1-font-family);
+  line-height: 1.3em;
+}
+
 .title--level1 {
-  color: red;
-  font-size: 3rem;
+  font-size: pxToRem(var(--typo-font-style-title-1-zero-to-micro-font-size));
 }
 
 .title--level2 {
-  color: green;
-  font-size: 2rem;
+  font-size: pxToRem(var(--typo-font-style-title-2-zero-to-medium-font-size));
 }
 
 .title--level3 {
-  color: blue;
-  font-size: 1rem;
+  font-size: pxToRem(var(--typo-font-style-title-3-zero-to-medium-font-size));
 }
