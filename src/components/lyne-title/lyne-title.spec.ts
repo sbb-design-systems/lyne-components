@@ -1,4 +1,4 @@
-import { LyneHeading } from './lyne-title';
+import { LyneTitle } from './lyne-title';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('lyne-title', () => {
@@ -7,7 +7,7 @@ describe('lyne-title', () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneHeading],
+      components: [LyneTitle],
       html: '<lyne-title level="1" visual-level="1" text="Sample Title Text"></lyne-title>'
     });
 
@@ -15,7 +15,7 @@ describe('lyne-title', () => {
       .toEqualHtml(`
         <lyne-title level="1" visual-level="1" text="Sample Title Text">
           <mock:shadow-root>
-            <h1 class="title title--level1">Sample Title Text</h1>
+            <h1 class="title title-1">Sample Title Text</h1>
           </mock:shadow-root>
         </lyne-title>
       `);

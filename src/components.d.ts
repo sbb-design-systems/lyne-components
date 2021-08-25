@@ -9,7 +9,7 @@ import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.
 import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
-import { InterfaceHeadingAttributes } from "./components/lyne-title/lyne-title.custom.d";
+import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 export namespace Components {
     interface LyneButton {
         /**
@@ -121,19 +121,19 @@ export namespace Components {
         /**
           * Title level
          */
-        "level": InterfaceHeadingAttributes['level'];
+        "level": InterfaceTitleAttributes['level'];
         /**
-          * Simulate behaviour in rtl context
-         */
-        "rtl": false;
-        /**
-          * Text for the Title
+          * Text for the title
          */
         "text": string;
         /**
+          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
+         */
+        "titleId": string;
+        /**
           * Visual level for the title
          */
-        "visualLevel": InterfaceHeadingAttributes['visualLevel'];
+        "visualLevel": InterfaceTitleAttributes['visualLevel'];
         /**
           * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
@@ -297,19 +297,19 @@ declare namespace LocalJSX {
         /**
           * Title level
          */
-        "level"?: InterfaceHeadingAttributes['level'];
+        "level"?: InterfaceTitleAttributes['level'];
         /**
-          * Simulate behaviour in rtl context
-         */
-        "rtl"?: false;
-        /**
-          * Text for the Title
+          * Text for the title
          */
         "text"?: string;
         /**
+          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
+         */
+        "titleId"?: string;
+        /**
           * Visual level for the title
          */
-        "visualLevel"?: InterfaceHeadingAttributes['visualLevel'];
+        "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
           * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */

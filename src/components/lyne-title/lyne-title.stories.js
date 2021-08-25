@@ -3,11 +3,11 @@ import readme from './readme.md';
 
 const Template = (args) => (
   <lyne-title
+    title-id={args.titleId}
     level={args.level}
     text={args.text}
     visually-hidden={args.visuallyHidden}
     visual-level={args.visualLevel}
-    rtl={args.rightToLeftSupport}
   />
 );
 
@@ -33,11 +33,11 @@ title.argTypes = {
 };
 
 title.args = {
-  'text': 'Sample Title Text',
+  'text': 'Data without insights are trivial, and insights without action are pointless',
   'level': 1,
   'visualLevel': 1,
   'visuallyHidden': false,
-  'rightToLeftSupport': false
+  'titleId': ''
 };
 
 export default {
