@@ -194,6 +194,15 @@
 
 }
 
+.button--visual-only {
+  width: fit-content;
+  user-select: none;
+}
+
+.button__label {
+  display: block;
+}
+
 .button__icon {
   display: block;
   width: pxToRem(var(--size-icon-ui-small));
