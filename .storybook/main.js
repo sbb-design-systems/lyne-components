@@ -6,6 +6,7 @@ module.exports = {
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
+    '@pxblue/storybook-rtl-addon/register'
   ],
   features: {
     postcss: false
