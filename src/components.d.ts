@@ -30,6 +30,10 @@ export namespace Components {
           * Set this attribute for the last item in an accordion
          */
         "last"?: boolean;
+        /**
+          * Set to true to open the accordion item. Set to false to close it.
+         */
+        "open"?: boolean;
     }
     interface LyneButton {
         /**
@@ -203,6 +207,10 @@ declare namespace LocalJSX {
           * Set this attribute for the last item in an accordion
          */
         "last"?: boolean;
+        /**
+          * Set to true to open the accordion item. Set to false to close it.
+         */
+        "open"?: boolean;
     }
     interface LyneButton {
         /**
