@@ -155,6 +155,7 @@
 }
 
 .button {
+  position: relative;
   -webkit-appearance: none;
   -moz-appearance: none;
   box-sizing: border-box;
@@ -185,6 +186,15 @@
   line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+
+  &:before {
+    position: absolute;
+    content: '';
+    inset: pxToRem(calc(var(--border-width) * -1));
+    border-radius: pxToRem(var(--border-radius));
+    border: pxToRem(var(--border-width)) solid var(--color-default-border);
+    z-index: -1;
+  }
 
   @include ifForcedColors {
     border: pxToRem(1) solid windowText;
