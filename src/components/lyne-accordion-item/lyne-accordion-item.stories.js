@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => (
+export const WithIcon = (args) => (
   <lyne-accordion-item {...args}>
     <div slot='content'>
       <p>Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.</p>
@@ -13,11 +13,25 @@ const Template = (args) => (
   </lyne-accordion-item>
 );
 
-export const AccordionItem = Template.bind({});
-
-AccordionItem.args = {
+WithIcon.args = {
   'heading': 'Accordion Item',
   'heading-level': '2'
+};
+
+export const WithoutIcon = (args) => (
+  <lyne-accordion-item {...args}>
+    <div slot='content'>
+      <p>Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.</p>
+      <p>Quis aute iure reprehenderit in voluptate velit esse. Ab illo tempore, ab est sed immemorabili. Non equidem invideo, lit aliquet. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae.
+      </p>
+    </div>
+  </lyne-accordion-item>
+);
+
+WithoutIcon.args = {
+  'heading': 'Accordion Item',
+  'heading-level': '2',
+  'last': true
 };
 
 export default {
