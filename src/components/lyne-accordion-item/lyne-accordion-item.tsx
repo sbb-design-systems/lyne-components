@@ -29,11 +29,29 @@ export class LyneAccordionItem {
    */
   @Prop() public headingLevel?: InterfaceAccordionItemAttributes['level'] = '1';
 
+  /**
+   * Set this attribute for the first item in an accordion
+   */
+  @Prop() public first?: boolean;
+
+  /**
+   * Set this attribute for the last item in an accordion
+   */
+  @Prop() public last?: boolean;
+
   public render(): JSX.Element {
     const HEADING_TAGNAME = `h${this.headingLevel}`;
 
+    let firstAndLastClass = '';
+
+    if (this.first) {
+      firstAndLastClass = ' accordion-item--first';
+    } else if (this.last) {
+      firstAndLastClass = ' accordion-item--last';
+    }
+
     return (
-      <div class='accordion-item'>
+      <div class={`accordion-item${firstAndLastClass}`}>
 
         <HEADING_TAGNAME class='accordion-item__heading'>
 
@@ -46,7 +64,7 @@ export class LyneAccordionItem {
             <span class='accordion-item__title'>{this.heading}</span>
 
             <div
-              class='accordion-item__arrow'
+              class='accordion-item__chevron'
               innerHTML={chevronIcon}
             />
 
