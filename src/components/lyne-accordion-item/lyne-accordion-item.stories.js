@@ -15,7 +15,8 @@ export const WithIcon = (args) => (
 WithIcon.args = {
   'first': true,
   'heading': 'Accordion Item',
-  'heading-level': '2'
+  'heading-level': '2',
+  'open': false
 };
 
 export const WithoutIcon = (args) => (
@@ -30,7 +31,8 @@ export const WithoutIcon = (args) => (
 WithoutIcon.args = {
   'heading': 'Accordion Item',
   'heading-level': '2',
-  'last': true
+  'last': true,
+  'open': true
 };
 
 export default {
