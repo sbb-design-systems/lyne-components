@@ -9,31 +9,33 @@
 
   --panel-width: 223;
   --panel-height: 167;
-  --button-margin: var(--spacing-fixed-5x);
-  --panel-padding-inline: var(--spacing-responsive-s-medium);
+  --button-margin: var(--spacing-responsive-xs-small);
+  --panel-padding-inline: var(--spacing-responsive-m-small);
+  --panel-padding-block: var(--spacing-responsive-s-small);
   --triangle-height: 33;
 
-  @include mq($from: large) {
+  @include mq($from: medium) {
     // TODO: missing design tokens
     --font-size: 32;
     --line-height: 1.3;
 
     --panel-width: 321;
     --panel-height: 240.11;
-    --button-margin: var(--spacing-fixed-6x);
+    --button-margin: var(--spacing-responsive-xs-medium);
     --panel-padding-inline: var(--spacing-responsive-m-medium);
+    --panel-padding-block: var(--spacing-responsive-s-medium);
     --triangle-height: 47.45;
   }
 
-  @include mq($from: ultra) {
+  @include mq($from: wide) {
     // TODO: missing design tokens
     --font-size: 40;
     --line-height: 1.2;
 
     --panel-width: 428;
     --panel-height: 320.38;
-    --button-margin: var(--spacing-fixed-5x);
-    --panel-padding-inline: var(--spacing-responsive-l-medium);
+    --panel-padding-inline: var(--spacing-responsive-m-wide);
+    --panel-padding-block: var(--spacing-responsive-s-wide);
     --triangle-height: 63.31;
   }
 
@@ -52,9 +54,11 @@
   flex-direction: column;
   justify-content: center;
   width: pxToRem(var(--panel-width));
-  min-height: pxToRem(var(--panel-height));
+  min-height: #{pxToRem(var(--panel-height))};
   padding-inline-start: pxToRem(var(--panel-padding-inline));
   padding-inline-end: pxToRem(var(--panel-padding-inline));
+  padding-block-start: pxToRem(var(--panel-padding-block));
+  padding-block-end: pxToRem(var(--panel-padding-block));
   background-color: var(--background-color);
 }
 
