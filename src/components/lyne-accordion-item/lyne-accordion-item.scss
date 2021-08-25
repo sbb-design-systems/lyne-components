@@ -7,6 +7,8 @@
   --font-size-body: 14;
   --letter-spacing: 0.03em;
   --line-height: 1.7;
+  --chevron-transition-timing-function: ease-in;
+  --chevron-transition-duration: 200ms;
 
   --color-heading: var(--color-black-default);
   --color-chevron: var(--color-black-default);
@@ -24,7 +26,6 @@
 
   --border-radius-small: var(--border-radius-1x);
   --border-radius-large: var(--border-radius-8x);
-
 }
 
 .accordion-item {
@@ -100,6 +101,11 @@
 .accordion-item__chevron svg {
   display: block;
   fill: currentColor;
+  transition: transform var(--chevron-transition-timing-function) var(--chevron-transition-duration);
+}
+
+.accordion-item--open .accordion-item__chevron svg {
+  transform: rotate3d(0, 0, 1, 180deg);
 }
 
 .accordion-item__body {
@@ -112,10 +118,16 @@
   color: var(--color-body);
 }
 
+.accordion-item--closed .accordion-item__body {
+  display: none;
+}
+
+// variant with icon left to the title
 .accordion-item--has-icon .accordion-item__body {
   padding-inline-start: calc(#{pxToRem(var(--body-padding-inline))} + #{pxToRem(var(--icon-size))} + #{pxToRem(var(--icon-padding-inline-end))});
 }
 
+// style first slot child
 slot[name='content']::slotted(*:first-child) {
   padding-top: 0;
   padding-block-start: 0;
@@ -123,6 +135,7 @@ slot[name='content']::slotted(*:first-child) {
   margin-top: 0;
 }
 
+// style last slot child
 slot[name='content']::slotted(*:last-child) {
   padding-bottom: 0;
   padding-block-end: 0;
