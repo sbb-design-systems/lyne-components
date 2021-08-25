@@ -1,1 +1,1 @@
-export type Mode = "default" | "shared";
+export type Mode = 'default' | 'shared';
