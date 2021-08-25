@@ -15,19 +15,19 @@ export namespace Components {
     }
     interface LyneAccordionItem {
         /**
-          * Set this attribute for the first item in an accordion
+          * Set this attribute for the first item in an accordion.
          */
         "first"?: boolean;
         /**
-          * Text to show as title for the accordion
+          * Text to show as title for the accordion.
          */
         "heading": string;
         /**
-          * Heading level
+          * Heading level.
          */
         "headingLevel"?: InterfaceAccordionItemAttributes['level'];
         /**
-          * Set this attribute for the last item in an accordion
+          * Set this attribute for the last item in an accordion.
          */
         "last"?: boolean;
         /**
@@ -192,19 +192,19 @@ declare namespace LocalJSX {
     }
     interface LyneAccordionItem {
         /**
-          * Set this attribute for the first item in an accordion
+          * Set this attribute for the first item in an accordion.
          */
         "first"?: boolean;
         /**
-          * Text to show as title for the accordion
+          * Text to show as title for the accordion.
          */
         "heading": string;
         /**
-          * Heading level
+          * Heading level.
          */
         "headingLevel"?: InterfaceAccordionItemAttributes['level'];
         /**
-          * Set this attribute for the last item in an accordion
+          * Set this attribute for the last item in an accordion.
          */
         "last"?: boolean;
         /**
