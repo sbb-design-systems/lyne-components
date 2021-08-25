@@ -221,6 +221,7 @@
 }
 
 .button {
+  position: relative;
   -webkit-appearance: none;
   -moz-appearance: none;
   box-sizing: border-box;
@@ -252,7 +253,16 @@
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 
-  @include highContrastActive {
+  &:before {
+    position: absolute;
+    content: '';
+    inset: pxToRem(calc(var(--border-width) * -1));
+    border-radius: pxToRem(var(--border-radius));
+    border: pxToRem(var(--border-width)) solid var(--color-default-border);
+    z-index: -1;
+  }
+
+  @include ifForcedColors {
     border: pxToRem(1) solid windowText;
   }
 
@@ -265,6 +275,15 @@
 .button--primary-negative:not(:disabled) {
   box-shadow: var(--shadow-1-default-offset-x) var(--shadow-1-default-offset-y) var(--shadow-1-default-blur) var(--shadow-1-default-spread) var(--shadow-1-default-color),
   var(--shadow-2-default-offset-x) var(--shadow-2-default-offset-y) var(--shadow-2-default-blur) var(--shadow-2-default-spread) var(--shadow-2-default-color);
+}
+
+.button--visual-only {
+  width: fit-content;
+  user-select: none;
+}
+
+.button__label {
+  display: block;
 }
 
 .button__icon {
