@@ -1,0 +1,83 @@
+:host {
+  display: block;
+}
+
+// TODO re-factor to something more generic
+.title--hidden {
+  @include screenreaderOnly;
+}
+
+.title {
+  margin: 0;
+}
+
+/*
+.title {
+  font-family: var(--typo-default-titles-font-family);
+  font-weight: normal;
+  line-height: var(--typo-default-titles-line-height);
+  letter-spacing: var();
+}
+
+.title--level1 {
+  font-size: pxToRem(--typo-title-1-zero-to-micro-font-size);
+
+  @include mq($from: small) {
+    font-size: pxToRem(--typo-title-1-small-to-medium-font-size);
+  }
+
+  @include mq($from: large) {
+    font-size: pxToRem(--typo-title-1-large-to-wide-font-size);
+  }
+
+  @include mq($from: ultra) {
+    font-size: pxToRem(--typo-title-1-ultra-font-size);
+  }
+
+}
+
+.title--level-2 {
+  font-size: pxToRem(--typo-title-2-zero-to-small-font-size);
+}
+
+.title--level-3 {
+  font-size: pxToRem(--typo-title-3-zero-to-small-font-size);
+}
+
+.title--level-4 {
+  font-size: pxToRem(--typo-title-4-zero-to-small-font-size);
+}
+
+.title--level-5 {
+  font-size: pxToRem(--typo-title-5-zero-to-small-font-size);
+  line-height: var(--typo-title-5-line-height);
+}
+
+.title--level-6 {
+  font-size: pxToRem(--typo-title-6-zero-to-small-font-size);
+  line-height: var(--typo-title-6-line-height);
+}
+
+// Sorted like this to safe some MediaQueries
+@include mq($from: medium) {
+  .title--level-2 {
+    font-size: pxToRem(--typo-title-2-medium-to-ultra-font-size);
+  }
+
+  .title--level-3 {
+    font-size: pxToRem(--typo-title-3-medium-to-ultra-font-size);
+  }
+
+  .title--level-4 {
+    font-size: pxToRem(--typo-title-4-medium-to-ultra-font-size);
+  }
+
+  .title--level-5 {
+    font-size: pxToRem(--typo-title-5-medium-to-ultra-font-size);
+  }
+
+  .title--level-6 {
+    font-size: pxToRem(--typo-title-6-medium-to-ultra-font-size);
+  }
+}
+*/

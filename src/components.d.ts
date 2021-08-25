@@ -7,8 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
-import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
+import { InterfaceHeadingAttributes } from "./components/lyne-title/lyne-title.custom.d";
 export namespace Components {
     interface LyneButton {
         /**
@@ -66,20 +66,6 @@ export namespace Components {
          */
         "paused"?: boolean;
     }
-    interface LyneHeading {
-        /**
-          * Heading level
-         */
-        "level": InterfaceHeadingAttributes['level'];
-        /**
-          * Text for the Heading
-         */
-        "text": string;
-        /**
-          * Visual level for the heading
-         */
-        "visualLevel": InterfaceHeadingAttributes['visualLevel'];
-    }
     interface LyneLink {
         /**
           * Link to use as href
@@ -108,6 +94,28 @@ export namespace Components {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneTitle {
+        /**
+          * Title level
+         */
+        "level": InterfaceHeadingAttributes['level'];
+        /**
+          * Simulate behaviour in rtl context
+         */
+        "rtl": false;
+        /**
+          * Text for the Title
+         */
+        "text": string;
+        /**
+          * Visual level for the title
+         */
+        "visualLevel": InterfaceHeadingAttributes['visualLevel'];
+        /**
+          * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
+         */
+        "visuallyHidden": false;
+    }
 }
 declare global {
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
@@ -122,12 +130,6 @@ declare global {
         prototype: HTMLLyneClockElement;
         new (): HTMLLyneClockElement;
     };
-    interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {
-    }
-    var HTMLLyneHeadingElement: {
-        prototype: HTMLLyneHeadingElement;
-        new (): HTMLLyneHeadingElement;
-    };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
     var HTMLLyneLinkElement: {
@@ -140,12 +142,18 @@ declare global {
         prototype: HTMLLynePearlChainElement;
         new (): HTMLLynePearlChainElement;
     };
+    interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
+    }
+    var HTMLLyneTitleElement: {
+        prototype: HTMLLyneTitleElement;
+        new (): HTMLLyneTitleElement;
+    };
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-clock": HTMLLyneClockElement;
-        "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
+        "lyne-title": HTMLLyneTitleElement;
     }
 }
 declare namespace LocalJSX {
@@ -205,20 +213,6 @@ declare namespace LocalJSX {
          */
         "paused"?: boolean;
     }
-    interface LyneHeading {
-        /**
-          * Heading level
-         */
-        "level"?: InterfaceHeadingAttributes['level'];
-        /**
-          * Text for the Heading
-         */
-        "text"?: string;
-        /**
-          * Visual level for the heading
-         */
-        "visualLevel"?: InterfaceHeadingAttributes['visualLevel'];
-    }
     interface LyneLink {
         /**
           * Link to use as href
@@ -247,12 +241,34 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneTitle {
+        /**
+          * Title level
+         */
+        "level"?: InterfaceHeadingAttributes['level'];
+        /**
+          * Simulate behaviour in rtl context
+         */
+        "rtl"?: false;
+        /**
+          * Text for the Title
+         */
+        "text"?: string;
+        /**
+          * Visual level for the title
+         */
+        "visualLevel"?: InterfaceHeadingAttributes['visualLevel'];
+        /**
+          * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
+         */
+        "visuallyHidden"?: false;
+    }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
         "lyne-clock": LyneClock;
-        "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
         "lyne-pearl-chain": LynePearlChain;
+        "lyne-title": LyneTitle;
     }
 }
 export { LocalJSX as JSX };
@@ -261,9 +277,9 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
-            "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
+            "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }
 }
