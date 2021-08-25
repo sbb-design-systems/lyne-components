@@ -70,18 +70,17 @@
   width: 0;
   height: 0;
   z-index: 0;
+  border-inline-end: pxToRem(var(--panel-width)) solid transparent;
 }
 
 .lyne-panel:before {
   top: calc(-1 * #{pxToRem(var(--triangle-height))});
-  border-right: pxToRem(var(--panel-width)) solid transparent;
-  border-bottom: pxToRem(var(--triangle-height)) solid var(--background-color);
+  border-block-end: pxToRem(var(--triangle-height)) solid var(--background-color);
 }
 
 .lyne-panel:after {
   bottom: calc(-1 * #{pxToRem(var(--triangle-height))});
-  border-right: pxToRem(var(--panel-width)) solid transparent;
-  border-top: pxToRem(var(--triangle-height)) solid var(--background-color);
+  border-block-start: pxToRem(var(--triangle-height)) solid var(--background-color);
 }
 
 .lyne-panel__text {
