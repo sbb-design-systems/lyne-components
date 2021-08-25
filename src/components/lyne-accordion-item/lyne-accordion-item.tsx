@@ -7,6 +7,7 @@
  * - storybook
  * - Slot description is not rendering on readme
  * - chevron-down-small has different name in figma. check doku page
+ * - anchor
  */
 
 import {
@@ -16,6 +17,7 @@ import {
   Prop
 } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-down-small.svg';
+import guid from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
 
 /**
@@ -28,6 +30,8 @@ import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d
 
 const iconSlotName = 'icon';
 
+const uniqueId = guid();
+
 @Component({
   shadow: true,
   styleUrl: 'lyne-accordion-item.scss',
@@ -37,22 +41,22 @@ const iconSlotName = 'icon';
 export class LyneAccordionItem {
 
   /**
-   * Text to show as title for the accordion
+   * Text to show as title for the accordion.
    */
   @Prop() public heading!: string;
 
   /**
-   * Heading level
+   * Heading level.
    */
   @Prop() public headingLevel?: InterfaceAccordionItemAttributes['level'] = '1';
 
   /**
-   * Set this attribute for the first item in an accordion
+   * Set this attribute for the first item in an accordion.
    */
   @Prop() public first?: boolean;
 
   /**
-   * Set this attribute for the last item in an accordion
+   * Set this attribute for the last item in an accordion.
    */
   @Prop() public last?: boolean;
 
@@ -90,6 +94,10 @@ export class LyneAccordionItem {
       ? ' accordion-item--open'
       : ' accordion-item--closed';
 
+    const ariaHidden = this.open
+      ? 'false'
+      : 'true';
+
     return (
       <div class={`accordion-item${firstAndLastClass}${iconClass}${openClass}`}>
 
@@ -98,7 +106,12 @@ export class LyneAccordionItem {
           onClick={(): void => this._toggleAccordion()}
         >
 
-          <button class='accordion-item__button'>
+          <button
+            class='accordion-item__button'
+            aria-label={this.heading}
+            aria-expanded={this.open}
+            aria-controls={`${uniqueId}_body`}
+          >
 
             <div class='accordion-item__icon'>
               <slot name={iconSlotName} />
@@ -115,7 +128,11 @@ export class LyneAccordionItem {
 
         </HEADING_TAGNAME>
 
-        <div class='accordion-item__body'>
+        <div
+          class='accordion-item__body'
+          id={`${uniqueId}_body`}
+          aria-hidden={ariaHidden}
+        >
           <slot name='content' />
         </div>
 
