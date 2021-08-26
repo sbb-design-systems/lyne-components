@@ -41,13 +41,6 @@ const Template = (args) => (
 export const Accordion = Template.bind({});
 
 export default {
-  decorators: [
-    (Story) => (
-      <div style={'max-width: 20rem;'}>
-        <Story/>
-      </div>
-    )
-  ],
   parameters: {
     docs: {
       extractComponentDescription: () => readme
