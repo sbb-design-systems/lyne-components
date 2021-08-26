@@ -12,8 +12,16 @@ import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-headi
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 export namespace Components {
     interface LyneAccordion {
+        /**
+          * Set this if you want to render the light variant of the accordion. This is only allowed on non-white backgrounds.
+         */
+        "light"?: boolean;
     }
     interface LyneAccordionItem {
+        /**
+          * If set, an accordion can not be toggled
+         */
+        "disabled"?: boolean;
         /**
           * Id which is sent in the event after opening/closing accordion
          */
@@ -193,8 +201,16 @@ declare global {
 }
 declare namespace LocalJSX {
     interface LyneAccordion {
+        /**
+          * Set this if you want to render the light variant of the accordion. This is only allowed on non-white backgrounds.
+         */
+        "light"?: boolean;
     }
     interface LyneAccordionItem {
+        /**
+          * If set, an accordion can not be toggled
+         */
+        "disabled"?: boolean;
         /**
           * Id which is sent in the event after opening/closing accordion
          */
