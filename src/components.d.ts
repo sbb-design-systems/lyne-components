@@ -15,6 +15,10 @@ export namespace Components {
     }
     interface LyneAccordionItem {
         /**
+          * Id which is sent in the event after opening/closing accordion
+         */
+        "eventId"?: string;
+        /**
           * Set this attribute for the first item in an accordion.
          */
         "first"?: boolean;
@@ -191,6 +195,10 @@ declare namespace LocalJSX {
     interface LyneAccordion {
     }
     interface LyneAccordionItem {
+        /**
+          * Id which is sent in the event after opening/closing accordion
+         */
+        "eventId"?: string;
         /**
           * Set this attribute for the first item in an accordion.
          */
