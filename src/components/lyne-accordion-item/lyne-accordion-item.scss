@@ -116,7 +116,6 @@
 .accordion-item__body {
   box-sizing: border-box;
   overflow: hidden;
-
   transition-property: height, opacity;
   transition-duration: var(--expand-animation-duration);
   transition-timing-function: var(--expand-animation-timing-function);
@@ -127,7 +126,6 @@
   opacity: 0;
 }
 
-// variant with icon left to the title
 .accordion-item--has-icon .accordion-item__body-inner {
   padding-inline-start: calc(#{pxToRem(var(--body-padding-inline))} + #{pxToRem(var(--icon-size))} + #{pxToRem(var(--icon-padding-inline-end))});
 }
