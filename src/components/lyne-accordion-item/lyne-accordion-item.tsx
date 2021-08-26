@@ -74,6 +74,9 @@ export class LyneAccordionItem {
   /** Id which is sent in the event after opening/closing accordion */
   @Prop() public eventId?: string;
 
+  /** If set, an accordion can not be toggled */
+  @Prop() public disabled?: boolean;
+
   @State() private _isAnimating = false;
   @State() private _openClass: string;
 
@@ -127,6 +130,10 @@ export class LyneAccordionItem {
 
   private _toggleAccordion = (state?): void => {
     if (this._isAnimating) {
+      return;
+    }
+
+    if (this.disabled) {
       return;
     }
 
@@ -203,8 +210,12 @@ export class LyneAccordionItem {
       ? 'false'
       : 'true';
 
+    const disabledClass = this.disabled
+      ? ' accordion-item--disabled'
+      : '';
+
     return (
-      <div class={`accordion-item${firstAndLastClass}${iconClass} ${this._openClass}`}>
+      <div class={`accordion-item${firstAndLastClass}${iconClass}${disabledClass} ${this._openClass}`}>
 
         <HEADING_TAGNAME
           class='accordion-item__heading'
