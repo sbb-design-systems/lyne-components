@@ -28,6 +28,7 @@ import {
   Watch
 } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-down-small.svg';
+import events from './lyne-accordion-item.events';
 import guid from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
 
@@ -78,7 +79,11 @@ export class LyneAccordionItem {
     reflect: true
   }) public open?: boolean;
 
+  /** Id which is sent in the event after opening/closing accordion */
+  @Prop() public eventId?: string;
+
   @State() private _isAnimating = false;
+  @State() private _openClass: string;
 
   @Element() private _element: HTMLElement;
 
@@ -90,6 +95,7 @@ export class LyneAccordionItem {
   }
 
   private _accordionBody!: HTMLElement;
+  private _chevron: HTMLElement;
 
   private _handleToggleEnd = (data: any): void => {
     const wasHeightAnimation = data.propertyName === 'height';
@@ -97,6 +103,32 @@ export class LyneAccordionItem {
     if (wasHeightAnimation) {
       this._accordionBody.removeEventListener('transitionend', this._handleToggleEnd);
       this._isAnimating = false;
+
+      if (this.open) {
+        this._accordionBody.style.setProperty('height', 'auto');
+      }
+
+      let eventDetail;
+
+      if (this.eventId) {
+        eventDetail = this.eventId;
+      }
+
+      const eventName = this.open
+        ? events.didOpen
+        : events.didClose;
+
+      const event = new CustomEvent(eventName, {
+        bubbles: true,
+        composed: true,
+        detail: eventDetail
+      });
+
+      this._element.dispatchEvent(event);
+
+      this._openClass = this.open
+        ? 'accordion-item--open'
+        : 'accordion-item--closed';
     }
   };
 
@@ -125,10 +157,14 @@ export class LyneAccordionItem {
       newOpacity = '1';
 
       this._accordionBody.style.setProperty('height', '0');
+
+      this._chevron.classList.add('accordion-item__chevron--rotate');
     } else {
       const initHeight = this._accordionBody.getBoundingClientRect().height;
 
       this._accordionBody.style.setProperty('height', `${initHeight}px`);
+
+      this._chevron.classList.remove('accordion-item__chevron--rotate');
     }
 
     this._accordionBody.addEventListener('transitionend', this._handleToggleEnd);
@@ -139,6 +175,16 @@ export class LyneAccordionItem {
     }, 0);
 
   };
+
+  public componentDidLoad(): void {
+    if (this.open) {
+      this._chevron.classList.add('accordion-item__chevron--rotate');
+      this._openClass = 'accordion-item--open';
+    } else {
+      this._openClass = 'accordion-item--closed';
+    }
+
+  }
 
   public render(): JSX.Element {
     const HEADING_TAGNAME = `h${this.headingLevel}`;
@@ -157,16 +203,12 @@ export class LyneAccordionItem {
       firstAndLastClass = ' accordion-item--last';
     }
 
-    const openClass = this.open
-      ? ' accordion-item--open'
-      : ' accordion-item--closed';
-
     const ariaHidden = this.open
       ? 'false'
       : 'true';
 
     return (
-      <div class={`accordion-item${firstAndLastClass}${iconClass}${openClass}`}>
+      <div class={`accordion-item${firstAndLastClass}${iconClass} ${this._openClass}`}>
 
         <HEADING_TAGNAME
           class='accordion-item__heading'
@@ -189,6 +231,9 @@ export class LyneAccordionItem {
             <div
               class='accordion-item__chevron'
               innerHTML={chevronIcon}
+              ref={(el): void => {
+                this._chevron = el;
+              }}
             />
 
           </button>
