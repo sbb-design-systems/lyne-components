@@ -109,7 +109,7 @@
   backface-visibility: hidden;
 }
 
-.accordion-item--open .accordion-item__chevron svg {
+.accordion-item__chevron--rotate svg {
   transform: rotate3d(0, 0, 1, 180deg);
 }
 
@@ -124,7 +124,6 @@
 
 .accordion-item--closed .accordion-item__body {
   display: none;
-  height: 0;
   opacity: 0;
 }
 
