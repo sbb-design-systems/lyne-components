@@ -10,7 +10,7 @@
   --chevron-transition-timing-function: ease-in;
   --chevron-transition-duration: 200ms;
   --expand-animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  --expand-animation-duration: 1500ms;
+  --expand-animation-duration: 300ms;
 
   --color-heading: var(--color-black-default);
   --color-chevron: var(--color-black-default);
@@ -37,6 +37,8 @@
   border-radius: pxToRem(var(--border-radius-small));
   font-family: var(--font-family);
   font-weight: normal;
+
+  @include visibleFocus;
 }
 
 .accordion-item--first {
@@ -47,6 +49,11 @@
 .accordion-item--last {
   border-bottom-left-radius: pxToRem(var(--border-radius-large));
   border-bottom-right-radius: pxToRem(var(--border-radius-large));
+}
+
+.accordion-item:hover,
+.accordion-item:focus {
+  background: pink;
 }
 
 .accordion-item__heading {
