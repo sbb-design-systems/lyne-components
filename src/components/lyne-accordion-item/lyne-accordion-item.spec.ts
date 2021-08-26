@@ -8,12 +8,6 @@ jest.mock('../../global/guid');
 import { LyneAccordionItem } from './lyne-accordion-item';
 import { newSpecPage } from '@stencil/core/testing';
 
-beforeEach(() => {
-  jest
-    .spyOn(global.Math, 'random')
-    .mockReturnValue(0.123456789);
-});
-
 describe('lyne-accordion-item', () => {
   it('renders', async () => {
     const {
