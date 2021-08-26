@@ -1,3 +1,9 @@
 :host {
   display: block;
+
+  --item-margin-block: var(--spacing-fixed-1x);
+}
+
+::slotted(*:not(:first-child)) {
+  margin-block-start: pxToRem(var(--item-margin-block));
 }
