@@ -3,4 +3,4 @@ const s4 = () => Math
   .toString(16)
   .substring(1);
 
-export default () => `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
+export const guid = () => `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
