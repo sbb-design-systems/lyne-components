@@ -195,7 +195,7 @@ export class LyneAccordionItem {
   public render(): JSX.Element {
     const HEADING_TAGNAME = `h${this.headingLevel}`;
 
-    const hasIconInSlot = this._element.querySelector(`svg[slot="${iconSlotName}"`) !== null;
+    const hasIconInSlot = this._element.querySelector(`svg[slot="${iconSlotName}"]`) !== null;
 
     const iconClass = hasIconInSlot
       ? ' accordion-item--has-icon'
