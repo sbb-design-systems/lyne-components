@@ -10,6 +10,7 @@ import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
+import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 export namespace Components {
     interface LyneButton {
         /**
@@ -131,6 +132,16 @@ export namespace Components {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneSbbLogo {
+        /**
+          * The Logo needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the logo can be used in these variants
+         */
+        "variant"?: InterfaceLogoAttributes['variant'];
+    }
 }
 declare global {
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
@@ -169,6 +180,12 @@ declare global {
         prototype: HTMLLynePearlChainElement;
         new (): HTMLLynePearlChainElement;
     };
+    interface HTMLLyneSbbLogoElement extends Components.LyneSbbLogo, HTMLStencilElement {
+    }
+    var HTMLLyneSbbLogoElement: {
+        prototype: HTMLLyneSbbLogoElement;
+        new (): HTMLLyneSbbLogoElement;
+    };
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-clock": HTMLLyneClockElement;
@@ -176,6 +193,7 @@ declare global {
         "lyne-link": HTMLLyneLinkElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
+        "lyne-sbb-logo": HTMLLyneSbbLogoElement;
     }
 }
 declare namespace LocalJSX {
@@ -299,6 +317,16 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneSbbLogo {
+        /**
+          * The Logo needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the logo can be used in these variants
+         */
+        "variant"?: InterfaceLogoAttributes['variant'];
+    }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
         "lyne-clock": LyneClock;
@@ -306,6 +334,7 @@ declare namespace LocalJSX {
         "lyne-link": LyneLink;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
+        "lyne-sbb-logo": LyneSbbLogo;
     }
 }
 export { LocalJSX as JSX };
@@ -318,6 +347,7 @@ declare module "@stencil/core" {
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
+            "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
         }
     }
 }
