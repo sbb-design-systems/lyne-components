@@ -1,3 +1,10 @@
+# [9.33.0](https://github.com/lyne-design-system/lyne-components/compare/v9.32.0...v9.33.0) (2021-08-26)
+
+
+### Features
+
+* is adding forced colors styling ([dcc5439](https://github.com/lyne-design-system/lyne-components/commit/dcc5439b30724b1caf1daf2bd3b37d2e3ee37e30))
+
 # [9.32.0](https://github.com/lyne-design-system/lyne-components/compare/v9.31.0...v9.32.0) (2021-08-25)
 
 
