@@ -20,7 +20,7 @@ import {
 } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-down-small.svg';
 import events from './lyne-accordion-item.events';
-import guid from '../../global/guid';
+import { guid } from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
 
 /**
@@ -178,14 +178,17 @@ export class LyneAccordionItem {
 
   public componentWillLoad(): void {
     this._guid = guid();
+
+    if (this.open) {
+      this._openClass = 'accordion-item--open';
+    } else {
+      this._openClass = 'accordion-item--closed';
+    }
   }
 
   public componentDidLoad(): void {
     if (this.open) {
       this._chevron.classList.add('accordion-item__chevron--rotate');
-      this._openClass = 'accordion-item--open';
-    } else {
-      this._openClass = 'accordion-item--closed';
     }
   }
 
