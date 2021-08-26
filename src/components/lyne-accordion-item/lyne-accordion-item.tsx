@@ -5,9 +5,9 @@
  * - storybook
  * - Slot description is not rendering on readme
  * - anchor
- * - when accordion is composed, check guid's
  * - focus style
  * - hover style
+ * - disabled
  */
 
 import {
@@ -25,6 +25,9 @@ import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d
 
 /**
  * @slot icon - Pass an svg to display an icon left to the title.
+ */
+
+/**
  * @slot content - Pass html-content to show as the content of the accordion.
  * Use flat html: `<p>Some text</p><p>Some other text</p>` is ok.
  * This instead would not be ok:
@@ -32,8 +35,6 @@ import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d
  */
 
 const iconSlotName = 'icon';
-
-const uniqueId = guid();
 
 @Component({
   shadow: true,
@@ -87,6 +88,7 @@ export class LyneAccordionItem {
 
   private _accordionBody!: HTMLElement;
   private _chevron: HTMLElement;
+  private _guid: string;
 
   private _handleToggleEnd = (data: any): void => {
     const wasHeightAnimation = data.propertyName === 'height';
@@ -167,6 +169,10 @@ export class LyneAccordionItem {
 
   };
 
+  public componentWillLoad(): void {
+    this._guid = guid();
+  }
+
   public componentDidLoad(): void {
     if (this.open) {
       this._chevron.classList.add('accordion-item__chevron--rotate');
@@ -174,7 +180,6 @@ export class LyneAccordionItem {
     } else {
       this._openClass = 'accordion-item--closed';
     }
-
   }
 
   public render(): JSX.Element {
@@ -210,7 +215,7 @@ export class LyneAccordionItem {
             class='accordion-item__button'
             aria-label={this.heading}
             aria-expanded={this.open}
-            aria-controls={`${uniqueId}_body`}
+            aria-controls={`${this._guid}_body`}
           >
 
             <div class='accordion-item__icon'>
@@ -233,7 +238,7 @@ export class LyneAccordionItem {
 
         <div
           class='accordion-item__body'
-          id={`${uniqueId}_body`}
+          id={`${this._guid}_body`}
           aria-hidden={ariaHidden}
           ref={(el): void => {
             this._accordionBody = el;
