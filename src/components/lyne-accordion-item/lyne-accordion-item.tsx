@@ -16,6 +16,7 @@
  * - don't animate on init open
  * - animate when prop changes from outside
  * - if init open, check animation for close
+ * - send events after open/close
  */
 
 import {
@@ -23,9 +24,9 @@ import {
   Element,
   h,
   Prop,
-  State
+  State,
+  Watch
 } from '@stencil/core';
-import anime from 'animejs/lib/anime.es.js';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-down-small.svg';
 import guid from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
@@ -41,10 +42,6 @@ import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d
 const iconSlotName = 'icon';
 
 const uniqueId = guid();
-
-// !TODO!: missing design tokens
-const animationDuration = '300ms';
-const animationTimingFunction = 'cubicBezier(0.785, 0.135, 0.15, 0.86)';
 
 @Component({
   shadow: true,
@@ -85,51 +82,63 @@ export class LyneAccordionItem {
 
   @Element() private _element: HTMLElement;
 
+  @Watch('open')
+  public watchStateHandler(newValue: boolean): void {
+    if (!this._isAnimating) {
+      this._toggleAccordion(newValue);
+    }
+  }
+
   private _accordionBody!: HTMLElement;
 
-  private _toggleAccordion(): void {
+  private _handleToggleEnd = (data: any): void => {
+    const wasHeightAnimation = data.propertyName === 'height';
+
+    if (wasHeightAnimation) {
+      this._accordionBody.removeEventListener('transitionend', this._handleToggleEnd);
+      this._isAnimating = false;
+    }
+  };
+
+  private _toggleAccordion = (state?): void => {
     if (this._isAnimating) {
       return;
     }
 
     this._isAnimating = true;
 
+    if (state === undefined) {
+      this.open = !this.open;
+    } else {
+      this.open = state;
+    }
+
     let newHeight = 0;
+    let newOpacity = '0';
 
     if (this.open) {
-      const initHeight = this._accordionBody.getBoundingClientRect().height;
-
-      this._accordionBody.style.setProperty('height', `${initHeight}px`);
-    } else {
       this._accordionBody.style.setProperty('height', 'auto');
       this._accordionBody.style.setProperty('display', 'block');
       this._accordionBody.style.setProperty('opacity', '0');
 
       newHeight = this._accordionBody.getBoundingClientRect().height;
+      newOpacity = '1';
 
-      this._accordionBody.style.removeProperty('height');
+      this._accordionBody.style.setProperty('height', '0');
+    } else {
+      const initHeight = this._accordionBody.getBoundingClientRect().height;
+
+      this._accordionBody.style.setProperty('height', `${initHeight}px`);
     }
 
-    this.open = !this.open;
+    this._accordionBody.addEventListener('transitionend', this._handleToggleEnd);
 
-    anime({
-      complete: () => {
-        if (this.open) {
-          this._accordionBody.style.setProperty('height', 'auto');
-        } else {
-          this._accordionBody.style.setProperty('height', '0');
-        }
+    setTimeout(() => {
+      this._accordionBody.style.setProperty('height', `${newHeight}px`);
+      this._accordionBody.style.setProperty('opacity', newOpacity);
+    }, 0);
 
-        this._isAnimating = false;
-      },
-      duration: animationDuration,
-      easing: animationTimingFunction,
-      height: newHeight,
-      opacity: 1,
-      targets: this._accordionBody
-    });
-
-  }
+  };
 
   public render(): JSX.Element {
     const HEADING_TAGNAME = `h${this.headingLevel}`;
