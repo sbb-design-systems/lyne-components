@@ -1,3 +1,4 @@
+import events from './lyne-accordion-item.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -13,6 +14,7 @@ export const WithIcon = (args) => (
 );
 
 WithIcon.args = {
+  'event-id': 'id1',
   'first': true,
   'heading': 'Accordion Item',
   'heading-level': '2',
@@ -29,6 +31,7 @@ export const WithoutIcon = (args) => (
 );
 
 WithoutIcon.args = {
+  'event-id': 'id2',
   'heading': 'Accordion Item',
   'heading-level': '2',
   'last': true,
@@ -37,6 +40,12 @@ WithoutIcon.args = {
 
 export default {
   parameters: {
+    actions: {
+      handles: [
+        events.didOpen,
+        events.didClose
+      ]
+    },
     docs: {
       extractComponentDescription: () => readme
     }
