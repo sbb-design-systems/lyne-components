@@ -3,6 +3,10 @@ import {
   h
 } from '@stencil/core';
 
+/**
+ * @slot unnamed - Place lyne-accordion-item elements in the slot
+ */
+
 @Component({
   shadow: true,
   styleUrl: 'lyne-accordion.scss',
@@ -15,7 +19,7 @@ export class LyneAccordion {
 
     return (
       <div>
-        accordion
+        <slot />
       </div>
     );
   }
