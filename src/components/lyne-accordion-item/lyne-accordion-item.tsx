@@ -4,7 +4,6 @@
  * - accordion container
  * - storybook
  * - Slot description is not rendering on readme
- * - chevron-down-small has different name in figma. check doku page
  * - anchor
  * - when accordion is composed, check guid's
  * - focus style
