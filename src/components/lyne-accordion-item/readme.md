@@ -1,6 +1,7 @@
 # lyne-accordion-item
 
 
+
 <!-- Auto Generated Below -->
 
 
@@ -8,6 +9,7 @@
 
 | Property               | Attribute       | Description                                                       | Type                                     | Default     |
 | ---------------------- | --------------- | ----------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `disabled`             | `disabled`      | If set, an accordion can not be toggled                           | `boolean`                                | `undefined` |
 | `eventId`              | `event-id`      | Id which is sent in the event after opening/closing accordion     | `string`                                 | `undefined` |
 | `first`                | `first`         | Set this attribute for the first item in an accordion.            | `boolean`                                | `undefined` |
 | `heading` _(required)_ | `heading`       | Text to show as title for the accordion.                          | `string`                                 | `undefined` |
