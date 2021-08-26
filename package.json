@@ -94,5 +94,8 @@
   },
   "bugs": {
     "url": "https://github.com/lyne-design-system/lyne-components/issues"
+  },
+  "dependencies": {
+    "animejs": "~3.2.1"
   }
 }
