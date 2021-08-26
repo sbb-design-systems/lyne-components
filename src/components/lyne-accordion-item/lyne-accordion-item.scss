@@ -33,7 +33,7 @@
 .accordion-item {
   width: 100%;
   // background-color: var(--color-white-default);
-  background-color: grey;
+  // background-color: grey;
   border-radius: pxToRem(var(--border-radius-small));
   font-family: var(--font-family);
   font-weight: normal;
@@ -51,8 +51,8 @@
   border-bottom-right-radius: pxToRem(var(--border-radius-large));
 }
 
-.accordion-item:hover,
-.accordion-item:focus {
+.accordion-item:hover:not(.accordion-item--disabled),
+.accordion-item:focus:not(.accordion-item--disabled) {
   background: pink;
 }
 
