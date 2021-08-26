@@ -9,6 +9,9 @@
   --line-height: 1.7;
   --chevron-transition-timing-function: ease-in;
   --chevron-transition-duration: 200ms;
+  --expand-animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  --expand-animation-duration: 1500ms;
+
 
   --color-heading: var(--color-black-default);
   --color-chevron: var(--color-black-default);
@@ -112,11 +115,11 @@
 
 .accordion-item__body {
   box-sizing: border-box;
-  font-size: pxToRem(var(--font-size-body));
-  letter-spacing: var(--letter-spacing);
-  line-height: var(--line-height);
-  color: var(--color-body);
   overflow: hidden;
+
+  transition-property: height, opacity;
+  transition-duration: var(--expand-animation-duration);
+  transition-timing-function: var(--expand-animation-timing-function);
 }
 
 .accordion-item--closed .accordion-item__body {
@@ -135,6 +138,10 @@
   padding-inline-start: pxToRem(var(--body-padding-inline));
   padding-inline-end: pxToRem(var(--body-padding-inline));
   padding-block-end: pxToRem(var(--body-padding-block));
+  font-size: pxToRem(var(--font-size-body));
+  letter-spacing: var(--letter-spacing);
+  line-height: var(--line-height);
+  color: var(--color-body);
 }
 
 // style first slot child
