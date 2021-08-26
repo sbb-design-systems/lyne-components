@@ -8,6 +8,7 @@
 
 | Property               | Attribute       | Description                                                       | Type                                     | Default     |
 | ---------------------- | --------------- | ----------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `eventId`              | `event-id`      | Id which is sent in the event after opening/closing accordion     | `string`                                 | `undefined` |
 | `first`                | `first`         | Set this attribute for the first item in an accordion.            | `boolean`                                | `undefined` |
 | `heading` _(required)_ | `heading`       | Text to show as title for the accordion.                          | `string`                                 | `undefined` |
 | `headingLevel`         | `heading-level` | Heading level.                                                    | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'1'`       |
