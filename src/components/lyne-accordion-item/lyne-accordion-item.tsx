@@ -8,14 +8,24 @@
  * - Slot description is not rendering on readme
  * - chevron-down-small has different name in figma. check doku page
  * - anchor
+ * - when accordion is composed, check guid's
+ * - make sure last-child slot has no padding bottom
+ * - get animation properties from css
+ * - focus style
+ * - hover style
+ * - don't animate on init open
+ * - animate when prop changes from outside
+ * - if init open, check animation for close
  */
 
 import {
   Component,
   Element,
   h,
-  Prop
+  Prop,
+  State
 } from '@stencil/core';
+import anime from 'animejs/lib/anime.es.js';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-down-small.svg';
 import guid from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
@@ -31,6 +41,10 @@ import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d
 const iconSlotName = 'icon';
 
 const uniqueId = guid();
+
+// !TODO!: missing design tokens
+const animationDuration = '300ms';
+const animationTimingFunction = 'cubicBezier(0.785, 0.135, 0.15, 0.86)';
 
 @Component({
   shadow: true,
@@ -67,10 +81,54 @@ export class LyneAccordionItem {
     reflect: true
   }) public open?: boolean;
 
+  @State() private _isAnimating = false;
+
   @Element() private _element: HTMLElement;
 
+  private _accordionBody!: HTMLElement;
+
   private _toggleAccordion(): void {
+    if (this._isAnimating) {
+      return;
+    }
+
+    this._isAnimating = true;
+
+    let newHeight = 0;
+
+    if (this.open) {
+      const initHeight = this._accordionBody.getBoundingClientRect().height;
+
+      this._accordionBody.style.setProperty('height', `${initHeight}px`);
+    } else {
+      this._accordionBody.style.setProperty('height', 'auto');
+      this._accordionBody.style.setProperty('display', 'block');
+      this._accordionBody.style.setProperty('opacity', '0');
+
+      newHeight = this._accordionBody.getBoundingClientRect().height;
+
+      this._accordionBody.style.removeProperty('height');
+    }
+
     this.open = !this.open;
+
+    anime({
+      complete: () => {
+        if (this.open) {
+          this._accordionBody.style.setProperty('height', 'auto');
+        } else {
+          this._accordionBody.style.setProperty('height', '0');
+        }
+
+        this._isAnimating = false;
+      },
+      duration: animationDuration,
+      easing: animationTimingFunction,
+      height: newHeight,
+      opacity: 1,
+      targets: this._accordionBody
+    });
+
   }
 
   public render(): JSX.Element {
@@ -132,8 +190,13 @@ export class LyneAccordionItem {
           class='accordion-item__body'
           id={`${uniqueId}_body`}
           aria-hidden={ariaHidden}
+          ref={(el): void => {
+            this._accordionBody = el;
+          }}
         >
-          <slot name='content' />
+          <div class='accordion-item__body-inner'>
+            <slot name='content' />
+          </div>
         </div>
 
       </div>
