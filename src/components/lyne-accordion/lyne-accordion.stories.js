@@ -29,7 +29,7 @@ const Template = (args) => (
       heading='Accordion Item 3'
       heading-level='2'
       last
-      open={false}
+      open={true}
     >
       <p slot='content'>1 Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.</p>
       <p slot='content'>2 Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.</p>
