@@ -1,3 +1,11 @@
+## [9.33.1](https://github.com/lyne-design-system/lyne-components/compare/v9.33.0...v9.33.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* use new design token for default font size ([f56d226](https://github.com/lyne-design-system/lyne-components/commit/f56d2261b14abe5ad743824c849708ece478ef87))
+* use new design token for default font size ([6db0745](https://github.com/lyne-design-system/lyne-components/commit/6db0745038bbafb817ef08947e6269ae3f48381b))
+
 # [9.33.0](https://github.com/lyne-design-system/lyne-components/compare/v9.32.0...v9.33.0) (2021-08-26)
 
 
