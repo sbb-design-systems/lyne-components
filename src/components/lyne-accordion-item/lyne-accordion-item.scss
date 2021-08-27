@@ -17,25 +17,20 @@
   --color-heading: var(--color-black-default);
   --color-heading-hover: var(--color-anthracite-default);
   --color-default: var(--color-white-default);
-
   --icon-size: var(--size-icon-ui-small);
-
   --header-padding-block: var(--spacing-fixed-5x);
   --icon-padding-inline-end:  var(--spacing-fixed-3x);
   --body-padding-block: var(--spacing-fixed-5x);
-
   --border-color: var(--color-cloud-default);
 }
 
 .accordion-item {
   width: 100%;
-
   background-color: var(--color-white-default);
   border-radius: pxToRem(var(--border-radius-small));
   font-family: var(--font-family);
   font-weight: normal;
   border-bottom: pxToRem(var(--border-width)) solid var(--border-color);
-
   transition: background-color var(--header-transition-duration) var(--header-transition-timing-function);
 
   @include visibleFocus;
@@ -76,7 +71,6 @@
   padding-block-end: pxToRem(var(--header-padding-block));
   padding-inline-start: pxToRem(var(--header-padding-inline));
   padding-inline-end: pxToRem(var(--header-padding-inline));
-
   transition: color var(--header-transition-duration) var(--header-transition-timing-function);
 }
 
