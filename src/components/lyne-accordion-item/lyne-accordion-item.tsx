@@ -18,7 +18,7 @@ import {
   State,
   Watch
 } from '@stencil/core';
-import chevronIcon from 'lyne-icons/dist/icons/chevron-down-small.svg';
+import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
 import events from './lyne-accordion-item.events';
 import { guid } from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
