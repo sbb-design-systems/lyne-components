@@ -1,13 +1,6 @@
 /**
  * TODO:
- *
- * - accordion container
- * - storybook
  * - Slot description is not rendering on readme
- * - anchor
- * - focus style
- * - hover style
- * - disabled
  */
 
 import {
