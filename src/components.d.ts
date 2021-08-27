@@ -9,6 +9,7 @@ import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-it
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
+import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 export namespace Components {
     interface LyneAccordion {
@@ -92,6 +93,10 @@ export namespace Components {
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
+        /**
+          * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
+         */
+        "visualButtonOnly"?: boolean;
     }
     interface LyneClock {
         /**
@@ -128,6 +133,24 @@ export namespace Components {
         "openInNewWindow": boolean;
         /**
           * Text to show for the link
+         */
+        "text": string;
+    }
+    interface LynePanel {
+        /**
+          * The text to use as button text
+         */
+        "buttonText": string;
+        /**
+          * Id which is sent in the click event payload for the button
+         */
+        "eventId"?: string;
+        /**
+          * The tag to use for the text element
+         */
+        "tag"?: InterfacePanelAttributes['tag'];
+        /**
+          * The text to show in the panel
          */
         "text": string;
     }
@@ -183,6 +206,12 @@ declare global {
         prototype: HTMLLyneLinkElement;
         new (): HTMLLyneLinkElement;
     };
+    interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
+    }
+    var HTMLLynePanelElement: {
+        prototype: HTMLLynePanelElement;
+        new (): HTMLLynePanelElement;
+    };
     interface HTMLLynePearlChainElement extends Components.LynePearlChain, HTMLStencilElement {
     }
     var HTMLLynePearlChainElement: {
@@ -196,6 +225,7 @@ declare global {
         "lyne-clock": HTMLLyneClockElement;
         "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
+        "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
     }
 }
@@ -281,6 +311,10 @@ declare namespace LocalJSX {
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
+        /**
+          * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
+         */
+        "visualButtonOnly"?: boolean;
     }
     interface LyneClock {
         /**
@@ -320,6 +354,24 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
+    interface LynePanel {
+        /**
+          * The text to use as button text
+         */
+        "buttonText": string;
+        /**
+          * Id which is sent in the click event payload for the button
+         */
+        "eventId"?: string;
+        /**
+          * The tag to use for the text element
+         */
+        "tag"?: InterfacePanelAttributes['tag'];
+        /**
+          * The text to show in the panel
+         */
+        "text": string;
+    }
     interface LynePearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
@@ -341,6 +393,7 @@ declare namespace LocalJSX {
         "lyne-clock": LyneClock;
         "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
+        "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
     }
 }
@@ -354,6 +407,7 @@ declare module "@stencil/core" {
             "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
             "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
+            "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
         }
     }

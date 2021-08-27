@@ -1,3 +1,61 @@
+# [9.33.0](https://github.com/lyne-design-system/lyne-components/compare/v9.32.0...v9.33.0) (2021-08-26)
+
+
+### Features
+
+* is adding forced colors styling ([dcc5439](https://github.com/lyne-design-system/lyne-components/commit/dcc5439b30724b1caf1daf2bd3b37d2e3ee37e30))
+
+# [9.32.0](https://github.com/lyne-design-system/lyne-components/compare/v9.31.0...v9.32.0) (2021-08-25)
+
+
+### Bug Fixes
+
+* add px unit to viewports, respect max of 1800 px ([f748083](https://github.com/lyne-design-system/lyne-components/commit/f748083493581a5114c66de02cd26fe2426bbfcb))
+* define chormatic config globally ([f83b108](https://github.com/lyne-design-system/lyne-components/commit/f83b108c0da6bb2bc9176cbc26a2f94dbe7f7daa))
+* is adding improved border rendering on non retina screens ([9423cc8](https://github.com/lyne-design-system/lyne-components/commit/9423cc867c6aa506a11544bbe083bab902629b90))
+* make text required ([c8d126d](https://github.com/lyne-design-system/lyne-components/commit/c8d126d08011f07e1fb852b42669a69b9fdbc45b))
+* properly set button text attribute ([918f342](https://github.com/lyne-design-system/lyne-components/commit/918f342cebe904aadace6e334e90126288efab50))
+* put margin from main container to host ([9a44d49](https://github.com/lyne-design-system/lyne-components/commit/9a44d49588fb3d23d421ba92ef773efea772519b))
+* remove component chromatic config ([246869f](https://github.com/lyne-design-system/lyne-components/commit/246869faf8fb61b8cc8f90a7328bea22876cadda))
+* remove component chromatic config ([066e2d2](https://github.com/lyne-design-system/lyne-components/commit/066e2d276321e2600264c91133efcb68c8de9b49))
+* remove component chromatic config ([1f2829f](https://github.com/lyne-design-system/lyne-components/commit/1f2829f6b92a23fee0e823fcedd24e8bc6a940ea))
+* remove component chromatic config ([8a95ef3](https://github.com/lyne-design-system/lyne-components/commit/8a95ef369adfdc62f033e29a87b0b01510ed4852))
+* remove component chromatic config ([a90703c](https://github.com/lyne-design-system/lyne-components/commit/a90703c9c879d666707f480419dbeb7cacdaf325))
+* remove component chromatic config ([155079d](https://github.com/lyne-design-system/lyne-components/commit/155079d32cd106946a6cb3487a2b8d0b77c10dab))
+* remove pixel units from viewports ([4473789](https://github.com/lyne-design-system/lyne-components/commit/44737899c5e4219737ed96ae5a995da1a20d7dcb))
+* set min-height on panel, don't use padding shorthand ([108fc43](https://github.com/lyne-design-system/lyne-components/commit/108fc43213529cd3fde8268e61a2226f70af4023))
+* set width for visual-only button ([a4040d0](https://github.com/lyne-design-system/lyne-components/commit/a4040d0427133a55261eaae81d63557a0c63cb21))
+* use correct spacing tokens, add block padding to panel ([bb094b6](https://github.com/lyne-design-system/lyne-components/commit/bb094b672133b198fe0376ad81fcf0a44ffc1ec4))
+* use logical properties for border ([6606f3b](https://github.com/lyne-design-system/lyne-components/commit/6606f3b446545988623e41ecc29624f2668dfa93))
+* use padding on host to make chromatic take proper screenshots of #root ([8bb2d58](https://github.com/lyne-design-system/lyne-components/commit/8bb2d58bbc82ff9b67e73af45a43d6c2a89235ae))
+* use viewports from global config ([d189f22](https://github.com/lyne-design-system/lyne-components/commit/d189f22ab09e7be0cbf635db45ed908088e03a29))
+* use visual-button-only variant ([d9e1fad](https://github.com/lyne-design-system/lyne-components/commit/d9e1fad099c6b20f53b18a94a7a32a9e968c5b76))
+
+
+### Features
+
+* add bg color ([668579f](https://github.com/lyne-design-system/lyne-components/commit/668579fe9889a4296d17b30d62e157eff237fa40))
+* add button component ([2249904](https://github.com/lyne-design-system/lyne-components/commit/22499049210c7068b053210bc9a73a076ba6da88))
+* add empty e2e file for panel ([0e17284](https://github.com/lyne-design-system/lyne-components/commit/0e172843099ca469187cd6dc51a2d1a0f4a51023))
+* add empty readme for panel ([b400e42](https://github.com/lyne-design-system/lyne-components/commit/b400e422d8a2a64890d7f36d591c4e79c8494ca4))
+* add empty scss file for panel ([fc79c3f](https://github.com/lyne-design-system/lyne-components/commit/fc79c3febcc55ae74f06449cc9055fc22597d1c3))
+* add empty spec file for panel ([46b7a44](https://github.com/lyne-design-system/lyne-components/commit/46b7a4407039d3e62f7e11e970738667e049bd8d))
+* add empty stories file for panel ([aba2909](https://github.com/lyne-design-system/lyne-components/commit/aba29096278a27261c7efe6af97c4ab9f4f12dd0))
+* add empty tsx for panel ([05c7cac](https://github.com/lyne-design-system/lyne-components/commit/05c7cac6d638fd7a9bbb96e2de94479daef5da7f))
+* add final stylings ([8c1e443](https://github.com/lyne-design-system/lyne-components/commit/8c1e443a885612a0530358087b678c9e11e9a47e))
+* add prop for button text ([f062d43](https://github.com/lyne-design-system/lyne-components/commit/f062d43b89bdba1ec94d1e0dc041d25fea40f8a7))
+* make it possible via prop to render div instead of button ([3efccbc](https://github.com/lyne-design-system/lyne-components/commit/3efccbcc9d37f182fd5779bda0607b6e8b6ad31f))
+* make tag for the text configurable via prop ([b3ffbd3](https://github.com/lyne-design-system/lyne-components/commit/b3ffbd363ef27ea55ac58d86d8038dcde9f77412))
+* make text and buttonText configurable ([e22cc53](https://github.com/lyne-design-system/lyne-components/commit/e22cc537cbbeacc4e645b6dc9f28d737e25ba41d))
+* register rtl addon ([9ce6357](https://github.com/lyne-design-system/lyne-components/commit/9ce6357ab0a0a942632d37b6cdd5262520577cb3))
+
+# [9.31.0](https://github.com/lyne-design-system/lyne-components/compare/v9.30.1...v9.31.0) (2021-08-25)
+
+
+### Features
+
+* add border-radius-4x (triggered from design tokens build) [skip ci] ([8ead15b](https://github.com/lyne-design-system/lyne-components/commit/8ead15b5d325733bf7d84990b987dc49d248d947))
+
 ## [9.30.1](https://github.com/lyne-design-system/lyne-components/compare/v9.30.0...v9.30.1) (2021-08-24)
 
 

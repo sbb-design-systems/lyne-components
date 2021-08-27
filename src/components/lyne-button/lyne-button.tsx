@@ -28,6 +28,12 @@ export class LyneButton {
   /** Size variant, either large or small. */
   @Prop() public size?: InterfaceButtonAttributes['size'] = 'large';
 
+  /**
+   * Set this property to true if you want only a visual represenation of a
+   * button, but no interaction (a div instead of a button will be rendered).
+   */
+  @Prop() public visualButtonOnly?: boolean;
+
   /** Set to true to get a disabled button */
   @Prop() public disabled? = false;
 
@@ -60,6 +66,10 @@ export class LyneButton {
   private _buttonClick = (): void => {
     let eventDetail;
 
+    if (this.visualButtonOnly) {
+      return;
+    }
+
     if (this.eventId) {
       eventDetail = this.eventId;
     }
@@ -91,18 +101,36 @@ export class LyneButton {
     const iconClass = hasNoLabel
       ? 'button--icon-only'
       : '';
-    const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass}`;
+    const semanticClass = this.visualButtonOnly
+      ? 'button--visual-only'
+      : '';
+
+    const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass}`;
+
+    const TAGNAME = this.visualButtonOnly
+      ? 'div'
+      : 'button';
+
+    const mainAttributes = {
+      class: buttonClass
+    };
+
+    const buttonAttributes = {
+      ...mainAttributes,
+      'aria-haspopup': this.ariaHaspopup,
+      'disabled': this.disabled,
+      'name': this.name,
+      'onClick': this._buttonClick,
+      'type': this.type,
+      'value': this.value
+    };
+
+    const finalAttributes = this.visualButtonOnly
+      ? mainAttributes
+      : buttonAttributes;
 
     return (
-      <button
-        disabled={this.disabled}
-        class={buttonClass}
-        onClick={this._buttonClick}
-        type={this.type}
-        name={this.name}
-        value={this.value}
-        aria-haspopup={this.ariaHaspopup}
-      >
+      <TAGNAME {...finalAttributes}>
 
         {this.icon && hasNoLabel && this.iconDescription
           ? <span class='button__icon-description'>{this.iconDescription}</span>
@@ -119,7 +147,7 @@ export class LyneButton {
           : <span class='button__label'>{this.label}</span>
         }
 
-      </button>
+      </TAGNAME>
     );
   }
 }
