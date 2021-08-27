@@ -1,22 +1,27 @@
 // Polyfill for :focus-visible
 import 'focus-visible/dist/focus-visible.min';
 
-// Define component mode
 /*
+ * Define component mode
+ *
  * Pick component CSS file based on globally (<html> element) defined mode
- * // eslint-disable-next-line max-len
- * (default|shared) @see https://github.com/ionic-team/ionic-framework/blob/main/core/src/global/ionic-global.ts
+ * (default|shared) where default is encapsulated/selfcontaining. Inspired by
+ * Ionic framework @see link below. Could at one point also be used to test out
+ * new designs with a `next` mode.
  */
 
+// eslint-disable-next-line max-len
+// @see https://github.com/ionic-team/ionic-framework/blob/main/core/src/global/ionic-global.ts
+
+import { Mode } from '../interface';
 import { setMode } from '@stencil/core';
 
-/*
- * import { Mode } from '../interface';
- * let defaultMode: Mode;
- */
-let mode;
+let defaultMode: Mode;
 
-export const initialize = () => {
+// eslint-disable-next-line max-len
+// export const getLyneMode = (ref?: any): Mode => (ref && getMode(ref)) || defaultMode;
+
+export const initialize = (): Mode => {
   if (typeof (window as any) === 'undefined') {
     return;
   }
@@ -27,11 +32,13 @@ export const initialize = () => {
    * We see if the mode was set as an attribute on <html>
    * which could have been set by the user, or by pre-rendering
    */
-  mode = doc.documentElement.getAttribute('mode') || 'default';
+  defaultMode = (doc.documentElement.getAttribute('mode') === 'shared'
+    ? 'shared'
+    : 'default');
 
-  const isLyneElement = (elm: any) => elm.tagName.startsWith('lyne-');
+  const isLyneElement = (elm: HTMLElement): boolean => elm.tagName && elm.tagName.startsWith('lyne-');
 
-  const isAllowedLyneModeValue = (elmMode: string) => [
+  const isAllowedLyneModeValue = (elmMode: string): boolean => [
     'default',
     'shared'
   ].includes(elmMode);
@@ -47,10 +54,11 @@ export const initialize = () => {
           console.warn(`Invalid Lyne mode: "${elmMode}", expected: "default" or "shared"`);
         }
       }
+      // eslint-disable-next-line no-param-reassign
       elm = elm.parentElement;
     }
 
-    return mode;
+    return defaultMode;
   });
 };
 
