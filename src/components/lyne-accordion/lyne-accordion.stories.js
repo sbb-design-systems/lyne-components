@@ -52,7 +52,7 @@ Default.decorators = [
 ];
 
 NonWhiteBackground.args = {
-  'non-white': true
+  'non-white-background': true
 };
 
 NonWhiteBackground.decorators = [
