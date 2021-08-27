@@ -16,18 +16,15 @@ import events from './lyne-accordion-item.events';
 import { guid } from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
 
-/**
- * @slot icon - Pass an svg to display an icon left to the title.
- */
+const iconSlotName = 'icon';
 
 /**
+ * @slot icon - Pass an svg to display an icon left to the title.
  * @slot content - Pass html-content to show as the content of the accordion.
  * Use flat html: `<p>Some text</p><p>Some other text</p>` is ok.
  * This instead would not be ok:
- * <div><p>Some text</p><p>Some other text</p></div>
+ * `<div><p>Some text</p><p>Some other text</p></div>`
  */
-
-const iconSlotName = 'icon';
 
 @Component({
   shadow: true,
