@@ -28,16 +28,16 @@ const levels = {
 export const title = Template.bind({});
 
 title.argTypes = {
-  'level': levels,
-  'visualLevel': levels
+  level: levels,
+  visualLevel: levels
 };
 
 title.args = {
-  'text': 'Data without insights are trivial, and insights without action are pointless',
-  'level': 1,
-  'visualLevel': 1,
-  'visuallyHidden': false,
-  'titleId': ''
+  level: 1,
+  text: 'Data without insights are trivial, and insights without action are pointless',
+  titleId: '',
+  visualLevel: 1,
+  visuallyHidden: false
 };
 
 export default {
