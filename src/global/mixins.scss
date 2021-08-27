@@ -3,78 +3,78 @@
 // ----------------------------------------------------------------------------------------------------
 @mixin title {
   margin: 0;
-  font-family: var(--typo-default-titles-font-family);
+  font-family: var(--typo-type-face-sbb-bold);
   font-weight: normal;
-  line-height: var(--typo-default-titles-line-height);
-  letter-spacing: var(--typo-default-titles-letter-spacing);
+  line-height: var(--typo-line-height-titles);
+  letter-spacing: var(--typo-letter-spacing-titles);
 }
 
 @mixin title-1 {
   @include title();
-  font-size: pxToRem(var(--typo-title-1-zero-to-micro-font-size));
+  font-size: pxToRem(var(--typo-scale-2-5x));
 
   @include mq($from: small) {
-    font-size: pxToRem(var(--typo-title-1-small-to-medium-font-size));
+    font-size: pxToRem(var(--typo-scale-3x));
   }
 
   @include mq($from: large) {
-    font-size: pxToRem(var(--typo-title-1-large-to-wide-font-size));
+    font-size: pxToRem(var(--typo-scale-3-5x));
   }
 
   @include mq($from: ultra) {
-    font-size: pxToRem(var(--typo-title-1-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-4x));
   }
 
 }
 
 @mixin title-2 {
   @include title();
-  font-size: pxToRem(var(--typo-title-2-zero-to-small-font-size));
+  font-size: pxToRem(var(--typo-scale-2x));
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-title-2-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-2-5x));
   }
 
 }
 
 @mixin title-3 {
   @include title();
-  font-size: pxToRem(var(--typo-title-3-zero-to-small-font-size));
+  font-size: pxToRem(var(--typo-scale-1-5x));
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-title-3-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-2x));
   }
 
 }
 
 @mixin title-4 {
   @include title();
-  font-size: pxToRem(var(--typo-title-4-zero-to-small-font-size));
+  font-size: pxToRem(var(--typo-scale-1-25x));
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-title-4-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-1-5x));
   }
 
 }
 
 @mixin title-5 {
   @include title();
-  font-size: pxToRem(var(--typo-title-5-zero-to-small-font-size));
-  line-height: var(--typo-title-5-line-height);
+  font-size: pxToRem(var(--typo-scale-default));
+  line-height: var(--typo-line-height-body-text);
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-title-5-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-1-25x));
   }
 
 }
 
 @mixin title-6 {
   @include title();
-  font-size: pxToRem(var(--typo-title-6-zero-to-small-font-size));
-  line-height: var(--typo-title-6-line-height);
+  font-size: pxToRem(var(--typo-scale-0-875x));
+  line-height: var(--typo-line-height-body-text);
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-title-6-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-default));
   }
 
 }
@@ -83,63 +83,70 @@
 // Typo: Text Style Mixins
 // ----------------------------------------------------------------------------------------------------
 @mixin text {
-  font-family: var(--typo-default-text-font-family);
-  line-height: var(--typo-default-text-line-height);
-  letter-spacing: var(--typo-default-text-letter-spacing);
+  font-family: var(--typo-type-face-sbb-roman);
+  line-height: var(--typo-line-height-body-text);
+  letter-spacing: var(--typo-letter-spacing-body-text);
 }
 
-@mixin text-xl-regular {
+@mixin text--bold {
+  font-family: var(--typo-type-face-sbb-bold);
+}
+
+@mixin text-xl--regular {
   @include text();
-  font-size: pxToRem(var(--typo-text-xl-regular-zero-to-small-font-size));
+  font-size: pxToRem(var(--typo-scale-1-25x));
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-text-xl-regular-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-1-5x));
   }
 }
 
-@mixin text-xl-bold {
-  font-family: var(----typo-text-xl-bold-font-family);
+@mixin text-xl--bold {
+  @include text-xl--reqular();
+  @include text--bold();
 }
 
-@mixin text-m-regular {
+@mixin text-m--regular {
   @include text();
-  font-size: pxToRem(var(--typo-text-m-regular-zero-to-small-font-size));
+  font-size: pxToRem(var(--typo-scale-default));
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-text-m-regular-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-1-125x));
   }
 }
 
-@mixin text-m-bold {
-  font-family: var(----typo-text-xl-bold-font-family);
+@mixin text-m--bold {
+  @include text-m--reqular();
+  @include text--bold();
 }
 
-
-@mixin text-s-regular {
+@mixin text-s--regular {
   @include text();
-  font-size: pxToRem(var(--typo-text-s-regular-zero-to-small-font-size));
+  font-size: pxToRem(var(--typo-scale-0-875x));
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-text-s-regular-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-default));
   }
 }
 
-@mixin text-s-bold {
-  font-family: var(----typo-text-xl-bold-font-family);
+@mixin text-s--bold {
+  @include text-s--reqular();
+  @include text--bold();
 }
 
 
-@mixin text-s-regular {
+@mixin text-s--regular {
   @include text();
-  font-size: pxToRem(var(--typo-text-xs-regular-zero-to-small-font-size));
+  font-size: pxToRem(var(--typo-scale-0-75x));
 
   @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-text-xs-regular-medium-to-ultra-font-size));
+    font-size: pxToRem(var(--typo-scale-0-875x));
   }
 }
 
-@mixin text-s-bold {
-  font-family: var(----typo-text-xl-bold-font-family);
+@mixin text-s--bold {
+  @include text-s-reqular();
+  @include text--bold();
 }
 
 // ----------------------------------------------------------------------------------------------------
