@@ -17,19 +17,18 @@ import {
 export class LyneAccordion {
 
   /**
-   * Set this if you want to render the light variant of the accordion.
-   * This is only allowed on non-white backgrounds.
+   * Set this if you want to use the accordion on a non-white background.
    */
-  @Prop() public light?: boolean;
+  @Prop() public nonWhiteBackground?: boolean;
 
   public render(): JSX.Element {
 
-    const lightClass = this.light
-      ? ' accordion--light'
+    const nonWhite = this.nonWhiteBackground
+      ? ' accordion--non-white'
       : '';
 
     return (
-      <div class={`accordion${lightClass}`}>
+      <div class={`accordion${nonWhite}`}>
         <slot />
       </div>
     );
