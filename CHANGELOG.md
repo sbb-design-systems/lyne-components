@@ -1,3 +1,16 @@
+# [9.35.0](https://github.com/lyne-design-system/lyne-components/compare/v9.34.0...v9.35.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* bumping lyne-design-token version in package json to avoid build error ([18baeed](https://github.com/lyne-design-system/lyne-components/commit/18baeed6ab6630946d3017e49b39e8a96dd7ff4a))
+* removing sbb-logo__panel-border element ([936567b](https://github.com/lyne-design-system/lyne-components/commit/936567be2b9761615c262a1f9205cc04e6f1391b))
+
+
+### Features
+
+* is adding logo component and variants ([8ae2c15](https://github.com/lyne-design-system/lyne-components/commit/8ae2c15833279143215e1de4da3008183e293ce3))
+
 # [9.34.0](https://github.com/lyne-design-system/lyne-components/compare/v9.33.1...v9.34.0) (2021-08-27)
 
 
