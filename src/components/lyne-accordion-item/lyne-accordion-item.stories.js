@@ -15,9 +15,22 @@ const Template = (args) => (
   </lyne-accordion-item>
 );
 
-export const AccordionItem = Template.bind({});
+export const Default = Template.bind({});
 
-AccordionItem.args = {
+const table = {
+  disable: true
+};
+
+Default.argTypes = {
+  first: {
+    table
+  },
+  last: {
+    table
+  }
+};
+
+Default.args = {
   'event-id': 'id1',
   'first': false,
   'heading': 'Accordion Item',
