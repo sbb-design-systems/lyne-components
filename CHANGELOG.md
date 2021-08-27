@@ -1,3 +1,15 @@
+# [9.34.0](https://github.com/lyne-design-system/lyne-components/compare/v9.33.1...v9.34.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* make sure that buttons have no shadow in disabled state ([541ff4a](https://github.com/lyne-design-system/lyne-components/commit/541ff4aa0cc6fe210d6ee653f0c9ea4819efddf4))
+
+
+### Features
+
+* add button shadows ([c10d777](https://github.com/lyne-design-system/lyne-components/commit/c10d77704efecda95d360ec9e411d0e194f105fe))
+
 ## [9.33.1](https://github.com/lyne-design-system/lyne-components/compare/v9.33.0...v9.33.1) (2021-08-27)
 
 
