@@ -13,9 +13,9 @@ import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyn
 export namespace Components {
     interface LyneAccordion {
         /**
-          * Set this if you want to render the light variant of the accordion. This is only allowed on non-white backgrounds.
+          * Set this if you want to use the accordion on a non-white background.
          */
-        "light"?: boolean;
+        "nonWhiteBackground"?: boolean;
     }
     interface LyneAccordionItem {
         /**
@@ -202,9 +202,9 @@ declare global {
 declare namespace LocalJSX {
     interface LyneAccordion {
         /**
-          * Set this if you want to render the light variant of the accordion. This is only allowed on non-white backgrounds.
+          * Set this if you want to use the accordion on a non-white background.
          */
-        "light"?: boolean;
+        "nonWhiteBackground"?: boolean;
     }
     interface LyneAccordionItem {
         /**
