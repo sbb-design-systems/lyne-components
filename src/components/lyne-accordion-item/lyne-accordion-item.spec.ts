@@ -1,12 +1,7 @@
-import {
-  axe,
-  toHaveNoViolations
-} from 'jest-axe';
-
-jest.mock('../../global/guid');
-
 import { LyneAccordionItem } from './lyne-accordion-item';
 import { newSpecPage } from '@stencil/core/testing';
+
+jest.mock('../../global/guid');
 
 describe('lyne-accordion-item', () => {
   it('renders', async () => {
