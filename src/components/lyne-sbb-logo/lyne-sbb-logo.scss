@@ -1,7 +1,8 @@
 :host {
   display: block;
 
-  // default logo styles
+  // Default Logo Styles
+  // ----------------------------------------------
   --sbb-logo-panel-color: var(--color-red-default);
   --sbb-logo-panel-stroke-color: var(--color-red-default);
   --sbb-logo-signet-color: var(--color-white-default);
@@ -10,10 +11,16 @@
   // Forced Colors Variant
   // ----------------------------------------------
   @include ifForcedColors() {
-    --sbb-logo-panel-color: Canvas!important;
-    --sbb-logo-panel-stroke-color: ButtonText!important;
-    --sbb-logo-signet-color: ButtonText!important;
-    --sbb-logo-word-mark-color: ButtonText!important;
+    .sbb-logo--default,
+    .sbb-logo--negative,
+    .sbb-logo--on-red,
+    .sbb-logo--black-on-white,
+    .sbb-logo--white-on-black {
+      --sbb-logo-panel-color: ButtonText;
+      --sbb-logo-panel-stroke-color: ButtonText;
+      --sbb-logo-signet-color: Canvas;
+      --sbb-logo-word-mark-color: ButtonText;
+    }
   }
 
 }
@@ -22,10 +29,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 550 / 144; // No Fallback for now...
+  aspect-ratio: 454 / 48; // No Fallback for now...
 }
 
-.sbb-logo__svg {
+.sbb-logo .sbb-logo__svg {
+  width: 100%;
+  height: auto;
+}
+
+.sbb-logo svg {
+  float: left;
+}
+
+.sbb-logo--protective-room-ideal {
+  aspect-ratio: 550 / 144;
+}
+
+.sbb-logo--protective-room-ideal .sbb-logo__svg {
   width: 82.545454%; // 454/550 Adapted from Figma
   height: 33.333333%; // 48/144 Adapted from Figma
 }
@@ -39,7 +59,6 @@
   height: 50%; // 48/96 Adapted from Figma
 }
 
-// ----------------------------------------------
 // Positive / Default Variant
 // ----------------------------------------------
 #sbb-logo__word-mark {
@@ -57,7 +76,7 @@
 
 // Negative Variant
 // ----------------------------------------------
-.sbb-logo--negative #sbb-logo__word-mark {
+.sbb-logo--negative {
   --sbb-logo-word-mark-color: var(--color-white-default);
 }
 

@@ -28,19 +28,20 @@ const protectiveRoom = {
     type: 'select'
   },
   options: [
+    'none',
     'ideal',
     'minimal'
   ]
 };
 
 SBBLogo.argTypes = {
-  variant: variants,
-  protectiveRoom: protectiveRoom
+  protectiveRoom,
+  variant: variants
 };
 
 SBBLogo.args = {
-  variant: variants.options[0],
-  protectiveRoom: protectiveRoom.options[0]
+  protectiveRoom: protectiveRoom.options[0],
+  variant: variants.options[0]
 };
 
 export default {
