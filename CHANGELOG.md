@@ -1,3 +1,30 @@
+# [9.34.0](https://github.com/lyne-design-system/lyne-components/compare/v9.33.1...v9.34.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* make sure that buttons have no shadow in disabled state ([541ff4a](https://github.com/lyne-design-system/lyne-components/commit/541ff4aa0cc6fe210d6ee653f0c9ea4819efddf4))
+
+
+### Features
+
+* add button shadows ([c10d777](https://github.com/lyne-design-system/lyne-components/commit/c10d77704efecda95d360ec9e411d0e194f105fe))
+
+## [9.33.1](https://github.com/lyne-design-system/lyne-components/compare/v9.33.0...v9.33.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* use new design token for default font size ([f56d226](https://github.com/lyne-design-system/lyne-components/commit/f56d2261b14abe5ad743824c849708ece478ef87))
+* use new design token for default font size ([6db0745](https://github.com/lyne-design-system/lyne-components/commit/6db0745038bbafb817ef08947e6269ae3f48381b))
+
+# [9.33.0](https://github.com/lyne-design-system/lyne-components/compare/v9.32.0...v9.33.0) (2021-08-26)
+
+
+### Features
+
+* is adding forced colors styling ([dcc5439](https://github.com/lyne-design-system/lyne-components/commit/dcc5439b30724b1caf1daf2bd3b37d2e3ee37e30))
+
 # [9.32.0](https://github.com/lyne-design-system/lyne-components/compare/v9.31.0...v9.32.0) (2021-08-25)
 
 
