@@ -1,8 +1,3 @@
-/**
- * TODO:
- * - Slot description is not rendering on readme
- */
-
 import {
   Component,
   Element,
