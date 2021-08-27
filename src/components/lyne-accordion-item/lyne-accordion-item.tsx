@@ -142,13 +142,11 @@ export class LyneAccordionItem {
       newOpacity = '1';
 
       this._accordionBody.style.setProperty('height', '0');
-
       this._chevron.classList.add('accordion-item__chevron--rotate');
     } else {
       const initHeight = this._accordionBody.getBoundingClientRect().height;
 
       this._accordionBody.style.setProperty('height', `${initHeight}px`);
-
       this._chevron.classList.remove('accordion-item__chevron--rotate');
     }
 
@@ -247,7 +245,6 @@ export class LyneAccordionItem {
             <slot name='content' />
           </div>
         </div>
-
       </div>
     );
   }
