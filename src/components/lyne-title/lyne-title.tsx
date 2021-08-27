@@ -51,7 +51,7 @@ export class LyneTitle {
       return <TAGNAME class={className} id={this.titleId}>{this.text}.</TAGNAME>;
     }
 
-    return <TAGNAME class={className}>{this.text}.</TAGNAME>;
+    return <TAGNAME class={className}>{this.text}</TAGNAME>;
 
   }
 }
