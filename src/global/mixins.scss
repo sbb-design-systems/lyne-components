@@ -1,6 +1,7 @@
 // ----------------------------------------------------------------------------------------------------
 // Typo: Title Style Mixins
 // ----------------------------------------------------------------------------------------------------
+
 @mixin title {
   margin: 0;
   font-family: var(--typo-type-face-sbb-bold);
@@ -11,72 +12,34 @@
 
 @mixin title-1 {
   @include title();
-  font-size: pxToRem(var(--typo-scale-2-5x));
-
-  @include mq($from: small) {
-    font-size: pxToRem(var(--typo-scale-3x));
-  }
-
-  @include mq($from: large) {
-    font-size: pxToRem(var(--typo-scale-3-5x));
-  }
-
-  @include mq($from: ultra) {
-    font-size: pxToRem(var(--typo-scale-4x));
-  }
-
+  font-size: pxToRem(var(--lyne-font-size-title-1));
 }
 
 @mixin title-2 {
   @include title();
-  font-size: pxToRem(var(--typo-scale-2x));
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-2-5x));
-  }
-
+  font-size: pxToRem(var(--lyne-font-size-title-2));
 }
 
 @mixin title-3 {
   @include title();
-  font-size: pxToRem(var(--typo-scale-1-5x));
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-2x));
-  }
-
+  font-size: pxToRem(var(--lyne-font-size-title-3));
 }
 
 @mixin title-4 {
   @include title();
-  font-size: pxToRem(var(--typo-scale-1-25x));
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-1-5x));
-  }
-
+  font-size: pxToRem(var(--lyne-font-size-title-4));
 }
 
 @mixin title-5 {
   @include title();
-  font-size: pxToRem(var(--typo-scale-default));
+  font-size: pxToRem(var(--lyne-font-size-title-5));
   line-height: var(--typo-line-height-body-text);
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-1-25x));
-  }
-
 }
 
 @mixin title-6 {
   @include title();
-  font-size: pxToRem(var(--typo-scale-0-875x));
+  font-size: pxToRem(var(--lyne-font-size-title-6));
   line-height: var(--typo-line-height-body-text);
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-default));
-  }
-
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -94,11 +57,7 @@
 
 @mixin text-xl--regular {
   @include text();
-  font-size: pxToRem(var(--typo-scale-1-25x));
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-1-5x));
-  }
+  font-size: pxToRem(var(--lyne-font-size-text-xl));
 }
 
 @mixin text-xl--bold {
@@ -108,11 +67,7 @@
 
 @mixin text-m--regular {
   @include text();
-  font-size: pxToRem(var(--typo-scale-default));
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-1-125x));
-  }
+  font-size: pxToRem(var(--lyne-font-size-text-m));
 }
 
 @mixin text-m--bold {
@@ -122,11 +77,7 @@
 
 @mixin text-s--regular {
   @include text();
-  font-size: pxToRem(var(--typo-scale-0-875x));
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-default));
-  }
+  font-size: pxToRem(var(--lyne-font-size-text-s));
 }
 
 @mixin text-s--bold {
@@ -135,16 +86,12 @@
 }
 
 
-@mixin text-s--regular {
+@mixin text-xs--regular {
   @include text();
-  font-size: pxToRem(var(--typo-scale-0-75x));
-
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-0-875x));
-  }
+  font-size: pxToRem(var(--lyne-font-size-text-xs));
 }
 
-@mixin text-s--bold {
+@mixin text-xs--bold {
   @include text-s-reqular();
   @include text--bold();
 }
