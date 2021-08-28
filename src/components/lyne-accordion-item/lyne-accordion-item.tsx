@@ -41,16 +41,6 @@ export class LyneAccordionItem {
   @Prop() public headingLevel?: InterfaceAccordionItemAttributes['level'] = '1';
 
   /**
-   * Set this attribute for the first item in an accordion.
-   */
-  @Prop() public first?: boolean;
-
-  /**
-   * Set this attribute for the last item in an accordion.
-   */
-  @Prop() public last?: boolean;
-
-  /**
    * Set to true to open the accordion item. Set to false to close it.
    */
   @Prop({
@@ -185,14 +175,6 @@ export class LyneAccordionItem {
       ? ' accordion-item--has-icon'
       : '';
 
-    let firstAndLastClass = '';
-
-    if (this.first) {
-      firstAndLastClass = ' accordion-item--first';
-    } else if (this.last) {
-      firstAndLastClass = ' accordion-item--last';
-    }
-
     const ariaHidden = this.open
       ? 'false'
       : 'true';
@@ -202,7 +184,7 @@ export class LyneAccordionItem {
       : '';
 
     return (
-      <div class={`accordion-item${firstAndLastClass}${iconClass}${disabledClass} ${this._openClass}`}>
+      <div class={`accordion-item${iconClass}${disabledClass} ${this._openClass}`}>
 
         <HEADING_TAGNAME
           class='accordion-item__heading'
