@@ -28,23 +28,16 @@
   width: 100%;
   background-color: var(--color-white-default);
   border-radius: pxToRem(var(--border-radius-small));
+  border-start-start-radius: pxToRem(var(--border-radius-start-start));
+  border-start-end-radius: pxToRem(var(--border-radius-start-end));
+  border-end-start-radius:  pxToRem(var(--border-radius-end-start));
+  border-end-end-radius: pxToRem(var(--border-radius-end-end));
   font-family: var(--font-family);
   font-weight: normal;
   border-block-end: pxToRem(var(--border-width)) solid var(--border-color);
   transition: background-color var(--header-transition-duration) var(--header-transition-timing-function);
 
   @include visibleFocus;
-}
-
-.accordion-item--first {
-  border-start-start-radius: pxToRem(var(--border-radius-large));
-  border-start-end-radius: pxToRem(var(--border-radius-large));
-}
-
-.accordion-item--last {
-  border-end-start-radius:  pxToRem(var(--border-radius-large));
-  border-end-end-radius: pxToRem(var(--border-radius-large));
-  border-block-end: none;
 }
 
 .accordion-item:not(.accordion-item--disabled):hover,
