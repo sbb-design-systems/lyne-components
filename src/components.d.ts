@@ -28,10 +28,6 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
-          * Set this attribute for the first item in an accordion.
-         */
-        "first"?: boolean;
-        /**
           * Text to show as title for the accordion.
          */
         "heading": string;
@@ -39,10 +35,6 @@ export namespace Components {
           * Heading level.
          */
         "headingLevel"?: InterfaceAccordionItemAttributes['level'];
-        /**
-          * Set this attribute for the last item in an accordion.
-         */
-        "last"?: boolean;
         /**
           * Set to true to open the accordion item. Set to false to close it.
          */
@@ -246,10 +238,6 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * Set this attribute for the first item in an accordion.
-         */
-        "first"?: boolean;
-        /**
           * Text to show as title for the accordion.
          */
         "heading": string;
@@ -257,10 +245,6 @@ declare namespace LocalJSX {
           * Heading level.
          */
         "headingLevel"?: InterfaceAccordionItemAttributes['level'];
-        /**
-          * Set this attribute for the last item in an accordion.
-         */
-        "last"?: boolean;
         /**
           * Set to true to open the accordion item. Set to false to close it.
          */
