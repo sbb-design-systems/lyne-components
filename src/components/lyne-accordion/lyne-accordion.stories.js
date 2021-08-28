@@ -16,17 +16,9 @@ const ItemTemplate = (args) => (
 
 const Template = (args) => (
   <lyne-accordion {...args}>
-    {args.items.map((item, index) => {
-      if (index === 0) {
-        item.first = true;
-      } else if (index === args.items.length - 1) {
-        item.last = true;
-      }
-
-      return (
-        <ItemTemplate {...item}/>
-      );
-    })}
+    {args.items.map((item) => (
+      <ItemTemplate {...item} />
+    ))}
   </lyne-accordion>
 );
 
