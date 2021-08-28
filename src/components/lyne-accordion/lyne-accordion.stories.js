@@ -63,7 +63,8 @@ Default.argTypes = {
 
 Default.args = {
   items,
-  'non-white-background': false
+  'non-white-background': false,
+  'only-one-open': false
 };
 
 Default.decorators = [
@@ -85,7 +86,8 @@ NonWhiteBackground.argTypes = {
 
 NonWhiteBackground.args = {
   items,
-  'non-white-background': true
+  'non-white-background': true,
+  'only-one-open': true
 };
 
 NonWhiteBackground.decorators = [
