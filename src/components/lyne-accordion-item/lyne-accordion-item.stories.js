@@ -33,7 +33,6 @@ Default.argTypes = {
 Default.args = {
   'disabled': false,
   'event-id': 'id1',
-  'first': false,
   'heading': 'Accordion Item',
   'heading-level': '2',
   'icon': true,
