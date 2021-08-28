@@ -20,10 +20,10 @@
 
 ## Slots
 
-| Slot        | Description                                                                                                                                                                                                 |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `"content"` | Pass html-content to show as the content of the accordion. Use flat html: `<p>Some text</p><p>Some other text</p>` is ok. This instead would not be ok: `<div><p>Some text</p><p>Some other text</p></div>` |
-| `"icon"`    | Pass an svg to display an icon left to the title.                                                                                                                                                           |
+| Slot        | Description                                                                                                                                                                                                      |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `"content"` | Pass html-content to show as the content of the accordion. Use flat html: This is ok: `<p>Some text</p><p>Some other text</p>` This instead would not be ok: `<div><p>Some text</p><p>Some other text</p></div>` |
+| `"icon"`    | Pass an svg to display an icon left to the title.                                                                                                                                                                |
 
 
 ----------------------------------------------
