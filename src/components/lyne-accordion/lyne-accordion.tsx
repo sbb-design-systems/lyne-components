@@ -23,14 +23,20 @@ export class LyneAccordion {
    */
   @Prop() public nonWhiteBackground?: boolean;
 
+  /**
+   * Set this if you want the accordion to always have open only one item.
+   */
+  @Prop() public onlyOneOpen? = false;
+
   @Element() private _element: HTMLElement;
 
   private _eventIds = [];
+  private _items;
 
   private _setEventIds(): void {
-    const items = this._element.querySelectorAll('lyne-accordion-item');
+    this._items = this._element.querySelectorAll('lyne-accordion-item');
 
-    items.forEach((item, index) => {
+    this._items.forEach((item, index) => {
       const eventId = item.getAttribute('event-id');
       let finalEventId;
 
@@ -45,19 +51,31 @@ export class LyneAccordion {
     });
   }
 
-  private _addEventListeners(): void {
-    this._element.addEventListener(events.didClose, (evt) => {
-      console.log(evt);
+  private _handleAccordionOpen(evt): void {
+    const eventId = evt.detail;
+
+    if (!eventId) {
+      return;
+    }
+
+    this._items.forEach((item) => {
+      const itemId = item.getAttribute('event-id');
+
+      if (itemId !== eventId) {
+        item.removeAttribute('open');
+      }
     });
 
-    this._element.addEventListener(events.didOpen, (evt) => {
-      console.log(evt);
-    });
   }
 
   public componentWillLoad(): void {
+    if (!this.onlyOneOpen) {
+      return;
+    }
+
     this._setEventIds();
-    this._addEventListeners();
+
+    this._element.addEventListener(events.willOpen, this._handleAccordionOpen.bind(this));
   }
 
   public render(): JSX.Element {
