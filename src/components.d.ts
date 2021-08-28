@@ -17,6 +17,10 @@ export namespace Components {
           * Set this if you want to use the accordion on a non-white background.
          */
         "nonWhiteBackground"?: boolean;
+        /**
+          * Set this if you want the accordion to always have open only one item.
+         */
+        "onlyOneOpen"?: boolean;
     }
     interface LyneAccordionItem {
         /**
@@ -227,6 +231,10 @@ declare namespace LocalJSX {
           * Set this if you want to use the accordion on a non-white background.
          */
         "nonWhiteBackground"?: boolean;
+        /**
+          * Set this if you want the accordion to always have open only one item.
+         */
+        "onlyOneOpen"?: boolean;
     }
     interface LyneAccordionItem {
         /**
