@@ -1,8 +1,10 @@
 import {
   Component,
+  Element,
   h,
   Prop
 } from '@stencil/core';
+import events from '../lyne-accordion-item/lyne-accordion-item.events';
 
 /**
  * @slot unnamed - Place lyne-accordion-item elements in the slot
@@ -21,8 +23,44 @@ export class LyneAccordion {
    */
   @Prop() public nonWhiteBackground?: boolean;
 
-  public render(): JSX.Element {
+  @Element() private _element: HTMLElement;
 
+  private _eventIds = [];
+
+  private _setEventIds(): void {
+    const items = this._element.querySelectorAll('lyne-accordion-item');
+
+    items.forEach((item, index) => {
+      const eventId = item.getAttribute('event-id');
+      let finalEventId;
+
+      if (eventId) {
+        finalEventId = eventId;
+      } else {
+        finalEventId = `accordion-item-id-${index}`;
+        item.setAttribute('event-id', finalEventId);
+      }
+
+      this._eventIds.push(finalEventId);
+    });
+  }
+
+  private _addEventListeners(): void {
+    this._element.addEventListener(events.didClose, (evt) => {
+      console.log(evt);
+    });
+
+    this._element.addEventListener(events.didOpen, (evt) => {
+      console.log(evt);
+    });
+  }
+
+  public componentWillLoad(): void {
+    this._setEventIds();
+    this._addEventListeners();
+  }
+
+  public render(): JSX.Element {
     const nonWhite = this.nonWhiteBackground
       ? ' accordion--non-white'
       : '';
