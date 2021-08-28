@@ -28,10 +28,12 @@
   width: 100%;
   background-color: var(--color-white-default);
   border-radius: pxToRem(var(--border-radius-small));
-  border-start-start-radius: pxToRem(var(--border-radius-start-start));
-  border-start-end-radius: pxToRem(var(--border-radius-start-end));
-  border-end-start-radius:  pxToRem(var(--border-radius-end-start));
-  border-end-end-radius: pxToRem(var(--border-radius-end-end));
+
+  // no support in safari for boder-start-start-radius etc.
+  border-top-left-radius: pxToRem(var(--border-radius-start-start));
+  border-top-right-radius: pxToRem(var(--border-radius-start-end));
+  border-bottom-left-radius:  pxToRem(var(--border-radius-end-start));
+  border-bottom-right-radius: pxToRem(var(--border-radius-end-end));
   font-family: var(--font-family);
   font-weight: normal;
   border-block-end: pxToRem(var(--border-width)) solid var(--border-color);
