@@ -34,7 +34,6 @@ const items = [
     'open': false
   },
   {
-    'event-id': 'id2',
     'heading': 'Accordion Item 2',
     'heading-level': '2',
     'icon': false,
@@ -102,7 +101,9 @@ export default {
     actions: {
       handles: [
         events.didOpen,
-        events.didClose
+        events.didClose,
+        events.willOpen,
+        events.willClose
       ]
     },
     docs: {
