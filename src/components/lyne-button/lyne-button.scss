@@ -157,6 +157,7 @@
 .button {
   @include buttonReset;
 
+  position: relative;
   display: flex;
   align-items: center;
   transition-duration: var(--transition-duration);
