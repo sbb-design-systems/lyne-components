@@ -45,7 +45,9 @@ export default {
     actions: {
       handles: [
         events.didOpen,
-        events.didClose
+        events.didClose,
+        events.willOpen,
+        events.willClose
       ]
     },
     docs: {
