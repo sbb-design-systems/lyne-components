@@ -69,6 +69,22 @@ export class LyneAccordionItem {
   private _chevron: HTMLElement;
   private _guid: string;
 
+  private _dispatchEvent = (name: string): void => {
+    let eventDetail;
+
+    if (this.eventId) {
+      eventDetail = this.eventId;
+    }
+
+    const event = new CustomEvent(name, {
+      bubbles: true,
+      composed: true,
+      detail: eventDetail
+    });
+
+    this._element.dispatchEvent(event);
+  };
+
   private _handleToggleEnd = (data: any): void => {
     const wasHeightAnimation = data.propertyName === 'height';
 
@@ -80,23 +96,11 @@ export class LyneAccordionItem {
         this._accordionBody.style.setProperty('height', 'auto');
       }
 
-      let eventDetail;
-
-      if (this.eventId) {
-        eventDetail = this.eventId;
-      }
-
       const eventName = this.open
         ? events.didOpen
         : events.didClose;
 
-      const event = new CustomEvent(eventName, {
-        bubbles: true,
-        composed: true,
-        detail: eventDetail
-      });
-
-      this._element.dispatchEvent(event);
+      this._dispatchEvent(eventName);
 
       this._openClass = this.open
         ? 'accordion-item--open'
@@ -120,6 +124,12 @@ export class LyneAccordionItem {
     } else {
       this.open = state;
     }
+
+    const eventName = this.open
+      ? events.willOpen
+      : events.willClose;
+
+    this._dispatchEvent(eventName);
 
     let newHeight = 0;
     let newOpacity = '0';
