@@ -7,9 +7,9 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
-import { InterfaceHeadingAttributes } from "./components/lyne-heading/lyne-heading.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
+import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 export namespace Components {
     interface LyneButton {
@@ -72,20 +72,6 @@ export namespace Components {
          */
         "paused"?: boolean;
     }
-    interface LyneHeading {
-        /**
-          * Heading level
-         */
-        "level": InterfaceHeadingAttributes['level'];
-        /**
-          * Text for the Heading
-         */
-        "text": string;
-        /**
-          * Visual level for the heading
-         */
-        "visualLevel": InterfaceHeadingAttributes['visualLevel'];
-    }
     interface LyneLink {
         /**
           * Link to use as href
@@ -132,6 +118,28 @@ export namespace Components {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneTitle {
+        /**
+          * Title level
+         */
+        "level"?: InterfaceTitleAttributes['level'];
+        /**
+          * Text for the title
+         */
+        "text": string;
+        /**
+          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
+         */
+        "titleId"?: '';
+        /**
+          * Visual level for the title
+         */
+        "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
+        /**
+          * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
+         */
+        "visuallyHidden"?: false;
+    }
     interface LyneSbbLogo {
         /**
           * The Logo needs to have a certain protective room around it
@@ -156,12 +164,6 @@ declare global {
         prototype: HTMLLyneClockElement;
         new (): HTMLLyneClockElement;
     };
-    interface HTMLLyneHeadingElement extends Components.LyneHeading, HTMLStencilElement {
-    }
-    var HTMLLyneHeadingElement: {
-        prototype: HTMLLyneHeadingElement;
-        new (): HTMLLyneHeadingElement;
-    };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
     var HTMLLyneLinkElement: {
@@ -180,6 +182,12 @@ declare global {
         prototype: HTMLLynePearlChainElement;
         new (): HTMLLynePearlChainElement;
     };
+    interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
+    }
+    var HTMLLyneTitleElement: {
+        prototype: HTMLLyneTitleElement;
+        new (): HTMLLyneTitleElement;
+    }
     interface HTMLLyneSbbLogoElement extends Components.LyneSbbLogo, HTMLStencilElement {
     }
     var HTMLLyneSbbLogoElement: {
@@ -189,10 +197,10 @@ declare global {
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-clock": HTMLLyneClockElement;
-        "lyne-heading": HTMLLyneHeadingElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
+        "lyne-title": HTMLLyneTitleElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
     }
 }
@@ -257,20 +265,6 @@ declare namespace LocalJSX {
          */
         "paused"?: boolean;
     }
-    interface LyneHeading {
-        /**
-          * Heading level
-         */
-        "level"?: InterfaceHeadingAttributes['level'];
-        /**
-          * Text for the Heading
-         */
-        "text"?: string;
-        /**
-          * Visual level for the heading
-         */
-        "visualLevel"?: InterfaceHeadingAttributes['visualLevel'];
-    }
     interface LyneLink {
         /**
           * Link to use as href
@@ -317,6 +311,28 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneTitle {
+        /**
+          * Title level
+         */
+        "level"?: InterfaceTitleAttributes['level'];
+        /**
+          * Text for the title
+         */
+        "text": string;
+        /**
+          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
+         */
+        "titleId"?: '';
+        /**
+          * Visual level for the title
+         */
+        "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
+        /**
+          * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
+         */
+        "visuallyHidden"?: false;
+    }
     interface LyneSbbLogo {
         /**
           * The Logo needs to have a certain protective room around it
@@ -330,10 +346,10 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "lyne-button": LyneButton;
         "lyne-clock": LyneClock;
-        "lyne-heading": LyneHeading;
         "lyne-link": LyneLink;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
+        "lyne-title": LyneTitle;
         "lyne-sbb-logo": LyneSbbLogo;
     }
 }
@@ -343,10 +359,10 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
-            "lyne-heading": LocalJSX.LyneHeading & JSXBase.HTMLAttributes<HTMLLyneHeadingElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
+            "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
         }
     }
