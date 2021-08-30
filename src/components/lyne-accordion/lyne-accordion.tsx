@@ -101,9 +101,9 @@ export class LyneAccordion {
     }
 
     return (
-      <ul {...attrs}>
+      <div {...attrs} role='list'>
         <slot />
-      </ul>
+      </div>
     );
   }
 }

@@ -12,10 +12,13 @@
   --border-radius-end-start: 0;
   --border-radius-end-end: 0;
   --color-background-hover: var(--color-white-default);
-}
 
-.accordion {
-  @include listReset();
+  @include ifForcedColors() {
+    --item-margin-block: var(--spacing-fixed-1x);
+    --body-padding-inline: var(--spacing-fixed-6x);
+    --header-padding-inline: var(--spacing-fixed-6x);
+  }
+
 }
 
 .accordion--non-white {

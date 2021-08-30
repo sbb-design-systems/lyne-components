@@ -194,7 +194,7 @@ export class LyneAccordionItem {
       : '';
 
     return (
-      <li class={`accordion-item${iconClass}${disabledClass} ${this._openClass}`}>
+      <div class={`accordion-item${iconClass}${disabledClass} ${this._openClass}`} role='listitem'>
 
         <HEADING_TAGNAME
           class='accordion-item__heading'
@@ -238,7 +238,7 @@ export class LyneAccordionItem {
             <slot name='content' />
           </div>
         </div>
-      </li>
+      </div>
     );
   }
 }

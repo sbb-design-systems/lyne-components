@@ -19,8 +19,6 @@
 
 .accordion-item {
   width: 100%;
-  list-style: none;
-  margin: 0;
   background-color: var(--color-white-default);
   border-radius: pxToRem(var(--border-radius-small));
 
@@ -54,12 +52,6 @@
   padding-inline-start: pxToRem(var(--header-padding-inline));
   padding-inline-end: pxToRem(var(--header-padding-inline));
   color: inherit;
-}
-
-.accordion-item--open .accordion-item__button {
-  @include ifForcedColors() {
-    color: CanvasText;
-  }
 }
 
 .accordion-item:not(.accordion-item--disabled):hover,
@@ -163,9 +155,13 @@
       color: inherit;
     }
 
-    color: CanvasText;
+    color: HighlightText;
+
   }
 
+  .accordion-item {
+    border: pxToRem(1) solid CanvasText;
+  }
 
   .accordion-item__chevron svg,
   ::slotted(svg[slot='icon']) {

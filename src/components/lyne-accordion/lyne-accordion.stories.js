@@ -3,7 +3,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const ItemTemplate = (args) => (
-  <lyne-accordion-item {...args}>
+  <lyne-accordion-item {...args} role="presentation">
     <p slot='content'>1 Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.</p>
     <p slot='content'>2 Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.</p>
     <p slot='content'>3 Quis aute iure reprehenderit in voluptate velit esse. Ab illo tempore, ab est sed immemorabili. Non equidem invideo, lit aliquet. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae.</p>
@@ -15,7 +15,7 @@ const ItemTemplate = (args) => (
 );
 
 const Template = (args) => (
-  <lyne-accordion {...args}>
+  <lyne-accordion {...args} role="presentation">
     {args.items.map((item) => (
       <ItemTemplate {...item} />
     ))}
