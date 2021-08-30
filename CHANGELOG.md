@@ -1,3 +1,52 @@
+# [9.36.0](https://github.com/lyne-design-system/lyne-components/compare/v9.35.0...v9.36.0) (2021-08-30)
+
+
+### Bug Fixes
+
+* adopting css variables approach ([4080760](https://github.com/lyne-design-system/lyne-components/commit/40807606da3b1f3e04ade3ceaa7ef3da07adb586))
+* merging master in ([e7f5115](https://github.com/lyne-design-system/lyne-components/commit/e7f51159cea65d216b098916df5252c153ed9213))
+* remove insertion of dot after text in render function ([8ab0a3d](https://github.com/lyne-design-system/lyne-components/commit/8ab0a3d703f7e8d06bfbff52b3220a5af00607bc))
+* taking over suggestions from pr review ([8e126c2](https://github.com/lyne-design-system/lyne-components/commit/8e126c2e1e80a5cdbdac8c2affa1103f5c99220b))
+
+
+### Features
+
+* re-naming lyne-heading to lyne-title again and adding new design tokens ([1970217](https://github.com/lyne-design-system/lyne-components/commit/197021775e54ece041cbd8eb3f14894a1034fc40))
+* updating design tokens, adding mixins and cleaning up ([cae5433](https://github.com/lyne-design-system/lyne-components/commit/cae5433f0df7272703193d67f555ce24f18178f1))
+
+# [9.35.0](https://github.com/lyne-design-system/lyne-components/compare/v9.34.0...v9.35.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* bumping lyne-design-token version in package json to avoid build error ([18baeed](https://github.com/lyne-design-system/lyne-components/commit/18baeed6ab6630946d3017e49b39e8a96dd7ff4a))
+* removing sbb-logo__panel-border element ([936567b](https://github.com/lyne-design-system/lyne-components/commit/936567be2b9761615c262a1f9205cc04e6f1391b))
+
+
+### Features
+
+* is adding logo component and variants ([8ae2c15](https://github.com/lyne-design-system/lyne-components/commit/8ae2c15833279143215e1de4da3008183e293ce3))
+
+# [9.34.0](https://github.com/lyne-design-system/lyne-components/compare/v9.33.1...v9.34.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* make sure that buttons have no shadow in disabled state ([541ff4a](https://github.com/lyne-design-system/lyne-components/commit/541ff4aa0cc6fe210d6ee653f0c9ea4819efddf4))
+
+
+### Features
+
+* add button shadows ([c10d777](https://github.com/lyne-design-system/lyne-components/commit/c10d77704efecda95d360ec9e411d0e194f105fe))
+
+## [9.33.1](https://github.com/lyne-design-system/lyne-components/compare/v9.33.0...v9.33.1) (2021-08-27)
+
+
+### Bug Fixes
+
+* use new design token for default font size ([f56d226](https://github.com/lyne-design-system/lyne-components/commit/f56d2261b14abe5ad743824c849708ece478ef87))
+* use new design token for default font size ([6db0745](https://github.com/lyne-design-system/lyne-components/commit/6db0745038bbafb817ef08947e6269ae3f48381b))
+
 # [9.33.0](https://github.com/lyne-design-system/lyne-components/compare/v9.32.0...v9.33.0) (2021-08-26)
 
 
