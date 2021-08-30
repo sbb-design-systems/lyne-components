@@ -9,7 +9,7 @@ const Template = (args) => (
   />
 );
 
-export const clock = Template.bind({});
+export const SBBClock = Template.bind({});
 
 const state = {
   paused: false
@@ -32,7 +32,7 @@ const times = {
   ]
 };
 
-clock.argTypes = {
+SBBClock.argTypes = {
   initialTime: times
 };
 
@@ -41,12 +41,12 @@ clock.argTypes = {
  * and set time to given time
  */
 if (isChromatic()) {
-  clock.args = {
+  SBBClock.args = {
     initialTime: '09:43:59',
     paused: true
   };
 } else {
-  clock.args = {
+  SBBClock.args = {
     initialTime: times.options[0],
     paused: state.paused
   };
@@ -61,17 +61,9 @@ export default {
     )
   ],
   parameters: {
-    chromatic: {
-      delay: 1000,
-      viewports: [
-        320,
-        764,
-        1201
-      ]
-    },
     docs: {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Brand Elements/Clock'
+  title: 'Brand Elements/SBB Clock'
 };

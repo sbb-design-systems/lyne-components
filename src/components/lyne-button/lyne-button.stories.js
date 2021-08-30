@@ -167,14 +167,6 @@ export default {
     backgrounds: {
       disable: true
     },
-    chromatic: {
-      delay: 1000,
-      viewports: [
-        320,
-        764,
-        1201
-      ]
-    },
     docs: {
       extractComponentDescription: () => readme
     }

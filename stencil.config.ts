@@ -39,7 +39,9 @@ export const config = {
         'src/global/global.scss',
         'src/global/core/components/utilities.scss',
         'src/global/functions.scss',
-        'src/global/mixins.scss'
+        'src/global/mediaqueries.scss',
+        'src/global/mixins.scss',
+        'src/global/core/shared/variables.scss'
       ]
     })
   ],

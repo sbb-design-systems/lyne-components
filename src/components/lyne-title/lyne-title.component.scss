@@ -1,0 +1,55 @@
+@include host-component-properties;
+
+// .title {
+//   font-family: var(--typo-font-style-title-1-font-family);
+//   line-height: 1.3em;
+// }
+
+// .title--level1 {
+//   font-size: pxToRem(var(--typo-font-style-title-1-zero-to-micro-font-size));
+// }
+
+// .title--level2 {
+//   font-size: pxToRem(var(--typo-font-style-title-2-zero-to-medium-font-size));
+// }
+
+// .title--level3 {
+//   font-size: pxToRem(var(--typo-font-style-title-3-zero-to-medium-font-size));
+// }
+
+// TODO re-factor to a more generic class later
+.title--hidden {
+  @include screenreaderOnly();
+}
+
+.title[id] {
+  @include scrollMarginBlockStart();
+}
+
+.title {
+  @include fontSmoothing();
+}
+
+.title-1 {
+  @include title-1();
+}
+
+.title-2 {
+  @include title-2();
+}
+
+.title-3 {
+  @include title-3();
+}
+
+.title-4 {
+  @include title-4();
+}
+
+.title-5 {
+  @include title-5();
+}
+
+.title-6 {
+  @include title-6();
+}

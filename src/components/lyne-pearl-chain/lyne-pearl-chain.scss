@@ -41,7 +41,7 @@
   top: 0;
   z-index: 2;
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     background-color: CanvasText;
   }
 
@@ -57,7 +57,7 @@
 
 .pearl-chain.pearl-chain--past:before,
 .pearl-chain.pearl-chain--past:after {
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     background-color: GrayText;
   }
 }
@@ -66,7 +66,7 @@
 .pearl-chain--arrival-cancellation:after {
   color: var(--color-cancellation);
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     background-color: ActiveText;
   }
 
@@ -76,7 +76,7 @@
 .pearl-chain--arrival-cancellation.pearl-chain--past:after {
   color: var(--color-past);
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     color: GrayText;
   }
 }
@@ -84,7 +84,7 @@
 .pearl-chain--past {
   color: var(--color-past);
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     color: GrayText;
   }
 
@@ -96,7 +96,7 @@
   position: relative;
   height: pxToRem(var(--border-width));
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     color: CanvasText;
   }
 
@@ -114,7 +114,7 @@
   border: pxToRem(var(--border-width)) solid currentColor;
   z-index: 2;
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     .pearl-chain--past & {
       border-color: GrayText;
     }
@@ -134,7 +134,7 @@
   border-radius: pxToRem(var(--border-width));
   z-index: 1;
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     background-color: CanvasText;
 
     .pearl-chain--past & {
@@ -155,13 +155,13 @@
   .pearl-chain--past & {
     color: var(--color-past);
 
-    @media (forced-colors: active) {
+    @include ifForcedColors {
       color: GrayText;
     }
 
   }
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     color: ActiveText;
   }
 
@@ -176,7 +176,7 @@
 
 .pearl-chain__leg--cancellation:after,
 .pearl-chain--past .pearl-chain__leg--cancellation:after {
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     background: none;
     border-top: pxToRem(1) dashed currentColor;
     transform: translateY(#{pxToRem(1)});
@@ -198,7 +198,7 @@
 
   animation: pulse 3s infinite;
 
-  @media (forced-colors: active) {
+  @include ifForcedColors {
     background-color: ActiveText;
   }
 
