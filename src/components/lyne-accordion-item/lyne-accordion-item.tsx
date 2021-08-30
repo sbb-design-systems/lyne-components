@@ -194,7 +194,7 @@ export class LyneAccordionItem {
       : '';
 
     return (
-      <div class={`accordion-item${iconClass}${disabledClass} ${this._openClass}`}>
+      <li class={`accordion-item${iconClass}${disabledClass} ${this._openClass}`}>
 
         <HEADING_TAGNAME
           class='accordion-item__heading'
@@ -204,7 +204,7 @@ export class LyneAccordionItem {
           <button
             class='accordion-item__button'
             aria-label={this.heading}
-            aria-expanded={this.open}
+            aria-expanded={`${this.open}`}
             aria-controls={`${this._guid}_body`}
           >
 
@@ -238,7 +238,7 @@ export class LyneAccordionItem {
             <slot name='content' />
           </div>
         </div>
-      </div>
+      </li>
     );
   }
 }

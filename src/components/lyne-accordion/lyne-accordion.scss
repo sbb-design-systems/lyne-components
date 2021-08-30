@@ -11,7 +11,11 @@
   --border-radius-start-end: 0;
   --border-radius-end-start: 0;
   --border-radius-end-end: 0;
-  --color-background-hover: var(--color-white-default); 
+  --color-background-hover: var(--color-white-default);
+}
+
+.accordion {
+  @include listReset();
 }
 
 .accordion--non-white {

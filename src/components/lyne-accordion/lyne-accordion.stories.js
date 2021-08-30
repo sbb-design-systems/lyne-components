@@ -63,6 +63,7 @@ Default.argTypes = {
 
 Default.args = {
   items,
+  'aria-labelledby': '',
   'non-white-background': false,
   'only-one-open': false
 };
@@ -86,13 +87,14 @@ NonWhiteBackground.argTypes = {
 
 NonWhiteBackground.args = {
   items,
+  'aria-labelledby': '',
   'non-white-background': true,
   'only-one-open': true
 };
 
 NonWhiteBackground.decorators = [
   (Story) => (
-    <div style={'background: #dcdcdc;padding: 2rem;'}>
+    <div style={'background: #dcdcdc; padding: 2rem;'}>
       <Story/>
     </div>
   )
