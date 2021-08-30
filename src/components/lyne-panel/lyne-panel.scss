@@ -60,6 +60,11 @@
   padding-block-start: pxToRem(var(--panel-padding-block));
   padding-block-end: pxToRem(var(--panel-padding-block));
   background-color: var(--background-color);
+
+  @include ifForcedColors {
+    border: pxToRem(1) solid CanvasText;
+  }
+
 }
 
 .lyne-panel:before,
@@ -71,6 +76,11 @@
   height: 0;
   z-index: 0;
   border-inline-end: pxToRem(var(--panel-width)) solid transparent;
+
+  @include ifForcedColors {
+    display: none;
+  }
+
 }
 
 .lyne-panel:before {
