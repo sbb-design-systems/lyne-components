@@ -47,7 +47,9 @@ export class LyneTitle {
 
     const className = `title title-${this.visualLevel}${visuallyHidden}`;
 
-    const attrs = { class: className };
+    const attrs = {
+      class: className
+    };
 
     if (this.titleId && this.titleId !== '') {
       attrs['id'] = this.titleId;
