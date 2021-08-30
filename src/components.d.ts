@@ -121,7 +121,7 @@ export namespace Components {
         /**
           * Title level
          */
-        "level": InterfaceTitleAttributes['level'];
+        "level"?: InterfaceTitleAttributes['level'];
         /**
           * Text for the title
          */
@@ -129,15 +129,15 @@ export namespace Components {
         /**
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
-        "titleId": string;
+        "titleId"?: '';
         /**
           * Visual level for the title
          */
-        "visualLevel": InterfaceTitleAttributes['visualLevel'];
+        "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
           * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
-        "visuallyHidden": false;
+        "visuallyHidden"?: false;
     }
 }
 declare global {
@@ -301,11 +301,11 @@ declare namespace LocalJSX {
         /**
           * Text for the title
          */
-        "text"?: string;
+        "text": string;
         /**
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
-        "titleId"?: string;
+        "titleId"?: '';
         /**
           * Visual level for the title
          */

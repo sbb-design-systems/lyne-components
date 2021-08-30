@@ -2,13 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-title
-    title-id={args.titleId}
-    level={args.level}
-    text={args.text}
-    visually-hidden={args.visuallyHidden}
-    visual-level={args.visualLevel}
-  />
+  <lyne-title {...args} />
 );
 
 const levels = {
@@ -28,28 +22,20 @@ const levels = {
 export const title = Template.bind({});
 
 title.argTypes = {
-  level: levels,
-  visualLevel: levels
+  'level': levels,
+  'visual-level': levels
 };
 
 title.args = {
-  level: 1,
-  text: 'Data without insights are trivial, and insights without action are pointless',
-  titleId: '',
-  visualLevel: 1,
-  visuallyHidden: false
+  'level': 1,
+  'text': 'Data without insights are trivial, and insights without action are pointless',
+  'title-id': '',
+  'visual-level': 1,
+  'visually-hidden': false
 };
 
 export default {
   parameters: {
-    chromatic: {
-      delay: 1000,
-      viewports: [
-        320,
-        764,
-        1201
-      ]
-    },
     docs: {
       extractComponentDescription: () => readme
     }

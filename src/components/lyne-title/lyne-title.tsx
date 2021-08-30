@@ -14,13 +14,13 @@ import { InterfaceTitleAttributes } from './lyne-title.custom.d';
 export class LyneTitle {
 
   /** Text for the title */
-  @Prop() public text = 'Default title text';
+  @Prop() public text!: string;
 
   /** Title level */
-  @Prop() public level: InterfaceTitleAttributes['level'] = '1';
+  @Prop() public level?: InterfaceTitleAttributes['level'] = '1';
 
   /** Visual level for the title */
-  @Prop() public visualLevel: InterfaceTitleAttributes['visualLevel'] = '1';
+  @Prop() public visualLevel?: InterfaceTitleAttributes['visualLevel'] = '1';
 
   /**
    * A11y Tip:
@@ -28,30 +28,32 @@ export class LyneTitle {
    * a relationship with another element through the use of aria-labelledby
    * or aria-describedby or just offer an anchor target
    */
-  @Prop() public titleId = '';
+  @Prop() public titleId?: '';
 
   /**
    * Sometimes we need a title in the markup to present a proper hierarchy
    * to the screenreaders while we do not want to let that title appear
    * visually. In this case we set visuallyHidden to true
    */
-  @Prop() public visuallyHidden: false;
+  @Prop() public visuallyHidden?: false;
 
   public render(): JSX.Element {
 
     const TAGNAME = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
 
     const visuallyHidden = this.visuallyHidden
-      ? 'title--hidden'
+      ? ' title--hidden'
       : '';
 
-    const className = `title title-${this.visualLevel} ${visuallyHidden}`;
+    const className = `title title-${this.visualLevel}${visuallyHidden}`;
 
-    if (this.titleId !== '') {
-      return <TAGNAME class={className} id={this.titleId}>{this.text}.</TAGNAME>;
+    const attrs = { class: className };
+
+    if (this.titleId && this.titleId !== '') {
+      attrs['id'] = this.titleId;
     }
 
-    return <TAGNAME class={className}>{this.text}</TAGNAME>;
+    return <TAGNAME {...attrs}>{this.text}</TAGNAME>;
 
   }
 }
