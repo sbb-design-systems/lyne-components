@@ -204,7 +204,10 @@ export class LyneAccordionItem {
           <button
             class='accordion-item__button'
             aria-label={this.heading}
-            aria-expanded={`${this.open}`}
+            aria-expanded={this.open
+              ? 'true'
+              : 'false'
+            }
             aria-controls={`${this._guid}_body`}
           >
 
