@@ -179,7 +179,7 @@ export namespace Components {
          */
         "titleId"?: '';
         /**
-          * Visual level for the title
+          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
@@ -422,7 +422,7 @@ declare namespace LocalJSX {
          */
         "titleId"?: '';
         /**
-          * Visual level for the title
+          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**

@@ -1,3 +1,11 @@
+# [9.37.0](https://github.com/lyne-design-system/lyne-components/compare/v9.36.0...v9.37.0) (2021-08-31)
+
+
+### Features
+
+* make visual level inherit from level if undefined ([40e9192](https://github.com/lyne-design-system/lyne-components/commit/40e919262b7b0be4a75d1bd569465a5468168db1))
+* set default color ([a53f40e](https://github.com/lyne-design-system/lyne-components/commit/a53f40e8807e859a3d5fb60ab9f06a1417d62b15))
+
 # [9.36.0](https://github.com/lyne-design-system/lyne-components/compare/v9.35.0...v9.36.0) (2021-08-30)
 
 
