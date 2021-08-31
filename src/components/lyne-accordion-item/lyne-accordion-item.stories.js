@@ -17,26 +17,12 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 
-const table = {
-  disable: true
-};
-
-Default.argTypes = {
-  first: {
-    table
-  },
-  last: {
-    table
-  }
-};
-
 Default.args = {
   'disabled': false,
   'event-id': 'id1',
   'heading': 'Accordion Item',
   'heading-level': '2',
   'icon': true,
-  'last': false,
   'open': false
 };
 

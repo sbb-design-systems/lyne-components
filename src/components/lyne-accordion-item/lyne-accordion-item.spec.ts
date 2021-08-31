@@ -16,9 +16,9 @@ describe('lyne-accordion-item', () => {
       .toEqualHtml(`
         <lyne-accordion-item>
           <mock:shadow-root>
-            <div class="accordion-item accordion-item--closed">
+            <div class="accordion-item accordion-item--closed" role="listitem">
               <h1 class="accordion-item__heading">
-                <button aria-controls="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX_body" class="accordion-item__button">
+                <button aria-controls="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX_body" class="accordion-item__button" aria-expanded="false">
                   <div class="accordion-item__icon">
                     <slot name="icon"></slot>
                   </div>

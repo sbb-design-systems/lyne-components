@@ -10,6 +10,7 @@ import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
 import events from './lyne-accordion-item.events';
 import { guid } from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
+import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 
 const iconSlotName = 'icon';
 
@@ -68,6 +69,19 @@ export class LyneAccordionItem {
   private _accordionBody!: HTMLElement;
   private _chevron: HTMLElement;
   private _guid: string;
+
+  private _setOpenTransitionDuration = (contentHeight: number): void => {
+    const velocity = parseInt(getComputedStyle(this._element)
+      .getPropertyValue('--expand-transtion-velocity'), 10);
+
+    if (!velocity) {
+      return;
+    }
+
+    const duration = contentHeight * velocity;
+
+    this._element.style.setProperty('--expand-transition-duration', `${duration}ms`);
+  };
 
   private _dispatchEvent = (name: string): void => {
     let eventDetail;
@@ -139,8 +153,11 @@ export class LyneAccordionItem {
       this._accordionBody.style.setProperty('display', 'block');
       this._accordionBody.style.setProperty('opacity', '0');
 
-      newHeight = this._accordionBody.getBoundingClientRect().height;
+      newHeight = this._accordionBody.getBoundingClientRect().height / tokens['typo-scale-default'];
+
       newOpacity = '1';
+
+      this._setOpenTransitionDuration(newHeight);
 
       this._accordionBody.style.setProperty('height', '0');
       this._chevron.classList.add('accordion-item__chevron--rotate');
@@ -154,7 +171,7 @@ export class LyneAccordionItem {
     this._accordionBody.addEventListener('transitionend', this._handleToggleEnd);
 
     setTimeout(() => {
-      this._accordionBody.style.setProperty('height', `${newHeight}px`);
+      this._accordionBody.style.setProperty('height', `${newHeight}rem`);
       this._accordionBody.style.setProperty('opacity', newOpacity);
     }, 0);
 

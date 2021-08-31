@@ -14,7 +14,7 @@ describe('lyne-accordion', () => {
       .toEqualHtml(`
         <lyne-accordion>
           <mock:shadow-root>
-            <div class="accordion">
+            <div class="accordion" role="list">
               <slot></slot>
             </div>
           </mock:shadow-root>
