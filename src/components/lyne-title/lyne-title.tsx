@@ -48,11 +48,15 @@ export class LyneTitle {
       ? ' title--hidden'
       : '';
 
+    let {
+      visualLevel
+    } = this;
+
     if (!this.visualLevel) {
-      this.visualLevel = this.level;
+      visualLevel = this.level;
     }
 
-    const className = `title title-${this.visualLevel}${visuallyHidden}`;
+    const className = `title title-${visualLevel}${visuallyHidden}`;
 
     const attrs = {
       class: className
