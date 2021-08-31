@@ -1,5 +1,7 @@
 :host {
   display: block;
+
+  --title-color: var(--color-black-default);
 }
 
 // TODO re-factor to a more generic class later
@@ -12,6 +14,7 @@
 }
 
 .title {
+  color: var(--title-color);
   @include fontSmoothing();
 }
 
