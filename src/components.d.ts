@@ -9,8 +9,8 @@ import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.
 import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
-import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
+import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 export namespace Components {
     interface LyneButton {
         /**
@@ -118,6 +118,16 @@ export namespace Components {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneSbbLogo {
+        /**
+          * The Logo needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the logo can be used in these variants
+         */
+        "variant"?: InterfaceLogoAttributes['variant'];
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -132,23 +142,13 @@ export namespace Components {
          */
         "titleId"?: '';
         /**
-          * Visual level for the title
+          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
           * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
         "visuallyHidden"?: false;
-    }
-    interface LyneSbbLogo {
-        /**
-          * The Logo needs to have a certain protective room around it
-         */
-        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the logo can be used in these variants
-         */
-        "variant"?: InterfaceLogoAttributes['variant'];
     }
 }
 declare global {
@@ -182,17 +182,17 @@ declare global {
         prototype: HTMLLynePearlChainElement;
         new (): HTMLLynePearlChainElement;
     };
-    interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
-    }
-    var HTMLLyneTitleElement: {
-        prototype: HTMLLyneTitleElement;
-        new (): HTMLLyneTitleElement;
-    }
     interface HTMLLyneSbbLogoElement extends Components.LyneSbbLogo, HTMLStencilElement {
     }
     var HTMLLyneSbbLogoElement: {
         prototype: HTMLLyneSbbLogoElement;
         new (): HTMLLyneSbbLogoElement;
+    };
+    interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
+    }
+    var HTMLLyneTitleElement: {
+        prototype: HTMLLyneTitleElement;
+        new (): HTMLLyneTitleElement;
     };
     interface HTMLElementTagNameMap {
         "lyne-button": HTMLLyneButtonElement;
@@ -200,8 +200,8 @@ declare global {
         "lyne-link": HTMLLyneLinkElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
-        "lyne-title": HTMLLyneTitleElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
+        "lyne-title": HTMLLyneTitleElement;
     }
 }
 declare namespace LocalJSX {
@@ -311,6 +311,16 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneSbbLogo {
+        /**
+          * The Logo needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the logo can be used in these variants
+         */
+        "variant"?: InterfaceLogoAttributes['variant'];
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -325,7 +335,7 @@ declare namespace LocalJSX {
          */
         "titleId"?: '';
         /**
-          * Visual level for the title
+          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
@@ -333,24 +343,14 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
-    interface LyneSbbLogo {
-        /**
-          * The Logo needs to have a certain protective room around it
-         */
-        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the logo can be used in these variants
-         */
-        "variant"?: InterfaceLogoAttributes['variant'];
-    }
     interface IntrinsicElements {
         "lyne-button": LyneButton;
         "lyne-clock": LyneClock;
         "lyne-link": LyneLink;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
-        "lyne-title": LyneTitle;
         "lyne-sbb-logo": LyneSbbLogo;
+        "lyne-title": LyneTitle;
     }
 }
 export { LocalJSX as JSX };
@@ -362,8 +362,8 @@ declare module "@stencil/core" {
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
-            "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
+            "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }
 }
