@@ -6,12 +6,13 @@
 // CSS properties which can not travel the shadow boundary but need to be defined
 // on each component are defined through %host-component-properties
 // in global/core/components/utilities.scss which each component needs to @extend
+@import "./../../mixins.scss";
 
 html {
-  line-height: var(--typo-font-style-text-1-regular-zero-to-small-line-height);
+  @include text();
 }
 
 body {
   font-family: var(--typo-default-font-family);
-  color: var(--typo-default-font-color);
+  color: var(--color-red125-default);
 }

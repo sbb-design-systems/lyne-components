@@ -5,7 +5,7 @@ import { sass } from '@stencil/sass';
 export const config = {
   buildEs5: 'prod',
   globalScript: 'src/global/global.ts',
-  globalStyle: 'src/global/global.scss',
+  globalStyle: 'src/global/global.shared.scss',
   namespace: 'lyne-components',
   outputTargets: [
     {
@@ -36,12 +36,12 @@ export const config = {
     inlineSvg(),
     sass({
       injectGlobalPaths: [
-        'src/global/global.scss',
         'src/global/core/components/utilities.scss',
         'src/global/functions.scss',
         'src/global/mediaqueries.scss',
         'src/global/mixins.scss',
-        'src/global/core/shared/variables.scss'
+        'src/global/core/shared/variables.scss',
+        'node_modules/lyne-design-tokens/dist/scss/css_variables.scss'
       ]
     })
   ],

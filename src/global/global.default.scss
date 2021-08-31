@@ -1,0 +1,36 @@
+//*****************************************************************************
+// Important
+//
+// Changes in global.scss and from global.scss referenced .scss files only
+// get compiled through a Stencil build. Restarting (stopping/starting) the build
+// is necessary so the changes get reflected in the global CSS (lyne-components.css)
+//
+// This is a known and unsolved stencil-sass bug: see
+// https://github.com/ionic-team/stencil-sass/issues/8
+// https://github.com/ionic-team/stencil-sass/issues/15
+//
+//*****************************************************************************
+
+// Core variables, are always needed
+
+// Does not work right now out of the box because CSS vars are scoped for :host
+// in current lyne-design-tokens, until changed to a % selector which can be extended
+// context specific this needs to be changed to `%lyne-design-tokens-css-variables`
+// in node_modules/lyne-design-tokens/dist/scss/css_variables.scss
+
+:host {
+  // Core variables for :host context
+  @include lyne-components-css-vars;
+}
+
+// Theming, override core variables and enable theme/mode through uncommenting
+// whished theme/mode
+
+// @todo also use %selector for theme vars and extend in correct context,
+// e.g. :root or :host
+
+// @import "theme/sbb-ch/mode--dark/variables.scss";
+// @import "theme/sbb-ch/mode--compact/variables.scss";
+// @import "theme/sbb-ch/mode--dark-compact.variables.scss";
+
+@import "global.scss";

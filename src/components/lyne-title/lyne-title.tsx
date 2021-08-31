@@ -8,8 +8,8 @@ import { InterfaceTitleAttributes } from './lyne-title.custom.d';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'lyne-title.default.scss',
-    shared: 'lyne-title.shared.scss'
+    default: 'styles/lyne-title.default.scss',
+    shared: 'styles/lyne-title.shared.scss'
   },
   tag: 'lyne-title'
 })
