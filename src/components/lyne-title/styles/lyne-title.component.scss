@@ -3,6 +3,11 @@
 // and default mode
 @include host-component-properties;
 
+:host {
+  // @todo define where to handle font color: see inherited.scss
+  //--title-color: var(--color-black-default);
+}
+
 // TODO re-factor to a more generic class later
 .title--hidden {
   @include screenreaderOnly();
@@ -13,6 +18,7 @@
 }
 
 .title {
+  //color: var(--title-color);
   @include fontSmoothing();
 }
 

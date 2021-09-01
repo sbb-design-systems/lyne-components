@@ -158,3 +158,23 @@
 @mixin scrollMarginBlockStart() {
   scroll-margin-block-start: pxToRem(var(--spacing-fixed-10x));
 }
+
+@mixin buttonReset {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@mixin listReset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+}

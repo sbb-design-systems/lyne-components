@@ -22,8 +22,11 @@ export class LyneTitle {
   /** Title level */
   @Prop() public level?: InterfaceTitleAttributes['level'] = '1';
 
-  /** Visual level for the title */
-  @Prop() public visualLevel?: InterfaceTitleAttributes['visualLevel'] = '1';
+  /**
+   * Visual level for the title. If you don't define the visual-level,
+   * the value for level will be used.
+   */
+  @Prop() public visualLevel?: InterfaceTitleAttributes['visualLevel'];
 
   /**
    * A11y Tip:
@@ -48,7 +51,15 @@ export class LyneTitle {
       ? ' title--hidden'
       : '';
 
-    const className = `title title-${this.visualLevel}${visuallyHidden}`;
+    let {
+      visualLevel
+    } = this;
+
+    if (!this.visualLevel) {
+      visualLevel = this.level;
+    }
+
+    const className = `title title-${visualLevel}${visuallyHidden}`;
 
     const attrs = {
       class: className
