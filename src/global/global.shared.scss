@@ -27,12 +27,14 @@
 
 // Theming, override core variables and enable theme/mode through uncommenting
 // whished theme/mode
-
-// @todo also use %selector for theme vars and extend in correct context,
-// e.g. :root or :host
-
 // @import "theme/sbb-ch/mode--dark/variables.scss";
 // @import "theme/sbb-ch/mode--compact/variables.scss";
-// @import "theme/sbb-ch/mode--dark-compact.variables.scss";
+@import "theme/sbb-ch/mode--dark-compact.variables.scss";
+
+:root {
+  //@include theme-sbb-ch-mode--dark-variables;
+  //@include theme-sbb-ch-mode--compact-variables;
+  @include theme-sbb-ch-mode--dark-compact-variables;
+}
 
 @import "global.scss";

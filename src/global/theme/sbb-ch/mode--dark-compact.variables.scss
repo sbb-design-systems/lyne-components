@@ -3,3 +3,8 @@
 
 // Core compact variables
 @import "./mode--compact/variables.scss";
+
+@mixin theme-sbb-ch-mode--dark-compact-variables {
+  @include theme-sbb-ch-mode--dark-variables;
+  @include theme-sbb-ch-mode--compact-variables;
+}
