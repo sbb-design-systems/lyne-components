@@ -31,16 +31,7 @@ const wrapperStyle = (context) => {
 // --- Component
 
 const Template = (args) => (
-  <lyne-button
-    disabled={args.disabled}
-    icon={args.icon}
-    label={args.label}
-    variant={args.variant}
-    size={args.size}
-    icon-description={args.iconDescription}
-    name='sample-name'
-    value='sample-value'
-  >
+  <lyne-button {...args}>
     {getMarkupForSvg(args.iconSlot)}
   </lyne-button>
 );
@@ -138,17 +129,19 @@ lyneButton.argTypes = {
   disabled,
   label,
   icon,
-  iconSlot,
-  iconDescription
+  iconSlot: iconSlot,
+  'icon-description': iconDescription
 };
 
 lyneButton.args = {
-  variant: variant.options[0],
-  size: size.options[0],
-  disabled: false,
-  label: 'Button',
-  icon: true,
-  iconSlot: iconSlot.options[0]
+  'variant': variant.options[0],
+  'size': size.options[0],
+  'disabled': false,
+  'label': 'Button',
+  'icon': true,
+  iconSlot: iconSlot.options[0],
+  'name': 'sample-name',
+  'value': 'sample-value'
 };
 /* eslint-enable sort-keys */
 

@@ -3,10 +3,7 @@ import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-clock
-    paused={args.paused}
-    initial-time={args.initialTime}
-  />
+  <lyne-sbb-clock {...args} />
 );
 
 export const SBBClock = Template.bind({});
@@ -33,7 +30,7 @@ const times = {
 };
 
 SBBClock.argTypes = {
-  initialTime: times
+  'initial-time': times
 };
 
 /**
@@ -42,13 +39,13 @@ SBBClock.argTypes = {
  */
 if (isChromatic()) {
   SBBClock.args = {
-    initialTime: '09:43:59',
-    paused: true
+    'initial-time': '09:43:59',
+    'paused': true
   };
 } else {
   SBBClock.args = {
-    initialTime: times.options[0],
-    paused: state.paused
+    'initial-time': times.options[0],
+    'paused': state.paused
   };
 }
 
