@@ -129,19 +129,19 @@ lyneButton.argTypes = {
   disabled,
   label,
   icon,
-  iconSlot: iconSlot,
+  iconSlot,
   'icon-description': iconDescription
 };
 
 lyneButton.args = {
-  'variant': variant.options[0],
-  'size': size.options[0],
-  'disabled': false,
-  'label': 'Button',
-  'icon': true,
+  variant: variant.options[0],
+  size: size.options[0],
+  disabled: false,
+  label: 'Button',
+  icon: true,
   iconSlot: iconSlot.options[0],
-  'name': 'sample-name',
-  'value': 'sample-value'
+  name: 'sample-name',
+  value: 'sample-value'
 };
 /* eslint-enable sort-keys */
 
