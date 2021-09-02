@@ -11,7 +11,7 @@ import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg';
 
-import { Time } from './lyne-clock.custom.d';
+import { Time } from './lyne-sbb-clock.custom.d';
 
 let moveHoursHand;
 let moveMinutesHand;
@@ -24,11 +24,11 @@ const eventListenerOptions = {
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-clock.scss',
-  tag: 'lyne-clock'
+  styleUrl: 'lyne-sbb-clock.scss',
+  tag: 'lyne-sbb-clock'
 })
 
-export class LyneClock {
+export class LyneSbbClock {
 
   @Element() private _element: HTMLElement;
 
