@@ -11,9 +11,9 @@ components.forEach((comp) => {
   copyPatternsStories.push({
     from: path.resolve(__dirname, `../src/components/${comp.tag}/${comp.tag}.stories.js`),
     to: path.resolve(__dirname, `../dist/collection/components/${comp.tag}/${comp.tag}.stories.js`),
-    transform(content, absoluteFrom) {
+    transform(content) {
       return jsx.fromString(content.toString(), {
-        factory: 'mercury.h'
+        factory: 'h'
       });
     }
   });
@@ -38,7 +38,7 @@ module.exports = {
   features: {
     postcss: false
   },
-  webpackFinal: (config, { configType }) => {
+  webpackFinal: async (config, { configType }) => {
     config.plugins.push(
       new CopyWebpackPlugin({
         patterns: copyPatternsStories
