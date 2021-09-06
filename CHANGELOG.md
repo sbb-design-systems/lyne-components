@@ -1,3 +1,11 @@
+## [9.39.1](https://github.com/lyne-design-system/lyne-components/compare/v9.39.0...v9.39.1) (2021-09-06)
+
+
+### Bug Fixes
+
+* log pattern to debug ([00b23c6](https://github.com/lyne-design-system/lyne-components/commit/00b23c654ad777288966af2fc6a32ce81321507b))
+* remove quiet argument to debug ([d66f402](https://github.com/lyne-design-system/lyne-components/commit/d66f4025fbdaad55e87f66e7aa7ed98b3058c0b5))
+
 # [9.39.0](https://github.com/lyne-design-system/lyne-components/compare/v9.38.1...v9.39.0) (2021-09-06)
 
 
