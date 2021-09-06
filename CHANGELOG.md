@@ -1,3 +1,10 @@
+# [9.39.0](https://github.com/lyne-design-system/lyne-components/compare/v9.38.1...v9.39.0) (2021-09-06)
+
+
+### Features
+
+* copy and transform stories file ([b326d8a](https://github.com/lyne-design-system/lyne-components/commit/b326d8aaa4680fe541bdf9d46e502df6dba23946))
+
 ## [9.38.1](https://github.com/lyne-design-system/lyne-components/compare/v9.38.0...v9.38.1) (2021-09-01)
 
 
