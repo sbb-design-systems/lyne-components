@@ -1,3 +1,13 @@
+## [9.39.2](https://github.com/lyne-design-system/lyne-components/compare/v9.39.1...v9.39.2) (2021-09-06)
+
+
+### Bug Fixes
+
+* add quite argument again ([b2bf9aa](https://github.com/lyne-design-system/lyne-components/commit/b2bf9aacbbe6e80e9c359e4022168685ed23247a))
+* remove log ([858f05f](https://github.com/lyne-design-system/lyne-components/commit/858f05fecc0d2ee0a34cb522471a733f87cd4723))
+* run release after storybook build ([6d6fc4b](https://github.com/lyne-design-system/lyne-components/commit/6d6fc4b935a1c905f7fbafb23a38bc8f72e0b98e))
+* try webpack config sync ([04edced](https://github.com/lyne-design-system/lyne-components/commit/04edcedfe2d87c9976e2ca327984ee6e3e391b67))
+
 ## [9.39.1](https://github.com/lyne-design-system/lyne-components/compare/v9.39.0...v9.39.1) (2021-09-06)
 
 
