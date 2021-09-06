@@ -1,3 +1,10 @@
+## [9.39.4](https://github.com/lyne-design-system/lyne-components/compare/v9.39.3...v9.39.4) (2021-09-06)
+
+
+### Bug Fixes
+
+* use common-js to import files, add sample doc titles ([6591af6](https://github.com/lyne-design-system/lyne-components/commit/6591af695e1efd76780de51a114d8890f66c863c))
+
 ## [9.39.3](https://github.com/lyne-design-system/lyne-components/compare/v9.39.2...v9.39.3) (2021-09-06)
 
 
