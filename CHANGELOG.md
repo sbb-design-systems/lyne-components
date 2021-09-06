@@ -1,3 +1,10 @@
+## [9.39.3](https://github.com/lyne-design-system/lyne-components/compare/v9.39.2...v9.39.3) (2021-09-06)
+
+
+### Bug Fixes
+
+* add async again, remove mercury transform ([6adaf68](https://github.com/lyne-design-system/lyne-components/commit/6adaf68ae2ba0a47e83bafd358073d63bf388a6a))
+
 ## [9.39.2](https://github.com/lyne-design-system/lyne-components/compare/v9.39.1...v9.39.2) (2021-09-06)
 
 
