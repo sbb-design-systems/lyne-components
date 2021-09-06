@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build:stencil": "stencil build --ci --prod --docs",
-    "build:storybook": "build-storybook",
+    "build:storybook": "build-storybook --quiet",
     "build": "npm-run-all --sequential build:stencil build:storybook",
     "chromatic": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes --exit-once-uploaded",
     "chromatic:master": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes --auto-accept-changes",
