@@ -2,10 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-sbb-logo
-    variant={args.variant}
-    protective-room={args.protectiveRoom}
-  />
+  <lyne-sbb-logo {...args} />
 );
 
 export const SBBLogo = Template.bind({});
@@ -35,13 +32,13 @@ const protectiveRoom = {
 };
 
 SBBLogo.argTypes = {
-  protectiveRoom,
-  variant: variants
+  'protective-room': protectiveRoom,
+  'variant': variants
 };
 
 SBBLogo.args = {
-  protectiveRoom: protectiveRoom.options[0],
-  variant: variants.options[0]
+  'protective-room': protectiveRoom.options[0],
+  'variant': variants.options[0]
 };
 
 export default {

@@ -7,9 +7,9 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
-import { Time } from "./components/lyne-clock/lyne-clock.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
+import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 export namespace Components {
@@ -99,16 +99,6 @@ export namespace Components {
          */
         "visualButtonOnly"?: boolean;
     }
-    interface LyneClock {
-        /**
-          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
-         */
-        "initialTime"?: Time;
-        /**
-          * If set to true, the clock will be paused.
-         */
-        "paused"?: boolean;
-    }
     interface LyneLink {
         /**
           * Link to use as href
@@ -154,6 +144,16 @@ export namespace Components {
           * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
          */
         "status"?: InterfacePearlChainAttributes['status'];
+    }
+    interface LyneSbbClock {
+        /**
+          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
+         */
+        "initialTime"?: Time;
+        /**
+          * If set to true, the clock will be paused.
+         */
+        "paused"?: boolean;
     }
     interface LyneSbbLogo {
         /**
@@ -207,12 +207,6 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
-    interface HTMLLyneClockElement extends Components.LyneClock, HTMLStencilElement {
-    }
-    var HTMLLyneClockElement: {
-        prototype: HTMLLyneClockElement;
-        new (): HTMLLyneClockElement;
-    };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
     var HTMLLyneLinkElement: {
@@ -231,6 +225,12 @@ declare global {
         prototype: HTMLLynePearlChainElement;
         new (): HTMLLynePearlChainElement;
     };
+    interface HTMLLyneSbbClockElement extends Components.LyneSbbClock, HTMLStencilElement {
+    }
+    var HTMLLyneSbbClockElement: {
+        prototype: HTMLLyneSbbClockElement;
+        new (): HTMLLyneSbbClockElement;
+    };
     interface HTMLLyneSbbLogoElement extends Components.LyneSbbLogo, HTMLStencilElement {
     }
     var HTMLLyneSbbLogoElement: {
@@ -247,10 +247,10 @@ declare global {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
-        "lyne-clock": HTMLLyneClockElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
+        "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-title": HTMLLyneTitleElement;
     }
@@ -342,16 +342,6 @@ declare namespace LocalJSX {
          */
         "visualButtonOnly"?: boolean;
     }
-    interface LyneClock {
-        /**
-          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
-         */
-        "initialTime"?: Time;
-        /**
-          * If set to true, the clock will be paused.
-         */
-        "paused"?: boolean;
-    }
     interface LyneLink {
         /**
           * Link to use as href
@@ -398,6 +388,16 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneSbbClock {
+        /**
+          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
+         */
+        "initialTime"?: Time;
+        /**
+          * If set to true, the clock will be paused.
+         */
+        "paused"?: boolean;
+    }
     interface LyneSbbLogo {
         /**
           * The Logo needs to have a certain protective room around it
@@ -434,10 +434,10 @@ declare namespace LocalJSX {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
-        "lyne-clock": LyneClock;
         "lyne-link": LyneLink;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
+        "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-title": LyneTitle;
     }
@@ -449,10 +449,10 @@ declare module "@stencil/core" {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
-            "lyne-clock": LocalJSX.LyneClock & JSXBase.HTMLAttributes<HTMLLyneClockElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
+            "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }

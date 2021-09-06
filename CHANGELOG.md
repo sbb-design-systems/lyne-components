@@ -1,3 +1,10 @@
+## [9.38.1](https://github.com/lyne-design-system/lyne-components/compare/v9.38.0...v9.38.1) (2021-09-01)
+
+
+### Bug Fixes
+
+* correct title ([8fa3e3b](https://github.com/lyne-design-system/lyne-components/commit/8fa3e3b7b9f9eba6d9568b81fada345d29d38813))
+
 # [9.38.0](https://github.com/lyne-design-system/lyne-components/compare/v9.37.0...v9.38.0) (2021-08-31)
 
 
