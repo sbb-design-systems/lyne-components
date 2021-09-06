@@ -25,6 +25,8 @@ components.forEach((comp) => {
   });
 });
 
+console.log(copyPatternsStories);
+
 module.exports = {
   stories: [
     '../src/**/*.stories.js',
