@@ -38,7 +38,7 @@ module.exports = {
   features: {
     postcss: false
   },
-  webpackFinal: async (config, { configType }) => {
+  webpackFinal: (config, { configType }) => {
     config.plugins.push(
       new CopyWebpackPlugin({
         patterns: copyPatternsStories
