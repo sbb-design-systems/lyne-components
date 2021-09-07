@@ -1,3 +1,10 @@
+## [9.40.4](https://github.com/lyne-design-system/lyne-components/compare/v9.40.3...v9.40.4) (2021-09-07)
+
+
+### Bug Fixes
+
+* add window mock object ([ceef937](https://github.com/lyne-design-system/lyne-components/commit/ceef9375ac939a30ce0f5fc160159f0952cf2972))
+
 ## [9.40.3](https://github.com/lyne-design-system/lyne-components/compare/v9.40.2...v9.40.3) (2021-09-07)
 
 
