@@ -1,3 +1,11 @@
+## [9.40.3](https://github.com/lyne-design-system/lyne-components/compare/v9.40.2...v9.40.3) (2021-09-07)
+
+
+### Bug Fixes
+
+* fake commit to trigger release ([139aacb](https://github.com/lyne-design-system/lyne-components/commit/139aacbfe1a5dca3386651a25c3598d1e4ce8974))
+* remove window reference ([b272178](https://github.com/lyne-design-system/lyne-components/commit/b272178aaa6ba9cbc736eba0fae1ece71b022ffe))
+
 ## [9.40.2](https://github.com/lyne-design-system/lyne-components/compare/v9.40.1...v9.40.2) (2021-09-07)
 
 
