@@ -1,3 +1,15 @@
+# [9.41.0](https://github.com/lyne-design-system/lyne-components/compare/v9.40.4...v9.41.0) (2021-09-07)
+
+
+### Bug Fixes
+
+* remove window mock, define jsx-dom as external ([7965b09](https://github.com/lyne-design-system/lyne-components/commit/7965b09b85af6d9f0e52a3f8b500c395fb17cd33))
+
+
+### Features
+
+* add title for documentation ([6ea8ee6](https://github.com/lyne-design-system/lyne-components/commit/6ea8ee6c8a4079a49280152313f73eed91bd1663))
+
 ## [9.40.4](https://github.com/lyne-design-system/lyne-components/compare/v9.40.3...v9.40.4) (2021-09-07)
 
 
