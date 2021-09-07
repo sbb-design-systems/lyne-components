@@ -25,6 +25,14 @@ const Template = (args) => (
 export const Default = Template.bind({});
 export const NonWhiteBackground = Template.bind();
 
+Default.documentation = {
+  title: 'Default Accordion'
+};
+
+NonWhiteBackground.documentation = {
+  title: 'Accordion on non-white background'
+};
+
 const items = [
   {
     'event-id': 'id1',

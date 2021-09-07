@@ -17,6 +17,10 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 
+Default.documentation = {
+  title: 'Default Accordion Item'
+};
+
 Default.args = {
   'disabled': false,
   'event-id': 'id1',
