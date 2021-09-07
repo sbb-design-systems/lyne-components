@@ -1,3 +1,15 @@
+# [9.40.0](https://github.com/lyne-design-system/lyne-components/compare/v9.39.4...v9.40.0) (2021-09-07)
+
+
+### Bug Fixes
+
+* use es6 imports again ([7c29966](https://github.com/lyne-design-system/lyne-components/commit/7c299662fee8e340a04d19354400858d73b6affd))
+
+
+### Features
+
+* bundle stories file to npm collection dir ([99ede5a](https://github.com/lyne-design-system/lyne-components/commit/99ede5a6e63faabb4b5d9615279f22528b452a5e))
+
 ## [9.39.4](https://github.com/lyne-design-system/lyne-components/compare/v9.39.3...v9.39.4) (2021-09-06)
 
 
