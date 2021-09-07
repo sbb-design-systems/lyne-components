@@ -13,6 +13,7 @@ const buildFiles = (files) => {
          * the window context, so we make sure we have no references to window
          * in the bundled code.
          */
+
         window: '{}'
       },
       entryNames: '[name]',
