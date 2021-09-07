@@ -14,7 +14,14 @@ const buildFiles = (files) => {
          * in the bundled code.
          */
 
-        window: '{}'
+        window: JSON.stringify({
+          location: {
+            href: '/'
+          },
+          navigator: {
+            userAgent: 'gridsome'
+          }
+        })
       },
       entryNames: '[name]',
       entryPoints: files,
