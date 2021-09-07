@@ -1,3 +1,10 @@
+## [9.40.2](https://github.com/lyne-design-system/lyne-components/compare/v9.40.1...v9.40.2) (2021-09-07)
+
+
+### Bug Fixes
+
+* properly write index file ([fbe2e08](https://github.com/lyne-design-system/lyne-components/commit/fbe2e0895b6f8a4e03f68cc53b6d9c1cab63522d))
+
 ## [9.40.1](https://github.com/lyne-design-system/lyne-components/compare/v9.40.0...v9.40.1) (2021-09-07)
 
 
