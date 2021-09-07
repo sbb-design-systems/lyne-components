@@ -61,11 +61,14 @@ jobs:
 
       after_success:
 
-        # Make Storybook build
-        - STORYBOOK_COMPONENTS_VERSION=$(cat .version) npm run build:storybook || travis_terminate 1
+        # bundle stories
+        - node ./ci/bundleStories.js
 
         # run semantic release
         - npm run semantic-release || travis_terminate 1
+
+        # Make Storybook build
+        - STORYBOOK_COMPONENTS_VERSION=$(cat .version) npm run build:storybook || travis_terminate 1
 
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
