@@ -1,3 +1,11 @@
+## [9.40.1](https://github.com/lyne-design-system/lyne-components/compare/v9.40.0...v9.40.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* make build sync ([7b9b987](https://github.com/lyne-design-system/lyne-components/commit/7b9b987c353d31dbb62931f15922e56396341428))
+* write index file ([396a073](https://github.com/lyne-design-system/lyne-components/commit/396a07363431f30007f4c8eae29a8180d8f2266d))
+
 # [9.40.0](https://github.com/lyne-design-system/lyne-components/compare/v9.39.4...v9.40.0) (2021-09-07)
 
 
