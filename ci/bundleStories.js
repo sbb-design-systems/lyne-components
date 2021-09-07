@@ -8,7 +8,6 @@ const buildFiles = (files) => {
       bundle: true,
       entryNames: '[name]',
       entryPoints: files,
-      external: ['jsx-dom'],
       format: 'cjs',
       jsxFactory: 'h',
       loader: {
