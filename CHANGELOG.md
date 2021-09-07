@@ -1,3 +1,10 @@
+## [9.41.1](https://github.com/lyne-design-system/lyne-components/compare/v9.41.0...v9.41.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* remove external again ([70a5e57](https://github.com/lyne-design-system/lyne-components/commit/70a5e57aa301fe19a658db4cae51d73d29be37d3))
+
 # [9.41.0](https://github.com/lyne-design-system/lyne-components/compare/v9.40.4...v9.41.0) (2021-09-07)
 
 
