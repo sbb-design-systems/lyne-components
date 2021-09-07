@@ -6,6 +6,15 @@ const buildFiles = (files) => {
   esbuild
     .buildSync({
       bundle: true,
+      define: {
+
+        /**
+         * since we wanna use it in an SSG tool, we most probably won't have
+         * the window context, so we make sure we have no references to window
+         * in the bundled code.
+         */
+        window: '{}'
+      },
       entryNames: '[name]',
       entryPoints: files,
       format: 'cjs',
