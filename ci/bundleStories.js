@@ -20,12 +20,22 @@ const buildFiles = (files) => {
 };
 
 const writeIndex = () => {
-  const moduleExports = {};
+  let moduleExports = '';
 
   fs.readdirSync('./dist/collection/storybundle')
     .forEach((file) => {
-      moduleExports[file.replace('.stories.js', '')] = `require('./${file}')`;
+      const key = file.replace('.stories.js', '');
+
+      moduleExports += `'${key}': require('./${file}'),`;
     });
+
+  // const output = `module.exports = ${JSON.stringify(moduleExports)}`;
+
+  const output = `module.exports = {
+    ${moduleExports}
+  };`;
+
+  fs.writeFileSync('./dist/collection/storybundle/index.js', output);
 
 };
 
