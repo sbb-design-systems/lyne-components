@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const buildFiles = (files) => {
   esbuild
-    .build({
+    .buildSync({
       bundle: true,
       entryNames: '[name]',
       entryPoints: files,
@@ -16,9 +16,6 @@ const buildFiles = (files) => {
       },
       // minify: true,
       outdir: './dist/collection/storybundle'
-    })
-    .catch((err2) => {
-      throw new Error(err2);
     });
 };
 
@@ -27,7 +24,6 @@ const writeIndex = () => {
 
   fs.readdirSync('./dist/collection/storybundle')
     .forEach((file) => {
-      console.log(file);
       moduleExports[file.replace('.stories.js', '')] = `require('./${file}')`;
     });
 
