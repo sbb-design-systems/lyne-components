@@ -1,3 +1,10 @@
+## [9.42.2](https://github.com/lyne-design-system/lyne-components/compare/v9.42.1...v9.42.2) (2021-09-08)
+
+
+### Bug Fixes
+
+* remove window mock ([6b720a4](https://github.com/lyne-design-system/lyne-components/commit/6b720a4eda07b846ba2bd64ecf6f4c03b9d1a1a6))
+
 ## [9.42.1](https://github.com/lyne-design-system/lyne-components/compare/v9.42.0...v9.42.1) (2021-09-08)
 
 
