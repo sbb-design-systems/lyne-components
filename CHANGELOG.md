@@ -1,3 +1,10 @@
+## [9.42.5](https://github.com/lyne-design-system/lyne-components/compare/v9.42.4...v9.42.5) (2021-09-08)
+
+
+### Bug Fixes
+
+* make HTMLTemplate element mock callable ([f3e9be7](https://github.com/lyne-design-system/lyne-components/commit/f3e9be785f673d5c58917f93efd10ebbbd4f3bda))
+
 ## [9.42.4](https://github.com/lyne-design-system/lyne-components/compare/v9.42.3...v9.42.4) (2021-09-08)
 
 
