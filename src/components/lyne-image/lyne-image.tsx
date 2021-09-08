@@ -32,12 +32,6 @@ export class LyneImage {
   @Prop() public alt?: string;
 
   /**
-   * Choose from the existing palette of allowed aspect ratios.
-   * The aspect ratio can also change from viewport to viewport.
-   */
-  @Prop() public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16/9';
-
-  /**
    * If set to true, we show a blurred version of the image as
    * placeholder before the actual image loads. This should help
    * to improve the perceived loading performance.
@@ -49,6 +43,8 @@ export class LyneImage {
    * name of the photographer, copyright information and the like).
    */
   @Prop() public caption?: string;
+
+  @Prop() public decoding: InterfaceImageAttributes['decoding'] = 'auto';
 
   /**
    * In cases when the image is just serving a decorative purpose,
@@ -87,8 +83,6 @@ export class LyneImage {
    */
   @Prop() public performanceMark?: string;
 
-  @Prop() public width?: '100%';
-
   private _addLoadedClass(): void {
     this._figureElement.classList.add('lyne-image__figure--loaded');
   }
@@ -104,8 +98,9 @@ export class LyneImage {
 
     const attributes: InterfaceImageAttributes = {};
 
-    const aspectRatio = this.aspectRatio.replace(/\//u, 'x');
-    const figureClass = `lyne-image__figure lyne-image__figure--${aspectRatio}`;
+    // const aspectRatio = this.aspectRatio.replace(/\//u, 'x');
+    // const figureClass = `lyne-image__figure lyne-image__figure--${aspectRatio}`;
+    const figureClass = `lyne-image__figure lyne-image__figure--1x1`;
 
     if (this.hideFromScreenreader) {
       attributes.ariaHidden = 'true';
@@ -113,11 +108,11 @@ export class LyneImage {
     }
 
     if (this.loading === 'lazy') {
-      attributes.decoding = 'async';
+      this.decoding = 'async';
     }
 
     const imageBlurHashUrl = `${this.imageSrc}?blur=100&w=100`;
-    const imageUrl = `${this.imageSrc}?auto=compress,enhance&w=${this.width}&fm=${this.imageFormat}`;
+    const imageUrl = `${this.imageSrc}?auto=compress,enhance&w=300`;
 
     return (
 
@@ -136,8 +131,9 @@ export class LyneImage {
                   alt=''
                   class='lyne-image__blur-hash'
                   src={imageBlurHashUrl}
-                  width={this.width}
+                  width="300"
                   loading={this.loading}
+                  decoding={this.decoding}
                 />
               )
               : ''
@@ -146,8 +142,9 @@ export class LyneImage {
             alt={this.alt}
             class='lyne-image__img'
             src={imageUrl}
-            width={this.width}
+            width="300"
             loading={this.loading}
+            decoding={this.decoding}
             ref={(el): void => {
               this._imageElement = el;
             }}

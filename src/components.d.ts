@@ -106,10 +106,6 @@ export namespace Components {
          */
         "alt"?: string;
         /**
-          * Choose from the existing palette of allowed aspect ratios. The aspect ratio can also change from viewport to viewport.
-         */
-        "aspectRatio": InterfaceImageAttributes['aspectRatio'];
-        /**
           * If set to true, we show a blurred version of the image as placeholder before the actual image loads. This should help to improve the perceived loading performance.
          */
         "blurHash": InterfaceImageAttributes['blurHash'];
@@ -117,6 +113,7 @@ export namespace Components {
           * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like).
          */
         "caption"?: string;
+        "decoding": InterfaceImageAttributes['decoding'];
         /**
           * In cases when the image is just serving a decorative purpose, we can hide it from assisitive technologies (e.g. an image in a teaser card)
          */
@@ -131,7 +128,6 @@ export namespace Components {
           * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases.
          */
         "performanceMark"?: string;
-        "width"?: '100%';
     }
     interface LyneLink {
         /**
@@ -389,10 +385,6 @@ declare namespace LocalJSX {
          */
         "alt"?: string;
         /**
-          * Choose from the existing palette of allowed aspect ratios. The aspect ratio can also change from viewport to viewport.
-         */
-        "aspectRatio"?: InterfaceImageAttributes['aspectRatio'];
-        /**
           * If set to true, we show a blurred version of the image as placeholder before the actual image loads. This should help to improve the perceived loading performance.
          */
         "blurHash"?: InterfaceImageAttributes['blurHash'];
@@ -400,6 +392,7 @@ declare namespace LocalJSX {
           * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like).
          */
         "caption"?: string;
+        "decoding"?: InterfaceImageAttributes['decoding'];
         /**
           * In cases when the image is just serving a decorative purpose, we can hide it from assisitive technologies (e.g. an image in a teaser card)
          */
@@ -414,7 +407,6 @@ declare namespace LocalJSX {
           * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases.
          */
         "performanceMark"?: string;
-        "width"?: '100%';
     }
     interface LyneLink {
         /**
