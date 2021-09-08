@@ -22,7 +22,7 @@ const buildFiles = (files) => {
          */
 
         window: JSON.stringify({
-          HTMLTemplateElement: {},
+          HTMLTemplateElement: () => false,
           location: {
             href: '/'
           },
