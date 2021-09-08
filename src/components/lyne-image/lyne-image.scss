@@ -1,0 +1,51 @@
+:host {
+
+  --image-border-radius: var(--border-radius-4x);
+
+}
+
+.lyne-image__figure {
+  background: lime;
+}
+
+.lyne-image__img {
+  background: orange;
+}
+
+.lyne-image__img--1x1 {
+  aspect-ratio: 1 / 1;
+}
+
+.lyne-image__img--5x4 {
+  aspect-ratio: 5 / 4;
+}
+.lyne-image__img--3x2 {
+  aspect-ratio: 3 / 2;
+}
+.lyne-image__img--16x9 {
+  aspect-ratio: 16 / 9;
+}
+
+.lyne-image__img--2x1 {
+   aspect-ratio: 2 / 1;
+}
+
+.lyne-image__img--1x2 {
+  aspect-ratio: 1 / 2;
+}
+
+.lyne-image__img--9x16 {
+  aspect-ratio: 9 / 16;
+}
+
+.lyne-image__img--2x3 {
+  aspect-ratio: 2 / 3;
+}
+
+.lyne-image__img--3x4 {
+  aspect-ratio: 3 / 4;
+}
+
+.lyne-image__img--4x5 {
+  aspect-ratio: 4 / 5;
+}

@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
+import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
@@ -98,6 +99,17 @@ export namespace Components {
           * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
+    }
+    interface LyneImage {
+        "alt"?: string;
+        "aspectRatio": InterfaceImageAttributes['aspectRatio'];
+        "caption"?: string;
+        "hideFromScreenreader": InterfaceImageAttributes['hideFromScreenreader'];
+        "imageFormat": InterfaceImageAttributes['imageFormat'];
+        "imageSrc": string;
+        "loading": InterfaceImageAttributes['loading'];
+        "performanceMark"?: string;
+        "width"?: '100%';
     }
     interface LyneLink {
         /**
@@ -207,6 +219,12 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
+    interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
+    }
+    var HTMLLyneImageElement: {
+        prototype: HTMLLyneImageElement;
+        new (): HTMLLyneImageElement;
+    };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
     var HTMLLyneLinkElement: {
@@ -247,6 +265,7 @@ declare global {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
+        "lyne-image": HTMLLyneImageElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
@@ -342,6 +361,17 @@ declare namespace LocalJSX {
          */
         "visualButtonOnly"?: boolean;
     }
+    interface LyneImage {
+        "alt"?: string;
+        "aspectRatio"?: InterfaceImageAttributes['aspectRatio'];
+        "caption"?: string;
+        "hideFromScreenreader"?: InterfaceImageAttributes['hideFromScreenreader'];
+        "imageFormat"?: InterfaceImageAttributes['imageFormat'];
+        "imageSrc": string;
+        "loading"?: InterfaceImageAttributes['loading'];
+        "performanceMark"?: string;
+        "width"?: '100%';
+    }
     interface LyneLink {
         /**
           * Link to use as href
@@ -434,6 +464,7 @@ declare namespace LocalJSX {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
+        "lyne-image": LyneImage;
         "lyne-link": LyneLink;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
@@ -449,6 +480,7 @@ declare module "@stencil/core" {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
+            "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
