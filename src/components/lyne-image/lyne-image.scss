@@ -1,11 +1,9 @@
 :host {
-
   --image-border-radius: var(--border-radius-4x);
-
 }
 
 .lyne-image__figure {
-  position: relative;
+  margin: 0;
   background: lime;
 }
 
@@ -24,41 +22,51 @@
   opacity: .999999;
 }
 
-.lyne-image__figure--1x1 {
+.lyne-image__wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.lyne-image__figure--1x1 .lyne-image__wrapper {
   aspect-ratio: 1 / 1;
 }
 
-.lyne-image__figure--5x4 {
+.lyne-image__figure--5x4 .lyne-image__wrapper {
   aspect-ratio: 5 / 4;
 }
-.lyne-image__figure--3x2 {
+
+.lyne-image__figure--4x3 .lyne-image__wrapper {
+  aspect-ratio: 4 / 3;
+}
+
+.lyne-image__figure--3x2 .lyne-image__wrapper {
   aspect-ratio: 3 / 2;
 }
 
-.lyne-image__figure--16x9 {
+.lyne-image__figure--16x9 .lyne-image__wrapper {
   aspect-ratio: 16 / 9;
 }
 
-.lyne-image__figure--2x1 {
+.lyne-image__figure--2x1 .lyne-image__wrapper {
    aspect-ratio: 2 / 1;
 }
 
-.lyne-image__figure--1x2 {
+.lyne-image__figure--1x2 .lyne-image__wrapper {
   aspect-ratio: 1 / 2;
 }
 
-.lyne-image__figure--9x16 {
+.lyne-image__figure--9x16 .lyne-image__wrapper {
   aspect-ratio: 9 / 16;
 }
 
-.lyne-image__figure--2x3 {
+.lyne-image__figure--2x3 .lyne-image__wrapper {
   aspect-ratio: 2 / 3;
 }
 
-.lyne-image__figure--3x4 {
+.lyne-image__figure--3x4 .lyne-image__wrapper {
   aspect-ratio: 3 / 4;
 }
 
-.lyne-image__figure--4x5 {
+.lyne-image__figure--4x5 .lyne-image__wrapper {
   aspect-ratio: 4 / 5;
 }

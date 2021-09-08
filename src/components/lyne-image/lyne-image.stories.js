@@ -83,9 +83,9 @@ const loading = {
 
 const width = '';
 
-export const image = Template.bind({});
+export const lyneImage = Template.bind({});
 
-image.argTypes = {
+lyneImage.argTypes = {
   'alt': '',
   'aspect-ratio': aspectRatio,
   'blur-hash': blurHash,
@@ -93,15 +93,15 @@ image.argTypes = {
   'hide-from-screenreader': hideFromScreenreader,
   'image-format': imageFormat,
   'image-src': imageSrc,
-  'loading': loading,
+  loading,
   'performance-mark': ''
 };
 
-image.args = {
+lyneImage.args = {
   'alt': '',
   'aspect-ratio': aspectRatio.options[0],
   'blur-hash': blurHash.options[0],
-  'caption': 'Data without insights are trivial, and insights without action are pointless',
+  'caption': 'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
   'hide-from-screenreader': hideFromScreenreader.options[1],
   'image-format': imageFormat.options[0],
   'image-src': imageSrc.options[0],
@@ -111,6 +111,13 @@ image.args = {
 };
 
 export default {
+  decorators: [
+    (Story) => (
+      <div style='max-width: 300px;'>
+        <Story/>
+      </div>
+    )
+  ],
   parameters: {
     docs: {
       extractComponentDescription: () => readme
