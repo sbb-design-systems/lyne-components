@@ -1,3 +1,10 @@
+## [9.42.4](https://github.com/lyne-design-system/lyne-components/compare/v9.42.3...v9.42.4) (2021-09-08)
+
+
+### Bug Fixes
+
+* mock HTMLTemplateElement ([03545c8](https://github.com/lyne-design-system/lyne-components/commit/03545c82d65450f424b6ac63931b22d0a34e8d49))
+
 ## [9.42.3](https://github.com/lyne-design-system/lyne-components/compare/v9.42.2...v9.42.3) (2021-09-08)
 
 
