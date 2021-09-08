@@ -6,6 +6,11 @@ import {
 
 import { InterfaceImageAttributes } from './lyne-image.custom.d';
 
+const eventListenerOptions = {
+  once: true,
+  passive: true
+};
+
 @Component({
   shadow: true,
   styleUrl: 'lyne-image.scss',
@@ -13,6 +18,8 @@ import { InterfaceImageAttributes } from './lyne-image.custom.d';
 })
 
 export class LyneImage {
+
+  private _imageToLoad!: HTMLElement;
 
   @Prop() public alt?: string;
 
@@ -58,8 +65,24 @@ export class LyneImage {
       width={this.width}
       loading={this.loading}
       {...attributes}
+      ref={(el): void => {
+        this._imageToLoad = el;
+      }}
       />
     </figure>;
+  }
+
+  public componentDidRender() {
+
+    if (this.performanceMark) {
+      this._imageToLoad.addEventListener('load', () => {
+        if (window.performance.mark) {
+          performance.clearMarks(this.performanceMark);
+          performance.mark(this.performanceMark);
+        }
+      }, eventListenerOptions)
+    }
+
   }
 
 }
