@@ -1,3 +1,10 @@
+# [9.42.0](https://github.com/lyne-design-system/lyne-components/compare/v9.41.1...v9.42.0) (2021-09-08)
+
+
+### Features
+
+* write file with component names, refactor to use config ([ef454ed](https://github.com/lyne-design-system/lyne-components/commit/ef454edf10a8aa45442eee5982f842884e159311))
+
 ## [9.41.1](https://github.com/lyne-design-system/lyne-components/compare/v9.41.0...v9.41.1) (2021-09-07)
 
 
