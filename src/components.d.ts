@@ -103,6 +103,7 @@ export namespace Components {
     interface LyneImage {
         "alt"?: string;
         "aspectRatio": InterfaceImageAttributes['aspectRatio'];
+        "blurHash": InterfaceImageAttributes['blurHash'];
         "caption"?: string;
         "hideFromScreenreader": InterfaceImageAttributes['hideFromScreenreader'];
         "imageFormat": InterfaceImageAttributes['imageFormat'];
@@ -364,6 +365,7 @@ declare namespace LocalJSX {
     interface LyneImage {
         "alt"?: string;
         "aspectRatio"?: InterfaceImageAttributes['aspectRatio'];
+        "blurHash"?: InterfaceImageAttributes['blurHash'];
         "caption"?: string;
         "hideFromScreenreader"?: InterfaceImageAttributes['hideFromScreenreader'];
         "imageFormat"?: InterfaceImageAttributes['imageFormat'];
