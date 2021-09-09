@@ -1,3 +1,10 @@
+## [9.43.2](https://github.com/lyne-design-system/lyne-components/compare/v9.43.1...v9.43.2) (2021-09-09)
+
+
+### Bug Fixes
+
+* don't render background color as string ([406c17d](https://github.com/lyne-design-system/lyne-components/commit/406c17d81cc76f4dbac7eab7b4e35c0a6833449d))
+
 ## [9.43.1](https://github.com/lyne-design-system/lyne-components/compare/v9.43.0...v9.43.1) (2021-09-09)
 
 
