@@ -1,5 +1,10 @@
+import {
+  ColorMilkDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
 import events from '../lyne-accordion-item/lyne-accordion-item.events.ts';
 import { h } from 'jsx-dom';
+
 import readme from './readme.md';
 
 const ItemTemplate = (args) => (
@@ -28,8 +33,8 @@ export const NonWhiteBackground = Template.bind();
 Default.documentation = {
   container: {
     styles: {
-      'background-color': '$color-white-default',
-      'border': '2px solid $color-milk-default'
+      'background-color': `'${ColorWhiteDefault}'`,
+      'border': `2px solid ${ColorMilkDefault}`
     }
   },
   title: 'Default Accordion'
@@ -38,7 +43,7 @@ Default.documentation = {
 NonWhiteBackground.documentation = {
   container: {
     styles: {
-      'background-color': '$color-milk-default'
+      'background-color': `'${ColorMilkDefault}'`
     }
   },
   title: 'Accordion on non-white background'
