@@ -29,7 +29,7 @@ Default.documentation = {
   container: {
     styles: {
       'background-color': '$color-white-default',
-      'border-color': '$color-milk-default'
+      'border': '2px solid $color-milk-default'
     }
   },
   title: 'Default Accordion'
@@ -38,8 +38,7 @@ Default.documentation = {
 NonWhiteBackground.documentation = {
   container: {
     styles: {
-      'background-color': '$color-milk-default',
-      'border-color': '$color-white-default'
+      'background-color': '$color-milk-default'
     }
   },
   title: 'Accordion on non-white background'
