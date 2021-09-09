@@ -99,20 +99,6 @@ export namespace Components {
          */
         "visualButtonOnly"?: boolean;
     }
-    interface LyneLink {
-        /**
-          * Link to use as href
-         */
-        "link": string;
-        /**
-          * If true, target=_blank will be set on the link
-         */
-        "openInNewWindow": boolean;
-        /**
-          * Text to show for the link
-         */
-        "text": string;
-    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -207,12 +193,6 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
-    interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
-    }
-    var HTMLLyneLinkElement: {
-        prototype: HTMLLyneLinkElement;
-        new (): HTMLLyneLinkElement;
-    };
     interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
     }
     var HTMLLynePanelElement: {
@@ -247,7 +227,6 @@ declare global {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
-        "lyne-link": HTMLLyneLinkElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
@@ -342,20 +321,6 @@ declare namespace LocalJSX {
          */
         "visualButtonOnly"?: boolean;
     }
-    interface LyneLink {
-        /**
-          * Link to use as href
-         */
-        "link": string;
-        /**
-          * If true, target=_blank will be set on the link
-         */
-        "openInNewWindow"?: boolean;
-        /**
-          * Text to show for the link
-         */
-        "text": string;
-    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -434,7 +399,6 @@ declare namespace LocalJSX {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
-        "lyne-link": LyneLink;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
         "lyne-sbb-clock": LyneSbbClock;
@@ -449,7 +413,6 @@ declare module "@stencil/core" {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
-            "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
