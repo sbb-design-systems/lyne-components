@@ -1,3 +1,10 @@
+## [9.43.1](https://github.com/lyne-design-system/lyne-components/compare/v9.43.0...v9.43.1) (2021-09-09)
+
+
+### Bug Fixes
+
+* don't use scss var, resolve value instead ([081e9f3](https://github.com/lyne-design-system/lyne-components/commit/081e9f373f5bdb020ace2584441a7958daf984aa))
+
 # [9.43.0](https://github.com/lyne-design-system/lyne-components/compare/v9.42.6...v9.43.0) (2021-09-09)
 
 
