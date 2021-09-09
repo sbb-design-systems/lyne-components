@@ -74,7 +74,7 @@ const iconSlot = {
   }
 };
 
-const disabled = {
+const disabledArg = {
   control: {
     type: 'boolean'
   },
@@ -128,7 +128,7 @@ const size = {
 const basicArgTypes = {
   variant,
   size,
-  disabled,
+  'disabled': disabledArg,
   label,
   icon,
   iconSlot,
@@ -158,6 +158,7 @@ export const transparentNegative = Template.bind({});
 export const noIcon = Template.bind({});
 export const iconOnly = Template.bind({});
 export const small = Template.bind({});
+export const disabled = Template.bind({});
 
 primary.argTypes = basicArgTypes;
 secondary.argTypes = basicArgTypes;
@@ -170,6 +171,7 @@ transparentNegative.argTypes = basicArgTypes;
 noIcon.argTypes = basicArgTypes;
 iconOnly.argTypes = basicArgTypes;
 small.argTypes = basicArgTypes;
+disabled.argTypes = basicArgTypes;
 
 primary.args = JSON.parse(JSON.stringify(basicArgs));
 secondary.args = JSON.parse(JSON.stringify(basicArgs));
@@ -182,6 +184,7 @@ transparentNegative.args = JSON.parse(JSON.stringify(basicArgs));
 noIcon.args = JSON.parse(JSON.stringify(basicArgs));
 iconOnly.args = JSON.parse(JSON.stringify(basicArgs));
 small.args = JSON.parse(JSON.stringify(basicArgs));
+disabled.args = JSON.parse(JSON.stringify(basicArgs));
 
 /* eslint-disable prefer-destructuring */
 secondary.args.variant = variant.options[1];
@@ -198,6 +201,8 @@ noIcon.args.icon = false;
 
 iconOnly.args.label = '';
 iconOnly.args['icon-description'] = 'Icon description for screenreaders';
+
+disabled.args.disabled = true;
 
 primary.documentation = {
   title: 'Primary'
@@ -263,6 +268,10 @@ small.documentation = {
   title: 'Small size'
 };
 
+disabled.documentation = {
+  title: 'Disabled'
+};
+
 export default {
   decorators: [
     (Story, context) => (
@@ -271,6 +280,9 @@ export default {
       </div>
     )
   ],
+  documentation: {
+    disableArgs: ['iconslot']
+  },
   parameters: {
     actions: {
       handles: [events.click]
