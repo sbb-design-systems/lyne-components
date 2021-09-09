@@ -33,7 +33,7 @@ export const NonWhiteBackground = Template.bind();
 Default.documentation = {
   container: {
     styles: {
-      'background-color': `'${ColorWhiteDefault}'`,
+      'background-color': ColorWhiteDefault,
       'border': `2px solid ${ColorMilkDefault}`
     }
   },
@@ -43,7 +43,7 @@ Default.documentation = {
 NonWhiteBackground.documentation = {
   container: {
     styles: {
-      'background-color': `'${ColorMilkDefault}'`
+      'background-color': ColorMilkDefault
     }
   },
   title: 'Accordion on non-white background'
