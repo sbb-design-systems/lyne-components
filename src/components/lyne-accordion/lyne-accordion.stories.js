@@ -26,10 +26,22 @@ export const Default = Template.bind({});
 export const NonWhiteBackground = Template.bind();
 
 Default.documentation = {
+  container: {
+    styles: {
+      'background-color': '$color-white-default',
+      'border-color': '$color-milk-default'
+    }
+  },
   title: 'Default Accordion'
 };
 
 NonWhiteBackground.documentation = {
+  container: {
+    styles: {
+      'background-color': '$color-milk-default',
+      'border-color': '$color-white-default'
+    }
+  },
   title: 'Accordion on non-white background'
 };
 
