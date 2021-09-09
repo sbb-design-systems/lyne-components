@@ -1,3 +1,15 @@
+# [9.43.0](https://github.com/lyne-design-system/lyne-components/compare/v9.42.6...v9.43.0) (2021-09-09)
+
+
+### Bug Fixes
+
+* set border instead of color only ([20b30f2](https://github.com/lyne-design-system/lyne-components/commit/20b30f244d32ca480e00df34a9e661364fc73e41))
+
+
+### Features
+
+* add styles to docu object ([d36ff32](https://github.com/lyne-design-system/lyne-components/commit/d36ff32772f24c0a8d374c12b690da8bd268fe7d))
+
 ## [9.42.6](https://github.com/lyne-design-system/lyne-components/compare/v9.42.5...v9.42.6) (2021-09-08)
 
 
