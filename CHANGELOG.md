@@ -1,3 +1,10 @@
+# [9.45.0](https://github.com/lyne-design-system/lyne-components/compare/v9.44.0...v9.45.0) (2021-09-09)
+
+
+### Features
+
+* add disabled story, add args to ignore for documentation ([40c0c2b](https://github.com/lyne-design-system/lyne-components/commit/40c0c2b59923abbfaf3e42bd4039cc9bf819d0fb))
+
 # [9.44.0](https://github.com/lyne-design-system/lyne-components/compare/v9.43.2...v9.44.0) (2021-09-09)
 
 
