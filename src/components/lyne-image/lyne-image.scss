@@ -4,10 +4,15 @@
 
 .lyne-image__figure {
   margin: 0;
-  background: lime;
 }
 
-.lyne-image__blur-hash,
+.lyne-image__figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: pxToRem(var(--image-border-radius));
+}
+
+.lyne-image__lqip,
 .lyne-image__img {
   position: absolute;
   inset: 0;
@@ -25,6 +30,12 @@
 .lyne-image__wrapper {
   position: relative;
   overflow: hidden;
+  max-width: 100%;
+  margin-bottom: pxToRem(var(--spacing-fixed-4x));
+}
+
+.lyne-image__caption {
+  @include text-xs--regular();
 }
 
 .lyne-image__figure--1x1 .lyne-image__wrapper {

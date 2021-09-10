@@ -1,10 +1,13 @@
 export interface InterfaceImageAttributes {
   ariaHidden?: string;
-  blurHash?: true | false;
+  customFocalPoint?: true | false;
   decoding?: 'sync' | 'async' | 'auto';
+  focalPointDebug?: true | false;
+  focalPointX?: number;
+  focalPointY?: number;
   hideFromScreenreader?: true | false;
-  imageFormat?: 'auto' | 'avif';
   loading?: 'eager' | 'lazy';
+  lqip?: true | false;
   role?: string;
   width?: string;
 }

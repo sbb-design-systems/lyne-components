@@ -1,3 +1,5 @@
+import * as LyneDesignTokens from '../../../node_modules/lyne-design-tokens/dist/js/tokens.es6.js';
+
 import {
   Component,
   h,
@@ -5,6 +7,8 @@ import {
 } from '@stencil/core';
 
 import { InterfaceImageAttributes } from './lyne-image.custom.d';
+
+console.log(LyneDesignTokens);
 
 const eventListenerOptions = {
   once: true,
@@ -25,9 +29,9 @@ export class LyneImage {
   /**
    * An alt text is not always necessary (e.g. in teaser cards when
    * additional link text is provided). In this case we can leave
-   * it blank, but the attribute still needs to be present. In that
-   * way we can signal assistive technologies that they can leave
-   * the image out.
+   * the value of the alt attribute blank, but the attribute itself
+   * still needs to be present. In that way we can signal assistive
+   * technologies, that they can skip the image.
    */
   @Prop() public alt?: string;
 
@@ -36,7 +40,7 @@ export class LyneImage {
    * placeholder before the actual image loads. This should help
    * to improve the perceived loading performance.
    */
-  @Prop() public blurHash: InterfaceImageAttributes['blurHash'] = true;
+  @Prop() public lqip: InterfaceImageAttributes['lqip'] = true;
 
   /**
    * A caption can provide additional context to the image (e.g.
@@ -44,7 +48,37 @@ export class LyneImage {
    */
   @Prop() public caption?: string;
 
+  /**
+   * Set to true, if you want to pass a custom focal point for the
+   * image. See full documentation here:
+   * https://docs.imgix.com/apis/rendering/focalpoint-crop
+   */
+  @Prop() public customFocalPoint: InterfaceImageAttributes['customFocalPoint'] = false;
+
+  /**
+   * If the lazy property is set to true, the module will automatically
+   * change the decoding to async, otherwise the decoding is set to auto
+   * which leaves the handling up to the browser. Read more about the
+   * decoding attribute here:
+   * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
+   */
   @Prop() public decoding: InterfaceImageAttributes['decoding'] = 'auto';
+
+  /**
+   * Set to true, to receive visual guideance where the custom focal
+   * point is currently set.
+   */
+  @Prop() public focalPointDebug: InterfaceImageAttributes['focalPointDebug'] = false;
+
+  /**
+   * Pass in a floating number between 0 (left) and 1 (right).
+   */
+  @Prop() public focalPointX: InterfaceImageAttributes['focalPointX'] = 1;
+
+  /**
+   * Pass in a floating number between 0 (top) and 1 (bottom).
+   */
+  @Prop() public focalPointY: InterfaceImageAttributes['focalPointY'] = 1;
 
   /**
    * In cases when the image is just serving a decorative purpose,
@@ -53,9 +87,9 @@ export class LyneImage {
    */
   @Prop() public hideFromScreenreader: InterfaceImageAttributes['hideFromScreenreader'] = false;
 
-  @Prop() public imageFormat: InterfaceImageAttributes['imageFormat'] = 'auto';
+  @Prop() public imageSrc?: string;
 
-  @Prop() public imageSrc!: string;
+  @Prop() public imageSrcExamples!: string;
 
   /**
    * With the support of native image lazy loading, we can now
@@ -63,7 +97,7 @@ export class LyneImage {
    * once it is close to the visible viewport. The value eager is
    * best used for images within the initial viewport. We want to
    * load these images as fast as possible to improve the Core Web
-   * Vitals values. Lazy works best for those images which are
+   * Vitals values. lazy works best for those images which are
    * further down the page or invisible during the loading of the
    * initial viewport.
    */
@@ -79,7 +113,8 @@ export class LyneImage {
    * and give us additional information and insights about our page
    * loading behaviour. We are then also able to montior these
    * values over a long time period to see if our performance
-   * increases or decreases.
+   * increases or decreases. Best to use lowercase strings here,
+   * separate words with underscores or dashes.
    */
   @Prop() public performanceMark?: string;
 
@@ -98,9 +133,43 @@ export class LyneImage {
 
     const attributes: InterfaceImageAttributes = {};
 
-    // const aspectRatio = this.aspectRatio.replace(/\//u, 'x');
-    // const figureClass = `lyne-image__figure lyne-image__figure--${aspectRatio}`;
-    const figureClass = `lyne-image__figure lyne-image__figure--1x1`;
+    const figureClass = 'lyne-image__figure lyne-image__figure--16x9';
+
+    if (!this.imageSrc) {
+      this.imageSrc = this.imageSrcExamples;
+    }
+
+    const qualitySettings = {
+      nonRetina: '45',
+      nonRetinaDataSaver: '30',
+      retina: '20',
+      retinaDataSaver: '10'
+    };
+
+    const retinaQuality = qualitySettings.retina;
+    const nonRetinaQuality = qualitySettings.nonRetina;
+
+    const imageParameters = {
+      autoImprove: 'auto=format,compress,cs=tinysrgb',
+      avif: '&fm=avif&auto',
+      crop: `&fit=crop&crop=focalpoint&fp-x=${this.focalPointX}&fp-y=${this.focalPointY}&fp-z=1`,
+      focalPointDebug: '&fp-debug=true'
+    };
+
+    let imageUrlLQIP = `${this.imageSrc}?blur=100&w=100&h=56`;
+    let imageUrlWithParams = `${this.imageSrc}?${imageParameters.autoImprove}`;
+    let imageUrlWithParamsAVIF = `${this.imageSrc}?${imageParameters.avif}`;
+
+    if (this.customFocalPoint) {
+      imageUrlWithParams = `${imageUrlWithParams}${imageParameters.crop}`;
+      imageUrlWithParamsAVIF = `${imageUrlWithParamsAVIF}${imageParameters.crop}`;
+      imageUrlLQIP = `${imageUrlLQIP}${imageParameters.crop}`;
+    }
+
+    if (this.focalPointDebug) {
+      imageUrlWithParams = `${imageUrlWithParams}${imageParameters.focalPointDebug}`;
+      imageUrlWithParamsAVIF = `${imageUrlWithParamsAVIF}${imageParameters.focalPointDebug}`;
+    }
 
     if (this.hideFromScreenreader) {
       attributes.ariaHidden = 'true';
@@ -110,9 +179,6 @@ export class LyneImage {
     if (this.loading === 'lazy') {
       this.decoding = 'async';
     }
-
-    const imageBlurHashUrl = `${this.imageSrc}?blur=100&w=100`;
-    const imageUrl = `${this.imageSrc}?auto=compress,enhance&w=300`;
 
     return (
 
@@ -125,30 +191,85 @@ export class LyneImage {
       >
         <div class='lyne-image__wrapper'>
           {
-            this.blurHash
+            this.lqip
               ? (
                 <img
                   alt=''
                   class='lyne-image__blur-hash'
-                  src={imageBlurHashUrl}
-                  width="300"
+                  src={imageUrlLQIP}
+                  width='1000'
+                  height='562'
                   loading={this.loading}
                   decoding={this.decoding}
                 />
               )
               : ''
           }
-          <img
-            alt={this.alt}
-            class='lyne-image__img'
-            src={imageUrl}
-            width="300"
-            loading={this.loading}
-            decoding={this.decoding}
-            ref={(el): void => {
-              this._imageElement = el;
-            }}
-          />
+          <picture>
+            <source
+              media='(max-width:642px)'
+              sizes='320px'
+              srcSet={
+                `${imageUrlWithParamsAVIF}&w=320&h=180 320w, ` +
+                `${imageUrlWithParamsAVIF}&w=640&h=360 640w`
+              }
+              type='image/avif'
+            />
+            <source
+              media='(max-width:642px)'
+              sizes='320px'
+              srcSet={
+                `${imageUrlWithParams}&w=320&h=180&q=${nonRetinaQuality}320w, ` +
+                `${imageUrlWithParams}&w=640&h=360&q=${retinaQuality} 640w`
+              }
+            />
+            <source
+              media='(max-width:1024px)'
+              sizes='976px'
+              srcSet={
+                `${imageUrlWithParamsAVIF}&w=976&h=549 976w, ` +
+                `${imageUrlWithParamsAVIF}&w=1952&h=1098 1952w`
+              }
+              type='image/avif'
+            />
+            <source
+              media='(max-width:1024px)'
+              sizes='976px'
+              srcSet={
+                `${imageUrlWithParams}&w=976&h=549&q=${nonRetinaQuality} 976w, ` +
+                `${imageUrlWithParams}&w=1952&h=1098q=${retinaQuality} 1952w`
+              }
+            />
+            <source
+              media='(min-width:1025px)'
+              sizes='1000px'
+              srcSet={
+                `${imageUrlWithParamsAVIF}&w=1000&h=562 1000w, ` +
+                `${imageUrlWithParamsAVIF}&w=2000&h=1124 2000w`
+              }
+              type='image/avif'
+            />
+            <source
+              media='(min-width:1025px)'
+              sizes='1000px'
+              srcSet={
+                `${imageUrlWithParams}&w=1000&h=562&q=${nonRetinaQuality} 1000w, ` +
+                `${imageUrlWithParams}&w=2000&h=1124&q=${retinaQuality} 2000w`
+              }
+            />
+            <img
+              alt={this.alt}
+              class='lyne-image__img'
+              src={this.imageSrc}
+              width='1000'
+              height='562'
+              loading={this.loading}
+              decoding={this.decoding}
+              ref={(el): void => {
+                this._imageElement = el;
+              }}
+            />
+          </picture>
         </div>
         {
           this.caption

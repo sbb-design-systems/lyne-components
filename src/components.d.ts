@@ -102,30 +102,49 @@ export namespace Components {
     }
     interface LyneImage {
         /**
-          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave it blank, but the attribute still needs to be present. In that way we can signal assistive technologies that they can leave the image out.
+          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. In that way we can signal assistive technologies, that they can skip the image.
          */
         "alt"?: string;
-        /**
-          * If set to true, we show a blurred version of the image as placeholder before the actual image loads. This should help to improve the perceived loading performance.
-         */
-        "blurHash": InterfaceImageAttributes['blurHash'];
         /**
           * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like).
          */
         "caption"?: string;
+        /**
+          * Set to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
+         */
+        "customFocalPoint": InterfaceImageAttributes['customFocalPoint'];
+        /**
+          * If the lazy property is set to true, the module will automatically change the decoding to async, otherwise the decoding is set to auto which leaves the handling up to the browser. Read more about the decoding attribute here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
+         */
         "decoding": InterfaceImageAttributes['decoding'];
+        /**
+          * Set to true, to receive visual guideance where the custom focal point is currently set.
+         */
+        "focalPointDebug": InterfaceImageAttributes['focalPointDebug'];
+        /**
+          * Pass in a floating number between 0 (left) and 1 (right).
+         */
+        "focalPointX": InterfaceImageAttributes['focalPointX'];
+        /**
+          * Pass in a floating number between 0 (top) and 1 (bottom).
+         */
+        "focalPointY": InterfaceImageAttributes['focalPointY'];
         /**
           * In cases when the image is just serving a decorative purpose, we can hide it from assisitive technologies (e.g. an image in a teaser card)
          */
         "hideFromScreenreader": InterfaceImageAttributes['hideFromScreenreader'];
-        "imageFormat": InterfaceImageAttributes['imageFormat'];
-        "imageSrc": string;
+        "imageSrc"?: string;
+        "imageSrcExamples": string;
         /**
-          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. Lazy works best for those images which are further down the page or invisible during the loading of the initial viewport.
+          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy works best for those images which are further down the page or invisible during the loading of the initial viewport.
          */
         "loading": InterfaceImageAttributes['loading'];
         /**
-          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases.
+          * If set to true, we show a blurred version of the image as placeholder before the actual image loads. This should help to improve the perceived loading performance.
+         */
+        "lqip": InterfaceImageAttributes['lqip'];
+        /**
+          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases. Best to use lowercase strings here, separate words with underscores or dashes.
          */
         "performanceMark"?: string;
     }
@@ -381,30 +400,49 @@ declare namespace LocalJSX {
     }
     interface LyneImage {
         /**
-          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave it blank, but the attribute still needs to be present. In that way we can signal assistive technologies that they can leave the image out.
+          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. In that way we can signal assistive technologies, that they can skip the image.
          */
         "alt"?: string;
-        /**
-          * If set to true, we show a blurred version of the image as placeholder before the actual image loads. This should help to improve the perceived loading performance.
-         */
-        "blurHash"?: InterfaceImageAttributes['blurHash'];
         /**
           * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like).
          */
         "caption"?: string;
+        /**
+          * Set to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
+         */
+        "customFocalPoint"?: InterfaceImageAttributes['customFocalPoint'];
+        /**
+          * If the lazy property is set to true, the module will automatically change the decoding to async, otherwise the decoding is set to auto which leaves the handling up to the browser. Read more about the decoding attribute here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
+         */
         "decoding"?: InterfaceImageAttributes['decoding'];
+        /**
+          * Set to true, to receive visual guideance where the custom focal point is currently set.
+         */
+        "focalPointDebug"?: InterfaceImageAttributes['focalPointDebug'];
+        /**
+          * Pass in a floating number between 0 (left) and 1 (right).
+         */
+        "focalPointX"?: InterfaceImageAttributes['focalPointX'];
+        /**
+          * Pass in a floating number between 0 (top) and 1 (bottom).
+         */
+        "focalPointY"?: InterfaceImageAttributes['focalPointY'];
         /**
           * In cases when the image is just serving a decorative purpose, we can hide it from assisitive technologies (e.g. an image in a teaser card)
          */
         "hideFromScreenreader"?: InterfaceImageAttributes['hideFromScreenreader'];
-        "imageFormat"?: InterfaceImageAttributes['imageFormat'];
-        "imageSrc": string;
+        "imageSrc"?: string;
+        "imageSrcExamples": string;
         /**
-          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. Lazy works best for those images which are further down the page or invisible during the loading of the initial viewport.
+          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy works best for those images which are further down the page or invisible during the loading of the initial viewport.
          */
         "loading"?: InterfaceImageAttributes['loading'];
         /**
-          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases.
+          * If set to true, we show a blurred version of the image as placeholder before the actual image loads. This should help to improve the perceived loading performance.
+         */
+        "lqip"?: InterfaceImageAttributes['lqip'];
+        /**
+          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases. Best to use lowercase strings here, separate words with underscores or dashes.
          */
         "performanceMark"?: string;
     }

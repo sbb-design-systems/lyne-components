@@ -5,17 +5,57 @@ const Template = (args) => (
   <lyne-image {...args} />
 );
 
-const blurHash = {
+const customFocalPoint = {
   control: {
     type: 'inline-radio'
   },
   options: [
     'true',
     'false'
-  ]
+  ],
+  table: {
+    category: 'Focal Point'
+  }
+};
+
+const focalPointDebug = {
+  control: {
+    type: 'inline-radio'
+  },
+  options: [
+    'true',
+    'false'
+  ],
+  table: {
+    category: 'Focal Point'
+  }
+};
+
+const focalPointX = {
+  control: {
+    type: 'number'
+  },
+  table: {
+    category: 'Focal Point'
+  }
+};
+
+const focalPointY = {
+  control: {
+    type: 'number'
+  },
+  table: {
+    category: 'Focal Point'
+  }
 };
 
 const imageSrc = {
+  control: {
+    type: 'text'
+  }
+};
+
+const imageSrcExamples = {
   control: {
     type: 'select'
   },
@@ -42,16 +82,6 @@ const hideFromScreenreader = {
   ]
 };
 
-const imageFormat = {
-  control: {
-    type: 'select'
-  },
-  options: [
-    'auto',
-    'avif'
-  ]
-};
-
 const loading = {
   control: {
     type: 'inline-radio'
@@ -59,35 +89,70 @@ const loading = {
   options: [
     'eager',
     'lazy'
-  ]
+  ],
+  table: {
+    category: 'Performance'
+  }
+};
+
+const lqip = {
+  control: {
+    type: 'inline-radio'
+  },
+  options: [
+    'true',
+    'false'
+  ],
+  table: {
+    category: 'Performance'
+  }
+};
+
+const performanceMark = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Performance'
+  }
 };
 
 export const lyneImage = Template.bind({});
 
 lyneImage.argTypes = {
   'alt': '',
-  'blur-hash': blurHash,
   'caption': '',
+  'custom-focal-point': customFocalPoint,
+  'focal-point-debug': focalPointDebug,
+  'focal-point-x': focalPointX,
+  'focal-point-y': focalPointY,
   'hide-from-screenreader': hideFromScreenreader,
   'image-src': imageSrc,
+  'image-src-examples': imageSrcExamples,
   loading,
-  'performance-mark': ''
+  lqip,
+  'performance-mark': performanceMark
 };
 
 lyneImage.args = {
   'alt': '',
-  'blur-hash': blurHash.options[0],
   'caption': 'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+  'custom-focal-point': customFocalPoint.options[1],
+  'focal-point-debug': focalPointDebug.options[1],
+  'focal-point-x': '',
+  'focal-point-y': '',
   'hide-from-screenreader': hideFromScreenreader.options[1],
-  'image-src': imageSrc.options[0],
+  'image-src': '',
+  'image-src-examples': imageSrcExamples.options[0],
   'loading': loading.options[0],
+  'lqip': lqip.options[0],
   'performance-mark': ''
 };
 
 export default {
   decorators: [
     (Story) => (
-      <div style='max-width: 300px;'>
+      <div style='max-width: 1000px;'>
         <Story/>
       </div>
     )
