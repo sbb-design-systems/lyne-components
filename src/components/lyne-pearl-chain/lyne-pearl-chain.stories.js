@@ -35,6 +35,30 @@ export const Stops3 = Template.bind({});
 export const Stops4 = Template.bind({});
 export const Stops9 = Template.bind({});
 
+NoStops.documentation = {
+  title: 'No stops'
+};
+
+Stop1.documentation = {
+  title: 'One Stop'
+};
+
+Stops2.documentation = {
+  title: '2 Stops'
+};
+
+Stops3.documentation = {
+  title: '3 Stops'
+};
+
+Stops4.documentation = {
+  title: '4 Stops'
+};
+
+Stops9.documentation = {
+  title: '9 Stops'
+};
+
 const status = {
   control: {
     type: 'inline-radio'
