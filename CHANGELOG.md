@@ -1,3 +1,18 @@
+# [9.46.0](https://github.com/lyne-design-system/lyne-components/compare/v9.45.0...v9.46.0) (2021-09-10)
+
+
+### Bug Fixes
+
+* add docu titles ([669a620](https://github.com/lyne-design-system/lyne-components/commit/669a6206fa7e913daa6badcc33b2990da9e22030))
+* delete sample main story file ([705e976](https://github.com/lyne-design-system/lyne-components/commit/705e97666ec64eb1f3156594c14ee8bbf83cf3c8))
+* fake commit to trigger release ([85c1c52](https://github.com/lyne-design-system/lyne-components/commit/85c1c52ea58d0b8de84358a8964edf872d21e10e))
+
+
+### Features
+
+* add separate stories ([92d7c92](https://github.com/lyne-design-system/lyne-components/commit/92d7c92f8bee5e41c43f206cdd76879a0a735fa1))
+* add separate stories ([f9c0fe4](https://github.com/lyne-design-system/lyne-components/commit/f9c0fe4c85b35db677498a3f031e4f399c9360c4))
+
 # [9.45.0](https://github.com/lyne-design-system/lyne-components/compare/v9.44.0...v9.45.0) (2021-09-09)
 
 
