@@ -12,6 +12,10 @@ lynePanel.args = {
   'text': 'Sample panel text'
 };
 
+lynePanel.documentation = {
+  title: 'Default'
+};
+
 export default {
   parameters: {
     backgrounds: {
