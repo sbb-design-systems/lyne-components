@@ -1,3 +1,15 @@
+# [9.47.0](https://github.com/lyne-design-system/lyne-components/compare/v9.46.0...v9.47.0) (2021-09-11)
+
+
+### Bug Fixes
+
+* add correct style ([ad90084](https://github.com/lyne-design-system/lyne-components/commit/ad9008474b4c8aa94475faed03ccc6f1ed4c9ebb))
+
+
+### Features
+
+* add story for only one open at a time ([3bc82d0](https://github.com/lyne-design-system/lyne-components/commit/3bc82d072c95485fd780cd07aa12cc82e6b50be8))
+
 # [9.46.0](https://github.com/lyne-design-system/lyne-components/compare/v9.45.0...v9.46.0) (2021-09-10)
 
 
