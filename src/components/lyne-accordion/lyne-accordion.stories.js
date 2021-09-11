@@ -29,6 +29,7 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 export const NonWhiteBackground = Template.bind();
+export const OnlyOneOpen = Template.bind();
 
 Default.documentation = {
   container: {
@@ -47,6 +48,16 @@ NonWhiteBackground.documentation = {
     }
   },
   title: 'Accordion on non-white background'
+};
+
+OnlyOneOpen.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorWhiteDefault,
+      'border': `2px solid ${ColorMilkDefault}`
+    }
+  },
+  title: 'Only one item open at a time'
 };
 
 const items = [
@@ -119,6 +130,30 @@ NonWhiteBackground.args = {
 NonWhiteBackground.decorators = [
   (Story) => (
     <div style={'background: #dcdcdc; padding: 2rem;'}>
+      <Story/>
+    </div>
+  )
+];
+
+OnlyOneOpen.argTypes = {
+  'items': {
+    table
+  },
+  'non-white-background': {
+    table
+  }
+};
+
+OnlyOneOpen.args = {
+  'aria-labelledby': '',
+  items,
+  'non-white-background': false,
+  'only-one-open': true
+};
+
+OnlyOneOpen.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem;'}>
       <Story/>
     </div>
   )
