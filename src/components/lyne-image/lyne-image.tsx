@@ -118,6 +118,8 @@ export class LyneImage {
    */
   @Prop() public performanceMark?: string;
 
+  @Prop() public pictureSizesConfig?: object;
+
   private _addLoadedClass(): void {
     this._figureElement.classList.add('lyne-image__figure--loaded');
   }
@@ -179,6 +181,23 @@ export class LyneImage {
     if (this.loading === 'lazy') {
       this.decoding = 'async';
     }
+
+    if (this.pictureSizesConfig === undefined) {
+      this.pictureSizesConfig = {
+        breakpoints: [
+          {
+            mediaQuery: {
+              condition: 'max-width',
+              conditionValue: LyneDesignTokens.BreakpointMicroMax
+            },
+            imageDisplayWidth: '320',
+            aspectRatio: '16/9'
+          }
+        ]
+      }
+    }
+
+    console.log(this.pictureSizesConfig);
 
     return (
 
