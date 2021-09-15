@@ -1,3 +1,10 @@
+## [9.47.1](https://github.com/lyne-design-system/lyne-components/compare/v9.47.0...v9.47.1) (2021-09-15)
+
+
+### Bug Fixes
+
+* don't use padding-block shorthand to fix issue in safari ([3af4c07](https://github.com/lyne-design-system/lyne-components/commit/3af4c079c9e3966a6273d6ff88af8c01cf84494a))
+
 # [9.47.0](https://github.com/lyne-design-system/lyne-components/compare/v9.46.0...v9.47.0) (2021-09-11)
 
 
