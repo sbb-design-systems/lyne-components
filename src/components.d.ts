@@ -11,6 +11,7 @@ import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.cus
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
+import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 export namespace Components {
     interface LyneAccordion {
@@ -151,6 +152,16 @@ export namespace Components {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface LyneSbbSignet {
+        /**
+          * The Logo needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the signet can be used in these variants
+         */
+        "variant"?: InterfaceSignetAttributes['variant'];
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -217,6 +228,12 @@ declare global {
         prototype: HTMLLyneSbbLogoElement;
         new (): HTMLLyneSbbLogoElement;
     };
+    interface HTMLLyneSbbSignetElement extends Components.LyneSbbSignet, HTMLStencilElement {
+    }
+    var HTMLLyneSbbSignetElement: {
+        prototype: HTMLLyneSbbSignetElement;
+        new (): HTMLLyneSbbSignetElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -231,6 +248,7 @@ declare global {
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
+        "lyne-sbb-signet": HTMLLyneSbbSignetElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -373,6 +391,16 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface LyneSbbSignet {
+        /**
+          * The Logo needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the signet can be used in these variants
+         */
+        "variant"?: InterfaceSignetAttributes['variant'];
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -403,6 +431,7 @@ declare namespace LocalJSX {
         "lyne-pearl-chain": LynePearlChain;
         "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
+        "lyne-sbb-signet": LyneSbbSignet;
         "lyne-title": LyneTitle;
     }
 }
@@ -417,6 +446,7 @@ declare module "@stencil/core" {
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
+            "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }
