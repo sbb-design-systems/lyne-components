@@ -1,3 +1,10 @@
+## [9.47.2](https://github.com/lyne-design-system/lyne-components/compare/v9.47.1...v9.47.2) (2021-09-17)
+
+
+### Bug Fixes
+
+* don't render svg markup for buttons with no icon ([0b00568](https://github.com/lyne-design-system/lyne-components/commit/0b00568932d88770f19da0b0d72c6c9b92240f23))
+
 ## [9.47.1](https://github.com/lyne-design-system/lyne-components/compare/v9.47.0...v9.47.1) (2021-09-15)
 
 
