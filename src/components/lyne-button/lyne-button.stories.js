@@ -10,6 +10,10 @@ import readme from './readme.md';
 // --- Helper methods
 
 const getMarkupForSvg = (svgName) => {
+  if (!svgName) {
+    return '';
+  }
+
   const icon = lyneIcons.icons[svgName];
   const frag = document.createRange()
     .createContextualFragment(icon);
@@ -198,6 +202,7 @@ small.args.size = size.options[1];
 /* eslint-enable prefer-destructuring */
 
 noIcon.args.icon = false;
+noIcon.args.iconSlot = false;
 
 iconOnly.args.label = '';
 iconOnly.args['icon-description'] = 'Icon description for screenreaders';
