@@ -1,3 +1,10 @@
+# [9.48.0](https://github.com/lyne-design-system/lyne-components/compare/v9.47.2...v9.48.0) (2021-09-17)
+
+
+### Features
+
+* add test-icon for lyne-demo (triggered from Figma) (triggered from icons build) [skip ci] ([fd631c8](https://github.com/lyne-design-system/lyne-components/commit/fd631c8b62ae0b206343741ed6efe348d0ff3fbb))
+
 ## [9.47.2](https://github.com/lyne-design-system/lyne-components/compare/v9.47.1...v9.47.2) (2021-09-17)
 
 
