@@ -7,6 +7,7 @@ import {
 } from '@stencil/core';
 
 import { InterfaceImageAttributes } from './lyne-image.custom.d';
+import pictureSizesConfigData from './lyne-image.helper';
 
 console.log(LyneDesignTokens);
 
@@ -118,7 +119,13 @@ export class LyneImage {
    */
   @Prop() public performanceMark?: string;
 
-  @Prop() public pictureSizesConfig?: object;
+  /**
+   * With the pictureSizesConfig object, you can pass in information
+   * into lyne-image about what kind of source elements should get
+   * rendered. mediaQueries accepts multiple Media Query entries
+   * which can get combined by defining a conditionOperator.
+   */
+  @Prop() public pictureSizesConfig?: any;
 
   private _addLoadedClass(): void {
     this._figureElement.classList.add('lyne-image__figure--loaded');
@@ -129,6 +136,13 @@ export class LyneImage {
       performance.clearMarks(this.performanceMark);
       performance.mark(this.performanceMark);
     }
+  }
+
+  private _matchMediaQueryDesignToken(breakpointSizeName): string {
+    const breakpointSizeNameValue = LyneDesignTokens[breakpointSizeName];
+
+    return `${breakpointSizeNameValue / LyneDesignTokens.TypoScaleDefault}rem`;
+
   }
 
   public render(): JSX.Element {
@@ -186,18 +200,58 @@ export class LyneImage {
       this.pictureSizesConfig = {
         breakpoints: [
           {
-            mediaQuery: {
-              condition: 'max-width',
-              conditionValue: LyneDesignTokens.BreakpointMicroMax
+            image: {
+              height: '180',
+              width: '320'
             },
-            imageDisplayWidth: '320',
-            aspectRatio: '16/9'
+            mediaQueries: [
+              {
+                conditionFeature: 'max-width',
+                conditionFeatureValue: {
+                  lyneDesignToken: true,
+                  value: 'BreakpointMicroMax'
+                },
+                conditionOperator: false
+              }
+            ]
+          },
+          {
+            image: {
+              height: '549',
+              width: '976'
+            },
+            mediaQueries: [
+              {
+                conditionFeature: 'min-width',
+                conditionFeatureValue: {
+                  lyneDesignToken: true,
+                  value: 'BreakpointSmallMin'
+                },
+                conditionOperator: false
+              }
+            ]
+          },
+          {
+            image: {
+              height: '675',
+              width: '1200'
+            },
+            mediaQueries: [
+              {
+                conditionFeature: 'min-width',
+                conditionFeatureValue: {
+                  lyneDesignToken: true,
+                  value: 'BreakpointLargeMin'
+                },
+                conditionOperator: false
+              }
+            ]
           }
         ]
-      }
+      };
     }
 
-    console.log(this.pictureSizesConfig);
+    const configs = pictureSizesConfigData(JSON.stringify(this.pictureSizesConfig));
 
     return (
 
@@ -224,58 +278,58 @@ export class LyneImage {
               )
               : ''
           }
+
           <picture>
-            <source
-              media='(max-width:642px)'
-              sizes='320px'
-              srcSet={
-                `${imageUrlWithParamsAVIF}&w=320&h=180 320w, ` +
-                `${imageUrlWithParamsAVIF}&w=640&h=360 640w`
-              }
-              type='image/avif'
-            />
-            <source
-              media='(max-width:642px)'
-              sizes='320px'
-              srcSet={
-                `${imageUrlWithParams}&w=320&h=180&q=${nonRetinaQuality}320w, ` +
-                `${imageUrlWithParams}&w=640&h=360&q=${retinaQuality} 640w`
-              }
-            />
-            <source
-              media='(max-width:1024px)'
-              sizes='976px'
-              srcSet={
-                `${imageUrlWithParamsAVIF}&w=976&h=549 976w, ` +
-                `${imageUrlWithParamsAVIF}&w=1952&h=1098 1952w`
-              }
-              type='image/avif'
-            />
-            <source
-              media='(max-width:1024px)'
-              sizes='976px'
-              srcSet={
-                `${imageUrlWithParams}&w=976&h=549&q=${nonRetinaQuality} 976w, ` +
-                `${imageUrlWithParams}&w=1952&h=1098q=${retinaQuality} 1952w`
-              }
-            />
-            <source
-              media='(min-width:1025px)'
-              sizes='1000px'
-              srcSet={
-                `${imageUrlWithParamsAVIF}&w=1000&h=562 1000w, ` +
-                `${imageUrlWithParamsAVIF}&w=2000&h=1124 2000w`
-              }
-              type='image/avif'
-            />
-            <source
-              media='(min-width:1025px)'
-              sizes='1000px'
-              srcSet={
-                `${imageUrlWithParams}&w=1000&h=562&q=${nonRetinaQuality} 1000w, ` +
-                `${imageUrlWithParams}&w=2000&h=1124&q=${retinaQuality} 2000w`
-              }
-            />
+            {/* render picture element sources */}
+            {configs.map((config) => {
+
+              const {
+                mediaQueries
+              } = config;
+
+              const imageHeight = config.image.height;
+              const imageWidth = config.image.width;
+
+              let mediaQuery = '';
+
+              mediaQueries.forEach((mq) => {
+                const mqCondition = mq.conditionFeature;
+                let mqValue;
+
+                if (mq.conditionFeatureValue.lyneDesignToken) {
+                  mqValue = this._matchMediaQueryDesignToken(mq.conditionFeatureValue.value);
+                } else {
+                  mqValue = mq.conditionFeatureValue.value;
+                }
+
+                const mqCombiner = mq.conditionOperator
+                  ? ` ${mq.conditionOperator} `
+                  : '';
+
+                mediaQuery += `(${mqCondition}: ${mqValue})${mqCombiner}`;
+
+              });
+
+              return [
+                <source
+                  media={`${mediaQuery}`}
+                  sizes={`${imageWidth}px`}
+                  srcSet={
+                    `${imageUrlWithParamsAVIF}&w=${imageWidth}&h=${imageHeight} ${imageWidth}w, ` +
+                    `${imageUrlWithParamsAVIF}&w=${imageWidth * 2}&h=${imageHeight * 2} ${imageWidth * 2}w`
+                  }
+                  type='image/avif'
+                />,
+                <source
+                  media={`${mediaQuery}`}
+                  sizes={`${imageWidth}px`}
+                  srcSet={
+                    `${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${nonRetinaQuality} ${imageWidth}w, ` +
+                    `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${retinaQuality} ${imageWidth * 2}w`
+                  }
+                />
+              ];
+            })}
             <img
               alt={this.alt}
               class='lyne-image__img'
@@ -289,6 +343,7 @@ export class LyneImage {
               }}
             />
           </picture>
+
         </div>
         {
           this.caption

@@ -147,7 +147,10 @@ export namespace Components {
           * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases. Best to use lowercase strings here, separate words with underscores or dashes.
          */
         "performanceMark"?: string;
-        "pictureSizesConfig"?: object;
+        /**
+          * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator.
+         */
+        "pictureSizesConfig"?: any;
     }
     interface LyneLink {
         /**
@@ -446,7 +449,10 @@ declare namespace LocalJSX {
           * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases. Best to use lowercase strings here, separate words with underscores or dashes.
          */
         "performanceMark"?: string;
-        "pictureSizesConfig"?: object;
+        /**
+          * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator.
+         */
+        "pictureSizesConfig"?: any;
     }
     interface LyneLink {
         /**
