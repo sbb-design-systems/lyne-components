@@ -3,13 +3,12 @@ import * as LyneDesignTokens from '../../../node_modules/lyne-design-tokens/dist
 import {
   Component,
   h,
-  Prop
+  Prop,
+  State
 } from '@stencil/core';
 
 import { InterfaceImageAttributes } from './lyne-image.custom.d';
 import pictureSizesConfigData from './lyne-image.helper';
-
-console.log(LyneDesignTokens);
 
 const eventListenerOptions = {
   once: true,
@@ -24,37 +23,44 @@ const eventListenerOptions = {
 
 export class LyneImage {
 
-  private _figureElement!: HTMLElement;
+  private _captionElement?: HTMLElement;
   private _imageElement!: HTMLElement;
+  private _linksInCaption;
+
+  @State() private _loadedClass: string;
 
   /**
    * An alt text is not always necessary (e.g. in teaser cards when
    * additional link text is provided). In this case we can leave
    * the value of the alt attribute blank, but the attribute itself
-   * still needs to be present. In that way we can signal assistive
-   * technologies, that they can skip the image.
+   * still needs to be present. That way we can signal assistive
+   * technology, that they can skip the image.
    */
   @Prop() public alt?: string;
 
   /**
    * If set to true, we show a blurred version of the image as
-   * placeholder before the actual image loads. This should help
-   * to improve the perceived loading performance.
+   * placeholder before the actual image shows up. This will help
+   * to improve the perceived loading performance. Read more about
+   * the idea of lqip here:
+   * https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
    */
-  @Prop() public lqip: InterfaceImageAttributes['lqip'] = true;
+  @Prop() public lqip = true;
 
   /**
    * A caption can provide additional context to the image (e.g.
    * name of the photographer, copyright information and the like).
+   * Links will automatically receive tabindex=-1 if hideFromScreenreader
+   * is set to true. That way they will no longer become focusable.
    */
   @Prop() public caption?: string;
 
   /**
-   * Set to true, if you want to pass a custom focal point for the
-   * image. See full documentation here:
+   * Set this to true, if you want to pass a custom focal point
+   * for the image. See full documentation here:
    * https://docs.imgix.com/apis/rendering/focalpoint-crop
    */
-  @Prop() public customFocalPoint: InterfaceImageAttributes['customFocalPoint'] = false;
+  @Prop() public customFocalPoint = false;
 
   /**
    * If the lazy property is set to true, the module will automatically
@@ -66,30 +72,44 @@ export class LyneImage {
   @Prop() public decoding: InterfaceImageAttributes['decoding'] = 'auto';
 
   /**
-   * Set to true, to receive visual guideance where the custom focal
+   * Set this to true, to receive visual guideance where the custom focal
    * point is currently set.
    */
-  @Prop() public focalPointDebug: InterfaceImageAttributes['focalPointDebug'] = false;
+  @Prop() public focalPointDebug = false;
 
   /**
    * Pass in a floating number between 0 (left) and 1 (right).
    */
-  @Prop() public focalPointX: InterfaceImageAttributes['focalPointX'] = 1;
+  @Prop() public focalPointX = 1;
 
   /**
    * Pass in a floating number between 0 (top) and 1 (bottom).
    */
-  @Prop() public focalPointY: InterfaceImageAttributes['focalPointY'] = 1;
+  @Prop() public focalPointY = 1;
 
   /**
    * In cases when the image is just serving a decorative purpose,
-   * we can hide it from assisitive technologies (e.g. an image
+   * we can hide it from assistive technologies (e.g. an image
    * in a teaser card)
    */
-  @Prop() public hideFromScreenreader: InterfaceImageAttributes['hideFromScreenreader'] = false;
+  @Prop() public hideFromScreenreader = false;
 
+  /**
+   * Right now the module is heavily coupled with the image delivery
+   * service imgix and depends on the original files being stored
+   * inside of AEM. You can pass in any https://cdn.img.sbb.ch img
+   * src address you find on sbb.ch to play around with it. Just
+   * strip the url parameters and paste in the plain file address.
+   * If you want to know how to best work with this module with
+   * images coming from a different source, please contact the
+   * LYNE Core Team.
+   */
   @Prop() public imageSrc?: string;
 
+  /**
+   * Just some example image filey you can use to play around with
+   * the module.
+   */
   @Prop() public imageSrcExamples!: string;
 
   /**
@@ -98,9 +118,9 @@ export class LyneImage {
    * once it is close to the visible viewport. The value eager is
    * best used for images within the initial viewport. We want to
    * load these images as fast as possible to improve the Core Web
-   * Vitals values. lazy works best for those images which are
-   * further down the page or invisible during the loading of the
-   * initial viewport.
+   * Vitals values. lazy on the other hand works best for images
+   * which are further down the page or invisible during the loading
+   * of the initial viewport.
    */
   @Prop() public loading: InterfaceImageAttributes['loading'] = 'eager';
 
@@ -112,10 +132,10 @@ export class LyneImage {
    * Performance monitoring tools like SpeedCurve or Lighthouse are
    * then able to grab these entries from the PerformanceEntry API
    * and give us additional information and insights about our page
-   * loading behaviour. We are then also able to montior these
-   * values over a long time period to see if our performance
-   * increases or decreases. Best to use lowercase strings here,
-   * separate words with underscores or dashes.
+   * loading behaviour. We are then also able to monitor these
+   * values over a long period to see if our performance
+   * increases or decreases over time. Best to use lowercase strings
+   * here, separate words with underscores or dashes.
    */
   @Prop() public performanceMark?: string;
 
@@ -123,12 +143,73 @@ export class LyneImage {
    * With the pictureSizesConfig object, you can pass in information
    * into lyne-image about what kind of source elements should get
    * rendered. mediaQueries accepts multiple Media Query entries
-   * which can get combined by defining a conditionOperator.
+   * which can get combined by defining a conditionOperator. An
+   * example could look like this:
+   * {
+   *    "breakpoints": [
+   *      {
+   *        "image": {
+   *          "height": "180",
+   *          "width": "320"
+   *        },
+   *        "mediaQueries": [
+   *          {
+   *            "conditionFeature": "max-width",
+   *            "conditionFeatureValue": {
+   *              "lyneDesignToken": true,
+   *              "value": "BreakpointMicroMax"
+   *            },
+   *            "conditionOperator": "and"
+   *          },
+   *          {
+   *            "conditionFeature": "orientation",
+   *            "conditionFeatureValue": {
+   *              "lyneDesignToken": false,
+   *              "value": "landscape"
+   *            },
+   *            "conditionOperator": false
+   *          }
+   *        ]
+   *      },
+   *      {
+   *        "image": {
+   *          "height": "549",
+   *          "width": "976"
+   *        },
+   *        "mediaQueries": [
+   *          {
+   *            "conditionFeature": "min-width",
+   *            "conditionFeatureValue": {
+   *              "lyneDesignToken": true,
+   *              "value": "BreakpointSmallMin"
+   *            },
+   *            "conditionOperator": false
+   *          }
+   *        ]
+   *      },
+   *      {
+   *        "image": {
+   *          "height": "675",
+   *          "width": "1200"
+   *        },
+   *        "mediaQueries": [
+   *          {
+   *            "conditionFeature": "min-width",
+   *            "conditionFeatureValue": {
+   *              "lyneDesignToken": true,
+   *              "value": "BreakpointLargeMin"
+   *            },
+   *            "conditionOperator": false
+   *          }
+   *        ]
+   *      }
+   *    ]
+   *  }
    */
-  @Prop() public pictureSizesConfig?: any;
+  @Prop() public pictureSizesConfig?: string;
 
   private _addLoadedClass(): void {
-    this._figureElement.classList.add('lyne-image__figure--loaded');
+    this._loadedClass = 'lyne-image__figure--loaded';
   }
 
   private _logPerformanceMarks(): void {
@@ -145,15 +226,28 @@ export class LyneImage {
 
   }
 
+  private _removeFocusAbilityFromLinksInCaption(): void {
+    this._linksInCaption.forEach((link) => {
+      link.setAttribute('tabindex', '-1');
+    });
+  }
+
+  private _addFocusAbilityToLinksInCaption(): void {
+    this._linksInCaption.forEach((link) => {
+      link.removeAttribute('tabindex');
+    });
+  }
+
   public render(): JSX.Element {
-
-    const attributes: InterfaceImageAttributes = {};
-
-    const figureClass = 'lyne-image__figure lyne-image__figure--16x9';
 
     if (!this.imageSrc) {
       this.imageSrc = this.imageSrcExamples;
     }
+
+    const attributes: {
+      ariaHidden?: string;
+      role?: string;
+    } = {};
 
     const qualitySettings = {
       nonRetina: '45',
@@ -197,70 +291,67 @@ export class LyneImage {
     }
 
     if (this.pictureSizesConfig === undefined) {
-      this.pictureSizesConfig = {
-        breakpoints: [
+      this.pictureSizesConfig = `{
+        "breakpoints": [
           {
-            image: {
-              height: '180',
-              width: '320'
+            "image": {
+              "height": "180",
+              "width": "320"
             },
-            mediaQueries: [
+            "mediaQueries": [
               {
-                conditionFeature: 'max-width',
-                conditionFeatureValue: {
-                  lyneDesignToken: true,
-                  value: 'BreakpointMicroMax'
+                "conditionFeature": "max-width",
+                "conditionFeatureValue": {
+                  "lyneDesignToken": true,
+                  "value": "BreakpointMicroMax"
                 },
-                conditionOperator: false
+                "conditionOperator": false
               }
             ]
           },
           {
-            image: {
-              height: '549',
-              width: '976'
+            "image": {
+              "height": "549",
+              "width": "976"
             },
-            mediaQueries: [
+            "mediaQueries": [
               {
-                conditionFeature: 'min-width',
-                conditionFeatureValue: {
-                  lyneDesignToken: true,
-                  value: 'BreakpointSmallMin'
+                "conditionFeature": "min-width",
+                "conditionFeatureValue": {
+                  "lyneDesignToken": true,
+                  "value": "BreakpointSmallMin"
                 },
-                conditionOperator: false
+                "conditionOperator": false
               }
             ]
           },
           {
-            image: {
-              height: '675',
-              width: '1200'
+            "image": {
+              "height": "675",
+              "width": "1200"
             },
-            mediaQueries: [
+            "mediaQueries": [
               {
-                conditionFeature: 'min-width',
-                conditionFeatureValue: {
-                  lyneDesignToken: true,
-                  value: 'BreakpointLargeMin'
+                "conditionFeature": "min-width",
+                "conditionFeatureValue": {
+                  "lyneDesignToken": true,
+                  "value": "BreakpointLargeMin"
                 },
-                conditionOperator: false
+                "conditionOperator": false
               }
             ]
           }
         ]
-      };
+      }`;
     }
 
-    const configs = pictureSizesConfigData(JSON.stringify(this.pictureSizesConfig));
+    const configs = pictureSizesConfigData(this.pictureSizesConfig);
 
     return (
 
       <figure
-        class={figureClass}
+        class={`lyne-image__figure ${this._loadedClass}`}
         {...attributes}
-        ref={(el): void => {
-          this._figureElement = el;
-        }}
       >
         <div class='lyne-image__wrapper'>
           {
@@ -348,7 +439,14 @@ export class LyneImage {
         {
           this.caption
             ? (
-              <figcaption class='lyne-image__caption' innerHTML={this.caption}></figcaption>
+              <figcaption
+                class='lyne-image__caption'
+                innerHTML={this.caption}
+                ref={(el): void => {
+                  this._captionElement = el;
+                }}
+              >
+              </figcaption>
             )
             : ''
         }
@@ -357,10 +455,24 @@ export class LyneImage {
   }
 
   public componentDidRender(): void {
+
     this._imageElement.addEventListener('load', () => {
       this._logPerformanceMarks();
       this._addLoadedClass();
     }, eventListenerOptions);
+
+    this._linksInCaption = this._captionElement.querySelectorAll('a');
+
+    if (!this._linksInCaption) {
+      return;
+    }
+
+    if (this.hideFromScreenreader) {
+      this._removeFocusAbilityFromLinksInCaption();
+    } else {
+      this._addFocusAbilityToLinksInCaption();
+    }
+
   }
 
 }

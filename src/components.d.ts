@@ -102,55 +102,61 @@ export namespace Components {
     }
     interface LyneImage {
         /**
-          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. In that way we can signal assistive technologies, that they can skip the image.
+          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
          */
         "alt"?: string;
         /**
-          * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like).
+          * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
         /**
-          * Set to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
+          * Set this to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
          */
-        "customFocalPoint": InterfaceImageAttributes['customFocalPoint'];
+        "customFocalPoint": boolean;
         /**
           * If the lazy property is set to true, the module will automatically change the decoding to async, otherwise the decoding is set to auto which leaves the handling up to the browser. Read more about the decoding attribute here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
          */
         "decoding": InterfaceImageAttributes['decoding'];
         /**
-          * Set to true, to receive visual guideance where the custom focal point is currently set.
+          * Set this to true, to receive visual guideance where the custom focal point is currently set.
          */
-        "focalPointDebug": InterfaceImageAttributes['focalPointDebug'];
+        "focalPointDebug": boolean;
         /**
           * Pass in a floating number between 0 (left) and 1 (right).
          */
-        "focalPointX": InterfaceImageAttributes['focalPointX'];
+        "focalPointX": number;
         /**
           * Pass in a floating number between 0 (top) and 1 (bottom).
          */
-        "focalPointY": InterfaceImageAttributes['focalPointY'];
+        "focalPointY": number;
         /**
-          * In cases when the image is just serving a decorative purpose, we can hide it from assisitive technologies (e.g. an image in a teaser card)
+          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
          */
-        "hideFromScreenreader": InterfaceImageAttributes['hideFromScreenreader'];
+        "hideFromScreenreader": boolean;
+        /**
+          * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
+         */
         "imageSrc"?: string;
+        /**
+          * Just some example image filey you can use to play around with the module.
+         */
         "imageSrcExamples": string;
         /**
-          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy works best for those images which are further down the page or invisible during the loading of the initial viewport.
+          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy on the other hand works best for images which are further down the page or invisible during the loading of the initial viewport.
          */
         "loading": InterfaceImageAttributes['loading'];
         /**
-          * If set to true, we show a blurred version of the image as placeholder before the actual image loads. This should help to improve the perceived loading performance.
+          * If set to true, we show a blurred version of the image as placeholder before the actual image shows up. This will help to improve the perceived loading performance. Read more about the idea of lqip here: https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
          */
-        "lqip": InterfaceImageAttributes['lqip'];
+        "lqip": boolean;
         /**
-          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases. Best to use lowercase strings here, separate words with underscores or dashes.
+          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.
          */
         "performanceMark"?: string;
         /**
-          * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator.
+          * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      }    ]  }
          */
-        "pictureSizesConfig"?: any;
+        "pictureSizesConfig"?: string;
     }
     interface LyneLink {
         /**
@@ -404,55 +410,61 @@ declare namespace LocalJSX {
     }
     interface LyneImage {
         /**
-          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. In that way we can signal assistive technologies, that they can skip the image.
+          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
          */
         "alt"?: string;
         /**
-          * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like).
+          * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
         /**
-          * Set to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
+          * Set this to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
          */
-        "customFocalPoint"?: InterfaceImageAttributes['customFocalPoint'];
+        "customFocalPoint"?: boolean;
         /**
           * If the lazy property is set to true, the module will automatically change the decoding to async, otherwise the decoding is set to auto which leaves the handling up to the browser. Read more about the decoding attribute here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
          */
         "decoding"?: InterfaceImageAttributes['decoding'];
         /**
-          * Set to true, to receive visual guideance where the custom focal point is currently set.
+          * Set this to true, to receive visual guideance where the custom focal point is currently set.
          */
-        "focalPointDebug"?: InterfaceImageAttributes['focalPointDebug'];
+        "focalPointDebug"?: boolean;
         /**
           * Pass in a floating number between 0 (left) and 1 (right).
          */
-        "focalPointX"?: InterfaceImageAttributes['focalPointX'];
+        "focalPointX"?: number;
         /**
           * Pass in a floating number between 0 (top) and 1 (bottom).
          */
-        "focalPointY"?: InterfaceImageAttributes['focalPointY'];
+        "focalPointY"?: number;
         /**
-          * In cases when the image is just serving a decorative purpose, we can hide it from assisitive technologies (e.g. an image in a teaser card)
+          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
          */
-        "hideFromScreenreader"?: InterfaceImageAttributes['hideFromScreenreader'];
+        "hideFromScreenreader"?: boolean;
+        /**
+          * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
+         */
         "imageSrc"?: string;
+        /**
+          * Just some example image filey you can use to play around with the module.
+         */
         "imageSrcExamples": string;
         /**
-          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy works best for those images which are further down the page or invisible during the loading of the initial viewport.
+          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy on the other hand works best for images which are further down the page or invisible during the loading of the initial viewport.
          */
         "loading"?: InterfaceImageAttributes['loading'];
         /**
-          * If set to true, we show a blurred version of the image as placeholder before the actual image loads. This should help to improve the perceived loading performance.
+          * If set to true, we show a blurred version of the image as placeholder before the actual image shows up. This will help to improve the perceived loading performance. Read more about the idea of lqip here: https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
          */
-        "lqip"?: InterfaceImageAttributes['lqip'];
+        "lqip"?: boolean;
         /**
-          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to montior these values over a long time period to see if our performance increases or decreases. Best to use lowercase strings here, separate words with underscores or dashes.
+          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.
          */
         "performanceMark"?: string;
         /**
-          * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator.
+          * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      }    ]  }
          */
-        "pictureSizesConfig"?: any;
+        "pictureSizesConfig"?: string;
     }
     interface LyneLink {
         /**
