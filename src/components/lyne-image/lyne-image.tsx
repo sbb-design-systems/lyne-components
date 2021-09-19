@@ -149,23 +149,15 @@ export class LyneImage {
    *    "breakpoints": [
    *      {
    *        "image": {
-   *          "height": "180",
-   *          "width": "320"
+   *          "height": "675",
+   *          "width": "1200"
    *        },
    *        "mediaQueries": [
    *          {
-   *            "conditionFeature": "max-width",
+   *            "conditionFeature": "min-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "BreakpointMicroMax"
-   *            },
-   *            "conditionOperator": "and"
-   *          },
-   *          {
-   *            "conditionFeature": "orientation",
-   *            "conditionFeatureValue": {
-   *              "lyneDesignToken": false,
-   *              "value": "landscape"
+   *              "value": "BreakpointLargeMin"
    *            },
    *            "conditionOperator": false
    *          }
@@ -189,15 +181,23 @@ export class LyneImage {
    *      },
    *      {
    *        "image": {
-   *          "height": "675",
-   *          "width": "1200"
+   *          "height": "180",
+   *          "width": "320"
    *        },
    *        "mediaQueries": [
    *          {
-   *            "conditionFeature": "min-width",
+   *            "conditionFeature": "max-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "BreakpointLargeMin"
+   *              "value": "BreakpointMicroMax"
+   *            },
+   *            "conditionOperator": "and"
+   *          },
+   *          {
+   *            "conditionFeature": "orientation",
+   *            "conditionFeatureValue": {
+   *              "lyneDesignToken": false,
+   *              "value": "landscape"
    *            },
    *            "conditionOperator": false
    *          }
@@ -295,15 +295,15 @@ export class LyneImage {
         "breakpoints": [
           {
             "image": {
-              "height": "180",
-              "width": "320"
+              "height": "675",
+              "width": "1200"
             },
             "mediaQueries": [
               {
-                "conditionFeature": "max-width",
+                "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "BreakpointMicroMax"
+                  "value": "BreakpointLargeMin"
                 },
                 "conditionOperator": false
               }
@@ -327,15 +327,15 @@ export class LyneImage {
           },
           {
             "image": {
-              "height": "675",
-              "width": "1200"
+              "height": "180",
+              "width": "320"
             },
             "mediaQueries": [
               {
-                "conditionFeature": "min-width",
+                "conditionFeature": "max-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "BreakpointLargeMin"
+                  "value": "BreakpointMicroMax"
                 },
                 "conditionOperator": false
               }
