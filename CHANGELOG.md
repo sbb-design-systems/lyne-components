@@ -1,3 +1,181 @@
+# [9.49.0](https://github.com/lyne-design-system/lyne-components/compare/v9.48.0...v9.49.0) (2021-09-17)
+
+
+### Features
+
+* add test-icon for lyne-demo (triggered from Figma) (triggered from icons build) [skip ci] ([d4d63f5](https://github.com/lyne-design-system/lyne-components/commit/d4d63f52ff00e3db1d234d5b6c5adf4efd1ff855))
+
+# [9.48.0](https://github.com/lyne-design-system/lyne-components/compare/v9.47.2...v9.48.0) (2021-09-17)
+
+
+### Features
+
+* add test-icon for lyne-demo (triggered from Figma) (triggered from icons build) [skip ci] ([fd631c8](https://github.com/lyne-design-system/lyne-components/commit/fd631c8b62ae0b206343741ed6efe348d0ff3fbb))
+
+## [9.47.2](https://github.com/lyne-design-system/lyne-components/compare/v9.47.1...v9.47.2) (2021-09-17)
+
+
+### Bug Fixes
+
+* don't render svg markup for buttons with no icon ([0b00568](https://github.com/lyne-design-system/lyne-components/commit/0b00568932d88770f19da0b0d72c6c9b92240f23))
+
+## [9.47.1](https://github.com/lyne-design-system/lyne-components/compare/v9.47.0...v9.47.1) (2021-09-15)
+
+
+### Bug Fixes
+
+* don't use padding-block shorthand to fix issue in safari ([3af4c07](https://github.com/lyne-design-system/lyne-components/commit/3af4c079c9e3966a6273d6ff88af8c01cf84494a))
+
+# [9.47.0](https://github.com/lyne-design-system/lyne-components/compare/v9.46.0...v9.47.0) (2021-09-11)
+
+
+### Bug Fixes
+
+* add correct style ([ad90084](https://github.com/lyne-design-system/lyne-components/commit/ad9008474b4c8aa94475faed03ccc6f1ed4c9ebb))
+
+
+### Features
+
+* add story for only one open at a time ([3bc82d0](https://github.com/lyne-design-system/lyne-components/commit/3bc82d072c95485fd780cd07aa12cc82e6b50be8))
+
+# [9.46.0](https://github.com/lyne-design-system/lyne-components/compare/v9.45.0...v9.46.0) (2021-09-10)
+
+
+### Bug Fixes
+
+* add docu titles ([669a620](https://github.com/lyne-design-system/lyne-components/commit/669a6206fa7e913daa6badcc33b2990da9e22030))
+* delete sample main story file ([705e976](https://github.com/lyne-design-system/lyne-components/commit/705e97666ec64eb1f3156594c14ee8bbf83cf3c8))
+* fake commit to trigger release ([85c1c52](https://github.com/lyne-design-system/lyne-components/commit/85c1c52ea58d0b8de84358a8964edf872d21e10e))
+
+
+### Features
+
+* add separate stories ([92d7c92](https://github.com/lyne-design-system/lyne-components/commit/92d7c92f8bee5e41c43f206cdd76879a0a735fa1))
+* add separate stories ([f9c0fe4](https://github.com/lyne-design-system/lyne-components/commit/f9c0fe4c85b35db677498a3f031e4f399c9360c4))
+
+# [9.45.0](https://github.com/lyne-design-system/lyne-components/compare/v9.44.0...v9.45.0) (2021-09-09)
+
+
+### Features
+
+* add disabled story, add args to ignore for documentation ([40c0c2b](https://github.com/lyne-design-system/lyne-components/commit/40c0c2b59923abbfaf3e42bd4039cc9bf819d0fb))
+
+# [9.44.0](https://github.com/lyne-design-system/lyne-components/compare/v9.43.2...v9.44.0) (2021-09-09)
+
+
+### Features
+
+* add sepearte stories for button ([6637475](https://github.com/lyne-design-system/lyne-components/commit/6637475e2f37a6a7b54df88e6c3372f2d19dc882))
+
+## [9.43.2](https://github.com/lyne-design-system/lyne-components/compare/v9.43.1...v9.43.2) (2021-09-09)
+
+
+### Bug Fixes
+
+* don't render background color as string ([406c17d](https://github.com/lyne-design-system/lyne-components/commit/406c17d81cc76f4dbac7eab7b4e35c0a6833449d))
+
+## [9.43.1](https://github.com/lyne-design-system/lyne-components/compare/v9.43.0...v9.43.1) (2021-09-09)
+
+
+### Bug Fixes
+
+* don't use scss var, resolve value instead ([081e9f3](https://github.com/lyne-design-system/lyne-components/commit/081e9f373f5bdb020ace2584441a7958daf984aa))
+
+# [9.43.0](https://github.com/lyne-design-system/lyne-components/compare/v9.42.6...v9.43.0) (2021-09-09)
+
+
+### Bug Fixes
+
+* set border instead of color only ([20b30f2](https://github.com/lyne-design-system/lyne-components/commit/20b30f244d32ca480e00df34a9e661364fc73e41))
+
+
+### Features
+
+* add styles to docu object ([d36ff32](https://github.com/lyne-design-system/lyne-components/commit/d36ff32772f24c0a8d374c12b690da8bd268fe7d))
+
+## [9.42.6](https://github.com/lyne-design-system/lyne-components/compare/v9.42.5...v9.42.6) (2021-09-08)
+
+
+### Bug Fixes
+
+* remove window mock again ([0072b46](https://github.com/lyne-design-system/lyne-components/commit/0072b46963c59ab8e9c5e934cf43f4f7782e7271))
+
+## [9.42.5](https://github.com/lyne-design-system/lyne-components/compare/v9.42.4...v9.42.5) (2021-09-08)
+
+
+### Bug Fixes
+
+* make HTMLTemplate element mock callable ([f3e9be7](https://github.com/lyne-design-system/lyne-components/commit/f3e9be785f673d5c58917f93efd10ebbbd4f3bda))
+
+## [9.42.4](https://github.com/lyne-design-system/lyne-components/compare/v9.42.3...v9.42.4) (2021-09-08)
+
+
+### Bug Fixes
+
+* mock HTMLTemplateElement ([03545c8](https://github.com/lyne-design-system/lyne-components/commit/03545c82d65450f424b6ac63931b22d0a34e8d49))
+
+## [9.42.3](https://github.com/lyne-design-system/lyne-components/compare/v9.42.2...v9.42.3) (2021-09-08)
+
+
+### Bug Fixes
+
+* use window mock again ([58b5cf4](https://github.com/lyne-design-system/lyne-components/commit/58b5cf4d8442dcf8c75274920698ab0536119462))
+
+## [9.42.2](https://github.com/lyne-design-system/lyne-components/compare/v9.42.1...v9.42.2) (2021-09-08)
+
+
+### Bug Fixes
+
+* remove window mock ([6b720a4](https://github.com/lyne-design-system/lyne-components/commit/6b720a4eda07b846ba2bd64ecf6f4c03b9d1a1a6))
+
+## [9.42.1](https://github.com/lyne-design-system/lyne-components/compare/v9.42.0...v9.42.1) (2021-09-08)
+
+
+### Bug Fixes
+
+* try to use window mock again ([fc4d0c6](https://github.com/lyne-design-system/lyne-components/commit/fc4d0c637fa7f226e3dc68b0a65ce74e1fb0fbf6))
+
+# [9.42.0](https://github.com/lyne-design-system/lyne-components/compare/v9.41.1...v9.42.0) (2021-09-08)
+
+
+### Features
+
+* write file with component names, refactor to use config ([ef454ed](https://github.com/lyne-design-system/lyne-components/commit/ef454edf10a8aa45442eee5982f842884e159311))
+
+## [9.41.1](https://github.com/lyne-design-system/lyne-components/compare/v9.41.0...v9.41.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* remove external again ([70a5e57](https://github.com/lyne-design-system/lyne-components/commit/70a5e57aa301fe19a658db4cae51d73d29be37d3))
+
+# [9.41.0](https://github.com/lyne-design-system/lyne-components/compare/v9.40.4...v9.41.0) (2021-09-07)
+
+
+### Bug Fixes
+
+* remove window mock, define jsx-dom as external ([7965b09](https://github.com/lyne-design-system/lyne-components/commit/7965b09b85af6d9f0e52a3f8b500c395fb17cd33))
+
+
+### Features
+
+* add title for documentation ([6ea8ee6](https://github.com/lyne-design-system/lyne-components/commit/6ea8ee6c8a4079a49280152313f73eed91bd1663))
+
+## [9.40.4](https://github.com/lyne-design-system/lyne-components/compare/v9.40.3...v9.40.4) (2021-09-07)
+
+
+### Bug Fixes
+
+* add window mock object ([ceef937](https://github.com/lyne-design-system/lyne-components/commit/ceef9375ac939a30ce0f5fc160159f0952cf2972))
+
+## [9.40.3](https://github.com/lyne-design-system/lyne-components/compare/v9.40.2...v9.40.3) (2021-09-07)
+
+
+### Bug Fixes
+
+* fake commit to trigger release ([139aacb](https://github.com/lyne-design-system/lyne-components/commit/139aacbfe1a5dca3386651a25c3598d1e4ce8974))
+* remove window reference ([b272178](https://github.com/lyne-design-system/lyne-components/commit/b272178aaa6ba9cbc736eba0fae1ece71b022ffe))
+
 ## [9.40.2](https://github.com/lyne-design-system/lyne-components/compare/v9.40.1...v9.40.2) (2021-09-07)
 
 

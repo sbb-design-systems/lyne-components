@@ -6,12 +6,6 @@ const Template = (args) => (
   <lyne-sbb-clock {...args} />
 );
 
-export const SBBClock = Template.bind({});
-
-const state = {
-  paused: false
-};
-
 const times = {
   control: {
     type: 'select'
@@ -29,8 +23,44 @@ const times = {
   ]
 };
 
-SBBClock.argTypes = {
+const defaultArgTypes = {
   'initial-time': times
+};
+
+export const Default = Template.bind({});
+
+Default.argTypes = defaultArgTypes;
+Default.args = {
+  'initial-time': times.options[0],
+  'paused': false
+};
+
+Default.documentation = {
+  title: 'Default'
+};
+
+export const Paused = Template.bind({});
+
+Paused.argTypes = defaultArgTypes;
+Paused.args = {
+  'initial-time': times.options[1],
+  'paused': true
+};
+
+Paused.documentation = {
+  title: 'Paused'
+};
+
+export const InitialTime = Template.bind({});
+
+InitialTime.argTypes = defaultArgTypes;
+InitialTime.args = {
+  'initial-time': times.options[1],
+  'paused': false
+};
+
+InitialTime.documentation = {
+  title: `Initial time set to ${times.options[1]}`
 };
 
 /**
@@ -38,14 +68,13 @@ SBBClock.argTypes = {
  * and set time to given time
  */
 if (isChromatic()) {
-  SBBClock.args = {
-    'initial-time': '09:43:59',
+  Default.args = {
+    'initial-time': times.options[1],
     'paused': true
   };
-} else {
-  SBBClock.args = {
-    'initial-time': times.options[0],
-    'paused': state.paused
+
+  InitialTime.args = {
+    paused: true
   };
 }
 

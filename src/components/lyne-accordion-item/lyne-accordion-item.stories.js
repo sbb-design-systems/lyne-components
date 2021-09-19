@@ -1,3 +1,7 @@
+import {
+  ColorMilkDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
 import events from './lyne-accordion-item.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -16,6 +20,16 @@ const Template = (args) => (
 );
 
 export const Default = Template.bind({});
+
+Default.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorWhiteDefault,
+      'border': `2px solid ${ColorMilkDefault}`
+    }
+  },
+  title: 'Default Accordion Item'
+};
 
 Default.args = {
   'disabled': false,

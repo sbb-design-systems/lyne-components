@@ -1,6 +1,13 @@
 const glob = require('glob');
 const esbuild = require('esbuild');
 const fs = require('fs');
+const config = {
+  bundleDir: './dist/collection/storybundle',
+  componentsFile: 'components.json',
+  componentsGlob: './src/components/**/*.stories.js',
+  indexFile: 'index.js',
+  storiesFileEnding: '.stories.js'
+};
 
 const buildFiles = (files) => {
   esbuild
@@ -15,31 +22,38 @@ const buildFiles = (files) => {
         '.md': 'text'
       },
       // minify: true,
-      outdir: './dist/collection/storybundle'
+      outdir: config.bundleDir
     });
 };
 
 const writeIndex = () => {
   let moduleExports = '';
+  const files = {
+    components: []
+  };
 
-  fs.readdirSync('./dist/collection/storybundle')
+  fs.readdirSync(config.bundleDir)
     .forEach((file) => {
-      const key = file.replace('.stories.js', '');
+      const key = file.replace(config.storiesFileEnding, '');
+
+      files.components.push(key);
 
       moduleExports += `'${key}': require('./${file}'),`;
     });
 
-  // const output = `module.exports = ${JSON.stringify(moduleExports)}`;
-
-  const output = `module.exports = {
+  const indexOut = `module.exports = {
     ${moduleExports}
   };`;
 
-  fs.writeFileSync('./dist/collection/storybundle/index.js', output);
+  // write index file with all commonjs requires
+  fs.writeFileSync(`${config.bundleDir}/${config.indexFile}`, indexOut);
+
+  // write index file with all component names
+  fs.writeFileSync(`${config.bundleDir}/${config.componentsFile}`, JSON.stringify(files));
 
 };
 
-glob('./src/components/**/*.stories.js', {}, (err, files) => {
+glob(config.componentsGlob, {}, (err, files) => {
   if (err) {
     throw new Error(`Error reading stories files: ${err}`);
   }
