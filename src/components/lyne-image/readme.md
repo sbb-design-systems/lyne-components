@@ -25,6 +25,19 @@
 | `pictureSizesConfig`            | `picture-sizes-config`   | With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  } | `string`                      | `undefined` |
 
 
+## Dependencies
+
+### Used by
+
+ - [lyne-teaser-hero](../lyne-teaser-hero)
+
+### Graph
+```mermaid
+graph TD;
+  lyne-teaser-hero --> lyne-image
+  style lyne-image fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 
