@@ -1,3 +1,10 @@
+## [9.50.1](https://github.com/lyne-design-system/lyne-components/compare/v9.50.0...v9.50.1) (2021-09-20)
+
+
+### Bug Fixes
+
+* add title for documentation ([2f37cdb](https://github.com/lyne-design-system/lyne-components/commit/2f37cdb44f50bab7dc2ec41acf5b1261db79216e))
+
 # [9.50.0](https://github.com/lyne-design-system/lyne-components/compare/v9.49.0...v9.50.0) (2021-09-20)
 
 
