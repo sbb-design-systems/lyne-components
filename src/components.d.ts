@@ -210,6 +210,8 @@ export namespace Components {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface LyneTeaserHero {
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -282,6 +284,12 @@ declare global {
         prototype: HTMLLyneSbbLogoElement;
         new (): HTMLLyneSbbLogoElement;
     };
+    interface HTMLLyneTeaserHeroElement extends Components.LyneTeaserHero, HTMLStencilElement {
+    }
+    var HTMLLyneTeaserHeroElement: {
+        prototype: HTMLLyneTeaserHeroElement;
+        new (): HTMLLyneTeaserHeroElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -297,6 +305,7 @@ declare global {
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
+        "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -497,6 +506,8 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface LyneTeaserHero {
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -528,6 +539,7 @@ declare namespace LocalJSX {
         "lyne-pearl-chain": LynePearlChain;
         "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
+        "lyne-teaser-hero": LyneTeaserHero;
         "lyne-title": LyneTitle;
     }
 }
@@ -543,6 +555,7 @@ declare module "@stencil/core" {
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
+            "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }
