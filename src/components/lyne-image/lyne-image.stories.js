@@ -149,6 +149,10 @@ lyneImage.args = {
   'performance-mark': ''
 };
 
+lyneImage.documentation = {
+  title: 'Default image'
+};
+
 export default {
   decorators: [
     (Story) => (
