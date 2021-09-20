@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
+import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
@@ -98,6 +99,64 @@ export namespace Components {
           * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
+    }
+    interface LyneImage {
+        /**
+          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
+         */
+        "alt"?: string;
+        /**
+          * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
+         */
+        "caption"?: string;
+        /**
+          * Set this to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
+         */
+        "customFocalPoint": boolean;
+        /**
+          * If the lazy property is set to true, the module will automatically change the decoding to async, otherwise the decoding is set to auto which leaves the handling up to the browser. Read more about the decoding attribute here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
+         */
+        "decoding": InterfaceImageAttributes['decoding'];
+        /**
+          * Set this to true, to receive visual guideance where the custom focal point is currently set.
+         */
+        "focalPointDebug": boolean;
+        /**
+          * Pass in a floating number between 0 (left) and 1 (right).
+         */
+        "focalPointX": number;
+        /**
+          * Pass in a floating number between 0 (top) and 1 (bottom).
+         */
+        "focalPointY": number;
+        /**
+          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
+         */
+        "hideFromScreenreader": boolean;
+        /**
+          * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
+         */
+        "imageSrc"?: string;
+        /**
+          * Just some example image filey you can use to play around with the module.
+         */
+        "imageSrcExamples": string;
+        /**
+          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy on the other hand works best for images which are further down the page or invisible during the loading of the initial viewport.
+         */
+        "loading": InterfaceImageAttributes['loading'];
+        /**
+          * If set to true, we show a blurred version of the image as placeholder before the actual image shows up. This will help to improve the perceived loading performance. Read more about the idea of lqip here: https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
+         */
+        "lqip": boolean;
+        /**
+          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.
+         */
+        "performanceMark"?: string;
+        /**
+          * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
+         */
+        "pictureSizesConfig"?: string;
     }
     interface LynePanel {
         /**
@@ -193,6 +252,12 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
+    interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
+    }
+    var HTMLLyneImageElement: {
+        prototype: HTMLLyneImageElement;
+        new (): HTMLLyneImageElement;
+    };
     interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
     }
     var HTMLLynePanelElement: {
@@ -227,6 +292,7 @@ declare global {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
+        "lyne-image": HTMLLyneImageElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
@@ -321,6 +387,64 @@ declare namespace LocalJSX {
          */
         "visualButtonOnly"?: boolean;
     }
+    interface LyneImage {
+        /**
+          * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
+         */
+        "alt"?: string;
+        /**
+          * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
+         */
+        "caption"?: string;
+        /**
+          * Set this to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
+         */
+        "customFocalPoint"?: boolean;
+        /**
+          * If the lazy property is set to true, the module will automatically change the decoding to async, otherwise the decoding is set to auto which leaves the handling up to the browser. Read more about the decoding attribute here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
+         */
+        "decoding"?: InterfaceImageAttributes['decoding'];
+        /**
+          * Set this to true, to receive visual guideance where the custom focal point is currently set.
+         */
+        "focalPointDebug"?: boolean;
+        /**
+          * Pass in a floating number between 0 (left) and 1 (right).
+         */
+        "focalPointX"?: number;
+        /**
+          * Pass in a floating number between 0 (top) and 1 (bottom).
+         */
+        "focalPointY"?: number;
+        /**
+          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
+         */
+        "hideFromScreenreader"?: boolean;
+        /**
+          * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
+         */
+        "imageSrc"?: string;
+        /**
+          * Just some example image filey you can use to play around with the module.
+         */
+        "imageSrcExamples": string;
+        /**
+          * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy on the other hand works best for images which are further down the page or invisible during the loading of the initial viewport.
+         */
+        "loading"?: InterfaceImageAttributes['loading'];
+        /**
+          * If set to true, we show a blurred version of the image as placeholder before the actual image shows up. This will help to improve the perceived loading performance. Read more about the idea of lqip here: https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
+         */
+        "lqip"?: boolean;
+        /**
+          * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.
+         */
+        "performanceMark"?: string;
+        /**
+          * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
+         */
+        "pictureSizesConfig"?: string;
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -399,6 +523,7 @@ declare namespace LocalJSX {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
+        "lyne-image": LyneImage;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
         "lyne-sbb-clock": LyneSbbClock;
@@ -413,6 +538,7 @@ declare module "@stencil/core" {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
+            "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
