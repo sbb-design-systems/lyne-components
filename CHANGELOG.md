@@ -1,3 +1,24 @@
+# [9.50.0](https://github.com/lyne-design-system/lyne-components/compare/v9.49.0...v9.50.0) (2021-09-20)
+
+
+### Bug Fixes
+
+* taking over changes in components.d.ts file from master ([d15bd6e](https://github.com/lyne-design-system/lyne-components/commit/d15bd6e11cd0c0c0d335b48480d400e7b1e467be))
+
+
+### Features
+
+* adding loading animation and updated design tokens ([6b51220](https://github.com/lyne-design-system/lyne-components/commit/6b512207db7d71a635fee6913a7d0c408e4fecfc))
+* adding various improvements ([87733e1](https://github.com/lyne-design-system/lyne-components/commit/87733e1dcf86473f4a0804b2fcf835e5ad300642))
+* adding various improvements ([ca9a41f](https://github.com/lyne-design-system/lyne-components/commit/ca9a41f1117a18acd0580310eb6cdb48446df057))
+* fixing example sources order ([58b2ea0](https://github.com/lyne-design-system/lyne-components/commit/58b2ea06f161ebd9a67827222501102324a6b4a4))
+* is adding performance mark output ([24b4eb2](https://github.com/lyne-design-system/lyne-components/commit/24b4eb23f6ebf3513faddfb09ccdc31437a5e32b))
+* is adding picturesizesconfig suggestion ([8a6f423](https://github.com/lyne-design-system/lyne-components/commit/8a6f4230c908de5b1eae23823ddd42262a0fd62f))
+* is adding source element output based on config object ([45b258e](https://github.com/lyne-design-system/lyne-components/commit/45b258ec45fdd862b0b9014462838048ab0236f9))
+* reducing args ([9e973fa](https://github.com/lyne-design-system/lyne-components/commit/9e973fae27307d39a818f8401c9499b2769468c1))
+* taking over pr suggestions, extending docu and cleanup ([f18c563](https://github.com/lyne-design-system/lyne-components/commit/f18c563ad55559ca094ce0f202544c8283bcfd66))
+* working on image module integration ([2644b8d](https://github.com/lyne-design-system/lyne-components/commit/2644b8da77ad979a30c9afb2360ef5f7bf8c81cc))
+
 # [9.49.0](https://github.com/lyne-design-system/lyne-components/compare/v9.48.0...v9.49.0) (2021-09-17)
 
 
