@@ -461,6 +461,10 @@ export class LyneImage {
       this._addLoadedClass();
     }, eventListenerOptions);
 
+    if (!this._captionElement) {
+      return;
+    }
+
     this._linksInCaption = this._captionElement.querySelectorAll('a');
 
     if (!this._linksInCaption) {
