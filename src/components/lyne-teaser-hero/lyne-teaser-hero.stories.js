@@ -10,13 +10,6 @@ const Template = (args) => (
 export const defaultTeaser = Template.bind({});
 
 export default {
-  decorators: [
-    (Story) => (
-      <div style={'padding: 2rem'}>
-        <Story/>
-      </div>
-    )
-  ],
   parameters: {
     docs: {
       extractComponentDescription: () => readme
