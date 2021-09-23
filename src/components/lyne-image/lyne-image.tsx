@@ -208,6 +208,12 @@ export class LyneImage {
    */
   @Prop() public pictureSizesConfig?: string;
 
+  /**
+   * Based on the variant, we apply specific aspect ratios
+   * to the image accross all viewports.
+   */
+  @Prop() public variant?: InterfaceImageAttributes['variant'];
+
   private _addLoadedClass(): void {
     this._loadedClass = 'lyne-image__figure--loaded';
   }
@@ -347,10 +353,14 @@ export class LyneImage {
 
     const configs = pictureSizesConfigData(this.pictureSizesConfig);
 
+    const variantClass = this.variant
+      ? ` lyne-image__figure--${this.variant}`
+      : '';
+
     return (
 
       <figure
-        class={`lyne-image__figure ${this._loadedClass}`}
+        class={`lyne-image__figure${variantClass} ${this._loadedClass}`}
         {...attributes}
       >
         <div class='lyne-image__wrapper'>
