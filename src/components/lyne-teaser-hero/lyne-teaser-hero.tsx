@@ -1,3 +1,4 @@
+import * as LyneDesignTokens from '../../../node_modules/lyne-design-tokens/dist/js/tokens.es6.js';
 import {
   Component,
   h
@@ -14,15 +15,15 @@ export class LyneTeaserHero {
     breakpoints: [
       {
         image: {
-          height: '675',
-          width: '1200'
+          height: LyneDesignTokens.BreakpointUltraMax,
+          width: LyneDesignTokens.BreakpointUltraMax
         },
         mediaQueries: [
           {
             conditionFeature: 'min-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointLargeMin'
+              value: 'BreakpointUltraMin'
             },
             conditionOperator: false
           }
@@ -30,15 +31,15 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: '549',
-          width: '976'
+          height: LyneDesignTokens.BreakpointWideMax,
+          width: LyneDesignTokens.BreakpointWideMax
         },
         mediaQueries: [
           {
-            conditionFeature: 'min-width',
+            conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointSmallMin'
+              value: 'BreakpointWideMax'
             },
             conditionOperator: false
           }
@@ -46,8 +47,56 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: '320',
-          width: '320'
+          height: LyneDesignTokens.BreakpointLargeMax,
+          width: LyneDesignTokens.BreakpointLargeMax
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'max-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'BreakpointLargeMax'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: LyneDesignTokens.BreakpointMediumMax,
+          width: LyneDesignTokens.BreakpointMediumMax
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'max-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'BreakpointMediumMax'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: LyneDesignTokens.BreakpointSmallMax,
+          width: LyneDesignTokens.BreakpointSmallMax
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'max-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'BreakpointSmallMax'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: LyneDesignTokens.BreakpointMicroMax,
+          width: LyneDesignTokens.BreakpointMicroMax
         },
         mediaQueries: [
           {
@@ -59,13 +108,27 @@ export class LyneTeaserHero {
             conditionOperator: false
           }
         ]
+      },
+      {
+        image: {
+          height: LyneDesignTokens.BreakpointZeroMax,
+          width: LyneDesignTokens.BreakpointZeroMax
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'max-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'BreakpointZeroMax'
+            },
+            conditionOperator: false
+          }
+        ]
       }
     ]
   };
 
   public render(): JSX.Element {
-    console.log(this._pictureSizesConfig);
-
     return (
       <div class='taser-hero'>
         <lyne-image
@@ -78,6 +141,7 @@ export class LyneTeaserHero {
           loading='eager'
           lqip
           performanceMark=''
+          variant='teaser-hero'
         ></lyne-image>
 
         <lyne-panel
