@@ -157,6 +157,10 @@ export namespace Components {
           * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
          */
         "pictureSizesConfig"?: string;
+        /**
+          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
+         */
+        "variant"?: InterfaceImageAttributes['variant'];
     }
     interface LynePanel {
         /**
@@ -453,6 +457,10 @@ declare namespace LocalJSX {
           * With the pictureSizesConfig object, you can pass in information into lyne-image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
          */
         "pictureSizesConfig"?: string;
+        /**
+          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
+         */
+        "variant"?: InterfaceImageAttributes['variant'];
     }
     interface LynePanel {
         /**
