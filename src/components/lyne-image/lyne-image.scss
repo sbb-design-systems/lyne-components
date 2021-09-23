@@ -38,46 +38,31 @@
   @include text-xs--regular();
 }
 
-.lyne-image__figure--1x1 .lyne-image__wrapper {
-  aspect-ratio: 1 / 1;
-}
+// Variant: Hero Teaser
+.lyne-image__figure--teaser-hero .lyne-image__wrapper {
+  --lyne-image-ratio-width: 1;
+  --lyne-image-ratio-height: 1;
 
-.lyne-image__figure--5x4 .lyne-image__wrapper {
-  aspect-ratio: 5 / 4;
-}
+  @include mq($from: medium) {
+    --lyne-image-ratio-width: 728;
+    --lyne-image-ratio-height: 409;
+  }
 
-.lyne-image__figure--4x3 .lyne-image__wrapper {
-  aspect-ratio: 4 / 3;
-}
+  @include mq($from: large) {
+    --lyne-image-ratio-width: 896;
+    --lyne-image-ratio-height: 504;
+  }
 
-.lyne-image__figure--3x2 .lyne-image__wrapper {
-  aspect-ratio: 3 / 2;
-}
+  @include mq($from: wide) {
+    --lyne-image-ratio-width: 1144;
+    --lyne-image-ratio-height: 643;
+  }
 
-.lyne-image__figure--16x9 .lyne-image__wrapper {
-  aspect-ratio: 16 / 9;
-}
+  @include mq($from: ultra) {
+    --lyne-image-ratio-width: 1192;
+    --lyne-image-ratio-height: 670;
+  }
 
-.lyne-image__figure--2x1 .lyne-image__wrapper {
-   aspect-ratio: 2 / 1;
-}
+  aspect-ratio: var(--lyne-image-ratio-width) / var(--lyne-image-ratio-height);
+};
 
-.lyne-image__figure--1x2 .lyne-image__wrapper {
-  aspect-ratio: 1 / 2;
-}
-
-.lyne-image__figure--9x16 .lyne-image__wrapper {
-  aspect-ratio: 9 / 16;
-}
-
-.lyne-image__figure--2x3 .lyne-image__wrapper {
-  aspect-ratio: 2 / 3;
-}
-
-.lyne-image__figure--3x4 .lyne-image__wrapper {
-  aspect-ratio: 3 / 4;
-}
-
-.lyne-image__figure--4x5 .lyne-image__wrapper {
-  aspect-ratio: 4 / 5;
-}
