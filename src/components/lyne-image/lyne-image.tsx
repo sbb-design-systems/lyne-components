@@ -375,6 +375,8 @@ export class LyneImage {
                   alt=''
                   class='lyne-image__blur-hash'
                   src={imageUrlLQIP}
+                  width='1000'
+                  height='562'
                   loading={this.loading}
                   decoding={this.decoding}
                 />
