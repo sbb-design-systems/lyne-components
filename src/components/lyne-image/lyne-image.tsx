@@ -27,7 +27,7 @@ export class LyneImage {
   private _imageElement!: HTMLElement;
   private _linksInCaption;
 
-  @State() private _loadedClass: string;
+  @State() private _loadedClass = '';
 
   /**
    * An alt text is not always necessary (e.g. in teaser cards when
@@ -215,7 +215,7 @@ export class LyneImage {
   @Prop() public variant?: InterfaceImageAttributes['variant'];
 
   private _addLoadedClass(): void {
-    this._loadedClass = 'lyne-image__figure--loaded';
+    this._loadedClass = ' lyne-image__figure--loaded';
   }
 
   private _logPerformanceMarks(): void {
@@ -246,7 +246,9 @@ export class LyneImage {
 
   public render(): JSX.Element {
 
-    const imageSrc = this.imageSrc || this.imageSrcExamples;
+    const imageSrc = this.imageSrc
+      ? this.imageSrc
+      : this.imageSrcExamples;
 
     const attributes: {
       ariaHidden?: string;
@@ -362,7 +364,7 @@ export class LyneImage {
     return (
 
       <figure
-        class={`lyne-image__figure${variantClass} ${this._loadedClass}`}
+        class={`lyne-image__figure${variantClass}${this._loadedClass}`}
         {...attributes}
       >
         <div class='lyne-image__wrapper'>
