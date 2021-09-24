@@ -103,7 +103,7 @@ baseConfig.overrides = [
         }
       ],
       '@typescript-eslint/no-use-before-define': 'error',
-      '@typescript-eslint/no-var-requires': 'error',
+      '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/prefer-namespace-keyword': 'error',
       '@typescript-eslint/semi': ['error'],
       '@typescript-eslint/type-annotation-spacing': 'error',
