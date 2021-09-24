@@ -294,8 +294,12 @@ export class LyneImage {
       this.decoding = 'async';
     }
 
+    let {
+      pictureSizesConfig
+    } = this;
+
     if (this.pictureSizesConfig === undefined) {
-      this.pictureSizesConfig = `{
+      pictureSizesConfig = `{
         "breakpoints": [
           {
             "image": {
@@ -349,7 +353,7 @@ export class LyneImage {
       }`;
     }
 
-    const configs = pictureSizesConfigData(this.pictureSizesConfig);
+    const configs = pictureSizesConfigData(pictureSizesConfig);
 
     const variantClass = this.variant
       ? ` lyne-image__figure--${this.variant}`
