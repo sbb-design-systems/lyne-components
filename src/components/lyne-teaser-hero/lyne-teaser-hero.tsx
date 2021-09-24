@@ -1,8 +1,9 @@
-import * as LyneDesignTokens from '../../../node_modules/lyne-design-tokens/dist/js/tokens.es6.js';
 import {
   Component,
   h
 } from '@stencil/core';
+
+const lyneDesignTokens = require('lyne-design-tokens/dist/js/tokens.commonjs.js');
 
 @Component({
   shadow: true,
@@ -15,8 +16,8 @@ export class LyneTeaserHero {
     breakpoints: [
       {
         image: {
-          height: LyneDesignTokens.BreakpointUltraMax,
-          width: LyneDesignTokens.BreakpointUltraMax
+          height: lyneDesignTokens.BreakpointUltraMax,
+          width: lyneDesignTokens.BreakpointUltraMax
         },
         mediaQueries: [
           {
@@ -31,8 +32,8 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: LyneDesignTokens.BreakpointWideMax,
-          width: LyneDesignTokens.BreakpointWideMax
+          height: lyneDesignTokens.BreakpointWideMax,
+          width: lyneDesignTokens.BreakpointWideMax
         },
         mediaQueries: [
           {
@@ -47,8 +48,8 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: LyneDesignTokens.BreakpointLargeMax,
-          width: LyneDesignTokens.BreakpointLargeMax
+          height: lyneDesignTokens.BreakpointLargeMax,
+          width: lyneDesignTokens.BreakpointLargeMax
         },
         mediaQueries: [
           {
@@ -63,8 +64,8 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: LyneDesignTokens.BreakpointMediumMax,
-          width: LyneDesignTokens.BreakpointMediumMax
+          height: lyneDesignTokens.BreakpointMediumMax,
+          width: lyneDesignTokens.BreakpointMediumMax
         },
         mediaQueries: [
           {
@@ -79,8 +80,8 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: LyneDesignTokens.BreakpointSmallMax,
-          width: LyneDesignTokens.BreakpointSmallMax
+          height: lyneDesignTokens.BreakpointSmallMax,
+          width: lyneDesignTokens.BreakpointSmallMax
         },
         mediaQueries: [
           {
@@ -95,8 +96,8 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: LyneDesignTokens.BreakpointMicroMax,
-          width: LyneDesignTokens.BreakpointMicroMax
+          height: lyneDesignTokens.BreakpointMicroMax,
+          width: lyneDesignTokens.BreakpointMicroMax
         },
         mediaQueries: [
           {
@@ -111,8 +112,8 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: LyneDesignTokens.BreakpointZeroMax,
-          width: LyneDesignTokens.BreakpointZeroMax
+          height: lyneDesignTokens.BreakpointZeroMax,
+          width: lyneDesignTokens.BreakpointZeroMax
         },
         mediaQueries: [
           {
