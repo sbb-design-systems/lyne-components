@@ -1,3 +1,4 @@
+import images from '../../global/images';
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('lyne-teaser-hero', () => {
@@ -6,7 +7,7 @@ describe('lyne-teaser-hero', () => {
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-teaser-hero button-text="Button text" image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg" text="Panel text"></lyne-teaser-hero>');
+    await page.setContent(`<lyne-teaser-hero button-text="Button text" image-src="${images[0]}" text="Panel text"></lyne-teaser-hero>`);
 
     element = await page.find('lyne-teaser-hero');
     expect(element)
