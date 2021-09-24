@@ -3,7 +3,7 @@ import {
   h
 } from '@stencil/core';
 
-const lyneDesignTokens = require('lyne-design-tokens/dist/js/tokens.commonjs.js');
+import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 
 @Component({
   shadow: true,
@@ -16,15 +16,15 @@ export class LyneTeaserHero {
     breakpoints: [
       {
         image: {
-          height: lyneDesignTokens.BreakpointUltraMax,
-          width: lyneDesignTokens.BreakpointUltraMax
+          height: tokens['breakpoint-ultra-max'],
+          width: tokens['breakpoint-ultra-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'min-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointUltraMin'
+              value: 'breakpoint-ultra-min'
             },
             conditionOperator: false
           }
@@ -32,15 +32,15 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: lyneDesignTokens.BreakpointWideMax,
-          width: lyneDesignTokens.BreakpointWideMax
+          height: tokens['breakpoint-wide-max'],
+          width: tokens['breakpoint-wide-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointWideMax'
+              value: 'breakpoint-wide-max'
             },
             conditionOperator: false
           }
@@ -48,15 +48,15 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: lyneDesignTokens.BreakpointLargeMax,
-          width: lyneDesignTokens.BreakpointLargeMax
+          height: tokens['breakpoint-large-max'],
+          width: tokens['breakpoint-large-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointLargeMax'
+              value: 'breakpoint-large-max'
             },
             conditionOperator: false
           }
@@ -64,15 +64,15 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: lyneDesignTokens.BreakpointMediumMax,
-          width: lyneDesignTokens.BreakpointMediumMax
+          height: tokens['breakpoint-medium-max'],
+          width: tokens['breakpoint-medium-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointMediumMax'
+              value: 'breakpoint-medium-max'
             },
             conditionOperator: false
           }
@@ -80,15 +80,15 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: lyneDesignTokens.BreakpointSmallMax,
-          width: lyneDesignTokens.BreakpointSmallMax
+          height: tokens['breakpoint-small-max'],
+          width: tokens['breakpoint-small-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointSmallMax'
+              value: 'breakpoint-small-max'
             },
             conditionOperator: false
           }
@@ -96,15 +96,15 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: lyneDesignTokens.BreakpointMicroMax,
-          width: lyneDesignTokens.BreakpointMicroMax
+          height: tokens['breakpoint-micro-max'],
+          width: tokens['breakpoint-micro-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointMicroMax'
+              value: 'breakpoint-micro-max'
             },
             conditionOperator: false
           }
@@ -112,15 +112,15 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: lyneDesignTokens.BreakpointZeroMax,
-          width: lyneDesignTokens.BreakpointZeroMax
+          height: tokens['breakpoint-zero-max'],
+          width: tokens['breakpoint-zero-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'BreakpointZeroMax'
+              value: 'breakpoint-zero-max'
             },
             conditionOperator: false
           }
@@ -134,11 +134,10 @@ export class LyneTeaserHero {
       <div class='taser-hero'>
         <lyne-image
           class='teaser-hero__image'
-          imageSrcExamples='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
           pictureSizesConfig={JSON.stringify(this._pictureSizesConfig)}
           customFocalPoint={true}
           hideFromScreenreader={true}
-          imageSrc=''
+          imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
           loading='eager'
           lqip
           performanceMark=''
