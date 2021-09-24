@@ -215,6 +215,18 @@ export namespace Components {
         "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface LyneTeaserHero {
+        /**
+          * Button text property for lyne-panel. See lyne-panel for additional info
+         */
+        "buttonText": string;
+        /**
+          * Image source property for lyne-image.  See lyne-image for additional info
+         */
+        "imageSrc": string;
+        /**
+          * Text property for lyne-panel. See lyne-panel for additional info
+         */
+        "text": string;
     }
     interface LyneTitle {
         /**
@@ -515,6 +527,18 @@ declare namespace LocalJSX {
         "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface LyneTeaserHero {
+        /**
+          * Button text property for lyne-panel. See lyne-panel for additional info
+         */
+        "buttonText": string;
+        /**
+          * Image source property for lyne-image.  See lyne-image for additional info
+         */
+        "imageSrc": string;
+        /**
+          * Text property for lyne-panel. See lyne-panel for additional info
+         */
+        "text": string;
     }
     interface LyneTitle {
         /**
