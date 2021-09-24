@@ -1,6 +1,7 @@
 import {
   Component,
-  h
+  h,
+  Prop
 } from '@stencil/core';
 
 import tokens from 'lyne-design-tokens/dist/js/tokens.json';
@@ -129,6 +130,21 @@ export class LyneTeaserHero {
     ]
   };
 
+  /**
+   * Text property for lyne-panel. See lyne-panel for additional info
+   */
+  @Prop() public text!: string;
+
+  /**
+   * Button text property for lyne-panel. See lyne-panel for additional info
+   */
+  @Prop() public buttonText!: string;
+
+  /**
+   * Image source property for lyne-image.  See lyne-image for additional info
+   */
+  @Prop() public imageSrc!: string;
+
   public render(): JSX.Element {
     return (
       <div class='taser-hero'>
@@ -137,7 +153,7 @@ export class LyneTeaserHero {
           pictureSizesConfig={JSON.stringify(this._pictureSizesConfig)}
           customFocalPoint={true}
           hideFromScreenreader={true}
-          imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
+          imageSrc={this.imageSrc}
           loading='eager'
           lqip
           performanceMark=''
@@ -146,8 +162,8 @@ export class LyneTeaserHero {
 
         <lyne-panel
           class='teaser-hero__panel'
-          buttonText='Sample button text'
-          text='Sample panel text'
+          buttonText={this.buttonText}
+          text={this.text}
         ></lyne-panel>
       </div>
     );
