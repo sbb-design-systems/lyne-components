@@ -1,4 +1,3 @@
-import * as LyneDesignTokens from '../../../node_modules/lyne-design-tokens/dist/js/tokens.es6.js';
 
 import {
   Component,
@@ -9,6 +8,7 @@ import {
 
 import { InterfaceImageAttributes } from './lyne-image.custom.d';
 import pictureSizesConfigData from './lyne-image.helper';
+import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 
 const eventListenerOptions = {
   once: true,
@@ -110,7 +110,7 @@ export class LyneImage {
    * Just some example image filey you can use to play around with
    * the module.
    */
-  @Prop() public imageSrcExamples!: string;
+  @Prop() public imageSrcExamples?: string;
 
   /**
    * With the support of native image lazy loading, we can now
@@ -157,7 +157,7 @@ export class LyneImage {
    *            "conditionFeature": "min-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "BreakpointLargeMin"
+   *              "value": "breakpoint-large-min"
    *            },
    *            "conditionOperator": false
    *          }
@@ -173,7 +173,7 @@ export class LyneImage {
    *            "conditionFeature": "min-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "BreakpointSmallMin"
+   *              "value": "breakpoint-small-min"
    *            },
    *            "conditionOperator": false
    *          }
@@ -189,7 +189,7 @@ export class LyneImage {
    *            "conditionFeature": "max-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "BreakpointMicroMax"
+   *              "value": "breakpoint-micro-max"
    *            },
    *            "conditionOperator": "and"
    *          },
@@ -226,9 +226,9 @@ export class LyneImage {
   }
 
   private _matchMediaQueryDesignToken(breakpointSizeName): string {
-    const breakpointSizeNameValue = LyneDesignTokens[breakpointSizeName];
+    const breakpointSizeNameValue = tokens[breakpointSizeName];
 
-    return `${breakpointSizeNameValue / LyneDesignTokens.TypoScaleDefault}rem`;
+    return `${breakpointSizeNameValue / tokens['typo-scale-default']}rem`;
 
   }
 
@@ -309,7 +309,7 @@ export class LyneImage {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "BreakpointLargeMin"
+                  "value": "breakpoint-large-min"
                 },
                 "conditionOperator": false
               }
@@ -325,7 +325,7 @@ export class LyneImage {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "BreakpointSmallMin"
+                  "value": "breakpoint-small-min"
                 },
                 "conditionOperator": false
               }
@@ -341,7 +341,7 @@ export class LyneImage {
                 "conditionFeature": "max-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "BreakpointMicroMax"
+                  "value": "breakpoint-micro-max"
                 },
                 "conditionOperator": false
               }
