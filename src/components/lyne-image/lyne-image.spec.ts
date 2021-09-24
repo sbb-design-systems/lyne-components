@@ -17,7 +17,7 @@ describe('lyne-image', () => {
           <mock:shadow-root>
             <figure class="lyne-image__figure">
               <div class="lyne-image__wrapper">
-                <img alt="" class="lyne-image__blur-hash" decoding="auto" loading="eager" src="${images[0]}?blur=100&amp;w=100&amp;h=56">
+                <img alt="" class="lyne-image__blur-hash" decoding="auto" height="562" loading="eager" src="${images[0]}?blur=100&amp;w=100&amp;h=56" width="1000">
                 <picture>
                   <source media="(min-width: 64rem)" sizes="1200px" srcset="${images[0]}?&amp;fm=avif&amp;auto&amp;w=1200&amp;h=675 1200w, ${images[0]}?&amp;fm=avif&amp;auto&amp;w=2400&amp;h=1350 2400w" type="image/avif">
                   <source media="(min-width: 64rem)" sizes="1200px" srcset="${images[0]}?auto=format,compress,cs=tinysrgb&amp;w=1200&amp;h=675&amp;q=45 1200w, ${images[0]}?auto=format,compress,cs=tinysrgb&amp;w=2400&amp;h=1350&amp;q=20 2400w">
