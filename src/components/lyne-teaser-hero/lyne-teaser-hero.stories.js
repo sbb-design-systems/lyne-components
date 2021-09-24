@@ -1,4 +1,5 @@
 import { h } from 'jsx-dom';
+import images from '../../global/images';
 import readme from './readme.md';
 
 // --- Component
@@ -11,7 +12,7 @@ export const defaultTeaser = Template.bind({});
 
 defaultTeaser.args = {
   'button-text': 'Button text',
-  'image-src': 'https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg',
+  'image-src': images[0],
   'text': 'Panel text'
 };
 
