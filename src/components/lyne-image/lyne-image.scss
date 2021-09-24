@@ -7,9 +7,8 @@
 }
 
 .lyne-image__figure img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  border-radius: pxToRem(var(--image-border-radius));
 }
 
 .lyne-image__lqip,
@@ -32,6 +31,7 @@
   overflow: hidden;
   max-width: 100%;
   margin-bottom: pxToRem(var(--spacing-fixed-4x));
+  border-radius: pxToRem(var(--image-border-radius));
 }
 
 .lyne-image__caption {
