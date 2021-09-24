@@ -246,9 +246,7 @@ export class LyneImage {
 
   public render(): JSX.Element {
 
-    if (!this.imageSrc) {
-      this.imageSrc = this.imageSrcExamples;
-    }
+    const imageSrc = this.imageSrc || this.imageSrcExamples;
 
     const attributes: {
       ariaHidden?: string;
@@ -272,9 +270,9 @@ export class LyneImage {
       focalPointDebug: '&fp-debug=true'
     };
 
-    let imageUrlLQIP = `${this.imageSrc}?blur=100&w=100&h=56`;
-    let imageUrlWithParams = `${this.imageSrc}?${imageParameters.autoImprove}`;
-    let imageUrlWithParamsAVIF = `${this.imageSrc}?${imageParameters.avif}`;
+    let imageUrlLQIP = `${imageSrc}?blur=100&w=100&h=56`;
+    let imageUrlWithParams = `${imageSrc}?${imageParameters.autoImprove}`;
+    let imageUrlWithParamsAVIF = `${imageSrc}?${imageParameters.avif}`;
 
     if (this.customFocalPoint) {
       imageUrlWithParams = `${imageUrlWithParams}${imageParameters.crop}`;
@@ -432,7 +430,7 @@ export class LyneImage {
             <img
               alt={this.alt}
               class='lyne-image__img'
-              src={this.imageSrc}
+              src={imageSrc}
               width='1000'
               height='562'
               loading={this.loading}
