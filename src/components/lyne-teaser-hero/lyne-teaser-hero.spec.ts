@@ -12,18 +12,13 @@ describe('lyne-teaser-hero', () => {
 
     expect(root)
       .toEqualHtml(`
-        <lyne-teaser-hero icon="true" label="Label" variant="secondary-negative">
+        <lyne-teaser-hero>
           <mock:shadow-root>
-            <button class="button button--large button--secondary-negative" type="button">
-              <span class="button__icon">
-                <slot></slot>
-              </span>
-              <span class="button__label">Label</span>
-            </button>
+            <div class="taser-hero">
+              <lyne-image class="teaser-hero__image" customfocalpoint="" hidefromscreenreader="" imagesrc="" imagesrcexamples="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg" loading="eager" lqip="" performancemark="" picturesizesconfig="{&quot;breakpoints&quot;:[{&quot;image&quot;:{&quot;height&quot;:&quot;2579&quot;,&quot;width&quot;:&quot;2579&quot;},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;min-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;BreakpointUltraMin&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:&quot;1439&quot;,&quot;width&quot;:&quot;1439&quot;},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;BreakpointWideMax&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:&quot;1279&quot;,&quot;width&quot;:&quot;1279&quot;},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;BreakpointLargeMax&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:&quot;1023&quot;,&quot;width&quot;:&quot;1023&quot;},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;BreakpointMediumMax&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:&quot;839&quot;,&quot;width&quot;:&quot;839&quot;},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;BreakpointSmallMax&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:&quot;599&quot;,&quot;width&quot;:&quot;599&quot;},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;BreakpointMicroMax&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:&quot;359&quot;,&quot;width&quot;:&quot;359&quot;},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;BreakpointZeroMax&quot;},&quot;conditionOperator&quot;:false}]}]}" variant="teaser-hero"></lyne-image>
+              <lyne-panel buttontext="Sample button text" class="teaser-hero__panel" text="Sample panel text"></lyne-panel>
+            </div>
           </mock:shadow-root>
-          <svg height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" d="m17.8436,12.1382-3.99-3.99196-.7072.70693,3.1366,3.13823H5v1h11.287l-3.1413,3.1555.7086.7056,3.99-4.008.3519-.3535-.3526-.3528z" fill-rule="evenodd"></path>
-          </svg>
         </lyne-teaser-hero>
       `);
   });
