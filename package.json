@@ -64,7 +64,7 @@
     "babel-loader": "^8.1.0",
     "chromatic": "~5.9.1",
     "copy-webpack-plugin": "~6.0.0",
-    "esbuild": "~0.12.25",
+    "esbuild": "~0.13.2",
     "eslint": "~7.32.0",
     "eslint-plugin-jest": "^24.0.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
