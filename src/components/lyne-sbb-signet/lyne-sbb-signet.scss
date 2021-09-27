@@ -1,25 +1,18 @@
 :host {
   display: block;
 
-  // Default Logo Styles
+  // Default Signet Styles
   // ----------------------------------------------
-  --sbb-signet-panel-color: var(--color-red-default);
-  --sbb-signet-panel-stroke-color: var(--color-red-default);
-  --sbb-signet-signet-color: var(--color-white-default);
-  --sbb-signet-word-mark-color: var(--color-black-default);
+  --sbb-signet-background-color: var(--color-red-default);
+  --sbb-signet-icon-color: var(--color-white-default);
 
   // Forced Colors Variant
   // ----------------------------------------------
   @include ifForcedColors() {
     .sbb-signet--default,
-    .sbb-signet--negative,
-    .sbb-signet--on-red,
-    .sbb-signet--black-on-white,
     .sbb-signet--white-on-black {
-      --sbb-signet-panel-color: ButtonText;
-      --sbb-signet-panel-stroke-color: ButtonText;
-      --sbb-signet-signet-color: Canvas;
-      --sbb-signet-word-mark-color: ButtonText;
+      --sbb-signet-background-color: ButtonText;
+      --sbb-signet-icon-color: Canvas;
     }
   }
 }
@@ -28,10 +21,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 454 / 48; // No Fallback for now...
 }
 
 .sbb-signet .sbb-signet__svg {
+  aspect-ratio: 2/1; // No Fallback for now...
   width: 100%;
   height: auto;
 }
@@ -40,66 +33,40 @@
   float: left;
 }
 
-.sbb-signet--protective-room-ideal {
-  aspect-ratio: 550 / 144;
-}
-
 .sbb-signet--protective-room-ideal .sbb-signet__svg {
-  width: 82.545454%; // 454/550 Adapted from Figma
-  height: 33.333333%; // 48/144 Adapted from Figma
-}
-
-.sbb-signet--protective-room-minimal {
-  aspect-ratio: 502 / 96;
+  padding: 16.6666666667%;
 }
 
 .sbb-signet--protective-room-minimal .sbb-signet__svg {
-  width: 90.438247%; // 454/502 Adapted from Figma
-  height: 50%; // 48/96 Adapted from Figma
+  padding: 10%;
 }
 
-// Positive / Default Variant
+.sbb-signet--protective-room-align-right .sbb-signet__svg {
+  padding-top: 4.166666666667%;
+  padding-right: 4.166666666667%;
+  padding-bottom: 4.166666666667%;
+  padding-left: 50%;
+}
+
+.sbb-signet--protective-room-align-bottom-right .sbb-signet__svg {
+  padding-top: 18%;
+  padding-right: 7.5%;
+  padding-bottom: 9%;
+  padding-left: 75%;
+}
+
+// Default Variant
 // ----------------------------------------------
-#sbb-signet__word-mark {
-  fill: var(--sbb-signet-word-mark-color);
+.sbb-signet {
+  background-color: var(--sbb-signet-background-color);
 }
 
-#sbb-signet__panel {
-  fill: var(--sbb-signet-panel-color);
-  stroke: var(--sbb-signet-panel-stroke-color);
-}
-
-#sbb-signet__signet {
-  fill: var(--sbb-signet-signet-color);
-}
-
-// Negative Variant
-// ----------------------------------------------
-.sbb-signet--negative {
-  --sbb-signet-word-mark-color: var(--color-white-default);
-}
-
-// On Red Background Variant
-// ----------------------------------------------
-.sbb-signet--on-red {
-  background: var(--color-red-default);
-  --sbb-signet-word-mark-color: var(--color-white-default);
-  --sbb-signet-panel-stroke-color: var(--color-white-default);
-}
-
-// Black on White Variant
-// ----------------------------------------------
-.sbb-signet--black-on-white {
-  --sbb-signet-word-mark-color: var(--color-black-default);
-  --sbb-signet-panel-color: var(--color-black-default);
-  --sbb-signet-panel-stroke-color: var(--color-black-default);
+#sbb-signet__icon {
+  fill: var(--sbb-signet-icon-color);
 }
 
 // White on Black Variant
 // ----------------------------------------------
 .sbb-signet--white-on-black {
-  background: var(--color-black-default);
-  --sbb-signet-word-mark-color: var(--color-white-default);
-  --sbb-signet-panel-color: none;
-  --sbb-signet-panel-stroke-color: var(--color-white-default);
+  --sbb-signet-background-color: var(--color-black-default);
 }

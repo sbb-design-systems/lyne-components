@@ -154,7 +154,7 @@ export namespace Components {
     }
     interface LyneSbbSignet {
         /**
-          * The Logo needs to have a certain protective room around it
+          * The Signet needs to have a certain protective room around it
          */
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
         /**
@@ -393,7 +393,7 @@ declare namespace LocalJSX {
     }
     interface LyneSbbSignet {
         /**
-          * The Logo needs to have a certain protective room around it
+          * The Signet needs to have a certain protective room around it
          */
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
         /**

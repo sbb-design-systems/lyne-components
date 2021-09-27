@@ -22,13 +22,13 @@ export class LyneSbbSignet {
   @Prop() public variant?: InterfaceSignetAttributes['variant'] = 'default';
 
   /**
-   * The Logo needs to have a certain protective room around it
+   * The Signet needs to have a certain protective room around it
    */
   @Prop() public protectiveRoom?: InterfaceSignetAttributes['protectiveRoom'] = 'ideal';
 
   public render(): JSX.Element {
     return (
-      <span class={`sbb-signet sbb-signet--${this.variant} sbb-signet--protective-room-${this.protectiveRoom}`}>
+      <span class={`sbb-signet sbb-signet--${this.variant} sbb-signet--protective-room sbb-signet--protective-room-${this.protectiveRoom}`}>
         <span class='sbb-signet__svg' innerHTML={sbbSignetSVG}></span>
       </span>
     );
