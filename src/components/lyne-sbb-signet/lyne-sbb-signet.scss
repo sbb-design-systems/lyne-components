@@ -42,17 +42,17 @@
 }
 
 .sbb-signet--protective-room-align-right .sbb-signet__svg {
-  padding-top: 4.166666666667%;
-  padding-right: 4.166666666667%;
-  padding-bottom: 4.166666666667%;
-  padding-left: 50%;
+  padding-block-start: 4.166666666667%;
+  padding-inline-end: 4.166666666667%;
+  padding-block-end: 4.166666666667%;
+  padding-inline-start: 50%;
 }
 
 .sbb-signet--protective-room-align-bottom-right .sbb-signet__svg {
-  padding-top: 18%;
-  padding-right: 7.5%;
-  padding-bottom: 9%;
-  padding-left: 75%;
+  padding-block-start: 18%;
+  padding-inline-end: 7.5%;
+  padding-block-end: 9%;
+  padding-inline-start: 75%;
 }
 
 // Default Variant
