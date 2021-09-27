@@ -85,7 +85,6 @@
   @include text--bold();
 }
 
-
 @mixin text-xs--regular {
   @include text();
   font-size: pxToRem(var(--lyne-font-size-text-xs));

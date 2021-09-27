@@ -1,3 +1,73 @@
+# [9.52.0](https://github.com/lyne-design-system/lyne-components/compare/v9.51.0...v9.52.0) (2021-09-20)
+
+
+### Features
+
+* add unicorn icon (triggered from Figma) (triggered from icons build) [skip ci] ([a8a8711](https://github.com/lyne-design-system/lyne-components/commit/a8a871192278e04ff2a29ca187167ba7b4e983a2))
+
+# [9.51.0](https://github.com/lyne-design-system/lyne-components/compare/v9.50.1...v9.51.0) (2021-09-20)
+
+
+### Features
+
+* add unicorn icon (triggered from Figma) (triggered from icons build) [skip ci] ([bf370c7](https://github.com/lyne-design-system/lyne-components/commit/bf370c7f7cbc5ac02ed6cebfd8019431b729feb6))
+
+## [9.50.1](https://github.com/lyne-design-system/lyne-components/compare/v9.50.0...v9.50.1) (2021-09-20)
+
+
+### Bug Fixes
+
+* add title for documentation ([2f37cdb](https://github.com/lyne-design-system/lyne-components/commit/2f37cdb44f50bab7dc2ec41acf5b1261db79216e))
+
+# [9.50.0](https://github.com/lyne-design-system/lyne-components/compare/v9.49.0...v9.50.0) (2021-09-20)
+
+
+### Bug Fixes
+
+* taking over changes in components.d.ts file from master ([d15bd6e](https://github.com/lyne-design-system/lyne-components/commit/d15bd6e11cd0c0c0d335b48480d400e7b1e467be))
+
+
+### Features
+
+* adding loading animation and updated design tokens ([6b51220](https://github.com/lyne-design-system/lyne-components/commit/6b512207db7d71a635fee6913a7d0c408e4fecfc))
+* adding various improvements ([87733e1](https://github.com/lyne-design-system/lyne-components/commit/87733e1dcf86473f4a0804b2fcf835e5ad300642))
+* adding various improvements ([ca9a41f](https://github.com/lyne-design-system/lyne-components/commit/ca9a41f1117a18acd0580310eb6cdb48446df057))
+* fixing example sources order ([58b2ea0](https://github.com/lyne-design-system/lyne-components/commit/58b2ea06f161ebd9a67827222501102324a6b4a4))
+* is adding performance mark output ([24b4eb2](https://github.com/lyne-design-system/lyne-components/commit/24b4eb23f6ebf3513faddfb09ccdc31437a5e32b))
+* is adding picturesizesconfig suggestion ([8a6f423](https://github.com/lyne-design-system/lyne-components/commit/8a6f4230c908de5b1eae23823ddd42262a0fd62f))
+* is adding source element output based on config object ([45b258e](https://github.com/lyne-design-system/lyne-components/commit/45b258ec45fdd862b0b9014462838048ab0236f9))
+* reducing args ([9e973fa](https://github.com/lyne-design-system/lyne-components/commit/9e973fae27307d39a818f8401c9499b2769468c1))
+* taking over pr suggestions, extending docu and cleanup ([f18c563](https://github.com/lyne-design-system/lyne-components/commit/f18c563ad55559ca094ce0f202544c8283bcfd66))
+* working on image module integration ([2644b8d](https://github.com/lyne-design-system/lyne-components/commit/2644b8da77ad979a30c9afb2360ef5f7bf8c81cc))
+
+# [9.49.0](https://github.com/lyne-design-system/lyne-components/compare/v9.48.0...v9.49.0) (2021-09-17)
+
+
+### Features
+
+* add test-icon for lyne-demo (triggered from Figma) (triggered from icons build) [skip ci] ([d4d63f5](https://github.com/lyne-design-system/lyne-components/commit/d4d63f52ff00e3db1d234d5b6c5adf4efd1ff855))
+
+# [9.48.0](https://github.com/lyne-design-system/lyne-components/compare/v9.47.2...v9.48.0) (2021-09-17)
+
+
+### Features
+
+* add test-icon for lyne-demo (triggered from Figma) (triggered from icons build) [skip ci] ([fd631c8](https://github.com/lyne-design-system/lyne-components/commit/fd631c8b62ae0b206343741ed6efe348d0ff3fbb))
+
+## [9.47.2](https://github.com/lyne-design-system/lyne-components/compare/v9.47.1...v9.47.2) (2021-09-17)
+
+
+### Bug Fixes
+
+* don't render svg markup for buttons with no icon ([0b00568](https://github.com/lyne-design-system/lyne-components/commit/0b00568932d88770f19da0b0d72c6c9b92240f23))
+
+## [9.47.1](https://github.com/lyne-design-system/lyne-components/compare/v9.47.0...v9.47.1) (2021-09-15)
+
+
+### Bug Fixes
+
+* don't use padding-block shorthand to fix issue in safari ([3af4c07](https://github.com/lyne-design-system/lyne-components/commit/3af4c079c9e3966a6273d6ff88af8c01cf84494a))
+
 # [9.47.0](https://github.com/lyne-design-system/lyne-components/compare/v9.46.0...v9.47.0) (2021-09-11)
 
 
