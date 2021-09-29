@@ -56,7 +56,7 @@
     "@storybook/addon-a11y": "~6.3.7",
     "@storybook/addon-essentials": "~6.3.7",
     "@storybook/html": "~6.3.7",
-    "@types/jest": "27.0.1",
+    "@types/jest": "27.0.2",
     "@types/puppeteer": "5.4.4",
     "@typescript-eslint/eslint-plugin": "~4.31.1",
     "@typescript-eslint/parser": "~4.31.0",
