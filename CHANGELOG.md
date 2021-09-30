@@ -1,3 +1,10 @@
+## [9.52.1](https://github.com/lyne-design-system/lyne-components/compare/v9.52.0...v9.52.1) (2021-09-30)
+
+
+### Bug Fixes
+
+* set lockfileVersion back to 1 ([964ed23](https://github.com/lyne-design-system/lyne-components/commit/964ed233dd4ed31b5cd12cad98d35ddd028925c4))
+
 # [9.52.0](https://github.com/lyne-design-system/lyne-components/compare/v9.51.0...v9.52.0) (2021-09-20)
 
 
