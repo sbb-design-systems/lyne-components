@@ -28,7 +28,8 @@
   flex-wrap: nowrap;
   color: var(--color-default);
   width: 100%;
-  padding-block: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
+  padding-block-start: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
+  padding-block-end: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
   padding-inline-end: pxToRem(var(--dot-size-large));
 }
 

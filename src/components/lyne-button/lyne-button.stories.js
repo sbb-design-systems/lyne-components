@@ -1,3 +1,7 @@
+import {
+  ColorCharcoalDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
 import events from './lyne-button.events.ts';
 import { h } from 'jsx-dom';
 import lyneIcons from 'lyne-icons/dist/icons.json';
@@ -6,6 +10,10 @@ import readme from './readme.md';
 // --- Helper methods
 
 const getMarkupForSvg = (svgName) => {
+  if (!svgName) {
+    return '';
+  }
+
   const icon = lyneIcons.icons[svgName];
   const frag = document.createRange()
     .createContextualFragment(icon);
@@ -22,30 +30,19 @@ const wrapperStyle = (context) => {
   ];
 
   if (variantsWithRedBg.indexOf(context.args.variant) === -1) {
-    return 'background-color: white;';
+    return `background-color: ${ColorWhiteDefault};`;
   }
 
-  return 'background-color: #eb0000;';
+  return `background-color: ${ColorCharcoalDefault};`;
 };
 
 // --- Component
 
 const Template = (args) => (
-  <lyne-button
-    disabled={args.disabled}
-    icon={args.icon}
-    label={args.label}
-    variant={args.variant}
-    size={args.size}
-    icon-description={args.iconDescription}
-    name='sample-name'
-    value='sample-value'
-  >
+  <lyne-button {...args}>
     {getMarkupForSvg(args.iconSlot)}
   </lyne-button>
 );
-
-export const lyneButton = Template.bind({});
 
 // --- Arg types
 
@@ -81,7 +78,7 @@ const iconSlot = {
   }
 };
 
-const disabled = {
+const disabledArg = {
   control: {
     type: 'boolean'
   },
@@ -105,12 +102,12 @@ const variant = {
   },
   options: [
     'primary',
-    'primary-negative',
     'secondary',
-    'secondary-negative',
     'tertiary',
-    'tertiary-negative',
     'transparent',
+    'primary-negative',
+    'secondary-negative',
+    'tertiary-negative',
     'transparent-negative'
   ],
   table: {
@@ -132,25 +129,153 @@ const size = {
 };
 
 /* eslint-disable sort-keys */
-lyneButton.argTypes = {
+const basicArgTypes = {
   variant,
   size,
-  disabled,
+  'disabled': disabledArg,
   label,
   icon,
   iconSlot,
-  iconDescription
+  'icon-description': iconDescription
 };
 
-lyneButton.args = {
+const basicArgs = {
   variant: variant.options[0],
   size: size.options[0],
   disabled: false,
   label: 'Button',
   icon: true,
-  iconSlot: iconSlot.options[0]
+  iconSlot: iconSlot.options[0],
+  name: 'sample-name',
+  value: 'sample-value'
 };
 /* eslint-enable sort-keys */
+
+export const primary = Template.bind({});
+export const secondary = Template.bind({});
+export const tertiary = Template.bind({});
+export const transparent = Template.bind({});
+export const primaryNegative = Template.bind({});
+export const secondaryNegative = Template.bind({});
+export const tertiaryNegative = Template.bind({});
+export const transparentNegative = Template.bind({});
+export const noIcon = Template.bind({});
+export const iconOnly = Template.bind({});
+export const small = Template.bind({});
+export const disabled = Template.bind({});
+
+primary.argTypes = basicArgTypes;
+secondary.argTypes = basicArgTypes;
+tertiary.argTypes = basicArgTypes;
+transparent.argTypes = basicArgTypes;
+primaryNegative.argTypes = basicArgTypes;
+secondaryNegative.argTypes = basicArgTypes;
+tertiaryNegative.argTypes = basicArgTypes;
+transparentNegative.argTypes = basicArgTypes;
+noIcon.argTypes = basicArgTypes;
+iconOnly.argTypes = basicArgTypes;
+small.argTypes = basicArgTypes;
+disabled.argTypes = basicArgTypes;
+
+primary.args = JSON.parse(JSON.stringify(basicArgs));
+secondary.args = JSON.parse(JSON.stringify(basicArgs));
+tertiary.args = JSON.parse(JSON.stringify(basicArgs));
+transparent.args = JSON.parse(JSON.stringify(basicArgs));
+primaryNegative.args = JSON.parse(JSON.stringify(basicArgs));
+secondaryNegative.args = JSON.parse(JSON.stringify(basicArgs));
+tertiaryNegative.args = JSON.parse(JSON.stringify(basicArgs));
+transparentNegative.args = JSON.parse(JSON.stringify(basicArgs));
+noIcon.args = JSON.parse(JSON.stringify(basicArgs));
+iconOnly.args = JSON.parse(JSON.stringify(basicArgs));
+small.args = JSON.parse(JSON.stringify(basicArgs));
+disabled.args = JSON.parse(JSON.stringify(basicArgs));
+
+/* eslint-disable prefer-destructuring */
+secondary.args.variant = variant.options[1];
+tertiary.args.variant = variant.options[2];
+transparent.args.variant = variant.options[3];
+primaryNegative.args.variant = variant.options[4];
+secondaryNegative.args.variant = variant.options[5];
+tertiaryNegative.args.variant = variant.options[6];
+transparentNegative.args.variant = variant.options[7];
+small.args.size = size.options[1];
+/* eslint-enable prefer-destructuring */
+
+noIcon.args.icon = false;
+noIcon.args.iconSlot = false;
+
+iconOnly.args.label = '';
+iconOnly.args['icon-description'] = 'Icon description for screenreaders';
+
+disabled.args.disabled = true;
+
+primary.documentation = {
+  title: 'Primary'
+};
+
+secondary.documentation = {
+  title: 'Secondary'
+};
+
+tertiary.documentation = {
+  title: 'Tertiary'
+};
+
+transparent.documentation = {
+  title: 'Transparent'
+};
+
+primaryNegative.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorCharcoalDefault
+    }
+  },
+  title: 'Primary Negative'
+};
+
+secondaryNegative.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorCharcoalDefault
+    }
+  },
+  title: 'Secondary Negative'
+};
+
+tertiaryNegative.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorCharcoalDefault
+    }
+  },
+  title: 'Tertiary Negative'
+};
+
+transparentNegative.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorCharcoalDefault
+    }
+  },
+  title: 'Transparent Negative'
+};
+
+noIcon.documentation = {
+  title: 'No Icon'
+};
+
+iconOnly.documentation = {
+  title: 'Icon only'
+};
+
+small.documentation = {
+  title: 'Small size'
+};
+
+disabled.documentation = {
+  title: 'Disabled'
+};
 
 export default {
   decorators: [
@@ -160,6 +285,9 @@ export default {
       </div>
     )
   ],
+  documentation: {
+    disableArgs: ['iconslot']
+  },
   parameters: {
     actions: {
       handles: [events.click]

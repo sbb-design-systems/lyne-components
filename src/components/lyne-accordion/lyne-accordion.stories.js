@@ -1,5 +1,10 @@
+import {
+  ColorMilkDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
 import events from '../lyne-accordion-item/lyne-accordion-item.events.ts';
 import { h } from 'jsx-dom';
+
 import readme from './readme.md';
 
 const ItemTemplate = (args) => (
@@ -24,6 +29,36 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 export const NonWhiteBackground = Template.bind();
+export const OnlyOneOpen = Template.bind();
+
+Default.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorWhiteDefault,
+      'border': `2px solid ${ColorMilkDefault}`
+    }
+  },
+  title: 'Default Accordion'
+};
+
+NonWhiteBackground.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorMilkDefault
+    }
+  },
+  title: 'Accordion on non-white background'
+};
+
+OnlyOneOpen.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorWhiteDefault,
+      'border': `2px solid ${ColorMilkDefault}`
+    }
+  },
+  title: 'Only one item open at a time'
+};
 
 const items = [
   {
@@ -95,6 +130,30 @@ NonWhiteBackground.args = {
 NonWhiteBackground.decorators = [
   (Story) => (
     <div style={'background: #dcdcdc; padding: 2rem;'}>
+      <Story/>
+    </div>
+  )
+];
+
+OnlyOneOpen.argTypes = {
+  'items': {
+    table
+  },
+  'non-white-background': {
+    table
+  }
+};
+
+OnlyOneOpen.args = {
+  'aria-labelledby': '',
+  items,
+  'non-white-background': false,
+  'only-one-open': true
+};
+
+OnlyOneOpen.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem;'}>
       <Story/>
     </div>
   )

@@ -61,6 +61,9 @@ jobs:
 
       after_success:
 
+        # bundle stories
+        - node ./ci/bundleStories.js || travis_terminate 1
+
         # run semantic release
         - npm run semantic-release || travis_terminate 1
 
