@@ -9,11 +9,7 @@ Document
 Use a better box model (opinionated).
 */
 
-*,
-::before,
-::after {
-  box-sizing: border-box;
-}
+@include box-sizing;
 
 /**
 1. Correct the line height in all browsers. ///// Commented out since we define own line-height in inherited.scss /////
