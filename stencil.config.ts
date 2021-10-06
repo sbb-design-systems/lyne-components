@@ -41,7 +41,7 @@ export const config = {
         'src/global/mediaqueries.scss',
         'src/global/mixins.scss',
         'src/global/core/shared/variables.scss',
-        'node_modules/lyne-design-tokens/dist/scss/css_variables.scss'
+        'node_modules/lyne-design-tokens/dist/scss/variables_css--placeholder.scss'
       ]
     })
   ],
