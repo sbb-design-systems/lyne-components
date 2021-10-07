@@ -8,39 +8,65 @@
 <script nomodule="" src="/lyne-components/lyne-components.js"></script>
 -->
 
-<style>
-@font-face {
-  font-family: 'SBBWeb Bold';
-  src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff2') format('woff2'),
-  url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff') format('woff');
-  font-display: swap;
-}
+<!-----------------------------------------------------------------------------
+//
+// Switch below between default `self-contained/encapsulated` mode and shared mode
+//
+------------------------------------------------------------------------------>
 
-@font-face {
-  font-family: 'SBBWeb Light';
-  src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff2') format('woff2'),
-  url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff') format('woff');
-  font-display: swap;
-}
 
-@font-face {
-  font-family: 'SBBWeb Roman';
-  src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff2') format('woff2'),
-  url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff') format('woff');
-  font-display: fallback;
-}
+<!-----------------------------------------------------------------------------
+// START default `self-contained/encapsulated` mode
+------------------------------------------------------------------------------>
+<!--
+  Hack/workaround since it is not possible to change/add HTML attributes
+  in Storybook so they are added via JS,
+  see https://github.com/storybookjs/storybook/issues/11706
+-->
+<!-- <script>document.documentElement.setAttribute('mode', 'default')</script> -->
+<!--
+  Since fontface declarations can not be made from within the shadow DOM, the
+  `self-contained/encapsulated` web component, they need to be defined outside
+  but reach through the cascade and pierce the shadow DOM
+-->
+<!-- <style>
+  @font-face {
+    font-family: 'SBBWeb Bold';
+    src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff2') format('woff2'),
+    url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff') format('woff');
+    font-display: swap;
+  }
 
-@font-face {
-  font-family: 'SBBWeb Thin';
-  src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Thin.woff2') format('woff2'),
-  url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Thin.woff') format('woff');
-  font-display: swap;
-}
+  @font-face {
+    font-family: 'SBBWeb Light';
+    src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff2') format('woff2'),
+    url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Light.woff') format('woff');
+    font-display: swap;
+  }
 
-@font-face {
-  font-family: 'SBBWeb Ultralight';
-  src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-UltraLight.woff2') format('woff2'),
-  url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-UltraLight.woff') format('woff');
-  font-display: swap;
-}
-</style>
+  @font-face {
+    font-family: 'SBBWeb Roman';
+    src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff2') format('woff2'),
+    url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff') format('woff');
+    font-display: fallback;
+  }
+</style> -->
+<!-----------------------------------------------------------------------------
+// END default `self-contained/encapsulated` mode
+------------------------------------------------------------------------------>
+
+
+
+<!-----------------------------------------------------------------------------
+// START shared mode, general components CSS is globally available
+------------------------------------------------------------------------------>
+<!--
+  Hack/workaround since it is not possible to change/add HTML attributes
+  in Storybook so they are added via JS,
+  see https://github.com/storybookjs/storybook/issues/11706
+-->
+<script>document.documentElement.setAttribute('mode', 'shared')</script>
+<link rel="stylesheet" href="/lyne-components/lyne-components.css" />
+<!-----------------------------------------------------------------------------
+// END shared mode
+------------------------------------------------------------------------------>

@@ -1,7 +1,11 @@
-:host {
-  display: block;
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
 
-  --title-color: var(--color-black-default);
+:host {
+  // @todo define where to handle font color: see inherited.scss
+  //--title-color: var(--color-black-default);
 }
 
 // TODO re-factor to a more generic class later
@@ -14,7 +18,7 @@
 }
 
 .title {
-  color: var(--title-color);
+  //color: var(--title-color);
   @include fontSmoothing();
 }
 
