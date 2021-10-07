@@ -1,3 +1,23 @@
+# [9.53.0](https://github.com/lyne-design-system/lyne-components/compare/v9.52.1...v9.53.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* husky ([306b123](https://github.com/lyne-design-system/lyne-components/commit/306b123a1176e66bde2256ee45e1682572280f53))
+* linting errors ([b2a9db6](https://github.com/lyne-design-system/lyne-components/commit/b2a9db647f44760dcc77f145497a7a11c0b34d36))
+* linting errors, restructuring code ([f585f46](https://github.com/lyne-design-system/lyne-components/commit/f585f4613b37b0fde36a4321ef6f51b3a424ec42))
+* rename design token source file ([b7da6ca](https://github.com/lyne-design-system/lyne-components/commit/b7da6ca5b9796e33d2deac7bbcd1e0a7d449326c))
+* revert test commit ([f9f1740](https://github.com/lyne-design-system/lyne-components/commit/f9f1740dc4314fa5d708653776313a0478140d01))
+
+
+### Features
+
+* add shared and normalized component styles ([de9bc68](https://github.com/lyne-design-system/lyne-components/commit/de9bc68dea9e1a72c0e8991ce8d78e15d5251bf4))
+* add theming and mode proposition ([0235ec5](https://github.com/lyne-design-system/lyne-components/commit/0235ec59dba9644e762873ae4d04e37e014ebfbb))
+* introducing default and shared css style mode ([81e970d](https://github.com/lyne-design-system/lyne-components/commit/81e970da6c0a0546b806dadeaa11fa5f0a39696c))
+* shared typography styling ([521a450](https://github.com/lyne-design-system/lyne-components/commit/521a450c22f886d614dfa6d96306d0f722df5a37))
+* use new lyne-design-tokens version with % placeholder selector ([c0c5159](https://github.com/lyne-design-system/lyne-components/commit/c0c51599f6756fbce658c33672ab306bf0d6e21d))
+
 ## [9.52.1](https://github.com/lyne-design-system/lyne-components/compare/v9.52.0...v9.52.1) (2021-09-30)
 
 
