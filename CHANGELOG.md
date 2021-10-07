@@ -1,3 +1,17 @@
+# [9.54.0](https://github.com/lyne-design-system/lyne-components/compare/v9.53.0...v9.54.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* remove no protective room variant since never allowed ([25c0577](https://github.com/lyne-design-system/lyne-components/commit/25c05775a4fe135fd66cb8bdab4291e033e99c19))
+
+
+### Features
+
+* logical property support ([0d726ab](https://github.com/lyne-design-system/lyne-components/commit/0d726ab9a192c63e19db7e82edbce6f04c81d4b0))
+* logo adaption ([c371921](https://github.com/lyne-design-system/lyne-components/commit/c371921fb32f5d2f4e50d50e508f126605c17657))
+* optimize signet variants, add align-right and align-bottom-right variants ([32fbe3d](https://github.com/lyne-design-system/lyne-components/commit/32fbe3d185b97da00c0f3912c8adc03fba8644f7))
+
 # [9.53.0](https://github.com/lyne-design-system/lyne-components/compare/v9.52.1...v9.53.0) (2021-10-07)
 
 
