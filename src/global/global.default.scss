@@ -37,4 +37,11 @@
   //@include theme-sbb-ch-mode--dark-compact-variables;
 }
 
+// Font face declaration
+//
+// Since font-face declarations can not yet be made from within the shadow root
+// of a web component (https://bugs.chromium.org/p/chromium/issues/detail?id=336876),
+// the font-face declaration has to be made outside of the shadow DOM.
+// See `.storybook/preview-head.html` as an example.
+
 @import "global.scss";
