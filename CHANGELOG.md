@@ -1,3 +1,15 @@
+# [9.55.0](https://github.com/lyne-design-system/lyne-components/compare/v9.54.0...v9.55.0) (2021-10-08)
+
+
+### Bug Fixes
+
+* swap component mode to encapsulated/self containing within Storybook ([c01ef88](https://github.com/lyne-design-system/lyne-components/commit/c01ef884a39125404179e0e37f0807b6d6240166))
+
+
+### Features
+
+* disable theming for the moment ([c9b70d2](https://github.com/lyne-design-system/lyne-components/commit/c9b70d27a268ab9815da3549a2ba85a42ac06473))
+
 # [9.54.0](https://github.com/lyne-design-system/lyne-components/compare/v9.53.0...v9.54.0) (2021-10-07)
 
 
