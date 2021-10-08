@@ -27,14 +27,14 @@
 
 // Theming, override core variables and enable theme/mode through uncommenting
 // whished theme/mode
-// @import "theme/sbb-ch/mode--dark/variables.scss";
-// @import "theme/sbb-ch/mode--compact/variables.scss";
-@import "theme/sbb-ch/mode--dark-compact.variables.scss";
+//@import "theme/sbb-ch/mode--dark/variables.scss";
+//@import "theme/sbb-ch/mode--compact/variables.scss";
+//@import "theme/sbb-ch/mode--dark-compact.variables.scss";
 
 :host {
   //@include theme-sbb-ch-mode--dark-variables;
   //@include theme-sbb-ch-mode--compact-variables;
-  @include theme-sbb-ch-mode--dark-compact-variables;
+  //@include theme-sbb-ch-mode--dark-compact-variables;
 }
 
 @import "global.scss";

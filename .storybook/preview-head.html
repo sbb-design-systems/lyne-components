@@ -3,11 +3,6 @@
 -->
 <meta name="components-version" content="%STORYBOOK_COMPONENTS_VERSION%">
 
-<!--
-<script type="module" src="/lyne-components/lyne-components.esm.js"></script>
-<script nomodule="" src="/lyne-components/lyne-components.js"></script>
--->
-
 <!-----------------------------------------------------------------------------
 //
 // Switch below between default `self-contained/encapsulated` mode and shared mode
@@ -29,7 +24,7 @@
   `self-contained/encapsulated` web component, they need to be defined outside
   but reach through the cascade and pierce the shadow DOM
 -->
-<!-- <style>
+<style>
   @font-face {
     font-family: 'SBBWeb Bold';
     src: url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Bold.woff2') format('woff2'),
@@ -50,7 +45,7 @@
     url('https://cdn.app.sbb.ch/fonts/v1_6_subset/SBBWeb-Roman.woff') format('woff');
     font-display: fallback;
   }
-</style> -->
+</style>
 <!-----------------------------------------------------------------------------
 // END default `self-contained/encapsulated` mode
 ------------------------------------------------------------------------------>
@@ -65,8 +60,9 @@
   in Storybook so they are added via JS,
   see https://github.com/storybookjs/storybook/issues/11706
 -->
-<script>document.documentElement.setAttribute('mode', 'shared')</script>
-<link rel="stylesheet" href="/lyne-components/lyne-components.css" />
+<!-- <script>document.documentElement.setAttribute('mode', 'shared')</script>
+// The assets path works only locally
+<link rel="stylesheet" href="/lyne-components/lyne-components.css" /> -->
 <!-----------------------------------------------------------------------------
 // END shared mode
 ------------------------------------------------------------------------------>
