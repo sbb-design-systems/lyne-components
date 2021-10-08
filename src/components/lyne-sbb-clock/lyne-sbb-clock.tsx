@@ -88,16 +88,16 @@ export class LyneSbbClock {
   }
 
   private _removeHoursAnimationStyles(): void {
-    this._clockHandHours.classList.remove('clock__hand-hours--initial-hour');
-    this._element.style.removeProperty('--clock-hours-animation-start-angle');
-    this._element.style.removeProperty('--clock-hours-animation-duration');
+    this._clockHandHours.classList.remove('sbb-clock__hand-hours--initial-hour');
+    this._element.style.removeProperty('--sbb-clock-hours-animation-start-angle');
+    this._element.style.removeProperty('--sbb-clock-hours-animation-duration');
   }
 
   private _removeSecondsAnimationStyles(): void {
-    this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
-    this._clockHandMinutes.classList.remove('clock__hand-minutes--no-transition');
-    this._element.style.removeProperty('--clock-seconds-animation-start-angle');
-    this._element.style.removeProperty('--clock-seconds-animation-duration');
+    this._clockHandSeconds.classList.remove('sbb-clock__hand-seconds--initial-minute');
+    this._clockHandMinutes.classList.remove('sbb-clock__hand-minutes--no-transition');
+    this._element.style.removeProperty('--sbb-clock-seconds-animation-start-angle');
+    this._element.style.removeProperty('--sbb-clock-seconds-animation-duration');
   }
 
   private _getCurrentTime(): void {
@@ -148,16 +148,16 @@ export class LyneSbbClock {
 
     this._clockHandSeconds.style.animation = '';
 
-    this._element.style.setProperty('--clock-hours-animation-start-angle', `${Math.ceil((this._hours * 30) + (this._minutes / 2))}deg`);
-    this._element.style.setProperty('--clock-hours-animation-duration', `${hoursAnimationDuration}s`);
-    this._element.style.setProperty('--clock-seconds-animation-start-angle', `${Math.ceil(this._seconds * (360 / 58.5))}deg`);
-    this._element.style.setProperty('--clock-seconds-animation-duration', `${this._remainingSeconds}s`);
+    this._element.style.setProperty('--sbb-clock-hours-animation-start-angle', `${Math.ceil((this._hours * 30) + (this._minutes / 2))}deg`);
+    this._element.style.setProperty('--sbb-clock-hours-animation-duration', `${hoursAnimationDuration}s`);
+    this._element.style.setProperty('--sbb-clock-seconds-animation-start-angle', `${Math.ceil(this._seconds * (360 / 58.5))}deg`);
+    this._element.style.setProperty('--sbb-clock-seconds-animation-duration', `${this._remainingSeconds}s`);
 
     this._setMinutesHand();
 
-    this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
-    this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
-    this._element.style.setProperty('--clock-animation-play-state', 'running');
+    this._clockHandSeconds.classList.add('sbb-clock__hand-seconds--initial-minute');
+    this._clockHandHours.classList.add('sbb-clock__hand-hours--initial-hour');
+    this._element.style.setProperty('--sbb-clock-animation-play-state', 'running');
 
     this._isInitialized = true;
 
@@ -205,8 +205,8 @@ export class LyneSbbClock {
 
     if (this.paused) {
       this._moveHandsInitially();
-      this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
-      this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
+      this._clockHandSeconds.classList.add('sbb-clock__hand-seconds--initial-minute');
+      this._clockHandHours.classList.add('sbb-clock__hand-hours--initial-hour');
     } else {
       this._removeSecondsAnimationStyles();
       this._removeHoursAnimationStyles();
@@ -215,9 +215,9 @@ export class LyneSbbClock {
     this._clockHandHours.removeEventListener('animationend', moveHoursHand);
     this._clockHandSeconds.removeEventListener('animationend', moveMinutesHand);
 
-    this._clockHandMinutes.classList.add('clock__hand-minutes--no-transition');
+    this._clockHandMinutes.classList.add('sbb-clock__hand-minutes--no-transition');
 
-    this._element.style.setProperty('--clock-animation-play-state', 'paused');
+    this._element.style.setProperty('--sbb-clock-animation-play-state', 'paused');
 
   }
 
@@ -253,27 +253,27 @@ export class LyneSbbClock {
       ? ''
       : ' clock--not-initialized';
 
-    return <div class={`clock${initClass}`}>
+    return <div class={`sbb-clock${initClass}`}>
       <span
-        class='clock__face'
+        class='sbb-clock__face'
         innerHTML={clockFaceSVG}
       />
       <span
-        class='clock__hand-hours'
+        class='sbb-clock__hand-hours'
         innerHTML={clockHandleHoursSVG}
         ref={(el): void => {
           this._clockHandHours = el;
         }}
       />
       <span
-        class='clock__hand-minutes clock__hand-minutes--no-transition'
+        class='sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition'
         innerHTML={clockHandleMinutesSVG}
         ref={(el): void => {
           this._clockHandMinutes = el;
         }}
       />
       <span
-        class='clock__hand-seconds'
+        class='sbb-clock__hand-seconds'
         innerHTML={clockHandleSecondsSVG}
         ref={(el): void => {
           this._clockHandSeconds = el;

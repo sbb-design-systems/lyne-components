@@ -209,7 +209,7 @@ export class LyneImage {
   @Prop() public pictureSizesConfig?: string;
 
   private _addLoadedClass(): void {
-    this._loadedClass = 'lyne-image__figure--loaded';
+    this._loadedClass = 'image__figure--loaded';
   }
 
   private _logPerformanceMarks(): void {
@@ -350,16 +350,16 @@ export class LyneImage {
     return (
 
       <figure
-        class={`lyne-image__figure ${this._loadedClass}`}
+        class={`image__figure ${this._loadedClass}`}
         {...attributes}
       >
-        <div class='lyne-image__wrapper'>
+        <div class='image__wrapper'>
           {
             this.lqip
               ? (
                 <img
                   alt=''
-                  class='lyne-image__blur-hash'
+                  class='image__blur-hash'
                   src={imageUrlLQIP}
                   width='1000'
                   height='562'
@@ -423,7 +423,7 @@ export class LyneImage {
             })}
             <img
               alt={this.alt}
-              class='lyne-image__img'
+              class='image__img'
               src={this.imageSrc}
               width='1000'
               height='562'
@@ -440,7 +440,7 @@ export class LyneImage {
           this.caption
             ? (
               <figcaption
-                class='lyne-image__caption'
+                class='image__caption'
                 innerHTML={this.caption}
                 ref={(el): void => {
                   this._captionElement = el;
