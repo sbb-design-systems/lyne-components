@@ -9,7 +9,10 @@ import sbbSignetSVG from './assets/sbb_signet.svg';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-sbb-signet.scss',
+  styleUrls: {
+    default: 'styles/lyne-sbb-signet.default.scss',
+    shared: 'styles/lyne-sbb-signet.shared.scss'
+  },
   tag: 'lyne-sbb-signet'
 })
 
