@@ -1,5 +1,9 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
 :host {
-  display: block;
   --clock-hours-animation-start-angle: 0deg;
   --clock-seconds-animation-start-angle: 0deg;
   --clock-hours-animation-duration: 0s;
@@ -7,7 +11,7 @@
   --clock-animation-play-state: paused;
 }
 
-.clock {
+.sbb-clock {
   position: relative;
   width: 100%;
   height: 100%;
@@ -16,9 +20,9 @@
   contain: content;
 }
 
-.clock__hand-hours,
-.clock__hand-minutes,
-.clock__hand-seconds {
+.sbb-clock__hand-hours,
+.sbb-clock__hand-minutes,
+.sbb-clock__hand-seconds {
   position: absolute;
   left: 0;
   top: 0;
@@ -30,19 +34,19 @@
   backface-visibility: hidden;
 }
 
-.clock--not-initialized .clock__hand-hours,
-.clock--not-initialized .clock__hand-minutes,
-.clock--not-initialized .clock__hand-seconds {
+.sbb-clock--not-initialized .sbb-clock__hand-hours,
+.sbb-clock--not-initialized .sbb-clock__hand-minutes,
+.sbb-clock--not-initialized .sbb-clock__hand-seconds {
   display: none;
 }
 
-.clock__hand-minutes {
+.sbb-clock__hand-minutes {
   @supports not (aspect-ratio: 1 / 1) {
     transform-origin: 50% 49.625%;
   }
 }
 
-.clock__hand-hours {
+.sbb-clock__hand-hours {
   animation-name: rotate;
   animation-duration: 43200s;
   animation-iteration-count: infinite;
@@ -50,22 +54,22 @@
   animation-play-state: var(--clock-animation-play-state);
 }
 
-.clock__hand-hours--initial-hour {
+.sbb-clock__hand-hours--initial-hour {
   animation-name: handHoursAnimationInitialHour;
   animation-duration: var(--clock-hours-animation-duration);
   animation-play-state: var(--clock-animation-play-state);
   animation-iteration-count: 1;
 }
 
-.clock__hand-minutes {
+.sbb-clock__hand-minutes {
   transition: transform 0.2s cubic-bezier(.4,2.08,.55,.44);
 }
 
-.clock__hand-minutes--no-transition {
+.sbb-clock__hand-minutes--no-transition {
   transition: none;
 }
 
-.clock__hand-seconds {
+.sbb-clock__hand-seconds {
   animation-name: handSecondsAnimation;
   animation-duration: 60s;
   animation-timing-function: linear;
@@ -74,7 +78,7 @@
   fill: var(--color-red-default);
 }
 
-.clock__hand-seconds--initial-minute {
+.sbb-clock__hand-seconds--initial-minute {
   animation-name: handSecondsAnimationInitialMinute;
   animation-duration: var(--clock-seconds-animation-duration);
   animation-play-state: var(--clock-animation-play-state);
