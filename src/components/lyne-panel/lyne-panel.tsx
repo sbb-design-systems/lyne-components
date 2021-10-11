@@ -7,7 +7,10 @@ import { InterfacePanelAttributes } from './lyne-panel.custom.d';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-panel.scss',
+  styleUrls: {
+    default: 'styles/lyne-panel.default.scss',
+    shared: 'styles/lyne-panel.shared.scss'
+  },
   tag: 'lyne-panel'
 })
 
