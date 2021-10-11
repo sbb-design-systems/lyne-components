@@ -32,11 +32,11 @@ export class LynePanel {
     const TAGNAME = this.tag;
 
     return (
-      <div class='lyne-panel'>
-        <TAGNAME class='lyne-panel__text'>{this.text}</TAGNAME>
+      <div class='panel'>
+        <TAGNAME class='panel__text'>{this.text}</TAGNAME>
 
         <lyne-button
-          class='lyne-panel__button'
+          class='panel__button'
           label={this.buttonText}
           variant='secondary-negative'
           size='small'
