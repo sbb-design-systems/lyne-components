@@ -1,3 +1,8 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
 :host {
   display: block;
 
@@ -47,7 +52,7 @@
 
 }
 
-.lyne-panel {
+.panel {
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -67,8 +72,8 @@
 
 }
 
-.lyne-panel:before,
-.lyne-panel:after {
+.panel:before,
+.panel:after {
   content: '';
   position: absolute;
   left: 0;
@@ -83,17 +88,17 @@
 
 }
 
-.lyne-panel:before {
+.panel:before {
   top: calc(-1 * #{pxToRem(var(--triangle-height))});
   border-block-end: pxToRem(var(--triangle-height)) solid var(--background-color);
 }
 
-.lyne-panel:after {
+.panel:after {
   bottom: calc(-1 * #{pxToRem(var(--triangle-height))});
   border-block-start: pxToRem(var(--triangle-height)) solid var(--background-color);
 }
 
-.lyne-panel__text {
+.panel__text {
   padding: 0;
   margin: 0;
   color: var(--color-white-default);
@@ -106,7 +111,7 @@
   z-index: 1;
 }
 
-.lyne-panel__button {
+.panel__button {
   margin-top: pxToRem(var(--button-margin));
   z-index: 1;
 }
