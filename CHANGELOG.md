@@ -1,3 +1,10 @@
+## [9.55.4](https://github.com/lyne-design-system/lyne-components/compare/v9.55.3...v9.55.4) (2021-10-11)
+
+
+### Bug Fixes
+
+* adjusting styling of lyne-sbb-clock to new mechanism ([fd9beb9](https://github.com/lyne-design-system/lyne-components/commit/fd9beb9f1eb430ca243e130c0de6cbce49e7c0ec))
+
 ## [9.55.3](https://github.com/lyne-design-system/lyne-components/compare/v9.55.2...v9.55.3) (2021-10-11)
 
 
