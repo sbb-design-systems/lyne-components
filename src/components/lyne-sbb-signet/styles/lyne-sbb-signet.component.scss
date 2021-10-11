@@ -1,5 +1,9 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
 :host {
-  display: block;
 
   // Default Signet Styles
   // ----------------------------------------------
@@ -27,6 +31,8 @@
   aspect-ratio: 2/1; // No Fallback for now...
   width: 100%;
   height: auto;
+  // @TODO check what triggers to break the signet through border-box model
+  box-sizing: content-box;
 }
 
 .sbb-signet svg {
