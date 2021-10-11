@@ -24,7 +24,10 @@ const eventListenerOptions = {
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-sbb-clock.scss',
+  styleUrls: {
+    default: 'styles/lyne-sbb-clock.default.scss',
+    shared: 'styles/lyne-sbb-clock.shared.scss'
+  },
   tag: 'lyne-sbb-clock'
 })
 
@@ -251,29 +254,29 @@ export class LyneSbbClock {
 
     const initClass = this._isInitialized
       ? ''
-      : ' clock--not-initialized';
+      : ' sbb-clock--not-initialized';
 
-    return <div class={`clock${initClass}`}>
+    return <div class={`sbb-clock${initClass}`}>
       <span
-        class='clock__face'
+        class='sbb-clock__face'
         innerHTML={clockFaceSVG}
       />
       <span
-        class='clock__hand-hours'
+        class='sbb-clock__hand-hours'
         innerHTML={clockHandleHoursSVG}
         ref={(el): void => {
           this._clockHandHours = el;
         }}
       />
       <span
-        class='clock__hand-minutes clock__hand-minutes--no-transition'
+        class='sbb-clock__hand-minutes clock__hand-minutes--no-transition'
         innerHTML={clockHandleMinutesSVG}
         ref={(el): void => {
           this._clockHandMinutes = el;
         }}
       />
       <span
-        class='clock__hand-seconds'
+        class='sbb-clock__hand-seconds'
         innerHTML={clockHandleSecondsSVG}
         ref={(el): void => {
           this._clockHandSeconds = el;
