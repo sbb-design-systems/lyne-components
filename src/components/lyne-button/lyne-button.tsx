@@ -13,7 +13,10 @@ import { InterfaceButtonAttributes } from './lyne-button.custom.d';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-button.scss',
+  styleUrls: {
+    default: 'styles/lyne-button.default.scss',
+    shared: 'styles/lyne-button.shared.scss'
+  },
   tag: 'lyne-button'
 })
 
