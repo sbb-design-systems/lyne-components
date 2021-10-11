@@ -12,7 +12,10 @@ import events from '../lyne-accordion-item/lyne-accordion-item.events';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-accordion.scss',
+  styleUrls: {
+    default: 'styles/lyne-accordion.default.scss',
+    shared: 'styles/lyne-accordion.shared.scss'
+  },
   tag: 'lyne-accordion'
 })
 

@@ -1,3 +1,13 @@
+## [9.55.2](https://github.com/lyne-design-system/lyne-components/compare/v9.55.1...v9.55.2) (2021-10-11)
+
+
+### Bug Fixes
+
+* adjusting styling of lyne-pearl-chain to new mechanism ([40e19b6](https://github.com/lyne-design-system/lyne-components/commit/40e19b6ddaefafb09121c4febea9bec6cb91e3bf))
+* adjusting styling of lyne-sbb-logo to new mechanism ([2fcc8f3](https://github.com/lyne-design-system/lyne-components/commit/2fcc8f35aa2f1d7e44cf54dfe1ac69a58f36ccc1))
+* remove component scss ([681ca91](https://github.com/lyne-design-system/lyne-components/commit/681ca91a730d1b59e286f4e2c6ddb603cb1743ee))
+* rename scss file and move to styles folder ([bc36828](https://github.com/lyne-design-system/lyne-components/commit/bc3682847b92ea21b89c55c3ac299dd9d0b69188))
+
 ## [9.55.1](https://github.com/lyne-design-system/lyne-components/compare/v9.55.0...v9.55.1) (2021-10-11)
 
 
