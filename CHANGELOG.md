@@ -1,3 +1,10 @@
+## [9.55.5](https://github.com/lyne-design-system/lyne-components/compare/v9.55.4...v9.55.5) (2021-10-11)
+
+
+### Bug Fixes
+
+* rename overlooked clock css classes ([4588205](https://github.com/lyne-design-system/lyne-components/commit/45882055004c11d9feb81c8d5e6ee18cd2bcc139))
+
 ## [9.55.4](https://github.com/lyne-design-system/lyne-components/compare/v9.55.3...v9.55.4) (2021-10-11)
 
 
