@@ -1,3 +1,10 @@
+## [9.55.1](https://github.com/lyne-design-system/lyne-components/compare/v9.55.0...v9.55.1) (2021-10-11)
+
+
+### Bug Fixes
+
+* signet component, apply new css component architecture ([61fe791](https://github.com/lyne-design-system/lyne-components/commit/61fe791fe97093293e1bbfbaf8b9df4debc65b0a))
+
 # [9.55.0](https://github.com/lyne-design-system/lyne-components/compare/v9.54.0...v9.55.0) (2021-10-08)
 
 
