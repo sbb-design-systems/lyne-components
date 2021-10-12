@@ -95,6 +95,13 @@ npm run generate my-component-name
   const [componentName] = args;
   const targetDirectory = `${config.sourceDirectory}/${componentName}`;
 
+  // make sure we have a dash in the name
+  if (componentName.indexOf('-') === -1) {
+    console.log('component name must be in kebab case: my-component-name');
+
+    return;
+  }
+
   // check if a component with the passed name does not already exist
   if (fs.existsSync(targetDirectory)) {
     console.log(`A component with the name ${componentName} already exists`);
