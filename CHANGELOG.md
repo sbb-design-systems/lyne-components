@@ -1,3 +1,44 @@
+## [9.55.5](https://github.com/lyne-design-system/lyne-components/compare/v9.55.4...v9.55.5) (2021-10-11)
+
+
+### Bug Fixes
+
+* rename overlooked clock css classes ([4588205](https://github.com/lyne-design-system/lyne-components/commit/45882055004c11d9feb81c8d5e6ee18cd2bcc139))
+
+## [9.55.4](https://github.com/lyne-design-system/lyne-components/compare/v9.55.3...v9.55.4) (2021-10-11)
+
+
+### Bug Fixes
+
+* adjusting styling of lyne-sbb-clock to new mechanism ([fd9beb9](https://github.com/lyne-design-system/lyne-components/commit/fd9beb9f1eb430ca243e130c0de6cbce49e7c0ec))
+
+## [9.55.3](https://github.com/lyne-design-system/lyne-components/compare/v9.55.2...v9.55.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* add default styles for accordion ([3fb0cc7](https://github.com/lyne-design-system/lyne-components/commit/3fb0cc7eaeae8797571b43dd1a87fde9314268b1))
+* add default styles for accordion item ([6cb4430](https://github.com/lyne-design-system/lyne-components/commit/6cb44302f3ac4bfa12b5573afef434219e47e64f))
+* add default styles for button ([09b543a](https://github.com/lyne-design-system/lyne-components/commit/09b543abcf4cd137c2d1bbb48b4d7b21a1af5ab8))
+* add default styles for panel ([fc0b784](https://github.com/lyne-design-system/lyne-components/commit/fc0b784216c18d65189f5f68e667557f272c6010))
+* add host mixin ([98b6e48](https://github.com/lyne-design-system/lyne-components/commit/98b6e4855e4ac62d5f8cc63456f6137d1d4558f0))
+* add host mixin ([dd43c42](https://github.com/lyne-design-system/lyne-components/commit/dd43c42526b24a1b84f7da06ba7e68f1a155ebab))
+* add host mixin ([8fcae90](https://github.com/lyne-design-system/lyne-components/commit/8fcae901691973bb55a3d706159ab12a194ebc55))
+* add shared styles for accordion ([9744000](https://github.com/lyne-design-system/lyne-components/commit/9744000977fee163be5a32f61d2ec1076f398a77))
+* add shared styles for accordion item ([ac959e5](https://github.com/lyne-design-system/lyne-components/commit/ac959e51a9a16608908d681a34cc02479bdd473a))
+* add shared styles for button ([6e3ebbf](https://github.com/lyne-design-system/lyne-components/commit/6e3ebbfe8c0a3aeb8faf4cfca1ecf9b8e96ef10b))
+* add shared styles for panel ([54937bc](https://github.com/lyne-design-system/lyne-components/commit/54937bc7e9c700f2492b8ee9c3f02b7728e2c514))
+* adhere to new style url scheme ([2408243](https://github.com/lyne-design-system/lyne-components/commit/2408243a81af787bbb1d8b364dc08ee96abc75ad))
+* adhere to new style urls mechanism ([be55b83](https://github.com/lyne-design-system/lyne-components/commit/be55b839cbec0dd66b8cf7cffa04d64e71fd3519))
+* adhere to new style urls scheme ([c2eaaac](https://github.com/lyne-design-system/lyne-components/commit/c2eaaac985dd51db922b64183f1b1529a00f3d18))
+* adhere to new style urls scheme ([24444d9](https://github.com/lyne-design-system/lyne-components/commit/24444d9bfea92893f6bb1cbbbf5e90a07833b85c))
+* adjusting styling of lyne-image to new mechanism ([280cf51](https://github.com/lyne-design-system/lyne-components/commit/280cf5150bfbf4aaf6e9d997e361fd14283743cc))
+* adjusting styling of lyne-pearl-styling to new mechanism ([e794e04](https://github.com/lyne-design-system/lyne-components/commit/e794e046206392d9aeac841757cf0141b86d7e10))
+* rename styles file for accordion ([1e05e09](https://github.com/lyne-design-system/lyne-components/commit/1e05e09d8d0bee31dc4cfe593783ecd1d7fb51df))
+* rename styles file for accordion item ([bd4f05d](https://github.com/lyne-design-system/lyne-components/commit/bd4f05db57e76babab889a0c01f25e9c6cf0e018))
+* rename styles file for button ([a33ac01](https://github.com/lyne-design-system/lyne-components/commit/a33ac01ba0b8b916754c17171b699b85e6f7fa78))
+* rename styles file for panel ([333be66](https://github.com/lyne-design-system/lyne-components/commit/333be6642430e9b1edaeea9709369a33963d7e0f))
+
 ## [9.55.2](https://github.com/lyne-design-system/lyne-components/compare/v9.55.1...v9.55.2) (2021-10-11)
 
 

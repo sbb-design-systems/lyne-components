@@ -24,7 +24,10 @@ const eventListenerOptions = {
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-sbb-clock.scss',
+  styleUrls: {
+    default: 'styles/lyne-sbb-clock.default.scss',
+    shared: 'styles/lyne-sbb-clock.shared.scss'
+  },
   tag: 'lyne-sbb-clock'
 })
 
@@ -88,14 +91,14 @@ export class LyneSbbClock {
   }
 
   private _removeHoursAnimationStyles(): void {
-    this._clockHandHours.classList.remove('clock__hand-hours--initial-hour');
+    this._clockHandHours.classList.remove('sbb-clock__hand-hours--initial-hour');
     this._element.style.removeProperty('--clock-hours-animation-start-angle');
     this._element.style.removeProperty('--clock-hours-animation-duration');
   }
 
   private _removeSecondsAnimationStyles(): void {
-    this._clockHandSeconds.classList.remove('clock__hand-seconds--initial-minute');
-    this._clockHandMinutes.classList.remove('clock__hand-minutes--no-transition');
+    this._clockHandSeconds.classList.remove('sbb-clock__hand-seconds--initial-minute');
+    this._clockHandMinutes.classList.remove('sbb-clock__hand-minutes--no-transition');
     this._element.style.removeProperty('--clock-seconds-animation-start-angle');
     this._element.style.removeProperty('--clock-seconds-animation-duration');
   }
@@ -155,8 +158,8 @@ export class LyneSbbClock {
 
     this._setMinutesHand();
 
-    this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
-    this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
+    this._clockHandSeconds.classList.add('sbb-clock__hand-seconds--initial-minute');
+    this._clockHandHours.classList.add('sbb-clock__hand-hours--initial-hour');
     this._element.style.setProperty('--clock-animation-play-state', 'running');
 
     this._isInitialized = true;
@@ -205,8 +208,8 @@ export class LyneSbbClock {
 
     if (this.paused) {
       this._moveHandsInitially();
-      this._clockHandSeconds.classList.add('clock__hand-seconds--initial-minute');
-      this._clockHandHours.classList.add('clock__hand-hours--initial-hour');
+      this._clockHandSeconds.classList.add('sbb-clock__hand-seconds--initial-minute');
+      this._clockHandHours.classList.add('sbb-clock__hand-hours--initial-hour');
     } else {
       this._removeSecondsAnimationStyles();
       this._removeHoursAnimationStyles();
@@ -215,7 +218,7 @@ export class LyneSbbClock {
     this._clockHandHours.removeEventListener('animationend', moveHoursHand);
     this._clockHandSeconds.removeEventListener('animationend', moveMinutesHand);
 
-    this._clockHandMinutes.classList.add('clock__hand-minutes--no-transition');
+    this._clockHandMinutes.classList.add('sbb-clock__hand-minutes--no-transition');
 
     this._element.style.setProperty('--clock-animation-play-state', 'paused');
 
@@ -251,29 +254,29 @@ export class LyneSbbClock {
 
     const initClass = this._isInitialized
       ? ''
-      : ' clock--not-initialized';
+      : ' sbb-clock--not-initialized';
 
-    return <div class={`clock${initClass}`}>
+    return <div class={`sbb-clock${initClass}`}>
       <span
-        class='clock__face'
+        class='sbb-clock__face'
         innerHTML={clockFaceSVG}
       />
       <span
-        class='clock__hand-hours'
+        class='sbb-clock__hand-hours'
         innerHTML={clockHandleHoursSVG}
         ref={(el): void => {
           this._clockHandHours = el;
         }}
       />
       <span
-        class='clock__hand-minutes clock__hand-minutes--no-transition'
+        class='sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition'
         innerHTML={clockHandleMinutesSVG}
         ref={(el): void => {
           this._clockHandMinutes = el;
         }}
       />
       <span
-        class='clock__hand-seconds'
+        class='sbb-clock__hand-seconds'
         innerHTML={clockHandleSecondsSVG}
         ref={(el): void => {
           this._clockHandSeconds = el;
