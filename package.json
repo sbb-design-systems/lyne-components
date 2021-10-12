@@ -27,7 +27,7 @@
     "build": "npm-run-all --sequential build:stencil build:storybook",
     "chromatic": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes --exit-once-uploaded",
     "chromatic:master": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes --auto-accept-changes",
-    "generate": "stencil generate",
+    "generate": "node convenience/generate-component/index.js",
     "lint": "npm run lint:ts && npm run lint:js && npm run lint:yml",
     "lint:ts": "eslint ./ --ext .ts,.tsx",
     "lint:js": "eslint ./ --ext .js",
