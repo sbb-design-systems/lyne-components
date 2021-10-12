@@ -1,3 +1,27 @@
+# [9.56.0](https://github.com/lyne-design-system/lyne-components/compare/v9.55.5...v9.56.0) (2021-10-12)
+
+
+### Bug Fixes
+
+* add boilerplate files to eslintignore ([e7729fb](https://github.com/lyne-design-system/lyne-components/commit/e7729fbde5235a5563f241266b4e49dea0571bd3))
+* make sure component name is kebab case ([0d9a336](https://github.com/lyne-design-system/lyne-components/commit/0d9a336e3908969f9bc111c18099ec113fa21c98))
+
+
+### Features
+
+* add boilerplate component file ([27f149f](https://github.com/lyne-design-system/lyne-components/commit/27f149f713e747c3ffcda97c613148c656fde475))
+* add boilerplate e2e file ([6e09f79](https://github.com/lyne-design-system/lyne-components/commit/6e09f79c0cf1a9a1590c6334e0eadbdc76e78f50))
+* add boilerplate events file ([ab401ff](https://github.com/lyne-design-system/lyne-components/commit/ab401ff7af4d600a1776f1bcd1830d3ccdff8de7))
+* add boilerplate interface file ([b7fb287](https://github.com/lyne-design-system/lyne-components/commit/b7fb287a82a791ff9fc801470b6cdccfddda3251))
+* add boilerplate readme file ([83d45e6](https://github.com/lyne-design-system/lyne-components/commit/83d45e666c49f1956a897663659c7d47730861f9))
+* add boilerplate stories file ([e35e000](https://github.com/lyne-design-system/lyne-components/commit/e35e000153cfbca841d3b267cd68207f3446097e))
+* add boilerplate styles file ([d4f518e](https://github.com/lyne-design-system/lyne-components/commit/d4f518e68974a18a57c4ec7dc93878a3ea2b62cb))
+* add boilerplate styles file ([e85ba8c](https://github.com/lyne-design-system/lyne-components/commit/e85ba8c081c3913a686452924a8401a0b69adcb6))
+* add boilerplate styles file ([63ab5e3](https://github.com/lyne-design-system/lyne-components/commit/63ab5e3d13c9477def0a3ff09ee99beab014e5b9))
+* add boilerplate unit test file ([839ae70](https://github.com/lyne-design-system/lyne-components/commit/839ae704df946f9f5f2da7eb44a18d24ce2f5857))
+* copy boilerplate files to components folder ([c2f5677](https://github.com/lyne-design-system/lyne-components/commit/c2f567767a2c5c12a338a564cf858f7de84b1a96))
+* use custom generate command ([96cc153](https://github.com/lyne-design-system/lyne-components/commit/96cc153a95ef31253302c9afab7454bed3bd3c2d))
+
 ## [9.55.5](https://github.com/lyne-design-system/lyne-components/compare/v9.55.4...v9.55.5) (2021-10-11)
 
 
