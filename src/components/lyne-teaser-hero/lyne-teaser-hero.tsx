@@ -165,7 +165,7 @@ export class LyneTeaserHero {
           imageSrc={this.imageSrc}
           loading={this.imageLoading}
           lqip
-          performanceMark=''
+          performanceMark='teaser-hero'
           variant='teaser-hero'
         ></lyne-image>
 
