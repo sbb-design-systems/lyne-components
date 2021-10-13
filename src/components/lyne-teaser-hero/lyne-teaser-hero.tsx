@@ -8,7 +8,10 @@ import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-teaser-hero.scss',
+  styleUrls: {
+    default: 'styles/lyne-teaser-hero.default.scss',
+    shared: 'styles/lyne-teaser-hero.shared.scss'
+  },
   tag: 'lyne-teaser-hero'
 })
 
