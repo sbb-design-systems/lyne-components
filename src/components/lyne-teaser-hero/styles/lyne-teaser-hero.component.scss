@@ -9,6 +9,7 @@
 
 .taser-hero {
   position: relative;
+  display: block;
 }
 
 .teaser-hero__image {
@@ -19,4 +20,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.teaser-hero__link-info-text {
+  @include screenreaderOnly;
 }
