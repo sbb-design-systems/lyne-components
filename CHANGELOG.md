@@ -1,3 +1,51 @@
+# [9.57.0](https://github.com/lyne-design-system/lyne-components/compare/v9.56.0...v9.57.0) (2021-10-13)
+
+
+### Bug Fixes
+
+* add component styles ([af707f1](https://github.com/lyne-design-system/lyne-components/commit/af707f1b7eacd6500b7c0b67469a5044be972b5b))
+* add default styles ([d57938c](https://github.com/lyne-design-system/lyne-components/commit/d57938c8f3c4f73f30779910c1667fa9ceaa7cb6))
+* add link around teaser ([8dcdcdb](https://github.com/lyne-design-system/lyne-components/commit/8dcdcdb294c9e30f1b6696ea7f81bd09190364a3))
+* add mediaqueries for allowed aspect ratios ([723c109](https://github.com/lyne-design-system/lyne-components/commit/723c10928defd54edcced8bfdfc5b833a91b41be))
+* add proper imagesizes config ([e734648](https://github.com/lyne-design-system/lyne-components/commit/e7346482a0cd88ac96cb72d49815d183300d0fdb))
+* add shared styles ([51c1951](https://github.com/lyne-design-system/lyne-components/commit/51c1951206f33af2b55f30cb81bac1a4175d0db8))
+* add width and height attributes to image again ([d9a50a0](https://github.com/lyne-design-system/lyne-components/commit/d9a50a0e433fc4817bd7ecb37ebbeaf67f02aaff))
+* adhere to new scss organization ([73dd05c](https://github.com/lyne-design-system/lyne-components/commit/73dd05cde7876b48ef2787695f84817a6073c050))
+* correctly vertically position elements ([9a38757](https://github.com/lyne-design-system/lyne-components/commit/9a3875714757e1ccd2ac497c1dcf3f81cfe67ac0))
+* define args ([466d945](https://github.com/lyne-design-system/lyne-components/commit/466d945da074e40057848878215138296549b9e2))
+* make image loading property configurable ([a26f3dd](https://github.com/lyne-design-system/lyne-components/commit/a26f3dd7c921cbd99faa3c4249be81e89fb8480a))
+* make sure not to trigger rerender by overwriting mutable prop ([9f792bb](https://github.com/lyne-design-system/lyne-components/commit/9f792bb8b54897a550595977afff3be039bcf163))
+* make sure not to trigger rerender by overwriting mutable prop ([c9bae4a](https://github.com/lyne-design-system/lyne-components/commit/c9bae4a4111a73551f3ef22f88fe643614b50458))
+* move border-radius to  wrapper, set  max-width on img ([02a6b77](https://github.com/lyne-design-system/lyne-components/commit/02a6b7726d1608c6668b9cf9bae648bf22716ead))
+* reduce amount of mediaqueries for image ([dc49ef9](https://github.com/lyne-design-system/lyne-components/commit/dc49ef95d21df0eba27d1f89f7ce5c4efb667c24))
+* remove attributes for width and height ([e192246](https://github.com/lyne-design-system/lyne-components/commit/e192246beb695658eaf740d4456a38ce156ea3ad))
+* remove decorator ([c7a8f50](https://github.com/lyne-design-system/lyne-components/commit/c7a8f50002ae7fc8f33aae3e428a835c9fe92175))
+* remove empty space around loaded class ([6eba7b8](https://github.com/lyne-design-system/lyne-components/commit/6eba7b84746f33b0c2be7c22dadb4b23187efc88))
+* remove lyne prefix from class names ([ef10447](https://github.com/lyne-design-system/lyne-components/commit/ef10447ab0f0b54343dfb905da8ad7927e52d241))
+* remove lyne prefix from class names ([b4c071e](https://github.com/lyne-design-system/lyne-components/commit/b4c071ee08081dfad27fe3effb21ed3c2958b908))
+* remove old component styles ([dc397f1](https://github.com/lyne-design-system/lyne-components/commit/dc397f1a73c5aca8597286a96e927960dc204469))
+* remove stylings for specific ratios, add aspect ratios for hero teaser ([9ff003a](https://github.com/lyne-design-system/lyne-components/commit/9ff003a91c35809cf4e11474f98ab41993ddcc7a))
+* return if no caption element is defined ([6ba7e7e](https://github.com/lyne-design-system/lyne-components/commit/6ba7e7ec3baa759e458f2a0b426dfed6fcdf7def))
+* style link info text ([389ab57](https://github.com/lyne-design-system/lyne-components/commit/389ab57f7580bad170b10e060abc460371b13966))
+* use commonjs instead of es modules to import tokens ([c64adf6](https://github.com/lyne-design-system/lyne-components/commit/c64adf639b5d08188c8d811efa75d2c310629366))
+* use image url from images array ([6c39286](https://github.com/lyne-design-system/lyne-components/commit/6c392860b0703527c5bbe8be0d9e91dcbe6b539e))
+* use json tokens file ([e88879f](https://github.com/lyne-design-system/lyne-components/commit/e88879f5b34ef5f33da7ebe4ddc350134a98c685))
+* use props to setup text, button and image ([d48e3a5](https://github.com/lyne-design-system/lyne-components/commit/d48e3a516482652c3a1a3b58356208a5aac34427))
+* use tokens from json file ([6ceae42](https://github.com/lyne-design-system/lyne-components/commit/6ceae4273976583b100f01c4fea7eb14245b98bb))
+
+
+### Features
+
+* add basic story file ([10138fd](https://github.com/lyne-design-system/lyne-components/commit/10138fd8bca18f5ba627b2cf67316db0fc5b94b1))
+* add panel and image ([650c305](https://github.com/lyne-design-system/lyne-components/commit/650c305c7ed61c51476cceefaaa783b3c63a812f))
+* add picture config ([b5b0077](https://github.com/lyne-design-system/lyne-components/commit/b5b007787a7c5e78de58014b9ff34af93d0b00c0))
+* add property for variant and add class accordingy ([2b097e8](https://github.com/lyne-design-system/lyne-components/commit/2b097e832f175704b8b456509524c35c776d6f92))
+* add property for variant and handle classes accordingly ([e34f701](https://github.com/lyne-design-system/lyne-components/commit/e34f7019d5b6b46e1813269b19b8a8a7d8570292))
+* add type for variant property ([5ed081d](https://github.com/lyne-design-system/lyne-components/commit/5ed081da50557ea51eee9708460a27f1b3b74408))
+* add value for performance mark ([301c880](https://github.com/lyne-design-system/lyne-components/commit/301c8803ae2e0cbba4b4ac8a75cde8100591160a))
+* basically position elements ([2a573b7](https://github.com/lyne-design-system/lyne-components/commit/2a573b73f2bb0ccd9f3cdf06ca073b97dceacfb7))
+* make image loading property configurable ([5ad3c2a](https://github.com/lyne-design-system/lyne-components/commit/5ad3c2a3e9bdc9d2cdfeb5615b0ed318247ac954))
+
 # [9.56.0](https://github.com/lyne-design-system/lyne-components/compare/v9.55.5...v9.56.0) (2021-10-12)
 
 
