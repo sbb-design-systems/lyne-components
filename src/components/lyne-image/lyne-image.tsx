@@ -17,7 +17,10 @@ const eventListenerOptions = {
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-image.scss',
+  styleUrls: {
+    default: 'styles/lyne-image.default.scss',
+    shared: 'styles/lyne-image.shared.scss'
+  },
   tag: 'lyne-image'
 })
 
@@ -141,7 +144,7 @@ export class LyneImage {
 
   /**
    * With the pictureSizesConfig object, you can pass in information
-   * into lyne-image about what kind of source elements should get
+   * into image about what kind of source elements should get
    * rendered. mediaQueries accepts multiple Media Query entries
    * which can get combined by defining a conditionOperator. An
    * example could look like this:
@@ -367,13 +370,13 @@ export class LyneImage {
         class={`lyne-image__figure${variantClass}${this._loadedClass}`}
         {...attributes}
       >
-        <div class='lyne-image__wrapper'>
+        <div class='image__wrapper'>
           {
             this.lqip
               ? (
                 <img
                   alt=''
-                  class='lyne-image__blur-hash'
+                  class='image__blur-hash'
                   src={imageUrlLQIP}
                   width='1000'
                   height='562'
@@ -454,7 +457,7 @@ export class LyneImage {
           this.caption
             ? (
               <figcaption
-                class='lyne-image__caption'
+                class='image__caption'
                 innerHTML={this.caption}
                 ref={(el): void => {
                   this._captionElement = el;

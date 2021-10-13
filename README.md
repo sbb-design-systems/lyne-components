@@ -12,10 +12,12 @@
 <br>
 
 ## ⚠️ Notice
-***Lyne Components* are 🧪experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy. Check out [TODOS](./TODOS.md) what all needs to be done first**.
+***Lyne Components* are 🧪experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy.**.
 
 <br>
 
+## 💻 What we're working on right now
+Check the current tasks we're working on over [here](https://github.com/lyne-design-system/lyne-components/projects/1) but since the project is still **🧪 experimental** and in rapid development not all tasks we're working on are reflected as issues (or tickets) since this would be to cumbersome at the current development stage. Also check out over [TODOS](./TODOS.md) what all needs to be done (at some point). 
 
 ## ⛩️ Storybook
 The latest still **🧪 experimental** version of the Storybook component browser for *Lyne Components* can be found [here](https://lyne-components-storybook.netlify.com).

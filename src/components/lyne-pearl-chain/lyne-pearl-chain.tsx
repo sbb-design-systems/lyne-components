@@ -8,7 +8,10 @@ import legsData from './lyne-pearl-chain.helper';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-pearl-chain.scss',
+  styleUrls: {
+    default: 'styles/lyne-pearl-chain.default.scss',
+    shared: 'styles/lyne-pearl-chain.shared.scss'
+  },
   tag: 'lyne-pearl-chain'
 })
 

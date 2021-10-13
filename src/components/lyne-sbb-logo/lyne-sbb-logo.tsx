@@ -9,7 +9,10 @@ import sbbLogoSVG from './assets/sbb_logo.svg';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-sbb-logo.scss',
+  styleUrls: {
+    default: 'styles/lyne-sbb-logo.default.scss',
+    shared: 'styles/lyne-sbb-logo.shared.scss'
+  },
   tag: 'lyne-sbb-logo'
 })
 

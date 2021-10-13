@@ -7,7 +7,10 @@ import { InterfacePanelAttributes } from './lyne-panel.custom.d';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-panel.scss',
+  styleUrls: {
+    default: 'styles/lyne-panel.default.scss',
+    shared: 'styles/lyne-panel.shared.scss'
+  },
   tag: 'lyne-panel'
 })
 
@@ -29,11 +32,11 @@ export class LynePanel {
     const TAGNAME = this.tag;
 
     return (
-      <div class='lyne-panel'>
-        <TAGNAME class='lyne-panel__text'>{this.text}</TAGNAME>
+      <div class='panel'>
+        <TAGNAME class='panel__text'>{this.text}</TAGNAME>
 
         <lyne-button
-          class='lyne-panel__button'
+          class='panel__button'
           label={this.buttonText}
           variant='secondary-negative'
           size='small'

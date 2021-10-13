@@ -1,2 +1,1 @@
-// Polyfill for :focus-visible
-import 'focus-visible/dist/focus-visible.min';
+// Hi there, we moved to global.ts ;)

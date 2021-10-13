@@ -1,3 +1,114 @@
+## [9.55.5](https://github.com/lyne-design-system/lyne-components/compare/v9.55.4...v9.55.5) (2021-10-11)
+
+
+### Bug Fixes
+
+* rename overlooked clock css classes ([4588205](https://github.com/lyne-design-system/lyne-components/commit/45882055004c11d9feb81c8d5e6ee18cd2bcc139))
+
+## [9.55.4](https://github.com/lyne-design-system/lyne-components/compare/v9.55.3...v9.55.4) (2021-10-11)
+
+
+### Bug Fixes
+
+* adjusting styling of lyne-sbb-clock to new mechanism ([fd9beb9](https://github.com/lyne-design-system/lyne-components/commit/fd9beb9f1eb430ca243e130c0de6cbce49e7c0ec))
+
+## [9.55.3](https://github.com/lyne-design-system/lyne-components/compare/v9.55.2...v9.55.3) (2021-10-11)
+
+
+### Bug Fixes
+
+* add default styles for accordion ([3fb0cc7](https://github.com/lyne-design-system/lyne-components/commit/3fb0cc7eaeae8797571b43dd1a87fde9314268b1))
+* add default styles for accordion item ([6cb4430](https://github.com/lyne-design-system/lyne-components/commit/6cb44302f3ac4bfa12b5573afef434219e47e64f))
+* add default styles for button ([09b543a](https://github.com/lyne-design-system/lyne-components/commit/09b543abcf4cd137c2d1bbb48b4d7b21a1af5ab8))
+* add default styles for panel ([fc0b784](https://github.com/lyne-design-system/lyne-components/commit/fc0b784216c18d65189f5f68e667557f272c6010))
+* add host mixin ([98b6e48](https://github.com/lyne-design-system/lyne-components/commit/98b6e4855e4ac62d5f8cc63456f6137d1d4558f0))
+* add host mixin ([dd43c42](https://github.com/lyne-design-system/lyne-components/commit/dd43c42526b24a1b84f7da06ba7e68f1a155ebab))
+* add host mixin ([8fcae90](https://github.com/lyne-design-system/lyne-components/commit/8fcae901691973bb55a3d706159ab12a194ebc55))
+* add shared styles for accordion ([9744000](https://github.com/lyne-design-system/lyne-components/commit/9744000977fee163be5a32f61d2ec1076f398a77))
+* add shared styles for accordion item ([ac959e5](https://github.com/lyne-design-system/lyne-components/commit/ac959e51a9a16608908d681a34cc02479bdd473a))
+* add shared styles for button ([6e3ebbf](https://github.com/lyne-design-system/lyne-components/commit/6e3ebbfe8c0a3aeb8faf4cfca1ecf9b8e96ef10b))
+* add shared styles for panel ([54937bc](https://github.com/lyne-design-system/lyne-components/commit/54937bc7e9c700f2492b8ee9c3f02b7728e2c514))
+* adhere to new style url scheme ([2408243](https://github.com/lyne-design-system/lyne-components/commit/2408243a81af787bbb1d8b364dc08ee96abc75ad))
+* adhere to new style urls mechanism ([be55b83](https://github.com/lyne-design-system/lyne-components/commit/be55b839cbec0dd66b8cf7cffa04d64e71fd3519))
+* adhere to new style urls scheme ([c2eaaac](https://github.com/lyne-design-system/lyne-components/commit/c2eaaac985dd51db922b64183f1b1529a00f3d18))
+* adhere to new style urls scheme ([24444d9](https://github.com/lyne-design-system/lyne-components/commit/24444d9bfea92893f6bb1cbbbf5e90a07833b85c))
+* adjusting styling of lyne-image to new mechanism ([280cf51](https://github.com/lyne-design-system/lyne-components/commit/280cf5150bfbf4aaf6e9d997e361fd14283743cc))
+* adjusting styling of lyne-pearl-styling to new mechanism ([e794e04](https://github.com/lyne-design-system/lyne-components/commit/e794e046206392d9aeac841757cf0141b86d7e10))
+* rename styles file for accordion ([1e05e09](https://github.com/lyne-design-system/lyne-components/commit/1e05e09d8d0bee31dc4cfe593783ecd1d7fb51df))
+* rename styles file for accordion item ([bd4f05d](https://github.com/lyne-design-system/lyne-components/commit/bd4f05db57e76babab889a0c01f25e9c6cf0e018))
+* rename styles file for button ([a33ac01](https://github.com/lyne-design-system/lyne-components/commit/a33ac01ba0b8b916754c17171b699b85e6f7fa78))
+* rename styles file for panel ([333be66](https://github.com/lyne-design-system/lyne-components/commit/333be6642430e9b1edaeea9709369a33963d7e0f))
+
+## [9.55.2](https://github.com/lyne-design-system/lyne-components/compare/v9.55.1...v9.55.2) (2021-10-11)
+
+
+### Bug Fixes
+
+* adjusting styling of lyne-pearl-chain to new mechanism ([40e19b6](https://github.com/lyne-design-system/lyne-components/commit/40e19b6ddaefafb09121c4febea9bec6cb91e3bf))
+* adjusting styling of lyne-sbb-logo to new mechanism ([2fcc8f3](https://github.com/lyne-design-system/lyne-components/commit/2fcc8f35aa2f1d7e44cf54dfe1ac69a58f36ccc1))
+* remove component scss ([681ca91](https://github.com/lyne-design-system/lyne-components/commit/681ca91a730d1b59e286f4e2c6ddb603cb1743ee))
+* rename scss file and move to styles folder ([bc36828](https://github.com/lyne-design-system/lyne-components/commit/bc3682847b92ea21b89c55c3ac299dd9d0b69188))
+
+## [9.55.1](https://github.com/lyne-design-system/lyne-components/compare/v9.55.0...v9.55.1) (2021-10-11)
+
+
+### Bug Fixes
+
+* signet component, apply new css component architecture ([61fe791](https://github.com/lyne-design-system/lyne-components/commit/61fe791fe97093293e1bbfbaf8b9df4debc65b0a))
+
+# [9.55.0](https://github.com/lyne-design-system/lyne-components/compare/v9.54.0...v9.55.0) (2021-10-08)
+
+
+### Bug Fixes
+
+* swap component mode to encapsulated/self containing within Storybook ([c01ef88](https://github.com/lyne-design-system/lyne-components/commit/c01ef884a39125404179e0e37f0807b6d6240166))
+
+
+### Features
+
+* disable theming for the moment ([c9b70d2](https://github.com/lyne-design-system/lyne-components/commit/c9b70d27a268ab9815da3549a2ba85a42ac06473))
+
+# [9.54.0](https://github.com/lyne-design-system/lyne-components/compare/v9.53.0...v9.54.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* remove no protective room variant since never allowed ([25c0577](https://github.com/lyne-design-system/lyne-components/commit/25c05775a4fe135fd66cb8bdab4291e033e99c19))
+
+
+### Features
+
+* logical property support ([0d726ab](https://github.com/lyne-design-system/lyne-components/commit/0d726ab9a192c63e19db7e82edbce6f04c81d4b0))
+* logo adaption ([c371921](https://github.com/lyne-design-system/lyne-components/commit/c371921fb32f5d2f4e50d50e508f126605c17657))
+* optimize signet variants, add align-right and align-bottom-right variants ([32fbe3d](https://github.com/lyne-design-system/lyne-components/commit/32fbe3d185b97da00c0f3912c8adc03fba8644f7))
+
+# [9.53.0](https://github.com/lyne-design-system/lyne-components/compare/v9.52.1...v9.53.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* husky ([306b123](https://github.com/lyne-design-system/lyne-components/commit/306b123a1176e66bde2256ee45e1682572280f53))
+* linting errors ([b2a9db6](https://github.com/lyne-design-system/lyne-components/commit/b2a9db647f44760dcc77f145497a7a11c0b34d36))
+* linting errors, restructuring code ([f585f46](https://github.com/lyne-design-system/lyne-components/commit/f585f4613b37b0fde36a4321ef6f51b3a424ec42))
+* rename design token source file ([b7da6ca](https://github.com/lyne-design-system/lyne-components/commit/b7da6ca5b9796e33d2deac7bbcd1e0a7d449326c))
+* revert test commit ([f9f1740](https://github.com/lyne-design-system/lyne-components/commit/f9f1740dc4314fa5d708653776313a0478140d01))
+
+
+### Features
+
+* add shared and normalized component styles ([de9bc68](https://github.com/lyne-design-system/lyne-components/commit/de9bc68dea9e1a72c0e8991ce8d78e15d5251bf4))
+* add theming and mode proposition ([0235ec5](https://github.com/lyne-design-system/lyne-components/commit/0235ec59dba9644e762873ae4d04e37e014ebfbb))
+* introducing default and shared css style mode ([81e970d](https://github.com/lyne-design-system/lyne-components/commit/81e970da6c0a0546b806dadeaa11fa5f0a39696c))
+* shared typography styling ([521a450](https://github.com/lyne-design-system/lyne-components/commit/521a450c22f886d614dfa6d96306d0f722df5a37))
+* use new lyne-design-tokens version with % placeholder selector ([c0c5159](https://github.com/lyne-design-system/lyne-components/commit/c0c51599f6756fbce658c33672ab306bf0d6e21d))
+
+## [9.52.1](https://github.com/lyne-design-system/lyne-components/compare/v9.52.0...v9.52.1) (2021-09-30)
+
+
+### Bug Fixes
+
+* set lockfileVersion back to 1 ([964ed23](https://github.com/lyne-design-system/lyne-components/commit/964ed233dd4ed31b5cd12cad98d35ddd028925c4))
+
 # [9.52.0](https://github.com/lyne-design-system/lyne-components/compare/v9.51.0...v9.52.0) (2021-09-20)
 
 

@@ -25,7 +25,10 @@ const iconSlotName = 'icon';
 
 @Component({
   shadow: true,
-  styleUrl: 'lyne-accordion-item.scss',
+  styleUrls: {
+    default: 'styles/lyne-accordion-item.default.scss',
+    shared: 'styles/lyne-accordion-item.shared.scss'
+  },
   tag: 'lyne-accordion-item'
 })
 
