@@ -8,17 +8,20 @@ describe('lyne-teaser-hero', () => {
       root
     } = await newSpecPage({
       components: [LyneTeaserHero],
-      html: `<lyne-teaser-hero button-text="Button text" image-src="${images[0]}" text="Panel text"></lyne-teaser-hero>`
+      html: `<lyne-teaser-hero button-text="Button text" image-loading="eager" image-src="${images[0]}" text="Panel text" link="https://www.sbb.ch" new-window-info-text="Link öffnet in neuem Fenster." open-in-new-window="true"></lyne-teaser-hero>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-teaser-hero button-text="Button text" image-src="${images[0]}" text="Panel text">
+      <lyne-teaser-hero button-text="Button text" image-loading="eager" image-src="${images[0]}" link="https://www.sbb.ch" new-window-info-text="Link öffnet in neuem Fenster." open-in-new-window="true" text="Panel text">
           <mock:shadow-root>
-            <div class="taser-hero">
-              <lyne-image class="teaser-hero__image" customfocalpoint="" hidefromscreenreader="" imagesrc="${images[0]}" loading="eager" lqip="" performancemark="" picturesizesconfig="{&quot;breakpoints&quot;:[{&quot;image&quot;:{&quot;height&quot;:2579,&quot;width&quot;:2579},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;min-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-ultra-min&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:1439,&quot;width&quot;:1439},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-wide-max&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:1279,&quot;width&quot;:1279},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-large-max&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:1023,&quot;width&quot;:1023},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-medium-max&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:839,&quot;width&quot;:839},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-small-max&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:599,&quot;width&quot;:599},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-micro-max&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:359,&quot;width&quot;:359},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-zero-max&quot;},&quot;conditionOperator&quot;:false}]}]}" variant="teaser-hero"></lyne-image>
+            <a class="taser-hero" href="https://www.sbb.ch" rel="external noopener nofollow" target="_blank">
+              <lyne-image class="teaser-hero__image" customfocalpoint="" hidefromscreenreader="" imagesrc="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg" loading="eager" lqip="" performancemark="teaser-hero" picturesizesconfig="{&quot;breakpoints&quot;:[{&quot;image&quot;:{&quot;height&quot;:2579,&quot;width&quot;:2579},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;min-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-ultra-min&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:1439,&quot;width&quot;:1439},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-wide-max&quot;},&quot;conditionOperator&quot;:false}]},{&quot;image&quot;:{&quot;height&quot;:599,&quot;width&quot;:599},&quot;mediaQueries&quot;:[{&quot;conditionFeature&quot;:&quot;max-width&quot;,&quot;conditionFeatureValue&quot;:{&quot;lyneDesignToken&quot;:true,&quot;value&quot;:&quot;breakpoint-micro-max&quot;},&quot;conditionOperator&quot;:false}]}]}" variant="teaser-hero"></lyne-image>
               <lyne-panel buttontext="Button text" class="teaser-hero__panel" text="Panel text"></lyne-panel>
-            </div>
+              <span class="teaser-hero__link-info-text">
+                Link öffnet in neuem Fenster.
+              </span>
+            </a>
           </mock:shadow-root>
         </lyne-teaser-hero>
       `);
