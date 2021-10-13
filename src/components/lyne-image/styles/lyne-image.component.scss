@@ -3,6 +3,50 @@
 // and default mode
 @include host-component-properties;
 
+@mixin image-aspect-ratio-1-1 {
+  aspect-ratio: 1 / 1;
+}
+
+@mixin image-aspect-ratio-1-2 {
+  aspect-ratio: 1 / 2;
+}
+
+@mixin image-aspect-ratio-2-1 {
+  aspect-ratio: 2 / 1;
+}
+
+@mixin image-aspect-ratio-2-3 {
+  aspect-ratio: 2 / 3;
+}
+
+@mixin image-aspect-ratio-3-2 {
+  aspect-ratio: 3 / 2;
+}
+
+@mixin image-aspect-ratio-3-4 {
+  aspect-ratio: 3 / 4;
+}
+
+@mixin image-aspect-ratio-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+@mixin image-aspect-ratio-4-5 {
+  aspect-ratio: 4 / 5;
+}
+
+@mixin image-aspect-ratio-5-4 {
+  aspect-ratio: 5 / 4;
+}
+
+@mixin image-aspect-ratio-9-16 {
+  aspect-ratio: 9 / 16;
+}
+
+@mixin image-aspect-ratio-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
 :host {
   --image-border-radius: var(--border-radius-4x);
 }
@@ -45,29 +89,11 @@
 
 // Variant: Hero Teaser
 .image__figure--teaser-hero .image__wrapper {
-  --lyne-image-ratio-width: 1;
-  --lyne-image-ratio-height: 1;
+  @include image-aspect-ratio-1-1;
 
-  @include mq($from: medium) {
-    --lyne-image-ratio-width: 728;
-    --lyne-image-ratio-height: 409;
+  @include mq($from: small) {
+    @include image-aspect-ratio-16-9;
   }
 
-  @include mq($from: large) {
-    --lyne-image-ratio-width: 896;
-    --lyne-image-ratio-height: 504;
-  }
-
-  @include mq($from: wide) {
-    --lyne-image-ratio-width: 1144;
-    --lyne-image-ratio-height: 643;
-  }
-
-  @include mq($from: ultra) {
-    --lyne-image-ratio-width: 1192;
-    --lyne-image-ratio-height: 670;
-  }
-
-  aspect-ratio: var(--lyne-image-ratio-width) / var(--lyne-image-ratio-height);
 };
 
