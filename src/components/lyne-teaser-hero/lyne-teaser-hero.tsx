@@ -90,9 +90,37 @@ export class LyneTeaserHero {
    */
   @Prop() public imageLoading?: InterfaceImageAttributes['loading'] = 'eager';
 
+  /**
+   * Link to open if the teaser is clicked/pressed.
+   */
+  @Prop() public link!: string;
+
+  /**
+   * If set, the link will be opened in a new window.
+   */
+  @Prop() public openInNewWindow?: boolean;
+
+  /**
+   * If `openInNewWindow` is set, you should provide according information
+   * which will be read aloud for screenreader users (e.g. "Link target will
+   * open in a new window").
+   */
+  @Prop() public newWindowInfoText?: string;
+
   public render(): JSX.Element {
+    const linkAttributes = {};
+
+    if (this.openInNewWindow) {
+      linkAttributes['rel'] = 'external noopener nofollow';
+      linkAttributes['target'] = '_blank';
+    }
+
     return (
-      <div class='taser-hero'>
+      <a
+        class='taser-hero'
+        href={this.link}
+        {...linkAttributes}
+      >
         <lyne-image
           class='teaser-hero__image'
           pictureSizesConfig={JSON.stringify(this._pictureSizesConfig)}
@@ -110,7 +138,12 @@ export class LyneTeaserHero {
           buttonText={this.buttonText}
           text={this.text}
         ></lyne-panel>
-      </div>
+
+        {this.openInNewWindow && this.newWindowInfoText
+          ? <span class='teaser-hero__link-info-text'>{this.newWindowInfoText}</span>
+          : ''
+        }
+      </a>
     );
   }
 }
