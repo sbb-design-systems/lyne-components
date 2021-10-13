@@ -53,54 +53,6 @@ export class LyneTeaserHero {
       },
       {
         image: {
-          height: tokens['breakpoint-large-max'],
-          width: tokens['breakpoint-large-max']
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'max-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'breakpoint-large-max'
-            },
-            conditionOperator: false
-          }
-        ]
-      },
-      {
-        image: {
-          height: tokens['breakpoint-medium-max'],
-          width: tokens['breakpoint-medium-max']
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'max-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'breakpoint-medium-max'
-            },
-            conditionOperator: false
-          }
-        ]
-      },
-      {
-        image: {
-          height: tokens['breakpoint-small-max'],
-          width: tokens['breakpoint-small-max']
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'max-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'breakpoint-small-max'
-            },
-            conditionOperator: false
-          }
-        ]
-      },
-      {
-        image: {
           height: tokens['breakpoint-micro-max'],
           width: tokens['breakpoint-micro-max']
         },
@@ -110,22 +62,6 @@ export class LyneTeaserHero {
             conditionFeatureValue: {
               lyneDesignToken: true,
               value: 'breakpoint-micro-max'
-            },
-            conditionOperator: false
-          }
-        ]
-      },
-      {
-        image: {
-          height: tokens['breakpoint-zero-max'],
-          width: tokens['breakpoint-zero-max']
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'max-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'breakpoint-zero-max'
             },
             conditionOperator: false
           }
