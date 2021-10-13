@@ -3,7 +3,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
-
+import { InterfaceImageAttributes } from '../lyne-image/lyne-image.custom.d';
 import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 
 @Component({
@@ -16,6 +16,7 @@ import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 })
 
 export class LyneTeaserHero {
+
   private _pictureSizesConfig = {
     breakpoints: [
       {
@@ -144,9 +145,14 @@ export class LyneTeaserHero {
   @Prop() public buttonText!: string;
 
   /**
-   * Image source property for lyne-image.  See lyne-image for additional info
+   * Image source property for lyne-image. See lyne-image for additional info
    */
   @Prop() public imageSrc!: string;
+
+  /**
+   * Image loading property. See lyne-image for additional info
+   */
+  @Prop() public imageLoading?: InterfaceImageAttributes['loading'] = 'eager';
 
   public render(): JSX.Element {
     return (
@@ -157,7 +163,7 @@ export class LyneTeaserHero {
           customFocalPoint={true}
           hideFromScreenreader={true}
           imageSrc={this.imageSrc}
-          loading='eager'
+          loading={this.imageLoading}
           lqip
           performanceMark=''
           variant='teaser-hero'
