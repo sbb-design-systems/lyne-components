@@ -231,9 +231,25 @@ export namespace Components {
          */
         "buttonText": string;
         /**
-          * Image source property for lyne-image.  See lyne-image for additional info
+          * Image loading property. See lyne-image for additional info
+         */
+        "imageLoading"?: InterfaceImageAttributes['loading'];
+        /**
+          * Image source property for lyne-image. See lyne-image for additional info
          */
         "imageSrc": string;
+        /**
+          * Link to open if the teaser is clicked/pressed.
+         */
+        "link": string;
+        /**
+          * If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window").
+         */
+        "newWindowInfoText"?: string;
+        /**
+          * If set, the link will be opened in a new window.
+         */
+        "openInNewWindow"?: boolean;
         /**
           * Text property for lyne-panel. See lyne-panel for additional info
          */
@@ -560,9 +576,25 @@ declare namespace LocalJSX {
          */
         "buttonText": string;
         /**
-          * Image source property for lyne-image.  See lyne-image for additional info
+          * Image loading property. See lyne-image for additional info
+         */
+        "imageLoading"?: InterfaceImageAttributes['loading'];
+        /**
+          * Image source property for lyne-image. See lyne-image for additional info
          */
         "imageSrc": string;
+        /**
+          * Link to open if the teaser is clicked/pressed.
+         */
+        "link": string;
+        /**
+          * If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window").
+         */
+        "newWindowInfoText"?: string;
+        /**
+          * If set, the link will be opened in a new window.
+         */
+        "openInNewWindow"?: boolean;
         /**
           * Text property for lyne-panel. See lyne-panel for additional info
          */
