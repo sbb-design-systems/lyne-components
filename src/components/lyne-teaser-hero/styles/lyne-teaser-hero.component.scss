@@ -1,0 +1,27 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+}
+
+.taser-hero {
+  position: relative;
+  display: block;
+}
+
+.teaser-hero__image {
+  display: block;
+}
+
+.teaser-hero__panel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.teaser-hero__link-info-text {
+  @include screenreaderOnly;
+}

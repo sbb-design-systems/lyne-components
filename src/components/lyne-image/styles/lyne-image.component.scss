@@ -3,6 +3,50 @@
 // and default mode
 @include host-component-properties;
 
+@mixin image-aspect-ratio-1-1 {
+  aspect-ratio: 1 / 1;
+}
+
+@mixin image-aspect-ratio-1-2 {
+  aspect-ratio: 1 / 2;
+}
+
+@mixin image-aspect-ratio-2-1 {
+  aspect-ratio: 2 / 1;
+}
+
+@mixin image-aspect-ratio-2-3 {
+  aspect-ratio: 2 / 3;
+}
+
+@mixin image-aspect-ratio-3-2 {
+  aspect-ratio: 3 / 2;
+}
+
+@mixin image-aspect-ratio-3-4 {
+  aspect-ratio: 3 / 4;
+}
+
+@mixin image-aspect-ratio-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+@mixin image-aspect-ratio-4-5 {
+  aspect-ratio: 4 / 5;
+}
+
+@mixin image-aspect-ratio-5-4 {
+  aspect-ratio: 5 / 4;
+}
+
+@mixin image-aspect-ratio-9-16 {
+  aspect-ratio: 9 / 16;
+}
+
+@mixin image-aspect-ratio-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
 :host {
   --image-border-radius: var(--border-radius-4x);
 }
@@ -12,9 +56,8 @@
 }
 
 .image__figure img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  border-radius: pxToRem(var(--image-border-radius));
 }
 
 .image__lqip,
@@ -37,52 +80,20 @@
   overflow: hidden;
   max-width: 100%;
   margin-bottom: pxToRem(var(--spacing-fixed-4x));
+  border-radius: pxToRem(var(--image-border-radius));
 }
 
 .image__caption {
   @include text-xs--regular();
 }
 
-.image__figure--1x1 .image__wrapper {
-  aspect-ratio: 1 / 1;
-}
+// Variant: Hero Teaser
+.image__figure--teaser-hero .image__wrapper {
+  @include image-aspect-ratio-1-1;
 
-.image__figure--5x4 .image__wrapper {
-  aspect-ratio: 5 / 4;
-}
+  @include mq($from: small) {
+    @include image-aspect-ratio-16-9;
+  }
 
-.image__figure--4x3 .image__wrapper {
-  aspect-ratio: 4 / 3;
-}
+};
 
-.image__figure--3x2 .image__wrapper {
-  aspect-ratio: 3 / 2;
-}
-
-.image__figure--16x9 .image__wrapper {
-  aspect-ratio: 16 / 9;
-}
-
-.image__figure--2x1 .image__wrapper {
-   aspect-ratio: 2 / 1;
-}
-
-.image__figure--1x2 .image__wrapper {
-  aspect-ratio: 1 / 2;
-}
-
-.image__figure--9x16 .image__wrapper {
-  aspect-ratio: 9 / 16;
-}
-
-.image__figure--2x3 .image__wrapper {
-  aspect-ratio: 2 / 3;
-}
-
-.image__figure--3x4 .image__wrapper {
-  aspect-ratio: 3 / 4;
-}
-
-.image__figure--4x5 .image__wrapper {
-  aspect-ratio: 4 / 5;
-}

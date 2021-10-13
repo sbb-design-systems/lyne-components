@@ -141,7 +141,7 @@ export namespace Components {
         /**
           * Just some example image filey you can use to play around with the module.
          */
-        "imageSrcExamples": string;
+        "imageSrcExamples"?: string;
         /**
           * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy on the other hand works best for images which are further down the page or invisible during the loading of the initial viewport.
          */
@@ -155,9 +155,13 @@ export namespace Components {
          */
         "performanceMark"?: string;
         /**
-          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
+          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
          */
         "pictureSizesConfig"?: string;
+        /**
+          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
+         */
+        "variant"?: InterfaceImageAttributes['variant'];
     }
     interface LynePanel {
         /**
@@ -220,6 +224,36 @@ export namespace Components {
           * According to the Corporate Design Guidelines the signet can be used in these variants
          */
         "variant"?: InterfaceSignetAttributes['variant'];
+    }
+    interface LyneTeaserHero {
+        /**
+          * Button text property for lyne-panel. See lyne-panel for additional info
+         */
+        "buttonText": string;
+        /**
+          * Image loading property. See lyne-image for additional info
+         */
+        "imageLoading"?: InterfaceImageAttributes['loading'];
+        /**
+          * Image source property for lyne-image. See lyne-image for additional info
+         */
+        "imageSrc": string;
+        /**
+          * Link to open if the teaser is clicked/pressed.
+         */
+        "link": string;
+        /**
+          * If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window").
+         */
+        "newWindowInfoText"?: string;
+        /**
+          * If set, the link will be opened in a new window.
+         */
+        "openInNewWindow"?: boolean;
+        /**
+          * Text property for lyne-panel. See lyne-panel for additional info
+         */
+        "text": string;
     }
     interface LyneTitle {
         /**
@@ -299,6 +333,12 @@ declare global {
         prototype: HTMLLyneSbbSignetElement;
         new (): HTMLLyneSbbSignetElement;
     };
+    interface HTMLLyneTeaserHeroElement extends Components.LyneTeaserHero, HTMLStencilElement {
+    }
+    var HTMLLyneTeaserHeroElement: {
+        prototype: HTMLLyneTeaserHeroElement;
+        new (): HTMLLyneTeaserHeroElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -315,6 +355,7 @@ declare global {
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
+        "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -445,7 +486,7 @@ declare namespace LocalJSX {
         /**
           * Just some example image filey you can use to play around with the module.
          */
-        "imageSrcExamples": string;
+        "imageSrcExamples"?: string;
         /**
           * With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy on the other hand works best for images which are further down the page or invisible during the loading of the initial viewport.
          */
@@ -459,9 +500,13 @@ declare namespace LocalJSX {
          */
         "performanceMark"?: string;
         /**
-          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointLargeMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointSmallMin"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "BreakpointMicroMax"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
+          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
          */
         "pictureSizesConfig"?: string;
+        /**
+          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
+         */
+        "variant"?: InterfaceImageAttributes['variant'];
     }
     interface LynePanel {
         /**
@@ -525,6 +570,36 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface LyneTeaserHero {
+        /**
+          * Button text property for lyne-panel. See lyne-panel for additional info
+         */
+        "buttonText": string;
+        /**
+          * Image loading property. See lyne-image for additional info
+         */
+        "imageLoading"?: InterfaceImageAttributes['loading'];
+        /**
+          * Image source property for lyne-image. See lyne-image for additional info
+         */
+        "imageSrc": string;
+        /**
+          * Link to open if the teaser is clicked/pressed.
+         */
+        "link": string;
+        /**
+          * If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window").
+         */
+        "newWindowInfoText"?: string;
+        /**
+          * If set, the link will be opened in a new window.
+         */
+        "openInNewWindow"?: boolean;
+        /**
+          * Text property for lyne-panel. See lyne-panel for additional info
+         */
+        "text": string;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -557,6 +632,7 @@ declare namespace LocalJSX {
         "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-sbb-signet": LyneSbbSignet;
+        "lyne-teaser-hero": LyneTeaserHero;
         "lyne-title": LyneTitle;
     }
 }
@@ -573,6 +649,7 @@ declare module "@stencil/core" {
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
+            "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }

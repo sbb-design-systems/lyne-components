@@ -1,4 +1,3 @@
-import * as LyneDesignTokens from '../../../node_modules/lyne-design-tokens/dist/js/tokens.es6.js';
 
 import {
   Component,
@@ -9,6 +8,7 @@ import {
 
 import { InterfaceImageAttributes } from './lyne-image.custom.d';
 import pictureSizesConfigData from './lyne-image.helper';
+import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 
 const eventListenerOptions = {
   once: true,
@@ -30,7 +30,7 @@ export class LyneImage {
   private _imageElement!: HTMLElement;
   private _linksInCaption;
 
-  @State() private _loadedClass: string;
+  @State() private _loadedClass = '';
 
   /**
    * An alt text is not always necessary (e.g. in teaser cards when
@@ -113,7 +113,7 @@ export class LyneImage {
    * Just some example image filey you can use to play around with
    * the module.
    */
-  @Prop() public imageSrcExamples!: string;
+  @Prop() public imageSrcExamples?: string;
 
   /**
    * With the support of native image lazy loading, we can now
@@ -160,7 +160,7 @@ export class LyneImage {
    *            "conditionFeature": "min-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "BreakpointLargeMin"
+   *              "value": "breakpoint-large-min"
    *            },
    *            "conditionOperator": false
    *          }
@@ -176,7 +176,7 @@ export class LyneImage {
    *            "conditionFeature": "min-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "BreakpointSmallMin"
+   *              "value": "breakpoint-small-min"
    *            },
    *            "conditionOperator": false
    *          }
@@ -192,7 +192,7 @@ export class LyneImage {
    *            "conditionFeature": "max-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "BreakpointMicroMax"
+   *              "value": "breakpoint-micro-max"
    *            },
    *            "conditionOperator": "and"
    *          },
@@ -211,8 +211,14 @@ export class LyneImage {
    */
   @Prop() public pictureSizesConfig?: string;
 
+  /**
+   * Based on the variant, we apply specific aspect ratios
+   * to the image accross all viewports.
+   */
+  @Prop() public variant?: InterfaceImageAttributes['variant'];
+
   private _addLoadedClass(): void {
-    this._loadedClass = 'image__figure--loaded';
+    this._loadedClass = ' image__figure--loaded';
   }
 
   private _logPerformanceMarks(): void {
@@ -223,9 +229,9 @@ export class LyneImage {
   }
 
   private _matchMediaQueryDesignToken(breakpointSizeName): string {
-    const breakpointSizeNameValue = LyneDesignTokens[breakpointSizeName];
+    const breakpointSizeNameValue = tokens[breakpointSizeName];
 
-    return `${breakpointSizeNameValue / LyneDesignTokens.TypoScaleDefault}rem`;
+    return `${breakpointSizeNameValue / tokens['typo-scale-default']}rem`;
 
   }
 
@@ -243,9 +249,9 @@ export class LyneImage {
 
   public render(): JSX.Element {
 
-    if (!this.imageSrc) {
-      this.imageSrc = this.imageSrcExamples;
-    }
+    const imageSrc = this.imageSrc
+      ? this.imageSrc
+      : this.imageSrcExamples;
 
     const attributes: {
       ariaHidden?: string;
@@ -269,9 +275,9 @@ export class LyneImage {
       focalPointDebug: '&fp-debug=true'
     };
 
-    let imageUrlLQIP = `${this.imageSrc}?blur=100&w=100&h=56`;
-    let imageUrlWithParams = `${this.imageSrc}?${imageParameters.autoImprove}`;
-    let imageUrlWithParamsAVIF = `${this.imageSrc}?${imageParameters.avif}`;
+    let imageUrlLQIP = `${imageSrc}?blur=100&w=100&h=56`;
+    let imageUrlWithParams = `${imageSrc}?${imageParameters.autoImprove}`;
+    let imageUrlWithParamsAVIF = `${imageSrc}?${imageParameters.avif}`;
 
     if (this.customFocalPoint) {
       imageUrlWithParams = `${imageUrlWithParams}${imageParameters.crop}`;
@@ -293,8 +299,12 @@ export class LyneImage {
       this.decoding = 'async';
     }
 
+    let {
+      pictureSizesConfig
+    } = this;
+
     if (this.pictureSizesConfig === undefined) {
-      this.pictureSizesConfig = `{
+      pictureSizesConfig = `{
         "breakpoints": [
           {
             "image": {
@@ -306,7 +316,7 @@ export class LyneImage {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "BreakpointLargeMin"
+                  "value": "breakpoint-large-min"
                 },
                 "conditionOperator": false
               }
@@ -322,7 +332,7 @@ export class LyneImage {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "BreakpointSmallMin"
+                  "value": "breakpoint-small-min"
                 },
                 "conditionOperator": false
               }
@@ -338,7 +348,7 @@ export class LyneImage {
                 "conditionFeature": "max-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "BreakpointMicroMax"
+                  "value": "breakpoint-micro-max"
                 },
                 "conditionOperator": false
               }
@@ -348,12 +358,16 @@ export class LyneImage {
       }`;
     }
 
-    const configs = pictureSizesConfigData(this.pictureSizesConfig);
+    const configs = pictureSizesConfigData(pictureSizesConfig);
+
+    const variantClass = this.variant
+      ? ` image__figure--${this.variant}`
+      : '';
 
     return (
 
       <figure
-        class={`image__figure ${this._loadedClass}`}
+        class={`image__figure${variantClass}${this._loadedClass}`}
         {...attributes}
       >
         <div class='image__wrapper'>
@@ -427,7 +441,7 @@ export class LyneImage {
             <img
               alt={this.alt}
               class='image__img'
-              src={this.imageSrc}
+              src={imageSrc}
               width='1000'
               height='562'
               loading={this.loading}
@@ -463,6 +477,10 @@ export class LyneImage {
       this._logPerformanceMarks();
       this._addLoadedClass();
     }, eventListenerOptions);
+
+    if (!this._captionElement) {
+      return;
+    }
 
     this._linksInCaption = this._captionElement.querySelectorAll('a');
 

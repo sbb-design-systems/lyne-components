@@ -17,6 +17,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [lyne-teaser-hero](../lyne-teaser-hero)
+
 ### Depends on
 
 - [lyne-button](../lyne-button)
@@ -25,6 +29,7 @@
 ```mermaid
 graph TD;
   lyne-panel --> lyne-button
+  lyne-teaser-hero --> lyne-panel
   style lyne-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
