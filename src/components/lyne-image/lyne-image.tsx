@@ -218,7 +218,7 @@ export class LyneImage {
   @Prop() public variant?: InterfaceImageAttributes['variant'];
 
   private _addLoadedClass(): void {
-    this._loadedClass = ' lyne-image__figure--loaded';
+    this._loadedClass = ' image__figure--loaded';
   }
 
   private _logPerformanceMarks(): void {
@@ -361,13 +361,13 @@ export class LyneImage {
     const configs = pictureSizesConfigData(pictureSizesConfig);
 
     const variantClass = this.variant
-      ? ` lyne-image__figure--${this.variant}`
+      ? ` image__figure--${this.variant}`
       : '';
 
     return (
 
       <figure
-        class={`lyne-image__figure${variantClass}${this._loadedClass}`}
+        class={`image__figure${variantClass}${this._loadedClass}`}
         {...attributes}
       >
         <div class='image__wrapper'>
@@ -440,7 +440,7 @@ export class LyneImage {
             })}
             <img
               alt={this.alt}
-              class='lyne-image__img'
+              class='image__img'
               src={imageSrc}
               width='1000'
               height='562'
