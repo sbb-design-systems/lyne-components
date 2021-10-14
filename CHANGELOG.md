@@ -1,3 +1,10 @@
+# [9.58.0](https://github.com/lyne-design-system/lyne-components/compare/v9.57.0...v9.58.0) (2021-10-14)
+
+
+### Features
+
+* register breakpoints addon ([2c37194](https://github.com/lyne-design-system/lyne-components/commit/2c37194d2572342b8ae3f7efb1e7b9af5019ac38))
+
 # [9.57.0](https://github.com/lyne-design-system/lyne-components/compare/v9.56.0...v9.57.0) (2021-10-13)
 
 
