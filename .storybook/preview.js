@@ -16,5 +16,17 @@ export const parameters = {
       DesignTokens.BreakpointWideMax,
       DesignTokens.BreakpointUltraMin
     ]
+  },
+  breakpoints: {
+    breakpointNames: {
+      'zero': DesignTokens.BreakpointZeroMax,
+      'micro': DesignTokens.BreakpointMicroMax,
+      'small': DesignTokens.BreakpointSmallMax,
+      'medium': DesignTokens.BreakpointMediumMax,
+      'large': DesignTokens.BreakpointLargeMax,
+      'wide': DesignTokens.BreakpointWideMax,
+      'ultra': DesignTokens.BreakpointUltraMax
+    },
+    debounceTimeout: 0
   }
 };
