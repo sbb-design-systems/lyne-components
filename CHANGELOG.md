@@ -1,3 +1,10 @@
+## [9.58.1](https://github.com/lyne-design-system/lyne-components/compare/v9.58.0...v9.58.1) (2021-10-14)
+
+
+### Bug Fixes
+
+* fake commit to test travis ([31e838a](https://github.com/lyne-design-system/lyne-components/commit/31e838ab826e8d1720910ad54092ed79f3fbb397))
+
 # [9.58.0](https://github.com/lyne-design-system/lyne-components/compare/v9.57.0...v9.58.0) (2021-10-14)
 
 
