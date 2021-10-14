@@ -27,6 +27,6 @@ export const parameters = {
       'wide': DesignTokens.BreakpointWideMax,
       'ultra': DesignTokens.BreakpointUltraMax
     },
-    debounceTimeout: 0
+    debounceTimeout: 10
   }
 };
