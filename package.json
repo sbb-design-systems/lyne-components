@@ -88,6 +88,7 @@
     "shelljs": "^0.8.4",
     "simple-git": "~2.46.0",
     "stencil-inline-svg": "^1.1.0",
+    "storybook-addon-breakpoints": "0.0.5",
     "typescript": "~4.4.2",
     "yargs": "~17.2.1"
   },
