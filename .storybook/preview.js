@@ -21,6 +21,15 @@ const getViewports = () => {
     viewports.push(breakpoint.value);
   });
 
+  // CHROMATIC HAS A MAX ALLOWED VALUE OF 1800, SO WE NEED TO HACK AROUND IT
+  viewports.map((viewport) => {
+    if (viewport > 1800) {
+      return 1800;
+    }
+
+    return viewport;
+  });
+
   return viewports;
 };
 
