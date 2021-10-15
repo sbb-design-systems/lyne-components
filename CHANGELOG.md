@@ -1,3 +1,10 @@
+## [9.58.6](https://github.com/lyne-design-system/lyne-components/compare/v9.58.5...v9.58.6) (2021-10-15)
+
+
+### Bug Fixes
+
+* adopt to breaking changes in storybook-addon-breakpoints ([cb958fd](https://github.com/lyne-design-system/lyne-components/commit/cb958fdcbc1f04f2dc212c582cd49e99eed5000c))
+
 ## [9.58.5](https://github.com/lyne-design-system/lyne-components/compare/v9.58.4...v9.58.5) (2021-10-15)
 
 
