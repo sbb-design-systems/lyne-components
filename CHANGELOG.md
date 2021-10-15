@@ -1,3 +1,10 @@
+## [9.58.3](https://github.com/lyne-design-system/lyne-components/compare/v9.58.2...v9.58.3) (2021-10-15)
+
+
+### Bug Fixes
+
+* reassign viewports map before returning ([83bb201](https://github.com/lyne-design-system/lyne-components/commit/83bb2016630c95254e971fe22a309a2824f2d4f6))
+
 ## [9.58.2](https://github.com/lyne-design-system/lyne-components/compare/v9.58.1...v9.58.2) (2021-10-15)
 
 
