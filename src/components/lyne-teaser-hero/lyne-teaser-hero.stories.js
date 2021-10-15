@@ -69,7 +69,7 @@ openInNewWindow.args = {
   'text': 'Panel text'
 };
 
-defaultTeaser.documentation = {
+openInNewWindow.documentation = {
   title: 'Teaser Link open in new Window'
 };
 
