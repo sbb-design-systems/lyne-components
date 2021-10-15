@@ -1,3 +1,17 @@
+## [9.58.5](https://github.com/lyne-design-system/lyne-components/compare/v9.58.4...v9.58.5) (2021-10-15)
+
+
+### Bug Fixes
+
+* fake commit to test toolchain (triggered from icons build) [skip ci] ([135709f](https://github.com/lyne-design-system/lyne-components/commit/135709f75e6f27424f5295b2240b7f1933e97ed6))
+
+## [9.58.4](https://github.com/lyne-design-system/lyne-components/compare/v9.58.3...v9.58.4) (2021-10-15)
+
+
+### Bug Fixes
+
+* properly name documentation title ([558c758](https://github.com/lyne-design-system/lyne-components/commit/558c758fb4ea4969afd896efe6b779d775cd3c6a))
+
 ## [9.58.3](https://github.com/lyne-design-system/lyne-components/compare/v9.58.2...v9.58.3) (2021-10-15)
 
 
