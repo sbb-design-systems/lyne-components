@@ -1,32 +1,47 @@
-import * as DesignTokens from 'lyne-design-tokens/dist/js/tokens.es6';
+import TokensRaw from 'lyne-design-tokens/dist/js/tokens-raw.json';
 import {defineCustomElements} from '../dist/esm/loader';
 
 defineCustomElements();
+
+const getBreakpointTokens = () => {
+  const tokens = TokensRaw.tokens;
+
+  return tokens.filter((token) => {
+    const isBreakpoint = token.attributes.category === 'breakpoint';
+    const isMax = token.attributes.item === 'max';
+
+    return isBreakpoint && isMax;
+  });
+}
+
+const getViewports = () => {
+  const viewports = [];
+
+  getBreakpointTokens().forEach((breakpoint) => {
+    viewports.push(breakpoint.value);
+  });
+
+  return viewports;
+};
+
+const getBreakpointNames = () => {
+  const breakpointNames = {};
+
+  getBreakpointTokens().forEach((breakpoint) => {  
+    breakpointNames[breakpoint.name] = breakpoint.value;
+  });
+
+  return breakpointNames;
+};
 
 export const parameters = {
   // Set the viewports in Chromatic globally.
   chromatic: {
     delay: 1000,
-    viewports: [
-      DesignTokens.BreakpointZeroMax,
-      DesignTokens.BreakpointMicroMax,
-      DesignTokens.BreakpointSmallMax,
-      DesignTokens.BreakpointMediumMax,
-      DesignTokens.BreakpointLargeMax,
-      DesignTokens.BreakpointWideMax,
-      DesignTokens.BreakpointUltraMin
-    ]
+    viewports: getViewports()
   },
   breakpoints: {
-    breakpointNames: {
-      'zero': DesignTokens.BreakpointZeroMax,
-      'micro': DesignTokens.BreakpointMicroMax,
-      'small': DesignTokens.BreakpointSmallMax,
-      'medium': DesignTokens.BreakpointMediumMax,
-      'large': DesignTokens.BreakpointLargeMax,
-      'wide': DesignTokens.BreakpointWideMax,
-      'ultra': DesignTokens.BreakpointUltraMax
-    },
+    breakpointNames: getBreakpointNames(),
     debounceTimeout: 10
   }
 };
