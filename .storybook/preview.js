@@ -8,9 +8,9 @@ const getBreakpointTokens = () => {
 
   return tokens.filter((token) => {
     const isBreakpoint = token.attributes.category === 'breakpoint';
-    const isMax = token.attributes.item === 'max';
+    const isMin = token.attributes.item === 'min';
 
-    return isBreakpoint && isMax;
+    return isBreakpoint && isMin;
   });
 }
 
@@ -36,8 +36,9 @@ const getViewports = () => {
 const getBreakpointNames = () => {
   const breakpointNames = {};
 
-  getBreakpointTokens().forEach((breakpoint) => {  
-    breakpointNames[breakpoint.name] = breakpoint.value;
+  getBreakpointTokens().forEach((breakpoint) => {
+    console.log(breakpoint);
+    breakpointNames[breakpoint.attributes.type] = breakpoint.value;
   });
 
   return breakpointNames;
