@@ -15,14 +15,14 @@ const getBreakpointTokens = () => {
 }
 
 const getViewports = () => {
-  const viewports = [];
+  let viewports = [];
 
   getBreakpointTokens().forEach((breakpoint) => {
     viewports.push(breakpoint.value);
   });
 
   // CHROMATIC HAS A MAX ALLOWED VALUE OF 1800, SO WE NEED TO HACK AROUND IT
-  viewports.map((viewport) => {
+  viewports = viewports.map((viewport) => {
     if (viewport > 1800) {
       return 1800;
     }
