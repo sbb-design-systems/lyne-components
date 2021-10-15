@@ -38,8 +38,6 @@ const getViewports = () => {
     return viewport;
   });
 
-  console.log(viewports);
-
   return viewports;
 };
 
