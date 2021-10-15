@@ -1,3 +1,11 @@
+## [9.58.7](https://github.com/lyne-design-system/lyne-components/compare/v9.58.6...v9.58.7) (2021-10-15)
+
+
+### Bug Fixes
+
+* remove log ([705d968](https://github.com/lyne-design-system/lyne-components/commit/705d968a19d136cba091f909de3f40b399075fe1))
+* restrict viewports to allowed range by chromatic ([d2ea3fc](https://github.com/lyne-design-system/lyne-components/commit/d2ea3fc3c707e52c9ed186946e49dc9a1fbfed80))
+
 ## [9.58.6](https://github.com/lyne-design-system/lyne-components/compare/v9.58.5...v9.58.6) (2021-10-15)
 
 
