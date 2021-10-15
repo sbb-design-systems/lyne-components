@@ -50,6 +50,10 @@ defaultTeaser.args = {
   'text': 'Panel text'
 };
 
+defaultTeaser.documentation = {
+  title: 'Default Teaser'
+};
+
 openInNewWindow.argTypes = {
   'image-loading': imageLoading,
   'open-in-new-window': openInNewWindowControl
@@ -63,6 +67,10 @@ openInNewWindow.args = {
   'new-window-info-text': 'Link öffnet in neuem Fenster.',
   'open-in-new-window': openInNewWindowControl.options[0],
   'text': 'Panel text'
+};
+
+defaultTeaser.documentation = {
+  title: 'Teaser Link open in new Window'
 };
 
 export default {
