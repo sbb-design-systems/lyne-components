@@ -1,3 +1,11 @@
+## [9.58.2](https://github.com/lyne-design-system/lyne-components/compare/v9.58.1...v9.58.2) (2021-10-15)
+
+
+### Bug Fixes
+
+* add doc title to hero stories ([4cb2c0c](https://github.com/lyne-design-system/lyne-components/commit/4cb2c0cdc35a9c72f6032d0abe2b65f16b286fb5))
+* set viewport max to 1800px ([e747806](https://github.com/lyne-design-system/lyne-components/commit/e747806589e4d7341e0df8211d5e304fac5ca515))
+
 ## [9.58.1](https://github.com/lyne-design-system/lyne-components/compare/v9.58.0...v9.58.1) (2021-10-14)
 
 
