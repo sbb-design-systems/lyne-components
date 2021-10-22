@@ -52,11 +52,23 @@ export class LyneImage {
 
   /**
    * A caption can provide additional context to the image (e.g.
-   * name of the photographer, copyright information and the like).
+   * descriptions and the like).
    * Links will automatically receive tabindex=-1 if hideFromScreenreader
    * is set to true. That way they will no longer become focusable.
    */
   @Prop() public caption?: string;
+
+  /**
+   * If a copyright text is provided, we will add it to the caption
+   * and create a structured data json-ld block with the copyright
+   * information.
+   */
+  @Prop() public copyright?: string;
+
+  /**
+   * Copyright holder can either be an Organization or a Person
+   */
+  @Prop() public copyrightHolder: InterfaceImageAttributes['copyrightHolder'] = 'Organization';
 
   /**
    * Set this to true, if you want to pass a custom focal point
@@ -299,6 +311,22 @@ export class LyneImage {
       this.decoding = 'async';
     }
 
+    let caption = this.caption;
+    let schemaData = '';
+
+    if (this.copyright) {
+      caption = `${this.caption} ©${this.copyright}`;
+      schemaData = `{
+        "@context": "https://schema.org",
+        "@type": "Photograph",
+        "image": "${imageSrc}",
+        "copyrightHolder": {
+          "@type": "${this.copyrightHolder}",
+          "name": "${this.copyright}"
+        }
+      }`
+    }
+
     let {
       pictureSizesConfig
     } = this;
@@ -454,16 +482,26 @@ export class LyneImage {
 
         </div>
         {
-          this.caption
+          caption
             ? (
               <figcaption
                 class='image__caption'
-                innerHTML={this.caption}
+                innerHTML={caption}
                 ref={(el): void => {
                   this._captionElement = el;
                 }}
               >
               </figcaption>
+            )
+            : ''
+        }
+        {
+          schemaData ? (
+              <script
+                type='application/ld+json'
+                innerHTML={schemaData}
+              >
+              </script>
             )
             : ''
         }
