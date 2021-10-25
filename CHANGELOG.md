@@ -1,3 +1,15 @@
+## [9.58.9](https://github.com/lyne-design-system/lyne-components/compare/v9.58.8...v9.58.9) (2021-10-25)
+
+
+### Bug Fixes
+
+* adjusting expected test markup ([02fc9c5](https://github.com/lyne-design-system/lyne-components/commit/02fc9c56cefcf0284874a9d70e6441fbdfd5385e))
+
+
+### Performance Improvements
+
+* is adding importance attribute ([d8f25f3](https://github.com/lyne-design-system/lyne-components/commit/d8f25f3487590f947f7032511a403ca38ced950a))
+
 ## [9.58.8](https://github.com/lyne-design-system/lyne-components/compare/v9.58.7...v9.58.8) (2021-10-23)
 
 
