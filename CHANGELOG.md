@@ -1,3 +1,10 @@
+# [9.59.0](https://github.com/lyne-design-system/lyne-components/compare/v9.58.9...v9.59.0) (2021-10-25)
+
+
+### Features
+
+* is adding structured data copyright information ([65c8763](https://github.com/lyne-design-system/lyne-components/commit/65c8763a2151296e58be43bfbb6071bd4068301f))
+
 ## [9.58.9](https://github.com/lyne-design-system/lyne-components/compare/v9.58.8...v9.58.9) (2021-10-25)
 
 
