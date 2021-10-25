@@ -107,9 +107,17 @@ export namespace Components {
          */
         "alt"?: string;
         /**
-          * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
+          * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
+        /**
+          * If a copyright text is provided, we will add it to the caption and create a structured data json-ld block with the copyright information.
+         */
+        "copyright"?: string;
+        /**
+          * Copyright holder can either be an Organization or a Person
+         */
+        "copyrightHolder": InterfaceImageAttributes['copyrightHolder'];
         /**
           * Set this to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
          */
@@ -456,9 +464,17 @@ declare namespace LocalJSX {
          */
         "alt"?: string;
         /**
-          * A caption can provide additional context to the image (e.g. name of the photographer, copyright information and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
+          * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
+        /**
+          * If a copyright text is provided, we will add it to the caption and create a structured data json-ld block with the copyright information.
+         */
+        "copyright"?: string;
+        /**
+          * Copyright holder can either be an Organization or a Person
+         */
+        "copyrightHolder"?: InterfaceImageAttributes['copyrightHolder'];
         /**
           * Set this to true, if you want to pass a custom focal point for the image. See full documentation here: https://docs.imgix.com/apis/rendering/focalpoint-crop
          */

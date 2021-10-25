@@ -19,6 +19,28 @@ const customFocalPoint = {
   }
 };
 
+const copyright = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Legal'
+  }
+};
+
+const copyrightHolder = {
+  control: {
+    type: 'inline-radio'
+  },
+  options: [
+    'Organization',
+    'Person'
+  ],
+  table: {
+    category: 'Legal'
+  }
+};
+
 const focalPointDebug = {
   control: {
     type: 'inline-radio'
@@ -113,6 +135,8 @@ export const lyneImage = Template.bind({});
 lyneImage.argTypes = {
   'alt': '',
   'caption': '',
+  copyright,
+  'copyright-holder': copyrightHolder,
   'custom-focal-point': customFocalPoint,
   'focal-point-debug': focalPointDebug,
   'focal-point-x': focalPointX,
@@ -128,6 +152,8 @@ lyneImage.argTypes = {
 lyneImage.args = {
   'alt': '',
   'caption': 'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+  'copyright': '',
+  'copyright-holder': copyrightHolder.options[0],
   'custom-focal-point': customFocalPoint.options[1],
   'focal-point-debug': focalPointDebug.options[1],
   'focal-point-x': '',
