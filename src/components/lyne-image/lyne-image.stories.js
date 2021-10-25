@@ -26,7 +26,7 @@ const copyright = {
   table: {
     category: 'Legal'
   }
-}
+};
 
 const copyrightHolder = {
   control: {

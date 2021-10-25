@@ -323,7 +323,10 @@ export class LyneImage {
       this.importance = 'low';
     }
 
-    let caption = this.caption;
+    let {
+      caption
+    } = this;
+
     let schemaData = '';
 
     if (this.copyright) {
@@ -336,7 +339,7 @@ export class LyneImage {
           "@type": "${this.copyrightHolder}",
           "name": "${this.copyright}"
         }
-      }`
+      }`;
     }
 
     let {
@@ -509,7 +512,8 @@ export class LyneImage {
             : ''
         }
         {
-          schemaData ? (
+          schemaData
+            ? (
               <script
                 type='application/ld+json'
                 innerHTML={schemaData}
