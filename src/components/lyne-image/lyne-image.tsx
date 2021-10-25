@@ -122,10 +122,21 @@ export class LyneImage {
   @Prop() public imageSrc?: string;
 
   /**
-   * Just some example image filey you can use to play around with
+   * Just some example image file you can use to play around with
    * the module.
    */
   @Prop() public imageSrcExamples?: string;
+
+  /**
+   * The importance attribute is fairly new attribute which should
+   * help the browser decide which resources it should prioritise
+   * during page load. We will set the attribute value based on the
+   * value, we receive in the loading attribute. 'eager', which we use
+   * for the largest image within the initial viewport, will set the
+   * attribute value to 'high'. 'lazy', which we use for images below
+   * the fold, will set the attribute value to 'low'.
+   */
+  @Prop() public importance: InterfaceImageAttributes['importance'] = 'high';
 
   /**
    * With the support of native image lazy loading, we can now
@@ -309,6 +320,7 @@ export class LyneImage {
 
     if (this.loading === 'lazy') {
       this.decoding = 'async';
+      this.importance = 'low';
     }
 
     let caption = this.caption;
@@ -474,6 +486,7 @@ export class LyneImage {
               height='562'
               loading={this.loading}
               decoding={this.decoding}
+              importance={this.importance}
               ref={(el): void => {
                 this._imageElement = el;
               }}
