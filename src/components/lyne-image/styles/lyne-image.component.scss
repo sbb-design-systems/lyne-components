@@ -81,6 +81,7 @@
   max-width: 100%;
   margin-bottom: pxToRem(var(--spacing-fixed-4x));
   border-radius: pxToRem(var(--image-border-radius));
+  @include image-aspect-ratio-16-9;
 }
 
 .image__caption {
