@@ -1,3 +1,3 @@
-export interface InterfaceLyneLinkAttributes {
-  target: '_blank' | 'opt2';
+export interface InterfaceLinkAttributes {
+  textSize?: 'xs' | 's' | 'm';
 }

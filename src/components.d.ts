@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
+import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
@@ -177,9 +178,21 @@ export namespace Components {
     }
     interface LyneLink {
         /**
+          * The href value you want to link to
+         */
+        "hrefValue": string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
+         */
+        "icon"?: string;
+        /**
           * The link text we want to visually show
          */
-        "linkText": string;
+        "text": string;
+        /**
+          * Text size, the link should get in the non button variation.
+         */
+        "textSize": InterfaceLinkAttributes['textSize'];
     }
     interface LynePanel {
         /**
@@ -547,9 +560,21 @@ declare namespace LocalJSX {
     }
     interface LyneLink {
         /**
+          * The href value you want to link to
+         */
+        "hrefValue": string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
+         */
+        "icon"?: string;
+        /**
           * The link text we want to visually show
          */
-        "linkText": string;
+        "text": string;
+        /**
+          * Text size, the link should get in the non button variation.
+         */
+        "textSize"?: InterfaceLinkAttributes['textSize'];
     }
     interface LynePanel {
         /**

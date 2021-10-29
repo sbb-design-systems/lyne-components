@@ -1,11 +1,39 @@
 import { h } from 'jsx-dom';
+import lyneIcons from 'lyne-icons/dist/icons.json';
 import readme from './readme.md';
 
+// --- Helper methods
+const getMarkupForSvg = (svgName) => {
+  if (!svgName) {
+    return '';
+  }
+
+  const icon = lyneIcons.icons[svgName];
+  const frag = document.createRange()
+    .createContextualFragment(icon);
+
+  return frag.firstChild;
+};
+
 const Template = (args) => (
-  <lyne-link {...args}></lyne-link>
+  <lyne-link {...args}>
+    <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+  </lyne-link>
 );
 
-const linkText = {
+const hrefValue = {
+  control: {
+    type: 'text'
+  }
+};
+
+const icon = {
+  control: {
+    type: 'text'
+  }
+};
+
+const text = {
   control: {
     type: 'text'
   }
@@ -19,29 +47,52 @@ const textSize = {
     'xs',
     's',
     'm'
-  ]
+  ],
+  table: {
+    category: 'Text Variant'
+  }
 };
 
 const defaultArgTypes = {
-  'link-text': linkText,
-  'text-size': texSize
+  'href-value': hrefValue,
+  icon,
+  text,
+  'text-size': textSize
 };
 
 const defaultArgs = {
-  'link-text': 'Meine Billete & Abos',
-  'text-size': texSize.options[2]
+  'href-value': 'https://github.com/lyne-design-system/lyne-components',
+  'icon': '',
+  'text': 'Meine Billete & Abos',
+  'text-size': textSize.options[2]
 };
 
-export const textLink = Template.bind({});
-textLink.argTypes = defaultArgTypes;
-textLink.args = JSON.parse(JSON.stringify(defaultArgs));
+/* ************************************************* */
+/* The Stories                                       */
+/* ************************************************* */
+export const TextLink = Template.bind({});
 
-textLink.args = {
-  'text-size': texSize.options[0]
+TextLink.argTypes = defaultArgTypes;
+TextLink.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[0]
 };
 
-textLink.documentation = {
+TextLink.documentation = {
   title: 'Text Link Size XS'
+};
+
+export const TextLinkIconLeft = Template.bind({});
+
+TextLinkIconLeft.argTypes = defaultArgTypes;
+TextLinkIconLeft.args = {
+  ...defaultArgs,
+  'icon': 'chevron-small-left-small',
+  'text-size': textSize.options[0]
+};
+
+TextLinkIconLeft.documentation = {
+  title: 'Text Link Icon Left'
 };
 
 export default {
@@ -53,6 +104,9 @@ export default {
     )
   ],
   parameters: {
+    backgrounds: {
+      disable: true
+    },
     docs: {
       extractComponentDescription: () => readme
     }

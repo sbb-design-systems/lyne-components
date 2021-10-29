@@ -4,11 +4,47 @@
 @include host-component-properties;
 
 :host {
-  display: block;
+  display: inline-block;
 
-  --some-color-var: black;
+  --text-color-normal: var(--color-metal-default);
+  --text-color-hover-focus: var(--color-red125-default);
+
 }
 
-.some-class {
-  color: var(--some-color-var);
+.link {
+  display: flex;
+  align-items: center;
+  gap: pxToRem(var(--spacing-fixed-1x));
+  color: var(--text-color-normal);
+  text-decoration: none;
+}
+
+.link__text_hidden {
+  @include screenreaderOnly();
+}
+
+.link:focus,
+.link:hover {
+  color: var(--text-color-hover-focus);
+}
+
+.link__text_icon {
+  width: pxToRem(var(--size-icon-ui-small));
+  height: pxToRem(var(--size-icon-ui-small));
+}
+
+.link__text_icon slot {
+  fill: currentColor;
+}
+
+.link--text-xs {
+  @include text-xs--regular();
+}
+
+.link--text-s {
+  @include text-s--regular();
+}
+
+.link--text-m {
+  @include text-m--regular();
 }
