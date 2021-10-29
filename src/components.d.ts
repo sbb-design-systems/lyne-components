@@ -175,6 +175,12 @@ export namespace Components {
          */
         "variant"?: InterfaceImageAttributes['variant'];
     }
+    interface LyneLink {
+        /**
+          * The link text we want to visually show
+         */
+        "linkText": string;
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -315,6 +321,12 @@ declare global {
         prototype: HTMLLyneImageElement;
         new (): HTMLLyneImageElement;
     };
+    interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
+    }
+    var HTMLLyneLinkElement: {
+        prototype: HTMLLyneLinkElement;
+        new (): HTMLLyneLinkElement;
+    };
     interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
     }
     var HTMLLynePanelElement: {
@@ -362,6 +374,7 @@ declare global {
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-image": HTMLLyneImageElement;
+        "lyne-link": HTMLLyneLinkElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
@@ -532,6 +545,12 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceImageAttributes['variant'];
     }
+    interface LyneLink {
+        /**
+          * The link text we want to visually show
+         */
+        "linkText": string;
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -651,6 +670,7 @@ declare namespace LocalJSX {
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
         "lyne-image": LyneImage;
+        "lyne-link": LyneLink;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
         "lyne-sbb-clock": LyneSbbClock;
@@ -668,6 +688,7 @@ declare module "@stencil/core" {
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
+            "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
