@@ -2,22 +2,9 @@ import {
   ColorCharcoalDefault,
   ColorWhiteDefault
 } from 'lyne-design-tokens/dist/js/tokens.es6';
+import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
-import lyneIcons from 'lyne-icons/dist/icons.json';
 import readme from './readme.md';
-
-// --- Helper methods
-const getMarkupForSvg = (svgName) => {
-  if (!svgName) {
-    return '';
-  }
-
-  const icon = lyneIcons.icons[svgName];
-  const frag = document.createRange()
-    .createContextualFragment(icon);
-
-  return frag.firstChild;
-};
 
 const wrapperStyle = (context) => {
 
