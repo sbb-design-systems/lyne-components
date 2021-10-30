@@ -46,6 +46,11 @@
 
 .link__text_icon slot {
   fill: currentColor;
+
+  @include ifForcedColors {
+    fill: LinkText;
+  }
+
 }
 
 .link--text-xs {
