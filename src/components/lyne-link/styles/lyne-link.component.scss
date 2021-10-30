@@ -8,7 +8,14 @@
 
   --text-color-normal: var(--color-metal-default);
   --text-color-hover-focus: var(--color-red125-default);
+  --text-color-active: var(--color-red150-default);
 
+}
+
+.link--negative {
+  --text-color-normal: var(--color-white-default);
+  --text-color-hover-focus: var(--color-cloud-default);
+  --text-color-active: var(--color-silver-default);
 }
 
 .link {
@@ -19,8 +26,12 @@
   text-decoration: none;
 }
 
-.link__text_hidden {
-  @include screenreaderOnly();
+.link--icon-placement-right {
+  flex-direction: row-reverse;
+}
+
+.link:active {
+  color: var(--text-color-active);
 }
 
 .link:focus,

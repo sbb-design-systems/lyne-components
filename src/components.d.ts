@@ -186,6 +186,10 @@ export namespace Components {
          */
         "icon"?: string;
         /**
+          * The icon can either be place before or after the text
+         */
+        "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
+        /**
           * The link text we want to visually show
          */
         "text": string;
@@ -193,6 +197,10 @@ export namespace Components {
           * Text size, the link should get in the non button variation.
          */
         "textSize": InterfaceLinkAttributes['textSize'];
+        /**
+          * Choose the link style variant
+         */
+        "variant": InterfaceLinkAttributes['variant'];
     }
     interface LynePanel {
         /**
@@ -568,6 +576,10 @@ declare namespace LocalJSX {
          */
         "icon"?: string;
         /**
+          * The icon can either be place before or after the text
+         */
+        "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
+        /**
           * The link text we want to visually show
          */
         "text": string;
@@ -575,6 +587,10 @@ declare namespace LocalJSX {
           * Text size, the link should get in the non button variation.
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
+        /**
+          * Choose the link style variant
+         */
+        "variant"?: InterfaceLinkAttributes['variant'];
     }
     interface LynePanel {
         /**

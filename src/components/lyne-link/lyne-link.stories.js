@@ -1,3 +1,7 @@
+import {
+  ColorCharcoalDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
 import { h } from 'jsx-dom';
 import lyneIcons from 'lyne-icons/dist/icons.json';
 import readme from './readme.md';
@@ -15,6 +19,16 @@ const getMarkupForSvg = (svgName) => {
   return frag.firstChild;
 };
 
+const wrapperStyle = (context) => {
+
+  if (context.args.variant === 'positive') {
+    return `background-color: ${ColorWhiteDefault};`;
+  }
+
+  return `background-color: ${ColorCharcoalDefault};`;
+
+};
+
 const Template = (args) => (
   <lyne-link {...args}>
     <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
@@ -30,6 +44,19 @@ const hrefValue = {
 const icon = {
   control: {
     type: 'text'
+  }
+};
+
+const iconPlacement = {
+  control: {
+    type: 'inline-radio'
+  },
+  options: [
+    'left',
+    'right'
+  ],
+  table: {
+    category: 'Text Variant'
   }
 };
 
@@ -53,18 +80,35 @@ const textSize = {
   }
 };
 
+const variant = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'positive',
+    'negative'
+  ],
+  table: {
+    category: 'Text Variant'
+  }
+};
+
 const defaultArgTypes = {
   'href-value': hrefValue,
   icon,
+  'icon-placement': iconPlacement,
   text,
-  'text-size': textSize
+  'text-size': textSize,
+  variant
 };
 
 const defaultArgs = {
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   'icon': '',
+  'icon-placement': iconPlacement.options[0],
   'text': 'Meine Billete & Abos',
-  'text-size': textSize.options[2]
+  'text-size': textSize.options[2],
+  'variant': variant.options[0]
 };
 
 /* ************************************************* */
@@ -95,10 +139,24 @@ TextLinkIconLeft.documentation = {
   title: 'Text Link Icon Left'
 };
 
+export const TextLinkIconRight = Template.bind({});
+
+TextLinkIconRight.argTypes = defaultArgTypes;
+TextLinkIconRight.args = {
+  ...defaultArgs,
+  'icon': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+  'text-size': textSize.options[0]
+};
+
+TextLinkIconLeft.documentation = {
+  title: 'Text Link Icon Right'
+};
+
 export default {
   decorators: [
-    (Story) => (
-      <div lang="de" style={'padding: 2rem'}>
+    (Story, context) => (
+      <div lang='de' style={`${wrapperStyle(context)}padding: 2rem`}>
         <Story/>
       </div>
     )

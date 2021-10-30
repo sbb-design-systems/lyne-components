@@ -33,6 +33,12 @@ export class LyneLink {
    */
   @Prop() public icon?: string;
 
+  /**
+   * The icon can either be place before or after
+   * the text
+   */
+  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'left';
+
   /** The link text we want to visually show */
   @Prop() public text!: string;
 
@@ -42,28 +48,45 @@ export class LyneLink {
    */
   @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 'm';
 
+  /**
+   * Choose the link style variant
+   */
+  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'positive';
+
   public render(): JSX.Element {
 
-    let openInNewWindow = false;
-    let addtitionalLinkAttributes = {}
-
     const textSizeClass = ` link--text-${this.textSize}`;
+
+    let openInNewWindow = false;
 
     if (!this.hrefValue.includes('sbb.ch')) {
       openInNewWindow = true;
     };
+
+    let iconPositionClass = '';
+
+    if (this.icon) {
+      iconPositionClass = ` link--icon-placement-${this.iconPlacement}`
+    }
+
+    let addtitionalLinkAttributes = {};
+    let ariaLabel = this.text;
 
     if (openInNewWindow) {
       addtitionalLinkAttributes = {
         target: '_blank',
         rel: 'external noopener nofollow'
       };
+      ariaLabel += i18n['modules'].link.targetOpensInNewWindow.de;
     }
+
+    const variantClass = ` link--${this.variant}`;
 
     return (
       <a
-        class={`link${textSizeClass}`}
+        class={`link${textSizeClass}${iconPositionClass}${variantClass}`}
         href={this.hrefValue}
+        aria-label={ariaLabel}
         {...addtitionalLinkAttributes}
       >
 
@@ -74,12 +97,6 @@ export class LyneLink {
 
         <span class='link__text'>
           {this.text}
-          {
-            openInNewWindow ?
-              <span class='link__text_hidden'>{i18n['modules'].link.targetOpensInNewWindow.de}</span>
-              :
-              ''
-          }
         </span>
       </a>
     );
