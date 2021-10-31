@@ -77,7 +77,7 @@ export class LyneLink {
         target: '_blank',
         rel: 'external noopener nofollow'
       };
-      ariaLabel += i18n['modules'].link.targetOpensInNewWindow.de;
+      ariaLabel += ` ${i18n['modules'].link.targetOpensInNewWindow.de}`;
     }
 
     const variantClass = ` link--${this.variant}`;
