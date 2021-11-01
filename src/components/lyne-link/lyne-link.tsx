@@ -61,12 +61,12 @@ export class LyneLink {
 
     if (!this.hrefValue.includes('sbb.ch')) {
       openInNewWindow = true;
-    };
+    }
 
     let iconPositionClass = '';
 
     if (this.icon) {
-      iconPositionClass = ` link--icon-placement-${this.iconPlacement}`
+      iconPositionClass = ` link--icon-placement-${this.iconPlacement}`;
     }
 
     let addtitionalLinkAttributes = {};
@@ -74,8 +74,8 @@ export class LyneLink {
 
     if (openInNewWindow) {
       addtitionalLinkAttributes = {
-        target: '_blank',
-        rel: 'external noopener nofollow'
+        rel: 'external noopener nofollow',
+        target: '_blank'
       };
       ariaLabel += ` ${i18n['modules'].link.targetOpensInNewWindow.de}`;
     }
