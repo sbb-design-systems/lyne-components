@@ -221,7 +221,7 @@ export namespace Components {
          */
         "titleText"?: string;
         /**
-          * Choose the link style variant
+          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
          */
         "variant": InterfaceLyneLinkListAttributes['variant'];
     }
@@ -330,6 +330,10 @@ export namespace Components {
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
         "titleId"?: '';
+        /**
+          * Choose the title style variant
+         */
+        "variant": InterfaceTitleAttributes['variant'];
         /**
           * Visual level for the title. If you don't define the visual-level, the value for level will be used.
          */
@@ -640,7 +644,7 @@ declare namespace LocalJSX {
          */
         "titleText"?: string;
         /**
-          * Choose the link style variant
+          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
          */
         "variant"?: InterfaceLyneLinkListAttributes['variant'];
     }
@@ -749,6 +753,10 @@ declare namespace LocalJSX {
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
         "titleId"?: '';
+        /**
+          * Choose the title style variant
+         */
+        "variant"?: InterfaceTitleAttributes['variant'];
         /**
           * Visual level for the title. If you don't define the visual-level, the value for level will be used.
          */

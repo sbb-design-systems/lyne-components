@@ -74,14 +74,14 @@ const variant = {
 };
 
 const defaultArgTypes = {
-  'title-text': titleText,
   'title-level': titleLevel,
+  'title-text': titleText,
   variant
 };
 
 const defaultArgs = {
-  'title-text': 'Help & Contact',
   'title-level': titleLevel.options[0],
+  'title-text': 'Help & Contact',
   'variant': variant.options[0]
 };
 
@@ -96,7 +96,19 @@ LyneLinkListPositive.args = {
 };
 
 LyneLinkListPositive.documentation = {
-  'title': 'Link List Positive'
+  title: 'Link List Positive'
+};
+
+export const LyneLinkListNegative = Template.bind({});
+
+LyneLinkListNegative.argTypes = defaultArgTypes;
+LyneLinkListNegative.args = {
+  ...defaultArgs,
+  variant: variant.options[1]
+};
+
+LyneLinkListNegative.documentation = {
+  title: 'Link List Negative'
 };
 
 export default {

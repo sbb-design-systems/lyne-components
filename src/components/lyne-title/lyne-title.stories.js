@@ -1,5 +1,19 @@
+import {
+  ColorCharcoalDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+
+const wrapperStyle = (context) => {
+
+  if (context.args.variant === 'positive') {
+    return `background-color: ${ColorWhiteDefault};`;
+  }
+
+  return `background-color: ${ColorCharcoalDefault};`;
+
+};
 
 const Template = (args) => (
   <lyne-title {...args} />
@@ -19,8 +33,22 @@ const levels = {
   ]
 };
 
+const variant = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'positive',
+    'negative'
+  ],
+  table: {
+    category: 'Styling Variant'
+  }
+};
+
 const defaultArgTypes = {
   'level': levels,
+  variant,
   'visual-level': levels
 };
 
@@ -28,6 +56,7 @@ const defaultArgs = {
   'level': 1,
   'text': 'Data without insights are trivial, and insights without action are pointless',
   'title-id': '',
+  'variant': variant.options[0],
   'visual-level': 1,
   'visually-hidden': false
 };
@@ -38,6 +67,17 @@ h1.argTypes = defaultArgTypes;
 h1.args = JSON.parse(JSON.stringify(defaultArgs));
 h1.documentation = {
   title: 'Title Level 1'
+};
+
+export const h1Negative = Template.bind({});
+
+h1Negative.argTypes = defaultArgTypes;
+h1Negative.args = {
+  ...defaultArgs,
+  variant: variant.options[1]
+};
+h1Negative.documentation = {
+  title: 'Title Level 1 Negative'
 };
 
 export const h2 = Template.bind({});
@@ -91,6 +131,13 @@ h6.documentation = {
 };
 
 export default {
+  decorators: [
+    (Story, context) => (
+      <div style={`${wrapperStyle(context)}padding: 2rem`}>
+        <Story/>
+      </div>
+    )
+  ],
   parameters: {
     docs: {
       extractComponentDescription: () => readme

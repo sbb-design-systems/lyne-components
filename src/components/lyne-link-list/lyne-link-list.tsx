@@ -37,7 +37,12 @@ export class LyneLinkList {
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
 
   /**
-   * Choose the link style variant
+   * Choose the link list style. This
+   * does not refer to light or dark
+   * mode, but the background color
+   * on which the list is placed. Light
+   * and dark mode styling will be applied
+   * differently.
    */
   @Prop() public variant: InterfaceLyneLinkListAttributes['variant'] = 'positive';
 
@@ -51,18 +56,20 @@ export class LyneLinkList {
     const id = `title-${this._guid}`;
 
     return (
+      // the role="list" is needed for voice over: https://bit.ly/3CDiZaG
       <div>
         <lyne-title
-          text={this.titleText}
-          level={this.titleLevel}
-          visual-level='5'
           id={id}
+          level={this.titleLevel}
+          text={this.titleText}
+          variant={this.variant}
+          visual-level='5'
         >
         </lyne-title>
         <ul
           aria-labelledby={id}
           class='link-list'
-          role='list' // this nonsense is needed for voice over
+          role='list' // eslint-disable-line
         >
           <slot name='link-list__item'/>
         </ul>
