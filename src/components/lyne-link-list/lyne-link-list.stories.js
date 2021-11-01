@@ -1,8 +1,37 @@
+import {
+  ColorCharcoalDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const wrapperStyle = (context) => {
+
+  if (context.args.variant === 'positive') {
+    return `background-color: ${ColorWhiteDefault};`;
+  }
+
+  return `background-color: ${ColorCharcoalDefault};`;
+
+};
+
 const Template = (args) => (
   <lyne-link-list {...args}>
+    <li class='link-list__item' slot='link-list__item'>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Rückerstattungen' text-size='s' variant={args.variant}></lyne-link>
+    </li>
+    <li className='link-list__item' slot='link-list__item'>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Fundbüro' text-size='s' variant={args.variant}></lyne-link>
+    </li>
+    <li className='link-list__item' slot='link-list__item'>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Beschwerden' text-size='s' variant={args.variant}></lyne-link>
+    </li>
+    <li className='link-list__item' slot='link-list__item'>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Lob aussprechen' text-size='s' variant={args.variant}></lyne-link>
+    </li>
+    <li className='link-list__item' slot='link-list__item'>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Sachbeschädigung melden' text-size='s' variant={args.variant}></lyne-link>
+    </li>
   </lyne-link-list>
 );
 
@@ -72,8 +101,8 @@ LyneLinkListPositive.documentation = {
 
 export default {
   decorators: [
-    (Story) => (
-      <div style={'padding: 2rem'}>
+    (Story, context) => (
+      <div style={`${wrapperStyle(context)}padding: 2rem`}>
         <Story/>
       </div>
     )

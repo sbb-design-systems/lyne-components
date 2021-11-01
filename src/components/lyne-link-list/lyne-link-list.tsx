@@ -64,34 +64,7 @@ export class LyneLinkList {
           class='link-list'
           role='list' // this nonsense is needed for voice over
         >
-          <li>
-            test
-          </li>
-          <li
-            role='listitem'
-          >
-            test
-          </li>
-          <li
-            role='listitem'
-          >
-            test
-          </li>
-          <li
-            role='listitem'
-          >
-            test
-          </li>
-          <li
-            role='listitem'
-          >
-            test
-          </li>
-          <li
-            role='listitem'
-          >
-            test
-          </li>
+          <slot name='link-list__item'/>
         </ul>
       </div>
     );

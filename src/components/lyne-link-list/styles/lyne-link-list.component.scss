@@ -7,6 +7,14 @@
   display: block;
 }
 
+lyne-title {
+  margin-block-end: pxToRem(var(--spacing-fixed-3x));
+}
+
 .link-list {
   @include listReset();
+}
+
+::slotted(.link-list__item) {
+  margin-block-end: pxToRem(var(--spacing-fixed-3x));
 }
