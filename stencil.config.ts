@@ -12,6 +12,13 @@ export const config = {
       type: 'dist-hydrate-script'
     },
     {
+      copy: [
+        {
+          dest: 'fonts',
+          src: '../css',
+          warn: true
+        }
+      ],
       esmLoaderPath: '../loader',
       type: 'dist'
     },
@@ -26,6 +33,10 @@ export const config = {
       dir: './dist/documentation',
       footer: '',
       type: 'docs-readme'
+    },
+    {
+      file: './dist/documentation/jsonDocs.json',
+      type: 'docs-json'
     },
     {
       file: './dist/documentation/jsonDocs.json',
