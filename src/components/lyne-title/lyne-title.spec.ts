@@ -15,7 +15,7 @@ describe('lyne-title', () => {
       .toEqualHtml(`
         <lyne-title level="1" visual-level="1" text="Sample Title Text">
           <mock:shadow-root>
-            <h1 class="title title-1">Sample Title Text</h1>
+            <h1 class="title title--positive title-1">Sample Title Text</h1>
           </mock:shadow-root>
         </lyne-title>
       `);
