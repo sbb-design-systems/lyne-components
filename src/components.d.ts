@@ -178,6 +178,10 @@ export namespace Components {
     }
     interface LyneLink {
         /**
+          * If set to true, the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
           * The href value you want to link to
          */
         "hrefValue": string;
@@ -571,6 +575,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceImageAttributes['variant'];
     }
     interface LyneLink {
+        /**
+          * If set to true, the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
         /**
           * The href value you want to link to
          */

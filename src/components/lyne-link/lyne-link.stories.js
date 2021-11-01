@@ -22,6 +22,12 @@ const Template = (args) => (
   </lyne-link>
 );
 
+const download = {
+  control: {
+    type: 'boolean'
+  }
+};
+
 const iconFlip = {
   control: {
     type: 'select'
@@ -94,6 +100,7 @@ const variant = {
 };
 
 const defaultArgTypes = {
+  download,
   'href-value': hrefValue,
   icon,
   'icon-flip': iconFlip,
@@ -104,6 +111,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
+  'download': false,
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   'icon': '',
   'icon-flip': iconFlip.options[1],
