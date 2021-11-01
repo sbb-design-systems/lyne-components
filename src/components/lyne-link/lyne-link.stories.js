@@ -22,6 +22,19 @@ const Template = (args) => (
   </lyne-link>
 );
 
+const iconFlip = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'true',
+    'false'
+  ],
+  table: {
+    category: 'Writing Mode Adjustments'
+  }
+};
+
 const hrefValue = {
   control: {
     type: 'text'
@@ -83,6 +96,7 @@ const variant = {
 const defaultArgTypes = {
   'href-value': hrefValue,
   icon,
+  'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
   text,
   'text-size': textSize,
@@ -92,8 +106,9 @@ const defaultArgTypes = {
 const defaultArgs = {
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   'icon': '',
+  'icon-flip': iconFlip.options[1],
   'icon-placement': iconPlacement.options[0],
-  'text': 'Meine Billete & Abos',
+  'text': 'Travelcards & tickets',
   'text-size': textSize.options[2],
   'variant': variant.options[0]
 };
@@ -119,6 +134,7 @@ TextLinkIconLeft.argTypes = defaultArgTypes;
 TextLinkIconLeft.args = {
   ...defaultArgs,
   'icon': 'chevron-small-left-small',
+  'icon-flip': iconFlip.options[0],
   'text-size': textSize.options[0]
 };
 
@@ -132,6 +148,7 @@ TextLinkIconRight.argTypes = defaultArgTypes;
 TextLinkIconRight.args = {
   ...defaultArgs,
   'icon': 'chevron-small-right-small',
+  'icon-flip': iconFlip.options[0],
   'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0]
 };

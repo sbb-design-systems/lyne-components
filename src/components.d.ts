@@ -186,6 +186,10 @@ export namespace Components {
          */
         "icon"?: string;
         /**
+          * Decide wheter the icon should get flipped horizontally if the document writing mode is changed from Left to Right to Right to left and vice versa.
+         */
+        "iconFlip": boolean;
+        /**
           * The icon can either be place before or after the text
          */
         "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
@@ -575,6 +579,10 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
          */
         "icon"?: string;
+        /**
+          * Decide wheter the icon should get flipped horizontally if the document writing mode is changed from Left to Right to Right to left and vice versa.
+         */
+        "iconFlip": boolean;
         /**
           * The icon can either be place before or after the text
          */

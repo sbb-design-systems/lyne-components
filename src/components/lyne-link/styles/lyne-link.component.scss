@@ -44,6 +44,10 @@
   height: pxToRem(var(--size-icon-ui-small));
 }
 
+.link[dir="rtl"].link--icon-flip .link__text_icon {
+  transform: scaleX(-1);
+}
+
 .link__text_icon slot {
   fill: currentColor;
 

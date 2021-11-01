@@ -8,7 +8,7 @@ describe('lyne-link', () => {
       root
     } = await newSpecPage({
       components: [LyneLink],
-      html: `<lyne-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="right" icon="chevron-small-right-small" text="Meine Billete &amp; Abos" text-size="m" variant="positive"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></lyne-link>`
+      html: `<lyne-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="right" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="positive"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></lyne-link>`
     });
 
     expect(root)
@@ -17,14 +17,15 @@ describe('lyne-link', () => {
             href-value="https://github.com/lyne-design-system/lyne-components"
             icon-placement="right"
             icon="chevron-small-right-small"
-            text="Meine Billete &amp; Abos"
+            text="Travelcards &amp; tickets"
             text-size="m"
             variant="positive"
         >
           <mock:shadow-root>
             <a
-                aria-label="Meine Billete &amp; Abos Linkziel öffnet in neuem Fenster."
+                aria-label="Travelcards &amp; tickets. Link target opens in new window."
                 class="link link--icon-placement-right link--positive link--text-m"
+                dir="ltr"
                 href="https://github.com/lyne-design-system/lyne-components"
                 target="_blank"
                 rel="external noopener nofollow"
@@ -32,7 +33,7 @@ describe('lyne-link', () => {
                 <span class="link__text_icon">
                     <slot name="icon"></slot>
                 </span>
-                <span class="link__text">Meine Billete &amp; Abos</span>
+                <span class="link__text">Travelcards & tickets</span>
             </a>
           </mock:shadow-root>
           <span slot="icon">

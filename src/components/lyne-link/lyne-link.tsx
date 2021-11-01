@@ -4,6 +4,8 @@ import {
   Prop
 } from '@stencil/core';
 
+import getDocumentLang from '../../global/helpers/get-document-lang';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import i18n from '../../global/i18n';
 import { InterfaceLinkAttributes } from './lyne-link.custom.d';
 
@@ -34,6 +36,13 @@ export class LyneLink {
   @Prop() public icon?: string;
 
   /**
+   * Decide whether the icon should get flipped
+   * horizontally if the document writing mode
+   * is changed from ltr to rtl or vice versa.
+   */
+  @Prop() public iconFlip!: boolean;
+
+  /**
    * The icon can either be place before or after
    * the text
    */
@@ -56,6 +65,8 @@ export class LyneLink {
   public render(): JSX.Element {
 
     const textSizeClass = ` link--text-${this.textSize}`;
+    const currentLanguage = getDocumentLang();
+    const currentWritingMode = getDocumentWritingMode();
 
     let openInNewWindow = false;
 
@@ -69,6 +80,12 @@ export class LyneLink {
       iconPositionClass = ` link--icon-placement-${this.iconPlacement}`;
     }
 
+    let iconFlipClass = '';
+
+    if (this.icon && this.iconFlip) {
+      iconFlipClass = ' link--icon-flip';
+    }
+
     let addtitionalLinkAttributes = {};
     let ariaLabel = this.text;
 
@@ -77,16 +94,23 @@ export class LyneLink {
         rel: 'external noopener nofollow',
         target: '_blank'
       };
-      ariaLabel += ` ${i18n['modules'].link.targetOpensInNewWindow.de}`;
+      ariaLabel += `. ${i18n['modules'].link.targetOpensInNewWindow[currentLanguage]}`;
     }
 
     const variantClass = ` link--${this.variant}`;
 
     return (
       <a
-        class={`link${textSizeClass}${iconPositionClass}${variantClass}`}
-        href={this.hrefValue}
         aria-label={ariaLabel}
+        class={
+          `link
+          ${textSizeClass}
+          ${iconPositionClass}
+          ${iconFlipClass}
+          ${variantClass}`
+        }
+        dir={currentWritingMode}
+        href={this.hrefValue}
         {...addtitionalLinkAttributes}
       >
 
