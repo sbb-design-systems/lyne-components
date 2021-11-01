@@ -1,11 +1,11 @@
 import {
   Component,
-  Element,
   h,
   Prop
 } from '@stencil/core';
-import events from './lyne-link-list.events';
+import { guid } from '../../global/guid';
 import { InterfaceLyneLinkListAttributes } from './lyne-link-list.custom.d';
+import { InterfaceTitleAttributes } from '../lyne-title/lyne-title.custom.d';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -22,30 +22,78 @@ import { InterfaceLyneLinkListAttributes } from './lyne-link-list.custom.d';
 
 export class LyneLinkList {
 
-  /** Documentation for someProp */
-  @Prop() public someProp?: InterfaceLyneLinkListAttributes['someInterface'];
+  private _guid: string;
 
-  @Element() private _element: HTMLElement;
+  /**
+   * The title text we want to show
+   * before the list
+   */
+  @Prop() public titleText?: string;
 
-  private _clickHandler = (): void => {
+  /**
+   * The semantic level of the title,
+   * e.g. 3 = h3
+   */
+  @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
 
-    const event = new CustomEvent(events.click, {
-      bubbles: true,
-      composed: true,
-      detail: 'some event detail'
-    });
+  /**
+   * Choose the link style variant
+   */
+  @Prop() public variant: InterfaceLyneLinkListAttributes['variant'] = 'positive';
 
-    this._element.dispatchEvent(event);
-  };
+  public componentWillLoad(): void {
+    this._guid = guid();
+  }
 
   public render(): JSX.Element {
+
+    // const variantClass = ` link-list--${this.variant}`;
+    const id = `title-${this._guid}`;
+
     return (
-      <button
-        class='some-class'
-        onClick={this._clickHandler}
-      >
-        {this.someProp}
-      </button>
+      <div>
+        <lyne-title
+          text={this.titleText}
+          level={this.titleLevel}
+          visual-level='5'
+          id={id}
+        >
+        </lyne-title>
+        <ul
+          aria-labelledby={id}
+          class='link-list'
+          role='list' // this nonsense is needed for voice over
+        >
+          <li>
+            test
+          </li>
+          <li
+            role='listitem'
+          >
+            test
+          </li>
+          <li
+            role='listitem'
+          >
+            test
+          </li>
+          <li
+            role='listitem'
+          >
+            test
+          </li>
+          <li
+            role='listitem'
+          >
+            test
+          </li>
+          <li
+            role='listitem'
+          >
+            test
+          </li>
+        </ul>
+      </div>
     );
   }
 }

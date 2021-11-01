@@ -5,10 +5,8 @@
 
 :host {
   display: block;
-
-  --some-color-var: black;
 }
 
-.some-class {
-  color: var(--some-color-var);
+.link-list {
+  @include listReset();
 }

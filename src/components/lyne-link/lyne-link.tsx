@@ -24,6 +24,12 @@ import { InterfaceLinkAttributes } from './lyne-link.custom.d';
 
 export class LyneLink {
 
+  /**
+   * If set to true, the browser will
+   * show the download dialog on click.
+   */
+  @Prop() public download?: boolean;
+
   /** The href value you want to link to */
   @Prop() public hrefValue!: string;
 
@@ -109,6 +115,7 @@ export class LyneLink {
           ${iconFlipClass}
           ${variantClass}`
         }
+        download={this.download}
         dir={currentWritingMode}
         href={this.hrefValue}
         {...addtitionalLinkAttributes}

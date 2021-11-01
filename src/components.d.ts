@@ -9,13 +9,13 @@ import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-it
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
+import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
-import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -179,6 +179,10 @@ export namespace Components {
     }
     interface LyneLink {
         /**
+          * If set to true, the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
           * The href value you want to link to
          */
         "hrefValue": string;
@@ -209,9 +213,17 @@ export namespace Components {
     }
     interface LyneLinkList {
         /**
-          * Documentation for someProp
+          * The semantic level of the title, e.g. 3 = h3
          */
-        "someProp"?: InterfaceLyneLinkListAttributes['someInterface'];
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The title text we want to show before the list
+         */
+        "titleText"?: string;
+        /**
+          * Choose the link style variant
+         */
+        "variant": InterfaceLyneLinkListAttributes['variant'];
     }
     interface LynePanel {
         /**
@@ -586,6 +598,10 @@ declare namespace LocalJSX {
     }
     interface LyneLink {
         /**
+          * If set to true, the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
           * The href value you want to link to
          */
         "hrefValue": string;
@@ -616,9 +632,17 @@ declare namespace LocalJSX {
     }
     interface LyneLinkList {
         /**
-          * Documentation for someProp
+          * The semantic level of the title, e.g. 3 = h3
          */
-        "someProp"?: InterfaceLyneLinkListAttributes['someInterface'];
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The title text we want to show before the list
+         */
+        "titleText"?: string;
+        /**
+          * Choose the link style variant
+         */
+        "variant"?: InterfaceLyneLinkListAttributes['variant'];
     }
     interface LynePanel {
         /**

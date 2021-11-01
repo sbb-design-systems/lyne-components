@@ -14,6 +14,19 @@
 | `visuallyHidden`    | `visually-hidden` | Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true          | `boolean`                                | `undefined` |
 
 
+## Dependencies
+
+### Used by
+
+ - [lyne-link-list](../lyne-link-list)
+
+### Graph
+```mermaid
+graph TD;
+  lyne-link-list --> lyne-title
+  style lyne-title fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

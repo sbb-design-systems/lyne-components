@@ -1,3 +1,3 @@
 export interface InterfaceLyneLinkListAttributes {
-  someInterface: 'opt1' | 'opt2';
+  variant?: 'positive' | 'negative';
 }
