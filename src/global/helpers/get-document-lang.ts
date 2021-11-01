@@ -1,3 +1,4 @@
-const getDocumentLang = (): string => document.querySelector('html').getAttribute('lang') || 'en';
+const getDocumentLang = (): string => document.querySelector('html')
+  .getAttribute('lang') || 'en';
 
 export default getDocumentLang;
