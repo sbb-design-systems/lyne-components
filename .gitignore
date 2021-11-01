@@ -4,6 +4,7 @@ loader/
 hydrate/
 storybook-static/
 coverage/
+css/
 
 *~
 *.sw[mnpcod]
