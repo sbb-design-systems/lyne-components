@@ -6,7 +6,7 @@ describe('lyne-link', () => {
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-link></lyne-link>');
+    await page.setContent('<lyne-link href-value="https://github.com/lyne-design-system/lyne-components" iconFlip="false"></lyne-link>');
 
     element = await page.find('lyne-link');
     expect(element)
