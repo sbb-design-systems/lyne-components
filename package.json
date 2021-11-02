@@ -23,9 +23,10 @@
   ],
   "scripts": {
     "build:css": "npm run css:sass && npm run css:minify",
-    "build:stencil": "stencil build --ci --prod --docs",
+    "build:stencil": "npm-run-all --sequential clean build:css build:stencil:itself",
+    "build:stencil:itself": "stencil build --ci --prod --docs",
     "build:storybook": "build-storybook --quiet",
-    "build": "npm-run-all --sequential clean build:css build:stencil build:storybook",
+    "build": "npm-run-all --sequential build:stencil build:storybook",
     "chromatic": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes --exit-once-uploaded",
     "chromatic:master": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes --auto-accept-changes",
     "clean": "node scripts/clean.js",
