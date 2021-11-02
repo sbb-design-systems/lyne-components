@@ -96,6 +96,18 @@ LyneLinkListPositive.args = {
 };
 
 LyneLinkListPositive.documentation = {
+  title: 'Link List Positive No Title'
+};
+
+export const LyneLinkListPositiveNoTitle = Template.bind({});
+
+LyneLinkListPositiveNoTitle.argTypes = defaultArgTypes;
+LyneLinkListPositiveNoTitle.args = {
+  ...defaultArgs,
+  'title-text': ''
+};
+
+LyneLinkListPositiveNoTitle.documentation = {
   title: 'Link List Positive'
 };
 

@@ -52,22 +52,36 @@ export class LyneLinkList {
 
   public render(): JSX.Element {
 
-    // const variantClass = ` link-list--${this.variant}`;
+    let showTitle = true;
+    let additionalAttributes = {};
+
     const id = `title-${this._guid}`;
+
+    if (this.titleText !== '') {
+      additionalAttributes = {
+        'aria-labelledby': id
+      };
+    } else {
+      showTitle = false;
+    }
 
     return (
       // the role="list" is needed for voice over: https://bit.ly/3CDiZaG
       <div>
-        <lyne-title
-          id={id}
-          level={this.titleLevel}
-          text={this.titleText}
-          variant={this.variant}
-          visual-level='5'
-        >
-        </lyne-title>
+        {
+          showTitle ?
+            <lyne-title
+              id={id}
+              level={this.titleLevel}
+              text={this.titleText}
+              variant={this.variant}
+              visual-level='5'
+            >
+            </lyne-title>
+          : ''
+        }
         <ul
-          aria-labelledby={id}
+          {...additionalAttributes}
           class='link-list'
           role='list' // eslint-disable-line
         >

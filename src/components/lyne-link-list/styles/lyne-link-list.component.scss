@@ -15,6 +15,6 @@ lyne-title {
   @include listReset();
 }
 
-::slotted(.link-list__item) {
+::slotted(.link-list__item:not(:last-child)) {
   margin-block-end: pxToRem(var(--spacing-fixed-3x));
 }
