@@ -18,22 +18,36 @@ const wrapperStyle = (context) => {
 const Template = (args) => (
   <lyne-link-list {...args}>
     <li class='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Rückerstattungen' text-size='s' variant={args.variant}></lyne-link>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Rückerstattungen' text-size={args.textSize} variant={args.variant}></lyne-link>
     </li>
     <li className='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Fundbüro' text-size='s' variant={args.variant}></lyne-link>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Fundbüro' text-size={args.textSize} variant={args.variant}></lyne-link>
     </li>
     <li className='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Beschwerden' text-size='s' variant={args.variant}></lyne-link>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Beschwerden' text-size={args.textSize} variant={args.variant}></lyne-link>
     </li>
     <li className='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Lob aussprechen' text-size='s' variant={args.variant}></lyne-link>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Lob aussprechen' text-size={args.textSize} variant={args.variant}></lyne-link>
     </li>
     <li className='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Sachbeschädigung melden' text-size='s' variant={args.variant}></lyne-link>
+      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Sachbeschädigung melden' text-size={args.textSize} variant={args.variant}></lyne-link>
     </li>
   </lyne-link-list>
 );
+
+const textSize = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'xs',
+    's',
+    'm'
+  ],
+  table: {
+    category: 'List Items'
+  }
+};
 
 const titleText = {
   control: {
@@ -74,12 +88,14 @@ const variant = {
 };
 
 const defaultArgTypes = {
+  textSize,
   'title-level': titleLevel,
   'title-text': titleText,
   variant
 };
 
 const defaultArgs = {
+  'textSize': textSize.options[1],
   'title-level': titleLevel.options[0],
   'title-text': 'Help & Contact',
   'variant': variant.options[0]
@@ -88,38 +104,51 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneLinkListPositive = Template.bind({});
+export const LinkListPositive = Template.bind({});
 
-LyneLinkListPositive.argTypes = defaultArgTypes;
-LyneLinkListPositive.args = {
+LinkListPositive.argTypes = defaultArgTypes;
+LinkListPositive.args = {
   ...defaultArgs
 };
 
-LyneLinkListPositive.documentation = {
-  title: 'Link List Positive No Title'
+LinkListPositive.documentation = {
+  title: 'Link List Positive'
 };
 
-export const LyneLinkListPositiveNoTitle = Template.bind({});
+export const LinkListXSNoTitle = Template.bind({});
 
-LyneLinkListPositiveNoTitle.argTypes = defaultArgTypes;
-LyneLinkListPositiveNoTitle.args = {
+LinkListXSNoTitle.argTypes = defaultArgTypes;
+LinkListXSNoTitle.args = {
+  ...defaultArgs,
+  'textSize': textSize.options[0],
+  'title-text': ''
+};
+
+LinkListXSNoTitle.documentation = {
+  title: 'Link List XS No Title'
+};
+
+export const LinkListNoTitle = Template.bind({});
+
+LinkListNoTitle.argTypes = defaultArgTypes;
+LinkListNoTitle.args = {
   ...defaultArgs,
   'title-text': ''
 };
 
-LyneLinkListPositiveNoTitle.documentation = {
-  title: 'Link List Positive'
+LinkListNoTitle.documentation = {
+  title: 'Link List No Title'
 };
 
-export const LyneLinkListNegative = Template.bind({});
+export const LinkListNegative = Template.bind({});
 
-LyneLinkListNegative.argTypes = defaultArgTypes;
-LyneLinkListNegative.args = {
+LinkListNegative.argTypes = defaultArgTypes;
+LinkListNegative.args = {
   ...defaultArgs,
   variant: variant.options[1]
 };
 
-LyneLinkListNegative.documentation = {
+LinkListNegative.documentation = {
   title: 'Link List Negative'
 };
 

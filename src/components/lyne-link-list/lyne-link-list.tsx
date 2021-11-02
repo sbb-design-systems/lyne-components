@@ -57,20 +57,20 @@ export class LyneLinkList {
 
     const id = `title-${this._guid}`;
 
-    if (this.titleText !== '') {
+    if (this.titleText === '') {
+      showTitle = false;
+    } else {
       additionalAttributes = {
         'aria-labelledby': id
       };
-    } else {
-      showTitle = false;
     }
 
     return (
       // the role="list" is needed for voice over: https://bit.ly/3CDiZaG
       <div>
         {
-          showTitle ?
-            <lyne-title
+          showTitle
+            ? <lyne-title
               id={id}
               level={this.titleLevel}
               text={this.titleText}
@@ -78,7 +78,7 @@ export class LyneLinkList {
               visual-level='5'
             >
             </lyne-title>
-          : ''
+            : ''
         }
         <ul
           {...additionalAttributes}
