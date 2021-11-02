@@ -22,7 +22,7 @@
     "hydrate"
   ],
   "scripts": {
-    "build:css": "npm run css:sass && npm run css:minify",
+    "build:css": "npm-run-all --sequential css:sass css:minify",
     "build:stencil": "npm-run-all --sequential clean build:css build:stencil:itself",
     "build:stencil:itself": "stencil build --ci --prod --docs",
     "build:storybook": "build-storybook --quiet",
