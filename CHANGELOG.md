@@ -1,3 +1,10 @@
+# [9.61.0](https://github.com/lyne-design-system/lyne-components/compare/v9.60.0...v9.61.0) (2021-11-02)
+
+
+### Features
+
+* add empty slot component for ssr debugging purpose ([2dd5f19](https://github.com/lyne-design-system/lyne-components/commit/2dd5f1999a105b435af72742dc380e34e8a5ff60))
+
 # [9.60.0](https://github.com/lyne-design-system/lyne-components/compare/v9.59.0...v9.60.0) (2021-10-29)
 
 
