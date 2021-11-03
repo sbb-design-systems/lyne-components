@@ -24,6 +24,12 @@
   gap: pxToRem(var(--spacing-fixed-1x));
   color: var(--text-color-normal);
   text-decoration: none;
+
+  @include ifForcedColors {
+    text-decoration: underline;
+    text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
+  }
+
 }
 
 .link--icon-placement-right {
@@ -54,7 +60,6 @@
   @include ifForcedColors {
     fill: LinkText;
   }
-
 }
 
 .link--text-xs {
