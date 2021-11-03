@@ -30,12 +30,8 @@ const download = {
 
 const iconFlip = {
   control: {
-    type: 'select'
+    type: 'boolean'
   },
-  options: [
-    'true',
-    'false'
-  ],
   table: {
     category: 'Writing Mode Adjustments'
   }
@@ -60,10 +56,7 @@ const iconPlacement = {
   options: [
     'left',
     'right'
-  ],
-  table: {
-    category: 'Text Variant'
-  }
+  ]
 };
 
 const text = {
@@ -80,10 +73,7 @@ const textSize = {
     'xs',
     's',
     'm'
-  ],
-  table: {
-    category: 'Text Variant'
-  }
+  ]
 };
 
 const variant = {
@@ -93,10 +83,7 @@ const variant = {
   options: [
     'positive',
     'negative'
-  ],
-  table: {
-    category: 'Text Variant'
-  }
+  ]
 };
 
 const defaultArgTypes = {
@@ -114,55 +101,97 @@ const defaultArgs = {
   'download': false,
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   'icon': '',
-  'icon-flip': iconFlip.options[1],
+  'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
   'text': 'Travelcards & tickets',
-  'text-size': textSize.options[2],
+  'text-size': textSize.options[1],
   'variant': variant.options[0]
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const TextLink = Template.bind({});
+export const TextVariantXS = Template.bind({});
 
-TextLink.argTypes = defaultArgTypes;
-TextLink.args = {
+TextVariantXS.argTypes = defaultArgTypes;
+TextVariantXS.args = {
   ...defaultArgs,
   'text-size': textSize.options[0]
 };
 
-TextLink.documentation = {
-  title: 'Text Link Size XS'
+TextVariantXS.documentation = {
+  title: 'Text Variant XS'
 };
 
-export const TextLinkIconLeft = Template.bind({});
+export const TextVariantS = Template.bind({});
 
-TextLinkIconLeft.argTypes = defaultArgTypes;
-TextLinkIconLeft.args = {
+TextVariantS.argTypes = defaultArgTypes;
+TextVariantS.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[1]
+};
+
+TextVariantS.documentation = {
+  title: 'Text Variant S'
+};
+
+export const TextVariantSNegative = Template.bind({});
+
+TextVariantSNegative.argTypes = defaultArgTypes;
+TextVariantSNegative.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[1],
+  'variant': variant.options[1]
+};
+
+TextVariantSNegative.documentation = {
+  title: 'Text Variant S'
+};
+
+export const TextVariantIconLeft = Template.bind({});
+
+TextVariantIconLeft.argTypes = defaultArgTypes;
+TextVariantIconLeft.args = {
   ...defaultArgs,
   'icon': 'chevron-small-left-small',
-  'icon-flip': iconFlip.options[0],
+  'icon-flip': true,
   'text-size': textSize.options[0]
 };
 
-TextLinkIconLeft.documentation = {
-  title: 'Text Link Icon Left'
+TextVariantIconLeft.documentation = {
+  title: 'Text Variant Icon Left'
 };
 
-export const TextLinkIconRight = Template.bind({});
+export const TextVariantIconRight = Template.bind({});
 
-TextLinkIconRight.argTypes = defaultArgTypes;
-TextLinkIconRight.args = {
+TextVariantIconRight.argTypes = defaultArgTypes;
+TextVariantIconRight.args = {
   ...defaultArgs,
   'icon': 'chevron-small-right-small',
-  'icon-flip': iconFlip.options[0],
+  'icon-flip': true,
   'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0]
 };
 
-TextLinkIconLeft.documentation = {
-  title: 'Text Link Icon Right'
+TextVariantIconLeft.documentation = {
+  title: 'Text Variant Icon Right'
+};
+
+export const TextVariantIconRightNegative = Template.bind({});
+
+TextVariantIconRightNegative.argTypes = defaultArgTypes;
+TextVariantIconRightNegative.args = {
+  ...defaultArgs,
+  'icon': 'chevron-small-right-small',
+  'icon-flip': true,
+  'icon-placement': iconPlacement.options[1],
+  'text-size': textSize.options[0],
+  'variant': variant.options[1]
+};
+
+
+TextVariantIconRightNegative.documentation = {
+  title: 'Text Variant Icon Right Negative'
 };
 
 export default {

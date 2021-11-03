@@ -9,6 +9,7 @@ import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-it
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
+import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
@@ -210,6 +211,36 @@ export namespace Components {
          */
         "variant": InterfaceLinkAttributes['variant'];
     }
+    interface LyneLinkButton {
+        /**
+          * If set to true, the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The href value you want to link to
+         */
+        "hrefValue": string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
+         */
+        "icon"?: string;
+        /**
+          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
+         */
+        "iconFlip": boolean;
+        /**
+          * The icon can either be place before or after the text
+         */
+        "iconPlacement": InterfaceLinkButtonAttributes['iconPlacement'];
+        /**
+          * The link text we want to visually show
+         */
+        "text": string;
+        /**
+          * Choose the link button style variant
+         */
+        "variant": InterfaceLinkButtonAttributes['variant'];
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -356,6 +387,12 @@ declare global {
         prototype: HTMLLyneLinkElement;
         new (): HTMLLyneLinkElement;
     };
+    interface HTMLLyneLinkButtonElement extends Components.LyneLinkButton, HTMLStencilElement {
+    }
+    var HTMLLyneLinkButtonElement: {
+        prototype: HTMLLyneLinkButtonElement;
+        new (): HTMLLyneLinkButtonElement;
+    };
     interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
     }
     var HTMLLynePanelElement: {
@@ -404,6 +441,7 @@ declare global {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-link": HTMLLyneLinkElement;
+        "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
@@ -608,6 +646,36 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLinkAttributes['variant'];
     }
+    interface LyneLinkButton {
+        /**
+          * If set to true, the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The href value you want to link to
+         */
+        "hrefValue": string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
+         */
+        "icon"?: string;
+        /**
+          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
+         */
+        "iconFlip": boolean;
+        /**
+          * The icon can either be place before or after the text
+         */
+        "iconPlacement"?: InterfaceLinkButtonAttributes['iconPlacement'];
+        /**
+          * The link text we want to visually show
+         */
+        "text": string;
+        /**
+          * Choose the link button style variant
+         */
+        "variant"?: InterfaceLinkButtonAttributes['variant'];
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -728,6 +796,7 @@ declare namespace LocalJSX {
         "lyne-button": LyneButton;
         "lyne-image": LyneImage;
         "lyne-link": LyneLink;
+        "lyne-link-button": LyneLinkButton;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
         "lyne-sbb-clock": LyneSbbClock;
@@ -746,6 +815,7 @@ declare module "@stencil/core" {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
+            "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;

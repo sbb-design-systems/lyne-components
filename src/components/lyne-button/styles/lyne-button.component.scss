@@ -6,145 +6,20 @@
 :host {
   display: block;
 
-  // TODO: missing design tokens
-  --font-family: 'SBBWeb Bold';
-  --font-size: 14;
-  --letter-spacing: 0.01em;
-  --line-height: 1.4;
+  @include buttonVariables();
 
-  // we use primary button styles as default values
-  --color-active-background: var(--color-red150-default);
-  --color-active-border: var(--color-red150-default);
-  --color-active-text: var(--color-cloud-default);
-  --color-default-background: var(--color-red-default);
-  --color-default-border: var(--color-red-default);
-  --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-milk-default);
-  --color-disabled-border: var(--color-milk-default);
-  --color-disabled-text: var(--color-platinum-default);
-  --color-hover-background: var(--color-red125-default);
-  --color-hover-border: var(--color-red125-default);
-  --color-hover-text: var(--color-milk-default);
-
-  --border-width: var(--border-width-2x);
-  --border-radius: var(--border-radius-16x);
-  --min-height: var(--size-form-element-large-min-height);
-  --transition-duration: var(--animation-form-element-state-duration);
-  --transition-easing-function: var(--animation-form-element-state-easing);
-  --padding-block: var(--spacing-fixed-4x);
-  --padding-inline: var(--spacing-fixed-10x);
-  --icon-margin-inline-end: var(--spacing-fixed-2x);
-
-  --shadow-1-default-color: var(--color-red-alpha-20);
-  --shadow-1-default-blur: 16;
-  --shadow-1-default-offset-x: 0;
-  --shadow-1-default-offset-y: 2;
-  --shadow-1-default-spread: 0;
-  --shadow-2-default-color: var(--color-red125-alpha-20);
-  --shadow-2-default-blur: 4;
-  --shadow-2-default-offset-x: 0;
-  --shadow-2-default-offset-y: 1;
-  --shadow-2-default-spread: 0;
-
-  --shadow-1-hover-color: var(--color-red-alpha-20);
-  --shadow-1-hover-blur: 8;
-  --shadow-1-hover-offset-x: 0;
-  --shadow-1-hover-offset-y: 1;
-  --shadow-1-hover-spread: 0;
-  --shadow-2-hover-color: var(--color-red125-alpha-20);
-  --shadow-2-hover-blur: 2;
-  --shadow-2-hover-offset-x: 0;
-  --shadow-2-hover-offset-y: 1;
-  --shadow-2-hover-spread: 0;
 }
 
 .button--primary-negative {
-  --color-active-background: var(--color-cloud-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-red150-default);
-  --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-white-default);
-  --color-default-text: var(--color-red-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: var(--color-milk-default);
-  --color-hover-border: var(--color-milk-default);
-  --color-hover-text: var(--color-red125-default);
-
-  --shadow-1-default-color: var(--color-smoke-alpha-20);
-  --shadow-1-default-blur: 16;
-  --shadow-1-default-offset-x: 0;
-  --shadow-1-default-offset-y: 2;
-  --shadow-1-default-spread: 0;
-  --shadow-2-default-color: var(--color-metal-alpha-20);
-  --shadow-2-default-blur: 4;
-  --shadow-2-default-offset-x: 0;
-  --shadow-2-default-offset-y: 1;
-  --shadow-2-default-spread: 0;
-
-  --shadow-1-hover-color: var(--color-smoke-alpha-20);
-  --shadow-1-hover-blur: 16;
-  --shadow-1-hover-offset-x: 0;
-  --shadow-1-hover-offset-y: 2;
-  --shadow-1-hover-spread: 0;
-  --shadow-2-hover-color: var(--color-metal-alpha-20);
-  --shadow-2-hover-blur: 4;
-  --shadow-2-hover-offset-x: 0;
-  --shadow-2-hover-offset-y: 1;
-  --shadow-2-hover-spread: 0;
+  @include buttonPrimaryNegativeVariables();
 }
 
 .button--secondary {
-  --color-active-background: var(--color-cloud-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-anthracite-default);
-  --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-cloud-default);
-  --color-default-text: var(--color-charcoal-default);
-  --color-disabled-background: var(--color-milk-default);
-  --color-disabled-border: var(--color-milk-default);
-  --color-disabled-text: var(--color-platinum-default);
-  --color-hover-background: var(--color-milk-default);
-  --color-hover-border: var(--color-cloud-default);
-  --color-hover-text: var(--color-iron-default);
-
-  --shadow-1-default-color: var(--color-platinum-alpha-20);
-  --shadow-1-default-blur: 16;
-  --shadow-1-default-offset-x: 0;
-  --shadow-1-default-offset-y: 2;
-  --shadow-1-default-spread: 0;
-  --shadow-2-default-color: var(--color-cement-alpha-20);
-  --shadow-2-default-blur: 4;
-  --shadow-2-default-offset-x: 0;
-  --shadow-2-default-offset-y: 1;
-  --shadow-2-default-spread: 0;
-
-  --shadow-1-hover-color: var(--color-platinum-alpha-20);
-  --shadow-1-hover-blur: 16;
-  --shadow-1-hover-offset-x: 0;
-  --shadow-1-hover-offset-y: 2;
-  --shadow-1-hover-spread: 0;
-  --shadow-2-hover-color: var(--color-cement-alpha-20);
-  --shadow-2-hover-blur: 4;
-  --shadow-2-hover-offset-x: 0;
-  --shadow-2-hover-offset-y: 1;
-  --shadow-2-hover-spread: 0;
+  @include buttonSecondaryVariables();
 }
 
 .button--secondary-negative {
-  --color-active-background: var(--color-red-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-cloud-default);
-  --color-default-background: var(--color-red-default);
-  --color-default-border: var(--color-white-default);
-  --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-black-alpha-60);
-  --color-hover-background: var(--color-red-default);
-  --color-hover-border: var(--color-milk-default);
-  --color-hover-text: var(--color-milk-default);
+  @include buttonSecondaryNegativeVariables();
 }
 
 .button--tertiary {
@@ -163,16 +38,16 @@
 }
 
 .button--tertiary-negative {
-  --color-active-background: var(--color-red-default);
+  --color-active-background: transparent;
   --color-active-border: var(--color-cloud-default);
   --color-active-text: var(--color-cloud-default);
-  --color-default-background: var(--color-red-default);
+  --color-default-background: transparent;
   --color-default-border: var(--color-white-default);
   --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-black-alpha-10);
+  --color-disabled-background: transparent;
   --color-disabled-border: var(--color-black-alpha-0);
   --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: var(--color-red-default);
+  --color-hover-background: transparent;
   --color-hover-border: var(--color-milk-default);
   --color-hover-text: var(--color-milk-default);
 }
@@ -226,56 +101,13 @@
 }
 
 .button {
-  @include buttonReset;
-
-  position: relative;
-  display: flex;
-  align-items: center;
-  transition-duration: var(--transition-duration);
-  transition-timing-function: var(--transition-easing-function);
-  transition-property: background-color, color, border-color, box-shadow;
-  min-height: pxToRem(var(--min-height));
-  border: pxToRem(var(--border-width)) solid var(--color-default-border);
-  border-radius: pxToRem(var(--border-radius));
-  background-color: var(--color-default-background);
-
-  // when using short hand padding-block and padding-inline, safari will not
-  // evaluate the expression...
-  padding-block-start: pxToRem(calc(var(--padding-block) - var(--border-width)));
-  padding-block-end: pxToRem(calc(var(--padding-block) - var(--border-width)));
-  padding-inline-start: pxToRem(var(--padding-inline));
-  padding-inline-end: pxToRem(var(--padding-inline));
-  color: var(--color-default-text);
-  font-family: var(--font-family);
-  font-size: pxToRem(var(--font-size));
-  font-weight: normal;
-  letter-spacing: var(--letter-spacing);
-  line-height: var(--line-height);
-  -webkit-font-smoothing: antialiased;
-
-  &:before {
-    position: absolute;
-    content: '';
-    inset: pxToRem(calc(var(--border-width) * -1));
-    border-radius: pxToRem(var(--border-radius));
-    border: pxToRem(var(--border-width)) solid var(--color-default-border);
-    z-index: -1;
-  }
-
-  @include ifForcedColors {
-    border: pxToRem(1) solid windowText;
-  }
-
-  @include visibleFocus;
-
+  @include button();
 }
 
 .button--primary:not(:disabled),
 .button--secondary:not(:disabled),
 .button--primary-negative:not(:disabled) {
-  box-shadow:
-    pxToRem(var(--shadow-1-default-offset-x)) pxToRem(var(--shadow-1-default-offset-y)) pxToRem(var(--shadow-1-default-blur)) pxToRem(var(--shadow-1-default-spread)) var(--shadow-1-default-color),
-    pxToRem(var(--shadow-2-default-offset-x)) pxToRem(var(--shadow-2-default-offset-y)) pxToRem(var(--shadow-2-default-blur)) pxToRem(var(--shadow-2-default-spread)) var(--shadow-2-default-color);
+  @include buttonShadowNotDisabled();
 }
 
 .button--visual-only {
@@ -288,11 +120,7 @@
 }
 
 .button__icon {
-  display: block;
-  width: pxToRem(var(--size-icon-ui-small));
-  height: pxToRem(var(--size-icon-ui-small));
-  margin-inline-end: pxToRem(var(--icon-margin-inline-end));
-  color: currentColor;
+  @include buttonIcon();
 }
 
 .button__icon-description {
@@ -313,19 +141,11 @@
 
 .button:hover:not(:disabled),
 .button:focus:not(:disabled) {
-  color: var(--color-hover-text);
-  background-color: var(--color-hover-background);
-  border-color: var(--color-hover-border);
-
-  box-shadow:
-    pxToRem(var(--shadow-1-hover-offset-x)) pxToRem(var(--shadow-1-hover-offset-y)) pxToRem(var(--shadow-1-hover-blur)) pxToRem(var(--shadow-1-hover-spread)) var(--shadow-1-hover-color),
-    pxToRem(var(--shadow-2-hover-offset-x)) pxToRem(var(--shadow-2-hover-offset-y)) pxToRem(var(--shadow-2-hover-blur)) pxToRem(var(--shadow-2-hover-spread)) var(--shadow-2-hover-color);
+  @include buttonFocusAndHover();
 }
 
 .button:active:not(:disabled) {
-  color: var(--color-active-text);
-  background-color: var(--color-active-background);
-  border-color: var(--color-active-border);
+  @include buttonActive();
 }
 
 .button--secondary-negative,
