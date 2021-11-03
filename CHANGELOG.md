@@ -1,3 +1,10 @@
+# [9.63.0](https://github.com/lyne-design-system/lyne-components/compare/v9.62.0...v9.63.0) (2021-11-03)
+
+
+### Features
+
+* added ar-icon in fpl (triggered from Figma) (triggered from icons build) [skip ci] ([8b66418](https://github.com/lyne-design-system/lyne-components/commit/8b66418b12b071ca9449ff0ab9c91ec15213388e))
+
 # [9.62.0](https://github.com/lyne-design-system/lyne-components/compare/v9.61.0...v9.62.0) (2021-11-03)
 
 
