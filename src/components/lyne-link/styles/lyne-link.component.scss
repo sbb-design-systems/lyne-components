@@ -39,7 +39,7 @@
   color: var(--text-color-hover-focus);
 }
 
-.link__text_icon {
+.link__icon {
   width: pxToRem(var(--size-icon-ui-small));
   height: pxToRem(var(--size-icon-ui-small));
 }
@@ -48,7 +48,7 @@
   transform: scaleX(-1);
 }
 
-.link__text_icon slot {
+.link__icon slot {
   fill: currentColor;
 
   @include ifForcedColors {

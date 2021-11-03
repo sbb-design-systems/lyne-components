@@ -122,7 +122,7 @@ export class LyneLink {
       >
 
         {this.icon
-          ? <span class='link__text_icon'><slot name='icon'/></span>
+          ? <span class='link__icon'><slot name='icon'/></span>
           : ''
         }
 

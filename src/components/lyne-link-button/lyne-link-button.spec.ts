@@ -29,7 +29,7 @@ describe('lyne-link', () => {
                 target="_blank"
                 rel="external noopener nofollow"
             >
-                <span class="link-button__text_icon">
+                <span class="link-button__icon">
                     <slot name="icon"></slot>
                 </span>
                 <span class="link-button__text">Travelcards & tickets</span>
