@@ -189,7 +189,6 @@ TextVariantIconRightNegative.args = {
   'variant': variant.options[1]
 };
 
-
 TextVariantIconRightNegative.documentation = {
   title: 'Text Variant Icon Right Negative'
 };

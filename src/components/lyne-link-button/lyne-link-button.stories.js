@@ -121,7 +121,7 @@ export const LinkButtonPrimaryNegative = Template.bind({});
 LinkButtonPrimaryNegative.argTypes = defaultArgTypes;
 LinkButtonPrimaryNegative.args = {
   ...defaultArgs,
-  'variant': variant.options[2]
+  variant: variant.options[2]
 };
 
 LinkButtonPrimaryNegative.documentation = {
@@ -146,7 +146,7 @@ export const LinkButtonSecondary = Template.bind({});
 LinkButtonSecondary.argTypes = defaultArgTypes;
 LinkButtonSecondary.args = {
   ...defaultArgs,
-  'variant': variant.options[1]
+  variant: variant.options[1]
 };
 
 LinkButtonSecondary.documentation = {
@@ -158,13 +158,12 @@ export const LinkButtonSecondaryNegative = Template.bind({});
 LinkButtonSecondaryNegative.argTypes = defaultArgTypes;
 LinkButtonSecondaryNegative.args = {
   ...defaultArgs,
-  'variant': variant.options[3]
+  variant: variant.options[3]
 };
 
 LinkButtonSecondary.documentation = {
   title: 'Link Button Secondary Negative'
 };
-
 
 export const LinkButtonSecondaryWithIcon = Template.bind({});
 
@@ -179,7 +178,6 @@ LinkButtonSecondaryWithIcon.args = {
 LinkButtonSecondaryWithIcon.documentation = {
   title: 'Link Button Secondary With Icon'
 };
-
 
 export default {
   decorators: [
