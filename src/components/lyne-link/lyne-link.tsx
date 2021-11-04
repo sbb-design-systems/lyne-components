@@ -37,24 +37,30 @@ export class LyneLink {
    * The icon name we want to use,
    * choose from the small icon variants from
    * the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/
+   * https://lyne.sbb.ch/tokens/icons/.
    */
   @Prop() public icon?: string;
+
+  /**
+   * Pass in an id, if you need to identify
+   * the link element.
+   */
+  @Prop() public idValue?: string;
 
   /**
    * Decide whether the icon should get flipped
    * horizontally if the document writing mode
    * is changed from ltr to rtl or vice versa.
    */
-  @Prop() public iconFlip!: boolean;
+  @Prop() public iconFlip?: boolean;
 
   /**
    * The icon can either be place before or after
-   * the text
+   * the text.
    */
-  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'left';
+  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
-  /** The link text we want to visually show */
+  /** The link text we want to visually show. */
   @Prop() public text!: string;
 
   /**
@@ -64,7 +70,7 @@ export class LyneLink {
   @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 'm';
 
   /**
-   * Choose the link style variant
+   * Choose the link style variant.
    */
   @Prop() public variant: InterfaceLinkAttributes['variant'] = 'positive';
 
@@ -118,6 +124,7 @@ export class LyneLink {
         download={this.download}
         dir={currentWritingMode}
         href={this.hrefValue}
+        id={this.idValue}
         {...addtitionalLinkAttributes}
       >
 

@@ -186,19 +186,23 @@ export namespace Components {
          */
         "hrefValue": string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "icon"?: string;
         /**
           * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
          */
-        "iconFlip": boolean;
+        "iconFlip"?: boolean;
         /**
-          * The icon can either be place before or after the text
+          * The icon can either be place before or after the text.
          */
         "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
         /**
-          * The link text we want to visually show
+          * Pass in an id, if you need to identify the link element.
+         */
+        "idValue"?: string;
+        /**
+          * The link text we want to visually show.
          */
         "text": string;
         /**
@@ -206,7 +210,7 @@ export namespace Components {
          */
         "textSize": InterfaceLinkAttributes['textSize'];
         /**
-          * Choose the link style variant
+          * Choose the link style variant.
          */
         "variant": InterfaceLinkAttributes['variant'];
     }
@@ -584,19 +588,23 @@ declare namespace LocalJSX {
          */
         "hrefValue": string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "icon"?: string;
         /**
           * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
          */
-        "iconFlip": boolean;
+        "iconFlip"?: boolean;
         /**
-          * The icon can either be place before or after the text
+          * The icon can either be place before or after the text.
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
-          * The link text we want to visually show
+          * Pass in an id, if you need to identify the link element.
+         */
+        "idValue"?: string;
+        /**
+          * The link text we want to visually show.
          */
         "text": string;
         /**
@@ -604,7 +612,7 @@ declare namespace LocalJSX {
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
-          * Choose the link style variant
+          * Choose the link style variant.
          */
         "variant"?: InterfaceLinkAttributes['variant'];
     }

@@ -58,11 +58,17 @@ const iconPlacement = {
     type: 'inline-radio'
   },
   options: [
-    'left',
-    'right'
+    'start',
+    'end'
   ],
   table: {
     category: 'Text Variant'
+  }
+};
+
+const idValue = {
+  control: {
+    type: 'text'
   }
 };
 
@@ -105,6 +111,7 @@ const defaultArgTypes = {
   icon,
   'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
+  'id-value': idValue,
   text,
   'text-size': textSize,
   variant
@@ -116,6 +123,7 @@ const defaultArgs = {
   'icon': '',
   'icon-flip': iconFlip.options[1],
   'icon-placement': iconPlacement.options[0],
+  'id-value': '',
   'text': 'Travelcards & tickets',
   'text-size': textSize.options[2],
   'variant': variant.options[0]
