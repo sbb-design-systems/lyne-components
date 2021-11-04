@@ -46,13 +46,19 @@ export class LyneLinkButton {
    * horizontally if the document writing mode
    * is changed from ltr to rtl or vice versa.
    */
-  @Prop() public iconFlip!: boolean;
+  @Prop() public iconFlip?: boolean;
 
   /**
    * The icon can either be place before or after
    * the text
    */
-  @Prop() public iconPlacement: InterfaceLinkButtonAttributes['iconPlacement'] = 'left';
+  @Prop() public iconPlacement: InterfaceLinkButtonAttributes['iconPlacement'] = 'start';
+
+  /**
+   * Pass in an id, if you need to identify
+   * the link element.
+   */
+  @Prop() public idValue?: string;
 
   /** The link text we want to visually show */
   @Prop() public text!: string;
@@ -110,6 +116,7 @@ export class LyneLinkButton {
         download={this.download}
         dir={currentWritingMode}
         href={this.hrefValue}
+        id={this.idValue}
         {...addtitionalLinkAttributes}
       >
 

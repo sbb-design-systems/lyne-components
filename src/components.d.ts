@@ -227,11 +227,15 @@ export namespace Components {
         /**
           * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
          */
-        "iconFlip": boolean;
+        "iconFlip"?: boolean;
         /**
           * The icon can either be place before or after the text
          */
         "iconPlacement": InterfaceLinkButtonAttributes['iconPlacement'];
+        /**
+          * Pass in an id, if you need to identify the link element.
+         */
+        "idValue"?: string;
         /**
           * The link text we want to visually show
          */
@@ -662,11 +666,15 @@ declare namespace LocalJSX {
         /**
           * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
          */
-        "iconFlip": boolean;
+        "iconFlip"?: boolean;
         /**
           * The icon can either be place before or after the text
          */
         "iconPlacement"?: InterfaceLinkButtonAttributes['iconPlacement'];
+        /**
+          * Pass in an id, if you need to identify the link element.
+         */
+        "idValue"?: string;
         /**
           * The link text we want to visually show
          */

@@ -1,4 +1,4 @@
 export interface InterfaceLinkButtonAttributes {
-  iconPlacement?: 'left' | 'right';
+  iconPlacement?: 'start' | 'end';
   variant?: 'primary' | 'primary-negative' | 'secondary' | 'secondary-negative';
 }

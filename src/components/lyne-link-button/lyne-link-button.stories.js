@@ -33,6 +33,12 @@ const download = {
   }
 };
 
+const idValue = {
+  control: {
+    type: 'text'
+  }
+};
+
 const iconFlip = {
   control: {
     type: 'boolean'
@@ -88,6 +94,7 @@ const defaultArgTypes = {
   icon,
   'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
+  'id-value': idValue,
   text,
   variant
 };
@@ -98,6 +105,7 @@ const defaultArgs = {
   'icon': '',
   'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
+  'id-value': '',
   'text': 'Travelcards & tickets',
   'variant': variant.options[0]
 };
