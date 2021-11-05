@@ -1,3 +1,11 @@
+## [9.64.1](https://github.com/lyne-design-system/lyne-components/compare/v9.64.0...v9.64.1) (2021-11-05)
+
+
+### Bug Fixes
+
+* fixing lyne link documentation titles ([d79b84f](https://github.com/lyne-design-system/lyne-components/commit/d79b84f155a78166a62e636d9d3329be45218866))
+* removing obsolete empty line in line-link.stories.js ([6b6869d](https://github.com/lyne-design-system/lyne-components/commit/6b6869ddb736be40ceaacfc168f6bbd5c26a8d32))
+
 # [9.64.0](https://github.com/lyne-design-system/lyne-components/compare/v9.63.0...v9.64.0) (2021-11-05)
 
 
