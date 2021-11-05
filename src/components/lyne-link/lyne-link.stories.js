@@ -140,27 +140,28 @@ TextLink.args = {
 };
 
 TextLink.documentation = {
-  title: 'Text Link Size XS'
+  title: 'Text Link'
 };
 
-export const TextLinkIconLeft = Template.bind({});
+export const TextLinkIconStart = Template.bind({});
 
-TextLinkIconLeft.argTypes = defaultArgTypes;
-TextLinkIconLeft.args = {
+
+TextLinkIconStart.argTypes = defaultArgTypes;
+TextLinkIconStart.args = {
   ...defaultArgs,
   'icon': 'chevron-small-left-small',
   'icon-flip': iconFlip.options[0],
   'text-size': textSize.options[0]
 };
 
-TextLinkIconLeft.documentation = {
+TextLinkIconStart.documentation = {
   title: 'Text Link Icon Left'
 };
 
-export const TextLinkIconRight = Template.bind({});
+export const TextLinkIconEnd = Template.bind({});
 
-TextLinkIconRight.argTypes = defaultArgTypes;
-TextLinkIconRight.args = {
+TextLinkIconEnd.argTypes = defaultArgTypes;
+TextLinkIconEnd.args = {
   ...defaultArgs,
   'icon': 'chevron-small-right-small',
   'icon-flip': iconFlip.options[0],
@@ -168,7 +169,7 @@ TextLinkIconRight.args = {
   'text-size': textSize.options[0]
 };
 
-TextLinkIconLeft.documentation = {
+TextLinkIconEnd.documentation = {
   title: 'Text Link Icon Right'
 };
 
