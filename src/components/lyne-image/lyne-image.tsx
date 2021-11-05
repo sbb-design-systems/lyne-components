@@ -293,24 +293,20 @@ export class LyneImage {
 
     const imageParameters = {
       autoImprove: 'auto=format,compress,cs=tinysrgb',
-      avif: '&fm=avif&auto',
       crop: `&fit=crop&crop=focalpoint&fp-x=${this.focalPointX}&fp-y=${this.focalPointY}&fp-z=1`,
       focalPointDebug: '&fp-debug=true'
     };
 
     let imageUrlLQIP = `${imageSrc}?blur=100&w=100&h=56`;
     let imageUrlWithParams = `${imageSrc}?${imageParameters.autoImprove}`;
-    let imageUrlWithParamsAVIF = `${imageSrc}?${imageParameters.avif}`;
 
     if (this.customFocalPoint) {
       imageUrlWithParams = `${imageUrlWithParams}${imageParameters.crop}`;
-      imageUrlWithParamsAVIF = `${imageUrlWithParamsAVIF}${imageParameters.crop}`;
       imageUrlLQIP = `${imageUrlLQIP}${imageParameters.crop}`;
     }
 
     if (this.focalPointDebug) {
       imageUrlWithParams = `${imageUrlWithParams}${imageParameters.focalPointDebug}`;
-      imageUrlWithParamsAVIF = `${imageUrlWithParamsAVIF}${imageParameters.focalPointDebug}`;
     }
 
     if (this.hideFromScreenreader) {
@@ -462,15 +458,6 @@ export class LyneImage {
               });
 
               return [
-                <source
-                  media={`${mediaQuery}`}
-                  sizes={`${imageWidth}px`}
-                  srcSet={
-                    `${imageUrlWithParamsAVIF}&w=${imageWidth}&h=${imageHeight} ${imageWidth}w, ` +
-                    `${imageUrlWithParamsAVIF}&w=${imageWidth * 2}&h=${imageHeight * 2} ${imageWidth * 2}w`
-                  }
-                  type='image/avif'
-                />,
                 <source
                   media={`${mediaQuery}`}
                   sizes={`${imageWidth}px`}
