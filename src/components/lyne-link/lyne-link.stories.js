@@ -59,11 +59,6 @@ const iconPlacement = {
     type: 'inline-radio'
   },
   options: [
-<<<<<<< HEAD
-    'left',
-    'right'
-  ]
-=======
     'start',
     'end'
   ],
@@ -76,7 +71,6 @@ const idValue = {
   control: {
     type: 'text'
   }
->>>>>>> master
 };
 
 const text = {
@@ -170,18 +164,6 @@ TextVariantSNegative.documentation = {
   title: 'Text Link Size S Negative'
 };
 
-export const TextVariantM = Template.bind({});
-
-TextVariantM.argTypes = defaultArgTypes;
-TextVariantM.args = {
-  ...defaultArgs,
-  'text-size': textSize.options[2]
-};
-
-TextVariantS.documentation = {
-  title: 'Text Link Size M'
-};
-
 export const TextLinkIconStart = Template.bind({});
 
 TextLinkIconStart.argTypes = defaultArgTypes;
@@ -201,9 +183,8 @@ export const TextLinkIconStartNegative = Template.bind({});
 TextLinkIconStartNegative.argTypes = defaultArgTypes;
 TextLinkIconStartNegative.args = {
   ...defaultArgs,
-  'icon': 'chevron-small-right-small',
+  'icon': 'chevron-small-left-small',
   'icon-flip': true,
-  'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0],
   'variant': variant.options[1]
 };
@@ -223,8 +204,8 @@ TextLinkIconEnd.args = {
   'text-size': textSize.options[0]
 };
 
-TextVariantIconLeft.documentation = {
-  title: 'Text Link Icon End'
+TextLinkIconEnd.documentation = {
+  title: 'Text Link End Start'
 };
 
 export const TextLinkIconEndNegative = Template.bind({});
@@ -240,7 +221,19 @@ TextLinkIconEndNegative.args = {
 };
 
 TextLinkIconEndNegative.documentation = {
-  title: 'Text Variant Icon End Negative'
+  title: 'Text Link Icon End Negative'
+};
+
+export const TextVariantM = Template.bind({});
+
+TextVariantM.argTypes = defaultArgTypes;
+TextVariantM.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[2]
+};
+
+TextVariantS.documentation = {
+  title: 'Text Link Size M'
 };
 
 export default {

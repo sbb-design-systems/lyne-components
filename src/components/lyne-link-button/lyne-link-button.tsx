@@ -6,7 +6,7 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import i18n from '../../global/i18n';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import { InterfaceLinkButtonAttributes } from './lyne-link-button.custom.d';
 
 /**
@@ -75,10 +75,14 @@ export class LyneLinkButton {
 
     let openInNewWindow = false;
 
-    if (!this.hrefValue.includes('sbb.ch')) {
+    if (!window.location.href.includes(this.hrefValue)) {
       openInNewWindow = true;
     }
 
+    /**
+     * Add additional CSS classes
+     * ----------------------------------------------------------------
+     */
     let iconPositionClass = '';
 
     if (this.icon) {
@@ -91,6 +95,12 @@ export class LyneLinkButton {
       iconFlipClass = ' link-button--icon-flip';
     }
 
+    const variantClass = ` link-button--${this.variant}`;
+
+    /**
+     * Add additional attributes
+     * ----------------------------------------------------------------
+     */
     let addtitionalLinkAttributes = {};
     let ariaLabel = this.text;
 
@@ -99,10 +109,15 @@ export class LyneLinkButton {
         rel: 'external noopener nofollow',
         target: '_blank'
       };
-      ariaLabel += `. ${i18n['modules'].link.targetOpensInNewWindow[currentLanguage]}`;
+      ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
     }
 
-    const variantClass = ` link-button--${this.variant}`;
+    if (this.idValue) {
+      addtitionalLinkAttributes = {
+        ...addtitionalLinkAttributes,
+        id: this.idValue
+      };
+    }
 
     return (
       <a
@@ -116,7 +131,6 @@ export class LyneLinkButton {
         download={this.download}
         dir={currentWritingMode}
         href={this.hrefValue}
-        id={this.idValue}
         {...addtitionalLinkAttributes}
       >
 
