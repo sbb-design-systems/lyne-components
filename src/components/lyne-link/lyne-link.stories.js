@@ -145,7 +145,6 @@ TextLink.documentation = {
 
 export const TextLinkIconStart = Template.bind({});
 
-
 TextLinkIconStart.argTypes = defaultArgTypes;
 TextLinkIconStart.args = {
   ...defaultArgs,
