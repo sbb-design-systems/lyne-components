@@ -18,7 +18,9 @@ const wrapperStyle = (context) => {
 
 const Template = (args) => (
   <lyne-link {...args}>
-    <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+    {args.icon &&
+      <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+    }
   </lyne-link>
 );
 
@@ -37,7 +39,7 @@ const iconFlip = {
     'false'
   ],
   table: {
-    category: 'Writing Mode Adjustments'
+    category: 'Icon'
   }
 };
 
@@ -50,6 +52,9 @@ const hrefValue = {
 const icon = {
   control: {
     type: 'text'
+  },
+  table: {
+    category: 'Icon'
   }
 };
 
@@ -62,7 +67,7 @@ const iconPlacement = {
     'end'
   ],
   table: {
-    category: 'Text Variant'
+    category: 'Icon'
   }
 };
 
@@ -86,10 +91,7 @@ const textSize = {
     'xs',
     's',
     'm'
-  ],
-  table: {
-    category: 'Text Variant'
-  }
+  ]
 };
 
 const variant = {
@@ -99,10 +101,7 @@ const variant = {
   options: [
     'positive',
     'negative'
-  ],
-  table: {
-    category: 'Text Variant'
-  }
+  ]
 };
 
 const defaultArgTypes = {
@@ -176,7 +175,7 @@ TextLinkIconLeft.documentation = {
 export default {
   decorators: [
     (Story, context) => (
-      <div lang='de' style={`${wrapperStyle(context)}padding: 2rem`}>
+      <div style={`${wrapperStyle(context)}padding: 2rem`}>
         <Story/>
       </div>
     )

@@ -6,8 +6,8 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import i18n from '../../global/i18n';
 import { InterfaceLinkAttributes } from './lyne-link.custom.d';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -82,10 +82,14 @@ export class LyneLink {
 
     let openInNewWindow = false;
 
-    if (!this.hrefValue.includes('sbb.ch')) {
+    if (!window.location.href.includes(this.hrefValue)) {
       openInNewWindow = true;
     }
 
+    /**
+     * Add additional CSS classes
+     * ----------------------------------------------------------------
+     */
     let iconPositionClass = '';
 
     if (this.icon) {
@@ -98,6 +102,12 @@ export class LyneLink {
       iconFlipClass = ' link--icon-flip';
     }
 
+    const variantClass = ` link--${this.variant}`;
+
+    /**
+     * Add additional attributes
+     * ----------------------------------------------------------------
+     */
     let addtitionalLinkAttributes = {};
     let ariaLabel = this.text;
 
@@ -106,10 +116,15 @@ export class LyneLink {
         rel: 'external noopener nofollow',
         target: '_blank'
       };
-      ariaLabel += `. ${i18n['modules'].link.targetOpensInNewWindow[currentLanguage]}`;
+      ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
     }
 
-    const variantClass = ` link--${this.variant}`;
+    if (this.idValue) {
+      addtitionalLinkAttributes = {
+        ...addtitionalLinkAttributes,
+        id: this.idValue
+      };
+    }
 
     return (
       <a
@@ -124,12 +139,11 @@ export class LyneLink {
         download={this.download}
         dir={currentWritingMode}
         href={this.hrefValue}
-        id={this.idValue}
         {...addtitionalLinkAttributes}
       >
 
         {this.icon
-          ? <span class='link__text_icon'><slot name='icon'/></span>
+          ? <span class='link__icon'><slot name='icon'/></span>
           : ''
         }
 

@@ -25,10 +25,16 @@
   color: var(--text-color-normal);
   text-decoration: none;
   word-break: break-word;
+  fill: currentColor;
+
+  @include ifForcedColors {
+    fill: LinkText;
+  }
+
 }
 
-.link--icon-placement-end {
-  flex-direction: row-reverse;
+.link--icon-placement-end .link__icon {
+  order: 2;
 }
 
 .link:active {
@@ -40,22 +46,14 @@
   color: var(--text-color-hover-focus);
 }
 
-.link__text_icon {
+.link__icon {
   width: pxToRem(var(--size-icon-ui-small));
   height: pxToRem(var(--size-icon-ui-small));
 }
 
-.link[dir="rtl"].link--icon-flip .link__text_icon {
+.link[dir="rtl"].link--icon-flip .link__icon {
+  order: 1;
   transform: scaleX(-1);
-}
-
-.link__text_icon slot {
-  fill: currentColor;
-
-  @include ifForcedColors {
-    fill: LinkText;
-  }
-
 }
 
 .link--text-xs {
