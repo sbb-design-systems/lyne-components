@@ -22,8 +22,17 @@
 
 .link-button {
   @include button();
-  @include buttonShadowNotDisabled();
   text-decoration: none;
+  fill: currentColor;
+
+  @include ifForcedColors {
+    fill: LinkText;
+  }
+}
+
+.link-button--primary,
+.link-button--secondary {
+  @include buttonShadowNotDisabled();
 }
 
 .link-button:hover,
@@ -39,15 +48,11 @@
     @include buttonIcon();
 }
 
-.link-button__icon slot {
-  fill: currentColor;
-
-  @include ifForcedColors {
-    fill: LinkText;
-  }
-
+.link-button--icon-placement-end .link-button__icon {
+  order: 2;
 }
 
-.link-button--icon-placement-end {
-  flex-direction: row-reverse;
+.link-button[dir="rtl"].link--icon-flip .link-button__icon {
+  order: 1;
+  transform: scaleX(-1);
 }

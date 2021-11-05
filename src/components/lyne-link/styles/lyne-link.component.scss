@@ -35,10 +35,6 @@
 
 }
 
-.link--icon-placement-end .link__icon {
-  order: 2;
-}
-
 .link:active {
   color: var(--text-color-active);
 }
@@ -51,6 +47,10 @@
 .link__icon {
   width: pxToRem(var(--size-icon-ui-small));
   height: pxToRem(var(--size-icon-ui-small));
+}
+
+.link--icon-placement-end .link__icon {
+  order: 2;
 }
 
 .link[dir="rtl"].link--icon-flip .link__icon {
