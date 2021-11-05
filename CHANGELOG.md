@@ -1,3 +1,11 @@
+## [9.65.1](https://github.com/lyne-design-system/lyne-components/compare/v9.65.0...v9.65.1) (2021-11-05)
+
+
+### Bug Fixes
+
+* adjusting small issues with lyne-link and lyne-link-button ([ff933d3](https://github.com/lyne-design-system/lyne-components/commit/ff933d3ec3ef4e5562e608a2c7ab50570002d0a6))
+* remove obsolete order definition ([49fc6ce](https://github.com/lyne-design-system/lyne-components/commit/49fc6cef75dc0c287be578b92ff50aa896e4a494))
+
 # [9.65.0](https://github.com/lyne-design-system/lyne-components/compare/v9.64.1...v9.65.0) (2021-11-05)
 
 
