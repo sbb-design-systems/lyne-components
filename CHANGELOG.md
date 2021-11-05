@@ -1,3 +1,45 @@
+# [9.64.0](https://github.com/lyne-design-system/lyne-components/compare/v9.63.0...v9.64.0) (2021-11-05)
+
+
+### Bug Fixes
+
+* adjust link test ([259be79](https://github.com/lyne-design-system/lyne-components/commit/259be7996ef8c87bba3959f7d63ed24a0b17ea34))
+* is fixing linting in helper files ([7f16df4](https://github.com/lyne-design-system/lyne-components/commit/7f16df4455042fac4da6801e2fffad4effdc6f63))
+
+
+### Features
+
+* enforce line break for very long link texts ([35836f4](https://github.com/lyne-design-system/lyne-components/commit/35836f42d382e77482c5d439c5b6c097a2a50dc8))
+* fixing linting and typing ([50292a0](https://github.com/lyne-design-system/lyne-components/commit/50292a08e5d1e61b420b3b2fa9317846ac386b23))
+* is adding additional helpers ([b5d37ec](https://github.com/lyne-design-system/lyne-components/commit/b5d37ec9b924d9a2ed5bd040364d841fb8f8c8ae))
+* is adding download attribute support ([7fa68c6](https://github.com/lyne-design-system/lyne-components/commit/7fa68c6d66922805c443361ff6def5dc6839353f))
+* is adding high contrast fix ([b037f2c](https://github.com/lyne-design-system/lyne-components/commit/b037f2c02e61b6202c7ba6a9e99f25acf355d95f))
+* is adding lyne-link module ([9afd3f3](https://github.com/lyne-design-system/lyne-components/commit/9afd3f35d0a9919989ee341f46c3cf886a0984cc))
+* working on test ([f1a8549](https://github.com/lyne-design-system/lyne-components/commit/f1a8549c3ec763010d4d28bb3789674e2f213091))
+* working on text link variants ([1bface6](https://github.com/lyne-design-system/lyne-components/commit/1bface694037bcfde2891c1e04d8b4e77e5ecdf5))
+* working on variants ([81b61c5](https://github.com/lyne-design-system/lyne-components/commit/81b61c5286314a4e1e2c68e15803c5a407dd1288))
+
+# [9.63.0](https://github.com/lyne-design-system/lyne-components/compare/v9.62.0...v9.63.0) (2021-11-03)
+
+
+### Features
+
+* added ar-icon in fpl (triggered from Figma) (triggered from icons build) [skip ci] ([8b66418](https://github.com/lyne-design-system/lyne-components/commit/8b66418b12b071ca9449ff0ab9c91ec15213388e))
+
+# [9.62.0](https://github.com/lyne-design-system/lyne-components/compare/v9.61.0...v9.62.0) (2021-11-03)
+
+
+### Features
+
+* added ar-icon in fpl (triggered from Figma) (triggered from icons build) [skip ci] ([e193c7d](https://github.com/lyne-design-system/lyne-components/commit/e193c7debeaaadee9a4426e8257146c685d9e9de))
+
+# [9.61.0](https://github.com/lyne-design-system/lyne-components/compare/v9.60.0...v9.61.0) (2021-11-02)
+
+
+### Features
+
+* add empty slot component for ssr debugging purpose ([2dd5f19](https://github.com/lyne-design-system/lyne-components/commit/2dd5f1999a105b435af72742dc380e34e8a5ff60))
+
 # [9.60.0](https://github.com/lyne-design-system/lyne-components/compare/v9.59.0...v9.60.0) (2021-10-29)
 
 

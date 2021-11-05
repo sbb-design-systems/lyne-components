@@ -8,14 +8,14 @@ describe('lyne-link', () => {
       root
     } = await newSpecPage({
       components: [LyneLink],
-      html: `<lyne-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="right" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="positive"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></lyne-link>`
+      html: `<lyne-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="positive"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></lyne-link>`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-link
             href-value="https://github.com/lyne-design-system/lyne-components"
-            icon-placement="right"
+            icon-placement="end"
             icon="chevron-small-right-small"
             text="Travelcards &amp; tickets"
             text-size="m"
@@ -24,7 +24,7 @@ describe('lyne-link', () => {
           <mock:shadow-root>
             <a
                 aria-label="Travelcards &amp; tickets. Link target opens in new window."
-                class="link link--icon-placement-right link--positive link--text-m"
+                class="link link--icon-placement-end link--positive link--text-m"
                 dir="ltr"
                 href="https://github.com/lyne-design-system/lyne-components"
                 target="_blank"

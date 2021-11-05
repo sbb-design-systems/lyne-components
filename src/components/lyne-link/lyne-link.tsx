@@ -6,8 +6,8 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import i18n from '../../global/i18n';
 import { InterfaceLinkAttributes } from './lyne-link.custom.d';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -37,24 +37,30 @@ export class LyneLink {
    * The icon name we want to use,
    * choose from the small icon variants from
    * the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/
+   * https://lyne.sbb.ch/tokens/icons/.
    */
   @Prop() public icon?: string;
+
+  /**
+   * Pass in an id, if you need to identify
+   * the link element.
+   */
+  @Prop() public idValue?: string;
 
   /**
    * Decide whether the icon should get flipped
    * horizontally if the document writing mode
    * is changed from ltr to rtl or vice versa.
    */
-  @Prop() public iconFlip!: boolean;
+  @Prop() public iconFlip?: boolean;
 
   /**
    * The icon can either be place before or after
-   * the text
+   * the text.
    */
-  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'left';
+  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
-  /** The link text we want to visually show */
+  /** The link text we want to visually show. */
   @Prop() public text!: string;
 
   /**
@@ -64,7 +70,7 @@ export class LyneLink {
   @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
 
   /**
-   * Choose the link style variant
+   * Choose the link style variant.
    */
   @Prop() public variant: InterfaceLinkAttributes['variant'] = 'positive';
 
@@ -76,10 +82,14 @@ export class LyneLink {
 
     let openInNewWindow = false;
 
-    if (!this.hrefValue.includes('sbb.ch')) {
+    if (!window.location.href.includes(this.hrefValue)) {
       openInNewWindow = true;
     }
 
+    /**
+     * Add additional CSS classes
+     * ----------------------------------------------------------------
+     */
     let iconPositionClass = '';
 
     if (this.icon) {
@@ -92,6 +102,12 @@ export class LyneLink {
       iconFlipClass = ' link--icon-flip';
     }
 
+    const variantClass = ` link--${this.variant}`;
+
+    /**
+     * Add additional attributes
+     * ----------------------------------------------------------------
+     */
     let addtitionalLinkAttributes = {};
     let ariaLabel = this.text;
 
@@ -100,10 +116,15 @@ export class LyneLink {
         rel: 'external noopener nofollow',
         target: '_blank'
       };
-      ariaLabel += `. ${i18n['modules'].link.targetOpensInNewWindow[currentLanguage]}`;
+      ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
     }
 
-    const variantClass = ` link--${this.variant}`;
+    if (this.idValue) {
+      addtitionalLinkAttributes = {
+        ...addtitionalLinkAttributes,
+        id: this.idValue
+      };
+    }
 
     return (
       <a

@@ -24,16 +24,19 @@
   gap: pxToRem(var(--spacing-fixed-1x));
   color: var(--text-color-normal);
   text-decoration: none;
+  word-break: break-word;
+  fill: currentColor;
 
   @include ifForcedColors {
+    fill: LinkText;
     text-decoration: underline;
     text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
   }
 
 }
 
-.link--icon-placement-right {
-  flex-direction: row-reverse;
+.link--icon-placement-end .link__icon {
+  order: 2;
 }
 
 .link:active {
@@ -50,16 +53,9 @@
   height: pxToRem(var(--size-icon-ui-small));
 }
 
-.link[dir="rtl"].link--icon-flip .link__text_icon {
+.link[dir="rtl"].link--icon-flip .link__icon {
+  order: 1;
   transform: scaleX(-1);
-}
-
-.link__icon slot {
-  fill: currentColor;
-
-  @include ifForcedColors {
-    fill: LinkText;
-  }
 }
 
 .link--text-xs {

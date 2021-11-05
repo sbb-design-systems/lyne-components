@@ -18,7 +18,9 @@ const wrapperStyle = (context) => {
 
 const Template = (args) => (
   <lyne-link {...args}>
-    <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+    {args.icon &&
+      <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+    }
   </lyne-link>
 );
 
@@ -33,7 +35,7 @@ const iconFlip = {
     type: 'boolean'
   },
   table: {
-    category: 'Writing Mode Adjustments'
+    category: 'Icon'
   }
 };
 
@@ -46,6 +48,9 @@ const hrefValue = {
 const icon = {
   control: {
     type: 'text'
+  },
+  table: {
+    category: 'Icon'
   }
 };
 
@@ -54,9 +59,24 @@ const iconPlacement = {
     type: 'inline-radio'
   },
   options: [
+<<<<<<< HEAD
     'left',
     'right'
   ]
+=======
+    'start',
+    'end'
+  ],
+  table: {
+    category: 'Icon'
+  }
+};
+
+const idValue = {
+  control: {
+    type: 'text'
+  }
+>>>>>>> master
 };
 
 const text = {
@@ -92,6 +112,7 @@ const defaultArgTypes = {
   icon,
   'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
+  'id-value': idValue,
   text,
   'text-size': textSize,
   variant
@@ -103,6 +124,7 @@ const defaultArgs = {
   'icon': '',
   'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
+  'id-value': '',
   'text': 'Travelcards & tickets',
   'text-size': textSize.options[1],
   'variant': variant.options[0]
@@ -120,7 +142,7 @@ TextVariantXS.args = {
 };
 
 TextVariantXS.documentation = {
-  title: 'Text Variant XS'
+  title: 'Text Link Size XS'
 };
 
 export const TextVariantS = Template.bind({});
@@ -132,7 +154,7 @@ TextVariantS.args = {
 };
 
 TextVariantS.documentation = {
-  title: 'Text Variant S'
+  title: 'Text Links Size S'
 };
 
 export const TextVariantSNegative = Template.bind({});
@@ -145,42 +167,39 @@ TextVariantSNegative.args = {
 };
 
 TextVariantSNegative.documentation = {
-  title: 'Text Variant S'
+  title: 'Text Link Size S Negative'
 };
 
-export const TextVariantIconLeft = Template.bind({});
+export const TextVariantM = Template.bind({});
 
-TextVariantIconLeft.argTypes = defaultArgTypes;
-TextVariantIconLeft.args = {
+TextVariantM.argTypes = defaultArgTypes;
+TextVariantM.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[2]
+};
+
+TextVariantS.documentation = {
+  title: 'Text Link Size M'
+};
+
+export const TextLinkIconStart = Template.bind({});
+
+TextLinkIconStart.argTypes = defaultArgTypes;
+TextLinkIconStart.args = {
   ...defaultArgs,
   'icon': 'chevron-small-left-small',
   'icon-flip': true,
   'text-size': textSize.options[0]
 };
 
-TextVariantIconLeft.documentation = {
-  title: 'Text Variant Icon Left'
+TextLinkIconStart.documentation = {
+  title: 'Text Link Icon Start'
 };
 
-export const TextVariantIconRight = Template.bind({});
+export const TextLinkIconStartNegative = Template.bind({});
 
-TextVariantIconRight.argTypes = defaultArgTypes;
-TextVariantIconRight.args = {
-  ...defaultArgs,
-  'icon': 'chevron-small-right-small',
-  'icon-flip': true,
-  'icon-placement': iconPlacement.options[1],
-  'text-size': textSize.options[0]
-};
-
-TextVariantIconLeft.documentation = {
-  title: 'Text Variant Icon Right'
-};
-
-export const TextVariantIconRightNegative = Template.bind({});
-
-TextVariantIconRightNegative.argTypes = defaultArgTypes;
-TextVariantIconRightNegative.args = {
+TextLinkIconStartNegative.argTypes = defaultArgTypes;
+TextLinkIconStartNegative.args = {
   ...defaultArgs,
   'icon': 'chevron-small-right-small',
   'icon-flip': true,
@@ -189,14 +208,45 @@ TextVariantIconRightNegative.args = {
   'variant': variant.options[1]
 };
 
-TextVariantIconRightNegative.documentation = {
-  title: 'Text Variant Icon Right Negative'
+TextLinkIconStartNegative.documentation = {
+  title: 'Text Link Icon Start Negative'
+};
+
+export const TextLinkIconEnd = Template.bind({});
+
+TextLinkIconEnd.argTypes = defaultArgTypes;
+TextLinkIconEnd.args = {
+  ...defaultArgs,
+  'icon': 'chevron-small-right-small',
+  'icon-flip': true,
+  'icon-placement': iconPlacement.options[1],
+  'text-size': textSize.options[0]
+};
+
+TextVariantIconLeft.documentation = {
+  title: 'Text Link Icon End'
+};
+
+export const TextLinkIconEndNegative = Template.bind({});
+
+TextLinkIconEndNegative.argTypes = defaultArgTypes;
+TextLinkIconEndNegative.args = {
+  ...defaultArgs,
+  'icon': 'chevron-small-right-small',
+  'icon-flip': true,
+  'icon-placement': iconPlacement.options[1],
+  'text-size': textSize.options[0],
+  'variant': variant.options[1]
+};
+
+TextLinkIconEndNegative.documentation = {
+  title: 'Text Variant Icon End Negative'
 };
 
 export default {
   decorators: [
     (Story, context) => (
-      <div lang='de' style={`${wrapperStyle(context)}padding: 2rem`}>
+      <div style={`${wrapperStyle(context)}padding: 2rem`}>
         <Story/>
       </div>
     )

@@ -1,5 +1,5 @@
 export interface InterfaceLinkAttributes {
-  iconPlacement?: 'left' | 'right';
-  textSize?: 'xs' | 's';
+  iconPlacement?: 'start' | 'end';
+  textSize?: 'xs' | 's' | 'm';
   variant?: 'positive' | 'negative';
 }
