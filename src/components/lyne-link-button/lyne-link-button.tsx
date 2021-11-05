@@ -6,8 +6,8 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import { InterfaceLinkAttributes } from './lyne-link.custom.d';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { InterfaceLinkButtonAttributes } from './lyne-link-button.custom.d';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -16,13 +16,13 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-link.default.scss',
-    shared: 'styles/lyne-link.shared.scss'
+    default: 'styles/lyne-link-button.default.scss',
+    shared: 'styles/lyne-link-button.shared.scss'
   },
-  tag: 'lyne-link'
+  tag: 'lyne-link-button'
 })
 
-export class LyneLink {
+export class LyneLinkButton {
 
   /**
    * If set to true, the browser will
@@ -37,15 +37,9 @@ export class LyneLink {
    * The icon name we want to use,
    * choose from the small icon variants from
    * the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/.
+   * https://lyne.sbb.ch/tokens/icons/
    */
   @Prop() public icon?: string;
-
-  /**
-   * Pass in an id, if you need to identify
-   * the link element.
-   */
-  @Prop() public idValue?: string;
 
   /**
    * Decide whether the icon should get flipped
@@ -56,27 +50,26 @@ export class LyneLink {
 
   /**
    * The icon can either be place before or after
-   * the text.
+   * the text
    */
-  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
+  @Prop() public iconPlacement: InterfaceLinkButtonAttributes['iconPlacement'] = 'start';
 
-  /** The link text we want to visually show. */
+  /**
+   * Pass in an id, if you need to identify
+   * the link element.
+   */
+  @Prop() public idValue?: string;
+
+  /** The link text we want to visually show */
   @Prop() public text!: string;
 
   /**
-   * Text size, the link should get in the
-   * non button variation.
+   * Choose the link button style variant
    */
-  @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
-
-  /**
-   * Choose the link style variant.
-   */
-  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'positive';
+  @Prop() public variant: InterfaceLinkButtonAttributes['variant'] = 'primary';
 
   public render(): JSX.Element {
 
-    const textSizeClass = ` link--text-${this.textSize}`;
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
 
@@ -93,16 +86,16 @@ export class LyneLink {
     let iconPositionClass = '';
 
     if (this.icon) {
-      iconPositionClass = ` link--icon-placement-${this.iconPlacement}`;
+      iconPositionClass = ` link-button--icon-placement-${this.iconPlacement}`;
     }
 
     let iconFlipClass = '';
 
     if (this.icon && this.iconFlip) {
-      iconFlipClass = ' link--icon-flip';
+      iconFlipClass = ' link-button--icon-flip';
     }
 
-    const variantClass = ` link--${this.variant}`;
+    const variantClass = ` link-button--${this.variant}`;
 
     /**
      * Add additional attributes
@@ -130,8 +123,7 @@ export class LyneLink {
       <a
         aria-label={ariaLabel}
         class={
-          `link
-          ${textSizeClass}
+          `link-button
           ${iconPositionClass}
           ${iconFlipClass}
           ${variantClass}`
@@ -143,11 +135,11 @@ export class LyneLink {
       >
 
         {this.icon
-          ? <span class='link__icon'><slot name='icon'/></span>
+          ? <span class='link-button__icon'><slot name='icon'/></span>
           : ''
         }
 
-        <span class='link__text'>
+        <span class='link-button__text'>
           {this.text}
         </span>
       </a>

@@ -29,6 +29,8 @@
 
   @include ifForcedColors {
     fill: LinkText;
+    text-decoration: underline;
+    text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
   }
 
 }

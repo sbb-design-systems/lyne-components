@@ -16,7 +16,7 @@
 | `iconPlacement`          | `icon-placement` | The icon can either be place before or after the text.                                                                                    | `"end" \| "start"`         | `'start'`    |
 | `idValue`                | `id-value`       | Pass in an id, if you need to identify the link element.                                                                                  | `string`                   | `undefined`  |
 | `text` _(required)_      | `text`           | The link text we want to visually show.                                                                                                   | `string`                   | `undefined`  |
-| `textSize`               | `text-size`      | Text size, the link should get in the non button variation.                                                                               | `"m" \| "s" \| "xs"`       | `'m'`        |
+| `textSize`               | `text-size`      | Text size, the link should get in the non button variation.                                                                               | `"m" \| "s" \| "xs"`       | `'s'`        |
 | `variant`                | `variant`        | Choose the link style variant.                                                                                                            | `"negative" \| "positive"` | `'positive'` |
 
 
