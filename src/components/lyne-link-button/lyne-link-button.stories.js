@@ -23,7 +23,9 @@ const wrapperStyle = (context) => {
 
 const Template = (args) => (
   <lyne-link-button {...args}>
-    <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+    {args.icon &&
+      <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+    }
   </lyne-link-button>
 );
 
