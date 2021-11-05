@@ -1,5 +1,5 @@
 import lyneIcons from 'lyne-icons/dist/icons.json';
-import { LyneLink } from './lyne-link';
+import { LyneLinkButton } from './lyne-link-button';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('lyne-link', () => {
@@ -7,33 +7,32 @@ describe('lyne-link', () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneLink],
-      html: `<lyne-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="positive"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></lyne-link>`
+      components: [LyneLinkButton],
+      html: `<lyne-link-button href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="right" icon="chevron-small-right-small" text="Travelcards &amp; tickets" variant="primary"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></lyne-link>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-link
+        <lyne-link-button
             href-value="https://github.com/lyne-design-system/lyne-components"
-            icon-placement="end"
+            icon-placement="right"
             icon="chevron-small-right-small"
             text="Travelcards &amp; tickets"
-            text-size="m"
-            variant="positive"
+            variant="primary"
         >
           <mock:shadow-root>
             <a
                 aria-label="Travelcards &amp; tickets. Link target opens in new window."
-                class="link link--icon-placement-end link--positive link--text-m"
+                class="link-button link-button--icon-placement-right link-button--primary"
                 dir="ltr"
                 href="https://github.com/lyne-design-system/lyne-components"
                 target="_blank"
                 rel="external noopener nofollow"
             >
-                <span class="link__icon">
+                <span class="link-button__icon">
                     <slot name="icon"></slot>
                 </span>
-                <span class="link__text">Travelcards & tickets</span>
+                <span class="link-button__text">Travelcards & tickets</span>
             </a>
           </mock:shadow-root>
           <span slot="icon">
@@ -42,7 +41,7 @@ describe('lyne-link', () => {
                 </path>
             </svg>
           </span>
-        </lyne-link>
+        </lyne-link-button>
       `);
   });
 
