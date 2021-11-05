@@ -8,7 +8,8 @@ import { InterfaceLyneLinkListAttributes } from './lyne-link-list.custom.d';
 import { InterfaceTitleAttributes } from '../lyne-title/lyne-title.custom.d';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot link-list__item - Use this to render the
+ * list items with the links inside
  */
 
 @Component({

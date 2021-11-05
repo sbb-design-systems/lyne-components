@@ -16,9 +16,9 @@
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot                | Description                                             |
+| ------------------- | ------------------------------------------------------- |
+| `"link-list__item"` | Use this to render the list items with the links inside |
 
 
 ## Dependencies
