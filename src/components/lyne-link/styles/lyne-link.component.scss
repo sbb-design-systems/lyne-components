@@ -1,0 +1,69 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: inline-block;
+
+  --text-color-normal: var(--color-metal-default);
+  --text-color-hover-focus: var(--color-red125-default);
+  --text-color-active: var(--color-red150-default);
+
+}
+
+.link--negative {
+  --text-color-normal: var(--color-white-default);
+  --text-color-hover-focus: var(--color-cloud-default);
+  --text-color-active: var(--color-silver-default);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: pxToRem(var(--spacing-fixed-1x));
+  color: var(--text-color-normal);
+  text-decoration: none;
+  word-break: break-word;
+  fill: currentColor;
+
+  @include ifForcedColors {
+    fill: LinkText;
+  }
+
+}
+
+.link--icon-placement-end .link__icon {
+  order: 2;
+}
+
+.link:active {
+  color: var(--text-color-active);
+}
+
+.link:focus,
+.link:hover {
+  color: var(--text-color-hover-focus);
+}
+
+.link__icon {
+  width: pxToRem(var(--size-icon-ui-small));
+  height: pxToRem(var(--size-icon-ui-small));
+}
+
+.link[dir="rtl"].link--icon-flip .link__icon {
+  order: 1;
+  transform: scaleX(-1);
+}
+
+.link--text-xs {
+  @include text-xs--regular();
+}
+
+.link--text-s {
+  @include text-s--regular();
+}
+
+.link--text-m {
+  @include text-m--regular();
+}
