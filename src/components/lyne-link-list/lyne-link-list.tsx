@@ -52,15 +52,11 @@ export class LyneLinkList {
   }
 
   public render(): JSX.Element {
-
-    let showTitle = true;
     let additionalAttributes = {};
 
     const id = `title-${this._guid}`;
 
-    if (this.titleText === '') {
-      showTitle = false;
-    } else {
+    if (this.titleText) {
       additionalAttributes = {
         'aria-labelledby': id
       };
@@ -70,7 +66,7 @@ export class LyneLinkList {
       // the role="list" is needed for voice over: https://bit.ly/3CDiZaG
       <div>
         {
-          showTitle
+          this.titleText
             ? <lyne-title
               id={id}
               level={this.titleLevel}
@@ -84,7 +80,7 @@ export class LyneLinkList {
         <ul
           {...additionalAttributes}
           class='link-list'
-          role='list' // eslint-disable-line
+          role='list'
         >
           <slot name='link-list__item'/>
         </ul>
