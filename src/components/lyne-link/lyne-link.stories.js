@@ -232,7 +232,7 @@ TextVariantM.args = {
   'text-size': textSize.options[2]
 };
 
-TextVariantS.documentation = {
+TextVariantM.documentation = {
   title: 'Text Link Size M'
 };
 

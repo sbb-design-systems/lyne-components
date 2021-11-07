@@ -1,3 +1,37 @@
+## [9.65.1](https://github.com/lyne-design-system/lyne-components/compare/v9.65.0...v9.65.1) (2021-11-05)
+
+
+### Bug Fixes
+
+* adjusting small issues with lyne-link and lyne-link-button ([ff933d3](https://github.com/lyne-design-system/lyne-components/commit/ff933d3ec3ef4e5562e608a2c7ab50570002d0a6))
+* remove obsolete order definition ([49fc6ce](https://github.com/lyne-design-system/lyne-components/commit/49fc6cef75dc0c287be578b92ff50aa896e4a494))
+
+# [9.65.0](https://github.com/lyne-design-system/lyne-components/compare/v9.64.1...v9.65.0) (2021-11-05)
+
+
+### Bug Fixes
+
+* fixing linting ([dcdbf4d](https://github.com/lyne-design-system/lyne-components/commit/dcdbf4d6506ed90bcc6a8ba44271873a3d3090b2))
+* fixing tests ([516c737](https://github.com/lyne-design-system/lyne-components/commit/516c7376bcea57a1843e50434595881a9cfc7c34))
+
+
+### Features
+
+* fixing hcm ([05d2d1c](https://github.com/lyne-design-system/lyne-components/commit/05d2d1c42815f9ca16ff5f7584d7a24c8d2ed4e9))
+* is adding separate lyne-link-button module, re-factoring lyne-button a bit ([b169a53](https://github.com/lyne-design-system/lyne-components/commit/b169a53c3088c5d616e345a47433c81e6ecaf029))
+* re-adjusting lyne-link and lyne-button modules ([ece4c71](https://github.com/lyne-design-system/lyne-components/commit/ece4c71a185b1114c2fcf9a6e88f8159c4f746fc))
+* resolving merge conflict ([646431a](https://github.com/lyne-design-system/lyne-components/commit/646431a83cd0047ff5b8ad91ccfc38dfd80326f3))
+* resolving merge conflict ([ebe0774](https://github.com/lyne-design-system/lyne-components/commit/ebe07742cee6920a0b597cc274d70eb334c85d4c))
+* takeover changes from lyne-link pr ([85b4e1a](https://github.com/lyne-design-system/lyne-components/commit/85b4e1ae2910aa5c680f0207909531650aa56da0))
+
+## [9.64.1](https://github.com/lyne-design-system/lyne-components/compare/v9.64.0...v9.64.1) (2021-11-05)
+
+
+### Bug Fixes
+
+* fixing lyne link documentation titles ([d79b84f](https://github.com/lyne-design-system/lyne-components/commit/d79b84f155a78166a62e636d9d3329be45218866))
+* removing obsolete empty line in line-link.stories.js ([6b6869d](https://github.com/lyne-design-system/lyne-components/commit/6b6869ddb736be40ceaacfc168f6bbd5c26a8d32))
+
 # [9.64.0](https://github.com/lyne-design-system/lyne-components/compare/v9.63.0...v9.64.0) (2021-11-05)
 
 

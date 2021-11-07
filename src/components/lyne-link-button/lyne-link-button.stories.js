@@ -8,12 +8,12 @@ import readme from './readme.md';
 
 const wrapperStyle = (context) => {
 
-  const variantsWithRedBg = [
+  const variantsOnDarkBg = [
     'primary-negative',
     'secondary-negative'
   ];
 
-  if (variantsWithRedBg.indexOf(context.args.variant) === -1) {
+  if (variantsOnDarkBg.indexOf(context.args.variant) === -1) {
     return `background-color: ${ColorWhiteDefault};`;
   }
 
@@ -46,7 +46,7 @@ const iconFlip = {
     type: 'boolean'
   },
   table: {
-    category: 'Writing Mode Adjustments'
+    category: 'Icon'
   }
 };
 
@@ -59,6 +59,9 @@ const hrefValue = {
 const icon = {
   control: {
     type: 'text'
+  },
+  table: {
+    category: 'Icon'
   }
 };
 
@@ -67,9 +70,12 @@ const iconPlacement = {
     type: 'inline-radio'
   },
   options: [
-    'left',
-    'right'
-  ]
+    'start',
+    'end'
+  ],
+  table: {
+    category: 'Icon'
+  }
 };
 
 const text = {
@@ -171,7 +177,7 @@ LinkButtonSecondaryNegative.args = {
   variant: variant.options[3]
 };
 
-LinkButtonSecondary.documentation = {
+LinkButtonSecondaryNegative.documentation = {
   title: 'Link Button Secondary Negative'
 };
 
