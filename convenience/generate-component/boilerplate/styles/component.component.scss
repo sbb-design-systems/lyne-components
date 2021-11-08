@@ -4,9 +4,7 @@
 @include host-component-properties;
 
 :host {
-  display: block;
-
-  --some-color-var: black;
+  --some-color-var: var(--color-black-default);
 }
 
 .some-class {
