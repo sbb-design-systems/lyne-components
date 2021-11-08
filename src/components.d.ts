@@ -15,6 +15,7 @@ import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyn
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
+import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 export namespace Components {
     interface LyneAccordion {
@@ -343,6 +344,45 @@ export namespace Components {
          */
         "text": string;
     }
+    interface LyneTextInput {
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "icon"?: string;
+        /**
+          * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
+         */
+        "inputAutoCompleteValue"?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
+        /**
+          * If set to true, the input field will be disabled.
+         */
+        "inputDisabled"?: boolean;
+        /**
+          * Each input should have an individual id.
+         */
+        "inputId"?: string;
+        /**
+          * Each input should have an individual name.
+         */
+        "inputName": string;
+        /**
+          * Add a placeholder to show what kind of input is expected.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * If set to true, an input in this field will be required.
+         */
+        "inputRequired": boolean;
+        /**
+          * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
+         */
+        "inputType": string;
+        /**
+          * Each input element needs to have a label associated with it.
+         */
+        "label": string;
+        "requiredValue"?: false;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -445,6 +485,12 @@ declare global {
         prototype: HTMLLyneTeaserHeroElement;
         new (): HTMLLyneTeaserHeroElement;
     };
+    interface HTMLLyneTextInputElement extends Components.LyneTextInput, HTMLStencilElement {
+    }
+    var HTMLLyneTextInputElement: {
+        prototype: HTMLLyneTextInputElement;
+        new (): HTMLLyneTextInputElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -465,6 +511,7 @@ declare global {
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
+        "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -795,6 +842,45 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
+    interface LyneTextInput {
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "icon"?: string;
+        /**
+          * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
+         */
+        "inputAutoCompleteValue"?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
+        /**
+          * If set to true, the input field will be disabled.
+         */
+        "inputDisabled"?: boolean;
+        /**
+          * Each input should have an individual id.
+         */
+        "inputId"?: string;
+        /**
+          * Each input should have an individual name.
+         */
+        "inputName": string;
+        /**
+          * Add a placeholder to show what kind of input is expected.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * If set to true, an input in this field will be required.
+         */
+        "inputRequired": boolean;
+        /**
+          * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
+         */
+        "inputType": string;
+        /**
+          * Each input element needs to have a label associated with it.
+         */
+        "label": string;
+        "requiredValue"?: false;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -831,6 +917,7 @@ declare namespace LocalJSX {
         "lyne-sbb-signet": LyneSbbSignet;
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
+        "lyne-text-input": LyneTextInput;
         "lyne-title": LyneTitle;
     }
 }
@@ -851,6 +938,7 @@ declare module "@stencil/core" {
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
+            "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }

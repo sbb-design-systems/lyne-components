@@ -1,0 +1,74 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+
+  --text-color-label: var(--color-metal-default);
+  --text-color-placeholder: var(--color-metal-default);
+
+  --text-color-input-default: var(--color-charcoal-default);
+  --text-color-input-error: var(--color-red125-default);
+
+  --border-color-default: var(--color-smoke-default);
+  --border-color-disabled: var(--color-graphite-default);
+  --border-color-error: var(--color-red125-default);
+  --border-color-focus: var(--color-charcoal-default);
+
+  --background-color-disabled: var(--color-milk-default);
+  --text-color-disabled: var(--border-color-disabled);
+
+  --input-height: 48; // TODO Design Token??
+  --input-padding-start: 19;
+
+  @include mq($from: medium) {
+    --input-height: 56;
+  }
+
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-label {
+  @include text-xs--regular();
+  position: absolute;
+  inset-block-start: pxToRem(var(--spacing-fixed-1x));
+  inset-inline-start: 0;
+
+  padding-inline-start: pxToRem(var(--spacing-fixed-3x));
+  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
+  color: var(--text-color-label);
+}
+
+.input {
+  @include text-m--regular();
+  @include placeholder();
+
+  height: pxToRem(var(--input-height));
+  padding-block-start: pxToRem(var(--input-padding-start));
+  padding-inline-start: pxToRem(var(--spacing-fixed-3x));
+  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
+
+  border: pxToRem(1) solid var(--border-color-default);
+  border-radius: pxToRem(var(--border-radius-4x));
+
+  color: var(--text-color-input-default);
+
+}
+
+.input:focus {
+  border-color: var(--border-color-focus);
+}
+
+.input[disabled] {
+  color: var(--text-color-disabled);
+  background: var(--background-color-disabled);
+}
+
+.input[disabled] + .input-label {
+  color: var(--text-color-disabled);
+}

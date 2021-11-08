@@ -121,3 +121,9 @@
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
 }
+
+@mixin placeholder() {
+  ::placeholder {
+    color: var(--text-color-placeholder);
+  }
+}

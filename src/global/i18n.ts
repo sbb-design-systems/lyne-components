@@ -4,3 +4,10 @@ export const i18nTargetOpensInNewWindow: any = {
   fr: 'Le lien s\'ouvre dans une nouvelle fenêtre.',
   it: 'L\'obiettivo del link si apre in una nuova finestra.'
 };
+
+export const i18nOptional: any = {
+  de: '(optional)',
+  en: '(optional)',
+  fr: '(facultatif)',
+  it: '(facoltativo)'
+};
