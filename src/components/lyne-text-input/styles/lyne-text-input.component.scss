@@ -31,6 +31,12 @@
     --input-height: 56;
   }
 
+  @include ifForcedColors {
+    --border-color-error: LinkText;
+    --text-color-input-error: LinkText;
+    --text-color-disabled: GrayText;
+  }
+
 }
 
 .input-wrapper--error {
@@ -85,12 +91,17 @@
 
 .input-wrapper--error .input {
   color: inherit;
-  border-color: currentColor;
+  border-color: var(--border-color-error);
 }
 
 .input-wrapper--error ::placeholder {
   color: var(--text-color-input-error); // TODO undefined in design yet
   opacity: .3;
+
+  @include ifForcedColors {
+    opacity: .5;
+  }
+
 }
 
 // Label

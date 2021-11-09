@@ -355,7 +355,6 @@ export namespace Components {
         "text": string;
     }
     interface LyneTextInput {
-        "_isDisabled": boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
@@ -377,9 +376,21 @@ export namespace Components {
          */
         "inputId"?: string;
         /**
+          * Pass on a expected max length.
+         */
+        "inputMaxLength": number;
+        /**
+          * Pass on a expected min length.
+         */
+        "inputMinLength": number;
+        /**
           * Each input should have an individual name.
          */
         "inputName": string;
+        /**
+          * Add a validation pattern (regex) the input should follow. Read more here: https://mzl.la/3C3HTiG
+         */
+        "inputPattern"?: string;
         /**
           * Add a placeholder to show what kind of input is expected.
          */
@@ -878,7 +889,6 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LyneTextInput {
-        "_isDisabled"?: boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
@@ -900,9 +910,21 @@ declare namespace LocalJSX {
          */
         "inputId"?: string;
         /**
+          * Pass on a expected max length.
+         */
+        "inputMaxLength": number;
+        /**
+          * Pass on a expected min length.
+         */
+        "inputMinLength": number;
+        /**
           * Each input should have an individual name.
          */
         "inputName": string;
+        /**
+          * Add a validation pattern (regex) the input should follow. Read more here: https://mzl.la/3C3HTiG
+         */
+        "inputPattern"?: string;
         /**
           * Add a placeholder to show what kind of input is expected.
          */

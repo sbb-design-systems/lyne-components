@@ -123,6 +123,24 @@ const inputId = {
   }
 };
 
+const inputMaxLength = {
+  control: {
+    type: 'number'
+  },
+  table: {
+    category: 'Validation'
+  }
+};
+
+const inputMinLength = {
+  control: {
+    type: 'number'
+  },
+  table: {
+    category: 'Validation'
+  }
+};
+
 const inputName = {
   control: {
     type: 'text'
@@ -194,6 +212,8 @@ const defaultArgTypes = {
   'input-disabled': inputDisabled,
   'input-error': inputError,
   'input-id': inputId,
+  'input-max-length': inputMaxLength,
+  'input-min-length': inputMinLength,
   'input-name': inputName,
   'input-pattern': inputPattern,
   'input-placeholder': inputPlaceholder,
@@ -211,6 +231,8 @@ const defaultArgs = {
   'input-error': false,
   'input-id': '',
   'input-name': 'textfield',
+  'input-max-length': '',
+  'input-min-length': '',
   'input-pattern': '',
   'input-placeholder': 'Placeholder Text',
   'input-required': false,
@@ -231,6 +253,18 @@ TextInputOptional.args = {
 
 TextInputOptional.documentation = {
   title: 'Text Input Optional'
+};
+
+export const TextInputOptionalDisabled = Template.bind({});
+
+TextInputOptionalDisabled.argTypes = defaultArgTypes;
+TextInputOptionalDisabled.args = {
+  ...defaultArgs,
+  'input-disabled': true
+};
+
+TextInputOptionalDisabled.documentation = {
+  title: 'Text Input Optional Disabled'
 };
 
 export const TextInputRequired = Template.bind({});
@@ -294,6 +328,7 @@ TextInputEmail.args = {
   'input-name': 'email-address',
   'input-placeholder': 'abc@def.com',
   'input-required': true,
+  'input-type': 'email',
   'label': 'Email address'
 };
 

@@ -8,6 +8,11 @@
   margin-block-start: pxToRem(var(--spacing-fixed-2x));
 
   --text-color: var(--color-red125-default);
+
+  @include ifForcedColors {
+    --text-color: LinkText;
+  }
+
 }
 
 // Error

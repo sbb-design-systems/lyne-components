@@ -5,6 +5,7 @@ import {
 } from '@stencil/core';
 // import events from './lyne-text-input.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { i18nMandatoryField } from '../../global/i18n';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceLyneTextInputAttributes } from './lyne-text-input.custom.d';
 import { guid } from '../../global/guid';
@@ -25,7 +26,9 @@ import { guid } from '../../global/guid';
 export class LyneTextInput {
 
   private _additionalInputClasses = [];
-  private _addtitionalInputAttributes = {};
+  private _addtitionalInputAttributes = {}
+  private _errorMessageId = '';
+  private _labelAriaLabel = '';
 
   /**
    * The icon name we want to use,
@@ -60,6 +63,12 @@ export class LyneTextInput {
   /** Each input should have an individual id. */
   @Prop() public inputId?: string;
 
+  /** Pass on a expected max length. */
+  @Prop() public inputMaxLength!: number;
+
+  /** Pass on a expected min length. */
+  @Prop() public inputMinLength!: number;
+
   /** Each input should have an individual name. */
   @Prop() public inputName!: string;
 
@@ -68,6 +77,13 @@ export class LyneTextInput {
    * will be required.
    */
   @Prop() public inputRequired!: boolean;
+
+  /**
+   * Add a validation pattern (regex) the input
+   * should follow.
+   * Read more here: https://mzl.la/3C3HTiG
+   */
+  @Prop() public inputPattern?: string;
 
   /**
    * Add a placeholder to show what kind of input
@@ -116,12 +132,47 @@ export class LyneTextInput {
   }
 
   private _getAdditionalInputAttributes(): void {
+
+    this._addtitionalInputAttributes = {};
+
     if (this.inputDisabled) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
         disabled: true
       };
     }
+
+    if (this.inputPattern) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        pattern: this.inputPattern
+      };
+    }
+
+    if (this.inputMaxLength) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        maxlength: this.inputMaxLength
+      };
+    }
+
+    if (this.inputMinLength) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        minlength: this.inputMinLength
+      };
+    }
+
+    if (this.inputError) {
+      this._errorMessageId = `error-${this.inputId}`;
+
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        'aria-describedby': this._errorMessageId,
+        'aria-invalid': 'true'
+      };
+    }
+
   }
 
   public componentWillLoad(): void {
@@ -136,6 +187,16 @@ export class LyneTextInput {
 
     this._getAdditionalStyleClasses();
     this._getAdditionalInputAttributes();
+
+    /**
+     * This will improve the announcement of the label
+     * in Voice Over on iOS Safari
+     */
+    if (this.inputRequired) {
+      this._labelAriaLabel = this.label
+    } else {
+      this._labelAriaLabel = `${this.label} ${i18nOptional[currentLanguage]}.`
+    }
 
     return (
       <div
@@ -157,20 +218,29 @@ export class LyneTextInput {
             {...this._addtitionalInputAttributes}
           />
           <label
+            aria-label={this._labelAriaLabel}
             class='input-label'
             htmlFor={this.inputId}
           >
-            <span class='input-label--text'>
+            <span
+              aria-hidden='true'
+              class='input-label--text'
+            >
               {this.label}
             </span>
             {this.inputRequired
               ? ''
-              : <span class='input-label--optional'>&nbsp;{i18nOptional[currentLanguage]}</span>
+              : <span
+                  aria-hidden='true'
+                  class='input-label--optional'
+                >
+                  &nbsp;{i18nOptional[currentLanguage]}
+                </span>
             }
           </label>
         </div>
         {this.inputError
-          ? <lyne-input-error message-id={`error-${this.inputId}`} message=''></lyne-input-error>
+          ? <lyne-input-error message-id={this._errorMessageId} message={i18nMandatoryField[currentLanguage]}></lyne-input-error>
           : ''
         }
       </div>
