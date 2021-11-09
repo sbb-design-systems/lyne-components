@@ -336,6 +336,23 @@ TextInputEmail.documentation = {
   title: 'Text Input Email Address'
 };
 
+export const TextInputExistingPassword = Template.bind({});
+
+TextInputExistingPassword.argTypes = defaultArgTypes;
+TextInputExistingPassword.args = {
+  ...defaultArgs,
+  'input-autocomplete-value': inputAutoCompleteValue.options[24],
+  'input-name': 'current-password',
+  'input-placeholder': '',
+  'input-required': true,
+  'input-type': 'password',
+  'label': 'Password'
+};
+
+TextInputEmail.documentation = {
+  title: 'Text Input Existing Password'
+};
+
 export default {
   decorators: [
     (Story) => (

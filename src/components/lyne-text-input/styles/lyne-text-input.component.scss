@@ -135,8 +135,7 @@
 }
 
 .input-wrapper--with-icon .input-label {
-  left: pxToRem(var(--input-with-icon-padding-inline-start));
-  padding-inline-start: 0;
+  padding-inline-start: pxToRem(var(--input-with-icon-padding-inline-start));
 }
 
 // Icon

@@ -372,7 +372,7 @@ export namespace Components {
          */
         "inputError"?: boolean;
         /**
-          * Each input should have an individual id.
+          * Each input needs to have an individual id. If no id is provided, the component will create a unique id by itself.
          */
         "inputId"?: string;
         /**
@@ -906,7 +906,7 @@ declare namespace LocalJSX {
          */
         "inputError"?: boolean;
         /**
-          * Each input should have an individual id.
+          * Each input needs to have an individual id. If no id is provided, the component will create a unique id by itself.
          */
         "inputId"?: string;
         /**
