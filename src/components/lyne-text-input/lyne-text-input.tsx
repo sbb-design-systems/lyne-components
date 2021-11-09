@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import {
   Component,
   h,
@@ -26,6 +24,9 @@ import { guid } from '../../global/guid';
 
 export class LyneTextInput {
 
+  private _additionalInputClasses = [];
+  private _addtitionalInputAttributes = {};
+
   /**
    * The icon name we want to use,
    * choose from the small icon variants from
@@ -39,13 +40,22 @@ export class LyneTextInput {
    * autocomplete values. Read more about them
    * here: https://mzl.la/3wpfaDV
    */
-  @Prop() public inputAutoCompleteValue?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'] = 'off';
+  @Prop() public inputAutoCompleteValue?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
 
   /**
    * If set to true, the input field will
    * be disabled.
-   * */
+   */
   @Prop() public inputDisabled?: boolean;
+
+  /**
+   * If set to true, we will set an
+   * an error message for the current
+   * input field.
+   */
+  @Prop({
+    reflect: true
+  }) public inputError?: boolean;
 
   /** Each input should have an individual id. */
   @Prop() public inputId?: string;
@@ -59,8 +69,10 @@ export class LyneTextInput {
    */
   @Prop() public inputRequired!: boolean;
 
-  /** Add a placeholder to show what kind of input
-   * is expected. */
+  /**
+   * Add a placeholder to show what kind of input
+   * is expected.
+   */
   @Prop() public inputPlaceholder?: string;
 
   /**
@@ -78,25 +90,43 @@ export class LyneTextInput {
    */
   @Prop() public label!: string;
 
-  @Prop() public requiredValue?: false;
+  /**
+   * If set to true, the label will be visually
+   * hidden but still be in the markup to provide
+   * proper semantics
+   */
+  @Prop() public labelVisible?: true;
 
-  /* @Element() private _element: HTMLElement;
+  private _getAdditionalStyleClasses(): void {
 
-  private _clickHandler = (): void => {
+    this._additionalInputClasses = [];
 
-    const event = new CustomEvent(events.click, {
-      bubbles: true,
-      composed: true,
-      detail: 'some event detail'
-    });
+    if (!this.labelVisible) {
+      this._additionalInputClasses.push('input-wrapper--label-hidden');
+    }
 
-    this._element.dispatchEvent(event);
-  }; */
+    if (this.icon) {
+      this._additionalInputClasses.push('input-wrapper--with-icon');
+    }
 
+    if (this.inputError) {
+      this._additionalInputClasses.push('input-wrapper--error');
+    }
+
+  }
+
+  private _getAdditionalInputAttributes(): void {
+    if (this.inputDisabled) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        disabled: true
+      };
+    }
+  }
 
   public componentWillLoad(): void {
     if (!this.inputId) {
-      this.inputId = `input-` + guid();
+      this.inputId = `input-${guid()}`;
     }
   }
 
@@ -104,48 +134,45 @@ export class LyneTextInput {
 
     const currentLanguage = getDocumentLang();
 
-    /**
-     * Add additional attributes
-     * ----------------------------------------------------------------
-     */
-    let addtitionalInputAttributes = {};
-
-    if (this.inputDisabled) {
-      addtitionalInputAttributes = {
-        ...addtitionalInputAttributes,
-        disabled: true
-      };
-    }
+    this._getAdditionalStyleClasses();
+    this._getAdditionalInputAttributes();
 
     return (
       <div
-        class='input-wrapper'
-        role='none'
+        class={`input-wrapper ${this._additionalInputClasses.join(' ')}`}
       >
-        <input
-          autocomplete={this.inputAutoCompleteValue}
-          class='input'
-          id={this.inputId}
-          name={this.inputName}
-          placeholder={this.inputPlaceholder}
-          required={this.requiredValue}
-          type={this.inputType}
-          {...addtitionalInputAttributes}
-        />
-        <label
-          class='input-label'
-          htmlFor={this.inputId}
-        >
+        <div class='input-wrapper__inner'>
           {this.icon
             ? <span class='link__icon'><slot name='icon'/></span>
             : ''
           }
-          {this.label}
-          {this.inputRequired
-            ? ''
-            : ` ${i18nOptional[currentLanguage]}`
-          }
-        </label>
+          <input
+            autocomplete={this.inputAutoCompleteValue}
+            class='input'
+            id={this.inputId}
+            name={this.inputName}
+            placeholder={this.inputPlaceholder}
+            required={this.inputRequired}
+            type={this.inputType}
+            {...this._addtitionalInputAttributes}
+          />
+          <label
+            class='input-label'
+            htmlFor={this.inputId}
+          >
+            <span class='input-label--text'>
+              {this.label}
+            </span>
+            {this.inputRequired
+              ? ''
+              : <span class='input-label--optional'>&nbsp;{i18nOptional[currentLanguage]}</span>
+            }
+          </label>
+        </div>
+        {this.inputError
+          ? <lyne-input-error message-id={`error-${this.inputId}`} message=''></lyne-input-error>
+          : ''
+        }
       </div>
     );
   }

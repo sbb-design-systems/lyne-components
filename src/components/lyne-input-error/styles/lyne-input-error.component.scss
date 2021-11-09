@@ -5,23 +5,14 @@
 
 :host {
   display: block;
+  margin-block-start: pxToRem(var(--spacing-fixed-2x));
+
+  --text-color: var(--color-red125-default);
 }
 
-.taser-hero {
-  position: relative;
-  display: block;
-}
-
-.teaser-hero__image {
-  display: block;
-}
-
-.teaser-hero__panel {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.teaser-hero__link-info-text {
-  @include screenReaderOnly;
+// Error
+// ----------------------------------------------
+.input-label--error {
+  @include text-xs--regular();
+  color: var(--text-color);
 }

@@ -178,6 +178,16 @@ export namespace Components {
          */
         "variant"?: InterfaceImageAttributes['variant'];
     }
+    interface LyneInputError {
+        /**
+          * The error message, we want to show.
+         */
+        "message"?: string;
+        /**
+          * Each error message needs a unique id which will be passed on from another module (e.g. lyne-text-input).
+         */
+        "messageId"?: string;
+    }
     interface LyneLink {
         /**
           * If set to true, the browser will show the download dialog on click.
@@ -345,6 +355,7 @@ export namespace Components {
         "text": string;
     }
     interface LyneTextInput {
+        "_isDisabled": boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
@@ -357,6 +368,10 @@ export namespace Components {
           * If set to true, the input field will be disabled.
          */
         "inputDisabled"?: boolean;
+        /**
+          * If set to true, we will set an an error message for the current input field.
+         */
+        "inputError"?: boolean;
         /**
           * Each input should have an individual id.
          */
@@ -381,7 +396,10 @@ export namespace Components {
           * Each input element needs to have a label associated with it.
          */
         "label": string;
-        "requiredValue"?: false;
+        /**
+          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+         */
+        "labelVisible"?: true;
     }
     interface LyneTitle {
         /**
@@ -430,6 +448,12 @@ declare global {
     var HTMLLyneImageElement: {
         prototype: HTMLLyneImageElement;
         new (): HTMLLyneImageElement;
+    };
+    interface HTMLLyneInputErrorElement extends Components.LyneInputError, HTMLStencilElement {
+    }
+    var HTMLLyneInputErrorElement: {
+        prototype: HTMLLyneInputErrorElement;
+        new (): HTMLLyneInputErrorElement;
     };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
@@ -502,6 +526,7 @@ declare global {
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-image": HTMLLyneImageElement;
+        "lyne-input-error": HTMLLyneInputErrorElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-panel": HTMLLynePanelElement;
@@ -676,6 +701,16 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceImageAttributes['variant'];
     }
+    interface LyneInputError {
+        /**
+          * The error message, we want to show.
+         */
+        "message"?: string;
+        /**
+          * Each error message needs a unique id which will be passed on from another module (e.g. lyne-text-input).
+         */
+        "messageId"?: string;
+    }
     interface LyneLink {
         /**
           * If set to true, the browser will show the download dialog on click.
@@ -843,6 +878,7 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LyneTextInput {
+        "_isDisabled"?: boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
@@ -855,6 +891,10 @@ declare namespace LocalJSX {
           * If set to true, the input field will be disabled.
          */
         "inputDisabled"?: boolean;
+        /**
+          * If set to true, we will set an an error message for the current input field.
+         */
+        "inputError"?: boolean;
         /**
           * Each input should have an individual id.
          */
@@ -879,7 +919,10 @@ declare namespace LocalJSX {
           * Each input element needs to have a label associated with it.
          */
         "label": string;
-        "requiredValue"?: false;
+        /**
+          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+         */
+        "labelVisible"?: true;
     }
     interface LyneTitle {
         /**
@@ -908,6 +951,7 @@ declare namespace LocalJSX {
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
         "lyne-image": LyneImage;
+        "lyne-input-error": LyneInputError;
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
         "lyne-panel": LynePanel;
@@ -929,6 +973,7 @@ declare module "@stencil/core" {
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
+            "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;

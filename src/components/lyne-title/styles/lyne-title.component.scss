@@ -10,7 +10,7 @@
 
 // TODO re-factor to a more generic class later
 .title--hidden {
-  @include screenreaderOnly();
+  @include screenReaderOnly();
 }
 
 .title[id] {

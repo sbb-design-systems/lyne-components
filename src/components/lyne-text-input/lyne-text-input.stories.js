@@ -6,7 +6,7 @@ import readme from './readme.md';
 const Template = (args) => (
   <lyne-text-input {...args}>
     {args.icon &&
-    <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+      <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
     }
   </lyne-text-input>
 );
@@ -129,6 +129,15 @@ const inputName = {
   }
 };
 
+const inputPattern = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Validation'
+  }
+};
+
 const inputPlaceholder = {
   control: {
     type: 'text'
@@ -138,6 +147,9 @@ const inputPlaceholder = {
 const inputRequired = {
   control: {
     type: 'boolean'
+  },
+  table: {
+    category: 'Validation'
   }
 };
 
@@ -183,6 +195,7 @@ const defaultArgTypes = {
   'input-error': inputError,
   'input-id': inputId,
   'input-name': inputName,
+  'input-pattern': inputPattern,
   'input-placeholder': inputPlaceholder,
   'input-required': inputRequired,
   'input-type': inputType,
@@ -197,7 +210,8 @@ const defaultArgs = {
   'input-disabled': false,
   'input-error': false,
   'input-id': '',
-  'input-name': '',
+  'input-name': 'textfield',
+  'input-pattern': '',
   'input-placeholder': 'Placeholder Text',
   'input-required': false,
   'input-type': inputType.options[6],
@@ -229,6 +243,62 @@ TextInputRequired.args = {
 
 TextInputRequired.documentation = {
   title: 'Text Input Required'
+};
+
+export const TextInputLabelHidden = Template.bind({});
+
+TextInputLabelHidden.argTypes = defaultArgTypes;
+TextInputLabelHidden.args = {
+  ...defaultArgs,
+  'label-visible': false
+};
+
+TextInputLabelHidden.documentation = {
+  title: 'Text Input Label Hidden'
+};
+
+export const TextInputWithIcon = Template.bind({});
+
+TextInputWithIcon.argTypes = defaultArgTypes;
+TextInputWithIcon.args = {
+  ...defaultArgs,
+  icon: 'pie-small'
+};
+
+TextInputWithIcon.documentation = {
+  title: 'Text Input With Icon'
+};
+
+export const TextInputWithIconError = Template.bind({});
+
+TextInputWithIconError.argTypes = defaultArgTypes;
+TextInputWithIconError.args = {
+  ...defaultArgs,
+  'icon': 'pie-small',
+  'input-error': true,
+  'input-placeholder': 'meat/fish/vegetarian/vegan',
+  'input-required': true,
+  'label': 'Meal preference'
+};
+
+TextInputWithIconError.documentation = {
+  title: 'Text Input With Icon & Error'
+};
+
+export const TextInputEmail = Template.bind({});
+
+TextInputEmail.argTypes = defaultArgTypes;
+TextInputEmail.args = {
+  ...defaultArgs,
+  'input-autocomplete-value': inputAutoCompleteValue.options[25],
+  'input-name': 'email-address',
+  'input-placeholder': 'abc@def.com',
+  'input-required': true,
+  'label': 'Email address'
+};
+
+TextInputEmail.documentation = {
+  title: 'Text Input Email Address'
 };
 
 export default {
