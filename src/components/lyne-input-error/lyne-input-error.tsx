@@ -19,17 +19,22 @@ export class LyneInputError {
   @Prop() public message?: string;
 
   /**
-   * Each error message needs a unique id
-   * which will be passed on from another
-   * module (e.g. lyne-text-input).
+   * Adding the aria-hidden attribute here might
+   * seem to be very wrong. Since we are including
+   * the message inside of the aria-label value
+   * of the label element, we need to hide it from
+   * assistive technology in this location. By doing
+   * so, we can improve the user flow through the
+   * form, especially on Voice Over on iOS which
+   * would otherwise stop at and read all elements
+   * individually.
    */
-  @Prop() public messageId?: string;
 
   public render(): JSX.Element {
     return (
       <span
         class='input-label--error'
-        id={`${this.messageId}`}
+        aria-hidden='true'
       >
         {this.message}
       </span>

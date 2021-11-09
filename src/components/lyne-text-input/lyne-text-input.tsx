@@ -26,8 +26,8 @@ import { guid } from '../../global/guid';
 export class LyneTextInput {
 
   private _additionalInputClasses = [];
-  private _addtitionalInputAttributes = {}
-  private _errorMessageId = '';
+  private _addtitionalInputAttributes = {};
+  private _currentLanguage = getDocumentLang();
   private _labelAriaLabel = '';
 
   /**
@@ -168,15 +168,30 @@ export class LyneTextInput {
     }
 
     if (this.inputError) {
-      this._errorMessageId = `error-${this.inputId}`;
 
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        'aria-describedby': this._errorMessageId,
         'aria-invalid': 'true'
       };
     }
 
+  }
+
+  /**
+   * This will improve the announcement of the label
+   * in Voice Over on iOS Safari
+   */
+  private _prepareAriaLabelOfLabel(): void {
+
+    if (this.inputRequired) {
+      this._labelAriaLabel = this.label
+    } else {
+      this._labelAriaLabel = `${this.label} ${i18nOptional[this._currentLanguage]}.`
+    }
+
+    if (this.inputError) {
+      this._labelAriaLabel += `. ${i18nMandatoryField[this._currentLanguage]}`;
+    }
   }
 
   public componentWillLoad(): void {
@@ -187,20 +202,23 @@ export class LyneTextInput {
 
   public render(): JSX.Element {
 
-    const currentLanguage = getDocumentLang();
-
     this._getAdditionalStyleClasses();
     this._getAdditionalInputAttributes();
+    this._prepareAriaLabelOfLabel();
 
     /**
-     * This will improve the announcement of the label
-     * in Voice Over on iOS Safari
+     * Adding the aria-hidden attributes here might
+     * seem to be a very wrong choice. Since we are
+     * including the error message inside of the
+     * aria-label value of the label element though,
+     * we need to hide some elements from assistive
+     * technology here. By doing so, we can improve
+     * the user flow through the form, especially
+     * on Voice Over on iOS which would otherwise
+     * stop at and read all elements individually.
+     * This was tested in various Desktop Browsers
+     * with JAWS and NVDA as well.
      */
-    if (this.inputRequired) {
-      this._labelAriaLabel = this.label
-    } else {
-      this._labelAriaLabel = `${this.label} ${i18nOptional[currentLanguage]}.`
-    }
 
     return (
       <div
@@ -238,13 +256,13 @@ export class LyneTextInput {
                   aria-hidden='true'
                   class='input-label--optional'
                 >
-                  &nbsp;{i18nOptional[currentLanguage]}
+                  &nbsp;{i18nOptional[this._currentLanguage]}
                 </span>
             }
           </label>
         </div>
         {this.inputError
-          ? <lyne-input-error message-id={this._errorMessageId} message={i18nMandatoryField[currentLanguage]}></lyne-input-error>
+          ? <lyne-input-error message={i18nMandatoryField[this._currentLanguage]}></lyne-input-error>
           : ''
         }
       </div>

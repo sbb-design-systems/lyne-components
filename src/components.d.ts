@@ -183,10 +183,6 @@ export namespace Components {
           * The error message, we want to show.
          */
         "message"?: string;
-        /**
-          * Each error message needs a unique id which will be passed on from another module (e.g. lyne-text-input).
-         */
-        "messageId"?: string;
     }
     interface LyneLink {
         /**
@@ -717,10 +713,6 @@ declare namespace LocalJSX {
           * The error message, we want to show.
          */
         "message"?: string;
-        /**
-          * Each error message needs a unique id which will be passed on from another module (e.g. lyne-text-input).
-         */
-        "messageId"?: string;
     }
     interface LyneLink {
         /**

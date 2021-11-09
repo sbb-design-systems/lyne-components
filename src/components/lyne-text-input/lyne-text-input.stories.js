@@ -303,10 +303,10 @@ TextInputWithIcon.documentation = {
   title: 'Text Input With Icon'
 };
 
-export const TextInputWithIconError = Template.bind({});
+export const TextInputWithIconErrorMessage = Template.bind({});
 
-TextInputWithIconError.argTypes = defaultArgTypes;
-TextInputWithIconError.args = {
+TextInputWithIconErrorMessage.argTypes = defaultArgTypes;
+TextInputWithIconErrorMessage.args = {
   ...defaultArgs,
   'icon': 'pie-small',
   'input-error': true,
@@ -315,8 +315,8 @@ TextInputWithIconError.args = {
   'label': 'Meal preference'
 };
 
-TextInputWithIconError.documentation = {
-  title: 'Text Input With Icon & Error'
+TextInputWithIconErrorMessage.documentation = {
+  title: 'Text Input With Icon & Error Message'
 };
 
 export const TextInputEmail = Template.bind({});
