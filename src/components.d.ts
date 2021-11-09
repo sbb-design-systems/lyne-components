@@ -281,6 +281,16 @@ export namespace Components {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneProductSubscription {
+        /**
+          * Lead text
+         */
+        "lead": string;
+        /**
+          * Detailed text
+         */
+        "text"?: string;
+    }
     interface LyneSbbClock {
         /**
           * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
@@ -415,6 +425,12 @@ declare global {
         prototype: HTMLLynePearlChainElement;
         new (): HTMLLynePearlChainElement;
     };
+    interface HTMLLyneProductSubscriptionElement extends Components.LyneProductSubscription, HTMLStencilElement {
+    }
+    var HTMLLyneProductSubscriptionElement: {
+        prototype: HTMLLyneProductSubscriptionElement;
+        new (): HTMLLyneProductSubscriptionElement;
+    };
     interface HTMLLyneSbbClockElement extends Components.LyneSbbClock, HTMLStencilElement {
     }
     var HTMLLyneSbbClockElement: {
@@ -460,6 +476,7 @@ declare global {
         "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
+        "lyne-product-subscription": HTMLLyneProductSubscriptionElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
@@ -733,6 +750,16 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneProductSubscription {
+        /**
+          * Lead text
+         */
+        "lead": string;
+        /**
+          * Detailed text
+         */
+        "text"?: string;
+    }
     interface LyneSbbClock {
         /**
           * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
@@ -826,6 +853,7 @@ declare namespace LocalJSX {
         "lyne-link-button": LyneLinkButton;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
+        "lyne-product-subscription": LyneProductSubscription;
         "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-sbb-signet": LyneSbbSignet;
@@ -846,6 +874,7 @@ declare module "@stencil/core" {
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
+            "lyne-product-subscription": LocalJSX.LyneProductSubscription & JSXBase.HTMLAttributes<HTMLLyneProductSubscriptionElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;

@@ -1,0 +1,66 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  --product-subscription-background-color: var(--color-milk-default);
+  --product-subscription-border-radius: var(--border-radius-8x);
+  // @Todo: padding should be xxs, does not exist as design token
+  --product-subscription-padding: var(--spacing-responsive-xs-zero);
+
+  @include mq($from: small) {}
+  @include mq($from: medium) {}
+  @include mq($from: wide) {}
+  @include mq($from: ultra) {}
+}
+
+/* ************************************************* */
+/* Layout & spacing                                  */
+/* ************************************************* */
+
+.product-subscription {
+  padding: pxToRem(var(--product-subscription-padding));
+}
+
+.product-subscription__action {
+  padding-top: pxToRem(var(--spacing-fixed-2x));
+}
+
+// Layout switch
+@include mq($from: medium) {
+  .product-subscription {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product-subscription__start {}
+  .product-subscription__end {
+    align-self: flex-end;
+  }
+
+  .product-subscription__action {
+    padding-top: 0;
+  }
+}
+
+/* ************************************************* */
+/* Styling                                           */
+/* ************************************************* */
+
+.product-subscription {
+  background-color: var(--product-subscription-background-color);
+  border-radius: pxToRem(var(--product-subscription-border-radius));
+}
+
+.product-subscription__lead {
+  @include title-5();
+}
+
+.product-subscription__text {
+  @include text-s--regular();
+  color: var(--color-granite-default);
+}
+
+
