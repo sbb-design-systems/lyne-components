@@ -177,6 +177,19 @@ export class LyneTextInput {
   }
 
   /**
+   * TODO
+   * modify lyne-button to allow for icon toggle
+   * and add toggle handling in here.
+   */
+  private _registerShowPasswordToggle(): void {
+
+    if (this.inputAutoCompleteValue !== 'new-password') {
+      return;
+    }
+
+  }
+
+  /**
    * This will improve the announcement of the label
    * in Voice Over on iOS Safari
    */
@@ -203,6 +216,7 @@ export class LyneTextInput {
 
     this._getAdditionalStyleClasses();
     this._getAdditionalInputAttributes();
+    this._registerShowPasswordToggle();
     this._prepareAriaLabelOfLabel();
 
     /**
