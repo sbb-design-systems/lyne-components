@@ -45,3 +45,7 @@
 .title-6 {
   @include title-6();
 }
+
+.title--negative {
+  @include title--negative();
+}

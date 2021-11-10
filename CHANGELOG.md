@@ -1,3 +1,24 @@
+# [9.66.0](https://github.com/lyne-design-system/lyne-components/compare/v9.65.1...v9.66.0) (2021-11-10)
+
+
+### Bug Fixes
+
+* fixing linting ([e9633bd](https://github.com/lyne-design-system/lyne-components/commit/e9633bdca65f91b3bc1ca52a959c8b7fae5148a2))
+* fixing title test case ([231ce50](https://github.com/lyne-design-system/lyne-components/commit/231ce501b289b088c95266c7d786ab599347ff14))
+
+
+### Features
+
+* adding first test ([52881c3](https://github.com/lyne-design-system/lyne-components/commit/52881c3ea043f7413c91612de90ba630d5722380))
+* adding lyne-link-list module ([894e872](https://github.com/lyne-design-system/lyne-components/commit/894e872400078c50f949ad838b650f76e60dc886))
+* adding small improvements ([299c714](https://github.com/lyne-design-system/lyne-components/commit/299c71451515825192485b93ffca51944b40b3a6))
+* adding various module modifications and linting fix ([edb86ae](https://github.com/lyne-design-system/lyne-components/commit/edb86ae5f3fa5fb1960c6527bfea87f56c18fa54))
+* documenting slot ([ff4f9d4](https://github.com/lyne-design-system/lyne-components/commit/ff4f9d45949b69f589515eaf3f9a100e1d248ea3))
+* is adding slotted list items ([ae5aaaa](https://github.com/lyne-design-system/lyne-components/commit/ae5aaaa9895fd002871d6b901880ea03d8c4dfaf))
+* merging latest develop ([73c7c9e](https://github.com/lyne-design-system/lyne-components/commit/73c7c9e93f8de2f09fbc163fdbb46953977276f7))
+* render list title only conditionally ([e2944ad](https://github.com/lyne-design-system/lyne-components/commit/e2944ad86726f6b0e4d2e6087936571d604ea843))
+* working on module structure ([634c492](https://github.com/lyne-design-system/lyne-components/commit/634c49291f35fb66919c004679dc7c03e77d8565))
+
 ## [9.65.1](https://github.com/lyne-design-system/lyne-components/compare/v9.65.0...v9.65.1) (2021-11-05)
 
 
