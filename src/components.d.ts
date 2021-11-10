@@ -10,12 +10,13 @@ import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
 import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
+import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
+import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
-import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -249,6 +250,20 @@ export namespace Components {
          */
         "variant": InterfaceLinkButtonAttributes['variant'];
     }
+    interface LyneLinkList {
+        /**
+          * The semantic level of the title, e.g. 3 = h3
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The title text we want to show before the list
+         */
+        "titleText"?: string;
+        /**
+          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
+         */
+        "variant": InterfaceLyneLinkListAttributes['variant'];
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -413,6 +428,12 @@ declare global {
         prototype: HTMLLyneLinkButtonElement;
         new (): HTMLLyneLinkButtonElement;
     };
+    interface HTMLLyneLinkListElement extends Components.LyneLinkList, HTMLStencilElement {
+    }
+    var HTMLLyneLinkListElement: {
+        prototype: HTMLLyneLinkListElement;
+        new (): HTMLLyneLinkListElement;
+    };
     interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
     }
     var HTMLLynePanelElement: {
@@ -474,6 +495,7 @@ declare global {
         "lyne-image": HTMLLyneImageElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
+        "lyne-link-list": HTMLLyneLinkListElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-product-subscription": HTMLLyneProductSubscriptionElement;
@@ -718,6 +740,20 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLinkButtonAttributes['variant'];
     }
+    interface LyneLinkList {
+        /**
+          * The semantic level of the title, e.g. 3 = h3
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The title text we want to show before the list
+         */
+        "titleText"?: string;
+        /**
+          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
+         */
+        "variant"?: InterfaceLyneLinkListAttributes['variant'];
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -851,6 +887,7 @@ declare namespace LocalJSX {
         "lyne-image": LyneImage;
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
+        "lyne-link-list": LyneLinkList;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
         "lyne-product-subscription": LyneProductSubscription;
@@ -872,6 +909,7 @@ declare module "@stencil/core" {
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
+            "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-product-subscription": LocalJSX.LyneProductSubscription & JSXBase.HTMLAttributes<HTMLLyneProductSubscriptionElement>;
