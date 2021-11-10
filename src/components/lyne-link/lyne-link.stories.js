@@ -245,9 +245,6 @@ export default {
     )
   ],
   parameters: {
-    backgrounds: {
-      disable: true
-    },
     docs: {
       extractComponentDescription: () => readme
     }

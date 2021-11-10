@@ -43,6 +43,11 @@ export class LyneTitle {
    */
   @Prop() public visuallyHidden?: false;
 
+  /**
+   * Choose the title style variant
+   */
+  @Prop() public variant: InterfaceTitleAttributes['variant'] = 'positive';
+
   public render(): JSX.Element {
 
     const TAGNAME = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -59,7 +64,7 @@ export class LyneTitle {
       visualLevel = this.level;
     }
 
-    const className = `title title-${visualLevel}${visuallyHidden}`;
+    const className = `title title-${visualLevel}${visuallyHidden} title--${this.variant}`;
 
     const attrs = {
       class: className
