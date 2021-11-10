@@ -17,6 +17,7 @@
   --border-color-error: var(--color-red125-default);
   --border-color-focus: var(--color-charcoal-default);
 
+  --background-color-default: var(--color-white-default);
   --background-color-disabled: var(--color-milk-default);
   --text-color-disabled: var(--border-color-disabled);
 
@@ -53,6 +54,7 @@
   @include text-m--regular();
   @include placeholder();
   @include ellipsis();
+  -webkit-appearance: none;
 
   width: 100%;
   height: pxToRem(var(--input-height));
@@ -60,6 +62,7 @@
   padding-inline-start: pxToRem(var(--spacing-fixed-3x));
   padding-inline-end: pxToRem(var(--spacing-fixed-3x));
 
+  background-color: var(--background-color-default);
   border: pxToRem(1) solid var(--border-color-default);
   border-radius: pxToRem(var(--border-radius-4x));
 
@@ -82,7 +85,7 @@
 
 .input[disabled] {
   color: var(--text-color-disabled);
-  background: var(--background-color-disabled);
+  background-color: var(--background-color-disabled);
 }
 
 .input[disabled] + .input-label {

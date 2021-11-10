@@ -177,8 +177,6 @@ const inputType = {
   },
   options: [
     'email',
-    'hidden',
-    'number',
     'password',
     'search',
     'tel',
@@ -346,11 +344,96 @@ TextInputExistingPassword.args = {
   'input-placeholder': '',
   'input-required': true,
   'input-type': 'password',
-  'label': 'Password'
+  'label': 'Current Password'
 };
 
 TextInputEmail.documentation = {
   title: 'Text Input Existing Password'
+};
+
+export const TextInputNewPassword = Template.bind({});
+
+TextInputNewPassword.argTypes = defaultArgTypes;
+TextInputNewPassword.args = {
+  ...defaultArgs,
+  'input-autocomplete-value': inputAutoCompleteValue.options[52],
+  'input-name': 'new-password',
+  'input-placeholder': '',
+  'input-required': true,
+  'input-type': 'password',
+  'label': 'New Password'
+};
+
+TextInputEmail.documentation = {
+  title: 'Text Input New Password'
+};
+
+export const TextInputPhoneNumber = Template.bind({});
+
+TextInputPhoneNumber.argTypes = defaultArgTypes;
+TextInputPhoneNumber.args = {
+  ...defaultArgs,
+  'input-autocomplete-value': inputAutoCompleteValue.options[44],
+  'input-name': 'phone',
+  'input-placeholder': '',
+  'input-required': true,
+  'input-type': 'tel',
+  'label': 'Phone Number'
+};
+
+TextInputPhoneNumber.documentation = {
+  title: 'Text Input Phone Number'
+};
+
+export const TextInputOneTimeCode = Template.bind({});
+
+TextInputOneTimeCode.argTypes = defaultArgTypes;
+TextInputOneTimeCode.args = {
+  ...defaultArgs,
+  'input-autocomplete-value': inputAutoCompleteValue.options[37],
+  'input-name': 'otp',
+  'input-placeholder': '',
+  'input-required': true,
+  'input-type': 'text',
+  'label': 'SMS-Code'
+};
+
+TextInputOneTimeCode.documentation = {
+  title: 'Text Input One Time Code'
+};
+
+export const TextInputSearch = Template.bind({});
+
+TextInputSearch.argTypes = defaultArgTypes;
+TextInputSearch.args = {
+  ...defaultArgs,
+  'input-autocomplete-value': inputAutoCompleteValue.options[36],
+  'input-name': 'search',
+  'input-placeholder': '',
+  'input-required': true,
+  'input-type': 'search',
+  'label': 'Search'
+};
+
+TextInputSearch.documentation = {
+  title: 'Text Input Search'
+};
+
+export const TextInputUrl = Template.bind({});
+
+TextInputUrl.argTypes = defaultArgTypes;
+TextInputUrl.args = {
+  ...defaultArgs,
+  'input-autocomplete-value': inputAutoCompleteValue.options[53],
+  'input-name': 'url',
+  'input-placeholder': '',
+  'input-required': true,
+  'input-type': 'url',
+  'label': 'Website'
+};
+
+TextInputUrl.documentation = {
+  title: 'Text Input Url'
 };
 
 export default {

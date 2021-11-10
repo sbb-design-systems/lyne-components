@@ -168,7 +168,6 @@ export class LyneTextInput {
     }
 
     if (this.inputError) {
-
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
         'aria-invalid': 'true'
@@ -230,6 +229,7 @@ export class LyneTextInput {
             : ''
           }
           <input
+            autocapitalize='off'
             autocomplete={this.inputAutoCompleteValue}
             class='input'
             id={this.inputId}
