@@ -134,7 +134,15 @@ baseConfig.overrides = [
       '*.tsx',
       '*.jsx'
     ],
-    plugins: ['jsx-a11y']
+    plugins: ['jsx-a11y'],
+    rules: {
+      'jsx-a11y/no-redundant-roles': [
+        'error',
+        {
+          ul: ['list']
+        }
+      ]
+    }
   }
 ];
 
