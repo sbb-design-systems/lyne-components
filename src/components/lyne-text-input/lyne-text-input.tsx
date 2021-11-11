@@ -7,8 +7,10 @@ import {
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getMaxTouchPoins from '../../global/helpers/device-information/get-max-touch-points';
 // import { i18nDeleteCurrentInput } from '../../global/i18n';
-import { i18nMandatoryField } from '../../global/i18n';
-import { i18nOptional } from '../../global/i18n';
+import {
+  i18nMandatoryField,
+  i18nOptional
+} from '../../global/i18n';
 import { InterfaceLyneTextInputAttributes } from './lyne-text-input.custom.d';
 import { guid } from '../../global/guid';
 
@@ -30,7 +32,8 @@ export class LyneTextInput {
   private _additionalInputClasses = [];
   private _addtitionalInputAttributes = {};
   private _currentLanguage = getDocumentLang();
-  private _hasTouchscreen = getMaxTouchPoins() > 0 ? true : false;
+  private _hasTouchscreen = getMaxTouchPoins() > 0;
+
   private _id = '';
   private _labelAriaLabel = '';
 
@@ -187,9 +190,11 @@ export class LyneTextInput {
    */
   private _registerShowPasswordToggle(): void {
 
-    if (this.inputAutoCompleteValue !== 'new-password') {
-      return;
-    }
+    /**
+     * if (this.inputAutoCompleteValue !== 'new-password') {
+     *  return;
+     *}
+     */
 
   }
 
@@ -200,9 +205,9 @@ export class LyneTextInput {
   private _prepareAriaLabelOfLabel(): void {
 
     if (this.inputRequired) {
-      this._labelAriaLabel = this.label
+      this._labelAriaLabel = this.label;
     } else {
-      this._labelAriaLabel = `${this.label} ${i18nOptional[this._currentLanguage]}.`
+      this._labelAriaLabel = `${this.label} ${i18nOptional[this._currentLanguage]}.`;
     }
 
     if (this.inputError) {
@@ -211,10 +216,10 @@ export class LyneTextInput {
   }
 
   public componentWillLoad(): void {
-    if (!this.inputId) {
-      this._id = `input-${guid()}`;
-    } else {
+    if (this.inputId) {
       this._id = this.inputId;
+    } else {
+      this._id = `input-${guid()}`;
     }
   }
 
@@ -273,11 +278,11 @@ export class LyneTextInput {
             {this.inputRequired
               ? ''
               : <span
-                  aria-hidden='true'
-                  class='input-label--optional'
-                >
-                  &nbsp;{i18nOptional[this._currentLanguage]}
-                </span>
+                aria-hidden='true'
+                class='input-label--optional'
+              >
+                &nbsp;{i18nOptional[this._currentLanguage]}
+              </span>
             }
           </label>
           {this._hasTouchscreen
