@@ -1,3 +1,10 @@
+export const i18nDeleteCurrentInput: any = {
+  de: 'Feld leeren',
+  en: 'Empty field',
+  fr: 'Videz le champ',
+  it: 'Svuotare il campo'
+};
+
 export const i18nMandatoryField: any = {
   de: 'Pflichtfeld, bitte ausfüllen.',
   en: 'Mandatory field, please complete.',

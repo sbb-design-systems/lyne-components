@@ -7,14 +7,21 @@ describe('lyne-input-error', () => {
       root
     } = await newSpecPage({
       components: [LyneInputError],
-      html: '<lyne-input-error />'
+      html: '<lyne-input-error message="This is a required field."></lyne-input-error>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-input-error>
+        <lyne-input-error
+            message="This is a required field."
+        >
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <span
+                aria-hidden="true"
+                class="input-label--error"
+            >
+                This is a required field.
+            </span>
           </mock:shadow-root>
         </lyne-input-error>
       `);

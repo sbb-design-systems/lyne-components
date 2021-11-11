@@ -6,6 +6,7 @@ import {
 // import events from './lyne-text-input.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getMaxTouchPoins from '../../global/helpers/device-information/get-max-touch-points';
+// import { i18nDeleteCurrentInput } from '../../global/i18n';
 import { i18nMandatoryField } from '../../global/i18n';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceLyneTextInputAttributes } from './lyne-text-input.custom.d';
@@ -30,6 +31,7 @@ export class LyneTextInput {
   private _addtitionalInputAttributes = {};
   private _currentLanguage = getDocumentLang();
   private _hasTouchscreen = getMaxTouchPoins() > 0 ? true : false;
+  private _id = '';
   private _labelAriaLabel = '';
 
   /**
@@ -210,7 +212,9 @@ export class LyneTextInput {
 
   public componentWillLoad(): void {
     if (!this.inputId) {
-      this.inputId = `input-${guid()}`;
+      this._id = `input-${guid()}`;
+    } else {
+      this._id = this.inputId;
     }
   }
 
@@ -220,8 +224,6 @@ export class LyneTextInput {
     this._getAdditionalInputAttributes();
     this._registerShowPasswordToggle();
     this._prepareAriaLabelOfLabel();
-
-    console.log(this._hasTouchscreen);
 
     /**
      * Adding the aria-hidden attributes here might
@@ -250,7 +252,7 @@ export class LyneTextInput {
             autocapitalize='off'
             autocomplete={this.inputAutoCompleteValue}
             class='input'
-            id={this.inputId}
+            id={this._id}
             name={this.inputName}
             placeholder={this.inputPlaceholder}
             required={this.inputRequired}
@@ -260,7 +262,7 @@ export class LyneTextInput {
           <label
             aria-label={this._labelAriaLabel}
             class='input-label'
-            htmlFor={this.inputId}
+            htmlFor={this._id}
           >
             <span
               aria-hidden='true'
@@ -278,6 +280,10 @@ export class LyneTextInput {
                 </span>
             }
           </label>
+          {this._hasTouchscreen
+            ? ''
+            : ''
+          }
         </div>
         {this.inputError
           ? <lyne-input-error message={i18nMandatoryField[this._currentLanguage]}></lyne-input-error>
