@@ -39,7 +39,8 @@ export class LyneInputError {
       >
         <span
           class='input-label-error__icon'
-          innerHTML={errorIcon}>
+          innerHTML={errorIcon}
+        >
         </span>
         {this.message}
       </span>
