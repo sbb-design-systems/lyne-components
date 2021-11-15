@@ -128,6 +128,6 @@
 
 @mixin placeholder() {
   ::placeholder {
-    color: var(--text-color-placeholder);
+    color: var(--color-metal-default);
   }
 }

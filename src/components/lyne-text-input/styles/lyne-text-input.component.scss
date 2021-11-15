@@ -7,7 +7,6 @@
   display: block;
 
   --text-color-label: var(--color-metal-default);
-  --text-color-placeholder: var(--color-metal-default);
 
   --text-color-input-default: var(--color-charcoal-default);
   --text-color-input-error: var(--color-red125-default);
@@ -95,16 +94,6 @@
 .input-wrapper--error .input {
   color: inherit;
   border-color: var(--border-color-error);
-}
-
-.input-wrapper--error ::placeholder {
-  color: var(--text-color-input-error); // TODO undefined in design yet
-  opacity: .3;
-
-  @include ifForcedColors {
-    opacity: .5;
-  }
-
 }
 
 // Label
