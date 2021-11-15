@@ -3,25 +3,9 @@
 // and default mode
 @include host-component-properties;
 
-:host {
-  --product-subscription-background-color: var(--color-milk-default);
-  --product-subscription-border-radius: var(--border-radius-8x);
-  // @Todo: padding should be xxs, does not exist as design token
-  --product-subscription-padding: var(--spacing-responsive-xs-zero);
-
-  @include mq($from: small) {}
-  @include mq($from: medium) {}
-  @include mq($from: wide) {}
-  @include mq($from: ultra) {}
-}
-
 /* ************************************************* */
 /* Layout & spacing                                  */
 /* ************************************************* */
-
-.product-subscription {
-  padding: pxToRem(var(--product-subscription-padding));
-}
 
 .product-subscription__action {
   padding-top: pxToRem(var(--spacing-fixed-2x));
@@ -50,8 +34,7 @@
 /* ************************************************* */
 
 .product-subscription {
-  background-color: var(--product-subscription-background-color);
-  border-radius: pxToRem(var(--product-subscription-border-radius));
+  @include card;
 }
 
 .product-subscription__lead {
@@ -61,6 +44,10 @@
 .product-subscription__text {
   @include text-s--regular();
   color: var(--color-granite-default);
+}
+
+.product-subscription__salesprice {
+  @include salesprice();
 }
 
 

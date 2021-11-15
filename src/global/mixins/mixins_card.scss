@@ -1,0 +1,62 @@
+// -----------------------------------------------------------------------------
+// Card: Mixins & CSS variables
+// -----------------------------------------------------------------------------
+
+// @include mq($from: small) {}
+// @include mq($from: medium) {}
+// @include mq($from: wide) {}
+// @include mq($from: ultra) {}
+
+@mixin card {
+  --card-background-color: var(--color-milk-default);
+  --card-border-radius: var(--border-radius-8x);
+  // @Todo: padding should be xxs, does not exist as design token
+  --card-padding: var(--spacing-responsive-xs-zero);
+
+  padding: pxToRem(var(--card-padding));
+  background-color: var(--card-background-color);
+  border-radius: pxToRem(var(--card-border-radius));
+
+  position: relative;
+}
+
+
+@mixin salesprice {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  height: 30px;
+  background-color: black;
+  border-top-right-radius: pxToRem(var(--card-border-radius));
+  color: white;
+  display: flex;
+  //align-items: center;
+
+  @include text-xs--regular;
+
+  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
+
+  // .discount {
+  //   padding-inline-start: .5em;
+  //   padding-inline-end: .5em;}
+  // .from {
+  //   padding-inline-start: 1em;
+  //   padding-inline-end: .5em;
+  // }
+  // .price {
+  //   padding-inline-start: .5em;
+  //   padding-inline-end: 1em;
+  // }
+
+  :before {
+    content:"\A";
+    border-style: solid;
+    border-width: 0 20px 30px 20px;
+    border-color: transparent #dd4397 transparent transparent;
+    position: absolute;
+    left: -40px;
+
+    //border-bottom-left-radius: 10px;
+    //border-radius: 100% 0% 56% 44% / 0% 100% 0% 100%;
+  }
+}
