@@ -136,6 +136,7 @@ baseConfig.overrides = [
     ],
     plugins: ['jsx-a11y'],
     rules: {
+      'jsx-a11y/aria-role': 0,
       'jsx-a11y/no-redundant-roles': [
         'error',
         {

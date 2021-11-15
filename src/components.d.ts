@@ -423,6 +423,12 @@ export namespace Components {
          */
         "labelVisible"?: true;
     }
+    interface LyneTimetableTransporationNumber {
+        /**
+          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+         */
+        "config": string;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -547,6 +553,12 @@ declare global {
         prototype: HTMLLyneTextInputElement;
         new (): HTMLLyneTextInputElement;
     };
+    interface HTMLLyneTimetableTransporationNumberElement extends Components.LyneTimetableTransporationNumber, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTransporationNumberElement: {
+        prototype: HTMLLyneTimetableTransporationNumberElement;
+        new (): HTMLLyneTimetableTransporationNumberElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -570,6 +582,7 @@ declare global {
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
+        "lyne-timetable-transporation-number": HTMLLyneTimetableTransporationNumberElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -978,6 +991,12 @@ declare namespace LocalJSX {
          */
         "labelVisible"?: true;
     }
+    interface LyneTimetableTransporationNumber {
+        /**
+          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+         */
+        "config": string;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -1021,6 +1040,7 @@ declare namespace LocalJSX {
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
+        "lyne-timetable-transporation-number": LyneTimetableTransporationNumber;
         "lyne-title": LyneTitle;
     }
 }
@@ -1044,6 +1064,7 @@ declare module "@stencil/core" {
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
+            "lyne-timetable-transporation-number": LocalJSX.LyneTimetableTransporationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransporationNumberElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }

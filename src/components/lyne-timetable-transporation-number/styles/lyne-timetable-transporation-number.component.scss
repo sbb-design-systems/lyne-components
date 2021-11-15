@@ -1,0 +1,57 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+
+  --element-height: 20;
+  --icon-height: var(--element-height);
+
+}
+
+.transportation-number {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  @include text-s--regular();
+  min-height: pxToRem(var(--element-height));
+  line-height: pxToRem(19);
+  overflow: hidden;
+}
+
+.transportation-number__means_of_transport {
+  display: flex;
+  height: pxToRem(var(--icon-height));
+  width: pxToRem(var(--icon-height));
+  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+}
+
+.transportation-number__product-icon,
+.transportation-number__product-text {
+  display: flex;
+  white-space: nowrap;
+  margin-inline-end: pxToRem(var(--spacing-fixed-2x));
+}
+
+.transportation-number__product-text {
+  @include text-s--bold();
+  line-height: inherit;
+}
+
+.transportation-number__direction {
+  display: flex;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.transportation-number__direction_text {
+  @include ellipsis();
+}
+
+svg {
+  float: left;
+}
+
+
