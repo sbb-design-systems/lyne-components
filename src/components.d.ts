@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
+import { InterfaceCardBadgeAttributes } from "./components/lyne-card-badge/lyne-card-badge.custom";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
 import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
@@ -103,6 +104,28 @@ export namespace Components {
           * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
+    }
+    interface LyneCardBadge {
+        /**
+          * Badge appearance
+         */
+        "appearance": InterfaceCardBadgeAttributes['appearance'];
+        /**
+          * Mark as discount
+         */
+        "isDiscount"?: boolean;
+        /**
+          * Price text
+         */
+        "price"?: string;
+        /**
+          * Badge size
+         */
+        "size": InterfaceCardBadgeAttributes['size'];
+        /**
+          * From/above which price text
+         */
+        "text"?: string;
     }
     interface LyneImage {
         /**
@@ -414,6 +437,12 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
+    interface HTMLLyneCardBadgeElement extends Components.LyneCardBadge, HTMLStencilElement {
+    }
+    var HTMLLyneCardBadgeElement: {
+        prototype: HTMLLyneCardBadgeElement;
+        new (): HTMLLyneCardBadgeElement;
+    };
     interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
     }
     var HTMLLyneImageElement: {
@@ -496,6 +525,7 @@ declare global {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
+        "lyne-card-badge": HTMLLyneCardBadgeElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
@@ -597,6 +627,28 @@ declare namespace LocalJSX {
           * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
+    }
+    interface LyneCardBadge {
+        /**
+          * Badge appearance
+         */
+        "appearance"?: InterfaceCardBadgeAttributes['appearance'];
+        /**
+          * Mark as discount
+         */
+        "isDiscount"?: boolean;
+        /**
+          * Price text
+         */
+        "price"?: string;
+        /**
+          * Badge size
+         */
+        "size"?: InterfaceCardBadgeAttributes['size'];
+        /**
+          * From/above which price text
+         */
+        "text"?: string;
     }
     interface LyneImage {
         /**
@@ -892,6 +944,7 @@ declare namespace LocalJSX {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
+        "lyne-card-badge": LyneCardBadge;
         "lyne-image": LyneImage;
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
@@ -914,6 +967,7 @@ declare module "@stencil/core" {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
+            "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;

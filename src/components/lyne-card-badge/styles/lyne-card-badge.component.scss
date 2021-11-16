@@ -1,0 +1,60 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+/* ************************************************* */
+/* Layout & spacing                                  */
+/* ************************************************* */
+
+// Layout switch
+
+
+/* ************************************************* */
+/* Styling                                           */
+/* ************************************************* */
+
+.card-badge {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  height: 2em;
+  right: 0;
+  display: flex;
+  align-items: center;
+
+  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
+
+  //border-radius:10% 0% 20% 10% / 0% 87% 38% 0%;
+  border-bottom-left-radius: pxToRem(var(--border-radius-4x));
+
+  transform: skew(16deg, 0deg);
+
+  &--dark {
+    background-color: black;
+    color: white;
+  }
+
+  &--bright {
+    color: black;
+    background-color: white;
+  }
+
+  &--regular {
+    @include text-s--regular;
+  }
+
+  &--small {
+    @include text-xs--regular;
+  }
+
+  > * {
+    transform: skew(-16deg, 0deg);
+    padding-inline-start: .5em;
+  }
+}
+
+.discount {}
+.text {}
+.price {}
+.generic {}
