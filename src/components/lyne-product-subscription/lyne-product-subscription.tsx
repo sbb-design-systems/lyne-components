@@ -65,9 +65,11 @@ export class LyneProductSubscription {
           }
         </div>
         <div class='product-subscription__salesprice'>
-          <span class='discount'>%</span>
-          <span class='from'>ab CHF</span>
-          <span class="price">88.88</span>
+          <span class="wrapper">
+            <span class='discount'>%</span>
+            <span class='from'>ab CHF</span>
+            <span class="price">88.88</span>
+          </span>
         </div>
       </div>
     );
