@@ -5,7 +5,11 @@ import sampleData from './lyne-timetable-transportation-number.sample-data';
 const Template = (args) => (
   <lyne-timetable-transporation-number
     config={JSON.stringify(args.config)}
-    role='gridcell'
+    role={
+      args.gridCellRole
+        ? 'gridcell'
+        : 'none'
+    }
   >
   </lyne-timetable-transporation-number>
 );
@@ -16,8 +20,19 @@ const config = {
   }
 };
 
+const gridCellRole = {
+  control: {
+    type: 'boolean'
+  }
+};
+
 const defaultArgTypes = {
-  config
+  config,
+  gridCellRole
+};
+
+const defaultArgs = {
+  gridCellRole: true
 };
 
 /* ************************************************* */
@@ -27,6 +42,7 @@ export const Bus = Template.bind({});
 
 Bus.argTypes = defaultArgTypes;
 Bus.args = {
+  ...defaultArgs,
   config: sampleData.bus
 };
 
@@ -38,6 +54,7 @@ export const CableCar = Template.bind({});
 
 CableCar.argTypes = defaultArgTypes;
 CableCar.args = {
+  ...defaultArgs,
   config: sampleData.cableCar
 };
 
@@ -49,6 +66,7 @@ export const Train = Template.bind({});
 
 Train.argTypes = defaultArgTypes;
 Train.args = {
+  ...defaultArgs,
   config: sampleData.train
 };
 
@@ -60,6 +78,7 @@ export const Tram = Template.bind({});
 
 Tram.argTypes = defaultArgTypes;
 Tram.args = {
+  ...defaultArgs,
   config: sampleData.tram
 };
 

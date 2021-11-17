@@ -5,13 +5,13 @@ export default [
     occupancyItems: [
       {
         class: '1',
-        occupancy: 'none',
-        icon: lyneIcons.icons['utilization-none']
+        icon: lyneIcons.icons['utilization-none'],
+        occupancy: 'none'
       },
       {
         class: '2',
-        occupancy: 'none',
-        icon: lyneIcons.icons['utilization-none']
+        icon: lyneIcons.icons['utilization-none'],
+        occupancy: 'none'
       }
     ]
   },
@@ -19,13 +19,13 @@ export default [
     occupancyItems: [
       {
         class: '1',
-        occupancy: 'none',
-        icon: lyneIcons.icons['utilization-none']
+        icon: lyneIcons.icons['utilization-none'],
+        occupancy: 'none'
       },
       {
         class: '2',
-        occupancy: 'low',
-        icon: lyneIcons.icons['utilization-low']
+        icon: lyneIcons.icons['utilization-low'],
+        occupancy: 'low'
       }
     ]
   },
@@ -33,13 +33,13 @@ export default [
     occupancyItems: [
       {
         class: '1',
-        occupancy: 'low',
-        icon: lyneIcons.icons['utilization-low']
+        icon: lyneIcons.icons['utilization-low'],
+        occupancy: 'low'
       },
       {
         class: '2',
-        occupancy: 'low',
-        icon: lyneIcons.icons['utilization-low']
+        icon: lyneIcons.icons['utilization-low'],
+        occupancy: 'low'
       }
     ]
   },
@@ -47,13 +47,13 @@ export default [
     occupancyItems: [
       {
         class: '1',
-        occupancy: 'low',
-        icon: lyneIcons.icons['utilization-low']
+        icon: lyneIcons.icons['utilization-low'],
+        occupancy: 'low'
       },
       {
         class: '2',
-        occupancy: 'medium',
-        icon: lyneIcons.icons['utilization-medium']
+        icon: lyneIcons.icons['utilization-medium'],
+        occupancy: 'medium'
       }
     ]
   },
@@ -61,13 +61,13 @@ export default [
     occupancyItems: [
       {
         class: '1',
-        occupancy: 'medium',
-        icon: lyneIcons.icons['utilization-medium']
+        icon: lyneIcons.icons['utilization-medium'],
+        occupancy: 'medium'
       },
       {
         class: '2',
-        occupancy: 'medium',
-        icon: lyneIcons.icons['utilization-medium']
+        icon: lyneIcons.icons['utilization-medium'],
+        occupancy: 'medium'
       }
     ]
   },
@@ -75,13 +75,13 @@ export default [
     occupancyItems: [
       {
         class: '1',
-        occupancy: 'low',
-        icon: lyneIcons.icons['utilization-low']
+        icon: lyneIcons.icons['utilization-low'],
+        occupancy: 'low'
       },
       {
         class: '2',
-        occupancy: 'high',
-        icon: lyneIcons.icons['utilization-high']
+        icon: lyneIcons.icons['utilization-high'],
+        occupancy: 'high'
       }
     ]
   },
@@ -89,13 +89,13 @@ export default [
     occupancyItems: [
       {
         class: '1',
-        occupancy: 'medium',
-        icon: lyneIcons.icons['utilization-medium']
+        icon: lyneIcons.icons['utilization-medium'],
+        occupancy: 'medium'
       },
       {
         class: '2',
-        occupancy: 'high',
-        icon: lyneIcons.icons['utilization-high']
+        icon: lyneIcons.icons['utilization-high'],
+        occupancy: 'high'
       }
     ]
   },
@@ -103,13 +103,13 @@ export default [
     occupancyItems: [
       {
         class: '1',
-        occupancy: 'high',
-        icon: lyneIcons.icons['utilization-high']
+        icon: lyneIcons.icons['utilization-high'],
+        occupancy: 'high'
       },
       {
         class: '2',
-        occupancy: 'high',
-        icon: lyneIcons.icons['utilization-high']
+        icon: lyneIcons.icons['utilization-high'],
+        occupancy: 'high'
       }
     ]
   }

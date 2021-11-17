@@ -2,15 +2,13 @@ import { LyneTimetableTransporationNumber } from './lyne-timetable-transporation
 import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './lyne-timetable-transportation-number.sample-data';
 
-const data = sampleData;
-
 describe('lyne-timetable-transporation-number', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
       components: [LyneTimetableTransporationNumber],
-      html: `<lyne-timetable-transporation-number config='${JSON.stringify(data['bus'])}' role='gridcell' />`
+      html: `<lyne-timetable-transporation-number config='${JSON.stringify(sampleData['bus'])}' role='gridcell' />`
     });
 
     expect(root)

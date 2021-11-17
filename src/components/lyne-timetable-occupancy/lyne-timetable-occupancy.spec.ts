@@ -1,20 +1,76 @@
-import { LyneTimetableUtilization } from './lyne-timetable-occupancy';
+import { LyneTimetableOccupancy } from './lyne-timetable-occupancy';
 import { newSpecPage } from '@stencil/core/testing';
+import sampleData from './lyne-timetable-occupancy.sample-data';
 
 describe('lyne-timetable-occupancy', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableUtilization],
-      html: '<lyne-timetable-occupancy />'
+      components: [LyneTimetableOccupancy],
+      html: `<lyne-timetable-occupancy config='${JSON.stringify(sampleData['2'])}' role='gridcell' />`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-occupancy>
+        <lyne-timetable-occupancy
+            config='{"occupancyItems":[{"class":"1","icon":"<svg width=\\"19\\" height=\\"16\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m2.49997,3.00015c.82699,0,1.49998-.67299,1.49998-1.49998,0-.826995-.67299-1.499987-1.49998-1.499987S.999989.673175.999989,1.50017c0,.82699.672991,1.49998,1.499981,1.49998z\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m0,4.00014v5.99996h.999989V16H3.99995v-5.9999h.99999V4.00014H0z\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m9.5038,3.00015c.827,0,1.5-.67299,1.5-1.49998,0-.826995-.673-1.499987-1.5-1.499987-.82699,0-1.49999.672992-1.49999,1.499987,0,.82699.673,1.49998,1.49999,1.49998z\\" fill=\\"#bdbdbd\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m16.5076,3.00015c.827,0,1.5-.67299,1.5-1.49998,0-.826995-.673-1.499987-1.5-1.499987s-1.5.672992-1.5,1.499987c0,.82699.673,1.49998,1.5,1.49998z\\" fill=\\"#bdbdbd\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m7.00383,9.99958h.99998v5.99992h2.99999V9.99958h1V3.99965H7.00383v5.99993z\\" fill=\\"#bdbdbd\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m13.9998,4.00014v5.99996h1V16h3v-5.9999h1V4.00014h-5z\\" fill=\\"#bdbdbd\\"/></svg>","occupancy":"low"},{"class":"2","icon":"<svg width=\\"19\\" height=\\"16\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m2.49997,3.00015c.82699,0,1.49998-.67299,1.49998-1.49998,0-.826995-.67299-1.499987-1.49998-1.499987S.999989.673175.999989,1.50017c0,.82699.672991,1.49998,1.499981,1.49998z\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m0,4.00014v5.99996h.999989V16H3.99995v-5.9999h.99999V4.00014H0z\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m9.5038,3.00015c.827,0,1.5-.67299,1.5-1.49998,0-.826995-.673-1.499987-1.5-1.499987-.82699,0-1.49999.672992-1.49999,1.499987,0,.82699.673,1.49998,1.49999,1.49998z\\" fill=\\"#bdbdbd\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m16.5076,3.00015c.827,0,1.5-.67299,1.5-1.49998,0-.826995-.673-1.499987-1.5-1.499987s-1.5.672992-1.5,1.499987c0,.82699.673,1.49998,1.5,1.49998z\\" fill=\\"#bdbdbd\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m7.00383,9.99958h.99998v5.99992h2.99999V9.99958h1V3.99965H7.00383v5.99993z\\" fill=\\"#bdbdbd\\"/><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"m13.9998,4.00014v5.99996h1V16h3v-5.9999h1V4.00014h-5z\\" fill=\\"#bdbdbd\\"/></svg>","occupancy":"low"}]}'
+            role='gridcell'
+        >
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <ul
+                class="occupancy__list"
+                role="list"
+            >
+                <li class="occupancy__list-item">
+                    <span class="occupancy__class">
+                        <span
+                            aria-hidden="true"
+                            role="presentation"
+                            class="occupancy__class--visual"
+                        >
+                            1.
+                        </span>
+                        <span class="occupancy__class--visuallyhidden">
+                            1. First Class. Low to medium occupancy expected.
+                        </span>
+                    </span>
+                    <span class="occupancy__icon">
+                        <svg width="19" height="16" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m2.49997,3.00015c.82699,0,1.49998-.67299,1.49998-1.49998,0-.826995-.67299-1.499987-1.49998-1.499987S.999989.673175.999989,1.50017c0,.82699.672991,1.49998,1.499981,1.49998z"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m0,4.00014v5.99996h.999989V16H3.99995v-5.9999h.99999V4.00014H0z"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m9.5038,3.00015c.827,0,1.5-.67299,1.5-1.49998,0-.826995-.673-1.499987-1.5-1.499987-.82699,0-1.49999.672992-1.49999,1.499987,0,.82699.673,1.49998,1.49999,1.49998z" fill="#bdbdbd"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m16.5076,3.00015c.827,0,1.5-.67299,1.5-1.49998,0-.826995-.673-1.499987-1.5-1.499987s-1.5.672992-1.5,1.499987c0,.82699.673,1.49998,1.5,1.49998z" fill="#bdbdbd"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m7.00383,9.99958h.99998v5.99992h2.99999V9.99958h1V3.99965H7.00383v5.99993z" fill="#bdbdbd"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m13.9998,4.00014v5.99996h1V16h3v-5.9999h1V4.00014h-5z" fill="#bdbdbd"></path>
+                        </svg>
+                    </span>
+                </li>
+                <li class="occupancy__list-item">
+                    <span class="occupancy__class">
+                        <span
+                            aria-hidden="true"
+                            role="presentation"
+                            class="occupancy__class--visual"
+                        >
+                            2.
+                        </span>
+                        <span class="occupancy__class--visuallyhidden">
+                            2. Second Class. Low to medium occupancy expected.
+                        </span>
+                    </span>
+                    <span class="occupancy__icon">
+                        <svg width="19" height="16" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m2.49997,3.00015c.82699,0,1.49998-.67299,1.49998-1.49998,0-.826995-.67299-1.499987-1.49998-1.499987S.999989.673175.999989,1.50017c0,.82699.672991,1.49998,1.499981,1.49998z"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m0,4.00014v5.99996h.999989V16H3.99995v-5.9999h.99999V4.00014H0z"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m9.5038,3.00015c.827,0,1.5-.67299,1.5-1.49998,0-.826995-.673-1.499987-1.5-1.499987-.82699,0-1.49999.672992-1.49999,1.499987,0,.82699.673,1.49998,1.49999,1.49998z" fill="#bdbdbd"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m16.5076,3.00015c.827,0,1.5-.67299,1.5-1.49998,0-.826995-.673-1.499987-1.5-1.499987s-1.5.672992-1.5,1.499987c0,.82699.673,1.49998,1.5,1.49998z" fill="#bdbdbd"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m7.00383,9.99958h.99998v5.99992h2.99999V9.99958h1V3.99965H7.00383v5.99993z" fill="#bdbdbd"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m13.9998,4.00014v5.99996h1V16h3v-5.9999h1V4.00014h-5z" fill="#bdbdbd"></path>
+                        </svg>
+                    </span>
+                </li>
+            </ul>
           </mock:shadow-root>
         </lyne-timetable-occupancy>
       `);

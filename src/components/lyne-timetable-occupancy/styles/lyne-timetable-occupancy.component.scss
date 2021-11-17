@@ -5,4 +5,40 @@
 
 :host {
   display: block;
+
+  --icon-height: 16;
+}
+
+.occupancy__list {
+  @include listReset();
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: pxToRem(var(--spacing-fixed-2x));
+  height: pxToRem(var(--icon-height));
+}
+
+.occupancy__list-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: pxToRem(2);
+}
+
+.occupancy__class--visual {
+  @include text-s--regular();
+  line-height: inherit;
+}
+
+.occupancy__class--visuallyhidden {
+  @include screenReaderOnly();
+}
+
+.occupancy__icon {
+  height: pxToRem(var(--icon-height));
+  line-height: pxToRem(var(--icon-height));
+}
+
+.occupancy__icon svg {
+  float: left;
 }
