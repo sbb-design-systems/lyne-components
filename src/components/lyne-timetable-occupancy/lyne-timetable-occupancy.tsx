@@ -26,19 +26,20 @@ export class LyneTimetableOccupancy {
 
   /**
    * Stringified JSON to define the different outputs of the
-   * transportations number cell.
+   * occupancy predicition cell.
    * Format:
+   * occupancyItems: [
    * {
-   *  "direction": "Richtung Bern Wankdorf, Bahnhof",
-   *  "meansOfTransport": {
-   *    "picto": "<svg width=\"24\" height=\"24\"...></svg>",
-   *    "text": "Bus"
-   *  },
-   *  "product":{
-   *    "icon": "",
-   *    "text":"B 20"
+   *    class: '1',
+   *    icon: "<svg width="19" height="16"...></svg>",,
+   *    occupancy: 'low'
+   * },
+   * {
+   *    class: '2',
+   *    icon: "<svg width="19" height="16"...></svg>",,
+   *    occupancy: 'medium'
    *  }
-   * }
+   * ]
    */
   @Prop() public config!: string;
 
