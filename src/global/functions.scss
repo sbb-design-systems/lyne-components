@@ -1,3 +1,7 @@
-@function pxToRem($size) {
-  @return calc(#{$size} / #{var(--typo-scale-default)} * 1rem);
+@function pxToRem($size, $negate:null) {
+  $multiplier: 1rem;
+  @if $negate {
+    $multiplier: -1rem;
+  }
+  @return calc(#{$size} / #{var(--typo-scale-default)} * #{$multiplier});
 }
