@@ -30,22 +30,19 @@ export class LyneTimetablePlatform {
   public render(): JSX.Element {
 
     const text = `${i18nFromPlatform.short[this._currentLanguage]} `;
-    const a11yLabel = `${i18nFromPlatform.long[this._currentLanguage]}`;
+    const a11yLabel = `${i18nFromPlatform.long[this._currentLanguage]} ${this.platform}.`;
 
     return (
-      <span class='platform'>
-        <span class='platform__visuallyhidden'>
-          {a11yLabel}
-        </span>
-        <span
-          aria-hidden='true'
-          class='platform__text'
-          role='presentation'
-        >
+      <p
+        aria-label={a11yLabel}
+        class='platform'
+        role='text'
+      >
+        <span class='platform__text'>
           {text}
         </span>
         {this.platform}
-      </span>
+      </p>
     );
   }
 }

@@ -22,6 +22,99 @@ export const i18nDeleteCurrentInput: any = {
   it: 'Svuotare il campo'
 };
 
+export const i18nDurationSecond: any = {
+  single: {
+    long: {
+      de: 'Sekunden',
+      en: 'Empty field',
+      fr: 'Videz le champ',
+      it: 'Seconda'
+    },
+    short: {
+      de: 's',
+      en: 's',
+      fr: 's',
+      it: 's'
+    }
+  },
+  multiple: {
+    long: {
+      de: 'Sekunde',
+      en: 'Second',
+      fr: 'Secondes',
+      it: 'Secondi'
+    },
+    short: {
+      de: 's',
+      en: 's',
+      fr: 's',
+      it: 's'
+    }
+  }
+};
+
+export const i18nDurationMinute: any = {
+  single: {
+    long: {
+      de: 'Minute',
+      en: 'Minute',
+      fr: 'minute',
+      it: 'Minuto'
+    },
+    short: {
+      de: 'm',
+      en: 'm',
+      fr: 'm',
+      it: 'm'
+    }
+  },
+  multiple: {
+    long: {
+      de: 'Minuten',
+      en: 'Minutes',
+      fr: 'minutes',
+      it: 'Minuti'
+    },
+    short: {
+      de: 'min',
+      en: 'min',
+      fr: 'min',
+      it: 'min'
+    }
+  }
+};
+
+export const i18nDurationHour: any = {
+  single: {
+    long: {
+      de: 'Stunde',
+      en: 'Hour',
+      fr: 'Heure',
+      it: 'Ora'
+    },
+    short: {
+      de: 'h',
+      en: 'h',
+      fr: 'h',
+      it: 'h'
+    }
+  },
+  multiple: {
+    long: {
+      de: 'Stunden',
+      en: 'Hours',
+      fr: 'Heures',
+      it: 'Ore'
+    },
+    short: {
+      de: 'h',
+      en: 'h',
+      fr: 'h',
+      it: 'h'
+    }
+  }
+};
+
 export const i18nFromPlatform: any = {
   long: {
     de: 'Von Gleis',

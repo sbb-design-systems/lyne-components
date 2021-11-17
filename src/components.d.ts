@@ -423,6 +423,12 @@ export namespace Components {
          */
         "labelVisible"?: true;
     }
+    interface LyneTimetableDuration {
+        /**
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+         */
+        "config": string;
+    }
     interface LyneTimetableOccupancy {
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
@@ -565,6 +571,12 @@ declare global {
         prototype: HTMLLyneTextInputElement;
         new (): HTMLLyneTextInputElement;
     };
+    interface HTMLLyneTimetableDurationElement extends Components.LyneTimetableDuration, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableDurationElement: {
+        prototype: HTMLLyneTimetableDurationElement;
+        new (): HTMLLyneTimetableDurationElement;
+    };
     interface HTMLLyneTimetableOccupancyElement extends Components.LyneTimetableOccupancy, HTMLStencilElement {
     }
     var HTMLLyneTimetableOccupancyElement: {
@@ -606,6 +618,7 @@ declare global {
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
+        "lyne-timetable-duration": HTMLLyneTimetableDurationElement;
         "lyne-timetable-occupancy": HTMLLyneTimetableOccupancyElement;
         "lyne-timetable-platform": HTMLLyneTimetablePlatformElement;
         "lyne-timetable-transporation-number": HTMLLyneTimetableTransporationNumberElement;
@@ -1017,6 +1030,12 @@ declare namespace LocalJSX {
          */
         "labelVisible"?: true;
     }
+    interface LyneTimetableDuration {
+        /**
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+         */
+        "config": string;
+    }
     interface LyneTimetableOccupancy {
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
@@ -1078,6 +1097,7 @@ declare namespace LocalJSX {
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
+        "lyne-timetable-duration": LyneTimetableDuration;
         "lyne-timetable-occupancy": LyneTimetableOccupancy;
         "lyne-timetable-platform": LyneTimetablePlatform;
         "lyne-timetable-transporation-number": LyneTimetableTransporationNumber;
@@ -1104,6 +1124,7 @@ declare module "@stencil/core" {
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
+            "lyne-timetable-duration": LocalJSX.LyneTimetableDuration & JSXBase.HTMLAttributes<HTMLLyneTimetableDurationElement>;
             "lyne-timetable-occupancy": LocalJSX.LyneTimetableOccupancy & JSXBase.HTMLAttributes<HTMLLyneTimetableOccupancyElement>;
             "lyne-timetable-platform": LocalJSX.LyneTimetablePlatform & JSXBase.HTMLAttributes<HTMLLyneTimetablePlatformElement>;
             "lyne-timetable-transporation-number": LocalJSX.LyneTimetableTransporationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransporationNumberElement>;

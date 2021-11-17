@@ -17,17 +17,16 @@ describe('lyne-timetable-platform', () => {
             role="gridcell"
         >
           <mock:shadow-root>
-            <span class="platform">
-                <span class="platform__visuallyhidden">from platform</span>
-                <span
-                    aria-hidden="true"
-                    class="platform__text"
-                    role="presentation"
-                >
+            <p
+                aria-label="from platform 12B/C."
+                class="platform"
+                role="text"
+            >
+                <span class="platform__text">
                     Pl.
                 </span>
                 12B/C
-            </span>
+            </p>
           </mock:shadow-root>
         </lyne-timetable-platform>
       `);
