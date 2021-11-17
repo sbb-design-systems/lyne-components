@@ -425,9 +425,15 @@ export namespace Components {
     }
     interface LyneTimetableOccupancy {
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
          */
         "config": string;
+    }
+    interface LyneTimetablePlatform {
+        /**
+          * Pass in a string like 12A/B, the prefix and visually hidden text will get added automatically.
+         */
+        "platform": string;
     }
     interface LyneTimetableTransporationNumber {
         /**
@@ -565,6 +571,12 @@ declare global {
         prototype: HTMLLyneTimetableOccupancyElement;
         new (): HTMLLyneTimetableOccupancyElement;
     };
+    interface HTMLLyneTimetablePlatformElement extends Components.LyneTimetablePlatform, HTMLStencilElement {
+    }
+    var HTMLLyneTimetablePlatformElement: {
+        prototype: HTMLLyneTimetablePlatformElement;
+        new (): HTMLLyneTimetablePlatformElement;
+    };
     interface HTMLLyneTimetableTransporationNumberElement extends Components.LyneTimetableTransporationNumber, HTMLStencilElement {
     }
     var HTMLLyneTimetableTransporationNumberElement: {
@@ -595,6 +607,7 @@ declare global {
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-timetable-occupancy": HTMLLyneTimetableOccupancyElement;
+        "lyne-timetable-platform": HTMLLyneTimetablePlatformElement;
         "lyne-timetable-transporation-number": HTMLLyneTimetableTransporationNumberElement;
         "lyne-title": HTMLLyneTitleElement;
     }
@@ -1006,9 +1019,15 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableOccupancy {
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
          */
         "config": string;
+    }
+    interface LyneTimetablePlatform {
+        /**
+          * Pass in a string like 12A/B, the prefix and visually hidden text will get added automatically.
+         */
+        "platform": string;
     }
     interface LyneTimetableTransporationNumber {
         /**
@@ -1060,6 +1079,7 @@ declare namespace LocalJSX {
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
         "lyne-timetable-occupancy": LyneTimetableOccupancy;
+        "lyne-timetable-platform": LyneTimetablePlatform;
         "lyne-timetable-transporation-number": LyneTimetableTransporationNumber;
         "lyne-title": LyneTitle;
     }
@@ -1085,6 +1105,7 @@ declare module "@stencil/core" {
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-timetable-occupancy": LocalJSX.LyneTimetableOccupancy & JSXBase.HTMLAttributes<HTMLLyneTimetableOccupancyElement>;
+            "lyne-timetable-platform": LocalJSX.LyneTimetablePlatform & JSXBase.HTMLAttributes<HTMLLyneTimetablePlatformElement>;
             "lyne-timetable-transporation-number": LocalJSX.LyneTimetableTransporationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransporationNumberElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }

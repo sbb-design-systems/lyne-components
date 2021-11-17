@@ -22,6 +22,21 @@ export const i18nDeleteCurrentInput: any = {
   it: 'Svuotare il campo'
 };
 
+export const i18nFromPlatform: any = {
+  long: {
+    de: 'Von Gleis',
+    en: 'from platform',
+    fr: 'à partir de la voie',
+    it: 'Dalla piattaforma'
+  },
+  short: {
+    de: 'Gl.',
+    en: 'Pl.',
+    fr: 'Voie',
+    it: 'Bin.'
+  }
+};
+
 export const i18nMandatoryField: any = {
   de: 'Pflichtfeld, bitte ausfüllen.',
   en: 'Mandatory field, please complete.',
