@@ -7,18 +7,31 @@
   display: block;
 
   --element-height: 20;
-  --icon-height: var(--element-height);
+  --timetable-row-line-height: var(--element-height);
+
+  /* height: pxToRem(var(--icon-height));
+  line-height: pxToRem(var(--icon-height)); */
+
+  background: lime;
 
 }
 
 .transportation-number {
   display: flex;
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+.transportation-number--visual {
+  @include text-s--regular();
+  display: flex;
+  flex: 1 1 100%;
   flex-wrap: nowrap;
   align-items: center;
-  @include text-s--regular();
-  min-height: pxToRem(var(--element-height));
+  height: pxToRem(var(--element-height));
   line-height: pxToRem(19);
   overflow: hidden;
+  background: orange;
 }
 
 .transportation-number__means_of_transport {
@@ -26,6 +39,7 @@
   height: pxToRem(var(--icon-height));
   width: pxToRem(var(--icon-height));
   margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+  overflow: hidden;
 }
 
 .transportation-number__product-icon,
@@ -48,6 +62,10 @@
 
 .transportation-number__direction_text {
   @include ellipsis();
+}
+
+.transportation-number--visually-hidden {
+  @include screenReaderOnly();
 }
 
 svg {

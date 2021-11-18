@@ -7,11 +7,12 @@
   display: block;
 }
 
-.platform {
-  @include text-s--regular();
-  margin: 0;
+.timetable {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem(var(--spacing-fixed-1x));
 }
 
-.platform__text--visually-hidden {
+.timetable__column-headers {
   @include screenReaderOnly();
 }

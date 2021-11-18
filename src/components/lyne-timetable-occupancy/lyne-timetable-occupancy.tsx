@@ -62,7 +62,7 @@ export class LyneTimetableOccupancy {
             ? 'first'
             : 'second';
 
-          const a11yLabel = `${occupancyItem.class}. ${i18nClass[classText][this._currentLanguage]}. ${occupancyText}`;
+          const a11yLabel = `${i18nClass[classText][this._currentLanguage]}. ${occupancyText}`;
 
           return (
             <li class='occupancy__list-item'>
@@ -77,7 +77,7 @@ export class LyneTimetableOccupancy {
                   {occupancyItem.class}.
                 </span>
                 <span
-                  class='occupancy__class--visuallyhidden'
+                  class='occupancy__class--visually-hidden'
                 >
                   {a11yLabel}
                 </span>

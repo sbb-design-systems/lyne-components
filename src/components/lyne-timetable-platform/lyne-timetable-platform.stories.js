@@ -1,9 +1,10 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import sampleData from './lyne-timetable-platform.sample-data';
 
 const Template = (args) => (
   <lyne-timetable-platform
-    platform={args.platform}
+    config={JSON.stringify(args.config)}
     role={
       args.gridCellRole
         ? 'gridcell'
@@ -13,26 +14,25 @@ const Template = (args) => (
   </lyne-timetable-platform>
 );
 
+const config = {
+  table: {
+    disable: true
+  }
+};
+
 const gridCellRole = {
   control: {
     type: 'boolean'
   }
 };
 
-const platform = {
-  control: {
-    type: 'text'
-  }
-};
-
 const defaultArgTypes = {
-  gridCellRole,
-  platform
+  config,
+  gridCellRole
 };
 
 const defaultArgs = {
-  gridCellRole: true,
-  platform: '13A/C'
+  gridCellRole: true
 };
 
 /* ************************************************* */
@@ -42,7 +42,8 @@ export const LyneTimetablePlatform = Template.bind({});
 
 LyneTimetablePlatform.argTypes = defaultArgTypes;
 LyneTimetablePlatform.args = {
-  ...defaultArgs
+  ...defaultArgs,
+  config: sampleData[0]
 };
 
 LyneTimetablePlatform.documentation = {

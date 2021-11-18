@@ -3,7 +3,7 @@ import readme from './readme.md';
 import sampleData from './lyne-timetable-transportation-number.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-transporation-number
+  <lyne-timetable-transportation-number
     config={JSON.stringify(args.config)}
     role={
       args.gridCellRole
@@ -11,7 +11,7 @@ const Template = (args) => (
         : 'none'
     }
   >
-  </lyne-timetable-transporation-number>
+  </lyne-timetable-transportation-number>
 );
 
 const config = {
@@ -102,5 +102,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-transporation-number'
+  title: 'Timetable/lyne-timetable-transportation-number'
 };

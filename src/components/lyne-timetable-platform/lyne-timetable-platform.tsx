@@ -21,16 +21,29 @@ export class LyneTimetablePlatform {
   private _currentLanguage = getDocumentLang();
 
   /**
-   * Pass in a string like 12A/B, the prefix
-   * and visually hidden text will get added
-   * automatically.
+   * Stringified JSON to define the different outputs of the
+   * transportations number cell.
+   * Format:
+   * {
+   *  "direction": "Richtung Bern Wankdorf, Bahnhof",
+   *  "meansOfTransport": {
+   *    "picto": "<svg width=\"24\" height=\"24\"...></svg>",
+   *    "text": "Bus"
+   *  },
+   *  "product":{
+   *    "icon": "",
+   *    "text":"B 20"
+   *  }
+   * }
    */
-  @Prop() public platform!: string;
+  @Prop() public config!: string;
 
   public render(): JSX.Element {
 
+    const config = JSON.parse(this.config);
+
     const text = `${i18nFromPlatform.short[this._currentLanguage]} `;
-    const a11yLabel = `${i18nFromPlatform.long[this._currentLanguage]} ${this.platform}.`;
+    const a11yLabel = `${i18nFromPlatform.long[this._currentLanguage]} ${config.platform}.`;
 
     return (
       <p
@@ -38,10 +51,17 @@ export class LyneTimetablePlatform {
         class='platform'
         role='text'
       >
-        <span class='platform__text'>
+        <span
+          aria-hidden='true'
+          class='platform__text'
+          role='presentation'
+        >
           {text}
+          {config.platform}
         </span>
-        {this.platform}
+        <span class='platform__text--visually-hidden'>
+          {a11yLabel}
+        </span>
       </p>
     );
   }

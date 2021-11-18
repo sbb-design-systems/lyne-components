@@ -78,8 +78,15 @@ export class LyneTimetableDuration {
         class='duration'
         role='text'
       >
-        <span class='duration__text'>
+        <span
+          aria-hidden='true'
+          class='duration__text--visual'
+          role='presentation'
+        >
           {visualText}
+        </span>
+        <span class='duration__text--visually-hidden'>
+          {a11yLabel}
         </span>
       </p>
     );

@@ -30,7 +30,7 @@
   line-height: inherit;
 }
 
-.occupancy__class--visuallyhidden {
+.occupancy__class--visually-hidden {
   @include screenReaderOnly();
 }
 

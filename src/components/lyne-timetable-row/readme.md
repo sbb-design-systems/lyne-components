@@ -1,4 +1,4 @@
-# lyne-timetable-occupancy
+# lyne-timetable-row
 
 
 
@@ -16,13 +16,24 @@
 
 ### Used by
 
- - [lyne-timetable-row](../lyne-timetable-row)
+ - [lyne-timetable](../lyne-timetable)
+
+### Depends on
+
+- [lyne-timetable-transportation-number](../lyne-timetable-transportation-number)
+- [lyne-timetable-platform](../lyne-timetable-platform)
+- [lyne-timetable-occupancy](../lyne-timetable-occupancy)
+- [lyne-timetable-duration](../lyne-timetable-duration)
 
 ### Graph
 ```mermaid
 graph TD;
+  lyne-timetable-row --> lyne-timetable-transportation-number
+  lyne-timetable-row --> lyne-timetable-platform
   lyne-timetable-row --> lyne-timetable-occupancy
-  style lyne-timetable-occupancy fill:#f9f,stroke:#333,stroke-width:4px
+  lyne-timetable-row --> lyne-timetable-duration
+  lyne-timetable --> lyne-timetable-row
+  style lyne-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

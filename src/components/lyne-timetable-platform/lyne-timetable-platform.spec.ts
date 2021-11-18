@@ -1,5 +1,6 @@
 import { LyneTimetablePlatform } from './lyne-timetable-platform';
 import { newSpecPage } from '@stencil/core/testing';
+import sampleData from './lyne-timetable-transportation-number.sample-data';
 
 describe('lyne-timetable-platform', () => {
   it('renders', async () => {
@@ -7,14 +8,14 @@ describe('lyne-timetable-platform', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetablePlatform],
-      html: '<lyne-timetable-platform platform="12B/C" role="gridcell"/>'
+      html: `<lyne-timetable-platform config='${JSON.stringify(sampleData[0])}' role='gridcell'/>`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-platform
-            platform="12B/C"
-            role="gridcell"
+            config='{"platform": "13A/C"}'
+            role='gridcell'
         >
           <mock:shadow-root>
             <p
@@ -25,7 +26,7 @@ describe('lyne-timetable-platform', () => {
                 <span class="platform__text">
                     Pl.
                 </span>
-                12B/C
+                13A/C
             </p>
           </mock:shadow-root>
         </lyne-timetable-platform>

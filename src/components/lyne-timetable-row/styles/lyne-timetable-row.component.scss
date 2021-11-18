@@ -1,0 +1,37 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+
+  --row-min-height: 108;
+
+  @include mq($from: medium) {
+    --row-min-height: 114;
+  }
+
+}
+
+.timetable__row {
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  // min-height: pxToRem(var(--row-min-height));
+  background: pink;
+}
+
+.timetable__row > * {
+  display: flex;
+}
+
+lyne-timetable-transportation-number {
+  display: flex;
+  flex: 1 1 100%;
+}
+
+

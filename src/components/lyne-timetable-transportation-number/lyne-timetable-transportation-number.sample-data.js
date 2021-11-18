@@ -13,10 +13,10 @@ export default {
     }
   },
   cableCar: {
-    direction: 'Richtung Riederalp West',
+    direction: 'Direction Riederalp West',
     meansOfTransport: {
       picto: lyneIcons.icons['transportation-luftseilbahn-right'],
-      text: 'Luftseilbahn'
+      text: 'Cable Car'
     },
     product: {
       icon: '',
@@ -24,10 +24,10 @@ export default {
     }
   },
   train: {
-    direction: 'Richtung Romanshorn',
+    direction: 'Direction Romanshorn',
     meansOfTransport: {
       picto: lyneIcons.icons['transportation-zug-right'],
-      text: 'Zug'
+      text: 'Train'
     },
     product: {
       icon: lyneIcons.icons['ic-8'],
