@@ -7,6 +7,7 @@
   display: block;
 
   --icon-height: 16;
+  --icon-width: 19;
 }
 
 .occupancy__list {
@@ -41,4 +42,6 @@
 
 .occupancy__icon svg {
   float: left;
+  height: pxToRem(var(--icon-height));
+  width: pxToRem(var(--icon-width));
 }

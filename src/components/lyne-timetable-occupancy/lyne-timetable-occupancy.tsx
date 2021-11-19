@@ -12,7 +12,7 @@ import {
 } from '../../global/i18n';
 
 @Component({
-  shadow: true,
+  shadow: false,
   styleUrls: {
     default: 'styles/lyne-timetable-occupancy.default.scss',
     shared: 'styles/lyne-timetable-occupancy.shared.scss'
@@ -84,8 +84,8 @@ export class LyneTimetableOccupancy {
               </span>
               <span
                 class='occupancy__icon'
-                innerHTML={occupancyItem.icon}
               >
+                <svg><use xlinkHref={`#${occupancyItem.icon}`}></use></svg>
               </span>
             </li>
           );

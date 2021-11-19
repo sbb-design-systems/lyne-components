@@ -7,6 +7,7 @@
   display: block;
 
   --element-height: 20;
+  --product-icon-width: 59;
   --timetable-row-line-height: var(--element-height);
 
   /* height: pxToRem(var(--icon-height));
@@ -42,11 +43,19 @@
   overflow: hidden;
 }
 
+.transportation-number__means_of_transport svg {
+  width: pxToRem(var(--element-height));
+}
+
 .transportation-number__product-icon,
 .transportation-number__product-text {
   display: flex;
   white-space: nowrap;
   margin-inline-end: pxToRem(var(--spacing-fixed-2x));
+}
+
+.transportation-number__product-icon svg {
+  width: pxToRem(var(--product-icon-width));
 }
 
 .transportation-number__product-text {
@@ -70,6 +79,7 @@
 
 svg {
   float: left;
+  height: pxToRem(var(--element-height));
 }
 
 

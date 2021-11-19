@@ -5,7 +5,7 @@ import {
 } from '@stencil/core';
 
 @Component({
-  shadow: true,
+  shadow: false,
   styleUrls: {
     default: 'styles/lyne-timetable-row.default.scss',
     shared: 'styles/lyne-timetable-row.shared.scss'

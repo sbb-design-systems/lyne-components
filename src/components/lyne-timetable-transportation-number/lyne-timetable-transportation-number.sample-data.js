@@ -4,7 +4,7 @@ export default {
   bus: {
     direction: 'Richtung Bern Wankdorf, Bahnhof',
     meansOfTransport: {
-      picto: lyneIcons.icons['transportation-bus-right'],
+      picto: 'transportation-bus-right',
       text: 'Bus'
     },
     product: {
@@ -15,7 +15,7 @@ export default {
   cableCar: {
     direction: 'Direction Riederalp West',
     meansOfTransport: {
-      picto: lyneIcons.icons['transportation-luftseilbahn-right'],
+      picto: 'transportation-luftseilbahn-right',
       text: 'Cable Car'
     },
     product: {
@@ -26,18 +26,18 @@ export default {
   train: {
     direction: 'Direction Romanshorn',
     meansOfTransport: {
-      picto: lyneIcons.icons['transportation-zug-right'],
+      picto: 'transportation-zug-right',
       text: 'Train'
     },
     product: {
-      icon: lyneIcons.icons['ic-8'],
+      icon: 'ic-8',
       text: 'IC 8'
     }
   },
   tram: {
     direction: 'Richtung Bern Wankdorf, Bahnhof',
     meansOfTransport: {
-      picto: lyneIcons.icons['transportation-tram-right'],
+      picto: 'transportation-tram-right',
       text: 'Tram'
     },
     product: {
