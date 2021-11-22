@@ -14,6 +14,19 @@
 | `status`            | `status`            | Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.                                                                                                                                            | `"future" \| "past" \| number` | `undefined` |
 
 
+## Dependencies
+
+### Used by
+
+ - [lyne-timetable-transportation-details](../lyne-timetable-transportation-details)
+
+### Graph
+```mermaid
+graph TD;
+  lyne-timetable-transportation-details --> lyne-pearl-chain
+  style lyne-pearl-chain fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

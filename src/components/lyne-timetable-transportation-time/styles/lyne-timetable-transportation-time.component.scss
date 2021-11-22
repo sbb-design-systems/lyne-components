@@ -5,14 +5,22 @@
 
 :host {
   display: block;
-  align-self: flex-end;
 }
 
-.duration {
-  @include text-s--regular();
+.time {
+  @include text-s--bold();
   margin: 0;
+  font-variant-numeric: tabular-nums;
 }
 
-.duration__text--visually-hidden {
+.time--departure {
+  margin-inline-end: pxToRem(var(--spacing-fixed-3x));
+}
+
+.time--arrival {
+  margin-inline-start: pxToRem(var(--spacing-fixed-3x));
+}
+
+.time__text--visually-hidden {
   @include screenReaderOnly();
 }

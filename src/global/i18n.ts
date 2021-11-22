@@ -1,5 +1,12 @@
 /* eslint-disable sort-keys */
 
+export const i18nArrival: any = {
+  de: 'Ankunft',
+  en: 'Arrival',
+  fr: 'Arrivée',
+  it: 'Arrivo'
+};
+
 export const i18nClass: any = {
   first: {
     de: 'Erste Klasse',
@@ -13,6 +20,13 @@ export const i18nClass: any = {
     fr: 'Deuxième classe',
     it: 'Secondo Classe'
   }
+};
+
+export const i18nDeparture: any = {
+  de: 'Abfahrt',
+  en: 'Departure',
+  fr: 'Départ',
+  it: 'Partenza'
 };
 
 export const i18nDeleteCurrentInput: any = {

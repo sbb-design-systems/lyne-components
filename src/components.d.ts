@@ -450,7 +450,19 @@ export namespace Components {
          */
         "config": string;
     }
+    interface LyneTimetableTransportationDetails {
+        /**
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+         */
+        "config": string;
+    }
     interface LyneTimetableTransportationNumber {
+        /**
+          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+         */
+        "config": string;
+    }
+    interface LyneTimetableTransportationTime {
         /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
@@ -610,11 +622,23 @@ declare global {
         prototype: HTMLLyneTimetableRowElement;
         new (): HTMLLyneTimetableRowElement;
     };
+    interface HTMLLyneTimetableTransportationDetailsElement extends Components.LyneTimetableTransportationDetails, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTransportationDetailsElement: {
+        prototype: HTMLLyneTimetableTransportationDetailsElement;
+        new (): HTMLLyneTimetableTransportationDetailsElement;
+    };
     interface HTMLLyneTimetableTransportationNumberElement extends Components.LyneTimetableTransportationNumber, HTMLStencilElement {
     }
     var HTMLLyneTimetableTransportationNumberElement: {
         prototype: HTMLLyneTimetableTransportationNumberElement;
         new (): HTMLLyneTimetableTransportationNumberElement;
+    };
+    interface HTMLLyneTimetableTransportationTimeElement extends Components.LyneTimetableTransportationTime, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTransportationTimeElement: {
+        prototype: HTMLLyneTimetableTransportationTimeElement;
+        new (): HTMLLyneTimetableTransportationTimeElement;
     };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
@@ -644,7 +668,9 @@ declare global {
         "lyne-timetable-occupancy": HTMLLyneTimetableOccupancyElement;
         "lyne-timetable-platform": HTMLLyneTimetablePlatformElement;
         "lyne-timetable-row": HTMLLyneTimetableRowElement;
+        "lyne-timetable-transportation-details": HTMLLyneTimetableTransportationDetailsElement;
         "lyne-timetable-transportation-number": HTMLLyneTimetableTransportationNumberElement;
+        "lyne-timetable-transportation-time": HTMLLyneTimetableTransportationTimeElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -1080,7 +1106,19 @@ declare namespace LocalJSX {
          */
         "config": string;
     }
+    interface LyneTimetableTransportationDetails {
+        /**
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+         */
+        "config": string;
+    }
     interface LyneTimetableTransportationNumber {
+        /**
+          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+         */
+        "config": string;
+    }
+    interface LyneTimetableTransportationTime {
         /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
@@ -1134,7 +1172,9 @@ declare namespace LocalJSX {
         "lyne-timetable-occupancy": LyneTimetableOccupancy;
         "lyne-timetable-platform": LyneTimetablePlatform;
         "lyne-timetable-row": LyneTimetableRow;
+        "lyne-timetable-transportation-details": LyneTimetableTransportationDetails;
         "lyne-timetable-transportation-number": LyneTimetableTransportationNumber;
+        "lyne-timetable-transportation-time": LyneTimetableTransportationTime;
         "lyne-title": LyneTitle;
     }
 }
@@ -1163,7 +1203,9 @@ declare module "@stencil/core" {
             "lyne-timetable-occupancy": LocalJSX.LyneTimetableOccupancy & JSXBase.HTMLAttributes<HTMLLyneTimetableOccupancyElement>;
             "lyne-timetable-platform": LocalJSX.LyneTimetablePlatform & JSXBase.HTMLAttributes<HTMLLyneTimetablePlatformElement>;
             "lyne-timetable-row": LocalJSX.LyneTimetableRow & JSXBase.HTMLAttributes<HTMLLyneTimetableRowElement>;
+            "lyne-timetable-transportation-details": LocalJSX.LyneTimetableTransportationDetails & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationDetailsElement>;
             "lyne-timetable-transportation-number": LocalJSX.LyneTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationNumberElement>;
+            "lyne-timetable-transportation-time": LocalJSX.LyneTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationTimeElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }

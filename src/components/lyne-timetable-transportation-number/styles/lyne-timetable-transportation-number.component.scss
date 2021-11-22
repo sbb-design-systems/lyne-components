@@ -6,9 +6,8 @@
 :host {
   display: block;
 
-  --element-height: 20;
+  --transportation-number-element-height: 20;
   --product-icon-width: 59;
-  --timetable-row-line-height: var(--element-height);
 
   /* height: pxToRem(var(--icon-height));
   line-height: pxToRem(var(--icon-height)); */
@@ -29,7 +28,7 @@
   flex: 1 1 100%;
   flex-wrap: nowrap;
   align-items: center;
-  height: pxToRem(var(--element-height));
+  height: pxToRem(var(--transportation-number-element-height));
   line-height: pxToRem(19);
   overflow: hidden;
   background: orange;
@@ -37,14 +36,14 @@
 
 .transportation-number__means_of_transport {
   display: flex;
-  height: pxToRem(var(--icon-height));
-  width: pxToRem(var(--icon-height));
+  height: pxToRem(var(--transportation-number-element-height));
+  width: pxToRem(var(--transportation-number-element-height));
   margin-inline-end: pxToRem(var(--spacing-fixed-1x));
   overflow: hidden;
 }
 
 .transportation-number__means_of_transport svg {
-  width: pxToRem(var(--element-height));
+  width: pxToRem(var(--transportation-number-element-height));
 }
 
 .transportation-number__product-icon,
@@ -79,7 +78,7 @@
 
 svg {
   float: left;
-  height: pxToRem(var(--element-height));
+  height: pxToRem(var(--transportation-number-element-height));
 }
 
 

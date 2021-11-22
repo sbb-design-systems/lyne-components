@@ -1,4 +1,4 @@
-# lyne-timetable-transportation-number
+# lyne-timetable-transportation-time
 
 
 
@@ -21,8 +21,8 @@
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-number
-  style lyne-timetable-transportation-number fill:#f9f,stroke:#333,stroke-width:4px
+  lyne-timetable-transportation-details --> lyne-timetable-transportation-time
+  style lyne-timetable-transportation-time fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

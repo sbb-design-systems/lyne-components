@@ -1,0 +1,32 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+
+  --some-color-var: black;
+}
+
+.transportation-details {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+lyne-timetable-transportation-number {
+  display: flex;
+  flex-basis: 100%;
+  margin-block-end: pxToRem(var(--spacing-fixed-1x));
+}
+
+.transportation-details > lyne-timetable-transportation-time,
+.transportation-details > lyne-pearl-chain {
+  display: flex;
+}
+
+.transportation-details > lyne-pearl-chain {
+  flex: 1 1 auto;
+  align-items: center;
+}

@@ -43,10 +43,11 @@ export class LyneTimetableRow {
         class='timetable__row'
         role='none'
       >
-        <lyne-timetable-transportation-number
-          config={JSON.stringify(config.transportationNumber)}
+        <lyne-timetable-transportation-details
+          config={JSON.stringify(config.details)}
           role='gridcell'
-        ></lyne-timetable-transportation-number>
+        >
+        </lyne-timetable-transportation-details>
         <lyne-timetable-platform
           config={JSON.stringify(config.platform)}
           role='gridcell'

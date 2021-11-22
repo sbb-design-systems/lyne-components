@@ -27,11 +27,11 @@
 
 .timetable__row > * {
   display: flex;
+  flex: 0 1 auto;
 }
 
-lyne-timetable-transportation-number {
+.timetable__row > lyne-timetable-transportation-details {
   display: flex;
   flex: 1 1 100%;
+  max-width: 100%;
 }
-
-
