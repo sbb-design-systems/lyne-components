@@ -30,7 +30,7 @@ const SlotGenericTemplate = (args) => (
 
 const Template = (args) => (
   <lyne-card-badge {...args}>
-    <div slot='action'><SlotGenericTemplate {...genericArgs}/></div>
+    <div slot='generic'><SlotGenericTemplate {...genericArgs}/></div>
   </lyne-card-badge>
 );
 
@@ -43,8 +43,8 @@ const appearance = {
     type: 'select'
   },
   options: [
-    'dark',
-    'bright'
+    'primary',
+    'secondary'
   ]
 };
 
@@ -85,11 +85,11 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  appearance: 'dark',
+  appearance: 'primary',
   isDiscount: true,
-  price: 'Halbtax-Abo',
+  price: '88.88',
   size: 'small',
-  text: '2. Klasse, gültig bis 12.11.2021'
+  text: 'ab CHF'
 };
 
 /* ************************************************* */
@@ -117,7 +117,7 @@ ProductSubscription.documentation = {
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={'padding: 2rem; position: relative; overflow: hidden;'}>
         <Story/>
       </div>
     )

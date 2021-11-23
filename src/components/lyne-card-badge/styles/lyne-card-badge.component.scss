@@ -3,41 +3,50 @@
 // and default mode
 @include host-component-properties;
 
-/* ************************************************* */
-/* Layout & spacing                                  */
-/* ************************************************* */
-
-// Layout switch
-
-
-/* ************************************************* */
-/* Styling                                           */
-/* ************************************************* */
+:host {
+  --card-badge-color-primary: var(--color-white-default);
+  --card-badge-color-secondary: var(--color-black-default);
+  --card-badge-background-color-primary: var(--color-black-default);
+  --card-badge-background-color-secondary: var(--color-white-default);
+}
 
 .card-badge {
+  display: flex;
+  align-items: center;
+  height: 100%;
   position: absolute;
   inset-block-start: 0;
   inset-inline-end: 0;
-  height: 2em;
-  right: 0;
-  display: flex;
-  align-items: center;
+  padding-inline-end: pxToRem(var(--spacing-fixed-6x));
+  border-end-start-radius: pxToRem(var(--border-radius-4x));
 
-  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
-
-  //border-radius:10% 0% 20% 10% / 0% 87% 38% 0%;
-  border-bottom-left-radius: pxToRem(var(--border-radius-4x));
-
+  // Left to right, right to left expressions
+  right: pxToRem(var(--spacing-fixed-3x), true);
   transform: skew(16deg, 0deg);
-
-  &--dark {
-    background-color: black;
-    color: white;
+  > * {
+    transform: skew(-16deg, 0deg);
+    padding-inline-start: .5em;
+  }
+  &[dir="rtl"] {
+    right: initial;
+    left: pxToRem(var(--spacing-fixed-3x), true);
+    transform: skew(-16deg, 0deg);
+    > * {
+      transform: skew(16deg, 0deg);
+    }
   }
 
-  &--bright {
-    color: black;
-    background-color: white;
+  /* ************************************************* */
+  /* Variants                                          */
+  /* ************************************************* */
+  &--primary {
+    color: var(--card-badge-color-primary);
+    background-color: var(--card-badge-background-color-primary);
+  }
+
+  &--secondary {
+    color: var(--card-badge-color-secondary);
+    background-color: var(--card-badge-background-color-secondary);
   }
 
   &--regular {
@@ -46,11 +55,6 @@
 
   &--small {
     @include text-xs--regular;
-  }
-
-  > * {
-    transform: skew(-16deg, 0deg);
-    padding-inline-start: .5em;
   }
 }
 

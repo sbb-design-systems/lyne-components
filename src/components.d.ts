@@ -123,7 +123,7 @@ export namespace Components {
          */
         "size": InterfaceCardBadgeAttributes['size'];
         /**
-          * From/above which price text
+          * From/above price text
          */
         "text"?: string;
     }
@@ -646,7 +646,7 @@ declare namespace LocalJSX {
          */
         "size"?: InterfaceCardBadgeAttributes['size'];
         /**
-          * From/above which price text
+          * From/above price text
          */
         "text"?: string;
     }

@@ -4,10 +4,14 @@ import {
   h,
   Prop
 } from '@stencil/core';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceCardBadgeAttributes } from './lyne-card-badge.custom';
 
 /**
- * @slot generic - Slot used to render generic content
+ * @slot generic - Slot used to render generic content. Since this slot is
+ * wrapped within a `span` only
+ * [inline elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements)
+ * are allowed to be passed within this slot.
  */
 
 @Component({
@@ -22,7 +26,7 @@ import { InterfaceCardBadgeAttributes } from './lyne-card-badge.custom';
 export class LyneCardBadge {
 
   /** Badge appearance */
-  @Prop() public appearance: InterfaceCardBadgeAttributes['appearance'] = 'dark';
+  @Prop() public appearance: InterfaceCardBadgeAttributes['appearance'] = 'primary';
 
   /** Badge size */
   @Prop() public size: InterfaceCardBadgeAttributes['size'] = 'regular';
@@ -30,7 +34,7 @@ export class LyneCardBadge {
   /** Mark as discount */
   @Prop() public isDiscount?: boolean;
 
-  /** From/above which price text */
+  /** From/above price text */
   @Prop() public text?: string;
 
   /** Price text */
@@ -47,6 +51,8 @@ export class LyneCardBadge {
 
   public render(): JSX.Element {
 
+    const currentWritingMode = getDocumentWritingMode();
+
     /**
      * Add additional CSS classes
      * ----------------------------------------------------------------
@@ -62,6 +68,7 @@ export class LyneCardBadge {
           ${appearanceClass}
           ${sizeClass}`
         }
+        dir={currentWritingMode}
       >
         {this.isDiscount
           ? <span class='discount'>%</span>
