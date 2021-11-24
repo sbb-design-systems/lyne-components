@@ -1,3 +1,11 @@
+## [9.67.1](https://github.com/lyne-design-system/lyne-components/compare/v9.67.0...v9.67.1) (2021-11-24)
+
+
+### Bug Fixes
+
+* re-setting lockfileVersion to 1 in package-lock.json ([adf1929](https://github.com/lyne-design-system/lyne-components/commit/adf1929195abad7c6e5b149c44bf97aca1301c4d))
+* updating package-lock.json content based on lockfileVersion change ([568d8fb](https://github.com/lyne-design-system/lyne-components/commit/568d8fb0f8e59e2867e54718efb2d43e13e86474))
+
 # [9.67.0](https://github.com/lyne-design-system/lyne-components/compare/v9.66.0...v9.67.0) (2021-11-24)
 
 
