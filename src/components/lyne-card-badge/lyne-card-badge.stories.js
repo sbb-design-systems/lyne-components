@@ -1,36 +1,74 @@
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
+import {
+  ColorCharcoalDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
+// import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+
+/* ************************************************* */
+/* Storybook component wrapper, used in Storybook    */
+/* ************************************************* */
+
+const wrapperStyle = (context) => {
+  const variantsOnDarkBg = ['primary-negative'];
+
+  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+    return `background-color: ${ColorWhiteDefault};`;
+  }
+
+  return `background-color: ${ColorCharcoalDefault};`;
+};
 
 /* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
-/* --- generic slot --------------------------------- */
+/* --- generic slot -------------------------------- */
 
-const genericArgs = {
-  'href-value': 'https://github.com/lyne-design-system/lyne-components',
-  // 'icon': 'qrcode-small',
-  'icon-placement': 'start',
-  'text': 'Abo bearbeiten',
-  'variant': 'secondary'
-};
+/*
+ * const genericArgs = {
+ *   'href-value': 'https://github.com/lyne-design-system/lyne-components',
+ *   'icon': 'qrcode-small',
+ *   'icon-placement': 'start',
+ *   'text': 'Abo bearbeiten',
+ *   'variant': 'primary-negative'
+ * };
+ */
 
-const SlotGenericTemplate = (args) => (
-  <lyne-link-button {...args}>
-    {args.icon &&
-      <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
-    }
-  </lyne-link-button>
+/*
+ * const SlotGenericTemplate = (args) => (
+ *   <lyne-link-button {...args}>
+ *     {args.icon &&
+ *       <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
+ *     }
+ *   </lyne-link-button>
+ * );
+ */
+
+const SlotGenericTemplate = () => (
+  <span>on <time datetime='2021-11-25'>Black Friday</time></span>
 );
 
 /* ************************************************* */
 /* Storybook templates                               */
 /* ************************************************* */
 
+/*
+ * const Template = (args) => (
+ *   <lyne-card-badge {...args}>
+ *     <div slot='generic'><SlotGenericTemplate {...genericArgs}/></div>
+ *   </lyne-card-badge>
+ * );
+ */
+
 const Template = (args) => (
+  <lyne-card-badge {...args}></lyne-card-badge>
+);
+
+const TemplateWithSlot = (args) => (
   <lyne-card-badge {...args}>
-    <div slot='generic'><SlotGenericTemplate {...genericArgs}/></div>
+    <div slot='generic'><SlotGenericTemplate/></div>
   </lyne-card-badge>
 );
 
@@ -44,7 +82,7 @@ const appearance = {
   },
   options: [
     'primary',
-    'secondary'
+    'primary-negative'
   ]
 };
 
@@ -85,30 +123,126 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  appearance: 'primary',
-  isDiscount: true,
-  price: '88.88',
-  size: 'small',
-  text: 'ab CHF'
+  appearance: appearance.options[0],
+  size: size.options[0]
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
 
-/* --- ProductSubscription ------------------------- */
-export const ProductSubscription = Template.bind({});
+/* --- CardBadge full fledged ---------------------- */
+export const CardBadgeFullFledged = TemplateWithSlot.bind({});
 
-ProductSubscription.argTypes = defaultArgTypes;
-ProductSubscription.args = {
-  ...defaultArgs
+CardBadgeFullFledged.argTypes = defaultArgTypes;
+CardBadgeFullFledged.args = {
+  ...defaultArgs,
+  isDiscount: true,
+  price: '88.88',
+  text: 'from CHF'
 };
 
-ProductSubscription.documentation = {
-  title: 'Card badge'
+CardBadgeFullFledged.documentation = {
+  title: 'Card badge full fledged'
 };
 
-/* --- next story ... ------------------------------ */
+/* --- CardBadge discount ------------------ */
+export const CardBadgeDiscount = Template.bind({});
+
+CardBadgeDiscount.argTypes = defaultArgTypes;
+CardBadgeDiscount.args = {
+  ...defaultArgs,
+  isDiscount: true
+};
+
+CardBadgeDiscount.documentation = {
+  title: 'Card badge with discount'
+};
+
+/* --- CardBadge discount negative -------- */
+export const CardBadgeDiscountNegative = Template.bind({});
+
+CardBadgeDiscountNegative.argTypes = defaultArgTypes;
+CardBadgeDiscountNegative.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1],
+  isDiscount: true
+};
+
+CardBadgeDiscountNegative.documentation = {
+  title: 'Card badge with discount negative'
+};
+
+/* --- CardBadge discount small ------------ */
+export const CardBadgeDiscountSmall = Template.bind({});
+
+CardBadgeDiscountSmall.argTypes = defaultArgTypes;
+CardBadgeDiscountSmall.args = {
+  ...defaultArgs,
+  isDiscount: true,
+  size: size.options[1]
+};
+
+CardBadgeDiscountSmall.documentation = {
+  title: 'Card badge small with discount'
+};
+
+/* --- CardBadge discount small negative ---------- */
+export const CardBadgeDiscountSmallNegative = Template.bind({});
+
+CardBadgeDiscountSmallNegative.argTypes = defaultArgTypes;
+CardBadgeDiscountSmallNegative.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1],
+  isDiscount: true,
+  size: size.options[1]
+};
+
+CardBadgeDiscountSmallNegative.documentation = {
+  title: 'Card badge small with discount negative'
+};
+
+/* --- CardBadge with text and price ------------ */
+export const CardBadgeWithTextAndPrice = Template.bind({});
+
+CardBadgeWithTextAndPrice.argTypes = defaultArgTypes;
+CardBadgeWithTextAndPrice.args = {
+  ...defaultArgs,
+  price: '88.88',
+  text: 'from CHF'
+};
+
+CardBadgeWithTextAndPrice.documentation = {
+  title: 'Card badge with text and price'
+};
+
+/* --- CardBadge with text and price negative ---------- */
+export const CardBadgeWithTextAndPriceNegative = Template.bind({});
+
+CardBadgeWithTextAndPriceNegative.argTypes = defaultArgTypes;
+CardBadgeWithTextAndPriceNegative.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1],
+  price: '88.88',
+  text: 'from CHF'
+};
+
+CardBadgeWithTextAndPriceNegative.documentation = {
+  title: 'Card badge with text and price negative'
+};
+
+/* --- CardBadge discount with slot ------------------------- */
+export const CardBadgeDiscountWithSlot = TemplateWithSlot.bind({});
+
+CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
+CardBadgeDiscountWithSlot.args = {
+  ...defaultArgs,
+  isDiscount: true
+};
+
+CardBadgeDiscountWithSlot.documentation = {
+  title: 'Card badge discount with slot'
+};
 
 /* ************************************************* */
 /* Render storybook section and stories              */
@@ -116,8 +250,8 @@ ProductSubscription.documentation = {
 
 export default {
   decorators: [
-    (Story) => (
-      <div style={'padding: 2rem; position: relative; overflow: hidden;'}>
+    (Story, context) => (
+      <div style={`${wrapperStyle(context)} padding: 2rem; position: relative; overflow: hidden;`}>
         <Story/>
       </div>
     )
