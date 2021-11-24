@@ -1,22 +1,22 @@
 export default [
   {
     type: 'departure',
-    duration: '2',
-    distance: '178'
+    duration: 2,
+    distance: 178
   },
   {
     type: 'arrival',
-    duration: '3',
-    distance: '209'
+    duration: 0,
+    distance: 0
   },
   {
     type: 'departure',
-    duration: '15',
-    distance: '389'
+    duration: 0,
+    distance: 0
   },
   {
     type: 'arrival',
-    duration: '9',
-    distance: '288'
+    duration: 9,
+    distance: 288
   }
 ];

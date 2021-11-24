@@ -28,8 +28,10 @@ export default [
     occupancy: occupancyItemsData[5],
     platform: platformData[1],
     details: {
-      arrival: transportationTimeData[3],
-      departure: transportationTimeData[2],
+      arrivalTime: transportationTimeData[3],
+      arrivalWalk: transportationWalkData[3],
+      departureTime: transportationTimeData[2],
+      departureWalk: transportationWalkData[2],
       pearlChain: {
         legs: pearlChainData.stop1,
         status: 'future'

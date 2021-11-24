@@ -47,7 +47,7 @@ export class LyneTimetableDetails {
           role='none'
         ></lyne-timetable-transportation-number>
         {
-          config.departureWalk ?
+          config.departureWalk.duration > 0 ?
             <lyne-timetable-transportation-walk
               config={JSON.stringify(config.departureWalk)}
             ></lyne-timetable-transportation-walk>
@@ -64,7 +64,7 @@ export class LyneTimetableDetails {
           config={JSON.stringify(config.arrivalTime)}
         ></lyne-timetable-transportation-time>
         {
-          config.arrivalWalk ?
+          config.arrivalWalk.duration > 0 ?
             <lyne-timetable-transportation-walk
               config={JSON.stringify(config.arrivalWalk)}
             ></lyne-timetable-transportation-walk>

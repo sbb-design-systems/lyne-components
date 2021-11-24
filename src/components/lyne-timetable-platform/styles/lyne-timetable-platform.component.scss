@@ -4,11 +4,17 @@
 @include host-component-properties;
 
 :host {
-  align-self: flex-start;
+  --default-min-width: 50;
+
+  @include mq($from: medium) {
+    --default-min-width: 55;
+  }
+
 }
 
 .platform {
   @include text-s--regular();
+  width: pxToRem(var(--default-min-width));
   margin: 0;
 }
 
