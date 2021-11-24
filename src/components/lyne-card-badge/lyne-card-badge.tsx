@@ -69,6 +69,7 @@ export class LyneCardBadge {
           ${sizeClass}`
         }
         dir={currentWritingMode}
+        itemprop='offers' itemscope itemtype='https://schema.org/AggregateOffer'
       >
         {this.isDiscount
           ? <span class='discount'>%</span>
@@ -79,7 +80,7 @@ export class LyneCardBadge {
           : ''
         }
         {this.price
-          ? <span class='price'>{this.price}</span>
+          ? <span class='price' itemprop='lowPrice'>{this.price}</span>
           : ''
         }
         {this._hasGenericSlot
