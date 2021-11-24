@@ -51,11 +51,11 @@
   }
 
   &--regular {
-    @include text-s--regular;
+    @include text-s--bold;
   }
 
   &--small {
-    @include text-xs--regular;
+    @include text-xs--bold;
   }
 }
 
