@@ -71,7 +71,6 @@ export class LyneTimetableOccupancy {
               >
                 <span
                   aria-hidden='true'
-                  role='presentation'
                   class='occupancy__class--visual'
                 >
                   {occupancyItem.class}.
@@ -83,7 +82,9 @@ export class LyneTimetableOccupancy {
                 </span>
               </span>
               <span
+                aria-hidden='true'
                 class='occupancy__icon'
+                role='presentation'
               >
                 <svg><use xlinkHref={`#${occupancyItem.icon}`}></use></svg>
               </span>

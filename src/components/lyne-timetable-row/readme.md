@@ -33,6 +33,7 @@ graph TD;
   lyne-timetable-row --> lyne-timetable-occupancy
   lyne-timetable-row --> lyne-timetable-duration
   lyne-timetable-transportation-details --> lyne-timetable-transportation-number
+  lyne-timetable-transportation-details --> lyne-timetable-transportation-walk
   lyne-timetable-transportation-details --> lyne-timetable-transportation-time
   lyne-timetable-transportation-details --> lyne-pearl-chain
   lyne-timetable --> lyne-timetable-row

@@ -37,8 +37,6 @@ export class LyneTimetableDetails {
 
     const config = JSON.parse(this.config);
 
-    console.log(config);
-
     return (
       <div
         class='transportation-details'
@@ -48,16 +46,30 @@ export class LyneTimetableDetails {
           config={JSON.stringify(config.transportationNumber)}
           role='none'
         ></lyne-timetable-transportation-number>
+        {
+          config.departureWalk ?
+            <lyne-timetable-transportation-walk
+              config={JSON.stringify(config.departureWalk)}
+            ></lyne-timetable-transportation-walk>
+          : ''
+        }
         <lyne-timetable-transportation-time
-          config={JSON.stringify(config.departure)}
+          config={JSON.stringify(config.departureTime)}
         ></lyne-timetable-transportation-time>
         <lyne-pearl-chain
           legs={JSON.stringify(config.pearlChain.legs)}
           status={config.pearlChain.status}
         ></lyne-pearl-chain>
         <lyne-timetable-transportation-time
-          config={JSON.stringify(config.arrival)}
+          config={JSON.stringify(config.arrivalTime)}
         ></lyne-timetable-transportation-time>
+        {
+          config.arrivalWalk ?
+            <lyne-timetable-transportation-walk
+              config={JSON.stringify(config.arrivalWalk)}
+            ></lyne-timetable-transportation-walk>
+            : ''
+        }
       </div>
     );
   }

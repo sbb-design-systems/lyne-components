@@ -36,6 +36,44 @@ export const i18nDeleteCurrentInput: any = {
   it: 'Svuotare il campo'
 };
 
+export const i18nDistance: any = {
+  de: 'Distanz',
+  en: 'Distance',
+  fr: 'Distance',
+  it: 'Distanza'
+};
+
+export const i18nDistanceMeter: any = {
+  single: {
+    long: {
+      de: 'Meter',
+      en: 'Meter',
+      fr: 'mètre',
+      it: 'Metro'
+    },
+    short: {
+      de: 'm',
+      en: 'm',
+      fr: 'm',
+      it: 'm'
+    }
+  },
+  multiple: {
+    long: {
+      de: 'Meter',
+      en: 'Meters',
+      fr: 'mètres',
+      it: 'Metros'
+    },
+    short: {
+      de: 'm',
+      en: 'm',
+      fr: 'm',
+      it: 'm'
+    }
+  }
+};
+
 export const i18nDurationSecond: any = {
   single: {
     long: {
@@ -185,11 +223,39 @@ export const i18nOptional: any = {
   it: '(facoltativo)'
 };
 
+export const i18nShowOnMap: any = {
+  de: 'Karte anzeigen',
+  en: 'Show on the map',
+  fr: 'Indiquer sur la carte',
+  it: 'Visualizzare sulla carta'
+};
+
 export const i18nTargetOpensInNewWindow: any = {
   de: 'Linkziel öffnet in neuem Fenster.',
   en: 'Link target opens in new window.',
   fr: 'Le lien s\'ouvre dans une nouvelle fenêtre.',
   it: 'L\'obiettivo del link si apre in una nuova finestra.'
+};
+
+export const i18nWalk: any = {
+  de: 'Fussweg',
+  en: 'Walk',
+  fr: 'Parcours à pied',
+  it: 'Percorso a piedi'
+};
+
+export const i18nWalkingDistanceArrival: any = {
+  de: 'Minuten Fussweg nach Ankunft.',
+  en: 'minutes of walking time after arrival.',
+  fr: 'minutes trajet à pied après l’arrivée.',
+  it: 'minuti a piedi all’arrivo.'
+};
+
+export const i18nWalkingDistanceDeparture: any = {
+  de: 'Minuten Fussweg vor Abfahrt.',
+  en: 'minutes of walking time before departure.',
+  fr: 'minutes trajet à pied avant le départ.',
+  it: 'minuti a piedi prima della partenza.'
 };
 
 /* eslint-enable sort-keys */

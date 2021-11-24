@@ -468,6 +468,12 @@ export namespace Components {
          */
         "config": string;
     }
+    interface LyneTimetableTransportationWalk {
+        /**
+          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+         */
+        "config": string;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -640,6 +646,12 @@ declare global {
         prototype: HTMLLyneTimetableTransportationTimeElement;
         new (): HTMLLyneTimetableTransportationTimeElement;
     };
+    interface HTMLLyneTimetableTransportationWalkElement extends Components.LyneTimetableTransportationWalk, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTransportationWalkElement: {
+        prototype: HTMLLyneTimetableTransportationWalkElement;
+        new (): HTMLLyneTimetableTransportationWalkElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -671,6 +683,7 @@ declare global {
         "lyne-timetable-transportation-details": HTMLLyneTimetableTransportationDetailsElement;
         "lyne-timetable-transportation-number": HTMLLyneTimetableTransportationNumberElement;
         "lyne-timetable-transportation-time": HTMLLyneTimetableTransportationTimeElement;
+        "lyne-timetable-transportation-walk": HTMLLyneTimetableTransportationWalkElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -1124,6 +1137,12 @@ declare namespace LocalJSX {
          */
         "config": string;
     }
+    interface LyneTimetableTransportationWalk {
+        /**
+          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+         */
+        "config": string;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -1175,6 +1194,7 @@ declare namespace LocalJSX {
         "lyne-timetable-transportation-details": LyneTimetableTransportationDetails;
         "lyne-timetable-transportation-number": LyneTimetableTransportationNumber;
         "lyne-timetable-transportation-time": LyneTimetableTransportationTime;
+        "lyne-timetable-transportation-walk": LyneTimetableTransportationWalk;
         "lyne-title": LyneTitle;
     }
 }
@@ -1206,6 +1226,7 @@ declare module "@stencil/core" {
             "lyne-timetable-transportation-details": LocalJSX.LyneTimetableTransportationDetails & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationDetailsElement>;
             "lyne-timetable-transportation-number": LocalJSX.LyneTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationNumberElement>;
             "lyne-timetable-transportation-time": LocalJSX.LyneTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationTimeElement>;
+            "lyne-timetable-transportation-walk": LocalJSX.LyneTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationWalkElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }
