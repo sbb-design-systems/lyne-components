@@ -9,6 +9,7 @@ import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-it
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceCardBadgeAttributes } from "./components/lyne-card-badge/lyne-card-badge.custom";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
+import { InterfaceJourneyHeaderAttributes } from "./components/lyne-journey-header/lyne-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
 import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
 import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
@@ -200,6 +201,36 @@ export namespace Components {
           * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
          */
         "variant"?: InterfaceImageAttributes['variant'];
+    }
+    interface LyneJourneyHeader {
+        /**
+          * Journey header appearance
+         */
+        "appearance"?: InterfaceJourneyHeaderAttributes['appearance'];
+        /**
+          * Destination location for the journey header
+         */
+        "destination": string;
+        /**
+          * Is the journey a round trip. If so it gets indicated through a roundtrip icon
+         */
+        "isRoundTrip"?: boolean;
+        /**
+          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
+         */
+        "journeyHeaderId"?: '';
+        /**
+          * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
+         */
+        "markup"?: InterfaceJourneyHeaderAttributes['markup'];
+        /**
+          * Origin location for the journey header
+         */
+        "origin": string;
+        /**
+          * Journey header size
+         */
+        "size"?: InterfaceJourneyHeaderAttributes['size'];
     }
     interface LyneLink {
         /**
@@ -449,6 +480,12 @@ declare global {
         prototype: HTMLLyneImageElement;
         new (): HTMLLyneImageElement;
     };
+    interface HTMLLyneJourneyHeaderElement extends Components.LyneJourneyHeader, HTMLStencilElement {
+    }
+    var HTMLLyneJourneyHeaderElement: {
+        prototype: HTMLLyneJourneyHeaderElement;
+        new (): HTMLLyneJourneyHeaderElement;
+    };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
     var HTMLLyneLinkElement: {
@@ -527,6 +564,7 @@ declare global {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-card-badge": HTMLLyneCardBadgeElement;
         "lyne-image": HTMLLyneImageElement;
+        "lyne-journey-header": HTMLLyneJourneyHeaderElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-link-list": HTMLLyneLinkListElement;
@@ -723,6 +761,36 @@ declare namespace LocalJSX {
           * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
          */
         "variant"?: InterfaceImageAttributes['variant'];
+    }
+    interface LyneJourneyHeader {
+        /**
+          * Journey header appearance
+         */
+        "appearance"?: InterfaceJourneyHeaderAttributes['appearance'];
+        /**
+          * Destination location for the journey header
+         */
+        "destination": string;
+        /**
+          * Is the journey a round trip. If so it gets indicated through a roundtrip icon
+         */
+        "isRoundTrip"?: boolean;
+        /**
+          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
+         */
+        "journeyHeaderId"?: '';
+        /**
+          * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
+         */
+        "markup"?: InterfaceJourneyHeaderAttributes['markup'];
+        /**
+          * Origin location for the journey header
+         */
+        "origin": string;
+        /**
+          * Journey header size
+         */
+        "size"?: InterfaceJourneyHeaderAttributes['size'];
     }
     interface LyneLink {
         /**
@@ -946,6 +1014,7 @@ declare namespace LocalJSX {
         "lyne-button": LyneButton;
         "lyne-card-badge": LyneCardBadge;
         "lyne-image": LyneImage;
+        "lyne-journey-header": LyneJourneyHeader;
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
         "lyne-link-list": LyneLinkList;
@@ -969,6 +1038,7 @@ declare module "@stencil/core" {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
+            "lyne-journey-header": LocalJSX.LyneJourneyHeader & JSXBase.HTMLAttributes<HTMLLyneJourneyHeaderElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
