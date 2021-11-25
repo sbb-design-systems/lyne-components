@@ -1,0 +1,133 @@
+import {
+  ColorCharcoalDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
+import { h } from 'jsx-dom';
+import readme from './readme.md';
+
+/* ************************************************* */
+/* Storybook component wrapper, used in Storybook    */
+/* ************************************************* */
+
+const wrapperStyle = (context) => {
+  const variantsOnDarkBg = ['primary-negative'];
+
+  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+    return `background-color: ${ColorWhiteDefault};`;
+  }
+
+  return `background-color: ${ColorCharcoalDefault};`;
+};
+
+/* ************************************************* */
+/* Storybook template                                */
+/* ************************************************* */
+
+const Template = (args) => (
+  <lyne-journey-header {...args} />
+);
+
+/* ************************************************* */
+/* Storybook controls                                */
+/* ************************************************* */
+
+const markup = {
+  control: {
+    type: 'inline-radio'
+  },
+  options: [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'p',
+    'span'
+  ]
+};
+
+const appearance = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'primary',
+    'primary-negative'
+  ],
+  table: {
+    category: 'Appearance'
+  }
+};
+
+const size = {
+  control: {
+    type: 'inline-radio'
+  },
+  options: [
+    1,
+    4,
+    5
+  ]
+};
+
+const defaultArgTypes = {
+  appearance,
+  markup,
+  size
+};
+
+const defaultArgs = {
+  'appearance': appearance.options[0],
+  'destination': 'Loèche-les-Bains',
+  'is-round-trip': false,
+  'journey-header-id': '',
+  'markup': 'h1',
+  'origin': 'La Chaux de Fonds',
+  'size': '5'
+};
+
+/* ************************************************* */
+/* The Stories                                       */
+/* ************************************************* */
+
+/* --- Journey header as h1 ------------------------ */
+export const h1 = Template.bind({});
+
+h1.argTypes = defaultArgTypes;
+h1.args = JSON.parse(JSON.stringify(defaultArgs));
+h1.documentation = {
+  title: 'Journey header as h1'
+};
+
+/* --- Journey header negative as h1 --------------- */
+export const h1Negative = Template.bind({});
+
+h1Negative.argTypes = defaultArgTypes;
+h1Negative.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1]
+};
+h1Negative.documentation = {
+  title: 'Journey header Negative as h1'
+};
+
+/* ************************************************* */
+/* Render storybook section and stories              */
+/* ************************************************* */
+
+export default {
+  decorators: [
+    (Story, context) => (
+      <div style={`${wrapperStyle(context)}padding: 2rem`}>
+        <Story/>
+      </div>
+    )
+  ],
+  parameters: {
+    docs: {
+      extractComponentDescription: () => readme
+    }
+  },
+  title: 'timetable/Journey Header'
+};
