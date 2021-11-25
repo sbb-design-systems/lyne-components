@@ -1,0 +1,47 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  --cus-him-icon-height: 16;
+  --cus-him-icon-width: var(--cus-him-icon-height);
+}
+
+.cus-him--first-level-list {
+  --cus-him-width: 55;
+}
+
+.cus-him--second-level-list {
+  --cus-him-icon-height: 20;
+}
+
+.cus-him {
+  width: pxToRem(var(--cus-him-width));
+}
+
+.cus-him--second-level-list {
+  --cus-him-icon-height: 20;
+}
+
+.cus-him__list {
+  @include listReset();
+  display: flex;
+  gap: pxToRem(var(--spacing-fixed-1x));
+  min-height: pxToRem(var(--cus-him-icon-height));
+}
+
+.cus-him--first-level-list .cus-him__list {
+  justify-content: flex-end;
+}
+
+.cus-him__list-item {
+  width: pxToRem(var(--cus-him-icon-height));
+  height: pxToRem(var(--cus-him-icon-width));
+}
+
+.cus-him__icon,
+.cus-him__icon svg {
+  width: pxToRem(var(--cus-him-icon-height));
+  height: pxToRem(var(--cus-him-icon-width));
+}

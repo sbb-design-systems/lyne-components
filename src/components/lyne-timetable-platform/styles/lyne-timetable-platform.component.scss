@@ -1,8 +1,3 @@
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin, available for shared
-// and default mode
-@include host-component-properties;
-
 :host {
   --default-min-width: 50;
 
@@ -12,10 +7,19 @@
 
 }
 
+.timetable__row--departure-walk .platform {
+  --default-min-width: 85;
+
+  @include mq($from: medium) {
+    --default-min-width: 92;
+  }
+}
+
 .platform {
   @include text-s--regular();
   width: pxToRem(var(--default-min-width));
   margin: 0;
+  white-space: nowrap;
 }
 
 .platform__text--visually-hidden {

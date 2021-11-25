@@ -12,8 +12,6 @@
   /* height: pxToRem(var(--icon-height));
   line-height: pxToRem(var(--icon-height)); */
 
-  background: lime;
-
 }
 
 .transportation-number {
@@ -31,7 +29,6 @@
   height: pxToRem(var(--transportation-number-element-height));
   line-height: pxToRem(19);
   overflow: hidden;
-  background: orange;
 }
 
 .transportation-number__means_of_transport {

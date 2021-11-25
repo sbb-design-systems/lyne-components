@@ -24,6 +24,7 @@
 - [lyne-timetable-platform](../lyne-timetable-platform)
 - [lyne-timetable-occupancy](../lyne-timetable-occupancy)
 - [lyne-timetable-duration](../lyne-timetable-duration)
+- [lyne-timetable-cus-him](../lyne-timetable-cus-him)
 
 ### Graph
 ```mermaid
@@ -32,6 +33,7 @@ graph TD;
   lyne-timetable-row --> lyne-timetable-platform
   lyne-timetable-row --> lyne-timetable-occupancy
   lyne-timetable-row --> lyne-timetable-duration
+  lyne-timetable-row --> lyne-timetable-cus-him
   lyne-timetable-transportation-details --> lyne-timetable-transportation-number
   lyne-timetable-transportation-details --> lyne-timetable-transportation-walk
   lyne-timetable-transportation-details --> lyne-timetable-transportation-time

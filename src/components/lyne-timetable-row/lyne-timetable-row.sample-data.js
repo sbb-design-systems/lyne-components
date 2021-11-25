@@ -1,3 +1,4 @@
+import cusHimData from '../lyne-timetable-cus-him/lyne-timetable-cus-him.sample-data';
 import durationData from '../lyne-timetable-duration/lyne-timetable-duration.sample-data';
 import occupancyItemsData from '../lyne-timetable-occupancy/lyne-timetable-occupancy.sample-data';
 import pearlChainData from '../lyne-pearl-chain/lyne-pearl-chain.sample-data';
@@ -8,9 +9,7 @@ import transportationWalkData from '../lyne-timetable-transportation-walk/lyne-t
 
 export default [
   {
-    duration: durationData[0],
-    occupancy: occupancyItemsData[3],
-    platform: platformData[0],
+    cusHim: cusHimData[0],
     details: {
       arrivalTime: transportationTimeData[1],
       arrivalWalk: transportationWalkData[1],
@@ -21,12 +20,13 @@ export default [
         status: 'future'
       },
       transportationNumber: transportationNumberData['train']
-    }
+    },
+    duration: durationData[0],
+    occupancy: occupancyItemsData[3],
+    platform: platformData[0]
   },
   {
-    duration: durationData[1],
-    occupancy: occupancyItemsData[5],
-    platform: platformData[1],
+    cusHim: cusHimData[0],
     details: {
       arrivalTime: transportationTimeData[3],
       arrivalWalk: transportationWalkData[3],
@@ -37,6 +37,9 @@ export default [
         status: 'future'
       },
       transportationNumber: transportationNumberData['cableCar']
-    }
+    },
+    duration: durationData[1],
+    occupancy: occupancyItemsData[5],
+    platform: platformData[1]
   }
 ];

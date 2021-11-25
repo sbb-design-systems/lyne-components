@@ -6,17 +6,17 @@
 :host {
   display: block;
 
-  --default-min-width: 38;
+  --transportation-min-width: 38;
 
   @include mq($from: medium) {
-    --default-min-width: 43;
+    --transportation-min-width: 43;
   }
 
 }
 
 .time {
   @include text-s--bold();
-  min-width: pxToRem(var(--default-min-width));
+  min-width: pxToRem(var(--transportation-min-width));
   margin: 0;
   font-variant-numeric: tabular-nums;
 }

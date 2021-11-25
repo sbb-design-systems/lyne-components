@@ -21,7 +21,6 @@
   flex-wrap: wrap;
   align-items: center;
   // min-height: pxToRem(var(--row-min-height));
-  background: pink;
 }
 
 .timetable__row > * {
@@ -33,4 +32,13 @@
   display: flex;
   flex: 1 1 100%;
   max-width: 100%;
+}
+
+.timetable__row > lyne-timetable-cus-him {
+  justify-self: end;
+}
+
+.timetable__row > lyne-timetable-duration {
+  flex-grow: 1;
+  justify-content: flex-end;
 }

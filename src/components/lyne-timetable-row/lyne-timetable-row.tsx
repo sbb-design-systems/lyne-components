@@ -15,6 +15,16 @@ import {
 
 export class LyneTimetableRow {
 
+  private _additionalTimetableRowClasses = [];
+
+  private _getAdditionalStyleClasses(config): void {
+    this._additionalTimetableRowClasses = [];
+
+    if (config.details.departureWalk.duration > 0) {
+      this._additionalTimetableRowClasses.push('timetable__row--departure-walk');
+    }
+  }
+
   /**
    * Stringified JSON to define the different outputs of the
    * occupancy predicition cell.
@@ -38,9 +48,11 @@ export class LyneTimetableRow {
 
     const config = JSON.parse(this.config);
 
+    this._getAdditionalStyleClasses(config);
+
     return (
       <div
-        class='timetable__row'
+        class={`timetable__row ${this._additionalTimetableRowClasses.join(' ')}`}
         role='none'
       >
         <lyne-timetable-transportation-details
@@ -60,6 +72,10 @@ export class LyneTimetableRow {
           config={JSON.stringify(config.duration)}
           role='gridcell'
         ></lyne-timetable-duration>
+        <lyne-timetable-cus-him
+          config={JSON.stringify(config.cusHim)}
+          role='gridcell'
+        ></lyne-timetable-cus-him>
       </div>
     );
   }
