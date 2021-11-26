@@ -105,7 +105,10 @@ export class LyneJourneyHeader {
         >
           {this.destination}
         </span>
-        <span class='connection-text-roundtrip connection-text-hidden'>{connectionTextRoundtrip}</span>
+        {this.isRoundTrip
+          ? <span class='connection-text-roundtrip connection-text-hidden'>{connectionTextRoundtrip}</span>
+          : ''
+        }
       </TAGNAME>
     );
   }
