@@ -1,0 +1,23 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+
+  --some-color-var: black;
+}
+
+.autocomplete {
+  border: 3px solid grey;
+}
+
+.autocomplete__list {
+  border: 2px solid green;
+  @include listReset;
+}
+
+.autocomplete__list-item {
+  border: 1px solid red;
+}
