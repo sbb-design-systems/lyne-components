@@ -64,7 +64,6 @@ export class LyneAccordionItem {
 
   @Watch('open')
   public watchStateHandler(newValue: boolean): void {
-    console.log('test');
     if (!this._isAnimating) {
       this._toggleAccordion(newValue);
     }

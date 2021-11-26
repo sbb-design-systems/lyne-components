@@ -17,7 +17,7 @@ import errorIcon from './assets/error_icon.svg';
 export class LyneInputError {
 
   /** The error message, we want to show. */
-  @Prop() public message?: string;
+  @Prop() public message!: string;
 
   /**
    * Adding the aria-hidden attribute here might

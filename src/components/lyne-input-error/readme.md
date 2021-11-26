@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property  | Attribute | Description                         | Type     | Default     |
-| --------- | --------- | ----------------------------------- | -------- | ----------- |
-| `message` | `message` | The error message, we want to show. | `string` | `undefined` |
+| Property               | Attribute | Description                         | Type     | Default     |
+| ---------------------- | --------- | ----------------------------------- | -------- | ----------- |
+| `message` _(required)_ | `message` | The error message, we want to show. | `string` | `undefined` |
 
 
 ## Dependencies

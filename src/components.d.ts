@@ -183,7 +183,7 @@ export namespace Components {
         /**
           * The error message, we want to show.
          */
-        "message"?: string;
+        "message": string;
     }
     interface LyneLink {
         /**
@@ -389,11 +389,11 @@ export namespace Components {
         /**
           * Pass on a expected max length.
          */
-        "inputMaxLength": number;
+        "inputMaxLength"?: number;
         /**
           * Pass on a expected min length.
          */
-        "inputMinLength": number;
+        "inputMinLength"?: number;
         /**
           * Each input should have an individual name.
          */
@@ -409,7 +409,7 @@ export namespace Components {
         /**
           * If set to true, an input in this field will be required.
          */
-        "inputRequired": boolean;
+        "inputRequired"?: boolean;
         /**
           * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
          */
@@ -738,7 +738,7 @@ declare namespace LocalJSX {
         /**
           * The error message, we want to show.
          */
-        "message"?: string;
+        "message": string;
     }
     interface LyneLink {
         /**
@@ -944,11 +944,11 @@ declare namespace LocalJSX {
         /**
           * Pass on a expected max length.
          */
-        "inputMaxLength": number;
+        "inputMaxLength"?: number;
         /**
           * Pass on a expected min length.
          */
-        "inputMinLength": number;
+        "inputMinLength"?: number;
         /**
           * Each input should have an individual name.
          */
@@ -964,7 +964,7 @@ declare namespace LocalJSX {
         /**
           * If set to true, an input in this field will be required.
          */
-        "inputRequired": boolean;
+        "inputRequired"?: boolean;
         /**
           * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
          */

@@ -5,8 +5,6 @@ import {
 } from '@stencil/core';
 // import events from './lyne-text-input.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import getMaxTouchPoins from '../../global/helpers/device-information/get-max-touch-points';
-// import { i18nDeleteCurrentInput } from '../../global/i18n';
 import {
   i18nMandatoryField,
   i18nOptional
@@ -32,7 +30,6 @@ export class LyneTextInput {
   private _additionalInputClasses = [];
   private _addtitionalInputAttributes = {};
   private _currentLanguage = getDocumentLang();
-  private _hasTouchscreen = getMaxTouchPoins() > 0;
 
   private _id = '';
   private _labelAriaLabel = '';
@@ -75,10 +72,10 @@ export class LyneTextInput {
   @Prop() public inputId?: string;
 
   /** Pass on a expected max length. */
-  @Prop() public inputMaxLength!: number;
+  @Prop() public inputMaxLength?: number;
 
   /** Pass on a expected min length. */
-  @Prop() public inputMinLength!: number;
+  @Prop() public inputMinLength?: number;
 
   /** Each input should have an individual name. */
   @Prop() public inputName!: string;
@@ -87,7 +84,7 @@ export class LyneTextInput {
    * If set to true, an input in this field
    * will be required.
    */
-  @Prop() public inputRequired!: boolean;
+  @Prop() public inputRequired?: boolean;
 
   /**
    * Add a validation pattern (regex) the input
@@ -250,7 +247,7 @@ export class LyneTextInput {
       >
         <div class='input-wrapper__inner'>
           {this.icon
-            ? <span class='link__icon'><slot name='icon'/></span>
+            ? <span class='input__icon'><slot name='icon'/></span>
             : ''
           }
           <input
@@ -285,10 +282,6 @@ export class LyneTextInput {
               </span>
             }
           </label>
-          {this._hasTouchscreen
-            ? ''
-            : ''
-          }
         </div>
         {this.inputError
           ? <lyne-input-error message={i18nMandatoryField[this._currentLanguage]}></lyne-input-error>

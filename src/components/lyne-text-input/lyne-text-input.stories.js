@@ -444,15 +444,9 @@ export default {
       </div>
     )
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform']
-  },
   parameters: {
     actions: {
       handles: [events.click]
-    },
-    backgrounds: {
-      disable: true
     },
     docs: {
       extractComponentDescription: () => readme

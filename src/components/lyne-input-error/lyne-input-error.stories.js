@@ -5,16 +5,6 @@ const Template = (args) => (
   <lyne-input-error {...args}></lyne-input-error>
 );
 
-const message = {
-  control: {
-    type: 'text'
-  }
-};
-
-const defaultArgTypes = {
-  message
-};
-
 const defaultArgs = {
   message: 'This is a required field.'
 };
@@ -24,7 +14,6 @@ const defaultArgs = {
 /* ************************************************* */
 export const LyneInputError = Template.bind({});
 
-LyneInputError.argTypes = defaultArgTypes;
 LyneInputError.args = {
   ...defaultArgs
 };
