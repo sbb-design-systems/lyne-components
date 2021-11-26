@@ -19,6 +19,13 @@
   justify-content: space-between;
   align-items: center;
   width: fit-content;
+
+  // Right to left expression
+  &[dir="rtl"] {
+    .journey-header__icon {
+      transform: rotate(-180deg);
+    }
+  }
 }
 
 .journey-header--primary-negative {

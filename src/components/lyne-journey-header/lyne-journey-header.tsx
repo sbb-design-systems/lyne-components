@@ -3,6 +3,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import iconOneWay from 'lyne-icons/dist/icons/arrow-long-right-small.svg';
 import iconRoundTrip from 'lyne-icons/dist/icons/arrows-left-right-small.svg';
 import { InterfaceJourneyHeaderAttributes } from './lyne-journey-header.custom';
@@ -61,6 +62,8 @@ export class LyneJourneyHeader {
 
     const className = `journey-header journey-header--${this.appearance} journey-header--size-${this.size}`;
 
+    const currentWritingMode = getDocumentWritingMode();
+
     const attrs = {
       class: className
     };
@@ -69,10 +72,25 @@ export class LyneJourneyHeader {
       attrs['id'] = this.journeyHeaderId;
     }
 
-    return <TAGNAME {...attrs}>
-      <span class='journey-header__origin'>{this.origin}</span>
-      <span class='journey-header__icon' innerHTML={journeyIcon}></span>
-      <span class='journey-header__destination'>{this.destination}</span>
-    </TAGNAME>;
+    return (
+      <TAGNAME {...attrs}
+        dir={currentWritingMode}
+        itemscope itemtype='https://schema.org/TravelAction'
+      >
+        <span
+          class='journey-header__origin'
+          itemprop='fromLocation' itemscope itemtype='https://schema.org/Place'
+        >
+          {this.origin}
+        </span>
+        <span class='journey-header__icon' innerHTML={journeyIcon}></span>
+        <span
+          class='journey-header__destination'
+          itemprop='toLocation' itemscope itemtype='https://schema.org/Place'
+        >
+          {this.destination}
+        </span>
+      </TAGNAME>
+    );
   }
 }
