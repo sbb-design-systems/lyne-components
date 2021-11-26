@@ -1,8 +1,8 @@
 :host {
   display: block;
 
-  --icon-height: 16;
-  --icon-width: 19;
+  --occupancy-icon-height: 16;
+  --occupancy-icon-width: 19;
 }
 
 .occupancy__list {
@@ -31,12 +31,11 @@
 }
 
 .occupancy__icon {
-  height: pxToRem(var(--icon-height));
-  line-height: pxToRem(var(--icon-height));
+  height: pxToRem(var(--occupancy-icon-height));
+  line-height: pxToRem(var(--occupancy-icon-height));
 }
 
 .occupancy__icon svg {
-  float: left;
-  height: pxToRem(var(--icon-height));
-  width: pxToRem(var(--icon-width));
+  height: pxToRem(var(--occupancy-icon-height));
+  width: pxToRem(var(--occupancy-icon-width));
 }

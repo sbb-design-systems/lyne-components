@@ -28,6 +28,10 @@
   flex: 0 1 auto;
 }
 
+.timetable__row svg {
+  float: left;
+}
+
 .timetable__row > lyne-timetable-transportation-details {
   display: flex;
   flex: 1 1 100%;

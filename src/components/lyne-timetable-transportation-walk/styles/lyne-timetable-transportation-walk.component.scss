@@ -35,7 +35,6 @@
 }
 
 .walk__icon svg {
-  float: left;
   height: pxToRem(var(--icon-height));
   width: pxToRem(var(--icon-width));
   transform: translateX(pxToRem(-7));
