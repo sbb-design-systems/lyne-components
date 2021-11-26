@@ -99,6 +99,31 @@ h1.documentation = {
   title: 'Journey header as h1'
 };
 
+/* --- Journey header as h2, h4 style -------------- */
+export const h2InH4Style = Template.bind({});
+
+h2InH4Style.argTypes = defaultArgTypes;
+h2InH4Style.args = {
+  ...defaultArgs,
+  size: 4
+};
+h2InH4Style.documentation = {
+  title: 'Journey header as h2, in h4 style'
+};
+
+/* --- Journey header as h2, h4 style, round trip -- */
+export const h2InH4StyleRoundTrip = Template.bind({});
+
+h2InH4StyleRoundTrip.argTypes = defaultArgTypes;
+h2InH4StyleRoundTrip.args = {
+  ...defaultArgs,
+  isRoundTrip: true,
+  size: 4
+};
+h2InH4StyleRoundTrip.documentation = {
+  title: 'Journey header as h2, in h4 style'
+};
+
 /* --- Journey header negative as h1 --------------- */
 export const h1Negative = Template.bind({});
 
