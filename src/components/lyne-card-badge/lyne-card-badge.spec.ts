@@ -14,7 +14,7 @@ describe('lyne-card-badge', () => {
       .toEqualHtml(`
         <lyne-card-badge>
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <div class="card-badge card-badge--primary card-badge--regular" dir="ltr" itemprop="offers" itemscope="" itemtype="https://schema.org/AggregateOffer"></div>
           </mock:shadow-root>
         </lyne-card-badge>
       `);
