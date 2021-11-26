@@ -17,6 +17,7 @@ import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyn
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
+import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -177,6 +178,12 @@ export namespace Components {
           * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
          */
         "variant"?: InterfaceImageAttributes['variant'];
+    }
+    interface LyneInputError {
+        /**
+          * The error message, we want to show.
+         */
+        "message": string;
     }
     interface LyneLink {
         /**
@@ -358,6 +365,64 @@ export namespace Components {
          */
         "text": string;
     }
+    interface LyneTextInput {
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "icon"?: string;
+        /**
+          * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
+         */
+        "inputAutoCompleteValue"?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
+        /**
+          * If set to true, the input field will be disabled.
+         */
+        "inputDisabled"?: boolean;
+        /**
+          * If set to true, we will set an an error message for the current input field.
+         */
+        "inputError"?: boolean;
+        /**
+          * Each input needs to have an individual id. If no id is provided, the component will create a unique id by itself.
+         */
+        "inputId"?: string;
+        /**
+          * Pass on a expected max length.
+         */
+        "inputMaxLength"?: number;
+        /**
+          * Pass on a expected min length.
+         */
+        "inputMinLength"?: number;
+        /**
+          * Each input should have an individual name.
+         */
+        "inputName": string;
+        /**
+          * Add a validation pattern (regex) the input should follow. Read more here: https://mzl.la/3C3HTiG
+         */
+        "inputPattern"?: string;
+        /**
+          * Add a placeholder to show what kind of input is expected.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * If set to true, an input in this field will be required.
+         */
+        "inputRequired"?: boolean;
+        /**
+          * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
+         */
+        "inputType": string;
+        /**
+          * Each input element needs to have a label associated with it.
+         */
+        "label": string;
+        /**
+          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+         */
+        "labelVisible"?: true;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -409,6 +474,12 @@ declare global {
     var HTMLLyneImageElement: {
         prototype: HTMLLyneImageElement;
         new (): HTMLLyneImageElement;
+    };
+    interface HTMLLyneInputErrorElement extends Components.LyneInputError, HTMLStencilElement {
+    }
+    var HTMLLyneInputErrorElement: {
+        prototype: HTMLLyneInputErrorElement;
+        new (): HTMLLyneInputErrorElement;
     };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
@@ -470,6 +541,12 @@ declare global {
         prototype: HTMLLyneTeaserHeroElement;
         new (): HTMLLyneTeaserHeroElement;
     };
+    interface HTMLLyneTextInputElement extends Components.LyneTextInput, HTMLStencilElement {
+    }
+    var HTMLLyneTextInputElement: {
+        prototype: HTMLLyneTextInputElement;
+        new (): HTMLLyneTextInputElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -481,6 +558,7 @@ declare global {
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-image": HTMLLyneImageElement;
+        "lyne-input-error": HTMLLyneInputErrorElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-link-list": HTMLLyneLinkListElement;
@@ -491,6 +569,7 @@ declare global {
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
+        "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -654,6 +733,12 @@ declare namespace LocalJSX {
           * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
          */
         "variant"?: InterfaceImageAttributes['variant'];
+    }
+    interface LyneInputError {
+        /**
+          * The error message, we want to show.
+         */
+        "message": string;
     }
     interface LyneLink {
         /**
@@ -835,6 +920,64 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
+    interface LyneTextInput {
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "icon"?: string;
+        /**
+          * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
+         */
+        "inputAutoCompleteValue"?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
+        /**
+          * If set to true, the input field will be disabled.
+         */
+        "inputDisabled"?: boolean;
+        /**
+          * If set to true, we will set an an error message for the current input field.
+         */
+        "inputError"?: boolean;
+        /**
+          * Each input needs to have an individual id. If no id is provided, the component will create a unique id by itself.
+         */
+        "inputId"?: string;
+        /**
+          * Pass on a expected max length.
+         */
+        "inputMaxLength"?: number;
+        /**
+          * Pass on a expected min length.
+         */
+        "inputMinLength"?: number;
+        /**
+          * Each input should have an individual name.
+         */
+        "inputName": string;
+        /**
+          * Add a validation pattern (regex) the input should follow. Read more here: https://mzl.la/3C3HTiG
+         */
+        "inputPattern"?: string;
+        /**
+          * Add a placeholder to show what kind of input is expected.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * If set to true, an input in this field will be required.
+         */
+        "inputRequired"?: boolean;
+        /**
+          * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
+         */
+        "inputType": string;
+        /**
+          * Each input element needs to have a label associated with it.
+         */
+        "label": string;
+        /**
+          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+         */
+        "labelVisible"?: true;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -866,6 +1009,7 @@ declare namespace LocalJSX {
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
         "lyne-image": LyneImage;
+        "lyne-input-error": LyneInputError;
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
         "lyne-link-list": LyneLinkList;
@@ -876,6 +1020,7 @@ declare namespace LocalJSX {
         "lyne-sbb-signet": LyneSbbSignet;
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
+        "lyne-text-input": LyneTextInput;
         "lyne-title": LyneTitle;
     }
 }
@@ -887,6 +1032,7 @@ declare module "@stencil/core" {
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
+            "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
@@ -897,6 +1043,7 @@ declare module "@stencil/core" {
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
+            "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }
