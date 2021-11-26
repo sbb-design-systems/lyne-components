@@ -58,6 +58,18 @@ export class LyneJourneyHeader {
       ? iconRoundTrip
       : iconOneWay;
 
+    /*
+     * Connection text
+     * @Todo i18n handling
+     * @Todo Check if anybody did think about `via` connections yet? Or will
+     * this component never show any `via` connections?
+     */
+    const connectionTextOrigin = 'Connection from ';
+    const connectionTextDestination = 'to';
+    const connectionTextRoundtrip = this.isRoundTrip
+      ? `and back to ${this.origin}`
+      : '';
+
     const TAGNAME = `${this.markup}`; // eslint-disable-line @typescript-eslint/no-unused-vars
 
     const className = `journey-header journey-header--${this.appearance} journey-header--size-${this.size}`;
@@ -77,19 +89,23 @@ export class LyneJourneyHeader {
         dir={currentWritingMode}
         itemscope itemtype='https://schema.org/TravelAction'
       >
+        <span class='connection-text-origin connection-text-hidden'>{connectionTextOrigin}</span>
         <span
-          class='journey-header__origin'
+          class='origin'
           itemprop='fromLocation' itemscope itemtype='https://schema.org/Place'
         >
           {this.origin}
         </span>
-        <span class='journey-header__icon' innerHTML={journeyIcon}></span>
+        <span class='icon' innerHTML={journeyIcon}>
+          <span class='connection-text-destination connection-text-hidden'>{connectionTextDestination}</span>
+        </span>
         <span
-          class='journey-header__destination'
+          class='destination'
           itemprop='toLocation' itemscope itemtype='https://schema.org/Place'
         >
           {this.destination}
         </span>
+        <span class='connection-text-roundtrip connection-text-hidden'>{connectionTextRoundtrip}</span>
       </TAGNAME>
     );
   }

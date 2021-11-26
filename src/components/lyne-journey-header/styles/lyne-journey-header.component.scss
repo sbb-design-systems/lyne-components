@@ -32,10 +32,6 @@
   @include title--negative();
 }
 
-// .journey-header--size-1 {
-//   @include title-1();
-// }
-
 .journey-header--size-4 {
   @include title-4();
 }
@@ -44,7 +40,12 @@
   @include title-5();
 }
 
-.journey-header__icon {
+// TODO re-factor to a more generic class later, also see .title--hidden
+.connection-text-hidden {
+  @include screenreaderOnly();
+}
+
+.icon {
   display: flex;
   align-items: center;
   padding-inline: pxToRem(var(--icon-spacing-inset));
