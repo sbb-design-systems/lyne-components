@@ -1,3 +1,10 @@
+## [9.68.1](https://github.com/lyne-design-system/lyne-components/compare/v9.68.0...v9.68.1) (2021-11-26)
+
+
+### Bug Fixes
+
+* updating to latest lyne-icons version and fixing tests ([d9c127d](https://github.com/lyne-design-system/lyne-components/commit/d9c127d53060ca3092bcc6ff859eeb5a4b7ff5bc))
+
 # [9.68.0](https://github.com/lyne-design-system/lyne-components/compare/v9.67.1...v9.68.0) (2021-11-26)
 
 
