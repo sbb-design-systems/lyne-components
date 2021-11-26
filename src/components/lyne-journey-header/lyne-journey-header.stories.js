@@ -65,7 +65,6 @@ const size = {
     type: 'inline-radio'
   },
   options: [
-    1,
     4,
     5
   ]
@@ -84,7 +83,7 @@ const defaultArgs = {
   'journey-header-id': '',
   'markup': 'h1',
   'origin': 'La Chaux de Fonds',
-  'size': '5'
+  'size': 5
 };
 
 /* ************************************************* */

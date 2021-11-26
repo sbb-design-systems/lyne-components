@@ -32,9 +32,9 @@
   @include title--negative();
 }
 
-.journey-header--size-1 {
-  @include title-1();
-}
+// .journey-header--size-1 {
+//   @include title-1();
+// }
 
 .journey-header--size-4 {
   @include title-4();

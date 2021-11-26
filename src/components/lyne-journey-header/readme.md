@@ -15,7 +15,7 @@
 | `journeyHeaderId`          | `journey-header-id` | A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target | `""`                                                            | `undefined` |
 | `markup`                   | `markup`            | Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics                                      | `"h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "h6" \| "p" \| "span"` | `'span'`    |
 | `origin` _(required)_      | `origin`            | Origin location for the journey header                                                                                                                                                                 | `string`                                                        | `undefined` |
-| `size`                     | `size`              | Journey header size                                                                                                                                                                                    | `"1" \| "4" \| "5"`                                             | `'5'`       |
+| `size`                     | `size`              | Journey header size                                                                                                                                                                                    | `"4" \| "5"`                                                    | `'5'`       |
 
 
 ----------------------------------------------
