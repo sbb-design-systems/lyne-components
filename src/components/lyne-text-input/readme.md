@@ -34,6 +34,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [lyne-autocomplete](../lyne-autocomplete)
+
 ### Depends on
 
 - [lyne-input-error](../lyne-input-error)
@@ -42,6 +46,7 @@
 ```mermaid
 graph TD;
   lyne-text-input --> lyne-input-error
+  lyne-autocomplete --> lyne-text-input
   style lyne-text-input fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
