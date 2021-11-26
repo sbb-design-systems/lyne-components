@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
+import { InterfaceLyneAutocompleteAttributes } from "./components/lyne-autocomplete/lyne-autocomplete.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
@@ -54,6 +55,12 @@ export namespace Components {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface LyneAutocomplete {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneAutocompleteAttributes['someInterface'];
     }
     interface LyneButton {
         /**
@@ -463,6 +470,12 @@ declare global {
         prototype: HTMLLyneAccordionItemElement;
         new (): HTMLLyneAccordionItemElement;
     };
+    interface HTMLLyneAutocompleteElement extends Components.LyneAutocomplete, HTMLStencilElement {
+    }
+    var HTMLLyneAutocompleteElement: {
+        prototype: HTMLLyneAutocompleteElement;
+        new (): HTMLLyneAutocompleteElement;
+    };
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
     }
     var HTMLLyneButtonElement: {
@@ -556,6 +569,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
+        "lyne-autocomplete": HTMLLyneAutocompleteElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-input-error": HTMLLyneInputErrorElement;
@@ -609,6 +623,12 @@ declare namespace LocalJSX {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface LyneAutocomplete {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneAutocompleteAttributes['someInterface'];
     }
     interface LyneButton {
         /**
@@ -1007,6 +1027,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
+        "lyne-autocomplete": LyneAutocomplete;
         "lyne-button": LyneButton;
         "lyne-image": LyneImage;
         "lyne-input-error": LyneInputError;
@@ -1030,6 +1051,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
+            "lyne-autocomplete": LocalJSX.LyneAutocomplete & JSXBase.HTMLAttributes<HTMLLyneAutocompleteElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
