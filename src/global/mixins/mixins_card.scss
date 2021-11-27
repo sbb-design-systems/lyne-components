@@ -20,39 +20,3 @@
   position: relative;
   overflow: hidden;
 }
-
-
-@mixin salesprice {
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-end: 0;
-  height: 2em;
-  right: 0;
-  background-color: black;
-  color: white;
-  display: flex;
-  align-items: center;
-
-  @include text-xs--regular;
-
-  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
-
-  //border-radius:10% 0% 20% 10% / 0% 87% 38% 0%;
-  border-bottom-left-radius: pxToRem(var(--border-radius-4x));
-
-  transform: skew(16deg, 0deg);
-
-  .wrapper {
-    transform: skew(-16deg, 0deg);
-  }
-
-  .discount {
-    padding-inline-start: .5em;
-  }
-  .from {
-    padding-inline-start: .5em;
-  }
-  .price {
-    padding-inline-start: .5em;
-  }
-}

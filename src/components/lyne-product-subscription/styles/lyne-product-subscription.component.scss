@@ -46,8 +46,4 @@
   color: var(--color-granite-default);
 }
 
-.product-subscription__salesprice {
-  @include salesprice();
-}
-
-
+.product-subscription__salesprice {}

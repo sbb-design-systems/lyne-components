@@ -62,7 +62,7 @@ export class LyneCardBadge {
     const sizeClass = ` card-badge--${this.size}`;
 
     return (
-      <div
+      <span
         class={
           `card-badge
           ${appearanceClass}
@@ -87,7 +87,7 @@ export class LyneCardBadge {
           ? <span class='generic'><slot name='generic'/></span>
           : ''
         }
-      </div>
+      </span>
     );
   }
 }

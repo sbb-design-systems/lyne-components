@@ -18,7 +18,27 @@ const SlotTitleTemplate = (args) => (
   <lyne-title {...args} />
 );
 
-/* --- action slot --------------------------------- */
+/* --- card-badge slot ----------------------------- */
+
+const cardBadgeArgs = {
+  isDiscount: true,
+  price: '88.88',
+  size: 'small',
+  // slotGeneric: '<span>on <time datetime="2021-11-25">Black Friday</time></span>',
+  text: 'from CHF'
+};
+
+const SlotCardBadgeTemplate = (args) => (
+  <lyne-card-badge {...args}>
+    {args.slotGeneric &&
+      <span slot='generic' dangerouslySetInnerHTML={{
+        __html: args.slotGeneric
+      }}></span>
+    }
+  </lyne-card-badge>
+);
+
+/* --- card-badge slot ----------------------------- */
 
 const actionArgs = {
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
@@ -43,6 +63,7 @@ const SlotActionTemplate = (args) => (
 const Template = (args) => (
   <lyne-product-subscription {...args}>
     <div slot='title'><SlotTitleTemplate {...titleArgs}/></div>
+    <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
   </lyne-product-subscription>
 );

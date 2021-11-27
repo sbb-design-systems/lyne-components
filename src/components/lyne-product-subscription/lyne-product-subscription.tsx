@@ -7,6 +7,7 @@ import {
 
 /**
  * @slot title - Slot used to render the title
+ * @slot card-badge - Slot used to render the optional card badge e.g. discounts
  * @slot action - Slot used to render the link-button
  */
 
@@ -31,10 +32,12 @@ export class LyneProductSubscription {
   @Element() private _hostElement: HTMLElement;
 
   private _hasTitleSlot: boolean;
+  private _hasCardBadgeSlot: boolean;
   private _hasActionSlot: boolean;
 
   public componentWillLoad(): void {
     this._hasTitleSlot = Boolean(this._hostElement.querySelector('[slot="title"]'));
+    this._hasCardBadgeSlot = Boolean(this._hostElement.querySelector('[slot="card-badge"]'));
     this._hasActionSlot = Boolean(this._hostElement.querySelector('[slot="action"]'));
   }
 
@@ -59,18 +62,15 @@ export class LyneProductSubscription {
             : ''
           }
         </div>
+        {this._hasCardBadgeSlot
+          ? <div class='product-subscription__salesprice'><slot name='card-badge'/></div>
+          : ''
+        }
         <div class='product-subscription__end'>
           {this._hasActionSlot
             ? <div class='product-subscription__action'><slot name='action'/></div>
             : ''
           }
-        </div>
-        <div class='product-subscription__salesprice'>
-          <span class='wrapper'>
-            <span class='discount'>%</span>
-            <span class='from'>ab CHF</span>
-            <span class='price'>88.88</span>
-          </span>
         </div>
       </div>
     );
