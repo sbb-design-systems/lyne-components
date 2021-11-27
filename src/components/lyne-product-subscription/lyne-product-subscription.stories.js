@@ -8,14 +8,25 @@ import readme from './readme.md';
 
 /* --- title slot ---------------------------------- */
 
-const titleArgs = {
+const titleArgsLyneTitle = {
   'level': 2,
   'text': '1/2',
   'visual-level': 1
 };
 
-const SlotTitleTemplate = (args) => (
+const SlotTitleTemplateLyneTitle = (args) => (
   <lyne-title {...args} />
+);
+
+const titleArgsLyneJourneyHeader = {
+  destination: 'Loèche-les-Bains',
+  markup: 'h2',
+  origin: 'La Chaux de Fonds',
+  size: 5
+};
+
+const SlotTitleTemplateLyneJourneyHeader = (args) => (
+  <lyne-journey-header {...args} />
 );
 
 /* --- card-badge slot ----------------------------- */
@@ -60,9 +71,17 @@ const SlotActionTemplate = (args) => (
 /* Storybook templates                               */
 /* ************************************************* */
 
-const Template = (args) => (
+const TemplateLyneTitle = (args) => (
   <lyne-product-subscription {...args}>
-    <div slot='title'><SlotTitleTemplate {...titleArgs}/></div>
+    <div slot='title'><SlotTitleTemplateLyneTitle {...titleArgsLyneTitle}/></div>
+    <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
+  </lyne-product-subscription>
+);
+
+const TemplateLyneJourneyHeader = (args) => (
+  <lyne-product-subscription {...args}>
+    <div slot='title'><SlotTitleTemplateLyneJourneyHeader {...titleArgsLyneJourneyHeader}/></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
   </lyne-product-subscription>
@@ -98,15 +117,27 @@ const defaultArgs = {
 /* The Stories                                       */
 /* ************************************************* */
 
-/* --- ProductSubscription ------------------------- */
-export const ProductSubscription = Template.bind({});
+/* --- ProductSubscription with Lyne Title --------- */
+export const ProductSubscriptionLyneTitle = TemplateLyneTitle.bind({});
 
-ProductSubscription.argTypes = defaultArgTypes;
-ProductSubscription.args = {
+ProductSubscriptionLyneTitle.argTypes = defaultArgTypes;
+ProductSubscriptionLyneTitle.args = {
   ...defaultArgs
 };
 
-ProductSubscription.documentation = {
+ProductSubscriptionLyneTitle.documentation = {
+  title: 'Product of type subscription'
+};
+
+/* --- ProductSubscription with Journey Title ----- */
+export const ProductSubscriptionLyneJourneyHeader = TemplateLyneJourneyHeader.bind({});
+
+ProductSubscriptionLyneJourneyHeader.argTypes = defaultArgTypes;
+ProductSubscriptionLyneJourneyHeader.args = {
+  ...defaultArgs
+};
+
+ProductSubscriptionLyneJourneyHeader.documentation = {
   title: 'Product of type subscription'
 };
 
