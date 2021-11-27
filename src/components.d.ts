@@ -19,6 +19,7 @@ import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-log
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
+import { InterfaceLyneTimetableRowButtonAttributes } from "./components/lyne-timetable-row-button/lyne-timetable-row-button.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -461,6 +462,20 @@ export namespace Components {
          */
         "config": string;
     }
+    interface LyneTimetableRowButton {
+        /**
+          * Id which is sent in the event of clicking the button
+         */
+        "eventId"?: string;
+        /**
+          * Set to true to open the accordion item. Set to false to close it.
+         */
+        "expanded"?: boolean;
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneTimetableRowButtonAttributes['someInterface'];
+    }
     interface LyneTimetableTransportationDetails {
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
@@ -645,6 +660,12 @@ declare global {
         prototype: HTMLLyneTimetableRowElement;
         new (): HTMLLyneTimetableRowElement;
     };
+    interface HTMLLyneTimetableRowButtonElement extends Components.LyneTimetableRowButton, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableRowButtonElement: {
+        prototype: HTMLLyneTimetableRowButtonElement;
+        new (): HTMLLyneTimetableRowButtonElement;
+    };
     interface HTMLLyneTimetableTransportationDetailsElement extends Components.LyneTimetableTransportationDetails, HTMLStencilElement {
     }
     var HTMLLyneTimetableTransportationDetailsElement: {
@@ -698,6 +719,7 @@ declare global {
         "lyne-timetable-occupancy": HTMLLyneTimetableOccupancyElement;
         "lyne-timetable-platform": HTMLLyneTimetablePlatformElement;
         "lyne-timetable-row": HTMLLyneTimetableRowElement;
+        "lyne-timetable-row-button": HTMLLyneTimetableRowButtonElement;
         "lyne-timetable-transportation-details": HTMLLyneTimetableTransportationDetailsElement;
         "lyne-timetable-transportation-number": HTMLLyneTimetableTransportationNumberElement;
         "lyne-timetable-transportation-time": HTMLLyneTimetableTransportationTimeElement;
@@ -1147,6 +1169,20 @@ declare namespace LocalJSX {
          */
         "config": string;
     }
+    interface LyneTimetableRowButton {
+        /**
+          * Id which is sent in the event of clicking the button
+         */
+        "eventId"?: string;
+        /**
+          * Set to true to open the accordion item. Set to false to close it.
+         */
+        "expanded"?: boolean;
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneTimetableRowButtonAttributes['someInterface'];
+    }
     interface LyneTimetableTransportationDetails {
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
@@ -1220,6 +1256,7 @@ declare namespace LocalJSX {
         "lyne-timetable-occupancy": LyneTimetableOccupancy;
         "lyne-timetable-platform": LyneTimetablePlatform;
         "lyne-timetable-row": LyneTimetableRow;
+        "lyne-timetable-row-button": LyneTimetableRowButton;
         "lyne-timetable-transportation-details": LyneTimetableTransportationDetails;
         "lyne-timetable-transportation-number": LyneTimetableTransportationNumber;
         "lyne-timetable-transportation-time": LyneTimetableTransportationTime;
@@ -1253,6 +1290,7 @@ declare module "@stencil/core" {
             "lyne-timetable-occupancy": LocalJSX.LyneTimetableOccupancy & JSXBase.HTMLAttributes<HTMLLyneTimetableOccupancyElement>;
             "lyne-timetable-platform": LocalJSX.LyneTimetablePlatform & JSXBase.HTMLAttributes<HTMLLyneTimetablePlatformElement>;
             "lyne-timetable-row": LocalJSX.LyneTimetableRow & JSXBase.HTMLAttributes<HTMLLyneTimetableRowElement>;
+            "lyne-timetable-row-button": LocalJSX.LyneTimetableRowButton & JSXBase.HTMLAttributes<HTMLLyneTimetableRowButtonElement>;
             "lyne-timetable-transportation-details": LocalJSX.LyneTimetableTransportationDetails & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationDetailsElement>;
             "lyne-timetable-transportation-number": LocalJSX.LyneTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationNumberElement>;
             "lyne-timetable-transportation-time": LocalJSX.LyneTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationTimeElement>;

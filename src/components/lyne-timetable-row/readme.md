@@ -20,6 +20,7 @@
 
 ### Depends on
 
+- [lyne-timetable-row-button](../lyne-timetable-row-button)
 - [lyne-timetable-transportation-details](../lyne-timetable-transportation-details)
 - [lyne-timetable-platform](../lyne-timetable-platform)
 - [lyne-timetable-occupancy](../lyne-timetable-occupancy)
@@ -29,6 +30,7 @@
 ### Graph
 ```mermaid
 graph TD;
+  lyne-timetable-row --> lyne-timetable-row-button
   lyne-timetable-row --> lyne-timetable-transportation-details
   lyne-timetable-row --> lyne-timetable-platform
   lyne-timetable-row --> lyne-timetable-occupancy

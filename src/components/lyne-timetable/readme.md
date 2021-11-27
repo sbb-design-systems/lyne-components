@@ -22,6 +22,7 @@
 ```mermaid
 graph TD;
   lyne-timetable --> lyne-timetable-row
+  lyne-timetable-row --> lyne-timetable-row-button
   lyne-timetable-row --> lyne-timetable-transportation-details
   lyne-timetable-row --> lyne-timetable-platform
   lyne-timetable-row --> lyne-timetable-occupancy

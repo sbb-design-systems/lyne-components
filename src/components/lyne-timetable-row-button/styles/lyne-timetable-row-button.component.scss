@@ -1,0 +1,19 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+
+:host {
+  display: block;
+  --min-height: 108;
+
+  @include mq($from: medium) {
+    --input-height: 114;
+  }
+}
+
+button {
+  width: 100%;
+  min-height: pxToRem(var(--min-height));
+  background: rgba(pink, .1);
+  border: none;
+}

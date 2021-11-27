@@ -20,12 +20,17 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  position: relative;
+  border-bottom: 1px solid lime;
   // min-height: pxToRem(var(--row-min-height));
 }
 
 .timetable__row > * {
   display: flex;
   flex: 0 1 auto;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .timetable__row svg {
@@ -45,4 +50,11 @@
 .timetable__row > lyne-timetable-duration {
   flex-grow: 1;
   justify-content: flex-end;
+}
+
+.timetable__row > lyne-timetable-row-button {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: all;
 }

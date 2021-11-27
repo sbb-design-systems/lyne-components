@@ -55,6 +55,11 @@ export class LyneTimetableRow {
         class={`timetable__row ${this._additionalTimetableRowClasses.join(' ')}`}
         role='none'
       >
+        <lyne-timetable-row-button
+          role='rowheader'
+        >
+
+        </lyne-timetable-row-button>
         <lyne-timetable-transportation-details
           config={JSON.stringify(config.details)}
           role='gridcell'

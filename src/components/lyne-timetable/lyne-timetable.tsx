@@ -30,6 +30,7 @@ export class LyneTimetable {
           class='timetable__column-headers'
           role='row'
         >
+          <div role='columnheader'>Kurzinfo</div>
           <div role='columnheader'>Details</div>
           <div role='columnheader'>Platform</div>
           <div role='columnheader'>Occupancy Forecast</div>
