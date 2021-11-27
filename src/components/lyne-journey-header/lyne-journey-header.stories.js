@@ -124,6 +124,21 @@ h2InH4StyleRoundTrip.documentation = {
   title: 'Journey header as h2, in h4 style'
 };
 
+/* --- Journey header as h2, h4 style, round trip, short text -- */
+export const h2InH4StyleRoundTripShortText = Template.bind({});
+
+h2InH4StyleRoundTripShortText.argTypes = defaultArgTypes;
+h2InH4StyleRoundTripShortText.args = {
+  ...defaultArgs,
+  destination: 'Thun',
+  isRoundTrip: true,
+  origin: 'Bern',
+  size: 4
+};
+h2InH4StyleRoundTripShortText.documentation = {
+  title: 'Journey header as h2, in h4 style'
+};
+
 /* --- Journey header negative as h1 --------------- */
 export const h1Negative = Template.bind({});
 

@@ -18,9 +18,9 @@
 
 ## Slots
 
-| Slot        | Description                                                                                                                                                                                                          |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `"generic"` | Slot used to render generic content. Since this slot is wrapped within a `span` only [inline elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements) are allowed to be passed within this slot. |
+| Slot        | Description                                                                                                                                                                                                             |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `"generic"` | Slot used to render generic content. Since this slot is wrapped within a `span` only inline elements are allowed to be passed within this slot. Check https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements |
 
 
 ----------------------------------------------
