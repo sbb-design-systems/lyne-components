@@ -95,7 +95,7 @@
 }
 
 @mixin text-xs--bold {
-  @include text-s--regular();
+  @include text-xs--regular();
   @include text--bold();
 }
 
