@@ -3,12 +3,32 @@
 // and default mode
 @include host-component-properties;
 
+:host {
+  --slot-icon-spacing-inline: var(--spacing-fixed-4x);
+  --slot-connection-details-spacing-top: var(--spacing-fixed-2x);
+  --slot-action-spacing-top: var(--spacing-fixed-4x);
+}
+
 /* ************************************************* */
 /* Layout & spacing                                  */
 /* ************************************************* */
 
+.product-subscription__icon {
+  display: none;
+  padding-inline-end: pxToRem(var(--slot-icon-spacing-inline));
+}
+
+.product-subscription__content {
+  display: flex;
+  align-items: center;
+}
+
+.product-subscription__connection-details {
+  padding-block-start: pxToRem(var(--slot-connection-details-spacing-top));
+}
+
 .product-subscription__action {
-  padding-top: pxToRem(var(--spacing-fixed-2x));
+  padding-block-start: pxToRem(var(--slot-action-spacing-top));
 }
 
 // Layout switch
@@ -19,13 +39,14 @@
     justify-content: space-between;
     align-items: center;
   }
-  .product-subscription__start {}
-  .product-subscription__end {
-    align-self: flex-end;
+
+  .product-subscription__icon {
+    display: block;
   }
 
   .product-subscription__action {
-    padding-top: 0;
+    padding-block-start: 0;
+    align-self: flex-end;
   }
 }
 

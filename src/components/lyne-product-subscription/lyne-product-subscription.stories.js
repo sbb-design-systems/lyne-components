@@ -1,32 +1,50 @@
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import sampleData from './../lyne-pearl-chain/lyne-pearl-chain.sample-data';
 
 /* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
+/* --- icon slot ----------------------------------- */
+
+const iconArgs = {
+  icon: 'ticket-route-medium'
+};
+
+const SlotIconTemplate = (args) => (
+  <span>{getMarkupForSvg(args.icon)}</span>
+);
+
 /* --- title slot ---------------------------------- */
 
-const titleArgsLyneTitle = {
+const lyneTitleArgs = {
   'level': 2,
   'text': '1/2',
   'visual-level': 1
 };
 
-const SlotTitleTemplateLyneTitle = (args) => (
+const SlotLyneTitleTemplate = (args) => (
   <lyne-title {...args} />
 );
 
-const titleArgsLyneJourneyHeader = {
+const lyneJourneyHeaderArgs = {
   destination: 'Loèche-les-Bains',
+  isRoundTrip: true,
   markup: 'h2',
   origin: 'La Chaux de Fonds',
   size: 5
 };
 
-const SlotTitleTemplateLyneJourneyHeader = (args) => (
+const SlotLyneJourneyHeaderTemplate = (args) => (
   <lyne-journey-header {...args} />
+);
+
+/* --- pearl chain slot ---------------------------------- */
+
+const SlotPearlChainTemplate = () => (
+  <lyne-pearl-chain legs={JSON.stringify(sampleData.stop4)} />
 );
 
 /* --- card-badge slot ----------------------------- */
@@ -49,7 +67,7 @@ const SlotCardBadgeTemplate = (args) => (
   </lyne-card-badge>
 );
 
-/* --- card-badge slot ----------------------------- */
+/* --- action slot ----------------------------- */
 
 const actionArgs = {
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
@@ -73,15 +91,16 @@ const SlotActionTemplate = (args) => (
 
 const TemplateLyneTitle = (args) => (
   <lyne-product-subscription {...args}>
-    <div slot='title'><SlotTitleTemplateLyneTitle {...titleArgsLyneTitle}/></div>
-    <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
   </lyne-product-subscription>
 );
 
 const TemplateLyneJourneyHeader = (args) => (
   <lyne-product-subscription {...args}>
-    <div slot='title'><SlotTitleTemplateLyneJourneyHeader {...titleArgsLyneJourneyHeader}/></div>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
+    <div slot='connection-details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
   </lyne-product-subscription>
@@ -110,7 +129,7 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   lead: 'Halbtax-Abo',
-  text: '2. Klasse, gültig bis 12.11.2021'
+  text: '2. Klasse, gültig bis 30.11.2021'
 };
 
 /* ************************************************* */
