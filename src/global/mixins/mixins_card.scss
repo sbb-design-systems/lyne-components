@@ -4,7 +4,9 @@
 
 @mixin card {
   --card-border-radius: var(--border-radius-8x);
-  --card-padding: var(--spacing-responsive-xxs-zero);
+  // @todo card spacing is defined as --spacing-responsive-xxs-zero by design
+  // but this leads to overlap with card badge ...
+  --card-padding: var(--spacing-responsive-s-zero);
 
   padding: pxToRem(var(--card-padding));
   background-color: var(--card-background-color);
