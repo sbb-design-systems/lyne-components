@@ -31,6 +31,10 @@ const iconArgs = {
   icon: 'ticket-route-medium'
 };
 
+const iconBicycleArgs = {
+  icon: 'bicycle-medium'
+};
+
 const SlotIconTemplate = (args) => (
   <span>{getMarkupForSvg(args.icon)}</span>
 );
@@ -38,9 +42,15 @@ const SlotIconTemplate = (args) => (
 /* --- title slot ---------------------------------- */
 
 const lyneTitleArgs = {
-  'level': 2,
-  'text': '1/2',
-  'visual-level': 1
+  'level': 3,
+  'text': 'Tageskarte',
+  'visual-level': 5
+};
+
+const lyneTitlePersonalizedArgs = {
+  'level': 3,
+  'text': 'Libero Tageskarte: Alle Zonen',
+  'visual-level': 5
 };
 
 const SlotLyneTitleTemplate = (args) => (
@@ -88,11 +98,25 @@ const SlotCardBadgeTemplate = (args) => (
 
 /* --- action slot ----------------------------- */
 
-const actionArgs = {
+const actionTicketArgs = {
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
-  // 'icon': 'qrcode-small',
   'icon-placement': 'start',
-  'text': 'Abo bearbeiten',
+  'text': 'Kaufen',
+  'variant': 'secondary'
+};
+
+const actionTicketPersonalizedArgs = {
+  'href-value': 'https://github.com/lyne-design-system/lyne-components',
+  'icon': 'qrcode-small',
+  'icon-placement': 'start',
+  'text': 'Billett',
+  'variant': 'secondary'
+};
+
+const actionTicketPersonalizedConnectionArgs = {
+  'href-value': 'https://github.com/lyne-design-system/lyne-components',
+  'icon-placement': 'start',
+  'text': 'Details',
   'variant': 'secondary'
 };
 
@@ -108,20 +132,44 @@ const SlotActionTemplate = (args) => (
 /* Storybook templates                               */
 /* ************************************************* */
 
-const TemplateLyneTitle = (args) => (
+const TemplateTicket = (args) => (
   <lyne-product-ticket {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
     <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
-    <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionTicketArgs}/></div>
   </lyne-product-ticket>
 );
 
-const TemplateLyneJourneyHeader = (args) => (
+const TemplateTicketBicycle = (args) => (
+  <lyne-product-ticket {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconBicycleArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionTicketArgs}/></div>
+  </lyne-product-ticket>
+);
+
+const TemplateTicketCardBadge = (args) => (
   <lyne-product-ticket {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
-    <div slot='connection-details'><SlotPearlChainTemplate /></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
-    <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionTicketArgs}/></div>
+  </lyne-product-ticket>
+);
+
+const TemplateTicketPersonalized = (args) => (
+  <lyne-product-ticket {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitlePersonalizedArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionTicketPersonalizedArgs}/></div>
+  </lyne-product-ticket>
+);
+
+const TemplateTicketPersonalizedConnection = (args) => (
+  <lyne-product-ticket {...args}>
+    <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
+    <div slot='connection-details'><SlotPearlChainTemplate /></div>
+    <div slot='action'><SlotActionTemplate {...actionTicketPersonalizedConnectionArgs}/></div>
   </lyne-product-ticket>
 );
 
@@ -148,50 +196,80 @@ const text = {
   }
 };
 
-const lead = {
-  control: {
-    type: 'text'
-  }
-};
-
 const defaultArgTypes = {
   appearance,
-  lead,
   text
 };
 
 const defaultArgs = {
   appearance: appearance.options[0],
-  lead: 'Halbtax-Abo',
-  text: '2. Klasse, gültig bis 30.11.2021'
+  text: 'Gültig heute'
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
 
-/* --- ProductTicket with Lyne Title --------- */
-export const ProductTicketLyneTitle = TemplateLyneTitle.bind({});
+/* --- ProductTicket ------------------------------- */
+export const ProductTicket = TemplateTicket.bind({});
 
-ProductTicketLyneTitle.argTypes = defaultArgTypes;
-ProductTicketLyneTitle.args = {
+ProductTicket.argTypes = defaultArgTypes;
+ProductTicket.args = {
   ...defaultArgs
 };
 
-ProductTicketLyneTitle.documentation = {
+ProductTicket.documentation = {
   title: 'Product of type ticket'
+};
+
+/* --- ProductTicket bicycle ----------------------- */
+export const ProductTicketBicycle = TemplateTicketBicycle.bind({});
+
+ProductTicketBicycle.argTypes = defaultArgTypes;
+ProductTicketBicycle.args = {
+  ...defaultArgs
+};
+
+ProductTicketBicycle.documentation = {
+  title: 'Product of type ticket with bicycle icon'
+};
+
+/* --- ProductTicket with CardBadge ---------------- */
+export const ProductTicketCardBadge = TemplateTicketCardBadge.bind({});
+
+ProductTicketCardBadge.argTypes = defaultArgTypes;
+ProductTicketCardBadge.args = {
+  ...defaultArgs
+};
+
+ProductTicketCardBadge.documentation = {
+  title: 'Product of type ticket with card badge'
+};
+
+/* --- ProductTicket Personalized ---------------- */
+export const ProductTicketPersonalized = TemplateTicketPersonalized.bind({});
+
+ProductTicketPersonalized.argTypes = defaultArgTypes;
+ProductTicketPersonalized.args = {
+  ...defaultArgs,
+  text: 'Heute, Gültig 24 Stunden'
+};
+
+ProductTicketPersonalized.documentation = {
+  title: 'Product of type ticket with personalization'
 };
 
 /* --- ProductTicket with Journey Title ----- */
-export const ProductTicketLyneJourneyHeader = TemplateLyneJourneyHeader.bind({});
+export const ProductTicketJourneyHeader = TemplateTicketPersonalizedConnection.bind({});
 
-ProductTicketLyneJourneyHeader.argTypes = defaultArgTypes;
-ProductTicketLyneJourneyHeader.args = {
-  ...defaultArgs
+ProductTicketJourneyHeader.argTypes = defaultArgTypes;
+ProductTicketJourneyHeader.args = {
+  ...defaultArgs,
+  text: 'Samstag, 21.02.2021, 1 h 26 min'
 };
 
-ProductTicketLyneJourneyHeader.documentation = {
-  title: 'Product of type ticket'
+ProductTicketJourneyHeader.documentation = {
+  title: 'Product of type ticket with journey title and connection details'
 };
 
 /* --- next story ... ------------------------------ */

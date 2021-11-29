@@ -7,11 +7,10 @@
 
 ## Properties
 
-| Property            | Attribute    | Description               | Type                              | Default     |
-| ------------------- | ------------ | ------------------------- | --------------------------------- | ----------- |
-| `appearance`        | `appearance` | Product ticket appearance | `"primary" \| "primary-negative"` | `'primary'` |
-| `lead` _(required)_ | `lead`       | Lead text                 | `string`                          | `undefined` |
-| `text`              | `text`       | Detailed text             | `string`                          | `undefined` |
+| Property     | Attribute    | Description               | Type                              | Default     |
+| ------------ | ------------ | ------------------------- | --------------------------------- | ----------- |
+| `appearance` | `appearance` | Product ticket appearance | `"primary" \| "primary-negative"` | `'primary'` |
+| `text`       | `text`       | Detailed text             | `string`                          | `undefined` |
 
 
 ## Slots
