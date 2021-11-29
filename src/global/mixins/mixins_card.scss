@@ -2,16 +2,9 @@
 // Card: Mixins & CSS variables
 // -----------------------------------------------------------------------------
 
-// @include mq($from: small) {}
-// @include mq($from: medium) {}
-// @include mq($from: wide) {}
-// @include mq($from: ultra) {}
-
 @mixin card {
-  --card-background-color: var(--color-milk-default);
   --card-border-radius: var(--border-radius-8x);
-  // @Todo: padding should be xxs, does not exist as design token
-  --card-padding: var(--spacing-responsive-xs-zero);
+  --card-padding: var(--spacing-responsive-xxs-zero);
 
   padding: pxToRem(var(--card-padding));
   background-color: var(--card-background-color);
@@ -19,4 +12,14 @@
 
   position: relative;
   overflow: hidden;
+}
+
+@mixin card--primary {
+  --card-background-color: var(--color-milk-default);
+  @include card;
+}
+
+@mixin card--primary-negative {
+  --card-background-color: var(--color-white-default);
+  @include card;
 }

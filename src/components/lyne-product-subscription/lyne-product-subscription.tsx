@@ -4,6 +4,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
+import { InterfaceProductSubscriptionAttributes } from './lyne-product-subscription.custom';
 
 /**
  * @slot icon - Slot used to render the product icon
@@ -26,6 +27,9 @@ export class LyneProductSubscription {
 
   /** Lead text */
   @Prop() public lead!: string;
+
+  /** Product subscription appearance */
+  @Prop() public appearance?: InterfaceProductSubscriptionAttributes['appearance'] = 'primary';
 
   /** Detailed text */
   @Prop() public text?: string;
@@ -51,7 +55,7 @@ export class LyneProductSubscription {
     return (
       <div
         class={
-          'product-subscription'
+          `product-subscription product-subscription--${this.appearance}`
         }
         itemscope itemtype='https://schema.org/Product'
       >

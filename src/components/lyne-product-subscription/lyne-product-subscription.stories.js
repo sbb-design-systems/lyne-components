@@ -1,7 +1,25 @@
+import {
+  ColorMilkDefault,
+  ColorWhiteDefault
+} from 'lyne-design-tokens/dist/js/tokens.es6';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './../lyne-pearl-chain/lyne-pearl-chain.sample-data';
+
+/* ************************************************* */
+/* Storybook component wrapper, used in Storybook    */
+/* ************************************************* */
+
+const wrapperStyle = (context) => {
+  const variantsOnDarkBg = ['primary-negative'];
+
+  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+    return `background-color: ${ColorWhiteDefault};`;
+  }
+
+  return `background-color: ${ColorMilkDefault};`;
+};
 
 /* ************************************************* */
 /* Slot templates, used in Storybook template        */
@@ -110,6 +128,16 @@ const TemplateLyneJourneyHeader = (args) => (
 /* Storybook controls                                */
 /* ************************************************* */
 
+const appearance = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'primary',
+    'primary-negative'
+  ]
+};
+
 const text = {
   control: {
     type: 'text'
@@ -123,11 +151,13 @@ const lead = {
 };
 
 const defaultArgTypes = {
+  appearance,
   lead,
   text
 };
 
 const defaultArgs = {
+  appearance: appearance.options[0],
   lead: 'Halbtax-Abo',
   text: '2. Klasse, gültig bis 30.11.2021'
 };
@@ -168,8 +198,8 @@ ProductSubscriptionLyneJourneyHeader.documentation = {
 
 export default {
   decorators: [
-    (Story) => (
-      <div style={'padding: 2rem'}>
+    (Story, context) => (
+      <div style={`${wrapperStyle(context)} padding: 2rem`}>
         <Story/>
       </div>
     )

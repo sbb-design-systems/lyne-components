@@ -16,6 +16,7 @@ import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.cus
 import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
+import { InterfaceProductSubscriptionAttributes } from "./components/lyne-product-subscription/lyne-product-subscription.custom";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
@@ -351,6 +352,10 @@ export namespace Components {
         "status"?: InterfacePearlChainAttributes['status'];
     }
     interface LyneProductSubscription {
+        /**
+          * Product subscription appearance
+         */
+        "appearance"?: InterfaceProductSubscriptionAttributes['appearance'];
         /**
           * Lead text
          */
@@ -911,6 +916,10 @@ declare namespace LocalJSX {
         "status"?: InterfacePearlChainAttributes['status'];
     }
     interface LyneProductSubscription {
+        /**
+          * Product subscription appearance
+         */
+        "appearance"?: InterfaceProductSubscriptionAttributes['appearance'];
         /**
           * Lead text
          */

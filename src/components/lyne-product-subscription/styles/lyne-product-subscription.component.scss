@@ -54,8 +54,12 @@
 /* Styling                                           */
 /* ************************************************* */
 
-.product-subscription {
-  @include card;
+.product-subscription--primary {
+  @include card--primary;
+}
+
+.product-subscription--primary-negative {
+  @include card--primary-negative;
 }
 
 .product-subscription__lead {
