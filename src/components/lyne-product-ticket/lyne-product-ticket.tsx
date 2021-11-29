@@ -25,9 +25,6 @@ import { InterfaceProductTicketAttributes } from './lyne-product-ticket.custom';
 
 export class LyneProductTicket {
 
-  /** Lead text */
-  @Prop() public lead!: string;
-
   /** Product ticket appearance */
   @Prop() public appearance?: InterfaceProductTicketAttributes['appearance'] = 'primary';
 
@@ -69,9 +66,6 @@ export class LyneProductTicket {
               ? <div class='product-ticket__title'><slot name='title'/></div>
               : ''
             }
-            <div class='product-ticket__lead'>
-              {this.lead}
-            </div>
             {this.text
               ? <div class='product-ticket__text'>{this.text}</div>
               : ''

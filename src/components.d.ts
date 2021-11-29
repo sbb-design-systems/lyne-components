@@ -387,10 +387,6 @@ export namespace Components {
          */
         "appearance"?: InterfaceProductTicketAttributes['appearance'];
         /**
-          * Lead text
-         */
-        "lead": string;
-        /**
           * Detailed text
          */
         "text"?: string;
@@ -992,10 +988,6 @@ declare namespace LocalJSX {
           * Product ticket appearance
          */
         "appearance"?: InterfaceProductTicketAttributes['appearance'];
-        /**
-          * Lead text
-         */
-        "lead": string;
         /**
           * Detailed text
          */
