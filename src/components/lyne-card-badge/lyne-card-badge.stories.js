@@ -2,7 +2,6 @@ import {
   ColorCharcoalDefault,
   ColorWhiteDefault
 } from 'lyne-design-tokens/dist/js/tokens.es6';
-// import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -26,41 +25,13 @@ const wrapperStyle = (context) => {
 
 /* --- generic slot -------------------------------- */
 
-/*
- * const genericArgs = {
- *   'href-value': 'https://github.com/lyne-design-system/lyne-components',
- *   'icon': 'qrcode-small',
- *   'icon-placement': 'start',
- *   'text': 'Abo bearbeiten',
- *   'variant': 'primary-negative'
- * };
- */
-
-/*
- * const SlotGenericTemplate = (args) => (
- *   <lyne-link-button {...args}>
- *     {args.icon &&
- *       <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
- *     }
- *   </lyne-link-button>
- * );
- */
-
 const SlotGenericTemplate = () => (
-  <span>on <time datetime='2021-11-25'>Black Friday</time></span>
+  <span><time datetime='2021-11-25'>Black Friday</time> Special</span>
 );
 
 /* ************************************************* */
 /* Storybook templates                               */
 /* ************************************************* */
-
-/*
- * const Template = (args) => (
- *   <lyne-card-badge {...args}>
- *     <div slot='generic'><SlotGenericTemplate {...genericArgs}/></div>
- *   </lyne-card-badge>
- * );
- */
 
 const Template = (args) => (
   <lyne-card-badge {...args}></lyne-card-badge>
@@ -141,7 +112,7 @@ CardBadgeFullFledged.argTypes = defaultArgTypes;
 CardBadgeFullFledged.args = {
   ...defaultArgs,
   isDiscount: true,
-  price: '88.88',
+  price: '92.50',
   text: 'from CHF'
 };
 
@@ -211,7 +182,7 @@ export const CardBadgeWithTextAndPrice = Template.bind({});
 CardBadgeWithTextAndPrice.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPrice.args = {
   ...defaultArgs,
-  price: '88.88',
+  price: '37.50',
   text: 'from CHF'
 };
 
@@ -226,7 +197,7 @@ CardBadgeWithTextAndPriceNegative.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPriceNegative.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
-  price: '88.88',
+  price: '18.70',
   text: 'from CHF'
 };
 

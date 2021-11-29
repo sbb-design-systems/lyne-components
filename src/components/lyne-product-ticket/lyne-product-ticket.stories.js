@@ -36,7 +36,7 @@ const iconBicycleArgs = {
 };
 
 const SlotIconTemplate = (args) => (
-  <span>{getMarkupForSvg(args.icon)}</span>
+  getMarkupForSvg(args.icon)
 );
 
 /* --- title slot ---------------------------------- */
@@ -78,12 +78,21 @@ const SlotPearlChainTemplate = () => (
 /* --- card-badge slot ----------------------------- */
 
 const cardBadgeArgs = {
+  isDiscount: true
+};
+
+const cardBadgeDetailedArgs = {
   isDiscount: true,
-  price: '88.88',
+  price: '37.50',
+  size: 'small',
+  text: 'from CHF'
+};
+
+const cardBadgeSlotArgs = {
+  isDiscount: true,
   size: 'small',
   // eslint-disable-next-line max-len
-  // slotGeneric: '<span>on <time datetime="2021-11-25">Black Friday</time></span>',
-  text: 'from CHF'
+  slotGeneric: '<span><time datetime="2021-11-25">Black Friday</time> Special</span>'
 };
 
 const SlotCardBadgeTemplate = (args) => (
@@ -157,6 +166,24 @@ const TemplateTicketCardBadge = (args) => (
   </lyne-product-ticket>
 );
 
+const TemplateTicketCardBadgeDetailed = (args) => (
+  <lyne-product-ticket {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
+    <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeDetailedArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionTicketArgs}/></div>
+  </lyne-product-ticket>
+);
+
+const TemplateTicketCardBadgeSlot = (args) => (
+  <lyne-product-ticket {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
+    <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeSlotArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionTicketArgs}/></div>
+  </lyne-product-ticket>
+);
+
 const TemplateTicketPersonalized = (args) => (
   <lyne-product-ticket {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
@@ -222,31 +249,56 @@ ProductTicket.documentation = {
   title: 'Product of type ticket'
 };
 
-/* --- ProductTicket bicycle ----------------------- */
-export const ProductTicketBicycle = TemplateTicketBicycle.bind({});
+/* --- ProductTicket bicycle negative -------------- */
+export const ProductTicketBicycleNegative = TemplateTicketBicycle.bind({});
 
-ProductTicketBicycle.argTypes = defaultArgTypes;
-ProductTicketBicycle.args = {
+ProductTicketBicycleNegative.argTypes = defaultArgTypes;
+ProductTicketBicycleNegative.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1]
+};
+
+ProductTicketBicycleNegative.documentation = {
+  title: 'Product of type ticket with bicycle icon, appearance primary negative'
+};
+
+/* --- ProductTicket with card badge discount ------ */
+export const ProductTicketCardBadgeDiscount = TemplateTicketCardBadge.bind({});
+
+ProductTicketCardBadgeDiscount.argTypes = defaultArgTypes;
+ProductTicketCardBadgeDiscount.args = {
   ...defaultArgs
 };
 
-ProductTicketBicycle.documentation = {
-  title: 'Product of type ticket with bicycle icon'
+ProductTicketCardBadgeDiscount.documentation = {
+  title: 'Product of type ticket with card badge discount'
 };
 
-/* --- ProductTicket with CardBadge ---------------- */
-export const ProductTicketCardBadge = TemplateTicketCardBadge.bind({});
+/* --- ProductTicket with card badge detailed negative ------ */
+export const ProductTicketCardBadgeDiscountDetailed = TemplateTicketCardBadgeDetailed.bind({});
 
-ProductTicketCardBadge.argTypes = defaultArgTypes;
-ProductTicketCardBadge.args = {
+ProductTicketCardBadgeDiscountDetailed.argTypes = defaultArgTypes;
+ProductTicketCardBadgeDiscountDetailed.args = {
   ...defaultArgs
 };
 
-ProductTicketCardBadge.documentation = {
-  title: 'Product of type ticket with card badge'
+ProductTicketCardBadgeDiscountDetailed.documentation = {
+  title: 'Product of type ticket with card badge discount detailed'
 };
 
-/* --- ProductTicket Personalized ---------------- */
+/* --- ProductTicket with card badge slot ------ */
+export const ProductTicketCardBadgeSlot = TemplateTicketCardBadgeSlot.bind({});
+
+ProductTicketCardBadgeSlot.argTypes = defaultArgTypes;
+ProductTicketCardBadgeSlot.args = {
+  ...defaultArgs
+};
+
+ProductTicketCardBadgeSlot.documentation = {
+  title: 'Product of type ticket with card badge discount and custom slot'
+};
+
+/* --- ProductTicket personalized ---------------- */
 export const ProductTicketPersonalized = TemplateTicketPersonalized.bind({});
 
 ProductTicketPersonalized.argTypes = defaultArgTypes;
@@ -259,13 +311,13 @@ ProductTicketPersonalized.documentation = {
   title: 'Product of type ticket with personalization'
 };
 
-/* --- ProductTicket with Journey Title ----- */
+/* --- ProductTicket with journey title ----- */
 export const ProductTicketJourneyHeader = TemplateTicketPersonalizedConnection.bind({});
 
 ProductTicketJourneyHeader.argTypes = defaultArgTypes;
 ProductTicketJourneyHeader.args = {
   ...defaultArgs,
-  text: 'Samstag, 21.02.2021, 1 h 26 min'
+  text: 'Dienstag, 30.11.2021, 3 h 37 min'
 };
 
 ProductTicketJourneyHeader.documentation = {

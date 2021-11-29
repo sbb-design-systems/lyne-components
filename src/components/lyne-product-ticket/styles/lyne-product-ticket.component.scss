@@ -14,8 +14,13 @@
 /* ************************************************* */
 
 .product-ticket__icon {
+  //not visible until breakpoint medium
   display: none;
   padding-inline-end: pxToRem(var(--slot-icon-spacing-inline));
+
+  ::slotted(*){
+    display: flex;
+  }
 }
 
 .product-ticket__content {
@@ -46,7 +51,6 @@
 
   .product-ticket__action {
     padding-block-start: 0;
-    //align-self: flex-end;
   }
 }
 
