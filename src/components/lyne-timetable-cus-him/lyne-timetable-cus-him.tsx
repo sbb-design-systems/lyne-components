@@ -67,6 +67,7 @@ export class LyneTimetableCusHim {
                   aria-label={cusHimItem.text}
                   class='cus-him__icon'
                   role='text'
+                  title={cusHimItem.text}
                 >
                   <svg><use xlinkHref={`#${cusHimItem.icon}`}></use></svg>
                 </span>

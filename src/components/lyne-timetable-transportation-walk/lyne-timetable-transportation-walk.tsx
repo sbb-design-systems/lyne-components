@@ -70,6 +70,7 @@ export class LyneTimetableTransportationWalk {
         aria-label={a11yLabel}
         class={`walk walk--${config.type}`}
         role='text'
+        title={a11yLabel}
       >
         <span class='walk__icon'>
             <svg><use xlinkHref='#walk-small'></use></svg>

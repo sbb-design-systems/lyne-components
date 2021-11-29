@@ -1,0 +1,206 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+:host {
+  --travel-hint-icon-height: 16;
+}
+
+.travel-hints__list {
+  @include listReset();
+  display: flex;
+  gap: pxToRem(var(--spacing-fixed-1x));
+  min-height: pxToRem(var(--travel-hint-icon-height));
+}
+
+.travel-hints--first-level-list .travel-hints__list {
+  justify-content: flex-end;
+}
+
+.travel-hints__list-item {
+  height: pxToRem(var(--travel-hint-icon-width));
+}
+
+.travel-hints__icon {
+  pointer-events: all;
+  cursor: help;
+}
+
+.travel-hints__icon,
+.travel-hints__icon svg {
+  height: pxToRem(var(--travel-hint-icon-height));
+}
+
+// ----------------------------------------------------------------------------------------------------
+// WM00 - SVG Sprite Special Timetable Overwrites
+// ----------------------------------------------------------------------------------------------------
+
+// This might look like a terribly complicated solution but was unfortunately the most efficient and
+// flexible way to achieve the desired visual outcome under the current setup with image sprites and
+// the way the browsers interpret them.
+
+// All these icons have the same height but a variable width without any white room around them to
+// great an absolutely equal spacing.
+
+.icon--sa-mi {
+  width: pxToRem(8);
+}
+
+.icon--sa-r {
+  width: pxToRem(9);
+}
+
+.icon--sa-s {
+  width: pxToRem(10);
+}
+
+.icon--sa-1,
+.icon--sa-2,
+.icon--sa-p {
+  width: pxToRem(11);
+}
+
+.icon--sa-y,
+.icon--sa-z {
+  width: pxToRem(12);
+}
+
+.icon--sa-gl,
+.icon--sa-gn,
+.icon--sa-rr {
+  width: pxToRem(13);
+}
+
+.icon--sa-wr {
+  width: pxToRem(14);
+}
+
+.icon--sa-x {
+  width: pxToRem(15);
+}
+
+.icon--sa-pa {
+  width: pxToRem(16);
+}
+
+.icon--sa-vi {
+  width: pxToRem(17);
+}
+
+.icon--sa-fl {
+  width: pxToRem(18);
+}
+
+.icon--sa-b,
+.icon--sa-je,
+.icon--sa-pl,
+.icon--sa-sl,
+.icon--sa-vl,
+.icon--sa-vr {
+  width: pxToRem(19);
+}
+
+.icon--sa-bl,
+.icon--sa-fs,
+.icon--sa-le,
+.icon--sa-tf,
+.icon--sa-ts {
+  width: pxToRem(20);
+}
+
+.icon--sa-cc,
+.icon--sa-ep,
+.icon--sa-fa,
+.icon--sa-fz,
+.icon--sa-lc,
+.icon--sa-nj,
+.icon--sa-sb,
+.icon--sa-tc,
+.icon--sa-tt,
+.icon--sa-wl {
+  width: pxToRem(21);
+}
+
+.icon--sa-bc,
+.icon--sa-pr,
+.icon--sa-rb,
+.icon--sa-re,
+.icon--sa-sc,
+.icon--sa-sz,
+.icon--sa-tq,
+.icon--sa-vn,
+.icon--sa-vp,
+.icon--sa-yb {
+  width: pxToRem(22);
+}
+
+.icon--sa-br,
+.icon--sa-bz,
+.icon--sa-gp,
+.icon--sa-gr,
+.icon--sa-gz,
+.icon--sa-rc,
+.icon--sa-rt,
+.icon--sa-rz,
+.icon--sa-sd,
+.icon--sa-sn,
+.icon--sa-tk,
+.icon--sa-ws,
+.icon--sa-yt {
+  width: pxToRem(23);
+}
+
+.icon--sa-nf,
+.icon--sa-sh,
+.icon--sa-sv {
+  width: pxToRem(24);
+}
+
+.icon--sa-bk,
+.icon--sa-bv,
+.icon--sa-rq,
+.icon--sa-om,
+.icon--sa-ry,
+.icon--sa-vx,
+.icon--sa-xp,
+.icon--sa-xr {
+  width: pxToRem(25);
+}
+
+.icon--sa-dz,
+.icon--sa-uk,
+.icon--sa-xt {
+  width: pxToRem(26);
+}
+
+.icon--sa-hk,
+.icon--sa-hn {
+  width: pxToRem(27);
+}
+
+.icon--sa-mc,
+.icon--sa-mp,
+.icon--sa-sm {
+  width: pxToRem(28);
+}
+
+.icon--sa-fw,
+.icon--sa-ym,
+.icon--sa-zm {
+  width: pxToRem(29);
+}
+
+.icon--sa-wv {
+  width: pxToRem(31);
+}
+
+.icon--sa-vb {
+  width: pxToRem(32);
+}
+
+.icon--sa-kw {
+  width: pxToRem(33);
+}
+
+.icon--sa-aw {
+  width: pxToRem(34);
+}

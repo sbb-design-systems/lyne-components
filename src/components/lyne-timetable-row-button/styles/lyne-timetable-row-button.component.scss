@@ -16,4 +16,10 @@ button {
   min-height: pxToRem(var(--min-height));
   background: rgba(pink, .1);
   border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+button:hover {
+  background: lime;
 }

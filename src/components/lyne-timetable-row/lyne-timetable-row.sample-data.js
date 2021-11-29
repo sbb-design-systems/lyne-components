@@ -6,6 +6,7 @@ import platformData from '../lyne-timetable-platform/lyne-timetable-platform.sam
 import transportationNumberData from '../lyne-timetable-transportation-number/lyne-timetable-transportation-number.sample-data';
 import transportationTimeData from '../lyne-timetable-transportation-time/lyne-timetable-transportation-time.sample-data';
 import transportationWalkData from '../lyne-timetable-transportation-walk/lyne-timetable-transportation-walk.sample-data';
+import travelHintsData from '../lyne-timetable-travel-hints/lyne-timetable-travel-hints.sample-data';
 
 export default [
   {
@@ -23,10 +24,11 @@ export default [
     },
     duration: durationData[0],
     occupancy: occupancyItemsData[3],
-    platform: platformData[0]
+    platform: platformData[0],
+    travelHints: travelHintsData[0]
   },
   {
-    cusHim: cusHimData[0],
+    cusHim: cusHimData[1],
     details: {
       arrivalTime: transportationTimeData[3],
       arrivalWalk: transportationWalkData[3],
@@ -40,6 +42,7 @@ export default [
     },
     duration: durationData[1],
     occupancy: occupancyItemsData[5],
-    platform: platformData[1]
+    platform: platformData[1],
+    travelHints: travelHintsData[0]
   }
 ];

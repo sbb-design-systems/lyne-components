@@ -47,8 +47,12 @@
   justify-self: end;
 }
 
-.timetable__row > lyne-timetable-duration {
+.timetable__row > lyne-timetable-travel-hints {
   flex-grow: 1;
+  justify-content: center;
+}
+
+.timetable__row > lyne-timetable-duration {
   justify-content: flex-end;
 }
 

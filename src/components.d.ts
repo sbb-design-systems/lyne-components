@@ -20,6 +20,7 @@ import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
 import { InterfaceLyneTimetableRowButtonAttributes } from "./components/lyne-timetable-row-button/lyne-timetable-row-button.custom.d";
+import { InterfaceLyneTimetableTravelHintsAttributes } from "./components/lyne-timetable-travel-hints/lyne-timetable-travel-hints.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -500,6 +501,16 @@ export namespace Components {
          */
         "config": string;
     }
+    interface LyneTimetableTravelHints {
+        /**
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+         */
+        "config": string;
+        /**
+          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "variant"?: InterfaceLyneTimetableTravelHintsAttributes['variant'];
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -690,6 +701,12 @@ declare global {
         prototype: HTMLLyneTimetableTransportationWalkElement;
         new (): HTMLLyneTimetableTransportationWalkElement;
     };
+    interface HTMLLyneTimetableTravelHintsElement extends Components.LyneTimetableTravelHints, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTravelHintsElement: {
+        prototype: HTMLLyneTimetableTravelHintsElement;
+        new (): HTMLLyneTimetableTravelHintsElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -724,6 +741,7 @@ declare global {
         "lyne-timetable-transportation-number": HTMLLyneTimetableTransportationNumberElement;
         "lyne-timetable-transportation-time": HTMLLyneTimetableTransportationTimeElement;
         "lyne-timetable-transportation-walk": HTMLLyneTimetableTransportationWalkElement;
+        "lyne-timetable-travel-hints": HTMLLyneTimetableTravelHintsElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -1207,6 +1225,16 @@ declare namespace LocalJSX {
          */
         "config": string;
     }
+    interface LyneTimetableTravelHints {
+        /**
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+         */
+        "config": string;
+        /**
+          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "variant"?: InterfaceLyneTimetableTravelHintsAttributes['variant'];
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -1261,6 +1289,7 @@ declare namespace LocalJSX {
         "lyne-timetable-transportation-number": LyneTimetableTransportationNumber;
         "lyne-timetable-transportation-time": LyneTimetableTransportationTime;
         "lyne-timetable-transportation-walk": LyneTimetableTransportationWalk;
+        "lyne-timetable-travel-hints": LyneTimetableTravelHints;
         "lyne-title": LyneTitle;
     }
 }
@@ -1295,6 +1324,7 @@ declare module "@stencil/core" {
             "lyne-timetable-transportation-number": LocalJSX.LyneTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationNumberElement>;
             "lyne-timetable-transportation-time": LocalJSX.LyneTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationTimeElement>;
             "lyne-timetable-transportation-walk": LocalJSX.LyneTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationWalkElement>;
+            "lyne-timetable-travel-hints": LocalJSX.LyneTimetableTravelHints & JSXBase.HTMLAttributes<HTMLLyneTimetableTravelHintsElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }

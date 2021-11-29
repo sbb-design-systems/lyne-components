@@ -1,8 +1,6 @@
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin, available for shared
 // and default mode
-@include host-component-properties;
-
 :host {
   --cus-him-icon-height: 16;
   --cus-him-icon-width: var(--cus-him-icon-height);
@@ -38,6 +36,11 @@
 .cus-him__list-item {
   width: pxToRem(var(--cus-him-icon-height));
   height: pxToRem(var(--cus-him-icon-width));
+}
+
+.cus-him__icon {
+  pointer-events: all;
+  cursor: help;
 }
 
 .cus-him__icon,

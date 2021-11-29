@@ -58,7 +58,6 @@ export class LyneTimetableRow {
         <lyne-timetable-row-button
           role='rowheader'
         >
-
         </lyne-timetable-row-button>
         <lyne-timetable-transportation-details
           config={JSON.stringify(config.details)}
@@ -68,19 +67,28 @@ export class LyneTimetableRow {
         <lyne-timetable-platform
           config={JSON.stringify(config.platform)}
           role='gridcell'
-        ></lyne-timetable-platform>
+        >
+        </lyne-timetable-platform>
         <lyne-timetable-occupancy
           config={JSON.stringify(config.occupancy)}
           role='gridcell'
-        ></lyne-timetable-occupancy>
+        >
+        </lyne-timetable-occupancy>
+        <lyne-timetable-travel-hints
+          config={JSON.stringify(config.travelHints)}
+          role='gridcell'
+        >
+        </lyne-timetable-travel-hints>
         <lyne-timetable-duration
           config={JSON.stringify(config.duration)}
           role='gridcell'
-        ></lyne-timetable-duration>
+        >
+        </lyne-timetable-duration>
         <lyne-timetable-cus-him
           config={JSON.stringify(config.cusHim)}
           role='gridcell'
-        ></lyne-timetable-cus-him>
+        >
+        </lyne-timetable-cus-him>
       </div>
     );
   }
