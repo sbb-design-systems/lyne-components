@@ -21,6 +21,46 @@ const wrapperStyle = (context) => {
 };
 
 /* ************************************************* */
+/* Storybook controls                                */
+/* ************************************************* */
+
+const appearance = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'primary',
+    'primary-negative'
+  ],
+  table: {
+    category: 'Appearance'
+  }
+};
+
+const text = {
+  control: {
+    type: 'text'
+  }
+};
+
+const lead = {
+  control: {
+    type: 'text'
+  }
+};
+
+const defaultArgTypes = {
+  appearance,
+  lead,
+  text
+};
+
+const defaultArgs = {
+  appearance: appearance.options[0],
+  lead: 'Mit dem GA geniessen Sie freie Fahrt.'
+};
+
+/* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
@@ -84,46 +124,6 @@ const TemplatePersonalized = (args) => (
     <div slot='action'><SlotActionTemplate {...actionPersonalizedArgs}/></div>
   </lyne-product-subscription>
 );
-
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
-
-const appearance = {
-  control: {
-    type: 'select'
-  },
-  options: [
-    'primary',
-    'primary-negative'
-  ],
-  table: {
-    category: 'Appearance'
-  }
-};
-
-const text = {
-  control: {
-    type: 'text'
-  }
-};
-
-const lead = {
-  control: {
-    type: 'text'
-  }
-};
-
-const defaultArgTypes = {
-  appearance,
-  lead,
-  text
-};
-
-const defaultArgs = {
-  appearance: appearance.options[0],
-  lead: 'Mit dem GA geniessen Sie freie Fahrt.'
-};
 
 /* ************************************************* */
 /* The Stories                                       */
