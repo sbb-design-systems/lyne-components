@@ -1,0 +1,72 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  --slot-icon-spacing-inline: var(--spacing-fixed-4x);
+  --slot-connection-details-spacing-top: var(--spacing-fixed-2x);
+  --slot-action-spacing-top: var(--spacing-fixed-4x);
+}
+
+/* ************************************************* */
+/* Layout & spacing                                  */
+/* ************************************************* */
+
+.product-ticket__icon {
+  display: none;
+  padding-inline-end: pxToRem(var(--slot-icon-spacing-inline));
+}
+
+.product-ticket__content {
+  display: flex;
+  align-items: center;
+}
+
+.product-ticket__connection-details {
+  padding-block-start: pxToRem(var(--slot-connection-details-spacing-top));
+}
+
+.product-ticket__action {
+  padding-block-start: pxToRem(var(--slot-action-spacing-top));
+}
+
+// Layout switch
+@include mq($from: medium) {
+  .product-ticket {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .product-ticket__icon {
+    display: block;
+  }
+
+  .product-ticket__action {
+    padding-block-start: 0;
+    align-self: flex-end;
+  }
+}
+
+/* ************************************************* */
+/* Styling                                           */
+/* ************************************************* */
+
+.product-ticket--primary {
+  @include card--primary;
+}
+
+.product-ticket--primary-negative {
+  @include card--primary-negative;
+}
+
+.product-ticket__lead {
+  @include title-6();
+}
+
+.product-ticket__text {
+  @include text-s--regular();
+  color: var(--color-granite-default);
+}

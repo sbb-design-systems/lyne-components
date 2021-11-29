@@ -17,6 +17,7 @@ import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyn
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { InterfaceProductSubscriptionAttributes } from "./components/lyne-product-subscription/lyne-product-subscription.custom";
+import { InterfaceProductTicketAttributes } from "./components/lyne-product-ticket/lyne-product-ticket.custom";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
@@ -365,6 +366,20 @@ export namespace Components {
          */
         "text"?: string;
     }
+    interface LyneProductTicket {
+        /**
+          * Product ticket appearance
+         */
+        "appearance"?: InterfaceProductTicketAttributes['appearance'];
+        /**
+          * Lead text
+         */
+        "lead": string;
+        /**
+          * Detailed text
+         */
+        "text"?: string;
+    }
     interface LyneSbbClock {
         /**
           * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
@@ -527,6 +542,12 @@ declare global {
         prototype: HTMLLyneProductSubscriptionElement;
         new (): HTMLLyneProductSubscriptionElement;
     };
+    interface HTMLLyneProductTicketElement extends Components.LyneProductTicket, HTMLStencilElement {
+    }
+    var HTMLLyneProductTicketElement: {
+        prototype: HTMLLyneProductTicketElement;
+        new (): HTMLLyneProductTicketElement;
+    };
     interface HTMLLyneSbbClockElement extends Components.LyneSbbClock, HTMLStencilElement {
     }
     var HTMLLyneSbbClockElement: {
@@ -576,6 +597,7 @@ declare global {
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-product-subscription": HTMLLyneProductSubscriptionElement;
+        "lyne-product-ticket": HTMLLyneProductTicketElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
@@ -929,6 +951,20 @@ declare namespace LocalJSX {
          */
         "text"?: string;
     }
+    interface LyneProductTicket {
+        /**
+          * Product ticket appearance
+         */
+        "appearance"?: InterfaceProductTicketAttributes['appearance'];
+        /**
+          * Lead text
+         */
+        "lead": string;
+        /**
+          * Detailed text
+         */
+        "text"?: string;
+    }
     interface LyneSbbClock {
         /**
           * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
@@ -1030,6 +1066,7 @@ declare namespace LocalJSX {
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
         "lyne-product-subscription": LyneProductSubscription;
+        "lyne-product-ticket": LyneProductTicket;
         "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-sbb-signet": LyneSbbSignet;
@@ -1054,6 +1091,7 @@ declare module "@stencil/core" {
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-product-subscription": LocalJSX.LyneProductSubscription & JSXBase.HTMLAttributes<HTMLLyneProductSubscriptionElement>;
+            "lyne-product-ticket": LocalJSX.LyneProductTicket & JSXBase.HTMLAttributes<HTMLLyneProductTicketElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
