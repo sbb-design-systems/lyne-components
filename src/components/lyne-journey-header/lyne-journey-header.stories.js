@@ -168,5 +168,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'timetable/Journey Header'
+  title: 'timetable/lyne-journey-header'
 };
