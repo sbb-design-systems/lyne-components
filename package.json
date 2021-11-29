@@ -55,7 +55,7 @@
     "@stencil/sass": "~1.5.2",
     "@storybook/addon-a11y": "~6.4.0",
     "@storybook/addon-essentials": "~6.3.7",
-    "@storybook/html": "~6.3.7",
+    "@storybook/html": "~6.4.0",
     "@types/jest": "27.0.3",
     "@types/puppeteer": "5.4.4",
     "@typescript-eslint/eslint-plugin": "~4.33.0",
