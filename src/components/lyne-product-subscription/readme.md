@@ -16,13 +16,10 @@
 
 ## Slots
 
-| Slot                   | Description                                                |
-| ---------------------- | ---------------------------------------------------------- |
-| `"action"`             | Slot used to render the link-button                        |
-| `"card-badge"`         | Slot used to render the optional card badge e.g. discounts |
-| `"connection-details"` | Slot used to render the connection-details                 |
-| `"icon"`               | Slot used to render the product icon                       |
-| `"title"`              | Slot used to render the title                              |
+| Slot       | Description                         |
+| ---------- | ----------------------------------- |
+| `"action"` | Slot used to render the link-button |
+| `"title"`  | Slot used to render the title       |
 
 
 ----------------------------------------------

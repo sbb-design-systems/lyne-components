@@ -4,8 +4,6 @@
 @include host-component-properties;
 
 :host {
-  --slot-icon-spacing-inline: var(--spacing-fixed-4x);
-  --slot-connection-details-spacing-top: var(--spacing-fixed-2x);
   --slot-action-spacing-top: var(--spacing-fixed-4x);
 }
 
@@ -13,18 +11,9 @@
 /* Layout & spacing                                  */
 /* ************************************************* */
 
-.product-subscription__icon {
-  display: none;
-  padding-inline-end: pxToRem(var(--slot-icon-spacing-inline));
-}
-
 .product-subscription__content {
   display: flex;
   align-items: center;
-}
-
-.product-subscription__connection-details {
-  padding-block-start: pxToRem(var(--slot-connection-details-spacing-top));
 }
 
 .product-subscription__action {
@@ -38,10 +27,6 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .product-subscription__icon {
-    display: block;
   }
 
   .product-subscription__action {
