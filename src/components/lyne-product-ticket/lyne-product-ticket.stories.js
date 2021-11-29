@@ -22,6 +22,39 @@ const wrapperStyle = (context) => {
 };
 
 /* ************************************************* */
+/* Storybook controls                                */
+/* ************************************************* */
+
+const appearance = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'primary',
+    'primary-negative'
+  ],
+  table: {
+    category: 'Appearance'
+  }
+};
+
+const text = {
+  control: {
+    type: 'text'
+  }
+};
+
+const defaultArgTypes = {
+  appearance,
+  text
+};
+
+const defaultArgs = {
+  appearance: appearance.options[0],
+  text: 'Gültig heute'
+};
+
+/* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
@@ -82,6 +115,7 @@ const cardBadgeArgs = {
 };
 
 const cardBadgeDetailedArgs = {
+  appearance: appearance.options[1],
   isDiscount: true,
   price: '37.50',
   size: 'small',
@@ -200,38 +234,14 @@ const TemplateTicketPersonalizedConnection = (args) => (
   </lyne-product-ticket>
 );
 
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
-
-const appearance = {
-  control: {
-    type: 'select'
-  },
-  options: [
-    'primary',
-    'primary-negative'
-  ],
-  table: {
-    category: 'Appearance'
-  }
-};
-
-const text = {
-  control: {
-    type: 'text'
-  }
-};
-
-const defaultArgTypes = {
-  appearance,
-  text
-};
-
-const defaultArgs = {
-  appearance: appearance.options[0],
-  text: 'Gültig heute'
-};
+const TemplateTicketPersonalizedConnectionDiscount = (args) => (
+  <lyne-product-ticket {...args}>
+    <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
+    <div slot='connection-details'><SlotPearlChainTemplate /></div>
+    <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionTicketPersonalizedConnectionArgs}/></div>
+  </lyne-product-ticket>
+);
 
 /* ************************************************* */
 /* The Stories                                       */
@@ -274,7 +284,7 @@ ProductTicketCardBadgeDiscount.documentation = {
   title: 'Product of type ticket with card badge discount'
 };
 
-/* --- ProductTicket with card badge detailed negative ------ */
+/* --- ProductTicket with card badge detailed ------ */
 export const ProductTicketCardBadgeDiscountDetailed = TemplateTicketCardBadgeDetailed.bind({});
 
 ProductTicketCardBadgeDiscountDetailed.argTypes = defaultArgTypes;
@@ -286,16 +296,17 @@ ProductTicketCardBadgeDiscountDetailed.documentation = {
   title: 'Product of type ticket with card badge discount detailed'
 };
 
-/* --- ProductTicket with card badge slot ------ */
-export const ProductTicketCardBadgeSlot = TemplateTicketCardBadgeSlot.bind({});
+/* --- ProductTicket with card badge slot negative ------ */
+export const ProductTicketCardBadgeWithSlotNegative = TemplateTicketCardBadgeSlot.bind({});
 
-ProductTicketCardBadgeSlot.argTypes = defaultArgTypes;
-ProductTicketCardBadgeSlot.args = {
-  ...defaultArgs
+ProductTicketCardBadgeWithSlotNegative.argTypes = defaultArgTypes;
+ProductTicketCardBadgeWithSlotNegative.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1]
 };
 
-ProductTicketCardBadgeSlot.documentation = {
-  title: 'Product of type ticket with card badge discount and custom slot'
+ProductTicketCardBadgeWithSlotNegative.documentation = {
+  title: 'Product of type ticket with card badge discount and custom slot negative'
 };
 
 /* --- ProductTicket personalized ---------------- */
@@ -311,17 +322,45 @@ ProductTicketPersonalized.documentation = {
   title: 'Product of type ticket with personalization'
 };
 
-/* --- ProductTicket with journey title ----- */
-export const ProductTicketJourneyHeader = TemplateTicketPersonalizedConnection.bind({});
+/* --- ProductTicket with journey title and connection details ----- */
+export const ProductTicketJourney = TemplateTicketPersonalizedConnection.bind({});
 
-ProductTicketJourneyHeader.argTypes = defaultArgTypes;
-ProductTicketJourneyHeader.args = {
+ProductTicketJourney.argTypes = defaultArgTypes;
+ProductTicketJourney.args = {
   ...defaultArgs,
   text: 'Dienstag, 30.11.2021, 3 h 37 min'
 };
 
-ProductTicketJourneyHeader.documentation = {
+ProductTicketJourney.documentation = {
   title: 'Product of type ticket with journey title and connection details'
+};
+
+/* --- ProductTicket with journey title and connection details negative ----- */
+export const ProductTicketJourneyNegative = TemplateTicketPersonalizedConnection.bind({});
+
+ProductTicketJourneyNegative.argTypes = defaultArgTypes;
+ProductTicketJourneyNegative.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1],
+  text: 'Dienstag, 30.11.2021, 3 h 37 min'
+};
+
+ProductTicketJourneyNegative.documentation = {
+  title: 'Product of type ticket with journey title and connection details negative'
+};
+
+// eslint-disable-next-line max-len
+/* --- ProductTicket with journey title and connection details, marked as discount */
+export const ProductTicketJourneyDiscount = TemplateTicketPersonalizedConnectionDiscount.bind({});
+
+ProductTicketJourneyDiscount.argTypes = defaultArgTypes;
+ProductTicketJourneyDiscount.args = {
+  ...defaultArgs,
+  text: 'Dienstag, 30.11.2021, 3 h 37 min'
+};
+
+ProductTicketJourneyDiscount.documentation = {
+  title: 'Product of type ticket with journey title and connection details, marked as discount'
 };
 
 /* --- next story ... ------------------------------ */
