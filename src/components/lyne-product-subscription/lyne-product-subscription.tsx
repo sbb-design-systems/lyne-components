@@ -83,7 +83,7 @@ export class LyneProductSubscription {
           </div>
         </div>
         {this._hasCardBadgeSlot
-          ? <div class='product-subscription__salesprice'><slot name='card-badge'/></div>
+          ? <div class='product-subscription__card-badge'><slot name='card-badge'/></div>
           : ''
         }
         {this._hasActionSlot

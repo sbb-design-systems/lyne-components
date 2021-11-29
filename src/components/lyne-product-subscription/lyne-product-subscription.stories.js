@@ -135,7 +135,10 @@ const appearance = {
   options: [
     'primary',
     'primary-negative'
-  ]
+  ],
+  table: {
+    category: 'Appearance'
+  }
 };
 
 const text = {
