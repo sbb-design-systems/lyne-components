@@ -177,5 +177,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-product-subscription'
+  title: 'cards/lyne-product-subscription'
 };

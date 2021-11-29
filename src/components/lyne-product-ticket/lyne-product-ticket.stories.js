@@ -216,5 +216,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-product-ticket'
+  title: 'cards/lyne-product-ticket'
 };
