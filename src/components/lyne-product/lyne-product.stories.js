@@ -22,6 +22,47 @@ const wrapperStyle = (context) => {
 };
 
 /* ************************************************* */
+/* Storybook controls                                */
+/* ************************************************* */
+
+const appearance = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'primary',
+    'primary-negative'
+  ],
+  table: {
+    category: 'Appearance'
+  }
+};
+
+const text = {
+  control: {
+    type: 'text'
+  }
+};
+
+const lead = {
+  control: {
+    type: 'text'
+  }
+};
+
+const defaultArgTypes = {
+  appearance,
+  lead,
+  text
+};
+
+const defaultArgs = {
+  appearance: appearance.options[0],
+  lead: 'Halbtax-Abo',
+  text: '2. Klasse, gültig bis 30.11.2021'
+};
+
+/* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
@@ -124,47 +165,6 @@ const TemplateLyneJourneyHeader = (args) => (
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
   </lyne-product>
 );
-
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
-
-const appearance = {
-  control: {
-    type: 'select'
-  },
-  options: [
-    'primary',
-    'primary-negative'
-  ],
-  table: {
-    category: 'Appearance'
-  }
-};
-
-const text = {
-  control: {
-    type: 'text'
-  }
-};
-
-const lead = {
-  control: {
-    type: 'text'
-  }
-};
-
-const defaultArgTypes = {
-  appearance,
-  lead,
-  text
-};
-
-const defaultArgs = {
-  appearance: appearance.options[0],
-  lead: 'Halbtax-Abo',
-  text: '2. Klasse, gültig bis 30.11.2021'
-};
 
 /* ************************************************* */
 /* The Stories                                       */
