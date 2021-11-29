@@ -1,0 +1,72 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  --slot-icon-spacing-inline: var(--spacing-fixed-4x);
+  --slot-connection-details-spacing-top: var(--spacing-fixed-2x);
+  --slot-action-spacing-top: var(--spacing-fixed-4x);
+}
+
+/* ************************************************* */
+/* Layout & spacing                                  */
+/* ************************************************* */
+
+.product__icon {
+  display: none;
+  padding-inline-end: pxToRem(var(--slot-icon-spacing-inline));
+}
+
+.product__content {
+  display: flex;
+  align-items: center;
+}
+
+.product__connection-details {
+  padding-block-start: pxToRem(var(--slot-connection-details-spacing-top));
+}
+
+.product__action {
+  padding-block-start: pxToRem(var(--slot-action-spacing-top));
+}
+
+// Layout switch
+@include mq($from: medium) {
+  .product {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .product__icon {
+    display: block;
+  }
+
+  .product__action {
+    padding-block-start: 0;
+    align-self: flex-end;
+  }
+}
+
+/* ************************************************* */
+/* Styling                                           */
+/* ************************************************* */
+
+.product--primary {
+  @include card--primary;
+}
+
+.product--primary-negative {
+  @include card--primary-negative;
+}
+
+.product__lead {
+  @include title-6();
+}
+
+.product__text {
+  @include text-s--regular();
+  color: var(--color-granite-default);
+}

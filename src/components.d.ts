@@ -16,6 +16,7 @@ import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.cus
 import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
+import { InterfaceProductAttributes } from "./components/lyne-product/lyne-product.custom";
 import { InterfaceProductSubscriptionAttributes } from "./components/lyne-product-subscription/lyne-product-subscription.custom";
 import { InterfaceProductTicketAttributes } from "./components/lyne-product-ticket/lyne-product-ticket.custom";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
@@ -352,6 +353,20 @@ export namespace Components {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneProduct {
+        /**
+          * Product ticket appearance
+         */
+        "appearance"?: InterfaceProductAttributes['appearance'];
+        /**
+          * Lead text
+         */
+        "lead": string;
+        /**
+          * Detailed text
+         */
+        "text"?: string;
+    }
     interface LyneProductSubscription {
         /**
           * Product subscription appearance
@@ -536,6 +551,12 @@ declare global {
         prototype: HTMLLynePearlChainElement;
         new (): HTMLLynePearlChainElement;
     };
+    interface HTMLLyneProductElement extends Components.LyneProduct, HTMLStencilElement {
+    }
+    var HTMLLyneProductElement: {
+        prototype: HTMLLyneProductElement;
+        new (): HTMLLyneProductElement;
+    };
     interface HTMLLyneProductSubscriptionElement extends Components.LyneProductSubscription, HTMLStencilElement {
     }
     var HTMLLyneProductSubscriptionElement: {
@@ -596,6 +617,7 @@ declare global {
         "lyne-link-list": HTMLLyneLinkListElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
+        "lyne-product": HTMLLyneProductElement;
         "lyne-product-subscription": HTMLLyneProductSubscriptionElement;
         "lyne-product-ticket": HTMLLyneProductTicketElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
@@ -937,6 +959,20 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
+    interface LyneProduct {
+        /**
+          * Product ticket appearance
+         */
+        "appearance"?: InterfaceProductAttributes['appearance'];
+        /**
+          * Lead text
+         */
+        "lead": string;
+        /**
+          * Detailed text
+         */
+        "text"?: string;
+    }
     interface LyneProductSubscription {
         /**
           * Product subscription appearance
@@ -1065,6 +1101,7 @@ declare namespace LocalJSX {
         "lyne-link-list": LyneLinkList;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
+        "lyne-product": LyneProduct;
         "lyne-product-subscription": LyneProductSubscription;
         "lyne-product-ticket": LyneProductTicket;
         "lyne-sbb-clock": LyneSbbClock;
@@ -1090,6 +1127,7 @@ declare module "@stencil/core" {
             "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
+            "lyne-product": LocalJSX.LyneProduct & JSXBase.HTMLAttributes<HTMLLyneProductElement>;
             "lyne-product-subscription": LocalJSX.LyneProductSubscription & JSXBase.HTMLAttributes<HTMLLyneProductSubscriptionElement>;
             "lyne-product-ticket": LocalJSX.LyneProductTicket & JSXBase.HTMLAttributes<HTMLLyneProductTicketElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
