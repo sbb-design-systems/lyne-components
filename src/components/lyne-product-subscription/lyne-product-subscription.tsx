@@ -48,7 +48,6 @@ export class LyneProductSubscription {
         class={
           `product-subscription product-subscription--${this.appearance}`
         }
-        itemscope itemtype='https://schema.org/Product'
       >
         <div class='product-subscription__content'>
           <div>

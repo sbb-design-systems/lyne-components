@@ -14,7 +14,7 @@ describe('lyne-product', () => {
       .toEqualHtml(`
         <lyne-product>
           <mock:shadow-root>
-            <div class="product product--primary" itemscope="" itemtype="https://schema.org/Product">
+            <div class="product product--primary">
               <div class="product__content">
                 <div>
                   <div class="product__lead"></div>

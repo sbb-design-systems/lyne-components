@@ -54,7 +54,6 @@ export class LyneProductTicket {
         class={
           `product-ticket product-ticket--${this.appearance}`
         }
-        itemscope itemtype='https://schema.org/Product'
       >
         <div class='product-ticket__content'>
           {this._hasIconSlot

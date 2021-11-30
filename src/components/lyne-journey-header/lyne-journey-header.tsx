@@ -87,12 +87,10 @@ export class LyneJourneyHeader {
     return (
       <TAGNAME {...attrs}
         dir={currentWritingMode}
-        itemscope itemtype='https://schema.org/TravelAction'
       >
         <span class='connection-text-origin connection-text-hidden'>{connectionTextOrigin}</span>
         <span
           class='origin'
-          itemprop='fromLocation' itemscope itemtype='https://schema.org/Place'
         >
           {this.origin}
         </span>
@@ -101,7 +99,6 @@ export class LyneJourneyHeader {
         </span>
         <span
           class='destination'
-          itemprop='toLocation' itemscope itemtype='https://schema.org/Place'
         >
           {this.destination}
         </span>
