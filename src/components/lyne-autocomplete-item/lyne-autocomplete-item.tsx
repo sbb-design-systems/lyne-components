@@ -36,7 +36,7 @@ export class LyneAutocompleteItem {
 
     if (index < 0) {
       return {
-        main: highlight
+        main: text
       };
     }
 
