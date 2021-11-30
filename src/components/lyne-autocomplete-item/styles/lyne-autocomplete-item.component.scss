@@ -1,0 +1,21 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+}
+
+.autocomplete__list-item {
+  @include text-s--regular;
+  padding-block-start: pxToRem(var(--spacing-fixed-2x));
+  padding-block-end: pxToRem(var(--spacing-fixed-2x));
+  padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-zero));
+  padding-inline-end: pxToRem(var(--spacing-responsive-xxxs-zero));
+
+  @include mq($from: medium) {
+    padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-medium));
+    padding-inline-end: pxToRem(var(--spacing-responsive-xxxs-medium));
+  }
+}
