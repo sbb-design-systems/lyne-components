@@ -1,9 +1,10 @@
 import {
   Component,
+  Element,
   h,
   Prop
 } from '@stencil/core';
-// import events from './lyne-text-input.events';
+import events from './lyne-text-input.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
   i18nMandatoryField,
@@ -27,6 +28,7 @@ import { guid } from '../../global/guid';
 
 export class LyneTextInput {
 
+  private _inputElement!: HTMLInputElement;
   private _additionalInputClasses = [];
   private _addtitionalInputAttributes = {};
   private _currentLanguage = getDocumentLang();
@@ -120,6 +122,30 @@ export class LyneTextInput {
    * proper semantics
    */
   @Prop() public labelVisible?: true;
+
+  /** Id which is sent as the id in the eventDetail payload */
+  @Prop() public eventId?: string;
+
+  @Element() private _element: HTMLElement;
+
+  private _dispatchEvent = (evt: any): void => {
+    const eventDetail = {
+      id: '',
+      value: this._inputElement.value
+    };
+
+    if (this.eventId) {
+      eventDetail.id = this.eventId;
+    }
+
+    const event = new CustomEvent(events[evt.type], {
+      bubbles: true,
+      composed: true,
+      detail: eventDetail
+    });
+
+    this._element.dispatchEvent(event);
+  };
 
   private _getAdditionalStyleClasses(): void {
 
@@ -259,7 +285,13 @@ export class LyneTextInput {
             placeholder={this.inputPlaceholder}
             required={this.inputRequired}
             type={this.inputType}
+            onFocus={this._dispatchEvent}
+            onInput={this._dispatchEvent}
+            onBlur={this._dispatchEvent}
             {...this._addtitionalInputAttributes}
+            ref={(el): void => {
+              this._inputElement = el;
+            }}
           />
           <label
             aria-label={this._labelAriaLabel}
