@@ -18,8 +18,9 @@ describe('lyne-input-error', () => {
           <mock:shadow-root>
             <span
                 aria-hidden="true"
-                class="input-label--error"
+                class="input-label-error"
             >
+                <span class="input-label-error__icon"></span>
                 This is a required field.
             </span>
           </mock:shadow-root>

@@ -1,3 +1,37 @@
+## [9.68.1](https://github.com/lyne-design-system/lyne-components/compare/v9.68.0...v9.68.1) (2021-11-26)
+
+
+### Bug Fixes
+
+* updating to latest lyne-icons version and fixing tests ([d9c127d](https://github.com/lyne-design-system/lyne-components/commit/d9c127d53060ca3092bcc6ff859eeb5a4b7ff5bc))
+
+# [9.68.0](https://github.com/lyne-design-system/lyne-components/compare/v9.67.1...v9.68.0) (2021-11-26)
+
+
+### Features
+
+* add TODO for password visibility toggle icon ([1f9516a](https://github.com/lyne-design-system/lyne-components/commit/1f9516a8a7fca13f71fce8e63966841ed56a4d8f))
+* adding basic rendering tests ([4dd5bee](https://github.com/lyne-design-system/lyne-components/commit/4dd5beec7dd15460c2275956f2cc9f6b2cbfeebc))
+* adding initial files and default states ([31dd950](https://github.com/lyne-design-system/lyne-components/commit/31dd950426844c10a069b62f04ef5fa1afa2ab69))
+* adding many small improvements ([fb7c38e](https://github.com/lyne-design-system/lyne-components/commit/fb7c38e752172353946b976393cd923c2c162506))
+* adding small improvements for visual error handling ([3dc434f](https://github.com/lyne-design-system/lyne-components/commit/3dc434f4c3900f444dd12566a3c804e200f4ca06))
+* fixing linting ([425b130](https://github.com/lyne-design-system/lyne-components/commit/425b130aad171d097602d53a43e1cbeae8f88cda))
+* fixing rtl display and some other small improvements ([50639f4](https://github.com/lyne-design-system/lyne-components/commit/50639f4b26bf4c63d77ee0c4ba1a9c6a2f9c7f4a))
+* improve screenreader output, especially on voice over on ios ([3465769](https://github.com/lyne-design-system/lyne-components/commit/3465769cca9b4b8145604df10979ffbff1208431))
+* is adding additional variants and lyne-input-error module ([45b73b7](https://github.com/lyne-design-system/lyne-components/commit/45b73b74bc09081f054cbf0fc6abb2021f672f6f))
+* is adding get-max-touch-points helper ([a547531](https://github.com/lyne-design-system/lyne-components/commit/a547531f3b24e4d4ef0bd64ccd4df090f565a216))
+* is adding small improvements ([b34cfa8](https://github.com/lyne-design-system/lyne-components/commit/b34cfa8cab11f735b648a9ddedeac44158c0df71))
+* is fixing test ([f0c877d](https://github.com/lyne-design-system/lyne-components/commit/f0c877d679a8b815b4fa2af5756c1f72a9c4839e))
+* processing pr feedback ([d101491](https://github.com/lyne-design-system/lyne-components/commit/d101491a1c6af72d857809d20325134eb1ce975a))
+
+## [9.67.1](https://github.com/lyne-design-system/lyne-components/compare/v9.67.0...v9.67.1) (2021-11-24)
+
+
+### Bug Fixes
+
+* re-setting lockfileVersion to 1 in package-lock.json ([adf1929](https://github.com/lyne-design-system/lyne-components/commit/adf1929195abad7c6e5b149c44bf97aca1301c4d))
+* updating package-lock.json content based on lockfileVersion change ([568d8fb](https://github.com/lyne-design-system/lyne-components/commit/568d8fb0f8e59e2867e54718efb2d43e13e86474))
+
 # [9.67.0](https://github.com/lyne-design-system/lyne-components/compare/v9.66.0...v9.67.0) (2021-11-24)
 
 

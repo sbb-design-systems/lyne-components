@@ -3,6 +3,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
+import errorIcon from './assets/error_icon.svg';
 
 @Component({
   shadow: true,
@@ -16,7 +17,7 @@ import {
 export class LyneInputError {
 
   /** The error message, we want to show. */
-  @Prop() public message?: string;
+  @Prop() public message!: string;
 
   /**
    * Adding the aria-hidden attribute here might
@@ -33,9 +34,14 @@ export class LyneInputError {
   public render(): JSX.Element {
     return (
       <span
-        class='input-label--error'
         aria-hidden='true'
+        class='input-label-error'
       >
+        <span
+          class='input-label-error__icon'
+          innerHTML={errorIcon}
+        >
+        </span>
         {this.message}
       </span>
     );
