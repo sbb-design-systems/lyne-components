@@ -19,35 +19,20 @@ export class LyneTimetable {
 
   public render(): JSX.Element {
 
-    const rowItems = JSON.parse(this.config);
+    const config = JSON.parse(this.config);
 
     return (
       <div
         class='timetable'
         role='grid'
       >
-        <div
-          class='timetable__column-headers'
+        <lyne-timetable-row-column-headers
+          config={JSON.stringify(config.columnHeaders)}
           role='row'
         >
-          <div role='columnheader'>Kurzinfo</div>
-          <div role='columnheader'>Details</div>
-          <div role='columnheader'>Platform</div>
-          <div role='columnheader'>Occupancy Forecast</div>
-          <div role='columnheader'>Travel hints</div>
-          <div role='columnheader'>Duration</div>
-          <div role='columnheader'>Real time information</div>
-        </div>
-        <lyne-timetable-row
-          config={JSON.stringify(rowItems[0])}
-          role='row'
-        >
-        </lyne-timetable-row>
-        <lyne-timetable-row
-          config={JSON.stringify(rowItems[1])}
-          role='row'
-        >
-        </lyne-timetable-row>
+        </lyne-timetable-row-column-headers>
+
+
         <svg xmlns="http://www.w3.org/2000/svg" focusable="false">
           <symbol id='alternative' viewBox='0 0 16 16'>
             <path fill-rule="evenodd" clip-rule="evenodd" d="m0,1.99411C0,.893115.894993.000122,1.99398.000122H14.0059c1.101,0,1.994.893993,1.994,1.993988V14.006c0,1.101-.895,1.994-1.994,1.994H1.99398C.892993,16,0,15.105,0,14.006V1.99411z" fill="#eb0000"></path><path fill-rule="evenodd" clip-rule="evenodd" d="m10.3905,1.9998h-1.5v8.3169H5.78153l1.72398-1.72495L6.44452,7.53176,2.90855,11.0687l3.53597,3.537,1.06099-1.061-1.72798-1.728h4.61297V1.9998z" fill="#fff"></path>

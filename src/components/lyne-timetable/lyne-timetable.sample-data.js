@@ -1,6 +1,7 @@
-import sampleData from '../lyne-timetable-row/lyne-timetable-row.sample-data';
+import columnHeaders from '../lyne-timetable-row-column-headers/lyne-timetable-row-column-headers.sample-data';
+import timeTableRows from '../lyne-timetable-row/lyne-timetable-row.sample-data';
 
-export default [
-  sampleData[0],
-  sampleData[1]
-];
+export default {
+  columnHeaders,
+  timeTableRows
+};

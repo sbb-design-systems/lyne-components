@@ -1,4 +1,4 @@
-# lyne-timetable
+# lyne-timetable-row-column-headers
 
 
 
@@ -14,15 +14,15 @@
 
 ## Dependencies
 
-### Depends on
+### Used by
 
-- [lyne-timetable-row-column-headers](../lyne-timetable-row-column-headers)
+ - [lyne-timetable](../lyne-timetable)
 
 ### Graph
 ```mermaid
 graph TD;
   lyne-timetable --> lyne-timetable-row-column-headers
-  style lyne-timetable fill:#f9f,stroke:#333,stroke-width:4px
+  style lyne-timetable-row-column-headers fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

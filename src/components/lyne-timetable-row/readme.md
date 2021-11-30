@@ -14,10 +14,6 @@
 
 ## Dependencies
 
-### Used by
-
- - [lyne-timetable](../lyne-timetable)
-
 ### Depends on
 
 - [lyne-timetable-row-button](../lyne-timetable-row-button)
@@ -42,7 +38,6 @@ graph TD;
   lyne-timetable-transportation-details --> lyne-timetable-transportation-walk
   lyne-timetable-transportation-details --> lyne-timetable-transportation-time
   lyne-timetable-transportation-details --> lyne-pearl-chain
-  lyne-timetable --> lyne-timetable-row
   style lyne-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

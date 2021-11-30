@@ -477,6 +477,9 @@ export namespace Components {
          */
         "someProp"?: InterfaceLyneTimetableRowButtonAttributes['someInterface'];
     }
+    interface LyneTimetableRowColumnHeaders {
+        "config": string;
+    }
     interface LyneTimetableTransportationDetails {
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
@@ -677,6 +680,12 @@ declare global {
         prototype: HTMLLyneTimetableRowButtonElement;
         new (): HTMLLyneTimetableRowButtonElement;
     };
+    interface HTMLLyneTimetableRowColumnHeadersElement extends Components.LyneTimetableRowColumnHeaders, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableRowColumnHeadersElement: {
+        prototype: HTMLLyneTimetableRowColumnHeadersElement;
+        new (): HTMLLyneTimetableRowColumnHeadersElement;
+    };
     interface HTMLLyneTimetableTransportationDetailsElement extends Components.LyneTimetableTransportationDetails, HTMLStencilElement {
     }
     var HTMLLyneTimetableTransportationDetailsElement: {
@@ -737,6 +746,7 @@ declare global {
         "lyne-timetable-platform": HTMLLyneTimetablePlatformElement;
         "lyne-timetable-row": HTMLLyneTimetableRowElement;
         "lyne-timetable-row-button": HTMLLyneTimetableRowButtonElement;
+        "lyne-timetable-row-column-headers": HTMLLyneTimetableRowColumnHeadersElement;
         "lyne-timetable-transportation-details": HTMLLyneTimetableTransportationDetailsElement;
         "lyne-timetable-transportation-number": HTMLLyneTimetableTransportationNumberElement;
         "lyne-timetable-transportation-time": HTMLLyneTimetableTransportationTimeElement;
@@ -1201,6 +1211,9 @@ declare namespace LocalJSX {
          */
         "someProp"?: InterfaceLyneTimetableRowButtonAttributes['someInterface'];
     }
+    interface LyneTimetableRowColumnHeaders {
+        "config": string;
+    }
     interface LyneTimetableTransportationDetails {
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
@@ -1285,6 +1298,7 @@ declare namespace LocalJSX {
         "lyne-timetable-platform": LyneTimetablePlatform;
         "lyne-timetable-row": LyneTimetableRow;
         "lyne-timetable-row-button": LyneTimetableRowButton;
+        "lyne-timetable-row-column-headers": LyneTimetableRowColumnHeaders;
         "lyne-timetable-transportation-details": LyneTimetableTransportationDetails;
         "lyne-timetable-transportation-number": LyneTimetableTransportationNumber;
         "lyne-timetable-transportation-time": LyneTimetableTransportationTime;
@@ -1320,6 +1334,7 @@ declare module "@stencil/core" {
             "lyne-timetable-platform": LocalJSX.LyneTimetablePlatform & JSXBase.HTMLAttributes<HTMLLyneTimetablePlatformElement>;
             "lyne-timetable-row": LocalJSX.LyneTimetableRow & JSXBase.HTMLAttributes<HTMLLyneTimetableRowElement>;
             "lyne-timetable-row-button": LocalJSX.LyneTimetableRowButton & JSXBase.HTMLAttributes<HTMLLyneTimetableRowButtonElement>;
+            "lyne-timetable-row-column-headers": LocalJSX.LyneTimetableRowColumnHeaders & JSXBase.HTMLAttributes<HTMLLyneTimetableRowColumnHeadersElement>;
             "lyne-timetable-transportation-details": LocalJSX.LyneTimetableTransportationDetails & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationDetailsElement>;
             "lyne-timetable-transportation-number": LocalJSX.LyneTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationNumberElement>;
             "lyne-timetable-transportation-time": LocalJSX.LyneTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationTimeElement>;
