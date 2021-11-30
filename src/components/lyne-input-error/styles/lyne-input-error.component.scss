@@ -1,0 +1,37 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+  margin-block-start: pxToRem(var(--spacing-fixed-1x));
+
+  --text-color: var(--color-red125-default);
+  --icon-size: 14;
+
+  @include ifForcedColors {
+    --text-color: LinkText;
+  }
+
+}
+
+// Error
+// ----------------------------------------------
+.input-label-error {
+  @include text-xs--regular();
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+}
+
+.input-label-error__icon {
+  line-height: pxToRem(var(--icon-size));
+  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+}
+
+.input-label-error__icon svg {
+  width: pxToRem(var(--icon-size));
+  height: pxToRem(var(--icon-size));
+  fill: currentColor;
+}

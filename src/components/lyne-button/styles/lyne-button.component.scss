@@ -124,7 +124,7 @@
 }
 
 .button__icon-description {
-  @include screenreaderOnly;
+  @include screenReaderOnly;
 }
 
 :host ::slotted(svg) {

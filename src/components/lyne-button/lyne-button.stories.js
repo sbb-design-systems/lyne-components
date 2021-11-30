@@ -57,7 +57,8 @@ const iconSlot = {
   options: [
     'arrow-right-small',
     'arrow-down-small',
-    'lyne-arrow-compass-small'
+    'lyne-arrow-compass-small',
+    'pie-small'
   ],
   table: {
     category: 'Icon'

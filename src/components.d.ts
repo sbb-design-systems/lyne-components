@@ -7,21 +7,17 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
-import { InterfaceCardBadgeAttributes } from "./components/lyne-card-badge/lyne-card-badge.custom";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
-import { InterfaceJourneyHeaderAttributes } from "./components/lyne-journey-header/lyne-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
 import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
 import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
-import { InterfaceProductAttributes } from "./components/lyne-product/lyne-product.custom";
-import { InterfaceProductSubscriptionAttributes } from "./components/lyne-product-subscription/lyne-product-subscription.custom";
-import { InterfaceProductTicketAttributes } from "./components/lyne-product-ticket/lyne-product-ticket.custom";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
+import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -109,28 +105,6 @@ export namespace Components {
          */
         "visualButtonOnly"?: boolean;
     }
-    interface LyneCardBadge {
-        /**
-          * Badge appearance
-         */
-        "appearance": InterfaceCardBadgeAttributes['appearance'];
-        /**
-          * Mark as discount
-         */
-        "isDiscount"?: boolean;
-        /**
-          * Price text
-         */
-        "price"?: string;
-        /**
-          * Badge size
-         */
-        "size": InterfaceCardBadgeAttributes['size'];
-        /**
-          * From/above price text
-         */
-        "text"?: string;
-    }
     interface LyneImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
@@ -205,35 +179,11 @@ export namespace Components {
          */
         "variant"?: InterfaceImageAttributes['variant'];
     }
-    interface LyneJourneyHeader {
+    interface LyneInputError {
         /**
-          * Journey header appearance
+          * The error message, we want to show.
          */
-        "appearance"?: InterfaceJourneyHeaderAttributes['appearance'];
-        /**
-          * Destination location for the journey header
-         */
-        "destination": string;
-        /**
-          * Is the journey a round trip. If so it gets indicated through a roundtrip icon
-         */
-        "isRoundTrip"?: boolean;
-        /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "journeyHeaderId"?: '';
-        /**
-          * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
-         */
-        "markup"?: InterfaceJourneyHeaderAttributes['markup'];
-        /**
-          * Origin location for the journey header
-         */
-        "origin": string;
-        /**
-          * Journey header size
-         */
-        "size"?: InterfaceJourneyHeaderAttributes['size'];
+        "message": string;
     }
     interface LyneLink {
         /**
@@ -353,44 +303,6 @@ export namespace Components {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
-    interface LyneProduct {
-        /**
-          * Product ticket appearance
-         */
-        "appearance"?: InterfaceProductAttributes['appearance'];
-        /**
-          * Lead text
-         */
-        "lead": string;
-        /**
-          * Detailed text
-         */
-        "text"?: string;
-    }
-    interface LyneProductSubscription {
-        /**
-          * Product subscription appearance
-         */
-        "appearance"?: InterfaceProductSubscriptionAttributes['appearance'];
-        /**
-          * Lead text
-         */
-        "lead": string;
-        /**
-          * Detailed text
-         */
-        "text"?: string;
-    }
-    interface LyneProductTicket {
-        /**
-          * Product ticket appearance
-         */
-        "appearance"?: InterfaceProductTicketAttributes['appearance'];
-        /**
-          * Detailed text
-         */
-        "text"?: string;
-    }
     interface LyneSbbClock {
         /**
           * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
@@ -453,6 +365,64 @@ export namespace Components {
          */
         "text": string;
     }
+    interface LyneTextInput {
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "icon"?: string;
+        /**
+          * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
+         */
+        "inputAutoCompleteValue"?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
+        /**
+          * If set to true, the input field will be disabled.
+         */
+        "inputDisabled"?: boolean;
+        /**
+          * If set to true, we will set an an error message for the current input field.
+         */
+        "inputError"?: boolean;
+        /**
+          * Each input needs to have an individual id. If no id is provided, the component will create a unique id by itself.
+         */
+        "inputId"?: string;
+        /**
+          * Pass on a expected max length.
+         */
+        "inputMaxLength"?: number;
+        /**
+          * Pass on a expected min length.
+         */
+        "inputMinLength"?: number;
+        /**
+          * Each input should have an individual name.
+         */
+        "inputName": string;
+        /**
+          * Add a validation pattern (regex) the input should follow. Read more here: https://mzl.la/3C3HTiG
+         */
+        "inputPattern"?: string;
+        /**
+          * Add a placeholder to show what kind of input is expected.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * If set to true, an input in this field will be required.
+         */
+        "inputRequired"?: boolean;
+        /**
+          * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
+         */
+        "inputType": string;
+        /**
+          * Each input element needs to have a label associated with it.
+         */
+        "label": string;
+        /**
+          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+         */
+        "labelVisible"?: true;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -499,23 +469,17 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
-    interface HTMLLyneCardBadgeElement extends Components.LyneCardBadge, HTMLStencilElement {
-    }
-    var HTMLLyneCardBadgeElement: {
-        prototype: HTMLLyneCardBadgeElement;
-        new (): HTMLLyneCardBadgeElement;
-    };
     interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
     }
     var HTMLLyneImageElement: {
         prototype: HTMLLyneImageElement;
         new (): HTMLLyneImageElement;
     };
-    interface HTMLLyneJourneyHeaderElement extends Components.LyneJourneyHeader, HTMLStencilElement {
+    interface HTMLLyneInputErrorElement extends Components.LyneInputError, HTMLStencilElement {
     }
-    var HTMLLyneJourneyHeaderElement: {
-        prototype: HTMLLyneJourneyHeaderElement;
-        new (): HTMLLyneJourneyHeaderElement;
+    var HTMLLyneInputErrorElement: {
+        prototype: HTMLLyneInputErrorElement;
+        new (): HTMLLyneInputErrorElement;
     };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
@@ -547,24 +511,6 @@ declare global {
         prototype: HTMLLynePearlChainElement;
         new (): HTMLLynePearlChainElement;
     };
-    interface HTMLLyneProductElement extends Components.LyneProduct, HTMLStencilElement {
-    }
-    var HTMLLyneProductElement: {
-        prototype: HTMLLyneProductElement;
-        new (): HTMLLyneProductElement;
-    };
-    interface HTMLLyneProductSubscriptionElement extends Components.LyneProductSubscription, HTMLStencilElement {
-    }
-    var HTMLLyneProductSubscriptionElement: {
-        prototype: HTMLLyneProductSubscriptionElement;
-        new (): HTMLLyneProductSubscriptionElement;
-    };
-    interface HTMLLyneProductTicketElement extends Components.LyneProductTicket, HTMLStencilElement {
-    }
-    var HTMLLyneProductTicketElement: {
-        prototype: HTMLLyneProductTicketElement;
-        new (): HTMLLyneProductTicketElement;
-    };
     interface HTMLLyneSbbClockElement extends Components.LyneSbbClock, HTMLStencilElement {
     }
     var HTMLLyneSbbClockElement: {
@@ -595,6 +541,12 @@ declare global {
         prototype: HTMLLyneTeaserHeroElement;
         new (): HTMLLyneTeaserHeroElement;
     };
+    interface HTMLLyneTextInputElement extends Components.LyneTextInput, HTMLStencilElement {
+    }
+    var HTMLLyneTextInputElement: {
+        prototype: HTMLLyneTextInputElement;
+        new (): HTMLLyneTextInputElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -605,22 +557,19 @@ declare global {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
-        "lyne-card-badge": HTMLLyneCardBadgeElement;
         "lyne-image": HTMLLyneImageElement;
-        "lyne-journey-header": HTMLLyneJourneyHeaderElement;
+        "lyne-input-error": HTMLLyneInputErrorElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-link-list": HTMLLyneLinkListElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
-        "lyne-product": HTMLLyneProductElement;
-        "lyne-product-subscription": HTMLLyneProductSubscriptionElement;
-        "lyne-product-ticket": HTMLLyneProductTicketElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
+        "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -711,28 +660,6 @@ declare namespace LocalJSX {
          */
         "visualButtonOnly"?: boolean;
     }
-    interface LyneCardBadge {
-        /**
-          * Badge appearance
-         */
-        "appearance"?: InterfaceCardBadgeAttributes['appearance'];
-        /**
-          * Mark as discount
-         */
-        "isDiscount"?: boolean;
-        /**
-          * Price text
-         */
-        "price"?: string;
-        /**
-          * Badge size
-         */
-        "size"?: InterfaceCardBadgeAttributes['size'];
-        /**
-          * From/above price text
-         */
-        "text"?: string;
-    }
     interface LyneImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
@@ -807,35 +734,11 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceImageAttributes['variant'];
     }
-    interface LyneJourneyHeader {
+    interface LyneInputError {
         /**
-          * Journey header appearance
+          * The error message, we want to show.
          */
-        "appearance"?: InterfaceJourneyHeaderAttributes['appearance'];
-        /**
-          * Destination location for the journey header
-         */
-        "destination": string;
-        /**
-          * Is the journey a round trip. If so it gets indicated through a roundtrip icon
-         */
-        "isRoundTrip"?: boolean;
-        /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "journeyHeaderId"?: '';
-        /**
-          * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
-         */
-        "markup"?: InterfaceJourneyHeaderAttributes['markup'];
-        /**
-          * Origin location for the journey header
-         */
-        "origin": string;
-        /**
-          * Journey header size
-         */
-        "size"?: InterfaceJourneyHeaderAttributes['size'];
+        "message": string;
     }
     interface LyneLink {
         /**
@@ -955,44 +858,6 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
-    interface LyneProduct {
-        /**
-          * Product ticket appearance
-         */
-        "appearance"?: InterfaceProductAttributes['appearance'];
-        /**
-          * Lead text
-         */
-        "lead": string;
-        /**
-          * Detailed text
-         */
-        "text"?: string;
-    }
-    interface LyneProductSubscription {
-        /**
-          * Product subscription appearance
-         */
-        "appearance"?: InterfaceProductSubscriptionAttributes['appearance'];
-        /**
-          * Lead text
-         */
-        "lead": string;
-        /**
-          * Detailed text
-         */
-        "text"?: string;
-    }
-    interface LyneProductTicket {
-        /**
-          * Product ticket appearance
-         */
-        "appearance"?: InterfaceProductTicketAttributes['appearance'];
-        /**
-          * Detailed text
-         */
-        "text"?: string;
-    }
     interface LyneSbbClock {
         /**
           * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
@@ -1055,6 +920,64 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
+    interface LyneTextInput {
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "icon"?: string;
+        /**
+          * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
+         */
+        "inputAutoCompleteValue"?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
+        /**
+          * If set to true, the input field will be disabled.
+         */
+        "inputDisabled"?: boolean;
+        /**
+          * If set to true, we will set an an error message for the current input field.
+         */
+        "inputError"?: boolean;
+        /**
+          * Each input needs to have an individual id. If no id is provided, the component will create a unique id by itself.
+         */
+        "inputId"?: string;
+        /**
+          * Pass on a expected max length.
+         */
+        "inputMaxLength"?: number;
+        /**
+          * Pass on a expected min length.
+         */
+        "inputMinLength"?: number;
+        /**
+          * Each input should have an individual name.
+         */
+        "inputName": string;
+        /**
+          * Add a validation pattern (regex) the input should follow. Read more here: https://mzl.la/3C3HTiG
+         */
+        "inputPattern"?: string;
+        /**
+          * Add a placeholder to show what kind of input is expected.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * If set to true, an input in this field will be required.
+         */
+        "inputRequired"?: boolean;
+        /**
+          * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
+         */
+        "inputType": string;
+        /**
+          * Each input element needs to have a label associated with it.
+         */
+        "label": string;
+        /**
+          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+         */
+        "labelVisible"?: true;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -1085,22 +1008,19 @@ declare namespace LocalJSX {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
-        "lyne-card-badge": LyneCardBadge;
         "lyne-image": LyneImage;
-        "lyne-journey-header": LyneJourneyHeader;
+        "lyne-input-error": LyneInputError;
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
         "lyne-link-list": LyneLinkList;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
-        "lyne-product": LyneProduct;
-        "lyne-product-subscription": LyneProductSubscription;
-        "lyne-product-ticket": LyneProductTicket;
         "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-sbb-signet": LyneSbbSignet;
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
+        "lyne-text-input": LyneTextInput;
         "lyne-title": LyneTitle;
     }
 }
@@ -1111,22 +1031,19 @@ declare module "@stencil/core" {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
-            "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
-            "lyne-journey-header": LocalJSX.LyneJourneyHeader & JSXBase.HTMLAttributes<HTMLLyneJourneyHeaderElement>;
+            "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
-            "lyne-product": LocalJSX.LyneProduct & JSXBase.HTMLAttributes<HTMLLyneProductElement>;
-            "lyne-product-subscription": LocalJSX.LyneProductSubscription & JSXBase.HTMLAttributes<HTMLLyneProductSubscriptionElement>;
-            "lyne-product-ticket": LocalJSX.LyneProductTicket & JSXBase.HTMLAttributes<HTMLLyneProductTicketElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
+            "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }

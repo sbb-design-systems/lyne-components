@@ -23,5 +23,5 @@
 }
 
 .teaser-hero__link-info-text {
-  @include screenreaderOnly;
+  @include screenReaderOnly;
 }
