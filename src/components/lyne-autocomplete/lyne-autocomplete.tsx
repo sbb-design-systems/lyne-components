@@ -25,9 +25,8 @@ export class LyneAutocomplete {
 
   public render(): JSX.Element {
     return (
-      <div class='autocomplete'>
+      <div>
         <lyne-text-input
-          class='autocomplete__input'
           inputName='textfield'
           inputType='text'
           label='Von'
@@ -36,7 +35,8 @@ export class LyneAutocomplete {
           inputRequired
         ></lyne-text-input>
         <ul class='autocomplete__list'>
-          <li class='autocomplete__list-item'>item 1</li>
+          <lyne-autocomplete-item text='item1'></lyne-autocomplete-item>
+          <lyne-autocomplete-item text='item2'></lyne-autocomplete-item>
         </ul>
       </div>
     );
