@@ -126,6 +126,8 @@ export class LyneTextInput {
   /** Id which is sent as the id in the eventDetail payload */
   @Prop() public eventId?: string;
 
+  @Prop() public debounceInputEvent? = 0;
+
   @Element() private _element: HTMLElement;
 
   private _dispatchEvent = (evt: any): void => {
@@ -286,7 +288,7 @@ export class LyneTextInput {
             required={this.inputRequired}
             type={this.inputType}
             onFocus={this._dispatchEvent}
-            onInput={debounce(this._dispatchEvent, 200)}
+            onInput={debounce(this._dispatchEvent, this.debounceInputEvent)}
             onBlur={this._dispatchEvent}
             {...this._addtitionalInputAttributes}
             ref={(el): void => {
