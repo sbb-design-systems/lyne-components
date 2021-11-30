@@ -42,7 +42,7 @@
 
 // TODO re-factor to a more generic class later, also see .title--hidden
 .connection-text-hidden {
-  @include screenreaderOnly();
+  @include screenReaderOnly();
 }
 
 .icon {
