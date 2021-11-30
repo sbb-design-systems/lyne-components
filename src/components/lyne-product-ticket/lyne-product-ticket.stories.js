@@ -91,6 +91,13 @@ const SlotLyneTitleTemplate = (args) => (
 );
 
 const lyneJourneyHeaderArgs = {
+  destination: '3014 Bern, Hilfikerstrasse 1',
+  markup: 'h2',
+  origin: 'Romainmôtier, Les Portes',
+  size: 5
+};
+
+const lyneJourneyHeaderRoundtripArgs = {
   destination: 'Loèche-les-Bains',
   isRoundTrip: true,
   markup: 'h2',
@@ -236,7 +243,7 @@ const TemplateTicketPersonalizedConnection = (args) => (
 
 const TemplateTicketPersonalizedConnectionDiscount = (args) => (
   <lyne-product-ticket {...args}>
-    <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
+    <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderRoundtripArgs}/></div>
     <div slot='connection-details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionTicketPersonalizedConnectionArgs}/></div>
