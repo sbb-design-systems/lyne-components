@@ -7,7 +7,7 @@
   display: block;
 }
 
-.autocomplete__list-item {
+.autocomplete-item {
   @include text-s--regular;
   padding-block-start: pxToRem(var(--spacing-fixed-2x));
   padding-block-end: pxToRem(var(--spacing-fixed-2x));
@@ -18,4 +18,8 @@
     padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-medium));
     padding-inline-end: pxToRem(var(--spacing-responsive-xxxs-medium));
   }
+}
+
+.autocomplete-item__highlight {
+  @include text-s--bold;
 }
