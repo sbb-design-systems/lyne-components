@@ -34,6 +34,7 @@ export class LyneTimetable {
           <div role='columnheader'>Details</div>
           <div role='columnheader'>Platform</div>
           <div role='columnheader'>Occupancy Forecast</div>
+          <div role='columnheader'>Travel hints</div>
           <div role='columnheader'>Duration</div>
           <div role='columnheader'>Real time information</div>
         </div>

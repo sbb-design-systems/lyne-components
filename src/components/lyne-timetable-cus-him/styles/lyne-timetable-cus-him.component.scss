@@ -7,7 +7,11 @@
 }
 
 .cus-him--first-level-list {
-  --cus-him-width: 55;
+  --cus-him-width: 50;
+
+  @include mq($from: large) {
+    --cus-him-width: 55;
+  }
 }
 
 .cus-him--second-level-list {
