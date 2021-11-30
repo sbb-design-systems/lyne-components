@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property            | Attribute | Description                                      | Type     | Default     |
-| ------------------- | --------- | ------------------------------------------------ | -------- | ----------- |
-| `text` _(required)_ | `text`    | Text to show as content of the autocomplete item | `string` | `undefined` |
+| Property            | Attribute   | Description                                      | Type     | Default     |
+| ------------------- | ----------- | ------------------------------------------------ | -------- | ----------- |
+| `highlight`         | `highlight` | The text to highlight within the string property | `string` | `undefined` |
+| `text` _(required)_ | `text`      | Text to show as content of the autocomplete item | `string` | `undefined` |
 
 
 ## Slots
