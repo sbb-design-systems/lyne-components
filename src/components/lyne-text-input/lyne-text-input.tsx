@@ -12,6 +12,7 @@ import {
 } from '../../global/i18n';
 import { InterfaceLyneTextInputAttributes } from './lyne-text-input.custom.d';
 import { guid } from '../../global/guid';
+import debounce from '../../global/helpers/debounce';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -32,7 +33,6 @@ export class LyneTextInput {
   private _additionalInputClasses = [];
   private _addtitionalInputAttributes = {};
   private _currentLanguage = getDocumentLang();
-
   private _id = '';
   private _labelAriaLabel = '';
 
@@ -286,7 +286,7 @@ export class LyneTextInput {
             required={this.inputRequired}
             type={this.inputType}
             onFocus={this._dispatchEvent}
-            onInput={this._dispatchEvent}
+            onInput={debounce(this._dispatchEvent, 200)}
             onBlur={this._dispatchEvent}
             {...this._addtitionalInputAttributes}
             ref={(el): void => {
