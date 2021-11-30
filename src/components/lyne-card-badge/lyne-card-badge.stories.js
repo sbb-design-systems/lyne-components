@@ -20,30 +20,6 @@ const wrapperStyle = (context) => {
 };
 
 /* ************************************************* */
-/* Slot templates, used in Storybook template        */
-/* ************************************************* */
-
-/* --- generic slot -------------------------------- */
-
-const SlotGenericTemplate = () => (
-  <span><time datetime='2021-11-25'>Black Friday</time> Special</span>
-);
-
-/* ************************************************* */
-/* Storybook templates                               */
-/* ************************************************* */
-
-const Template = (args) => (
-  <lyne-card-badge {...args}></lyne-card-badge>
-);
-
-const TemplateWithSlot = (args) => (
-  <lyne-card-badge {...args}>
-    <div slot='generic'><SlotGenericTemplate/></div>
-  </lyne-card-badge>
-);
-
-/* ************************************************* */
 /* Storybook controls                                */
 /* ************************************************* */
 
@@ -100,6 +76,30 @@ const defaultArgs = {
   appearance: appearance.options[0],
   size: size.options[0]
 };
+
+/* ************************************************* */
+/* Slot templates, used in Storybook template        */
+/* ************************************************* */
+
+/* --- generic slot -------------------------------- */
+
+const SlotGenericTemplate = () => (
+  <span><time datetime='2021-11-25'>Black Friday</time> Special</span>
+);
+
+/* ************************************************* */
+/* Storybook templates                               */
+/* ************************************************* */
+
+const Template = (args) => (
+  <lyne-card-badge {...args}></lyne-card-badge>
+);
+
+const TemplateWithSlot = (args) => (
+  <lyne-card-badge {...args}>
+    <div slot='generic'><SlotGenericTemplate/></div>
+  </lyne-card-badge>
+);
 
 /* ************************************************* */
 /* The Stories                                       */
