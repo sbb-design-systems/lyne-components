@@ -1,13 +1,7 @@
 import {
   Component,
-  h,
-  Prop
+  h
 } from '@stencil/core';
-import { InterfaceLyneAutocompleteAttributes } from './lyne-autocomplete.custom.d';
-
-/**
- * @slot unnamed - Use this to document a slot.
- */
 
 @Component({
   shadow: true,
@@ -19,9 +13,6 @@ import { InterfaceLyneAutocompleteAttributes } from './lyne-autocomplete.custom.
 })
 
 export class LyneAutocomplete {
-
-  /** Documentation for someProp */
-  @Prop() public someProp?: InterfaceLyneAutocompleteAttributes['someInterface'];
 
   public render(): JSX.Element {
     return (
@@ -35,8 +26,13 @@ export class LyneAutocomplete {
           inputRequired
         ></lyne-text-input>
         <ul class='autocomplete__list'>
-          <lyne-autocomplete-item text='item1'></lyne-autocomplete-item>
-          <lyne-autocomplete-item text='item2'></lyne-autocomplete-item>
+          <lyne-autocomplete-item
+            text='pre ipsum item1 post lorem'
+            highlight='tem'
+          >
+          </lyne-autocomplete-item>
+          <lyne-autocomplete-item text='item2'>
+          </lyne-autocomplete-item>
         </ul>
       </div>
     );
