@@ -8,6 +8,11 @@
   --card-badge-color-primary-negative: var(--color-black-default);
   --card-badge-background-color-primary: var(--color-black-default);
   --card-badge-background-color-primary-negative: var(--color-white-default);
+
+  @include ifForcedColors() {
+    border-inline-start: pxToRem(1) solid CanvasText;
+    border-block-end: pxToRem(1) solid CanvasText;;
+  }
 }
 
 .card-badge {
