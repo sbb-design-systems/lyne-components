@@ -6,7 +6,6 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
-import { InterfaceLyneAutocompleteAttributes } from "./components/lyne-autocomplete/lyne-autocomplete.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
@@ -57,12 +56,12 @@ export namespace Components {
         "open"?: boolean;
     }
     interface LyneAutocomplete {
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceLyneAutocompleteAttributes['someInterface'];
     }
     interface LyneAutocompleteItem {
+        /**
+          * The text to highlight within the string property
+         */
+        "highlight"?: string;
         /**
           * Text to show as content of the autocomplete item
          */
@@ -638,12 +637,12 @@ declare namespace LocalJSX {
         "open"?: boolean;
     }
     interface LyneAutocomplete {
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceLyneAutocompleteAttributes['someInterface'];
     }
     interface LyneAutocompleteItem {
+        /**
+          * The text to highlight within the string property
+         */
+        "highlight"?: string;
         /**
           * Text to show as content of the autocomplete item
          */
