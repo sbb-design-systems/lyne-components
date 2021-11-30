@@ -16,9 +16,7 @@ describe('lyne-product-ticket', () => {
           <mock:shadow-root>
             <div class="product-ticket product-ticket--primary" itemscope="" itemtype="https://schema.org/Product">
               <div class="product-ticket__content">
-                <div>
-                  <div class="product-ticket__lead"></div>
-                </div>
+                <div></div>
               </div>
             </div>
           </mock:shadow-root>
