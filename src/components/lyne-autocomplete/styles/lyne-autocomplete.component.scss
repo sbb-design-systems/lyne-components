@@ -5,10 +5,26 @@
 
 :host {
   display: block;
+  position: relative;
   border-radius: pxToRem(var(--border-radius-4x));
   background-color: var(--color-white-default);
 }
 
 .autocomplete__list {
   @include listReset;
+  position: absolute;
+  display: none;
+  z-index: -1;
+
+  top: calc(100% - #{pxToRem(var(--border-radius-4x))});
+  right: 0;
+  left: 0;
+
+  padding-top: #{pxToRem(var(--border-radius-4x))};
+
+  background-color: gray;
+}
+
+.autocomplete__list--visible {
+  display: block;
 }
