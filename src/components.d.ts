@@ -56,6 +56,14 @@ export namespace Components {
         "open"?: boolean;
     }
     interface LyneAutocomplete {
+        /**
+          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
+         */
+        "items"?: string;
+        /**
+          * Set if the autocomplete interface should be shown or hidden.
+         */
+        "visible": boolean;
     }
     interface LyneAutocompleteItem {
         /**
@@ -378,6 +386,7 @@ export namespace Components {
         "text": string;
     }
     interface LyneTextInput {
+        "debounceInputEvent"?: number;
         /**
           * Id which is sent as the id in the eventDetail payload
          */
@@ -641,6 +650,14 @@ declare namespace LocalJSX {
         "open"?: boolean;
     }
     interface LyneAutocomplete {
+        /**
+          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
+         */
+        "items"?: string;
+        /**
+          * Set if the autocomplete interface should be shown or hidden.
+         */
+        "visible"?: boolean;
     }
     interface LyneAutocompleteItem {
         /**
@@ -963,6 +980,7 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LyneTextInput {
+        "debounceInputEvent"?: number;
         /**
           * Id which is sent as the id in the eventDetail payload
          */
