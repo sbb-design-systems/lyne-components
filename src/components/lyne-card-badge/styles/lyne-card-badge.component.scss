@@ -56,10 +56,10 @@
   }
 
   &--regular {
-    @include text-s--bold;
+    @include text-xs--bold;
   }
 
   &--small {
-    @include text-xs--bold;
+    @include text-xxs--bold;
   }
 }
