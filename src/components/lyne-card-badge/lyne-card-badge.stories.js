@@ -16,7 +16,7 @@ const wrapperStyle = (context) => {
     return `background-color: ${ColorWhiteDefault};`;
   }
 
-  return `background-color: ${ColorCharcoalDefault};`;
+  return `background-color: ${ColorWhiteDefault};`;
 };
 
 /* ************************************************* */

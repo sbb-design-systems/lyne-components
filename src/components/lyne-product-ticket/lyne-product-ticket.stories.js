@@ -291,15 +291,16 @@ ProductTicketCardBadgeDiscount.documentation = {
   title: 'Product of type ticket with card badge discount'
 };
 
-/* --- ProductTicket with card badge detailed ------ */
-export const ProductTicketCardBadgeDiscountDetailed = TemplateTicketCardBadgeDetailed.bind({});
+/* --- ProductTicket with card badge detailed negative------ */
+export const ProductTicketCardBadgeDiscountDetailedNegative = TemplateTicketCardBadgeDetailed.bind({});
 
-ProductTicketCardBadgeDiscountDetailed.argTypes = defaultArgTypes;
-ProductTicketCardBadgeDiscountDetailed.args = {
-  ...defaultArgs
+ProductTicketCardBadgeDiscountDetailedNegative.argTypes = defaultArgTypes;
+ProductTicketCardBadgeDiscountDetailedNegative.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1]
 };
 
-ProductTicketCardBadgeDiscountDetailed.documentation = {
+ProductTicketCardBadgeDiscountDetailedNegative.documentation = {
   title: 'Product of type ticket with card badge discount detailed'
 };
 

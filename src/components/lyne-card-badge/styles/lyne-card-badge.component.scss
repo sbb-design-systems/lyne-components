@@ -8,6 +8,7 @@
   --card-badge-color-primary-negative: var(--color-black-default);
   --card-badge-background-color-primary: var(--color-black-default);
   --card-badge-background-color-primary-negative: var(--color-white-default);
+  --card-badge-border-color-primary-negative: var(--color-aluminium-default);
 
   @include ifForcedColors() {
     border-inline-start: pxToRem(1) solid CanvasText;
@@ -22,7 +23,7 @@
   inset-block-start: 0;
   inset-inline-end: 0;
   padding-inline-start: pxToRem(var(--spacing-fixed-1x));
-  padding-inline-end: pxToRem(var(--spacing-fixed-6x));
+  padding-inline-end: pxToRem(var(--spacing-fixed-8x));
   border-end-start-radius: pxToRem(var(--border-radius-4x));
 
   // Left to right expression
@@ -53,6 +54,8 @@
   &--primary-negative {
     color: var(--card-badge-color-primary-negative);
     background-color: var(--card-badge-background-color-primary-negative);
+    border-block-end: solid 1px var(--card-badge-border-color-primary-negative);
+    border-inline-start: solid 1px var(--card-badge-border-color-primary-negative);
   }
 
   &--regular {
