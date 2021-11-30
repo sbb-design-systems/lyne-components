@@ -62,6 +62,12 @@ export namespace Components {
          */
         "someProp"?: InterfaceLyneAutocompleteAttributes['someInterface'];
     }
+    interface LyneAutocompleteItem {
+        /**
+          * Text to show as content of the autocomplete item
+         */
+        "text": string;
+    }
     interface LyneButton {
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
@@ -476,6 +482,12 @@ declare global {
         prototype: HTMLLyneAutocompleteElement;
         new (): HTMLLyneAutocompleteElement;
     };
+    interface HTMLLyneAutocompleteItemElement extends Components.LyneAutocompleteItem, HTMLStencilElement {
+    }
+    var HTMLLyneAutocompleteItemElement: {
+        prototype: HTMLLyneAutocompleteItemElement;
+        new (): HTMLLyneAutocompleteItemElement;
+    };
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
     }
     var HTMLLyneButtonElement: {
@@ -570,6 +582,7 @@ declare global {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-autocomplete": HTMLLyneAutocompleteElement;
+        "lyne-autocomplete-item": HTMLLyneAutocompleteItemElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-input-error": HTMLLyneInputErrorElement;
@@ -629,6 +642,12 @@ declare namespace LocalJSX {
           * Documentation for someProp
          */
         "someProp"?: InterfaceLyneAutocompleteAttributes['someInterface'];
+    }
+    interface LyneAutocompleteItem {
+        /**
+          * Text to show as content of the autocomplete item
+         */
+        "text": string;
     }
     interface LyneButton {
         /**
@@ -1028,6 +1047,7 @@ declare namespace LocalJSX {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-autocomplete": LyneAutocomplete;
+        "lyne-autocomplete-item": LyneAutocompleteItem;
         "lyne-button": LyneButton;
         "lyne-image": LyneImage;
         "lyne-input-error": LyneInputError;
@@ -1052,6 +1072,7 @@ declare module "@stencil/core" {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-autocomplete": LocalJSX.LyneAutocomplete & JSXBase.HTMLAttributes<HTMLLyneAutocompleteElement>;
+            "lyne-autocomplete-item": LocalJSX.LyneAutocompleteItem & JSXBase.HTMLAttributes<HTMLLyneAutocompleteItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
