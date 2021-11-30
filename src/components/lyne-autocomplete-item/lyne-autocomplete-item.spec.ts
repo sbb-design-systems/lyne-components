@@ -7,14 +7,26 @@ describe('lyne-autocomplete-item', () => {
       root
     } = await newSpecPage({
       components: [LyneAutocompleteItem],
-      html: '<lyne-autocomplete-item />'
+      html: '<lyne-autocomplete-item text="lorem ipsum item1 dolor sit" highlight="tem"></lyne-autocomplete-item>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-autocomplete-item>
+        <lyne-autocomplete-item highlight="tem" text="lorem ipsum item1 dolor sit">
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <li class="autocomplete-item">
+              <slot name="pre-text"></slot>
+              <span>
+                lorem ipsum i
+              </span>
+              <span class="autocomplete-item__highlight">
+                tem
+              </span>
+              <span>
+                1 dolor sit
+              </span>
+              <slot name="post-text"></slot>
+            </li>
           </mock:shadow-root>
         </lyne-autocomplete-item>
       `);
