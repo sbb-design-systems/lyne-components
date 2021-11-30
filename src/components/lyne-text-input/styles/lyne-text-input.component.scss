@@ -110,6 +110,7 @@
   padding-inline-start: pxToRem(var(--spacing-fixed-3x));
   padding-inline-end: pxToRem(var(--spacing-fixed-3x));
   color: var(--text-color-label);
+  user-select: none;
 }
 
 .input-label--text {
