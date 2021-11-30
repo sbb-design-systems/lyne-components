@@ -203,7 +203,17 @@ const labelVisible = {
   }
 };
 
+const eventId = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Events'
+  }
+};
+
 const defaultArgTypes = {
+  'event-id': eventId,
   icon,
   'input-autocomplete-section-name': inputAutoCompleteSectionName,
   'input-autocomplete-value': inputAutoCompleteValue,
@@ -222,6 +232,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
+  'event-id': '',
   'icon': '',
   'input-autocomplete-section-name': inputAutoCompleteSectionName.options[1],
   'input-autocomplete-value': inputAutoCompleteValue.options[35],
@@ -446,7 +457,11 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click]
+      handles: [
+        events.blur,
+        events.focus,
+        events.input
+      ]
     },
     docs: {
       extractComponentDescription: () => readme
