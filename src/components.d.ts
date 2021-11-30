@@ -379,6 +379,10 @@ export namespace Components {
     }
     interface LyneTextInput {
         /**
+          * Id which is sent as the id in the eventDetail payload
+         */
+        "eventId"?: string;
+        /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "icon"?: string;
@@ -959,6 +963,10 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LyneTextInput {
+        /**
+          * Id which is sent as the id in the eventDetail payload
+         */
+        "eventId"?: string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
