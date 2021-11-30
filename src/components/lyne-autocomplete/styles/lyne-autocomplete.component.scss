@@ -5,19 +5,10 @@
 
 :host {
   display: block;
-
-  --some-color-var: black;
-}
-
-.autocomplete {
-  border: 3px solid grey;
+  border-radius: pxToRem(var(--border-radius-4x));
+  background-color: var(--color-white-default);
 }
 
 .autocomplete__list {
-  border: 2px solid green;
   @include listReset;
-}
-
-.autocomplete__list-item {
-  border: 1px solid red;
 }
