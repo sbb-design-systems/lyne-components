@@ -5,26 +5,6 @@
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property              | Attribute | Description | Type     | Default     |
-| --------------------- | --------- | ----------- | -------- | ----------- |
-| `config` _(required)_ | `config`  |             | `string` | `undefined` |
-
-
-## Dependencies
-
-### Depends on
-
-- [lyne-timetable-row-column-headers](../lyne-timetable-row-column-headers)
-
-### Graph
-```mermaid
-graph TD;
-  lyne-timetable --> lyne-timetable-row-column-headers
-  style lyne-timetable fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 

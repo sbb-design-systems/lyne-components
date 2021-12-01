@@ -1,7 +1,4 @@
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin, available for shared
-// and default mode
-:host {
+:root {
   --cus-him-icon-height: 16;
   --cus-him-icon-width: var(--cus-him-icon-height);
 }

@@ -13,6 +13,7 @@
   gap: pxToRem(var(--spacing-fixed-1x));
 }
 
+.timetable > svg,
 .timetable__column-headers {
   @include screenReaderOnly();
 }

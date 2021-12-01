@@ -427,7 +427,6 @@ export namespace Components {
         "labelVisible"?: true;
     }
     interface LyneTimetable {
-        "config": string;
     }
     interface LyneTimetableCusHim {
         /**
@@ -1161,7 +1160,6 @@ declare namespace LocalJSX {
         "labelVisible"?: true;
     }
     interface LyneTimetable {
-        "config": string;
     }
     interface LyneTimetableCusHim {
         /**

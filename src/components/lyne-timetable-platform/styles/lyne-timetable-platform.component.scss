@@ -1,23 +1,23 @@
-:host {
-  --default-min-width: 50;
+:root {
+  --plattform-min-width: 50;
 
   @include mq($from: medium) {
-    --default-min-width: 55;
+    --plattform-min-width: 55;
   }
 
 }
 
 .timetable__row--departure-walk .platform {
-  --default-min-width: 85;
+  --plattform-min-width: 85;
 
   @include mq($from: medium) {
-    --default-min-width: 92;
+    --plattform-min-width: 92;
   }
 }
 
 .platform {
   @include text-s--regular();
-  width: pxToRem(var(--default-min-width));
+  width: pxToRem(var(--plattform-min-width));
   margin: 0;
   white-space: nowrap;
 }

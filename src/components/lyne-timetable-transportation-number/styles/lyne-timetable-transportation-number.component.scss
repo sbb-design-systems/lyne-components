@@ -1,9 +1,7 @@
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin, available for shared
 // and default mode
-@include host-component-properties;
-
-:host {
+:root {
   display: block;
 
   --transportation-number-element-height: 20;

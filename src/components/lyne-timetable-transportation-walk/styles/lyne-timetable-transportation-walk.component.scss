@@ -1,13 +1,6 @@
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin, available for shared
-// and default mode
-@include host-component-properties;
-
-:host {
-  display: block;
-
-  --icon-height: 24;
-  --icon-width: var(--icon-height);
+:root {
+  --walk-icon-height: 24;
+  --walk-icon-width: var(--walk-icon-height);
 }
 
 .walk {
@@ -37,7 +30,7 @@
 }
 
 .walk__icon svg {
-  height: pxToRem(var(--icon-height));
-  width: pxToRem(var(--icon-width));
+  height: pxToRem(var(--walk-icon-height));
+  width: pxToRem(var(--walk-icon-width));
   transform: translateX(pxToRem(-7));
 }

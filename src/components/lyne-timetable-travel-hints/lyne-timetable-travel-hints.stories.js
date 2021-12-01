@@ -22,7 +22,7 @@ const gridCellRole = {
 
 const config = {
   table: {
-    disable: true
+    disable: false
   }
 };
 
@@ -61,7 +61,6 @@ TravelHintsList.args = {
 TravelHintsList.documentation = {
   title: 'Travel Hints Icon List'
 };
-
 
 export default {
   decorators: [
