@@ -23,6 +23,11 @@ export class LyneTimetableRow {
     if (config.details.departureWalk.duration > 0) {
       this._additionalTimetableRowClasses.push('timetable__row--departure-walk');
     }
+
+    if (config.details.arrivalWalk.duration > 0) {
+      this._additionalTimetableRowClasses.push('timetable__row--arrival-walk');
+    }
+
   }
 
   /**

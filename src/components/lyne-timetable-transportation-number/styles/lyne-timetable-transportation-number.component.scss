@@ -2,26 +2,21 @@
 // travel the shadow boundary are defined through this mixin, available for shared
 // and default mode
 :root {
-  display: block;
-
   --transportation-number-element-height: 20;
   --product-icon-width: 59;
-
-  /* height: pxToRem(var(--icon-height));
-  line-height: pxToRem(var(--icon-height)); */
-
 }
 
 .transportation-number {
   display: flex;
-  flex: 1 1 100%;
+  flex: 0 0 100%;
+  overflow: hidden;
   margin: 0;
 }
 
 .transportation-number--visual {
   @include text-s--regular();
   display: flex;
-  flex: 1 1 100%;
+  flex: 0 0 100%;
   flex-wrap: nowrap;
   align-items: center;
   height: pxToRem(var(--transportation-number-element-height));
@@ -31,14 +26,16 @@
 
 .transportation-number__means_of_transport {
   display: flex;
-  height: pxToRem(var(--transportation-number-element-height));
-  width: pxToRem(var(--transportation-number-element-height));
+  flex: 0 0 pxToRem(var(--transportation-number-element-height));
+  aspect-ratio: 1/1;
   margin-inline-end: pxToRem(var(--spacing-fixed-1x));
   overflow: hidden;
+  background: blue;
 }
 
 .transportation-number__means_of_transport svg {
   width: pxToRem(var(--transportation-number-element-height));
+  height: pxToRem(var(--transportation-number-element-height));
 }
 
 .transportation-number__product-icon,
@@ -58,12 +55,12 @@
 }
 
 .transportation-number__direction {
-  display: flex;
   flex: 1 1 auto;
   overflow: hidden;
 }
 
 .transportation-number__direction_text {
+  display: block;
   @include ellipsis();
 }
 

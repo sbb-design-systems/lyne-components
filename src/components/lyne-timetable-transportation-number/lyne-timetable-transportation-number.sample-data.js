@@ -13,7 +13,7 @@ export default {
     }
   },
   cableCar: {
-    direction: 'Direction Riederalp West',
+    direction: 'Direction Riederalp West and some more text and even more more more',
     meansOfTransport: {
       picto: 'transportation-luftseilbahn-right',
       text: 'Cable Car'

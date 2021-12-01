@@ -15,14 +15,13 @@
 }
 
 .timetable__row {
+  position: relative;
   display: flex;
   flex: 0 0 100%;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  position: relative;
-  border-bottom: 1px solid lime;
-  // min-height: pxToRem(var(--row-min-height));
+  min-height: pxToRem(var(--row-min-height));
 }
 
 .timetable__row > * {
@@ -39,7 +38,7 @@
 
 .timetable__row > lyne-timetable-transportation-details {
   display: flex;
-  flex: 1 1 100%;
+  flex: 0 0 100%;
   max-width: 100%;
 }
 

@@ -17,6 +17,15 @@
 
 .cus-him {
   width: pxToRem(var(--cus-him-width));
+  padding-inline-start: pxToRem(var(--spacing-fixed-1x));
+}
+
+.timetable__row--arrival-walk .cus-him {
+  --cus-him-width: 85;
+
+  @include mq($from: medium) {
+    --cus-him-width: 91;
+  }
 }
 
 .cus-him--second-level-list {
@@ -26,6 +35,7 @@
 .cus-him__list {
   @include listReset();
   display: flex;
+  flex-wrap: wrap;
   gap: pxToRem(var(--spacing-fixed-1x));
   min-height: pxToRem(var(--cus-him-icon-height));
 }
@@ -40,6 +50,7 @@
 }
 
 .cus-him__icon {
+  aspect-ratio: 1/1;
   pointer-events: all;
   cursor: help;
 }
