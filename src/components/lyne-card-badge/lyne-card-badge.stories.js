@@ -23,6 +23,12 @@ const wrapperStyle = (context) => {
 /* Storybook controls                                */
 /* ************************************************* */
 
+const a11yLabel = {
+  control: {
+    type: 'text'
+  }
+};
+
 const appearance = {
   control: {
     type: 'select'
@@ -65,6 +71,7 @@ const price = {
 };
 
 const defaultArgTypes = {
+  a11yLabel,
   appearance,
   isDiscount,
   price,
@@ -73,6 +80,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
+  a11yLabel: 'Supersaver Ticket',
   appearance: appearance.options[0],
   size: size.options[0]
 };

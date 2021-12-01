@@ -14,7 +14,7 @@ describe('lyne-card-badge', () => {
       .toEqualHtml(`
         <lyne-card-badge>
           <mock:shadow-root>
-            <span class="card-badge card-badge--primary card-badge--regular" dir="ltr"></span>
+            <span class="card-badge card-badge--primary card-badge--regular" dir="ltr" role="text"></span>
           </mock:shadow-root>
         </lyne-card-badge>
       `);

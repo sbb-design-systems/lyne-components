@@ -112,6 +112,10 @@ export namespace Components {
     }
     interface LyneCardBadge {
         /**
+          * a11y Label
+         */
+        "a11yLabel": string;
+        /**
           * Badge appearance
          */
         "appearance": InterfaceCardBadgeAttributes['appearance'];
@@ -791,6 +795,10 @@ declare namespace LocalJSX {
         "visualButtonOnly"?: boolean;
     }
     interface LyneCardBadge {
+        /**
+          * a11y Label
+         */
+        "a11yLabel": string;
         /**
           * Badge appearance
          */
