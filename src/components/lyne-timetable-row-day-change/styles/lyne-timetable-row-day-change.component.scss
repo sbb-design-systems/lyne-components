@@ -1,0 +1,8 @@
+.day-change {
+  @include text-xs--regular();
+  color: var(--color-smoke-default);
+}
+
+.day-change__text--visually-hidden {
+  @include screenReaderOnly();
+}

@@ -10,6 +10,8 @@ const Template = (args) => (
     <lyne-timetable-row config={args.timetableRows[1]} role='row' />
     <lyne-timetable-row config={args.timetableRows[2]} role='row' />
     <lyne-timetable-row config={args.timetableRows[3]} role='row' />
+    <lyne-timetable-row-day-change config={args.timetableRowsDayChange[1]} role='row' />
+    <lyne-timetable-row config={args.timetableRows[3]} role='row' />
     <svg xmlns="http://www.w3.org/2000/svg" focusable="false">
       <symbol id='alternative' viewBox='0 0 16 16'>
         <path fill-rule="evenodd" clip-rule="evenodd" d="m0,1.99411C0,.893115.894993.000122,1.99398.000122H14.0059c1.101,0,1.994.893993,1.994,1.993988V14.006c0,1.101-.895,1.994-1.994,1.994H1.99398C.892993,16,0,15.105,0,14.006V1.99411z" fill="#eb0000"></path><path fill-rule="evenodd" clip-rule="evenodd" d="m10.3905,1.9998h-1.5v8.3169H5.78153l1.72398-1.72495L6.44452,7.53176,2.90855,11.0687l3.53597,3.537,1.06099-1.061-1.72798-1.728h4.61297V1.9998z" fill="#fff"></path>
@@ -75,6 +77,10 @@ LyneTimetable.args = {
     JSON.stringify(sampleData.timetableRows[1]),
     JSON.stringify(sampleData.timetableRows[1]),
     JSON.stringify(sampleData.timetableRows[1])
+  ],
+  timetableRowsDayChange: [
+    JSON.stringify(sampleData.timetableRowsDayChange[0]),
+    JSON.stringify(sampleData.timetableRowsDayChange[1])
   ]
 }
 

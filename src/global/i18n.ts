@@ -22,11 +22,25 @@ export const i18nClass: any = {
   }
 };
 
+export const i18nDayChange: any = {
+  de: 'Tageswechsel',
+  en: 'Change of day',
+  fr: 'changement de jour',
+  it: 'Cambio giorno'
+};
+
 export const i18nDeparture: any = {
   de: 'Abfahrt',
   en: 'Departure',
   fr: 'Départ',
   it: 'Partenza'
+};
+
+export const i18nDepartsOn: any = {
+  de: 'Abfahrt am',
+  en: 'departs on',
+  fr: 'départ le',
+  it: 'artenza il'
 };
 
 export const i18nDeleteCurrentInput: any = {
