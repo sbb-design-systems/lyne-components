@@ -18,6 +18,11 @@
 .cus-him {
   width: pxToRem(var(--cus-him-width));
   padding-inline-start: pxToRem(var(--spacing-fixed-1x));
+
+  @include mq($to: medium) {
+    @include screenReaderOnly();
+  }
+
 }
 
 .timetable__row--arrival-walk .cus-him {
