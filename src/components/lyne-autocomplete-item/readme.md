@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property            | Attribute       | Description                                      | Type      | Default     |
-| ------------------- | --------------- | ------------------------------------------------ | --------- | ----------- |
-| `ariaPosinset`      | `aria-posinset` | The aria-posinset attribute for the list element | `number`  | `undefined` |
-| `ariaSelected`      | `aria-selected` | The aria-selected attribute for the list element | `boolean` | `undefined` |
-| `ariaSetsize`       | `aria-setsize`  | The aira-setsize attribute for the list element  | `number`  | `undefined` |
-| `eventId`           | `event-id`      | Id which is sent in the select event payload     | `string`  | `undefined` |
-| `highlight`         | `highlight`     | The text to highlight within the string property | `string`  | `undefined` |
-| `text` _(required)_ | `text`          | Text to show as content of the autocomplete item | `string`  | `undefined` |
+| Property            | Attribute       | Description                                                                                     | Type      | Default     |
+| ------------------- | --------------- | ----------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `ariaPosinset`      | `aria-posinset` | The aria-posinset attribute for the list element                                                | `number`  | `undefined` |
+| `ariaSetsize`       | `aria-setsize`  | The aira-setsize attribute for the list element                                                 | `number`  | `undefined` |
+| `eventId`           | `event-id`      | Id which is sent in the select event payload                                                    | `string`  | `undefined` |
+| `highlight`         | `highlight`     | The text to highlight within the string property                                                | `string`  | `undefined` |
+| `itemSelected`      | `item-selected` | Mark the item as selected, which will change it's appearance and the according aria attributes. | `boolean` | `undefined` |
+| `text` _(required)_ | `text`          | Text to show as content of the autocomplete item                                                | `string`  | `undefined` |
 
 
 ## Slots
