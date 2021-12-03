@@ -35,6 +35,8 @@
   border-bottom-left-radius: pxToRem(var(--border-radius-4x));
   border-bottom-right-radius: pxToRem(var(--border-radius-4x));
   background-color: gray;
+
+  overflow-y: scroll;
 }
 
 .autocomplete__list--visible {

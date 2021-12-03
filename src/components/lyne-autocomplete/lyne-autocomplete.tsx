@@ -31,7 +31,7 @@ export class LyneAutocomplete {
    * array of objects, containing the `text` key for each object with an
    * appropriate value.
    */
-  @Prop() public items? = '[{"text": "pre ipsum item1 post lorem"},{"text": "pre ipsum item2 post lorem"},{"text": "pre ipsum item3 post lorem"}]';
+  @Prop() public items? = '[{"text": "pre ipsum item1 post lorem"},{"text": "pre ipsum item2 post lorem"},{"text": "pre ipsum item3 post lorem"},{"text": "pre ipsum item4 post lorem"},{"text": "pre ipsum item5 post lorem"},{"text": "pre ipsum item6 post lorem"},{"text": "pre ipsum item7 post lorem"},{"text": "pre ipsum item8 post lorem"},{"text": "pre ipsum item9 post lorem"},{"text": "pre ipsum item10 post lorem"}]';
 
   /**
    * The value to use as default value for the input. The input value or the
@@ -69,6 +69,14 @@ export class LyneAutocomplete {
         this._selectedAutocompleteItemIndex = this._dataItems.length - 1;
       }
     }
+
+    const selectedElement = this._listElement.children[this._selectedAutocompleteItemIndex];
+
+    selectedElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
   };
 
   private _handleEscapeKey = (): void => {
@@ -124,10 +132,8 @@ export class LyneAutocomplete {
     this._inputElement.dispatchEvent(event);
   };
 
-  private _handleFocus = (evt): void => {
+  private _handleFocus = (): void => {
     this._isVisible = true;
-    console.log('focus', evt);
-
     this._addKeysEventListener();
     this._selectInputText();
   };
@@ -150,8 +156,6 @@ export class LyneAutocomplete {
 
   private _handleBlur = (): void => {
     this._isVisible = false;
-    console.log('blur');
-
     this._removeKeysEventListener();
   };
 
