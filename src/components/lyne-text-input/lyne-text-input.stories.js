@@ -457,11 +457,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [
-        events.blur,
-        events.focus,
-        events.input
-      ]
+      handles: [events.input]
     },
     docs: {
       extractComponentDescription: () => readme
