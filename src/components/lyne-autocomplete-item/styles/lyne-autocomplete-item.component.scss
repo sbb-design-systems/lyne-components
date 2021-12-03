@@ -23,3 +23,12 @@
 .autocomplete-item__highlight {
   @include text-s--bold;
 }
+
+.autocomplete-item:hover,
+.autocomplete-item:focus {
+  background-color: red;
+}
+
+.autocomplete-item > span {
+  pointer-events: none;
+}
