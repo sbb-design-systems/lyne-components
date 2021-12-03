@@ -302,12 +302,24 @@ export class LyneTextInput {
     }
   }
 
+  private _handleNativeSelect = (): void => {
+    this._inputElement.select();
+  };
+
   public componentWillLoad(): void {
     if (this.inputId) {
       this._id = this.inputId;
     } else {
       this._id = `input-${guid()}`;
     }
+  }
+
+  public componentDidLoad(): void {
+    this._element.addEventListener('select', this._handleNativeSelect);
+  }
+
+  public disconnectCallback(): void {
+    this._element.removeEventListener('select', this._handleNativeSelect);
   }
 
   public render(): JSX.Element {
