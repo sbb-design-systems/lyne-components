@@ -123,14 +123,48 @@ export class LyneTextInput {
    */
   @Prop() public labelVisible?: true;
 
-  /** Id which is sent as the id in the eventDetail payload */
+  /**
+   * Value for the input element.
+   */
+  @Prop() public inputValue?: string;
+
+  /**
+   * Id which is sent as the id in the eventDetail payload
+   */
   @Prop() public eventId?: string;
 
+  /**
+   * Debounce type for the input change event in ms. If you set this value
+   * to e.g. 300, we fire the input event only every 300ms.
+   */
   @Prop() public debounceInputEvent? = 0;
+
+  /**
+   * The role attribute used for the input element.
+   */
+  @Prop() public inputRole?: InterfaceLyneTextInputAttributes['inputRole'];
+
+  /**
+   * Set aria-expanded on the input element.
+   */
+  @Prop() public inputAriaExpanded? = false;
+
+  /**
+   * The aria-autocomplete attribute for the input element.
+   */
+  @Prop() public inputAriaAutocomplete?: InterfaceLyneTextInputAttributes['inputAriaAutocomplete'];
+
+  /**
+   * The id to use as the aira-controls attribute for the input element.
+   */
+  @Prop() public inputAriaControls?: string;
 
   @Element() private _element: HTMLElement;
 
   private _dispatchEvent = (evt: any): void => {
+    evt.stopImmediatePropagation();
+    evt.preventDefault();
+
     const eventDetail = {
       id: '',
       value: this._inputElement.value
@@ -203,6 +237,34 @@ export class LyneTextInput {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
         'aria-invalid': 'true'
+      };
+    }
+
+    if (this.inputRole) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        role: this.inputRole
+      };
+    }
+
+    if (this.inputAriaExpanded) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        'aria-expanded': this.inputAriaExpanded
+      };
+    }
+
+    if (this.inputAriaAutocomplete) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        'aria-autocomplete': this.inputAriaAutocomplete
+      };
+    }
+
+    if (this.inputAriaControls) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        'aria-controls': this.inputAriaControls
       };
     }
 
@@ -287,13 +349,12 @@ export class LyneTextInput {
             placeholder={this.inputPlaceholder}
             required={this.inputRequired}
             type={this.inputType}
-            onFocus={this._dispatchEvent}
             onInput={debounce(this._dispatchEvent, this.debounceInputEvent)}
-            onBlur={this._dispatchEvent}
             {...this._addtitionalInputAttributes}
             ref={(el): void => {
               this._inputElement = el;
             }}
+            value={this.inputValue || ''}
           />
           <label
             aria-label={this._labelAriaLabel}
