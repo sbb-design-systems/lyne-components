@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property  | Attribute | Description                                                                                                                                                       | Type      | Default                                                                             |
-| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------- |
-| `items`   | `items`   | Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value. | `string`  | `'[{"text": "pre ipsum item1 post lorem"},{"text": "pre ipsum item2 post lorem"}]'` |
-| `visible` | `visible` | Set if the autocomplete interface should be shown or hidden.                                                                                                      | `boolean` | `true`                                                                              |
+| Property | Attribute | Description                                                                                                                                                       | Type     | Default                                                                                                                    |
+| -------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `items`  | `items`   | Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value. | `string` | `'[{"text": "pre ipsum item1 post lorem"},{"text": "pre ipsum item2 post lorem"},{"text": "pre ipsum item3 post lorem"}]'` |
+| `value`  | `value`   | The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.                               | `string` | `undefined`                                                                                                                |
 
 
 ## Dependencies
