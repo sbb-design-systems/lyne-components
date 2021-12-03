@@ -61,11 +61,27 @@ export namespace Components {
          */
         "items"?: string;
         /**
-          * Set if the autocomplete interface should be shown or hidden.
+          * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
          */
-        "visible": boolean;
+        "value"?: string;
     }
     interface LyneAutocompleteItem {
+        /**
+          * The aria-posinset attribute for the list element
+         */
+        "ariaPosinset"?: number;
+        /**
+          * The aria-selected attribute for the list element
+         */
+        "ariaSelected"?: boolean;
+        /**
+          * The aira-setsize attribute for the list element
+         */
+        "ariaSetsize"?: number;
+        /**
+          * Id which is sent in the select event payload
+         */
+        "eventId"?: string;
         /**
           * The text to highlight within the string property
          */
@@ -386,6 +402,9 @@ export namespace Components {
         "text": string;
     }
     interface LyneTextInput {
+        /**
+          * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
+         */
         "debounceInputEvent"?: number;
         /**
           * Id which is sent as the id in the eventDetail payload
@@ -395,6 +414,18 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "icon"?: string;
+        /**
+          * The aria-autocomplete attribute for the input element.
+         */
+        "inputAriaAutocomplete"?: InterfaceLyneTextInputAttributes['inputAriaAutocomplete'];
+        /**
+          * The id to use as the aira-controls attribute for the input element.
+         */
+        "inputAriaControls"?: string;
+        /**
+          * Set aria-expanded on the input element.
+         */
+        "inputAriaExpanded"?: boolean;
         /**
           * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
          */
@@ -436,9 +467,17 @@ export namespace Components {
          */
         "inputRequired"?: boolean;
         /**
+          * The role attribute used for the input element.
+         */
+        "inputRole"?: InterfaceLyneTextInputAttributes['inputRole'];
+        /**
           * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
          */
         "inputType": string;
+        /**
+          * Value for the input element.
+         */
+        "inputValue"?: string;
         /**
           * Each input element needs to have a label associated with it.
          */
@@ -655,11 +694,27 @@ declare namespace LocalJSX {
          */
         "items"?: string;
         /**
-          * Set if the autocomplete interface should be shown or hidden.
+          * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
          */
-        "visible"?: boolean;
+        "value"?: string;
     }
     interface LyneAutocompleteItem {
+        /**
+          * The aria-posinset attribute for the list element
+         */
+        "ariaPosinset"?: number;
+        /**
+          * The aria-selected attribute for the list element
+         */
+        "ariaSelected"?: boolean;
+        /**
+          * The aira-setsize attribute for the list element
+         */
+        "ariaSetsize"?: number;
+        /**
+          * Id which is sent in the select event payload
+         */
+        "eventId"?: string;
         /**
           * The text to highlight within the string property
          */
@@ -980,6 +1035,9 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LyneTextInput {
+        /**
+          * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
+         */
         "debounceInputEvent"?: number;
         /**
           * Id which is sent as the id in the eventDetail payload
@@ -989,6 +1047,18 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "icon"?: string;
+        /**
+          * The aria-autocomplete attribute for the input element.
+         */
+        "inputAriaAutocomplete"?: InterfaceLyneTextInputAttributes['inputAriaAutocomplete'];
+        /**
+          * The id to use as the aira-controls attribute for the input element.
+         */
+        "inputAriaControls"?: string;
+        /**
+          * Set aria-expanded on the input element.
+         */
+        "inputAriaExpanded"?: boolean;
         /**
           * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
          */
@@ -1030,9 +1100,17 @@ declare namespace LocalJSX {
          */
         "inputRequired"?: boolean;
         /**
+          * The role attribute used for the input element.
+         */
+        "inputRole"?: InterfaceLyneTextInputAttributes['inputRole'];
+        /**
           * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
          */
         "inputType": string;
+        /**
+          * Value for the input element.
+         */
+        "inputValue"?: string;
         /**
           * Each input element needs to have a label associated with it.
          */
