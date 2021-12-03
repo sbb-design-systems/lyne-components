@@ -115,11 +115,21 @@ export class LyneAutocomplete {
     this._inputElement.removeEventListener('keydown', this._handleKeyPress);
   };
 
+  private _selectInputText = (): void => {
+    const event = new CustomEvent('select', {
+      bubbles: false,
+      composed: false
+    });
+
+    this._inputElement.dispatchEvent(event);
+  };
+
   private _handleFocus = (evt): void => {
     this._isVisible = true;
     console.log('focus', evt);
 
     this._addKeysEventListener();
+    this._selectInputText();
   };
 
   private _handleInput = (evt): void => {
