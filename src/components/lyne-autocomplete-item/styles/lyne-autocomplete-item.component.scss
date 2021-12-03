@@ -20,6 +20,10 @@
   }
 }
 
+.autocomplete-item--selected {
+  background-color: red;
+}
+
 .autocomplete-item__highlight {
   @include text-s--bold;
 }
