@@ -5,9 +5,18 @@
 
 :host {
   display: block;
-  position: relative;
   border-radius: pxToRem(var(--border-radius-4x));
   background-color: var(--color-white-default);
+}
+
+.autocomplete {
+  position: relative;
+  z-index: 0;
+}
+
+.autocomplete__input {
+  z-index: 2;
+  @include visibleFocus;
 }
 
 .autocomplete__list {
@@ -15,16 +24,23 @@
   position: absolute;
   display: none;
   z-index: -1;
+  cursor:default;
 
   top: calc(100% - #{pxToRem(var(--border-radius-4x))});
   right: 0;
   left: 0;
 
-  padding-top: #{pxToRem(var(--border-radius-4x))};
-
+  padding-top: calc(#{pxToRem(var(--border-radius-4x))} + #{pxToRem(var(--spacing-fixed-3x))});
+  padding-bottom: pxToRem(var(--spacing-fixed-3x));
+  border-bottom-left-radius: pxToRem(var(--border-radius-4x));
+  border-bottom-right-radius: pxToRem(var(--border-radius-4x));
   background-color: gray;
 }
 
 .autocomplete__list--visible {
   display: block;
+}
+
+.autocomplete__accessibility-hint {
+  @include screenReaderOnly;
 }
