@@ -5,6 +5,7 @@ import {
   Prop,
   State
 } from '@stencil/core';
+
 import inputEvents from '../lyne-text-input/lyne-text-input.events';
 import itemsDataHelper from './lyne-autocomplete.helper';
 
@@ -37,25 +38,74 @@ export class LyneAutocomplete {
   @State() private _inputValue: string;
   @State() private _selectedAutocompleteValue: string;
   @State() private _isVisible = false;
+  @State() private _selectedAutocompleteItemIndex = -1;
 
   @Element() private _element: HTMLElement;
 
+  private _dataItems!: [any];
+  private _inputElement!: HTMLLyneTextInputElement;
   private _listElement!: HTMLUListElement;
+
+  private _handleArrowKeys = (key): void => {
+    const isDownKey = key === 'ArrowDown';
+
+    if (isDownKey) {
+      if (this._selectedAutocompleteItemIndex < this._dataItems.length - 1) {
+        this._selectedAutocompleteItemIndex++;
+      } else {
+        this._selectedAutocompleteItemIndex = 0;
+      }
+    } else {
+      if (this._selectedAutocompleteItemIndex > 0) {
+        this._selectedAutocompleteItemIndex--;
+      } else {
+        this._selectedAutocompleteItemIndex = this._dataItems.length - 1;
+      }
+    }
+  };
+
+  private _handleEscapeKey = (): void => {
+    this._handleBlur();
+  };
+
+  private _handleKeyPress = (evt): void => {
+
+    const {
+      key
+    } = evt;
+
+    if (key === 'ArrowDown' || key === 'ArrowUp') {
+      this._handleArrowKeys(key);
+
+      return;
+    }
+
+    if (key === 'Escape') {
+      this._handleEscapeKey();
+    }
+
+  };
 
   private _handleFocus = (evt): void => {
     this._isVisible = true;
     console.log('focus', evt);
+
+    this._inputElement.addEventListener('keydown', this._handleKeyPress);
   };
 
   private _handleInput = (evt): void => {
+    console.log('input');
+
     this._inputValue = evt.detail.value;
 
     this.value = evt.detail.value;
   };
 
-  private _handleBlur = (evt): void => {
+  private _handleBlur = (): void => {
     this._isVisible = false;
-    console.log('blur', evt);
+    console.log('blur');
+
+    this._inputElement.removeEventListener('keydown', this._handleKeyPress);
   };
 
   private _handleListClick = (evt): void => {
@@ -69,10 +119,9 @@ export class LyneAutocomplete {
       [firstElement] = path;
     }
 
-    this._isVisible = false;
-
     this._selectedAutocompleteValue = firstElement.innerText;
     this.value = firstElement.innerText;
+    this._handleBlur();
   };
 
   public componentDidLoad(): void {
@@ -91,7 +140,7 @@ export class LyneAutocomplete {
 
   public render(): JSX.Element {
 
-    const dataCheck = itemsDataHelper(this.items);
+    this._dataItems = itemsDataHelper(this.items);
     let autocompleteClasses = 'autocomplete__list';
 
     if (this._isVisible) {
@@ -117,6 +166,9 @@ export class LyneAutocomplete {
           inputAriaAutocomplete='list'
           inputAriaControls='autocomplete-list'
           inputValue={this.value || this._selectedAutocompleteValue}
+          ref={(el): void => {
+            this._inputElement = el;
+          }}
         ></lyne-text-input>
 
         <ul
@@ -127,13 +179,14 @@ export class LyneAutocomplete {
             this._listElement = el;
           }}
         >
-          {dataCheck.map((item, index) => (
+
+          {this._dataItems.map((item, index) => (
             <lyne-autocomplete-item
               text={item.text}
               highlight={this._inputValue}
-              ariaSelected={false}
+              itemSelected={index === this._selectedAutocompleteItemIndex}
               ariaPosinset={index + 1}
-              ariaSetsize={dataCheck.length}
+              ariaSetsize={this._dataItems.length}
             />
           ))}
         </ul>
