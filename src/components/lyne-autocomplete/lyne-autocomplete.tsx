@@ -6,6 +6,12 @@ import {
   State
 } from '@stencil/core';
 
+import {
+  i18nUseArrowKeysToNavigate,
+  i18nXResultsAvailable
+} from '../../global/i18n';
+
+import getDocumentLang from '../../global/helpers/get-document-lang';
 import inputEvents from '../lyne-text-input/lyne-text-input.events';
 import itemsDataHelper from './lyne-autocomplete.helper';
 
@@ -42,6 +48,7 @@ export class LyneAutocomplete {
 
   @Element() private _element: HTMLElement;
 
+  private _currentLanguage = getDocumentLang();
   private _dataItems!: [any];
   private _inputElement!: HTMLLyneTextInputElement;
   private _listElement!: HTMLUListElement;
@@ -147,6 +154,22 @@ export class LyneAutocomplete {
       autocompleteClasses += ' autocomplete__list--visible';
     }
 
+    const listAttributes = {};
+
+    if (!this._isVisible) {
+      listAttributes['aria-hidden'] = true;
+      listAttributes['role'] = 'presentation';
+    }
+
+    let a11yHintText = '';
+
+    if (this._isVisible) {
+      const a11yResults = i18nXResultsAvailable(this._dataItems.length)[this._currentLanguage];
+      const a11yArrowKeys = i18nUseArrowKeysToNavigate[this._currentLanguage];
+
+      a11yHintText = `${a11yResults} ${a11yArrowKeys}`;
+    }
+
     return (
       <div class='autocomplete'>
 
@@ -178,6 +201,7 @@ export class LyneAutocomplete {
           ref={(el): void => {
             this._listElement = el;
           }}
+          {...listAttributes}
         >
 
           {this._dataItems.map((item, index) => (
@@ -196,7 +220,7 @@ export class LyneAutocomplete {
           role='status'
           aria-live='polite'
           aria-atomic='true'
-        >10 Ergebnisse sind verfügbar, verwenden Sie nach oben und unten Pfeiltasten um zu navigieren.</p>
+        >{a11yHintText}</p>
 
       </div>
     );
