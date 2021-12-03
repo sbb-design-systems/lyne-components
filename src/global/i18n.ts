@@ -7,6 +7,13 @@ export const i18nArrival: any = {
   it: 'Arrivo'
 };
 
+export const i18nAttention: any = {
+  de: 'Achtung',
+  en: 'Attention',
+  fr: 'Attention',
+  it: 'Attenzione'
+};
+
 export const i18nClass: any = {
   first: {
     de: 'Erste Klasse',
@@ -22,6 +29,20 @@ export const i18nClass: any = {
   }
 };
 
+export const i18nConnetionsDepartOn: any = {
+  de: 'Abfahrten am',
+  en: 'Departures on',
+  fr: 'Départs le',
+  it: 'Partenze su'
+};
+
+export const i18nShowConnectionDetailsAndBuyOptions: any = {
+  de: 'Verbindungsdetails und Kaufoptionen',
+  en: 'Connection details and purchase options',
+  fr: 'Détails de la connexion et options d\'achat',
+  it: 'Dettagli di connessione e opzioni di acquisto'
+};
+
 export const i18nDayChange: any = {
   de: 'Tageswechsel',
   en: 'Change of day',
@@ -34,13 +55,6 @@ export const i18nDeparture: any = {
   en: 'Departure',
   fr: 'Départ',
   it: 'Partenza'
-};
-
-export const i18nDepartsOn: any = {
-  de: 'Abfahrt am',
-  en: 'departs on',
-  fr: 'départ le',
-  it: 'artenza il'
 };
 
 export const i18nDeleteCurrentInput: any = {
@@ -201,6 +215,13 @@ export const i18nMandatoryField: any = {
   en: 'Mandatory field, please complete.',
   fr: 'Champ obligatoire, veuillez compléter svp.',
   it: 'Campo obbligatorio, si prega di compilare.'
+};
+
+export const i18nNone: any = {
+  de: 'Keine',
+  en: 'None',
+  fr: 'aucun',
+  it: 'nessuno'
 };
 
 export const i18nOccupancy: any = {

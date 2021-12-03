@@ -4,7 +4,13 @@ import {
   Prop
 } from '@stencil/core';
 
+import getDocumentLang from '../../global/helpers/get-document-lang';
+
 import { InterfaceLyneTimetableCusHimAttributes } from './lyne-timetable-cus-him.custom.d';
+
+import {
+  i18nNone
+} from '../../global/i18n';
 
 @Component({
   shadow: false,
@@ -16,6 +22,8 @@ import { InterfaceLyneTimetableCusHimAttributes } from './lyne-timetable-cus-him
 })
 
 export class LyneTimetableCusHim {
+
+  private _currentLanguage = getDocumentLang();
 
   /**
    * Stringified JSON to define the different outputs of the
@@ -49,32 +57,36 @@ export class LyneTimetableCusHim {
       cusHimItems
     } = JSON.parse(this.config);
 
+    const a11yLabel = i18nNone[this._currentLanguage];
     const variantClass = `cus-him--${this.variant}`;
 
     return (
       <div
         class={`cus-him ${variantClass}`}
-      >
-        <ul
-          class='cus-him__list'
-          role='list'
-        >
-          {cusHimItems.map((cusHimItem) => {
+      >{
+        cusHimItems.length > 0 ?
+          <ul
+            class='cus-him__list'
+            role='list'
+          >
+            {cusHimItems.map((cusHimItem) => {
 
-            return (
-              <li class='cus-him__list-item'>
-                <span
-                  aria-label={cusHimItem.text}
-                  class='cus-him__icon'
-                  role='text'
-                  title={cusHimItem.text}
-                >
-                  <svg><use xlinkHref={`#${cusHimItem.icon}`}></use></svg>
-                </span>
-              </li>
-            );
-          })}
-        </ul>
+              return (
+                <li class='cus-him__list-item'>
+                  <span
+                    aria-label={cusHimItem.text}
+                    class='cus-him__icon'
+                    role='text'
+                    title={cusHimItem.text}
+                  >
+                    <svg><use xlinkHref={`#${cusHimItem.icon}`}></use></svg>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          : <span class="cus-him__text--visually-hidden">{a11yLabel}</span>
+      }
       </div>
     );
   }

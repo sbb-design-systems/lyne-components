@@ -1,9 +1,7 @@
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin, available for shared
-// and default mode
-
-:host {
+lyne-timetable-row-button {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
 button {

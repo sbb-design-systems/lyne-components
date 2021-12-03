@@ -1,12 +1,16 @@
 export default [
   {
-    day: 'Tuesday',
+    colSpan: 7,
+    date: '02.12.2021',
+    day: 'Thursday',
     dayChange: false,
-    date: '02.12.2021'
+    hidden: true
   },
   {
+    colSpan: 7,
+    date: '03.12.2021',
     day: 'Friday',
     dayChange: true,
-    date: '03.12.2021'
+    hidden: false
   }
 ];

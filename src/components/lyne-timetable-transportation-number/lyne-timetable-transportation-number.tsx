@@ -36,7 +36,7 @@ export class LyneTimetableTransportationNumber {
   public render(): JSX.Element {
 
     const config = JSON.parse(this.config);
-    const a11yLabel = `${config.meansOfTransport.text} ${config.product.text} ${config.direction}`;
+    const a11yLabel = `${config.meansOfTransport.text} ${config.product.text} ${config.marketingName} ${config.direction}`;
 
     /**
      * role='text' is used here to allow assistive
@@ -76,7 +76,7 @@ export class LyneTimetableTransportationNumber {
           }
           <span class='transportation-number__direction'>
             <span class='transportation-number__direction_text'>
-              {config.direction}
+              {config.marketingName} {config.direction}
             </span>
           </span>
         </span>

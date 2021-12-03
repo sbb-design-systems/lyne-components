@@ -7,8 +7,9 @@ import {
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
 import {
+  i18nAttention,
+  i18nConnetionsDepartOn,
   i18nDayChange,
-  i18nDepartsOn
 } from '../../global/i18n';
 
 @Component({
@@ -30,23 +31,34 @@ export class LyneTimetableRowDayChange {
 
     const config = JSON.parse(this.config);
 
+    let attention = '';
     let dayChange = '';
+    let visuallyHiddenClass = '';
 
     if (config.dayChange) {
+      attention = `${i18nAttention[this._currentLanguage]}: `;
       dayChange = `${i18nDayChange[this._currentLanguage]}, `;
     }
 
-    const departsOn = i18nDepartsOn[this._currentLanguage];
+    if (config.hidden) {
+      visuallyHiddenClass = ' day-change--visually-hidden';
+    }
+
+    const departsOn = `${i18nConnetionsDepartOn[this._currentLanguage]} `;
 
     const visualText = `${config.day}, ${config.date}`;
-    const a11yLabel = `${dayChange} ${departsOn} ${config.day}, ${config.date}`;
+    const a11yLabel = `${dayChange}${attention}${departsOn}${config.day}, ${config.date}`;
 
     return (
-      <p
-        aria-label={a11yLabel}
-        class='day-change'
-        role='text'
+      <div
+        class={`day-change${visuallyHiddenClass}`}
+        // @ts-ignore
+        colspan={config.colSpan}
+        role='gridcell'
       >
+        <h2
+          class='day-change__text'
+        >
         <span
           aria-hidden='true'
           class='day-change__text--visual'
@@ -54,10 +66,16 @@ export class LyneTimetableRowDayChange {
         >
           {visualText}
         </span>
-        <span class='day-change__text--visually-hidden'>
-          {a11yLabel}
+        <span
+          aria-label={a11yLabel}
+          class='day-change__text--visually-hidden'
+          role='text'
+        >
+          {dayChange} {attention} {departsOn} {config.day}, {config.date}
         </span>
-      </p>
+        </h2>
+      </div>
+
     );
   }
 }

@@ -1,6 +1,7 @@
 export default [
   'Short Infos',
-  'Details',
+  'Summary',
+  '',
   'Platfom',
   'Occupancy Forecast',
   'Travel hints',

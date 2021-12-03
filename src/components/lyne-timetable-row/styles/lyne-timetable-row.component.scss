@@ -36,6 +36,17 @@
   float: left;
 }
 
+.timetable__row > lyne-timetable-row-header {
+  @include screenReaderOnly();
+}
+
+.timetable__row > lyne-timetable-row-button {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: all;
+}
+
 .timetable__row > lyne-timetable-transportation-details {
   display: flex;
   flex: 0 0 100%;
@@ -53,11 +64,4 @@
 
 .timetable__row > lyne-timetable-duration {
   justify-content: flex-end;
-}
-
-.timetable__row > lyne-timetable-row-button {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: all;
 }

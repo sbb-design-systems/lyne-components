@@ -6,7 +6,14 @@ import {
   Watch
 } from '@stencil/core';
 import events from './lyne-timetable-row-button.events';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 import { InterfaceLyneTimetableRowButtonAttributes } from './lyne-timetable-row-button.custom.d';
+
+import {
+  i18nShowConnectionDetailsAndBuyOptions
+} from '../../global/i18n';
+
+
 
 @Component({
   shadow: true,
@@ -20,6 +27,7 @@ import { InterfaceLyneTimetableRowButtonAttributes } from './lyne-timetable-row-
 export class LyneTimetableRowButton {
 
   private _button!: HTMLElement;
+  private _currentLanguage = getDocumentLang();
 
   @Element() private _element: HTMLElement;
 
@@ -61,7 +69,7 @@ export class LyneTimetableRowButton {
       <button
         aria-expanded='false'
         aria-haspopup='true'
-        aria-label='test'
+        aria-label={`${i18nShowConnectionDetailsAndBuyOptions[this._currentLanguage]}`}
         aria-pressed='false'
         onClick={this._clickHandler}
         ref={(el): void => {

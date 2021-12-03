@@ -3,6 +3,7 @@ import lyneIcons from 'lyne-icons/dist/icons.json';
 export default {
   bus: {
     direction: 'Richtung Bern Wankdorf, Bahnhof',
+    marketingName: '',
     meansOfTransport: {
       picto: 'transportation-bus-right',
       text: 'Bus'
@@ -13,7 +14,8 @@ export default {
     }
   },
   cableCar: {
-    direction: 'Direction Riederalp West and some more text and even more more more',
+    direction: 'Direction Riederalp West',
+    marketingName: 'Aletsch Express',
     meansOfTransport: {
       picto: 'transportation-luftseilbahn-right',
       text: 'Cable Car'
@@ -25,6 +27,7 @@ export default {
   },
   train: {
     direction: 'Direction Romanshorn',
+    marketingName: '',
     meansOfTransport: {
       picto: 'transportation-zug-right',
       text: 'Train'
@@ -36,6 +39,7 @@ export default {
   },
   tram: {
     direction: 'Richtung Bern Wankdorf, Bahnhof',
+    marketingName: '',
     meansOfTransport: {
       picto: 'transportation-tram-right',
       text: 'Tram'

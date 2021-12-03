@@ -16,8 +16,9 @@
 
 ### Depends on
 
-- [lyne-timetable-row-button](../lyne-timetable-row-button)
+- [lyne-timetable-row-header](../lyne-timetable-row-header)
 - [lyne-timetable-transportation-details](../lyne-timetable-transportation-details)
+- [lyne-timetable-row-button](../lyne-timetable-row-button)
 - [lyne-timetable-platform](../lyne-timetable-platform)
 - [lyne-timetable-occupancy](../lyne-timetable-occupancy)
 - [lyne-timetable-travel-hints](../lyne-timetable-travel-hints)
@@ -27,8 +28,9 @@
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-row --> lyne-timetable-row-button
+  lyne-timetable-row --> lyne-timetable-row-header
   lyne-timetable-row --> lyne-timetable-transportation-details
+  lyne-timetable-row --> lyne-timetable-row-button
   lyne-timetable-row --> lyne-timetable-platform
   lyne-timetable-row --> lyne-timetable-occupancy
   lyne-timetable-row --> lyne-timetable-travel-hints

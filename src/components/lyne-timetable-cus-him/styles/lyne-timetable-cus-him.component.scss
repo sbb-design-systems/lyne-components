@@ -65,3 +65,7 @@
   width: pxToRem(var(--cus-him-icon-height));
   height: pxToRem(var(--cus-him-icon-width));
 }
+
+.cus-him__text--visually-hidden {
+  @include screenReaderOnly();
+}
