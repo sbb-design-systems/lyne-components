@@ -75,6 +75,14 @@ export class LyneAutocomplete {
     this._handleBlur();
   };
 
+  private _handleEnterKey = (): void => {
+    const value = this._dataItems[this._selectedAutocompleteItemIndex].text;
+
+    this._selectedAutocompleteValue = value;
+    this.value = value;
+    this._handleBlur();
+  };
+
   private _handleKeyPress = (evt): void => {
 
     const {
@@ -89,30 +97,52 @@ export class LyneAutocomplete {
 
     if (key === 'Escape') {
       this._handleEscapeKey();
+
+      return;
     }
 
+    if (key === 'Enter') {
+      this._handleEnterKey();
+    }
+
+  };
+
+  private _addKeysEventListener = (): void => {
+    this._inputElement.addEventListener('keydown', this._handleKeyPress);
+  };
+
+  private _removeKeysEventListener = (): void => {
+    this._inputElement.removeEventListener('keydown', this._handleKeyPress);
   };
 
   private _handleFocus = (evt): void => {
     this._isVisible = true;
     console.log('focus', evt);
 
-    this._inputElement.addEventListener('keydown', this._handleKeyPress);
+    this._addKeysEventListener();
   };
 
   private _handleInput = (evt): void => {
-    console.log('input');
-
     this._inputValue = evt.detail.value;
-
     this.value = evt.detail.value;
+
+    /**
+     * scenario: user is selecting an item from the autocomplete. in this
+     * case, we want the keys event listeners still to be active, since
+     * we want to open the autocomplete again once the user starts typing
+     * again. That's why we don't attach the listeners to in the focus
+     * handler.
+     */
+    this._isVisible = true;
+    this._addKeysEventListener();
+
   };
 
   private _handleBlur = (): void => {
     this._isVisible = false;
     console.log('blur');
 
-    this._inputElement.removeEventListener('keydown', this._handleKeyPress);
+    this._removeKeysEventListener();
   };
 
   private _handleListClick = (evt): void => {
