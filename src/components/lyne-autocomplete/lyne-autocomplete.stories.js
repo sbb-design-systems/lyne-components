@@ -9,7 +9,7 @@ const Template = (args) => (
 export const story1 = Template.bind({});
 
 story1.args = {
-  'some-prop': 'opt1'
+  value: 'opt1'
 };
 
 story1.documentation = {
