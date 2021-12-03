@@ -31,6 +31,24 @@ export class LyneAutocompleteItem {
    */
   @Prop() public highlight?: string;
 
+  /**
+   * The aria-selected attribute for the list element
+   */
+  @Prop() public ariaSelected?: boolean;
+
+  /**
+   * The aria-posinset attribute for the list element
+   */
+  @Prop() public ariaPosinset?: number;
+
+  /**
+   * The aira-setsize attribute for the list element
+   */
+  @Prop() public ariaSetsize?: number;
+
+  /** Id which is sent in the select event payload */
+  @Prop() public eventId?: string;
+
   private _compileTextMarkup(text: string, highlight: string): InterfaceAutocompleteItemAttributes['textStructure'] {
     const index = text.indexOf(highlight);
 
@@ -50,6 +68,34 @@ export class LyneAutocompleteItem {
     };
   }
 
+  private _setAriaAttributes(): any {
+
+    let attrs = {};
+
+    if (this.ariaSelected) {
+      attrs = {
+        ...attrs,
+        'aria-selected': this.ariaSelected
+      };
+    }
+
+    if (this.ariaPosinset) {
+      attrs = {
+        ...attrs,
+        'aria-posinset': this.ariaPosinset
+      };
+    }
+
+    if (this.ariaSetsize) {
+      attrs = {
+        ...attrs,
+        'aria-setsize': this.ariaSetsize
+      };
+    }
+
+    return attrs;
+  }
+
   public render(): JSX.Element {
     let textMarkup: InterfaceAutocompleteItemAttributes['textStructure'] = {
       main: ''
@@ -66,7 +112,15 @@ export class LyneAutocompleteItem {
       : '';
 
     return (
-      <li class='autocomplete-item'>
+      <li
+        class='autocomplete-item'
+        tabindex='-1'
+
+        /* eslint-disable jsx-a11y/role-has-required-aria-props */
+        role='option'
+        /* eslint-enable jsx-a11y/role-has-required-aria-props */
+        {...this._setAriaAttributes()}
+      >
         <slot name='pre-text' />
 
         {textMarkup.pre &&
