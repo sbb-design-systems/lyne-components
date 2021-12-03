@@ -32,9 +32,10 @@ export class LyneAutocompleteItem {
   @Prop() public highlight?: string;
 
   /**
-   * The aria-selected attribute for the list element
+   * Mark the item as selected, which will change it's appearance and
+   * the according aria attributes.
    */
-  @Prop() public ariaSelected?: boolean;
+  @Prop() public itemSelected?: boolean;
 
   /**
    * The aria-posinset attribute for the list element
@@ -72,10 +73,10 @@ export class LyneAutocompleteItem {
 
     let attrs = {};
 
-    if (this.ariaSelected) {
+    if (this.itemSelected) {
       attrs = {
         ...attrs,
-        'aria-selected': this.ariaSelected
+        'aria-selected': this.itemSelected
       };
     }
 
@@ -107,13 +108,19 @@ export class LyneAutocompleteItem {
       textMarkup = this._compileTextMarkup(this.text, this.highlight);
     }
 
-    const modifierClass = textMarkup.pre || textMarkup.post
+    let mainClasses = 'autocomplete-item';
+
+    mainClasses += this.itemSelected
+      ? ' autocomplete-item--selected'
+      : '';
+
+    const itemClasses = textMarkup.pre || textMarkup.post
       ? 'autocomplete-item__highlight'
       : '';
 
     return (
       <li
-        class='autocomplete-item'
+        class={mainClasses}
         tabindex='-1'
 
         /* eslint-disable jsx-a11y/role-has-required-aria-props */
@@ -127,7 +134,7 @@ export class LyneAutocompleteItem {
           <span>{textMarkup.pre}</span>
         }
 
-        <span class={modifierClass}>{textMarkup.main}</span>
+        <span class={itemClasses}>{textMarkup.main}</span>
 
         {textMarkup.post &&
           <span>{textMarkup.post}</span>
