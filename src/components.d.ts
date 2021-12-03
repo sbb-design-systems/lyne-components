@@ -71,10 +71,6 @@ export namespace Components {
          */
         "ariaPosinset"?: number;
         /**
-          * The aria-selected attribute for the list element
-         */
-        "ariaSelected"?: boolean;
-        /**
           * The aira-setsize attribute for the list element
          */
         "ariaSetsize"?: number;
@@ -86,6 +82,10 @@ export namespace Components {
           * The text to highlight within the string property
          */
         "highlight"?: string;
+        /**
+          * Mark the item as selected, which will change it's appearance and the according aria attributes.
+         */
+        "itemSelected"?: boolean;
         /**
           * Text to show as content of the autocomplete item
          */
@@ -704,10 +704,6 @@ declare namespace LocalJSX {
          */
         "ariaPosinset"?: number;
         /**
-          * The aria-selected attribute for the list element
-         */
-        "ariaSelected"?: boolean;
-        /**
           * The aira-setsize attribute for the list element
          */
         "ariaSetsize"?: number;
@@ -719,6 +715,10 @@ declare namespace LocalJSX {
           * The text to highlight within the string property
          */
         "highlight"?: string;
+        /**
+          * Mark the item as selected, which will change it's appearance and the according aria attributes.
+         */
+        "itemSelected"?: boolean;
         /**
           * Text to show as content of the autocomplete item
          */
