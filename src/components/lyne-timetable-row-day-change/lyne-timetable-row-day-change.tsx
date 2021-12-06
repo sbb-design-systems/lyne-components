@@ -52,7 +52,11 @@ export class LyneTimetableRowDayChange {
     return (
       <div
         class={`day-change${visuallyHiddenClass}`}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
+        /**
+         * @ts-expect-error since we give the div a role gridcell we can
+         * use colspan, which would normally be an invalid attribute on a div.
+         */
         colspan={config.colSpan}
         role='gridcell'
       >

@@ -7,16 +7,16 @@
 
 ## Properties
 
-| Property   | Attribute   | Description                | Type               | Default     |
-| ---------- | ----------- | -------------------------- | ------------------ | ----------- |
-| `someProp` | `some-prop` | Documentation for someProp | `"opt1" \| "opt2"` | `undefined` |
+| Property  | Attribute | Description                                                                                | Type                                                                  | Default                 |
+| --------- | --------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- | ----------------------- |
+| `variant` | `variant` | Variant of the Timetable Button, can either be used on level 1 or level 2 of the timetable | `"cus-him" \| "earlier-connections" \| "later-connections" \| "walk"` | `'earlier-connections'` |
 
 
 ## Slots
 
 | Slot        | Description                  |
 | ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| `"cus-him"` | Use this to document a slot. |
 
 
 ----------------------------------------------

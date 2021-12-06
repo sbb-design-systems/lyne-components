@@ -28,10 +28,10 @@ import {
 
 export class LyneTimetableButton {
 
-  private _a11yLabel!: string;
+  /* private _a11yLabel!: string;
   private _additionalButtonClasses = [];
   private _additionalButtonAttributes = {};
-  private _additionalText?: string;
+  private _additionalText?: string; */
   private _button!: HTMLElement;
   private _currentLanguage = getDocumentLang();
   private _ctaText!: string;
@@ -52,6 +52,8 @@ export class LyneTimetableButton {
       composed: true,
       detail: 'some event detail'
     });
+
+    this._button.innerHTML = 'test';
 
     this._element.dispatchEvent(event);
   };
@@ -81,6 +83,8 @@ export class LyneTimetableButton {
   public render(): JSX.Element {
 
     const variantClass = ` button--${this.variant}`;
+
+    this._prepareButtonText();
 
     return (
       <button
