@@ -4,7 +4,6 @@ import {
   Prop
 } from '@stencil/core';
 
-
 @Component({
   shadow: false,
   styleUrls: {

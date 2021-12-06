@@ -9,7 +9,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
   i18nAttention,
   i18nConnetionsDepartOn,
-  i18nDayChange,
+  i18nDayChange
 } from '../../global/i18n';
 
 @Component({
@@ -52,30 +52,27 @@ export class LyneTimetableRowDayChange {
     return (
       <div
         class={`day-change${visuallyHiddenClass}`}
-        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         colspan={config.colSpan}
         role='gridcell'
       >
-        <h2
-          class='day-change__text'
-        >
-        <span
-          aria-hidden='true'
-          class='day-change__text--visual'
-          role='presentation'
-        >
-          {visualText}
-        </span>
-        <span
-          aria-label={a11yLabel}
-          class='day-change__text--visually-hidden'
-          role='text'
-        >
-          {dayChange} {attention} {departsOn} {config.day}, {config.date}
-        </span>
+        <h2 class='day-change__text'>
+          <span
+            aria-hidden='true'
+            class='day-change__text--visual'
+            role='presentation'
+          >
+            {visualText}
+          </span>
+          <span
+            aria-label={a11yLabel}
+            class='day-change__text--visually-hidden'
+            role='text'
+          >
+            {dayChange} {attention} {departsOn} {config.day}, {config.date}
+          </span>
         </h2>
       </div>
-
     );
   }
 }

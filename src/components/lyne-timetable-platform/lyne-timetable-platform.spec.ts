@@ -1,6 +1,6 @@
 import { LyneTimetablePlatform } from './lyne-timetable-platform';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-transportation-number.sample-data';
+import sampleData from './lyne-timetable-platform.sample-data';
 
 describe('lyne-timetable-platform', () => {
   it('renders', async () => {

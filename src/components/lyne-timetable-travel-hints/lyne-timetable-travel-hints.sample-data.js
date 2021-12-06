@@ -14,5 +14,8 @@ export default [
         text: 'Description what sa-zm means...'
       }
     ]
+  },
+  {
+    travelHintsItems: []
   }
 ];

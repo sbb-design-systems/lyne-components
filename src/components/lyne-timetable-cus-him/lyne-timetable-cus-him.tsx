@@ -5,12 +5,8 @@ import {
 } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
-
 import { InterfaceLyneTimetableCusHimAttributes } from './lyne-timetable-cus-him.custom.d';
-
-import {
-  i18nNone
-} from '../../global/i18n';
+import { i18nNone } from '../../global/i18n';
 
 @Component({
   shadow: false,
@@ -58,20 +54,17 @@ export class LyneTimetableCusHim {
     } = JSON.parse(this.config);
 
     const a11yLabel = i18nNone[this._currentLanguage];
-    const variantClass = `cus-him--${this.variant}`;
+    const variantClass = ` cus-him--${this.variant}`;
 
     return (
-      <div
-        class={`cus-him ${variantClass}`}
-      >{
-        cusHimItems.length > 0 ?
-          <ul
-            class='cus-him__list'
-            role='list'
-          >
-            {cusHimItems.map((cusHimItem) => {
-
-              return (
+      <div class={`cus-him${variantClass}`}>
+        {
+          cusHimItems.length > 0
+            ? <ul
+              class='cus-him__list'
+              role='list'
+            >
+              {cusHimItems.map((cusHimItem) => (
                 <li class='cus-him__list-item'>
                   <span
                     aria-label={cusHimItem.text}
@@ -82,11 +75,10 @@ export class LyneTimetableCusHim {
                     <svg><use xlinkHref={`#${cusHimItem.icon}`}></use></svg>
                   </span>
                 </li>
-              );
-            })}
-          </ul>
-          : <span class="cus-him__text--visually-hidden">{a11yLabel}</span>
-      }
+              ))}
+            </ul>
+            : <span class='cus-him__text--visually-hidden'>{a11yLabel}</span>
+        }
       </div>
     );
   }

@@ -32,9 +32,9 @@
   height: pxToRem(var(--travel-hint-icon-height));
 }
 
-// ----------------------------------------------------------------------------------------------------
-// WM00 - SVG Sprite Special Timetable Overwrites
-// ----------------------------------------------------------------------------------------------------
+.travel-hints__text--visually-hidden {
+  @include screenReaderOnly();
+}
 
 // This might look like a terribly complicated solution but was unfortunately the most efficient and
 // flexible way to achieve the desired visual outcome under the current setup with image sprites and

@@ -7,13 +7,8 @@ import {
 } from '@stencil/core';
 import events from './lyne-timetable-row-button.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
 import { InterfaceLyneTimetableRowButtonAttributes } from './lyne-timetable-row-button.custom.d';
-
-import {
-  i18nShowConnectionDetailsAndBuyOptions
-} from '../../global/i18n';
-
-
 
 @Component({
   shadow: true,

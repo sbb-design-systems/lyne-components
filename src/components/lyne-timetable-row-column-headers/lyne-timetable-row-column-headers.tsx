@@ -27,9 +27,7 @@ export class LyneTimetableRowColumnHeaders {
         role='none'
       >
         {
-          columnHeaders.map((columnHeader) => {
-            return <div role='columnheader'>{columnHeader}</div>
-          })
+          columnHeaders.map((columnHeader) => <div role='columnheader'>{columnHeader}</div>)
         }
       </div>
 

@@ -73,7 +73,7 @@ export class LyneTimetableTransportationWalk {
         title={a11yLabel}
       >
         <span class='walk__icon'>
-            <svg><use xlinkHref='#walk-small'></use></svg>
+          <svg><use xlinkHref='#walk-small'></use></svg>
         </span>
         <span
           aria-hidden='true'

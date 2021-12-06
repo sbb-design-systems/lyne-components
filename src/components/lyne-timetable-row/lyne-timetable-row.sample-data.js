@@ -67,6 +67,6 @@ export default [
     occupancy: occupancyItemsData[5],
     platform: platformData[1],
     rowHeader: rowHeaderData[1],
-    travelHints: travelHintsData[0]
+    travelHints: travelHintsData[1]
   }
 ];

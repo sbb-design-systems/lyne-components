@@ -195,6 +195,13 @@ export const i18nDurationHour: any = {
   }
 };
 
+export const i18nEarlierConnections: any = {
+  de: 'Frühere Verbindungen',
+  en: 'Earlier connections',
+  fr: 'Connexions antérieures',
+  it: 'Collegamenti precedenti'
+};
+
 export const i18nFromPlatform: any = {
   long: {
     de: 'Von Gleis',
@@ -208,6 +215,13 @@ export const i18nFromPlatform: any = {
     fr: 'Voie',
     it: 'Bin.'
   }
+};
+
+export const i18nLaterConnections: any = {
+  de: 'Spätere Verbindungen',
+  en: 'Later connections',
+  fr: 'Connexions ultérieures',
+  it: 'Collegamenti successivi'
 };
 
 export const i18nMandatoryField: any = {

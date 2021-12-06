@@ -14,6 +14,7 @@ import {
 })
 
 export class LyneTimetableDetails {
+
   /**
    * Stringified JSON to define the different outputs of the
    * occupancy predicition cell.
@@ -47,11 +48,11 @@ export class LyneTimetableDetails {
           role='none'
         ></lyne-timetable-transportation-number>
         {
-          config.departureWalk.duration > 0 ?
-            <lyne-timetable-transportation-walk
+          config.departureWalk.duration > 0
+            ? <lyne-timetable-transportation-walk
               config={JSON.stringify(config.departureWalk)}
             ></lyne-timetable-transportation-walk>
-          : ''
+            : ''
         }
         <lyne-timetable-transportation-time
           config={JSON.stringify(config.departureTime)}
@@ -64,8 +65,8 @@ export class LyneTimetableDetails {
           config={JSON.stringify(config.arrivalTime)}
         ></lyne-timetable-transportation-time>
         {
-          config.arrivalWalk.duration > 0 ?
-            <lyne-timetable-transportation-walk
+          config.arrivalWalk.duration > 0
+            ? <lyne-timetable-transportation-walk
               config={JSON.stringify(config.arrivalWalk)}
             ></lyne-timetable-transportation-walk>
             : ''

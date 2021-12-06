@@ -18,6 +18,7 @@ import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
+import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
 import { InterfaceLyneTimetableRowButtonAttributes } from "./components/lyne-timetable-row-button/lyne-timetable-row-button.custom.d";
 import { InterfaceLyneTimetableTravelHintsAttributes } from "./components/lyne-timetable-travel-hints/lyne-timetable-travel-hints.custom.d";
@@ -428,6 +429,12 @@ export namespace Components {
     }
     interface LyneTimetable {
     }
+    interface LyneTimetableButton {
+        /**
+          * Variant of the Timetable Button, can either be used on level 1 or level 2 of the timetable
+         */
+        "variant"?: InterfaceLyneTimetableButtonAttributes['variant'];
+    }
     interface LyneTimetableCusHim {
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
@@ -649,6 +656,12 @@ declare global {
         prototype: HTMLLyneTimetableElement;
         new (): HTMLLyneTimetableElement;
     };
+    interface HTMLLyneTimetableButtonElement extends Components.LyneTimetableButton, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableButtonElement: {
+        prototype: HTMLLyneTimetableButtonElement;
+        new (): HTMLLyneTimetableButtonElement;
+    };
     interface HTMLLyneTimetableCusHimElement extends Components.LyneTimetableCusHim, HTMLStencilElement {
     }
     var HTMLLyneTimetableCusHimElement: {
@@ -757,6 +770,7 @@ declare global {
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-timetable": HTMLLyneTimetableElement;
+        "lyne-timetable-button": HTMLLyneTimetableButtonElement;
         "lyne-timetable-cus-him": HTMLLyneTimetableCusHimElement;
         "lyne-timetable-duration": HTMLLyneTimetableDurationElement;
         "lyne-timetable-occupancy": HTMLLyneTimetableOccupancyElement;
@@ -1181,6 +1195,12 @@ declare namespace LocalJSX {
     }
     interface LyneTimetable {
     }
+    interface LyneTimetableButton {
+        /**
+          * Variant of the Timetable Button, can either be used on level 1 or level 2 of the timetable
+         */
+        "variant"?: InterfaceLyneTimetableButtonAttributes['variant'];
+    }
     interface LyneTimetableCusHim {
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
@@ -1316,6 +1336,7 @@ declare namespace LocalJSX {
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
         "lyne-timetable": LyneTimetable;
+        "lyne-timetable-button": LyneTimetableButton;
         "lyne-timetable-cus-him": LyneTimetableCusHim;
         "lyne-timetable-duration": LyneTimetableDuration;
         "lyne-timetable-occupancy": LyneTimetableOccupancy;
@@ -1354,6 +1375,7 @@ declare module "@stencil/core" {
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-timetable": LocalJSX.LyneTimetable & JSXBase.HTMLAttributes<HTMLLyneTimetableElement>;
+            "lyne-timetable-button": LocalJSX.LyneTimetableButton & JSXBase.HTMLAttributes<HTMLLyneTimetableButtonElement>;
             "lyne-timetable-cus-him": LocalJSX.LyneTimetableCusHim & JSXBase.HTMLAttributes<HTMLLyneTimetableCusHimElement>;
             "lyne-timetable-duration": LocalJSX.LyneTimetableDuration & JSXBase.HTMLAttributes<HTMLLyneTimetableDurationElement>;
             "lyne-timetable-occupancy": LocalJSX.LyneTimetableOccupancy & JSXBase.HTMLAttributes<HTMLLyneTimetableOccupancyElement>;
