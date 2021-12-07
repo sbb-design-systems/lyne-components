@@ -101,9 +101,8 @@ export class LyneAutocompleteItem {
     let textMarkup: InterfaceAutocompleteItemAttributes['textStructure'] = {
       main: ''
     };
-    const hasNoHighlight = !this.highlight || this.highlight.length < 1;
 
-    if (hasNoHighlight) {
+    if (!this.highlight || this.highlight.length < 1) {
       textMarkup.main = this.text;
     } else {
       textMarkup = this._compileTextMarkup(this.text, this.highlight);
@@ -115,9 +114,9 @@ export class LyneAutocompleteItem {
       ? ' autocomplete-item--selected'
       : '';
 
-    mainClasses += hasNoHighlight
-      ? ''
-      : ' autocomplete-item--has-hightlight';
+    mainClasses += textMarkup.pre || textMarkup.post
+      ? ' autocomplete-item--has-hightlight'
+      : '';
 
     const itemClasses = textMarkup.pre || textMarkup.post
       ? 'autocomplete-item__highlight'
