@@ -306,6 +306,10 @@ export class LyneTextInput {
     this._inputElement.select();
   };
 
+  private _handleNativeFocus = (): void => {
+    this._inputElement.focus();
+  };
+
   public componentWillLoad(): void {
     if (this.inputId) {
       this._id = this.inputId;
@@ -316,10 +320,12 @@ export class LyneTextInput {
 
   public componentDidLoad(): void {
     this._element.addEventListener('select', this._handleNativeSelect);
+    this._element.addEventListener('focus', this._handleNativeFocus);
   }
 
   public disconnectCallback(): void {
     this._element.removeEventListener('select', this._handleNativeSelect);
+    this._element.removeEventListener('focus', this._handleNativeFocus);
   }
 
   public render(): JSX.Element {
