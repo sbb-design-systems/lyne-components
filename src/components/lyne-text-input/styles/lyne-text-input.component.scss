@@ -64,9 +64,6 @@
   background-color: var(--background-color-default);
   border: pxToRem(1) solid var(--border-color-default);
   border-radius: pxToRem(var(--border-radius-4x));
-
-  @include visibleFocus();
-
 }
 
 // Input Variant
