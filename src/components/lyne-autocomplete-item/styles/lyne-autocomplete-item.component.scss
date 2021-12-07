@@ -20,12 +20,16 @@
   }
 }
 
+.autocomplete-item--has-hightlight {
+  @include text-s--bold;
+}
+
 .autocomplete-item--selected {
   background-color: red;
 }
 
 .autocomplete-item__highlight {
-  @include text-s--bold;
+  @include text-s--regular;
 }
 
 .autocomplete-item:hover,
