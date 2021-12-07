@@ -157,11 +157,7 @@ export class LyneAutocomplete {
 
   private _handleBlur = (): void => {
     this._isVisible = false;
-
     this._focusInputText();
-
-    console.log('blur');
-
   };
 
   private _handleListClick = (evt): void => {
