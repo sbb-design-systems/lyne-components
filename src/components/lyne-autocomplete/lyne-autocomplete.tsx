@@ -156,8 +156,8 @@ export class LyneAutocomplete {
   };
 
   private _handleBlur = (): void => {
-    this._isVisible = false;
     this._focusInputText();
+    this._isVisible = false;
   };
 
   private _handleListClick = (evt): void => {
