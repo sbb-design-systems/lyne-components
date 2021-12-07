@@ -9,6 +9,8 @@
 
 .autocomplete-item {
   @include text-s--regular;
+  background-color: var(--color-white-default);
+  border-radius: pxToRem(var(--border-radius-4x));
   padding-block-start: pxToRem(var(--spacing-fixed-2x));
   padding-block-end: pxToRem(var(--spacing-fixed-2x));
   padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-zero));
@@ -24,17 +26,14 @@
   @include text-s--bold;
 }
 
-.autocomplete-item--selected {
-  background-color: red;
-}
-
 .autocomplete-item__highlight {
   @include text-s--regular;
 }
 
+.autocomplete-item--selected,
 .autocomplete-item:hover,
 .autocomplete-item:focus {
-  background-color: red;
+  background-color: var(--color-milk-default);
 }
 
 .autocomplete-item > span {
