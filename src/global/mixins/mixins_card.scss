@@ -2,26 +2,105 @@
 // Card: Mixins & CSS variables
 // -----------------------------------------------------------------------------
 
-@mixin card {
+@mixin card-host-properties {
   --card-border-radius: var(--border-radius-8x);
-  // @todo card spacing is defined as --spacing-responsive-xxs-zero by design
-  // but this leads to overlap with card badge ...
-  --card-padding: var(--spacing-responsive-s-zero);
+  --card-padding-top: 0;
+  --card-padding-right: 0;
+  --card-padding-bottom: 0;
+  --card-padding-left: 0;
+}
 
-  padding: pxToRem(var(--card-padding));
-  background-color: var(--card-background-color);
+@mixin card {
   border-radius: pxToRem(var(--card-border-radius));
+
+  padding-top: var(--card-padding-top);
+  padding-right: var(--card-padding-right);
+  padding-bottom: var(--card-padding-bottom);
+  padding-left: var(--card-padding-left);
+
+  background-color: var(--card-background-color);
 
   position: relative;
   overflow: hidden;
 }
 
+// Card appearance
 @mixin card--primary {
   --card-background-color: var(--color-milk-default);
-  @include card;
 }
 
 @mixin card--primary-negative {
   --card-background-color: var(--color-white-default);
-  @include card;
+}
+
+// Card sizing
+@mixin card--xs {
+  @include spacing-responsive-xxs('--card-padding-right');
+  @include spacing-responsive-xxs('--card-padding-left');
+  --card-padding-top: #{pxToRem(var(--spacing-fixed-3x))};
+  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-3x))};
+}
+
+@mixin card--s {
+  @include spacing-responsive-xxs('--card-padding-top');
+  @include spacing-responsive-xxs('--card-padding-right');
+  @include spacing-responsive-xxs('--card-padding-bottom');
+  @include spacing-responsive-xxs('--card-padding-left');
+}
+
+@mixin card--m {
+  @include spacing-responsive-xxs('--card-padding-right');
+  @include spacing-responsive-xxs('--card-padding-left');
+  --card-padding-top: #{pxToRem(var(--spacing-fixed-4x))};
+  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
+}
+
+@mixin card--m--tall {
+  @include spacing-responsive-xxs('--card-padding-right');
+  @include spacing-responsive-xxs('--card-padding-left');
+  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
+}
+
+@mixin card--l {
+  @include spacing-responsive-xxs('--card-padding-top');
+  @include spacing-responsive-xxs('--card-padding-right');
+  @include spacing-responsive-xxs('--card-padding-bottom');
+  @include spacing-responsive-xxs('--card-padding-left');
+}
+
+@mixin card--l--tall  {
+  @include spacing-responsive-xxs('--card-padding-right');
+  @include spacing-responsive-xxs('--card-padding-bottom');
+  @include spacing-responsive-xxs('--card-padding-left');
+  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+}
+
+@mixin card--xl {
+  @include spacing-responsive-xxs('--card-padding-top');
+  @include spacing-responsive-s('--card-padding-right');
+  @include spacing-responsive-xxs('--card-padding-bottom');
+  @include spacing-responsive-s('--card-padding-left');
+}
+
+@mixin card--xl--tall {
+  @include spacing-responsive-s('--card-padding-right');
+  @include spacing-responsive-xxs('--card-padding-bottom');
+  @include spacing-responsive-s('--card-padding-left');
+  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+}
+
+@mixin card--xxl {
+  @include spacing-responsive-s('--card-padding-top');
+  @include spacing-responsive-s('--card-padding-right');
+  @include spacing-responsive-s('--card-padding-bottom');
+  @include spacing-responsive-s('--card-padding-left');
+}
+
+@mixin card--xxl--tall {
+  @include card--xxl;
+  // @include spacing-responsive-s('--card-padding-top');
+  // @include spacing-responsive-s('--card-padding-right');
+  // @include spacing-responsive-s('--card-padding-bottom');
+  // @include spacing-responsive-s('--card-padding-left');
 }
