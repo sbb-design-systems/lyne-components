@@ -54,6 +54,8 @@ export class LyneAutocomplete {
   private _listElement!: HTMLUListElement;
 
   private _handleArrowKeys = (key): void => {
+    this._isVisible = true;
+
     const isDownKey = key === 'ArrowDown';
 
     if (isDownKey) {
@@ -115,14 +117,6 @@ export class LyneAutocomplete {
 
   };
 
-  private _addKeysEventListener = (): void => {
-    this._inputElement.addEventListener('keydown', this._handleKeyPress);
-  };
-
-  private _removeKeysEventListener = (): void => {
-    this._inputElement.removeEventListener('keydown', this._handleKeyPress);
-  };
-
   private _selectInputText = (): void => {
     const event = new CustomEvent('select', {
       bubbles: false,
@@ -132,9 +126,17 @@ export class LyneAutocomplete {
     this._inputElement.dispatchEvent(event);
   };
 
+  private _focusInputText = (): void => {
+    const event = new CustomEvent('focus', {
+      bubbles: false,
+      composed: false
+    });
+
+    this._inputElement.dispatchEvent(event);
+  };
+
   private _handleFocus = (): void => {
     this._isVisible = true;
-    this._addKeysEventListener();
     this._selectInputText();
   };
 
@@ -150,13 +152,16 @@ export class LyneAutocomplete {
      * handler.
      */
     this._isVisible = true;
-    this._addKeysEventListener();
 
   };
 
   private _handleBlur = (): void => {
     this._isVisible = false;
-    this._removeKeysEventListener();
+
+    this._focusInputText();
+
+    console.log('blur');
+
   };
 
   private _handleListClick = (evt): void => {
@@ -172,6 +177,7 @@ export class LyneAutocomplete {
 
     this._selectedAutocompleteValue = firstElement.innerText;
     this.value = firstElement.innerText;
+
     this._handleBlur();
   };
 
@@ -180,6 +186,7 @@ export class LyneAutocomplete {
     this._element.addEventListener(inputEvents.input, this._handleInput);
     this._element.addEventListener('blur', this._handleBlur);
     this._listElement.addEventListener('click', this._handleListClick);
+    this._inputElement.addEventListener('keydown', this._handleKeyPress);
   }
 
   public disconnectCallback(): void {
@@ -187,6 +194,7 @@ export class LyneAutocomplete {
     this._element.removeEventListener(inputEvents.input, this._handleInput);
     this._element.removeEventListener('blur', this._handleBlur);
     this._listElement.removeEventListener('click', this._handleListClick);
+    this._inputElement.removeEventListener('keydown', this._handleKeyPress);
   }
 
   public render(): JSX.Element {
