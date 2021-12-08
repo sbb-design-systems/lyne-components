@@ -111,7 +111,6 @@ const SlotPearlChainTemplate = () => (
 const cardBadgeArgs = {
   isDiscount: true,
   price: '88.88',
-  size: 'small',
   // eslint-disable-next-line max-len
   // slotGeneric: '<span>on <time datetime="2021-11-25">Black Friday</time></span>',
   text: 'from CHF'
