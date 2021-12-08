@@ -125,13 +125,11 @@ const cardBadgeDetailedArgs = {
   appearance: appearance.options[1],
   isDiscount: true,
   price: '37.50',
-  size: 'small',
   text: 'from CHF'
 };
 
 const cardBadgeSlotArgs = {
   isDiscount: true,
-  size: 'small',
   // eslint-disable-next-line max-len
   slotGeneric: '<span><time datetime="2021-11-25">Black Friday</time> Special</span>'
 };
