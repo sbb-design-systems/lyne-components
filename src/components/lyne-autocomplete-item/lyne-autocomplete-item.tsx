@@ -47,9 +47,6 @@ export class LyneAutocompleteItem {
    */
   @Prop() public ariaSetsize?: number;
 
-  /** Id which is sent in the select event payload */
-  @Prop() public eventId?: string;
-
   private _compileTextMarkup(text: string, highlight: string): InterfaceAutocompleteItemAttributes['textStructure'] {
     const index = text.indexOf(highlight);
 
