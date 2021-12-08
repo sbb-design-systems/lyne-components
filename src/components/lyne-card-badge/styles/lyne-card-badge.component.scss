@@ -59,10 +59,6 @@
   }
 
   &--regular {
-    @include text-xs--bold;
-  }
-
-  &--small {
     @include text-xxs--bold;
   }
 }

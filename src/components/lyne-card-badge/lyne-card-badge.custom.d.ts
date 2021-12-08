@@ -1,4 +1,4 @@
 export interface InterfaceCardBadgeAttributes {
-  size: 'regular' | 'small';
+  size: 'regular';
   appearance: 'primary' | 'primary-negative';
 }

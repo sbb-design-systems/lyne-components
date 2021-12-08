@@ -42,16 +42,6 @@ const appearance = {
   }
 };
 
-const size = {
-  control: {
-    type: 'select'
-  },
-  options: [
-    'regular',
-    'small'
-  ]
-};
-
 const isDiscount = {
   control: {
     type: 'boolean'
@@ -75,14 +65,12 @@ const defaultArgTypes = {
   appearance,
   isDiscount,
   price,
-  size,
   text
 };
 
 const defaultArgs = {
   a11yLabel: 'Supersaver Ticket',
-  appearance: appearance.options[0],
-  size: size.options[0]
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -161,8 +149,7 @@ export const CardBadgeDiscountSmall = Template.bind({});
 CardBadgeDiscountSmall.argTypes = defaultArgTypes;
 CardBadgeDiscountSmall.args = {
   ...defaultArgs,
-  isDiscount: true,
-  size: size.options[1]
+  isDiscount: true
 };
 
 CardBadgeDiscountSmall.documentation = {
@@ -176,8 +163,7 @@ CardBadgeDiscountSmallNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountSmallNegative.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
-  isDiscount: true,
-  size: size.options[1]
+  isDiscount: true
 };
 
 CardBadgeDiscountSmallNegative.documentation = {
