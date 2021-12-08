@@ -4,13 +4,13 @@
 @include host-component-properties;
 
 :host {
-  background: deeppink;
-  --travel-hint-icon-height: 16;
-}
+  --travel-hint-icon-height: 12;
+  --travel-hint-icon-scaling-factor: 0.75;
 
-.travel-hints {
-  height: pxToRem(var(--travel-hint-icon-height));
-  line-height: pxToRem(var(--travel-hint-icon-height));
+  @include mq($from: medium) {
+    --travel-hint-icon-height: 16;
+    --travel-hint-icon-scaling-factor: 1;
+  }
 }
 
 .travel-hints__list {
@@ -41,6 +41,10 @@
   @include screenReaderOnly();
 }
 
+@mixin widthWithScalingFactor($width) {
+  width: calc(#{var(--travel-hint-icon-scaling-factor)} * #{pxToRem($width)});
+}
+
 // This might look like a terribly complicated solution but was unfortunately the most efficient and
 // flexible way to achieve the desired visual outcome under the current setup with image sprites and
 // the way the browsers interpret them.
@@ -49,29 +53,29 @@
 // great an absolutely equal spacing.
 
 .travel-hints__icon--sa-mi svg {
-  width: pxToRem(8);
+  @include widthWithScalingFactor(8);
 }
 
 .travel-hints__icon--sa-r svg {
-  width: pxToRem(9);
+  @include widthWithScalingFactor(9);
 }
 
 .travel-hints__icon--sa-s svg {
-  width: pxToRem(10);
+  @include widthWithScalingFactor(10);
 }
 
 .travel-hints__icon--sa-1,
 .travel-hints__icon--sa-2,
 .travel-hints__icon--sa-p {
   svg {
-    width: pxToRem(11);
+    @include widthWithScalingFactor(11);
   }
 }
 
 .travel-hints__icon--sa-y,
 .travel-hints__icon--sa-z {
   svg {
-    width: pxToRem(12);
+    @include widthWithScalingFactor(12);
   }
 }
 
@@ -79,28 +83,28 @@
 .travel-hints__icon--sa-gn,
 .travel-hints__icon--sa-rr {
   svg {
-    width: pxToRem(13);
+    @include widthWithScalingFactor(13);
   }
 }
 
 .travel-hints__icon--sa-wr svg {
-  width: pxToRem(14);
+  @include widthWithScalingFactor(14);
 }
 
 .travel-hints__icon--sa-x svg {
-  width: pxToRem(15);
+  @include widthWithScalingFactor(15);
 }
 
 .travel-hints__icon--sa-pa svg {
-  width: pxToRem(16);
+  @include widthWithScalingFactor(16);
 }
 
 .travel-hints__icon--sa-vi svg {
-  width: pxToRem(17);
+  @include widthWithScalingFactor(17);
 }
 
 .travel-hints__icon--sa-fl svg {
-  width: pxToRem(18);
+  @include widthWithScalingFactor(18);
 }
 
 .travel-hints__icon--sa-b,
@@ -110,7 +114,7 @@
 .travel-hints__icon--sa-vl,
 .travel-hints__icon--sa-vr {
   svg {
-    width: pxToRem(19);
+    @include widthWithScalingFactor(19);
   }
 }
 
@@ -120,7 +124,7 @@
 .travel-hints__icon--sa-tf,
 .travel-hints__icon--sa-ts {
   svg {
-    width: pxToRem(20);
+    @include widthWithScalingFactor(20);
   }
 }
 
@@ -135,7 +139,7 @@
 .travel-hints__icon--sa-tt,
 .travel-hints__icon--sa-wl {
   svg {
-    width: pxToRem(21);
+    @include widthWithScalingFactor(21);
   }
 }
 
@@ -150,7 +154,7 @@
 .travel-hints__icon--sa-vp,
 .travel-hints__icon--sa-yb {
   svg {
-    width: pxToRem(22);
+    @include widthWithScalingFactor(22);
   }
 }
 
@@ -168,7 +172,7 @@
 .travel-hints__icon--sa-ws,
 .travel-hints__icon--sa-yt {
   svg {
-    width: pxToRem(23);
+    @include widthWithScalingFactor(23);
   }
 }
 
@@ -176,7 +180,7 @@
 .travel-hints__icon--sa-sh,
 .travel-hints__icon--sa-sv {
   svg {
-    width: pxToRem(24);
+    @include widthWithScalingFactor(24);
   }
 }
 
@@ -189,7 +193,7 @@
 .travel-hints__icon--sa-xp,
 .travel-hints__icon--sa-xr {
   svg {
-    width: pxToRem(25);
+    @include widthWithScalingFactor(25);
   }
 }
 
@@ -197,14 +201,14 @@
 .travel-hints__icon--sa-uk,
 .travel-hints__icon--sa-xt {
   svg {
-    width: pxToRem(26);
+    @include widthWithScalingFactor(26);
   }
 }
 
 .travel-hints__icon--sa-hk,
 .travel-hints__icon--sa-hn {
   svg {
-    width: pxToRem(27);
+    @include widthWithScalingFactor(27);
   }
 }
 
@@ -212,7 +216,7 @@
 .travel-hints__icon--sa-mp,
 .travel-hints__icon--sa-sm {
   svg {
-    width: pxToRem(28);
+    @include widthWithScalingFactor(28);
   }
 }
 
@@ -220,22 +224,22 @@
 .travel-hints__icon--sa-ym,
 .travel-hints__icon--sa-zm {
   svg {
-    width: pxToRem(29);
+    @include widthWithScalingFactor(29);
   }
 }
 
 .travel-hints__icon--sa-wv {
-  width: pxToRem(31);
+  @include widthWithScalingFactor(31);
 }
 
 .travel-hints__icon--sa-vb {
-  width: pxToRem(32);
+  @include widthWithScalingFactor(32);
 }
 
 .travel-hints__icon--sa-kw {
-  width: pxToRem(33);
+  @include widthWithScalingFactor(33);
 }
 
 .travel-hints__icon--sa-aw {
-  width: pxToRem(34);
+  @include widthWithScalingFactor(34);
 }

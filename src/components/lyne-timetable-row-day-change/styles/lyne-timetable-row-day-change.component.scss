@@ -1,8 +1,7 @@
-:host(lyne-timetable-row-day-change) {
+.day-change:not(day-change--visually-hidden) {
   padding-block-start: pxToRem(var(--spacing-fixed-2x));
-  padding-block-end: pxToRem(var(--spacing-fixed-1x));
+  padding-block-end: pxToRem(var(--spacing-fixed-1x))
 }
-
 .day-change__text {
   @include text-xs--regular();
   margin: 0;

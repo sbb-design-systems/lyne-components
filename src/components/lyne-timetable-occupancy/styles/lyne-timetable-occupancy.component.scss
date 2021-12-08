@@ -1,6 +1,12 @@
 :host {
-  --occupancy-icon-height: 16;
-  --occupancy-icon-width: 19;
+  --occupancy-icon-height: 12;
+  --occupancy-icon-width: 14;
+
+  @include mq($from: medium) {
+    --occupancy-icon-height: 16;
+    --occupancy-icon-width: 19;
+  }
+
 }
 
 .occupancy__list {
@@ -9,8 +15,6 @@
   align-items: center;
   flex-wrap: nowrap;
   gap: pxToRem(var(--spacing-fixed-2x));
-  height: pxToRem(var(--occupancy-icon-height));
-  line-height: pxToRem(19);
 }
 
 .occupancy__list-item {
@@ -22,7 +26,6 @@
 
 .occupancy__class--visual {
   @include text-s--regular();
-  line-height: pxToRem(21);
 }
 
 .occupancy__class--visually-hidden {

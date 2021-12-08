@@ -1,6 +1,5 @@
 .platform {
   @include text-s--regular();
-  line-height: pxToRem(19);
   margin: 0;
   white-space: nowrap;
 }

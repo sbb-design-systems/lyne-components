@@ -7,6 +7,7 @@
   display: block;
 
   --row-min-height: 108;
+  --third-row-min-height: 27;
 
   @include mq($from: medium) {
     --row-min-height: 114;
@@ -51,6 +52,16 @@
   display: flex;
   flex: 0 0 100%;
   max-width: 100%;
+  // margin-block-end: pxToRem(var(--spacing-fixed-1x));
+}
+
+.timetable__row > lyne-timetable-platform,
+.timetable__row > lyne-timetable-occupancy,
+.timetable__row > lyne-timetable-travel-hints,
+.timetable__row > lyne-timetable-duration,
+.timetable__row > lyne-timetable-cus-him {
+  align-items: center;
+  min-height: pxToRem(var(--third-row-min-height));
 }
 
 .timetable__row > lyne-timetable-cus-him {
@@ -60,6 +71,7 @@
 .timetable__row > lyne-timetable-travel-hints {
   flex-grow: 1;
   justify-content: center;
+
 }
 
 .timetable__row > lyne-timetable-duration {
@@ -67,6 +79,8 @@
 }
 
 .timetable__row > lyne-timetable-platform {
+  align-items: center;
+  min-height: pxToRem(var(--third-row-min-height));
   flex-basis: pxToRem(50);
 
   @include mq($from: medium) {
