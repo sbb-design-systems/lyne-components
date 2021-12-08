@@ -57,6 +57,10 @@ export namespace Components {
     }
     interface LyneAutocomplete {
         /**
+          * Id which is sent as the id in the eventDetail payload
+         */
+        "eventId"?: string;
+        /**
           * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
          */
         "items"?: string;
@@ -74,10 +78,6 @@ export namespace Components {
           * The aira-setsize attribute for the list element
          */
         "ariaSetsize"?: number;
-        /**
-          * Id which is sent in the select event payload
-         */
-        "eventId"?: string;
         /**
           * The text to highlight within the string property
          */
@@ -690,6 +690,10 @@ declare namespace LocalJSX {
     }
     interface LyneAutocomplete {
         /**
+          * Id which is sent as the id in the eventDetail payload
+         */
+        "eventId"?: string;
+        /**
           * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
          */
         "items"?: string;
@@ -707,10 +711,6 @@ declare namespace LocalJSX {
           * The aira-setsize attribute for the list element
          */
         "ariaSetsize"?: number;
-        /**
-          * Id which is sent in the select event payload
-         */
-        "eventId"?: string;
         /**
           * The text to highlight within the string property
          */
