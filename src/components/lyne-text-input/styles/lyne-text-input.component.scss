@@ -66,6 +66,13 @@
   border-radius: pxToRem(var(--border-radius-4x));
 }
 
+.input--no-border {
+  border: none;
+  box-shadow:
+  pxToRem(var(--shadow-elevation-level-5-shadow-1-offset-x)) pxToRem(var(--shadow-elevation-level-5-shadow-1-offset-y)) pxToRem(var(--shadow-elevation-level-5-shadow-1-blur)) pxToRem(var(--shadow-elevation-level-5-shadow-1-spread)) var(--shadow-elevation-level-5-hard-1-color),
+  pxToRem(var(--shadow-elevation-level-5-shadow-2-offset-x)) pxToRem(var(--shadow-elevation-level-5-shadow-2-offset-y)) pxToRem(var(--shadow-elevation-level-5-shadow-2-blur)) pxToRem(var(--shadow-elevation-level-5-shadow-2-spread)) var(--shadow-elevation-level-5-hard-2-color);
+}
+
 // Input Variant
 // ----------------------------------------------
 .input-wrapper--label-hidden .input {
