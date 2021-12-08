@@ -41,9 +41,9 @@
 }
 
 @mixin card--s {
-  @include spacing-responsive-xxs('--card-padding-top');
+  @include spacing-responsive-xxxs('--card-padding-top');
   @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
+  @include spacing-responsive-xxxs('--card-padding-bottom');
   @include spacing-responsive-xxs('--card-padding-left');
 }
 
