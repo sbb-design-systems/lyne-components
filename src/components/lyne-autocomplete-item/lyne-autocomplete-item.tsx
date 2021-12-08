@@ -35,7 +35,7 @@ export class LyneAutocompleteItem {
    * Mark the item as selected, which will change it's appearance and
    * the according aria attributes.
    */
-  @Prop() public itemSelected?: boolean;
+  @Prop() public selected?: boolean;
 
   /**
    * The aria-posinset attribute for the list element
@@ -70,10 +70,10 @@ export class LyneAutocompleteItem {
 
     let attrs = {};
 
-    if (this.itemSelected) {
+    if (this.selected) {
       attrs = {
         ...attrs,
-        'aria-selected': this.itemSelected
+        'aria-selected': this.selected
       };
     }
 
@@ -107,7 +107,7 @@ export class LyneAutocompleteItem {
 
     let mainClasses = 'autocomplete-item';
 
-    mainClasses += this.itemSelected
+    mainClasses += this.selected
       ? ' autocomplete-item--selected'
       : '';
 

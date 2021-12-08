@@ -1,3 +1,4 @@
 export default {
-  click: 'lyne-autocomplete-list_click'
+  selected: 'lyne-autocomplete-list_selected',
+  setInputFocus: 'lyne-autocomplete-list_set-input-focus'
 };

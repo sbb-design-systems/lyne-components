@@ -19,14 +19,15 @@
 ### Depends on
 
 - [lyne-text-input](../lyne-text-input)
-- [lyne-autocomplete-item](../lyne-autocomplete-item)
+- [lyne-autocomplete-list](../lyne-autocomplete-list)
 
 ### Graph
 ```mermaid
 graph TD;
   lyne-autocomplete --> lyne-text-input
-  lyne-autocomplete --> lyne-autocomplete-item
+  lyne-autocomplete --> lyne-autocomplete-list
   lyne-text-input --> lyne-input-error
+  lyne-autocomplete-list --> lyne-autocomplete-item
   style lyne-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

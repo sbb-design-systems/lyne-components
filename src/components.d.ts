@@ -6,7 +6,6 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
-import { InterfaceLyneAutocompleteListAttributes } from "./components/lyne-autocomplete-list/lyne-autocomplete-list.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
@@ -87,7 +86,7 @@ export namespace Components {
         /**
           * Mark the item as selected, which will change it's appearance and the according aria attributes.
          */
-        "itemSelected"?: boolean;
+        "selected"?: boolean;
         /**
           * Text to show as content of the autocomplete item
          */
@@ -95,9 +94,25 @@ export namespace Components {
     }
     interface LyneAutocompleteList {
         /**
-          * Documentation for someProp
+          * The string to search for as highlight in the list items.
          */
-        "someProp"?: InterfaceLyneAutocompleteListAttributes['someInterface'];
+        "highlight"?: string;
+        /**
+          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
+         */
+        "items"?: string;
+        /**
+          * Id to use for the list.
+         */
+        "listId"?: string;
+        /**
+          * The index of the list item which should be currently selected.
+         */
+        "selectedIndex"?: number;
+        /**
+          * Determine if the list should be visible or not.
+         */
+        "visible": boolean;
     }
     interface LyneButton {
         /**
@@ -750,7 +765,7 @@ declare namespace LocalJSX {
         /**
           * Mark the item as selected, which will change it's appearance and the according aria attributes.
          */
-        "itemSelected"?: boolean;
+        "selected"?: boolean;
         /**
           * Text to show as content of the autocomplete item
          */
@@ -758,9 +773,25 @@ declare namespace LocalJSX {
     }
     interface LyneAutocompleteList {
         /**
-          * Documentation for someProp
+          * The string to search for as highlight in the list items.
          */
-        "someProp"?: InterfaceLyneAutocompleteListAttributes['someInterface'];
+        "highlight"?: string;
+        /**
+          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
+         */
+        "items"?: string;
+        /**
+          * Id to use for the list.
+         */
+        "listId"?: string;
+        /**
+          * The index of the list item which should be currently selected.
+         */
+        "selectedIndex"?: number;
+        /**
+          * Determine if the list should be visible or not.
+         */
+        "visible"?: boolean;
     }
     interface LyneButton {
         /**

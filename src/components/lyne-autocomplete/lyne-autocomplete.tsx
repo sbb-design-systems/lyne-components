@@ -6,15 +6,9 @@ import {
   State
 } from '@stencil/core';
 
-import {
-  i18nUseArrowKeysToNavigate,
-  i18nXResultsAvailable
-} from '../../global/i18n';
-
-import getDocumentLang from '../../global/helpers/get-document-lang';
 import events from './lyne-autocomplete.events';
 import inputEvents from '../lyne-text-input/lyne-text-input.events';
-import itemsDataHelper from './lyne-autocomplete.helper';
+import listEvents from '../lyne-autocomplete-list/lyne-autocomplete-list.events';
 
 @Component({
   shadow: true,
@@ -50,79 +44,32 @@ export class LyneAutocomplete {
   @State() private _inputValue: string;
   @State() private _selectedAutocompleteValue: string;
   @State() private _isVisible = false;
-  @State() private _selectedAutocompleteItemIndex = -1;
 
   @Element() private _element: HTMLElement;
 
-  private _currentLanguage = getDocumentLang();
-  private _dataItems!: [any];
   private _inputElement!: HTMLLyneTextInputElement;
-  private _listElement!: HTMLUListElement;
+  private _list!: HTMLLyneAutocompleteListElement;
 
-  private _handleArrowKeys = (key): void => {
-    this._isVisible = true;
-
-    const isDownKey = key === 'ArrowDown';
-
-    if (isDownKey) {
-      if (this._selectedAutocompleteItemIndex < this._dataItems.length - 1) {
-        this._selectedAutocompleteItemIndex++;
-      } else {
-        this._selectedAutocompleteItemIndex = 0;
-      }
-    } else {
-      if (this._selectedAutocompleteItemIndex > 0) {
-        this._selectedAutocompleteItemIndex--;
-      } else {
-        this._selectedAutocompleteItemIndex = this._dataItems.length - 1;
-      }
-    }
-
-    const selectedElement = this._listElement.children[this._selectedAutocompleteItemIndex];
-
-    selectedElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
-    });
-
-  };
-
-  private _handleEscapeKey = (): void => {
-    this._handleBlur();
-  };
-
-  private _handleEnterKey = (): void => {
-    const value = this._dataItems[this._selectedAutocompleteItemIndex].text;
-
-    this._selectedAutocompleteValue = value;
-    this.value = value;
-    this._handleBlur();
-  };
-
+  /**
+   * lyne-autocomplete-list listens to this event
+   */
   private _handleKeyPress = (evt): void => {
-
     const {
       key
     } = evt;
 
-    if (key === 'ArrowDown' || key === 'ArrowUp') {
-      this._handleArrowKeys(key);
+    const event = new CustomEvent(events.keypress, {
+      bubbles: false,
+      composed: false,
+      detail: key
+    });
 
-      return;
-    }
-
-    if (key === 'Escape') {
-      this._handleEscapeKey();
-
-      return;
-    }
-
-    if (key === 'Enter') {
-      this._handleEnterKey();
-    }
-
+    this._list.dispatchEvent(event);
   };
 
+  /**
+   * lyne-text-input listens to this event
+   */
   private _selectInputText = (): void => {
     const event = new CustomEvent('select', {
       bubbles: false,
@@ -132,6 +79,9 @@ export class LyneAutocomplete {
     this._inputElement.dispatchEvent(event);
   };
 
+  /**
+   * lyne-text-input listens to this event
+   */
   private _focusInputText = (): void => {
     const event = new CustomEvent('focus', {
       bubbles: false,
@@ -149,18 +99,13 @@ export class LyneAutocomplete {
   private _handleInput = (evt): void => {
     this._inputValue = evt.detail.value;
     this.value = evt.detail.value;
-
-    /**
-     * scenario: user is selecting an item from the autocomplete. in this
-     * case, we want the keys event listeners still to be active, since
-     * we want to open the autocomplete again once the user starts typing
-     * again. That's why we don't attach the listeners to in the focus
-     * handler.
-     */
     this._isVisible = true;
 
   };
 
+  /**
+   * consumers of lyne-autocomplete may listen to this event
+   */
   private _handleBlur = (): void => {
     this._isVisible = false;
 
@@ -182,70 +127,42 @@ export class LyneAutocomplete {
     this._element.dispatchEvent(event);
   };
 
-  private _handleListClick = (evt): void => {
-    const {
-      path
-    } = evt;
+  private _handleSelected = (evt): void => {
+    const value = evt.detail;
 
-    let firstElement = null;
-
-    if (path.length > 0) {
-      [firstElement] = path;
-    }
-
-    this._selectedAutocompleteValue = firstElement.innerText;
-    this.value = firstElement.innerText;
-
+    this._selectedAutocompleteValue = value;
+    this.value = value;
     this._handleBlur();
-    this._focusInputText();
   };
 
   public componentDidLoad(): void {
     this._element.addEventListener('focus', this._handleFocus);
-    this._element.addEventListener(inputEvents.input, this._handleInput);
     this._element.addEventListener('blur', this._handleBlur);
-    this._listElement.addEventListener('click', this._handleListClick);
+
+    this._inputElement.addEventListener(inputEvents.input, this._handleInput);
     this._inputElement.addEventListener('keydown', this._handleKeyPress);
+
+    this._list.addEventListener(listEvents.selected, this._handleSelected);
+    this._list.addEventListener(listEvents.setInputFocus, this._focusInputText);
   }
 
   public disconnectCallback(): void {
     this._element.removeEventListener('focus', this._handleFocus);
-    this._element.removeEventListener(inputEvents.input, this._handleInput);
     this._element.removeEventListener('blur', this._handleBlur);
-    this._listElement.removeEventListener('click', this._handleListClick);
+
+    this._inputElement.removeEventListener(inputEvents.input, this._handleInput);
     this._inputElement.removeEventListener('keydown', this._handleKeyPress);
+
+    this._list.removeEventListener(listEvents.selected, this._handleSelected);
+    this._list.removeEventListener(listEvents.setInputFocus, this._focusInputText);
   }
 
   public render(): JSX.Element {
-
-    this._dataItems = itemsDataHelper(this.items);
-    let autocompleteClasses = 'autocomplete__list';
-
-    if (this._isVisible) {
-      autocompleteClasses += ' autocomplete__list--visible';
-    }
-
-    const listAttributes = {};
-
-    if (!this._isVisible) {
-      listAttributes['aria-hidden'] = true;
-      listAttributes['role'] = 'presentation';
-    }
-
-    let a11yHintText = '';
-
-    if (this._isVisible) {
-      const a11yResults = i18nXResultsAvailable(this._dataItems.length)[this._currentLanguage];
-      const a11yArrowKeys = i18nUseArrowKeysToNavigate[this._currentLanguage];
-
-      a11yHintText = `${a11yResults} ${a11yArrowKeys}`;
-    }
 
     return (
       <div class='autocomplete'>
 
         <lyne-text-input
-          class='autocomplete__input'
           inputAutoCompleteValue='off'
           inputName='textfield'
           inputType='text'
@@ -266,34 +183,15 @@ export class LyneAutocomplete {
           }}
         ></lyne-text-input>
 
-        <ul
-          class={autocompleteClasses}
-          id='autocomplete-list'
-          role='listbox'
+        <lyne-autocomplete-list
+          items={this.items}
+          visible={this._isVisible}
+          listId='autocomplete-list'
+          highlight={this._inputValue}
           ref={(el): void => {
-            this._listElement = el;
+            this._list = el;
           }}
-          {...listAttributes}
-        >
-
-          {this._dataItems.map((item, index) => (
-            <lyne-autocomplete-item
-              text={item.text}
-              highlight={this._inputValue}
-              itemSelected={index === this._selectedAutocompleteItemIndex}
-              ariaPosinset={index + 1}
-              ariaSetsize={this._dataItems.length}
-            />
-          ))}
-        </ul>
-
-        <p
-          class='autocomplete__accessibility-hint'
-          role='status'
-          aria-live='polite'
-          aria-atomic='true'
-        >{a11yHintText}</p>
-
+        />
       </div>
     );
   }

@@ -18,37 +18,3 @@
 .autocomplete {
   position: relative;
 }
-
-.autocomplete__input {
-  // @include visibleFocus;
-}
-
-.autocomplete__list {
-  @include listReset;
-  position: absolute;
-  display: none;
-  z-index: -1;
-  cursor:default;
-
-  top: calc(100% - #{pxToRem(var(--input-height))});
-  right: 0;
-  left: 0;
-
-  padding-top: calc(#{pxToRem(var(--input-height))} + #{pxToRem(var(--spacing-fixed-3x))});
-  padding-bottom: pxToRem(var(--spacing-fixed-3x));
-  border-radius: pxToRem(var(--border-radius-4x));
-
-  box-shadow:
-  pxToRem(var(--shadow-elevation-level-5-shadow-1-offset-x)) pxToRem(var(--shadow-elevation-level-5-shadow-1-offset-y)) pxToRem(var(--shadow-elevation-level-5-shadow-1-blur)) pxToRem(var(--shadow-elevation-level-5-shadow-1-spread)) var(--shadow-elevation-level-5-soft-1-color),
-  pxToRem(var(--shadow-elevation-level-5-shadow-2-offset-x)) pxToRem(var(--shadow-elevation-level-5-shadow-2-offset-y)) pxToRem(var(--shadow-elevation-level-5-shadow-2-blur)) pxToRem(var(--shadow-elevation-level-5-shadow-2-spread)) var(--shadow-elevation-level-5-soft-2-color);
-
-  overflow-y: scroll;
-}
-
-.autocomplete__list--visible {
-  display: block;
-}
-
-.autocomplete__accessibility-hint {
-  @include screenReaderOnly;
-}
