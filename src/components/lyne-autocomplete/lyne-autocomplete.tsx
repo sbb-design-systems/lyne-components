@@ -12,6 +12,7 @@ import {
 } from '../../global/i18n';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import events from './lyne-autocomplete.events';
 import inputEvents from '../lyne-text-input/lyne-text-input.events';
 import itemsDataHelper from './lyne-autocomplete.helper';
 
@@ -40,6 +41,11 @@ export class LyneAutocomplete {
   @Prop({
     reflect: true
   }) public value?: string;
+
+  /**
+   * Id which is sent as the id in the eventDetail payload
+   */
+  @Prop() public eventId?: string;
 
   @State() private _inputValue: string;
   @State() private _selectedAutocompleteValue: string;
@@ -157,6 +163,23 @@ export class LyneAutocomplete {
 
   private _handleBlur = (): void => {
     this._isVisible = false;
+
+    const eventDetail = {
+      id: '',
+      value: this.value
+    };
+
+    if (this.eventId) {
+      eventDetail.id = this.eventId;
+    }
+
+    const event = new CustomEvent(events.selected, {
+      bubbles: true,
+      composed: true,
+      detail: eventDetail
+    });
+
+    this._element.dispatchEvent(event);
   };
 
   private _handleListClick = (evt): void => {
