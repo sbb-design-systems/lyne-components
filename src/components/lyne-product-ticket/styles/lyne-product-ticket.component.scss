@@ -4,11 +4,10 @@
 @include host-component-properties;
 
 :host {
+  @include card-host-properties;
   --slot-icon-spacing-inline: var(--spacing-fixed-4x);
   --slot-connection-details-spacing-top: var(--spacing-fixed-2x);
   --slot-action-spacing-top: var(--spacing-fixed-4x);
-
-  @include card-host-properties;
 }
 
 /* ************************************************* */
