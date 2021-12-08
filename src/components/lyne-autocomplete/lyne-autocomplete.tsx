@@ -156,7 +156,6 @@ export class LyneAutocomplete {
   };
 
   private _handleBlur = (): void => {
-    this._focusInputText();
     this._isVisible = false;
   };
 
@@ -175,6 +174,7 @@ export class LyneAutocomplete {
     this.value = firstElement.innerText;
 
     this._handleBlur();
+    this._focusInputText();
   };
 
   public componentDidLoad(): void {
