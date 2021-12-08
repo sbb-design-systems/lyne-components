@@ -31,6 +31,7 @@ export class LyneTextInput {
 
   private _inputElement!: HTMLInputElement;
   private _additionalInputClasses = [];
+  private _additionalInputWrapperClasses = [];
   private _addtitionalInputAttributes = {};
   private _currentLanguage = getDocumentLang();
   private _id = '';
@@ -140,6 +141,11 @@ export class LyneTextInput {
   @Prop() public debounceInputEvent? = 0;
 
   /**
+   * If set to true, the input element will have no border, but a drop shadow.
+   */
+  @Prop() public borderless = false;
+
+  /**
    * The role attribute used for the input element.
    */
   @Prop() public inputRole?: InterfaceLyneTextInputAttributes['inputRole'];
@@ -185,18 +191,22 @@ export class LyneTextInput {
 
   private _getAdditionalStyleClasses(): void {
 
-    this._additionalInputClasses = [];
+    this._additionalInputWrapperClasses = [];
 
     if (!this.labelVisible) {
-      this._additionalInputClasses.push('input-wrapper--label-hidden');
+      this._additionalInputWrapperClasses.push('input-wrapper--label-hidden');
     }
 
     if (this.icon) {
-      this._additionalInputClasses.push('input-wrapper--with-icon');
+      this._additionalInputWrapperClasses.push('input-wrapper--with-icon');
     }
 
     if (this.inputError) {
-      this._additionalInputClasses.push('input-wrapper--error');
+      this._additionalInputWrapperClasses.push('input-wrapper--error');
+    }
+
+    if (this.borderless) {
+      this._additionalInputClasses.push('input--no-border');
     }
 
   }
@@ -351,7 +361,7 @@ export class LyneTextInput {
 
     return (
       <div
-        class={`input-wrapper ${this._additionalInputClasses.join(' ')}`}
+        class={`input-wrapper ${this._additionalInputWrapperClasses.join(' ')}`}
       >
         <div class='input-wrapper__inner'>
           {this.icon
@@ -361,7 +371,7 @@ export class LyneTextInput {
           <input
             autocapitalize='off'
             autocomplete={this.inputAutoCompleteValue}
-            class='input'
+            class={`input ${this._additionalInputClasses.join(' ')}`}
             id={this._id}
             name={this.inputName}
             placeholder={this.inputPlaceholder}
