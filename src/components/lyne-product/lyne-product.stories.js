@@ -60,6 +60,16 @@ const SlotIconTemplate = (args) => (
   <span>{getMarkupForSvg(args.icon)}</span>
 );
 
+/* --- category slot ---------------------------------- */
+
+const lyneCategoryArgs = {
+  text: 'Sparbillett'
+};
+
+const SlotLyneCategoryTemplate = (args) => (
+  <span>{args.text}</span>
+);
+
 /* --- title slot ---------------------------------- */
 
 const lyneTitleArgs = {
@@ -166,7 +176,10 @@ const TemplateLyneTitle = (args) => (
 const TemplateLyneJourneyHeader = (args) => (
   <lyne-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='category'><SlotLyneCategoryTemplate {...lyneCategoryArgs}/></div>
     <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
+    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextArgs}/></div>
     <div slot='connection-details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>

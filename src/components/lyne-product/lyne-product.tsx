@@ -8,6 +8,7 @@ import { InterfaceProductAttributes } from './lyne-product.custom';
 
 /**
  * @slot icon - Slot used to render the product icon
+ * @slot category - Slot used to render the product category
  * @slot title - Slot used to render the title
  * @slot lead - Slot used to render the lead text
  * @slot text - Slot used to render product contents — only inline HTML
@@ -39,6 +40,7 @@ export class LyneProduct {
   @Element() private _hostElement: HTMLElement;
 
   private _hasIconSlot: boolean;
+  private _hasCategorySlot: boolean;
   private _hasTitleSlot: boolean;
   private _hasLeadSlot: boolean;
   private _hasTextSlot: boolean;
@@ -48,6 +50,7 @@ export class LyneProduct {
 
   public componentWillLoad(): void {
     this._hasIconSlot = Boolean(this._hostElement.querySelector('[slot="icon"]'));
+    this._hasCategorySlot = Boolean(this._hostElement.querySelector('[slot="category"]'));
     this._hasTitleSlot = Boolean(this._hostElement.querySelector('[slot="title"]'));
     this._hasLeadSlot = Boolean(this._hostElement.querySelector('[slot="lead"]'));
     this._hasTextSlot = Boolean(this._hostElement.querySelector('[slot="text"]'));
@@ -81,6 +84,10 @@ export class LyneProduct {
             : ''
           }
           <div>
+            {this._hasCategorySlot
+              ? <div class='product__category'><slot name='category'/></div>
+              : ''
+            }
             {this._hasTitleSlot
               ? <div class='product__title'><slot name='title'/></div>
               : ''

@@ -76,7 +76,9 @@
   @include title-6();
 }
 
+.product__category,
 .product__text {
   @include text-s--regular();
+  margin: 0;
   color: var(--color-granite-default);
 }
