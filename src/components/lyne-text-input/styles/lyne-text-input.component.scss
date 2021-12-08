@@ -28,7 +28,7 @@
   --icon-size: var(--size-icon-ui-small);
 
   @include mq($from: medium) {
-    --input-height: 56;
+    --input-height: 56; // TODO Design Token??
   }
 
   @include ifForcedColors {
