@@ -4,12 +4,18 @@
 @include host-component-properties;
 
 :host {
+  @include card-host-properties;
   --slot-action-spacing-top: var(--spacing-fixed-4x);
 }
 
 /* ************************************************* */
 /* Layout & spacing                                  */
 /* ************************************************* */
+
+.product-subscription {
+  @include card;
+  @include card--m;
+}
 
 .product-subscription__content {
   display: flex;
