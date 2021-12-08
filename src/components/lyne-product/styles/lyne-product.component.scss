@@ -19,6 +19,10 @@
   @include card--m;
 }
 
+.product--tall {
+  @include card--m--tall;
+}
+
 .product__icon {
   display: none;
   padding-inline-end: pxToRem(var(--slot-icon-spacing-inline));

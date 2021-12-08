@@ -56,10 +56,22 @@ export class LyneProduct {
   }
 
   public render(): JSX.Element {
+
+    /**
+     * Add additional CSS classes
+     * ----------------------------------------------------------------
+     */
+    let cardSizeClass = '';
+
+    if (this._hasCardBadgeSlot) {
+      cardSizeClass = ' product--tall';
+    }
+
     return (
       <div
         class={
-          `product product--${this.appearance}`
+          `product product--${this.appearance}
+          ${cardSizeClass}`
         }
       >
         <div class='product__content'>
