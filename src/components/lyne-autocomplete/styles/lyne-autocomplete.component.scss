@@ -7,16 +7,20 @@
   display: block;
   border-radius: pxToRem(var(--border-radius-4x));
   background-color: var(--color-white-default);
+
+  --input-height: 48; // TODO Design Token??
+
+  @include mq($from: medium) {
+    --input-height: 56; // TODO Design Token??
+  }
 }
 
 .autocomplete {
   position: relative;
-  z-index: 0;
 }
 
 .autocomplete__input {
-  z-index: 2;
-  @include visibleFocus;
+  // @include visibleFocus;
 }
 
 .autocomplete__list {
@@ -26,14 +30,17 @@
   z-index: -1;
   cursor:default;
 
-  top: calc(100% - #{pxToRem(var(--border-radius-4x))});
+  top: calc(100% - #{pxToRem(var(--input-height))});
   right: 0;
   left: 0;
 
-  padding-top: calc(#{pxToRem(var(--border-radius-4x))} + #{pxToRem(var(--spacing-fixed-3x))});
+  padding-top: calc(#{pxToRem(var(--input-height))} + #{pxToRem(var(--spacing-fixed-3x))});
   padding-bottom: pxToRem(var(--spacing-fixed-3x));
-  border-bottom-left-radius: pxToRem(var(--border-radius-4x));
-  border-bottom-right-radius: pxToRem(var(--border-radius-4x));
+  border-radius: pxToRem(var(--border-radius-4x));
+
+  box-shadow:
+  pxToRem(var(--shadow-elevation-level-5-shadow-1-offset-x)) pxToRem(var(--shadow-elevation-level-5-shadow-1-offset-y)) pxToRem(var(--shadow-elevation-level-5-shadow-1-blur)) pxToRem(var(--shadow-elevation-level-5-shadow-1-spread)) var(--shadow-elevation-level-5-soft-1-color),
+  pxToRem(var(--shadow-elevation-level-5-shadow-2-offset-x)) pxToRem(var(--shadow-elevation-level-5-shadow-2-offset-y)) pxToRem(var(--shadow-elevation-level-5-shadow-2-blur)) pxToRem(var(--shadow-elevation-level-5-shadow-2-spread)) var(--shadow-elevation-level-5-soft-2-color);
 
   overflow-y: scroll;
 }
