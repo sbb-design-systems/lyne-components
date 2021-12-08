@@ -49,10 +49,22 @@ export class LyneProductTicket {
   }
 
   public render(): JSX.Element {
+
+    /**
+     * Add additional CSS classes
+     * ----------------------------------------------------------------
+     */
+    let cardSizeClass = '';
+
+    if (this._hasCardBadgeSlot) {
+      cardSizeClass = ' product-ticket--tall';
+    }
+
     return (
       <div
         class={
-          `product-ticket product-ticket--${this.appearance}`
+          `product-ticket product-ticket--${this.appearance}
+          ${cardSizeClass}`
         }
       >
         <div class='product-ticket__content'>

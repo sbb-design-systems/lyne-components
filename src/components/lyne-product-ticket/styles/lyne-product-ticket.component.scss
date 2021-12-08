@@ -17,7 +17,7 @@
 
 .product-ticket {
   @include card;
-  @include card--xxl;
+  @include card--m;
 }
 
 .product-ticket--tall {
