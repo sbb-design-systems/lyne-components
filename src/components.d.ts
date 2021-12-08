@@ -403,6 +403,10 @@ export namespace Components {
     }
     interface LyneTextInput {
         /**
+          * If set to true, the input element will have no border, but a drop shadow.
+         */
+        "borderless": boolean;
+        /**
           * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
          */
         "debounceInputEvent"?: number;
@@ -1035,6 +1039,10 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface LyneTextInput {
+        /**
+          * If set to true, the input element will have no border, but a drop shadow.
+         */
+        "borderless"?: boolean;
         /**
           * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
          */

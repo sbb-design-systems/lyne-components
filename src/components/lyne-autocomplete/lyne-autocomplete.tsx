@@ -255,6 +255,7 @@ export class LyneAutocomplete {
           inputRequired
           eventId='sampleId'
           debounceInputEvent={200}
+          borderless={true}
           inputAriaExpanded={this._isVisible}
           inputRole='combobox'
           inputAriaAutocomplete='list'
