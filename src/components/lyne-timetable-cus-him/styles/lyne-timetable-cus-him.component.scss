@@ -1,4 +1,4 @@
-:root {
+:host {
   --cus-him-icon-height: 16;
   --cus-him-icon-width: var(--cus-him-icon-height);
 }
@@ -19,7 +19,7 @@
   width: pxToRem(var(--cus-him-width));
   padding-inline-start: pxToRem(var(--spacing-fixed-1x));
 
-  @include mq($to: medium) {
+  @include mq($to: small) {
     @include screenReaderOnly();
   }
 

@@ -1,23 +1,6 @@
-:root {
-  --plattform-min-width: 50;
-
-  @include mq($from: medium) {
-    --plattform-min-width: 55;
-  }
-
-}
-
-.timetable__row--departure-walk .platform {
-  --plattform-min-width: 85;
-
-  @include mq($from: medium) {
-    --plattform-min-width: 92;
-  }
-}
-
 .platform {
   @include text-s--regular();
-  width: pxToRem(var(--plattform-min-width));
+  line-height: pxToRem(19);
   margin: 0;
   white-space: nowrap;
 }

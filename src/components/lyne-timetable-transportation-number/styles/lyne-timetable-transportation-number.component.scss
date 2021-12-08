@@ -1,9 +1,16 @@
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin, available for shared
 // and default mode
-:root {
+:host {
   --transportation-number-element-height: 20;
   --product-icon-width: 59;
+}
+
+:host(lyne-timetable-transportation-number) {
+  display: flex;
+  flex-basis: 100%;
+  margin-block-end: pxToRem(var(--spacing-fixed-1x));
+  overflow: hidden;
 }
 
 .transportation-number {
@@ -13,14 +20,18 @@
   margin: 0;
 }
 
+.transportation-number span {
+  height: pxToRem(var(--transportation-number-element-height));
+  line-height: pxToRem(22);
+}
+
 .transportation-number--visual {
   @include text-s--regular();
   display: flex;
   flex: 0 0 100%;
   flex-wrap: nowrap;
   align-items: center;
-  height: pxToRem(var(--transportation-number-element-height));
-  line-height: pxToRem(19);
+  line-height: pxToRem(22);
   overflow: hidden;
 }
 
@@ -30,7 +41,6 @@
   aspect-ratio: 1/1;
   margin-inline-end: pxToRem(var(--spacing-fixed-1x));
   overflow: hidden;
-  background: blue;
 }
 
 .transportation-number__means_of_transport svg {
@@ -51,7 +61,6 @@
 
 .transportation-number__product-text {
   @include text-s--bold();
-  line-height: inherit;
 }
 
 .transportation-number__direction {

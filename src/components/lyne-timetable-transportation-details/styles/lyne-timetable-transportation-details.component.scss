@@ -4,13 +4,6 @@
   width: 100%;
 }
 
-lyne-timetable-transportation-number {
-  display: flex;
-  flex-basis: 100%;
-  margin-block-end: pxToRem(var(--spacing-fixed-1x));
-  overflow: hidden;
-}
-
 .transportation-details > lyne-timetable-transportation-time,
 .transportation-details > lyne-pearl-chain {
   display: flex;

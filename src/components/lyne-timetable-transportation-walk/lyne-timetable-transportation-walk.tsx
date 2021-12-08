@@ -4,6 +4,7 @@ import {
   Prop
 } from '@stencil/core';
 
+import icons from '../../global/icons/timetable.json';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
 import {
@@ -14,7 +15,7 @@ import {
 } from '../../global/i18n';
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-transportation-walk.default.scss',
     shared: 'styles/lyne-timetable-transportation-walk.shared.scss'
@@ -72,8 +73,10 @@ export class LyneTimetableTransportationWalk {
         role='text'
         title={a11yLabel}
       >
-        <span class='walk__icon'>
-          <svg><use xlinkHref='#walk-small'></use></svg>
+        <span
+          class='walk__icon'
+          innerHTML={icons['walk-small']}
+        >
         </span>
         <span
           aria-hidden='true'

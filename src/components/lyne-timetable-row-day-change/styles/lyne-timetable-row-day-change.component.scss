@@ -1,4 +1,4 @@
-lyne-timetable-row-day-change {
+:host(lyne-timetable-row-day-change) {
   padding-block-start: pxToRem(var(--spacing-fixed-2x));
   padding-block-end: pxToRem(var(--spacing-fixed-1x));
 }

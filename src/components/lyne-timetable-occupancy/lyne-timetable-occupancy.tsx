@@ -4,6 +4,7 @@ import {
   Prop
 } from '@stencil/core';
 
+import icons from '../../global/icons/timetable.json';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
 import {
@@ -12,7 +13,7 @@ import {
 } from '../../global/i18n';
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-occupancy.default.scss',
     shared: 'styles/lyne-timetable-occupancy.shared.scss'
@@ -84,9 +85,9 @@ export class LyneTimetableOccupancy {
               <span
                 aria-hidden='true'
                 class='occupancy__icon'
+                innerHTML={icons[occupancyItem.icon]}
                 role='presentation'
               >
-                <svg><use xlinkHref={`#${occupancyItem.icon}`}></use></svg>
               </span>
             </li>
           );

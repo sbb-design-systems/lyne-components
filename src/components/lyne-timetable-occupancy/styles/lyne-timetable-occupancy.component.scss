@@ -1,4 +1,4 @@
-:root {
+:host {
   --occupancy-icon-height: 16;
   --occupancy-icon-width: 19;
 }
@@ -9,7 +9,8 @@
   align-items: center;
   flex-wrap: nowrap;
   gap: pxToRem(var(--spacing-fixed-2x));
-  height: pxToRem(var(--icon-height));
+  height: pxToRem(var(--occupancy-icon-height));
+  line-height: pxToRem(19);
 }
 
 .occupancy__list-item {
@@ -21,7 +22,7 @@
 
 .occupancy__class--visual {
   @include text-s--regular();
-  line-height: inherit;
+  line-height: pxToRem(21);
 }
 
 .occupancy__class--visually-hidden {
@@ -30,10 +31,10 @@
 
 .occupancy__icon {
   height: pxToRem(var(--occupancy-icon-height));
-  line-height: pxToRem(var(--occupancy-icon-height));
 }
 
 .occupancy__icon svg {
+  float: left;
   height: pxToRem(var(--occupancy-icon-height));
   width: pxToRem(var(--occupancy-icon-width));
 }

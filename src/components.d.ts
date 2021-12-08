@@ -431,6 +431,14 @@ export namespace Components {
     }
     interface LyneTimetableButton {
         /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+        /**
           * Variant of the Timetable Button, can either be used on level 1 or level 2 of the timetable
          */
         "variant"?: InterfaceLyneTimetableButtonAttributes['variant'];
@@ -1196,6 +1204,14 @@ declare namespace LocalJSX {
     interface LyneTimetable {
     }
     interface LyneTimetableButton {
+        /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
         /**
           * Variant of the Timetable Button, can either be used on level 1 or level 2 of the timetable
          */

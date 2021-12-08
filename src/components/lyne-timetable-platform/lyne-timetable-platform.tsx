@@ -8,7 +8,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nFromPlatform } from '../../global/i18n';
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-platform.default.scss',
     shared: 'styles/lyne-timetable-platform.shared.scss'

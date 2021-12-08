@@ -5,11 +5,12 @@ import {
 } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import icons from '../../global/icons/timetable.json';
 import { InterfaceLyneTimetableCusHimAttributes } from './lyne-timetable-cus-him.custom.d';
 import { i18nNone } from '../../global/i18n';
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-cus-him.default.scss',
     shared: 'styles/lyne-timetable-cus-him.shared.scss'
@@ -69,10 +70,10 @@ export class LyneTimetableCusHim {
                   <span
                     aria-label={cusHimItem.text}
                     class='cus-him__icon'
+                    innerHTML={icons[cusHimItem.icon]}
                     role='text'
                     title={cusHimItem.text}
                   >
-                    <svg><use xlinkHref={`#${cusHimItem.icon}`}></use></svg>
                   </span>
                 </li>
               ))}

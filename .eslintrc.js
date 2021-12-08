@@ -47,7 +47,10 @@ baseConfig.overrides = [
       '@typescript-eslint/explicit-member-accessibility': 'error',
       '@typescript-eslint/indent': [
         'error',
-        2
+        2,
+        {
+          'SwitchCase': 1
+        }
       ],
       '@typescript-eslint/member-delimiter-style': 'error',
       '@typescript-eslint/naming-convention': [
@@ -107,7 +110,14 @@ baseConfig.overrides = [
       '@typescript-eslint/prefer-namespace-keyword': 'error',
       '@typescript-eslint/semi': ['error'],
       '@typescript-eslint/type-annotation-spacing': 'error',
-      'camelcase': 'off'
+      'camelcase': 'off',
+      'indent': [
+        'error',
+        2,
+        {
+          SwitchCase: 1
+        }
+        ]
     }
   },
   {

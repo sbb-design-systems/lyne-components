@@ -17,11 +17,19 @@ export class LyneTimetable {
   public render(): JSX.Element {
 
     return (
-      <div
-        class='timetable'
-        role='grid'
-      >
-        <slot />
+      <div>
+        <lyne-timetable-button
+          variant='earlier-connections'
+        ></lyne-timetable-button>
+        <div
+          class='timetable'
+          role='grid'
+        >
+          <slot />
+        </div>
+        <lyne-timetable-button
+          variant='later-connections'
+        ></lyne-timetable-button>
       </div>
     );
   }

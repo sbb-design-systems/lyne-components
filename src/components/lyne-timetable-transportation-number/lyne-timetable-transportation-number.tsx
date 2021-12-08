@@ -4,8 +4,10 @@ import {
   Prop
 } from '@stencil/core';
 
+import icons from '../../global/icons/timetable.json';
+
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-transportation-number.default.scss',
     shared: 'styles/lyne-timetable-transportation-number.shared.scss'
@@ -61,14 +63,14 @@ export class LyneTimetableTransportationNumber {
         >
           <span
             class='transportation-number__means_of_transport'
+            innerHTML={icons[config.meansOfTransport.picto]}
           >
-            <svg><use xlinkHref={`#${config.meansOfTransport.picto}`}></use></svg>
           </span>
           {config.product.icon
             ? <span
               class='transportation-number__product-icon'
+              innerHTML={icons[config.product.icon]}
             >
-              <svg><use xlinkHref={`#${config.product.icon}`}></use></svg>
             </span>
             : <span class='transportation-number__product-text'>
               {config.product.text}

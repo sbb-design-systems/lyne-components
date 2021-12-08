@@ -1,4 +1,4 @@
-:root {
+:host {
   --walk-icon-height: 24;
   --walk-icon-width: var(--walk-icon-height);
 }
@@ -30,6 +30,7 @@
 }
 
 .walk__icon svg {
+  float: left;
   height: pxToRem(var(--walk-icon-height));
   width: pxToRem(var(--walk-icon-width));
   transform: translateX(pxToRem(-7));

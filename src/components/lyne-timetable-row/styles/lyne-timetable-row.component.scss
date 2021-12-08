@@ -20,8 +20,8 @@
   flex: 0 0 100%;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
-  min-height: pxToRem(var(--row-min-height));
+  align-items: flex-start;
+  // min-height: pxToRem(var(--row-min-height));
 }
 
 .timetable__row > * {
@@ -63,5 +63,23 @@
 }
 
 .timetable__row > lyne-timetable-duration {
-  justify-content: flex-end;
+  justify-self: end;
+}
+
+.timetable__row > lyne-timetable-platform {
+  flex-basis: pxToRem(50);
+
+  @include mq($from: medium) {
+    flex-basis: pxToRem(55);
+  }
+
+}
+
+.timetable__row.timetable__row--departure-walk > lyne-timetable-platform {
+  flex-basis: pxToRem(85);
+
+  @include mq($from: medium) {
+    flex-basis: pxToRem(92);
+  }
+
 }

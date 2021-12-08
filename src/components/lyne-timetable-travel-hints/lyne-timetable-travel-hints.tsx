@@ -5,11 +5,12 @@ import {
 } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import icons from '../../global/icons/timetable.json';
 import { InterfaceLyneTimetableTravelHintsAttributes } from './lyne-timetable-travel-hints.custom.d';
 import { i18nNone } from '../../global/i18n';
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-travel-hints.default.scss',
     shared: 'styles/lyne-timetable-travel-hints.shared.scss'
@@ -68,13 +69,11 @@ export class LyneTimetableTravelHints {
                 <li class='travel-hints__list-item'>
                   <span
                     aria-label={travelHintItem.text}
-                    class='travel-hints__icon'
+                    class={`travel-hints__icon travel-hints__icon--${travelHintItem.icon}`}
+                    innerHTML={icons[travelHintItem.icon]}
                     role='text'
                     title={travelHintItem.text}
                   >
-                    <svg class={`icon--${travelHintItem.icon}`}>
-                      <use xlinkHref={`#${travelHintItem.icon}`}></use>
-                    </svg>
                   </span>
                 </li>
               ))}

@@ -13,7 +13,7 @@ import {
 } from '../../global/i18n';
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-row-day-change.default.scss',
     shared: 'styles/lyne-timetable-row-day-change.shared.scss'
@@ -52,11 +52,7 @@ export class LyneTimetableRowDayChange {
     return (
       <div
         class={`day-change${visuallyHiddenClass}`}
-
-        /**
-         * @ts-expect-error since we give the div a role gridcell we can
-         * use colspan, which would normally be an invalid attribute on a div.
-         */
+        // @ts-expect-error the role makes the colspan attribute usable
         colspan={config.colSpan}
         role='gridcell'
       >

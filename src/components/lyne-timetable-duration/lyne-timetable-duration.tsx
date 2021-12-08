@@ -12,7 +12,7 @@ import {
 } from '../../global/i18n';
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-duration.default.scss',
     shared: 'styles/lyne-timetable-duration.shared.scss'

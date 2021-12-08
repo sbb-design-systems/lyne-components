@@ -3,23 +3,24 @@
 // and default mode
 @include host-component-properties;
 
-:root {
+:host {
+  background: deeppink;
   --travel-hint-icon-height: 16;
+}
+
+.travel-hints {
+  height: pxToRem(var(--travel-hint-icon-height));
+  line-height: pxToRem(var(--travel-hint-icon-height));
 }
 
 .travel-hints__list {
   @include listReset();
   display: flex;
   gap: pxToRem(var(--spacing-fixed-1x));
-  min-height: pxToRem(var(--travel-hint-icon-height));
 }
 
 .travel-hints--first-level-list .travel-hints__list {
   justify-content: flex-end;
-}
-
-.travel-hints__list-item {
-  height: pxToRem(var(--travel-hint-icon-width));
 }
 
 .travel-hints__icon {
@@ -30,6 +31,10 @@
 .travel-hints__icon,
 .travel-hints__icon svg {
   height: pxToRem(var(--travel-hint-icon-height));
+}
+
+.travel-hints__icon svg {
+  float: left;
 }
 
 .travel-hints__text--visually-hidden {
@@ -43,166 +48,194 @@
 // All these icons have the same height but a variable width without any white room around them to
 // great an absolutely equal spacing.
 
-.icon--sa-mi {
+.travel-hints__icon--sa-mi svg {
   width: pxToRem(8);
 }
 
-.icon--sa-r {
+.travel-hints__icon--sa-r svg {
   width: pxToRem(9);
 }
 
-.icon--sa-s {
+.travel-hints__icon--sa-s svg {
   width: pxToRem(10);
 }
 
-.icon--sa-1,
-.icon--sa-2,
-.icon--sa-p {
-  width: pxToRem(11);
+.travel-hints__icon--sa-1,
+.travel-hints__icon--sa-2,
+.travel-hints__icon--sa-p {
+  svg {
+    width: pxToRem(11);
+  }
 }
 
-.icon--sa-y,
-.icon--sa-z {
-  width: pxToRem(12);
+.travel-hints__icon--sa-y,
+.travel-hints__icon--sa-z {
+  svg {
+    width: pxToRem(12);
+  }
 }
 
-.icon--sa-gl,
-.icon--sa-gn,
-.icon--sa-rr {
-  width: pxToRem(13);
+.travel-hints__icon--sa-gl,
+.travel-hints__icon--sa-gn,
+.travel-hints__icon--sa-rr {
+  svg {
+    width: pxToRem(13);
+  }
 }
 
-.icon--sa-wr {
+.travel-hints__icon--sa-wr svg {
   width: pxToRem(14);
 }
 
-.icon--sa-x {
+.travel-hints__icon--sa-x svg {
   width: pxToRem(15);
 }
 
-.icon--sa-pa {
+.travel-hints__icon--sa-pa svg {
   width: pxToRem(16);
 }
 
-.icon--sa-vi {
+.travel-hints__icon--sa-vi svg {
   width: pxToRem(17);
 }
 
-.icon--sa-fl {
+.travel-hints__icon--sa-fl svg {
   width: pxToRem(18);
 }
 
-.icon--sa-b,
-.icon--sa-je,
-.icon--sa-pl,
-.icon--sa-sl,
-.icon--sa-vl,
-.icon--sa-vr {
-  width: pxToRem(19);
+.travel-hints__icon--sa-b,
+.travel-hints__icon--sa-je,
+.travel-hints__icon--sa-pl,
+.travel-hints__icon--sa-sl,
+.travel-hints__icon--sa-vl,
+.travel-hints__icon--sa-vr {
+  svg {
+    width: pxToRem(19);
+  }
 }
 
-.icon--sa-bl,
-.icon--sa-fs,
-.icon--sa-le,
-.icon--sa-tf,
-.icon--sa-ts {
-  width: pxToRem(20);
+.travel-hints__icon--sa-bl,
+.travel-hints__icon--sa-fs,
+.travel-hints__icon--sa-le,
+.travel-hints__icon--sa-tf,
+.travel-hints__icon--sa-ts {
+  svg {
+    width: pxToRem(20);
+  }
 }
 
-.icon--sa-cc,
-.icon--sa-ep,
-.icon--sa-fa,
-.icon--sa-fz,
-.icon--sa-lc,
-.icon--sa-nj,
-.icon--sa-sb,
-.icon--sa-tc,
-.icon--sa-tt,
-.icon--sa-wl {
-  width: pxToRem(21);
+.travel-hints__icon--sa-cc,
+.travel-hints__icon--sa-ep,
+.travel-hints__icon--sa-fa,
+.travel-hints__icon--sa-fz,
+.travel-hints__icon--sa-lc,
+.travel-hints__icon--sa-nj,
+.travel-hints__icon--sa-sb,
+.travel-hints__icon--sa-tc,
+.travel-hints__icon--sa-tt,
+.travel-hints__icon--sa-wl {
+  svg {
+    width: pxToRem(21);
+  }
 }
 
-.icon--sa-bc,
-.icon--sa-pr,
-.icon--sa-rb,
-.icon--sa-re,
-.icon--sa-sc,
-.icon--sa-sz,
-.icon--sa-tq,
-.icon--sa-vn,
-.icon--sa-vp,
-.icon--sa-yb {
-  width: pxToRem(22);
+.travel-hints__icon--sa-bc,
+.travel-hints__icon--sa-pr,
+.travel-hints__icon--sa-rb,
+.travel-hints__icon--sa-re,
+.travel-hints__icon--sa-sc,
+.travel-hints__icon--sa-sz,
+.travel-hints__icon--sa-tq,
+.travel-hints__icon--sa-vn,
+.travel-hints__icon--sa-vp,
+.travel-hints__icon--sa-yb {
+  svg {
+    width: pxToRem(22);
+  }
 }
 
-.icon--sa-br,
-.icon--sa-bz,
-.icon--sa-gp,
-.icon--sa-gr,
-.icon--sa-gz,
-.icon--sa-rc,
-.icon--sa-rt,
-.icon--sa-rz,
-.icon--sa-sd,
-.icon--sa-sn,
-.icon--sa-tk,
-.icon--sa-ws,
-.icon--sa-yt {
-  width: pxToRem(23);
+.travel-hints__icon--sa-br,
+.travel-hints__icon--sa-bz,
+.travel-hints__icon--sa-gp,
+.travel-hints__icon--sa-gr,
+.travel-hints__icon--sa-gz,
+.travel-hints__icon--sa-rc,
+.travel-hints__icon--sa-rt,
+.travel-hints__icon--sa-rz,
+.travel-hints__icon--sa-sd,
+.travel-hints__icon--sa-sn,
+.travel-hints__icon--sa-tk,
+.travel-hints__icon--sa-ws,
+.travel-hints__icon--sa-yt {
+  svg {
+    width: pxToRem(23);
+  }
 }
 
-.icon--sa-nf,
-.icon--sa-sh,
-.icon--sa-sv {
-  width: pxToRem(24);
+.travel-hints__icon--sa-nf,
+.travel-hints__icon--sa-sh,
+.travel-hints__icon--sa-sv {
+  svg {
+    width: pxToRem(24);
+  }
 }
 
-.icon--sa-bk,
-.icon--sa-bv,
-.icon--sa-rq,
-.icon--sa-om,
-.icon--sa-ry,
-.icon--sa-vx,
-.icon--sa-xp,
-.icon--sa-xr {
-  width: pxToRem(25);
+.travel-hints__icon--sa-bk,
+.travel-hints__icon--sa-bv,
+.travel-hints__icon--sa-rq,
+.travel-hints__icon--sa-om,
+.travel-hints__icon--sa-ry,
+.travel-hints__icon--sa-vx,
+.travel-hints__icon--sa-xp,
+.travel-hints__icon--sa-xr {
+  svg {
+    width: pxToRem(25);
+  }
 }
 
-.icon--sa-dz,
-.icon--sa-uk,
-.icon--sa-xt {
-  width: pxToRem(26);
+.travel-hints__icon--sa-dz,
+.travel-hints__icon--sa-uk,
+.travel-hints__icon--sa-xt {
+  svg {
+    width: pxToRem(26);
+  }
 }
 
-.icon--sa-hk,
-.icon--sa-hn {
-  width: pxToRem(27);
+.travel-hints__icon--sa-hk,
+.travel-hints__icon--sa-hn {
+  svg {
+    width: pxToRem(27);
+  }
 }
 
-.icon--sa-mc,
-.icon--sa-mp,
-.icon--sa-sm {
-  width: pxToRem(28);
+.travel-hints__icon--sa-mc,
+.travel-hints__icon--sa-mp,
+.travel-hints__icon--sa-sm {
+  svg {
+    width: pxToRem(28);
+  }
 }
 
-.icon--sa-fw,
-.icon--sa-ym,
-.icon--sa-zm {
-  width: pxToRem(29);
+.travel-hints__icon--sa-fw,
+.travel-hints__icon--sa-ym,
+.travel-hints__icon--sa-zm {
+  svg {
+    width: pxToRem(29);
+  }
 }
 
-.icon--sa-wv {
+.travel-hints__icon--sa-wv {
   width: pxToRem(31);
 }
 
-.icon--sa-vb {
+.travel-hints__icon--sa-vb {
   width: pxToRem(32);
 }
 
-.icon--sa-kw {
+.travel-hints__icon--sa-kw {
   width: pxToRem(33);
 }
 
-.icon--sa-aw {
+.travel-hints__icon--sa-aw {
   width: pxToRem(34);
 }
