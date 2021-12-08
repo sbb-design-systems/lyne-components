@@ -25,7 +25,7 @@ export default {
   },
   parameters: {
     actions: {
-      handles: [events.click]
+      handles: [events.selected]
     },
     backgrounds: {
       disable: true
