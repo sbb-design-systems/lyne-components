@@ -369,14 +369,6 @@ export namespace Components {
           * Product ticket appearance
          */
         "appearance"?: InterfaceProductAttributes['appearance'];
-        /**
-          * Lead text
-         */
-        "lead": string;
-        /**
-          * Detailed text
-         */
-        "text"?: string;
     }
     interface LyneProductSubscription {
         /**
@@ -1053,14 +1045,6 @@ declare namespace LocalJSX {
           * Product ticket appearance
          */
         "appearance"?: InterfaceProductAttributes['appearance'];
-        /**
-          * Lead text
-         */
-        "lead": string;
-        /**
-          * Detailed text
-         */
-        "text"?: string;
     }
     interface LyneProductSubscription {
         /**

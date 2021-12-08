@@ -38,28 +38,12 @@ const appearance = {
   }
 };
 
-const text = {
-  control: {
-    type: 'text'
-  }
-};
-
-const lead = {
-  control: {
-    type: 'text'
-  }
-};
-
 const defaultArgTypes = {
-  appearance,
-  lead,
-  text
+  appearance
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
-  lead: 'Halbtax-Abo',
-  text: '2. Klasse, gültig bis 30.11.2021'
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -98,6 +82,28 @@ const lyneJourneyHeaderArgs = {
 
 const SlotLyneJourneyHeaderTemplate = (args) => (
   <lyne-journey-header {...args} />
+);
+
+/* --- lead slot ---------------------------------- */
+
+const lyneLeadArgs = {
+  'level': 3,
+  'text': 'Halbtax-Abo',
+  'visual-level': 6
+};
+
+const SlotLyneLeadTemplate = (args) => (
+  <lyne-title {...args} />
+);
+
+/* --- text slot ---------------------------------- */
+
+const lyneTextArgs = {
+  text: '2. Klasse, gültig bis 30.11.2021'
+};
+
+const SlotLyneTextTemplate = (args) => (
+  <span>{args.text}</span>
 );
 
 /* --- pearl chain slot ---------------------------------- */
@@ -151,6 +157,8 @@ const SlotActionTemplate = (args) => (
 const TemplateLyneTitle = (args) => (
   <lyne-product {...args}>
     <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
+    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
   </lyne-product>
 );

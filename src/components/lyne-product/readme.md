@@ -7,22 +7,22 @@
 
 ## Properties
 
-| Property            | Attribute    | Description               | Type                              | Default     |
-| ------------------- | ------------ | ------------------------- | --------------------------------- | ----------- |
-| `appearance`        | `appearance` | Product ticket appearance | `"primary" \| "primary-negative"` | `'primary'` |
-| `lead` _(required)_ | `lead`       | Lead text                 | `string`                          | `undefined` |
-| `text`              | `text`       | Detailed text             | `string`                          | `undefined` |
+| Property     | Attribute    | Description               | Type                              | Default     |
+| ------------ | ------------ | ------------------------- | --------------------------------- | ----------- |
+| `appearance` | `appearance` | Product ticket appearance | `"primary" \| "primary-negative"` | `'primary'` |
 
 
 ## Slots
 
-| Slot                   | Description                                                |
-| ---------------------- | ---------------------------------------------------------- |
-| `"action"`             | Slot used to render the link-button                        |
-| `"card-badge"`         | Slot used to render the optional card badge e.g. discounts |
-| `"connection-details"` | Slot used to render the connection-details                 |
-| `"icon"`               | Slot used to render the product icon                       |
-| `"title"`              | Slot used to render the title                              |
+| Slot                   | Description                                                                  |
+| ---------------------- | ---------------------------------------------------------------------------- |
+| `"action"`             | Slot used to render the link-button                                          |
+| `"card-badge"`         | Slot used to render the optional card badge e.g. discounts                   |
+| `"connection-details"` | Slot used to render the connection-details                                   |
+| `"icon"`               | Slot used to render the product icon                                         |
+| `"lead"`               | Slot used to render the lead text                                            |
+| `"text"`               | Slot used to render product contents — only inline HTML elements are allowed |
+| `"title"`              | Slot used to render the title                                                |
 
 
 ----------------------------------------------
