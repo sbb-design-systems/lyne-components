@@ -8,10 +8,6 @@ const Template = (args) => (
 
 export const story1 = Template.bind({});
 
-story1.args = {
-  value: 'opt1'
-};
-
 story1.documentation = {
   title: 'Title which will be rendered on documentation platform'
 };
