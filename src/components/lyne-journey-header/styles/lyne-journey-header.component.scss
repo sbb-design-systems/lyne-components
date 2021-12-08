@@ -40,10 +40,11 @@
   @include title-5();
 }
 
-// TODO re-factor to a more generic class later, also see .title--hidden
-.connection-text-hidden {
+.connection--visually-hidden {
   @include screenReaderOnly();
 }
+
+.connection--visual  {}
 
 .icon {
   display: flex;

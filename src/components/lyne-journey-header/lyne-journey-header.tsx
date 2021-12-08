@@ -64,7 +64,7 @@ export class LyneJourneyHeader {
      * @Todo Check if anybody did think about `via` connections yet? Or will
      * this component never show any `via` connections?
      */
-    const connectionTextOrigin = 'Connection from ';
+    const connectionTextOrigin = 'Connection from';
     const connectionTextDestination = 'to';
     const connectionTextRoundtrip = this.isRoundTrip
       ? `and back to ${this.origin}`
@@ -88,14 +88,14 @@ export class LyneJourneyHeader {
       <TAGNAME {...attrs}
         dir={currentWritingMode}
       >
-        <span class='connection-text-origin connection-text-hidden'>{connectionTextOrigin}</span>
+        <span class='connection-text-origin connection--visually-hidden'>{connectionTextOrigin}</span>
         <span
           class='origin'
         >
           {this.origin}
         </span>
         <span class='icon' innerHTML={journeyIcon}>
-          <span class='connection-text-destination connection-text-hidden'>{connectionTextDestination}</span>
+          <span class='connection-text-destination connection--visually-hidden'>{connectionTextDestination}</span>
         </span>
         <span
           class='destination'
@@ -103,7 +103,7 @@ export class LyneJourneyHeader {
           {this.destination}
         </span>
         {this.isRoundTrip
-          ? <span class='connection-text-roundtrip connection-text-hidden'>{connectionTextRoundtrip}</span>
+          ? <span class='connection-text-roundtrip connection--visually-hidden'> {connectionTextRoundtrip}</span>
           : ''
         }
       </TAGNAME>
