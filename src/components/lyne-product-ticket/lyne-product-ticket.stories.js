@@ -151,6 +151,7 @@ const SlotCardBadgeTemplate = (args) => (
 const actionTicketArgs = {
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   'icon-placement': 'start',
+  'size': 'small',
   'text': 'Kaufen',
   'variant': 'secondary'
 };
@@ -159,6 +160,7 @@ const actionTicketPersonalizedArgs = {
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   'icon': 'qrcode-small',
   'icon-placement': 'start',
+  'size': 'small',
   'text': 'Billett',
   'variant': 'secondary'
 };
@@ -166,6 +168,7 @@ const actionTicketPersonalizedArgs = {
 const actionTicketPersonalizedConnectionArgs = {
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   'icon-placement': 'start',
+  'size': 'small',
   'text': 'Details',
   'variant': 'secondary'
 };
