@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
+import { InterfaceLyneAutocompleteListAttributes } from "./components/lyne-autocomplete-list/lyne-autocomplete-list.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
@@ -18,6 +19,7 @@ import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
+import { InterfaceLyneTimetableFormJourneyAttributes } from "./components/lyne-timetable-form-journey/lyne-timetable-form-journey.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -90,6 +92,12 @@ export namespace Components {
           * Text to show as content of the autocomplete item
          */
         "text": string;
+    }
+    interface LyneAutocompleteList {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneAutocompleteListAttributes['someInterface'];
     }
     interface LyneButton {
         /**
@@ -491,6 +499,12 @@ export namespace Components {
          */
         "labelVisible"?: true;
     }
+    interface LyneTimetableFormJourney {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneTimetableFormJourneyAttributes['someInterface'];
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -542,6 +556,12 @@ declare global {
     var HTMLLyneAutocompleteItemElement: {
         prototype: HTMLLyneAutocompleteItemElement;
         new (): HTMLLyneAutocompleteItemElement;
+    };
+    interface HTMLLyneAutocompleteListElement extends Components.LyneAutocompleteList, HTMLStencilElement {
+    }
+    var HTMLLyneAutocompleteListElement: {
+        prototype: HTMLLyneAutocompleteListElement;
+        new (): HTMLLyneAutocompleteListElement;
     };
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
     }
@@ -627,6 +647,12 @@ declare global {
         prototype: HTMLLyneTextInputElement;
         new (): HTMLLyneTextInputElement;
     };
+    interface HTMLLyneTimetableFormJourneyElement extends Components.LyneTimetableFormJourney, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableFormJourneyElement: {
+        prototype: HTMLLyneTimetableFormJourneyElement;
+        new (): HTMLLyneTimetableFormJourneyElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -638,6 +664,7 @@ declare global {
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-autocomplete": HTMLLyneAutocompleteElement;
         "lyne-autocomplete-item": HTMLLyneAutocompleteItemElement;
+        "lyne-autocomplete-list": HTMLLyneAutocompleteListElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-input-error": HTMLLyneInputErrorElement;
@@ -652,6 +679,7 @@ declare global {
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
+        "lyne-timetable-form-journey": HTMLLyneTimetableFormJourneyElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -727,6 +755,12 @@ declare namespace LocalJSX {
           * Text to show as content of the autocomplete item
          */
         "text": string;
+    }
+    interface LyneAutocompleteList {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneAutocompleteListAttributes['someInterface'];
     }
     interface LyneButton {
         /**
@@ -1128,6 +1162,12 @@ declare namespace LocalJSX {
          */
         "labelVisible"?: true;
     }
+    interface LyneTimetableFormJourney {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneTimetableFormJourneyAttributes['someInterface'];
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -1159,6 +1199,7 @@ declare namespace LocalJSX {
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-autocomplete": LyneAutocomplete;
         "lyne-autocomplete-item": LyneAutocompleteItem;
+        "lyne-autocomplete-list": LyneAutocompleteList;
         "lyne-button": LyneButton;
         "lyne-image": LyneImage;
         "lyne-input-error": LyneInputError;
@@ -1173,6 +1214,7 @@ declare namespace LocalJSX {
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
+        "lyne-timetable-form-journey": LyneTimetableFormJourney;
         "lyne-title": LyneTitle;
     }
 }
@@ -1184,6 +1226,7 @@ declare module "@stencil/core" {
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-autocomplete": LocalJSX.LyneAutocomplete & JSXBase.HTMLAttributes<HTMLLyneAutocompleteElement>;
             "lyne-autocomplete-item": LocalJSX.LyneAutocompleteItem & JSXBase.HTMLAttributes<HTMLLyneAutocompleteItemElement>;
+            "lyne-autocomplete-list": LocalJSX.LyneAutocompleteList & JSXBase.HTMLAttributes<HTMLLyneAutocompleteListElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
@@ -1198,6 +1241,7 @@ declare module "@stencil/core" {
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
+            "lyne-timetable-form-journey": LocalJSX.LyneTimetableFormJourney & JSXBase.HTMLAttributes<HTMLLyneTimetableFormJourneyElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }
