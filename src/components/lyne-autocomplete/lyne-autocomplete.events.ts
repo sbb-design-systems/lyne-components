@@ -1,3 +1,3 @@
 export default {
-  click: 'lyne-autocomplete_click'
+  selected: 'lyne-autocomplete_selected'
 };
