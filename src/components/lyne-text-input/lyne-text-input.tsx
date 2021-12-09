@@ -118,7 +118,7 @@ export class LyneTextInput {
   @Prop() public label!: string;
 
   /**
-   * If set to true, the label will be visually
+   * If set to false, the label will be visually
    * hidden but still be in the markup to provide
    * proper semantics
    */
