@@ -58,9 +58,37 @@ export namespace Components {
     }
     interface LyneAutocomplete {
         /**
-          * Id which is sent as the id in the eventDetail payload
+          * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
+         */
+        "autocompleteId"?: string;
+        /**
+          * Id which is sent as the id in the eventDetail payload when a value is selected
          */
         "eventId"?: string;
+        /**
+          * Define if borderless variant of autocomplete input should be used. See documentation of lyne-text-input for details.
+         */
+        "inputBorderless"?: boolean;
+        /**
+          * Debounce timeout to use for the input. See documentation of lyne-text-input for details.
+         */
+        "inputDebounceTimeout"?: number;
+        /**
+          * Label attribute for the input element. See lyne-text-input for details.
+         */
+        "inputLabel": string;
+        /**
+          * Determine if the input label should be visible. See lyne-text-input for details.
+         */
+        "inputLabelVisible"?: boolean;
+        /**
+          * Name attribute for the input element. See lyne-text-input for details.
+         */
+        "inputName": string;
+        /**
+          * Placeholder attribute for the input element. See lyne-text-input for details.
+         */
+        "inputPlaceholder"?: string;
         /**
           * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
          */
@@ -510,9 +538,9 @@ export namespace Components {
          */
         "label": string;
         /**
-          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+          * If set to false, the label will be visually hidden but still be in the markup to provide proper semantics
          */
-        "labelVisible"?: true;
+        "labelVisible"?: boolean;
     }
     interface LyneTimetableFormJourney {
         /**
@@ -737,9 +765,37 @@ declare namespace LocalJSX {
     }
     interface LyneAutocomplete {
         /**
-          * Id which is sent as the id in the eventDetail payload
+          * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
+         */
+        "autocompleteId"?: string;
+        /**
+          * Id which is sent as the id in the eventDetail payload when a value is selected
          */
         "eventId"?: string;
+        /**
+          * Define if borderless variant of autocomplete input should be used. See documentation of lyne-text-input for details.
+         */
+        "inputBorderless"?: boolean;
+        /**
+          * Debounce timeout to use for the input. See documentation of lyne-text-input for details.
+         */
+        "inputDebounceTimeout"?: number;
+        /**
+          * Label attribute for the input element. See lyne-text-input for details.
+         */
+        "inputLabel": string;
+        /**
+          * Determine if the input label should be visible. See lyne-text-input for details.
+         */
+        "inputLabelVisible"?: boolean;
+        /**
+          * Name attribute for the input element. See lyne-text-input for details.
+         */
+        "inputName": string;
+        /**
+          * Placeholder attribute for the input element. See lyne-text-input for details.
+         */
+        "inputPlaceholder"?: string;
         /**
           * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
          */
@@ -1189,9 +1245,9 @@ declare namespace LocalJSX {
          */
         "label": string;
         /**
-          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+          * If set to false, the label will be visually hidden but still be in the markup to provide proper semantics
          */
-        "labelVisible"?: true;
+        "labelVisible"?: boolean;
     }
     interface LyneTimetableFormJourney {
         /**
