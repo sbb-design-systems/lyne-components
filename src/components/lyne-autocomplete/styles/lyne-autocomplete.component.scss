@@ -13,6 +13,10 @@
   @include mq($from: medium) {
     --input-height: 56; // TODO Design Token??
   }
+
+  position: relative;
+  z-index: 0;
+
 }
 
 .autocomplete {
