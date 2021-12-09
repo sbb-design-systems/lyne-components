@@ -2,7 +2,7 @@ import { LyneTimetableDetails } from './lyne-timetable-transportation-details';
 import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './lyne-timetable-transportation-details.sample-data';
 
-const config = JSON.stringify(sampleData[0]);
+const config = JSON.stringify(sampleData['bus']);
 
 describe('lyne-timetable-transportation-details', () => {
   it('renders', async () => {
@@ -10,7 +10,7 @@ describe('lyne-timetable-transportation-details', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableDetails],
-      html: `<lyne-timetable-transportation-details config='${JSON.stringify(sampleData['bus'])}' role='gridcell' />`
+      html: `<lyne-timetable-transportation-details config='${config}' role='gridcell' />`
     });
 
     expect(root)
@@ -24,7 +24,7 @@ describe('lyne-timetable-transportation-details', () => {
                 class="transportation-details"
                 role="none"
             >
-                <lyne-timetable-transportation-number role="none" class="hydrated">
+                <lyne-timetable-transportation-number role="none">
                     <mock:shadow-root>
                       <p
                           aria-label="Train IC 8  Direction Romanshorn"
@@ -63,7 +63,7 @@ describe('lyne-timetable-transportation-details', () => {
                     </mock:shadow-root>
                 </lyne-timetable-transportation-number>
 
-                <lyne-timetable-transportation-walk class="hydrated">
+                <lyne-timetable-transportation-walk>
                     <mock:shadow-root>
                         <p
                             aria-label="2 minutes of walking time before departure. (Distance 178 Meters)"
@@ -90,7 +90,7 @@ describe('lyne-timetable-transportation-details', () => {
                     </mock:shadow-root>
                 </lyne-timetable-transportation-walk>
 
-                <lyne-timetable-transportation-time class="hydrated">
+                <lyne-timetable-transportation-time>
                     <mock:shadow-root>
                         <p
                             aria-label="Departure 15:14."
@@ -120,7 +120,7 @@ describe('lyne-timetable-transportation-details', () => {
                     </mock:shadow-root>
                 </lyne-pearl-chain>
 
-                <lyne-timetable-transportation-time class="hydrated">
+                <lyne-timetable-transportation-time>
                     <mock:shadow-root>
                         <p
                             aria-label="Arrival 15:34."

@@ -13,7 +13,7 @@ const Template = (args) => (
 
 const config = {
   table: {
-    disable: true
+    disable: false
   }
 };
 

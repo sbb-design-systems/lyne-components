@@ -22,7 +22,7 @@ const gridCellRole = {
 
 const config = {
   table: {
-    disable: true
+    disable: false
   }
 };
 
@@ -38,15 +38,39 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const DayChange = Template.bind({});
+export const currentDayHidden = Template.bind({});
 
-DayChange.argTypes = defaultArgTypes;
-DayChange.args = {
+currentDayHidden.argTypes = defaultArgTypes;
+currentDayHidden.args = {
   ...defaultArgs,
   config: sampleData[0]
 };
 
-DayChange.documentation = {
+currentDayHidden.documentation = {
+  title: 'Current Day Hidden'
+};
+
+export const currentDayVisible = Template.bind({});
+
+currentDayVisible.argTypes = defaultArgTypes;
+currentDayVisible.args = {
+  ...defaultArgs,
+  config: sampleData[1]
+};
+
+currentDayVisible.documentation = {
+  title: 'Current Day Visible'
+};
+
+export const dayChange = Template.bind({});
+
+dayChange.argTypes = defaultArgTypes;
+dayChange.args = {
+  ...defaultArgs,
+  config: sampleData[2]
+};
+
+dayChange.documentation = {
   title: 'Day Change'
 };
 

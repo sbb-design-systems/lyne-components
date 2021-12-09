@@ -22,7 +22,7 @@ const gridCellRole = {
 
 const config = {
   table: {
-    disable: true
+    disable: false
   }
 };
 

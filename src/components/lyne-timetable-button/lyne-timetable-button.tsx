@@ -19,7 +19,7 @@ import {
  */
 
 @Component({
-  shadow: false,
+  shadow: true,
   styleUrls: {
     default: 'styles/lyne-timetable-button.default.scss',
     shared: 'styles/lyne-timetable-button.shared.scss'
