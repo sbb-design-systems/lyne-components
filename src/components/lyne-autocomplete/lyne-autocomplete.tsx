@@ -42,7 +42,6 @@ export class LyneAutocomplete {
   @Prop() public eventId?: string;
 
   @State() private _inputValue: string;
-  @State() private _selectedAutocompleteValue: string;
   @State() private _isVisible = false;
 
   @Element() private _element: HTMLElement;
@@ -130,7 +129,6 @@ export class LyneAutocomplete {
   private _handleSelected = (evt): void => {
     const value = evt.detail;
 
-    this._selectedAutocompleteValue = value;
     this.value = value;
     this._handleBlur();
   };
@@ -158,7 +156,6 @@ export class LyneAutocomplete {
   }
 
   public render(): JSX.Element {
-
     return (
       <div class='autocomplete'>
 
@@ -177,7 +174,7 @@ export class LyneAutocomplete {
           inputRole='combobox'
           inputAriaAutocomplete='list'
           inputAriaControls='autocomplete-list'
-          inputValue={this.value || this._selectedAutocompleteValue}
+          inputValue={this.value}
           ref={(el): void => {
             this._inputElement = el;
           }}
