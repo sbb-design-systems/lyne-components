@@ -50,9 +50,6 @@ export class LyneAutocomplete {
   private _inputElement!: HTMLLyneTextInputElement;
   private _list!: HTMLLyneAutocompleteListElement;
 
-  /**
-   * lyne-autocomplete-list listens to this event
-   */
   private _handleKeyPress = (evt): void => {
     const {
       key
@@ -64,30 +61,33 @@ export class LyneAutocomplete {
       detail: key
     });
 
+    /**
+     * lyne-autocomplete-list listens to this event
+     */
     this._list.dispatchEvent(event);
   };
 
-  /**
-   * lyne-text-input listens to this event
-   */
   private _selectInputText = (): void => {
     const event = new CustomEvent('select', {
       bubbles: false,
       composed: false
     });
 
+    /**
+     * lyne-text-input listens to this event
+     */
     this._inputElement.dispatchEvent(event);
   };
 
-  /**
-   * lyne-text-input listens to this event
-   */
   private _focusInputText = (): void => {
     const event = new CustomEvent('focus', {
       bubbles: false,
       composed: false
     });
 
+    /**
+     * lyne-text-input listens to this event
+     */
     this._inputElement.dispatchEvent(event);
   };
 
@@ -103,9 +103,6 @@ export class LyneAutocomplete {
 
   };
 
-  /**
-   * consumers of lyne-autocomplete may listen to this event
-   */
   private _handleBlur = (): void => {
     this._isVisible = false;
 
@@ -124,6 +121,9 @@ export class LyneAutocomplete {
       detail: eventDetail
     });
 
+    /**
+     * consumers of lyne-autocomplete may listen to this event
+     */
     this._element.dispatchEvent(event);
   };
 
