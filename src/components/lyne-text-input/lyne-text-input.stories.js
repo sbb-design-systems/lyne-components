@@ -234,7 +234,8 @@ const inputRole = {
   options: [
     'presentation',
     'searchbox',
-    'combobox'
+    'combobox',
+    'listbox'
   ],
   table: {
     category: 'a11y'
