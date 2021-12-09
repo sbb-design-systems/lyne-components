@@ -52,7 +52,7 @@ export class LyneAutocomplete {
    * Define if borderless variant of autocomplete input should be used. See
    * documentation of lyne-text-input for details.
    */
-  @Prop() public inputBorderless? = true;
+  @Prop() public inputBorderless?: boolean;
 
   /**
    * Debounce timeout to use for the input. See documentation of
@@ -81,7 +81,7 @@ export class LyneAutocomplete {
    * See lyne-text-input for
    * details.
    */
-  @Prop() public inputLabelVisible? = true;
+  @Prop() public inputLabelVisible?: boolean;
 
   @State() private _inputValue: string;
   @State() private _isVisible = false;
