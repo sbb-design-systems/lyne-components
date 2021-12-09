@@ -17,6 +17,7 @@
   top: calc(100% - #{pxToRem(var(--input-height))});
   right: 0;
   left: 0;
+  z-index: -1;
 
   border-radius: pxToRem(var(--border-radius-4x));
   padding-block-start: calc(#{pxToRem(var(--input-height))} + #{pxToRem(var(--spacing-fixed-3x))});
@@ -27,6 +28,7 @@
   box-shadow:
   pxToRem(var(--shadow-elevation-level-5-shadow-1-offset-x)) pxToRem(var(--shadow-elevation-level-5-shadow-1-offset-y)) pxToRem(var(--shadow-elevation-level-5-shadow-1-blur)) pxToRem(var(--shadow-elevation-level-5-shadow-1-spread)) var(--shadow-elevation-level-5-soft-1-color),
   pxToRem(var(--shadow-elevation-level-5-shadow-2-offset-x)) pxToRem(var(--shadow-elevation-level-5-shadow-2-offset-y)) pxToRem(var(--shadow-elevation-level-5-shadow-2-blur)) pxToRem(var(--shadow-elevation-level-5-shadow-2-spread)) var(--shadow-elevation-level-5-soft-2-color);
+  background-color: var(--color-white-default);
 
   @include mq($from: medium) {
     padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-medium));
