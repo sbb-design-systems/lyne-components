@@ -78,7 +78,7 @@ export class LyneAutocomplete {
     this._inputElement.dispatchEvent(event);
   };
 
-  private _focusInputText = (): void => {
+  private _focusInputElement = (): void => {
     const event = new CustomEvent('focus', {
       bubbles: false,
       composed: false
@@ -141,7 +141,7 @@ export class LyneAutocomplete {
     this._inputElement.addEventListener('keydown', this._handleKeyPress);
 
     this._list.addEventListener(listEvents.selected, this._handleSelected);
-    this._list.addEventListener(listEvents.setInputFocus, this._focusInputText);
+    this._list.addEventListener(listEvents.setInputFocus, this._focusInputElement);
   }
 
   public disconnectCallback(): void {
@@ -152,7 +152,7 @@ export class LyneAutocomplete {
     this._inputElement.removeEventListener('keydown', this._handleKeyPress);
 
     this._list.removeEventListener(listEvents.selected, this._handleSelected);
-    this._list.removeEventListener(listEvents.setInputFocus, this._focusInputText);
+    this._list.removeEventListener(listEvents.setInputFocus, this._focusInputElement);
   }
 
   public render(): JSX.Element {
