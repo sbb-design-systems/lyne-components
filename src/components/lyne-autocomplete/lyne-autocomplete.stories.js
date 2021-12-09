@@ -2,14 +2,141 @@ import events from './lyne-autocomplete.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+// ---- Template
+
 const Template = (args) => (
   <lyne-autocomplete {...args}></lyne-autocomplete>
 );
 
-export const story1 = Template.bind({});
+// ---- ArgTypes
+const items = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Autocomplete'
+  }
+};
 
-story1.documentation = {
-  title: 'Title which will be rendered on documentation platform'
+const value = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Autocomplete'
+  }
+};
+
+const eventId = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Autocomplete'
+  }
+};
+
+const autocompleteId = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Autocomplete'
+  }
+};
+
+const inputBorderless = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Input'
+  }
+};
+
+const inputDebounceTimeout = {
+  control: {
+    type: 'number'
+  },
+  table: {
+    category: 'Input'
+  }
+};
+
+const inputName = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Input'
+  }
+};
+
+const inputLabel = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Input'
+  }
+};
+
+const inputPlaceholder = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Input'
+  }
+};
+
+const inputLabelVisible = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Input'
+  }
+};
+
+const defaultArgTypes = {
+  'autocomplete-id': autocompleteId,
+  'event-id': eventId,
+  'input-borderless': inputBorderless,
+  'input-debounceTimeout': inputDebounceTimeout,
+  'input-label': inputLabel,
+  'input-label-visible': inputLabelVisible,
+  'input-name': inputName,
+  'input-placeholder': inputPlaceholder,
+  items,
+  value
+};
+
+// ---- DefaultArgs
+const defaultItems = '[{"text": "pre ipsum item1 post lorem"},{"text": "pre ipsum item2 post lorem"},{"text": "pre ipsum item3 post lorem"},{"text": "pre ipsum item4 post lorem"},{"text": "pre ipsum item5 post lorem"},{"text": "pre ipsum item6 post lorem"},{"text": "pre ipsum item7 post lorem"},{"text": "pre ipsum item8 post lorem"},{"text": "pre ipsum item9 post lorem"},{"text": "pre ipsum item10 post lorem"}]';
+
+const defaultArgs = {
+  'autocomplete-id': 'sample-id',
+  'event-id': 'sample-id',
+  'input-borderless': true,
+  'input-debounceTimeout': 200,
+  'input-label': 'Von',
+  'input-label-visible': true,
+  'input-name': 'sample-name',
+  'input-placeholder': 'sample placeholder',
+  'items': defaultItems
+};
+
+// ---- Stories
+export const DefaultAutocomplete = Template.bind({});
+
+DefaultAutocomplete.argTypes = defaultArgTypes;
+DefaultAutocomplete.args = {
+  ...defaultArgs
+};
+
+DefaultAutocomplete.documentation = {
+  title: 'Default autocomplete'
 };
 
 export default {
@@ -20,9 +147,6 @@ export default {
       </div>
     )
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform']
-  },
   parameters: {
     actions: {
       handles: [events.selected]
