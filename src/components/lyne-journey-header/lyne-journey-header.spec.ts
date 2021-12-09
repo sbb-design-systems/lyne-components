@@ -16,12 +16,12 @@ describe('lyne-journey-header', () => {
         <lyne-journey-header level="1" visual-level="1" text="Sample Title Text">
           <mock:shadow-root>
             <span class="journey-header journey-header--primary journey-header--size-5" dir="ltr">
-              <span class="connection-text-hidden connection-text-origin">
+              <span class="connection-text-origin connection--visually-hidden">
                 Connection from
               </span>
               <span class="origin"></span>
               <span class="icon">
-                <span class="connection-text-destination connection-text-hidden">
+                <span class="connection-text-destination connection--visually-hidden">
                   to
                 </span>
               </span>

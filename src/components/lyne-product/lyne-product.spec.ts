@@ -16,9 +16,7 @@ describe('lyne-product', () => {
           <mock:shadow-root>
             <div class="product product--primary">
               <div class="product__content">
-                <div>
-                  <div class="product__lead"></div>
-                </div>
+                <div></div>
               </div>
             </div>
           </mock:shadow-root>

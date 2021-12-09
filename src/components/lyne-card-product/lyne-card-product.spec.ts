@@ -14,11 +14,9 @@ describe('lyne-card-product', () => {
       .toEqualHtml(`
         <lyne-card-product>
           <mock:shadow-root>
-            <div class="product product--primary">
-              <div class="product__content">
-                <div>
-                  <div class="product__lead"></div>
-                </div>
+            <div class="card-product card-product--primary">
+              <div class="card-product__content">
+                <div></div>
               </div>
             </div>
           </mock:shadow-root>
