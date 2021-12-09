@@ -159,9 +159,7 @@ export class LyneAutocompleteList {
    * ---------
    */
   private _handleListClick = (evt): void => {
-    const {
-      path
-    } = evt;
+    const path = evt.composedPath();
 
     let firstElement = null;
 
