@@ -141,6 +141,9 @@ export class LyneAutocompleteList {
       detail: value
     });
 
+    /**
+     * lyne-autocomplete listens to this event
+     */
     this._list.dispatchEvent(event);
   };
 
@@ -150,6 +153,9 @@ export class LyneAutocompleteList {
       composed: true
     });
 
+    /**
+     * lyne-autocomplete listens to this event
+     */
     this._list.dispatchEvent(event);
   };
 
