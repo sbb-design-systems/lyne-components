@@ -21,6 +21,7 @@ import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/l
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
 import { InterfaceLyneTimetableRowButtonAttributes } from "./components/lyne-timetable-row-button/lyne-timetable-row-button.custom.d";
+import { InterfaceLyneTimetableTransportationWalkAttributes } from "./components/lyne-timetable-transportation-walk/lyne-timetable-transportation-walk.custom.d";
 import { InterfaceLyneTimetableTravelHintsAttributes } from "./components/lyne-timetable-travel-hints/lyne-timetable-travel-hints.custom.d";
 export namespace Components {
     interface LyneAccordion {
@@ -523,6 +524,10 @@ export namespace Components {
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
         "config": string;
+        /**
+          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "variant"?: InterfaceLyneTimetableTransportationWalkAttributes['variant'];
     }
     interface LyneTimetableTravelHints {
         /**
@@ -1297,6 +1302,10 @@ declare namespace LocalJSX {
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
         "config": string;
+        /**
+          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "variant"?: InterfaceLyneTimetableTransportationWalkAttributes['variant'];
     }
     interface LyneTimetableTravelHints {
         /**

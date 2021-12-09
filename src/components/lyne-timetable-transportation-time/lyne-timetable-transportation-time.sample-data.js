@@ -1,18 +1,18 @@
 export default [
   {
-    type: 'departure',
-    time: '15:14'
+    time: '15:14',
+    type: 'departure'
   },
   {
-    type: 'arrival',
-    time: '15:34'
+    time: '15:34',
+    type: 'arrival'
   },
   {
-    type: 'departure',
-    time: '16:14'
+    time: '16:14',
+    type: 'departure'
   },
   {
-    type: 'arrival',
-    time: '16:34'
+    time: '16:34',
+    type: 'arrival'
   }
 ];

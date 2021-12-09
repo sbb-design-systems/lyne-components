@@ -10,6 +10,7 @@ const Template = (args) => (
         ? 'gridcell'
         : 'none'
     }
+    variant={args.variant}
   >
   </lyne-timetable-travel-hints>
 );

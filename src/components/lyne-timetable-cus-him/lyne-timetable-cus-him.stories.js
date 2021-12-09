@@ -10,6 +10,7 @@ const Template = (args) => (
         ? 'gridcell'
         : 'none'
     }
+    variant={args.variant}
   >
   </lyne-timetable-cus-him>
 );
@@ -22,7 +23,7 @@ const gridCellRole = {
 
 const config = {
   table: {
-    disable: true
+    disable: false
   }
 };
 
@@ -51,16 +52,29 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const CusHimList = Template.bind({});
+export const CusHimFirstLevelList = Template.bind({});
 
-CusHimList.argTypes = defaultArgTypes;
-CusHimList.args = {
+CusHimFirstLevelList.argTypes = defaultArgTypes;
+CusHimFirstLevelList.args = {
   ...defaultArgs,
-  config: sampleData[0]
+  config: sampleData[1]
 };
 
-CusHimList.documentation = {
-  title: 'CUS HIM Icon List'
+CusHimFirstLevelList.documentation = {
+  title: 'CUS/HIM Icon First Level List'
+};
+
+export const CusHimSecondLevelList = Template.bind({});
+
+CusHimSecondLevelList.argTypes = defaultArgTypes;
+CusHimSecondLevelList.args = {
+  ...defaultArgs,
+  config: sampleData[1],
+  variant: variant.options[1]
+};
+
+CusHimSecondLevelList.documentation = {
+  title: 'CUS/HIM Icon Second Level List'
 };
 
 export default {

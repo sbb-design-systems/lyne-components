@@ -5,6 +5,7 @@ import {
 } from '@stencil/core';
 
 import icons from '../../global/icons/timetable.json';
+import { InterfaceLyneTimetableTransportationWalkAttributes } from './lyne-timetable-transportation-walk.custom.d';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
 import {
@@ -45,6 +46,13 @@ export class LyneTimetableTransportationWalk {
    */
   @Prop() public config!: string;
 
+  /**
+   * Variant of the Travel Hints display,
+   * can either be used on level 1 or
+   * level 2 of the timetable
+   */
+  @Prop() public variant?: InterfaceLyneTimetableTransportationWalkAttributes['variant'] = 'first-level';
+
   public render(): JSX.Element {
 
     const config = JSON.parse(this.config);
@@ -66,10 +74,12 @@ export class LyneTimetableTransportationWalk {
       a11yLabel = `${config.duration} ${a11yDepartureText} ${a11yDistanceText}`;
     }
 
+    const variantClasses = ` walk--${this.variant} walk--${config.type}`;
+
     return (
       <p
         aria-label={a11yLabel}
-        class={`walk walk--${config.type}`}
+        class={`walk ${variantClasses}`}
         role='text'
         title={a11yLabel}
       >

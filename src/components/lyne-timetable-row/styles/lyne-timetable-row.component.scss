@@ -15,6 +15,10 @@
 
 }
 
+:host(lyne-timetable-row) {
+  margin-block-end: pxToRem(var(--spacing-fixed-1x));
+}
+
 .timetable__row {
   position: relative;
   display: flex;
@@ -66,6 +70,19 @@
 
 .timetable__row > lyne-timetable-cus-him {
   justify-self: end;
+  flex-basis: pxToRem(50);
+
+  @include mq($from: medium) {
+    flex-basis: pxToRem(55);
+  }
+}
+
+.timetable__row--arrival-walk > lyne-timetable-cus-him {
+  flex-basis: pxToRem(85);
+
+  @include mq($from: medium) {
+    flex-basis: pxToRem(91);
+  }
 }
 
 .timetable__row > lyne-timetable-travel-hints {

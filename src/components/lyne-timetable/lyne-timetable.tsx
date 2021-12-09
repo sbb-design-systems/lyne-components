@@ -17,7 +17,7 @@ export class LyneTimetable {
   public render(): JSX.Element {
 
     return (
-      <div>
+      <div class='timetable-wrapper'>
         <lyne-timetable-button
           variant='earlier-connections'
         ></lyne-timetable-button>

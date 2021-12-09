@@ -1,23 +1,12 @@
 :host {
   --cus-him-icon-height: 16;
-  --cus-him-icon-width: var(--cus-him-icon-height);
-}
-
-.cus-him--first-level-list {
-  --cus-him-width: 50;
-
-  @include mq($from: large) {
-    --cus-him-width: 55;
-  }
-}
-
-.cus-him--second-level-list {
-  --cus-him-icon-height: 20;
 }
 
 .cus-him {
-  width: pxToRem(var(--cus-him-width));
+  width: 100%;
+  // width: pxToRem(var(--cus-him-width));
   padding-inline-start: pxToRem(var(--spacing-fixed-1x));
+  --cus-him-icon-width: var(--cus-him-icon-height);
 
   @include mq($to: small) {
     @include screenReaderOnly();
@@ -25,22 +14,22 @@
 
 }
 
-.timetable__row--arrival-walk .cus-him {
-  --cus-him-width: 85;
-
-  @include mq($from: medium) {
-    --cus-him-width: 91;
-  }
+.cus-him--first-level-list {
+  // --cus-him-width: 50;
+  --list-item-justification: flex-end;
 }
 
 .cus-him--second-level-list {
+  --cus-him-width: auto;
   --cus-him-icon-height: 20;
+  --list-item-justification: flex-start;
 }
 
 .cus-him__list {
   @include listReset();
   display: flex;
   flex-wrap: wrap;
+  justify-content: var(--list-item-justification);
   gap: pxToRem(var(--spacing-fixed-1x));
   min-height: pxToRem(var(--cus-him-icon-height));
 }
@@ -64,6 +53,10 @@
 .cus-him__icon svg {
   width: pxToRem(var(--cus-him-icon-height));
   height: pxToRem(var(--cus-him-icon-width));
+}
+
+.cus-him__icon svg {
+  float: left;
 }
 
 .cus-him__text--visually-hidden {
