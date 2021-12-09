@@ -135,7 +135,6 @@ export class LyneAutocompleteList {
    * ---------
    */
   private _propagateSelection = (value: string): void => {
-
     const event = new CustomEvent(events.selected, {
       bubbles: false,
       composed: true,
@@ -143,7 +142,6 @@ export class LyneAutocompleteList {
     });
 
     this._list.dispatchEvent(event);
-
   };
 
   private _setInputFocus = (): void => {
