@@ -456,7 +456,7 @@ export namespace Components {
         /**
           * If set to true, the input element will have no border, but a drop shadow.
          */
-        "borderless": boolean;
+        "borderless"?: boolean;
         /**
           * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
          */
