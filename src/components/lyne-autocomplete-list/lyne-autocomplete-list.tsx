@@ -240,7 +240,10 @@ export class LyneAutocompleteList {
     this._dataItems = itemsDataHelper(this.items);
 
     return (
-      <div class='autocomplete-list'>
+      <div
+        class='autocomplete-list'
+        tabindex='-1'
+      >
         <ul
           class={this._listClasses()}
           role='listbox'

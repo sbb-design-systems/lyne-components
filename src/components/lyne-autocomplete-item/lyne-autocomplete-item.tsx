@@ -70,13 +70,6 @@ export class LyneAutocompleteItem {
 
     let attrs = {};
 
-    if (this.selected) {
-      attrs = {
-        ...attrs,
-        'aria-selected': this.selected
-      };
-    }
-
     if (this.ariaPosinset) {
       attrs = {
         ...attrs,
@@ -122,11 +115,8 @@ export class LyneAutocompleteItem {
     return (
       <li
         class={mainClasses}
-        tabindex='-1'
-
-        /* eslint-disable jsx-a11y/role-has-required-aria-props */
         role='option'
-        /* eslint-enable jsx-a11y/role-has-required-aria-props */
+        aria-selected={this.selected}
         {...this._setAriaAttributes()}
       >
         <slot name='pre-text' />
