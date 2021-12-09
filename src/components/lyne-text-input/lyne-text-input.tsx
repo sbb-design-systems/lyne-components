@@ -122,7 +122,7 @@ export class LyneTextInput {
    * hidden but still be in the markup to provide
    * proper semantics
    */
-  @Prop() public labelVisible? = true;
+  @Prop() public labelVisible?: boolean;
 
   /**
    * Value for the input element.
@@ -143,7 +143,7 @@ export class LyneTextInput {
   /**
    * If set to true, the input element will have no border, but a drop shadow.
    */
-  @Prop() public borderless = false;
+  @Prop() public borderless?: boolean;
 
   /**
    * The role attribute used for the input element.
