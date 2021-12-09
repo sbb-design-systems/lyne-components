@@ -37,9 +37,51 @@ export class LyneAutocomplete {
   }) public value?: string;
 
   /**
-   * Id which is sent as the id in the eventDetail payload
+   * Id which is sent as the id in the eventDetail payload when a
+   * value is selected
    */
   @Prop() public eventId?: string;
+
+  /**
+   * Autocomplete id. If you use multiple instances on a page,
+   * you should set individual id's to each of them.
+   */
+  @Prop() public autocompleteId? = 'autocomplete-list';
+
+  /**
+   * Define if borderless variant of autocomplete input should be used. See
+   * documentation of lyne-text-input for details.
+   */
+  @Prop() public inputBorderless? = true;
+
+  /**
+   * Debounce timeout to use for the input. See documentation of
+   * lyne-text-input for details.
+   */
+  @Prop() public inputDebounceTimeout? = 200;
+
+  /**
+   * Name attribute for the input element. See lyne-text-input for details.
+   */
+  @Prop() public inputName!: string;
+
+  /**
+   * Label attribute for the input element. See lyne-text-input for details.
+   */
+  @Prop() public inputLabel!: string;
+
+  /**
+   * Placeholder attribute for the input element. See lyne-text-input for
+   * details.
+   */
+  @Prop() public inputPlaceholder?: string;
+
+  /**
+   * Determine if the input label should be visible.
+   * See lyne-text-input for
+   * details.
+   */
+  @Prop() public inputLabelVisible? = true;
 
   @State() private _inputValue: string;
   @State() private _isVisible = false;
@@ -161,19 +203,18 @@ export class LyneAutocomplete {
 
         <lyne-text-input
           inputAutoCompleteValue='off'
-          inputName='textfield'
+          inputName={this.inputName}
           inputType='text'
-          label='Von'
-          inputPlaceholder='z.B. Bern'
-          labelVisible
+          label={this.inputLabel}
+          inputPlaceholder={this.inputPlaceholder}
+          labelVisible={this.inputLabelVisible}
           inputRequired
-          eventId='sampleId'
-          debounceInputEvent={200}
-          borderless={true}
+          debounceInputEvent={this.inputDebounceTimeout}
+          borderless={this.inputBorderless}
           inputAriaExpanded={this._isVisible}
           inputRole='combobox'
           inputAriaAutocomplete='list'
-          inputAriaControls='autocomplete-list'
+          inputAriaControls={this.autocompleteId}
           inputValue={this.value}
           ref={(el): void => {
             this._inputElement = el;
@@ -183,7 +224,7 @@ export class LyneAutocomplete {
         <lyne-autocomplete-list
           items={this.items}
           visible={this._isVisible}
-          listId='autocomplete-list'
+          listId={this.autocompleteId}
           highlight={this._inputValue}
           ref={(el): void => {
             this._list = el;
