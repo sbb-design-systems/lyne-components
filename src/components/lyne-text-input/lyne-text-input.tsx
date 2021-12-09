@@ -260,7 +260,7 @@ export class LyneTextInput {
     if (this.inputAriaExpanded) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        'aria-expanded': this.inputAriaExpanded
+        'aria-expanded': `${this.inputAriaExpanded}`
       };
     }
 
