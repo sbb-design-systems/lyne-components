@@ -14,7 +14,7 @@ describe('lyne-autocomplete-list', () => {
       .toEqualHtml(`
         <lyne-autocomplete-list>
           <mock:shadow-root>
-            <div class="autocomplete-list">
+            <div class="autocomplete-list" tabindex="-1">
               <ul aria-hidden="" class="autocomplete-list__list" role="presentation">
                 <lyne-autocomplete-item ariaposinset="1" ariasetsize="10" text="pre ipsum item1 post lorem"></lyne-autocomplete-item>
                 <lyne-autocomplete-item ariaposinset="2" ariasetsize="10" text="pre ipsum item2 post lorem"></lyne-autocomplete-item>

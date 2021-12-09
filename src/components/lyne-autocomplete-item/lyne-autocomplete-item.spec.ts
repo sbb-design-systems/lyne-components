@@ -14,7 +14,7 @@ describe('lyne-autocomplete-item', () => {
       .toEqualHtml(`
         <lyne-autocomplete-item highlight="tem" text="lorem ipsum item1 dolor sit">
           <mock:shadow-root>
-            <li class="autocomplete-item autocomplete-item--has-hightlight" role="option" tabindex="-1">
+            <li class="autocomplete-item autocomplete-item--has-hightlight" role="option">
               <slot name="pre-text"></slot>
               <span>
                 lorem ipsum i
