@@ -122,7 +122,7 @@ export class LyneTextInput {
    * hidden but still be in the markup to provide
    * proper semantics
    */
-  @Prop() public labelVisible?: true;
+  @Prop() public labelVisible? = true;
 
   /**
    * Value for the input element.
