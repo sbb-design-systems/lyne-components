@@ -42,7 +42,7 @@
 }
 
 // Layout switch
-@include mq($from: medium) {
+@include mq($from: small) {
   .card-product {
     display: flex;
     flex-wrap: nowrap;
@@ -60,15 +60,31 @@
 }
 
 .card-product--standard {
-
+  .card-product__action {
+    // Align self center would be the default behaviour but for clarity and
+    // better differentiation between standard and loose mode it explicitly defined
+    align-self: center;
+  }
 }
 
+// Special behaviour/action alignment for type loose
 .card-product--loose {
   // Button position switch
-  @include mq($from: medium) {
+  @include mq($from: small) {
     .card-product__action {
       align-self: flex-end;
     }
+  }
+  // Switch back to initial layout (button position)
+  @include mq($from: medium) {
+    display: block;
+    .card-product__action {
+      padding-block-start: pxToRem(var(--slot-action-spacing-top));
+    }
+  }
+  // And here we switch back again to the 'small' breakpoint layout
+  @include mq($from: wide) {
+    display: flex;
   }
 }
 
