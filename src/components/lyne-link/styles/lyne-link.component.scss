@@ -27,6 +27,8 @@
   word-break: break-word;
   fill: currentColor;
 
+  @include visibleFocus();
+
   @include ifForcedColors {
     fill: LinkText;
     text-decoration: underline;
