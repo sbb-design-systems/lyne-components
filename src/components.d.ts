@@ -18,7 +18,6 @@ import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
-import { InterfaceLyneTimetableFormJourneyAttributes } from "./components/lyne-timetable-form-journey/lyne-timetable-form-journey.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -542,12 +541,6 @@ export namespace Components {
          */
         "labelVisible"?: boolean;
     }
-    interface LyneTimetableFormJourney {
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceLyneTimetableFormJourneyAttributes['someInterface'];
-    }
     interface LyneTitle {
         /**
           * Title level
@@ -690,12 +683,6 @@ declare global {
         prototype: HTMLLyneTextInputElement;
         new (): HTMLLyneTextInputElement;
     };
-    interface HTMLLyneTimetableFormJourneyElement extends Components.LyneTimetableFormJourney, HTMLStencilElement {
-    }
-    var HTMLLyneTimetableFormJourneyElement: {
-        prototype: HTMLLyneTimetableFormJourneyElement;
-        new (): HTMLLyneTimetableFormJourneyElement;
-    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -722,7 +709,6 @@ declare global {
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
-        "lyne-timetable-form-journey": HTMLLyneTimetableFormJourneyElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -1249,12 +1235,6 @@ declare namespace LocalJSX {
          */
         "labelVisible"?: boolean;
     }
-    interface LyneTimetableFormJourney {
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceLyneTimetableFormJourneyAttributes['someInterface'];
-    }
     interface LyneTitle {
         /**
           * Title level
@@ -1301,7 +1281,6 @@ declare namespace LocalJSX {
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
-        "lyne-timetable-form-journey": LyneTimetableFormJourney;
         "lyne-title": LyneTitle;
     }
 }
@@ -1328,7 +1307,6 @@ declare module "@stencil/core" {
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
-            "lyne-timetable-form-journey": LocalJSX.LyneTimetableFormJourney & JSXBase.HTMLAttributes<HTMLLyneTimetableFormJourneyElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }
