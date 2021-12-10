@@ -74,7 +74,7 @@ export class LyneTimetableTransportationWalk {
       a11yLabel = `${config.duration} ${a11yDepartureText} ${a11yDistanceText}`;
     }
 
-    const variantClasses = ` walk--${this.variant} walk--${config.type}`;
+    const variantClasses = `walk--${this.variant} walk--${config.type}`;
 
     return (
       <p

@@ -5,6 +5,7 @@ import sampleData from './lyne-timetable-transportation-time.sample-data';
 const Template = (args) => (
   <lyne-timetable-transportation-time
     config={JSON.stringify(args.config)}
+    variant={args.variant}
   >
   </lyne-timetable-transportation-time>
 );
@@ -15,8 +16,23 @@ const config = {
   }
 };
 
+const variant = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'first-level',
+    'second-level'
+  ]
+};
+
 const defaultArgTypes = {
-  config
+  config,
+  variant
+};
+
+const defaultArgs = {
+  variant: variant.options[0]
 };
 
 /* ************************************************* */
@@ -26,6 +42,7 @@ export const LyneTimetableDepartureTime = Template.bind({});
 
 LyneTimetableDepartureTime.argTypes = defaultArgTypes;
 LyneTimetableDepartureTime.args = {
+  ...defaultArgs,
   config: sampleData[0]
 };
 
@@ -37,11 +54,38 @@ export const LyneTimetableArrivalTime = Template.bind({});
 
 LyneTimetableArrivalTime.argTypes = defaultArgTypes;
 LyneTimetableArrivalTime.args = {
+  ...defaultArgs,
   config: sampleData[1]
 };
 
 LyneTimetableArrivalTime.documentation = {
   title: 'Lyne Timetable Arrival Time'
+};
+
+export const LyneTimetableDepartureTimeLevel2 = Template.bind({});
+
+LyneTimetableDepartureTimeLevel2.argTypes = defaultArgTypes;
+LyneTimetableDepartureTimeLevel2.args = {
+  ...defaultArgs,
+  config: sampleData[2],
+  variant: variant.options[1]
+};
+
+LyneTimetableDepartureTimeLevel2.documentation = {
+  title: 'Lyne Timetable Departure Time - Level 2'
+};
+
+export const LyneTimetableArrivalTimeLevel2 = Template.bind({});
+
+LyneTimetableArrivalTimeLevel2.argTypes = defaultArgTypes;
+LyneTimetableArrivalTimeLevel2.args = {
+  ...defaultArgs,
+  config: sampleData[3],
+  variant: variant.options[1]
+};
+
+LyneTimetableArrivalTimeLevel2.documentation = {
+  title: 'Lyne Timetable Arrival Time - Level 2'
 };
 
 export default {

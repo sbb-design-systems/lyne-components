@@ -5,6 +5,7 @@ import {
 } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { InterfaceLyneTimetableTransportationTimeAttributes } from './lyne-timetable-transportation-time.custom.d';
 
 import {
   i18nArrival,
@@ -42,6 +43,13 @@ export class LyneTimetableTransportationTime {
    */
   @Prop() public config!: string;
 
+  /**
+   * Variant of the Travel Hints display,
+   * can either be used on level 1 or
+   * level 2 of the timetable
+   */
+  @Prop() public variant?: InterfaceLyneTimetableTransportationTimeAttributes['variant'] = 'first-level';
+
   public render(): JSX.Element {
     const config = JSON.parse(this.config);
 
@@ -51,10 +59,12 @@ export class LyneTimetableTransportationTime {
       a11yLabel = `${i18nDeparture[this._currentLanguage]} ${config.time}.`;
     }
 
+    const variantClasses = `time--${this.variant} time--${config.type}`;
+
     return (
       <p
         aria-label={a11yLabel}
-        class={`time time--${config.type}`}
+        class={`time ${variantClasses}`}
         role='text'
       >
         <span

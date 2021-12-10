@@ -10,14 +10,26 @@ describe('lyne-timetable-row-column-headers', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableRowColumnHeaders],
-      html: '<lyne-timetable-row-column-headers />'
+      html: `<lyne-timetable-row-column-headers config='${config}' role='row' />`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-row-column-headers>
+        <lyne-timetable-row-column-headers
+            config="[&quot;Short Infos&quot;,&quot;Summary&quot;,&quot;&quot;,&quot;Platfom&quot;,&quot;Occupancy Forecast&quot;,&quot;Travel hints&quot;,&quot;Duration&quot;,&quot;Real time information&quot;]"
+            role="row"
+        >
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <div class="column-headers" role="none">
+                <div role="columnheader">Short Infos</div>
+                <div role="columnheader">Summary</div>
+                <div role="columnheader"></div>
+                <div role="columnheader">Platfom</div>
+                <div role="columnheader">Occupancy Forecast</div>
+                <div role="columnheader">Travel hints</div>
+                <div role="columnheader">Duration</div>
+                <div role="columnheader">Real time information</div>
+            </div>
           </mock:shadow-root>
         </lyne-timetable-row-column-headers>
       `);

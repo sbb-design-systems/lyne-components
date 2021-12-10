@@ -10,7 +10,7 @@ describe('lyne-timetable-transportation-number', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableTransportationNumber],
-      html: `<lyne-timetable-transportation-number config='${JSON.stringify(sampleData['bus'])}' role='gridcell' />`
+      html: `<lyne-timetable-transportation-number config='${config}' role='gridcell' />`
     });
 
     expect(root)
