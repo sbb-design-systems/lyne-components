@@ -34,16 +34,31 @@ const appearance = {
     'primary-negative'
   ],
   table: {
-    category: 'Appearance'
+    category: 'Style and positioning'
+  }
+};
+
+const type = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'standard',
+    'loose'
+  ],
+  table: {
+    category: 'Style and positioning'
   }
 };
 
 const defaultArgTypes = {
-  appearance
+  appearance,
+  type
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0]
+  appearance: appearance.options[0],
+  type: type.options[0]
 };
 
 /* ************************************************* */

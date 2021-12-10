@@ -33,8 +33,11 @@ import { InterfaceCardProductAttributes } from './lyne-card-product.custom';
  */
 export class LyneCardProduct {
 
-  /** CardProduct ticket appearance */
+  /** CardProduct appearance */
   @Prop() public appearance?: InterfaceCardProductAttributes['appearance'] = 'primary';
+
+  /** CardProduct type */
+  @Prop() public type?: InterfaceCardProductAttributes['type'] = 'standard';
 
   /** Host element */
   @Element() private _hostElement: HTMLElement;
@@ -74,7 +77,7 @@ export class LyneCardProduct {
     return (
       <div
         class={
-          `card-product card-product--${this.appearance}
+          `card-product card-product--${this.appearance} card-product--${this.type}
           ${cardSizeClass}`
         }
       >

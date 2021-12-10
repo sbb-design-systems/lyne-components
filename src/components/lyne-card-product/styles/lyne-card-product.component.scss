@@ -56,7 +56,19 @@
 
   .card-product__action {
     padding-block-start: 0;
-    align-self: flex-end;
+  }
+}
+
+.card-product--standard {
+
+}
+
+.card-product--loose {
+  // Button position switch
+  @include mq($from: medium) {
+    .card-product__action {
+      align-self: flex-end;
+    }
   }
 }
 

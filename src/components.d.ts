@@ -139,9 +139,13 @@ export namespace Components {
     }
     interface LyneCardProduct {
         /**
-          * CardProduct ticket appearance
+          * CardProduct appearance
          */
         "appearance"?: InterfaceCardProductAttributes['appearance'];
+        /**
+          * CardProduct type
+         */
+        "type"?: InterfaceCardProductAttributes['type'];
     }
     interface LyneImage {
         /**
@@ -828,9 +832,13 @@ declare namespace LocalJSX {
     }
     interface LyneCardProduct {
         /**
-          * CardProduct ticket appearance
+          * CardProduct appearance
          */
         "appearance"?: InterfaceCardProductAttributes['appearance'];
+        /**
+          * CardProduct type
+         */
+        "type"?: InterfaceCardProductAttributes['type'];
     }
     interface LyneImage {
         /**

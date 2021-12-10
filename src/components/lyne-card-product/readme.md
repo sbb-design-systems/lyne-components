@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property     | Attribute    | Description                   | Type                              | Default     |
-| ------------ | ------------ | ----------------------------- | --------------------------------- | ----------- |
-| `appearance` | `appearance` | CardProduct ticket appearance | `"primary" \| "primary-negative"` | `'primary'` |
+| Property     | Attribute    | Description            | Type                              | Default      |
+| ------------ | ------------ | ---------------------- | --------------------------------- | ------------ |
+| `appearance` | `appearance` | CardProduct appearance | `"primary" \| "primary-negative"` | `'primary'`  |
+| `type`       | `type`       | CardProduct type       | `"loose" \| "standard"`           | `'standard'` |
 
 
 ## Slots
