@@ -14,8 +14,8 @@ $mq-breakpoints: (
 
 $mq-media-type: all !default;
 
-@function mq-px2rem($px) {
-  @return calc(calc(#{$px} * 1rem) / #{$typo-scale-default});
+@function mq-px2rem($px, $modifier) {
+  @return calc(calc(#{$px + $modifier} * 1rem) / #{$typo-scale-default});
 }
 
 @function mq-get-breakpoint-width($name, $breakpoints: $mq-breakpoints) {
@@ -42,7 +42,7 @@ $mq-media-type: all !default;
     @if type-of($from) == number {
       $min-width: mq-px2rem($from);
     } @else {
-      $min-width: mq-px2rem(mq-get-breakpoint-width($from, $breakpoints));
+      $min-width: mq-px2rem(mq-get-breakpoint-width($from, $breakpoints), 0);
     }
   }
 
@@ -51,24 +51,22 @@ $mq-media-type: all !default;
     @if type-of($to) == number {
       $max-width: mq-px2rem($to);
     } @else {
-      $max-width: mq-px2rem(mq-get-breakpoint-width($to, $breakpoints)) - .01rem;
+      $max-width: mq-px2rem(mq-get-breakpoint-width($to, $breakpoints), -1);
     }
   }
 
-  // Responsive support is enabled, output rules inside @media queries
-  @else {
-    @if $min-width != 0 { $media-query: '#{$media-query} and (min-width: #{$min-width})'; }
-    @if $max-width != 0 { $media-query: '#{$media-query} and (max-width: #{$max-width})'; }
-    @if $and { $media-query: '#{$media-query} and #{$and}'; }
+  @if $min-width != 0 { $media-query: '#{$media-query} and (min-width: #{$min-width})'; }
+  @if $max-width != 0 { $media-query: '#{$media-query} and (max-width: #{$max-width})'; }
+  @if $and { $media-query: '#{$media-query} and #{$and}'; }
 
-    // Remove unnecessary media query prefix 'all and '
-    @if ($media-type == 'all' and $media-query != '') {
-      $media-type: '';
-      $media-query: str-slice(unquote($media-query), 6);
-    }
-
-    @media #{$media-type + $media-query} {
-      @content;
-    }
+  // Remove unnecessary media query prefix 'all and '
+  @if ($media-type == 'all' and $media-query != '') {
+    $media-type: '';
+    $media-query: str-slice(unquote($media-query), 6);
   }
+
+  @media #{$media-type + $media-query} {
+    @content;
+  }
+
 }
