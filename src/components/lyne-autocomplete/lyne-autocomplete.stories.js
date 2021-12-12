@@ -1,6 +1,7 @@
 import events from './lyne-autocomplete.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import sampleData from './lyne-autocomplete.sample-data';
 
 // ---- Template
 
@@ -113,8 +114,6 @@ const defaultArgTypes = {
 };
 
 // ---- DefaultArgs
-const defaultItems = '[{"text": "pre ipsum item1 post lorem"},{"text": "pre ipsum item2 post lorem"},{"text": "pre ipsum item3 post lorem"},{"text": "pre ipsum item4 post lorem"},{"text": "pre ipsum item5 post lorem"},{"text": "pre ipsum item6 post lorem"},{"text": "pre ipsum item7 post lorem"},{"text": "pre ipsum item8 post lorem"},{"text": "pre ipsum item9 post lorem"},{"text": "pre ipsum item10 post lorem"}]';
-
 const defaultArgs = {
   'autocomplete-id': 'sample-id',
   'event-id': 'sample-id',
@@ -124,7 +123,7 @@ const defaultArgs = {
   'input-label-visible': true,
   'input-name': 'sample-name',
   'input-placeholder': 'sample placeholder',
-  'items': defaultItems
+  'items': sampleData
 };
 
 // ---- Stories
