@@ -34,6 +34,11 @@
 .autocomplete-item:hover,
 .autocomplete-item:focus {
   background-color: var(--color-milk-default);
+
+  @include ifForcedColors() {
+    background-color: Highlight;
+    color: HighlightText;
+  }
 }
 
 .autocomplete-item > span {
