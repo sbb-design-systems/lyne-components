@@ -34,6 +34,10 @@
     padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-medium));
     padding-inline-end: pxToRem(var(--spacing-responsive-xxxs-medium));
   }
+
+  @include ifForcedColors() {
+    background-color: Canvas;
+  }
 }
 
 .autocomplete-list__list--visible {
