@@ -26,7 +26,7 @@ export class LyneAutocomplete {
    * array of objects, containing the `text` key for each object with an
    * appropriate value.
    */
-  @Prop() public items? = '[{"text": "pre ipsum item1 post lorem"},{"text": "pre ipsum item2 post lorem"},{"text": "pre ipsum item3 post lorem"},{"text": "pre ipsum item4 post lorem"},{"text": "pre ipsum item5 post lorem"},{"text": "pre ipsum item6 post lorem"},{"text": "pre ipsum item7 post lorem"},{"text": "pre ipsum item8 post lorem"},{"text": "pre ipsum item9 post lorem"},{"text": "pre ipsum item10 post lorem"}]';
+  @Prop() public items!: string;
 
   /**
    * The value to use as default value for the input. The input value or the
