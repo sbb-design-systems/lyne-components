@@ -91,7 +91,7 @@ export namespace Components {
         /**
           * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
          */
-        "items"?: string;
+        "items": string;
         /**
           * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
          */
@@ -785,7 +785,7 @@ declare namespace LocalJSX {
         /**
           * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
          */
-        "items"?: string;
+        "items": string;
         /**
           * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
          */
