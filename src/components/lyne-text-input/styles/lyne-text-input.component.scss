@@ -69,6 +69,10 @@
 .input--no-border {
   border: none;
   @include shadowElevationLevel5;
+
+  @include ifForcedColors() {
+    border: pxToRem(1) solid CanvasText;
+  }
 }
 
 // Input Variant
