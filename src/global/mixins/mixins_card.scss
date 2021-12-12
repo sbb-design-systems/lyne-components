@@ -1,13 +1,14 @@
 // -----------------------------------------------------------------------------
-// Card: Mixins & CSS variables
+// Card: Mixins & CSS custom properties
 // -----------------------------------------------------------------------------
 
 @mixin card-host-properties {
   --card-border-radius: #{pxToRem(var(--border-radius-8x))};
-  --card-padding-top: 0;
-  --card-padding-right: 0;
-  --card-padding-bottom: 0;
-  --card-padding-left: 0;
+  --card-padding-top: ;
+  --card-padding-right: ;
+  --card-padding-bottom: ;
+  --card-padding-left: ;
+  --card-hover-shift: 2px;
 }
 
 @mixin card {
@@ -25,9 +26,8 @@
   &:hover, &:focus {
     @include shadow-level-9-hard;
 
-    // --card-padding-top: calc(#{pxToRem(var(--card-padding-top))} - 2px);
-    // --card-padding-bottom: calc(#{pxToRem(var(--card-padding-bottom))} + 2px);
-    //--card-padding-bottom: calc(calc(var(--card-padding-top) / var(--typo-scale-default) * 1rem) + 2px);
+    padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
+    padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
   }
 }
 
