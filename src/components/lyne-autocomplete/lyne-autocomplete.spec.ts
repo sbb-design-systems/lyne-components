@@ -1,5 +1,6 @@
 import { LyneAutocomplete } from './lyne-autocomplete';
 import { newSpecPage } from '@stencil/core/testing';
+import sampleData from './lyne-autocomplete.sample-data';
 
 describe('lyne-autocomplete', () => {
   it('renders', async () => {
@@ -7,12 +8,17 @@ describe('lyne-autocomplete', () => {
       root
     } = await newSpecPage({
       components: [LyneAutocomplete],
-      html: '<lyne-autocomplete />'
+      html: `
+<lyne-autocomplete
+  items='${sampleData}'
+  inputName='test-input'
+  inputLabel='input-label'
+></lyne-autocomplete>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-autocomplete>
+        <lyne-autocomplete inputlabel="input-label" inputname="test-input" items="[{&quot;text&quot;: &quot;pre ipsum item1 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item2 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item3 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item4 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item5 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item6 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item7 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item8 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item9 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item10 post lorem&quot;}]">
           <mock:shadow-root>
             <div class="autocomplete">
               <lyne-text-input debounceinputevent="200" inputariaautocomplete="list" inputariacontrols="autocomplete-list" inputautocompletevalue="off" inputrequired="" inputrole="combobox" inputtype="text"></lyne-text-input>
