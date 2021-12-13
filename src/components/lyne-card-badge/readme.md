@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property                 | Attribute      | Description           | Type                              | Default     |
-| ------------------------ | -------------- | --------------------- | --------------------------------- | ----------- |
-| `a11yLabel` _(required)_ | `a-1-1y-label` | a11y Label            | `string`                          | `undefined` |
-| `appearance`             | `appearance`   | Badge appearance      | `"primary" \| "primary-negative"` | `'primary'` |
-| `isDiscount`             | `is-discount`  | Mark as discount      | `boolean`                         | `undefined` |
-| `price`                  | `price`        | Price text            | `string`                          | `undefined` |
-| `size`                   | `size`         | Badge size            | `"regular"`                       | `'regular'` |
-| `text`                   | `text`         | From/above price text | `string`                          | `undefined` |
+| Property                          | Attribute             | Description           | Type                              | Default     |
+| --------------------------------- | --------------------- | --------------------- | --------------------------------- | ----------- |
+| `accessibilityLabel` _(required)_ | `accessibility-label` | Accessibility Label   | `string`                          | `undefined` |
+| `appearance`                      | `appearance`          | Badge appearance      | `"primary" \| "primary-negative"` | `'primary'` |
+| `isDiscount`                      | `is-discount`         | Mark as discount      | `boolean`                         | `undefined` |
+| `price`                           | `price`               | Price text            | `string`                          | `undefined` |
+| `size`                            | `size`                | Badge size            | `"regular"`                       | `'regular'` |
+| `text`                            | `text`                | From/above price text | `string`                          | `undefined` |
 
 
 ## Slots

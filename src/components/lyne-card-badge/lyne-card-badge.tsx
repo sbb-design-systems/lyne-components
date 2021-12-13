@@ -25,8 +25,8 @@ import { InterfaceCardBadgeAttributes } from './lyne-card-badge.custom';
 
 export class LyneCardBadge {
 
-  /** a11y Label */
-  @Prop() public a11yLabel!: string;
+  /** Accessibility Label */
+  @Prop() public accessibilityLabel!: string;
 
   /** Badge appearance */
   @Prop() public appearance: InterfaceCardBadgeAttributes['appearance'] = 'primary';
@@ -66,7 +66,7 @@ export class LyneCardBadge {
 
     return (
       <span
-        aria-label={this.a11yLabel}
+        aria-label={this.accessibilityLabel}
         class={
           `card-badge
           ${appearanceClass}
@@ -75,7 +75,7 @@ export class LyneCardBadge {
         dir={currentWritingMode}
         // eslint-disable-next-line jsx-a11y/aria-role
         role='text'
-        title={this.a11yLabel}
+        title={this.accessibilityLabel}
       >
         {this.isDiscount
           ? <span class='discount'>%</span>
