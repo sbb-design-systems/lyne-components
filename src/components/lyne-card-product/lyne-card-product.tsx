@@ -49,7 +49,9 @@ export class LyneCardProduct {
    * The text which gets exposed to screen reader users. The text should
    * reflect all the information which gets passed into the component's slots
    * and which is visible in the card, either through text or iconography.
-   * E.g. Connection from X to Y, via Z, on date X. Price starts at X.
+   *
+   * Example text: Connection from X to Y, via Z, on date X.
+   * Ticket price starts at X.
    */
   @Prop() public accessibilityLabel!: string;
 
@@ -62,7 +64,7 @@ export class LyneCardProduct {
   @Prop() public hrefValue?: string;
 
   /**
-   * Link attributes
+   * Button attributes
    * ----------------------------------------------------------------
    */
 
@@ -161,14 +163,17 @@ export class LyneCardProduct {
 
     // Check if hrefValue or eventId is set
 
-    // Check if hrefValue and eventId are set
-
-    // isButtonCard
     if (this.hasButtonBehaviour) {
-      // // security exit, if no eventId is provided via props
-      // if (!this.eventId) {
-      //   return <p>Config error: if card should behave like a button, eventId is required</p>;
-      // }
+
+      /**
+       * Product card behaves like a button
+       * ----------------------------------------------------------------
+       */
+
+      // security exit, if no eventId is provided via props
+      if (!this.eventId) {
+        return <p>Config error: if card should behave like a button, eventId is required</p>;
+      }
 
       TAGNAME = 'button';
 
@@ -185,10 +190,14 @@ export class LyneCardProduct {
         'type': this.type,
         'value': this.value
       };
-    }
-    // isLinkCard
-    else {
-      // // security exit, if no hrefValue is provided via props
+    } else {
+
+      /**
+       * Product card behaves like a link (a)
+       * ----------------------------------------------------------------
+       */
+
+      // security exit, if no hrefValue is provided via props
       // if (!this.hrefValue) {
       //   return <p>Config error: if card should behave like a link, hrefValue is required</p>;
       // }
@@ -236,7 +245,7 @@ export class LyneCardProduct {
             ? <span class='card-product__icon'><slot name='icon'/></span>
             : ''
           }
-          <div>
+          <div class='card-product__inner'>
             {this._hasCategorySlot
               ? <div class='card-product__category'><slot name='category'/></div>
               : ''

@@ -25,6 +25,77 @@ const wrapperStyle = (context) => {
 /* Storybook controls                                */
 /* ************************************************* */
 
+/* --- General ------------------------------------- */
+
+const accessibilityLabel = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'General'
+  }
+};
+
+const idValue = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'General'
+  }
+};
+
+/* --- Link ---------------------------------------- */
+
+const hrefValue = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Link'
+  }
+};
+
+/* --- Button -------------------------------------- */
+
+const hasButtonBehaviour = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Button'
+  }
+};
+
+const eventId = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Button'
+  }
+};
+
+const name = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Button'
+  }
+};
+
+const value = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Button'
+  }
+};
+
+/* --- Style and positioning ----------------------- */
+
 const appearance = {
   control: {
     type: 'select'
@@ -52,12 +123,20 @@ const layout = {
 };
 
 const defaultArgTypes = {
+  accessibilityLabel,
   appearance,
-  layout
+  eventId,
+  hasButtonBehaviour,
+  hrefValue,
+  idValue,
+  layout,
+  name,
+  value
 };
 
 const defaultArgs = {
   appearance: appearance.options[0],
+  hrefValue: 'https://github.com/lyne-design-system/lyne-components',
   layout: layout.options[0]
 };
 
@@ -160,19 +239,16 @@ const SlotCardBadgeTemplate = (args) => (
 /* --- action slot ----------------------------- */
 
 const actionArgs = {
-  'href-value': 'https://github.com/lyne-design-system/lyne-components',
-  // 'icon': 'qrcode-small',
-  'icon-placement': 'start',
-  'text': 'Abo bearbeiten',
-  'variant': 'secondary'
+  //icon: 'qrcode-small',
+  label: 'Abo bearbeiten',
+  variant: 'secondary',
+  visualButtonOnly: true
 };
 
 const SlotActionTemplate = (args) => (
-  <lyne-link-button {...args}>
-    {args.icon &&
-      <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
-    }
-  </lyne-link-button>
+  <lyne-button {...args}>
+    {getMarkupForSvg(args.icon)}
+  </lyne-button>
 );
 
 /* ************************************************* */

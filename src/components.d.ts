@@ -139,7 +139,7 @@ export namespace Components {
     }
     interface LyneCardProduct {
         /**
-          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography. E.g. Connection from X to Y, via Z, on date X. Price starts at X.
+          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
         /**
@@ -868,7 +868,7 @@ declare namespace LocalJSX {
     }
     interface LyneCardProduct {
         /**
-          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography. E.g. Connection from X to Y, via Z, on date X. Price starts at X.
+          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
         /**
