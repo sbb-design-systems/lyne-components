@@ -4,6 +4,10 @@ import {
   h,
   Prop
 } from '@stencil/core';
+
+import getDocumentLang from '../../global/helpers/get-document-lang';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import events from './lyne-card-product.events';
 import { InterfaceCardProductAttributes } from './lyne-card-product.custom';
 
 /**
@@ -28,19 +32,83 @@ import { InterfaceCardProductAttributes } from './lyne-card-product.custom';
 })
 
 /**
- * Generalized product version / Super Product — merge of ticket
- * and subscription
+ * Generalized product card — merge of ticket and subscription
  */
 export class LyneCardProduct {
 
   /** CardProduct appearance */
   @Prop() public appearance?: InterfaceCardProductAttributes['appearance'] = 'primary';
 
-  /** CardProduct type */
-  @Prop() public type?: InterfaceCardProductAttributes['type'] = 'standard';
+  /** CardProduct layout */
+  @Prop() public layout?: InterfaceCardProductAttributes['layout'] = 'standard';
+
+  /** The ID value you want to reference */
+  @Prop() public idValue?: string;
+
+  /**
+   * The text which gets exposed to screen reader users. The text should
+   * reflect all the information which gets passed into the component's slots
+   * and which is visible in the card, either through text or iconography.
+   * E.g. Connection from X to Y, via Z, on date X. Price starts at X.
+   */
+  @Prop() public accessibilityLabel!: string;
+
+  /**
+   * Link attributes
+   * ----------------------------------------------------------------
+   */
+
+  /** The href value you want to link to */
+  @Prop() public hrefValue?: string;
+
+  /**
+   * Link attributes
+   * ----------------------------------------------------------------
+   */
+
+  /** Defines if the card behaves like a HTML button. */
+  @Prop() public hasButtonBehaviour?: boolean;
+
+  /** Id which is sent in the click event payload */
+  @Prop() public eventId?: string;
+
+  /** The type attribute to use for the button */
+  @Prop() public type?: InterfaceCardProductAttributes['type'] = 'button';
+
+  /** The name attribute to use for the button */
+  @Prop() public name?: string;
+
+  /** The value attribute to use for the button */
+  @Prop() public value?: string;
+
+  /**
+   * If you use the button to trigger another widget which itself is covering
+   * the page, you must provide an according attribute for aria-haspopup.
+   */
+  @Prop() public ariaHaspopup?: InterfaceCardProductAttributes['popup'];
+
+  /**
+   * ----------------------------------------------------------------
+   */
 
   /** Host element */
   @Element() private _hostElement: HTMLElement;
+
+  private _buttonClick = (): void => {
+    let eventDetail;
+
+    if (this.eventId) {
+      eventDetail = this.eventId;
+    }
+
+    const event = new CustomEvent(events.click, {
+      bubbles: true,
+      composed: true,
+      detail: eventDetail
+    });
+
+    this._hostElement.dispatchEvent(event);
+  };
 
   private _hasIconSlot: boolean;
   private _hasCategorySlot: boolean;
@@ -64,6 +132,9 @@ export class LyneCardProduct {
 
   public render(): JSX.Element {
 
+    const currentLanguage = getDocumentLang();
+    let TAGNAME;
+
     /**
      * Add additional CSS classes
      * ----------------------------------------------------------------
@@ -74,12 +145,91 @@ export class LyneCardProduct {
       cardSizeClass = ' card-product--tall';
     }
 
+    /**
+     * Add generic additional attributes
+     * ----------------------------------------------------------------
+     */
+    let additionalCardAttributes = {};
+    let ariaLabel = this.accessibilityLabel;
+
+    if (this.idValue) {
+      additionalCardAttributes = {
+        ...additionalCardAttributes,
+        id: this.idValue
+      };
+    }
+
+    // Check if hrefValue or eventId is set
+
+    // Check if hrefValue and eventId are set
+
+    // isButtonCard
+    if (this.hasButtonBehaviour) {
+      // // security exit, if no eventId is provided via props
+      // if (!this.eventId) {
+      //   return <p>Config error: if card should behave like a button, eventId is required</p>;
+      // }
+
+      TAGNAME = 'button';
+
+      /**
+       * Add button specific additional attributes
+       * ----------------------------------------------------------------
+       */
+
+      additionalCardAttributes = {
+        ...additionalCardAttributes,
+        'aria-haspopup': this.ariaHaspopup,
+        'name': this.name,
+        'onClick': this._buttonClick,
+        'type': this.type,
+        'value': this.value
+      };
+    }
+    // isLinkCard
+    else {
+      // // security exit, if no hrefValue is provided via props
+      // if (!this.hrefValue) {
+      //   return <p>Config error: if card should behave like a link, hrefValue is required</p>;
+      // }
+
+      TAGNAME = 'a';
+
+      /**
+       * Add link (a) specific additional attributes
+       * ----------------------------------------------------------------
+       */
+
+      let openInNewWindow = false;
+
+      if (!window.location.href.includes(this.hrefValue)) {
+        openInNewWindow = true;
+      }
+
+      if (openInNewWindow) {
+        additionalCardAttributes = {
+          rel: 'external noopener nofollow',
+          target: '_blank'
+        };
+        ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
+      }
+
+      if (this.hrefValue) {
+        additionalCardAttributes = {
+          ...additionalCardAttributes,
+          href: this.hrefValue
+        };
+      }
+    }
+
     return (
-      <div
+      <TAGNAME
+        aria-label={ariaLabel}
         class={
-          `card-product card-product--${this.appearance} card-product--${this.type}
+          `card-product card-product--${this.appearance} card-product--${this.layout}
           ${cardSizeClass}`
         }
+        {...additionalCardAttributes}
       >
         <div class='card-product__content'>
           {this._hasIconSlot
@@ -117,7 +267,7 @@ export class LyneCardProduct {
           ? <div class='card-product__action'><slot name='action'/></div>
           : ''
         }
-      </div>
+      </TAGNAME>
     );
   }
 }

@@ -113,9 +113,9 @@ export namespace Components {
     }
     interface LyneCardBadge {
         /**
-          * a11y Label
+          * Accessibility Label
          */
-        "a11yLabel": string;
+        "accessibilityLabel": string;
         /**
           * Badge appearance
          */
@@ -139,13 +139,49 @@ export namespace Components {
     }
     interface LyneCardProduct {
         /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography. E.g. Connection from X to Y, via Z, on date X. Price starts at X.
+         */
+        "accessibilityLabel": string;
+        /**
           * CardProduct appearance
          */
         "appearance"?: InterfaceCardProductAttributes['appearance'];
         /**
-          * CardProduct type
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
+        /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * Defines if the card behaves like a HTML button.
+         */
+        "hasButtonBehaviour"?: boolean;
+        /**
+          * The href value you want to link to
+         */
+        "hrefValue"?: string;
+        /**
+          * The ID value you want to reference
+         */
+        "idValue"?: string;
+        /**
+          * CardProduct layout
+         */
+        "layout"?: InterfaceCardProductAttributes['layout'];
+        /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+        /**
+          * The type attribute to use for the button
          */
         "type"?: InterfaceCardProductAttributes['type'];
+        /**
+          * The value attribute to use for the button
+         */
+        "value"?: string;
     }
     interface LyneImage {
         /**
@@ -806,9 +842,9 @@ declare namespace LocalJSX {
     }
     interface LyneCardBadge {
         /**
-          * a11y Label
+          * Accessibility Label
          */
-        "a11yLabel": string;
+        "accessibilityLabel": string;
         /**
           * Badge appearance
          */
@@ -832,13 +868,49 @@ declare namespace LocalJSX {
     }
     interface LyneCardProduct {
         /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography. E.g. Connection from X to Y, via Z, on date X. Price starts at X.
+         */
+        "accessibilityLabel": string;
+        /**
           * CardProduct appearance
          */
         "appearance"?: InterfaceCardProductAttributes['appearance'];
         /**
-          * CardProduct type
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
+        /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * Defines if the card behaves like a HTML button.
+         */
+        "hasButtonBehaviour"?: boolean;
+        /**
+          * The href value you want to link to
+         */
+        "hrefValue"?: string;
+        /**
+          * The ID value you want to reference
+         */
+        "idValue"?: string;
+        /**
+          * CardProduct layout
+         */
+        "layout"?: InterfaceCardProductAttributes['layout'];
+        /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+        /**
+          * The type attribute to use for the button
          */
         "type"?: InterfaceCardProductAttributes['type'];
+        /**
+          * The value attribute to use for the button
+         */
+        "value"?: string;
     }
     interface LyneImage {
         /**

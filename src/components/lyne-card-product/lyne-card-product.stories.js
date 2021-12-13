@@ -38,7 +38,7 @@ const appearance = {
   }
 };
 
-const type = {
+const layout = {
   control: {
     type: 'select'
   },
@@ -53,12 +53,12 @@ const type = {
 
 const defaultArgTypes = {
   appearance,
-  type
+  layout
 };
 
 const defaultArgs = {
   appearance: appearance.options[0],
-  type: type.options[0]
+  layout: layout.options[0]
 };
 
 /* ************************************************* */
