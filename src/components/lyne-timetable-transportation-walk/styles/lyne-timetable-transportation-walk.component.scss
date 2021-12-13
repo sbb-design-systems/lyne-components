@@ -29,6 +29,10 @@
   margin-inline-end: pxToRem(var(--spacing-fixed-1x));
 }
 
+.walk--second-level .walk__icon {
+  margin-inline-end: pxToRem(var(--spacing-fixed-3x));
+}
+
 .walk__icon svg {
   float: left;
   height: pxToRem(var(--walk-icon-height));
