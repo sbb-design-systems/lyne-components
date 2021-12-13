@@ -3,10 +3,18 @@
 }
 
 .cus-him {
+  display: flex;
   width: 100%;
-  // width: pxToRem(var(--cus-him-width));
   padding-inline-start: pxToRem(var(--spacing-fixed-1x));
+  justify-content: var(--list-item-justification);
+
   --cus-him-icon-width: var(--cus-him-icon-height);
+}
+
+// First Level List Variant
+// ----------------------------------------------
+.cus-him--first-level-list {
+  --list-item-justification: flex-end;
 
   @include mq($to: small) {
     @include screenReaderOnly();
@@ -14,22 +22,42 @@
 
 }
 
-.cus-him--first-level-list {
-  // --cus-him-width: 50;
-  --list-item-justification: flex-end;
-}
-
+// Second Level List Variant
+// ----------------------------------------------
 .cus-him--second-level-list {
   --cus-him-width: auto;
   --cus-him-icon-height: 20;
   --list-item-justification: flex-start;
 }
 
+// Second Level Message Variant
+// ----------------------------------------------
+.cus-him__second-level-message {
+  display: flex;
+  gap: pxToRem(var(--spacing-fixed-1x));
+  padding: 0;
+}
+
+.cus-him__second-level-message-text {
+  @include text-xs--bold();
+  color: var(--color-red-default);
+}
+
+.cus-him__second-level-message .cus-him__icon {
+  margin-block-start: pxToRem(2);
+
+  @include mq($from: medium) {
+    margin-block-start: pxToRem(3);
+  }
+
+}
+
+// General List Styling
+// ----------------------------------------------
 .cus-him__list {
   @include listReset();
   display: flex;
   flex-wrap: wrap;
-  justify-content: var(--list-item-justification);
   gap: pxToRem(var(--spacing-fixed-1x));
   min-height: pxToRem(var(--cus-him-icon-height));
 }

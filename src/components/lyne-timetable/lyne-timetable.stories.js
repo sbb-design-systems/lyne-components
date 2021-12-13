@@ -28,7 +28,7 @@ LyneTimetable.args = {
     JSON.stringify(sampleData.timetableRows[0]),
     JSON.stringify(sampleData.timetableRows[1]),
     JSON.stringify(sampleData.timetableRows[2]),
-    JSON.stringify(sampleData.timetableRows[1])
+    JSON.stringify(sampleData.timetableRows[3])
   ],
   timetableRowsDayChange: [
     JSON.stringify(sampleData.timetableRowsDayChange[0]),

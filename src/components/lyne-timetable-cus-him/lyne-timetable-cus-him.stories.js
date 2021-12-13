@@ -34,7 +34,7 @@ const variant = {
   options: [
     'first-level-list',
     'second-level-list',
-    'second-level-text'
+    'second-level-message'
   ]
 };
 
@@ -68,7 +68,7 @@ export const CusHimSecondLevelList = Template.bind({});
 
 CusHimSecondLevelList.argTypes = defaultArgTypes;
 CusHimSecondLevelList.args = {
-  ...defaultArgs,
+  gridCellRole: false,
   config: sampleData[1],
   variant: variant.options[1]
 };
@@ -77,10 +77,24 @@ CusHimSecondLevelList.documentation = {
   title: 'CUS/HIM Icon Second Level List'
 };
 
+export const CusHimSecondLevelMessage = Template.bind({});
+
+CusHimSecondLevelMessage.argTypes = defaultArgTypes;
+CusHimSecondLevelMessage.args = {
+  gridCellRole: false,
+  config: sampleData[2],
+  variant: variant.options[2]
+};
+
+CusHimSecondLevelMessage.documentation = {
+  title: 'CUS/HIM Second Level Message'
+};
+
+
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div>
         <Story/>
       </div>
     )

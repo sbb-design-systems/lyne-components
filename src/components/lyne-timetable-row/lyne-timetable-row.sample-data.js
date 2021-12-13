@@ -68,5 +68,24 @@ export default [
     platform: platformData[1],
     rowHeader: rowHeaderData[1],
     travelHints: travelHintsData[1]
+  },
+  {
+    cusHim: cusHimData[2],
+    details: {
+      arrivalTime: transportationTimeData[3],
+      arrivalWalk: transportationWalkData[3],
+      departureTime: transportationTimeData[2],
+      departureWalk: transportationWalkData[2],
+      pearlChain: {
+        legs: pearlChainData.stop1,
+        status: 'future'
+      },
+      transportationNumber: transportationNumberData['cableCar']
+    },
+    duration: durationData[1],
+    occupancy: occupancyItemsData[5],
+    platform: platformData[1],
+    rowHeader: rowHeaderData[1],
+    travelHints: travelHintsData[1]
   }
 ];
