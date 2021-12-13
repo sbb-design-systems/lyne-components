@@ -31,6 +31,11 @@
 .card-product__content {
   display: flex;
   align-items: center;
+  flex-grow: 1;
+}
+
+.card-product__inner {
+  width: 100%;
 }
 
 .card-product__connection-details {
