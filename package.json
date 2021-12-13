@@ -1,6 +1,6 @@
 {
   "name": "lyne-test",
-  "version": "9.68.2",
+  "version": "9.69.1",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -79,7 +79,7 @@
     "lyne-design-tokens": "^3.17.0",
     "lyne-helper-eslint-config": "~1.0.1",
     "lyne-helper-trigger-travis": "~1.0.3",
-    "lyne-icons": "^4.25.0",
+    "lyne-icons": "^4.26.0",
     "minimist": "~1.2.5",
     "npm-run-all": "^4.1.5",
     "puppeteer": "13.0.0",
