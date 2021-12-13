@@ -1,3 +1,10 @@
+# [9.69.0](https://github.com/lyne-design-system/lyne-components/compare/v9.68.2...v9.69.0) (2021-12-13)
+
+
+### Features
+
+* new icons for sbb immobilien (triggered from Figma) (triggered from icons build) [skip ci] ([820c1f2](https://github.com/lyne-design-system/lyne-components/commit/820c1f2d2e04d802817725c753e4fbd6ca4f747d))
+
 ## [9.68.2](https://github.com/lyne-design-system/lyne-components/compare/v9.68.1...v9.68.2) (2021-12-02)
 
 
