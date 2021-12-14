@@ -180,7 +180,7 @@ const TemplateLyneJourneyHeader = (args) => (
     <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
     <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadArgs}/></div>
     <div slot='text'><SlotLyneTextTemplate {...lyneTextArgs}/></div>
-    <div slot='connection-details'><SlotPearlChainTemplate /></div>
+    <div slot='details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
   </lyne-product>

@@ -17,7 +17,7 @@ import { InterfaceCardProductAttributes } from './lyne-card-product.custom';
  * @slot lead - Slot used to render the lead text
  * @slot text - Slot used to render product contents — only inline HTML
  * elements are allowed
- * @slot connection-details - Slot used to render the connection-details
+ * @slot details - Slot used to render the details
  * @slot card-badge - Slot used to render the optional card badge e.g. discounts
  * @slot action - Slot used to render the link-button
  */
@@ -120,7 +120,7 @@ export class LyneCardProduct {
   private _hasTitleSlot: boolean;
   private _hasLeadSlot: boolean;
   private _hasTextSlot: boolean;
-  private _hasConnectionDetailsSlot: boolean;
+  private _hasDetailsSlot: boolean;
   private _hasCardBadgeSlot: boolean;
   private _hasActionSlot: boolean;
 
@@ -130,7 +130,7 @@ export class LyneCardProduct {
     this._hasTitleSlot = Boolean(this._hostElement.querySelector('[slot="title"]'));
     this._hasLeadSlot = Boolean(this._hostElement.querySelector('[slot="lead"]'));
     this._hasTextSlot = Boolean(this._hostElement.querySelector('[slot="text"]'));
-    this._hasConnectionDetailsSlot = Boolean(this._hostElement.querySelector('[slot="connection-details"]'));
+    this._hasDetailsSlot = Boolean(this._hostElement.querySelector('[slot="details"]'));
     this._hasCardBadgeSlot = Boolean(this._hostElement.querySelector('[slot="card-badge"]'));
     this._hasActionSlot = Boolean(this._hostElement.querySelector('[slot="action"]'));
   }
@@ -164,19 +164,21 @@ export class LyneCardProduct {
       };
     }
 
-    // Check if hrefValue or eventId is set
+    // Check if hrefValue or hasButtonBehaviour is set
+    if (!this.hasButtonBehaviour && !this.hrefValue) {
+      // security exit, if no hrefValue nor hasButtonBehaviour is provided
+      return <p>Provide a hrefValue or define hasButtonBehaviour</p>;
+    }
 
     if (this.hasButtonBehaviour) {
 
       /**
        * Product card behaves like a button
        * ----------------------------------------------------------------
+       * #Todo: Within a button, non-phrasing content like a h2 (rendered as
+       * slots) are not allowed.
+       * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
        */
-
-      // security exit, if no eventId is provided via props
-      if (!this.eventId) {
-        return <p>Config error: if card should behave like a button, eventId is required</p>;
-      }
 
       TAGNAME = 'button';
 
@@ -266,8 +268,8 @@ export class LyneCardProduct {
               ? <p class='card-product__text'><slot name='text'/></p>
               : ''
             }
-            {this._hasConnectionDetailsSlot
-              ? <div class='card-product__connection-details'><slot name='connection-details'/></div>
+            {this._hasDetailsSlot
+              ? <div class='card-product__details'><slot name='details'/></div>
               : ''
             }
           </div>

@@ -6,7 +6,7 @@
 :host {
   @include card-host-properties;
   --slot-icon-spacing-inline: var(--spacing-fixed-4x);
-  --slot-connection-details-spacing-top: var(--spacing-fixed-2x);
+  --slot-details-spacing-top: var(--spacing-fixed-2x);
   --slot-action-spacing-top: var(--spacing-fixed-4x);
 }
 
@@ -33,8 +33,8 @@
   align-items: center;
 }
 
-.product__connection-details {
-  padding-block-start: pxToRem(var(--slot-connection-details-spacing-top));
+.product__details {
+  padding-block-start: pxToRem(var(--slot-details-spacing-top));
 }
 
 .product__action {

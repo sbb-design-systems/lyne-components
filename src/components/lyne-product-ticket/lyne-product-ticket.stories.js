@@ -237,7 +237,7 @@ const TemplateTicketPersonalized = (args) => (
 const TemplateTicketPersonalizedConnection = (args) => (
   <lyne-product-ticket {...args}>
     <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
-    <div slot='connection-details'><SlotPearlChainTemplate /></div>
+    <div slot='details'><SlotPearlChainTemplate /></div>
     <div slot='action'><SlotActionTemplate {...actionTicketPersonalizedConnectionArgs}/></div>
   </lyne-product-ticket>
 );
@@ -245,7 +245,7 @@ const TemplateTicketPersonalizedConnection = (args) => (
 const TemplateTicketPersonalizedConnectionDiscount = (args) => (
   <lyne-product-ticket {...args}>
     <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderRoundtripArgs}/></div>
-    <div slot='connection-details'><SlotPearlChainTemplate /></div>
+    <div slot='details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionTicketPersonalizedConnectionArgs}/></div>
   </lyne-product-ticket>

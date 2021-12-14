@@ -136,24 +136,26 @@ const layout = {
   }
 };
 
+/* eslint-disable sort-keys */
 const defaultArgTypes = {
-  'accessibility-label': accessibilityLabel,
   appearance,
-  'event-id': eventId,
-  'has-button-behaviour': hasButtonBehaviour,
-  'href-value': hrefValue,
-  'id-value': idValue,
   layout,
-  name,
+  'id-value': idValue,
+  'accessibility-label': accessibilityLabel,
+  'href-value': hrefValue,
+  'has-button-behaviour': hasButtonBehaviour,
   type,
+  'event-id': eventId,
+  name,
   value
 };
 
 const defaultArgs = {
   'appearance': appearance.options[0],
-  'href-value': 'https://github.com/lyne-design-system/lyne-components',
-  'layout': layout.options[0]
+  'layout': layout.options[0],
+  'href-value': 'https://github.com/lyne-design-system/lyne-components'
 };
+/* eslint-enable sort-keys */
 
 /* ************************************************* */
 /* Slot templates, used in Storybook template        */
@@ -286,7 +288,7 @@ const TemplateLyneJourneyHeader = (args) => (
     <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
     <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadArgs}/></div>
     <div slot='text'><SlotLyneTextTemplate {...lyneTextArgs}/></div>
-    <div slot='connection-details'><SlotPearlChainTemplate /></div>
+    <div slot='details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
   </lyne-card-product>

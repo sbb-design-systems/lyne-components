@@ -9,7 +9,7 @@ import { InterfaceProductTicketAttributes } from './lyne-product-ticket.custom';
 /**
  * @slot icon - Slot used to render the product icon
  * @slot title - Slot used to render the title
- * @slot connection-details - Slot used to render the connection-details
+ * @slot details - Slot used to render the details
  * @slot card-badge - Slot used to render the optional card badge e.g. discounts
  * @slot action - Slot used to render the link-button
  */
@@ -36,14 +36,14 @@ export class LyneProductTicket {
 
   private _hasIconSlot: boolean;
   private _hasTitleSlot: boolean;
-  private _hasConnectionDetailsSlot: boolean;
+  private _hasDetailsSlot: boolean;
   private _hasCardBadgeSlot: boolean;
   private _hasActionSlot: boolean;
 
   public componentWillLoad(): void {
     this._hasIconSlot = Boolean(this._hostElement.querySelector('[slot="icon"]'));
     this._hasTitleSlot = Boolean(this._hostElement.querySelector('[slot="title"]'));
-    this._hasConnectionDetailsSlot = Boolean(this._hostElement.querySelector('[slot="connection-details"]'));
+    this._hasDetailsSlot = Boolean(this._hostElement.querySelector('[slot="details"]'));
     this._hasCardBadgeSlot = Boolean(this._hostElement.querySelector('[slot="card-badge"]'));
     this._hasActionSlot = Boolean(this._hostElement.querySelector('[slot="action"]'));
   }
@@ -81,8 +81,8 @@ export class LyneProductTicket {
               ? <div class='product-ticket__text'>{this.text}</div>
               : ''
             }
-            {this._hasConnectionDetailsSlot
-              ? <div class='product-ticket__connection-details'><slot name='connection-details'/></div>
+            {this._hasDetailsSlot
+              ? <div class='product-ticket__details'><slot name='details'/></div>
               : ''
             }
           </div>

@@ -13,7 +13,7 @@ import { InterfaceProductAttributes } from './lyne-product.custom';
  * @slot lead - Slot used to render the lead text
  * @slot text - Slot used to render product contents — only inline HTML
  * elements are allowed
- * @slot connection-details - Slot used to render the connection-details
+ * @slot details - Slot used to render the details
  * @slot card-badge - Slot used to render the optional card badge e.g. discounts
  * @slot action - Slot used to render the link-button
  */
@@ -44,7 +44,7 @@ export class LyneProduct {
   private _hasTitleSlot: boolean;
   private _hasLeadSlot: boolean;
   private _hasTextSlot: boolean;
-  private _hasConnectionDetailsSlot: boolean;
+  private _hasDetailsSlot: boolean;
   private _hasCardBadgeSlot: boolean;
   private _hasActionSlot: boolean;
 
@@ -54,7 +54,7 @@ export class LyneProduct {
     this._hasTitleSlot = Boolean(this._hostElement.querySelector('[slot="title"]'));
     this._hasLeadSlot = Boolean(this._hostElement.querySelector('[slot="lead"]'));
     this._hasTextSlot = Boolean(this._hostElement.querySelector('[slot="text"]'));
-    this._hasConnectionDetailsSlot = Boolean(this._hostElement.querySelector('[slot="connection-details"]'));
+    this._hasDetailsSlot = Boolean(this._hostElement.querySelector('[slot="details"]'));
     this._hasCardBadgeSlot = Boolean(this._hostElement.querySelector('[slot="card-badge"]'));
     this._hasActionSlot = Boolean(this._hostElement.querySelector('[slot="action"]'));
   }
@@ -100,8 +100,8 @@ export class LyneProduct {
               ? <p class='product__text'><slot name='text'/></p>
               : ''
             }
-            {this._hasConnectionDetailsSlot
-              ? <div class='product__connection-details'><slot name='connection-details'/></div>
+            {this._hasDetailsSlot
+              ? <div class='product__details'><slot name='details'/></div>
               : ''
             }
           </div>

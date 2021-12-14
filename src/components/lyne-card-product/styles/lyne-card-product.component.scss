@@ -3,18 +3,25 @@
 // and default mode
 @include host-component-properties;
 
+@mixin card-product-reset {
+  // Since we are using either an '<a>' or '<button>' to render the card-product
+  // we need to reset these properties
+  border: none;
+  text-decoration: none;
+}
+
 :host {
   @include card-host-properties;
   --slot-icon-spacing-inline: var(--spacing-fixed-4x);
-  --slot-connection-details-spacing-top: var(--spacing-fixed-2x);
+  --slot-details-spacing-top: var(--spacing-fixed-2x);
   --slot-action-spacing-top: var(--spacing-fixed-4x);
 }
 
 /* ************************************************* */
 /* Layout & spacing                                  */
 /* ************************************************* */
-
 .card-product {
+  @include card-product-reset;
   @include card;
   @include card--m;
 }
@@ -38,8 +45,8 @@
   width: 100%;
 }
 
-.card-product__connection-details {
-  padding-block-start: pxToRem(var(--slot-connection-details-spacing-top));
+.card-product__details {
+  padding-block-start: pxToRem(var(--slot-details-spacing-top));
 }
 
 .card-product__action {
