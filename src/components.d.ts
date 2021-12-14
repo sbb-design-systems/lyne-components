@@ -113,7 +113,7 @@ export namespace Components {
     }
     interface LyneCardBadge {
         /**
-          * Accessibility Label
+          * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
         "accessibilityLabel": string;
         /**
@@ -846,7 +846,7 @@ declare namespace LocalJSX {
     }
     interface LyneCardBadge {
         /**
-          * Accessibility Label
+          * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
         "accessibilityLabel": string;
         /**
