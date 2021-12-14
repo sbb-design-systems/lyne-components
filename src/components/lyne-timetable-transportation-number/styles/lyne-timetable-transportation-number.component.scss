@@ -20,7 +20,7 @@
   margin: 0;
 }
 
-.transportation-number span {
+.transportation-number--first-level span {
   height: pxToRem(var(--transportation-number-element-height));
   line-height: pxToRem(22);
 }
@@ -31,8 +31,11 @@
   flex: 0 0 100%;
   flex-wrap: nowrap;
   align-items: center;
-  line-height: pxToRem(22);
   overflow: hidden;
+}
+
+.transportation-number--second-level .transportation-number--visual {
+  flex-wrap: wrap;
 }
 
 .transportation-number__means_of_transport {
@@ -55,6 +58,10 @@
   margin-inline-end: pxToRem(var(--spacing-fixed-2x));
 }
 
+.transportation-number__product-icon {
+  line-height: pxToRem(var(--transportation-number-element-height));
+}
+
 .transportation-number__product-icon svg {
   width: pxToRem(var(--product-icon-width));
 }
@@ -63,9 +70,23 @@
   @include text-s--bold();
 }
 
+.transportation-number--first-level .transportation-number__product-text {
+  line-height: pxToRem(22);
+}
+
+.transportation-number--second-level .transportation-number__product-text {
+  line-height: pxToRem(var(--transportation-number-element-height));
+  transform: translateY(#{pxToRem(1)});
+}
+
 .transportation-number__direction {
   flex: 1 1 auto;
   overflow: hidden;
+}
+
+.transportation-number--second-level .transportation-number__direction {
+  flex: 0 0 100%;
+  margin-block-start: pxToRem(var(--spacing-fixed-1x));
 }
 
 .transportation-number__direction_text {

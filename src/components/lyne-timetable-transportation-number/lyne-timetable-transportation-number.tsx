@@ -5,6 +5,7 @@ import {
 } from '@stencil/core';
 
 import icons from '../../global/icons/timetable.json';
+import { InterfaceLyneTimetableTransportationNumberAttributes } from './lyne-timetable-transportation-number.custom.d';
 
 @Component({
   shadow: true,
@@ -35,10 +36,19 @@ export class LyneTimetableTransportationNumber {
    */
   @Prop() public config!: string;
 
+  /**
+   * Variant of the Transportation number
+   * display, can either be used on level 1
+   * or level 2 of the timetable
+   */
+  @Prop() public variant?: InterfaceLyneTimetableTransportationNumberAttributes['variant'] = 'first-level';
+
   public render(): JSX.Element {
 
     const config = JSON.parse(this.config);
     const a11yLabel = `${config.meansOfTransport.text} ${config.product.text} ${config.marketingName} ${config.direction}`;
+
+    const variantClasses = `transportation-number--${this.variant}`;
 
     /**
      * role='text' is used here to allow assistive
@@ -53,7 +63,7 @@ export class LyneTimetableTransportationNumber {
     return (
       <p
         aria-label={a11yLabel}
-        class='transportation-number'
+        class={`transportation-number ${variantClasses}`}
         role='text'
       >
         <span

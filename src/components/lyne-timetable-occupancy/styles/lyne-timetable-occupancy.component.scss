@@ -40,4 +40,5 @@
   float: left;
   height: pxToRem(var(--occupancy-icon-height));
   width: pxToRem(var(--occupancy-icon-width));
+  fill: currentColor;
 }

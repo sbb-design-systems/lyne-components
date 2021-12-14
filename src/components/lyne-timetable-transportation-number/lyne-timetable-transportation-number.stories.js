@@ -10,6 +10,7 @@ const Template = (args) => (
         ? 'gridcell'
         : 'none'
     }
+    variant={args.variant}
   >
   </lyne-timetable-transportation-number>
 );
@@ -26,64 +27,129 @@ const gridCellRole = {
   }
 };
 
+const variant = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'first-level',
+    'second-level'
+  ]
+};
+
 const defaultArgTypes = {
   config,
-  gridCellRole
+  gridCellRole,
+  variant
 };
 
 const defaultArgs = {
-  gridCellRole: true
+  gridCellRole: true,
+  variant: variant.options[0]
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const Bus = Template.bind({});
+export const BusFirstLevel = Template.bind({});
 
-Bus.argTypes = defaultArgTypes;
-Bus.args = {
+BusFirstLevel.argTypes = defaultArgTypes;
+BusFirstLevel.args = {
   ...defaultArgs,
   config: sampleData.bus
 };
 
-Bus.documentation = {
-  title: 'Bus'
+BusFirstLevel.documentation = {
+  title: 'Bus - First Level'
 };
 
-export const CableCar = Template.bind({});
+export const BusSecondLevel = Template.bind({});
 
-CableCar.argTypes = defaultArgTypes;
-CableCar.args = {
+BusSecondLevel.argTypes = defaultArgTypes;
+BusSecondLevel.args = {
+  ...defaultArgs,
+  config: sampleData.bus,
+  variant: variant.options[1]
+};
+
+BusSecondLevel.documentation = {
+  title: 'Bus - Second Level'
+};
+
+export const CableCarFirstLevel = Template.bind({});
+
+CableCarFirstLevel.argTypes = defaultArgTypes;
+CableCarFirstLevel.args = {
   ...defaultArgs,
   config: sampleData.cableCar
 };
 
-CableCar.documentation = {
-  title: 'Cable Car'
+CableCarFirstLevel.documentation = {
+  title: 'Cable Car - First Level'
 };
 
-export const Train = Template.bind({});
+export const CableCarSecondLevel = Template.bind({});
 
-Train.argTypes = defaultArgTypes;
-Train.args = {
+CableCarSecondLevel.argTypes = defaultArgTypes;
+CableCarSecondLevel.args = {
+  ...defaultArgs,
+  config: sampleData.cableCar,
+  variant: variant.options[1]
+};
+
+CableCarSecondLevel.documentation = {
+  title: 'Cable Car - Second Level'
+};
+
+
+export const TrainFirstLevel = Template.bind({});
+
+TrainFirstLevel.argTypes = defaultArgTypes;
+TrainFirstLevel.args = {
   ...defaultArgs,
   config: sampleData.train
 };
 
-Train.documentation = {
-  title: 'Train'
+TrainFirstLevel.documentation = {
+  title: 'Train - First Level'
 };
 
-export const Tram = Template.bind({});
+export const TrainSecondLevel = Template.bind({});
 
-Tram.argTypes = defaultArgTypes;
-Tram.args = {
+TrainSecondLevel.argTypes = defaultArgTypes;
+TrainSecondLevel.args = {
+  ...defaultArgs,
+  config: sampleData.train,
+  variant: variant.options[1]
+};
+
+TrainSecondLevel.documentation = {
+  title: 'Train - Second Level'
+};
+
+export const TramFirstLevel = Template.bind({});
+
+TramFirstLevel.argTypes = defaultArgTypes;
+TramFirstLevel.args = {
   ...defaultArgs,
   config: sampleData.tram
 };
 
-Tram.documentation = {
-  title: 'Tram'
+TramFirstLevel.documentation = {
+  title: 'Tram - First Level'
+};
+
+export const TramSecondLevel = Template.bind({});
+
+TramSecondLevel.argTypes = defaultArgTypes;
+TramSecondLevel.args = {
+  ...defaultArgs,
+  config: sampleData.tram,
+  variant: variant.options[1]
+};
+
+TramSecondLevel.documentation = {
+  title: 'Tram - Second Level'
 };
 
 export default {

@@ -61,7 +61,7 @@ CusHimFirstLevelList.args = {
 };
 
 CusHimFirstLevelList.documentation = {
-  title: 'CUS/HIM Icon First Level List'
+  title: 'CUS/HIM Icon - First Level List'
 };
 
 export const CusHimSecondLevelList = Template.bind({});
@@ -74,7 +74,7 @@ CusHimSecondLevelList.args = {
 };
 
 CusHimSecondLevelList.documentation = {
-  title: 'CUS/HIM Icon Second Level List'
+  title: 'CUS/HIM Icon - Second Level List'
 };
 
 export const CusHimSecondLevelMessage = Template.bind({});
@@ -87,7 +87,7 @@ CusHimSecondLevelMessage.args = {
 };
 
 CusHimSecondLevelMessage.documentation = {
-  title: 'CUS/HIM Second Level Message'
+  title: 'CUS/HIM - Second Level Message'
 };
 
 

@@ -17,7 +17,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  'expaned': false
+  'expanded': false
 };
 
 /* ************************************************* */
