@@ -235,11 +235,20 @@ const SlotPearlChainTemplate = () => (
 
 /* --- card-badge slot ----------------------------- */
 
+const cardBadgeMinimalArgs = {
+  isDiscount: true
+};
+
 const cardBadgeArgs = {
   isDiscount: true,
-  price: '88.88',
-  // eslint-disable-next-line max-len
-  // slotGeneric: '<span>on <time datetime="2021-11-25">Black Friday</time></span>',
+  price: '20.50',
+  text: 'from CHF'
+};
+
+const cardBadgeWithSlotArgs = {
+  isDiscount: true,
+  price: '92.50',
+  slotGeneric: '<span>on <time datetime="2021-11-25">Black Friday</time></span>',
   text: 'from CHF'
 };
 
@@ -256,7 +265,13 @@ const SlotCardBadgeTemplate = (args) => (
 /* --- action slot ----------------------------- */
 
 const actionArgs = {
-  //icon: 'qrcode-small',
+  label: 'Abo bearbeiten',
+  variant: 'secondary',
+  visualButtonOnly: true
+};
+
+const actionWithQrArgs = {
+  icon: 'qrcode-small',
   label: 'Abo bearbeiten',
   variant: 'secondary',
   visualButtonOnly: true
@@ -290,7 +305,7 @@ const TemplateLyneJourneyHeader = (args) => (
     <div slot='text'><SlotLyneTextTemplate {...lyneTextArgs}/></div>
     <div slot='details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
-    <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionWithQrArgs}/></div>
   </lyne-card-product>
 );
 
