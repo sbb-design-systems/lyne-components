@@ -69,7 +69,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  'accessibility-label': 'This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography. Example text: Sales ticket price starts at CHF 37.50',
+  'accessibility-label': 'Super saver sales ticket price starts at CHF 37.50',
   'appearance': appearance.options[0]
 };
 
