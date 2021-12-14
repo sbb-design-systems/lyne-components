@@ -74,6 +74,9 @@ export class LyneCardProduct {
    */
   @Prop() public isButton?: boolean;
 
+  /** Set to true to get a disabled button */
+  @Prop() public isDisabled? = false;
+
   /** Id which is sent in the click event payload */
   @Prop() public eventId?: string;
 
@@ -99,6 +102,7 @@ export class LyneCardProduct {
   /** Host element */
   @Element() private _hostElement: HTMLElement;
 
+  /** Defines click event handler if product card is served as a button */
   private _buttonClick = (): void => {
     let eventDetail;
 
@@ -186,6 +190,13 @@ export class LyneCardProduct {
        * Add button specific additional attributes
        * ----------------------------------------------------------------
        */
+
+      if (this.isDisabled) {
+        additionalCardAttributes = {
+          ...additionalCardAttributes,
+          disabled: 'disabled'
+        };
+      }
 
       additionalCardAttributes = {
         ...additionalCardAttributes,

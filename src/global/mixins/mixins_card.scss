@@ -24,14 +24,18 @@
 
   position: relative;
   overflow: hidden;
+  user-select: text;
 
   &:hover, &:focus {
-    @include shadow-level-9-hard;
+    &:not(:disabled) {
 
-    padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
-    padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
+      @include shadow-level-9-hard;
 
-    cursor: pointer;
+      padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
+      padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
+
+      cursor: pointer;
+    }
   }
 }
 

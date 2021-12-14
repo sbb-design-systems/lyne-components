@@ -167,6 +167,10 @@ export namespace Components {
          */
         "isButton"?: boolean;
         /**
+          * Set to true to get a disabled button
+         */
+        "isDisabled"?: boolean;
+        /**
           * CardProduct layout
          */
         "layout"?: InterfaceCardProductAttributes['layout'];
@@ -895,6 +899,10 @@ declare namespace LocalJSX {
           * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
          */
         "isButton"?: boolean;
+        /**
+          * Set to true to get a disabled button
+         */
+        "isDisabled"?: boolean;
         /**
           * CardProduct layout
          */

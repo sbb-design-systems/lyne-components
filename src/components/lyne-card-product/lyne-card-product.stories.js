@@ -67,6 +67,15 @@ const isButton = {
   }
 };
 
+const isDisabled = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Button'
+  }
+};
+
 const eventId = {
   control: {
     type: 'text'
@@ -144,6 +153,7 @@ const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   'href-value': hrefValue,
   'is-button': isButton,
+  'is-disabled': isDisabled,
   type,
   'event-id': eventId,
   name,
