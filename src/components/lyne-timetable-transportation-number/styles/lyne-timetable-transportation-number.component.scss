@@ -91,6 +91,9 @@
 
 .transportation-number__direction_text {
   display: block;
+}
+
+.transportation-number--first-level .transportation-number__direction_text {
   @include ellipsis();
 }
 
