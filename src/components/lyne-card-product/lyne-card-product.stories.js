@@ -152,6 +152,7 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   'appearance': appearance.options[0],
+  'accessibility-label': 'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography',
   'layout': layout.options[0],
   'href-value': 'https://github.com/lyne-design-system/lyne-components'
 };
