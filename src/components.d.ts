@@ -155,10 +155,6 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
-          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
-         */
-        "hasButtonBehaviour"?: boolean;
-        /**
           * The href value you want to link to
          */
         "hrefValue"?: string;
@@ -166,6 +162,10 @@ export namespace Components {
           * The ID value you want to reference
          */
         "idValue"?: string;
+        /**
+          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
+         */
+        "isButton"?: boolean;
         /**
           * CardProduct layout
          */
@@ -884,10 +884,6 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
-         */
-        "hasButtonBehaviour"?: boolean;
-        /**
           * The href value you want to link to
          */
         "hrefValue"?: string;
@@ -895,6 +891,10 @@ declare namespace LocalJSX {
           * The ID value you want to reference
          */
         "idValue"?: string;
+        /**
+          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
+         */
+        "isButton"?: boolean;
         /**
           * CardProduct layout
          */

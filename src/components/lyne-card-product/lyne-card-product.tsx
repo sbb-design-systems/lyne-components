@@ -72,7 +72,7 @@ export class LyneCardProduct {
    * Defines if the card behaves like a HTML button. Needs to be set true
    * if the card does not point to a URL.
    */
-  @Prop() public hasButtonBehaviour?: boolean;
+  @Prop() public isButton?: boolean;
 
   /** Id which is sent in the click event payload */
   @Prop() public eventId?: string;
@@ -164,13 +164,13 @@ export class LyneCardProduct {
       };
     }
 
-    // Check if hrefValue or hasButtonBehaviour is set
-    if (!this.hasButtonBehaviour && !this.hrefValue) {
-      // security exit, if no hrefValue nor hasButtonBehaviour is provided
-      return <p>Provide a hrefValue or define hasButtonBehaviour</p>;
+    // Check if hrefValue or isButton is set
+    if (!this.isButton && !this.hrefValue) {
+      // security exit, if no hrefValue nor isButton is provided
+      return <p>Provide a hrefValue or define isButton</p>;
     }
 
-    if (this.hasButtonBehaviour) {
+    if (this.isButton) {
 
       /**
        * Product card behaves like a button

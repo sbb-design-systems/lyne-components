@@ -58,7 +58,7 @@ const hrefValue = {
 
 /* --- Button -------------------------------------- */
 
-const hasButtonBehaviour = {
+const isButton = {
   control: {
     type: 'boolean'
   },
@@ -143,7 +143,7 @@ const defaultArgTypes = {
   'id-value': idValue,
   'accessibility-label': accessibilityLabel,
   'href-value': hrefValue,
-  'has-button-behaviour': hasButtonBehaviour,
+  'is-button': isButton,
   type,
   'event-id': eventId,
   name,
