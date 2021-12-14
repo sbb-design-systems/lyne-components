@@ -76,6 +76,20 @@ const eventId = {
   }
 };
 
+const type = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'button',
+    'reset',
+    'submit'
+  ],
+  table: {
+    category: 'Button'
+  }
+};
+
 const name = {
   control: {
     type: 'text'
@@ -123,21 +137,22 @@ const layout = {
 };
 
 const defaultArgTypes = {
-  accessibilityLabel,
+  'accessibility-label': accessibilityLabel,
   appearance,
-  eventId,
-  hasButtonBehaviour,
-  hrefValue,
-  idValue,
+  'event-id': eventId,
+  'has-button-behaviour': hasButtonBehaviour,
+  'href-value': hrefValue,
+  'id-value': idValue,
   layout,
   name,
+  type,
   value
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
-  hrefValue: 'https://github.com/lyne-design-system/lyne-components',
-  layout: layout.options[0]
+  'appearance': appearance.options[0],
+  'href-value': 'https://github.com/lyne-design-system/lyne-components',
+  'layout': layout.options[0]
 };
 
 /* ************************************************* */

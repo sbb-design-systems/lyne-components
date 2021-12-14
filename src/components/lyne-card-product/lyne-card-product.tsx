@@ -68,7 +68,10 @@ export class LyneCardProduct {
    * ----------------------------------------------------------------
    */
 
-  /** Defines if the card behaves like a HTML button. */
+  /**
+   * Defines if the card behaves like a HTML button. Needs to be set true
+   * if the card does not point to a URL.
+   */
   @Prop() public hasButtonBehaviour?: boolean;
 
   /** Id which is sent in the click event payload */
@@ -198,9 +201,9 @@ export class LyneCardProduct {
        */
 
       // security exit, if no hrefValue is provided via props
-      // if (!this.hrefValue) {
-      //   return <p>Config error: if card should behave like a link, hrefValue is required</p>;
-      // }
+      if (!this.hrefValue) {
+        return <p>Config error: if card should behave like a link, hrefValue is required</p>;
+      }
 
       TAGNAME = 'a';
 
@@ -217,6 +220,7 @@ export class LyneCardProduct {
 
       if (openInNewWindow) {
         additionalCardAttributes = {
+          ...additionalCardAttributes,
           rel: 'external noopener nofollow',
           target: '_blank'
         };

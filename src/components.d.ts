@@ -155,7 +155,7 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
-          * Defines if the card behaves like a HTML button.
+          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
          */
         "hasButtonBehaviour"?: boolean;
         /**
@@ -884,7 +884,7 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * Defines if the card behaves like a HTML button.
+          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
          */
         "hasButtonBehaviour"?: boolean;
         /**
