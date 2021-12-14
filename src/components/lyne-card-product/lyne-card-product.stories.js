@@ -310,16 +310,23 @@ CardProductLyneTitle.documentation = {
   title: 'CardProduct as a subscription'
 };
 
-/* --- CardProduct with Journey Title ----- */
-export const CardProductLyneJourneyHeader = TemplateLyneJourneyHeader.bind({});
+/*
+ * The Whole Shabang, everything which can be added
+ * to the product card so far. Even though this should not
+ * be done, but this story showcases all possible elements which the card can
+ * hold.
+ * Not included are the appearance and layout variants since they are always
+ * mutually exclusive.
+ */
+export const CardProductTheWholeShabang = TemplateLyneJourneyHeader.bind({});
 
-CardProductLyneJourneyHeader.argTypes = defaultArgTypes;
-CardProductLyneJourneyHeader.args = {
+CardProductTheWholeShabang.argTypes = defaultArgTypes;
+CardProductTheWholeShabang.args = {
   ...defaultArgs
 };
 
-CardProductLyneJourneyHeader.documentation = {
-  title: 'CardProduct as a ticket'
+CardProductTheWholeShabang.documentation = {
+  title: 'The Whole Shabang'
 };
 
 /* --- next story ... ------------------------------ */
