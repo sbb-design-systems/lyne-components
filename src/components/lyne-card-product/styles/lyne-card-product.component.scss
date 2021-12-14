@@ -6,8 +6,10 @@
 @mixin card-product-reset {
   // Since we are using either an '<a>' or '<button>' to render the card-product
   // we need to reset these properties
+  width: 100%;
   border: none;
   text-decoration: none;
+  text-align: start;
 }
 
 :host {
