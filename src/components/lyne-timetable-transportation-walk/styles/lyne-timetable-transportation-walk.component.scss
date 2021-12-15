@@ -29,8 +29,14 @@
   margin-inline-end: pxToRem(var(--spacing-fixed-1x));
 }
 
-.walk--second-level .walk__icon {
+.walk--second-level .walk__duration--visual {
+  order: -1;
+  margin-inline-start: 0;
   margin-inline-end: pxToRem(var(--spacing-fixed-3x));
+}
+
+.walk--second-level .walk__icon {
+  margin-inline-end: pxToRem(var(--spacing-fixed-2x));
 }
 
 .walk__icon svg {

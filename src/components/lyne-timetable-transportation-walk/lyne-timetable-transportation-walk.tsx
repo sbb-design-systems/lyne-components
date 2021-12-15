@@ -11,6 +11,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
   i18nDistance,
   i18nDistanceMeter,
+  i18nWalk,
   i18nWalkingDistanceArrival,
   i18nWalkingDistanceDeparture
 } from '../../global/i18n';
@@ -74,6 +75,8 @@ export class LyneTimetableTransportationWalk {
       a11yLabel = `${config.duration} ${a11yDepartureText} ${a11yDistanceText}`;
     }
 
+    const secondLevel = this.appearance === 'second-level';
+
     const appearanceClasses = ` walk--${this.appearance} walk--${config.type}`;
 
     return (
@@ -90,11 +93,22 @@ export class LyneTimetableTransportationWalk {
         </span>
         <span
           aria-hidden='true'
-          class='walk__text--visual'
+          class='walk__duration--visual'
           role='presentation'
         >
           {config.duration}'
         </span>
+        {
+          secondLevel
+            ? <span
+              aria-hidden='true'
+              class='walk__text--visual'
+              role='presentation'
+            >
+             {i18nWalk[this._currentLanguage]}
+            </span>
+            : ''
+        }
         <span class='walk__text--visually-hidden'>
           {a11yLabel}
         </span>
