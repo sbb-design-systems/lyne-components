@@ -8,7 +8,10 @@
   --card-padding-right: ;
   --card-padding-bottom: ;
   --card-padding-left: ;
+  // Todo: Design tokens need to be defined globally
   --card-hover-shift: 2px;
+  --card-hover-animation: 0.03s all ease-out;
+
 }
 
 @mixin card {
@@ -25,6 +28,8 @@
   position: relative;
   overflow: hidden;
   user-select: text;
+
+  transition: var(--card-hover-animation);
 
   &:hover, &:focus {
     &:not(:disabled) {
