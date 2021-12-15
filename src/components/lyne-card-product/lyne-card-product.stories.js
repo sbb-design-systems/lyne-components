@@ -178,8 +178,12 @@ const iconArgs = {
   icon: 'ticket-route-medium'
 };
 
+const iconBicycleArgs = {
+  icon: 'bicycle-medium'
+};
+
 const SlotIconTemplate = (args) => (
-  <span>{getMarkupForSvg(args.icon)}</span>
+  getMarkupForSvg(args.icon)
 );
 
 /* --- category slot ---------------------------------- */
@@ -275,7 +279,26 @@ const SlotCardBadgeTemplate = (args) => (
 
 /* --- action slot ----------------------------- */
 
-const actionArgs = {
+const actionBuyArgs = {
+  label: 'Kaufen',
+  variant: 'secondary',
+  visualButtonOnly: true
+};
+
+const actionHalfFareArgs = {
+  label: 'Zum halben Preis fahren',
+  variant: 'secondary',
+  visualButtonOnly: true
+};
+
+const actionGAArgs = {
+  label: 'Alle GA im Überblick',
+  variant: 'secondary',
+  visualButtonOnly: true
+};
+
+const actionWithPenArgs = {
+  icon: 'highlighter-small',
   label: 'Abo bearbeiten',
   variant: 'secondary',
   visualButtonOnly: true
@@ -283,7 +306,7 @@ const actionArgs = {
 
 const actionWithQrArgs = {
   icon: 'qrcode-small',
-  label: 'Abo bearbeiten',
+  label: 'Billett',
   variant: 'secondary',
   visualButtonOnly: true
 };
@@ -303,11 +326,11 @@ const TemplateLyneTitle = (args) => (
     <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
     <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadArgs}/></div>
     <div slot='text'><SlotLyneTextTemplate {...lyneTextArgs}/></div>
-    <div slot='action'><SlotActionTemplate {...actionArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionWithPenArgs}/></div>
   </lyne-card-product>
 );
 
-const TemplateLyneJourneyHeader = (args) => (
+const TemplateTheWholeShabang = (args) => (
   <lyne-card-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
     <div slot='category'><SlotLyneCategoryTemplate {...lyneCategoryArgs}/></div>
@@ -324,15 +347,17 @@ const TemplateLyneJourneyHeader = (args) => (
 /* The Stories                                       */
 /* ************************************************* */
 
-/* --- CardProduct with Lyne Title --------- */
-export const CardProductLyneTitle = TemplateLyneTitle.bind({});
+/* --- CardProduct, Travel Card Half Fare Personalized --------- */
+export const TravelCardHalfFarePersonalized = TemplateLyneTitle.bind({});
 
-CardProductLyneTitle.argTypes = defaultArgTypes;
-CardProductLyneTitle.args = {
-  ...defaultArgs
+TravelCardHalfFarePersonalized.argTypes = defaultArgTypes;
+TravelCardHalfFarePersonalized.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1],
+  layout: layout.options[1]
 };
 
-CardProductLyneTitle.documentation = {
+TravelCardHalfFarePersonalized.documentation = {
   title: 'CardProduct as a subscription'
 };
 
@@ -344,7 +369,7 @@ CardProductLyneTitle.documentation = {
  * Not included are the appearance and layout variants since they are always
  * mutually exclusive.
  */
-export const CardProductTheWholeShabang = TemplateLyneJourneyHeader.bind({});
+export const CardProductTheWholeShabang = TemplateTheWholeShabang.bind({});
 
 CardProductTheWholeShabang.argTypes = defaultArgTypes;
 CardProductTheWholeShabang.args = {
