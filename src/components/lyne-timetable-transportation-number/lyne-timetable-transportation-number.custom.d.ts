@@ -1,3 +1,3 @@
 export interface InterfaceLyneTimetableTransportationNumberAttributes {
-  variant: 'first-level' | 'second-level';
+  appearance: 'first-level' | 'second-level';
 }

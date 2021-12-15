@@ -6,7 +6,7 @@ const Template = (args) => (
   <lyne-timetable-button {...args}></lyne-timetable-button>
 );
 
-const variant = {
+const appearance = {
   control: {
     type: 'select'
   },
@@ -22,11 +22,11 @@ const variant = {
 };
 
 const defaultArgTypes = {
-  variant: variant
+  appearance: appearance
 };
 
 const defaultArgs = {
-  variant: variant.options[0]
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -48,7 +48,7 @@ export const ButtonLaterConnections = Template.bind({});
 ButtonLaterConnections.argTypes = defaultArgTypes;
 ButtonLaterConnections.args = {
   ...defaultArgs,
-  variant: variant.options[1]
+  appearance: appearance.options[1]
 };
 
 ButtonLaterConnections.documentation = {

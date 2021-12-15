@@ -10,14 +10,14 @@ describe('lyne-timetable-transportation-walk', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableTransportationWalk],
-      html: `<lyne-timetable-transportation-walk config='${config}' variant='first-level'/>`
+      html: `<lyne-timetable-transportation-walk config='${config}' appearance='first-level'/>`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-transportation-walk
             config="{&quot;distance&quot;:178,&quot;duration&quot;:2,&quot;type&quot;:&quot;departure&quot;}"
-            variant="first-level"
+            appearance="first-level"
         >
           <mock:shadow-root>
             <p

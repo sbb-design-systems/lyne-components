@@ -1,3 +1,3 @@
 export interface InterfaceLyneTimetableTransportationWalkAttributes {
-  variant: 'first-level' | 'second-level';
+  appearance: 'first-level' | 'second-level';
 }

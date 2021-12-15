@@ -4,7 +4,7 @@ import sampleData from './lyne-timetable-transportation-walk.sample-data';
 const Template = (args) => (
   <lyne-timetable-transportation-walk
     config={JSON.stringify(args.config)}
-    variant={args.variant}
+    appearance={args.appearance}
   >
   </lyne-timetable-transportation-walk>
 );
@@ -15,7 +15,7 @@ const config = {
   }
 };
 
-const variant = {
+const appearance = {
   control: {
     type: 'select'
   },
@@ -27,11 +27,11 @@ const variant = {
 
 const defaultArgTypes = {
   config,
-  variant
+  appearance
 };
 
 const defaultArgs = {
-  variant: variant.options[0]
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -67,7 +67,7 @@ LyneTimetableTransportationWalkLevel2.argTypes = defaultArgTypes;
 LyneTimetableTransportationWalkLevel2.args = {
   ...defaultArgs,
   config: sampleData[3],
-  variant: variant.options[1]
+  appearance: appearance.options[1]
 };
 
 LyneTimetableTransportationWalkLevel2.documentation = {

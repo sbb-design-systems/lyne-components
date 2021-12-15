@@ -10,7 +10,7 @@ const Template = (args) => (
         ? 'gridcell'
         : 'none'
     }
-    variant={args.variant}
+    appearance={args.appearance}
   >
   </lyne-timetable-travel-hints>
 );
@@ -27,7 +27,7 @@ const config = {
   }
 };
 
-const variant = {
+const appearance = {
   control: {
     type: 'select'
   },
@@ -40,12 +40,12 @@ const variant = {
 const defaultArgTypes = {
   config,
   gridCellRole,
-  variant
+  appearance
 };
 
 const defaultArgs = {
   gridCellRole: true,
-  variant: variant.options[0]
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */

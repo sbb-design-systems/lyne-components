@@ -11,7 +11,7 @@
   --cus-him-icon-width: var(--cus-him-icon-height);
 }
 
-// First Level List Variant
+// First Level List appearance
 // ----------------------------------------------
 .cus-him--first-level-list {
   --list-item-justification: flex-end;
@@ -22,7 +22,7 @@
 
 }
 
-// Second Level List Variant
+// Second Level List appearance
 // ----------------------------------------------
 .cus-him--second-level-list {
   --cus-him-width: auto;
@@ -30,7 +30,7 @@
   --list-item-justification: flex-start;
 }
 
-// Second Level Message Variant
+// Second Level Message appearance
 // ----------------------------------------------
 .cus-him__second-level-message {
   display: flex;

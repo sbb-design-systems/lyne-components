@@ -17,7 +17,7 @@
 .time {
   min-width: pxToRem(var(--transportation-min-width));
   margin: 0;
-  font-variant-numeric: tabular-nums;
+  font-appearance-numeric: tabular-nums;
 }
 
 .time--departure {

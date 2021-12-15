@@ -10,7 +10,7 @@ describe('lyne-timetable-cus-him', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableCusHim],
-      html: `<lyne-timetable-cus-him config='${config}' role="gridcell" variant="first-level-list"/>`
+      html: `<lyne-timetable-cus-him config='${config}' role="gridcell" appearance="first-level-list"/>`
     });
 
     expect(root)
@@ -18,7 +18,7 @@ describe('lyne-timetable-cus-him', () => {
         <lyne-timetable-cus-him
             config="{&quot;cusHimItems&quot;:[{&quot;icon&quot;:&quot;alternative&quot;,&quot;text&quot;:&quot;Alternative connection due to the current service situation. Please check again for any changes shortly before starting your journey.&quot;},{&quot;icon&quot;:&quot;delay&quot;,&quot;text&quot;:&quot;Connection delayed.&quot;},{&quot;icon&quot;:&quot;disruption&quot;,&quot;text&quot;:&quot;Disruption!&quot;}]}"
             role="gridcell"
-            variant="first-level-list"
+            appearance="first-level-list"
         >
           <mock:shadow-root>
             <div class="cus-him cus-him--first-level-list">

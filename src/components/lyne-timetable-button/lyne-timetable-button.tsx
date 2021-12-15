@@ -44,11 +44,11 @@ export class LyneTimetableButton {
   @Prop() public name?: string;
 
   /**
-   * Variant of the Timetable Button,
+   * appearance of the Timetable Button,
    * can either be used on level 1 or
    * level 2 of the timetable
    */
-  @Prop() public variant?: InterfaceLyneTimetableButtonAttributes['variant'] = 'earlier-connections';
+  @Prop() public appearance?: InterfaceLyneTimetableButtonAttributes['appearance'] = 'earlier-connections';
 
   @Element() private _element: HTMLElement;
 
@@ -70,7 +70,7 @@ export class LyneTimetableButton {
 
   private _prepareButtonText = (): void => {
 
-    switch (this.variant) {
+    switch (this.appearance) {
       case 'earlier-connections':
         this._ctaText = `${i18nEarlierConnections[this._currentLanguage]}`;
         break;
@@ -92,13 +92,13 @@ export class LyneTimetableButton {
 
   public render(): JSX.Element {
 
-    const variantClass = ` button--${this.variant}`;
+    const appearanceClass = ` button--${this.appearance}`;
 
     this._prepareButtonText();
 
     return (
       <button
-        class={`button${variantClass}`}
+        class={`button${appearanceClass}`}
         onClick={this._buttonClick}
         /* ref={(el): void => {
           this._button = el;

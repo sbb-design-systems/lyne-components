@@ -44,11 +44,11 @@ export class LyneTimetableTransportationTime {
   @Prop() public config!: string;
 
   /**
-   * Variant of the Travel Hints display,
+   * appearance of the Travel Hints display,
    * can either be used on level 1 or
    * level 2 of the timetable
    */
-  @Prop() public variant?: InterfaceLyneTimetableTransportationTimeAttributes['variant'] = 'first-level';
+  @Prop() public appearance?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'] = 'first-level';
 
   public render(): JSX.Element {
     const config = JSON.parse(this.config);
@@ -59,12 +59,12 @@ export class LyneTimetableTransportationTime {
       a11yLabel = `${i18nDeparture[this._currentLanguage]} ${config.time}.`;
     }
 
-    const variantClasses = `time--${this.variant} time--${config.type}`;
+    const appearanceClasses = `time--${this.appearance} time--${config.type}`;
 
     return (
       <p
         aria-label={a11yLabel}
-        class={`time ${variantClasses}`}
+        class={`time ${appearanceClasses}`}
         role='text'
       >
         <span

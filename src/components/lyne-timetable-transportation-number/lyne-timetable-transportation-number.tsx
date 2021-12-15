@@ -37,18 +37,18 @@ export class LyneTimetableTransportationNumber {
   @Prop() public config!: string;
 
   /**
-   * Variant of the Transportation number
+   * appearance of the Transportation number
    * display, can either be used on level 1
    * or level 2 of the timetable
    */
-  @Prop() public variant?: InterfaceLyneTimetableTransportationNumberAttributes['variant'] = 'first-level';
+  @Prop() public appearance?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'] = 'first-level';
 
   public render(): JSX.Element {
 
     const config = JSON.parse(this.config);
     const a11yLabel = `${config.meansOfTransport.text} ${config.product.text} ${config.marketingName} ${config.direction}`;
 
-    const variantClasses = `transportation-number--${this.variant}`;
+    const appearanceClasses = `transportation-number--${this.appearance}`;
 
     /**
      * role='text' is used here to allow assistive
@@ -63,7 +63,7 @@ export class LyneTimetableTransportationNumber {
     return (
       <p
         aria-label={a11yLabel}
-        class={`transportation-number ${variantClasses}`}
+        class={`transportation-number ${appearanceClasses}`}
         role='text'
       >
         <span

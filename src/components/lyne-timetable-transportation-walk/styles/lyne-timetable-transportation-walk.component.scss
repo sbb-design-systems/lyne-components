@@ -38,4 +38,9 @@
   height: pxToRem(var(--walk-icon-height));
   width: pxToRem(var(--walk-icon-width));
   transform: translateX(pxToRem(-7));
+
+  @include ifForcedColors {
+    fill: CanvasText;
+  }
+
 }

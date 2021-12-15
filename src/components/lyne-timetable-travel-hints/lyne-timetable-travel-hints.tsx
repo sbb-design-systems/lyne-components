@@ -42,11 +42,11 @@ export class LyneTimetableTravelHints {
   @Prop() public config!: string;
 
   /**
-   * Variant of the Travel Hints display,
+   * appearance of the Travel Hints display,
    * can either be used on level 1 or
    * level 2 of the timetable
    */
-  @Prop() public variant?: InterfaceLyneTimetableTravelHintsAttributes['variant'] = 'first-level-list';
+  @Prop() public appearance?: InterfaceLyneTimetableTravelHintsAttributes['appearance'] = 'first-level-list';
 
   public render(): JSX.Element {
 
@@ -55,10 +55,10 @@ export class LyneTimetableTravelHints {
     } = JSON.parse(this.config);
 
     const a11yLabel = i18nNone[this._currentLanguage];
-    const variantClass = ` travel-hints--${this.variant}`;
+    const appearanceClass = ` travel-hints--${this.appearance}`;
 
     return (
-      <div class={`travel-hints${variantClass}`}>
+      <div class={`travel-hints${appearanceClass}`}>
         {
           travelHintsItems.length > 0
             ? <ul

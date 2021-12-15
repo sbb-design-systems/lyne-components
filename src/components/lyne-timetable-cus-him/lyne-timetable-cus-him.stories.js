@@ -10,7 +10,7 @@ const Template = (args) => (
         ? 'gridcell'
         : 'none'
     }
-    variant={args.variant}
+    appearance={args.appearance}
   >
   </lyne-timetable-cus-him>
 );
@@ -27,7 +27,7 @@ const config = {
   }
 };
 
-const variant = {
+const appearance = {
   control: {
     type: 'select'
   },
@@ -41,12 +41,12 @@ const variant = {
 const defaultArgTypes = {
   config,
   gridCellRole,
-  variant
+  appearance
 };
 
 const defaultArgs = {
   gridCellRole: true,
-  variant: variant.options[0]
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -70,7 +70,7 @@ CusHimSecondLevelList.argTypes = defaultArgTypes;
 CusHimSecondLevelList.args = {
   gridCellRole: false,
   config: sampleData[1],
-  variant: variant.options[1]
+  appearance: appearance.options[1]
 };
 
 CusHimSecondLevelList.documentation = {
@@ -83,7 +83,7 @@ CusHimSecondLevelMessage.argTypes = defaultArgTypes;
 CusHimSecondLevelMessage.args = {
   gridCellRole: false,
   config: sampleData[2],
-  variant: variant.options[2]
+  appearance: appearance.options[2]
 };
 
 CusHimSecondLevelMessage.documentation = {

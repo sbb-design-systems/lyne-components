@@ -19,7 +19,7 @@ export class LyneTimetable {
     return (
       <div class='timetable-wrapper'>
         <lyne-timetable-button
-          variant='earlier-connections'
+          appearance='earlier-connections'
         ></lyne-timetable-button>
         <div
           class='timetable'
@@ -28,7 +28,7 @@ export class LyneTimetable {
           <slot />
         </div>
         <lyne-timetable-button
-          variant='later-connections'
+          appearance='later-connections'
         ></lyne-timetable-button>
       </div>
     );

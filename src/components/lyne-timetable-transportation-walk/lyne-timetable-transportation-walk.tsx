@@ -47,11 +47,11 @@ export class LyneTimetableTransportationWalk {
   @Prop() public config!: string;
 
   /**
-   * Variant of the Travel Hints display,
+   * appearance of the Travel Hints display,
    * can either be used on level 1 or
    * level 2 of the timetable
    */
-  @Prop() public variant?: InterfaceLyneTimetableTransportationWalkAttributes['variant'] = 'first-level';
+  @Prop() public appearance?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'] = 'first-level';
 
   public render(): JSX.Element {
 
@@ -74,12 +74,12 @@ export class LyneTimetableTransportationWalk {
       a11yLabel = `${config.duration} ${a11yDepartureText} ${a11yDistanceText}`;
     }
 
-    const variantClasses = `walk--${this.variant} walk--${config.type}`;
+    const appearanceClasses = `walk--${this.appearance} walk--${config.type}`;
 
     return (
       <p
         aria-label={a11yLabel}
-        class={`walk ${variantClasses}`}
+        class={`walk ${appearanceClasses}`}
         role='text'
         title={a11yLabel}
       >

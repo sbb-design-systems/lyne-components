@@ -42,13 +42,13 @@ export class LyneTimetableCusHim {
   @Prop() public config!: string;
 
   /**
-   * Variant of the Cus Him display,
+   * appearance of the Cus Him display,
    * can either be an icon only list
-   * variant or a single icon with text
+   * appearance or a single icon with text
    */
-  @Prop() public variant?: InterfaceLyneTimetableCusHimAttributes['variant'] = 'first-level-list';
+  @Prop() public appearance?: InterfaceLyneTimetableCusHimAttributes['appearance'] = 'first-level-list';
 
-  private _renderVariant(cusHimItems): JSX.Element {
+  private _renderappearance(cusHimItems): JSX.Element {
 
     const cusHimItem = cusHimItems[0];
 
@@ -60,7 +60,7 @@ export class LyneTimetableCusHim {
      * the markup early and do not reach the second
      * return after the if statement.
      */
-    if (this.variant !== 'second-level-message') {
+    if (this.appearance !== 'second-level-message') {
 
       if (cusHimItems.length === 1) {
         return (
@@ -125,13 +125,13 @@ export class LyneTimetableCusHim {
     } = JSON.parse(this.config);
 
     const a11yLabel = i18nNone[this._currentLanguage];
-    const variantClass = ` cus-him--${this.variant}`;
+    const appearanceClass = ` cus-him--${this.appearance}`;
 
     return (
-      <div class={`cus-him${variantClass}`}>
+      <div class={`cus-him${appearanceClass}`}>
         {
           cusHimItems.length > 0
-            ? this._renderVariant(cusHimItems)
+            ? this._renderappearance(cusHimItems)
             : <span class='cus-him__text--visually-hidden'>{a11yLabel}</span>
         }
       </div>

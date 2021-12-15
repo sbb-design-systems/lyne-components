@@ -434,6 +434,10 @@ export namespace Components {
     }
     interface LyneTimetableButton {
         /**
+          * appearance of the Timetable Button, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        /**
           * Id which is sent in the click event payload
          */
         "eventId"?: string;
@@ -441,20 +445,16 @@ export namespace Components {
           * The name attribute to use for the button
          */
         "name"?: string;
-        /**
-          * Variant of the Timetable Button, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableButtonAttributes['variant'];
     }
     interface LyneTimetableCusHim {
+        /**
+          * appearance of the Cus Him display, can either be an icon only list appearance or a single icon with text
+         */
+        "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
          */
         "config": string;
-        /**
-          * Variant of the Cus Him display, can either be an icon only list variant or a single icon with text
-         */
-        "variant"?: InterfaceLyneTimetableCusHimAttributes['variant'];
     }
     interface LyneTimetableDuration {
         /**
@@ -511,43 +511,43 @@ export namespace Components {
     }
     interface LyneTimetableTransportationNumber {
         /**
+          * appearance of the Transportation number display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
+        /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
         "config": string;
-        /**
-          * Variant of the Transportation number display, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableTransportationNumberAttributes['variant'];
     }
     interface LyneTimetableTransportationTime {
         /**
+          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
+        /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
         "config": string;
-        /**
-          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableTransportationTimeAttributes['variant'];
     }
     interface LyneTimetableTransportationWalk {
         /**
+          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
+        /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
         "config": string;
-        /**
-          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableTransportationWalkAttributes['variant'];
     }
     interface LyneTimetableTravelHints {
+        /**
+          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
          */
         "config": string;
-        /**
-          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableTravelHintsAttributes['variant'];
     }
     interface LyneTitle {
         /**
@@ -1220,6 +1220,10 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableButton {
         /**
+          * appearance of the Timetable Button, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        /**
           * Id which is sent in the click event payload
          */
         "eventId"?: string;
@@ -1227,20 +1231,16 @@ declare namespace LocalJSX {
           * The name attribute to use for the button
          */
         "name"?: string;
-        /**
-          * Variant of the Timetable Button, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableButtonAttributes['variant'];
     }
     interface LyneTimetableCusHim {
+        /**
+          * appearance of the Cus Him display, can either be an icon only list appearance or a single icon with text
+         */
+        "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
          */
         "config": string;
-        /**
-          * Variant of the Cus Him display, can either be an icon only list variant or a single icon with text
-         */
-        "variant"?: InterfaceLyneTimetableCusHimAttributes['variant'];
     }
     interface LyneTimetableDuration {
         /**
@@ -1297,43 +1297,43 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableTransportationNumber {
         /**
+          * appearance of the Transportation number display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
+        /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
         "config": string;
-        /**
-          * Variant of the Transportation number display, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableTransportationNumberAttributes['variant'];
     }
     interface LyneTimetableTransportationTime {
         /**
+          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
+        /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
         "config": string;
-        /**
-          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableTransportationTimeAttributes['variant'];
     }
     interface LyneTimetableTransportationWalk {
         /**
+          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
+        /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
         "config": string;
-        /**
-          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableTransportationWalkAttributes['variant'];
     }
     interface LyneTimetableTravelHints {
+        /**
+          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
         /**
           * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
          */
         "config": string;
-        /**
-          * Variant of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
-         */
-        "variant"?: InterfaceLyneTimetableTravelHintsAttributes['variant'];
     }
     interface LyneTitle {
         /**

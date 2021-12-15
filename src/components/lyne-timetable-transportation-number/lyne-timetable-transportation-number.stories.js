@@ -10,7 +10,7 @@ const Template = (args) => (
         ? 'gridcell'
         : 'none'
     }
-    variant={args.variant}
+    appearance={args.appearance}
   >
   </lyne-timetable-transportation-number>
 );
@@ -27,7 +27,7 @@ const gridCellRole = {
   }
 };
 
-const variant = {
+const appearance = {
   control: {
     type: 'select'
   },
@@ -40,12 +40,12 @@ const variant = {
 const defaultArgTypes = {
   config,
   gridCellRole,
-  variant
+  appearance
 };
 
 const defaultArgs = {
   gridCellRole: true,
-  variant: variant.options[0]
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -69,7 +69,7 @@ BusSecondLevel.argTypes = defaultArgTypes;
 BusSecondLevel.args = {
   ...defaultArgs,
   config: sampleData.bus,
-  variant: variant.options[1]
+  appearance: appearance.options[1]
 };
 
 BusSecondLevel.documentation = {
@@ -94,7 +94,7 @@ CableCarSecondLevel.argTypes = defaultArgTypes;
 CableCarSecondLevel.args = {
   ...defaultArgs,
   config: sampleData.cableCar,
-  variant: variant.options[1]
+  appearance: appearance.options[1]
 };
 
 CableCarSecondLevel.documentation = {
@@ -120,7 +120,7 @@ TrainSecondLevel.argTypes = defaultArgTypes;
 TrainSecondLevel.args = {
   ...defaultArgs,
   config: sampleData.train,
-  variant: variant.options[1]
+  appearance: appearance.options[1]
 };
 
 TrainSecondLevel.documentation = {
@@ -145,7 +145,7 @@ TramSecondLevel.argTypes = defaultArgTypes;
 TramSecondLevel.args = {
   ...defaultArgs,
   config: sampleData.tram,
-  variant: variant.options[1]
+  appearance: appearance.options[1]
 };
 
 TramSecondLevel.documentation = {
