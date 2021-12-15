@@ -198,7 +198,37 @@ const SlotLyneCategoryTemplate = (args) => (
 
 /* --- title slot ---------------------------------- */
 
-const lyneTitleArgs = {
+const lyneTitleDayPassArgs = {
+  'level': 2,
+  'text': 'Tageskarte',
+  'visual-level': 6
+};
+
+const lyneTitleDayPassBicycleArgs = {
+  'level': 2,
+  'text': 'Velo Tageskarte',
+  'visual-level': 6
+};
+
+const lyneTitleTravelCardPointToPointArgs = {
+  'level': 2,
+  'text': 'Streckenkarte',
+  'visual-level': 6
+};
+
+const lyneTitleTravelCardLiberoArgs = {
+  'level': 2,
+  'text': 'Libero Tageskarte: Alle Zonen',
+  'visual-level': 6
+};
+
+const lyneTitleTravelCardGAArgs = {
+  'level': 2,
+  'text': 'GA',
+  'visual-level': 1
+};
+
+const lyneTitleTravelCardHalfFareArgs = {
   'level': 2,
   'text': '1/2',
   'visual-level': 1
@@ -222,9 +252,27 @@ const SlotLyneJourneyHeaderTemplate = (args) => (
 
 /* --- lead slot ---------------------------------- */
 
-const lyneLeadArgs = {
+const lyneLeadGAArgs = {
+  'level': 3,
+  'text': 'Generalabonnement',
+  'visual-level': 6
+};
+
+const lyneLeadGALongArgs = {
+  'level': 3,
+  'text': 'Mit dem Generalabonnement geniessen Sie freie Fahrt.',
+  'visual-level': 6
+};
+
+const lyneLeadHalfFareArgs = {
   'level': 3,
   'text': 'Halbtax-Abo',
+  'visual-level': 6
+};
+
+const lyneLeadHalfFareLongArgs = {
+  'level': 3,
+  'text': 'Mit dem Halbtax zum halben Preis fahren.',
   'visual-level': 6
 };
 
@@ -234,8 +282,24 @@ const SlotLyneLeadTemplate = (args) => (
 
 /* --- text slot ---------------------------------- */
 
-const lyneTextArgs = {
+const lyneTextValidTodayArgs = {
+  text: 'Gültig heute'
+};
+
+const lyneTextValidTodayLongArgs = {
+  text: 'Heute, Gültig 24 Stunden'
+};
+
+const lyneTextTravelCardValidityArgs = {
   text: '2. Klasse, gültig bis 30.11.2021'
+};
+
+const lyneTextTravelCardPointToPointArgs = {
+  text: 'Für regelmässige Streckenfahrten'
+};
+
+const lyneTextConnectionDetailsArgs = {
+  text: 'Samstag, 21.02.2021, 1 h 26 min'
 };
 
 const SlotLyneTextTemplate = (args) => (
@@ -281,6 +345,13 @@ const SlotCardBadgeTemplate = (args) => (
 
 const actionBuyArgs = {
   label: 'Kaufen',
+  size: 'small',
+  variant: 'secondary',
+  visualButtonOnly: true
+};
+
+const actionDetailsArgs = {
+  label: 'Details',
   variant: 'secondary',
   visualButtonOnly: true
 };
@@ -321,12 +392,92 @@ const SlotActionTemplate = (args) => (
 /* Storybook templates                               */
 /* ************************************************* */
 
-const TemplateLyneTitle = (args) => (
+const TemplateTopProductDayPass = (args) => (
   <lyne-card-product {...args}>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/></div>
-    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextArgs}/></div>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleDayPassArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextValidTodayArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionBuyArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateTopProductDayPassBicycle = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconBicycleArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleDayPassBicycleArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextValidTodayArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionBuyArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateTopProductTravelCardPointToPoint = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardPointToPointArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardPointToPointArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionBuyArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateYourProductPointToPointPersonalized = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextValidTodayArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionBuyArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateYourProductTravelCardPersonalized = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
+    <div slot='category'><SlotLyneCategoryTemplate {...lyneCategoryArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardLiberoArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextValidTodayLongArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionWithQrArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateYourProductTicketPersonalized = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextConnectionDetailsArgs}/></div>
+    <div slot='details'><SlotPearlChainTemplate /></div>
+    <div slot='action'><SlotActionTemplate {...actionDetailsArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateTravelCardGA = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardGAArgs}/></div>
+    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadGALongArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionGAArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateTravelCardGAPersonalized = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardGAArgs}/></div>
+    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadGAArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardValidityArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionWithPenArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateTravelCardHalfFarePersonalized = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardHalfFareArgs}/></div>
+    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadHalfFareArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardValidityArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionWithPenArgs}/></div>
+  </lyne-card-product>
+);
+
+const TemplateTravelCardHalfFare = (args) => (
+  <lyne-card-product {...args}>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardHalfFareArgs}/></div>
+    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadHalfFareLongArgs}/></div>
+    <div slot='action'><SlotActionTemplate {...actionHalfFareArgs}/></div>
   </lyne-card-product>
 );
 
@@ -334,9 +485,9 @@ const TemplateTheWholeShabang = (args) => (
   <lyne-card-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
     <div slot='category'><SlotLyneCategoryTemplate {...lyneCategoryArgs}/></div>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleArgs}/><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
-    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextArgs}/></div>
+    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardGAArgs}/><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
+    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadGAArgs}/></div>
+    <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardValidityArgs}/></div>
     <div slot='details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionWithQrArgs}/></div>
@@ -347,8 +498,120 @@ const TemplateTheWholeShabang = (args) => (
 /* The Stories                                       */
 /* ************************************************* */
 
+/* --- CardProduct, Top Product Day Pass --------- */
+export const TopProductDayPass = TemplateTopProductDayPass.bind({});
+
+TopProductDayPass.argTypes = defaultArgTypes;
+TopProductDayPass.args = {
+  ...defaultArgs
+};
+
+TopProductDayPass.documentation = {
+  title: 'CardProduct, Top Product Day Pass'
+};
+
+/* --- CardProduct, Top Product Day Pass Bicycle --------- */
+export const TopProductDayPassBicycle = TemplateTopProductDayPassBicycle.bind({});
+
+TopProductDayPassBicycle.argTypes = defaultArgTypes;
+TopProductDayPassBicycle.args = {
+  ...defaultArgs
+};
+
+TopProductDayPassBicycle.documentation = {
+  title: 'CardProduct, Top Product Day Pass Bicycle'
+};
+
+/* --- CardProduct, Top Product Travel Card Point to Point --------- */
+export const TopProductTravelCardPointToPoint = TemplateTopProductTravelCardPointToPoint.bind({});
+
+TopProductTravelCardPointToPoint.argTypes = defaultArgTypes;
+TopProductTravelCardPointToPoint.args = {
+  ...defaultArgs
+};
+
+TopProductTravelCardPointToPoint.documentation = {
+  title: 'CardProduct, Top Product Travel Card Point to Point'
+};
+
+/* --- CardProduct, Your Product Point to Point Ticket Personalized -------- */
+export const YourProductPointToPointPersonalized = TemplateYourProductPointToPointPersonalized.bind({});
+
+YourProductPointToPointPersonalized.argTypes = defaultArgTypes;
+YourProductPointToPointPersonalized.args = {
+  ...defaultArgs
+};
+
+YourProductPointToPointPersonalized.documentation = {
+  title: 'CardProduct, Your Product Point to Point Ticket Personalized'
+};
+
+/* --- CardProduct, Your Product Travel Card Personalized -------- */
+export const YourProductTravelCardPersonalized = TemplateYourProductTravelCardPersonalized.bind({});
+
+YourProductTravelCardPersonalized.argTypes = defaultArgTypes;
+YourProductTravelCardPersonalized.args = {
+  ...defaultArgs
+};
+
+YourProductTravelCardPersonalized.documentation = {
+  title: 'CardProduct, Your Product Ticket Personalized'
+};
+
+/* --- CardProduct, Your Product Point to Point Ticket Personalized -------- */
+export const YourProductTicketPersonalized = TemplateYourProductTicketPersonalized.bind({});
+
+YourProductTicketPersonalized.argTypes = defaultArgTypes;
+YourProductTicketPersonalized.args = {
+  ...defaultArgs
+};
+
+YourProductTicketPersonalized.documentation = {
+  title: 'CardProduct, Your Product Ticket Personalized'
+};
+
+/* --- CardProduct, Travel Card GA --------- */
+export const TravelCardGA = TemplateTravelCardGA.bind({});
+
+TravelCardGA.argTypes = defaultArgTypes;
+TravelCardGA.args = {
+  ...defaultArgs,
+  layout: layout.options[1]
+};
+
+TravelCardGA.documentation = {
+  title: 'CardProduct, Travel Card GA'
+};
+
+/* --- CardProduct, Travel Card GA Personalized --------- */
+export const TravelCardGAPersonalized = TemplateTravelCardGAPersonalized.bind({});
+
+TravelCardGAPersonalized.argTypes = defaultArgTypes;
+TravelCardGAPersonalized.args = {
+  ...defaultArgs,
+  appearance: appearance.options[1],
+  layout: layout.options[1]
+};
+
+TravelCardGAPersonalized.documentation = {
+  title: 'CardProduct, Travel Card GA Personalized'
+};
+
+/* --- CardProduct, Travel Card Half Fare --------- */
+export const TravelCardHalfFare = TemplateTravelCardHalfFare.bind({});
+
+TravelCardHalfFare.argTypes = defaultArgTypes;
+TravelCardHalfFare.args = {
+  ...defaultArgs,
+  layout: layout.options[1]
+};
+
+TravelCardHalfFare.documentation = {
+  title: 'CardProduct, Travel Card Half Fare'
+};
+
 /* --- CardProduct, Travel Card Half Fare Personalized --------- */
-export const TravelCardHalfFarePersonalized = TemplateLyneTitle.bind({});
+export const TravelCardHalfFarePersonalized = TemplateTravelCardHalfFarePersonalized.bind({});
 
 TravelCardHalfFarePersonalized.argTypes = defaultArgTypes;
 TravelCardHalfFarePersonalized.args = {
@@ -358,7 +621,7 @@ TravelCardHalfFarePersonalized.args = {
 };
 
 TravelCardHalfFarePersonalized.documentation = {
-  title: 'CardProduct as a subscription'
+  title: 'CardProduct, Travel Card Half Fare Personalized'
 };
 
 /*
@@ -377,7 +640,7 @@ CardProductTheWholeShabang.args = {
 };
 
 CardProductTheWholeShabang.documentation = {
-  title: 'The Whole Shabang'
+  title: 'CardProduct, The Whole Shabang'
 };
 
 /* --- next story ... ------------------------------ */
