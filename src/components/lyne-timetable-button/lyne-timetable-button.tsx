@@ -37,18 +37,18 @@ export class LyneTimetableButton {
   private _currentLanguage = getDocumentLang();
   private _ctaText!: string;
 
-  /** Id which is sent in the click event payload */
-  @Prop() public eventId?: string;
-
-  /** The name attribute to use for the button */
-  @Prop() public name?: string;
-
   /**
    * appearance of the Timetable Button,
    * can either be used on level 1 or
    * level 2 of the timetable
    */
   @Prop() public appearance?: InterfaceLyneTimetableButtonAttributes['appearance'] = 'earlier-connections';
+
+  /** Id which is sent in the click event payload */
+  @Prop() public eventId?: string;
+
+  /** The name attribute to use for the button */
+  @Prop() public name?: string;
 
   @Element() private _element: HTMLElement;
 

@@ -29,6 +29,13 @@ export class LyneTimetableTransportationWalk {
   private _currentLanguage = getDocumentLang();
 
   /**
+   * appearance of the Travel Hints display,
+   * can either be used on level 1 or
+   * level 2 of the timetable
+   */
+  @Prop() public appearance?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'] = 'first-level';
+
+  /**
    * Stringified JSON to define the different outputs of the
    * transportations number cell.
    * Format:
@@ -45,13 +52,6 @@ export class LyneTimetableTransportationWalk {
    * }
    */
   @Prop() public config!: string;
-
-  /**
-   * appearance of the Travel Hints display,
-   * can either be used on level 1 or
-   * level 2 of the timetable
-   */
-  @Prop() public appearance?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'] = 'first-level';
 
   public render(): JSX.Element {
 

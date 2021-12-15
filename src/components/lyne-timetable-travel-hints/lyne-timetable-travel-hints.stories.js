@@ -4,28 +4,16 @@ import sampleData from './lyne-timetable-travel-hints.sample-data';
 
 const Template = (args) => (
   <lyne-timetable-travel-hints
+    appearance={args.appearance}
     config={JSON.stringify(args.config)}
     role={
       args.gridCellRole
         ? 'gridcell'
         : 'none'
     }
-    appearance={args.appearance}
   >
   </lyne-timetable-travel-hints>
 );
-
-const gridCellRole = {
-  control: {
-    type: 'boolean'
-  }
-};
-
-const config = {
-  table: {
-    disable: false
-  }
-};
 
 const appearance = {
   control: {
@@ -37,15 +25,27 @@ const appearance = {
   ]
 };
 
+const config = {
+  table: {
+    disable: false
+  }
+};
+
+const gridCellRole = {
+  control: {
+    type: 'boolean'
+  }
+};
+
 const defaultArgTypes = {
+  appearance,
   config,
-  gridCellRole,
-  appearance
+  gridCellRole
 };
 
 const defaultArgs = {
-  gridCellRole: true,
-  appearance: appearance.options[0]
+  appearance: appearance.options[0],
+  gridCellRole: true
 };
 
 /* ************************************************* */

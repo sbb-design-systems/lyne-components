@@ -23,6 +23,13 @@ export class LyneTimetableTravelHints {
   private _currentLanguage = getDocumentLang();
 
   /**
+   * appearance of the Travel Hints display,
+   * can either be used on level 1 or
+   * level 2 of the timetable
+   */
+  @Prop() public appearance?: InterfaceLyneTimetableTravelHintsAttributes['appearance'] = 'first-level-list';
+
+  /**
    * Stringified JSON to define the different outputs of the
    * occupancy predicition cell.
    * Format:
@@ -40,13 +47,6 @@ export class LyneTimetableTravelHints {
    * ]
    */
   @Prop() public config!: string;
-
-  /**
-   * appearance of the Travel Hints display,
-   * can either be used on level 1 or
-   * level 2 of the timetable
-   */
-  @Prop() public appearance?: InterfaceLyneTimetableTravelHintsAttributes['appearance'] = 'first-level-list';
 
   public render(): JSX.Element {
 

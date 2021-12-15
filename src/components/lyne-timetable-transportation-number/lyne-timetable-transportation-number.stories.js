@@ -4,16 +4,26 @@ import sampleData from './lyne-timetable-transportation-number.sample-data';
 
 const Template = (args) => (
   <lyne-timetable-transportation-number
+    appearance={args.appearance}
     config={JSON.stringify(args.config)}
     role={
       args.gridCellRole
         ? 'gridcell'
         : 'none'
     }
-    appearance={args.appearance}
   >
   </lyne-timetable-transportation-number>
 );
+
+const appearance = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'first-level',
+    'second-level'
+  ]
+};
 
 const config = {
   table: {
@@ -27,25 +37,15 @@ const gridCellRole = {
   }
 };
 
-const appearance = {
-  control: {
-    type: 'select'
-  },
-  options: [
-    'first-level',
-    'second-level'
-  ]
-};
-
 const defaultArgTypes = {
+  appearance,
   config,
-  gridCellRole,
-  appearance
+  gridCellRole
 };
 
 const defaultArgs = {
+  appearance: appearance.options[0],
   gridCellRole: true,
-  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -68,8 +68,8 @@ export const BusSecondLevel = Template.bind({});
 BusSecondLevel.argTypes = defaultArgTypes;
 BusSecondLevel.args = {
   ...defaultArgs,
-  config: sampleData.bus,
-  appearance: appearance.options[1]
+  appearance: appearance.options[1],
+  config: sampleData.bus
 };
 
 BusSecondLevel.documentation = {
@@ -93,8 +93,8 @@ export const CableCarSecondLevel = Template.bind({});
 CableCarSecondLevel.argTypes = defaultArgTypes;
 CableCarSecondLevel.args = {
   ...defaultArgs,
-  config: sampleData.cableCar,
-  appearance: appearance.options[1]
+  appearance: appearance.options[1],
+  config: sampleData.cableCar
 };
 
 CableCarSecondLevel.documentation = {
@@ -119,8 +119,8 @@ export const TrainSecondLevel = Template.bind({});
 TrainSecondLevel.argTypes = defaultArgTypes;
 TrainSecondLevel.args = {
   ...defaultArgs,
-  config: sampleData.train,
-  appearance: appearance.options[1]
+  appearance: appearance.options[1],
+  config: sampleData.train
 };
 
 TrainSecondLevel.documentation = {
@@ -144,8 +144,8 @@ export const TramSecondLevel = Template.bind({});
 TramSecondLevel.argTypes = defaultArgTypes;
 TramSecondLevel.args = {
   ...defaultArgs,
-  config: sampleData.tram,
-  appearance: appearance.options[1]
+  appearance: appearance.options[1],
+  config: sampleData.tram
 };
 
 TramSecondLevel.documentation = {

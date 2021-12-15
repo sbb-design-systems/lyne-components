@@ -4,17 +4,11 @@ import sampleData from './lyne-timetable-transportation-time.sample-data';
 
 const Template = (args) => (
   <lyne-timetable-transportation-time
-    config={JSON.stringify(args.config)}
     appearance={args.appearance}
+    config={JSON.stringify(args.config)}
   >
   </lyne-timetable-transportation-time>
 );
-
-const config = {
-  table: {
-    disable: false
-  }
-};
 
 const appearance = {
   control: {
@@ -24,6 +18,12 @@ const appearance = {
     'first-level',
     'second-level'
   ]
+};
+
+const config = {
+  table: {
+    disable: false
+  }
 };
 
 const defaultArgTypes = {
@@ -67,8 +67,8 @@ export const LyneTimetableDepartureTimeLevel2 = Template.bind({});
 LyneTimetableDepartureTimeLevel2.argTypes = defaultArgTypes;
 LyneTimetableDepartureTimeLevel2.args = {
   ...defaultArgs,
-  config: sampleData[2],
-  appearance: appearance.options[1]
+  appearance: appearance.options[1],
+  config: sampleData[2]
 };
 
 LyneTimetableDepartureTimeLevel2.documentation = {
@@ -80,8 +80,8 @@ export const LyneTimetableArrivalTimeLevel2 = Template.bind({});
 LyneTimetableArrivalTimeLevel2.argTypes = defaultArgTypes;
 LyneTimetableArrivalTimeLevel2.args = {
   ...defaultArgs,
-  config: sampleData[3],
-  appearance: appearance.options[1]
+  appearance: appearance.options[1],
+  config: sampleData[3]
 };
 
 LyneTimetableArrivalTimeLevel2.documentation = {

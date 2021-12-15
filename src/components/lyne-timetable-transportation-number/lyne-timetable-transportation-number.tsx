@@ -19,6 +19,13 @@ import { InterfaceLyneTimetableTransportationNumberAttributes } from './lyne-tim
 export class LyneTimetableTransportationNumber {
 
   /**
+   * appearance of the Transportation number
+   * display, can either be used on level 1
+   * or level 2 of the timetable
+   */
+  @Prop() public appearance?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'] = 'first-level';
+
+  /**
    * Stringified JSON to define the different outputs of the
    * transportations number cell.
    * Format:
@@ -35,13 +42,6 @@ export class LyneTimetableTransportationNumber {
    * }
    */
   @Prop() public config!: string;
-
-  /**
-   * appearance of the Transportation number
-   * display, can either be used on level 1
-   * or level 2 of the timetable
-   */
-  @Prop() public appearance?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'] = 'first-level';
 
   public render(): JSX.Element {
 

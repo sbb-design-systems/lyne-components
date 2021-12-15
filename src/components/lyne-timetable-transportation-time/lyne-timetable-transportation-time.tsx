@@ -26,6 +26,13 @@ export class LyneTimetableTransportationTime {
   private _currentLanguage = getDocumentLang();
 
   /**
+   * appearance of the Travel Hints display,
+   * can either be used on level 1 or
+   * level 2 of the timetable
+   */
+  @Prop() public appearance?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'] = 'first-level';
+
+  /**
    * Stringified JSON to define the different outputs of the
    * transportations number cell.
    * Format:
@@ -42,13 +49,6 @@ export class LyneTimetableTransportationTime {
    * }
    */
   @Prop() public config!: string;
-
-  /**
-   * appearance of the Travel Hints display,
-   * can either be used on level 1 or
-   * level 2 of the timetable
-   */
-  @Prop() public appearance?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'] = 'first-level';
 
   public render(): JSX.Element {
     const config = JSON.parse(this.config);
