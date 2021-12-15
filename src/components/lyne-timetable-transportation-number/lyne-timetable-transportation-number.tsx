@@ -48,7 +48,7 @@ export class LyneTimetableTransportationNumber {
     const config = JSON.parse(this.config);
     const a11yLabel = `${config.meansOfTransport.text} ${config.product.text} ${config.marketingName} ${config.direction}`;
 
-    const appearanceClasses = `transportation-number--${this.appearance}`;
+    const appearanceClasses = ` transportation-number--${this.appearance}`;
 
     /**
      * role='text' is used here to allow assistive
@@ -63,7 +63,7 @@ export class LyneTimetableTransportationNumber {
     return (
       <p
         aria-label={a11yLabel}
-        class={`transportation-number ${appearanceClasses}`}
+        class={`transportation-number${appearanceClasses}`}
         role='text'
       >
         <span

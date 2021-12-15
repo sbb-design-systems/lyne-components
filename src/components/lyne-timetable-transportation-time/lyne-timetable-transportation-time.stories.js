@@ -38,62 +38,60 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetableDepartureTime = Template.bind({});
+export const LyneTimetableDepartureTimeFirstLevel = Template.bind({});
 
-LyneTimetableDepartureTime.argTypes = defaultArgTypes;
-LyneTimetableDepartureTime.args = {
+LyneTimetableDepartureTimeFirstLevel.argTypes = defaultArgTypes;
+LyneTimetableDepartureTimeFirstLevel.args = {
   ...defaultArgs,
   config: sampleData[0]
 };
 
-LyneTimetableDepartureTime.documentation = {
-  title: 'Lyne Timetable Departure Time'
+LyneTimetableDepartureTimeFirstLevel.documentation = {
+  title: 'Lyne Timetable Departure Time - First Level'
 };
 
-export const LyneTimetableArrivalTime = Template.bind({});
+export const LyneTimetableArrivalTimeFirstLevel = Template.bind({});
 
-LyneTimetableArrivalTime.argTypes = defaultArgTypes;
-LyneTimetableArrivalTime.args = {
+LyneTimetableArrivalTimeFirstLevel.argTypes = defaultArgTypes;
+LyneTimetableArrivalTimeFirstLevel.args = {
   ...defaultArgs,
   config: sampleData[1]
 };
 
-LyneTimetableArrivalTime.documentation = {
-  title: 'Lyne Timetable Arrival Time'
+LyneTimetableArrivalTimeFirstLevel.documentation = {
+  title: 'Lyne Timetable Arrival Time - First Level'
 };
 
-export const LyneTimetableDepartureTimeLevel2 = Template.bind({});
+export const LyneTimetableDepartureTimeSecondLevel = Template.bind({});
 
-LyneTimetableDepartureTimeLevel2.argTypes = defaultArgTypes;
-LyneTimetableDepartureTimeLevel2.args = {
+LyneTimetableDepartureTimeSecondLevel.argTypes = defaultArgTypes;
+LyneTimetableDepartureTimeSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[2]
 };
 
-LyneTimetableDepartureTimeLevel2.documentation = {
-  title: 'Lyne Timetable Departure Time - Level 2'
+LyneTimetableDepartureTimeSecondLevel.documentation = {
+  title: 'Lyne Timetable Departure Time - Second Level'
 };
 
-export const LyneTimetableArrivalTimeLevel2 = Template.bind({});
+export const LyneTimetableArrivalTimeSecondLevel = Template.bind({});
 
-LyneTimetableArrivalTimeLevel2.argTypes = defaultArgTypes;
-LyneTimetableArrivalTimeLevel2.args = {
+LyneTimetableArrivalTimeSecondLevel.argTypes = defaultArgTypes;
+LyneTimetableArrivalTimeSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[3]
 };
 
-LyneTimetableArrivalTimeLevel2.documentation = {
-  title: 'Lyne Timetable Arrival Time - Level 2'
+LyneTimetableArrivalTimeSecondLevel.documentation = {
+  title: 'Lyne Timetable Arrival Time - Second Level'
 };
 
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
-        <Story/>
-      </div>
+      <Story/>
     )
   ],
   parameters: {

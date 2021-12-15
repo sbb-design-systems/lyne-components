@@ -6,6 +6,7 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nFromPlatform } from '../../global/i18n';
+import { InterfaceLyneTimetablePlatformAttributes } from './lyne-timetable-platform.custom.d';
 
 @Component({
   shadow: true,
@@ -19,6 +20,13 @@ import { i18nFromPlatform } from '../../global/i18n';
 export class LyneTimetablePlatform {
 
   private _currentLanguage = getDocumentLang();
+
+  /**
+   * appearance of the Travel Hints display,
+   * can either be used on level 1 or
+   * level 2 of the timetable
+   */
+  @Prop() public appearance?: InterfaceLyneTimetablePlatformAttributes['appearance'] = 'first-level';
 
   /**
    * Stringified JSON to define the different outputs of the
@@ -45,10 +53,12 @@ export class LyneTimetablePlatform {
     const text = `${i18nFromPlatform.short[this._currentLanguage]} `;
     const a11yLabel = `${i18nFromPlatform.long[this._currentLanguage]} ${config.platform}.`;
 
+    const appearanceClasses = ` platform--${this.appearance}`;
+
     return (
       <p
         aria-label={a11yLabel}
-        class='platform'
+        class={`platform${appearanceClasses}`}
         role='text'
       >
         <span

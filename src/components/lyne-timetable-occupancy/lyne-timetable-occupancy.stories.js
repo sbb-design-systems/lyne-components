@@ -137,9 +137,7 @@ HighHighOccupancy.documentation = {
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 1rem'}>
-        <Story/>
-      </div>
+      <Story/>
     )
   ],
   parameters: {

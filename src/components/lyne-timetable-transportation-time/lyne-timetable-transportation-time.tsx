@@ -59,12 +59,12 @@ export class LyneTimetableTransportationTime {
       a11yLabel = `${i18nDeparture[this._currentLanguage]} ${config.time}.`;
     }
 
-    const appearanceClasses = `time--${this.appearance} time--${config.type}`;
+    const appearanceClasses = ` time--${this.appearance} time--${config.type}`;
 
     return (
       <p
         aria-label={a11yLabel}
-        class={`time ${appearanceClasses}`}
+        class={`time${appearanceClasses}`}
         role='text'
       >
         <span

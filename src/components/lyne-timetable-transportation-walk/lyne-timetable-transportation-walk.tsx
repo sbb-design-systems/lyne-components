@@ -74,12 +74,12 @@ export class LyneTimetableTransportationWalk {
       a11yLabel = `${config.duration} ${a11yDepartureText} ${a11yDistanceText}`;
     }
 
-    const appearanceClasses = `walk--${this.appearance} walk--${config.type}`;
+    const appearanceClasses = ` walk--${this.appearance} walk--${config.type}`;
 
     return (
       <p
         aria-label={a11yLabel}
-        class={`walk ${appearanceClasses}`}
+        class={`walk${appearanceClasses}`}
         role='text'
         title={a11yLabel}
       >

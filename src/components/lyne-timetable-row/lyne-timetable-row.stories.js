@@ -38,9 +38,7 @@ LyneTimetableRow.documentation = {
 export default {
   decorators: [
     (Story) => (
-      <div>
-        <Story/>
-      </div>
+      <Story/>
     )
   ],
   parameters: {

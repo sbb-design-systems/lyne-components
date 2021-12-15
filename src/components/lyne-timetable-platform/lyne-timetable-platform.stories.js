@@ -4,6 +4,7 @@ import sampleData from './lyne-timetable-platform.sample-data';
 
 const Template = (args) => (
   <lyne-timetable-platform
+    appearance={args.appearance}
     config={JSON.stringify(args.config)}
     role={
       args.gridCellRole
@@ -13,6 +14,17 @@ const Template = (args) => (
   >
   </lyne-timetable-platform>
 );
+
+const appearance = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'first-level',
+    'second-level-arrival',
+    'second-level-departure',
+  ]
+};
 
 const config = {
   table: {
@@ -27,35 +39,63 @@ const gridCellRole = {
 };
 
 const defaultArgTypes = {
+  appearance,
   config,
   gridCellRole
 };
 
 const defaultArgs = {
+  appearance: appearance.options[0],
   gridCellRole: true
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetablePlatform = Template.bind({});
+export const LyneTimetablePlatformFirstLevel = Template.bind({});
 
-LyneTimetablePlatform.argTypes = defaultArgTypes;
-LyneTimetablePlatform.args = {
+LyneTimetablePlatformFirstLevel.argTypes = defaultArgTypes;
+LyneTimetablePlatformFirstLevel.args = {
   ...defaultArgs,
   config: sampleData[0]
 };
 
-LyneTimetablePlatform.documentation = {
-  title: 'Lyne Timetable Platform'
+LyneTimetablePlatformFirstLevel.documentation = {
+  title: 'Lyne Timetable Platform - First Level'
+};
+
+export const LyneTimetableArrivalPlatformSecondLevel = Template.bind({});
+
+LyneTimetableArrivalPlatformSecondLevel.argTypes = defaultArgTypes;
+LyneTimetableArrivalPlatformSecondLevel.args = {
+  ...defaultArgs,
+  config: sampleData[0],
+  appearance: appearance.options[1],
+  gridCellRole: false
+};
+
+LyneTimetableArrivalPlatformSecondLevel.documentation = {
+  title: 'Lyne Timetable Arrival Platform - Second Level'
+};
+
+export const LyneTimetableDeparturePlatformSecondLevel = Template.bind({});
+
+LyneTimetableDeparturePlatformSecondLevel.argTypes = defaultArgTypes;
+LyneTimetableDeparturePlatformSecondLevel.args = {
+  ...defaultArgs,
+  config: sampleData[0],
+  appearance: appearance.options[2],
+  gridCellRole: false
+};
+
+LyneTimetableDeparturePlatformSecondLevel.documentation = {
+  title: 'Lyne Timetable Departure Platform - Second Level'
 };
 
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
-        <Story/>
-      </div>
+      <Story/>
     )
   ],
   parameters: {

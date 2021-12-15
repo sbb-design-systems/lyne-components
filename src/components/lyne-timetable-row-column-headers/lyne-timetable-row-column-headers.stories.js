@@ -38,9 +38,7 @@ LyneTimetableRowColumnHeaders.documentation = {
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
-        <Story/>
-      </div>
+      <Story/>
     )
   ],
   parameters: {

@@ -61,25 +61,23 @@ LyneTimetableTransportationArrivalWalk.documentation = {
   title: 'Lyne Timetable Departure Walk'
 };
 
-export const LyneTimetableTransportationWalkLevel2 = Template.bind({});
+export const LyneTimetableTransportationWalkSecondLevel = Template.bind({});
 
-LyneTimetableTransportationWalkLevel2.argTypes = defaultArgTypes;
-LyneTimetableTransportationWalkLevel2.args = {
+LyneTimetableTransportationWalkSecondLevel.argTypes = defaultArgTypes;
+LyneTimetableTransportationWalkSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[3]
 };
 
-LyneTimetableTransportationWalkLevel2.documentation = {
-  title: 'Lyne Timetable Walk - Level 2'
+LyneTimetableTransportationWalkSecondLevel.documentation = {
+  title: 'Lyne Timetable Walk - Second Level'
 };
 
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 1rem'}>
-        <Story/>
-      </div>
+      <Story/>
     )
   ],
   parameters: {

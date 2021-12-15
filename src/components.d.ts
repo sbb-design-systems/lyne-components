@@ -20,6 +20,7 @@ import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
+import { InterfaceLyneTimetablePlatformAttributes } from "./components/lyne-timetable-platform/lyne-timetable-platform.custom.d";
 import { InterfaceLyneTimetableRowButtonAttributes } from "./components/lyne-timetable-row-button/lyne-timetable-row-button.custom.d";
 import { InterfaceLyneTimetableTransportationNumberAttributes } from "./components/lyne-timetable-transportation-number/lyne-timetable-transportation-number.custom.d";
 import { InterfaceLyneTimetableTransportationTimeAttributes } from "./components/lyne-timetable-transportation-time/lyne-timetable-transportation-time.custom.d";
@@ -469,6 +470,10 @@ export namespace Components {
         "config": string;
     }
     interface LyneTimetablePlatform {
+        /**
+          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
         /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
@@ -1255,6 +1260,10 @@ declare namespace LocalJSX {
         "config": string;
     }
     interface LyneTimetablePlatform {
+        /**
+          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+         */
+        "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
         /**
           * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
          */
