@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 @mixin card-host-properties {
-  --card-border-radius: #{pxToRem(var(--border-radius-8x))};
+  --card-border-radius: #{pxToRem(var(--border-radius-4x))};
   --card-padding-top: ;
   --card-padding-right: ;
   --card-padding-bottom: ;
