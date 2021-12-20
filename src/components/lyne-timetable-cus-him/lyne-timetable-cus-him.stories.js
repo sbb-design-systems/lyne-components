@@ -22,6 +22,7 @@ const appearance = {
   options: [
     'first-level-list',
     'second-level-list',
+    'second-level-button',
     'second-level-message'
   ]
 };
@@ -77,11 +78,24 @@ CusHimSecondLevelList.documentation = {
   title: 'CUS/HIM Icon - Second Level List'
 };
 
+export const CusHimSecondLevelButton= Template.bind({});
+
+CusHimSecondLevelButton.argTypes = defaultArgTypes;
+CusHimSecondLevelButton.args = {
+  appearance: appearance.options[2],
+  config: sampleData[2],
+  gridCellRole: false
+};
+
+CusHimSecondLevelButton.documentation = {
+  title: 'CUS/HIM - Second Level Button'
+};
+
 export const CusHimSecondLevelMessage = Template.bind({});
 
 CusHimSecondLevelMessage.argTypes = defaultArgTypes;
 CusHimSecondLevelMessage.args = {
-  appearance: appearance.options[2],
+  appearance: appearance.options[3],
   config: sampleData[2],
   gridCellRole: false
 };

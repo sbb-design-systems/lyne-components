@@ -13,13 +13,8 @@
 
 // First Level List appearance
 // ----------------------------------------------
-.cus-him--first-level-list {
+.cus-him__first-level-list {
   --list-item-justification: flex-end;
-
-  @include mq($to: small) {
-    @include screenReaderOnly();
-  }
-
 }
 
 // Second Level List appearance
@@ -32,22 +27,43 @@
 
 // Second Level Message appearance
 // ----------------------------------------------
-.cus-him__second-level-message {
+.cus-him--second-level-button,
+.cus-him--second-level-message {
   display: flex;
   gap: pxToRem(var(--spacing-fixed-1x));
   padding: 0;
 }
 
-.cus-him__second-level-message-text {
+.cus-him--second-level-message__text {
   @include text-xs--bold();
   color: var(--color-red-default);
 }
 
-.cus-him__second-level-message .cus-him__icon {
+.cus-him--second-level-message .cus-him__icon {
   margin-block-start: pxToRem(2);
 
   @include mq($from: medium) {
     margin-block-start: pxToRem(3);
+  }
+
+}
+
+// Second Level Button appearance
+// ----------------------------------------------
+.cus-him--second-level-button {
+  --cus-him-icon-height: 20;
+  gap: pxToRem(var(--spacing-fixed-2x));
+}
+
+.cus-him--second-level-button__text {
+  @include text-s--bold();
+}
+
+.cus-him--second-level-button .cus-him__icon {
+  margin-block-start: pxToRem(1);
+
+  @include mq($from: medium) {
+    margin-block-start: pxToRem(4);
   }
 
 }

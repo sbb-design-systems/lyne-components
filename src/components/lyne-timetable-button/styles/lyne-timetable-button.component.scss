@@ -8,6 +8,20 @@ button {
   padding: 0;
 }
 
-.button--earlier-connections .button__chevron svg {
-  transform: rotate(180deg);
+.button__inner_wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-basis: 100%;
+  align-items: center;
+  gap: pxToRem(var(--spacing-fixed-2x));
 }
+
+lyne-timetable-cus-him,
+lyne-timetable-transportation-walk {
+  flex: 1 1 auto;
+}
+
+button[dir="rtl"] .button__chevron {
+  transform: scaleX(-1);
+}
+

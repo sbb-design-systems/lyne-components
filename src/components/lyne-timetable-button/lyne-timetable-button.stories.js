@@ -1,9 +1,12 @@
 import events from './lyne-timetable-button.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import cusHimSampleData from '../lyne-timetable-cus-him/lyne-timetable-cus-him.sample-data';
+import walkSampleData from '../lyne-timetable-transportation-walk//lyne-timetable-transportation-walk.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-button {...args}></lyne-timetable-button>
+  <lyne-timetable-button {...args}>
+  </lyne-timetable-button>
 );
 
 const appearance = {
@@ -21,12 +24,20 @@ const appearance = {
   }
 };
 
+const config = {
+  table: {
+    disable: false
+  }
+};
+
 const defaultArgTypes = {
-  appearance: appearance
+  appearance: appearance,
+  config
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0]
+  appearance: appearance.options[0],
+  config: {}
 };
 
 /* ************************************************* */
@@ -53,6 +64,32 @@ ButtonLaterConnections.args = {
 
 ButtonLaterConnections.documentation = {
   title: 'Button Later Connections'
+};
+
+export const ButtonCusHimSecondLevel = Template.bind({});
+
+ButtonCusHimSecondLevel.argTypes = defaultArgTypes;
+ButtonCusHimSecondLevel.args = {
+  ...defaultArgs,
+  appearance: appearance.options[2],
+  config: cusHimSampleData[2]
+};
+
+ButtonCusHimSecondLevel.documentation = {
+  title: 'Button CUS/HIM - Second Level'
+};
+
+export const ButtonWalkSecondLevel = Template.bind({});
+
+ButtonWalkSecondLevel.argTypes = defaultArgTypes;
+ButtonWalkSecondLevel.args = {
+  ...defaultArgs,
+  appearance: appearance.options[3],
+  config: walkSampleData[3]
+};
+
+ButtonWalkSecondLevel.documentation = {
+  title: 'Button Walk - Second Level'
 };
 
 export default {

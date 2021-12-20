@@ -17,11 +17,13 @@
 
 ### Used by
 
+ - [lyne-timetable-button](../lyne-timetable-button)
  - [lyne-timetable-transportation-details](../lyne-timetable-transportation-details)
 
 ### Graph
 ```mermaid
 graph TD;
+  lyne-timetable-button --> lyne-timetable-transportation-walk
   lyne-timetable-transportation-details --> lyne-timetable-transportation-walk
   style lyne-timetable-transportation-walk fill:#f9f,stroke:#333,stroke-width:4px
 ```

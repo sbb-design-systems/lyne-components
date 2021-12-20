@@ -4,9 +4,10 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
+import chevronIcon from 'lyne-icons/dist/icons/chevron-small-right-small.svg';
 import events from './lyne-timetable-button.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceLyneTimetableButtonAttributes } from './lyne-timetable-button.custom.d';
 import {
   i18nEarlierConnections,
@@ -34,6 +35,7 @@ export class LyneTimetableButton {
   private _additionalButtonAttributes = {};
   private _additionalText?: string; */
   // private _button!: HTMLElement;
+  private _additionalButtonAttributes = {};
   private _currentLanguage = getDocumentLang();
   private _ctaText!: string;
 
@@ -43,6 +45,8 @@ export class LyneTimetableButton {
    * level 2 of the timetable
    */
   @Prop() public appearance?: InterfaceLyneTimetableButtonAttributes['appearance'] = 'earlier-connections';
+
+  @Prop() public config?: string;
 
   /** Id which is sent in the click event payload */
   @Prop() public eventId?: string;
@@ -68,24 +72,86 @@ export class LyneTimetableButton {
     this._element.dispatchEvent(event);
   };
 
-  private _prepareButtonText = (): void => {
+  private _prepareButtonTextAndAttributes = (): void => {
 
     switch (this.appearance) {
       case 'earlier-connections':
         this._ctaText = `${i18nEarlierConnections[this._currentLanguage]}`;
+        this._additionalButtonAttributes = {
+          'aria-pressed': 'false'
+        }
         break;
       case 'later-connections':
         this._ctaText = `${i18nLaterConnections[this._currentLanguage]}`;
+        this._additionalButtonAttributes = {
+          'aria-pressed': 'false'
+        }
         break;
       case 'cus-him':
         this._ctaText = 'CUS/HIM';
+        this._additionalButtonAttributes = {
+          'aria-expanded': 'false',
+          'aria-haspopup': 'true',
+          'aria-pressed': 'false'
+        }
         break;
       case 'walk':
         this._ctaText = `${i18nShowOnMap[this._currentLanguage]}`;
+        this._additionalButtonAttributes = {
+          'aria-expanded': 'false',
+          'aria-haspopup': 'true',
+          'aria-pressed': 'false'
+        }
         break;
       default:
         this._ctaText = `${i18nEarlierConnections[this._currentLanguage]}`;
+        this._additionalButtonAttributes = {
+          'aria-pressed': 'false'
+        }
         break;
+    }
+
+  };
+
+  private _renderAppearance(): any {
+    if (this.appearance === 'earlier-connections' ||
+      this.appearance === 'later-connections'
+    ) {
+      return (
+        this._ctaText
+      )
+    }
+
+    if (this.appearance === 'cus-him') {
+      return (
+        <div class='button__inner_wrapper'>
+          <lyne-timetable-cus-him
+            appearance='second-level-button'
+            config={JSON.stringify(this.config)}
+          >
+          </lyne-timetable-cus-him>
+          <span
+            class='button__chevron'
+            innerHTML={chevronIcon}
+          />
+        </div>
+      )
+    }
+
+    if (this.appearance === 'walk') {
+      return (
+        <div class='button__inner_wrapper'>
+          <lyne-timetable-transportation-walk
+            appearance='second-level'
+            config={JSON.stringify(this.config)}
+          >
+          </lyne-timetable-transportation-walk>
+          <span
+            class='button__chevron'
+            innerHTML={chevronIcon}
+          />
+        </div>
+      )
     }
 
   };
@@ -93,24 +159,26 @@ export class LyneTimetableButton {
   public render(): JSX.Element {
 
     const appearanceClass = ` button--${this.appearance}`;
+    const currentWritingMode = getDocumentWritingMode();
 
-    this._prepareButtonText();
+    this._prepareButtonTextAndAttributes();
 
     return (
       <button
         class={`button${appearanceClass}`}
+        dir={currentWritingMode}
         onClick={this._buttonClick}
         /* ref={(el): void => {
           this._button = el;
         }} */
         type='button'
+        {...this._additionalButtonAttributes}
       >
-        {this._ctaText}
-        <span
-          class='button__chevron'
-          innerHTML={chevronIcon}
-        />
+        {
+          this._renderAppearance()
+        }
       </button>
+
     );
   }
 }

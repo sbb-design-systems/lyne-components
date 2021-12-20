@@ -56,7 +56,6 @@
   display: flex;
   flex: 0 0 100%;
   max-width: 100%;
-  // margin-block-end: pxToRem(var(--spacing-fixed-1x));
 }
 
 .timetable__row > lyne-timetable-platform,
@@ -71,6 +70,10 @@
 .timetable__row > lyne-timetable-cus-him {
   justify-self: end;
   flex-basis: pxToRem(50);
+
+  @include mq($to: small) {
+    @include screenReaderOnly();
+  }
 
   @include mq($from: medium) {
     flex-basis: pxToRem(55);

@@ -438,6 +438,7 @@ export namespace Components {
           * appearance of the Timetable Button, can either be used on level 1 or level 2 of the timetable
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        "config"?: string;
         /**
           * Id which is sent in the click event payload
          */
@@ -1228,6 +1229,7 @@ declare namespace LocalJSX {
           * appearance of the Timetable Button, can either be used on level 1 or level 2 of the timetable
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        "config"?: string;
         /**
           * Id which is sent in the click event payload
          */

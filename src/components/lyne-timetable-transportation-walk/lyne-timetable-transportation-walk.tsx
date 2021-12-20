@@ -105,7 +105,7 @@ export class LyneTimetableTransportationWalk {
               class='walk__text--visual'
               role='presentation'
             >
-             {i18nWalk[this._currentLanguage]}
+              {i18nWalk[this._currentLanguage]}
             </span>
             : ''
         }

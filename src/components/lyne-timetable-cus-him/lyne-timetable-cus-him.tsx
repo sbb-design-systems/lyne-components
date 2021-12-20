@@ -48,9 +48,7 @@ export class LyneTimetableCusHim {
    */
   @Prop() public appearance?: InterfaceLyneTimetableCusHimAttributes['appearance'] = 'first-level-list';
 
-  private _renderappearance(cusHimItems): JSX.Element {
-
-    const cusHimItem = cusHimItems[0];
+  private _renderAppearance(cusHimItems): JSX.Element {
 
     /**
      * Let's check if we should render a list or
@@ -60,9 +58,13 @@ export class LyneTimetableCusHim {
      * the markup early and do not reach the second
      * return after the if statement.
      */
-    if (this.appearance !== 'second-level-message') {
+    if (this.appearance.indexOf('list') !== -1) {
 
       if (cusHimItems.length === 1) {
+
+        // eslint-disable-next-line prefer-destructuring
+        const cusHimItem = cusHimItems[0];
+
         return (
           <span
             aria-label={cusHimItem.text}
@@ -71,7 +73,7 @@ export class LyneTimetableCusHim {
             role='text'
             title={cusHimItem.text}
           ></span>
-        )
+        );
       }
 
       return (
@@ -79,8 +81,7 @@ export class LyneTimetableCusHim {
           class='cus-him__list'
           role='list'
         > {
-          cusHimItems.map(function (cusHimItem) {
-            return (
+            cusHimItems.map((cusHimItem) => (
               <li class='cus-him__list-item'>
                 <span
                   aria-label={cusHimItem.text}
@@ -91,17 +92,21 @@ export class LyneTimetableCusHim {
                 >
                 </span>
               </li>
-            )
-          })
-        }
+            ))
+          }
         </ul>
-      )
+      );
+
     }
+
+    // eslint-disable-next-line prefer-destructuring
+    const cusHimItem = cusHimItems[0];
+    const appearanceClass = this.appearance;
 
     return (
       <p
         aria-label={cusHimItem.text}
-        class='cus-him__second-level-message'
+        class={`cus-him--${appearanceClass}`}
       >
         <span
           class='cus-him__icon'
@@ -110,11 +115,13 @@ export class LyneTimetableCusHim {
           title={cusHimItem.text}
         >
         </span>
-          <span class='cus-him__second-level-message-text'>
+        <span
+          class={`cus-him--${appearanceClass}__text`}
+        >
           {cusHimItem.text}
         </span>
       </p>
-    )
+    );
 
   }
 
@@ -131,7 +138,7 @@ export class LyneTimetableCusHim {
       <div class={`cus-him${appearanceClass}`}>
         {
           cusHimItems.length > 0
-            ? this._renderappearance(cusHimItems)
+            ? this._renderAppearance(cusHimItems)
             : <span class='cus-him__text--visually-hidden'>{a11yLabel}</span>
         }
       </div>
