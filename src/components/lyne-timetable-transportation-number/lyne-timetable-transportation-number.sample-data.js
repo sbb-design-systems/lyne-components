@@ -1,5 +1,3 @@
-import lyneIcons from 'lyne-icons/dist/icons.json';
-
 export default {
   bus: {
     direction: 'Richtung Bern Wankdorf, Bahnhof',

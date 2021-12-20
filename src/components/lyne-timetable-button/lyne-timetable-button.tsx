@@ -2,7 +2,8 @@ import {
   Component,
   Element,
   h,
-  Prop
+  Prop,
+  Watch
 } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-right-small.svg';
 import events from './lyne-timetable-button.events';
@@ -30,12 +31,7 @@ import {
 
 export class LyneTimetableButton {
 
-  /* private _a11yLabel!: string;
-  private _additionalButtonClasses = [];
-  private _additionalButtonAttributes = {};
-  private _additionalText?: string; */
-  // private _button!: HTMLElement;
-  private _additionalButtonAttributes = {};
+  private _button!: HTMLElement;
   private _currentLanguage = getDocumentLang();
   private _ctaText!: string;
 
@@ -46,17 +42,56 @@ export class LyneTimetableButton {
    */
   @Prop() public appearance?: InterfaceLyneTimetableButtonAttributes['appearance'] = 'earlier-connections';
 
+  /**
+   * If appearance is set to cus-him or
+   * walk, we need to pass on a config
+   * to popultate the nested web component.
+   */
   @Prop() public config?: string;
 
   /** Id which is sent in the click event payload */
   @Prop() public eventId?: string;
 
+  /** Set to true to open the accordion item. Set to false to close it. */
+  @Prop({
+    reflect: true
+  }) public expanded?: boolean;
+
   /** The name attribute to use for the button */
   @Prop() public name?: string;
 
+  /** The reference to the button */
   @Element() private _element: HTMLElement;
 
-  private _buttonClick = (): void => {
+  @Watch('expanded')
+  public watchStateHandler(newValue: boolean): void {
+    console.log(newValue);
+  }
+
+  private _toggleAriaAttributes(click): void {
+
+    if (click) {
+      this.expanded = !this.expanded;
+    }
+
+    const expand = String(this.expanded);
+
+    if (
+      this.appearance === 'cus-him' ||
+      this.appearance === 'walk'
+    ) {
+      this._button.setAttribute('aria-expanded', expand);
+      this._button.setAttribute('aria-haspopup', 'true');
+    }
+
+    this._button.setAttribute('aria-pressed', expand);
+
+  }
+
+  private _clickHandler = (): void => {
+
+    this._toggleAriaAttributes(true);
+
     let eventDetail;
 
     if (this.eventId) {
@@ -77,49 +112,34 @@ export class LyneTimetableButton {
     switch (this.appearance) {
       case 'earlier-connections':
         this._ctaText = `${i18nEarlierConnections[this._currentLanguage]}`;
-        this._additionalButtonAttributes = {
-          'aria-pressed': 'false'
-        }
         break;
       case 'later-connections':
         this._ctaText = `${i18nLaterConnections[this._currentLanguage]}`;
-        this._additionalButtonAttributes = {
-          'aria-pressed': 'false'
-        }
         break;
       case 'cus-him':
         this._ctaText = 'CUS/HIM';
-        this._additionalButtonAttributes = {
-          'aria-expanded': 'false',
-          'aria-haspopup': 'true',
-          'aria-pressed': 'false'
-        }
         break;
       case 'walk':
         this._ctaText = `${i18nShowOnMap[this._currentLanguage]}`;
-        this._additionalButtonAttributes = {
-          'aria-expanded': 'false',
-          'aria-haspopup': 'true',
-          'aria-pressed': 'false'
-        }
         break;
       default:
         this._ctaText = `${i18nEarlierConnections[this._currentLanguage]}`;
-        this._additionalButtonAttributes = {
-          'aria-pressed': 'false'
-        }
         break;
     }
 
   };
 
-  private _renderAppearance(): any {
-    if (this.appearance === 'earlier-connections' ||
+  private _renderAppearance(): JSX.Element {
+
+    if (
+      this.appearance === 'earlier-connections' ||
       this.appearance === 'later-connections'
     ) {
       return (
-        this._ctaText
-      )
+        <div class='button__inner_wrapper'>
+          {this._ctaText}
+        </div>
+      );
     }
 
     if (this.appearance === 'cus-him') {
@@ -135,26 +155,27 @@ export class LyneTimetableButton {
             innerHTML={chevronIcon}
           />
         </div>
-      )
+      );
     }
 
-    if (this.appearance === 'walk') {
-      return (
-        <div class='button__inner_wrapper'>
-          <lyne-timetable-transportation-walk
-            appearance='second-level'
-            config={JSON.stringify(this.config)}
-          >
-          </lyne-timetable-transportation-walk>
-          <span
-            class='button__chevron'
-            innerHTML={chevronIcon}
-          />
-        </div>
-      )
-    }
+    return (
+      <div class='button__inner_wrapper'>
+        <lyne-timetable-transportation-walk
+          appearance='second-level'
+          config={JSON.stringify(this.config)}
+        >
+        </lyne-timetable-transportation-walk>
+        <span class='button__cta'>
+          {this._ctaText}
+        </span>
+        <span
+          class='button__chevron'
+          innerHTML={chevronIcon}
+        />
+      </div>
+    );
 
-  };
+  }
 
   public render(): JSX.Element {
 
@@ -167,12 +188,11 @@ export class LyneTimetableButton {
       <button
         class={`button${appearanceClass}`}
         dir={currentWritingMode}
-        onClick={this._buttonClick}
-        /* ref={(el): void => {
+        onClick={this._clickHandler}
+        ref={(el): void => {
           this._button = el;
-        }} */
+        }}
         type='button'
-        {...this._additionalButtonAttributes}
       >
         {
           this._renderAppearance()
@@ -181,5 +201,10 @@ export class LyneTimetableButton {
 
     );
   }
+
+  public componentDidRender(): void {
+    this._toggleAriaAttributes(false);
+  }
+
 }
 

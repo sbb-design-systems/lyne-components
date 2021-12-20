@@ -13,7 +13,11 @@ button {
   flex-wrap: nowrap;
   flex-basis: 100%;
   align-items: center;
-  gap: pxToRem(var(--spacing-fixed-2x));
+}
+
+.button--earlier-connections .button__inner_wrapper,
+.button--later-connections .button__inner_wrapper {
+  justify-content: center;
 }
 
 lyne-timetable-cus-him,
@@ -23,5 +27,16 @@ lyne-timetable-transportation-walk {
 
 button[dir="rtl"] .button__chevron {
   transform: scaleX(-1);
+}
+
+.button--walk .button__cta {
+  @include text-xs--regular();
+  margin-inline-start: pxToRem(var(--spacing-fixed-2x));
+  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+
+  @include mq($to: micro) {
+    display: none;
+  }
+
 }
 

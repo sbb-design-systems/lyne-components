@@ -438,11 +438,18 @@ export namespace Components {
           * appearance of the Timetable Button, can either be used on level 1 or level 2 of the timetable
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        /**
+          * If appearance is set to cus-him or walk, we need to pass on a config to popultate the nested web component.
+         */
         "config"?: string;
         /**
           * Id which is sent in the click event payload
          */
         "eventId"?: string;
+        /**
+          * Set to true to open the accordion item. Set to false to close it.
+         */
+        "expanded"?: boolean;
         /**
           * The name attribute to use for the button
          */
@@ -1229,11 +1236,18 @@ declare namespace LocalJSX {
           * appearance of the Timetable Button, can either be used on level 1 or level 2 of the timetable
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        /**
+          * If appearance is set to cus-him or walk, we need to pass on a config to popultate the nested web component.
+         */
         "config"?: string;
         /**
           * Id which is sent in the click event payload
          */
         "eventId"?: string;
+        /**
+          * Set to true to open the accordion item. Set to false to close it.
+         */
+        "expanded"?: boolean;
         /**
           * The name attribute to use for the button
          */

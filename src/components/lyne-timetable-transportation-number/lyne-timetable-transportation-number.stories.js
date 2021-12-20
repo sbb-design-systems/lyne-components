@@ -45,7 +45,7 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   appearance: appearance.options[0],
-  gridCellRole: true,
+  gridCellRole: true
 };
 
 /* ************************************************* */
@@ -100,7 +100,6 @@ CableCarSecondLevel.args = {
 CableCarSecondLevel.documentation = {
   title: 'Cable Car - Second Level'
 };
-
 
 export const TrainFirstLevel = Template.bind({});
 

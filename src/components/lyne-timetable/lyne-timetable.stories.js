@@ -34,12 +34,11 @@ LyneTimetable.args = {
     JSON.stringify(sampleData.timetableRowsDayChange[0]),
     JSON.stringify(sampleData.timetableRowsDayChange[1])
   ]
-}
+};
 
 LyneTimetable.documentation = {
   title: 'Lyne Timetable'
 };
-
 
 export default {
   decorators: [

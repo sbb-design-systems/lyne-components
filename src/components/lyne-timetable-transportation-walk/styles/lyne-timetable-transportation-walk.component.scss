@@ -29,6 +29,11 @@
   margin-inline-end: pxToRem(var(--spacing-fixed-1x));
 }
 
+.walk--second-level {
+  @include text-xs--regular();
+  cursor: pointer;
+}
+
 .walk--second-level .walk__duration--visual {
   order: -1;
   margin-inline-start: 0;

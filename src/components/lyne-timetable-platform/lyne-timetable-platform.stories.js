@@ -22,7 +22,7 @@ const appearance = {
   options: [
     'first-level',
     'second-level-arrival',
-    'second-level-departure',
+    'second-level-departure'
   ]
 };
 
@@ -69,8 +69,8 @@ export const LyneTimetableArrivalPlatformSecondLevel = Template.bind({});
 LyneTimetableArrivalPlatformSecondLevel.argTypes = defaultArgTypes;
 LyneTimetableArrivalPlatformSecondLevel.args = {
   ...defaultArgs,
-  config: sampleData[0],
   appearance: appearance.options[1],
+  config: sampleData[0],
   gridCellRole: false
 };
 
@@ -83,8 +83,8 @@ export const LyneTimetableDeparturePlatformSecondLevel = Template.bind({});
 LyneTimetableDeparturePlatformSecondLevel.argTypes = defaultArgTypes;
 LyneTimetableDeparturePlatformSecondLevel.args = {
   ...defaultArgs,
-  config: sampleData[0],
   appearance: appearance.options[2],
+  config: sampleData[0],
   gridCellRole: false
 };
 

@@ -49,7 +49,7 @@ baseConfig.overrides = [
         'error',
         2,
         {
-          'SwitchCase': 1
+          SwitchCase: 1
         }
       ],
       '@typescript-eslint/member-delimiter-style': 'error',
@@ -117,7 +117,7 @@ baseConfig.overrides = [
         {
           SwitchCase: 1
         }
-        ]
+      ]
     }
   },
   {

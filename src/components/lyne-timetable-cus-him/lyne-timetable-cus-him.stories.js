@@ -78,7 +78,7 @@ CusHimSecondLevelList.documentation = {
   title: 'CUS/HIM Icon - Second Level List'
 };
 
-export const CusHimSecondLevelButton= Template.bind({});
+export const CusHimSecondLevelButton = Template.bind({});
 
 CusHimSecondLevelButton.argTypes = defaultArgTypes;
 CusHimSecondLevelButton.args = {

@@ -1,4 +1,5 @@
 import { h } from 'jsx-dom';
+import readme from './readme.md';
 import sampleData from './lyne-timetable-transportation-walk.sample-data';
 
 const Template = (args) => (

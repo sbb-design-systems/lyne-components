@@ -27,8 +27,8 @@ const config = {
 };
 
 const defaultArgTypes = {
-  config,
-  appearance
+  appearance,
+  config
 };
 
 const defaultArgs = {

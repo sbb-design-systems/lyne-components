@@ -5,7 +5,9 @@ import cusHimSampleData from '../lyne-timetable-cus-him/lyne-timetable-cus-him.s
 import walkSampleData from '../lyne-timetable-transportation-walk//lyne-timetable-transportation-walk.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-button {...args}>
+  <lyne-timetable-button
+    {...args}
+  >
   </lyne-timetable-button>
 );
 
@@ -20,24 +22,46 @@ const appearance = {
     'walk'
   ],
   table: {
-    category: 'General properties'
+    category: 'Button Appearance'
   }
 };
 
 const config = {
   table: {
-    disable: false
+    category: 'Button Config'
+  }
+};
+
+const eventId = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Button Config'
+  }
+};
+
+const expanded = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Button Config'
   }
 };
 
 const defaultArgTypes = {
-  appearance: appearance,
-  config
+  appearance,
+  config,
+  'event-id': eventId,
+  expanded
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
-  config: {}
+  'appearance': appearance.options[0],
+  'config': {},
+  'event-id': '',
+  'expanded': false
 };
 
 /* ************************************************* */
@@ -47,7 +71,8 @@ export const ButtonEarlierConnections = Template.bind({});
 
 ButtonEarlierConnections.argTypes = defaultArgTypes;
 ButtonEarlierConnections.args = {
-  ...defaultArgs
+  ...defaultArgs,
+  'event-id': 'earlier-connections'
 };
 
 ButtonEarlierConnections.documentation = {
@@ -59,7 +84,8 @@ export const ButtonLaterConnections = Template.bind({});
 ButtonLaterConnections.argTypes = defaultArgTypes;
 ButtonLaterConnections.args = {
   ...defaultArgs,
-  appearance: appearance.options[1]
+  'appearance': appearance.options[1],
+  'event-id': 'later-connections'
 };
 
 ButtonLaterConnections.documentation = {
@@ -71,8 +97,9 @@ export const ButtonCusHimSecondLevel = Template.bind({});
 ButtonCusHimSecondLevel.argTypes = defaultArgTypes;
 ButtonCusHimSecondLevel.args = {
   ...defaultArgs,
-  appearance: appearance.options[2],
-  config: cusHimSampleData[2]
+  'appearance': appearance.options[2],
+  'config': cusHimSampleData[2],
+  'event-id': 'show-cus-him-xyz'
 };
 
 ButtonCusHimSecondLevel.documentation = {
@@ -84,8 +111,9 @@ export const ButtonWalkSecondLevel = Template.bind({});
 ButtonWalkSecondLevel.argTypes = defaultArgTypes;
 ButtonWalkSecondLevel.args = {
   ...defaultArgs,
-  appearance: appearance.options[3],
-  config: walkSampleData[3]
+  'appearance': appearance.options[3],
+  'config': walkSampleData[3],
+  'event-id': 'show-map-xyz'
 };
 
 ButtonWalkSecondLevel.documentation = {
