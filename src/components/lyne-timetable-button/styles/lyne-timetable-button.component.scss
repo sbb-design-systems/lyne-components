@@ -35,7 +35,7 @@ button[dir="rtl"] .button__chevron {
   margin-inline-end: pxToRem(var(--spacing-fixed-1x));
 
   @include mq($to: micro) {
-    display: none;
+    @include screenReaderOnly();
   }
 
 }

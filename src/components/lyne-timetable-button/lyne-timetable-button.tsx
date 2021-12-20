@@ -52,7 +52,11 @@ export class LyneTimetableButton {
   /** Id which is sent in the click event payload */
   @Prop() public eventId?: string;
 
-  /** Set to true to open the accordion item. Set to false to close it. */
+  /**
+   * Set to true to initially show the 
+   * state, which would get set by pressing
+   * the button.
+   */
   @Prop({
     reflect: true
   }) public expanded?: boolean;
@@ -65,26 +69,28 @@ export class LyneTimetableButton {
 
   @Watch('expanded')
   public watchStateHandler(newValue: boolean): void {
-    console.log(newValue);
+    this.expanded = newValue;
+    this._toggleAriaAttributes(false);
   }
 
   private _toggleAriaAttributes(click): void {
-
-    if (click) {
-      this.expanded = !this.expanded;
-    }
-
-    const expand = String(this.expanded);
 
     if (
       this.appearance === 'cus-him' ||
       this.appearance === 'walk'
     ) {
+
+      if (click) {
+        this.expanded = !this.expanded;
+      }
+
+      const expand = String(this.expanded);
+
       this._button.setAttribute('aria-expanded', expand);
       this._button.setAttribute('aria-haspopup', 'true');
     }
 
-    this._button.setAttribute('aria-pressed', expand);
+    // this._button.setAttribute('aria-pressed', expand);
 
   }
 

@@ -29,31 +29,50 @@ export class LyneTimetableRowButton {
   /** Documentation for someProp */
   @Prop() public someProp?: InterfaceLyneTimetableRowButtonAttributes['someInterface'];
 
-  /** Set to true to open the accordion item. Set to false to close it. */
+  /** Id which is sent in the event of clicking the button */
+  @Prop() public eventId?: string;
+
+  /**
+   * Set to true to initially show the
+   * state, which would get set by pressing
+   * the button.
+   */
   @Prop({
     reflect: true
   }) public expanded?: boolean;
 
-  /** Id which is sent in the event of clicking the button */
-  @Prop() public eventId?: string;
-
   @Watch('expanded')
   public watchStateHandler(newValue: boolean): void {
-    console.log(newValue);
+    this.expanded = newValue;
+    this._toggleAriaAttributes(false);
   }
 
-  private _toggleAriaAttributes(): void {
-    console.log(this._button);
+  private _toggleAriaAttributes(click): void {
+
+    if (click) {
+      this.expanded = !this.expanded;
+    }
+
+    const expand = String(this.expanded);
+
+    this._button.setAttribute('aria-expanded', expand);
+
   }
 
   private _clickHandler = (): void => {
 
-    this._toggleAriaAttributes();
+    this._toggleAriaAttributes(true);
+
+    let eventDetail;
+
+    if (this.eventId) {
+      eventDetail = this.eventId;
+    }
 
     const event = new CustomEvent(events.click, {
       bubbles: true,
       composed: true,
-      detail: 'some event detail'
+      detail: eventDetail
     });
 
     this._element.dispatchEvent(event);
@@ -62,10 +81,8 @@ export class LyneTimetableRowButton {
   public render(): JSX.Element {
     return (
       <button
-        aria-expanded='false'
         aria-haspopup='true'
         aria-label={`${i18nShowConnectionDetailsAndBuyOptions[this._currentLanguage]}`}
-        aria-pressed='false'
         onClick={this._clickHandler}
         ref={(el): void => {
           this._button = el;
@@ -75,4 +92,9 @@ export class LyneTimetableRowButton {
       </button>
     );
   }
+
+  public componentDidRender(): void {
+    this._toggleAriaAttributes(false);
+  }
+
 }

@@ -71,6 +71,7 @@ export class LyneTimetableRow {
         >
         </lyne-timetable-transportation-details>
         <lyne-timetable-row-button
+          expanded={false}
           role='gridcell'
         >
         </lyne-timetable-row-button>
