@@ -2,7 +2,7 @@ import { LyneTimetableTransportationNumber } from './lyne-timetable-transportati
 import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './lyne-timetable-transportation-number.sample-data';
 
-const config = JSON.stringify(sampleData['bus']);
+const config = JSON.stringify(sampleData.bus);
 
 describe('lyne-timetable-transportation-number', () => {
   it('renders', async () => {
@@ -10,19 +10,18 @@ describe('lyne-timetable-transportation-number', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableTransportationNumber],
-      html: `<lyne-timetable-transportation-number config='${config}' role='gridcell' />`
+      html: `<lyne-timetable-transportation-number config='${config}' />`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-transportation-number
             config="{&quot;direction&quot;:&quot;Richtung Bern Wankdorf, Bahnhof&quot;,&quot;marketingName&quot;:&quot;&quot;,&quot;meansOfTransport&quot;:{&quot;picto&quot;:&quot;transportation-bus-right&quot;,&quot;text&quot;:&quot;Bus&quot;},&quot;product&quot;:{&quot;icon&quot;:&quot;&quot;,&quot;text&quot;:&quot;B 20&quot;}}"
-            role="gridcell"
         >
           <mock:shadow-root>
             <p
                 aria-label="Bus B 20  Richtung Bern Wankdorf, Bahnhof"
-                class="transportation-number"
+                class="transportation-number transportation-number--first-level"
                 role="text"
              >
                 <span

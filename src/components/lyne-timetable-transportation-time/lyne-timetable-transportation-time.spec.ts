@@ -21,7 +21,7 @@ describe('lyne-timetable-transportation-time', () => {
           <mock:shadow-root>
             <p
                 aria-label="Departure 15:14."
-                class="time time--departure"
+                class="time time--departure time--first-level"
                 role="text"
             >
                 <span

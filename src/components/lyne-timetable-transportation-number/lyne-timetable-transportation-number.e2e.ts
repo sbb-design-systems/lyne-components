@@ -6,7 +6,7 @@ describe('lyne-timetable-transportation-number', () => {
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-lyne-timetable-transportation-number></lyne-lyne-timetable-transportation-number>');
+    await page.setContent('<lyne-timetable-transportation-number></lyne-timetable-transportation-number>');
 
     element = await page.find('lyne-timetable-transportation-number');
     expect(element)

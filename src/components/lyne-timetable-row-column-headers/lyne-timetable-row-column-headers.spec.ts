@@ -2,7 +2,7 @@ import { LyneTimetableRowColumnHeaders } from './lyne-timetable-row-column-heade
 import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './lyne-timetable-row-column-headers.sample-data';
 
-const config = JSON.stringify(sampleData[0]);
+const config = JSON.stringify(sampleData);
 
 describe('lyne-timetable-row-column-headers', () => {
   it('renders', async () => {

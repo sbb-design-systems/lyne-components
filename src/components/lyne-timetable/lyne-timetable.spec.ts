@@ -14,7 +14,13 @@ describe('lyne-timetable', () => {
       .toEqualHtml(`
         <lyne-timetable>
           <mock:shadow-root>
-            <slot></slot>
+            <div class="timetable-wrapper">
+                <lyne-timetable-button appearance="earlier-connections"></lyne-timetable-button>
+                    <div class="timetable" role="grid">
+                        <slot></slot>
+                    </div>
+                <lyne-timetable-button appearance="later-connections"></lyne-timetable-button>
+            </div>
           </mock:shadow-root>
         </lyne-timetable>
       `);

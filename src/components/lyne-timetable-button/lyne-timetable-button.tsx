@@ -53,7 +53,7 @@ export class LyneTimetableButton {
   @Prop() public eventId?: string;
 
   /**
-   * Set to true to initially show the 
+   * Set to true to initially show the
    * state, which would get set by pressing
    * the button.
    */
@@ -192,6 +192,7 @@ export class LyneTimetableButton {
 
     return (
       <button
+        aria-expanded='false'
         class={`button${appearanceClass}`}
         dir={currentWritingMode}
         onClick={this._clickHandler}

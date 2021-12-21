@@ -21,7 +21,7 @@ describe('lyne-timetable-platform', () => {
           <mock:shadow-root>
             <p
                 aria-label="from platform 13A/C."
-                class="platform"
+                class="platform platform--first-level"
                 role="text"
             >
                 <span

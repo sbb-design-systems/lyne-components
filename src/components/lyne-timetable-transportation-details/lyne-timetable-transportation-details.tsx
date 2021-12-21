@@ -39,13 +39,9 @@ export class LyneTimetableDetails {
     const config = JSON.parse(this.config);
 
     return (
-      <div
-        class='transportation-details'
-        role='none'
-      >
+      <div class='transportation-details'>
         <lyne-timetable-transportation-number
           config={JSON.stringify(config.transportationNumber)}
-          role='none'
         ></lyne-timetable-transportation-number>
         {
           config.departureWalk.duration > 0

@@ -447,7 +447,7 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
-          * Set to true to initially show the  state, which would get set by pressing the button.
+          * Set to true to initially show the state, which would get set by pressing the button.
          */
         "expanded"?: boolean;
         /**
@@ -1245,7 +1245,7 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * Set to true to initially show the  state, which would get set by pressing the button.
+          * Set to true to initially show the state, which would get set by pressing the button.
          */
         "expanded"?: boolean;
         /**

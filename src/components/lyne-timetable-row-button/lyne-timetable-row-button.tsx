@@ -81,6 +81,7 @@ export class LyneTimetableRowButton {
   public render(): JSX.Element {
     return (
       <button
+        aria-expanded='false'
         aria-haspopup='true'
         aria-label={`${i18nShowConnectionDetailsAndBuyOptions[this._currentLanguage]}`}
         onClick={this._clickHandler}

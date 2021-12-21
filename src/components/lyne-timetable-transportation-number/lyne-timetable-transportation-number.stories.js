@@ -6,11 +6,6 @@ const Template = (args) => (
   <lyne-timetable-transportation-number
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
-    role={
-      args.gridCellRole
-        ? 'gridcell'
-        : 'none'
-    }
   >
   </lyne-timetable-transportation-number>
 );
@@ -31,21 +26,13 @@ const config = {
   }
 };
 
-const gridCellRole = {
-  control: {
-    type: 'boolean'
-  }
-};
-
 const defaultArgTypes = {
   appearance,
-  config,
-  gridCellRole
+  config
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
-  gridCellRole: true
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
