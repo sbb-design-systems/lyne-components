@@ -1,4 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
+import sampleData from './lyne-timetable-row.sample-data';
+
+const config = JSON.stringify(sampleData[0]);
 
 describe('lyne-timetable-row', () => {
   let element,
@@ -6,7 +9,7 @@ describe('lyne-timetable-row', () => {
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-timetable-row></lyne-timetable-row>');
+    await page.setContent(`<lyne-timetable-row config='${config}'></lyne-timetable-row>`);
 
     element = await page.find('lyne-timetable-row');
     expect(element)

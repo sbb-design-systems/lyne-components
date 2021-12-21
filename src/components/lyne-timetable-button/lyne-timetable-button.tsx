@@ -35,6 +35,9 @@ export class LyneTimetableButton {
   private _currentLanguage = getDocumentLang();
   private _ctaText!: string;
 
+  /** The reference to the button */
+  @Element() private _element: HTMLElement;
+
   /**
    * appearance of the Timetable Button,
    * can either be used on level 1 or
@@ -63,9 +66,6 @@ export class LyneTimetableButton {
 
   /** The name attribute to use for the button */
   @Prop() public name?: string;
-
-  /** The reference to the button */
-  @Element() private _element: HTMLElement;
 
   @Watch('expanded')
   public watchStateHandler(newValue: boolean): void {

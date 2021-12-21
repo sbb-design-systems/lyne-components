@@ -80,8 +80,8 @@ export class LyneTimetableCusHim {
         <ul
           class='cus-him__list'
           role='list'
-        > {
-            cusHimItems.map((cusHimItem) => (
+        > 
+          {cusHimItems.map((cusHimItem) => (
               <li class='cus-him__list-item'>
                 <span
                   aria-label={cusHimItem.text}
@@ -92,8 +92,7 @@ export class LyneTimetableCusHim {
                 >
                 </span>
               </li>
-            ))
-          }
+            ))}
         </ul>
       );
 

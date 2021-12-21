@@ -12,7 +12,7 @@
 # longer than necessary.
 # Solution: For simplicity, we omit stages and do everything in the script
 # block of one job.
-# 
+#
 os: linux
 language: node_js
 
@@ -42,7 +42,7 @@ jobs:
 
         # it may be that we get an api request from design-tokens build. in that
         # case, we need to install lyne-design-tokens and lyne-icons
-        # an make an according commit
+        # and make an according commit
         - node ./ci/designTokensUpdate.js --eventType=$TRAVIS_EVENT_TYPE --buildId=$TRAVIS_BUILD_ID || travis_terminate 1
 
         # lint
@@ -129,5 +129,5 @@ jobs:
 
         # trigger a build on lyne-documentation
         # actually we trigger lyne-documentation so that release preview page
-        # is rerendered
+        # is re-rendered
         - node ./ci/trigger_lyne_documentation.js -t $TRAVIS_TOKEN || travis_terminate 1
