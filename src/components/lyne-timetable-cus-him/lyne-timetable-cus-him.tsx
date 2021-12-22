@@ -23,28 +23,16 @@ export class LyneTimetableCusHim {
   private _currentLanguage = getDocumentLang();
 
   /**
-   * Stringified JSON to define the different outputs of the
-   * occupancy predicition cell.
-   * Format:
-   * occupancyItems: [
-   * {
-   *    class: '1',
-   *    icon: "<svg width="19" height="16"...></svg>",,
-   *    occupancy: 'low'
-   * },
-   * {
-   *    class: '2',
-   *    icon: "<svg width="19" height="16"...></svg>",,
-   *    occupancy: 'medium'
-   *  }
-   * ]
+   * Stringified JSON which defines most of the
+   * content of the component. Please check the
+   * individual stories to get an idea of the
+   * structure.
    */
   @Prop() public config!: string;
 
   /**
-   * appearance of the Cus Him display,
-   * can either be an icon only list
-   * appearance or a single icon with text
+   * Set the desired appearance of
+   * the module.
    */
   @Prop() public appearance?: InterfaceLyneTimetableCusHimAttributes['appearance'] = 'first-level-list';
 
@@ -52,11 +40,11 @@ export class LyneTimetableCusHim {
 
     /**
      * Let's check if we should render a list or
-     * an individual message on level 2. Since
-     * the former is more likely, we try to handle
-     * this first. If we render early, we return
-     * the markup early and do not reach the second
-     * return after the if statement.
+     * an individual message on the second level of
+     * the timetable. Since the former is more likely,
+     * we try to handle this case first. If this is the
+     * case, we return the markup early and do not reach
+     * the second return after the if statement.
      */
     if (this.appearance.indexOf('list') !== -1) {
 

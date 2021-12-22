@@ -19,6 +19,12 @@ export class LyneTimetableRowHeader {
 
   public render(): JSX.Element {
 
+    /**
+     * Stringified JSON which defines most of the
+     * content of the component. Please check the
+     * individual stories to get an idea of the
+     * structure.
+     */
     const config = JSON.parse(this.config);
 
     return (

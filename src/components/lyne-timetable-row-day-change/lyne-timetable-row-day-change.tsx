@@ -25,6 +25,12 @@ export class LyneTimetableRowDayChange {
 
   private _currentLanguage = getDocumentLang();
 
+  /**
+   * Stringified JSON which defines most of the
+   * content of the component. Please check the
+   * individual stories to get an idea of the
+   * structure.
+   */
   @Prop() public config!: string;
 
   public render(): JSX.Element {

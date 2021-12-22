@@ -61,6 +61,7 @@
 .timetable__row > lyne-timetable-platform,
 .timetable__row > lyne-timetable-occupancy,
 .timetable__row > lyne-timetable-travel-hints,
+.timetable__row > lyne-timetable-park-and-rail,
 .timetable__row > lyne-timetable-duration,
 .timetable__row > lyne-timetable-cus-him {
   align-items: center;
@@ -88,7 +89,8 @@
   }
 }
 
-.timetable__row > lyne-timetable-travel-hints {
+.timetable__row > lyne-timetable-travel-hints,
+.timetable__row > lyne-timetable-park-and-rail {
   flex-grow: 1;
   justify-content: center;
 

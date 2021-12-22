@@ -31,21 +31,10 @@ export class LyneTimetableRow {
   }
 
   /**
-   * Stringified JSON to define the different outputs of the
-   * occupancy predicition cell.
-   * Format:
-   * occupancyItems: [
-   * {
-   *    class: '1',
-   *    icon: "<svg width="19" height="16"...></svg>",,
-   *    occupancy: 'low'
-   * },
-   * {
-   *    class: '2',
-   *    icon: "<svg width="19" height="16"...></svg>",,
-   *    occupancy: 'medium'
-   *  }
-   * ]
+   * Stringified JSON which defines most of the
+   * content of the component. Please check the
+   * individual stories to get an idea of the
+   * structure.
    */
   @Prop() public config!: string;
 

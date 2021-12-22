@@ -16,10 +16,6 @@ import {
   i18nShowOnMap
 } from '../../global/i18n';
 
-/**
- * @slot cus-him - Use this to document a slot.
- */
-
 @Component({
   shadow: true,
   styleUrls: {
@@ -39,15 +35,14 @@ export class LyneTimetableButton {
   @Element() private _element: HTMLElement;
 
   /**
-   * appearance of the Timetable Button,
-   * can either be used on level 1 or
-   * level 2 of the timetable
+   * Set the desired appearance of
+   * the module.
    */
   @Prop() public appearance?: InterfaceLyneTimetableButtonAttributes['appearance'] = 'earlier-connections';
 
   /**
-   * If appearance is set to cus-him or
-   * walk, we need to pass on a config
+   * If appearance is set to 'cus-him' or
+   * 'walk', we need to provide a config
    * to popultate the nested web component.
    */
   @Prop() public config?: string;
@@ -73,14 +68,14 @@ export class LyneTimetableButton {
     this._toggleAriaAttributes(false);
   }
 
-  private _toggleAriaAttributes(click): void {
+  private _toggleAriaAttributes(initiatedByPress): void {
 
     if (
       this.appearance === 'cus-him' ||
       this.appearance === 'walk'
     ) {
 
-      if (click) {
+      if (initiatedByPress) {
         this.expanded = !this.expanded;
       }
 
@@ -89,8 +84,6 @@ export class LyneTimetableButton {
       this._button.setAttribute('aria-expanded', expand);
       this._button.setAttribute('aria-haspopup', 'true');
     }
-
-    // this._button.setAttribute('aria-pressed', expand);
 
   }
 
@@ -137,6 +130,8 @@ export class LyneTimetableButton {
 
   private _renderAppearance(): JSX.Element {
 
+    const config = JSON.stringify(this.config);
+
     if (
       this.appearance === 'earlier-connections' ||
       this.appearance === 'later-connections'
@@ -153,7 +148,7 @@ export class LyneTimetableButton {
         <div class='button__inner_wrapper'>
           <lyne-timetable-cus-him
             appearance='second-level-button'
-            config={JSON.stringify(this.config)}
+            config={config}
           >
           </lyne-timetable-cus-him>
           <span
@@ -168,7 +163,7 @@ export class LyneTimetableButton {
       <div class='button__inner_wrapper'>
         <lyne-timetable-transportation-walk
           appearance='second-level'
-          config={JSON.stringify(this.config)}
+          config={config}
         >
         </lyne-timetable-transportation-walk>
         <span class='button__cta'>

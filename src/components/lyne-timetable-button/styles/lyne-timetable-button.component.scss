@@ -15,11 +15,15 @@ button {
   align-items: center;
 }
 
+// First Level appearances
+// ----------------------------------------------
 .button--earlier-connections .button__inner_wrapper,
 .button--later-connections .button__inner_wrapper {
   justify-content: center;
 }
 
+// Second Level appearances
+// ----------------------------------------------
 lyne-timetable-cus-him,
 lyne-timetable-transportation-walk {
   flex: 1 1 auto;

@@ -19,27 +19,16 @@ import { InterfaceLyneTimetableTransportationNumberAttributes } from './lyne-tim
 export class LyneTimetableTransportationNumber {
 
   /**
-   * appearance of the Transportation number
-   * display, can either be used on level 1
-   * or level 2 of the timetable
+   * Set the desired appearance of
+   * the module.
    */
   @Prop() public appearance?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'] = 'first-level';
 
   /**
-   * Stringified JSON to define the different outputs of the
-   * transportations number cell.
-   * Format:
-   * {
-   *  "direction": "Richtung Bern Wankdorf, Bahnhof",
-   *  "meansOfTransport": {
-   *    "picto": "<svg width=\"24\" height=\"24\"...></svg>",
-   *    "text": "Bus"
-   *  },
-   *  "product":{
-   *    "icon": "",
-   *    "text":"B 20"
-   *  }
-   * }
+   * Stringified JSON which defines most of the
+   * content of the component. Please check the
+   * individual stories to get an idea of the
+   * structure.
    */
   @Prop() public config!: string;
 

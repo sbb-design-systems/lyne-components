@@ -8,7 +8,6 @@ import {
 import events from './lyne-timetable-row-button.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
-import { InterfaceLyneTimetableRowButtonAttributes } from './lyne-timetable-row-button.custom.d';
 
 @Component({
   shadow: true,
@@ -25,9 +24,6 @@ export class LyneTimetableRowButton {
   private _currentLanguage = getDocumentLang();
 
   @Element() private _element: HTMLElement;
-
-  /** Documentation for someProp */
-  @Prop() public someProp?: InterfaceLyneTimetableRowButtonAttributes['someInterface'];
 
   /** Id which is sent in the event of clicking the button */
   @Prop() public eventId?: string;

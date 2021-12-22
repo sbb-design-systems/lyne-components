@@ -1,10 +1,10 @@
 :host {
 
-  --park-and-rail-icon-height: 12;
+  --park-and-rail-icon-height: 16;
   --park-and-rail-icon-width: var(--park-and-rail-icon-height);
 
   @include mq($from: medium) {
-    --park-and-rail-icon-height: 16;
+    --park-and-rail-icon-height: 24;
     --park-and-rail-icon-width: var(--park-and-rail-icon-height);
   }
 

@@ -22,7 +22,6 @@ import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timeta
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
 import { InterfaceLyneTimetableParkAndRailAttributes } from "./components/lyne-timetable-park-and-rail/lyne-timetable-park-and-rail.custom.d";
 import { InterfaceLyneTimetablePlatformAttributes } from "./components/lyne-timetable-platform/lyne-timetable-platform.custom.d";
-import { InterfaceLyneTimetableRowButtonAttributes } from "./components/lyne-timetable-row-button/lyne-timetable-row-button.custom.d";
 import { InterfaceLyneTimetableTransportationNumberAttributes } from "./components/lyne-timetable-transportation-number/lyne-timetable-transportation-number.custom.d";
 import { InterfaceLyneTimetableTransportationTimeAttributes } from "./components/lyne-timetable-transportation-time/lyne-timetable-transportation-time.custom.d";
 import { InterfaceLyneTimetableTransportationWalkAttributes } from "./components/lyne-timetable-transportation-walk/lyne-timetable-transportation-walk.custom.d";
@@ -436,11 +435,11 @@ export namespace Components {
     }
     interface LyneTimetableButton {
         /**
-          * appearance of the Timetable Button, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
         /**
-          * If appearance is set to cus-him or walk, we need to pass on a config to popultate the nested web component.
+          * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
          */
         "config"?: string;
         /**
@@ -458,49 +457,49 @@ export namespace Components {
     }
     interface LyneTimetableCusHim {
         /**
-          * appearance of the Cus Him display, can either be an icon only list appearance or a single icon with text
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableDuration {
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableOccupancy {
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableParkAndRail {
         /**
-          * appearance of the Park & Ride display, (currently only 'first-level').
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetablePlatform {
         /**
-          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableRow {
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
@@ -513,15 +512,17 @@ export namespace Components {
           * Set to true to initially show the state, which would get set by pressing the button.
          */
         "expanded"?: boolean;
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceLyneTimetableRowButtonAttributes['someInterface'];
     }
     interface LyneTimetableRowColumnHeaders {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
         "config": string;
     }
     interface LyneTimetableRowDayChange {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
         "config": string;
     }
     interface LyneTimetableRowHeader {
@@ -529,47 +530,47 @@ export namespace Components {
     }
     interface LyneTimetableTransportationDetails {
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableTransportationNumber {
         /**
-          * appearance of the Transportation number display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableTransportationTime {
         /**
-          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableTransportationWalk {
         /**
-          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableTravelHints {
         /**
-          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
@@ -1251,11 +1252,11 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableButton {
         /**
-          * appearance of the Timetable Button, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
         /**
-          * If appearance is set to cus-him or walk, we need to pass on a config to popultate the nested web component.
+          * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
          */
         "config"?: string;
         /**
@@ -1273,49 +1274,49 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableCusHim {
         /**
-          * appearance of the Cus Him display, can either be an icon only list appearance or a single icon with text
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableDuration {
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableOccupancy {
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableParkAndRail {
         /**
-          * appearance of the Park & Ride display, (currently only 'first-level').
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetablePlatform {
         /**
-          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableRow {
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
@@ -1328,15 +1329,17 @@ declare namespace LocalJSX {
           * Set to true to initially show the state, which would get set by pressing the button.
          */
         "expanded"?: boolean;
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceLyneTimetableRowButtonAttributes['someInterface'];
     }
     interface LyneTimetableRowColumnHeaders {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
         "config": string;
     }
     interface LyneTimetableRowDayChange {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
         "config": string;
     }
     interface LyneTimetableRowHeader {
@@ -1344,47 +1347,47 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableTransportationDetails {
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableTransportationNumber {
         /**
-          * appearance of the Transportation number display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableTransportationTime {
         /**
-          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableTransportationWalk {
         /**
-          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the transportations number cell. Format: {  "direction": "Richtung Bern Wankdorf, Bahnhof",  "meansOfTransport": {    "picto": "<svg width=\"24\" height=\"24\"...></svg>",    "text": "Bus"  },  "product":{    "icon": "",    "text":"B 20"  } }
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
     interface LyneTimetableTravelHints {
         /**
-          * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
+          * Set the desired appearance of the module.
          */
         "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
         /**
-          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
