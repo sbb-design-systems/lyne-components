@@ -14,6 +14,13 @@ export const i18nAttention: any = {
   it: 'Attenzione'
 };
 
+export const i18nAvailableAtDepartingStation: any = {
+  de: 'am Abfahrtsbahnhof verfügbar.',
+  en: 'available at departure station.',
+  fr: 'disponible à la gare de départ.',
+  it: 'disponibile alla stazione di partenza.'
+};
+
 export const i18nClass: any = {
   first: {
     de: 'Erste Klasse',
@@ -29,7 +36,7 @@ export const i18nClass: any = {
   }
 };
 
-export const i18nConnetionsDepartOn: any = {
+export const i18nConnectionsDepartOn: any = {
   de: 'Abfahrten am',
   en: 'Departures on',
   fr: 'Départs le',
@@ -305,6 +312,13 @@ export const i18nWalkingDistanceDeparture: any = {
   en: 'minutes of walking time before departure.',
   fr: 'minutes trajet à pied avant le départ.',
   it: 'minuti a piedi prima della partenza.'
+};
+
+export const i18nWalkingDistanceToDepartureStation: any = {
+  de: 'Fussweg zum Abfahrtsbahnhof.',
+  en: 'of walking distance to departing station.',
+  fr: 'de distance à pied de la gare de départ.',
+  it: 'di distanza a piedi dalla stazione di partenza.'
 };
 
 /* eslint-enable sort-keys */

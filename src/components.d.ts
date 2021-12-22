@@ -20,6 +20,7 @@ import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
+import { InterfaceLyneTimetableParkAndRailAttributes } from "./components/lyne-timetable-park-and-rail/lyne-timetable-park-and-rail.custom.d";
 import { InterfaceLyneTimetablePlatformAttributes } from "./components/lyne-timetable-platform/lyne-timetable-platform.custom.d";
 import { InterfaceLyneTimetableRowButtonAttributes } from "./components/lyne-timetable-row-button/lyne-timetable-row-button.custom.d";
 import { InterfaceLyneTimetableTransportationNumberAttributes } from "./components/lyne-timetable-transportation-number/lyne-timetable-transportation-number.custom.d";
@@ -477,6 +478,16 @@ export namespace Components {
          */
         "config": string;
     }
+    interface LyneTimetableParkAndRail {
+        /**
+          * appearance of the Park & Ride display, (currently only 'first-level').
+         */
+        "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
+        /**
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+         */
+        "config": string;
+    }
     interface LyneTimetablePlatform {
         /**
           * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
@@ -716,6 +727,12 @@ declare global {
         prototype: HTMLLyneTimetableOccupancyElement;
         new (): HTMLLyneTimetableOccupancyElement;
     };
+    interface HTMLLyneTimetableParkAndRailElement extends Components.LyneTimetableParkAndRail, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableParkAndRailElement: {
+        prototype: HTMLLyneTimetableParkAndRailElement;
+        new (): HTMLLyneTimetableParkAndRailElement;
+    };
     interface HTMLLyneTimetablePlatformElement extends Components.LyneTimetablePlatform, HTMLStencilElement {
     }
     var HTMLLyneTimetablePlatformElement: {
@@ -810,6 +827,7 @@ declare global {
         "lyne-timetable-cus-him": HTMLLyneTimetableCusHimElement;
         "lyne-timetable-duration": HTMLLyneTimetableDurationElement;
         "lyne-timetable-occupancy": HTMLLyneTimetableOccupancyElement;
+        "lyne-timetable-park-and-rail": HTMLLyneTimetableParkAndRailElement;
         "lyne-timetable-platform": HTMLLyneTimetablePlatformElement;
         "lyne-timetable-row": HTMLLyneTimetableRowElement;
         "lyne-timetable-row-button": HTMLLyneTimetableRowButtonElement;
@@ -1275,6 +1293,16 @@ declare namespace LocalJSX {
          */
         "config": string;
     }
+    interface LyneTimetableParkAndRail {
+        /**
+          * appearance of the Park & Ride display, (currently only 'first-level').
+         */
+        "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
+        /**
+          * Stringified JSON to define the different outputs of the occupancy predicition cell. Format: occupancyItems: [ {    class: '1',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'low' }, {    class: '2',    icon: "<svg width="19" height="16"...></svg>",,    occupancy: 'medium'  } ]
+         */
+        "config": string;
+    }
     interface LyneTimetablePlatform {
         /**
           * appearance of the Travel Hints display, can either be used on level 1 or level 2 of the timetable
@@ -1408,6 +1436,7 @@ declare namespace LocalJSX {
         "lyne-timetable-cus-him": LyneTimetableCusHim;
         "lyne-timetable-duration": LyneTimetableDuration;
         "lyne-timetable-occupancy": LyneTimetableOccupancy;
+        "lyne-timetable-park-and-rail": LyneTimetableParkAndRail;
         "lyne-timetable-platform": LyneTimetablePlatform;
         "lyne-timetable-row": LyneTimetableRow;
         "lyne-timetable-row-button": LyneTimetableRowButton;
@@ -1447,6 +1476,7 @@ declare module "@stencil/core" {
             "lyne-timetable-cus-him": LocalJSX.LyneTimetableCusHim & JSXBase.HTMLAttributes<HTMLLyneTimetableCusHimElement>;
             "lyne-timetable-duration": LocalJSX.LyneTimetableDuration & JSXBase.HTMLAttributes<HTMLLyneTimetableDurationElement>;
             "lyne-timetable-occupancy": LocalJSX.LyneTimetableOccupancy & JSXBase.HTMLAttributes<HTMLLyneTimetableOccupancyElement>;
+            "lyne-timetable-park-and-rail": LocalJSX.LyneTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLLyneTimetableParkAndRailElement>;
             "lyne-timetable-platform": LocalJSX.LyneTimetablePlatform & JSXBase.HTMLAttributes<HTMLLyneTimetablePlatformElement>;
             "lyne-timetable-row": LocalJSX.LyneTimetableRow & JSXBase.HTMLAttributes<HTMLLyneTimetableRowElement>;
             "lyne-timetable-row-button": LocalJSX.LyneTimetableRowButton & JSXBase.HTMLAttributes<HTMLLyneTimetableRowButtonElement>;

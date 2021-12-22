@@ -8,7 +8,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 
 import {
   i18nAttention,
-  i18nConnetionsDepartOn,
+  i18nConnectionsDepartOn,
   i18nDayChange
 } from '../../global/i18n';
 
@@ -44,7 +44,7 @@ export class LyneTimetableRowDayChange {
       visuallyHiddenClass = ' day-change--visually-hidden';
     }
 
-    const departsOn = `${i18nConnetionsDepartOn[this._currentLanguage]} `;
+    const departsOn = `${i18nConnectionsDepartOn[this._currentLanguage]} `;
 
     const visualText = `${config.day}, ${config.date}`;
     const a11yLabel = `${dayChange}${attention}${departsOn}${config.day}, ${config.date}`;

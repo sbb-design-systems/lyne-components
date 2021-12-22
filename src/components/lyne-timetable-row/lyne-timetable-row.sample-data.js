@@ -1,6 +1,7 @@
 import cusHimData from '../lyne-timetable-cus-him/lyne-timetable-cus-him.sample-data';
 import durationData from '../lyne-timetable-duration/lyne-timetable-duration.sample-data';
 import occupancyItemsData from '../lyne-timetable-occupancy/lyne-timetable-occupancy.sample-data';
+import parkAndRailData from '../lyne-timetable-park-and-rail/lyne-timetable-park-and-rail.sample-data';
 import pearlChainData from '../lyne-pearl-chain/lyne-pearl-chain.sample-data';
 import platformData from '../lyne-timetable-platform/lyne-timetable-platform.sample-data';
 import rowHeaderData from '../lyne-timetable-row-header/lyne-timetable-row-header.sample-data';
@@ -25,6 +26,7 @@ export default [
     },
     duration: durationData[0],
     occupancy: occupancyItemsData[3],
+    parkAndRail: parkAndRailData[0],
     platform: platformData[0],
     rowHeader: rowHeaderData[0],
     travelHints: travelHintsData[0]
@@ -44,6 +46,7 @@ export default [
     },
     duration: durationData[1],
     occupancy: occupancyItemsData[5],
+    parkAndRail: parkAndRailData[0],
     platform: platformData[1],
     rowHeader: rowHeaderData[1],
     travelHints: travelHintsData[0]
@@ -65,6 +68,7 @@ export default [
     },
     duration: durationData[1],
     occupancy: occupancyItemsData[5],
+    parkAndRail: parkAndRailData[0],
     platform: platformData[1],
     rowHeader: rowHeaderData[1],
     travelHints: travelHintsData[1]
@@ -84,6 +88,7 @@ export default [
     },
     duration: durationData[1],
     occupancy: occupancyItemsData[5],
+    parkAndRail: parkAndRailData[0],
     platform: platformData[1],
     rowHeader: rowHeaderData[1],
     travelHints: travelHintsData[1]
