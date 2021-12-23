@@ -22,7 +22,7 @@ describe('lyne-timetable-row-day-change', () => {
           <mock:shadow-root>
             <div
                 class="day-change"
-                colspan="7"
+                colspan="9"
                 role="gridcell"
             >
                 <h2 class="day-change__text">
