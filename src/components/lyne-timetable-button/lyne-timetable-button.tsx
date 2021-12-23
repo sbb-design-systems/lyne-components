@@ -187,7 +187,6 @@ export class LyneTimetableButton {
 
     return (
       <button
-        aria-expanded='false'
         class={`button${appearanceClass}`}
         dir={currentWritingMode}
         onClick={this._clickHandler}

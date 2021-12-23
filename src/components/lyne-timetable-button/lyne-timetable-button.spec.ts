@@ -7,15 +7,14 @@ describe('lyne-timetable-button', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableButton],
-      html: '<lyne-timetable-button expanded="false"/>'
+      html: '<lyne-timetable-button/>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-button expanded="false">
+        <lyne-timetable-button>
           <mock:shadow-root>
             <button
-                aria-expanded='false'
                 class="button button--earlier-connections"
                 dir="ltr"
                 type="button"
