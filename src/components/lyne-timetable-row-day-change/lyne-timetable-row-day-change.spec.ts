@@ -16,7 +16,7 @@ describe('lyne-timetable-row-day-change', () => {
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-row-day-change
-            config="{&quot;colSpan&quot;:7,&quot;date&quot;:&quot;02.12.2021&quot;,&quot;day&quot;:&quot;Thursday&quot;,&quot;dayChange&quot;:false,&quot;hidden&quot;:false}"
+            config="{&quot;colSpan&quot;:9,&quot;date&quot;:&quot;02.12.2021&quot;,&quot;day&quot;:&quot;Thursday&quot;,&quot;dayChange&quot;:false,&quot;hidden&quot;:false}"
             role="gridcell"
         >
           <mock:shadow-root>
