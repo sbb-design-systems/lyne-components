@@ -37,7 +37,10 @@
 
   @include ifForcedColors() {
     background-color: Canvas;
+    border: pxToRem(1) solid Highlight;
+    border-block-start: none;
   }
+
 }
 
 .autocomplete-list__list--visible {
