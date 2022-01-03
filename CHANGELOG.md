@@ -1,3 +1,31 @@
+## [9.69.2](https://github.com/lyne-design-system/lyne-components/compare/v9.69.1...v9.69.2) (2021-12-16)
+
+
+### Bug Fixes
+
+* remove non existent html element ([1f97a75](https://github.com/lyne-design-system/lyne-components/commit/1f97a754ca6d9636615d08bf0a825ca5addebd4e))
+
+## [9.69.1](https://github.com/lyne-design-system/lyne-components/compare/v9.69.0...v9.69.1) (2021-12-13)
+
+
+### Bug Fixes
+
+* setting lockfileVersion back to 1 ([41afa60](https://github.com/lyne-design-system/lyne-components/commit/41afa60035167379495170879c1032b6f9b0c539))
+
+# [9.69.0](https://github.com/lyne-design-system/lyne-components/compare/v9.68.2...v9.69.0) (2021-12-13)
+
+
+### Features
+
+* new icons for sbb immobilien (triggered from Figma) (triggered from icons build) [skip ci] ([820c1f2](https://github.com/lyne-design-system/lyne-components/commit/820c1f2d2e04d802817725c753e4fbd6ca4f747d))
+
+## [9.68.2](https://github.com/lyne-design-system/lyne-components/compare/v9.68.1...v9.68.2) (2021-12-02)
+
+
+### Bug Fixes
+
+* fixing max-width mediaqueries ([57f54e2](https://github.com/lyne-design-system/lyne-components/commit/57f54e2ce2e5c2536d92bdc16577fc53581969c2))
+
 ## [9.68.1](https://github.com/lyne-design-system/lyne-components/compare/v9.68.0...v9.68.1) (2021-11-26)
 
 
