@@ -38,10 +38,10 @@
   @include ifForcedColors() {
     background-color: Highlight;
     color: HighlightText;
-  }
 
-  span {
-    background-color: Highlight;
+    span {
+      background-color: Highlight;
+    }
   }
 
 }
