@@ -14,7 +14,7 @@ import {
 import events from './lyne-autocomplete-list.events';
 import autocompleteEvents from '../lyne-autocomplete/lyne-autocomplete.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import itemsDataHelper from './lyne-autocomplete-list.helper';
+import itemsDataHelper from '../lyne-autocomplete/lyne-autocomplete.helper';
 
 @Component({
   shadow: true,
