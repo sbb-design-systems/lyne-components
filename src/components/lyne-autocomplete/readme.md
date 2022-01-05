@@ -17,7 +17,7 @@
 | `inputLabelVisible`       | `input-label-visible`    | Determine if the input label should be visible. See lyne-text-input for details.                                                                                  | `boolean` | `undefined`           |
 | `inputName` _(required)_  | `input-name`             | Name attribute for the input element. See lyne-text-input for details.                                                                                            | `string`  | `undefined`           |
 | `inputPlaceholder`        | `input-placeholder`      | Placeholder attribute for the input element. See lyne-text-input for details.                                                                                     | `string`  | `undefined`           |
-| `items` _(required)_      | `items`                  | Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value. | `string`  | `undefined`           |
+| `items`                   | `items`                  | Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value. | `string`  | `undefined`           |
 | `value`                   | `value`                  | The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.                               | `string`  | `undefined`           |
 
 
