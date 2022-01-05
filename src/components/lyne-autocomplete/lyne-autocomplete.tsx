@@ -9,6 +9,7 @@ import {
 import events from './lyne-autocomplete.events';
 import inputEvents from '../lyne-text-input/lyne-text-input.events';
 import listEvents from '../lyne-autocomplete-list/lyne-autocomplete-list.events';
+import itemsDataHelper from './lyne-autocomplete.helper';
 
 @Component({
   shadow: true,
@@ -26,7 +27,7 @@ export class LyneAutocomplete {
    * array of objects, containing the `text` key for each object with an
    * appropriate value.
    */
-  @Prop() public items!: string;
+  @Prop() public items?: string;
 
   /**
    * The value to use as default value for the input. The input value or the
@@ -133,15 +134,26 @@ export class LyneAutocomplete {
   };
 
   private _handleFocus = (): void => {
-    this._isVisible = true;
+    this._showAutocompleteList();
     this._selectInputText();
   };
 
   private _handleInput = (evt): void => {
     this._inputValue = evt.detail.value;
     this.value = evt.detail.value;
-    this._isVisible = true;
+    this._showAutocompleteList();
+  };
 
+  private _showAutocompleteList = (): void => {
+    const items = itemsDataHelper(this.items);
+
+    if (items.length > 0) {
+      this._isVisible = true;
+
+      return;
+    }
+
+    this._isVisible = false;
   };
 
   private _handleBlur = (): void => {
