@@ -93,6 +93,10 @@ export namespace Components {
          */
         "items"?: string;
         /**
+          * Define how many chars a user must type into the input field for the autocomplete list to show up.
+         */
+        "minChars"?: number;
+        /**
           * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
          */
         "value"?: string;
@@ -786,6 +790,10 @@ declare namespace LocalJSX {
           * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
          */
         "items"?: string;
+        /**
+          * Define how many chars a user must type into the input field for the autocomplete list to show up.
+         */
+        "minChars"?: number;
         /**
           * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
          */
