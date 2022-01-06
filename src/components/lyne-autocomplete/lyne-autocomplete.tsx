@@ -84,6 +84,12 @@ export class LyneAutocomplete {
    */
   @Prop() public inputLabelVisible?: boolean;
 
+  /**
+   * Define how many chars a user must type into the input field
+   * for the autocomplete list to show up.
+   */
+  @Prop() public minChars? = 0;
+
   @State() private _inputValue: string;
   @State() private _isVisible = false;
 
@@ -147,13 +153,28 @@ export class LyneAutocomplete {
   private _showAutocompleteList = (): void => {
     const items = itemsDataHelper(this.items);
 
-    if (items.length > 0) {
+    // ... if we don't have any autocomplete items.
+    if (items.length < 1) {
+      this._isVisible = false;
+
+      return;
+    }
+
+    // ... if we don't have an input value, but minChars set to 0.
+    if (!this._inputValue && this.minChars < 1) {
       this._isVisible = true;
 
       return;
     }
 
-    this._isVisible = false;
+    // ... if we don't have a value or input is smaller than minChars.
+    if (!this._inputValue || this._inputValue.length < this.minChars) {
+      this._isVisible = false;
+
+      return;
+    }
+
+    this._isVisible = true;
   };
 
   private _handleBlur = (): void => {
