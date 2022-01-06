@@ -100,6 +100,15 @@ const inputLabelVisible = {
   }
 };
 
+const minChars = {
+  control: {
+    type: 'number'
+  },
+  table: {
+    category: 'Autocomplete'
+  }
+};
+
 const defaultArgTypes = {
   'autocomplete-id': autocompleteId,
   'event-id': eventId,
@@ -110,6 +119,7 @@ const defaultArgTypes = {
   'input-name': inputName,
   'input-placeholder': inputPlaceholder,
   items,
+  'min-chars': minChars,
   value
 };
 
@@ -123,7 +133,8 @@ const defaultArgs = {
   'input-label-visible': true,
   'input-name': 'sample-name',
   'input-placeholder': 'sample placeholder',
-  'items': sampleData
+  'items': sampleData,
+  'min-chars': 0
 };
 
 // ---- Stories
