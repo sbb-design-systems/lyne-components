@@ -112,9 +112,9 @@ export const i18nDistanceMeter: any = {
 export const i18nDurationSecond: any = {
   single: {
     long: {
-      de: 'Sekunden',
-      en: 'Empty field',
-      fr: 'Videz le champ',
+      de: 'Sekunde',
+      en: 'Second',
+      fr: 'Seconde',
       it: 'Seconda'
     },
     short: {
@@ -126,8 +126,8 @@ export const i18nDurationSecond: any = {
   },
   multiple: {
     long: {
-      de: 'Sekunde',
-      en: 'Second',
+      de: 'Sekunden',
+      en: 'Seconds',
       fr: 'Secondes',
       it: 'Secondi'
     },

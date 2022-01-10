@@ -11,7 +11,7 @@
 }
 
 .park-and-rail__icon svg {
-  float: left;
+  float: inline-start;
   height: pxToRem(var(--park-and-rail-icon-height));
   width: pxToRem(var(--park-and-rail-icon-width));
 

@@ -37,7 +37,7 @@
 }
 
 .occupancy__icon svg {
-  float: left;
+  float: inline-start;
   height: pxToRem(var(--occupancy-icon-height));
   width: pxToRem(var(--occupancy-icon-width));
   fill: currentColor;

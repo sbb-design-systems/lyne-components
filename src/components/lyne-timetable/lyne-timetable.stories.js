@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import rowButtonEvents from '../lyne-timetable-row-button/lyne-timetable-row-button.events.ts';
+import timeTableButtonEvents from '../lyne-timetable-button/lyne-timetable-button.events.ts';
 
 import sampleData from './lyne-timetable.sample-data';
 
@@ -48,7 +49,10 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [rowButtonEvents.click]
+      handles: [
+        rowButtonEvents.click,
+        timeTableButtonEvents.click
+      ]
     },
     docs: {
       extractComponentDescription: () => readme

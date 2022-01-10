@@ -2,7 +2,7 @@
   // Grab css vars defined by `lyne-design-tokens` npm package
   @extend %lyne-design-tokens-css-variables;
 
-  --lyne-font-default-color: var(--color-black-default);
+  --lyne-font-default-color: var(--color-charcoal-default);
 
   --lyne-font-size-title-1: var(--typo-scale-2-5x);
   --lyne-font-size-title-2: var(--typo-scale-2x);
