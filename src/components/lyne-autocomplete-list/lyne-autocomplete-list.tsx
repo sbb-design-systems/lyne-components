@@ -64,12 +64,19 @@ export class LyneAutocompleteList {
   private _currentLanguage = getDocumentLang();
   private _dataItems!: [any];
 
+  private _initialValue = '';
+
   /**
    * ---------
    * key handling
    * ---------
    */
   private _handleArrowKeys = (key): void => {
+
+    if (!this.visible) {
+      this._initialValue = this.highlight;
+    }
+
     this.visible = true;
 
     const isDownKey = key === 'ArrowDown';
@@ -88,6 +95,9 @@ export class LyneAutocompleteList {
       }
     }
 
+    const value = this._dataItems[this._selectedAutocompleteItemIndex].text;
+    this._propagateSelection(value, false);
+
     const selectedElement = this._list.children[this._selectedAutocompleteItemIndex];
 
     selectedElement.scrollIntoView({
@@ -98,15 +108,15 @@ export class LyneAutocompleteList {
   };
 
   private _handleEscapeKey = (): void => {
+    const value = this._initialValue;
+    this._propagateSelection(value, true);
     this.visible = false;
   };
 
   private _handleEnterKey = (): void => {
     const value = this._dataItems[this._selectedAutocompleteItemIndex].text;
-
-    this._propagateSelection(value);
+    this._propagateSelection(value, true);
     this.visible = false;
-
   };
 
   private _handleKeyPress = (evt: CustomEvent): void => {
@@ -134,11 +144,14 @@ export class LyneAutocompleteList {
    * outside communication
    * ---------
    */
-  private _propagateSelection = (value: string): void => {
+  private _propagateSelection = (value: string, hide: boolean): void => {
     const event = new CustomEvent(events.selected, {
       bubbles: false,
       composed: true,
-      detail: value
+      detail: {
+        value,
+        hide
+      }
     });
 
     /**
@@ -175,7 +188,7 @@ export class LyneAutocompleteList {
 
     const value = firstElement.innerText;
 
-    this._propagateSelection(value);
+    this._propagateSelection(value, true);
     this.visible = false;
 
     this._setInputFocus();
@@ -213,6 +226,7 @@ export class LyneAutocompleteList {
   };
 
   private _a11yHelpText = (): string => {
+
     let a11yHintText = '';
 
     if (this.visible) {
@@ -241,6 +255,9 @@ export class LyneAutocompleteList {
   }
 
   public render(): JSX.Element {
+
+    console.log('this.visible ' + this.visible);
+
     this._dataItems = itemsDataHelper(this.items);
 
     return (

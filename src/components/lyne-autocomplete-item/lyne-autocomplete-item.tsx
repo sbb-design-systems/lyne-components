@@ -105,7 +105,7 @@ export class LyneAutocompleteItem {
       : '';
 
     mainClasses += textMarkup.pre || textMarkup.post
-      ? ' autocomplete-item--has-hightlight'
+      ? ' autocomplete-item--has-highlight'
       : '';
 
     const itemClasses = textMarkup.pre || textMarkup.post

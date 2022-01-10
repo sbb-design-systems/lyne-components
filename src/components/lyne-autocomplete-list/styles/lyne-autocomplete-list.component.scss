@@ -10,10 +10,11 @@
 .autocomplete-list__list {
   @include listReset;
 
-  cursor:default;
+  cursor: default;
   position: absolute;
   display: none;
   overflow-y: scroll;
+  overflow-behavior: contain;
   top: calc(100% - #{pxToRem(var(--input-height))});
   right: 0;
   left: 0;
@@ -44,7 +45,9 @@
 }
 
 .autocomplete-list__list--visible {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem(2);
 }
 
 .autocomplete-list__accessibility-hint {

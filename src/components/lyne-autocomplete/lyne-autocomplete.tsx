@@ -147,10 +147,12 @@ export class LyneAutocomplete {
   private _handleInput = (evt): void => {
     this._inputValue = evt.detail.value;
     this.value = evt.detail.value;
+
     this._showAutocompleteList();
   };
 
   private _showAutocompleteList = (): void => {
+
     const items = itemsDataHelper(this.items);
 
     // ... if we don't have any autocomplete items.
@@ -169,6 +171,7 @@ export class LyneAutocomplete {
 
     // ... if we don't have a value or input is smaller than minChars.
     if (!this._inputValue || this._inputValue.length < this.minChars) {
+
       this._isVisible = false;
 
       return;
@@ -202,10 +205,14 @@ export class LyneAutocomplete {
   };
 
   private _handleSelected = (evt): void => {
-    const value = evt.detail;
+    const value = evt.detail.value;
 
     this.value = value;
-    this._handleBlur();
+
+    if (evt.detail.hide) {
+      this._isVisible = false;
+    }
+
   };
 
   public componentDidLoad(): void {
