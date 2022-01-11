@@ -7,18 +7,18 @@ describe('lyne-card-product', () => {
       root
     } = await newSpecPage({
       components: [LyneCardProduct],
-      html: '<lyne-card-product />'
+      html: '<lyne-card-product href-value="https://github.com/lyne-design-system/lyne-components" accessibility-label="Lyne product card" />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-card-product>
+        <lyne-card-product href-value="https://github.com/lyne-design-system/lyne-components" accessibility-label="Lyne product card">
           <mock:shadow-root>
-            <div class="card-product card-product--primary card-product--standard">
+            <a aria-label="Lyne product card. Link target opens in new window." class="card-product card-product--primary card-product--standard" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
               <div class="card-product__content">
-                <div></div>
+                <div class="card-product__inner"></div>
               </div>
-            </div>
+            </a>
           </mock:shadow-root>
         </lyne-card-product>
       `);
