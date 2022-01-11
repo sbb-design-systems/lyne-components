@@ -48,18 +48,27 @@ export class LyneAutocompleteItem {
   @Prop() public ariaSetsize?: number;
 
   private _compileTextMarkup(text: string, highlight: string): InterfaceAutocompleteItemAttributes['textStructure'] {
+    let exactMatch = false;
     const index = text.indexOf(highlight);
 
     if (index < 0) {
       return {
+        exactMatch: exactMatch,
         main: text
       };
     }
 
-    const preString: string = text.substring(0, index);
-    const postString: string = text.substring(index + highlight.length);
+    let preString: string = text.substring(0, index);
+    let postString: string = text.substring(index + highlight.length);
+
+    if (text === highlight) {
+      exactMatch = true;
+      preString = '';
+      postString = '';
+    }
 
     return {
+      exactMatch: exactMatch,
       main: highlight,
       post: postString,
       pre: preString
@@ -89,6 +98,7 @@ export class LyneAutocompleteItem {
 
   public render(): JSX.Element {
     let textMarkup: InterfaceAutocompleteItemAttributes['textStructure'] = {
+      exactMatch: false,
       main: ''
     };
 
@@ -108,7 +118,7 @@ export class LyneAutocompleteItem {
       ? ' autocomplete-item--has-highlight'
       : '';
 
-    const itemClasses = textMarkup.pre || textMarkup.post
+    const itemClasses = textMarkup.pre || textMarkup.post || textMarkup.exactMatch
       ? 'autocomplete-item__highlight'
       : '';
 

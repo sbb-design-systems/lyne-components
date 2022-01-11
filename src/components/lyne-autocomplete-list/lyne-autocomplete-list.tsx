@@ -256,8 +256,6 @@ export class LyneAutocompleteList {
 
   public render(): JSX.Element {
 
-    console.log('this.visible ' + this.visible);
-
     this._dataItems = itemsDataHelper(this.items);
 
     return (
