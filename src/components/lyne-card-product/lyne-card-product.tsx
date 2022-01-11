@@ -2,7 +2,8 @@ import {
   Component,
   Element,
   h,
-  Prop
+  Prop,
+  Watch
 } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
@@ -54,6 +55,18 @@ export class LyneCardProduct {
    * Ticket price starts at X.
    */
   @Prop() public accessibilityLabel!: string;
+
+  /**
+   * Check if accessibilityLabel is provided since it is a required prop,
+   * otherwise throw an error.
+   */
+  /* eslint-disable */
+  @Watch('accessibilityLabel')
+  validateAccessibilityLabel(newValue: string) {
+    const isBlank = typeof newValue !== 'string' || newValue === '';
+    if (isBlank) { throw new Error('accessibilityLabel: required') }
+  }
+  /* eslint-enable */
 
   /**
    * Link attributes
@@ -129,6 +142,9 @@ export class LyneCardProduct {
   private _hasActionSlot: boolean;
 
   public componentWillLoad(): void {
+    // Validate props
+    this.validateAccessibilityLabel(this.accessibilityLabel);
+    // Check slots
     this._hasIconSlot = Boolean(this._hostElement.querySelector('[slot="icon"]'));
     this._hasCategorySlot = Boolean(this._hostElement.querySelector('[slot="category"]'));
     this._hasTitleSlot = Boolean(this._hostElement.querySelector('[slot="title"]'));
