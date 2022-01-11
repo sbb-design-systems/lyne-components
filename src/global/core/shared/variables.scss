@@ -4,16 +4,20 @@
 
   --lyne-font-default-color: var(--color-black-default);
 
-  --lyne-font-size-title-1: var(--typo-scale-2-5x);
-  --lyne-font-size-title-2: var(--typo-scale-2x);
-  --lyne-font-size-title-3: var(--typo-scale-1-5x);
-  --lyne-font-size-title-4: var(--typo-scale-1-25x);
-  --lyne-font-size-title-5: var(--typo-scale-default);
-  --lyne-font-size-title-6: var(--typo-scale-0-875x);
-  --lyne-font-size-text-xl: var(--typo-scale-1-25x);
-  --lyne-font-size-text-m: var(--typo-scale-default);
-  --lyne-font-size-text-s: var(--typo-scale-0-875x);
-  --lyne-font-size-text-xs: var(--typo-scale-0-75x);
+  //////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Responsive typography/font size
+  --lyne-font-size-title-1:   var(--typo-scale-2-5x);
+  --lyne-font-size-title-2:   var(--typo-scale-2x);
+  --lyne-font-size-title-3:   var(--typo-scale-1-5x);
+  --lyne-font-size-title-4:   var(--typo-scale-1-25x);
+  --lyne-font-size-title-5:   var(--typo-scale-default);
+  --lyne-font-size-title-6:   var(--typo-scale-0-875x);
+  --lyne-font-size-text-xl:   var(--typo-scale-1-25x);
+  --lyne-font-size-text-m:    var(--typo-scale-default);
+  --lyne-font-size-text-s:    var(--typo-scale-0-875x);
+  --lyne-font-size-text-xs:   var(--typo-scale-0-75x);
+  --lyne-font-size-text-xxs:  var(--typo-scale-0-75x);
 
   @include mq($from: small) {
     --lyne-font-size-title-1: var(--typo-scale-3x);
@@ -26,8 +30,8 @@
     --lyne-font-size-title-5: var(--typo-scale-1-25x);
     --lyne-font-size-title-6: var(--typo-scale-default);
     --lyne-font-size-text-xl: var(--typo-scale-1-5x);
-    --lyne-font-size-text-m: var(--typo-scale-1-125x);
-    --lyne-font-size-text-s: var(--typo-scale-default);
+    --lyne-font-size-text-m:  var(--typo-scale-1-125x);
+    --lyne-font-size-text-s:  var(--typo-scale-default);
     --lyne-font-size-text-xs: var(--typo-scale-0-875x);
   }
 
@@ -37,5 +41,47 @@
 
   @include mq($from: ultra) {
     --lyne-font-size-title-1: var(--typo-scale-4x);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Responsive spacing
+  --lyne-spacing-responsive-xxxs: var(--spacing-responsive-xxxs-zero);
+  --lyne-spacing-responsive-xxs:  var(--spacing-responsive-xxs-zero);
+  --lyne-spacing-responsive-xs:   var(--spacing-responsive-xs-zero);
+  --lyne-spacing-responsive-s:    var(--spacing-responsive-s-zero);
+  --lyne-spacing-responsive-m:    var(--spacing-responsive-m-zero);
+  --lyne-spacing-responsive-l:    var(--spacing-responsive-l-zero);
+  --lyne-spacing-responsive-xl:   var(--spacing-responsive-xl-zero);
+  --lyne-spacing-responsive-xxl:  var(--spacing-responsive-xxl-zero);
+
+  @include mq($from: small) {
+    --lyne-spacing-responsive-l:    var(--spacing-responsive-l-small);
+    --lyne-spacing-responsive-xl:   var(--spacing-responsive-xl-small);
+    --lyne-spacing-responsive-xxl:  var(--spacing-responsive-xxl-small);
+  }
+  @include mq($from: medium) {
+    --lyne-spacing-responsive-xxxs: var(--spacing-responsive-xxxs-medium);
+    --lyne-spacing-responsive-xxs:  var(--spacing-responsive-xxs-medium);
+    --lyne-spacing-responsive-xs:   var(--spacing-responsive-xs-medium);
+    --lyne-spacing-responsive-s:    var(--spacing-responsive-s-medium);
+    --lyne-spacing-responsive-m:    var(--spacing-responsive-m-medium);
+    --lyne-spacing-responsive-l:    var(--spacing-responsive-l-medium);
+    --lyne-spacing-responsive-xl:   var(--spacing-responsive-xl-medium);
+    --lyne-spacing-responsive-xxl:  var(--spacing-responsive-xxl-medium);
+  }
+  @include mq($from: large) {
+    --lyne-spacing-responsive-l:    var(--spacing-responsive-l-large);
+    --lyne-spacing-responsive-xl:   var(--spacing-responsive-xl-large);
+    --lyne-spacing-responsive-xxl:  var(--spacing-responsive-xxl-large);
+  }
+  @include mq($from: wide) {
+    --lyne-spacing-responsive-m:    var(--spacing-responsive-m-wide);
+
+  }
+  @include mq($from: ultra) {
+    --lyne-spacing-responsive-l:    var(--spacing-responsive-l-ultra);
+    --lyne-spacing-responsive-xl:   var(--spacing-responsive-xl-ultra);
+    --lyne-spacing-responsive-xxl:  var(--spacing-responsive-xxl-ultra);
   }
 }

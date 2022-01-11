@@ -7,7 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
+import { InterfaceCardBadgeAttributes } from "./components/lyne-card-badge/lyne-card-badge.custom";
+import { InterfaceCardProductAttributes } from "./components/lyne-card-product/lyne-card-product.custom";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
+import { InterfaceJourneyHeaderAttributes } from "./components/lyne-journey-header/lyne-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
 import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
 import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
@@ -105,6 +108,82 @@ export namespace Components {
          */
         "visualButtonOnly"?: boolean;
     }
+    interface LyneCardBadge {
+        /**
+          * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
+         */
+        "accessibilityLabel": string;
+        /**
+          * Badge appearance
+         */
+        "appearance": InterfaceCardBadgeAttributes['appearance'];
+        /**
+          * Mark as discount
+         */
+        "isDiscount"?: boolean;
+        /**
+          * Price text
+         */
+        "price"?: string;
+        /**
+          * Badge size
+         */
+        "size": InterfaceCardBadgeAttributes['size'];
+        /**
+          * From/above price text
+         */
+        "text"?: string;
+    }
+    interface LyneCardProduct {
+        /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
+         */
+        "accessibilityLabel": string;
+        /**
+          * CardProduct appearance
+         */
+        "appearance"?: InterfaceCardProductAttributes['appearance'];
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
+        /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * The href value you want to link to
+         */
+        "hrefValue"?: string;
+        /**
+          * The ID value you want to reference
+         */
+        "idValue"?: string;
+        /**
+          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
+         */
+        "isButton"?: boolean;
+        /**
+          * Set to true to get a disabled button
+         */
+        "isDisabled"?: boolean;
+        /**
+          * CardProduct layout
+         */
+        "layout"?: InterfaceCardProductAttributes['layout'];
+        /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+        /**
+          * The type attribute to use for the button
+         */
+        "type"?: InterfaceCardProductAttributes['type'];
+        /**
+          * The value attribute to use for the button
+         */
+        "value"?: string;
+    }
     interface LyneImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
@@ -184,6 +263,36 @@ export namespace Components {
           * The error message, we want to show.
          */
         "message": string;
+    }
+    interface LyneJourneyHeader {
+        /**
+          * Journey header appearance
+         */
+        "appearance"?: InterfaceJourneyHeaderAttributes['appearance'];
+        /**
+          * Destination location for the journey header
+         */
+        "destination": string;
+        /**
+          * Is the journey a round trip. If so it gets indicated through a roundtrip icon
+         */
+        "isRoundTrip"?: boolean;
+        /**
+          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
+         */
+        "journeyHeaderId"?: '';
+        /**
+          * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
+         */
+        "markup"?: InterfaceJourneyHeaderAttributes['markup'];
+        /**
+          * Origin location for the journey header
+         */
+        "origin": string;
+        /**
+          * Journey header size
+         */
+        "size"?: InterfaceJourneyHeaderAttributes['size'];
     }
     interface LyneLink {
         /**
@@ -469,6 +578,18 @@ declare global {
         prototype: HTMLLyneButtonElement;
         new (): HTMLLyneButtonElement;
     };
+    interface HTMLLyneCardBadgeElement extends Components.LyneCardBadge, HTMLStencilElement {
+    }
+    var HTMLLyneCardBadgeElement: {
+        prototype: HTMLLyneCardBadgeElement;
+        new (): HTMLLyneCardBadgeElement;
+    };
+    interface HTMLLyneCardProductElement extends Components.LyneCardProduct, HTMLStencilElement {
+    }
+    var HTMLLyneCardProductElement: {
+        prototype: HTMLLyneCardProductElement;
+        new (): HTMLLyneCardProductElement;
+    };
     interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
     }
     var HTMLLyneImageElement: {
@@ -480,6 +601,12 @@ declare global {
     var HTMLLyneInputErrorElement: {
         prototype: HTMLLyneInputErrorElement;
         new (): HTMLLyneInputErrorElement;
+    };
+    interface HTMLLyneJourneyHeaderElement extends Components.LyneJourneyHeader, HTMLStencilElement {
+    }
+    var HTMLLyneJourneyHeaderElement: {
+        prototype: HTMLLyneJourneyHeaderElement;
+        new (): HTMLLyneJourneyHeaderElement;
     };
     interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
     }
@@ -557,8 +684,11 @@ declare global {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-button": HTMLLyneButtonElement;
+        "lyne-card-badge": HTMLLyneCardBadgeElement;
+        "lyne-card-product": HTMLLyneCardProductElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-input-error": HTMLLyneInputErrorElement;
+        "lyne-journey-header": HTMLLyneJourneyHeaderElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-link-list": HTMLLyneLinkListElement;
@@ -660,6 +790,82 @@ declare namespace LocalJSX {
          */
         "visualButtonOnly"?: boolean;
     }
+    interface LyneCardBadge {
+        /**
+          * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
+         */
+        "accessibilityLabel": string;
+        /**
+          * Badge appearance
+         */
+        "appearance"?: InterfaceCardBadgeAttributes['appearance'];
+        /**
+          * Mark as discount
+         */
+        "isDiscount"?: boolean;
+        /**
+          * Price text
+         */
+        "price"?: string;
+        /**
+          * Badge size
+         */
+        "size"?: InterfaceCardBadgeAttributes['size'];
+        /**
+          * From/above price text
+         */
+        "text"?: string;
+    }
+    interface LyneCardProduct {
+        /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
+         */
+        "accessibilityLabel": string;
+        /**
+          * CardProduct appearance
+         */
+        "appearance"?: InterfaceCardProductAttributes['appearance'];
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
+        /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * The href value you want to link to
+         */
+        "hrefValue"?: string;
+        /**
+          * The ID value you want to reference
+         */
+        "idValue"?: string;
+        /**
+          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
+         */
+        "isButton"?: boolean;
+        /**
+          * Set to true to get a disabled button
+         */
+        "isDisabled"?: boolean;
+        /**
+          * CardProduct layout
+         */
+        "layout"?: InterfaceCardProductAttributes['layout'];
+        /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+        /**
+          * The type attribute to use for the button
+         */
+        "type"?: InterfaceCardProductAttributes['type'];
+        /**
+          * The value attribute to use for the button
+         */
+        "value"?: string;
+    }
     interface LyneImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
@@ -739,6 +945,36 @@ declare namespace LocalJSX {
           * The error message, we want to show.
          */
         "message": string;
+    }
+    interface LyneJourneyHeader {
+        /**
+          * Journey header appearance
+         */
+        "appearance"?: InterfaceJourneyHeaderAttributes['appearance'];
+        /**
+          * Destination location for the journey header
+         */
+        "destination": string;
+        /**
+          * Is the journey a round trip. If so it gets indicated through a roundtrip icon
+         */
+        "isRoundTrip"?: boolean;
+        /**
+          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
+         */
+        "journeyHeaderId"?: '';
+        /**
+          * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
+         */
+        "markup"?: InterfaceJourneyHeaderAttributes['markup'];
+        /**
+          * Origin location for the journey header
+         */
+        "origin": string;
+        /**
+          * Journey header size
+         */
+        "size"?: InterfaceJourneyHeaderAttributes['size'];
     }
     interface LyneLink {
         /**
@@ -1008,8 +1244,11 @@ declare namespace LocalJSX {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-button": LyneButton;
+        "lyne-card-badge": LyneCardBadge;
+        "lyne-card-product": LyneCardProduct;
         "lyne-image": LyneImage;
         "lyne-input-error": LyneInputError;
+        "lyne-journey-header": LyneJourneyHeader;
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
         "lyne-link-list": LyneLinkList;
@@ -1031,8 +1270,11 @@ declare module "@stencil/core" {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
+            "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
+            "lyne-card-product": LocalJSX.LyneCardProduct & JSXBase.HTMLAttributes<HTMLLyneCardProductElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
+            "lyne-journey-header": LocalJSX.LyneJourneyHeader & JSXBase.HTMLAttributes<HTMLLyneJourneyHeaderElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
