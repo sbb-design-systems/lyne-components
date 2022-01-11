@@ -60,7 +60,6 @@ export class LyneTimetableRowDayChange {
         class={`day-change${visuallyHiddenClass}`}
         // @ts-expect-error the role makes the colspan attribute usable
         colspan={config.colSpan}
-        role='gridcell'
       >
         <h2 class='day-change__text'>
           <span

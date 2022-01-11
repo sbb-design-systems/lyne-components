@@ -22,7 +22,6 @@ describe('lyne-timetable-row-day-change', () => {
             <div
                 class="day-change"
                 colspan="9"
-                role="gridcell"
             >
                 <h2 class="day-change__text">
                     <span

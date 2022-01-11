@@ -9,12 +9,6 @@ const Template = (args) => (
   </lyne-timetable-occupancy>
 );
 
-const gridCellRole = {
-  control: {
-    type: 'boolean'
-  }
-};
-
 const config = {
   table: {
     disable: false

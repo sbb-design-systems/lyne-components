@@ -37,7 +37,6 @@ export const currentDayVisible = Template.bind({});
 
 currentDayVisible.argTypes = defaultArgTypes;
 currentDayVisible.args = {
-  ...defaultArgs,
   config: sampleData[1]
 };
 

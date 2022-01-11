@@ -124,7 +124,7 @@ export class LyneTimetableCusHim {
     return (
       <div class={`cus-him${appearanceClass}`}>
         {
-          cusHimItems.length > 0
+          cusHimItems && cusHimItems.length > 0
             ? this._renderAppearance(cusHimItems)
             : <span class='cus-him__text--visually-hidden'>{a11yLabel}</span>
         }

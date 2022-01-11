@@ -5,11 +5,6 @@ import sampleData from './lyne-timetable-duration.sample-data';
 const Template = (args) => (
   <lyne-timetable-duration
     config={JSON.stringify(args.config)}
-    role={
-      args.gridCellRole
-        ? 'gridcell'
-        : 'none'
-    }
   >
   </lyne-timetable-duration>
 );

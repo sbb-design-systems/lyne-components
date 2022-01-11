@@ -187,7 +187,7 @@ export class LyneTimetableButton {
 
     return (
       <button
-        class={`button${appearanceClass}`}
+        class={`button button${appearanceClass}`}
         dir={currentWritingMode}
         onClick={this._clickHandler}
         ref={(el): void => {
