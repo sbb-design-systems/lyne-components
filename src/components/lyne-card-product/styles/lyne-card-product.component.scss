@@ -37,6 +37,10 @@
   padding-inline-end: pxToRem(var(--slot-icon-spacing-inline));
 }
 
+::slotted( [slot="icon"] ) {
+  display: flex;
+}
+
 .card-product__content {
   display: flex;
   align-items: center;
@@ -65,7 +69,7 @@
   }
 
   .card-product__icon {
-    display: block;
+    display: flex;
   }
 
   .card-product__action {
