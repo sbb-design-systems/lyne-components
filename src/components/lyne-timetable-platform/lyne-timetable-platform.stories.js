@@ -27,12 +27,6 @@ const config = {
   }
 };
 
-const gridCellRole = {
-  control: {
-    type: 'boolean'
-  }
-};
-
 const defaultArgTypes = {
   appearance,
   config
@@ -63,8 +57,7 @@ LyneTimetableArrivalPlatformSecondLevel.argTypes = defaultArgTypes;
 LyneTimetableArrivalPlatformSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
-  config: sampleData[0],
-  gridCellRole: false
+  config: sampleData[0]
 };
 
 LyneTimetableArrivalPlatformSecondLevel.documentation = {
@@ -77,8 +70,7 @@ LyneTimetableDeparturePlatformSecondLevel.argTypes = defaultArgTypes;
 LyneTimetableDeparturePlatformSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[2],
-  config: sampleData[0],
-  gridCellRole: false
+  config: sampleData[0]
 };
 
 LyneTimetableDeparturePlatformSecondLevel.documentation = {
