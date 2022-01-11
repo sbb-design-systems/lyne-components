@@ -55,72 +55,104 @@
 
 // Card sizing
 @mixin card--xs {
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-left');
   --card-padding-top: #{pxToRem(var(--spacing-fixed-3x))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-3x))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-3))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  // @include spacing-responsive-xxs('--card-padding-right');
+  // @include spacing-responsive-xxs('--card-padding-left');
+  // --card-padding-top: #{pxToRem(var(--spacing-fixed-3x))};
+  // --card-padding-bottom: #{pxToRem(var(--spacing-fixed-3x))};
 }
 
 @mixin card--s {
-  @include spacing-responsive-xxxs('--card-padding-top');
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxxs('--card-padding-bottom');
-  @include spacing-responsive-xxs('--card-padding-left');
+  --card-padding-top: #{pxToRem(var(--lyne-spacing-responsive-xxxs))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-bottom: #{pxToRem(var(--lyne-spacing-responsive-xxxs))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  // @include spacing-responsive-xxxs('--card-padding-top');
+  // @include spacing-responsive-xxs('--card-padding-right');
+  // @include spacing-responsive-xxxs('--card-padding-bottom');
+  // @include spacing-responsive-xxs('--card-padding-left');
 }
 
 @mixin card--m {
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-left');
   --card-padding-top: #{pxToRem(var(--spacing-fixed-4x))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
   --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  // @include spacing-responsive-xxs('--card-padding-right');
+  // @include spacing-responsive-xxs('--card-padding-left');
+  // --card-padding-top: #{pxToRem(var(--spacing-fixed-4x))};
+  // --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
 }
 
 @mixin card--m--tall {
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-left');
   --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
   --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  // @include spacing-responsive-xxs('--card-padding-right');
+  // @include spacing-responsive-xxs('--card-padding-left');
+  // --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+  // --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
 }
 
 @mixin card--l {
-  @include spacing-responsive-xxs('--card-padding-top');
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
-  @include spacing-responsive-xxs('--card-padding-left');
+  --card-padding-top: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-bottom: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  // @include spacing-responsive-xxs('--card-padding-top');
+  // @include spacing-responsive-xxs('--card-padding-right');
+  // @include spacing-responsive-xxs('--card-padding-bottom');
+  // @include spacing-responsive-xxs('--card-padding-left');
 }
 
 @mixin card--l--tall  {
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
-  @include spacing-responsive-xxs('--card-padding-left');
   --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-bottom: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  // @include spacing-responsive-xxs('--card-padding-right');
+  // @include spacing-responsive-xxs('--card-padding-bottom');
+  // @include spacing-responsive-xxs('--card-padding-left');
+  // --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
 }
 
 @mixin card--xl {
-  @include spacing-responsive-xxs('--card-padding-top');
-  @include spacing-responsive-s('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
-  @include spacing-responsive-s('--card-padding-left');
+  --card-padding-top: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-s))};
+  --card-padding-bottom: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-s))};
+  // @include spacing-responsive-xxs('--card-padding-top');
+  // @include spacing-responsive-s('--card-padding-right');
+  // @include spacing-responsive-xxs('--card-padding-bottom');
+  // @include spacing-responsive-s('--card-padding-left');
 }
 
 @mixin card--xl--tall {
-  @include spacing-responsive-s('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
-  @include spacing-responsive-s('--card-padding-left');
   --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-s))};
+  --card-padding-bottom: #{pxToRem(var(--lyne-spacing-responsive-xxs))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-s))};
+  // @include spacing-responsive-s('--card-padding-right');
+  // @include spacing-responsive-xxs('--card-padding-bottom');
+  // @include spacing-responsive-s('--card-padding-left');
+  // --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
 }
 
 @mixin card--xxl {
-  @include spacing-responsive-s('--card-padding-top');
-  @include spacing-responsive-s('--card-padding-right');
-  @include spacing-responsive-s('--card-padding-bottom');
-  @include spacing-responsive-s('--card-padding-left');
-}
-
-@mixin card--xxl--tall {
-  @include card--xxl;
+  --card-padding-top: #{pxToRem(var(--lyne-spacing-responsive-s))};
+  --card-padding-right: #{pxToRem(var(--lyne-spacing-responsive-s))};
+  --card-padding-bottom: #{pxToRem(var(--lyne-spacing-responsive-s))};
+  --card-padding-left: #{pxToRem(var(--lyne-spacing-responsive-s))};
   // @include spacing-responsive-s('--card-padding-top');
   // @include spacing-responsive-s('--card-padding-right');
   // @include spacing-responsive-s('--card-padding-bottom');
   // @include spacing-responsive-s('--card-padding-left');
+}
+
+@mixin card--xxl--tall {
+  @include card--xxl;
 }
