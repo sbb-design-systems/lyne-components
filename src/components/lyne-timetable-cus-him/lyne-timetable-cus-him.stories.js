@@ -6,11 +6,6 @@ const Template = (args) => (
   <lyne-timetable-cus-him
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
-    role={
-      args.gridCellRole
-        ? 'gridcell'
-        : 'none'
-    }
   >
   </lyne-timetable-cus-him>
 );
@@ -33,21 +28,13 @@ const config = {
   }
 };
 
-const gridCellRole = {
-  control: {
-    type: 'boolean'
-  }
-};
-
 const defaultArgTypes = {
   appearance,
-  config,
-  gridCellRole
+  config
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
-  gridCellRole: true
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -70,8 +57,7 @@ export const CusHimSecondLevelList = Template.bind({});
 CusHimSecondLevelList.argTypes = defaultArgTypes;
 CusHimSecondLevelList.args = {
   appearance: appearance.options[1],
-  config: sampleData[1],
-  gridCellRole: false
+  config: sampleData[1]
 };
 
 CusHimSecondLevelList.documentation = {
@@ -83,8 +69,7 @@ export const CusHimSecondLevelButton = Template.bind({});
 CusHimSecondLevelButton.argTypes = defaultArgTypes;
 CusHimSecondLevelButton.args = {
   appearance: appearance.options[2],
-  config: sampleData[2],
-  gridCellRole: false
+  config: sampleData[2]
 };
 
 CusHimSecondLevelButton.documentation = {
@@ -96,8 +81,7 @@ export const CusHimSecondLevelMessage = Template.bind({});
 CusHimSecondLevelMessage.argTypes = defaultArgTypes;
 CusHimSecondLevelMessage.args = {
   appearance: appearance.options[3],
-  config: sampleData[2],
-  gridCellRole: false
+  config: sampleData[2]
 };
 
 CusHimSecondLevelMessage.documentation = {
@@ -115,5 +99,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-cus-him'
+  title: 'Internals/lyne-timetable-cus-him'
 };

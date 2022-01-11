@@ -23,7 +23,7 @@ export class LyneTimetablePlatform {
 
   /**
    * Set the desired appearance of
-   * the module.
+   * the component.
    */
   @Prop() public appearance?: InterfaceLyneTimetablePlatformAttributes['appearance'] = 'first-level';
 

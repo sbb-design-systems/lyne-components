@@ -24,7 +24,7 @@ export class LyneTimetableTravelHints {
 
   /**
    * Set the desired appearance of
-   * the module.
+   * the component.
    */
   @Prop() public appearance?: InterfaceLyneTimetableTravelHintsAttributes['appearance'] = 'first-level-list';
 

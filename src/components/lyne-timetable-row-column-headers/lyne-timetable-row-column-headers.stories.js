@@ -6,7 +6,6 @@ import sampleData from './lyne-timetable-row-column-headers.sample-data';
 const Template = (args) => (
   <lyne-timetable-row-column-headers
     config={JSON.stringify(args.config)}
-    role='row'
   >
   </lyne-timetable-row-column-headers>
 );
@@ -46,5 +45,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-row-column-headers'
+  title: 'Internals/lyne-timetable-row-column-headers'
 };

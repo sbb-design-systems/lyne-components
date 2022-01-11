@@ -27,12 +27,7 @@ const config = {
 };
 
 const defaultArgTypes = {
-  config,
-  gridCellRole
-};
-
-const defaultArgs = {
-  gridCellRole: true
+  config
 };
 
 /* ************************************************* */
@@ -42,7 +37,6 @@ export const MinutesOnly = Template.bind({});
 
 MinutesOnly.argTypes = defaultArgTypes;
 MinutesOnly.args = {
-  ...defaultArgs,
   config: sampleData[0]
 };
 
@@ -54,7 +48,6 @@ export const OneHourOneMinute = Template.bind({});
 
 OneHourOneMinute.argTypes = defaultArgTypes;
 OneHourOneMinute.args = {
-  ...defaultArgs,
   config: sampleData[1]
 };
 
@@ -66,7 +59,6 @@ export const HoursAndMinutes = Template.bind({});
 
 HoursAndMinutes.argTypes = defaultArgTypes;
 HoursAndMinutes.args = {
-  ...defaultArgs,
   config: sampleData[2]
 };
 
@@ -85,5 +77,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-duration'
+  title: 'Internals/lyne-timetable-duration'
 };

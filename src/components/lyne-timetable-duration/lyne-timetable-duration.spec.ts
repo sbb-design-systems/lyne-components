@@ -10,14 +10,13 @@ describe('lyne-timetable-duration', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableDuration],
-      html: `<lyne-timetable-duration config='${config}' role='gridcell' />`
+      html: `<lyne-timetable-duration config='${config}' />`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-duration
             config="{&quot;hours&quot;:0,&quot;minutes&quot;:37}"
-            role="gridcell"
         >
           <mock:shadow-root>
             <p

@@ -6,7 +6,6 @@ import sampleData from './lyne-timetable-row.sample-data';
 const Template = (args) => (
   <lyne-timetable-row
     config={JSON.stringify(args.config)}
-    role='row'
   >
   </lyne-timetable-row>
 );

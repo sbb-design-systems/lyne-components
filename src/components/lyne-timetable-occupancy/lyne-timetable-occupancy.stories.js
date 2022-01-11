@@ -5,11 +5,6 @@ import sampleData from './lyne-timetable-occupancy.sample-data';
 const Template = (args) => (
   <lyne-timetable-occupancy
     config={JSON.stringify(args.config)}
-    role={
-      args.gridCellRole
-        ? 'gridcell'
-        : 'none'
-    }
   >
   </lyne-timetable-occupancy>
 );
@@ -27,12 +22,7 @@ const config = {
 };
 
 const defaultArgTypes = {
-  config,
-  gridCellRole
-};
-
-const defaultArgs = {
-  gridCellRole: true
+  config
 };
 
 /* ************************************************* */
@@ -42,7 +32,6 @@ export const NoneNoneOccupancy = Template.bind({});
 
 NoneNoneOccupancy.argTypes = defaultArgTypes;
 NoneNoneOccupancy.args = {
-  ...defaultArgs,
   config: sampleData[0]
 };
 
@@ -54,7 +43,6 @@ export const NonLowOccupancy = Template.bind({});
 
 NonLowOccupancy.argTypes = defaultArgTypes;
 NonLowOccupancy.args = {
-  ...defaultArgs,
   config: sampleData[1]
 };
 
@@ -66,7 +54,6 @@ export const LowLowOccupancy = Template.bind({});
 
 LowLowOccupancy.argTypes = defaultArgTypes;
 LowLowOccupancy.args = {
-  ...defaultArgs,
   config: sampleData[2]
 };
 
@@ -78,7 +65,6 @@ export const LowMediumOccupancy = Template.bind({});
 
 LowMediumOccupancy.argTypes = defaultArgTypes;
 LowMediumOccupancy.args = {
-  ...defaultArgs,
   config: sampleData[3]
 };
 
@@ -90,7 +76,6 @@ export const MediumMediumOccupancy = Template.bind({});
 
 MediumMediumOccupancy.argTypes = defaultArgTypes;
 MediumMediumOccupancy.args = {
-  ...defaultArgs,
   config: sampleData[4]
 };
 
@@ -102,7 +87,6 @@ export const LowHighOccupancy = Template.bind({});
 
 LowHighOccupancy.argTypes = defaultArgTypes;
 LowHighOccupancy.args = {
-  ...defaultArgs,
   config: sampleData[5]
 };
 
@@ -114,7 +98,6 @@ export const MediumHighOccupancy = Template.bind({});
 
 MediumHighOccupancy.argTypes = defaultArgTypes;
 MediumHighOccupancy.args = {
-  ...defaultArgs,
   config: sampleData[6]
 };
 
@@ -126,7 +109,6 @@ export const HighHighOccupancy = Template.bind({});
 
 HighHighOccupancy.argTypes = defaultArgTypes;
 HighHighOccupancy.args = {
-  ...defaultArgs,
   config: sampleData[7]
 };
 
@@ -148,5 +130,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-occupancy'
+  title: 'Internals/lyne-timetable-occupancy'
 };

@@ -10,14 +10,13 @@ describe('lyne-timetable-park-and-rail', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableParkAndRail],
-      html: `<lyne-timetable-park-and-rail config='${config}' role='gridcell'/>`
+      html: `<lyne-timetable-park-and-rail config='${config}'/>`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-park-and-rail
             config="{&quot;distance&quot;:178}"
-            role="gridcell"
         >
           <mock:shadow-root>
             <div class="park-and-rail park-and-rail--first-level">

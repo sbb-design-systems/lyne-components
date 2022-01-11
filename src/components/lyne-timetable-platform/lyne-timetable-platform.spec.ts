@@ -10,14 +10,14 @@ describe('lyne-timetable-platform', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetablePlatform],
-      html: `<lyne-timetable-platform config='${config}' role='gridcell'/>`
+      html: `<lyne-timetable-platform config='${config}'/>`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-platform
             config="{&quot;platform&quot;:&quot;13A/C&quot;}"
-            role="gridcell">
+        >
           <mock:shadow-root>
             <p
                 aria-label="from platform 13A/C."

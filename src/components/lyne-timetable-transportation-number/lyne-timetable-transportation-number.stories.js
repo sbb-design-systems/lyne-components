@@ -152,5 +152,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-transportation-number'
+  title: 'Internals/lyne-timetable-transportation-number'
 };

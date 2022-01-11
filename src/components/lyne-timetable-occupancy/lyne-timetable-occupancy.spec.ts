@@ -10,14 +10,13 @@ describe('lyne-timetable-occupancy', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableOccupancy],
-      html: `<lyne-timetable-occupancy config='${config}' role='gridcell' />`
+      html: `<lyne-timetable-occupancy config='${config}' />`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-occupancy
             config="{&quot;occupancyItems&quot;:[{&quot;class&quot;:&quot;1&quot;,&quot;icon&quot;:&quot;utilization-low&quot;,&quot;occupancy&quot;:&quot;low&quot;},{&quot;class&quot;:&quot;2&quot;,&quot;icon&quot;:&quot;utilization-medium&quot;,&quot;occupancy&quot;:&quot;medium&quot;}]}"
-            role="gridcell"
         >
           <mock:shadow-root>
             <ul

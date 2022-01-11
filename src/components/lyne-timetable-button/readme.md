@@ -1,7 +1,5 @@
 # lyne-timetable-button
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -9,7 +7,7 @@
 
 | Property     | Attribute    | Description                                                                                                     | Type                                                                  | Default                 |
 | ------------ | ------------ | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------- |
-| `appearance` | `appearance` | Set the desired appearance of the module.                                                                       | `"cus-him" \| "earlier-connections" \| "later-connections" \| "walk"` | `'earlier-connections'` |
+| `appearance` | `appearance` | Set the desired appearance of the component.                                                                    | `"cus-him" \| "earlier-connections" \| "later-connections" \| "walk"` | `'earlier-connections'` |
 | `config`     | `config`     | If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component. | `string`                                                              | `undefined`             |
 | `eventId`    | `event-id`   | Id which is sent in the click event payload                                                                     | `string`                                                              | `undefined`             |
 | `expanded`   | `expanded`   | Set to true to initially show the state, which would get set by pressing the button.                            | `boolean`                                                             | `undefined`             |

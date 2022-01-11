@@ -6,11 +6,6 @@ const Template = (args) => (
   <lyne-timetable-travel-hints
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
-    role={
-      args.gridCellRole
-        ? 'gridcell'
-        : 'none'
-    }
   >
   </lyne-timetable-travel-hints>
 );
@@ -44,8 +39,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
-  gridCellRole: true
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -76,5 +70,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-travel-hints'
+  title: 'Internals/lyne-timetable-travel-hints'
 };

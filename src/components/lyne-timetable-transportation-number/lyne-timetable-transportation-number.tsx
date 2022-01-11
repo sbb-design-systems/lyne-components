@@ -20,7 +20,7 @@ export class LyneTimetableTransportationNumber {
 
   /**
    * Set the desired appearance of
-   * the module.
+   * the component.
    */
   @Prop() public appearance?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'] = 'first-level';
 

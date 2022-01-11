@@ -86,5 +86,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-transportation-walk'
+  title: 'Internals/lyne-timetable-transportation-walk'
 };

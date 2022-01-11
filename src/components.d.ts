@@ -159,7 +159,7 @@ export namespace Components {
          */
         "imageSrc"?: string;
         /**
-          * Just some example image file you can use to play around with the module.
+          * Just some example image file you can use to play around with the component.
          */
         "imageSrcExamples"?: string;
         /**
@@ -435,7 +435,7 @@ export namespace Components {
     }
     interface LyneTimetableButton {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
         /**
@@ -457,7 +457,7 @@ export namespace Components {
     }
     interface LyneTimetableCusHim {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
         /**
@@ -479,7 +479,7 @@ export namespace Components {
     }
     interface LyneTimetableParkAndRail {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
         /**
@@ -489,7 +489,7 @@ export namespace Components {
     }
     interface LyneTimetablePlatform {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
         /**
@@ -536,7 +536,7 @@ export namespace Components {
     }
     interface LyneTimetableTransportationNumber {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
         /**
@@ -546,7 +546,7 @@ export namespace Components {
     }
     interface LyneTimetableTransportationTime {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
         /**
@@ -556,7 +556,7 @@ export namespace Components {
     }
     interface LyneTimetableTransportationWalk {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
         /**
@@ -566,7 +566,7 @@ export namespace Components {
     }
     interface LyneTimetableTravelHints {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
         /**
@@ -976,7 +976,7 @@ declare namespace LocalJSX {
          */
         "imageSrc"?: string;
         /**
-          * Just some example image file you can use to play around with the module.
+          * Just some example image file you can use to play around with the component.
          */
         "imageSrcExamples"?: string;
         /**
@@ -1252,7 +1252,7 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableButton {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
         /**
@@ -1274,7 +1274,7 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableCusHim {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
         /**
@@ -1296,7 +1296,7 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableParkAndRail {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
         /**
@@ -1306,7 +1306,7 @@ declare namespace LocalJSX {
     }
     interface LyneTimetablePlatform {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
         /**
@@ -1353,7 +1353,7 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableTransportationNumber {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
         /**
@@ -1363,7 +1363,7 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableTransportationTime {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
         /**
@@ -1373,7 +1373,7 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableTransportationWalk {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
         /**
@@ -1383,7 +1383,7 @@ declare namespace LocalJSX {
     }
     interface LyneTimetableTravelHints {
         /**
-          * Set the desired appearance of the module.
+          * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
         /**

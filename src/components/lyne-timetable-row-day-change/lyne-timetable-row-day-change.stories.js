@@ -5,20 +5,9 @@ import sampleData from './lyne-timetable-row-day-change.sample-data';
 const Template = (args) => (
   <lyne-timetable-row-day-change
     config={JSON.stringify(args.config)}
-    role={
-      args.gridCellRole
-        ? 'gridcell'
-        : 'none'
-    }
   >
   </lyne-timetable-row-day-change>
 );
-
-const gridCellRole = {
-  control: {
-    type: 'boolean'
-  }
-};
 
 const config = {
   table: {
@@ -27,12 +16,7 @@ const config = {
 };
 
 const defaultArgTypes = {
-  config,
-  gridCellRole
-};
-
-const defaultArgs = {
-  gridCellRole: true
+  config
 };
 
 /* ************************************************* */
@@ -42,7 +26,6 @@ export const currentDayHidden = Template.bind({});
 
 currentDayHidden.argTypes = defaultArgTypes;
 currentDayHidden.args = {
-  ...defaultArgs,
   config: sampleData[0]
 };
 
@@ -66,7 +49,6 @@ export const dayChange = Template.bind({});
 
 dayChange.argTypes = defaultArgTypes;
 dayChange.args = {
-  ...defaultArgs,
   config: sampleData[2]
 };
 

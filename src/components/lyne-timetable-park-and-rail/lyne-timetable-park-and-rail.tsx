@@ -28,7 +28,7 @@ export class LyneTimetableParkAndRail {
 
   /**
    * Set the desired appearance of
-   * the module.
+   * the component.
    */
   @Prop() public appearance?: InterfaceLyneTimetableParkAndRailAttributes['appearance'] = 'first-level';
 

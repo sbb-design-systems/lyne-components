@@ -31,7 +31,7 @@ export class LyneTimetableTransportationWalk {
 
   /**
    * Set the desired appearance of
-   * the module.
+   * the component.
    */
   @Prop() public appearance?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'] = 'first-level';
 

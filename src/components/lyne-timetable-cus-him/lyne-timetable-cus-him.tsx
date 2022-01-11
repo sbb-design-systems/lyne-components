@@ -32,7 +32,7 @@ export class LyneTimetableCusHim {
 
   /**
    * Set the desired appearance of
-   * the module.
+   * the component.
    */
   @Prop() public appearance?: InterfaceLyneTimetableCusHimAttributes['appearance'] = 'first-level-list';
 

@@ -5,20 +5,9 @@ import sampleData from './lyne-timetable-transportation-details.sample-data';
 const Template = (args) => (
   <lyne-timetable-transportation-details
     config={JSON.stringify(args.config)}
-    role={
-      args.gridCellRole
-        ? 'gridcell'
-        : 'none'
-    }
   >
   </lyne-timetable-transportation-details>
 );
-
-const gridCellRole = {
-  control: {
-    type: 'boolean'
-  }
-};
 
 const config = {
   table: {
@@ -27,12 +16,7 @@ const config = {
 };
 
 const defaultArgTypes = {
-  config,
-  gridCellRole
-};
-
-const defaultArgs = {
-  gridCellRole: true
+  config
 };
 
 /* ************************************************* */
@@ -42,7 +26,6 @@ export const LyneTimetableTransportationDetails = Template.bind({});
 
 LyneTimetableTransportationDetails.argTypes = defaultArgTypes;
 LyneTimetableTransportationDetails.args = {
-  ...defaultArgs,
   config: sampleData[0]
 };
 
@@ -61,5 +44,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-transportation-details'
+  title: 'Internals/lyne-timetable-transportation-details'
 };

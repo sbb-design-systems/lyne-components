@@ -6,11 +6,6 @@ const Template = (args) => (
   <lyne-timetable-platform
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
-    role={
-      args.gridCellRole
-        ? 'gridcell'
-        : 'none'
-    }
   >
   </lyne-timetable-platform>
 );
@@ -40,13 +35,11 @@ const gridCellRole = {
 
 const defaultArgTypes = {
   appearance,
-  config,
-  gridCellRole
+  config
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
-  gridCellRole: true
+  appearance: appearance.options[0]
 };
 
 /* ************************************************* */
@@ -103,5 +96,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-platform'
+  title: 'Internals/lyne-timetable-platform'
 };

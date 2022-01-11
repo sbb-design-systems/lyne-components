@@ -10,14 +10,13 @@ describe('lyne-timetable-travel-hints', () => {
       root
     } = await newSpecPage({
       components: [LyneTimetableTravelHints],
-      html: `<lyne-timetable-travel-hints config='${config}' role='gridcell' appearance='first-level-list'/>`
+      html: `<lyne-timetable-travel-hints config='${config}' appearance='first-level-list'/>`
     });
 
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-travel-hints
             config="{&quot;travelHintsItems&quot;:[{&quot;icon&quot;:&quot;sa-sb&quot;,&quot;text&quot;:&quot;Description what sa-sb means...&quot;},{&quot;icon&quot;:&quot;sa-rr&quot;,&quot;text&quot;:&quot;Description what sa-rr means...&quot;},{&quot;icon&quot;:&quot;sa-zm&quot;,&quot;text&quot;:&quot;Description what sa-zm means...&quot;}]}"
-            role="gridcell"
             appearance="first-level-list"
         >
           <mock:shadow-root>
