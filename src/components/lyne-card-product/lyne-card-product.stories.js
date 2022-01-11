@@ -314,10 +314,6 @@ const SlotPearlChainTemplate = () => (
 
 /* --- card-badge slot ----------------------------- */
 
-const cardBadgeMinimalArgs = {
-  isDiscount: true
-};
-
 const cardBadgeArgs = {
   isDiscount: true,
   price: '20.50',
