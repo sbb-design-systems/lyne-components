@@ -1,3 +1,9 @@
+@include host-component-properties;
+
+:host {
+  @include card-host-properties;
+}
+
 :host(lyne-timetable-row-button) {
   display: block;
   width: 100%;
@@ -5,15 +11,10 @@
 }
 
 button {
+  @include card();
+  @include card--primary-negative();
+  @include card--m();
   width: 100%;
   min-height: 100%;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-
-button:focus,
-button:hover {
-  background: lime;
+  border: 0;
 }

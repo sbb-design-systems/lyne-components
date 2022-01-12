@@ -3,12 +3,20 @@
 // and default mode
 @include host-component-properties;
 
+:host {
+  @include card-host-properties;
+}
+
 .button {
+  @include card();
+  @include card--primary-negative();
+  @include card--m();
   width: 100%;
-  padding: 0;
+  border: 0;
 }
 
 .button__inner_wrapper {
+  @include text-s--regular();
   display: flex;
   flex-wrap: nowrap;
   flex-basis: 100%;
@@ -42,5 +50,9 @@ button[dir="rtl"] .button__chevron {
     @include screenReaderOnly();
   }
 
+}
+
+.button__chevron {
+  height: pxToRem(var(--size-icon-ui-small));
 }
 

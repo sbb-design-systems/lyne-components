@@ -57,6 +57,7 @@
 
 .cus-him--second-level-button__text {
   @include text-s--bold();
+  text-align: start;
 }
 
 .cus-him--second-level-button .cus-him__icon {

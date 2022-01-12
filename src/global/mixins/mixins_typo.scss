@@ -100,6 +100,16 @@
   @include text--bold();
 }
 
+@mixin text-xxs--regular {
+  @include text();
+  font-size: pxToRem(var(--lyne-font-size-text-xxs));
+}
+
+@mixin text-xxs--bold {
+  @include text-xxs--regular();
+  @include text--bold();
+}
+
 // ----------------------------------------------------------------------------------------------------
 // Typo: Font Smoothing Mixins
 // ----------------------------------------------------------------------------------------------------

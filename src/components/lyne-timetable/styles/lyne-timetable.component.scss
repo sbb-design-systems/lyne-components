@@ -8,9 +8,10 @@
 }
 
 .timetable {
-  contain: content;
+  // contain: content;
   display: flex;
   flex-direction: column;
+  margin-block-start: pxToRem(var(--spacing-fixed-1x));
 }
 
 .timetable > svg,
