@@ -32,6 +32,15 @@ const config = {
   }
 };
 
+const disabledArg = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Button State'
+  }
+};
+
 const eventId = {
   control: {
     type: 'text'
@@ -46,13 +55,14 @@ const expanded = {
     type: 'boolean'
   },
   table: {
-    category: 'Button Config'
+    category: 'Button State'
   }
 };
 
 const defaultArgTypes = {
   appearance,
   config,
+  'disabled': disabledArg,
   'event-id': eventId,
   expanded
 };
@@ -60,6 +70,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   'appearance': appearance.options[0],
   'config': {},
+  'disabled': false,
   'event-id': '',
   'expanded': false
 };

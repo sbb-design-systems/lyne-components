@@ -548,9 +548,17 @@ export namespace Components {
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
         /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceLyneTimetableButtonAttributes['popup'];
+        /**
           * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
          */
         "config"?: string;
+        /**
+          * Set to true to get a disabled button
+         */
+        "disabled"?: boolean;
         /**
           * Id which is sent in the click event payload
          */
@@ -1492,9 +1500,17 @@ declare namespace LocalJSX {
          */
         "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
         /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceLyneTimetableButtonAttributes['popup'];
+        /**
           * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
          */
         "config"?: string;
+        /**
+          * Set to true to get a disabled button
+         */
+        "disabled"?: boolean;
         /**
           * Id which is sent in the click event payload
          */

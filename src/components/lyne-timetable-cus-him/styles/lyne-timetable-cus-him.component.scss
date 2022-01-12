@@ -64,7 +64,7 @@
   margin-block-start: pxToRem(1);
 
   @include mq($from: medium) {
-    margin-block-start: pxToRem(4);
+    margin-block-start: pxToRem(3);
   }
 
 }

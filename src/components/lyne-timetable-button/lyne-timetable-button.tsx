@@ -41,11 +41,20 @@ export class LyneTimetableButton {
   @Prop() public appearance?: InterfaceLyneTimetableButtonAttributes['appearance'] = 'earlier-connections';
 
   /**
+   * If you use the button to trigger another widget which itself is covering
+   * the page, you must provide an according attribute for aria-haspopup.
+   */
+  @Prop() public ariaHaspopup?: InterfaceLyneTimetableButtonAttributes['popup'];
+
+  /**
    * If appearance is set to 'cus-him' or
    * 'walk', we need to provide a config
    * to popultate the nested web component.
    */
   @Prop() public config?: string;
+
+  /** Set to true to get a disabled button */
+  @Prop() public disabled? = false;
 
   /** Id which is sent in the click event payload */
   @Prop() public eventId?: string;
@@ -187,7 +196,9 @@ export class LyneTimetableButton {
 
     return (
       <button
+        aria-haspopup={this.ariaHaspopup}
         class={`button button${appearanceClass}`}
+        disabled={this.disabled}
         dir={currentWritingMode}
         onClick={this._clickHandler}
         ref={(el): void => {

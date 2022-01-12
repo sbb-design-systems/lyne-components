@@ -44,6 +44,16 @@
       cursor: pointer;
     }
   }
+
+  @include ifForcedColors {
+    border: pxToRem(1) solid ButtonText;
+
+    &:disabled {
+      border-color: GrayText;
+    }
+
+  }
+
 }
 
 // Card appearance
