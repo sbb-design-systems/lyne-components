@@ -28,10 +28,12 @@
   position: relative;
   overflow: hidden;
   user-select: text;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   transition: var(--card-hover-animation);
 
-  &:hover, &:focus {
+  &:focus,
+  &:hover {
     &:not(:disabled) {
 
       @include shadow-level-9-hard;
@@ -42,6 +44,16 @@
       cursor: pointer;
     }
   }
+
+  @include ifForcedColors {
+    border: pxToRem(1) solid ButtonText;
+
+    &:disabled {
+      border-color: GrayText;
+    }
+
+  }
+
 }
 
 // Card appearance

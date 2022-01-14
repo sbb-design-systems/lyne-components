@@ -51,6 +51,7 @@
 // ----------------------------------------------------------------------------------------------------
 @mixin text {
   font-family: var(--typo-type-face-sbb-roman);
+  font-weight: normal;
   line-height: var(--typo-line-height-body-text);
   letter-spacing: var(--typo-letter-spacing-body-text);
 }

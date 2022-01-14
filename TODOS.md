@@ -66,7 +66,7 @@
 - [ ] Add React output target https://github.com/ionic-team/stencil-ds-plugins. We need to discuss if we really want that. It means, we would have to publish a separate package on npm.
 - [ ] Add Angular output target https://github.com/ionic-team/stencil-ds-plugins. Note: angular output target is hard to implement since `ValueAccessorConfig` needs to be manually generated and kept up to date during development. This is the config that duet uses: [https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa](https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa)
 - [ ] alongside unit and e2e tests, we might start using muation tests. We could possibly use https://stryker-mutator.io/ for that
-- [ ] optimize start script. Preffered solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
+- [ ] optimize start script. Preferred solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
 - [x] Typescript: string literal types -> documentation. Example: in lyne-heading, we limit the values for the level property with string literal types. Find away to automatically include those type definitions in documenation.
 - [ ] Local npm dependencies vs. dependencies installed by travis: a developer installs a dependency, version 1.0.0. A month later, that dependency got several updates and is now on version 1.2.5. In a build, travis will install 1.2.5, while the developers are still on older version, as long as they don't run ```npm up``` or similar. We need to find a way to force developers to update dependencies, or make it easy for them.
 - [ ] To be consequent, we should write our stories in typescript as well
@@ -102,8 +102,8 @@
 
 
 ## CI / CD pipeline
-- [ ] ```package-lock.json``` mismatch. We need to find a way to handle it consitently. Preferred solution: currently, ```semnatic-release``` is responsible for pushing changes in ```package.json``` and ```package-lock.json``` back to the repo. We remove that step from ```semantic-release``` an make it is own step, which will always be run. To clarify on the issue, imagine the following to situations:
-  - situation a: we push a commit which will produce a new version. At the same time, a certain dependency got an update from 1.2.0 to 1.2.5. Travis will do a fresh ```npm install```, and since ```sematic-release``` will update the ```package-lock.json``` (write new version number), it will also have an update for the new version of the dependcy. It will then push the new ```package-lock.json``` back to the repo.
+- [ ] ```package-lock.json``` mismatch. We need to find a way to handle it consistently. Preferred solution: currently, ```semnatic-release``` is responsible for pushing changes in ```package.json``` and ```package-lock.json``` back to the repo. We remove that step from ```semantic-release``` an make it is own step, which will always be run. To clarify on the issue, imagine the following to situations:
+  - situation a: we push a commit which will produce a new version. At the same time, a certain dependency got an update from 1.2.0 to 1.2.5. Travis will do a fresh ```npm install```, and since ```sematic-release``` will update the ```package-lock.json``` (write new version number), it will also have an update for the new version of the dependency. It will then push the new ```package-lock.json``` back to the repo.
   - situation b: we push a commit which will NOT produce a new version. At the same time, a certain dependency got an update from 1.2.0 to 1.2.5. Travis will do a fresh ```npm install```, and have a new version for the dependency in ```package-lock.json```. But since ```semantic-release``` is not triggered, the new ```package-lock.json``` won't be pushed back to the repo.
 - [ ] Different secrets and env-variables on git, Travis and netlify.
   - [x] Document exactly which key is needed for what and where to generate it
@@ -121,20 +121,20 @@
 - [ ] Code coverage
   - [x] Configure Code coverage for Jest
   - [ ] Code coverage report: currently, only unit-tests (```*.spec.ts```) are taken into consideration. We might eighter have a separate report for e2e-tests or merge those together.
-- [x] Liniting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
+- [x] Linting in CI folder: we currently use plain java-script for ci-specific tasks (everything in the ci-folder):
   - Option 1: Keep JavaScript. In that case, we need to lint these files with ESLint
-  - Option 2: Transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install typscript on the travis job in order for it to transpile the files.
-- [x] add Webhook to netlify for Git PR: if a pr is created, add a link to the deploy preview from netlify
-- [x] we have some dependencies that we always want to install in latest version, like line-design-tokens. We could add `npm up lyne-design-token` to the travis config. But it would be better if latest line-design-tokens would be installed after `npm install`. Find a way to do so.
+  - Option 2: Transform to typescript. In that case, we use Typescript ESLint to lint the files. Drawback is, that we would have to npm install TypeScript on the travis job in order for it to transpile the files.
+- [x] add Webhook to netlify for Git PR: if a pr is created, add a link to the deployment preview from netlify
+- [x] we have some dependencies that we always want to install in the latest version, like line-design-tokens. We could add `npm up lyne-design-token` to the travis config. But it would be better if latest line-design-tokens would be installed after `npm install`. Find a way to do so.
 - [x] In Travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
 - [x] When pushing to master, PREVIEWS.md is not created.
 - [x] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
 - [x] npm package size is huge!
 - [x] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
 - [x] If tests are run, a coverage report is generated in the ```coverage``` folder. Should we make it available to the public somewhere?
-- [ ] chromatic sometimes takes a snapshot before a component has loaded in the dom. we currently add a delay of 1000ms to chromatic inside the stories files to prevent that. Probably, chromatic will imporove and we can remove the delay.
+- [ ] chromatic sometimes takes a snapshot before a component has loaded in the dom. we currently add a delay of 1000ms to chromatic inside the stories files to prevent that. Probably chromatic will improve so that we can remove the delay.
 - Upload to codecov.io runs always into a timeout: `curl: (7) Failed to connect to codecov.io port 443: Connection timed out`
-- [ ] travis.yml, for master builds -> designTokensUpdate -> this might install newer versions of design-tokens and icons. after that, if no new version is released by semantic release, we must manually comit package.json and lock file and push it back to the repo.
+- [ ] travis.yml, for master builds -> designTokensUpdate -> this might install newer versions of design-tokens and icons. after that, if no new version is released by semantic release, we must manually commit package.json and lock file and push it back to the repo.
 
 #### Check
 ✅ Nothing to check

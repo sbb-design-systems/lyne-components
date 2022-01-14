@@ -123,7 +123,7 @@ export class LyneImage {
 
   /**
    * Just some example image file you can use to play around with
-   * the module.
+   * the component.
    */
   @Prop() public imageSrcExamples?: string;
 

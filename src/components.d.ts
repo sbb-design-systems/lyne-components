@@ -21,6 +21,14 @@ import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
+import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
+import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
+import { InterfaceLyneTimetableParkAndRailAttributes } from "./components/lyne-timetable-park-and-rail/lyne-timetable-park-and-rail.custom.d";
+import { InterfaceLyneTimetablePlatformAttributes } from "./components/lyne-timetable-platform/lyne-timetable-platform.custom.d";
+import { InterfaceLyneTimetableTransportationNumberAttributes } from "./components/lyne-timetable-transportation-number/lyne-timetable-transportation-number.custom.d";
+import { InterfaceLyneTimetableTransportationTimeAttributes } from "./components/lyne-timetable-transportation-time/lyne-timetable-transportation-time.custom.d";
+import { InterfaceLyneTimetableTransportationWalkAttributes } from "./components/lyne-timetable-transportation-walk/lyne-timetable-transportation-walk.custom.d";
+import { InterfaceLyneTimetableTravelHintsAttributes } from "./components/lyne-timetable-travel-hints/lyne-timetable-travel-hints.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -230,7 +238,7 @@ export namespace Components {
          */
         "imageSrc"?: string;
         /**
-          * Just some example image file you can use to play around with the module.
+          * Just some example image file you can use to play around with the component.
          */
         "imageSrcExamples"?: string;
         /**
@@ -532,6 +540,157 @@ export namespace Components {
          */
         "labelVisible"?: true;
     }
+    interface LyneTimetable {
+    }
+    interface LyneTimetableButton {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceLyneTimetableButtonAttributes['popup'];
+        /**
+          * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
+         */
+        "config"?: string;
+        /**
+          * Set to true to get a disabled button
+         */
+        "disabled"?: boolean;
+        /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * Set to true to initially show the state, which would get set by pressing the button.
+         */
+        "expanded"?: boolean;
+        /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+    }
+    interface LyneTimetableCusHim {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableDuration {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableOccupancy {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableParkAndRail {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetablePlatform {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableRow {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableRowButton {
+        /**
+          * Id which is sent in the event of clicking the button
+         */
+        "eventId"?: string;
+        /**
+          * Set to true to initially show the state, which would get set by pressing the button.
+         */
+        "expanded"?: boolean;
+    }
+    interface LyneTimetableRowColumnHeaders {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableRowDayChange {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableRowHeader {
+        "config": string;
+    }
+    interface LyneTimetableTransportationDetails {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableTransportationNumber {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableTransportationTime {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableTransportationWalk {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableTravelHints {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -674,6 +833,108 @@ declare global {
         prototype: HTMLLyneTextInputElement;
         new (): HTMLLyneTextInputElement;
     };
+    interface HTMLLyneTimetableElement extends Components.LyneTimetable, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableElement: {
+        prototype: HTMLLyneTimetableElement;
+        new (): HTMLLyneTimetableElement;
+    };
+    interface HTMLLyneTimetableButtonElement extends Components.LyneTimetableButton, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableButtonElement: {
+        prototype: HTMLLyneTimetableButtonElement;
+        new (): HTMLLyneTimetableButtonElement;
+    };
+    interface HTMLLyneTimetableCusHimElement extends Components.LyneTimetableCusHim, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableCusHimElement: {
+        prototype: HTMLLyneTimetableCusHimElement;
+        new (): HTMLLyneTimetableCusHimElement;
+    };
+    interface HTMLLyneTimetableDurationElement extends Components.LyneTimetableDuration, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableDurationElement: {
+        prototype: HTMLLyneTimetableDurationElement;
+        new (): HTMLLyneTimetableDurationElement;
+    };
+    interface HTMLLyneTimetableOccupancyElement extends Components.LyneTimetableOccupancy, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableOccupancyElement: {
+        prototype: HTMLLyneTimetableOccupancyElement;
+        new (): HTMLLyneTimetableOccupancyElement;
+    };
+    interface HTMLLyneTimetableParkAndRailElement extends Components.LyneTimetableParkAndRail, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableParkAndRailElement: {
+        prototype: HTMLLyneTimetableParkAndRailElement;
+        new (): HTMLLyneTimetableParkAndRailElement;
+    };
+    interface HTMLLyneTimetablePlatformElement extends Components.LyneTimetablePlatform, HTMLStencilElement {
+    }
+    var HTMLLyneTimetablePlatformElement: {
+        prototype: HTMLLyneTimetablePlatformElement;
+        new (): HTMLLyneTimetablePlatformElement;
+    };
+    interface HTMLLyneTimetableRowElement extends Components.LyneTimetableRow, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableRowElement: {
+        prototype: HTMLLyneTimetableRowElement;
+        new (): HTMLLyneTimetableRowElement;
+    };
+    interface HTMLLyneTimetableRowButtonElement extends Components.LyneTimetableRowButton, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableRowButtonElement: {
+        prototype: HTMLLyneTimetableRowButtonElement;
+        new (): HTMLLyneTimetableRowButtonElement;
+    };
+    interface HTMLLyneTimetableRowColumnHeadersElement extends Components.LyneTimetableRowColumnHeaders, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableRowColumnHeadersElement: {
+        prototype: HTMLLyneTimetableRowColumnHeadersElement;
+        new (): HTMLLyneTimetableRowColumnHeadersElement;
+    };
+    interface HTMLLyneTimetableRowDayChangeElement extends Components.LyneTimetableRowDayChange, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableRowDayChangeElement: {
+        prototype: HTMLLyneTimetableRowDayChangeElement;
+        new (): HTMLLyneTimetableRowDayChangeElement;
+    };
+    interface HTMLLyneTimetableRowHeaderElement extends Components.LyneTimetableRowHeader, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableRowHeaderElement: {
+        prototype: HTMLLyneTimetableRowHeaderElement;
+        new (): HTMLLyneTimetableRowHeaderElement;
+    };
+    interface HTMLLyneTimetableTransportationDetailsElement extends Components.LyneTimetableTransportationDetails, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTransportationDetailsElement: {
+        prototype: HTMLLyneTimetableTransportationDetailsElement;
+        new (): HTMLLyneTimetableTransportationDetailsElement;
+    };
+    interface HTMLLyneTimetableTransportationNumberElement extends Components.LyneTimetableTransportationNumber, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTransportationNumberElement: {
+        prototype: HTMLLyneTimetableTransportationNumberElement;
+        new (): HTMLLyneTimetableTransportationNumberElement;
+    };
+    interface HTMLLyneTimetableTransportationTimeElement extends Components.LyneTimetableTransportationTime, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTransportationTimeElement: {
+        prototype: HTMLLyneTimetableTransportationTimeElement;
+        new (): HTMLLyneTimetableTransportationTimeElement;
+    };
+    interface HTMLLyneTimetableTransportationWalkElement extends Components.LyneTimetableTransportationWalk, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTransportationWalkElement: {
+        prototype: HTMLLyneTimetableTransportationWalkElement;
+        new (): HTMLLyneTimetableTransportationWalkElement;
+    };
+    interface HTMLLyneTimetableTravelHintsElement extends Components.LyneTimetableTravelHints, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableTravelHintsElement: {
+        prototype: HTMLLyneTimetableTravelHintsElement;
+        new (): HTMLLyneTimetableTravelHintsElement;
+    };
     interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
     }
     var HTMLLyneTitleElement: {
@@ -700,6 +961,23 @@ declare global {
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
+        "lyne-timetable": HTMLLyneTimetableElement;
+        "lyne-timetable-button": HTMLLyneTimetableButtonElement;
+        "lyne-timetable-cus-him": HTMLLyneTimetableCusHimElement;
+        "lyne-timetable-duration": HTMLLyneTimetableDurationElement;
+        "lyne-timetable-occupancy": HTMLLyneTimetableOccupancyElement;
+        "lyne-timetable-park-and-rail": HTMLLyneTimetableParkAndRailElement;
+        "lyne-timetable-platform": HTMLLyneTimetablePlatformElement;
+        "lyne-timetable-row": HTMLLyneTimetableRowElement;
+        "lyne-timetable-row-button": HTMLLyneTimetableRowButtonElement;
+        "lyne-timetable-row-column-headers": HTMLLyneTimetableRowColumnHeadersElement;
+        "lyne-timetable-row-day-change": HTMLLyneTimetableRowDayChangeElement;
+        "lyne-timetable-row-header": HTMLLyneTimetableRowHeaderElement;
+        "lyne-timetable-transportation-details": HTMLLyneTimetableTransportationDetailsElement;
+        "lyne-timetable-transportation-number": HTMLLyneTimetableTransportationNumberElement;
+        "lyne-timetable-transportation-time": HTMLLyneTimetableTransportationTimeElement;
+        "lyne-timetable-transportation-walk": HTMLLyneTimetableTransportationWalkElement;
+        "lyne-timetable-travel-hints": HTMLLyneTimetableTravelHintsElement;
         "lyne-title": HTMLLyneTitleElement;
     }
 }
@@ -912,7 +1190,7 @@ declare namespace LocalJSX {
          */
         "imageSrc"?: string;
         /**
-          * Just some example image file you can use to play around with the module.
+          * Just some example image file you can use to play around with the component.
          */
         "imageSrcExamples"?: string;
         /**
@@ -1214,6 +1492,157 @@ declare namespace LocalJSX {
          */
         "labelVisible"?: true;
     }
+    interface LyneTimetable {
+    }
+    interface LyneTimetableButton {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "ariaHaspopup"?: InterfaceLyneTimetableButtonAttributes['popup'];
+        /**
+          * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
+         */
+        "config"?: string;
+        /**
+          * Set to true to get a disabled button
+         */
+        "disabled"?: boolean;
+        /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
+          * Set to true to initially show the state, which would get set by pressing the button.
+         */
+        "expanded"?: boolean;
+        /**
+          * The name attribute to use for the button
+         */
+        "name"?: string;
+    }
+    interface LyneTimetableCusHim {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableDuration {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableOccupancy {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableParkAndRail {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetablePlatform {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableRow {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableRowButton {
+        /**
+          * Id which is sent in the event of clicking the button
+         */
+        "eventId"?: string;
+        /**
+          * Set to true to initially show the state, which would get set by pressing the button.
+         */
+        "expanded"?: boolean;
+    }
+    interface LyneTimetableRowColumnHeaders {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableRowDayChange {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableRowHeader {
+        "config": string;
+    }
+    interface LyneTimetableTransportationDetails {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableTransportationNumber {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableTransportationTime {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableTransportationWalk {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
+    interface LyneTimetableTravelHints {
+        /**
+          * Set the desired appearance of the component.
+         */
+        "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
     interface LyneTitle {
         /**
           * Title level
@@ -1260,6 +1689,23 @@ declare namespace LocalJSX {
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
+        "lyne-timetable": LyneTimetable;
+        "lyne-timetable-button": LyneTimetableButton;
+        "lyne-timetable-cus-him": LyneTimetableCusHim;
+        "lyne-timetable-duration": LyneTimetableDuration;
+        "lyne-timetable-occupancy": LyneTimetableOccupancy;
+        "lyne-timetable-park-and-rail": LyneTimetableParkAndRail;
+        "lyne-timetable-platform": LyneTimetablePlatform;
+        "lyne-timetable-row": LyneTimetableRow;
+        "lyne-timetable-row-button": LyneTimetableRowButton;
+        "lyne-timetable-row-column-headers": LyneTimetableRowColumnHeaders;
+        "lyne-timetable-row-day-change": LyneTimetableRowDayChange;
+        "lyne-timetable-row-header": LyneTimetableRowHeader;
+        "lyne-timetable-transportation-details": LyneTimetableTransportationDetails;
+        "lyne-timetable-transportation-number": LyneTimetableTransportationNumber;
+        "lyne-timetable-transportation-time": LyneTimetableTransportationTime;
+        "lyne-timetable-transportation-walk": LyneTimetableTransportationWalk;
+        "lyne-timetable-travel-hints": LyneTimetableTravelHints;
         "lyne-title": LyneTitle;
     }
 }
@@ -1286,6 +1732,23 @@ declare module "@stencil/core" {
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
+            "lyne-timetable": LocalJSX.LyneTimetable & JSXBase.HTMLAttributes<HTMLLyneTimetableElement>;
+            "lyne-timetable-button": LocalJSX.LyneTimetableButton & JSXBase.HTMLAttributes<HTMLLyneTimetableButtonElement>;
+            "lyne-timetable-cus-him": LocalJSX.LyneTimetableCusHim & JSXBase.HTMLAttributes<HTMLLyneTimetableCusHimElement>;
+            "lyne-timetable-duration": LocalJSX.LyneTimetableDuration & JSXBase.HTMLAttributes<HTMLLyneTimetableDurationElement>;
+            "lyne-timetable-occupancy": LocalJSX.LyneTimetableOccupancy & JSXBase.HTMLAttributes<HTMLLyneTimetableOccupancyElement>;
+            "lyne-timetable-park-and-rail": LocalJSX.LyneTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLLyneTimetableParkAndRailElement>;
+            "lyne-timetable-platform": LocalJSX.LyneTimetablePlatform & JSXBase.HTMLAttributes<HTMLLyneTimetablePlatformElement>;
+            "lyne-timetable-row": LocalJSX.LyneTimetableRow & JSXBase.HTMLAttributes<HTMLLyneTimetableRowElement>;
+            "lyne-timetable-row-button": LocalJSX.LyneTimetableRowButton & JSXBase.HTMLAttributes<HTMLLyneTimetableRowButtonElement>;
+            "lyne-timetable-row-column-headers": LocalJSX.LyneTimetableRowColumnHeaders & JSXBase.HTMLAttributes<HTMLLyneTimetableRowColumnHeadersElement>;
+            "lyne-timetable-row-day-change": LocalJSX.LyneTimetableRowDayChange & JSXBase.HTMLAttributes<HTMLLyneTimetableRowDayChangeElement>;
+            "lyne-timetable-row-header": LocalJSX.LyneTimetableRowHeader & JSXBase.HTMLAttributes<HTMLLyneTimetableRowHeaderElement>;
+            "lyne-timetable-transportation-details": LocalJSX.LyneTimetableTransportationDetails & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationDetailsElement>;
+            "lyne-timetable-transportation-number": LocalJSX.LyneTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationNumberElement>;
+            "lyne-timetable-transportation-time": LocalJSX.LyneTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationTimeElement>;
+            "lyne-timetable-transportation-walk": LocalJSX.LyneTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationWalkElement>;
+            "lyne-timetable-travel-hints": LocalJSX.LyneTimetableTravelHints & JSXBase.HTMLAttributes<HTMLLyneTimetableTravelHintsElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
         }
     }

@@ -1,0 +1,109 @@
+:host {
+  --cus-him-icon-height: 16; // TODO: Missing Design Token
+}
+
+.cus-him {
+  display: flex;
+  width: 100%;
+  padding-inline-start: pxToRem(var(--spacing-fixed-1x));
+  justify-content: var(--list-item-justification);
+
+  --cus-him-icon-width: var(--cus-him-icon-height);
+}
+
+// First Level List appearance
+// ----------------------------------------------
+.cus-him--first-level-list {
+  --list-item-justification: flex-end;
+}
+
+// Second Level List appearance
+// ----------------------------------------------
+.cus-him--second-level-list {
+  --cus-him-width: auto;
+  --cus-him-icon-height: 20;
+  --list-item-justification: flex-start;
+}
+
+// Second Level Message appearance
+// ----------------------------------------------
+.cus-him--second-level-button,
+.cus-him--second-level-message {
+  display: flex;
+  gap: pxToRem(var(--spacing-fixed-1x));
+  padding: 0;
+}
+
+.cus-him--second-level-message__text {
+  @include text-xs--bold();
+  color: var(--color-red-default);
+}
+
+.cus-him--second-level-message .cus-him__icon {
+  margin-block-start: pxToRem(2);
+
+  @include mq($from: medium) {
+    margin-block-start: pxToRem(3);
+  }
+
+}
+
+// Second Level Button appearance
+// ----------------------------------------------
+.cus-him--second-level-button {
+  --cus-him-icon-height: 20;
+  gap: pxToRem(var(--spacing-fixed-2x));
+}
+
+.cus-him--second-level-button__text {
+  @include text-s--bold();
+  text-align: start;
+}
+
+.cus-him--second-level-button .cus-him__icon {
+  margin-block-start: pxToRem(1);
+
+  @include mq($from: medium) {
+    margin-block-start: pxToRem(3);
+  }
+
+}
+
+// General List Styling
+// ----------------------------------------------
+.cus-him__list {
+  @include listReset();
+  display: flex;
+  flex-wrap: wrap;
+  gap: pxToRem(var(--spacing-fixed-1x));
+  min-height: pxToRem(var(--cus-him-icon-height));
+}
+
+.cus-him--first-level-list .cus-him__list {
+  justify-content: flex-end;
+}
+
+.cus-him__list-item {
+  width: pxToRem(var(--cus-him-icon-height));
+  height: pxToRem(var(--cus-him-icon-width));
+}
+
+.cus-him__icon {
+  aspect-ratio: 1/1;
+  pointer-events: all;
+  cursor: help;
+}
+
+.cus-him__icon,
+.cus-him__icon svg {
+  width: pxToRem(var(--cus-him-icon-height));
+  height: pxToRem(var(--cus-him-icon-width));
+}
+
+.cus-him__icon svg {
+  float: inline-start;
+}
+
+.cus-him__text--visually-hidden {
+  @include screenReaderOnly();
+}
