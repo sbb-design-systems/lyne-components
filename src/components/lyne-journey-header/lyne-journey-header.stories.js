@@ -105,6 +105,7 @@ export const h2InH4Style = Template.bind({});
 h2InH4Style.argTypes = defaultArgTypes;
 h2InH4Style.args = {
   ...defaultArgs,
+  markup: 'h2',
   size: 4
 };
 h2InH4Style.documentation = {
@@ -118,6 +119,7 @@ h2InH4StyleRoundTrip.argTypes = defaultArgTypes;
 h2InH4StyleRoundTrip.args = {
   ...defaultArgs,
   isRoundTrip: true,
+  markup: 'h2',
   size: 4
 };
 h2InH4StyleRoundTrip.documentation = {
@@ -132,6 +134,7 @@ h2InH4StyleRoundTripShortText.args = {
   ...defaultArgs,
   destination: 'Thun',
   isRoundTrip: true,
+  markup: 'h2',
   origin: 'Bern',
   size: 4
 };
