@@ -63,7 +63,7 @@ const price = {
 const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   appearance,
-  isDiscount,
+  'is-discount': isDiscount,
   price,
   text
 };
@@ -107,9 +107,9 @@ export const CardBadgeFullFledged = TemplateWithSlot.bind({});
 CardBadgeFullFledged.argTypes = defaultArgTypes;
 CardBadgeFullFledged.args = {
   ...defaultArgs,
-  isDiscount: true,
-  price: '92.50',
-  text: 'from CHF'
+  'is-discount': isDiscount,
+  'price': '92.50',
+  'text': 'from CHF'
 };
 
 CardBadgeFullFledged.documentation = {
@@ -122,7 +122,7 @@ export const CardBadgeDiscount = Template.bind({});
 CardBadgeDiscount.argTypes = defaultArgTypes;
 CardBadgeDiscount.args = {
   ...defaultArgs,
-  isDiscount: true
+  'is-discount': isDiscount
 };
 
 CardBadgeDiscount.documentation = {
@@ -135,8 +135,8 @@ export const CardBadgeDiscountNegative = Template.bind({});
 CardBadgeDiscountNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountNegative.args = {
   ...defaultArgs,
-  appearance: appearance.options[1],
-  isDiscount: true
+  'appearance': appearance.options[1],
+  'is-discount': isDiscount
 };
 
 CardBadgeDiscountNegative.documentation = {
@@ -149,7 +149,7 @@ export const CardBadgeDiscountSmall = Template.bind({});
 CardBadgeDiscountSmall.argTypes = defaultArgTypes;
 CardBadgeDiscountSmall.args = {
   ...defaultArgs,
-  isDiscount: true
+  'is-discount': isDiscount
 };
 
 CardBadgeDiscountSmall.documentation = {
@@ -162,8 +162,8 @@ export const CardBadgeDiscountSmallNegative = Template.bind({});
 CardBadgeDiscountSmallNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountSmallNegative.args = {
   ...defaultArgs,
-  appearance: appearance.options[1],
-  isDiscount: true
+  'appearance': appearance.options[1],
+  'is-discount': isDiscount
 };
 
 CardBadgeDiscountSmallNegative.documentation = {
@@ -205,7 +205,7 @@ export const CardBadgeDiscountWithSlot = TemplateWithSlot.bind({});
 CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
 CardBadgeDiscountWithSlot.args = {
   ...defaultArgs,
-  isDiscount: true
+  'is-discount': isDiscount
 };
 
 CardBadgeDiscountWithSlot.documentation = {

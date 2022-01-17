@@ -25,19 +25,19 @@ const wrapperStyle = (context) => {
 /* Documentation platform container                  */
 /* ************************************************* */
 
-const documentationPlatformContainerStyle = (context) => {
-  const variantsOnDarkBg = ['primary-negative'];
-
-  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return {
-      'background-color': ColorWhiteDefault
-    };
-  }
-
-  return {
-    'background-color': ColorWhiteDefault
-  };
-};
+/*
+ * const documentationPlatformContainerStyle = (context) => {
+ *   const variantsOnDarkBg = ['primary-negative'];
+ *   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+ *     return {
+ *       'background-color': ColorWhiteDefault
+ *     };
+ *   }
+ *   return {
+ *     'background-color': ColorWhiteDefault
+ *   };
+ * };
+ */
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -257,11 +257,11 @@ const SlotLyneTitleTemplate = (args) => (
 );
 
 const lyneJourneyHeaderArgs = {
-  destination: 'Loèche-les-Bains',
-  isRoundTrip: true,
-  markup: 'h2',
-  origin: 'La Chaux de Fonds',
-  size: 5
+  'destination': 'Loèche-les-Bains',
+  'is-round-trip': true,
+  'markup': 'h2',
+  'origin': 'La Chaux de Fonds',
+  'size': 5
 };
 
 const SlotLyneJourneyHeaderTemplate = (args) => (
@@ -332,17 +332,19 @@ const SlotPearlChainTemplate = () => (
 
 /* --- card-badge slot ----------------------------- */
 
-const cardBadgeArgs = {
-  isDiscount: true,
-  price: '20.50',
-  text: 'from CHF'
-};
+/*
+ * const cardBadgeArgs = {
+ *   'is-discount': true,
+ *   'price': '20.50',
+ *   'text': 'from CHF'
+ * };
+ */
 
 const cardBadgeWithSlotArgs = {
-  isDiscount: true,
-  price: '92.50',
-  slotGeneric: '<span>on <time datetime="2021-11-25">Black Friday</time></span>',
-  text: 'from CHF'
+  'is-discount': true,
+  'price': '92.50',
+  'slotGeneric': '<span>on <time datetime="2021-11-25">Black Friday</time></span>',
+  'text': 'from CHF'
 };
 
 const SlotCardBadgeTemplate = (args) => (
@@ -358,42 +360,42 @@ const SlotCardBadgeTemplate = (args) => (
 /* --- action slot ----------------------------- */
 
 const actionBuyArgs = {
-  label: 'Kaufen',
-  size: 'small',
-  variant: 'secondary',
-  visualButtonOnly: true
+  'label': 'Kaufen',
+  'size': 'small',
+  'variant': 'secondary',
+  'visual-button-only': true
 };
 
 const actionDetailsArgs = {
-  label: 'Details',
-  variant: 'secondary',
-  visualButtonOnly: true
+  'label': 'Details',
+  'variant': 'secondary',
+  'visual-button-only': true
 };
 
 const actionHalfFareArgs = {
-  label: 'Zum halben Preis fahren',
-  variant: 'secondary',
-  visualButtonOnly: true
+  'label': 'Zum halben Preis fahren',
+  'variant': 'secondary',
+  'visual-button-only': true
 };
 
 const actionGAArgs = {
-  label: 'Alle GA im Überblick',
-  variant: 'secondary',
-  visualButtonOnly: true
+  'label': 'Alle GA im Überblick',
+  'variant': 'secondary',
+  'visual-button-only': true
 };
 
 const actionWithPenArgs = {
-  icon: 'highlighter-small',
-  label: 'Abo bearbeiten',
-  variant: 'secondary',
-  visualButtonOnly: true
+  'icon': 'highlighter-small',
+  'label': 'Abo bearbeiten',
+  'variant': 'secondary',
+  'visual-button-only': true
 };
 
 const actionWithQrArgs = {
-  icon: 'qrcode-small',
-  label: 'Billett',
-  variant: 'secondary',
-  visualButtonOnly: true
+  'icon': 'qrcode-small',
+  'label': 'Billett',
+  'variant': 'secondary',
+  'visual-button-only': true
 };
 
 const SlotActionTemplate = (args) => (
@@ -503,7 +505,7 @@ const TemplateTheWholeShabang = (args) => (
     <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadGAArgs}/></div>
     <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardValidityArgs}/></div>
     <div slot='details'><SlotPearlChainTemplate /></div>
-    <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeArgs}/></div>
+    <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeWithSlotArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionWithQrArgs}/></div>
   </lyne-card-product>
 );
