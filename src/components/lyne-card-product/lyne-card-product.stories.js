@@ -1,5 +1,4 @@
 import {
-  ColorCharcoalDefault,
   ColorMilkDefault,
   ColorWhiteDefault
 } from 'lyne-design-tokens/dist/js/tokens.es6';
@@ -20,6 +19,24 @@ const wrapperStyle = (context) => {
   }
 
   return `background-color: ${ColorMilkDefault};`;
+};
+
+/* ************************************************* */
+/* Documentation platform container                  */
+/* ************************************************* */
+
+const documentationPlatformContainerStyle = (context) => {
+  const variantsOnDarkBg = ['primary-negative'];
+
+  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+    return {
+      'background-color': ColorWhiteDefault
+    };
+  }
+
+  return {
+    'background-color': ColorWhiteDefault
+  };
 };
 
 /* ************************************************* */
@@ -637,9 +654,18 @@ CardProductTheWholeShabang.args = {
 };
 
 CardProductTheWholeShabang.documentation = {
+
+  /*
+   * container: {
+   *   styles:
+   *     (context) => (
+   *       documentationPlatformContainerStyle(context)
+   *     )
+   * },
+   */
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
+      'background-color': ColorWhiteDefault
     }
   },
   title: 'CardProduct, The Whole Shabang'
