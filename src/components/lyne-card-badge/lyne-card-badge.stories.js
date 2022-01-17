@@ -209,6 +209,12 @@ CardBadgeDiscountWithSlot.args = {
 };
 
 CardBadgeDiscountWithSlot.documentation = {
+  container: {
+    styles: {
+      overflow: 'hidden',
+      position: 'relative'
+    }
+  },
   title: 'Card badge discount with slot'
 };
 

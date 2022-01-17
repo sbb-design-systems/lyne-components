@@ -1,4 +1,5 @@
 import {
+  ColorCharcoalDefault,
   ColorMilkDefault,
   ColorWhiteDefault
 } from 'lyne-design-tokens/dist/js/tokens.es6';
@@ -636,6 +637,11 @@ CardProductTheWholeShabang.args = {
 };
 
 CardProductTheWholeShabang.documentation = {
+  container: {
+    styles: {
+      'background-color': ColorCharcoalDefault
+    }
+  },
   title: 'CardProduct, The Whole Shabang'
 };
 
