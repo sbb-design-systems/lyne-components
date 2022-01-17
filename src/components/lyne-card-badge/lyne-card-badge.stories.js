@@ -143,33 +143,6 @@ CardBadgeDiscountNegative.documentation = {
   title: 'Card badge with discount negative'
 };
 
-/* --- CardBadge discount small ------------ */
-export const CardBadgeDiscountSmall = Template.bind({});
-
-CardBadgeDiscountSmall.argTypes = defaultArgTypes;
-CardBadgeDiscountSmall.args = {
-  ...defaultArgs,
-  'is-discount': true
-};
-
-CardBadgeDiscountSmall.documentation = {
-  title: 'Card badge small with discount'
-};
-
-/* --- CardBadge discount small negative ---------- */
-export const CardBadgeDiscountSmallNegative = Template.bind({});
-
-CardBadgeDiscountSmallNegative.argTypes = defaultArgTypes;
-CardBadgeDiscountSmallNegative.args = {
-  ...defaultArgs,
-  'appearance': appearance.options[1],
-  'is-discount': true
-};
-
-CardBadgeDiscountSmallNegative.documentation = {
-  title: 'Card badge small with discount negative'
-};
-
 /* --- CardBadge with text and price ------------ */
 export const CardBadgeWithTextAndPrice = Template.bind({});
 
