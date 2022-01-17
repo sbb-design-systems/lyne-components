@@ -61,9 +61,9 @@ const price = {
 };
 
 const defaultArgTypes = {
-  'accessibility-label': accessibilityLabel,
+  accessibilityLabel,
   appearance,
-  'is-discount': isDiscount,
+  isDiscount,
   price,
   text
 };
@@ -107,7 +107,7 @@ export const CardBadgeFullFledged = TemplateWithSlot.bind({});
 CardBadgeFullFledged.argTypes = defaultArgTypes;
 CardBadgeFullFledged.args = {
   ...defaultArgs,
-  'is-discount': isDiscount,
+  'is-discount': true,
   'price': '92.50',
   'text': 'from CHF'
 };
@@ -122,7 +122,7 @@ export const CardBadgeDiscount = Template.bind({});
 CardBadgeDiscount.argTypes = defaultArgTypes;
 CardBadgeDiscount.args = {
   ...defaultArgs,
-  'is-discount': isDiscount
+  'is-discount': true
 };
 
 CardBadgeDiscount.documentation = {
@@ -136,7 +136,7 @@ CardBadgeDiscountNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountNegative.args = {
   ...defaultArgs,
   'appearance': appearance.options[1],
-  'is-discount': isDiscount
+  'is-discount': true
 };
 
 CardBadgeDiscountNegative.documentation = {
@@ -149,7 +149,7 @@ export const CardBadgeDiscountSmall = Template.bind({});
 CardBadgeDiscountSmall.argTypes = defaultArgTypes;
 CardBadgeDiscountSmall.args = {
   ...defaultArgs,
-  'is-discount': isDiscount
+  'is-discount': true
 };
 
 CardBadgeDiscountSmall.documentation = {
@@ -163,7 +163,7 @@ CardBadgeDiscountSmallNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountSmallNegative.args = {
   ...defaultArgs,
   'appearance': appearance.options[1],
-  'is-discount': isDiscount
+  'is-discount': true
 };
 
 CardBadgeDiscountSmallNegative.documentation = {
@@ -205,7 +205,7 @@ export const CardBadgeDiscountWithSlot = TemplateWithSlot.bind({});
 CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
 CardBadgeDiscountWithSlot.args = {
   ...defaultArgs,
-  'is-discount': isDiscount
+  'is-discount': true
 };
 
 CardBadgeDiscountWithSlot.documentation = {
