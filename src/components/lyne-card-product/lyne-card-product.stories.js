@@ -332,11 +332,13 @@ const SlotPearlChainTemplate = () => (
 
 /* --- card-badge slot ----------------------------- */
 
-const cardBadgeArgs = {
-  'is-discount': true,
-  'price': '20.50',
-  'text': 'from CHF'
-};
+/*
+ * const cardBadgeArgs = {
+ *   'is-discount': true,
+ *   'price': '20.50',
+ *   'text': 'from CHF'
+ * };
+ */
 
 const cardBadgeWithSlotArgs = {
   'is-discount': true,
