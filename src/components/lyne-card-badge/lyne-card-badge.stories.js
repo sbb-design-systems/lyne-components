@@ -61,9 +61,9 @@ const price = {
 };
 
 const defaultArgTypes = {
-  accessibilityLabel,
+  'accessibility-label': accessibilityLabel,
   appearance,
-  isDiscount,
+  'is-discount': isDiscount,
   price,
   text
 };
