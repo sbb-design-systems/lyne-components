@@ -53,7 +53,7 @@ export class LyneAutocompleteItem {
 
     if (index < 0) {
       return {
-        exactMatch: exactMatch,
+        exactMatch,
         main: text
       };
     }
@@ -68,7 +68,7 @@ export class LyneAutocompleteItem {
     }
 
     return {
-      exactMatch: exactMatch,
+      exactMatch,
       main: highlight,
       post: postString,
       pre: preString
