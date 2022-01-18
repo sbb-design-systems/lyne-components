@@ -68,7 +68,7 @@
 
 .input--no-border {
   border: none;
-  @include shadowElevationLevel5;
+  @include shadow-level-5-hard;
 
   @include ifForcedColors() {
     border: pxToRem(1) solid CanvasText;
