@@ -257,7 +257,7 @@ export class LyneAutocomplete {
           inputRole='combobox'
           inputAriaAutocomplete='list'
           inputAriaControls={this.autocompleteId}
-          inputValue={this.value}
+          inputValue={this.value || this._inputValue}
           ref={(el): void => {
             this._inputElement = el;
           }}
