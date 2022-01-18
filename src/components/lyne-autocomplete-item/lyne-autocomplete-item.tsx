@@ -49,7 +49,10 @@ export class LyneAutocompleteItem {
 
   private _compileTextMarkup(text: string, highlight: string): InterfaceAutocompleteItemAttributes['textStructure'] {
     let exactMatch = false;
-    const index = text.indexOf(highlight);
+    const textLowercase = text.toLowerCase();
+    const highlightLowercase = highlight.toLowerCase();
+
+    const index = textLowercase.indexOf(highlightLowercase);
 
     if (index < 0) {
       return {
@@ -58,10 +61,11 @@ export class LyneAutocompleteItem {
       };
     }
 
-    let preString: string = text.substring(0, index);
-    let postString: string = text.substring(index + highlight.length);
+    let preString = text.substring(0, index);
+    const main = text.substring(index, index + highlight.length);
+    let postString = text.substring(index + highlight.length);
 
-    if (text === highlight) {
+    if (textLowercase === highlightLowercase) {
       exactMatch = true;
       preString = '';
       postString = '';
@@ -69,7 +73,7 @@ export class LyneAutocompleteItem {
 
     return {
       exactMatch,
-      main: highlight,
+      main,
       post: postString,
       pre: preString
     };
@@ -112,10 +116,6 @@ export class LyneAutocompleteItem {
 
     mainClasses += this.selected
       ? ' autocomplete-item--selected'
-      : '';
-
-    mainClasses += textMarkup.pre || textMarkup.post
-      ? ' autocomplete-item--has-highlight'
       : '';
 
     const itemClasses = textMarkup.pre || textMarkup.post || textMarkup.exactMatch
