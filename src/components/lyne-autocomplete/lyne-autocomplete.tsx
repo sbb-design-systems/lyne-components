@@ -205,7 +205,9 @@ export class LyneAutocomplete {
   };
 
   private _handleSelected = (evt): void => {
-    const value = evt.detail.value;
+    const {
+      value
+    } = evt.detail;
 
     this.value = value;
 
