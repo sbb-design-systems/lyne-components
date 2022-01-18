@@ -116,6 +116,7 @@ export const CardBadgeFullFledged = TemplateWithSlot.bind({});
 CardBadgeFullFledged.argTypes = defaultArgTypes;
 CardBadgeFullFledged.args = {
   ...defaultArgs,
+  'accessibility-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
   'is-discount': true,
   'price': '92.50',
   'text': 'from CHF'
@@ -136,6 +137,7 @@ export const CardBadgeDiscount = Template.bind({});
 CardBadgeDiscount.argTypes = defaultArgTypes;
 CardBadgeDiscount.args = {
   ...defaultArgs,
+  'accessibility-label': 'Super saver sales ticket.',
   'is-discount': true
 };
 
@@ -154,6 +156,7 @@ export const CardBadgeDiscountNegative = Template.bind({});
 CardBadgeDiscountNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountNegative.args = {
   ...defaultArgs,
+  'accessibility-label': 'Super saver sales ticket.',
   'appearance': appearance.options[1],
   'is-discount': true
 };
@@ -173,8 +176,9 @@ export const CardBadgeWithTextAndPrice = Template.bind({});
 CardBadgeWithTextAndPrice.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPrice.args = {
   ...defaultArgs,
-  price: '37.50',
-  text: 'from CHF'
+  'accessibility-label': 'Super saver sales ticket price starts at CHF 37.50',
+  'price': '37.50',
+  'text': 'from CHF'
 };
 
 CardBadgeWithTextAndPrice.documentation = {
@@ -192,9 +196,10 @@ export const CardBadgeWithTextAndPriceNegative = Template.bind({});
 CardBadgeWithTextAndPriceNegative.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPriceNegative.args = {
   ...defaultArgs,
-  appearance: appearance.options[1],
-  price: '18.70',
-  text: 'from CHF'
+  'accessibility-label': 'Super saver sales ticket price starts at CHF 18.70',
+  'appearance': appearance.options[1],
+  'price': '18.70',
+  'text': 'from CHF'
 };
 
 CardBadgeWithTextAndPriceNegative.documentation = {
@@ -212,6 +217,7 @@ export const CardBadgeDiscountWithSlot = TemplateWithSlot.bind({});
 CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
 CardBadgeDiscountWithSlot.args = {
   ...defaultArgs,
+  'accessibility-label': 'Super saver sales ticket Black Friday Special',
   'is-discount': true
 };
 
