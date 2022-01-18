@@ -16,7 +16,7 @@ const wrapperStyle = (context) => {
     return `background-color: ${ColorWhiteDefault};`;
   }
 
-  return `background-color: ${ColorWhiteDefault};`;
+  return `background-color: ${ColorCharcoalDefault};`;
 };
 
 /* ************************************************* */
@@ -63,7 +63,7 @@ const price = {
 const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   appearance,
-  isDiscount,
+  'is-discount': isDiscount,
   price,
   text
 };
@@ -107,9 +107,9 @@ export const CardBadgeFullFledged = TemplateWithSlot.bind({});
 CardBadgeFullFledged.argTypes = defaultArgTypes;
 CardBadgeFullFledged.args = {
   ...defaultArgs,
-  isDiscount: true,
-  price: '92.50',
-  text: 'from CHF'
+  'is-discount': true,
+  'price': '92.50',
+  'text': 'from CHF'
 };
 
 CardBadgeFullFledged.documentation = {
@@ -122,7 +122,7 @@ export const CardBadgeDiscount = Template.bind({});
 CardBadgeDiscount.argTypes = defaultArgTypes;
 CardBadgeDiscount.args = {
   ...defaultArgs,
-  isDiscount: true
+  'is-discount': true
 };
 
 CardBadgeDiscount.documentation = {
@@ -135,39 +135,12 @@ export const CardBadgeDiscountNegative = Template.bind({});
 CardBadgeDiscountNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountNegative.args = {
   ...defaultArgs,
-  appearance: appearance.options[1],
-  isDiscount: true
+  'appearance': appearance.options[1],
+  'is-discount': true
 };
 
 CardBadgeDiscountNegative.documentation = {
   title: 'Card badge with discount negative'
-};
-
-/* --- CardBadge discount small ------------ */
-export const CardBadgeDiscountSmall = Template.bind({});
-
-CardBadgeDiscountSmall.argTypes = defaultArgTypes;
-CardBadgeDiscountSmall.args = {
-  ...defaultArgs,
-  isDiscount: true
-};
-
-CardBadgeDiscountSmall.documentation = {
-  title: 'Card badge small with discount'
-};
-
-/* --- CardBadge discount small negative ---------- */
-export const CardBadgeDiscountSmallNegative = Template.bind({});
-
-CardBadgeDiscountSmallNegative.argTypes = defaultArgTypes;
-CardBadgeDiscountSmallNegative.args = {
-  ...defaultArgs,
-  appearance: appearance.options[1],
-  isDiscount: true
-};
-
-CardBadgeDiscountSmallNegative.documentation = {
-  title: 'Card badge small with discount negative'
 };
 
 /* --- CardBadge with text and price ------------ */
@@ -205,10 +178,16 @@ export const CardBadgeDiscountWithSlot = TemplateWithSlot.bind({});
 CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
 CardBadgeDiscountWithSlot.args = {
   ...defaultArgs,
-  isDiscount: true
+  'is-discount': true
 };
 
 CardBadgeDiscountWithSlot.documentation = {
+  container: {
+    styles: {
+      overflow: 'hidden',
+      position: 'relative'
+    }
+  },
   title: 'Card badge discount with slot'
 };
 

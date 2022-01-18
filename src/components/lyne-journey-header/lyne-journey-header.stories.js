@@ -105,6 +105,7 @@ export const h2InH4Style = Template.bind({});
 h2InH4Style.argTypes = defaultArgTypes;
 h2InH4Style.args = {
   ...defaultArgs,
+  markup: 'h2',
   size: 4
 };
 h2InH4Style.documentation = {
@@ -117,8 +118,9 @@ export const h2InH4StyleRoundTrip = Template.bind({});
 h2InH4StyleRoundTrip.argTypes = defaultArgTypes;
 h2InH4StyleRoundTrip.args = {
   ...defaultArgs,
-  isRoundTrip: true,
-  size: 4
+  'is-round-trip': true,
+  'markup': 'h2',
+  'size': 4
 };
 h2InH4StyleRoundTrip.documentation = {
   title: 'Journey header as h2, in h4 style'
@@ -130,10 +132,11 @@ export const h2InH4StyleRoundTripShortText = Template.bind({});
 h2InH4StyleRoundTripShortText.argTypes = defaultArgTypes;
 h2InH4StyleRoundTripShortText.args = {
   ...defaultArgs,
-  destination: 'Thun',
-  isRoundTrip: true,
-  origin: 'Bern',
-  size: 4
+  'destination': 'Thun',
+  'is-round-trip': true,
+  'markup': 'h2',
+  'origin': 'Bern',
+  'size': 4
 };
 h2InH4StyleRoundTripShortText.documentation = {
   title: 'Journey header as h2, in h4 style'

@@ -17,6 +17,7 @@
   --slot-icon-spacing-inline: var(--spacing-fixed-4x);
   --slot-details-spacing-top: var(--spacing-fixed-2x);
   --slot-action-spacing-top: var(--spacing-fixed-4x);
+  --card-text-color: var(--color--charcoal-default);
 }
 
 /* ************************************************* */
@@ -26,6 +27,8 @@
   @include card-product-reset;
   @include card;
   @include card--m;
+
+  color: var(--card-text-color);
 }
 
 .card-product--tall {
