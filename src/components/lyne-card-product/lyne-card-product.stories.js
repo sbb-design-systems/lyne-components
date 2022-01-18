@@ -8,6 +8,25 @@ import readme from './readme.md';
 import sampleData from '../lyne-pearl-chain/lyne-pearl-chain.sample-data';
 
 /* ************************************************* */
+/* Documentation platform container                  */
+/* ************************************************* */
+
+const documentationPlatformContainerStyle = (context) => {
+  const variantsOnDarkBg = ['primary-negative'];
+
+  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+    return {
+      'background-color': ColorWhiteDefault,
+      'border': `1px solid ${ColorMilkDefault}`
+    };
+  }
+
+  return {
+    'background-color': ColorMilkDefault
+  };
+};
+
+/* ************************************************* */
 /* Storybook component wrapper, used in Storybook    */
 /* ************************************************* */
 
@@ -20,24 +39,6 @@ const wrapperStyle = (context) => {
 
   return `background-color: ${ColorMilkDefault};`;
 };
-
-/* ************************************************* */
-/* Documentation platform container                  */
-/* ************************************************* */
-
-/*
- * const documentationPlatformContainerStyle = (context) => {
- *   const variantsOnDarkBg = ['primary-negative'];
- *   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
- *     return {
- *       'background-color': ColorWhiteDefault
- *     };
- *   }
- *   return {
- *     'background-color': ColorWhiteDefault
- *   };
- * };
- */
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -523,6 +524,12 @@ TopProductDayPass.args = {
 };
 
 TopProductDayPass.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Top Product Day Pass'
 };
 
@@ -535,6 +542,12 @@ TopProductDayPassBicycle.args = {
 };
 
 TopProductDayPassBicycle.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Top Product Day Pass Bicycle'
 };
 
@@ -547,6 +560,12 @@ TopProductTravelCardPointToPoint.args = {
 };
 
 TopProductTravelCardPointToPoint.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Top Product Travel Card Point to Point'
 };
 
@@ -559,6 +578,12 @@ YourProductPointToPointPersonalized.args = {
 };
 
 YourProductPointToPointPersonalized.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Your Product Point to Point Ticket Personalized'
 };
 
@@ -571,6 +596,12 @@ YourProductTravelCardPersonalized.args = {
 };
 
 YourProductTravelCardPersonalized.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Your Product Ticket Personalized'
 };
 
@@ -583,6 +614,12 @@ YourProductTicketPersonalized.args = {
 };
 
 YourProductTicketPersonalized.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Your Product Ticket Personalized'
 };
 
@@ -596,6 +633,12 @@ TravelCardGA.args = {
 };
 
 TravelCardGA.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Travel Card GA'
 };
 
@@ -610,6 +653,12 @@ TravelCardGAPersonalized.args = {
 };
 
 TravelCardGAPersonalized.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Travel Card GA Personalized'
 };
 
@@ -623,6 +672,12 @@ TravelCardHalfFare.args = {
 };
 
 TravelCardHalfFare.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Travel Card Half Fare'
 };
 
@@ -637,6 +692,12 @@ TravelCardHalfFarePersonalized.args = {
 };
 
 TravelCardHalfFarePersonalized.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'CardProduct, Travel Card Half Fare Personalized'
 };
 
@@ -656,19 +717,11 @@ CardProductTheWholeShabang.args = {
 };
 
 CardProductTheWholeShabang.documentation = {
-
-  /*
-   * container: {
-   *   styles:
-   *     (context) => (
-   *       documentationPlatformContainerStyle(context)
-   *     )
-   * },
-   */
   container: {
-    styles: {
-      'background-color': ColorWhiteDefault
-    }
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
   },
   title: 'CardProduct, The Whole Shabang'
 };
