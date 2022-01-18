@@ -74,6 +74,15 @@ const defaultArgs = {
 };
 
 /* ************************************************* */
+/* Documentation platform                            */
+/* ************************************************* */
+
+const defaultDocumentationStyles = {
+  overflow: 'hidden',
+  position: 'relative'
+};
+
+/* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
@@ -113,6 +122,11 @@ CardBadgeFullFledged.args = {
 };
 
 CardBadgeFullFledged.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge full fledged'
 };
 
@@ -126,6 +140,11 @@ CardBadgeDiscount.args = {
 };
 
 CardBadgeDiscount.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge with discount'
 };
 
@@ -140,6 +159,11 @@ CardBadgeDiscountNegative.args = {
 };
 
 CardBadgeDiscountNegative.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge with discount negative'
 };
 
@@ -154,6 +178,11 @@ CardBadgeWithTextAndPrice.args = {
 };
 
 CardBadgeWithTextAndPrice.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge with text and price'
 };
 
@@ -169,6 +198,11 @@ CardBadgeWithTextAndPriceNegative.args = {
 };
 
 CardBadgeWithTextAndPriceNegative.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge with text and price negative'
 };
 
@@ -184,8 +218,7 @@ CardBadgeDiscountWithSlot.args = {
 CardBadgeDiscountWithSlot.documentation = {
   container: {
     styles: {
-      overflow: 'hidden',
-      position: 'relative'
+      ...defaultDocumentationStyles
     }
   },
   title: 'Card badge discount with slot'
