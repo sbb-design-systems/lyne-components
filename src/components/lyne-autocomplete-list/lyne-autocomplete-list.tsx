@@ -64,19 +64,12 @@ export class LyneAutocompleteList {
   private _currentLanguage = getDocumentLang();
   private _dataItems!: [any];
 
-  private _initialValue = '';
-
   /**
    * ---------
    * key handling
    * ---------
    */
   private _handleArrowKeys = (key): void => {
-
-    if (!this.visible) {
-      this._initialValue = this.highlight;
-    }
-
     this.visible = true;
 
     const isDownKey = key === 'ArrowDown';
@@ -96,6 +89,7 @@ export class LyneAutocompleteList {
     }
 
     const value = this._dataItems[this._selectedAutocompleteItemIndex].text;
+
     this._propagateSelection(value, false);
 
     const selectedElement = this._list.children[this._selectedAutocompleteItemIndex];
@@ -108,13 +102,13 @@ export class LyneAutocompleteList {
   };
 
   private _handleEscapeKey = (): void => {
-    const value = this._initialValue;
-    this._propagateSelection(value, true);
+    this._propagateSelection('', true);
     this.visible = false;
   };
 
   private _handleEnterKey = (): void => {
     const value = this._dataItems[this._selectedAutocompleteItemIndex].text;
+
     this._propagateSelection(value, true);
     this.visible = false;
   };
@@ -149,8 +143,8 @@ export class LyneAutocompleteList {
       bubbles: false,
       composed: true,
       detail: {
-        value,
-        hide
+        hide,
+        value
       }
     });
 
