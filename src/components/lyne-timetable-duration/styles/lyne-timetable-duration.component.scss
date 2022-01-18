@@ -1,0 +1,9 @@
+.duration {
+  @include text-s--regular();
+  margin: 0;
+  white-space: nowrap;
+}
+
+.duration__text--visually-hidden {
+  @include screenReaderOnly();
+}

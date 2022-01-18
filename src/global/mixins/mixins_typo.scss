@@ -51,6 +51,7 @@
 // ----------------------------------------------------------------------------------------------------
 @mixin text {
   font-family: var(--typo-type-face-sbb-roman);
+  font-weight: normal;
   line-height: var(--typo-line-height-body-text);
   letter-spacing: var(--typo-letter-spacing-body-text);
 }
@@ -65,7 +66,7 @@
 }
 
 @mixin text-xl--bold {
-  @include text-xl--reqular();
+  @include text-xl--regular();
   @include text--bold();
 }
 
@@ -75,7 +76,7 @@
 }
 
 @mixin text-m--bold {
-  @include text-m--reqular();
+  @include text-m--regular();
   @include text--bold();
 }
 
@@ -95,7 +96,17 @@
 }
 
 @mixin text-xs--bold {
-  @include text-s-reqular();
+  @include text-xs--regular();
+  @include text--bold();
+}
+
+@mixin text-xxs--regular {
+  @include text();
+  font-size: pxToRem(var(--lyne-font-size-text-xxs));
+}
+
+@mixin text-xxs--bold {
+  @include text-xxs--regular();
   @include text--bold();
 }
 

@@ -1,0 +1,13 @@
+.platform {
+  @include text-s--regular();
+  margin: 0;
+  white-space: nowrap;
+}
+
+.platform--second-level-departure {
+  @include text-s--bold();
+}
+
+.platform__text--visually-hidden {
+  @include screenReaderOnly();
+}

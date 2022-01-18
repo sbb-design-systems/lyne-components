@@ -1,0 +1,108 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+:host {
+  --transportation-number-element-height: 20;
+  --product-icon-width: 59;
+}
+
+:host(lyne-timetable-transportation-number) {
+  display: flex;
+  flex-basis: 100%;
+  margin-block-end: pxToRem(var(--spacing-fixed-1x));
+  overflow: hidden;
+}
+
+.transportation-number {
+  display: flex;
+  flex: 0 0 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.transportation-number--first-level span {
+  height: pxToRem(var(--transportation-number-element-height));
+  line-height: pxToRem(22);
+}
+
+.transportation-number--visual {
+  @include text-s--regular();
+  display: flex;
+  flex: 0 0 100%;
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow: hidden;
+}
+
+.transportation-number--second-level .transportation-number--visual {
+  flex-wrap: wrap;
+}
+
+.transportation-number__means_of_transport {
+  display: flex;
+  flex: 0 0 pxToRem(var(--transportation-number-element-height));
+  aspect-ratio: 1/1;
+  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+  overflow: hidden;
+}
+
+.transportation-number__means_of_transport svg {
+  width: pxToRem(var(--transportation-number-element-height));
+  height: pxToRem(var(--transportation-number-element-height));
+}
+
+.transportation-number__product-icon,
+.transportation-number__product-text {
+  display: flex;
+  white-space: nowrap;
+  margin-inline-end: pxToRem(var(--spacing-fixed-2x));
+}
+
+.transportation-number__product-icon {
+  line-height: pxToRem(var(--transportation-number-element-height));
+}
+
+.transportation-number__product-icon svg {
+  width: pxToRem(var(--product-icon-width));
+}
+
+.transportation-number__product-text {
+  @include text-s--bold();
+}
+
+.transportation-number--first-level .transportation-number__product-text {
+  line-height: pxToRem(22);
+}
+
+.transportation-number--second-level .transportation-number__product-text {
+  line-height: pxToRem(var(--transportation-number-element-height));
+  transform: translateY(#{pxToRem(1)});
+}
+
+.transportation-number__direction {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.transportation-number--second-level .transportation-number__direction {
+  flex: 0 0 100%;
+  margin-block-start: pxToRem(var(--spacing-fixed-1x));
+}
+
+.transportation-number__direction_text {
+  display: block;
+}
+
+.transportation-number--first-level .transportation-number__direction_text {
+  @include ellipsis();
+}
+
+.transportation-number--visually-hidden {
+  @include screenReaderOnly();
+}
+
+svg {
+  height: pxToRem(var(--transportation-number-element-height));
+}
+
+
