@@ -1,3 +1,18 @@
+## [9.71.1](https://github.com/lyne-design-system/lyne-components/compare/v9.71.0...v9.71.1) (2022-01-18)
+
+
+### Bug Fixes
+
+* camelCase argument issues ([cda23a1](https://github.com/lyne-design-system/lyne-components/commit/cda23a19c731bacc2a991a08de64bf183126b229))
+* camelCase issues for card-badge ([00953bb](https://github.com/lyne-design-system/lyne-components/commit/00953bbf985a1be8f31ddc752aac59d3747dd38a))
+* change background color ([d623054](https://github.com/lyne-design-system/lyne-components/commit/d6230549e80c9f715c6b533af98d6189d1ebfa18))
+* change background color for card-product ([9edbaf6](https://github.com/lyne-design-system/lyne-components/commit/9edbaf6de608660d43a699ee68ad3671ea63ce3a))
+* change markup to h2 according to the ([cc0c851](https://github.com/lyne-design-system/lyne-components/commit/cc0c8512c24c1ffc3a6196a4b506057dd0cddafb))
+* default arg camelCase issues ([4b1c0c2](https://github.com/lyne-design-system/lyne-components/commit/4b1c0c2955e99bd71ad5fa01c36deea775e9b5ca))
+* explicitly set card link/button color ([063dece](https://github.com/lyne-design-system/lyne-components/commit/063dece80d405c9f122ee730ed6c055a2bd27454))
+* linting error ([8d8c89c](https://github.com/lyne-design-system/lyne-components/commit/8d8c89c86f1172268b78fa1e9e100a43cac92f95))
+* showcase absolute postioned card-badge ([350186a](https://github.com/lyne-design-system/lyne-components/commit/350186a919f55e99a34b7dc12318e22d8eb8a1e7))
+
 # [9.71.0](https://github.com/lyne-design-system/lyne-components/compare/v9.70.0...v9.71.0) (2022-01-14)
 
 
