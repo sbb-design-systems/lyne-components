@@ -6,6 +6,22 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 /* ************************************************* */
+/* Documentation platform container                  */
+/* ************************************************* */
+
+const documentationPlatformContainerStyle = (context) => {
+  const variantsOnDarkBg = ['primary-negative'];
+
+  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+    return {};
+  }
+
+  return {
+    'background-color': ColorCharcoalDefault
+  };
+};
+
+/* ************************************************* */
 /* Storybook component wrapper, used in Storybook    */
 /* ************************************************* */
 
@@ -96,6 +112,12 @@ export const h1 = Template.bind({});
 h1.argTypes = defaultArgTypes;
 h1.args = JSON.parse(JSON.stringify(defaultArgs));
 h1.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'Journey header as h1'
 };
 
@@ -109,6 +131,12 @@ h2InH4Style.args = {
   size: 4
 };
 h2InH4Style.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'Journey header as h2, in h4 style'
 };
 
@@ -123,6 +151,12 @@ h2InH4StyleRoundTrip.args = {
   'size': 4
 };
 h2InH4StyleRoundTrip.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'Journey header as h2, in h4 style'
 };
 
@@ -139,6 +173,12 @@ h2InH4StyleRoundTripShortText.args = {
   'size': 4
 };
 h2InH4StyleRoundTripShortText.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'Journey header as h2, in h4 style'
 };
 
@@ -151,6 +191,12 @@ h1Negative.args = {
   appearance: appearance.options[1]
 };
 h1Negative.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
   title: 'Journey header Negative as h1'
 };
 
