@@ -19,11 +19,25 @@ describe('lyne-autocomplete', () => {
 
     expect(root)
       .toEqualHtml(`
-        <lyne-autocomplete inputlabel="input-label" inputname="test-input" items="[{&quot;text&quot;: &quot;pre ipsum item1 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item2 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item3 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item4 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item5 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item6 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item7 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item8 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item9 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item10 post lorem&quot;}]" minchars="2">
+      <lyne-autocomplete inputlabel="input-label" inputname="test-input" items="[{&quot;text&quot;: &quot;Bern&quot;},{&quot;text&quot;: &quot;Bern, Hauptbahnhof&quot;},{&quot;text&quot;: &quot;Bern (Marzilibahn)&quot;},{&quot;text&quot;: &quot;Bern Marzili&quot;},{&quot;text&quot;: &quot;Bern Matte&quot;},{&quot;text&quot;: &quot;Bern Münsterplattform&quot;},{&quot;text&quot;: &quot;Bern Europaplatz, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Brunnadernstrasse&quot;},{&quot;text&quot;: &quot;Bern, Bärenplatz&quot;}]" minchars="2">
           <mock:shadow-root>
             <div class="autocomplete">
               <lyne-text-input debounceinputevent="200" inputariaautocomplete="list" inputariacontrols="autocomplete-list" inputautocompletevalue="off" inputrequired="" inputrole="combobox" inputtype="text"></lyne-text-input>
-              <lyne-autocomplete-list items="[{&quot;text&quot;: &quot;pre ipsum item1 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item2 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item3 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item4 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item5 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item6 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item7 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item8 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item9 post lorem&quot;},{&quot;text&quot;: &quot;pre ipsum item10 post lorem&quot;}]" listid="autocomplete-list"></lyne-autocomplete-list>
+              <div tabindex="-1">
+                <ul aria-hidden="" class="autocomplete__list" id="autocomplete-list" role="presentation">
+                  <lyne-autocomplete-item ariaposinset="1" ariasetsize="10" text="Bern"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="2" ariasetsize="10" text="Bern, Hauptbahnhof"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="3" ariasetsize="10" text="Bern (Marzilibahn)"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="4" ariasetsize="10" text="Bern Marzili"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="5" ariasetsize="10" text="Bern Matte"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="6" ariasetsize="10" text="Bern Münsterplattform"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="7" ariasetsize="10" text="Bern Europaplatz, Bahnhof"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="8" ariasetsize="10" text="Bern, Bahnhof"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="9" ariasetsize="10" text="Bern, Brunnadernstrasse"></lyne-autocomplete-item>
+                  <lyne-autocomplete-item ariaposinset="10" ariasetsize="10" text="Bern, Bärenplatz"></lyne-autocomplete-item>
+                </ul>
+                <p aria-atomic="true" aria-live="polite" class="autocomplete__accessibility-hint" role="status"></p>
+              </div>
             </div>
           </mock:shadow-root>
         </lyne-autocomplete>
