@@ -134,28 +134,6 @@ export namespace Components {
          */
         "text": string;
     }
-    interface LyneAutocompleteList {
-        /**
-          * The string to search for as highlight in the list items.
-         */
-        "highlight"?: string;
-        /**
-          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
-         */
-        "items"?: string;
-        /**
-          * Id to use for the list.
-         */
-        "listId"?: string;
-        /**
-          * The index of the list item which should be currently selected.
-         */
-        "selectedIndex"?: number;
-        /**
-          * Determine if the list should be visible or not.
-         */
-        "visible": boolean;
-    }
     interface LyneButton {
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
@@ -865,12 +843,6 @@ declare global {
         prototype: HTMLLyneAutocompleteItemElement;
         new (): HTMLLyneAutocompleteItemElement;
     };
-    interface HTMLLyneAutocompleteListElement extends Components.LyneAutocompleteList, HTMLStencilElement {
-    }
-    var HTMLLyneAutocompleteListElement: {
-        prototype: HTMLLyneAutocompleteListElement;
-        new (): HTMLLyneAutocompleteListElement;
-    };
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
     }
     var HTMLLyneButtonElement: {
@@ -1086,7 +1058,6 @@ declare global {
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
         "lyne-autocomplete": HTMLLyneAutocompleteElement;
         "lyne-autocomplete-item": HTMLLyneAutocompleteItemElement;
-        "lyne-autocomplete-list": HTMLLyneAutocompleteListElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-card-badge": HTMLLyneCardBadgeElement;
         "lyne-card-product": HTMLLyneCardProductElement;
@@ -1228,28 +1199,6 @@ declare namespace LocalJSX {
           * Text to show as content of the autocomplete item
          */
         "text": string;
-    }
-    interface LyneAutocompleteList {
-        /**
-          * The string to search for as highlight in the list items.
-         */
-        "highlight"?: string;
-        /**
-          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
-         */
-        "items"?: string;
-        /**
-          * Id to use for the list.
-         */
-        "listId"?: string;
-        /**
-          * The index of the list item which should be currently selected.
-         */
-        "selectedIndex"?: number;
-        /**
-          * Determine if the list should be visible or not.
-         */
-        "visible"?: boolean;
     }
     interface LyneButton {
         /**
@@ -1939,7 +1888,6 @@ declare namespace LocalJSX {
         "lyne-accordion-item": LyneAccordionItem;
         "lyne-autocomplete": LyneAutocomplete;
         "lyne-autocomplete-item": LyneAutocompleteItem;
-        "lyne-autocomplete-list": LyneAutocompleteList;
         "lyne-button": LyneButton;
         "lyne-card-badge": LyneCardBadge;
         "lyne-card-product": LyneCardProduct;
@@ -1985,7 +1933,6 @@ declare module "@stencil/core" {
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
             "lyne-autocomplete": LocalJSX.LyneAutocomplete & JSXBase.HTMLAttributes<HTMLLyneAutocompleteElement>;
             "lyne-autocomplete-item": LocalJSX.LyneAutocompleteItem & JSXBase.HTMLAttributes<HTMLLyneAutocompleteItemElement>;
-            "lyne-autocomplete-list": LocalJSX.LyneAutocompleteList & JSXBase.HTMLAttributes<HTMLLyneAutocompleteListElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
             "lyne-card-product": LocalJSX.LyneCardProduct & JSXBase.HTMLAttributes<HTMLLyneCardProductElement>;

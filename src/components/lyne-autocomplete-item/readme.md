@@ -28,12 +28,12 @@
 
 ### Used by
 
- - [lyne-autocomplete-list](../lyne-autocomplete-list)
+ - [lyne-autocomplete](../lyne-autocomplete)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-autocomplete-list --> lyne-autocomplete-item
+  lyne-autocomplete --> lyne-autocomplete-item
   style lyne-autocomplete-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
