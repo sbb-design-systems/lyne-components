@@ -1,3 +1,13 @@
+# [9.72.0](https://github.com/lyne-design-system/lyne-components/compare/v9.71.1...v9.72.0) (2022-01-19)
+
+
+### Features
+
+* card-product documentation platform container ([f3005de](https://github.com/lyne-design-system/lyne-components/commit/f3005de1a3018099a062900547f1cf2450f78c80))
+* introducing documentation styles for all ([2f152fb](https://github.com/lyne-design-system/lyne-components/commit/2f152fbe5b7d2a693b50ae0467a5ec4af40eeae2))
+* journey-header style ([4ff3015](https://github.com/lyne-design-system/lyne-components/commit/4ff3015ef26f0218cb115dcb81dddf753f599eb2))
+* update a11y labels ([3965ed2](https://github.com/lyne-design-system/lyne-components/commit/3965ed2675fffc47def3300fa2bbd8dffeabcf22))
+
 ## [9.71.1](https://github.com/lyne-design-system/lyne-components/compare/v9.71.0...v9.71.1) (2022-01-18)
 
 
