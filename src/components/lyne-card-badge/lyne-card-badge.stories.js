@@ -74,6 +74,15 @@ const defaultArgs = {
 };
 
 /* ************************************************* */
+/* Documentation platform                            */
+/* ************************************************* */
+
+const defaultDocumentationStyles = {
+  overflow: 'hidden',
+  position: 'relative'
+};
+
+/* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
@@ -107,12 +116,18 @@ export const CardBadgeFullFledged = TemplateWithSlot.bind({});
 CardBadgeFullFledged.argTypes = defaultArgTypes;
 CardBadgeFullFledged.args = {
   ...defaultArgs,
+  'accessibility-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
   'is-discount': true,
   'price': '92.50',
   'text': 'from CHF'
 };
 
 CardBadgeFullFledged.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge full fledged'
 };
 
@@ -122,10 +137,16 @@ export const CardBadgeDiscount = Template.bind({});
 CardBadgeDiscount.argTypes = defaultArgTypes;
 CardBadgeDiscount.args = {
   ...defaultArgs,
+  'accessibility-label': 'Super saver sales ticket.',
   'is-discount': true
 };
 
 CardBadgeDiscount.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge with discount'
 };
 
@@ -135,11 +156,17 @@ export const CardBadgeDiscountNegative = Template.bind({});
 CardBadgeDiscountNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountNegative.args = {
   ...defaultArgs,
+  'accessibility-label': 'Super saver sales ticket.',
   'appearance': appearance.options[1],
   'is-discount': true
 };
 
 CardBadgeDiscountNegative.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge with discount negative'
 };
 
@@ -149,11 +176,17 @@ export const CardBadgeWithTextAndPrice = Template.bind({});
 CardBadgeWithTextAndPrice.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPrice.args = {
   ...defaultArgs,
-  price: '37.50',
-  text: 'from CHF'
+  'accessibility-label': 'Super saver sales ticket price starts at CHF 37.50',
+  'price': '37.50',
+  'text': 'from CHF'
 };
 
 CardBadgeWithTextAndPrice.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge with text and price'
 };
 
@@ -163,12 +196,18 @@ export const CardBadgeWithTextAndPriceNegative = Template.bind({});
 CardBadgeWithTextAndPriceNegative.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPriceNegative.args = {
   ...defaultArgs,
-  appearance: appearance.options[1],
-  price: '18.70',
-  text: 'from CHF'
+  'accessibility-label': 'Super saver sales ticket price starts at CHF 18.70',
+  'appearance': appearance.options[1],
+  'price': '18.70',
+  'text': 'from CHF'
 };
 
 CardBadgeWithTextAndPriceNegative.documentation = {
+  container: {
+    styles: {
+      ...defaultDocumentationStyles
+    }
+  },
   title: 'Card badge with text and price negative'
 };
 
@@ -178,14 +217,14 @@ export const CardBadgeDiscountWithSlot = TemplateWithSlot.bind({});
 CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
 CardBadgeDiscountWithSlot.args = {
   ...defaultArgs,
+  'accessibility-label': 'Super saver sales ticket Black Friday Special',
   'is-discount': true
 };
 
 CardBadgeDiscountWithSlot.documentation = {
   container: {
     styles: {
-      overflow: 'hidden',
-      position: 'relative'
+      ...defaultDocumentationStyles
     }
   },
   title: 'Card badge discount with slot'
