@@ -158,7 +158,7 @@ export class LyneTextInput {
   /**
    * The aria-autocomplete attribute for the input element.
    */
-  @Prop() public inputAriaAutocomplete?: InterfaceLyneTextInputAttributes['inputAriaAutocomplete'];
+  @Prop() public inputAriaAutoComplete?: InterfaceLyneTextInputAttributes['inputAriaAutoComplete'];
 
   /**
    * The id to use as the aira-controls attribute for the input element.
@@ -264,10 +264,10 @@ export class LyneTextInput {
       };
     }
 
-    if (this.inputAriaAutocomplete) {
+    if (this.inputAriaAutoComplete) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        'aria-autocomplete': this.inputAriaAutocomplete
+        'aria-autocomplete': this.inputAriaAutoComplete
       };
     }
 

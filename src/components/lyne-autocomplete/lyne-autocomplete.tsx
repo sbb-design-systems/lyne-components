@@ -363,10 +363,14 @@ export class LyneAutocomplete {
   private _a11yHelpText = (): string => {
 
     let a11yHintText = '';
+    let a11yArrowKeys = '';
 
     if (this._isVisible) {
       const a11yResults = i18nXResultsAvailable(this._dataItems.length)[this._currentLanguage];
-      const a11yArrowKeys = i18nUseArrowKeysToNavigate[this._currentLanguage];
+
+      if (window.matchMedia('(pointer: fine)').matches) {
+        a11yArrowKeys = i18nUseArrowKeysToNavigate[this._currentLanguage];
+      }
 
       a11yHintText = `${a11yResults} ${a11yArrowKeys}`;
     }
@@ -392,7 +396,7 @@ export class LyneAutocomplete {
           borderless={this.inputBorderless}
           inputAriaExpanded={this._isVisible}
           inputRole='combobox'
-          inputAriaAutocomplete='list'
+          inputAriaAutoComplete='list'
           inputAriaControls={this.autocompleteId}
           inputValue={this.value}
           ref={(el): void => {
@@ -400,33 +404,32 @@ export class LyneAutocomplete {
           }}
         ></lyne-text-input>
 
-        <div tabindex='-1'>
-          <ul
-            class={this._listClasses()}
-            role='listbox'
-            {...this._listAttributes()}
-            ref={(el): void => {
-              this._list = el;
-            }}
-          >
-            {this._dataItems.map((item, index) => (
-              <lyne-autocomplete-item
-                text={item.text}
-                highlight={this.value}
-                selected={index === this._selectedAutocompleteItemIndex}
-                ariaPosinset={index + 1}
-                ariaSetsize={this._dataItems.length}
-              />
-            ))}
-          </ul>
+        <p
 
-          <p
-            class='autocomplete__accessibility-hint'
-            role='status'
-            aria-live='polite'
-            aria-atomic='true'
-          >{this._a11yHelpText()}</p>
-        </div>
+          class='autocomplete__accessibility-hint'
+          role='status'
+          tabindex='-1'
+        >{this._a11yHelpText()}</p>
+
+        <ul
+          class={this._listClasses()}
+          role='listbox'
+          {...this._listAttributes()}
+          ref={(el): void => {
+            this._list = el;
+          }}
+        >
+          {this._dataItems.map((item, index) => (
+            <lyne-autocomplete-item
+              text={item.text}
+              highlight={this.value}
+              selected={index === this._selectedAutocompleteItemIndex}
+              ariaPosinset={index + 1}
+              ariaSetsize={this._dataItems.length}
+            />
+          ))}
+        </ul>
+
       </div>
     );
   }

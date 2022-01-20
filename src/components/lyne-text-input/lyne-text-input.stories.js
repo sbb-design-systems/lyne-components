@@ -251,7 +251,7 @@ const inputAriaExpanded = {
   }
 };
 
-const inputAriaAutocomplete = {
+const inputAriaAutoComplete = {
   control: {
     type: 'select'
   },
@@ -280,7 +280,7 @@ const defaultArgTypes = {
   'debounce-input-event': debounceInputEvent,
   'event-id': eventId,
   icon,
-  'input-aria-autocomplete': inputAriaAutocomplete,
+  'input-aria-autocomplete': inputAriaAutoComplete,
   'input-aria-controls': inputAriaControls,
   'input-aria-expanded': inputAriaExpanded,
   'input-autocomplete-section-name': inputAutoCompleteSectionName,

@@ -570,7 +570,7 @@ export namespace Components {
         /**
           * The aria-autocomplete attribute for the input element.
          */
-        "inputAriaAutocomplete"?: InterfaceLyneTextInputAttributes['inputAriaAutocomplete'];
+        "inputAriaAutoComplete"?: InterfaceLyneTextInputAttributes['inputAriaAutoComplete'];
         /**
           * The id to use as the aira-controls attribute for the input element.
          */
@@ -1636,7 +1636,7 @@ declare namespace LocalJSX {
         /**
           * The aria-autocomplete attribute for the input element.
          */
-        "inputAriaAutocomplete"?: InterfaceLyneTextInputAttributes['inputAriaAutocomplete'];
+        "inputAriaAutoComplete"?: InterfaceLyneTextInputAttributes['inputAriaAutoComplete'];
         /**
           * The id to use as the aira-controls attribute for the input element.
          */
