@@ -405,7 +405,6 @@ export class LyneAutocomplete {
         ></lyne-text-input>
 
         <p
-
           class='autocomplete__accessibility-hint'
           role='status'
           tabindex='-1'

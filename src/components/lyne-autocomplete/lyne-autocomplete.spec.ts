@@ -23,21 +23,24 @@ describe('lyne-autocomplete', () => {
           <mock:shadow-root>
             <div class="autocomplete">
               <lyne-text-input debounceinputevent="200" inputariaautocomplete="list" inputariacontrols="autocomplete-list" inputautocompletevalue="off" inputrequired="" inputrole="combobox" inputtype="text"></lyne-text-input>
-              <div tabindex="-1">
-                <ul aria-hidden="" class="autocomplete__list" id="autocomplete-list" role="presentation">
-                  <lyne-autocomplete-item ariaposinset="1" ariasetsize="10" text="Bern"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="2" ariasetsize="10" text="Bern, Hauptbahnhof"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="3" ariasetsize="10" text="Bern (Marzilibahn)"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="4" ariasetsize="10" text="Bern Marzili"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="5" ariasetsize="10" text="Bern Matte"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="6" ariasetsize="10" text="Bern Münsterplattform"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="7" ariasetsize="10" text="Bern Europaplatz, Bahnhof"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="8" ariasetsize="10" text="Bern, Bahnhof"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="9" ariasetsize="10" text="Bern, Brunnadernstrasse"></lyne-autocomplete-item>
-                  <lyne-autocomplete-item ariaposinset="10" ariasetsize="10" text="Bern, Bärenplatz"></lyne-autocomplete-item>
-                </ul>
-                <p aria-atomic="true" aria-live="polite" class="autocomplete__accessibility-hint" role="status"></p>
-              </div>
+              <p
+                  class="autocomplete__accessibility-hint"
+                  role='status'
+                  tabindex='-1'
+              >
+              </p>
+              <ul aria-hidden="" class="autocomplete__list" id="autocomplete-list" role="presentation">
+                <lyne-autocomplete-item ariaposinset="1" ariasetsize="10" text="Bern"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="2" ariasetsize="10" text="Bern, Hauptbahnhof"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="3" ariasetsize="10" text="Bern (Marzilibahn)"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="4" ariasetsize="10" text="Bern Marzili"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="5" ariasetsize="10" text="Bern Matte"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="6" ariasetsize="10" text="Bern Münsterplattform"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="7" ariasetsize="10" text="Bern Europaplatz, Bahnhof"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="8" ariasetsize="10" text="Bern, Bahnhof"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="9" ariasetsize="10" text="Bern, Brunnadernstrasse"></lyne-autocomplete-item>
+                <lyne-autocomplete-item ariaposinset="10" ariasetsize="10" text="Bern, Bärenplatz"></lyne-autocomplete-item>
+              </ul>
             </div>
           </mock:shadow-root>
         </lyne-autocomplete>
