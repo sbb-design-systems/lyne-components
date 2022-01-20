@@ -1,3 +1,10 @@
+## [9.72.2](https://github.com/lyne-design-system/lyne-components/compare/v9.72.1...v9.72.2) (2022-01-20)
+
+
+### Bug Fixes
+
+* change color of new icons from [#000000](https://github.com/lyne-design-system/lyne-components/issues/000000) to lyne color black (triggered from Figma) (triggered from icons build) [skip ci] ([49cfd54](https://github.com/lyne-design-system/lyne-components/commit/49cfd54d403b9dbb3136eab02341ccfe049a8dcf))
+
 ## [9.72.1](https://github.com/lyne-design-system/lyne-components/compare/v9.72.0...v9.72.1) (2022-01-20)
 
 
