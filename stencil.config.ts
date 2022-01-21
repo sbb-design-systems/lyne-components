@@ -19,10 +19,6 @@ export const config = {
       type: 'dist-custom-elements-bundle'
     },
     {
-      dir: './dist/component-elements',
-      type: 'dist-custom-elements'
-    },
-    {
       footer: '',
       type: 'docs-readme'
     },
