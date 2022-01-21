@@ -1,3 +1,10 @@
+## [9.72.4](https://github.com/lyne-design-system/lyne-components/compare/v9.72.3...v9.72.4) (2022-01-21)
+
+
+### Bug Fixes
+
+* remove custom-elements output target which was temporary added for testing ([02003d1](https://github.com/lyne-design-system/lyne-components/commit/02003d17a9376e9233066a24986c1fd7673bc933))
+
 ## [9.72.3](https://github.com/lyne-design-system/lyne-components/compare/v9.72.2...v9.72.3) (2022-01-21)
 
 
