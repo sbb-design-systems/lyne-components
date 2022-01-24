@@ -1,3 +1,10 @@
+## [9.72.5](https://github.com/lyne-design-system/lyne-components/compare/v9.72.4...v9.72.5) (2022-01-24)
+
+
+### Bug Fixes
+
+* adjust position of arrow-compass icon (triggered from Figma) (triggered from icons build) [skip ci] ([444e94c](https://github.com/lyne-design-system/lyne-components/commit/444e94c25d719a66808b5fead5d1306cf35a219a))
+
 ## [9.72.4](https://github.com/lyne-design-system/lyne-components/compare/v9.72.3...v9.72.4) (2022-01-21)
 
 
