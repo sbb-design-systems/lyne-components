@@ -1,3 +1,10 @@
+## [9.73.1](https://github.com/lyne-design-system/lyne-components/compare/v9.73.0...v9.73.1) (2022-01-27)
+
+
+### Bug Fixes
+
+* add background color to autocomplete list ([0a7e280](https://github.com/lyne-design-system/lyne-components/commit/0a7e2806b4251043000e0726ceb48be8dfcec1b3))
+
 # [9.73.0](https://github.com/lyne-design-system/lyne-components/compare/v9.72.5...v9.73.0) (2022-01-27)
 
 
