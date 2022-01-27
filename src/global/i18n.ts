@@ -293,6 +293,19 @@ export const i18nTargetOpensInNewWindow: any = {
   it: 'L\'obiettivo del link si apre in una nuova finestra.'
 };
 
+export const i18nXResultsAvailable = (resultsCount: number): any => ({
+  de: `${resultsCount} Resultate verfügbar.`,
+  en: `${resultsCount} results available.`,
+  fr: `${resultsCount} résultats disponibles.`,
+  it: `${resultsCount} sarà disponibile.`
+});
+
+export const i18nUseArrowKeysToNavigate: any = {
+  de: 'Verwenden Sie nach oben und unten Pfeiltasten um zu navigieren.',
+  en: 'Use up and down arrow keys to navigate.',
+  fr: 'Utilisez les touches fléchées haut et bas pour naviguer.',
+  it: 'Usa i tasti freccia su e giù per navigare.'
+};
 export const i18nWalk: any = {
   de: 'Fussweg',
   en: 'Walk',

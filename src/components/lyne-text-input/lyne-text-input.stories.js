@@ -11,6 +11,21 @@ const Template = (args) => (
   </lyne-text-input>
 );
 
+const debounceInputEvent = {
+  control: {
+    type: 'number'
+  },
+  table: {
+    category: 'Events'
+  }
+};
+
+const border = {
+  control: {
+    type: 'boolean'
+  }
+};
+
 const icon = {
   control: {
     type: 'text'
@@ -203,8 +218,71 @@ const labelVisible = {
   }
 };
 
+const eventId = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Events'
+  }
+};
+
+const inputRole = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'presentation',
+    'searchbox',
+    'combobox',
+    'listbox'
+  ],
+  table: {
+    category: 'a11y'
+  }
+};
+
+const inputAriaExpanded = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'a11y'
+  }
+};
+
+const inputAriaAutoComplete = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'inline',
+    'list',
+    'both',
+    'none'
+  ],
+  table: {
+    category: 'a11y'
+  }
+};
+
+const inputAriaControls = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'a11y'
+  }
+};
+
 const defaultArgTypes = {
+  'borderless': border,
+  'debounce-input-event': debounceInputEvent,
+  'event-id': eventId,
   icon,
+  'input-aria-autocomplete': inputAriaAutoComplete,
+  'input-aria-controls': inputAriaControls,
+  'input-aria-expanded': inputAriaExpanded,
   'input-autocomplete-section-name': inputAutoCompleteSectionName,
   'input-autocomplete-value': inputAutoCompleteValue,
   'input-disabled': inputDisabled,
@@ -216,13 +294,20 @@ const defaultArgTypes = {
   'input-pattern': inputPattern,
   'input-placeholder': inputPlaceholder,
   'input-required': inputRequired,
+  'input-role': inputRole,
   'input-type': inputType,
   label,
   'label-visible': labelVisible
 };
 
 const defaultArgs = {
+  'borderless': false,
+  'debounce-input-event': 0,
+  'event-id': '',
   'icon': '',
+  'input-aria-autocomplete': 'none',
+  'input-aria-controls': '',
+  'input-aria-expanded': false,
   'input-autocomplete-section-name': inputAutoCompleteSectionName.options[1],
   'input-autocomplete-value': inputAutoCompleteValue.options[35],
   'input-disabled': false,
@@ -234,6 +319,7 @@ const defaultArgs = {
   'input-pattern': '',
   'input-placeholder': 'Placeholder Text',
   'input-required': false,
+  'input-role': 'searchbox',
   'input-type': inputType.options[6],
   'label': 'Label',
   'label-visible': true
@@ -446,7 +532,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click]
+      handles: [events.input]
     },
     docs: {
       extractComponentDescription: () => readme

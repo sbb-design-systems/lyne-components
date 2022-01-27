@@ -66,6 +66,74 @@ export namespace Components {
          */
         "open"?: boolean;
     }
+    interface LyneAutocomplete {
+        /**
+          * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
+         */
+        "autocompleteId"?: string;
+        /**
+          * Id which is sent as the id in the eventDetail payload when a value is selected
+         */
+        "eventId"?: string;
+        /**
+          * Define if borderless variant of autocomplete input should be used. See documentation of lyne-text-input for details.
+         */
+        "inputBorderless"?: boolean;
+        /**
+          * Debounce timeout to use for the input. See documentation of lyne-text-input for details.
+         */
+        "inputDebounceTimeout"?: number;
+        /**
+          * Label attribute for the input element. See lyne-text-input for details.
+         */
+        "inputLabel": string;
+        /**
+          * Determine if the input label should be visible. See lyne-text-input for details.
+         */
+        "inputLabelVisible"?: boolean;
+        /**
+          * Name attribute for the input element. See lyne-text-input for details.
+         */
+        "inputName": string;
+        /**
+          * Placeholder attribute for the input element. See lyne-text-input for details.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
+         */
+        "items"?: string;
+        /**
+          * Define how many chars a user must type into the input field for the autocomplete list to show up.
+         */
+        "minChars"?: number;
+        /**
+          * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
+         */
+        "value"?: string;
+    }
+    interface LyneAutocompleteItem {
+        /**
+          * The aria-posinset attribute for the list element
+         */
+        "ariaPosinset"?: number;
+        /**
+          * The aira-setsize attribute for the list element
+         */
+        "ariaSetsize"?: number;
+        /**
+          * The text to highlight within the string property
+         */
+        "highlight"?: string;
+        /**
+          * Mark the item as selected, which will change it's appearance and the according aria attributes.
+         */
+        "selected"?: boolean;
+        /**
+          * Text to show as content of the autocomplete item
+         */
+        "text": string;
+    }
     interface LyneButton {
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
@@ -484,9 +552,33 @@ export namespace Components {
     }
     interface LyneTextInput {
         /**
+          * If set to true, the input element will have no border, but a drop shadow.
+         */
+        "borderless"?: boolean;
+        /**
+          * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
+         */
+        "debounceInputEvent"?: number;
+        /**
+          * Id which is sent as the id in the eventDetail payload
+         */
+        "eventId"?: string;
+        /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "icon"?: string;
+        /**
+          * The aria-autocomplete attribute for the input element.
+         */
+        "inputAriaAutoComplete"?: InterfaceLyneTextInputAttributes['inputAriaAutoComplete'];
+        /**
+          * The id to use as the aira-controls attribute for the input element.
+         */
+        "inputAriaControls"?: string;
+        /**
+          * Set aria-expanded on the input element.
+         */
+        "inputAriaExpanded"?: boolean;
         /**
           * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
          */
@@ -528,17 +620,25 @@ export namespace Components {
          */
         "inputRequired"?: boolean;
         /**
+          * The role attribute used for the input element.
+         */
+        "inputRole"?: InterfaceLyneTextInputAttributes['inputRole'];
+        /**
           * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
          */
         "inputType": string;
+        /**
+          * Value for the input element.
+         */
+        "inputValue"?: string;
         /**
           * Each input element needs to have a label associated with it.
          */
         "label": string;
         /**
-          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+          * If set to false, the label will be visually hidden but still be in the markup to provide proper semantics
          */
-        "labelVisible"?: true;
+        "labelVisible"?: boolean;
     }
     interface LyneTimetable {
     }
@@ -730,6 +830,18 @@ declare global {
     var HTMLLyneAccordionItemElement: {
         prototype: HTMLLyneAccordionItemElement;
         new (): HTMLLyneAccordionItemElement;
+    };
+    interface HTMLLyneAutocompleteElement extends Components.LyneAutocomplete, HTMLStencilElement {
+    }
+    var HTMLLyneAutocompleteElement: {
+        prototype: HTMLLyneAutocompleteElement;
+        new (): HTMLLyneAutocompleteElement;
+    };
+    interface HTMLLyneAutocompleteItemElement extends Components.LyneAutocompleteItem, HTMLStencilElement {
+    }
+    var HTMLLyneAutocompleteItemElement: {
+        prototype: HTMLLyneAutocompleteItemElement;
+        new (): HTMLLyneAutocompleteItemElement;
     };
     interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
     }
@@ -944,6 +1056,8 @@ declare global {
     interface HTMLElementTagNameMap {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
+        "lyne-autocomplete": HTMLLyneAutocompleteElement;
+        "lyne-autocomplete-item": HTMLLyneAutocompleteItemElement;
         "lyne-button": HTMLLyneButtonElement;
         "lyne-card-badge": HTMLLyneCardBadgeElement;
         "lyne-card-product": HTMLLyneCardProductElement;
@@ -1017,6 +1131,74 @@ declare namespace LocalJSX {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface LyneAutocomplete {
+        /**
+          * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
+         */
+        "autocompleteId"?: string;
+        /**
+          * Id which is sent as the id in the eventDetail payload when a value is selected
+         */
+        "eventId"?: string;
+        /**
+          * Define if borderless variant of autocomplete input should be used. See documentation of lyne-text-input for details.
+         */
+        "inputBorderless"?: boolean;
+        /**
+          * Debounce timeout to use for the input. See documentation of lyne-text-input for details.
+         */
+        "inputDebounceTimeout"?: number;
+        /**
+          * Label attribute for the input element. See lyne-text-input for details.
+         */
+        "inputLabel": string;
+        /**
+          * Determine if the input label should be visible. See lyne-text-input for details.
+         */
+        "inputLabelVisible"?: boolean;
+        /**
+          * Name attribute for the input element. See lyne-text-input for details.
+         */
+        "inputName": string;
+        /**
+          * Placeholder attribute for the input element. See lyne-text-input for details.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
+         */
+        "items"?: string;
+        /**
+          * Define how many chars a user must type into the input field for the autocomplete list to show up.
+         */
+        "minChars"?: number;
+        /**
+          * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
+         */
+        "value"?: string;
+    }
+    interface LyneAutocompleteItem {
+        /**
+          * The aria-posinset attribute for the list element
+         */
+        "ariaPosinset"?: number;
+        /**
+          * The aira-setsize attribute for the list element
+         */
+        "ariaSetsize"?: number;
+        /**
+          * The text to highlight within the string property
+         */
+        "highlight"?: string;
+        /**
+          * Mark the item as selected, which will change it's appearance and the according aria attributes.
+         */
+        "selected"?: boolean;
+        /**
+          * Text to show as content of the autocomplete item
+         */
+        "text": string;
     }
     interface LyneButton {
         /**
@@ -1436,9 +1618,33 @@ declare namespace LocalJSX {
     }
     interface LyneTextInput {
         /**
+          * If set to true, the input element will have no border, but a drop shadow.
+         */
+        "borderless"?: boolean;
+        /**
+          * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
+         */
+        "debounceInputEvent"?: number;
+        /**
+          * Id which is sent as the id in the eventDetail payload
+         */
+        "eventId"?: string;
+        /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "icon"?: string;
+        /**
+          * The aria-autocomplete attribute for the input element.
+         */
+        "inputAriaAutoComplete"?: InterfaceLyneTextInputAttributes['inputAriaAutoComplete'];
+        /**
+          * The id to use as the aira-controls attribute for the input element.
+         */
+        "inputAriaControls"?: string;
+        /**
+          * Set aria-expanded on the input element.
+         */
+        "inputAriaExpanded"?: boolean;
         /**
           * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
          */
@@ -1480,17 +1686,25 @@ declare namespace LocalJSX {
          */
         "inputRequired"?: boolean;
         /**
+          * The role attribute used for the input element.
+         */
+        "inputRole"?: InterfaceLyneTextInputAttributes['inputRole'];
+        /**
           * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
          */
         "inputType": string;
+        /**
+          * Value for the input element.
+         */
+        "inputValue"?: string;
         /**
           * Each input element needs to have a label associated with it.
          */
         "label": string;
         /**
-          * If set to true, the label will be visually hidden but still be in the markup to provide proper semantics
+          * If set to false, the label will be visually hidden but still be in the markup to provide proper semantics
          */
-        "labelVisible"?: true;
+        "labelVisible"?: boolean;
     }
     interface LyneTimetable {
     }
@@ -1672,6 +1886,8 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
+        "lyne-autocomplete": LyneAutocomplete;
+        "lyne-autocomplete-item": LyneAutocompleteItem;
         "lyne-button": LyneButton;
         "lyne-card-badge": LyneCardBadge;
         "lyne-card-product": LyneCardProduct;
@@ -1715,6 +1931,8 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
             "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
+            "lyne-autocomplete": LocalJSX.LyneAutocomplete & JSXBase.HTMLAttributes<HTMLLyneAutocompleteElement>;
+            "lyne-autocomplete-item": LocalJSX.LyneAutocompleteItem & JSXBase.HTMLAttributes<HTMLLyneAutocompleteItemElement>;
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
             "lyne-card-product": LocalJSX.LyneCardProduct & JSXBase.HTMLAttributes<HTMLLyneCardProductElement>;

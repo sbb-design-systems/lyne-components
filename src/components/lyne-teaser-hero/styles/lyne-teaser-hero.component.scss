@@ -10,6 +10,7 @@
 .taser-hero {
   position: relative;
   display: block;
+  @include visibleFocus();
 }
 
 .teaser-hero__image {

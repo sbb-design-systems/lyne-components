@@ -1,3 +1,3 @@
 export default {
-  click: 'lyne-text-input_click'
+  input: 'lyne-text-input_input'
 };

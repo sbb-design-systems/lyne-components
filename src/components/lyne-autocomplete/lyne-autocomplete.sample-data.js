@@ -1,0 +1,1 @@
+export default '[{"text": "Bern"},{"text": "Bern, Hauptbahnhof"},{"text": "Bern (Marzilibahn)"},{"text": "Bern Marzili"},{"text": "Bern Matte"},{"text": "Bern Münsterplattform"},{"text": "Bern Europaplatz, Bahnhof"},{"text": "Bern, Bahnhof"},{"text": "Bern, Brunnadernstrasse"},{"text": "Bern, Bärenplatz"}]';

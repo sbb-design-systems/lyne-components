@@ -28,7 +28,7 @@
   --icon-size: var(--size-icon-ui-small);
 
   @include mq($from: medium) {
-    --input-height: 56;
+    --input-height: 56; // TODO Design Token??
   }
 
   @include ifForcedColors {
@@ -64,7 +64,15 @@
   background-color: var(--background-color-default);
   border: pxToRem(1) solid var(--border-color-default);
   border-radius: pxToRem(var(--border-radius-4x));
+}
 
+.input--no-border {
+  border: none;
+  @include shadow-level-5-hard;
+
+  @include ifForcedColors() {
+    border: pxToRem(1) solid CanvasText;
+  }
 }
 
 // Input Variant
@@ -110,6 +118,8 @@
   padding-inline-start: pxToRem(var(--spacing-fixed-3x));
   padding-inline-end: pxToRem(var(--spacing-fixed-3x));
   color: var(--text-color-label);
+  user-select: none;
+  pointer-events: none;
 }
 
 .input-label--text {

@@ -34,6 +34,7 @@ describe('lyne-text-input', () => {
                         id="input-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                         name="textfield"
                         placeholder="Placeholder Text"
+                        value=""
                     >
                     <label
                         aria-label="Label (optional)."

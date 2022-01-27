@@ -1,9 +1,10 @@
 import {
   Component,
+  Element,
   h,
   Prop
 } from '@stencil/core';
-// import events from './lyne-text-input.events';
+import events from './lyne-text-input.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
   i18nMandatoryField,
@@ -11,6 +12,7 @@ import {
 } from '../../global/i18n';
 import { InterfaceLyneTextInputAttributes } from './lyne-text-input.custom.d';
 import { guid } from '../../global/guid';
+import debounce from '../../global/helpers/debounce';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -27,10 +29,11 @@ import { guid } from '../../global/guid';
 
 export class LyneTextInput {
 
+  private _inputElement!: HTMLInputElement;
   private _additionalInputClasses = [];
+  private _additionalInputWrapperClasses = [];
   private _addtitionalInputAttributes = {};
   private _currentLanguage = getDocumentLang();
-
   private _id = '';
   private _labelAriaLabel = '';
 
@@ -115,26 +118,95 @@ export class LyneTextInput {
   @Prop() public label!: string;
 
   /**
-   * If set to true, the label will be visually
+   * If set to false, the label will be visually
    * hidden but still be in the markup to provide
    * proper semantics
    */
-  @Prop() public labelVisible?: true;
+  @Prop() public labelVisible?: boolean;
+
+  /**
+   * Value for the input element.
+   */
+  @Prop() public inputValue?: string;
+
+  /**
+   * Id which is sent as the id in the eventDetail payload
+   */
+  @Prop() public eventId?: string;
+
+  /**
+   * Debounce type for the input change event in ms. If you set this value
+   * to e.g. 300, we fire the input event only every 300ms.
+   */
+  @Prop() public debounceInputEvent? = 0;
+
+  /**
+   * If set to true, the input element will have no border, but a drop shadow.
+   */
+  @Prop() public borderless?: boolean;
+
+  /**
+   * The role attribute used for the input element.
+   */
+  @Prop() public inputRole?: InterfaceLyneTextInputAttributes['inputRole'];
+
+  /**
+   * Set aria-expanded on the input element.
+   */
+  @Prop() public inputAriaExpanded? = false;
+
+  /**
+   * The aria-autocomplete attribute for the input element.
+   */
+  @Prop() public inputAriaAutoComplete?: InterfaceLyneTextInputAttributes['inputAriaAutoComplete'];
+
+  /**
+   * The id to use as the aira-controls attribute for the input element.
+   */
+  @Prop() public inputAriaControls?: string;
+
+  @Element() private _element: HTMLElement;
+
+  private _dispatchEvent = (evt: any): void => {
+    evt.stopImmediatePropagation();
+    evt.preventDefault();
+
+    const eventDetail = {
+      id: '',
+      value: this._inputElement.value
+    };
+
+    if (this.eventId) {
+      eventDetail.id = this.eventId;
+    }
+
+    const event = new CustomEvent(events[evt.type], {
+      bubbles: true,
+      composed: true,
+      detail: eventDetail
+    });
+
+    this._element.dispatchEvent(event);
+  };
 
   private _getAdditionalStyleClasses(): void {
 
-    this._additionalInputClasses = [];
+    this._additionalInputWrapperClasses = [];
 
     if (!this.labelVisible) {
-      this._additionalInputClasses.push('input-wrapper--label-hidden');
+      this._additionalInputWrapperClasses.push('input-wrapper--label-hidden');
     }
 
     if (this.icon) {
-      this._additionalInputClasses.push('input-wrapper--with-icon');
+      this._additionalInputWrapperClasses.push('input-wrapper--with-icon');
     }
 
     if (this.inputError) {
-      this._additionalInputClasses.push('input-wrapper--error');
+      this._additionalInputWrapperClasses.push('input-wrapper--error');
+    }
+
+    if (this.borderless) {
+      this._additionalInputClasses.push('input--no-border');
     }
 
   }
@@ -178,6 +250,34 @@ export class LyneTextInput {
       };
     }
 
+    if (this.inputRole) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        role: this.inputRole
+      };
+    }
+
+    if (this.inputAriaExpanded) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        'aria-expanded': `${this.inputAriaExpanded}`
+      };
+    }
+
+    if (this.inputAriaAutoComplete) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        'aria-autocomplete': this.inputAriaAutoComplete
+      };
+    }
+
+    if (this.inputAriaControls) {
+      this._addtitionalInputAttributes = {
+        ...this._addtitionalInputAttributes,
+        'aria-controls': this.inputAriaControls
+      };
+    }
+
   }
 
   /**
@@ -212,12 +312,30 @@ export class LyneTextInput {
     }
   }
 
+  private _handleNativeSelect = (): void => {
+    this._inputElement.select();
+  };
+
+  private _handleNativeFocus = (): void => {
+    this._inputElement.focus();
+  };
+
   public componentWillLoad(): void {
     if (this.inputId) {
       this._id = this.inputId;
     } else {
       this._id = `input-${guid()}`;
     }
+  }
+
+  public componentDidLoad(): void {
+    this._element.addEventListener('select', this._handleNativeSelect);
+    this._element.addEventListener('focus', this._handleNativeFocus);
+  }
+
+  public disconnectCallback(): void {
+    this._element.removeEventListener('select', this._handleNativeSelect);
+    this._element.removeEventListener('focus', this._handleNativeFocus);
   }
 
   public render(): JSX.Element {
@@ -243,7 +361,7 @@ export class LyneTextInput {
 
     return (
       <div
-        class={`input-wrapper ${this._additionalInputClasses.join(' ')}`}
+        class={`input-wrapper ${this._additionalInputWrapperClasses.join(' ')}`}
       >
         <div class='input-wrapper__inner'>
           {this.icon
@@ -253,13 +371,18 @@ export class LyneTextInput {
           <input
             autocapitalize='off'
             autocomplete={this.inputAutoCompleteValue}
-            class='input'
+            class={`input ${this._additionalInputClasses.join(' ')}`}
             id={this._id}
             name={this.inputName}
             placeholder={this.inputPlaceholder}
             required={this.inputRequired}
             type={this.inputType}
+            onInput={debounce(this._dispatchEvent, this.debounceInputEvent)}
             {...this._addtitionalInputAttributes}
+            ref={(el): void => {
+              this._inputElement = el;
+            }}
+            value={this.inputValue || ''}
           />
           <label
             aria-label={this._labelAriaLabel}
