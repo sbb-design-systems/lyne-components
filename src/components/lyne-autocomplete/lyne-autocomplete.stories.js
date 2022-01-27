@@ -146,6 +146,11 @@ DefaultAutocomplete.args = {
 };
 
 DefaultAutocomplete.documentation = {
+  container: {
+    styles: {
+      'z-index': '1'
+    }
+  },
   title: 'Default autocomplete'
 };
 
