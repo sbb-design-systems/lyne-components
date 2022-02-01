@@ -110,6 +110,7 @@ export class LyneTeaserItem {
               imageSrc={this.imageSrc}
               loading={this.imageLoading}
               lqip
+              variant='teaser-item'
               performanceMark='teaser-item'
             />
           </div>

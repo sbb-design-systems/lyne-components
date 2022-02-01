@@ -98,3 +98,8 @@
 
 };
 
+// Variant: Teaser Item
+.image__figure--teaser-item .image__wrapper {
+  @include image-aspect-ratio-1-1;
+};
+
