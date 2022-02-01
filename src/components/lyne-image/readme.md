@@ -34,11 +34,13 @@
 ### Used by
 
  - [lyne-teaser-hero](../lyne-teaser-hero)
+ - [lyne-teaser-item](../lyne-teaser-item)
 
 ### Graph
 ```mermaid
 graph TD;
   lyne-teaser-hero --> lyne-image
+  lyne-teaser-item --> lyne-image
   style lyne-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

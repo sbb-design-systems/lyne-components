@@ -1,0 +1,108 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+
+  --some-color-var: black;
+  --text-color-normal: var(--color-metal-default);
+}
+
+.teaser-item__image {
+  padding-right: pxToRem(16);
+}
+
+
+a.teaser-item-link {
+  text-decoration: none;
+}
+
+p.teaser-item__paragraph {
+  @include text-s--regular();
+  color: var(--text-color-normal);
+}
+
+.teaser-item__container {
+  background-color: beige;
+}
+
+.teaser-item__container-image {
+  width: 80px;
+  height: 60px;
+}
+
+@include mq($from: medium) {
+  .teaser-item__container-image {
+    width: 96px;
+    height: 72px;
+  }
+}
+
+.personalised {
+  &.teaser-item__container {
+    max-width: 132px;
+    background-color: lightgrey;
+  }
+
+  .teaser-item__container-image {
+    width: 132px;
+    height: 99px;
+  }
+
+  @include mq($from: micro) {
+    &.teaser-item__container {
+      max-width: 155.5px;
+    }
+    .teaser-item__container-image {
+      width: 155.5px;
+      height: 116.63px;
+    }
+  }
+  @include mq($from: small) {
+    &.teaser-item__container {
+      max-width: 240px;
+    }
+    .teaser-item__container-image {
+      width: 240px;
+      height: 180.01px;
+    }
+  }
+  @include mq($from: medium) {
+    &.teaser-item__container {
+      max-width: 164px;
+    }
+    .teaser-item__container-image {
+      width: 164px;
+      height: 123px;
+    }
+  }
+  @include mq($from: large) {
+    &.teaser-item__container {
+      max-width: 200px;
+    }
+    .teaser-item__container-image {
+      width: 200px;
+      height: 150.01px;
+    }
+  }
+  @include mq($from: wide) {
+    &.teaser-item__container {
+      max-width: 262px;
+    }
+    .teaser-item__container-image {
+      width: 262px;
+      height: 196.51px;
+    }
+  }
+  @include mq($from: ultra) {
+    &.teaser-item__container {
+      max-width: 274px;
+    }
+    .teaser-item__container-image {
+      width: 274px;
+      height: 205.51px;
+    }
+  }
+}

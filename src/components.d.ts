@@ -20,6 +20,7 @@ import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyn
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
+import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/lyne-title/lyne-title.custom";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
@@ -550,6 +551,43 @@ export namespace Components {
          */
         "text": string;
     }
+    interface LyneTeaserItem {
+        /**
+          * Image loading property. See lyne-image for additional info
+         */
+        "imageLoading"?: InterfaceImageAttributes['loading'];
+        /**
+          * Image source property for lyne-image. See lyne-image for additional info
+         */
+        "imageSrc": string;
+        /**
+          * Link to open if the teaser is clicked/pressed.
+         */
+        "link": string;
+        "personalised"?: boolean;
+        /**
+          * pictureSizesConfig1
+         */
+        "pictureSizesConfig"?: any[];
+        /**
+          * Text property for lyne-panel. See lyne-panel for additional info
+         */
+        "text": string;
+        /**
+          * The semantic level of the title, e.g. 3 = h3
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * Headline property
+         */
+        "titleText": string;
+    }
+    interface LyneTeaserList {
+        /**
+          * Property for lyne-panel. See lyne-panel for additional info
+         */
+        "personalised": boolean;
+    }
     interface LyneTextInput {
         /**
           * If set to true, the input element will have no border, but a drop shadow.
@@ -939,6 +977,18 @@ declare global {
         prototype: HTMLLyneTeaserHeroElement;
         new (): HTMLLyneTeaserHeroElement;
     };
+    interface HTMLLyneTeaserItemElement extends Components.LyneTeaserItem, HTMLStencilElement {
+    }
+    var HTMLLyneTeaserItemElement: {
+        prototype: HTMLLyneTeaserItemElement;
+        new (): HTMLLyneTeaserItemElement;
+    };
+    interface HTMLLyneTeaserListElement extends Components.LyneTeaserList, HTMLStencilElement {
+    }
+    var HTMLLyneTeaserListElement: {
+        prototype: HTMLLyneTeaserListElement;
+        new (): HTMLLyneTeaserListElement;
+    };
     interface HTMLLyneTextInputElement extends Components.LyneTextInput, HTMLStencilElement {
     }
     var HTMLLyneTextInputElement: {
@@ -1074,6 +1124,8 @@ declare global {
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
+        "lyne-teaser-item": HTMLLyneTeaserItemElement;
+        "lyne-teaser-list": HTMLLyneTeaserListElement;
         "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-timetable": HTMLLyneTimetableElement;
         "lyne-timetable-button": HTMLLyneTimetableButtonElement;
@@ -1616,6 +1668,43 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
+    interface LyneTeaserItem {
+        /**
+          * Image loading property. See lyne-image for additional info
+         */
+        "imageLoading"?: InterfaceImageAttributes['loading'];
+        /**
+          * Image source property for lyne-image. See lyne-image for additional info
+         */
+        "imageSrc": string;
+        /**
+          * Link to open if the teaser is clicked/pressed.
+         */
+        "link": string;
+        "personalised"?: boolean;
+        /**
+          * pictureSizesConfig1
+         */
+        "pictureSizesConfig"?: any[];
+        /**
+          * Text property for lyne-panel. See lyne-panel for additional info
+         */
+        "text": string;
+        /**
+          * The semantic level of the title, e.g. 3 = h3
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * Headline property
+         */
+        "titleText": string;
+    }
+    interface LyneTeaserList {
+        /**
+          * Property for lyne-panel. See lyne-panel for additional info
+         */
+        "personalised"?: boolean;
+    }
     interface LyneTextInput {
         /**
           * If set to true, the input element will have no border, but a drop shadow.
@@ -1904,6 +1993,8 @@ declare namespace LocalJSX {
         "lyne-sbb-signet": LyneSbbSignet;
         "lyne-slot-component": LyneSlotComponent;
         "lyne-teaser-hero": LyneTeaserHero;
+        "lyne-teaser-item": LyneTeaserItem;
+        "lyne-teaser-list": LyneTeaserList;
         "lyne-text-input": LyneTextInput;
         "lyne-timetable": LyneTimetable;
         "lyne-timetable-button": LyneTimetableButton;
@@ -1949,6 +2040,8 @@ declare module "@stencil/core" {
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
+            "lyne-teaser-item": LocalJSX.LyneTeaserItem & JSXBase.HTMLAttributes<HTMLLyneTeaserItemElement>;
+            "lyne-teaser-list": LocalJSX.LyneTeaserList & JSXBase.HTMLAttributes<HTMLLyneTeaserListElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-timetable": LocalJSX.LyneTimetable & JSXBase.HTMLAttributes<HTMLLyneTimetableElement>;
             "lyne-timetable-button": LocalJSX.LyneTimetableButton & JSXBase.HTMLAttributes<HTMLLyneTimetableButtonElement>;

@@ -1,0 +1,14 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+.personalised ::slotted(lyne-teaser-item) {}
+
+.teaserlist.personalised {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 10px 20px;
+}
