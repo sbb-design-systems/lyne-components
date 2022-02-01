@@ -1,6 +1,6 @@
-import {h} from 'jsx-dom';
+import { h } from 'jsx-dom';
 import readme from './readme.md';
-import images from "../../global/images";
+import images from '../../global/images';
 
 const ItemTemplate = (args) => (
   <lyne-teaser-item class='lyne-teaser-item' {...args}>
@@ -31,42 +31,44 @@ const imageLoading = {
   }
 };
 
-// const nonPersonalisedPictureSizesConfig = {
-//   breakpoints: [
-//     {
-//       image: {
-//         height: '72',
-//         width: '90'
-//       },
-//       mediaQueries: [
-//         {
-//           conditionFeature: 'min-width',
-//           conditionFeatureValue: {
-//             lyneDesignToken: true,
-//             value: 'breakpoint-medium-min'
-//           },
-//           conditionOperator: false
-//         }
-//       ]
-//     },
-//     {
-//       image: {
-//         height: '60',
-//         width: '80'
-//       },
-//       mediaQueries: [
-//         {
-//           conditionFeature: 'min-width',
-//           conditionFeatureValue: {
-//             lyneDesignToken: true,
-//             value: 'breakpoint-zero-min'
-//           },
-//           conditionOperator: false
-//         }
-//       ]
-//     }
-//   ]
-// };
+/*
+ * const nonPersonalisedPictureSizesConfig = {
+ *   breakpoints: [
+ *     {
+ *       image: {
+ *         height: '72',
+ *         width: '90'
+ *       },
+ *       mediaQueries: [
+ *         {
+ *           conditionFeature: 'min-width',
+ *           conditionFeatureValue: {
+ *             lyneDesignToken: true,
+ *             value: 'breakpoint-medium-min'
+ *           },
+ *           conditionOperator: false
+ *         }
+ *       ]
+ *     },
+ *     {
+ *       image: {
+ *         height: '60',
+ *         width: '80'
+ *       },
+ *       mediaQueries: [
+ *         {
+ *           conditionFeature: 'min-width',
+ *           conditionFeatureValue: {
+ *             lyneDesignToken: true,
+ *             value: 'breakpoint-zero-min'
+ *           },
+ *           conditionOperator: false
+ *         }
+ *       ]
+ *     }
+ *   ]
+ * };
+ */
 
 const personalisedPictureSizesConfig = {
   breakpoints: [
@@ -208,7 +210,7 @@ const items = [
     'link': 'https://www.sbb.ch',
     'personalised': false,
     'text': 'Spannende Bücher kaufen',
-    'title-text': 'Lesen im Zug',
+    'title-text': 'Lesen im Zug'
   },
   {
     'image-loading': imageLoading.options[0],
@@ -236,40 +238,42 @@ const items = [
   }
 ];
 
-// const itemsPersonalised = [
-//   {
-//     'image-loading': imageLoading.options[0],
-//     'image-src': images[0],
-//     'link': 'https://www.sbb.ch',
-//     'personalised': true,
-//     'text': 'Spannende Bücher kaufen',
-//     'title-text': 'Lesen im Zug',
-//   },
-//   {
-//     'image-loading': imageLoading.options[0],
-//     'image-src': images[1],
-//     'link': 'https://www.sbb.ch',
-//     'personalised': true,
-//     'text': 'Entspannt reisen',
-//     'title-text': 'Reisetipps'
-//   },
-//   {
-//     'image-loading': imageLoading.options[0],
-//     'image-src': images[2],
-//     'link': 'https://www.sbb.ch',
-//     'personalised': true,
-//     'text': 'Rücksichtsvoll unterwegs',
-//     'title-text': 'SBB Green Class'
-//   },
-//   {
-//     'image-loading': imageLoading.options[0],
-//     'image-src': images[3],
-//     'link': 'https://www.sbb.ch',
-//     'personalised': true,
-//     'text': 'Alles für den täglichen Bedarf',
-//     'title-text': 'Coop Pronto'
-//   }
-// ];
+/*
+ * const itemsPersonalised = [
+ *   {
+ *     'image-loading': imageLoading.options[0],
+ *     'image-src': images[0],
+ *     'link': 'https://www.sbb.ch',
+ *     'personalised': true,
+ *     'text': 'Spannende Bücher kaufen',
+ *     'title-text': 'Lesen im Zug',
+ *   },
+ *   {
+ *     'image-loading': imageLoading.options[0],
+ *     'image-src': images[1],
+ *     'link': 'https://www.sbb.ch',
+ *     'personalised': true,
+ *     'text': 'Entspannt reisen',
+ *     'title-text': 'Reisetipps'
+ *   },
+ *   {
+ *     'image-loading': imageLoading.options[0],
+ *     'image-src': images[2],
+ *     'link': 'https://www.sbb.ch',
+ *     'personalised': true,
+ *     'text': 'Rücksichtsvoll unterwegs',
+ *     'title-text': 'SBB Green Class'
+ *   },
+ *   {
+ *     'image-loading': imageLoading.options[0],
+ *     'image-src': images[3],
+ *     'link': 'https://www.sbb.ch',
+ *     'personalised': true,
+ *     'text': 'Alles für den täglichen Bedarf',
+ *     'title-text': 'Coop Pronto'
+ *   }
+ * ];
+ */
 
 const table = {
   disable: true

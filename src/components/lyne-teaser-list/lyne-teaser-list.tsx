@@ -1,4 +1,6 @@
-import {Component, h, Prop} from '@stencil/core';
+import {
+  Component, h, Prop
+} from '@stencil/core';
 
 /**
  * @slot unnamed - Place lyne-teaser-item elements in the slot
@@ -22,9 +24,6 @@ export class LyneTeaserList {
    */
   @Prop() public personalised: boolean;
 
-  public componentWillLoad(): void {
-  }
-
   public render(): JSX.Element {
 
     const direction = this.personalised
@@ -37,7 +36,7 @@ export class LyneTeaserList {
 
     return (
       <div {...attrs} role='list'>
-        {/*<slot name='slot-teaser-item'/>*/}
+        {/* <slot name='slot-teaser-item'/>*/}
         <slot/>
       </div>
     );

@@ -1,4 +1,4 @@
-import {h} from 'jsx-dom';
+import { h } from 'jsx-dom';
 import images from '../../global/images';
 import readme from './readme.md';
 
@@ -31,7 +31,7 @@ const defaultTeaserArgs = {
   'image-src': images[0],
   'link': 'https://www.sbb.ch',
   'text': 'Spannende Bücher kaufen',
-  'title-text': 'Lesen im Zug',
+  'title-text': 'Lesen im Zug'
 };
 
 const nonPersonalisedPictureSizesConfig = {
@@ -217,27 +217,33 @@ TeaserPersonalisedFalse.args = {
   personalised: false,
   pictureSizesConfig: nonPersonalisedPictureSizesConfig
 };
-// TeaserPersonalisedFalse.decorators = [
-//   (Story) => (
-//     <div style={'max-width: 380px;border:1px solid green;'}>
-//       <Story/>
-//     </div>
-//   )
-// ];
+
+/*
+ * TeaserPersonalisedFalse.decorators = [
+ *   (Story) => (
+ *     <div style={'max-width: 380px;border:1px solid green;'}>
+ *       <Story/>
+ *     </div>
+ *   )
+ * ];
+ */
 
 TeaserPersonalisedTrue.argTypes = defaultTeaserArgTypes;
 TeaserPersonalisedTrue.args = {
   ...defaultTeaserArgs,
   personalised: true,
-  pictureSizesConfig: personalisedPictureSizesConfig,
+  pictureSizesConfig: personalisedPictureSizesConfig
 };
-// TeaserPersonalisedTrue.decorators = [
-//   (Story) => (
-//     <div style={'max-width: 380px;border:1px solid black;'}>
-//       <Story/>
-//     </div>
-//   )
-// ];
+
+/*
+ * TeaserPersonalisedTrue.decorators = [
+ *   (Story) => (
+ *     <div style={'max-width: 380px;border:1px solid black;'}>
+ *       <Story/>
+ *     </div>
+ *   )
+ * ];
+ */
 
 /* ************************************************* */
 /* export default                                    */
