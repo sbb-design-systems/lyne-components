@@ -1,3 +1,10 @@
+# [9.74.0](https://github.com/lyne-design-system/lyne-components/compare/v9.73.1...v9.74.0) (2022-02-02)
+
+
+### Features
+
+* add new timetable icon sa-pg (release 1.30.0) (triggered from Figma) (triggered from icons build) [skip ci] ([07fa2a1](https://github.com/lyne-design-system/lyne-components/commit/07fa2a1c341af4685c6a762b8356d918775baba9))
+
 ## [9.73.1](https://github.com/lyne-design-system/lyne-components/compare/v9.73.0...v9.73.1) (2022-01-27)
 
 
