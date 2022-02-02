@@ -24,13 +24,10 @@ p.teaser-item__paragraph {
   color: var(--text-color-normal);
 }
 
-.teaser-item__container {
-  background-color: beige;
-}
-
 .teaser-item__container-image {
   width: 80px;
   height: 60px;
+  float: left;
 }
 
 @include mq($from: medium) {
@@ -43,12 +40,16 @@ p.teaser-item__paragraph {
 .personalised {
   &.teaser-item__container {
     max-width: 132px;
-    background-color: lightgrey;
+  }
+
+  .teaser-item__image {
+    padding-right: 0;
   }
 
   .teaser-item__container-image {
     width: 132px;
     height: 99px;
+    float: none;
   }
 
   @include mq($from: micro) {

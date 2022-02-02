@@ -17,8 +17,6 @@ import {
 
 export class LyneTeaserList {
 
-  // @Element() private _element: HTMLElement;
-
   /**
    * Property for lyne-panel. See lyne-panel for additional info
    */
@@ -36,7 +34,6 @@ export class LyneTeaserList {
 
     return (
       <div {...attrs} role='list'>
-        {/* <slot name='slot-teaser-item'/>*/}
         <slot/>
       </div>
     );

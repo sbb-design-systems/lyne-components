@@ -7,10 +7,7 @@ const imageLoading = {
   control: {
     type: 'inline-radio'
   },
-  options: [
-    'eager',
-    'lazy'
-  ],
+  options: ['eager'],
   table: {
     category: 'Performance'
   }
@@ -34,176 +31,6 @@ const defaultTeaserArgs = {
   'title-text': 'Lesen im Zug'
 };
 
-const nonPersonalisedPictureSizesConfig = {
-  breakpoints: [
-    {
-      image: {
-        height: '72',
-        width: '90'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-medium-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '60',
-        width: '80'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-zero-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    }
-  ]
-};
-
-const personalisedPictureSizesConfig = {
-  breakpoints: [
-    {
-      image: {
-        height: '205.51',
-        width: '274'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-ultra-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '196.51',
-        width: '262'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-wide-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '150.01',
-        width: '200'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-large-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '123',
-        width: '164'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-medium-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '180.01',
-        width: '240'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-small-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '180.01',
-        width: '240'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-medium-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '116.63',
-        width: '155.5'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-micro-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '99',
-        width: '132'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-zero-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    }
-  ]
-};
-
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
@@ -214,8 +41,7 @@ export const TeaserPersonalisedFalse = Template.bind({});
 TeaserPersonalisedFalse.argTypes = defaultTeaserArgTypes;
 TeaserPersonalisedFalse.args = {
   ...defaultTeaserArgs,
-  personalised: false,
-  pictureSizesConfig: nonPersonalisedPictureSizesConfig
+  personalised: false
 };
 
 /*
@@ -231,8 +57,7 @@ TeaserPersonalisedFalse.args = {
 TeaserPersonalisedTrue.argTypes = defaultTeaserArgTypes;
 TeaserPersonalisedTrue.args = {
   ...defaultTeaserArgs,
-  personalised: true,
-  pictureSizesConfig: personalisedPictureSizesConfig
+  personalised: true
 };
 
 /*

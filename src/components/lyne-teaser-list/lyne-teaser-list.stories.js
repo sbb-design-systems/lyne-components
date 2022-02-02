@@ -22,185 +22,10 @@ const imageLoading = {
   control: {
     type: 'inline-radio'
   },
-  options: [
-    'eager',
-    'lazy'
-  ],
+  options: ['eager'],
   table: {
     category: 'Performance'
   }
-};
-
-/*
- * const nonPersonalisedPictureSizesConfig = {
- *   breakpoints: [
- *     {
- *       image: {
- *         height: '72',
- *         width: '90'
- *       },
- *       mediaQueries: [
- *         {
- *           conditionFeature: 'min-width',
- *           conditionFeatureValue: {
- *             lyneDesignToken: true,
- *             value: 'breakpoint-medium-min'
- *           },
- *           conditionOperator: false
- *         }
- *       ]
- *     },
- *     {
- *       image: {
- *         height: '60',
- *         width: '80'
- *       },
- *       mediaQueries: [
- *         {
- *           conditionFeature: 'min-width',
- *           conditionFeatureValue: {
- *             lyneDesignToken: true,
- *             value: 'breakpoint-zero-min'
- *           },
- *           conditionOperator: false
- *         }
- *       ]
- *     }
- *   ]
- * };
- */
-
-const personalisedPictureSizesConfig = {
-  breakpoints: [
-    {
-      image: {
-        height: '205.51',
-        width: '274'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-ultra-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '196.51',
-        width: '262'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-wide-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '150.01',
-        width: '200'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-large-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '123',
-        width: '164'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-medium-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '180.01',
-        width: '240'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-small-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '180.01',
-        width: '240'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-medium-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '116.63',
-        width: '155.5'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-micro-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    },
-    {
-      image: {
-        height: '99',
-        width: '132'
-      },
-      mediaQueries: [
-        {
-          conditionFeature: 'min-width',
-          conditionFeatureValue: {
-            lyneDesignToken: true,
-            value: 'breakpoint-zero-min'
-          },
-          conditionOperator: false
-        }
-      ]
-    }
-  ]
 };
 
 const items = [
@@ -209,6 +34,57 @@ const items = [
     'image-src': images[0],
     'link': 'https://www.sbb.ch',
     'personalised': false,
+    'text': 'Mit dem Velo unterwegs',
+    'title-text': 'Velo'
+  },
+  {
+    'image-loading': imageLoading.options[0],
+    'image-src': images[1],
+    'link': 'https://www.sbb.ch',
+    'personalised': false,
+    'text': 'Skierlebnisse entdecken',
+    'title-text': 'Snow`n`Rail'
+  },
+  {
+    'image-loading': imageLoading.options[0],
+    'image-src': images[2],
+    'link': 'https://www.sbb.ch',
+    'personalised': false,
+    'text': 'Alles für Ihren Ausflug',
+    'title-text': 'Gruppenreisen'
+  },
+  {
+    'image-loading': imageLoading.options[0],
+    'image-src': images[3],
+    'link': 'https://www.sbb.ch',
+    'personalised': false,
+    'text': 'Services im Bahnhof',
+    'title-text': 'Bahnhof finden'
+  },
+  {
+    'image-loading': imageLoading.options[0],
+    'image-src': images[4],
+    'link': 'https://www.sbb.ch',
+    'personalised': false,
+    'text': 'Bequem in die Ferien',
+    'title-text': 'Fluggepäck'
+  },
+  {
+    'image-loading': imageLoading.options[0],
+    'image-src': images[5],
+    'link': 'https://www.sbb.ch',
+    'personalised': false,
+    'text': 'Spezialangebot',
+    'title-text': 'Eidgenössischen Schwingfest'
+  }
+];
+
+const itemsPersonalised = [
+  {
+    'image-loading': imageLoading.options[0],
+    'image-src': images[0],
+    'link': 'https://www.sbb.ch',
+    'personalised': true,
     'text': 'Spannende Bücher kaufen',
     'title-text': 'Lesen im Zug'
   },
@@ -216,7 +92,7 @@ const items = [
     'image-loading': imageLoading.options[0],
     'image-src': images[1],
     'link': 'https://www.sbb.ch',
-    'personalised': false,
+    'personalised': true,
     'text': 'Entspannt reisen',
     'title-text': 'Reisetipps'
   },
@@ -224,7 +100,7 @@ const items = [
     'image-loading': imageLoading.options[0],
     'image-src': images[2],
     'link': 'https://www.sbb.ch',
-    'personalised': false,
+    'personalised': true,
     'text': 'Rücksichtsvoll unterwegs',
     'title-text': 'SBB Green Class'
   },
@@ -232,85 +108,34 @@ const items = [
     'image-loading': imageLoading.options[0],
     'image-src': images[3],
     'link': 'https://www.sbb.ch',
-    'personalised': false,
+    'personalised': true,
     'text': 'Alles für den täglichen Bedarf',
     'title-text': 'Coop Pronto'
   }
 ];
 
-/*
- * const itemsPersonalised = [
- *   {
- *     'image-loading': imageLoading.options[0],
- *     'image-src': images[0],
- *     'link': 'https://www.sbb.ch',
- *     'personalised': true,
- *     'text': 'Spannende Bücher kaufen',
- *     'title-text': 'Lesen im Zug',
- *   },
- *   {
- *     'image-loading': imageLoading.options[0],
- *     'image-src': images[1],
- *     'link': 'https://www.sbb.ch',
- *     'personalised': true,
- *     'text': 'Entspannt reisen',
- *     'title-text': 'Reisetipps'
- *   },
- *   {
- *     'image-loading': imageLoading.options[0],
- *     'image-src': images[2],
- *     'link': 'https://www.sbb.ch',
- *     'personalised': true,
- *     'text': 'Rücksichtsvoll unterwegs',
- *     'title-text': 'SBB Green Class'
- *   },
- *   {
- *     'image-loading': imageLoading.options[0],
- *     'image-src': images[3],
- *     'link': 'https://www.sbb.ch',
- *     'personalised': true,
- *     'text': 'Alles für den täglichen Bedarf',
- *     'title-text': 'Coop Pronto'
- *   }
- * ];
- */
-
-const table = {
-  disable: true
-};
-
-nonPersonalisedTeaserList.argTypes = {
-  items: {
-    table
-  }
-};
+/* ************************************************* */
+/* The Stories                                       */
+/* ************************************************* */
 
 nonPersonalisedTeaserList.args = {
   items,
   personalised: false
 };
 
-for (const item of items) {
-  // item.class = 'personalised';
-  item.pictureSizesConfig = personalisedPictureSizesConfig;
-  item.personalised = true;
-}
-personalisedTeaserList.argTypes = {
-  items: {
-    table
-  }
-};
-
 personalisedTeaserList.args = {
-  class: 'lyne-teaser-list',
-  items,
+  items: itemsPersonalised,
   personalised: true
 };
+
+/* ************************************************* */
+/* export default                                    */
+/* ************************************************* */
 
 export default {
   decorators: [
     (Story) => (
-      <div class='lyne-teaser-list-decorator'>
+      <div>
         <Story/>
       </div>
     )

@@ -564,11 +564,10 @@ export namespace Components {
           * Link to open if the teaser is clicked/pressed.
          */
         "link": string;
-        "personalised"?: boolean;
         /**
-          * pictureSizesConfig1
+          * is teaser item personalised
          */
-        "pictureSizesConfig"?: any[];
+        "personalised"?: boolean;
         /**
           * Text property for lyne-panel. See lyne-panel for additional info
          */
@@ -1681,11 +1680,10 @@ declare namespace LocalJSX {
           * Link to open if the teaser is clicked/pressed.
          */
         "link": string;
-        "personalised"?: boolean;
         /**
-          * pictureSizesConfig1
+          * is teaser item personalised
          */
-        "pictureSizesConfig"?: any[];
+        "personalised"?: boolean;
         /**
           * Text property for lyne-panel. See lyne-panel for additional info
          */

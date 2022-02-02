@@ -19,12 +19,161 @@ export class LyneTeaserItem {
 
   private _guid: string;
 
-  private _defaultPictureSizesConfig = {
+  private _nonPersonalisedPictureSizesConfig = {
     breakpoints: [
+      {
+        image: {
+          height: '72',
+          width: '90'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-medium-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
       {
         image: {
           height: '60',
           width: '80'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-zero-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      }
+    ]
+  };
+
+  private _personalisedPictureSizesConfig = {
+    breakpoints: [
+      {
+        image: {
+          height: '205.51',
+          width: '274'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-ultra-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: '196.51',
+          width: '262'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-wide-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: '150.01',
+          width: '200'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-large-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: '123',
+          width: '164'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-medium-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: '180.01',
+          width: '240'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-small-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: '180.01',
+          width: '240'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-medium-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: '116.63',
+          width: '155.5'
+        },
+        mediaQueries: [
+          {
+            conditionFeature: 'min-width',
+            conditionFeatureValue: {
+              lyneDesignToken: true,
+              value: 'breakpoint-micro-min'
+            },
+            conditionOperator: false
+          }
+        ]
+      },
+      {
+        image: {
+          height: '99',
+          width: '132'
         },
         mediaQueries: [
           {
@@ -71,12 +220,10 @@ export class LyneTeaserItem {
    */
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '5';
 
-  @Prop() public personalised?: boolean;
-
   /**
-   * pictureSizesConfig1
+   * is teaser item personalised
    */
-  @Prop() public pictureSizesConfig?: any[];
+  @Prop() public personalised?: boolean;
 
   public componentWillLoad(): void {
     this._guid = guid();
@@ -84,14 +231,10 @@ export class LyneTeaserItem {
 
   public render(): JSX.Element {
 
-    console.log('personalised', this.personalised);
-
     const id = `title-${this._guid}`;
     const personalisedClass = this.personalised
       ? 'personalised'
       : '';
-
-    console.log('personalisedClass', personalisedClass);
 
     return (
       <div class={`teaser-item__container ${personalisedClass}`}>
@@ -102,9 +245,9 @@ export class LyneTeaserItem {
           <div class='teaser-item__container-image'>
             <lyne-image
               class='teaser-item__image'
-              pictureSizesConfig={JSON.stringify(this.pictureSizesConfig
-                ? this.pictureSizesConfig
-                : this._defaultPictureSizesConfig)}
+              pictureSizesConfig={JSON.stringify(this.personalised
+                ? this._personalisedPictureSizesConfig
+                : this._nonPersonalisedPictureSizesConfig)}
               customFocalPoint={true}
               hideFromScreenreader={true}
               imageSrc={this.imageSrc}
