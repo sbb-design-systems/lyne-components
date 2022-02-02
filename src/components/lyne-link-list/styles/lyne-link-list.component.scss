@@ -15,6 +15,14 @@ lyne-title {
   @include listReset();
 }
 
+.link-list--horizontal {
+  @include mq($from: large) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: pxToRem(var(--spacing-fixed-8x));
+  }
+}
+
 ::slotted(.link-list__item:not(:last-child)) {
   margin-block-end: pxToRem(var(--spacing-fixed-3x));
 }
