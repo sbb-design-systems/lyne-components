@@ -66,16 +66,16 @@ const defaultArgs = {
 
 const Template = (args) => (
   <lyne-footer {...args}>
-    <div slot='1'>
-      <lyne-link-list textsize="s" title-level="2" title-text="Help &amp; Contact" variant="positive"><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Rückerstattungen" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Fundbüro" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Beschwerden" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Lob aussprechen" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Sachbeschädigung melden" text-size="s" variant="positive"></lyne-link></li></lyne-link-list>
+    <div slot='col-1'>
+      <lyne-link-list textsize="s" title-level="2" title-text="Help &amp; Contact." variant="positive"><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Rückerstattungen" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Fundbüro" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Beschwerden" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Lob aussprechen" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Sachbeschädigung melden" text-size="s" variant="positive"></lyne-link></li></lyne-link-list>
     </div>
-    <div slot='2'>
+    <div slot='col-2'>
       <lyne-link-list textsize="s" title-level="2" title-text="More SBB." variant="positive"><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Jobs & careers" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Rail traffic information" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="SBB News" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="SBB Community" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Company" text-size="s" variant="positive"></lyne-link></li></lyne-link-list>
     </div>
-    <div slot='3'>
+    <div slot='col-3'>
       <lyne-title level="5" text="Newsletter." variant="positive" visual-level="5"></lyne-title><p style="font-family: var(--typo-type-face-sbb-roman); font-weight: normal; line-height: var(--typo-line-height-body-text); letter-spacing: var(--typo-letter-spacing-body-text); font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);color: var(--color-granite-default);">Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p><lyne-button variant="secondary" size="large" label="Subscribe" name="sample-name" value="sample-value"></lyne-button>
     </div>
-    <div slot='4'>
+    <div slot='clock'>
       <lyne-sbb-clock initial-time="now"></lyne-sbb-clock>
     </div>
     <div slot='bottom'>
@@ -128,7 +128,7 @@ footerNegative.documentation = {
 export default {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}padding: 2rem`}>
+      <div style={`${wrapperStyle(context)}`}>
         <Story/>
       </div>
     )
@@ -136,7 +136,8 @@ export default {
   parameters: {
     docs: {
       extractComponentDescription: () => readme
-    }
+    },
+    layout: 'fullscreen'
   },
   title: 'layout/lyne-footer'
 };

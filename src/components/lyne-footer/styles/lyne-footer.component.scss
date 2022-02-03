@@ -72,7 +72,7 @@
       //flex: 0 0 calc(25% - ((3*#{pxToRem(var(--footer-gap-horizontal))})/4) - 2px);
     }
   }
-  ::slotted( [slot='4']) {
+  ::slotted( [slot='clock']) {
     max-width: 76px;
     @include mq($from: zero) {
       order: -1;
@@ -81,10 +81,13 @@
       max-width: 112px;
       order: initial;
     }
+    @include mq($from: wide) {
+      margin-left: auto;
+    }
   }
 }
 
-.bottom {
+* + .bottom {
   margin-block-start: pxToRem(var(--lyne-spacing-responsive-xl));
   border-block-start: 1px solid var(--color-cloud-default);
   padding-block-start: pxToRem(var(--spacing-fixed-8x));
