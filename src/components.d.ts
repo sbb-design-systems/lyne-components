@@ -9,6 +9,7 @@ import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-it
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceCardBadgeAttributes } from "./components/lyne-card-badge/lyne-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/lyne-card-product/lyne-card-product.custom";
+import { InterfaceFooterAttributes } from "./components/lyne-footer/lyne-footer.custom";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceJourneyHeaderAttributes } from "./components/lyne-journey-header/lyne-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
@@ -259,6 +260,12 @@ export namespace Components {
           * The value attribute to use for the button
          */
         "value"?: string;
+    }
+    interface LyneFooter {
+        /**
+          * Footer appearance
+         */
+        "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface LyneImage {
         /**
@@ -865,6 +872,12 @@ declare global {
         prototype: HTMLLyneCardProductElement;
         new (): HTMLLyneCardProductElement;
     };
+    interface HTMLLyneFooterElement extends Components.LyneFooter, HTMLStencilElement {
+    }
+    var HTMLLyneFooterElement: {
+        prototype: HTMLLyneFooterElement;
+        new (): HTMLLyneFooterElement;
+    };
     interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
     }
     var HTMLLyneImageElement: {
@@ -1065,6 +1078,7 @@ declare global {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-card-badge": HTMLLyneCardBadgeElement;
         "lyne-card-product": HTMLLyneCardProductElement;
+        "lyne-footer": HTMLLyneFooterElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-input-error": HTMLLyneInputErrorElement;
         "lyne-journey-header": HTMLLyneJourneyHeaderElement;
@@ -1329,6 +1343,12 @@ declare namespace LocalJSX {
           * The value attribute to use for the button
          */
         "value"?: string;
+    }
+    interface LyneFooter {
+        /**
+          * Footer appearance
+         */
+        "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface LyneImage {
         /**
@@ -1899,6 +1919,7 @@ declare namespace LocalJSX {
         "lyne-button": LyneButton;
         "lyne-card-badge": LyneCardBadge;
         "lyne-card-product": LyneCardProduct;
+        "lyne-footer": LyneFooter;
         "lyne-image": LyneImage;
         "lyne-input-error": LyneInputError;
         "lyne-journey-header": LyneJourneyHeader;
@@ -1944,6 +1965,7 @@ declare module "@stencil/core" {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
             "lyne-card-product": LocalJSX.LyneCardProduct & JSXBase.HTMLAttributes<HTMLLyneCardProductElement>;
+            "lyne-footer": LocalJSX.LyneFooter & JSXBase.HTMLAttributes<HTMLLyneFooterElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
             "lyne-journey-header": LocalJSX.LyneJourneyHeader & JSXBase.HTMLAttributes<HTMLLyneJourneyHeaderElement>;

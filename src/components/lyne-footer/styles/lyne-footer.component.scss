@@ -1,0 +1,91 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  // Reminder: --footer-gap-horizontal needs a new responsive gap design token
+  // var(--lyne-spacing-responsive-s); is just a placeholder for now
+  --footer-gap-horizontal: var(--lyne-spacing-responsive-s);
+  --footer-gap-vertical: var(--lyne-spacing-responsive-l);
+}
+
+.footer {
+  margin-block-start: pxToRem(var(--lyne-spacing-responsive-l));
+  padding-block-start: pxToRem(var(--lyne-spacing-responsive-l));
+  padding-block-end: pxToRem(var(--lyne-spacing-responsive-l));
+
+  padding-inline-start: pxToRem(var(--spacing-fixed-4x));
+  padding-inline-end: pxToRem(var(--spacing-fixed-4x));
+
+  @include mq($from: micro) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-6x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-6x));
+  }
+  @include mq($from: small) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-12x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-12x));
+  }
+  @include mq($from: medium) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-14x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-14x));
+  }
+  @include mq($from: large) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-16x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-16x));
+  }
+  @include mq($from: wide) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-18x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-18x));
+  }
+}
+
+.footer--primary {
+  background-color: var(--color-milk-default);
+}
+
+.footer--primary-negative {
+  color: white;
+}
+
+.columns {
+  // Reset
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: pxToRem(var(--footer-gap-horizontal));
+  row-gap: pxToRem(var(--footer-gap-vertical));
+
+  ::slotted( [slot] ) {
+    flex-basis: 100%;
+    //border: 1px solid var(--color-cloud-default);
+
+    @include mq($from: small) {
+      flex: 0 0 calc(50% - (#{pxToRem(var(--footer-gap-horizontal))}/2));
+      //flex: 0 0 calc(50% - (#{pxToRem(var(--footer-gap-horizontal))}/2) - 2px);
+    }
+    @include mq($from: wide) {
+      flex: 0 0 calc(25% - ((3*#{pxToRem(var(--footer-gap-horizontal))})/4));
+      //flex: 0 0 calc(25% - ((3*#{pxToRem(var(--footer-gap-horizontal))})/4) - 2px);
+    }
+  }
+  ::slotted( [slot='4']) {
+    max-width: 76px;
+    @include mq($from: zero) {
+      order: -1;
+    }
+    @include mq($from: small) {
+      max-width: 112px;
+      order: initial;
+    }
+  }
+}
+
+.bottom {
+  margin-block-start: pxToRem(var(--lyne-spacing-responsive-xl));
+  border-block-start: 1px solid var(--color-cloud-default);
+  padding-block-start: pxToRem(var(--spacing-fixed-8x));
+}
