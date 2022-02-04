@@ -11,37 +11,10 @@
 }
 
 .footer {
+  @include page-spacing;
   margin-block-start: pxToRem(var(--lyne-spacing-responsive-l));
   padding-block-start: pxToRem(var(--lyne-spacing-responsive-l));
   padding-block-end: pxToRem(var(--lyne-spacing-responsive-l));
-
-  padding-inline-start: pxToRem(var(--spacing-fixed-4x));
-  padding-inline-end: pxToRem(var(--spacing-fixed-4x));
-
-  @include mq($from: micro) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-6x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-6x));
-  }
-  @include mq($from: small) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-12x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-12x));
-  }
-  @include mq($from: medium) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-14x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-14x));
-  }
-  @include mq($from: large) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-16x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-16x));
-  }
-  @include mq($from: wide) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-18x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-18x));
-  }
-  @include mq($from: ultra--max-content) {
-    padding-inline-start: 0;
-    padding-inline-end: 0;
-  }
 }
 
 .footer--primary {
@@ -58,6 +31,7 @@
   padding: 0;
   margin: 0;
 
+  @include page-spacing__inner;
   display: flex;
   flex-wrap: wrap;
   column-gap: pxToRem(var(--footer-gap-horizontal));
@@ -89,20 +63,10 @@
       margin-left: auto;
     }
   }
-
-  @include mq($from: ultra--max-content) {
-    width: pxToRem($breakpoint-ultra-min);
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 .bottom {
-  @include mq($from: ultra--max-content) {
-    width: pxToRem($breakpoint-ultra-min);
-    margin-left: auto;
-    margin-right: auto;
-  }
+  @include page-spacing__inner;
 }
 
 * + .bottom {

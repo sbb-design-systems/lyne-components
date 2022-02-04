@@ -1,181 +1,219 @@
-/// Mixin to retrieve spacing values for the given breakpoints.
-///
-/// @param {Map} $rsp-space-map [default value] - Map of breakpoints and corresponding spacing values.
-/// @param {String} $property [default value] - CSS property or custom property
-@mixin spacing-responsive($rsp-space-map, $property) {
-  @each $breakpoint, $var in $rsp-space-map {
-    // Render media query per breakpoint
-    @include mq($from: $breakpoint) {
-      // Render CSS property or custom property
-      #{$property}: pxToRem(var($var));
-    }
+@mixin page-spacing() {
+  padding-inline-start: pxToRem(var(--spacing-fixed-4x));
+  padding-inline-end: pxToRem(var(--spacing-fixed-4x));
+
+  @include mq($from: micro) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-6x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-6x));
+  }
+  @include mq($from: small) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-12x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-12x));
+  }
+  @include mq($from: medium) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-14x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-14x));
+  }
+  @include mq($from: large) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-16x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-16x));
+  }
+  @include mq($from: wide) {
+    padding-inline-start: pxToRem(var(--spacing-fixed-18x));
+    padding-inline-end: pxToRem(var(--spacing-fixed-18x));
+  }
+  @include mq($from: ultra--max-content) {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
   }
 }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-xxxs($property) {
-  $rsp-space-map-xxxs : (
-    'zero': --spacing-responsive-xxxs-zero,
-    'medium': --spacing-responsive-xxxs-medium,
-  );
-  @include spacing-responsive($rsp-space-map-xxxs, $property);
+@mixin page-spacing__inner() {
+  @include mq($from: ultra--max-content) {
+    width: pxToRem($breakpoint-ultra-min);
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-xxs($property) {
-  $rsp-space-map-xxs : (
-    'zero': --spacing-responsive-xxs-zero,
-    'medium': --spacing-responsive-xxs-medium,
-  );
-  @include spacing-responsive($rsp-space-map-xxs, $property);
-}
+// /// Mixin to retrieve spacing values for the given breakpoints.
+// ///
+// /// @param {Map} $rsp-space-map [default value] - Map of breakpoints and corresponding spacing values.
+// /// @param {String} $property [default value] - CSS property or custom property
+// @mixin spacing-responsive($rsp-space-map, $property) {
+//   @each $breakpoint, $var in $rsp-space-map {
+//     // Render media query per breakpoint
+//     @include mq($from: $breakpoint) {
+//       // Render CSS property or custom property
+//       #{$property}: pxToRem(var($var));
+//     }
+//   }
+// }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-xs($property) {
-  $rsp-space-map-xs : (
-    'zero': --spacing-responsive-xs-zero,
-    'medium': --spacing-responsive-xs-medium,
-  );
-  @include spacing-responsive($rsp-space-map-xs, $property);
-}
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-xxxs($property) {
+//   $rsp-space-map-xxxs : (
+//     'zero': --spacing-responsive-xxxs-zero,
+//     'medium': --spacing-responsive-xxxs-medium,
+//   );
+//   @include spacing-responsive($rsp-space-map-xxxs, $property);
+// }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-s($property) {
-  $rsp-space-map-s : (
-    'zero': --spacing-responsive-s-zero,
-    'medium': --spacing-responsive-s-medium,
-  );
-  @include spacing-responsive($rsp-space-map-s, $property);
-}
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-xxs($property) {
+//   $rsp-space-map-xxs : (
+//     'zero': --spacing-responsive-xxs-zero,
+//     'medium': --spacing-responsive-xxs-medium,
+//   );
+//   @include spacing-responsive($rsp-space-map-xxs, $property);
+// }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-s($property) {
-  $rsp-space-map-s : (
-    'zero': --spacing-responsive-s-zero,
-    'medium': --spacing-responsive-s-medium,
-  );
-  @include spacing-responsive($rsp-space-map-s, $property);
-}
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-xs($property) {
+//   $rsp-space-map-xs : (
+//     'zero': --spacing-responsive-xs-zero,
+//     'medium': --spacing-responsive-xs-medium,
+//   );
+//   @include spacing-responsive($rsp-space-map-xs, $property);
+// }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-m($property) {
-  $rsp-space-map-m : (
-    'zero': --spacing-responsive-m-zero,
-    'medium': --spacing-responsive-m-medium,
-    'wide': --spacing-responsive-m-wide,
-  );
-  @include spacing-responsive($rsp-space-map-m, $property);
-}
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-s($property) {
+//   $rsp-space-map-s : (
+//     'zero': --spacing-responsive-s-zero,
+//     'medium': --spacing-responsive-s-medium,
+//   );
+//   @include spacing-responsive($rsp-space-map-s, $property);
+// }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-l($property) {
-  $rsp-space-map-l : (
-    'zero': --spacing-responsive-l-zero,
-    'small': --spacing-responsive-l-small,
-    'medium': --spacing-responsive-l-medium,
-    'large': --spacing-responsive-l-large,
-    'ultra': --spacing-responsive-l-ultra,
-  );
-  @include spacing-responsive($rsp-space-map-l, $property);
-}
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-s($property) {
+//   $rsp-space-map-s : (
+//     'zero': --spacing-responsive-s-zero,
+//     'medium': --spacing-responsive-s-medium,
+//   );
+//   @include spacing-responsive($rsp-space-map-s, $property);
+// }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-xl($property) {
-  $rsp-space-map-xl : (
-    'zero': --spacing-responsive-xl-zero,
-    'small': --spacing-responsive-xl-small,
-    'medium': --spacing-responsive-xl-medium,
-    'large': --spacing-responsive-xl-large,
-    'ultra': --spacing-responsive-xl-ultra,
-  );
-  @include spacing-responsive($rsp-space-map-xl, $property);
-}
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-m($property) {
+//   $rsp-space-map-m : (
+//     'zero': --spacing-responsive-m-zero,
+//     'medium': --spacing-responsive-m-medium,
+//     'wide': --spacing-responsive-m-wide,
+//   );
+//   @include spacing-responsive($rsp-space-map-m, $property);
+// }
 
-/// @param {String} $property - CSS property or custom property
-@mixin spacing-responsive-xxl($property) {
-  $rsp-space-map-xxl : (
-    'zero': --spacing-responsive-xxl-zero,
-    'small': --spacing-responsive-xxl-small,
-    'medium': --spacing-responsive-xxl-medium,
-    'large': --spacing-responsive-xxl-large,
-    'ultra': --spacing-responsive-xxl-ultra,
-  );
-  @include spacing-responsive($rsp-space-map-xxl, $property);
-}
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-l($property) {
+//   $rsp-space-map-l : (
+//     'zero': --spacing-responsive-l-zero,
+//     'small': --spacing-responsive-l-small,
+//     'medium': --spacing-responsive-l-medium,
+//     'large': --spacing-responsive-l-large,
+//     'ultra': --spacing-responsive-l-ultra,
+//   );
+//   @include spacing-responsive($rsp-space-map-l, $property);
+// }
+
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-xl($property) {
+//   $rsp-space-map-xl : (
+//     'zero': --spacing-responsive-xl-zero,
+//     'small': --spacing-responsive-xl-small,
+//     'medium': --spacing-responsive-xl-medium,
+//     'large': --spacing-responsive-xl-large,
+//     'ultra': --spacing-responsive-xl-ultra,
+//   );
+//   @include spacing-responsive($rsp-space-map-xl, $property);
+// }
+
+// /// @param {String} $property - CSS property or custom property
+// @mixin spacing-responsive-xxl($property) {
+//   $rsp-space-map-xxl : (
+//     'zero': --spacing-responsive-xxl-zero,
+//     'small': --spacing-responsive-xxl-small,
+//     'medium': --spacing-responsive-xxl-medium,
+//     'large': --spacing-responsive-xxl-large,
+//     'ultra': --spacing-responsive-xxl-ultra,
+//   );
+//   @include spacing-responsive($rsp-space-map-xxl, $property);
+// }
 
 
-////////////////////////////////////////////////////////////////////////////////
-/// Usage examples
-////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////
+// /// Usage examples
+// ////////////////////////////////////////////////////////////////////////////////
 
-// Card sizing
-@mixin card--xs {
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-left');
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-3x))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-3x))};
-}
+// // Card sizing
+// @mixin card--xs {
+//   @include spacing-responsive-xxs('--card-padding-right');
+//   @include spacing-responsive-xxs('--card-padding-left');
+//   --card-padding-top: #{pxToRem(var(--spacing-fixed-3x))};
+//   --card-padding-bottom: #{pxToRem(var(--spacing-fixed-3x))};
+// }
 
-@mixin card--s {
-  @include spacing-responsive-xxxs('--card-padding-top');
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxxs('--card-padding-bottom');
-  @include spacing-responsive-xxs('--card-padding-left');
-}
+// @mixin card--s {
+//   @include spacing-responsive-xxxs('--card-padding-top');
+//   @include spacing-responsive-xxs('--card-padding-right');
+//   @include spacing-responsive-xxxs('--card-padding-bottom');
+//   @include spacing-responsive-xxs('--card-padding-left');
+// }
 
-@mixin card--m {
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-left');
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-4x))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
-}
+// @mixin card--m {
+//   @include spacing-responsive-xxs('--card-padding-right');
+//   @include spacing-responsive-xxs('--card-padding-left');
+//   --card-padding-top: #{pxToRem(var(--spacing-fixed-4x))};
+//   --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
+// }
 
-@mixin card--m--tall {
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-left');
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
-}
+// @mixin card--m--tall {
+//   @include spacing-responsive-xxs('--card-padding-right');
+//   @include spacing-responsive-xxs('--card-padding-left');
+//   --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+//   --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
+// }
 
-@mixin card--l {
-  @include spacing-responsive-xxs('--card-padding-top');
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
-  @include spacing-responsive-xxs('--card-padding-left');
-}
+// @mixin card--l {
+//   @include spacing-responsive-xxs('--card-padding-top');
+//   @include spacing-responsive-xxs('--card-padding-right');
+//   @include spacing-responsive-xxs('--card-padding-bottom');
+//   @include spacing-responsive-xxs('--card-padding-left');
+// }
 
-@mixin card--l--tall  {
-  @include spacing-responsive-xxs('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
-  @include spacing-responsive-xxs('--card-padding-left');
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
-}
+// @mixin card--l--tall  {
+//   @include spacing-responsive-xxs('--card-padding-right');
+//   @include spacing-responsive-xxs('--card-padding-bottom');
+//   @include spacing-responsive-xxs('--card-padding-left');
+//   --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+// }
 
-@mixin card--xl {
-  @include spacing-responsive-xxs('--card-padding-top');
-  @include spacing-responsive-s('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
-  @include spacing-responsive-s('--card-padding-left');
-}
+// @mixin card--xl {
+//   @include spacing-responsive-xxs('--card-padding-top');
+//   @include spacing-responsive-s('--card-padding-right');
+//   @include spacing-responsive-xxs('--card-padding-bottom');
+//   @include spacing-responsive-s('--card-padding-left');
+// }
 
-@mixin card--xl--tall {
-  @include spacing-responsive-s('--card-padding-right');
-  @include spacing-responsive-xxs('--card-padding-bottom');
-  @include spacing-responsive-s('--card-padding-left');
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
-}
+// @mixin card--xl--tall {
+//   @include spacing-responsive-s('--card-padding-right');
+//   @include spacing-responsive-xxs('--card-padding-bottom');
+//   @include spacing-responsive-s('--card-padding-left');
+//   --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+// }
 
-@mixin card--xxl {
-  @include spacing-responsive-s('--card-padding-top');
-  @include spacing-responsive-s('--card-padding-right');
-  @include spacing-responsive-s('--card-padding-bottom');
-  @include spacing-responsive-s('--card-padding-left');
-}
+// @mixin card--xxl {
+//   @include spacing-responsive-s('--card-padding-top');
+//   @include spacing-responsive-s('--card-padding-right');
+//   @include spacing-responsive-s('--card-padding-bottom');
+//   @include spacing-responsive-s('--card-padding-left');
+// }
 
-@mixin card--xxl--tall {
-  @include card--xxl;
-  // @include spacing-responsive-s('--card-padding-top');
-  // @include spacing-responsive-s('--card-padding-right');
-  // @include spacing-responsive-s('--card-padding-bottom');
-  // @include spacing-responsive-s('--card-padding-left');
-}
+// @mixin card--xxl--tall {
+//   @include card--xxl;
+//   // @include spacing-responsive-s('--card-padding-top');
+//   // @include spacing-responsive-s('--card-padding-right');
+//   // @include spacing-responsive-s('--card-padding-bottom');
+//   // @include spacing-responsive-s('--card-padding-left');
+// }
