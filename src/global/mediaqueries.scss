@@ -9,7 +9,8 @@ $mq-breakpoints: (
   medium: $breakpoint-medium-min, // 840
   large: $breakpoint-large-min, // 1024
   wide: $breakpoint-wide-min, // 1280
-  ultra: $breakpoint-ultra-min // 1440
+  ultra: $breakpoint-ultra-min, // 1440
+  ultra--max-content: ($breakpoint-ultra-min+(2*$spacing-fixed-18x)) // 1440 + 2*72
 ) !default;
 
 $mq-media-type: all !default;

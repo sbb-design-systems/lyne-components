@@ -38,6 +38,10 @@
     padding-inline-start: pxToRem(var(--spacing-fixed-18x));
     padding-inline-end: pxToRem(var(--spacing-fixed-18x));
   }
+  @include mq($from: ultra--max-content) {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+  }
 }
 
 .footer--primary {
@@ -84,6 +88,20 @@
     @include mq($from: wide) {
       margin-left: auto;
     }
+  }
+
+  @include mq($from: ultra--max-content) {
+    width: pxToRem($breakpoint-ultra-min);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.bottom {
+  @include mq($from: ultra--max-content) {
+    width: pxToRem($breakpoint-ultra-min);
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
