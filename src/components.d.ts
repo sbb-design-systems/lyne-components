@@ -21,6 +21,7 @@ import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyn
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
+import { InterfaceStackAttributes } from "./components/lyne-stack/lyne-stack.custom";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
@@ -535,6 +536,16 @@ export namespace Components {
     }
     interface LyneSlotComponent {
     }
+    interface LyneStack {
+        /**
+          * Stack appearance
+         */
+        "appearance"?: InterfaceStackAttributes['appearance'];
+        /**
+          * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
+         */
+        "tag"?: InterfaceStackAttributes['tag'];
+    }
     interface LyneTeaserHero {
         /**
           * Button text property for lyne-panel. See lyne-panel for additional info
@@ -954,6 +965,12 @@ declare global {
         prototype: HTMLLyneSlotComponentElement;
         new (): HTMLLyneSlotComponentElement;
     };
+    interface HTMLLyneStackElement extends Components.LyneStack, HTMLStencilElement {
+    }
+    var HTMLLyneStackElement: {
+        prototype: HTMLLyneStackElement;
+        new (): HTMLLyneStackElement;
+    };
     interface HTMLLyneTeaserHeroElement extends Components.LyneTeaserHero, HTMLStencilElement {
     }
     var HTMLLyneTeaserHeroElement: {
@@ -1095,6 +1112,7 @@ declare global {
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
         "lyne-slot-component": HTMLLyneSlotComponentElement;
+        "lyne-stack": HTMLLyneStackElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-timetable": HTMLLyneTimetableElement;
@@ -1622,6 +1640,16 @@ declare namespace LocalJSX {
     }
     interface LyneSlotComponent {
     }
+    interface LyneStack {
+        /**
+          * Stack appearance
+         */
+        "appearance"?: InterfaceStackAttributes['appearance'];
+        /**
+          * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
+         */
+        "tag"?: InterfaceStackAttributes['tag'];
+    }
     interface LyneTeaserHero {
         /**
           * Button text property for lyne-panel. See lyne-panel for additional info
@@ -1940,6 +1968,7 @@ declare namespace LocalJSX {
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-sbb-signet": LyneSbbSignet;
         "lyne-slot-component": LyneSlotComponent;
+        "lyne-stack": LyneStack;
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
         "lyne-timetable": LyneTimetable;
@@ -1986,6 +2015,7 @@ declare module "@stencil/core" {
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
+            "lyne-stack": LocalJSX.LyneStack & JSXBase.HTMLAttributes<HTMLLyneStackElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-timetable": LocalJSX.LyneTimetable & JSXBase.HTMLAttributes<HTMLLyneTimetableElement>;

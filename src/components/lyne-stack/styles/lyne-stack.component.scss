@@ -1,0 +1,46 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+
+}
+
+// Reset all slotted elements
+::slotted(*) {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+
+.stack {
+  display: flex;
+  gap: pxToRem(var(--spacing-fixed-3x));
+}
+
+.stack--vertical {
+  flex-direction: column;
+}
+
+.stack--horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.stack--centered {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+// Temporary quirk for p element
+::slotted(p) {
+  font-family: var(--typo-type-face-sbb-roman);
+  font-weight: normal;
+  line-height: var(--typo-line-height-body-text);
+  letter-spacing: var(--typo-letter-spacing-body-text);
+  font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);
+}
