@@ -263,6 +263,10 @@ export namespace Components {
     }
     interface LyneFooter {
         /**
+          * Footer title text, visually hidden,  necessary for screenreaders
+         */
+        "accessibilityTitle": string;
+        /**
           * Footer appearance
          */
         "appearance"?: InterfaceFooterAttributes['appearance'];
@@ -1345,6 +1349,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface LyneFooter {
+        /**
+          * Footer title text, visually hidden,  necessary for screenreaders
+         */
+        "accessibilityTitle": string;
         /**
           * Footer appearance
          */

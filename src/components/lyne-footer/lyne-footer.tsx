@@ -21,6 +21,9 @@ export class LyneFooter {
   /** Footer appearance */
   @Prop() public appearance?: InterfaceFooterAttributes['appearance'] = 'primary';
 
+  /** Footer title text, visually hidden,  necessary for screenreaders */
+  @Prop() public accessibilityTitle!: string;
+
   /** Host element */
   @Element() private _hostElement: HTMLElement;
 
@@ -54,7 +57,9 @@ export class LyneFooter {
     return (
       <footer {...attrs}
         dir={currentWritingMode}
+        role='contentinfo'
       >
+        <h1 class='title--visually-hidden'>{this.accessibilityTitle}</h1>
         {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot || this._hasClockSlot
           ? <div class='columns'><slot name='col-1'/><slot name='col-2'/><slot name='col-3'/><slot name='col-4'/><slot name='clock'/></div>
           : ''

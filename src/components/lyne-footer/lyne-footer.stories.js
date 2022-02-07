@@ -57,7 +57,8 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0]
+  'accessibility-title': 'Footer',
+  'appearance': appearance.options[0]
 };
 
 /* ************************************************* */
@@ -73,7 +74,7 @@ const Template = (args) => (
       <lyne-link-list textsize="s" title-level="2" title-text="More SBB." variant="positive"><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Jobs & careers" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Rail traffic information" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="SBB News" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="SBB Community" text-size="s" variant="positive"></lyne-link></li><li class="link-list__item" slot="link-list__item"><lyne-link href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Company" text-size="s" variant="positive"></lyne-link></li></lyne-link-list>
     </div>
     <div slot='col-3'>
-      <lyne-title level="5" text="Newsletter." variant="positive" visual-level="5"></lyne-title><p style="font-family: var(--typo-type-face-sbb-roman); font-weight: normal; line-height: var(--typo-line-height-body-text); letter-spacing: var(--typo-letter-spacing-body-text); font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);color: var(--color-granite-default);">Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p><lyne-button variant="secondary" size="large" label="Subscribe" name="sample-name" value="sample-value"></lyne-button>
+      <lyne-title level="2" text="Newsletter." variant="positive" visual-level="5"></lyne-title><p style="font-family: var(--typo-type-face-sbb-roman); font-weight: normal; line-height: var(--typo-line-height-body-text); letter-spacing: var(--typo-letter-spacing-body-text); font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);color: var(--color-granite-default);">Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p><lyne-button variant="secondary" size="large" label="Subscribe" name="sample-name" value="sample-value"></lyne-button>
     </div>
     <div slot='clock'>
       <lyne-sbb-clock initial-time="now"></lyne-sbb-clock>

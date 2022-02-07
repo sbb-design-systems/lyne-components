@@ -25,6 +25,10 @@
   color: white;
 }
 
+.title--visually-hidden {
+  @include screenReaderOnly();
+}
+
 .columns {
   // Reset
   width: 100%;
