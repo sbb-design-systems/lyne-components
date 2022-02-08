@@ -4,7 +4,7 @@
 @include host-component-properties;
 
 :host {
-
+  --paragraph-text-color-normal: var(--color-metal-default);
 }
 
 // Reset
@@ -61,4 +61,5 @@
   line-height: var(--typo-line-height-body-text);
   letter-spacing: var(--typo-letter-spacing-body-text);
   font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);
+  color: var(--paragraph-text-color-normal);
 }
