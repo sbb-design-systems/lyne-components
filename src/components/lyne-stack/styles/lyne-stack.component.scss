@@ -7,29 +7,47 @@
 
 }
 
-// Reset all slotted elements
-::slotted(*) {
+// Reset
+.stack,
+%stack {
   margin: 0;
   padding: 0;
   display: block;
 }
 
+// Reset all slotted elements
+::slotted(*) {
+  @extend %stack;
+}
 
 .stack {
   display: flex;
-  gap: pxToRem(var(--spacing-fixed-3x));
+  // Gap and padding are defined as inline styles within component depending
+  // on the stack properties. This is made on purpose. With this technique the CSS
+  // footprint of the stack component can be heavily reduced instead of shipping
+  // all possible layout variants
 }
 
-.stack--vertical {
+.stack--vertical,
+%stack--vertical {
   flex-direction: column;
 }
 
-.stack--horizontal {
+.stack--vertical--centered {
+  @extend %stack--vertical;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.stack--horizontal,
+%stack--horizontal {
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.stack--centered {
+.stack--horizontal--centered {
+  @extend %stack--horizontal;
   align-items: center;
   justify-content: center;
   width: 100%;

@@ -542,6 +542,18 @@ export namespace Components {
          */
         "appearance"?: InterfaceStackAttributes['appearance'];
         /**
+          * Stack gap, defines the space between each stack items. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+         */
+        "gap"?: InterfaceStackAttributes['gap'];
+        /**
+          * Space before the stack
+         */
+        "spaceLeading"?: InterfaceStackAttributes['spaceLeading'];
+        /**
+          * Space before the stack
+         */
+        "spaceTrailing"?: InterfaceStackAttributes['spaceTrailing'];
+        /**
           * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
          */
         "tag"?: InterfaceStackAttributes['tag'];
@@ -1645,6 +1657,18 @@ declare namespace LocalJSX {
           * Stack appearance
          */
         "appearance"?: InterfaceStackAttributes['appearance'];
+        /**
+          * Stack gap, defines the space between each stack items. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+         */
+        "gap"?: InterfaceStackAttributes['gap'];
+        /**
+          * Space before the stack
+         */
+        "spaceLeading"?: InterfaceStackAttributes['spaceLeading'];
+        /**
+          * Space before the stack
+         */
+        "spaceTrailing"?: InterfaceStackAttributes['spaceTrailing'];
         /**
           * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
          */

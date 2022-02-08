@@ -45,15 +45,122 @@ const appearance = {
   },
   options: [
     'vertical',
-    'horizontal'
+    'vertical--centered',
+    'horizontal',
+    'horizontal--centered'
   ],
   table: {
     category: 'Appearance'
   }
 };
 
+const gap = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'fixed-1x',
+    'fixed-2x',
+    'fixed-3x',
+    'fixed-4x',
+    'fixed-5x',
+    'fixed-6x',
+    'fixed-8x',
+    'fixed-10x',
+    'fixed-12x',
+    'fixed-14x',
+    'fixed-16x',
+    'fixed-18x',
+    'fixed-20x',
+    'fixed-24x',
+    'fixed-30x',
+    'responsive-xxxs',
+    'responsive-xxs',
+    'responsive-xs',
+    'responsive-s',
+    'responsive-m',
+    'responsive-l',
+    'responsive-xl',
+    'responsive-xxl'
+  ],
+  table: {
+    category: 'Spacing'
+  }
+};
+
+const spaceLeading = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'fixed-1x',
+    'fixed-2x',
+    'fixed-3x',
+    'fixed-4x',
+    'fixed-5x',
+    'fixed-6x',
+    'fixed-8x',
+    'fixed-10x',
+    'fixed-12x',
+    'fixed-14x',
+    'fixed-16x',
+    'fixed-18x',
+    'fixed-20x',
+    'fixed-24x',
+    'fixed-30x',
+    'responsive-xxxs',
+    'responsive-xxs',
+    'responsive-xs',
+    'responsive-s',
+    'responsive-m',
+    'responsive-l',
+    'responsive-xl',
+    'responsive-xxl'
+  ],
+  table: {
+    category: 'Spacing'
+  }
+};
+
+const spaceTrailing = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'fixed-1x',
+    'fixed-2x',
+    'fixed-3x',
+    'fixed-4x',
+    'fixed-5x',
+    'fixed-6x',
+    'fixed-8x',
+    'fixed-10x',
+    'fixed-12x',
+    'fixed-14x',
+    'fixed-16x',
+    'fixed-18x',
+    'fixed-20x',
+    'fixed-24x',
+    'fixed-30x',
+    'responsive-xxxs',
+    'responsive-xxs',
+    'responsive-xs',
+    'responsive-s',
+    'responsive-m',
+    'responsive-l',
+    'responsive-xl',
+    'responsive-xxl'
+  ],
+  table: {
+    category: 'Spacing'
+  }
+};
+
 const defaultArgTypes = {
-  appearance
+  appearance,
+  gap,
+  'space-leading': spaceLeading,
+  'space-trailing': spaceTrailing
 };
 
 const defaultArgs = {
@@ -74,12 +181,12 @@ const Template = (args) => (
 /* The Stories                                       */
 /* ************************************************* */
 
-/* --- Stack ------------------------ */
-export const stack = Template.bind({});
+/* --- Stack vertical ------------------------ */
+export const stackVertical = Template.bind({});
 
-stack.argTypes = defaultArgTypes;
-stack.args = JSON.parse(JSON.stringify(defaultArgs));
-stack.documentation = {
+stackVertical.argTypes = defaultArgTypes;
+stackVertical.args = JSON.parse(JSON.stringify(defaultArgs));
+stackVertical.documentation = {
   container: {
     styles:
       (context) => (
@@ -89,15 +196,16 @@ stack.documentation = {
   title: 'Stack'
 };
 
-/* --- Stack negative --------------- */
-export const stackHorizontal = Template.bind({});
+/* --- Stack horizontal centered, gap responsive size M --------------- */
+export const stackHorizontalCenteredGapResponsiveM = Template.bind({});
 
-stackHorizontal.argTypes = defaultArgTypes;
-stackHorizontal.args = {
+stackHorizontalCenteredGapResponsiveM.argTypes = defaultArgTypes;
+stackHorizontalCenteredGapResponsiveM.args = {
   ...defaultArgs,
-  appearance: appearance.options[1]
+  appearance: appearance.options[3],
+  gap: gap.options[20]
 };
-stackHorizontal.documentation = {
+stackHorizontalCenteredGapResponsiveM.documentation = {
   container: {
     styles:
       (context) => (
