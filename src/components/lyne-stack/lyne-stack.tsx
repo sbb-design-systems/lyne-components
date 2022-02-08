@@ -56,11 +56,13 @@ export class LyneStack {
       'padding-top': `calc(var(--spacing-${this.spaceLeading}) / var(--typo-scale-default) * 1rem)`
     };
 
-    // TODO: only inject inline styles if corresponding properties were set
-    // {this._hasIconSlot
-    //   ? <span class='card-product__icon'><slot name='icon'/></span>
-    //   : ''
-    // }
+    /*
+     * TODO: only inject inline styles if corresponding properties were set
+     * {this._hasIconSlot
+     *   ? <span class='card-product__icon'><slot name='icon'/></span>
+     *   : ''
+     * }
+     */
 
     const TAGNAME = this.tag;
 
