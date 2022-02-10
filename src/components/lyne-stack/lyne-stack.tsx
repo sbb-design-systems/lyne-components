@@ -64,13 +64,13 @@ export class LyneStack {
     if (this.spaceLeading) {
       inlineStyles = {
         ...inlineStyles,
-        'padding-top': `calc(var(--spacing-${this.spaceLeading}) / var(--typo-scale-default) * 1rem)`
+        'padding-block-start': `calc(var(--spacing-${this.spaceLeading}) / var(--typo-scale-default) * 1rem)`
       };
     }
     if (this.spaceTrailing) {
       inlineStyles = {
         ...inlineStyles,
-        'padding-bottom': `calc(var(--spacing-${this.spaceTrailing}) / var(--typo-scale-default) * 1rem)`
+        'padding-block-end': `calc(var(--spacing-${this.spaceTrailing}) / var(--typo-scale-default) * 1rem)`
       };
     }
 
