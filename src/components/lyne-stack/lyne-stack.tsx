@@ -4,7 +4,6 @@ import {
   Host,
   Prop
 } from '@stencil/core';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceStackAttributes } from './lyne-stack.custom';
 
 @Component({
@@ -66,8 +65,6 @@ export class LyneStack {
 
     const TAGNAME = this.tag;
 
-    const currentWritingMode = getDocumentWritingMode();
-
     const attrs = {
       class: className,
       style: inlineStyles
@@ -76,7 +73,6 @@ export class LyneStack {
     return (
       <Host>
         <TAGNAME {...attrs}
-          dir={currentWritingMode}
         >
           <slot />
         </TAGNAME>

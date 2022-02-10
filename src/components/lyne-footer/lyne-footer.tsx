@@ -5,7 +5,6 @@ import {
   Host,
   Prop
 } from '@stencil/core';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceFooterAttributes } from './lyne-footer.custom';
 
 @Component({
@@ -49,8 +48,6 @@ export class LyneFooter {
 
     const className = `footer footer--${this.appearance}`;
 
-    const currentWritingMode = getDocumentWritingMode();
-
     const attrs = {
       class: className
     };
@@ -58,7 +55,6 @@ export class LyneFooter {
     return (
       <Host role='contentinfo'>
         <footer {...attrs}
-          dir={currentWritingMode}
         >
           <h1 class='title--visually-hidden'>{this.accessibilityTitle}</h1>
           {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot || this._hasClockSlot
