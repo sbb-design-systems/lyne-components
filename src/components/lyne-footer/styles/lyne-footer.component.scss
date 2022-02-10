@@ -73,7 +73,9 @@
   @include page-spacing__inner;
 }
 
-* + .bottom {
+// Only apply spacing and line if footer bottom has a predecessor, excluding
+// the hidden title which always needs to be there
+:not(.title--visually-hidden) + .bottom {
   margin-block-start: pxToRem(var(--spacing-responsive-xl));
   border-block-start: 1px solid var(--color-cloud-default);
   padding-block-start: pxToRem(var(--spacing-fixed-8x));
