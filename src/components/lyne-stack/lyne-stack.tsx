@@ -49,19 +49,30 @@ export class LyneStack {
 
     const className = `stack stack--${this.appearance}`;
 
-    const inlineStyles = {
-      'gap': `calc(var(--spacing-${this.gap}) / var(--typo-scale-default) * 1rem)`,
-      'padding-bottom': `calc(var(--spacing-${this.spaceTrailing}) / var(--typo-scale-default) * 1rem)`,
-      'padding-top': `calc(var(--spacing-${this.spaceLeading}) / var(--typo-scale-default) * 1rem)`
-    };
-
     /*
-     * TODO: only inject inline styles if corresponding properties were set
-     * {this._hasIconSlot
-     *   ? <span class='card-product__icon'><slot name='icon'/></span>
-     *   : ''
-     * }
+     * Conditionally add the CSS properties depending on the component
+     * properties
      */
+    let inlineStyles = {};
+
+    if (this.gap) {
+      inlineStyles = {
+        ...inlineStyles,
+        gap: `calc(var(--spacing-${this.gap}) / var(--typo-scale-default) * 1rem)`
+      };
+    }
+    if (this.spaceLeading) {
+      inlineStyles = {
+        ...inlineStyles,
+        'padding-top': `calc(var(--spacing-${this.spaceLeading}) / var(--typo-scale-default) * 1rem)`
+      };
+    }
+    if (this.spaceTrailing) {
+      inlineStyles = {
+        ...inlineStyles,
+        'padding-bottom': `calc(var(--spacing-${this.spaceTrailing}) / var(--typo-scale-default) * 1rem)`
+      };
+    }
 
     const TAGNAME = this.tag;
 
