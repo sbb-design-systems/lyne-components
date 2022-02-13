@@ -73,7 +73,7 @@
     "glob": "~7.2.0",
     "husky": "~7.0.1",
     "jest": "~27.5.0",
-    "jest-cli": "27.5.1",
+    "jest-cli": "27.5.0",
     "jsx-dom": "^7.0.1",
     "jsx-transform": "~2.4.1",
     "lyne-design-tokens": "^3.17.1",
