@@ -21,12 +21,21 @@ export class LyneStack {
   @Prop() public appearance?: InterfaceStackAttributes['appearance'] = 'vertical';
 
   /**
-   * Stack gap, defines the space between each stack items. The spacing can be
-   * fixed or responsive (which then depends on the breakpoint). The `x` in the
+   * Stack gap horizontal, defines the space between each stack items in the
+   * vertical direction. The spacing can be fixed or responsive (which then
+   * depends on the breakpoint). The `x` in the fixed spacing scale is a
+   * representation of the base spacing unit. E.g. `3 * base spacing unit`
+   */
+  @Prop() public gapHorizontal?: InterfaceStackAttributes['gap'] = 'fixed-3x';
+
+  /**
+   * Stack gap vertical, defines the space between each stack items in the
+   * horizontal direction. The spacing can be fixed or responsive
+   * (which then depends on the breakpoint). The `x` in the
    * fixed spacing scale is a representation of the base spacing unit.
    * E.g. `3 * base spacing unit`
    */
-  @Prop() public gap?: InterfaceStackAttributes['gap'] = 'fixed-3x';
+  @Prop() public gapVertical?: InterfaceStackAttributes['gap'] = 'fixed-3x';
 
   /**
    * Space before the stack
@@ -55,10 +64,16 @@ export class LyneStack {
      */
     let inlineStyles = {};
 
-    if (this.gap) {
+    if (this.gapHorizontal) {
       inlineStyles = {
         ...inlineStyles,
-        gap: `calc(var(--spacing-${this.gap}) / var(--typo-scale-default) * 1rem)`
+        'column-gap': `calc(var(--spacing-${this.gapHorizontal}) / var(--typo-scale-default) * 1rem)`
+      };
+    }
+    if (this.gapVertical) {
+      inlineStyles = {
+        ...inlineStyles,
+        'row-gap': `calc(var(--spacing-${this.gapVertical}) / var(--typo-scale-default) * 1rem)`
       };
     }
     if (this.spaceLeading) {

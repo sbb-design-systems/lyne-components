@@ -54,7 +54,41 @@ const appearance = {
   }
 };
 
-const gap = {
+const gapHorizontal = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'fixed-1x',
+    'fixed-2x',
+    'fixed-3x',
+    'fixed-4x',
+    'fixed-5x',
+    'fixed-6x',
+    'fixed-8x',
+    'fixed-10x',
+    'fixed-12x',
+    'fixed-14x',
+    'fixed-16x',
+    'fixed-18x',
+    'fixed-20x',
+    'fixed-24x',
+    'fixed-30x',
+    'responsive-xxxs',
+    'responsive-xxs',
+    'responsive-xs',
+    'responsive-s',
+    'responsive-m',
+    'responsive-l',
+    'responsive-xl',
+    'responsive-xxl'
+  ],
+  table: {
+    category: 'Spacing'
+  }
+};
+
+const gapVertical = {
   control: {
     type: 'select'
   },
@@ -158,7 +192,8 @@ const spaceTrailing = {
 
 const defaultArgTypes = {
   appearance,
-  gap,
+  'gap-horizontal': gapHorizontal,
+  'gap-vertical': gapVertical,
   'space-leading': spaceLeading,
   'space-trailing': spaceTrailing
 };
@@ -196,16 +231,16 @@ stackVertical.documentation = {
   title: 'Stack'
 };
 
-/* --- Stack horizontal centered, gap responsive size M --------------- */
-export const stackHorizontalCenteredGapResponsiveM = Template.bind({});
+/* --- Stack horizontal centered, with horizontal gap responsive size M --- */
+export const stackHorizontalCenteredWithHorizontalGapResponsiveM = Template.bind({});
 
-stackHorizontalCenteredGapResponsiveM.argTypes = defaultArgTypes;
-stackHorizontalCenteredGapResponsiveM.args = {
+stackHorizontalCenteredWithHorizontalGapResponsiveM.argTypes = defaultArgTypes;
+stackHorizontalCenteredWithHorizontalGapResponsiveM.args = {
   ...defaultArgs,
-  appearance: appearance.options[3],
-  gap: gap.options[20]
+  'appearance': appearance.options[3],
+  'gap-horizontal': gapHorizontal.options[20]
 };
-stackHorizontalCenteredGapResponsiveM.documentation = {
+stackHorizontalCenteredWithHorizontalGapResponsiveM.documentation = {
   container: {
     styles:
       (context) => (

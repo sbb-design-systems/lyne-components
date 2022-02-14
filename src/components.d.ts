@@ -542,9 +542,13 @@ export namespace Components {
          */
         "appearance"?: InterfaceStackAttributes['appearance'];
         /**
-          * Stack gap, defines the space between each stack items. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+          * Stack gap horizontal, defines the space between each stack items in the vertical direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
          */
-        "gap"?: InterfaceStackAttributes['gap'];
+        "gapHorizontal"?: InterfaceStackAttributes['gap'];
+        /**
+          * Stack gap vertical, defines the space between each stack items in the horizontal direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+         */
+        "gapVertical"?: InterfaceStackAttributes['gap'];
         /**
           * Space before the stack
          */
@@ -1658,9 +1662,13 @@ declare namespace LocalJSX {
          */
         "appearance"?: InterfaceStackAttributes['appearance'];
         /**
-          * Stack gap, defines the space between each stack items. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+          * Stack gap horizontal, defines the space between each stack items in the vertical direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
          */
-        "gap"?: InterfaceStackAttributes['gap'];
+        "gapHorizontal"?: InterfaceStackAttributes['gap'];
+        /**
+          * Stack gap vertical, defines the space between each stack items in the horizontal direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+         */
+        "gapVertical"?: InterfaceStackAttributes['gap'];
         /**
           * Space before the stack
          */
