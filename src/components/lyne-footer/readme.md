@@ -13,6 +13,19 @@
 | `appearance`                      | `appearance`          | Footer appearance                                                | `"primary" \| "primary-negative"` | `'primary'` |
 
 
+## Dependencies
+
+### Depends on
+
+- [lyne-title](../lyne-title)
+
+### Graph
+```mermaid
+graph TD;
+  lyne-footer --> lyne-title
+  style lyne-footer fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

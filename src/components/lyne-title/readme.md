@@ -19,11 +19,13 @@
 
 ### Used by
 
+ - [lyne-footer](../lyne-footer)
  - [lyne-link-list](../lyne-link-list)
 
 ### Graph
 ```mermaid
 graph TD;
+  lyne-footer --> lyne-title
   lyne-link-list --> lyne-title
   style lyne-title fill:#f9f,stroke:#333,stroke-width:4px
 ```
