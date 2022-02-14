@@ -56,7 +56,7 @@ export class LyneFooter {
       <Host role='contentinfo'>
         <footer {...attrs}
         >
-          <h1 class='title--visually-hidden'>{this.accessibilityTitle}</h1>
+          <lyne-title level='1' visually-hidden='true' text={this.accessibilityTitle} />
           {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot || this._hasClockSlot
             ? <div class='columns'><slot name='col-1'/><slot name='col-2'/><slot name='col-3'/><slot name='col-4'/><slot name='clock'/></div>
             : ''
