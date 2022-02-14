@@ -136,9 +136,31 @@ const defaultArgs = {
 /* Storybook template                                */
 /* ************************************************* */
 
-const Template = (args) => (
+const template = (args) => (
   <lyne-stack {...args}>
-    <lyne-title level='2' text='Newsletter.' variant='positive' visual-level='5'></lyne-title><p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p><lyne-button variant='secondary' size='large' label='Subscribe' name='sample-name' value='sample-value'></lyne-button>
+    <lyne-title level='2' text='Newsletter.' variant='positive' visual-level='5'></lyne-title>
+    <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
+    <lyne-button variant='secondary' size='large' label='Subscribe' name='sample-name' value='sample-value'></lyne-button>
+  </lyne-stack>
+);
+
+const templateUnorderedList = (args) => (
+  <lyne-stack {...args}>
+    <li>user-centered and empowering</li>
+    <li>holistic and inclusive</li>
+    <li>encourages performance and sustainability</li>
+    <li>modular and flexible</li>
+    <li>fosters consistency and cohesiveness</li>
+  </lyne-stack>
+);
+
+const templateOrderedList = (args) => (
+  <lyne-stack {...args}>
+    <li>1. Lyne is user-centered and empowering.</li>
+    <li>2. Lyne is holistic and inclusive.</li>
+    <li>3. Lyne encourages performance and sustainability.</li>
+    <li>4. Lyne is modular and flexible.</li>
+    <li>5. Lyne fosters consistency and cohesiveness.</li>
   </lyne-stack>
 );
 
@@ -147,7 +169,7 @@ const Template = (args) => (
 /* ************************************************* */
 
 /* --- Stack vertical ------------------------ */
-export const stackVertical = Template.bind({});
+export const stackVertical = template.bind({});
 
 stackVertical.argTypes = defaultArgTypes;
 stackVertical.args = JSON.parse(JSON.stringify(defaultArgs));
@@ -162,7 +184,7 @@ stackVertical.documentation = {
 };
 
 /* --- Stack horizontal centered, with horizontal gap responsive size M --- */
-export const stackHorizontalCenteredWithHorizontalGapResponsiveM = Template.bind({});
+export const stackHorizontalCenteredWithHorizontalGapResponsiveM = template.bind({});
 
 stackHorizontalCenteredWithHorizontalGapResponsiveM.argTypes = defaultArgTypes;
 stackHorizontalCenteredWithHorizontalGapResponsiveM.args = {
@@ -178,6 +200,44 @@ stackHorizontalCenteredWithHorizontalGapResponsiveM.documentation = {
       )
   },
   title: 'Stack horizontal'
+};
+
+/* --- Stack, uses unordered list markup ------------------------ */
+export const stackUsesUnorderedListMarkup = templateUnorderedList.bind({});
+
+stackUsesUnorderedListMarkup.argTypes = defaultArgTypes;
+stackUsesUnorderedListMarkup.args = {
+  ...defaultArgs,
+  'appearance': appearance.options[3],
+  'gap-horizontal': gapHorizontal.options[18],
+  'tag': 'ul'
+};
+stackUsesUnorderedListMarkup.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
+  title: 'Stack'
+};
+
+/* --- Stack, uses ordered list markup ------------------------ */
+export const stackUsesOrderedListMarkup = templateOrderedList.bind({});
+
+stackUsesOrderedListMarkup.argTypes = defaultArgTypes;
+stackUsesOrderedListMarkup.args = {
+  ...defaultArgs,
+  tag: 'ol'
+};
+stackUsesOrderedListMarkup.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
+  title: 'Stack'
 };
 
 /* ************************************************* */
