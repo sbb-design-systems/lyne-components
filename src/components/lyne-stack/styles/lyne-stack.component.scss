@@ -4,7 +4,7 @@
 @include host-component-properties;
 
 :host {
-  --paragraph-text-color-normal: var(--color-metal-default);
+  --_stack-text-color-normal: var(--stack-text-color-normal, var(--color-charcoal-default));
 }
 
 // Reset
@@ -26,7 +26,10 @@
   // Gap and padding are defined as inline styles within component depending
   // on the stack properties. This is made on purpose. With this technique the CSS
   // footprint of the stack component can be heavily reduced instead of shipping
-  // all possible layout variants
+  // all possible layout variants.
+  //
+  // Note for future me: Instead of defining all spacing/gap variants we could
+  // also introduce CSS custom properties.
 }
 
 .stack--vertical,
@@ -55,12 +58,12 @@
   height: 100%;
 }
 
-// Temporary quirk for p element
-::slotted(p) {
+// Temporary quirk for slotted p/li element
+::slotted(*) {
   font-family: var(--typo-type-face-sbb-roman);
   font-weight: normal;
   line-height: var(--typo-line-height-body-text);
   letter-spacing: var(--typo-letter-spacing-body-text);
   font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);
-  color: var(--paragraph-text-color-normal);
+  color: var(--_stack-text-color-normal);
 }

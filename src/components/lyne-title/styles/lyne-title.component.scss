@@ -5,7 +5,7 @@
 
 :host {
   // @todo define where to handle font color: see inherited.scss
-  //--title-color: var(--color-black-default);
+  --_title-text-color-normal: var(--title-text-color-normal, var(--color-charcoal-default));
 }
 
 // TODO re-factor to a more generic class later
@@ -18,7 +18,7 @@
 }
 
 .title {
-  //color: var(--title-color);
+  color: var(--_title-text-color-normal);
   @include fontSmoothing();
 }
 
