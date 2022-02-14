@@ -26,7 +26,7 @@ export class LyneStack {
    * depends on the breakpoint). The `x` in the fixed spacing scale is a
    * representation of the base spacing unit. E.g. `3 * base spacing unit`
    */
-  @Prop() public gapHorizontal?: InterfaceStackAttributes['gap'] = 'fixed-3x';
+  @Prop() public gapHorizontal?: InterfaceStackAttributes['spacing'] = 'fixed-3x';
 
   /**
    * Stack gap vertical, defines the space between each stack items in the
@@ -35,17 +35,17 @@ export class LyneStack {
    * fixed spacing scale is a representation of the base spacing unit.
    * E.g. `3 * base spacing unit`
    */
-  @Prop() public gapVertical?: InterfaceStackAttributes['gap'] = 'fixed-3x';
+  @Prop() public gapVertical?: InterfaceStackAttributes['spacing'] = 'fixed-3x';
 
   /**
    * Space before the stack
    */
-  @Prop() public spaceLeading?: InterfaceStackAttributes['spaceLeading'];
+  @Prop() public spaceLeading?: InterfaceStackAttributes['spacing'];
 
   /**
    * Space before the stack
    */
-  @Prop() public spaceTrailing?: InterfaceStackAttributes['spaceTrailing'];
+  @Prop() public spaceTrailing?: InterfaceStackAttributes['spacing'];
 
   /**
    * Stack tag / HTML representation of the stack. If the stack represents
