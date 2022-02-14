@@ -15,9 +15,7 @@ describe('lyne-footer', () => {
         <lyne-footer accessibility-title="Footer" role="contentinfo">
           <mock:shadow-root>
             <footer class="footer footer--primary">
-              <h1 class="title--visually-hidden">
-                Footer
-              </h1>
+              <lyne-title level="1" text="Footer" visually-hidden="true"></lyne-title>
             </footer>
           </mock:shadow-root>
         </lyne-footer>
