@@ -26,6 +26,11 @@ export class LyneLinkList {
   private _guid: string;
 
   /**
+   * The direction in which the list will be shown.
+   */
+  @Prop() public listDirection: InterfaceLyneLinkListAttributes['direction'] = 'vertical';
+
+  /**
    * The title text we want to show
    * before the list
    */
@@ -79,7 +84,9 @@ export class LyneLinkList {
         }
         <ul
           {...additionalAttributes}
-          class='link-list'
+          class={
+            `link-list link-list--${this.listDirection}`
+          }
           role='list'
         >
           <slot name='link-list__item'/>

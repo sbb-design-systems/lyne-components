@@ -38,7 +38,7 @@ describe('lyne-link-list', () => {
           <mock:shadow-root>
             <div>
                 <lyne-title id="title-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" level="2" text="Help &amp; Contact" variant="positive" visual-level="5"></lyne-title>
-                <ul aria-labelledby="title-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" class="link-list" role="list">
+                <ul aria-labelledby="title-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" class="link-list link-list--vertical" role="list">
                     <slot name="link-list__item">
                     </slot>
                 </ul>

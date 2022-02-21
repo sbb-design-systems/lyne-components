@@ -35,6 +35,19 @@ const Template = (args) => (
   </lyne-link-list>
 );
 
+const listDirection = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'vertical',
+    'horizontal'
+  ],
+  table: {
+    category: 'List Styling'
+  }
+};
+
 const textSize = {
   control: {
     type: 'select'
@@ -88,6 +101,7 @@ const variant = {
 };
 
 const defaultArgTypes = {
+  'list-direction': listDirection,
   textSize,
   'title-level': titleLevel,
   'title-text': titleText,
@@ -95,6 +109,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
+  'list-direction': listDirection.options[0],
   'textSize': textSize.options[1],
   'title-level': titleLevel.options[0],
   'title-text': 'Help & Contact',

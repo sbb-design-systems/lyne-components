@@ -13,8 +13,8 @@ import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.cus
 import { InterfaceJourneyHeaderAttributes } from "./components/lyne-journey-header/lyne-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
 import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
-import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
+import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
@@ -443,6 +443,10 @@ export namespace Components {
         "variant": InterfaceLinkButtonAttributes['variant'];
     }
     interface LyneLinkList {
+        /**
+          * The direction in which the list will be shown.
+         */
+        "listDirection": InterfaceLyneLinkListAttributes['direction'];
         /**
           * The semantic level of the title, e.g. 3 = h3
          */
@@ -1509,6 +1513,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceLinkButtonAttributes['variant'];
     }
     interface LyneLinkList {
+        /**
+          * The direction in which the list will be shown.
+         */
+        "listDirection"?: InterfaceLyneLinkListAttributes['direction'];
         /**
           * The semantic level of the title, e.g. 3 = h3
          */
