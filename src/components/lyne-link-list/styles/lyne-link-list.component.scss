@@ -24,3 +24,8 @@ lyne-title {
 ::slotted(.link-list__item:not(:last-child)) {
   margin-block-end: pxToRem(var(--spacing-fixed-3x));
 }
+// Needs to be after the ::slotted(.link-list__item:not(:last-child))
+// selector due to specificity
+.link-list--horizontal ::slotted(.link-list__item) {
+  margin-block-end: unset;
+}
