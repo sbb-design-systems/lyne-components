@@ -26,7 +26,9 @@ export class LyneLinkList {
   private _guid: string;
 
   /**
-   * The direction in which the list will be shown.
+   * The direction in which the list will be shown. "-from-large" indicates that
+   * the list will be horizontal from above large breakpoint. Below it has the
+   * default behaviour which is a vertical list.
    */
   @Prop() public listDirection: InterfaceLyneLinkListAttributes['direction'] = 'vertical';
 
