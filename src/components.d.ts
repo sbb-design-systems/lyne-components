@@ -456,7 +456,7 @@ export namespace Components {
     }
     interface LyneLinkList {
         /**
-          * The title text we want to show before the list
+          * The direction in which the list will be shown.
          */
         "listDirection": InterfaceLyneLinkListAttributes['direction'];
         /**
@@ -1576,7 +1576,7 @@ declare namespace LocalJSX {
     }
     interface LyneLinkList {
         /**
-          * The title text we want to show before the list
+          * The direction in which the list will be shown.
          */
         "listDirection"?: InterfaceLyneLinkListAttributes['direction'];
         /**
