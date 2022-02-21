@@ -26,8 +26,7 @@ export class LyneLinkList {
   private _guid: string;
 
   /**
-   * The title text we want to show
-   * before the list
+   * The direction in which the list will be shown.
    */
   @Prop() public listDirection: InterfaceLyneLinkListAttributes['direction'] = 'vertical';
 
