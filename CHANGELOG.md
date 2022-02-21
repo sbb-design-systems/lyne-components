@@ -1,3 +1,16 @@
+# [9.76.0](https://github.com/lyne-design-system/lyne-components/compare/v9.75.0...v9.76.0) (2022-02-21)
+
+
+### Bug Fixes
+
+* duplicate comment ([c3422e2](https://github.com/lyne-design-system/lyne-components/commit/c3422e2101281cc68419159b914d6bc9830a4c48))
+
+
+### Features
+
+* horizontal direction for link-list ([f00d251](https://github.com/lyne-design-system/lyne-components/commit/f00d251d6b3a957e2f4057b3348143ed1095663f))
+* no margin-block-end ([587a00e](https://github.com/lyne-design-system/lyne-components/commit/587a00edb77159a0634e83aaccffec23e273ba66))
+
 # [9.75.0](https://github.com/lyne-design-system/lyne-components/compare/v9.74.0...v9.75.0) (2022-02-02)
 
 
