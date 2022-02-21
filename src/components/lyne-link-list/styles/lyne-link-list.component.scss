@@ -16,11 +16,9 @@ lyne-title {
 }
 
 .link-list--horizontal {
-  @include mq($from: large) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: pxToRem(var(--spacing-fixed-8x));
-  }
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: pxToRem(var(--spacing-fixed-8x));
 }
 
 ::slotted(.link-list__item:not(:last-child)) {
