@@ -41,7 +41,8 @@ const listDirection = {
   },
   options: [
     'vertical',
-    'horizontal'
+    'horizontal',
+    'horizontal-from-large'
   ],
   table: {
     category: 'List Styling'
