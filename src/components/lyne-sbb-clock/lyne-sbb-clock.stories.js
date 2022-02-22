@@ -91,5 +91,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Brand Elements/SBB Clock'
+  title: 'brand elements/SBB Clock'
 };

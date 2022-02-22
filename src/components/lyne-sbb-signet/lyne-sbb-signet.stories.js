@@ -117,5 +117,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Brand Elements/SBB Signet'
+  title: 'brand elements/SBB Signet'
 };

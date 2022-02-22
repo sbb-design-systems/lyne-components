@@ -47,5 +47,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-row'
+  title: 'components/timetable/lyne-timetable-row'
 };

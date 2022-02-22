@@ -79,5 +79,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-teaser-hero'
+  title: 'page sections/lyne-teaser-hero'
 };

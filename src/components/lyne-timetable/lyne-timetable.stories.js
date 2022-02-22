@@ -60,5 +60,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable'
+  title: 'components/timetable/lyne-timetable'
 };

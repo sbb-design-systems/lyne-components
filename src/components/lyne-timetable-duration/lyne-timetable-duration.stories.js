@@ -66,5 +66,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-duration'
+  title: 'internals/lyne-timetable-duration'
 };

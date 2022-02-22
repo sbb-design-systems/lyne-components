@@ -247,7 +247,7 @@ stackUsesOrderedListMarkup.documentation = {
 export default {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}`}>
+      <div style={`${wrapperStyle(context)}padding: 2rem`}>
         <Story/>
       </div>
     )
@@ -258,5 +258,5 @@ export default {
     },
     layout: 'fullscreen'
   },
-  title: 'layout/lyne-stack'
+  title: 'components/layout/lyne-stack'
 };

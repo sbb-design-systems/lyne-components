@@ -60,5 +60,12 @@ export const parameters = {
   breakpoints: {
     breakpointNames: getBreakpointNames(),
     debounceTimeout: 10
+  },
+  options: {
+    storySort: {
+      // Story section order.
+      // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
+      order: ['pages', ['home', 'home personalized'], 'page sections', 'components', ['*', 'form elements', 'timetable', 'layout', 'cards'], 'brand elements', '*', 'internals', 'lab']
+    }
   }
 };

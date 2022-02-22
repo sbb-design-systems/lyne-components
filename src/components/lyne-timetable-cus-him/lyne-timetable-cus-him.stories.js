@@ -99,5 +99,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-cus-him'
+  title: 'internals/lyne-timetable-cus-him'
 };

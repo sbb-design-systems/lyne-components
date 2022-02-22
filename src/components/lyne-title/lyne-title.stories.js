@@ -143,5 +143,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'typo/Title'
+  title: 'components/lyne-title'
 };
