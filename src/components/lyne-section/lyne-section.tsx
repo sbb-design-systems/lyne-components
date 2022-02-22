@@ -31,8 +31,6 @@ export class LyneSection {
   private _hasCol2Slot: boolean;
   private _hasCol3Slot: boolean;
   private _hasCol4Slot: boolean;
-  private _hasClockSlot: boolean;
-  private _hasBottomSlot: boolean;
 
   public componentWillLoad(): void {
     // Check slots
@@ -40,8 +38,6 @@ export class LyneSection {
     this._hasCol2Slot = Boolean(this._hostElement.querySelector('[slot="col-2"]'));
     this._hasCol3Slot = Boolean(this._hostElement.querySelector('[slot="col-3"]'));
     this._hasCol4Slot = Boolean(this._hostElement.querySelector('[slot="col-4"]'));
-    this._hasClockSlot = Boolean(this._hostElement.querySelector('[slot="clock"]'));
-    this._hasBottomSlot = Boolean(this._hostElement.querySelector('[slot="bottom"]'));
   }
 
   public render(): JSX.Element {
@@ -57,12 +53,8 @@ export class LyneSection {
         <section {...attrs}
         >
           <lyne-title level='1' visually-hidden='true' text={this.accessibilityTitle} />
-          {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot || this._hasClockSlot
+          {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot
             ? <div class='columns'><slot name='col-1'/><slot name='col-2'/><slot name='col-3'/><slot name='col-4'/><slot name='clock'/></div>
-            : ''
-          }
-          {this._hasBottomSlot
-            ? <div class='bottom'><slot name='bottom' /></div>
             : ''
           }
         </section>
