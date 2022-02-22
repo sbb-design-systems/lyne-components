@@ -21,6 +21,7 @@ import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyn
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
+import { InterfaceSectionAttributes } from "./components/lyne-section/lyne-section.custom";
 import { InterfaceStackAttributes } from "./components/lyne-stack/lyne-stack.custom";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
@@ -534,6 +535,16 @@ export namespace Components {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface LyneSection {
+        /**
+          * Section title text, visually hidden,  necessary for screenreaders
+         */
+        "accessibilityTitle": string;
+        /**
+          * Section appearance
+         */
+        "appearance"?: InterfaceSectionAttributes['appearance'];
+    }
     interface LyneSlotComponent {
     }
     interface LyneStack {
@@ -975,6 +986,12 @@ declare global {
         prototype: HTMLLyneSbbSignetElement;
         new (): HTMLLyneSbbSignetElement;
     };
+    interface HTMLLyneSectionElement extends Components.LyneSection, HTMLStencilElement {
+    }
+    var HTMLLyneSectionElement: {
+        prototype: HTMLLyneSectionElement;
+        new (): HTMLLyneSectionElement;
+    };
     interface HTMLLyneSlotComponentElement extends Components.LyneSlotComponent, HTMLStencilElement {
     }
     var HTMLLyneSlotComponentElement: {
@@ -1127,6 +1144,7 @@ declare global {
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
+        "lyne-section": HTMLLyneSectionElement;
         "lyne-slot-component": HTMLLyneSlotComponentElement;
         "lyne-stack": HTMLLyneStackElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
@@ -1654,6 +1672,16 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface LyneSection {
+        /**
+          * Section title text, visually hidden,  necessary for screenreaders
+         */
+        "accessibilityTitle": string;
+        /**
+          * Section appearance
+         */
+        "appearance"?: InterfaceSectionAttributes['appearance'];
+    }
     interface LyneSlotComponent {
     }
     interface LyneStack {
@@ -1999,6 +2027,7 @@ declare namespace LocalJSX {
         "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-sbb-signet": LyneSbbSignet;
+        "lyne-section": LyneSection;
         "lyne-slot-component": LyneSlotComponent;
         "lyne-stack": LyneStack;
         "lyne-teaser-hero": LyneTeaserHero;
@@ -2046,6 +2075,7 @@ declare module "@stencil/core" {
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
+            "lyne-section": LocalJSX.LyneSection & JSXBase.HTMLAttributes<HTMLLyneSectionElement>;
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
             "lyne-stack": LocalJSX.LyneStack & JSXBase.HTMLAttributes<HTMLLyneStackElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;

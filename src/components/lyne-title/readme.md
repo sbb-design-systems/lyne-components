@@ -21,12 +21,14 @@
 
  - [lyne-footer](../lyne-footer)
  - [lyne-link-list](../lyne-link-list)
+ - [lyne-section](../lyne-section)
 
 ### Graph
 ```mermaid
 graph TD;
   lyne-footer --> lyne-title
   lyne-link-list --> lyne-title
+  lyne-section --> lyne-title
   style lyne-title fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

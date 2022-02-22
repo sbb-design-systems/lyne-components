@@ -1,0 +1,59 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  // Reminder: --_section-gap-horizontal needs a new responsive gap design token
+  // var(--spacing-responsive-s); is just a placeholder for now
+  --_section-gap-horizontal: var(--section-gap-horizontal, var(--spacing-responsive-s));
+  --_section-gap-vertical: var(--section-gap-vertical, var(--spacing-responsive-l));
+  --_section-background-color: var(--section-background-color, var(--color-red-default));
+
+  // Contextual design for lyne-stack
+  --stack-text-color-normal: var(--color-metal-default);
+}
+
+.section {
+  @include page-spacing;
+  margin-block-start: pxToRem(var(--spacing-responsive-l));
+  padding-block-start: pxToRem(var(--spacing-responsive-l));
+  padding-block-end: pxToRem(var(--spacing-responsive-l));
+  background-color: var(--_section-background-color);
+}
+
+.section--primary-negative {
+  --_section-divider-color: var(--color-iron-default);
+  --_section-background-color: var(--color-charcoal-default);
+  --title-text-color-normal: var(--color-storm-default);
+}
+
+.columns {
+  // Reset
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  @include page-spacing__inner;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: pxToRem(var(--_section-gap-horizontal));
+  row-gap: pxToRem(var(--_section-gap-vertical));
+
+  ::slotted( [slot] ) {
+    flex-basis: 100%;
+    // Debugging helper
+    //border: 1px solid var(--color-cloud-default);
+
+    @include mq($from: small) {
+      // Debugging helper: Swap flex definitions
+      //flex: 0 0 calc(50% - (#{pxToRem(var(--_section-gap-horizontal))}/2) - 2px);
+      flex: 0 0 calc(50% - (#{pxToRem(var(--_section-gap-horizontal))}/2));
+    }
+    @include mq($from: wide) {
+      // Debugging helper: Swap flex definitions
+      //flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_section-gap-horizontal))})/4) - 2px);
+      flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_section-gap-horizontal))})/4));
+    }
+  }
+}
