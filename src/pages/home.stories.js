@@ -67,7 +67,28 @@ const defaultArgs = {
 
 const Template = (args) => (
   <div>
-    <lyne-teaser-hero button-text="Mehr erfahren" image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg" link="https://www.sbb.ch" open-in-new-window="false" text="Rücksichtsvoll mit SBB Green Class."></lyne-teaser-hero>
+    <lyne-section accessibility-title='Section' {...args}>
+      <div slot='col-1'>
+        <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+      </div>
+      <div slot='col-2'>
+        <lyne-stack space-leading='fixed-6x'>
+          <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+          <lyne-stack space-leading='fixed-12x'>
+            <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+          </lyne-stack>
+        </lyne-stack>
+      </div>
+      <div slot='col-3'>
+        <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+      </div>
+      <div slot='col-4'>
+        <lyne-stack space-leading='fixed-16x'>
+          <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+        </lyne-stack>
+      </div>
+    </lyne-section>
+    <lyne-teaser-hero button-text='Mehr erfahren' image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg' link='https://www.sbb.ch' open-in-new-window='false' text='Rücksichtsvoll mit SBB Green Class.'></lyne-teaser-hero>
     <lyne-footer {...args}>
       <div slot='col-1'>
         <lyne-stack>
