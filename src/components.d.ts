@@ -456,7 +456,7 @@ export namespace Components {
     }
     interface LyneLinkList {
         /**
-          * The direction in which the list will be shown.
+          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
          */
         "listDirection": InterfaceLyneLinkListAttributes['direction'];
         /**
@@ -1576,7 +1576,7 @@ declare namespace LocalJSX {
     }
     interface LyneLinkList {
         /**
-          * The direction in which the list will be shown.
+          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
          */
         "listDirection"?: InterfaceLyneLinkListAttributes['direction'];
         /**
