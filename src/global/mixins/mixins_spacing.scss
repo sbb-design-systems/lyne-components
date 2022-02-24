@@ -1,41 +1,28 @@
 @mixin page-spacing() {
-  padding-inline-start: pxToRem(var(--spacing-fixed-4x));
-  padding-inline-end: pxToRem(var(--spacing-fixed-4x));
-
-  @include mq($from: micro) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-6x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-6x));
-  }
-  @include mq($from: small) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-12x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-12x));
-  }
-  @include mq($from: medium) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-14x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-14x));
-  }
-  @include mq($from: large) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-16x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-16x));
-  }
-  @include mq($from: wide) {
-    padding-inline-start: pxToRem(var(--spacing-fixed-18x));
-    padding-inline-end: pxToRem(var(--spacing-fixed-18x));
-  }
-  @include mq($from: ultra--max-content) {
-    padding-inline-start: 0;
-    padding-inline-end: 0;
-  }
+  padding-inline-start: pxToRem(var(--page-spacing-responsive-left));
+  padding-inline-end: pxToRem(var(--page-spacing-responsive-right));
 }
 
 @mixin page-spacing__inner() {
+  @include mq($from: wide--max-content) {
+    width: pxToRem($breakpoint-wide-min);
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+  }
+}
+
+@mixin page-spacing--ultra-plus() {
+  padding-inline-start: pxToRem(var(--page-spacing-responsive-left));
+  padding-inline-end: pxToRem(var(--page-spacing-responsive-right));
+}
+
+@mixin page-spacing--ultra-plus__inner() {
   @include mq($from: ultra--max-content) {
     width: pxToRem($breakpoint-ultra-min);
     margin-inline-start: auto;
     margin-inline-end: auto;
   }
 }
-
 
 // Kept on purpose / purposely commented out
 //
