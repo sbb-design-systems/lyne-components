@@ -8,24 +8,56 @@
   // var(--spacing-responsive-s); is just a placeholder for now
   --_section-gap-horizontal: var(--section-gap-horizontal, var(--spacing-responsive-s));
   --_section-gap-vertical: var(--section-gap-vertical, var(--spacing-responsive-l));
-  --_section-background-color: var(--section-background-color, var(--color-red-default));
+  --_section-background-color: var(--section-background-color, none);
 
   // Contextual design for lyne-stack
   --stack-text-color-normal: var(--color-metal-default);
 }
 
 .section {
-  @include page-spacing;
-  margin-block-start: pxToRem(var(--spacing-responsive-l));
-  padding-block-start: pxToRem(var(--spacing-responsive-l));
-  padding-block-end: pxToRem(var(--spacing-responsive-l));
-  background-color: var(--_section-background-color);
+  // margin-block-start: pxToRem(var(--spacing-responsive-l));
+  // padding-block-start: pxToRem(var(--spacing-responsive-l));
+  // padding-block-end: pxToRem(var(--spacing-responsive-l));
+  .columns,
+  .full-width {
+    background-color: var(--_section-background-color);
+  }
 }
 
 .section--primary-negative {
-  --_section-divider-color: var(--color-iron-default);
   --_section-background-color: var(--color-charcoal-default);
   --title-text-color-normal: var(--color-storm-default);
+}
+
+.section--page-spacing {
+  @include page-spacing;
+
+  .columns,
+  .full-width {
+    @include page-spacing__inner;
+  }
+}
+
+.section--full-bleed--until-ultra {
+  @include mq($from: ultra) {
+    @include page-spacing;
+
+    .columns,
+    .full-width {
+      @include page-spacing__inner;
+    }
+  }
+}
+
+.section--full-bleed--until-ultra-plus {
+  @include mq($from: ultra--max-content) {
+    @include page-spacing--ultra-plus;
+
+    .columns,
+    .full-width {
+      @include page-spacing--ultra-plus__inner();
+    }
+  }
 }
 
 .columns {
@@ -34,7 +66,6 @@
   padding: 0;
   margin: 0;
 
-  @include page-spacing__inner;
   display: flex;
   flex-wrap: wrap;
   column-gap: pxToRem(var(--_section-gap-horizontal));
@@ -55,5 +86,21 @@
       //flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_section-gap-horizontal))})/4) - 2px);
       flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_section-gap-horizontal))})/4));
     }
+  }
+}
+
+.full-width {
+  // Reset
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: pxToRem(var(--_section-gap-horizontal));
+  row-gap: pxToRem(var(--_section-gap-vertical));
+
+  ::slotted( [slot] ) {
+    flex-basis: 100%;
   }
 }
