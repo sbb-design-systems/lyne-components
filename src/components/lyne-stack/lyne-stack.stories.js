@@ -72,8 +72,13 @@ const appearance = {
   options: [
     'vertical',
     'vertical--centered',
-    'horizontal',
-    'horizontal--centered'
+    'horizontal--start',
+    'horizontal--end',
+    'horizontal--start--centered',
+    'horizontal--end--centered',
+    'horizontal--centered',
+    'horizontal--space-between',
+    'horizontal--space-between--centered'
   ],
   table: {
     category: 'Appearance'
@@ -183,16 +188,16 @@ stackVertical.documentation = {
   title: 'Stack'
 };
 
-/* --- Stack horizontal centered, with horizontal gap responsive size M --- */
-export const stackHorizontalCenteredWithHorizontalGapResponsiveM = template.bind({});
+/* --- Stack horizontal centered, with horizontal gap responsive size S --- */
+export const stackHorizontalCenteredWithHorizontalGapResponsiveS = template.bind({});
 
-stackHorizontalCenteredWithHorizontalGapResponsiveM.argTypes = defaultArgTypes;
-stackHorizontalCenteredWithHorizontalGapResponsiveM.args = {
+stackHorizontalCenteredWithHorizontalGapResponsiveS.argTypes = defaultArgTypes;
+stackHorizontalCenteredWithHorizontalGapResponsiveS.args = {
   ...defaultArgs,
-  'appearance': appearance.options[3],
-  'gap-horizontal': gapHorizontal.options[20]
+  'appearance': appearance.options[6],
+  'gap-horizontal': gapHorizontal.options[18]
 };
-stackHorizontalCenteredWithHorizontalGapResponsiveM.documentation = {
+stackHorizontalCenteredWithHorizontalGapResponsiveS.documentation = {
   container: {
     styles:
       (context) => (
@@ -208,7 +213,7 @@ export const stackUsesUnorderedListMarkup = templateUnorderedList.bind({});
 stackUsesUnorderedListMarkup.argTypes = defaultArgTypes;
 stackUsesUnorderedListMarkup.args = {
   ...defaultArgs,
-  'appearance': appearance.options[3],
+  'appearance': appearance.options[6],
   'gap-horizontal': gapHorizontal.options[18],
   'tag': 'ul'
 };

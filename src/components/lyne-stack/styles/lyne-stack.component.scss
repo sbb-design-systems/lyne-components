@@ -13,7 +13,8 @@
   margin: 0;
   padding: 0;
   display: block;
-  //width: fit-content;
+  width: fit-content;
+  //max-width: 100%
 }
 
 // Reset all slotted elements
@@ -30,6 +31,8 @@
   //
   // Note for future me: Instead of defining all spacing/gap variants we could
   // also introduce CSS custom properties.
+  width: 100%;
+  height: 100%;
 }
 
 .stack--vertical,
@@ -44,21 +47,47 @@
   text-align: center;
 }
 
-.stack--horizontal,
+.stack--horizontal--start,
 %stack--horizontal {
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.stack--horizontal--end {
+  @extend %stack--horizontal;
+  justify-content: flex-end;
+}
+
+.stack--horizontal--start--centered {
+  @extend %stack--horizontal;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.stack--horizontal--end--centered {
+  @extend %stack--horizontal;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .stack--horizontal--centered {
   @extend %stack--horizontal;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
 }
 
-// Temporary quirk for slotted p/li element
+.stack--horizontal--space-between {
+  @extend %stack--horizontal;
+  justify-content: space-between;
+}
+
+.stack--horizontal--space-between--centered {
+  @extend %stack--horizontal;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Quirk for slotted elements
 ::slotted(*) {
   font-family: var(--typo-type-face-sbb-roman);
   font-weight: normal;
