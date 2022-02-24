@@ -84,4 +84,36 @@
     --spacing-responsive-xl:   var(--spacing-responsive-xl-ultra);
     --spacing-responsive-xxl:  var(--spacing-responsive-xxl-ultra);
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Responsive page spacing
+
+  --page-spacing-responsive-left: var(--spacing-fixed-4x);
+  --page-spacing-responsive-right: var(--spacing-fixed-4x);
+
+  @include mq($from: micro) {
+    --page-spacing-responsive-left: var(--spacing-fixed-6x);
+    --page-spacing-responsive-right: var(--spacing-fixed-6x);
+  }
+  @include mq($from: small) {
+    --page-spacing-responsive-left: var(--spacing-fixed-12x);
+    --page-spacing-responsive-right: var(--spacing-fixed-12x);
+  }
+  @include mq($from: medium) {
+    --page-spacing-responsive-left: var(--spacing-fixed-14x);
+    --page-spacing-responsive-right: var(--spacing-fixed-14x);
+  }
+  @include mq($from: large) {
+    --page-spacing-responsive-left: var(--spacing-fixed-16x);
+    --page-spacing-responsive-right: var(--spacing-fixed-16x);
+  }
+  @include mq($from: wide) {
+    --page-spacing-responsive-left: var(--spacing-fixed-18x);
+    --page-spacing-responsive-right: var(--spacing-fixed-18x);
+  }
+  @include mq($from: wide--max-content) {
+    --page-spacing-responsive-left: 0;
+    --page-spacing-responsive-right: 0;
+  }
 }
