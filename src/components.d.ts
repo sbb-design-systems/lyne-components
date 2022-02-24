@@ -544,6 +544,10 @@ export namespace Components {
           * Section appearance
          */
         "appearance"?: InterfaceSectionAttributes['appearance'];
+        /**
+          * Section width
+         */
+        "width"?: InterfaceSectionAttributes['width'];
     }
     interface LyneSlotComponent {
     }
@@ -1681,6 +1685,10 @@ declare namespace LocalJSX {
           * Section appearance
          */
         "appearance"?: InterfaceSectionAttributes['appearance'];
+        /**
+          * Section width
+         */
+        "width"?: InterfaceSectionAttributes['width'];
     }
     interface LyneSlotComponent {
     }
