@@ -2,6 +2,7 @@ import {
   ColorCharcoalDefault,
   ColorWhiteDefault
 } from 'lyne-design-tokens/dist/js/tokens.es6';
+import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -32,8 +33,8 @@ const wrapperStyle = (context) => {
     return `background-color: ${ColorWhiteDefault};`;
   }
 
-  return `background-color: ${ColorWhiteDefault};`;
-  // return `background-color: ${ColorCharcoalDefault};`;
+  //return `background-color: ${ColorWhiteDefault};`;
+  return `background-color: ${ColorCharcoalDefault};`;
 };
 
 /* ************************************************* */
@@ -61,13 +62,54 @@ const defaultArgs = {
   appearance: appearance.options[0]
 };
 
+const iconBurgerArgs = {
+  icon: 'hamburger-menu-small'
+};
+
+const iconSearchArgs = {
+  icon: 'magnifying-glass-small'
+};
+
+const iconLoginArgs = {
+  icon: 'user-small'
+};
+
+const iconLanguageArgs = {
+  icon: 'globe-small'
+};
+
+const SlotIconTemplate = (args) => (
+  getMarkupForSvg(args.icon)
+);
+
 /* ************************************************* */
 /* Storybook template                                */
 /* ************************************************* */
 
 const Template = (args) => (
   <div>
-    <lyne-section accessibility-title='Section' {...args}>
+    <lyne-section width='page-spacing' accessibility-title='Header' role='banner' style='background-color: var(--color-white-default); cursor: pointer;'>
+      <lyne-stack slot='full-width' gap-horizontal='fixed-10x' space-leading='responsive-xxs' space-trailing='responsive-xxs' appearance='horizontal--space-between--centered'>
+        <lyne-stack gap-horizontal='responsive-xxs' appearance='horizontal--start--centered'>
+          <SlotIconTemplate {...iconBurgerArgs}/>
+          <SlotIconTemplate {...iconSearchArgs}/>
+          <SlotIconTemplate {...iconLoginArgs}/>
+          <SlotIconTemplate {...iconLanguageArgs}/>
+        </lyne-stack>
+        <lyne-stack gap-horizontal='fixed-10x' appearance='horizontal--end--centered'>
+          <lyne-sbb-logo protective-room='none' style='display:flex; height: calc((var(--spacing-responsive-xxs)) / var(--typo-scale-default) * 1rem);'></lyne-sbb-logo>
+        </lyne-stack>
+      </lyne-stack>
+    </lyne-section>
+
+    <lyne-section width='full-bleed--until-ultra-plus' accessibility-title='Timetable search' {...args} style='--section-background-color: var(--color-red-default)'>
+      <lyne-stack slot='full-width' space-leading='responsive-xl' gap-vertical='fixed-4x' appearance='vertical--centered' style='margin-inline-start: calc(var(--page-spacing-responsive-left) / var(--typo-scale-default) * 1rem); margin-inline-end: calc(var(--page-spacing-responsive-right) / var(--typo-scale-default) * 1rem);'>
+        <lyne-link-button href-value='https://github.com/lyne-design-system/lyne-components' text='Timetable toggle pretender' variant='secondary'></lyne-link-button>
+        <lyne-stack gap-vertical='fixed-4x' appearance='vertical--centered' style='background-color: white; border-radius: 16px; max-width: 728px; height: 21vh; width: 100%; margin-bottom: -7vh; box-shadow: calc(var(--shadow-elevation-level-9-shadow-2-offset-x) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-offset-y) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-blur) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-spread) / var(--typo-scale-default) * 1rem) var(--shadow-elevation-level-9-hard-2-color), calc(var(--shadow-elevation-level-9-shadow-1-offset-x) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-offset-y) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-blur) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-spread) / var(--typo-scale-default) * 1rem) var(--shadow-elevation-level-5-hard-1-color)'></lyne-stack>
+      </lyne-stack>
+    </lyne-section>
+
+    {/* <lyne-section accessibility-title='Experiment' {...args} style='margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);'>
       <div slot='col-1'>
         <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
       </div>
@@ -87,8 +129,27 @@ const Template = (args) => (
           <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
         </lyne-stack>
       </div>
+    </lyne-section> */}
+
+    {/* <lyne-section accessibility-title='Experiment' {...args} style='margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);'>
+      <div slot='col-1'>
+        <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+      </div>
+      <div slot='col-2'>
+        <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+      </div>
+      <div slot='col-3'>
+        <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+      </div>
+      <div slot='col-4'>
+        <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
+      </div>
+    </lyne-section> */}
+
+    {/* margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem); */}
+    <lyne-section width='full-bleed--until-ultra' accessibility-title='Hero Teaser' {...args} style='margin-block-start: 21vh;'>
+      <lyne-teaser-hero slot='full-width' button-text='Mehr erfahren' loading='eager' image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg' link='https://www.sbb.ch' open-in-new-window='false' text='Rücksichtsvoll mit SBB Green Class.'></lyne-teaser-hero>
     </lyne-section>
-    <lyne-teaser-hero button-text='Mehr erfahren' image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg' link='https://www.sbb.ch' open-in-new-window='false' text='Rücksichtsvoll mit SBB Green Class.'></lyne-teaser-hero>
     <lyne-footer {...args}>
       <div slot='col-1'>
         <lyne-stack>
