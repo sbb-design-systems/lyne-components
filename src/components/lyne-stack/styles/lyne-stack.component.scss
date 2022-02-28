@@ -14,7 +14,6 @@
   padding: 0;
   display: block;
   width: fit-content;
-  //max-width: 100%
 }
 
 // Reset all slotted elements
@@ -98,4 +97,5 @@
   letter-spacing: var(--typo-letter-spacing-body-text);
   font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);
   color: var(--_stack-text-color-normal);
+  width: inherit;
 }
