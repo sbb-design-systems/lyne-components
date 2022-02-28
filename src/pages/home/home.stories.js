@@ -33,7 +33,7 @@ const wrapperStyle = (context) => {
     return `background-color: ${ColorWhiteDefault};`;
   }
 
-  //return `background-color: ${ColorWhiteDefault};`;
+  // return `background-color: ${ColorWhiteDefault};`;
   return `background-color: ${ColorCharcoalDefault};`;
 };
 
@@ -146,7 +146,6 @@ const Template = (args) => (
       </div>
     </lyne-section> */}
 
-    {/* margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem); */}
     <lyne-section width='full-bleed--until-ultra' accessibility-title='Hero Teaser' {...args} style='margin-block-start: 21vh;'>
       <lyne-teaser-hero slot='full-width' button-text='Mehr erfahren' loading='eager' image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg' link='https://www.sbb.ch' open-in-new-window='false' text='Rücksichtsvoll mit SBB Green Class.'></lyne-teaser-hero>
     </lyne-section>

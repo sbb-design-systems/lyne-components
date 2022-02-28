@@ -12,9 +12,9 @@ describe('lyne-section', () => {
 
     expect(root)
       .toEqualHtml(`
-        <lyne-section accessibility-title="Footer" role="contentinfo">
+        <lyne-section accessibility-title="Footer">
           <mock:shadow-root>
-            <section class="section section--primary">
+            <section class="section section--full-bleed--forever section--primary">
               <lyne-title level="1" text="Footer" visually-hidden="true"></lyne-title>
             </section>
           </mock:shadow-root>
