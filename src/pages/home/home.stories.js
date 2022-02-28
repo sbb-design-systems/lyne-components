@@ -109,14 +109,14 @@ const Template = (args) => (
       </lyne-stack>
     </lyne-section>
 
-    {/* <lyne-section accessibility-title='Experiment' {...args} style='margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);'>
+    {/* <lyne-section width='full-bleed--until-ultra-plus' accessibility-title='Experiment' {...args} style='margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);'>
       <div slot='col-1'>
         <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
       </div>
       <div slot='col-2'>
-        <lyne-stack space-leading='fixed-6x'>
+        <lyne-stack stack-width='70%' space-leading='fixed-6x'>
           <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
-          <lyne-stack space-leading='fixed-12x'>
+          <lyne-stack stack-width='100%' space-leading='fixed-12x'>
             <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
           </lyne-stack>
         </lyne-stack>
@@ -125,13 +125,13 @@ const Template = (args) => (
         <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
       </div>
       <div slot='col-4'>
-        <lyne-stack space-leading='fixed-16x'>
+        <lyne-stack stack-width='16%' space-leading='fixed-16x'>
           <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
         </lyne-stack>
       </div>
     </lyne-section> */}
 
-    {/* <lyne-section accessibility-title='Experiment' {...args} style='margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);'>
+    {/* <lyne-section width='full-bleed--until-ultra' accessibility-title='Experiment' {...args} style='margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);'>
       <div slot='col-1'>
         <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
       </div>
