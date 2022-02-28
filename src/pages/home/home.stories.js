@@ -109,7 +109,35 @@ const Template = (args) => (
       </lyne-stack>
     </lyne-section>
 
-    {/* <lyne-section width='full-bleed--until-ultra-plus' accessibility-title='Experiment' {...args} style='margin-block-start: calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);'>
+    {/* style='margin-block-start:
+    calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);' */}
+    <lyne-section width='full-bleed--until-ultra' accessibility-title='Experiment' {...args} style='margin-block-start: 7vh;'>
+      <div slot='col-1'>
+        <lyne-stack stack-width='100%' is-placeholder='true'>
+          <lyne-title level='2' text='I am a teaser.' visual-level='5'></lyne-title>
+        </lyne-stack>
+      </div>
+      <div slot='col-2'>
+        <lyne-stack stack-width='100%' is-placeholder='true'>
+          <lyne-title level='2' text='I am also a teaser.' visual-level='5'></lyne-title>
+        </lyne-stack>
+      </div>
+      <div slot='col-3'>
+        <lyne-stack stack-width='100%' is-placeholder='true'>
+          <lyne-title level='2' text='I am also a teaser.' visual-level='5'></lyne-title>
+        </lyne-stack>
+      </div>
+      <div slot='col-4'>
+        <lyne-stack stack-width='100%' is-placeholder='true'>
+          <lyne-title level='2' text='I am also a teaser.' visual-level='5'></lyne-title>
+        </lyne-stack>
+      </div>
+    </lyne-section>
+
+    {/* <lyne-section width='full-bleed--until-ultra-plus'
+      accessibility-title='Experiment' {...args}
+      style='margin-block-start:
+      calc((var(--spacing-responsive-l)) / var(--typo-scale-default) * 1rem);'>
       <div slot='col-1'>
         <lyne-sbb-clock initial-time='now'></lyne-sbb-clock>
       </div>
@@ -146,7 +174,7 @@ const Template = (args) => (
       </div>
     </lyne-section> */}
 
-    <lyne-section width='full-bleed--until-ultra' accessibility-title='Hero Teaser' {...args} style='margin-block-start: 21vh;'>
+    <lyne-section width='full-bleed--until-ultra' accessibility-title='Hero Teaser' {...args}>
       <lyne-teaser-hero slot='full-width' button-text='Mehr erfahren' loading='eager' image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg' link='https://www.sbb.ch' open-in-new-window='false' text='Rücksichtsvoll mit SBB Green Class.'></lyne-teaser-hero>
     </lyne-section>
     <lyne-footer {...args}>

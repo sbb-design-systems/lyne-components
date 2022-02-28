@@ -86,7 +86,10 @@
 
 .stack--is-placeholder {
   background-color: rgba(#AD00FF, 0.2);
-  border: 1px solid #AD00FF;
+  border-width: calc(pxToRem(var(--spacing-fixed-2x)));
+  border-style: dashed solid;
+  border-color: rgba(#AD00FF, 1);
+  padding: 1em;
 }
 
 // Quirk for slotted elements
