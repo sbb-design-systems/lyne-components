@@ -144,5 +144,5 @@ export default {
     },
     layout: 'fullscreen'
   },
-  title: 'page sections/lyne-section'
+  title: 'components/layout/lyne-section'
 };
