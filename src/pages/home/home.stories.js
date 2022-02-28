@@ -89,7 +89,7 @@ const SlotIconTemplate = (args) => (
 const Template = (args) => (
   <div>
     <lyne-section width='page-spacing' accessibility-title='Header' role='banner' style='background-color: var(--color-white-default); cursor: pointer;'>
-      <lyne-stack slot='full-width' gap-horizontal='fixed-10x' space-leading='responsive-xxs' space-trailing='responsive-xxs' appearance='horizontal--space-between--centered'>
+      <lyne-stack slot='full-width' stack-width='100%' gap-horizontal='fixed-10x' space-leading='responsive-xxs' space-trailing='responsive-xxs' appearance='horizontal--space-between--centered'>
         <lyne-stack gap-horizontal='responsive-xxs' appearance='horizontal--start--centered'>
           <SlotIconTemplate {...iconBurgerArgs}/>
           <SlotIconTemplate {...iconSearchArgs}/>
@@ -103,7 +103,7 @@ const Template = (args) => (
     </lyne-section>
 
     <lyne-section width='full-bleed--until-ultra-plus' accessibility-title='Timetable search' {...args} style='--section-background-color: var(--color-red-default)'>
-      <lyne-stack slot='full-width' space-leading='responsive-xl' gap-vertical='fixed-4x' appearance='vertical--centered' style='margin-inline-start: calc(var(--page-spacing-responsive-left) / var(--typo-scale-default) * 1rem); margin-inline-end: calc(var(--page-spacing-responsive-right) / var(--typo-scale-default) * 1rem);'>
+      <lyne-stack slot='full-width' stack-width='100%' space-leading='responsive-xl' gap-vertical='fixed-4x' appearance='vertical--centered' style='margin-inline-start: calc(var(--page-spacing-responsive-left) / var(--typo-scale-default) * 1rem); margin-inline-end: calc(var(--page-spacing-responsive-right) / var(--typo-scale-default) * 1rem);'>
         <lyne-link-button href-value='https://github.com/lyne-design-system/lyne-components' text='Timetable toggle pretender' variant='secondary'></lyne-link-button>
         <lyne-stack gap-vertical='fixed-4x' appearance='vertical--centered' style='background-color: white; border-radius: 16px; max-width: 728px; height: 21vh; width: 100%; margin-bottom: -7vh; box-shadow: calc(var(--shadow-elevation-level-9-shadow-2-offset-x) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-offset-y) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-blur) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-spread) / var(--typo-scale-default) * 1rem) var(--shadow-elevation-level-9-hard-2-color), calc(var(--shadow-elevation-level-9-shadow-1-offset-x) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-offset-y) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-blur) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-spread) / var(--typo-scale-default) * 1rem) var(--shadow-elevation-level-5-hard-1-color)'></lyne-stack>
       </lyne-stack>
