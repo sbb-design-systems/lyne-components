@@ -47,6 +47,21 @@ export class LyneStack {
    */
   @Prop() public spaceTrailing?: InterfaceStackAttributes['spacing'];
 
+  /** Render stack as placeholder */
+  @Prop() public isPlaceholder?: boolean;
+
+  /**
+   * Stack height, reflects CSS property `height` and accepts all appropriate
+   * CSS height values
+   */
+  @Prop() public stackHeight?: string;
+
+  /**
+   * Stack width, reflects CSS property `width` and accepts all appropriate
+   * CSS width values
+   */
+  @Prop() public stackWidth?: string;
+
   /**
    * Stack tag / HTML representation of the stack. If the stack represents
    * a list of items change the HTML representation to `ul` or `ol` tag. In this
@@ -56,7 +71,11 @@ export class LyneStack {
 
   public render(): JSX.Element {
 
-    const className = `stack stack--${this.appearance}`;
+    let className = `stack stack--${this.appearance}`;
+
+    if (this.isPlaceholder) {
+      className += ' stack--is-placeholder';
+    }
 
     /*
      * Conditionally add the CSS properties depending on the component
@@ -79,13 +98,25 @@ export class LyneStack {
     if (this.spaceLeading) {
       inlineStyles = {
         ...inlineStyles,
-        'padding-block-start': `calc(var(--spacing-${this.spaceLeading}) / var(--typo-scale-default) * 1rem)`
+        'margin-block-start': `calc(var(--spacing-${this.spaceLeading}) / var(--typo-scale-default) * 1rem)`
       };
     }
     if (this.spaceTrailing) {
       inlineStyles = {
         ...inlineStyles,
-        'padding-block-end': `calc(var(--spacing-${this.spaceTrailing}) / var(--typo-scale-default) * 1rem)`
+        'margin-block-end': `calc(var(--spacing-${this.spaceTrailing}) / var(--typo-scale-default) * 1rem)`
+      };
+    }
+    if (this.stackWidth) {
+      inlineStyles = {
+        ...inlineStyles,
+        width: `${this.stackWidth}`
+      };
+    }
+    if (this.stackHeight) {
+      inlineStyles = {
+        ...inlineStyles,
+        height: `${this.stackHeight}`
       };
     }
 

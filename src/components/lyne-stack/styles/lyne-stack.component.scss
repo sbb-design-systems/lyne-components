@@ -31,8 +31,6 @@
   //
   // Note for future me: Instead of defining all spacing/gap variants we could
   // also introduce CSS custom properties.
-  width: 100%;
-  height: 100%;
 }
 
 .stack--vertical,
@@ -85,6 +83,11 @@
   @extend %stack--horizontal;
   justify-content: space-between;
   align-items: center;
+}
+
+.stack--is-placeholder {
+  background-color: rgba(#AD00FF, 0.2);
+  border: 1px solid #AD00FF;
 }
 
 // Quirk for slotted elements

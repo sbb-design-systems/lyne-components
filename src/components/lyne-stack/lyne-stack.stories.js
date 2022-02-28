@@ -105,6 +105,15 @@ const gapVertical = {
   }
 };
 
+const isPlaceholder = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Prototyping'
+  }
+};
+
 const spaceLeading = {
   control: {
     type: 'select'
@@ -125,12 +134,35 @@ const spaceTrailing = {
   }
 };
 
+const stackWidth = {
+  control: {
+    type: 'text'
+  },
+  options: spacingOptions,
+  table: {
+    category: 'Size'
+  }
+};
+
+const stackHeight = {
+  control: {
+    type: 'text'
+  },
+  options: spacingOptions,
+  table: {
+    category: 'Size'
+  }
+};
+
 const defaultArgTypes = {
   appearance,
   'gap-horizontal': gapHorizontal,
   'gap-vertical': gapVertical,
+  'is-placeholder': isPlaceholder,
   'space-leading': spaceLeading,
-  'space-trailing': spaceTrailing
+  'space-trailing': spaceTrailing,
+  'stack-height': stackHeight,
+  'stack-width': stackWidth
 };
 
 const defaultArgs = {
@@ -166,6 +198,16 @@ const templateOrderedList = (args) => (
     <li>3. Lyne encourages performance and sustainability.</li>
     <li>4. Lyne is modular and flexible.</li>
     <li>5. Lyne fosters consistency and cohesiveness.</li>
+  </lyne-stack>
+);
+
+const templatePlaceholder = (args) => (
+  <lyne-stack {...args}></lyne-stack>
+);
+
+const templatePlaceholderWithTitle = (args) => (
+  <lyne-stack {...args}>
+    <lyne-title level='2' text='Stack placeholder' variant='positive' visual-level='5'></lyne-title>
   </lyne-stack>
 );
 
@@ -243,6 +285,46 @@ stackUsesOrderedListMarkup.documentation = {
       )
   },
   title: 'Stack'
+};
+
+/* --- Stack placeholder with title ------------------------ */
+export const stackPlaceholder = templatePlaceholder.bind({});
+
+stackPlaceholder.argTypes = defaultArgTypes;
+stackPlaceholder.args = {
+  ...defaultArgs,
+  'is-placeholder': true,
+  'stack-height': '10vh',
+  'stack-width': '100%'
+};
+stackPlaceholder.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
+  title: 'Stack placeholder'
+};
+
+/* --- Stack placeholder with title ------------------------ */
+export const stackPlaceholderWithTitle = templatePlaceholderWithTitle.bind({});
+
+stackPlaceholderWithTitle.args = {
+  ...defaultArgs,
+  'is-placeholder': true,
+  'space-leading': 'responsive-xl',
+  'stack-height': '14vh',
+  'stack-width': '32vw'
+};
+stackPlaceholderWithTitle.documentation = {
+  container: {
+    styles:
+      (context) => (
+        documentationPlatformContainerStyle(context)
+      )
+  },
+  title: 'Stack placeholder with title'
 };
 
 /* ************************************************* */

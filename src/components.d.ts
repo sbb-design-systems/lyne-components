@@ -565,6 +565,10 @@ export namespace Components {
          */
         "gapVertical"?: InterfaceStackAttributes['spacing'];
         /**
+          * Render stack as placeholder
+         */
+        "isPlaceholder"?: boolean;
+        /**
           * Space before the stack
          */
         "spaceLeading"?: InterfaceStackAttributes['spacing'];
@@ -572,6 +576,14 @@ export namespace Components {
           * Space before the stack
          */
         "spaceTrailing"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Stack height, reflects CSS property `height` and accepts all appropriate CSS height values
+         */
+        "stackHeight"?: string;
+        /**
+          * Stack width, reflects CSS property `width` and accepts all appropriate CSS width values
+         */
+        "stackWidth"?: string;
         /**
           * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
          */
@@ -1706,6 +1718,10 @@ declare namespace LocalJSX {
          */
         "gapVertical"?: InterfaceStackAttributes['spacing'];
         /**
+          * Render stack as placeholder
+         */
+        "isPlaceholder"?: boolean;
+        /**
           * Space before the stack
          */
         "spaceLeading"?: InterfaceStackAttributes['spacing'];
@@ -1713,6 +1729,14 @@ declare namespace LocalJSX {
           * Space before the stack
          */
         "spaceTrailing"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Stack height, reflects CSS property `height` and accepts all appropriate CSS height values
+         */
+        "stackHeight"?: string;
+        /**
+          * Stack width, reflects CSS property `width` and accepts all appropriate CSS width values
+         */
+        "stackWidth"?: string;
         /**
           * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
          */
