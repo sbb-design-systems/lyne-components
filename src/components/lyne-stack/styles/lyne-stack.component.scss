@@ -4,7 +4,7 @@
 @include host-component-properties;
 
 :host {
-  --_stack-text-color-normal: var(--stack-text-color-normal, var(--color-charcoal-default));
+  --_stack-text-color-normal: var(--stack-text-color-normal, var(--color-granite-default));
 }
 
 // Reset
