@@ -44,18 +44,14 @@
 
   ::slotted( [slot] ) {
     flex-basis: 100%;
-    // Debugging helper
-    //border: 1px solid var(--color-cloud-default);
 
     @include mq($from: small) {
-      // Debugging helper: Swap flex definitions
-      //flex: 0 0 calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))}/2) - 2px);
       flex: 0 0 calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))}/2));
+      max-width: calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))}/2));
     }
     @include mq($from: wide) {
-      // Debugging helper: Swap flex definitions
-      //flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_footer-gap-horizontal))})/4) - 2px);
       flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_footer-gap-horizontal))})/4));
+      max-width: calc(25% - ((3*#{pxToRem(var(--_footer-gap-horizontal))})/4));
     }
   }
   ::slotted( [slot='clock']) {
