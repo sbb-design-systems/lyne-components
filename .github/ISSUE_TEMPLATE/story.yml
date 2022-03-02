@@ -1,0 +1,31 @@
+name: "[Internal] Story"
+description: An internal story for lyne-components
+title: "story(COMPONENT): TITLE"
+labels: ["story", "to-refine"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Provide a brief summary of the feature you would like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: definition-of-done
+    attributes:
+      label: Definition of Done
+      description: |
+        What needs to be done, in order to close this issue.
+      value: |
+        - [ ] Component is implemented
+        - [ ] Tests are implemented
+        - [ ] E2E Tests are implemented
+        - [ ] Storybook stories are implemented
+        - [ ] Navigation via keyboard is tested
+        - [ ] Screen reader output is tested
+        - [ ] High-contrast is tested
+        - [ ] Remaining accessibility is tested
+        - [ ] UX approved
+    validations:
+      required: true
+
