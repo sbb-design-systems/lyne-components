@@ -6,7 +6,7 @@ describe('lyne-card-product', () => {
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-card-product></lyne-card-product>');
+    await page.setContent(`<lyne-card-product accessibility-label="Lyne product card"></lyne-card-product>`);
 
     element = await page.find('lyne-card-product');
     expect(element)
