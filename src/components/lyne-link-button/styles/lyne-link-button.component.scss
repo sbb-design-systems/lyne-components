@@ -24,6 +24,7 @@
   @include button();
   text-decoration: none;
   fill: currentColor;
+  width: fit-content;
 
   @include ifForcedColors {
     fill: LinkText;
