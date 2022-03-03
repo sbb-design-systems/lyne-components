@@ -195,9 +195,9 @@ const defaultArgs = {
 
 const template = (args) => (
   <lyne-stack {...args}>
-    <lyne-title level='2' text='Newsletter.' variant='positive' visual-level='5'></lyne-title>
-    <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
-    <lyne-button variant='secondary' size='large' label='Subscribe' name='sample-name' value='sample-value'></lyne-button>
+    <lyne-title level='2' text='Lyne' variant='positive' visual-level='5'></lyne-title>
+    <p>Is user-centered and empowering, holistic and inclusive, encourages ...</p>
+    <lyne-link-button href-value='https://github.com/lyne-design-system/lyne-components' text='Discover Lyne' variant='primary'></lyne-link-button>
   </lyne-stack>
 );
 
