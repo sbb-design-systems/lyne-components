@@ -557,6 +557,10 @@ export namespace Components {
          */
         "appearance"?: InterfaceStackAttributes['appearance'];
         /**
+          * Collapse horizontal stack into vertical layout below a certain breakpoint. This has only an effect for horizontal appearances.
+         */
+        "collapseHorizontalBelow"?: InterfaceStackAttributes['collapseHorizontalBelow'];
+        /**
           * Stack gap horizontal, defines the space between each stack items in the vertical direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
          */
         "gapHorizontal"?: InterfaceStackAttributes['spacing'];
@@ -1709,6 +1713,10 @@ declare namespace LocalJSX {
           * Stack appearance
          */
         "appearance"?: InterfaceStackAttributes['appearance'];
+        /**
+          * Collapse horizontal stack into vertical layout below a certain breakpoint. This has only an effect for horizontal appearances.
+         */
+        "collapseHorizontalBelow"?: InterfaceStackAttributes['collapseHorizontalBelow'];
         /**
           * Stack gap horizontal, defines the space between each stack items in the vertical direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
          */

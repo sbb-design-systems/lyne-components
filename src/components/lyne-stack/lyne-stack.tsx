@@ -21,6 +21,12 @@ export class LyneStack {
   @Prop() public appearance?: InterfaceStackAttributes['appearance'] = 'vertical';
 
   /**
+   * Collapse horizontal stack into vertical layout below a
+   * certain breakpoint. This has only an effect for horizontal appearances.
+   */
+  @Prop() public collapseHorizontalBelow?: InterfaceStackAttributes['collapseHorizontalBelow'];
+
+  /**
    * Stack gap horizontal, defines the space between each stack items in the
    * vertical direction. The spacing can be fixed or responsive (which then
    * depends on the breakpoint). The `x` in the fixed spacing scale is a
@@ -72,6 +78,10 @@ export class LyneStack {
   public render(): JSX.Element {
 
     let className = `stack stack--${this.appearance}`;
+
+    if (this.collapseHorizontalBelow) {
+      className += ` stack--horizontal--collapse-below--${this.collapseHorizontalBelow}`;
+    }
 
     if (this.isPlaceholder) {
       className += ' stack--is-placeholder';

@@ -85,6 +85,25 @@ const appearance = {
   }
 };
 
+const collapseHorizontalBelow = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'micro',
+    'small',
+    'medium',
+    'large',
+    'wide',
+    'wide--max-content',
+    'ultra',
+    'ultra--max-content'
+  ],
+  table: {
+    category: 'Appearance'
+  }
+};
+
 const gapHorizontal = {
   control: {
     type: 'select'
@@ -156,6 +175,7 @@ const stackHeight = {
 
 const defaultArgTypes = {
   appearance,
+  'collapse-horizontal-below': collapseHorizontalBelow,
   'gap-horizontal': gapHorizontal,
   'gap-vertical': gapVertical,
   'is-placeholder': isPlaceholder,

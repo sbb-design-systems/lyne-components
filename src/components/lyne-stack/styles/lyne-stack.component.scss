@@ -84,6 +84,17 @@
   align-items: center;
 }
 
+// For each breakpoint except zero we create a collapse below class
+@each $breakpoint-name, $breakpoint-value in $mq-breakpoints {
+  @if $breakpoint-name != 'zero' {
+    .stack--horizontal--collapse-below--#{$breakpoint-name} {
+      @include mq($to: #{$breakpoint-name}) {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
 .stack--is-placeholder {
   background-color: rgba(#AD00FF, 0.2);
   border-width: calc(pxToRem(var(--spacing-fixed-2x)));
