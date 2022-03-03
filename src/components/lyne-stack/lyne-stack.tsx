@@ -51,14 +51,14 @@ export class LyneStack {
   @Prop() public isPlaceholder?: boolean;
 
   /**
-   * Stack height, reflects CSS property `height` and accepts all appropriate
-   * CSS height values
+   * Stack height, reflects CSS property `height` and accepts all
+   * appropriate/valid CSS height values
    */
   @Prop() public stackHeight?: string;
 
   /**
-   * Stack width, reflects CSS property `width` and accepts all appropriate
-   * CSS width values
+   * Stack width, reflects CSS property `width` and accepts all
+   * appropriate/valid CSS width values
    */
   @Prop() public stackWidth?: string;
 

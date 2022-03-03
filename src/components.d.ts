@@ -577,11 +577,11 @@ export namespace Components {
          */
         "spaceTrailing"?: InterfaceStackAttributes['spacing'];
         /**
-          * Stack height, reflects CSS property `height` and accepts all appropriate CSS height values
+          * Stack height, reflects CSS property `height` and accepts all appropriate/valid CSS height values
          */
         "stackHeight"?: string;
         /**
-          * Stack width, reflects CSS property `width` and accepts all appropriate CSS width values
+          * Stack width, reflects CSS property `width` and accepts all appropriate/valid CSS width values
          */
         "stackWidth"?: string;
         /**
@@ -1730,11 +1730,11 @@ declare namespace LocalJSX {
          */
         "spaceTrailing"?: InterfaceStackAttributes['spacing'];
         /**
-          * Stack height, reflects CSS property `height` and accepts all appropriate CSS height values
+          * Stack height, reflects CSS property `height` and accepts all appropriate/valid CSS height values
          */
         "stackHeight"?: string;
         /**
-          * Stack width, reflects CSS property `width` and accepts all appropriate CSS width values
+          * Stack width, reflects CSS property `width` and accepts all appropriate/valid CSS width values
          */
         "stackWidth"?: string;
         /**
