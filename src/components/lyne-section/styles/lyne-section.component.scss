@@ -4,6 +4,9 @@
 @include host-component-properties;
 
 :host {
+  // Todo during grid enhancements, refactor below gutter tokens / add them to
+  // the design tokens
+
   // Reminder: --_section-gap-horizontal needs a new responsive gap design token
   // var(--spacing-responsive-s); is just a placeholder for now
   --_section-gap-horizontal: var(--section-gap-horizontal, var(--spacing-responsive-s));
@@ -60,6 +63,8 @@
   }
 }
 
+// The following section/column/grid handling will be addressed in the grid pr
+// and can be overlooked for now here
 .columns {
   // Reset
   width: 100%;
