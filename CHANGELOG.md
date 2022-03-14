@@ -1,3 +1,17 @@
+## [9.77.1](https://github.com/lyne-design-system/lyne-components/compare/v9.77.0...v9.77.1) (2022-03-14)
+
+
+### Bug Fixes
+
+* setting lockfileVersion back to 1 ([2a0d7e2](https://github.com/lyne-design-system/lyne-components/commit/2a0d7e2865c3c94ab9ad5680a7beefeaf07d1132))
+
+# [9.77.0](https://github.com/lyne-design-system/lyne-components/compare/v9.76.0...v9.77.0) (2022-03-10)
+
+
+### Features
+
+* add new icons to the library (release 1.32.0) (triggered from Figma) (triggered from icons build) [skip ci] ([c84c63d](https://github.com/lyne-design-system/lyne-components/commit/c84c63df050ec8a013301681913ac1a0cbbe3b87))
+
 # [9.76.0](https://github.com/lyne-design-system/lyne-components/compare/v9.75.0...v9.76.0) (2022-02-21)
 
 
