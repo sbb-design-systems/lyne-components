@@ -34,6 +34,7 @@ import { InterfaceLyneTimetableTransportationNumberAttributes } from "./componen
 import { InterfaceLyneTimetableTransportationTimeAttributes } from "./components/lyne-timetable-transportation-time/lyne-timetable-transportation-time.custom.d";
 import { InterfaceLyneTimetableTransportationWalkAttributes } from "./components/lyne-timetable-transportation-walk/lyne-timetable-transportation-walk.custom.d";
 import { InterfaceLyneTimetableTravelHintsAttributes } from "./components/lyne-timetable-travel-hints/lyne-timetable-travel-hints.custom.d";
+import { InterfaceLyneToastAttributes } from "./components/lyne-toast/lyne-toast.custom.d";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -913,6 +914,20 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
+    interface LyneToast {
+        "icon"?: string;
+        "size"?: InterfaceLyneToastAttributes['size'];
+        "text": string;
+        /**
+          * Hide the toast after defined milliseconds.
+         */
+        "timeout": number;
+        "undoable": InterfaceLyneToastAttributes['undoable'];
+        /**
+          * Possible variants of the component: can be with single text row or multiple ones
+         */
+        "variant"?: InterfaceLyneToastAttributes['variant'];
+    }
 }
 declare global {
     interface HTMLLyneAccordionElement extends Components.LyneAccordion, HTMLStencilElement {
@@ -1185,6 +1200,12 @@ declare global {
         prototype: HTMLLyneTitleElement;
         new (): HTMLLyneTitleElement;
     };
+    interface HTMLLyneToastElement extends Components.LyneToast, HTMLStencilElement {
+    }
+    var HTMLLyneToastElement: {
+        prototype: HTMLLyneToastElement;
+        new (): HTMLLyneToastElement;
+    };
     interface HTMLElementTagNameMap {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
@@ -1231,6 +1252,7 @@ declare global {
         "lyne-timetable-transportation-walk": HTMLLyneTimetableTransportationWalkElement;
         "lyne-timetable-travel-hints": HTMLLyneTimetableTravelHintsElement;
         "lyne-title": HTMLLyneTitleElement;
+        "lyne-toast": HTMLLyneToastElement;
     }
 }
 declare namespace LocalJSX {
@@ -2114,6 +2136,20 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
+    interface LyneToast {
+        "icon"?: string;
+        "size"?: InterfaceLyneToastAttributes['size'];
+        "text"?: string;
+        /**
+          * Hide the toast after defined milliseconds.
+         */
+        "timeout"?: number;
+        "undoable"?: InterfaceLyneToastAttributes['undoable'];
+        /**
+          * Possible variants of the component: can be with single text row or multiple ones
+         */
+        "variant"?: InterfaceLyneToastAttributes['variant'];
+    }
     interface IntrinsicElements {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
@@ -2160,6 +2196,7 @@ declare namespace LocalJSX {
         "lyne-timetable-transportation-walk": LyneTimetableTransportationWalk;
         "lyne-timetable-travel-hints": LyneTimetableTravelHints;
         "lyne-title": LyneTitle;
+        "lyne-toast": LyneToast;
     }
 }
 export { LocalJSX as JSX };
@@ -2211,6 +2248,7 @@ declare module "@stencil/core" {
             "lyne-timetable-transportation-walk": LocalJSX.LyneTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationWalkElement>;
             "lyne-timetable-travel-hints": LocalJSX.LyneTimetableTravelHints & JSXBase.HTMLAttributes<HTMLLyneTimetableTravelHintsElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
+            "lyne-toast": LocalJSX.LyneToast & JSXBase.HTMLAttributes<HTMLLyneToastElement>;
         }
     }
 }
