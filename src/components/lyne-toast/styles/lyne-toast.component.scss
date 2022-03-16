@@ -1,0 +1,66 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: static;
+  width: 400px;
+  left: 32px;
+  top: 0px;
+
+  /* midnight/default */
+
+  background: #151515;
+  /* Level-5/Hard */
+
+  box-shadow: 0px 1px 8px rgba(141, 141, 141, 0.2), 0px 4px 32px rgba(141, 141, 141, 0.1);
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+  margin: 0px 0px;
+
+  
+}
+
+div.large {
+  height: 59px;
+  
+  
+}
+  
+div.small {
+  height: 48px;
+}
+
+div.large .text {
+  position: static;
+  width: 352px;
+  height: 27px;
+  left: calc(50% - 352px / 2);
+  top: calc(50% - 27px / 2);
+
+  font-family: "SBB Web";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 170%;
+
+  color: #f6f6f6;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+  margin: 0px 0px;
+}
