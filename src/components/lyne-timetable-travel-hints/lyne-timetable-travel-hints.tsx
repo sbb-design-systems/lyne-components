@@ -1,6 +1,7 @@
 import {
   Component,
   h,
+  Host,
   Prop
 } from '@stencil/core';
 
@@ -45,30 +46,36 @@ export class LyneTimetableTravelHints {
     const a11yLabel = i18nNone[this._currentLanguage];
     const appearanceClass = ` travel-hints--${this.appearance}`;
 
+    const hostClass = travelHintsItems.length === 0
+      ? 'visually-empty'
+      : '';
+
     return (
-      <div class={`travel-hints${appearanceClass}`}>
-        {
-          travelHintsItems.length > 0
-            ? <ul
-              class='travel-hints__list'
-              role='list'
-            >
-              {travelHintsItems.map((travelHintItem) => (
-                <li class='travel-hints__list-item'>
-                  <span
-                    aria-label={travelHintItem.text}
-                    class={`travel-hints__icon travel-hints__icon--${travelHintItem.icon}`}
-                    innerHTML={icons[travelHintItem.icon]}
-                    role='text'
-                    title={travelHintItem.text}
-                  >
-                  </span>
-                </li>
-              ))}
-            </ul>
-            : <span class='travel-hints__text--visually-hidden'>{a11yLabel}</span>
-        }
-      </div>
+      <Host class={hostClass}>
+        <div class={`travel-hints${appearanceClass}`}>
+          {
+            travelHintsItems.length > 0
+              ? <ul
+                class='travel-hints__list'
+                role='list'
+              >
+                {travelHintsItems.map((travelHintItem) => (
+                  <li class='travel-hints__list-item'>
+                    <span
+                      aria-label={travelHintItem.text}
+                      class={`travel-hints__icon travel-hints__icon--${travelHintItem.icon}`}
+                      innerHTML={icons[travelHintItem.icon]}
+                      role='text'
+                      title={travelHintItem.text}
+                    >
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              : <span class='travel-hints__text--visually-hidden'>{a11yLabel}</span>
+          }
+        </div>
+      </Host>
     );
   }
 }

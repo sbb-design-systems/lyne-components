@@ -45,11 +45,11 @@ export const CusHimFirstLevelList = Template.bind({});
 CusHimFirstLevelList.argTypes = defaultArgTypes;
 CusHimFirstLevelList.args = {
   ...defaultArgs,
-  config: sampleData[1]
+  config: sampleData[2]
 };
 
 CusHimFirstLevelList.documentation = {
-  title: 'CUS/HIM Icon - First Level List'
+  title: 'CUS/HIM Icon - First Level List - Single Item only'
 };
 
 export const CusHimSecondLevelList = Template.bind({});

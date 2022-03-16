@@ -25,8 +25,6 @@ describe('lyne-timetable-row-column-headers', () => {
                 <div role="columnheader"></div>
                 <div role="columnheader">Platfom</div>
                 <div role="columnheader">Occupancy Forecast</div>
-                <div role="columnheader">Travel hints</div>
-                <div role="columnheader">Park and Rail</div>
                 <div role="columnheader">Duration</div>
                 <div role="columnheader">Real time information</div>
             </div>
