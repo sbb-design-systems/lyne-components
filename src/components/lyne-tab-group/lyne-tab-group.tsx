@@ -21,7 +21,7 @@ import events from './lyne-tab-group.events';
 
 export class LyneTabGroup {
 
-  /** Tab labels */
+  /** Tab labels  */
   @Prop() public labelone?: string;
   @Prop() public labeltwo?: string;
   @Prop() public labelthree?: string;
