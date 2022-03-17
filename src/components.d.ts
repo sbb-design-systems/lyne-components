@@ -20,6 +20,8 @@ import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyn
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
+import { InterfaceLyneTabAmountAttributes } from "./components/lyne-tab-amount/lyne-tab-amount.custom.d";
+import { InterfaceLyneTabLabelAttributes } from "./components/lyne-tab-label/lyne-tab-label.custom.d";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
@@ -524,6 +526,26 @@ export namespace Components {
     }
     interface LyneSlotComponent {
     }
+    interface LyneTab {
+        /**
+          * Define if icon should be shown or not
+         */
+        "icon"?: boolean;
+        /**
+          * If you use an icon without a label, you must provide an iconDescription
+         */
+        "iconDescription"?: string;
+        /**
+          * Tab labels
+         */
+        "label"?: string;
+    }
+    interface LyneTabAmount {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
+    }
     interface LyneTabGroup {
         /**
           * Define if icon should be shown or not
@@ -541,6 +563,12 @@ export namespace Components {
         "labelone"?: string;
         "labelthree"?: string;
         "labeltwo"?: string;
+    }
+    interface LyneTabLabel {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneTabLabelAttributes['someInterface'];
     }
     interface LyneTeaserHero {
         /**
@@ -955,11 +983,29 @@ declare global {
         prototype: HTMLLyneSlotComponentElement;
         new (): HTMLLyneSlotComponentElement;
     };
+    interface HTMLLyneTabElement extends Components.LyneTab, HTMLStencilElement {
+    }
+    var HTMLLyneTabElement: {
+        prototype: HTMLLyneTabElement;
+        new (): HTMLLyneTabElement;
+    };
+    interface HTMLLyneTabAmountElement extends Components.LyneTabAmount, HTMLStencilElement {
+    }
+    var HTMLLyneTabAmountElement: {
+        prototype: HTMLLyneTabAmountElement;
+        new (): HTMLLyneTabAmountElement;
+    };
     interface HTMLLyneTabGroupElement extends Components.LyneTabGroup, HTMLStencilElement {
     }
     var HTMLLyneTabGroupElement: {
         prototype: HTMLLyneTabGroupElement;
         new (): HTMLLyneTabGroupElement;
+    };
+    interface HTMLLyneTabLabelElement extends Components.LyneTabLabel, HTMLStencilElement {
+    }
+    var HTMLLyneTabLabelElement: {
+        prototype: HTMLLyneTabLabelElement;
+        new (): HTMLLyneTabLabelElement;
     };
     interface HTMLLyneTeaserHeroElement extends Components.LyneTeaserHero, HTMLStencilElement {
     }
@@ -1101,7 +1147,10 @@ declare global {
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
         "lyne-slot-component": HTMLLyneSlotComponentElement;
+        "lyne-tab": HTMLLyneTabElement;
+        "lyne-tab-amount": HTMLLyneTabAmountElement;
         "lyne-tab-group": HTMLLyneTabGroupElement;
+        "lyne-tab-label": HTMLLyneTabLabelElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-timetable": HTMLLyneTimetableElement;
@@ -1619,6 +1668,26 @@ declare namespace LocalJSX {
     }
     interface LyneSlotComponent {
     }
+    interface LyneTab {
+        /**
+          * Define if icon should be shown or not
+         */
+        "icon"?: boolean;
+        /**
+          * If you use an icon without a label, you must provide an iconDescription
+         */
+        "iconDescription"?: string;
+        /**
+          * Tab labels
+         */
+        "label"?: string;
+    }
+    interface LyneTabAmount {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
+    }
     interface LyneTabGroup {
         /**
           * Define if icon should be shown or not
@@ -1636,6 +1705,12 @@ declare namespace LocalJSX {
         "labelone"?: string;
         "labelthree"?: string;
         "labeltwo"?: string;
+    }
+    interface LyneTabLabel {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceLyneTabLabelAttributes['someInterface'];
     }
     interface LyneTeaserHero {
         /**
@@ -1954,7 +2029,10 @@ declare namespace LocalJSX {
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-sbb-signet": LyneSbbSignet;
         "lyne-slot-component": LyneSlotComponent;
+        "lyne-tab": LyneTab;
+        "lyne-tab-amount": LyneTabAmount;
         "lyne-tab-group": LyneTabGroup;
+        "lyne-tab-label": LyneTabLabel;
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
         "lyne-timetable": LyneTimetable;
@@ -2000,7 +2078,10 @@ declare module "@stencil/core" {
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
+            "lyne-tab": LocalJSX.LyneTab & JSXBase.HTMLAttributes<HTMLLyneTabElement>;
+            "lyne-tab-amount": LocalJSX.LyneTabAmount & JSXBase.HTMLAttributes<HTMLLyneTabAmountElement>;
             "lyne-tab-group": LocalJSX.LyneTabGroup & JSXBase.HTMLAttributes<HTMLLyneTabGroupElement>;
+            "lyne-tab-label": LocalJSX.LyneTabLabel & JSXBase.HTMLAttributes<HTMLLyneTabLabelElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-timetable": LocalJSX.LyneTimetable & JSXBase.HTMLAttributes<HTMLLyneTimetableElement>;

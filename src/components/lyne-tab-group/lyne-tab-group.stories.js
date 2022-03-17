@@ -5,7 +5,9 @@ import readme from './readme.md';
 
 const Template = (args) => (
   <lyne-tab-group {...args}>
-    {getMarkupForSvg(args.iconSlot)}
+
+    <lyne-tab label="tabtest" icon="false"></lyne-tab>
+
   </lyne-tab-group>
 );
 
