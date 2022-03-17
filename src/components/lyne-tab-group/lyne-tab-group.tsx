@@ -83,6 +83,12 @@ export class LyneTabGroup {
             Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
           </div>
         </div>
+
+        <hr />
+
+        <div class="tab-group">
+          <slot />
+        </div>
       </div>
     );
   }

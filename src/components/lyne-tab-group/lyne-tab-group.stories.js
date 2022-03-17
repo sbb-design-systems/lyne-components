@@ -6,7 +6,9 @@ import readme from './readme.md';
 const Template = (args) => (
   <lyne-tab-group {...args}>
 
-    <lyne-tab label="tabtest" icon="false"></lyne-tab>
+    <lyne-tab label="tab 1" icon="false"></lyne-tab>
+    <lyne-tab label="tab 2" icon="true"></lyne-tab>
+    <lyne-tab label="tab 3" icon="false"></lyne-tab>
 
   </lyne-tab-group>
 );
