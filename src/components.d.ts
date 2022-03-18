@@ -915,18 +915,35 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
     interface LyneToast {
-        "icon"?: string;
+        /**
+          * Action configuration.
+         */
+        "action"?: 'close' | { label: string; action: () => void } | { label: string; link: string };
+        /**
+          * Where the toast should be displayed horizontally. Defaults to 'center'.
+         */
+        "horizontalPosition"?: InterfaceLyneToastAttributes['horizontalPosition'];
+        /**
+          * Either SVG string or reference to a SVG element.
+         */
+        "icon"?: string | HTMLElement;
+        /**
+          * Id of <template> to use for the icon.
+         */
+        "iconTemplate"?: string;
+        /**
+          * Message to display.
+         */
+        "message": string;
         "size"?: InterfaceLyneToastAttributes['size'];
-        "text": string;
         /**
           * Hide the toast after defined milliseconds.
          */
         "timeout": number;
-        "undoable": InterfaceLyneToastAttributes['undoable'];
         /**
-          * Possible variants of the component: can be with single text row or multiple ones
+          * Where the toast should be displayed vertically. Defaults to 'bottom'.
          */
-        "variant"?: InterfaceLyneToastAttributes['variant'];
+        "verticalPosition"?: InterfaceLyneToastAttributes['verticalPosition'];
     }
 }
 declare global {
@@ -2137,18 +2154,35 @@ declare namespace LocalJSX {
         "visuallyHidden"?: false;
     }
     interface LyneToast {
-        "icon"?: string;
+        /**
+          * Action configuration.
+         */
+        "action"?: 'close' | { label: string; action: () => void } | { label: string; link: string };
+        /**
+          * Where the toast should be displayed horizontally. Defaults to 'center'.
+         */
+        "horizontalPosition"?: InterfaceLyneToastAttributes['horizontalPosition'];
+        /**
+          * Either SVG string or reference to a SVG element.
+         */
+        "icon"?: string | HTMLElement;
+        /**
+          * Id of <template> to use for the icon.
+         */
+        "iconTemplate"?: string;
+        /**
+          * Message to display.
+         */
+        "message": string;
         "size"?: InterfaceLyneToastAttributes['size'];
-        "text"?: string;
         /**
           * Hide the toast after defined milliseconds.
          */
         "timeout"?: number;
-        "undoable"?: InterfaceLyneToastAttributes['undoable'];
         /**
-          * Possible variants of the component: can be with single text row or multiple ones
+          * Where the toast should be displayed vertically. Defaults to 'bottom'.
          */
-        "variant"?: InterfaceLyneToastAttributes['variant'];
+        "verticalPosition"?: InterfaceLyneToastAttributes['verticalPosition'];
     }
     interface IntrinsicElements {
         "lyne-accordion": LyneAccordion;

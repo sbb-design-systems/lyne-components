@@ -20,33 +20,39 @@ import { InterfaceLyneToastAttributes } from './lyne-toast.custom.d';
 
 export class LyneToast {
 
-  /** Possible variants of the component: can be with single text row or multiple ones */
-  @Prop() public variant?: InterfaceLyneToastAttributes['variant'];
-
   @Prop() public size?: InterfaceLyneToastAttributes['size'] = 'large';
 
-  @Prop() public text: string;
+  /** Message to display. */
+  @Prop() public message!: string;
 
-  @Prop() public icon?: string;
+  /** Id of <template> to use for the icon. */
+  @Prop() public iconTemplate?: string;
 
-  @Prop() public undoable: InterfaceLyneToastAttributes['undoable'] = 'none';
+  /** Either SVG string or reference to a SVG element. */
+  @Prop() public icon?: string | HTMLElement;
+
+  /** Action configuration. */
+  @Prop() public action?: 'close' | { label: string; action: () => void } | { label: string; link: string };
 
   /** Hide the toast after defined milliseconds. */
   @Prop() public timeout = 3000;
 
   /** Where the toast should be displayed vertically. Defaults to 'bottom'. */
-  verticalPosition?: 'top' | 'bottom' = 'bottom';
+  @Prop() public verticalPosition?: InterfaceLyneToastAttributes['verticalPosition'] = 'bottom';
+
   /** Where the toast should be displayed horizontally. Defaults to 'center'. */
-  horizontalPosition?: 'left' | 'center' | 'right' | 'start' | 'end' = 'center';
+  @Prop() public horizontalPosition?: InterfaceLyneToastAttributes['horizontalPosition'] = 'center';
 
   public render(): JSX.Element {
     return (
       <div class={this.size}>
-        <span class="icon"></span>
-        <span class="text">
-          {this.text}
+        <span class='icon'>
+          <slot name='icon'></slot>
         </span>
-        <span class="action"></span>
+        <span class='text'>
+          {this.message}
+        </span>
+        <span class='action'></span>
       </div>
     );
   }

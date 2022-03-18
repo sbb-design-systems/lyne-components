@@ -1,45 +1,61 @@
+import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import events from './lyne-toast.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-toast {...args}></lyne-toast>
+  <lyne-toast {...args}>
+    <div slot='icon'>
+      {getMarkupForSvg(args.iconSlot)}
+    </div>
+  </lyne-toast>
 );
 
 export const single = Template.bind({});
 
-// --- Arg types
-const variant = {
-  control: {
-    type: 'select'
-  },
-  options: [
-    'single-row',
-    'multiple-rows'
-  ],
-  table: {
-    category: 'General Properties'
-  }
-}
-
-const text =  {
+const message = {
   control: {
     type: 'text'
   },
   table: {
     category: 'General Properties'
   }
-}
+};
+
+const iconDescription = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Icon'
+  }
+};
+
+const iconSlot = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'arrow-right-small',
+    'arrow-down-small',
+    'arrow-compass-small',
+    'pie-small'
+  ],
+  table: {
+    category: 'Icon'
+  }
+};
 
 const basicArgTypes = {
-  variant,
-  text
-}
+  'icon-description': iconDescription,
+  iconSlot,
+  message
+};
 
 const basicArgs = {
-  variant: variant.options[0],
-  text: 'Ciao'
-}
+  iconSlot: iconSlot.options[0],
+  message: 'Ciao'
+};
 
 single.argTypes = basicArgTypes;
 single.args = JSON.parse(JSON.stringify(basicArgs));
@@ -50,14 +66,13 @@ single.documentation = {
 
 export default {
   decorators: [
-    (Story, context) => (
+    (Story) => (
       <div style={'padding: 2rem'}>
         <Story/>
       </div>
     )
   ],
-  documentation: {
-  },
+  documentation: {},
   parameters: {
     actions: {
       handles: [events.click]
