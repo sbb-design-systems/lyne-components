@@ -4,6 +4,7 @@
 @include host-component-properties;
 
 div {
+  --color-default-text: var(--color-white-default);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -22,45 +23,30 @@ div {
   box-shadow: 0px 1px 8px rgba(141, 141, 141, 0.2), 0px 4px 32px rgba(141, 141, 141, 0.1);
   border-radius: 8px;
 
-  /* Inside auto layout */
+  &.large {
+    height: 59px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 24px;
+    span {
+      color: var(--color-default-text);
+      &.icon {
+        height: 27px;
+        width: 24px;
+        padding: 2px 0px;
+        fill: currentColor;
+      }
+      &.text {
+        color: var(--color-default-text);
+        width: 145px;
+      }
+    }
 
-  flex: none;
-  order: 1;
-  flex-grow: 1;
-  margin: 0px 0px;
+  }
 
-  
-}
+  &.small {
+    height: 48px;
+  }
 
-div.large {
-  height: 59px;
-  
-  
-}
-  
-div.small {
-  height: 48px;
-}
-
-div.large .text {
-  position: static;
-  width: 352px;
-  height: 27px;
-  left: calc(50% - 352px / 2);
-  top: calc(50% - 27px / 2);
-
-  font-family: "SBB Web";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 170%;
-
-  color: #f6f6f6;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 1;
-  margin: 0px 0px;
 }
