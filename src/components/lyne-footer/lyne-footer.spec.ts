@@ -12,9 +12,9 @@ describe('lyne-footer', () => {
 
     expect(root)
       .toEqualHtml(`
-        <lyne-footer accessibility-title="Footer" role="contentinfo">
+        <lyne-footer accessibility-title="Footer">
           <mock:shadow-root>
-            <footer class="footer footer--primary">
+            <footer role="contentinfo" class="footer footer--primary">
               <lyne-title level="1" text="Footer" visually-hidden="true"></lyne-title>
             </footer>
           </mock:shadow-root>

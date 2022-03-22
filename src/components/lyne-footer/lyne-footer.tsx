@@ -53,8 +53,8 @@ export class LyneFooter {
     };
 
     return (
-      <Host role='contentinfo'>
-        <footer {...attrs}
+      <Host>
+        <footer role='contentinfo' {...attrs}
         >
           <lyne-title level='1' visually-hidden='true' text={this.accessibilityTitle} />
           {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot || this._hasClockSlot
