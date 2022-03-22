@@ -37,16 +37,16 @@
   column-gap: pxToRem(var(--_footer-gap-horizontal));
   row-gap: pxToRem(var(--_footer-gap-vertical));
 
-  ::slotted( [slot] ) {
+  ::slotted([slot]) {
     flex-basis: 100%;
 
     @include mq($from: small) {
-      flex: 0 0 calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))}/2));
-      max-width: calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))}/2));
+      flex: 0 0 calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))} / 2));
+      max-width: calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))} / 2));
     }
     @include mq($from: wide) {
-      flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_footer-gap-horizontal))})/4));
-      max-width: calc(25% - ((3*#{pxToRem(var(--_footer-gap-horizontal))})/4));
+      flex: 0 0 calc(25% - ((3 * #{pxToRem(var(--_footer-gap-horizontal))}) / 4));
+      max-width: calc(25% - ((3 * #{pxToRem(var(--_footer-gap-horizontal))}) / 4));
     }
   }
   ::slotted( [slot='clock']) {
