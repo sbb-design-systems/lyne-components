@@ -21,6 +21,13 @@ export const i18nAvailableAtDepartingStation: any = {
   it: 'disponibile alla stazione di partenza.'
 };
 
+export const i18nBarrierFreeTravel: any = {
+  de: 'Barrierefreies Reisen.',
+  en: 'Barrier-free travel.',
+  fr: 'Déplacements sans obstacles.',
+  it: 'Viaggio senza barriere.'
+};
+
 export const i18nClass: any = {
   first: {
     de: 'Erste Klasse',
