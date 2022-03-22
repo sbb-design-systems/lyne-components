@@ -31,11 +31,6 @@
 }
 
 .columns {
-  // Reset
-  width: 100%;
-  padding: 0;
-  margin: 0;
-
   @include page-spacing__inner;
   display: flex;
   flex-wrap: wrap;
