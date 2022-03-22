@@ -22,7 +22,7 @@ export const i18nAvailableAtDepartingStation: any = {
 };
 
 export const i18nBarrierFreeTravel: any = {
-  de: 'Barriefreies Reisen.',
+  de: 'Barrierefreies Reisen.',
   en: 'Barrier-free travel.',
   fr: 'Déplacements sans obstacles.',
   it: 'Viaggio senza barriere.'
@@ -256,7 +256,7 @@ export const i18nOccupancy: any = {
   none: {
     de: 'Keine Belegungsprognose verfügbar.',
     en: 'No occupancy forecast available.',
-    fr: 'Aucune préasion d\'occupation disponible.',
+    fr: 'Aucune prévision d\'occupation disponible.',
     it: 'Nessuna previsione di occupazione disponibile.'
   },
   low: {

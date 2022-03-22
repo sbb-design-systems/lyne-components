@@ -12,7 +12,6 @@
   display: flex;
   position: relative;
   @include text-xs--regular();
-  line-height: pxToRem(var(--barrier-free-icon-size));
   margin: 0;
   color: var(--color-anthracite-default);
   padding-inline-start: pxToRem(var(--barrier-free-icon-padding-inline-start));
@@ -20,7 +19,7 @@
 
 .barrier-free__icon {
   position: absolute;
-  inset-block-start: 0;
+  inset-block-start: pxToRem(-1);
   inset-inline-start: 0;
   fill: currentColor;
   width: pxToRem(var(--barrier-free-icon-size));
