@@ -14,6 +14,7 @@
 .tab {
   padding: 6px 20px;
   margin-right: calc(var(--spacing-fixed-3x) / var(--typo-scale-default) * 1rem);
+  color: var(--color-black-default);
   border: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-cloud-default);
   background-color: transparent;
   border-radius: 20px;
@@ -21,6 +22,15 @@
   font-family: var(--typo-type-face-sbb-bold);
   font-weight: 700;
   font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
+  @include mq($from: medium) {
+    font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
+  }
+  > span {
+    padding-left: 4px;
+    color: var(--color-metal-default);
+    font-family: var(--typo-type-face-sbb-roman);
+    font-weight: 400;
+  }
   &:hover {
     cursor: pointer;
     background-color: var(--color-milk-default);
@@ -33,6 +43,24 @@
     border-color: var(--color-black-default);
     background-color: var(--color-black-default);
     color: var(--color-white-default);
+    > span {
+      color: var(--color-cement-default);
+    }
+  }
+  &:disabled,
+  &[disabled],
+  &:disabled:hover,
+  &[disabled]:hover {
+    cursor: unset;
+    background-color: var(--color-milk-default);
+    border-color: var(--color-milk-default);
+    color: var(--color-platinum-default);
+    > label {
+      text-decoration: line-through;
+    }
+    > span {
+      color: var(--color-platinum-default);
+    }
   }
 }
 

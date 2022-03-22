@@ -48,8 +48,8 @@ export class LyneTab {
     return (
       <div>
         {this.icon
-          ? <div class="tab" onClick={this._clickHandler} icon-description="{this.iconDescription}">{this.label} #</div>
-          : <div class="tab" onClick={this._clickHandler}>{this.label}</div>
+          ? <div class="tab" onClick={this._clickHandler} icon-description="{this.iconDescription}"><label>{this.label}</label> #</div>
+          : <div class="tab" onClick={this._clickHandler}><label>{this.label}</label><span>16</span></div>
         }
         <div class="tab-content">
           It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
