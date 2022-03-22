@@ -5,12 +5,17 @@
 
 :host {
   // Reminder: --_footer-gap-horizontal needs a new responsive gap design token
+  // Use here the soon to be introduced gutter/gap design token
   // var(--spacing-responsive-s); is just a placeholder for now
   --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--spacing-responsive-s));
   --_footer-gap-vertical: var(--footer-gap-vertical, var(--spacing-responsive-l));
   --_footer-background-color: var(--footer-background-color, var(--color-milk-default));
   --_footer-divider-color: var(--footer-divider-color, var(--color-cloud-default));
   --_footer-divider-thickness: var(--footer-divider-thickness, 1px);
+  --_footer-clock-width: var(--footer-clock-width, 76);
+  @include mq($from: small) {
+    --_footer-clock-width: var(--footer-clock-width, 112);
+  }
 
   // Contextual design for lyne-stack
   --stack-text-color-normal: var(--color-granite-default);
@@ -49,13 +54,12 @@
       max-width: calc(25% - ((3 * #{pxToRem(var(--_footer-gap-horizontal))}) / 4));
     }
   }
-  ::slotted( [slot='clock']) {
-    max-width: 76px;
+  ::slotted([slot='clock']) {
+    max-width: pxToRem(var(--_footer-clock-width));
     @include mq($from: zero) {
       order: -1;
     }
     @include mq($from: small) {
-      max-width: 112px;
       order: initial;
     }
     @include mq($from: wide) {
