@@ -11,7 +11,6 @@
   // Todo: Design tokens need to be defined globally
   --card-hover-shift: 2px;
   --card-hover-animation: 0.03s all ease-out;
-
 }
 
 @mixin card {
@@ -51,9 +50,7 @@
     &:disabled {
       border-color: GrayText;
     }
-
   }
-
 }
 
 // Card appearance
