@@ -1,3 +1,20 @@
+# [9.78.0](https://github.com/lyne-design-system/lyne-components/compare/v9.77.2...v9.78.0) (2022-03-22)
+
+
+### Features
+
+* adding lyne-timetable-barrier-free component ([efd2e71](https://github.com/lyne-design-system/lyne-components/commit/efd2e718ac6094d4ecedfc54474679cc5a2f8ba9))
+* adding missing files ([a626ffc](https://github.com/lyne-design-system/lyne-components/commit/a626ffc7b673ff73dc066cfc93da0cf813937815))
+* resolving pr feedback ([8234036](https://github.com/lyne-design-system/lyne-components/commit/8234036ffebfef5413f500da5b6fb8a00b0537b9))
+
+## [9.77.2](https://github.com/lyne-design-system/lyne-components/compare/v9.77.1...v9.77.2) (2022-03-21)
+
+
+### Bug Fixes
+
+* adding mandatory attribute in e2 test ([d7b7095](https://github.com/lyne-design-system/lyne-components/commit/d7b70955129d14fa061119f57186310381655fb5))
+* resolving linting error ([0be98c5](https://github.com/lyne-design-system/lyne-components/commit/0be98c5b8ed39ed195f38ae312c8a3aaccfa102b))
+
 ## [9.77.1](https://github.com/lyne-design-system/lyne-components/compare/v9.77.0...v9.77.1) (2022-03-14)
 
 

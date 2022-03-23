@@ -715,6 +715,12 @@ export namespace Components {
     }
     interface LyneTimetable {
     }
+    interface LyneTimetableBarrierFree {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
     interface LyneTimetableButton {
         /**
           * Set the desired appearance of the component.
@@ -1042,6 +1048,12 @@ declare global {
         prototype: HTMLLyneTimetableElement;
         new (): HTMLLyneTimetableElement;
     };
+    interface HTMLLyneTimetableBarrierFreeElement extends Components.LyneTimetableBarrierFree, HTMLStencilElement {
+    }
+    var HTMLLyneTimetableBarrierFreeElement: {
+        prototype: HTMLLyneTimetableBarrierFreeElement;
+        new (): HTMLLyneTimetableBarrierFreeElement;
+    };
     interface HTMLLyneTimetableButtonElement extends Components.LyneTimetableButton, HTMLStencilElement {
     }
     var HTMLLyneTimetableButtonElement: {
@@ -1170,6 +1182,7 @@ declare global {
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-timetable": HTMLLyneTimetableElement;
+        "lyne-timetable-barrier-free": HTMLLyneTimetableBarrierFreeElement;
         "lyne-timetable-button": HTMLLyneTimetableButtonElement;
         "lyne-timetable-cus-him": HTMLLyneTimetableCusHimElement;
         "lyne-timetable-duration": HTMLLyneTimetableDurationElement;
@@ -1872,6 +1885,12 @@ declare namespace LocalJSX {
     }
     interface LyneTimetable {
     }
+    interface LyneTimetableBarrierFree {
+        /**
+          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+         */
+        "config": string;
+    }
     interface LyneTimetableButton {
         /**
           * Set the desired appearance of the component.
@@ -2073,6 +2092,7 @@ declare namespace LocalJSX {
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
         "lyne-timetable": LyneTimetable;
+        "lyne-timetable-barrier-free": LyneTimetableBarrierFree;
         "lyne-timetable-button": LyneTimetableButton;
         "lyne-timetable-cus-him": LyneTimetableCusHim;
         "lyne-timetable-duration": LyneTimetableDuration;
@@ -2121,6 +2141,7 @@ declare module "@stencil/core" {
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-timetable": LocalJSX.LyneTimetable & JSXBase.HTMLAttributes<HTMLLyneTimetableElement>;
+            "lyne-timetable-barrier-free": LocalJSX.LyneTimetableBarrierFree & JSXBase.HTMLAttributes<HTMLLyneTimetableBarrierFreeElement>;
             "lyne-timetable-button": LocalJSX.LyneTimetableButton & JSXBase.HTMLAttributes<HTMLLyneTimetableButtonElement>;
             "lyne-timetable-cus-him": LocalJSX.LyneTimetableCusHim & JSXBase.HTMLAttributes<HTMLLyneTimetableCusHimElement>;
             "lyne-timetable-duration": LocalJSX.LyneTimetableDuration & JSXBase.HTMLAttributes<HTMLLyneTimetableDurationElement>;
