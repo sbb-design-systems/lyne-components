@@ -21,6 +21,7 @@ import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceLyneTabAmountAttributes } from "./components/lyne-tab-amount/lyne-tab-amount.custom.d";
+import { InterfaceLyneTabGroupAttributes } from "./components/lyne-tab-group/lyne-tab-group.custom";
 import { InterfaceLyneTabLabelAttributes } from "./components/lyne-tab-label/lyne-tab-label.custom.d";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
@@ -528,13 +529,9 @@ export namespace Components {
     }
     interface LyneTab {
         /**
-          * Define if icon should be shown or not
+          * Active tab
          */
-        "icon"?: boolean;
-        /**
-          * If you use an icon without a label, you must provide an iconDescription
-         */
-        "iconDescription"?: string;
+        "active": boolean;
         /**
           * Tab labels
          */
@@ -547,22 +544,7 @@ export namespace Components {
         "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
     }
     interface LyneTabGroup {
-        /**
-          * Define if icon should be shown or not
-         */
-        "icon1"?: boolean;
-        "icon2"?: boolean;
-        "icon3"?: boolean;
-        /**
-          * If you use an icon without a label, you must provide an iconDescription
-         */
-        "iconDescription1"?: string;
-        /**
-          * Tab labels
-         */
-        "labelone"?: string;
-        "labelthree"?: string;
-        "labeltwo"?: string;
+        "selectedIndex": number;
     }
     interface LyneTabLabel {
         /**
@@ -1670,17 +1652,14 @@ declare namespace LocalJSX {
     }
     interface LyneTab {
         /**
-          * Define if icon should be shown or not
+          * Active tab
          */
-        "icon"?: boolean;
-        /**
-          * If you use an icon without a label, you must provide an iconDescription
-         */
-        "iconDescription"?: string;
+        "active"?: boolean;
         /**
           * Tab labels
          */
         "label"?: string;
+        "onTabLabelChanged"?: (event: CustomEvent<void>) => void;
     }
     interface LyneTabAmount {
         /**
@@ -1689,22 +1668,8 @@ declare namespace LocalJSX {
         "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
     }
     interface LyneTabGroup {
-        /**
-          * Define if icon should be shown or not
-         */
-        "icon1"?: boolean;
-        "icon2"?: boolean;
-        "icon3"?: boolean;
-        /**
-          * If you use an icon without a label, you must provide an iconDescription
-         */
-        "iconDescription1"?: string;
-        /**
-          * Tab labels
-         */
-        "labelone"?: string;
-        "labelthree"?: string;
-        "labeltwo"?: string;
+        "onSelectedTabChange"?: (event: CustomEvent<InterfaceLyneTabGroupAttributes>) => void;
+        "selectedIndex"?: number;
     }
     interface LyneTabLabel {
         /**

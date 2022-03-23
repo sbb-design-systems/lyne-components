@@ -1,3 +1,5 @@
-export interface InterfaceLyneTabGroupAttributes {
-  someInterface: 'opt1' | 'opt2';
+import { HTMLStencilElement } from '@stencil/core/internal';
+
+export interface InterfaceLyneTabGroupAttributes extends HTMLStencilElement {
+  active?: boolean;
 }

@@ -7,15 +7,16 @@
 
 ## Properties
 
-| Property           | Attribute            | Description                                                             | Type      | Default     |
-| ------------------ | -------------------- | ----------------------------------------------------------------------- | --------- | ----------- |
-| `icon1`            | `icon-1`             | Define if icon should be shown or not                                   | `boolean` | `false`     |
-| `icon2`            | `icon-2`             |                                                                         | `boolean` | `false`     |
-| `icon3`            | `icon-3`             |                                                                         | `boolean` | `false`     |
-| `iconDescription1` | `icon-description-1` | If you use an icon without a label, you must provide an iconDescription | `string`  | `undefined` |
-| `labelone`         | `labelone`           | Tab labels                                                              | `string`  | `undefined` |
-| `labelthree`       | `labelthree`         |                                                                         | `string`  | `undefined` |
-| `labeltwo`         | `labeltwo`           |                                                                         | `string`  | `undefined` |
+| Property        | Attribute        | Description | Type     | Default |
+| --------------- | ---------------- | ----------- | -------- | ------- |
+| `selectedIndex` | `selected-index` |             | `number` | `0`     |
+
+
+## Events
+
+| Event               | Description | Type                                           |
+| ------------------- | ----------- | ---------------------------------------------- |
+| `selectedTabChange` |             | `CustomEvent<InterfaceLyneTabGroupAttributes>` |
 
 
 ## Slots

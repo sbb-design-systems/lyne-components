@@ -1,10 +1,14 @@
 import {
   Component,
-  Element,
+  Event,
+  EventEmitter,
   h,
-  Prop
+  Host,
+  Listen,
+  Prop,
+  State,
+  Watch
 } from '@stencil/core';
-import events from './lyne-tab.events';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -21,43 +25,48 @@ import events from './lyne-tab.events';
 
 export class LyneTab {
 
-  /** Documentation for someProp */
-    /** Tab labels  */
+  /** Tab labels  */
   @Prop() public label?: string;
 
-  /** Define if icon should be shown or not */
-  @Prop() public icon? = false;
+  /** Active tab  */
+  @Prop() public active = false;
 
-  /** If you use an icon without a label, you must provide an iconDescription */
-  @Prop() public iconDescription?: string;
+  @State() private _hasLabelElement = false;
 
-  @Element() private _element: HTMLElement;
-
-  private _clickHandler = (): void => {
-
-    const event = new CustomEvent(events.click, {
-      bubbles: true,
-      composed: true,
-      detail: 'some event detail'
-    });
-
-    this._element.dispatchEvent(event);
-  };
+  @Event() public tabLabelChanged!: EventEmitter<void>;
 
   public render(): JSX.Element {
     return (
-      <div>
-        {this.icon
-          ? <div class="tab" onClick={this._clickHandler} icon-description="{this.iconDescription}"><label>{this.label}</label> #</div>
-          : <div class="tab" onClick={this._clickHandler}><label>{this.label}</label><span>16</span></div>
-        }
-        <div class="tab-content">
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-          The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-          Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
-          Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-        </div>
-      </div>
+      <Host slot='lyne-tab'>
+        <template class='lyne-tab-label-template'>
+          {!this._hasLabelElement && <span>{this.label}</span>}
+          <slot name='lyne-tab-label' onSlotchange={this._handleLabelSlotChange} />
+        </template>
+        {this.active && <slot>Default content</slot>}
+      </Host>
     );
   }
+
+  @Watch('label')
+  public handleLabelChange(newValue: string, oldValue: string): void {
+    // this methos hould be private
+    if (!this._hasLabelElement && newValue !== oldValue) {
+      setTimeout(() => this.tabLabelChanged.emit());
+    }
+  }
+
+  @Listen('tabLabelContentChanged')
+  public handleTabLabelChanged(): void {
+    // this methos hould be private
+    this.tabLabelChanged.emit();
+  }
+
+  private _handleLabelSlotChange = (event: Event): void => {
+    const slot = event.composedPath()[0] as HTMLSlotElement;
+    const hasLabelElement = Boolean(slot.assignedNodes().length);
+
+    if (hasLabelElement !== this._hasLabelElement) {
+      this._hasLabelElement = hasLabelElement;
+    }
+  };
 }

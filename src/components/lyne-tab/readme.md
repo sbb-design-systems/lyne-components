@@ -7,11 +7,17 @@
 
 ## Properties
 
-| Property          | Attribute          | Description                                                             | Type      | Default     |
-| ----------------- | ------------------ | ----------------------------------------------------------------------- | --------- | ----------- |
-| `icon`            | `icon`             | Define if icon should be shown or not                                   | `boolean` | `false`     |
-| `iconDescription` | `icon-description` | If you use an icon without a label, you must provide an iconDescription | `string`  | `undefined` |
-| `label`           | `label`            | Tab labels                                                              | `string`  | `undefined` |
+| Property | Attribute | Description | Type      | Default     |
+| -------- | --------- | ----------- | --------- | ----------- |
+| `active` | `active`  | Active tab  | `boolean` | `false`     |
+| `label`  | `label`   | Tab labels  | `string`  | `undefined` |
+
+
+## Events
+
+| Event             | Description | Type                |
+| ----------------- | ----------- | ------------------- |
+| `tabLabelChanged` |             | `CustomEvent<void>` |
 
 
 ## Slots

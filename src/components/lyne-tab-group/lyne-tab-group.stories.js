@@ -6,13 +6,18 @@ import readme from './readme.md';
 const Template = (args) => (
   <lyne-tab-group {...args}>
 
-    <lyne-tab label="tab 1" icon="false"></lyne-tab>
-    <lyne-tab label="tab 2" icon="true"></lyne-tab>
-    <lyne-tab label="tab 3" icon="false"></lyne-tab>
+    <lyne-tab label="Tab 1">
+      Content 1
+    </lyne-tab>
+
+    <lyne-tab label="Tab 2">
+      Content 2
+    </lyne-tab>
+
+    <lyne-tab label="Tab 3"></lyne-tab>
 
   </lyne-tab-group>
 );
-
 
 const icon1 = {
   control: {
