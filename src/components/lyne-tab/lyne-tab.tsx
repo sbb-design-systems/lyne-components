@@ -42,7 +42,7 @@ export class LyneTab {
           {!this._hasLabelElement && <span>{this.label}</span>}
           <slot name='lyne-tab-label' onSlotchange={this._handleLabelSlotChange} />
         </template>
-        {this.active && <slot>Default content</slot>}
+        <span class='tab-content'>{this.active && <slot>Default content</slot>}</span>
       </Host>
     );
   }
