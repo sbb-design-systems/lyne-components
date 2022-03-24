@@ -79,5 +79,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'page sections/lyne-teaser-hero'
+  title: 'page sections/meant to be used with lyne-section wrapper/lyne-teaser-hero'
 };
