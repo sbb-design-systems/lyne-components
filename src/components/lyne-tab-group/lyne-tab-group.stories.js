@@ -25,30 +25,6 @@ const Template = (args) => (
   </lyne-tab-group>
 );
 
-const icon1 = {
-  control: {
-    type: 'boolean'
-  },
-  table: {
-    category: 'Tab1'
-  }
-};
-const icon2 = {
-  control: {
-    type: 'boolean'
-  },
-  table: {
-    category: 'Tab2'
-  }
-};
-const icon3 = {
-  control: {
-    type: 'boolean'
-  },
-  table: {
-    category: 'Tab3'
-  }
-};
 
 const iconDescription1 = {
   control: {
@@ -118,38 +94,7 @@ const iconSlot3 = {
   }
 };
 
-const label = {
-  control: {
-    type: 'text'
-  },
-  table: {
-    category: 'Tab1'
-  }
-};
-const labeltwo = {
-  control: {
-    type: 'text'
-  },
-  table: {
-    category: 'Tab2'
-  }
-};
-const labelthree = {
-  control: {
-    type: 'text'
-  },
-  table: {
-    category: 'Tab3'
-  }
-};
-
 const basicArgTypes = {
-  label,
-  labeltwo,
-  labelthree,
-  icon1,
-  icon2,
-  icon3,
   iconSlot1,
   iconSlot2,
   iconSlot3,
@@ -159,25 +104,37 @@ const basicArgTypes = {
 };
 
 const basicArgs = {
-  label: 'Tab 1',
-  labeltwo: 'Tab 2',
-  labelthree: 'Tab 3',
-  icon1: false,
-  icon2: false,
-  icon3: false,
   iconSlot1: iconSlot1.options[0],
   iconSlot2: iconSlot2.options[0],
   iconSlot3: iconSlot3.options[0]
 };
 
-export const story1 = Template.bind({});
+export const defaultTabs = Template.bind({});
+export const numbers = Template.bind({});
+export const icons = Template.bind({});
+export const numbersAndIcons = Template.bind({});
 
-story1.argTypes = basicArgTypes;
+defaultTabs.argTypes = basicArgTypes;
+numbers.argTypes = basicArgTypes;
+icons.argTypes = basicArgTypes;
+numbersAndIcons.argTypes = basicArgTypes;
 
-story1.args = JSON.parse(JSON.stringify(basicArgs));
+defaultTabs.args = JSON.parse(JSON.stringify(basicArgs));
+numbers.args = JSON.parse(JSON.stringify(basicArgs));
+icons.args = JSON.parse(JSON.stringify(basicArgs));
+numbersAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
 
-story1.documentation = {
-  title: 'Title which will be rendered on documentation platform'
+defaultTabs.documentation = {
+  title: 'Default Tabs'
+};
+numbers.documentation = {
+  title: 'Tabs with numbers'
+};
+icons.documentation = {
+  title: 'Tabs with icons'
+};
+numbersAndIcons.documentation = {
+  title: 'Tabs with numbers and icons'
 };
 
 export default {

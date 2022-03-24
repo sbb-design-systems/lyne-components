@@ -40,17 +40,17 @@ export class LyneTab {
     return (
       <Host slot='lyne-tab'>
         <template class='lyne-tab-label-template'>
-          {!this._hasLabelElement && <span>{this.label}</span>}
+          {!this._hasLabelElement && <div>{this.label}</div>}
           <slot name='lyne-tab-label' onSlotchange={this._handleLabelSlotChange} />
         </template>
-        <span class='tab-content'>{this.active && <slot>Default content</slot>}</span>
+        <div class='tab-content'>{this.active && <slot>Default content</slot>}</div>
       </Host>
     );
   }
 
   @Watch('label')
   public handleLabelChange(newValue: string, oldValue: string): void {
-    // this method hould be private
+    // this method should be private
     if (!this._hasLabelElement && newValue !== oldValue) {
       setTimeout(() => this.tabLabelChanged.emit());
     }
@@ -58,7 +58,7 @@ export class LyneTab {
 
   @Listen('tabLabelContentChanged')
   public handleTabLabelChanged(): void {
-    // this method hould be private
+    // this method should be private
     this.tabLabelChanged.emit();
   }
 

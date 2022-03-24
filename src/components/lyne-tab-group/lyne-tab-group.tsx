@@ -62,7 +62,7 @@ export class LyneTabGroup {
 
   @Listen('tabLabelChanged')
   public handleTabLabelChanged(event: CustomEvent<void>): void {
-    // this method hould be private
+    // this method should be private
     const tabElement = event.target as InterfaceLyneTabAttributes;
     const labelHost = this._tabLabelMap.get(tabElement);
 
@@ -81,7 +81,7 @@ export class LyneTabGroup {
 
   @Watch('selectedIndex')
   public handleSelectedIndexChange(newValue: number, oldValue: number): void {
-    // this method hould be private
+    // this method should be private
     if (newValue < 0) {
       this.selectedIndex = 0;
 
