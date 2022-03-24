@@ -1,0 +1,112 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  --_stack-text-color-normal: var(--stack-text-color-normal, var(--color-granite-default));
+}
+
+// Reset
+.stack,
+%stack {
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: fit-content;
+}
+
+// Reset all slotted elements
+::slotted(*) {
+  @extend %stack;
+}
+
+.stack {
+  display: flex;
+  // Gap and padding are defined as inline styles within component depending
+  // on the stack properties. This is made on purpose. With this technique the CSS
+  // footprint of the stack component can be heavily reduced instead of shipping
+  // all possible layout variants.
+  //
+  // Note for future me: Instead of defining all spacing/gap variants we could
+  // also introduce CSS custom properties.
+}
+
+.stack--vertical,
+%stack--vertical {
+  flex-direction: column;
+}
+
+.stack--vertical--centered {
+  @extend %stack--vertical;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.stack--horizontal--start,
+%stack--horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.stack--horizontal--end {
+  @extend %stack--horizontal;
+  justify-content: flex-end;
+}
+
+.stack--horizontal--start--centered {
+  @extend %stack--horizontal;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.stack--horizontal--end--centered {
+  @extend %stack--horizontal;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.stack--horizontal--centered {
+  @extend %stack--horizontal;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.stack--horizontal--space-between {
+  @extend %stack--horizontal;
+  justify-content: space-between;
+}
+
+.stack--horizontal--space-between--centered {
+  @extend %stack--horizontal;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// For each breakpoint except zero we create a collapse below class
+@each $breakpoint-name, $breakpoint-value in $mq-breakpoints {
+  @if $breakpoint-name != 'zero' {
+    .stack--horizontal--collapse-below--#{$breakpoint-name} {
+      @include mq($to: #{$breakpoint-name}) {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.stack--is-placeholder {
+  @include development-style;
+}
+
+// Quirk for slotted elements
+::slotted(*) {
+  font-family: var(--typo-type-face-sbb-roman);
+  font-weight: normal;
+  line-height: var(--typo-line-height-body-text);
+  letter-spacing: var(--typo-letter-spacing-body-text);
+  font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);
+  color: var(--_stack-text-color-normal);
+  width: inherit;
+}

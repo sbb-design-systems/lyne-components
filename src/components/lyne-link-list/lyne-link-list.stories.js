@@ -41,7 +41,8 @@ const listDirection = {
   },
   options: [
     'vertical',
-    'horizontal'
+    'horizontal',
+    'horizontal-from-large'
   ],
   table: {
     category: 'List Styling'
@@ -180,5 +181,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-link-list'
+  title: 'components/lyne-link-list'
 };

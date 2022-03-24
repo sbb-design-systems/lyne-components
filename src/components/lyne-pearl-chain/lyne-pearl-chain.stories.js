@@ -220,6 +220,6 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-pearl-chain'
+  title: 'components/lyne-pearl-chain'
 };
 

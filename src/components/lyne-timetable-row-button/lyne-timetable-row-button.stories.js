@@ -54,5 +54,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-row-button'
+  title: 'internals/lyne-timetable-row-button'
 };

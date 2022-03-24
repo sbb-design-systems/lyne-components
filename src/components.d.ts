@@ -9,6 +9,7 @@ import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-it
 import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
 import { InterfaceCardBadgeAttributes } from "./components/lyne-card-badge/lyne-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/lyne-card-product/lyne-card-product.custom";
+import { InterfaceFooterAttributes } from "./components/lyne-footer/lyne-footer.custom";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceJourneyHeaderAttributes } from "./components/lyne-journey-header/lyne-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
@@ -20,6 +21,8 @@ import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyn
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
+import { InterfaceSectionAttributes } from "./components/lyne-section/lyne-section.custom";
+import { InterfaceStackAttributes } from "./components/lyne-stack/lyne-stack.custom";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
@@ -260,6 +263,16 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface LyneFooter {
+        /**
+          * Footer title text, visually hidden,  necessary for screenreaders
+         */
+        "accessibilityTitle": string;
+        /**
+          * Footer appearance
+         */
+        "appearance"?: InterfaceFooterAttributes['appearance'];
+    }
     interface LyneImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
@@ -444,7 +457,7 @@ export namespace Components {
     }
     interface LyneLinkList {
         /**
-          * The direction in which the list will be shown.
+          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
          */
         "listDirection": InterfaceLyneLinkListAttributes['direction'];
         /**
@@ -522,7 +535,59 @@ export namespace Components {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface LyneSection {
+        /**
+          * Section appearance
+         */
+        "appearance"?: InterfaceSectionAttributes['appearance'];
+        /**
+          * Section width
+         */
+        "width"?: InterfaceSectionAttributes['width'];
+    }
     interface LyneSlotComponent {
+    }
+    interface LyneStack {
+        /**
+          * Stack appearance
+         */
+        "appearance"?: InterfaceStackAttributes['appearance'];
+        /**
+          * Collapse horizontal stack into vertical layout below a certain breakpoint. This has only an effect for horizontal appearances.
+         */
+        "collapseHorizontalBelow"?: InterfaceStackAttributes['collapseHorizontalBelow'];
+        /**
+          * Stack gap horizontal, defines the space between each stack items in the vertical direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+         */
+        "gapHorizontal"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Stack gap vertical, defines the space between each stack items in the horizontal direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+         */
+        "gapVertical"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Render stack as placeholder
+         */
+        "isPlaceholder"?: boolean;
+        /**
+          * Space before the stack
+         */
+        "spaceLeading"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Space before the stack
+         */
+        "spaceTrailing"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Stack height, reflects CSS property `height` and accepts all appropriate/valid CSS height values
+         */
+        "stackHeight"?: string;
+        /**
+          * Stack width, reflects CSS property `width` and accepts all appropriate/valid CSS width values
+         */
+        "stackWidth"?: string;
+        /**
+          * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
+         */
+        "tag"?: InterfaceStackAttributes['tag'];
     }
     interface LyneTeaserHero {
         /**
@@ -871,6 +936,12 @@ declare global {
         prototype: HTMLLyneCardProductElement;
         new (): HTMLLyneCardProductElement;
     };
+    interface HTMLLyneFooterElement extends Components.LyneFooter, HTMLStencilElement {
+    }
+    var HTMLLyneFooterElement: {
+        prototype: HTMLLyneFooterElement;
+        new (): HTMLLyneFooterElement;
+    };
     interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
     }
     var HTMLLyneImageElement: {
@@ -937,11 +1008,23 @@ declare global {
         prototype: HTMLLyneSbbSignetElement;
         new (): HTMLLyneSbbSignetElement;
     };
+    interface HTMLLyneSectionElement extends Components.LyneSection, HTMLStencilElement {
+    }
+    var HTMLLyneSectionElement: {
+        prototype: HTMLLyneSectionElement;
+        new (): HTMLLyneSectionElement;
+    };
     interface HTMLLyneSlotComponentElement extends Components.LyneSlotComponent, HTMLStencilElement {
     }
     var HTMLLyneSlotComponentElement: {
         prototype: HTMLLyneSlotComponentElement;
         new (): HTMLLyneSlotComponentElement;
+    };
+    interface HTMLLyneStackElement extends Components.LyneStack, HTMLStencilElement {
+    }
+    var HTMLLyneStackElement: {
+        prototype: HTMLLyneStackElement;
+        new (): HTMLLyneStackElement;
     };
     interface HTMLLyneTeaserHeroElement extends Components.LyneTeaserHero, HTMLStencilElement {
     }
@@ -1077,6 +1160,7 @@ declare global {
         "lyne-button": HTMLLyneButtonElement;
         "lyne-card-badge": HTMLLyneCardBadgeElement;
         "lyne-card-product": HTMLLyneCardProductElement;
+        "lyne-footer": HTMLLyneFooterElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-input-error": HTMLLyneInputErrorElement;
         "lyne-journey-header": HTMLLyneJourneyHeaderElement;
@@ -1088,7 +1172,9 @@ declare global {
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
         "lyne-sbb-logo": HTMLLyneSbbLogoElement;
         "lyne-sbb-signet": HTMLLyneSbbSignetElement;
+        "lyne-section": HTMLLyneSectionElement;
         "lyne-slot-component": HTMLLyneSlotComponentElement;
+        "lyne-stack": HTMLLyneStackElement;
         "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
         "lyne-text-input": HTMLLyneTextInputElement;
         "lyne-timetable": HTMLLyneTimetableElement;
@@ -1343,6 +1429,16 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface LyneFooter {
+        /**
+          * Footer title text, visually hidden,  necessary for screenreaders
+         */
+        "accessibilityTitle": string;
+        /**
+          * Footer appearance
+         */
+        "appearance"?: InterfaceFooterAttributes['appearance'];
+    }
     interface LyneImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
@@ -1527,7 +1623,7 @@ declare namespace LocalJSX {
     }
     interface LyneLinkList {
         /**
-          * The direction in which the list will be shown.
+          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
          */
         "listDirection"?: InterfaceLyneLinkListAttributes['direction'];
         /**
@@ -1605,7 +1701,59 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface LyneSection {
+        /**
+          * Section appearance
+         */
+        "appearance"?: InterfaceSectionAttributes['appearance'];
+        /**
+          * Section width
+         */
+        "width"?: InterfaceSectionAttributes['width'];
+    }
     interface LyneSlotComponent {
+    }
+    interface LyneStack {
+        /**
+          * Stack appearance
+         */
+        "appearance"?: InterfaceStackAttributes['appearance'];
+        /**
+          * Collapse horizontal stack into vertical layout below a certain breakpoint. This has only an effect for horizontal appearances.
+         */
+        "collapseHorizontalBelow"?: InterfaceStackAttributes['collapseHorizontalBelow'];
+        /**
+          * Stack gap horizontal, defines the space between each stack items in the vertical direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+         */
+        "gapHorizontal"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Stack gap vertical, defines the space between each stack items in the horizontal direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
+         */
+        "gapVertical"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Render stack as placeholder
+         */
+        "isPlaceholder"?: boolean;
+        /**
+          * Space before the stack
+         */
+        "spaceLeading"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Space before the stack
+         */
+        "spaceTrailing"?: InterfaceStackAttributes['spacing'];
+        /**
+          * Stack height, reflects CSS property `height` and accepts all appropriate/valid CSS height values
+         */
+        "stackHeight"?: string;
+        /**
+          * Stack width, reflects CSS property `width` and accepts all appropriate/valid CSS width values
+         */
+        "stackWidth"?: string;
+        /**
+          * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
+         */
+        "tag"?: InterfaceStackAttributes['tag'];
     }
     interface LyneTeaserHero {
         /**
@@ -1918,6 +2066,7 @@ declare namespace LocalJSX {
         "lyne-button": LyneButton;
         "lyne-card-badge": LyneCardBadge;
         "lyne-card-product": LyneCardProduct;
+        "lyne-footer": LyneFooter;
         "lyne-image": LyneImage;
         "lyne-input-error": LyneInputError;
         "lyne-journey-header": LyneJourneyHeader;
@@ -1929,7 +2078,9 @@ declare namespace LocalJSX {
         "lyne-sbb-clock": LyneSbbClock;
         "lyne-sbb-logo": LyneSbbLogo;
         "lyne-sbb-signet": LyneSbbSignet;
+        "lyne-section": LyneSection;
         "lyne-slot-component": LyneSlotComponent;
+        "lyne-stack": LyneStack;
         "lyne-teaser-hero": LyneTeaserHero;
         "lyne-text-input": LyneTextInput;
         "lyne-timetable": LyneTimetable;
@@ -1964,6 +2115,7 @@ declare module "@stencil/core" {
             "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
             "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
             "lyne-card-product": LocalJSX.LyneCardProduct & JSXBase.HTMLAttributes<HTMLLyneCardProductElement>;
+            "lyne-footer": LocalJSX.LyneFooter & JSXBase.HTMLAttributes<HTMLLyneFooterElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
             "lyne-journey-header": LocalJSX.LyneJourneyHeader & JSXBase.HTMLAttributes<HTMLLyneJourneyHeaderElement>;
@@ -1975,7 +2127,9 @@ declare module "@stencil/core" {
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
             "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
             "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
+            "lyne-section": LocalJSX.LyneSection & JSXBase.HTMLAttributes<HTMLLyneSectionElement>;
             "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
+            "lyne-stack": LocalJSX.LyneStack & JSXBase.HTMLAttributes<HTMLLyneStackElement>;
             "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
             "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
             "lyne-timetable": LocalJSX.LyneTimetable & JSXBase.HTMLAttributes<HTMLLyneTimetableElement>;

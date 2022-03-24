@@ -1,4 +1,4 @@
 export interface InterfaceLyneLinkListAttributes {
   variant?: 'positive' | 'negative';
-  direction?: 'vertical' | 'horizontal';
+  direction?: 'vertical' | 'horizontal' | 'horizontal-from-large';
 }

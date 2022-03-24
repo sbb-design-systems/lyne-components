@@ -538,5 +538,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Form Elements/lyne-text-input'
+  title: 'components/form elements/lyne-text-input'
 };

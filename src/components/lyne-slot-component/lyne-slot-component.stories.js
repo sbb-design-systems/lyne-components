@@ -26,5 +26,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-slot-component'
+  title: 'lab/lyne-slot-component'
 };

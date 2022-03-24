@@ -66,5 +66,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-row-day-change'
+  title: 'internals/lyne-timetable-row-day-change'
 };

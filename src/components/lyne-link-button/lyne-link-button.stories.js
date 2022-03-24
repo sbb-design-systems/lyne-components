@@ -211,5 +211,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-link-button'
+  title: 'components/lyne-link-button'
 };

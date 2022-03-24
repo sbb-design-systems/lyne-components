@@ -173,5 +173,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-autocomplete'
+  title: 'components/lyne-autocomplete'
 };

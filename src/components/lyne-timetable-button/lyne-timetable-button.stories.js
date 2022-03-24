@@ -147,5 +147,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Timetable/lyne-timetable-button'
+  title: 'components/timetable/lyne-timetable-button'
 };

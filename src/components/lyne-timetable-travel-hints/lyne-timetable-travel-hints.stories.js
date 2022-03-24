@@ -70,5 +70,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-travel-hints'
+  title: 'internals/lyne-timetable-travel-hints'
 };

@@ -38,5 +38,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Form Elements/lyne-input-error'
+  title: 'components/form elements/lyne-input-error'
 };

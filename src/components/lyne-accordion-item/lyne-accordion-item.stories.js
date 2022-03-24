@@ -54,6 +54,6 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-accordion-item'
+  title: 'components/lyne-accordion-item'
 };
 
