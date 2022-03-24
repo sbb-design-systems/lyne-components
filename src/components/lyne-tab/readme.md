@@ -15,9 +15,10 @@
 
 ## Events
 
-| Event             | Description | Type                |
-| ----------------- | ----------- | ------------------- |
-| `tabLabelChanged` |             | `CustomEvent<void>` |
+| Event              | Description | Type                  |
+| ------------------ | ----------- | --------------------- |
+| `tabActiveChanged` |             | `CustomEvent<string>` |
+| `tabLabelChanged`  |             | `CustomEvent<void>`   |
 
 
 ## Slots

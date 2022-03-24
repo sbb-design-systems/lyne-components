@@ -11,7 +11,7 @@ import {
   Watch
 } from '@stencil/core';
 
-import { InterfaceLyneTabGroupAttributes } from './lyne-tab-group.custom';
+import { InterfaceLyneTabAttributes } from '../lyne-tab/lyne-tab.custom';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -34,11 +34,11 @@ export class LyneTabGroup {
     mutable: true
   }) public selectedIndex = 0;
 
-  @State() public tabs: InterfaceLyneTabGroupAttributes[] = [];
+  @State() public tabs: InterfaceLyneTabAttributes[] = [];
 
-  @Event() public selectedTabChange!: EventEmitter<InterfaceLyneTabGroupAttributes>;
+  @Event() public selectedTabChange!: EventEmitter<InterfaceLyneTabAttributes>;
 
-  private _tabLabelMap: WeakMap<InterfaceLyneTabGroupAttributes, HTMLButtonElement> = new WeakMap();
+  private _tabLabelMap: WeakMap<InterfaceLyneTabAttributes, HTMLButtonElement> = new WeakMap();
 
   public render(): JSX.Element {
     return (
@@ -62,8 +62,8 @@ export class LyneTabGroup {
 
   @Listen('tabLabelChanged')
   public handleTabLabelChanged(event: CustomEvent<void>): void {
-    // this methos hould be private
-    const tabElement = event.target as InterfaceLyneTabGroupAttributes;
+    // this method hould be private
+    const tabElement = event.target as InterfaceLyneTabAttributes;
     const labelHost = this._tabLabelMap.get(tabElement);
 
     if (!labelHost) {
@@ -81,7 +81,7 @@ export class LyneTabGroup {
 
   @Watch('selectedIndex')
   public handleSelectedIndexChange(newValue: number, oldValue: number): void {
-    // this methos hould be private
+    // this method hould be private
     if (newValue < 0) {
       this.selectedIndex = 0;
 
@@ -109,7 +109,7 @@ export class LyneTabGroup {
       this._element
         .shadowRoot.querySelector<HTMLSlotElement>(':host>slot[name="lyne-tab"]')
         ?.assignedElements()
-        .filter((e): e is InterfaceLyneTabGroupAttributes => e.nodeName === 'LYNE-TAB') ?? [];
+        .filter((e): e is InterfaceLyneTabAttributes => e.nodeName === 'LYNE-TAB') ?? [];
     const activeTabs = this.tabs.filter((t) => t.active);
 
     if (activeTabs.length === 0 && this.tabs.length) {
@@ -126,7 +126,7 @@ export class LyneTabGroup {
     }
   };
 
-  private _handleLabelClick = (tab: InterfaceLyneTabGroupAttributes, index: number): void => {
+  private _handleLabelClick = (tab: InterfaceLyneTabAttributes, index: number): void => {
     for (const tabEntry of this.tabs.filter((t) => t !== tab)) {
       tabEntry.active = false;
     }
@@ -139,7 +139,7 @@ export class LyneTabGroup {
     }
   };
 
-  private _registerTabLabelAndAttachContent(tab: InterfaceLyneTabGroupAttributes, el: HTMLButtonElement): void {
+  private _registerTabLabelAndAttachContent(tab: InterfaceLyneTabAttributes, el: HTMLButtonElement): void {
     if (this._tabLabelMap.has(tab)) {
       return;
     }
@@ -152,7 +152,7 @@ export class LyneTabGroup {
     }
   }
 
-  private _getTabLabelTemplate(tab: InterfaceLyneTabGroupAttributes): Node | undefined {
+  private _getTabLabelTemplate(tab: InterfaceLyneTabAttributes): Node | undefined {
     const templateElement = tab.shadowRoot?.querySelector<HTMLTemplateElement>(':host>template.lyne-tab-label-template',)?.firstElementChild;
 
     return templateElement?.nodeName === 'SLOT'

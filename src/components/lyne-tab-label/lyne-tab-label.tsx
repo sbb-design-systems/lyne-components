@@ -1,11 +1,9 @@
 import {
   Component,
-  Element,
   h,
+  Host,
   Prop
 } from '@stencil/core';
-import events from './lyne-tab-label.events';
-import { InterfaceLyneTabLabelAttributes } from './lyne-tab-label.custom.d';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -22,30 +20,15 @@ import { InterfaceLyneTabLabelAttributes } from './lyne-tab-label.custom.d';
 
 export class LyneTabLabel {
 
-  /** Documentation for someProp */
-  @Prop() public someProp?: InterfaceLyneTabLabelAttributes['someInterface'];
-
-  @Element() private _element: HTMLElement;
-
-  private _clickHandler = (): void => {
-
-    const event = new CustomEvent(events.click, {
-      bubbles: true,
-      composed: true,
-      detail: 'some event detail'
-    });
-
-    this._element.dispatchEvent(event);
-  };
+  /** Active tab  */
+  @Prop() public active = false;
+  @Prop() public icon = false;
 
   public render(): JSX.Element {
     return (
-      <button
-        class='some-class'
-        onClick={this._clickHandler}
-      >
-        {this.someProp}
-      </button>
+      <Host slot='lyne-tab-label'>
+        <span part='label-text' class='tab-label'><slot></slot></span> <span class='tab-label-icon'><slot name='icon' /></span>
+      </Host>
     );
   }
 }

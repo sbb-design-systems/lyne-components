@@ -21,8 +21,7 @@ import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
 import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceLyneTabAmountAttributes } from "./components/lyne-tab-amount/lyne-tab-amount.custom.d";
-import { InterfaceLyneTabGroupAttributes } from "./components/lyne-tab-group/lyne-tab-group.custom";
-import { InterfaceLyneTabLabelAttributes } from "./components/lyne-tab-label/lyne-tab-label.custom.d";
+import { InterfaceLyneTabAttributes } from "./components/lyne-tab/lyne-tab.custom";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
@@ -548,9 +547,10 @@ export namespace Components {
     }
     interface LyneTabLabel {
         /**
-          * Documentation for someProp
+          * Active tab
          */
-        "someProp"?: InterfaceLyneTabLabelAttributes['someInterface'];
+        "active": boolean;
+        "icon": boolean;
     }
     interface LyneTeaserHero {
         /**
@@ -1659,6 +1659,7 @@ declare namespace LocalJSX {
           * Tab labels
          */
         "label"?: string;
+        "onTabActiveChanged"?: (event: CustomEvent<string>) => void;
         "onTabLabelChanged"?: (event: CustomEvent<void>) => void;
     }
     interface LyneTabAmount {
@@ -1668,14 +1669,15 @@ declare namespace LocalJSX {
         "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
     }
     interface LyneTabGroup {
-        "onSelectedTabChange"?: (event: CustomEvent<InterfaceLyneTabGroupAttributes>) => void;
+        "onSelectedTabChange"?: (event: CustomEvent<InterfaceLyneTabAttributes>) => void;
         "selectedIndex"?: number;
     }
     interface LyneTabLabel {
         /**
-          * Documentation for someProp
+          * Active tab
          */
-        "someProp"?: InterfaceLyneTabLabelAttributes['someInterface'];
+        "active"?: boolean;
+        "icon"?: boolean;
     }
     interface LyneTeaserHero {
         /**

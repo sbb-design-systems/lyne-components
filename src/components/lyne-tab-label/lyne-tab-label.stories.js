@@ -1,15 +1,18 @@
 import events from './lyne-tab-label.events.ts';
+import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-label {...args}></lyne-tab-label>
+  <lyne-tab-label {...args}>
+    <span slot='icon'>{getMarkupForSvg('pie-small')}</span>
+  </lyne-tab-label>
 );
 
 export const story1 = Template.bind({});
 
 story1.args = {
-  'some-prop': 'opt1'
+  icon: false
 };
 
 story1.documentation = {

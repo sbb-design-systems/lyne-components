@@ -34,6 +34,7 @@ export class LyneTab {
   @State() private _hasLabelElement = false;
 
   @Event() public tabLabelChanged!: EventEmitter<void>;
+  @Event() public tabActiveChanged!: EventEmitter<string>;
 
   public render(): JSX.Element {
     return (
@@ -49,7 +50,7 @@ export class LyneTab {
 
   @Watch('label')
   public handleLabelChange(newValue: string, oldValue: string): void {
-    // this methos hould be private
+    // this method hould be private
     if (!this._hasLabelElement && newValue !== oldValue) {
       setTimeout(() => this.tabLabelChanged.emit());
     }
@@ -57,7 +58,7 @@ export class LyneTab {
 
   @Listen('tabLabelContentChanged')
   public handleTabLabelChanged(): void {
-    // this methos hould be private
+    // this method hould be private
     this.tabLabelChanged.emit();
   }
 

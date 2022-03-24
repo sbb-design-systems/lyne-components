@@ -25,12 +25,6 @@
   @include mq($from: medium) {
     font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
   }
-  > span {
-    padding-left: 4px;
-    color: var(--color-metal-default);
-    font-family: var(--typo-type-face-sbb-roman);
-    font-weight: 400;
-  }
   &:hover {
     cursor: pointer;
     background-color: var(--color-milk-default);
@@ -46,6 +40,9 @@
     color: var(--color-white-default);
     > span {
       color: var(--color-white-default);
+    }
+    lyne-tab-label::part(label-text) {
+      color: var(--color-white-default) !important;
     }
   }
   &:disabled,

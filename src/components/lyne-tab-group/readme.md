@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event               | Description | Type                                           |
-| ------------------- | ----------- | ---------------------------------------------- |
-| `selectedTabChange` |             | `CustomEvent<InterfaceLyneTabGroupAttributes>` |
+| Event               | Description | Type                                      |
+| ------------------- | ----------- | ----------------------------------------- |
+| `selectedTabChange` |             | `CustomEvent<InterfaceLyneTabAttributes>` |
 
 
 ## Slots

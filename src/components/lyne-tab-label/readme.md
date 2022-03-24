@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property   | Attribute   | Description                | Type               | Default     |
-| ---------- | ----------- | -------------------------- | ------------------ | ----------- |
-| `someProp` | `some-prop` | Documentation for someProp | `"opt1" \| "opt2"` | `undefined` |
+| Property | Attribute | Description | Type      | Default |
+| -------- | --------- | ----------- | --------- | ------- |
+| `active` | `active`  | Active tab  | `boolean` | `false` |
+| `icon`   | `icon`    |             | `boolean` | `false` |
 
 
 ## Slots
@@ -17,6 +18,13 @@
 | Slot        | Description                  |
 | ----------- | ---------------------------- |
 | `"unnamed"` | Use this to document a slot. |
+
+
+## Shadow Parts
+
+| Part           | Description |
+| -------------- | ----------- |
+| `"label-text"` |             |
 
 
 ----------------------------------------------
