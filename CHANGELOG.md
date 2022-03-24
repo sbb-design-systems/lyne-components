@@ -1,3 +1,86 @@
+# [10.0.0](https://github.com/lyne-design-system/lyne-components/compare/v9.78.1...v10.0.0) (2022-03-24)
+
+
+### Bug Fixes
+
+* add accessibility-title for footer ([15f89fc](https://github.com/lyne-design-system/lyne-components/commit/15f89fc67bd9461b9e1e0ac6d93ac1248b9c7ce5))
+* add role contentinfo on host element ([ad45219](https://github.com/lyne-design-system/lyne-components/commit/ad45219543a71f0bb087d158232a93478a83a285))
+* disable eslint max-len for file ([9786876](https://github.com/lyne-design-system/lyne-components/commit/97868766f5d95d64d725cce2ef6f82718d37240c))
+* linting and errors ([c2b9f98](https://github.com/lyne-design-system/lyne-components/commit/c2b9f985c30f538e692a4de7699a3573bef49843))
+* linting and testing errors ([c9572b0](https://github.com/lyne-design-system/lyne-components/commit/c9572b047b2429cf752dfc9e6a61724184b396e4))
+* make footer spacing and line ([6fdc4b8](https://github.com/lyne-design-system/lyne-components/commit/6fdc4b82019e7240344cdd6f5b553d4d8dd276c8))
+* move role attribute ([8ce45ee](https://github.com/lyne-design-system/lyne-components/commit/8ce45ee4a7e373cf5f04b267ad02d322badb815b))
+* padding / space with no protection area ([fd43f9c](https://github.com/lyne-design-system/lyne-components/commit/fd43f9c0e1236830e35db63b96772634db9ca75d))
+* paragrah text color ([6118965](https://github.com/lyne-design-system/lyne-components/commit/611896592ec7fa46f960b7b549caea106a97786c))
+* remove unnecessary slots ([599d7f2](https://github.com/lyne-design-system/lyne-components/commit/599d7f2aa6890c1a4ab80108ec9c870b4fb962fb))
+* size content properly ([18d85a4](https://github.com/lyne-design-system/lyne-components/commit/18d85a4fc51e8e30920bccd83d3782ca5e3bc718))
+* test after accessibility-title adjustments ([032eccf](https://github.com/lyne-design-system/lyne-components/commit/032eccf74ad9a6f2f5caa272b44a94d143c4d727))
+* test case ([01c88aa](https://github.com/lyne-design-system/lyne-components/commit/01c88aaa83400c95cd386b52c1a9e515658bc17f))
+* test cases ([ae17952](https://github.com/lyne-design-system/lyne-components/commit/ae1795242ec6a62a73b2fbbeecf2185e68f007c6))
+* testing errors ([4b33882](https://github.com/lyne-design-system/lyne-components/commit/4b3388278167d02ca9712d59c49e46753ad6ee9a))
+* wrapper style background color ([64360aa](https://github.com/lyne-design-system/lyne-components/commit/64360aadbf9850562300b88cff2d7727bdd6c192))
+
+
+### Code Refactoring
+
+* rename spacing variables ([938a6bd](https://github.com/lyne-design-system/lyne-components/commit/938a6bd01771b5620fc1701f8d49ba12988e7af9))
+
+
+### Features
+
+* add first sections for home page ([4327704](https://github.com/lyne-design-system/lyne-components/commit/43277049cbe65f839d67a65a6398f4b279846c78))
+* add lyne-section to home ([2ceaec2](https://github.com/lyne-design-system/lyne-components/commit/2ceaec26743790a827dbf628b8a7ac492e7827d4))
+* add more text-size-adjust variants ([6b60164](https://github.com/lyne-design-system/lyne-components/commit/6b60164aae4a6dc39001ba4d566a45fbb28d2a5c))
+* add page spacing mixins ([eef95e3](https://github.com/lyne-design-system/lyne-components/commit/eef95e3db3b21b78cefd84c0d88108462f2cd361))
+* add section comments ([075f538](https://github.com/lyne-design-system/lyne-components/commit/075f538b85db18c74af3e4fe71043dbd43d28c1c))
+* add tests, fix linting errors ([8d85228](https://github.com/lyne-design-system/lyne-components/commit/8d852287cd39a1c34da6d69046aae3936363539e))
+* add ultra--max-content breakpoint ([ae59b47](https://github.com/lyne-design-system/lyne-components/commit/ae59b47321e7bdc8784cfdb4809802226c875892))
+* better column resilience ([1085769](https://github.com/lyne-design-system/lyne-components/commit/1085769abc0f5ce012d7357f33dc141b6a96320d))
+* card product examples ([3af7801](https://github.com/lyne-design-system/lyne-components/commit/3af7801e1b5038ce266f9eb1988dc761843a73c0))
+* change order ([f2cadbd](https://github.com/lyne-design-system/lyne-components/commit/f2cadbd7a956a89f4bedba5d7c7318fa6197957b))
+* conditionally add inline css ([e285749](https://github.com/lyne-design-system/lyne-components/commit/e2857490b22d6da6d4fd502d9a588c8c35a308fe))
+* enable experimental placeholder teaser ([86e618e](https://github.com/lyne-design-system/lyne-components/commit/86e618eb18e6897443639c6c304966eccbc91674))
+* footer layout, footer slots ([201171c](https://github.com/lyne-design-system/lyne-components/commit/201171cb165559a9e82e98c8e03a91e60aa88b97))
+* from large orientation change ([474fc1a](https://github.com/lyne-design-system/lyne-components/commit/474fc1ad808310f1764ef02c3e0b9c8c1aae83f2))
+* home layout test cases ([2cf144a](https://github.com/lyne-design-system/lyne-components/commit/2cf144af9e82e61aebf8b978c79438cabd2ca120))
+* horizontal and vertical gap ([c763cdf](https://github.com/lyne-design-system/lyne-components/commit/c763cdf28a92c2b89f62235daaa681be46aabada))
+* introduce collapseHorizontalBelow ([ee4e678](https://github.com/lyne-design-system/lyne-components/commit/ee4e678766356b0fd18ab0a165915a7034e4694c))
+* introduce contextual color ([685c637](https://github.com/lyne-design-system/lyne-components/commit/685c63769d8cb94423b7261719bb77a66a80415b))
+* introduce footer theming ([5fa6611](https://github.com/lyne-design-system/lyne-components/commit/5fa6611e56c380cbf58b6b3c7d342539bd1484df))
+* introduce link-list horizontal-from-large ([a45730c](https://github.com/lyne-design-system/lyne-components/commit/a45730c3b38af2d90678e9a60df38b2eff295ffe))
+* introduce lyne-section component ([085830c](https://github.com/lyne-design-system/lyne-components/commit/085830cd862b940449ea36df6751ddb7b351912f))
+* introduce stack width, height, placeholder ([dc31fc2](https://github.com/lyne-design-system/lyne-components/commit/dc31fc2eaaeb4403ba4249294f29657db0468b45))
+* introducing new link color ([5d69305](https://github.com/lyne-design-system/lyne-components/commit/5d693055ff741c7239619f7e7e19efa663f4dc13))
+* introducing visually hidden footer title ([354ac55](https://github.com/lyne-design-system/lyne-components/commit/354ac558bfed314477b0307c8a4c7877f4730efa))
+* logical properties for clock column ([3eac2c3](https://github.com/lyne-design-system/lyne-components/commit/3eac2c3ea7f583f19b38dbc3f63297b258354567))
+* logical property support ([798a573](https://github.com/lyne-design-system/lyne-components/commit/798a57312277b281fbf18fe3fca9c195e7121b4d))
+* logical support ([479d595](https://github.com/lyne-design-system/lyne-components/commit/479d595a0481508a8c268cfe65bc7fd221ab8bc7))
+* lyne-footer component ([8ad451a](https://github.com/lyne-design-system/lyne-components/commit/8ad451af399b393a451e160f5730d56d62e76427))
+* lyne-footer variants ([eb5686d](https://github.com/lyne-design-system/lyne-components/commit/eb5686db64220b56b6f0da6e380c1d15da62d7fa))
+* lyne-link-button width resilience ([c7d9088](https://github.com/lyne-design-system/lyne-components/commit/c7d90883b0d1d331532c30968a39b5c9a8b0de6d))
+* lyne-stack and lyne-section enhancements ([4a3c871](https://github.com/lyne-design-system/lyne-components/commit/4a3c8719608f1f1c165f0eee984cd92b690513ea))
+* lyne-stack enhancements ([00ad69c](https://github.com/lyne-design-system/lyne-components/commit/00ad69c81a6503b4099a026cdf1ed14ff74d2cc4))
+* massively increase stack component ([0b5c2b2](https://github.com/lyne-design-system/lyne-components/commit/0b5c2b2994783c4e27a2bf6bfbbb91f3fc55e146))
+* move component story ([b686d34](https://github.com/lyne-design-system/lyne-components/commit/b686d34382e138c586217cca37cc63cd846bb087))
+* nested stack in footer, apply correct ([2b81ee8](https://github.com/lyne-design-system/lyne-components/commit/2b81ee8da0a55f26f20343b5676a331200c6c110))
+* new content breakpoint ([7609b61](https://github.com/lyne-design-system/lyne-components/commit/7609b6183eeb9eacb7b762037e0aac6f0f6079af))
+* page spacing mixins ([0cd2bcb](https://github.com/lyne-design-system/lyne-components/commit/0cd2bcb84e229f86eeaa21d95b681fc064c3f3cb))
+* placeholder style ([74550fa](https://github.com/lyne-design-system/lyne-components/commit/74550fa087847a5d26146bf71686be5dcdfa2dfd))
+* remove document writing mode ([78601de](https://github.com/lyne-design-system/lyne-components/commit/78601deaa2b3449274a1d3e32e3d115a6e48ce07))
+* rename, reorganize and refactor ([4f2a917](https://github.com/lyne-design-system/lyne-components/commit/4f2a917c242aa1246bf15742dfa3cffdb49563ed))
+* section widths ([0558f35](https://github.com/lyne-design-system/lyne-components/commit/0558f357dbe7ff340105475e5af047bf7b2b2788))
+* stack component ([17ab7e8](https://github.com/lyne-design-system/lyne-components/commit/17ab7e8d116e6b46a78c45981aa372a439553718))
+* stack display variants ([1513a82](https://github.com/lyne-design-system/lyne-components/commit/1513a82dd40a82c44738cb50eeeeadd31acffdcd))
+* stack styling optimizations ([662fbdc](https://github.com/lyne-design-system/lyne-components/commit/662fbdcbef6d219aa598dc6d7ee2bbb07804ecfe))
+* stacked primary button in footer ([433d618](https://github.com/lyne-design-system/lyne-components/commit/433d61869e24793a232b3277f581c54d472bf166))
+* testing, reviews and comments ([b44439f](https://github.com/lyne-design-system/lyne-components/commit/b44439fa158ed260589aaabf39874ba6263e905c))
+
+
+### BREAKING CHANGES
+
+* The spacing variables are renamed. Leading `lyne-`
+prefix is removed
+
 ## [9.78.1](https://github.com/lyne-design-system/lyne-components/compare/v9.78.0...v9.78.1) (2022-03-24)
 
 
