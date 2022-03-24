@@ -92,37 +92,37 @@ const Template = (args) => (
 /* The Stories                                       */
 /* ************************************************* */
 
-/* --- Footer ------------------------ */
-export const section = Template.bind({});
+/* --- Section ------------------------ */
+export const WIPSection = Template.bind({});
 
-section.argTypes = defaultArgTypes;
-section.args = JSON.parse(JSON.stringify(defaultArgs));
-section.documentation = {
+WIPSection.argTypes = defaultArgTypes;
+WIPSection.args = JSON.parse(JSON.stringify(defaultArgs));
+WIPSection.documentation = {
   container: {
     styles:
       (context) => (
         documentationPlatformContainerStyle(context)
       )
   },
-  title: 'Section'
+  title: 'Section (WIP)'
 };
 
 /* --- Section negative --------------- */
-export const sectionNegative = Template.bind({});
+export const WIPSectionNegative = Template.bind({});
 
-sectionNegative.argTypes = defaultArgTypes;
-sectionNegative.args = {
+WIPSectionNegative.argTypes = defaultArgTypes;
+WIPSectionNegative.args = {
   ...defaultArgs,
   appearance: appearance.options[1]
 };
-sectionNegative.documentation = {
+WIPSectionNegative.documentation = {
   container: {
     styles:
       (context) => (
         documentationPlatformContainerStyle(context)
       )
   },
-  title: 'Section Negative'
+  title: 'Section Negative (WIP)'
 };
 
 /* ************************************************* */
