@@ -14,9 +14,7 @@ describe('lyne-section', () => {
       .toEqualHtml(`
         <lyne-section>
           <mock:shadow-root>
-            <section class="section section--full-bleed--forever section--primary">
-              <lyne-title level="1" text="Footer" visually-hidden="true"></lyne-title>
-            </section>
+            <section class="section section--full-bleed--forever section--primary"></section>
           </mock:shadow-root>
         </lyne-section>
       `);
