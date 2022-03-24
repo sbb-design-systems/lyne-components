@@ -7,12 +7,12 @@ describe('lyne-section', () => {
       root
     } = await newSpecPage({
       components: [LyneSection],
-      html: '<lyne-section accessibility-title="Footer" />'
+      html: '<lyne-section />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-section accessibility-title="Footer">
+        <lyne-section>
           <mock:shadow-root>
             <section class="section section--full-bleed--forever section--primary">
               <lyne-title level="1" text="Footer" visually-hidden="true"></lyne-title>

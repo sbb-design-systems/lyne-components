@@ -74,9 +74,8 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  'accessibility-title': 'Section',
-  'appearance': appearance.options[0],
-  'width': width.options[0]
+  appearance: appearance.options[0],
+  width: width.options[0]
 };
 
 /* ************************************************* */

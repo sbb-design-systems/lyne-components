@@ -537,10 +537,6 @@ export namespace Components {
     }
     interface LyneSection {
         /**
-          * Section title text, visually hidden,  necessary for screenreaders
-         */
-        "accessibilityTitle": string;
-        /**
           * Section appearance
          */
         "appearance"?: InterfaceSectionAttributes['appearance'];
@@ -1706,10 +1702,6 @@ declare namespace LocalJSX {
         "variant"?: InterfaceSignetAttributes['variant'];
     }
     interface LyneSection {
-        /**
-          * Section title text, visually hidden,  necessary for screenreaders
-         */
-        "accessibilityTitle": string;
         /**
           * Section appearance
          */

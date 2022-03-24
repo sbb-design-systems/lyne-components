@@ -21,9 +21,6 @@ export class LyneSection {
   /** Section appearance */
   @Prop() public appearance?: InterfaceSectionAttributes['appearance'] = 'primary';
 
-  /** Section title text, visually hidden,  necessary for screenreaders */
-  @Prop() public accessibilityTitle!: string;
-
   /** Section width */
   @Prop() public width?: InterfaceSectionAttributes['width'] = 'full-bleed--forever';
 
@@ -57,7 +54,6 @@ export class LyneSection {
       <Host>
         <section {...attrs}
         >
-          <lyne-title level='1' visually-hidden='true' text={this.accessibilityTitle} />
           {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot
             ? <div class='columns'><slot name='col-1'/><slot name='col-2'/><slot name='col-3'/><slot name='col-4'/></div>
             : ''
