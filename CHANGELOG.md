@@ -1,3 +1,10 @@
+## [9.78.1](https://github.com/lyne-design-system/lyne-components/compare/v9.78.0...v9.78.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* aria-hidden dash issue ([f1363a9](https://github.com/lyne-design-system/lyne-components/commit/f1363a96a7f0c3b02d79e32a18d08a7d29b1179b))
+
 # [9.78.0](https://github.com/lyne-design-system/lyne-components/compare/v9.77.2...v9.78.0) (2022-03-22)
 
 
