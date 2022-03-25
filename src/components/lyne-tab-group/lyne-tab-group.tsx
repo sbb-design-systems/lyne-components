@@ -50,11 +50,13 @@ export class LyneTabGroup {
               class={`tab ${tab.active
                 ? 'active'
                 : ''}`}
+              disabled={tab.disabled}
               onClick={(): void => this._handleLabelClick(tab, index)}
               ref={(el): void => this._registerTabLabelAndAttachContent(tab, el)}
             ></button>
           ))}
         </div>
+        <slot name='lyne-tab-amount' onSlotchange={this._handleTabsChange}></slot>
         <slot name='lyne-tab' onSlotchange={this._handleTabsChange}></slot>
       </Host>
     );
@@ -62,7 +64,6 @@ export class LyneTabGroup {
 
   @Listen('tabLabelChanged')
   public handleTabLabelChanged(event: CustomEvent<void>): void {
-    // this method should be private
     const tabElement = event.target as InterfaceLyneTabAttributes;
     const labelHost = this._tabLabelMap.get(tabElement);
 
@@ -81,7 +82,6 @@ export class LyneTabGroup {
 
   @Watch('selectedIndex')
   public handleSelectedIndexChange(newValue: number, oldValue: number): void {
-    // this method should be private
     if (newValue < 0) {
       this.selectedIndex = 0;
 
@@ -146,17 +146,28 @@ export class LyneTabGroup {
 
     this._tabLabelMap.set(tab, el);
     const newNode = this._getTabLabelTemplate(tab);
+    const amount = this._getTabAmountTemplate(tab);
 
     if (newNode) {
       el.replaceChildren(newNode);
     }
+
+    if (amount) {
+      el.appendChild(amount);
+    }
   }
 
   private _getTabLabelTemplate(tab: InterfaceLyneTabAttributes): Node | undefined {
-    const templateElement = tab.shadowRoot?.querySelector<HTMLTemplateElement>(':host>template.lyne-tab-label-template',)?.firstElementChild;
+    const templateElement = tab.shadowRoot?.querySelector<HTMLTemplateElement>(':host>template.lyne-tab-label-template')?.firstElementChild;
 
     return templateElement?.nodeName === 'SLOT'
       ? (templateElement as HTMLSlotElement).assignedElements()[0]?.cloneNode(true)
       : templateElement?.cloneNode(true);
+  }
+
+  private _getTabAmountTemplate(tab: InterfaceLyneTabAttributes): Node | undefined {
+    const amountElement = tab.shadowRoot?.querySelector<HTMLTemplateElement>(':host>template.lyne-tab-label-template');
+
+    return (amountElement?.lastElementChild as HTMLSlotElement).assignedElements()[0]?.cloneNode(true);
   }
 }

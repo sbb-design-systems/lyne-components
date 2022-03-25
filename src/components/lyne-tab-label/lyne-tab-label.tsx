@@ -27,7 +27,7 @@ export class LyneTabLabel {
   public render(): JSX.Element {
     return (
       <Host slot='lyne-tab-label'>
-        <span part='label-text' class='tab-label'><slot></slot></span> <span class='tab-label-icon'><slot name='icon' /></span>
+        <span part='label-text' class='tab-label'><slot/></span>
       </Host>
     );
   }

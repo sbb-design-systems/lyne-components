@@ -4,9 +4,7 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
-}
-
-.some-class {
-  color: var(--some-color-var);
+  padding-left: 4px;
+  font-family: var(--typo-type-face-sbb-roman);
+  color: var(--color-metal-default);
 }

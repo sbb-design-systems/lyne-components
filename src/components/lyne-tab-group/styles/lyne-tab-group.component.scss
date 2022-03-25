@@ -12,6 +12,7 @@
 }
 
 .tab {
+  display: flex;
   padding: 6px 20px;
   margin-right: calc(var(--spacing-fixed-3x) / var(--typo-scale-default) * 1rem);
   color: var(--color-black-default);
@@ -38,25 +39,28 @@
     border-color: var(--color-black-default);
     background-color: var(--color-black-default);
     color: var(--color-white-default);
-    > span {
-      color: var(--color-white-default);
-    }
     lyne-tab-label::part(label-text) {
-      color: var(--color-white-default) !important;
+      color: var(--color-white-default);
     }
   }
   &:disabled,
+  &.disabled,
   &[disabled],
   &:disabled:hover,
   &[disabled]:hover {
     cursor: unset;
+    pointer-events: none;
     background-color: var(--color-milk-default);
     border-color: var(--color-milk-default);
     color: var(--color-platinum-default);
-    > label {
+    > div {
       text-decoration: line-through;
     }
-    > span {
+    lyne-tab-label::part(label-text) {
+      color: var(--color-platinum-default);
+      text-decoration: line-through;
+    }
+    lyne-tab-amount::part(label-amount) {
       color: var(--color-platinum-default);
     }
   }

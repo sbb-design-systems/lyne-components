@@ -532,6 +532,10 @@ export namespace Components {
          */
         "active": boolean;
         /**
+          * Disabled tab
+         */
+        "disabled": boolean;
+        /**
           * Tab labels
          */
         "label"?: string;
@@ -1655,6 +1659,10 @@ declare namespace LocalJSX {
           * Active tab
          */
         "active"?: boolean;
+        /**
+          * Disabled tab
+         */
+        "disabled"?: boolean;
         /**
           * Tab labels
          */

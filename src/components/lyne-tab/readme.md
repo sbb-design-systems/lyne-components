@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type      | Default     |
-| -------- | --------- | ----------- | --------- | ----------- |
-| `active` | `active`  | Active tab  | `boolean` | `false`     |
-| `label`  | `label`   | Tab labels  | `string`  | `undefined` |
+| Property   | Attribute  | Description  | Type      | Default     |
+| ---------- | ---------- | ------------ | --------- | ----------- |
+| `active`   | `active`   | Active tab   | `boolean` | `false`     |
+| `disabled` | `disabled` | Disabled tab | `boolean` | `false`     |
+| `label`    | `label`    | Tab labels   | `string`  | `undefined` |
 
 
 ## Events

@@ -31,7 +31,11 @@ export class LyneTab {
   /** Active tab  */
   @Prop() public active = false;
 
+  /** Disabled tab  */
+  @Prop() public disabled = false;
+
   @State() private _hasLabelElement = false;
+  @State() private _hasAmountElement = false;
 
   @Event() public tabLabelChanged!: EventEmitter<void>;
   @Event() public tabActiveChanged!: EventEmitter<string>;
@@ -42,15 +46,15 @@ export class LyneTab {
         <template class='lyne-tab-label-template'>
           {!this._hasLabelElement && <div>{this.label}</div>}
           <slot name='lyne-tab-label' onSlotchange={this._handleLabelSlotChange} />
+          <slot name='lyne-tab-amount' onSlotchange={this._handleAmountSlotChange} />
         </template>
-        <div class='tab-content'>{this.active && <slot>Default content</slot>}</div>
+        <div class='tab-content'>{(this.active && !this.disabled) && <slot>Default content</slot>}</div>
       </Host>
     );
   }
 
   @Watch('label')
   public handleLabelChange(newValue: string, oldValue: string): void {
-    // this method should be private
     if (!this._hasLabelElement && newValue !== oldValue) {
       setTimeout(() => this.tabLabelChanged.emit());
     }
@@ -58,7 +62,6 @@ export class LyneTab {
 
   @Listen('tabLabelContentChanged')
   public handleTabLabelChanged(): void {
-    // this method should be private
     this.tabLabelChanged.emit();
   }
 
@@ -68,6 +71,15 @@ export class LyneTab {
 
     if (hasLabelElement !== this._hasLabelElement) {
       this._hasLabelElement = hasLabelElement;
+    }
+  };
+
+  private _handleAmountSlotChange = (event: Event): void => {
+    const slot = event.composedPath()[0] as HTMLSlotElement;
+    const hasAmountElement = Boolean(slot.assignedNodes().length);
+
+    if (hasAmountElement !== this._hasAmountElement) {
+      this._hasAmountElement = hasAmountElement;
     }
   };
 }

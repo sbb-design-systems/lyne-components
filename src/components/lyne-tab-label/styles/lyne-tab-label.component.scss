@@ -9,6 +9,7 @@
 }
 
 .tab-label {
+  display: flex;
   color: var(--color-black-default);
   line-height: var(--typo-line-height-body-text);
   font-family: var(--typo-type-face-sbb-bold);
@@ -17,17 +18,8 @@
   @include mq($from: medium) {
     font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
   }
-}
-
-.tab-label-icon {
-  padding-left: 4px;
-  slot[name="icon"] {
-    display: block;
-    width: calc(var(--size-icon-ui-small) / var(--typo-scale-default) * 1rem);
-    height: calc(var(--size-icon-ui-small) / var(--typo-scale-default) * 1rem);
-    color: var(--color-metal-default);
-    fill: var(--color-metal-default);
-    font-family: var(--typo-type-face-sbb-roman);
-    font-weight: 400;
+  ::slotted(svg) {
+    padding-left: 4px;
+    fill: currentColor;
   }
 }

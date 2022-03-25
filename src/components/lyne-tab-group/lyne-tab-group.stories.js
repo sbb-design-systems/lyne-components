@@ -4,15 +4,17 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-group {...args}>
+  <lyne-tab-group>
 
-    <lyne-tab>
-      <lyne-tab-label>Lyne tab label <span slot='icon'>{getMarkupForSvg('arrow-right-small')}</span></lyne-tab-label>
+    <lyne-tab disabled={args.disabled}>
+      <lyne-tab-label>{args.label} {getMarkupForSvg(args.iconSlot)}</lyne-tab-label>
+      <lyne-tab-amount>{args.amountSlot}</lyne-tab-amount>
       It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
       The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here'.
     </lyne-tab>
 
-    <lyne-tab label='Tab 2'>
+    <lyne-tab label='Tab two'>
+      <lyne-tab-amount>123</lyne-tab-amount>
       It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
       The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here',
       making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their
@@ -20,13 +22,18 @@ const Template = (args) => (
       evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
     </lyne-tab>
 
-    <lyne-tab label='Tab 3'></lyne-tab>
+    <lyne-tab label='Tab three'>
+      <lyne-tab-label>Lyne tab 2 {getMarkupForSvg('arrow-right-small')}</lyne-tab-label>
+      <lyne-tab-amount>45</lyne-tab-amount>
+      Random content
+    </lyne-tab>
+
+    <lyne-tab label='Tab four' disabled></lyne-tab>
 
   </lyne-tab-group>
 );
 
-
-const iconDescription1 = {
+const label = {
   control: {
     type: 'text'
   },
@@ -34,24 +41,8 @@ const iconDescription1 = {
     category: 'Tab1'
   }
 };
-const iconDescription2 = {
-  control: {
-    type: 'text'
-  },
-  table: {
-    category: 'Tab2'
-  }
-};
-const iconDescription3 = {
-  control: {
-    type: 'text'
-  },
-  table: {
-    category: 'Tab3'
-  }
-};
 
-const iconSlot1 = {
+const iconSlot = {
   control: {
     type: 'select'
   },
@@ -59,55 +50,47 @@ const iconSlot1 = {
     'arrow-right-small',
     'arrow-down-small',
     'arrow-compass-small',
-    'pie-small'
+    'pie-small',
+    'qrcode-small'
   ],
   table: {
     category: 'Tab1'
   }
 };
-const iconSlot2 = {
+
+const amountSlot = {
   control: {
-    type: 'select'
+    type: 'number'
   },
-  options: [
-    'arrow-right-small',
-    'arrow-down-small',
-    'arrow-compass-small',
-    'pie-small'
-  ],
   table: {
-    category: 'Tab2'
-  }
-};
-const iconSlot3 = {
-  control: {
-    type: 'select'
-  },
-  options: [
-    'arrow-right-small',
-    'arrow-down-small',
-    'arrow-compass-small',
-    'pie-small'
-  ],
-  table: {
-    category: 'Tab3'
+    category: 'Tab1'
   }
 };
 
+const disabledArg = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Tab1'
+  }
+};
+
+/* eslint-disable sort-keys */
 const basicArgTypes = {
-  iconSlot1,
-  iconSlot2,
-  iconSlot3,
-  'icon-description-one': iconDescription1,
-  'icon-description-two': iconDescription2,
-  'icon-description-three': iconDescription3
+  label,
+  iconSlot,
+  amountSlot,
+  disabled: disabledArg
 };
 
 const basicArgs = {
-  iconSlot1: iconSlot1.options[0],
-  iconSlot2: iconSlot2.options[0],
-  iconSlot3: iconSlot3.options[0]
+  label: 'Lyne tab one',
+  iconSlot: iconSlot.options[0],
+  amountSlot,
+  disabled: false
 };
+/* eslint-enable sort-keys */
 
 export const defaultTabs = Template.bind({});
 export const numbers = Template.bind({});

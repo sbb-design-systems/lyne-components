@@ -19,6 +19,13 @@
 | `"unnamed"` | Use this to document a slot. |
 
 
+## Shadow Parts
+
+| Part             | Description |
+| ---------------- | ----------- |
+| `"label-amount"` |             |
+
+
 ----------------------------------------------
 
 
