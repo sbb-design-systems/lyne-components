@@ -30,6 +30,10 @@
     cursor: pointer;
     background-color: var(--color-milk-default);
   }
+  &:focus {
+    outline: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-black-default);
+    outline-offset: 3px;
+  }
   &:active {
     border-color: var(--color-black-default);
     background-color: transparent;

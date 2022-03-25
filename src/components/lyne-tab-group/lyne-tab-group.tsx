@@ -47,7 +47,7 @@ export class LyneTabGroup {
           {this.tabs.map((tab, index) => (
             <button
               type='button'
-              class={`tab ${tab.active
+              class={`tab ${(tab.active && !tab.disabled)
                 ? 'active'
                 : ''}`}
               disabled={tab.disabled}
@@ -56,7 +56,6 @@ export class LyneTabGroup {
             ></button>
           ))}
         </div>
-        <slot name='lyne-tab-amount' onSlotchange={this._handleTabsChange}></slot>
         <slot name='lyne-tab' onSlotchange={this._handleTabsChange}></slot>
       </Host>
     );
