@@ -30,7 +30,7 @@
     cursor: pointer;
     background-color: var(--color-milk-default);
   }
-  &:focus {
+  &:focus-visible {
     outline: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-black-default);
     outline-offset: 3px;
   }
