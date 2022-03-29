@@ -70,4 +70,11 @@
       color: var(--color-platinum-default);
     }
   }
+  svg {
+    max-height: calc(var(--typo-scale-1-25x) / var(--typo-scale-default) * 1rem);  ;
+    width: auto;
+    @include mq($from: medium) {
+      max-height: calc(var(--typo-scale-1-5x) / var(--typo-scale-default) * 1rem);  ;
+    }
+  }
 }
