@@ -56,9 +56,7 @@ export class LyneTabGroup {
             ></button>
           ))}
         </div>
-        <div class="tab-content-container">
-          <slot name='lyne-tab' onSlotchange={this._handleTabsChange}></slot>
-        </div>
+        <slot name='lyne-tab' onSlotchange={this._handleTabsChange}></slot>
       </Host>
     );
   }
@@ -108,7 +106,7 @@ export class LyneTabGroup {
   private _handleTabsChange = (): void => {
     this.tabs =
       this._element
-        .shadowRoot.querySelector<HTMLSlotElement>(':host>div slot[name="lyne-tab"]')
+        .shadowRoot.querySelector<HTMLSlotElement>(':host>slot[name="lyne-tab"]')
         ?.assignedElements()
         .filter((e): e is InterfaceLyneTabAttributes => e.nodeName === 'LYNE-TAB') ?? [];
     const activeTabs = this.tabs.filter((t) => t.active);
