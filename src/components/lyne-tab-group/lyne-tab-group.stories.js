@@ -4,9 +4,9 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-group selected-index='1'>
+  <lyne-tab-group selected-index='2'>
 
-    <lyne-tab disabled={args.disabled}>
+    <lyne-tab>
       <lyne-tab-label>{args.label} {getMarkupForSvg(args.iconSlot)} </lyne-tab-label>
       <lyne-tab-amount>{args.amountSlot}</lyne-tab-amount>
       Quis aute iure reprehenderit in voluptate velit esse. Ab illo tempore, ab est sed immemorabili. Non equidem invideo,
@@ -37,7 +37,7 @@ const Template = (args) => (
       lit aliquet. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae.
     </lyne-tab>
 
-    <lyne-tab label='Tab five' disabled>
+    <lyne-tab label='Tab five' disabled={args.disabled}>
       I was disabled.
     </lyne-tab>
 
@@ -99,7 +99,7 @@ const basicArgs = {
   label: 'Lyne tab one',
   iconSlot: iconSlot.options[0],
   amountSlot,
-  disabled: false
+  disabled: true
 };
 /* eslint-enable sort-keys */
 

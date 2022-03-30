@@ -130,7 +130,7 @@ export class LyneTabGroup {
         ?.assignedElements()
         .filter((e): e is InterfaceLyneTabAttributes => e.nodeName === 'LYNE-TAB') ?? [];
 
-    if (this.selectedIndex >= 0 && this.tabs.length) {
+    if (this.selectedIndex >= 0 && this.tabs.length && !(this.selectedIndex > this.tabs.length - 1)) {
       this.tabs[this.selectedIndex].active = true;
     } else {
       this.tabs[0].active = true;
