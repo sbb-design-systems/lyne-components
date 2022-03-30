@@ -10,16 +10,17 @@
 | Property   | Attribute  | Description  | Type      | Default     |
 | ---------- | ---------- | ------------ | --------- | ----------- |
 | `active`   | `active`   | Active tab   | `boolean` | `false`     |
+| `amount`   | `amount`   | Tab amount   | `string`  | `undefined` |
 | `disabled` | `disabled` | Disabled tab | `boolean` | `false`     |
 | `label`    | `label`    | Tab labels   | `string`  | `undefined` |
 
 
 ## Events
 
-| Event              | Description | Type                  |
-| ------------------ | ----------- | --------------------- |
-| `tabActiveChanged` |             | `CustomEvent<string>` |
-| `tabLabelChanged`  |             | `CustomEvent<void>`   |
+| Event                | Description | Type                |
+| -------------------- | ----------- | ------------------- |
+| `tabDisabledChanged` |             | `CustomEvent<void>` |
+| `tabLabelChanged`    |             | `CustomEvent<void>` |
 
 
 ## Slots

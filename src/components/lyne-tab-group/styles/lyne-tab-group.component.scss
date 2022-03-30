@@ -9,12 +9,14 @@
 
 .tab-group {
   display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-fixed-3x) / var(--typo-scale-default) * 1rem);
 }
 
 .tab {
   display: flex;
+  align-items: center;
   padding: 6px 20px;
-  margin-right: calc(var(--spacing-fixed-3x) / var(--typo-scale-default) * 1rem);
   color: var(--color-black-default);
   border: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-cloud-default);
   background-color: transparent;
@@ -27,6 +29,11 @@
   transition: background-color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
   @include mq($from: medium) {
     font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
+  }
+  .lyne-tab-amount {
+    padding-left: 4px;
+    font-family: var(--typo-type-face-sbb-roman);
+    color: var(--color-metal-default);
   }
   &:hover {
     cursor: pointer;
@@ -77,4 +84,8 @@
       max-height: calc(var(--typo-scale-1-5x) / var(--typo-scale-default) * 1rem);  ;
     }
   }
+}
+
+.tab-content-container {
+  position: relative;
 }

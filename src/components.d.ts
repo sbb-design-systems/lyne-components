@@ -532,6 +532,10 @@ export namespace Components {
          */
         "active": boolean;
         /**
+          * Tab amount
+         */
+        "amount"?: string;
+        /**
           * Disabled tab
          */
         "disabled": boolean;
@@ -1660,6 +1664,10 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
+          * Tab amount
+         */
+        "amount"?: string;
+        /**
           * Disabled tab
          */
         "disabled"?: boolean;
@@ -1667,7 +1675,7 @@ declare namespace LocalJSX {
           * Tab labels
          */
         "label"?: string;
-        "onTabActiveChanged"?: (event: CustomEvent<string>) => void;
+        "onTabDisabledChanged"?: (event: CustomEvent<void>) => void;
         "onTabLabelChanged"?: (event: CustomEvent<void>) => void;
     }
     interface LyneTabAmount {
@@ -1686,6 +1694,7 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         "icon"?: boolean;
+        "onTabLabelContentChanged"?: (event: CustomEvent<void>) => void;
     }
     interface LyneTeaserHero {
         /**

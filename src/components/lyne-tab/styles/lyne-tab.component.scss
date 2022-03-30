@@ -8,8 +8,17 @@
 }
 
 .tab-content {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
   font-family: var(--typo-type-face-sbb-roman);
   font-weight: 400;
   font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
   line-height: var(--typo-line-height-body-text);
+  transition: all var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+  &.active {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
 }

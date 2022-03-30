@@ -13,11 +13,11 @@
 | `icon`   | `icon`    |             | `boolean` | `false` |
 
 
-## Slots
+## Events
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Event                    | Description | Type                |
+| ------------------------ | ----------- | ------------------- |
+| `tabLabelContentChanged` |             | `CustomEvent<void>` |
 
 
 ## Shadow Parts

@@ -28,6 +28,9 @@ export class LyneTab {
   /** Tab labels  */
   @Prop() public label?: string;
 
+  /** Tab amount  */
+  @Prop() public amount?: string;
+
   /** Active tab  */
   @Prop() public active = false;
 
@@ -38,17 +41,18 @@ export class LyneTab {
   @State() private _hasAmountElement = false;
 
   @Event() public tabLabelChanged!: EventEmitter<void>;
-  @Event() public tabActiveChanged!: EventEmitter<string>;
+  @Event() public tabDisabledChanged!: EventEmitter<void>;
 
   public render(): JSX.Element {
     return (
       <Host slot='lyne-tab'>
         <template class='lyne-tab-label-template'>
-          {!this._hasLabelElement && <div>{this.label}</div>}
+          {!this._hasLabelElement && <div class='lyne-tab-label'>{this.label}</div>}
           <slot name='lyne-tab-label' onSlotchange={this._handleLabelSlotChange} />
           <slot name='lyne-tab-amount' onSlotchange={this._handleAmountSlotChange} />
+          {!this._hasAmountElement && <div class='lyne-tab-amount'>{this.amount}</div>}
         </template>
-        <div class='tab-content'>{(this.active && !this.disabled) && <slot>Default content</slot>}</div>
+        <div class={`tab-content ${(this.active && !this.disabled) ? 'active' : ''}`}><slot /></div>
       </Host>
     );
   }
@@ -57,6 +61,20 @@ export class LyneTab {
   public handleLabelChange(newValue: string, oldValue: string): void {
     if (!this._hasLabelElement && newValue !== oldValue) {
       setTimeout(() => this.tabLabelChanged.emit());
+    }
+  }
+
+  @Watch('amount')
+  public handleAmountChange(newValue: string, oldValue: string): void {
+    if (newValue !== oldValue) {
+      setTimeout(() => this.tabLabelChanged.emit());
+    }
+  }
+
+  @Watch('disabled')
+  public handleDisabledChange(newValue: boolean, oldValue: boolean): void {
+    if (newValue !== oldValue) {
+      this.tabDisabledChanged.emit();
     }
   }
 
