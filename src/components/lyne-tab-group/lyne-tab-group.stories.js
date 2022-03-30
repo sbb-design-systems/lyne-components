@@ -4,7 +4,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-group selected-index='2'>
+  <lyne-tab-group selected-index='2' dir={args.dir}>
 
     <lyne-tab>
       <lyne-tab-label>{args.label} {getMarkupForSvg(args.iconSlot)} </lyne-tab-label>
@@ -87,8 +87,23 @@ const disabledArg = {
   }
 };
 
+const dir = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'unset',
+    'ltr',
+    'rtl'
+  ],
+  table: {
+    category: 'Tab1'
+  }
+};
+
 /* eslint-disable sort-keys */
 const basicArgTypes = {
+  dir,
   label,
   iconSlot,
   amountSlot,
@@ -96,6 +111,7 @@ const basicArgTypes = {
 };
 
 const basicArgs = {
+  dir,
   label: 'Lyne tab one',
   iconSlot: iconSlot.options[0],
   amountSlot,

@@ -10,7 +10,6 @@ import {
   State,
   Watch
 } from '@stencil/core';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceLyneTabAttributes } from '../lyne-tab/lyne-tab.custom';
 
 /**
@@ -41,12 +40,9 @@ export class LyneTabGroup {
   private _tabLabelMap: WeakMap<InterfaceLyneTabAttributes, HTMLButtonElement> = new WeakMap();
 
   public render(): JSX.Element {
-
-    const currentWritingMode = getDocumentWritingMode();
-
     return (
       <Host>
-        <div class='tab-group' dir={currentWritingMode}>
+        <div class='tab-group'>
           {this.tabs.map((tab, index) => (
             <button
               type='button'
