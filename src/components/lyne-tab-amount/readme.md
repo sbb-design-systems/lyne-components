@@ -12,11 +12,11 @@
 | `someProp` | `some-prop` | Documentation for someProp | `"opt1" \| "opt2"` | `undefined` |
 
 
-## Slots
+## Events
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Event                    | Description | Type                |
+| ------------------------ | ----------- | ------------------- |
+| `tabLabelContentChanged` |             | `CustomEvent<void>` |
 
 
 ## Shadow Parts

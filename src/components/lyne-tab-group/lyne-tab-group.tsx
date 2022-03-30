@@ -195,10 +195,13 @@ export class LyneTabGroup {
   }
 
   private _getTabAmountTemplate(tab: InterfaceLyneTabAttributes): Node | undefined {
-    const amountElement = tab.shadowRoot?.querySelector<HTMLTemplateElement>(':host>template.lyne-tab-label-template')?.lastElementChild;
+    const amountElement = tab.shadowRoot?.querySelector(':host>template.lyne-tab-label-template slot[name="lyne-tab-amount"]');
+    const amountAttribute = tab.shadowRoot?.querySelector(':host>template.lyne-tab-label-template div.lyne-tab-amount');
 
-    return amountElement?.nodeName === 'SLOT'
-      ? (amountElement as HTMLSlotElement).assignedElements()[0]?.cloneNode(true)
-      : amountElement?.cloneNode(true);
+    const amount = (amountElement as HTMLSlotElement).assignedElements()[0]
+      ? (amountElement as HTMLSlotElement).assignedElements()[0]
+      : amountAttribute;
+
+    return amount?.cloneNode(true);
   }
 }
