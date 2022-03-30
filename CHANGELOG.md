@@ -1,3 +1,10 @@
+# [10.1.0](https://github.com/lyne-design-system/lyne-components/compare/v10.0.0...v10.1.0) (2022-03-30)
+
+
+### Features
+
+* design token npm package update ([663fbc6](https://github.com/lyne-design-system/lyne-components/commit/663fbc68bf1ee823347c0555e18d12cc6d83dcee))
+
 # [10.0.0](https://github.com/lyne-design-system/lyne-components/compare/v9.78.1...v10.0.0) (2022-03-24)
 
 
