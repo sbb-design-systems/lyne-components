@@ -280,9 +280,9 @@ export namespace Components {
          */
         "appearance"?: InterfaceGridAttributes['appearance'];
         /**
-          * Section width
+          * Grid variant
          */
-        "width"?: InterfaceGridAttributes['width'];
+        "variant"?: InterfaceGridAttributes['variant'];
     }
     interface LyneImage {
         /**
@@ -1463,9 +1463,9 @@ declare namespace LocalJSX {
          */
         "appearance"?: InterfaceGridAttributes['appearance'];
         /**
-          * Section width
+          * Grid variant
          */
-        "width"?: InterfaceGridAttributes['width'];
+        "variant"?: InterfaceGridAttributes['variant'];
     }
     interface LyneImage {
         /**

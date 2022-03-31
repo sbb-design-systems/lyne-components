@@ -3,108 +3,71 @@
 // and default mode
 @include host-component-properties;
 
-:host {
-  // Todo during grid enhancements, refactor below gutter tokens / add them to
-  // the design tokens
+:host {}
 
-  // Reminder: --_section-gap-horizontal needs a new responsive gap design token
-  // var(--spacing-responsive-s); is just a placeholder for now
-  --_section-gap-horizontal: var(--section-gap-horizontal, var(--spacing-responsive-s));
-  --_section-gap-vertical: var(--section-gap-vertical, var(--spacing-responsive-l));
-  --_section-background-color: var(--section-background-color, none);
+.grid--primary-negative {}
 
-  // Contextual design for lyne-stack
-  --stack-text-color-normal: var(--color-metal-default);
+.grid--base {
+  @include grid-base();
 }
 
-.section {
-  // margin-block-start: pxToRem(var(--spacing-responsive-l));
-  // padding-block-start: pxToRem(var(--spacing-responsive-l));
-  // padding-block-end: pxToRem(var(--spacing-responsive-l));
-  .columns,
-  .full-width {
-    background-color: var(--_section-background-color);
+// .span-full-width {
+//   //::slotted([ slot='span-full-width'] ) {
+//     grid-column: 1/-1;
+//   //}
+// }
+
+// .span-half-width--1st {
+//   //::slotted([ slot='span-half-width--1st'] ) {
+//     //grid-column: 1/6;
+//   //}
+
+//   grid-column: 1/-1;
+//   @include mq($from: medium) {
+//     grid-column: 1/4;
+//   }
+//   @include mq($from: wide) {
+//     grid-column:  1/6;
+//   }
+// }
+// .span-half-width--2nd {
+//   //::slotted([ slot='span-half-width--2nd'] ) {
+//     //grid-column: 7/-1;
+//   //}
+
+//   grid-column: 1/-1;
+//   @include mq($from: medium) {
+//     grid-column: 3/-1;
+//   }
+//   @include mq($from: wide) {
+//     grid-column:  7/-1;
+//   }
+// }
+
+.span-full-width {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 1 / 5 / 3 / -1;
+  }
+  @include mq($from: wide) {
+    grid-area: 1 / 7 / 3 / -1;
   }
 }
-
-.section--primary-negative {
-  --_section-background-color: var(--color-charcoal-default);
-  --title-text-color-normal: var(--color-storm-default);
-}
-
-.section--page-spacing {
-  @include page-spacing;
-
-  .columns,
-  .full-width {
-    @include page-spacing__inner;
+.span-half-width--1st {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 1 / 1 / 2 / 5;
+  }
+  @include mq($from: wide) {
+    grid-area: 1 / 1 / 2 / 7;
   }
 }
-
-.section--full-bleed--until-ultra {
-  @include mq($from: ultra) {
-    @include page-spacing;
-
-    .columns,
-    .full-width {
-      @include page-spacing__inner;
-    }
+.span-half-width--2nd {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 2 / 1 / 3 / 5;
   }
-}
-
-.section--full-bleed--until-ultra-plus {
-  @include mq($from: ultra--max-content) {
-    @include page-spacing--ultra-plus;
-
-    .columns,
-    .full-width {
-      @include page-spacing--ultra-plus__inner();
-    }
-  }
-}
-
-// The following section/column/grid handling will be addressed in the grid pr
-// and can be overlooked for now here
-.columns {
-  // Reset
-  width: 100%;
-  padding: 0;
-  margin: 0;
-
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: pxToRem(var(--_section-gap-horizontal));
-  row-gap: pxToRem(var(--_section-gap-vertical));
-
-  ::slotted( [slot] ) {
-    flex-basis: 100%;
-
-    @include mq($from: small) {
-      flex: 0 0 calc(50% - (#{pxToRem(var(--_section-gap-horizontal))}/2));
-      max-width: calc(50% - (#{pxToRem(var(--_section-gap-horizontal))}/2));
-    }
-    @include mq($from: wide) {
-      flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_section-gap-horizontal))})/4));
-      max-width: calc(25% - ((3*#{pxToRem(var(--_section-gap-horizontal))})/4));
-    }
-  }
-}
-
-.full-width {
-  // Reset
-  // width: 100%;
-  // padding: 0;
-  // margin: 0;
-
-  // display: flex;
-  // flex-wrap: wrap;
-  // column-gap: pxToRem(var(--_section-gap-horizontal));
-  // row-gap: pxToRem(var(--_section-gap-vertical));
-
-  ::slotted( [slot] ) {
-    //flex-basis: 100%;
-    // width: 100%;
-    // padding: 0;
-    // margin: 0;
+  @include mq($from: wide) {
+    grid-area: 2 / 1 / 3 / 7;
   }
 }

@@ -21,22 +21,26 @@ export class LyneGrid {
   /** Section appearance */
   @Prop() public appearance?: InterfaceGridAttributes['appearance'] = 'primary';
 
-  /** Section width */
-  @Prop() public width?: InterfaceGridAttributes['width'] = 'full-bleed--forever';
+  /** Grid variant */
+  @Prop() public variant?: InterfaceGridAttributes['variant'] = 'base';
 
   /** Host element */
   @Element() private _hostElement: HTMLElement;
 
   private _hasFullWidthSlot: boolean;
+  private _hasHalfWidthFirstSlot: boolean;
+  private _hasHalfWidthSecondSlot: boolean;
 
   public componentWillLoad(): void {
     // Check slots
-    this._hasFullWidthSlot = Boolean(this._hostElement.querySelector('[slot="full-width"]'));
+    this._hasFullWidthSlot = Boolean(this._hostElement.querySelector('[slot="span-full-width"]'));
+    this._hasHalfWidthFirstSlot = Boolean(this._hostElement.querySelector('[slot="span-half-width--1st"]'));
+    this._hasHalfWidthSecondSlot = Boolean(this._hostElement.querySelector('[slot="span-half-width--2nd"]'));
   }
 
   public render(): JSX.Element {
 
-    const className = `section section--${this.appearance} section--${this.width}`;
+    const className = `grid grid--${this.appearance} grid--${this.variant}`;
 
     const attrs = {
       class: className
@@ -47,7 +51,15 @@ export class LyneGrid {
         <div {...attrs}
         >
           {this._hasFullWidthSlot
-            ? <div class='full-width'><slot name='full-width' /></div>
+            ? <div class='span-full-width'><slot name='span-full-width' /></div>
+            : ''
+          }
+          {this._hasHalfWidthFirstSlot
+            ? <div class='span-half-width--1st'><slot name='span-half-width--1st' /></div>
+            : ''
+          }
+          {this._hasHalfWidthSecondSlot
+            ? <div class='span-half-width--2nd'><slot name='span-half-width--2nd' /></div>
             : ''
           }
         </div>
