@@ -14,7 +14,7 @@ describe('lyne-grid', () => {
       .toEqualHtml(`
         <lyne-grid>
           <mock:shadow-root>
-            <section class="section section--full-bleed--forever section--primary"></section>
+          <div class="grid grid--base grid--primary"></div>
           </mock:shadow-root>
         </lyne-grid>
       `);
