@@ -1,6 +1,6 @@
 @mixin page-spacing() {
-  padding-inline-start: pxToRem(var(--page-spacing-responsive-left));
-  padding-inline-end: pxToRem(var(--page-spacing-responsive-right));
+  padding-inline-start: pxToRem(var(--page-base-offset-responsive));
+  padding-inline-end: pxToRem(var(--page-base-offset-responsive));
 }
 
 @mixin page-spacing__inner() {
@@ -12,8 +12,8 @@
 }
 
 @mixin page-spacing--ultra-plus() {
-  padding-inline-start: pxToRem(var(--page-spacing-responsive-left));
-  padding-inline-end: pxToRem(var(--page-spacing-responsive-right));
+  padding-inline-start: pxToRem(var(--page-base-offset-responsive));
+  padding-inline-end: pxToRem(var(--page-base-offset-responsive));
 }
 
 @mixin page-spacing--ultra-plus__inner() {
