@@ -56,14 +56,6 @@ export class LyneGrid {
       <Host>
         <div {...attrs}
         >
-          {this._topProductSubscription1
-            ? <slot name='top-product-subscription-1' />
-            : ''
-          }
-          {this._topProductSubscription2
-            ? <slot name='top-product-subscription-2' />
-            : ''
-          }
           {this._topProduct1
             ? <slot name='top-product-1' />
             : ''
@@ -78,6 +70,14 @@ export class LyneGrid {
           }
           {this._topProduct4
             ? <slot name='top-product-4' />
+            : ''
+          }
+          {this._topProductSubscription1
+            ? <slot name='top-product-subscription-1' />
+            : ''
+          }
+          {this._topProductSubscription2
+            ? <slot name='top-product-subscription-2' />
             : ''
           }
         </div>
