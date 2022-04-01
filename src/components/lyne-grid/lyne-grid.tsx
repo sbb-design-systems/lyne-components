@@ -56,28 +56,28 @@ export class LyneGrid {
       <Host>
         <div {...attrs}
         >
-          {this._topProduct1
-            ? <div class='top-product-1'><slot name='top-product-1' /></div>
-            : ''
-          }
-          {this._topProduct2
-            ? <div class='top-product-2'><slot name='top-product-2' /></div>
-            : ''
-          }
-          {this._topProduct3
-            ? <div class='top-product-3'><slot name='top-product-3' /></div>
-            : ''
-          }
-          {this._topProduct4
-            ? <div class='top-product-4'><slot name='top-product-4' /></div>
-            : ''
-          }
           {this._topProductSubscription1
-            ? <div class='top-product-subscription-1'><slot name='top-product-subscription-1' /></div>
+            ? <slot name='top-product-subscription-1' />
             : ''
           }
           {this._topProductSubscription2
-            ? <div class='top-product-subscription-2'><slot name='top-product-subscription-2' /></div>
+            ? <slot name='top-product-subscription-2' />
+            : ''
+          }
+          {this._topProduct1
+            ? <slot name='top-product-1' />
+            : ''
+          }
+          {this._topProduct2
+            ? <slot name='top-product-2' />
+            : ''
+          }
+          {this._topProduct3
+            ? <slot name='top-product-3' />
+            : ''
+          }
+          {this._topProduct4
+            ? <slot name='top-product-4' />
             : ''
           }
         </div>
