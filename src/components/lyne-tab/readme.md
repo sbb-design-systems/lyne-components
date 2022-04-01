@@ -17,17 +17,11 @@
 
 ## Events
 
-| Event                | Description | Type                |
-| -------------------- | ----------- | ------------------- |
-| `tabDisabledChanged` |             | `CustomEvent<void>` |
-| `tabLabelChanged`    |             | `CustomEvent<void>` |
-
-
-## Slots
-
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Event                    | Description | Type                |
+| ------------------------ | ----------- | ------------------- |
+| `tabDisabledChanged`     |             | `CustomEvent<void>` |
+| `tabLabelChanged`        |             | `CustomEvent<void>` |
+| `tabLabelContentChanged` |             | `CustomEvent<void>` |
 
 
 ----------------------------------------------

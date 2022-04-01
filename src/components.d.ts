@@ -1677,6 +1677,7 @@ declare namespace LocalJSX {
         "label"?: string;
         "onTabDisabledChanged"?: (event: CustomEvent<void>) => void;
         "onTabLabelChanged"?: (event: CustomEvent<void>) => void;
+        "onTabLabelContentChanged"?: (event: CustomEvent<void>) => void;
     }
     interface LyneTabAmount {
         "onTabLabelContentChanged"?: (event: CustomEvent<void>) => void;

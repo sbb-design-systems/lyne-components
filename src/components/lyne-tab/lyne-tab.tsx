@@ -14,6 +14,13 @@ import {
  * @slot unnamed - Use this to document a slot.
  */
 
+const contentObserverConfig: MutationObserverInit = {
+  attributes: true,
+  characterData: true,
+  childList: true,
+  subtree: true
+};
+
 @Component({
   shadow: true,
   styleUrls: {
@@ -42,33 +49,24 @@ export class LyneTab {
 
   @Event() public tabLabelChanged!: EventEmitter<void>;
   @Event() public tabDisabledChanged!: EventEmitter<void>;
+  @Event() public tabLabelContentChanged!: EventEmitter<void>;
+
+  private _labelAttributeElement: HTMLElement;
+  private _amountAttributeElement: HTMLElement;
+  private _observer = new MutationObserver(() => this.tabLabelContentChanged.emit());
 
   public render(): JSX.Element {
     return (
       <Host slot='lyne-tab'>
         <template class='lyne-tab-label-template'>
-          {!this._hasLabelElement && <div class='lyne-tab-label'>{this.label}</div>}
+          {!this._hasLabelElement && <div ref={(el) => this._labelAttributeElement = el as HTMLElement} class='lyne-tab-label'>{this.label}</div>}
           <slot name='lyne-tab-label' onSlotchange={this._handleLabelSlotChange} />
+          {!this._hasAmountElement && <div ref={(el) => this._amountAttributeElement = el as HTMLElement} class='lyne-tab-amount'>{this.amount}</div>}
           <slot name='lyne-tab-amount' onSlotchange={this._handleAmountSlotChange} />
-          {!this._hasAmountElement && <div class='lyne-tab-amount'>{this.amount}</div>}
         </template>
         <div class={`tab-content ${(this.active && !this.disabled) ? 'active' : ''}`}><slot /></div>
       </Host>
     );
-  }
-
-  @Watch('label')
-  public handleLabelChange(newValue: string, oldValue: string): void {
-    if (!this._hasLabelElement && newValue !== oldValue) {
-      setTimeout(() => this.tabLabelChanged.emit());
-    }
-  }
-
-  @Watch('amount')
-  public handleAmountChange(newValue: string, oldValue: string): void {
-    if (newValue !== oldValue) {
-      setTimeout(() => this.tabLabelChanged.emit());
-    }
   }
 
   @Watch('disabled')
@@ -100,4 +98,13 @@ export class LyneTab {
       this._hasAmountElement = hasAmountElement;
     }
   };
+
+  public componentDidLoad(): void {
+    this._observer.observe(this._labelAttributeElement, contentObserverConfig);
+    this._observer.observe(this._amountAttributeElement, contentObserverConfig);
+  }
+
+  public disconnectedCallback(): void {
+    this._observer.disconnect();
+  }
 }

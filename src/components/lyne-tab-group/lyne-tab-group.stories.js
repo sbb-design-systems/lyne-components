@@ -4,7 +4,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-group selected-index='2' dir={args.dir}>
+  <lyne-tab-group selected-index='3' dir={args.dir}>
 
     <lyne-tab>
       <lyne-tab-label>{args.label} {getMarkupForSvg(args.iconSlot)} </lyne-tab-label>
