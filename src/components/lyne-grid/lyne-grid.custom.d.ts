@@ -1,5 +1,4 @@
 export interface InterfaceGridAttributes {
   appearance: 'primary' | 'primary-negative';
-  variant: 'base';
+  variant: 'base' | 'base--top-products';
 }
-

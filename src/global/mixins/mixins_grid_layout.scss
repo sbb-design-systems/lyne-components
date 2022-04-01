@@ -1,28 +1,22 @@
-// @mixin grid-base() {
-// 	display: grid;
-// 	justify-items: stretch;
-// 	grid-template-columns: repeat(var(--grid-base-columns), 1fr);
-//   //grid-template-columns: repeat(12, 1fr);
-//   // grid-column-gap: pxToRem(var(--grid-base-gutter-responsive));
-// 	// grid-row-gap: pxToRem(var(--grid-base-gutter-responsive));
-//   //gap: 1em;
-//   gap: pxToRem(var(--grid-base-gutter-responsive));
-// }
-
-
-// @mixin grid-base() {
-// 	display: grid;
-// 	justify-items: stretch;
-// 	grid-template-columns: repeat(var(--grid-base-columns), 1fr);
-//   gap: pxToRem(var(--grid-base-gutter-responsive));
-// }
-
 @mixin grid-base() {
 	display: grid;
 	justify-items: stretch;
-  grid-template-columns: repeat(var(--grid-base-columns), 1fr);
-  grid-template-rows: repeat(var(--grid-base-columns), 1fr);
+	grid-template-columns: repeat(var(--grid-base-columns), 1fr);
   gap: pxToRem(var(--grid-base-gutter-responsive));
-  max-width: 100%;
-  max-height: 100%;
+}
+
+@mixin grid-base-top-products() {
+  display: grid;
+  justify-items: stretch;
+  column-gap: pxToRem(var(--grid-base-gutter-responsive));
+  row-gap: pxToRem(var(--spacing-fixed-3x));
+  grid-column: auto;
+  grid-row: auto;
+
+  @include mq($from: medium) {
+    grid-template-columns: repeat(var(--grid-base-columns), 1fr);
+    grid-template-rows: repeat(var(--grid-base-columns), 1fr);
+    max-width: 100%;
+    max-height: 100%;
+  }
 }

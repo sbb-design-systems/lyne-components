@@ -27,15 +27,21 @@ export class LyneGrid {
   /** Host element */
   @Element() private _hostElement: HTMLElement;
 
-  private _hasFullWidthSlot: boolean;
-  private _hasHalfWidthFirstSlot: boolean;
-  private _hasHalfWidthSecondSlot: boolean;
+  private _topProductSubscription1: boolean;
+  private _topProductSubscription2: boolean;
+  private _topProduct1: boolean;
+  private _topProduct2: boolean;
+  private _topProduct3: boolean;
+  private _topProduct4: boolean;
 
   public componentWillLoad(): void {
     // Check slots
-    this._hasFullWidthSlot = Boolean(this._hostElement.querySelector('[slot="span-full-width"]'));
-    this._hasHalfWidthFirstSlot = Boolean(this._hostElement.querySelector('[slot="span-half-width--1st"]'));
-    this._hasHalfWidthSecondSlot = Boolean(this._hostElement.querySelector('[slot="span-half-width--2nd"]'));
+    this._topProductSubscription1 = Boolean(this._hostElement.querySelector('[slot="top-product-subscription-1"]'));
+    this._topProductSubscription2 = Boolean(this._hostElement.querySelector('[slot="top-product-subscription-2"]'));
+    this._topProduct1 = Boolean(this._hostElement.querySelector('[slot="top-product-1"]'));
+    this._topProduct2 = Boolean(this._hostElement.querySelector('[slot="top-product-2"]'));
+    this._topProduct3 = Boolean(this._hostElement.querySelector('[slot="top-product-3"]'));
+    this._topProduct4 = Boolean(this._hostElement.querySelector('[slot="top-product-4"]'));
   }
 
   public render(): JSX.Element {
@@ -50,16 +56,28 @@ export class LyneGrid {
       <Host>
         <div {...attrs}
         >
-          {this._hasFullWidthSlot
-            ? <div class='span-full-width'><slot name='span-full-width' /></div>
+          {this._topProduct1
+            ? <div class='top-product-1'><slot name='top-product-1' /></div>
             : ''
           }
-          {this._hasHalfWidthFirstSlot
-            ? <div class='span-half-width--1st'><slot name='span-half-width--1st' /></div>
+          {this._topProduct2
+            ? <div class='top-product-2'><slot name='top-product-2' /></div>
             : ''
           }
-          {this._hasHalfWidthSecondSlot
-            ? <div class='span-half-width--2nd'><slot name='span-half-width--2nd' /></div>
+          {this._topProduct3
+            ? <div class='top-product-3'><slot name='top-product-3' /></div>
+            : ''
+          }
+          {this._topProduct4
+            ? <div class='top-product-4'><slot name='top-product-4' /></div>
+            : ''
+          }
+          {this._topProductSubscription1
+            ? <div class='top-product-subscription-1'><slot name='top-product-subscription-1' /></div>
+            : ''
+          }
+          {this._topProductSubscription2
+            ? <div class='top-product-subscription-2'><slot name='top-product-subscription-2' /></div>
             : ''
           }
         </div>

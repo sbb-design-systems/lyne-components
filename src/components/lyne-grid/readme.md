@@ -10,7 +10,7 @@
 | Property     | Attribute    | Description        | Type                              | Default     |
 | ------------ | ------------ | ------------------ | --------------------------------- | ----------- |
 | `appearance` | `appearance` | Section appearance | `"primary" \| "primary-negative"` | `'primary'` |
-| `variant`    | `variant`    | Grid variant       | `"base"`                          | `'base'`    |
+| `variant`    | `variant`    | Grid variant       | `"base" \| "base--top-products"`  | `'base'`    |
 
 
 ----------------------------------------------
