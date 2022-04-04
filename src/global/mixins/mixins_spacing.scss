@@ -3,8 +3,6 @@
   padding-inline-end: pxToRem(var(--page-base-offset-responsive));
 }
 
-//wide--max-content
-
 @mixin page-spacing__inner() {
   @include mq($from: wide) {
     width: calc(pxToRem($breakpoint-wide-min) - (2 * pxToRem(var(--page-base-offset-responsive))));
