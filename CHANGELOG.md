@@ -1,3 +1,10 @@
+# [10.2.0](https://github.com/lyne-design-system/lyne-components/compare/v10.1.0...v10.2.0) (2022-04-04)
+
+
+### Features
+
+* add new icons to the library (release 1.33.0) (triggered from Figma) (triggered from icons build) [skip ci] ([e78ff70](https://github.com/lyne-design-system/lyne-components/commit/e78ff701d18e4ed403d89660f6324d2c6b38aae8))
+
 # [10.1.0](https://github.com/lyne-design-system/lyne-components/compare/v10.0.0...v10.1.0) (2022-03-30)
 
 
