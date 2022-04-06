@@ -1,7 +1,8 @@
 @mixin grid-base() {
 	display: grid;
 	grid-template-columns: repeat(var(--grid-base-columns), 1fr);
-  gap: pxToRem(var(--grid-base-gutter-responsive));
+  column-gap: pxToRem(var(--grid-base-gutter-responsive));
+  row-gap: pxToRem(var(--spacing-fixed-3x));
 }
 
 @mixin grid-base-top-products() {
