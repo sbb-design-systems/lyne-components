@@ -33,6 +33,7 @@ export class LyneGrid {
   private _topProduct2: boolean;
   private _topProduct3: boolean;
   private _topProduct4: boolean;
+  private _eightColumnsCentered: boolean;
 
   public componentWillLoad(): void {
     // Check slots
@@ -42,6 +43,7 @@ export class LyneGrid {
     this._topProduct2 = Boolean(this._hostElement.querySelector('[slot="top-product-2"]'));
     this._topProduct3 = Boolean(this._hostElement.querySelector('[slot="top-product-3"]'));
     this._topProduct4 = Boolean(this._hostElement.querySelector('[slot="top-product-4"]'));
+    this._eightColumnsCentered = Boolean(this._hostElement.querySelector('[slot="eight-columns-centered"]'));
   }
 
   public render(): JSX.Element {
@@ -78,6 +80,10 @@ export class LyneGrid {
           }
           {this._topProductSubscription2
             ? <slot name='top-product-subscription-2' />
+            : ''
+          }
+          {this._eightColumnsCentered
+            ? <slot name='eight-columns-centered' />
             : ''
           }
         </div>
