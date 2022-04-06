@@ -542,7 +542,7 @@ export class LyneImage {
 
   private prepareImageUrl(imageUrlWithParams: string): string {
     let imgUrl, userDefinedParams, componentParams;
-    let imgUrlParts = imageUrlWithParams.split('?');
+    let imgUrlParts = imageUrlWithParams?.split('?');
 
     if(imgUrlParts?.length > 1) { 
       imgUrl = imgUrlParts[0];
