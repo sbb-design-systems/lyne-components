@@ -96,6 +96,10 @@
   }
 }
 
+.stack--is-non-wrapping {
+  flex-wrap: nowrap;
+}
+
 .stack--is-placeholder {
   @include development-style;
 }

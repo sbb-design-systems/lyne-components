@@ -43,6 +43,12 @@ export class LyneStack {
    */
   @Prop() public gapVertical?: InterfaceStackAttributes['spacing'] = 'fixed-3x';
 
+  /** Render stack as placeholder */
+  @Prop() public isPlaceholder?: boolean;
+
+  /** Render horizontal stack as non-wrapping stack */
+  @Prop() public noWrap?: boolean;
+
   /**
    * Space before the stack
    */
@@ -52,9 +58,6 @@ export class LyneStack {
    * Space before the stack
    */
   @Prop() public spaceTrailing?: InterfaceStackAttributes['spacing'];
-
-  /** Render stack as placeholder */
-  @Prop() public isPlaceholder?: boolean;
 
   /**
    * Stack height, reflects CSS property `height` and accepts all
@@ -85,6 +88,10 @@ export class LyneStack {
 
     if (this.isPlaceholder) {
       className += ' stack--is-placeholder';
+    }
+
+    if (this.noWrap) {
+      className += ' stack--is-non-wrapping';
     }
 
     /*

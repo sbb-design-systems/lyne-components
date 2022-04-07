@@ -580,6 +580,10 @@ export namespace Components {
          */
         "isPlaceholder"?: boolean;
         /**
+          * Render horizontal stack as non-wrapping stack
+         */
+        "noWrap"?: boolean;
+        /**
           * Space before the stack
          */
         "spaceLeading"?: InterfaceStackAttributes['spacing'];
@@ -1762,6 +1766,10 @@ declare namespace LocalJSX {
           * Render stack as placeholder
          */
         "isPlaceholder"?: boolean;
+        /**
+          * Render horizontal stack as non-wrapping stack
+         */
+        "noWrap"?: boolean;
         /**
           * Space before the stack
          */
