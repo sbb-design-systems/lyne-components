@@ -124,8 +124,8 @@ const Template = (args) => (
     <lyne-section width='page-spacing' style='margin-block-start: 7vh;'>
       <lyne-grid slot='full-width' variant='base--eight-columns-centered'>
         <lyne-stack slot='eight-columns-centered' appearance='vertical' gap-vertical='responsive-m' space-leading='responsive-xl' space-trailing='responsive-l'>
-          <lyne-stack appearance='horizontal--start' collapse-horizontal-below='small' gap-horizontal='fixed-6x' gap-vertical='fixed-4x'>
-            <div class='i-pretend-to-be-the-avatar-component'></div>
+          <lyne-stack appearance='horizontal--start' collapse-horizontal-below='small' gap-horizontal='fixed-6x' gap-vertical='fixed-4x' no-wrap='true'>
+            <span class='i-pretend-to-be-the-avatar-component' style='min-width: 72px; width: 72px; height: 72px; background-color: var(--color-cloud-default); border-radius: 50%; display:flex;'></span>
             <lyne-title level='2' text='Willkommen, Christina Müller' visual-level='1'></lyne-title>
           </lyne-stack>
           <lyne-stack appearance='vertical' gap-vertical='responsive-s'>
