@@ -53,8 +53,8 @@
 }
 
 .section--full-bleed--until-ultra-plus {
-  @include mq($from: ultra--max-content) {
-    @include page-spacing--ultra-plus;
+  @include mq($from: ultra) {
+    @include page-spacing;
 
     .columns,
     .full-width {

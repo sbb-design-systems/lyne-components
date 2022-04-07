@@ -11,13 +11,8 @@
   }
 }
 
-@mixin page-spacing--ultra-plus() {
-  padding-inline-start: pxToRem(var(--page-base-offset-responsive));
-  padding-inline-end: pxToRem(var(--page-base-offset-responsive));
-}
-
 @mixin page-spacing--ultra-plus__inner() {
-  @include mq($from: ultra--max-content) {
+  @include mq($from: ultra) {
     width: pxToRem($breakpoint-ultra-min);
     margin-inline-start: auto;
     margin-inline-end: auto;
