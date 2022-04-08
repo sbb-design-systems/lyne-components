@@ -532,7 +532,7 @@ export const createAnimation = (animationId?: string): InterfaceAnimation => {
   };
 
   const addElement = (el: Element | Element[] | Node | Node[] | NodeList | undefined | null): InterfaceAnimationInternal => {
-    if (el !== null) {
+    if (el !== null && el !== undefined) {
 
       if ((el as Node).nodeType === 1) {
         elements.push(el as any);
@@ -549,7 +549,7 @@ export const createAnimation = (animationId?: string): InterfaceAnimation => {
   };
 
   const addAnimation = (animationToAdd: InterfaceAnimationInternal | InterfaceAnimationInternal[]): InterfaceAnimationInternal => {
-    if ((animationToAdd as any) !== null) {
+    if (animationToAdd !== null && animationToAdd !== undefined) {
       if (Array.isArray(animationToAdd)) {
         for (const animation of animationToAdd) {
           animation.parent(ani);
