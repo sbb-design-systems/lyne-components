@@ -76,11 +76,13 @@ export class LyneTabGroup {
             if (prevTab) {
               prevTab.removeAttribute('active');
               prevTab.active = false;
+              prevTab.tabIndex = -1;
               prevTab.tabGroupState.relatedContent.removeAttribute('active');
             }
 
             label.setAttribute('active', '');
             label.active = true;
+            label.tabIndex = 1;
             this.contents[index].setAttribute('active', '');
           }
         },
@@ -88,7 +90,7 @@ export class LyneTabGroup {
       };
 
       label.slot = 'tab-bar';
-      label.tabIndex = index + 1;
+      label.tabIndex = -1;
       label.active = false;
 
       label.addEventListener('click', () => {
