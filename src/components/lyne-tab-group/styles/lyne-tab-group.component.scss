@@ -11,79 +11,103 @@
   display: flex;
   flex-wrap: wrap;
   gap: calc(var(--spacing-fixed-3x) / var(--typo-scale-default) * 1rem);
-}
 
-.tab {
-  display: flex;
-  align-items: center;
-  padding: 6px 20px;
-  color: var(--color-black-default);
-  border: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-cloud-default);
-  background-color: transparent;
-  border-radius: 20px;
-  line-height: var(--typo-line-height-body-text);
-  font-family: var(--typo-type-face-sbb-bold);
-  font-weight: 700;
-  font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
-  transition: color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
-  transition: background-color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
-  @include mq($from: medium) {
-    font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
+  ::slotted(h1),
+  ::slotted(h2),
+  ::slotted(h3),
+  ::slotted(h4),
+  ::slotted(h5),
+  ::slotted(h6) {
+    display: flex;
+    align-items: center;
+    padding: 6px 20px;
+    margin: 0;
+    color: var(--color-black-default);
+    border: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-cloud-default);
+    background-color: transparent;
+    border-radius: 20px;
+    line-height: var(--typo-line-height-body-text);
+    font-family: var(--typo-type-face-sbb-bold);
+    font-weight: 700;
+    font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
+    transition: color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+    transition: background-color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+    @include mq($from: medium) {
+      font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
+    }
   }
-  .lyne-tab-amount {
-    padding-left: 4px;
-    font-family: var(--typo-type-face-sbb-roman);
-    color: var(--color-metal-default);
-  }
-  &:hover {
+
+  ::slotted(h1:hover),
+  ::slotted(h2:hover),
+  ::slotted(h3:hover),
+  ::slotted(h4:hover),
+  ::slotted(h5:hover),
+  ::slotted(h6:hover) {
     cursor: pointer;
     background-color: var(--color-milk-default);
   }
-  &:focus-visible {
+
+  ::slotted(h1:focus-visible),
+  ::slotted(h2:focus-visible),
+  ::slotted(h3:focus-visible),
+  ::slotted(h4:focus-visible),
+  ::slotted(h5:focus-visible),
+  ::slotted(h6:focus-visible) {
     outline: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-black-default);
     outline-offset: 3px;
   }
-  &:active {
+
+  ::slotted(h1:active),
+  ::slotted(h2:active),
+  ::slotted(h3:active),
+  ::slotted(h4:active),
+  ::slotted(h5:active),
+  ::slotted(h6:active) {
     border-color: var(--color-black-default);
     background-color: transparent;
   }
-  &.active,
-  &[active] {
+
+  ::slotted(h1[active]),
+  ::slotted(h2[active]),
+  ::slotted(h3[active]),
+  ::slotted(h4[active]),
+  ::slotted(h5[active]),
+  ::slotted(h6[active]) {
     border-color: var(--color-black-default);
     background-color: var(--color-black-default);
     color: var(--color-white-default);
-    lyne-tab-label::part(label-text) {
-      color: var(--color-white-default);
-    }
   }
-  &:disabled,
-  &.disabled,
-  &[disabled],
-  &:disabled:hover,
-  &[disabled]:hover {
+
+  ::slotted(h1[disabled]),
+  ::slotted(h2[disabled]),
+  ::slotted(h3[disabled]),
+  ::slotted(h4[disabled]),
+  ::slotted(h5[disabled]),
+  ::slotted(h6[disabled]) {
     cursor: unset;
     pointer-events: none;
     background-color: var(--color-milk-default);
     border-color: var(--color-milk-default);
     color: var(--color-platinum-default);
-    > div {
-      text-decoration: line-through;
-    }
-    lyne-tab-label::part(label-text) {
-      color: var(--color-platinum-default);
-      text-decoration: line-through;
-    }
-    lyne-tab-amount::part(label-amount), .lyne-tab-amount {
-      color: var(--color-platinum-default);
-      text-decoration: none;
-    }
+    text-decoration: line-through;
   }
-  svg {
-    max-height: calc(var(--typo-scale-1-25x) / var(--typo-scale-default) * 1rem);  ;
-    width: auto;
-    @include mq($from: medium) {
-      max-height: calc(var(--typo-scale-1-5x) / var(--typo-scale-default) * 1rem);  ;
-    }
+}
+
+.tab-content {
+  margin-top: 2rem;
+  font-family: var(--typo-type-face-sbb-roman);
+  font-weight: 400;
+  font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
+  line-height: var(--typo-line-height-body-text);
+  ::slotted(div) {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+  }
+  ::slotted(div[active]) {
+    opacity: 1;
+    visibility: visible;
   }
 }
 

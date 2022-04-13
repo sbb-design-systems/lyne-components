@@ -4,42 +4,19 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-group selected-index='3' dir={args.dir}>
+  <lyne-tab-group selected-index='2' dir={args.dir}>
 
-    <lyne-tab>
-      <lyne-tab-label>{args.labelTab1} {getMarkupForSvg(args.iconSlotTab1)} </lyne-tab-label>
-      <lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount>
-      Quis aute iure reprehenderit in voluptate velit esse. Ab illo tempore, ab est sed immemorabili. Non equidem invideo,
-      lit aliquet. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae.  Donec sed odio operae, eu vulputate felis rhoncus.
-      Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.
-    </lyne-tab>
+    <h1>Label 1</h1>
+    <div>Content 1</div>
 
-    <lyne-tab label={args.labelTab2} amount={args.amountSlotTab2}>
-      Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem
-      excogitasse ad hoc. Quis aute iure reprehenderit in voluptate velit esse. Ab illo tempore, ab est sed immemorabili. Non equidem invideo,
-      lit aliquet. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae. Donec sed odio operae, eu vulputate felis rhoncus.
-      Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc. Quis aute iure reprehenderit in voluptate
-      velit esse. Ab illo tempore, ab est sed immemorabili. Non equidem invideo, lit aliquet. Nihilne te nocturnum praesidium Palati,
-      nihil urbis vigiliae.
-    </lyne-tab>
+    <h2>Label 2 {getMarkupForSvg('pie-small')}</h2>
+    <div>Content 2</div>
 
-    <lyne-tab>
-      <lyne-tab-label>{args.labelTab3} {getMarkupForSvg(args.iconSlotTab3)}</lyne-tab-label>
-      <lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount>
-      Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem
-      excogitasse ad hoc. Quis aute iure reprehenderit in voluptate velit esse. Ab illo tempore, ab est sed immemorabili. Non equidem invideo,
-      lit aliquet. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae. Donec sed odio operae, eu vulputate felis rhoncus.
-      Curabitur est gravida et libero vitae dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.
-    </lyne-tab>
+    <h3 disabled>Label 3 <lyne-tab-amount>123</lyne-tab-amount></h3>
+    <div>Content 3</div>
 
-    <lyne-tab label={args.labelTab4} amount={args.amountSlotTab4}>
-      Ab illo tempore, ab est sed immemorabili. Non equidem invideo,
-      lit aliquet. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae.
-    </lyne-tab>
-
-    <lyne-tab label='Tab five' disabled={args.disabled}>
-      I was disabled.
-    </lyne-tab>
+    <h4>Label 4</h4>
+    <div>Content 4 <h3>Content header</h3></div>
 
   </lyne-tab-group>
 );
