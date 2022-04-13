@@ -5,6 +5,7 @@ import {
   EventEmitter,
   h,
   Host,
+  Listen,
   Prop,
   State
 } from '@stencil/core';
@@ -67,7 +68,7 @@ export class LyneTabGroup {
   }
 
   private _configure(): void {
-    this.labels.forEach((label, index) => {
+    this.labels.forEach((label, i) => {
       label.tabGroupState = {
         activate: (): void => {
           if (!label.active) {
@@ -83,10 +84,12 @@ export class LyneTabGroup {
             label.setAttribute('active', '');
             label.active = true;
             label.tabIndex = 1;
-            this.contents[index].setAttribute('active', '');
+            label.focus();
+            this.contents[i].setAttribute('active', '');
           }
         },
-        relatedContent: this.contents[index]
+        index: i,
+        relatedContent: this.contents[i]
       };
 
       label.slot = 'tab-bar';
@@ -97,5 +100,31 @@ export class LyneTabGroup {
         label.tabGroupState.activate();
       });
     });
+  }
+
+  @Listen('keydown')
+  public handleKeyDown(evt: KeyboardEvent): void {
+    const availableLabels = this.labels.filter((l) => !l.hasAttribute('disabled'));
+    const cur = availableLabels.findIndex((l) => l.active);
+    const size = availableLabels.length;
+    const prev = cur === 0
+      ? size - 1
+      : cur - 1;
+    const next = cur === size - 1
+      ? 0
+      : cur + 1;
+
+    // don't trap nested handling
+    if ((evt.target as HTMLElement).parentElement !== evt.currentTarget) {
+      return;
+    }
+
+    if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
+      availableLabels[prev].tabGroupState.activate();
+      evt.preventDefault();
+    } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
+      availableLabels[next].tabGroupState.activate();
+      evt.preventDefault();
+    }
   }
 }
