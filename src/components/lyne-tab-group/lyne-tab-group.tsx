@@ -51,7 +51,7 @@ export class LyneTabGroup {
     );
   }
 
-  public connectedCallback(): void {
+  public componentDidLoad(): void {
     this.labels = this._getLabels();
     this.contents = this._getContents();
     this._configure();
