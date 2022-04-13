@@ -9,7 +9,6 @@ import {
   Prop,
   State
 } from '@stencil/core';
-import { InterfaceLyneTabAttributes } from '../lyne-tab/lyne-tab.custom';
 import { InterfaceLyneTabGroupLabel } from './lyne-tab-group.custom';
 
 /**
@@ -36,7 +35,7 @@ export class LyneTabGroup {
   @State() public labels: InterfaceLyneTabGroupLabel[];
   @State() public contents: Element[];
 
-  @Event() public selectedTabChange: EventEmitter<InterfaceLyneTabAttributes>;
+  @Event() public selectedTabChange: EventEmitter<void>;
 
   public render(): JSX.Element {
     return (
