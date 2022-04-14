@@ -78,11 +78,23 @@ export class LyneTabGroup {
     return el.id;
   }
 
+  private _initSelection(): void {
+    if (this.selectedIndex >= 0 && this.selectedIndex < this.labels.length) {
+      if (this.labels[this.selectedIndex].hasAttribute('disabled')) {
+        this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupState.activate();
+      } else {
+        this.labels[this.selectedIndex].tabGroupState.activate();
+      }
+    } else {
+      this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupState.activate();
+    }
+  }
+
   private _configure(): void {
     this.labels.forEach((label, i) => {
       label.tabGroupState = {
         activate: (): void => {
-          if (!label.active) {
+          if (!label.active && !label.hasAttribute('disabled')) {
             const prevTab = this.labels.find((l) => l.active);
 
             if (prevTab) {
@@ -118,13 +130,14 @@ export class LyneTabGroup {
         label.tabGroupState.activate();
       });
     });
+    this._initSelection();
   }
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    const availableLabels = this.labels.filter((l) => !l.hasAttribute('disabled'));
-    const cur = availableLabels.findIndex((l) => l.active);
-    const size = availableLabels.length;
+    const availableTabs = this.labels.filter((l) => !l.hasAttribute('disabled'));
+    const cur = availableTabs.findIndex((l) => l.active);
+    const size = availableTabs.length;
     const prev = cur === 0
       ? size - 1
       : cur - 1;
@@ -138,10 +151,10 @@ export class LyneTabGroup {
     }
 
     if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
-      availableLabels[prev].tabGroupState.activate();
+      availableTabs[prev].tabGroupState.activate();
       evt.preventDefault();
     } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
-      availableLabels[next].tabGroupState.activate();
+      availableTabs[next].tabGroupState.activate();
       evt.preventDefault();
     }
   }

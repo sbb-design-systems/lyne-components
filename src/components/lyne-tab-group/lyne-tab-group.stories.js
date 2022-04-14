@@ -4,7 +4,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-group selected-index='2' dir={args.dir}>
+  <lyne-tab-group selected-index='0' dir={args.dir}>
 
     <h1>Label 1</h1>
     <div>Content 1</div>
