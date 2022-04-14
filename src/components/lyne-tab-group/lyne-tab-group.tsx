@@ -122,6 +122,7 @@ export class LyneTabGroup {
       label.active = false;
       label.setAttribute('role', 'tab');
       label.setAttribute('aria-controls', this._ensureId(label));
+      label.setAttribute('aria-selected', 'false');
 
       this.contents[i].setAttribute('role', 'tabpanel');
       this.contents[i].setAttribute('aria-labelledby', label.id);
