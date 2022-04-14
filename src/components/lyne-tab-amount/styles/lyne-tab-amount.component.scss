@@ -6,5 +6,5 @@
 :host {
   padding-left: 4px;
   font-family: var(--typo-type-face-sbb-roman);
-  color: var(--color-metal-default);
+  color: var(--lyne-amount-color, var(--color-metal-default));
 }

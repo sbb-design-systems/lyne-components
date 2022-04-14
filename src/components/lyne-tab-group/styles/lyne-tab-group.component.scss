@@ -91,6 +91,7 @@
     background-color: var(--color-milk-default);
     border-color: var(--color-milk-default);
     color: var(--color-platinum-default);
+    --lyne-amount-color: var(--color-platinum-default);
     //text-decoration: line-through;
     &:after {
       content: '';
