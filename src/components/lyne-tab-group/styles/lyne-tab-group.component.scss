@@ -20,6 +20,7 @@
   ::slotted(h6) {
     display: flex;
     align-items: center;
+    // to do: tokens with the right amount of padding
     padding: 6px 20px;
     margin: 0;
     color: var(--color-black-default);
@@ -85,11 +86,20 @@
   ::slotted(h5[disabled]),
   ::slotted(h6[disabled]) {
     cursor: unset;
+    position: relative;
     pointer-events: none;
     background-color: var(--color-milk-default);
     border-color: var(--color-milk-default);
     color: var(--color-platinum-default);
-    text-decoration: line-through;
+    //text-decoration: line-through;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      // to do: tokens with the right amount of padding
+      width: calc(100% - 40px);
+      border-bottom: 2px solid var(--color-platinum-default);
+    }
   }
 }
 
