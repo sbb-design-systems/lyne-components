@@ -37,6 +37,8 @@ export class LyneTabGroup {
 
   @Event() public selectedTabChange: EventEmitter<void>;
 
+  private _lastUId = 0;
+
   public render(): JSX.Element {
     return (
       <Host>
@@ -66,6 +68,16 @@ export class LyneTabGroup {
     return Array.from(this._element.querySelectorAll('lyne-tab-group > div'));
   }
 
+  private _nextUId(): any {
+    return `lt${++this._lastUId}`;
+  }
+
+  private _ensureId(el): any {
+    el.id = el.id || this._nextUId();
+
+    return el.id;
+  }
+
   private _configure(): void {
     this.labels.forEach((label, i) => {
       label.tabGroupState = {
@@ -77,12 +89,14 @@ export class LyneTabGroup {
               prevTab.removeAttribute('active');
               prevTab.active = false;
               prevTab.tabIndex = -1;
+              prevTab.setAttribute('aria-selected', 'false');
               prevTab.tabGroupState.relatedContent.removeAttribute('active');
             }
 
             label.setAttribute('active', '');
             label.active = true;
             label.tabIndex = 1;
+            label.setAttribute('aria-selected', 'true');
             label.focus();
             this.contents[i].setAttribute('active', '');
           }
@@ -94,6 +108,11 @@ export class LyneTabGroup {
       label.slot = 'tab-bar';
       label.tabIndex = -1;
       label.active = false;
+      label.setAttribute('role', 'tab');
+      label.setAttribute('aria-controls', this._ensureId(label));
+
+      this.contents[i].setAttribute('role', 'tabpanel');
+      this.contents[i].setAttribute('aria-labelledby', label.id);
 
       label.addEventListener('click', () => {
         label.tabGroupState.activate();
