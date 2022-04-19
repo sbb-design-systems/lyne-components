@@ -18,7 +18,7 @@ describe('lyne-panel', () => {
               <p class="panel__text">
                 Example panel text
               </p>
-              <lyne-button class="panel__button" label="Button text" size="small" variant="secondary-negative" visual-button-only=""></lyne-button>
+              <lyne-button class="panel__button" label="Button text" size="m" variant="secondary-negative" visual-button-only=""></lyne-button>
             </div>
           </mock:shadow-root>
         </lyne-panel>

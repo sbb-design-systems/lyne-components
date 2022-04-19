@@ -4,10 +4,9 @@
 @include host-component-properties;
 
 :host {
-  display: block;
+  display: inline-block;
 
   @include buttonVariables();
-
 }
 
 .button--primary-negative {
@@ -52,7 +51,7 @@
   --color-hover-text: var(--color-milk-default);
 }
 
-.button--transparent {
+.button--translucent {
   --color-active-background: var(--color-black-alpha-70);
   --color-active-border: var(--color-black-alpha-0);
   --color-active-text: var(--color-cloud-default);
@@ -67,7 +66,7 @@
   --color-hover-text: var(--color-milk-default);
 }
 
-.button--transparent-negative {
+.button--translucent-negative {
   --color-active-background: var(--color-white-alpha-70);
   --color-active-border: var(--color-white-alpha-0);
   --color-active-text: var(--color-anthracite-default);
@@ -82,21 +81,45 @@
   --color-hover-text: var(--color-iron-default);
 }
 
-.button--small {
-  --border-width: var(--border-width-1x);
-  --min-height: var(--size-form-element-small-min-height);
-  --padding-block: var(--spacing-fixed-2x);
-  --padding-inline: var(--spacing-fixed-5x);
+.button--transparent {
+  --color-active-background: var(--color-cloud-default);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-black-default);
+  --color-default-background: transparent;
+  --color-default-border: transparent;
+  --color-default-text: var(--color-black-default);
+  --color-disabled-background: transparent;
+  --color-disabled-border: transparent;
+  --color-disabled-text: var(--color-granite-default);
+  --color-hover-background: var(--color-milk-default);
+  --color-hover-border: var(--color-milk-default);
+  --color-hover-text: var(--color-black-default);
+}
 
-  // TODO: missing design tokens
-  --font-size: 12;
+.button--transparent-negative {
+  --color-active-background: var(--color-iron-default);
+  --color-active-border: var(--color-iron-default);
+  --color-active-text: var(--color-white-default);
+  --color-default-background: transparent;
+  --color-default-border: transparent;
+  --color-default-text: var(--color-white-default);
+  --color-disabled-background: transparent;
+  --color-disabled-border: transparent;
+  --color-disabled-text: var(--color-granite-default);
+  --color-hover-background: var(--color-black-default);
+  --color-hover-border: var(--color-black-default);
+  --color-hover-text: var(--color-white-default);
+}
+
+.button--size-m {
+  @include buttonSizeMVariables;
 }
 
 .button--icon-only {
   --padding-inline: 0;
   --icon-margin-inline-end: 0;
 
-  width: pxToRem(var(--min-height));
+  width: pxToRem(var(--min-height-hover, var(--min-height)));
   justify-content: center;
 }
 
@@ -113,6 +136,11 @@
 .button--visual-only {
   width: fit-content;
   user-select: none;
+}
+
+.button__label, .button__icon {
+  transition: transform var(--transition-duration) var(--transition-easing-function);
+  transform: translateY(#{pxToRem(var(--translate-y-content-hover, 0))});
 }
 
 .button__label {
@@ -133,7 +161,6 @@
   @include ifForcedColors {
     fill: ButtonText;
   }
-
 }
 
 .button:disabled {
@@ -162,11 +189,14 @@
 .button--secondary-negative,
 .button--tertiary,
 .button--tertiary-negative,
+.button--translucent,
+.button--translucent-negative,
 .button--transparent,
 .button--transparent-negative {
   box-shadow: none;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     &:not(:disabled) {
       box-shadow: none;
     }

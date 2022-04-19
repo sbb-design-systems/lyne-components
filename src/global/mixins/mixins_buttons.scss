@@ -16,12 +16,10 @@
 }
 
 @mixin buttonVariables {
-
-  // TODO: missing design tokens
-  --font-family: 'SBBWeb Bold';
-  --font-size: 14;
+  --font-family: var(--typo-type-face-sbb-bold);
+  --font-size: var(--lyne-font-size-text-xs);
   --letter-spacing: 0.01em;
-  --line-height: 1.428571428571429;
+  --line-height: var(--typo-line-height-body-text);
 
   // we use primary button styles as default values
   --color-active-background: var(--color-red150-default);
@@ -39,11 +37,11 @@
 
   --border-width: var(--border-width-2x);
   --border-radius: var(--border-radius-16x);
-  --min-height: var(--size-form-element-large-min-height);
+  --min-height: var(--size-form-element-l-min-height);
   --transition-duration: var(--animation-form-element-state-duration);
   --transition-easing-function: var(--animation-form-element-state-easing);
-  --padding-block: var(--spacing-fixed-4x);
-  --padding-inline: var(--spacing-fixed-10x);
+  --padding-block: var(--spacing-fixed-3x);
+  --padding-inline: var(--spacing-fixed-8x);
   --gap: var(--spacing-fixed-2x);
 
   --shadow-1-default-color: var(--color-red-alpha-20);
@@ -68,6 +66,10 @@
   --shadow-2-hover-offset-y: 1;
   --shadow-2-hover-spread: 0;
 
+  @include mq($from: medium) {
+    --padding-block: var(--spacing-fixed-4x);
+    --padding-inline: var(--spacing-fixed-10x);
+  }
 }
 
 @mixin buttonPrimaryNegativeVariables {
@@ -159,18 +161,19 @@
   --color-hover-text: var(--color-milk-default);
 }
 
-@mixin buttonSmallVariables {
+@mixin buttonSizeMVariables {
   --border-width: var(--border-width-1x);
-  --min-height: var(--size-form-element-small-min-height);
+  --min-height: var(--size-form-element-m-min-height);
   --padding-block: var(--spacing-fixed-2x);
   --padding-inline: var(--spacing-fixed-5x);
 
-  // TODO: missing design tokens
-  --font-size: 12;
+  @include mq($from: medium) {
+    --padding-block: var(--spacing-fixed-3x);
+    --padding-inline: var(--spacing-fixed-8x);
+  }
 }
 
 @mixin button {
-
   @include buttonReset;
 
   position: relative;
@@ -179,18 +182,15 @@
   align-items: center;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
-  transition-property: background-color, color, border-color, box-shadow;
+  transition-property: background-color, color, border-color, box-shadow,
+    padding, margin, min-height, width;
   min-height: pxToRem(var(--min-height));
   border: pxToRem(var(--border-width)) solid var(--color-default-border);
   border-radius: pxToRem(var(--border-radius));
   background-color: var(--color-default-background);
 
-  // when using short hand padding-block and padding-inline, safari will not
-  // evaluate the expression...
-  padding-block-start: pxToRem(calc(var(--padding-block) - var(--border-width)));
-  padding-block-end: pxToRem(calc(var(--padding-block) - var(--border-width)));
-  padding-inline-start: pxToRem(var(--padding-inline));
-  padding-inline-end: pxToRem(var(--padding-inline));
+  padding-block: pxToRem(calc(var(--padding-block) - var(--border-width)));
+  padding-inline: pxToRem(var(--padding-inline));
   color: var(--color-default-text);
   font-family: var(--font-family);
   font-size: pxToRem(var(--font-size));
@@ -199,10 +199,11 @@
   line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
 
+  // TODO: Describe the purpose
   &:before {
     position: absolute;
     content: '';
-    inset: pxToRem(calc(var(--border-width) * -1));
+    inset: pxToRem(var(--border-width), true);
     border-radius: pxToRem(var(--border-radius));
     border: pxToRem(var(--border-width)) solid var(--color-default-border);
     z-index: -1;
@@ -213,13 +214,17 @@
   }
 
   @include visibleFocus;
-
 }
 
 @mixin buttonShadowNotDisabled {
-  box-shadow:
-    pxToRem(var(--shadow-1-default-offset-x)) pxToRem(var(--shadow-1-default-offset-y)) pxToRem(var(--shadow-1-default-blur)) pxToRem(var(--shadow-1-default-spread)) var(--shadow-1-default-color),
-    pxToRem(var(--shadow-2-default-offset-x)) pxToRem(var(--shadow-2-default-offset-y)) pxToRem(var(--shadow-2-default-blur)) pxToRem(var(--shadow-2-default-spread)) var(--shadow-2-default-color);
+  box-shadow: pxToRem(var(--shadow-1-default-offset-x))
+      pxToRem(var(--shadow-1-default-offset-y))
+      pxToRem(var(--shadow-1-default-blur))
+      pxToRem(var(--shadow-1-default-spread)) var(--shadow-1-default-color),
+    pxToRem(var(--shadow-2-default-offset-x))
+      pxToRem(var(--shadow-2-default-offset-y))
+      pxToRem(var(--shadow-2-default-blur))
+      pxToRem(var(--shadow-2-default-spread)) var(--shadow-2-default-color);
 }
 
 @mixin buttonIcon {
@@ -230,13 +235,26 @@
 }
 
 @mixin buttonFocusAndHover {
+  --translate-y-content-hover: -1;
+  --min-height-hover: calc(var(--min-height) + 2 * var(--border-width));
+
   color: var(--color-hover-text);
   background-color: var(--color-hover-background);
   border-color: var(--color-hover-border);
+  min-height: pxToRem(var(--min-height-hover));
+  margin: pxToRem(var(--border-width), true);
+  padding-block: pxToRem(var(--padding-block));
+  padding-inline: pxToRem(calc(var(--padding-inline) + var(--border-width)));
 
-  box-shadow:
-    pxToRem(var(--shadow-1-hover-offset-x)) pxToRem(var(--shadow-1-hover-offset-y)) pxToRem(var(--shadow-1-hover-blur)) pxToRem(var(--shadow-1-hover-spread)) var(--shadow-1-hover-color),
-    pxToRem(var(--shadow-2-hover-offset-x)) pxToRem(var(--shadow-2-hover-offset-y)) pxToRem(var(--shadow-2-hover-blur)) pxToRem(var(--shadow-2-hover-spread)) var(--shadow-2-hover-color);
+
+  box-shadow: pxToRem(var(--shadow-1-hover-offset-x))
+      pxToRem(var(--shadow-1-hover-offset-y))
+      pxToRem(var(--shadow-1-hover-blur)) pxToRem(var(--shadow-1-hover-spread))
+      var(--shadow-1-hover-color),
+    pxToRem(var(--shadow-2-hover-offset-x))
+      pxToRem(var(--shadow-2-hover-offset-y))
+      pxToRem(var(--shadow-2-hover-blur)) pxToRem(var(--shadow-2-hover-spread))
+      var(--shadow-2-hover-color);
 }
 
 @mixin buttonActive {
@@ -244,5 +262,3 @@
   background-color: var(--color-active-background);
   border-color: var(--color-active-border);
 }
-
-
