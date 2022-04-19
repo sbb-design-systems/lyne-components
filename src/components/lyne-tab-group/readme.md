@@ -19,6 +19,29 @@
 | `selectedTabChange` |             | `CustomEvent<void>` |
 
 
+## Methods
+
+### `activateTab(tabIndex: number) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `disableTab(tabIndex: number) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Slots
 
 | Slot        | Description                  |

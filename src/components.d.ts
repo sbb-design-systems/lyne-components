@@ -532,6 +532,8 @@ export namespace Components {
         "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
     }
     interface LyneTabGroup {
+        "activateTab": (tabIndex: number) => Promise<void>;
+        "disableTab": (tabIndex: number) => Promise<void>;
         "selectedIndex": number;
     }
     interface LyneTeaserHero {

@@ -6,8 +6,8 @@ import {
   h,
   Host,
   Listen,
-  Prop,
-  State
+  Method,
+  Prop
 } from '@stencil/core';
 import { InterfaceLyneTabGroupLabel } from './lyne-tab-group.custom';
 
@@ -32,11 +32,20 @@ export class LyneTabGroup {
     mutable: true
   }) public selectedIndex = 0;
 
-  @State() public labels: InterfaceLyneTabGroupLabel[];
-  @State() public contents: Element[];
-
   @Event() public selectedTabChange: EventEmitter<void>;
 
+  @Method()
+  public disableTab(tabIndex: number): void {
+    this.labels[tabIndex].tabGroupState.disable();
+  }
+
+  @Method()
+  public activateTab(tabIndex: number): void {
+    this.labels[tabIndex].tabGroupState.activate();
+  }
+
+  public labels: InterfaceLyneTabGroupLabel[];
+  public contents: Element[];
   private _lastUId = 0;
 
   public render(): JSX.Element {
@@ -94,7 +103,7 @@ export class LyneTabGroup {
     this.labels.forEach((label, i) => {
       label.tabGroupState = {
         activate: (): void => {
-          if (!label.active && !label.hasAttribute('disabled')) {
+          if (!label.active && !label.disabled) {
             const prevTab = this.labels.find((l) => l.active);
 
             if (prevTab) {
@@ -109,8 +118,19 @@ export class LyneTabGroup {
             label.active = true;
             label.tabIndex = 1;
             label.setAttribute('aria-selected', 'true');
-            label.focus();
             this.contents[i].setAttribute('active', '');
+          }
+        },
+        disable: (): void => {
+          if (!label.disabled) {
+            label.removeAttribute('active');
+            label.setAttribute('disabled', '');
+            label.active = false;
+            label.disabled = true;
+            label.tabIndex = -1;
+            label.setAttribute('aria-selected', 'false');
+            this.contents[i].removeAttribute('active');
+            this.contents[i].setAttribute('disabled', '');
           }
         },
         index: i,
@@ -119,7 +139,8 @@ export class LyneTabGroup {
 
       label.slot = 'tab-bar';
       label.tabIndex = -1;
-      label.active = false;
+      label.active = label.hasAttribute('active');
+      label.disabled = label.hasAttribute('disabled');
       label.setAttribute('role', 'tab');
       label.setAttribute('aria-controls', this._ensureId(label));
       label.setAttribute('aria-selected', 'false');
@@ -153,9 +174,11 @@ export class LyneTabGroup {
 
     if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
       availableTabs[prev].tabGroupState.activate();
+      availableTabs[prev].focus();
       evt.preventDefault();
     } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
       availableTabs[next].tabGroupState.activate();
+      availableTabs[next].focus();
       evt.preventDefault();
     }
   }
