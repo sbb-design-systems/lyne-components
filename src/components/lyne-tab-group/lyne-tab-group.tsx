@@ -116,7 +116,7 @@ export class LyneTabGroup {
 
             label.setAttribute('active', '');
             label.active = true;
-            label.tabIndex = 1;
+            label.tabIndex = 0;
             label.setAttribute('aria-selected', 'true');
             this.contents[i].setAttribute('active', '');
           }
