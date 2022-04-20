@@ -3,19 +3,24 @@ import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+/*
+TO DO: icon component / fallback for undefined icons
+{getMarkupForSvg(args.iconSlotTab1)}
+*/
+
 const Template = (args) => (
   <lyne-tab-group selected-index='0' dir={args.dir}>
 
-    <h1>Label 1</h1>
+    <h1>{args.labelTab1}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
     <div>Content 1</div>
 
-    <h2>Label 2 {getMarkupForSvg('pie-small')}</h2>
+    <h2>{args.labelTab2}{getMarkupForSvg('pie-small')}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
     <div>Content 2</div>
 
-    <h3 disabled>Label 3 <lyne-tab-amount>123</lyne-tab-amount></h3>
+    <h3 disabled>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
     <div>Content 3</div>
 
-    <h4>Label 4</h4>
+    <h4>{args.labelTab4}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
     <div>Content 4 <h3>Content header</h3></div>
 
   </lyne-tab-group>
@@ -192,16 +197,16 @@ const basicArgTypes = {
 
 const basicArgs = {
   dir,
-  labelTab1: 'Lyne tab one',
+  labelTab1: 'Tab label one',
   iconSlotTab1,
   amountSlotTab1,
-  labelTab2: 'Lyne tab two',
+  labelTab2: 'Tab label two',
   iconSlotTab2,
   amountSlotTab2,
-  labelTab3: 'Lyne tab three',
+  labelTab3: 'Tab label three',
   iconSlotTab3,
   amountSlotTab3,
-  labelTab4: 'Lyne tab four',
+  labelTab4: 'Tab label four',
   iconSlotTab4,
   amountSlotTab4,
   disabled: true
