@@ -3,17 +3,61 @@
 // and default mode
 @include host-component-properties;
 
-div {
-  --color-default-text: var(--color-white-default);
+.toast-wrapper {
+  // temporary -2 rem for storybook only
+  width: calc(100vw - 2rem);
+  height: calc(100vh - 2rem);
+}
+.toast {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
+  position: fixed;
 
-  position: static;
-  width: 400px;
-  left: 32px;
-  top: 0px;
+  cursor: pointer;
+
+  --color-default-text: var(--color-white-default);
+  font-family: var(--typo-type-face-sbb-bold);
+  font-weight: 700;
+  font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
+  line-height: var(--typo-line-height-body-text);
+  padding: calc(var(--spacing-responsive-xxxs-zero) / var(--typo-scale-default) * 1rem) calc(var(--spacing-responsive-xs-zero) / var(--typo-scale-default) * 1rem);
+  width: calc(100% - (2 * var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem));
+  margin: 0 calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+  @include mq($from: small) {
+    width: 400px;
+  }
+  @include mq($from: medium) {
+    font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
+    padding: calc(var(--spacing-responsive-xxxs-medium) / var(--typo-scale-default) * 1rem) calc(var(--spacing-responsive-xs-medium) / var(--typo-scale-default) * 1rem);
+    margin: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
+  }
+
+  // default position is bottom-center
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+  @include mq($from: medium) {
+    bottom: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
+  }
+  &.top {
+
+  }
+  &.left {
+    left: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+    @include mq($from: medium) {
+      left: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
+    }
+  }
+  &.right {
+
+  }
+  &.start {
+    // tbd
+  }
+  &.end {
+    // tbd
+  }
 
   /* midnight/default */
 
@@ -21,32 +65,26 @@ div {
   /* Level-5/Hard */
 
   box-shadow: 0px 1px 8px rgba(141, 141, 141, 0.2), 0px 4px 32px rgba(141, 141, 141, 0.1);
-  border-radius: 8px;
+  border-radius: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem);
 
-  &.large {
-    height: 59px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 16px 24px;
-    span {
-      color: var(--color-default-text);
-      &.icon {
-        height: 27px;
-        width: 24px;
-        padding: 2px 0px;
-        fill: currentColor;
-      }
-      &.text {
-        color: var(--color-default-text);
-        width: 145px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  span {
+    color: var(--color-default-text);
+    &.icon {
+      height: 19px;
+      width: 19px;
+      box-shadow: inset 0px 0px 0px 1px #fff;
+      margin-right: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem);
+      @include mq($from: medium) {
+        height: 23.8px;
+        width: 23.8px;
       }
     }
-
-  }
-
-  &.small {
-    height: 48px;
+    &.text {
+      color: var(--color-default-text);
+    }
   }
 
 }

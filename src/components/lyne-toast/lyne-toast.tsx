@@ -45,14 +45,16 @@ export class LyneToast {
 
   public render(): JSX.Element {
     return (
-      <div class={this.size}>
-        <span class='icon'>
-          <slot name='icon'></slot>
-        </span>
-        <span class='text'>
-          {this.message}
-        </span>
-        <span class='action'></span>
+      <div class="toast-wrapper">
+        <div class="toast">
+          <span class='icon'>
+            <slot name='icon'></slot>
+          </span>
+          <span class='text'>
+            {this.message}
+          </span>
+          <span class='action'></span>
+        </div>
       </div>
     );
   }
