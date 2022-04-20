@@ -45,10 +45,7 @@ export class LyneTabGroup {
   }
 
   @Method()
-  public activateTab(tabIndex: number, forceEnable?: boolean): void {
-    if (this.labels[tabIndex].disabled && forceEnable) {
-      this.labels[tabIndex].tabGroupState.enable();
-    }
+  public activateTab(tabIndex: number): void {
     this.labels[tabIndex].tabGroupState.activate();
   }
 
@@ -56,7 +53,7 @@ export class LyneTabGroup {
   public contents: Element[];
 
   private _lastUId = 0;
-  private _observer = new MutationObserver(this._onLabelAttributesChange);
+  private _observer = new MutationObserver(this._onLabelAttributesChange.bind(this));
 
   public render(): JSX.Element {
     return (
@@ -128,8 +125,15 @@ export class LyneTabGroup {
           }
         } else if (mutation.attributeName === 'active') {
           if (label.hasAttribute('active') && label.getAttribute('active') !== 'false' && !label.active) {
-            mutation.target.tabGroupState.enable();
             mutation.target.tabGroupState.activate();
+          } else if (!label.hasAttribute('active') && label.active) {
+            const enabledTabs = this.labels.filter((l) => !l.hasAttribute('disabled'));
+
+            if (label === enabledTabs[0]) {
+              label.setAttribute('active', '');
+            } else {
+              enabledTabs[0].tabGroupState.activate();
+            }
           }
         }
       }
@@ -210,9 +214,9 @@ export class LyneTabGroup {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    const availableTabs = this.labels.filter((l) => !l.hasAttribute('disabled'));
-    const cur = availableTabs.findIndex((l) => l.active);
-    const size = availableTabs.length;
+    const enabledTabs = this.labels.filter((l) => !l.hasAttribute('disabled'));
+    const cur = enabledTabs.findIndex((l) => l.active);
+    const size = enabledTabs.length;
     const prev = cur === 0
       ? size - 1
       : cur - 1;
@@ -226,12 +230,12 @@ export class LyneTabGroup {
     }
 
     if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
-      availableTabs[prev].tabGroupState.activate();
-      availableTabs[prev].focus();
+      enabledTabs[prev].tabGroupState.activate();
+      enabledTabs[prev].focus();
       evt.preventDefault();
     } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
-      availableTabs[next].tabGroupState.activate();
-      availableTabs[next].focus();
+      enabledTabs[next].tabGroupState.activate();
+      enabledTabs[next].focus();
       evt.preventDefault();
     }
   }

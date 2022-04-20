@@ -21,7 +21,7 @@
 
 ## Methods
 
-### `activateTab(tabIndex: number, forceEnable?: boolean) => Promise<void>`
+### `activateTab(tabIndex: number) => Promise<void>`
 
 
 
