@@ -17,7 +17,7 @@ const Template = (args) => (
     <h2>{args.labelTab2}{getMarkupForSvg('pie-small')}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
     <div>Content 2</div>
 
-    <h3>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
+    <h3 disabled={args.disabled}>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
     <div>Content 3</div>
 
     <h4>{args.labelTab4}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
