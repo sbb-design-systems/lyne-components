@@ -40,19 +40,29 @@ export class LyneTabGroup {
   }
 
   @Method()
-  public activateTab(tabIndex: number): void {
+  public enableTab(tabIndex: number): void {
+    this.labels[tabIndex].tabGroupState.enable();
+  }
+
+  @Method()
+  public activateTab(tabIndex: number, forceEnable?: boolean): void {
+    if (this.labels[tabIndex].disabled && forceEnable) {
+      this.labels[tabIndex].tabGroupState.enable();
+    }
     this.labels[tabIndex].tabGroupState.activate();
   }
 
   public labels: InterfaceLyneTabGroupLabel[];
   public contents: Element[];
+
   private _lastUId = 0;
+  private _observer = new MutationObserver(this._onLabelAttributesChange);
 
   public render(): JSX.Element {
     return (
       <Host>
-        <div class='tab-group'>
-          <slot name='tab-bar'></slot>
+        <div class='tab-group' role='tablist'>
+          <slot name='tab-bar' onSlotchange={() => this._onTabBarSlotChange()}></slot>
         </div>
 
         <div class='tab-content'>
@@ -62,10 +72,16 @@ export class LyneTabGroup {
     );
   }
 
+  private _onTabBarSlotChange(): void {
+    console.log('Tabs slot changed');
+  }
+
   public componentDidLoad(): void {
-    this.labels = this._getLabels();
-    this.contents = this._getContents();
     this._configure();
+  }
+
+  public disconnectedCallback(): void {
+    this._observer.disconnect();
   }
 
   private _getLabels(): InterfaceLyneTabGroupLabel[] {
@@ -99,7 +115,31 @@ export class LyneTabGroup {
     }
   }
 
+  private _onLabelAttributesChange(mutationsList): void {
+    for (const mutation of mutationsList) {
+      const label = (mutation.target as InterfaceLyneTabGroupLabel);
+
+      if (mutation.type === 'attributes') {
+        if (mutation.attributeName === 'disabled') {
+          if (label.hasAttribute('disabled') && label.getAttribute('disabled') !== 'false') {
+            label.tabGroupState.disable();
+          } else if (!label.hasAttribute('disabled') || label.getAttribute('disabled') === 'false') {
+            label.tabGroupState.enable();
+          }
+        } else if (mutation.attributeName === 'active') {
+          if (label.hasAttribute('active') && label.getAttribute('active') !== 'false' && !label.active) {
+            mutation.target.tabGroupState.enable();
+            mutation.target.tabGroupState.activate();
+          }
+        }
+      }
+    }
+  }
+
   private _configure(): void {
+    this.labels = this._getLabels();
+    this.contents = this._getContents();
+
     this.labels.forEach((label, i) => {
       label.tabGroupState = {
         activate: (): void => {
@@ -123,14 +163,23 @@ export class LyneTabGroup {
         },
         disable: (): void => {
           if (!label.disabled) {
-            label.removeAttribute('active');
             label.setAttribute('disabled', '');
-            label.active = false;
             label.disabled = true;
             label.tabIndex = -1;
             label.setAttribute('aria-selected', 'false');
             this.contents[i].removeAttribute('active');
-            this.contents[i].setAttribute('disabled', '');
+
+            if (label.active) {
+              label.removeAttribute('active');
+              label.active = false;
+              this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupState.activate();
+            }
+          }
+        },
+        enable: (): void => {
+          if (label.disabled) {
+            label.removeAttribute('disabled');
+            label.disabled = false;
           }
         },
         index: i,
@@ -150,6 +199,10 @@ export class LyneTabGroup {
 
       label.addEventListener('click', () => {
         label.tabGroupState.activate();
+      });
+
+      this._observer.observe(label, {
+        attributes: true
       });
     });
     this._initSelection();
