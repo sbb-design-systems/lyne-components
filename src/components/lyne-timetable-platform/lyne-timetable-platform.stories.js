@@ -88,5 +88,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-platform'
+  title: 'internals/lyne-timetable-platform'
 };

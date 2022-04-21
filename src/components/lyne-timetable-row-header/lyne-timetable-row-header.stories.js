@@ -44,5 +44,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-row-header'
+  title: 'internals/lyne-timetable-row-header'
 };

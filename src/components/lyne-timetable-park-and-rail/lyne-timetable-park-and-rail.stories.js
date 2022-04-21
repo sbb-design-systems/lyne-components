@@ -58,5 +58,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-park-and-rail'
+  title: 'internals/lyne-timetable-park-and-rail'
 };

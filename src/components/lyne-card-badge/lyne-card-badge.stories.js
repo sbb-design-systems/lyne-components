@@ -250,5 +250,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'cards/lyne-card-badge'
+  title: 'components/cards/lyne-card-badge'
 };

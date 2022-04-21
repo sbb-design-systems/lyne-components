@@ -310,7 +310,7 @@ export class LyneImage {
     }
 
     if (this.hideFromScreenreader) {
-      attributes.ariaHidden = 'true';
+      attributes['aria-hidden'] = 'true';
       attributes.role = 'presentation';
     }
 

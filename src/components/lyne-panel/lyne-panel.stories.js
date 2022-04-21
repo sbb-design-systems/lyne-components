@@ -25,5 +25,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-panel'
+  title: 'components/lyne-panel'
 };

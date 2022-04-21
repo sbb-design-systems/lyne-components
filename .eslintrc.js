@@ -88,6 +88,10 @@ baseConfig.overrides = [
         {
           format: ['PascalCase'],
           selector: 'typeLike'
+        },
+        {
+          format: null,
+          selector: 'objectLiteralProperty'
         }
       ],
       '@typescript-eslint/no-array-constructor': 'error',

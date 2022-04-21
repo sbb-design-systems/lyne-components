@@ -124,5 +124,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-occupancy'
+  title: 'internals/lyne-timetable-occupancy'
 };

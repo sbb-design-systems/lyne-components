@@ -1,0 +1,83 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  // Reminder: --_footer-gap-horizontal needs a new responsive gap design token
+  // Use here the soon to be introduced gutter/gap design token
+  // var(--spacing-responsive-s); is just a placeholder for now
+  --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--spacing-responsive-s));
+  --_footer-gap-vertical: var(--footer-gap-vertical, var(--spacing-responsive-l));
+  --_footer-background-color: var(--footer-background-color, var(--color-milk-default));
+  --_footer-divider-color: var(--footer-divider-color, var(--color-cloud-default));
+  --_footer-divider-thickness: var(--footer-divider-thickness, 1);
+  --_footer-clock-width: var(--footer-clock-width, 76);
+  @include mq($from: small) {
+    --_footer-clock-width: var(--footer-clock-width, 112);
+  }
+
+  // Contextual design for lyne-stack
+  --stack-text-color-normal: var(--color-granite-default);
+}
+
+.footer {
+  @include page-spacing;
+  margin-block-start: pxToRem(var(--spacing-responsive-l));
+  padding-block-start: pxToRem(var(--spacing-responsive-l));
+  padding-block-end: pxToRem(var(--spacing-responsive-l));
+  background-color: var(--_footer-background-color);
+}
+
+.footer--primary-negative {
+  --_footer-divider-color: var(--color-iron-default);
+  --_footer-background-color: var(--color-charcoal-default);
+  --title-text-color-normal: var(--color-storm-default);
+}
+
+.columns {
+  @include page-spacing__inner;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: pxToRem(var(--_footer-gap-horizontal));
+  row-gap: pxToRem(var(--_footer-gap-vertical));
+
+  ::slotted([slot]) {
+    flex-basis: 100%;
+
+    @include mq($from: small) {
+      flex: 0 0 calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))} / 2));
+      max-width: calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))} / 2));
+    }
+    @include mq($from: wide) {
+      flex: 0 0 calc(25% - ((3 * #{pxToRem(var(--_footer-gap-horizontal))}) / 4));
+      max-width: calc(25% - ((3 * #{pxToRem(var(--_footer-gap-horizontal))}) / 4));
+    }
+  }
+  ::slotted([slot='clock']) {
+    max-width: pxToRem(var(--_footer-clock-width));
+    @include mq($from: zero) {
+      order: -1;
+    }
+    @include mq($from: small) {
+      order: initial;
+    }
+    @include mq($from: wide) {
+      margin-inline-start: auto;
+    }
+  }
+}
+
+.bottom {
+  @include page-spacing__inner;
+}
+
+// Increase lyne-footer resilience
+//
+// Only apply spacing and thin line if footer bottom has a predecessor, excluding
+// the hidden title which always needs to be present
+:not(.title--visually-hidden) + .bottom {
+  margin-block-start: pxToRem(var(--spacing-responsive-xl));
+  border-block-start: pxToRem(var(--_footer-divider-thickness)) solid var(--_footer-divider-color);
+  padding-block-start: pxToRem(var(--spacing-fixed-8x));
+}

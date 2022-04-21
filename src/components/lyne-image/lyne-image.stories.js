@@ -183,5 +183,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-image'
+  title: 'components/lyne-image'
 };
