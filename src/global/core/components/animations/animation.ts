@@ -1,5 +1,3 @@
-import { raf } from '../helpers';
-
 import {
   AnimationDirection,
   AnimationFill,
@@ -21,6 +19,7 @@ import {
   removeStyleProperty,
   setStyleProperty
 } from './animation-utils';
+import { raf } from '../../../helpers/request-animation-frame';
 
 interface InterfaceAnimationOnFinishCallback {
   c: AnimationLifecycle;

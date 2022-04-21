@@ -1,12 +1,11 @@
-import {
-  componentOnReady, getElementRoot
-} from '../helpers';
+import { getElementRoot } from '../../../helpers/overlay-helper';
 import {
   InterfaceHTMLLyneOverlayElement, InterfaceOverlay
 } from './overlays-interface';
 import {
   AnimationBuilder, InterfaceAnimation
 } from '../animations/animation-interface';
+import { componentOnReady } from '../../../helpers/request-animation-frame';
 
 let lastId = 0;
 
@@ -51,7 +50,7 @@ export const getOverlay = (doc: Document, overlayTag?: string, id?: string): Int
 /**
  * TODO verify those strings
  */
-const focusableQueryString = '[tabindex]:not([tabindex^="-"]), input:not([type=hidden]):not([tabindex^="-"]), textarea:not([tabindex^="-"]), button:not([tabindex^="-"]), select:not([tabindex^="-"]), .ion-focusable:not([tabindex^="-"])';
+const focusableQueryString = '[tabindex]:not([tabindex^="-"]), input:not([type=hidden]):not([tabindex^="-"]), textarea:not([tabindex^="-"]), button:not([tabindex^="-"]), select:not([tabindex^="-"]), .lyne-focusable:not([tabindex^="-"])';
 const innerFocusableQueryString = 'input:not([type=hidden]), textarea, button, select';
 
 export const focusFirstDescendant = (ref: Element, overlay: InterfaceHTMLLyneOverlayElement): void => {
@@ -124,7 +123,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
   }
 
   /**
-   * If the ion-disable-focus-trap class
+   * If the lyne-disable-focus-trap class
    * is present on an overlay, then this component
    * instance has opted out of focus trapping.
    * An example of this is when the sheet modal
@@ -152,7 +151,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
       /**
        * Otherwise, we must be focusing an element
        * inside the overlay. The two possible options
-       * here are an input/button/.. or the ion-focus-trap
+       * here are an input/button/.. or the lyne-focus-trap
        * element. The focus trap element is used to prevent
        * the keyboard focus from leaving the overlay when
        * using Tab or screen assistants.
@@ -360,9 +359,9 @@ export const dismissOverlay = (doc: Document, data: any, role: string | undefine
  * We need a container where all page components
  * exist that is separate from where the overlays
  * are added in the DOM. For most apps, this element
- * is the top most ion-router-outlet. In the event
+ * is the top most lyne-router-outlet. In the event
  * that devs are not using a router,
- * they will need to add the "ion-view-container-root"
+ * they will need to add the "lyne-view-container-root"
  * id to the element that contains all of their views.
  *
  * TODO: If Framework supports having multiple top

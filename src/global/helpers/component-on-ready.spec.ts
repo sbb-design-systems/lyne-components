@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-useless-constructor */
-import { componentOnReady } from './helpers';
+import { componentOnReady } from './request-animation-frame';
 
 describe('componentOnReady()', () => {
   it('should correctly call callback for a custom element', () => new Promise<void>((done) => {
