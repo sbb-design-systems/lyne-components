@@ -7,14 +7,13 @@
   // temporary -2 rem for storybook only
   width: calc(100vw - 2rem);
   height: calc(100vh - 2rem);
+  contain: content;
 }
 .toast {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   position: fixed;
-
-  cursor: pointer;
 
   --color-default-text: var(--color-white-default);
   font-family: var(--typo-type-face-sbb-bold);
@@ -23,7 +22,7 @@
   line-height: var(--typo-line-height-body-text);
   padding: calc(var(--spacing-responsive-xxxs-zero) / var(--typo-scale-default) * 1rem) calc(var(--spacing-responsive-xs-zero) / var(--typo-scale-default) * 1rem);
   width: calc(100% - (2 * var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem));
-  margin: 0 calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+  margin: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem) 0;
   @include mq($from: small) {
     width: 400px;
   }
@@ -36,27 +35,34 @@
   // default position is bottom-center
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+  bottom: 0;
   @include mq($from: medium) {
-    bottom: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
+    margin: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem) 0;
   }
   &.top {
-
+    top: 0;
+    bottom: auto;
   }
   &.left {
     left: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+    transform: none;
     @include mq($from: medium) {
       left: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
     }
   }
   &.right {
-
+    right: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+    left: auto;
+    transform: none;
+    @include mq($from: medium) {
+      right: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
+    }
   }
   &.start {
-    // tbd
+    // to be defined
   }
   &.end {
-    // tbd
+    // to be defined
   }
 
   /* midnight/default */
@@ -70,20 +76,20 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  span {
+  span.text {
     color: var(--color-default-text);
-    &.icon {
-      height: 19px;
-      width: 19px;
-      box-shadow: inset 0px 0px 0px 1px #fff;
-      margin-right: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem);
-      @include mq($from: medium) {
-        height: 23.8px;
-        width: 23.8px;
-      }
-    }
-    &.text {
-      color: var(--color-default-text);
+  }
+  .icon {
+    color: var(--color-default-text);
+    flex: 0 0 19px; //width
+    height: 19px;
+    align-self: start;
+    box-shadow: inset 0px 0px 0px 2px #fff;
+    border-radius: 50%;
+    margin-right: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem);
+    @include mq($from: medium) {
+      flex: 0 0 23.8px; //width
+      height: 23.8px;
     }
   }
 
