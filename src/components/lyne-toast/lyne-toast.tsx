@@ -46,7 +46,7 @@ export class LyneToast {
   public render(): JSX.Element {
     return (
       <div class="toast-wrapper">
-        <div class="toast">
+        <div class="toast top right">
           <span class='icon'>
             <slot name='icon'></slot>
           </span>
