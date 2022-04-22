@@ -52,13 +52,6 @@ Type: `Promise<void>`
 
 
 
-## Slots
-
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
-
-
 ----------------------------------------------
 
 

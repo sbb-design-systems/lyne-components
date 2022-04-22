@@ -9,11 +9,18 @@ import {
   Method,
   Prop
 } from '@stencil/core';
-import { InterfaceLyneTabGroupLabel } from './lyne-tab-group.custom';
+import { InterfaceLyneTabGroupTab } from './lyne-tab-group.custom';
 
 /**
  * @slot unnamed - Use this to document a slot.
  */
+
+const tabObserverConfig: MutationObserverInit = {
+  attributeFilter: [
+    'active',
+    'disabled'
+  ]
+};
 
 @Component({
   shadow: true,
@@ -36,24 +43,24 @@ export class LyneTabGroup {
 
   @Method()
   public async disableTab(tabIndex: number): Promise<void> {
-    await this.labels[tabIndex].tabGroupActions.disable();
+    await this.tabs[tabIndex].tabGroupActions.disable();
   }
 
   @Method()
   public async enableTab(tabIndex: number): Promise<void> {
-    await this.labels[tabIndex].tabGroupActions.enable();
+    await this.tabs[tabIndex].tabGroupActions.enable();
   }
 
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {
-    await this.labels[tabIndex].tabGroupActions.activate();
+    await this.tabs[tabIndex].tabGroupActions.toggle();
   }
 
-  public labels: InterfaceLyneTabGroupLabel[];
+  public tabs: InterfaceLyneTabGroupTab[];
   public contents: Element[];
 
   private _lastUId = 0;
-  private _observer = new MutationObserver(this._onLabelAttributesChange.bind(this));
+  private _observer = new MutationObserver(this._onTabAttributesChange.bind(this));
 
   public render(): JSX.Element {
     return (
@@ -70,37 +77,37 @@ export class LyneTabGroup {
   }
 
   public componentWillLoad(): void {
-    this.labels = this._getLabels();
+    this.tabs = this._getTabs();
     this.contents = this._getContents();
-    this.labels.forEach((label) => this._configure(label));
+    this.tabs.forEach((tab) => this._configure(tab));
     this._initSelection();
   }
 
   private _onContentSlotChange(): void {
-    const newLabels = this._getLabels()
-      .filter((label) => !this.labels.includes(label));
+    const newTabs = this._getTabs()
+      .filter((tab) => !this.tabs.includes(tab));
     const newContents = this._getContents()
       .filter((content) => !this.contents.includes(content));
 
     // if a new tab/content is added
-    if (newLabels.length || newContents.length) {
-      this.labels = this.labels.concat(newLabels);
+    if (newTabs.length || newContents.length) {
+      this.tabs = this.tabs.concat(newTabs);
       this.contents = this.contents.concat(newContents);
-      this.labels.forEach((label) => !label.relatedContent && this._configure(label));
+      this.tabs.forEach((tab) => !tab.relatedContent && this._configure(tab));
     }
   }
 
   private _onTabsSlotChange(): void {
-    const labels = this._getLabels();
+    const tabs = this._getTabs();
 
     // if a tab is removed from the tab bar
-    if (this.labels.length > labels.length) {
-      const removedTabs = this.labels.filter((label) => !labels.includes(label));
+    if (this.tabs.length > tabs.length) {
+      const removedTabs = this.tabs.filter((tab) => !tabs.includes(tab));
 
       removedTabs.forEach((removedTab) => {
         removedTab.relatedContent?.remove();
       });
-      this.labels = labels;
+      this.tabs = tabs;
       this.contents = this._getContents();
     }
   }
@@ -109,13 +116,17 @@ export class LyneTabGroup {
     this._observer.disconnect();
   }
 
-  private _getLabels(): InterfaceLyneTabGroupLabel[] {
+  private _getTabs(): InterfaceLyneTabGroupTab[] {
     return (Array.from(this._element.children)
-      .filter((child) => (/^H\d$/u).test(child.tagName)) as InterfaceLyneTabGroupLabel[]);
+      .filter((child) => (/^H\d$/u).test(child.tagName)) as InterfaceLyneTabGroupTab[]);
   }
 
   private _getContents(): Element[] {
     return Array.from(this._element.querySelectorAll('lyne-tab-group > div'));
+  }
+
+  private _getEnabledTabs(): InterfaceLyneTabGroupTab[] {
+    return this.tabs.filter((t) => !t.hasAttribute('disabled'));
   }
 
   private _nextUId(): any {
@@ -129,124 +140,124 @@ export class LyneTabGroup {
   }
 
   private _initSelection(): void {
-    if (this.selectedIndex >= 0 && this.selectedIndex < this.labels.length) {
-      if (this.labels[this.selectedIndex].hasAttribute('disabled')) {
-        this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupActions.activate();
+    if (this.selectedIndex >= 0 && this.selectedIndex < this.tabs.length) {
+      if (this.tabs[this.selectedIndex].hasAttribute('disabled')) {
+        this._getEnabledTabs()[0].tabGroupActions.toggle();
       } else {
-        this.labels[this.selectedIndex].tabGroupActions.activate();
+        this.tabs[this.selectedIndex].tabGroupActions.toggle();
       }
     } else {
-      this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupActions.activate();
+      this._getEnabledTabs()[0].tabGroupActions.toggle();
     }
   }
 
-  private _onLabelAttributesChange(mutationsList): void {
+  private _onTabAttributesChange(mutationsList): void {
     for (const mutation of mutationsList) {
-      const label = (mutation.target as InterfaceLyneTabGroupLabel);
+      const tab = (mutation.target as InterfaceLyneTabGroupTab);
 
       if (mutation.type === 'attributes') {
         if (mutation.attributeName === 'disabled') {
-          if (label.hasAttribute('disabled') && label.getAttribute('disabled') !== 'false') {
-            label.tabGroupActions.disable();
-          } else if (!label.hasAttribute('disabled') || label.getAttribute('disabled') === 'false') {
-            label.tabGroupActions.enable();
+          if (this._isValidTabAttribute(tab, 'disabled')) {
+            tab.tabGroupActions.disable();
+          } else {
+            tab.tabGroupActions.enable();
           }
-        } else if (mutation.attributeName === 'active') {
-          if (label.hasAttribute('active') && label.getAttribute('active') !== 'false' && !label.active) {
-            mutation.target.tabGroupActions.activate();
-          } else if ((!label.hasAttribute('active') && label.active) || label.getAttribute('active') === 'false') {
-            const enabledTabs = this.labels.filter((l) => !l.hasAttribute('disabled'));
-
-            if (label === enabledTabs[0]) {
-              label.setAttribute('active', '');
-            } else {
-              enabledTabs[0].tabGroupActions.activate();
-            }
+        }
+        if (mutation.attributeName === 'active') {
+          if (this._isValidTabAttribute(tab, 'active') && !tab.disabled) {
+            tab.tabGroupActions.toggle();
+          } else {
+            tab.tabGroupActions.deactivate();
           }
         }
       }
     }
   }
 
-  private _configure(label: InterfaceLyneTabGroupLabel): void {
-    label.tabGroupActions = {
+  private _isValidTabAttribute(tab: InterfaceLyneTabGroupTab, attribute: string): boolean {
+    return tab.hasAttribute(attribute) && tab.getAttribute(attribute) !== 'false';
+  }
+
+  private _configure(tab: InterfaceLyneTabGroupTab): void {
+    tab.tabGroupActions = {
       activate: (): void => {
-        if (!label.active && !label.disabled) {
-          const prevTab = this.labels.find((l) => l.active);
-
-          if (prevTab) {
-            prevTab.removeAttribute('active');
-            prevTab.active = false;
-            prevTab.tabIndex = -1;
-            prevTab.setAttribute('aria-selected', 'false');
-            prevTab.relatedContent?.removeAttribute('active');
-          }
-
-          label.setAttribute('active', '');
-          label.active = true;
-          label.tabIndex = 0;
-          label.setAttribute('aria-selected', 'true');
-          label.relatedContent?.setAttribute('active', '');
-        } else if (label.disabled) {
-          console.warn('You cannot activate a disabled tab');
-        }
+        tab.setAttribute('active', '');
+        tab.active = true;
+        tab.tabIndex = 0;
+        tab.setAttribute('aria-selected', 'true');
+        tab.relatedContent?.setAttribute('active', '');
+      },
+      deactivate: (): void => {
+        tab.removeAttribute('active');
+        tab.active = false;
+        tab.tabIndex = -1;
+        tab.setAttribute('aria-selected', 'false');
+        tab.relatedContent?.removeAttribute('active');
       },
       disable: (): void => {
-        if (!label.disabled) {
-          label.setAttribute('disabled', '');
-          label.disabled = true;
-          label.tabIndex = -1;
-          label.setAttribute('aria-selected', 'false');
-          label.relatedContent?.removeAttribute('active');
+        if (!tab.disabled) {
+          if (!tab.hasAttribute('disabled')) {
+            tab.setAttribute('disabled', '');
+          }
+          tab.disabled = true;
+          tab.tabIndex = -1;
+          tab.setAttribute('aria-selected', 'false');
+          tab.relatedContent?.removeAttribute('active');
 
-          if (label.active) {
-            label.removeAttribute('active');
-            label.active = false;
-            this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupActions.activate();
+          if (tab.active) {
+            tab.removeAttribute('active');
+            tab.active = false;
+            this._getEnabledTabs()[0].tabGroupActions.toggle();
           }
         }
       },
       enable: (): void => {
-        if (label.disabled) {
-          label.removeAttribute('disabled');
-          label.disabled = false;
+        if (tab.disabled) {
+          tab.removeAttribute('disabled');
+          tab.disabled = false;
+        }
+      },
+      toggle: (): void => {
+        if (!tab.active && !tab.disabled) {
+          this.tabs.find((t) => t.active)?.tabGroupActions.deactivate();
+          tab.tabGroupActions.activate();
+        } else if (tab.disabled) {
+          console.warn('You cannot activate a disabled tab');
         }
       }
     };
-    label.relatedContent = label.nextElementSibling?.tagName === 'DIV'
-      ? label.nextElementSibling
+    tab.relatedContent = tab.nextElementSibling?.tagName === 'DIV'
+      ? tab.nextElementSibling
       : null;
-    label.tabIndex = -1;
-    label.active = label.hasAttribute('active');
-    label.disabled = label.hasAttribute('disabled');
-    label.setAttribute('role', 'tab');
-    label.setAttribute('aria-controls', this._ensureId(label));
-    label.setAttribute('aria-selected', 'false');
+    tab.tabIndex = -1;
+    tab.active = tab.hasAttribute('active');
+    tab.disabled = tab.hasAttribute('disabled');
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-controls', this._ensureId(tab));
+    tab.setAttribute('aria-selected', 'false');
 
-    if (label.relatedContent) {
-      label.relatedContent.setAttribute('role', 'tabpanel');
-      label.relatedContent.setAttribute('aria-labelledby', label.id);
-      if (label.active) {
-        label.relatedContent.setAttribute('active', '');
+    if (tab.relatedContent) {
+      tab.relatedContent.setAttribute('role', 'tabpanel');
+      tab.relatedContent.setAttribute('aria-labelledby', tab.id);
+      if (tab.active) {
+        tab.relatedContent.setAttribute('active', '');
       }
     } else {
       console.error('Missing content!');
     }
 
-    label.addEventListener('click', () => {
-      label.tabGroupActions.activate();
+    tab.addEventListener('click', () => {
+      tab.tabGroupActions.toggle();
     });
 
-    this._observer.observe(label, {
-      attributes: true
-    });
-    label.slot = 'tab-bar';
+    this._observer.observe(tab, tabObserverConfig);
+    tab.slot = 'tab-bar';
   }
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    const enabledTabs = this.labels.filter((l) => !l.hasAttribute('disabled'));
-    const cur = enabledTabs.findIndex((l) => l.active);
+    const enabledTabs = this._getEnabledTabs();
+    const cur = enabledTabs.findIndex((t) => t.active);
     const size = enabledTabs.length;
     const prev = cur === 0
       ? size - 1
@@ -261,11 +272,11 @@ export class LyneTabGroup {
     }
 
     if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
-      enabledTabs[prev].tabGroupActions.activate();
+      enabledTabs[prev].tabGroupActions.toggle();
       enabledTabs[prev].focus();
       evt.preventDefault();
     } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
-      enabledTabs[next].tabGroupActions.activate();
+      enabledTabs[next].tabGroupActions.toggle();
       enabledTabs[next].focus();
       evt.preventDefault();
     }
