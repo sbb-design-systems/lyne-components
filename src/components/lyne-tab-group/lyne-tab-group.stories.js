@@ -11,16 +11,16 @@ TO DO: icon component / fallback for undefined icons
 const Template = (args) => (
   <lyne-tab-group selected-index='0' dir={args.dir}>
 
-    <h1>{args.labelTab1}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
+    <h1>{args.labelTab1}{getMarkupForSvg(args.iconSlotTab1)}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
     <div>Content 1</div>
 
-    <h2>{args.labelTab2}{getMarkupForSvg('pie-small')}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
+    <h2>{args.labelTab2}{getMarkupForSvg(args.iconSlotTab2)}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
     <div>Content 2</div>
 
-    <h3 disabled={args.disabled}>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
+    <h3 disabled={args.disabled}>{args.labelTab3}{getMarkupForSvg(args.iconSlotTab3)}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
     <div>Content 3</div>
 
-    <h4>{args.labelTab4}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
+    <h4>{args.labelTab4}{getMarkupForSvg(args.iconSlotTab4)}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
     <div>Content 4 <h3>Content header</h3></div>
 
   </lyne-tab-group>

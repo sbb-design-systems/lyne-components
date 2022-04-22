@@ -7,5 +7,7 @@ export interface InterfaceLyneTabGroupAttributes extends HTMLStencilElement {
 export interface InterfaceLyneTabGroupLabel extends HTMLStencilElement {
   active?: boolean;
   disabled?: boolean;
-  tabGroupState?: { relatedContent?: Element; index?: number; activate(): void; disable(): void; enable(): void };
+  relatedContent?: Element;
+  index?: number;
+  tabGroupActions?: { activate(): void; disable(): void; enable(): void };
 }

@@ -35,18 +35,18 @@ export class LyneTabGroup {
   @Event() public selectedTabChange: EventEmitter<void>;
 
   @Method()
-  public disableTab(tabIndex: number): void {
-    this.labels[tabIndex].tabGroupState.disable();
+  public async disableTab(tabIndex: number): Promise<void> {
+    await this.labels[tabIndex].tabGroupActions.disable();
   }
 
   @Method()
-  public enableTab(tabIndex: number): void {
-    this.labels[tabIndex].tabGroupState.enable();
+  public async enableTab(tabIndex: number): Promise<void> {
+    await this.labels[tabIndex].tabGroupActions.enable();
   }
 
   @Method()
-  public activateTab(tabIndex: number): void {
-    this.labels[tabIndex].tabGroupState.activate();
+  public async activateTab(tabIndex: number): Promise<void> {
+    await this.labels[tabIndex].tabGroupActions.activate();
   }
 
   public labels: InterfaceLyneTabGroupLabel[];
@@ -59,22 +59,50 @@ export class LyneTabGroup {
     return (
       <Host>
         <div class='tab-group' role='tablist'>
-          <slot name='tab-bar' onSlotchange={() => this._onTabBarSlotChange()}></slot>
+          <slot name='tab-bar' onSlotchange={(): void => this._onTabsSlotChange()}></slot>
         </div>
 
         <div class='tab-content'>
-          <slot></slot>
+          <slot onSlotchange={(): void => this._onContentSlotChange()}></slot>
         </div>
       </Host>
     );
   }
 
-  private _onTabBarSlotChange(): void {
-    console.log('Tabs slot changed');
+  public componentWillLoad(): void {
+    this.labels = this._getLabels();
+    this.contents = this._getContents();
+    this.labels.forEach((label) => this._configure(label));
+    this._initSelection();
   }
 
-  public componentDidLoad(): void {
-    this._configure();
+  private _onContentSlotChange(): void {
+    const newLabels = this._getLabels()
+      .filter((label) => !this.labels.includes(label));
+    const newContents = this._getContents()
+      .filter((content) => !this.contents.includes(content));
+
+    // if a new tab/content is added
+    if (newLabels.length || newContents.length) {
+      this.labels = this.labels.concat(newLabels);
+      this.contents = this.contents.concat(newContents);
+      this.labels.forEach((label) => !label.relatedContent && this._configure(label));
+    }
+  }
+
+  private _onTabsSlotChange(): void {
+    const labels = this._getLabels();
+
+    // if a tab is removed from the tab bar
+    if (this.labels.length > labels.length) {
+      const removedTabs = this.labels.filter((label) => !labels.includes(label));
+
+      removedTabs.forEach((removedTab) => {
+        removedTab.relatedContent?.remove();
+      });
+      this.labels = labels;
+      this.contents = this._getContents();
+    }
   }
 
   public disconnectedCallback(): void {
@@ -103,12 +131,12 @@ export class LyneTabGroup {
   private _initSelection(): void {
     if (this.selectedIndex >= 0 && this.selectedIndex < this.labels.length) {
       if (this.labels[this.selectedIndex].hasAttribute('disabled')) {
-        this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupState.activate();
+        this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupActions.activate();
       } else {
-        this.labels[this.selectedIndex].tabGroupState.activate();
+        this.labels[this.selectedIndex].tabGroupActions.activate();
       }
     } else {
-      this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupState.activate();
+      this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupActions.activate();
     }
   }
 
@@ -119,20 +147,20 @@ export class LyneTabGroup {
       if (mutation.type === 'attributes') {
         if (mutation.attributeName === 'disabled') {
           if (label.hasAttribute('disabled') && label.getAttribute('disabled') !== 'false') {
-            label.tabGroupState.disable();
+            label.tabGroupActions.disable();
           } else if (!label.hasAttribute('disabled') || label.getAttribute('disabled') === 'false') {
-            label.tabGroupState.enable();
+            label.tabGroupActions.enable();
           }
         } else if (mutation.attributeName === 'active') {
           if (label.hasAttribute('active') && label.getAttribute('active') !== 'false' && !label.active) {
-            mutation.target.tabGroupState.activate();
-          } else if (!label.hasAttribute('active') && label.active) {
+            mutation.target.tabGroupActions.activate();
+          } else if ((!label.hasAttribute('active') && label.active) || label.getAttribute('active') === 'false') {
             const enabledTabs = this.labels.filter((l) => !l.hasAttribute('disabled'));
 
             if (label === enabledTabs[0]) {
               label.setAttribute('active', '');
             } else {
-              enabledTabs[0].tabGroupState.activate();
+              enabledTabs[0].tabGroupActions.activate();
             }
           }
         }
@@ -140,76 +168,79 @@ export class LyneTabGroup {
     }
   }
 
-  private _configure(): void {
-    this.labels = this._getLabels();
-    this.contents = this._getContents();
+  private _configure(label: InterfaceLyneTabGroupLabel): void {
+    label.tabGroupActions = {
+      activate: (): void => {
+        if (!label.active && !label.disabled) {
+          const prevTab = this.labels.find((l) => l.active);
 
-    this.labels.forEach((label, i) => {
-      label.tabGroupState = {
-        activate: (): void => {
-          if (!label.active && !label.disabled) {
-            const prevTab = this.labels.find((l) => l.active);
-
-            if (prevTab) {
-              prevTab.removeAttribute('active');
-              prevTab.active = false;
-              prevTab.tabIndex = -1;
-              prevTab.setAttribute('aria-selected', 'false');
-              prevTab.tabGroupState.relatedContent.removeAttribute('active');
-            }
-
-            label.setAttribute('active', '');
-            label.active = true;
-            label.tabIndex = 0;
-            label.setAttribute('aria-selected', 'true');
-            this.contents[i].setAttribute('active', '');
+          if (prevTab) {
+            prevTab.removeAttribute('active');
+            prevTab.active = false;
+            prevTab.tabIndex = -1;
+            prevTab.setAttribute('aria-selected', 'false');
+            prevTab.relatedContent?.removeAttribute('active');
           }
-        },
-        disable: (): void => {
-          if (!label.disabled) {
-            label.setAttribute('disabled', '');
-            label.disabled = true;
-            label.tabIndex = -1;
-            label.setAttribute('aria-selected', 'false');
-            this.contents[i].removeAttribute('active');
 
-            if (label.active) {
-              label.removeAttribute('active');
-              label.active = false;
-              this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupState.activate();
-            }
+          label.setAttribute('active', '');
+          label.active = true;
+          label.tabIndex = 0;
+          label.setAttribute('aria-selected', 'true');
+          label.relatedContent?.setAttribute('active', '');
+        } else if (label.disabled) {
+          console.warn('You cannot activate a disabled tab');
+        }
+      },
+      disable: (): void => {
+        if (!label.disabled) {
+          label.setAttribute('disabled', '');
+          label.disabled = true;
+          label.tabIndex = -1;
+          label.setAttribute('aria-selected', 'false');
+          label.relatedContent?.removeAttribute('active');
+
+          if (label.active) {
+            label.removeAttribute('active');
+            label.active = false;
+            this.labels.filter((l) => !l.hasAttribute('disabled'))[0].tabGroupActions.activate();
           }
-        },
-        enable: (): void => {
-          if (label.disabled) {
-            label.removeAttribute('disabled');
-            label.disabled = false;
-          }
-        },
-        index: i,
-        relatedContent: this.contents[i]
-      };
+        }
+      },
+      enable: (): void => {
+        if (label.disabled) {
+          label.removeAttribute('disabled');
+          label.disabled = false;
+        }
+      }
+    };
+    label.relatedContent = label.nextElementSibling?.tagName === 'DIV'
+      ? label.nextElementSibling
+      : null;
+    label.tabIndex = -1;
+    label.active = label.hasAttribute('active');
+    label.disabled = label.hasAttribute('disabled');
+    label.setAttribute('role', 'tab');
+    label.setAttribute('aria-controls', this._ensureId(label));
+    label.setAttribute('aria-selected', 'false');
 
-      label.slot = 'tab-bar';
-      label.tabIndex = -1;
-      label.active = label.hasAttribute('active');
-      label.disabled = label.hasAttribute('disabled');
-      label.setAttribute('role', 'tab');
-      label.setAttribute('aria-controls', this._ensureId(label));
-      label.setAttribute('aria-selected', 'false');
+    if (label.relatedContent) {
+      label.relatedContent.setAttribute('role', 'tabpanel');
+      label.relatedContent.setAttribute('aria-labelledby', label.id);
+      if (label.active) {
+        label.relatedContent.setAttribute('active', '');
+      }
+    } else {
+      console.error('Missing content!');
+    }
 
-      this.contents[i].setAttribute('role', 'tabpanel');
-      this.contents[i].setAttribute('aria-labelledby', label.id);
-
-      label.addEventListener('click', () => {
-        label.tabGroupState.activate();
-      });
-
-      this._observer.observe(label, {
-        attributes: true
-      });
+    label.addEventListener('click', () => {
+      label.tabGroupActions.activate();
     });
-    this._initSelection();
+
+    this._observer.observe(label, {
+      attributes: true
+    });
+    label.slot = 'tab-bar';
   }
 
   @Listen('keydown')
@@ -230,11 +261,11 @@ export class LyneTabGroup {
     }
 
     if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
-      enabledTabs[prev].tabGroupState.activate();
+      enabledTabs[prev].tabGroupActions.activate();
       enabledTabs[prev].focus();
       evt.preventDefault();
     } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
-      enabledTabs[next].tabGroupState.activate();
+      enabledTabs[next].tabGroupActions.activate();
       enabledTabs[next].focus();
       evt.preventDefault();
     }
