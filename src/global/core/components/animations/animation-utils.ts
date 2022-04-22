@@ -1,7 +1,5 @@
 import { AnimationKeyFrames } from './animation-interface';
 
-let animationPrefix: string | undefined;
-
 const convertCamelCaseToHypen = (str: string): string => str
   // eslint-disable-next-line prefer-named-capture-group
   .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
@@ -38,33 +36,12 @@ export const processKeyframes = (keyframes: AnimationKeyFrames): AnimationKeyFra
   return keyframes;
 };
 
-export const getAnimationPrefix = (el: HTMLElement): string => {
-  if (animationPrefix === undefined) {
-    const supportsUnprefixed = (el.style as any).animationName !== undefined;
-    const supportsWebkitPrefix = (el.style as any).webkitAnimationName !== undefined;
-
-    animationPrefix = (!supportsUnprefixed && supportsWebkitPrefix)
-      ? '-webkit-'
-      : '';
-  }
-
-  return animationPrefix;
-};
-
 export const setStyleProperty = (element: HTMLElement, propertyName: string, value: string | null): void => {
-  const prefix = propertyName.startsWith('animation')
-    ? getAnimationPrefix(element)
-    : '';
-
-  element.style.setProperty(prefix + propertyName, value);
+  element.style.setProperty(propertyName, value);
 };
 
 export const removeStyleProperty = (element: HTMLElement, propertyName: string): void => {
-  const prefix = propertyName.startsWith('animation')
-    ? getAnimationPrefix(element)
-    : '';
-
-  element.style.removeProperty(prefix + propertyName);
+  element.style.removeProperty(propertyName);
 };
 
 export const animationEnd = (el: HTMLElement | null, callback: (ev?: TransitionEvent) => void): () => void => {
@@ -139,7 +116,6 @@ export const getStyleContainer = (element: HTMLElement): any => {
 
 export const createKeyframeStylesheet = (keyframeName: string, keyframeRules: string, element: HTMLElement): HTMLElement => {
   const styleContainer = getStyleContainer(element);
-  const keyframePrefix = getAnimationPrefix(element);
 
   const existingStylesheet = styleContainer.querySelector(`#${keyframeName}`);
 
@@ -150,7 +126,7 @@ export const createKeyframeStylesheet = (keyframeName: string, keyframeRules: st
   const stylesheet = (element.ownerDocument || document).createElement('style');
 
   stylesheet.id = keyframeName;
-  stylesheet.textContent = `@${keyframePrefix}keyframes ${keyframeName} { ${keyframeRules} } @${keyframePrefix}keyframes ${keyframeName}-alt { ${keyframeRules} }`;
+  stylesheet.textContent = `@keyframes ${keyframeName} { ${keyframeRules} } @keyframes ${keyframeName}-alt { ${keyframeRules} }`;
 
   styleContainer.appendChild(stylesheet);
 

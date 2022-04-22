@@ -1,4 +1,3 @@
-import { getElementRoot } from '../../../helpers/overlay-helper';
 import {
   InterfaceHTMLLyneOverlayElement, InterfaceOverlay
 } from './overlays-interface';
@@ -163,7 +162,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
        * wrapper element as the traps live outside the wrapper.
        */
 
-      const overlayRoot = getElementRoot(lastOverlay);
+      const overlayRoot = lastOverlay.shadowRoot;
 
       if (!overlayRoot.contains(target)) {
         return;
