@@ -57,7 +57,6 @@ export class LyneTabGroup {
   }
 
   public tabs: InterfaceLyneTabGroupTab[];
-  public contents: Element[];
 
   private _lastUId = 0;
   private _observer = new MutationObserver(this._onTabAttributesChange.bind(this));
@@ -70,7 +69,7 @@ export class LyneTabGroup {
         </div>
 
         <div class='tab-content'>
-          <slot onSlotchange={(): void => this._onContentSlotChange()}></slot>
+          <slot onSlotchange={this._throttle((): void => this._onContentSlotChange(), 250)}></slot>
         </div>
       </Host>
     );
@@ -78,7 +77,6 @@ export class LyneTabGroup {
 
   public componentWillLoad(): void {
     this.tabs = this._getTabs();
-    this.contents = this._getContents();
     this.tabs.forEach((tab) => this._configure(tab));
     this._initSelection();
   }
@@ -86,29 +84,25 @@ export class LyneTabGroup {
   private _onContentSlotChange(): void {
     const newTabs = this._getTabs()
       .filter((tab) => !this.tabs.includes(tab));
-    const newContents = this._getContents()
-      .filter((content) => !this.contents.includes(content));
 
-    // if a new tab/content is added
-    if (newTabs.length || newContents.length) {
+    // if a new tab/content is added to the tab group
+    if (newTabs.length) {
+      newTabs.forEach((tab) => this._configure(tab));
       this.tabs = this.tabs.concat(newTabs);
-      this.contents = this.contents.concat(newContents);
-      this.tabs.forEach((tab) => !tab.relatedContent && this._configure(tab));
     }
   }
 
   private _onTabsSlotChange(): void {
-    const tabs = this._getTabs();
+    const newTabs = this._getTabs();
 
-    // if a tab is removed from the tab bar
-    if (this.tabs.length > tabs.length) {
-      const removedTabs = this.tabs.filter((tab) => !tabs.includes(tab));
+    // if a tab is removed from the tab group
+    if (newTabs.length < this.tabs.length) {
+      const removedTabs = this.tabs.filter((tab) => !newTabs.includes(tab));
 
       removedTabs.forEach((removedTab) => {
         removedTab.relatedContent?.remove();
       });
-      this.tabs = tabs;
-      this.contents = this._getContents();
+      this.tabs = newTabs;
     }
   }
 
@@ -116,13 +110,24 @@ export class LyneTabGroup {
     this._observer.disconnect();
   }
 
+  private _throttle(func, delay = 1000): any {
+    let shouldWait = false;
+
+    return (...args) => {
+      if (shouldWait) {
+        return;
+      }
+      func(...args);
+      shouldWait = true;
+      setTimeout(() => {
+        shouldWait = false;
+      }, delay);
+    };
+  }
+
   private _getTabs(): InterfaceLyneTabGroupTab[] {
     return (Array.from(this._element.children)
       .filter((child) => (/^H\d$/u).test(child.tagName)) as InterfaceLyneTabGroupTab[]);
-  }
-
-  private _getContents(): Element[] {
-    return Array.from(this._element.querySelectorAll('lyne-tab-group > div'));
   }
 
   private _getEnabledTabs(): InterfaceLyneTabGroupTab[] {
@@ -243,7 +248,7 @@ export class LyneTabGroup {
         tab.relatedContent.setAttribute('active', '');
       }
     } else {
-      console.error('Missing content!');
+      console.error('Missing content: you should provide a related content.');
     }
 
     tab.addEventListener('click', () => {
