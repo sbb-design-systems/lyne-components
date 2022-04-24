@@ -3,11 +3,6 @@ import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-/*
-TO DO: icon component / fallback for undefined icons
-{getMarkupForSvg(args.iconSlotTab1)}
-*/
-
 const Template = (args) => (
   <lyne-tab-group selected-index='0' dir={args.dir}>
 
@@ -198,16 +193,16 @@ const basicArgTypes = {
 const basicArgs = {
   dir,
   labelTab1: 'Tab label one',
-  iconSlotTab1,
+  iconSlotTab1: '',
   amountSlotTab1,
   labelTab2: 'Tab label two',
-  iconSlotTab2,
+  iconSlotTab2: '',
   amountSlotTab2,
   labelTab3: 'Tab label three',
-  iconSlotTab3,
+  iconSlotTab3: '',
   amountSlotTab3,
   labelTab4: 'Tab label four',
-  iconSlotTab4,
+  iconSlotTab4: '',
   amountSlotTab4,
   disabled: true
 };
