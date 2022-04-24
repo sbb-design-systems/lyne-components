@@ -597,9 +597,21 @@ export namespace Components {
         "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
     }
     interface LyneTabGroup {
+        /**
+          * Activate tab by index
+         */
         "activateTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Disable tab by index
+         */
         "disableTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Enable tab by index
+         */
         "enableTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
         "selectedIndex": number;
     }
     interface LyneTeaserHero {
@@ -1790,7 +1802,9 @@ declare namespace LocalJSX {
         "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
     }
     interface LyneTabGroup {
-        "onSelectedTabChange"?: (event: CustomEvent<void>) => void;
+        /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
         "selectedIndex"?: number;
     }
     interface LyneTeaserHero {

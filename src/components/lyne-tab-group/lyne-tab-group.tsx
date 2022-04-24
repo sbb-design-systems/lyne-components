@@ -1,8 +1,6 @@
 import {
   Component,
   Element,
-  Event,
-  EventEmitter,
   h,
   Host,
   Listen,
@@ -10,6 +8,7 @@ import {
   Prop
 } from '@stencil/core';
 import { InterfaceLyneTabGroupTab } from './lyne-tab-group.custom';
+import throttle from '../../global/helpers/throttle';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -33,31 +32,41 @@ const tabObserverConfig: MutationObserverInit = {
 
 export class LyneTabGroup {
 
-  @Element() private _element: HTMLElement;
-
+  /**
+   * Sets the initial tab. If it matches a disabled tab or exceeds the length of
+   * the tab group, the first enabled tab will be selected.
+   */
   @Prop({
     mutable: true
   }) public selectedIndex = 0;
 
-  @Event() public selectedTabChange: EventEmitter<void>;
-
+  /**
+   * Disable tab by index
+   */
   @Method()
   public async disableTab(tabIndex: number): Promise<void> {
     await this.tabs[tabIndex].tabGroupActions.disable();
   }
 
+  /**
+   * Enable tab by index
+   */
   @Method()
   public async enableTab(tabIndex: number): Promise<void> {
     await this.tabs[tabIndex].tabGroupActions.enable();
   }
 
+  /**
+   * Activate tab by index
+   */
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {
     await this.tabs[tabIndex].tabGroupActions.toggle();
   }
 
-  public tabs: InterfaceLyneTabGroupTab[];
+  @Element() private _element: HTMLElement;
 
+  public tabs: InterfaceLyneTabGroupTab[];
   private _lastUId = 0;
   private _observer = new MutationObserver(this._onTabAttributesChange.bind(this));
 
@@ -65,11 +74,11 @@ export class LyneTabGroup {
     return (
       <Host>
         <div class='tab-group' role='tablist'>
-          <slot name='tab-bar' onSlotchange={(): void => this._onTabsSlotChange()}></slot>
+          <slot name='tab-bar' onSlotchange={this._onTabsSlotChange}></slot>
         </div>
 
         <div class='tab-content'>
-          <slot onSlotchange={this._throttle((): void => this._onContentSlotChange(), 250)}></slot>
+          <slot onSlotchange={throttle(this._onContentSlotChange, 250)}></slot>
         </div>
       </Host>
     );
@@ -81,7 +90,11 @@ export class LyneTabGroup {
     this._initSelection();
   }
 
-  private _onContentSlotChange(): void {
+  public disconnectedCallback(): void {
+    this._observer.disconnect();
+  }
+
+  private _onContentSlotChange = (): void => {
     const newTabs = this._getTabs()
       .filter((tab) => !this.tabs.includes(tab));
 
@@ -90,9 +103,9 @@ export class LyneTabGroup {
       newTabs.forEach((tab) => this._configure(tab));
       this.tabs = this.tabs.concat(newTabs);
     }
-  }
+  };
 
-  private _onTabsSlotChange(): void {
+  private _onTabsSlotChange = (): void => {
     const newTabs = this._getTabs();
 
     // if a tab is removed from the tab group
@@ -104,26 +117,7 @@ export class LyneTabGroup {
       });
       this.tabs = newTabs;
     }
-  }
-
-  public disconnectedCallback(): void {
-    this._observer.disconnect();
-  }
-
-  private _throttle(func, delay = 1000): any {
-    let shouldWait = false;
-
-    return (...args) => {
-      if (shouldWait) {
-        return;
-      }
-      func(...args);
-      shouldWait = true;
-      setTimeout(() => {
-        shouldWait = false;
-      }, delay);
-    };
-  }
+  };
 
   private _getTabs(): InterfaceLyneTabGroupTab[] {
     return (Array.from(this._element.children)
@@ -134,11 +128,11 @@ export class LyneTabGroup {
     return this.tabs.filter((t) => !t.hasAttribute('disabled'));
   }
 
-  private _nextUId(): any {
+  private _nextUId(): string {
     return `lt${++this._lastUId}`;
   }
 
-  private _ensureId(el): any {
+  private _ensureId(el): string {
     el.id = el.id || this._nextUId();
 
     return el.id;
