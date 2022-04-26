@@ -26,13 +26,15 @@
     color: var(--color-black-default);
     border: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-cloud-default);
     background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
     border-radius: 20px;
     line-height: var(--typo-line-height-body-text);
     font-family: var(--typo-type-face-sbb-bold);
     font-weight: 700;
     font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
-    transition: color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
-    transition: background-color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+    transition: color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
+                border var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
+                background-color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
     @include mq($from: medium) {
       font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
     }
