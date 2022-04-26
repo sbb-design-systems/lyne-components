@@ -309,6 +309,9 @@ export class LyneImage {
       imageUrlWithParams = `${imageUrlWithParams}${imageParameters.focalPointDebug}`;
     }
 
+    // merge params component user could define by adding it to url (imgix.com?flip=h) and params added before (auto, compress, fit, ...)
+    imageUrlWithParams = this.prepareImageUrl(imageUrlWithParams);
+
     if (this.hideFromScreenreader) {
       attributes['aria-hidden'] = 'true';
       attributes.role = 'presentation';
@@ -535,7 +538,23 @@ export class LyneImage {
     } else {
       this._addFocusAbilityToLinksInCaption();
     }
-
   }
 
+  private prepareImageUrl(imageUrlWithParams: string): string {
+    let imgUrl, userDefinedParams, componentParams;
+    let imgUrlParts = imageUrlWithParams?.split('?');
+
+    if(imgUrlParts?.length > 1) { 
+      imgUrl = imgUrlParts[0];
+      // set user defined parameters
+      userDefinedParams = imgUrlParts?.length > 2 ? `&${imgUrlParts[1]}` : '';
+      // set parameters added by component
+      componentParams = imgUrlParts?.length > 2 ? imgUrlParts[2] : imgUrlParts[1];
+
+      // get all params together
+      imgUrl = `${imgUrl}?${componentParams}${userDefinedParams}`;
+    }
+
+    return imgUrl ?? imageUrlWithParams;
+  }
 }
