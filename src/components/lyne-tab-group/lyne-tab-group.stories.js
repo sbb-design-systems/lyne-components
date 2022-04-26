@@ -279,5 +279,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-tab-group'
+  title: 'components/lyne-tab-group'
 };

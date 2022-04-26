@@ -38,5 +38,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lyne-tab-amount'
+  title: 'components/lyne-tab-amount'
 };
