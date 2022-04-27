@@ -141,12 +141,12 @@ export class LyneTabGroup {
   private _initSelection(): void {
     if (this.selectedIndex >= 0 && this.selectedIndex < this.tabs.length) {
       if (this.tabs[this.selectedIndex].hasAttribute('disabled')) {
-        this._getEnabledTabs()[0].tabGroupActions.toggle();
+        this._getEnabledTabs()[0]?.tabGroupActions.toggle();
       } else {
         this.tabs[this.selectedIndex].tabGroupActions.toggle();
       }
     } else {
-      this._getEnabledTabs()[0].tabGroupActions.toggle();
+      this._getEnabledTabs()[0]?.tabGroupActions.toggle();
     }
   }
 
@@ -206,7 +206,7 @@ export class LyneTabGroup {
           if (tab.active) {
             tab.removeAttribute('active');
             tab.active = false;
-            this._getEnabledTabs()[0].tabGroupActions.toggle();
+            this._getEnabledTabs()[0]?.tabGroupActions.toggle();
           }
         }
       },
@@ -225,6 +225,7 @@ export class LyneTabGroup {
         }
       }
     };
+    this._ensureId(tab);
     tab.relatedContent = tab.nextElementSibling?.tagName === 'DIV'
       ? tab.nextElementSibling
       : null;
@@ -232,7 +233,7 @@ export class LyneTabGroup {
     tab.active = tab.hasAttribute('active');
     tab.disabled = tab.hasAttribute('disabled');
     tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-controls', this._ensureId(tab));
+    tab.setAttribute('aria-controls', this._ensureId(tab.relatedContent));
     tab.setAttribute('aria-selected', 'false');
 
     if (tab.relatedContent) {
@@ -271,12 +272,12 @@ export class LyneTabGroup {
     }
 
     if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
-      enabledTabs[prev].tabGroupActions.toggle();
-      enabledTabs[prev].focus();
+      enabledTabs[prev]?.tabGroupActions.toggle();
+      enabledTabs[prev]?.focus();
       evt.preventDefault();
     } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
-      enabledTabs[next].tabGroupActions.toggle();
-      enabledTabs[next].focus();
+      enabledTabs[next]?.tabGroupActions.toggle();
+      enabledTabs[next]?.focus();
       evt.preventDefault();
     }
   }

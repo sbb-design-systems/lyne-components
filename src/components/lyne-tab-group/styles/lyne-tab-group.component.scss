@@ -3,9 +3,6 @@
 // and default mode
 @include host-component-properties;
 
-:host {
-  --some-color-var: var(--color-black-default);
-}
 
 .tab-group {
   display: flex;
@@ -113,17 +110,15 @@
   font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
   line-height: var(--typo-line-height-body-text);
   ::slotted(div) {
-    position: absolute;
     opacity: 0;
     visibility: hidden;
-    transition: all var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+    height: 0;
   }
   ::slotted(div[active]) {
     opacity: 1;
     visibility: visible;
+    height: 100%;
+    transition: opacity var(--animation-form-element-state-duration) var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
+                visibility var(--animation-form-element-state-duration) var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
   }
-}
-
-.tab-content-container {
-  position: relative;
 }

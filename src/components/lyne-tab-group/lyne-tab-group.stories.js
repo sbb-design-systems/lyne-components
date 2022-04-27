@@ -2,21 +2,35 @@ import events from './lyne-tab-group.events.ts';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import images from '../../global/images';
+
 
 const Template = (args) => (
   <lyne-tab-group selected-index='0' dir={args.dir}>
 
     <h1>{args.labelTab1}{getMarkupForSvg(args.iconSlotTab1)}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
-    <div>Content 1</div>
+    <div>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+      <h3>Content heading</h3>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+    </div>
 
     <h2>{args.labelTab2}{getMarkupForSvg(args.iconSlotTab2)}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
-    <div>Content 2</div>
+    <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec</div>
 
     <h3 disabled={args.disabled}>{args.labelTab3}{getMarkupForSvg(args.iconSlotTab3)}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
-    <div>Content 3</div>
+    <div>I was disabled.</div>
 
     <h4>{args.labelTab4}{getMarkupForSvg(args.iconSlotTab4)}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
-    <div>Content 4 <h3>Content header</h3></div>
+    <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+    <lyne-image style='margin-top: 1rem' image-src-examples={images[0]}></lyne-image>
+    </div>
 
   </lyne-tab-group>
 );
