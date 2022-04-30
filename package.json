@@ -58,7 +58,7 @@
     "@storybook/html": "~6.4.0",
     "@types/jest": "27.4.1",
     "@types/puppeteer": "5.4.5",
-    "@typescript-eslint/eslint-plugin": "~5.20.0",
+    "@typescript-eslint/eslint-plugin": "~5.21.0",
     "@typescript-eslint/parser": "~5.20.0",
     "axios": "~0.26.0",
     "babel-loader": "^8.1.0",
