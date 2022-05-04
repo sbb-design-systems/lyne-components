@@ -11,9 +11,10 @@ let lastId = 0;
 export const BACKDROP = 'backdrop';
 
 /**
- * TODO replace the tags in the next line with the correct ones for Lyne
+ * TODO replace the tags in the next lines with the correct ones for Lyne
  */
 export const GET_OVERLAYS_DEFAULT_SELECTOR = 'lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover,lyne-toast';
+export const GET_OVERLAYS_TRAP_FOCUS_SELECTOR = 'lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover';
 
 export const activeAnimations = new WeakMap<InterfaceOverlay, InterfaceAnimation[]>();
 
@@ -101,10 +102,7 @@ const focusLastDescendant = (ref: Element, overlay: InterfaceHTMLLyneOverlayElem
  */
 const trapKeyboardFocus = (ev: Event, doc: Document): void => {
 
-  /**
-   * TODO replace the tags in the next line with the correct ones for Lyne
-   */
-  const lastOverlay = getOverlay(doc, 'lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover');
+  const lastOverlay = getOverlay(doc, GET_OVERLAYS_TRAP_FOCUS_SELECTOR);
   const target = ev.target as HTMLElement | null;
 
   /**
@@ -130,7 +128,6 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
    * behind the sheet should be focusable until
    * the backdrop is enabled.
    *
-   * TODO replace the tag in the next line with the correct one for Lyne
    */
   if (lastOverlay.classList.contains('lyne-disable-focus-trap')) {
     return;
@@ -168,9 +165,6 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
         return;
       }
 
-      /**
-       * TODO replace the tag in the next line with the correct one for Lyne
-       */
       const overlayWrapper = overlayRoot.querySelector('.lyne-overlay-wrapper');
 
       if (!overlayWrapper) {

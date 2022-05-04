@@ -24,6 +24,7 @@ export const processKeyframes = (keyframes: AnimationKeyFrames): AnimationKeyFra
         } else {
           const newKey = convertCamelCaseToHypen(key);
 
+          // eslint-disable-next-line max-depth
           if (newKey !== key) {
             keyframe[newKey] = value;
             delete keyframe[key];
@@ -42,6 +43,10 @@ export const setStyleProperty = (element: HTMLElement, propertyName: string, val
 
 export const removeStyleProperty = (element: HTMLElement, propertyName: string): void => {
   element.style.removeProperty(propertyName);
+};
+
+export const removeStyleProperties = (element: HTMLElement, propertyNames: string[]): void => {
+  propertyNames.forEach((propertyName: string) => removeStyleProperty(element, propertyName));
 };
 
 export const animationEnd = (el: HTMLElement | null, callback: (ev?: TransitionEvent) => void): () => void => {
@@ -124,17 +129,8 @@ export const createKeyframeStylesheet = (keyframeName: string, keyframeRules: st
   return stylesheet;
 };
 
-export const addClassToArray = (classes: string[] = [], className: string | string[] | undefined): string[] => {
-  if (className !== undefined) {
-    const classNameToAppend = (Array.isArray(className))
-      ? className
-      : [className];
-
-    return [
-      ...classes,
-      ...classNameToAppend
-    ];
-  }
-
-  return classes;
-};
+export const addClassToArray = (classes: string[] = [], className: string | string[] | undefined): string[] => (
+  className === undefined
+    ? classes
+    : classes.concat(className)
+);
