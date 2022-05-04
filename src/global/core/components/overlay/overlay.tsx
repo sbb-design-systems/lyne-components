@@ -513,9 +513,7 @@ export const dismiss = async (overlay: InterfaceOverlay, data: any | undefined, 
       role
     });
 
-    const animationBuilder = (overlay.leaveAnimation)
-      ? overlay.leaveAnimation
-      : leaveAnimation;
+    const animationBuilder = overlay.leaveAnimation ?? leaveAnimation;
 
     // // If dismissed via gesture, no need to play leaving animation again
     if (role !== 'gesture') {

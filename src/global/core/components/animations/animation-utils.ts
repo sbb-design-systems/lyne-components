@@ -10,7 +10,7 @@ const convertCamelCaseToHypen = (str: string): string => str
  * to be written in camelCase when animating
  */
 export const processKeyframes = (keyframes: AnimationKeyFrames): AnimationKeyFrames => {
-  keyframes.forEach((keyframe) => {
+  for (const keyframe of keyframes) {
     for (const key in keyframe) {
       // eslint-disable-next-line no-prototype-builtins
       if (keyframe.hasOwnProperty(key)) {
@@ -31,7 +31,7 @@ export const processKeyframes = (keyframes: AnimationKeyFrames): AnimationKeyFra
         }
       }
     }
-  });
+  }
 
   return keyframes;
 };
@@ -45,16 +45,12 @@ export const removeStyleProperty = (element: HTMLElement, propertyName: string):
 };
 
 export const animationEnd = (el: HTMLElement | null, callback: (ev?: TransitionEvent) => void): () => void => {
-  let unRegTrans: (() => void) | undefined;
+  let unregisterTransition: (() => void) | undefined;
   const opts: any = {
     passive: true
   };
 
-  const unregister = (): void => {
-    if (unRegTrans) {
-      unRegTrans();
-    }
-  };
+  const unregister = (): void => unregisterTransition?.();
 
   const onTransitionEnd = (ev: Event): void => {
     if (el === ev.target) {
@@ -65,11 +61,9 @@ export const animationEnd = (el: HTMLElement | null, callback: (ev?: TransitionE
   };
 
   if (el) {
-    el.addEventListener('webkitAnimationEnd', onTransitionEnd, opts);
     el.addEventListener('animationend', onTransitionEnd, opts);
 
-    unRegTrans = (): void => {
-      el.removeEventListener('webkitAnimationEnd', onTransitionEnd, opts);
+    unregisterTransition = (): void => {
       el.removeEventListener('animationend', onTransitionEnd, opts);
     };
   }
@@ -80,17 +74,14 @@ export const animationEnd = (el: HTMLElement | null, callback: (ev?: TransitionE
 export const generateKeyframeRules = (keyframes: any[] = []): string => keyframes
   .map((keyframe) => {
     const {
-      offset
+      offset, ...properties
     } = keyframe;
 
-    const frameString = [];
-
-    for (const property in keyframe) {
-      // eslint-disable-next-line no-prototype-builtins
-      if (keyframe.hasOwnProperty(property) && property !== 'offset') {
-        frameString.push(`${property}: ${keyframe[property]};`);
-      }
-    }
+    const frameString = Object.entries(properties)
+      .map(([
+        key,
+        value
+      ]) => `${key}: ${value};`);
 
     return `${offset * 100}% { ${frameString.join(' ')} }`;
   })
