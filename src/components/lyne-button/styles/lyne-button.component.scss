@@ -21,36 +21,6 @@
   @include buttonSecondaryNegativeVariables();
 }
 
-.button--tertiary {
-  --color-active-background: var(--color-white-default);
-  --color-active-border: var(--color-charcoal-default);
-  --color-active-text: var(--color-charcoal-default);
-  --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-granite-default);
-  --color-default-text: var(--color-granite-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-white-default);
-  --color-hover-background: var(--color-white-default);
-  --color-hover-border: var(--color-black-default);
-  --color-hover-text: var(--color-black-default);
-}
-
-.button--tertiary-negative {
-  --color-active-background: transparent;
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-cloud-default);
-  --color-default-background: transparent;
-  --color-default-border: var(--color-white-default);
-  --color-default-text: var(--color-white-default);
-  --color-disabled-background: transparent;
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: transparent;
-  --color-hover-border: var(--color-milk-default);
-  --color-hover-text: var(--color-milk-default);
-}
-
 .button--translucent {
   --color-active-background: var(--color-black-alpha-70);
   --color-active-border: var(--color-black-alpha-0);
@@ -106,8 +76,8 @@
   --color-disabled-background: transparent;
   --color-disabled-border: transparent;
   --color-disabled-text: var(--color-granite-default);
-  --color-hover-background: var(--color-black-default);
-  --color-hover-border: var(--color-black-default);
+  --color-hover-background: var(--color-charcoal-default);
+  --color-hover-border: var(--color-charcoal-default);
   --color-hover-text: var(--color-white-default);
 }
 
@@ -121,6 +91,12 @@
 
   width: pxToRem(var(--min-height-hover, var(--min-height)));
   justify-content: center;
+
+  &.button:disabled::after {
+    inset-inline: pxToRem(
+      calc(var(--line-through-icon-button-padding-inline) - var(--border-width))
+    );
+  }
 }
 
 .button {
@@ -164,11 +140,19 @@
 }
 
 .button:disabled {
-  text-decoration: line-through;
   color: var(--color-disabled-text);
   background-color: var(--color-disabled-background);
   border-color: var(--color-disabled-border);
   cursor: default;
+
+  // Line through content
+  &::after {
+    position: absolute;
+    content: "";
+    background-color: var(--color-disabled-text);
+    height: pxToRem(var(--line-through-height-disabled));
+    inset-inline: pxToRem(var(--padding-inline));
+  }
 
   ::slotted(svg) {
     @include ifForcedColors {
@@ -187,8 +171,6 @@
 }
 
 .button--secondary-negative,
-.button--tertiary,
-.button--tertiary-negative,
 .button--translucent,
 .button--translucent-negative,
 .button--transparent,

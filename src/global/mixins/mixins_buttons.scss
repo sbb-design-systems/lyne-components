@@ -18,8 +18,11 @@
 @mixin buttonVariables {
   --font-family: var(--typo-type-face-sbb-bold);
   --font-size: var(--lyne-font-size-text-xs);
-  --letter-spacing: 0.01em;
+  --letter-spacing: var(--typo-letter-spacing-body-text);
   --line-height: var(--typo-line-height-body-text);
+  --icon-size: var(--size-icon-ui-small);
+  --line-through-height-disabled: 2;
+  --line-through-icon-button-padding-inline: 12;
 
   // we use primary button styles as default values
   --color-active-background: var(--color-red150-default);
@@ -38,9 +41,9 @@
   --border-width: var(--border-width-2x);
   --border-radius: var(--border-radius-16x);
   --min-height: var(--size-form-element-l-min-height);
-  --transition-duration: var(--animation-form-element-state-duration);
-  --transition-easing-function: var(--animation-form-element-state-easing);
-  --padding-block: var(--spacing-fixed-3x);
+  --transition-duration: var(--animation-duration-2x);
+  --transition-easing-function: var(--animation-easing);
+  --padding-block-min: var(--spacing-fixed-1x);
   --padding-inline: var(--spacing-fixed-8x);
   --gap: var(--spacing-fixed-2x);
 
@@ -67,8 +70,8 @@
   --shadow-2-hover-spread: 0;
 
   @include mq($from: medium) {
-    --padding-block: var(--spacing-fixed-4x);
     --padding-inline: var(--spacing-fixed-10x);
+    --line-through-icon-button-padding-inline: 16;
   }
 }
 
@@ -153,9 +156,9 @@
   --color-default-background: transparent;
   --color-default-border: var(--color-white-default);
   --color-default-text: var(--color-white-default);
-  --color-disabled-background: transparent;
+  --color-disabled-background: var(--color-black-alpha-10);
   --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-black-alpha-60);
+  --color-disabled-text: var(--color-aluminium-default);
   --color-hover-background: transparent;
   --color-hover-border: var(--color-milk-default);
   --color-hover-text: var(--color-milk-default);
@@ -164,12 +167,12 @@
 @mixin buttonSizeMVariables {
   --border-width: var(--border-width-1x);
   --min-height: var(--size-form-element-m-min-height);
-  --padding-block: var(--spacing-fixed-2x);
   --padding-inline: var(--spacing-fixed-5x);
+  --line-through-icon-button-padding-inline: 10;
 
   @include mq($from: medium) {
-    --padding-block: var(--spacing-fixed-3x);
     --padding-inline: var(--spacing-fixed-8x);
+    --line-through-icon-button-padding-inline: 12;
   }
 }
 
@@ -182,14 +185,17 @@
   align-items: center;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
-  transition-property: background-color, color, border-color, box-shadow,
-    padding, margin, min-height, width;
+  transition-property: background-color, color, border-color, box-shadow, margin,
+    min-height, padding, width;
   min-height: pxToRem(var(--min-height));
   border: pxToRem(var(--border-width)) solid var(--color-default-border);
   border-radius: pxToRem(var(--border-radius));
   background-color: var(--color-default-background);
 
-  padding-block: pxToRem(calc(var(--padding-block) - var(--border-width)));
+  // The padding value is only a minimal padding to preserve a padding if the content becomes larger than intended.
+  // Positioning of the content is made by flexbox vertical centering.
+  // The real padding displayed is larger than the defined value below.
+  padding-block: pxToRem(var(--padding-block-min));
   padding-inline: pxToRem(var(--padding-inline));
   color: var(--color-default-text);
   font-family: var(--font-family);
@@ -199,10 +205,10 @@
   line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
 
-  // TODO: Describe the purpose
-  &:before {
+  // TODO: Find out and describe the purpose
+  &::before {
     position: absolute;
-    content: '';
+    content: "";
     inset: pxToRem(var(--border-width), true);
     border-radius: pxToRem(var(--border-radius));
     border: pxToRem(var(--border-width)) solid var(--color-default-border);
@@ -229,8 +235,8 @@
 
 @mixin buttonIcon {
   display: block;
-  width: pxToRem(var(--size-icon-ui-small));
-  height: pxToRem(var(--size-icon-ui-small));
+  width: pxToRem(var(--icon-size));
+  height: pxToRem(var(--icon-size));
   color: currentColor;
 }
 
@@ -243,9 +249,7 @@
   border-color: var(--color-hover-border);
   min-height: pxToRem(var(--min-height-hover));
   margin: pxToRem(var(--border-width), true);
-  padding-block: pxToRem(var(--padding-block));
   padding-inline: pxToRem(calc(var(--padding-inline) + var(--border-width)));
-
 
   box-shadow: pxToRem(var(--shadow-1-hover-offset-x))
       pxToRem(var(--shadow-1-hover-offset-y))
