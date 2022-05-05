@@ -1,4 +1,3 @@
-
 import {
   Component,
   h,
@@ -271,7 +270,6 @@ export class LyneImage {
   }
 
   public render(): JSX.Element {
-
     const imageSrc = this.imageSrc
       ? this.imageSrc
       : this.imageSrcExamples;
@@ -309,8 +307,12 @@ export class LyneImage {
       imageUrlWithParams = `${imageUrlWithParams}${imageParameters.focalPointDebug}`;
     }
 
-    // merge params component user could define by adding it to url (imgix.com?flip=h) and params added before (auto, compress, fit, ...)
-    imageUrlWithParams = this.prepareImageUrl(imageUrlWithParams);
+    /*
+     * merge params component user could define by adding it to
+     * url (imgix.com?flip=h) and params added before
+     * (auto, compress, fit, ...)
+     */
+    imageUrlWithParams = this._removeDoubledQuestionMarksFromUrl(imageUrlWithParams);
 
     if (this.hideFromScreenreader) {
       attributes['aria-hidden'] = 'true';
@@ -540,21 +542,19 @@ export class LyneImage {
     }
   }
 
-  private prepareImageUrl(imageUrlWithParams: string): string {
-    let imgUrl, userDefinedParams, componentParams;
-    let imgUrlParts = imageUrlWithParams?.split('?');
+  private _removeDoubledQuestionMarksFromUrl(imageUrlWithParams: string): string {
+    const imgUrlParts = imageUrlWithParams?.split('?');
 
-    if(imgUrlParts?.length > 1) { 
-      imgUrl = imgUrlParts[0];
-      // set user defined parameters
-      userDefinedParams = imgUrlParts?.length > 2 ? `&${imgUrlParts[1]}` : '';
-      // set parameters added by component
-      componentParams = imgUrlParts?.length > 2 ? imgUrlParts[2] : imgUrlParts[1];
-
-      // get all params together
-      imgUrl = `${imgUrl}?${componentParams}${userDefinedParams}`;
+    if (imgUrlParts?.length <= 1) {
+      return imageUrlWithParams;
     }
 
-    return imgUrl ?? imageUrlWithParams;
+    const [
+      imgUrl,
+      ...params
+    ] = imgUrlParts;
+
+    return `${imgUrl}?${params.reverse()
+      .join('&')}`;
   }
 }
