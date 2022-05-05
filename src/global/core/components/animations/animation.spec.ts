@@ -1,4 +1,4 @@
-import { createAnimation } from './animation';
+import { Animation } from './animation';
 import { processKeyframes } from './animation-utils';
 import { InterfaceAnimation } from './animation-interface';
 
@@ -8,7 +8,7 @@ describe('Animation Class', () => {
     let animation: InterfaceAnimation;
 
     beforeEach(() => {
-      animation = createAnimation();
+      animation = new Animation();
     });
 
     it('should add 1 element', () => {
@@ -50,11 +50,11 @@ describe('Animation Class', () => {
     let animation: InterfaceAnimation;
 
     beforeEach(() => {
-      animation = createAnimation();
+      animation = new Animation();
     });
 
     it('should add 1 animation', () => {
-      const newAnimation = createAnimation();
+      const newAnimation = new Animation();
 
       animation.addAnimation(newAnimation);
 
@@ -64,9 +64,9 @@ describe('Animation Class', () => {
 
     it('should add multiple animations', () => {
       animation.addAnimation([
-        createAnimation(),
-        createAnimation(),
-        createAnimation()
+        new Animation(),
+        new Animation(),
+        new Animation()
       ]);
 
       expect(animation.childAnimations.length)
@@ -86,7 +86,7 @@ describe('Animation Class', () => {
     let animation: InterfaceAnimation;
 
     beforeEach(() => {
-      animation = createAnimation();
+      animation = new Animation();
     });
 
     it('should generate a keyframe', () => {
@@ -227,7 +227,7 @@ describe('Animation Class', () => {
     let animation: InterfaceAnimation;
 
     beforeEach(() => {
-      animation = createAnimation();
+      animation = new Animation();
     });
 
     it('should get "linear" when easing not set', () => {
@@ -236,7 +236,7 @@ describe('Animation Class', () => {
     });
 
     it('should get parent easing when child easing is not set', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       animation
         .addAnimation(childAnimation)
@@ -247,7 +247,7 @@ describe('Animation Class', () => {
     });
 
     it('should get prefer child easing over parent easing', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       childAnimation.easing('linear');
 
@@ -277,7 +277,7 @@ describe('Animation Class', () => {
     });
 
     it('should get parent duration when child duration is not set', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       animation
         .addAnimation(childAnimation)
@@ -288,7 +288,7 @@ describe('Animation Class', () => {
     });
 
     it('should get prefer child duration over parent duration', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       childAnimation.duration(500);
 
@@ -306,7 +306,7 @@ describe('Animation Class', () => {
     });
 
     it('should get parent delay when child delay is not set', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       animation
         .addAnimation(childAnimation)
@@ -317,7 +317,7 @@ describe('Animation Class', () => {
     });
 
     it('should get prefer child delay over parent delay', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       childAnimation.delay(500);
 
@@ -335,7 +335,7 @@ describe('Animation Class', () => {
     });
 
     it('should get parent iterations when child iterations is not set', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       animation
         .addAnimation(childAnimation)
@@ -346,7 +346,7 @@ describe('Animation Class', () => {
     });
 
     it('should get prefer child iterations over parent iterations', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       childAnimation.iterations(2);
 
@@ -364,7 +364,7 @@ describe('Animation Class', () => {
     });
 
     it('should get parent fill when child fill is not set', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       animation
         .addAnimation(childAnimation)
@@ -375,7 +375,7 @@ describe('Animation Class', () => {
     });
 
     it('should get prefer child fill over parent fill', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       childAnimation.fill('none');
 
@@ -393,7 +393,7 @@ describe('Animation Class', () => {
     });
 
     it('should get parent direction when child direction is not set', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       animation
         .addAnimation(childAnimation)
@@ -404,7 +404,7 @@ describe('Animation Class', () => {
     });
 
     it('should get prefer child direction over parent direction', () => {
-      const childAnimation = createAnimation();
+      const childAnimation = new Animation();
 
       childAnimation.direction('alternate-reverse');
 
