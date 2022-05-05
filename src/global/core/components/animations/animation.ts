@@ -44,7 +44,7 @@ interface InterfaceAnimationInternal extends InterfaceAnimation {
 export class Animation implements InterfaceAnimationInternal {
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  private static readonly ANIMATION_END_FALLBACK_PADDING_MS = 100;
+  private static readonly _ANIMATION_END_FALLBACK_PADDING_MS = 100;
 
   public constructor(animationId?: string) {
     this.id = animationId;
@@ -549,12 +549,9 @@ export class Animation implements InterfaceAnimationInternal {
     return this;
   };
 
-  // eslint-disable-next-line arrow-body-style
-  public fromTo = (property: string, fromValue: any, toValue: any): InterfaceAnimation => {
-    return this
-      .from(property, fromValue)
-      .to(property, toValue);
-  };
+  public fromTo = (property: string, fromValue: any, toValue: any): InterfaceAnimation => this
+    .from(property, fromValue)
+    .to(property, toValue);
 
   private _initializeAnimation = (toggleAnimationName = true): void => {
     this._beforeAnimation();
@@ -571,7 +568,7 @@ export class Animation implements InterfaceAnimationInternal {
   };
 
   private _initializeWebAnimation = (): void => {
-    this.elements.forEach((element) => {
+    for (const element of this.elements) {
       const animation = element.animate(this._keyframes, {
         delay: this.getDelay(),
         direction: this.getDirection(),
@@ -585,7 +582,7 @@ export class Animation implements InterfaceAnimationInternal {
       animation.pause();
 
       this._webAnimations.push(animation);
-    });
+    }
 
     if (this._webAnimations.length > 0) {
       this._webAnimations[0].onfinish = (): void => {
@@ -737,7 +734,7 @@ export class Animation implements InterfaceAnimationInternal {
 
       // No need to set a timeout when animation has infinite iterations
       if (isFinite(animationIterations)) {
-        this._cssAnimationsTimerFallback = setTimeout(this._onAnimationEndFallback, animationDelay + (animationDuration * animationIterations) + Animation.ANIMATION_END_FALLBACK_PADDING_MS);
+        this._cssAnimationsTimerFallback = setTimeout(this._onAnimationEndFallback, animationDelay + (animationDuration * animationIterations) + Animation._ANIMATION_END_FALLBACK_PADDING_MS);
       }
 
       animationEnd(this.elements[0], () => {
@@ -820,7 +817,7 @@ export class Animation implements InterfaceAnimationInternal {
 
   private _updateCSSAnimation = (toggleAnimationName = true, step?: number): void => {
     raf(() => {
-      this.elements.forEach((element) => {
+      for (const element of this.elements) {
         setStyleProperty(element, 'animation-name', this._keyframeName || null);
         setStyleProperty(element, 'animation-duration', `${this.getDuration()}ms`);
         setStyleProperty(element, 'animation-timing-function', this.getEasing());
@@ -844,7 +841,7 @@ export class Animation implements InterfaceAnimationInternal {
         raf(() => {
           setStyleProperty(element, 'animation-name', this._keyframeName || null);
         });
-      });
+      }
     });
   };
 
