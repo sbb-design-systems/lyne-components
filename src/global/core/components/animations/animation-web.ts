@@ -1,22 +1,7 @@
-import {
-  AnimationKeyFrames,
-  InterfaceAnimationInternal
-} from './animation-interface';
+import { AnimationKeyFrames } from './animation-interface';
 import { AbstractAnimation } from './animation-abstract';
 
 export class AnimationWeb extends AbstractAnimation {
-
-  public update = (deep = false, toggleAnimationName = true, step?: number): InterfaceAnimationInternal => {
-    if (deep) {
-      this.childAnimations.forEach((animation) => {
-        animation.update(deep, toggleAnimationName, step);
-      });
-    }
-
-    this._updateWebAnimation(step);
-
-    return this;
-  };
 
   public setAnimationStep = (step: number): void => {
     const safeStep = Math.min(Math.max(step, 0), 0.9999);
@@ -37,7 +22,7 @@ export class AnimationWeb extends AbstractAnimation {
     this.initialized = true;
   };
 
-  protected playImpl = (): void => {
+  protected playInternal = (): void => {
     this._playWebAnimations();
   };
 
@@ -49,7 +34,7 @@ export class AnimationWeb extends AbstractAnimation {
     }
   };
 
-  protected progressEndImpl(playTo: 0 | 1, step: number): void {
+  protected progressEndInternal = (playTo: 0 | 1, step: number): void => {
     if (playTo === 0) {
       this.forceDirectionValue = (this.getDirection() === 'reverse')
         ? 'normal'
@@ -63,7 +48,7 @@ export class AnimationWeb extends AbstractAnimation {
       this.update();
       this.setAnimationStep(step);
     }
-  }
+  };
 
   protected updateKeyframes = (keyframeValues: AnimationKeyFrames): void => {
     const animations = this.getWebAnimations();
@@ -92,7 +77,24 @@ export class AnimationWeb extends AbstractAnimation {
 
   protected resetAnimation = (): void => {
     this.setAnimationStep(0);
-    this._updateWebAnimation();
+    this.updateAnimationInternal();
+  };
+
+  protected updateAnimationInternal = (step?: number): void => {
+    for (const animation of this.webAnimations) {
+      animation.effect.updateTiming({
+        delay: this.getDelay(),
+        direction: this.getDirection(),
+        duration: this.getDuration(),
+        easing: this.getEasing(),
+        fill: this.getFill(),
+        iterations: this.getIterations()
+      });
+    }
+
+    if (step !== undefined) {
+      this.setAnimationStep(step);
+    }
   };
 
   private _initializeWebAnimation = (): void => {
@@ -127,23 +129,6 @@ export class AnimationWeb extends AbstractAnimation {
 
     if (this.animationKeyframes.length === 0 || this.elements.length === 0) {
       this.animationFinish();
-    }
-  };
-
-  private _updateWebAnimation = (step?: number): void => {
-    for (const animation of this.webAnimations) {
-      animation.effect.updateTiming({
-        delay: this.getDelay(),
-        direction: this.getDirection(),
-        duration: this.getDuration(),
-        easing: this.getEasing(),
-        fill: this.getFill(),
-        iterations: this.getIterations()
-      });
-    }
-
-    if (step !== undefined) {
-      this.setAnimationStep(step);
     }
   };
 

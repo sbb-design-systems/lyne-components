@@ -15,18 +15,6 @@ export class AnimationCss extends AbstractAnimation {
 
   private _keyframeName: string | undefined;
 
-  public update = (deep = false, toggleAnimationName = true, step?: number): InterfaceAnimationInternal => {
-    if (deep) {
-      this.childAnimations.forEach((animation) => {
-        animation.update(deep, toggleAnimationName, step);
-      });
-    }
-
-    this._updateCSSAnimation(toggleAnimationName, step);
-
-    return this;
-  };
-
   public setAnimationStep = (step: number): void => {
     const safeStep = Math.min(Math.max(step, 0), 0.9999);
 
@@ -69,7 +57,7 @@ export class AnimationCss extends AbstractAnimation {
     this.initialized = true;
   };
 
-  protected playImpl = (): void => {
+  protected playInternal = (): void => {
     this._playCSSAnimations();
   };
 
@@ -81,7 +69,7 @@ export class AnimationCss extends AbstractAnimation {
     }
   };
 
-  protected progressEndImpl(playTo: 0 | 1, step: number): void {
+  protected progressEndInternal = (playTo: 0 | 1, step: number): void => {
     if (playTo === 0) {
       this.forceDirectionValue = (this.getDirection() === 'reverse')
         ? 'normal'
@@ -95,7 +83,7 @@ export class AnimationCss extends AbstractAnimation {
       this.forceDelayValue = (step * this.getDuration()) * -1;
       this.update(false, false);
     }
-  }
+  };
 
   protected updateKeyframes = (): void => {
     this._initializeCSSAnimation();
@@ -126,7 +114,37 @@ export class AnimationCss extends AbstractAnimation {
   };
 
   protected resetAnimation = (): void => {
-    this._updateCSSAnimation();
+    this.updateAnimationInternal();
+  };
+
+  protected updateAnimationInternal = (step?: number, toggleAnimationName = true): void => {
+    raf(() => {
+      for (const element of this.elements) {
+        setStyleProperty(element, 'animation-name', this._keyframeName || null);
+        setStyleProperty(element, 'animation-duration', `${this.getDuration()}ms`);
+        setStyleProperty(element, 'animation-timing-function', this.getEasing());
+        setStyleProperty(element, 'animation-delay', (step === undefined || step === null)
+          ? `${this.getDelay()}ms`
+          : `-${step * this.getDuration()}ms`);
+        setStyleProperty(element, 'animation-fill-mode', this.getFill() || null);
+        setStyleProperty(element, 'animation-direction', this.getDirection() || null);
+
+        const iterationsCount = (this.getIterations() === Infinity)
+          ? 'infinite'
+          : this.getIterations()
+            .toString();
+
+        setStyleProperty(element, 'animation-iteration-count', iterationsCount);
+
+        if (toggleAnimationName) {
+          setStyleProperty(element, 'animation-name', `${this._keyframeName}-alt`);
+        }
+
+        raf(() => {
+          setStyleProperty(element, 'animation-name', this._keyframeName || null);
+        });
+      }
+    });
   };
 
   private _initializeCSSAnimation = (toggleAnimationName = true): void => {
@@ -222,36 +240,6 @@ export class AnimationCss extends AbstractAnimation {
         });
       });
     }
-  };
-
-  private _updateCSSAnimation = (toggleAnimationName = true, step?: number): void => {
-    raf(() => {
-      for (const element of this.elements) {
-        setStyleProperty(element, 'animation-name', this._keyframeName || null);
-        setStyleProperty(element, 'animation-duration', `${this.getDuration()}ms`);
-        setStyleProperty(element, 'animation-timing-function', this.getEasing());
-        setStyleProperty(element, 'animation-delay', (step === undefined || step === null)
-          ? `${this.getDelay()}ms`
-          : `-${step * this.getDuration()}ms`);
-        setStyleProperty(element, 'animation-fill-mode', this.getFill() || null);
-        setStyleProperty(element, 'animation-direction', this.getDirection() || null);
-
-        const iterationsCount = (this.getIterations() === Infinity)
-          ? 'infinite'
-          : this.getIterations()
-            .toString();
-
-        setStyleProperty(element, 'animation-iteration-count', iterationsCount);
-
-        if (toggleAnimationName) {
-          setStyleProperty(element, 'animation-name', `${this._keyframeName}-alt`);
-        }
-
-        raf(() => {
-          setStyleProperty(element, 'animation-name', this._keyframeName || null);
-        });
-      }
-    });
   };
 
   private _onAnimationEndFallback = (): void => {

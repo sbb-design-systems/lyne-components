@@ -64,13 +64,13 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   private _shouldCalculateNumAnimations = true;
   private _shouldForceSyncPlayback = false;
 
-  public abstract update: (deep: boolean, toggleAnimationName: boolean, step?: number) => InterfaceAnimationInternal;
-
-  protected abstract playImpl: () => void;
-
-  protected abstract progressEndImpl(playTo: 0 | 1, step: number): void;
-
   protected abstract initializeAnimation: (toggleAnimationName?: boolean) => void;
+
+  protected abstract updateAnimationInternal: (step?: number, toggleAnimationName?: boolean) => void;
+
+  protected abstract playInternal: () => void;
+
+  protected abstract progressEndInternal: (playTo: 0 | 1, step: number) => void;
 
   protected abstract pauseAnimation: () => void;
 
@@ -240,7 +240,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
       animation.play();
     });
 
-    this.playImpl();
+    this.playInternal();
   });
 
   public pause = (): InterfaceAnimationInternal => {
@@ -264,6 +264,18 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     }
 
     this._resetFlags();
+  };
+
+  public update = (deep = false, toggleAnimationName = true, step?: number): InterfaceAnimationInternal => {
+    if (deep) {
+      this.childAnimations.forEach((animation) => {
+        animation.update(deep, toggleAnimationName, step);
+      });
+    }
+
+    this.updateAnimationInternal(step, toggleAnimationName);
+
+    return this;
   };
 
   public destroy = (clearStyleSheets?: boolean): InterfaceAnimationInternal => {
@@ -353,7 +365,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
 
     this.willComplete = true;
 
-    this.progressEndImpl(playTo, step);
+    this.progressEndInternal(playTo, step);
 
     if (playTo !== undefined) {
       this.onFinish(() => {
