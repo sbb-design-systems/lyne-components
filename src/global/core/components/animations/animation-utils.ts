@@ -1,4 +1,7 @@
 import { AnimationKeyFrames } from './animation-interface';
+import { AbstractAnimation } from './animation-abstract';
+import { AnimationWeb } from './animation-web';
+import { AnimationCss } from './animation-css';
 
 const convertCamelCaseToHypen = (str: string): string => str
   // eslint-disable-next-line prefer-named-capture-group
@@ -133,4 +136,13 @@ export const addClassToArray = (classes: string[] = [], className: string | stri
   className === undefined
     ? classes
     : classes.concat(className)
+);
+
+const supportsWebAnimations = (): boolean => (typeof (AnimationEffect as any) === 'function' || typeof (window as any).AnimationEffect === 'function') &&
+  (typeof (Element as any) === 'function') && (typeof (Element as any).prototype.animate === 'function');
+
+export const createAnimation = (animationId?: string): AbstractAnimation => (
+  supportsWebAnimations()
+    ? new AnimationWeb(animationId)
+    : new AnimationCss(animationId)
 );
