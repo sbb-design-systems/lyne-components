@@ -239,6 +239,26 @@ export interface InterfaceAnimation {
   onFinish(callback: AnimationLifecycle, opts?: InterfaceAnimationCallbackOptions): InterfaceAnimation;
 }
 
+export interface InterfaceAnimationInternal extends InterfaceAnimation {
+
+  /**
+   * Sets the parent animation.
+   */
+  parent(animation: InterfaceAnimation): InterfaceAnimation;
+
+  /**
+   * Updates any existing animations.
+   */
+  update(deep: boolean, toggleAnimationName: boolean, step?: number): InterfaceAnimation;
+
+  animationFinish(): void;
+}
+
 export type AnimationLifecycle = (currentStep: 0 | 1, animation: InterfaceAnimation) => void;
+
+export interface InterfaceAnimationOnFinishCallback {
+  c: AnimationLifecycle;
+  o?: InterfaceAnimationCallbackOptions;
+}
 
 export type AnimationBuilder = (baseEl: any, opts?: any) => InterfaceAnimation;

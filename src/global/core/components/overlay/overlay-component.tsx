@@ -8,10 +8,11 @@ import {
 import {
   dismiss, prepareOverlay, present
 } from './overlay';
-import { createAnimation } from '../animations/animation';
+import { createAnimation } from '../animations/animation-utils';
 
 @Component({
   shadow: true,
+  styles: '.overlay-class {background-color: black; color: white}',
   tag: 'lyne-overlay'
 })
 export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
@@ -33,15 +34,22 @@ export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
   @Method()
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public dismiss(data?: any, role?: string): Promise<boolean> {
-    return dismiss(this, data, role, () => createAnimation());
+    return dismiss(this, data, role, createAnimation);
   }
 
   @Method()
   public async present(): Promise<void> {
-    await present(this, () => createAnimation());
+    await present(this, createAnimation);
   }
 
   public render(): JSX.Element {
-    return (<div class='overlay-class'>Overlay</div>);
+    return (
+      <div class='overlay-class'>
+        <div>
+          <div>Overlay</div>
+          <div><button onClick={this.dismiss.bind(this)}>Close</button></div>
+        </div>
+      </div>
+    );
   }
 }
