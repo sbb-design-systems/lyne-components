@@ -914,6 +914,10 @@ export namespace Components {
           * Message to display.
          */
         "message": string;
+        /**
+          * TODO: set open state from outside the component
+         */
+        "open"?: boolean;
         "size"?: InterfaceLyneToastAttributes['size'];
         /**
           * Hide the toast after defined milliseconds.
@@ -2118,6 +2122,10 @@ declare namespace LocalJSX {
           * Message to display.
          */
         "message": string;
+        /**
+          * TODO: set open state from outside the component
+         */
+        "open"?: boolean;
         "size"?: InterfaceLyneToastAttributes['size'];
         /**
           * Hide the toast after defined milliseconds.

@@ -46,16 +46,30 @@ const iconSlot = {
   }
 };
 
+const verticalPosition = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'top',
+    'bottom'
+  ] 
+};
+
 const basicArgTypes = {
   'icon-description': iconDescription,
   iconSlot,
-  message
+  message,
+  verticalPosition
 };
 
 const basicArgs = {
   iconSlot: iconSlot.options[0],
-  message: 'Ciao'
+  message: 'Ciao',
+  verticalPosition: 'bottom'
 };
+
+
 
 single.argTypes = basicArgTypes;
 single.args = JSON.parse(JSON.stringify(basicArgs));
