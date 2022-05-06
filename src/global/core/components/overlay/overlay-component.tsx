@@ -8,7 +8,7 @@ import {
 import {
   dismiss, prepareOverlay, present
 } from './overlay';
-import { createAnimation } from '../animations/animation';
+import { Animation } from '../animations/animation';
 
 @Component({
   shadow: true,
@@ -33,12 +33,12 @@ export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
   @Method()
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public dismiss(data?: any, role?: string): Promise<boolean> {
-    return dismiss(this, data, role, () => createAnimation());
+    return dismiss(this, data, role, () => new Animation());
   }
 
   @Method()
   public async present(): Promise<void> {
-    await present(this, () => createAnimation());
+    await present(this, () => new Animation());
   }
 
   public render(): JSX.Element {
