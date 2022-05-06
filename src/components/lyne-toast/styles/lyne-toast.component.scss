@@ -10,7 +10,12 @@
   contain: content;
 }
 .toast {
-  display: flex;
+  &.toast-item--visible {
+    display: flex;
+  }
+  &.toast-item--hidden {
+    display: none;
+  }
   flex-direction: column;
   align-items: flex-start;
   position: fixed;
@@ -93,4 +98,11 @@
     }
   }
 
+  .action {
+    color: var(--color-default-text);
+    font-family: var(--typo-type-face-sbb-roman);
+    font-weight: 400;
+    margin-left: auto;
+    cursor: pointer;
+  }
 }
