@@ -15,8 +15,8 @@
   ::slotted(h4),
   ::slotted(h5),
   ::slotted(h6) {
-    display: flex;
-    align-items: center;
+    display: inline-block;
+    vertical-align: middle;
     // to do: tokens with the right amount of padding
     padding: 6px 20px;
     margin: 0;
@@ -29,6 +29,9 @@
     font-family: var(--typo-type-face-sbb-bold);
     font-weight: 700;
     font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
                 border var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
                 background-color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
@@ -90,13 +93,14 @@
     background-color: var(--color-milk-default);
     border-color: var(--color-milk-default);
     color: var(--color-platinum-default);
-    --lyne-amount-color: var(--color-platinum-default);
+    --lyne-amount-color-override: var(--color-platinum-default);
     //text-decoration: line-through;
     &:after {
       content: '';
       position: absolute;
       top: 50%;
       // to do: tokens with the right amount of padding
+      left: 20px;
       width: calc(100% - 40px);
       border-bottom: 2px solid var(--color-platinum-default);
     }

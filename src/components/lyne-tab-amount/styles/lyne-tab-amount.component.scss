@@ -4,7 +4,9 @@
 @include host-component-properties;
 
 :host {
+  display: inline-block;
+  vertical-align: middle;
   padding-left: 4px;
   font-family: var(--typo-type-face-sbb-roman);
-  color: var(--lyne-amount-color, var(--color-metal-default));
+  color: var(--lyne-amount-color-override, var(--color-metal-default));
 }

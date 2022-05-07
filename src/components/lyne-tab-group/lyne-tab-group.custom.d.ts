@@ -1,13 +1,16 @@
 import { HTMLStencilElement } from '@stencil/core/internal';
 
-export interface InterfaceLyneTabGroupAttributes extends HTMLStencilElement {
-  attribute?: any;
+export interface InterfaceLyneTabGroupActions {
+  activate(): void;
+  deactivate(): void;
+  enable(): void;
+  disable(): void;
+  select(): void;
 }
-
 export interface InterfaceLyneTabGroupTab extends HTMLStencilElement {
   active?: boolean;
   disabled?: boolean;
   relatedContent?: Element;
   index?: number;
-  tabGroupActions?: { activate(): void; deactivate(): void; toggle(): void; disable(): void; enable(): void };
+  tabGroupActions?: InterfaceLyneTabGroupActions;
 }

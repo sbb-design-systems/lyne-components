@@ -14,7 +14,9 @@ describe('lyne-tab-amount', () => {
       .toEqualHtml(`
         <lyne-tab-amount>
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <span class='tab-amount'>
+              <slot/>
+            </span>
           </mock:shadow-root>
         </lyne-tab-amount>
       `);

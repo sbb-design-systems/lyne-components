@@ -1,6 +1,8 @@
 import {
   Component,
   Element,
+  Event,
+  EventEmitter,
   h,
   Host,
   Listen,
@@ -36,9 +38,14 @@ export class LyneTabGroup {
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
    * the tab group, the first enabled tab will be selected.
    */
-  @Prop({
-    mutable: true
-  }) public selectedIndex = 0;
+  @Prop() public selectedIndex = 0;
+
+  /**
+   * On selected tab change
+   */
+  @Event({
+    eventName: 'lyne-tab-group_tab-change'
+  }) public selectedTabChanged: EventEmitter<void>;
 
   /**
    * Disable tab by index
@@ -61,7 +68,7 @@ export class LyneTabGroup {
    */
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex].tabGroupActions.toggle();
+    await this.tabs[tabIndex].tabGroupActions.select();
   }
 
   @Element() private _element: HTMLElement;
@@ -139,35 +146,32 @@ export class LyneTabGroup {
   }
 
   private _initSelection(): void {
-    if (this.selectedIndex >= 0 && this.selectedIndex < this.tabs.length) {
-      if (this.tabs[this.selectedIndex].hasAttribute('disabled')) {
-        this._getEnabledTabs()[0]?.tabGroupActions.toggle();
-      } else {
-        this.tabs[this.selectedIndex].tabGroupActions.toggle();
-      }
+    if (this.selectedIndex >= 0 && this.selectedIndex < this.tabs.length && !this.tabs[this.selectedIndex].hasAttribute('disabled')) {
+      this.tabs[this.selectedIndex].tabGroupActions.select();
     } else {
-      this._getEnabledTabs()[0]?.tabGroupActions.toggle();
+      this._getEnabledTabs()[0]?.tabGroupActions.select();
     }
   }
 
   private _onTabAttributesChange(mutationsList): void {
     for (const mutation of mutationsList) {
+      if (mutation.type !== 'attributes') {
+        return;
+      }
       const tab = (mutation.target as InterfaceLyneTabGroupTab);
 
-      if (mutation.type === 'attributes') {
-        if (mutation.attributeName === 'disabled') {
-          if (this._isValidTabAttribute(tab, 'disabled')) {
-            tab.tabGroupActions.disable();
-          } else {
-            tab.tabGroupActions.enable();
-          }
+      if (mutation.attributeName === 'disabled') {
+        if (this._isValidTabAttribute(tab, 'disabled')) {
+          tab.tabGroupActions.disable();
+        } else if (tab.disabled) {
+          tab.tabGroupActions.enable();
         }
-        if (mutation.attributeName === 'active') {
-          if (this._isValidTabAttribute(tab, 'active') && !tab.disabled) {
-            tab.tabGroupActions.toggle();
-          } else {
-            tab.tabGroupActions.deactivate();
-          }
+      }
+      if (mutation.attributeName === 'active') {
+        if (this._isValidTabAttribute(tab, 'active') && !tab.disabled) {
+          tab.tabGroupActions.select();
+        } else if (tab.active) {
+          tab.tabGroupActions.deactivate();
         }
       }
     }
@@ -194,20 +198,20 @@ export class LyneTabGroup {
         tab.relatedContent?.removeAttribute('active');
       },
       disable: (): void => {
-        if (!tab.disabled) {
-          if (!tab.hasAttribute('disabled')) {
-            tab.setAttribute('disabled', '');
-          }
-          tab.disabled = true;
-          tab.tabIndex = -1;
-          tab.setAttribute('aria-selected', 'false');
-          tab.relatedContent?.removeAttribute('active');
-
-          if (tab.active) {
-            tab.removeAttribute('active');
-            tab.active = false;
-            this._getEnabledTabs()[0]?.tabGroupActions.toggle();
-          }
+        if (tab.disabled) {
+          return;
+        }
+        if (!tab.hasAttribute('disabled')) {
+          tab.setAttribute('disabled', '');
+        }
+        tab.disabled = true;
+        tab.tabIndex = -1;
+        tab.setAttribute('aria-selected', 'false');
+        tab.relatedContent?.removeAttribute('active');
+        if (tab.active) {
+          tab.removeAttribute('active');
+          tab.active = false;
+          this._getEnabledTabs()[0]?.tabGroupActions.select();
         }
       },
       enable: (): void => {
@@ -216,10 +220,11 @@ export class LyneTabGroup {
           tab.disabled = false;
         }
       },
-      toggle: (): void => {
+      select: (): void => {
         if (!tab.active && !tab.disabled) {
           this.tabs.find((t) => t.active)?.tabGroupActions.deactivate();
           tab.tabGroupActions.activate();
+          this.selectedTabChanged.emit();
         } else if (tab.disabled) {
           console.warn('You cannot activate a disabled tab');
         }
@@ -247,7 +252,7 @@ export class LyneTabGroup {
     }
 
     tab.addEventListener('click', () => {
-      tab.tabGroupActions.toggle();
+      tab.tabGroupActions.select();
     });
 
     this._observer.observe(tab, tabObserverConfig);
@@ -272,11 +277,11 @@ export class LyneTabGroup {
     }
 
     if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
-      enabledTabs[prev]?.tabGroupActions.toggle();
+      enabledTabs[prev]?.tabGroupActions.select();
       enabledTabs[prev]?.focus();
       evt.preventDefault();
     } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
-      enabledTabs[next]?.tabGroupActions.toggle();
+      enabledTabs[next]?.tabGroupActions.select();
       enabledTabs[next]?.focus();
       evt.preventDefault();
     }

@@ -14,7 +14,12 @@ describe('lyne-tab-group', () => {
       .toEqualHtml(`
         <lyne-tab-group>
           <mock:shadow-root>
-            <button class="some-class"></button>
+          <div class="tab-group" role="tablist">
+            <slot name="tab-bar" onSlotchange={this._onTabsSlotChange}></slot>
+          </div>
+          <div class="tab-content">
+            <slot onSlotchange={throttle(this._onContentSlotChange, 250)}></slot>
+          </div>
           </mock:shadow-root>
         </lyne-tab-group>
       `);

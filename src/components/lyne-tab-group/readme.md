@@ -12,6 +12,13 @@
 | `selectedIndex` | `selected-index` | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. | `number` | `0`     |
 
 
+## Events
+
+| Event                       | Description            | Type                |
+| --------------------------- | ---------------------- | ------------------- |
+| `lyne-tab-group_tab-change` | On selected tab change | `CustomEvent<void>` |
+
+
 ## Methods
 
 ### `activateTab(tabIndex: number) => Promise<void>`

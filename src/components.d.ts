@@ -23,7 +23,6 @@ import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-log
 import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
 import { InterfaceSectionAttributes } from "./components/lyne-section/lyne-section.custom";
 import { InterfaceStackAttributes } from "./components/lyne-stack/lyne-stack.custom";
-import { InterfaceLyneTabAmountAttributes } from "./components/lyne-tab-amount/lyne-tab-amount.custom.d";
 import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
 import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
 import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
@@ -591,10 +590,6 @@ export namespace Components {
         "tag"?: InterfaceStackAttributes['tag'];
     }
     interface LyneTabAmount {
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
     }
     interface LyneTabGroup {
         /**
@@ -1795,13 +1790,12 @@ declare namespace LocalJSX {
         "tag"?: InterfaceStackAttributes['tag'];
     }
     interface LyneTabAmount {
-        "onTabLabelContentChanged"?: (event: CustomEvent<void>) => void;
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceLyneTabAmountAttributes['someInterface'];
     }
     interface LyneTabGroup {
+        /**
+          * On selected tab change
+         */
+        "onLyne-tab-group_tab-change"?: (event: CustomEvent<void>) => void;
         /**
           * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
          */
