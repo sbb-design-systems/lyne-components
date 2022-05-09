@@ -1,3 +1,11 @@
+# [10.6.0](https://github.com/lyne-design-system/lyne-components/compare/v10.5.0...v10.6.0) (2022-05-09)
+
+
+### Features
+
+* adding simplified third line handling on level 1 ([#1036](https://github.com/lyne-design-system/lyne-components/issues/1036)) ([a6d70e2](https://github.com/lyne-design-system/lyne-components/commit/a6d70e245204aa48cc74712acb6f8a3a8064f3e2))
+* grid layout ([#1065](https://github.com/lyne-design-system/lyne-components/issues/1065)) ([84e1964](https://github.com/lyne-design-system/lyne-components/commit/84e1964470f0591c835a1d52a1eb32b764bb0d69))
+
 # [10.5.0](https://github.com/lyne-design-system/lyne-components/compare/v10.4.0...v10.5.0) (2022-05-05)
 
 
