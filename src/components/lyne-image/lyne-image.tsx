@@ -1,4 +1,3 @@
-
 import {
   Component,
   h,
@@ -271,7 +270,6 @@ export class LyneImage {
   }
 
   public render(): JSX.Element {
-
     const imageSrc = this.imageSrc
       ? this.imageSrc
       : this.imageSrcExamples;
@@ -308,6 +306,13 @@ export class LyneImage {
     if (this.focalPointDebug) {
       imageUrlWithParams = `${imageUrlWithParams}${imageParameters.focalPointDebug}`;
     }
+
+    /*
+     * merge params component user could define by adding it to
+     * url (imgix.com?flip=h) and params added before
+     * (auto, compress, fit, ...)
+     */
+    imageUrlWithParams = this._removeDoubledQuestionMarksFromUrl(imageUrlWithParams);
 
     if (this.hideFromScreenreader) {
       attributes['aria-hidden'] = 'true';
@@ -535,7 +540,21 @@ export class LyneImage {
     } else {
       this._addFocusAbilityToLinksInCaption();
     }
-
   }
 
+  private _removeDoubledQuestionMarksFromUrl(imageUrlWithParams: string): string {
+    const imgUrlParts = imageUrlWithParams?.split('?');
+
+    if (imgUrlParts?.length <= 1) {
+      return imageUrlWithParams;
+    }
+
+    const [
+      imgUrl,
+      ...params
+    ] = imgUrlParts;
+
+    return `${imgUrl}?${params.reverse()
+      .join('&')}`;
+  }
 }

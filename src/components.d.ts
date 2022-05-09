@@ -16,6 +16,7 @@ import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom
 import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
 import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
 import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
+import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
@@ -473,6 +474,11 @@ export namespace Components {
           * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
          */
         "variant": InterfaceLyneLinkListAttributes['variant'];
+    }
+    interface LyneOverlay {
+        "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        "overlayIndex": number;
+        "present": () => Promise<void>;
     }
     interface LynePanel {
         /**
@@ -1014,6 +1020,12 @@ declare global {
         prototype: HTMLLyneLinkListElement;
         new (): HTMLLyneLinkListElement;
     };
+    interface HTMLLyneOverlayElement extends Components.LyneOverlay, HTMLStencilElement {
+    }
+    var HTMLLyneOverlayElement: {
+        prototype: HTMLLyneOverlayElement;
+        new (): HTMLLyneOverlayElement;
+    };
     interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
     }
     var HTMLLynePanelElement: {
@@ -1209,6 +1221,7 @@ declare global {
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-link-list": HTMLLyneLinkListElement;
+        "lyne-overlay": HTMLLyneOverlayElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
@@ -1682,6 +1695,13 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLyneLinkListAttributes['variant'];
     }
+    interface LyneOverlay {
+        "onDidDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onDidPresent"?: (event: CustomEvent<void>) => void;
+        "onWillDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onWillPresent"?: (event: CustomEvent<void>) => void;
+        "overlayIndex"?: number;
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -2151,6 +2171,7 @@ declare namespace LocalJSX {
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
         "lyne-link-list": LyneLinkList;
+        "lyne-overlay": LyneOverlay;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
         "lyne-sbb-clock": LyneSbbClock;
@@ -2201,6 +2222,7 @@ declare module "@stencil/core" {
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
+            "lyne-overlay": LocalJSX.LyneOverlay & JSXBase.HTMLAttributes<HTMLLyneOverlayElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
