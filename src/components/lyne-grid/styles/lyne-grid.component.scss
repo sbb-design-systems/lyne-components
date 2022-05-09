@@ -1,0 +1,117 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {}
+
+.grid--base {
+  @include grid-base();
+}
+
+////////////////////////////////////////////////////////////////////////
+// Top product layout
+////////////////////////////////////////////////////////////////////////
+
+.grid--base--top-products {
+  @include grid-base-top-products();
+}
+
+//   --------------------------------    -------------------------------
+//   |         top-product-1        |   |                              |
+//   --------------------------------   |                              |
+//                                      |  top-product-subscription-1  |
+//   --------------------------------   |                              |
+//   |         top-product-2        |   |                              |
+//   --------------------------------   --------------------------------
+//
+//   --------------------------------   --------------------------------
+//   |         top-product-3        |   |                              |
+//   --------------------------------   |                              |
+//                                      |  top-product-subscription-2  |
+//   --------------------------------   |                              |
+//   |         top-product-4        |   |                              |
+//   --------------------------------   --------------------------------
+
+::slotted([slot='top-product-1']) {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 1 / 1 / 2 / 5;
+  }
+  @include mq($from: wide) {
+    grid-area: 1 / 1 / 2 / 7;
+  }
+}
+::slotted([slot='top-product-2']) {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 2 / 1 / 3 / 5;
+  }
+  @include mq($from: wide) {
+    grid-area: 2 / 1 / 3 / 7;
+  }
+}
+::slotted([slot='top-product-3']) {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 3 / 1 / 4 / 5;
+  }
+  @include mq($from: wide) {
+    grid-area: 3 / 1 / 4 / 7;
+  }
+}
+::slotted([slot='top-product-4']) {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 4 / 1 / 5 / 5;
+  }
+  @include mq($from: wide) {
+    grid-area: 4 / 1 / 5 / 7;
+  }
+}
+::slotted([slot='top-product-subscription-1']) {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 1 / 5 / 3 / -1;
+  }
+  @include mq($from: wide) {
+    grid-area: 1 / 7 / 3 / -1;
+  }
+}
+::slotted([slot='top-product-subscription-2']) {
+  grid-column: 1/-1;
+  @include mq($from: medium) {
+    grid-area: 3 / 5 / 5 / -1;
+  }
+  @include mq($from: wide) {
+    grid-area: 3 / 7 / 5 / -1;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////
+// 8 columns centered (above) layout
+////////////////////////////////////////////////////////////////////////
+
+.grid--base--eight-columns-centered {
+  @include grid-base();
+}
+
+//          --------------------------------------------------
+//          |                 8-cols-centered                |
+//          --------------------------------------------------                             |
+//          --------------------------------------------------
+//          |                       ...                      |
+//          --------------------------------------------------
+//          --------------------------------------------------
+//          |                       ...                      |
+//          --------------------------------------------------
+
+::slotted([slot='eight-columns-centered']) {
+  grid-column: 1/-1;
+  @include mq($from: large) {
+    grid-column: 2/8;
+  }
+  @include mq($from: wide) {
+    grid-column: 3/11;
+  }
+}

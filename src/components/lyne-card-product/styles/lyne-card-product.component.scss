@@ -48,6 +48,7 @@
   display: flex;
   align-items: center;
   flex-grow: 1;
+  padding-inline-end: var(--card-padding-right);
 }
 
 .card-product__inner {
@@ -60,6 +61,7 @@
 
 .card-product__action {
   padding-block-start: pxToRem(var(--slot-action-spacing-top));
+  flex-shrink: 0;
 }
 
 // Layout switch

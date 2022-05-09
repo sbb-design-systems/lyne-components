@@ -4,10 +4,7 @@
 @include host-component-properties;
 
 :host {
-  // Reminder: --_footer-gap-horizontal needs a new responsive gap design token
-  // Use here the soon to be introduced gutter/gap design token
-  // var(--spacing-responsive-s); is just a placeholder for now
-  --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--spacing-responsive-s));
+  --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--grid-base-gutter-responsive));
   --_footer-gap-vertical: var(--footer-gap-vertical, var(--spacing-responsive-l));
   --_footer-background-color: var(--footer-background-color, var(--color-milk-default));
   --_footer-divider-color: var(--footer-divider-color, var(--color-cloud-default));

@@ -1,0 +1,19 @@
+//*****************************************************************************
+// Important
+//
+// This is the components default behaviour: self-contained
+//
+// 1. Globally defined styles for single component usage get imported. This
+// also includes CSS variables which need to be defined on the :host selector
+// are defined here
+//
+// 2. The component styles get imported from *.component.scss
+//
+// 3. Mode overrides get applied
+//*****************************************************************************
+
+// Import globally defined styles for single component usage, if in shared mode, these styles are imported globally and shared over all components
+@import "./../../../global/global.default.scss";
+
+// Import component styles
+@import "./lyne-grid.component.scss";

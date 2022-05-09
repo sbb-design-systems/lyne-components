@@ -11,10 +11,14 @@
   // Todo: Design tokens need to be defined globally
   --card-hover-shift: 2px;
   --card-hover-animation: 0.03s all ease-out;
+  // Needed to fully span on grids e.g. home/products
+  height: 100%;
 }
 
 @mixin card {
   display: block;
+  // Needed to fully span on grids e.g. home/products
+  height: 100%;
 
   padding-block-start: var(--card-padding-top);
   padding-inline-end: var(--card-padding-right);

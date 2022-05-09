@@ -13,7 +13,7 @@
   margin: 0;
   padding: 0;
   display: block;
-  width: fit-content;
+  // width: fit-content;
 }
 
 // Reset all slotted elements
@@ -94,6 +94,10 @@
       }
     }
   }
+}
+
+.stack--is-non-wrapping {
+  flex-wrap: nowrap;
 }
 
 .stack--is-placeholder {

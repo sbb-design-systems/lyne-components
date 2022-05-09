@@ -87,33 +87,70 @@
 
   //////////////////////////////////////////////////////////////////////////////
   ///
-  /// Responsive page spacing
+  /// Responsive page offset
 
-  --page-spacing-responsive-left: var(--spacing-fixed-4x);
-  --page-spacing-responsive-right: var(--spacing-fixed-4x);
+  --page-base-offset-responsive: var(--layout-base-offset-responsive-zero);
 
   @include mq($from: micro) {
-    --page-spacing-responsive-left: var(--spacing-fixed-6x);
-    --page-spacing-responsive-right: var(--spacing-fixed-6x);
+    --page-base-offset-responsive: var(--layout-base-offset-responsive-micro);
   }
   @include mq($from: small) {
-    --page-spacing-responsive-left: var(--spacing-fixed-12x);
-    --page-spacing-responsive-right: var(--spacing-fixed-12x);
+    --page-base-offset-responsive: var(--layout-base-offset-responsive-small);
   }
   @include mq($from: medium) {
-    --page-spacing-responsive-left: var(--spacing-fixed-14x);
-    --page-spacing-responsive-right: var(--spacing-fixed-14x);
+    --page-base-offset-responsive: var(--layout-base-offset-responsive-medium);
   }
   @include mq($from: large) {
-    --page-spacing-responsive-left: var(--spacing-fixed-16x);
-    --page-spacing-responsive-right: var(--spacing-fixed-16x);
+    --page-base-offset-responsive: var(--layout-base-offset-responsive-large);
   }
   @include mq($from: wide) {
-    --page-spacing-responsive-left: var(--spacing-fixed-18x);
-    --page-spacing-responsive-right: var(--spacing-fixed-18x);
+    --page-base-offset-responsive: var(--layout-base-offset-responsive-wide);
   }
   @include mq($from: wide--max-content) {
-    --page-spacing-responsive-left: 0;
-    --page-spacing-responsive-right: 0;
+    --page-base-offset-responsive: 0;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Responsive base grid definition
+
+  --grid-base-columns: var(--layout-base-grid-columns-zero);
+
+  @include mq($from: micro) {
+    --grid-base-columns: var(--layout-base-grid-columns-micro);
+  }
+  @include mq($from: small) {
+    --grid-base-columns: var(--layout-base-grid-columns-small);
+  }
+  @include mq($from: medium) {
+    --grid-base-columns: var(--layout-base-grid-columns-medium);
+  }
+  @include mq($from: large) {
+    --grid-base-columns: var(--layout-base-grid-columns-large);
+  }
+  @include mq($from: wide) {
+    --grid-base-columns: var(--layout-base-grid-columns-wide);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Responsive base grid gutter
+
+  --grid-base-gutter-responsive: var(--layout-base-grid-gutter-responsive-zero);
+
+  @include mq($from: micro) {
+    --grid-base-gutter-responsive: var(--layout-base-grid-gutter-responsive-micro);
+  }
+  @include mq($from: small) {
+    --grid-base-gutter-responsive: var(--layout-base-grid-gutter-responsive-small);
+  }
+  @include mq($from: medium) {
+    --grid-base-gutter-responsive: var(--layout-base-grid-gutter-responsive-medium);
+  }
+  @include mq($from: large) {
+    --grid-base-gutter-responsive: var(--layout-base-grid-gutter-responsive-large);
+  }
+  @include mq($from: wide) {
+    --grid-base-gutter-responsive: var(--layout-base-grid-gutter-responsive-wide);
   }
 }
