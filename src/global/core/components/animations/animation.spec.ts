@@ -1,8 +1,6 @@
-import {
-  createAnimation,
-  processKeyframes
-} from './animation-utils';
+import { processKeyframes } from './animation-utils';
 import { InterfaceAnimation } from './animation-interface';
+import { createAnimation } from './animation';
 
 describe('Animation Class', () => {
 

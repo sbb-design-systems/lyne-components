@@ -1,6 +1,5 @@
 import {
-  Component,
-  ComponentInterface, Element, Event, EventEmitter, h, Method, Prop
+  Component, ComponentInterface, Element, Event, EventEmitter, h, Method, Prop
 } from '@stencil/core';
 import {
   InterfaceOverlay, InterfaceOverlayEventDetail
@@ -8,7 +7,7 @@ import {
 import {
   dismiss, prepareOverlay, present
 } from './overlay';
-import { createAnimation } from '../animations/animation-utils';
+import { createAnimation } from '../animations/animation';
 
 @Component({
   shadow: true,
@@ -31,7 +30,6 @@ export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
   }
 
   @Method()
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public dismiss(data?: any, role?: string): Promise<boolean> {
     return dismiss(this, data, role, createAnimation);
   }
