@@ -22,7 +22,6 @@
 - [lyne-timetable-platform](../lyne-timetable-platform)
 - [lyne-timetable-occupancy](../lyne-timetable-occupancy)
 - [lyne-timetable-travel-hints](../lyne-timetable-travel-hints)
-- [lyne-timetable-park-and-rail](../lyne-timetable-park-and-rail)
 - [lyne-timetable-duration](../lyne-timetable-duration)
 - [lyne-timetable-cus-him](../lyne-timetable-cus-him)
 
@@ -35,7 +34,6 @@ graph TD;
   lyne-timetable-row --> lyne-timetable-platform
   lyne-timetable-row --> lyne-timetable-occupancy
   lyne-timetable-row --> lyne-timetable-travel-hints
-  lyne-timetable-row --> lyne-timetable-park-and-rail
   lyne-timetable-row --> lyne-timetable-duration
   lyne-timetable-row --> lyne-timetable-cus-him
   lyne-timetable-transportation-details --> lyne-timetable-transportation-number

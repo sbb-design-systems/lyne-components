@@ -32,6 +32,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: space-between;
+  column-gap: pxToRem(var(--spacing-fixed-2x));
 
   padding-block-start: var(--card-padding-top);
   padding-inline-end: var(--card-padding-right);
@@ -85,47 +87,9 @@
 .timetable__row > lyne-timetable-cus-him {
   align-items: center;
   min-height: pxToRem(var(--third-row-min-height));
-}
 
-.timetable__row > lyne-timetable-cus-him {
-  justify-self: end;
-  flex-basis: pxToRem(var(--flex-basis-pillar-columns));
-
-  @include mq($to: small) {
-    @include screenReaderOnly();
-  }
-}
-
-.timetable__row--arrival-walk > lyne-timetable-cus-him {
-  flex-basis: pxToRem(var(--flex-basis-pillar-columns-walking-icon));
-
-  @include mq($from: medium) {
-    flex-basis: pxToRem(91);
-  }
-}
-
-.timetable__row > lyne-timetable-travel-hints,
-.timetable__row > lyne-timetable-park-and-rail {
-  flex-grow: 1;
-  justify-content: center;
-
-}
-
-.timetable__row > lyne-timetable-duration {
-  justify-self: end;
-}
-
-.timetable__row > lyne-timetable-platform {
-  align-items: center;
-  min-height: pxToRem(var(--third-row-min-height));
-  flex-basis: pxToRem(var(--flex-basis-pillar-columns));
-}
-
-.timetable__row.timetable__row--departure-walk > lyne-timetable-platform {
-  flex-basis: pxToRem(var(--flex-basis-pillar-columns-walking-icon));
-
-  @include mq($from: medium) {
-    flex-basis: pxToRem(92);
+  &.visually-empty {
+    position: absolute;
   }
 
 }

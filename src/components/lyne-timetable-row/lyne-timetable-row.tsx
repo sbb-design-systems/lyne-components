@@ -79,11 +79,11 @@ export class LyneTimetableRow {
           role='gridcell'
         >
         </lyne-timetable-travel-hints>
-        <lyne-timetable-park-and-rail
+        {/* <lyne-timetable-park-and-rail
           config={JSON.stringify(config.parkAndRail)}
           role='gridcell'
         >
-        </lyne-timetable-park-and-rail>
+        </lyne-timetable-park-and-rail> */}
         <lyne-timetable-duration
           config={JSON.stringify(config.duration)}
           role='gridcell'
