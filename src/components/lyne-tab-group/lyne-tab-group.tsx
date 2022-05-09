@@ -52,7 +52,7 @@ export class LyneTabGroup {
    */
   @Method()
   public async disableTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex].tabGroupActions.disable();
+    await this.tabs[tabIndex]?.tabGroupActions.disable();
   }
 
   /**
@@ -60,7 +60,7 @@ export class LyneTabGroup {
    */
   @Method()
   public async enableTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex].tabGroupActions.enable();
+    await this.tabs[tabIndex]?.tabGroupActions.enable();
   }
 
   /**
@@ -68,7 +68,7 @@ export class LyneTabGroup {
    */
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex].tabGroupActions.select();
+    await this.tabs[tabIndex]?.tabGroupActions.select();
   }
 
   @Element() private _element: HTMLElement;
