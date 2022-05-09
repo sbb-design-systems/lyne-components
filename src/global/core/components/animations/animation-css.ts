@@ -15,7 +15,7 @@ export class AnimationCss extends AbstractAnimation {
 
   private _keyframeName: string | undefined;
 
-  public setAnimationStep = (step: number): void => {
+  public setAnimationStep(step: number): void {
     const safeStep = Math.min(Math.max(step, 0), 0.9999);
 
     const animationDuration = `-${this.getDuration() * safeStep}ms`;
@@ -26,9 +26,9 @@ export class AnimationCss extends AbstractAnimation {
         setStyleProperty(element, 'animation-play-state', 'paused');
       }
     }
-  };
+  }
 
-  public duration = (animationDuration: number): InterfaceAnimationInternal => {
+  public duration(animationDuration: number): InterfaceAnimationInternal {
 
     /**
      * CSS Animation Durations of 0ms work fine on Chrome
@@ -45,9 +45,9 @@ export class AnimationCss extends AbstractAnimation {
     this.update(true, true);
 
     return this;
-  };
+  }
 
-  protected initializeAnimation = (toggleAnimationName = true): void => {
+  protected initializeAnimation(toggleAnimationName = true): void {
     this.beforeAnimation();
 
     if (this.animationKeyframes.length > 0) {
@@ -55,21 +55,21 @@ export class AnimationCss extends AbstractAnimation {
     }
 
     this.initialized = true;
-  };
+  }
 
-  protected playInternal = (): void => {
+  protected playInternal(): void {
     this._playCSSAnimations();
-  };
+  }
 
-  protected pauseAnimation = (): void => {
+  protected pauseAnimation(): void {
     if (this.initialized) {
       this.elements.forEach((element) => {
         setStyleProperty(element, 'animation-play-state', 'paused');
       });
     }
-  };
+  }
 
-  protected progressEndInternal = (playTo: 0 | 1, step: number): void => {
+  protected progressEndInternal(playTo: 0 | 1, step: number): void {
     if (playTo === 0) {
       this.forceDirectionValue = (this.getDirection() === 'reverse')
         ? 'normal'
@@ -83,18 +83,18 @@ export class AnimationCss extends AbstractAnimation {
       this.forceDelayValue = (step * this.getDuration()) * -1;
       this.update(false, false);
     }
-  };
+  }
 
-  protected updateKeyframes = (): void => {
+  protected updateKeyframes(): void {
     this._initializeCSSAnimation();
-  };
+  }
 
   /**
    * Cancels any Web Animations and removes
    * any animation properties from
    * the animation's elements.
    */
-  protected cleanUpElements = (): void => {
+  protected cleanUpElements(): void {
     const elementsArray = this.elements.slice();
 
     raf(() => {
@@ -111,13 +111,13 @@ export class AnimationCss extends AbstractAnimation {
 
       elementsArray.forEach((element: HTMLElement) => removeStyleProperties(element, propertiesToRemove));
     });
-  };
+  }
 
-  protected resetAnimation = (): void => {
+  protected resetAnimation(): void {
     this.updateAnimationInternal();
-  };
+  }
 
-  protected updateAnimationInternal = (step?: number, toggleAnimationName = true): void => {
+  protected updateAnimationInternal(step?: number, toggleAnimationName = true): void {
     raf(() => {
       for (const element of this.elements) {
         setStyleProperty(element, 'animation-name', this._keyframeName || null);
@@ -145,9 +145,9 @@ export class AnimationCss extends AbstractAnimation {
         });
       }
     });
-  };
+  }
 
-  private _initializeCSSAnimation = (toggleAnimationName = true): void => {
+  private _initializeCSSAnimation(toggleAnimationName = true): void {
     this.cleanUpStyleSheets();
 
     const processedKeyframes = processKeyframes(this.animationKeyframes);
@@ -186,9 +186,9 @@ export class AnimationCss extends AbstractAnimation {
         });
       }
     }
-  };
+  }
 
-  private _playCSSAnimations = (): void => {
+  private _playCSSAnimations(): void {
     this.clearCSSAnimationsTimeout();
 
     raf(() => {
@@ -240,14 +240,14 @@ export class AnimationCss extends AbstractAnimation {
         });
       });
     }
-  };
+  }
 
-  private _onAnimationEndFallback = (): void => {
+  private _onAnimationEndFallback(): void {
     this.cssAnimationsTimerFallback = undefined;
     this.animationFinish();
-  };
+  }
 
-  private _clearCSSAnimationPlayState = (): void => {
+  private _clearCSSAnimationPlayState(): void {
     const propertiesToRemove: string[] = [
       'animation-duration',
       'animation-delay',
@@ -255,6 +255,6 @@ export class AnimationCss extends AbstractAnimation {
     ];
 
     this.elements.forEach((element: HTMLElement) => removeStyleProperties(element, propertiesToRemove));
-  };
+  }
 
 }
