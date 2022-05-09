@@ -72,7 +72,7 @@
     "focus-visible": "~5.2.0",
     "glob": "~8.0.1",
     "husky": "~7.0.1",
-    "jest": "~28.0.3",
+    "jest": "~27.5.1",
     "jest-cli": "27.5.1",
     "jsx-dom": "^7.0.1",
     "jsx-transform": "~2.4.1",
