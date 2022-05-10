@@ -13,7 +13,12 @@ import { InterfaceLyneTabGroupTab } from './lyne-tab-group.custom';
 import throttle from '../../global/helpers/throttle';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot tab-bar - Pass an heading tag to display a label in the tab bar.
+ * Example: `<h1>Tab label</h1>`
+ * @slot unnamed - Pass html-content to show as the content of the tab.
+ * Wrap the content in a div:
+ * This is correct: `<div>Some text <p>Some other text</p></div>`
+ * This is not correct: `<div>Some text</div><p>Some other text</p>`
  */
 
 const tabObserverConfig: MutationObserverInit = {
@@ -102,27 +107,27 @@ export class LyneTabGroup {
   }
 
   private _onContentSlotChange = (): void => {
-    const newTabs = this._getTabs()
+    const loadedTabs = this._getTabs()
       .filter((tab) => !this.tabs.includes(tab));
 
     // if a new tab/content is added to the tab group
-    if (newTabs.length) {
-      newTabs.forEach((tab) => this._configure(tab));
-      this.tabs = this.tabs.concat(newTabs);
+    if (loadedTabs.length) {
+      loadedTabs.forEach((tab) => this._configure(tab));
+      this.tabs = this.tabs.concat(loadedTabs);
     }
   };
 
   private _onTabsSlotChange = (): void => {
-    const newTabs = this._getTabs();
+    const tabs = this._getTabs();
 
     // if a tab is removed from the tab group
-    if (newTabs.length < this.tabs.length) {
-      const removedTabs = this.tabs.filter((tab) => !newTabs.includes(tab));
+    if (tabs.length < this.tabs.length) {
+      const removedTabs = this.tabs.filter((tab) => !tabs.includes(tab));
 
       removedTabs.forEach((removedTab) => {
         removedTab.relatedContent?.remove();
       });
-      this.tabs = newTabs;
+      this.tabs = tabs;
     }
   };
 

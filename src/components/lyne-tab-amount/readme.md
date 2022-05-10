@@ -7,9 +7,9 @@
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                                   |
+| ----------- | --------------------------------------------- |
+| `"unnamed"` | Slot to render an amount next to a tab label. |
 
 
 ----------------------------------------------
