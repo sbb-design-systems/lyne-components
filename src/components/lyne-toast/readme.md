@@ -7,24 +7,43 @@
 
 ## Properties
 
-| Property               | Attribute             | Description                                                             | Type                                                                                      | Default     |
-| ---------------------- | --------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------- |
-| `action`               | `action`              | Action configuration.                                                   | `"close" \| ({ label: string; action: () => void; }) \| { label: string; link: string; }` | `undefined` |
-| `horizontalPosition`   | `horizontal-position` | Where the toast should be displayed horizontally. Defaults to 'center'. | `"center" \| "end" \| "left" \| "right" \| "start"`                                       | `'center'`  |
-| `icon`                 | `icon`                | Either SVG string or reference to a SVG element.                        | `HTMLElement \| string`                                                                   | `undefined` |
-| `iconTemplate`         | `icon-template`       | Id of <template> to use for the icon.                                   | `string`                                                                                  | `undefined` |
-| `message` _(required)_ | `message`             | Message to display.                                                     | `string`                                                                                  | `undefined` |
-| `open`                 | `open`                | TODO: set open state from outside the component                         | `boolean`                                                                                 | `true`      |
-| `size`                 | `size`                |                                                                         | `"large" \| "small"`                                                                      | `'large'`   |
-| `timeout`              | `timeout`             | Hide the toast after defined milliseconds.                              | `number`                                                                                  | `3000`      |
-| `verticalPosition`     | `vertical-position`   | Where the toast should be displayed vertically. Defaults to 'bottom'.   | `"bottom" \| "top"`                                                                       | `'bottom'`  |
+| Property       | Attribute       | Description | Type                          | Default     |
+| -------------- | --------------- | ----------- | ----------------------------- | ----------- |
+| `config`       | --              |             | `InterfaceToastConfiguration` | `undefined` |
+| `overlayIndex` | `overlay-index` |             | `number`                      | `undefined` |
 
 
-## Slots
+## Events
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Event                     | Description | Type                                            |
+| ------------------------- | ----------- | ----------------------------------------------- |
+| `lyne-toast_did-dismiss`  |             | `CustomEvent<InterfaceOverlayEventDetail<any>>` |
+| `lyne-toast_did-present`  |             | `CustomEvent<void>`                             |
+| `lyne-toast_will-dismiss` |             | `CustomEvent<InterfaceOverlayEventDetail<any>>` |
+| `lyne-toast_will-present` |             | `CustomEvent<void>`                             |
+
+
+## Methods
+
+### `dismiss(data?: any, role?: string) => Promise<boolean>`
+
+
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+
+
+### `present() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ----------------------------------------------

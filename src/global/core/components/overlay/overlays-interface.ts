@@ -16,8 +16,8 @@ export interface InterfaceOverlay {
   enterAnimation?: AnimationBuilder;
   leaveAnimation?: AnimationBuilder;
 
-  didPresent: EventEmitter<void>;
   willPresent: EventEmitter<void>;
+  didPresent: EventEmitter<void>;
   willDismiss: EventEmitter<InterfaceOverlayEventDetail>;
   didDismiss: EventEmitter<InterfaceOverlayEventDetail>;
 

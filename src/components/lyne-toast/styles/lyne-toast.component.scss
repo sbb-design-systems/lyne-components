@@ -89,8 +89,7 @@
     flex: 0 0 19px; //width
     height: 19px;
     align-self: start;
-    box-shadow: inset 0px 0px 0px 2px #fff;
-    border-radius: 50%;
+    fill: currentColor;
     margin-right: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem);
     @include mq($from: medium) {
       flex: 0 0 23.8px; //width

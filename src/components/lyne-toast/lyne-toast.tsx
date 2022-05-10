@@ -1,14 +1,35 @@
 import {
-  Component,
-  h,
-  Prop,
-  State
+  Component, ComponentInterface, Element, Event, EventEmitter, h, Host, Method, Prop
 } from '@stencil/core';
-import { InterfaceLyneToastAttributes } from './lyne-toast.custom.d';
+import { InterfaceLyneToastAttributes } from './lyne-toast.custom';
+import {
+  InterfaceOverlay, InterfaceOverlayEventDetail
+} from '../../global/core/components/overlay/overlays-interface';
+import {
+  dismiss, prepareOverlay, present
+} from '../../global/core/components/overlay/overlay';
+import { toastEnterAnimation } from './animations/toast.enter';
+import { toastLeaveAnimation } from './animations/toast.leave';
 
-/**
- * @slot unnamed - Use this to document a slot.
- */
+export interface InterfaceToastAction {
+  label: string;
+  action: () => void;
+}
+
+export interface InterfaceToastLink {
+  label: string;
+  link: string;
+}
+
+export interface InterfaceToastConfiguration {
+  message: string;
+  timeout?: number;
+  icon?: string | HTMLElement;
+  iconTemplate?: string;
+  action?: 'close' | InterfaceToastAction | InterfaceToastLink;
+  verticalPosition?: InterfaceLyneToastAttributes['verticalPosition'];
+  horizontalPosition?: InterfaceLyneToastAttributes['horizontalPosition'];
+}
 
 @Component({
   shadow: true,
@@ -19,59 +40,125 @@ import { InterfaceLyneToastAttributes } from './lyne-toast.custom.d';
   tag: 'lyne-toast'
 })
 
-export class LyneToast {
+export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
-  @Prop() public size?: InterfaceLyneToastAttributes['size'] = 'large';
+  public animated = false;
+  public keyboardClose: boolean;
+  public presented: boolean;
 
-  /** Message to display. */
-  @Prop() public message!: string;
+  @Prop() public overlayIndex: number;
 
-  /** Id of <template> to use for the icon. */
-  @Prop() public iconTemplate?: string;
+  @Prop() public config: InterfaceToastConfiguration;
 
-  /** Either SVG string or reference to a SVG element. */
-  @Prop() public icon?: string | HTMLElement;
+  @Element() public el!: HTMLLyneToastElement;
 
-  /** TODO: set open state from outside the component */
-  @Prop({
-    reflect: true
-  }) public open?: boolean = true;
+  @Event({
+    eventName: 'lyne-toast_did-dismiss'
+  }) public didDismiss: EventEmitter<InterfaceOverlayEventDetail>;
 
-  @State() private _openClass: string;
+  @Event({
+    eventName: 'lyne-toast_did-present'
+  }) public didPresent: EventEmitter<void>;
 
-  /** Action configuration. */
-  @Prop() public action?: 'close' | { label: string; action: () => void } | { label: string; link: string };
+  @Event({
+    eventName: 'lyne-toast_will-dismiss'
+  }) public willDismiss: EventEmitter<InterfaceOverlayEventDetail>;
 
-  /** Hide the toast after defined milliseconds. */
-  @Prop() public timeout = 3000;
+  @Event({
+    eventName: 'lyne-toast_will-present'
+  }) public willPresent: EventEmitter<void>;
 
-  /** Where the toast should be displayed vertically. Defaults to 'bottom'. */
-  @Prop() public verticalPosition?: InterfaceLyneToastAttributes['verticalPosition'] = 'bottom';
+  private _durationTimeout: NodeJS.Timeout;
 
-  /** Where the toast should be displayed horizontally. Defaults to 'center'. */
-  @Prop() public horizontalPosition?: InterfaceLyneToastAttributes['horizontalPosition'] = 'center';
+  private _defaultConfig: InterfaceToastConfiguration = {
+    horizontalPosition: 'center',
+    message: null,
+    timeout: 3000,
+    verticalPosition: 'bottom'
+  };
 
-  private _closeToast(): void {
-    this.open = false;
+  private _hasIconSlot: boolean;
+
+  public connectedCallback(): void {
+    this.config = {
+      ...this._defaultConfig,
+      ...this.config
+    };
+    prepareOverlay(this.el);
+  }
+
+  public componentWillLoad(): void {
+    this._hasIconSlot = Boolean(this.el.querySelector('[slot="icon"]'));
+  }
+
+  @Method()
+  public async present(): Promise<void> {
+    await present(this, toastEnterAnimation, this.config.verticalPosition);
+    if (this.config.timeout > 0) {
+      this._durationTimeout = setTimeout(() => this.dismiss(undefined, 'timeout'), this.config.timeout);
+    }
+  }
+
+  @Method()
+  public dismiss(data?: any, role?: string): Promise<boolean> {
+    if (this._durationTimeout) {
+      clearTimeout(this._durationTimeout);
+    }
+
+    return dismiss(this, data, role, toastLeaveAnimation);
   }
 
   public render(): JSX.Element {
-    this._openClass = this.open
-    ? 'toast-item--visible'
-    : 'toast-item--hidden';
+    let actionContent;
+    let role = 'status';
+
+    /*
+     * FIXME
+     */
+    if (this.config.action) {
+      role = 'dialog';
+      if (typeof this.config.action === 'string') {
+        actionContent = (<button onClick={this.dismiss.bind(this)}>x</button>);
+      } else if ('action' in this.config.action) {
+        actionContent = (<button onClick={this._executeAction.bind(this, this.config.action)}>Action</button>);
+      } else if ('link' in this.config.action) {
+        actionContent = (<button onClick={this._openLink.bind(this, this.config.action)}>Link</button>);
+      } else {
+        actionContent = (<span>Config error</span>);
+      }
+    }
+
+    let iconTemplate = '';
+
+    if (typeof this.config.icon === 'string') {
+      iconTemplate = <span class='icon' innerHTML={this.config.icon}/>;
+    } else if (this._hasIconSlot) {
+      iconTemplate = <span class='icon'><slot name='icon'/></span>;
+    }
 
     return (
-      <div class="toast-wrapper">
-        <div class={`toast ${this.verticalPosition} ${this.horizontalPosition} ${this._openClass}`}>
-          <span class='icon'>
-            <slot name='icon'></slot>
-          </span>
-          <span class='text'>
-            {this.message}
-          </span>
-          <span class='action' onClick={(): void => this._closeToast()}>Undo</span>
+      <Host aria-live='polite' aria-atomic='true' role={role}>
+        <div class='toast-wrapper'>
+          <div class={`toast ${this.config.verticalPosition} ${this.config.horizontalPosition}`}>
+            {iconTemplate}
+            <span class='text'>
+              {this.config.message}
+            </span>
+            <span class='action'>
+              {actionContent}
+            </span>
+          </div>
         </div>
-      </div>
+      </Host>
     );
   }
+
+  private _executeAction($event: InterfaceToastAction): void {
+    $event.action();
+  }
+
+  private _openLink($event: InterfaceToastLink): void {
+    window.open($event.link, '_blank');
+  }
+
 }

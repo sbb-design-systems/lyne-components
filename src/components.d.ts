@@ -34,7 +34,7 @@ import { InterfaceLyneTimetableTransportationNumberAttributes } from "./componen
 import { InterfaceLyneTimetableTransportationTimeAttributes } from "./components/lyne-timetable-transportation-time/lyne-timetable-transportation-time.custom.d";
 import { InterfaceLyneTimetableTransportationWalkAttributes } from "./components/lyne-timetable-transportation-walk/lyne-timetable-transportation-walk.custom.d";
 import { InterfaceLyneTimetableTravelHintsAttributes } from "./components/lyne-timetable-travel-hints/lyne-timetable-travel-hints.custom.d";
-import { InterfaceLyneToastAttributes } from "./components/lyne-toast/lyne-toast.custom.d";
+import { InterfaceToastConfiguration } from "./components/lyne-toast/lyne-toast";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -915,39 +915,10 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
     interface LyneToast {
-        /**
-          * Action configuration.
-         */
-        "action"?: 'close' | { label: string; action: () => void } | { label: string; link: string };
-        /**
-          * Where the toast should be displayed horizontally. Defaults to 'center'.
-         */
-        "horizontalPosition"?: InterfaceLyneToastAttributes['horizontalPosition'];
-        /**
-          * Either SVG string or reference to a SVG element.
-         */
-        "icon"?: string | HTMLElement;
-        /**
-          * Id of <template> to use for the icon.
-         */
-        "iconTemplate"?: string;
-        /**
-          * Message to display.
-         */
-        "message": string;
-        /**
-          * TODO: set open state from outside the component
-         */
-        "open"?: boolean;
-        "size"?: InterfaceLyneToastAttributes['size'];
-        /**
-          * Hide the toast after defined milliseconds.
-         */
-        "timeout": number;
-        /**
-          * Where the toast should be displayed vertically. Defaults to 'bottom'.
-         */
-        "verticalPosition"?: InterfaceLyneToastAttributes['verticalPosition'];
+        "config": InterfaceToastConfiguration;
+        "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        "overlayIndex": number;
+        "present": () => Promise<void>;
     }
 }
 declare global {
@@ -2158,39 +2129,12 @@ declare namespace LocalJSX {
         "visuallyHidden"?: false;
     }
     interface LyneToast {
-        /**
-          * Action configuration.
-         */
-        "action"?: 'close' | { label: string; action: () => void } | { label: string; link: string };
-        /**
-          * Where the toast should be displayed horizontally. Defaults to 'center'.
-         */
-        "horizontalPosition"?: InterfaceLyneToastAttributes['horizontalPosition'];
-        /**
-          * Either SVG string or reference to a SVG element.
-         */
-        "icon"?: string | HTMLElement;
-        /**
-          * Id of <template> to use for the icon.
-         */
-        "iconTemplate"?: string;
-        /**
-          * Message to display.
-         */
-        "message": string;
-        /**
-          * TODO: set open state from outside the component
-         */
-        "open"?: boolean;
-        "size"?: InterfaceLyneToastAttributes['size'];
-        /**
-          * Hide the toast after defined milliseconds.
-         */
-        "timeout"?: number;
-        /**
-          * Where the toast should be displayed vertically. Defaults to 'bottom'.
-         */
-        "verticalPosition"?: InterfaceLyneToastAttributes['verticalPosition'];
+        "config"?: InterfaceToastConfiguration;
+        "onLyne-toast_did-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onLyne-toast_did-present"?: (event: CustomEvent<void>) => void;
+        "onLyne-toast_will-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onLyne-toast_will-present"?: (event: CustomEvent<void>) => void;
+        "overlayIndex"?: number;
     }
     interface IntrinsicElements {
         "lyne-accordion": LyneAccordion;
