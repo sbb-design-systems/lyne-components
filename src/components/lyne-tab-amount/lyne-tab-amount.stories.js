@@ -2,17 +2,17 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-amount {...args}></lyne-tab-amount>
+  <lyne-tab-amount>{args.amount}</lyne-tab-amount>
 );
 
-export const story1 = Template.bind({});
+export const amount = Template.bind({});
 
-story1.args = {
-  'some-prop': 'opt1'
+amount.args = {
+  'amount': '123'
 };
 
-story1.documentation = {
-  title: 'Title which will be rendered on documentation platform'
+amount.documentation = {
+  title: 'Lyne Tab Amount'
 };
 
 export default {
@@ -34,5 +34,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-tab-amount'
+  title: 'components/tabs/lyne-tab-amount'
 };
