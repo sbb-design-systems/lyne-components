@@ -3,6 +3,9 @@
 // and default mode
 @include host-component-properties;
 
+:host([dir=rtl]) {
+  --lyne-amount-spacing-override: 0 calc(var(--spacing-fixed-1x) / var(--typo-scale-default) * 1rem) 0 0;
+}
 
 .tab-group {
   display: flex;
@@ -17,14 +20,13 @@
   ::slotted(h6) {
     display: inline-block;
     vertical-align: middle;
-    // to do: tokens with the right amount of padding
-    padding: 6px 20px;
+    padding: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem) calc(var(--spacing-fixed-5x) / var(--typo-scale-default) * 1rem);
     margin: 0;
     color: var(--color-black-default);
     border: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-cloud-default);
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
-    border-radius: 20px;
+    border-radius: calc(var(--spacing-fixed-5x) / var(--typo-scale-default) * 1rem);
     line-height: var(--typo-line-height-body-text);
     font-family: var(--typo-type-face-sbb-bold);
     font-weight: 700;
@@ -57,7 +59,7 @@
   ::slotted(h5:focus-visible),
   ::slotted(h6:focus-visible) {
     outline: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-black-default);
-    outline-offset: 3px;
+    outline-offset: calc((var(--border-width-1x) + var(--border-width-2x)) / var(--typo-scale-default) * 1rem);
   }
 
   ::slotted(h1:active),
@@ -99,16 +101,15 @@
       content: '';
       position: absolute;
       top: 50%;
-      // to do: tokens with the right amount of padding
-      left: 20px;
-      width: calc(100% - 40px);
-      border-bottom: 2px solid var(--color-platinum-default);
+      left: calc(var(--spacing-fixed-5x) / var(--typo-scale-default) * 1rem);
+      width: calc(100% - (var(--spacing-fixed-10x) / var(--typo-scale-default) * 1rem));
+      border-bottom: calc(var(--border-width-2x) / var(--typo-scale-default) * 1rem) solid var(--color-platinum-default);
     }
   }
 }
 
 .tab-content {
-  margin-top: 2rem;
+  margin-top: calc(var(--spacing-responsive-m-small) / var(--typo-scale-default) * 1rem);
   font-family: var(--typo-type-face-sbb-roman);
   font-weight: 400;
   font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
