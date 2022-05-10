@@ -82,18 +82,13 @@ export class LyneTabGroup {
   private _lastUId = 0;
   private _observer = new MutationObserver(this._onTabAttributesChange.bind(this));
 
-  public render(): JSX.Element {
-    return (
-      <Host>
-        <div class='tab-group' role='tablist'>
-          <slot name='tab-bar' onSlotchange={this._onTabsSlotChange}></slot>
-        </div>
+  private _getTabs(): InterfaceLyneTabGroupTab[] {
+    return (Array.from(this._element.children)
+      .filter((child) => (/^H\d$/u).test(child.tagName)) as InterfaceLyneTabGroupTab[]);
+  }
 
-        <div class='tab-content'>
-          <slot onSlotchange={throttle(this._onContentSlotChange, 250)}></slot>
-        </div>
-      </Host>
-    );
+  private get _enabledTabs(): InterfaceLyneTabGroupTab[] {
+    return this.tabs.filter((t) => !t.hasAttribute('disabled'));
   }
 
   public componentWillLoad(): void {
@@ -131,15 +126,6 @@ export class LyneTabGroup {
     }
   };
 
-  private _getTabs(): InterfaceLyneTabGroupTab[] {
-    return (Array.from(this._element.children)
-      .filter((child) => (/^H\d$/u).test(child.tagName)) as InterfaceLyneTabGroupTab[]);
-  }
-
-  private _getEnabledTabs(): InterfaceLyneTabGroupTab[] {
-    return this.tabs.filter((t) => !t.hasAttribute('disabled'));
-  }
-
   private _nextUId(): string {
     return `lt${++this._lastUId}`;
   }
@@ -154,7 +140,7 @@ export class LyneTabGroup {
     if (this.selectedIndex >= 0 && this.selectedIndex < this.tabs.length && !this.tabs[this.selectedIndex].hasAttribute('disabled')) {
       this.tabs[this.selectedIndex].tabGroupActions.select();
     } else {
-      this._getEnabledTabs()[0]?.tabGroupActions.select();
+      this._enabledTabs[0]?.tabGroupActions.select();
     }
   }
 
@@ -216,7 +202,7 @@ export class LyneTabGroup {
         if (tab.active) {
           tab.removeAttribute('active');
           tab.active = false;
-          this._getEnabledTabs()[0]?.tabGroupActions.select();
+          this._enabledTabs[0]?.tabGroupActions.select();
         }
       },
       enable: (): void => {
@@ -266,7 +252,7 @@ export class LyneTabGroup {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    const enabledTabs = this._getEnabledTabs();
+    const enabledTabs = this._enabledTabs;
     const cur = enabledTabs.findIndex((t) => t.active);
     const size = enabledTabs.length;
     const prev = cur === 0
@@ -290,5 +276,19 @@ export class LyneTabGroup {
       enabledTabs[next]?.focus();
       evt.preventDefault();
     }
+  }
+
+  public render(): JSX.Element {
+    return (
+      <Host>
+        <div class='tab-group' role='tablist'>
+          <slot name='tab-bar' onSlotchange={this._onTabsSlotChange}></slot>
+        </div>
+
+        <div class='tab-content'>
+          <slot onSlotchange={throttle(this._onContentSlotChange, 250)}></slot>
+        </div>
+      </Host>
+    );
   }
 }
