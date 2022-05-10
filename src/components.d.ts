@@ -1368,6 +1368,10 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * Emits whenever the native button click event triggers.
+         */
+        "onLyne-button_click"?: (event: CustomEvent<any>) => void;
+        /**
           * Size variant, either large or small.
          */
         "size"?: InterfaceButtonAttributes['size'];

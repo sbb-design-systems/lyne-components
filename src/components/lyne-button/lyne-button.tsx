@@ -1,10 +1,10 @@
 import {
   Component,
-  Element,
+  Event,
+  EventEmitter,
   h,
   Prop
 } from '@stencil/core';
-import events from './lyne-button.events';
 import { InterfaceButtonAttributes } from './lyne-button.custom.d';
 
 /**
@@ -64,27 +64,12 @@ export class LyneButton {
    */
   @Prop() public ariaHaspopup?: InterfaceButtonAttributes['popup'];
 
-  @Element() private _element: HTMLElement;
-
-  private _buttonClick = (): void => {
-    let eventDetail;
-
-    if (this.visualButtonOnly) {
-      return;
-    }
-
-    if (this.eventId) {
-      eventDetail = this.eventId;
-    }
-
-    const event = new CustomEvent(events.click, {
-      bubbles: true,
-      composed: true,
-      detail: eventDetail
-    });
-
-    this._element.dispatchEvent(event);
-  };
+  /** Emits whenever the native button click event triggers. */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'lyne-button_click'
+  }) public click: EventEmitter<any>;
 
   public render(): JSX.Element {
     const hasNoLabel = !this.label || this.label.length < 1;
@@ -123,7 +108,7 @@ export class LyneButton {
       'aria-haspopup': this.ariaHaspopup,
       'disabled': this.disabled,
       'name': this.name,
-      'onClick': this._buttonClick,
+      'onClick': (): unknown => this.click.emit(this.eventId),
       'type': this.type,
       'value': this.value
     };
