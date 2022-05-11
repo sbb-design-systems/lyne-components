@@ -11,9 +11,6 @@ describe('lyne-button', () => {
   });
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<lyne-button label="I am a button"></lyne-button>');
-
     element = await page.find('lyne-button');
     expect(element)
       .toHaveClass('hydrated');

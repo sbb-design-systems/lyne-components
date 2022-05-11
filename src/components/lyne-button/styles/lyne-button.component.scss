@@ -85,20 +85,6 @@
   @include buttonSizeMVariables;
 }
 
-.button--icon-only {
-  --padding-inline: 0;
-  --icon-margin-inline-end: 0;
-
-  width: pxToRem(var(--min-height-hover, var(--min-height)));
-  justify-content: center;
-
-  &.button:disabled::after {
-    inset-inline: pxToRem(
-      calc(var(--line-through-icon-button-padding-inline) - var(--border-width))
-    );
-  }
-}
-
 .button {
   @include button();
 }
@@ -114,28 +100,17 @@
   user-select: none;
 }
 
-.button__label, .button__icon {
-  transition: transform var(--transition-duration) var(--transition-easing-function);
-  transform: translateY(#{pxToRem(var(--translate-y-content-hover, 0))});
-}
+.button--icon-only {
+  --padding-inline: 0;
+  --icon-margin-inline-end: 0;
 
-.button__label {
-  display: block;
-}
+  width: pxToRem(var(--min-height-hover, var(--min-height)));
+  justify-content: center;
 
-.button__icon {
-  @include buttonIcon();
-}
-
-.button__icon-description {
-  @include screenReaderOnly;
-}
-
-:host ::slotted(svg) {
-  fill: currentColor;
-
-  @include ifForcedColors {
-    fill: ButtonText;
+  &.button:disabled::after {
+    inset-inline: pxToRem(
+      calc(var(--line-through-icon-button-padding-inline) - var(--border-width))
+    );
   }
 }
 
@@ -182,5 +157,33 @@
     &:not(:disabled) {
       box-shadow: none;
     }
+  }
+}
+
+.button__label,
+.button__icon {
+  transition: transform var(--transition-duration)
+    var(--transition-easing-function);
+  transform: translateY(#{pxToRem(var(--translate-y-content-hover, 0))});
+}
+
+.button__label {
+  display: block;
+  @include ellipsis;
+}
+
+.button__icon {
+  @include buttonIcon();
+}
+
+.button__icon-description {
+  @include screenReaderOnly;
+}
+
+:host ::slotted(svg) {
+  fill: currentColor;
+
+  @include ifForcedColors {
+    fill: ButtonText;
   }
 }

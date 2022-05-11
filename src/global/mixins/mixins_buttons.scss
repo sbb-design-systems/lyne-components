@@ -178,11 +178,14 @@
 
 @mixin button {
   @include buttonReset;
+  @include stretch(width);
 
   position: relative;
-  display: flex;
+  // In Safari bordering content is displaced on hover with flex
+  display: inline-flex;
   gap: pxToRem(var(--gap));
   align-items: center;
+  text-align: left;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
   transition-property: background-color, color, border-color, box-shadow, margin,
@@ -204,6 +207,7 @@
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
+  cursor: pointer;
 
   // TODO: Find out and describe the purpose
   &::before {
