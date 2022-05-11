@@ -109,8 +109,14 @@
 .tab-content {
   @include text;
   font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
-  margin-top: calc(var(--spacing-responsive-m-small) / var(--typo-scale-default) * 1rem);
   color: var(--color-iron-default);
+  margin-top: calc(var(--spacing-responsive-m-small) / var(--typo-scale-default) * 1rem);
+  @include mq($from: medium) {
+    margin-top: calc(var(--spacing-responsive-m-medium) / var(--typo-scale-default) * 1rem);
+  }
+  @include mq($from: wide) {
+    margin-top: calc(var(--spacing-responsive-m-wide) / var(--typo-scale-default) * 1rem);
+  }
   ::slotted(div) {
     opacity: 0;
     visibility: hidden;
