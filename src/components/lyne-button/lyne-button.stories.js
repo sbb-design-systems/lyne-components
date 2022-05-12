@@ -33,7 +33,7 @@ const wrapperStyle = (context) => {
 // --- Component
 
 const Template = (args) => (<div>
-  <lyne-button {...args}>{getMarkupForSvg(args.iconSlot)}</lyne-button>Content right<br/>content below</div>
+  <lyne-button {...args}>{getMarkupForSvg(args.iconSlot)}</lyne-button></div>
 );
 const FixedWidthTemplate = (args) => (
   <lyne-button {...args} style={{
