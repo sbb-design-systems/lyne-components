@@ -917,6 +917,15 @@ export namespace Components {
     interface LyneToast {
         "config": InterfaceToastConfiguration;
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        "keyboardClose": boolean;
+        /**
+          * Returns a promise that resolves when the toast did dismiss.
+         */
+        "onDidDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
+        /**
+          * Returns a promise that resolves when the toast will dismiss.
+         */
+        "onWillDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
         "overlayIndex": number;
         "present": () => Promise<void>;
     }
@@ -2130,6 +2139,7 @@ declare namespace LocalJSX {
     }
     interface LyneToast {
         "config"?: InterfaceToastConfiguration;
+        "keyboardClose"?: boolean;
         "onLyne-toast_did-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
         "onLyne-toast_did-present"?: (event: CustomEvent<void>) => void;
         "onLyne-toast_will-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;

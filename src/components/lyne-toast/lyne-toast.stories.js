@@ -3,59 +3,138 @@ import lyneToastEvents from './lyne-toast.events';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const open = (args) => {
+const getCommonConfig = (args) => ({
+  horizontalPosition: args.horizontalPosition,
+  message: args.message,
+  timeout: args.timeout,
+  verticalPosition: args.verticalPosition
+});
+
+const getIconConfig = (iconslot) => ({
+  icon: getMarkupForSvg(iconslot).outerHTML
+});
+
+const getLinkConfig = (args) => ({
+  action: {
+    href: args.href,
+    label: args.label,
+    type: 'link'
+  }
+});
+
+const getActionConfig = (args) => ({
+  action: {
+    handler: () => console.log('Action clicked!'),
+    label: args.label,
+    type: 'action'
+  }
+});
+
+const getCloseIconConfig = () => ({
+  action: {
+    type: 'icon'
+  }
+});
+
+const openCommon = (args, config) => {
   const toast = document.createElement('lyne-toast');
 
-  toast.config = {
-    action: {
-      label: 'Action',
-      link: 'https://www.sbb.ch/it/'
-    },
-    horizontalPosition: args.horizontalPosition,
-    icon: getMarkupForSvg(args.iconSlot).outerHTML,
-    message: args.message,
-    timeout: args.timeout,
-    verticalPosition: args.verticalPosition
-  };
-
+  toast.config = config;
   document.body.appendChild(toast);
-
   toast.present();
 };
 
-const openWithSlot = (args) => {
-  const toast = document.createElement('lyne-toast');
-
-  const slot = document.createElement('div');
-
-  slot.setAttribute('slot', 'icon');
-  slot.appendChild(getMarkupForSvg(args.iconSlot));
-  toast.appendChild(slot);
-
-  toast.config = {
-    action: {
-      action: () => console.log('Hallo'),
-      label: 'Action'
-    },
-    horizontalPosition: args.horizontalPosition,
-    message: args.message,
-    timeout: args.timeout,
-    verticalPosition: args.verticalPosition
-  };
-
-  document.body.appendChild(toast);
-
-  toast.present();
+const openNoIconAndNoAction = (args) => {
+  openCommon(args, getCommonConfig(args));
 };
-
-const Template = (args) => (
-  <div>
-    <button onClick={open.bind(this, args)}>Open with SVG and link</button>
-    <button onClick={openWithSlot.bind(this, args)}>Open with slot and action</button>
-  </div>
+const TemplateNoIconAndNoAction = (args) => (
+  <button onClick={openNoIconAndNoAction.bind(this, args)}>Open</button>
 );
 
-export const template = Template.bind({});
+const openNoIconAndCloseIconAction = (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    ...getCloseIconConfig()
+  };
+
+  openCommon(args, config);
+};
+const TemplateNoIconAndCloseIconAction = (args) => (
+  <button onClick={openNoIconAndCloseIconAction.bind(this, args)}>Open</button>
+);
+
+const openNoIconAndLinkAction = (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    ...getLinkConfig(args)
+  };
+
+  openCommon(args, config);
+};
+const TemplateNoIconAndLinkAction = (args) => (
+  <button onClick={openNoIconAndLinkAction.bind(this, args)}>Open</button>
+);
+
+const openNoIconAndButtonAction = (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    ...getActionConfig(args)
+  };
+
+  openCommon(args, config);
+};
+const TemplateNoIconAndButtonAction = (args) => (
+  <button onClick={openNoIconAndButtonAction.bind(this, args)}>Open</button>
+);
+
+const openIconAndActionCloseIcon = (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    ...getIconConfig(args.iconSlot),
+    ...getCloseIconConfig()
+  };
+
+  openCommon(args, config);
+};
+const TemplateIconAndCloseIconAction = (args) => (
+  <button onClick={openIconAndActionCloseIcon.bind(this, args)}>Open</button>
+);
+
+const openIconAndLinkAction = (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    ...getIconConfig(args.iconSlot),
+    ...getLinkConfig(args)
+  };
+
+  openCommon(args, config);
+};
+const TemplateIconAndLinkAction = (args) => (
+  <button onClick={openIconAndLinkAction.bind(this, args)}>Open</button>
+);
+
+const openIconAndButtonAction = (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    ...getIconConfig(args.iconSlot),
+    ...getActionConfig(args)
+  };
+
+  openCommon(args, config);
+};
+const TemplateIconAndButtonAction = (args) => (
+  <button onClick={openIconAndButtonAction.bind(this, args)}>Open</button>
+);
+
+export const templateNoIconAndNoAction = TemplateNoIconAndNoAction.bind({});
+
+export const templateNoIconAndCloseIconAction = TemplateNoIconAndCloseIconAction.bind({});
+export const templateNoIconAndLinkAction = TemplateNoIconAndLinkAction.bind({});
+export const templateNoIconAndButtonAction = TemplateNoIconAndButtonAction.bind({});
+
+export const templateIconAndCloseIconAction = TemplateIconAndCloseIconAction.bind({});
+export const templateIconAndLinkAction = TemplateIconAndLinkAction.bind({});
+export const templateIconAndButtonAction = TemplateIconAndButtonAction.bind({});
 
 const message = {
   control: {
@@ -80,14 +159,13 @@ const iconSlot = {
     type: 'select'
   },
   options: [
-    'cross-small',
     'arrow-down-small',
     'arrow-compass-small',
+    'cross-small',
     'pie-small'
   ],
   table: {
-    category: 'Icon',
-    disable: false
+    category: 'Icon'
   }
 };
 
@@ -99,7 +177,10 @@ const horizontalPosition = {
     'left',
     'center',
     'right'
-  ]
+  ],
+  table: {
+    category: 'Position'
+  }
 };
 
 const verticalPosition = {
@@ -109,12 +190,35 @@ const verticalPosition = {
   options: [
     'top',
     'bottom'
-  ]
+  ],
+  table: {
+    category: 'Position'
+  }
+};
+
+const href = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Action button'
+  }
+};
+
+const label = {
+  control: {
+    type: 'text'
+  },
+  table: {
+    category: 'Action button'
+  }
 };
 
 const basicArgTypes = {
   horizontalPosition,
+  href,
   iconSlot,
+  label,
   message,
   timeout,
   verticalPosition
@@ -122,17 +226,76 @@ const basicArgTypes = {
 
 const basicArgs = {
   horizontalPosition: 'center',
+  href: 'https://sbb.ch',
   iconSlot: iconSlot.options[0],
+  label: 'Undo',
   message: 'Ciao',
-  timeout: 2000,
+  timeout: 1000,
   verticalPosition: 'bottom'
 };
 
-template.argTypes = basicArgTypes;
-template.args = JSON.parse(JSON.stringify(basicArgs));
+templateNoIconAndNoAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete templateNoIconAndNoAction.argTypes.iconSlot;
+delete templateNoIconAndNoAction.argTypes.href;
+delete templateNoIconAndNoAction.argTypes.label;
+templateNoIconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete templateNoIconAndCloseIconAction.argTypes.iconSlot;
+delete templateNoIconAndCloseIconAction.argTypes.href;
+delete templateNoIconAndCloseIconAction.argTypes.label;
+templateNoIconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete templateNoIconAndLinkAction.argTypes.iconSlot;
+templateNoIconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete templateNoIconAndButtonAction.argTypes.iconSlot;
+delete templateNoIconAndButtonAction.argTypes.href;
 
-template.documentation = {
-  title: 'Lyne toast'
+templateIconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete templateIconAndCloseIconAction.argTypes.href;
+delete templateIconAndCloseIconAction.argTypes.label;
+templateIconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+templateIconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete templateIconAndButtonAction.argTypes.href;
+
+templateNoIconAndNoAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete templateNoIconAndNoAction.args.iconSlot;
+delete templateNoIconAndNoAction.args.href;
+delete templateNoIconAndNoAction.args.label;
+templateNoIconAndCloseIconAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete templateNoIconAndCloseIconAction.args.iconSlot;
+delete templateNoIconAndCloseIconAction.args.href;
+delete templateNoIconAndCloseIconAction.args.label;
+templateNoIconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete templateNoIconAndLinkAction.args.iconSlot;
+templateNoIconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete templateNoIconAndButtonAction.args.iconSlot;
+delete templateNoIconAndButtonAction.args.href;
+
+templateIconAndCloseIconAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete templateIconAndCloseIconAction.args.href;
+delete templateIconAndCloseIconAction.args.label;
+templateIconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
+templateIconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete templateIconAndButtonAction.args.href;
+
+templateNoIconAndNoAction.documentation = {
+  title: 'Lyne toast with no icon and no action'
+};
+templateNoIconAndCloseIconAction.documentation = {
+  title: 'Lyne toast with no icon and icon close action'
+};
+templateNoIconAndLinkAction.documentation = {
+  title: 'Lyne toast with no icon and link action'
+};
+templateNoIconAndButtonAction.documentation = {
+  title: 'Lyne toast with no icon and action button with handler'
+};
+templateIconAndCloseIconAction.documentation = {
+  title: 'Lyne toast with icon and icon close action'
+};
+templateIconAndLinkAction.documentation = {
+  title: 'Lyne toast with icon and link action'
+};
+templateIconAndButtonAction.documentation = {
+  title: 'Lyne toast with icon and action button with handler'
 };
 
 // lyne-toast_ events are not working

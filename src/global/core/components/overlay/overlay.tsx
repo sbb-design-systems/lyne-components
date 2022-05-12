@@ -537,3 +537,25 @@ export const dismiss = async (overlay: InterfaceOverlay, data: any | undefined, 
   return true;
 };
 
+export const onceEvent = (element: HTMLElement, eventName: string, callback: (ev: Event) => void, opts?: any): void => {
+  const handler = (ev: Event): void => {
+    element.removeEventListener(eventName, handler, opts);
+    callback(ev);
+  };
+
+  element.addEventListener(eventName, handler, opts);
+};
+
+export const eventMethod = <T, >(element: HTMLElement, eventName: string): Promise<T> => {
+  let resolve: (detail: T) => void;
+  const promise = new Promise<T>((r) => {
+    resolve = r;
+  });
+
+  onceEvent(element, eventName, (event: any) => {
+    resolve(event.detail);
+  });
+
+  return promise;
+};
+

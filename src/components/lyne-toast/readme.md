@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property       | Attribute       | Description | Type                          | Default     |
-| -------------- | --------------- | ----------- | ----------------------------- | ----------- |
-| `config`       | --              |             | `InterfaceToastConfiguration` | `undefined` |
-| `overlayIndex` | `overlay-index` |             | `number`                      | `undefined` |
+| Property        | Attribute        | Description | Type                          | Default     |
+| --------------- | ---------------- | ----------- | ----------------------------- | ----------- |
+| `config`        | --               |             | `InterfaceToastConfiguration` | `undefined` |
+| `keyboardClose` | `keyboard-close` |             | `boolean`                     | `false`     |
+| `overlayIndex`  | `overlay-index`  |             | `number`                      | `undefined` |
 
 
 ## Events
@@ -35,6 +36,26 @@ Type: `Promise<boolean>`
 
 
 
+### `onDidDismiss<T = any>() => Promise<InterfaceOverlayEventDetail<T>>`
+
+Returns a promise that resolves when the toast did dismiss.
+
+#### Returns
+
+Type: `Promise<InterfaceOverlayEventDetail<T>>`
+
+
+
+### `onWillDismiss<T = any>() => Promise<InterfaceOverlayEventDetail<T>>`
+
+Returns a promise that resolves when the toast will dismiss.
+
+#### Returns
+
+Type: `Promise<InterfaceOverlayEventDetail<T>>`
+
+
+
 ### `present() => Promise<void>`
 
 
@@ -44,6 +65,13 @@ Type: `Promise<boolean>`
 Type: `Promise<void>`
 
 
+
+
+## Shadow Parts
+
+| Part       | Description |
+| ---------- | ----------- |
+| `"button"` |             |
 
 
 ----------------------------------------------

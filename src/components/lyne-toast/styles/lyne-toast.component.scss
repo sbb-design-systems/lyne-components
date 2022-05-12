@@ -3,6 +3,13 @@
 // and default mode
 @include host-component-properties;
 
+:host {
+  .overlay-hidden {
+    display: none;
+  }
+
+}
+
 .toast-wrapper {
   // temporary -2 rem for storybook only
   width: calc(100vw - 2rem);
@@ -44,18 +51,18 @@
   @include mq($from: medium) {
     margin: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem) 0;
   }
-  &.top {
+  &.toast-top {
     top: 0;
     bottom: auto;
   }
-  &.left {
+  &.toast-left {
     left: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
     transform: none;
     @include mq($from: medium) {
       left: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
     }
   }
-  &.right {
+  &.toast-right {
     right: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
     left: auto;
     transform: none;
@@ -81,10 +88,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  span.text {
+  span.toast-text {
     color: var(--color-default-text);
   }
-  .icon {
+  .toast-icon {
     color: var(--color-default-text);
     flex: 0 0 19px; //width
     height: 19px;
@@ -97,7 +104,7 @@
     }
   }
 
-  .action {
+  .toast-action {
     color: var(--color-default-text);
     font-family: var(--typo-type-face-sbb-roman);
     font-weight: 400;
