@@ -36,9 +36,8 @@
   @include buttonShadowNotDisabled();
 }
 
-.link-button:hover,
-.link-button:focus {
-  @include buttonFocusAndHover();
+.link-button:hover {
+  @include buttonHover();
 }
 
 .link-button:active {

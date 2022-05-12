@@ -92,7 +92,9 @@
 .button--primary:not(:disabled),
 .button--secondary:not(:disabled),
 .button--primary-negative:not(:disabled) {
-  @include buttonShadowNotDisabled();
+  &::before {
+    @include buttonShadowNotDisabled();
+  }
 }
 
 .button--visual-only {
@@ -104,26 +106,29 @@
   --padding-inline: 0;
   --icon-margin-inline-end: 0;
 
-  width: pxToRem(var(--min-height-hover, var(--min-height)));
+  width: pxToRem(var(--min-height));
   justify-content: center;
 
   &.button:disabled::after {
-    inset-inline: pxToRem(
-      calc(var(--line-through-icon-button-padding-inline) - var(--border-width))
-    );
+    inset-inline: unset;
+    // Width of line through is fixed in icon variant
+    width: pxToRem(var(--icon-size));
   }
 }
 
 .button:disabled {
   color: var(--color-disabled-text);
-  background-color: var(--color-disabled-background);
-  border-color: var(--color-disabled-border);
   cursor: default;
+
+  &::before {
+    background-color: var(--color-disabled-background);
+    border-color: var(--color-disabled-border);
+  }
 
   // Line through content
   &::after {
-    position: absolute;
     content: "";
+    @include absoluteCenterY;
     background-color: var(--color-disabled-text);
     height: pxToRem(var(--line-through-height-disabled));
     inset-inline: pxToRem(var(--padding-inline));
@@ -136,9 +141,8 @@
   }
 }
 
-.button:hover:not(:disabled),
-.button:focus:not(:disabled) {
-  @include buttonFocusAndHover();
+.button:hover:not(:disabled) {
+  @include buttonHover();
 }
 
 .button:active:not(:disabled) {
@@ -150,11 +154,13 @@
 .button--translucent-negative,
 .button--transparent,
 .button--transparent-negative {
-  box-shadow: none;
+  &::before {
+    box-shadow: none;
+  }
 
   &:hover,
   &:focus {
-    &:not(:disabled) {
+    &:not(:disabled)::before {
       box-shadow: none;
     }
   }

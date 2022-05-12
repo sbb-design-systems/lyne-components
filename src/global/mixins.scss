@@ -26,3 +26,22 @@
   #{$property}: 100%;
   #{$property}: stretch;
 }
+
+@mixin absoluteCenterXY() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absoluteCenterX() {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin absoluteCenterY() {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

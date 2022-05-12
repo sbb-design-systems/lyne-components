@@ -21,8 +21,7 @@
   --letter-spacing: var(--typo-letter-spacing-body-text);
   --line-height: var(--typo-line-height-body-text);
   --icon-size: var(--size-icon-ui-small);
-  --line-through-height-disabled: 2;
-  --line-through-icon-button-padding-inline: 12;
+  --line-through-height-disabled: var(--border-width-2x);
 
   // we use primary button styles as default values
   --color-active-background: var(--color-red150-default);
@@ -71,7 +70,6 @@
 
   @include mq($from: medium) {
     --padding-inline: var(--spacing-fixed-10x);
-    --line-through-icon-button-padding-inline: 16;
   }
 }
 
@@ -168,11 +166,9 @@
   --border-width: var(--border-width-1x);
   --min-height: var(--size-form-element-m-min-height);
   --padding-inline: var(--spacing-fixed-5x);
-  --line-through-icon-button-padding-inline: 10;
 
   @include mq($from: medium) {
     --padding-inline: var(--spacing-fixed-8x);
-    --line-through-icon-button-padding-inline: 12;
   }
 }
 
@@ -181,19 +177,15 @@
   @include stretch(width);
 
   position: relative;
-  // In Safari bordering content is displaced on hover with flex
-  display: inline-flex;
+  display: flex;
   gap: pxToRem(var(--gap));
   align-items: center;
   text-align: left;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
-  transition-property: background-color, color, border-color, box-shadow, margin,
-    min-height, padding, width;
+  transition-property: color, width;
   min-height: pxToRem(var(--min-height));
-  border: pxToRem(var(--border-width)) solid var(--color-default-border);
   border-radius: pxToRem(var(--border-radius));
-  background-color: var(--color-default-background);
 
   // The padding value is only a minimal padding to preserve a padding if the content becomes larger than intended.
   // Positioning of the content is made by flexbox vertical centering.
@@ -209,21 +201,26 @@
   -webkit-font-smoothing: antialiased;
   cursor: pointer;
 
-  // TODO: Find out and describe the purpose
+  // Renders background and border in the background absolute to enable the hover animation
   &::before {
     position: absolute;
     content: "";
-    inset: pxToRem(var(--border-width), true);
-    border-radius: pxToRem(var(--border-radius));
+    inset: 0;
     border: pxToRem(var(--border-width)) solid var(--color-default-border);
-    z-index: -1;
+    border-radius: pxToRem(var(--border-radius));
+    background-color: var(--color-default-background);
+
+    transition-duration: var(--transition-duration);
+    transition-timing-function: var(--transition-easing-function);
+    transition-property: inset, background-color, border-color, box-shadow;
+
+    @include visibleFocus;
+
+    @include ifForcedColors {
+      border: pxToRem(1) solid windowText;
+    }
   }
 
-  @include ifForcedColors {
-    border: pxToRem(1) solid windowText;
-  }
-
-  @include visibleFocus;
 }
 
 @mixin buttonShadowNotDisabled {
@@ -244,25 +241,25 @@
   color: currentColor;
 }
 
-@mixin buttonFocusAndHover {
+@mixin buttonHover {
   --translate-y-content-hover: -1;
-  --min-height-hover: calc(var(--min-height) + 2 * var(--border-width));
 
   color: var(--color-hover-text);
-  background-color: var(--color-hover-background);
-  border-color: var(--color-hover-border);
-  min-height: pxToRem(var(--min-height-hover));
-  margin: pxToRem(var(--border-width), true);
-  padding-inline: pxToRem(calc(var(--padding-inline) + var(--border-width)));
 
-  box-shadow: pxToRem(var(--shadow-1-hover-offset-x))
-      pxToRem(var(--shadow-1-hover-offset-y))
-      pxToRem(var(--shadow-1-hover-blur)) pxToRem(var(--shadow-1-hover-spread))
-      var(--shadow-1-hover-color),
-    pxToRem(var(--shadow-2-hover-offset-x))
-      pxToRem(var(--shadow-2-hover-offset-y))
-      pxToRem(var(--shadow-2-hover-blur)) pxToRem(var(--shadow-2-hover-spread))
-      var(--shadow-2-hover-color);
+  &::before {
+    inset: pxToRem(var(--border-width), true);
+
+    background-color: var(--color-hover-background);
+    border-color: var(--color-hover-border);
+    box-shadow: pxToRem(var(--shadow-1-hover-offset-x))
+        pxToRem(var(--shadow-1-hover-offset-y))
+        pxToRem(var(--shadow-1-hover-blur))
+        pxToRem(var(--shadow-1-hover-spread)) var(--shadow-1-hover-color),
+      pxToRem(var(--shadow-2-hover-offset-x))
+        pxToRem(var(--shadow-2-hover-offset-y))
+        pxToRem(var(--shadow-2-hover-blur))
+        pxToRem(var(--shadow-2-hover-spread)) var(--shadow-2-hover-color);
+  }
 }
 
 @mixin buttonActive {
