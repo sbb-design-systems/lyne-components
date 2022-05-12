@@ -4,10 +4,11 @@
 @include host-component-properties;
 
 :host {
-  --lyne-amount-spacing: 0 0 0 calc(var(--spacing-fixed-1x) / var(--typo-scale-default) * 1rem);
   display: inline-block;
+}
+span {
+  @include text;
   vertical-align: middle;
-  font-family: var(--typo-type-face-sbb-roman);
   color: var(--lyne-amount-color-override, var(--color-metal-default));
-  padding: var(--lyne-amount-spacing-override, var(--lyne-amount-spacing));
+  padding-inline-start: pxToRem(var(--spacing-fixed-1x));
 }

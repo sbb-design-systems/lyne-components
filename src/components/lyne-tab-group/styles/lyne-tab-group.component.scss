@@ -3,14 +3,10 @@
 // and default mode
 @include host-component-properties;
 
-:host([dir=rtl]) {
-  --lyne-amount-spacing-override: 0 calc(var(--spacing-fixed-1x) / var(--typo-scale-default) * 1rem) 0 0;
-}
-
 .tab-group {
   display: flex;
   flex-wrap: wrap;
-  gap: calc(var(--spacing-fixed-3x) / var(--typo-scale-default) * 1rem);
+  gap: pxToRem(var(--spacing-fixed-3x));
 
   ::slotted(h1),
   ::slotted(h2),
@@ -20,23 +16,21 @@
   ::slotted(h6) {
     @include title;
     line-height: var(--typo-line-height-body-text);
-    font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
+    font-size: pxToRem(var(--typo-scale-0-75x));
     display: inline-block;
     vertical-align: middle;
-    padding: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem) calc(var(--spacing-fixed-5x) / var(--typo-scale-default) * 1rem);
-    border: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-cloud-default);
-    border-radius: calc(var(--spacing-fixed-5x) / var(--typo-scale-default) * 1rem);
+    padding: pxToRem(var(--spacing-fixed-2x)) pxToRem(var(--spacing-fixed-5x));
+    border: pxToRem(var(--border-width-1x)) solid var(--color-cloud-default);
+    border-radius: pxToRem(var(--spacing-fixed-5x));
     color: var(--color-black-default);
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
-                border var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
-                background-color var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+    @include ellipsis;
+    transition-duration: var(--animation-duration-4x);
+    transition-timing-function: var(--animation-easing);
+    transition-property: color, border, background-color;
     @include mq($from: medium) {
-      font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
+      font-size: pxToRem(var(--typo-scale-0-875x));
     }
   }
 
@@ -56,8 +50,8 @@
   ::slotted(h4:focus-visible),
   ::slotted(h5:focus-visible),
   ::slotted(h6:focus-visible) {
-    outline: calc(var(--border-width-1x) / var(--typo-scale-default) * 1rem) solid var(--color-black-default);
-    outline-offset: calc((var(--border-width-1x) + var(--border-width-2x)) / var(--typo-scale-default) * 1rem);
+    outline: pxToRem(var(--border-width-1x)) solid var(--color-black-default);
+    outline-offset: pxToRem((var(--border-width-1x) + var(--border-width-2x)));
   }
 
   ::slotted(h1:active),
@@ -94,29 +88,21 @@
     border-color: var(--color-milk-default);
     color: var(--color-platinum-default);
     --lyne-amount-color-override: var(--color-platinum-default);
-    //text-decoration: line-through;
     &:after {
       content: '';
       position: absolute;
-      top: 50%;
-      left: calc(var(--spacing-fixed-5x) / var(--typo-scale-default) * 1rem);
-      width: calc(100% - (var(--spacing-fixed-10x) / var(--typo-scale-default) * 1rem));
-      border-bottom: calc(var(--border-width-2x) / var(--typo-scale-default) * 1rem) solid var(--color-platinum-default);
+      inset: 50% pxToRem(var(--spacing-fixed-5x));
+      transform: translateY(-50%);
+      border-bottom: pxToRem(var(--border-width-2x)) solid var(--color-platinum-default);
     }
   }
 }
 
 .tab-content {
   @include text;
-  font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
+  font-size: pxToRem(var(--typo-scale-0-75x));
   color: var(--color-iron-default);
-  margin-top: calc(var(--spacing-responsive-m-small) / var(--typo-scale-default) * 1rem);
-  @include mq($from: medium) {
-    margin-top: calc(var(--spacing-responsive-m-medium) / var(--typo-scale-default) * 1rem);
-  }
-  @include mq($from: wide) {
-    margin-top: calc(var(--spacing-responsive-m-wide) / var(--typo-scale-default) * 1rem);
-  }
+  margin-top: pxToRem(var(--spacing-responsive-m));
   ::slotted(div) {
     opacity: 0;
     visibility: hidden;
@@ -126,7 +112,8 @@
     opacity: 1;
     visibility: visible;
     height: 100%;
-    transition: opacity var(--animation-form-element-state-duration) var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
-                visibility var(--animation-form-element-state-duration) var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+    transition-duration: var(--animation-duration-4x);
+    transition-timing-function: var(--animation-easing);
+    transition-property: opacity, visibility;
   }
 }
