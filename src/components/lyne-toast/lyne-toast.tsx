@@ -94,19 +94,21 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
   private _durationTimeout: NodeJS.Timeout;
 
-  private _defaultConfig: InterfaceToastConfiguration = {
-    horizontalPosition: 'center',
-    message: null,
-    politeness: 'polite',
-    timeout: 6000,
-    verticalPosition: 'bottom'
-  };
+  private _internalConfig: InterfaceToastConfiguration;
 
   private _hasIconSlot: boolean;
 
   public connectedCallback(): void {
-    this.config = {
-      ...this._defaultConfig,
+    const defaultConfig: InterfaceToastConfiguration = {
+      horizontalPosition: 'center',
+      message: null,
+      politeness: 'polite',
+      timeout: 6000,
+      verticalPosition: 'bottom'
+    };
+
+    this._internalConfig = {
+      ...defaultConfig,
       ...this.config
     };
     prepareOverlay(this.el);
@@ -118,9 +120,9 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
   @Method()
   public async present(): Promise<void> {
-    await present(this, toastEnterAnimation, this.config.verticalPosition);
-    if (this.config.timeout > 0) {
-      this._durationTimeout = setTimeout(() => this.dismiss(undefined, 'timeout'), this.config.timeout);
+    await present(this, toastEnterAnimation, this._internalConfig.verticalPosition);
+    if (this._internalConfig.timeout > 0) {
+      this._durationTimeout = setTimeout(() => this.dismiss(undefined, 'timeout'), this._internalConfig.timeout);
     }
   }
 
@@ -151,7 +153,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
   private _renderActionCommonButton(onClickFn: () => Promise<boolean>, innerToastEl: JSX.Element): JSX.Element {
     return (
-      <button type='button' tabIndex={0} onClick={onClickFn} part='button' role={this.config.action.role} class={this._buttonClass()}>
+      <button type='button' tabIndex={0} onClick={onClickFn} part='button' role={this._internalConfig.action.role} class={this._buttonClass()}>
         {innerToastEl}
       </button>
     );
@@ -164,7 +166,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
       return acc;
     };
 
-    const classArray: string[] = getClassList(this.config.action.cssClass);
+    const classArray: string[] = getClassList(this._internalConfig.action.cssClass);
 
     return {
       'lyne-focusable': true,
@@ -185,18 +187,18 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
   private _renderAction(): JSX.Element {
 
-    switch (this.config.action.type) {
+    switch (this._internalConfig.action.type) {
       case 'link': {
         return (
-          <a class='lyne-focusable' href={this.config.action.href} target='_blank' tabIndex={0} role={this.config.action.role}>
-            {this.config.action.label}
+          <a class='lyne-focusable' href={this._internalConfig.action.href} target='_blank' tabIndex={0} role={this._internalConfig.action.role}>
+            {this._internalConfig.action.label}
           </a>
         );
 
       }
       case 'action': {
-        const innerElement = <span>{this.config.action.label}</span>;
-        const clickFn = this._handleButtonClick.bind(this, this.config.action);
+        const innerElement = <span>{this._internalConfig.action.label}</span>;
+        const clickFn = this._handleButtonClick.bind(this, this._internalConfig.action);
 
         return this._renderActionCommonButton(clickFn, innerElement);
       }
@@ -215,26 +217,26 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     let actionContent: JSX.Element;
     let role = 'status';
 
-    if (this.config.action) {
+    if (this._internalConfig.action) {
       role = 'dialog';
       actionContent = this._renderAction();
     }
 
     let iconTemplate = '';
 
-    if (typeof this.config.icon === 'string') {
-      iconTemplate = <span class='toast-icon' innerHTML={this.config.icon}/>;
+    if (typeof this._internalConfig.icon === 'string') {
+      iconTemplate = <span class='toast-icon' innerHTML={this._internalConfig.icon}/>;
     } else if (this._hasIconSlot) {
       iconTemplate = <span class='toast-icon'><slot name='icon'/></span>;
     }
 
     return (
-      <Host aria-live={this.config.politeness} aria-atomic='true' role={role} tabindex='-1' class='overlay-hidden'>
+      <Host aria-live={this._internalConfig.politeness} aria-atomic='true' role={role} tabindex='-1' class='overlay-hidden'>
         <div class='toast-wrapper'>
-          <div class={`toast toast-${this.config.verticalPosition} toast-${this.config.horizontalPosition}`}>
+          <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._internalConfig.horizontalPosition}`}>
             {iconTemplate}
             <span class='toast-text'>
-              {this.config.message}
+              {this._internalConfig.message}
             </span>
             {
               actionContent &&
