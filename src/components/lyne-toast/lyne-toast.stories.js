@@ -36,11 +36,32 @@ const getCloseIconConfig = () => ({
   }
 });
 
+/*
+ * to be fixed when event impl by Lukas will be available
+ */
+const toastEvents = [
+  'lyne-toast_did-dismiss',
+  'lyne-toast_did-present',
+  'lyne-toast_will-dismiss',
+  'lyne-toast_will-present'
+];
+
+const propagateToastEventsToStorybookContext = (button, toast, eventName) => {
+  const handler = (event) => {
+    button.dispatchEvent(new CustomEvent(eventName, event));
+    toast.removeEventListener(eventName, handler);
+  };
+
+  toast.addEventListener(eventName, handler);
+};
+
 const openCommon = (args, config) => {
   const toast = document.createElement('lyne-toast');
 
   toast.config = config;
   document.body.appendChild(toast);
+  toastEvents.forEach((eventName) => propagateToastEventsToStorybookContext(document.getElementById('button-id'), toast, eventName));
+
   toast.present();
 };
 
@@ -48,7 +69,7 @@ const openNoIconAndNoAction = (args) => {
   openCommon(args, getCommonConfig(args));
 };
 const TemplateNoIconAndNoAction = (args) => (
-  <button onClick={openNoIconAndNoAction.bind(this, args)}>Open</button>
+  <button id='button-id' onClick={openNoIconAndNoAction.bind(this, args)}>Open toast</button>
 );
 
 const openNoIconAndCloseIconAction = (args) => {
@@ -60,7 +81,7 @@ const openNoIconAndCloseIconAction = (args) => {
   openCommon(args, config);
 };
 const TemplateNoIconAndCloseIconAction = (args) => (
-  <button onClick={openNoIconAndCloseIconAction.bind(this, args)}>Open</button>
+  <button id='button-id' onClick={openNoIconAndCloseIconAction.bind(this, args)}>Open toast</button>
 );
 
 const openNoIconAndLinkAction = (args) => {
@@ -72,7 +93,7 @@ const openNoIconAndLinkAction = (args) => {
   openCommon(args, config);
 };
 const TemplateNoIconAndLinkAction = (args) => (
-  <button onClick={openNoIconAndLinkAction.bind(this, args)}>Open</button>
+  <button id='button-id' onClick={openNoIconAndLinkAction.bind(this, args)}>Open toast</button>
 );
 
 const openNoIconAndButtonAction = (args) => {
@@ -84,7 +105,7 @@ const openNoIconAndButtonAction = (args) => {
   openCommon(args, config);
 };
 const TemplateNoIconAndButtonAction = (args) => (
-  <button onClick={openNoIconAndButtonAction.bind(this, args)}>Open</button>
+  <button id='button-id' onClick={openNoIconAndButtonAction.bind(this, args)}>Open toast</button>
 );
 
 const openIconAndActionCloseIcon = (args) => {
@@ -97,7 +118,7 @@ const openIconAndActionCloseIcon = (args) => {
   openCommon(args, config);
 };
 const TemplateIconAndCloseIconAction = (args) => (
-  <button onClick={openIconAndActionCloseIcon.bind(this, args)}>Open</button>
+  <button id='button-id' onClick={openIconAndActionCloseIcon.bind(this, args)}>Open toast</button>
 );
 
 const openIconAndLinkAction = (args) => {
@@ -110,7 +131,7 @@ const openIconAndLinkAction = (args) => {
   openCommon(args, config);
 };
 const TemplateIconAndLinkAction = (args) => (
-  <button onClick={openIconAndLinkAction.bind(this, args)}>Open</button>
+  <button id='button-id' onClick={openIconAndLinkAction.bind(this, args)}>Open toast</button>
 );
 
 const openIconAndButtonAction = (args) => {
@@ -123,7 +144,7 @@ const openIconAndButtonAction = (args) => {
   openCommon(args, config);
 };
 const TemplateIconAndButtonAction = (args) => (
-  <button onClick={openIconAndButtonAction.bind(this, args)}>Open</button>
+  <button id='button-id' onClick={openIconAndButtonAction.bind(this, args)}>Open toast</button>
 );
 
 export const templateNoIconAndNoAction = TemplateNoIconAndNoAction.bind({});
@@ -312,10 +333,10 @@ export default {
     actions: {
       handles: [
         lyneToastEvents.click,
-        'lyne-toast_did_dismiss',
-        'lyne-toast_did_present',
-        'lyne-toast_will_dismiss',
-        'lyne-toast_will_present'
+        'lyne-toast_did-dismiss',
+        'lyne-toast_did-present',
+        'lyne-toast_will-dismiss',
+        'lyne-toast_will-present'
       ]
     },
     backgrounds: {
