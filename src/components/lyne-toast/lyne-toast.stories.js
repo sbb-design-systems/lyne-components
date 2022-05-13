@@ -2,6 +2,7 @@ import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import lyneToastEvents from './lyne-toast.events';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { propagateOverlayEventToStorybook } from '../../global/core/components/overlay/overlay-event-dispatcher';
 
 const getCommonConfig = (args) => ({
   horizontalPosition: args.horizontalPosition,
@@ -46,27 +47,19 @@ const toastEvents = [
   'lyne-toast_will-present'
 ];
 
-const propagateToastEventsToStorybookContext = (button, toast, eventName) => {
-  const handler = (event) => {
-    button.dispatchEvent(new CustomEvent(eventName, event));
-    toast.removeEventListener(eventName, handler);
-  };
-
-  toast.addEventListener(eventName, handler);
-};
-
-const openCommon = (args, config) => {
+const createAndSetupToast = (args, config) => {
   const toast = document.createElement('lyne-toast');
 
   toast.config = config;
   document.body.appendChild(toast);
-  toastEvents.forEach((eventName) => propagateToastEventsToStorybookContext(document.getElementById('button-id'), toast, eventName));
+  toastEvents.forEach((eventName) => propagateOverlayEventToStorybook(document.getElementById('button-id'), toast, eventName));
 
-  toast.present();
+  return toast;
 };
 
 const openNoIconAndNoAction = (args) => {
-  openCommon(args, getCommonConfig(args));
+  createAndSetupToast(args, getCommonConfig(args))
+    .present();
 };
 const TemplateNoIconAndNoAction = (args) => (
   <button id='button-id' onClick={openNoIconAndNoAction.bind(this, args)}>Open toast</button>
@@ -77,8 +70,9 @@ const openNoIconAndCloseIconAction = (args) => {
     ...getCommonConfig(args),
     ...getCloseIconConfig()
   };
+  const toast = createAndSetupToast(args, config);
 
-  openCommon(args, config);
+  toast.present();
 };
 const TemplateNoIconAndCloseIconAction = (args) => (
   <button id='button-id' onClick={openNoIconAndCloseIconAction.bind(this, args)}>Open toast</button>
@@ -89,8 +83,9 @@ const openNoIconAndLinkAction = (args) => {
     ...getCommonConfig(args),
     ...getLinkConfig(args)
   };
+  const toast = createAndSetupToast(args, config);
 
-  openCommon(args, config);
+  toast.present();
 };
 const TemplateNoIconAndLinkAction = (args) => (
   <button id='button-id' onClick={openNoIconAndLinkAction.bind(this, args)}>Open toast</button>
@@ -101,8 +96,9 @@ const openNoIconAndButtonAction = (args) => {
     ...getCommonConfig(args),
     ...getActionConfig(args)
   };
+  const toast = createAndSetupToast(args, config);
 
-  openCommon(args, config);
+  toast.present();
 };
 const TemplateNoIconAndButtonAction = (args) => (
   <button id='button-id' onClick={openNoIconAndButtonAction.bind(this, args)}>Open toast</button>
@@ -114,11 +110,44 @@ const openIconAndActionCloseIcon = (args) => {
     ...getIconConfig(args.iconSlot),
     ...getCloseIconConfig()
   };
+  const toast = createAndSetupToast(args, config);
 
-  openCommon(args, config);
+  toast.present();
 };
 const TemplateIconAndCloseIconAction = (args) => (
   <button id='button-id' onClick={openIconAndActionCloseIcon.bind(this, args)}>Open toast</button>
+);
+
+const openIconAndNoCloseIconActionWithEventListeners = async (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    ...getIconConfig(args.iconSlot),
+    ...getCloseIconConfig()
+  };
+  const toast = createAndSetupToast(args, config);
+  const placeholder = document.getElementById('placeholder');
+  const div = document.createElement('div');
+  const divWillDismiss = document.createElement('div');
+  const divDidDismiss = document.createElement('div');
+
+  await toast.present();
+  const willDismiss = await toast.onWillDismiss();
+  const didDismiss = await toast.onDidDismiss();
+
+  divWillDismiss.append(`onWillDismiss: role ${willDismiss.role}, data: ${willDismiss.data}`);
+  divDidDismiss.append(`onDidDismiss: role ${didDismiss.role}, data: ${didDismiss.data}`);
+  div.appendChild(divWillDismiss);
+  div.appendChild(divDidDismiss);
+  placeholder.appendChild(div);
+};
+const TemplateIconAndNoCloseIconActionWithEventListeners = (args) => (
+  <div>
+    <button id='button-id' onClick={openIconAndNoCloseIconActionWithEventListeners.bind(this, args)}>Open toast</button>
+    <div style='padding-top: 2rem'>
+      <div>onDidDismiss and onWillDismiss will print here the returned info:</div>
+      <div id='placeholder' style='padding-top: 1rem'/>
+    </div>
+  </div>
 );
 
 const openIconAndLinkAction = (args) => {
@@ -127,8 +156,9 @@ const openIconAndLinkAction = (args) => {
     ...getIconConfig(args.iconSlot),
     ...getLinkConfig(args)
   };
+  const toast = createAndSetupToast(args, config);
 
-  openCommon(args, config);
+  toast.present();
 };
 const TemplateIconAndLinkAction = (args) => (
   <button id='button-id' onClick={openIconAndLinkAction.bind(this, args)}>Open toast</button>
@@ -140,22 +170,24 @@ const openIconAndButtonAction = (args) => {
     ...getIconConfig(args.iconSlot),
     ...getActionConfig(args)
   };
+  const toast = createAndSetupToast(args, config);
 
-  openCommon(args, config);
+  toast.present();
 };
 const TemplateIconAndButtonAction = (args) => (
   <button id='button-id' onClick={openIconAndButtonAction.bind(this, args)}>Open toast</button>
 );
 
-export const templateNoIconAndNoAction = TemplateNoIconAndNoAction.bind({});
+export const NoIconAndNoAction = TemplateNoIconAndNoAction.bind({});
 
-export const templateNoIconAndCloseIconAction = TemplateNoIconAndCloseIconAction.bind({});
-export const templateNoIconAndLinkAction = TemplateNoIconAndLinkAction.bind({});
-export const templateNoIconAndButtonAction = TemplateNoIconAndButtonAction.bind({});
+export const NoIconAndCloseIconAction = TemplateNoIconAndCloseIconAction.bind({});
+export const NoIconAndLinkAction = TemplateNoIconAndLinkAction.bind({});
+export const NoIconAndButtonAction = TemplateNoIconAndButtonAction.bind({});
 
-export const templateIconAndCloseIconAction = TemplateIconAndCloseIconAction.bind({});
-export const templateIconAndLinkAction = TemplateIconAndLinkAction.bind({});
-export const templateIconAndButtonAction = TemplateIconAndButtonAction.bind({});
+export const IconAndCloseIconAction = TemplateIconAndCloseIconAction.bind({});
+export const IconAndCloseIconActionWithEventListeners = TemplateIconAndNoCloseIconActionWithEventListeners.bind({});
+export const IconAndLinkAction = TemplateIconAndLinkAction.bind({});
+export const IconAndButtonAction = TemplateIconAndButtonAction.bind({});
 
 const message = {
   control: {
@@ -251,71 +283,82 @@ const basicArgs = {
   iconSlot: iconSlot.options[0],
   label: 'Undo',
   message: 'Ciao',
-  timeout: 1000,
+  timeout: 6000,
   verticalPosition: 'bottom'
 };
 
-templateNoIconAndNoAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete templateNoIconAndNoAction.argTypes.iconSlot;
-delete templateNoIconAndNoAction.argTypes.href;
-delete templateNoIconAndNoAction.argTypes.label;
-templateNoIconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete templateNoIconAndCloseIconAction.argTypes.iconSlot;
-delete templateNoIconAndCloseIconAction.argTypes.href;
-delete templateNoIconAndCloseIconAction.argTypes.label;
-templateNoIconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete templateNoIconAndLinkAction.argTypes.iconSlot;
-templateNoIconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete templateNoIconAndButtonAction.argTypes.iconSlot;
-delete templateNoIconAndButtonAction.argTypes.href;
+NoIconAndNoAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete NoIconAndNoAction.argTypes.iconSlot;
+delete NoIconAndNoAction.argTypes.href;
+delete NoIconAndNoAction.argTypes.label;
 
-templateIconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete templateIconAndCloseIconAction.argTypes.href;
-delete templateIconAndCloseIconAction.argTypes.label;
-templateIconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-templateIconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete templateIconAndButtonAction.argTypes.href;
+NoIconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete NoIconAndCloseIconAction.argTypes.iconSlot;
+delete NoIconAndCloseIconAction.argTypes.href;
+delete NoIconAndCloseIconAction.argTypes.label;
+NoIconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete NoIconAndLinkAction.argTypes.iconSlot;
+NoIconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete NoIconAndButtonAction.argTypes.iconSlot;
+delete NoIconAndButtonAction.argTypes.href;
 
-templateNoIconAndNoAction.args = JSON.parse(JSON.stringify(basicArgs));
-delete templateNoIconAndNoAction.args.iconSlot;
-delete templateNoIconAndNoAction.args.href;
-delete templateNoIconAndNoAction.args.label;
-templateNoIconAndCloseIconAction.args = JSON.parse(JSON.stringify(basicArgs));
-delete templateNoIconAndCloseIconAction.args.iconSlot;
-delete templateNoIconAndCloseIconAction.args.href;
-delete templateNoIconAndCloseIconAction.args.label;
-templateNoIconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
-delete templateNoIconAndLinkAction.args.iconSlot;
-templateNoIconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
-delete templateNoIconAndButtonAction.args.iconSlot;
-delete templateNoIconAndButtonAction.args.href;
+IconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete IconAndCloseIconAction.argTypes.href;
+delete IconAndCloseIconAction.argTypes.label;
+IconAndCloseIconActionWithEventListeners.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete IconAndCloseIconActionWithEventListeners.argTypes.href;
+delete IconAndCloseIconActionWithEventListeners.argTypes.label;
+IconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+IconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete IconAndButtonAction.argTypes.href;
 
-templateIconAndCloseIconAction.args = JSON.parse(JSON.stringify(basicArgs));
-delete templateIconAndCloseIconAction.args.href;
-delete templateIconAndCloseIconAction.args.label;
-templateIconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
-templateIconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
-delete templateIconAndButtonAction.args.href;
+NoIconAndNoAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndNoAction.args.iconSlot;
+delete NoIconAndNoAction.args.href;
+delete NoIconAndNoAction.args.label;
 
-templateNoIconAndNoAction.documentation = {
+NoIconAndCloseIconAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndCloseIconAction.args.iconSlot;
+delete NoIconAndCloseIconAction.args.href;
+delete NoIconAndCloseIconAction.args.label;
+NoIconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndLinkAction.args.iconSlot;
+NoIconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndButtonAction.args.iconSlot;
+delete NoIconAndButtonAction.args.href;
+
+IconAndCloseIconAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete IconAndCloseIconAction.args.href;
+delete IconAndCloseIconAction.args.label;
+IconAndCloseIconActionWithEventListeners.args = JSON.parse(JSON.stringify(basicArgs));
+delete IconAndCloseIconActionWithEventListeners.args.href;
+delete IconAndCloseIconActionWithEventListeners.args.label;
+IconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
+IconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete IconAndButtonAction.args.href;
+
+NoIconAndNoAction.documentation = {
   title: 'Lyne toast with no icon and no action'
 };
-templateNoIconAndCloseIconAction.documentation = {
+NoIconAndCloseIconAction.documentation = {
   title: 'Lyne toast with no icon and icon close action'
 };
-templateNoIconAndLinkAction.documentation = {
+NoIconAndLinkAction.documentation = {
   title: 'Lyne toast with no icon and link action'
 };
-templateNoIconAndButtonAction.documentation = {
+NoIconAndButtonAction.documentation = {
   title: 'Lyne toast with no icon and action button with handler'
 };
-templateIconAndCloseIconAction.documentation = {
+IconAndCloseIconAction.documentation = {
   title: 'Lyne toast with icon and icon close action'
 };
-templateIconAndLinkAction.documentation = {
+IconAndCloseIconActionWithEventListeners.documentation = {
+  title: 'Lyne toast with no icon and no action with listeners on public willDismiss() and didDismiss() events'
+};
+IconAndLinkAction.documentation = {
   title: 'Lyne toast with icon and link action'
 };
-templateIconAndButtonAction.documentation = {
+IconAndButtonAction.documentation = {
   title: 'Lyne toast with icon and action button with handler'
 };
 

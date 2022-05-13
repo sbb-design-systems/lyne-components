@@ -1,10 +1,12 @@
 import { h } from '@stencil/core';
-import { LyneToast } from './lyne-toast';
+import {
+  InterfaceToastConfiguration, LyneToast
+} from './lyne-toast';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('lyne-toast', () => {
   it('renders with only message property', async () => {
-    const config = {
+    const config: InterfaceToastConfiguration = {
       message: 'Message'
     };
     const {
