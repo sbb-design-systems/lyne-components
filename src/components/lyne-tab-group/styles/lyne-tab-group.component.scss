@@ -19,16 +19,19 @@
     font-size: pxToRem(var(--typo-scale-0-75x));
     display: inline-block;
     vertical-align: middle;
-    padding: pxToRem(var(--spacing-fixed-2x)) pxToRem(var(--spacing-fixed-5x));
-    border: pxToRem(var(--border-width-1x)) solid var(--color-cloud-default);
+    padding-block: pxToRem(var(--spacing-fixed-2x));
+    padding-inline: pxToRem(var(--spacing-fixed-5x));
     border-radius: pxToRem(var(--spacing-fixed-5x));
+    -webkit-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
+    -moz-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
+    box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
     color: var(--color-black-default);
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
     @include ellipsis;
     transition-duration: var(--animation-duration-4x);
     transition-timing-function: var(--animation-easing);
-    transition-property: color, border, background-color;
+    transition-property: color, box-shadow, background-color;
     @include mq($from: medium) {
       font-size: pxToRem(var(--typo-scale-0-875x));
     }
@@ -51,7 +54,7 @@
   ::slotted(h5:focus-visible),
   ::slotted(h6:focus-visible) {
     outline: pxToRem(var(--border-width-1x)) solid var(--color-black-default);
-    outline-offset: pxToRem((var(--border-width-1x) + var(--border-width-2x)));
+    outline-offset: pxToRem(var(--border-width-2x));
   }
 
   ::slotted(h1:active),
@@ -70,7 +73,9 @@
   ::slotted(h4[active]),
   ::slotted(h5[active]),
   ::slotted(h6[active]) {
-    border-color: var(--color-black-default);
+    -webkit-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    -moz-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
     background-color: var(--color-black-default);
     color: var(--color-white-default);
   }
@@ -85,7 +90,9 @@
     position: relative;
     pointer-events: none;
     background-color: var(--color-milk-default);
-    border-color: var(--color-milk-default);
+    -webkit-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-milk-default);
+    -moz-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-milk-default);
+    box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-milk-default);
     color: var(--color-platinum-default);
     --lyne-amount-color-override: var(--color-platinum-default);
     &:after {
