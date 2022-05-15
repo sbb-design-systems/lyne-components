@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                                        | Type     | Default |
-| --------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- |
-| `selectedIndex` | `selected-index` | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. | `number` | `0`     |
+| Property               | Attribute                | Description                                                                                                                        | Type     | Default |
+| ---------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- |
+| `initialSelectedIndex` | `initial-selected-index` | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. | `number` | `0`     |
 
 
 ## Events

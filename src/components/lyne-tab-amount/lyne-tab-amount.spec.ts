@@ -12,7 +12,7 @@ describe('lyne-tab-amount', () => {
 
     expect(root)
       .toEqualHtml(`
-        <lyne-tab-amount>
+        <lyne-tab-amount slot="lyne-tab-amount">
           <mock:shadow-root>
             <span class='tab-amount'>
               <slot/>

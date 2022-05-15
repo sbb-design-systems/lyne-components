@@ -43,7 +43,7 @@ export class LyneTabGroup {
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
    * the tab group, the first enabled tab will be selected.
    */
-  @Prop() public selectedIndex = 0;
+  @Prop() public initialSelectedIndex = 0;
 
   /**
    * On selected tab change
@@ -80,7 +80,9 @@ export class LyneTabGroup {
 
   public tabs: InterfaceLyneTabGroupTab[];
   private _lastUId = 0;
-  private _observer = new MutationObserver(this._onTabAttributesChange.bind(this));
+  private _tabContentElement: HTMLElement;
+  private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
+  private _tabContentResizeObserver = new ResizeObserver(this._onTabContentElementResize.bind(this));
 
   private _getTabs(): InterfaceLyneTabGroupTab[] {
     return (Array.from(this._element.children)
@@ -98,10 +100,12 @@ export class LyneTabGroup {
   }
 
   public disconnectedCallback(): void {
-    this._observer.disconnect();
+    this._tabAttributeObserver.disconnect();
+    this._tabContentResizeObserver.disconnect();
   }
 
   private _onContentSlotChange = (): void => {
+    this._tabContentElement = this._element.shadowRoot.querySelector('div.tab-content');
     const loadedTabs = this._getTabs()
       .filter((tab) => !this.tabs.includes(tab));
 
@@ -127,7 +131,7 @@ export class LyneTabGroup {
   };
 
   private _nextUId(): string {
-    return `lt${++this._lastUId}`;
+    return `lyne-tab-${++this._lastUId}`;
   }
 
   private _ensureId(el): string {
@@ -137,8 +141,10 @@ export class LyneTabGroup {
   }
 
   private _initSelection(): void {
-    if (this.selectedIndex >= 0 && this.selectedIndex < this.tabs.length && !this.tabs[this.selectedIndex].hasAttribute('disabled')) {
-      this.tabs[this.selectedIndex].tabGroupActions.select();
+    if (this.initialSelectedIndex >= 0 &&
+        this.initialSelectedIndex < this.tabs.length &&
+        !this.tabs[this.initialSelectedIndex].hasAttribute('disabled')) {
+      this.tabs[this.initialSelectedIndex].tabGroupActions.select();
     } else {
       this._enabledTabs[0]?.tabGroupActions.select();
     }
@@ -170,6 +176,14 @@ export class LyneTabGroup {
 
   private _isValidTabAttribute(tab: InterfaceLyneTabGroupTab, attribute: string): boolean {
     return tab.hasAttribute(attribute) && tab.getAttribute(attribute) !== 'false';
+  }
+
+  private _onTabContentElementResize(entries): void {
+    for (const entry of entries) {
+      const contentHeight = Math.floor(entry.contentRect.height);
+
+      (this._tabContentElement as HTMLElement).style.height = `${contentHeight}px`;
+    }
   }
 
   private _configure(tab: InterfaceLyneTabGroupTab): void {
@@ -213,8 +227,14 @@ export class LyneTabGroup {
       },
       select: (): void => {
         if (!tab.active && !tab.disabled) {
-          this.tabs.find((t) => t.active)?.tabGroupActions.deactivate();
+          const prevTab = this.tabs.find((t) => t.active);
+
+          if (prevTab) {
+            prevTab.tabGroupActions.deactivate();
+            this._tabContentResizeObserver.unobserve(prevTab.relatedContent);
+          }
           tab.tabGroupActions.activate();
+          this._tabContentResizeObserver.observe(tab.relatedContent);
           this.selectedTabChanged.emit();
         } else if (tab.disabled) {
           console.warn('You cannot activate a disabled tab');
@@ -246,7 +266,7 @@ export class LyneTabGroup {
       tab.tabGroupActions.select();
     });
 
-    this._observer.observe(tab, tabObserverConfig);
+    this._tabAttributeObserver.observe(tab, tabObserverConfig);
     tab.slot = 'tab-bar';
   }
 

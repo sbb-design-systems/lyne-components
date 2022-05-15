@@ -110,6 +110,7 @@
   font-size: pxToRem(var(--typo-scale-0-75x));
   color: var(--color-iron-default);
   margin-top: pxToRem(var(--spacing-responsive-m));
+  transition: height var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
   ::slotted(div) {
     opacity: 0;
     visibility: hidden;
@@ -118,9 +119,8 @@
   ::slotted(div[active]) {
     opacity: 1;
     visibility: visible;
-    height: 100%;
-    transition-duration: var(--animation-duration-4x);
-    transition-timing-function: var(--animation-easing);
-    transition-property: opacity, visibility;
+    height: fit-content;
+    transition: opacity var(--animation-form-element-state-duration) var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
+                visibility var(--animation-form-element-state-duration) var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
   }
 }

@@ -607,7 +607,7 @@ export namespace Components {
         /**
           * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
          */
-        "selectedIndex": number;
+        "initialSelectedIndex": number;
     }
     interface LyneTeaserHero {
         /**
@@ -1793,13 +1793,13 @@ declare namespace LocalJSX {
     }
     interface LyneTabGroup {
         /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
+        "initialSelectedIndex"?: number;
+        /**
           * On selected tab change
          */
         "onLyne-tab-group_tab-change"?: (event: CustomEvent<void>) => void;
-        /**
-          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
-         */
-        "selectedIndex"?: number;
     }
     interface LyneTeaserHero {
         /**
