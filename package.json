@@ -90,7 +90,7 @@
     "stencil-inline-svg": "^1.1.0",
     "storybook-addon-breakpoints": "~1.0.0",
     "typescript": "~4.6.2",
-    "yargs": "~17.4.0"
+    "yargs": "~17.5.0"
   },
   "author": "Lyne Team",
   "license": "MIT",
