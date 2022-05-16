@@ -27,20 +27,21 @@ interface InterfaceToastCommonAction {
   cssClass?: string | string[];
 }
 
-interface InterfaceToastLink extends InterfaceToastCommonAction {
+export interface InterfaceToastLink extends InterfaceToastCommonAction {
   type: 'link';
   label: string;
   href: string;
 }
 
-interface InterfaceToastAction extends InterfaceToastCommonAction {
+export interface InterfaceToastAction extends InterfaceToastCommonAction {
   type: 'action';
   label: string;
   handler: () => void;
 }
 
-interface InterfaceToastIcon extends InterfaceToastCommonAction {
+export interface InterfaceToastIcon extends InterfaceToastCommonAction {
   type: 'icon';
+  role: 'cancel';
 }
 
 export interface InterfaceToastConfiguration {
