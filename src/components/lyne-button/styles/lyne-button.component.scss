@@ -145,7 +145,7 @@
   @include buttonHover();
 }
 
-.button:active:not(:disabled) {
+.button:active:not(:disabled)::before {
   @include buttonActive();
 }
 
