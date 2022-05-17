@@ -129,6 +129,10 @@
     background-color: var(--color-disabled-text);
     height: pxToRem(var(--line-through-height-disabled));
     inset-inline: pxToRem(var(--padding-inline));
+
+    @include ifForcedColors {
+      background-color: GrayText;
+    }
   }
 
   ::slotted(svg) {
