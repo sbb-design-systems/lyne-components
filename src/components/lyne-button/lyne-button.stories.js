@@ -32,13 +32,33 @@ const wrapperStyle = (context) => {
 
 // --- Component
 
-const Template = (args) => (<div>
-  <lyne-button {...args}>{getMarkupForSvg(args.iconSlot)}</lyne-button></div>
+const Template = (args) => (
+  <div>
+    <lyne-button {...args}>{getMarkupForSvg(args.iconSlot)}</lyne-button>
+  </div>
 );
 const FixedWidthTemplate = (args) => (
-  <lyne-button {...args} style={{
-    width: '200px'
-  }}>{getMarkupForSvg(args.iconSlot)}</lyne-button>
+  <div>
+    <lyne-button
+      {...args}
+      style={{
+        width: '200px'
+      }}
+    >
+      {getMarkupForSvg(args.iconSlot)}
+    </lyne-button>
+    <p>
+      <lyne-button
+        {...args}
+        label='Wide Button'
+        style={{
+          width: '600px'
+        }}
+      >
+        {getMarkupForSvg(args.iconSlot)}
+      </lyne-button>
+    </p>
+  </div>
 );
 
 // --- Arg types
