@@ -181,7 +181,7 @@
   text-align: left;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
-  transition-property: color, width;
+  transition-property: color;
   min-height: pxToRem(var(--min-height));
   border-radius: pxToRem(var(--border-radius));
 
