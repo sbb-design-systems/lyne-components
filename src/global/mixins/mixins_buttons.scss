@@ -259,6 +259,10 @@
         pxToRem(var(--shadow-2-hover-offset-y))
         pxToRem(var(--shadow-2-hover-blur))
         pxToRem(var(--shadow-2-hover-spread)) var(--shadow-2-hover-color);
+
+    @include ifForcedColors {
+      border-color: Highlight;
+    }
   }
 }
 

@@ -39,6 +39,11 @@
 
 .link-button:hover {
   @include buttonHover;
+  &::before {
+    @include ifForcedColors {
+      border-color: LinkText;
+    }
+  }
 }
 
 .link-button:active {

@@ -5,7 +5,7 @@
   @media (forced-colors: active) {
     @content
   }
-};
+}
 
 @mixin visibleFocus {
   // TODO: missing design tokens
@@ -15,9 +15,14 @@
 
   :host(.focus-visible) & {
     outline-offset: pxToRem(var(--focus-outline-offset));
-    outline: pxToRem(var(--focus-outline-width)) solid var(--focus-outline-color);
+    outline: pxToRem(var(--focus-outline-width)) solid
+      var(--focus-outline-color);
+
+    @include ifForcedColors() {
+      outline-color: Highlight;
+    }
   }
-};
+}
 
 @mixin screenReaderOnly {
   border: 0;
