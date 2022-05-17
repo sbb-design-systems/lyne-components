@@ -64,7 +64,10 @@ export class LyneButton {
    */
   @Prop() public ariaHaspopup?: InterfaceButtonAttributes['popup'];
 
-  /** Emits whenever the native button click event triggers. */
+  /**
+   * Emits whenever the native button click event triggers.
+   * TODO: Switch to a better event type during refactoring lyne-button.
+   */
   @Event({
     bubbles: true,
     composed: true,
@@ -108,7 +111,11 @@ export class LyneButton {
       'aria-haspopup': this.ariaHaspopup,
       'disabled': this.disabled,
       'name': this.name,
-      'onClick': (): unknown => this.click.emit(this.eventId),
+      'onClick': (): void => {
+        if (!this.visualButtonOnly) {
+          this.click.emit(this.eventId);
+        }
+      },
       'type': this.type,
       'value': this.value
     };
