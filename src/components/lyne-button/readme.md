@@ -23,6 +23,13 @@
 | `visualButtonOnly` | `visual-button-only` | Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered). | `boolean`                                                                                                                                                | `undefined`             |
 
 
+## Events
+
+| Event               | Description                                            | Type               |
+| ------------------- | ------------------------------------------------------ | ------------------ |
+| `lyne-button_click` | Emits whenever the native button click event triggers. | `CustomEvent<any>` |
+
+
 ## Slots
 
 | Slot        | Description                                            |
