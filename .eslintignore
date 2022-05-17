@@ -7,5 +7,4 @@ www/
 convenience/generate-component/boilerplate/
 
 # not ignored folders/files
-!.travis.yml
 !.github/
