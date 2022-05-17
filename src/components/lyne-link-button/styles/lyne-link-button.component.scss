@@ -5,19 +5,19 @@
 
 :host {
   display: inline-block;
-  @include buttonVariables();
+  @include buttonVariables;
 }
 
 .link-button--primary-negative {
-  @include buttonPrimaryNegativeVariables();
+  @include buttonPrimaryNegativeVariables;
 }
 
 .link-button--secondary {
-  @include buttonSecondaryVariables();
+  @include buttonSecondaryVariables;
 }
 
 .link-button--secondary-negative {
-  @include buttonSecondaryNegativeVariables();
+  @include buttonSecondaryNegativeVariables;
 }
 
 .link-button {
@@ -32,20 +32,34 @@
 }
 
 .link-button--primary,
-.link-button--secondary {
-  @include buttonShadowNotDisabled();
+.link-button--secondary,
+.link-button--primary-negative {
+  @include buttonShadowNotDisabled;
 }
 
 .link-button:hover {
-  @include buttonHover();
+  @include buttonHover;
 }
 
 .link-button:active {
-  @include buttonActive();
+  @include buttonActive;
+}
+
+.link-button--secondary-negative {
+  @include buttonShadowDisabled;
+}
+
+.link-button__text,
+.link-button__icon {
+  @include buttonLabelTransition;
+}
+
+.link-button__text {
+  @include buttonLabel;
 }
 
 .link-button__icon {
-    @include buttonIcon();
+  @include buttonIcon;
 }
 
 .link-button--icon-placement-end .link-button__icon {

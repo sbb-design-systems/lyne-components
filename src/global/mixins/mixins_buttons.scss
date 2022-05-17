@@ -180,6 +180,7 @@
   display: flex;
   gap: pxToRem(var(--gap));
   align-items: center;
+  justify-content: center;
   text-align: left;
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-easing-function);
@@ -220,25 +221,32 @@
       border: pxToRem(1) solid windowText;
     }
   }
-
 }
 
 @mixin buttonShadowNotDisabled {
-  box-shadow: pxToRem(var(--shadow-1-default-offset-x))
-      pxToRem(var(--shadow-1-default-offset-y))
-      pxToRem(var(--shadow-1-default-blur))
-      pxToRem(var(--shadow-1-default-spread)) var(--shadow-1-default-color),
-    pxToRem(var(--shadow-2-default-offset-x))
-      pxToRem(var(--shadow-2-default-offset-y))
-      pxToRem(var(--shadow-2-default-blur))
-      pxToRem(var(--shadow-2-default-spread)) var(--shadow-2-default-color);
+  &::before {
+    box-shadow: pxToRem(var(--shadow-1-default-offset-x))
+        pxToRem(var(--shadow-1-default-offset-y))
+        pxToRem(var(--shadow-1-default-blur))
+        pxToRem(var(--shadow-1-default-spread)) var(--shadow-1-default-color),
+      pxToRem(var(--shadow-2-default-offset-x))
+        pxToRem(var(--shadow-2-default-offset-y))
+        pxToRem(var(--shadow-2-default-blur))
+        pxToRem(var(--shadow-2-default-spread)) var(--shadow-2-default-color);
+  }
 }
 
-@mixin buttonIcon {
-  display: block;
-  width: pxToRem(var(--icon-size));
-  height: pxToRem(var(--icon-size));
-  color: currentColor;
+@mixin buttonShadowDisabled {
+  &::before {
+    box-shadow: none;
+  }
+
+  &:hover,
+  &:focus {
+    &:not(:disabled)::before {
+      box-shadow: none;
+    }
+  }
 }
 
 @mixin buttonHover {
@@ -263,7 +271,27 @@
 }
 
 @mixin buttonActive {
-  color: var(--color-active-text);
-  background-color: var(--color-active-background);
-  border-color: var(--color-active-border);
+  &::before {
+    color: var(--color-active-text);
+    background-color: var(--color-active-background);
+    border-color: var(--color-active-border);
+  }
+}
+
+@mixin buttonLabelTransition {
+  transition: transform var(--transition-duration)
+    var(--transition-easing-function);
+  transform: translateY(#{pxToRem(var(--translate-y-content-hover, 0))});
+}
+
+@mixin buttonLabel {
+  display: block;
+  @include ellipsis;
+}
+
+@mixin buttonIcon {
+  display: block;
+  width: pxToRem(var(--icon-size));
+  height: pxToRem(var(--icon-size));
+  color: currentColor;
 }

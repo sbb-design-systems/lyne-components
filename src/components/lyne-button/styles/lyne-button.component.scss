@@ -5,20 +5,19 @@
 
 :host {
   display: inline-block;
-
   @include buttonVariables();
 }
 
 .button--primary-negative {
-  @include buttonPrimaryNegativeVariables();
+  @include buttonPrimaryNegativeVariables;
 }
 
 .button--secondary {
-  @include buttonSecondaryVariables();
+  @include buttonSecondaryVariables;
 }
 
 .button--secondary-negative {
-  @include buttonSecondaryNegativeVariables();
+  @include buttonSecondaryNegativeVariables;
 }
 
 .button--translucent {
@@ -92,9 +91,7 @@
 .button--primary:not(:disabled),
 .button--secondary:not(:disabled),
 .button--primary-negative:not(:disabled) {
-  &::before {
-    @include buttonShadowNotDisabled();
-  }
+  @include buttonShadowNotDisabled;
 }
 
 .button--visual-only {
@@ -142,11 +139,11 @@
 }
 
 .button:hover:not(:disabled) {
-  @include buttonHover();
+  @include buttonHover;
 }
 
-.button:active:not(:disabled)::before {
-  @include buttonActive();
+.button:active:not(:disabled) {
+  @include buttonActive;
 }
 
 .button--secondary-negative,
@@ -154,32 +151,20 @@
 .button--translucent-negative,
 .button--transparent,
 .button--transparent-negative {
-  &::before {
-    box-shadow: none;
-  }
-
-  &:hover,
-  &:focus {
-    &:not(:disabled)::before {
-      box-shadow: none;
-    }
-  }
+  @include buttonShadowDisabled;
 }
 
 .button__label,
 .button__icon {
-  transition: transform var(--transition-duration)
-    var(--transition-easing-function);
-  transform: translateY(#{pxToRem(var(--translate-y-content-hover, 0))});
+  @include buttonLabelTransition;
 }
 
 .button__label {
-  display: block;
-  @include ellipsis;
+  @include buttonLabel;
 }
 
 .button__icon {
-  @include buttonIcon();
+  @include buttonIcon;
 }
 
 .button__icon-description {
