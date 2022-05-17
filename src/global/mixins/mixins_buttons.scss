@@ -16,10 +16,6 @@
 }
 
 @mixin buttonVariables {
-  --font-family: var(--typo-type-face-sbb-bold);
-  --font-size: var(--lyne-font-size-text-xs);
-  --letter-spacing: var(--typo-letter-spacing-body-text);
-  --line-height: var(--typo-line-height-body-text);
   --icon-size: var(--size-icon-ui-small);
   --line-through-height-disabled: var(--border-width-2x);
 
@@ -175,6 +171,7 @@
 @mixin button {
   @include buttonReset;
   @include stretch(width);
+  @include text-xs--bold;
 
   position: relative;
   display: flex;
@@ -188,17 +185,12 @@
   min-height: pxToRem(var(--min-height));
   border-radius: pxToRem(var(--border-radius));
 
-  // The padding value is only a minimal padding to preserve a padding if the content becomes larger than intended.
+  // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
   // Positioning of the content is made by flexbox vertical centering.
   // The real padding displayed is larger than the defined value below.
   padding-block: pxToRem(var(--padding-block-min));
   padding-inline: pxToRem(var(--padding-inline));
   color: var(--color-default-text);
-  font-family: var(--font-family);
-  font-size: pxToRem(var(--font-size));
-  font-weight: normal;
-  letter-spacing: var(--letter-spacing);
-  line-height: var(--line-height);
   -webkit-font-smoothing: antialiased;
   cursor: pointer;
 
