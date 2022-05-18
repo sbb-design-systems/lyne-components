@@ -22,9 +22,9 @@
     padding-block: pxToRem(var(--spacing-fixed-2x));
     padding-inline: pxToRem(var(--spacing-fixed-5x));
     border-radius: pxToRem(var(--spacing-fixed-5x));
-    -webkit-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
-    -moz-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
-    box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
+    -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
+    -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
+    box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
     color: var(--color-black-default);
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
@@ -45,6 +45,9 @@
   ::slotted(h6:hover) {
     cursor: pointer;
     background-color: var(--color-milk-default);
+    -webkit-box-shadow: 0 0 0 3px var(--color-milk-default), 0 0 0 4px var(--color-cloud-default);
+    -moz-box-shadow: 0 0 0 3px var(--color-milk-default), 0 0 0 4px var(--color-cloud-default);
+    box-shadow: 0 0 0 3px var(--color-milk-default), 0 0 0 4px var(--color-cloud-default);
   }
 
   ::slotted(h1:focus-visible),
@@ -73,11 +76,22 @@
   ::slotted(h4[active]),
   ::slotted(h5[active]),
   ::slotted(h6[active]) {
-    -webkit-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
-    -moz-box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
-    box-shadow:inset 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
     background-color: var(--color-black-default);
     color: var(--color-white-default);
+  }
+
+  ::slotted(h1[active]:hover),
+  ::slotted(h2[active]:hover),
+  ::slotted(h3[active]:hover),
+  ::slotted(h4[active]:hover),
+  ::slotted(h5[active]:hover),
+  ::slotted(h6[active]:hover) {
+    -webkit-box-shadow: 0 0 0 3px var(--color-black-default);
+    -moz-box-shadow: 0 0 0 3px var(--color-black-default);
+    box-shadow: 0 0 0 3px var(--color-black-default);
   }
 
   ::slotted(h1[disabled]),
