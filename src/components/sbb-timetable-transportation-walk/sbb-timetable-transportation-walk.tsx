@@ -5,7 +5,7 @@ import {
 } from '@stencil/core';
 
 import icons from '../../global/icons/timetable.json';
-import { InterfaceLyneTimetableTransportationWalkAttributes } from './lyne-timetable-transportation-walk.custom.d';
+import { InterfaceTimetableTransportationWalkAttributes } from './sbb-timetable-transportation-walk.custom';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
 import {
@@ -19,13 +19,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-transportation-walk.default.scss',
-    shared: 'styles/lyne-timetable-transportation-walk.shared.scss'
+    default: 'styles/sbb-timetable-transportation-walk.default.scss',
+    shared: 'styles/sbb-timetable-transportation-walk.shared.scss'
   },
-  tag: 'lyne-timetable-transportation-walk'
+  tag: 'sbb-timetable-transportation-walk'
 })
 
-export class LyneTimetableTransportationWalk {
+export class SbbTimetableTransportationWalk {
 
   private _currentLanguage = getDocumentLang();
 
@@ -33,7 +33,7 @@ export class LyneTimetableTransportationWalk {
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'] = 'first-level';
+  @Prop() public appearance?: InterfaceTimetableTransportationWalkAttributes['appearance'] = 'first-level';
 
   /**
    * Stringified JSON which defines most of the

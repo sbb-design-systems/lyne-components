@@ -1,3 +1,3 @@
-export interface InterfaceLyneTimetableTransportationWalkAttributes {
+export interface InterfaceTimetableTransportationWalkAttributes {
   appearance: 'first-level' | 'second-level';
 }

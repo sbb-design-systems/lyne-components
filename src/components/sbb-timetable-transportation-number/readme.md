@@ -1,6 +1,6 @@
-# lyne-timetable-transportation-number
+# sbb-timetable-transportation-number
 
-!! Please note that this component is not intended for direct use. It will get used within lyne-timetable. It is listed
+!! Please note that this component is not intended for direct use. It will get used within sbb-timetable. It is listed
 here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
@@ -18,13 +18,13 @@ here to show the various configuration options to component developers. !!
 
 ### Used by
 
- - [lyne-timetable-transportation-details](../lyne-timetable-transportation-details)
+ - [sbb-timetable-transportation-details](../sbb-timetable-transportation-details)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-number
-  style lyne-timetable-transportation-number fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-transportation-details --> sbb-timetable-transportation-number
+  style sbb-timetable-transportation-number fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

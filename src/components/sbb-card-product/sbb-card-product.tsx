@@ -8,8 +8,8 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import events from './lyne-card-product.events';
-import { InterfaceCardProductAttributes } from './lyne-card-product.custom';
+import events from './sbb-card-product.events';
+import { InterfaceCardProductAttributes } from './sbb-card-product.custom';
 
 /**
  * @slot icon - Slot used to render the product icon
@@ -26,16 +26,16 @@ import { InterfaceCardProductAttributes } from './lyne-card-product.custom';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-card-product.default.scss',
-    shared: 'styles/lyne-card-product.shared.scss'
+    default: 'styles/sbb-card-product.default.scss',
+    shared: 'styles/sbb-card-product.shared.scss'
   },
-  tag: 'lyne-card-product'
+  tag: 'sbb-card-product'
 })
 
 /**
  * Generalized product card — merge of ticket and subscription
  */
-export class LyneCardProduct {
+export class SbbCardProduct {
 
   /** CardProduct appearance */
   @Prop() public appearance?: InterfaceCardProductAttributes['appearance'] = 'primary';

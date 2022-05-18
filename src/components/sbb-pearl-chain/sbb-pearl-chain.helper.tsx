@@ -8,7 +8,7 @@ export default (jsonString: string): any => {
   }
 
   // make sure that we have `leg` key in object
-  const errorMessage = 'lyne-pearl-chain error: attribute legs has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
+  const errorMessage = 'sbb-pearl-chain error: attribute legs has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
   const jsonObject = JSON.parse(jsonString);
   const jsonObjectKeys = Object.keys(jsonObject);
 
@@ -72,7 +72,7 @@ export default (jsonString: string): any => {
   }
 
   if (sum !== 100) {
-    console.warn('lyne-pearl-chain error: the sum of all durations should be equal to 100.');
+    console.warn('sbb-pearl-chain error: the sum of all durations should be equal to 100.');
 
     return [];
   }

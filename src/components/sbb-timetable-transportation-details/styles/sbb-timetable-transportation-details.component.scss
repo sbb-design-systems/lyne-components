@@ -4,12 +4,12 @@
   width: 100%;
 }
 
-.transportation-details > lyne-timetable-transportation-time,
-.transportation-details > lyne-pearl-chain {
+.transportation-details > sbb-timetable-transportation-time,
+.transportation-details > sbb-pearl-chain {
   display: flex;
 }
 
-.transportation-details > lyne-pearl-chain {
+.transportation-details > sbb-pearl-chain {
   flex: 1 1 auto;
   align-items: center;
 }

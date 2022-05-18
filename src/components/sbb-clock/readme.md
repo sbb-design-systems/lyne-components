@@ -1,4 +1,4 @@
-# lyne-sbb-clock
+# sbb-sbb-clock
 
 
 

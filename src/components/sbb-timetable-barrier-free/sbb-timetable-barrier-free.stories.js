@@ -1,12 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-barrier-free.sample-data';
+import sampleData from './sbb-timetable-barrier-free.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-barrier-free
+  <sbb-timetable-barrier-free
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-barrier-free>
+  </sbb-timetable-barrier-free>
 );
 
 const config = {
@@ -88,5 +88,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'Internals/lyne-timetable-barrier-free'
+  title: 'Internals/sbb-timetable-barrier-free'
 };

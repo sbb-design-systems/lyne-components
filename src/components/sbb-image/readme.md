@@ -1,4 +1,4 @@
-# lyne-image
+# sbb-image
 
 
 
@@ -33,13 +33,13 @@
 
 ### Used by
 
- - [lyne-teaser-hero](../lyne-teaser-hero)
+ - [sbb-teaser-hero](../sbb-teaser-hero)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-teaser-hero --> lyne-image
-  style lyne-image fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-teaser-hero --> sbb-image
+  style sbb-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

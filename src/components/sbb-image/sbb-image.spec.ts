@@ -1,19 +1,19 @@
 import images from '../../global/images';
-import { LyneImage } from './lyne-image';
+import { SbbImage } from './sbb-image';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-image', () => {
+describe('sbb-image', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneImage],
-      html: `<lyne-image image-src="${images[0]}"></lyne-image>`
+      components: [SbbImage],
+      html: `<sbb-image image-src="${images[0]}"></sbb-image>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-image image-src="${images[0]}">
+        <sbb-image image-src="${images[0]}">
           <mock:shadow-root>
             <figure class="image__figure">
               <div class="image__wrapper">
@@ -27,7 +27,7 @@ describe('lyne-image', () => {
               </div>
             </figure>
           </mock:shadow-root>
-        </lyne-image>
+        </sbb-image>
       `);
   });
 

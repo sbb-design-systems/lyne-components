@@ -97,13 +97,13 @@ const SlotGenericTemplate = () => (
 /* ************************************************* */
 
 const Template = (args) => (
-  <lyne-card-badge {...args}></lyne-card-badge>
+  <sbb-card-badge {...args}></sbb-card-badge>
 );
 
 const TemplateWithSlot = (args) => (
-  <lyne-card-badge {...args}>
+  <sbb-card-badge {...args}>
     <div slot='generic'><SlotGenericTemplate/></div>
-  </lyne-card-badge>
+  </sbb-card-badge>
 );
 
 /* ************************************************* */
@@ -250,5 +250,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/cards/lyne-card-badge'
+  title: 'components/cards/sbb-card-badge'
 };

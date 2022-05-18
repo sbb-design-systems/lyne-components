@@ -1,13 +1,13 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-platform.sample-data';
+import sampleData from './sbb-timetable-platform.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-platform
+  <sbb-timetable-platform
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-platform>
+  </sbb-timetable-platform>
 );
 
 const appearance = {
@@ -39,42 +39,42 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetablePlatformFirstLevel = Template.bind({});
+export const SbbTimetablePlatformFirstLevel = Template.bind({});
 
-LyneTimetablePlatformFirstLevel.argTypes = defaultArgTypes;
-LyneTimetablePlatformFirstLevel.args = {
+SbbTimetablePlatformFirstLevel.argTypes = defaultArgTypes;
+SbbTimetablePlatformFirstLevel.args = {
   ...defaultArgs,
   config: sampleData[0]
 };
 
-LyneTimetablePlatformFirstLevel.documentation = {
-  title: 'Lyne Timetable Platform - First Level'
+SbbTimetablePlatformFirstLevel.documentation = {
+  title: 'SBB Timetable Platform - First Level'
 };
 
-export const LyneTimetableArrivalPlatformSecondLevel = Template.bind({});
+export const SbbTimetableArrivalPlatformSecondLevel = Template.bind({});
 
-LyneTimetableArrivalPlatformSecondLevel.argTypes = defaultArgTypes;
-LyneTimetableArrivalPlatformSecondLevel.args = {
+SbbTimetableArrivalPlatformSecondLevel.argTypes = defaultArgTypes;
+SbbTimetableArrivalPlatformSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[0]
 };
 
-LyneTimetableArrivalPlatformSecondLevel.documentation = {
-  title: 'Lyne Timetable Arrival Platform - Second Level'
+SbbTimetableArrivalPlatformSecondLevel.documentation = {
+  title: 'SBB Timetable Arrival Platform - Second Level'
 };
 
-export const LyneTimetableDeparturePlatformSecondLevel = Template.bind({});
+export const SbbTimetableDeparturePlatformSecondLevel = Template.bind({});
 
-LyneTimetableDeparturePlatformSecondLevel.argTypes = defaultArgTypes;
-LyneTimetableDeparturePlatformSecondLevel.args = {
+SbbTimetableDeparturePlatformSecondLevel.argTypes = defaultArgTypes;
+SbbTimetableDeparturePlatformSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[2],
   config: sampleData[0]
 };
 
-LyneTimetableDeparturePlatformSecondLevel.documentation = {
-  title: 'Lyne Timetable Departure Platform - Second Level'
+SbbTimetableDeparturePlatformSecondLevel.documentation = {
+  title: 'SBB Timetable Departure Platform - Second Level'
 };
 
 export default {
@@ -88,5 +88,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-platform'
+  title: 'internals/sbb-timetable-platform'
 };

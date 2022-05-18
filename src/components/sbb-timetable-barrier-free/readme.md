@@ -1,4 +1,4 @@
-# lyne-timetable-barrier-free
+# sbb-timetable-barrier-free
 
 
 

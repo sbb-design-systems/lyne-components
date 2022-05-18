@@ -1,14 +1,14 @@
-import events from './lyne-text-input.events.ts';
+import events from './sbb-text-input.events.ts';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-text-input {...args}>
+  <sbb-text-input {...args}>
     {args.icon &&
       <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
     }
-  </lyne-text-input>
+  </sbb-text-input>
 );
 
 const debounceInputEvent = {
@@ -538,5 +538,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/form elements/lyne-text-input'
+  title: 'components/form elements/sbb-text-input'
 };

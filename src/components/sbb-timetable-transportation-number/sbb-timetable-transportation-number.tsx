@@ -5,24 +5,24 @@ import {
 } from '@stencil/core';
 
 import icons from '../../global/icons/timetable.json';
-import { InterfaceLyneTimetableTransportationNumberAttributes } from './lyne-timetable-transportation-number.custom.d';
+import { InterfaceTimetableTransportationNumberAttributes } from './sbb-timetable-transportation-number.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-transportation-number.default.scss',
-    shared: 'styles/lyne-timetable-transportation-number.shared.scss'
+    default: 'styles/sbb-timetable-transportation-number.default.scss',
+    shared: 'styles/sbb-timetable-transportation-number.shared.scss'
   },
-  tag: 'lyne-timetable-transportation-number'
+  tag: 'sbb-timetable-transportation-number'
 })
 
-export class LyneTimetableTransportationNumber {
+export class SbbTimetableTransportationNumber {
 
   /**
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'] = 'first-level';
+  @Prop() public appearance?: InterfaceTimetableTransportationNumberAttributes['appearance'] = 'first-level';
 
   /**
    * Stringified JSON which defines most of the

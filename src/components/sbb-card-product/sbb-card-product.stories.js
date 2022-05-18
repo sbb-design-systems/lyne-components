@@ -5,7 +5,7 @@ import {
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from '../sbb-pearl-chain/lyne-pearl-chain.sample-data';
+import sampleData from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
 /* ************************************************* */
 /* Documentation platform container                  */
@@ -207,57 +207,57 @@ const SlotIconTemplate = (args) => (
 
 /* --- category slot ---------------------------------- */
 
-const lyneCategoryArgs = {
+const sbbCategoryArgs = {
   text: 'Sparbillett'
 };
 
-const SlotLyneCategoryTemplate = (args) => (
+const SlotSbbCategoryTemplate = (args) => (
   <span>{args.text}</span>
 );
 
 /* --- title slot ---------------------------------- */
 
-const lyneTitleDayPassArgs = {
+const sbbTitleDayPassArgs = {
   'level': 2,
   'text': 'Tageskarte',
   'visual-level': 6
 };
 
-const lyneTitleDayPassBicycleArgs = {
+const sbbTitleDayPassBicycleArgs = {
   'level': 2,
   'text': 'Velo Tageskarte',
   'visual-level': 6
 };
 
-const lyneTitleTravelCardPointToPointArgs = {
+const sbbTitleTravelCardPointToPointArgs = {
   'level': 2,
   'text': 'Streckenkarte',
   'visual-level': 6
 };
 
-const lyneTitleTravelCardLiberoArgs = {
+const sbbTitleTravelCardLiberoArgs = {
   'level': 2,
   'text': 'Libero Tageskarte: Alle Zonen',
   'visual-level': 6
 };
 
-const lyneTitleTravelCardGAArgs = {
+const sbbTitleTravelCardGAArgs = {
   'level': 2,
   'text': 'GA',
   'visual-level': 1
 };
 
-const lyneTitleTravelCardHalfFareArgs = {
+const sbbTitleTravelCardHalfFareArgs = {
   'level': 2,
   'text': '1/2',
   'visual-level': 1
 };
 
-const SlotLyneTitleTemplate = (args) => (
-  <lyne-title {...args} />
+const SlotSbbTitleTemplate = (args) => (
+  <sbb-title {...args} />
 );
 
-const lyneJourneyHeaderArgs = {
+const sbbJourneyHeaderArgs = {
   'destination': 'Loèche-les-Bains',
   'is-round-trip': true,
   'markup': 'h2',
@@ -265,70 +265,70 @@ const lyneJourneyHeaderArgs = {
   'size': 5
 };
 
-const SlotLyneJourneyHeaderTemplate = (args) => (
-  <lyne-journey-header {...args} />
+const SlotSbbJourneyHeaderTemplate = (args) => (
+  <sbb-journey-header {...args} />
 );
 
 /* --- lead slot ---------------------------------- */
 
-const lyneLeadGAArgs = {
+const sbbLeadGAArgs = {
   'level': 3,
   'text': 'Generalabonnement',
   'visual-level': 6
 };
 
-const lyneLeadGALongArgs = {
+const sbbLeadGALongArgs = {
   'level': 3,
   'text': 'Mit dem Generalabonnement geniessen Sie freie Fahrt.',
   'visual-level': 6
 };
 
-const lyneLeadHalfFareArgs = {
+const sbbLeadHalfFareArgs = {
   'level': 3,
   'text': 'Halbtax-Abo',
   'visual-level': 6
 };
 
-const lyneLeadHalfFareLongArgs = {
+const sbbLeadHalfFareLongArgs = {
   'level': 3,
   'text': 'Mit dem Halbtax zum halben Preis fahren.',
   'visual-level': 6
 };
 
-const SlotLyneLeadTemplate = (args) => (
-  <lyne-title {...args} />
+const SlotSbbLeadTemplate = (args) => (
+  <sbb-title {...args} />
 );
 
 /* --- text slot ---------------------------------- */
 
-const lyneTextValidTodayArgs = {
+const sbbTextValidTodayArgs = {
   text: 'Gültig heute'
 };
 
-const lyneTextValidTodayLongArgs = {
+const sbbTextValidTodayLongArgs = {
   text: 'Heute, Gültig 24 Stunden'
 };
 
-const lyneTextTravelCardValidityArgs = {
+const sbbTextTravelCardValidityArgs = {
   text: '2. Klasse, gültig bis 30.11.2021'
 };
 
-const lyneTextTravelCardPointToPointArgs = {
+const sbbTextTravelCardPointToPointArgs = {
   text: 'Für regelmässige Streckenfahrten'
 };
 
-const lyneTextConnectionDetailsArgs = {
+const sbbTextConnectionDetailsArgs = {
   text: 'Samstag, 21.02.2021, 1 h 26 min'
 };
 
-const SlotLyneTextTemplate = (args) => (
+const SlotSbbTextTemplate = (args) => (
   <span>{args.text}</span>
 );
 
 /* --- pearl chain slot ---------------------------------- */
 
 const SlotPearlChainTemplate = () => (
-  <lyne-pearl-chain legs={JSON.stringify(sampleData.stop4)} />
+  <sbb-pearl-chain legs={JSON.stringify(sampleData.stop4)} />
 );
 
 /* --- card-badge slot ----------------------------- */
@@ -349,13 +349,13 @@ const cardBadgeWithSlotArgs = {
 };
 
 const SlotCardBadgeTemplate = (args) => (
-  <lyne-card-badge {...args}>
+  <sbb-card-badge {...args}>
     {args.slotGeneric &&
       <span slot='generic' dangerouslySetInnerHTML={{
         __html: args.slotGeneric
       }}></span>
     }
-  </lyne-card-badge>
+  </sbb-card-badge>
 );
 
 /* --- action slot ----------------------------- */
@@ -400,9 +400,9 @@ const actionWithQrArgs = {
 };
 
 const SlotActionTemplate = (args) => (
-  <lyne-button {...args}>
+  <sbb-button {...args}>
     {getMarkupForSvg(args.icon)}
-  </lyne-button>
+  </sbb-button>
 );
 
 /* ************************************************* */
@@ -410,105 +410,105 @@ const SlotActionTemplate = (args) => (
 /* ************************************************* */
 
 const TemplateTopProductDayPass = (args) => (
-  <lyne-card-product {...args}>
+  <sbb-card-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleDayPassArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextValidTodayArgs}/></div>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleDayPassArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextValidTodayArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionBuyArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateTopProductDayPassBicycle = (args) => (
-  <lyne-card-product {...args}>
+  <sbb-card-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconBicycleArgs}/></div>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleDayPassBicycleArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextValidTodayArgs}/></div>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleDayPassBicycleArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextValidTodayArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionBuyArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateTopProductTravelCardPointToPoint = (args) => (
-  <lyne-card-product {...args}>
+  <sbb-card-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardPointToPointArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardPointToPointArgs}/></div>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleTravelCardPointToPointArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextTravelCardPointToPointArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionBuyArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateYourProductPointToPointPersonalized = (args) => (
-  <lyne-card-product {...args}>
+  <sbb-card-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
-    <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextValidTodayArgs}/></div>
+    <div slot='title'><SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextValidTodayArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionBuyArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateYourProductTravelCardPersonalized = (args) => (
-  <lyne-card-product {...args}>
+  <sbb-card-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
-    <div slot='category'><SlotLyneCategoryTemplate {...lyneCategoryArgs}/></div>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardLiberoArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextValidTodayLongArgs}/></div>
+    <div slot='category'><SlotSbbCategoryTemplate {...sbbCategoryArgs}/></div>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleTravelCardLiberoArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextValidTodayLongArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionWithQrArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateYourProductTicketPersonalized = (args) => (
-  <lyne-card-product {...args}>
-    <div slot='title'><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextConnectionDetailsArgs}/></div>
+  <sbb-card-product {...args}>
+    <div slot='title'><SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextConnectionDetailsArgs}/></div>
     <div slot='details'><SlotPearlChainTemplate /></div>
     <div slot='action'><SlotActionTemplate {...actionDetailsArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateTravelCardGA = (args) => (
-  <lyne-card-product {...args}>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardGAArgs}/></div>
-    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadGALongArgs}/></div>
+  <sbb-card-product {...args}>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleTravelCardGAArgs}/></div>
+    <div slot='lead'><SlotSbbLeadTemplate {...sbbLeadGALongArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionGAArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateTravelCardGAPersonalized = (args) => (
-  <lyne-card-product {...args}>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardGAArgs}/></div>
-    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadGAArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardValidityArgs}/></div>
+  <sbb-card-product {...args}>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleTravelCardGAArgs}/></div>
+    <div slot='lead'><SlotSbbLeadTemplate {...sbbLeadGAArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextTravelCardValidityArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionWithPenArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateTravelCardHalfFarePersonalized = (args) => (
-  <lyne-card-product {...args}>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardHalfFareArgs}/></div>
-    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadHalfFareArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardValidityArgs}/></div>
+  <sbb-card-product {...args}>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleTravelCardHalfFareArgs}/></div>
+    <div slot='lead'><SlotSbbLeadTemplate {...sbbLeadHalfFareArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextTravelCardValidityArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionWithPenArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateTravelCardHalfFare = (args) => (
-  <lyne-card-product {...args}>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardHalfFareArgs}/></div>
-    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadHalfFareLongArgs}/></div>
+  <sbb-card-product {...args}>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleTravelCardHalfFareArgs}/></div>
+    <div slot='lead'><SlotSbbLeadTemplate {...sbbLeadHalfFareLongArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionHalfFareArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 const TemplateTheWholeShabang = (args) => (
-  <lyne-card-product {...args}>
+  <sbb-card-product {...args}>
     <div slot='icon'><SlotIconTemplate {...iconArgs}/></div>
-    <div slot='category'><SlotLyneCategoryTemplate {...lyneCategoryArgs}/></div>
-    <div slot='title'><SlotLyneTitleTemplate {...lyneTitleTravelCardGAArgs}/><SlotLyneJourneyHeaderTemplate {...lyneJourneyHeaderArgs}/></div>
-    <div slot='lead'><SlotLyneLeadTemplate {...lyneLeadGAArgs}/></div>
-    <div slot='text'><SlotLyneTextTemplate {...lyneTextTravelCardValidityArgs}/></div>
+    <div slot='category'><SlotSbbCategoryTemplate {...sbbCategoryArgs}/></div>
+    <div slot='title'><SlotSbbTitleTemplate {...sbbTitleTravelCardGAArgs}/><SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs}/></div>
+    <div slot='lead'><SlotSbbLeadTemplate {...sbbLeadGAArgs}/></div>
+    <div slot='text'><SlotSbbTextTemplate {...sbbTextTravelCardValidityArgs}/></div>
     <div slot='details'><SlotPearlChainTemplate /></div>
     <div slot='card-badge'><SlotCardBadgeTemplate {...cardBadgeWithSlotArgs}/></div>
     <div slot='action'><SlotActionTemplate {...actionWithQrArgs}/></div>
-  </lyne-card-product>
+  </sbb-card-product>
 );
 
 /* ************************************************* */
@@ -748,5 +748,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/cards/lyne-card-product'
+  title: 'components/cards/sbb-card-product'
 };

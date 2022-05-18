@@ -1,3 +1,3 @@
 export default {
-  click: 'sbb--button_click'
+  click: 'sbb-button_click'
 };

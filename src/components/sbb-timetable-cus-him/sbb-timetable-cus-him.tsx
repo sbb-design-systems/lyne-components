@@ -7,19 +7,19 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import icons from '../../global/icons/timetable.json';
-import { InterfaceLyneTimetableCusHimAttributes } from './lyne-timetable-cus-him.custom.d';
+import { InterfaceTimetableCusHimAttributes } from './sbb-timetable-cus-him.custom';
 import { i18nNone } from '../../global/i18n';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-cus-him.default.scss',
-    shared: 'styles/lyne-timetable-cus-him.shared.scss'
+    default: 'styles/sbb-timetable-cus-him.default.scss',
+    shared: 'styles/sbb-timetable-cus-him.shared.scss'
   },
-  tag: 'lyne-timetable-cus-him'
+  tag: 'sbb-timetable-cus-him'
 })
 
-export class LyneTimetableCusHim {
+export class SbbTimetableCusHim {
 
   private _currentLanguage = getDocumentLang();
 
@@ -35,7 +35,7 @@ export class LyneTimetableCusHim {
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceLyneTimetableCusHimAttributes['appearance'] = 'first-level-list';
+  @Prop() public appearance?: InterfaceTimetableCusHimAttributes['appearance'] = 'first-level-list';
 
   private _renderAppearance(cusHimItems): JSX.Element {
 

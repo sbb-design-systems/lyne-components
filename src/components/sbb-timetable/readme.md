@@ -1,4 +1,4 @@
-# lyne-timetable
+# sbb-timetable
 
 
 
@@ -9,15 +9,15 @@
 
 ### Depends on
 
-- [lyne-timetable-button](../lyne-timetable-button)
+- [sbb-timetable-button](../sbb-timetable-button)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable --> lyne-timetable-button
-  lyne-timetable-button --> lyne-timetable-cus-him
-  lyne-timetable-button --> lyne-timetable-transportation-walk
-  style lyne-timetable fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable --> sbb-timetable-button
+  sbb-timetable-button --> sbb-timetable-cus-him
+  sbb-timetable-button --> sbb-timetable-transportation-walk
+  style sbb-timetable fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

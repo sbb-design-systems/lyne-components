@@ -1,13 +1,13 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-transportation-walk.sample-data';
+import sampleData from './sbb-timetable-transportation-walk.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-transportation-walk
+  <sbb-timetable-transportation-walk
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-transportation-walk>
+  </sbb-timetable-transportation-walk>
 );
 
 const appearance = {
@@ -38,41 +38,41 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetableTransportationDepartureWalk = Template.bind({});
+export const SbbTimetableTransportationDepartureWalk = Template.bind({});
 
-LyneTimetableTransportationDepartureWalk.argTypes = defaultArgTypes;
-LyneTimetableTransportationDepartureWalk.args = {
+SbbTimetableTransportationDepartureWalk.argTypes = defaultArgTypes;
+SbbTimetableTransportationDepartureWalk.args = {
   ...defaultArgs,
   config: sampleData[0]
 };
 
-LyneTimetableTransportationDepartureWalk.documentation = {
-  title: 'Lyne Timetable Departure Walk'
+SbbTimetableTransportationDepartureWalk.documentation = {
+  title: 'SBB Timetable Departure Walk'
 };
 
-export const LyneTimetableTransportationArrivalWalk = Template.bind({});
+export const SbbTimetableTransportationArrivalWalk = Template.bind({});
 
-LyneTimetableTransportationArrivalWalk.argTypes = defaultArgTypes;
-LyneTimetableTransportationArrivalWalk.args = {
+SbbTimetableTransportationArrivalWalk.argTypes = defaultArgTypes;
+SbbTimetableTransportationArrivalWalk.args = {
   ...defaultArgs,
   config: sampleData[1]
 };
 
-LyneTimetableTransportationArrivalWalk.documentation = {
-  title: 'Lyne Timetable Departure Walk'
+SbbTimetableTransportationArrivalWalk.documentation = {
+  title: 'SBB Timetable Departure Walk'
 };
 
-export const LyneTimetableTransportationWalkSecondLevel = Template.bind({});
+export const SbbTimetableTransportationWalkSecondLevel = Template.bind({});
 
-LyneTimetableTransportationWalkSecondLevel.argTypes = defaultArgTypes;
-LyneTimetableTransportationWalkSecondLevel.args = {
+SbbTimetableTransportationWalkSecondLevel.argTypes = defaultArgTypes;
+SbbTimetableTransportationWalkSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[3]
 };
 
-LyneTimetableTransportationWalkSecondLevel.documentation = {
-  title: 'Lyne Timetable Walk - Second Level'
+SbbTimetableTransportationWalkSecondLevel.documentation = {
+  title: 'SBB Timetable Walk - Second Level'
 };
 
 export default {
@@ -86,5 +86,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-transportation-walk'
+  title: 'internals/sbb-timetable-transportation-walk'
 };

@@ -1,21 +1,21 @@
-import { LyneTimetableTravelHints } from './lyne-timetable-travel-hints';
+import { SbbTimetableTravelHints } from './sbb-timetable-travel-hints';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-travel-hints.sample-data';
+import sampleData from './sbb-timetable-travel-hints.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe('lyne-timetable-travel-hints', () => {
+describe('sbb-timetable-travel-hints', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableTravelHints],
-      html: `<lyne-timetable-travel-hints config='${config}' appearance='first-level-list'/>`
+      components: [SbbTimetableTravelHints],
+      html: `<sbb-timetable-travel-hints config='${config}' appearance='first-level-list'/>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-travel-hints
+        <sbb-timetable-travel-hints
             config="{&quot;travelHintsItems&quot;:[{&quot;icon&quot;:&quot;sa-sb&quot;,&quot;text&quot;:&quot;Description what sa-sb means...&quot;},{&quot;icon&quot;:&quot;sa-rr&quot;,&quot;text&quot;:&quot;Description what sa-rr means...&quot;},{&quot;icon&quot;:&quot;sa-zm&quot;,&quot;text&quot;:&quot;Description what sa-zm means...&quot;}]}"
             appearance="first-level-list"
         >
@@ -64,7 +64,7 @@ describe('lyne-timetable-travel-hints', () => {
                 </ul>
             </div>
           </mock:shadow-root>
-        </lyne-timetable-travel-hints>
+        </sbb-timetable-travel-hints>
       `);
   });
 

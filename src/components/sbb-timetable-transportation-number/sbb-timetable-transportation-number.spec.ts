@@ -1,21 +1,21 @@
-import { LyneTimetableTransportationNumber } from './lyne-timetable-transportation-number';
+import { SbbTimetableTransportationNumber } from './sbb-timetable-transportation-number';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-transportation-number.sample-data';
+import sampleData from './sbb-timetable-transportation-number.sample-data';
 
 const config = JSON.stringify(sampleData.bus);
 
-describe('lyne-timetable-transportation-number', () => {
+describe('sbb-timetable-transportation-number', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableTransportationNumber],
-      html: `<lyne-timetable-transportation-number config='${config}' />`
+      components: [SbbTimetableTransportationNumber],
+      html: `<sbb-timetable-transportation-number config='${config}' />`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-transportation-number
+        <sbb-timetable-transportation-number
             config="{&quot;direction&quot;:&quot;Richtung Bern Wankdorf, Bahnhof&quot;,&quot;marketingName&quot;:&quot;&quot;,&quot;meansOfTransport&quot;:{&quot;picto&quot;:&quot;transportation-bus-right&quot;,&quot;text&quot;:&quot;Bus&quot;},&quot;product&quot;:{&quot;icon&quot;:&quot;&quot;,&quot;text&quot;:&quot;B 20&quot;}}"
         >
           <mock:shadow-root>
@@ -50,7 +50,7 @@ describe('lyne-timetable-transportation-number', () => {
                 </span>
              </p>
           </mock:shadow-root>
-        </lyne-timetable-transportation-number>
+        </sbb-timetable-transportation-number>
       `);
   });
 

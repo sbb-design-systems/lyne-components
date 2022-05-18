@@ -2,17 +2,17 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-panel {...args} />
+  <sbb-panel {...args} />
 );
 
-export const lynePanel = Template.bind({});
+export const sbbPanel = Template.bind({});
 
-lynePanel.args = {
+sbbPanel.args = {
   'button-text': 'Sample button text',
   'text': 'Sample panel text'
 };
 
-lynePanel.documentation = {
+sbbPanel.documentation = {
   title: 'Default'
 };
 
@@ -25,5 +25,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-panel'
+  title: 'components/sbb-panel'
 };

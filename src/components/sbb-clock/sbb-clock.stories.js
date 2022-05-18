@@ -3,7 +3,7 @@ import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-sbb-clock {...args} />
+  <sbb-clock {...args} />
 );
 
 const times = {

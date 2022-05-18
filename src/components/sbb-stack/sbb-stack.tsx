@@ -4,18 +4,18 @@ import {
   Host,
   Prop
 } from '@stencil/core';
-import { InterfaceStackAttributes } from './lyne-stack.custom';
+import { InterfaceStackAttributes } from './sbb-stack.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-stack.default.scss',
-    shared: 'styles/lyne-stack.shared.scss'
+    default: 'styles/sbb-stack.default.scss',
+    shared: 'styles/sbb-stack.shared.scss'
   },
-  tag: 'lyne-stack'
+  tag: 'sbb-stack'
 })
 
-export class LyneStack {
+export class SbbStack {
 
   /** Stack appearance */
   @Prop() public appearance?: InterfaceStackAttributes['appearance'] = 'vertical';

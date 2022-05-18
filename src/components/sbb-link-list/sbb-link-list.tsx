@@ -4,8 +4,8 @@ import {
   Prop
 } from '@stencil/core';
 import { guid } from '../../global/guid';
-import { InterfaceLyneLinkListAttributes } from './lyne-link-list.custom.d';
-import { InterfaceTitleAttributes } from '../sbb-title/lyne-title.custom.d';
+import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
 
 /**
  * @slot link-list__item - Use this to render the
@@ -15,13 +15,13 @@ import { InterfaceTitleAttributes } from '../sbb-title/lyne-title.custom.d';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-link-list.default.scss',
-    shared: 'styles/lyne-link-list.shared.scss'
+    default: 'styles/sbb-link-list.default.scss',
+    shared: 'styles/sbb-link-list.shared.scss'
   },
-  tag: 'lyne-link-list'
+  tag: 'sbb-link-list'
 })
 
-export class LyneLinkList {
+export class SbbLinkList {
 
   private _guid: string;
 
@@ -30,7 +30,7 @@ export class LyneLinkList {
    * the list will be horizontal from above large breakpoint. Below it has the
    * default behaviour which is a vertical list.
    */
-  @Prop() public listDirection: InterfaceLyneLinkListAttributes['direction'] = 'vertical';
+  @Prop() public listDirection: InterfaceLinkListAttributes['direction'] = 'vertical';
 
   /**
    * The title text we want to show
@@ -52,7 +52,7 @@ export class LyneLinkList {
    * and dark mode styling will be applied
    * differently.
    */
-  @Prop() public variant: InterfaceLyneLinkListAttributes['variant'] = 'positive';
+  @Prop() public variant: InterfaceLinkListAttributes['variant'] = 'positive';
 
   public componentWillLoad(): void {
     this._guid = guid();
@@ -74,14 +74,14 @@ export class LyneLinkList {
       <div>
         {
           this.titleText
-            ? <lyne-title
+            ? <sbb-title
               id={id}
               level={this.titleLevel}
               text={this.titleText}
               variant={this.variant}
               visual-level='5'
             >
-            </lyne-title>
+            </sbb-title>
             : ''
         }
         <ul

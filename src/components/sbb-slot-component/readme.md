@@ -1,4 +1,4 @@
-# lyne-slot-component
+# sbb-slot-component
 
 
 

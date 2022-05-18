@@ -1,4 +1,4 @@
-# lyne-timetable-row
+# sbb-timetable-row
 
 
 
@@ -16,31 +16,31 @@
 
 ### Depends on
 
-- [lyne-timetable-row-header](../lyne-timetable-row-header)
-- [lyne-timetable-transportation-details](../lyne-timetable-transportation-details)
-- [lyne-timetable-row-button](../lyne-timetable-row-button)
-- [lyne-timetable-platform](../lyne-timetable-platform)
-- [lyne-timetable-occupancy](../lyne-timetable-occupancy)
-- [lyne-timetable-travel-hints](../lyne-timetable-travel-hints)
-- [lyne-timetable-duration](../lyne-timetable-duration)
-- [lyne-timetable-cus-him](../lyne-timetable-cus-him)
+- [sbb-timetable-row-header](../sbb-timetable-row-header)
+- [sbb-timetable-transportation-details](../sbb-timetable-transportation-details)
+- [sbb-timetable-row-button](../sbb-timetable-row-button)
+- [sbb-timetable-platform](../sbb-timetable-platform)
+- [sbb-timetable-occupancy](../sbb-timetable-occupancy)
+- [sbb-timetable-travel-hints](../sbb-timetable-travel-hints)
+- [sbb-timetable-duration](../sbb-timetable-duration)
+- [sbb-timetable-cus-him](../sbb-timetable-cus-him)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-row --> lyne-timetable-row-header
-  lyne-timetable-row --> lyne-timetable-transportation-details
-  lyne-timetable-row --> lyne-timetable-row-button
-  lyne-timetable-row --> lyne-timetable-platform
-  lyne-timetable-row --> lyne-timetable-occupancy
-  lyne-timetable-row --> lyne-timetable-travel-hints
-  lyne-timetable-row --> lyne-timetable-duration
-  lyne-timetable-row --> lyne-timetable-cus-him
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-number
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-walk
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-time
-  lyne-timetable-transportation-details --> lyne-pearl-chain
-  style lyne-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-row --> sbb-timetable-row-header
+  sbb-timetable-row --> sbb-timetable-transportation-details
+  sbb-timetable-row --> sbb-timetable-row-button
+  sbb-timetable-row --> sbb-timetable-platform
+  sbb-timetable-row --> sbb-timetable-occupancy
+  sbb-timetable-row --> sbb-timetable-travel-hints
+  sbb-timetable-row --> sbb-timetable-duration
+  sbb-timetable-row --> sbb-timetable-cus-him
+  sbb-timetable-transportation-details --> sbb-timetable-transportation-number
+  sbb-timetable-transportation-details --> sbb-timetable-transportation-walk
+  sbb-timetable-transportation-details --> sbb-timetable-transportation-time
+  sbb-timetable-transportation-details --> sbb-pearl-chain
+  style sbb-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

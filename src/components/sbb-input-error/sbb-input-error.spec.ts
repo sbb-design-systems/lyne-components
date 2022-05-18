@@ -1,18 +1,18 @@
 import { SbbInputError } from './sbb-input-error';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-input-error', () => {
+describe('sbb-input-error', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
       components: [SbbInputError],
-      html: '<lyne-input-error message="This is a required field."></lyne-input-error>'
+      html: '<sbb-input-error message="This is a required field."></sbb-input-error>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-input-error
+        <sbb-input-error
             message="This is a required field."
         >
           <mock:shadow-root>
@@ -24,7 +24,7 @@ describe('lyne-input-error', () => {
                 This is a required field.
             </span>
           </mock:shadow-root>
-        </lyne-input-error>
+        </sbb-input-error>
       `);
   });
 

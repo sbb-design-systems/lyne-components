@@ -1,12 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-row-header.sample-data';
+import sampleData from './sbb-timetable-row-header.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-row-header
+  <sbb-timetable-row-header
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-row-header>
+  </sbb-timetable-row-header>
 );
 
 const config = {
@@ -22,15 +22,15 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetableRowHeader = Template.bind({});
+export const SbbTimetableRowHeader = Template.bind({});
 
-LyneTimetableRowHeader.argTypes = defaultArgTypes;
-LyneTimetableRowHeader.args = {
+SbbTimetableRowHeader.argTypes = defaultArgTypes;
+SbbTimetableRowHeader.args = {
   config: sampleData[0]
 };
 
-LyneTimetableRowHeader.documentation = {
-  title: 'Lyne Timetable Row Header'
+SbbTimetableRowHeader.documentation = {
+  title: 'SBB Timetable Row Header'
 };
 
 export default {
@@ -44,5 +44,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-row-header'
+  title: 'internals/sbb-timetable-row-header'
 };

@@ -1,20 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-pearl-chain', () => {
+describe('sbb-pearl-chain', () => {
   let element,
     page;
 
-  beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent('<lyne-pearl-chain></lyne-pearl-chain>');
-    element = await page.find('lyne-pearl-chain');
-  });
-
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-pearl-chain></lyne-pearl-chain>');
+    await page.setContent('<sbb-pearl-chain></sbb-pearl-chain>');
 
-    element = await page.find('lyne-pearl-chain');
+    element = await page.find('sbb-pearl-chain');
     expect(element)
       .toHaveClass('hydrated');
   });

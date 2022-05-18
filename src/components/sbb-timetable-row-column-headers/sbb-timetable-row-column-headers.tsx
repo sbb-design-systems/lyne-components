@@ -7,13 +7,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-row-column-headers.default.scss',
-    shared: 'styles/lyne-timetable-row-column-headers.shared.scss'
+    default: 'styles/sbb-timetable-row-column-headers.default.scss',
+    shared: 'styles/sbb-timetable-row-column-headers.shared.scss'
   },
-  tag: 'lyne-timetable-row-column-headers'
+  tag: 'sbb-timetable-row-column-headers'
 })
 
-export class LyneTimetableRowColumnHeaders {
+export class SbbTimetableRowColumnHeaders {
 
   /**
    * Stringified JSON which defines most of the

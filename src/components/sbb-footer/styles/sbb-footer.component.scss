@@ -14,7 +14,7 @@
     --_footer-clock-width: var(--footer-clock-width, 112);
   }
 
-  // Contextual design for lyne-stack
+  // Contextual design for sbb-stack
   --stack-text-color-normal: var(--color-granite-default);
 }
 
@@ -69,7 +69,7 @@
   @include page-spacing__inner;
 }
 
-// Increase lyne-footer resilience
+// Increase sbb-footer resilience
 //
 // Only apply spacing and thin line if footer bottom has a predecessor, excluding
 // the hidden title which always needs to be present

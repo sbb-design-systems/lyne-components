@@ -9,7 +9,7 @@ export default (jsonString: string): any => {
   }
 
   // make sure that we have `breakpoints` key in object
-  const errorMessage = 'lyne-image error: attribute breakpoints has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
+  const errorMessage = 'sbb-image error: attribute breakpoints has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
   const jsonObject = JSON.parse(jsonString);
   const jsonObjectKeys = Object.keys(jsonObject);
 

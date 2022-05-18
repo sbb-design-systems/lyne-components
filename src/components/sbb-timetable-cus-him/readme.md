@@ -1,6 +1,6 @@
-# lyne-timetable-cus-him
+# sbb-timetable-cus-him
 
-!! Please note that this component is not intended for direct use. It will get used within lyne-timetable. It is listed
+!! Please note that this component is not intended for direct use. It will get used within sbb-timetable. It is listed
 here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
@@ -18,15 +18,15 @@ here to show the various configuration options to component developers. !!
 
 ### Used by
 
- - [lyne-timetable-button](../lyne-timetable-button)
- - [lyne-timetable-row](../lyne-timetable-row)
+ - [sbb-timetable-button](../sbb-timetable-button)
+ - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-button --> lyne-timetable-cus-him
-  lyne-timetable-row --> lyne-timetable-cus-him
-  style lyne-timetable-cus-him fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-button --> sbb-timetable-cus-him
+  sbb-timetable-row --> sbb-timetable-cus-him
+  style sbb-timetable-cus-him fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

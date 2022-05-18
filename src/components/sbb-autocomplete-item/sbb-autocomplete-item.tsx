@@ -3,7 +3,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import { InterfaceAutocompleteItemAttributes } from './lyne-autocomplete-item.custom.d';
+import { InterfaceAutocompleteItemAttributes } from './sbb-autocomplete-item.custom';
 
 /**
  * @slot pre-text - placeholder to put content inline before the item text
@@ -13,13 +13,13 @@ import { InterfaceAutocompleteItemAttributes } from './lyne-autocomplete-item.cu
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-autocomplete-item.default.scss',
-    shared: 'styles/lyne-autocomplete-item.shared.scss'
+    default: 'styles/sbb-autocomplete-item.default.scss',
+    shared: 'styles/sbb-autocomplete-item.shared.scss'
   },
-  tag: 'lyne-autocomplete-item'
+  tag: 'sbb-autocomplete-item'
 })
 
-export class LyneAutocompleteItem {
+export class SbbAutocompleteItem {
 
   /**
    * Text to show as content of the autocomplete item

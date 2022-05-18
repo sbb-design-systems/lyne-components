@@ -1,6 +1,6 @@
 export default {
-  didClose: 'lyne-accordion-item_did-close',
-  didOpen: 'lyne-accordion-item_did-open',
-  willClose: 'lyne-accordion-item_will-close',
-  willOpen: 'lyne-accordion-item_will-open'
+  didClose: 'sbb-accordion-item_did-close',
+  didOpen: 'sbb-accordion-item_did-open',
+  willClose: 'sbb-accordion-item_will-close',
+  willOpen: 'sbb-accordion-item_will-open'
 };

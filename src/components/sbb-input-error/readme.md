@@ -1,4 +1,4 @@
-# lyne-input-error
+# sbb-input-error
 
 
 
@@ -16,13 +16,13 @@
 
 ### Used by
 
- - [lyne-text-input](../lyne-text-input)
+ - [sbb-text-input](../sbb-text-input)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-text-input --> lyne-input-error
-  style lyne-input-error fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-text-input --> sbb-input-error
+  style sbb-input-error fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

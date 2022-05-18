@@ -11,21 +11,21 @@ import {
   i18nXResultsAvailable
 } from '../../global/i18n';
 
-import events from './lyne-autocomplete.events';
-import inputEvents from '../sbb-text-input/lyne-text-input.events';
-import itemsDataHelper from './lyne-autocomplete.helper';
+import events from './sbb-autocomplete.events';
+import inputEvents from '../sbb-text-input/sbb-text-input.events';
+import itemsDataHelper from './sbb-autocomplete.helper';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-autocomplete.default.scss',
-    shared: 'styles/lyne-autocomplete.shared.scss'
+    default: 'styles/sbb-autocomplete.default.scss',
+    shared: 'styles/sbb-autocomplete.shared.scss'
   },
-  tag: 'lyne-autocomplete'
+  tag: 'sbb-autocomplete'
 })
 
-export class LyneAutocomplete {
+export class SbbAutocomplete {
 
   /**
    * Items to show in the autocomplete interface. You should pass a stringified
@@ -56,35 +56,35 @@ export class LyneAutocomplete {
 
   /**
    * Define if borderless variant of autocomplete input should be used. See
-   * documentation of lyne-text-input for details.
+   * documentation of sbb-text-input for details.
    */
   @Prop() public inputBorderless?: boolean;
 
   /**
    * Debounce timeout to use for the input. See documentation of
-   * lyne-text-input for details.
+   * sbb-text-input for details.
    */
   @Prop() public inputDebounceTimeout? = 200;
 
   /**
-   * Name attribute for the input element. See lyne-text-input for details.
+   * Name attribute for the input element. See sbb-text-input for details.
    */
   @Prop() public inputName!: string;
 
   /**
-   * Label attribute for the input element. See lyne-text-input for details.
+   * Label attribute for the input element. See sbb-text-input for details.
    */
   @Prop() public inputLabel!: string;
 
   /**
-   * Placeholder attribute for the input element. See lyne-text-input for
+   * Placeholder attribute for the input element. See sbb-text-input for
    * details.
    */
   @Prop() public inputPlaceholder?: string;
 
   /**
    * Determine if the input label should be visible.
-   * See lyne-text-input for
+   * See sbb-text-input for
    * details.
    */
   @Prop() public inputLabelVisible?: boolean;
@@ -101,7 +101,7 @@ export class LyneAutocomplete {
 
   @Element() private _element: HTMLElement;
 
-  private _inputElement!: HTMLLyneTextInputElement;
+  private _inputElement!: HTMLSbbTextInputElement;
   private _list!: HTMLUListElement;
   private _dataItems!: [any];
   private _currentLanguage = getDocumentLang();
@@ -198,7 +198,7 @@ export class LyneAutocomplete {
     });
 
     /**
-     * lyne-text-input listens to this event
+     * sbb-text-input listens to this event
      */
     this._inputElement.dispatchEvent(event);
   };
@@ -210,7 +210,7 @@ export class LyneAutocomplete {
     });
 
     /**
-     * lyne-text-input listens to this event
+     * sbb-text-input listens to this event
      */
     this._inputElement.dispatchEvent(event);
 
@@ -285,7 +285,7 @@ export class LyneAutocomplete {
     });
 
     /**
-     * consumers of lyne-autocomplete may listen to this event
+     * consumers of sbb-autocomplete may listen to this event
      */
     this._element.dispatchEvent(event);
   };
@@ -384,7 +384,7 @@ export class LyneAutocomplete {
     return (
       <div class='autocomplete'>
 
-        <lyne-text-input
+        <sbb-text-input
           inputAutoCompleteValue='off'
           inputName={this.inputName}
           inputType='text'
@@ -402,7 +402,7 @@ export class LyneAutocomplete {
           ref={(el): void => {
             this._inputElement = el;
           }}
-        ></lyne-text-input>
+        ></sbb-text-input>
 
         <p
           class='autocomplete__accessibility-hint'
@@ -419,7 +419,7 @@ export class LyneAutocomplete {
           }}
         >
           {this._dataItems.map((item, index) => (
-            <lyne-autocomplete-item
+            <sbb-autocomplete-item
               text={item.text}
               highlight={this.value}
               selected={index === this._selectedAutocompleteItemIndex}

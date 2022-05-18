@@ -1,14 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-input-error', () => {
+describe('sbb-input-error', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-input-error></lyne-input-error>');
+    await page.setContent('<sbb-input-error></sbb-input-error>');
 
-    element = await page.find('lyne-input-error');
+    element = await page.find('sbb-input-error');
     expect(element)
       .toHaveClass('hydrated');
   });

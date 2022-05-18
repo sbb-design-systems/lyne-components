@@ -1,4 +1,4 @@
-# lyne-accordion-item
+# sbb-accordion-item
 
 
 

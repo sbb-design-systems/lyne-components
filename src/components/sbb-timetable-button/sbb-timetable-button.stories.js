@@ -1,14 +1,14 @@
-import events from './lyne-timetable-button.events.ts';
+import events from './sbb-timetable-button.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import cusHimSampleData from '../sbb-timetable-cus-him/lyne-timetable-cus-him.sample-data';
-import walkSampleData from '../sbb-timetable-transportation-walk//lyne-timetable-transportation-walk.sample-data';
+import cusHimSampleData from '../sbb-timetable-cus-him/sbb-timetable-cus-him.sample-data';
+import walkSampleData from '../sbb-timetable-transportation-walk//sbb-timetable-transportation-walk.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-button
+  <sbb-timetable-button
     {...args}
   >
-  </lyne-timetable-button>
+  </sbb-timetable-button>
 );
 
 const appearance = {
@@ -147,5 +147,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/timetable/lyne-timetable-button'
+  title: 'components/timetable/sbb-timetable-button'
 };

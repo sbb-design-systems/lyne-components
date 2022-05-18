@@ -5,18 +5,18 @@ import {
   Host,
   Prop
 } from '@stencil/core';
-import { InterfaceSectionAttributes } from './lyne-section.custom';
+import { InterfaceSectionAttributes } from './sbb-section.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-section.default.scss',
-    shared: 'styles/lyne-section.shared.scss'
+    default: 'styles/sbb-section.default.scss',
+    shared: 'styles/sbb-section.shared.scss'
   },
-  tag: 'lyne-section'
+  tag: 'sbb-section'
 })
 
-export class LyneSection {
+export class SbbSection {
 
   /** Section appearance */
   @Prop() public appearance?: InterfaceSectionAttributes['appearance'] = 'primary';

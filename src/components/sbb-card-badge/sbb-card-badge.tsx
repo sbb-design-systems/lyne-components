@@ -5,7 +5,7 @@ import {
   Prop
 } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import { InterfaceCardBadgeAttributes } from './lyne-card-badge.custom';
+import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
 
 /**
  * @slot generic - Slot used to render generic content. Since this slot is
@@ -17,13 +17,13 @@ import { InterfaceCardBadgeAttributes } from './lyne-card-badge.custom';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-card-badge.default.scss',
-    shared: 'styles/lyne-card-badge.shared.scss'
+    default: 'styles/sbb-card-badge.default.scss',
+    shared: 'styles/sbb-card-badge.shared.scss'
   },
-  tag: 'lyne-card-badge'
+  tag: 'sbb-card-badge'
 })
 
-export class LyneCardBadge {
+export class SbbCardBadge {
 
   /**
    * Accessibility label text. This text gets exposed to screen reader users.

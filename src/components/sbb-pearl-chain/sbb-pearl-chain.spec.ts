@@ -1,4 +1,4 @@
-import { LynePearlChain } from './lyne-pearl-chain';
+import { SbbPearlChain } from './sbb-pearl-chain';
 import { newSpecPage } from '@stencil/core/testing';
 
 const legs = JSON.stringify({
@@ -10,24 +10,24 @@ const legs = JSON.stringify({
   ]
 });
 
-describe('lyne-pearl-chain', () => {
+describe('sbb-pearl-chain', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LynePearlChain],
-      html: `<lyne-pearl-chain legs='${legs}' />`
+      components: [SbbPearlChain],
+      html: `<sbb-pearl-chain legs='${legs}' />`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-pearl-chain legs="{&quot;legs&quot;:[{&quot;cancellation&quot;:false,&quot;duration&quot;:100}]}">
+        <sbb-pearl-chain legs="{&quot;legs&quot;:[{&quot;cancellation&quot;:false,&quot;duration&quot;:100}]}">
           <mock:shadow-root>
             <div class="pearl-chain">
               <div class="pearl-chain__leg" style="flex-basis: 100%;"></div>
             </div>
           </mock:shadow-root>
-        </lyne-pearl-chain>
+        </sbb-pearl-chain>
       `);
   });
 

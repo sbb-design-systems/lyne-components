@@ -1,6 +1,6 @@
-# lyne-timetable-transportation-details
+# sbb-timetable-transportation-details
 
-!! Please note that this component is not intended for direct use. It will get used within lyne-timetable. It is listed
+!! Please note that this component is not intended for direct use. It will get used within sbb-timetable. It is listed
 here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
@@ -17,24 +17,24 @@ here to show the various configuration options to component developers. !!
 
 ### Used by
 
- - [lyne-timetable-row](../lyne-timetable-row)
+ - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Depends on
 
-- [lyne-timetable-transportation-number](../lyne-timetable-transportation-number)
-- [lyne-timetable-transportation-walk](../lyne-timetable-transportation-walk)
-- [lyne-timetable-transportation-time](../lyne-timetable-transportation-time)
-- [lyne-pearl-chain](../lyne-pearl-chain)
+- [sbb-timetable-transportation-number](../sbb-timetable-transportation-number)
+- [sbb-timetable-transportation-walk](../sbb-timetable-transportation-walk)
+- [sbb-timetable-transportation-time](../sbb-timetable-transportation-time)
+- [sbb-pearl-chain](../sbb-pearl-chain)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-number
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-walk
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-time
-  lyne-timetable-transportation-details --> lyne-pearl-chain
-  lyne-timetable-row --> lyne-timetable-transportation-details
-  style lyne-timetable-transportation-details fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-transportation-details --> sbb-timetable-transportation-number
+  sbb-timetable-transportation-details --> sbb-timetable-transportation-walk
+  sbb-timetable-transportation-details --> sbb-timetable-transportation-time
+  sbb-timetable-transportation-details --> sbb-pearl-chain
+  sbb-timetable-row --> sbb-timetable-transportation-details
+  style sbb-timetable-transportation-details fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

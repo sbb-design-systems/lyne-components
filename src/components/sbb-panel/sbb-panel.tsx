@@ -3,18 +3,18 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import { InterfacePanelAttributes } from './lyne-panel.custom.d';
+import { InterfacePanelAttributes } from './sbb-panel.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-panel.default.scss',
-    shared: 'styles/lyne-panel.shared.scss'
+    default: 'styles/sbb-panel.default.scss',
+    shared: 'styles/sbb-panel.shared.scss'
   },
-  tag: 'lyne-panel'
+  tag: 'sbb-panel'
 })
 
-export class LynePanel {
+export class SbbPanel {
 
   /** The text to show in the panel */
   @Prop() public text!: string;
@@ -35,14 +35,14 @@ export class LynePanel {
       <div class='panel'>
         <TAGNAME class='panel__text'>{this.text}</TAGNAME>
 
-        <lyne-button
+        <sbb-button
           class='panel__button'
           label={this.buttonText}
           variant='secondary-negative'
           size='small'
           event-id={this.eventId}
           visual-button-only
-        ></lyne-button>
+        ></sbb-button>
 
       </div>
     );

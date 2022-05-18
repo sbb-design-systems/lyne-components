@@ -15,9 +15,9 @@
   --chevron-transition-timing-function: ease-in;
   --chevron-transition-duration: 200ms;
   --expand-transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  
+
   // this is just the fallback transition duration. the definitive duration
-  // will be set via lyne-accordion-item.tsx before opening/expanding
+  // will be set via sbb-accordion-item.tsx before opening/expanding
   --expand-transition-duration: 150ms;
   --header-transition-timing-function: ease-in;
   --header-transition-duration: 180ms;

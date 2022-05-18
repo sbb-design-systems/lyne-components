@@ -4,10 +4,10 @@ import readme from './readme.md';
 import sampleData from './sbb-timetable-row.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-row
+  <sbb-timetable-row
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-row>
+  </sbb-timetable-row>
 );
 
 const config = {
@@ -23,15 +23,15 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetableRow = Template.bind({});
+export const SbbTimetableRow = Template.bind({});
 
-LyneTimetableRow.argTypes = defaultArgTypes;
-LyneTimetableRow.args = {
+SbbTimetableRow.argTypes = defaultArgTypes;
+SbbTimetableRow.args = {
   config: sampleData[0]
 };
 
-LyneTimetableRow.documentation = {
-  title: 'Lyne Timetable Row'
+SbbTimetableRow.documentation = {
+  title: 'SBB Timetable Row'
 };
 
 export default {
@@ -47,5 +47,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/timetable/lyne-timetable-row'
+  title: 'components/timetable/sbb-timetable-row'
 };

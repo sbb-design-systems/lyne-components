@@ -3,7 +3,7 @@ import images from '../../global/images';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-image {...args} />
+  <sbb-image {...args} />
 );
 
 const customFocalPoint = {
@@ -130,9 +130,9 @@ const performanceMark = {
   }
 };
 
-export const lyneImage = Template.bind({});
+export const sbbImage = Template.bind({});
 
-lyneImage.argTypes = {
+sbbImage.argTypes = {
   'alt': '',
   'caption': '',
   copyright,
@@ -149,7 +149,7 @@ lyneImage.argTypes = {
   'performance-mark': performanceMark
 };
 
-lyneImage.args = {
+sbbImage.args = {
   'alt': '',
   'caption': 'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
   'copyright': '',
@@ -166,7 +166,7 @@ lyneImage.args = {
   'performance-mark': ''
 };
 
-lyneImage.documentation = {
+sbbImage.documentation = {
   title: 'Default image'
 };
 
@@ -183,5 +183,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-image'
+  title: 'components/sbb-image'
 };

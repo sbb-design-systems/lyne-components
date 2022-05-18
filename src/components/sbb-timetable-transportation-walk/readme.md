@@ -1,6 +1,6 @@
-# lyne-timetable-transportation-walk
+# sbb-timetable-transportation-walk
 
-!! Please note that this component is not intended for direct use. It will get used within lyne-timetable. It is listed
+!! Please note that this component is not intended for direct use. It will get used within sbb-timetable. It is listed
 here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
@@ -18,15 +18,15 @@ here to show the various configuration options to component developers. !!
 
 ### Used by
 
- - [lyne-timetable-button](../lyne-timetable-button)
- - [lyne-timetable-transportation-details](../lyne-timetable-transportation-details)
+ - [sbb-timetable-button](../sbb-timetable-button)
+ - [sbb-timetable-transportation-details](../sbb-timetable-transportation-details)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-button --> lyne-timetable-transportation-walk
-  lyne-timetable-transportation-details --> lyne-timetable-transportation-walk
-  style lyne-timetable-transportation-walk fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-button --> sbb-timetable-transportation-walk
+  sbb-timetable-transportation-details --> sbb-timetable-transportation-walk
+  style sbb-timetable-transportation-walk fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

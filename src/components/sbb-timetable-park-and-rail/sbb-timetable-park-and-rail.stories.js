@@ -1,13 +1,13 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-park-and-rail.sample-data';
+import sampleData from './sbb-timetable-park-and-rail.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-park-and-rail
+  <sbb-timetable-park-and-rail
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-park-and-rail>
+  </sbb-timetable-park-and-rail>
 );
 
 const appearance = {
@@ -58,5 +58,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-park-and-rail'
+  title: 'internals/sbb-timetable-park-and-rail'
 };

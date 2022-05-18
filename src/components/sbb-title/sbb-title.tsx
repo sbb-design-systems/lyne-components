@@ -3,18 +3,18 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import { InterfaceTitleAttributes } from './lyne-title.custom.d';
+import { InterfaceTitleAttributes } from './sbb-title.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-title.default.scss',
-    shared: 'styles/lyne-title.shared.scss'
+    default: 'styles/sbb-title.default.scss',
+    shared: 'styles/sbb-title.shared.scss'
   },
-  tag: 'lyne-title'
+  tag: 'sbb-title'
 })
 
-export class LyneTitle {
+export class SbbTitle {
 
   /** Text for the title */
   @Prop() public text!: string;

@@ -8,13 +8,13 @@ import errorIcon from './assets/error_icon.svg';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-input-error.default.scss',
-    shared: 'styles/lyne-input-error.shared.scss'
+    default: 'styles/sbb-input-error.default.scss',
+    shared: 'styles/sbb-input-error.shared.scss'
   },
-  tag: 'lyne-input-error'
+  tag: 'sbb-input-error'
 })
 
-export class LyneInputError {
+export class SbbInputError {
 
   /** The error message, we want to show. */
   @Prop() public message!: string;

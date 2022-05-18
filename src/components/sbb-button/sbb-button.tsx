@@ -4,7 +4,7 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import events from './lyne-button.events';
+import events from './sbb-button.events';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 
 /**
@@ -17,10 +17,10 @@ import { InterfaceButtonAttributes } from './sbb-button.custom';
     default: 'styles/sbb-button.default.scss',
     shared: 'styles/sbb-button.shared.scss'
   },
-  tag: 'lyne-button'
+  tag: 'sbb-button'
 })
 
-export class LyneButton {
+export class SbbButton {
 
   /** Label text to show on the button */
   @Prop() public label? = 'Default button text';

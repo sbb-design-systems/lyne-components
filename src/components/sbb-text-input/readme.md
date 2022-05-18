@@ -1,4 +1,4 @@
-# lyne-text-input
+# sbb-text-input
 
 
 
@@ -44,18 +44,18 @@
 
 ### Used by
 
- - [lyne-autocomplete](../sbb-autocomplete)
+ - [sbb-autocomplete](../sbb-autocomplete)
 
 ### Depends on
 
-- [lyne-input-error](../lyne-input-error)
+- [sbb-input-error](../sbb-input-error)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-text-input --> lyne-input-error
-  lyne-autocomplete --> lyne-text-input
-  style lyne-text-input fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-text-input --> sbb-input-error
+  sbb-autocomplete --> sbb-text-input
+  style sbb-text-input fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

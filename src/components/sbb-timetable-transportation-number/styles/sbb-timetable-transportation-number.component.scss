@@ -6,7 +6,7 @@
   --product-icon-width: 59;
 }
 
-:host(lyne-timetable-transportation-number) {
+:host(sbb-timetable-transportation-number) {
   display: flex;
   flex-basis: 100%;
   margin-block-end: pxToRem(var(--spacing-fixed-1x));

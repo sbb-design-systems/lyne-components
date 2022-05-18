@@ -1,29 +1,29 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import rowButtonEvents from '../sbb-timetable-row-button/lyne-timetable-row-button.events.ts';
-import timeTableButtonEvents from '../sbb-timetable-button/lyne-timetable-button.events.ts';
+import rowButtonEvents from '../sbb-timetable-row-button/sbb-timetable-row-button.events.ts';
+import timeTableButtonEvents from '../sbb-timetable-button/sbb-timetable-button.events.ts';
 
-import sampleData from './lyne-timetable.sample-data';
+import sampleData from './sbb-timetable.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable>
-    <lyne-timetable-row-column-headers config={args.columnHeaders} role='row' />
-    <lyne-timetable-row-day-change config={args.timetableRowsDayChange[0]} role='row' />
-    <lyne-timetable-row config={args.timetableRows[0]} role='row' />
-    <lyne-timetable-row config={args.timetableRows[1]} role='row' />
-    <lyne-timetable-row config={args.timetableRows[2]} role='row' />
-    <lyne-timetable-row config={args.timetableRows[3]} role='row' />
-    <lyne-timetable-row-day-change config={args.timetableRowsDayChange[1]} role='row' />
-    <lyne-timetable-row config={args.timetableRows[3]} role='row' />
-  </lyne-timetable>
+  <sbb-timetable>
+    <sbb-timetable-row-column-headers config={args.columnHeaders} role='row' />
+    <sbb-timetable-row-day-change config={args.timetableRowsDayChange[0]} role='row' />
+    <sbb-timetable-row config={args.timetableRows[0]} role='row' />
+    <sbb-timetable-row config={args.timetableRows[1]} role='row' />
+    <sbb-timetable-row config={args.timetableRows[2]} role='row' />
+    <sbb-timetable-row config={args.timetableRows[3]} role='row' />
+    <sbb-timetable-row-day-change config={args.timetableRowsDayChange[1]} role='row' />
+    <sbb-timetable-row config={args.timetableRows[3]} role='row' />
+  </sbb-timetable>
 );
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetable = Template.bind({});
+export const sbbTimetable = Template.bind({});
 
-LyneTimetable.args = {
+sbbTimetable.args = {
   columnHeaders: JSON.stringify(sampleData.columnHeaders),
   timetableRows: [
     JSON.stringify(sampleData.timetableRows[0]),
@@ -37,8 +37,8 @@ LyneTimetable.args = {
   ]
 };
 
-LyneTimetable.documentation = {
-  title: 'Lyne Timetable'
+sbbTimetable.documentation = {
+  title: 'SBB Timetable'
 };
 
 export default {
@@ -60,5 +60,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/timetable/lyne-timetable'
+  title: 'components/timetable/sbb-timetable'
 };

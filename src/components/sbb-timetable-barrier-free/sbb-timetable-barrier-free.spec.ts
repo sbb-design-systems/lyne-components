@@ -1,21 +1,21 @@
-import { LyneTimetableBarrierFree } from './lyne-timetable-barrier-free';
+import { SbbTimetableBarrierFree } from './sbb-timetable-barrier-free';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-barrier-free.sample-data';
+import sampleData from './sbb-timetable-barrier-free.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe('lyne-timetable-barrier-free', () => {
+describe('sbb-timetable-barrier-free', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableBarrierFree],
-      html: `<lyne-timetable-barrier-free config='${config}' />`
+      components: [SbbTimetableBarrierFree],
+      html: `<sbb-timetable-barrier-free config='${config}' />`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-barrier-free
+        <sbb-timetable-barrier-free
             config="{&quot;icon&quot;:&quot;wheelchair&quot;,&quot;text&quot;:&quot;Independent boarding/alighting possible.&quot;}"
         >
           <mock:shadow-root>
@@ -41,7 +41,7 @@ describe('lyne-timetable-barrier-free', () => {
                 </span>
             </p>
           </mock:shadow-root>
-        </lyne-timetable-barrier-free>
+        </sbb-timetable-barrier-free>
       `);
   });
 

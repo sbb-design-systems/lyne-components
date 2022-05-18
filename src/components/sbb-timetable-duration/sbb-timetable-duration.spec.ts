@@ -1,21 +1,21 @@
-import { LyneTimetableDuration } from './lyne-timetable-duration';
+import { SbbTimetableDuration } from './sbb-timetable-duration';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-duration.sample-data';
+import sampleData from './sbb-timetable-duration.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe('lyne-timetable-duration', () => {
+describe('sbb-timetable-duration', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableDuration],
-      html: `<lyne-timetable-duration config='${config}' />`
+      components: [SbbTimetableDuration],
+      html: `<sbb-timetable-duration config='${config}' />`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-duration
+        <sbb-timetable-duration
             config="{&quot;hours&quot;:0,&quot;minutes&quot;:37}"
         >
           <mock:shadow-root>
@@ -36,7 +36,7 @@ describe('lyne-timetable-duration', () => {
                 </span>
             </p>
           </mock:shadow-root>
-        </lyne-timetable-duration>
+        </sbb-timetable-duration>
       `);
   });
 

@@ -1,4 +1,4 @@
-# lyne-accordion
+# sbb-accordion
 
 
 <!-- Auto Generated Below -->
@@ -15,9 +15,9 @@
 
 ## Slots
 
-| Slot        | Description                                    |
-| ----------- | ---------------------------------------------- |
-| `"unnamed"` | Place lyne-accordion-item elements in the slot |
+| Slot        | Description                                   |
+| ----------- | --------------------------------------------- |
+| `"unnamed"` | Place sbb-accordion-item elements in the slot |
 
 
 ----------------------------------------------

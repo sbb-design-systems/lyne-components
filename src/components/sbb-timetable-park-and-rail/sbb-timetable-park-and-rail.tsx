@@ -6,7 +6,7 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import icons from '../../global/icons/timetable.json';
-import { InterfaceLyneTimetableParkAndRailAttributes } from './lyne-timetable-park-and-rail.custom.d';
+import { InterfaceTimetableParkAndRailAttributes } from './sbb-timetable-park-and-rail.custom';
 import {
   i18nAvailableAtDepartingStation,
   i18nDistanceMeter,
@@ -16,13 +16,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-park-and-rail.default.scss',
-    shared: 'styles/lyne-timetable-park-and-rail.shared.scss'
+    default: 'styles/sbb-timetable-park-and-rail.default.scss',
+    shared: 'styles/sbb-timetable-park-and-rail.shared.scss'
   },
-  tag: 'lyne-timetable-park-and-rail'
+  tag: 'sbb-timetable-park-and-rail'
 })
 
-export class LyneTimetableParkAndRail {
+export class SbbTimetableParkAndRail {
 
   private _currentLanguage = getDocumentLang();
 
@@ -30,7 +30,7 @@ export class LyneTimetableParkAndRail {
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceLyneTimetableParkAndRailAttributes['appearance'] = 'first-level';
+  @Prop() public appearance?: InterfaceTimetableParkAndRailAttributes['appearance'] = 'first-level';
 
   /**
    * Stringified JSON which defines most of the

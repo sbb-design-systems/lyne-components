@@ -19,7 +19,7 @@
 
 }
 
-:host(lyne-timetable-row) {
+:host(sbb-timetable-row) {
   margin-block-end: pxToRem(var(--spacing-fixed-1x));
 }
 
@@ -42,15 +42,15 @@
 
 }
 
-.timetable__row > lyne-timetable-row-header,
-.timetable__row > lyne-timetable-transportation-details,
-.timetable__row > lyne-timetable-row-button,
-.timetable__row > lyne-timetable-platform,
-.timetable__row > lyne-timetable-occupancy,
-.timetable__row > lyne-timetable-travel-hints,
-.timetable__row > lyne-timetable-park-and-rail,
-.timetable__row > lyne-timetable-duration,
-.timetable__row > lyne-timetable-cus-him {
+.timetable__row > sbb-timetable-row-header,
+.timetable__row > sbb-timetable-transportation-details,
+.timetable__row > sbb-timetable-row-button,
+.timetable__row > sbb-timetable-platform,
+.timetable__row > sbb-timetable-occupancy,
+.timetable__row > sbb-timetable-travel-hints,
+.timetable__row > sbb-timetable-park-and-rail,
+.timetable__row > sbb-timetable-duration,
+.timetable__row > sbb-timetable-cus-him {
   display: flex;
   flex: 0 1 auto;
   position: relative;
@@ -62,29 +62,29 @@
   float: inline-start;
 }
 
-.timetable__row > lyne-timetable-row-header {
+.timetable__row > sbb-timetable-row-header {
   @include screenReaderOnly();
 }
 
-.timetable__row > lyne-timetable-row-button {
+.timetable__row > sbb-timetable-row-button {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: all;
 }
 
-.timetable__row > lyne-timetable-transportation-details {
+.timetable__row > sbb-timetable-transportation-details {
   display: flex;
   flex: 0 0 100%;
   max-width: 100%;
 }
 
-.timetable__row > lyne-timetable-platform,
-.timetable__row > lyne-timetable-occupancy,
-.timetable__row > lyne-timetable-travel-hints,
-.timetable__row > lyne-timetable-park-and-rail,
-.timetable__row > lyne-timetable-duration,
-.timetable__row > lyne-timetable-cus-him {
+.timetable__row > sbb-timetable-platform,
+.timetable__row > sbb-timetable-occupancy,
+.timetable__row > sbb-timetable-travel-hints,
+.timetable__row > sbb-timetable-park-and-rail,
+.timetable__row > sbb-timetable-duration,
+.timetable__row > sbb-timetable-cus-him {
   align-items: center;
   min-height: pxToRem(var(--third-row-min-height));
 

@@ -6,18 +6,18 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nFromPlatform } from '../../global/i18n';
-import { InterfaceLyneTimetablePlatformAttributes } from './lyne-timetable-platform.custom.d';
+import { InterfaceTimetablePlatformAttributes } from './sbb-timetable-platform.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-platform.default.scss',
-    shared: 'styles/lyne-timetable-platform.shared.scss'
+    default: 'styles/sbb-timetable-platform.default.scss',
+    shared: 'styles/sbb-timetable-platform.shared.scss'
   },
-  tag: 'lyne-timetable-platform'
+  tag: 'sbb-timetable-platform'
 })
 
-export class LyneTimetablePlatform {
+export class SbbTimetablePlatform {
 
   private _currentLanguage = getDocumentLang();
 
@@ -25,7 +25,7 @@ export class LyneTimetablePlatform {
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceLyneTimetablePlatformAttributes['appearance'] = 'first-level';
+  @Prop() public appearance?: InterfaceTimetablePlatformAttributes['appearance'] = 'first-level';
 
   /**
    * Stringified JSON which defines most of the

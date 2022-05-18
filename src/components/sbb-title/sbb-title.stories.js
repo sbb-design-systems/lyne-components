@@ -16,7 +16,7 @@ const wrapperStyle = (context) => {
 };
 
 const Template = (args) => (
-  <lyne-title {...args} />
+  <sbb-title {...args} />
 );
 
 const levels = {
@@ -143,5 +143,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-title'
+  title: 'components/sbb-title'
 };

@@ -1,12 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-row-day-change.sample-data';
+import sampleData from './sbb-timetable-row-day-change.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-row-day-change
+  <sbb-timetable-row-day-change
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-row-day-change>
+  </sbb-timetable-row-day-change>
 );
 
 const config = {
@@ -66,5 +66,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-row-day-change'
+  title: 'internals/sbb-timetable-row-day-change'
 };

@@ -1,21 +1,21 @@
-import { LyneTimetableTransportationTime } from './lyne-timetable-transportation-time';
+import { SbbTimetableTransportationTime } from './sbb-timetable-transportation-time';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-transportation-time.sample-data';
+import sampleData from './sbb-timetable-transportation-time.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe('lyne-timetable-transportation-time', () => {
+describe('sbb-timetable-transportation-time', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableTransportationTime],
-      html: `<lyne-timetable-transportation-time config='${config}'/>`
+      components: [SbbTimetableTransportationTime],
+      html: `<sbb-timetable-transportation-time config='${config}'/>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-transportation-time
+        <sbb-timetable-transportation-time
             config="{&quot;time&quot;:&quot;15:14&quot;,&quot;type&quot;:&quot;departure&quot;}"
         >
           <mock:shadow-root>
@@ -38,7 +38,7 @@ describe('lyne-timetable-transportation-time', () => {
                 </span>
             </p>
           </mock:shadow-root>
-        </lyne-timetable-transportation-time>
+        </sbb-timetable-transportation-time>
       `);
   });
 

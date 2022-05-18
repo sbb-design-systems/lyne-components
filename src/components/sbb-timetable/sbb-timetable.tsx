@@ -6,30 +6,30 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable.default.scss',
-    shared: 'styles/lyne-timetable.shared.scss'
+    default: 'styles/sbb-timetable.default.scss',
+    shared: 'styles/sbb-timetable.shared.scss'
   },
-  tag: 'lyne-timetable'
+  tag: 'sbb-timetable'
 })
 
-export class LyneTimetable {
+export class SbbTimetable {
 
   public render(): JSX.Element {
 
     return (
       <div class='timetable-wrapper'>
-        <lyne-timetable-button
+        <sbb-timetable-button
           appearance='earlier-connections'
-        ></lyne-timetable-button>
+        ></sbb-timetable-button>
         <div
           class='timetable'
           role='grid'
         >
           <slot />
         </div>
-        <lyne-timetable-button
+        <sbb-timetable-button
           appearance='later-connections'
-        ></lyne-timetable-button>
+        ></sbb-timetable-button>
       </div>
     );
   }

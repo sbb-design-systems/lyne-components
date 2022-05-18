@@ -29,7 +29,7 @@ export interface InterfaceHTMLStencilElement extends HTMLElement {
   componentOnReady(): Promise<this>;
 }
 
-export interface InterfaceHTMLLyneOverlayElement extends InterfaceHTMLStencilElement {
+export interface InterfaceHTMLSBBOverlayElement extends InterfaceHTMLStencilElement {
   overlayIndex: number;
   backdropDismiss?: boolean;
   lastFocus?: HTMLElement;

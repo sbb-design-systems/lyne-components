@@ -1,12 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-duration.sample-data';
+import sampleData from './sbb-timetable-duration.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-duration
+  <sbb-timetable-duration
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-duration>
+  </sbb-timetable-duration>
 );
 
 const config = {
@@ -66,5 +66,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-duration'
+  title: 'internals/sbb-timetable-duration'
 };

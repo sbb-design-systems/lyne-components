@@ -1,17 +1,17 @@
 import { newE2EPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-barrier-free.sample-data';
+import sampleData from './sbb-timetable-barrier-free.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe('lyne-timetable-barrier-free', () => {
+describe('sbb-timetable-barrier-free', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent(`<lyne-timetable-barrier-free config='${config}'></lyne-timetable-barrier-free>`);
+    await page.setContent(`<sbb-timetable-barrier-free config='${config}'></sbb-timetable-barrier-free>`);
 
-    element = await page.find('lyne-timetable-barrier-free');
+    element = await page.find('sbb-timetable-barrier-free');
     expect(element)
       .toHaveClass('hydrated');
   });

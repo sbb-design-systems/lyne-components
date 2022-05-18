@@ -1,3 +1,3 @@
-export interface InterfaceLyneTimetableParkAndRailAttributes {
+export interface InterfaceTimetableParkAndRailAttributes {
   appearance: 'first-level';
 }

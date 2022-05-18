@@ -4,19 +4,19 @@ import {
   Prop
 } from '@stencil/core';
 
-import { InterfaceLogoAttributes } from './lyne-sbb-logo.custom.d';
+import { InterfaceLogoAttributes } from './sbb-logo.custom';
 import sbbLogoSVG from './assets/sbb_logo.svg';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-sbb-logo.default.scss',
-    shared: 'styles/lyne-sbb-logo.shared.scss'
+    default: 'styles/sbb-logo.default.scss',
+    shared: 'styles/sbb-logo.shared.scss'
   },
-  tag: 'lyne-sbb-logo'
+  tag: 'sbb-logo'
 })
 
-export class LyneSbbLogo {
+export class SbbLogo {
 
   /**
    * According to the Corporate Design Guidelines the logo

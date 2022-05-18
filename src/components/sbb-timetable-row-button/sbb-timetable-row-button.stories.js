@@ -1,9 +1,9 @@
-import events from './lyne-timetable-row-button.events.ts';
+import events from './sbb-timetable-row-button.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-timetable-row-button {...args}></lyne-timetable-row-button>
+  <sbb-timetable-row-button {...args}></sbb-timetable-row-button>
 );
 
 const expanded = {
@@ -23,15 +23,15 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetableRowButton = Template.bind({});
+export const SbbTimetableRowButton = Template.bind({});
 
-LyneTimetableRowButton.argTypes = defaultArgTypes;
-LyneTimetableRowButton.args = {
+SbbTimetableRowButton.argTypes = defaultArgTypes;
+SbbTimetableRowButton.args = {
   ...defaultArgs
 };
 
-LyneTimetableRowButton.documentation = {
-  title: 'Lyne Timetable Row Button'
+SbbTimetableRowButton.documentation = {
+  title: 'SBB Timetable Row Button'
 };
 
 export default {
@@ -54,5 +54,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-row-button'
+  title: 'internals/sbb-timetable-row-button'
 };

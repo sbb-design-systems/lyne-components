@@ -4,13 +4,13 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import events from './lyne-text-input.events';
+import events from './sbb-text-input.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
   i18nMandatoryField,
   i18nOptional
 } from '../../global/i18n';
-import { InterfaceSbbTextInputAttributes } from './sbb-text-input.custom';
+import { InterfaceTextInputAttributes } from './sbb-text-input.custom';
 import { guid } from '../../global/guid';
 import debounce from '../../global/helpers/debounce';
 
@@ -24,10 +24,10 @@ import debounce from '../../global/helpers/debounce';
     default: 'styles/sbb-text-input.default.scss',
     shared: 'styles/sbb-text-input.shared.scss'
   },
-  tag: 'lyne-text-input'
+  tag: 'sbb-text-input'
 })
 
-export class LyneTextInput {
+export class SbbTextInput {
 
   private _inputElement!: HTMLInputElement;
   private _additionalInputClasses = [];
@@ -50,7 +50,7 @@ export class LyneTextInput {
    * autocomplete values. Read more about them
    * here: https://mzl.la/3wpfaDV
    */
-  @Prop() public inputAutoCompleteValue?: InterfaceSbbTextInputAttributes['inputAutoCompleteValue'];
+  @Prop() public inputAutoCompleteValue?: InterfaceTextInputAttributes['inputAutoCompleteValue'];
 
   /**
    * If set to true, the input field will
@@ -148,7 +148,7 @@ export class LyneTextInput {
   /**
    * The role attribute used for the input element.
    */
-  @Prop() public inputRole?: InterfaceSbbTextInputAttributes['inputRole'];
+  @Prop() public inputRole?: InterfaceTextInputAttributes['inputRole'];
 
   /**
    * Set aria-expanded on the input element.
@@ -158,7 +158,7 @@ export class LyneTextInput {
   /**
    * The aria-autocomplete attribute for the input element.
    */
-  @Prop() public inputAriaAutoComplete?: InterfaceSbbTextInputAttributes['inputAriaAutoComplete'];
+  @Prop() public inputAriaAutoComplete?: InterfaceTextInputAttributes['inputAriaAutoComplete'];
 
   /**
    * The id to use as the aira-controls attribute for the input element.
@@ -282,7 +282,7 @@ export class LyneTextInput {
 
   /**
    * TODO
-   * modify lyne-button to allow for icon toggle
+   * modify sbb-button to allow for icon toggle
    * and add toggle handling in here.
    */
   private _registerShowPasswordToggle(): void {
@@ -407,7 +407,7 @@ export class LyneTextInput {
           </label>
         </div>
         {this.inputError
-          ? <lyne-input-error message={i18nMandatoryField[this._currentLanguage]}></lyne-input-error>
+          ? <sbb-input-error message={i18nMandatoryField[this._currentLanguage]}></sbb-input-error>
           : ''
         }
       </div>

@@ -4,10 +4,10 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import events from '../sbb-accordion-item/lyne-accordion-item.events';
+import events from '../sbb-accordion-item/sbb-accordion-item.events';
 
 /**
- * @slot unnamed - Place lyne-accordion-item elements in the slot
+ * @slot unnamed - Place sbb-accordion-item elements in the slot
  */
 
 @Component({
@@ -16,10 +16,10 @@ import events from '../sbb-accordion-item/lyne-accordion-item.events';
     default: 'styles/sbb-accordion.default.scss',
     shared: 'styles/sbb-accordion.shared.scss'
   },
-  tag: 'lyne-accordion'
+  tag: 'sbb-accordion'
 })
 
-export class LyneAccordion {
+export class SbbAccordion {
 
   /**
    * Set this if you want to use the accordion on a non-white background.
@@ -45,7 +45,7 @@ export class LyneAccordion {
   private _items;
 
   private _setEventIds(): void {
-    this._items = this._element.querySelectorAll('lyne-accordion-item');
+    this._items = this._element.querySelectorAll('sbb-accordion-item');
 
     this._items.forEach((item, index) => {
       const eventId = item.getAttribute('event-id');

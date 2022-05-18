@@ -6,7 +6,7 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import { InterfaceLinkAttributes } from './lyne-link.custom.d';
+import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 
 /**
@@ -19,10 +19,10 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
     default: 'styles/sbb-link.default.scss',
     shared: 'styles/sbb-link.shared.scss'
   },
-  tag: 'lyne-link'
+  tag: 'sbb-link'
 })
 
-export class LyneLink {
+export class SbbLink {
 
   /**
    * If set to true, the browser will

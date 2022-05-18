@@ -7,19 +7,19 @@ import {
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import icons from '../../global/icons/timetable.json';
-import { InterfaceLyneTimetableTravelHintsAttributes } from './lyne-timetable-travel-hints.custom.d';
+import { InterfaceTimetableTravelHintsAttributes } from './sbb-timetable-travel-hints.custom';
 import { i18nNone } from '../../global/i18n';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-travel-hints.default.scss',
-    shared: 'styles/lyne-timetable-travel-hints.shared.scss'
+    default: 'styles/sbb-timetable-travel-hints.default.scss',
+    shared: 'styles/sbb-timetable-travel-hints.shared.scss'
   },
-  tag: 'lyne-timetable-travel-hints'
+  tag: 'sbb-timetable-travel-hints'
 })
 
-export class LyneTimetableTravelHints {
+export class SbbTimetableTravelHints {
 
   private _currentLanguage = getDocumentLang();
 
@@ -27,7 +27,7 @@ export class LyneTimetableTravelHints {
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceLyneTimetableTravelHintsAttributes['appearance'] = 'first-level-list';
+  @Prop() public appearance?: InterfaceTimetableTravelHintsAttributes['appearance'] = 'first-level-list';
 
   /**
    * Stringified JSON which defines most of the

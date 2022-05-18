@@ -1,14 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-card-product', () => {
+describe('sbb-card-product', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-card-product accessibility-label="Lyne product card"></lyne-card-product>');
+    await page.setContent('<sbb-card-product accessibility-label="SBB product card"></sbb-card-product>');
 
-    element = await page.find('lyne-card-product');
+    element = await page.find('sbb-card-product');
     expect(element)
       .toHaveClass('hydrated');
   });

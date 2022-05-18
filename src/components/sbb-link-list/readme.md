@@ -1,4 +1,4 @@
-# lyne-link-list
+# sbb-link-list
 
 
 
@@ -26,13 +26,13 @@
 
 ### Depends on
 
-- [lyne-title](../lyne-title)
+- [sbb-title](../sbb-title)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-link-list --> lyne-title
-  style lyne-link-list fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-link-list --> sbb-title
+  style sbb-link-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

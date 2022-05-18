@@ -204,41 +204,41 @@ const defaultArgs = {
 /* ************************************************* */
 
 const template = (args) => (
-  <lyne-stack {...args}>
-    <lyne-title level='2' text='Lyne' variant='positive' visual-level='5'></lyne-title>
+  <sbb-stack {...args}>
+    <sbb-title level='2' text='Lyne' variant='positive' visual-level='5'></sbb-title>
     <p>Is user-centered and empowering, holistic and inclusive, encourages ...</p>
-    <lyne-link-button href-value='https://github.com/lyne-design-system/lyne-components' text='Discover Lyne' variant='primary'></lyne-link-button>
-  </lyne-stack>
+    <sbb-link-button href-value='https://github.com/lyne-design-system/lyne-components' text='Discover Lyne' variant='primary'></sbb-link-button>
+  </sbb-stack>
 );
 
 const templateUnorderedList = (args) => (
-  <lyne-stack {...args}>
+  <sbb-stack {...args}>
     <li>user-centered and empowering</li>
     <li>holistic and inclusive</li>
     <li>encourages performance and sustainability</li>
     <li>modular and flexible</li>
     <li>fosters consistency and cohesiveness</li>
-  </lyne-stack>
+  </sbb-stack>
 );
 
 const templateOrderedList = (args) => (
-  <lyne-stack {...args}>
+  <sbb-stack {...args}>
     <li>1. Lyne is user-centered and empowering.</li>
     <li>2. Lyne is holistic and inclusive.</li>
     <li>3. Lyne encourages performance and sustainability.</li>
     <li>4. Lyne is modular and flexible.</li>
     <li>5. Lyne fosters consistency and cohesiveness.</li>
-  </lyne-stack>
+  </sbb-stack>
 );
 
 const templatePlaceholder = (args) => (
-  <lyne-stack {...args}></lyne-stack>
+  <sbb-stack {...args}></sbb-stack>
 );
 
 const templatePlaceholderWithTitle = (args) => (
-  <lyne-stack {...args}>
-    <lyne-title level='2' text='Stack placeholder' variant='positive' visual-level='5'></lyne-title>
-  </lyne-stack>
+  <sbb-stack {...args}>
+    <sbb-title level='2' text='Stack placeholder' variant='positive' visual-level='5'></sbb-title>
+  </sbb-stack>
 );
 
 /* ************************************************* */
@@ -375,5 +375,5 @@ export default {
     },
     layout: 'fullscreen'
   },
-  title: 'components/layout/lyne-stack'
+  title: 'components/layout/sbb-stack'
 };

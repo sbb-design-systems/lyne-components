@@ -5,8 +5,8 @@ import {
   State
 } from '@stencil/core';
 
-import { InterfaceImageAttributes } from './lyne-image.custom.d';
-import pictureSizesConfigData from './lyne-image.helper';
+import { InterfaceImageAttributes } from './sbb-image.custom';
+import pictureSizesConfigData from './sbb-image.helper';
 import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 
 const eventListenerOptions = {
@@ -20,10 +20,10 @@ const eventListenerOptions = {
     default: 'styles/sbb-image.default.scss',
     shared: 'styles/sbb-image.shared.scss'
   },
-  tag: 'lyne-image'
+  tag: 'sbb-image'
 })
 
-export class LyneImage {
+export class SbbImage {
 
   private _captionElement?: HTMLElement;
   private _imageElement!: HTMLElement;

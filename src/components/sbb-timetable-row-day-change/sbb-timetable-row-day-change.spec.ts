@@ -1,21 +1,21 @@
-import { LyneTimetableRowDayChange } from './lyne-timetable-row-day-change';
+import { SbbTimetableRowDayChange } from './sbb-timetable-row-day-change';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-row-day-change.sample-data';
+import sampleData from './sbb-timetable-row-day-change.sample-data';
 
 const config = JSON.stringify(sampleData[1]);
 
-describe('lyne-timetable-row-day-change', () => {
+describe('sbb-timetable-row-day-change', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableRowDayChange],
-      html: `<lyne-timetable-row-day-change config='${config}' />`
+      components: [SbbTimetableRowDayChange],
+      html: `<sbb-timetable-row-day-change config='${config}' />`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-row-day-change
+        <sbb-timetable-row-day-change
             config="{&quot;colSpan&quot;:9,&quot;date&quot;:&quot;02.12.2021&quot;,&quot;day&quot;:&quot;Thursday&quot;,&quot;dayChange&quot;:false,&quot;hidden&quot;:false}"
         >
           <mock:shadow-root>
@@ -41,7 +41,7 @@ describe('lyne-timetable-row-day-change', () => {
                 </h2>
             </div>
           </mock:shadow-root>
-        </lyne-timetable-row-day-change>
+        </sbb-timetable-row-day-change>
       `);
   });
 

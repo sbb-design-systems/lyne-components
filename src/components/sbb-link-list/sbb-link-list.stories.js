@@ -16,23 +16,23 @@ const wrapperStyle = (context) => {
 };
 
 const Template = (args) => (
-  <lyne-link-list {...args}>
+  <sbb-link-list {...args}>
     <li class='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Rückerstattungen' text-size={args.textSize} variant={args.variant}></lyne-link>
+      <sbb-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Rückerstattungen' text-size={args.textSize} variant={args.variant}></sbb-link>
     </li>
     <li className='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Fundbüro' text-size={args.textSize} variant={args.variant}></lyne-link>
+      <sbb-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Fundbüro' text-size={args.textSize} variant={args.variant}></sbb-link>
     </li>
     <li className='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Beschwerden' text-size={args.textSize} variant={args.variant}></lyne-link>
+      <sbb-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Beschwerden' text-size={args.textSize} variant={args.variant}></sbb-link>
     </li>
     <li className='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Lob aussprechen' text-size={args.textSize} variant={args.variant}></lyne-link>
+      <sbb-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Lob aussprechen' text-size={args.textSize} variant={args.variant}></sbb-link>
     </li>
     <li className='link-list__item' slot='link-list__item'>
-      <lyne-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Sachbeschädigung melden' text-size={args.textSize} variant={args.variant}></lyne-link>
+      <sbb-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Sachbeschädigung melden' text-size={args.textSize} variant={args.variant}></sbb-link>
     </li>
-  </lyne-link-list>
+  </sbb-link-list>
 );
 
 const listDirection = {
@@ -181,5 +181,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-link-list'
+  title: 'components/sbb-link-list'
 };

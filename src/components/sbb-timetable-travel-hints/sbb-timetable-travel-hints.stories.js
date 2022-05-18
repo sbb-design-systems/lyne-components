@@ -1,13 +1,13 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-travel-hints.sample-data';
+import sampleData from './sbb-timetable-travel-hints.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-travel-hints
+  <sbb-timetable-travel-hints
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-travel-hints>
+  </sbb-timetable-travel-hints>
 );
 
 const appearance = {
@@ -70,5 +70,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-travel-hints'
+  title: 'internals/sbb-timetable-travel-hints'
 };

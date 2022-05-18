@@ -1,18 +1,18 @@
-import { LyneAutocompleteItem } from './lyne-autocomplete-item';
+import { SbbAutocompleteItem } from './sbb-autocomplete-item';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-autocomplete-item', () => {
+describe('sbb-autocomplete-item', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneAutocompleteItem],
-      html: '<lyne-autocomplete-item text="lorem ipsum item1 dolor sit" highlight="tem"></lyne-autocomplete-item>'
+      components: [SbbAutocompleteItem],
+      html: '<sbb-autocomplete-item text="lorem ipsum item1 dolor sit" highlight="tem"></sbb-autocomplete-item>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-autocomplete-item highlight="tem" text="lorem ipsum item1 dolor sit">
+        <sbb-autocomplete-item highlight="tem" text="lorem ipsum item1 dolor sit">
           <mock:shadow-root>
             <li class="autocomplete-item" role="option">
               <slot name="pre-text"></slot>
@@ -28,7 +28,7 @@ describe('lyne-autocomplete-item', () => {
               <slot name="post-text"></slot>
             </li>
           </mock:shadow-root>
-        </lyne-autocomplete-item>
+        </sbb-autocomplete-item>
       `);
   });
 

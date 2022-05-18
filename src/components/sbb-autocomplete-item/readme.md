@@ -1,4 +1,4 @@
-# lyne-autocomplete-item
+# sbb-autocomplete-item
 
 
 
@@ -28,13 +28,13 @@
 
 ### Used by
 
- - [lyne-autocomplete](../lyne-autocomplete)
+ - [sbb-autocomplete](../sbb-autocomplete)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-autocomplete --> lyne-autocomplete-item
-  style lyne-autocomplete-item fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-autocomplete --> sbb-autocomplete-item
+  style sbb-autocomplete-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

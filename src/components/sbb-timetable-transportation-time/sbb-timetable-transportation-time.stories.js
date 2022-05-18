@@ -1,13 +1,13 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-transportation-time.sample-data';
+import sampleData from './sbb-timetable-transportation-time.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-transportation-time
+  <sbb-timetable-transportation-time
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-transportation-time>
+  </sbb-timetable-transportation-time>
 );
 
 const appearance = {
@@ -38,54 +38,54 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetableDepartureTimeFirstLevel = Template.bind({});
+export const SbbTimetableDepartureTimeFirstLevel = Template.bind({});
 
-LyneTimetableDepartureTimeFirstLevel.argTypes = defaultArgTypes;
-LyneTimetableDepartureTimeFirstLevel.args = {
+SbbTimetableDepartureTimeFirstLevel.argTypes = defaultArgTypes;
+SbbTimetableDepartureTimeFirstLevel.args = {
   ...defaultArgs,
   config: sampleData[0]
 };
 
-LyneTimetableDepartureTimeFirstLevel.documentation = {
-  title: 'Lyne Timetable Departure Time - First Level'
+SbbTimetableDepartureTimeFirstLevel.documentation = {
+  title: 'SBB Timetable Departure Time - First Level'
 };
 
-export const LyneTimetableArrivalTimeFirstLevel = Template.bind({});
+export const SbbTimetableArrivalTimeFirstLevel = Template.bind({});
 
-LyneTimetableArrivalTimeFirstLevel.argTypes = defaultArgTypes;
-LyneTimetableArrivalTimeFirstLevel.args = {
+SbbTimetableArrivalTimeFirstLevel.argTypes = defaultArgTypes;
+SbbTimetableArrivalTimeFirstLevel.args = {
   ...defaultArgs,
   config: sampleData[1]
 };
 
-LyneTimetableArrivalTimeFirstLevel.documentation = {
-  title: 'Lyne Timetable Arrival Time - First Level'
+SbbTimetableArrivalTimeFirstLevel.documentation = {
+  title: 'SBB Timetable Arrival Time - First Level'
 };
 
-export const LyneTimetableDepartureTimeSecondLevel = Template.bind({});
+export const SbbTimetableDepartureTimeSecondLevel = Template.bind({});
 
-LyneTimetableDepartureTimeSecondLevel.argTypes = defaultArgTypes;
-LyneTimetableDepartureTimeSecondLevel.args = {
+SbbTimetableDepartureTimeSecondLevel.argTypes = defaultArgTypes;
+SbbTimetableDepartureTimeSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[2]
 };
 
-LyneTimetableDepartureTimeSecondLevel.documentation = {
-  title: 'Lyne Timetable Departure Time - Second Level'
+SbbTimetableDepartureTimeSecondLevel.documentation = {
+  title: 'SBB Timetable Departure Time - Second Level'
 };
 
-export const LyneTimetableArrivalTimeSecondLevel = Template.bind({});
+export const SbbTimetableArrivalTimeSecondLevel = Template.bind({});
 
-LyneTimetableArrivalTimeSecondLevel.argTypes = defaultArgTypes;
-LyneTimetableArrivalTimeSecondLevel.args = {
+SbbTimetableArrivalTimeSecondLevel.argTypes = defaultArgTypes;
+SbbTimetableArrivalTimeSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[3]
 };
 
-LyneTimetableArrivalTimeSecondLevel.documentation = {
-  title: 'Lyne Timetable Arrival Time - Second Level'
+SbbTimetableArrivalTimeSecondLevel.documentation = {
+  title: 'SBB Timetable Arrival Time - Second Level'
 };
 
 export default {
@@ -99,5 +99,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-transportation-time'
+  title: 'internals/sbb-timetable-transportation-time'
 };

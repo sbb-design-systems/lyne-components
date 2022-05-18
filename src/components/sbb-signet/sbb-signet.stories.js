@@ -2,7 +2,7 @@ import { ColorCharcoalDefault } from 'lyne-design-tokens/dist/js/tokens.es6';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <lyne-sbb-signet {...args} />;
+const Template = (args) => <sbb-signet {...args} />;
 
 const variants = {
   control: {

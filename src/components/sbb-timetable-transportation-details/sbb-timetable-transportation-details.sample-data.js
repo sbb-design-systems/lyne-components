@@ -1,6 +1,6 @@
-import transportationNumberData from '../sbb-timetable-transportation-number/lyne-timetable-transportation-number.sample-data';
-import transportationTimeData from '../sbb-timetable-transportation-time/lyne-timetable-transportation-time.sample-data';
-import transportationWalkData from '../sbb-timetable-transportation-walk/lyne-timetable-transportation-walk.sample-data';
+import transportationNumberData from '../sbb-timetable-transportation-number/sbb-timetable-transportation-number.sample-data';
+import transportationTimeData from '../sbb-timetable-transportation-time/sbb-timetable-transportation-time.sample-data';
+import transportationWalkData from '../sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.sample-data';
 import pearlChainData from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
 export default [

@@ -1,4 +1,4 @@
-# lyne-pearl-chain
+# sbb-pearl-chain
 
 
 
@@ -18,13 +18,13 @@
 
 ### Used by
 
- - [lyne-timetable-transportation-details](../lyne-timetable-transportation-details)
+ - [sbb-timetable-transportation-details](../sbb-timetable-transportation-details)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-transportation-details --> lyne-pearl-chain
-  style lyne-pearl-chain fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-transportation-details --> sbb-pearl-chain
+  style sbb-pearl-chain fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -1,28 +1,28 @@
-import { LyneTimetable } from './lyne-timetable';
+import { SbbTimetable } from './sbb-timetable';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-timetable', () => {
+describe('sbb-timetable', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetable],
-      html: '<lyne-timetable />'
+      components: [SbbTimetable],
+      html: '<sbb-timetable />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable>
+        <sbb-timetable>
           <mock:shadow-root>
             <div class="timetable-wrapper">
-                <lyne-timetable-button appearance="earlier-connections"></lyne-timetable-button>
+                <sbb-timetable-button appearance="earlier-connections"></sbb-timetable-button>
                     <div class="timetable" role="grid">
                         <slot></slot>
                     </div>
-                <lyne-timetable-button appearance="later-connections"></lyne-timetable-button>
+                <sbb-timetable-button appearance="later-connections"></sbb-timetable-button>
             </div>
           </mock:shadow-root>
-        </lyne-timetable>
+        </sbb-timetable>
       `);
   });
 

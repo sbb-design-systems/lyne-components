@@ -1,19 +1,19 @@
-import { LyneJourneyHeader } from './lyne-journey-header';
+import { SbbJourneyHeader } from './sbb-journey-header';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-journey-header', () => {
+describe('sbb-journey-header', () => {
 
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneJourneyHeader],
-      html: '<lyne-journey-header level="1" visual-level="1" text="Sample Title Text"></lyne-journey-header>'
+      components: [SbbJourneyHeader],
+      html: '<sbb-journey-header level="1" visual-level="1" text="Sample Title Text"></sbb-journey-header>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-journey-header level="1" visual-level="1" text="Sample Title Text">
+        <sbb-journey-header level="1" visual-level="1" text="Sample Title Text">
           <mock:shadow-root>
             <span class="journey-header journey-header--primary journey-header--size-5" dir="ltr">
               <span class="connection-text-origin connection--visually-hidden">
@@ -28,7 +28,7 @@ describe('lyne-journey-header', () => {
               <span class="destination"></span>
             </span>
           </mock:shadow-root>
-        </lyne-journey-header>
+        </sbb-journey-header>
       `);
   });
 

@@ -1,18 +1,18 @@
-import { LyneTimetableRowButton } from './lyne-timetable-row-button';
+import { SbbTimetableRowButton } from './sbb-timetable-row-button';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-timetable-row-button', () => {
+describe('sbb-timetable-row-button', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableRowButton],
-      html: '<lyne-timetable-row-button expanded="false"/>'
+      components: [SbbTimetableRowButton],
+      html: '<sbb-timetable-row-button expanded="false"/>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-row-button expanded="false">
+        <sbb-timetable-row-button expanded="false">
           <mock:shadow-root>
             <button
                 aria-expanded="false"
@@ -22,7 +22,7 @@ describe('lyne-timetable-row-button', () => {
             >
             </button>
           </mock:shadow-root>
-        </lyne-timetable-row-button>
+        </sbb-timetable-row-button>
       `);
   });
 

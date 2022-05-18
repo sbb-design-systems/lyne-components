@@ -17,11 +17,11 @@ const wrapperStyle = (context) => {
 };
 
 const Template = (args) => (
-  <lyne-link {...args}>
+  <sbb-link {...args}>
     {args.icon &&
       <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
     }
-  </lyne-link>
+  </sbb-link>
 );
 
 const download = {
@@ -249,5 +249,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-link'
+  title: 'components/sbb-link'
 };

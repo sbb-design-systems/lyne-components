@@ -15,13 +15,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-row-day-change.default.scss',
-    shared: 'styles/lyne-timetable-row-day-change.shared.scss'
+    default: 'styles/sbb-timetable-row-day-change.default.scss',
+    shared: 'styles/sbb-timetable-row-day-change.shared.scss'
   },
-  tag: 'lyne-timetable-row-day-change'
+  tag: 'sbb-timetable-row-day-change'
 })
 
-export class LyneTimetableRowDayChange {
+export class SbbTimetableRowDayChange {
 
   private _currentLanguage = getDocumentLang();
 

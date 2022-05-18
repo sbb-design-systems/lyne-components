@@ -7,7 +7,7 @@ import {
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { InterfaceLinkButtonAttributes } from './lyne-link-button.custom.d';
+import { InterfaceLinkButtonAttributes } from './sbb-link-button.custom';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -16,13 +16,13 @@ import { InterfaceLinkButtonAttributes } from './lyne-link-button.custom.d';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-link-button.default.scss',
-    shared: 'styles/lyne-link-button.shared.scss'
+    default: 'styles/sbb-link-button.default.scss',
+    shared: 'styles/sbb-link-button.shared.scss'
   },
-  tag: 'lyne-link-button'
+  tag: 'sbb-link-button'
 })
 
-export class LyneLinkButton {
+export class SbbLinkButton {
 
   /**
    * If set to true, the browser will

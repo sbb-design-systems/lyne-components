@@ -1,3 +1,3 @@
 export default {
-  input: 'lyne-text-input_input'
+  input: 'sbb-text-input_input'
 };

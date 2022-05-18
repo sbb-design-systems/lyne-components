@@ -7,9 +7,9 @@ import {
   Watch
 } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
-import events from './lyne-accordion-item.events';
+import events from './sbb-accordion-item.events';
 import { guid } from '../../global/guid';
-import { InterfaceAccordionItemAttributes } from './lyne-accordion-item.custom.d';
+import { InterfaceAccordionItemAttributes } from './sbb-accordion-item.custom';
 import tokens from 'lyne-design-tokens/dist/js/tokens.json';
 
 const iconSlotName = 'icon';
@@ -26,13 +26,13 @@ const iconSlotName = 'icon';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-accordion-item.default.scss',
-    shared: 'styles/lyne-accordion-item.shared.scss'
+    default: 'styles/sbb-accordion-item.default.scss',
+    shared: 'styles/sbb-accordion-item.shared.scss'
   },
-  tag: 'lyne-accordion-item'
+  tag: 'sbb-accordion-item'
 })
 
-export class LyneAccordionItem {
+export class SbbAccordionItem {
 
   /**
    * Text to show as title for the accordion.

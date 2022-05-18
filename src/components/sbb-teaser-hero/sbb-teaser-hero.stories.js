@@ -29,7 +29,7 @@ const openInNewWindowControl = {
 // --- Component
 
 const Template = (args) => (
-  <lyne-teaser-hero {...args} />
+  <sbb-teaser-hero {...args} />
 );
 
 export const defaultTeaser = Template.bind({});
@@ -79,5 +79,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'page sections/meant to be used with lyne-section wrapper/lyne-teaser-hero'
+  title: 'page sections/meant to be used with sbb-section wrapper/sbb-teaser-hero'
 };

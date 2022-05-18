@@ -1,18 +1,18 @@
-import { LyneTextInput } from './lyne-text-input';
+import { SbbTextInput } from './sbb-text-input';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-text-input', () => {
+describe('sbb-text-input', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTextInput],
-      html: '<lyne-text-input icon="" input-autocomplete-section-name="none" input-autocomplete-value="off" input-id="input-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" input-name="textfield" input-max-length="" input-min-length="" input-pattern="" input-placeholder="Placeholder Text" label="Label" label-visible=""></lyne-text-input>'
+      components: [SbbTextInput],
+      html: '<sbb-text-input icon="" input-autocomplete-section-name="none" input-autocomplete-value="off" input-id="input-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" input-name="textfield" input-max-length="" input-min-length="" input-pattern="" input-placeholder="Placeholder Text" label="Label" label-visible=""></sbb-text-input>'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-text-input
+        <sbb-text-input
             icon=""
             input-autocomplete-section-name="none"
             input-autocomplete-value="off"
@@ -57,7 +57,7 @@ describe('lyne-text-input', () => {
                 </div>
             </div>
           </mock:shadow-root>
-        </lyne-text-input>
+        </sbb-text-input>
       `);
   });
 

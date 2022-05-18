@@ -1,4 +1,4 @@
-# lyne-panel
+# sbb-panel
 
 
 
@@ -19,18 +19,18 @@
 
 ### Used by
 
- - [lyne-teaser-hero](../lyne-teaser-hero)
+ - [sbb-teaser-hero](../sbb-teaser-hero)
 
 ### Depends on
 
-- [lyne-button](../lyne-button)
+- [sbb-button](../sbb-button)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-panel --> lyne-button
-  lyne-teaser-hero --> lyne-panel
-  style lyne-panel fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-panel --> sbb-button
+  sbb-teaser-hero --> sbb-panel
+  style sbb-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

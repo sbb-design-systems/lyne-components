@@ -16,7 +16,7 @@
 @import "./../../../global/global.default.scss";
 
 // Import component styles
-@import "./lyne-timetable-platform.component.scss";
+@import "src/components/sbb-timetable-platform/styles/sbb-timetable-platform.component";
 
 // Mode overrides/tests
 // :host {

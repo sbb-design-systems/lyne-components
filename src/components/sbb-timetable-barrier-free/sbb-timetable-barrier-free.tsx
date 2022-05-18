@@ -11,13 +11,13 @@ import { i18nBarrierFreeTravel } from '../../global/i18n';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-barrier-free.default.scss',
-    shared: 'styles/lyne-timetable-barrier-free.shared.scss'
+    default: 'styles/sbb-timetable-barrier-free.default.scss',
+    shared: 'styles/sbb-timetable-barrier-free.shared.scss'
   },
-  tag: 'lyne-timetable-barrier-free'
+  tag: 'sbb-timetable-barrier-free'
 })
 
-export class LyneTimetableBarrierFree {
+export class SbbTimetableBarrierFree {
 
   private _currentLanguage = getDocumentLang();
 

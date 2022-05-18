@@ -1,6 +1,6 @@
-# lyne-timetable-platform
+# sbb-timetable-platform
 
-!! Please note that this component is not intended for direct use. It will get used within lyne-timetable. It is listed
+!! Please note that this component is not intended for direct use. It will get used within sbb-timetable. It is listed
 here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
@@ -18,13 +18,13 @@ here to show the various configuration options to component developers. !!
 
 ### Used by
 
- - [lyne-timetable-row](../lyne-timetable-row)
+ - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-row --> lyne-timetable-platform
-  style lyne-timetable-platform fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-row --> sbb-timetable-platform
+  style sbb-timetable-platform fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

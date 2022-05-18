@@ -4,19 +4,19 @@ import {
   Prop
 } from '@stencil/core';
 
-import { InterfaceSignetAttributes } from './lyne-sbb-signet.custom.d';
+import { InterfaceSignetAttributes } from './sbb-signet.custom';
 import sbbSignetSVG from './assets/sbb_signet.svg';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-sbb-signet.default.scss',
-    shared: 'styles/lyne-sbb-signet.shared.scss'
+    default: 'styles/sbb-signet.default.scss',
+    shared: 'styles/sbb-signet.shared.scss'
   },
-  tag: 'lyne-sbb-signet'
+  tag: 'sbb-signet'
 })
 
-export class LyneSbbSignet {
+export class SbbSignet {
 
   /**
    * According to the Corporate Design Guidelines the signet

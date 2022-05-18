@@ -1,14 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-slot-component', () => {
+describe('sbb-slot-component', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-slot-component></lyne-slot-component>');
+    await page.setContent('<sbb-slot-component></sbb-slot-component>');
 
-    element = await page.find('lyne-slot-component');
+    element = await page.find('sbb-slot-component');
     expect(element)
       .toHaveClass('hydrated');
   });

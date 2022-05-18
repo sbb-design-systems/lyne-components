@@ -15,13 +15,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-occupancy.default.scss',
-    shared: 'styles/lyne-timetable-occupancy.shared.scss'
+    default: 'styles/sbb-timetable-occupancy.default.scss',
+    shared: 'styles/sbb-timetable-occupancy.shared.scss'
   },
-  tag: 'lyne-timetable-occupancy'
+  tag: 'sbb-timetable-occupancy'
 })
 
-export class LyneTimetableOccupancy {
+export class SbbTimetableOccupancy {
 
   private _currentLanguage = getDocumentLang();
 

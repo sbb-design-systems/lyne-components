@@ -1,14 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-link', () => {
+describe('sbb-link', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-link-button href-value="https://github.com/lyne-design-system/lyne-components"></lyne-link-button>');
+    await page.setContent('<sbb-link-button href-value="https://github.com/lyne-design-system/lyne-components"></sbb-link-button>');
 
-    element = await page.find('lyne-link-button');
+    element = await page.find('sbb-link-button');
     expect(element)
       .toHaveClass('hydrated');
   });

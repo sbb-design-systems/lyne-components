@@ -6,18 +6,18 @@ import {
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import iconOneWay from 'lyne-icons/dist/icons/arrow-long-right-small.svg';
 import iconRoundTrip from 'lyne-icons/dist/icons/arrows-left-right-small.svg';
-import { InterfaceJourneyHeaderAttributes } from './lyne-journey-header.custom';
+import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-journey-header.default.scss',
-    shared: 'styles/lyne-journey-header.shared.scss'
+    default: 'styles/sbb-journey-header.default.scss',
+    shared: 'styles/sbb-journey-header.shared.scss'
   },
-  tag: 'lyne-journey-header'
+  tag: 'sbb-journey-header'
 })
 
-export class LyneJourneyHeader {
+export class SbbJourneyHeader {
 
   /** Origin location for the journey header */
   @Prop() public origin!: string;

@@ -1,21 +1,21 @@
-import { LyneTimetableTransportationWalk } from './lyne-timetable-transportation-walk';
+import { SbbTimetableTransportationWalk } from './sbb-timetable-transportation-walk';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-transportation-walk.sample-data';
+import sampleData from './sbb-timetable-transportation-walk.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe('lyne-timetable-transportation-walk', () => {
+describe('sbb-timetable-transportation-walk', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableTransportationWalk],
-      html: `<lyne-timetable-transportation-walk config='${config}' appearance='first-level'/>`
+      components: [SbbTimetableTransportationWalk],
+      html: `<sbb-timetable-transportation-walk config='${config}' appearance='first-level'/>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-transportation-walk
+        <sbb-timetable-transportation-walk
             config="{&quot;distance&quot;:178,&quot;duration&quot;:2,&quot;type&quot;:&quot;departure&quot;}"
             appearance="first-level"
         >
@@ -35,7 +35,7 @@ describe('lyne-timetable-transportation-walk', () => {
                 <span class="walk__text--visually-hidden">2 minutes of walking time before departure. (Distance 178 Meters)</span>
             </p>
           </mock:shadow-root>
-        </lyne-timetable-transportation-walk>
+        </sbb-timetable-transportation-walk>
       `);
   });
 

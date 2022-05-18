@@ -3,19 +3,19 @@ import {
   h,
   Prop
 } from '@stencil/core';
-import { InterfacePearlChainAttributes } from './lyne-pearl-chain.custom.d';
-import legsData from './lyne-pearl-chain.helper';
+import { InterfacePearlChainAttributes } from './sbb-pearl-chain.custom';
+import legsData from './sbb-pearl-chain.helper';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-pearl-chain.default.scss',
-    shared: 'styles/lyne-pearl-chain.shared.scss'
+    default: 'styles/sbb-pearl-chain.default.scss',
+    shared: 'styles/sbb-pearl-chain.shared.scss'
   },
-  tag: 'lyne-pearl-chain'
+  tag: 'sbb-pearl-chain'
 })
 
-export class LynePearlChain {
+export class SbbPearlChain {
 
   /**
    * Define, if the pearl-chain represents a connection in the past,

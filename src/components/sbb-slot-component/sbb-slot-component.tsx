@@ -6,13 +6,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-slot-component.default.scss',
-    shared: 'styles/lyne-slot-component.shared.scss'
+    default: 'styles/sbb-slot-component.default.scss',
+    shared: 'styles/sbb-slot-component.shared.scss'
   },
-  tag: 'lyne-slot-component'
+  tag: 'sbb-slot-component'
 })
 
-export class LyneSlotComponent {
+export class SbbSlotComponent {
   public render(): JSX.Element {
     return (
       <div>

@@ -1,24 +1,24 @@
 import { SbbFooter } from './sbb-footer';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-footer', () => {
+describe('sbb-footer', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
       components: [SbbFooter],
-      html: '<lyne-footer accessibility-title="Footer" />'
+      html: '<sbb-footer accessibility-title="Footer" />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-footer accessibility-title="Footer">
+        <sbb-footer accessibility-title="Footer">
           <mock:shadow-root>
             <footer role="contentinfo" class="footer footer--primary">
-              <lyne-title level="1" text="Footer" visually-hidden="true"></lyne-title>
+              <sbb-title level="1" text="Footer" visually-hidden="true"></sbb-title>
             </footer>
           </mock:shadow-root>
-        </lyne-footer>
+        </sbb-footer>
       `);
   });
 

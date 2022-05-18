@@ -1,21 +1,21 @@
-import { LyneTimetableParkAndRail } from './lyne-timetable-park-and-rail';
+import { SbbTimetableParkAndRail } from './sbb-timetable-park-and-rail';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-park-and-rail.sample-data';
+import sampleData from './sbb-timetable-park-and-rail.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 
-describe('lyne-timetable-park-and-rail', () => {
+describe('sbb-timetable-park-and-rail', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableParkAndRail],
-      html: `<lyne-timetable-park-and-rail config='${config}'/>`
+      components: [SbbTimetableParkAndRail],
+      html: `<sbb-timetable-park-and-rail config='${config}'/>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-park-and-rail
+        <sbb-timetable-park-and-rail
             config="{&quot;distance&quot;:178}"
         >
           <mock:shadow-root>
@@ -32,7 +32,7 @@ describe('lyne-timetable-park-and-rail', () => {
                 </span>
             </div>
           </mock:shadow-root>
-        </lyne-timetable-park-and-rail>
+        </sbb-timetable-park-and-rail>
       `);
   });
 

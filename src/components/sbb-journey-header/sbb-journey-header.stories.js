@@ -99,7 +99,7 @@ const defaultArgs = {
 /* ************************************************* */
 
 const Template = (args) => (
-  <lyne-journey-header {...args} />
+  <sbb-journey-header {...args} />
 );
 
 /* ************************************************* */
@@ -217,5 +217,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/timetable/lyne-journey-header'
+  title: 'components/timetable/sbb-journey-header'
 };

@@ -1,6 +1,6 @@
-# lyne-timetable-travel-hints
+# sbb-timetable-travel-hints
 
-!! Please note that this component is not intended for direct use. It will get used within lyne-timetable. It is listed
+!! Please note that this component is not intended for direct use. It will get used within sbb-timetable. It is listed
 here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
@@ -18,13 +18,13 @@ here to show the various configuration options to component developers. !!
 
 ### Used by
 
- - [lyne-timetable-row](../lyne-timetable-row)
+ - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-row --> lyne-timetable-travel-hints
-  style lyne-timetable-travel-hints fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-row --> sbb-timetable-travel-hints
+  style sbb-timetable-travel-hints fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

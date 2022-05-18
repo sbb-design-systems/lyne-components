@@ -1,3 +1,3 @@
 export default {
-  click: 'lyne-timetable-row-button_click'
+  click: 'sbb-timetable-row-button_click'
 };

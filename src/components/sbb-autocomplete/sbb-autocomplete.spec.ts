@@ -1,28 +1,28 @@
-import { LyneAutocomplete } from './lyne-autocomplete';
+import { SbbAutocomplete } from './sbb-autocomplete';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-autocomplete.sample-data';
+import sampleData from './sbb-autocomplete.sample-data';
 
-describe('lyne-autocomplete', () => {
+describe('sbb-autocomplete', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneAutocomplete],
+      components: [SbbAutocomplete],
       html: `
-<lyne-autocomplete
+<sbb-autocomplete
   items='${sampleData}'
   inputName='test-input'
   inputLabel='input-label'
   minChars='2'
-></lyne-autocomplete>`
+></sbb-autocomplete>`
     });
 
     expect(root)
       .toEqualHtml(`
-      <lyne-autocomplete inputlabel="input-label" inputname="test-input" items="[{&quot;text&quot;: &quot;Bern&quot;},{&quot;text&quot;: &quot;Bern, Hauptbahnhof&quot;},{&quot;text&quot;: &quot;Bern (Marzilibahn)&quot;},{&quot;text&quot;: &quot;Bern Marzili&quot;},{&quot;text&quot;: &quot;Bern Matte&quot;},{&quot;text&quot;: &quot;Bern Münsterplattform&quot;},{&quot;text&quot;: &quot;Bern Europaplatz, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Brunnadernstrasse&quot;},{&quot;text&quot;: &quot;Bern, Bärenplatz&quot;}]" minchars="2">
+      <sbb-autocomplete inputlabel="input-label" inputname="test-input" items="[{&quot;text&quot;: &quot;Bern&quot;},{&quot;text&quot;: &quot;Bern, Hauptbahnhof&quot;},{&quot;text&quot;: &quot;Bern (Marzilibahn)&quot;},{&quot;text&quot;: &quot;Bern Marzili&quot;},{&quot;text&quot;: &quot;Bern Matte&quot;},{&quot;text&quot;: &quot;Bern Münsterplattform&quot;},{&quot;text&quot;: &quot;Bern Europaplatz, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Brunnadernstrasse&quot;},{&quot;text&quot;: &quot;Bern, Bärenplatz&quot;}]" minchars="2">
           <mock:shadow-root>
             <div class="autocomplete">
-              <lyne-text-input debounceinputevent="200" inputariaautocomplete="list" inputariacontrols="autocomplete-list" inputautocompletevalue="off" inputrequired="" inputrole="combobox" inputtype="text"></lyne-text-input>
+              <sbb-text-input debounceinputevent="200" inputariaautocomplete="list" inputariacontrols="autocomplete-list" inputautocompletevalue="off" inputrequired="" inputrole="combobox" inputtype="text"></sbb-text-input>
               <p
                   class="autocomplete__accessibility-hint"
                   role='status'
@@ -30,20 +30,20 @@ describe('lyne-autocomplete', () => {
               >
               </p>
               <ul aria-hidden="" class="autocomplete__list" id="autocomplete-list" role="presentation">
-                <lyne-autocomplete-item ariaposinset="1" ariasetsize="10" text="Bern"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="2" ariasetsize="10" text="Bern, Hauptbahnhof"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="3" ariasetsize="10" text="Bern (Marzilibahn)"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="4" ariasetsize="10" text="Bern Marzili"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="5" ariasetsize="10" text="Bern Matte"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="6" ariasetsize="10" text="Bern Münsterplattform"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="7" ariasetsize="10" text="Bern Europaplatz, Bahnhof"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="8" ariasetsize="10" text="Bern, Bahnhof"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="9" ariasetsize="10" text="Bern, Brunnadernstrasse"></lyne-autocomplete-item>
-                <lyne-autocomplete-item ariaposinset="10" ariasetsize="10" text="Bern, Bärenplatz"></lyne-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="1" ariasetsize="10" text="Bern"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="2" ariasetsize="10" text="Bern, Hauptbahnhof"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="3" ariasetsize="10" text="Bern (Marzilibahn)"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="4" ariasetsize="10" text="Bern Marzili"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="5" ariasetsize="10" text="Bern Matte"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="6" ariasetsize="10" text="Bern Münsterplattform"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="7" ariasetsize="10" text="Bern Europaplatz, Bahnhof"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="8" ariasetsize="10" text="Bern, Bahnhof"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="9" ariasetsize="10" text="Bern, Brunnadernstrasse"></sbb-autocomplete-item>
+                <sbb-autocomplete-item ariaposinset="10" ariasetsize="10" text="Bern, Bärenplatz"></sbb-autocomplete-item>
               </ul>
             </div>
           </mock:shadow-root>
-        </lyne-autocomplete>
+        </sbb-autocomplete>
       `);
   });
 

@@ -1,21 +1,21 @@
-import { LyneTimetableCusHim } from './lyne-timetable-cus-him';
+import { SbbTimetableCusHim } from './sbb-timetable-cus-him';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './lyne-timetable-cus-him.sample-data';
+import sampleData from './sbb-timetable-cus-him.sample-data';
 
 const config = JSON.stringify(sampleData[1]);
 
-describe('lyne-timetable-cus-him', () => {
+describe('sbb-timetable-cus-him', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTimetableCusHim],
-      html: `<lyne-timetable-cus-him config='${config}' appearance="first-level-list"/>`
+      components: [SbbTimetableCusHim],
+      html: `<sbb-timetable-cus-him config='${config}' appearance="first-level-list"/>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-timetable-cus-him
+        <sbb-timetable-cus-him
             config="{&quot;cusHimItems&quot;:[{&quot;icon&quot;:&quot;alternative&quot;,&quot;text&quot;:&quot;Alternative connection due to the current service situation. Please check again for any changes shortly before starting your journey.&quot;},{&quot;icon&quot;:&quot;delay&quot;,&quot;text&quot;:&quot;Connection delayed.&quot;},{&quot;icon&quot;:&quot;disruption&quot;,&quot;text&quot;:&quot;Disruption!&quot;}]}"
             appearance="first-level-list"
         >
@@ -68,7 +68,7 @@ describe('lyne-timetable-cus-him', () => {
                 </ul>
             </div>
           </mock:shadow-root>
-        </lyne-timetable-cus-him>
+        </sbb-timetable-cus-him>
       `);
   });
 

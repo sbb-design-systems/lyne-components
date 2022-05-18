@@ -6,10 +6,10 @@ import {
   Watch
 } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-right-small.svg';
-import events from './lyne-timetable-button.events';
+import events from './sbb-timetable-button.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import { InterfaceLyneTimetableButtonAttributes } from './lyne-timetable-button.custom.d';
+import { InterfaceTimetableButtonAttributes } from './sbb-timetable-button.custom';
 import {
   i18nEarlierConnections,
   i18nLaterConnections,
@@ -19,13 +19,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-button.default.scss',
-    shared: 'styles/lyne-timetable-button.shared.scss'
+    default: 'styles/sbb-timetable-button.default.scss',
+    shared: 'styles/sbb-timetable-button.shared.scss'
   },
-  tag: 'lyne-timetable-button'
+  tag: 'sbb-timetable-button'
 })
 
-export class LyneTimetableButton {
+export class SbbTimetableButton {
 
   private _button!: HTMLElement;
   private _currentLanguage = getDocumentLang();
@@ -38,13 +38,13 @@ export class LyneTimetableButton {
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceLyneTimetableButtonAttributes['appearance'] = 'earlier-connections';
+  @Prop() public appearance?: InterfaceTimetableButtonAttributes['appearance'] = 'earlier-connections';
 
   /**
    * If you use the button to trigger another widget which itself is covering
    * the page, you must provide an according attribute for aria-haspopup.
    */
-  @Prop() public ariaHaspopup?: InterfaceLyneTimetableButtonAttributes['popup'];
+  @Prop() public ariaHaspopup?: InterfaceTimetableButtonAttributes['popup'];
 
   /**
    * If appearance is set to 'cus-him' or
@@ -155,11 +155,11 @@ export class LyneTimetableButton {
     if (this.appearance === 'cus-him') {
       return (
         <div class='button__inner_wrapper'>
-          <lyne-timetable-cus-him
+          <sbb-timetable-cus-him
             appearance='second-level-button'
             config={config}
           >
-          </lyne-timetable-cus-him>
+          </sbb-timetable-cus-him>
           <span
             class='button__chevron'
             innerHTML={chevronIcon}
@@ -170,11 +170,11 @@ export class LyneTimetableButton {
 
     return (
       <div class='button__inner_wrapper'>
-        <lyne-timetable-transportation-walk
+        <sbb-timetable-transportation-walk
           appearance='second-level'
           config={config}
         >
-        </lyne-timetable-transportation-walk>
+        </sbb-timetable-transportation-walk>
         <span class='button__cta'>
           {this._ctaText}
         </span>

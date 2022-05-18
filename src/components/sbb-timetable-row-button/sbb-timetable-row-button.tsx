@@ -5,20 +5,20 @@ import {
   Prop,
   Watch
 } from '@stencil/core';
-import events from './lyne-timetable-row-button.events';
+import events from './sbb-timetable-row-button.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-row-button.default.scss',
-    shared: 'styles/lyne-timetable-row-button.shared.scss'
+    default: 'styles/sbb-timetable-row-button.default.scss',
+    shared: 'styles/sbb-timetable-row-button.shared.scss'
   },
-  tag: 'lyne-timetable-row-button'
+  tag: 'sbb-timetable-row-button'
 })
 
-export class LyneTimetableRowButton {
+export class SbbTimetableRowButton {
 
   private _button!: HTMLElement;
   private _currentLanguage = getDocumentLang();

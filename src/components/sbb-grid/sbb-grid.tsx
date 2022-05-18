@@ -5,18 +5,18 @@ import {
   Host,
   Prop
 } from '@stencil/core';
-import { InterfaceGridAttributes } from './lyne-grid.custom';
+import { InterfaceGridAttributes } from './sbb-grid.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-grid.default.scss',
-    shared: 'styles/lyne-grid.shared.scss'
+    default: 'styles/sbb-grid.default.scss',
+    shared: 'styles/sbb-grid.shared.scss'
   },
-  tag: 'lyne-grid'
+  tag: 'sbb-grid'
 })
 
-export class LyneGrid {
+export class SbbGrid {
 
   /** Section appearance */
   @Prop() public appearance?: InterfaceGridAttributes['appearance'] = 'primary';

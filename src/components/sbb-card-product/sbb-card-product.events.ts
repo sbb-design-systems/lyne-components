@@ -1,3 +1,3 @@
 export default {
-  click: 'lyne-card-product_click'
+  click: 'sbb-card-product_click'
 };

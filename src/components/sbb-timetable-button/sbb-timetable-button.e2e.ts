@@ -1,14 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-timetable-button', () => {
+describe('sbb-timetable-button', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-timetable-button></lyne-timetable-button>');
+    await page.setContent('<sbb-timetable-button></sbb-timetable-button>');
 
-    element = await page.find('lyne-timetable-button');
+    element = await page.find('sbb-timetable-button');
     expect(element)
       .toHaveClass('hydrated');
   });

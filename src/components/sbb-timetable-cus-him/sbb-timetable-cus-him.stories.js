@@ -1,13 +1,13 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-cus-him.sample-data';
+import sampleData from './sbb-timetable-cus-him.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-cus-him
+  <sbb-timetable-cus-him
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-cus-him>
+  </sbb-timetable-cus-him>
 );
 
 const appearance = {
@@ -99,5 +99,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-cus-him'
+  title: 'internals/sbb-timetable-cus-him'
 };

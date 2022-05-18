@@ -7,13 +7,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-transportation-details.default.scss',
-    shared: 'styles/lyne-timetable-transportation-details.shared.scss'
+    default: 'styles/sbb-timetable-transportation-details.default.scss',
+    shared: 'styles/sbb-timetable-transportation-details.shared.scss'
   },
-  tag: 'lyne-timetable-transportation-details'
+  tag: 'sbb-timetable-transportation-details'
 })
 
-export class LyneTimetableDetails {
+export class SbbTimetableTransportationDetails {
 
   /**
    * Stringified JSON which defines most of the
@@ -29,31 +29,31 @@ export class LyneTimetableDetails {
 
     return (
       <div class='transportation-details'>
-        <lyne-timetable-transportation-number
+        <sbb-timetable-transportation-number
           config={JSON.stringify(config.transportationNumber)}
-        ></lyne-timetable-transportation-number>
+        ></sbb-timetable-transportation-number>
         {
           config.departureWalk.duration > 0
-            ? <lyne-timetable-transportation-walk
+            ? <sbb-timetable-transportation-walk
               config={JSON.stringify(config.departureWalk)}
-            ></lyne-timetable-transportation-walk>
+            ></sbb-timetable-transportation-walk>
             : ''
         }
-        <lyne-timetable-transportation-time
+        <sbb-timetable-transportation-time
           config={JSON.stringify(config.departureTime)}
-        ></lyne-timetable-transportation-time>
-        <lyne-pearl-chain
+        ></sbb-timetable-transportation-time>
+        <sbb-pearl-chain
           legs={JSON.stringify(config.pearlChain.legs)}
           status={config.pearlChain.status}
-        ></lyne-pearl-chain>
-        <lyne-timetable-transportation-time
+        ></sbb-pearl-chain>
+        <sbb-timetable-transportation-time
           config={JSON.stringify(config.arrivalTime)}
-        ></lyne-timetable-transportation-time>
+        ></sbb-timetable-transportation-time>
         {
           config.arrivalWalk.duration > 0
-            ? <lyne-timetable-transportation-walk
+            ? <sbb-timetable-transportation-walk
               config={JSON.stringify(config.arrivalWalk)}
-            ></lyne-timetable-transportation-walk>
+            ></sbb-timetable-transportation-walk>
             : ''
         }
       </div>

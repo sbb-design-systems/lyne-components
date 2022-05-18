@@ -1,14 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-grid', () => {
+describe('sbb-grid', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-grid></lyne-grid>');
+    await page.setContent('<sbb-grid></sbb-grid>');
 
-    element = await page.find('lyne-grid');
+    element = await page.find('sbb-grid');
     expect(element)
       .toHaveClass('hydrated');
   });

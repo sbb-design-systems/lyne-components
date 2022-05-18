@@ -2,18 +2,18 @@ import lyneIcons from 'lyne-icons/dist/icons.json';
 import { SbbLink } from './sbb-link';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-link', () => {
+describe('sbb-link', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
       components: [SbbLink],
-      html: `<lyne-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="positive"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></lyne-link>`
+      html: `<sbb-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="positive"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></sbb-link>`
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-link
+        <sbb-link
             href-value="https://github.com/lyne-design-system/lyne-components"
             icon-placement="end"
             icon="chevron-small-right-small"
@@ -42,7 +42,7 @@ describe('lyne-link', () => {
                 </path>
             </svg>
           </span>
-        </lyne-link>
+        </sbb-link>
       `);
   });
 

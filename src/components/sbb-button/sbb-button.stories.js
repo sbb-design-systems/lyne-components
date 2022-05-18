@@ -2,7 +2,7 @@ import {
   ColorCharcoalDefault,
   ColorWhiteDefault
 } from 'lyne-design-tokens/dist/js/tokens.es6';
-import events from './lyne-button.events.ts';
+import events from './sbb-button.events.ts';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -25,9 +25,9 @@ const wrapperStyle = (context) => {
 // --- Component
 
 const Template = (args) => (
-  <lyne-button {...args}>
+  <sbb-button {...args}>
     {getMarkupForSvg(args.iconSlot)}
-  </lyne-button>
+  </sbb-button>
 );
 
 // --- Arg types
@@ -286,5 +286,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-button'
+  title: 'components/sbb-button'
 };

@@ -1,21 +1,21 @@
-import events from './lyne-button.events';
+import events from './sbb-button.events';
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-button', () => {
+describe('sbb-button', () => {
   let element,
     page;
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-button></lyne-button>');
-    element = await page.find('lyne-button');
+    await page.setContent('<sbb-button></sbb-button>');
+    element = await page.find('sbb-button');
   });
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-button></lyne-button>');
+    await page.setContent('<sbb-button></sbb-button>');
 
-    element = await page.find('lyne-button');
+    element = await page.find('sbb-button');
     expect(element)
       .toHaveClass('hydrated');
   });
@@ -25,7 +25,7 @@ describe('lyne-button', () => {
 
     element.setProperty('label', buttonText);
     await page.waitForChanges();
-    const button = await page.find('lyne-button >>> .button__label');
+    const button = await page.find('sbb-button >>> .button__label');
 
     expect(button.textContent)
       .toEqual(buttonText);
@@ -35,7 +35,7 @@ describe('lyne-button', () => {
     it('dispatches event on click', async () => {
       element.setProperty('text', 'Custom Button Text');
       await page.waitForChanges();
-      const button = await page.find('lyne-button >>> button');
+      const button = await page.find('sbb-button >>> button');
       const changeSpy = await page.spyOnEvent(events.click);
 
       await button.click();
@@ -46,7 +46,7 @@ describe('lyne-button', () => {
     it('dispatches correct event payload on click with no id', async () => {
       element.setProperty('text', 'Custom Button Text');
       await page.waitForChanges();
-      const button = await page.find('lyne-button >>> button');
+      const button = await page.find('sbb-button >>> button');
       const changeSpy = await page.spyOnEvent(events.click);
 
       await button.click();
@@ -60,7 +60,7 @@ describe('lyne-button', () => {
       element.setProperty('text', 'Custom Button Text');
       element.setProperty('eventId', buttonId);
       await page.waitForChanges();
-      const button = await page.find('lyne-button >>> button');
+      const button = await page.find('sbb-button >>> button');
       const changeSpy = await page.spyOnEvent(events.click);
 
       await button.click();

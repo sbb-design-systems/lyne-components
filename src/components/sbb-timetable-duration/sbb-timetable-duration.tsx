@@ -14,13 +14,13 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-timetable-duration.default.scss',
-    shared: 'styles/lyne-timetable-duration.shared.scss'
+    default: 'styles/sbb-timetable-duration.default.scss',
+    shared: 'styles/sbb-timetable-duration.shared.scss'
   },
-  tag: 'lyne-timetable-duration'
+  tag: 'sbb-timetable-duration'
 })
 
-export class LyneTimetableDuration {
+export class SbbTimetableDuration {
 
   private _currentLanguage = getDocumentLang();
 

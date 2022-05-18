@@ -2,7 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-input-error {...args}></lyne-input-error>
+  <sbb-input-error {...args}></sbb-input-error>
 );
 
 const defaultArgs = {
@@ -12,13 +12,13 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneInputError = Template.bind({});
+export const SbbInputError = Template.bind({});
 
-LyneInputError.args = {
+SbbInputError.args = {
   ...defaultArgs
 };
 
-LyneInputError.documentation = {
+SbbInputError.documentation = {
   title: 'Input Error'
 };
 
@@ -38,5 +38,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/form elements/lyne-input-error'
+  title: 'components/form elements/sbb-input-error'
 };

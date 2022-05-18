@@ -83,9 +83,9 @@ const defaultArgs = {
 /* ************************************************* */
 
 const Template = (args) => (
-  <lyne-section {...args}>
-    <lyne-teaser-hero slot='full-width' button-text='Mehr erfahren' loading='eager' image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg' link='https://www.sbb.ch' open-in-new-window='false' text='Rücksichtsvoll mit SBB Green Class.'></lyne-teaser-hero>
-  </lyne-section>
+  <sbb-section {...args}>
+    <sbb-teaser-hero slot='full-width' button-text='Mehr erfahren' loading='eager' image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg' link='https://www.sbb.ch' open-in-new-window='false' text='Rücksichtsvoll mit SBB Green Class.'></sbb-teaser-hero>
+  </sbb-section>
 );
 
 /* ************************************************* */
@@ -143,5 +143,5 @@ export default {
     },
     layout: 'fullscreen'
   },
-  title: 'components/layout/lyne-section'
+  title: 'components/layout/sbb-section'
 };

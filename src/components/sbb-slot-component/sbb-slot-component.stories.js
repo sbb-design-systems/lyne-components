@@ -2,7 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-slot-component {...args}>test</lyne-slot-component>
+  <sbb-slot-component {...args}>test</sbb-slot-component>
 );
 
 export const story1 = Template.bind({});
@@ -26,5 +26,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'lab/lyne-slot-component'
+  title: 'lab/sbb-slot-component'
 };

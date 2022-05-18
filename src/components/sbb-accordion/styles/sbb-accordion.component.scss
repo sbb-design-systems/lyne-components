@@ -40,16 +40,16 @@
   --color-background-hover: var(--color-white-alpha-60);
 }
 
-::slotted(lyne-accordion-item:not(:first-child)) {
+::slotted(sbb-accordion-item:not(:first-child)) {
   margin-block-start: pxToRem(var(--item-margin-block));
 }
 
-::slotted(lyne-accordion-item:first-child) {
+::slotted(sbb-accordion-item:first-child) {
   --border-radius-start-start: var(--border-radius-8x);
   --border-radius-start-end: var(--border-radius-8x);
 }
 
-::slotted(lyne-accordion-item:last-child) {
+::slotted(sbb-accordion-item:last-child) {
   --border-radius-end-start: var(--border-radius-8x);
   --border-radius-end-end: var(--border-radius-8x);
   --border-width: 0;

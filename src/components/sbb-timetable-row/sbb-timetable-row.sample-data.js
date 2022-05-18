@@ -1,14 +1,14 @@
 import cusHimData from '../sbb-timetable-cus-him/sbb-timetable-cus-him.sample-data';
 import durationData from '../sbb-timetable-duration/sbb-timetable-duration.sample-data';
 import occupancyItemsData from '../sbb-timetable-occupancy/sbb-timetable-occupancy.sample-data';
-import parkAndRailData from '../sbb-timetable-park-and-rail/lyne-timetable-park-and-rail.sample-data';
+import parkAndRailData from '../sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.sample-data';
 import pearlChainData from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
-import platformData from '../sbb-timetable-platform/lyne-timetable-platform.sample-data';
-import rowHeaderData from '../sbb-timetable-row-header/lyne-timetable-row-header.sample-data';
-import transportationNumberData from '../sbb-timetable-transportation-number/lyne-timetable-transportation-number.sample-data';
-import transportationTimeData from '../sbb-timetable-transportation-time/lyne-timetable-transportation-time.sample-data';
-import transportationWalkData from '../sbb-timetable-transportation-walk/lyne-timetable-transportation-walk.sample-data';
-import travelHintsData from '../sbb-timetable-travel-hints/lyne-timetable-travel-hints.sample-data';
+import platformData from '../sbb-timetable-platform/sbb-timetable-platform.sample-data';
+import rowHeaderData from '../sbb-timetable-row-header/sbb-timetable-row-header.sample-data';
+import transportationNumberData from '../sbb-timetable-transportation-number/sbb-timetable-transportation-number.sample-data';
+import transportationTimeData from '../sbb-timetable-transportation-time/sbb-timetable-transportation-time.sample-data';
+import transportationWalkData from '../sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.sample-data';
+import travelHintsData from '../sbb-timetable-travel-hints/sbb-timetable-travel-hints.sample-data';
 
 export default [
   {

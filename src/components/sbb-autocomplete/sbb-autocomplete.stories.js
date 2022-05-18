@@ -1,12 +1,12 @@
-import events from './lyne-autocomplete.events.ts';
+import events from './sbb-autocomplete.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-autocomplete.sample-data';
+import sampleData from './sbb-autocomplete.sample-data';
 
 // ---- Template
 
 const Template = (args) => (
-  <lyne-autocomplete {...args}></lyne-autocomplete>
+  <sbb-autocomplete {...args}></sbb-autocomplete>
 );
 
 // ---- ArgTypes
@@ -173,5 +173,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-autocomplete'
+  title: 'components/sbb-autocomplete'
 };

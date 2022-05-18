@@ -1,22 +1,22 @@
-import { LyneCardBadge } from './lyne-card-badge';
+import { SbbCardBadge } from './sbb-card-badge';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-card-badge', () => {
+describe('sbb-card-badge', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneCardBadge],
-      html: '<lyne-card-badge />'
+      components: [SbbCardBadge],
+      html: '<sbb-card-badge />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-card-badge>
+        <sbb-card-badge>
           <mock:shadow-root>
             <span class="card-badge card-badge--primary card-badge--regular" dir="ltr" role="text"></span>
           </mock:shadow-root>
-        </lyne-card-badge>
+        </sbb-card-badge>
       `);
   });
 

@@ -1,22 +1,22 @@
-import { LyneSection } from './lyne-section';
+import { SbbSection } from './sbb-section';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-section', () => {
+describe('sbb-section', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneSection],
-      html: '<lyne-section />'
+      components: [SbbSection],
+      html: '<sbb-section />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-section>
+        <sbb-section>
           <mock:shadow-root>
             <section class="section section--full-bleed--forever section--primary"></section>
           </mock:shadow-root>
-        </lyne-section>
+        </sbb-section>
       `);
   });
 

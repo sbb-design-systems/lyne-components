@@ -1,20 +1,20 @@
 import { newE2EPage } from '@stencil/core/testing';
-import sampleData from './lyne-autocomplete.sample-data';
+import sampleData from './sbb-autocomplete.sample-data';
 
-describe('lyne-autocomplete', () => {
+describe('sbb-autocomplete', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
     await page.setContent(`
-      <lyne-autocomplete
+      <sbb-autocomplete
         items='${sampleData}'
         inputName='test-input'
         inputLabel='input-label'
-      ></lyne-autocomplete>`);
+      ></sbb-autocomplete>`);
 
-    element = await page.find('lyne-autocomplete');
+    element = await page.find('sbb-autocomplete');
     expect(element)
       .toHaveClass('hydrated');
   });

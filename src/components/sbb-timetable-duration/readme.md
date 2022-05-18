@@ -1,6 +1,6 @@
-# lyne-timetable-duration
+# sbb-timetable-duration
 
-!! Please note that this component is not intended for direct use. It will get used within lyne-timetable. It is listed
+!! Please note that this component is not intended for direct use. It will get used within sbb-timetable. It is listed
 here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
@@ -17,13 +17,13 @@ here to show the various configuration options to component developers. !!
 
 ### Used by
 
- - [lyne-timetable-row](../lyne-timetable-row)
+ - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-timetable-row --> lyne-timetable-duration
-  style lyne-timetable-duration fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-timetable-row --> sbb-timetable-duration
+  style sbb-timetable-duration fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

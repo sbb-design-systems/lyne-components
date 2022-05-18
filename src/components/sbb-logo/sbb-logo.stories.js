@@ -6,7 +6,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-sbb-logo {...args} />
+  <sbb-logo {...args} />
 );
 
 const variants = {

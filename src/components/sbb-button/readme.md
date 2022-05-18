@@ -1,4 +1,4 @@
-# lyne-button
+# sbb-button
 
 
 
@@ -34,13 +34,13 @@
 
 ### Used by
 
- - [lyne-panel](../lyne-panel)
+ - [sbb-panel](../sbb-panel)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-panel --> lyne-button
-  style lyne-button fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-panel --> sbb-button
+  style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -5,7 +5,7 @@ import {
   Host,
   Prop
 } from '@stencil/core';
-import { InterfaceFooterAttributes } from './lyne-footer.custom';
+import { InterfaceFooterAttributes } from './sbb-footer.custom';
 
 @Component({
   shadow: true,
@@ -13,10 +13,10 @@ import { InterfaceFooterAttributes } from './lyne-footer.custom';
     default: 'styles/sbb-footer.default.scss',
     shared: 'styles/sbb-footer.shared.scss'
   },
-  tag: 'lyne-footer'
+  tag: 'sbb-footer'
 })
 
-export class LyneFooter {
+export class SbbFooter {
 
   /** Footer appearance */
   @Prop() public appearance?: InterfaceFooterAttributes['appearance'] = 'primary';
@@ -56,7 +56,7 @@ export class LyneFooter {
       <Host>
         <footer role='contentinfo' {...attrs}
         >
-          <lyne-title level='1' visually-hidden='true' text={this.accessibilityTitle} />
+          <sbb-title level='1' visually-hidden='true' text={this.accessibilityTitle} />
           {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot || this._hasClockSlot
             ? <div class='columns'><slot name='col-1'/><slot name='col-2'/><slot name='col-3'/><slot name='col-4'/><slot name='clock'/></div>
             : ''

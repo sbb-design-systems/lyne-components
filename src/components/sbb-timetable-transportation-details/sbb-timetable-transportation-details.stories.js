@@ -1,12 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import sampleData from './lyne-timetable-transportation-details.sample-data';
+import sampleData from './sbb-timetable-transportation-details.sample-data';
 
 const Template = (args) => (
-  <lyne-timetable-transportation-details
+  <sbb-timetable-transportation-details
     config={JSON.stringify(args.config)}
   >
-  </lyne-timetable-transportation-details>
+  </sbb-timetable-transportation-details>
 );
 
 const config = {
@@ -22,14 +22,14 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LyneTimetableTransportationDetails = Template.bind({});
+export const sbbTimetableTransportationDetails = Template.bind({});
 
-LyneTimetableTransportationDetails.argTypes = defaultArgTypes;
-LyneTimetableTransportationDetails.args = {
+sbbTimetableTransportationDetails.argTypes = defaultArgTypes;
+sbbTimetableTransportationDetails.args = {
   config: sampleData[0]
 };
 
-LyneTimetableTransportationDetails.documentation = {
+sbbTimetableTransportationDetails.documentation = {
   title: 'Minutes'
 };
 
@@ -44,5 +44,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'internals/lyne-timetable-transportation-details'
+  title: 'internals/sbb-timetable-transportation-details'
 };

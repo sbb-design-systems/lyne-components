@@ -1,4 +1,4 @@
-# lyne-footer
+# sbb-footer
 
 
 
@@ -17,13 +17,13 @@
 
 ### Depends on
 
-- [lyne-title](../lyne-title)
+- [sbb-title](../sbb-title)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-footer --> lyne-title
-  style lyne-footer fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-footer --> sbb-title
+  style sbb-footer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

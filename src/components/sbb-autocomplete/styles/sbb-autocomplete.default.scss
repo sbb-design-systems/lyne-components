@@ -16,7 +16,7 @@
 @import "./../../../global/global.default.scss";
 
 // Import component styles
-@import "./lyne-autocomplete.component.scss";
+@import "src/components/sbb-autocomplete/styles/sbb-autocomplete.component";
 
 // Mode overrides/tests
 // :host {

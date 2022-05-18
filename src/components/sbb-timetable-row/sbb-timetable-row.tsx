@@ -10,10 +10,10 @@ import {
     default: 'styles/sbb-timetable-row.default.scss',
     shared: 'styles/sbb-timetable-row.shared.scss'
   },
-  tag: 'lyne-timetable-row'
+  tag: 'sbb-timetable-row'
 })
 
-export class LyneTimetableRow {
+export class SbbTimetableRow {
 
   private _additionalTimetableRowClasses = [];
 
@@ -49,51 +49,51 @@ export class LyneTimetableRow {
         class={`timetable__row ${this._additionalTimetableRowClasses.join(' ')}`}
         role='none'
       >
-        <lyne-timetable-row-header
+        <sbb-timetable-row-header
           config={JSON.stringify(config.rowHeader)}
           role='rowheader'
         >
-        </lyne-timetable-row-header>
-        <lyne-timetable-transportation-details
+        </sbb-timetable-row-header>
+        <sbb-timetable-transportation-details
           config={JSON.stringify(config.details)}
           role='gridcell'
         >
-        </lyne-timetable-transportation-details>
-        <lyne-timetable-row-button
+        </sbb-timetable-transportation-details>
+        <sbb-timetable-row-button
           expanded={false}
           role='gridcell'
         >
-        </lyne-timetable-row-button>
-        <lyne-timetable-platform
+        </sbb-timetable-row-button>
+        <sbb-timetable-platform
           config={JSON.stringify(config.platform)}
           role='gridcell'
         >
-        </lyne-timetable-platform>
-        <lyne-timetable-occupancy
+        </sbb-timetable-platform>
+        <sbb-timetable-occupancy
           config={JSON.stringify(config.occupancy)}
           role='gridcell'
         >
-        </lyne-timetable-occupancy>
-        <lyne-timetable-travel-hints
+        </sbb-timetable-occupancy>
+        <sbb-timetable-travel-hints
           config={JSON.stringify(config.travelHints)}
           role='gridcell'
         >
-        </lyne-timetable-travel-hints>
-        {/* <lyne-timetable-park-and-rail
+        </sbb-timetable-travel-hints>
+        {/* <sbb-timetable-park-and-rail
           config={JSON.stringify(config.parkAndRail)}
           role='gridcell'
         >
-        </lyne-timetable-park-and-rail> */}
-        <lyne-timetable-duration
+        </sbb-timetable-park-and-rail> */}
+        <sbb-timetable-duration
           config={JSON.stringify(config.duration)}
           role='gridcell'
         >
-        </lyne-timetable-duration>
-        <lyne-timetable-cus-him
+        </sbb-timetable-duration>
+        <sbb-timetable-cus-him
           config={JSON.stringify(config.cusHim)}
           role='gridcell'
         >
-        </lyne-timetable-cus-him>
+        </sbb-timetable-cus-him>
       </div>
     );
   }

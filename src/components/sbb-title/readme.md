@@ -1,4 +1,4 @@
-# lyne-title
+# sbb-title
 
 <!-- Auto Generated Below -->
 
@@ -19,15 +19,15 @@
 
 ### Used by
 
- - [lyne-footer](../lyne-footer)
- - [lyne-link-list](../lyne-link-list)
+ - [sbb-footer](../sbb-footer)
+ - [sbb-link-list](../sbb-link-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  lyne-footer --> lyne-title
-  lyne-link-list --> lyne-title
-  style lyne-title fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-footer --> sbb-title
+  sbb-link-list --> sbb-title
+  style sbb-title fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
