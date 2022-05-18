@@ -13,11 +13,7 @@ import { toastLeaveAnimation } from './animations/toast.leave';
 import {
   CssClassMap, getClassList
 } from '../../global/helpers/get-class-list';
-
-/*
- * FIXME to remove
- */
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
+import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
 
 type InterfaceToastType = 'link' | 'action' | 'icon';
 
@@ -204,7 +200,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
         return this._renderActionCommonButton(clickFn, innerElement);
       }
       case 'icon': {
-        const innerElement = <span innerHTML={getMarkupForSvg('cross-small').outerHTML}/>;
+        const innerElement = <span innerHTML={crossSmall}/>;
         const clickFn = this.dismiss.bind(this, null, 'cancel');
 
         return this._renderActionCommonButton(clickFn, innerElement);
