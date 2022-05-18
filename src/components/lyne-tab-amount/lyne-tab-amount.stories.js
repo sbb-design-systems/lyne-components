@@ -23,9 +23,6 @@ export default {
       </div>
     )
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform']
-  },
   parameters: {
     backgrounds: {
       disable: true
