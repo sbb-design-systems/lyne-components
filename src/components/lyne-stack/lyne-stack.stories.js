@@ -133,6 +133,15 @@ const isPlaceholder = {
   }
 };
 
+const noWrap = {
+  control: {
+    type: 'boolean'
+  },
+  table: {
+    category: 'Appearance'
+  }
+};
+
 const spaceLeading = {
   control: {
     type: 'select'
@@ -179,6 +188,7 @@ const defaultArgTypes = {
   'gap-horizontal': gapHorizontal,
   'gap-vertical': gapVertical,
   'is-placeholder': isPlaceholder,
+  'no-wrap': noWrap,
   'space-leading': spaceLeading,
   'space-trailing': spaceTrailing,
   'stack-height': stackHeight,

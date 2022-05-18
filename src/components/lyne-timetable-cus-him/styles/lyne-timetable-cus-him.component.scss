@@ -5,7 +5,6 @@
 .cus-him {
   display: flex;
   width: 100%;
-  padding-inline-start: pxToRem(var(--spacing-fixed-1x));
   justify-content: var(--list-item-justification);
 
   --cus-him-icon-width: var(--cus-him-icon-height);

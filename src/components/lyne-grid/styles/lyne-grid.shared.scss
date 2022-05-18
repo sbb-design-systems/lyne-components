@@ -1,0 +1,16 @@
+//*****************************************************************************
+// Important
+//
+// This is the components shared behaviour: shared
+//
+// If in shared mode, globally defined styles are imported globally and shared
+// over all components and therefore are not explicitly imported in here unlike
+// in *.default.scss)
+//
+// 1. The component styles get imported from *.component.scss
+//
+// 2. Mode overrides get applied
+//*****************************************************************************
+
+// Import component styles
+@import "./lyne-grid.component.scss";

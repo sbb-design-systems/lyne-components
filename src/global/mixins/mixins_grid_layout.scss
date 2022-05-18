@@ -1,0 +1,18 @@
+@mixin grid-base() {
+	display: grid;
+	grid-template-columns: repeat(var(--grid-base-columns), 1fr);
+  column-gap: pxToRem(var(--grid-base-gutter-responsive));
+  row-gap: pxToRem(var(--spacing-fixed-3x));
+}
+
+@mixin grid-base-top-products() {
+  display: grid;
+  column-gap: pxToRem(var(--grid-base-gutter-responsive));
+  row-gap: pxToRem(var(--spacing-fixed-3x));
+
+  @include mq($from: medium) {
+    grid-template-columns: repeat(var(--grid-base-columns), 1fr);
+    //grid-template-rows: repeat(var(--grid-base-columns), 1fr);
+    max-width: 100%;
+  }
+}

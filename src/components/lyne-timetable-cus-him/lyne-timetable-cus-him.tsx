@@ -1,6 +1,7 @@
 import {
   Component,
   h,
+  Host,
   Prop
 } from '@stencil/core';
 
@@ -121,14 +122,20 @@ export class LyneTimetableCusHim {
     const a11yLabel = i18nNone[this._currentLanguage];
     const appearanceClass = ` cus-him--${this.appearance}`;
 
+    const hostClass = cusHimItems.length === 0
+      ? 'visually-empty'
+      : '';
+
     return (
-      <div class={`cus-him${appearanceClass}`}>
-        {
-          cusHimItems && cusHimItems.length > 0
-            ? this._renderAppearance(cusHimItems)
-            : <span class='cus-him__text--visually-hidden'>{a11yLabel}</span>
-        }
-      </div>
+      <Host class={hostClass}>
+        <div class={`cus-him${appearanceClass}`}>
+          {
+            cusHimItems && cusHimItems.length > 0
+              ? this._renderAppearance(cusHimItems)
+              : <span class='cus-him__text--visually-hidden'>{a11yLabel}</span>
+          }
+        </div>
+      </Host>
     );
   }
 }

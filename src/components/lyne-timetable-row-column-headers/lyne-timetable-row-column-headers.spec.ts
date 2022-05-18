@@ -16,7 +16,7 @@ describe('lyne-timetable-row-column-headers', () => {
     expect(root)
       .toEqualHtml(`
         <lyne-timetable-row-column-headers
-            config="[&quot;Short Infos&quot;,&quot;Summary&quot;,&quot;&quot;,&quot;Platfom&quot;,&quot;Occupancy Forecast&quot;,&quot;Travel hints&quot;,&quot;Park and Rail&quot;,&quot;Duration&quot;,&quot;Real time information&quot;]"
+            config="[&quot;Short Infos&quot;,&quot;Summary&quot;,&quot;&quot;,&quot;Platfom&quot;,&quot;Occupancy Forecast&quot;,&quot;Travel hints&quot;,&quot;Duration&quot;,&quot;Real time information&quot;]"
         >
           <mock:shadow-root>
             <div class="column-headers" role="none">
@@ -26,7 +26,6 @@ describe('lyne-timetable-row-column-headers', () => {
                 <div role="columnheader">Platfom</div>
                 <div role="columnheader">Occupancy Forecast</div>
                 <div role="columnheader">Travel hints</div>
-                <div role="columnheader">Park and Rail</div>
                 <div role="columnheader">Duration</div>
                 <div role="columnheader">Real time information</div>
             </div>

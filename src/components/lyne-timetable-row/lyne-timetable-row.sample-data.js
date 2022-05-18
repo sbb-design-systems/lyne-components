@@ -12,7 +12,7 @@ import travelHintsData from '../lyne-timetable-travel-hints/lyne-timetable-trave
 
 export default [
   {
-    cusHim: cusHimData[0],
+    cusHim: cusHimData[2],
     details: {
       arrivalTime: transportationTimeData[1],
       arrivalWalk: transportationWalkData[1],
@@ -32,7 +32,7 @@ export default [
     travelHints: travelHintsData[0]
   },
   {
-    cusHim: cusHimData[1],
+    cusHim: cusHimData[2],
     details: {
       arrivalTime: transportationTimeData[3],
       arrivalWalk: transportationWalkData[3],

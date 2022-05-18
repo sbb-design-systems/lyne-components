@@ -1,23 +1,18 @@
 @mixin page-spacing() {
-  padding-inline-start: pxToRem(var(--page-spacing-responsive-left));
-  padding-inline-end: pxToRem(var(--page-spacing-responsive-right));
+  padding-inline-start: pxToRem(var(--page-base-offset-responsive));
+  padding-inline-end: pxToRem(var(--page-base-offset-responsive));
 }
 
 @mixin page-spacing__inner() {
-  @include mq($from: wide--max-content) {
-    width: pxToRem($breakpoint-wide-min);
+  @include mq($from: wide) {
+    width: calc(pxToRem($breakpoint-wide-min) - (2 * pxToRem(var(--page-base-offset-responsive))));
     margin-inline-start: auto;
     margin-inline-end: auto;
   }
 }
 
-@mixin page-spacing--ultra-plus() {
-  padding-inline-start: pxToRem(var(--page-spacing-responsive-left));
-  padding-inline-end: pxToRem(var(--page-spacing-responsive-right));
-}
-
 @mixin page-spacing--ultra-plus__inner() {
-  @include mq($from: ultra--max-content) {
+  @include mq($from: ultra) {
     width: pxToRem($breakpoint-ultra-min);
     margin-inline-start: auto;
     margin-inline-end: auto;

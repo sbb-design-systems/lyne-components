@@ -1,3 +1,24 @@
+# [10.6.0](https://github.com/lyne-design-system/lyne-components/compare/v10.5.0...v10.6.0) (2022-05-09)
+
+
+### Features
+
+* adding simplified third line handling on level 1 ([#1036](https://github.com/lyne-design-system/lyne-components/issues/1036)) ([a6d70e2](https://github.com/lyne-design-system/lyne-components/commit/a6d70e245204aa48cc74712acb6f8a3a8064f3e2))
+* grid layout ([#1065](https://github.com/lyne-design-system/lyne-components/issues/1065)) ([84e1964](https://github.com/lyne-design-system/lyne-components/commit/84e1964470f0591c835a1d52a1eb32b764bb0d69))
+
+# [10.5.0](https://github.com/lyne-design-system/lyne-components/compare/v10.4.0...v10.5.0) (2022-05-05)
+
+
+### Bug Fixes
+
+* **image:** fix eslint errors ([54c89bf](https://github.com/lyne-design-system/lyne-components/commit/54c89bfbff3f0c5f7ce68c0ddeea34be8065c460))
+* add nullcheck ([4da65c2](https://github.com/lyne-design-system/lyne-components/commit/4da65c2274ade01748728a0fe9b77110baf232cd))
+
+
+### Features
+
+* add support for additional imgix Rendering API parameters ([e261a27](https://github.com/lyne-design-system/lyne-components/commit/e261a27b1f5948dff84a5a5cf558ae675b9c69d0))
+
 # [10.4.0](https://github.com/lyne-design-system/lyne-components/compare/v10.3.0...v10.4.0) (2022-04-19)
 
 

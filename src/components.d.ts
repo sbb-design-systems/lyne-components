@@ -10,12 +10,14 @@ import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.
 import { InterfaceCardBadgeAttributes } from "./components/lyne-card-badge/lyne-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/lyne-card-product/lyne-card-product.custom";
 import { InterfaceFooterAttributes } from "./components/lyne-footer/lyne-footer.custom";
+import { InterfaceGridAttributes } from "./components/lyne-grid/lyne-grid.custom";
 import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
 import { InterfaceJourneyHeaderAttributes } from "./components/lyne-journey-header/lyne-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
 import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
 import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
 import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
+import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
 import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
 import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
@@ -273,6 +275,16 @@ export namespace Components {
          */
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
+    interface LyneGrid {
+        /**
+          * Section appearance
+         */
+        "appearance"?: InterfaceGridAttributes['appearance'];
+        /**
+          * Grid variant
+         */
+        "variant"?: InterfaceGridAttributes['variant'];
+    }
     interface LyneImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
@@ -473,6 +485,11 @@ export namespace Components {
          */
         "variant": InterfaceLyneLinkListAttributes['variant'];
     }
+    interface LyneOverlay {
+        "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        "overlayIndex": number;
+        "present": () => Promise<void>;
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -568,6 +585,10 @@ export namespace Components {
           * Render stack as placeholder
          */
         "isPlaceholder"?: boolean;
+        /**
+          * Render horizontal stack as non-wrapping stack
+         */
+        "noWrap"?: boolean;
         /**
           * Space before the stack
          */
@@ -962,6 +983,12 @@ declare global {
         prototype: HTMLLyneFooterElement;
         new (): HTMLLyneFooterElement;
     };
+    interface HTMLLyneGridElement extends Components.LyneGrid, HTMLStencilElement {
+    }
+    var HTMLLyneGridElement: {
+        prototype: HTMLLyneGridElement;
+        new (): HTMLLyneGridElement;
+    };
     interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
     }
     var HTMLLyneImageElement: {
@@ -997,6 +1024,12 @@ declare global {
     var HTMLLyneLinkListElement: {
         prototype: HTMLLyneLinkListElement;
         new (): HTMLLyneLinkListElement;
+    };
+    interface HTMLLyneOverlayElement extends Components.LyneOverlay, HTMLStencilElement {
+    }
+    var HTMLLyneOverlayElement: {
+        prototype: HTMLLyneOverlayElement;
+        new (): HTMLLyneOverlayElement;
     };
     interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
     }
@@ -1193,12 +1226,14 @@ declare global {
         "lyne-card-badge": HTMLLyneCardBadgeElement;
         "lyne-card-product": HTMLLyneCardProductElement;
         "lyne-footer": HTMLLyneFooterElement;
+        "lyne-grid": HTMLLyneGridElement;
         "lyne-image": HTMLLyneImageElement;
         "lyne-input-error": HTMLLyneInputErrorElement;
         "lyne-journey-header": HTMLLyneJourneyHeaderElement;
         "lyne-link": HTMLLyneLinkElement;
         "lyne-link-button": HTMLLyneLinkButtonElement;
         "lyne-link-list": HTMLLyneLinkListElement;
+        "lyne-overlay": HTMLLyneOverlayElement;
         "lyne-panel": HTMLLynePanelElement;
         "lyne-pearl-chain": HTMLLynePearlChainElement;
         "lyne-sbb-clock": HTMLLyneSbbClockElement;
@@ -1367,6 +1402,10 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * Emits whenever the native button click event triggers.
+         */
+        "onLyne-button_click"?: (event: CustomEvent<any>) => void;
+        /**
           * Size variant, either large or small.
          */
         "size"?: InterfaceButtonAttributes['size'];
@@ -1472,6 +1511,16 @@ declare namespace LocalJSX {
           * Footer appearance
          */
         "appearance"?: InterfaceFooterAttributes['appearance'];
+    }
+    interface LyneGrid {
+        /**
+          * Section appearance
+         */
+        "appearance"?: InterfaceGridAttributes['appearance'];
+        /**
+          * Grid variant
+         */
+        "variant"?: InterfaceGridAttributes['variant'];
     }
     interface LyneImage {
         /**
@@ -1673,6 +1722,13 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLyneLinkListAttributes['variant'];
     }
+    interface LyneOverlay {
+        "onDidDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onDidPresent"?: (event: CustomEvent<void>) => void;
+        "onWillDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onWillPresent"?: (event: CustomEvent<void>) => void;
+        "overlayIndex"?: number;
+    }
     interface LynePanel {
         /**
           * The text to use as button text
@@ -1768,6 +1824,10 @@ declare namespace LocalJSX {
           * Render stack as placeholder
          */
         "isPlaceholder"?: boolean;
+        /**
+          * Render horizontal stack as non-wrapping stack
+         */
+        "noWrap"?: boolean;
         /**
           * Space before the stack
          */
@@ -2113,12 +2173,14 @@ declare namespace LocalJSX {
         "lyne-card-badge": LyneCardBadge;
         "lyne-card-product": LyneCardProduct;
         "lyne-footer": LyneFooter;
+        "lyne-grid": LyneGrid;
         "lyne-image": LyneImage;
         "lyne-input-error": LyneInputError;
         "lyne-journey-header": LyneJourneyHeader;
         "lyne-link": LyneLink;
         "lyne-link-button": LyneLinkButton;
         "lyne-link-list": LyneLinkList;
+        "lyne-overlay": LyneOverlay;
         "lyne-panel": LynePanel;
         "lyne-pearl-chain": LynePearlChain;
         "lyne-sbb-clock": LyneSbbClock;
@@ -2164,12 +2226,14 @@ declare module "@stencil/core" {
             "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
             "lyne-card-product": LocalJSX.LyneCardProduct & JSXBase.HTMLAttributes<HTMLLyneCardProductElement>;
             "lyne-footer": LocalJSX.LyneFooter & JSXBase.HTMLAttributes<HTMLLyneFooterElement>;
+            "lyne-grid": LocalJSX.LyneGrid & JSXBase.HTMLAttributes<HTMLLyneGridElement>;
             "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
             "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
             "lyne-journey-header": LocalJSX.LyneJourneyHeader & JSXBase.HTMLAttributes<HTMLLyneJourneyHeaderElement>;
             "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
             "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
             "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
+            "lyne-overlay": LocalJSX.LyneOverlay & JSXBase.HTMLAttributes<HTMLLyneOverlayElement>;
             "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
             "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
             "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
