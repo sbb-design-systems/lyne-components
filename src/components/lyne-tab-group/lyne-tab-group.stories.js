@@ -273,9 +273,6 @@ export default {
       </div>
     )
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform']
-  },
   parameters: {
     actions: {
       handles: ['lyne-tab-group_tab-change']
