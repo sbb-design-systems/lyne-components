@@ -53,9 +53,18 @@
   ::slotted(h3:focus-visible),
   ::slotted(h4:focus-visible),
   ::slotted(h5:focus-visible),
-  ::slotted(h6:focus-visible) {
+  ::slotted(h6:focus-visible),
+  ::slotted(h1[active]:focus-visible:hover),
+  ::slotted(h2[active]:focus-visible:hover),
+  ::slotted(h3[active]:focus-visible:hover),
+  ::slotted(h4[active]:focus-visible:hover),
+  ::slotted(h5[active]:focus-visible:hover),
+  ::slotted(h6[active]:focus-visible:hover) {
     outline: pxToRem(var(--border-width-1x)) solid var(--color-black-default);
-    outline-offset: pxToRem(var(--border-width-2x));
+    outline-offset: calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-2x)));
+    -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
   }
 
   ::slotted(h1:active),
@@ -64,7 +73,9 @@
   ::slotted(h4:active),
   ::slotted(h5:active),
   ::slotted(h6:active) {
-    border-color: var(--color-black-default);
+    -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
     background-color: transparent;
   }
 
@@ -121,7 +132,7 @@
   @include text-xs--regular;
   color: var(--color-iron-default);
   margin-top: pxToRem(var(--spacing-responsive-m));
-  transition: height var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+  transition: height var(--animation-duration-4x) var(--animation-easing);
   ::slotted(div) {
     opacity: 0;
     visibility: hidden;
@@ -131,7 +142,7 @@
     opacity: 1;
     visibility: visible;
     height: fit-content;
-    transition: opacity var(--animation-form-element-state-duration) var(--animation-form-element-state-duration) var(--animation-form-element-state-easing),
-                visibility var(--animation-form-element-state-duration) var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+    transition: opacity var(--animation-duration-4x) var(--animation-duration-4x) var(--animation-easing),
+                visibility var(--animation-duration-4x) var(--animation-duration-4x) var(--animation-easing);
   }
 }
