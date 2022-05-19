@@ -1,4 +1,5 @@
 import { h } from 'jsx-dom';
+import events from './lyne-tab-group.events.ts';
 import readme from './readme.md';
 
 const Template = (args) => (
@@ -275,7 +276,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['lyne-tab-group_tab-change']
+      handles: [events.selectedTabChanged]
     },
     backgrounds: {
       disable: true
