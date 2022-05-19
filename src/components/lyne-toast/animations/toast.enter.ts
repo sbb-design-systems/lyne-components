@@ -30,6 +30,7 @@ export const toastEnterAnimation = (baseEl: HTMLElement, position: string): Inte
     default:
       wrapperEl.style.bottom = bottom;
       wrapperAnimation.fromTo('opacity', 0.01, 1);
+      wrapperAnimation.duration(750);
       break;
   }
 

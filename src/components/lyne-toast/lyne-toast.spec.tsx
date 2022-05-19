@@ -1,28 +1,3 @@
-/*
- * FIXME needed by the getMarkupForSvg method used for icon
- *  otherwise will throw error: 'createRange' is not a fn
- */
-const createContextualFragment: (html) => Element = (html) => {
-  const div = document.createElement('div');
-
-  div.innerHTML = html;
-
-  return div.children[0];
-};
-
-Object.defineProperty(document, 'createRange', {
-  value: jest.fn()
-    .mockImplementation(() => ({
-      createContextualFragment,
-      getBoundingClientRect: jest.fn(),
-      getClientRects: jest.fn(),
-      matches: false,
-      setEnd: jest.fn(),
-      setStart: jest.fn()
-    })),
-  writable: true
-});
-
 import { h } from '@stencil/core';
 import {
   InterfaceToastAction, InterfaceToastConfiguration, InterfaceToastIcon, InterfaceToastLink, LyneToast
@@ -86,7 +61,6 @@ describe('lyne-toast', () => {
                <span class="toast-action">
                  <button class="lyne-focusable toast-button" part="button" role="cancel" tabindex="0" type="button">
                    <span>
-                     <path clip-rule="evenodd" d="m12.7071,11.9998,5.6465-5.64645-.7071-.70711L12,11.2927,6.35359,5.64624l-.70711.70711,5.64642,5.64645-5.64642,5.6464.70711.7071L12,12.7069l5.6465,5.6464.7071-.7071-5.6465-5.6464z" fill-rule="evenodd"></path>
                    </span>
                  </button>
                </span>
@@ -283,7 +257,6 @@ describe('lyne-toast', () => {
                <span class="toast-action">
                  <button class="lyne-focusable toast-button" part="button" role="cancel" tabindex="0" type="button">
                    <span>
-                     <path clip-rule="evenodd" d="m12.7071,11.9998,5.6465-5.64645-.7071-.70711L12,11.2927,6.35359,5.64624l-.70711.70711,5.64642,5.64645-5.64642,5.6464.70711.7071L12,12.7069l5.6465,5.6464.7071-.7071-5.6465-5.6464z" fill-rule="evenodd"></path>
                    </span>
                  </button>
                </span>
