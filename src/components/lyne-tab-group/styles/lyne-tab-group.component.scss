@@ -14,9 +14,9 @@
   ::slotted(h4),
   ::slotted(h5),
   ::slotted(h6) {
-    @include title;
+    margin: 0;
+    @include text-xs--bold;
     line-height: var(--typo-line-height-body-text);
-    font-size: pxToRem(var(--typo-scale-0-75x));
     display: inline-block;
     vertical-align: middle;
     padding-block: pxToRem(var(--spacing-fixed-2x));
@@ -31,10 +31,7 @@
     @include ellipsis;
     transition-duration: var(--animation-duration-4x);
     transition-timing-function: var(--animation-easing);
-    transition-property: color, box-shadow, background-color;
-    @include mq($from: medium) {
-      font-size: pxToRem(var(--typo-scale-0-875x));
-    }
+    transition-property: color, background-color, box-shadow, padding-block;
   }
 
   ::slotted(h1:hover),
@@ -45,9 +42,10 @@
   ::slotted(h6:hover) {
     cursor: pointer;
     background-color: var(--color-milk-default);
-    -webkit-box-shadow: 0 0 0 3px var(--color-milk-default), 0 0 0 4px var(--color-cloud-default);
-    -moz-box-shadow: 0 0 0 3px var(--color-milk-default), 0 0 0 4px var(--color-cloud-default);
-    box-shadow: 0 0 0 3px var(--color-milk-default), 0 0 0 4px var(--color-cloud-default);
+    -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
+    -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
+    box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
+    padding-block: calc(pxToRem(var(--spacing-fixed-2x)) - pxToRem(var(--border-width-1x))) calc(pxToRem(var(--spacing-fixed-2x)) + pxToRem(var(--border-width-1x)));
   }
 
   ::slotted(h1:focus-visible),
@@ -89,9 +87,9 @@
   ::slotted(h4[active]:hover),
   ::slotted(h5[active]:hover),
   ::slotted(h6[active]:hover) {
-    -webkit-box-shadow: 0 0 0 3px var(--color-black-default);
-    -moz-box-shadow: 0 0 0 3px var(--color-black-default);
-    box-shadow: 0 0 0 3px var(--color-black-default);
+    -webkit-box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
+    -moz-box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
+    box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
   }
 
   ::slotted(h1[disabled]),
@@ -120,8 +118,7 @@
 }
 
 .tab-content {
-  @include text;
-  font-size: pxToRem(var(--typo-scale-0-75x));
+  @include text-xs--regular;
   color: var(--color-iron-default);
   margin-top: pxToRem(var(--spacing-responsive-m));
   transition: height var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);

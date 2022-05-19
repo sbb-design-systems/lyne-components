@@ -25,9 +25,9 @@
 
 ## Events
 
-| Event               | Description                                            | Type               |
-| ------------------- | ------------------------------------------------------ | ------------------ |
-| `lyne-button_click` | Emits whenever the native button click event triggers. | `CustomEvent<any>` |
+| Event               | Description                                                                                                                | Type               |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `lyne-button_click` | Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring lyne-button. | `CustomEvent<any>` |
 
 
 ## Slots
