@@ -146,3 +146,7 @@
                 visibility var(--animation-duration-4x) var(--animation-duration-4x) var(--animation-easing);
   }
 }
+
+::slotted(lyne-tab-group) {
+  margin-top: pxToRem(var(--spacing-responsive-m));
+}

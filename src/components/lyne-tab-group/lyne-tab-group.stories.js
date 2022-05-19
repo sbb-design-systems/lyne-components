@@ -12,12 +12,12 @@ const Template = (args) => (
       ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
       <h3>Content heading</h3>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.
     </div>
 
     <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
     <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec</div>
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.</div>
 
     <h3 disabled={args.disabled}>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
     <div>I was disabled.</div>
@@ -27,6 +27,69 @@ const Template = (args) => (
       adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
       ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
     </div>
+
+  </lyne-tab-group>
+);
+
+const TemplateNested = (args) => (
+  <lyne-tab-group initial-selected-index='0' dir={args.dir}>
+
+    <h1>{args.labelTab1}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
+    <div>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+      <h3>Content heading</h3>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.
+    </div>
+
+    <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
+    <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.</div>
+
+    <h3 disabled={args.disabled}>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
+    <div>I was disabled.</div>
+
+    <h4>{args.labelTab4}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
+    <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+    </div>
+
+    <lyne-tab-group slot='tab-groups-nested' initial-selected-index='1' dir={args.dir}>
+
+      <h1>{args.labelTab1}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
+      <div>
+        Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+        adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+        ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+      </div>
+
+      <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
+      <div>
+        Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+        adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna.
+      </div>
+
+      <lyne-tab-group slot='tab-groups-nested' dir={args.dir}>
+
+        <h1>{args.labelTab1}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
+        <div>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+          adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+          ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+        </div>
+
+        <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
+        <div>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+          adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna.
+        </div>
+
+      </lyne-tab-group>
+
+    </lyne-tab-group>
 
   </lyne-tab-group>
 );
@@ -221,16 +284,19 @@ export const defaultTabs = Template.bind({});
 export const numbers = Template.bind({});
 export const icons = Template.bind({});
 export const numbersAndIcons = Template.bind({});
+export const nestedTabGroups = TemplateNested.bind({});
 
 defaultTabs.argTypes = basicArgTypes;
 numbers.argTypes = basicArgTypes;
 icons.argTypes = basicArgTypes;
 numbersAndIcons.argTypes = basicArgTypes;
+nestedTabGroups.argTypes = basicArgTypes;
 
 defaultTabs.args = JSON.parse(JSON.stringify(basicArgs));
 numbers.args = JSON.parse(JSON.stringify(basicArgs));
 icons.args = JSON.parse(JSON.stringify(basicArgs));
 numbersAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
+nestedTabGroups.args = JSON.parse(JSON.stringify(basicArgs));
 
 /* VARIANTS */
 numbers.args.amountSlotTab1 = '23';

@@ -308,6 +308,8 @@ export class LyneTabGroup {
         <div class='tab-content'>
           <slot onSlotchange={throttle(this._onContentSlotChange, 250)}></slot>
         </div>
+
+        <slot name='tab-groups-nested'></slot>
       </Host>
     );
   }
