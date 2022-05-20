@@ -168,7 +168,7 @@ export class LyneTabGroup {
         if (this._isValidTabAttribute(tab, 'active') && !tab.disabled) {
           tab.tabGroupActions.select();
         } else if (tab.active) {
-          tab.tabGroupActions.deactivate();
+          tab.setAttribute('active', '');
         }
       }
     }
@@ -308,8 +308,6 @@ export class LyneTabGroup {
         <div class='tab-content'>
           <slot onSlotchange={throttle(this._onContentSlotChange, 250)}></slot>
         </div>
-
-        <slot name='tab-groups-nested'></slot>
       </Host>
     );
   }

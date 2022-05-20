@@ -8,7 +8,7 @@ const Template = (args) => (
 export const amount = Template.bind({});
 
 amount.args = {
-  'amount': '123'
+  amount: '123'
 };
 
 amount.documentation = {

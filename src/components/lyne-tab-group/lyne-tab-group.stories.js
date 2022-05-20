@@ -52,44 +52,24 @@ const TemplateNested = (args) => (
     <div>I was disabled.</div>
 
     <h4>{args.labelTab4}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
-    <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
-      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
-    </div>
+    <div>
+      <lyne-tab-group initial-selected-index='1' dir={args.dir}>
 
-    <lyne-tab-group slot='tab-groups-nested' initial-selected-index='1' dir={args.dir}>
-
-      <h1>{args.labelTab1}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
-      <div>
-        Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-        adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
-        ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
-      </div>
-
-      <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
-      <div>
-        Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-        adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna.
-      </div>
-
-      <lyne-tab-group slot='tab-groups-nested' dir={args.dir}>
-
-        <h1>{args.labelTab1}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
+        <h1>Nested tab</h1>
         <div>
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
           adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
           ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
         </div>
 
-        <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
+        <h2>Nested tab</h2>
         <div>
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
           adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna.
         </div>
 
       </lyne-tab-group>
-
-    </lyne-tab-group>
+    </div>
 
   </lyne-tab-group>
 );
