@@ -1,22 +1,23 @@
 import {
   Component, ComponentInterface, Element, Event, EventEmitter, h, Host, Method, Prop
 } from '@stencil/core';
+import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
+import { AnimationBuilder } from '../../global/core/components/animations/animation-interface';
 import {
-  InterfaceToastAction, InterfaceToastConfiguration
-} from './lyne-toast.custom';
+  dismiss, eventMethod, prepareOverlay, present
+} from '../../global/core/components/overlay/overlay';
 import {
   InterfaceOverlay, InterfaceOverlayEventDetail
 } from '../../global/core/components/overlay/overlays-interface';
 import {
-  dismiss, eventMethod, prepareOverlay, present
-} from '../../global/core/components/overlay/overlay';
+  CssClassMap, getClassList
+} from '../../global/helpers/get-class-list';
+import { isRTL } from '../../global/helpers/rtl/dir';
 import { toastEnterAnimation } from './animations/toast.enter';
 import { toastLeaveAnimation } from './animations/toast.leave';
 import {
-  CssClassMap, getClassList
-} from '../../global/helpers/get-class-list';
-import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
-import { AnimationBuilder } from '../../global/core/components/animations/animation-interface';
+  InterfaceToastAction, InterfaceToastConfiguration
+} from './lyne-toast.custom';
 
 @Component({
   shadow: true,
@@ -263,20 +264,18 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
    * Handles ltr/rtl direction and sets the correct CSS class
    */
   private _getCSSClassFromPageDirection(): string {
-    const {
-      direction
-    } = window.getComputedStyle(this.el);
+    const isElRTL = isRTL(this.el);
 
     switch (this._internalConfig.horizontalPosition) {
       case 'start': {
-        return direction === 'ltr'
-          ? 'left'
-          : 'right';
-      }
-      case 'end': {
-        return direction === 'ltr'
+        return isElRTL
           ? 'right'
           : 'left';
+      }
+      case 'end': {
+        return isElRTL
+          ? 'left'
+          : 'right';
       }
       default: {
         return this._internalConfig.horizontalPosition;
