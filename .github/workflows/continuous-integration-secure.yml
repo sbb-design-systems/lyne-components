@@ -15,6 +15,7 @@ jobs:
       ${{ github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success' }}
     steps:
+      - uses: actions/checkout@v3
       - name: Download artifacts
         uses: ./.github/actions/download-artifacts-from-workflow
         with:
