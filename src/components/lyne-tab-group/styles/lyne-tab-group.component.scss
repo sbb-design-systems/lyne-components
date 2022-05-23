@@ -34,39 +34,6 @@
     transition-property: color, background-color, box-shadow, padding-block;
   }
 
-  ::slotted(h1:hover),
-  ::slotted(h2:hover),
-  ::slotted(h3:hover),
-  ::slotted(h4:hover),
-  ::slotted(h5:hover),
-  ::slotted(h6:hover) {
-    cursor: pointer;
-    background-color: var(--color-milk-default);
-    -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
-    -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
-    box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
-    padding-block: calc(pxToRem(var(--spacing-fixed-2x)) - pxToRem(var(--border-width-1x))) calc(pxToRem(var(--spacing-fixed-2x)) + pxToRem(var(--border-width-1x)));
-  }
-
-  ::slotted(h1:focus-visible),
-  ::slotted(h2:focus-visible),
-  ::slotted(h3:focus-visible),
-  ::slotted(h4:focus-visible),
-  ::slotted(h5:focus-visible),
-  ::slotted(h6:focus-visible),
-  ::slotted(h1[active]:focus-visible:hover),
-  ::slotted(h2[active]:focus-visible:hover),
-  ::slotted(h3[active]:focus-visible:hover),
-  ::slotted(h4[active]:focus-visible:hover),
-  ::slotted(h5[active]:focus-visible:hover),
-  ::slotted(h6[active]:focus-visible:hover) {
-    outline: pxToRem(var(--border-width-1x)) solid var(--color-black-default);
-    outline-offset: calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-2x)));
-    -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
-    -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
-    box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
-  }
-
   ::slotted(h1:active),
   ::slotted(h2:active),
   ::slotted(h3:active),
@@ -77,6 +44,19 @@
     -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
     box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
     background-color: transparent;
+  }
+
+  ::slotted(h1:focus-visible),
+  ::slotted(h2:focus-visible),
+  ::slotted(h3:focus-visible),
+  ::slotted(h4:focus-visible),
+  ::slotted(h5:focus-visible),
+  ::slotted(h6:focus-visible) {
+    outline: pxToRem(var(--border-width-1x)) solid var(--color-black-default);
+    outline-offset: calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-2x)));
+    -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+    box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
   }
 
   ::slotted(h1[active]),
@@ -90,17 +70,6 @@
     box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
     background-color: var(--color-black-default);
     color: var(--color-white-default);
-  }
-
-  ::slotted(h1[active]:hover),
-  ::slotted(h2[active]:hover),
-  ::slotted(h3[active]:hover),
-  ::slotted(h4[active]:hover),
-  ::slotted(h5[active]:hover),
-  ::slotted(h6[active]:hover) {
-    -webkit-box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
-    -moz-box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
-    box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
   }
 
   ::slotted(h1[disabled]),
@@ -124,6 +93,48 @@
       inset: 50% pxToRem(var(--spacing-fixed-5x));
       transform: translateY(-50%);
       border-bottom: pxToRem(var(--border-width-2x)) solid var(--color-platinum-default);
+    }
+  }
+
+  @media (hover: hover) { /* when supported */
+    ::slotted(h1:hover),
+    ::slotted(h2:hover),
+    ::slotted(h3:hover),
+    ::slotted(h4:hover),
+    ::slotted(h5:hover),
+    ::slotted(h6:hover) {
+      cursor: pointer;
+      background-color: var(--color-milk-default);
+      -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
+      -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
+      box-shadow: 0 0 0 pxToRem(var(--border-width-2x)) var(--color-milk-default), 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-cloud-default);
+      padding-block: calc(pxToRem(var(--spacing-fixed-2x)) - pxToRem(var(--border-width-1x))) calc(pxToRem(var(--spacing-fixed-2x)) + pxToRem(var(--border-width-1x)));
+    }
+
+    ::slotted(h1[active]:hover),
+    ::slotted(h2[active]:hover),
+    ::slotted(h3[active]:hover),
+    ::slotted(h4[active]:hover),
+    ::slotted(h5[active]:hover),
+    ::slotted(h6[active]:hover) {
+      -webkit-box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
+      -moz-box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
+      box-shadow: 0 0 0 calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-1x))) var(--color-black-default);
+      background-color: var(--color-black-default);
+      color: var(--color-white-default);
+    }
+
+    ::slotted(h1[active]:focus-visible:hover),
+    ::slotted(h2[active]:focus-visible:hover),
+    ::slotted(h3[active]:focus-visible:hover),
+    ::slotted(h4[active]:focus-visible:hover),
+    ::slotted(h5[active]:focus-visible:hover),
+    ::slotted(h6[active]:focus-visible:hover) {
+      outline: pxToRem(var(--border-width-1x)) solid var(--color-black-default);
+      outline-offset: calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-2x)));
+      -webkit-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+      -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
+      box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-black-default);
     }
   }
 }
