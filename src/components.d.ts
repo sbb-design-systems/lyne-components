@@ -916,12 +916,23 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
     interface LyneToast {
+        /**
+          * Exposed toast configuration.
+         */
         "config": InterfaceToastConfiguration;
+        /**
+          * Dismiss the toast overlay after it has been presented.
+          * @param data Any data to emit in the dismiss events.
+          * @param role The role of the element that is dismissing the toast. Example: ``"cancel"` for close icon `"timeout"` for auto-close
+         */
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
         /**
           * Animation to use when the toast is presented.
          */
         "enterAnimation"?: AnimationBuilder;
+        /**
+          * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+         */
         "keyboardClose": boolean;
         /**
           * Animation to use when the toast is dismissed.
@@ -936,6 +947,9 @@ export namespace Components {
          */
         "onWillDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
         "overlayIndex": number;
+        /**
+          * Present the toast overlay after it has been created.
+         */
         "present": () => Promise<void>;
     }
 }
@@ -2147,19 +2161,37 @@ declare namespace LocalJSX {
         "visuallyHidden"?: false;
     }
     interface LyneToast {
+        /**
+          * Exposed toast configuration.
+         */
         "config"?: InterfaceToastConfiguration;
         /**
           * Animation to use when the toast is presented.
          */
         "enterAnimation"?: AnimationBuilder;
+        /**
+          * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+         */
         "keyboardClose"?: boolean;
         /**
           * Animation to use when the toast is dismissed.
          */
         "leaveAnimation"?: AnimationBuilder;
+        /**
+          * Emitted after the toast has dismissed.
+         */
         "onLyne-toast_did-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        /**
+          * Emitted after the toast has presented.
+         */
         "onLyne-toast_did-present"?: (event: CustomEvent<void>) => void;
+        /**
+          * Emitted before the toast has dismissed.
+         */
         "onLyne-toast_will-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        /**
+          * Emitted before the toast has presented.
+         */
         "onLyne-toast_will-present"?: (event: CustomEvent<void>) => void;
         "overlayIndex"?: number;
     }

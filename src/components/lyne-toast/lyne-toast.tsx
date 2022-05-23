@@ -259,6 +259,31 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     }
   }
 
+  /**
+   * Handles ltr/rtl direction and sets the correct CSS class
+   */
+  private _getCSSClassFromPageDirection(): string {
+    const {
+      direction
+    } = window.getComputedStyle(this.el);
+
+    switch (this._internalConfig.horizontalPosition) {
+      case 'start': {
+        return direction === 'ltr'
+          ? 'left'
+          : 'right';
+      }
+      case 'end': {
+        return direction === 'ltr'
+          ? 'right'
+          : 'left';
+      }
+      default: {
+        return this._internalConfig.horizontalPosition;
+      }
+    }
+  }
+
   public render(): JSX.Element {
     let actionContent: JSX.Element;
     let role = 'status';
@@ -279,7 +304,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     return (
       <Host aria-live={this._internalConfig.politeness} aria-atomic='true' role={role} tabindex='-1' class='overlay-hidden'>
         <div class='toast-wrapper'>
-          <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._internalConfig.horizontalPosition}`}>
+          <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._getCSSClassFromPageDirection()}`}>
             {iconTemplate}
             <span class='toast-text'>
               {this._internalConfig.message}
