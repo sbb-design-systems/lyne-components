@@ -8,12 +8,12 @@ coverage/
 *~
 *.sw[mnpcod]
 *.log
-*.lock
 *.tmp
 *.tmp.*
 log.txt
 *.sublime-project
 *.sublime-workspace
+package-lock.json
 
 .stencil/
 .idea/
