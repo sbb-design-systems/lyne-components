@@ -37,3 +37,8 @@ export interface InterfaceHTMLLyneOverlayElement extends InterfaceHTMLStencilEle
   dismiss(data?: any, role?: string): Promise<boolean>;
 }
 
+export interface InterfaceOverlayController {
+  create(opts?: any): Promise<HTMLElement>;
+  dismiss(data?: any, role?: string, id?: string): Promise<boolean>;
+  getTop(): InterfaceHTMLLyneOverlayElement;
+}

@@ -1,10 +1,11 @@
 import {
-  InterfaceHTMLLyneOverlayElement, InterfaceOverlay
+  InterfaceHTMLLyneOverlayElement, InterfaceOverlay, InterfaceOverlayController
 } from './overlays-interface';
 import {
   AnimationBuilder, InterfaceAnimation
 } from '../animations/animation-interface';
 import { componentOnReady } from '../../../helpers/request-animation-frame';
+import { InterfaceToastConfigurationController } from '../../../../components/lyne-toast/lyne-toast.custom';
 
 let lastId = 0;
 
@@ -300,7 +301,7 @@ export const prepareOverlay = <T extends InterfaceHTMLLyneOverlayElement>(el: T)
   }
 };
 
-export const createOverlay = <T extends InterfaceHTMLLyneOverlayElement>(tagName: string, opts: Record<string, unknown> | undefined): Promise<T> => {
+export const createOverlay = <T extends InterfaceHTMLLyneOverlayElement>(tagName: string, opts: object | undefined): Promise<T> => {
 
   if (typeof window !== 'undefined' && typeof window.customElements !== 'undefined') {
     return window.customElements.whenDefined(tagName)
@@ -559,3 +560,17 @@ export const eventMethod = <T, >(element: HTMLElement, eventName: string): Promi
   return promise;
 };
 
+const createController = <Opts extends object, T extends InterfaceHTMLLyneOverlayElement>(tagName: string): InterfaceOverlayController => ({
+  create(options: Opts): Promise<T> {
+    return createOverlay<T>(tagName, options);
+  },
+  dismiss(data?: any, role?: string, id?: string): Promise<boolean> {
+    return dismissOverlay(document, data, role, tagName, id);
+  },
+  getTop(): InterfaceHTMLLyneOverlayElement {
+    return getOverlay(document, tagName);
+  }
+});
+
+// eslint-disable-next-line no-inline-comments
+export const toastController = /* @__PURE__*/ createController<InterfaceToastConfigurationController, HTMLLyneToastElement>('lyne-toast');

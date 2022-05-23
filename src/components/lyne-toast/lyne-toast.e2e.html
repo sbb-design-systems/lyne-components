@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Toast E2E</title>
+  <script nomodule src="../../../dist/lyne-components/lyne-components.js"></script>
+  <script type="module" src="../../../dist/lyne-components/lyne-components.esm.js"></script>
+</head>
+<script type="module">
+  import { toastController } from '../../../dist/lyne-components/index.esm.js';
+  window.toastController = toastController;
+</script>
+<body>
+  <button type='button' id="create-and-present-toast" onclick="createAndPresentToast()">Create and Present Toast</button>
+  <script>
+    async function createAndPresentToast() {
+      const toast = await toastController.create({
+        config: {
+          message: 'This is a toast!'
+        }
+      });
+      await toast.present();
+    }
+  </script>
+</body>
+</html>

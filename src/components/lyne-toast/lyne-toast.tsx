@@ -1,7 +1,9 @@
 import {
   Component, ComponentInterface, Element, Event, EventEmitter, h, Host, Method, Prop
 } from '@stencil/core';
-import { InterfaceLyneToastAttributes } from './lyne-toast.custom';
+import {
+  InterfaceToastAction, InterfaceToastConfiguration
+} from './lyne-toast.custom';
 import {
   InterfaceOverlay, InterfaceOverlayEventDetail
 } from '../../global/core/components/overlay/overlays-interface';
@@ -14,42 +16,7 @@ import {
   CssClassMap, getClassList
 } from '../../global/helpers/get-class-list';
 import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
-
-type InterfaceToastType = 'link' | 'action' | 'icon';
-
-interface InterfaceToastCommonAction {
-  type: InterfaceToastType;
-  role: 'cancel' | string;
-  cssClass?: string | string[];
-}
-
-export interface InterfaceToastLink extends InterfaceToastCommonAction {
-  type: 'link';
-  label: string;
-  href: string;
-}
-
-export interface InterfaceToastAction extends InterfaceToastCommonAction {
-  type: 'action';
-  label: string;
-  handler: () => void;
-}
-
-export interface InterfaceToastIcon extends InterfaceToastCommonAction {
-  type: 'icon';
-  role: 'cancel';
-}
-
-export interface InterfaceToastConfiguration {
-  message: string;
-  timeout?: number;
-  icon?: string | HTMLElement;
-  iconTemplate?: string;
-  action?: InterfaceToastLink | InterfaceToastAction | InterfaceToastIcon;
-  verticalPosition?: InterfaceLyneToastAttributes['verticalPosition'];
-  horizontalPosition?: InterfaceLyneToastAttributes['horizontalPosition'];
-  politeness?: 'off' | 'assertive' | 'polite';
-}
+import { AnimationBuilder } from '../../global/core/components/animations/animation-interface';
 
 @Component({
   shadow: true,
@@ -70,6 +37,16 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
   @Prop() public keyboardClose = false;
 
   @Prop() public config: InterfaceToastConfiguration;
+
+  /**
+   * Animation to use when the toast is presented.
+   */
+  @Prop() public enterAnimation?: AnimationBuilder;
+
+  /**
+   * Animation to use when the toast is dismissed.
+   */
+  @Prop() public leaveAnimation?: AnimationBuilder;
 
   @Element() public el!: HTMLLyneToastElement;
 

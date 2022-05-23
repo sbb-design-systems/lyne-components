@@ -34,7 +34,8 @@ import { InterfaceLyneTimetableTransportationNumberAttributes } from "./componen
 import { InterfaceLyneTimetableTransportationTimeAttributes } from "./components/lyne-timetable-transportation-time/lyne-timetable-transportation-time.custom.d";
 import { InterfaceLyneTimetableTransportationWalkAttributes } from "./components/lyne-timetable-transportation-walk/lyne-timetable-transportation-walk.custom.d";
 import { InterfaceLyneTimetableTravelHintsAttributes } from "./components/lyne-timetable-travel-hints/lyne-timetable-travel-hints.custom.d";
-import { InterfaceToastConfiguration } from "./components/lyne-toast/lyne-toast";
+import { InterfaceToastConfiguration } from "./components/lyne-toast/lyne-toast.custom";
+import { AnimationBuilder } from "./global/core/components/animations/animation-interface";
 export namespace Components {
     interface LyneAccordion {
         /**
@@ -917,7 +918,15 @@ export namespace Components {
     interface LyneToast {
         "config": InterfaceToastConfiguration;
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        /**
+          * Animation to use when the toast is presented.
+         */
+        "enterAnimation"?: AnimationBuilder;
         "keyboardClose": boolean;
+        /**
+          * Animation to use when the toast is dismissed.
+         */
+        "leaveAnimation"?: AnimationBuilder;
         /**
           * Returns a promise that resolves when the toast did dismiss.
          */
@@ -2139,7 +2148,15 @@ declare namespace LocalJSX {
     }
     interface LyneToast {
         "config"?: InterfaceToastConfiguration;
+        /**
+          * Animation to use when the toast is presented.
+         */
+        "enterAnimation"?: AnimationBuilder;
         "keyboardClose"?: boolean;
+        /**
+          * Animation to use when the toast is dismissed.
+         */
+        "leaveAnimation"?: AnimationBuilder;
         "onLyne-toast_did-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
         "onLyne-toast_did-present"?: (event: CustomEvent<void>) => void;
         "onLyne-toast_will-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;

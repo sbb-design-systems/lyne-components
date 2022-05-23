@@ -1,8 +1,9 @@
 import { h } from '@stencil/core';
-import {
-  InterfaceToastAction, InterfaceToastConfiguration, InterfaceToastIcon, InterfaceToastLink, LyneToast
-} from './lyne-toast';
+import { LyneToast } from './lyne-toast';
 import { newSpecPage } from '@stencil/core/testing';
+import {
+  InterfaceToastAction, InterfaceToastConfiguration, InterfaceToastIcon, InterfaceToastLink
+} from './lyne-toast.custom';
 
 describe('lyne-toast', () => {
 
