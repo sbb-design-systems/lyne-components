@@ -402,4 +402,143 @@ describe('lyne-toast', () => {
      `);
   });
 
+  it('renders the toast and present it', async () => {
+    const config: InterfaceToastConfiguration = {
+      message: 'Message',
+      timeout: 500
+    };
+    const page = await newSpecPage({
+      components: [LyneToast],
+      template: () => (<lyne-toast config={config}></lyne-toast>)
+    });
+
+    expect(page.root)
+      .toEqualHtml(`
+       <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-11" role="status" tabindex="-1">
+          <mock:shadow-root>
+            <div class="toast-wrapper">
+              <div class="toast toast-bottom toast-center">
+                <span class="toast-text">
+                  Message
+                </span>
+              </div>
+            </div>
+           </mock:shadow-root>
+       </lyne-toast>
+     `);
+
+    const toast = page.doc.querySelector('lyne-toast');
+
+    expect(toast).not.toBeNull();
+    expect(toast.config.message)
+      .toEqual('Message');
+
+    const returnOnDismiss = {
+      data: undefined,
+      role: 'timeout'
+    };
+
+    await toast.present();
+    await expect(toast.onDidDismiss()).resolves.toStrictEqual(returnOnDismiss);
+
+  });
+
+  it('renders the toast and present and dismiss it programmatically', async () => {
+    const config: InterfaceToastConfiguration = {
+      message: 'Message',
+      timeout: 5000
+    };
+    const page = await newSpecPage({
+      components: [LyneToast],
+      template: () => (<lyne-toast config={config}></lyne-toast>)
+    });
+
+    expect(page.root)
+      .toEqualHtml(`
+       <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-12" role="status" tabindex="-1">
+          <mock:shadow-root>
+            <div class="toast-wrapper">
+              <div class="toast toast-bottom toast-center">
+                <span class="toast-text">
+                  Message
+                </span>
+              </div>
+            </div>
+           </mock:shadow-root>
+       </lyne-toast>
+     `);
+
+    const toast = page.doc.querySelector('lyne-toast');
+
+    expect(toast).not.toBeNull();
+    expect(toast.config.message)
+      .toEqual('Message');
+
+    const returnOnDismiss = {
+      data: 'Data passed closing the toast',
+      role: 'Programmatically closed'
+    };
+
+    await toast.present();
+    const a = toast.onDidDismiss();
+
+    await toast.dismiss('Data passed closing the toast', 'Programmatically closed');
+    await expect(a).resolves.toStrictEqual(returnOnDismiss);
+
+  });
+
+  it('renders the toast and present and dismiss it from the close icon', async () => {
+    const action: InterfaceToastIcon = {
+      role: 'cancel',
+      type: 'icon'
+    };
+    const config: InterfaceToastConfiguration = {
+      action,
+      message: 'Message'
+    };
+    const page = await newSpecPage({
+      components: [LyneToast],
+      template: () => (<lyne-toast config={config}></lyne-toast>)
+    });
+
+    expect(page.root)
+      .toEqualHtml(`
+       <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-13" role="dialog" tabindex="-1">
+          <mock:shadow-root>
+            <div class="toast-wrapper">
+              <div class="toast toast-bottom toast-center">
+                <span class="toast-text">
+                  Message
+                </span>
+                <span class="toast-action">
+                 <button class="lyne-focusable toast-button" part="button" role="cancel" tabindex="0" type="button">
+                   <span>
+                   </span>
+                 </button>
+               </span>
+              </div>
+            </div>
+           </mock:shadow-root>
+       </lyne-toast>
+     `);
+
+    const toast = page.doc.querySelector('lyne-toast');
+
+    expect(toast).not.toBeNull();
+    expect(toast.config.message)
+      .toEqual('Message');
+
+    const returnOnDismiss = {
+      data: null,
+      role: 'cancel'
+    };
+
+    await toast.present();
+    const a = toast.onDidDismiss();
+    const toastButton = page.root.shadowRoot.querySelector('button');
+
+    toastButton.click();
+    await expect(a).resolves.toStrictEqual(returnOnDismiss);
+  });
+
 });

@@ -217,7 +217,10 @@ export class AnimationCss extends AbstractAnimation {
 
       // No need to set a timeout when animation has infinite iterations
       if (isFinite(animationIterations)) {
-        this.cssAnimationsTimerFallback = setTimeout(this._onAnimationEndFallback, animationDelay + (animationDuration * animationIterations) + AbstractAnimation._ANIMATION_END_FALLBACK_PADDING_MS);
+        this.cssAnimationsTimerFallback = setTimeout(
+          this._onAnimationEndFallback.bind(this),
+          animationDelay + (animationDuration * animationIterations) + AbstractAnimation._ANIMATION_END_FALLBACK_PADDING_MS
+        );
       }
 
       animationEnd(this.elements[0], () => {
@@ -236,7 +239,7 @@ export class AnimationCss extends AbstractAnimation {
          */
         raf(() => {
           this._clearCSSAnimationPlayState();
-          raf(this.animationFinish);
+          raf(this.animationFinish.bind(this));
         });
       });
     }
