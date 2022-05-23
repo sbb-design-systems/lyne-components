@@ -12,5 +12,5 @@ jobs:
       uses: docker://takanabe/github-actions-automate-projects:sandbox
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_PROJECT_URL: https://github.com/lyne-design-system/lyne-components/projects/1
-        GITHUB_PROJECT_COLUMN_NAME: To do
+        GITHUB_PROJECT_URL: https://github.com/lyne-design-system/lyne-components/projects/4
+        GITHUB_PROJECT_COLUMN_NAME: Funnel

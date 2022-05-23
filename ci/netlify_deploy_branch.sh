@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# this script is used in .travis.yml
+# this script is used in GitHub workflows
 
 # this script is being made executable with
 # chmod ugo+x netlify_deploy_branch.sh
