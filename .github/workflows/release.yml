@@ -31,6 +31,8 @@ jobs:
 
       - name: Create release with semantic-release
         run: yarn -s semantic-release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create versioned storybook
         run: STORYBOOK_COMPONENTS_VERSION=$(cat .version) npm run build:storybook
