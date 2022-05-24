@@ -1368,7 +1368,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Emits whenever the native button click event triggers.
+          * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring lyne-button.
          */
         "onLyne-button_click"?: (event: CustomEvent<any>) => void;
         /**
