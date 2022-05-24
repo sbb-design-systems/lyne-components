@@ -1,3 +1,17 @@
+# [10.8.0](https://github.com/lyne-design-system/lyne-components/compare/v10.7.1...v10.8.0) (2022-05-24)
+
+
+### Features
+
+* **button:** introduce transparent button and update button styles ([#1089](https://github.com/lyne-design-system/lyne-components/issues/1089)) ([92f4c1d](https://github.com/lyne-design-system/lyne-components/commit/92f4c1d8d3df82116ea947312dfdf5537e64fc5d))
+
+## [10.7.1](https://github.com/lyne-design-system/lyne-components/compare/v10.7.0...v10.7.1) (2022-05-24)
+
+
+### Bug Fixes
+
+* github project url ([6b99123](https://github.com/lyne-design-system/lyne-components/commit/6b991235a69fdfcf5bc19be96990da0a185f9e96))
+
 # [10.7.0](https://github.com/lyne-design-system/lyne-components/compare/v10.6.0...v10.7.0) (2022-05-23)
 
 

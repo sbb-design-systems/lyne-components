@@ -23,13 +23,13 @@ import { InterfaceButtonAttributes } from './lyne-button.custom.d';
 export class LyneButton {
 
   /** Label text to show on the button */
-  @Prop() public label? = 'Default button text';
+  @Prop() public label? = '';
 
   /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
 
-  /** Size variant, either large or small. */
-  @Prop() public size?: InterfaceButtonAttributes['size'] = 'large';
+  /** Size variant, either l or m. */
+  @Prop() public size?: InterfaceButtonAttributes['size'] = 'l';
 
   /**
    * Set this property to true if you want only a visual represenation of a
@@ -87,7 +87,7 @@ export class LyneButton {
       return <p>Config error: you must provide an icon description</p>;
     }
 
-    const sizeClass = `button--${this.size}`;
+    const sizeClass = `button--size-${this.size}`;
     const variantClass = `button--${this.variant}`;
     const iconClass = hasNoLabel
       ? 'button--icon-only'
