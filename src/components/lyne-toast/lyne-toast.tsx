@@ -13,6 +13,7 @@ import {
   CssClassMap, getClassList
 } from '../../global/helpers/get-class-list';
 import { isRTL } from '../../global/helpers/rtl/dir';
+import { StringSanitizer } from '../../global/helpers/sanitization/string-sanitizer';
 import { toastEnterAnimation } from './animations/toast.enter';
 import { toastLeaveAnimation } from './animations/toast.leave';
 import {
@@ -305,9 +306,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
         <div class='toast-wrapper'>
           <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._getCSSClassFromPageDirection()}`}>
             {iconTemplate}
-            <span class='toast-text'>
-              {this._internalConfig.message}
-            </span>
+            <span class='toast-text' innerHTML={StringSanitizer.sanitizeDOMString(this._internalConfig.message)}/>
             {
               actionContent &&
               <span class='toast-action'>
