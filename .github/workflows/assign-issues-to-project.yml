@@ -11,6 +11,6 @@ jobs:
     - name: add-new-issues-to-organization-based-project-column
       uses: docker://takanabe/github-actions-automate-projects:v0.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
         GITHUB_PROJECT_URL: https://github.com/orgs/lyne-design-system/projects/4
         GITHUB_PROJECT_COLUMN_NAME: Funnel

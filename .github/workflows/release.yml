@@ -1,6 +1,6 @@
 name: Release
 # Secure execution of continuous integration jobs
-# which are performed upon completion of the 
+# which are performed upon completion of the
 # "Continuous Integration" workflow
 # https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
 on:
@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 14
+      - name: Yarn Install
+        uses: ./.github/actions/yarn-install
       - name: Download artifacts
         uses: ./.github/actions/download-artifacts-from-workflow
         with:
@@ -45,7 +47,7 @@ jobs:
           storybookBuildDir: storybook-static
           autoAcceptChanges: true
           exitZeroOnChanges: true
-          
+
       - name: Install netlify CLI
         run: yarn global add netlify-cli
       - name: Publish to netlify
@@ -59,6 +61,6 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_SITE_ID_DEPLOYMENTS: ${{ secrets.NETLIFY_SITE_ID_DEPLOYMENTS }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          
+
 # TODO: Trigger lyne-documentation build (node ./ci/trigger_lyne_documentation.js)
 # TODO: Trigger lyne-examples build (node ./ci/trigger_lyne_examples.js)
