@@ -39,14 +39,16 @@ const Template = (args) => (
 );
 const FixedWidthTemplate = (args) => (
   <div>
-    <lyne-button
-      {...args}
-      style={{
-        width: '200px'
-      }}
-    >
-      {getMarkupForSvg(args.iconSlot)}
-    </lyne-button>
+    <p>
+      <lyne-button
+        {...args}
+        style={{
+          width: '200px'
+        }}
+      >
+        {getMarkupForSvg(args.iconSlot)}
+      </lyne-button>
+    </p>
     <p>
       <lyne-button
         {...args}
