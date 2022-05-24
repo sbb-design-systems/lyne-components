@@ -18,9 +18,7 @@
 }
 
 .teaser-hero__panel {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  @include absoluteCenterY;
 }
 
 .teaser-hero__link-info-text {
