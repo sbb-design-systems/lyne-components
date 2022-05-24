@@ -8,13 +8,13 @@ inputs:
 
 runs:
   using: "composite"
-  steps:  
+  steps:
       - name: 'Download artifacts'
         uses: actions/github-script@v6
         with:
           script: |
             const fs = require('fs');
-            const artifacts = '${{ inputs.artifacts }}'.split(/[, ]+/);
+            const artifacts = '${{ inputs.artifacts }}'.trim().split(/[, ]+/);
             console.log(`Attempting to download artifacts ${artifacts.join(', ')}`);
             const workflowArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
@@ -23,7 +23,7 @@ runs:
             });
             for (const artifact of artifacts) {
               const matchArtifact = workflowArtifacts.data.artifacts
-                .find((artifact) => artifact.name == artifact);
+                .find((a) => a.name == artifact);
               if (matchArtifact) {
                 console.log(`Found artifact ${artifact}`);
                 const download = await github.actions.downloadArtifact({

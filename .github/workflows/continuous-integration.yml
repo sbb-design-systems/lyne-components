@@ -33,7 +33,7 @@ jobs:
       run: yarn test:prod
     - name: Store coverage
       if: github.event_name == 'pull_request'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: coverage
         path: coverage/
@@ -44,7 +44,7 @@ jobs:
         echo ${{ github.event.number }} > ./pr/NR
     - name: Store PR number
       if: github.event_name == 'pull_request'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: pr
         path: pr/
@@ -63,7 +63,7 @@ jobs:
       run: yarn build
     - name: Store stencil artifacts
       if: github.ref == 'refs/heads/master'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: stencil
         path: |
@@ -71,7 +71,7 @@ jobs:
           hydrate/
           loader/
     - name: Store storybook artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: storybook
         path: storybook-static/
