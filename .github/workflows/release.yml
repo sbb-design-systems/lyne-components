@@ -16,9 +16,9 @@ jobs:
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.conclusion == 'success' &&
       (
-        startsWith(github.event.workflow_run.head_commit, 'feat') ||
-        startsWith(github.event.workflow_run.head_commit, 'fix') ||
-        startsWith(github.event.workflow_run.head_commit, 'refactor')
+        startsWith(github.event.workflow_run.head_commit.message, 'feat') ||
+        startsWith(github.event.workflow_run.head_commit.message, 'fix') ||
+        startsWith(github.event.workflow_run.head_commit.message, 'refactor')
       )
     steps:
       - uses: actions/checkout@v3
