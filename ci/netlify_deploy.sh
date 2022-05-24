@@ -6,7 +6,7 @@
 # chmod ugo+x netlify_deploy.sh
 
 # set flags for execution of this file:
-# -e: make sure command returns non-zero exit code as soon as somehting fails
+# -e: make sure command returns non-zero exit code as soon as something fails
 set -e
 
 # version file name written by .releaserc
