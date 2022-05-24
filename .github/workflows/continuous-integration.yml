@@ -1,0 +1,140 @@
+name: Continuous Integration
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 14
+    - name: Yarn Install
+      uses: ./.github/actions/yarn-install
+
+    - name: Run eslint
+      run: yarn lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 14
+    - name: Yarn Install
+      uses: ./.github/actions/yarn-install
+
+    - name: Run tests
+      run: yarn test:prod
+    - name: Store coverage
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage
+        path: coverage/
+    - name: Save PR number
+      if: github.event_name == 'pull_request'
+      run: |
+        mkdir -p ./pr
+        echo ${{ github.event.number }} > ./pr/NR
+    - name: Store PR number
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v3
+      with:
+        name: pr
+        path: pr/
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 14
+    - name: Yarn Install
+      uses: ./.github/actions/yarn-install
+
+    - name: Run build
+      run: yarn build
+    - name: Store stencil artifacts
+      if: github.ref == 'refs/heads/master'
+      uses: actions/upload-artifact@v3
+      with:
+        name: stencil
+        path: |
+          dist/
+          hydrate/
+          loader/
+    - name: Store storybook artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: storybook
+        path: storybook-static/
+
+  chromatic:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [build, lint, test]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v3
+        with:
+          name: storybook
+          path: storybook-static/
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+          storybookBuildDir: storybook-static
+          exitOnceUploaded: true
+          exitZeroOnChanges: true
+
+  netlify:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    needs: [build, lint, test]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - uses: actions/download-artifact@v3
+        with:
+          name: storybook
+          path: storybook-static/
+      - name: Install netlify CLI
+        run: yarn global add netlify-cli
+      - name: Publish to netlify
+        run: ./ci/netlify_deploy_branch.sh $GITHUB_REF_NAME
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+  netlify-deployments:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [build, lint, test]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Yarn Install
+        uses: ./.github/actions/yarn-install
+      - name: Install netlify CLI
+        run: yarn global add netlify-cli
+      - name: Publish deployments to netlify
+        run: ./ci/deployments.sh
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_ID_DEPLOYMENTS: ${{ secrets.NETLIFY_SITE_ID_DEPLOYMENTS }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+# TODO: Trigger lyne-documentation build (node ./ci/trigger_lyne_documentation.js)

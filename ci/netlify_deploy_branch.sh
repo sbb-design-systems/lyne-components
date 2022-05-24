@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# this script is used in .travis.yml
+# this script is used in GitHub workflows
 
 # this script is being made executable with
 # chmod ugo+x netlify_deploy_branch.sh
 
 # set flags for execution of this file:
-# -e: make sure command returns non-zero exit code as soon as somehting fails
+# -e: make sure command returns non-zero exit code as soon as something fails
 set -e
 
 # Deploy Storybook on Netlify

@@ -143,10 +143,8 @@
 // Icon
 // ----------------------------------------------
 .input__icon {
-  position: absolute;
-  inset-block-start: 50%;
+  @include absoluteCenterY;
   inset-inline-start: pxToRem(var(--spacing-fixed-3x));
-  transform: translateY(-50%);
   height: pxToRem(var(--icon-size));
   overflow: hidden;
   fill: currentColor;

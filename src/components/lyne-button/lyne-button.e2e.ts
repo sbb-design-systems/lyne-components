@@ -1,20 +1,18 @@
 import events from './lyne-button.events';
-import { newE2EPage } from '@stencil/core/testing';
+import {
+  E2EElement, E2EPage, newE2EPage
+} from '@stencil/core/testing';
 
 describe('lyne-button', () => {
-  let element,
-    page;
+  let element: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-button></lyne-button>');
+    await page.setContent('<lyne-button label="I am a button"></lyne-button>');
     element = await page.find('lyne-button');
   });
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<lyne-button></lyne-button>');
-
     element = await page.find('lyne-button');
     expect(element)
       .toHaveClass('hydrated');
@@ -68,5 +66,4 @@ describe('lyne-button', () => {
         .toHaveReceivedEventDetail(buttonId);
     });
   });
-
 });

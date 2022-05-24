@@ -39,10 +39,10 @@ export class LynePanel {
           class='panel__button'
           label={this.buttonText}
           variant='secondary-negative'
-          size='small'
+          size='m'
           event-id={this.eventId}
           visual-button-only
-        ></lyne-button>
+        />
 
       </div>
     );

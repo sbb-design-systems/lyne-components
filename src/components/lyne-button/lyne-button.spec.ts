@@ -16,7 +16,7 @@ describe('lyne-button', () => {
       .toEqualHtml(`
         <lyne-button icon="true" label="Label" variant="secondary-negative">
           <mock:shadow-root>
-            <button class="button button--large button--secondary-negative" type="button">
+            <button class="button button--size-l button--secondary-negative" type="button">
               <span class="button__icon">
                 <slot></slot>
               </span>
@@ -30,10 +30,10 @@ describe('lyne-button', () => {
       `);
   });
 
-  it('Should emit click event on click with no paylod', async () => {
+  it('Should emit click event on click with no payload', async () => {
     const page = await newSpecPage({
       components: [LyneButton],
-      html: '<lyne-button></lyne-button>',
+      html: '<lyne-button label="I am a button"></lyne-button>',
       supportsShadowDom: true
     });
 
@@ -59,7 +59,7 @@ describe('lyne-button', () => {
     const eventId = 'testId';
     const page = await newSpecPage({
       components: [LyneButton],
-      html: `<lyne-button event-id="${eventId}"></lyne-button>`,
+      html: `<lyne-button label="I am a button" event-id="${eventId}"></lyne-button>`,
       supportsShadowDom: true
     });
 
@@ -80,5 +80,4 @@ describe('lyne-button', () => {
     expect(buttonSpy.mock.calls[0][0].detail)
       .toEqual(eventId);
   });
-
 });
