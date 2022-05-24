@@ -21,52 +21,53 @@ jobs:
         with:
           script: |
             console.log(context);
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 14
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
-      - name: Download artifacts
-        uses: ./.github/actions/download-artifacts-from-workflow
-        with:
-          artifacts: stencil
-      - run: unzip stencil.zip
-
-      - name: Bundle stories
-        run: node ./ci/bundleStories.js
-
-      - name: Create release with semantic-release
-        run: yarn -s semantic-release
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create versioned storybook
-        run: STORYBOOK_COMPONENTS_VERSION=$(cat .version) npm run build:storybook
-        # Send storybook to chromatic. These snapshots should be accepted as new
-        # baseline in storybook.
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          storybookBuildDir: storybook-static
-          autoAcceptChanges: true
-          exitZeroOnChanges: true
-
-      - name: Install netlify CLI
-        run: yarn global add netlify-cli
-      - name: Publish to netlify
-        run: ./ci/netlify_deploy.sh
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      - name: Publish deployments to netlify
-        run: ./ci/deployments.sh
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_SITE_ID_DEPLOYMENTS: ${{ secrets.NETLIFY_SITE_ID_DEPLOYMENTS }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+            console.log(context.payload.workflow_run.head_commit);
+    #  - uses: actions/checkout@v3
+    #  - uses: actions/setup-node@v3
+    #    with:
+    #      node-version: 14
+    #  - name: Yarn Install
+    #    uses: ./.github/actions/yarn-install
+    #  - name: Download artifacts
+    #    uses: ./.github/actions/download-artifacts-from-workflow
+    #    with:
+    #      artifacts: stencil
+    #  - run: unzip stencil.zip
+#
+    #  - name: Bundle stories
+    #    run: node ./ci/bundleStories.js
+#
+    #  - name: Create release with semantic-release
+    #    run: yarn -s semantic-release
+    #    env:
+    #      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+    #  - name: Create versioned storybook
+    #    run: STORYBOOK_COMPONENTS_VERSION=$(cat .version) npm run build:storybook
+    #    # Send storybook to chromatic. These snapshots should be accepted as new
+    #    # baseline in storybook.
+    #  - name: Publish to Chromatic
+    #    uses: chromaui/action@v1
+    #    with:
+    #      projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+    #      storybookBuildDir: storybook-static
+    #      autoAcceptChanges: true
+    #      exitZeroOnChanges: true
+#
+    #  - name: Install netlify CLI
+    #    run: yarn global add netlify-cli
+    #  - name: Publish to netlify
+    #    run: ./ci/netlify_deploy.sh
+    #    env:
+    #      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    #      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    #  - name: Publish deployments to netlify
+    #    run: ./ci/deployments.sh
+    #    env:
+    #      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    #      NETLIFY_SITE_ID_DEPLOYMENTS: ${{ secrets.NETLIFY_SITE_ID_DEPLOYMENTS }}
+    #      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
 # TODO: Trigger lyne-documentation build (node ./ci/trigger_lyne_documentation.js)
 # TODO: Trigger lyne-examples build (node ./ci/trigger_lyne_examples.js)
