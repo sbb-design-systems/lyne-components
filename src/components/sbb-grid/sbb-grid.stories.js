@@ -95,8 +95,8 @@ const TemplateGridTopProducts = (args) => (
         <span>Gültig heute</span>
       </div>
       <div slot='action'>
-      <sbb-button label='Kaufen' size='small' variant='secondary' visual-button-only=''></sbb-button>
-    </div>
+        <sbb-button label='Kaufen' size='small' variant='secondary' visual-button-only=''></sbb-button>
+      </div>
     </sbb-card-product>
     <sbb-card-product style='height: 100%;' slot='top-product-2' appearance='primary' accessibility-label='The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography' layout='standard' href-value='https://github.com/lyne-design-system/lyne-components'>
       <div slot='icon'>
