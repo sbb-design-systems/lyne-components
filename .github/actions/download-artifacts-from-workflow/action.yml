@@ -26,7 +26,7 @@ runs:
                 .find((a) => a.name == artifact);
               if (matchArtifact) {
                 console.log(`Found artifact ${artifact}`);
-                const download = await github.actions.downloadArtifact({
+                const download = await github.rest.actions.downloadArtifact({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   artifact_id: matchArtifact.id,
