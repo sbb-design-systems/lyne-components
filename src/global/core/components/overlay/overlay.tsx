@@ -14,8 +14,8 @@ export const BACKDROP = 'backdrop';
 /**
  * TODO replace the tags in the next lines with the correct ones for Lyne
  */
-export const GET_OVERLAYS_DEFAULT_SELECTOR = 'lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover,lyne-toast';
-export const GET_OVERLAYS_TRAP_FOCUS_SELECTOR = 'lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover';
+export const GET_OVERLAYS_DEFAULT_SELECTOR = 'lyne-overlay,lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover,lyne-toast';
+export const GET_OVERLAYS_TRAP_FOCUS_SELECTOR = 'lyne-overlay,lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover';
 
 export const activeAnimations = new WeakMap<InterfaceOverlay, InterfaceAnimation[]>();
 
@@ -477,10 +477,7 @@ export const present = async (overlay: InterfaceOverlay, enterAnimation: Animati
    * prior to the overlay opening. Toast
    * does not steal focus and is excluded
    * from returning focus as a result.
-   *
-   * TODO replace the tag in the next line with the correct one for Lyne
    */
-  //
   if (overlay.el.tagName !== 'LYNE-TOAST') {
     await focusPreviousElementOnDismiss(overlay.el);
   }
@@ -574,3 +571,5 @@ const createController = <Opts extends object, T extends InterfaceHTMLLyneOverla
 
 // eslint-disable-next-line no-inline-comments
 export const toastController = /* @__PURE__*/ createController<InterfaceToastConfigurationController, HTMLLyneToastElement>('lyne-toast');
+// eslint-disable-next-line no-inline-comments
+export const overlayController = /* @__PURE__*/ createController<object, HTMLLyneOverlayElement>('lyne-overlay');

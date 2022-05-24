@@ -5,7 +5,7 @@ import {
   InterfaceOverlay, InterfaceOverlayEventDetail
 } from './overlays-interface';
 import {
-  dismiss, prepareOverlay, present
+  dismiss, eventMethod, prepareOverlay, present
 } from './overlay';
 import { createAnimation } from '../animations/animation';
 
@@ -24,6 +24,16 @@ export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
   @Event() public didPresent: EventEmitter<void>;
   @Event() public willDismiss: EventEmitter<InterfaceOverlayEventDetail>;
   @Event() public willPresent: EventEmitter<void>;
+
+  @Method()
+  public onDidDismiss<T = any>(): Promise<InterfaceOverlayEventDetail<T>> {
+    return eventMethod(this.el, 'lyne-overlay_did-dismiss');
+  }
+
+  @Method()
+  public onWillDismiss<T = any>(): Promise<InterfaceOverlayEventDetail<T>> {
+    return eventMethod(this.el, 'lyne-overlay_will-dismiss');
+  }
 
   public connectedCallback(): void {
     prepareOverlay(this.el);

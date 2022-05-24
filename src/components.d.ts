@@ -489,6 +489,8 @@ export namespace Components {
     }
     interface LyneOverlay {
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        "onDidDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
+        "onWillDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
         "overlayIndex": number;
         "present": () => Promise<void>;
     }

@@ -34,6 +34,26 @@ Type: `Promise<boolean>`
 
 
 
+### `onDidDismiss<T = any>() => Promise<InterfaceOverlayEventDetail<T>>`
+
+
+
+#### Returns
+
+Type: `Promise<InterfaceOverlayEventDetail<T>>`
+
+
+
+### `onWillDismiss<T = any>() => Promise<InterfaceOverlayEventDetail<T>>`
+
+
+
+#### Returns
+
+Type: `Promise<InterfaceOverlayEventDetail<T>>`
+
+
+
 ### `present() => Promise<void>`
 
 
