@@ -90,6 +90,7 @@
   gap: pxToRem(var(--spacing-fixed-4x));
   span.toast-text {
     color: var(--color-default-text);
+    flex-grow: 1;
   }
   .toast-icon {
     color: var(--color-default-text);
