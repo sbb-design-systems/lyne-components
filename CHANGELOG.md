@@ -1,3 +1,10 @@
+## [10.8.1](https://github.com/lyne-design-system/lyne-components/compare/v10.8.0...v10.8.1) (2022-05-25)
+
+
+### Bug Fixes
+
+* remove breakpoint ultra-wide-max-content ([#1186](https://github.com/lyne-design-system/lyne-components/issues/1186)) ([aca4a89](https://github.com/lyne-design-system/lyne-components/commit/aca4a894949addaf898007372d9a97b3d9d8d0f5))
+
 # [10.8.0](https://github.com/lyne-design-system/lyne-components/compare/v10.7.1...v10.8.0) (2022-05-24)
 
 
