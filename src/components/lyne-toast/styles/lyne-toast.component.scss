@@ -27,21 +27,20 @@
   align-items: flex-start;
   position: fixed;
 
+  @include text-xs--bold;
   --color-default-text: var(--color-white-default);
-  font-family: var(--typo-type-face-sbb-bold);
-  font-weight: 700;
-  font-size: calc(var(--typo-scale-0-75x) / var(--typo-scale-default) * 1rem);
-  line-height: var(--typo-line-height-body-text);
-  padding: calc(var(--spacing-responsive-xxxs-zero) / var(--typo-scale-default) * 1rem) calc(var(--spacing-responsive-xs-zero) / var(--typo-scale-default) * 1rem);
-  width: calc(100% - (2 * var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem));
-  margin: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem) 0;
+  padding-block: pxToRem(var(--spacing-responsive-xxxs-zero));
+  padding-inline: pxToRem(var(--spacing-responsive-xs-zero));
+  width: calc(100% - (2 * pxToRem(var(--spacing-responsive-s-zero))));
+  margin: pxToRem(var(--spacing-responsive-s-zero)) 0;
   @include mq($from: small) {
     width: 400px;
   }
   @include mq($from: medium) {
-    font-size: calc(var(--typo-scale-0-875x) / var(--typo-scale-default) * 1rem);
-    padding: calc(var(--spacing-responsive-xxxs-medium) / var(--typo-scale-default) * 1rem) calc(var(--spacing-responsive-xs-medium) / var(--typo-scale-default) * 1rem);
-    margin: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
+    font-size: pxToRem(var(--typo-scale-0-875x));
+    padding-block: pxToRem(var(--spacing-responsive-xxxs-medium));
+    padding-inline: pxToRem(var(--spacing-responsive-xs-medium));
+    margin: pxToRem(var(--spacing-responsive-s-medium));
   }
 
   // default position is bottom-center
@@ -49,25 +48,25 @@
   transform: translateX(-50%);
   bottom: 0;
   @include mq($from: medium) {
-    margin: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem) 0;
+    margin: pxToRem(var(--spacing-responsive-s-medium)) 0;
   }
   &.toast-top {
     top: 0;
     bottom: auto;
   }
   &.toast-left {
-    left: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+    left: pxToRem(var(--spacing-responsive-s-zero));
     transform: none;
     @include mq($from: medium) {
-      left: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
+      left: pxToRem(var(--spacing-responsive-s-medium));
     }
   }
   &.toast-right {
-    right: calc(var(--spacing-responsive-s-zero) / var(--typo-scale-default) * 1rem);
+    right: pxToRem(var(--spacing-responsive-s-zero));
     left: auto;
     transform: none;
     @include mq($from: medium) {
-      right: calc(var(--spacing-responsive-s-medium) / var(--typo-scale-default) * 1rem);
+      right: pxToRem(var(--spacing-responsive-s-medium));
     }
   }
   &.start {
@@ -83,11 +82,12 @@
   /* Level-5/Hard */
 
   box-shadow: 0px 1px 8px rgba(141, 141, 141, 0.2), 0px 4px 32px rgba(141, 141, 141, 0.1);
-  border-radius: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem);
+  border-radius: pxToRem(var(--spacing-fixed-2x));
 
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
+  gap: pxToRem(var(--spacing-fixed-4x));
   span.toast-text {
     color: var(--color-default-text);
   }
@@ -97,7 +97,7 @@
     height: 19px;
     align-self: start;
     fill: currentColor;
-    margin-right: calc(var(--spacing-fixed-2x) / var(--typo-scale-default) * 1rem);
+    margin-right: pxToRem(var(--spacing-fixed-2x));
     @include mq($from: medium) {
       flex: 0 0 23.8px; //width
       height: 23.8px;
@@ -108,7 +108,27 @@
     color: var(--color-default-text);
     font-family: var(--typo-type-face-sbb-roman);
     font-weight: 400;
+    line-height: 1;
     margin-left: auto;
     cursor: pointer;
+    & > a {
+      color: var(--color-default-text);
+      line-height: var(--typo-line-height-body-text);
+      text-decoration: none;
+    }
+    & > button {
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+      span {
+        display: block;
+        line-height: 1;
+        svg {
+          vertical-align: middle;
+          fill: var(--color-white-default);
+        }
+      }
+    }
   }
 }

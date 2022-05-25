@@ -7,11 +7,13 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type                          | Default     |
-| --------------- | ---------------- | ----------- | ----------------------------- | ----------- |
-| `config`        | --               |             | `InterfaceToastConfiguration` | `undefined` |
-| `keyboardClose` | `keyboard-close` |             | `boolean`                     | `false`     |
-| `overlayIndex`  | `overlay-index`  |             | `number`                      | `undefined` |
+| Property         | Attribute        | Description                                   | Type                                              | Default     |
+| ---------------- | ---------------- | --------------------------------------------- | ------------------------------------------------- | ----------- |
+| `config`         | --               |                                               | `InterfaceToastConfiguration`                     | `undefined` |
+| `enterAnimation` | --               | Animation to use when the toast is presented. | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
+| `keyboardClose`  | `keyboard-close` |                                               | `boolean`                                         | `false`     |
+| `leaveAnimation` | --               | Animation to use when the toast is dismissed. | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
+| `overlayIndex`   | `overlay-index`  |                                               | `number`                                          | `undefined` |
 
 
 ## Events
