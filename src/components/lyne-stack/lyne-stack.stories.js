@@ -95,7 +95,6 @@ const collapseHorizontalBelow = {
     'medium',
     'large',
     'wide',
-    'wide--max-content',
     'ultra',
     'ultra--max-content'
   ],
