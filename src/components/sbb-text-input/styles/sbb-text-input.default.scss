@@ -16,7 +16,7 @@
 @import "./../../../global/global.default.scss";
 
 // Import component styles
-@import "src/components/sbb-text-input/styles/sbb-text-input.component";
+@import "./sbb-text-input.component.scss";
 
 // Mode overrides/tests
 // :host {
