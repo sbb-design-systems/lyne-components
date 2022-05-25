@@ -66,12 +66,12 @@ export class SbbButton {
 
   /**
    * Emits whenever the native button click event triggers.
-   * TODO: Switch to a better event type during refactoring lyne-button.
+   * TODO: Switch to a better event type during refactoring sbb-button.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'lyne-button_click'
+    eventName: 'sbb-button_click'
   }) public click: EventEmitter<any>;
 
   public render(): JSX.Element {
