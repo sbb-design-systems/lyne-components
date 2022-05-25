@@ -23,6 +23,8 @@ export interface InterfaceOverlay {
 
   present(): Promise<void>;
   dismiss(data?: any, role?: string): Promise<boolean>;
+  onDidDismiss<T>(): Promise<InterfaceOverlayEventDetail<T>>;
+  onWillDismiss<T>(): Promise<InterfaceOverlayEventDetail<T>>;
 }
 
 export interface InterfaceHTMLStencilElement extends HTMLElement {

@@ -1,22 +1,24 @@
 import {
   Component, ComponentInterface, Element, Event, EventEmitter, h, Host, Method, Prop
 } from '@stencil/core';
+import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
+import { AnimationBuilder } from '../../global/core/components/animations/animation-interface';
 import {
-  InterfaceToastAction, InterfaceToastConfiguration
-} from './lyne-toast.custom';
+  dismiss, eventMethod, prepareOverlay, present
+} from '../../global/core/components/overlay/overlay';
 import {
   InterfaceOverlay, InterfaceOverlayEventDetail
 } from '../../global/core/components/overlay/overlays-interface';
 import {
-  dismiss, eventMethod, prepareOverlay, present
-} from '../../global/core/components/overlay/overlay';
+  CssClassMap, getClassList
+} from '../../global/helpers/get-class-list';
+import { isRTL } from '../../global/helpers/rtl/dir';
+import { StringSanitizer } from '../../global/helpers/sanitization/string-sanitizer';
 import { toastEnterAnimation } from './animations/toast.enter';
 import { toastLeaveAnimation } from './animations/toast.leave';
 import {
-  CssClassMap, getClassList
-} from '../../global/helpers/get-class-list';
-import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
-import { AnimationBuilder } from '../../global/core/components/animations/animation-interface';
+  InterfaceToastAction, InterfaceToastConfiguration
+} from './lyne-toast.custom';
 
 @Component({
   shadow: true,
@@ -29,13 +31,27 @@ import { AnimationBuilder } from '../../global/core/components/animations/animat
 
 export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
+  /**
+   * If `true`, the toast will animate.
+   */
   public animated = false;
+
   public presented: boolean;
 
+  /**
+   * @internal
+   */
   @Prop() public overlayIndex: number;
 
+  /**
+   * If `true`, the keyboard will be automatically
+   * dismissed when the overlay is presented.
+   */
   @Prop() public keyboardClose = false;
 
+  /**
+   * Exposed toast configuration.
+   */
   @Prop() public config: InterfaceToastConfiguration;
 
   /**
@@ -50,28 +66,53 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
   @Element() public el!: HTMLLyneToastElement;
 
+  /**
+   * Emitted after the toast has dismissed.
+   */
   @Event({
     eventName: 'lyne-toast_did-dismiss'
   }) public didDismiss: EventEmitter<InterfaceOverlayEventDetail>;
 
+  /**
+   * Emitted after the toast has presented.
+   */
   @Event({
     eventName: 'lyne-toast_did-present'
   }) public didPresent: EventEmitter<void>;
 
+  /**
+   * Emitted before the toast has dismissed.
+   */
   @Event({
     eventName: 'lyne-toast_will-dismiss'
   }) public willDismiss: EventEmitter<InterfaceOverlayEventDetail>;
 
+  /**
+   * Emitted before the toast has presented.
+   */
   @Event({
     eventName: 'lyne-toast_will-present'
   }) public willPresent: EventEmitter<void>;
 
+  /**
+   * Internal timeout.
+   */
   private _durationTimeout: NodeJS.Timeout;
 
+  /**
+   * Internal toast configuration;
+   * value is merged between the default and the public one.
+   */
   private _internalConfig: InterfaceToastConfiguration;
 
+  /**
+   * Used to check if the icon slot needs to be rendered.
+   */
   private _hasIconSlot: boolean;
 
+  /**
+   * Setup the configuration and prepare the overlay.
+   */
   public connectedCallback(): void {
     const defaultConfig: InterfaceToastConfiguration = {
       horizontalPosition: 'center',
@@ -88,10 +129,16 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     prepareOverlay(this.el);
   }
 
+  /**
+   * Evaluate if the icon slot is provided by consumers.
+   */
   public componentWillLoad(): void {
     this._hasIconSlot = Boolean(this.el.querySelector('[slot="icon"]'));
   }
 
+  /**
+   * Present the toast overlay after it has been created.
+   */
   @Method()
   public async present(): Promise<void> {
     await present(this, toastEnterAnimation, this._internalConfig.verticalPosition);
@@ -100,6 +147,15 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     }
   }
 
+  /**
+   * Dismiss the toast overlay after it has been presented.
+   *
+   * @param data Any data to emit in the dismiss events.
+   * @param role The role of the element that is dismissing the toast.
+   * Example:
+   * ``"cancel"` for close icon
+   * `"timeout"` for auto-close
+   */
   @Method()
   public dismiss(data?: any, role?: string): Promise<boolean> {
     if (this._durationTimeout) {
@@ -125,6 +181,12 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     return eventMethod(this.el, 'lyne-toast_will-dismiss');
   }
 
+  /**
+   * Renders the action/icon button.
+   * @param onClickFn Callback on button click.
+   * @param innerToastEl The HTML rendered as button content.
+   * @returns The button that will be rendered as action/icon.
+   */
   private _renderActionCommonButton(onClickFn: () => Promise<boolean>, innerToastEl: JSX.Element): JSX.Element {
     return (
       <button type='button' tabIndex={0} onClick={onClickFn} part='button' role={this._internalConfig.action.role} class={this._buttonClass()}>
@@ -133,6 +195,11 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     );
   }
 
+  /**
+   * Creates the CSS classes for the action button.
+   * @returns A CssClassMap with two default CSS classes and all the CSS classes
+   * added by consumers in _internalConfig.action.cssClass.
+   */
   private _buttonClass(): CssClassMap {
     const fn: (acc: CssClassMap, curr: string) => CssClassMap = (acc: CssClassMap, curr: string) => {
       acc[curr] = true;
@@ -149,6 +216,10 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     };
   }
 
+  /**
+   * Triggers the action handler and dismiss the toast.
+   * @param action The action provided bu consumers in the toast config.
+   */
   private _handleButtonClick(action: InterfaceToastAction): Promise<boolean> {
     try {
       action.handler();
@@ -159,6 +230,9 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     return this.dismiss(undefined, action.role);
   }
 
+  /**
+   * Renders the action button (link/action/close icon).
+   */
   private _renderAction(): JSX.Element {
 
     switch (this._internalConfig.action.type) {
@@ -187,6 +261,29 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     }
   }
 
+  /**
+   * Handles ltr/rtl direction and sets the correct CSS class
+   */
+  private _getCSSClassFromPageDirection(): string {
+    const isElRTL = isRTL(this.el);
+
+    switch (this._internalConfig.horizontalPosition) {
+      case 'start': {
+        return isElRTL
+          ? 'right'
+          : 'left';
+      }
+      case 'end': {
+        return isElRTL
+          ? 'left'
+          : 'right';
+      }
+      default: {
+        return this._internalConfig.horizontalPosition;
+      }
+    }
+  }
+
   public render(): JSX.Element {
     let actionContent: JSX.Element;
     let role = 'status';
@@ -207,11 +304,9 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     return (
       <Host aria-live={this._internalConfig.politeness} aria-atomic='true' role={role} tabindex='-1' class='overlay-hidden'>
         <div class='toast-wrapper'>
-          <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._internalConfig.horizontalPosition}`}>
+          <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._getCSSClassFromPageDirection()}`}>
             {iconTemplate}
-            <span class='toast-text'>
-              {this._internalConfig.message}
-            </span>
+            <span class='toast-text' innerHTML={StringSanitizer.sanitizeDOMString(this._internalConfig.message)}/>
             {
               actionContent &&
               <span class='toast-action'>

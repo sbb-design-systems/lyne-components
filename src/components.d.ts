@@ -171,7 +171,7 @@ export namespace Components {
          */
         "name"?: string;
         /**
-          * Size variant, either large or small.
+          * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
         /**
@@ -489,6 +489,8 @@ export namespace Components {
     }
     interface LyneOverlay {
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        "onDidDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
+        "onWillDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
         "overlayIndex": number;
         "present": () => Promise<void>;
     }
@@ -916,12 +918,23 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
     interface LyneToast {
+        /**
+          * Exposed toast configuration.
+         */
         "config": InterfaceToastConfiguration;
+        /**
+          * Dismiss the toast overlay after it has been presented.
+          * @param data Any data to emit in the dismiss events.
+          * @param role The role of the element that is dismissing the toast. Example: ``"cancel"` for close icon `"timeout"` for auto-close
+         */
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
         /**
           * Animation to use when the toast is presented.
          */
         "enterAnimation"?: AnimationBuilder;
+        /**
+          * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+         */
         "keyboardClose": boolean;
         /**
           * Animation to use when the toast is dismissed.
@@ -936,6 +949,9 @@ export namespace Components {
          */
         "onWillDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
         "overlayIndex": number;
+        /**
+          * Present the toast overlay after it has been created.
+         */
         "present": () => Promise<void>;
     }
 }
@@ -1400,7 +1416,11 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Size variant, either large or small.
+          * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring lyne-button.
+         */
+        "onLyne-button_click"?: (event: CustomEvent<any>) => void;
+        /**
+          * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
         /**
@@ -2147,19 +2167,37 @@ declare namespace LocalJSX {
         "visuallyHidden"?: false;
     }
     interface LyneToast {
+        /**
+          * Exposed toast configuration.
+         */
         "config"?: InterfaceToastConfiguration;
         /**
           * Animation to use when the toast is presented.
          */
         "enterAnimation"?: AnimationBuilder;
+        /**
+          * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+         */
         "keyboardClose"?: boolean;
         /**
           * Animation to use when the toast is dismissed.
          */
         "leaveAnimation"?: AnimationBuilder;
+        /**
+          * Emitted after the toast has dismissed.
+         */
         "onLyne-toast_did-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        /**
+          * Emitted after the toast has presented.
+         */
         "onLyne-toast_did-present"?: (event: CustomEvent<void>) => void;
+        /**
+          * Emitted before the toast has dismissed.
+         */
         "onLyne-toast_will-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        /**
+          * Emitted before the toast has presented.
+         */
         "onLyne-toast_will-present"?: (event: CustomEvent<void>) => void;
         "overlayIndex"?: number;
     }

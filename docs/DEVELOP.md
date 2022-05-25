@@ -61,7 +61,6 @@ You can find a list of all branches along with their Netlify deployment URL here
 |npm-run-all|run npm-scripts in parallel or sequential|https://github.com/mysticatea/npm-run-all|
 |puppeteer|used for e2e tests|https://github.com/puppeteer/puppeteer#readme|
 |semantic-release|Used to start semantic release|https://github.com/semantic-release/semantic-release|
-|semantic-release-slack-bot|Used to get slack notifications from semantic-release|https://github.com/juliuscc/semantic-release-slack-bot|
 |shelljs|used to support unix exit commands in node|https://www.npmjs.com/package/shelljs|
 |yargs|Easy parsing arguments from the command line|https://www.npmjs.com/package/yargs|
 
@@ -77,7 +76,6 @@ You can find a list of all branches along with their Netlify deployment URL here
 |.jest.config.js|configuration for jest|https://jestjs.io/docs/en/configuration.html|
 |.nvmrc|node version to use by nvm or asdf|https://github.com/nvm-sh/nvm|
 |.releaserc|configuration for semantic-release|https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration|
-|.travis.yml|build configuration for travisCI|https://docs.travis-ci.com/user/customizing-the-build/|
 |commitlint.config.js|configuration for commitlint|https://github.com/conventional-changelog/commitlint|
 |stencil.config.json|stencilJS configuration|https://stenciljs.com/docs/config|
 |tsconfig.json|configurations for typeScript|https://www.typescriptlang.org/docs/handbook/tsconfig-json.html|

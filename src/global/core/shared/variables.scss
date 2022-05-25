@@ -77,7 +77,6 @@
   }
   @include mq($from: wide) {
     --spacing-responsive-m:    var(--spacing-responsive-m-wide);
-
   }
   @include mq($from: ultra) {
     --spacing-responsive-l:    var(--spacing-responsive-l-ultra);
@@ -152,5 +151,21 @@
   }
   @include mq($from: wide) {
     --grid-base-gutter-responsive: var(--layout-base-grid-gutter-responsive-wide);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Responsive form element size
+
+  --size-form-element-m-min-height: var(--size-form-element-m-min-height-zero);
+  --size-form-element-l-min-height: var(--size-form-element-l-min-height-zero);
+
+  @include mq($from: medium) {
+    --size-form-element-m-min-height: var(
+      --size-form-element-m-min-height-medium
+    );
+    --size-form-element-l-min-height: var(
+      --size-form-element-l-min-height-medium
+    );
   }
 }

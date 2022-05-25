@@ -68,7 +68,7 @@
 
 .image__figure .image__img {
   opacity: .000001;
-  transition: opacity var(--animation-form-element-state-duration) var(--animation-form-element-state-easing);
+  transition: opacity var(--animation-duration-4x) var(--animation-easing);
 }
 
 .image__figure--loaded .image__img {
@@ -97,4 +97,3 @@
   }
 
 };
-

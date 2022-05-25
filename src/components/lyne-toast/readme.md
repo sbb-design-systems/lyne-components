@@ -7,30 +7,29 @@
 
 ## Properties
 
-| Property         | Attribute        | Description                                   | Type                                              | Default     |
-| ---------------- | ---------------- | --------------------------------------------- | ------------------------------------------------- | ----------- |
-| `config`         | --               |                                               | `InterfaceToastConfiguration`                     | `undefined` |
-| `enterAnimation` | --               | Animation to use when the toast is presented. | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
-| `keyboardClose`  | `keyboard-close` |                                               | `boolean`                                         | `false`     |
-| `leaveAnimation` | --               | Animation to use when the toast is dismissed. | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
-| `overlayIndex`   | `overlay-index`  |                                               | `number`                                          | `undefined` |
+| Property         | Attribute        | Description                                                                            | Type                                              | Default     |
+| ---------------- | ---------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------- |
+| `config`         | --               | Exposed toast configuration.                                                           | `InterfaceToastConfiguration`                     | `undefined` |
+| `enterAnimation` | --               | Animation to use when the toast is presented.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
+| `keyboardClose`  | `keyboard-close` | If `true`, the keyboard will be automatically dismissed when the overlay is presented. | `boolean`                                         | `false`     |
+| `leaveAnimation` | --               | Animation to use when the toast is dismissed.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
 
 
 ## Events
 
-| Event                     | Description | Type                                            |
-| ------------------------- | ----------- | ----------------------------------------------- |
-| `lyne-toast_did-dismiss`  |             | `CustomEvent<InterfaceOverlayEventDetail<any>>` |
-| `lyne-toast_did-present`  |             | `CustomEvent<void>`                             |
-| `lyne-toast_will-dismiss` |             | `CustomEvent<InterfaceOverlayEventDetail<any>>` |
-| `lyne-toast_will-present` |             | `CustomEvent<void>`                             |
+| Event                     | Description                             | Type                                            |
+| ------------------------- | --------------------------------------- | ----------------------------------------------- |
+| `lyne-toast_did-dismiss`  | Emitted after the toast has dismissed.  | `CustomEvent<InterfaceOverlayEventDetail<any>>` |
+| `lyne-toast_did-present`  | Emitted after the toast has presented.  | `CustomEvent<void>`                             |
+| `lyne-toast_will-dismiss` | Emitted before the toast has dismissed. | `CustomEvent<InterfaceOverlayEventDetail<any>>` |
+| `lyne-toast_will-present` | Emitted before the toast has presented. | `CustomEvent<void>`                             |
 
 
 ## Methods
 
 ### `dismiss(data?: any, role?: string) => Promise<boolean>`
 
-
+Dismiss the toast overlay after it has been presented.
 
 #### Returns
 
@@ -60,7 +59,7 @@ Type: `Promise<InterfaceOverlayEventDetail<T>>`
 
 ### `present() => Promise<void>`
 
-
+Present the toast overlay after it has been created.
 
 #### Returns
 

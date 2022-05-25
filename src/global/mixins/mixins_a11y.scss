@@ -5,18 +5,24 @@
   @media (forced-colors: active) {
     @content
   }
-};
+}
 
 @mixin visibleFocus {
   // TODO: missing design tokens
-  --focus-outline-color: green;
-  --focus-outline-width: 3;
+  --focus-outline-color: var(--color-black-default);
+  --focus-outline-width: var(--border-width-1x);
+  --focus-outline-offset: var(--spacing-fixed-1x);
 
   :host(.focus-visible) & {
-    outline-offset: pxToRem(var(--spacing-fixed-1x));
-    outline: pxToRem(var(--focus-outline-width)) solid var(--focus-outline-color);
+    outline-offset: pxToRem(var(--focus-outline-offset));
+    outline: pxToRem(var(--focus-outline-width)) solid
+      var(--focus-outline-color);
+
+    @include ifForcedColors() {
+      outline-color: Highlight;
+    }
   }
-};
+}
 
 @mixin screenReaderOnly {
   border: 0;

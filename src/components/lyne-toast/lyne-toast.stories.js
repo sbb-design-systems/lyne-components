@@ -229,7 +229,9 @@ const horizontalPosition = {
   options: [
     'left',
     'center',
-    'right'
+    'right',
+    'start',
+    'end'
   ],
   table: {
     category: 'Position'
