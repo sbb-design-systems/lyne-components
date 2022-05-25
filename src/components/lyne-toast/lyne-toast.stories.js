@@ -178,6 +178,32 @@ const TemplateIconAndButtonAction = (args) => (
   <button id='button-id' onClick={openIconAndButtonAction.bind(this, args)}>Open toast</button>
 );
 
+const openNoIconAndNoActionPolitenessOff = (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    politeness: 'off'
+  };
+  const toast = createAndSetupToast(args, config);
+
+  toast.present();
+};
+const TemplateNoIconAndNoActionPolitenessOff = (args) => (
+  <button id='button-id' onClick={openNoIconAndNoActionPolitenessOff.bind(this, args)}>Open toast with no politeness set</button>
+);
+
+const openNoIconAndNoActionPolitenessAssertive = (args) => {
+  const config = {
+    ...getCommonConfig(args),
+    politeness: 'assertive'
+  };
+  const toast = createAndSetupToast(args, config);
+
+  toast.present();
+};
+const TemplateNoIconAndNoActionPolitenessAssertive = (args) => (
+  <button id='button-id' onClick={openNoIconAndNoActionPolitenessAssertive.bind(this, args)}>Open toast with politeness 'assertive'</button>
+);
+
 export const NoIconAndNoAction = TemplateNoIconAndNoAction.bind({});
 
 export const NoIconAndCloseIconAction = TemplateNoIconAndCloseIconAction.bind({});
@@ -188,6 +214,9 @@ export const IconAndCloseIconAction = TemplateIconAndCloseIconAction.bind({});
 export const IconAndCloseIconActionWithEventListeners = TemplateIconAndNoCloseIconActionWithEventListeners.bind({});
 export const IconAndLinkAction = TemplateIconAndLinkAction.bind({});
 export const IconAndButtonAction = TemplateIconAndButtonAction.bind({});
+
+export const NoIconAndNoActionPolitenessOff = TemplateNoIconAndNoActionPolitenessOff.bind({});
+export const NoIconAndNoActionPolitenessAssertive = TemplateNoIconAndNoActionPolitenessAssertive.bind({});
 
 const message = {
   control: {
@@ -314,6 +343,15 @@ IconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 IconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 delete IconAndButtonAction.argTypes.href;
 
+NoIconAndNoActionPolitenessOff.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete NoIconAndNoActionPolitenessOff.argTypes.iconSlot;
+delete NoIconAndNoActionPolitenessOff.argTypes.href;
+delete NoIconAndNoActionPolitenessOff.argTypes.label;
+NoIconAndNoActionPolitenessAssertive.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete NoIconAndNoActionPolitenessAssertive.argTypes.iconSlot;
+delete NoIconAndNoActionPolitenessAssertive.argTypes.href;
+delete NoIconAndNoActionPolitenessAssertive.argTypes.label;
+
 NoIconAndNoAction.args = JSON.parse(JSON.stringify(basicArgs));
 delete NoIconAndNoAction.args.iconSlot;
 delete NoIconAndNoAction.args.href;
@@ -339,6 +377,15 @@ IconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
 IconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
 delete IconAndButtonAction.args.href;
 
+NoIconAndNoActionPolitenessOff.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndNoActionPolitenessOff.args.iconSlot;
+delete NoIconAndNoActionPolitenessOff.args.href;
+delete NoIconAndNoActionPolitenessOff.args.label;
+NoIconAndNoActionPolitenessAssertive.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndNoActionPolitenessAssertive.args.iconSlot;
+delete NoIconAndNoActionPolitenessAssertive.args.href;
+delete NoIconAndNoActionPolitenessAssertive.args.label;
+
 NoIconAndNoAction.documentation = {
   title: 'Lyne toast with no icon and no action'
 };
@@ -363,8 +410,13 @@ IconAndLinkAction.documentation = {
 IconAndButtonAction.documentation = {
   title: 'Lyne toast with icon and action button with handler'
 };
+NoIconAndNoActionPolitenessOff.documentation = {
+  title: 'Lyne toast with no icon and no action with politeness off'
+};
+NoIconAndNoActionPolitenessAssertive.documentation = {
+  title: 'Lyne toast with no icon and no action with politeness "assertive"'
+};
 
-// lyne-toast_ events are not working
 export default {
   decorators: [
     (Story) => (
@@ -377,11 +429,10 @@ export default {
   parameters: {
     actions: {
       handles: [
-        lyneToastEvents.click,
-        'lyne-toast_did-dismiss',
-        'lyne-toast_did-present',
-        'lyne-toast_will-dismiss',
-        'lyne-toast_will-present'
+        lyneToastEvents.willPresent,
+        lyneToastEvents.didPresent,
+        lyneToastEvents.willDismiss,
+        lyneToastEvents.didDismiss
       ]
     },
     backgrounds: {
