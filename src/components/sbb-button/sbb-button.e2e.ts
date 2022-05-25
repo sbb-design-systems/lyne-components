@@ -1,20 +1,18 @@
 import events from './sbb-button.events';
-import { newE2EPage } from '@stencil/core/testing';
+import {
+  E2EElement, E2EPage, newE2EPage
+} from '@stencil/core/testing';
 
 describe('sbb-button', () => {
-  let element,
-    page;
+  let element: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-button></sbb-button>');
+    await page.setContent('<sbb-button label="I am a button"></sbb-button>');
     element = await page.find('sbb-button');
   });
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-button></sbb-button>');
-
     element = await page.find('sbb-button');
     expect(element)
       .toHaveClass('hydrated');
@@ -68,5 +66,4 @@ describe('sbb-button', () => {
         .toHaveReceivedEventDetail(buttonId);
     });
   });
-
 });

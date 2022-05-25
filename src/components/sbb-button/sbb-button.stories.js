@@ -1,3 +1,4 @@
+import images from '../../global/images';
 import {
   ColorCharcoalDefault,
   ColorWhiteDefault
@@ -8,26 +9,58 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
-  const variantsWithRedBg = [
+  if (context.args.variant === 'translucent') {
+    return `background: url('${images[1]}');background-size: cover;`;
+  }
+
+  if (context.args.variant === 'translucent-negative') {
+    return `background: url('${images[5]}');background-size: cover;`;
+  }
+
+  const variantsWithDarkBg = [
     'primary-negative',
     'secondary-negative',
-    'tertiary-negative',
     'transparent-negative'
   ];
 
-  if (variantsWithRedBg.indexOf(context.args.variant) === -1) {
-    return `background-color: ${ColorWhiteDefault};`;
+  if (variantsWithDarkBg.includes(context.args.variant)) {
+    return 'background-color: #484040;';
   }
 
-  return `background-color: ${ColorCharcoalDefault};`;
+  return `background-color: ${ColorWhiteDefault};`;
 };
 
 // --- Component
 
 const Template = (args) => (
-  <sbb-button {...args}>
-    {getMarkupForSvg(args.iconSlot)}
-  </sbb-button>
+  <div>
+    <sbb-button {...args}>{getMarkupForSvg(args.iconSlot)}</sbb-button>
+  </div>
+);
+const FixedWidthTemplate = (args) => (
+  <div>
+    <p>
+      <sbb-button
+        {...args}
+        style={{
+          width: '200px'
+        }}
+      >
+        {getMarkupForSvg(args.iconSlot)}
+      </sbb-button>
+    </p>
+    <p>
+      <sbb-button
+        {...args}
+        label='Wide Button'
+        style={{
+          width: '600px'
+        }}
+      >
+        {getMarkupForSvg(args.iconSlot)}
+      </sbb-button>
+    </p>
+  </div>
 );
 
 // --- Arg types
@@ -90,11 +123,11 @@ const variant = {
   options: [
     'primary',
     'secondary',
-    'tertiary',
+    'translucent',
     'transparent',
     'primary-negative',
     'secondary-negative',
-    'tertiary-negative',
+    'translucent-negative',
     'transparent-negative'
   ],
   table: {
@@ -104,11 +137,11 @@ const variant = {
 
 const size = {
   control: {
-    type: 'radio'
+    type: 'inline-radio'
   },
   options: [
-    'large',
-    'small'
+    'l',
+    'm'
   ],
   table: {
     category: 'General properties'
@@ -140,52 +173,68 @@ const basicArgs = {
 
 export const primary = Template.bind({});
 export const secondary = Template.bind({});
-export const tertiary = Template.bind({});
+export const translucent = Template.bind({});
 export const transparent = Template.bind({});
 export const primaryNegative = Template.bind({});
 export const secondaryNegative = Template.bind({});
-export const tertiaryNegative = Template.bind({});
+export const translucentNegative = Template.bind({});
 export const transparentNegative = Template.bind({});
 export const noIcon = Template.bind({});
 export const iconOnly = Template.bind({});
-export const small = Template.bind({});
+export const sizeM = Template.bind({});
 export const disabled = Template.bind({});
+export const fixedWidth = FixedWidthTemplate.bind({});
 
 primary.argTypes = basicArgTypes;
 secondary.argTypes = basicArgTypes;
-tertiary.argTypes = basicArgTypes;
+translucent.argTypes = basicArgTypes;
 transparent.argTypes = basicArgTypes;
 primaryNegative.argTypes = basicArgTypes;
 secondaryNegative.argTypes = basicArgTypes;
-tertiaryNegative.argTypes = basicArgTypes;
+translucentNegative.argTypes = basicArgTypes;
 transparentNegative.argTypes = basicArgTypes;
 noIcon.argTypes = basicArgTypes;
 iconOnly.argTypes = basicArgTypes;
-small.argTypes = basicArgTypes;
+sizeM.argTypes = basicArgTypes;
 disabled.argTypes = basicArgTypes;
+fixedWidth.argTypes = basicArgTypes;
 
 primary.args = JSON.parse(JSON.stringify(basicArgs));
 secondary.args = JSON.parse(JSON.stringify(basicArgs));
-tertiary.args = JSON.parse(JSON.stringify(basicArgs));
+translucent.args = JSON.parse(JSON.stringify(basicArgs));
 transparent.args = JSON.parse(JSON.stringify(basicArgs));
 primaryNegative.args = JSON.parse(JSON.stringify(basicArgs));
 secondaryNegative.args = JSON.parse(JSON.stringify(basicArgs));
-tertiaryNegative.args = JSON.parse(JSON.stringify(basicArgs));
+translucentNegative.args = JSON.parse(JSON.stringify(basicArgs));
 transparentNegative.args = JSON.parse(JSON.stringify(basicArgs));
 noIcon.args = JSON.parse(JSON.stringify(basicArgs));
 iconOnly.args = JSON.parse(JSON.stringify(basicArgs));
-small.args = JSON.parse(JSON.stringify(basicArgs));
+sizeM.args = JSON.parse(JSON.stringify(basicArgs));
 disabled.args = JSON.parse(JSON.stringify(basicArgs));
+fixedWidth.args = JSON.parse(JSON.stringify(basicArgs));
+
+const [
+  primaryOptions,
+  secondaryOptions,
+  translucentOptions,
+  transparentOptions,
+  primaryNegativeOptions,
+  secondaryNegativeOptions,
+  translucentNegativeOptions,
+  transparentNegativeOptions
+] = variant.options;
 
 /* eslint-disable prefer-destructuring */
-secondary.args.variant = variant.options[1];
-tertiary.args.variant = variant.options[2];
-transparent.args.variant = variant.options[3];
-primaryNegative.args.variant = variant.options[4];
-secondaryNegative.args.variant = variant.options[5];
-tertiaryNegative.args.variant = variant.options[6];
-transparentNegative.args.variant = variant.options[7];
-small.args.size = size.options[1];
+primary.args.variant = primaryOptions;
+secondary.args.variant = secondaryOptions;
+translucent.args.variant = translucentOptions;
+transparent.args.variant = transparentOptions;
+primaryNegative.args.variant = primaryNegativeOptions;
+secondaryNegative.args.variant = secondaryNegativeOptions;
+translucentNegative.args.variant = translucentNegativeOptions;
+transparentNegative.args.variant = transparentNegativeOptions;
+sizeM.args.size = size.options[1];
+fixedWidth.args.label = 'Button with long text';
 /* eslint-enable prefer-destructuring */
 
 noIcon.args.icon = false;
@@ -204,8 +253,8 @@ secondary.documentation = {
   title: 'Secondary'
 };
 
-tertiary.documentation = {
-  title: 'Tertiary'
+translucent.documentation = {
+  title: 'Translucent'
 };
 
 transparent.documentation = {
@@ -230,13 +279,13 @@ secondaryNegative.documentation = {
   title: 'Secondary Negative'
 };
 
-tertiaryNegative.documentation = {
+translucentNegative.documentation = {
   container: {
     styles: {
       'background-color': ColorCharcoalDefault
     }
   },
-  title: 'Tertiary Negative'
+  title: 'Translucent Negative'
 };
 
 transparentNegative.documentation = {
@@ -256,19 +305,23 @@ iconOnly.documentation = {
   title: 'Icon only'
 };
 
-small.documentation = {
-  title: 'Small size'
+sizeM.documentation = {
+  title: 'M size'
 };
 
 disabled.documentation = {
   title: 'Disabled'
 };
 
+fixedWidth.documentation = {
+  title: 'Fixed width with overflow'
+};
+
 export default {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem`}>
-        <Story/>
+        <Story />
       </div>
     )
   ],

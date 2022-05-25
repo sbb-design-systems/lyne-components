@@ -1,0 +1,38 @@
+name: Continuous Integration Secure
+# Secure execution of continuous integration jobs
+# which are performed upon completion of the
+# "Continuous Integration" workflow
+# https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+on:
+  workflow_run:
+    workflows: ["Continuous Integration"]
+    types: [completed]
+
+jobs:
+  codecov:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download artifacts
+        uses: ./.github/actions/download-artifacts-from-workflow
+        with:
+          artifacts: 'pr, coverage'
+      - run: unzip pr.zip
+      - run: mkdir coverage
+      - run: unzip coverage.zip -d coverage
+      - name: Read PR number
+        id: pr-number
+        run: echo "::set-output name=pr::$(<NR)"
+        shell: bash
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+          override_branch: ${{ github.event.workflow_run.head_branch }}
+          override_commit: ${{ github.event.workflow_run.head_commit.id }}
+          override_pr: ${{ steps.yarn-cache-dir-path.outputs.pr }}
+          fail_ci_if_error: true
+          verbose: true

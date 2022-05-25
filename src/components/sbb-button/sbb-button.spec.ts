@@ -16,7 +16,7 @@ describe('sbb-button', () => {
       .toEqualHtml(`
         <sbb-button icon="true" label="Label" variant="secondary-negative">
           <mock:shadow-root>
-            <button class="button button--large button--secondary-negative" type="button">
+            <button class="button button--size-l button--secondary-negative" type="button">
               <span class="button__icon">
                 <slot></slot>
               </span>
@@ -30,10 +30,10 @@ describe('sbb-button', () => {
       `);
   });
 
-  it('Should emit click event on click with no paylod', async () => {
+  it('Should emit click event on click with no payload', async () => {
     const page = await newSpecPage({
       components: [SbbButton],
-      html: '<sbb-button></sbb-button>',
+      html: '<sbb-button label="I am a button"></sbb-button>',
       supportsShadowDom: true
     });
 
@@ -59,7 +59,7 @@ describe('sbb-button', () => {
     const eventId = 'testId';
     const page = await newSpecPage({
       components: [SbbButton],
-      html: `<sbb-button event-id="${eventId}"></sbb-button>`,
+      html: `<sbb-button label="I am a button" event-id="${eventId}"></sbb-button>`,
       supportsShadowDom: true
     });
 
@@ -80,5 +80,4 @@ describe('sbb-button', () => {
     expect(buttonSpy.mock.calls[0][0].detail)
       .toEqual(eventId);
   });
-
 });

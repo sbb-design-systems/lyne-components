@@ -1,27 +1,27 @@
 import { SbbPanel } from './sbb-panel';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('sbb-panel', () => {
+describe('lyne-panel', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
       components: [SbbPanel],
-      html: '<sbb-panel text="Example panel text" button-text="Button text" />'
+      html: '<lyne-panel text="Example panel text" button-text="Button text" />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <sbb-panel text="Example panel text" button-text="Button text">
+        <lyne-panel text="Example panel text" button-text="Button text">
           <mock:shadow-root>
             <div class="panel">
               <p class="panel__text">
                 Example panel text
               </p>
-              <sbb-button class="panel__button" label="Button text" size="small" variant="secondary-negative" visual-button-only=""></sbb-button>
+              <lyne-button class="panel__button" label="Button text" size="m" variant="secondary-negative" visual-button-only=""></lyne-button>
             </div>
           </mock:shadow-root>
-        </sbb-panel>
+        </lyne-panel>
       `);
   });
 });

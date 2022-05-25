@@ -170,7 +170,7 @@ export namespace Components {
          */
         "name"?: string;
         /**
-          * Size variant, either large or small.
+          * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
         /**
@@ -1369,7 +1369,11 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Size variant, either large or small.
+          * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring lyne-button.
+         */
+        "onLyne-button_click"?: (event: CustomEvent<any>) => void;
+        /**
+          * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
         /**
