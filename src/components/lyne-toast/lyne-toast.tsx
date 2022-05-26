@@ -238,7 +238,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     switch (this._internalConfig.action.type) {
       case 'link': {
         return (
-          <a class='lyne-focusable' href={this._internalConfig.action.href} target='_blank' tabIndex={0} role={this._internalConfig.action.role}>
+          <a class='lyne-focusable' href={this._internalConfig.action.href} target='_blank' tabIndex={0} role={this._internalConfig.action.role} onClick={this.dismiss.bind(this, null, 'link')}>
             {this._internalConfig.action.label}
           </a>
         );

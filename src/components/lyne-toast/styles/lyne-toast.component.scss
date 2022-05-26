@@ -69,19 +69,9 @@
       right: pxToRem(var(--spacing-responsive-s-medium));
     }
   }
-  &.start {
-    // to be defined
-  }
-  &.end {
-    // to be defined
-  }
 
-  /* midnight/default */
-
-  background: #151515;
-  /* Level-5/Hard */
-
-  box-shadow: 0px 1px 8px rgba(141, 141, 141, 0.2), 0px 4px 32px rgba(141, 141, 141, 0.1);
+  background: var(--color-midnight-default);
+  @include shadow-level-5-hard;
   border-radius: pxToRem(var(--spacing-fixed-2x));
 
   display: flex;
@@ -106,18 +96,19 @@
   }
 
   .toast-action {
-    color: var(--color-default-text);
+    //color: var(--color-default-text);
     font-family: var(--typo-type-face-sbb-roman);
     font-weight: 400;
-    line-height: 1;
+    line-height: var(--typo-line-height-body-text);
     margin-left: auto;
     cursor: pointer;
     & > a {
       color: var(--color-default-text);
-      line-height: var(--typo-line-height-body-text);
+      //line-height: var(--typo-line-height-body-text);
       text-decoration: none;
     }
     & > button {
+      color: var(--color-default-text);
       cursor: pointer;
       background-color: transparent;
       border: 0;
