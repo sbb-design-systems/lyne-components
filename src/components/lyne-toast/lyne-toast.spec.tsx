@@ -480,10 +480,10 @@ describe('lyne-toast', () => {
     };
 
     await toast.present();
-    const a = toast.onDidDismiss();
+    const onDidDismiss = toast.onDidDismiss();
 
     await toast.dismiss('Data passed closing the toast', 'Programmatically closed');
-    await expect(a).resolves.toStrictEqual(returnOnDismiss);
+    await expect(onDidDismiss).resolves.toStrictEqual(returnOnDismiss);
 
   });
 
@@ -534,11 +534,11 @@ describe('lyne-toast', () => {
     };
 
     await toast.present();
-    const a = toast.onDidDismiss();
+    const onDidDismiss = toast.onDidDismiss();
     const toastButton = page.root.shadowRoot.querySelector('button');
 
     toastButton.click();
-    await expect(a).resolves.toStrictEqual(returnOnDismiss);
+    await expect(onDidDismiss).resolves.toStrictEqual(returnOnDismiss);
   });
 
 });

@@ -1,5 +1,48 @@
 # lyne-toast
 
+A toast is a non-disruptive notification message that appears in the page for a limited time, as a feedback on the outcome of an action, or to display a system message.
+
+### Configuration
+
+The toast configuration must be set using the  `InterfaceToastConfiguration` interface.
+
+###### message
+Mandatory: the message that will be displayed. Long messages use multiple lines (no ellipsis).
+</br> Default: `null`.
+###### timeout
+Optional: how long (in ms) the toast will be displayed. If 0, it will never be dismissed.
+</br> Default: `6000`.
+###### icon
+TBD waiting for lyne-icon
+###### iconTemplate
+TBD waiting for lyne-icon
+###### action
+Optional: the toast can display an action item.
+- Link button (see `InterfaceToastLink`): on click, the defined page will be open in a new tab, then the toast will be dismissed. 
+- Action button (see `InterfaceToastAction`): on click, the defined callback will be executed, then the toast will be dismissed.
+- Close icon (see `InterfaceToastIcon`): on click, the toast will be dismissed. 
+###### verticalPosition
+Optional: the toast vertical position on screen.
+</br> Default: `bottom`.
+</br> Options: `bottom` - `top`.
+###### horizontalPosition
+Optional: the toast horizontal position on screen. `start` and `end` values will be set considering the screen direction (RTL / LTR).
+</br> Default: `center`.
+</br> Options: `left` - `center` - `right` - `start` - `end`;
+###### politeness
+Optional: value for the `aria-live` attribute
+</br> Default: `polite`.
+</br> Options: `polite` - `assertive` - `off`.
+
+### Animations
+The toast have defaults animations for show and hide. They can be overriden using the properties `enterAnimation` and `leaveAnimation`.
+
+###Accessibility
+As mentioned, the `aria-live` can be configured using the politeness parameter in the config object. The `aria-atomic` is always set to true, while the `role` is set to `status` if there is no action, otherwise to `dialog`.
+</br>
+The `role` for the action button is `cancel` for the close icon, while can be set by consumers in the other cases and it's returned in the dismiss events. 
+</br>
+Toasts don't take focus. 
 
 
 <!-- Auto Generated Below -->

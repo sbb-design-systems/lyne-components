@@ -153,7 +153,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
    * @param data Any data to emit in the dismiss events.
    * @param role The role of the element that is dismissing the toast.
    * Example:
-   * ``"cancel"` for close icon
+   * `"cancel"` for close icon
    * `"timeout"` for auto-close
    */
   @Method()

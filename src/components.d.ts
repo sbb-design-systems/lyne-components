@@ -925,7 +925,7 @@ export namespace Components {
         /**
           * Dismiss the toast overlay after it has been presented.
           * @param data Any data to emit in the dismiss events.
-          * @param role The role of the element that is dismissing the toast. Example: ``"cancel"` for close icon `"timeout"` for auto-close
+          * @param role The role of the element that is dismissing the toast. Example: `"cancel"` for close icon `"timeout"` for auto-close
          */
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
         /**
