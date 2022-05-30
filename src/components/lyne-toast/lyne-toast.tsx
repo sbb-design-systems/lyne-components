@@ -292,7 +292,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
     if (this._internalConfig.action) {
       role = 'dialog';
-      tabIndex = '0';
+      tabIndex = null;
       actionContent = this._renderAction();
     }
 
