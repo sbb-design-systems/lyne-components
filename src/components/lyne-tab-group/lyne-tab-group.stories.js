@@ -16,17 +16,20 @@ const Template = (args) => (
     </div>
 
     <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
-    <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.</div>
+    <section>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.
+    </section>
 
     <h3 disabled={args.disabled}>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
     <div>I was disabled.</div>
 
     <h4>{args.labelTab4}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
-    <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+    <article>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
       adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
       ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
-    </div>
+    </article>
 
   </lyne-tab-group>
 );
@@ -36,25 +39,7 @@ const TemplateNested = (args) => (
 
     <h1>{args.labelTab1}<lyne-tab-amount>{args.amountSlotTab1}</lyne-tab-amount></h1>
     <div>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
-      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
-      <h3>Content heading</h3>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.
-    </div>
-
-    <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
-    <div>Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.</div>
-
-    <h3 disabled={args.disabled}>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
-    <div>I was disabled.</div>
-
-    <h4>{args.labelTab4}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
-    <div>
       <lyne-tab-group initial-selected-index='1' dir={args.dir}>
-
         <h1>Nested tab</h1>
         <div>
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
@@ -67,8 +52,23 @@ const TemplateNested = (args) => (
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
           adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna.
         </div>
-
       </lyne-tab-group>
+    </div>
+
+    <h2>{args.labelTab2}<lyne-tab-amount>{args.amountSlotTab2}</lyne-tab-amount></h2>
+    <div>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.
+    </div>
+
+    <h3 disabled={args.disabled}>{args.labelTab3}<lyne-tab-amount>{args.amountSlotTab3}</lyne-tab-amount></h3>
+    <div>I was disabled.</div>
+
+    <h4>{args.labelTab4}<lyne-tab-amount>{args.amountSlotTab4}</lyne-tab-amount></h4>
+    <div>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
+      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
+      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
     </div>
 
   </lyne-tab-group>

@@ -10,15 +10,17 @@ import {
   Prop
 } from '@stencil/core';
 import { InterfaceLyneTabGroupTab } from './lyne-tab-group.custom';
+import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import throttle from '../../global/helpers/throttle';
 
 /**
  * @slot tab-bar - Pass an heading tag to display a label in the tab bar.
  * Example: `<h1>Tab label</h1>`
  * @slot unnamed - Pass html-content to show as the content of the tab.
- * Wrap the content in a div:
+ * Wrap the content in a div, a section or an article:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
- * This is not correct: `<div>Some text</div><p>Some other text</p>`
+ * This is not correct: `<span>Some text</span><p>Some other text</p>`
  */
 
 const tabObserverConfig: MutationObserverInit = {
@@ -27,6 +29,12 @@ const tabObserverConfig: MutationObserverInit = {
     'disabled'
   ]
 };
+
+const SUPPORTED_CONTENT_WRAPPERS = [
+  'ARTICLE',
+  'DIV',
+  'SECTION'
+];
 
 @Component({
   shadow: true,
@@ -242,26 +250,24 @@ export class LyneTabGroup {
       }
     };
     this._ensureId(tab);
-    tab.relatedContent = tab.nextElementSibling?.tagName === 'DIV'
-      ? tab.nextElementSibling
-      : null;
+    if (SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.tagName)) {
+      tab.relatedContent = tab.nextElementSibling;
+    } else {
+      tab.insertAdjacentHTML('afterend', '<div>No content.</div>');
+      tab.relatedContent = tab.nextElementSibling;
+      console.warn(`Missing content: you should provide a related content for the tab ${tab.outerHTML}.`);
+    }
     tab.tabIndex = -1;
-    tab.active = tab.hasAttribute('active');
+    tab.active = tab.hasAttribute('active') && !tab.hasAttribute('disabled');
     tab.disabled = tab.hasAttribute('disabled');
     tab.setAttribute('role', 'tab');
     tab.setAttribute('aria-controls', this._ensureId(tab.relatedContent));
     tab.setAttribute('aria-selected', 'false');
-
-    if (tab.relatedContent) {
-      tab.relatedContent.setAttribute('role', 'tabpanel');
-      tab.relatedContent.setAttribute('aria-labelledby', tab.id);
-      if (tab.active) {
-        tab.relatedContent.setAttribute('active', '');
-      }
-    } else {
-      console.error('Missing content: you should provide a related content.');
+    tab.relatedContent.setAttribute('role', 'tabpanel');
+    tab.relatedContent.setAttribute('aria-labelledby', tab.id);
+    if (tab.active) {
+      tab.relatedContent.setAttribute('active', '');
     }
-
     tab.addEventListener('click', () => {
       tab.tabGroupActions.select();
     });
