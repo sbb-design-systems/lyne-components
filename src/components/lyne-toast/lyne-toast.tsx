@@ -285,11 +285,14 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
   }
 
   public render(): JSX.Element {
+    const zIndex = this.overlayIndex + 60000;
     let actionContent: JSX.Element;
     let role = 'status';
+    let tabIndex = '-1';
 
     if (this._internalConfig.action) {
       role = 'dialog';
+      tabIndex = '0';
       actionContent = this._renderAction();
     }
 
@@ -302,7 +305,10 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     }
 
     return (
-      <Host aria-live={this._internalConfig.politeness} aria-atomic='true' role={role} tabindex='-1' class='overlay-hidden'>
+      <Host aria-live={this._internalConfig.politeness} aria-atomic='true' role={role} tabindex={tabIndex} class='overlay-hidden'
+        style={{
+          zIndex: `${zIndex}`
+        }}>
         <div class='toast-wrapper'>
           <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._getCSSClassFromPageDirection()}`}>
             {iconTemplate}

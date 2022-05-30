@@ -481,8 +481,10 @@ describe('lyne-toast', () => {
 
     await toast.present();
     const onDidDismiss = toast.onDidDismiss();
+    const onWillDismiss = toast.onWillDismiss();
 
     await toast.dismiss('Data passed closing the toast', 'Programmatically closed');
+    await expect(onWillDismiss).resolves.toStrictEqual(returnOnDismiss);
     await expect(onDidDismiss).resolves.toStrictEqual(returnOnDismiss);
 
   });

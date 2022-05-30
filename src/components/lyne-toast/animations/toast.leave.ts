@@ -1,9 +1,6 @@
 import { InterfaceAnimation } from '../../../global/core/components/animations/animation-interface';
 import { createAnimation } from '../../../global/core/components/animations/animation';
 
-/*
- * FIXME
- */
 export const toastLeaveAnimation = (baseEl: HTMLElement): InterfaceAnimation => {
   const baseAnimation = createAnimation();
   const wrapperAnimation = createAnimation();
