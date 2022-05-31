@@ -63,7 +63,7 @@
     "axios": "~0.27.2",
     "babel-loader": "^8.1.0",
     "chromatic": "~6.5.1",
-    "copy-webpack-plugin": "~6.0.0",
+    "copy-webpack-plugin": "~6.4.1",
     "esbuild": "~0.14.2",
     "eslint": "~8.16.0",
     "eslint-plugin-jest": "^26.0.0",
