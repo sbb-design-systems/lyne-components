@@ -3,24 +3,16 @@
 // ----------------------------------------------------------------------------------------------------
 @mixin ifForcedColors {
   @media (forced-colors: active) {
-    @content
+    @content;
   }
 }
 
-@mixin visibleFocus {
-  // TODO: missing design tokens
-  --focus-outline-color: var(--color-black-default);
-  --focus-outline-width: var(--border-width-1x);
-  --focus-outline-offset: var(--spacing-fixed-1x);
+@mixin focusOutline {
+  outline-offset: pxToRem(var(--focus-outline-offset));
+  outline: var(--focus-outline-color) solid pxToRem(var(--focus-outline-width));
 
-  :host(.focus-visible) & {
-    outline-offset: pxToRem(var(--focus-outline-offset));
-    outline: pxToRem(var(--focus-outline-width)) solid
-      var(--focus-outline-color);
-
-    @include ifForcedColors() {
-      outline-color: Highlight;
-    }
+  @include ifForcedColors() {
+    outline-color: Highlight;
   }
 }
 
