@@ -5,7 +5,7 @@ describe('lyne-overlay', () => {
 
   it('renders', async () => {
     page = await newE2EPage({
-      url: '/src/global/core/components/overlay/overlay.e2e.html'
+      url: '/src/global/core/components/overlay/overlay-component.e2e.html'
     });
     const buttonPresent = await page.find('#create-and-present-overlay');
 
