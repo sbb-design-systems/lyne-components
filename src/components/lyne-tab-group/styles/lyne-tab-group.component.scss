@@ -124,16 +124,15 @@
     --lyne-amount-color-override: var(--color-platinum-default);
     &:after {
       content: '';
-      position: absolute;
       inset: 50% pxToRem(var(--spacing-fixed-5x));
-      transform: translateY(-50%);
       border-bottom: pxToRem(var(--border-width-2x)) solid var(--color-platinum-default);
+      @include absoluteCenterY;
     }
   }
 }
 
 .tab-content {
-  @include text-xs--regular;
+  @include text;
   color: var(--color-iron-default);
   margin-top: pxToRem(var(--spacing-responsive-m));
   transition: height var(--animation-duration-4x) var(--animation-easing);
