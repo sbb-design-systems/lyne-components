@@ -1,0 +1,115 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  --focus-outline-color-override: var(--focus-outline-color-dark);
+
+  --lyne-alert_background-color: var(--color-midnight-default);
+  --lyne-alert_border-radius: var(--border-radius-4x);
+  --lyne-alert_color: var(--color-aluminium-default);
+  --lyne-alert_padding: var(--spacing-responsive-xxxs);
+  --lyne-alert_title-font-size: var(--lyne-font-size-title-5);
+  --lyne-alert_title-line-height: var(--typo-line-height-body-text);
+
+  // TODO: with lyne icon component, handle also other sizes
+  --lyne-alert_icon-size: var(--size-icon-timetable-him-cus);
+  --lyne-alert_close-icon-size: var(--size-icon-ui-small);
+  --lyne-alert-gap: var(--spacing-fixed-2x);
+  --lyne-alert_close-button-wrapper-width: var(--spacing-fixed-10x);
+
+  @include mq($from: medium) {
+    --lyne-alert_close-button-wrapper-width: var(--spacing-fixed-12x);
+  }
+}
+
+.lyne-alert_transition-wrapper {
+  transition: height var(--animation-duration-6x) ease-in;
+  overflow: hidden;
+}
+
+.lyne-alert {
+  @include text-s--regular;
+  display: flex;
+  gap: pxToRem(var(--lyne-alert-gap));
+  min-width: fit-content;
+  padding: pxToRem(var(--lyne-alert_padding));
+  overflow-y: hidden;
+  color: var(--lyne-alert_color);
+  background-color: var(--lyne-alert_background-color);
+  border-radius: pxToRem(var(--lyne-alert_border-radius));
+  transition: opacity var(--animation-duration-6x) ease-in;
+}
+
+.lyne-alert--size-l {
+  --lyne-alert_title-font-size: var(--lyne-font-size-title-3);
+  --lyne-alert_title-line-height: var(--typo-line-height-titles);
+  --lyne-alert_icon-size: calc(1.5 * var(--size-icon-timetable-him-cus));
+}
+
+.lyne-alert_icon,
+.lyne-alert_close-button-wrapper {
+  flex: 0;
+}
+
+.lyne-alert_icon {
+  display: flex;
+  align-items: center;
+
+  // Align the height to the line-height. Because the line-height is written as a multiplier, we need to multiply it by the font-size.
+  height: pxToRem(
+    calc(
+      var(--lyne-alert_title-font-size) * var(--lyne-alert_title-line-height)
+    )
+  );
+}
+
+.lyne-alert_content {
+  flex: 1;
+}
+
+.lyne-alert_close-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  // Subtract gap as we can not make a gap exception just for the left gap of the close button wrapper
+  flex-basis: pxToRem(
+    calc(var(--lyne-alert_close-button-wrapper-width) - var(--lyne-alert-gap))
+  );
+}
+
+.lyne-alert_close-button-wrapper_button {
+  // Reduce the reserved space of the button to 24px (--lyne-alert_close-icon-size)
+  margin: pxToRem(
+    calc(
+      (
+          var(--size-form-element-m-min-height) -
+            var(--lyne-alert_close-icon-size)
+        ) * 0.5
+    ),
+    true
+  );
+}
+
+// Ensure correct lyne-title styling regardless how the lyne-title is configured.
+::slotted(lyne-title) {
+  --lyne-font-size-title-1: var(--lyne-alert_title-font-size);
+  --lyne-font-size-title-2: var(--lyne-alert_title-font-size);
+  --lyne-font-size-title-3: var(--lyne-alert_title-font-size);
+  --lyne-font-size-title-4: var(--lyne-alert_title-font-size);
+  --lyne-font-size-title-5: var(--lyne-alert_title-font-size);
+
+  --typo-line-height-titles: var(--lyne-alert_title-line-height);
+  --typo-line-height-body-text: var(--lyne-alert_title-line-height);
+
+  --_title-text-color-normal: var(--color-milk-default);
+}
+
+::slotted(svg[slot="icon"]),
+slot[name="icon"] svg {
+  display: block;
+  height: pxToRem(var(--lyne-alert_icon-size));
+  width: pxToRem(var(--lyne-alert_icon-size));
+  fill: currentColor;
+}

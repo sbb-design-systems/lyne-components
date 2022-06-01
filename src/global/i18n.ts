@@ -341,4 +341,11 @@ export const i18nWalkingDistanceToDepartureStation: any = {
   it: 'di distanza a piedi dalla stazione di partenza.',
 };
 
+export const i18nCloseAlert: any = {
+  de: 'Meldung schliessen',
+  en: 'Close message',
+  fr: 'Fermer message',
+  it: 'Chiudere il messaggio'
+};
+
 /* eslint-enable sort-keys */
