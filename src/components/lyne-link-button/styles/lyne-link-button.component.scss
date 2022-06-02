@@ -37,11 +37,13 @@
   @include buttonShadowNotDisabled;
 }
 
-.link-button:hover {
-  @include buttonHover;
-  &::before {
-    @include ifForcedColors {
-      border-color: LinkText;
+@media (hover: hover) {
+  .link-button:hover {
+    @include buttonHover;
+    &::before {
+      @include ifForcedColors {
+        border-color: LinkText;
+      }
     }
   }
 }
