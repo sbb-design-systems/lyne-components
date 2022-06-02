@@ -65,7 +65,7 @@ export const parameters = {
     storySort: {
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: ['pages', ['home', 'home personalized'], 'page sections', 'components', ['*', 'form elements', 'timetable', 'cards', 'layout'], 'brand elements', '*', 'internals', 'lab']
+      order: ['pages', ['home', 'home personalized'], 'components', ['*', 'form elements', 'timetable', 'cards', 'layout'], 'brand elements', '*', 'internals', 'lab']
     }
   }
 };

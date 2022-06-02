@@ -146,5 +146,5 @@ export default {
     },
     layout: 'fullscreen'
   },
-  title: 'page sections/lyne-footer'
+  title: 'components/lyne-footer'
 };
