@@ -15,7 +15,7 @@
   --chevron-transition-timing-function: ease-in;
   --chevron-transition-duration: 200ms;
   --expand-transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  
+
   // this is just the fallback transition duration. the definitive duration
   // will be set via lyne-accordion-item.tsx before opening/expanding
   --expand-transition-duration: 150ms;
@@ -46,8 +46,9 @@
   transition: background-color var(--header-transition-duration) var(--header-transition-timing-function),
               color var(--header-transition-duration) var(--header-transition-timing-function);
 
-  @include visibleFocus;
-
+  :host(.focus-visible) & {
+    @include focusOutline;
+  }
 }
 
 .accordion-item__heading {

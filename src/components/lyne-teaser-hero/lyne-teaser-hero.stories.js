@@ -77,7 +77,8 @@ export default {
   parameters: {
     docs: {
       extractComponentDescription: () => readme
-    }
+    },
+    layout: 'fullscreen'
   },
-  title: 'page sections/meant to be used with lyne-section wrapper/lyne-teaser-hero'
+  title: 'components/lyne-teaser-hero'
 };

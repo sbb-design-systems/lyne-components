@@ -142,8 +142,10 @@
   }
 }
 
-.button:hover:not(:disabled) {
-  @include buttonHover;
+@media (hover: hover) {
+  .button:hover:not(:disabled) {
+    @include buttonHover;
+  }
 }
 
 .button:active:not(:disabled) {

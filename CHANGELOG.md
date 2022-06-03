@@ -1,3 +1,17 @@
+## [10.8.3](https://github.com/lyne-design-system/lyne-components/compare/v10.8.2...v10.8.3) (2022-06-02)
+
+
+### Bug Fixes
+
+* remove hover styles from non hoverable devices ([#1187](https://github.com/lyne-design-system/lyne-components/issues/1187)) ([c20b90f](https://github.com/lyne-design-system/lyne-components/commit/c20b90f27917e2403cced8e7e078171b283dfd0e))
+
+## [10.8.2](https://github.com/lyne-design-system/lyne-components/compare/v10.8.1...v10.8.2) (2022-06-01)
+
+
+### Bug Fixes
+
+* use design tokens for focus outline ([#1196](https://github.com/lyne-design-system/lyne-components/issues/1196)) ([446f916](https://github.com/lyne-design-system/lyne-components/commit/446f91665b7ac909d0f0684bcd2aecb871be6bf7))
+
 ## [10.8.1](https://github.com/lyne-design-system/lyne-components/compare/v10.8.0...v10.8.1) (2022-05-25)
 
 

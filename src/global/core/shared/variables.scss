@@ -168,4 +168,13 @@
       --size-form-element-l-min-height-medium
     );
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Focus
+
+  --focus-outline-color-default: var(--color-black-default);
+  --focus-outline-color-dark: var(--color-white-default);
+  --focus-outline-color: var(--focus-outline-color-override, var(--focus-outline-color-default));
+  --focus-outline-width: var(--border-width-1x);
 }
