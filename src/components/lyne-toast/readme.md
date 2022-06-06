@@ -29,7 +29,7 @@ Optional: the toast vertical position on screen.
 Optional: the toast horizontal position on screen. `start` and `end` values will be set considering the screen direction (RTL / LTR).
 </br> Default: `center`.
 </br> Options: `left` - `center` - `right` - `start` - `end`;
-###### politeness
+###### ariaLivePoliteness
 Optional: value for the `aria-live` attribute
 </br> Default: `polite`.
 </br> Options: `polite` - `assertive` - `off`.
@@ -38,7 +38,7 @@ Optional: value for the `aria-live` attribute
 The toast have defaults animations for show and hide. They can be overriden using the properties `enterAnimation` and `leaveAnimation`.
 
 ###Accessibility
-As mentioned, the `aria-live` can be configured using the politeness parameter in the config object. The `aria-atomic` is always set to true, while the `role` is set to `status` if there is no action, otherwise to `dialog`.
+As mentioned, the `aria-live` can be configured using the ariaLivePoliteness parameter in the config object. The `aria-atomic` is always set to true, while the `role` is set to `status` if there is no action, otherwise to `dialog`.
 </br>
 The `role` for the action button is `cancel` for the close icon, while can be set by consumers in the other cases and it's returned in the dismiss events. 
 </br>

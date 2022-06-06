@@ -1,9 +1,9 @@
 import { AnimationBuilder } from '../../global/core/components/animations/animation-interface';
 
 export interface InterfaceLyneToastAttributes {
-  verticalPosition: 'top' | 'bottom';
+  ariaLivePoliteness: 'off' | 'assertive' | 'polite';
   horizontalPosition: 'left' | 'center' | 'right' | 'start' | 'end';
-  politeness: 'off' | 'assertive' | 'polite';
+  verticalPosition: 'top' | 'bottom';
 }
 
 type InterfaceToastType = 'link' | 'action' | 'icon';
@@ -52,7 +52,7 @@ export interface InterfaceToastIcon extends InterfaceToastCommonAction {
  * - "action": Action configuration.
  * - "verticalPosition": Where the toast should be displayed vertically.
  * - "horizontalPosition": Where the toast should be displayed horizontally.
- * - "politeness": Value for aria-live attribute.
+ * - "ariaLivePoliteness": Value for aria-live attribute.
  */
 export interface InterfaceToastConfiguration {
   message: string;
@@ -62,7 +62,7 @@ export interface InterfaceToastConfiguration {
   action?: InterfaceToastLink | InterfaceToastAction | InterfaceToastIcon;
   verticalPosition?: InterfaceLyneToastAttributes['verticalPosition'];
   horizontalPosition?: InterfaceLyneToastAttributes['horizontalPosition'];
-  politeness?: InterfaceLyneToastAttributes['politeness'];
+  ariaLivePoliteness?: InterfaceLyneToastAttributes['ariaLivePoliteness'];
 }
 
 export interface InterfaceToastConfigurationController {

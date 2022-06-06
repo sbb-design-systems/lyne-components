@@ -115,9 +115,9 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
    */
   public connectedCallback(): void {
     const defaultConfig: InterfaceToastConfiguration = {
+      ariaLivePoliteness: 'polite',
       horizontalPosition: 'center',
       message: null,
-      politeness: 'polite',
       timeout: 6000,
       verticalPosition: 'bottom'
     };
@@ -305,7 +305,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     }
 
     return (
-      <Host aria-live={this._internalConfig.politeness} aria-atomic='true' role={role} tabindex={tabIndex} class='overlay-hidden'
+      <Host aria-live={this._internalConfig.ariaLivePoliteness} aria-atomic='true' role={role} tabindex={tabIndex} class='overlay-hidden'
         style={{
           zIndex: `${zIndex}`
         }}>

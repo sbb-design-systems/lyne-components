@@ -5,9 +5,9 @@ import readme from './readme.md';
 import { propagateOverlayEventToStorybook } from '../../global/core/components/overlay/overlay-event-dispatcher';
 
 const getCommonConfig = (args) => ({
+  ariaLivePoliteness: args.ariaLivePoliteness,
   horizontalPosition: args.horizontalPosition,
   message: args.message,
-  politeness: args.politeness,
   timeout: args.timeout,
   verticalPosition: args.verticalPosition
 });
@@ -214,7 +214,7 @@ const iconSlot = {
   }
 };
 
-const politeness = {
+const ariaLivePoliteness = {
   control: {
     type: 'select'
   },
@@ -276,23 +276,23 @@ const label = {
 };
 
 const basicArgTypes = {
+  ariaLivePoliteness,
   horizontalPosition,
   href,
   iconSlot,
   label,
   message,
-  politeness,
   timeout,
   verticalPosition
 };
 
 const basicArgs = {
+  ariaLivePoliteness: 'polite',
   horizontalPosition: 'center',
   href: 'https://sbb.ch',
   iconSlot: iconSlot.options[0],
   label: 'Undo',
   message: 'Ciao',
-  politeness: 'polite',
   timeout: 6000,
   verticalPosition: 'bottom'
 };
