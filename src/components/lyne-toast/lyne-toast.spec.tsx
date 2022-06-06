@@ -100,7 +100,7 @@ describe('lyne-toast', () => {
                   Message
                 </span>
                 <span class="toast-action">
-                  <a class="lyne-focusable" href="https://www.sbb.ch" tabindex="0" target="_blank">
+                  <a class="lyne-focusable" href="https://www.sbb.ch" rel="noreferrer" tabindex="0" target="_blank">
                     Link
                   </a>
                 </span>
@@ -300,7 +300,7 @@ describe('lyne-toast', () => {
                     Message
                   </span>
                   <span class="toast-action">
-                     <a class="lyne-focusable" href="https://www.sbb.ch" tabindex="0" target="_blank">
+                     <a class="lyne-focusable" href="https://www.sbb.ch" rel="noreferrer" tabindex="0" target="_blank">
                       Link
                     </a>
                   </span>

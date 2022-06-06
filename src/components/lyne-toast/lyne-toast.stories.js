@@ -292,7 +292,7 @@ const basicArgs = {
   href: 'https://sbb.ch',
   iconSlot: iconSlot.options[0],
   label: 'Undo',
-  message: 'Ciao',
+  message: 'This is a toast message',
   timeout: 6000,
   verticalPosition: 'bottom'
 };

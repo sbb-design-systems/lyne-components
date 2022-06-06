@@ -14,8 +14,8 @@ import {
 } from '../../global/helpers/get-class-list';
 import { isRTL } from '../../global/helpers/rtl/dir';
 import { StringSanitizer } from '../../global/helpers/sanitization/string-sanitizer';
-import { toastEnterAnimation } from './animations/toast.enter';
-import { toastLeaveAnimation } from './animations/toast.leave';
+import { toastEnterAnimation } from './animations/lyne-toast.enter';
+import { toastLeaveAnimation } from './animations/lyne-toast.leave';
 import {
   InterfaceToastAction, InterfaceToastConfiguration
 } from './lyne-toast.custom';
@@ -141,7 +141,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
    */
   @Method()
   public async present(): Promise<void> {
-    await present(this, toastEnterAnimation, this._internalConfig.verticalPosition);
+    await present(this, toastEnterAnimation);
     if (this._internalConfig.timeout > 0) {
       this._durationTimeout = setTimeout(() => this.dismiss(undefined, 'timeout'), this._internalConfig.timeout);
     }
@@ -238,7 +238,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     switch (this._internalConfig.action.type) {
       case 'link': {
         return (
-          <a class='lyne-focusable' href={this._internalConfig.action.href} target='_blank' tabIndex={0} role={this._internalConfig.action.role} onClick={this.dismiss.bind(this, null, 'link')}>
+          <a class='lyne-focusable' href={this._internalConfig.action.href}target='_blank'  rel='noreferrer' tabIndex={0} role={this._internalConfig.action.role} onClick={this.dismiss.bind(this, null, 'link')}>
             {this._internalConfig.action.label}
           </a>
         );
