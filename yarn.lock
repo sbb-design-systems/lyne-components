@@ -6285,9 +6285,9 @@ escodegen@^2.0.0:
     source-map "~0.6.1"
 
 eslint-plugin-jest@^26.4.6:
-  version "26.4.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-26.4.6.tgz#9d8184c1ecf077722a20cc236c7e14f4e263606f"
-  integrity sha512-R3mq1IepnhtsukHQsWxdyKra3OVwYB+N4k8i45ndqSfr8p9KZV6G+EIUt1Z7hzAh4KlsbXG+nCTlNeGFLFLNvA==
+  version "26.4.7"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-26.4.7.tgz#3defa590ff3e4d218d1014c21909a7f73a63d3a3"
+  integrity sha512-xLB5tefaNhHoxrOKrNPg/PiTxY+zeitoj7sOkeNOznx1mRysN8O7O7+9sN/sRUol5cMh7QYbCTWXbXE/K3/M4w==
   dependencies:
     "@typescript-eslint/utils" "^5.10.0"
 
