@@ -914,6 +914,14 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
 }
+export interface LyneButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLLyneButtonElement;
+}
+export interface LyneOverlayCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLLyneOverlayElement;
+}
 declare global {
     interface HTMLLyneAccordionElement extends Components.LyneAccordion, HTMLStencilElement {
     }
@@ -1370,7 +1378,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring lyne-button.
          */
-        "onLyne-button_click"?: (event: CustomEvent<any>) => void;
+        "onLyne-button_click"?: (event: LyneButtonCustomEvent<any>) => void;
         /**
           * Size variant, either l or m.
          */
@@ -1689,10 +1697,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceLyneLinkListAttributes['variant'];
     }
     interface LyneOverlay {
-        "onDidDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onDidPresent"?: (event: CustomEvent<void>) => void;
-        "onWillDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onWillPresent"?: (event: CustomEvent<void>) => void;
+        "onDidDismiss"?: (event: LyneOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onDidPresent"?: (event: LyneOverlayCustomEvent<void>) => void;
+        "onWillDismiss"?: (event: LyneOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onWillPresent"?: (event: LyneOverlayCustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
     interface LynePanel {
