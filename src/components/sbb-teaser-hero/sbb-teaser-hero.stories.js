@@ -77,7 +77,8 @@ export default {
   parameters: {
     docs: {
       extractComponentDescription: () => readme
-    }
+    },
+    layout: 'fullscreen'
   },
-  title: 'page sections/meant to be used with sbb-section wrapper/sbb-teaser-hero'
+  title: 'components/sbb-teaser-hero'
 };

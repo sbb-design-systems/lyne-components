@@ -117,7 +117,7 @@ export class SbbTeaserHero {
 
     return (
       <a
-        class='taser-hero'
+        class='teaser-hero'
         href={this.link}
         {...linkAttributes}
       >

@@ -30,6 +30,23 @@ const wrapperStyle = (context) => {
   return `background-color: ${ColorWhiteDefault};`;
 };
 
+const focusStyle = (context) => {
+  const variantsWithDarkBg = [
+    'primary-negative',
+    'secondary-negative',
+    'translucent-negative',
+    'transparent-negative'
+  ];
+
+  if (variantsWithDarkBg.includes(context.args.variant)) {
+    // eslint-disable-next-line no-warning-comments
+    // TODO: Use css variable if globally available
+    return `--focus-outline-color-override:${ColorWhiteDefault};`;
+  }
+
+  return '';
+};
+
 // --- Component
 
 const Template = (args) => (
@@ -320,7 +337,7 @@ fixedWidth.documentation = {
 export default {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}padding: 2rem`}>
+      <div style={`${wrapperStyle(context)}padding: 2rem;${focusStyle(context)}`}>
         <Story />
       </div>
     )

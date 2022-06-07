@@ -46,8 +46,9 @@
   transition: background-color var(--header-transition-duration) var(--header-transition-timing-function),
               color var(--header-transition-duration) var(--header-transition-timing-function);
 
-  @include visibleFocus;
-
+  :host(.focus-visible) & {
+    @include focusOutline;
+  }
 }
 
 .accordion-item__heading {

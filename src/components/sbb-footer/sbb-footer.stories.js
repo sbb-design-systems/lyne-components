@@ -200,5 +200,5 @@ export default {
     },
     layout: 'fullscreen'
   },
-  title: 'page sections/sbb-footer'
+  title: 'components/sbb-footer'
 };
