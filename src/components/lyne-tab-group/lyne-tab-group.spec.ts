@@ -123,4 +123,44 @@ describe('lyne-tab-group', () => {
         .toHaveAttribute('active');
     });
   });
+
+  describe('events', () => {
+    it('selects tab on right arrow key pressed', async () => {
+      const tab1 = page.root.querySelector('h1');
+      const tab2 = page.root.querySelector('h2');
+
+      // Mock focus function
+      tab1.focus = jest.fn();
+      tab2.focus = jest.fn();
+
+      const event = new KeyboardEvent('keydown', {
+        key: 'ArrowRight'
+      });
+
+      component.dispatchEvent(event);
+      await page.waitForChanges();
+
+      expect(tab2)
+        .toHaveAttribute('active');
+    });
+
+    it('wraps around on left arrow key pressed', async () => {
+      const tab1 = page.root.querySelector('h1');
+      const tab4 = page.root.querySelector('h4');
+
+      // Mock focus function
+      tab1.focus = jest.fn();
+      tab4.focus = jest.fn();
+
+      const event = new KeyboardEvent('keydown', {
+        key: 'ArrowLeft'
+      });
+
+      component.dispatchEvent(event);
+      await page.waitForChanges();
+
+      expect(tab4)
+        .toHaveAttribute('active');
+    });
+  });
 });

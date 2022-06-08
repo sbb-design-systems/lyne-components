@@ -289,7 +289,7 @@ export class LyneTabGroup {
       : cur + 1;
 
     // don't trap nested handling
-    if ((evt.target as HTMLElement).parentElement !== evt.currentTarget) {
+    if ((evt.target as HTMLElement) !== this._element && (evt.target as HTMLElement).parentElement !== this._element) {
       return;
     }
 
