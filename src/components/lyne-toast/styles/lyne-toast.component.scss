@@ -4,122 +4,109 @@
 @include host-component-properties;
 
 :host {
-  .overlay-hidden {
-    display: none;
-  }
+  --color-default-text: var(--color-white-default);
+  --toast-background-color: var(--color-midnight-default);
+  --toast-border-radius: #{pxToRem(var(--border-radius-4x))};
+  --toast-gap: #{pxToRem(var(--spacing-fixed-4x))};
+  --toast-padding-block: #{pxToRem(var(--spacing-responsive-xxxs))};
+  --toast-padding-inline: #{pxToRem(var(--spacing-responsive-xs))};
+  --toast-margin: #{pxToRem(var(--spacing-responsive-s))};
+  --toast-max-width: #{pxToRem(400)};
+  --toast-width: #{calc(100% - (2 * pxToRem(var(--spacing-responsive-s-zero))))};
+}
 
+.overlay-hidden {
+  display: none;
 }
 
 .toast-wrapper {
-  // temporary -2 rem for storybook only
-  width: calc(100vw - 2rem);
-  height: calc(100vh - 2rem);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   contain: content;
 }
+
 .toast {
-  &.toast-item--visible {
-    display: flex;
-  }
-  &.toast-item--hidden {
-    display: none;
-  }
-  flex-direction: column;
-  align-items: flex-start;
-  position: fixed;
-
-  @include text-xs--bold;
-  --color-default-text: var(--color-white-default);
-  padding-block: pxToRem(var(--spacing-responsive-xxxs-zero));
-  padding-inline: pxToRem(var(--spacing-responsive-xs-zero));
-  width: calc(100% - (2 * pxToRem(var(--spacing-responsive-s-zero))));
-  margin: pxToRem(var(--spacing-responsive-s-zero)) 0;
-  @include mq($from: small) {
-    width: 400px;
-  }
-  @include mq($from: medium) {
-    font-size: pxToRem(var(--typo-scale-0-875x));
-    padding-block: pxToRem(var(--spacing-responsive-xxxs-medium));
-    padding-inline: pxToRem(var(--spacing-responsive-xs-medium));
-    margin: pxToRem(var(--spacing-responsive-s-medium));
-  }
-
-  // default position is bottom-center
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  @include mq($from: medium) {
-    margin: pxToRem(var(--spacing-responsive-s-medium)) 0;
-  }
-  &.toast-top {
-    top: 0;
-    bottom: auto;
-  }
-  &.toast-left {
-    left: pxToRem(var(--spacing-responsive-s-zero));
-    transform: none;
-    @include mq($from: medium) {
-      left: pxToRem(var(--spacing-responsive-s-medium));
-    }
-  }
-  &.toast-right {
-    right: pxToRem(var(--spacing-responsive-s-zero));
-    left: auto;
-    transform: none;
-    @include mq($from: medium) {
-      right: pxToRem(var(--spacing-responsive-s-medium));
-    }
-  }
-
-  background: var(--color-midnight-default);
+  @include text-s--bold;
   @include shadow-level-5-hard;
-  border-radius: pxToRem(var(--spacing-fixed-2x));
+  @include absoluteCenterX;
+
+  position: fixed;
+  padding-block: var(--toast-padding-block);
+  padding-inline: var(--toast-padding-inline);
+  margin: var(--toast-margin) 0;
+  width: calc(100% - (2 * pxToRem(var(--spacing-responsive-s-zero))));
+
+  @include mq($from: small) {
+    width: var(--toast-max-width);
+  }
 
   display: flex;
   flex-direction: row;
   align-items: start;
-  gap: pxToRem(var(--spacing-fixed-4x));
-  span.toast-text {
-    color: var(--color-default-text);
+  bottom: 0;
+  gap: var(--toast-gap);
+  background: var(--toast-background-color);
+  color: var(--color-default-text);
+  border-radius: var(--toast-border-radius);
+
+  &.toast-top {
+    top: 0;
+    bottom: auto;
+  }
+
+  &.toast-left {
+    left: var(--toast-margin);
+    transform: none;
+  }
+
+  &.toast-right {
+    left: auto;
+    right: var(--toast-margin);
+    transform: none;
+  }
+
+  .toast-text {
     flex-grow: 1;
   }
+
+  // FIXME temporary, waiting for sbb-icon
   .toast-icon {
-    color: var(--color-default-text);
-    flex: 0 0 19px; //width
+    flex: 0 0 19px;
     height: 19px;
     align-self: start;
     fill: currentColor;
     margin-right: pxToRem(var(--spacing-fixed-2x));
     @include mq($from: medium) {
-      flex: 0 0 23.8px; //width
+      flex: 0 0 23.8px;
       height: 23.8px;
     }
   }
 
-  .toast-action {
-    //color: var(--color-default-text);
-    font-family: var(--typo-type-face-sbb-roman);
-    font-weight: 400;
-    line-height: var(--typo-line-height-body-text);
+  .toast-action, .toast-action .toast-button {
+    @include text-s--regular;
     margin-left: auto;
     cursor: pointer;
-    & > a {
+
+    .toast-link {
       color: var(--color-default-text);
-      //line-height: var(--typo-line-height-body-text);
       text-decoration: none;
     }
-    & > button {
+
+    .toast-button {
+      @include buttonReset;
       color: var(--color-default-text);
-      cursor: pointer;
-      background-color: transparent;
-      border: 0;
-      padding: 0;
-      span {
-        display: block;
-        line-height: 1;
-        svg {
-          vertical-align: middle;
-          fill: var(--color-white-default);
-        }
+    }
+
+    .toast-label, .toast-close {
+      display: block;
+      line-height: 1;
+
+      svg {
+        vertical-align: middle;
+        fill: var(--color-white-default);
       }
     }
   }

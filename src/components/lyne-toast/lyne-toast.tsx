@@ -189,7 +189,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
    */
   private _renderActionCommonButton(onClickFn: () => Promise<boolean>, innerToastEl: JSX.Element): JSX.Element {
     return (
-      <button type='button' tabIndex={0} onClick={onClickFn} part='button' role={this._internalConfig.action.role} class={this._buttonClass()}>
+      <button type='button' tabIndex={0} onClick={onClickFn} role={this._internalConfig.action.role} class={this._buttonClass()}>
         {innerToastEl}
       </button>
     );
@@ -238,20 +238,20 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     switch (this._internalConfig.action.type) {
       case 'link': {
         return (
-          <a class='lyne-focusable' href={this._internalConfig.action.href}target='_blank' rel='noreferrer' tabIndex={0} role={this._internalConfig.action.role} onClick={this.dismiss.bind(this, null, 'link')}>
+          <a class='toast-link lyne-focusable' href={this._internalConfig.action.href} target='_blank' rel='noreferrer' tabIndex={0} role={this._internalConfig.action.role} onClick={this.dismiss.bind(this, null, 'link')}>
             {this._internalConfig.action.label}
           </a>
         );
 
       }
       case 'action': {
-        const innerElement = <span>{this._internalConfig.action.label}</span>;
+        const innerElement = <span class='toast-label'>{this._internalConfig.action.label}</span>;
         const clickFn = this._handleButtonClick.bind(this, this._internalConfig.action);
 
         return this._renderActionCommonButton(clickFn, innerElement);
       }
       case 'icon': {
-        const innerElement = <span innerHTML={crossSmall}/>;
+        const innerElement = <span class='toast-close' innerHTML={crossSmall}/>;
         const clickFn = this.dismiss.bind(this, null, 'cancel');
 
         return this._renderActionCommonButton(clickFn, innerElement);
