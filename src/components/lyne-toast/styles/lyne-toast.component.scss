@@ -67,47 +67,47 @@
     right: var(--toast-margin);
     transform: none;
   }
+}
 
-  .toast-text {
-    flex-grow: 1;
+.toast-text {
+  flex-grow: 1;
+}
+
+// FIXME temporary, waiting for sbb-icon
+.toast-icon {
+  flex: 0 0 19px;
+  height: 19px;
+  align-self: start;
+  fill: currentColor;
+  margin-right: pxToRem(var(--spacing-fixed-2x));
+  @include mq($from: medium) {
+    flex: 0 0 23.8px;
+    height: 23.8px;
   }
+}
 
-  // FIXME temporary, waiting for sbb-icon
-  .toast-icon {
-    flex: 0 0 19px;
-    height: 19px;
-    align-self: start;
-    fill: currentColor;
-    margin-right: pxToRem(var(--spacing-fixed-2x));
-    @include mq($from: medium) {
-      flex: 0 0 23.8px;
-      height: 23.8px;
-    }
-  }
+.toast-action, .toast-action .toast-button {
+  @include text-s--regular;
+  margin-left: auto;
+  cursor: pointer;
+}
 
-  .toast-action, .toast-action .toast-button {
-    @include text-s--regular;
-    margin-left: auto;
-    cursor: pointer;
+.toast-link {
+  color: var(--color-default-text);
+  text-decoration: none;
+}
 
-    .toast-link {
-      color: var(--color-default-text);
-      text-decoration: none;
-    }
+.toast-button {
+  @include buttonReset;
+  color: var(--color-default-text);
+}
 
-    .toast-button {
-      @include buttonReset;
-      color: var(--color-default-text);
-    }
+.toast-label, .toast-close {
+  display: block;
+  line-height: 1;
 
-    .toast-label, .toast-close {
-      display: block;
-      line-height: 1;
-
-      svg {
-        vertical-align: middle;
-        fill: var(--color-white-default);
-      }
-    }
+  svg {
+    vertical-align: middle;
+    fill: var(--color-white-default);
   }
 }
