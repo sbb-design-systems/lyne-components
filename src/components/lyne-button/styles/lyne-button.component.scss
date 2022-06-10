@@ -142,7 +142,8 @@
   }
 }
 
-@media (hover: hover) {
+// If the the device can hover over elements with ease
+@include hover-mq($hover: true) {
   .button:hover:not(:disabled) {
     @include buttonHover;
   }
