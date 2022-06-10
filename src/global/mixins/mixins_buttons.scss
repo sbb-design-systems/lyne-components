@@ -207,11 +207,13 @@
     transition-timing-function: var(--transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
 
-    @include visibleFocus;
-
     @include ifForcedColors {
       border: pxToRem(1) solid windowText;
     }
+  }
+
+  &:focus-visible::before {
+    @include focusOutline;
   }
 }
 

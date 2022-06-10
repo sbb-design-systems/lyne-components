@@ -7,10 +7,13 @@
   display: block;
 }
 
-.taser-hero {
+.teaser-hero {
   position: relative;
   display: block;
-  @include visibleFocus();
+
+  &:focus-visible {
+    @include focusOutline;
+  }
 }
 
 .teaser-hero__image {
