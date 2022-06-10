@@ -913,6 +913,10 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbFormField {
+        "label": string;
+        "optional"?: boolean;
+    }
 }
 export interface LyneButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1193,6 +1197,12 @@ declare global {
         prototype: HTMLLyneTitleElement;
         new (): HTMLLyneTitleElement;
     };
+    interface HTMLSbbFormFieldElement extends Components.SbbFormField, HTMLStencilElement {
+    }
+    var HTMLSbbFormFieldElement: {
+        prototype: HTMLSbbFormFieldElement;
+        new (): HTMLSbbFormFieldElement;
+    };
     interface HTMLElementTagNameMap {
         "lyne-accordion": HTMLLyneAccordionElement;
         "lyne-accordion-item": HTMLLyneAccordionItemElement;
@@ -1239,6 +1249,7 @@ declare global {
         "lyne-timetable-transportation-walk": HTMLLyneTimetableTransportationWalkElement;
         "lyne-timetable-travel-hints": HTMLLyneTimetableTravelHintsElement;
         "lyne-title": HTMLLyneTitleElement;
+        "sbb-form-field": HTMLSbbFormFieldElement;
     }
 }
 declare namespace LocalJSX {
@@ -2126,6 +2137,10 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbFormField {
+        "label"?: string;
+        "optional"?: boolean;
+    }
     interface IntrinsicElements {
         "lyne-accordion": LyneAccordion;
         "lyne-accordion-item": LyneAccordionItem;
@@ -2172,6 +2187,7 @@ declare namespace LocalJSX {
         "lyne-timetable-transportation-walk": LyneTimetableTransportationWalk;
         "lyne-timetable-travel-hints": LyneTimetableTravelHints;
         "lyne-title": LyneTitle;
+        "sbb-form-field": SbbFormField;
     }
 }
 export { LocalJSX as JSX };
@@ -2223,6 +2239,7 @@ declare module "@stencil/core" {
             "lyne-timetable-transportation-walk": LocalJSX.LyneTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationWalkElement>;
             "lyne-timetable-travel-hints": LocalJSX.LyneTimetableTravelHints & JSXBase.HTMLAttributes<HTMLLyneTimetableTravelHintsElement>;
             "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
+            "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
         }
     }
 }
