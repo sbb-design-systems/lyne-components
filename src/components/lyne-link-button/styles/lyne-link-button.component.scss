@@ -37,16 +37,17 @@
   @include buttonShadowNotDisabled;
 }
 
-@media (hover: hover) {
-  .link-button:hover {
-    @include buttonHover;
-    &::before {
-      @include ifForcedColors {
-        border-color: LinkText;
+// If the the device can hover over elements with ease
+@include hover-mq($hover: true) {
+    .link-button:hover {
+      @include buttonHover;
+      &::before {
+        @include ifForcedColors {
+          border-color: LinkText;
+        }
       }
     }
   }
-}
 
 .link-button:active {
   @include buttonActive;
