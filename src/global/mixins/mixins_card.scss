@@ -36,29 +36,13 @@
   transition: var(--card-hover-animation);
 
   &:focus {
-    &:not(:disabled) {
-
-      @include shadow-level-9-hard;
-
-      padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
-      padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
-
-      cursor: pointer;
-    }
+    @include card--shadow;
   }
 
   // If the the device can hover over elements with ease
   @include hover-mq($hover: true) {
       &:hover {
-        &:not(:disabled) {
-
-          @include shadow-level-9-hard;
-
-          padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
-          padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
-
-          cursor: pointer;
-        }
+        @include card--shadow;
       }
     }
 
@@ -182,4 +166,16 @@
 
 @mixin card--xxl--tall {
   @include card--xxl;
+}
+
+@mixin card--shadow {
+  &:not(:disabled) {
+
+    @include shadow-level-9-hard;
+
+    padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
+    padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
+
+    cursor: pointer;
+  }
 }
