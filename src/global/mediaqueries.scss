@@ -71,3 +71,17 @@ $mq-media-type: all !default;
   }
 
 }
+
+@mixin hover-mq($hover: true) {
+  $media-query: '';
+
+  @if $hover == true {
+    $media-query: '(any-hover: hover)';
+  } @else if $hover == false {
+    $media-query: '(hover: none)';
+  }
+
+  @media #{$media-query} {
+    @content;
+  }
+}
