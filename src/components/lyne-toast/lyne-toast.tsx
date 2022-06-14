@@ -303,6 +303,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     } else if (this._hasIconSlot) {
       iconTemplate = <span class='toast-icon'><slot name='icon'/></span>;
     }
+    
 
     return (
       <Host aria-live={this._internalConfig.ariaLivePoliteness} aria-atomic='true' role={role} tabindex={tabIndex} class='overlay-hidden'
@@ -313,6 +314,10 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
           <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._getCSSClassFromPageDirection()}`}>
             {iconTemplate}
             <span class='toast-text' innerHTML={StringSanitizer.sanitizeDOMString(this._internalConfig.message)}/>
+            {
+              actionContent &&
+              <span class="toast-spacer"></span>
+            }
             {
               actionContent &&
               <span class='toast-action'>

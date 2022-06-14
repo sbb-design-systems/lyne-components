@@ -7,7 +7,7 @@
   --color-default-text: var(--color-white-default);
   --toast-background-color: var(--color-midnight-default);
   --toast-border-radius: #{pxToRem(var(--border-radius-4x))};
-  --toast-gap: #{pxToRem(var(--spacing-fixed-4x))};
+  --toast-gap: #{pxToRem(var(--spacing-fixed-2x))};
   --toast-padding-block: #{pxToRem(var(--spacing-responsive-xxxs))};
   --toast-padding-inline: #{pxToRem(var(--spacing-responsive-xs))};
   --toast-margin: #{pxToRem(var(--spacing-responsive-s))};
@@ -75,15 +75,9 @@
 
 // FIXME temporary, waiting for sbb-icon
 .toast-icon {
-  flex: 0 0 19px;
-  height: 19px;
+  line-height: 0;
   align-self: start;
   fill: currentColor;
-  margin-right: pxToRem(var(--spacing-fixed-2x));
-  @include mq($from: medium) {
-    flex: 0 0 23.8px;
-    height: 23.8px;
-  }
 }
 
 .toast-action, .toast-action .toast-button {
