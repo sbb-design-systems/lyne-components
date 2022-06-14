@@ -36,7 +36,8 @@
     transition-property: color, background-color, box-shadow, outline-offset, padding-block;
   }
 
-  @media (any-hover: hover) {
+  // If the the device can hover over elements with ease
+  @include hover-mq($hover: true) {
     ::slotted(h1:hover),
     ::slotted(h2:hover),
     ::slotted(h3:hover),
