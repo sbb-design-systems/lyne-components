@@ -316,13 +316,12 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
             <span class='toast-text' innerHTML={StringSanitizer.sanitizeDOMString(this._internalConfig.message)}/>
             {
               actionContent &&
-              <span class="toast-spacer"></span>
-            }
-            {
-              actionContent &&
-              <span class='toast-action'>
-                {actionContent}
-              </span>
+              [
+                <span class="toast-spacer"></span>,
+                <span class='toast-action'>
+                  {actionContent}
+                </span>
+              ]
             }
           </div>
         </div>
