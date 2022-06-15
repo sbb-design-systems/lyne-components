@@ -36,9 +36,9 @@ export const initialize = (): Mode => {
     ? 'shared'
     : 'default');
 
-  const isLyneElement = (elm: HTMLElement): boolean => elm.tagName && elm.tagName.startsWith('lyne-');
+  const isSbbElement = (elm: HTMLElement): boolean => elm.tagName && elm.tagName.startsWith('sbb-');
 
-  const isAllowedLyneModeValue = (elmMode: string): boolean => [
+  const isAllowedSbbModeValue = (elmMode: string): boolean => [
     'default',
     'shared'
   ].includes(elmMode);
@@ -48,10 +48,10 @@ export const initialize = (): Mode => {
       const elmMode = (elm as any).mode || elm.getAttribute('mode');
 
       if (elmMode) {
-        if (isAllowedLyneModeValue(elmMode)) {
+        if (isAllowedSbbModeValue(elmMode)) {
           return elmMode;
-        } else if (isLyneElement(elm)) {
-          console.warn(`Invalid Lyne mode: "${elmMode}", expected: "default" or "shared"`);
+        } else if (isSbbElement(elm)) {
+          console.warn(`Invalid SBB mode: "${elmMode}", expected: "default" or "shared"`);
         }
       }
       // eslint-disable-next-line no-param-reassign

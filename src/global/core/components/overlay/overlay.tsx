@@ -1,5 +1,5 @@
 import {
-  InterfaceHTMLLyneOverlayElement, InterfaceOverlay
+  InterfaceHTMLSBBOverlayElement, InterfaceOverlay
 } from './overlays-interface';
 import {
   AnimationBuilder, InterfaceAnimation
@@ -11,24 +11,24 @@ let lastId = 0;
 export const BACKDROP = 'backdrop';
 
 /**
- * TODO replace the tags in the next lines with the correct ones for Lyne
+ * TODO replace the tags in the next lines with the correct ones for SBB
  */
-export const GET_OVERLAYS_DEFAULT_SELECTOR = 'lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover,lyne-toast';
-export const GET_OVERLAYS_TRAP_FOCUS_SELECTOR = 'lyne-alert,lyne-action-sheet,lyne-loading,lyne-modal,lyne-picker,lyne-popover';
+export const GET_OVERLAYS_DEFAULT_SELECTOR = 'sbb-alert,sbb-action-sheet,sbb-loading,sbb-modal,sbb-picker,sbb-popover,sbb-toast';
+export const GET_OVERLAYS_TRAP_FOCUS_SELECTOR = 'sbb-alert,sbb-action-sheet,sbb-loading,sbb-modal,sbb-picker,sbb-popover';
 
 export const activeAnimations = new WeakMap<InterfaceOverlay, InterfaceAnimation[]>();
 
 /**
- * TODO replace the tag in the next line with the correct ones for Lyne
+ * TODO replace the tag in the next line with the correct ones for SBB
  */
-const getAppRoot = (doc: Document): HTMLElement => doc.querySelector('lyne-app') || doc.body;
+const getAppRoot = (doc: Document): HTMLElement => doc.querySelector('sbb-app') || doc.body;
 
 const isOverlayHidden = (overlay: Element): boolean => overlay.classList.contains('overlay-hidden');
 
-export const getOverlays = (doc: Document, selector: string = GET_OVERLAYS_DEFAULT_SELECTOR): InterfaceHTMLLyneOverlayElement[] => {
-  const overlays = Array.from(doc.querySelectorAll(selector)) as InterfaceHTMLLyneOverlayElement[];
+export const getOverlays = (doc: Document, selector: string = GET_OVERLAYS_DEFAULT_SELECTOR): InterfaceHTMLSBBOverlayElement[] => {
+  const overlays = Array.from(doc.querySelectorAll(selector)) as InterfaceHTMLSBBOverlayElement[];
 
-  return overlays.filter((c: InterfaceHTMLLyneOverlayElement) => c.overlayIndex > 0);
+  return overlays.filter((c: InterfaceHTMLSBBOverlayElement) => c.overlayIndex > 0);
 };
 
 /**
@@ -38,22 +38,22 @@ export const getOverlays = (doc: Document, selector: string = GET_OVERLAYS_DEFAU
  * @param id The unique identifier for the overlay instance.
  * @returns The overlay element or `undefined` if no overlay element is found.
  */
-export const getOverlay = (doc: Document, overlayTag?: string, id?: string): InterfaceHTMLLyneOverlayElement | undefined => {
+export const getOverlay = (doc: Document, overlayTag?: string, id?: string): InterfaceHTMLSBBOverlayElement | undefined => {
   const overlays = getOverlays(doc, overlayTag)
-    .filter((o: InterfaceHTMLLyneOverlayElement) => !isOverlayHidden(o));
+    .filter((o: InterfaceHTMLSBBOverlayElement) => !isOverlayHidden(o));
 
   return (id === undefined)
     ? overlays[overlays.length - 1]
-    : overlays.find((o: InterfaceHTMLLyneOverlayElement) => o.id === id);
+    : overlays.find((o: InterfaceHTMLSBBOverlayElement) => o.id === id);
 };
 
 /**
  * TODO verify those strings
  */
-const focusableQueryString = '[tabindex]:not([tabindex^="-"]), input:not([type=hidden]):not([tabindex^="-"]), textarea:not([tabindex^="-"]), button:not([tabindex^="-"]), select:not([tabindex^="-"]), .lyne-focusable:not([tabindex^="-"])';
+const focusableQueryString = '[tabindex]:not([tabindex^="-"]), input:not([type=hidden]):not([tabindex^="-"]), textarea:not([tabindex^="-"]), button:not([tabindex^="-"]), select:not([tabindex^="-"]), .sbb-focusable:not([tabindex^="-"])';
 const innerFocusableQueryString = 'input:not([type=hidden]), textarea, button, select';
 
-export const focusFirstDescendant = (ref: Element, overlay: InterfaceHTMLLyneOverlayElement): void => {
+export const focusFirstDescendant = (ref: Element, overlay: InterfaceHTMLSBBOverlayElement): void => {
   let firstInput = ref.querySelector(focusableQueryString) as HTMLElement | null;
 
   const shadowRoot = firstInput && firstInput.shadowRoot;
@@ -71,7 +71,7 @@ export const focusFirstDescendant = (ref: Element, overlay: InterfaceHTMLLyneOve
   }
 };
 
-const focusLastDescendant = (ref: Element, overlay: InterfaceHTMLLyneOverlayElement): void => {
+const focusLastDescendant = (ref: Element, overlay: InterfaceHTMLSBBOverlayElement): void => {
   const inputs = Array.from(ref.querySelectorAll(focusableQueryString)) as HTMLElement[];
   let lastInput = inputs.length > 0
     ? inputs[inputs.length - 1]
@@ -120,7 +120,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
   }
 
   /**
-   * If the lyne-disable-focus-trap class
+   * If the sbb-disable-focus-trap class
    * is present on an overlay, then this component
    * instance has opted out of focus trapping.
    * An example of this is when the sheet modal
@@ -129,7 +129,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
    * the backdrop is enabled.
    *
    */
-  if (lastOverlay.classList.contains('lyne-disable-focus-trap')) {
+  if (lastOverlay.classList.contains('sbb-disable-focus-trap')) {
     return;
   }
 
@@ -147,7 +147,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
       /**
        * Otherwise, we must be focusing an element
        * inside the overlay. The two possible options
-       * here are an input/button/.. or the lyne-focus-trap
+       * here are an input/button/.. or the sbb-focus-trap
        * element. The focus trap element is used to prevent
        * the keyboard focus from leaving the overlay when
        * using Tab or screen assistants.
@@ -165,7 +165,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
         return;
       }
 
-      const overlayWrapper = overlayRoot.querySelector('.lyne-overlay-wrapper');
+      const overlayWrapper = overlayRoot.querySelector('.sbb-overlay-wrapper');
 
       if (!overlayWrapper) {
         return;
@@ -287,7 +287,7 @@ const connectListeners = (doc: Document): void => {
   }
 };
 
-export const prepareOverlay = <T extends InterfaceHTMLLyneOverlayElement>(el: T): void => {
+export const prepareOverlay = <T extends InterfaceHTMLSBBOverlayElement>(el: T): void => {
 
   if (typeof document !== 'undefined') {
     connectListeners(document);
@@ -296,16 +296,16 @@ export const prepareOverlay = <T extends InterfaceHTMLLyneOverlayElement>(el: T)
 
   el.overlayIndex = overlayIndex;
   if (!el.hasAttribute('id')) {
-    el.id = `lyne-overlay-${overlayIndex}`;
+    el.id = `sbb-overlay-${overlayIndex}`;
   }
 };
 
-export const createOverlay = <T extends InterfaceHTMLLyneOverlayElement>(tagName: string, opts: Record<string, unknown> | undefined): Promise<T> => {
+export const createOverlay = <T extends InterfaceHTMLSBBOverlayElement>(tagName: string, opts: Record<string, unknown> | undefined): Promise<T> => {
 
   if (typeof window !== 'undefined' && typeof window.customElements !== 'undefined') {
     return window.customElements.whenDefined(tagName)
       .then(() => {
-        const element = document.createElement(tagName) as InterfaceHTMLLyneOverlayElement;
+        const element = document.createElement(tagName) as InterfaceHTMLSBBOverlayElement;
 
         element.classList.add('overlay-hidden');
 
@@ -352,9 +352,9 @@ export const dismissOverlay = (doc: Document, data: any, role: string | undefine
  * We need a container where all page components
  * exist that is separate from where the overlays
  * are added in the DOM. For most apps, this element
- * is the top most lyne-router-outlet. In the event
+ * is the top most sbb-router-outlet. In the event
  * that devs are not using a router,
- * they will need to add the "lyne-view-container-root"
+ * they will need to add the "sbb-view-container-root"
  * id to the element that contains all of their views.
  *
  * TODO: If Framework supports having multiple top
@@ -362,11 +362,11 @@ export const dismissOverlay = (doc: Document, data: any, role: string | undefine
  * Example: One outlet for side menu and one outlet
  * for main content.
  *
- * TODO replace the tags in the next line with the correct ones for Lyne
+ * TODO replace the tags in the next line with the correct ones for SBB
  */
 export const setRootAriaHidden = (hidden = false): void => {
   const root = getAppRoot(document);
-  const viewContainer = root.querySelector('lyne-router-outlet, lyne-nav, #lyne-view-container-root');
+  const viewContainer = root.querySelector('sbb-router-outlet, sbb-nav, #sbb-view-container-root');
 
   if (!viewContainer) {
     return;
@@ -428,9 +428,9 @@ const overlayAnimation = async (
       const activeElement = baseEl.ownerDocument?.activeElement as HTMLElement;
 
       /**
-       * TODO replace the tag in the next line with the correct ones for Lyne
+       * TODO replace the tag in the next line with the correct ones for SBB
        */
-      if (activeElement && activeElement.matches('input, lyne-input, lyne-textarea')) {
+      if (activeElement && activeElement.matches('input, sbb-input, sbb-textarea')) {
         activeElement.blur();
       }
     });
@@ -477,10 +477,10 @@ export const present = async (overlay: InterfaceOverlay, enterAnimation: Animati
    * does not steal focus and is excluded
    * from returning focus as a result.
    *
-   * TODO replace the tag in the next line with the correct one for Lyne
+   * TODO replace the tag in the next line with the correct one for SBB
    */
   //
-  if (overlay.el.tagName !== 'LYNE-TOAST') {
+  if (overlay.el.tagName !== 'SBB-TOAST') {
     await focusPreviousElementOnDismiss(overlay.el);
   }
 
