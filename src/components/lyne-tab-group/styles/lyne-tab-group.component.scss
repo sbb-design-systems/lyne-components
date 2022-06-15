@@ -16,7 +16,6 @@
   ::slotted(h6) {
     margin: 0;
     @include text-xs--bold;
-    line-height: var(--typo-line-height-body-text);
     display: inline-block;
     vertical-align: middle;
     padding-block: pxToRem(var(--spacing-fixed-2x));
@@ -26,12 +25,11 @@
     -moz-box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
     box-shadow: 0 0 0 pxToRem(var(--border-width-1x)) var(--color-cloud-default);
     outline-offset: calc(pxToRem(var(--border-width-2x)) + pxToRem(var(--border-width-2x)));
-    color: var(--color-black-default);
     background-color: transparent;
     -webkit-tap-highlight-color: transparent;
-    -webkit-font-smoothing: antialiased;
     user-select: none;
     cursor: pointer;
+    @include fontSmoothing;
     @include ellipsis;
     transition-duration: var(--animation-duration-4x);
     transition-timing-function: var(--animation-easing);
