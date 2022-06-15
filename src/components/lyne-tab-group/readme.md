@@ -1,9 +1,9 @@
-Tab groups are used to organize and group tabs that the user can navigate through. Use tabs when you want to provide navigation within a group of contents, instead of showing everything in one place or requiring the user to navigate between several different views.
+Tab groups are used to organize and gather tabs that the user can navigate through. Use tabs when you want to provide navigation within blocks of content, instead of showing everything in one place or requiring the user to navigate between several different views.
 
 ## Usage
-Tabs should be represented by heading tags. Therefore provide one of the following tags for the label: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`. The related content element must always immediately follow the specified heading tag and should be wrapped in a `div`, a `section` or an `article`.
+Tabs are represented by heading tags, therefore provide one of the following tags for the label: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`. The content element are wrapped in a `div`, a `section` or an `article` placed right after its relative heading tag.
 
-Each tab should have a related content, distinct from other tabs' content. Tab panels can present different sections of content and include text, images, forms, other tab groups, etc.
+Each tab has a related content, distinct from other tabs' content. Tab panels can present different sections of content and include text, images, forms, other tab groups, etc.
 
 ```html
 <h1>Tab Label</h1>
