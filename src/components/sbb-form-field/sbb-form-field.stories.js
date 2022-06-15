@@ -1,4 +1,3 @@
-import events from './sbb-form-field.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -20,12 +19,20 @@ const optionalArg = {
   }
 };
 
+const clearableArg = {
+  control: {
+    type: 'boolean'
+  }
+};
+
 const basicArgTypes = {
+  clearable: clearableArg,
   label: labelArg,
   optional: optionalArg
 };
 
 const basicArgs = {
+  clearable: false,
   label: 'Name',
   optional: false
 };
@@ -52,9 +59,6 @@ export default {
     disableArgs: ['someArgToDisableForDocumentationPlatform']
   },
   parameters: {
-    actions: {
-      handles: [events.click]
-    },
     backgrounds: {
       disable: true
     },

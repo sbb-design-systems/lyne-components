@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type      | Default     |
-| ---------- | ---------- | ----------- | --------- | ----------- |
-| `label`    | `label`    |             | `string`  | `undefined` |
-| `optional` | `optional` |             | `boolean` | `undefined` |
+| Property    | Attribute   | Description | Type      | Default     |
+| ----------- | ----------- | ----------- | --------- | ----------- |
+| `clearable` | `clearable` |             | `boolean` | `undefined` |
+| `label`     | `label`     |             | `string`  | `undefined` |
+| `optional`  | `optional`  |             | `boolean` | `undefined` |
 
 
 ## Slots

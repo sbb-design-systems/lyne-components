@@ -2,9 +2,8 @@ import {
   Component,
   Element,
   h, Host,
-  Prop
+  Prop, State
 } from '@stencil/core';
-import events from './sbb-form-field.events';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -23,36 +22,47 @@ export class SbbFormField {
 
   private _id = '';
 
+  private _input: HTMLInputElement;
+
+  @State() private _isClearable = false;
+
+  @Prop() public clearable?: boolean;
+
   @Prop() public label: string;
 
   @Prop() public optional?: boolean;
 
   @Element() private _element: HTMLElement;
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  private _clickHandler = (): void => {
-
-    const event = new CustomEvent(events.click, {
-      bubbles: true,
-      composed: true,
-      detail: 'some event detail'
-    });
-
-    this._element.dispatchEvent(event);
-  };
-
   public componentWillLoad(): void {
     this._element.querySelector('[slot="input"]')
       .setAttribute('id', 'input');
+
     this._id = this._element.querySelector('[slot="input"]')
       .getAttribute('id');
+
+    this._input = this._element.querySelector('[slot="input"]') as HTMLInputElement;
+
+    this._input.addEventListener('blur', this._setClearableInput.bind(this));
+  }
+
+  public disconnectedCallback(): void {
+    this._input.removeEventListener('blur', this._setClearableInput.bind(this));
+  }
+
+  private _setClearableInput(): void {
+    if (this.clearable && this._input.value) {
+      this._isClearable = true;
+    }
   }
 
   private _setFocus(): void {
-    const input = this._element.querySelector('[slot="input"]') as HTMLElement;
+    this._input.focus();
+  }
 
-    input.focus();
+  private _handleClearInput(): void {
+    this._input.value = '';
+    this._isClearable = false;
   }
 
   public render(): JSX.Element {
@@ -60,10 +70,15 @@ export class SbbFormField {
       ? ' (Optional)'
       : '';
 
-    /* eslint-disable */
+    const clearable = this._isClearable
+      ? <button onClick={() => this._handleClearInput()}>Clear</button>
+      : null;
+
     return (
       <Host>
         <div>
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,
+          jsx-a11y/click-events-have-key-events */}
           <label
             onClick={() => this._setFocus()}
             htmlFor={this._id}>
@@ -74,6 +89,7 @@ export class SbbFormField {
         </div>
         <div>
           <slot name='input'></slot>
+          {clearable}
         </div>
         <div>
           <slot name='error'></slot>

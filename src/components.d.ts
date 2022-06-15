@@ -914,6 +914,7 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
     interface SbbFormField {
+        "clearable"?: boolean;
         "label": string;
         "optional"?: boolean;
     }
@@ -2138,6 +2139,7 @@ declare namespace LocalJSX {
         "visuallyHidden"?: false;
     }
     interface SbbFormField {
+        "clearable"?: boolean;
         "label"?: string;
         "optional"?: boolean;
     }
