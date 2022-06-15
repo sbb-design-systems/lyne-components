@@ -121,7 +121,7 @@ const Template = (args) => (
       </sbb-stack>
     </div>
     <div slot='clock'>
-      <sbb-clock initial-time='now'></sbb-clock>
+      <sbb-clock initial-time='now' class='chromatic-ignore'></sbb-clock>
     </div>
     <div slot='bottom'>
       <sbb-link-list textsize='xs' title-level='2' title-text='' list-direction='horizontal-from-large' variant='positive'>
