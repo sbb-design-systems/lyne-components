@@ -12,7 +12,7 @@ Each tab has a related content, distinct from other tabs' content. Tab panels ca
 
 A tab can be selected, unselected, or disabled. Disable a tab to mark it as unavailable. Disabled tabs cannot be focused and may be invisible to assistive technologies such as screen readers.
 
-Tab buttons can have an icon to the left of the label, provide a `lyne-icon` component before the label and within the heading tag in order to show it. They can also have numbers to the right of the label by providing a `lyne-tab-amount` component after the label and within the heading tag.
+Tab buttons can have an icon to the left of the label, provide a `lyne-icon` component before the label and within the heading tag in order to show it. They can also have numbers to the right of the label by providing a `sbb-tab-amount` component after the label and within the heading tag.
 
 ```html
 <!-- Icon -->
@@ -22,12 +22,12 @@ Tab buttons can have an icon to the left of the label, provide a `lyne-icon` com
 
 <!-- Amount -->
 <h1>
-  Tab Label <lyne-tab-amount>123</lyne-tab-amount>
+  Tab Label <sbb-tab-amount>123</sbb-tab-amount>
 </h1>
 
 <!-- Icon and amount -->
 <h1>
-  <lyne-icon><svg></svg></lyne-icon> Tab Label <lyne-tab-amount>123</lyne-tab-amount>
+  <lyne-icon><svg></svg></lyne-icon> Tab Label <sbb-tab-amount>123</sbb-tab-amount>
 </h1>
 ```
 
@@ -45,9 +45,9 @@ Tab groups can be nested (e.g. a tab's related content can contain another tab g
 
 ## Events
 
-| Event                       | Description            | Type                |
-| --------------------------- | ---------------------- | ------------------- |
-| `lyne-tab-group_tab-change` | On selected tab change | `CustomEvent<void>` |
+| Event                      | Description            | Type                |
+| -------------------------- | ---------------------- | ------------------- |
+| `sbb-tab-group_tab-change` | On selected tab change | `CustomEvent<void>` |
 
 
 ## Methods

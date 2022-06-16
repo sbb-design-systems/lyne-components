@@ -9,7 +9,7 @@ import {
   Method,
   Prop
 } from '@stencil/core';
-import { InterfaceLyneTabGroupTab } from './lyne-tab-group.custom';
+import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import throttle from '../../global/helpers/throttle';
@@ -39,13 +39,13 @@ const SUPPORTED_CONTENT_WRAPPERS = [
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-tab-group.default.scss',
-    shared: 'styles/lyne-tab-group.shared.scss'
+    default: 'styles/sbb-tab-group.default.scss',
+    shared: 'styles/sbb-tab-group.shared.scss'
   },
-  tag: 'lyne-tab-group'
+  tag: 'sbb-tab-group'
 })
 
-export class LyneTabGroup {
+export class SbbTabGroup {
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
@@ -57,7 +57,7 @@ export class LyneTabGroup {
    * On selected tab change
    */
   @Event({
-    eventName: 'lyne-tab-group_tab-change'
+    eventName: 'sbb-tab-group_tab-change'
   }) public selectedTabChanged: EventEmitter<void>;
 
   /**
@@ -86,18 +86,18 @@ export class LyneTabGroup {
 
   @Element() private _element: HTMLElement;
 
-  public tabs: InterfaceLyneTabGroupTab[];
+  public tabs: InterfaceSbbTabGroupTab[];
   private _lastUId = 0;
   private _tabContentElement: HTMLElement;
   private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
   private _tabContentResizeObserver = new ResizeObserver(this._onTabContentElementResize.bind(this));
 
-  private _getTabs(): InterfaceLyneTabGroupTab[] {
+  private _getTabs(): InterfaceSbbTabGroupTab[] {
     return (Array.from(this._element.children)
-      .filter((child) => (/^H\d$/u).test(child.tagName)) as InterfaceLyneTabGroupTab[]);
+      .filter((child) => (/^H\d$/u).test(child.tagName)) as InterfaceSbbTabGroupTab[]);
   }
 
-  private get _enabledTabs(): InterfaceLyneTabGroupTab[] {
+  private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
     return this.tabs.filter((t) => !t.hasAttribute('disabled'));
   }
 
@@ -139,7 +139,7 @@ export class LyneTabGroup {
   };
 
   private _nextUId(): string {
-    return `lyne-tab-${++this._lastUId}`;
+    return `sbb-tab-${++this._lastUId}`;
   }
 
   private _ensureId(el): string {
@@ -163,7 +163,7 @@ export class LyneTabGroup {
       if (mutation.type !== 'attributes') {
         return;
       }
-      const tab = (mutation.target as InterfaceLyneTabGroupTab);
+      const tab = (mutation.target as InterfaceSbbTabGroupTab);
 
       if (mutation.attributeName === 'disabled') {
         if (this._isValidTabAttribute(tab, 'disabled')) {
@@ -182,7 +182,7 @@ export class LyneTabGroup {
     }
   }
 
-  private _isValidTabAttribute(tab: InterfaceLyneTabGroupTab, attribute: string): boolean {
+  private _isValidTabAttribute(tab: InterfaceSbbTabGroupTab, attribute: string): boolean {
     return tab.hasAttribute(attribute) && tab.getAttribute(attribute) !== 'false';
   }
 
@@ -194,7 +194,7 @@ export class LyneTabGroup {
     }
   }
 
-  private _configure(tab: InterfaceLyneTabGroupTab): void {
+  private _configure(tab: InterfaceSbbTabGroupTab): void {
     tab.tabGroupActions = {
       activate: (): void => {
         tab.setAttribute('active', '');

@@ -611,6 +611,26 @@ export namespace Components {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
+    interface SbbTabAmount {
+    }
+    interface SbbTabGroup {
+        /**
+          * Activate tab by index
+         */
+        "activateTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Disable tab by index
+         */
+        "disableTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Enable tab by index
+         */
+        "enableTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
+        "initialSelectedIndex": number;
+    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -923,6 +943,10 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
 }
+export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTabGroupElement;
+}
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
     }
@@ -1067,6 +1091,18 @@ declare global {
     var HTMLSbbStackElement: {
         prototype: HTMLSbbStackElement;
         new (): HTMLSbbStackElement;
+    };
+    interface HTMLSbbTabAmountElement extends Components.SbbTabAmount, HTMLStencilElement {
+    }
+    var HTMLSbbTabAmountElement: {
+        prototype: HTMLSbbTabAmountElement;
+        new (): HTMLSbbTabAmountElement;
+    };
+    interface HTMLSbbTabGroupElement extends Components.SbbTabGroup, HTMLStencilElement {
+    }
+    var HTMLSbbTabGroupElement: {
+        prototype: HTMLSbbTabGroupElement;
+        new (): HTMLSbbTabGroupElement;
     };
     interface HTMLSbbTeaserHeroElement extends Components.SbbTeaserHero, HTMLStencilElement {
     }
@@ -1219,6 +1255,8 @@ declare global {
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
+        "sbb-tab-amount": HTMLSbbTabAmountElement;
+        "sbb-tab-group": HTMLSbbTabGroupElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-text-input": HTMLSbbTextInputElement;
         "sbb-timetable": HTMLSbbTimetableElement;
@@ -1824,6 +1862,18 @@ declare namespace LocalJSX {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
+    interface SbbTabAmount {
+    }
+    interface SbbTabGroup {
+        /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
+        "initialSelectedIndex"?: number;
+        /**
+          * On selected tab change
+         */
+        "onSbb-tab-group_tab-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
+    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -2152,6 +2202,8 @@ declare namespace LocalJSX {
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
+        "sbb-tab-amount": SbbTabAmount;
+        "sbb-tab-group": SbbTabGroup;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-text-input": SbbTextInput;
         "sbb-timetable": SbbTimetable;
@@ -2203,6 +2255,8 @@ declare module "@stencil/core" {
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
+            "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
+            "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;

@@ -2,7 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <lyne-tab-amount>{args.amount}</lyne-tab-amount>
+  <sbb-tab-amount>{args.amount}</sbb-tab-amount>
 );
 
 export const amount = Template.bind({});
@@ -31,5 +31,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/tabs/lyne-tab-amount'
+  title: 'components/tabs/sbb-tab-amount'
 };

@@ -11,16 +11,16 @@ import {
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-tab-amount.default.scss',
-    shared: 'styles/lyne-tab-amount.shared.scss'
+    default: 'styles/sbb-tab-amount.default.scss',
+    shared: 'styles/sbb-tab-amount.shared.scss'
   },
-  tag: 'lyne-tab-amount'
+  tag: 'sbb-tab-amount'
 })
 
-export class LyneTabAmount {
+export class SbbTabAmount {
   public render(): JSX.Element {
     return (
-      <Host slot='lyne-tab-amount'>
+      <Host slot='sbb-tab-amount'>
         <span class='tab-amount'><slot/></span>
       </Host>
     );

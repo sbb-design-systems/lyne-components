@@ -1,24 +1,24 @@
-import { LyneTabAmount } from './lyne-tab-amount';
+import { SbbTabAmount } from './sbb-tab-amount';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-tab-amount', () => {
+describe('sbb-tab-amount', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTabAmount],
-      html: '<lyne-tab-amount />'
+      components: [SbbTabAmount],
+      html: '<sbb-tab-amount />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-tab-amount slot="lyne-tab-amount">
+        <sbb-tab-amount slot="sbb-tab-amount">
           <mock:shadow-root>
             <span class='tab-amount'>
               <slot/>
             </span>
           </mock:shadow-root>
-        </lyne-tab-amount>
+        </sbb-tab-amount>
       `);
   });
 

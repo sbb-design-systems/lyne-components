@@ -1,14 +1,14 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-tab-amount', () => {
+describe('sbb-tab-amount', () => {
   let element,
     page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<lyne-tab-amount></lyne-tab-amount>');
+    await page.setContent('<sbb-tab-amount></sbb-tab-amount>');
 
-    element = await page.find('lyne-tab-amount');
+    element = await page.find('sbb-tab-amount');
     expect(element)
       .toHaveClass('hydrated');
   });

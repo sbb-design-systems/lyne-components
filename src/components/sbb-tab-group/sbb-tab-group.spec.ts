@@ -1,13 +1,13 @@
-import { LyneTabGroup } from './lyne-tab-group';
+import { SbbTabGroup } from './sbb-tab-group';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-tab-group', () => {
+describe('sbb-tab-group', () => {
   let component, page;
 
   beforeEach(async () => {
     page = await newSpecPage({
-      components: [LyneTabGroup],
-      html: `<lyne-tab-group initial-selected-index="0">
+      components: [SbbTabGroup],
+      html: `<sbb-tab-group initial-selected-index="0">
               <h1>Test tab label 1</h1>
               <div>Test tab content 1</div>
               <h2>Test tab label 2</h2>
@@ -15,23 +15,23 @@ describe('lyne-tab-group', () => {
               <h3 disabled>Test tab label 3</h3>
               <div>Test tab content 3</div>
               <h4>Test tab label 4</h4>
-            </lyne-tab-group>`,
+            </sbb-tab-group>`,
       supportsShadowDom: true
     });
-    component = page.doc.querySelector('lyne-tab-group');
+    component = page.doc.querySelector('sbb-tab-group');
   });
 
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneTabGroup],
-      html: '<lyne-tab-group />'
+      components: [SbbTabGroup],
+      html: '<sbb-tab-group />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-tab-group>
+        <sbb-tab-group>
           <mock:shadow-root>
           <div class="tab-group" role="tablist">
             <slot name="tab-bar"></slot>
@@ -40,7 +40,7 @@ describe('lyne-tab-group', () => {
             <slot></slot>
           </div>
           </mock:shadow-root>
-        </lyne-tab-group>
+        </sbb-tab-group>
       `);
   });
 
@@ -91,13 +91,13 @@ describe('lyne-tab-group', () => {
 
     it('activates the first enabled tab if targets a disabled tab', async () => {
       page = await newSpecPage({
-        components: [LyneTabGroup],
-        html: `<lyne-tab-group initial-selected-index="0">
+        components: [SbbTabGroup],
+        html: `<sbb-tab-group initial-selected-index="0">
                 <h1 disabled>Test tab label 1</h1>
                 <div>Test tab content 1</div>
                 <h2>Test tab label 2</h2>
                 <div>Test tab content 2</div>
-              </lyne-tab-group>`,
+              </sbb-tab-group>`,
         supportsShadowDom: true
       });
       const tab = page.root.querySelector('h2');
@@ -108,13 +108,13 @@ describe('lyne-tab-group', () => {
 
     it('activates the first enabled tab if exceeds the length of the tab group', async () => {
       page = await newSpecPage({
-        components: [LyneTabGroup],
-        html: `<lyne-tab-group initial-selected-index="2">
+        components: [SbbTabGroup],
+        html: `<sbb-tab-group initial-selected-index="2">
                 <h1>Test tab label 1</h1>
                 <div>Test tab content 1</div>
                 <h2>Test tab label 2</h2>
                 <div>Test tab content 2</div>
-              </lyne-tab-group>`,
+              </sbb-tab-group>`,
         supportsShadowDom: true
       });
       const tab = page.root.querySelector('h1');
