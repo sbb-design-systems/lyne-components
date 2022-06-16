@@ -9,7 +9,7 @@ const TemplateDefaultIcon = (args) => (
       <lyne-title text='Streckenunterbruch zwischen Stadelhofen und Zürich HB' />
       Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils
       zwischen 22:30 – 06:00 Uhr Bauarbeiten statt. Sie müssen mit geänderten
-      Fahrzeiten und geänderten Anschlüsse rechnen.
+      Fahrzeiten und geänderten Anschlüssen rechnen. <lyne-link ></lyne-link>
     </lyne-alert>
     <p>Other Content on a page</p>
     <div
@@ -49,7 +49,7 @@ const TemplateCustomIcon = (args) => (
     {getMarkupForSvg('disruption')}
     Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils zwischen
     22:30 – 06:00 Uhr Bauarbeiten statt. Sie müssen mit geänderten Fahrzeiten
-    und geänderten Anschlüsse rechnen.
+    und geänderten Anschlüssen rechnen.
   </lyne-alert>
 );
 

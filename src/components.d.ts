@@ -146,6 +146,10 @@ export namespace Components {
     }
     interface SbbButton {
         /**
+          * The aria-controls property identifies the element (or elements) whose contents or presence are controlled by the element on which this attribute is set. The value is forwarded to the native button element.
+         */
+        "ariaControls"?: InterfaceButtonAttributes['ariaControls'];
+        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
@@ -1528,6 +1532,10 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface SbbButton {
+        /**
+          * The aria-controls property identifies the element (or elements) whose contents or presence are controlled by the element on which this attribute is set. The value is forwarded to the native button element.
+         */
+        "ariaControls"?: InterfaceButtonAttributes['ariaControls'];
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */

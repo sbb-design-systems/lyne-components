@@ -30,16 +30,20 @@
 }
 
 .lyne-alert {
-  @include text-s--regular;
   display: flex;
   gap: pxToRem(var(--lyne-alert-gap));
   min-width: fit-content;
   padding: pxToRem(var(--lyne-alert_padding));
   overflow-y: hidden;
-  color: var(--lyne-alert_color);
   background-color: var(--lyne-alert_background-color);
   border-radius: pxToRem(var(--lyne-alert_border-radius));
   transition: opacity var(--animation-duration-6x) ease-in;
+}
+
+.lyne-alert,
+::slotted(a) {
+  @include text-s--regular;
+  color: var(--lyne-alert_color);
 }
 
 .lyne-alert--size-l {
@@ -112,4 +116,12 @@ slot[name="icon"] svg {
   height: pxToRem(var(--lyne-alert_icon-size));
   width: pxToRem(var(--lyne-alert_icon-size));
   fill: currentColor;
+}
+
+::slotted(a:focus-visible) {
+  @include focusOutline;
+}
+
+::slotted(a:hover) {
+
 }
