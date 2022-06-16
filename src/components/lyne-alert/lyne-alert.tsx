@@ -30,11 +30,10 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   tag: 'lyne-alert'
 })
 export class LyneAlert {
-
-  // TODO: handle id logic without using id name;
   @Prop({
     attribute: 'id'
-  }) public internalId: InterfaceLyneAlertAttributes['id'] = `lyne-alert-${guid()}`;
+  })
+  public internalId: InterfaceLyneAlertAttributes['id'] = `lyne-alert-${guid()}`;
 
   /**
    * Whether the alert is readonly.
@@ -54,7 +53,8 @@ export class LyneAlert {
    * Choose between `off`, `polite` and `assertive`.
    */
   @Prop()
-  public ariaLivePoliteness: InterfaceLyneAlertAttributes['ariaLivePoliteness'] = 'polite';
+  public ariaLivePoliteness: InterfaceLyneAlertAttributes['ariaLivePoliteness'] =
+      'polite';
 
   /**
    * Emits when the fade in animation starts.
@@ -86,8 +86,6 @@ export class LyneAlert {
   @Element() private _element: HTMLElement;
   private _transitionWrapperElement!: HTMLElement;
   private _alertElement!: HTMLElement;
-  private _transitionWrapperListenerReference?: () => void;
-  private _alertElementListenerReference?: () => void;
   private _firstRenderingDone = false;
   private _currentLanguage = getDocumentLang();
 
@@ -116,52 +114,36 @@ export class LyneAlert {
     }
 
     this._transitionWrapperElement.style.height = `${this._alertElement.offsetHeight}px`;
-    this._transitionWrapperListenerReference =
-      this._onHeightTransitionEnd.bind(this);
     this._transitionWrapperElement.addEventListener(
       'transitionend',
-      this._transitionWrapperListenerReference
+      this._onHeightTransitionEnd.bind(this),
+      {
+        once: true
+      }
     );
   }
 
   private _onHeightTransitionEnd(): void {
     this._transitionWrapperElement.style.removeProperty('height');
     this._alertElement.style.removeProperty('opacity');
-    this._unsubscribeFromWrapperTransition();
 
     if (this.disableAnimation) {
       this._onOpacityTransitionEnd();
 
       return;
     }
-    this._alertElementListenerReference =
-      this._onOpacityTransitionEnd.bind(this);
 
     this._alertElement.addEventListener(
       'transitionend',
-      this._alertElementListenerReference
+      this._onOpacityTransitionEnd.bind(this),
+      {
+        once: true
+      }
     );
   }
 
   private _onOpacityTransitionEnd(): void {
     this.didPresent.emit();
-    this._unsubscribeFromAlertTransition();
-  }
-
-  private _unsubscribeFromWrapperTransition(): void {
-    this._transitionWrapperElement.removeEventListener(
-      'transitionend',
-      this._transitionWrapperListenerReference
-    );
-    this._transitionWrapperListenerReference = undefined;
-  }
-
-  private _unsubscribeFromAlertTransition(): void {
-    this._alertElement.removeEventListener(
-      'transitionend',
-      this._alertElementListenerReference
-    );
-    this._alertElementListenerReference = undefined;
   }
 
   /** Dismiss the alert. */
@@ -170,8 +152,6 @@ export class LyneAlert {
     if (!this.presented) {
       return;
     }
-    this._unsubscribeFromWrapperTransition();
-    this._unsubscribeFromAlertTransition();
 
     this.presented = false;
 
@@ -211,8 +191,13 @@ export class LyneAlert {
           <div
             class={`lyne-alert lyne-alert--size-${this.size}${readonly}`}
             ref={(el): void => {
+              const isFirstInitialization = !this._alertElement;
+
               this._alertElement = el;
-              this._initFadeInTransitionStyles();
+              if (isFirstInitialization) {
+                this._initFadeInTransitionStyles();
+              }
+
             }}
           >
             <span class='lyne-alert_icon' aria-hidden='true'>
