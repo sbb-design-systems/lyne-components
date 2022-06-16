@@ -923,6 +923,10 @@ export namespace Components {
          */
         "config": InterfaceToastConfiguration;
         /**
+          * If `true`, the toast will play enter-leave animations.
+         */
+        "disableAnimation": boolean;
+        /**
           * Dismiss the toast overlay after it has been presented.
           * @param data Any data to emit in the dismiss events.
           * @param role The role of the element that is dismissing the toast. Example: `"cancel"` for close icon `"timeout"` for auto-close
@@ -2183,6 +2187,10 @@ declare namespace LocalJSX {
           * Exposed toast configuration.
          */
         "config"?: InterfaceToastConfiguration;
+        /**
+          * If `true`, the toast will play enter-leave animations.
+         */
+        "disableAnimation"?: boolean;
         /**
           * Animation to use when the toast is presented.
          */

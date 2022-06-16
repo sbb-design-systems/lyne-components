@@ -26,6 +26,7 @@
   width: 100vw;
   height: 100vh;
   contain: content;
+  pointer-events: none;
 }
 
 .toast {
@@ -84,6 +85,7 @@
   @include text-s--regular;
   margin-left: auto;
   cursor: pointer;
+  pointer-events: all;
 }
 
 .toast-link {

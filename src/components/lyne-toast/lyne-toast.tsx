@@ -14,6 +14,7 @@ import {
 } from '../../global/helpers/get-class-list';
 import { isRTL } from '../../global/helpers/rtl/dir';
 import { StringSanitizer } from '../../global/helpers/sanitization/string-sanitizer';
+import { DEFAULT_Z_INDEX_TOAST } from '../../global/z-index-list';
 import { toastEnterAnimation } from './animations/lyne-toast.enter';
 import { toastLeaveAnimation } from './animations/lyne-toast.leave';
 import {
@@ -32,16 +33,21 @@ import {
 export class LyneToast implements ComponentInterface, InterfaceOverlay {
 
   /**
-   * If `true`, the toast will animate.
+   * Used to avoid dismissal if presenting is ongoing, and viceversa.
    */
-  public animated = false;
-
   public presented: boolean;
 
   /**
    * @internal
+   * Internal z-index of the toast;
+   * it's set by adding 1 to the default value for each instance.
    */
   @Prop() public overlayIndex: number;
+
+  /**
+   * If `true`, the toast will play enter-leave animations.
+   */
+  @Prop() public disableAnimation = false;
 
   /**
    * If `true`, the keyboard will be automatically
@@ -97,7 +103,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
   /**
    * Internal timeout.
    */
-  private _durationTimeout: NodeJS.Timeout;
+  private _durationTimeout: ReturnType<typeof setTimeout>;
 
   /**
    * Internal toast configuration;
@@ -189,7 +195,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
    */
   private _renderActionCommonButton(onClickFn: () => Promise<boolean>, innerToastEl: JSX.Element): JSX.Element {
     return (
-      <button type='button' tabIndex={0} onClick={onClickFn} role={this._internalConfig.action.role} class={this._buttonClass()}>
+      <button type='button' onClick={onClickFn} role={this._internalConfig.action.role} class={this._buttonClass()}>
         {innerToastEl}
       </button>
     );
@@ -220,7 +226,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
    * Triggers the action handler and dismiss the toast.
    * @param action The action provided bu consumers in the toast config.
    */
-  private _handleButtonClick(action: InterfaceToastAction): Promise<boolean> {
+  private _handleActionButtonClick(action: InterfaceToastAction): Promise<boolean> {
     try {
       action.handler();
     } catch (e) {
@@ -238,7 +244,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     switch (this._internalConfig.action.type) {
       case 'link': {
         return (
-          <a class='toast-link lyne-focusable' href={this._internalConfig.action.href} target='_blank' rel='noreferrer' tabIndex={0} role={this._internalConfig.action.role} onClick={this.dismiss.bind(this, null, 'link')}>
+          <a class='toast-link lyne-focusable' href={this._internalConfig.action.href} target='_blank' rel='noreferrer' role={this._internalConfig.action.role} onClick={this.dismiss.bind(this, null, 'link')}>
             {this._internalConfig.action.label}
           </a>
         );
@@ -246,7 +252,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
       }
       case 'action': {
         const innerElement = <span class='toast-label'>{this._internalConfig.action.label}</span>;
-        const clickFn = this._handleButtonClick.bind(this, this._internalConfig.action);
+        const clickFn = this._handleActionButtonClick.bind(this, this._internalConfig.action);
 
         return this._renderActionCommonButton(clickFn, innerElement);
       }
@@ -285,7 +291,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
   }
 
   public render(): JSX.Element {
-    const zIndex = this.overlayIndex + 60000;
+    const zIndex = this.overlayIndex + DEFAULT_Z_INDEX_TOAST;
     let actionContent: JSX.Element;
     let role = 'status';
     let tabIndex = '-1';

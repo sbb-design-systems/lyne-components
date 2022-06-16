@@ -15,7 +15,7 @@ import { createAnimation } from '../animations/animation';
 })
 export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
 
-  public animated = false;
+  public disableAnimation = false;
   public keyboardClose: boolean;
   public presented: boolean;
   @Element() public el!: HTMLLyneOverlayElement;

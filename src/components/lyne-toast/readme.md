@@ -50,12 +50,13 @@ Toasts don't take focus.
 
 ## Properties
 
-| Property         | Attribute        | Description                                                                            | Type                                              | Default     |
-| ---------------- | ---------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------- |
-| `config`         | --               | Exposed toast configuration.                                                           | `InterfaceToastConfiguration`                     | `undefined` |
-| `enterAnimation` | --               | Animation to use when the toast is presented.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
-| `keyboardClose`  | `keyboard-close` | If `true`, the keyboard will be automatically dismissed when the overlay is presented. | `boolean`                                         | `false`     |
-| `leaveAnimation` | --               | Animation to use when the toast is dismissed.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
+| Property           | Attribute           | Description                                                                            | Type                                              | Default     |
+| ------------------ | ------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------- |
+| `config`           | --                  | Exposed toast configuration.                                                           | `InterfaceToastConfiguration`                     | `undefined` |
+| `disableAnimation` | `disable-animation` | If `true`, the toast will play enter-leave animations.                                 | `boolean`                                         | `false`     |
+| `enterAnimation`   | --                  | Animation to use when the toast is presented.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
+| `keyboardClose`    | `keyboard-close`    | If `true`, the keyboard will be automatically dismissed when the overlay is presented. | `boolean`                                         | `false`     |
+| `leaveAnimation`   | --                  | Animation to use when the toast is dismissed.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
 
 
 ## Events

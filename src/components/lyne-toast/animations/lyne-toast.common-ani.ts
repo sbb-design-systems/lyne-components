@@ -6,7 +6,6 @@ export const toastAnimation = (baseEl: HTMLElement, opacityFromValue: number, op
   const computedStyle: CSSStyleDeclaration = window.getComputedStyle(baseEl);
   const wrapperAnimation: InterfaceAnimation = createAnimation()
     .addElement(baseEl.shadowRoot.querySelector('.toast-wrapper'))
-    .duration(getAnimationDurationVariableSafeValue(computedStyle, '--animation-duration-3x'))
     .fromTo('opacity', opacityFromValue, opacityToValue);
 
   return createAnimation()

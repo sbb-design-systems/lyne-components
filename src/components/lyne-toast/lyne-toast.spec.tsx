@@ -61,7 +61,7 @@ describe('lyne-toast', () => {
                </span>
                <span class="toast-spacer"></span>
                <span class="toast-action">
-                 <button class="lyne-focusable toast-button" role="cancel" tabindex="0" type="button">
+                 <button class="lyne-focusable toast-button" role="cancel" type="button">
                    <span class="toast-close"></span>
                  </button>
                </span>
@@ -101,7 +101,7 @@ describe('lyne-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <a class="lyne-focusable toast-link" href="https://www.sbb.ch" rel="noreferrer" tabindex="0" target="_blank">
+                  <a class="lyne-focusable toast-link" href="https://www.sbb.ch" rel="noreferrer" target="_blank">
                     Link
                   </a>
                 </span>
@@ -141,7 +141,7 @@ describe('lyne-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <button class="lyne-focusable toast-button" tabindex="0" type="button">
+                  <button class="lyne-focusable toast-button" type="button">
                     <span class="toast-label">
                       Button
                     </span>
@@ -259,7 +259,7 @@ describe('lyne-toast', () => {
                </span>
                <span class="toast-spacer"></span>
                <span class="toast-action">
-                 <button class="lyne-focusable toast-button" role="cancel" tabindex="0" type="button">
+                 <button class="lyne-focusable toast-button" role="cancel" type="button">
                    <span class="toast-close">
                    </span>
                  </button>
@@ -304,7 +304,7 @@ describe('lyne-toast', () => {
                   </span>
                   <span class="toast-spacer"></span>
                   <span class="toast-action">
-                     <a class="lyne-focusable toast-link" href="https://www.sbb.ch" rel="noreferrer" tabindex="0" target="_blank">
+                     <a class="lyne-focusable toast-link" href="https://www.sbb.ch" rel="noreferrer" target="_blank">
                       Link
                     </a>
                   </span>
@@ -348,7 +348,7 @@ describe('lyne-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <button class="lyne-focusable toast-button" tabindex="0" type="button">
+                  <button class="lyne-focusable toast-button" type="button">
                     <span class="toast-label">
                       Button
                     </span>
@@ -395,7 +395,7 @@ describe('lyne-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <button class="lyne-focusable toast-button my-css-class" tabindex="0" type="button">
+                  <button class="lyne-focusable toast-button my-css-class" type="button">
                     <span class="toast-label">
                       Button
                     </span>
@@ -520,7 +520,7 @@ describe('lyne-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                 <button class="lyne-focusable toast-button" role="cancel" tabindex="0" type="button">
+                 <button class="lyne-focusable toast-button" role="cancel" type="button">
                    <span class="toast-close">
                    </span>
                  </button>

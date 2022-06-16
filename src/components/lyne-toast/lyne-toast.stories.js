@@ -38,10 +38,18 @@ const getCloseIconConfig = () => ({
   }
 });
 
-const createAndSetupToast = (args, config) => {
+const createToast = (args, config, disableAnimation) => {
   const toast = document.createElement('lyne-toast');
 
+  toast.disableAnimation = disableAnimation;
   toast.config = config;
+
+  return toast;
+};
+
+const createAndSetupToast = (args, config) => {
+  const toast = createToast(args, config, false);
+
   document.body.appendChild(toast);
   Object.values(lyneToastEvents)
     .forEach((eventName) => propagateOverlayEventToStorybook(document.getElementById('button-id'), toast, eventName));
@@ -49,10 +57,29 @@ const createAndSetupToast = (args, config) => {
   return toast;
 };
 
+const createAndSetupToastNoAnimation = (args, config) => {
+  const toast = createToast(args, config, true);
+
+  document.body.appendChild(toast);
+  Object.values(lyneToastEvents)
+    .forEach((eventName) => propagateOverlayEventToStorybook(document.getElementById('button-id'), toast, eventName));
+
+  return toast;
+};
+
+const openBasicNoAnimation = (args) => {
+  createAndSetupToastNoAnimation(args, getCommonConfig(args))
+    .present();
+};
+const TemplateBasicNoAnimation = (args) => (
+  <button id='button-id' onClick={openBasicNoAnimation.bind(this, args)}>Open toast</button>
+);
+
 const openNoIconAndNoAction = (args) => {
   createAndSetupToast(args, getCommonConfig(args))
     .present();
 };
+
 const TemplateNoIconAndNoAction = (args) => (
   <button id='button-id' onClick={openNoIconAndNoAction.bind(this, args)}>Open toast</button>
 );
@@ -169,6 +196,8 @@ const openIconAndButtonAction = (args) => {
 const TemplateIconAndButtonAction = (args) => (
   <button id='button-id' onClick={openIconAndButtonAction.bind(this, args)}>Open toast</button>
 );
+
+export const BasicNoAnimation = TemplateBasicNoAnimation.bind({});
 
 export const NoIconAndNoAction = TemplateNoIconAndNoAction.bind({});
 
@@ -297,6 +326,11 @@ const basicArgs = {
   verticalPosition: 'bottom'
 };
 
+BasicNoAnimation.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+delete BasicNoAnimation.argTypes.iconSlot;
+delete BasicNoAnimation.argTypes.href;
+delete BasicNoAnimation.argTypes.label;
+
 NoIconAndNoAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 delete NoIconAndNoAction.argTypes.iconSlot;
 delete NoIconAndNoAction.argTypes.href;
@@ -321,6 +355,11 @@ delete IconAndCloseIconActionWithEventListeners.argTypes.label;
 IconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 IconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 delete IconAndButtonAction.argTypes.href;
+
+BasicNoAnimation.args = JSON.parse(JSON.stringify(basicArgs));
+delete BasicNoAnimation.args.iconSlot;
+delete BasicNoAnimation.args.href;
+delete BasicNoAnimation.args.label;
 
 NoIconAndNoAction.args = JSON.parse(JSON.stringify(basicArgs));
 delete NoIconAndNoAction.args.iconSlot;
@@ -347,6 +386,9 @@ IconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
 IconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
 delete IconAndButtonAction.args.href;
 
+BasicNoAnimation.documentation = {
+  title: 'Basic Lyne toast with no animation'
+};
 NoIconAndNoAction.documentation = {
   title: 'Lyne toast with no icon and no action'
 };

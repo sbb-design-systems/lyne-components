@@ -6,14 +6,20 @@ export interface InterfaceLyneToastAttributes {
   verticalPosition: 'top' | 'bottom';
 }
 
-type InterfaceToastType = 'link' | 'action' | 'icon';
+export type InterfaceToastType = 'link' | 'action' | 'icon';
 
 /**
  * Common interface for toast action.
  */
-interface InterfaceToastCommonAction {
+export interface InterfaceToastCommonAction {
+
+  /** Used for discriminating union. */
   type: InterfaceToastType;
+
+  /** Emitted when action is executed. */
   role: 'cancel' | string;
+
+  /** Users CSS classes added to the action item. */
   cssClass?: string | string[];
 }
 
@@ -22,7 +28,15 @@ interface InterfaceToastCommonAction {
  */
 export interface InterfaceToastLink extends InterfaceToastCommonAction {
   type: 'link';
+
+  /** Anchor tag label. */
   label: string;
+
+  /**
+   * Link reference. NOTE:
+   * - it will be opened in a new window;
+   * - toast wil be closed on click.
+   */
   href: string;
 }
 
@@ -31,7 +45,14 @@ export interface InterfaceToastLink extends InterfaceToastCommonAction {
  */
 export interface InterfaceToastAction extends InterfaceToastCommonAction {
   type: 'action';
+
+  /** Action button label. */
   label: string;
+
+  /**
+   * Action button callback; it will be executed on click
+   * (toast will be closed right after).
+   */
   handler: () => void;
 }
 
@@ -40,28 +61,38 @@ export interface InterfaceToastAction extends InterfaceToastCommonAction {
  */
 export interface InterfaceToastIcon extends InterfaceToastCommonAction {
   type: 'icon';
+
+  /** Default value for close icon. */
   role: 'cancel';
 }
 
 /**
- * Interface for toast's configuration:
- * - "message": Message to display.
- * - "timeout": Hide the toast after defined time (in milliseconds).
- * - "icon": SVG string or reference to a SVG element for icon.
- * - "iconTemplate": Id of <template> to use for the icon.
- * - "action": Action configuration.
- * - "verticalPosition": Where the toast should be displayed vertically.
- * - "horizontalPosition": Where the toast should be displayed horizontally.
- * - "ariaLivePoliteness": Value for aria-live attribute.
+ * Interface for toast's configuration.
  */
 export interface InterfaceToastConfiguration {
+
+  /** Message to display */
   message: string;
+
+  /** Hide the toast after defined time (in milliseconds). */
   timeout?: number;
+
+  /** SVG string or reference to a SVG element for icon. */
   icon?: string | HTMLElement;
+
+  /** Id of <template> to use for the icon. */
   iconTemplate?: string;
+
+  /** Action configuration. */
   action?: InterfaceToastLink | InterfaceToastAction | InterfaceToastIcon;
+
+  /** Where the toast should be displayed vertically. */
   verticalPosition?: InterfaceLyneToastAttributes['verticalPosition'];
+
+  /** Where the toast should be displayed horizontally. */
   horizontalPosition?: InterfaceLyneToastAttributes['horizontalPosition'];
+
+  /** Value for aria-live attribute. */
   ariaLivePoliteness?: InterfaceLyneToastAttributes['ariaLivePoliteness'];
 }
 

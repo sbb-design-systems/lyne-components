@@ -420,7 +420,7 @@ const overlayAnimation = async (
   const aniRoot = overlay.el;
   const animation = animationBuilder(aniRoot, opts);
 
-  if (!overlay.animated) {
+  if (overlay.disableAnimation) {
     animation.duration(0);
   }
 
