@@ -286,6 +286,13 @@ export namespace Components {
          */
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
+    interface SbbFormError {
+    }
+    interface SbbFormField {
+        "clearable"?: boolean;
+        "label": string;
+        "optional"?: boolean;
+    }
     interface SbbGrid {
         /**
           * Section appearance
@@ -914,11 +921,6 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
-    interface SbbFormField {
-        "clearable"?: boolean;
-        "label": string;
-        "optional"?: boolean;
-    }
 }
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -982,6 +984,18 @@ declare global {
     var HTMLSbbFooterElement: {
         prototype: HTMLSbbFooterElement;
         new (): HTMLSbbFooterElement;
+    };
+    interface HTMLSbbFormErrorElement extends Components.SbbFormError, HTMLStencilElement {
+    }
+    var HTMLSbbFormErrorElement: {
+        prototype: HTMLSbbFormErrorElement;
+        new (): HTMLSbbFormErrorElement;
+    };
+    interface HTMLSbbFormFieldElement extends Components.SbbFormField, HTMLStencilElement {
+    }
+    var HTMLSbbFormFieldElement: {
+        prototype: HTMLSbbFormFieldElement;
+        new (): HTMLSbbFormFieldElement;
     };
     interface HTMLSbbGridElement extends Components.SbbGrid, HTMLStencilElement {
     }
@@ -1199,12 +1213,6 @@ declare global {
         prototype: HTMLSbbTitleElement;
         new (): HTMLSbbTitleElement;
     };
-    interface HTMLSbbFormFieldElement extends Components.SbbFormField, HTMLStencilElement {
-    }
-    var HTMLSbbFormFieldElement: {
-        prototype: HTMLSbbFormFieldElement;
-        new (): HTMLSbbFormFieldElement;
-    };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
@@ -1215,6 +1223,7 @@ declare global {
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
         "sbb-footer": HTMLSbbFooterElement;
+        "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
         "sbb-grid": HTMLSbbGridElement;
         "sbb-image": HTMLSbbImageElement;
@@ -1508,6 +1517,13 @@ declare namespace LocalJSX {
           * Footer appearance
          */
         "appearance"?: InterfaceFooterAttributes['appearance'];
+    }
+    interface SbbFormError {
+    }
+    interface SbbFormField {
+        "clearable"?: boolean;
+        "label"?: string;
+        "optional"?: boolean;
     }
     interface SbbGrid {
         /**
@@ -2139,11 +2155,6 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
-    interface SbbFormField {
-        "clearable"?: boolean;
-        "label"?: string;
-        "optional"?: boolean;
-    }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
@@ -2154,6 +2165,7 @@ declare namespace LocalJSX {
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
         "sbb-footer": SbbFooter;
+        "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
         "sbb-grid": SbbGrid;
         "sbb-image": SbbImage;
@@ -2206,6 +2218,7 @@ declare module "@stencil/core" {
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
+            "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
             "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;

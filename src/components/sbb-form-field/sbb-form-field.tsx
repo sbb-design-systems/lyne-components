@@ -20,11 +20,11 @@ import {
 
 export class SbbFormField {
 
-  private _id = '';
+  private _id: string;
 
   private _input: HTMLInputElement;
 
-  @State() private _isClearable = false;
+  @State() private _isClearable: boolean;
 
   @Prop() public clearable?: boolean;
 
@@ -67,7 +67,7 @@ export class SbbFormField {
 
   public render(): JSX.Element {
     const optional = this.optional
-      ? ' (Optional)'
+      ? ' (optional)'
       : '';
 
     const clearable = this._isClearable
@@ -88,8 +88,14 @@ export class SbbFormField {
           </label>
         </div>
         <div>
+          <slot name='prefix'></slot>
+        </div>
+        <div>
           <slot name='input'></slot>
           {clearable}
+        </div>
+        <div>
+          <slot name='suffix'></slot>
         </div>
         <div>
           <slot name='error'></slot>
