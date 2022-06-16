@@ -3,7 +3,7 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didDismiss: 'lyne-alert_did-dismiss',
-  didPresent: 'lyne-alert_did-present',
-  willPresent: 'lyne-alert_will-present'
+  didDismiss: 'sbb-alert_did-dismiss',
+  didPresent: 'sbb-alert_did-present',
+  willPresent: 'sbb-alert_will-present'
 };

@@ -1,16 +1,16 @@
-import events from './lyne-alert.events.ts';
+import events from './sbb-alert.events.ts';
 import readme from './readme.md';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 
 const TemplateDefaultIcon = (args) => (
   <div>
-    <lyne-alert {...args}>
-      <lyne-title text='Streckenunterbruch zwischen Stadelhofen und Zürich HB' />
+    <sbb-alert {...args}>
+      <sbb-title text='Streckenunterbruch zwischen Stadelhofen und Zürich HB' />
       Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils
       zwischen 22:30 – 06:00 Uhr Bauarbeiten statt. Sie müssen mit geänderten
-      Fahrzeiten und geänderten Anschlüssen rechnen. <lyne-link ></lyne-link>
-    </lyne-alert>
+      Fahrzeiten und geänderten Anschlüssen rechnen. <sbb-link text='Mehr erfahren' href-value='#'></sbb-link>
+    </sbb-alert>
     <p>Other Content on a page</p>
     <div
       style={{
@@ -18,22 +18,22 @@ const TemplateDefaultIcon = (args) => (
         gap: '8px'
       }}
     >
-      <lyne-button
+      <sbb-button
         variant='secondary'
         label='Present'
         onClick={ () => {
-          document.querySelector('lyne-alert')
+          document.querySelector('sbb-alert')
             .present();
         }}
-      ></lyne-button>
-      <lyne-button
+      ></sbb-button>
+      <sbb-button
         variant='secondary'
         label='Dismiss'
         onClick={ () => {
-          document.querySelector('lyne-alert')
+          document.querySelector('sbb-alert')
             .dismiss();
         }}
-      ></lyne-button>
+      ></sbb-button>
     </div>
   </div>
 );
@@ -43,14 +43,14 @@ const customIconSvg = getMarkupForSvg('disruption');
 customIconSvg.setAttribute('slot', 'icon');
 
 const TemplateCustomIcon = (args) => (
-  <lyne-alert {...args}>
+  <sbb-alert {...args}>
     {customIconSvg}
-    <lyne-title text='Streckenunterbruch zwischen Stadelhofen und Zürich HB' />
+    <sbb-title text='Streckenunterbruch zwischen Stadelhofen und Zürich HB' />
     {getMarkupForSvg('disruption')}
     Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils zwischen
     22:30 – 06:00 Uhr Bauarbeiten statt. Sie müssen mit geänderten Fahrzeiten
     und geänderten Anschlüssen rechnen.
-  </lyne-alert>
+  </sbb-alert>
 );
 
 export const defaultIcon = TemplateDefaultIcon.bind({});
@@ -127,5 +127,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-alert'
+  title: 'components/sbb-alert'
 };

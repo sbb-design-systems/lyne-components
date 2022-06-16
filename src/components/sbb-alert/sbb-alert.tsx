@@ -8,7 +8,7 @@ import {
   Method,
   Prop
 } from '@stencil/core';
-import { InterfaceLyneAlertAttributes } from './lyne-alert.custom.d';
+import { InterfaceSbbAlertAttributes } from './sbb-alert.custom';
 import { guid } from '../../global/guid';
 
 import infoIcon from 'lyne-icons/dist/icons/info.svg';
@@ -24,43 +24,43 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-alert.default.scss',
-    shared: 'styles/lyne-alert.shared.scss'
+    default: 'styles/sbb-alert.default.scss',
+    shared: 'styles/sbb-alert.shared.scss'
   },
-  tag: 'lyne-alert'
+  tag: 'sbb-alert'
 })
-export class LyneAlert {
+export class SbbAlert {
   @Prop({
     attribute: 'id'
   })
-  public internalId: InterfaceLyneAlertAttributes['id'] = `lyne-alert-${guid()}`;
+  public internalId: InterfaceSbbAlertAttributes['id'] = `sbb-alert-${guid()}`;
 
   /**
    * Whether the alert is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
    */
-  @Prop() public readonly: InterfaceLyneAlertAttributes['readonly'] = true;
+  @Prop() public readonly: InterfaceSbbAlertAttributes['readonly'] = true;
 
   /** You can choose between `m` or `l` size. */
-  @Prop() public size: InterfaceLyneAlertAttributes['size'] = 'm';
+  @Prop() public size: InterfaceSbbAlertAttributes['size'] = 'm';
 
   /** Whether the fade in animation should be disabled. */
   @Prop()
-  public disableAnimation: InterfaceLyneAlertAttributes['disableAnimation'] = false;
+  public disableAnimation: InterfaceSbbAlertAttributes['disableAnimation'] = false;
 
   /**
    * Aria-live politeness defines how to announce the alert to the user.
    * Choose between `off`, `polite` and `assertive`.
    */
   @Prop()
-  public ariaLivePoliteness: InterfaceLyneAlertAttributes['ariaLivePoliteness'] =
+  public ariaLivePoliteness: InterfaceSbbAlertAttributes['ariaLivePoliteness'] =
       'polite';
 
   /**
    * Emits when the fade in animation starts.
    */
   @Event({
-    eventName: 'lyne-alert_will-present'
+    eventName: 'sbb-alert_will-present'
   })
   public willPresent: EventEmitter<void>;
 
@@ -68,7 +68,7 @@ export class LyneAlert {
    * Emits when the fade in animation ends and the button is displayed.
    */
   @Event({
-    eventName: 'lyne-alert_did-present'
+    eventName: 'sbb-alert_did-present'
   })
   public didPresent: EventEmitter<void>;
 
@@ -76,7 +76,7 @@ export class LyneAlert {
    * Emits when the alert was hidden.
    */
   @Event({
-    eventName: 'lyne-alert_did-dismiss'
+    eventName: 'sbb-alert_did-dismiss'
   })
   public didDismiss: EventEmitter<void>;
 
@@ -171,7 +171,7 @@ export class LyneAlert {
 
   public render(): JSX.Element {
     const readonly = this.readonly
-      ? ' lyne-alert--readonly'
+      ? ' sbb-alert--readonly'
       : '';
 
     const a11yCloseAlert = i18nCloseAlert[this._currentLanguage];
@@ -183,13 +183,13 @@ export class LyneAlert {
         id={this.internalId}
       >
         <div
-          class='lyne-alert_transition-wrapper'
+          class='sbb-alert_transition-wrapper'
           ref={(el): void => {
             this._transitionWrapperElement = el;
           }}
         >
           <div
-            class={`lyne-alert lyne-alert--size-${this.size}${readonly}`}
+            class={`sbb-alert sbb-alert--size-${this.size}${readonly}`}
             ref={(el): void => {
               const isFirstInitialization = !this._alertElement;
 
@@ -200,24 +200,24 @@ export class LyneAlert {
 
             }}
           >
-            <span class='lyne-alert_icon' aria-hidden='true'>
+            <span class='sbb-alert_icon' aria-hidden='true'>
               <slot name='icon'>
                 <span innerHTML={infoIcon} />
               </slot>
             </span>
-            <span class='lyne-alert_content'>
+            <span class='sbb-alert_content'>
               <slot />
             </span>
             {!readonly && (
-              <span class='lyne-alert_close-button-wrapper'>
-                <lyne-button
+              <span class='sbb-alert_close-button-wrapper'>
+                <sbb-button
                   variant='transparent-negative'
                   icon={true}
                   size='m'
                   onClick={this.dismiss.bind(this)}
                   iconDescription={a11yCloseAlert}
                   aria-controls={this.internalId}
-                  class='lyne-alert_close-button-wrapper_button'
+                  class='sbb-alert_close-button-wrapper_button'
                   innerHTML={circleCrossSmallIcon}
                 />
               </span>

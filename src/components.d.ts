@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
+import { InterfaceSbbAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
@@ -75,6 +76,33 @@ export namespace Components {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface SbbAlert {
+        /**
+          * Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`.
+         */
+        "ariaLivePoliteness": InterfaceSbbAlertAttributes['ariaLivePoliteness'];
+        /**
+          * Whether the fade in animation should be disabled.
+         */
+        "disableAnimation": InterfaceSbbAlertAttributes['disableAnimation'];
+        /**
+          * Dismiss the alert.
+         */
+        "dismiss": () => Promise<void>;
+        "internalId": InterfaceSbbAlertAttributes['id'];
+        /**
+          * Present the alert.
+         */
+        "present": () => Promise<void>;
+        /**
+          * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
+         */
+        "readonly": InterfaceSbbAlertAttributes['readonly'];
+        /**
+          * You can choose between `m` or `l` size.
+         */
+        "size": InterfaceSbbAlertAttributes['size'];
     }
     interface SbbAutocomplete {
         /**
@@ -1045,6 +1073,10 @@ export namespace Components {
         "value"?: string;
     }
 }
+export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbAlertElement;
+}
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbButtonElement;
@@ -1077,6 +1109,12 @@ declare global {
     var HTMLSbbAccordionItemElement: {
         prototype: HTMLSbbAccordionItemElement;
         new (): HTMLSbbAccordionItemElement;
+    };
+    interface HTMLSbbAlertElement extends Components.SbbAlert, HTMLStencilElement {
+    }
+    var HTMLSbbAlertElement: {
+        prototype: HTMLSbbAlertElement;
+        new (): HTMLSbbAlertElement;
     };
     interface HTMLSbbAutocompleteElement extends Components.SbbAutocomplete, HTMLStencilElement {
     }
@@ -1375,6 +1413,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
+        "sbb-alert": HTMLSbbAlertElement;
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-autocomplete-item": HTMLSbbAutocompleteItemElement;
         "sbb-button": HTMLSbbButtonElement;
@@ -1462,6 +1501,37 @@ declare namespace LocalJSX {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface SbbAlert {
+        /**
+          * Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`.
+         */
+        "ariaLivePoliteness"?: InterfaceSbbAlertAttributes['ariaLivePoliteness'];
+        /**
+          * Whether the fade in animation should be disabled.
+         */
+        "disableAnimation"?: InterfaceSbbAlertAttributes['disableAnimation'];
+        "internalId"?: InterfaceSbbAlertAttributes['id'];
+        /**
+          * Emits when the alert was hidden.
+         */
+        "onSbb-alert_did-dismiss"?: (event: SbbAlertCustomEvent<void>) => void;
+        /**
+          * Emits when the fade in animation ends and the button is displayed.
+         */
+        "onSbb-alert_did-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        /**
+          * Emits when the fade in animation starts.
+         */
+        "onSbb-alert_will-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        /**
+          * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
+         */
+        "readonly"?: InterfaceSbbAlertAttributes['readonly'];
+        /**
+          * You can choose between `m` or `l` size.
+         */
+        "size"?: InterfaceSbbAlertAttributes['size'];
     }
     interface SbbAutocomplete {
         /**
@@ -2431,6 +2501,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
+        "sbb-alert": SbbAlert;
         "sbb-autocomplete": SbbAutocomplete;
         "sbb-autocomplete-item": SbbAutocompleteItem;
         "sbb-button": SbbButton;
@@ -2488,6 +2559,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "sbb-accordion": LocalJSX.SbbAccordion & JSXBase.HTMLAttributes<HTMLSbbAccordionElement>;
             "sbb-accordion-item": LocalJSX.SbbAccordionItem & JSXBase.HTMLAttributes<HTMLSbbAccordionItemElement>;
+            "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-autocomplete-item": LocalJSX.SbbAutocompleteItem & JSXBase.HTMLAttributes<HTMLSbbAutocompleteItemElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;

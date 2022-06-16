@@ -1,22 +1,22 @@
-import { LyneAlert } from './lyne-alert';
+import { SbbAlert } from './sbb-alert';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-alert', () => {
+describe('sbb-alert', () => {
   it('renders', async () => {
     const {
       root
     } = await newSpecPage({
-      components: [LyneAlert],
-      html: '<lyne-alert />'
+      components: [SbbAlert],
+      html: '<sbb-alert />'
     });
 
     expect(root)
       .toEqualHtml(`
-        <lyne-alert>
+        <sbb-alert>
           <mock:shadow-root>
             <button class="some-class"></button>
           </mock:shadow-root>
-        </lyne-alert>
+        </sbb-alert>
       `);
   });
 

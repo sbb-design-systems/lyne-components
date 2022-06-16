@@ -16,7 +16,7 @@
 @import "./../../../global/global.default.scss";
 
 // Import component styles
-@import "./lyne-alert.component.scss";
+@import "src/components/sbb-alert/styles/sbb-alert.component";
 
 // Mode overrides/tests
 // :host {

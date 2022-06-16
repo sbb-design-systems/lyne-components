@@ -1,4 +1,4 @@
-export interface InterfaceLyneAlertAttributes {
+export interface InterfaceSbbAlertAttributes {
   ariaLivePoliteness: 'off' | 'polite' | 'assertive';
   id: string;
   readonly: boolean;
