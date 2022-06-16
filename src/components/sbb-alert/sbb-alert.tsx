@@ -8,7 +8,7 @@ import {
   Method,
   Prop
 } from '@stencil/core';
-import { InterfaceSbbAlertAttributes } from './sbb-alert.custom';
+import { InterfaceAlertAttributes } from './sbb-alert.custom';
 import { guid } from '../../global/guid';
 
 import infoIcon from 'lyne-icons/dist/icons/info.svg';
@@ -33,27 +33,27 @@ export class SbbAlert {
   @Prop({
     attribute: 'id'
   })
-  public internalId: InterfaceSbbAlertAttributes['id'] = `sbb-alert-${guid()}`;
+  public internalId: InterfaceAlertAttributes['id'] = `sbb-alert-${guid()}`;
 
   /**
    * Whether the alert is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
    */
-  @Prop() public readonly: InterfaceSbbAlertAttributes['readonly'] = true;
+  @Prop() public readonly: InterfaceAlertAttributes['readonly'] = true;
 
   /** You can choose between `m` or `l` size. */
-  @Prop() public size: InterfaceSbbAlertAttributes['size'] = 'm';
+  @Prop() public size: InterfaceAlertAttributes['size'] = 'm';
 
   /** Whether the fade in animation should be disabled. */
   @Prop()
-  public disableAnimation: InterfaceSbbAlertAttributes['disableAnimation'] = false;
+  public disableAnimation: InterfaceAlertAttributes['disableAnimation'] = false;
 
   /**
    * Aria-live politeness defines how to announce the alert to the user.
    * Choose between `off`, `polite` and `assertive`.
    */
   @Prop()
-  public ariaLivePoliteness: InterfaceSbbAlertAttributes['ariaLivePoliteness'] =
+  public ariaLivePoliteness: InterfaceAlertAttributes['ariaLivePoliteness'] =
       'polite';
 
   /**

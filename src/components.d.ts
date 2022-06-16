@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
-import { InterfaceSbbAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
+import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
@@ -81,16 +81,16 @@ export namespace Components {
         /**
           * Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`.
          */
-        "ariaLivePoliteness": InterfaceSbbAlertAttributes['ariaLivePoliteness'];
+        "ariaLivePoliteness": InterfaceAlertAttributes['ariaLivePoliteness'];
         /**
           * Whether the fade in animation should be disabled.
          */
-        "disableAnimation": InterfaceSbbAlertAttributes['disableAnimation'];
+        "disableAnimation": InterfaceAlertAttributes['disableAnimation'];
         /**
           * Dismiss the alert.
          */
         "dismiss": () => Promise<void>;
-        "internalId": InterfaceSbbAlertAttributes['id'];
+        "internalId": InterfaceAlertAttributes['id'];
         /**
           * Present the alert.
          */
@@ -98,11 +98,11 @@ export namespace Components {
         /**
           * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
-        "readonly": InterfaceSbbAlertAttributes['readonly'];
+        "readonly": InterfaceAlertAttributes['readonly'];
         /**
           * You can choose between `m` or `l` size.
          */
-        "size": InterfaceSbbAlertAttributes['size'];
+        "size": InterfaceAlertAttributes['size'];
     }
     interface SbbAutocomplete {
         /**
@@ -1506,12 +1506,12 @@ declare namespace LocalJSX {
         /**
           * Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`.
          */
-        "ariaLivePoliteness"?: InterfaceSbbAlertAttributes['ariaLivePoliteness'];
+        "ariaLivePoliteness"?: InterfaceAlertAttributes['ariaLivePoliteness'];
         /**
           * Whether the fade in animation should be disabled.
          */
-        "disableAnimation"?: InterfaceSbbAlertAttributes['disableAnimation'];
-        "internalId"?: InterfaceSbbAlertAttributes['id'];
+        "disableAnimation"?: InterfaceAlertAttributes['disableAnimation'];
+        "internalId"?: InterfaceAlertAttributes['id'];
         /**
           * Emits when the alert was hidden.
          */
@@ -1527,11 +1527,11 @@ declare namespace LocalJSX {
         /**
           * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
-        "readonly"?: InterfaceSbbAlertAttributes['readonly'];
+        "readonly"?: InterfaceAlertAttributes['readonly'];
         /**
           * You can choose between `m` or `l` size.
          */
-        "size"?: InterfaceSbbAlertAttributes['size'];
+        "size"?: InterfaceAlertAttributes['size'];
     }
     interface SbbAutocomplete {
         /**
