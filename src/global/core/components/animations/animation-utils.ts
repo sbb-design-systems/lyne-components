@@ -101,7 +101,7 @@ export const generateKeyframeName = (keyframeRules: string): string => {
     index = (keyframeIds.push(keyframeRules) - 1);
   }
 
-  return `lyne-animation-${index}`;
+  return `sbb-animation-${index}`;
 };
 
 export const getStyleContainer = (element: HTMLElement): any => {

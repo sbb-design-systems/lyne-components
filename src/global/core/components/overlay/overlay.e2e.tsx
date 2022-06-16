@@ -17,7 +17,7 @@ describe('overlay', () => {
 
     await presentButton.click();
 
-    element = await page.find('lyne-overlay');
+    element = await page.find('sbb-overlay');
 
     expect(element).not.toBe(null);
   });
