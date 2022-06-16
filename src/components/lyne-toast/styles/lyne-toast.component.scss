@@ -96,6 +96,12 @@
   color: var(--color-default-text);
 }
 
+.toast-link:focus-visible,
+.toast-button:focus-visible {
+  outline: pxToRem(var(--border-width-1x)) solid var(--color-white-default);
+  outline-offset: calc(pxToRem(var(--border-width-2x)) );
+}
+
 .toast-label, .toast-close {
   display: block;
   line-height: 1;

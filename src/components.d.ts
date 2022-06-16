@@ -955,18 +955,6 @@ export namespace Components {
         "present": () => Promise<void>;
     }
 }
-export interface LyneButtonCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLLyneButtonElement;
-}
-export interface LyneOverlayCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLLyneOverlayElement;
-}
-export interface LyneToastCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLLyneToastElement;
-}
 declare global {
     interface HTMLLyneAccordionElement extends Components.LyneAccordion, HTMLStencilElement {
     }
@@ -1430,7 +1418,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring lyne-button.
          */
-        "onLyne-button_click"?: (event: LyneButtonCustomEvent<any>) => void;
+        "onLyne-button_click"?: (event: CustomEvent<any>) => void;
         /**
           * Size variant, either l or m.
          */
@@ -1749,10 +1737,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceLyneLinkListAttributes['variant'];
     }
     interface LyneOverlay {
-        "onDidDismiss"?: (event: LyneOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onDidPresent"?: (event: LyneOverlayCustomEvent<void>) => void;
-        "onWillDismiss"?: (event: LyneOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onWillPresent"?: (event: LyneOverlayCustomEvent<void>) => void;
+        "onDidDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onDidPresent"?: (event: CustomEvent<void>) => void;
+        "onWillDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onWillPresent"?: (event: CustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
     interface LynePanel {
@@ -2198,19 +2186,19 @@ declare namespace LocalJSX {
         /**
           * Emitted after the toast has dismissed.
          */
-        "onLyne-toast_did-dismiss"?: (event: LyneToastCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onLyne-toast_did-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
         /**
           * Emitted after the toast has presented.
          */
-        "onLyne-toast_did-present"?: (event: LyneToastCustomEvent<void>) => void;
+        "onLyne-toast_did-present"?: (event: CustomEvent<void>) => void;
         /**
           * Emitted before the toast has dismissed.
          */
-        "onLyne-toast_will-dismiss"?: (event: LyneToastCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onLyne-toast_will-dismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
         /**
           * Emitted before the toast has presented.
          */
-        "onLyne-toast_will-present"?: (event: LyneToastCustomEvent<void>) => void;
+        "onLyne-toast_will-present"?: (event: CustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
     interface IntrinsicElements {
