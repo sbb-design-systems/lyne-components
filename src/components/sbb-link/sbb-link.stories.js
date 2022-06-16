@@ -1,10 +1,19 @@
-import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
+import {
+  SbbColorAluminiumDefault,
+  SbbColorCharcoalDefault,
+  SbbColorIronDefault,
+  SbbColorWhiteDefault,
+  SbbTypoLetterSpacingBodyText,
+  SbbTypoLineHeightBodyText,
+  SbbTypoScaleDefault,
+  SbbTypoTypeFaceSbbRoman
+} from '@sbb-esta/lyne-design-tokens';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
-  if (context.args.variant === 'positive') {
+  if (!context.args.variant.includes('-negative')) {
     return `background-color: ${SbbColorWhiteDefault};`;
   }
 
@@ -15,6 +24,28 @@ const Template = (args) => (
   <sbb-link {...args}>
     {args.icon && <span slot="icon">{getMarkupForSvg(args.icon)}</span>}
   </sbb-link>
+);
+
+const paragraphStyle = (context) => {
+  let color;
+
+  if (context.args.variant.includes('-negative')) {
+    color = `color: ${SbbColorAluminiumDefault};`;
+  } else {
+    color = `color: ${SbbColorIronDefault};`;
+  }
+
+  return `${color} font-family: ${SbbTypoTypeFaceSbbRoman}; font-weight: normal; line-height: ${SbbTypoLineHeightBodyText}; letter-spacing: ${SbbTypoLetterSpacingBodyText}; font-size: ${SbbTypoScaleDefault}px`;
+};
+
+const InlineTemplate = (args, context) => (
+  <p style={paragraphStyle(context)}>
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+    amet. <sbb-link {...args}></sbb-link>
+  </p>
 );
 
 const download = {
@@ -80,7 +111,12 @@ const variant = {
   control: {
     type: 'select',
   },
-  options: ['positive', 'negative'],
+  options: [
+    'block',
+    'block-negative',
+    'inline',
+    'inline-negative'
+  ]
 };
 
 const defaultArgTypes = {
@@ -110,61 +146,73 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const TextVariantXS = Template.bind({});
+export const BlockXS = Template.bind({});
 
-TextVariantXS.argTypes = defaultArgTypes;
-TextVariantXS.args = {
+BlockXS.argTypes = defaultArgTypes;
+BlockXS.args = {
   ...defaultArgs,
   'text-size': textSize.options[0],
 };
 
-TextVariantXS.documentation = {
-  title: 'Text Link Size XS',
+BlockXS.documentation = {
+  title: 'Block Size XS'
 };
 
-export const TextVariantS = Template.bind({});
+export const BlockS = Template.bind({});
 
-TextVariantS.argTypes = defaultArgTypes;
-TextVariantS.args = {
+BlockS.argTypes = defaultArgTypes;
+BlockS.args = {
   ...defaultArgs,
   'text-size': textSize.options[1],
 };
 
-TextVariantS.documentation = {
-  title: 'Text Links Size S',
+BlockS.documentation = {
+  title: 'Block Size S'
 };
 
-export const TextVariantSNegative = Template.bind({});
+export const BlockM = Template.bind({});
 
-TextVariantSNegative.argTypes = defaultArgTypes;
-TextVariantSNegative.args = {
+BlockM.argTypes = defaultArgTypes;
+BlockM.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[2]
+};
+
+BlockM.documentation = {
+  title: 'Block Size M'
+};
+
+export const BlockNegativeS = Template.bind({});
+
+BlockNegativeS.argTypes = defaultArgTypes;
+BlockNegativeS.args = {
   ...defaultArgs,
   'text-size': textSize.options[1],
   variant: variant.options[1],
 };
 
-TextVariantSNegative.documentation = {
-  title: 'Text Link Size S Negative',
+BlockNegativeS.documentation = {
+  title: 'Block Negative Size S'
 };
 
-export const TextLinkIconStart = Template.bind({});
+export const BlockIconStart = Template.bind({});
 
-TextLinkIconStart.argTypes = defaultArgTypes;
-TextLinkIconStart.args = {
+BlockIconStart.argTypes = defaultArgTypes;
+BlockIconStart.args = {
   ...defaultArgs,
   icon: 'chevron-small-left-small',
   'icon-flip': true,
   'text-size': textSize.options[0],
 };
 
-TextLinkIconStart.documentation = {
-  title: 'Text Link Icon Start',
+BlockIconStart.documentation = {
+  title: 'Block Icon Start'
 };
 
-export const TextLinkIconStartNegative = Template.bind({});
+export const BlockNegativeIconStart = Template.bind({});
 
-TextLinkIconStartNegative.argTypes = defaultArgTypes;
-TextLinkIconStartNegative.args = {
+BlockNegativeIconStart.argTypes = defaultArgTypes;
+BlockNegativeIconStart.args = {
   ...defaultArgs,
   icon: 'chevron-small-left-small',
   'icon-flip': true,
@@ -172,14 +220,14 @@ TextLinkIconStartNegative.args = {
   variant: variant.options[1],
 };
 
-TextLinkIconStartNegative.documentation = {
-  title: 'Text Link Icon Start Negative',
+BlockNegativeIconStart.documentation = {
+  title: 'Block Negative Icon Start'
 };
 
-export const TextLinkIconEnd = Template.bind({});
+export const BlockIconEnd = Template.bind({});
 
-TextLinkIconEnd.argTypes = defaultArgTypes;
-TextLinkIconEnd.args = {
+BlockIconEnd.argTypes = defaultArgTypes;
+BlockIconEnd.args = {
   ...defaultArgs,
   icon: 'chevron-small-right-small',
   'icon-flip': true,
@@ -187,14 +235,14 @@ TextLinkIconEnd.args = {
   'text-size': textSize.options[0],
 };
 
-TextLinkIconEnd.documentation = {
-  title: 'Text Link End Start',
+BlockIconEnd.documentation = {
+  title: 'Block End Start'
 };
 
-export const TextLinkIconEndNegative = Template.bind({});
+export const BlockNegativeIconEnd = Template.bind({});
 
-TextLinkIconEndNegative.argTypes = defaultArgTypes;
-TextLinkIconEndNegative.args = {
+BlockNegativeIconEnd.argTypes = defaultArgTypes;
+BlockNegativeIconEnd.args = {
   ...defaultArgs,
   icon: 'chevron-small-right-small',
   'icon-flip': true,
@@ -203,20 +251,34 @@ TextLinkIconEndNegative.args = {
   variant: variant.options[1],
 };
 
-TextLinkIconEndNegative.documentation = {
-  title: 'Text Link Icon End Negative',
+BlockNegativeIconEnd.documentation = {
+  title: 'Block Negative Icon End'
 };
 
-export const TextVariantM = Template.bind({});
+export const Inline = InlineTemplate.bind({});
 
-TextVariantM.argTypes = defaultArgTypes;
-TextVariantM.args = {
+Inline.argTypes = defaultArgTypes;
+Inline.args = {
   ...defaultArgs,
-  'text-size': textSize.options[2],
+  text: 'Show more',
+  variant: variant.options[2]
 };
 
-TextVariantM.documentation = {
-  title: 'Text Link Size M',
+Inline.documentation = {
+  title: 'Inline'
+};
+
+export const InlineNegative = InlineTemplate.bind({});
+
+InlineNegative.argTypes = defaultArgTypes;
+InlineNegative.args = {
+  ...defaultArgs,
+  text: 'Show more',
+  variant: variant.options[3]
+};
+
+InlineNegative.documentation = {
+  title: 'Inline Negative'
 };
 
 export default {

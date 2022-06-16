@@ -10,46 +10,49 @@ const wrapperStyle = (context) => {
   return `background-color: ${SbbColorCharcoalDefault};`;
 };
 
+// TODO: Check for better solution
+const transformLinkVariant = (old) => old.replace('positive', 'block');
+
 const Template = (args) => (
   <sbb-link-list {...args}>
-    <li class="link-list__item" slot="link-list__item">
+    <li class='link-list__item' slot='link-list__item'>
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        text="Rückerstattungen"
+        href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'
+        text='Rückerstattungen'
         text-size={args.textSize}
-        variant={args.variant}
+        variant={transformLinkVariant(args.variant)}
       ></sbb-link>
     </li>
-    <li className="link-list__item" slot="link-list__item">
+    <li className='link-list__item' slot='link-list__item'>
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        text="Fundbüro"
+        href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'
+        text='Fundbüro'
         text-size={args.textSize}
-        variant={args.variant}
+        variant={transformLinkVariant(args.variant)}
       ></sbb-link>
     </li>
-    <li className="link-list__item" slot="link-list__item">
+    <li className='link-list__item' slot='link-list__item'>
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        text="Beschwerden"
+        href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'
+        text='Beschwerden'
         text-size={args.textSize}
-        variant={args.variant}
+        variant={transformLinkVariant(args.variant)}
       ></sbb-link>
     </li>
-    <li className="link-list__item" slot="link-list__item">
+    <li className='link-list__item' slot='link-list__item'>
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        text="Lob aussprechen"
+        href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'
+        text='Lob aussprechen'
         text-size={args.textSize}
-        variant={args.variant}
+        variant={transformLinkVariant(args.variant)}
       ></sbb-link>
     </li>
-    <li className="link-list__item" slot="link-list__item">
+    <li className='link-list__item' slot='link-list__item'>
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        text="Sachbeschädigung melden"
+        href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'
+        text='Sachbeschädigung melden'
         text-size={args.textSize}
-        variant={args.variant}
+        variant={transformLinkVariant(args.variant)}
       ></sbb-link>
     </li>
   </sbb-link-list>
