@@ -33,7 +33,7 @@ SimpleStory.documentation = {
 
 Sometimes, we need to use args on component to render a story which would not be necessary to render the component. We just might have to use it for the story to work properly.
 
-Look at the `lyne-button.stories.js` stories for example: there we use the property `iconslot` to define which icon should be rendered for the button. But in a real world application, developers would define the icon via a slot directly.
+Look at the `sbb-button.stories.js` stories for example: there we use the property `iconslot` to define which icon should be rendered for the button. But in a real world application, developers would define the icon via a slot directly.
 
 In this case it is important that we `hide` this property from the documentation. To do so, you can define such properties in the default export of the stories file:
 

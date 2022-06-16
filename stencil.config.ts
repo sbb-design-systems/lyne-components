@@ -72,14 +72,14 @@ interface InputOptions {
  * Event sync rollup hook implementation.
  * For each build cycle, all component files are checked for @Event({...})
  * usages and the property name and event name will be synced in the
- * corresponding .events.ts file. * 
+ * corresponding .events.ts file. *
  */
 function eventSync(): any {
   const componentsPath = resolve(__dirname, 'src/components');
   return ({
     buildStart(options: InputOptions): void {
       if (typeof options.input !== 'object' || Object.keys(options.input)
-        .every((i) => !i.startsWith('lyne'))) {
+        .every((i) => !i.startsWith('sbb'))) {
         return;
       }
 
@@ -123,7 +123,7 @@ function syncEvents(path: string) {
     }
   }
 
-  function checkForEventDecorator(node: ts.PropertyDeclaration) {    
+  function checkForEventDecorator(node: ts.PropertyDeclaration) {
     const eventDecorator = node.decorators!.find(isEventDecorator);
     if (!eventDecorator) {
       return;

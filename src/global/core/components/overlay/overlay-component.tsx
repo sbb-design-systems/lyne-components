@@ -11,14 +11,14 @@ import { createAnimation } from '../animations/animation';
 
 @Component({
   shadow: true,
-  tag: 'lyne-overlay'
+  tag: 'sbb-overlay'
 })
-export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
+export class SbbOverlay implements ComponentInterface, InterfaceOverlay {
 
   public animated = false;
   public keyboardClose: boolean;
   public presented: boolean;
-  @Element() public el!: HTMLLyneOverlayElement;
+  @Element() public el!: HTMLSbbOverlayElement;
   @Prop() public overlayIndex: number;
   @Event() public didDismiss: EventEmitter<InterfaceOverlayEventDetail>;
   @Event() public didPresent: EventEmitter<void>;

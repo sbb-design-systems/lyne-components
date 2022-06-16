@@ -1,0 +1,79 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: inline-block;
+  @include buttonVariables;
+}
+
+.link-button--primary-negative {
+  @include buttonPrimaryNegativeVariables;
+}
+
+.link-button--secondary {
+  @include buttonSecondaryVariables;
+}
+
+.link-button--secondary-negative {
+  @include buttonSecondaryNegativeVariables;
+}
+
+.link-button {
+  @include button();
+  text-decoration: none;
+  fill: currentColor;
+  width: fit-content;
+
+  @include ifForcedColors {
+    fill: LinkText;
+  }
+}
+
+.link-button--primary,
+.link-button--secondary,
+.link-button--primary-negative {
+  @include buttonShadowNotDisabled;
+}
+
+// If the the device can hover over elements with ease
+@include hover-mq($hover: true) {
+    .link-button:hover {
+      @include buttonHover;
+      &::before {
+        @include ifForcedColors {
+          border-color: LinkText;
+        }
+      }
+    }
+  }
+
+.link-button:active {
+  @include buttonActive;
+}
+
+.link-button--secondary-negative {
+  @include buttonShadowDisabled;
+}
+
+.link-button__text,
+.link-button__icon {
+  @include buttonLabelTransition;
+}
+
+.link-button__text {
+  @include buttonLabel;
+}
+
+.link-button__icon {
+  @include buttonIcon;
+}
+
+.link-button--icon-placement-end .link-button__icon {
+  order: 2;
+}
+
+.link-button[dir="rtl"].link--icon-flip .link-button__icon {
+  transform: scaleX(-1);
+}
