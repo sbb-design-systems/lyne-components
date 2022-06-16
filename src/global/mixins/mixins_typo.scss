@@ -140,6 +140,14 @@
   font-size: inherit;
 }
 
+@mixin text-inherit {
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  font-size: inherit;
+}
+
 // ----------------------------------------------------------------------------------------------------
 // Typo: Font Smoothing Mixins
 // ----------------------------------------------------------------------------------------------------
