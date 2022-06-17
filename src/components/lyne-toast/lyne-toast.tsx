@@ -12,7 +12,6 @@ import {
 import {
   CssClassMap, getClassList
 } from '../../global/helpers/get-class-list';
-import { isRTL } from '../../global/helpers/rtl/dir';
 import { StringSanitizer } from '../../global/helpers/sanitization/string-sanitizer';
 import { DEFAULT_Z_INDEX_TOAST } from '../../global/z-index-list';
 import { toastEnterAnimation } from './animations/lyne-toast.enter';
@@ -125,7 +124,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
       horizontalPosition: 'center',
       message: null,
       timeout: 6000,
-      verticalPosition: 'bottom'
+      verticalPosition: 'end'
     };
 
     this._internalConfig = {
@@ -267,29 +266,6 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
     }
   }
 
-  /**
-   * Handles ltr/rtl direction and sets the correct CSS class
-   */
-  private _getCSSClassFromPageDirection(): string {
-    const isElRTL = isRTL(this.el);
-
-    switch (this._internalConfig.horizontalPosition) {
-      case 'start': {
-        return isElRTL
-          ? 'right'
-          : 'left';
-      }
-      case 'end': {
-        return isElRTL
-          ? 'left'
-          : 'right';
-      }
-      default: {
-        return this._internalConfig.horizontalPosition;
-      }
-    }
-  }
-
   public render(): JSX.Element {
     const zIndex = this.overlayIndex + DEFAULT_Z_INDEX_TOAST;
     let actionContent: JSX.Element;
@@ -316,7 +292,7 @@ export class LyneToast implements ComponentInterface, InterfaceOverlay {
           zIndex: `${zIndex}`
         }}>
         <div class='toast-wrapper'>
-          <div class={`toast toast-${this._internalConfig.verticalPosition} toast-${this._getCSSClassFromPageDirection()}`}>
+          <div class={`toast toast-vertical-${this._internalConfig.verticalPosition} toast-horizontal-${this._internalConfig.horizontalPosition}`}>
             {iconTemplate}
             <span class='toast-text' innerHTML={StringSanitizer.sanitizeDOMString(this._internalConfig.message)}/>
             {

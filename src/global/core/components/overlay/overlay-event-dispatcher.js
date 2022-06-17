@@ -1,9 +1,9 @@
 /**
- * In the * .stories.js files, components rendered via the overlay system
+ * In the *.stories.js files, components rendered via the overlay system
  * are not immediately available in the storybook template,
  * but are loaded via js, appending the element to the DOM
- * and calling the present(...) method on the element
- * (for example via an onClick on a button).
+ * and calling the `present(...)` method on the element
+ * (for example by clicking on a button).
  *
  * As a result, storybookjs fails to intercept the onPresent / onDismiss events
  * on an initially absent element; it is therefore necessary to forward them

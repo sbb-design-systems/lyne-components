@@ -23,12 +23,12 @@ Optional: the toast can display an action item.
 - Close icon (see `InterfaceToastIcon`): on click, the toast will be dismissed. 
 ###### verticalPosition
 Optional: the toast vertical position on screen.
-</br> Default: `bottom`.
-</br> Options: `bottom` - `top`.
+</br> Default: `start`.
+</br> Options: `start` - `end`.
 ###### horizontalPosition
-Optional: the toast horizontal position on screen. `start` and `end` values will be set considering the screen direction (RTL / LTR).
+Optional: the toast horizontal position on screen.
 </br> Default: `center`.
-</br> Options: `left` - `center` - `right` - `start` - `end`;
+</br> Options: `start` - `end` - `center`;
 ###### ariaLivePoliteness
 Optional: value for the `aria-live` attribute
 </br> Default: `polite`.

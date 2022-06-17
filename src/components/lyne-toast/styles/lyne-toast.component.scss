@@ -47,25 +47,25 @@
   display: flex;
   flex-direction: row;
   align-items: start;
-  bottom: 0;
+  inset-block-end: 0;
   gap: var(--toast-gap);
   background: var(--toast-background-color);
   color: var(--color-default-text);
   border-radius: var(--toast-border-radius);
 
-  &.toast-top {
-    top: 0;
-    bottom: auto;
+  &.toast-vertical-start {
+    inset-block-start: 0;
+    inset-block-end: auto;
   }
 
-  &.toast-left {
-    left: var(--toast-margin);
+  &.toast-horizontal-start {
+    inset-inline-start: var(--toast-margin);
     transform: none;
   }
 
-  &.toast-right {
-    left: auto;
-    right: var(--toast-margin);
+  &.toast-horizontal-end {
+    inset-inline-start: auto;
+    inset-inline-end: var(--toast-margin);
     transform: none;
   }
 }

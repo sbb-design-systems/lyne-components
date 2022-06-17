@@ -2,8 +2,8 @@ import { AnimationBuilder } from '../../global/core/components/animations/animat
 
 export interface InterfaceLyneToastAttributes {
   ariaLivePoliteness: 'off' | 'assertive' | 'polite';
-  horizontalPosition: 'left' | 'center' | 'right' | 'start' | 'end';
-  verticalPosition: 'top' | 'bottom';
+  horizontalPosition: 'center' | 'start' | 'end';
+  verticalPosition: 'start' | 'end';
 }
 
 export type InterfaceToastType = 'link' | 'action' | 'icon';

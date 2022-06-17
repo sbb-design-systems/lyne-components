@@ -66,6 +66,18 @@ const createAndSetupToastNoAnimation = (args, config) => {
 
   return toast;
 };
+const templateConfig = (args) => ({
+  config: {
+    ...args,
+    action: {
+      type: 'icon'
+    },
+    icon: getMarkupForSvg(args.iconSlot).outerHTML
+  }
+});
+const Template = (args) => (
+  <lyne-toast {...templateConfig(args)}/>
+);
 
 const openBasicNoAnimation = (args) => {
   createAndSetupToastNoAnimation(args, getCommonConfig(args))
@@ -197,6 +209,8 @@ const TemplateIconAndButtonAction = (args) => (
   <button id='button-id' onClick={openIconAndButtonAction.bind(this, args)}>Open toast</button>
 );
 
+export const TemplateToast = Template.bind({});
+
 export const BasicNoAnimation = TemplateBasicNoAnimation.bind({});
 
 export const NoIconAndNoAction = TemplateNoIconAndNoAction.bind({});
@@ -262,9 +276,7 @@ const horizontalPosition = {
     type: 'select'
   },
   options: [
-    'left',
     'center',
-    'right',
     'start',
     'end'
   ],
@@ -278,8 +290,8 @@ const verticalPosition = {
     type: 'select'
   },
   options: [
-    'top',
-    'bottom'
+    'start',
+    'end'
   ],
   table: {
     category: 'Position'
@@ -323,69 +335,80 @@ const basicArgs = {
   label: 'Undo',
   message: 'This is a toast message',
   timeout: 6000,
-  verticalPosition: 'bottom'
+  verticalPosition: 'end'
 };
 
+TemplateToast.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+TemplateToast.args = JSON.parse(JSON.stringify(basicArgs));
+delete TemplateToast.argTypes.href;
+delete TemplateToast.argTypes.label;
+delete TemplateToast.args.href;
+delete TemplateToast.args.label;
+
 BasicNoAnimation.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
+BasicNoAnimation.args = JSON.parse(JSON.stringify(basicArgs));
 delete BasicNoAnimation.argTypes.iconSlot;
 delete BasicNoAnimation.argTypes.href;
 delete BasicNoAnimation.argTypes.label;
-
-NoIconAndNoAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete NoIconAndNoAction.argTypes.iconSlot;
-delete NoIconAndNoAction.argTypes.href;
-delete NoIconAndNoAction.argTypes.label;
-
-NoIconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete NoIconAndCloseIconAction.argTypes.iconSlot;
-delete NoIconAndCloseIconAction.argTypes.href;
-delete NoIconAndCloseIconAction.argTypes.label;
-NoIconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete NoIconAndLinkAction.argTypes.iconSlot;
-NoIconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete NoIconAndButtonAction.argTypes.iconSlot;
-delete NoIconAndButtonAction.argTypes.href;
-
-IconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete IconAndCloseIconAction.argTypes.href;
-delete IconAndCloseIconAction.argTypes.label;
-IconAndCloseIconActionWithEventListeners.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete IconAndCloseIconActionWithEventListeners.argTypes.href;
-delete IconAndCloseIconActionWithEventListeners.argTypes.label;
-IconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-IconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
-delete IconAndButtonAction.argTypes.href;
-
-BasicNoAnimation.args = JSON.parse(JSON.stringify(basicArgs));
 delete BasicNoAnimation.args.iconSlot;
 delete BasicNoAnimation.args.href;
 delete BasicNoAnimation.args.label;
 
+NoIconAndNoAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 NoIconAndNoAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndNoAction.argTypes.iconSlot;
+delete NoIconAndNoAction.argTypes.href;
+delete NoIconAndNoAction.argTypes.label;
 delete NoIconAndNoAction.args.iconSlot;
 delete NoIconAndNoAction.args.href;
 delete NoIconAndNoAction.args.label;
 
+NoIconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 NoIconAndCloseIconAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndCloseIconAction.argTypes.iconSlot;
+delete NoIconAndCloseIconAction.argTypes.href;
+delete NoIconAndCloseIconAction.argTypes.label;
 delete NoIconAndCloseIconAction.args.iconSlot;
 delete NoIconAndCloseIconAction.args.href;
 delete NoIconAndCloseIconAction.args.label;
+
+NoIconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 NoIconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndLinkAction.argTypes.iconSlot;
 delete NoIconAndLinkAction.args.iconSlot;
+
+NoIconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 NoIconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete NoIconAndButtonAction.argTypes.iconSlot;
+delete NoIconAndButtonAction.argTypes.href;
 delete NoIconAndButtonAction.args.iconSlot;
 delete NoIconAndButtonAction.args.href;
 
+IconAndCloseIconAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 IconAndCloseIconAction.args = JSON.parse(JSON.stringify(basicArgs));
+delete IconAndCloseIconAction.argTypes.href;
+delete IconAndCloseIconAction.argTypes.label;
 delete IconAndCloseIconAction.args.href;
 delete IconAndCloseIconAction.args.label;
+
+IconAndCloseIconActionWithEventListeners.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 IconAndCloseIconActionWithEventListeners.args = JSON.parse(JSON.stringify(basicArgs));
+delete IconAndCloseIconActionWithEventListeners.argTypes.href;
+delete IconAndCloseIconActionWithEventListeners.argTypes.label;
 delete IconAndCloseIconActionWithEventListeners.args.href;
 delete IconAndCloseIconActionWithEventListeners.args.label;
+
+IconAndLinkAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 IconAndLinkAction.args = JSON.parse(JSON.stringify(basicArgs));
+
+IconAndButtonAction.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
 IconAndButtonAction.args = JSON.parse(JSON.stringify(basicArgs));
 delete IconAndButtonAction.args.href;
+delete IconAndButtonAction.argTypes.href;
 
+TemplateToast.documentation = {
+  title: 'Static toast template'
+};
 BasicNoAnimation.documentation = {
   title: 'Basic Lyne toast with no animation'
 };

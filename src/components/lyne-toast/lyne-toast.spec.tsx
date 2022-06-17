@@ -23,7 +23,7 @@ describe('lyne-toast', () => {
         <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-1" role="status" tabindex="-1" style="z-index: 60001;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-text">
                   Message
                 </span>
@@ -55,7 +55,7 @@ describe('lyne-toast', () => {
         <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-2" role="dialog" style="z-index: 60002;">
           <mock:shadow-root>
            <div class="toast-wrapper">
-             <div class="toast toast-bottom toast-center">
+             <div class="toast toast-vertical-end toast-horizontal-center">
                <span class="toast-text">
                  Message
                </span>
@@ -95,7 +95,7 @@ describe('lyne-toast', () => {
         <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-3" role="dialog" style="z-index: 60003;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-text">
                   Message
                 </span>
@@ -135,7 +135,7 @@ describe('lyne-toast', () => {
         <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-4" role="dialog" style="z-index: 60004;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-text">
                   Message
                 </span>
@@ -171,7 +171,7 @@ describe('lyne-toast', () => {
         <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-5" role="status" tabindex="-1" style="z-index: 60005;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-icon">
                   <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
                 </span>
@@ -209,7 +209,7 @@ describe('lyne-toast', () => {
         <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-6" role="status" tabindex="-1" style="z-index: 60006;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-icon">
                   <slot name="icon"></slot>
                 </span>
@@ -250,7 +250,7 @@ describe('lyne-toast', () => {
         <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-7" role="dialog" style="z-index: 60007;">
           <mock:shadow-root>
            <div class="toast-wrapper">
-             <div class="toast toast-bottom toast-center">
+             <div class="toast toast-vertical-end toast-horizontal-center">
                <span class="toast-icon">
                  <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
                </span>
@@ -295,7 +295,7 @@ describe('lyne-toast', () => {
          <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-8" role="dialog" style="z-index: 60008;">
             <mock:shadow-root>
               <div class="toast-wrapper">
-                <div class="toast toast-bottom toast-center">
+                <div class="toast toast-vertical-end toast-horizontal-center">
                   <span class="toast-icon">
                     <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
                   </span>
@@ -339,7 +339,7 @@ describe('lyne-toast', () => {
        <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-9" role="dialog" style="z-index: 60009;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-icon">
                   <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
                 </span>
@@ -386,7 +386,7 @@ describe('lyne-toast', () => {
        <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-10" role="dialog" style="z-index: 60010;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-icon">
                   <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
                 </span>
@@ -423,7 +423,7 @@ describe('lyne-toast', () => {
        <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-11" role="status" tabindex="-1" style="z-index: 60011;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-text">
                   Message
                 </span>
@@ -464,7 +464,7 @@ describe('lyne-toast', () => {
        <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-12" role="status" tabindex="-1" style="z-index: 60012;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-text">
                   Message
                 </span>
@@ -514,7 +514,7 @@ describe('lyne-toast', () => {
        <lyne-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="lyne-overlay-13" role="dialog" style="z-index: 60013;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-bottom toast-center">
+              <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-text">
                   Message
                 </span>
