@@ -1,11 +1,18 @@
 import {
   Component,
+  Element,
   h,
   Prop,
   Watch
 } from '@stencil/core';
 
 import { InterfaceTeaserAttributes } from './lyne-teaser.custom';
+
+/**
+ * @slot image - Slot used to render the image
+ * @slot headline - Slot used to render the headline
+ * @slot description - Slot used to render the description
+ */
 
 @Component({
   shadow: true,
@@ -54,16 +61,16 @@ export class LyneTeaser {
   @Prop() public hrefValue!: string;
 
   /** The image src */
-  @Prop() public imgSrc!: string;
+  @Prop() public imgSrc: string;
 
   /** The image alt */
-  @Prop() public imgAlt!: string;
+  @Prop() public imgAlt: string;
 
   /** The headline attribute */
-  @Prop() public headline!: '';
+  @Prop() public headline: '';
 
   /** The description attribute*/
-  @Prop() public description!: '';
+  @Prop() public description: '';
 
   /**
    * Teaser variant -
@@ -78,9 +85,21 @@ export class LyneTeaser {
    */
   @Prop() public pictureSizesConfig?: string;
 
+  /** Host element */
+  @Element() private _hostElement: HTMLElement;
+
+  private _hasImageSlot: boolean;
+  private _hasHeadlineSlot: boolean;
+  private _hasDescriptionSlot: boolean;
+
   public componentWillLoad(): void {
     // Validate props
     this.validateAccessibilityLabel(this.accessibilityLabel);
+
+    // Check slots
+    this._hasImageSlot = Boolean(this._hostElement.querySelector('[slot="image"]'));
+    this._hasHeadlineSlot = Boolean(this._hostElement.querySelector('[slot="headline"]'));
+    this._hasDescriptionSlot = Boolean(this._hostElement.querySelector('[slot="description"]'));
   }
 
   public render(): JSX.Element {
@@ -89,24 +108,41 @@ export class LyneTeaser {
      * Add generic additional attributes
      * ----------------------------------------------------------------
      */
+    const additionalTeaserAttributes = {
+      alt: this.imgAlt,
+      description: this.description,
+      headline: this.headline,
+      src: this.imgSrc
+    };
+
     const ariaLabel = this.accessibilityLabel;
 
     return (
       <a
         aria-label={ariaLabel}
-        class={`teaser teaser--${this.appearance} ${this.isStacked === true
-          ? 'teaser--is-stacked'
-          : ''} `}
+        class={
+          `teaser teaser--${this.appearance} ${this.isStacked === true
+            ? 'teaser--is-stacked'
+            : ''}`
+        }
         href={this.hrefValue}
+        {...additionalTeaserAttributes}
       >
         <div class='teaser__content'>
           <div class='teaser__inner'>
-            <div class='teaser__wrapper'>
-              <img class='teaser__image' src={this.imgSrc} alt={this.imgAlt} />
-            </div>
+            {this._hasImageSlot
+              ? <div class='teaser__wrapper'><slot name='image'/></div>
+              : ''
+            }
             <div class='teaser__text'>
-              <lyne-title class='teaser__lead' level='5' text={this.headline} />
-              <p class='teaser__description'>{this.description}</p>
+              {this._hasHeadlineSlot
+                ? <div class='teaser__lead'><slot name='headline'/></div>
+                : ''
+              }
+              {this._hasDescriptionSlot
+                ? <div class='teaser__description'><slot name='description'/></div>
+                : ''
+              }
             </div>
           </div>
         </div>

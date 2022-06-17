@@ -15,14 +15,14 @@
   text-align: start;
 
   &:hover {
-    .teaser__image {
+    ::slotted( [slot="image"] ) {
       @include shadow-level-9-hard;
       transform: scale(var(--hover-scale));
     }
   }
 }
 
-.teaser__image {
+::slotted( [slot="image"] ) {
   @include image-aspect-ratio-4-3;
   display: block;
   object-fit: cover;
@@ -31,15 +31,16 @@
   transition: var(--animation-duration-4x) var(--animation-easing);
 }
 
-.teaser__wrapper {
-  margin-inline-end: pxToRem(var(--spacing-fixed-4x));
-  margin-block-end: 0;
-}
-
 .teaser__inner { 
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+}
+
+.teaser__wrapper {
+  width: 100%;
+  margin-inline-end: pxToRem(var(--spacing-fixed-4x));
+  margin-block-end: 0;
 }
 
 // Layout switch
@@ -53,7 +54,7 @@
 
 .teaser__text {
   .teaser--is-stacked & {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
 
@@ -81,6 +82,10 @@
 .teaser__description {
   @include text-s--regular();
   @include clampLines($lines:2);
-  margin: 0;
   color: var(--color-metal-default);
+}
+
+::slotted( [slot="description"] ) {
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
