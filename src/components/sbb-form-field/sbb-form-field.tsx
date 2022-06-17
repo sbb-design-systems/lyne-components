@@ -67,7 +67,7 @@ export class SbbFormField {
 
   public render(): JSX.Element {
     const optional = this.optional
-      ? ' (optional)'
+      ? '(optional)'
       : '';
 
     const clearable = this._isClearable

@@ -5,13 +5,9 @@ const Template = (args) => (
   <sbb-form-error {...args}></sbb-form-error>
 );
 
-export const story1 = Template.bind({});
+export const sbbFormError = Template.bind({});
 
-story1.args = {
-  'some-prop': 'opt1'
-};
-
-story1.documentation = {
+sbbFormError.documentation = {
   title: 'Title which will be rendered on documentation platform'
 };
 
@@ -34,5 +30,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'sbb-form-error'
+  title: 'components/form elements/sbb-form-error'
 };

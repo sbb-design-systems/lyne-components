@@ -1,4 +1,5 @@
 import { h } from 'jsx-dom';
+import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import readme from './readme.md';
 
 const TemplateInput = (args) => (
@@ -16,9 +17,9 @@ const TemplateInputWithError = (args) => (
 
 const TemplateInputWithIcons = (args) => (
   <sbb-form-field {...args}>
-    <i slot='prefix'></i>
+    <span slot='prefix'>{getMarkupForSvg('pie-small')}</span>
     <input slot='input' placeholder='Name' />
-    <i slot='suffix'></i>
+    <span slot='suffix'>{getMarkupForSvg('circle-information-small')}</span>
   </sbb-form-field>
 );
 
@@ -40,6 +41,18 @@ const TemplateSelectWithError = (args) => (
       <option>Value 3</option>
     </select>
     <sbb-form-error slot='error'>required field</sbb-form-error>
+  </sbb-form-field>
+);
+
+const TemplateSelectWithIcons = (args) => (
+  <sbb-form-field {...args}>
+    <span slot='prefix'>{getMarkupForSvg('pie-small')}</span>
+    <select slot='input' placeholder='Name'>
+      <option>Value 1</option>
+      <option>Value 2</option>
+      <option>Value 3</option>
+    </select>
+    <span slot='suffix'>{getMarkupForSvg('circle-information-small')}</span>
   </sbb-form-field>
 );
 
@@ -100,7 +113,7 @@ formWithLabelInputAndIcons.argTypes = basicArgTypes;
 formWithLabelInputAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
 
 formWithLabelInputAndIcons.documentation = {
-  title: 'sbb-form-field component with label, input and error'
+  title: 'sbb-form-field component with label, input and icons'
 };
 
 export const formWithLabelAndSelect = TemplateSelect.bind({});
@@ -123,6 +136,16 @@ formWithLabelSelectAndError.documentation = {
   title: 'sbb-form-field component with label and select'
 };
 
+export const formWithLabelSelectAndIcons = TemplateSelectWithIcons.bind({});
+
+formWithLabelSelectAndIcons.argTypes = basicArgTypes;
+
+formWithLabelSelectAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
+
+formWithLabelSelectAndIcons.documentation = {
+  title: 'sbb-form-field component with label, select and icons'
+};
+
 export default {
   decorators: [
     (Story) => (
@@ -142,5 +165,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'sbb-form-field'
+  title: 'components/form elements/sbb-form-field'
 };
