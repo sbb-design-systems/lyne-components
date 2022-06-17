@@ -18,7 +18,7 @@ describe('lyne-toast', () => {
     expect(toast).not.toBe(null);
     expect(toast)
       .toHaveClass('hydrated');
-    const label = await page.find('lyne-toast >>> .toast-bottom');
+    const label = await page.find('lyne-toast >>> .toast-horizontal-end');
 
     expect(label.textContent)
       .toEqual('This is a toast!');

@@ -1,5 +1,23 @@
-import { getAnimationDurationVariableSafeValue } from './get-animation-duration-variable-safe-value';
+import {
+  convertToNumber,
+  getAnimationDurationVariableSafeValue
+} from './get-animation-duration-variable-safe-value';
 import spyOn = jest.spyOn;
+
+describe('convertToNumber', () => {
+  it('should correct trim value', () => {
+    expect(convertToNumber('1000ms'))
+      .toEqual(1000);
+    expect(convertToNumber('999px'))
+      .toEqual(999);
+    expect(convertToNumber('0010rem'))
+      .toEqual(10);
+    expect(convertToNumber('100px123'))
+      .toEqual(100);
+    expect(convertToNumber('abc123'))
+      .toBeNaN();
+  });
+});
 
 describe('getAnimationDurationVariableSafeValue', () => {
 
