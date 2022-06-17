@@ -5,7 +5,7 @@ describe('sbb-toast', () => {
 
   it('renders', async () => {
     page = await newE2EPage({
-      url: '/src/components/lyne-toast/sbb-toast.e2e.html'
+      url: '/src/components/sbb-toast/sbb-toast.e2e.html'
     });
     const button = await page.find('button');
 
