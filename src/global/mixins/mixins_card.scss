@@ -35,18 +35,16 @@
 
   transition: var(--card-hover-animation);
 
-  &:focus,
-  &:hover {
-    &:not(:disabled) {
-
-      @include shadow-level-9-hard;
-
-      padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
-      padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
-
-      cursor: pointer;
-    }
+  &:focus {
+    @include card--shadow;
   }
+
+  // If the the device can hover over elements with ease
+  @include hover-mq($hover: true) {
+      &:hover {
+        @include card--shadow;
+      }
+    }
 
   @include ifForcedColors {
     border: pxToRem(1) solid ButtonText;
@@ -168,4 +166,16 @@
 
 @mixin card--xxl--tall {
   @include card--xxl;
+}
+
+@mixin card--shadow {
+  &:not(:disabled) {
+
+    @include shadow-level-9-hard;
+
+    padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
+    padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
+
+    cursor: pointer;
+  }
 }

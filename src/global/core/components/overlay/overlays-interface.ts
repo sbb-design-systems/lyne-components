@@ -31,7 +31,7 @@ export interface InterfaceHTMLStencilElement extends HTMLElement {
   componentOnReady(): Promise<this>;
 }
 
-export interface InterfaceHTMLLyneOverlayElement extends InterfaceHTMLStencilElement {
+export interface InterfaceHTMLSbbOverlayElement extends InterfaceHTMLStencilElement {
   overlayIndex: number;
   backdropDismiss?: boolean;
   lastFocus?: HTMLElement;
@@ -42,5 +42,5 @@ export interface InterfaceHTMLLyneOverlayElement extends InterfaceHTMLStencilEle
 export interface InterfaceOverlayController {
   create(opts?: any): Promise<HTMLElement>;
   dismiss(data?: any, role?: string, id?: string): Promise<boolean>;
-  getTop(): InterfaceHTMLLyneOverlayElement;
+  getTop(): InterfaceHTMLSbbOverlayElement;
 }

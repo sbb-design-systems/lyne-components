@@ -1,4 +1,4 @@
-# lyne-overlay
+# sbb-overlay
 Example component for overlay system. Not meant to be used.
 
 

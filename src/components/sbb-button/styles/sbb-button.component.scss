@@ -1,0 +1,187 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
+
+:host {
+  display: inline-block;
+  @include buttonVariables();
+}
+
+.button--primary-negative {
+  @include buttonPrimaryNegativeVariables;
+}
+
+.button--secondary {
+  @include buttonSecondaryVariables;
+}
+
+.button--secondary-negative {
+  @include buttonSecondaryNegativeVariables;
+}
+
+.button--translucent {
+  --color-active-background: var(--color-black-alpha-70);
+  --color-active-border: var(--color-black-alpha-0);
+  --color-active-text: var(--color-cloud-default);
+  --color-default-background: var(--color-black-alpha-50);
+  --color-default-border: var(--color-black-alpha-0);
+  --color-default-text: var(--color-white-default);
+  --color-disabled-background: var(--color-black-alpha-20);
+  --color-disabled-border: var(--color-black-alpha-0);
+  --color-disabled-text: var(--color-milk-default);
+  --color-hover-background: var(--color-black-alpha-60);
+  --color-hover-border: var(--color-black-alpha-0);
+  --color-hover-text: var(--color-milk-default);
+}
+
+.button--translucent-negative {
+  --color-active-background: var(--color-white-alpha-70);
+  --color-active-border: var(--color-white-alpha-0);
+  --color-active-text: var(--color-anthracite-default);
+  --color-default-background: var(--color-white-alpha-50);
+  --color-default-border: var(--color-white-alpha-0);
+  --color-default-text: var(--color-charcoal-default);
+  --color-disabled-background: var(--color-white-alpha-20);
+  --color-disabled-border: var(--color-white-alpha-0);
+  --color-disabled-text: var(--color-platinum-default);
+  --color-hover-background: var(--color-white-alpha-60);
+  --color-hover-border: var(--color-white-alpha-0);
+  --color-hover-text: var(--color-iron-default);
+}
+
+.button--transparent {
+  --color-active-background: var(--color-cloud-default);
+  --color-active-border: var(--color-cloud-default);
+  --color-active-text: var(--color-black-default);
+  --color-default-background: transparent;
+  --color-default-border: transparent;
+  --color-default-text: var(--color-black-default);
+  --color-disabled-background: transparent;
+  --color-disabled-border: transparent;
+  --color-disabled-text: var(--color-granite-default);
+  --color-hover-background: var(--color-milk-default);
+  --color-hover-border: var(--color-milk-default);
+  --color-hover-text: var(--color-black-default);
+}
+
+.button--transparent-negative {
+  --color-active-background: var(--color-iron-default);
+  --color-active-border: var(--color-iron-default);
+  --color-active-text: var(--color-white-default);
+  --color-default-background: transparent;
+  --color-default-border: transparent;
+  --color-default-text: var(--color-white-default);
+  --color-disabled-background: transparent;
+  --color-disabled-border: transparent;
+  --color-disabled-text: var(--color-granite-default);
+  --color-hover-background: var(--color-charcoal-default);
+  --color-hover-border: var(--color-charcoal-default);
+  --color-hover-text: var(--color-white-default);
+}
+
+.button--size-m {
+  @include buttonSizeMVariables;
+}
+
+.button {
+  @include button();
+}
+
+.button--primary:not(:disabled),
+.button--secondary:not(:disabled),
+.button--primary-negative:not(:disabled) {
+  @include buttonShadowNotDisabled;
+}
+
+.button--visual-only {
+  width: fit-content;
+  user-select: none;
+}
+
+.button--icon-only {
+  --padding-inline: 0;
+  --icon-margin-inline-end: 0;
+
+  width: pxToRem(var(--min-height));
+  justify-content: center;
+
+  &.button:disabled::after {
+    inset-inline: unset;
+    // Width of line through is fixed in icon variant
+    width: pxToRem(var(--icon-size));
+  }
+}
+
+.button:disabled {
+  color: var(--color-disabled-text);
+  cursor: default;
+
+  &::before {
+    background-color: var(--color-disabled-background);
+    border-color: var(--color-disabled-border);
+  }
+
+  // Line through content
+  &::after {
+    content: "";
+    @include absoluteCenterY;
+    background-color: var(--color-disabled-text);
+    height: pxToRem(var(--line-through-height-disabled));
+    inset-inline: pxToRem(var(--padding-inline));
+
+    @include ifForcedColors {
+      background-color: GrayText;
+    }
+  }
+
+  ::slotted(svg) {
+    @include ifForcedColors {
+      fill: GrayText;
+    }
+  }
+}
+
+// If the the device can hover over elements with ease
+@include hover-mq($hover: true) {
+  .button:hover:not(:disabled) {
+    @include buttonHover;
+  }
+}
+
+.button:active:not(:disabled) {
+  @include buttonActive;
+}
+
+.button--secondary-negative,
+.button--translucent,
+.button--translucent-negative,
+.button--transparent,
+.button--transparent-negative {
+  @include buttonShadowDisabled;
+}
+
+.button__label,
+.button__icon {
+  @include buttonLabelTransition;
+}
+
+.button__label {
+  @include buttonLabel;
+}
+
+.button__icon {
+  @include buttonIcon;
+}
+
+.button__icon-description {
+  @include screenReaderOnly;
+}
+
+:host ::slotted(svg) {
+  fill: currentColor;
+
+  @include ifForcedColors {
+    fill: ButtonText;
+  }
+}

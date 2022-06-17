@@ -95,9 +95,9 @@ npm run generate my-component-name
   const [componentName] = args;
   const targetDirectory = `${config.sourceDirectory}/${componentName}`;
 
-  // make sure we have a dash in the name
-  if (componentName.indexOf('-') === -1) {
-    console.log('component name must be in kebab case: my-component-name');
+  // make sure we have a dash in the name and the "sbb" prefix
+  if (componentName.indexOf('sbb-') !== 0) {
+    console.log('component name must be in kebab case and must start with "sbb" prefix, eg: sbb-my-component-name');
 
     return;
   }

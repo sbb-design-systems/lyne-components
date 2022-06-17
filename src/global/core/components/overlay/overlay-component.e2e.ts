@@ -1,6 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('lyne-overlay', () => {
+describe('sbb-overlay', () => {
   let page;
 
   it('renders', async () => {
@@ -12,13 +12,13 @@ describe('lyne-overlay', () => {
     await buttonPresent.waitForVisible();
     await buttonPresent.click();
     await page.waitForTimeout(250);
-    let overlay = await page.find('lyne-overlay');
+    let overlay = await page.find('sbb-overlay');
 
     await overlay.waitForVisible();
     expect(overlay).not.toBe(null);
     expect(overlay)
       .toHaveClass('hydrated');
-    const label = await page.find('lyne-overlay >>> .overlay-class');
+    const label = await page.find('sbb-overlay >>> .overlay-class');
 
     expect(label.textContent)
       .toEqual('Overlay');
@@ -31,7 +31,7 @@ describe('lyne-overlay', () => {
     await page.waitForTimeout(250);
 
     await overlay.waitForNotVisible();
-    overlay = await page.find('lyne-overlay');
+    overlay = await page.find('sbb-overlay');
     expect(overlay)
       .toBe(null);
   });

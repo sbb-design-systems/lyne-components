@@ -11,14 +11,14 @@ import { createAnimation } from '../animations/animation';
 
 @Component({
   shadow: true,
-  tag: 'lyne-overlay'
+  tag: 'sbb-overlay'
 })
-export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
+export class SbbOverlay implements ComponentInterface, InterfaceOverlay {
 
   public disableAnimation = false;
   public keyboardClose: boolean;
   public presented: boolean;
-  @Element() public el!: HTMLLyneOverlayElement;
+  @Element() public el!: HTMLSbbOverlayElement;
   @Prop() public overlayIndex: number;
   @Event() public didDismiss: EventEmitter<InterfaceOverlayEventDetail>;
   @Event() public didPresent: EventEmitter<void>;
@@ -27,12 +27,12 @@ export class LyneOverlay implements ComponentInterface, InterfaceOverlay {
 
   @Method()
   public onDidDismiss<T = any>(): Promise<InterfaceOverlayEventDetail<T>> {
-    return eventMethod(this.el, 'lyne-overlay_did-dismiss');
+    return eventMethod(this.el, 'sbb-overlay_did-dismiss');
   }
 
   @Method()
   public onWillDismiss<T = any>(): Promise<InterfaceOverlayEventDetail<T>> {
-    return eventMethod(this.el, 'lyne-overlay_will-dismiss');
+    return eventMethod(this.el, 'sbb-overlay_will-dismiss');
   }
 
   public connectedCallback(): void {

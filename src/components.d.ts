@@ -5,39 +5,40 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { InterfaceAccordionItemAttributes } from "./components/lyne-accordion-item/lyne-accordion-item.custom.d";
-import { InterfaceButtonAttributes } from "./components/lyne-button/lyne-button.custom.d";
-import { InterfaceCardBadgeAttributes } from "./components/lyne-card-badge/lyne-card-badge.custom";
-import { InterfaceCardProductAttributes } from "./components/lyne-card-product/lyne-card-product.custom";
-import { InterfaceFooterAttributes } from "./components/lyne-footer/lyne-footer.custom";
-import { InterfaceGridAttributes } from "./components/lyne-grid/lyne-grid.custom";
-import { InterfaceImageAttributes } from "./components/lyne-image/lyne-image.custom.d";
-import { InterfaceJourneyHeaderAttributes } from "./components/lyne-journey-header/lyne-journey-header.custom";
-import { InterfaceLinkAttributes } from "./components/lyne-link/lyne-link.custom.d";
-import { InterfaceLinkButtonAttributes } from "./components/lyne-link-button/lyne-link-button.custom.d";
-import { InterfaceLyneLinkListAttributes } from "./components/lyne-link-list/lyne-link-list.custom.d";
-import { InterfaceTitleAttributes } from "./components/lyne-title/lyne-title.custom.d";
+import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
+import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
+import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
+import { Time } from "./components/sbb-clock/sbb-clock.custom";
+import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
+import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
+import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
+import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
+import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
+import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
+import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
+import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
+import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-import { InterfacePanelAttributes } from "./components/lyne-panel/lyne-panel.custom.d";
-import { InterfacePearlChainAttributes } from "./components/lyne-pearl-chain/lyne-pearl-chain.custom.d";
-import { Time } from "./components/lyne-sbb-clock/lyne-sbb-clock.custom.d";
-import { InterfaceLogoAttributes } from "./components/lyne-sbb-logo/lyne-sbb-logo.custom.d";
-import { InterfaceSignetAttributes } from "./components/lyne-sbb-signet/lyne-sbb-signet.custom.d";
-import { InterfaceSectionAttributes } from "./components/lyne-section/lyne-section.custom";
-import { InterfaceStackAttributes } from "./components/lyne-stack/lyne-stack.custom";
-import { InterfaceLyneTextInputAttributes } from "./components/lyne-text-input/lyne-text-input.custom.d";
-import { InterfaceLyneTimetableButtonAttributes } from "./components/lyne-timetable-button/lyne-timetable-button.custom.d";
-import { InterfaceLyneTimetableCusHimAttributes } from "./components/lyne-timetable-cus-him/lyne-timetable-cus-him.custom.d";
-import { InterfaceLyneTimetableParkAndRailAttributes } from "./components/lyne-timetable-park-and-rail/lyne-timetable-park-and-rail.custom.d";
-import { InterfaceLyneTimetablePlatformAttributes } from "./components/lyne-timetable-platform/lyne-timetable-platform.custom.d";
-import { InterfaceLyneTimetableTransportationNumberAttributes } from "./components/lyne-timetable-transportation-number/lyne-timetable-transportation-number.custom.d";
-import { InterfaceLyneTimetableTransportationTimeAttributes } from "./components/lyne-timetable-transportation-time/lyne-timetable-transportation-time.custom.d";
-import { InterfaceLyneTimetableTransportationWalkAttributes } from "./components/lyne-timetable-transportation-walk/lyne-timetable-transportation-walk.custom.d";
-import { InterfaceLyneTimetableTravelHintsAttributes } from "./components/lyne-timetable-travel-hints/lyne-timetable-travel-hints.custom.d";
-import { InterfaceToastConfiguration } from "./components/lyne-toast/lyne-toast.custom";
+import { InterfacePanelAttributes } from "./components/sbb-panel/sbb-panel.custom";
+import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
+import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
+import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
+import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
+import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
+import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
+import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
+import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
+import { InterfaceTimetablePlatformAttributes } from "./components/sbb-timetable-platform/sbb-timetable-platform.custom";
+import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
+import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
+import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
+import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
+import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
+import { InterfaceToastConfiguration } from "./components/sbb-toast/sbb-toast.custom";
 import { AnimationBuilder } from "./global/core/components/animations/animation-interface";
 export namespace Components {
-    interface LyneAccordion {
+    interface SbbAccordion {
         /**
           * Use the aria-labelledby to reference to an id of a title outside of the accordion. That way we can improve the context for the screenreader users. When the first button in the accordion receives focus, the referenced title is also spoken out by the screenreader.
          */
@@ -51,7 +52,7 @@ export namespace Components {
          */
         "onlyOneOpen"?: boolean;
     }
-    interface LyneAccordionItem {
+    interface SbbAccordionItem {
         /**
           * If set, an accordion can not be toggled
          */
@@ -73,7 +74,7 @@ export namespace Components {
          */
         "open"?: boolean;
     }
-    interface LyneAutocomplete {
+    interface SbbAutocomplete {
         /**
           * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
          */
@@ -83,27 +84,27 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
-          * Define if borderless variant of autocomplete input should be used. See documentation of lyne-text-input for details.
+          * Define if borderless variant of autocomplete input should be used. See documentation of sbb-text-input for details.
          */
         "inputBorderless"?: boolean;
         /**
-          * Debounce timeout to use for the input. See documentation of lyne-text-input for details.
+          * Debounce timeout to use for the input. See documentation of sbb-text-input for details.
          */
         "inputDebounceTimeout"?: number;
         /**
-          * Label attribute for the input element. See lyne-text-input for details.
+          * Label attribute for the input element. See sbb-text-input for details.
          */
         "inputLabel": string;
         /**
-          * Determine if the input label should be visible. See lyne-text-input for details.
+          * Determine if the input label should be visible. See sbb-text-input for details.
          */
         "inputLabelVisible"?: boolean;
         /**
-          * Name attribute for the input element. See lyne-text-input for details.
+          * Name attribute for the input element. See sbb-text-input for details.
          */
         "inputName": string;
         /**
-          * Placeholder attribute for the input element. See lyne-text-input for details.
+          * Placeholder attribute for the input element. See sbb-text-input for details.
          */
         "inputPlaceholder"?: string;
         /**
@@ -119,7 +120,7 @@ export namespace Components {
          */
         "value"?: string;
     }
-    interface LyneAutocompleteItem {
+    interface SbbAutocompleteItem {
         /**
           * The aria-posinset attribute for the list element
          */
@@ -141,7 +142,7 @@ export namespace Components {
          */
         "text": string;
     }
-    interface LyneButton {
+    interface SbbButton {
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -191,7 +192,7 @@ export namespace Components {
          */
         "visualButtonOnly"?: boolean;
     }
-    interface LyneCardBadge {
+    interface SbbCardBadge {
         /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
@@ -217,7 +218,7 @@ export namespace Components {
          */
         "text"?: string;
     }
-    interface LyneCardProduct {
+    interface SbbCardProduct {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
@@ -267,7 +268,17 @@ export namespace Components {
          */
         "value"?: string;
     }
-    interface LyneFooter {
+    interface SbbClock {
+        /**
+          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
+         */
+        "initialTime"?: Time;
+        /**
+          * If set to true, the clock will be paused.
+         */
+        "paused"?: boolean;
+    }
+    interface SbbFooter {
         /**
           * Footer title text, visually hidden,  necessary for screenreaders
          */
@@ -277,7 +288,7 @@ export namespace Components {
          */
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
-    interface LyneGrid {
+    interface SbbGrid {
         /**
           * Section appearance
          */
@@ -287,7 +298,7 @@ export namespace Components {
          */
         "variant"?: InterfaceGridAttributes['variant'];
     }
-    interface LyneImage {
+    interface SbbImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
          */
@@ -361,13 +372,13 @@ export namespace Components {
          */
         "variant"?: InterfaceImageAttributes['variant'];
     }
-    interface LyneInputError {
+    interface SbbInputError {
         /**
           * The error message, we want to show.
          */
         "message": string;
     }
-    interface LyneJourneyHeader {
+    interface SbbJourneyHeader {
         /**
           * Journey header appearance
          */
@@ -397,7 +408,7 @@ export namespace Components {
          */
         "size"?: InterfaceJourneyHeaderAttributes['size'];
     }
-    interface LyneLink {
+    interface SbbLink {
         /**
           * If set to true, the browser will show the download dialog on click.
          */
@@ -435,7 +446,7 @@ export namespace Components {
          */
         "variant": InterfaceLinkAttributes['variant'];
     }
-    interface LyneLinkButton {
+    interface SbbLinkButton {
         /**
           * If set to true, the browser will show the download dialog on click.
          */
@@ -469,11 +480,11 @@ export namespace Components {
          */
         "variant": InterfaceLinkButtonAttributes['variant'];
     }
-    interface LyneLinkList {
+    interface SbbLinkList {
         /**
           * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
          */
-        "listDirection": InterfaceLyneLinkListAttributes['direction'];
+        "listDirection": InterfaceLinkListAttributes['direction'];
         /**
           * The semantic level of the title, e.g. 3 = h3
          */
@@ -485,16 +496,26 @@ export namespace Components {
         /**
           * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
          */
-        "variant": InterfaceLyneLinkListAttributes['variant'];
+        "variant": InterfaceLinkListAttributes['variant'];
     }
-    interface LyneOverlay {
+    interface SbbLogo {
+        /**
+          * The Logo needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the logo can be used in these variants
+         */
+        "variant"?: InterfaceLogoAttributes['variant'];
+    }
+    interface SbbOverlay {
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
         "onDidDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
         "onWillDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
         "overlayIndex": number;
         "present": () => Promise<void>;
     }
-    interface LynePanel {
+    interface SbbPanel {
         /**
           * The text to use as button text
          */
@@ -512,7 +533,7 @@ export namespace Components {
          */
         "text": string;
     }
-    interface LynePearlChain {
+    interface SbbPearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
@@ -526,37 +547,7 @@ export namespace Components {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
-    interface LyneSbbClock {
-        /**
-          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
-         */
-        "initialTime"?: Time;
-        /**
-          * If set to true, the clock will be paused.
-         */
-        "paused"?: boolean;
-    }
-    interface LyneSbbLogo {
-        /**
-          * The Logo needs to have a certain protective room around it
-         */
-        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the logo can be used in these variants
-         */
-        "variant"?: InterfaceLogoAttributes['variant'];
-    }
-    interface LyneSbbSignet {
-        /**
-          * The Signet needs to have a certain protective room around it
-         */
-        "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the signet can be used in these variants
-         */
-        "variant"?: InterfaceSignetAttributes['variant'];
-    }
-    interface LyneSection {
+    interface SbbSection {
         /**
           * Section appearance
          */
@@ -566,9 +557,19 @@ export namespace Components {
          */
         "width"?: InterfaceSectionAttributes['width'];
     }
-    interface LyneSlotComponent {
+    interface SbbSignet {
+        /**
+          * The Signet needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the signet can be used in these variants
+         */
+        "variant"?: InterfaceSignetAttributes['variant'];
     }
-    interface LyneStack {
+    interface SbbSlotComponent {
+    }
+    interface SbbStack {
         /**
           * Stack appearance
          */
@@ -614,17 +615,17 @@ export namespace Components {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
-    interface LyneTeaserHero {
+    interface SbbTeaserHero {
         /**
-          * Button text property for lyne-panel. See lyne-panel for additional info
+          * Button text property for sbb-panel. See sbb-panel for additional info
          */
         "buttonText": string;
         /**
-          * Image loading property. See lyne-image for additional info
+          * Image loading property. See sbb-image for additional info
          */
         "imageLoading"?: InterfaceImageAttributes['loading'];
         /**
-          * Image source property for lyne-image. See lyne-image for additional info
+          * Image source property for sbb-image. See sbb-image for additional info
          */
         "imageSrc": string;
         /**
@@ -640,11 +641,11 @@ export namespace Components {
          */
         "openInNewWindow"?: boolean;
         /**
-          * Text property for lyne-panel. See lyne-panel for additional info
+          * Text property for sbb-panel. See sbb-panel for additional info
          */
         "text": string;
     }
-    interface LyneTextInput {
+    interface SbbTextInput {
         /**
           * If set to true, the input element will have no border, but a drop shadow.
          */
@@ -664,7 +665,7 @@ export namespace Components {
         /**
           * The aria-autocomplete attribute for the input element.
          */
-        "inputAriaAutoComplete"?: InterfaceLyneTextInputAttributes['inputAriaAutoComplete'];
+        "inputAriaAutoComplete"?: InterfaceTextInputAttributes['inputAriaAutoComplete'];
         /**
           * The id to use as the aira-controls attribute for the input element.
          */
@@ -676,7 +677,7 @@ export namespace Components {
         /**
           * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
          */
-        "inputAutoCompleteValue"?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
+        "inputAutoCompleteValue"?: InterfaceTextInputAttributes['inputAutoCompleteValue'];
         /**
           * If set to true, the input field will be disabled.
          */
@@ -716,7 +717,7 @@ export namespace Components {
         /**
           * The role attribute used for the input element.
          */
-        "inputRole"?: InterfaceLyneTextInputAttributes['inputRole'];
+        "inputRole"?: InterfaceTextInputAttributes['inputRole'];
         /**
           * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
          */
@@ -734,23 +735,23 @@ export namespace Components {
          */
         "labelVisible"?: boolean;
     }
-    interface LyneTimetable {
+    interface SbbTimetable {
     }
-    interface LyneTimetableBarrierFree {
+    interface SbbTimetableBarrierFree {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableButton {
+    interface SbbTimetableButton {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        "appearance"?: InterfaceTimetableButtonAttributes['appearance'];
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
-        "ariaHaspopup"?: InterfaceLyneTimetableButtonAttributes['popup'];
+        "ariaHaspopup"?: InterfaceTimetableButtonAttributes['popup'];
         /**
           * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
          */
@@ -772,55 +773,55 @@ export namespace Components {
          */
         "name"?: string;
     }
-    interface LyneTimetableCusHim {
+    interface SbbTimetableCusHim {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
+        "appearance"?: InterfaceTimetableCusHimAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableDuration {
+    interface SbbTimetableDuration {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableOccupancy {
+    interface SbbTimetableOccupancy {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableParkAndRail {
+    interface SbbTimetableParkAndRail {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
+        "appearance"?: InterfaceTimetableParkAndRailAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetablePlatform {
+    interface SbbTimetablePlatform {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
+        "appearance"?: InterfaceTimetablePlatformAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableRow {
+    interface SbbTimetableRow {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableRowButton {
+    interface SbbTimetableRowButton {
         /**
           * Id which is sent in the event of clicking the button
          */
@@ -830,72 +831,72 @@ export namespace Components {
          */
         "expanded"?: boolean;
     }
-    interface LyneTimetableRowColumnHeaders {
+    interface SbbTimetableRowColumnHeaders {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableRowDayChange {
+    interface SbbTimetableRowDayChange {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableRowHeader {
+    interface SbbTimetableRowHeader {
         "config": string;
     }
-    interface LyneTimetableTransportationDetails {
+    interface SbbTimetableTransportationDetails {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableTransportationNumber {
+    interface SbbTimetableTransportationNumber {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
+        "appearance"?: InterfaceTimetableTransportationNumberAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableTransportationTime {
+    interface SbbTimetableTransportationTime {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
+        "appearance"?: InterfaceTimetableTransportationTimeAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableTransportationWalk {
+    interface SbbTimetableTransportationWalk {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
+        "appearance"?: InterfaceTimetableTransportationWalkAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableTravelHints {
+    interface SbbTimetableTravelHints {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
+        "appearance"?: InterfaceTimetableTravelHintsAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTitle {
+    interface SbbTitle {
         /**
           * Title level
          */
-        "level"?: InterfaceTitleAttributes['level'];
+        "level"?: InterfaceTitleAttributes1['level'];
         /**
           * Text for the title
          */
@@ -907,17 +908,17 @@ export namespace Components {
         /**
           * Choose the title style variant
          */
-        "variant": InterfaceTitleAttributes['variant'];
+        "variant": InterfaceTitleAttributes1['variant'];
         /**
           * Visual level for the title. If you don't define the visual-level, the value for level will be used.
          */
-        "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
+        "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
         /**
           * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
         "visuallyHidden"?: false;
     }
-    interface LyneToast {
+    interface SbbToast {
         /**
           * Exposed toast configuration.
          */
@@ -959,346 +960,346 @@ export namespace Components {
         "present": () => Promise<void>;
     }
 }
-export interface LyneButtonCustomEvent<T> extends CustomEvent<T> {
+export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLLyneButtonElement;
+    target: HTMLSbbButtonElement;
 }
-export interface LyneOverlayCustomEvent<T> extends CustomEvent<T> {
+export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLLyneOverlayElement;
+    target: HTMLSbbOverlayElement;
 }
-export interface LyneToastCustomEvent<T> extends CustomEvent<T> {
+export interface SbbToastCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLLyneToastElement;
+    target: HTMLSbbToastElement;
 }
 declare global {
-    interface HTMLLyneAccordionElement extends Components.LyneAccordion, HTMLStencilElement {
+    interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
     }
-    var HTMLLyneAccordionElement: {
-        prototype: HTMLLyneAccordionElement;
-        new (): HTMLLyneAccordionElement;
+    var HTMLSbbAccordionElement: {
+        prototype: HTMLSbbAccordionElement;
+        new (): HTMLSbbAccordionElement;
     };
-    interface HTMLLyneAccordionItemElement extends Components.LyneAccordionItem, HTMLStencilElement {
+    interface HTMLSbbAccordionItemElement extends Components.SbbAccordionItem, HTMLStencilElement {
     }
-    var HTMLLyneAccordionItemElement: {
-        prototype: HTMLLyneAccordionItemElement;
-        new (): HTMLLyneAccordionItemElement;
+    var HTMLSbbAccordionItemElement: {
+        prototype: HTMLSbbAccordionItemElement;
+        new (): HTMLSbbAccordionItemElement;
     };
-    interface HTMLLyneAutocompleteElement extends Components.LyneAutocomplete, HTMLStencilElement {
+    interface HTMLSbbAutocompleteElement extends Components.SbbAutocomplete, HTMLStencilElement {
     }
-    var HTMLLyneAutocompleteElement: {
-        prototype: HTMLLyneAutocompleteElement;
-        new (): HTMLLyneAutocompleteElement;
+    var HTMLSbbAutocompleteElement: {
+        prototype: HTMLSbbAutocompleteElement;
+        new (): HTMLSbbAutocompleteElement;
     };
-    interface HTMLLyneAutocompleteItemElement extends Components.LyneAutocompleteItem, HTMLStencilElement {
+    interface HTMLSbbAutocompleteItemElement extends Components.SbbAutocompleteItem, HTMLStencilElement {
     }
-    var HTMLLyneAutocompleteItemElement: {
-        prototype: HTMLLyneAutocompleteItemElement;
-        new (): HTMLLyneAutocompleteItemElement;
+    var HTMLSbbAutocompleteItemElement: {
+        prototype: HTMLSbbAutocompleteItemElement;
+        new (): HTMLSbbAutocompleteItemElement;
     };
-    interface HTMLLyneButtonElement extends Components.LyneButton, HTMLStencilElement {
+    interface HTMLSbbButtonElement extends Components.SbbButton, HTMLStencilElement {
     }
-    var HTMLLyneButtonElement: {
-        prototype: HTMLLyneButtonElement;
-        new (): HTMLLyneButtonElement;
+    var HTMLSbbButtonElement: {
+        prototype: HTMLSbbButtonElement;
+        new (): HTMLSbbButtonElement;
     };
-    interface HTMLLyneCardBadgeElement extends Components.LyneCardBadge, HTMLStencilElement {
+    interface HTMLSbbCardBadgeElement extends Components.SbbCardBadge, HTMLStencilElement {
     }
-    var HTMLLyneCardBadgeElement: {
-        prototype: HTMLLyneCardBadgeElement;
-        new (): HTMLLyneCardBadgeElement;
+    var HTMLSbbCardBadgeElement: {
+        prototype: HTMLSbbCardBadgeElement;
+        new (): HTMLSbbCardBadgeElement;
     };
-    interface HTMLLyneCardProductElement extends Components.LyneCardProduct, HTMLStencilElement {
+    interface HTMLSbbCardProductElement extends Components.SbbCardProduct, HTMLStencilElement {
     }
-    var HTMLLyneCardProductElement: {
-        prototype: HTMLLyneCardProductElement;
-        new (): HTMLLyneCardProductElement;
+    var HTMLSbbCardProductElement: {
+        prototype: HTMLSbbCardProductElement;
+        new (): HTMLSbbCardProductElement;
     };
-    interface HTMLLyneFooterElement extends Components.LyneFooter, HTMLStencilElement {
+    interface HTMLSbbClockElement extends Components.SbbClock, HTMLStencilElement {
     }
-    var HTMLLyneFooterElement: {
-        prototype: HTMLLyneFooterElement;
-        new (): HTMLLyneFooterElement;
+    var HTMLSbbClockElement: {
+        prototype: HTMLSbbClockElement;
+        new (): HTMLSbbClockElement;
     };
-    interface HTMLLyneGridElement extends Components.LyneGrid, HTMLStencilElement {
+    interface HTMLSbbFooterElement extends Components.SbbFooter, HTMLStencilElement {
     }
-    var HTMLLyneGridElement: {
-        prototype: HTMLLyneGridElement;
-        new (): HTMLLyneGridElement;
+    var HTMLSbbFooterElement: {
+        prototype: HTMLSbbFooterElement;
+        new (): HTMLSbbFooterElement;
     };
-    interface HTMLLyneImageElement extends Components.LyneImage, HTMLStencilElement {
+    interface HTMLSbbGridElement extends Components.SbbGrid, HTMLStencilElement {
     }
-    var HTMLLyneImageElement: {
-        prototype: HTMLLyneImageElement;
-        new (): HTMLLyneImageElement;
+    var HTMLSbbGridElement: {
+        prototype: HTMLSbbGridElement;
+        new (): HTMLSbbGridElement;
     };
-    interface HTMLLyneInputErrorElement extends Components.LyneInputError, HTMLStencilElement {
+    interface HTMLSbbImageElement extends Components.SbbImage, HTMLStencilElement {
     }
-    var HTMLLyneInputErrorElement: {
-        prototype: HTMLLyneInputErrorElement;
-        new (): HTMLLyneInputErrorElement;
+    var HTMLSbbImageElement: {
+        prototype: HTMLSbbImageElement;
+        new (): HTMLSbbImageElement;
     };
-    interface HTMLLyneJourneyHeaderElement extends Components.LyneJourneyHeader, HTMLStencilElement {
+    interface HTMLSbbInputErrorElement extends Components.SbbInputError, HTMLStencilElement {
     }
-    var HTMLLyneJourneyHeaderElement: {
-        prototype: HTMLLyneJourneyHeaderElement;
-        new (): HTMLLyneJourneyHeaderElement;
+    var HTMLSbbInputErrorElement: {
+        prototype: HTMLSbbInputErrorElement;
+        new (): HTMLSbbInputErrorElement;
     };
-    interface HTMLLyneLinkElement extends Components.LyneLink, HTMLStencilElement {
+    interface HTMLSbbJourneyHeaderElement extends Components.SbbJourneyHeader, HTMLStencilElement {
     }
-    var HTMLLyneLinkElement: {
-        prototype: HTMLLyneLinkElement;
-        new (): HTMLLyneLinkElement;
+    var HTMLSbbJourneyHeaderElement: {
+        prototype: HTMLSbbJourneyHeaderElement;
+        new (): HTMLSbbJourneyHeaderElement;
     };
-    interface HTMLLyneLinkButtonElement extends Components.LyneLinkButton, HTMLStencilElement {
+    interface HTMLSbbLinkElement extends Components.SbbLink, HTMLStencilElement {
     }
-    var HTMLLyneLinkButtonElement: {
-        prototype: HTMLLyneLinkButtonElement;
-        new (): HTMLLyneLinkButtonElement;
+    var HTMLSbbLinkElement: {
+        prototype: HTMLSbbLinkElement;
+        new (): HTMLSbbLinkElement;
     };
-    interface HTMLLyneLinkListElement extends Components.LyneLinkList, HTMLStencilElement {
+    interface HTMLSbbLinkButtonElement extends Components.SbbLinkButton, HTMLStencilElement {
     }
-    var HTMLLyneLinkListElement: {
-        prototype: HTMLLyneLinkListElement;
-        new (): HTMLLyneLinkListElement;
+    var HTMLSbbLinkButtonElement: {
+        prototype: HTMLSbbLinkButtonElement;
+        new (): HTMLSbbLinkButtonElement;
     };
-    interface HTMLLyneOverlayElement extends Components.LyneOverlay, HTMLStencilElement {
+    interface HTMLSbbLinkListElement extends Components.SbbLinkList, HTMLStencilElement {
     }
-    var HTMLLyneOverlayElement: {
-        prototype: HTMLLyneOverlayElement;
-        new (): HTMLLyneOverlayElement;
+    var HTMLSbbLinkListElement: {
+        prototype: HTMLSbbLinkListElement;
+        new (): HTMLSbbLinkListElement;
     };
-    interface HTMLLynePanelElement extends Components.LynePanel, HTMLStencilElement {
+    interface HTMLSbbLogoElement extends Components.SbbLogo, HTMLStencilElement {
     }
-    var HTMLLynePanelElement: {
-        prototype: HTMLLynePanelElement;
-        new (): HTMLLynePanelElement;
+    var HTMLSbbLogoElement: {
+        prototype: HTMLSbbLogoElement;
+        new (): HTMLSbbLogoElement;
     };
-    interface HTMLLynePearlChainElement extends Components.LynePearlChain, HTMLStencilElement {
+    interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
-    var HTMLLynePearlChainElement: {
-        prototype: HTMLLynePearlChainElement;
-        new (): HTMLLynePearlChainElement;
+    var HTMLSbbOverlayElement: {
+        prototype: HTMLSbbOverlayElement;
+        new (): HTMLSbbOverlayElement;
     };
-    interface HTMLLyneSbbClockElement extends Components.LyneSbbClock, HTMLStencilElement {
+    interface HTMLSbbPanelElement extends Components.SbbPanel, HTMLStencilElement {
     }
-    var HTMLLyneSbbClockElement: {
-        prototype: HTMLLyneSbbClockElement;
-        new (): HTMLLyneSbbClockElement;
+    var HTMLSbbPanelElement: {
+        prototype: HTMLSbbPanelElement;
+        new (): HTMLSbbPanelElement;
     };
-    interface HTMLLyneSbbLogoElement extends Components.LyneSbbLogo, HTMLStencilElement {
+    interface HTMLSbbPearlChainElement extends Components.SbbPearlChain, HTMLStencilElement {
     }
-    var HTMLLyneSbbLogoElement: {
-        prototype: HTMLLyneSbbLogoElement;
-        new (): HTMLLyneSbbLogoElement;
+    var HTMLSbbPearlChainElement: {
+        prototype: HTMLSbbPearlChainElement;
+        new (): HTMLSbbPearlChainElement;
     };
-    interface HTMLLyneSbbSignetElement extends Components.LyneSbbSignet, HTMLStencilElement {
+    interface HTMLSbbSectionElement extends Components.SbbSection, HTMLStencilElement {
     }
-    var HTMLLyneSbbSignetElement: {
-        prototype: HTMLLyneSbbSignetElement;
-        new (): HTMLLyneSbbSignetElement;
+    var HTMLSbbSectionElement: {
+        prototype: HTMLSbbSectionElement;
+        new (): HTMLSbbSectionElement;
     };
-    interface HTMLLyneSectionElement extends Components.LyneSection, HTMLStencilElement {
+    interface HTMLSbbSignetElement extends Components.SbbSignet, HTMLStencilElement {
     }
-    var HTMLLyneSectionElement: {
-        prototype: HTMLLyneSectionElement;
-        new (): HTMLLyneSectionElement;
+    var HTMLSbbSignetElement: {
+        prototype: HTMLSbbSignetElement;
+        new (): HTMLSbbSignetElement;
     };
-    interface HTMLLyneSlotComponentElement extends Components.LyneSlotComponent, HTMLStencilElement {
+    interface HTMLSbbSlotComponentElement extends Components.SbbSlotComponent, HTMLStencilElement {
     }
-    var HTMLLyneSlotComponentElement: {
-        prototype: HTMLLyneSlotComponentElement;
-        new (): HTMLLyneSlotComponentElement;
+    var HTMLSbbSlotComponentElement: {
+        prototype: HTMLSbbSlotComponentElement;
+        new (): HTMLSbbSlotComponentElement;
     };
-    interface HTMLLyneStackElement extends Components.LyneStack, HTMLStencilElement {
+    interface HTMLSbbStackElement extends Components.SbbStack, HTMLStencilElement {
     }
-    var HTMLLyneStackElement: {
-        prototype: HTMLLyneStackElement;
-        new (): HTMLLyneStackElement;
+    var HTMLSbbStackElement: {
+        prototype: HTMLSbbStackElement;
+        new (): HTMLSbbStackElement;
     };
-    interface HTMLLyneTeaserHeroElement extends Components.LyneTeaserHero, HTMLStencilElement {
+    interface HTMLSbbTeaserHeroElement extends Components.SbbTeaserHero, HTMLStencilElement {
     }
-    var HTMLLyneTeaserHeroElement: {
-        prototype: HTMLLyneTeaserHeroElement;
-        new (): HTMLLyneTeaserHeroElement;
+    var HTMLSbbTeaserHeroElement: {
+        prototype: HTMLSbbTeaserHeroElement;
+        new (): HTMLSbbTeaserHeroElement;
     };
-    interface HTMLLyneTextInputElement extends Components.LyneTextInput, HTMLStencilElement {
+    interface HTMLSbbTextInputElement extends Components.SbbTextInput, HTMLStencilElement {
     }
-    var HTMLLyneTextInputElement: {
-        prototype: HTMLLyneTextInputElement;
-        new (): HTMLLyneTextInputElement;
+    var HTMLSbbTextInputElement: {
+        prototype: HTMLSbbTextInputElement;
+        new (): HTMLSbbTextInputElement;
     };
-    interface HTMLLyneTimetableElement extends Components.LyneTimetable, HTMLStencilElement {
+    interface HTMLSbbTimetableElement extends Components.SbbTimetable, HTMLStencilElement {
     }
-    var HTMLLyneTimetableElement: {
-        prototype: HTMLLyneTimetableElement;
-        new (): HTMLLyneTimetableElement;
+    var HTMLSbbTimetableElement: {
+        prototype: HTMLSbbTimetableElement;
+        new (): HTMLSbbTimetableElement;
     };
-    interface HTMLLyneTimetableBarrierFreeElement extends Components.LyneTimetableBarrierFree, HTMLStencilElement {
+    interface HTMLSbbTimetableBarrierFreeElement extends Components.SbbTimetableBarrierFree, HTMLStencilElement {
     }
-    var HTMLLyneTimetableBarrierFreeElement: {
-        prototype: HTMLLyneTimetableBarrierFreeElement;
-        new (): HTMLLyneTimetableBarrierFreeElement;
+    var HTMLSbbTimetableBarrierFreeElement: {
+        prototype: HTMLSbbTimetableBarrierFreeElement;
+        new (): HTMLSbbTimetableBarrierFreeElement;
     };
-    interface HTMLLyneTimetableButtonElement extends Components.LyneTimetableButton, HTMLStencilElement {
+    interface HTMLSbbTimetableButtonElement extends Components.SbbTimetableButton, HTMLStencilElement {
     }
-    var HTMLLyneTimetableButtonElement: {
-        prototype: HTMLLyneTimetableButtonElement;
-        new (): HTMLLyneTimetableButtonElement;
+    var HTMLSbbTimetableButtonElement: {
+        prototype: HTMLSbbTimetableButtonElement;
+        new (): HTMLSbbTimetableButtonElement;
     };
-    interface HTMLLyneTimetableCusHimElement extends Components.LyneTimetableCusHim, HTMLStencilElement {
+    interface HTMLSbbTimetableCusHimElement extends Components.SbbTimetableCusHim, HTMLStencilElement {
     }
-    var HTMLLyneTimetableCusHimElement: {
-        prototype: HTMLLyneTimetableCusHimElement;
-        new (): HTMLLyneTimetableCusHimElement;
+    var HTMLSbbTimetableCusHimElement: {
+        prototype: HTMLSbbTimetableCusHimElement;
+        new (): HTMLSbbTimetableCusHimElement;
     };
-    interface HTMLLyneTimetableDurationElement extends Components.LyneTimetableDuration, HTMLStencilElement {
+    interface HTMLSbbTimetableDurationElement extends Components.SbbTimetableDuration, HTMLStencilElement {
     }
-    var HTMLLyneTimetableDurationElement: {
-        prototype: HTMLLyneTimetableDurationElement;
-        new (): HTMLLyneTimetableDurationElement;
+    var HTMLSbbTimetableDurationElement: {
+        prototype: HTMLSbbTimetableDurationElement;
+        new (): HTMLSbbTimetableDurationElement;
     };
-    interface HTMLLyneTimetableOccupancyElement extends Components.LyneTimetableOccupancy, HTMLStencilElement {
+    interface HTMLSbbTimetableOccupancyElement extends Components.SbbTimetableOccupancy, HTMLStencilElement {
     }
-    var HTMLLyneTimetableOccupancyElement: {
-        prototype: HTMLLyneTimetableOccupancyElement;
-        new (): HTMLLyneTimetableOccupancyElement;
+    var HTMLSbbTimetableOccupancyElement: {
+        prototype: HTMLSbbTimetableOccupancyElement;
+        new (): HTMLSbbTimetableOccupancyElement;
     };
-    interface HTMLLyneTimetableParkAndRailElement extends Components.LyneTimetableParkAndRail, HTMLStencilElement {
+    interface HTMLSbbTimetableParkAndRailElement extends Components.SbbTimetableParkAndRail, HTMLStencilElement {
     }
-    var HTMLLyneTimetableParkAndRailElement: {
-        prototype: HTMLLyneTimetableParkAndRailElement;
-        new (): HTMLLyneTimetableParkAndRailElement;
+    var HTMLSbbTimetableParkAndRailElement: {
+        prototype: HTMLSbbTimetableParkAndRailElement;
+        new (): HTMLSbbTimetableParkAndRailElement;
     };
-    interface HTMLLyneTimetablePlatformElement extends Components.LyneTimetablePlatform, HTMLStencilElement {
+    interface HTMLSbbTimetablePlatformElement extends Components.SbbTimetablePlatform, HTMLStencilElement {
     }
-    var HTMLLyneTimetablePlatformElement: {
-        prototype: HTMLLyneTimetablePlatformElement;
-        new (): HTMLLyneTimetablePlatformElement;
+    var HTMLSbbTimetablePlatformElement: {
+        prototype: HTMLSbbTimetablePlatformElement;
+        new (): HTMLSbbTimetablePlatformElement;
     };
-    interface HTMLLyneTimetableRowElement extends Components.LyneTimetableRow, HTMLStencilElement {
+    interface HTMLSbbTimetableRowElement extends Components.SbbTimetableRow, HTMLStencilElement {
     }
-    var HTMLLyneTimetableRowElement: {
-        prototype: HTMLLyneTimetableRowElement;
-        new (): HTMLLyneTimetableRowElement;
+    var HTMLSbbTimetableRowElement: {
+        prototype: HTMLSbbTimetableRowElement;
+        new (): HTMLSbbTimetableRowElement;
     };
-    interface HTMLLyneTimetableRowButtonElement extends Components.LyneTimetableRowButton, HTMLStencilElement {
+    interface HTMLSbbTimetableRowButtonElement extends Components.SbbTimetableRowButton, HTMLStencilElement {
     }
-    var HTMLLyneTimetableRowButtonElement: {
-        prototype: HTMLLyneTimetableRowButtonElement;
-        new (): HTMLLyneTimetableRowButtonElement;
+    var HTMLSbbTimetableRowButtonElement: {
+        prototype: HTMLSbbTimetableRowButtonElement;
+        new (): HTMLSbbTimetableRowButtonElement;
     };
-    interface HTMLLyneTimetableRowColumnHeadersElement extends Components.LyneTimetableRowColumnHeaders, HTMLStencilElement {
+    interface HTMLSbbTimetableRowColumnHeadersElement extends Components.SbbTimetableRowColumnHeaders, HTMLStencilElement {
     }
-    var HTMLLyneTimetableRowColumnHeadersElement: {
-        prototype: HTMLLyneTimetableRowColumnHeadersElement;
-        new (): HTMLLyneTimetableRowColumnHeadersElement;
+    var HTMLSbbTimetableRowColumnHeadersElement: {
+        prototype: HTMLSbbTimetableRowColumnHeadersElement;
+        new (): HTMLSbbTimetableRowColumnHeadersElement;
     };
-    interface HTMLLyneTimetableRowDayChangeElement extends Components.LyneTimetableRowDayChange, HTMLStencilElement {
+    interface HTMLSbbTimetableRowDayChangeElement extends Components.SbbTimetableRowDayChange, HTMLStencilElement {
     }
-    var HTMLLyneTimetableRowDayChangeElement: {
-        prototype: HTMLLyneTimetableRowDayChangeElement;
-        new (): HTMLLyneTimetableRowDayChangeElement;
+    var HTMLSbbTimetableRowDayChangeElement: {
+        prototype: HTMLSbbTimetableRowDayChangeElement;
+        new (): HTMLSbbTimetableRowDayChangeElement;
     };
-    interface HTMLLyneTimetableRowHeaderElement extends Components.LyneTimetableRowHeader, HTMLStencilElement {
+    interface HTMLSbbTimetableRowHeaderElement extends Components.SbbTimetableRowHeader, HTMLStencilElement {
     }
-    var HTMLLyneTimetableRowHeaderElement: {
-        prototype: HTMLLyneTimetableRowHeaderElement;
-        new (): HTMLLyneTimetableRowHeaderElement;
+    var HTMLSbbTimetableRowHeaderElement: {
+        prototype: HTMLSbbTimetableRowHeaderElement;
+        new (): HTMLSbbTimetableRowHeaderElement;
     };
-    interface HTMLLyneTimetableTransportationDetailsElement extends Components.LyneTimetableTransportationDetails, HTMLStencilElement {
+    interface HTMLSbbTimetableTransportationDetailsElement extends Components.SbbTimetableTransportationDetails, HTMLStencilElement {
     }
-    var HTMLLyneTimetableTransportationDetailsElement: {
-        prototype: HTMLLyneTimetableTransportationDetailsElement;
-        new (): HTMLLyneTimetableTransportationDetailsElement;
+    var HTMLSbbTimetableTransportationDetailsElement: {
+        prototype: HTMLSbbTimetableTransportationDetailsElement;
+        new (): HTMLSbbTimetableTransportationDetailsElement;
     };
-    interface HTMLLyneTimetableTransportationNumberElement extends Components.LyneTimetableTransportationNumber, HTMLStencilElement {
+    interface HTMLSbbTimetableTransportationNumberElement extends Components.SbbTimetableTransportationNumber, HTMLStencilElement {
     }
-    var HTMLLyneTimetableTransportationNumberElement: {
-        prototype: HTMLLyneTimetableTransportationNumberElement;
-        new (): HTMLLyneTimetableTransportationNumberElement;
+    var HTMLSbbTimetableTransportationNumberElement: {
+        prototype: HTMLSbbTimetableTransportationNumberElement;
+        new (): HTMLSbbTimetableTransportationNumberElement;
     };
-    interface HTMLLyneTimetableTransportationTimeElement extends Components.LyneTimetableTransportationTime, HTMLStencilElement {
+    interface HTMLSbbTimetableTransportationTimeElement extends Components.SbbTimetableTransportationTime, HTMLStencilElement {
     }
-    var HTMLLyneTimetableTransportationTimeElement: {
-        prototype: HTMLLyneTimetableTransportationTimeElement;
-        new (): HTMLLyneTimetableTransportationTimeElement;
+    var HTMLSbbTimetableTransportationTimeElement: {
+        prototype: HTMLSbbTimetableTransportationTimeElement;
+        new (): HTMLSbbTimetableTransportationTimeElement;
     };
-    interface HTMLLyneTimetableTransportationWalkElement extends Components.LyneTimetableTransportationWalk, HTMLStencilElement {
+    interface HTMLSbbTimetableTransportationWalkElement extends Components.SbbTimetableTransportationWalk, HTMLStencilElement {
     }
-    var HTMLLyneTimetableTransportationWalkElement: {
-        prototype: HTMLLyneTimetableTransportationWalkElement;
-        new (): HTMLLyneTimetableTransportationWalkElement;
+    var HTMLSbbTimetableTransportationWalkElement: {
+        prototype: HTMLSbbTimetableTransportationWalkElement;
+        new (): HTMLSbbTimetableTransportationWalkElement;
     };
-    interface HTMLLyneTimetableTravelHintsElement extends Components.LyneTimetableTravelHints, HTMLStencilElement {
+    interface HTMLSbbTimetableTravelHintsElement extends Components.SbbTimetableTravelHints, HTMLStencilElement {
     }
-    var HTMLLyneTimetableTravelHintsElement: {
-        prototype: HTMLLyneTimetableTravelHintsElement;
-        new (): HTMLLyneTimetableTravelHintsElement;
+    var HTMLSbbTimetableTravelHintsElement: {
+        prototype: HTMLSbbTimetableTravelHintsElement;
+        new (): HTMLSbbTimetableTravelHintsElement;
     };
-    interface HTMLLyneTitleElement extends Components.LyneTitle, HTMLStencilElement {
+    interface HTMLSbbTitleElement extends Components.SbbTitle, HTMLStencilElement {
     }
-    var HTMLLyneTitleElement: {
-        prototype: HTMLLyneTitleElement;
-        new (): HTMLLyneTitleElement;
+    var HTMLSbbTitleElement: {
+        prototype: HTMLSbbTitleElement;
+        new (): HTMLSbbTitleElement;
     };
-    interface HTMLLyneToastElement extends Components.LyneToast, HTMLStencilElement {
+    interface HTMLSbbToastElement extends Components.SbbToast, HTMLStencilElement {
     }
-    var HTMLLyneToastElement: {
-        prototype: HTMLLyneToastElement;
-        new (): HTMLLyneToastElement;
+    var HTMLSbbToastElement: {
+        prototype: HTMLSbbToastElement;
+        new (): HTMLSbbToastElement;
     };
     interface HTMLElementTagNameMap {
-        "lyne-accordion": HTMLLyneAccordionElement;
-        "lyne-accordion-item": HTMLLyneAccordionItemElement;
-        "lyne-autocomplete": HTMLLyneAutocompleteElement;
-        "lyne-autocomplete-item": HTMLLyneAutocompleteItemElement;
-        "lyne-button": HTMLLyneButtonElement;
-        "lyne-card-badge": HTMLLyneCardBadgeElement;
-        "lyne-card-product": HTMLLyneCardProductElement;
-        "lyne-footer": HTMLLyneFooterElement;
-        "lyne-grid": HTMLLyneGridElement;
-        "lyne-image": HTMLLyneImageElement;
-        "lyne-input-error": HTMLLyneInputErrorElement;
-        "lyne-journey-header": HTMLLyneJourneyHeaderElement;
-        "lyne-link": HTMLLyneLinkElement;
-        "lyne-link-button": HTMLLyneLinkButtonElement;
-        "lyne-link-list": HTMLLyneLinkListElement;
-        "lyne-overlay": HTMLLyneOverlayElement;
-        "lyne-panel": HTMLLynePanelElement;
-        "lyne-pearl-chain": HTMLLynePearlChainElement;
-        "lyne-sbb-clock": HTMLLyneSbbClockElement;
-        "lyne-sbb-logo": HTMLLyneSbbLogoElement;
-        "lyne-sbb-signet": HTMLLyneSbbSignetElement;
-        "lyne-section": HTMLLyneSectionElement;
-        "lyne-slot-component": HTMLLyneSlotComponentElement;
-        "lyne-stack": HTMLLyneStackElement;
-        "lyne-teaser-hero": HTMLLyneTeaserHeroElement;
-        "lyne-text-input": HTMLLyneTextInputElement;
-        "lyne-timetable": HTMLLyneTimetableElement;
-        "lyne-timetable-barrier-free": HTMLLyneTimetableBarrierFreeElement;
-        "lyne-timetable-button": HTMLLyneTimetableButtonElement;
-        "lyne-timetable-cus-him": HTMLLyneTimetableCusHimElement;
-        "lyne-timetable-duration": HTMLLyneTimetableDurationElement;
-        "lyne-timetable-occupancy": HTMLLyneTimetableOccupancyElement;
-        "lyne-timetable-park-and-rail": HTMLLyneTimetableParkAndRailElement;
-        "lyne-timetable-platform": HTMLLyneTimetablePlatformElement;
-        "lyne-timetable-row": HTMLLyneTimetableRowElement;
-        "lyne-timetable-row-button": HTMLLyneTimetableRowButtonElement;
-        "lyne-timetable-row-column-headers": HTMLLyneTimetableRowColumnHeadersElement;
-        "lyne-timetable-row-day-change": HTMLLyneTimetableRowDayChangeElement;
-        "lyne-timetable-row-header": HTMLLyneTimetableRowHeaderElement;
-        "lyne-timetable-transportation-details": HTMLLyneTimetableTransportationDetailsElement;
-        "lyne-timetable-transportation-number": HTMLLyneTimetableTransportationNumberElement;
-        "lyne-timetable-transportation-time": HTMLLyneTimetableTransportationTimeElement;
-        "lyne-timetable-transportation-walk": HTMLLyneTimetableTransportationWalkElement;
-        "lyne-timetable-travel-hints": HTMLLyneTimetableTravelHintsElement;
-        "lyne-title": HTMLLyneTitleElement;
-        "lyne-toast": HTMLLyneToastElement;
+        "sbb-accordion": HTMLSbbAccordionElement;
+        "sbb-accordion-item": HTMLSbbAccordionItemElement;
+        "sbb-autocomplete": HTMLSbbAutocompleteElement;
+        "sbb-autocomplete-item": HTMLSbbAutocompleteItemElement;
+        "sbb-button": HTMLSbbButtonElement;
+        "sbb-card-badge": HTMLSbbCardBadgeElement;
+        "sbb-card-product": HTMLSbbCardProductElement;
+        "sbb-clock": HTMLSbbClockElement;
+        "sbb-footer": HTMLSbbFooterElement;
+        "sbb-grid": HTMLSbbGridElement;
+        "sbb-image": HTMLSbbImageElement;
+        "sbb-input-error": HTMLSbbInputErrorElement;
+        "sbb-journey-header": HTMLSbbJourneyHeaderElement;
+        "sbb-link": HTMLSbbLinkElement;
+        "sbb-link-button": HTMLSbbLinkButtonElement;
+        "sbb-link-list": HTMLSbbLinkListElement;
+        "sbb-logo": HTMLSbbLogoElement;
+        "sbb-overlay": HTMLSbbOverlayElement;
+        "sbb-panel": HTMLSbbPanelElement;
+        "sbb-pearl-chain": HTMLSbbPearlChainElement;
+        "sbb-section": HTMLSbbSectionElement;
+        "sbb-signet": HTMLSbbSignetElement;
+        "sbb-slot-component": HTMLSbbSlotComponentElement;
+        "sbb-stack": HTMLSbbStackElement;
+        "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
+        "sbb-text-input": HTMLSbbTextInputElement;
+        "sbb-timetable": HTMLSbbTimetableElement;
+        "sbb-timetable-barrier-free": HTMLSbbTimetableBarrierFreeElement;
+        "sbb-timetable-button": HTMLSbbTimetableButtonElement;
+        "sbb-timetable-cus-him": HTMLSbbTimetableCusHimElement;
+        "sbb-timetable-duration": HTMLSbbTimetableDurationElement;
+        "sbb-timetable-occupancy": HTMLSbbTimetableOccupancyElement;
+        "sbb-timetable-park-and-rail": HTMLSbbTimetableParkAndRailElement;
+        "sbb-timetable-platform": HTMLSbbTimetablePlatformElement;
+        "sbb-timetable-row": HTMLSbbTimetableRowElement;
+        "sbb-timetable-row-button": HTMLSbbTimetableRowButtonElement;
+        "sbb-timetable-row-column-headers": HTMLSbbTimetableRowColumnHeadersElement;
+        "sbb-timetable-row-day-change": HTMLSbbTimetableRowDayChangeElement;
+        "sbb-timetable-row-header": HTMLSbbTimetableRowHeaderElement;
+        "sbb-timetable-transportation-details": HTMLSbbTimetableTransportationDetailsElement;
+        "sbb-timetable-transportation-number": HTMLSbbTimetableTransportationNumberElement;
+        "sbb-timetable-transportation-time": HTMLSbbTimetableTransportationTimeElement;
+        "sbb-timetable-transportation-walk": HTMLSbbTimetableTransportationWalkElement;
+        "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
+        "sbb-title": HTMLSbbTitleElement;
+        "sbb-toast": HTMLSbbToastElement;
     }
 }
 declare namespace LocalJSX {
-    interface LyneAccordion {
+    interface SbbAccordion {
         /**
           * Use the aria-labelledby to reference to an id of a title outside of the accordion. That way we can improve the context for the screenreader users. When the first button in the accordion receives focus, the referenced title is also spoken out by the screenreader.
          */
@@ -1312,7 +1313,7 @@ declare namespace LocalJSX {
          */
         "onlyOneOpen"?: boolean;
     }
-    interface LyneAccordionItem {
+    interface SbbAccordionItem {
         /**
           * If set, an accordion can not be toggled
          */
@@ -1334,7 +1335,7 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface LyneAutocomplete {
+    interface SbbAutocomplete {
         /**
           * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
          */
@@ -1344,27 +1345,27 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * Define if borderless variant of autocomplete input should be used. See documentation of lyne-text-input for details.
+          * Define if borderless variant of autocomplete input should be used. See documentation of sbb-text-input for details.
          */
         "inputBorderless"?: boolean;
         /**
-          * Debounce timeout to use for the input. See documentation of lyne-text-input for details.
+          * Debounce timeout to use for the input. See documentation of sbb-text-input for details.
          */
         "inputDebounceTimeout"?: number;
         /**
-          * Label attribute for the input element. See lyne-text-input for details.
+          * Label attribute for the input element. See sbb-text-input for details.
          */
         "inputLabel": string;
         /**
-          * Determine if the input label should be visible. See lyne-text-input for details.
+          * Determine if the input label should be visible. See sbb-text-input for details.
          */
         "inputLabelVisible"?: boolean;
         /**
-          * Name attribute for the input element. See lyne-text-input for details.
+          * Name attribute for the input element. See sbb-text-input for details.
          */
         "inputName": string;
         /**
-          * Placeholder attribute for the input element. See lyne-text-input for details.
+          * Placeholder attribute for the input element. See sbb-text-input for details.
          */
         "inputPlaceholder"?: string;
         /**
@@ -1380,7 +1381,7 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
-    interface LyneAutocompleteItem {
+    interface SbbAutocompleteItem {
         /**
           * The aria-posinset attribute for the list element
          */
@@ -1402,7 +1403,7 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
-    interface LyneButton {
+    interface SbbButton {
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -1432,9 +1433,9 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring lyne-button.
+          * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button.
          */
-        "onLyne-button_click"?: (event: LyneButtonCustomEvent<any>) => void;
+        "onSbb-button_click"?: (event: SbbButtonCustomEvent<any>) => void;
         /**
           * Size variant, either l or m.
          */
@@ -1456,7 +1457,7 @@ declare namespace LocalJSX {
          */
         "visualButtonOnly"?: boolean;
     }
-    interface LyneCardBadge {
+    interface SbbCardBadge {
         /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
@@ -1482,7 +1483,7 @@ declare namespace LocalJSX {
          */
         "text"?: string;
     }
-    interface LyneCardProduct {
+    interface SbbCardProduct {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
@@ -1532,7 +1533,17 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
-    interface LyneFooter {
+    interface SbbClock {
+        /**
+          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
+         */
+        "initialTime"?: Time;
+        /**
+          * If set to true, the clock will be paused.
+         */
+        "paused"?: boolean;
+    }
+    interface SbbFooter {
         /**
           * Footer title text, visually hidden,  necessary for screenreaders
          */
@@ -1542,7 +1553,7 @@ declare namespace LocalJSX {
          */
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
-    interface LyneGrid {
+    interface SbbGrid {
         /**
           * Section appearance
          */
@@ -1552,7 +1563,7 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceGridAttributes['variant'];
     }
-    interface LyneImage {
+    interface SbbImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
          */
@@ -1626,13 +1637,13 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceImageAttributes['variant'];
     }
-    interface LyneInputError {
+    interface SbbInputError {
         /**
           * The error message, we want to show.
          */
         "message": string;
     }
-    interface LyneJourneyHeader {
+    interface SbbJourneyHeader {
         /**
           * Journey header appearance
          */
@@ -1662,7 +1673,7 @@ declare namespace LocalJSX {
          */
         "size"?: InterfaceJourneyHeaderAttributes['size'];
     }
-    interface LyneLink {
+    interface SbbLink {
         /**
           * If set to true, the browser will show the download dialog on click.
          */
@@ -1700,7 +1711,7 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLinkAttributes['variant'];
     }
-    interface LyneLinkButton {
+    interface SbbLinkButton {
         /**
           * If set to true, the browser will show the download dialog on click.
          */
@@ -1734,11 +1745,11 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLinkButtonAttributes['variant'];
     }
-    interface LyneLinkList {
+    interface SbbLinkList {
         /**
           * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
          */
-        "listDirection"?: InterfaceLyneLinkListAttributes['direction'];
+        "listDirection"?: InterfaceLinkListAttributes['direction'];
         /**
           * The semantic level of the title, e.g. 3 = h3
          */
@@ -1750,16 +1761,26 @@ declare namespace LocalJSX {
         /**
           * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
          */
-        "variant"?: InterfaceLyneLinkListAttributes['variant'];
+        "variant"?: InterfaceLinkListAttributes['variant'];
     }
-    interface LyneOverlay {
-        "onDidDismiss"?: (event: LyneOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onDidPresent"?: (event: LyneOverlayCustomEvent<void>) => void;
-        "onWillDismiss"?: (event: LyneOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onWillPresent"?: (event: LyneOverlayCustomEvent<void>) => void;
+    interface SbbLogo {
+        /**
+          * The Logo needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the logo can be used in these variants
+         */
+        "variant"?: InterfaceLogoAttributes['variant'];
+    }
+    interface SbbOverlay {
+        "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
+        "onWillDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onWillPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
-    interface LynePanel {
+    interface SbbPanel {
         /**
           * The text to use as button text
          */
@@ -1777,7 +1798,7 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
-    interface LynePearlChain {
+    interface SbbPearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
@@ -1791,37 +1812,7 @@ declare namespace LocalJSX {
          */
         "status"?: InterfacePearlChainAttributes['status'];
     }
-    interface LyneSbbClock {
-        /**
-          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
-         */
-        "initialTime"?: Time;
-        /**
-          * If set to true, the clock will be paused.
-         */
-        "paused"?: boolean;
-    }
-    interface LyneSbbLogo {
-        /**
-          * The Logo needs to have a certain protective room around it
-         */
-        "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the logo can be used in these variants
-         */
-        "variant"?: InterfaceLogoAttributes['variant'];
-    }
-    interface LyneSbbSignet {
-        /**
-          * The Signet needs to have a certain protective room around it
-         */
-        "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the signet can be used in these variants
-         */
-        "variant"?: InterfaceSignetAttributes['variant'];
-    }
-    interface LyneSection {
+    interface SbbSection {
         /**
           * Section appearance
          */
@@ -1831,9 +1822,19 @@ declare namespace LocalJSX {
          */
         "width"?: InterfaceSectionAttributes['width'];
     }
-    interface LyneSlotComponent {
+    interface SbbSignet {
+        /**
+          * The Signet needs to have a certain protective room around it
+         */
+        "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
+        /**
+          * According to the Corporate Design Guidelines the signet can be used in these variants
+         */
+        "variant"?: InterfaceSignetAttributes['variant'];
     }
-    interface LyneStack {
+    interface SbbSlotComponent {
+    }
+    interface SbbStack {
         /**
           * Stack appearance
          */
@@ -1879,17 +1880,17 @@ declare namespace LocalJSX {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
-    interface LyneTeaserHero {
+    interface SbbTeaserHero {
         /**
-          * Button text property for lyne-panel. See lyne-panel for additional info
+          * Button text property for sbb-panel. See sbb-panel for additional info
          */
         "buttonText": string;
         /**
-          * Image loading property. See lyne-image for additional info
+          * Image loading property. See sbb-image for additional info
          */
         "imageLoading"?: InterfaceImageAttributes['loading'];
         /**
-          * Image source property for lyne-image. See lyne-image for additional info
+          * Image source property for sbb-image. See sbb-image for additional info
          */
         "imageSrc": string;
         /**
@@ -1905,11 +1906,11 @@ declare namespace LocalJSX {
          */
         "openInNewWindow"?: boolean;
         /**
-          * Text property for lyne-panel. See lyne-panel for additional info
+          * Text property for sbb-panel. See sbb-panel for additional info
          */
         "text": string;
     }
-    interface LyneTextInput {
+    interface SbbTextInput {
         /**
           * If set to true, the input element will have no border, but a drop shadow.
          */
@@ -1929,7 +1930,7 @@ declare namespace LocalJSX {
         /**
           * The aria-autocomplete attribute for the input element.
          */
-        "inputAriaAutoComplete"?: InterfaceLyneTextInputAttributes['inputAriaAutoComplete'];
+        "inputAriaAutoComplete"?: InterfaceTextInputAttributes['inputAriaAutoComplete'];
         /**
           * The id to use as the aira-controls attribute for the input element.
          */
@@ -1941,7 +1942,7 @@ declare namespace LocalJSX {
         /**
           * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
          */
-        "inputAutoCompleteValue"?: InterfaceLyneTextInputAttributes['inputAutoCompleteValue'];
+        "inputAutoCompleteValue"?: InterfaceTextInputAttributes['inputAutoCompleteValue'];
         /**
           * If set to true, the input field will be disabled.
          */
@@ -1981,7 +1982,7 @@ declare namespace LocalJSX {
         /**
           * The role attribute used for the input element.
          */
-        "inputRole"?: InterfaceLyneTextInputAttributes['inputRole'];
+        "inputRole"?: InterfaceTextInputAttributes['inputRole'];
         /**
           * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
          */
@@ -1999,23 +2000,23 @@ declare namespace LocalJSX {
          */
         "labelVisible"?: boolean;
     }
-    interface LyneTimetable {
+    interface SbbTimetable {
     }
-    interface LyneTimetableBarrierFree {
+    interface SbbTimetableBarrierFree {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableButton {
+    interface SbbTimetableButton {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableButtonAttributes['appearance'];
+        "appearance"?: InterfaceTimetableButtonAttributes['appearance'];
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
-        "ariaHaspopup"?: InterfaceLyneTimetableButtonAttributes['popup'];
+        "ariaHaspopup"?: InterfaceTimetableButtonAttributes['popup'];
         /**
           * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
          */
@@ -2037,55 +2038,55 @@ declare namespace LocalJSX {
          */
         "name"?: string;
     }
-    interface LyneTimetableCusHim {
+    interface SbbTimetableCusHim {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableCusHimAttributes['appearance'];
+        "appearance"?: InterfaceTimetableCusHimAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableDuration {
+    interface SbbTimetableDuration {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableOccupancy {
+    interface SbbTimetableOccupancy {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableParkAndRail {
+    interface SbbTimetableParkAndRail {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableParkAndRailAttributes['appearance'];
+        "appearance"?: InterfaceTimetableParkAndRailAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetablePlatform {
+    interface SbbTimetablePlatform {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetablePlatformAttributes['appearance'];
+        "appearance"?: InterfaceTimetablePlatformAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableRow {
+    interface SbbTimetableRow {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableRowButton {
+    interface SbbTimetableRowButton {
         /**
           * Id which is sent in the event of clicking the button
          */
@@ -2095,72 +2096,72 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
     }
-    interface LyneTimetableRowColumnHeaders {
+    interface SbbTimetableRowColumnHeaders {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableRowDayChange {
+    interface SbbTimetableRowDayChange {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableRowHeader {
+    interface SbbTimetableRowHeader {
         "config": string;
     }
-    interface LyneTimetableTransportationDetails {
+    interface SbbTimetableTransportationDetails {
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableTransportationNumber {
+    interface SbbTimetableTransportationNumber {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableTransportationNumberAttributes['appearance'];
+        "appearance"?: InterfaceTimetableTransportationNumberAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableTransportationTime {
+    interface SbbTimetableTransportationTime {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableTransportationTimeAttributes['appearance'];
+        "appearance"?: InterfaceTimetableTransportationTimeAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableTransportationWalk {
+    interface SbbTimetableTransportationWalk {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableTransportationWalkAttributes['appearance'];
+        "appearance"?: InterfaceTimetableTransportationWalkAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTimetableTravelHints {
+    interface SbbTimetableTravelHints {
         /**
           * Set the desired appearance of the component.
          */
-        "appearance"?: InterfaceLyneTimetableTravelHintsAttributes['appearance'];
+        "appearance"?: InterfaceTimetableTravelHintsAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
         "config": string;
     }
-    interface LyneTitle {
+    interface SbbTitle {
         /**
           * Title level
          */
-        "level"?: InterfaceTitleAttributes['level'];
+        "level"?: InterfaceTitleAttributes1['level'];
         /**
           * Text for the title
          */
@@ -2172,17 +2173,17 @@ declare namespace LocalJSX {
         /**
           * Choose the title style variant
          */
-        "variant"?: InterfaceTitleAttributes['variant'];
+        "variant"?: InterfaceTitleAttributes1['variant'];
         /**
           * Visual level for the title. If you don't define the visual-level, the value for level will be used.
          */
-        "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
+        "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
         /**
           * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
         "visuallyHidden"?: false;
     }
-    interface LyneToast {
+    interface SbbToast {
         /**
           * Exposed toast configuration.
          */
@@ -2206,120 +2207,120 @@ declare namespace LocalJSX {
         /**
           * Emitted after the toast has dismissed.
          */
-        "onLyne-toast_did-dismiss"?: (event: LyneToastCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onSbb-toast_did-dismiss"?: (event: SbbToastCustomEvent<InterfaceOverlayEventDetail>) => void;
         /**
           * Emitted after the toast has presented.
          */
-        "onLyne-toast_did-present"?: (event: LyneToastCustomEvent<void>) => void;
+        "onSbb-toast_did-present"?: (event: SbbToastCustomEvent<void>) => void;
         /**
           * Emitted before the toast has dismissed.
          */
-        "onLyne-toast_will-dismiss"?: (event: LyneToastCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onSbb-toast_will-dismiss"?: (event: SbbToastCustomEvent<InterfaceOverlayEventDetail>) => void;
         /**
           * Emitted before the toast has presented.
          */
-        "onLyne-toast_will-present"?: (event: LyneToastCustomEvent<void>) => void;
+        "onSbb-toast_will-present"?: (event: SbbToastCustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
     interface IntrinsicElements {
-        "lyne-accordion": LyneAccordion;
-        "lyne-accordion-item": LyneAccordionItem;
-        "lyne-autocomplete": LyneAutocomplete;
-        "lyne-autocomplete-item": LyneAutocompleteItem;
-        "lyne-button": LyneButton;
-        "lyne-card-badge": LyneCardBadge;
-        "lyne-card-product": LyneCardProduct;
-        "lyne-footer": LyneFooter;
-        "lyne-grid": LyneGrid;
-        "lyne-image": LyneImage;
-        "lyne-input-error": LyneInputError;
-        "lyne-journey-header": LyneJourneyHeader;
-        "lyne-link": LyneLink;
-        "lyne-link-button": LyneLinkButton;
-        "lyne-link-list": LyneLinkList;
-        "lyne-overlay": LyneOverlay;
-        "lyne-panel": LynePanel;
-        "lyne-pearl-chain": LynePearlChain;
-        "lyne-sbb-clock": LyneSbbClock;
-        "lyne-sbb-logo": LyneSbbLogo;
-        "lyne-sbb-signet": LyneSbbSignet;
-        "lyne-section": LyneSection;
-        "lyne-slot-component": LyneSlotComponent;
-        "lyne-stack": LyneStack;
-        "lyne-teaser-hero": LyneTeaserHero;
-        "lyne-text-input": LyneTextInput;
-        "lyne-timetable": LyneTimetable;
-        "lyne-timetable-barrier-free": LyneTimetableBarrierFree;
-        "lyne-timetable-button": LyneTimetableButton;
-        "lyne-timetable-cus-him": LyneTimetableCusHim;
-        "lyne-timetable-duration": LyneTimetableDuration;
-        "lyne-timetable-occupancy": LyneTimetableOccupancy;
-        "lyne-timetable-park-and-rail": LyneTimetableParkAndRail;
-        "lyne-timetable-platform": LyneTimetablePlatform;
-        "lyne-timetable-row": LyneTimetableRow;
-        "lyne-timetable-row-button": LyneTimetableRowButton;
-        "lyne-timetable-row-column-headers": LyneTimetableRowColumnHeaders;
-        "lyne-timetable-row-day-change": LyneTimetableRowDayChange;
-        "lyne-timetable-row-header": LyneTimetableRowHeader;
-        "lyne-timetable-transportation-details": LyneTimetableTransportationDetails;
-        "lyne-timetable-transportation-number": LyneTimetableTransportationNumber;
-        "lyne-timetable-transportation-time": LyneTimetableTransportationTime;
-        "lyne-timetable-transportation-walk": LyneTimetableTransportationWalk;
-        "lyne-timetable-travel-hints": LyneTimetableTravelHints;
-        "lyne-title": LyneTitle;
-        "lyne-toast": LyneToast;
+        "sbb-accordion": SbbAccordion;
+        "sbb-accordion-item": SbbAccordionItem;
+        "sbb-autocomplete": SbbAutocomplete;
+        "sbb-autocomplete-item": SbbAutocompleteItem;
+        "sbb-button": SbbButton;
+        "sbb-card-badge": SbbCardBadge;
+        "sbb-card-product": SbbCardProduct;
+        "sbb-clock": SbbClock;
+        "sbb-footer": SbbFooter;
+        "sbb-grid": SbbGrid;
+        "sbb-image": SbbImage;
+        "sbb-input-error": SbbInputError;
+        "sbb-journey-header": SbbJourneyHeader;
+        "sbb-link": SbbLink;
+        "sbb-link-button": SbbLinkButton;
+        "sbb-link-list": SbbLinkList;
+        "sbb-logo": SbbLogo;
+        "sbb-overlay": SbbOverlay;
+        "sbb-panel": SbbPanel;
+        "sbb-pearl-chain": SbbPearlChain;
+        "sbb-section": SbbSection;
+        "sbb-signet": SbbSignet;
+        "sbb-slot-component": SbbSlotComponent;
+        "sbb-stack": SbbStack;
+        "sbb-teaser-hero": SbbTeaserHero;
+        "sbb-text-input": SbbTextInput;
+        "sbb-timetable": SbbTimetable;
+        "sbb-timetable-barrier-free": SbbTimetableBarrierFree;
+        "sbb-timetable-button": SbbTimetableButton;
+        "sbb-timetable-cus-him": SbbTimetableCusHim;
+        "sbb-timetable-duration": SbbTimetableDuration;
+        "sbb-timetable-occupancy": SbbTimetableOccupancy;
+        "sbb-timetable-park-and-rail": SbbTimetableParkAndRail;
+        "sbb-timetable-platform": SbbTimetablePlatform;
+        "sbb-timetable-row": SbbTimetableRow;
+        "sbb-timetable-row-button": SbbTimetableRowButton;
+        "sbb-timetable-row-column-headers": SbbTimetableRowColumnHeaders;
+        "sbb-timetable-row-day-change": SbbTimetableRowDayChange;
+        "sbb-timetable-row-header": SbbTimetableRowHeader;
+        "sbb-timetable-transportation-details": SbbTimetableTransportationDetails;
+        "sbb-timetable-transportation-number": SbbTimetableTransportationNumber;
+        "sbb-timetable-transportation-time": SbbTimetableTransportationTime;
+        "sbb-timetable-transportation-walk": SbbTimetableTransportationWalk;
+        "sbb-timetable-travel-hints": SbbTimetableTravelHints;
+        "sbb-title": SbbTitle;
+        "sbb-toast": SbbToast;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "lyne-accordion": LocalJSX.LyneAccordion & JSXBase.HTMLAttributes<HTMLLyneAccordionElement>;
-            "lyne-accordion-item": LocalJSX.LyneAccordionItem & JSXBase.HTMLAttributes<HTMLLyneAccordionItemElement>;
-            "lyne-autocomplete": LocalJSX.LyneAutocomplete & JSXBase.HTMLAttributes<HTMLLyneAutocompleteElement>;
-            "lyne-autocomplete-item": LocalJSX.LyneAutocompleteItem & JSXBase.HTMLAttributes<HTMLLyneAutocompleteItemElement>;
-            "lyne-button": LocalJSX.LyneButton & JSXBase.HTMLAttributes<HTMLLyneButtonElement>;
-            "lyne-card-badge": LocalJSX.LyneCardBadge & JSXBase.HTMLAttributes<HTMLLyneCardBadgeElement>;
-            "lyne-card-product": LocalJSX.LyneCardProduct & JSXBase.HTMLAttributes<HTMLLyneCardProductElement>;
-            "lyne-footer": LocalJSX.LyneFooter & JSXBase.HTMLAttributes<HTMLLyneFooterElement>;
-            "lyne-grid": LocalJSX.LyneGrid & JSXBase.HTMLAttributes<HTMLLyneGridElement>;
-            "lyne-image": LocalJSX.LyneImage & JSXBase.HTMLAttributes<HTMLLyneImageElement>;
-            "lyne-input-error": LocalJSX.LyneInputError & JSXBase.HTMLAttributes<HTMLLyneInputErrorElement>;
-            "lyne-journey-header": LocalJSX.LyneJourneyHeader & JSXBase.HTMLAttributes<HTMLLyneJourneyHeaderElement>;
-            "lyne-link": LocalJSX.LyneLink & JSXBase.HTMLAttributes<HTMLLyneLinkElement>;
-            "lyne-link-button": LocalJSX.LyneLinkButton & JSXBase.HTMLAttributes<HTMLLyneLinkButtonElement>;
-            "lyne-link-list": LocalJSX.LyneLinkList & JSXBase.HTMLAttributes<HTMLLyneLinkListElement>;
-            "lyne-overlay": LocalJSX.LyneOverlay & JSXBase.HTMLAttributes<HTMLLyneOverlayElement>;
-            "lyne-panel": LocalJSX.LynePanel & JSXBase.HTMLAttributes<HTMLLynePanelElement>;
-            "lyne-pearl-chain": LocalJSX.LynePearlChain & JSXBase.HTMLAttributes<HTMLLynePearlChainElement>;
-            "lyne-sbb-clock": LocalJSX.LyneSbbClock & JSXBase.HTMLAttributes<HTMLLyneSbbClockElement>;
-            "lyne-sbb-logo": LocalJSX.LyneSbbLogo & JSXBase.HTMLAttributes<HTMLLyneSbbLogoElement>;
-            "lyne-sbb-signet": LocalJSX.LyneSbbSignet & JSXBase.HTMLAttributes<HTMLLyneSbbSignetElement>;
-            "lyne-section": LocalJSX.LyneSection & JSXBase.HTMLAttributes<HTMLLyneSectionElement>;
-            "lyne-slot-component": LocalJSX.LyneSlotComponent & JSXBase.HTMLAttributes<HTMLLyneSlotComponentElement>;
-            "lyne-stack": LocalJSX.LyneStack & JSXBase.HTMLAttributes<HTMLLyneStackElement>;
-            "lyne-teaser-hero": LocalJSX.LyneTeaserHero & JSXBase.HTMLAttributes<HTMLLyneTeaserHeroElement>;
-            "lyne-text-input": LocalJSX.LyneTextInput & JSXBase.HTMLAttributes<HTMLLyneTextInputElement>;
-            "lyne-timetable": LocalJSX.LyneTimetable & JSXBase.HTMLAttributes<HTMLLyneTimetableElement>;
-            "lyne-timetable-barrier-free": LocalJSX.LyneTimetableBarrierFree & JSXBase.HTMLAttributes<HTMLLyneTimetableBarrierFreeElement>;
-            "lyne-timetable-button": LocalJSX.LyneTimetableButton & JSXBase.HTMLAttributes<HTMLLyneTimetableButtonElement>;
-            "lyne-timetable-cus-him": LocalJSX.LyneTimetableCusHim & JSXBase.HTMLAttributes<HTMLLyneTimetableCusHimElement>;
-            "lyne-timetable-duration": LocalJSX.LyneTimetableDuration & JSXBase.HTMLAttributes<HTMLLyneTimetableDurationElement>;
-            "lyne-timetable-occupancy": LocalJSX.LyneTimetableOccupancy & JSXBase.HTMLAttributes<HTMLLyneTimetableOccupancyElement>;
-            "lyne-timetable-park-and-rail": LocalJSX.LyneTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLLyneTimetableParkAndRailElement>;
-            "lyne-timetable-platform": LocalJSX.LyneTimetablePlatform & JSXBase.HTMLAttributes<HTMLLyneTimetablePlatformElement>;
-            "lyne-timetable-row": LocalJSX.LyneTimetableRow & JSXBase.HTMLAttributes<HTMLLyneTimetableRowElement>;
-            "lyne-timetable-row-button": LocalJSX.LyneTimetableRowButton & JSXBase.HTMLAttributes<HTMLLyneTimetableRowButtonElement>;
-            "lyne-timetable-row-column-headers": LocalJSX.LyneTimetableRowColumnHeaders & JSXBase.HTMLAttributes<HTMLLyneTimetableRowColumnHeadersElement>;
-            "lyne-timetable-row-day-change": LocalJSX.LyneTimetableRowDayChange & JSXBase.HTMLAttributes<HTMLLyneTimetableRowDayChangeElement>;
-            "lyne-timetable-row-header": LocalJSX.LyneTimetableRowHeader & JSXBase.HTMLAttributes<HTMLLyneTimetableRowHeaderElement>;
-            "lyne-timetable-transportation-details": LocalJSX.LyneTimetableTransportationDetails & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationDetailsElement>;
-            "lyne-timetable-transportation-number": LocalJSX.LyneTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationNumberElement>;
-            "lyne-timetable-transportation-time": LocalJSX.LyneTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationTimeElement>;
-            "lyne-timetable-transportation-walk": LocalJSX.LyneTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLLyneTimetableTransportationWalkElement>;
-            "lyne-timetable-travel-hints": LocalJSX.LyneTimetableTravelHints & JSXBase.HTMLAttributes<HTMLLyneTimetableTravelHintsElement>;
-            "lyne-title": LocalJSX.LyneTitle & JSXBase.HTMLAttributes<HTMLLyneTitleElement>;
-            "lyne-toast": LocalJSX.LyneToast & JSXBase.HTMLAttributes<HTMLLyneToastElement>;
+            "sbb-accordion": LocalJSX.SbbAccordion & JSXBase.HTMLAttributes<HTMLSbbAccordionElement>;
+            "sbb-accordion-item": LocalJSX.SbbAccordionItem & JSXBase.HTMLAttributes<HTMLSbbAccordionItemElement>;
+            "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
+            "sbb-autocomplete-item": LocalJSX.SbbAutocompleteItem & JSXBase.HTMLAttributes<HTMLSbbAutocompleteItemElement>;
+            "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
+            "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
+            "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
+            "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
+            "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
+            "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
+            "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;
+            "sbb-input-error": LocalJSX.SbbInputError & JSXBase.HTMLAttributes<HTMLSbbInputErrorElement>;
+            "sbb-journey-header": LocalJSX.SbbJourneyHeader & JSXBase.HTMLAttributes<HTMLSbbJourneyHeaderElement>;
+            "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
+            "sbb-link-button": LocalJSX.SbbLinkButton & JSXBase.HTMLAttributes<HTMLSbbLinkButtonElement>;
+            "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
+            "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
+            "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
+            "sbb-panel": LocalJSX.SbbPanel & JSXBase.HTMLAttributes<HTMLSbbPanelElement>;
+            "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
+            "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
+            "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
+            "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
+            "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
+            "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
+            "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
+            "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;
+            "sbb-timetable-barrier-free": LocalJSX.SbbTimetableBarrierFree & JSXBase.HTMLAttributes<HTMLSbbTimetableBarrierFreeElement>;
+            "sbb-timetable-button": LocalJSX.SbbTimetableButton & JSXBase.HTMLAttributes<HTMLSbbTimetableButtonElement>;
+            "sbb-timetable-cus-him": LocalJSX.SbbTimetableCusHim & JSXBase.HTMLAttributes<HTMLSbbTimetableCusHimElement>;
+            "sbb-timetable-duration": LocalJSX.SbbTimetableDuration & JSXBase.HTMLAttributes<HTMLSbbTimetableDurationElement>;
+            "sbb-timetable-occupancy": LocalJSX.SbbTimetableOccupancy & JSXBase.HTMLAttributes<HTMLSbbTimetableOccupancyElement>;
+            "sbb-timetable-park-and-rail": LocalJSX.SbbTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLSbbTimetableParkAndRailElement>;
+            "sbb-timetable-platform": LocalJSX.SbbTimetablePlatform & JSXBase.HTMLAttributes<HTMLSbbTimetablePlatformElement>;
+            "sbb-timetable-row": LocalJSX.SbbTimetableRow & JSXBase.HTMLAttributes<HTMLSbbTimetableRowElement>;
+            "sbb-timetable-row-button": LocalJSX.SbbTimetableRowButton & JSXBase.HTMLAttributes<HTMLSbbTimetableRowButtonElement>;
+            "sbb-timetable-row-column-headers": LocalJSX.SbbTimetableRowColumnHeaders & JSXBase.HTMLAttributes<HTMLSbbTimetableRowColumnHeadersElement>;
+            "sbb-timetable-row-day-change": LocalJSX.SbbTimetableRowDayChange & JSXBase.HTMLAttributes<HTMLSbbTimetableRowDayChangeElement>;
+            "sbb-timetable-row-header": LocalJSX.SbbTimetableRowHeader & JSXBase.HTMLAttributes<HTMLSbbTimetableRowHeaderElement>;
+            "sbb-timetable-transportation-details": LocalJSX.SbbTimetableTransportationDetails & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationDetailsElement>;
+            "sbb-timetable-transportation-number": LocalJSX.SbbTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationNumberElement>;
+            "sbb-timetable-transportation-time": LocalJSX.SbbTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationTimeElement>;
+            "sbb-timetable-transportation-walk": LocalJSX.SbbTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationWalkElement>;
+            "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
+            "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
+            "sbb-toast": LocalJSX.SbbToast & JSXBase.HTMLAttributes<HTMLSbbToastElement>;
         }
     }
 }
