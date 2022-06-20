@@ -4,7 +4,7 @@ import readme from './readme.md';
 
 const TemplateInput = (args) => (
   <sbb-form-field {...args}>
-    <input slot='input' placeholder='Name' />
+    <input slot='input' class="input" placeholder='Name' />
   </sbb-form-field>
 );
 

@@ -922,14 +922,6 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
 }
-export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbButtonElement;
-}
-export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbOverlayElement;
-}
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
     }
@@ -1400,7 +1392,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button.
          */
-        "onSbb-button_click"?: (event: SbbButtonCustomEvent<any>) => void;
+        "onSbb-button_click"?: (event: CustomEvent<any>) => void;
         /**
           * Size variant, either l or m.
          */
@@ -1746,10 +1738,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbOverlay {
-        "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
-        "onWillDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onWillPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
+        "onDidDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onDidPresent"?: (event: CustomEvent<void>) => void;
+        "onWillDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onWillPresent"?: (event: CustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
     interface SbbPanel {

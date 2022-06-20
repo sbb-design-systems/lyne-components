@@ -4,9 +4,148 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  display: block;
+
+  --text-color-label: var(--color-metal-default);
+
+  --text-color-input-default: var(--color-charcoal-default);
+  --text-color-input-error: var(--color-red125-default);
+
+  --border-color-default: var(--color-smoke-default);
+  --border-color-disabled: var(--color-graphite-default);
+  --border-color-error: var(--color-red125-default);
+  --border-color-focus: var(--color-charcoal-default);
+
+  --background-color-default: var(--color-white-default);
+  --background-color-disabled: var(--color-milk-default);
+  --text-color-disabled: var(--border-color-disabled);
+
+  --input-height: 48; // TODO Design Token??
+  --input-padding-start: 19;
+
+  --input-with-icon-padding-inline-start: 44; //TODO Design Token?
+
+  --icon-size: var(--size-icon-ui-small);
+
+  @include mq($from: medium) {
+    --input-height: 56; // TODO Design Token??
+  }
+
+  @include ifForcedColors {
+    --border-color-error: LinkText;
+    --text-color-input-error: LinkText;
+    --text-color-disabled: GrayText;
+  }
+
 }
 
-.some-class {
-  color: var(--some-color-var);
+.input-wrapper--error {
+  color: var(--text-color-input-error);
+}
+
+.input-wrapper__inner {
+  position: relative;
+}
+
+// Input
+// ----------------------------------------------
+.input {
+  @include text-m--regular();
+  @include placeholder();
+  @include ellipsis();
+  -webkit-appearance: none;
+
+  width: 100%;
+  height: pxToRem(var(--input-height));
+  padding-block-start: pxToRem(var(--input-padding-start));
+  padding-inline-start: pxToRem(var(--spacing-fixed-3x));
+  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
+
+  background-color: var(--background-color-default);
+  border: pxToRem(1) solid var(--border-color-default);
+  border-radius: pxToRem(var(--border-radius-4x));
+}
+
+.input--no-border {
+  border: none;
+  @include shadow-level-5-hard;
+
+  @include ifForcedColors() {
+    border: pxToRem(1) solid CanvasText;
+  }
+}
+
+// Input Variant
+// ----------------------------------------------
+.input-wrapper--label-hidden .input {
+  padding-block-start: 0;
+}
+
+.input-wrapper--with-icon .input {
+  padding-inline-start: pxToRem(var(--input-with-icon-padding-inline-start));
+}
+
+.input:focus {
+  border-color: var(--border-color-focus);
+  outline: none;
+}
+
+.input[disabled] {
+  color: var(--text-color-disabled);
+  background-color: var(--background-color-disabled);
+}
+
+.input[disabled] + .input-label {
+  color: var(--text-color-disabled);
+}
+
+.input-wrapper--error .input {
+  color: inherit;
+  border-color: var(--border-color-error);
+}
+
+// Label
+// ----------------------------------------------
+.input-label {
+  @include text-xs--regular();
+  position: absolute;
+  inset-block-start: pxToRem(var(--spacing-fixed-1x));
+  inset-block-end: pxToRem(var(--spacing-fixed-1x));
+  inset-inline-start: 0;
+
+  display: flex;
+  max-width: 100%;
+  padding-inline-start: pxToRem(var(--spacing-fixed-3x));
+  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
+  color: var(--text-color-label);
+  user-select: none;
+  pointer-events: none;
+}
+
+.input-label--text {
+  @include ellipsis();
+}
+
+.input-label--optional {
+  flex: 0 0 auto;
+}
+
+// Label Variants
+// ----------------------------------------------
+.input-wrapper--label-hidden .input-label {
+  @include screenReaderOnly();
+}
+
+.input-wrapper--with-icon .input-label {
+  padding-inline-start: pxToRem(var(--input-with-icon-padding-inline-start));
+}
+
+// Icon
+// ----------------------------------------------
+.input__icon {
+  @include absoluteCenterY;
+  inset-inline-start: pxToRem(var(--spacing-fixed-3x));
+  height: pxToRem(var(--icon-size));
+  overflow: hidden;
+  fill: currentColor;
 }

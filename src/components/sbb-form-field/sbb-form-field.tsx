@@ -1,7 +1,7 @@
 import {
   Component,
   Element,
-  h, Host,
+  h,
   Prop, State
 } from '@stencil/core';
 
@@ -75,32 +75,32 @@ export class SbbFormField {
       : null;
 
     return (
-      <Host>
-        <div>
-          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,
-          jsx-a11y/click-events-have-key-events */}
-          <label
-            onClick={() => this._setFocus()}
-            htmlFor={this._id}>
-            <slot name='label'>
-              <span>{ this.label }</span>
-            </slot> {optional}
-          </label>
+        <div class="input-wrapper">
+          <div>
+            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,
+            jsx-a11y/click-events-have-key-events */}
+            <label
+              onClick={() => this._setFocus()}
+              htmlFor={this._id}>
+              <slot name='label'>
+                <span>{ this.label }</span>
+              </slot> {optional}
+            </label>
+          </div>
+          <div>
+            <slot name='prefix'></slot>
+          </div>
+          <div>
+            <slot name='input'></slot>
+            {clearable}
+          </div>
+          <div>
+            <slot name='suffix'></slot>
+          </div>
+          <div>
+            <slot name='error'></slot>
+          </div>
         </div>
-        <div>
-          <slot name='prefix'></slot>
-        </div>
-        <div>
-          <slot name='input'></slot>
-          {clearable}
-        </div>
-        <div>
-          <slot name='suffix'></slot>
-        </div>
-        <div>
-          <slot name='error'></slot>
-        </div>
-      </Host>
     );
   }
 }
