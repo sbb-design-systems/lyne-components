@@ -1,0 +1,24 @@
+name: PR Title Linter
+on:
+  pull_request:
+    types: [opened, edited, reopened, unlocked]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: 'Yarn: Install'
+        uses: ./.github/actions/yarn-install
+
+      - name: 'Lint: Pull request title'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: echo "$PR_TITLE" | yarn commitlint
+
+      - name: 'Warning: Pull request title must match conventional commits pattern!'
+        if: ${{ failure() }}
+        run: echo "Pull request title must match conventional commits pattern!"
