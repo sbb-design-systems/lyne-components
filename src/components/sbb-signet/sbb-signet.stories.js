@@ -1,4 +1,4 @@
-import { ColorCharcoalDefault } from 'lyne-design-tokens/dist/js/tokens.es6';
+import { ColorCharcoalDefault } from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 

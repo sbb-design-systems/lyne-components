@@ -1,7 +1,7 @@
 import {
   ColorMilkDefault,
   ColorWhiteDefault
-} from 'lyne-design-tokens/dist/js/tokens.es6';
+} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
 import events from './sbb-accordion-item.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';

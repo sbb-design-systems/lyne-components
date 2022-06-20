@@ -4,7 +4,7 @@ import {
   Prop
 } from '@stencil/core';
 import { InterfaceImageAttributes } from '../sbb-image/sbb-image.custom';
-import tokens from 'lyne-design-tokens/dist/js/tokens.json';
+import tokens from '@sbb-esta/lyne-design-tokens/dist/js/tokens.json';
 
 @Component({
   shadow: true,

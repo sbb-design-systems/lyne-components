@@ -7,7 +7,7 @@ import {
 
 import { InterfaceImageAttributes } from './sbb-image.custom';
 import pictureSizesConfigData from './sbb-image.helper';
-import tokens from 'lyne-design-tokens/dist/js/tokens.json';
+import tokens from '@sbb-esta/lyne-design-tokens/dist/js/tokens.json';
 
 const eventListenerOptions = {
   once: true,
