@@ -16,7 +16,7 @@
 .travel-hints__list {
   @include listReset();
   display: flex;
-  gap: pxToRem(var(--spacing-fixed-1x));
+  gap: pxToRem(var(--sbb-spacing-fixed-1x));
 }
 
 .travel-hints--first-level-list .travel-hints__list {

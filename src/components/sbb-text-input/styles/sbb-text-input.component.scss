@@ -6,18 +6,18 @@
 :host {
   display: block;
 
-  --text-color-label: var(--color-metal-default);
+  --text-color-label: var(--sbb-color-metal-default);
 
-  --text-color-input-default: var(--color-charcoal-default);
-  --text-color-input-error: var(--color-red125-default);
+  --text-color-input-default: var(--sbb-color-charcoal-default);
+  --text-color-input-error: var(--sbb-color-red125-default);
 
-  --border-color-default: var(--color-smoke-default);
-  --border-color-disabled: var(--color-graphite-default);
-  --border-color-error: var(--color-red125-default);
-  --border-color-focus: var(--color-charcoal-default);
+  --border-color-default: var(--sbb-color-smoke-default);
+  --border-color-disabled: var(--sbb-color-graphite-default);
+  --border-color-error: var(--sbb-color-red125-default);
+  --border-color-focus: var(--sbb-color-charcoal-default);
 
-  --background-color-default: var(--color-white-default);
-  --background-color-disabled: var(--color-milk-default);
+  --background-color-default: var(--sbb-color-white-default);
+  --background-color-disabled: var(--sbb-color-milk-default);
   --text-color-disabled: var(--border-color-disabled);
 
   --input-height: 48; // TODO Design Token??
@@ -25,7 +25,7 @@
 
   --input-with-icon-padding-inline-start: 44; //TODO Design Token?
 
-  --icon-size: var(--size-icon-ui-small);
+  --icon-size: var(--sbb-size-icon-ui-small);
 
   @include mq($from: medium) {
     --input-height: 56; // TODO Design Token??
@@ -58,12 +58,12 @@
   width: 100%;
   height: pxToRem(var(--input-height));
   padding-block-start: pxToRem(var(--input-padding-start));
-  padding-inline-start: pxToRem(var(--spacing-fixed-3x));
-  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
+  padding-inline-start: pxToRem(var(--sbb-spacing-fixed-3x));
+  padding-inline-end: pxToRem(var(--sbb-spacing-fixed-3x));
 
   background-color: var(--background-color-default);
   border: pxToRem(1) solid var(--border-color-default);
-  border-radius: pxToRem(var(--border-radius-4x));
+  border-radius: pxToRem(var(--sbb-border-radius-4x));
 }
 
 .input--no-border {
@@ -109,14 +109,14 @@
 .input-label {
   @include text-xs--regular();
   position: absolute;
-  inset-block-start: pxToRem(var(--spacing-fixed-1x));
-  inset-block-end: pxToRem(var(--spacing-fixed-1x));
+  inset-block-start: pxToRem(var(--sbb-spacing-fixed-1x));
+  inset-block-end: pxToRem(var(--sbb-spacing-fixed-1x));
   inset-inline-start: 0;
 
   display: flex;
   max-width: 100%;
-  padding-inline-start: pxToRem(var(--spacing-fixed-3x));
-  padding-inline-end: pxToRem(var(--spacing-fixed-3x));
+  padding-inline-start: pxToRem(var(--sbb-spacing-fixed-3x));
+  padding-inline-end: pxToRem(var(--sbb-spacing-fixed-3x));
   color: var(--text-color-label);
   user-select: none;
   pointer-events: none;
@@ -144,7 +144,7 @@
 // ----------------------------------------------
 .input__icon {
   @include absoluteCenterY;
-  inset-inline-start: pxToRem(var(--spacing-fixed-3x));
+  inset-inline-start: pxToRem(var(--sbb-spacing-fixed-3x));
   height: pxToRem(var(--icon-size));
   overflow: hidden;
   fill: currentColor;

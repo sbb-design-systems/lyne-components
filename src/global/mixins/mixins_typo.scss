@@ -4,10 +4,10 @@
 
 @mixin title {
   margin: 0;
-  font-family: var(--typo-type-face-sbb-bold);
+  font-family: var(--sbb-typo-type-face-sbb-bold);
   font-weight: normal;
-  line-height: var(--typo-line-height-titles);
-  letter-spacing: var(--typo-letter-spacing-titles);
+  line-height: var(--sbb-typo-line-height-titles);
+  letter-spacing: var(--sbb-typo-letter-spacing-titles);
 }
 
 @mixin title-1 {
@@ -33,31 +33,31 @@
 @mixin title-5 {
   @include title();
   font-size: pxToRem(var(--lyne-font-size-title-5));
-  line-height: var(--typo-line-height-body-text);
+  line-height: var(--sbb-typo-line-height-body-text);
 }
 
 @mixin title-6 {
   @include title();
   font-size: pxToRem(var(--lyne-font-size-title-6));
-  line-height: var(--typo-line-height-body-text);
+  line-height: var(--sbb-typo-line-height-body-text);
 }
 
 @mixin title--negative {
-  --_title-text-color-normal: var(--color-milk-default);
+  --_title-text-color-normal: var(--sbb-color-milk-default);
 }
 
 // ----------------------------------------------------------------------------------------------------
 // Typo: Text Style Mixins
 // ----------------------------------------------------------------------------------------------------
 @mixin text {
-  font-family: var(--typo-type-face-sbb-roman);
+  font-family: var(--sbb-typo-type-face-sbb-roman);
   font-weight: normal;
-  line-height: var(--typo-line-height-body-text);
-  letter-spacing: var(--typo-letter-spacing-body-text);
+  line-height: var(--sbb-typo-line-height-body-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-body-text);
 }
 
 @mixin text--bold {
-  font-family: var(--typo-type-face-sbb-bold);
+  font-family: var(--sbb-typo-type-face-sbb-bold);
 }
 
 @mixin text-xl--regular {
@@ -139,6 +139,6 @@
 
 @mixin placeholder() {
   ::placeholder {
-    color: var(--color-metal-default);
+    color: var(--sbb-color-metal-default);
   }
 }

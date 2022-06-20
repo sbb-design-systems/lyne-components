@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  gap: pxToRem(var(--spacing-fixed-2x));
+  gap: pxToRem(var(--sbb-spacing-fixed-2x));
 }
 
 .occupancy__list-item {

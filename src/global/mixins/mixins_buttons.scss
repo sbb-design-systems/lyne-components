@@ -16,90 +16,90 @@
 }
 
 @mixin buttonVariables {
-  --icon-size: var(--size-icon-ui-small);
-  --line-through-height-disabled: var(--border-width-2x);
+  --icon-size: var(--sbb-size-icon-ui-small);
+  --line-through-height-disabled: var(--sbb-border-width-2x);
 
   // we use primary button styles as default values
-  --color-active-background: var(--color-red150-default);
-  --color-active-border: var(--color-red150-default);
-  --color-active-text: var(--color-cloud-default);
-  --color-default-background: var(--color-red-default);
-  --color-default-border: var(--color-red-default);
-  --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-milk-default);
-  --color-disabled-border: var(--color-milk-default);
-  --color-disabled-text: var(--color-platinum-default);
-  --color-hover-background: var(--color-red125-default);
-  --color-hover-border: var(--color-red125-default);
-  --color-hover-text: var(--color-milk-default);
+  --color-active-background: var(--sbb-color-red150-default);
+  --color-active-border: var(--sbb-color-red150-default);
+  --color-active-text: var(--sbb-color-cloud-default);
+  --color-default-background: var(--sbb-color-red-default);
+  --color-default-border: var(--sbb-color-red-default);
+  --color-default-text: var(--sbb-color-white-default);
+  --color-disabled-background: var(--sbb-color-milk-default);
+  --color-disabled-border: var(--sbb-color-milk-default);
+  --color-disabled-text: var(--sbb-color-platinum-default);
+  --color-hover-background: var(--sbb-color-red125-default);
+  --color-hover-border: var(--sbb-color-red125-default);
+  --color-hover-text: var(--sbb-color-milk-default);
 
-  --border-width: var(--border-width-2x);
-  --border-radius: var(--border-radius-16x);
+  --border-width: var(--sbb-border-width-2x);
+  --border-radius: var(--sbb-border-radius-16x);
   --min-height: var(--size-form-element-l-min-height);
-  --transition-duration: var(--animation-duration-2x);
-  --transition-easing-function: var(--animation-easing);
-  --padding-block-min: var(--spacing-fixed-1x);
-  --padding-inline: var(--spacing-fixed-8x);
-  --gap: var(--spacing-fixed-2x);
+  --transition-duration: var(--sbb-animation-duration-2x);
+  --transition-easing-function: var(--sbb-animation-easing);
+  --padding-block-min: var(--sbb-spacing-fixed-1x);
+  --padding-inline: var(--sbb-spacing-fixed-8x);
+  --gap: var(--sbb-spacing-fixed-2x);
 
-  --shadow-1-default-color: var(--color-red-alpha-20);
+  --shadow-1-default-color: var(--sbb-color-red-alpha-20);
   --shadow-1-default-blur: 16;
   --shadow-1-default-offset-x: 0;
   --shadow-1-default-offset-y: 2;
   --shadow-1-default-spread: 0;
-  --shadow-2-default-color: var(--color-red125-alpha-20);
+  --shadow-2-default-color: var(--sbb-color-red125-alpha-20);
   --shadow-2-default-blur: 4;
   --shadow-2-default-offset-x: 0;
   --shadow-2-default-offset-y: 1;
   --shadow-2-default-spread: 0;
 
-  --shadow-1-hover-color: var(--color-red-alpha-20);
+  --shadow-1-hover-color: var(--sbb-color-red-alpha-20);
   --shadow-1-hover-blur: 8;
   --shadow-1-hover-offset-x: 0;
   --shadow-1-hover-offset-y: 1;
   --shadow-1-hover-spread: 0;
-  --shadow-2-hover-color: var(--color-red125-alpha-20);
+  --shadow-2-hover-color: var(--sbb-color-red125-alpha-20);
   --shadow-2-hover-blur: 2;
   --shadow-2-hover-offset-x: 0;
   --shadow-2-hover-offset-y: 1;
   --shadow-2-hover-spread: 0;
 
   @include mq($from: medium) {
-    --padding-inline: var(--spacing-fixed-10x);
+    --padding-inline: var(--sbb-spacing-fixed-10x);
   }
 }
 
 @mixin buttonPrimaryNegativeVariables {
-  --color-active-background: var(--color-cloud-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-red150-default);
-  --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-white-default);
-  --color-default-text: var(--color-red-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-white-alpha-60);
-  --color-hover-background: var(--color-milk-default);
-  --color-hover-border: var(--color-milk-default);
-  --color-hover-text: var(--color-red125-default);
+  --color-active-background: var(--sbb-color-cloud-default);
+  --color-active-border: var(--sbb-color-cloud-default);
+  --color-active-text: var(--sbb-color-red150-default);
+  --color-default-background: var(--sbb-color-white-default);
+  --color-default-border: var(--sbb-color-white-default);
+  --color-default-text: var(--sbb-color-red-default);
+  --color-disabled-background: var(--sbb-color-black-alpha-10);
+  --color-disabled-border: var(--sbb-color-black-alpha-0);
+  --color-disabled-text: var(--sbb-color-white-alpha-60);
+  --color-hover-background: var(--sbb-color-milk-default);
+  --color-hover-border: var(--sbb-color-milk-default);
+  --color-hover-text: var(--sbb-color-red125-default);
 
-  --shadow-1-default-color: var(--color-smoke-alpha-20);
+  --shadow-1-default-color: var(--sbb-color-smoke-alpha-20);
   --shadow-1-default-blur: 16;
   --shadow-1-default-offset-x: 0;
   --shadow-1-default-offset-y: 2;
   --shadow-1-default-spread: 0;
-  --shadow-2-default-color: var(--color-metal-alpha-20);
+  --shadow-2-default-color: var(--sbb-color-metal-alpha-20);
   --shadow-2-default-blur: 4;
   --shadow-2-default-offset-x: 0;
   --shadow-2-default-offset-y: 1;
   --shadow-2-default-spread: 0;
 
-  --shadow-1-hover-color: var(--color-smoke-alpha-20);
+  --shadow-1-hover-color: var(--sbb-color-smoke-alpha-20);
   --shadow-1-hover-blur: 16;
   --shadow-1-hover-offset-x: 0;
   --shadow-1-hover-offset-y: 2;
   --shadow-1-hover-spread: 0;
-  --shadow-2-hover-color: var(--color-metal-alpha-20);
+  --shadow-2-hover-color: var(--sbb-color-metal-alpha-20);
   --shadow-2-hover-blur: 4;
   --shadow-2-hover-offset-x: 0;
   --shadow-2-hover-offset-y: 1;
@@ -107,36 +107,36 @@
 }
 
 @mixin buttonSecondaryVariables {
-  --color-active-background: var(--color-cloud-default);
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-anthracite-default);
-  --color-default-background: var(--color-white-default);
-  --color-default-border: var(--color-cloud-default);
-  --color-default-text: var(--color-charcoal-default);
-  --color-disabled-background: var(--color-milk-default);
-  --color-disabled-border: var(--color-milk-default);
-  --color-disabled-text: var(--color-platinum-default);
-  --color-hover-background: var(--color-milk-default);
-  --color-hover-border: var(--color-cloud-default);
-  --color-hover-text: var(--color-iron-default);
+  --color-active-background: var(--sbb-color-cloud-default);
+  --color-active-border: var(--sbb-color-cloud-default);
+  --color-active-text: var(--sbb-color-anthracite-default);
+  --color-default-background: var(--sbb-color-white-default);
+  --color-default-border: var(--sbb-color-cloud-default);
+  --color-default-text: var(--sbb-color-charcoal-default);
+  --color-disabled-background: var(--sbb-color-milk-default);
+  --color-disabled-border: var(--sbb-color-milk-default);
+  --color-disabled-text: var(--sbb-color-platinum-default);
+  --color-hover-background: var(--sbb-color-milk-default);
+  --color-hover-border: var(--sbb-color-cloud-default);
+  --color-hover-text: var(--sbb-color-iron-default);
 
-  --shadow-1-default-color: var(--color-platinum-alpha-20);
+  --shadow-1-default-color: var(--sbb-color-platinum-alpha-20);
   --shadow-1-default-blur: 16;
   --shadow-1-default-offset-x: 0;
   --shadow-1-default-offset-y: 2;
   --shadow-1-default-spread: 0;
-  --shadow-2-default-color: var(--color-cement-alpha-20);
+  --shadow-2-default-color: var(--sbb-color-cement-alpha-20);
   --shadow-2-default-blur: 4;
   --shadow-2-default-offset-x: 0;
   --shadow-2-default-offset-y: 1;
   --shadow-2-default-spread: 0;
 
-  --shadow-1-hover-color: var(--color-platinum-alpha-20);
+  --shadow-1-hover-color: var(--sbb-color-platinum-alpha-20);
   --shadow-1-hover-blur: 16;
   --shadow-1-hover-offset-x: 0;
   --shadow-1-hover-offset-y: 2;
   --shadow-1-hover-spread: 0;
-  --shadow-2-hover-color: var(--color-cement-alpha-20);
+  --shadow-2-hover-color: var(--sbb-color-cement-alpha-20);
   --shadow-2-hover-blur: 4;
   --shadow-2-hover-offset-x: 0;
   --shadow-2-hover-offset-y: 1;
@@ -145,26 +145,26 @@
 
 @mixin buttonSecondaryNegativeVariables {
   --color-active-background: transparent;
-  --color-active-border: var(--color-cloud-default);
-  --color-active-text: var(--color-cloud-default);
+  --color-active-border: var(--sbb-color-cloud-default);
+  --color-active-text: var(--sbb-color-cloud-default);
   --color-default-background: transparent;
-  --color-default-border: var(--color-white-default);
-  --color-default-text: var(--color-white-default);
-  --color-disabled-background: var(--color-black-alpha-10);
-  --color-disabled-border: var(--color-black-alpha-0);
-  --color-disabled-text: var(--color-aluminium-default);
+  --color-default-border: var(--sbb-color-white-default);
+  --color-default-text: var(--sbb-color-white-default);
+  --color-disabled-background: var(--sbb-color-black-alpha-10);
+  --color-disabled-border: var(--sbb-color-black-alpha-0);
+  --color-disabled-text: var(--sbb-color-aluminium-default);
   --color-hover-background: transparent;
-  --color-hover-border: var(--color-milk-default);
-  --color-hover-text: var(--color-milk-default);
+  --color-hover-border: var(--sbb-color-milk-default);
+  --color-hover-text: var(--sbb-color-milk-default);
 }
 
 @mixin buttonSizeMVariables {
-  --border-width: var(--border-width-1x);
+  --border-width: var(--sbb-border-width-1x);
   --min-height: var(--size-form-element-m-min-height);
-  --padding-inline: var(--spacing-fixed-5x);
+  --padding-inline: var(--sbb-spacing-fixed-5x);
 
   @include mq($from: medium) {
-    --padding-inline: var(--spacing-fixed-8x);
+    --padding-inline: var(--sbb-spacing-fixed-8x);
   }
 }
 

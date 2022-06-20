@@ -22,14 +22,14 @@
   --header-transition-timing-function: ease-in;
   --header-transition-duration: 180ms;
 
-  --color-heading-hover: var(--color-anthracite-default);
-  --color-default: var(--color-white-default);
-  --color-black: var(--color-black-default);
-  --icon-size: var(--size-icon-ui-small);
-  --header-padding-block: var(--spacing-fixed-5x);
-  --icon-padding-inline-end: var(--spacing-fixed-3x);
-  --body-padding-block: var(--spacing-fixed-5x);
-  --border-color: var(--color-cloud-default);
+  --color-heading-hover: var(-sbb-color-anthracite-default);
+  --color-default: var(--sbb-color-white-default);
+  --color-black: var(--sbb-color-black-default);
+  --icon-size: var(--sbb-size-icon-ui-small);
+  --header-padding-block: var(--sbb-spacing-fixed-5x);
+  --icon-padding-inline-end: var(--sbb-spacing-fixed-3x);
+  --body-padding-block: var(--sbb-spacing-fixed-5x);
+  --border-color: var(--sbb-color-cloud-default);
 }
 
 .accordion-item {
@@ -121,7 +121,7 @@
 }
 
 .accordion-item__body {
-  font-family: var(--typo-type-face-sbb-roman); // TODO remove once generic styles will be in
+  font-family: var(--sbb-typo-type-face-sbb-roman); // TODO remove once generic styles will be in
   box-sizing: border-box;
   overflow: hidden;
   transition-property: height, opacity;

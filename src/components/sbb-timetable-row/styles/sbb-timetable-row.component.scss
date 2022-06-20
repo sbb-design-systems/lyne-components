@@ -20,7 +20,7 @@
 }
 
 :host(sbb-timetable-row) {
-  margin-block-end: pxToRem(var(--spacing-fixed-1x));
+  margin-block-end: pxToRem(var(--sbb-spacing-fixed-1x));
 }
 
 .timetable__row {
@@ -33,7 +33,7 @@
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  column-gap: pxToRem(var(--spacing-fixed-2x));
+  column-gap: pxToRem(var(--sbb-spacing-fixed-2x));
 
   padding-block-start: var(--card-padding-top);
   padding-inline-end: var(--card-padding-right);

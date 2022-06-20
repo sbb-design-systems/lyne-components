@@ -13,11 +13,11 @@
 }
 
 .walk--departure {
-  margin-inline-end: pxToRem(var(--spacing-fixed-2x));
+  margin-inline-end: pxToRem(var(--sbb-spacing-fixed-2x));
 }
 
 .walk--arrival {
-  margin-inline-start: pxToRem(var(--spacing-fixed-2x));
+  margin-inline-start: pxToRem(var(--sbb-spacing-fixed-2x));
 }
 
 .walk__text--visually-hidden {
@@ -26,7 +26,7 @@
 
 .walk__icon {
   width: pxToRem(10);
-  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+  margin-inline-end: pxToRem(var(--sbb-spacing-fixed-1x));
 }
 
 .walk--second-level {
@@ -37,11 +37,11 @@
 .walk--second-level .walk__duration--visual {
   order: -1;
   margin-inline-start: 0;
-  margin-inline-end: pxToRem(var(--spacing-fixed-3x));
+  margin-inline-end: pxToRem(var(--sbb-spacing-fixed-3x));
 }
 
 .walk--second-level .walk__icon {
-  margin-inline-end: pxToRem(var(--spacing-fixed-2x));
+  margin-inline-end: pxToRem(var(--sbb-spacing-fixed-2x));
 }
 
 .walk__icon svg {

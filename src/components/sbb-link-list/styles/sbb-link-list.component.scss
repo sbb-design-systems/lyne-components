@@ -8,7 +8,7 @@
 }
 
 sbb-title {
-  margin-block-end: pxToRem(var(--spacing-fixed-3x));
+  margin-block-end: pxToRem(var(--sbb-spacing-fixed-3x));
 }
 
 .link-list {
@@ -18,7 +18,7 @@ sbb-title {
 @mixin link-list--horizontal {
   display: flex;
   flex-wrap: wrap;
-  column-gap: pxToRem(var(--spacing-fixed-8x));
+  column-gap: pxToRem(var(--sbb-spacing-fixed-8x));
 }
 
 .link-list--horizontal {
@@ -32,7 +32,7 @@ sbb-title {
 }
 
 ::slotted(.link-list__item:not(:last-child)) {
-  margin-block-end: pxToRem(var(--spacing-fixed-3x));
+  margin-block-end: pxToRem(var(--sbb-spacing-fixed-3x));
 }
 // Need to be after the ::slotted(.link-list__item:not(:last-child))
 // selector due to specificity

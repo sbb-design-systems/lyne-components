@@ -9,16 +9,16 @@
 
 .autocomplete-item {
   @include text-s--bold;
-  background-color: var(--color-white-default);
-  border-radius: pxToRem(var(--border-radius-4x));
-  padding-block-start: pxToRem(var(--spacing-fixed-2x));
-  padding-block-end: pxToRem(var(--spacing-fixed-2x));
-  padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-zero));
-  padding-inline-end: pxToRem(var(--spacing-responsive-xxxs-zero));
+  background-color: var(--sbb-color-white-default);
+  border-radius: pxToRem(var(--sbb-border-radius-4x));
+  padding-block-start: pxToRem(var(--sbb-spacing-fixed-2x));
+  padding-block-end: pxToRem(var(--sbb-spacing-fixed-2x));
+  padding-inline-start: pxToRem(var(--sbb-spacing-responsive-xxxs-zero));
+  padding-inline-end: pxToRem(var(--sbb-spacing-responsive-xxxs-zero));
 
   @include mq($from: medium) {
-    padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-medium));
-    padding-inline-end: pxToRem(var(--spacing-responsive-xxxs-medium));
+    padding-inline-start: pxToRem(var(--sbb-spacing-responsive-xxxs-medium));
+    padding-inline-end: pxToRem(var(--sbb-spacing-responsive-xxxs-medium));
   }
 }
 
@@ -29,7 +29,7 @@
 .autocomplete-item--selected,
 .autocomplete-item:hover,
 .autocomplete-item:focus {
-  background-color: var(--color-milk-default);
+  background-color: var(--sbb-color-milk-default);
 
   @include ifForcedColors() {
     background-color: Highlight;

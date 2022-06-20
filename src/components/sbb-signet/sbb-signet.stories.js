@@ -1,4 +1,4 @@
-import { ColorCharcoalDefault } from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
+import { SbbColorCharcoalDefault } from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -87,7 +87,7 @@ WhiteOnBlack.args.variant = variants.options[1];
 
 WhiteOnBlack.decorators = [
   (Story) => (
-    <div style={`background-color: ${ColorCharcoalDefault};`}>
+    <div style={`background-color: ${SbbColorCharcoalDefault};`}>
       <Story />
     </div>
   )
@@ -96,7 +96,7 @@ WhiteOnBlack.decorators = [
 WhiteOnBlack.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
+      'background-color': SbbColorCharcoalDefault
     }
   },
   title: 'White on black'

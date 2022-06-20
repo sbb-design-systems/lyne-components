@@ -1,7 +1,7 @@
 import {
-  ColorCharcoalDefault,
-  ColorWhiteDefault
-} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
+  SbbColorCharcoalDefault,
+  SbbColorWhiteDefault
+} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -9,10 +9,10 @@ import readme from './readme.md';
 const wrapperStyle = (context) => {
 
   if (context.args.variant === 'positive') {
-    return `background-color: ${ColorWhiteDefault};`;
+    return `background-color: ${SbbColorWhiteDefault};`;
   }
 
-  return `background-color: ${ColorCharcoalDefault};`;
+  return `background-color: ${SbbColorCharcoalDefault};`;
 
 };
 

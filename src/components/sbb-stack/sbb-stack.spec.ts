@@ -14,7 +14,7 @@ describe('sbb-stack', () => {
       .toEqualHtml(`
         <sbb-stack>
           <mock:shadow-root>
-            <div class="stack stack--vertical" style="column-gap: calc(var(--spacing-fixed-3x) / var(--typo-scale-default) * 1rem); row-gap: calc(var(--spacing-fixed-3x) / var(--typo-scale-default) * 1rem);">
+            <div class="stack stack--vertical" style="column-gap: calc(var(--sbb-spacing-fixed-3x) / var(--sbb-typo-scale-default) * 1rem); row-gap: calc(var(--sbb-spacing-fixed-3x) / var(--sbb-typo-scale-default) * 1rem);">
               <slot></slot>
             </div>
           </mock:shadow-root>

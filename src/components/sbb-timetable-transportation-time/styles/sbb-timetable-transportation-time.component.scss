@@ -25,12 +25,12 @@
 }
 
 .time--first-level.time--departure {
-  margin-inline-end: pxToRem(var(--spacing-fixed-3x));
+  margin-inline-end: pxToRem(var(--sbb-spacing-fixed-3x));
 }
 
 .time--first-level.time--arrival {
   @include text-s--bold();
-  margin-inline-start: pxToRem(var(--spacing-fixed-3x));
+  margin-inline-start: pxToRem(var(--sbb-spacing-fixed-3x));
 }
 
 .time-second-level.time--departure {

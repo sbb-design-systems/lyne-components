@@ -8,10 +8,10 @@
 
   // Default Logo Styles
   // ----------------------------------------------
-  --sbb-logo-panel-color: var(--color-red-default);
-  --sbb-logo-panel-stroke-color: var(--color-red-default);
-  --sbb-logo-signet-color: var(--color-white-default);
-  --sbb-logo-word-mark-color: var(--color-black-default);
+  --sbb-logo-panel-color: var(--sbb-color-red-default);
+  --sbb-logo-panel-stroke-color: var(--sbb-color-red-default);
+  --sbb-logo-signet-color: var(--sbb-color-white-default);
+  --sbb-logo-word-mark-color: var(--sbb-color-black-default);
 
   // Forced Colors Variant
   // ----------------------------------------------
@@ -83,30 +83,30 @@
 // Negative Variant
 // ----------------------------------------------
 .sbb-logo--negative {
-  --sbb-logo-word-mark-color: var(--color-white-default);
+  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
 }
 
 // On Red Background Variant
 // ----------------------------------------------
 .sbb-logo--on-red {
-  background: var(--color-red-default);
-  --sbb-logo-word-mark-color: var(--color-white-default);
-  --sbb-logo-panel-stroke-color: var(--color-white-default);
+  background: var(--sbb-color-red-default);
+  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
+  --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
 }
 
 // Black on White Variant
 // ----------------------------------------------
 .sbb-logo--black-on-white {
-  --sbb-logo-word-mark-color: var(--color-black-default);
-  --sbb-logo-panel-color: var(--color-black-default);
-  --sbb-logo-panel-stroke-color: var(--color-black-default);
+  --sbb-logo-word-mark-color: var(--sbb-color-black-default);
+  --sbb-logo-panel-color: var(--sbb-color-black-default);
+  --sbb-logo-panel-stroke-color: var(--sbb-color-black-default);
 }
 
 // White on Black Variant
 // ----------------------------------------------
 .sbb-logo--white-on-black {
-  background: var(--color-black-default);
-  --sbb-logo-word-mark-color: var(--color-white-default);
+  background: var(--sbb-color-black-default);
+  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
   --sbb-logo-panel-color: none;
-  --sbb-logo-panel-stroke-color: var(--color-white-default);
+  --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
 }

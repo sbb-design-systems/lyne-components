@@ -14,9 +14,9 @@
 
   --panel-width: 223;
   --panel-height: 167;
-  --button-margin: var(--spacing-responsive-xs-small);
-  --panel-padding-inline: var(--spacing-responsive-m-small);
-  --panel-padding-block: var(--spacing-responsive-s-small);
+  --button-margin: var(--sbb-spacing-responsive-xs-small);
+  --panel-padding-inline: var(--sbb-spacing-responsive-m-small);
+  --panel-padding-block: var(--sbb-spacing-responsive-s-small);
   --triangle-height: 33;
 
   @include mq($from: medium) {
@@ -26,9 +26,9 @@
 
     --panel-width: 321;
     --panel-height: 240.11;
-    --button-margin: var(--spacing-responsive-xs-medium);
-    --panel-padding-inline: var(--spacing-responsive-m-medium);
-    --panel-padding-block: var(--spacing-responsive-s-medium);
+    --button-margin: var(--sbb-spacing-responsive-xs-medium);
+    --panel-padding-inline: var(--sbb-spacing-responsive-m-medium);
+    --panel-padding-block: var(--sbb-spacing-responsive-s-medium);
     --triangle-height: 47.45;
   }
 
@@ -39,13 +39,13 @@
 
     --panel-width: 428;
     --panel-height: 320.38;
-    --panel-padding-inline: var(--spacing-responsive-m-wide);
-    --panel-padding-block: var(--spacing-responsive-s-wide);
+    --panel-padding-inline: var(--sbb-spacing-responsive-m-wide);
+    --panel-padding-block: var(--sbb-spacing-responsive-s-wide);
     --triangle-height: 63.31;
   }
 
-  --background-color: var(--color-red-default);
-  --text-color: var(--color-white-default);
+  --background-color: var(--sbb-color-red-default);
+  --text-color: var(--sbb-color-white-default);
 
   padding-block-start: pxToRem(var(--triangle-height));
   padding-block-end: pxToRem(var(--triangle-height));
@@ -101,7 +101,7 @@
 .panel__text {
   padding: 0;
   margin: 0;
-  color: var(--color-white-default);
+  color: var(--sbb-color-white-default);
   font-family: var(--font-family);
   font-size: pxToRem(var(--font-size));
   font-weight: normal;

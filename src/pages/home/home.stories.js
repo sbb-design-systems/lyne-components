@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 import {
-  ColorCharcoalDefault,
-  ColorWhiteDefault
-} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
+  SbbColorCharcoalDefault,
+  SbbColorWhiteDefault
+} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -19,7 +19,7 @@ const documentationPlatformContainerStyle = (context) => {
   }
 
   return {
-    'background-color': ColorCharcoalDefault
+    'background-color': SbbColorCharcoalDefault
   };
 };
 
@@ -31,11 +31,11 @@ const wrapperStyle = (context) => {
   const variantsOnDarkBg = ['primary-negative'];
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${ColorWhiteDefault};`;
+    return `background-color: ${SbbColorWhiteDefault};`;
   }
 
   // return `background-color: ${ColorWhiteDefault};`;
-  return `background-color: ${ColorCharcoalDefault};`;
+  return `background-color: ${SbbColorCharcoalDefault};`;
 };
 
 /* ************************************************* */
@@ -92,7 +92,7 @@ const Template = (args) => (
     {/* *************************************************
     Header section
     ************************************************* */}
-    <sbb-section width='page-spacing' role='banner' style='background-color: var(--color-white-default); cursor: pointer;'>
+    <sbb-section width='page-spacing' role='banner' style='background-color: var(--sbb-color-white-default); cursor: pointer;'>
       <sbb-stack slot='full-width' stack-width='100%' gap-horizontal='fixed-10x' space-leading='responsive-xxs' space-trailing='responsive-xxs' appearance='horizontal--space-between--centered'>
         <sbb-stack gap-horizontal='responsive-xxs' appearance='horizontal--start--centered'>
           <SlotIconTemplate {...iconBurgerArgs}/>
@@ -101,7 +101,7 @@ const Template = (args) => (
           <SlotIconTemplate {...iconLanguageArgs}/>
         </sbb-stack>
         <sbb-stack gap-horizontal='fixed-10x' appearance='horizontal--end--centered'>
-          <sbb-logo protective-room='none' style='display:flex; height: calc((var(--spacing-responsive-xxs)) / var(--typo-scale-default) * 1rem);'></sbb-logo>
+          <sbb-logo protective-room='none' style='display:flex; height: calc((var(--sbb-spacing-responsive-xxs)) / var(--sbb-typo-scale-default) * 1rem);'></sbb-logo>
         </sbb-stack>
       </sbb-stack>
     </sbb-section>
@@ -109,11 +109,11 @@ const Template = (args) => (
     {/* *************************************************
     Timetable input section
     ************************************************* */}
-    <sbb-section width='page-spacing' style='background-color: var(--color-red-default); max-width: 1440px; margin-inline-start: auto; margin-inline-end: auto;'>
+    <sbb-section width='page-spacing' style='background-color: var(--sbb-color-red-default); max-width: 1440px; margin-inline-start: auto; margin-inline-end: auto;'>
       <sbb-grid slot='full-width' variant='base--eight-columns-centered'>
         <sbb-stack slot='eight-columns-centered' stack-width='100%' space-leading='responsive-xl' gap-vertical='fixed-4x' appearance='vertical--centered'>
           <sbb-link-button href-value='https://github.com/lyne-design-system/lyne-components' text='Timetable toggle pretender' variant='secondary'></sbb-link-button>
-          <sbb-stack gap-vertical='fixed-4x' appearance='vertical--centered' style='background-color: white; border-radius: 16px; max-width: 842px; height: 21vh; width: 100%; margin-bottom: -7vh; box-shadow: calc(var(--shadow-elevation-level-9-shadow-2-offset-x) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-offset-y) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-blur) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-spread) / var(--typo-scale-default) * 1rem) var(--shadow-elevation-level-9-hard-2-color), calc(var(--shadow-elevation-level-9-shadow-1-offset-x) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-offset-y) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-blur) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-spread) / var(--typo-scale-default) * 1rem) var(--shadow-elevation-level-5-hard-1-color)'></sbb-stack>
+          <sbb-stack gap-vertical='fixed-4x' appearance='vertical--centered' style='background-color: white; border-radius: 16px; max-width: 842px; height: 21vh; width: 100%; margin-bottom: -7vh; box-shadow: calc(var(--sbb-shadow-elevation-level-9-shadow-2-offset-x) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-2-offset-y) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-2-blur) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-2-spread) / var(--sbb-typo-scale-default) * 1rem) var(--sbb-shadow-elevation-level-9-hard-2-color), calc(var(--sbb-shadow-elevation-level-9-shadow-1-offset-x) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-1-offset-y) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-1-blur) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-1-spread) / var(--sbb-typo-scale-default) * 1rem) var(--sbb-shadow-elevation-level-5-hard-1-color)'></sbb-stack>
         </sbb-stack>
       </sbb-grid>
     </sbb-section>

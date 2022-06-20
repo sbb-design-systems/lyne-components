@@ -3,5 +3,5 @@
   @if $negate {
     $multiplier: -1rem;
   }
-  @return calc(#{$size} / #{var(--typo-scale-default)} * #{$multiplier});
+  @return calc(#{$size} / #{var(--sbb-typo-scale-default)} * #{$multiplier});
 }

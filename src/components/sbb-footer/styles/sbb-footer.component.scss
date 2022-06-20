@@ -5,9 +5,9 @@
 
 :host {
   --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--grid-base-gutter-responsive));
-  --_footer-gap-vertical: var(--footer-gap-vertical, var(--spacing-responsive-l));
-  --_footer-background-color: var(--footer-background-color, var(--color-milk-default));
-  --_footer-divider-color: var(--footer-divider-color, var(--color-cloud-default));
+  --_footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
+  --_footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
+  --_footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
   --_footer-divider-thickness: var(--footer-divider-thickness, 1);
   --_footer-clock-width: var(--footer-clock-width, 76);
   @include mq($from: small) {
@@ -15,21 +15,21 @@
   }
 
   // Contextual design for sbb-stack
-  --stack-text-color-normal: var(--color-granite-default);
+  --stack-text-color-normal: var(--sbb-color-granite-default);
 }
 
 .footer {
   @include page-spacing;
-  margin-block-start: pxToRem(var(--spacing-responsive-l));
-  padding-block-start: pxToRem(var(--spacing-responsive-l));
-  padding-block-end: pxToRem(var(--spacing-responsive-l));
+  margin-block-start: pxToRem(var(--sbb-spacing-responsive-l));
+  padding-block-start: pxToRem(var(--sbb-spacing-responsive-l));
+  padding-block-end: pxToRem(var(--sbb-spacing-responsive-l));
   background-color: var(--_footer-background-color);
 }
 
 .footer--primary-negative {
-  --_footer-divider-color: var(--color-iron-default);
-  --_footer-background-color: var(--color-charcoal-default);
-  --title-text-color-normal: var(--color-storm-default);
+  --_footer-divider-color: var(--sbb-color-iron-default);
+  --_footer-background-color: var(--sbb-color-charcoal-default);
+  --title-text-color-normal: var(--sbb-color-storm-default);
 }
 
 .columns {
@@ -74,7 +74,7 @@
 // Only apply spacing and thin line if footer bottom has a predecessor, excluding
 // the hidden title which always needs to be present
 :not(.title--visually-hidden) + .bottom {
-  margin-block-start: pxToRem(var(--spacing-responsive-xl));
+  margin-block-start: pxToRem(var(--sbb-spacing-responsive-xl));
   border-block-start: pxToRem(var(--_footer-divider-thickness)) solid var(--_footer-divider-color);
-  padding-block-start: pxToRem(var(--spacing-fixed-8x));
+  padding-block-start: pxToRem(var(--sbb-spacing-fixed-8x));
 }

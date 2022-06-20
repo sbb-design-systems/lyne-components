@@ -14,10 +14,10 @@
 
 :host {
   @include card-host-properties;
-  --slot-icon-spacing-inline: var(--spacing-fixed-4x);
-  --slot-details-spacing-top: var(--spacing-fixed-2x);
-  --slot-action-spacing-top: var(--spacing-fixed-4x);
-  --card-text-color: var(--color--charcoal-default);
+  --slot-icon-spacing-inline: var(--sbb-spacing-fixed-4x);
+  --slot-details-spacing-top: var(--sbb-spacing-fixed-2x);
+  --slot-action-spacing-top: var(--sbb-spacing-fixed-4x);
+  --card-text-color: var(--sbb-color-charcoal-default);
 }
 
 /* ************************************************* */
@@ -131,5 +131,5 @@
 .card-product__text {
   @include text-s--regular();
   margin: 0;
-  color: var(--color-granite-default);
+  color: var(--sbb-color-granite-default);
 }

@@ -4,7 +4,7 @@ import {
   Prop
 } from '@stencil/core';
 import { InterfaceImageAttributes } from '../sbb-image/sbb-image.custom';
-import tokens from '@sbb-esta/lyne-design-tokens/dist/js/tokens.json';
+import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
 
 @Component({
   shadow: true,
@@ -21,15 +21,15 @@ export class SbbTeaserHero {
     breakpoints: [
       {
         image: {
-          height: tokens['breakpoint-ultra-max'],
-          width: tokens['breakpoint-ultra-max']
+          height: tokens['sbb-breakpoint-ultra-max'],
+          width: tokens['sbb-breakpoint-ultra-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'min-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'breakpoint-ultra-min'
+              value: 'sbb-breakpoint-ultra-min'
             },
             conditionOperator: false
           }
@@ -37,15 +37,15 @@ export class SbbTeaserHero {
       },
       {
         image: {
-          height: tokens['breakpoint-wide-max'],
-          width: tokens['breakpoint-wide-max']
+          height: tokens['sbb-breakpoint-wide-max'],
+          width: tokens['sbb-breakpoint-wide-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'breakpoint-wide-max'
+              value: 'sbb-breakpoint-wide-max'
             },
             conditionOperator: false
           }
@@ -53,15 +53,15 @@ export class SbbTeaserHero {
       },
       {
         image: {
-          height: tokens['breakpoint-micro-max'],
-          width: tokens['breakpoint-micro-max']
+          height: tokens['sbb-breakpoint-micro-max'],
+          width: tokens['sbb-breakpoint-micro-max']
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'breakpoint-micro-max'
+              value: 'sbb-breakpoint-micro-max'
             },
             conditionOperator: false
           }

@@ -1,8 +1,8 @@
 import images from '../../global/images';
 import {
-  ColorCharcoalDefault,
-  ColorWhiteDefault
-} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
+  SbbColorCharcoalDefault,
+  SbbColorWhiteDefault
+} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import events from './sbb-button.events.ts';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
@@ -27,7 +27,7 @@ const wrapperStyle = (context) => {
     return 'background-color: #484040;';
   }
 
-  return `background-color: ${ColorWhiteDefault};`;
+  return `background-color: ${SbbColorWhiteDefault};`;
 };
 
 const focusStyle = (context) => {
@@ -41,7 +41,7 @@ const focusStyle = (context) => {
   if (variantsWithDarkBg.includes(context.args.variant)) {
     // eslint-disable-next-line no-warning-comments
     // TODO: Use css variable if globally available
-    return `--focus-outline-color-override:${ColorWhiteDefault};`;
+    return `--focus-outline-color-override:${SbbColorWhiteDefault};`;
   }
 
   return '';
@@ -281,7 +281,7 @@ transparent.documentation = {
 primaryNegative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
+      'background-color': SbbColorCharcoalDefault
     }
   },
   title: 'Primary Negative'
@@ -290,7 +290,7 @@ primaryNegative.documentation = {
 secondaryNegative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
+      'background-color': SbbColorCharcoalDefault
     }
   },
   title: 'Secondary Negative'
@@ -299,7 +299,7 @@ secondaryNegative.documentation = {
 translucentNegative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
+      'background-color': SbbColorCharcoalDefault
     }
   },
   title: 'Translucent Negative'
@@ -308,7 +308,7 @@ translucentNegative.documentation = {
 transparentNegative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
+      'background-color': SbbColorCharcoalDefault
     }
   },
   title: 'Transparent Negative'

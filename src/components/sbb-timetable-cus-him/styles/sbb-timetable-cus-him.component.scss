@@ -29,13 +29,13 @@
 .cus-him--second-level-button,
 .cus-him--second-level-message {
   display: flex;
-  gap: pxToRem(var(--spacing-fixed-1x));
+  gap: pxToRem(var(--sbb-spacing-fixed-1x));
   padding: 0;
 }
 
 .cus-him--second-level-message__text {
   @include text-xs--bold();
-  color: var(--color-red-default);
+  color: var(--sbb-color-red-default);
 }
 
 .cus-him--second-level-message .cus-him__icon {
@@ -51,7 +51,7 @@
 // ----------------------------------------------
 .cus-him--second-level-button {
   --cus-him-icon-height: 20;
-  gap: pxToRem(var(--spacing-fixed-2x));
+  gap: pxToRem(var(--sbb-spacing-fixed-2x));
 }
 
 .cus-him--second-level-button__text {
@@ -74,7 +74,7 @@
   @include listReset();
   display: flex;
   flex-wrap: wrap;
-  gap: pxToRem(var(--spacing-fixed-1x));
+  gap: pxToRem(var(--sbb-spacing-fixed-1x));
   min-height: pxToRem(var(--cus-him-icon-height));
 }
 

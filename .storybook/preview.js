@@ -1,4 +1,4 @@
-import TokensRaw from '@sbb-esta/lyne-design-tokens/dist/js/tokens-raw.json';
+import TokensRaw from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens-raw.json';
 import {defineCustomElements} from '../dist/esm/loader';
 
 defineCustomElements();

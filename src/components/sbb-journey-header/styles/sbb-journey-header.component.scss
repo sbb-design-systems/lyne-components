@@ -4,8 +4,8 @@
 @include host-component-properties;
 
 :host {
-  --_icon-spacing-inset: var(--spacing-fixed-1x);
-  --_title-text-color-normal: var(--title-text-color-normal, var(--color-charcoal-default));
+  --_icon-spacing-inset: var(--sbb-spacing-fixed-1x);
+  --_title-text-color-normal: var(--title-text-color-normal, var(--sbb-color-charcoal-default));
 }
 
 .journey-header[id] {

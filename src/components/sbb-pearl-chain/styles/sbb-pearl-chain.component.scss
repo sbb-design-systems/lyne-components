@@ -16,14 +16,14 @@
 
   --dot-size-large: 10;
   --dot-size-small: 8;
-  --border-width: var(--border-width-2x);
-  --spacing-small: var(--spacing-fixed-1x);
-  --color-white: var(--color-white-default);
-  --color-default: var(--color-black-default);
-  --color-current-location: var(--color-red-default);
-  --color-current-location-dark: var(--color-red150-default);
-  --color-cancellation: var(--color-red-default);
-  --color-past: var(--color-metal-default);
+  --border-width: var(--sbb-border-width-2x);
+  --spacing-small: var(--sbb-spacing-fixed-1x);
+  --color-white: var(--sbb-color-white-default);
+  --color-default: var(--sbb-color-black-default);
+  --color-current-location: var(--sbb-color-red-default);
+  --color-current-location-dark: var(--sbb-color-red150-default);
+  --color-cancellation: var(--sbb-color-red-default);
+  --color-past: var(--sbb-color-metal-default);
 }
 
 .pearl-chain {
@@ -31,7 +31,7 @@
   box-sizing: border-box;
   display: flex;
   flex-wrap: nowrap;
-  color: var(--color-default);
+  color: var(--sbb-color-default);
   width: 100%;
   padding-block-start: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
   padding-block-end: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);

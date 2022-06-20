@@ -48,7 +48,7 @@
 }
 
 :host {
-  --image-border-radius: var(--border-radius-4x);
+  --image-border-radius: var(--sbb-border-radius-4x);
 }
 
 .image__figure {
@@ -68,7 +68,7 @@
 
 .image__figure .image__img {
   opacity: .000001;
-  transition: opacity var(--animation-duration-4x) var(--animation-easing);
+  transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 }
 
 .image__figure--loaded .image__img {
@@ -79,7 +79,7 @@
   position: relative;
   overflow: hidden;
   max-width: 100%;
-  margin-bottom: pxToRem(var(--spacing-fixed-4x));
+  margin-bottom: pxToRem(var(--sbb-spacing-fixed-4x));
   border-radius: pxToRem(var(--image-border-radius));
   @include image-aspect-ratio-16-9;
 }

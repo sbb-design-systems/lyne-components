@@ -4,7 +4,7 @@
 @include host-component-properties;
 
 :host {
-  --_stack-text-color-normal: var(--stack-text-color-normal, var(--color-granite-default));
+  --_stack-text-color-normal: var(--stack-text-color-normal, var(--sbb-color-granite-default));
 }
 
 // Reset
@@ -106,11 +106,11 @@
 
 // Quirk for slotted elements
 ::slotted(*) {
-  font-family: var(--typo-type-face-sbb-roman);
+  font-family: var(--sbb-typo-type-face-sbb-roman);
   font-weight: normal;
-  line-height: var(--typo-line-height-body-text);
-  letter-spacing: var(--typo-letter-spacing-body-text);
-  font-size: calc(var(--lyne-font-size-text-s) / var(--typo-scale-default) * 1rem);
+  line-height: var(--sbb-typo-line-height-body-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-body-text);
+  font-size: calc(var(--lyne-font-size-text-s) / var(--sbb-typo-scale-default) * 1rem);
   color: var(--_stack-text-color-normal);
   width: inherit;
 }

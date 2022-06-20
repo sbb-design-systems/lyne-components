@@ -9,12 +9,12 @@
 
   // Reminder: --_section-gap-horizontal needs a new responsive gap design token
   // var(--spacing-responsive-s); is just a placeholder for now
-  --_section-gap-horizontal: var(--section-gap-horizontal, var(--spacing-responsive-s));
-  --_section-gap-vertical: var(--section-gap-vertical, var(--spacing-responsive-l));
+  --_section-gap-horizontal: var(--section-gap-horizontal, var(--sbb-spacing-responsive-s));
+  --_section-gap-vertical: var(--section-gap-vertical, var(--sbb-spacing-responsive-l));
   --_section-background-color: var(--section-background-color, none);
 
   // Contextual design for sbb-stack
-  --stack-text-color-normal: var(--color-metal-default);
+  --stack-text-color-normal: var(--sbb-color-metal-default);
 }
 
 .section {
@@ -28,8 +28,8 @@
 }
 
 .section--primary-negative {
-  --_section-background-color: var(--color-charcoal-default);
-  --title-text-color-normal: var(--color-storm-default);
+  --_section-background-color: var(--sbb-color-charcoal-default);
+  --title-text-color-normal: var(--sbb-color-storm-default);
 }
 
 .section--page-spacing {

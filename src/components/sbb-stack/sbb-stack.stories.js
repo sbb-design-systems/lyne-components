@@ -1,7 +1,7 @@
 import {
-  ColorCharcoalDefault,
-  ColorWhiteDefault
-} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
+  SbbColorCharcoalDefault,
+  SbbColorWhiteDefault
+} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -17,7 +17,7 @@ const documentationPlatformContainerStyle = (context) => {
   }
 
   return {
-    'background-color': ColorCharcoalDefault
+    'background-color': SbbColorCharcoalDefault
   };
 };
 
@@ -29,10 +29,10 @@ const wrapperStyle = (context) => {
   const variantsOnDarkBg = ['primary-negative'];
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${ColorWhiteDefault};`;
+    return `background-color: ${SbbColorWhiteDefault};`;
   }
 
-  return `background-color: ${ColorCharcoalDefault};`;
+  return `background-color: ${SbbColorCharcoalDefault};`;
 };
 
 /* ************************************************* */

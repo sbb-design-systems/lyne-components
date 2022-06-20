@@ -9,7 +9,7 @@
 :host(sbb-timetable-transportation-number) {
   display: flex;
   flex-basis: 100%;
-  margin-block-end: pxToRem(var(--spacing-fixed-1x));
+  margin-block-end: pxToRem(var(--sbb-spacing-fixed-1x));
   overflow: hidden;
 }
 
@@ -42,7 +42,7 @@
   display: flex;
   flex: 0 0 pxToRem(var(--transportation-number-element-height));
   aspect-ratio: 1/1;
-  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+  margin-inline-end: pxToRem(var(--sbb-spacing-fixed-1x));
   overflow: hidden;
 }
 
@@ -55,7 +55,7 @@
 .transportation-number__product-text {
   display: flex;
   white-space: nowrap;
-  margin-inline-end: pxToRem(var(--spacing-fixed-2x));
+  margin-inline-end: pxToRem(var(--sbb-spacing-fixed-2x));
 }
 
 .transportation-number__product-icon {
@@ -86,7 +86,7 @@
 
 .transportation-number--second-level .transportation-number__direction {
   flex: 0 0 100%;
-  margin-block-start: pxToRem(var(--spacing-fixed-1x));
+  margin-block-start: pxToRem(var(--sbb-spacing-fixed-1x));
 }
 
 .transportation-number__direction_text {
