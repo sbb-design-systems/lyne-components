@@ -17,14 +17,14 @@ const {
   try {
 
     if (eventType !== 'api') {
-      console.log('-->> This is not a build triggered via API, therefore skipping update of lyne-design-tokens');
+      console.log('-->> This is not a build triggered via API, therefore skipping update of @sbb-esta/lyne-design-tokens');
       shell.exit(0);
     }
 
-    console.log('-->> This build is triggered via API, therefore update lyne-design-tokens');
+    console.log('-->> This build is triggered via API, therefore update @sbb-esta/lyne-design-tokens');
 
     // install lyne design tokens
-    shell.exec('npm install --save-dev lyne-design-tokens@latest lyne-icons@latest');
+    shell.exec('npm install --save-dev @sbb-esta/lyne-design-tokens@latest lyne-icons@latest');
 
     // commit package.json
     const commitMessage = `${await getCommit(buildId)} [skip ci]`;

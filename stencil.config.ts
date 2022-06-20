@@ -52,7 +52,7 @@ export const config: StencilConfig = {
         'src/global/mediaqueries.scss',
         'src/global/mixins.scss',
         'src/global/core/shared/variables.scss',
-        'node_modules/lyne-design-tokens/dist/scss/variables_css--placeholder.scss'
+        'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/variables_css--placeholder.scss'
       ]
     })
   ],
