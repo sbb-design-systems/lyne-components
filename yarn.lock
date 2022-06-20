@@ -1996,10 +1996,10 @@
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
 
-"@sbb-esta/lyne-design-tokens@0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.1.2.tgz#0f2bf0eb8dd9638e9c520ec826a38bba3dccdc64"
-  integrity sha512-kgaVcgvJ1p11n2k9013wg3aOw2mUnQlUuBA1OCD5iERgZJ/q4I+aZVOA94aDAS/JwOJ71A1ffcGbG0XKX3LFYg==
+"@sbb-esta/lyne-design-tokens@0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.1.3.tgz#fab342969aa2104dbe17c832742dc30b7527ccce"
+  integrity sha512-NHJk4X6zmBKvY5cL9oCWCakUL7mSekq7q1oa1NfwQe32hdkOORHvINlv49oM2L/LbbN4eakn21R/ufltiGHloQ==
 
 "@semantic-release/changelog@^6.0.1":
   version "6.0.1"
