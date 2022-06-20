@@ -14,7 +14,6 @@ import {
 import ts from 'typescript';
 
 export const config: StencilConfig = {
-  buildEs5: 'prod',
   globalScript: 'src/global/global.ts',
   globalStyle: 'src/global/global.shared.scss',
   namespace: 'lyne-components',
