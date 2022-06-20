@@ -39,17 +39,21 @@
 
 }
 
-.input-wrapper--error {
+.input-wrapper {
+  position: relative;
+}
+
+::slotted(.input-wrapper--error) {
   color: var(--text-color-input-error);
 }
 
-.input-wrapper__inner {
+::slotted(.input-wrapper__inner) {
   position: relative;
 }
 
 // Input
 // ----------------------------------------------
-.input {
+::slotted(.input) {
   @include text-m--regular();
   @include placeholder();
   @include ellipsis();
@@ -66,7 +70,7 @@
   border-radius: pxToRem(var(--border-radius-4x));
 }
 
-.input--no-border {
+::slotted(.input--no-border) {
   border: none;
   @include shadow-level-5-hard;
 

@@ -76,17 +76,16 @@ export class SbbFormField {
 
     return (
         <div class="input-wrapper">
-          <div>
-            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,
-            jsx-a11y/click-events-have-key-events */}
-            <label
-              onClick={() => this._setFocus()}
-              htmlFor={this._id}>
-              <slot name='label'>
-                <span>{ this.label }</span>
-              </slot> {optional}
-            </label>
-          </div>
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,
+          jsx-a11y/click-events-have-key-events */}
+          <label
+            class="input-label"
+            onClick={() => this._setFocus()}
+            htmlFor={this._id}>
+            <slot name='label'>
+              <span>{ this.label }</span>
+            </slot> {optional}
+          </label>
           <div>
             <slot name='prefix'></slot>
           </div>
