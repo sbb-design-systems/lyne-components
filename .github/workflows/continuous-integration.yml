@@ -86,6 +86,13 @@ jobs:
           fetch-depth: 0
       - uses: actions/download-artifact@v3
         with:
+          name: stencil
+          path: |
+            dist/
+            hydrate/
+            loader/
+      - uses: actions/download-artifact@v3
+        with:
           name: storybook
           path: storybook-static/
       - name: Publish to Chromatic
