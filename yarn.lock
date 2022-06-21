@@ -2131,10 +2131,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stencil/core@2.16.1":
-  version "2.16.1"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.16.1.tgz#f6752026af72a10356d5b1f27e2db6b1ee0c730f"
-  integrity sha512-s/UJp9qxExL3DyQPT70kiuWeb3AdjbUZM+5lEIXn30I2DLcLYPOPXfsoWJODieQywq+3vPiLZeIdkoqjf6jcSw==
+"@stencil/core@2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.17.0.tgz#503954009df62f1b5655a9a9deb3d8194d66c56e"
+  integrity sha512-KJJH097K2TJlJWj2LANWO0yXCidxOpv1L2MmtYqFxE443t75fxOhtKBZq6zebDaZj2DFGlUtV4pcM/uapfd8TQ==
 
 "@stencil/sass@1.5.2":
   version "1.5.2"
