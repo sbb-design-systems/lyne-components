@@ -27,7 +27,7 @@ jobs:
         id: pr-number
         run: echo "::set-output name=pr::$(<NR)"
         shell: bash
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: coverage
