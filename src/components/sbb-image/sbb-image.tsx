@@ -360,7 +360,7 @@ export class SbbImage {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "breakpoint-large-min"
+                  "value": "sbb-breakpoint-large-min"
                 },
                 "conditionOperator": false
               }
@@ -376,7 +376,7 @@ export class SbbImage {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "breakpoint-small-min"
+                  "value": "sbb-breakpoint-small-min"
                 },
                 "conditionOperator": false
               }
@@ -392,7 +392,7 @@ export class SbbImage {
                 "conditionFeature": "max-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "breakpoint-micro-max"
+                  "value": "sbb-breakpoint-micro-max"
                 },
                 "conditionOperator": false
               }
