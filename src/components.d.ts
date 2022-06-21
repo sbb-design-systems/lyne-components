@@ -25,6 +25,7 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
+import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
@@ -636,6 +637,44 @@ export namespace Components {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
+    interface SbbTeaser {
+        /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
+         */
+        "accessibilityLabel": string;
+        /**
+          * Teaser appearance
+         */
+        "appearance"?: InterfaceTeaserAttributes['appearance'];
+        /**
+          * The description attribute
+         */
+        "description": '';
+        /**
+          * The headline attribute
+         */
+        "headline": '';
+        /**
+          * The href value you want to link to
+         */
+        "hrefValue": string;
+        /**
+          * The image alt
+         */
+        "imgAlt": string;
+        /**
+          * The image src
+         */
+        "imgSrc": string;
+        /**
+          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image
+         */
+        "isStacked": boolean;
+        /**
+          * We would use this Prop if the margin and the aspect-ratio of the sbb-image is customizable
+         */
+        "pictureSizesConfig"?: string;
+    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -1095,6 +1134,12 @@ declare global {
         prototype: HTMLSbbStackElement;
         new (): HTMLSbbStackElement;
     };
+    interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
+    }
+    var HTMLSbbTeaserElement: {
+        prototype: HTMLSbbTeaserElement;
+        new (): HTMLSbbTeaserElement;
+    };
     interface HTMLSbbTeaserHeroElement extends Components.SbbTeaserHero, HTMLStencilElement {
     }
     var HTMLSbbTeaserHeroElement: {
@@ -1247,6 +1292,7 @@ declare global {
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
+        "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-text-input": HTMLSbbTextInputElement;
         "sbb-timetable": HTMLSbbTimetableElement;
@@ -1871,6 +1917,44 @@ declare namespace LocalJSX {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
+    interface SbbTeaser {
+        /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
+         */
+        "accessibilityLabel": string;
+        /**
+          * Teaser appearance
+         */
+        "appearance"?: InterfaceTeaserAttributes['appearance'];
+        /**
+          * The description attribute
+         */
+        "description"?: '';
+        /**
+          * The headline attribute
+         */
+        "headline"?: '';
+        /**
+          * The href value you want to link to
+         */
+        "hrefValue": string;
+        /**
+          * The image alt
+         */
+        "imgAlt"?: string;
+        /**
+          * The image src
+         */
+        "imgSrc"?: string;
+        /**
+          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image
+         */
+        "isStacked"?: boolean;
+        /**
+          * We would use this Prop if the margin and the aspect-ratio of the sbb-image is customizable
+         */
+        "pictureSizesConfig"?: string;
+    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -2196,6 +2280,7 @@ declare namespace LocalJSX {
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
+        "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-text-input": SbbTextInput;
         "sbb-timetable": SbbTimetable;
@@ -2248,6 +2333,7 @@ declare module "@stencil/core" {
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
+            "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;

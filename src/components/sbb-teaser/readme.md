@@ -1,4 +1,4 @@
-# lyne-teaser-thumbnail
+# sbb-teaser
 
 
 
@@ -17,7 +17,7 @@
 | `imgAlt`                          | `img-alt`              | The image alt                                                                                                                                                                      | `string`                          | `undefined` |
 | `imgSrc`                          | `img-src`              | The image src                                                                                                                                                                      | `string`                          | `undefined` |
 | `isStacked`                       | `is-stacked`           | Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image                                                       | `boolean`                         | `undefined` |
-| `pictureSizesConfig`              | `picture-sizes-config` | We would use this Prop if the margin and the aspect-ratio of the lyne-image is customizable                                                                                        | `string`                          | `undefined` |
+| `pictureSizesConfig`              | `picture-sizes-config` | We would use this Prop if the margin and the aspect-ratio of the sbb-image is customizable                                                                                         | `string`                          | `undefined` |
 
 
 ## Slots

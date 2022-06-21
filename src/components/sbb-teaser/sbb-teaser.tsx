@@ -1,12 +1,11 @@
 import {
   Component,
-  Element,
   h,
   Prop,
   Watch
 } from '@stencil/core';
 
-import { InterfaceTeaserAttributes } from './lyne-teaser.custom';
+import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 
 /**
  * @slot image - Slot used to render the image
@@ -17,16 +16,16 @@ import { InterfaceTeaserAttributes } from './lyne-teaser.custom';
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/lyne-teaser.default.scss',
-    shared: 'styles/lyne-teaser.shared.scss'
+    default: 'styles/sbb-teaser.default.scss',
+    shared: 'styles/sbb-teaser.shared.scss'
   },
-  tag: 'lyne-teaser'
+  tag: 'sbb-teaser'
 })
 
 /**
  * Generalized Teaser - for displaying an image, headline and paragraph
  */
-export class LyneTeaser {
+export class SbbTeaser {
 
   /** Teaser appearance */
   @Prop() public appearance?: InterfaceTeaserAttributes['appearance'] = 'primary';
@@ -81,25 +80,13 @@ export class LyneTeaser {
 
   /**
    * We would use this Prop if the margin and the aspect-ratio
-   * of the lyne-image is customizable
+   * of the sbb-image is customizable
    */
   @Prop() public pictureSizesConfig?: string;
-
-  /** Host element */
-  @Element() private _hostElement: HTMLElement;
-
-  private _hasImageSlot: boolean;
-  private _hasHeadlineSlot: boolean;
-  private _hasDescriptionSlot: boolean;
 
   public componentWillLoad(): void {
     // Validate props
     this.validateAccessibilityLabel(this.accessibilityLabel);
-
-    // Check slots
-    this._hasImageSlot = Boolean(this._hostElement.querySelector('[slot="image"]'));
-    this._hasHeadlineSlot = Boolean(this._hostElement.querySelector('[slot="headline"]'));
-    this._hasDescriptionSlot = Boolean(this._hostElement.querySelector('[slot="description"]'));
   }
 
   public render(): JSX.Element {
@@ -130,19 +117,10 @@ export class LyneTeaser {
       >
         <div class='teaser__content'>
           <div class='teaser__inner'>
-            {this._hasImageSlot
-              ? <div class='teaser__wrapper'><slot name='image'/></div>
-              : ''
-            }
+            <div class='teaser__wrapper'><slot name='image'/></div>
             <div class='teaser__text'>
-              {this._hasHeadlineSlot
-                ? <div class='teaser__lead'><slot name='headline'/></div>
-                : ''
-              }
-              {this._hasDescriptionSlot
-                ? <div class='teaser__description'><slot name='description'/></div>
-                : ''
-              }
+              <div class='teaser__lead'><slot name='headline'/></div>
+              <div class='teaser__description'><slot name='description'/></div>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import {
   ColorMilkDefault,
   ColorWhiteDefault
-} from 'lyne-design-tokens/dist/js/tokens.es6';
+} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -87,38 +87,38 @@ const defaultArgs = {
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
-const lyneTeaserImageArgs = {
+const sbbTeaserImageArgs = {
   src: 'https://via.placeholder.com/400x300',
   alt: '400x300 image'
 };
 
-const SlotLyneTeaserImageTemplate = (args) => (
+const SlotSbbTeaserImageTemplate = (args) => (
   <img slot='image' src={args.src} alt={args.alt} />
 );
 
-const lyneTeaserHeadlineArgs = {
+const sbbTeaserHeadlineArgs = {
   headline: 'This is a title',
   longHeadline: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 };
 
-const SlotLyneTeaserHeadlineTemplate = (args) => (
-  <lyne-title slot='headline' level='5' text={args.headline} />
+const SlotSbbTeaserHeadlineTemplate = (args) => (
+  <sbb-title slot='headline' level='5' text={args.headline} />
 );
 
-const SlotLyneTeaserLongHeadlineTemplate = (args) => (
-  <lyne-title slot='headline' level='5' text={args.longHeadline} />
+const SlotSbbTeaserLongHeadlineTemplate = (args) => (
+  <sbb-title slot='headline' level='5' text={args.longHeadline} />
 );
 
-const lyneTeaserDescriptionArgs = {
+const sbbTeaserDescriptionArgs = {
   description: 'This is a paragraph',
   longDescription: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 };
 
-const SlotLyneTeaserDescriptionTemplate = (args) => (
+const SlotSbbTeaserDescriptionTemplate = (args) => (
   <p slot='description'>{args.description}</p>
 );
 
-const SlotLyneTeaserLongDescriptionTemplate = (args) => (
+const SlotSbbTeaserLongDescriptionTemplate = (args) => (
   <p slot='description'>{args.longDescription}</p>
 );
 
@@ -127,11 +127,11 @@ const SlotLyneTeaserLongDescriptionTemplate = (args) => (
 /* ************************************************* */
 
 const TemplateDefaultTeaser = (args) => (
-  <lyne-teaser {...args} style='display: inline-block'>
-    <SlotLyneTeaserImageTemplate {...lyneTeaserImageArgs} style='width:110px;' />
-    <SlotLyneTeaserHeadlineTemplate {...lyneTeaserHeadlineArgs} />
-    <SlotLyneTeaserDescriptionTemplate {...lyneTeaserDescriptionArgs}/>
-  </lyne-teaser>
+  <sbb-teaser {...args} style='display: inline-block'>
+    <SlotSbbTeaserImageTemplate {...sbbTeaserImageArgs} style='width:110px;' />
+    <SlotSbbTeaserHeadlineTemplate {...sbbTeaserHeadlineArgs} />
+    <SlotSbbTeaserDescriptionTemplate {...sbbTeaserDescriptionArgs}/>
+  </sbb-teaser>
 );
 
 const TemplateNegativ = (args) => (
@@ -139,11 +139,11 @@ const TemplateNegativ = (args) => (
 );
 
 const TemplateLongText = (args) => (
-  <lyne-teaser {...args} style='width: 110px'>
-    <SlotLyneTeaserImageTemplate {...lyneTeaserImageArgs} style='max-width:110px;' />
-    <SlotLyneTeaserLongHeadlineTemplate {...lyneTeaserHeadlineArgs} />
-    <SlotLyneTeaserLongDescriptionTemplate {...lyneTeaserDescriptionArgs}/>
-  </lyne-teaser>
+  <sbb-teaser {...args} style='width: 110px'>
+    <SlotSbbTeaserImageTemplate {...sbbTeaserImageArgs} style='max-width:110px;' />
+    <SlotSbbTeaserLongHeadlineTemplate {...sbbTeaserHeadlineArgs} />
+    <SlotSbbTeaserLongDescriptionTemplate {...sbbTeaserDescriptionArgs}/>
+  </sbb-teaser>
 );
 
 const TemplateTeaserList = (args) => (
@@ -263,5 +263,5 @@ export default {
       extractComponentDescription: () => readme
     }
   },
-  title: 'components/lyne-teaser'
+  title: 'components/sbb-teaser'
 };
