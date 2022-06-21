@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-slot-component', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbSlotComponent],
-      html: '<sbb-slot-component />'
+      html: '<sbb-slot-component />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-slot-component>
           <mock:shadow-root>
             <div>
@@ -21,5 +18,4 @@ describe('sbb-slot-component', () => {
         </sbb-slot-component>
       `);
   });
-
 });

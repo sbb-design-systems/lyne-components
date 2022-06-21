@@ -9,5 +9,5 @@ if (version) {
 
 export default create({
   base: 'light',
-  brandTitle: title
+  brandTitle: title,
 });

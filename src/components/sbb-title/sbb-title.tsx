@@ -1,21 +1,15 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { InterfaceTitleAttributes } from './sbb-title.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-title.default.scss',
-    shared: 'styles/sbb-title.shared.scss'
+    shared: 'styles/sbb-title.shared.scss',
   },
-  tag: 'sbb-title'
+  tag: 'sbb-title',
 })
-
 export class SbbTitle {
-
   /** Text for the title */
   @Prop() public text!: string;
 
@@ -49,16 +43,11 @@ export class SbbTitle {
   @Prop() public variant: InterfaceTitleAttributes['variant'] = 'positive';
 
   public render(): JSX.Element {
-
     const TAGNAME = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
 
-    const visuallyHidden = this.visuallyHidden
-      ? ' title--hidden'
-      : '';
+    const visuallyHidden = this.visuallyHidden ? ' title--hidden' : '';
 
-    let {
-      visualLevel
-    } = this;
+    let { visualLevel } = this;
 
     if (!this.visualLevel) {
       visualLevel = this.level;
@@ -67,7 +56,7 @@ export class SbbTitle {
     const className = `title title-${visualLevel}${visuallyHidden} title--${this.variant}`;
 
     const attrs = {
-      class: className
+      class: className,
     };
 
     if (this.titleId && this.titleId !== '') {
@@ -75,6 +64,5 @@ export class SbbTitle {
     }
 
     return <TAGNAME {...attrs}>{this.text}</TAGNAME>;
-
   }
 }

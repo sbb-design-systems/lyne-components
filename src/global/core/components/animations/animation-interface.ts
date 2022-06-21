@@ -12,7 +12,9 @@ export interface InterfaceAnimationKeyFrame extends AnimationStyles {
   offset: number;
 }
 
-export type AnimationKeyFrames = [InterfaceAnimationKeyFrameEdge, InterfaceAnimationKeyFrameEdge] | InterfaceAnimationKeyFrame[];
+export type AnimationKeyFrames =
+  | [InterfaceAnimationKeyFrameEdge, InterfaceAnimationKeyFrameEdge]
+  | InterfaceAnimationKeyFrame[];
 
 export interface InterfaceAnimationCallbackOptions {
   oneTimeCallback: boolean;
@@ -236,11 +238,13 @@ export interface InterfaceAnimation {
    * upon the animation ending
    */
   // eslint-disable-next-line no-use-before-define
-  onFinish(callback: AnimationLifecycle, opts?: InterfaceAnimationCallbackOptions): InterfaceAnimation;
+  onFinish(
+    callback: AnimationLifecycle,
+    opts?: InterfaceAnimationCallbackOptions
+  ): InterfaceAnimation;
 }
 
 export interface InterfaceAnimationInternal extends InterfaceAnimation {
-
   /**
    * Sets the parent animation.
    */

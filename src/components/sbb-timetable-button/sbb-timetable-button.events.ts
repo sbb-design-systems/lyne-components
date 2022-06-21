@@ -1,3 +1,3 @@
 export default {
-  click: 'sbb-timetable-button_click'
+  click: 'sbb-timetable-button_click',
 };

@@ -44,7 +44,6 @@
   @include mq($from: medium) {
     margin-block-start: pxToRem(3);
   }
-
 }
 
 // Second Level Button appearance
@@ -65,7 +64,6 @@
   @include mq($from: medium) {
     margin-block-start: pxToRem(3);
   }
-
 }
 
 // General List Styling

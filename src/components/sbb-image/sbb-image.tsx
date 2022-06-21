@@ -1,9 +1,4 @@
-import {
-  Component,
-  h,
-  Prop,
-  State
-} from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 
 import { InterfaceImageAttributes } from './sbb-image.custom';
 import pictureSizesConfigData from './sbb-image.helper';
@@ -11,20 +6,18 @@ import tokens from '@sbb-esta/lyne-design-tokens/dist/js/tokens.json';
 
 const eventListenerOptions = {
   once: true,
-  passive: true
+  passive: true,
 };
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-image.default.scss',
-    shared: 'styles/sbb-image.shared.scss'
+    shared: 'styles/sbb-image.shared.scss',
   },
-  tag: 'sbb-image'
+  tag: 'sbb-image',
 })
-
 export class SbbImage {
-
   private _captionElement?: HTMLElement;
   private _imageElement!: HTMLElement;
   private _linksInCaption;
@@ -254,7 +247,6 @@ export class SbbImage {
     const breakpointSizeNameValue = tokens[breakpointSizeName];
 
     return `${breakpointSizeNameValue / tokens['typo-scale-default']}rem`;
-
   }
 
   private _removeFocusAbilityFromLinksInCaption(): void {
@@ -270,9 +262,7 @@ export class SbbImage {
   }
 
   public render(): JSX.Element {
-    const imageSrc = this.imageSrc
-      ? this.imageSrc
-      : this.imageSrcExamples;
+    const imageSrc = this.imageSrc ? this.imageSrc : this.imageSrcExamples;
 
     const attributes: {
       ariaHidden?: string;
@@ -283,7 +273,7 @@ export class SbbImage {
       nonRetina: '45',
       nonRetinaDataSaver: '30',
       retina: '20',
-      retinaDataSaver: '10'
+      retinaDataSaver: '10',
     };
 
     const retinaQuality = qualitySettings.retina;
@@ -292,7 +282,7 @@ export class SbbImage {
     const imageParameters = {
       autoImprove: 'auto=format,compress,cs=tinysrgb',
       crop: `&fit=crop&crop=focalpoint&fp-x=${this.focalPointX}&fp-y=${this.focalPointY}&fp-z=1`,
-      focalPointDebug: '&fp-debug=true'
+      focalPointDebug: '&fp-debug=true',
     };
 
     let imageUrlLQIP = `${imageSrc}?blur=100&w=100&h=56`;
@@ -324,9 +314,7 @@ export class SbbImage {
       this.importance = 'low';
     }
 
-    let {
-      caption
-    } = this;
+    let { caption } = this;
 
     let schemaData = '';
 
@@ -343,9 +331,7 @@ export class SbbImage {
       }`;
     }
 
-    let {
-      pictureSizesConfig
-    } = this;
+    let { pictureSizesConfig } = this;
 
     if (this.pictureSizesConfig === undefined) {
       pictureSizesConfig = `{
@@ -404,40 +390,29 @@ export class SbbImage {
 
     const configs = pictureSizesConfigData(pictureSizesConfig);
 
-    const variantClass = this.variant
-      ? ` image__figure--${this.variant}`
-      : '';
+    const variantClass = this.variant ? ` image__figure--${this.variant}` : '';
 
     return (
-
-      <figure
-        class={`image__figure${variantClass}${this._loadedClass}`}
-        {...attributes}
-      >
-        <div class='image__wrapper'>
-          {
-            this.lqip
-              ? (
-                <img
-                  alt=''
-                  class='image__blur-hash'
-                  src={imageUrlLQIP}
-                  width='1000'
-                  height='562'
-                  loading={this.loading}
-                  decoding={this.decoding}
-                />
-              )
-              : ''
-          }
+      <figure class={`image__figure${variantClass}${this._loadedClass}`} {...attributes}>
+        <div class="image__wrapper">
+          {this.lqip ? (
+            <img
+              alt=""
+              class="image__blur-hash"
+              src={imageUrlLQIP}
+              width="1000"
+              height="562"
+              loading={this.loading}
+              decoding={this.decoding}
+            />
+          ) : (
+            ''
+          )}
 
           <picture>
             {/* render picture element sources */}
             {configs.map((config) => {
-
-              const {
-                mediaQueries
-              } = config;
+              const { mediaQueries } = config;
 
               const imageHeight = config.image.height;
               const imageWidth = config.image.width;
@@ -454,12 +429,9 @@ export class SbbImage {
                   mqValue = mq.conditionFeatureValue.value;
                 }
 
-                const mqCombiner = mq.conditionOperator
-                  ? ` ${mq.conditionOperator} `
-                  : '';
+                const mqCombiner = mq.conditionOperator ? ` ${mq.conditionOperator} ` : '';
 
                 mediaQuery += `(${mqCondition}: ${mqValue})${mqCombiner}`;
-
               });
 
               return [
@@ -468,17 +440,19 @@ export class SbbImage {
                   sizes={`${imageWidth}px`}
                   srcSet={
                     `${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${nonRetinaQuality} ${imageWidth}w, ` +
-                    `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${retinaQuality} ${imageWidth * 2}w`
+                    `${imageUrlWithParams}&w=${imageWidth * 2}&h=${
+                      imageHeight * 2
+                    }&q=${retinaQuality} ${imageWidth * 2}w`
                   }
-                />
+                />,
               ];
             })}
             <img
               alt={this.alt}
-              class='image__img'
+              class="image__img"
               src={imageSrc}
-              width='1000'
-              height='562'
+              width="1000"
+              height="562"
               loading={this.loading}
               decoding={this.decoding}
               importance={this.importance}
@@ -487,43 +461,32 @@ export class SbbImage {
               }}
             />
           </picture>
-
         </div>
-        {
-          caption
-            ? (
-              <figcaption
-                class='image__caption'
-                innerHTML={caption}
-                ref={(el): void => {
-                  this._captionElement = el;
-                }}
-              >
-              </figcaption>
-            )
-            : ''
-        }
-        {
-          schemaData
-            ? (
-              <script
-                type='application/ld+json'
-                innerHTML={schemaData}
-              >
-              </script>
-            )
-            : ''
-        }
+        {caption ? (
+          <figcaption
+            class="image__caption"
+            innerHTML={caption}
+            ref={(el): void => {
+              this._captionElement = el;
+            }}
+          ></figcaption>
+        ) : (
+          ''
+        )}
+        {schemaData ? <script type="application/ld+json" innerHTML={schemaData}></script> : ''}
       </figure>
     );
   }
 
   public componentDidRender(): void {
-
-    this._imageElement.addEventListener('load', () => {
-      this._logPerformanceMarks();
-      this._addLoadedClass();
-    }, eventListenerOptions);
+    this._imageElement.addEventListener(
+      'load',
+      () => {
+        this._logPerformanceMarks();
+        this._addLoadedClass();
+      },
+      eventListenerOptions
+    );
 
     if (!this._captionElement) {
       return;
@@ -549,12 +512,8 @@ export class SbbImage {
       return imageUrlWithParams;
     }
 
-    const [
-      imgUrl,
-      ...params
-    ] = imgUrlParts;
+    const [imgUrl, ...params] = imgUrlParts;
 
-    return `${imgUrl}?${params.reverse()
-      .join('&')}`;
+    return `${imgUrl}?${params.reverse().join('&')}`;
   }
 }

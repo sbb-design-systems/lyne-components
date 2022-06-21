@@ -1,10 +1,4 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop,
-  Watch
-} from '@stencil/core';
+import { Component, Element, h, Prop, Watch } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
@@ -27,16 +21,15 @@ import { InterfaceCardProductAttributes } from './sbb-card-product.custom';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-card-product.default.scss',
-    shared: 'styles/sbb-card-product.shared.scss'
+    shared: 'styles/sbb-card-product.shared.scss',
   },
-  tag: 'sbb-card-product'
+  tag: 'sbb-card-product',
 })
 
 /**
  * Generalized product card — merge of ticket and subscription
  */
 export class SbbCardProduct {
-
   /** CardProduct appearance */
   @Prop() public appearance?: InterfaceCardProductAttributes['appearance'] = 'primary';
 
@@ -64,7 +57,9 @@ export class SbbCardProduct {
   @Watch('accessibilityLabel')
   validateAccessibilityLabel(newValue: string) {
     const isBlank = typeof newValue !== 'string' || newValue === '';
-    if (isBlank) { throw new Error('accessibilityLabel: required') }
+    if (isBlank) {
+      throw new Error('accessibilityLabel: required');
+    }
   }
   /* eslint-enable */
 
@@ -126,7 +121,7 @@ export class SbbCardProduct {
     const event = new CustomEvent(events.click, {
       bubbles: true,
       composed: true,
-      detail: eventDetail
+      detail: eventDetail,
     });
 
     this._hostElement.dispatchEvent(event);
@@ -156,7 +151,6 @@ export class SbbCardProduct {
   }
 
   public render(): JSX.Element {
-
     const currentLanguage = getDocumentLang();
     let TAGNAME;
 
@@ -180,7 +174,7 @@ export class SbbCardProduct {
     if (this.idValue) {
       additionalCardAttributes = {
         ...additionalCardAttributes,
-        id: this.idValue
+        id: this.idValue,
       };
     }
 
@@ -191,7 +185,6 @@ export class SbbCardProduct {
     }
 
     if (this.isButton) {
-
       /**
        * Product card behaves like a button
        * ----------------------------------------------------------------
@@ -210,20 +203,19 @@ export class SbbCardProduct {
       if (this.isDisabled) {
         additionalCardAttributes = {
           ...additionalCardAttributes,
-          disabled: 'disabled'
+          disabled: 'disabled',
         };
       }
 
       additionalCardAttributes = {
         ...additionalCardAttributes,
         'aria-haspopup': this.ariaHaspopup,
-        'name': this.name,
-        'onClick': this._buttonClick,
-        'type': this.type,
-        'value': this.value
+        name: this.name,
+        onClick: this._buttonClick,
+        type: this.type,
+        value: this.value,
       };
     } else {
-
       /**
        * Product card behaves like a link (a)
        * ----------------------------------------------------------------
@@ -251,7 +243,7 @@ export class SbbCardProduct {
         additionalCardAttributes = {
           ...additionalCardAttributes,
           rel: 'external noopener nofollow',
-          target: '_blank'
+          target: '_blank',
         };
         ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
       }
@@ -259,7 +251,7 @@ export class SbbCardProduct {
       if (this.hrefValue) {
         additionalCardAttributes = {
           ...additionalCardAttributes,
-          href: this.hrefValue
+          href: this.hrefValue,
         };
       }
     }
@@ -267,48 +259,70 @@ export class SbbCardProduct {
     return (
       <TAGNAME
         aria-label={ariaLabel}
-        class={
-          `card-product card-product--${this.appearance} card-product--${this.layout}
-          ${cardSizeClass}`
-        }
+        class={`card-product card-product--${this.appearance} card-product--${this.layout}
+          ${cardSizeClass}`}
         {...additionalCardAttributes}
       >
-        <div class='card-product__content'>
-          {this._hasIconSlot
-            ? <span class='card-product__icon'><slot name='icon'/></span>
-            : ''
-          }
-          <div class='card-product__inner'>
-            {this._hasCategorySlot
-              ? <div class='card-product__category'><slot name='category'/></div>
-              : ''
-            }
-            {this._hasTitleSlot
-              ? <div class='card-product__title'><slot name='title'/></div>
-              : ''
-            }
-            {this._hasLeadSlot
-              ? <div class='card-product__lead'><slot name='lead'/></div>
-              : ''
-            }
-            {this._hasTextSlot
-              ? <p class='card-product__text'><slot name='text'/></p>
-              : ''
-            }
-            {this._hasDetailsSlot
-              ? <div class='card-product__details'><slot name='details'/></div>
-              : ''
-            }
+        <div class="card-product__content">
+          {this._hasIconSlot ? (
+            <span class="card-product__icon">
+              <slot name="icon" />
+            </span>
+          ) : (
+            ''
+          )}
+          <div class="card-product__inner">
+            {this._hasCategorySlot ? (
+              <div class="card-product__category">
+                <slot name="category" />
+              </div>
+            ) : (
+              ''
+            )}
+            {this._hasTitleSlot ? (
+              <div class="card-product__title">
+                <slot name="title" />
+              </div>
+            ) : (
+              ''
+            )}
+            {this._hasLeadSlot ? (
+              <div class="card-product__lead">
+                <slot name="lead" />
+              </div>
+            ) : (
+              ''
+            )}
+            {this._hasTextSlot ? (
+              <p class="card-product__text">
+                <slot name="text" />
+              </p>
+            ) : (
+              ''
+            )}
+            {this._hasDetailsSlot ? (
+              <div class="card-product__details">
+                <slot name="details" />
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
-        {this._hasCardBadgeSlot
-          ? <div class='card-product__card-badge'><slot name='card-badge'/></div>
-          : ''
-        }
-        {this._hasActionSlot
-          ? <div class='card-product__action'><slot name='action'/></div>
-          : ''
-        }
+        {this._hasCardBadgeSlot ? (
+          <div class="card-product__card-badge">
+            <slot name="card-badge" />
+          </div>
+        ) : (
+          ''
+        )}
+        {this._hasActionSlot ? (
+          <div class="card-product__action">
+            <slot name="action" />
+          </div>
+        ) : (
+          ''
+        )}
       </TAGNAME>
     );
   }

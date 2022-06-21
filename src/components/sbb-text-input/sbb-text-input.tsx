@@ -1,15 +1,7 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 import events from './sbb-text-input.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import {
-  i18nMandatoryField,
-  i18nOptional
-} from '../../global/i18n';
+import { i18nMandatoryField, i18nOptional } from '../../global/i18n';
 import { InterfaceTextInputAttributes } from './sbb-text-input.custom';
 import { guid } from '../../global/guid';
 import debounce from '../../global/helpers/debounce';
@@ -22,13 +14,11 @@ import debounce from '../../global/helpers/debounce';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-text-input.default.scss',
-    shared: 'styles/sbb-text-input.shared.scss'
+    shared: 'styles/sbb-text-input.shared.scss',
   },
-  tag: 'sbb-text-input'
+  tag: 'sbb-text-input',
 })
-
 export class SbbTextInput {
-
   private _inputElement!: HTMLInputElement;
   private _additionalInputClasses = [];
   private _additionalInputWrapperClasses = [];
@@ -50,7 +40,8 @@ export class SbbTextInput {
    * autocomplete values. Read more about them
    * here: https://mzl.la/3wpfaDV
    */
-  @Prop() public inputAutoCompleteValue?: InterfaceTextInputAttributes['inputAutoCompleteValue'];
+  @Prop()
+  public inputAutoCompleteValue?: InterfaceTextInputAttributes['inputAutoCompleteValue'];
 
   /**
    * If set to true, the input field will
@@ -64,8 +55,9 @@ export class SbbTextInput {
    * input field.
    */
   @Prop({
-    reflect: true
-  }) public inputError?: boolean;
+    reflect: true,
+  })
+  public inputError?: boolean;
 
   /**
    * Each input needs to have an individual id.
@@ -158,7 +150,8 @@ export class SbbTextInput {
   /**
    * The aria-autocomplete attribute for the input element.
    */
-  @Prop() public inputAriaAutoComplete?: InterfaceTextInputAttributes['inputAriaAutoComplete'];
+  @Prop()
+  public inputAriaAutoComplete?: InterfaceTextInputAttributes['inputAriaAutoComplete'];
 
   /**
    * The id to use as the aira-controls attribute for the input element.
@@ -173,7 +166,7 @@ export class SbbTextInput {
 
     const eventDetail = {
       id: '',
-      value: this._inputElement.value
+      value: this._inputElement.value,
     };
 
     if (this.eventId) {
@@ -183,14 +176,13 @@ export class SbbTextInput {
     const event = new CustomEvent(events[evt.type], {
       bubbles: true,
       composed: true,
-      detail: eventDetail
+      detail: eventDetail,
     });
 
     this._element.dispatchEvent(event);
   };
 
   private _getAdditionalStyleClasses(): void {
-
     this._additionalInputWrapperClasses = [];
 
     if (!this.labelVisible) {
@@ -208,76 +200,73 @@ export class SbbTextInput {
     if (this.borderless) {
       this._additionalInputClasses.push('input--no-border');
     }
-
   }
 
   private _getAdditionalInputAttributes(): void {
-
     this._addtitionalInputAttributes = {};
 
     if (this.inputDisabled) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        disabled: true
+        disabled: true,
       };
     }
 
     if (this.inputPattern) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        pattern: this.inputPattern
+        pattern: this.inputPattern,
       };
     }
 
     if (this.inputMaxLength) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        maxlength: this.inputMaxLength
+        maxlength: this.inputMaxLength,
       };
     }
 
     if (this.inputMinLength) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        minlength: this.inputMinLength
+        minlength: this.inputMinLength,
       };
     }
 
     if (this.inputError) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        'aria-invalid': 'true'
+        'aria-invalid': 'true',
       };
     }
 
     if (this.inputRole) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        role: this.inputRole
+        role: this.inputRole,
       };
     }
 
     if (this.inputAriaExpanded) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        'aria-expanded': `${this.inputAriaExpanded}`
+        'aria-expanded': `${this.inputAriaExpanded}`,
       };
     }
 
     if (this.inputAriaAutoComplete) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        'aria-autocomplete': this.inputAriaAutoComplete
+        'aria-autocomplete': this.inputAriaAutoComplete,
       };
     }
 
     if (this.inputAriaControls) {
       this._addtitionalInputAttributes = {
         ...this._addtitionalInputAttributes,
-        'aria-controls': this.inputAriaControls
+        'aria-controls': this.inputAriaControls,
       };
     }
-
   }
 
   /**
@@ -286,13 +275,11 @@ export class SbbTextInput {
    * and add toggle handling in here.
    */
   private _registerShowPasswordToggle(): void {
-
     /**
      * if (this.inputAutoCompleteValue !== 'new-password') {
      *  return;
      *}
      */
-
   }
 
   /**
@@ -300,7 +287,6 @@ export class SbbTextInput {
    * in Voice Over on iOS Safari
    */
   private _prepareAriaLabelOfLabel(): void {
-
     if (this.inputRequired) {
       this._labelAriaLabel = this.label;
     } else {
@@ -339,7 +325,6 @@ export class SbbTextInput {
   }
 
   public render(): JSX.Element {
-
     this._getAdditionalStyleClasses();
     this._getAdditionalInputAttributes();
     this._registerShowPasswordToggle();
@@ -360,16 +345,17 @@ export class SbbTextInput {
      */
 
     return (
-      <div
-        class={`input-wrapper ${this._additionalInputWrapperClasses.join(' ')}`}
-      >
-        <div class='input-wrapper__inner'>
-          {this.icon
-            ? <span class='input__icon'><slot name='icon'/></span>
-            : ''
-          }
+      <div class={`input-wrapper ${this._additionalInputWrapperClasses.join(' ')}`}>
+        <div class="input-wrapper__inner">
+          {this.icon ? (
+            <span class="input__icon">
+              <slot name="icon" />
+            </span>
+          ) : (
+            ''
+          )}
           <input
-            autocapitalize='off'
+            autocapitalize="off"
             autocomplete={this.inputAutoCompleteValue}
             class={`input ${this._additionalInputClasses.join(' ')}`}
             id={this._id}
@@ -384,32 +370,24 @@ export class SbbTextInput {
             }}
             value={this.inputValue || ''}
           />
-          <label
-            aria-label={this._labelAriaLabel}
-            class='input-label'
-            htmlFor={this._id}
-          >
-            <span
-              aria-hidden='true'
-              class='input-label--text'
-            >
+          <label aria-label={this._labelAriaLabel} class="input-label" htmlFor={this._id}>
+            <span aria-hidden="true" class="input-label--text">
               {this.label}
             </span>
-            {this.inputRequired
-              ? ''
-              : <span
-                aria-hidden='true'
-                class='input-label--optional'
-              >
+            {this.inputRequired ? (
+              ''
+            ) : (
+              <span aria-hidden="true" class="input-label--optional">
                 &nbsp;{i18nOptional[this._currentLanguage]}
               </span>
-            }
+            )}
           </label>
         </div>
-        {this.inputError
-          ? <sbb-input-error message={i18nMandatoryField[this._currentLanguage]}></sbb-input-error>
-          : ''
-        }
+        {this.inputError ? (
+          <sbb-input-error message={i18nMandatoryField[this._currentLanguage]}></sbb-input-error>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

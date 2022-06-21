@@ -1,46 +1,34 @@
 import {
   ColorCharcoalDefault,
-  ColorWhiteDefault
+  ColorWhiteDefault,
 } from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => (
-  <sbb-logo {...args} />
-);
+const Template = (args) => <sbb-logo {...args} />;
 
 const variants = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'default',
-    'negative',
-    'on-red',
-    'black-on-white',
-    'white-on-black'
-  ]
+  options: ['default', 'negative', 'on-red', 'black-on-white', 'white-on-black'],
 };
 
 const protectiveRoom = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'none',
-    'ideal',
-    'minimal'
-  ]
+  options: ['none', 'ideal', 'minimal'],
 };
 
 const defaultArgTypes = {
   'protective-room': protectiveRoom,
-  'variant': variants
+  variant: variants,
 };
 
 const defaultArgs = {
   'protective-room': protectiveRoom.options[0],
-  'variant': variants.options[0]
+  variant: variants.options[0],
 };
 
 export const NoProtectiveRoom = Template.bind({});
@@ -49,7 +37,7 @@ NoProtectiveRoom.argTypes = defaultArgTypes;
 NoProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
 
 NoProtectiveRoom.documentation = {
-  title: 'No protective room'
+  title: 'No protective room',
 };
 
 /* eslint-disable prefer-destructuring */
@@ -61,7 +49,7 @@ IdealProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
 IdealProtectiveRoom.args['protective-room'] = protectiveRoom.options[1];
 
 IdealProtectiveRoom.documentation = {
-  title: 'Ideal protective room'
+  title: 'Ideal protective room',
 };
 
 export const MinimalProtectiveRoom = Template.bind({});
@@ -71,7 +59,7 @@ MinimalProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
 MinimalProtectiveRoom.args['protective-room'] = protectiveRoom.options[2];
 
 MinimalProtectiveRoom.documentation = {
-  title: 'Minimal protective room'
+  title: 'Minimal protective room',
 };
 
 export const Negative = Template.bind({});
@@ -84,18 +72,18 @@ Negative.args.variant = variants.options[1];
 Negative.decorators = [
   (Story) => (
     <div style={`background-color: ${ColorCharcoalDefault};`}>
-      <Story/>
+      <Story />
     </div>
-  )
+  ),
 ];
 
 Negative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
-    }
+      'background-color': ColorCharcoalDefault,
+    },
   },
-  title: 'Negative'
+  title: 'Negative',
 };
 
 export const OnRed = Template.bind({});
@@ -106,7 +94,7 @@ OnRed.args['protective-room'] = protectiveRoom.options[1];
 OnRed.args.variant = variants.options[2];
 
 OnRed.documentation = {
-  title: 'On red'
+  title: 'On red',
 };
 
 export const BlackOnWhite = Template.bind({});
@@ -117,7 +105,7 @@ BlackOnWhite.args['protective-room'] = protectiveRoom.options[1];
 BlackOnWhite.args.variant = variants.options[3];
 
 BlackOnWhite.documentation = {
-  title: 'Black on white'
+  title: 'Black on white',
 };
 
 export const WhiteOnBlack = Template.bind({});
@@ -130,18 +118,18 @@ WhiteOnBlack.args.variant = variants.options[4];
 WhiteOnBlack.decorators = [
   (Story) => (
     <div style={`background-color: ${ColorCharcoalDefault};`}>
-      <Story/>
+      <Story />
     </div>
-  )
+  ),
 ];
 
 WhiteOnBlack.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
-    }
+      'background-color': ColorCharcoalDefault,
+    },
   },
-  title: 'White on black'
+  title: 'White on black',
 };
 
 /* eslint-enable prefer-destructuring */
@@ -149,15 +137,15 @@ WhiteOnBlack.documentation = {
 export default {
   decorators: [
     (Story) => (
-      <div style='max-width: 300px;'>
-        <Story/>
+      <div style="max-width: 300px;">
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'brand elements/SBB Logo'
+  title: 'brand elements/SBB Logo',
 };

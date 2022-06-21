@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import { InterfaceSignetAttributes } from './sbb-signet.custom';
 import sbbSignetSVG from './assets/sbb_signet.svg';
@@ -11,13 +7,11 @@ import sbbSignetSVG from './assets/sbb_signet.svg';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-signet.default.scss',
-    shared: 'styles/sbb-signet.shared.scss'
+    shared: 'styles/sbb-signet.shared.scss',
   },
-  tag: 'sbb-signet'
+  tag: 'sbb-signet',
 })
-
 export class SbbSignet {
-
   /**
    * According to the Corporate Design Guidelines the signet
    * can be used in these variants
@@ -31,10 +25,11 @@ export class SbbSignet {
 
   public render(): JSX.Element {
     return (
-      <span class={`sbb-signet sbb-signet--${this.variant} sbb-signet--protective-room sbb-signet--protective-room-${this.protectiveRoom}`}>
-        <span class='sbb-signet__svg' innerHTML={sbbSignetSVG}></span>
+      <span
+        class={`sbb-signet sbb-signet--${this.variant} sbb-signet--protective-room sbb-signet--protective-room-${this.protectiveRoom}`}
+      >
+        <span class="sbb-signet__svg" innerHTML={sbbSignetSVG}></span>
       </span>
     );
   }
-
 }

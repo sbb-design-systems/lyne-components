@@ -1,9 +1,6 @@
 # sbb-autocomplete
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -21,7 +18,6 @@
 | `minChars`                | `min-chars`              | Define how many chars a user must type into the input field for the autocomplete list to show up.                                                                 | `number`  | `0`                   |
 | `value`                   | `value`                  | The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.                               | `string`  | `undefined`           |
 
-
 ## Dependencies
 
 ### Depends on
@@ -30,6 +26,7 @@
 - [sbb-autocomplete-item](../sbb-autocomplete-item)
 
 ### Graph
+
 ```mermaid
 graph TD;
   sbb-autocomplete --> sbb-text-input
@@ -38,6 +35,4 @@ graph TD;
   style sbb-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
-
-
+---

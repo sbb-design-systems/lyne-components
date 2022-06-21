@@ -1,4 +1,4 @@
-@function pxToRem($size, $negate:null) {
+@function pxToRem($size, $negate: null) {
   $multiplier: 1rem;
   @if $negate {
     $multiplier: -1rem;

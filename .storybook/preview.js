@@ -1,5 +1,5 @@
 import TokensRaw from '@sbb-esta/lyne-design-tokens/dist/js/tokens-raw.json';
-import {defineCustomElements} from '../dist/esm/loader';
+import { defineCustomElements } from '../dist/esm/loader';
 
 defineCustomElements();
 
@@ -12,7 +12,7 @@ const getBreakpointTokens = () => {
 
     return isBreakpoint && isMin;
   });
-}
+};
 
 const getViewports = () => {
   let viewports = [];
@@ -55,17 +55,26 @@ export const parameters = {
   // Set the viewports in Chromatic globally.
   chromatic: {
     delay: 1000,
-    viewports: getViewports()
+    viewports: getViewports(),
   },
   breakpoints: {
     breakpointNames: getBreakpointNames(),
-    debounceTimeout: 10
+    debounceTimeout: 10,
   },
   options: {
     storySort: {
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: ['pages', ['home', 'home personalized'], 'components', ['*', 'form elements', 'timetable', 'cards', 'layout'], 'brand elements', '*', 'internals', 'lab']
-    }
-  }
+      order: [
+        'pages',
+        ['home', 'home personalized'],
+        'components',
+        ['*', 'form elements', 'timetable', 'cards', 'layout'],
+        'brand elements',
+        '*',
+        'internals',
+        'lab',
+      ],
+    },
+  },
 };

@@ -3,20 +3,17 @@ import readme from './readme.md';
 import sampleData from './sbb-timetable-row-day-change.sample-data';
 
 const Template = (args) => (
-  <sbb-timetable-row-day-change
-    config={JSON.stringify(args.config)}
-  >
-  </sbb-timetable-row-day-change>
+  <sbb-timetable-row-day-change config={JSON.stringify(args.config)}></sbb-timetable-row-day-change>
 );
 
 const config = {
   table: {
-    disable: false
-  }
+    disable: false,
+  },
 };
 
 const defaultArgTypes = {
-  config
+  config,
 };
 
 /* ************************************************* */
@@ -26,45 +23,41 @@ export const currentDayHidden = Template.bind({});
 
 currentDayHidden.argTypes = defaultArgTypes;
 currentDayHidden.args = {
-  config: sampleData[0]
+  config: sampleData[0],
 };
 
 currentDayHidden.documentation = {
-  title: 'Current Day Hidden'
+  title: 'Current Day Hidden',
 };
 
 export const currentDayVisible = Template.bind({});
 
 currentDayVisible.argTypes = defaultArgTypes;
 currentDayVisible.args = {
-  config: sampleData[1]
+  config: sampleData[1],
 };
 
 currentDayVisible.documentation = {
-  title: 'Current Day Visible'
+  title: 'Current Day Visible',
 };
 
 export const dayChange = Template.bind({});
 
 dayChange.argTypes = defaultArgTypes;
 dayChange.args = {
-  config: sampleData[2]
+  config: sampleData[2],
 };
 
 dayChange.documentation = {
-  title: 'Day Change'
+  title: 'Day Change',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-row-day-change'
+  title: 'internals/sbb-timetable-row-day-change',
 };

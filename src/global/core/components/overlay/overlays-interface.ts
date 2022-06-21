@@ -36,4 +36,3 @@ export interface InterfaceHTMLSBBOverlayElement extends InterfaceHTMLStencilElem
 
   dismiss(data?: any, role?: string): Promise<boolean>;
 }
-

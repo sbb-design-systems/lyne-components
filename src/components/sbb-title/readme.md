@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property            | Attribute         | Description                                                                                                                                                                                            | Type                                     | Default      |
@@ -14,15 +13,15 @@
 | `visualLevel`       | `visual-level`    | Visual level for the title. If you don't define the visual-level, the value for level will be used.                                                                                                    | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined`  |
 | `visuallyHidden`    | `visually-hidden` | Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true          | `boolean`                                | `undefined`  |
 
-
 ## Dependencies
 
 ### Used by
 
- - [sbb-footer](../sbb-footer)
- - [sbb-link-list](../sbb-link-list)
+- [sbb-footer](../sbb-footer)
+- [sbb-link-list](../sbb-link-list)
 
 ### Graph
+
 ```mermaid
 graph TD;
   sbb-footer --> sbb-title
@@ -30,6 +29,4 @@ graph TD;
   style sbb-title fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
-
-
+---

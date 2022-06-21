@@ -6,35 +6,29 @@ const Template = (args) => (
   <sbb-timetable-cus-him
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
-  >
-  </sbb-timetable-cus-him>
+  ></sbb-timetable-cus-him>
 );
 
 const appearance = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'first-level-list',
-    'second-level-list',
-    'second-level-button',
-    'second-level-message'
-  ]
+  options: ['first-level-list', 'second-level-list', 'second-level-button', 'second-level-message'],
 };
 
 const config = {
   table: {
-    disable: false
-  }
+    disable: false,
+  },
 };
 
 const defaultArgTypes = {
   appearance,
-  config
+  config,
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0]
+  appearance: appearance.options[0],
 };
 
 /* ************************************************* */
@@ -45,11 +39,11 @@ export const CusHimFirstLevelList = Template.bind({});
 CusHimFirstLevelList.argTypes = defaultArgTypes;
 CusHimFirstLevelList.args = {
   ...defaultArgs,
-  config: sampleData[2]
+  config: sampleData[2],
 };
 
 CusHimFirstLevelList.documentation = {
-  title: 'CUS/HIM Icon - First Level List - Single Item only'
+  title: 'CUS/HIM Icon - First Level List - Single Item only',
 };
 
 export const CusHimSecondLevelList = Template.bind({});
@@ -57,11 +51,11 @@ export const CusHimSecondLevelList = Template.bind({});
 CusHimSecondLevelList.argTypes = defaultArgTypes;
 CusHimSecondLevelList.args = {
   appearance: appearance.options[1],
-  config: sampleData[1]
+  config: sampleData[1],
 };
 
 CusHimSecondLevelList.documentation = {
-  title: 'CUS/HIM Icon - Second Level List'
+  title: 'CUS/HIM Icon - Second Level List',
 };
 
 export const CusHimSecondLevelButton = Template.bind({});
@@ -69,11 +63,11 @@ export const CusHimSecondLevelButton = Template.bind({});
 CusHimSecondLevelButton.argTypes = defaultArgTypes;
 CusHimSecondLevelButton.args = {
   appearance: appearance.options[2],
-  config: sampleData[2]
+  config: sampleData[2],
 };
 
 CusHimSecondLevelButton.documentation = {
-  title: 'CUS/HIM - Second Level Button'
+  title: 'CUS/HIM - Second Level Button',
 };
 
 export const CusHimSecondLevelMessage = Template.bind({});
@@ -81,23 +75,19 @@ export const CusHimSecondLevelMessage = Template.bind({});
 CusHimSecondLevelMessage.argTypes = defaultArgTypes;
 CusHimSecondLevelMessage.args = {
   appearance: appearance.options[3],
-  config: sampleData[2]
+  config: sampleData[2],
 };
 
 CusHimSecondLevelMessage.documentation = {
-  title: 'CUS/HIM - Second Level Message'
+  title: 'CUS/HIM - Second Level Message',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-cus-him'
+  title: 'internals/sbb-timetable-cus-him',
 };

@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-park-and-rail', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableParkAndRail],
-      html: `<sbb-timetable-park-and-rail config='${config}'/>`
+      html: `<sbb-timetable-park-and-rail config='${config}'/>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-park-and-rail
             config="{&quot;distance&quot;:178}"
         >
@@ -35,5 +32,4 @@ describe('sbb-timetable-park-and-rail', () => {
         </sbb-timetable-park-and-rail>
       `);
   });
-
 });

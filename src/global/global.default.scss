@@ -25,9 +25,9 @@
 //@import "theme/sbb-ch/mode--dark-compact.variables.scss";
 
 //:host {
-  //@include theme-sbb-ch-mode--dark-variables;
-  //@include theme-sbb-ch-mode--compact-variables;
-  //@include theme-sbb-ch-mode--dark-compact-variables;
+//@include theme-sbb-ch-mode--dark-variables;
+//@include theme-sbb-ch-mode--compact-variables;
+//@include theme-sbb-ch-mode--dark-compact-variables;
 //}
 
 // Font face declaration
@@ -37,4 +37,4 @@
 // the font-face declaration has to be made outside of the shadow DOM.
 // See `.storybook/preview-head.html` as an example.
 
-@import "global.scss";
+@import 'global.scss';

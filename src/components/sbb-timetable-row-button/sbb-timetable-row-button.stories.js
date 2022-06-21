@@ -2,22 +2,20 @@ import events from './sbb-timetable-row-button.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => (
-  <sbb-timetable-row-button {...args}></sbb-timetable-row-button>
-);
+const Template = (args) => <sbb-timetable-row-button {...args}></sbb-timetable-row-button>;
 
 const expanded = {
   control: {
-    type: 'boolean'
-  }
+    type: 'boolean',
+  },
 };
 
 const defaultArgTypes = {
-  expanded
+  expanded,
 };
 
 const defaultArgs = {
-  expanded: false
+  expanded: false,
 };
 
 /* ************************************************* */
@@ -27,32 +25,28 @@ export const SbbTimetableRowButton = Template.bind({});
 
 SbbTimetableRowButton.argTypes = defaultArgTypes;
 SbbTimetableRowButton.args = {
-  ...defaultArgs
+  ...defaultArgs,
 };
 
 SbbTimetableRowButton.documentation = {
-  title: 'SBB Timetable Row Button'
+  title: 'SBB Timetable Row Button',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform']
+    disableArgs: ['someArgToDisableForDocumentationPlatform'],
   },
   parameters: {
     actions: {
-      handles: [events.click]
+      handles: [events.click],
     },
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-row-button'
+  title: 'internals/sbb-timetable-row-button',
 };
