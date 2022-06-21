@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import { InterfaceLogoAttributes } from './sbb-logo.custom';
 import sbbLogoSVG from './assets/sbb_logo.svg';
@@ -11,13 +7,11 @@ import sbbLogoSVG from './assets/sbb_logo.svg';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-logo.default.scss',
-    shared: 'styles/sbb-logo.shared.scss'
+    shared: 'styles/sbb-logo.shared.scss',
   },
-  tag: 'sbb-logo'
+  tag: 'sbb-logo',
 })
-
 export class SbbLogo {
-
   /**
    * According to the Corporate Design Guidelines the logo
    * can be used in these variants
@@ -31,10 +25,11 @@ export class SbbLogo {
 
   public render(): JSX.Element {
     return (
-      <span class={`sbb-logo sbb-logo--${this.variant} sbb-logo--protective-room-${this.protectiveRoom}`}>
-        <span class='sbb-logo__svg' innerHTML={sbbLogoSVG}></span>
+      <span
+        class={`sbb-logo sbb-logo--${this.variant} sbb-logo--protective-room-${this.protectiveRoom}`}
+      >
+        <span class="sbb-logo__svg" innerHTML={sbbLogoSVG}></span>
       </span>
     );
   }
-
 }

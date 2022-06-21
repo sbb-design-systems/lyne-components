@@ -5,18 +5,17 @@ import sampleData from './sbb-timetable-transportation-details.sample-data';
 const Template = (args) => (
   <sbb-timetable-transportation-details
     config={JSON.stringify(args.config)}
-  >
-  </sbb-timetable-transportation-details>
+  ></sbb-timetable-transportation-details>
 );
 
 const config = {
   table: {
-    disable: false
-  }
+    disable: false,
+  },
 };
 
 const defaultArgTypes = {
-  config
+  config,
 };
 
 /* ************************************************* */
@@ -26,23 +25,19 @@ export const sbbTimetableTransportationDetails = Template.bind({});
 
 sbbTimetableTransportationDetails.argTypes = defaultArgTypes;
 sbbTimetableTransportationDetails.args = {
-  config: sampleData[0]
+  config: sampleData[0],
 };
 
 sbbTimetableTransportationDetails.documentation = {
-  title: 'Minutes'
+  title: 'Minutes',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-transportation-details'
+  title: 'internals/sbb-timetable-transportation-details',
 };

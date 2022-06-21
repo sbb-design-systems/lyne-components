@@ -1,15 +1,6 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop,
-  State
-} from '@stencil/core';
+import { Component, Element, h, Prop, State } from '@stencil/core';
 
-import {
-  i18nUseArrowKeysToNavigate,
-  i18nXResultsAvailable
-} from '../../global/i18n';
+import { i18nUseArrowKeysToNavigate, i18nXResultsAvailable } from '../../global/i18n';
 
 import events from './sbb-autocomplete.events';
 import inputEvents from '../sbb-text-input/sbb-text-input.events';
@@ -20,13 +11,11 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-autocomplete.default.scss',
-    shared: 'styles/sbb-autocomplete.shared.scss'
+    shared: 'styles/sbb-autocomplete.shared.scss',
   },
-  tag: 'sbb-autocomplete'
+  tag: 'sbb-autocomplete',
 })
-
 export class SbbAutocomplete {
-
   /**
    * Items to show in the autocomplete interface. You should pass a stringified
    * array of objects, containing the `text` key for each object with an
@@ -39,8 +28,9 @@ export class SbbAutocomplete {
    * selected autocomplete value is reflected to this attribute.
    */
   @Prop({
-    reflect: true
-  }) public value?: string;
+    reflect: true,
+  })
+  public value?: string;
 
   /**
    * Id which is sent as the id in the eventDetail payload when a
@@ -138,13 +128,11 @@ export class SbbAutocomplete {
 
     selectedElement.scrollIntoView({
       behavior: 'smooth',
-      block: 'center'
+      block: 'center',
     });
-
   };
 
   private _handleEscapeKey = (): void => {
-
     if (this._userDidManipulateInputValue) {
       this.value = this._inputValue;
       this._initialInputValue = this.value;
@@ -170,9 +158,7 @@ export class SbbAutocomplete {
   };
 
   private _handleKeyPress = (evt): void => {
-    const {
-      key
-    } = evt;
+    const { key } = evt;
 
     if (key === 'ArrowDown' || key === 'ArrowUp') {
       this._handleArrowKeys(key);
@@ -194,7 +180,7 @@ export class SbbAutocomplete {
   private _selectInputText = (): void => {
     const event = new CustomEvent('select', {
       bubbles: false,
-      composed: false
+      composed: false,
     });
 
     /**
@@ -206,7 +192,7 @@ export class SbbAutocomplete {
   private _focusInputElement = (): void => {
     const event = new CustomEvent('focus', {
       bubbles: false,
-      composed: false
+      composed: false,
     });
 
     /**
@@ -225,7 +211,6 @@ export class SbbAutocomplete {
   };
 
   private _showAutocompleteList = (): void => {
-
     const items = itemsDataHelper(this.items);
 
     // ... if we don't have any autocomplete items.
@@ -244,7 +229,6 @@ export class SbbAutocomplete {
 
     // ... if we don't have a value or input is smaller than minChars.
     if (!this._inputValue || this._inputValue.length < this.minChars) {
-
       this._isVisible = false;
 
       return;
@@ -271,7 +255,7 @@ export class SbbAutocomplete {
 
     const eventDetail = {
       id: '',
-      value: this.value
+      value: this.value,
     };
 
     if (this.eventId) {
@@ -281,7 +265,7 @@ export class SbbAutocomplete {
     const event = new CustomEvent(events.selected, {
       bubbles: true,
       composed: true,
-      detail: eventDetail
+      detail: eventDetail,
     });
 
     /**
@@ -361,7 +345,6 @@ export class SbbAutocomplete {
   };
 
   private _a11yHelpText = (): string => {
-
     let a11yHintText = '';
     let a11yArrowKeys = '';
 
@@ -382,12 +365,11 @@ export class SbbAutocomplete {
     this._dataItems = itemsDataHelper(this.items);
 
     return (
-      <div class='autocomplete'>
-
+      <div class="autocomplete">
         <sbb-text-input
-          inputAutoCompleteValue='off'
+          inputAutoCompleteValue="off"
           inputName={this.inputName}
-          inputType='text'
+          inputType="text"
           label={this.inputLabel}
           inputPlaceholder={this.inputPlaceholder}
           labelVisible={this.inputLabelVisible}
@@ -395,8 +377,8 @@ export class SbbAutocomplete {
           debounceInputEvent={this.inputDebounceTimeout}
           borderless={this.inputBorderless}
           inputAriaExpanded={this._isVisible}
-          inputRole='combobox'
-          inputAriaAutoComplete='list'
+          inputRole="combobox"
+          inputAriaAutoComplete="list"
           inputAriaControls={this.autocompleteId}
           inputValue={this.value}
           ref={(el): void => {
@@ -404,15 +386,13 @@ export class SbbAutocomplete {
           }}
         ></sbb-text-input>
 
-        <p
-          class='autocomplete__accessibility-hint'
-          role='status'
-          tabindex='-1'
-        >{this._a11yHelpText()}</p>
+        <p class="autocomplete__accessibility-hint" role="status" tabindex="-1">
+          {this._a11yHelpText()}
+        </p>
 
         <ul
           class={this._listClasses()}
-          role='listbox'
+          role="listbox"
           {...this._listAttributes()}
           ref={(el): void => {
             this._list = el;
@@ -428,7 +408,6 @@ export class SbbAutocomplete {
             />
           ))}
         </ul>
-
       </div>
     );
   }

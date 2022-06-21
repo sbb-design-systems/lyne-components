@@ -5,22 +5,19 @@ const legs = JSON.stringify({
   legs: [
     {
       cancellation: false,
-      duration: 100
-    }
-  ]
+      duration: 100,
+    },
+  ],
 });
 
 describe('sbb-pearl-chain', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbPearlChain],
-      html: `<sbb-pearl-chain legs='${legs}' />`
+      html: `<sbb-pearl-chain legs='${legs}' />`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-pearl-chain legs="{&quot;legs&quot;:[{&quot;cancellation&quot;:false,&quot;duration&quot;:100}]}">
           <mock:shadow-root>
             <div class="pearl-chain">
@@ -30,5 +27,4 @@ describe('sbb-pearl-chain', () => {
         </sbb-pearl-chain>
       `);
   });
-
 });

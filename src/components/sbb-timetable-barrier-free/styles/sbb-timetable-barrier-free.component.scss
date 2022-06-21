@@ -5,7 +5,9 @@
 
 :host {
   --barrier-free-icon-size: 24;
-  --barrier-free-icon-padding-inline-start: calc(var(--barrier-free-icon-size) + var(--spacing-fixed-1x));
+  --barrier-free-icon-padding-inline-start: calc(
+    var(--barrier-free-icon-size) + var(--spacing-fixed-1x)
+  );
 }
 
 .barrier-free {

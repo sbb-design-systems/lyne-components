@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-text-input', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTextInput],
-      html: '<sbb-text-input icon="" input-autocomplete-section-name="none" input-autocomplete-value="off" input-id="input-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" input-name="textfield" input-max-length="" input-min-length="" input-pattern="" input-placeholder="Placeholder Text" label="Label" label-visible=""></sbb-text-input>'
+      html: '<sbb-text-input icon="" input-autocomplete-section-name="none" input-autocomplete-value="off" input-id="input-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" input-name="textfield" input-max-length="" input-min-length="" input-pattern="" input-placeholder="Placeholder Text" label="Label" label-visible=""></sbb-text-input>',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-text-input
             icon=""
             input-autocomplete-section-name="none"
@@ -60,5 +57,4 @@ describe('sbb-text-input', () => {
         </sbb-text-input>
       `);
   });
-
 });

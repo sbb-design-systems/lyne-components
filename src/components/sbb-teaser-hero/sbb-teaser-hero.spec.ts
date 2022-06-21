@@ -4,15 +4,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-teaser-hero', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: `<sbb-teaser-hero button-text="Button text" image-loading="eager" image-src="${images[0]}" text="Panel text" link="https://www.sbb.ch" new-window-info-text="Link öffnet in neuem Fenster." open-in-new-window="true"></sbb-teaser-hero>`
+      html: `<sbb-teaser-hero button-text="Button text" image-loading="eager" image-src="${images[0]}" text="Panel text" link="https://www.sbb.ch" new-window-info-text="Link öffnet in neuem Fenster." open-in-new-window="true"></sbb-teaser-hero>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
       <sbb-teaser-hero button-text="Button text" image-loading="eager" image-src="${images[0]}" link="https://www.sbb.ch" new-window-info-text="Link öffnet in neuem Fenster." open-in-new-window="true" text="Panel text">
           <mock:shadow-root>
             <a class="teaser-hero" href="https://www.sbb.ch" rel="external noopener nofollow" target="_blank">
@@ -26,5 +23,4 @@ describe('sbb-teaser-hero', () => {
         </sbb-teaser-hero>
       `);
   });
-
 });

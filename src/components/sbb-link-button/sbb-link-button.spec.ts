@@ -4,15 +4,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-link', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbLinkButton],
-      html: `<sbb-link-button href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="right" icon="chevron-small-right-small" text="Travelcards &amp; tickets" variant="primary"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></sbb-link>`
+      html: `<sbb-link-button href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="right" icon="chevron-small-right-small" text="Travelcards &amp; tickets" variant="primary"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></sbb-link>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-link-button
             href-value="https://github.com/lyne-design-system/lyne-components"
             icon-placement="right"
@@ -44,6 +41,4 @@ describe('sbb-link', () => {
         </sbb-link-button>
       `);
   });
-
 });
-

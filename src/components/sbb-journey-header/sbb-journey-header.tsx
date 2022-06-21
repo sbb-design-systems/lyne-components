@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import iconOneWay from 'lyne-icons/dist/icons/arrow-long-right-small.svg';
 import iconRoundTrip from 'lyne-icons/dist/icons/arrows-left-right-small.svg';
@@ -12,13 +8,11 @@ import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-journey-header.default.scss',
-    shared: 'styles/sbb-journey-header.shared.scss'
+    shared: 'styles/sbb-journey-header.shared.scss',
   },
-  tag: 'sbb-journey-header'
+  tag: 'sbb-journey-header',
 })
-
 export class SbbJourneyHeader {
-
   /** Origin location for the journey header */
   @Prop() public origin!: string;
 
@@ -53,10 +47,7 @@ export class SbbJourneyHeader {
   @Prop() public journeyHeaderId?: '';
 
   public render(): JSX.Element {
-
-    const journeyIcon = this.isRoundTrip
-      ? iconRoundTrip
-      : iconOneWay;
+    const journeyIcon = this.isRoundTrip ? iconRoundTrip : iconOneWay;
 
     /*
      * Connection text
@@ -66,9 +57,7 @@ export class SbbJourneyHeader {
      */
     const connectionTextOrigin = 'Connection from';
     const connectionTextDestination = 'to';
-    const connectionTextRoundtrip = this.isRoundTrip
-      ? `and back to ${this.origin}`
-      : '';
+    const connectionTextRoundtrip = this.isRoundTrip ? `and back to ${this.origin}` : '';
 
     const TAGNAME = `${this.markup}`; // eslint-disable-line @typescript-eslint/no-unused-vars
 
@@ -77,7 +66,7 @@ export class SbbJourneyHeader {
     const currentWritingMode = getDocumentWritingMode();
 
     const attrs = {
-      class: className
+      class: className,
     };
 
     if (this.journeyHeaderId && this.journeyHeaderId !== '') {
@@ -85,27 +74,25 @@ export class SbbJourneyHeader {
     }
 
     return (
-      <TAGNAME {...attrs}
-        dir={currentWritingMode}
-      >
-        <span class='connection-text-origin connection--visually-hidden'>{connectionTextOrigin}</span>
-        <span
-          class='origin'
-        >
-          {this.origin}
+      <TAGNAME {...attrs} dir={currentWritingMode}>
+        <span class="connection-text-origin connection--visually-hidden">
+          {connectionTextOrigin}
         </span>
-        <span class='icon' innerHTML={journeyIcon}>
-          <span class='connection-text-destination connection--visually-hidden'>{connectionTextDestination}</span>
+        <span class="origin">{this.origin}</span>
+        <span class="icon" innerHTML={journeyIcon}>
+          <span class="connection-text-destination connection--visually-hidden">
+            {connectionTextDestination}
+          </span>
         </span>
-        <span
-          class='destination'
-        >
-          {this.destination}
-        </span>
-        {this.isRoundTrip
-          ? <span class='connection-text-roundtrip connection--visually-hidden'> {connectionTextRoundtrip}</span>
-          : ''
-        }
+        <span class="destination">{this.destination}</span>
+        {this.isRoundTrip ? (
+          <span class="connection-text-roundtrip connection--visually-hidden">
+            {' '}
+            {connectionTextRoundtrip}
+          </span>
+        ) : (
+          ''
+        )}
       </TAGNAME>
     );
   }

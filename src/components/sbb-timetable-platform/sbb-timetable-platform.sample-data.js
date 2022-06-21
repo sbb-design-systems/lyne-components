@@ -1,8 +1,8 @@
 export default [
   {
-    platform: '13A/C'
+    platform: '13A/C',
   },
   {
-    platform: '5'
-  }
+    platform: '5',
+  },
 ];

@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-transportation-walk', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableTransportationWalk],
-      html: `<sbb-timetable-transportation-walk config='${config}' appearance='first-level'/>`
+      html: `<sbb-timetable-transportation-walk config='${config}' appearance='first-level'/>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-transportation-walk
             config="{&quot;distance&quot;:178,&quot;duration&quot;:2,&quot;type&quot;:&quot;departure&quot;}"
             appearance="first-level"
@@ -38,5 +35,4 @@ describe('sbb-timetable-transportation-walk', () => {
         </sbb-timetable-transportation-walk>
       `);
   });
-
 });

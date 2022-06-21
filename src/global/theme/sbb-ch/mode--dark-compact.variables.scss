@@ -1,8 +1,8 @@
 // Mode dark variables
-@import "./mode--dark/variables.scss";
+@import './mode--dark/variables.scss';
 
 // Core compact variables
-@import "./mode--compact/variables.scss";
+@import './mode--compact/variables.scss';
 
 @mixin theme-sbb-ch-mode--dark-compact-variables {
   @include theme-sbb-ch-mode--dark-variables;

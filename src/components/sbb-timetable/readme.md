@@ -1,9 +1,6 @@
 # sbb-timetable
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
@@ -12,6 +9,7 @@
 - [sbb-timetable-button](../sbb-timetable-button)
 
 ### Graph
+
 ```mermaid
 graph TD;
   sbb-timetable --> sbb-timetable-button
@@ -20,6 +18,4 @@ graph TD;
   style sbb-timetable fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
-
-
+---

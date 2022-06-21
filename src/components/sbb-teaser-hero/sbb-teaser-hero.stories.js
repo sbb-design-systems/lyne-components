@@ -5,80 +5,72 @@ import readme from './readme.md';
 // --- Controls
 const imageLoading = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'eager',
-    'lazy'
-  ],
+  options: ['eager', 'lazy'],
   table: {
-    category: 'Performance'
-  }
+    category: 'Performance',
+  },
 };
 
 const openInNewWindowControl = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'true',
-    'false'
-  ]
+  options: ['true', 'false'],
 };
 
 // --- Component
 
-const Template = (args) => (
-  <sbb-teaser-hero {...args} />
-);
+const Template = (args) => <sbb-teaser-hero {...args} />;
 
 export const defaultTeaser = Template.bind({});
 export const openInNewWindow = Template.bind({});
 
 defaultTeaser.argTypes = {
   'image-loading': imageLoading,
-  'open-in-new-window': openInNewWindowControl
+  'open-in-new-window': openInNewWindowControl,
 };
 
 defaultTeaser.args = {
   'button-text': 'Button text',
   'image-loading': imageLoading.options[0],
   'image-src': images[0],
-  'link': 'https://www.sbb.ch',
+  link: 'https://www.sbb.ch',
   'new-window-info-text': '',
   'open-in-new-window': openInNewWindowControl.options[1],
-  'text': 'Panel text'
+  text: 'Panel text',
 };
 
 defaultTeaser.documentation = {
-  title: 'Default Teaser'
+  title: 'Default Teaser',
 };
 
 openInNewWindow.argTypes = {
   'image-loading': imageLoading,
-  'open-in-new-window': openInNewWindowControl
+  'open-in-new-window': openInNewWindowControl,
 };
 
 openInNewWindow.args = {
   'button-text': 'Button text',
   'image-loading': imageLoading.options[0],
   'image-src': images[0],
-  'link': 'https://www.sbb.ch',
+  link: 'https://www.sbb.ch',
   'new-window-info-text': 'Link öffnet in neuem Fenster.',
   'open-in-new-window': openInNewWindowControl.options[0],
-  'text': 'Panel text'
+  text: 'Panel text',
 };
 
 openInNewWindow.documentation = {
-  title: 'Teaser Link open in new Window'
+  title: 'Teaser Link open in new Window',
 };
 
 export default {
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
+      extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen'
+    layout: 'fullscreen',
   },
-  title: 'components/sbb-teaser-hero'
+  title: 'components/sbb-teaser-hero',
 };

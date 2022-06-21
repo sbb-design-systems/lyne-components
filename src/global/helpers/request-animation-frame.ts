@@ -21,8 +21,7 @@ export const raf = (h: any): any => {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const componentOnReady = (el: any, callback: any): any => {
   if (el.componentOnReady) {
-    el.componentOnReady()
-      .then((resolvedEl: any) => callback(resolvedEl));
+    el.componentOnReady().then((resolvedEl: any) => callback(resolvedEl));
   } else {
     raf(() => callback(el));
   }

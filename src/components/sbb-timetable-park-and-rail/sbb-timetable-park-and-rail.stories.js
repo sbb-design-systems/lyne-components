@@ -6,30 +6,29 @@ const Template = (args) => (
   <sbb-timetable-park-and-rail
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
-  >
-  </sbb-timetable-park-and-rail>
+  ></sbb-timetable-park-and-rail>
 );
 
 const appearance = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: ['first-level']
+  options: ['first-level'],
 };
 
 const config = {
   table: {
-    disable: false
-  }
+    disable: false,
+  },
 };
 
 const defaultArgTypes = {
   appearance,
-  config
+  config,
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0]
+  appearance: appearance.options[0],
 };
 
 /* ************************************************* */
@@ -40,23 +39,19 @@ export const ParkAndRail = Template.bind({});
 ParkAndRail.argTypes = defaultArgTypes;
 ParkAndRail.args = {
   ...defaultArgs,
-  config: sampleData[0]
+  config: sampleData[0],
 };
 
 ParkAndRail.documentation = {
-  title: 'P+Rail Icon'
+  title: 'P+Rail Icon',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-park-and-rail'
+  title: 'internals/sbb-timetable-park-and-rail',
 };

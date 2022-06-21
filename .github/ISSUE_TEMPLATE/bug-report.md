@@ -13,11 +13,12 @@ assignees: ''
 -->
 
 ## Preflight Checklist
+
 <!-- Please ensure you've completed the following steps by replacing [ ] with [x]-->
 
-* [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CONTRIBUTING.md) for this project.
-* [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CODE_OF_CONDUCT.md) that this project adheres to.
-* [ ] I have searched the issue tracker for an issue that matches the one I want to file, without success.
+- [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CONTRIBUTING.md) for this project.
+- [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CODE_OF_CONDUCT.md) that this project adheres to.
+- [ ] I have searched the issue tracker for an issue that matches the one I want to file, without success.
 
 ## Which package(s) are you using?
 
@@ -48,7 +49,7 @@ assignees: ''
 > What did you expect to happen? What happened instead? What would you like to
 > see changed?
 
-> Which [version](https://lyne-documentation.netlify.app/deployments/) of *Lyne Components* are you using?
+> Which [version](https://lyne-documentation.netlify.app/deployments/) of _Lyne Components_ are you using?
 
 > Is the issue related to a specific component? If so please provide the components Storybook link of the corresponding version.
 

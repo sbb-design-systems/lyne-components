@@ -8,19 +8,20 @@
     "stencil",
     "storybook"
   ],
+  "author": "Lyne Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lyne-design-system/lyne-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lyne-design-system/lyne-components/issues"
+  },
   "engines": {
     "node": ">=14.0.0 <15.0.0",
     "yarn": ">= 1.0.0",
     "npm": "Please use Yarn instead of NPM to install dependencies. See: https://yarnpkg.com/lang/en/docs/install/"
   },
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.js",
-  "es2015": "dist/esm/index.mjs",
-  "es2017": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
-  "collection": "dist/collection/collection-manifest.json",
-  "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/lyne-components/",
   "files": [
     "dist/",
     "loader/",
@@ -33,10 +34,11 @@
     "chromatic": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes --exit-once-uploaded",
     "chromatic:master": "chromatic --storybook-build-dir=./storybook-static --exit-zero-on-changes --auto-accept-changes",
     "generate": "node convenience/generate-component/index.js",
+    "format": "prettier \"**/*\" --write --ignore-unknown",
     "lint": "npm-run-all --sequential lint:*",
-    "lint:ts": "eslint ./ --ext .ts,.tsx",
-    "lint:js": "eslint ./ --ext .js",
-    "lint:yml": "eslint ./ --ext .yml,.yaml",
+    "lint:ts": "eslint \"**/*.{ts,tsx}\"",
+    "lint:js": "eslint \"**/*.js\"",
+    "lint:yml": "eslint \"**/*.{yml,yaml}\"",
     "semantic-release": "semantic-release",
     "start:stencil": "stencil build --prod --watch --docs",
     "start:storybook": "start-storybook -p 6006 -s dist",
@@ -71,8 +73,10 @@
     "chromatic": "6.5.6",
     "esbuild": "0.14.47",
     "eslint": "8.17.0",
+    "eslint-config-prettier": "8.5.0",
     "eslint-plugin-jest": "26.5.3",
     "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-react": "7.30.0",
     "eslint-plugin-yaml": "0.5.0",
     "focus-visible": "5.2.0",
     "glob": "8.0.3",
@@ -81,11 +85,12 @@
     "jest-cli": "27.5.1",
     "jsx-dom": "7.0.4",
     "jsx-transform": "2.4.1",
-    "lyne-helper-eslint-config": "1.0.7",
+    "lint-staged": "13.0.2",
     "lyne-helper-trigger-travis": "1.0.6",
     "lyne-icons": "4.34.2",
     "minimist": "1.2.6",
     "npm-run-all": "4.1.5",
+    "prettier": "2.7.1",
     "puppeteer": "14.4.1",
     "semantic-release": "19.0.3",
     "shelljs": "0.8.5",
@@ -95,13 +100,25 @@
     "typescript": "4.7.4",
     "yargs": "17.5.1"
   },
-  "author": "Lyne Team",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lyne-design-system/lyne-components.git"
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/lyne-components/",
+  "prettier": {
+    "singleQuote": true,
+    "endOfLine": "lf",
+    "printWidth": 100
   },
-  "bugs": {
-    "url": "https://github.com/lyne-design-system/lyne-components/issues"
+  "lint-staged": {
+    "*.{js,ts,css,scss,json,md,html,yaml,yml}": [
+      "prettier --write"
+    ],
+    "*.{js,ts,yaml,yml}": [
+      "eslint --fix"
+    ]
   }
 }

@@ -1,16 +1,12 @@
 # sbb-timetable-row
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
 | Property              | Attribute | Description                                                                                                                               | Type     | Default     |
 | --------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
 | `config` _(required)_ | `config`  | Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure. | `string` | `undefined` |
-
 
 ## Dependencies
 
@@ -26,6 +22,7 @@
 - [sbb-timetable-cus-him](../sbb-timetable-cus-him)
 
 ### Graph
+
 ```mermaid
 graph TD;
   sbb-timetable-row --> sbb-timetable-row-header
@@ -43,6 +40,4 @@ graph TD;
   style sbb-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
-
-
+---

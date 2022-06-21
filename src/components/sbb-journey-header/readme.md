@@ -1,9 +1,6 @@
 # sbb-journey-header
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -17,7 +14,4 @@
 | `origin` _(required)_      | `origin`            | Origin location for the journey header                                                                                                                                                                 | `string`                                                        | `undefined` |
 | `size`                     | `size`              | Journey header size                                                                                                                                                                                    | `"4" \| "5"`                                                    | `'5'`       |
 
-
-----------------------------------------------
-
-
+---

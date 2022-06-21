@@ -2,41 +2,39 @@ import events from './__name__.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => (
-  <__name__ {...args}></__name__>
-);
+const Template = (args) => <__name__ {...args}></__name__>;
 
 export const story1 = Template.bind({});
 
 story1.args = {
-  'some-prop': 'opt1'
+  'some-prop': 'opt1',
 };
 
 story1.documentation = {
-  title: 'Title which will be rendered on documentation platform'
+  title: 'Title which will be rendered on documentation platform',
 };
 
 export default {
   decorators: [
     (Story) => (
       <div style={'padding: 2rem'}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform']
+    disableArgs: ['someArgToDisableForDocumentationPlatform'],
   },
   parameters: {
     actions: {
-      handles: [events.click]
+      handles: [events.click],
     },
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: '__name__'
+  title: '__name__',
 };

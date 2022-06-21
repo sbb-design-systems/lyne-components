@@ -7,17 +7,17 @@
   //////////////////////////////////////////////////////////////////////////////
   ///
   /// Responsive typography/font size
-  --lyne-font-size-title-1:   var(--typo-scale-2-5x);
-  --lyne-font-size-title-2:   var(--typo-scale-2x);
-  --lyne-font-size-title-3:   var(--typo-scale-1-5x);
-  --lyne-font-size-title-4:   var(--typo-scale-1-25x);
-  --lyne-font-size-title-5:   var(--typo-scale-default);
-  --lyne-font-size-title-6:   var(--typo-scale-0-875x);
-  --lyne-font-size-text-xl:   var(--typo-scale-1-25x);
-  --lyne-font-size-text-m:    var(--typo-scale-default);
-  --lyne-font-size-text-s:    var(--typo-scale-0-875x);
-  --lyne-font-size-text-xs:   var(--typo-scale-0-75x);
-  --lyne-font-size-text-xxs:  var(--typo-scale-0-75x);
+  --lyne-font-size-title-1: var(--typo-scale-2-5x);
+  --lyne-font-size-title-2: var(--typo-scale-2x);
+  --lyne-font-size-title-3: var(--typo-scale-1-5x);
+  --lyne-font-size-title-4: var(--typo-scale-1-25x);
+  --lyne-font-size-title-5: var(--typo-scale-default);
+  --lyne-font-size-title-6: var(--typo-scale-0-875x);
+  --lyne-font-size-text-xl: var(--typo-scale-1-25x);
+  --lyne-font-size-text-m: var(--typo-scale-default);
+  --lyne-font-size-text-s: var(--typo-scale-0-875x);
+  --lyne-font-size-text-xs: var(--typo-scale-0-75x);
+  --lyne-font-size-text-xxs: var(--typo-scale-0-75x);
 
   @include mq($from: small) {
     --lyne-font-size-title-1: var(--typo-scale-3x);
@@ -30,8 +30,8 @@
     --lyne-font-size-title-5: var(--typo-scale-1-25x);
     --lyne-font-size-title-6: var(--typo-scale-default);
     --lyne-font-size-text-xl: var(--typo-scale-1-5x);
-    --lyne-font-size-text-m:  var(--typo-scale-1-125x);
-    --lyne-font-size-text-s:  var(--typo-scale-default);
+    --lyne-font-size-text-m: var(--typo-scale-1-125x);
+    --lyne-font-size-text-s: var(--typo-scale-default);
     --lyne-font-size-text-xs: var(--typo-scale-0-875x);
   }
 
@@ -47,41 +47,41 @@
   ///
   /// Responsive spacing
   --spacing-responsive-xxxs: var(--spacing-responsive-xxxs-zero);
-  --spacing-responsive-xxs:  var(--spacing-responsive-xxs-zero);
-  --spacing-responsive-xs:   var(--spacing-responsive-xs-zero);
-  --spacing-responsive-s:    var(--spacing-responsive-s-zero);
-  --spacing-responsive-m:    var(--spacing-responsive-m-zero);
-  --spacing-responsive-l:    var(--spacing-responsive-l-zero);
-  --spacing-responsive-xl:   var(--spacing-responsive-xl-zero);
-  --spacing-responsive-xxl:  var(--spacing-responsive-xxl-zero);
+  --spacing-responsive-xxs: var(--spacing-responsive-xxs-zero);
+  --spacing-responsive-xs: var(--spacing-responsive-xs-zero);
+  --spacing-responsive-s: var(--spacing-responsive-s-zero);
+  --spacing-responsive-m: var(--spacing-responsive-m-zero);
+  --spacing-responsive-l: var(--spacing-responsive-l-zero);
+  --spacing-responsive-xl: var(--spacing-responsive-xl-zero);
+  --spacing-responsive-xxl: var(--spacing-responsive-xxl-zero);
 
   @include mq($from: small) {
-    --spacing-responsive-l:    var(--spacing-responsive-l-small);
-    --spacing-responsive-xl:   var(--spacing-responsive-xl-small);
-    --spacing-responsive-xxl:  var(--spacing-responsive-xxl-small);
+    --spacing-responsive-l: var(--spacing-responsive-l-small);
+    --spacing-responsive-xl: var(--spacing-responsive-xl-small);
+    --spacing-responsive-xxl: var(--spacing-responsive-xxl-small);
   }
   @include mq($from: medium) {
     --spacing-responsive-xxxs: var(--spacing-responsive-xxxs-medium);
-    --spacing-responsive-xxs:  var(--spacing-responsive-xxs-medium);
-    --spacing-responsive-xs:   var(--spacing-responsive-xs-medium);
-    --spacing-responsive-s:    var(--spacing-responsive-s-medium);
-    --spacing-responsive-m:    var(--spacing-responsive-m-medium);
-    --spacing-responsive-l:    var(--spacing-responsive-l-medium);
-    --spacing-responsive-xl:   var(--spacing-responsive-xl-medium);
-    --spacing-responsive-xxl:  var(--spacing-responsive-xxl-medium);
+    --spacing-responsive-xxs: var(--spacing-responsive-xxs-medium);
+    --spacing-responsive-xs: var(--spacing-responsive-xs-medium);
+    --spacing-responsive-s: var(--spacing-responsive-s-medium);
+    --spacing-responsive-m: var(--spacing-responsive-m-medium);
+    --spacing-responsive-l: var(--spacing-responsive-l-medium);
+    --spacing-responsive-xl: var(--spacing-responsive-xl-medium);
+    --spacing-responsive-xxl: var(--spacing-responsive-xxl-medium);
   }
   @include mq($from: large) {
-    --spacing-responsive-l:    var(--spacing-responsive-l-large);
-    --spacing-responsive-xl:   var(--spacing-responsive-xl-large);
-    --spacing-responsive-xxl:  var(--spacing-responsive-xxl-large);
+    --spacing-responsive-l: var(--spacing-responsive-l-large);
+    --spacing-responsive-xl: var(--spacing-responsive-xl-large);
+    --spacing-responsive-xxl: var(--spacing-responsive-xxl-large);
   }
   @include mq($from: wide) {
-    --spacing-responsive-m:    var(--spacing-responsive-m-wide);
+    --spacing-responsive-m: var(--spacing-responsive-m-wide);
   }
   @include mq($from: ultra) {
-    --spacing-responsive-l:    var(--spacing-responsive-l-ultra);
-    --spacing-responsive-xl:   var(--spacing-responsive-xl-ultra);
-    --spacing-responsive-xxl:  var(--spacing-responsive-xxl-ultra);
+    --spacing-responsive-l: var(--spacing-responsive-l-ultra);
+    --spacing-responsive-xl: var(--spacing-responsive-xl-ultra);
+    --spacing-responsive-xxl: var(--spacing-responsive-xxl-ultra);
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -161,12 +161,8 @@
   --size-form-element-l-min-height: var(--size-form-element-l-min-height-zero);
 
   @include mq($from: medium) {
-    --size-form-element-m-min-height: var(
-      --size-form-element-m-min-height-medium
-    );
-    --size-form-element-l-min-height: var(
-      --size-form-element-l-min-height-medium
-    );
+    --size-form-element-m-min-height: var(--size-form-element-m-min-height-medium);
+    --size-form-element-l-min-height: var(--size-form-element-l-min-height-medium);
   }
 
   //////////////////////////////////////////////////////////////////////////////

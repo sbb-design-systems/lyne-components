@@ -124,7 +124,7 @@
 
   // Line through content
   &::after {
-    content: "";
+    content: '';
     @include absoluteCenterY;
     background-color: var(--color-disabled-text);
     height: pxToRem(var(--line-through-height-disabled));

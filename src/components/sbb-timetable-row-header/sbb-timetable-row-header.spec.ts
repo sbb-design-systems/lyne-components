@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-row-header', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableRowHeader],
-      html: `<sbb-timetable-row-header config='${config}' role='rowheader' />`
+      html: `<sbb-timetable-row-header config='${config}' role='rowheader' />`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-row-header
             config="{&quot;departure&quot;:{&quot;direction&quot;:&quot;Direction Romanshorn&quot;,&quot;productMarketingName&quot;:&quot;&quot;,&quot;productText&quot;:&quot;IC 8&quot;,&quot;time&quot;:&quot;15:14&quot;}}"
             role="rowheader"
@@ -25,5 +22,4 @@ describe('sbb-timetable-row-header', () => {
         </sbb-timetable-row-header>
       `);
   });
-
 });

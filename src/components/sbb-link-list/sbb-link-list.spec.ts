@@ -5,9 +5,7 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-link-list', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbLinkList],
       html: `<sbb-link-list title-level="2" title-text="Help &amp; Contact" variant="positive">
                 <li class='link-list__item' slot='link-list__item'>
@@ -25,11 +23,10 @@ describe('sbb-link-list', () => {
                 <li class='link-list__item' slot='link-list__item'>
                   <sbb-link href-value='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Sachbeschädigung melden' text-size='s' variant='positive'></sbb-link>
                 </li>
-            </sbb-link-list>`
+            </sbb-link-list>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-link-list
             title-level="2"
             title-text="Help &amp; Contact"
@@ -62,6 +59,4 @@ describe('sbb-link-list', () => {
         </sbb-link-list>
       `);
   });
-
 });
-

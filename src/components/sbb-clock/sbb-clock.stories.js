@@ -2,13 +2,11 @@ import { h } from 'jsx-dom';
 import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
 
-const Template = (args) => (
-  <sbb-clock {...args} />
-);
+const Template = (args) => <sbb-clock {...args} />;
 
 const times = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'now',
@@ -19,12 +17,12 @@ const times = {
     '13:30:41',
     '16:50:00',
     '20:03:21',
-    '23:59:39'
-  ]
+    '23:59:39',
+  ],
 };
 
 const defaultArgTypes = {
-  'initial-time': times
+  'initial-time': times,
 };
 
 export const Default = Template.bind({});
@@ -32,11 +30,11 @@ export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = {
   'initial-time': times.options[0],
-  'paused': false
+  paused: false,
 };
 
 Default.documentation = {
-  title: 'Default'
+  title: 'Default',
 };
 
 export const Paused = Template.bind({});
@@ -44,11 +42,11 @@ export const Paused = Template.bind({});
 Paused.argTypes = defaultArgTypes;
 Paused.args = {
   'initial-time': times.options[1],
-  'paused': true
+  paused: true,
 };
 
 Paused.documentation = {
-  title: 'Paused'
+  title: 'Paused',
 };
 
 export const InitialTime = Template.bind({});
@@ -56,11 +54,11 @@ export const InitialTime = Template.bind({});
 InitialTime.argTypes = defaultArgTypes;
 InitialTime.args = {
   'initial-time': times.options[1],
-  'paused': false
+  paused: false,
 };
 
 InitialTime.documentation = {
-  title: `Initial time set to ${times.options[1]}`
+  title: `Initial time set to ${times.options[1]}`,
 };
 
 /**
@@ -70,26 +68,26 @@ InitialTime.documentation = {
 if (isChromatic()) {
   Default.args = {
     'initial-time': times.options[1],
-    'paused': true
+    paused: true,
   };
 
   InitialTime.args = {
-    paused: true
+    paused: true,
   };
 }
 
 export default {
   decorators: [
     (Story) => (
-      <div style='max-width: 600px;'>
-        <Story/>
+      <div style="max-width: 600px;">
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'brand elements/SBB Clock'
+  title: 'brand elements/SBB Clock',
 };

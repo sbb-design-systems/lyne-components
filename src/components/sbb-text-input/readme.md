@@ -1,9 +1,6 @@
 # sbb-text-input
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -32,25 +29,24 @@
 | `label` _(required)_     | `label`                     | Each input element needs to have a label associated with it.                                                                                                                                  | `string`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `undefined` |
 | `labelVisible`           | `label-visible`             | If set to false, the label will be visually hidden but still be in the markup to provide proper semantics                                                                                     | `boolean`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `undefined` |
 
-
 ## Slots
 
 | Slot     | Description                                  |
 | -------- | -------------------------------------------- |
 | `"icon"` | Slot used to display the icon, if one is set |
 
-
 ## Dependencies
 
 ### Used by
 
- - [sbb-autocomplete](../sbb-autocomplete)
+- [sbb-autocomplete](../sbb-autocomplete)
 
 ### Depends on
 
 - [sbb-input-error](../sbb-input-error)
 
 ### Graph
+
 ```mermaid
 graph TD;
   sbb-text-input --> sbb-input-error
@@ -58,6 +54,4 @@ graph TD;
   style sbb-text-input fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
-
-
+---

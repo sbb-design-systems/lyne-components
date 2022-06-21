@@ -1,9 +1,10 @@
 import { AnimationKeyFrames } from './animation-interface';
 
-const convertCamelCaseToHypen = (str: string): string => str
-  // eslint-disable-next-line prefer-named-capture-group
-  .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
-  .toLowerCase();
+const convertCamelCaseToHypen = (str: string): string =>
+  str
+    // eslint-disable-next-line prefer-named-capture-group
+    .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
+    .toLowerCase();
 
 /**
  * Web Animations requires to be hyphenated CSS properties
@@ -37,7 +38,11 @@ export const processKeyframes = (keyframes: AnimationKeyFrames): AnimationKeyFra
   return keyframes;
 };
 
-export const setStyleProperty = (element: HTMLElement, propertyName: string, value: string | null): void => {
+export const setStyleProperty = (
+  element: HTMLElement,
+  propertyName: string,
+  value: string | null
+): void => {
   element.style.setProperty(propertyName, value);
 };
 
@@ -49,10 +54,13 @@ export const removeStyleProperties = (element: HTMLElement, propertyNames: strin
   propertyNames.forEach((propertyName: string) => removeStyleProperty(element, propertyName));
 };
 
-export const animationEnd = (el: HTMLElement | null, callback: (ev?: TransitionEvent) => void): () => void => {
+export const animationEnd = (
+  el: HTMLElement | null,
+  callback: (ev?: TransitionEvent) => void
+): (() => void) => {
   let unregisterTransition: (() => void) | undefined;
   const opts: any = {
-    passive: true
+    passive: true,
   };
 
   const unregister = (): void => unregisterTransition?.();
@@ -76,21 +84,16 @@ export const animationEnd = (el: HTMLElement | null, callback: (ev?: TransitionE
   return unregister;
 };
 
-export const generateKeyframeRules = (keyframes: any[] = []): string => keyframes
-  .map((keyframe) => {
-    const {
-      offset, ...properties
-    } = keyframe;
+export const generateKeyframeRules = (keyframes: any[] = []): string =>
+  keyframes
+    .map((keyframe) => {
+      const { offset, ...properties } = keyframe;
 
-    const frameString = Object.entries(properties)
-      .map(([
-        key,
-        value
-      ]) => `${key}: ${value};`);
+      const frameString = Object.entries(properties).map(([key, value]) => `${key}: ${value};`);
 
-    return `${offset * 100}% { ${frameString.join(' ')} }`;
-  })
-  .join(' ');
+      return `${offset * 100}% { ${frameString.join(' ')} }`;
+    })
+    .join(' ');
 
 const keyframeIds: string[] = [];
 
@@ -98,19 +101,23 @@ export const generateKeyframeName = (keyframeRules: string): string => {
   let index = keyframeIds.indexOf(keyframeRules);
 
   if (index < 0) {
-    index = (keyframeIds.push(keyframeRules) - 1);
+    index = keyframeIds.push(keyframeRules) - 1;
   }
 
   return `sbb-animation-${index}`;
 };
 
 export const getStyleContainer = (element: HTMLElement): any => {
-  const rootNode = (element.getRootNode() as any);
+  const rootNode = element.getRootNode() as any;
 
-  return (rootNode.head || rootNode);
+  return rootNode.head || rootNode;
 };
 
-export const createKeyframeStylesheet = (keyframeName: string, keyframeRules: string, element: HTMLElement): HTMLElement => {
+export const createKeyframeStylesheet = (
+  keyframeName: string,
+  keyframeRules: string,
+  element: HTMLElement
+): HTMLElement => {
   const styleContainer = getStyleContainer(element);
 
   const existingStylesheet = styleContainer.querySelector(`#${keyframeName}`);
@@ -129,8 +136,7 @@ export const createKeyframeStylesheet = (keyframeName: string, keyframeRules: st
   return stylesheet;
 };
 
-export const addClassToArray = (classes: string[] = [], className: string | string[] | undefined): string[] => (
-  className === undefined
-    ? classes
-    : classes.concat(className)
-);
+export const addClassToArray = (
+  classes: string[] = [],
+  className: string | string[] | undefined
+): string[] => (className === undefined ? classes : classes.concat(className));
