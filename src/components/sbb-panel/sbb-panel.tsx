@@ -6,6 +6,12 @@ import { InterfacePanelAttributes } from './sbb-panel.custom';
   styleUrl: 'sbb-panel.scss',
   tag: 'sbb-panel',
 })
+
+/**
+ * @slot text - to render the text
+ * @slot link- to render the link
+ */
+
 export class SbbPanel {
   /** The text to show in the panel */
   @Prop() public text!: string;
@@ -20,20 +26,10 @@ export class SbbPanel {
   @Prop() public tag?: InterfacePanelAttributes['tag'] = 'p';
 
   public render(): JSX.Element {
-    const TAGNAME = this.tag;
-
     return (
-      <div class="panel">
-        <TAGNAME class="panel__text">{this.text}</TAGNAME>
-
-        <sbb-button
-          class="panel__button"
-          label={this.buttonText}
-          variant="secondary-negative"
-          size="m"
-          event-id={this.eventId}
-          visual-button-only
-        />
+      <div class='panel'>
+        <div class='panel__text'><slot name='text'/></div>
+        <div class='panel__link'><slot name='link'/></div>
       </div>
     );
   }

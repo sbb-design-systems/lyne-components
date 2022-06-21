@@ -13,24 +13,6 @@
 | `text` _(required)_       | `text`        | The text to show in the panel                              | `string`                                                        | `undefined` |
 
 
-## Dependencies
-
-### Used by
-
- - [sbb-teaser-hero](../sbb-teaser-hero)
-
-### Depends on
-
-- [sbb-button](../sbb-button)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-panel --> sbb-button
-  sbb-teaser-hero --> sbb-panel
-  style sbb-panel fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 

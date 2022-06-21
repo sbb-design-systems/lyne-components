@@ -3,52 +3,44 @@
 @include host-component-properties;
 
 :host {
-  display: block;
+  --panel-opacity: 0.9;
+  --panel-padding-inline: var(--spacing-responsive-m-small);
+  --panel-padding-block: var(--spacing-responsive-s-small);
+  --background-color: var(--color-red-default);
+  --text-margin-block-end: var(--spacing-fixed-6x);
 
   // TODO: missing design tokens
-  --font-family: 'SBBWeb Light';
-  --letter-spacing: 0.01em;
-  --line-height: 1.3;
-  --font-size: #{px-to-rem-build(24)};
   --panel-width: #{px-to-rem-build(223)};
   --panel-height: #{px-to-rem-build(167)};
-  --button-margin: var(--sbb-spacing-responsive-xs-small);
-  --panel-padding-inline: var(--sbb-spacing-responsive-m-small);
-  --panel-padding-block: var(--sbb-spacing-responsive-s-small);
   --triangle-height: #{px-to-rem-build(33)};
 
   @include mq($from: medium) {
+    --panel-padding-inline: var(--spacing-responsive-m-medium);
+    --panel-padding-block: var(--spacing-responsive-s-medium);
+
     // TODO: missing design tokens
-    --font-size: #{px-to-rem-build(32)};
-    --line-height: 1.3;
     --panel-width: #{px-to-rem-build(321)};
     --panel-height: #{px-to-rem-build(240.11)};
-    --button-margin: var(--sbb-spacing-responsive-xs-medium);
-    --panel-padding-inline: var(--sbb-spacing-responsive-m-medium);
-    --panel-padding-block: var(--sbb-spacing-responsive-s-medium);
-    --triangle-height: #{px-to-rem-build(47.45)};
+    --triangle-height: #{px-to-rem-build(45)};
   }
 
-  @include mq($from: wide) {
+  @include mq($from: large) {
+    --panel-padding-inline: var(--spacing-responsive-m-wide);
+    --panel-padding-block: var(--spacing-responsive-s-wide);
+
     // TODO: missing design tokens
-    --font-size: #{px-to-rem-build(40)};
-    --line-height: 1.2;
     --panel-width: #{px-to-rem-build(428)};
     --panel-height: #{px-to-rem-build(320.38)};
-    --panel-padding-inline: var(--sbb-spacing-responsive-m-wide);
-    --panel-padding-block: var(--sbb-spacing-responsive-s-wide);
-    --triangle-height: #{px-to-rem-build(63.31)};
+    --triangle-height: #{px-to-rem-build(65)};
   }
 
-  --background-color: var(--sbb-color-red-default);
-  --text-color: var(--sbb-color-white-default);
-
+  position: relative;
+  opacity: var(--panel-opacity);
   padding-block-start: var(--triangle-height);
   padding-block-end: var(--triangle-height);
 }
 
 .panel {
-  box-sizing: border-box;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -70,11 +62,11 @@
 .panel::after {
   content: '';
   position: absolute;
-  left: 0;
   width: 0;
   height: 0;
-  z-index: 0;
+  left: 0;
   border-inline-end: var(--panel-width) solid transparent;
+  z-index: 0;
 
   @include ifForcedColors {
     display: none;
@@ -91,20 +83,9 @@
   border-block-start: var(--triangle-height) solid var(--background-color);
 }
 
-.panel__text {
-  padding: 0;
-  margin: 0;
-  color: var(--sbb-color-white-default);
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  font-weight: normal;
-  letter-spacing: var(--letter-spacing);
-  line-height: var(--line-height);
-  -webkit-font-smoothing: antialiased;
-  z-index: 1;
-}
-
-.panel__button {
-  margin-top: var(--button-margin);
-  z-index: 1;
+::slotted( [slot="text"] ) {
+  @include text-xxl--regular();
+  color: var(--color-white-default);
+  margin-block-start: 0;
+  margin-block-end: var(--text-margin-block-end);
 }

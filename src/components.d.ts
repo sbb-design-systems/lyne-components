@@ -786,19 +786,11 @@ export namespace Components {
     }
     interface SbbTeaserHero {
         /**
-          * Button text property for sbb-panel. See sbb-panel for additional info
+          * Teaser title text, visually hidden,  necessary for screenreaders
          */
-        "buttonText": string;
+        "accessibilityTitle": string;
         /**
-          * Image loading property. See sbb-image for additional info
-         */
-        "imageLoading"?: InterfaceImageAttributes['loading'];
-        /**
-          * Image source property for sbb-image. See sbb-image for additional info
-         */
-        "imageSrc": string;
-        /**
-          * Link to open if the teaser is clicked/pressed.
+          * Link for the hero teaser.
          */
         "link": string;
         /**
@@ -809,10 +801,6 @@ export namespace Components {
           * If set, the link will be opened in a new window.
          */
         "openInNewWindow"?: boolean;
-        /**
-          * Text property for sbb-panel. See sbb-panel for additional info
-         */
-        "text": string;
     }
     interface SbbTimetable {
     }
@@ -2167,19 +2155,11 @@ declare namespace LocalJSX {
     }
     interface SbbTeaserHero {
         /**
-          * Button text property for sbb-panel. See sbb-panel for additional info
+          * Teaser title text, visually hidden,  necessary for screenreaders
          */
-        "buttonText": string;
+        "accessibilityTitle": string;
         /**
-          * Image loading property. See sbb-image for additional info
-         */
-        "imageLoading"?: InterfaceImageAttributes['loading'];
-        /**
-          * Image source property for sbb-image. See sbb-image for additional info
-         */
-        "imageSrc": string;
-        /**
-          * Link to open if the teaser is clicked/pressed.
+          * Link for the hero teaser.
          */
         "link": string;
         /**
@@ -2190,10 +2170,6 @@ declare namespace LocalJSX {
           * If set, the link will be opened in a new window.
          */
         "openInNewWindow"?: boolean;
-        /**
-          * Text property for sbb-panel. See sbb-panel for additional info
-         */
-        "text": string;
     }
     interface SbbTimetable {
     }

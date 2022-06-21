@@ -1,6 +1,16 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
-import { InterfaceImageAttributes } from '../sbb-image/sbb-image.custom';
-import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
+import {
+  Component,
+  h,
+  Prop,
+  Watch
+} from '@stencil/core';
+// import tokens from 'sbb-design-tokens/dist/js/tokens.json';
+
+/**
+ * @slot hiddenTitle - to place the accessibility title
+ * @slot image - to render the image
+ * @slot panel- to render the panel
+ */
 
 @Component({
   shadow: true,
@@ -8,81 +18,9 @@ import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
   tag: 'sbb-teaser-hero',
 })
 export class SbbTeaserHero {
-  private _pictureSizesConfig = {
-    breakpoints: [
-      {
-        image: {
-          height: tokens['sbb-breakpoint-ultra-max'],
-          width: tokens['sbb-breakpoint-ultra-max'],
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'min-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'sbb-breakpoint-ultra-min',
-            },
-            conditionOperator: false,
-          },
-        ],
-      },
-      {
-        image: {
-          height: tokens['sbb-breakpoint-wide-max'],
-          width: tokens['sbb-breakpoint-wide-max'],
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'max-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'sbb-breakpoint-wide-max',
-            },
-            conditionOperator: false,
-          },
-        ],
-      },
-      {
-        image: {
-          height: tokens['sbb-breakpoint-micro-max'],
-          width: tokens['sbb-breakpoint-micro-max'],
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'max-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'sbb-breakpoint-micro-max',
-            },
-            conditionOperator: false,
-          },
-        ],
-      },
-    ],
-  };
 
   /**
-   * Text property for sbb-panel. See sbb-panel for additional info
-   */
-  @Prop() public text!: string;
-
-  /**
-   * Button text property for sbb-panel. See sbb-panel for additional info
-   */
-  @Prop() public buttonText!: string;
-
-  /**
-   * Image source property for sbb-image. See sbb-image for additional info
-   */
-  @Prop() public imageSrc!: string;
-
-  /**
-   * Image loading property. See sbb-image for additional info
-   */
-  @Prop() public imageLoading?: InterfaceImageAttributes['loading'] = 'eager';
-
-  /**
-   * Link to open if the teaser is clicked/pressed.
+   * Link for the hero teaser.
    */
   @Prop() public link!: string;
 
@@ -98,8 +36,33 @@ export class SbbTeaserHero {
    */
   @Prop() public newWindowInfoText?: string;
 
+  /** Teaser title text, visually hidden,  necessary for screenreaders */
+  @Prop() public accessibilityTitle!: string;
+
+  /**
+   * Check if accessibilityTitle is provided since it is a required prop,
+   * otherwise throw an error.
+   */
+  /* eslint-disable */
+  @Watch('accessibilityTitle')
+  validateAccessibilityTitle(newValue: string) {
+    const isBlank = typeof newValue !== 'string' || newValue === '';
+    if (isBlank) { throw new Error('accessibilityTitle: required') }
+  }
+
+  public componentWillLoad(): void {
+    // Validate prop
+    this.validateAccessibilityTitle(this.accessibilityTitle);
+  }
+
+  /**
+   * ----------------------------------------------------------------
+   */
+
   public render(): JSX.Element {
+
     const linkAttributes = {};
+    const ariaLabel = this.accessibilityTitle
 
     if (this.openInNewWindow) {
       linkAttributes['rel'] = 'external noopener nofollow';
@@ -107,28 +70,22 @@ export class SbbTeaserHero {
     }
 
     return (
-      <a class="teaser-hero" href={this.link} {...linkAttributes}>
-        <sbb-image
-          aspect-ratio="1-1"
-          class="teaser-hero__image"
-          image-src={this.imageSrc}
-          loading={this.imageLoading}
-          lqip
-          performance-mark="teaser-hero"
-          picture-sizes-config={JSON.stringify(this._pictureSizesConfig)}
-        ></sbb-image>
+      <a
+        class='teaser-hero'
+        href={this.link}
+        aria-label={ariaLabel}
+        {...linkAttributes}
+      >
+        <sbb-title level='1' visually-hidden='true' text={ariaLabel} />
+        <div class='teaser-hero__panel'>
+          <slot name='panel'/>
+        </div>
+        <slot name='image'/>
 
-        <sbb-panel
-          class="teaser-hero__panel"
-          buttonText={this.buttonText}
-          text={this.text}
-        ></sbb-panel>
-
-        {this.openInNewWindow && this.newWindowInfoText ? (
-          <span class="teaser-hero__link-info-text">{this.newWindowInfoText}</span>
-        ) : (
-          ''
-        )}
+        {this.openInNewWindow && this.newWindowInfoText
+          ? <span class='teaser-hero__link-info-text'>{this.newWindowInfoText}</span>
+          : ''
+        }
       </a>
     );
   }
