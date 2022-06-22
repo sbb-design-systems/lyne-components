@@ -4,14 +4,26 @@ import readme from './readme.md';
 
 const TemplateInput = (args) => (
   <sbb-form-field {...args}>
-    <input slot='input' class="input" placeholder='Name' />
+    <input slot='input' class='input' placeholder='Name' />
+  </sbb-form-field>
+);
+
+const TemplateInputDisabled = (args) => (
+  <sbb-form-field {...args}>
+    <input slot='input' class='input' placeholder='Name' disabled value='Disabled'/>
+  </sbb-form-field>
+);
+
+const TemplateInputReadOnly = (args) => (
+  <sbb-form-field {...args}>
+    <input slot='input' class='input' placeholder='Name' readOnly value='Readonly' />
   </sbb-form-field>
 );
 
 const TemplateInputWithError = (args) => (
   <sbb-form-field {...args}>
     <input slot='input' placeholder='Name' />
-    <sbb-form-error slot='error'>required field</sbb-form-error>
+    <sbb-form-error slot='error'>This is a required field.</sbb-form-error>
   </sbb-form-field>
 );
 
@@ -33,6 +45,16 @@ const TemplateSelect = (args) => (
   </sbb-form-field>
 );
 
+const TemplateSelectDisabled = (args) => (
+  <sbb-form-field {...args}>
+    <select slot='input' placeholder='Name' disabled>
+      <option>Value 1</option>
+      <option>Value 2</option>
+      <option>Value 3</option>
+    </select>
+  </sbb-form-field>
+);
+
 const TemplateSelectWithError = (args) => (
   <sbb-form-field {...args}>
     <select slot='input' placeholder='Name'>
@@ -40,7 +62,7 @@ const TemplateSelectWithError = (args) => (
       <option>Value 2</option>
       <option>Value 3</option>
     </select>
-    <sbb-form-error slot='error'>required field</sbb-form-error>
+    <sbb-form-error slot='error'>This is a required field.</sbb-form-error>
   </sbb-form-field>
 );
 
@@ -96,6 +118,26 @@ formWithLabelAndInput.documentation = {
   title: 'sbb-form-field component with label and input'
 };
 
+export const formWithInputDisabled = TemplateInputDisabled.bind({});
+
+formWithInputDisabled.argTypes = basicArgTypes;
+
+formWithInputDisabled.args = JSON.parse(JSON.stringify(basicArgs));
+
+formWithInputDisabled.documentation = {
+  title: 'sbb-form-field component with input disabled'
+};
+
+export const formWithInputInReadOnly = TemplateInputReadOnly.bind({});
+
+formWithInputInReadOnly.argTypes = basicArgTypes;
+
+formWithInputInReadOnly.args = JSON.parse(JSON.stringify(basicArgs));
+
+formWithInputInReadOnly.documentation = {
+  title: 'sbb-form-field with input in readonly'
+};
+
 export const formWithLabelInputAndError = TemplateInputWithError.bind({});
 
 formWithLabelInputAndError.argTypes = basicArgTypes;
@@ -124,6 +166,16 @@ formWithLabelAndSelect.args = JSON.parse(JSON.stringify(basicArgs));
 
 formWithLabelAndSelect.documentation = {
   title: 'sbb-form-field component with label and select'
+};
+
+export const formWithSelectDisabled = TemplateSelectDisabled.bind({});
+
+formWithSelectDisabled.argTypes = basicArgTypes;
+
+formWithSelectDisabled.args = JSON.parse(JSON.stringify(basicArgs));
+
+formWithSelectDisabled.documentation = {
+  title: 'sbb-form-field component with select disabled'
 };
 
 export const formWithLabelSelectAndError = TemplateSelectWithError.bind({});
