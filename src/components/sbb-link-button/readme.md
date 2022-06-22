@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property                 | Attribute        | Description                                                                                                                              | Type                                                                     | Default     |
@@ -15,10 +16,14 @@
 | `text` _(required)_      | `text`           | The link text we want to visually show                                                                                                   | `string`                                                                 | `undefined` |
 | `variant`                | `variant`        | Choose the link button style variant                                                                                                     | `"primary" \| "primary-negative" \| "secondary" \| "secondary-negative"` | `'primary'` |
 
+
 ## Slots
 
 | Slot     | Description                                  |
 | -------- | -------------------------------------------- |
 | `"icon"` | Slot used to display the icon, if one is set |
 
----
+
+----------------------------------------------
+
+

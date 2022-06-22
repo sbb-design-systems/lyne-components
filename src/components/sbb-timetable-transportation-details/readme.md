@@ -5,17 +5,19 @@ here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property              | Attribute | Description                                                                                                                               | Type     | Default     |
 | --------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
 | `config` _(required)_ | `config`  | Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure. | `string` | `undefined` |
 
+
 ## Dependencies
 
 ### Used by
 
-- [sbb-timetable-row](../sbb-timetable-row)
+ - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Depends on
 
@@ -25,7 +27,6 @@ here to show the various configuration options to component developers. !!
 - [sbb-pearl-chain](../sbb-pearl-chain)
 
 ### Graph
-
 ```mermaid
 graph TD;
   sbb-timetable-transportation-details --> sbb-timetable-transportation-number
@@ -36,4 +37,6 @@ graph TD;
   style sbb-timetable-transportation-details fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
+
+

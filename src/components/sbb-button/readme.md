@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property           | Attribute            | Description                                                                                                                                     | Type                                                                                                                                                           | Default     |
@@ -19,11 +20,13 @@
 | `variant`          | `variant`            | Variant of the button, like primary, secondary etc.                                                                                             | `"primary" \| "primary-negative" \| "secondary" \| "secondary-negative" \| "translucent" \| "translucent-negative" \| "transparent" \| "transparent-negative"` | `'primary'` |
 | `visualButtonOnly` | `visual-button-only` | Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered). | `boolean`                                                                                                                                                      | `undefined` |
 
+
 ## Events
 
 | Event              | Description                                                                                                               | Type               |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | `sbb-button_click` | Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button. | `CustomEvent<any>` |
+
 
 ## Slots
 
@@ -31,18 +34,20 @@
 | ----------- | ------------------------------------------------------ |
 | `"unnamed"` | Slot to render svg icon. You must pass an svg-element. |
 
+
 ## Dependencies
 
 ### Used by
 
-- [sbb-panel](../sbb-panel)
+ - [sbb-panel](../sbb-panel)
 
 ### Graph
-
 ```mermaid
 graph TD;
   sbb-panel --> sbb-button
   style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
+
+

@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property                  | Attribute              | Description                                                                                                                                                           | Type                | Default     |
@@ -14,6 +15,7 @@
 | `openInNewWindow`         | `open-in-new-window`   | If set, the link will be opened in a new window.                                                                                                                      | `boolean`           | `undefined` |
 | `text` _(required)_       | `text`                 | Text property for sbb-panel. See sbb-panel for additional info                                                                                                        | `string`            | `undefined` |
 
+
 ## Dependencies
 
 ### Depends on
@@ -22,7 +24,6 @@
 - [sbb-panel](../sbb-panel)
 
 ### Graph
-
 ```mermaid
 graph TD;
   sbb-teaser-hero --> sbb-image
@@ -31,4 +32,6 @@ graph TD;
   style sbb-teaser-hero fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
+
+

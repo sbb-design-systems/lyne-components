@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property                 | Attribute        | Description                                                                                                                               | Type                       | Default      |
@@ -16,10 +17,14 @@
 | `textSize`               | `text-size`      | Text size, the link should get in the non button variation.                                                                               | `"m" \| "s" \| "xs"`       | `'s'`        |
 | `variant`                | `variant`        | Choose the link style variant.                                                                                                            | `"negative" \| "positive"` | `'positive'` |
 
+
 ## Slots
 
 | Slot     | Description                                  |
 | -------- | -------------------------------------------- |
 | `"icon"` | Slot used to display the icon, if one is set |
 
----
+
+----------------------------------------------
+
+
