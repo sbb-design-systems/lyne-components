@@ -22,7 +22,7 @@ const TemplateInputReadOnly = (args) => (
 
 const TemplateInputWithError = (args) => (
   <sbb-form-field {...args}>
-    <input slot='input' placeholder='Name' />
+    <input slot='input' class='input' placeholder='Name' />
     <sbb-form-error slot='error'>This is a required field.</sbb-form-error>
   </sbb-form-field>
 );
@@ -37,7 +37,7 @@ const TemplateInputWithIcons = (args) => (
 
 const TemplateSelect = (args) => (
   <sbb-form-field {...args}>
-    <select slot='input' placeholder='Name'>
+    <select slot='input' class="input select" placeholder='Name'>
       <option>Value 1</option>
       <option>Value 2</option>
       <option>Value 3</option>

@@ -52,7 +52,6 @@
 }
 
 // Input
-// ----------------------------------------------
 ::slotted(.input) {
   @include text-m--regular();
   @include placeholder();
@@ -60,6 +59,7 @@
   -webkit-appearance: none;
 
   width: 100%;
+  box-sizing: border-box;
   height: pxToRem(var(--input-height));
   padding-block-start: pxToRem(var(--input-padding-start));
   padding-inline-start: pxToRem(var(--spacing-fixed-3x));
@@ -68,6 +68,20 @@
   background-color: var(--background-color-default);
   border: pxToRem(1) solid var(--border-color-default);
   border-radius: pxToRem(var(--border-radius-4x));
+}
+
+::slotted(.input:focus) {
+  border-color: var(--border-color-focus);
+  outline: none;
+}
+
+::slotted(.input[disabled]) {
+  color: var(--text-color-disabled);
+  background-color: var(--background-color-disabled);
+}
+
+::slotted(.input[disabled] + .input-label) {
+  color: var(--text-color-disabled);
 }
 
 ::slotted(.input--no-border) {
@@ -87,20 +101,6 @@
 
 .input-wrapper--with-icon .input {
   padding-inline-start: pxToRem(var(--input-with-icon-padding-inline-start));
-}
-
-.input:focus {
-  border-color: var(--border-color-focus);
-  outline: none;
-}
-
-.input[disabled] {
-  color: var(--text-color-disabled);
-  background-color: var(--background-color-disabled);
-}
-
-.input[disabled] + .input-label {
-  color: var(--text-color-disabled);
 }
 
 .input-wrapper--error .input {
