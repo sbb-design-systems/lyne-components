@@ -161,8 +161,6 @@ export default {\n`;
       output += `  ${eventDecorator.name}: '${eventDecorator.eventName}',\n`;
     }
 
-    // Remove the last comma
-    output = output.replace(/,\n$/, '\n');
     output += '};\n';
 
     if (readFileSync(eventsFile, 'utf8') !== output) {

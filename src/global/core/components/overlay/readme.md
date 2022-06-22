@@ -2,11 +2,13 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property       | Attribute       | Description | Type     | Default     |
 | -------------- | --------------- | ----------- | -------- | ----------- |
 | `overlayIndex` | `overlay-index` |             | `number` | `undefined` |
+
 
 ## Events
 
@@ -17,18 +19,30 @@
 | `willDismiss` |             | `CustomEvent<InterfaceOverlayEventDetail<any>>` |
 | `willPresent` |             | `CustomEvent<void>`                             |
 
+
 ## Methods
 
 ### `dismiss(data?: any, role?: string) => Promise<boolean>`
+
+Dismiss the overlay.
 
 #### Returns
 
 Type: `Promise<boolean>`
 
+
+
 ### `present() => Promise<void>`
+
+Present the overlay.
 
 #### Returns
 
 Type: `Promise<void>`
 
----
+
+
+
+----------------------------------------------
+
+

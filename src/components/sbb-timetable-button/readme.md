@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property       | Attribute       | Description                                                                                                                                   | Type                                                                  | Default                 |
@@ -14,11 +15,12 @@
 | `expanded`     | `expanded`      | Set to true to initially show the state, which would get set by pressing the button.                                                          | `boolean`                                                             | `undefined`             |
 | `name`         | `name`          | The name attribute to use for the button                                                                                                      | `string`                                                              | `undefined`             |
 
+
 ## Dependencies
 
 ### Used by
 
-- [sbb-timetable](../sbb-timetable)
+ - [sbb-timetable](../sbb-timetable)
 
 ### Depends on
 
@@ -26,7 +28,6 @@
 - [sbb-timetable-transportation-walk](../sbb-timetable-transportation-walk)
 
 ### Graph
-
 ```mermaid
 graph TD;
   sbb-timetable-button --> sbb-timetable-cus-him
@@ -35,4 +36,6 @@ graph TD;
   style sbb-timetable-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
+
+

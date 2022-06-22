@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property        | Attribute        | Description                                                                                                                                                                                       | Type                                                    | Default      |
@@ -11,11 +12,13 @@
 | `titleText`     | `title-text`     | The title text we want to show before the list                                                                                                                                                    | `string`                                                | `undefined`  |
 | `variant`       | `variant`        | Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.             | `"negative" \| "positive"`                              | `'positive'` |
 
+
 ## Slots
 
 | Slot                | Description                                             |
 | ------------------- | ------------------------------------------------------- |
 | `"link-list__item"` | Use this to render the list items with the links inside |
+
 
 ## Dependencies
 
@@ -24,11 +27,12 @@
 - [sbb-title](../sbb-title)
 
 ### Graph
-
 ```mermaid
 graph TD;
   sbb-link-list --> sbb-title
   style sbb-link-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
+
+

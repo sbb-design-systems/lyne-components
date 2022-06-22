@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property                  | Attribute     | Description                                                | Type                                                            | Default     |
@@ -11,18 +12,18 @@
 | `tag`                     | `tag`         | The tag to use for the text element                        | `"h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "h6" \| "p" \| "span"` | `'p'`       |
 | `text` _(required)_       | `text`        | The text to show in the panel                              | `string`                                                        | `undefined` |
 
+
 ## Dependencies
 
 ### Used by
 
-- [sbb-teaser-hero](../sbb-teaser-hero)
+ - [sbb-teaser-hero](../sbb-teaser-hero)
 
 ### Depends on
 
 - [sbb-button](../sbb-button)
 
 ### Graph
-
 ```mermaid
 graph TD;
   sbb-panel --> sbb-button
@@ -30,4 +31,6 @@ graph TD;
   style sbb-panel fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
+
+
