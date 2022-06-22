@@ -2,7 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <sbb-form-error {...args}></sbb-form-error>
+  <sbb-form-error {...args}>This is a required field.</sbb-form-error>
 );
 
 export const sbbFormError = Template.bind({});

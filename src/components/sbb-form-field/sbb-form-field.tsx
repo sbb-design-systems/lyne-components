@@ -2,8 +2,9 @@ import {
   Component,
   Element,
   h,
-  Prop, State
+  Prop
 } from '@stencil/core';
+import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -22,11 +23,11 @@ export class SbbFormField {
 
   private _id: string;
 
+  private _idError: string;
+
   private _input: HTMLInputElement;
 
-  @State() private _isClearable: boolean;
-
-  @Prop() public clearable?: boolean;
+  @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'default';
 
   @Prop() public label: string;
 
@@ -35,6 +36,14 @@ export class SbbFormField {
   @Element() private _element: HTMLElement;
 
   public componentWillLoad(): void {
+    this._idError = this._element.querySelector('[slot="error"]')
+      .getAttribute('id');
+
+    this._element.querySelector('[slot="input"]')
+      .setAttribute('aria-describedby', this._idError);
+  }
+
+  private _onSlotInputChange(): void {
     this._element.querySelector('[slot="input"]')
       .setAttribute('id', 'input');
 
@@ -42,64 +51,44 @@ export class SbbFormField {
       .getAttribute('id');
 
     this._input = this._element.querySelector('[slot="input"]') as HTMLInputElement;
-
-    this._input.addEventListener('blur', this._setClearableInput.bind(this));
-  }
-
-  public disconnectedCallback(): void {
-    this._input.removeEventListener('blur', this._setClearableInput.bind(this));
-  }
-
-  private _setClearableInput(): void {
-    if (this.clearable && this._input.value) {
-      this._isClearable = true;
-    }
   }
 
   private _setFocus(): void {
     this._input.focus();
   }
 
-  private _handleClearInput(): void {
-    this._input.value = '';
-    this._isClearable = false;
-  }
-
   public render(): JSX.Element {
     const optional = this.optional
-      ? '(optional)'
+      ? ' (optional)'
       : '';
 
-    const clearable = this._isClearable
-      ? <button onClick={() => this._handleClearInput()}>Clear</button>
-      : null;
-
     return (
-        <div class="input-wrapper">
-          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,
+      // eslint-disable-next-line max-len
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+      <div onClick={this._setFocus.bind(this)} class='input-wrapper'>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,
           jsx-a11y/click-events-have-key-events */}
-          <label
-            class="input-label"
-            onClick={() => this._setFocus()}
-            htmlFor={this._id}>
-            <slot name='label'>
-              <span>{ this.label }</span>
-            </slot> {optional}
-          </label>
-          <div>
-            <slot name='prefix'></slot>
-          </div>
-          <div>
-            <slot name='input'></slot>
-            {clearable}
-          </div>
-          <div>
-            <slot name='suffix'></slot>
-          </div>
-          <div>
-            <slot name='error'></slot>
-          </div>
+        <label
+          class='input-label'
+          onClick={() => this._setFocus()}
+          htmlFor={this._id}>
+          <slot name='label'>
+            <span>{ this.label }</span>
+          </slot> {optional}
+        </label>
+        <div>
+          <slot name='prefix'></slot>
         </div>
+        <div>
+          <slot name='input' onSlotchange={this._onSlotInputChange.bind(this)}></slot>
+        </div>
+        <div>
+          <slot name='suffix'></slot>
+        </div>
+        <div>
+          <slot name='error'></slot>
+        </div>
+      </div>
     );
   }
 }

@@ -11,6 +11,7 @@ import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-ca
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
+import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
@@ -287,9 +288,10 @@ export namespace Components {
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface SbbFormError {
+        "id": string;
     }
     interface SbbFormField {
-        "clearable"?: boolean;
+        "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         "label": string;
         "optional"?: boolean;
     }
@@ -922,6 +924,14 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
 }
+export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbButtonElement;
+}
+export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbOverlayElement;
+}
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
     }
@@ -1392,7 +1402,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button.
          */
-        "onSbb-button_click"?: (event: CustomEvent<any>) => void;
+        "onSbb-button_click"?: (event: SbbButtonCustomEvent<any>) => void;
         /**
           * Size variant, either l or m.
          */
@@ -1511,9 +1521,10 @@ declare namespace LocalJSX {
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface SbbFormError {
+        "id"?: string;
     }
     interface SbbFormField {
-        "clearable"?: boolean;
+        "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         "label"?: string;
         "optional"?: boolean;
     }
@@ -1738,10 +1749,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbOverlay {
-        "onDidDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onDidPresent"?: (event: CustomEvent<void>) => void;
-        "onWillDismiss"?: (event: CustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onWillPresent"?: (event: CustomEvent<void>) => void;
+        "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
+        "onWillDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "onWillPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
     interface SbbPanel {

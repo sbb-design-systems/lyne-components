@@ -23,7 +23,7 @@ const TemplateInputReadOnly = (args) => (
 const TemplateInputWithError = (args) => (
   <sbb-form-field {...args}>
     <input slot='input' class='input' placeholder='Name' />
-    <sbb-form-error slot='error'>This is a required field.</sbb-form-error>
+    <sbb-form-error id='pippo' slot='error'>This is a required field.</sbb-form-error>
   </sbb-form-field>
 );
 
@@ -62,7 +62,7 @@ const TemplateSelectWithError = (args) => (
       <option>Value 2</option>
       <option>Value 3</option>
     </select>
-    <sbb-form-error slot='error'>This is a required field.</sbb-form-error>
+    <sbb-form-error id='error' slot='error'>This is a required field.</sbb-form-error>
   </sbb-form-field>
 );
 
@@ -78,6 +78,16 @@ const TemplateSelectWithIcons = (args) => (
   </sbb-form-field>
 );
 
+const errorSpaceArg = {
+  control: {
+    type: 'select'
+  },
+  options: [
+    'default',
+    'reserve'
+  ]
+};
+
 const labelArg = {
   control: {
     type: 'text'
@@ -90,20 +100,14 @@ const optionalArg = {
   }
 };
 
-const clearableArg = {
-  control: {
-    type: 'boolean'
-  }
-};
-
 const basicArgTypes = {
-  clearable: clearableArg,
+  errorSpace: errorSpaceArg,
   label: labelArg,
   optional: optionalArg
 };
 
 const basicArgs = {
-  clearable: false,
+  errorSpace: 'default',
   label: 'Name',
   optional: false
 };

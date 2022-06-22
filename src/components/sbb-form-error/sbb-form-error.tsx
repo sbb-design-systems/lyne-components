@@ -1,6 +1,6 @@
 import {
   Component,
-  h
+  h, Prop
 } from '@stencil/core';
 
 @Component({
@@ -14,9 +14,11 @@ import {
 
 export class SbbFormError {
 
+  @Prop() public id: string;
+
   public render(): JSX.Element {
     return (
-      <div>
+      <div id={this.id}>
         <slot></slot>
       </div>
     );
