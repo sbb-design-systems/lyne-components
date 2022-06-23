@@ -55,7 +55,7 @@
     "@brightlayer-ui/storybook-rtl-addon": "1.1.0",
     "@commitlint/cli": "17.0.2",
     "@commitlint/config-conventional": "17.0.2",
-    "@sbb-esta/lyne-design-tokens": "0.1.3",
+    "@sbb-esta/lyne-design-tokens": "0.1.4",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
