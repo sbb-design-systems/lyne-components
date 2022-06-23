@@ -101,7 +101,7 @@ const Template = (args) => (
           <SlotIconTemplate {...iconLanguageArgs}/>
         </sbb-stack>
         <sbb-stack gap-horizontal='fixed-10x' appearance='horizontal--end--centered'>
-          <sbb-logo protective-room='none' style='display:flex; height: calc((var(--sbb-spacing-responsive-xxs)) / var(--sbb-typo-scale-default) * 1rem);'></sbb-logo>
+          <sbb-logo protective-room='none' style='display:flex; height: var(--sbb-spacing-responsive-xxs);'></sbb-logo>
         </sbb-stack>
       </sbb-stack>
     </sbb-section>
@@ -113,7 +113,7 @@ const Template = (args) => (
       <sbb-grid slot='full-width' variant='base--eight-columns-centered'>
         <sbb-stack slot='eight-columns-centered' stack-width='100%' space-leading='responsive-xl' gap-vertical='fixed-4x' appearance='vertical--centered'>
           <sbb-link-button href-value='https://github.com/lyne-design-system/lyne-components' text='Timetable toggle pretender' variant='secondary'></sbb-link-button>
-          <sbb-stack gap-vertical='fixed-4x' appearance='vertical--centered' style='background-color: white; border-radius: 16px; max-width: 842px; height: 21vh; width: 100%; margin-bottom: -7vh; box-shadow: calc(var(--sbb-shadow-elevation-level-9-shadow-2-offset-x) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-2-offset-y) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-2-blur) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-2-spread) / var(--sbb-typo-scale-default) * 1rem) var(--sbb-shadow-elevation-level-9-hard-2-color), calc(var(--sbb-shadow-elevation-level-9-shadow-1-offset-x) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-1-offset-y) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-1-blur) / var(--sbb-typo-scale-default) * 1rem) calc(var(--sbb-shadow-elevation-level-9-shadow-1-spread) / var(--sbb-typo-scale-default) * 1rem) var(--sbb-shadow-elevation-level-5-hard-1-color)'></sbb-stack>
+          <sbb-stack gap-vertical='fixed-4x' appearance='vertical--centered' style='background-color: white; border-radius: 16px; max-width: 842px; height: 21vh; width: 100%; margin-bottom: -7vh; box-shadow: var(--sbb-shadow-elevation-level-9-shadow-2-offset-x) var(--sbb-shadow-elevation-level-9-shadow-2-offset-y) var(--sbb-shadow-elevation-level-9-shadow-2-blur) var(--sbb-shadow-elevation-level-9-shadow-2-spread) var(--sbb-shadow-elevation-level-9-hard-2-color), var(--sbb-shadow-elevation-level-9-shadow-1-offset-x) var(--sbb-shadow-elevation-level-9-shadow-1-offset-y) var(--sbb-shadow-elevation-level-9-shadow-1-blur) var(--sbb-shadow-elevation-level-9-shadow-1-spread) var(--sbb-shadow-elevation-level-5-hard-1-color)'></sbb-stack>
         </sbb-stack>
       </sbb-grid>
     </sbb-section>
@@ -121,7 +121,7 @@ const Template = (args) => (
     {/* *************************************************
     Products — Logged in
     ************************************************* */}
-    <sbb-section width='page-spacing' style='margin-inline-start: auto; margin-inline-end: auto; margin-block-end: calc(var(--sbb-spacing-responsive-l) / var(--typo-scale-default) * 1rem); padding-block-start: 7vh; max-width: 1440px; background-color: var(--sbb-color-milk-default);'>
+    <sbb-section width='page-spacing' style='margin-inline-start: auto; margin-inline-end: auto; margin-block-end: var(--sbb-spacing-responsive-l); padding-block-start: 7vh; max-width: 1440px; background-color: var(--sbb-color-milk-default);'>
       <sbb-grid slot='full-width' variant='base--eight-columns-centered'>
         <sbb-stack slot='eight-columns-centered' appearance='vertical' gap-vertical='responsive-m' space-leading='responsive-xl' space-trailing='responsive-l'>
           <sbb-stack appearance='horizontal--start' collapse-horizontal-below='small' gap-horizontal='fixed-6x' gap-vertical='fixed-4x' no-wrap='true'>

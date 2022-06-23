@@ -103,25 +103,25 @@ export class SbbStack {
     if (this.gapHorizontal) {
       inlineStyles = {
         ...inlineStyles,
-        'column-gap': `calc(var(--sbb-spacing-${this.gapHorizontal}) / var(--sbb-typo-scale-default) * 1rem)`
+        'column-gap': `var(--sbb-spacing-${this.gapHorizontal})`
       };
     }
     if (this.gapVertical) {
       inlineStyles = {
         ...inlineStyles,
-        'row-gap': `calc(var(--sbb-spacing-${this.gapVertical}) / var(--sbb-typo-scale-default) * 1rem)`
+        'row-gap': `var(--sbb-spacing-${this.gapVertical})`
       };
     }
     if (this.spaceLeading) {
       inlineStyles = {
         ...inlineStyles,
-        'margin-block-start': `calc(var(--sbb-spacing-${this.spaceLeading}) / var(--sbb-typo-scale-default) * 1rem)`
+        'margin-block-start': `var(--sbb-spacing-${this.spaceLeading})`
       };
     }
     if (this.spaceTrailing) {
       inlineStyles = {
         ...inlineStyles,
-        'margin-block-end': `calc(var(--sbb-spacing-${this.spaceTrailing}) / var(--sbb-typo-scale-default) * 1rem)`
+        'margin-block-end': `var(--sbb-spacing-${this.spaceTrailing})`
       };
     }
     if (this.stackWidth) {

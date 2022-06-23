@@ -110,7 +110,7 @@
   font-weight: normal;
   line-height: var(--sbb-typo-line-height-body-text);
   letter-spacing: var(--sbb-typo-letter-spacing-body-text);
-  font-size: calc(var(--lyne-font-size-text-s) / var(--sbb-typo-scale-default) * 1rem);
+  font-size: var(--lyne-font-size-text-s);
   color: var(--_stack-text-color-normal);
   width: inherit;
 }

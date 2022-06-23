@@ -6,16 +6,16 @@
 @mixin dot {
   content: '';
   position: absolute;
-  width: pxToRem(#{var(--dot-size)});
-  height: pxToRem(#{var(--dot-size)});
+  width: var(--dot-size);
+  height: var(--dot-size);
   border-radius: 100%;
 }
 
 :host {
   display: block;
 
-  --dot-size-large: 10;
-  --dot-size-small: 8;
+  --dot-size-large: #{pxToRemBuild(10)};
+  --dot-size-small: #{pxToRemBuild(8)};
   --border-width: var(--sbb-border-width-2x);
   --spacing-small: var(--sbb-spacing-fixed-1x);
   --color-white: var(--sbb-color-white-default);
@@ -33,9 +33,9 @@
   flex-wrap: nowrap;
   color: var(--sbb-color-default);
   width: 100%;
-  padding-block-start: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
-  padding-block-end: calc((#{pxToRem(var(--dot-size-large))} - #{pxToRem(var(--border-width))}) / 2);
-  padding-inline-end: pxToRem(var(--dot-size-large));
+  padding-block-start: calc((var(--dot-size-large) - var(--border-width)) / 2);
+  padding-block-end: calc((var(--dot-size-large) - var(--border-width)) / 2);
+  padding-inline-end: var(--dot-size-large);
 }
 
 // first and last dot
@@ -100,7 +100,7 @@
   flex-shrink: 0;
   flex-grow: 0;
   position: relative;
-  height: pxToRem(var(--border-width));
+  height: var(--border-width);
 
   @include ifForcedColors {
     color: CanvasText;
@@ -114,10 +114,10 @@
   @include dot;
 
   box-sizing: border-box;
-  top: calc(#{pxToRem(var(--dot-size))} / -2 + #{pxToRem(var(--border-width))} / 2);
+  top: calc(var(--dot-size) / -2 + var(--border-width) / 2);
   left: 0;
   background-color: var(--color-white);
-  border: pxToRem(var(--border-width)) solid currentColor;
+  border: var(--border-width) solid currentColor;
   z-index: 2;
 
   @include ifForcedColors {
@@ -133,11 +133,11 @@
   content: '';
   position: absolute;
   top: 0;
-  right: pxToRem(var(--spacing-small));
+  right: var(--spacing-small);
   bottom: 0;
   left: 0;
   background-color: currentColor;
-  border-radius: pxToRem(var(--border-width));
+  border-radius: var(--border-width);
   z-index: 1;
 
   @include ifForcedColors {
@@ -152,7 +152,7 @@
 }
 
 .pearl-chain__leg:last-of-type:after {
-  right: calc(-1 * #{pxToRem(var(--border-width))});
+  right: calc(-1 * var(--border-width));
 }
 
 .pearl-chain__leg--cancellation {
@@ -177,15 +177,15 @@
   background-color: unset;
   background-image: linear-gradient(to right, currentColor 0%, currentColor 50%, var(--color-white) 50%);
   background-repeat: repeat-x;
-  background-size: calc(2 * #{pxToRem(var(--spacing-small))}) pxToRem(var(--border-width));
+  background-size: calc(2 * var(--spacing-small)) var(--border-width);
 }
 
 .pearl-chain__leg--cancellation:after,
 .pearl-chain--past .pearl-chain__leg--cancellation:after {
   @include ifForcedColors {
     background: none;
-    border-top: pxToRem(1) dashed currentColor;
-    transform: translateY(#{pxToRem(1)});
+    border-top: #{pxToRemBuild(1)} dashed currentColor;
+    transform: translateY(#{pxToRemBuild(1)});
   }
 }
 
@@ -198,7 +198,7 @@
   z-index: 3;
 
   // --status-position: defined in .tsx file
-  $realChainLength: calc(100% - #{pxToRem(var(--dot-size-large))});
+  $realChainLength: calc(100% - var(--dot-size-large));
   $realPosition: calc(#{var(--status-position)} / 100 * #{$realChainLength});
   left: $realPosition;
 
@@ -219,6 +219,6 @@
     box-shadow: 0 0 0 0 var(--color-current-location-dark);
   }
   40% {
-    box-shadow: 0 0 0 pxToRem(6) transparent;
+    box-shadow: 0 0 0 #{pxToRemBuild(6)} transparent;
   }
 }

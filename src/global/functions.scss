@@ -1,7 +1,8 @@
-@function pxToRem($size, $negate:null) {
-  $multiplier: 1rem;
-  @if $negate {
-    $multiplier: -1rem;
-  }
-  @return calc(#{$size} / #{var(--sbb-typo-scale-default)} * #{$multiplier});
+@use 'sass:math';
+
+/**
+ * size: value in px (no unit)
+ */
+@function pxToRemBuild($size) {
+  @return ((math.div($size, 16)) + 0rem);
 }

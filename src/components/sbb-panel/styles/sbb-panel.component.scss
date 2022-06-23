@@ -10,45 +10,45 @@
   --font-family: 'SBBWeb Light';
   --letter-spacing: 0.01em;
   --line-height: 1.3;
-  --font-size: 24;
+  --font-size: #{pxToRemBuild(24)};
 
-  --panel-width: 223;
-  --panel-height: 167;
+  --panel-width: #{pxToRemBuild(223)};
+  --panel-height: #{pxToRemBuild(167)};
   --button-margin: var(--sbb-spacing-responsive-xs-small);
   --panel-padding-inline: var(--sbb-spacing-responsive-m-small);
   --panel-padding-block: var(--sbb-spacing-responsive-s-small);
-  --triangle-height: 33;
+  --triangle-height: #{pxToRemBuild(33)};
 
   @include mq($from: medium) {
     // TODO: missing design tokens
-    --font-size: 32;
+    --font-size: #{pxToRemBuild(32)};
     --line-height: 1.3;
 
-    --panel-width: 321;
-    --panel-height: 240.11;
+    --panel-width: #{pxToRemBuild(321)};
+    --panel-height: #{pxToRemBuild(240.11)};
     --button-margin: var(--sbb-spacing-responsive-xs-medium);
     --panel-padding-inline: var(--sbb-spacing-responsive-m-medium);
     --panel-padding-block: var(--sbb-spacing-responsive-s-medium);
-    --triangle-height: 47.45;
+    --triangle-height: #{pxToRemBuild(47.45)};
   }
 
   @include mq($from: wide) {
     // TODO: missing design tokens
-    --font-size: 40;
+    --font-size: #{pxToRemBuild(40)};
     --line-height: 1.2;
 
-    --panel-width: 428;
-    --panel-height: 320.38;
+    --panel-width: #{pxToRemBuild(428)};
+    --panel-height: #{pxToRemBuild(320.38)};
     --panel-padding-inline: var(--sbb-spacing-responsive-m-wide);
     --panel-padding-block: var(--sbb-spacing-responsive-s-wide);
-    --triangle-height: 63.31;
+    --triangle-height: #{pxToRemBuild(63.31)};
   }
 
   --background-color: var(--sbb-color-red-default);
   --text-color: var(--sbb-color-white-default);
 
-  padding-block-start: pxToRem(var(--triangle-height));
-  padding-block-end: pxToRem(var(--triangle-height));
+  padding-block-start: var(--triangle-height);
+  padding-block-end: var(--triangle-height);
 
 }
 
@@ -58,16 +58,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: pxToRem(var(--panel-width));
-  min-height: #{pxToRem(var(--panel-height))};
-  padding-inline-start: pxToRem(var(--panel-padding-inline));
-  padding-inline-end: pxToRem(var(--panel-padding-inline));
-  padding-block-start: pxToRem(var(--panel-padding-block));
-  padding-block-end: pxToRem(var(--panel-padding-block));
+  width: var(--panel-width);
+  min-height: var(--panel-height);
+  padding-inline-start: var(--panel-padding-inline);
+  padding-inline-end: var(--panel-padding-inline);
+  padding-block-start: var(--panel-padding-block);
+  padding-block-end: var(--panel-padding-block);
   background-color: var(--background-color);
 
   @include ifForcedColors {
-    border: pxToRem(1) solid CanvasText;
+    border: #{pxToRemBuild(1)} solid CanvasText;
   }
 
 }
@@ -80,7 +80,7 @@
   width: 0;
   height: 0;
   z-index: 0;
-  border-inline-end: pxToRem(var(--panel-width)) solid transparent;
+  border-inline-end: var(--panel-width) solid transparent;
 
   @include ifForcedColors {
     display: none;
@@ -89,13 +89,13 @@
 }
 
 .panel:before {
-  top: calc(-1 * #{pxToRem(var(--triangle-height))});
-  border-block-end: pxToRem(var(--triangle-height)) solid var(--background-color);
+  top: calc(-1 * var(--triangle-height));
+  border-block-end: var(--triangle-height) solid var(--background-color);
 }
 
 .panel:after {
-  bottom: calc(-1 * #{pxToRem(var(--triangle-height))});
-  border-block-start: pxToRem(var(--triangle-height)) solid var(--background-color);
+  bottom: calc(-1 * var(--triangle-height));
+  border-block-start: var(--triangle-height) solid var(--background-color);
 }
 
 .panel__text {
@@ -103,7 +103,7 @@
   margin: 0;
   color: var(--sbb-color-white-default);
   font-family: var(--font-family);
-  font-size: pxToRem(var(--font-size));
+  font-size: var(--font-size);
   font-weight: normal;
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
@@ -112,6 +112,6 @@
 }
 
 .panel__button {
-  margin-top: pxToRem(var(--button-margin));
+  margin-top: var(--button-margin);
   z-index: 1;
 }

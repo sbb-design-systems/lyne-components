@@ -103,13 +103,13 @@
   --padding-inline: 0;
   --icon-margin-inline-end: 0;
 
-  width: pxToRem(var(--min-height));
+  width: var(--min-height);
   justify-content: center;
 
   &.button:disabled::after {
     inset-inline: unset;
     // Width of line through is fixed in icon variant
-    width: pxToRem(var(--icon-size));
+    width: var(--icon-size);
   }
 }
 
@@ -127,8 +127,8 @@
     content: "";
     @include absoluteCenterY;
     background-color: var(--color-disabled-text);
-    height: pxToRem(var(--line-through-height-disabled));
-    inset-inline: pxToRem(var(--padding-inline));
+    height: var(--line-through-height-disabled);
+    inset-inline: var(--padding-inline);
 
     @include ifForcedColors {
       background-color: GrayText;

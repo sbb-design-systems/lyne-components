@@ -9,7 +9,7 @@
   --item-margin-block: 0;
 
   // used in accordion-item
-  --body-padding-inline: 0;
+  --body-padding-inline: 0rem;
   --header-padding-inline: 0;
   --border-width: var(--sbb-border-width-1x);
   --border-radius-start-start: 0;
@@ -41,7 +41,7 @@
 }
 
 ::slotted(sbb-accordion-item:not(:first-child)) {
-  margin-block-start: pxToRem(var(--item-margin-block));
+  margin-block-start: var(--item-margin-block);
 }
 
 ::slotted(sbb-accordion-item:first-child) {

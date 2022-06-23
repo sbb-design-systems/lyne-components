@@ -1,5 +1,6 @@
 // Inspired by: https://github.com/sass-mq/sass-mq
 
+@use "sass:math";
 @import './node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss';
 
 $mq-breakpoints: (
@@ -15,8 +16,8 @@ $mq-breakpoints: (
 
 $mq-media-type: all !default;
 
-@function mq-px2rem($px, $modifier) {
-  @return calc(calc(#{$px + $modifier} * 1rem) / #{$sbb-typo-scale-default});
+@function mq-px2rem($rem, $modifier) {
+  @return calc(#{$rem + (math.div($modifier, 16) * 1rem)});
 }
 
 @function mq-get-breakpoint-width($name, $breakpoints: $mq-breakpoints) {

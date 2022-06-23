@@ -8,10 +8,10 @@
   --_footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
   --_footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
   --_footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
-  --_footer-divider-thickness: var(--footer-divider-thickness, 1);
-  --_footer-clock-width: var(--footer-clock-width, 76);
+  --_footer-divider-thickness: var(--footer-divider-thickness, #{pxToRemBuild(1)});
+  --_footer-clock-width: var(--footer-clock-width, #{pxToRemBuild(76)});
   @include mq($from: small) {
-    --_footer-clock-width: var(--footer-clock-width, 112);
+    --_footer-clock-width: var(--footer-clock-width, #{pxToRemBuild(112)});
   }
 
   // Contextual design for sbb-stack
@@ -20,9 +20,9 @@
 
 .footer {
   @include page-spacing;
-  margin-block-start: pxToRem(var(--sbb-spacing-responsive-l));
-  padding-block-start: pxToRem(var(--sbb-spacing-responsive-l));
-  padding-block-end: pxToRem(var(--sbb-spacing-responsive-l));
+  margin-block-start: var(--sbb-spacing-responsive-l);
+  padding-block-start: var(--sbb-spacing-responsive-l);
+  padding-block-end: var(--sbb-spacing-responsive-l);
   background-color: var(--_footer-background-color);
 }
 
@@ -36,23 +36,23 @@
   @include page-spacing__inner;
   display: flex;
   flex-wrap: wrap;
-  column-gap: pxToRem(var(--_footer-gap-horizontal));
-  row-gap: pxToRem(var(--_footer-gap-vertical));
+  column-gap: var(--_footer-gap-horizontal);
+  row-gap: var(--_footer-gap-vertical);
 
   ::slotted([slot]) {
     flex-basis: 100%;
 
     @include mq($from: small) {
-      flex: 0 0 calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))} / 2));
-      max-width: calc(50% - (#{pxToRem(var(--_footer-gap-horizontal))} / 2));
+      flex: 0 0 calc(50% - (var(--_footer-gap-horizontal) / 2));
+      max-width: calc(50% - (var(--_footer-gap-horizontal) / 2));
     }
     @include mq($from: wide) {
-      flex: 0 0 calc(25% - ((3 * #{pxToRem(var(--_footer-gap-horizontal))}) / 4));
-      max-width: calc(25% - ((3 * #{pxToRem(var(--_footer-gap-horizontal))}) / 4));
+      flex: 0 0 calc(25% - ((3 * var(--_footer-gap-horizontal)) / 4));
+      max-width: calc(25% - ((3 * var(--_footer-gap-horizontal)) / 4));
     }
   }
   ::slotted([slot='clock']) {
-    max-width: pxToRem(var(--_footer-clock-width));
+    max-width: var(--_footer-clock-width);
     @include mq($from: zero) {
       order: -1;
     }
@@ -74,7 +74,7 @@
 // Only apply spacing and thin line if footer bottom has a predecessor, excluding
 // the hidden title which always needs to be present
 :not(.title--visually-hidden) + .bottom {
-  margin-block-start: pxToRem(var(--sbb-spacing-responsive-xl));
-  border-block-start: pxToRem(var(--_footer-divider-thickness)) solid var(--_footer-divider-color);
-  padding-block-start: pxToRem(var(--sbb-spacing-fixed-8x));
+  margin-block-start: var(--sbb-spacing-responsive-xl);
+  border-block-start: var(--_footer-divider-thickness) solid var(--_footer-divider-color);
+  padding-block-start: var(--sbb-spacing-fixed-8x);
 }

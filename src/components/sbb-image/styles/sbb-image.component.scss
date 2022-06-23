@@ -79,8 +79,8 @@
   position: relative;
   overflow: hidden;
   max-width: 100%;
-  margin-bottom: pxToRem(var(--sbb-spacing-fixed-4x));
-  border-radius: pxToRem(var(--image-border-radius));
+  margin-bottom: var(--sbb-spacing-fixed-4x);
+  border-radius: var(--image-border-radius);
   @include image-aspect-ratio-16-9;
 }
 

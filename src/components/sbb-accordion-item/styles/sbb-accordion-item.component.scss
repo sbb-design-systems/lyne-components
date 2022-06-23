@@ -22,7 +22,7 @@
   --header-transition-timing-function: ease-in;
   --header-transition-duration: 180ms;
 
-  --color-heading-hover: var(-sbb-color-anthracite-default);
+  --color-heading-hover: var(--sbb-color-anthracite-default);
   --color-default: var(--sbb-color-white-default);
   --color-black: var(--sbb-color-black-default);
   --icon-size: var(--sbb-size-icon-ui-small);
@@ -35,14 +35,14 @@
 .accordion-item {
   width: 100%;
   background-color: var(--color-default);
-  border-radius: pxToRem(var(--border-radius-small));
+  border-radius: var(--border-radius-small);
 
   // no support in safari for border-start-start-radius etc.
-  border-top-left-radius: pxToRem(var(--border-radius-start-start));
-  border-top-right-radius: pxToRem(var(--border-radius-start-end));
-  border-bottom-left-radius: pxToRem(var(--border-radius-end-start));
-  border-bottom-right-radius: pxToRem(var(--border-radius-end-end));
-  border-block-end: pxToRem(var(--border-width)) solid var(--border-color);
+  border-top-left-radius: var(--border-radius-start-start);
+  border-top-right-radius: var(--border-radius-start-end);
+  border-bottom-left-radius: var(--border-radius-end-start);
+  border-bottom-right-radius: var(--border-radius-end-end);
+  border-block-end: var(--border-width) solid var(--border-color);
   transition: background-color var(--header-transition-duration) var(--header-transition-timing-function),
               color var(--header-transition-duration) var(--header-transition-timing-function);
 
@@ -63,10 +63,10 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  padding-block-start: pxToRem(var(--header-padding-block));
-  padding-block-end: pxToRem(var(--header-padding-block));
-  padding-inline-start: pxToRem(var(--header-padding-inline));
-  padding-inline-end: pxToRem(var(--header-padding-inline));
+  padding-block-start: var(--header-padding-block);
+  padding-block-end: var(--header-padding-block);
+  padding-inline-start: var(--header-padding-inline);
+  padding-inline-end: var(--header-padding-inline);
   color: inherit;
 }
 
@@ -88,8 +88,8 @@
 
 ::slotted(svg[slot='icon']) {
   display: block;
-  height: pxToRem(var(--icon-size));
-  margin-inline-end: pxToRem(var(--icon-padding-inline-end));
+  height: var(--icon-size);
+  margin-inline-end: var(--icon-padding-inline-end);
   fill: currentColor;
 }
 
@@ -102,11 +102,11 @@
 }
 
 .accordion-item__chevron {
-  flex-basis: pxToRem(var(--icon-size));
+  flex-basis: var(--icon-size);
   flex-shrink: 0;
   flex-grow: 0;
-  height: pxToRem(var(--icon-size));
-  padding-inline-start: pxToRem(var(--header-padding-inline));
+  height: var(--icon-size);
+  padding-inline-start: var(--header-padding-inline);
 }
 
 .accordion-item__chevron svg {
@@ -135,14 +135,14 @@
 }
 
 .accordion-item--has-icon .accordion-item__body-inner {
-  padding-inline-start: calc(#{pxToRem(var(--body-padding-inline))} + #{pxToRem(var(--icon-size))} + #{pxToRem(var(--icon-padding-inline-end))});
+  padding-inline-start: calc(var(--body-padding-inline) + var(--icon-size) + var(--icon-padding-inline-end));
 }
 
 .accordion-item__body-inner {
   box-sizing: border-box;
-  padding-inline-start: pxToRem(var(--body-padding-inline));
-  padding-inline-end: pxToRem(var(--body-padding-inline));
-  padding-block-end: pxToRem(var(--body-padding-block));
+  padding-inline-start: var(--body-padding-inline);
+  padding-inline-end: var(--body-padding-inline);
+  padding-block-end: var(--body-padding-block);
 }
 
 // style first slot child
@@ -176,7 +176,7 @@
   }
 
   .accordion-item {
-    border: pxToRem(1) solid CanvasText;
+    border: #{pxToRemBuild(1)} solid CanvasText;
   }
 
   .accordion-item__chevron svg,

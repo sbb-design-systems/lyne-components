@@ -1,35 +1,35 @@
 /// Mixin to retrieve box shadow level 3 soft
 ///
 @mixin shadow-level-3-soft {
-  box-shadow: pxToRem(var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-2-blur)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-2-spread)) var(--sbb-shadow-elevation-level-3-soft-2-color), pxToRem(var(--sbb-shadow-elevation-level-3-shadow-1-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-1-blur)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-1-spread)) var(--sbb-shadow-elevation-level-3-soft-1-color);
+  box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x) var(--sbb-shadow-elevation-level-3-shadow-2-offset-y) var(--sbb-shadow-elevation-level-3-shadow-2-blur) var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-shadow-elevation-level-3-soft-2-color), var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-shadow-elevation-level-3-shadow-1-offset-y) var(--sbb-shadow-elevation-level-3-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread) var(--sbb-shadow-elevation-level-3-soft-1-color);
 }
 
 /// Mixin to retrieve box shadow level 3 hard
 ///
 @mixin shadow-level-3-hard {
-  box-shadow: pxToRem(var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-2-blur)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-2-spread)) var(--sbb-shadow-elevation-level-3-hard-2-color), pxToRem(var(--sbb-shadow-elevation-level-3-shadow-1-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-1-blur)) pxToRem(var(--sbb-shadow-elevation-level-3-shadow-1-spread)) var(--sbb-shadow-elevation-level-3-hard-1-color);
+  box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x) var(--sbb-shadow-elevation-level-3-shadow-2-offset-y) var(--sbb-shadow-elevation-level-3-shadow-2-blur) var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-shadow-elevation-level-3-hard-2-color), var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-shadow-elevation-level-3-shadow-1-offset-y) var(--sbb-shadow-elevation-level-3-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread) var(--sbb-shadow-elevation-level-3-hard-1-color);
 }
 
 /// Mixin to retrieve box shadow level 5 soft
 ///
 @mixin shadow-level-5-soft {
-  box-shadow: pxToRem(var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-2-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-2-blur)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-2-spread)) var(--sbb-shadow-elevation-level-5-soft-2-color), pxToRem(var(--sbb-shadow-elevation-level-5-shadow-1-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-1-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-1-blur)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-1-spread)) var(--sbb-shadow-elevation-level-5-soft-1-color);
+  box-shadow: var(--sbb-shadow-elevation-level-5-shadow-2-offset-x) var(--sbb-shadow-elevation-level-5-shadow-2-offset-y) var(--sbb-shadow-elevation-level-5-shadow-2-blur) var(--sbb-shadow-elevation-level-5-shadow-2-spread) var(--sbb-shadow-elevation-level-5-soft-2-color), var(--sbb-shadow-elevation-level-5-shadow-1-offset-x) var(--sbb-shadow-elevation-level-5-shadow-1-offset-y) var(--sbb-shadow-elevation-level-5-shadow-1-blur) var(--sbb-shadow-elevation-level-5-shadow-1-spread) var(--sbb-shadow-elevation-level-5-soft-1-color);
 }
 
 /// Mixin to retrieve box shadow level 5 hard
 ///
 @mixin shadow-level-5-hard {
-  box-shadow: pxToRem(var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-2-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-2-blur)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-2-spread)) var(--sbb-shadow-elevation-level-5-hard-2-color), pxToRem(var(--sbb-shadow-elevation-level-5-shadow-1-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-1-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-1-blur)) pxToRem(var(--sbb-shadow-elevation-level-5-shadow-1-spread)) var(--sbb-shadow-elevation-level-5-hard-1-color);
+  box-shadow: var(--sbb-shadow-elevation-level-5-shadow-2-offset-x) var(--sbb-shadow-elevation-level-5-shadow-2-offset-y) var(--sbb-shadow-elevation-level-5-shadow-2-blur) var(--sbb-shadow-elevation-level-5-shadow-2-spread) var(--sbb-shadow-elevation-level-5-hard-2-color), var(--sbb-shadow-elevation-level-5-shadow-1-offset-x) var(--sbb-shadow-elevation-level-5-shadow-1-offset-y) var(--sbb-shadow-elevation-level-5-shadow-1-blur) var(--sbb-shadow-elevation-level-5-shadow-1-spread) var(--sbb-shadow-elevation-level-5-hard-1-color);
 }
 
 /// Mixin to retrieve box shadow level 9 soft
 ///
 @mixin shadow-level-9-soft {
-  box-shadow: pxToRem(var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-2-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-2-blur)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-2-spread)) var(--sbb-shadow-elevation-level-9-soft-2-color), pxToRem(var(--sbb-shadow-elevation-level-9-shadow-1-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-1-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-1-blur)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-1-spread)) var(--sbb-shadow-elevation-level-9-soft-1-color);
+  box-shadow: var(--sbb-shadow-elevation-level-9-shadow-2-offset-x) var(--sbb-shadow-elevation-level-9-shadow-2-offset-y) var(--sbb-shadow-elevation-level-9-shadow-2-blur) var(--sbb-shadow-elevation-level-9-shadow-2-spread) var(--sbb-shadow-elevation-level-9-soft-2-color), var(--sbb-shadow-elevation-level-9-shadow-1-offset-x) var(--sbb-shadow-elevation-level-9-shadow-1-offset-y) var(--sbb-shadow-elevation-level-9-shadow-1-blur) var(--sbb-shadow-elevation-level-9-shadow-1-spread) var(--sbb-shadow-elevation-level-9-soft-1-color);
 }
 
 /// Mixin to retrieve box shadow level 9 hard
 ///
 @mixin shadow-level-9-hard {
-  box-shadow: pxToRem(var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-2-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-2-blur)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-2-spread)) var(--sbb-shadow-elevation-level-9-hard-2-color), pxToRem(var(--sbb-shadow-elevation-level-9-shadow-1-offset-x)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-1-offset-y)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-1-blur)) pxToRem(var(--sbb-shadow-elevation-level-9-shadow-1-spread)) var(--sbb-shadow-elevation-level-9-hard-1-color);
+  box-shadow: var(--sbb-shadow-elevation-level-9-shadow-2-offset-x) var(--sbb-shadow-elevation-level-9-shadow-2-offset-y) var(--sbb-shadow-elevation-level-9-shadow-2-blur) var(--sbb-shadow-elevation-level-9-shadow-2-spread) var(--sbb-shadow-elevation-level-9-hard-2-color), var(--sbb-shadow-elevation-level-9-shadow-1-offset-x) var(--sbb-shadow-elevation-level-9-shadow-1-offset-y) var(--sbb-shadow-elevation-level-9-shadow-1-blur) var(--sbb-shadow-elevation-level-9-shadow-1-spread) var(--sbb-shadow-elevation-level-9-hard-1-color);
 }

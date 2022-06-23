@@ -6,16 +6,16 @@
 :host {
   display: block;
 
-  --transportation-min-width: 38;
+  --transportation-min-width: #{pxToRemBuild(38)};
 
   @include mq($from: medium) {
-    --transportation-min-width: 43;
+    --transportation-min-width: #{pxToRemBuild(43)};
   }
 
 }
 
 .time {
-  min-width: pxToRem(var(--transportation-min-width));
+  min-width: var(--transportation-min-width);
   margin: 0;
   font-appearance-numeric: tabular-nums;
 }
@@ -25,12 +25,12 @@
 }
 
 .time--first-level.time--departure {
-  margin-inline-end: pxToRem(var(--sbb-spacing-fixed-3x));
+  margin-inline-end: var(--sbb-spacing-fixed-3x);
 }
 
 .time--first-level.time--arrival {
   @include text-s--bold();
-  margin-inline-start: pxToRem(var(--sbb-spacing-fixed-3x));
+  margin-inline-start: var(--sbb-spacing-fixed-3x);
 }
 
 .time-second-level.time--departure {

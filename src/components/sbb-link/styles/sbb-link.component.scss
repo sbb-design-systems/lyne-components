@@ -21,7 +21,7 @@
 .link {
   display: flex;
   align-items: center;
-  gap: pxToRem(var(--sbb-spacing-fixed-1x));
+  gap: var(--sbb-spacing-fixed-1x);
   color: var(--text-color-normal);
   text-decoration: none;
   word-break: break-word;
@@ -49,8 +49,8 @@
 }
 
 .link__icon {
-  width: pxToRem(var(--sbb-size-icon-ui-small));
-  height: pxToRem(var(--sbb-size-icon-ui-small));
+  width: var(--sbb-size-icon-ui-small);
+  height: var(--sbb-size-icon-ui-small);
 }
 
 .link--icon-placement-end .link__icon {

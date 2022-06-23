@@ -51,7 +51,7 @@
 .icon {
   display: flex;
   align-items: center;
-  padding-inline: pxToRem(var(--_icon-spacing-inset));
+  padding-inline: var(--_icon-spacing-inset);
 
   svg {
     fill: currentColor;

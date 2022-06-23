@@ -4,11 +4,11 @@
 @include host-component-properties;
 
 :host {
-  --travel-hint-icon-height: 12;
+  --travel-hint-icon-height: #{pxToRemBuild(12)};
   --travel-hint-icon-scaling-factor: 0.75;
 
   @include mq($from: medium) {
-    --travel-hint-icon-height: 16;
+    --travel-hint-icon-height: #{pxToRemBuild(16)};
     --travel-hint-icon-scaling-factor: 1;
   }
 }
@@ -16,7 +16,7 @@
 .travel-hints__list {
   @include listReset();
   display: flex;
-  gap: pxToRem(var(--sbb-spacing-fixed-1x));
+  gap: var(--sbb-spacing-fixed-1x);
 }
 
 .travel-hints--first-level-list .travel-hints__list {
@@ -30,7 +30,7 @@
 
 .travel-hints__icon,
 .travel-hints__icon svg {
-  height: pxToRem(var(--travel-hint-icon-height));
+  height: var(--travel-hint-icon-height);
 }
 
 .travel-hints__icon svg {
@@ -42,7 +42,7 @@
 }
 
 @mixin widthWithScalingFactor($width) {
-  width: calc(#{var(--travel-hint-icon-scaling-factor)} * #{pxToRem($width)});
+  width: calc(#{var(--travel-hint-icon-scaling-factor)} * #{pxToRemBuild($width)});
 }
 
 // This might look like a terribly complicated solution but was unfortunately the most efficient and
