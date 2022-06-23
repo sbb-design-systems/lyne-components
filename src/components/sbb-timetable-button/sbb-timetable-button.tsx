@@ -1,32 +1,20 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop,
-  Watch
-} from '@stencil/core';
+import { Component, Element, h, Prop, Watch } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-right-small.svg';
 import events from './sbb-timetable-button.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceTimetableButtonAttributes } from './sbb-timetable-button.custom';
-import {
-  i18nEarlierConnections,
-  i18nLaterConnections,
-  i18nShowOnMap
-} from '../../global/i18n';
+import { i18nEarlierConnections, i18nLaterConnections, i18nShowOnMap } from '../../global/i18n';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-timetable-button.default.scss',
-    shared: 'styles/sbb-timetable-button.shared.scss'
+    shared: 'styles/sbb-timetable-button.shared.scss',
   },
-  tag: 'sbb-timetable-button'
+  tag: 'sbb-timetable-button',
 })
-
 export class SbbTimetableButton {
-
   private _button!: HTMLElement;
   private _currentLanguage = getDocumentLang();
   private _ctaText!: string;
@@ -38,7 +26,8 @@ export class SbbTimetableButton {
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceTimetableButtonAttributes['appearance'] = 'earlier-connections';
+  @Prop() public appearance?: InterfaceTimetableButtonAttributes['appearance'] =
+    'earlier-connections';
 
   /**
    * If you use the button to trigger another widget which itself is covering
@@ -65,8 +54,9 @@ export class SbbTimetableButton {
    * the button.
    */
   @Prop({
-    reflect: true
-  }) public expanded?: boolean;
+    reflect: true,
+  })
+  public expanded?: boolean;
 
   /** The name attribute to use for the button */
   @Prop() public name?: string;
@@ -78,12 +68,7 @@ export class SbbTimetableButton {
   }
 
   private _toggleAriaAttributes(initiatedByPress): void {
-
-    if (
-      this.appearance === 'cus-him' ||
-      this.appearance === 'walk'
-    ) {
-
+    if (this.appearance === 'cus-him' || this.appearance === 'walk') {
       if (initiatedByPress) {
         this.expanded = !this.expanded;
       }
@@ -93,11 +78,9 @@ export class SbbTimetableButton {
       this._button.setAttribute('aria-expanded', expand);
       this._button.setAttribute('aria-haspopup', 'true');
     }
-
   }
 
   private _clickHandler = (): void => {
-
     this._toggleAriaAttributes(true);
 
     let eventDetail;
@@ -109,14 +92,13 @@ export class SbbTimetableButton {
     const event = new CustomEvent(events.click, {
       bubbles: true,
       composed: true,
-      detail: eventDetail
+      detail: eventDetail,
     });
 
     this._element.dispatchEvent(event);
   };
 
   private _prepareButtonTextAndAttributes = (): void => {
-
     switch (this.appearance) {
       case 'earlier-connections':
         this._ctaText = `${i18nEarlierConnections[this._currentLanguage]}`;
@@ -134,61 +116,40 @@ export class SbbTimetableButton {
         this._ctaText = `${i18nEarlierConnections[this._currentLanguage]}`;
         break;
     }
-
   };
 
   private _renderAppearance(): JSX.Element {
-
     const config = JSON.stringify(this.config);
 
-    if (
-      this.appearance === 'earlier-connections' ||
-      this.appearance === 'later-connections'
-    ) {
-      return (
-        <div class='button__inner_wrapper'>
-          {this._ctaText}
-        </div>
-      );
+    if (this.appearance === 'earlier-connections' || this.appearance === 'later-connections') {
+      return <div class="button__inner_wrapper">{this._ctaText}</div>;
     }
 
     if (this.appearance === 'cus-him') {
       return (
-        <div class='button__inner_wrapper'>
+        <div class="button__inner_wrapper">
           <sbb-timetable-cus-him
-            appearance='second-level-button'
+            appearance="second-level-button"
             config={config}
-          >
-          </sbb-timetable-cus-him>
-          <span
-            class='button__chevron'
-            innerHTML={chevronIcon}
-          />
+          ></sbb-timetable-cus-him>
+          <span class="button__chevron" innerHTML={chevronIcon} />
         </div>
       );
     }
 
     return (
-      <div class='button__inner_wrapper'>
+      <div class="button__inner_wrapper">
         <sbb-timetable-transportation-walk
-          appearance='second-level'
+          appearance="second-level"
           config={config}
-        >
-        </sbb-timetable-transportation-walk>
-        <span class='button__cta'>
-          {this._ctaText}
-        </span>
-        <span
-          class='button__chevron'
-          innerHTML={chevronIcon}
-        />
+        ></sbb-timetable-transportation-walk>
+        <span class="button__cta">{this._ctaText}</span>
+        <span class="button__chevron" innerHTML={chevronIcon} />
       </div>
     );
-
   }
 
   public render(): JSX.Element {
-
     const appearanceClass = ` button--${this.appearance}`;
     const currentWritingMode = getDocumentWritingMode();
 
@@ -204,19 +165,14 @@ export class SbbTimetableButton {
         ref={(el): void => {
           this._button = el;
         }}
-        type='button'
+        type="button"
       >
-        {
-          this._renderAppearance()
-        }
+        {this._renderAppearance()}
       </button>
-
     );
   }
 
   public componentDidRender(): void {
     this._toggleAriaAttributes(false);
   }
-
 }
-

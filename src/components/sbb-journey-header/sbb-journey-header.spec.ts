@@ -2,17 +2,13 @@ import { SbbJourneyHeader } from './sbb-journey-header';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-journey-header', () => {
-
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbJourneyHeader],
-      html: '<sbb-journey-header level="1" visual-level="1" text="Sample Title Text"></sbb-journey-header>'
+      html: '<sbb-journey-header level="1" visual-level="1" text="Sample Title Text"></sbb-journey-header>',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-journey-header level="1" visual-level="1" text="Sample Title Text">
           <mock:shadow-root>
             <span class="journey-header journey-header--primary journey-header--size-5" dir="ltr">
@@ -31,5 +27,4 @@ describe('sbb-journey-header', () => {
         </sbb-journey-header>
       `);
   });
-
 });

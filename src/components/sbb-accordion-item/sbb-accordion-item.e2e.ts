@@ -1,8 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-accordion-item', () => {
-  let element,
-    page;
+  let element, page;
 
   it('renders', async () => {
     page = await newE2EPage();
@@ -10,8 +9,6 @@ describe('sbb-accordion-item', () => {
     await page.setContent('<sbb-accordion-item></sbb-accordion-item>');
 
     element = await page.find('sbb-accordion-item');
-    expect(element)
-      .toHaveClass('hydrated');
+    expect(element).toHaveClass('hydrated');
   });
-
 });

@@ -23,7 +23,7 @@
   color: var(--_title-text-color-normal);
 
   // Right to left expression
-  &[dir="rtl"] {
+  &[dir='rtl'] {
     .journey-header__icon {
       transform: rotate(-180deg);
     }
@@ -46,7 +46,8 @@
   @include screenReaderOnly();
 }
 
-.connection--visual  {}
+.connection--visual {
+}
 
 .icon {
   display: flex;

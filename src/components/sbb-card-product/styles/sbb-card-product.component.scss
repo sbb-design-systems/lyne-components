@@ -40,7 +40,7 @@
   padding-inline-end: var(--slot-icon-spacing-inline);
 }
 
-::slotted( [slot="icon"] ) {
+::slotted([slot='icon']) {
   display: flex;
 }
 

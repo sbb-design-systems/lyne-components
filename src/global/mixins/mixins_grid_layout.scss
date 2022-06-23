@@ -1,6 +1,6 @@
 @mixin grid-base() {
-	display: grid;
-	grid-template-columns: repeat(var(--grid-base-columns), 1fr);
+  display: grid;
+  grid-template-columns: repeat(var(--grid-base-columns), 1fr);
   column-gap: var(--grid-base-gutter-responsive);
   row-gap: var(--sbb-spacing-fixed-3x);
 }

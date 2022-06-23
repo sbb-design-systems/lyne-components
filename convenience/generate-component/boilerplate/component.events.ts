@@ -1,3 +1,3 @@
 export default {
-  click: '__name___click'
+  click: '__name___click',
 };

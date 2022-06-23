@@ -1,6 +1,6 @@
 import {
   SbbColorCharcoalDefault,
-  SbbColorWhiteDefault
+  SbbColorWhiteDefault,
 } from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -25,39 +25,36 @@ const wrapperStyle = (context) => {
 
 const accessibilityLabel = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const appearance = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'primary',
-    'primary-negative'
-  ],
+  options: ['primary', 'primary-negative'],
   table: {
-    category: 'Appearance'
-  }
+    category: 'Appearance',
+  },
 };
 
 const isDiscount = {
   control: {
-    type: 'boolean'
-  }
+    type: 'boolean',
+  },
 };
 
 const text = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const price = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const defaultArgTypes = {
@@ -65,12 +62,12 @@ const defaultArgTypes = {
   appearance,
   'is-discount': isDiscount,
   price,
-  text
+  text,
 };
 
 const defaultArgs = {
   'accessibility-label': 'Super saver sales ticket price starts at CHF 37.50',
-  'appearance': appearance.options[0]
+  appearance: appearance.options[0],
 };
 
 /* ************************************************* */
@@ -79,7 +76,7 @@ const defaultArgs = {
 
 const defaultDocumentationStyles = {
   overflow: 'hidden',
-  position: 'relative'
+  position: 'relative',
 };
 
 /* ************************************************* */
@@ -89,20 +86,22 @@ const defaultDocumentationStyles = {
 /* --- generic slot -------------------------------- */
 
 const SlotGenericTemplate = () => (
-  <span><time datetime='2021-11-25'>Black Friday</time> Special</span>
+  <span>
+    <time datetime="2021-11-25">Black Friday</time> Special
+  </span>
 );
 
 /* ************************************************* */
 /* Storybook templates                               */
 /* ************************************************* */
 
-const Template = (args) => (
-  <sbb-card-badge {...args}></sbb-card-badge>
-);
+const Template = (args) => <sbb-card-badge {...args}></sbb-card-badge>;
 
 const TemplateWithSlot = (args) => (
   <sbb-card-badge {...args}>
-    <div slot='generic'><SlotGenericTemplate/></div>
+    <div slot="generic">
+      <SlotGenericTemplate />
+    </div>
   </sbb-card-badge>
 );
 
@@ -118,17 +117,17 @@ CardBadgeFullFledged.args = {
   ...defaultArgs,
   'accessibility-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
   'is-discount': true,
-  'price': '92.50',
-  'text': 'from CHF'
+  price: '92.50',
+  text: 'from CHF',
 };
 
 CardBadgeFullFledged.documentation = {
   container: {
     styles: {
-      ...defaultDocumentationStyles
-    }
+      ...defaultDocumentationStyles,
+    },
   },
-  title: 'Card badge full fledged'
+  title: 'Card badge full fledged',
 };
 
 /* --- CardBadge discount ------------------ */
@@ -138,16 +137,16 @@ CardBadgeDiscount.argTypes = defaultArgTypes;
 CardBadgeDiscount.args = {
   ...defaultArgs,
   'accessibility-label': 'Super saver sales ticket.',
-  'is-discount': true
+  'is-discount': true,
 };
 
 CardBadgeDiscount.documentation = {
   container: {
     styles: {
-      ...defaultDocumentationStyles
-    }
+      ...defaultDocumentationStyles,
+    },
   },
-  title: 'Card badge with discount'
+  title: 'Card badge with discount',
 };
 
 /* --- CardBadge discount negative -------- */
@@ -157,17 +156,17 @@ CardBadgeDiscountNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountNegative.args = {
   ...defaultArgs,
   'accessibility-label': 'Super saver sales ticket.',
-  'appearance': appearance.options[1],
-  'is-discount': true
+  appearance: appearance.options[1],
+  'is-discount': true,
 };
 
 CardBadgeDiscountNegative.documentation = {
   container: {
     styles: {
-      ...defaultDocumentationStyles
-    }
+      ...defaultDocumentationStyles,
+    },
   },
-  title: 'Card badge with discount negative'
+  title: 'Card badge with discount negative',
 };
 
 /* --- CardBadge with text and price ------------ */
@@ -177,17 +176,17 @@ CardBadgeWithTextAndPrice.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPrice.args = {
   ...defaultArgs,
   'accessibility-label': 'Super saver sales ticket price starts at CHF 37.50',
-  'price': '37.50',
-  'text': 'from CHF'
+  price: '37.50',
+  text: 'from CHF',
 };
 
 CardBadgeWithTextAndPrice.documentation = {
   container: {
     styles: {
-      ...defaultDocumentationStyles
-    }
+      ...defaultDocumentationStyles,
+    },
   },
-  title: 'Card badge with text and price'
+  title: 'Card badge with text and price',
 };
 
 /* --- CardBadge with text and price negative ---------- */
@@ -197,18 +196,18 @@ CardBadgeWithTextAndPriceNegative.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPriceNegative.args = {
   ...defaultArgs,
   'accessibility-label': 'Super saver sales ticket price starts at CHF 18.70',
-  'appearance': appearance.options[1],
-  'price': '18.70',
-  'text': 'from CHF'
+  appearance: appearance.options[1],
+  price: '18.70',
+  text: 'from CHF',
 };
 
 CardBadgeWithTextAndPriceNegative.documentation = {
   container: {
     styles: {
-      ...defaultDocumentationStyles
-    }
+      ...defaultDocumentationStyles,
+    },
   },
-  title: 'Card badge with text and price negative'
+  title: 'Card badge with text and price negative',
 };
 
 /* --- CardBadge discount with slot ------------------------- */
@@ -218,16 +217,16 @@ CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
 CardBadgeDiscountWithSlot.args = {
   ...defaultArgs,
   'accessibility-label': 'Super saver sales ticket Black Friday Special',
-  'is-discount': true
+  'is-discount': true,
 };
 
 CardBadgeDiscountWithSlot.documentation = {
   container: {
     styles: {
-      ...defaultDocumentationStyles
-    }
+      ...defaultDocumentationStyles,
+    },
   },
-  title: 'Card badge discount with slot'
+  title: 'Card badge discount with slot',
 };
 
 /* ************************************************* */
@@ -238,17 +237,17 @@ export default {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)} padding: 2rem; position: relative; overflow: hidden;`}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/cards/sbb-card-badge'
+  title: 'components/cards/sbb-card-badge',
 };

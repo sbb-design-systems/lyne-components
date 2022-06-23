@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-travel-hints', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableTravelHints],
-      html: `<sbb-timetable-travel-hints config='${config}' appearance='first-level-list'/>`
+      html: `<sbb-timetable-travel-hints config='${config}' appearance='first-level-list'/>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-travel-hints
             config="{&quot;travelHintsItems&quot;:[{&quot;icon&quot;:&quot;sa-sb&quot;,&quot;text&quot;:&quot;Description what sa-sb means...&quot;},{&quot;icon&quot;:&quot;sa-rr&quot;,&quot;text&quot;:&quot;Description what sa-rr means...&quot;},{&quot;icon&quot;:&quot;sa-zm&quot;,&quot;text&quot;:&quot;Description what sa-zm means...&quot;}]}"
             appearance="first-level-list"
@@ -67,5 +64,4 @@ describe('sbb-timetable-travel-hints', () => {
         </sbb-timetable-travel-hints>
       `);
   });
-
 });

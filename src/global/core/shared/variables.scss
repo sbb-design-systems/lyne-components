@@ -7,17 +7,17 @@
   //////////////////////////////////////////////////////////////////////////////
   ///
   /// Responsive typography/font size
-  --lyne-font-size-title-1:   var(--sbb-typo-scale-2-5x);
-  --lyne-font-size-title-2:   var(--sbb-typo-scale-2x);
-  --lyne-font-size-title-3:   var(--sbb-typo-scale-1-5x);
-  --lyne-font-size-title-4:   var(--sbb-typo-scale-1-25x);
-  --lyne-font-size-title-5:   var(--sbb-typo-scale-default);
-  --lyne-font-size-title-6:   var(--sbb-typo-scale-0-875x);
-  --lyne-font-size-text-xl:   var(--sbb-typo-scale-1-25x);
-  --lyne-font-size-text-m:    var(--sbb-typo-scale-default);
-  --lyne-font-size-text-s:    var(--sbb-typo-scale-0-875x);
-  --lyne-font-size-text-xs:   var(--sbb-typo-scale-0-75x);
-  --lyne-font-size-text-xxs:  var(--sbb-typo-scale-0-75x);
+  --lyne-font-size-title-1: var(--sbb-typo-scale-2-5x);
+  --lyne-font-size-title-2: var(--sbb-typo-scale-2x);
+  --lyne-font-size-title-3: var(--sbb-typo-scale-1-5x);
+  --lyne-font-size-title-4: var(--sbb-typo-scale-1-25x);
+  --lyne-font-size-title-5: var(--sbb-typo-scale-default);
+  --lyne-font-size-title-6: var(--sbb-typo-scale-0-875x);
+  --lyne-font-size-text-xl: var(--sbb-typo-scale-1-25x);
+  --lyne-font-size-text-m: var(--sbb-typo-scale-default);
+  --lyne-font-size-text-s: var(--sbb-typo-scale-0-875x);
+  --lyne-font-size-text-xs: var(--sbb-typo-scale-0-75x);
+  --lyne-font-size-text-xxs: var(--sbb-typo-scale-0-75x);
 
   @include mq($from: small) {
     --lyne-font-size-title-1: var(--sbb-typo-scale-3x);
@@ -30,8 +30,8 @@
     --lyne-font-size-title-5: var(--sbb-typo-scale-1-25x);
     --lyne-font-size-title-6: var(--sbb-typo-scale-default);
     --lyne-font-size-text-xl: var(--sbb-typo-scale-1-5x);
-    --lyne-font-size-text-m:  var(--sbb-typo-scale-1-125x);
-    --lyne-font-size-text-s:  var(--sbb-typo-scale-default);
+    --lyne-font-size-text-m: var(--sbb-typo-scale-1-125x);
+    --lyne-font-size-text-s: var(--sbb-typo-scale-default);
     --lyne-font-size-text-xs: var(--sbb-typo-scale-0-875x);
   }
 
@@ -47,41 +47,41 @@
   ///
   /// Responsive spacing
   --sbb-spacing-responsive-xxxs: var(--sbb-spacing-responsive-xxxs-zero);
-  --sbb-spacing-responsive-xxs:  var(--sbb-spacing-responsive-xxs-zero);
-  --sbb-spacing-responsive-xs:   var(--sbb-spacing-responsive-xs-zero);
-  --sbb-spacing-responsive-s:    var(--sbb-spacing-responsive-s-zero);
-  --sbb-spacing-responsive-m:    var(--sbb-spacing-responsive-m-zero);
-  --sbb-spacing-responsive-l:    var(--sbb-spacing-responsive-l-zero);
-  --sbb-spacing-responsive-xl:   var(--sbb-spacing-responsive-xl-zero);
-  --sbb-spacing-responsive-xxl:  var(--sbb-spacing-responsive-xxl-zero);
+  --sbb-spacing-responsive-xxs: var(--sbb-spacing-responsive-xxs-zero);
+  --sbb-spacing-responsive-xs: var(--sbb-spacing-responsive-xs-zero);
+  --sbb-spacing-responsive-s: var(--sbb-spacing-responsive-s-zero);
+  --sbb-spacing-responsive-m: var(--sbb-spacing-responsive-m-zero);
+  --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-zero);
+  --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-zero);
+  --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-zero);
 
   @include mq($from: small) {
-    --sbb-spacing-responsive-l:    var(--sbb-spacing-responsive-l-small);
-    --sbb-spacing-responsive-xl:   var(--sbb-spacing-responsive-xl-small);
-    --sbb-spacing-responsive-xxl:  var(--sbb-spacing-responsive-xxl-small);
+    --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-small);
+    --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-small);
+    --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-small);
   }
   @include mq($from: medium) {
     --sbb-spacing-responsive-xxxs: var(--sbb-spacing-responsive-xxxs-medium);
-    --sbb-spacing-responsive-xxs:  var(--sbb-spacing-responsive-xxs-medium);
-    --sbb-spacing-responsive-xs:   var(--sbb-spacing-responsive-xs-medium);
-    --sbb-spacing-responsive-s:    var(--sbb-spacing-responsive-s-medium);
-    --sbb-spacing-responsive-m:    var(--sbb-spacing-responsive-m-medium);
-    --sbb-spacing-responsive-l:    var(--sbb-spacing-responsive-l-medium);
-    --sbb-spacing-responsive-xl:   var(--sbb-spacing-responsive-xl-medium);
-    --sbb-spacing-responsive-xxl:  var(--sbb-spacing-responsive-xxl-medium);
+    --sbb-spacing-responsive-xxs: var(--sbb-spacing-responsive-xxs-medium);
+    --sbb-spacing-responsive-xs: var(--sbb-spacing-responsive-xs-medium);
+    --sbb-spacing-responsive-s: var(--sbb-spacing-responsive-s-medium);
+    --sbb-spacing-responsive-m: var(--sbb-spacing-responsive-m-medium);
+    --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-medium);
+    --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-medium);
+    --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-medium);
   }
   @include mq($from: large) {
-    --sbb-spacing-responsive-l:    var(--sbb-spacing-responsive-l-large);
-    --sbb-spacing-responsive-xl:   var(--sbb-spacing-responsive-xl-large);
-    --sbb-spacing-responsive-xxl:  var(--sbb-spacing-responsive-xxl-large);
+    --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-large);
+    --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-large);
+    --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-large);
   }
   @include mq($from: wide) {
-    --sbb-spacing-responsive-m:    var(--sbb-spacing-responsive-m-wide);
+    --sbb-spacing-responsive-m: var(--sbb-spacing-responsive-m-wide);
   }
   @include mq($from: ultra) {
-    --sbb-spacing-responsive-l:    var(--sbb-spacing-responsive-l-ultra);
-    --sbb-spacing-responsive-xl:   var(--sbb-spacing-responsive-xl-ultra);
-    --sbb-spacing-responsive-xxl:  var(--sbb-spacing-responsive-xxl-ultra);
+    --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-ultra);
+    --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-ultra);
+    --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-ultra);
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -161,12 +161,8 @@
   --size-form-element-l-min-height: var(--sbb-size-form-element-l-min-height-zero);
 
   @include mq($from: medium) {
-    --size-form-element-m-min-height: var(
-      --sbb-size-form-element-m-min-height-medium
-    );
-    --size-form-element-l-min-height: var(
-      --sbb-size-form-element-l-min-height-medium
-    );
+    --size-form-element-m-min-height: var(--sbb-size-form-element-m-min-height-medium);
+    --size-form-element-l-min-height: var(--sbb-size-form-element-l-min-height-medium);
   }
 
   //////////////////////////////////////////////////////////////////////////////

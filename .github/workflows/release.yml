@@ -5,7 +5,7 @@ name: Release
 # https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
 on:
   workflow_run:
-    workflows: ["Continuous Integration"]
+    workflows: ['Continuous Integration']
     types: [completed]
     branches: [master]
 
@@ -67,6 +67,5 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_SITE_ID_DEPLOYMENTS: ${{ secrets.NETLIFY_SITE_ID_DEPLOYMENTS }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-
 # TODO: Trigger lyne-documentation build (node ./ci/trigger_lyne_documentation.js)
 # TODO: Trigger lyne-examples build (node ./ci/trigger_lyne_examples.js)

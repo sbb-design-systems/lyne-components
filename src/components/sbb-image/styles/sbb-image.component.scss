@@ -67,12 +67,12 @@
 }
 
 .image__figure .image__img {
-  opacity: .000001;
+  opacity: 0.000001;
   transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 }
 
 .image__figure--loaded .image__img {
-  opacity: .999999;
+  opacity: 0.999999;
 }
 
 .image__wrapper {
@@ -95,5 +95,4 @@
   @include mq($from: small) {
     @include image-aspect-ratio-16-9;
   }
-
-};
+}

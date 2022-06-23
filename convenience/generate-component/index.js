@@ -5,14 +5,11 @@ const config = {
   boilerplateComponentName: 'component',
   boilerplateDirectory: 'convenience/generate-component/boilerplate',
   sourceDirectory: 'src/components',
-  stylesFolder: 'styles'
+  stylesFolder: 'styles',
 };
 
 const convertKebabCaseToPascalCase = (string) => {
-
-  const capitalize = (_string) => _string
-    .charAt(0)
-    .toUpperCase() + _string.slice(1);
+  const capitalize = (_string) => _string.charAt(0).toUpperCase() + _string.slice(1);
 
   const words = string.split('-');
   const capitalized = words.map((word) => capitalize(word));
@@ -26,7 +23,6 @@ const getBoilerplateFiles = async (_sourceFiles, _foundFiles) => {
     const foundFiles = _foundFiles || [];
 
     for await (const file of sourceFiles) {
-
       const fromPath = path.join(_sourceFiles || config.boilerplateDirectory, file);
       const stat = await fs.promises.stat(fromPath);
 
@@ -35,7 +31,6 @@ const getBoilerplateFiles = async (_sourceFiles, _foundFiles) => {
       } else if (stat.isDirectory()) {
         await getBoilerplateFiles(fromPath, foundFiles);
       }
-
     }
 
     return foundFiles;
@@ -63,15 +58,16 @@ const copyFiles = (foundFiles, componentName, targetDirectory) => {
 
       try {
         const relativePath = path.relative(config.boilerplateDirectory, file);
-        const fileName = relativePath.replace(`${config.boilerplateComponentName}.`, `${componentName}.`);
+        const fileName = relativePath.replace(
+          `${config.boilerplateComponentName}.`,
+          `${componentName}.`
+        );
         const targetPath = `${targetDirectory}/${fileName}`;
 
         fs.writeFileSync(targetPath, fileDataWithCorrectName);
-
       } catch (err) {
         console.error(err);
       }
-
     } catch (err) {
       console.log(`error processing boilerplate file ${file}: ${err}`);
     }
@@ -79,7 +75,6 @@ const copyFiles = (foundFiles, componentName, targetDirectory) => {
 };
 
 (async () => {
-
   // make sure we get a component name passed as an argument
   const args = process.argv.slice(2);
 
@@ -97,7 +92,9 @@ npm run generate my-component-name
 
   // make sure we have a dash in the name and the "sbb" prefix
   if (componentName.indexOf('sbb-') !== 0) {
-    console.log('component name must be in kebab case and must start with "sbb" prefix, eg: sbb-my-component-name');
+    console.log(
+      'component name must be in kebab case and must start with "sbb" prefix, eg: sbb-my-component-name'
+    );
 
     return;
   }
@@ -119,5 +116,4 @@ npm run generate my-component-name
 
   createDirectories(targetDirectory);
   copyFiles(foundFiles, componentName, targetDirectory);
-
 })();

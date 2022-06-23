@@ -1,7 +1,5 @@
 # sbb-timetable-barrier-free
 
-
-
 <!-- Auto Generated Below -->
 
 

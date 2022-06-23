@@ -2,15 +2,8 @@ import { inlineSvg } from 'stencil-inline-svg';
 import jestConfig from './.jest.config.js';
 import { sass } from '@stencil/sass';
 import { StencilConfig } from '@stencil/core/internal';
-import {
-  basename,
-  dirname,
-  join, resolve
-} from 'path';
-import {
-  existsSync,
-  readdirSync, readFileSync, unlinkSync, writeFileSync
-} from 'fs';
+import { basename, dirname, join, resolve } from 'path';
+import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import ts from 'typescript';
 
 export const config: StencilConfig = {
@@ -19,28 +12,28 @@ export const config: StencilConfig = {
   namespace: 'lyne-components',
   outputTargets: [
     {
-      type: 'dist-hydrate-script'
+      type: 'dist-hydrate-script',
     },
     {
       esmLoaderPath: '../loader',
-      type: 'dist'
+      type: 'dist',
     },
     {
-      type: 'dist-custom-elements-bundle'
+      type: 'dist-custom-elements-bundle',
     },
     {
       footer: '',
-      type: 'docs-readme'
+      type: 'docs-readme',
     },
     {
       dir: './dist/documentation',
       footer: '',
-      type: 'docs-readme'
+      type: 'docs-readme',
     },
     {
       file: './dist/documentation/jsonDocs.json',
-      type: 'docs-json'
-    }
+      type: 'docs-json',
+    },
   ],
   plugins: [
     inlineSvg(),
@@ -51,15 +44,15 @@ export const config: StencilConfig = {
         'src/global/mediaqueries.scss',
         'src/global/mixins.scss',
         'src/global/core/shared/variables.scss',
-        'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--placeholder.scss'
-      ]
-    })
+        'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--placeholder.scss',
+      ],
+    }),
   ],
   rollupPlugins: {
     // eslint-disable-next-line
-    before: [eventSync()]
+    before: [eventSync()],
   },
-  testing: jestConfig as any
+  testing: jestConfig as any,
 };
 
 /* eslint-disable */
@@ -75,22 +68,24 @@ interface InputOptions {
  */
 function eventSync(): any {
   const componentsPath = resolve(__dirname, 'src/components');
-  return ({
+  return {
     buildStart(options: InputOptions): void {
-      if (typeof options.input !== 'object' || Object.keys(options.input)
-        .every((i) => !i.startsWith('sbb'))) {
+      if (
+        typeof options.input !== 'object' ||
+        Object.keys(options.input).every((i) => !i.startsWith('sbb'))
+      ) {
         return;
       }
 
       readdirSync(componentsPath, {
-        withFileTypes: true
+        withFileTypes: true,
       })
         .filter((d) => d.isDirectory())
         .map((d) => join(componentsPath, d.name, `${d.name}.tsx`))
         .forEach(syncEvents);
     },
-    name: 'event-sync'
-  });
+    name: 'event-sync',
+  };
 }
 
 /** Sync events for a specific component. */
@@ -98,16 +93,11 @@ function syncEvents(path: string) {
   let fileContent: string;
   try {
     fileContent = readFileSync(path, 'utf8');
-  } catch(e) {
+  } catch (e) {
     throw new Error(`Unable to find file ${path} for event sync!`);
   }
-  const sourceFile = ts.createSourceFile(
-    path,
-    fileContent,
-    ts.ScriptTarget.ESNext,
-    true
-  );
-  const eventDecorators: {name: string, eventName: string}[] = [];
+  const sourceFile = ts.createSourceFile(path, fileContent, ts.ScriptTarget.ESNext, true);
+  const eventDecorators: { name: string; eventName: string }[] = [];
   let usesCustomEvent = false;
   iterateSourceFile(sourceFile);
   renderEventsFile();
@@ -144,7 +134,7 @@ function syncEvents(path: string) {
     if (callExpression.arguments.length !== 1 || !ts.isObjectLiteralExpression(argument)) {
       return null;
     }
-    const eventName = argument.properties.find(p => p.name?.getText() === 'eventName');
+    const eventName = argument.properties.find((p) => p.name?.getText() === 'eventName');
     if (!eventName || !ts.isPropertyAssignment(eventName)) {
       return null;
     }
@@ -171,8 +161,6 @@ export default {\n`;
       output += `  ${eventDecorator.name}: '${eventDecorator.eventName}',\n`;
     }
 
-    // Remove the last comma
-    output = output.replace(/,\n$/, '\n');
     output += '};\n';
 
     if (readFileSync(eventsFile, 'utf8') !== output) {

@@ -1,23 +1,15 @@
-import {
-  Component,
-  Element,
-  h,
-  Host,
-  Prop
-} from '@stencil/core';
+import { Component, Element, h, Host, Prop } from '@stencil/core';
 import { InterfaceSectionAttributes } from './sbb-section.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-section.default.scss',
-    shared: 'styles/sbb-section.shared.scss'
+    shared: 'styles/sbb-section.shared.scss',
   },
-  tag: 'sbb-section'
+  tag: 'sbb-section',
 })
-
 export class SbbSection {
-
   /** Section appearance */
   @Prop() public appearance?: InterfaceSectionAttributes['appearance'] = 'primary';
 
@@ -43,25 +35,32 @@ export class SbbSection {
   }
 
   public render(): JSX.Element {
-
     const className = `section section--${this.appearance} section--${this.width}`;
 
     const attrs = {
-      class: className
+      class: className,
     };
 
     return (
       <Host>
-        <section {...attrs}
-        >
-          {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot
-            ? <div class='columns'><slot name='col-1'/><slot name='col-2'/><slot name='col-3'/><slot name='col-4'/></div>
-            : ''
-          }
-          {this._hasFullWidthSlot
-            ? <div class='full-width'><slot name='full-width' /></div>
-            : ''
-          }
+        <section {...attrs}>
+          {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot ? (
+            <div class="columns">
+              <slot name="col-1" />
+              <slot name="col-2" />
+              <slot name="col-3" />
+              <slot name="col-4" />
+            </div>
+          ) : (
+            ''
+          )}
+          {this._hasFullWidthSlot ? (
+            <div class="full-width">
+              <slot name="full-width" />
+            </div>
+          ) : (
+            ''
+          )}
         </section>
       </Host>
     );

@@ -2,12 +2,12 @@ import { AnimationKeyFrames } from './animation-interface';
 import { AbstractAnimation } from './animation-abstract';
 
 export class AnimationWeb extends AbstractAnimation {
-
   public setAnimationStep(step: number): void {
     const safeStep = Math.min(Math.max(step, 0), 0.9999);
 
     for (const animation of this.webAnimations) {
-      animation.currentTime = animation.effect.getComputedTiming().delay + (this.getDuration() * safeStep);
+      animation.currentTime =
+        animation.effect.getComputedTiming().delay + this.getDuration() * safeStep;
       animation.pause();
     }
   }
@@ -36,9 +36,7 @@ export class AnimationWeb extends AbstractAnimation {
 
   protected progressEndInternal(playTo: 0 | 1, step: number): void {
     if (playTo === 0) {
-      this.forceDirectionValue = (this.getDirection() === 'reverse')
-        ? 'normal'
-        : 'reverse';
+      this.forceDirectionValue = this.getDirection() === 'reverse' ? 'normal' : 'reverse';
       if (this.forceDirectionValue === 'reverse') {
         this.willComplete = false;
       }
@@ -57,7 +55,11 @@ export class AnimationWeb extends AbstractAnimation {
       if (animation.effect.setKeyframes) {
         animation.effect.setKeyframes(keyframeValues);
       } else {
-        animation.effect = new KeyframeEffect(animation.effect.target, keyframeValues, animation.effect.getTiming());
+        animation.effect = new KeyframeEffect(
+          animation.effect.target,
+          keyframeValues,
+          animation.effect.getTiming()
+        );
       }
     }
   }
@@ -88,7 +90,7 @@ export class AnimationWeb extends AbstractAnimation {
         duration: this.getDuration(),
         easing: this.getEasing(),
         fill: this.getFill(),
-        iterations: this.getIterations()
+        iterations: this.getIterations(),
       });
     }
 
@@ -106,7 +108,7 @@ export class AnimationWeb extends AbstractAnimation {
         easing: this.getEasing(),
         fill: this.getFill(),
         id: this.id,
-        iterations: this.getIterations()
+        iterations: this.getIterations(),
       });
 
       animation.pause();
@@ -119,7 +121,6 @@ export class AnimationWeb extends AbstractAnimation {
         this.animationFinish();
       };
     }
-
   }
 
   private _playWebAnimations(): void {
@@ -131,5 +132,4 @@ export class AnimationWeb extends AbstractAnimation {
       this.animationFinish();
     }
   }
-
 }

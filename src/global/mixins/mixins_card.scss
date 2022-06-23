@@ -31,7 +31,7 @@
   position: relative;
   overflow: hidden;
   user-select: text;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   transition: var(--card-hover-animation);
 
@@ -41,10 +41,10 @@
 
   // If the the device can hover over elements with ease
   @include hover-mq($hover: true) {
-      &:hover {
-        @include card--shadow;
-      }
+    &:hover {
+      @include card--shadow;
     }
+  }
 
   @include ifForcedColors {
     border: #{pxToRemBuild(1)} solid ButtonText;
@@ -120,7 +120,7 @@
   // @include spacing-responsive-xxs('--card-padding-left');
 }
 
-@mixin card--l--tall  {
+@mixin card--l--tall {
   --card-padding-top: var(--sbb-spacing-fixed-6x);
   --card-padding-right: var(--sbb-spacing-responsive-xxs);
   --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
@@ -170,7 +170,6 @@
 
 @mixin card--shadow {
   &:not(:disabled) {
-
     @include shadow-level-9-hard;
 
     padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));

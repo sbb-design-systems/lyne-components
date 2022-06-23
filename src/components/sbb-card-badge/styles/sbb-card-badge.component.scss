@@ -12,7 +12,7 @@
 
   @include ifForcedColors() {
     border-inline-start: #{pxToRemBuild(1)} solid CanvasText;
-    border-block-end: #{pxToRemBuild(1)} solid CanvasText;;
+    border-block-end: #{pxToRemBuild(1)} solid CanvasText;
   }
 }
 
@@ -31,10 +31,10 @@
   transform: skew(16deg, 0deg);
   > * {
     transform: skew(-16deg, 0deg);
-    padding-inline-start: .5em;
+    padding-inline-start: 0.5em;
   }
   // Right to left expression
-  &[dir="rtl"] {
+  &[dir='rtl'] {
     right: initial;
     left: calc(var(--sbb-spacing-fixed-3x) * -1);
     transform: skew(-16deg, 0deg);

@@ -6,7 +6,6 @@
 //*****************************************************************************
 
 @mixin host-component-properties {
-
   @include box-sizing;
 
   :host {

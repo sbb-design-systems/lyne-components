@@ -6,5 +6,5 @@ export default [
   'Occupancy Forecast',
   'Travel hints',
   'Duration',
-  'Real time information'
+  'Real time information',
 ];

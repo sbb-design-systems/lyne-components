@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { InterfaceAutocompleteItemAttributes } from './sbb-autocomplete-item.custom';
 
 /**
@@ -14,13 +10,11 @@ import { InterfaceAutocompleteItemAttributes } from './sbb-autocomplete-item.cus
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-autocomplete-item.default.scss',
-    shared: 'styles/sbb-autocomplete-item.shared.scss'
+    shared: 'styles/sbb-autocomplete-item.shared.scss',
   },
-  tag: 'sbb-autocomplete-item'
+  tag: 'sbb-autocomplete-item',
 })
-
 export class SbbAutocompleteItem {
-
   /**
    * Text to show as content of the autocomplete item
    */
@@ -47,7 +41,10 @@ export class SbbAutocompleteItem {
    */
   @Prop() public ariaSetsize?: number;
 
-  private _compileTextMarkup(text: string, highlight: string): InterfaceAutocompleteItemAttributes['textStructure'] {
+  private _compileTextMarkup(
+    text: string,
+    highlight: string
+  ): InterfaceAutocompleteItemAttributes['textStructure'] {
     let exactMatch = false;
     const textLowercase = text.toLowerCase();
     const highlightLowercase = highlight.toLowerCase();
@@ -57,7 +54,7 @@ export class SbbAutocompleteItem {
     if (index < 0) {
       return {
         exactMatch,
-        main: text
+        main: text,
       };
     }
 
@@ -75,25 +72,24 @@ export class SbbAutocompleteItem {
       exactMatch,
       main,
       post: postString,
-      pre: preString
+      pre: preString,
     };
   }
 
   private _setAriaAttributes(): any {
-
     let attrs = {};
 
     if (this.ariaPosinset) {
       attrs = {
         ...attrs,
-        'aria-posinset': this.ariaPosinset
+        'aria-posinset': this.ariaPosinset,
       };
     }
 
     if (this.ariaSetsize) {
       attrs = {
         ...attrs,
-        'aria-setsize': this.ariaSetsize
+        'aria-setsize': this.ariaSetsize,
       };
     }
 
@@ -103,7 +99,7 @@ export class SbbAutocompleteItem {
   public render(): JSX.Element {
     let textMarkup: InterfaceAutocompleteItemAttributes['textStructure'] = {
       exactMatch: false,
-      main: ''
+      main: '',
     };
 
     if (!this.highlight || this.highlight.length < 1) {
@@ -114,34 +110,29 @@ export class SbbAutocompleteItem {
 
     let mainClasses = 'autocomplete-item';
 
-    mainClasses += this.selected
-      ? ' autocomplete-item--selected'
-      : '';
+    mainClasses += this.selected ? ' autocomplete-item--selected' : '';
 
-    const itemClasses = textMarkup.pre || textMarkup.post || textMarkup.exactMatch
-      ? 'autocomplete-item__highlight'
-      : '';
+    const itemClasses =
+      textMarkup.pre || textMarkup.post || textMarkup.exactMatch
+        ? 'autocomplete-item__highlight'
+        : '';
 
     return (
       <li
         class={mainClasses}
-        role='option'
+        role="option"
         aria-selected={this.selected}
         {...this._setAriaAttributes()}
       >
-        <slot name='pre-text' />
+        <slot name="pre-text" />
 
-        {textMarkup.pre &&
-          <span>{textMarkup.pre}</span>
-        }
+        {textMarkup.pre && <span>{textMarkup.pre}</span>}
 
         <span class={itemClasses}>{textMarkup.main}</span>
 
-        {textMarkup.post &&
-          <span>{textMarkup.post}</span>
-        }
+        {textMarkup.post && <span>{textMarkup.post}</span>}
 
-        <slot name='post-text' />
+        <slot name="post-text" />
       </li>
     );
   }

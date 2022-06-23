@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { InterfaceImageAttributes } from '../sbb-image/sbb-image.custom';
 import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
 
@@ -10,64 +6,62 @@ import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-teaser-hero.default.scss',
-    shared: 'styles/sbb-teaser-hero.shared.scss'
+    shared: 'styles/sbb-teaser-hero.shared.scss',
   },
-  tag: 'sbb-teaser-hero'
+  tag: 'sbb-teaser-hero',
 })
-
 export class SbbTeaserHero {
-
   private _pictureSizesConfig = {
     breakpoints: [
       {
         image: {
           height: tokens['sbb-breakpoint-ultra-max'],
-          width: tokens['sbb-breakpoint-ultra-max']
+          width: tokens['sbb-breakpoint-ultra-max'],
         },
         mediaQueries: [
           {
             conditionFeature: 'min-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'sbb-breakpoint-ultra-min'
+              value: 'sbb-breakpoint-ultra-min',
             },
-            conditionOperator: false
-          }
-        ]
+            conditionOperator: false,
+          },
+        ],
       },
       {
         image: {
           height: tokens['sbb-breakpoint-wide-max'],
-          width: tokens['sbb-breakpoint-wide-max']
+          width: tokens['sbb-breakpoint-wide-max'],
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'sbb-breakpoint-wide-max'
+              value: 'sbb-breakpoint-wide-max',
             },
-            conditionOperator: false
-          }
-        ]
+            conditionOperator: false,
+          },
+        ],
       },
       {
         image: {
           height: tokens['sbb-breakpoint-micro-max'],
-          width: tokens['sbb-breakpoint-micro-max']
+          width: tokens['sbb-breakpoint-micro-max'],
         },
         mediaQueries: [
           {
             conditionFeature: 'max-width',
             conditionFeatureValue: {
               lyneDesignToken: true,
-              value: 'sbb-breakpoint-micro-max'
+              value: 'sbb-breakpoint-micro-max',
             },
-            conditionOperator: false
-          }
-        ]
-      }
-    ]
+            conditionOperator: false,
+          },
+        ],
+      },
+    ],
   };
 
   /**
@@ -116,33 +110,30 @@ export class SbbTeaserHero {
     }
 
     return (
-      <a
-        class='teaser-hero'
-        href={this.link}
-        {...linkAttributes}
-      >
+      <a class="teaser-hero" href={this.link} {...linkAttributes}>
         <sbb-image
-          class='teaser-hero__image'
+          class="teaser-hero__image"
           pictureSizesConfig={JSON.stringify(this._pictureSizesConfig)}
           customFocalPoint={true}
           hideFromScreenreader={true}
           imageSrc={this.imageSrc}
           loading={this.imageLoading}
           lqip
-          performanceMark='teaser-hero'
-          variant='teaser-hero'
+          performanceMark="teaser-hero"
+          variant="teaser-hero"
         ></sbb-image>
 
         <sbb-panel
-          class='teaser-hero__panel'
+          class="teaser-hero__panel"
           buttonText={this.buttonText}
           text={this.text}
         ></sbb-panel>
 
-        {this.openInNewWindow && this.newWindowInfoText
-          ? <span class='teaser-hero__link-info-text'>{this.newWindowInfoText}</span>
-          : ''
-        }
+        {this.openInNewWindow && this.newWindowInfoText ? (
+          <span class="teaser-hero__link-info-text">{this.newWindowInfoText}</span>
+        ) : (
+          ''
+        )}
       </a>
     );
   }

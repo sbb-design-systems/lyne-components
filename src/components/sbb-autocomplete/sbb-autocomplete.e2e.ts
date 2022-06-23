@@ -2,8 +2,7 @@ import { newE2EPage } from '@stencil/core/testing';
 import sampleData from './sbb-autocomplete.sample-data';
 
 describe('sbb-autocomplete', () => {
-  let element,
-    page;
+  let element, page;
 
   it('renders', async () => {
     page = await newE2EPage();
@@ -15,8 +14,6 @@ describe('sbb-autocomplete', () => {
       ></sbb-autocomplete>`);
 
     element = await page.find('sbb-autocomplete');
-    expect(element)
-      .toHaveClass('hydrated');
+    expect(element).toHaveClass('hydrated');
   });
-
 });

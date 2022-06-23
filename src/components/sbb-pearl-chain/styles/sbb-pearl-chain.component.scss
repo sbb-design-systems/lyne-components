@@ -50,7 +50,6 @@
   @include ifForcedColors {
     background-color: CanvasText;
   }
-
 }
 
 .pearl-chain:before {
@@ -75,7 +74,6 @@
   @include ifForcedColors {
     background-color: ActiveText;
   }
-
 }
 
 .pearl-chain--departure-cancellation.pearl-chain--past:before,
@@ -93,7 +91,6 @@
   @include ifForcedColors {
     color: GrayText;
   }
-
 }
 
 .pearl-chain__leg {
@@ -105,7 +102,6 @@
   @include ifForcedColors {
     color: CanvasText;
   }
-
 }
 
 // dot on leg
@@ -125,7 +121,6 @@
       border-color: GrayText;
     }
   }
-
 }
 
 // line on leg
@@ -146,9 +141,7 @@
     .pearl-chain--past & {
       background-color: GrayText;
     }
-
   }
-
 }
 
 .pearl-chain__leg:last-of-type:after {
@@ -164,18 +157,21 @@
     @include ifForcedColors {
       color: GrayText;
     }
-
   }
 
   @include ifForcedColors {
     color: ActiveText;
   }
-
 }
 
 .pearl-chain__leg--cancellation:after {
   background-color: unset;
-  background-image: linear-gradient(to right, currentColor 0%, currentColor 50%, var(--color-white) 50%);
+  background-image: linear-gradient(
+    to right,
+    currentColor 0%,
+    currentColor 50%,
+    var(--color-white) 50%
+  );
   background-repeat: repeat-x;
   background-size: calc(2 * var(--spacing-small)) var(--border-width);
 }
@@ -207,7 +203,6 @@
   @include ifForcedColors {
     background-color: ActiveText;
   }
-
 }
 
 .pearl-chain__status--no-animation {

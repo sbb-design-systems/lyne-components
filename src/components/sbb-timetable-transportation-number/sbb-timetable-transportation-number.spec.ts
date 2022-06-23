@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData.bus);
 
 describe('sbb-timetable-transportation-number', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableTransportationNumber],
-      html: `<sbb-timetable-transportation-number config='${config}' />`
+      html: `<sbb-timetable-transportation-number config='${config}' />`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-transportation-number
             config="{&quot;direction&quot;:&quot;Richtung Bern Wankdorf, Bahnhof&quot;,&quot;marketingName&quot;:&quot;&quot;,&quot;meansOfTransport&quot;:{&quot;picto&quot;:&quot;transportation-bus-right&quot;,&quot;text&quot;:&quot;Bus&quot;},&quot;product&quot;:{&quot;icon&quot;:&quot;&quot;,&quot;text&quot;:&quot;B 20&quot;}}"
         >
@@ -53,5 +50,4 @@ describe('sbb-timetable-transportation-number', () => {
         </sbb-timetable-transportation-number>
       `);
   });
-
 });

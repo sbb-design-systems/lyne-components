@@ -1,6 +1,5 @@
 # sbb-accordion
 
-
 <!-- Auto Generated Below -->
 
 

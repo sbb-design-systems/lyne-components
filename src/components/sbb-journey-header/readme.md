@@ -1,7 +1,5 @@
 # sbb-journey-header
 
-
-
 <!-- Auto Generated Below -->
 
 

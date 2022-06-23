@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-autocomplete-item', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbAutocompleteItem],
-      html: '<sbb-autocomplete-item text="lorem ipsum item1 dolor sit" highlight="tem"></sbb-autocomplete-item>'
+      html: '<sbb-autocomplete-item text="lorem ipsum item1 dolor sit" highlight="tem"></sbb-autocomplete-item>',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-autocomplete-item highlight="tem" text="lorem ipsum item1 dolor sit">
           <mock:shadow-root>
             <li class="autocomplete-item" role="option">
@@ -31,5 +28,4 @@ describe('sbb-autocomplete-item', () => {
         </sbb-autocomplete-item>
       `);
   });
-
 });

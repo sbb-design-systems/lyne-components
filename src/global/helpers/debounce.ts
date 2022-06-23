@@ -1,4 +1,7 @@
-const debounce = <F extends (...args: any[]) => any>(func: F, waitFor: number): (...args: Parameters<F>) => Promise<ReturnType<F>> => {
+const debounce = <F extends (...args: any[]) => any>(
+  func: F,
+  waitFor: number
+): ((...args: Parameters<F>) => Promise<ReturnType<F>>) => {
   let timeout: ReturnType<typeof setTimeout> | null = null;
 
   const debounced = (...args: Parameters<F>): any => {

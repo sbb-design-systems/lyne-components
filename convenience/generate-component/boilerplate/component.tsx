@@ -1,9 +1,4 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 import events from './__name__.events';
 import { Interface__nameUpperCase__Attributes } from './__name__.custom.d';
 
@@ -15,24 +10,22 @@ import { Interface__nameUpperCase__Attributes } from './__name__.custom.d';
   shadow: true,
   styleUrls: {
     default: 'styles/__name__.default.scss',
-    shared: 'styles/__name__.shared.scss'
+    shared: 'styles/__name__.shared.scss',
   },
-  tag: '__name__'
+  tag: '__name__',
 })
-
 export class __nameUpperCase__ {
-
   /** Documentation for someProp */
-  @Prop() public someProp?: Interface__nameUpperCase__Attributes['someInterface'];
+  @Prop()
+  public someProp?: Interface__nameUpperCase__Attributes['someInterface'];
 
   @Element() private _element: HTMLElement;
 
   private _clickHandler = (): void => {
-
     const event = new CustomEvent(events.click, {
       bubbles: true,
       composed: true,
-      detail: 'some event detail'
+      detail: 'some event detail',
     });
 
     this._element.dispatchEvent(event);
@@ -40,10 +33,7 @@ export class __nameUpperCase__ {
 
   public render(): JSX.Element {
     return (
-      <button
-        class='some-class'
-        onClick={this._clickHandler}
-      >
+      <button class="some-class" onClick={this._clickHandler}>
         {this.someProp}
       </button>
     );

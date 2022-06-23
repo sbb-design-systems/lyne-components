@@ -9,15 +9,11 @@ import {
   InterfaceAnimationKeyFrame,
   InterfaceAnimationKeyFrameEdge,
   InterfaceAnimationOnFinishCallback,
-  InterfaceAnimationPlayOptions
+  InterfaceAnimationPlayOptions,
 } from './animation-interface';
-import {
-  addClassToArray,
-  setStyleProperty
-} from './animation-utils';
+import { addClassToArray, setStyleProperty } from './animation-utils';
 
 export abstract class AbstractAnimation implements InterfaceAnimationInternal {
-
   // eslint-disable-next-line @typescript-eslint/naming-convention
   protected static readonly _ANIMATION_END_FALLBACK_PADDING_MS = 100;
 
@@ -97,12 +93,14 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     return this;
   }
 
-  public addElement(el: Element | Element[] | Node | Node[] | NodeList | undefined | null): InterfaceAnimationInternal {
+  public addElement(
+    el: Element | Element[] | Node | Node[] | NodeList | undefined | null
+  ): InterfaceAnimationInternal {
     if (el !== null && el !== undefined) {
       if ((el as Node).nodeType === 1) {
         this.elements.push(el as any);
       } else if ((el as NodeList).length >= 0) {
-        this.elements.push(...Array.from(el as NodeList) as any);
+        this.elements.push(...(Array.from(el as NodeList) as any));
       } else {
         console.error('Invalid addElement value');
       }
@@ -111,7 +109,9 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     return this;
   }
 
-  public addAnimation(animationToAdd: InterfaceAnimationInternal | InterfaceAnimationInternal[]): InterfaceAnimationInternal {
+  public addAnimation(
+    animationToAdd: InterfaceAnimationInternal | InterfaceAnimationInternal[]
+  ): InterfaceAnimationInternal {
     if (animationToAdd !== null && animationToAdd !== undefined) {
       if (Array.isArray(animationToAdd)) {
         for (const animation of animationToAdd) {
@@ -217,8 +217,8 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
         this._shouldForceSyncPlayback = true;
 
         // eslint-disable-next-line no-return-assign
-        this.onFinish(() => this._shouldForceSyncPlayback = false, {
-          oneTimeCallback: true
+        this.onFinish(() => (this._shouldForceSyncPlayback = false), {
+          oneTimeCallback: true,
         });
       }
       if (!this.initialized) {
@@ -236,7 +236,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
       }
 
       this.onFinish(() => resolve(), {
-        oneTimeCallback: true
+        oneTimeCallback: true,
       });
 
       this.childAnimations.forEach((animation) => {
@@ -270,7 +270,11 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     this._resetFlags();
   }
 
-  public update(deep = false, toggleAnimationName = true, step?: number): InterfaceAnimationInternal {
+  public update(
+    deep = false,
+    toggleAnimationName = true,
+    step?: number
+  ): InterfaceAnimationInternal {
     if (deep) {
       this.childAnimations.forEach((animation) => {
         animation.update(deep, toggleAnimationName, step);
@@ -316,14 +320,16 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     }
   }
 
-  public onFinish(callback: AnimationLifecycle, opts?: InterfaceAnimationCallbackOptions): InterfaceAnimationInternal {
-    const callbacks = (opts && opts.oneTimeCallback)
-      ? this._onFinishOneTimeCallbacks
-      : this._onFinishCallbacks;
+  public onFinish(
+    callback: AnimationLifecycle,
+    opts?: InterfaceAnimationCallbackOptions
+  ): InterfaceAnimationInternal {
+    const callbacks =
+      opts && opts.oneTimeCallback ? this._onFinishOneTimeCallbacks : this._onFinishCallbacks;
 
     callbacks.push({
       c: callback,
-      o: opts
+      o: opts,
     });
 
     return this;
@@ -354,7 +360,11 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     return this;
   }
 
-  public progressEnd(playTo: 0 | 1 | undefined, step: number, dur?: number): InterfaceAnimationInternal {
+  public progressEnd(
+    playTo: 0 | 1 | undefined,
+    step: number,
+    dur?: number
+  ): InterfaceAnimationInternal {
     this.shouldForceLinearEasing = false;
 
     this.childAnimations.forEach((animation) => {
@@ -372,13 +382,16 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     this.progressEndInternal(playTo, step);
 
     if (playTo !== undefined) {
-      this.onFinish(() => {
-        this.forceDurationValue = undefined;
-        this.forceDirectionValue = undefined;
-        this.forceDelayValue = undefined;
-      }, {
-        oneTimeCallback: true
-      });
+      this.onFinish(
+        () => {
+          this.forceDurationValue = undefined;
+          this.forceDirectionValue = undefined;
+          this.forceDelayValue = undefined;
+        },
+        {
+          oneTimeCallback: true,
+        }
+      );
 
       if (!this.parentAnimation) {
         this.play();
@@ -393,7 +406,12 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   }
 
   public getDirection(): AnimationDirection {
-    return this.forceDirectionValue ?? this._direction ?? this.parentAnimation?.getDirection() ?? 'normal';
+    return (
+      this.forceDirectionValue ??
+      this._direction ??
+      this.parentAnimation?.getDirection() ??
+      'normal'
+    );
   }
 
   public getEasing(): string {
@@ -405,7 +423,10 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   public getDuration(): number {
     return this._shouldForceSyncPlayback
       ? 0
-      : this.forceDurationValue ?? this.animationDuration ?? this.parentAnimation?.getDuration() ?? 0;
+      : this.forceDurationValue ??
+          this.animationDuration ??
+          this.parentAnimation?.getDuration() ??
+          0;
   }
 
   public getIterations(): number {
@@ -453,7 +474,6 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   }
 
   public duration(animationDuration: number): InterfaceAnimationInternal {
-
     this.animationDuration = animationDuration;
 
     this.update(true, true);
@@ -490,9 +510,9 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
       this.animationKeyframes = [
         {
           offset: 0,
-          [property]: value
+          [property]: value,
         },
-        ...this.animationKeyframes
+        ...this.animationKeyframes,
       ] as InterfaceAnimationKeyFrame[];
     }
 
@@ -500,7 +520,9 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   }
 
   public to(property: string, value: any): InterfaceAnimationInternal {
-    const lastFrame = this.animationKeyframes[this.animationKeyframes.length - 1] as InterfaceAnimationKeyFrameEdge | undefined;
+    const lastFrame = this.animationKeyframes[this.animationKeyframes.length - 1] as
+      | InterfaceAnimationKeyFrameEdge
+      | undefined;
 
     if (lastFrame !== undefined && (lastFrame.offset === undefined || lastFrame.offset === 1)) {
       lastFrame[property] = value;
@@ -509,8 +531,8 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
         ...this.animationKeyframes,
         {
           offset: 1,
-          [property]: value
-        }
+          [property]: value,
+        },
       ] as InterfaceAnimationKeyFrame[];
     }
 
@@ -518,9 +540,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   }
 
   public fromTo(property: string, fromValue: any, toValue: any): InterfaceAnimation {
-    return this
-      .from(property, fromValue)
-      .to(property, toValue);
+    return this.from(property, fromValue).to(property, toValue);
   }
 
   /**
@@ -534,7 +554,11 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     this._beforeAddWriteFunctions.forEach((callback) => callback());
 
     // Update styles and classes before animation runs
-    this._applyStylesBeforeAfterAnimations(this._beforeAddClasses, this._beforeRemoveClasses, this._beforeStylesValue);
+    this._applyStylesBeforeAfterAnimations(
+      this._beforeAddClasses,
+      this._beforeRemoveClasses,
+      this._beforeStylesValue
+    );
   }
 
   /**
@@ -543,7 +567,6 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
    */
   protected cleanUpStyleSheets(): void {
     for (const stylesheet of this.stylesheets) {
-
       /**
        * When sharing stylesheets, it's possible
        * for another animation to have already
@@ -574,15 +597,19 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     this._afterAddWriteFunctions.forEach((callback) => callback());
 
     // Update styles and classes before animation ends
-    const currentStep = this.willComplete
-      ? 1
-      : 0;
+    const currentStep = this.willComplete ? 1 : 0;
 
-    this._applyStylesBeforeAfterAnimations(this._afterAddClasses, this._afterRemoveClasses, this._afterStylesValue);
+    this._applyStylesBeforeAfterAnimations(
+      this._afterAddClasses,
+      this._afterRemoveClasses,
+      this._afterStylesValue
+    );
 
     this._onFinishCallbacks.forEach((onFinishCallback) => onFinishCallback.c(currentStep, this));
 
-    this._onFinishOneTimeCallbacks.forEach((onFinishCallback) => onFinishCallback.c(currentStep, this));
+    this._onFinishOneTimeCallbacks.forEach((onFinishCallback) =>
+      onFinishCallback.c(currentStep, this)
+    );
 
     this._onFinishOneTimeCallbacks.length = 0;
 
@@ -593,7 +620,11 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     this.willComplete = true;
   }
 
-  private _applyStylesBeforeAfterAnimations(addClasses: string[], removeClasses: string[], styles: { [p: string]: any }): void {
+  private _applyStylesBeforeAfterAnimations(
+    addClasses: string[],
+    removeClasses: string[],
+    styles: { [p: string]: any }
+  ): void {
     for (const el of this.elements) {
       const elementClassList = el.classList;
 
@@ -641,5 +672,4 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     this.finished = false;
     this.willComplete = true;
   }
-
 }

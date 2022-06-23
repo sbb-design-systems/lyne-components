@@ -1,16 +1,10 @@
 const shell = require('shelljs');
-const {
-  argv
-} = require('yargs');
+const { argv } = require('yargs');
 const axios = require('axios');
 const fs = require('fs');
 
 // env variables
-const {
-  netlifyToken,
-  netlifySiteId,
-  deploymentsDir
-} = argv;
+const { netlifyToken, netlifySiteId, deploymentsDir } = argv;
 
 // general configuration
 const config = {
@@ -21,7 +15,7 @@ const config = {
   deploymentsJsonKeyUrl: 'url',
   deploymentsJsonName: 'deployments.json',
   netlifyTitleSeparatorPreview: '++',
-  netlifyTitleSeparatorProd: '::'
+  netlifyTitleSeparatorProd: '::',
 };
 
 // prepare final JSON
@@ -36,7 +30,7 @@ json[config.deploymentsJsonKeyPreview] = [];
  * ---------------------------------------------------------------------------
  */
 
-const getDeployType = ((title) => {
+const getDeployType = (title) => {
   if (!title) {
     return false;
   }
@@ -58,9 +52,9 @@ const getDeployType = ((title) => {
   }
 
   return false;
-});
+};
 
-const findDeployment = ((deployTag, deployType) => {
+const findDeployment = (deployTag, deployType) => {
   let resultFound = false;
 
   json[deployType].forEach((deployment) => {
@@ -70,14 +64,12 @@ const findDeployment = ((deployTag, deployType) => {
   });
 
   return resultFound;
-});
+};
 
-const getDeployTag = ((titleString, type) => {
+const getDeployTag = (titleString, type) => {
   const emptyTag = '';
   const isProd = type === config.deploymentsJsonKeyProd;
-  const separator = isProd
-    ? config.netlifyTitleSeparatorProd
-    : config.netlifyTitleSeparatorPreview;
+  const separator = isProd ? config.netlifyTitleSeparatorProd : config.netlifyTitleSeparatorPreview;
 
   if (!titleString) {
     return emptyTag;
@@ -93,10 +85,7 @@ const getDeployTag = ((titleString, type) => {
     return emptyTag;
   }
 
-  const [
-    ,
-    tag
-  ] = separatorSplits;
+  const [, tag] = separatorSplits;
 
   if (isProd) {
     const splitByDots = tag.split('.');
@@ -111,9 +100,9 @@ const getDeployTag = ((titleString, type) => {
   }
 
   return tag;
-});
+};
 
-const processDeploys = ((data) => {
+const processDeploys = (data) => {
   data.forEach((deploy) => {
     const deployType = getDeployType(deploy.title);
 
@@ -143,17 +132,16 @@ const processDeploys = ((data) => {
       }
     }
   });
-});
+};
 
 (async () => {
-
   const netlifyGetDeploysUrl = `https://api.netlify.com/api/v1/sites/${netlifySiteId}/deploys?access_token=${netlifyToken}`;
 
   try {
     // get results
     const deployments = await axios.request({
       method: 'GET',
-      url: netlifyGetDeploysUrl
+      url: netlifyGetDeploysUrl,
     });
 
     if (!deployments.data) {
@@ -174,7 +162,10 @@ const processDeploys = ((data) => {
     fs.writeFileSync(`./${deploymentsDir}/${config.deploymentsJsonName}`, JSON.stringify(json));
 
     // write index file
-    fs.writeFileSync(`./${deploymentsDir}/index.html`, '<html><body><p>This space is empty. It is only serving deployments.json for lyne-design-system. <a href="/deployments.json">deployments.json</a></p></body></html>');
+    fs.writeFileSync(
+      `./${deploymentsDir}/index.html`,
+      '<html><body><p>This space is empty. It is only serving deployments.json for lyne-design-system. <a href="/deployments.json">deployments.json</a></p></body></html>'
+    );
 
     /*
      * write headers file
@@ -185,7 +176,6 @@ const processDeploys = ((data) => {
 
     console.log(`-->> NETLIFY DEPLOYMENTS: Successfully created ${config.deploymentsJsonName}`);
     shell.exit(0);
-
   } catch (error) {
     console.log('-->> BUILD DEPLOYMENTS JSON: error');
     console.log(error);

@@ -76,16 +76,16 @@
   column-gap: var(--_section-gap-horizontal);
   row-gap: var(--_section-gap-vertical);
 
-  ::slotted( [slot] ) {
+  ::slotted([slot]) {
     flex-basis: 100%;
 
     @include mq($from: small) {
-      flex: 0 0 calc(50% - (var(--_section-gap-horizontal)/2));
-      max-width: calc(50% - (var(--_section-gap-horizontal)/2));
+      flex: 0 0 calc(50% - (var(--_section-gap-horizontal) / 2));
+      max-width: calc(50% - (var(--_section-gap-horizontal) / 2));
     }
     @include mq($from: wide) {
-      flex: 0 0 calc(25% - ((3*var(--_section-gap-horizontal))/4));
-      max-width: calc(25% - ((3*var(--_section-gap-horizontal))/4));
+      flex: 0 0 calc(25% - ((3 * var(--_section-gap-horizontal)) / 4));
+      max-width: calc(25% - ((3 * var(--_section-gap-horizontal)) / 4));
     }
   }
 }
@@ -101,7 +101,7 @@
   column-gap: var(--_section-gap-horizontal);
   row-gap: var(--_section-gap-vertical);
 
-  ::slotted( [slot] ) {
+  ::slotted([slot]) {
     flex-basis: 100%;
   }
 }

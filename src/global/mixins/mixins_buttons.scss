@@ -197,7 +197,7 @@
   // Renders background and border in the background absolute to enable the hover animation
   &::before {
     position: absolute;
-    content: "";
+    content: '';
     inset: 0;
     border: var(--border-width) solid var(--color-default-border);
     border-radius: var(--border-radius);
@@ -219,13 +219,9 @@
 
 @mixin buttonShadowNotDisabled {
   &::before {
-    box-shadow: var(--shadow-1-default-offset-x)
-        var(--shadow-1-default-offset-y)
-        var(--shadow-1-default-blur)
-        var(--shadow-1-default-spread) var(--shadow-1-default-color),
-      var(--shadow-2-default-offset-x)
-        var(--shadow-2-default-offset-y)
-        var(--shadow-2-default-blur)
+    box-shadow: var(--shadow-1-default-offset-x) var(--shadow-1-default-offset-y)
+        var(--shadow-1-default-blur) var(--shadow-1-default-spread) var(--shadow-1-default-color),
+      var(--shadow-2-default-offset-x) var(--shadow-2-default-offset-y) var(--shadow-2-default-blur)
         var(--shadow-2-default-spread) var(--shadow-2-default-color);
   }
 }
@@ -253,13 +249,9 @@
 
     background-color: var(--color-hover-background);
     border-color: var(--color-hover-border);
-    box-shadow: var(--shadow-1-hover-offset-x)
-        var(--shadow-1-hover-offset-y)
-        var(--shadow-1-hover-blur)
-        var(--shadow-1-hover-spread) var(--shadow-1-hover-color),
-      var(--shadow-2-hover-offset-x)
-        var(--shadow-2-hover-offset-y)
-        var(--shadow-2-hover-blur)
+    box-shadow: var(--shadow-1-hover-offset-x) var(--shadow-1-hover-offset-y)
+        var(--shadow-1-hover-blur) var(--shadow-1-hover-spread) var(--shadow-1-hover-color),
+      var(--shadow-2-hover-offset-x) var(--shadow-2-hover-offset-y) var(--shadow-2-hover-blur)
         var(--shadow-2-hover-spread) var(--shadow-2-hover-color);
 
     @include ifForcedColors {
@@ -277,8 +269,7 @@
 }
 
 @mixin buttonLabelTransition {
-  transition: transform var(--transition-duration)
-    var(--transition-easing-function);
+  transition: transform var(--transition-duration) var(--transition-easing-function);
   transform: translateY(var(--translate-y-content-hover, #{pxToRemBuild(0)}));
 }
 

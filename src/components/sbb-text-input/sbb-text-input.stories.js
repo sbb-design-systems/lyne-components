@@ -5,53 +5,47 @@ import readme from './readme.md';
 
 const Template = (args) => (
   <sbb-text-input {...args}>
-    {args.icon &&
-      <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
-    }
+    {args.icon && <span slot="icon">{getMarkupForSvg(args.icon)}</span>}
   </sbb-text-input>
 );
 
 const debounceInputEvent = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Events'
-  }
+    category: 'Events',
+  },
 };
 
 const border = {
   control: {
-    type: 'boolean'
-  }
+    type: 'boolean',
+  },
 };
 
 const icon = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Icon'
-  }
+    category: 'Icon',
+  },
 };
 
 const inputAutoCompleteSectionName = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'billing',
-    'none',
-    'shipping'
-  ],
+  options: ['billing', 'none', 'shipping'],
   table: {
-    category: 'Autocomplete Options'
-  }
+    category: 'Autocomplete Options',
+  },
 };
 
 const inputAutoCompleteValue = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'additional-name',
@@ -107,176 +101,159 @@ const inputAutoCompleteValue = {
     'transaction-amount',
     'transaction-currency',
     'url',
-    'username'
+    'username',
   ],
   table: {
-    category: 'Autocomplete Options'
-  }
+    category: 'Autocomplete Options',
+  },
 };
 
 const inputDisabled = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'State'
-  }
+    category: 'State',
+  },
 };
 
 const inputError = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'State'
-  }
+    category: 'State',
+  },
 };
 
 const inputId = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const inputMaxLength = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Validation'
-  }
+    category: 'Validation',
+  },
 };
 
 const inputMinLength = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Validation'
-  }
+    category: 'Validation',
+  },
 };
 
 const inputName = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const inputPattern = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Validation'
-  }
+    category: 'Validation',
+  },
 };
 
 const inputPlaceholder = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const inputRequired = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Validation'
-  }
+    category: 'Validation',
+  },
 };
 
 const inputType = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'email',
-    'password',
-    'search',
-    'tel',
-    'text',
-    'url'
-  ]
+  options: ['email', 'password', 'search', 'tel', 'text', 'url'],
 };
 
 const label = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Label'
-  }
+    category: 'Label',
+  },
 };
 
 const labelVisible = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Label'
-  }
+    category: 'Label',
+  },
 };
 
 const eventId = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Events'
-  }
+    category: 'Events',
+  },
 };
 
 const inputRole = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'presentation',
-    'searchbox',
-    'combobox',
-    'listbox'
-  ],
+  options: ['presentation', 'searchbox', 'combobox', 'listbox'],
   table: {
-    category: 'a11y'
-  }
+    category: 'a11y',
+  },
 };
 
 const inputAriaExpanded = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'a11y'
-  }
+    category: 'a11y',
+  },
 };
 
 const inputAriaAutoComplete = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'inline',
-    'list',
-    'both',
-    'none'
-  ],
+  options: ['inline', 'list', 'both', 'none'],
   table: {
-    category: 'a11y'
-  }
+    category: 'a11y',
+  },
 };
 
 const inputAriaControls = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'a11y'
-  }
+    category: 'a11y',
+  },
 };
 
 const defaultArgTypes = {
-  'borderless': border,
+  borderless: border,
   'debounce-input-event': debounceInputEvent,
   'event-id': eventId,
   icon,
@@ -297,14 +274,14 @@ const defaultArgTypes = {
   'input-role': inputRole,
   'input-type': inputType,
   label,
-  'label-visible': labelVisible
+  'label-visible': labelVisible,
 };
 
 const defaultArgs = {
-  'borderless': false,
+  borderless: false,
   'debounce-input-event': 0,
   'event-id': '',
-  'icon': '',
+  icon: '',
   'input-aria-autocomplete': 'none',
   'input-aria-controls': '',
   'input-aria-expanded': false,
@@ -321,8 +298,8 @@ const defaultArgs = {
   'input-required': false,
   'input-role': 'searchbox',
   'input-type': inputType.options[6],
-  'label': 'Label',
-  'label-visible': true
+  label: 'Label',
+  'label-visible': true,
 };
 
 /* ************************************************* */
@@ -332,11 +309,11 @@ export const TextInputOptional = Template.bind({});
 
 TextInputOptional.argTypes = defaultArgTypes;
 TextInputOptional.args = {
-  ...defaultArgs
+  ...defaultArgs,
 };
 
 TextInputOptional.documentation = {
-  title: 'Text Input Optional'
+  title: 'Text Input Optional',
 };
 
 export const TextInputOptionalDisabled = Template.bind({});
@@ -344,11 +321,11 @@ export const TextInputOptionalDisabled = Template.bind({});
 TextInputOptionalDisabled.argTypes = defaultArgTypes;
 TextInputOptionalDisabled.args = {
   ...defaultArgs,
-  'input-disabled': true
+  'input-disabled': true,
 };
 
 TextInputOptionalDisabled.documentation = {
-  title: 'Text Input Optional Disabled'
+  title: 'Text Input Optional Disabled',
 };
 
 export const TextInputRequired = Template.bind({});
@@ -356,11 +333,11 @@ export const TextInputRequired = Template.bind({});
 TextInputRequired.argTypes = defaultArgTypes;
 TextInputRequired.args = {
   ...defaultArgs,
-  'input-required': true
+  'input-required': true,
 };
 
 TextInputRequired.documentation = {
-  title: 'Text Input Required'
+  title: 'Text Input Required',
 };
 
 export const TextInputLabelHidden = Template.bind({});
@@ -368,11 +345,11 @@ export const TextInputLabelHidden = Template.bind({});
 TextInputLabelHidden.argTypes = defaultArgTypes;
 TextInputLabelHidden.args = {
   ...defaultArgs,
-  'label-visible': false
+  'label-visible': false,
 };
 
 TextInputLabelHidden.documentation = {
-  title: 'Text Input Label Hidden'
+  title: 'Text Input Label Hidden',
 };
 
 export const TextInputWithIcon = Template.bind({});
@@ -380,11 +357,11 @@ export const TextInputWithIcon = Template.bind({});
 TextInputWithIcon.argTypes = defaultArgTypes;
 TextInputWithIcon.args = {
   ...defaultArgs,
-  icon: 'pie-small'
+  icon: 'pie-small',
 };
 
 TextInputWithIcon.documentation = {
-  title: 'Text Input With Icon'
+  title: 'Text Input With Icon',
 };
 
 export const TextInputWithIconErrorMessage = Template.bind({});
@@ -392,15 +369,15 @@ export const TextInputWithIconErrorMessage = Template.bind({});
 TextInputWithIconErrorMessage.argTypes = defaultArgTypes;
 TextInputWithIconErrorMessage.args = {
   ...defaultArgs,
-  'icon': 'pie-small',
+  icon: 'pie-small',
   'input-error': true,
   'input-placeholder': 'meat/fish/vegetarian/vegan',
   'input-required': true,
-  'label': 'Meal preference'
+  label: 'Meal preference',
 };
 
 TextInputWithIconErrorMessage.documentation = {
-  title: 'Text Input With Icon & Error Message'
+  title: 'Text Input With Icon & Error Message',
 };
 
 export const TextInputEmail = Template.bind({});
@@ -413,11 +390,11 @@ TextInputEmail.args = {
   'input-placeholder': 'abc@def.com',
   'input-required': true,
   'input-type': 'email',
-  'label': 'Email address'
+  label: 'Email address',
 };
 
 TextInputEmail.documentation = {
-  title: 'Text Input Email Address'
+  title: 'Text Input Email Address',
 };
 
 export const TextInputExistingPassword = Template.bind({});
@@ -430,11 +407,11 @@ TextInputExistingPassword.args = {
   'input-placeholder': '',
   'input-required': true,
   'input-type': 'password',
-  'label': 'Current Password'
+  label: 'Current Password',
 };
 
 TextInputEmail.documentation = {
-  title: 'Text Input Existing Password'
+  title: 'Text Input Existing Password',
 };
 
 export const TextInputNewPassword = Template.bind({});
@@ -447,11 +424,11 @@ TextInputNewPassword.args = {
   'input-placeholder': '',
   'input-required': true,
   'input-type': 'password',
-  'label': 'New Password'
+  label: 'New Password',
 };
 
 TextInputEmail.documentation = {
-  title: 'Text Input New Password'
+  title: 'Text Input New Password',
 };
 
 export const TextInputPhoneNumber = Template.bind({});
@@ -464,11 +441,11 @@ TextInputPhoneNumber.args = {
   'input-placeholder': '',
   'input-required': true,
   'input-type': 'tel',
-  'label': 'Phone Number'
+  label: 'Phone Number',
 };
 
 TextInputPhoneNumber.documentation = {
-  title: 'Text Input Phone Number'
+  title: 'Text Input Phone Number',
 };
 
 export const TextInputOneTimeCode = Template.bind({});
@@ -481,11 +458,11 @@ TextInputOneTimeCode.args = {
   'input-placeholder': '',
   'input-required': true,
   'input-type': 'text',
-  'label': 'SMS-Code'
+  label: 'SMS-Code',
 };
 
 TextInputOneTimeCode.documentation = {
-  title: 'Text Input One Time Code'
+  title: 'Text Input One Time Code',
 };
 
 export const TextInputSearch = Template.bind({});
@@ -498,11 +475,11 @@ TextInputSearch.args = {
   'input-placeholder': '',
   'input-required': true,
   'input-type': 'search',
-  'label': 'Search'
+  label: 'Search',
 };
 
 TextInputSearch.documentation = {
-  title: 'Text Input Search'
+  title: 'Text Input Search',
 };
 
 export const TextInputUrl = Template.bind({});
@@ -515,28 +492,28 @@ TextInputUrl.args = {
   'input-placeholder': '',
   'input-required': true,
   'input-type': 'url',
-  'label': 'Website'
+  label: 'Website',
 };
 
 TextInputUrl.documentation = {
-  title: 'Text Input Url'
+  title: 'Text Input Url',
 };
 
 export default {
   decorators: [
     (Story) => (
       <div style={'padding: 2rem'}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     actions: {
-      handles: [events.input]
+      handles: [events.input],
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/form elements/sbb-text-input'
+  title: 'components/form elements/sbb-text-input',
 };

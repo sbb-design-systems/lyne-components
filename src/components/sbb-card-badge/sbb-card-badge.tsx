@@ -1,9 +1,4 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
 
@@ -18,13 +13,11 @@ import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-card-badge.default.scss',
-    shared: 'styles/sbb-card-badge.shared.scss'
+    shared: 'styles/sbb-card-badge.shared.scss',
   },
-  tag: 'sbb-card-badge'
+  tag: 'sbb-card-badge',
 })
-
 export class SbbCardBadge {
-
   /**
    * Accessibility label text. This text gets exposed to screen reader users.
    * The text should reflect all the information which gets passed into the
@@ -60,7 +53,6 @@ export class SbbCardBadge {
   }
 
   public render(): JSX.Element {
-
     const currentWritingMode = getDocumentWritingMode();
 
     /**
@@ -74,32 +66,24 @@ export class SbbCardBadge {
     return (
       <span
         aria-label={this.accessibilityLabel}
-        class={
-          `card-badge
+        class={`card-badge
           ${appearanceClass}
-          ${sizeClass}`
-        }
+          ${sizeClass}`}
         dir={currentWritingMode}
         // eslint-disable-next-line jsx-a11y/aria-role
-        role='text'
+        role="text"
         title={this.accessibilityLabel}
       >
-        {this.isDiscount
-          ? <span class='discount'>%</span>
-          : ''
-        }
-        {this.text
-          ? <span class='text'>{this.text}</span>
-          : ''
-        }
-        {this.price
-          ? <span class='price'>{this.price}</span>
-          : ''
-        }
-        {this._hasGenericSlot
-          ? <span class='generic'><slot name='generic'/></span>
-          : ''
-        }
+        {this.isDiscount ? <span class="discount">%</span> : ''}
+        {this.text ? <span class="text">{this.text}</span> : ''}
+        {this.price ? <span class="price">{this.price}</span> : ''}
+        {this._hasGenericSlot ? (
+          <span class="generic">
+            <slot name="generic" />
+          </span>
+        ) : (
+          ''
+        )}
       </span>
     );
   }

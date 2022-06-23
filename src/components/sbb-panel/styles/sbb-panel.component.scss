@@ -49,7 +49,6 @@
 
   padding-block-start: var(--triangle-height);
   padding-block-end: var(--triangle-height);
-
 }
 
 .panel {
@@ -69,7 +68,6 @@
   @include ifForcedColors {
     border: #{pxToRemBuild(1)} solid CanvasText;
   }
-
 }
 
 .panel:before,
@@ -85,7 +83,6 @@
   @include ifForcedColors {
     display: none;
   }
-
 }
 
 .panel:before {
