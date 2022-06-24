@@ -21,7 +21,9 @@ describe('getAnimationDurationVariableSafeValue', () => {
     } as any as CSSStyleDeclaration;
 
     spyOn(style, 'getPropertyValue').mockReturnValue('999ms');
-    expect(getAnimationDurationVariableSafeValue(style, '--animation-duration-nx')).toEqual(999);
+    expect(getAnimationDurationVariableSafeValue(style, '--sbb-animation-duration-nx')).toEqual(
+      999
+    );
   });
 
   it('should throw error with wrong prop', () => {
