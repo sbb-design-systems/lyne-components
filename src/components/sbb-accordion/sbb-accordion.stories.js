@@ -1,7 +1,4 @@
-import {
-  SbbColorMilkDefault,
-  SbbColorWhiteDefault,
-} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
+import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import events from '../sbb-accordion-item/sbb-accordion-item.events.ts';
 import { h } from 'jsx-dom';
 

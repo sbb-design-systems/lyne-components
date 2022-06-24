@@ -1,4 +1,4 @@
-import { SbbColorCharcoalDefault } from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
+import { SbbColorCharcoalDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
