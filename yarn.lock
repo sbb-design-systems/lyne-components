@@ -5409,10 +5409,10 @@ detective@^4.3.1:
     acorn "^5.2.1"
     defined "^1.0.0"
 
-devtools-protocol@0.0.1001819:
-  version "0.0.1001819"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.1001819.tgz#0a98f44cefdb02cc684f3d5e6bd898a1690231d9"
-  integrity sha512-G6OsIFnv/rDyxSqBa2lDLR6thp9oJioLsb2Gl+LbQlyoA9/OBAkrTU9jiCcQ8Pnh7z4d6slDiLaogR5hzgJLmQ==
+devtools-protocol@0.0.1011705:
+  version "0.0.1011705"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.1011705.tgz#2582ed29f84848df83fba488122015540a744539"
+  integrity sha512-OKvTvu9n3swmgYshvsyVHYX0+aPzCoYUnyXUacfQMmFtBtBKewV/gT4I9jkAbpTqtTi2E4S9MXLlvzBDUlqg0Q==
 
 diff-sequences@^27.5.1:
   version "27.5.1"
@@ -10406,14 +10406,14 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-puppeteer@15.0.1:
-  version "15.0.1"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-15.0.1.tgz#50dbed2c0c6ea70b22289442b96d3a3c116347a2"
-  integrity sha512-t6+L0Vcc/03OO5izVXL+P5+9uvH1Ix9jK65JwYAQhI9UVtkzuikbJqz+BAsftkhOH0r9F4YiOTtMBPUbBnfn9A==
+puppeteer@15.1.0:
+  version "15.1.0"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-15.1.0.tgz#5f225d7662f0f23ca49979797fc0853d23ec47a0"
+  integrity sha512-AZLQs6QB7tcYV4r7SRh8tN1OyTGI1hUBy5FDyd9Ry5wyfo1h2Tgl1uhT49sG2T8jI6JFuBXr+ratj9+zvNlx2g==
   dependencies:
     cross-fetch "3.1.5"
     debug "4.3.4"
-    devtools-protocol "0.0.1001819"
+    devtools-protocol "0.0.1011705"
     extract-zip "2.0.1"
     https-proxy-agent "5.0.1"
     pkg-dir "4.2.0"
