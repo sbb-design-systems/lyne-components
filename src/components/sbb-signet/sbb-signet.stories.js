@@ -1,4 +1,4 @@
-import { ColorCharcoalDefault } from 'lyne-design-tokens/dist/js/tokens.es6';
+import { ColorCharcoalDefault } from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -6,34 +6,26 @@ const Template = (args) => <sbb-signet {...args} />;
 
 const variants = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'default',
-    'white-on-black'
-  ]
+  options: ['default', 'white-on-black'],
 };
 
 const protectiveRoom = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'ideal',
-    'minimal',
-    'align-right',
-    'align-bottom-right'
-  ]
+  options: ['ideal', 'minimal', 'align-right', 'align-bottom-right'],
 };
 
 const defaultArgTypes = {
   'protective-room': protectiveRoom,
-  'variant': variants
+  variant: variants,
 };
 
 const defaultArgs = {
   'protective-room': protectiveRoom.options[0],
-  'variant': variants.options[0]
+  variant: variants.options[0],
 };
 
 /* eslint-disable prefer-destructuring */
@@ -45,7 +37,7 @@ IdealProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
 IdealProtectiveRoom.args['protective-room'] = protectiveRoom.options[0];
 
 IdealProtectiveRoom.documentation = {
-  title: 'Ideal protective room'
+  title: 'Ideal protective room',
 };
 
 export const MinimalProtectiveRoom = Template.bind({});
@@ -55,7 +47,7 @@ MinimalProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
 MinimalProtectiveRoom.args['protective-room'] = protectiveRoom.options[1];
 
 MinimalProtectiveRoom.documentation = {
-  title: 'Minimal protective room'
+  title: 'Minimal protective room',
 };
 
 export const AlignRightProtectiveRoom = Template.bind({});
@@ -65,7 +57,7 @@ AlignRightProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
 AlignRightProtectiveRoom.args['protective-room'] = protectiveRoom.options[2];
 
 AlignRightProtectiveRoom.documentation = {
-  title: 'Align right'
+  title: 'Align right',
 };
 
 export const AlignBottomRightProtectiveRoom = Template.bind({});
@@ -75,7 +67,7 @@ AlignBottomRightProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
 AlignBottomRightProtectiveRoom.args['protective-room'] = protectiveRoom.options[3];
 
 AlignBottomRightProtectiveRoom.documentation = {
-  title: 'Align bottom right'
+  title: 'Align bottom right',
 };
 
 export const WhiteOnBlack = Template.bind({});
@@ -90,16 +82,16 @@ WhiteOnBlack.decorators = [
     <div style={`background-color: ${ColorCharcoalDefault};`}>
       <Story />
     </div>
-  )
+  ),
 ];
 
 WhiteOnBlack.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
-    }
+      'background-color': ColorCharcoalDefault,
+    },
   },
-  title: 'White on black'
+  title: 'White on black',
 };
 
 /* eslint-enable prefer-destructuring */
@@ -107,15 +99,15 @@ WhiteOnBlack.documentation = {
 export default {
   decorators: [
     (Story) => (
-      <div style='max-width: 1024px;'>
+      <div style="max-width: 1024px;">
         <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'brand elements/SBB Signet'
+  title: 'brand elements/SBB Signet',
 };

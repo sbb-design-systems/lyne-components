@@ -6,13 +6,12 @@ import {
   generateKeyframeRules,
   processKeyframes,
   removeStyleProperties,
-  setStyleProperty
+  setStyleProperty,
 } from './animation-utils';
 import { raf } from '../../../helpers/request-animation-frame';
 import { AbstractAnimation } from './animation-abstract';
 
 export class AnimationCss extends AbstractAnimation {
-
   private _keyframeName: string | undefined;
 
   public setAnimationStep(step: number): void {
@@ -29,7 +28,6 @@ export class AnimationCss extends AbstractAnimation {
   }
 
   public duration(animationDuration: number): InterfaceAnimationInternal {
-
     /**
      * CSS Animation Durations of 0ms work fine on Chrome
      * but do not run on Safari, so force it to 1ms to
@@ -71,16 +69,14 @@ export class AnimationCss extends AbstractAnimation {
 
   protected progressEndInternal(playTo: 0 | 1, step: number): void {
     if (playTo === 0) {
-      this.forceDirectionValue = (this.getDirection() === 'reverse')
-        ? 'normal'
-        : 'reverse';
+      this.forceDirectionValue = this.getDirection() === 'reverse' ? 'normal' : 'reverse';
       if (this.forceDirectionValue === 'reverse') {
         this.willComplete = false;
       }
-      this.forceDelayValue = ((1 - step) * this.getDuration()) * -1;
+      this.forceDelayValue = (1 - step) * this.getDuration() * -1;
       this.update(false, false);
     } else if (playTo === 1) {
-      this.forceDelayValue = (step * this.getDuration()) * -1;
+      this.forceDelayValue = step * this.getDuration() * -1;
       this.update(false, false);
     }
   }
@@ -106,10 +102,12 @@ export class AnimationCss extends AbstractAnimation {
         'animation-delay',
         'animation-play-state',
         'animation-fill-mode',
-        'animation-direction'
+        'animation-direction',
       ];
 
-      elementsArray.forEach((element: HTMLElement) => removeStyleProperties(element, propertiesToRemove));
+      elementsArray.forEach((element: HTMLElement) =>
+        removeStyleProperties(element, propertiesToRemove)
+      );
     });
   }
 
@@ -123,16 +121,18 @@ export class AnimationCss extends AbstractAnimation {
         setStyleProperty(element, 'animation-name', this._keyframeName || null);
         setStyleProperty(element, 'animation-duration', `${this.getDuration()}ms`);
         setStyleProperty(element, 'animation-timing-function', this.getEasing());
-        setStyleProperty(element, 'animation-delay', (step === undefined || step === null)
-          ? `${this.getDelay()}ms`
-          : `-${step * this.getDuration()}ms`);
+        setStyleProperty(
+          element,
+          'animation-delay',
+          step === undefined || step === null
+            ? `${this.getDelay()}ms`
+            : `-${step * this.getDuration()}ms`
+        );
         setStyleProperty(element, 'animation-fill-mode', this.getFill() || null);
         setStyleProperty(element, 'animation-direction', this.getDirection() || null);
 
-        const iterationsCount = (this.getIterations() === Infinity)
-          ? 'infinite'
-          : this.getIterations()
-            .toString();
+        const iterationsCount =
+          this.getIterations() === Infinity ? 'infinite' : this.getIterations().toString();
 
         setStyleProperty(element, 'animation-iteration-count', iterationsCount);
 
@@ -156,9 +156,7 @@ export class AnimationCss extends AbstractAnimation {
       if (processedKeyframes.length > 0) {
         const keyframeRules = generateKeyframeRules(processedKeyframes);
 
-        this._keyframeName = (this.id === undefined)
-          ? generateKeyframeName(keyframeRules)
-          : this.id;
+        this._keyframeName = this.id === undefined ? generateKeyframeName(keyframeRules) : this.id;
         const stylesheet = createKeyframeStylesheet(this._keyframeName, keyframeRules, element);
 
         this.stylesheets.push(stylesheet);
@@ -169,10 +167,8 @@ export class AnimationCss extends AbstractAnimation {
         setStyleProperty(element, 'animation-fill-mode', this.getFill());
         setStyleProperty(element, 'animation-direction', this.getDirection());
 
-        const iterationsCount = (this.getIterations() === Infinity)
-          ? 'infinite'
-          : this.getIterations()
-            .toString();
+        const iterationsCount =
+          this.getIterations() === Infinity ? 'infinite' : this.getIterations().toString();
 
         setStyleProperty(element, 'animation-iteration-count', iterationsCount);
         setStyleProperty(element, 'animation-play-state', 'paused');
@@ -202,7 +198,6 @@ export class AnimationCss extends AbstractAnimation {
     if (this.animationKeyframes.length === 0 || this.elements.length === 0) {
       this.animationFinish();
     } else {
-
       /**
        * This is a catchall in the event that a CSS Animation did not finish.
        * The Web Animations API has mechanisms in place for preventing this.
@@ -219,7 +214,9 @@ export class AnimationCss extends AbstractAnimation {
       if (isFinite(animationIterations)) {
         this.cssAnimationsTimerFallback = setTimeout(
           this._onAnimationEndFallback.bind(this),
-          animationDelay + (animationDuration * animationIterations) + AbstractAnimation._ANIMATION_END_FALLBACK_PADDING_MS
+          animationDelay +
+            animationDuration * animationIterations +
+            AbstractAnimation._ANIMATION_END_FALLBACK_PADDING_MS
         );
       }
 
@@ -254,10 +251,11 @@ export class AnimationCss extends AbstractAnimation {
     const propertiesToRemove: string[] = [
       'animation-duration',
       'animation-delay',
-      'animation-play-state'
+      'animation-play-state',
     ];
 
-    this.elements.forEach((element: HTMLElement) => removeStyleProperties(element, propertiesToRemove));
+    this.elements.forEach((element: HTMLElement) =>
+      removeStyleProperties(element, propertiesToRemove)
+    );
   }
-
 }

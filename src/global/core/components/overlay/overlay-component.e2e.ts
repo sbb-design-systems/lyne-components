@@ -5,7 +5,7 @@ describe('sbb-overlay', () => {
 
   it('renders', async () => {
     page = await newE2EPage({
-      url: '/src/global/core/components/overlay/overlay-component.e2e.html'
+      url: '/src/global/core/components/overlay/overlay-component.e2e.html',
     });
     const buttonPresent = await page.find('#create-and-present-overlay');
 
@@ -16,12 +16,10 @@ describe('sbb-overlay', () => {
 
     await overlay.waitForVisible();
     expect(overlay).not.toBe(null);
-    expect(overlay)
-      .toHaveClass('hydrated');
+    expect(overlay).toHaveClass('hydrated');
     const label = await page.find('sbb-overlay >>> .overlay-class');
 
-    expect(label.textContent)
-      .toEqual('Overlay');
+    expect(label.textContent).toEqual('Overlay');
     await overlay.waitForVisible();
 
     const buttonDismiss = await page.find('#dismiss-overlay');
@@ -32,8 +30,6 @@ describe('sbb-overlay', () => {
 
     await overlay.waitForNotVisible();
     overlay = await page.find('sbb-overlay');
-    expect(overlay)
-      .toBe(null);
+    expect(overlay).toBe(null);
   });
-
 });

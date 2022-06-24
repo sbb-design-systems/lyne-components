@@ -1,7 +1,7 @@
 import {
   ColorCharcoalDefault,
-  ColorWhiteDefault
-} from 'lyne-design-tokens/dist/js/tokens.es6';
+  ColorWhiteDefault,
+} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -17,7 +17,7 @@ const documentationPlatformContainerStyle = (context) => {
   }
 
   return {
-    'background-color': ColorCharcoalDefault
+    'background-color': ColorCharcoalDefault,
   };
 };
 
@@ -42,40 +42,37 @@ const wrapperStyle = (context) => {
 
 const appearance = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'primary',
-    'primary-negative'
-  ],
+  options: ['primary', 'primary-negative'],
   table: {
-    category: 'Appearance'
-  }
+    category: 'Appearance',
+  },
 };
 
 const width = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'full-bleed--forever',
     'full-bleed--until-ultra-plus',
     'full-bleed--until-ultra',
-    'page-spacing'
+    'page-spacing',
   ],
   table: {
-    category: 'Appearance'
-  }
+    category: 'Appearance',
+  },
 };
 
 const defaultArgTypes = {
   appearance,
-  width
+  width,
 };
 
 const defaultArgs = {
   appearance: appearance.options[0],
-  width: width.options[0]
+  width: width.options[0],
 };
 
 /* ************************************************* */
@@ -84,7 +81,15 @@ const defaultArgs = {
 
 const Template = (args) => (
   <sbb-section {...args}>
-    <sbb-teaser-hero slot='full-width' button-text='Mehr erfahren' loading='eager' image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg' link='https://www.sbb.ch' open-in-new-window='false' text='Rücksichtsvoll mit SBB Green Class.'></sbb-teaser-hero>
+    <sbb-teaser-hero
+      slot="full-width"
+      button-text="Mehr erfahren"
+      loading="eager"
+      image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
+      link="https://www.sbb.ch"
+      open-in-new-window="false"
+      text="Rücksichtsvoll mit SBB Green Class."
+    ></sbb-teaser-hero>
   </sbb-section>
 );
 
@@ -99,12 +104,9 @@ WIPSection.argTypes = defaultArgTypes;
 WIPSection.args = JSON.parse(JSON.stringify(defaultArgs));
 WIPSection.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Section (WIP)'
+  title: 'Section (WIP)',
 };
 
 /* --- Section negative --------------- */
@@ -113,16 +115,13 @@ export const WIPSectionNegative = Template.bind({});
 WIPSectionNegative.argTypes = defaultArgTypes;
 WIPSectionNegative.args = {
   ...defaultArgs,
-  appearance: appearance.options[1]
+  appearance: appearance.options[1],
 };
 WIPSectionNegative.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Section Negative (WIP)'
+  title: 'Section Negative (WIP)',
 };
 
 /* ************************************************* */
@@ -133,15 +132,15 @@ export default {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}`}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
+      extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen'
+    layout: 'fullscreen',
   },
-  title: 'components/layout/sbb-section'
+  title: 'components/layout/sbb-section',
 };

@@ -14,56 +14,45 @@ describe('rtl: dir', () => {
     it('should return true with hostEl.dir set to rtl', () => {
       mockElement.dir = 'rtl';
       spyDoc.mockReturnValue(mockElement);
-      expect(isRTL(document.getElementById('id')))
-        .toBe(true);
+      expect(isRTL(document.getElementById('id'))).toBe(true);
     });
 
     it('should return false with hostEl.dir set to ltr', () => {
       mockElement.dir = 'ltr';
       spyDoc.mockReturnValue(mockElement);
-      expect(isRTL(document.getElementById('id')))
-        .toBe(false);
+      expect(isRTL(document.getElementById('id'))).toBe(false);
     });
 
     it('should return true with hostEl.dir set to null and direction set to rtl', () => {
       mockElement.dir = '';
       spyDoc.mockReturnValue(mockElement);
-      jest.spyOn(window, 'getComputedStyle')
-        .mockReturnValue({
-          getPropertyValue: jest.fn()
-            .mockReturnValue('rtl')
-        } as any as CSSStyleDeclaration);
+      jest.spyOn(window, 'getComputedStyle').mockReturnValue({
+        getPropertyValue: jest.fn().mockReturnValue('rtl'),
+      } as any as CSSStyleDeclaration);
 
-      expect(isRTL(document.getElementById('id')))
-        .toBe(true);
+      expect(isRTL(document.getElementById('id'))).toBe(true);
     });
 
     it('should return false with hostEl.dir set to null and direction set to ltr', () => {
       mockElement.dir = '';
       spyDoc.mockReturnValue(mockElement);
-      jest.spyOn(window, 'getComputedStyle')
-        .mockReturnValue({
-          getPropertyValue: jest.fn()
-            .mockReturnValue('ltr')
-        } as any as CSSStyleDeclaration);
+      jest.spyOn(window, 'getComputedStyle').mockReturnValue({
+        getPropertyValue: jest.fn().mockReturnValue('ltr'),
+      } as any as CSSStyleDeclaration);
 
-      expect(isRTL(document.getElementById('id')))
-        .toBe(false);
+      expect(isRTL(document.getElementById('id'))).toBe(false);
     });
-
   });
 
   describe('without host element', () => {
     it('should return true', () => {
       global.document.dir = 'rtl';
-      expect(isRTL())
-        .toBe(true);
+      expect(isRTL()).toBe(true);
     });
 
     it('should return false', () => {
       global.document.dir = 'ltr';
-      expect(isRTL())
-        .toBe(false);
+      expect(isRTL()).toBe(false);
     });
   });
 });

@@ -1,18 +1,19 @@
 ## Preflight Checklist
+
 <!-- Please ensure you've completed the following steps by replacing [ ] with [x]-->
 
-* [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CONTRIBUTING.md) for this project.
-* [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CODE_OF_CONDUCT.md) that this project adheres to.
-* [ ] I have searched the [pull request tracker](https://github.com/lyne-design-system/lyne-components/pulls) for a Pull Request (PR) that matches the one I want to submit, without success.
+- [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CONTRIBUTING.md) for this project.
+- [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CODE_OF_CONDUCT.md) that this project adheres to.
+- [ ] I have searched the [pull request tracker](https://github.com/lyne-design-system/lyne-components/pulls) for a Pull Request (PR) that matches the one I want to submit, without success.
 
 ## Issue
 
 This PR Closes #
 
-
 ## Pull request checklist
 
 Please check if your PR fulfills the following requirements:
+
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been reviewed and added / updated if needed (for bug fixes / features)
 - [ ] Build (`npm run build`) was run locally and any changes were pushed
@@ -27,6 +28,7 @@ Changes in this pull request:
 ## Browsers
 
 I tested the build on the following browsers:
+
 - [ ] Firefox Desktop
 - [ ] Chrome Desktop
 - [ ] Safari Desktop
@@ -43,6 +45,7 @@ I tested the build on the following browsers:
 <!-- Please try to limit your pull request to one type, submit multiple pull requests if needed. -->
 
 Please check the type of change your PR introduces:
+
 - [ ] Bugfix
 - [ ] Feature
 - [ ] Code style update (formatting, renaming)
@@ -51,14 +54,12 @@ Please check the type of change your PR introduces:
 - [ ] Documentation content changes
 - [ ] Other (please describe):
 
-
 ## Does this introduce a breaking change?
 
 - [ ] Yes
 - [ ] No
 
 <!-- If this introduces a breaking change, please describe the impact and migration path for existing applications below. -->
-
 
 ## Other information
 

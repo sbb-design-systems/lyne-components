@@ -12,7 +12,6 @@ export type InterfaceToastType = 'link' | 'action' | 'icon';
  * Common interface for toast action.
  */
 export interface InterfaceToastCommonAction {
-
   /** Used for discriminating union. */
   type: InterfaceToastType;
 
@@ -70,7 +69,6 @@ export interface InterfaceToastIcon extends InterfaceToastCommonAction {
  * Interface for toast's configuration.
  */
 export interface InterfaceToastConfiguration {
-
   /** Message to display */
   message: string;
 

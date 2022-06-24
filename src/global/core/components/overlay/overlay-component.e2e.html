@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Overlay E2E</title>
-  <script nomodule src="../../../../../dist/lyne-components/lyne-components.js"></script>
-  <script type="module" src="../../../../../dist/lyne-components/lyne-components.esm.js"></script>
-</head>
-<script type="module">
-  import { overlayController } from '../../../../../dist/lyne-components/index.esm.js';
-  window.overlayController = overlayController;
-</script>
-<body>
-  <button type='button' id="create-and-present-overlay" onclick="createAndPresentOverlay()">Create and Present Overlay</button>
-  <button type='button' id="dismiss-overlay" onclick="dismissOverlay()">Dismiss Overlay</button>
-  <script>
-    async function createAndPresentOverlay() {
-      const overlay = await overlayController.create({});
-      await overlay.present();
-    }
-    async function dismissOverlay() {
-      const top = overlayController.getTop();
-      await top.dismiss();
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Overlay E2E</title>
+    <script type="module" src="../../../../../dist/lyne-components/lyne-components.esm.js"></script>
+  </head>
+  <script type="module">
+    import { overlayController } from '../../../../../dist/lyne-components/index.esm.js';
+
+    window.overlayController = overlayController;
   </script>
-</body>
+  <body>
+    <button type="button" id="create-and-present-overlay" onclick="createAndPresentOverlay()">
+      Create and Present Overlay
+    </button>
+    <button type="button" id="dismiss-overlay" onclick="dismissOverlay()">Dismiss Overlay</button>
+    <script>
+      async function createAndPresentOverlay() {
+        const overlay = await overlayController.create({});
+        await overlay.present();
+      }
+
+      async function dismissOverlay() {
+        const top = overlayController.getTop();
+        await top.dismiss();
+      }
+    </script>
+  </body>
 </html>

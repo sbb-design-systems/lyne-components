@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
@@ -17,13 +13,11 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-link.default.scss',
-    shared: 'styles/sbb-link.shared.scss'
+    shared: 'styles/sbb-link.shared.scss',
   },
-  tag: 'sbb-link'
+  tag: 'sbb-link',
 })
-
 export class SbbLink {
-
   /**
    * If set to true, the browser will
    * show the download dialog on click.
@@ -75,7 +69,6 @@ export class SbbLink {
   @Prop() public variant: InterfaceLinkAttributes['variant'] = 'positive';
 
   public render(): JSX.Element {
-
     const textSizeClass = ` link--text-${this.textSize}`;
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
@@ -114,7 +107,7 @@ export class SbbLink {
     if (openInNewWindow) {
       addtitionalLinkAttributes = {
         rel: 'external noopener nofollow',
-        target: '_blank'
+        target: '_blank',
       };
       ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
     }
@@ -122,34 +115,32 @@ export class SbbLink {
     if (this.idValue) {
       addtitionalLinkAttributes = {
         ...addtitionalLinkAttributes,
-        id: this.idValue
+        id: this.idValue,
       };
     }
 
     return (
       <a
         aria-label={ariaLabel}
-        class={
-          `link
+        class={`link
           ${textSizeClass}
           ${iconPositionClass}
           ${iconFlipClass}
-          ${variantClass}`
-        }
+          ${variantClass}`}
         download={this.download}
         dir={currentWritingMode}
         href={this.hrefValue}
         {...addtitionalLinkAttributes}
       >
+        {this.icon ? (
+          <span class="link__icon">
+            <slot name="icon" />
+          </span>
+        ) : (
+          ''
+        )}
 
-        {this.icon
-          ? <span class='link__icon'><slot name='icon'/></span>
-          : ''
-        }
-
-        <span class='link__text'>
-          {this.text}
-        </span>
+        <span class="link__text">{this.text}</span>
       </a>
     );
   }

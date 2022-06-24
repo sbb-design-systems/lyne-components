@@ -1,20 +1,22 @@
 import {
-  Component, ComponentInterface, Element, Event, EventEmitter, h, Method, Prop
+  Component,
+  ComponentInterface,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Method,
+  Prop,
 } from '@stencil/core';
-import {
-  InterfaceOverlay, InterfaceOverlayEventDetail
-} from './overlays-interface';
-import {
-  dismiss, eventMethod, prepareOverlay, present
-} from './overlay';
+import { InterfaceOverlay, InterfaceOverlayEventDetail } from './overlays-interface';
+import { dismiss, eventMethod, prepareOverlay, present } from './overlay';
 import { createAnimation } from '../animations/animation';
 
 @Component({
   shadow: true,
-  tag: 'sbb-overlay'
+  tag: 'sbb-overlay',
 })
 export class SbbOverlay implements ComponentInterface, InterfaceOverlay {
-
   public disableAnimation = false;
   public keyboardClose: boolean;
   public presented: boolean;
@@ -39,17 +41,23 @@ export class SbbOverlay implements ComponentInterface, InterfaceOverlay {
     prepareOverlay(this.el);
   }
 
+  /**
+   * Dismiss the overlay.
+   */
   @Method()
-  public dismiss(data?: any, role?: string): Promise<boolean> {
+  public async dismiss(data?: any, role?: string): Promise<boolean> {
     return dismiss(this, data, role, createAnimation);
   }
 
+  /**
+   * Present the overlay.
+   */
   @Method()
   public async present(): Promise<void> {
     await present(this, createAnimation);
   }
 
   public render(): JSX.Element {
-    return (<div class='overlay-class'>Overlay</div>);
+    return <div class="overlay-class">Overlay</div>;
   }
 }

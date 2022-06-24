@@ -4,9 +4,7 @@ import sampleData from './sbb-autocomplete.sample-data';
 
 describe('sbb-autocomplete', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbAutocomplete],
       html: `
 <sbb-autocomplete
@@ -14,11 +12,10 @@ describe('sbb-autocomplete', () => {
   inputName='test-input'
   inputLabel='input-label'
   minChars='2'
-></sbb-autocomplete>`
+></sbb-autocomplete>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
       <sbb-autocomplete inputlabel="input-label" inputname="test-input" items="[{&quot;text&quot;: &quot;Bern&quot;},{&quot;text&quot;: &quot;Bern, Hauptbahnhof&quot;},{&quot;text&quot;: &quot;Bern (Marzilibahn)&quot;},{&quot;text&quot;: &quot;Bern Marzili&quot;},{&quot;text&quot;: &quot;Bern Matte&quot;},{&quot;text&quot;: &quot;Bern Münsterplattform&quot;},{&quot;text&quot;: &quot;Bern Europaplatz, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Brunnadernstrasse&quot;},{&quot;text&quot;: &quot;Bern, Bärenplatz&quot;}]" minchars="2">
           <mock:shadow-root>
             <div class="autocomplete">
@@ -46,5 +43,4 @@ describe('sbb-autocomplete', () => {
         </sbb-autocomplete>
       `);
   });
-
 });

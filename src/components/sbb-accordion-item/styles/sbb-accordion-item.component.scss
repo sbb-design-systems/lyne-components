@@ -43,8 +43,9 @@
   border-bottom-left-radius: pxToRem(var(--border-radius-end-start));
   border-bottom-right-radius: pxToRem(var(--border-radius-end-end));
   border-block-end: pxToRem(var(--border-width)) solid var(--border-color);
-  transition: background-color var(--header-transition-duration) var(--header-transition-timing-function),
-              color var(--header-transition-duration) var(--header-transition-timing-function);
+  transition: background-color var(--header-transition-duration)
+      var(--header-transition-timing-function),
+    color var(--header-transition-duration) var(--header-transition-timing-function);
 
   :host(.focus-visible) & {
     @include focusOutline;
@@ -135,7 +136,11 @@
 }
 
 .accordion-item--has-icon .accordion-item__body-inner {
-  padding-inline-start: calc(#{pxToRem(var(--body-padding-inline))} + #{pxToRem(var(--icon-size))} + #{pxToRem(var(--icon-padding-inline-end))});
+  padding-inline-start: calc(
+    #{pxToRem(var(--body-padding-inline))} + #{pxToRem(var(--icon-size))} + #{pxToRem(
+        var(--icon-padding-inline-end)
+      )}
+  );
 }
 
 .accordion-item__body-inner {
@@ -172,7 +177,6 @@
     }
 
     color: HighlightText;
-
   }
 
   .accordion-item {
@@ -183,5 +187,4 @@
   ::slotted(svg[slot='icon']) {
     color: ButtonText;
   }
-
 }

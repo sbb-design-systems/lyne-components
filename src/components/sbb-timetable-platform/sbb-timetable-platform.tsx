@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nFromPlatform } from '../../global/i18n';
@@ -12,20 +8,19 @@ import { InterfaceTimetablePlatformAttributes } from './sbb-timetable-platform.c
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-timetable-platform.default.scss',
-    shared: 'styles/sbb-timetable-platform.shared.scss'
+    shared: 'styles/sbb-timetable-platform.shared.scss',
   },
-  tag: 'sbb-timetable-platform'
+  tag: 'sbb-timetable-platform',
 })
-
 export class SbbTimetablePlatform {
-
   private _currentLanguage = getDocumentLang();
 
   /**
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceTimetablePlatformAttributes['appearance'] = 'first-level';
+  @Prop()
+  public appearance?: InterfaceTimetablePlatformAttributes['appearance'] = 'first-level';
 
   /**
    * Stringified JSON which defines most of the
@@ -36,7 +31,6 @@ export class SbbTimetablePlatform {
   @Prop() public config!: string;
 
   public render(): JSX.Element {
-
     const config = JSON.parse(this.config);
 
     const text = `${i18nFromPlatform.short[this._currentLanguage]} `;
@@ -45,22 +39,12 @@ export class SbbTimetablePlatform {
     const appearanceClasses = ` platform--${this.appearance}`;
 
     return (
-      <p
-        aria-label={a11yLabel}
-        class={`platform${appearanceClasses}`}
-        role='text'
-      >
-        <span
-          aria-hidden='true'
-          class='platform__text'
-          role='presentation'
-        >
+      <p aria-label={a11yLabel} class={`platform${appearanceClasses}`} role="text">
+        <span aria-hidden="true" class="platform__text" role="presentation">
           {text}
           {config.platform}
         </span>
-        <span class='platform__text--visually-hidden'>
-          {a11yLabel}
-        </span>
+        <span class="platform__text--visually-hidden">{a11yLabel}</span>
       </p>
     );
   }

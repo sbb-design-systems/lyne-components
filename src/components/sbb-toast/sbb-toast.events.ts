@@ -6,5 +6,5 @@ export default {
   didDismiss: 'sbb-toast_did-dismiss',
   didPresent: 'sbb-toast_did-present',
   willDismiss: 'sbb-toast_will-dismiss',
-  willPresent: 'sbb-toast_will-present'
+  willPresent: 'sbb-toast_will-present',
 };

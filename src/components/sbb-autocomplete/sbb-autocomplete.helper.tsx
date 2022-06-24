@@ -12,7 +12,9 @@ export default (jsonString: string): any => {
   const jsonArray = JSON.parse(jsonString);
 
   if (!jsonArray || jsonArray.length < 1) {
-    console.warn('sbb-autocomplete error: you should pass an array of objects to the items property.');
+    console.warn(
+      'sbb-autocomplete error: you should pass an array of objects to the items property.'
+    );
 
     return [];
   }

@@ -13,9 +13,14 @@ export const convertToNumber = (value: string): number => parseInt(value, 10);
  * @throws {Error} property must be an `--animation-duration-Nx`
  * @returns {number} duration in ms without unit
  */
-export const getAnimationDurationVariableSafeValue = (styleDeclaration: CSSStyleDeclaration, property: string): number => {
+export const getAnimationDurationVariableSafeValue = (
+  styleDeclaration: CSSStyleDeclaration,
+  property: string
+): number => {
   if (!property.startsWith('--animation-duration')) {
-    throw new Error('Property must start with "--animation-duration". If not, use the window "getPropertyValue" API.');
+    throw new Error(
+      'Property must start with "--animation-duration". If not, use the window "getPropertyValue" API.'
+    );
   }
 
   return convertToNumber(styleDeclaration.getPropertyValue(property));

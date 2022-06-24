@@ -37,7 +37,7 @@ sbb-timetable-transportation-walk {
   flex: 1 1 auto;
 }
 
-button[dir="rtl"] .button__chevron {
+button[dir='rtl'] .button__chevron {
   transform: scaleX(-1);
 }
 
@@ -49,10 +49,8 @@ button[dir="rtl"] .button__chevron {
   @include mq($to: micro) {
     @include screenReaderOnly();
   }
-
 }
 
 .button__chevron {
   height: pxToRem(var(--size-icon-ui-small));
 }
-

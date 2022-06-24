@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-timetable-button', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableButton],
-      html: '<sbb-timetable-button/>'
+      html: '<sbb-timetable-button/>',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-button>
           <mock:shadow-root>
             <button
@@ -27,5 +24,4 @@ describe('sbb-timetable-button', () => {
         </sbb-timetable-button>
       `);
   });
-
 });

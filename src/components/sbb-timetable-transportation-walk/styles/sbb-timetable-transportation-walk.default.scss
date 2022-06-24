@@ -13,10 +13,10 @@
 //*****************************************************************************
 
 // Import globally defined styles for single component usage, if in shared mode, these styles are imported globally and shared over all components
-@import "./../../../global/global.default.scss";
+@import './../../../global/global.default.scss';
 
 // Import component styles
-@import "./sbb-timetable-transportation-walk.component.scss";
+@import './sbb-timetable-transportation-walk.component.scss';
 
 // Mode overrides/tests
 // :host {

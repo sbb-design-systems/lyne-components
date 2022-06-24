@@ -1,99 +1,84 @@
 import {
   ColorCharcoalDefault,
-  ColorWhiteDefault
-} from 'lyne-design-tokens/dist/js/tokens.es6';
+  ColorWhiteDefault,
+} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
-
-  const variantsOnDarkBg = [
-    'primary-negative',
-    'secondary-negative'
-  ];
+  const variantsOnDarkBg = ['primary-negative', 'secondary-negative'];
 
   if (variantsOnDarkBg.indexOf(context.args.variant) === -1) {
     return `background-color: ${ColorWhiteDefault};`;
   }
 
   return `background-color: ${ColorCharcoalDefault};`;
-
 };
 
 const Template = (args) => (
   <sbb-link-button {...args}>
-    {args.icon &&
-      <span slot='icon'>{getMarkupForSvg(args.icon)}</span>
-    }
+    {args.icon && <span slot="icon">{getMarkupForSvg(args.icon)}</span>}
   </sbb-link-button>
 );
 
 const download = {
   control: {
-    type: 'boolean'
-  }
+    type: 'boolean',
+  },
 };
 
 const idValue = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const iconFlip = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Icon'
-  }
+    category: 'Icon',
+  },
 };
 
 const hrefValue = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const icon = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Icon'
-  }
+    category: 'Icon',
+  },
 };
 
 const iconPlacement = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'start',
-    'end'
-  ],
+  options: ['start', 'end'],
   table: {
-    category: 'Icon'
-  }
+    category: 'Icon',
+  },
 };
 
 const text = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const variant = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'primary',
-    'secondary',
-    'primary-negative',
-    'secondary-negative'
-  ]
+  options: ['primary', 'secondary', 'primary-negative', 'secondary-negative'],
 };
 
 const defaultArgTypes = {
@@ -104,18 +89,18 @@ const defaultArgTypes = {
   'icon-placement': iconPlacement,
   'id-value': idValue,
   text,
-  variant
+  variant,
 };
 
 const defaultArgs = {
-  'download': false,
+  download: false,
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
-  'icon': '',
+  icon: '',
   'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
   'id-value': '',
-  'text': 'Travelcards & tickets',
-  'variant': variant.options[0]
+  text: 'Travelcards & tickets',
+  variant: variant.options[0],
 };
 
 /* ************************************************* */
@@ -125,11 +110,11 @@ export const LinkButtonPrimary = Template.bind({});
 
 LinkButtonPrimary.argTypes = defaultArgTypes;
 LinkButtonPrimary.args = {
-  ...defaultArgs
+  ...defaultArgs,
 };
 
 LinkButtonPrimary.documentation = {
-  title: 'Link Button Primary'
+  title: 'Link Button Primary',
 };
 
 export const LinkButtonPrimaryNegative = Template.bind({});
@@ -137,11 +122,11 @@ export const LinkButtonPrimaryNegative = Template.bind({});
 LinkButtonPrimaryNegative.argTypes = defaultArgTypes;
 LinkButtonPrimaryNegative.args = {
   ...defaultArgs,
-  variant: variant.options[2]
+  variant: variant.options[2],
 };
 
 LinkButtonPrimaryNegative.documentation = {
-  title: 'Link Button Primary Negative'
+  title: 'Link Button Primary Negative',
 };
 
 export const LinkButtonPrimaryWithIcon = Template.bind({});
@@ -149,12 +134,12 @@ export const LinkButtonPrimaryWithIcon = Template.bind({});
 LinkButtonPrimaryWithIcon.argTypes = defaultArgTypes;
 LinkButtonPrimaryWithIcon.args = {
   ...defaultArgs,
-  'icon': 'user-small',
-  'icon-flip': true
+  icon: 'user-small',
+  'icon-flip': true,
 };
 
 LinkButtonPrimaryWithIcon.documentation = {
-  title: 'Link Button Primary With Icon'
+  title: 'Link Button Primary With Icon',
 };
 
 export const LinkButtonSecondary = Template.bind({});
@@ -162,11 +147,11 @@ export const LinkButtonSecondary = Template.bind({});
 LinkButtonSecondary.argTypes = defaultArgTypes;
 LinkButtonSecondary.args = {
   ...defaultArgs,
-  variant: variant.options[1]
+  variant: variant.options[1],
 };
 
 LinkButtonSecondary.documentation = {
-  title: 'Link Button Secondary'
+  title: 'Link Button Secondary',
 };
 
 export const LinkButtonSecondaryNegative = Template.bind({});
@@ -174,11 +159,11 @@ export const LinkButtonSecondaryNegative = Template.bind({});
 LinkButtonSecondaryNegative.argTypes = defaultArgTypes;
 LinkButtonSecondaryNegative.args = {
   ...defaultArgs,
-  variant: variant.options[3]
+  variant: variant.options[3],
 };
 
 LinkButtonSecondaryNegative.documentation = {
-  title: 'Link Button Secondary Negative'
+  title: 'Link Button Secondary Negative',
 };
 
 export const LinkButtonSecondaryWithIcon = Template.bind({});
@@ -186,30 +171,30 @@ export const LinkButtonSecondaryWithIcon = Template.bind({});
 LinkButtonSecondaryWithIcon.argTypes = defaultArgTypes;
 LinkButtonSecondaryWithIcon.args = {
   ...defaultArgs,
-  'icon': 'user-small',
+  icon: 'user-small',
   'icon-flip': true,
-  'variant': variant.options[1]
+  variant: variant.options[1],
 };
 
 LinkButtonSecondaryWithIcon.documentation = {
-  title: 'Link Button Secondary With Icon'
+  title: 'Link Button Secondary With Icon',
 };
 
 export default {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem`}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/sbb-link-button'
+  title: 'components/sbb-link-button',
 };

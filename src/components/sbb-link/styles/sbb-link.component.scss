@@ -9,7 +9,6 @@
   --text-color-normal: var(--color-granite-default);
   --text-color-hover-focus: var(--color-red125-default);
   --text-color-active: var(--color-red150-default);
-
 }
 
 .link--negative {
@@ -36,7 +35,6 @@
     text-decoration: underline;
     text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
   }
-
 }
 
 .link:active {
@@ -57,7 +55,7 @@
   order: 2;
 }
 
-.link[dir="rtl"].link--icon-flip .link__icon {
+.link[dir='rtl'].link--icon-flip .link__icon {
   transform: scaleX(-1);
 }
 

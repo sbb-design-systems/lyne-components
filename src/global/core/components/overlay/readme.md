@@ -1,7 +1,6 @@
 # sbb-overlay
 Example component for overlay system. Not meant to be used.
 
-
 <!-- Auto Generated Below -->
 
 
@@ -26,7 +25,7 @@ Example component for overlay system. Not meant to be used.
 
 ### `dismiss(data?: any, role?: string) => Promise<boolean>`
 
-
+Dismiss the overlay.
 
 #### Returns
 
@@ -56,7 +55,7 @@ Type: `Promise<InterfaceOverlayEventDetail<T>>`
 
 ### `present() => Promise<void>`
 
-
+Present the overlay.
 
 #### Returns
 

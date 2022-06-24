@@ -1,7 +1,7 @@
 import {
   ColorCharcoalDefault,
-  ColorWhiteDefault
-} from 'lyne-design-tokens/dist/js/tokens.es6';
+  ColorWhiteDefault,
+} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -17,7 +17,7 @@ const documentationPlatformContainerStyle = (context) => {
   }
 
   return {
-    'background-color': ColorCharcoalDefault
+    'background-color': ColorCharcoalDefault,
   };
 };
 
@@ -62,12 +62,12 @@ const spacingOptions = [
   'responsive-m',
   'responsive-l',
   'responsive-xl',
-  'responsive-xxl'
+  'responsive-xxl',
 ];
 
 const appearance = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'vertical',
@@ -78,107 +78,99 @@ const appearance = {
     'horizontal--end--centered',
     'horizontal--centered',
     'horizontal--space-between',
-    'horizontal--space-between--centered'
+    'horizontal--space-between--centered',
   ],
   table: {
-    category: 'Appearance'
-  }
+    category: 'Appearance',
+  },
 };
 
 const collapseHorizontalBelow = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'micro',
-    'small',
-    'medium',
-    'large',
-    'wide',
-    'ultra',
-    'ultra--max-content'
-  ],
+  options: ['micro', 'small', 'medium', 'large', 'wide', 'ultra', 'ultra--max-content'],
   table: {
-    category: 'Appearance'
-  }
+    category: 'Appearance',
+  },
 };
 
 const gapHorizontal = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: spacingOptions,
   table: {
-    category: 'Spacing'
-  }
+    category: 'Spacing',
+  },
 };
 
 const gapVertical = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: spacingOptions,
   table: {
-    category: 'Spacing'
-  }
+    category: 'Spacing',
+  },
 };
 
 const isPlaceholder = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Prototyping'
-  }
+    category: 'Prototyping',
+  },
 };
 
 const noWrap = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Appearance'
-  }
+    category: 'Appearance',
+  },
 };
 
 const spaceLeading = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: spacingOptions,
   table: {
-    category: 'Spacing'
-  }
+    category: 'Spacing',
+  },
 };
 
 const spaceTrailing = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: spacingOptions,
   table: {
-    category: 'Spacing'
-  }
+    category: 'Spacing',
+  },
 };
 
 const stackWidth = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   options: spacingOptions,
   table: {
-    category: 'Size'
-  }
+    category: 'Size',
+  },
 };
 
 const stackHeight = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   options: spacingOptions,
   table: {
-    category: 'Size'
-  }
+    category: 'Size',
+  },
 };
 
 const defaultArgTypes = {
@@ -191,11 +183,11 @@ const defaultArgTypes = {
   'space-leading': spaceLeading,
   'space-trailing': spaceTrailing,
   'stack-height': stackHeight,
-  'stack-width': stackWidth
+  'stack-width': stackWidth,
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0]
+  appearance: appearance.options[0],
 };
 
 /* ************************************************* */
@@ -204,9 +196,13 @@ const defaultArgs = {
 
 const template = (args) => (
   <sbb-stack {...args}>
-    <sbb-title level='2' text='Lyne' variant='positive' visual-level='5'></sbb-title>
+    <sbb-title level="2" text="Lyne" variant="positive" visual-level="5"></sbb-title>
     <p>Is user-centered and empowering, holistic and inclusive, encourages ...</p>
-    <sbb-link-button href-value='https://github.com/lyne-design-system/lyne-components' text='Discover Lyne' variant='primary'></sbb-link-button>
+    <sbb-link-button
+      href-value="https://github.com/lyne-design-system/lyne-components"
+      text="Discover Lyne"
+      variant="primary"
+    ></sbb-link-button>
   </sbb-stack>
 );
 
@@ -230,13 +226,11 @@ const templateOrderedList = (args) => (
   </sbb-stack>
 );
 
-const templatePlaceholder = (args) => (
-  <sbb-stack {...args}></sbb-stack>
-);
+const templatePlaceholder = (args) => <sbb-stack {...args}></sbb-stack>;
 
 const templatePlaceholderWithTitle = (args) => (
   <sbb-stack {...args}>
-    <sbb-title level='2' text='Stack placeholder' variant='positive' visual-level='5'></sbb-title>
+    <sbb-title level="2" text="Stack placeholder" variant="positive" visual-level="5"></sbb-title>
   </sbb-stack>
 );
 
@@ -251,12 +245,9 @@ stackVertical.argTypes = defaultArgTypes;
 stackVertical.args = JSON.parse(JSON.stringify(defaultArgs));
 stackVertical.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Stack'
+  title: 'Stack',
 };
 
 /* --- Stack horizontal centered, with horizontal gap responsive size S --- */
@@ -265,17 +256,14 @@ export const stackHorizontalCenteredWithHorizontalGapResponsiveS = template.bind
 stackHorizontalCenteredWithHorizontalGapResponsiveS.argTypes = defaultArgTypes;
 stackHorizontalCenteredWithHorizontalGapResponsiveS.args = {
   ...defaultArgs,
-  'appearance': appearance.options[6],
-  'gap-horizontal': gapHorizontal.options[18]
+  appearance: appearance.options[6],
+  'gap-horizontal': gapHorizontal.options[18],
 };
 stackHorizontalCenteredWithHorizontalGapResponsiveS.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Stack horizontal'
+  title: 'Stack horizontal',
 };
 
 /* --- Stack, uses unordered list markup ------------------------ */
@@ -284,18 +272,15 @@ export const stackUsesUnorderedListMarkup = templateUnorderedList.bind({});
 stackUsesUnorderedListMarkup.argTypes = defaultArgTypes;
 stackUsesUnorderedListMarkup.args = {
   ...defaultArgs,
-  'appearance': appearance.options[6],
+  appearance: appearance.options[6],
   'gap-horizontal': gapHorizontal.options[18],
-  'tag': 'ul'
+  tag: 'ul',
 };
 stackUsesUnorderedListMarkup.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Stack'
+  title: 'Stack',
 };
 
 /* --- Stack, uses ordered list markup ------------------------ */
@@ -304,16 +289,13 @@ export const stackUsesOrderedListMarkup = templateOrderedList.bind({});
 stackUsesOrderedListMarkup.argTypes = defaultArgTypes;
 stackUsesOrderedListMarkup.args = {
   ...defaultArgs,
-  tag: 'ol'
+  tag: 'ol',
 };
 stackUsesOrderedListMarkup.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Stack'
+  title: 'Stack',
 };
 
 /* --- Stack placeholder with title ------------------------ */
@@ -324,16 +306,13 @@ stackPlaceholder.args = {
   ...defaultArgs,
   'is-placeholder': true,
   'stack-height': '10vh',
-  'stack-width': '100%'
+  'stack-width': '100%',
 };
 stackPlaceholder.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Stack placeholder'
+  title: 'Stack placeholder',
 };
 
 /* --- Stack placeholder with title ------------------------ */
@@ -344,16 +323,13 @@ stackPlaceholderWithTitle.args = {
   'is-placeholder': true,
   'space-leading': 'responsive-xl',
   'stack-height': '14vh',
-  'stack-width': '32vw'
+  'stack-width': '32vw',
 };
 stackPlaceholderWithTitle.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Stack placeholder with title'
+  title: 'Stack placeholder with title',
 };
 
 /* ************************************************* */
@@ -364,15 +340,15 @@ export default {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem`}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
+      extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen'
+    layout: 'fullscreen',
   },
-  title: 'components/layout/sbb-stack'
+  title: 'components/layout/sbb-stack',
 };

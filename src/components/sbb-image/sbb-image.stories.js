@@ -2,139 +2,119 @@ import { h } from 'jsx-dom';
 import images from '../../global/images';
 import readme from './readme.md';
 
-const Template = (args) => (
-  <sbb-image {...args} />
-);
+const Template = (args) => <sbb-image {...args} />;
 
 const customFocalPoint = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'true',
-    'false'
-  ],
+  options: ['true', 'false'],
   table: {
-    category: 'Focal Point'
-  }
+    category: 'Focal Point',
+  },
 };
 
 const copyright = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Legal'
-  }
+    category: 'Legal',
+  },
 };
 
 const copyrightHolder = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'Organization',
-    'Person'
-  ],
+  options: ['Organization', 'Person'],
   table: {
-    category: 'Legal'
-  }
+    category: 'Legal',
+  },
 };
 
 const focalPointDebug = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'true',
-    'false'
-  ],
+  options: ['true', 'false'],
   table: {
-    category: 'Focal Point'
-  }
+    category: 'Focal Point',
+  },
 };
 
 const focalPointX = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Focal Point'
-  }
+    category: 'Focal Point',
+  },
 };
 
 const focalPointY = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Focal Point'
-  }
+    category: 'Focal Point',
+  },
 };
 
 const imageSrc = {
   control: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };
 
 const imageSrcExamples = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: images
+  options: images,
 };
 
 const hideFromScreenreader = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'true',
-    'false'
-  ]
+  options: ['true', 'false'],
 };
 
 const loading = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'eager',
-    'lazy'
-  ],
+  options: ['eager', 'lazy'],
   table: {
-    category: 'Performance'
-  }
+    category: 'Performance',
+  },
 };
 
 const lqip = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'true',
-    'false'
-  ],
+  options: ['true', 'false'],
   table: {
-    category: 'Performance'
-  }
+    category: 'Performance',
+  },
 };
 
 const performanceMark = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Performance'
-  }
+    category: 'Performance',
+  },
 };
 
 export const sbbImage = Template.bind({});
 
 sbbImage.argTypes = {
-  'alt': '',
-  'caption': '',
+  alt: '',
+  caption: '',
   copyright,
   'copyright-holder': copyrightHolder,
   'custom-focal-point': customFocalPoint,
@@ -146,13 +126,14 @@ sbbImage.argTypes = {
   'image-src-examples': imageSrcExamples,
   loading,
   lqip,
-  'performance-mark': performanceMark
+  'performance-mark': performanceMark,
 };
 
 sbbImage.args = {
-  'alt': '',
-  'caption': 'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
-  'copyright': '',
+  alt: '',
+  caption:
+    'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+  copyright: '',
   'copyright-holder': copyrightHolder.options[0],
   'custom-focal-point': customFocalPoint.options[1],
   'focal-point-debug': focalPointDebug.options[1],
@@ -161,27 +142,27 @@ sbbImage.args = {
   'hide-from-screenreader': hideFromScreenreader.options[1],
   'image-src': '',
   'image-src-examples': imageSrcExamples.options[0],
-  'loading': loading.options[0],
-  'lqip': lqip.options[0],
-  'performance-mark': ''
+  loading: loading.options[0],
+  lqip: lqip.options[0],
+  'performance-mark': '',
 };
 
 sbbImage.documentation = {
-  title: 'Default image'
+  title: 'Default image',
 };
 
 export default {
   decorators: [
     (Story) => (
-      <div style='max-width: 1000px;'>
-        <Story/>
+      <div style="max-width: 1000px;">
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/sbb-image'
+  title: 'components/sbb-image',
 };

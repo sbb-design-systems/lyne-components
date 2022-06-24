@@ -1,5 +1,4 @@
 export class StringSanitizer {
-
   /**
    * Does a simple sanitization of all elements in an untrusted string
    */
@@ -20,7 +19,8 @@ export class StringSanitizer {
       workingDiv.innerHTML = untrustedString;
 
       for (const blockedTag of this._blockedTags) {
-        const getElementsToRemove: NodeListOf<Element> = documentFragment.querySelectorAll(blockedTag);
+        const getElementsToRemove: NodeListOf<Element> =
+          documentFragment.querySelectorAll(blockedTag);
         let elementIndex: number = getElementsToRemove.length - 1;
 
         for (elementIndex; elementIndex >= 0; elementIndex--) {
@@ -64,9 +64,7 @@ export class StringSanitizer {
       // First child is always the div we did our work in
       const getInnerDiv: HTMLDivElement = fragmentDiv.querySelector('div');
 
-      return getInnerDiv === null
-        ? fragmentDiv.innerHTML
-        : getInnerDiv.innerHTML;
+      return getInnerDiv === null ? fragmentDiv.innerHTML : getInnerDiv.innerHTML;
     } catch (err) {
       console.error(err);
 
@@ -74,14 +72,7 @@ export class StringSanitizer {
     }
   }
 
-  private static _allowedAttributes: string[] = [
-    'class',
-    'id',
-    'href',
-    'src',
-    'name',
-    'slot'
-  ];
+  private static _allowedAttributes: string[] = ['class', 'id', 'href', 'src', 'name', 'slot'];
 
   private static _blockedTags: string[] = [
     'script',
@@ -90,7 +81,7 @@ export class StringSanitizer {
     'meta',
     'link',
     'object',
-    'embed'
+    'embed',
   ];
 
   /**
@@ -117,8 +108,7 @@ export class StringSanitizer {
       const attributeValue: string = attribute.value;
 
       /* eslint-disable no-script-url */
-      if (attributeValue !== null && attributeValue.toLowerCase()
-        .includes('javascript:')) {
+      if (attributeValue !== null && attributeValue.toLowerCase().includes('javascript:')) {
         element.removeAttribute(attributeName);
       }
     }
@@ -132,5 +122,4 @@ export class StringSanitizer {
       this._sanitizeElement(childElements[childIndex]);
     }
   }
-
 }

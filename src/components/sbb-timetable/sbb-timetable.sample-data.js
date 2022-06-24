@@ -5,5 +5,5 @@ import timetableRowsDayChange from '../sbb-timetable-row-day-change/sbb-timetabl
 export default {
   columnHeaders,
   timetableRows,
-  timetableRowsDayChange
+  timetableRowsDayChange,
 };

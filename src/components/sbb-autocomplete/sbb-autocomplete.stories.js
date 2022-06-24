@@ -5,108 +5,106 @@ import sampleData from './sbb-autocomplete.sample-data';
 
 // ---- Template
 
-const Template = (args) => (
-  <sbb-autocomplete {...args}></sbb-autocomplete>
-);
+const Template = (args) => <sbb-autocomplete {...args}></sbb-autocomplete>;
 
 // ---- ArgTypes
 const items = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Autocomplete'
-  }
+    category: 'Autocomplete',
+  },
 };
 
 const value = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Autocomplete'
-  }
+    category: 'Autocomplete',
+  },
 };
 
 const eventId = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Autocomplete'
-  }
+    category: 'Autocomplete',
+  },
 };
 
 const autocompleteId = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Autocomplete'
-  }
+    category: 'Autocomplete',
+  },
 };
 
 const inputBorderless = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Input'
-  }
+    category: 'Input',
+  },
 };
 
 const inputDebounceTimeout = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Input'
-  }
+    category: 'Input',
+  },
 };
 
 const inputName = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Input'
-  }
+    category: 'Input',
+  },
 };
 
 const inputLabel = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Input'
-  }
+    category: 'Input',
+  },
 };
 
 const inputPlaceholder = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Input'
-  }
+    category: 'Input',
+  },
 };
 
 const inputLabelVisible = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Input'
-  }
+    category: 'Input',
+  },
 };
 
 const minChars = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Autocomplete'
-  }
+    category: 'Autocomplete',
+  },
 };
 
 const defaultArgTypes = {
@@ -120,7 +118,7 @@ const defaultArgTypes = {
   'input-placeholder': inputPlaceholder,
   items,
   'min-chars': minChars,
-  value
+  value,
 };
 
 // ---- DefaultArgs
@@ -133,8 +131,8 @@ const defaultArgs = {
   'input-label-visible': true,
   'input-name': 'sample-name',
   'input-placeholder': 'sample placeholder',
-  'items': sampleData,
-  'min-chars': 0
+  items: sampleData,
+  'min-chars': 0,
 };
 
 // ---- Stories
@@ -142,36 +140,36 @@ export const DefaultAutocomplete = Template.bind({});
 
 DefaultAutocomplete.argTypes = defaultArgTypes;
 DefaultAutocomplete.args = {
-  ...defaultArgs
+  ...defaultArgs,
 };
 
 DefaultAutocomplete.documentation = {
   container: {
     styles: {
-      'z-index': '1'
-    }
+      'z-index': '1',
+    },
   },
-  title: 'Default autocomplete'
+  title: 'Default autocomplete',
 };
 
 export default {
   decorators: [
     (Story) => (
       <div style={'padding: 2rem'}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     actions: {
-      handles: [events.selected]
+      handles: [events.selected],
     },
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/sbb-autocomplete'
+  title: 'components/sbb-autocomplete',
 };

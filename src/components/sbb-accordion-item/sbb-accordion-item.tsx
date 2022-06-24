@@ -1,16 +1,9 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop,
-  State,
-  Watch
-} from '@stencil/core';
+import { Component, Element, h, Prop, State, Watch } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
 import events from './sbb-accordion-item.events';
 import { guid } from '../../global/guid';
 import { InterfaceAccordionItemAttributes } from './sbb-accordion-item.custom';
-import tokens from 'lyne-design-tokens/dist/js/tokens.json';
+import tokens from '@sbb-esta/lyne-design-tokens/dist/js/tokens.json';
 
 const iconSlotName = 'icon';
 
@@ -27,13 +20,11 @@ const iconSlotName = 'icon';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-accordion-item.default.scss',
-    shared: 'styles/sbb-accordion-item.shared.scss'
+    shared: 'styles/sbb-accordion-item.shared.scss',
   },
-  tag: 'sbb-accordion-item'
+  tag: 'sbb-accordion-item',
 })
-
 export class SbbAccordionItem {
-
   /**
    * Text to show as title for the accordion.
    */
@@ -48,8 +39,9 @@ export class SbbAccordionItem {
    * Set to true to open the accordion item. Set to false to close it.
    */
   @Prop({
-    reflect: true
-  }) public open?: boolean;
+    reflect: true,
+  })
+  public open?: boolean;
 
   /** Id which is sent in the event after opening/closing accordion */
   @Prop() public eventId?: string;
@@ -74,8 +66,10 @@ export class SbbAccordionItem {
   private _guid: string;
 
   private _setOpenTransitionDuration = (contentHeight: number): void => {
-    const velocity = parseInt(getComputedStyle(this._element)
-      .getPropertyValue('--expand-transtion-velocity'), 10);
+    const velocity = parseInt(
+      getComputedStyle(this._element).getPropertyValue('--expand-transtion-velocity'),
+      10
+    );
 
     if (!velocity) {
       return;
@@ -96,7 +90,7 @@ export class SbbAccordionItem {
     const event = new CustomEvent(name, {
       bubbles: true,
       composed: true,
-      detail: eventDetail
+      detail: eventDetail,
     });
 
     this._element.dispatchEvent(event);
@@ -113,15 +107,11 @@ export class SbbAccordionItem {
         this._accordionBody.style.setProperty('height', 'auto');
       }
 
-      const eventName = this.open
-        ? events.didOpen
-        : events.didClose;
+      const eventName = this.open ? events.didOpen : events.didClose;
 
       this._dispatchEvent(eventName);
 
-      this._openClass = this.open
-        ? 'accordion-item--open'
-        : 'accordion-item--closed';
+      this._openClass = this.open ? 'accordion-item--open' : 'accordion-item--closed';
     }
   };
 
@@ -142,9 +132,7 @@ export class SbbAccordionItem {
       this.open = state;
     }
 
-    const eventName = this.open
-      ? events.willOpen
-      : events.willClose;
+    const eventName = this.open ? events.willOpen : events.willClose;
 
     this._dispatchEvent(eventName);
 
@@ -177,7 +165,6 @@ export class SbbAccordionItem {
       this._accordionBody.style.setProperty('height', `${newHeight}rem`);
       this._accordionBody.style.setProperty('opacity', newOpacity);
     }, 0);
-
   };
 
   public componentWillLoad(): void {
@@ -201,64 +188,50 @@ export class SbbAccordionItem {
 
     const hasIconInSlot = this._element.querySelector(`svg[slot="${iconSlotName}"]`) !== null;
 
-    const iconClass = hasIconInSlot
-      ? ' accordion-item--has-icon'
-      : '';
+    const iconClass = hasIconInSlot ? ' accordion-item--has-icon' : '';
 
-    const ariaHidden = this.open
-      ? 'false'
-      : 'true';
+    const ariaHidden = this.open ? 'false' : 'true';
 
-    const disabledClass = this.disabled
-      ? ' accordion-item--disabled'
-      : '';
+    const disabledClass = this.disabled ? ' accordion-item--disabled' : '';
 
     return (
-      <div class={`accordion-item${iconClass}${disabledClass} ${this._openClass}`} role='listitem'>
-
+      <div class={`accordion-item${iconClass}${disabledClass} ${this._openClass}`} role="listitem">
         <HEADING_TAGNAME
-          class='accordion-item__heading'
+          class="accordion-item__heading"
           onClick={(): void => this._toggleAccordion()}
         >
-
           <button
-            class='accordion-item__button'
+            class="accordion-item__button"
             aria-label={this.heading}
-            aria-expanded={this.open
-              ? 'true'
-              : 'false'
-            }
+            aria-expanded={this.open ? 'true' : 'false'}
             aria-controls={`${this._guid}_body`}
           >
-
-            <div class='accordion-item__icon'>
+            <div class="accordion-item__icon">
               <slot name={iconSlotName} />
             </div>
 
-            <span class='accordion-item__title'>{this.heading}</span>
+            <span class="accordion-item__title">{this.heading}</span>
 
             <div
-              class='accordion-item__chevron'
+              class="accordion-item__chevron"
               innerHTML={chevronIcon}
               ref={(el): void => {
                 this._chevron = el;
               }}
             />
-
           </button>
-
         </HEADING_TAGNAME>
 
         <div
-          class='accordion-item__body'
+          class="accordion-item__body"
           id={`${this._guid}_body`}
           aria-hidden={ariaHidden}
           ref={(el): void => {
             this._accordionBody = el;
           }}
         >
-          <div class='accordion-item__body-inner'>
-            <slot name='content' />
+          <div class="accordion-item__body-inner">
+            <slot name="content" />
           </div>
         </div>
       </div>

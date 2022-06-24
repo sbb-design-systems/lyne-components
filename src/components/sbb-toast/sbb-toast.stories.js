@@ -9,33 +9,33 @@ const getCommonConfig = (args) => ({
   horizontalPosition: args.horizontalPosition,
   message: args.message,
   timeout: args.timeout,
-  verticalPosition: args.verticalPosition
+  verticalPosition: args.verticalPosition,
 });
 
 const getIconConfig = (iconslot) => ({
-  icon: getMarkupForSvg(iconslot).outerHTML
+  icon: getMarkupForSvg(iconslot).outerHTML,
 });
 
 const getLinkConfig = (args) => ({
   action: {
     href: args.href,
     label: args.label,
-    type: 'link'
-  }
+    type: 'link',
+  },
 });
 
 const getActionConfig = (args) => ({
   action: {
     handler: () => console.log('Action clicked!'),
     label: args.label,
-    type: 'action'
-  }
+    type: 'action',
+  },
 });
 
 const getCloseIconConfig = () => ({
   action: {
-    type: 'icon'
-  }
+    type: 'icon',
+  },
 });
 
 const createToast = (args, config, disableAnimation) => {
@@ -51,8 +51,9 @@ const createAndSetupToast = (args, config) => {
   const toast = createToast(args, config, false);
 
   document.body.appendChild(toast);
-  Object.values(sbbToastEvents)
-    .forEach((eventName) => propagateOverlayEventToStorybook(document.getElementById('button-id'), toast, eventName));
+  Object.values(sbbToastEvents).forEach((eventName) =>
+    propagateOverlayEventToStorybook(document.getElementById('button-id'), toast, eventName)
+  );
 
   return toast;
 };
@@ -61,8 +62,9 @@ const createAndSetupToastNoAnimation = (args, config) => {
   const toast = createToast(args, config, true);
 
   document.body.appendChild(toast);
-  Object.values(sbbToastEvents)
-    .forEach((eventName) => propagateOverlayEventToStorybook(document.getElementById('button-id'), toast, eventName));
+  Object.values(sbbToastEvents).forEach((eventName) =>
+    propagateOverlayEventToStorybook(document.getElementById('button-id'), toast, eventName)
+  );
 
   return toast;
 };
@@ -70,90 +72,98 @@ const templateConfig = (args) => ({
   config: {
     ...args,
     action: {
-      type: 'icon'
+      type: 'icon',
     },
-    icon: getMarkupForSvg(args.iconSlot).outerHTML
-  }
+    icon: getMarkupForSvg(args.iconSlot).outerHTML,
+  },
 });
-const Template = (args) => (
-  <sbb-toast {...templateConfig(args)}/>
-);
+const Template = (args) => <sbb-toast {...templateConfig(args)} />;
 
 const openBasicNoAnimation = (args) => {
-  createAndSetupToastNoAnimation(args, getCommonConfig(args))
-    .present();
+  createAndSetupToastNoAnimation(args, getCommonConfig(args)).present();
 };
 const TemplateBasicNoAnimation = (args) => (
-  <button id='button-id' onClick={openBasicNoAnimation.bind(this, args)}>Open toast</button>
+  <button id="button-id" onClick={openBasicNoAnimation.bind(this, args)}>
+    Open toast
+  </button>
 );
 
 const openNoIconAndNoAction = (args) => {
-  createAndSetupToast(args, getCommonConfig(args))
-    .present();
+  createAndSetupToast(args, getCommonConfig(args)).present();
 };
 
 const TemplateNoIconAndNoAction = (args) => (
-  <button id='button-id' onClick={openNoIconAndNoAction.bind(this, args)}>Open toast</button>
+  <button id="button-id" onClick={openNoIconAndNoAction.bind(this, args)}>
+    Open toast
+  </button>
 );
 
 const openNoIconAndCloseIconAction = (args) => {
   const config = {
     ...getCommonConfig(args),
-    ...getCloseIconConfig()
+    ...getCloseIconConfig(),
   };
   const toast = createAndSetupToast(args, config);
 
   toast.present();
 };
 const TemplateNoIconAndCloseIconAction = (args) => (
-  <button id='button-id' onClick={openNoIconAndCloseIconAction.bind(this, args)}>Open toast</button>
+  <button id="button-id" onClick={openNoIconAndCloseIconAction.bind(this, args)}>
+    Open toast
+  </button>
 );
 
 const openNoIconAndLinkAction = (args) => {
   const config = {
     ...getCommonConfig(args),
-    ...getLinkConfig(args)
+    ...getLinkConfig(args),
   };
   const toast = createAndSetupToast(args, config);
 
   toast.present();
 };
 const TemplateNoIconAndLinkAction = (args) => (
-  <button id='button-id' onClick={openNoIconAndLinkAction.bind(this, args)}>Open toast</button>
+  <button id="button-id" onClick={openNoIconAndLinkAction.bind(this, args)}>
+    Open toast
+  </button>
 );
 
 const openNoIconAndButtonAction = (args) => {
   const config = {
     ...getCommonConfig(args),
-    ...getActionConfig(args)
+    ...getActionConfig(args),
   };
   const toast = createAndSetupToast(args, config);
 
   toast.present();
 };
 const TemplateNoIconAndButtonAction = (args) => (
-  <button id='button-id' onClick={openNoIconAndButtonAction.bind(this, args)}>Open toast</button>
+  <button id="button-id" onClick={openNoIconAndButtonAction.bind(this, args)}>
+    Open toast
+  </button>
 );
 
 const openIconAndActionCloseIcon = (args) => {
   const config = {
     ...getCommonConfig(args),
     ...getIconConfig(args.iconSlot),
-    ...getCloseIconConfig()
+    ...getCloseIconConfig(),
   };
   const toast = createAndSetupToast(args, config);
 
   toast.present();
 };
 const TemplateIconAndCloseIconAction = (args) => (
-  <button id='button-id' onClick={openIconAndActionCloseIcon.bind(this, args)}>Open toast</button>
+  <button id="button-id" onClick={openIconAndActionCloseIcon.bind(this, args)}>
+    Open toast
+  </button>
 );
 
 const openIconAndNoCloseIconActionWithEventListeners = async (args) => {
   const config = {
     ...getCommonConfig(args),
     ...getIconConfig(args.iconSlot),
-    ...getCloseIconConfig()
+    ...getCloseIconConfig(),
   };
   const toast = createAndSetupToast(args, config);
   const placeholder = document.getElementById('placeholder');
@@ -173,10 +183,15 @@ const openIconAndNoCloseIconActionWithEventListeners = async (args) => {
 };
 const TemplateIconAndNoCloseIconActionWithEventListeners = (args) => (
   <div>
-    <button id='button-id' onClick={openIconAndNoCloseIconActionWithEventListeners.bind(this, args)}>Open toast</button>
-    <div style='padding-top: 2rem'>
+    <button
+      id="button-id"
+      onClick={openIconAndNoCloseIconActionWithEventListeners.bind(this, args)}
+    >
+      Open toast
+    </button>
+    <div style="padding-top: 2rem">
       <div>onDidDismiss and onWillDismiss will print here the returned info:</div>
-      <div id='placeholder' style='padding-top: 1rem'/>
+      <div id="placeholder" style="padding-top: 1rem" />
     </div>
   </div>
 );
@@ -185,28 +200,32 @@ const openIconAndLinkAction = (args) => {
   const config = {
     ...getCommonConfig(args),
     ...getIconConfig(args.iconSlot),
-    ...getLinkConfig(args)
+    ...getLinkConfig(args),
   };
   const toast = createAndSetupToast(args, config);
 
   toast.present();
 };
 const TemplateIconAndLinkAction = (args) => (
-  <button id='button-id' onClick={openIconAndLinkAction.bind(this, args)}>Open toast</button>
+  <button id="button-id" onClick={openIconAndLinkAction.bind(this, args)}>
+    Open toast
+  </button>
 );
 
 const openIconAndButtonAction = (args) => {
   const config = {
     ...getCommonConfig(args),
     ...getIconConfig(args.iconSlot),
-    ...getActionConfig(args)
+    ...getActionConfig(args),
   };
   const toast = createAndSetupToast(args, config);
 
   toast.present();
 };
 const TemplateIconAndButtonAction = (args) => (
-  <button id='button-id' onClick={openIconAndButtonAction.bind(this, args)}>Open toast</button>
+  <button id="button-id" onClick={openIconAndButtonAction.bind(this, args)}>
+    Open toast
+  </button>
 );
 
 export const TemplateToast = Template.bind({});
@@ -220,100 +239,85 @@ export const NoIconAndLinkAction = TemplateNoIconAndLinkAction.bind({});
 export const NoIconAndButtonAction = TemplateNoIconAndButtonAction.bind({});
 
 export const IconAndCloseIconAction = TemplateIconAndCloseIconAction.bind({});
-export const IconAndCloseIconActionWithEventListeners = TemplateIconAndNoCloseIconActionWithEventListeners.bind({});
+export const IconAndCloseIconActionWithEventListeners =
+  TemplateIconAndNoCloseIconActionWithEventListeners.bind({});
 export const IconAndLinkAction = TemplateIconAndLinkAction.bind({});
 export const IconAndButtonAction = TemplateIconAndButtonAction.bind({});
 
 const message = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'General Properties'
-  }
+    category: 'General Properties',
+  },
 };
 
 const timeout = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'General Properties'
-  }
+    category: 'General Properties',
+  },
 };
 
 const iconSlot = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'arrow-down-small',
-    'arrow-compass-small',
-    'cross-small',
-    'pie-small'
-  ],
+  options: ['arrow-down-small', 'arrow-compass-small', 'cross-small', 'pie-small'],
   table: {
-    category: 'Icon'
-  }
+    category: 'Icon',
+  },
 };
 
 const ariaLivePoliteness = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'polite',
-    'assertive',
-    'off'
-  ],
+  options: ['polite', 'assertive', 'off'],
   table: {
-    category: 'Politeness'
-  }
+    category: 'Politeness',
+  },
 };
 
 const horizontalPosition = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'center',
-    'start',
-    'end'
-  ],
+  options: ['center', 'start', 'end'],
   table: {
-    category: 'Position'
-  }
+    category: 'Position',
+  },
 };
 
 const verticalPosition = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'start',
-    'end'
-  ],
+  options: ['start', 'end'],
   table: {
-    category: 'Position'
-  }
+    category: 'Position',
+  },
 };
 
 const href = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Action button'
-  }
+    category: 'Action button',
+  },
 };
 
 const label = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Action button'
-  }
+    category: 'Action button',
+  },
 };
 
 const basicArgTypes = {
@@ -324,7 +328,7 @@ const basicArgTypes = {
   label,
   message,
   timeout,
-  verticalPosition
+  verticalPosition,
 };
 
 const basicArgs = {
@@ -335,7 +339,7 @@ const basicArgs = {
   label: 'Undo',
   message: 'This is a toast message',
   timeout: 6000,
-  verticalPosition: 'end'
+  verticalPosition: 'end',
 };
 
 TemplateToast.argTypes = JSON.parse(JSON.stringify(basicArgTypes));
@@ -407,43 +411,44 @@ delete IconAndButtonAction.args.href;
 delete IconAndButtonAction.argTypes.href;
 
 TemplateToast.documentation = {
-  title: 'Static toast template'
+  title: 'Static toast template',
 };
 BasicNoAnimation.documentation = {
-  title: 'Basic SBB toast with no animation'
+  title: 'Basic SBB toast with no animation',
 };
 NoIconAndNoAction.documentation = {
-  title: 'SBB toast with no icon and no action'
+  title: 'SBB toast with no icon and no action',
 };
 NoIconAndCloseIconAction.documentation = {
-  title: 'SBB toast with no icon and icon close action'
+  title: 'SBB toast with no icon and icon close action',
 };
 NoIconAndLinkAction.documentation = {
-  title: 'SBB toast with no icon and link action'
+  title: 'SBB toast with no icon and link action',
 };
 NoIconAndButtonAction.documentation = {
-  title: 'SBB toast with no icon and action button with handler'
+  title: 'SBB toast with no icon and action button with handler',
 };
 IconAndCloseIconAction.documentation = {
-  title: 'SBB toast with icon and icon close action'
+  title: 'SBB toast with icon and icon close action',
 };
 IconAndCloseIconActionWithEventListeners.documentation = {
-  title: 'SBB toast with no icon and no action with listeners on public willDismiss() and didDismiss() events'
+  title:
+    'SBB toast with no icon and no action with listeners on public willDismiss() and didDismiss() events',
 };
 IconAndLinkAction.documentation = {
-  title: 'SBB toast with icon and link action'
+  title: 'SBB toast with icon and link action',
 };
 IconAndButtonAction.documentation = {
-  title: 'SBB toast with icon and action button with handler'
+  title: 'SBB toast with icon and action button with handler',
 };
 
 export default {
   decorators: [
     (Story) => (
       <div>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   documentation: {},
   parameters: {
@@ -452,15 +457,15 @@ export default {
         sbbToastEvents.willPresent,
         sbbToastEvents.didPresent,
         sbbToastEvents.willDismiss,
-        sbbToastEvents.didDismiss
-      ]
+        sbbToastEvents.didDismiss,
+      ],
     },
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/overlay/sbb-toast'
+  title: 'components/overlay/sbb-toast',
 };

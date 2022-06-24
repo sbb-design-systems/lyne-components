@@ -1,9 +1,4 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 import events from '../sbb-accordion-item/sbb-accordion-item.events';
 
 /**
@@ -14,13 +9,11 @@ import events from '../sbb-accordion-item/sbb-accordion-item.events';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-accordion.default.scss',
-    shared: 'styles/sbb-accordion.shared.scss'
+    shared: 'styles/sbb-accordion.shared.scss',
   },
-  tag: 'sbb-accordion'
+  tag: 'sbb-accordion',
 })
-
 export class SbbAccordion {
-
   /**
    * Set this if you want to use the accordion on a non-white background.
    */
@@ -76,7 +69,6 @@ export class SbbAccordion {
         item.removeAttribute('open');
       }
     });
-
   }
 
   public componentWillLoad(): void {
@@ -90,13 +82,10 @@ export class SbbAccordion {
   }
 
   public render(): JSX.Element {
-
-    const nonWhite = this.nonWhiteBackground
-      ? ' accordion--non-white'
-      : '';
+    const nonWhite = this.nonWhiteBackground ? ' accordion--non-white' : '';
 
     const attrs = {
-      class: `accordion${nonWhite}`
+      class: `accordion${nonWhite}`,
     };
 
     if (this.ariaLabelledby && this.ariaLabelledby !== '') {
@@ -104,7 +93,7 @@ export class SbbAccordion {
     }
 
     return (
-      <div {...attrs} role='list'>
+      <div {...attrs} role="list">
         <slot />
       </div>
     );

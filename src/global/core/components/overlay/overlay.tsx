@@ -1,9 +1,9 @@
 import {
-  InterfaceHTMLSbbOverlayElement, InterfaceOverlay, InterfaceOverlayController
+  InterfaceHTMLSbbOverlayElement,
+  InterfaceOverlay,
+  InterfaceOverlayController,
 } from './overlays-interface';
-import {
-  AnimationBuilder, InterfaceAnimation
-} from '../animations/animation-interface';
+import { AnimationBuilder, InterfaceAnimation } from '../animations/animation-interface';
 import { componentOnReady } from '../../../helpers/request-animation-frame';
 import { InterfaceToastConfigurationController } from '../../../../components/sbb-toast/sbb-toast.custom';
 
@@ -14,8 +14,10 @@ export const BACKDROP = 'backdrop';
 /**
  * TODO replace the tags in the next lines with the correct ones for SBB
  */
-export const GET_OVERLAYS_DEFAULT_SELECTOR = 'sbb-overlay,sbb-alert,sbb-action-sheet,sbb-loading,sbb-modal,sbb-picker,sbb-popover,sbb-toast';
-export const GET_OVERLAYS_TRAP_FOCUS_SELECTOR = 'sbb-overlay,sbb-alert,sbb-action-sheet,sbb-loading,sbb-modal,sbb-picker,sbb-popover';
+export const GET_OVERLAYS_DEFAULT_SELECTOR =
+  'sbb-overlay,sbb-alert,sbb-action-sheet,sbb-loading,sbb-modal,sbb-picker,sbb-popover,sbb-toast';
+export const GET_OVERLAYS_TRAP_FOCUS_SELECTOR =
+  'sbb-overlay,sbb-alert,sbb-action-sheet,sbb-loading,sbb-modal,sbb-picker,sbb-popover';
 
 export const activeAnimations = new WeakMap<InterfaceOverlay, InterfaceAnimation[]>();
 
@@ -26,7 +28,10 @@ const getAppRoot = (doc: Document): HTMLElement => doc.querySelector('sbb-app') 
 
 const isOverlayHidden = (overlay: Element): boolean => overlay.classList.contains('overlay-hidden');
 
-export const getOverlays = (doc: Document, selector: string = GET_OVERLAYS_DEFAULT_SELECTOR): InterfaceHTMLSbbOverlayElement[] => {
+export const getOverlays = (
+  doc: Document,
+  selector: string = GET_OVERLAYS_DEFAULT_SELECTOR
+): InterfaceHTMLSbbOverlayElement[] => {
   const overlays = Array.from(doc.querySelectorAll(selector)) as InterfaceHTMLSbbOverlayElement[];
 
   return overlays.filter((c: InterfaceHTMLSbbOverlayElement) => c.overlayIndex > 0);
@@ -39,11 +44,16 @@ export const getOverlays = (doc: Document, selector: string = GET_OVERLAYS_DEFAU
  * @param id The unique identifier for the overlay instance.
  * @returns The overlay element or `undefined` if no overlay element is found.
  */
-export const getOverlay = (doc: Document, overlayTag?: string, id?: string): InterfaceHTMLSbbOverlayElement | undefined => {
-  const overlays = getOverlays(doc, overlayTag)
-    .filter((o: InterfaceHTMLSbbOverlayElement) => !isOverlayHidden(o));
+export const getOverlay = (
+  doc: Document,
+  overlayTag?: string,
+  id?: string
+): InterfaceHTMLSbbOverlayElement | undefined => {
+  const overlays = getOverlays(doc, overlayTag).filter(
+    (o: InterfaceHTMLSbbOverlayElement) => !isOverlayHidden(o)
+  );
 
-  return (id === undefined)
+  return id === undefined
     ? overlays[overlays.length - 1]
     : overlays.find((o: InterfaceHTMLSbbOverlayElement) => o.id === id);
 };
@@ -51,10 +61,14 @@ export const getOverlay = (doc: Document, overlayTag?: string, id?: string): Int
 /**
  * TODO verify those strings
  */
-const focusableQueryString = '[tabindex]:not([tabindex^="-"]), input:not([type=hidden]):not([tabindex^="-"]), textarea:not([tabindex^="-"]), button:not([tabindex^="-"]), select:not([tabindex^="-"]), .sbb-focusable:not([tabindex^="-"])';
+const focusableQueryString =
+  '[tabindex]:not([tabindex^="-"]), input:not([type=hidden]):not([tabindex^="-"]), textarea:not([tabindex^="-"]), button:not([tabindex^="-"]), select:not([tabindex^="-"]), .sbb-focusable:not([tabindex^="-"])';
 const innerFocusableQueryString = 'input:not([type=hidden]), textarea, button, select';
 
-export const focusFirstDescendant = (ref: Element, overlay: InterfaceHTMLSbbOverlayElement): void => {
+export const focusFirstDescendant = (
+  ref: Element,
+  overlay: InterfaceHTMLSbbOverlayElement
+): void => {
   let firstInput = ref.querySelector(focusableQueryString) as HTMLElement | null;
 
   const shadowRoot = firstInput && firstInput.shadowRoot;
@@ -74,9 +88,7 @@ export const focusFirstDescendant = (ref: Element, overlay: InterfaceHTMLSbbOver
 
 const focusLastDescendant = (ref: Element, overlay: InterfaceHTMLSbbOverlayElement): void => {
   const inputs = Array.from(ref.querySelectorAll(focusableQueryString)) as HTMLElement[];
-  let lastInput = inputs.length > 0
-    ? inputs[inputs.length - 1]
-    : null;
+  let lastInput = inputs.length > 0 ? inputs[inputs.length - 1] : null;
 
   const shadowRoot = lastInput && lastInput.shadowRoot;
 
@@ -102,7 +114,6 @@ const focusLastDescendant = (ref: Element, overlay: InterfaceHTMLSbbOverlayEleme
  * Should NOT include: Toast
  */
 const trapKeyboardFocus = (ev: Event, doc: Document): void => {
-
   const lastOverlay = getOverlay(doc, GET_OVERLAYS_TRAP_FOCUS_SELECTOR);
   const target = ev.target as HTMLElement | null;
 
@@ -135,7 +146,6 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
   }
 
   const trapScopedFocus = (): void => {
-
     /**
      * If we are focusing the overlay, clear
      * the last focused element so that hitting
@@ -154,7 +164,6 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
        * using Tab or screen assistants.
        */
     } else {
-
       /**
        * We do not want to focus the traps, so get the overlay
        * wrapper element as the traps live outside the wrapper.
@@ -179,7 +188,6 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
       if (overlayWrapper.contains(target)) {
         lastOverlay.lastFocus = target;
       } else {
-
         /**
          * Otherwise, we must have focused one of the focus traps.
          * We need to wrap the focus to either the first element
@@ -193,9 +201,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
          * we can run the code after that. We will cache the value
          * here to avoid that.
          */
-        const {
-          lastFocus
-        } = lastOverlay;
+        const { lastFocus } = lastOverlay;
 
         // Focus the first element in the overlay wrapper
         focusFirstDescendant(overlayWrapper, lastOverlay);
@@ -217,7 +223,6 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
     }
   };
   const trapShadowFocus = (): void => {
-
     /**
      * If the target is inside the wrapper, let the browser
      * focus as normal and keep a log of the last focused element.
@@ -225,7 +230,6 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
     if (lastOverlay.contains(target)) {
       lastOverlay.lastFocus = target;
     } else {
-
       /**
        * Otherwise, we are about to have focus
        * go out of the overlay. We need to wrap
@@ -240,9 +244,7 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
        * we can run the code after that. We will cache the value
        * here to avoid that.
        */
-      const {
-        lastFocus
-      } = lastOverlay;
+      const { lastFocus } = lastOverlay;
 
       // Focus the first element in the overlay wrapper
       focusFirstDescendant(lastOverlay, lastOverlay);
@@ -273,9 +275,13 @@ const trapKeyboardFocus = (ev: Event, doc: Document): void => {
 const connectListeners = (doc: Document): void => {
   if (lastId === 0) {
     lastId = 1;
-    doc.addEventListener('focus', (ev: FocusEvent) => {
-      trapKeyboardFocus(ev, doc);
-    }, true);
+    doc.addEventListener(
+      'focus',
+      (ev: FocusEvent) => {
+        trapKeyboardFocus(ev, doc);
+      },
+      true
+    );
     doc.addEventListener('keyup', (ev) => {
       if (ev.key === 'Escape') {
         const lastOverlay = getOverlay(doc);
@@ -289,7 +295,6 @@ const connectListeners = (doc: Document): void => {
 };
 
 export const prepareOverlay = <T extends InterfaceHTMLSbbOverlayElement>(el: T): void => {
-
   if (typeof document !== 'undefined') {
     connectListeners(document);
   }
@@ -301,37 +306,43 @@ export const prepareOverlay = <T extends InterfaceHTMLSbbOverlayElement>(el: T):
   }
 };
 
-export const createOverlay = <T extends InterfaceHTMLSbbOverlayElement>(tagName: string, opts: object | undefined): Promise<T> => {
-
+export const createOverlay = <T extends InterfaceHTMLSbbOverlayElement>(
+  tagName: string,
+  opts: object | undefined
+): Promise<T> => {
   if (typeof window !== 'undefined' && typeof window.customElements !== 'undefined') {
-    return window.customElements.whenDefined(tagName)
-      .then(() => {
-        const element = document.createElement(tagName) as InterfaceHTMLSbbOverlayElement;
+    return window.customElements.whenDefined(tagName).then(() => {
+      const element = document.createElement(tagName) as InterfaceHTMLSbbOverlayElement;
 
-        element.classList.add('overlay-hidden');
+      element.classList.add('overlay-hidden');
 
-        /**
-         * Convert the passed in overlay options into props
-         * that get past down into the new overlay.
-         */
-        Object.assign(element, {
-          ...opts,
-          hasController: true
-        });
-
-        // append the overlay element to the document body
-        getAppRoot(document)
-          .appendChild(element);
-
-        return new Promise((resolve) => componentOnReady(element, resolve));
+      /**
+       * Convert the passed in overlay options into props
+       * that get past down into the new overlay.
+       */
+      Object.assign(element, {
+        ...opts,
+        hasController: true,
       });
+
+      // append the overlay element to the document body
+      getAppRoot(document).appendChild(element);
+
+      return new Promise((resolve) => componentOnReady(element, resolve));
+    });
   }
 
   return Promise.resolve() as any;
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const dismissOverlay = (doc: Document, data: any, role: string | undefined, overlayTag: string, id?: string): Promise<boolean> => {
+export const dismissOverlay = (
+  doc: Document,
+  data: any,
+  role: string | undefined,
+  overlayTag: string,
+  id?: string
+): Promise<boolean> => {
   const overlay = getOverlay(doc, overlayTag, id);
 
   if (!overlay) {
@@ -439,10 +450,7 @@ const overlayAnimation = async (
 
   const activeAni = activeAnimations.get(overlay) || [];
 
-  activeAnimations.set(overlay, [
-    ...activeAni,
-    animation
-  ]);
+  activeAnimations.set(overlay, [...activeAni, animation]);
 
   await animation.play();
 
@@ -450,7 +458,11 @@ const overlayAnimation = async (
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const present = async (overlay: InterfaceOverlay, enterAnimation: AnimationBuilder, opts?: any): Promise<void> => {
+export const present = async (
+  overlay: InterfaceOverlay,
+  enterAnimation: AnimationBuilder,
+  opts?: any
+): Promise<void> => {
   if (overlay.presented) {
     return;
   }
@@ -460,9 +472,7 @@ export const present = async (overlay: InterfaceOverlay, enterAnimation: Animati
   overlay.presented = true;
   overlay.willPresent.emit();
 
-  const animationBuilder = (overlay.enterAnimation)
-    ? overlay.enterAnimation
-    : enterAnimation;
+  const animationBuilder = overlay.enterAnimation ? overlay.enterAnimation : enterAnimation;
 
   const completed = await overlayAnimation(overlay, animationBuilder, overlay.el, opts);
 
@@ -488,7 +498,13 @@ export const present = async (overlay: InterfaceOverlay, enterAnimation: Animati
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const dismiss = async (overlay: InterfaceOverlay, data: any | undefined, role: string | undefined, leaveAnimation: AnimationBuilder, opts?: any): Promise<boolean> => {
+export const dismiss = async (
+  overlay: InterfaceOverlay,
+  data: any | undefined,
+  role: string | undefined,
+  leaveAnimation: AnimationBuilder,
+  opts?: any
+): Promise<boolean> => {
   if (!overlay.presented) {
     return false;
   }
@@ -502,7 +518,7 @@ export const dismiss = async (overlay: InterfaceOverlay, data: any | undefined, 
     overlay.el.style.setProperty('pointer-events', 'none');
     overlay.willDismiss.emit({
       data,
-      role
+      role,
     });
 
     const animationBuilder = overlay.leaveAnimation ?? leaveAnimation;
@@ -513,7 +529,7 @@ export const dismiss = async (overlay: InterfaceOverlay, data: any | undefined, 
     }
     overlay.didDismiss.emit({
       data,
-      role
+      role,
     });
 
     activeAnimations.delete(overlay);
@@ -525,7 +541,6 @@ export const dismiss = async (overlay: InterfaceOverlay, data: any | undefined, 
      */
     overlay.el.classList.add('overlay-hidden');
     overlay.el.style.removeProperty('pointer-events');
-
   } catch (err) {
     console.error(err);
   }
@@ -535,7 +550,12 @@ export const dismiss = async (overlay: InterfaceOverlay, data: any | undefined, 
   return true;
 };
 
-export const onceEvent = (element: HTMLElement, eventName: string, callback: (ev: Event) => void, opts?: any): void => {
+export const onceEvent = (
+  element: HTMLElement,
+  eventName: string,
+  callback: (ev: Event) => void,
+  opts?: any
+): void => {
   const handler = (ev: Event): void => {
     element.removeEventListener(eventName, handler, opts);
     callback(ev);
@@ -544,7 +564,7 @@ export const onceEvent = (element: HTMLElement, eventName: string, callback: (ev
   element.addEventListener(eventName, handler, opts);
 };
 
-export const eventMethod = <T, >(element: HTMLElement, eventName: string): Promise<T> => {
+export const eventMethod = <T,>(element: HTMLElement, eventName: string): Promise<T> => {
   let resolve: (detail: T) => void;
   const promise = new Promise<T>((r) => {
     resolve = r;
@@ -557,7 +577,9 @@ export const eventMethod = <T, >(element: HTMLElement, eventName: string): Promi
   return promise;
 };
 
-const createController = <Opts extends object, T extends InterfaceHTMLSbbOverlayElement>(tagName: string): InterfaceOverlayController => ({
+const createController = <Opts extends object, T extends InterfaceHTMLSbbOverlayElement>(
+  tagName: string
+): InterfaceOverlayController => ({
   create(options: Opts): Promise<T> {
     return createOverlay<T>(tagName, options);
   },
@@ -566,10 +588,15 @@ const createController = <Opts extends object, T extends InterfaceHTMLSbbOverlay
   },
   getTop(): InterfaceHTMLSbbOverlayElement {
     return getOverlay(document, tagName);
-  }
+  },
 });
 
 // eslint-disable-next-line no-inline-comments
-export const toastController = /* @__PURE__*/ createController<InterfaceToastConfigurationController, HTMLSbbToastElement>('sbb-toast');
+export const toastController = /* @__PURE__*/ createController<
+  InterfaceToastConfigurationController,
+  HTMLSbbToastElement
+>('sbb-toast');
 // eslint-disable-next-line no-inline-comments
-export const overlayController = /* @__PURE__*/ createController<object, HTMLSbbOverlayElement>('sbb-overlay');
+export const overlayController = /* @__PURE__*/ createController<object, HTMLSbbOverlayElement>(
+  'sbb-overlay'
+);

@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-footer', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbFooter],
-      html: '<sbb-footer accessibility-title="Footer" />'
+      html: '<sbb-footer accessibility-title="Footer" />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-footer accessibility-title="Footer">
           <mock:shadow-root>
             <footer role="contentinfo" class="footer footer--primary">
@@ -21,5 +18,4 @@ describe('sbb-footer', () => {
         </sbb-footer>
       `);
   });
-
 });
