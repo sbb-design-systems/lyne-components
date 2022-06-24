@@ -1,6 +1,6 @@
 {
-  "name": "lyne-test",
-  "version": "10.8.3",
+  "name": "@sbb-esta/lyne-components",
+  "version": "0.1.0",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -39,7 +39,6 @@
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
     "lint:js": "eslint \"**/*.js\"",
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
-    "semantic-release": "semantic-release",
     "start:stencil": "stencil build --prod --watch --docs",
     "start:storybook": "start-storybook -p 6006 -s dist",
     "start": "npm-run-all --sequential build:stencil --parallel start:stencil start:storybook",
@@ -56,9 +55,6 @@
     "@commitlint/cli": "17.0.2",
     "@commitlint/config-conventional": "17.0.2",
     "@sbb-esta/lyne-design-tokens": "0.1.4",
-    "@semantic-release/changelog": "6.0.1",
-    "@semantic-release/exec": "6.0.3",
-    "@semantic-release/git": "10.0.1",
     "@stencil/core": "2.17.0",
     "@stencil/sass": "1.5.2",
     "@storybook/addon-a11y": "6.5.9",
@@ -92,9 +88,9 @@
     "npm-run-all": "4.1.5",
     "prettier": "2.7.1",
     "puppeteer": "15.0.1",
-    "semantic-release": "19.0.3",
     "shelljs": "0.8.5",
     "simple-git": "3.9.0",
+    "standard-version": "9.5.0",
     "stencil-inline-svg": "1.1.0",
     "storybook-addon-breakpoints": "1.0.0",
     "typescript": "4.7.4",
@@ -108,6 +104,9 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/lyne-components/",
+  "publishConfig": {
+    "access": "public"
+  },
   "prettier": {
     "singleQuote": true,
     "endOfLine": "lf",
