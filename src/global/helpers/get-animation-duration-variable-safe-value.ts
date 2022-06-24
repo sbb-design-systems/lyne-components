@@ -17,9 +17,9 @@ export const getAnimationDurationVariableSafeValue = (
   styleDeclaration: CSSStyleDeclaration,
   property: string
 ): number => {
-  if (!property.startsWith('--animation-duration')) {
+  if (!property.startsWith('--sbb-animation-duration')) {
     throw new Error(
-      'Property must start with "--animation-duration". If not, use the window "getPropertyValue" API.'
+      'Property must start with "--sbb-animation-duration". If not, use the window "getPropertyValue" API.'
     );
   }
 

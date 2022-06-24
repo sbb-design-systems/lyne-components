@@ -2,7 +2,7 @@ import { Component, h, Prop, State } from '@stencil/core';
 
 import { InterfaceImageAttributes } from './sbb-image.custom';
 import pictureSizesConfigData from './sbb-image.helper';
-import tokens from '@sbb-esta/lyne-design-tokens/dist/js/tokens.json';
+import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
 
 const eventListenerOptions = {
   once: true,
@@ -246,7 +246,7 @@ export class SbbImage {
   private _matchMediaQueryDesignToken(breakpointSizeName): string {
     const breakpointSizeNameValue = tokens[breakpointSizeName];
 
-    return `${breakpointSizeNameValue / tokens['typo-scale-default']}rem`;
+    return `${breakpointSizeNameValue / tokens['sbb-typo-scale-default']}rem`;
   }
 
   private _removeFocusAbilityFromLinksInCaption(): void {
@@ -346,7 +346,7 @@ export class SbbImage {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "breakpoint-large-min"
+                  "value": "sbb-breakpoint-large-min"
                 },
                 "conditionOperator": false
               }
@@ -362,7 +362,7 @@ export class SbbImage {
                 "conditionFeature": "min-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "breakpoint-small-min"
+                  "value": "sbb-breakpoint-small-min"
                 },
                 "conditionOperator": false
               }
@@ -378,7 +378,7 @@ export class SbbImage {
                 "conditionFeature": "max-width",
                 "conditionFeatureValue": {
                   "lyneDesignToken": true,
-                  "value": "breakpoint-micro-max"
+                  "value": "sbb-breakpoint-micro-max"
                 },
                 "conditionOperator": false
               }

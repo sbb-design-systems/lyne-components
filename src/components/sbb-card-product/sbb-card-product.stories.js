@@ -1,7 +1,7 @@
 import {
-  ColorMilkDefault,
-  ColorWhiteDefault,
-} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
+  SbbColorMilkDefault,
+  SbbColorWhiteDefault,
+} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -16,13 +16,13 @@ const documentationPlatformContainerStyle = (context) => {
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
     return {
-      'background-color': ColorWhiteDefault,
-      border: `1px solid ${ColorMilkDefault}`,
+      'background-color': SbbColorWhiteDefault,
+      border: `1px solid ${SbbColorMilkDefault}`,
     };
   }
 
   return {
-    'background-color': ColorMilkDefault,
+    'background-color': SbbColorMilkDefault,
   };
 };
 
@@ -34,10 +34,10 @@ const wrapperStyle = (context) => {
   const variantsOnDarkBg = ['primary-negative'];
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${ColorWhiteDefault};`;
+    return `background-color: ${SbbColorWhiteDefault};`;
   }
 
-  return `background-color: ${ColorMilkDefault};`;
+  return `background-color: ${SbbColorMilkDefault};`;
 };
 
 /* ************************************************* */

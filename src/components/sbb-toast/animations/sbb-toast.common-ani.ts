@@ -13,7 +13,7 @@ export const toastAnimation = (
     .fromTo('opacity', opacityFromValue, opacityToValue);
 
   return createAnimation()
-    .easing(computedStyle.getPropertyValue('--animation-easing'))
-    .duration(getAnimationDurationVariableSafeValue(computedStyle, '--animation-duration-6x'))
+    .easing(computedStyle.getPropertyValue('--sbb-animation-easing'))
+    .duration(getAnimationDurationVariableSafeValue(computedStyle, '--sbb-animation-duration-6x'))
     .addAnimation(wrapperAnimation);
 };

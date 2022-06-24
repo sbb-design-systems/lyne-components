@@ -4,15 +4,15 @@
 @include host-component-properties;
 
 :host {
-  --color-default-text: var(--color-white-default);
-  --toast-background-color: var(--color-midnight-default);
-  --toast-border-radius: #{pxToRem(var(--border-radius-4x))};
-  --toast-gap: #{pxToRem(var(--spacing-fixed-2x))};
-  --toast-padding-block: #{pxToRem(var(--spacing-responsive-xxxs))};
-  --toast-padding-inline: #{pxToRem(var(--spacing-responsive-xs))};
-  --toast-margin: #{pxToRem(var(--spacing-responsive-s))};
-  --toast-max-width: #{pxToRem(400)};
-  --toast-width: #{calc(100% - (2 * pxToRem(var(--spacing-responsive-s-zero))))};
+  --toast-color-default: var(--sbb-color-white-default);
+  --toast-background-color: var(--sbb-color-midnight-default);
+  --toast-border-radius: var(--sbb-border-radius-4x);
+  --toast-gap: var(--sbb-spacing-fixed-2x);
+  --toast-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --toast-padding-inline: var(--sbb-spacing-responsive-xs);
+  --toast-margin: var(--sbb-spacing-responsive-s);
+  --toast-max-width: #{pxToRemBuild(400)};
+  --toast-width: #{calc(100% - (2 * var(--sbb-spacing-responsive-s-zero)))};
 }
 
 .overlay-hidden {
@@ -38,7 +38,7 @@
   padding-block: var(--toast-padding-block);
   padding-inline: var(--toast-padding-inline);
   margin: var(--toast-margin) 0;
-  width: calc(100% - (2 * pxToRem(var(--spacing-responsive-s-zero))));
+  width: calc(100% - (2 * var(--spacing-responsive-s-zero)));
 
   @include mq($from: small) {
     width: var(--toast-max-width);
@@ -50,7 +50,7 @@
   inset-block-end: 0;
   gap: var(--toast-gap);
   background: var(--toast-background-color);
-  color: var(--color-default-text);
+  color: var(--toast-color-default);
   border-radius: var(--toast-border-radius);
 
   &.toast-vertical-start {
@@ -90,19 +90,19 @@
 }
 
 .toast-link {
-  color: var(--color-default-text);
+  color: var(--toast-color-default);
   text-decoration: none;
 }
 
 .toast-button {
   @include buttonReset;
-  color: var(--color-default-text);
+  color: var(--toast-color-default);
 }
 
 .toast-link:focus-visible,
 .toast-button:focus-visible {
-  outline: pxToRem(var(--border-width-1x)) solid var(--color-white-default);
-  outline-offset: calc(pxToRem(var(--border-width-2x)));
+  outline: var(--sbb-border-width-1x) solid var(--toast-color-default);
+  outline-offset: var(--sbb-border-width-2x);
 }
 
 .toast-label,
@@ -112,6 +112,6 @@
 
   svg {
     vertical-align: middle;
-    fill: var(--color-white-default);
+    fill: var(--toast-color-default);
   }
 }

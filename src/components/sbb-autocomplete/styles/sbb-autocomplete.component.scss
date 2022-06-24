@@ -5,13 +5,13 @@
 
 :host {
   display: block;
-  border-radius: pxToRem(var(--border-radius-4x));
-  background-color: var(--color-white-default);
+  border-radius: var(--sbb-border-radius-4x);
+  background-color: var(--sbb-color-white-default);
 
-  --input-height: 48; // TODO Design Token??
+  --input-height: #{pxToRemBuild(48)}; // TODO Design Token??
 
   @include mq($from: medium) {
-    --input-height: 56; // TODO Design Token??
+    --input-height: #{pxToRemBuild(56)}; // TODO Design Token??
   }
 
   position: relative;
@@ -31,26 +31,26 @@
   display: none;
   overflow-y: scroll;
   overflow-behavior: contain;
-  top: calc(100% - #{pxToRem(var(--input-height))});
+  top: calc(100% - var(--input-height));
   right: 0;
   left: 0;
   z-index: -1;
-  background-color: var(--color-white-default);
+  background-color: var(--sbb-color-white-default);
 
-  border-radius: pxToRem(var(--border-radius-4x));
-  padding-block-start: calc(#{pxToRem(var(--input-height))} + #{pxToRem(var(--spacing-fixed-3x))});
-  padding-block-end: pxToRem(var(--spacing-fixed-3x));
-  padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-zero));
-  padding-inline-end: pxToRem(var(--spacing-responsive-xxxs-zero));
+  border-radius: var(--sbb-border-radius-4x);
+  padding-block-start: calc(var(--input-height) + var(--sbb-spacing-fixed-3x));
+  padding-block-end: var(--sbb-spacing-fixed-3x);
+  padding-inline-start: var(--sbb-spacing-responsive-xxxs-zero);
+  padding-inline-end: var(--sbb-spacing-responsive-xxxs-zero);
 
   @include mq($from: medium) {
-    padding-inline-start: pxToRem(var(--spacing-responsive-xxxs-medium));
-    padding-inline-end: pxToRem(var(--spacing-responsive-xxxs-medium));
+    padding-inline-start: var(--sbb-spacing-responsive-xxxs-medium);
+    padding-inline-end: var(--sbb-spacing-responsive-xxxs-medium);
   }
 
   @include ifForcedColors() {
     background-color: Canvas;
-    border: pxToRem(1) solid Highlight;
+    border: #{pxToRemBuild(1)} solid Highlight;
     border-block-start: none;
   }
 }
@@ -58,7 +58,7 @@
 .autocomplete__list--visible {
   display: flex;
   flex-direction: column;
-  gap: pxToRem(2);
+  gap: #{pxToRemBuild(2)};
 }
 
 .autocomplete__accessibility-hint {

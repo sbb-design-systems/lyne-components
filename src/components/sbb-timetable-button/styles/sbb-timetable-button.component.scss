@@ -43,8 +43,8 @@ button[dir='rtl'] .button__chevron {
 
 .button--walk .button__cta {
   @include text-xs--regular();
-  margin-inline-start: pxToRem(var(--spacing-fixed-2x));
-  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+  margin-inline-start: var(--sbb-spacing-fixed-2x);
+  margin-inline-end: var(--sbb-spacing-fixed-1x);
 
   @include mq($to: micro) {
     @include screenReaderOnly();
@@ -52,5 +52,5 @@ button[dir='rtl'] .button__chevron {
 }
 
 .button__chevron {
-  height: pxToRem(var(--size-icon-ui-small));
+  height: var(--sbb-size-icon-ui-small);
 }
