@@ -6,8 +6,8 @@
 :host {
   // Default Signet Styles
   // ----------------------------------------------
-  --sbb-signet-background-color: var(--color-red-default);
-  --sbb-signet-icon-color: var(--color-white-default);
+  --sbb-signet-background-color: var(--sbb-color-red-default);
+  --sbb-signet-icon-color: var(--sbb-color-white-default);
 
   // Forced Colors Variant
   // ----------------------------------------------
@@ -73,5 +73,5 @@
 // White on Black Variant
 // ----------------------------------------------
 .sbb-signet--white-on-black {
-  --sbb-signet-background-color: var(--color-black-default);
+  --sbb-signet-background-color: var(--sbb-color-black-default);
 }

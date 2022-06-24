@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 import {
-  ColorCharcoalDefault,
-  ColorWhiteDefault,
-} from '@sbb-esta/lyne-design-tokens/dist/js/tokens.mjs';
+  SbbColorCharcoalDefault,
+  SbbColorWhiteDefault,
+} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -19,7 +19,7 @@ const documentationPlatformContainerStyle = (context) => {
   }
 
   return {
-    'background-color': ColorCharcoalDefault,
+    'background-color': SbbColorCharcoalDefault,
   };
 };
 
@@ -31,11 +31,11 @@ const wrapperStyle = (context) => {
   const variantsOnDarkBg = ['primary-negative'];
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${ColorWhiteDefault};`;
+    return `background-color: ${SbbColorWhiteDefault};`;
   }
 
   // return `background-color: ${ColorWhiteDefault};`;
-  return `background-color: ${ColorCharcoalDefault};`;
+  return `background-color: ${SbbColorCharcoalDefault};`;
 };
 
 /* ************************************************* */
@@ -90,7 +90,7 @@ const Template = (args) => (
     <sbb-section
       width="page-spacing"
       role="banner"
-      style="background-color: var(--color-white-default); cursor: pointer;"
+      style="background-color: var(--sbb-color-white-default); cursor: pointer;"
     >
       <sbb-stack
         slot="full-width"
@@ -109,7 +109,7 @@ const Template = (args) => (
         <sbb-stack gap-horizontal="fixed-10x" appearance="horizontal--end--centered">
           <sbb-logo
             protective-room="none"
-            style="display:flex; height: calc((var(--spacing-responsive-xxs)) / var(--typo-scale-default) * 1rem);"
+            style="display:flex; height: var(--sbb-spacing-responsive-xxs);"
           ></sbb-logo>
         </sbb-stack>
       </sbb-stack>
@@ -120,7 +120,7 @@ const Template = (args) => (
     ************************************************* */}
     <sbb-section
       width="page-spacing"
-      style="background-color: var(--color-red-default); max-width: 1440px; margin-inline-start: auto; margin-inline-end: auto;"
+      style="background-color: var(--sbb-color-red-default); max-width: 1440px; margin-inline-start: auto; margin-inline-end: auto;"
     >
       <sbb-grid slot="full-width" variant="base--eight-columns-centered">
         <sbb-stack
@@ -138,7 +138,7 @@ const Template = (args) => (
           <sbb-stack
             gap-vertical="fixed-4x"
             appearance="vertical--centered"
-            style="background-color: white; border-radius: 16px; max-width: 842px; height: 21vh; width: 100%; margin-bottom: -7vh; box-shadow: calc(var(--shadow-elevation-level-9-shadow-2-offset-x) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-offset-y) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-blur) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-2-spread) / var(--typo-scale-default) * 1rem) var(--shadow-elevation-level-9-hard-2-color), calc(var(--shadow-elevation-level-9-shadow-1-offset-x) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-offset-y) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-blur) / var(--typo-scale-default) * 1rem) calc(var(--shadow-elevation-level-9-shadow-1-spread) / var(--typo-scale-default) * 1rem) var(--shadow-elevation-level-5-hard-1-color)"
+            style="background-color: white; border-radius: 16px; max-width: 842px; height: 21vh; width: 100%; margin-bottom: -7vh; box-shadow: var(--sbb-shadow-elevation-level-9-shadow-2-offset-x) var(--sbb-shadow-elevation-level-9-shadow-2-offset-y) var(--sbb-shadow-elevation-level-9-shadow-2-blur) var(--sbb-shadow-elevation-level-9-shadow-2-spread) var(--sbb-shadow-elevation-level-9-hard-2-color), var(--sbb-shadow-elevation-level-9-shadow-1-offset-x) var(--sbb-shadow-elevation-level-9-shadow-1-offset-y) var(--sbb-shadow-elevation-level-9-shadow-1-blur) var(--sbb-shadow-elevation-level-9-shadow-1-spread) var(--sbb-shadow-elevation-level-5-hard-1-color)"
           ></sbb-stack>
         </sbb-stack>
       </sbb-grid>
