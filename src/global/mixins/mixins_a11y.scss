@@ -9,7 +9,7 @@
 
 @mixin focusOutline {
   outline-offset: var(--sbb-focus-outline-offset);
-  outline: var(--focus-outline-color) solid var(--focus-outline-width);
+  outline: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
 
   @include ifForcedColors() {
     outline-color: Highlight;

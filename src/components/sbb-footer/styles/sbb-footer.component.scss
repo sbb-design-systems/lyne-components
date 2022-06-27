@@ -4,7 +4,7 @@
 @include host-component-properties;
 
 :host {
-  --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--grid-base-gutter-responsive));
+  --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--sbb-grid-base-gutter-responsive));
   --_footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
   --_footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
   --_footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
