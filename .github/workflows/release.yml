@@ -63,7 +63,7 @@ jobs:
         env:
           REF: ${{ github.ref }}
       - name: 'Release: Publish @sbb-esta/lyne-components'
-        run: yarn publish --tag ${{ steps.npm_tag.outputs.npm_tag }} || true
+        run: yarn publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
