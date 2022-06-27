@@ -68,7 +68,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create versioned storybook
-        run: STORYBOOK_COMPONENTS_VERSION=$(cat package.json | jq '.version') npm run build:storybook
+        run: STORYBOOK_COMPONENTS_VERSION=$(cat package.json | jq .version) npm run build:storybook
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
       - name: Publish to Chromatic
