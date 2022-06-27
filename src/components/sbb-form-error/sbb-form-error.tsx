@@ -14,12 +14,12 @@ import {
 
 export class SbbFormError {
 
-  @Prop() public id: string;
+  @Prop() public idError: string;
 
   public render(): JSX.Element {
     return (
-      <div id={this.id}>
-        <slot></slot>
+      <div id={this.idError}>
+        <slot/>
       </div>
     );
   }

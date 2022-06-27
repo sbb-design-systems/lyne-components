@@ -37,10 +37,12 @@ export class SbbFormField {
 
   public componentWillLoad(): void {
     this._idError = this._element.querySelector('[slot="error"]')
-      .getAttribute('id');
+      ?.getAttribute('idError');
 
-    this._element.querySelector('[slot="input"]')
-      .setAttribute('aria-describedby', this._idError);
+    if (this._idError) {
+      this._element.querySelector('[slot="input"]')
+        .setAttribute('aria-describedby', this._idError);
+    }
   }
 
   private _onSlotInputChange(): void {
@@ -66,11 +68,8 @@ export class SbbFormField {
       // eslint-disable-next-line max-len
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div onClick={this._setFocus.bind(this)} class='input-wrapper'>
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,
-          jsx-a11y/click-events-have-key-events */}
         <label
           class='input-label'
-          onClick={() => this._setFocus()}
           htmlFor={this._id}>
           <slot name='label'>
             <span>{ this.label }</span>
