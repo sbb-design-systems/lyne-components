@@ -21,8 +21,7 @@ $mq-breakpoints: (
   ultra--max-content:
     (
       $sbb-breakpoint-ultra-min + (2 * $sbb-spacing-fixed-18x),
-    )
-    // 1440 + 2*72,,,
+    ),
 ) !default;
 
 $mq-media-type: all !default;

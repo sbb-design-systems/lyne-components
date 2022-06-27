@@ -144,7 +144,8 @@ export class SbbAccordionItem {
       this._accordionBody.style.setProperty('display', 'block');
       this._accordionBody.style.setProperty('opacity', '0');
 
-      newHeight = this._accordionBody.getBoundingClientRect().height / tokens['sbb-typo-scale-default'];
+      newHeight =
+        this._accordionBody.getBoundingClientRect().height / tokens['sbb-typo-scale-default'];
 
       newOpacity = '1';
 
