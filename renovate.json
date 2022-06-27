@@ -28,6 +28,11 @@
     {
       "matchPackageNames": ["renovate"],
       "extends": ["schedule:monthly"]
+    },
+    {
+      "nodenv": {
+        "enabled": false
+      }
     }
   ]
 }
