@@ -32,7 +32,7 @@ export class SbbLink {
    * choose from the small icon variants from
    * the ui-icons category from here
    * https://lyne.sbb.ch/tokens/icons/.
-   * Inline variant doesn't support icons
+   * Inline variant doesn't support icons.
    */
   @Prop() public icon?: string;
 
