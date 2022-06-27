@@ -1,6 +1,4 @@
-import {
-  Component, h, Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
@@ -55,8 +53,7 @@ export class SbbLink {
    * The icon can either be place before or after
    * the text.
    */
-  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] =
-    'start';
+  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
   /** The link text we want to visually show. */
   @Prop() public text!: string;
@@ -78,9 +75,7 @@ export class SbbLink {
   }
 
   public render(): JSX.Element {
-    const textSizeClass = this._inlineVariant
-      ? ''
-      : ` sbb-link--text-${this.textSize}`;
+    const textSizeClass = this._inlineVariant ? '' : ` sbb-link--text-${this.textSize}`;
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
 
@@ -126,7 +121,7 @@ export class SbbLink {
     if (this.idValue) {
       additionalLinkAttributes = {
         ...additionalLinkAttributes,
-        id: this.idValue
+        id: this.idValue,
       };
     }
 
@@ -143,17 +138,15 @@ export class SbbLink {
         href={this.hrefValue}
         {...additionalLinkAttributes}
       >
-        {this.icon && !this._inlineVariant
-          ? (
-            <span class='sbb-link__icon'>
-              <slot name='icon' />
-            </span>
-          )
-          : (
-            ''
-          )}
+        {this.icon && !this._inlineVariant ? (
+          <span class="sbb-link__icon">
+            <slot name="icon" />
+          </span>
+        ) : (
+          ''
+        )}
 
-        <span class='sbb-link__text'>{this.text}</span>
+        <span class="sbb-link__text">{this.text}</span>
       </a>
     );
   }

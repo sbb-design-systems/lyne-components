@@ -6,7 +6,7 @@ import {
   SbbTypoLetterSpacingBodyText,
   SbbTypoLineHeightBodyText,
   SbbTypoScaleDefault,
-  SbbTypoTypeFaceSbbRoman
+  SbbTypoTypeFaceSbbRoman,
 } from '@sbb-esta/lyne-design-tokens';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
@@ -40,11 +40,10 @@ const paragraphStyle = (context) => {
 
 const InlineTemplate = (args, context) => (
   <p style={paragraphStyle(context)}>
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-    amet. <sbb-link {...args}></sbb-link>
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+    ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
+    sit amet. <sbb-link {...args}></sbb-link>
   </p>
 );
 
@@ -111,12 +110,7 @@ const variant = {
   control: {
     type: 'select',
   },
-  options: [
-    'block',
-    'block-negative',
-    'inline',
-    'inline-negative'
-  ]
+  options: ['block', 'block-negative', 'inline', 'inline-negative'],
 };
 
 const defaultArgTypes = {
@@ -155,7 +149,7 @@ BlockXS.args = {
 };
 
 BlockXS.documentation = {
-  title: 'Block Size XS'
+  title: 'Block Size XS',
 };
 
 export const BlockS = Template.bind({});
@@ -167,7 +161,7 @@ BlockS.args = {
 };
 
 BlockS.documentation = {
-  title: 'Block Size S'
+  title: 'Block Size S',
 };
 
 export const BlockM = Template.bind({});
@@ -175,11 +169,11 @@ export const BlockM = Template.bind({});
 BlockM.argTypes = defaultArgTypes;
 BlockM.args = {
   ...defaultArgs,
-  'text-size': textSize.options[2]
+  'text-size': textSize.options[2],
 };
 
 BlockM.documentation = {
-  title: 'Block Size M'
+  title: 'Block Size M',
 };
 
 export const BlockNegativeS = Template.bind({});
@@ -192,7 +186,7 @@ BlockNegativeS.args = {
 };
 
 BlockNegativeS.documentation = {
-  title: 'Block Negative Size S'
+  title: 'Block Negative Size S',
 };
 
 export const BlockIconStart = Template.bind({});
@@ -206,7 +200,7 @@ BlockIconStart.args = {
 };
 
 BlockIconStart.documentation = {
-  title: 'Block Icon Start'
+  title: 'Block Icon Start',
 };
 
 export const BlockNegativeIconStart = Template.bind({});
@@ -221,7 +215,7 @@ BlockNegativeIconStart.args = {
 };
 
 BlockNegativeIconStart.documentation = {
-  title: 'Block Negative Icon Start'
+  title: 'Block Negative Icon Start',
 };
 
 export const BlockIconEnd = Template.bind({});
@@ -236,7 +230,7 @@ BlockIconEnd.args = {
 };
 
 BlockIconEnd.documentation = {
-  title: 'Block End Start'
+  title: 'Block End Start',
 };
 
 export const BlockNegativeIconEnd = Template.bind({});
@@ -252,7 +246,7 @@ BlockNegativeIconEnd.args = {
 };
 
 BlockNegativeIconEnd.documentation = {
-  title: 'Block Negative Icon End'
+  title: 'Block Negative Icon End',
 };
 
 export const Inline = InlineTemplate.bind({});
@@ -261,11 +255,11 @@ Inline.argTypes = defaultArgTypes;
 Inline.args = {
   ...defaultArgs,
   text: 'Show more',
-  variant: variant.options[2]
+  variant: variant.options[2],
 };
 
 Inline.documentation = {
-  title: 'Inline'
+  title: 'Inline',
 };
 
 export const InlineNegative = InlineTemplate.bind({});
@@ -274,11 +268,11 @@ InlineNegative.argTypes = defaultArgTypes;
 InlineNegative.args = {
   ...defaultArgs,
   text: 'Show more',
-  variant: variant.options[3]
+  variant: variant.options[3],
 };
 
 InlineNegative.documentation = {
-  title: 'Inline Negative'
+  title: 'Inline Negative',
 };
 
 export default {

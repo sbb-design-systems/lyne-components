@@ -44,7 +44,7 @@
   --focus-outline-color: var(--sbb-focus-outline-color-negative);
 }
 
-.sbb-link--block-negative{
+.sbb-link--block-negative {
   --text-color-normal: var(--sbb-color-white-default);
   --text-color-hover-focus: var(--sbb-color-cloud-default);
   --text-color-active: var(--sbb-color-silver-default);
@@ -89,6 +89,6 @@
   order: 2;
 }
 
-.sbb-link[dir="rtl"].sbb-link--icon-flip .sbb-link__icon {
+.sbb-link[dir='rtl'].sbb-link--icon-flip .sbb-link__icon {
   transform: scaleX(-1);
 }
