@@ -2,45 +2,45 @@
   // Grab css vars defined by `@sbb-esta/lyne-design-tokens` npm package
   @extend %lyne-design-tokens-css-variables;
 
-  --lyne-font-default-color: var(--sbb-color-charcoal-default);
+  --sbb-font-default-color: var(--sbb-color-charcoal-default);
 
   //////////////////////////////////////////////////////////////////////////////
   ///
   /// Responsive typography/font size
-  --lyne-font-size-title-1: var(--sbb-typo-scale-2-5x);
-  --lyne-font-size-title-2: var(--sbb-typo-scale-2x);
-  --lyne-font-size-title-3: var(--sbb-typo-scale-1-5x);
-  --lyne-font-size-title-4: var(--sbb-typo-scale-1-25x);
-  --lyne-font-size-title-5: var(--sbb-typo-scale-default);
-  --lyne-font-size-title-6: var(--sbb-typo-scale-0-875x);
-  --lyne-font-size-text-xl: var(--sbb-typo-scale-1-25x);
-  --lyne-font-size-text-m: var(--sbb-typo-scale-default);
-  --lyne-font-size-text-s: var(--sbb-typo-scale-0-875x);
-  --lyne-font-size-text-xs: var(--sbb-typo-scale-0-75x);
-  --lyne-font-size-text-xxs: var(--sbb-typo-scale-0-75x);
+  --sbb-font-size-title-1: var(--sbb-typo-scale-2-5x);
+  --sbb-font-size-title-2: var(--sbb-typo-scale-2x);
+  --sbb-font-size-title-3: var(--sbb-typo-scale-1-5x);
+  --sbb-font-size-title-4: var(--sbb-typo-scale-1-25x);
+  --sbb-font-size-title-5: var(--sbb-typo-scale-default);
+  --sbb-font-size-title-6: var(--sbb-typo-scale-0-875x);
+  --sbb-font-size-text-xl: var(--sbb-typo-scale-1-25x);
+  --sbb-font-size-text-m: var(--sbb-typo-scale-default);
+  --sbb-font-size-text-s: var(--sbb-typo-scale-0-875x);
+  --sbb-font-size-text-xs: var(--sbb-typo-scale-0-75x);
+  --sbb-font-size-text-xxs: var(--sbb-typo-scale-0-75x);
 
   @include mq($from: small) {
-    --lyne-font-size-title-1: var(--sbb-typo-scale-3x);
+    --sbb-font-size-title-1: var(--sbb-typo-scale-3x);
   }
 
   @include mq($from: medium) {
-    --lyne-font-size-title-2: var(--sbb-typo-scale-2-5x);
-    --lyne-font-size-title-3: var(--sbb-typo-scale-2x);
-    --lyne-font-size-title-4: var(--sbb-typo-scale-1-5x);
-    --lyne-font-size-title-5: var(--sbb-typo-scale-1-25x);
-    --lyne-font-size-title-6: var(--sbb-typo-scale-default);
-    --lyne-font-size-text-xl: var(--sbb-typo-scale-1-5x);
-    --lyne-font-size-text-m: var(--sbb-typo-scale-1-125x);
-    --lyne-font-size-text-s: var(--sbb-typo-scale-default);
-    --lyne-font-size-text-xs: var(--sbb-typo-scale-0-875x);
+    --sbb-font-size-title-2: var(--sbb-typo-scale-2-5x);
+    --sbb-font-size-title-3: var(--sbb-typo-scale-2x);
+    --sbb-font-size-title-4: var(--sbb-typo-scale-1-5x);
+    --sbb-font-size-title-5: var(--sbb-typo-scale-1-25x);
+    --sbb-font-size-title-6: var(--sbb-typo-scale-default);
+    --sbb-font-size-text-xl: var(--sbb-typo-scale-1-5x);
+    --sbb-font-size-text-m: var(--sbb-typo-scale-1-125x);
+    --sbb-font-size-text-s: var(--sbb-typo-scale-default);
+    --sbb-font-size-text-xs: var(--sbb-typo-scale-0-875x);
   }
 
   @include mq($from: large) {
-    --lyne-font-size-title-1: var(--sbb-typo-scale-3-5x);
+    --sbb-font-size-title-1: var(--sbb-typo-scale-3-5x);
   }
 
   @include mq($from: ultra) {
-    --lyne-font-size-title-1: var(--sbb-typo-scale-4x);
+    --sbb-font-size-title-1: var(--sbb-typo-scale-4x);
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -88,89 +88,92 @@
   ///
   /// Responsive page offset
 
-  --page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-zero);
+  --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-zero);
 
   @include mq($from: micro) {
-    --page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-micro);
+    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-micro);
   }
   @include mq($from: small) {
-    --page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-small);
+    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-small);
   }
   @include mq($from: medium) {
-    --page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-medium);
+    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-medium);
   }
   @include mq($from: large) {
-    --page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-large);
+    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-large);
   }
   @include mq($from: wide) {
-    --page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-wide);
+    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-wide);
   }
   @include mq($from: ultra) {
-    --page-base-offset-responsive: 0rem;
+    --sbb-page-base-offset-responsive: 0rem;
   }
 
   //////////////////////////////////////////////////////////////////////////////
   ///
   /// Responsive base grid definition
 
-  --grid-base-columns: var(--sbb-layout-base-grid-columns-zero);
+  --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-zero);
 
   @include mq($from: micro) {
-    --grid-base-columns: var(--sbb-layout-base-grid-columns-micro);
+    --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-micro);
   }
   @include mq($from: small) {
-    --grid-base-columns: var(--sbb-layout-base-grid-columns-small);
+    --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-small);
   }
   @include mq($from: medium) {
-    --grid-base-columns: var(--sbb-layout-base-grid-columns-medium);
+    --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-medium);
   }
   @include mq($from: large) {
-    --grid-base-columns: var(--sbb-layout-base-grid-columns-large);
+    --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-large);
   }
   @include mq($from: wide) {
-    --grid-base-columns: var(--sbb-layout-base-grid-columns-wide);
+    --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-wide);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   ///
   /// Responsive base grid gutter
 
-  --grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-zero);
+  --sbb-grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-zero);
 
   @include mq($from: micro) {
-    --grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-micro);
+    --sbb-grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-micro);
   }
   @include mq($from: small) {
-    --grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-small);
+    --sbb-grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-small);
   }
   @include mq($from: medium) {
-    --grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-medium);
+    --sbb-grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-medium);
   }
   @include mq($from: large) {
-    --grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-large);
+    --sbb-grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-large);
   }
   @include mq($from: wide) {
-    --grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-wide);
+    --sbb-grid-base-gutter-responsive: var(--sbb-layout-base-grid-gutter-responsive-wide);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   ///
   /// Responsive form element size
 
-  --size-form-element-m-min-height: var(--sbb-size-form-element-m-min-height-zero);
-  --size-form-element-l-min-height: var(--sbb-size-form-element-l-min-height-zero);
+  --sbb-size-form-element-m-min-height: var(--sbb-size-form-element-m-min-height-zero);
+  --sbb-size-form-element-l-min-height: var(--sbb-size-form-element-l-min-height-zero);
 
   @include mq($from: medium) {
-    --size-form-element-m-min-height: var(--sbb-size-form-element-m-min-height-medium);
-    --size-form-element-l-min-height: var(--sbb-size-form-element-l-min-height-medium);
+    --sbb-size-form-element-m-min-height: var(--sbb-size-form-element-m-min-height-medium);
+    --sbb-size-form-element-l-min-height: var(--sbb-size-form-element-l-min-height-medium);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   ///
   /// Focus
 
-  --focus-outline-color-default: var(--sbb-color-black-default);
-  --focus-outline-color-dark: var(--sbb-color-white-default);
-  --focus-outline-color: var(--focus-outline-color-override, var(--focus-outline-color-default));
-  --focus-outline-width: var(--sbb-border-width-1x);
+  --sbb-focus-outline-color-default: var(--sbb-color-black-default);
+  --sbb-focus-outline-color-dark: var(--sbb-color-white-default);
+  --sbb-focus-outline-color: var(
+    --sbb-focus-outline-color-override,
+    var(--sbb-focus-outline-color-default)
+  );
+  --sbb-focus-outline-width: var(--sbb-border-width-1x);
 }

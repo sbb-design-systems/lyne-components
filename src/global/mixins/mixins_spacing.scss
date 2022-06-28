@@ -1,11 +1,11 @@
 @mixin page-spacing() {
-  padding-inline-start: var(--page-base-offset-responsive);
-  padding-inline-end: var(--page-base-offset-responsive);
+  padding-inline-start: var(--sbb-page-base-offset-responsive);
+  padding-inline-end: var(--sbb-page-base-offset-responsive);
 }
 
 @mixin page-spacing__inner() {
   @include mq($from: wide) {
-    width: calc(#{$sbb-breakpoint-wide-min} - (2 * var(--page-base-offset-responsive)));
+    width: calc(#{$sbb-breakpoint-wide-min} - (2 * var(--sbb-page-base-offset-responsive)));
     margin-inline-start: auto;
     margin-inline-end: auto;
   }
