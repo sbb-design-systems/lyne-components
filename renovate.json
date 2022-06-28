@@ -4,6 +4,10 @@
   "nodenv": {
     "enabled": false
   },
+  "lockFileMaintenance": {
+    "schedule": ["before 7am on monday"],
+    "enabled": true
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
