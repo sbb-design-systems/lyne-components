@@ -1,7 +1,4 @@
-import {
-  SbbColorCharcoalDefault,
-  SbbColorWhiteDefault,
-} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
+import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';

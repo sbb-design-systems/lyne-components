@@ -1,5 +1,13 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
+  "nodenv": {
+    "enabled": false
+  },
+  "lockFileMaintenance": {
+    "schedule": ["before 7am on monday"],
+    "enabled": true
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
@@ -24,10 +32,6 @@
     {
       "groupName": "commitlint",
       "matchPackagePrefixes": ["@commitlint/", "standard-version"]
-    },
-    {
-      "matchPackageNames": ["renovate"],
-      "extends": ["schedule:monthly"]
     }
   ]
 }

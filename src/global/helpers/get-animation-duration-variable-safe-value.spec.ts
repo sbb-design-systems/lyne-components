@@ -10,6 +10,7 @@ describe('convertToNumber', () => {
     expect(convertToNumber('999px')).toEqual(999);
     expect(convertToNumber('0010rem')).toEqual(10);
     expect(convertToNumber('100px123')).toEqual(100);
+    expect(convertToNumber('456.987s')).toEqual(456.987);
     expect(convertToNumber('abc123')).toBeNaN();
   });
 });
@@ -20,9 +21,9 @@ describe('getAnimationDurationVariableSafeValue', () => {
       getPropertyValue: jest.fn(),
     } as any as CSSStyleDeclaration;
 
-    spyOn(style, 'getPropertyValue').mockReturnValue('999ms');
+    spyOn(style, 'getPropertyValue').mockReturnValue('0.258s');
     expect(getAnimationDurationVariableSafeValue(style, '--sbb-animation-duration-nx')).toEqual(
-      999
+      258
     );
   });
 
