@@ -1,5 +1,9 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
+  "nodenv": {
+    "enabled": false
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
@@ -28,11 +32,6 @@
     {
       "matchPackageNames": ["renovate"],
       "extends": ["schedule:monthly"]
-    },
-    {
-      "nodenv": {
-        "enabled": false
-      }
     }
   ]
 }
