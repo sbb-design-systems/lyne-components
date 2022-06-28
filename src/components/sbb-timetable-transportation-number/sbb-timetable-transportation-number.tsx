@@ -48,7 +48,7 @@ export class SbbTimetableTransportationNumber {
       <p aria-label={a11yLabel} class={`transportation-number${appearanceClasses}`} role="text">
         <span aria-hidden="true" class="transportation-number--visual" role="presentation">
           <span
-            class="transportation-number__means_of_transport"
+            class="transportation-number__means-of-transport"
             innerHTML={icons[config.meansOfTransport.picto]}
           ></span>
           {config.product.icon ? (
@@ -60,7 +60,7 @@ export class SbbTimetableTransportationNumber {
             <span class="transportation-number__product-text">{config.product.text}</span>
           )}
           <span class="transportation-number__direction">
-            <span class="transportation-number__direction_text">
+            <span class="transportation-number__direction-text">
               {config.marketingName} {config.direction}
             </span>
           </span>

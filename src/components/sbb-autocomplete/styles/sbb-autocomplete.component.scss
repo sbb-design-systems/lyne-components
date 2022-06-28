@@ -8,10 +8,10 @@
   border-radius: var(--sbb-border-radius-4x);
   background-color: var(--sbb-color-white-default);
 
-  --input-height: #{pxToRemBuild(48)}; // TODO Design Token??
+  --input-height: #{px-to-rem-build(48)}; // TODO Design Token??
 
   @include mq($from: medium) {
-    --input-height: #{pxToRemBuild(56)}; // TODO Design Token??
+    --input-height: #{px-to-rem-build(56)}; // TODO Design Token??
   }
 
   position: relative;
@@ -23,20 +23,19 @@
 }
 
 .autocomplete__list {
-  @include listReset;
+  @include list-reset;
   @include shadow-level-5-hard;
 
   cursor: default;
   position: absolute;
   display: none;
   overflow-y: scroll;
-  overflow-behavior: contain;
+  overscroll-behavior: contain;
   top: calc(100% - var(--input-height));
   right: 0;
   left: 0;
   z-index: -1;
   background-color: var(--sbb-color-white-default);
-
   border-radius: var(--sbb-border-radius-4x);
   padding-block-start: calc(var(--input-height) + var(--sbb-spacing-fixed-3x));
   padding-block-end: var(--sbb-spacing-fixed-3x);
@@ -48,9 +47,9 @@
     padding-inline-end: var(--sbb-spacing-responsive-xxxs-medium);
   }
 
-  @include ifForcedColors() {
+  @include ifForcedColors {
     background-color: Canvas;
-    border: #{pxToRemBuild(1)} solid Highlight;
+    border: #{px-to-rem-build(1)} solid Highlight;
     border-block-start: none;
   }
 }
@@ -58,7 +57,7 @@
 .autocomplete__list--visible {
   display: flex;
   flex-direction: column;
-  gap: #{pxToRemBuild(2)};
+  gap: #{px-to-rem-build(2)};
 }
 
 .autocomplete__accessibility-hint {

@@ -1,4 +1,4 @@
-//*****************************************************************************
+// *****************************************************************************
 // Important
 //
 // This is the components shared behaviour: shared
@@ -10,9 +10,10 @@
 // 1. The component styles get imported from *.component.scss
 //
 // 2. Mode overrides get applied
-//*****************************************************************************
+// *****************************************************************************
 
 // Import component styles
+/* stylelint-disable-next-line scss/at-import-no-partial-leading-underscore */
 @import './__name__.component.scss';
 
 // Mode overrides/tests

@@ -12,7 +12,6 @@
 
   @include mq($from: medium) {
     grid-template-columns: repeat(var(--sbb-grid-base-columns), 1fr);
-    //grid-template-rows: repeat(var(--sbb-grid-base-columns), 1fr);
     max-width: 100%;
   }
 }

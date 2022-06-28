@@ -1,6 +1,8 @@
 // Inspired by: https://github.com/sass-mq/sass-mq
 
 @use 'sass:math';
+@use 'sass:string';
+
 @import './node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss';
 
 $mq-breakpoints: (
@@ -23,7 +25,6 @@ $mq-breakpoints: (
       $sbb-breakpoint-ultra-min + (2 * $sbb-spacing-fixed-18x),
     ),
 ) !default;
-
 $mq-media-type: all !default;
 
 @function mq-px2rem($rem, $modifier) {
@@ -78,9 +79,9 @@ $mq-media-type: all !default;
   }
 
   // Remove unnecessary media query prefix 'all and '
-  @if ($media-type == 'all' and $media-query != '') {
+  @if $media-type == 'all' and $media-query != '' {
     $media-type: '';
-    $media-query: str-slice(unquote($media-query), 6);
+    $media-query: string.slice(string.unquote($media-query), 6);
   }
 
   @media #{$media-type + $media-query} {

@@ -4,7 +4,7 @@
 @include host-component-properties;
 
 :host {
-  --barrier-free-icon-size: #{pxToRemBuild(24)};
+  --barrier-free-icon-size: #{px-to-rem-build(24)};
   --barrier-free-icon-padding-inline-start: calc(
     var(--barrier-free-icon-size) + var(--sbb-spacing-fixed-1x)
   );
@@ -13,7 +13,8 @@
 .barrier-free {
   display: flex;
   position: relative;
-  @include text-xs--regular();
+  @include text-xs--regular;
+
   margin: 0;
   color: var(--sbb-color-anthracite-default);
   padding-inline-start: var(--barrier-free-icon-padding-inline-start);
@@ -21,9 +22,9 @@
 
 .barrier-free__icon {
   position: absolute;
-  inset-block-start: #{pxToRemBuild(-1)};
+  inset-block-start: #{px-to-rem-build(-1)};
   inset-inline-start: 0;
-  fill: currentColor;
+  fill: currentcolor;
   width: var(--barrier-free-icon-size);
   height: var(--barrier-free-icon-size);
 }
@@ -33,5 +34,5 @@
 }
 
 .barrier-free__text--visually-hidden {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }

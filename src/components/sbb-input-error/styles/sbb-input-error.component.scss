@@ -8,7 +8,7 @@
   margin-block-start: var(--sbb-spacing-fixed-1x);
 
   --text-color: var(--sbb-color-red125-default);
-  --icon-size: #{pxToRemBuild(14)};
+  --icon-size: #{px-to-rem-build(14)};
 
   @include ifForcedColors {
     --text-color: LinkText;
@@ -18,7 +18,8 @@
 // Error
 // ----------------------------------------------
 .input-label-error {
-  @include text-xs--regular();
+  @include text-xs--regular;
+
   display: flex;
   align-items: center;
   color: var(--text-color);
@@ -32,5 +33,5 @@
 .input-label-error__icon svg {
   width: var(--icon-size);
   height: var(--icon-size);
-  fill: currentColor;
+  fill: currentcolor;
 }

@@ -11,7 +11,8 @@
   --text-color-active: var(--sbb-color-red150-default);
 
   // Necessary to forward styles to native link
-  @include text-inherit();
+  @include text-inherit;
+
   color: inherit;
 }
 
@@ -22,10 +23,10 @@
   color: var(--text-color-normal);
   text-decoration: none;
   word-break: break-word;
-  fill: currentColor;
+  fill: currentcolor;
 
   &:focus-visible {
-    @include focusOutline();
+    @include focusOutline;
   }
 
   &:active {
@@ -52,7 +53,8 @@
 
 .sbb-link--inline,
 .sbb-link--inline-negative {
-  @include text-inherit();
+  @include text-inherit;
+
   color: inherit;
   text-decoration: underline;
 }
@@ -63,15 +65,15 @@
 }
 
 .sbb-link--text-xs {
-  @include text-xs--regular();
+  @include text-xs--regular;
 }
 
 .sbb-link--text-s {
-  @include text-s--regular();
+  @include text-s--regular;
 }
 
 .sbb-link--text-m {
-  @include text-m--regular();
+  @include text-m--regular;
 }
 
 @include hover-mq($hover: true) {

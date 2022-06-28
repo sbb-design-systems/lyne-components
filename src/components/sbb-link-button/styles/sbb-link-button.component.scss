@@ -18,12 +18,14 @@
 
 .link-button--secondary-negative {
   @include buttonSecondaryNegativeVariables;
+  @include buttonShadowDisabled;
 }
 
 .link-button {
-  @include button();
+  @include button;
+
   text-decoration: none;
-  fill: currentColor;
+  fill: currentcolor;
   width: fit-content;
 
   @include ifForcedColors {
@@ -41,6 +43,7 @@
 @include hover-mq($hover: true) {
   .link-button:hover {
     @include buttonHover;
+
     &::before {
       @include ifForcedColors {
         border-color: LinkText;
@@ -51,10 +54,6 @@
 
 .link-button:active {
   @include buttonActive;
-}
-
-.link-button--secondary-negative {
-  @include buttonShadowDisabled;
 }
 
 .link-button__text,

@@ -8,10 +8,10 @@
   --_footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
   --_footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
   --_footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
-  --_footer-divider-thickness: var(--footer-divider-thickness, #{pxToRemBuild(1)});
-  --_footer-clock-width: var(--footer-clock-width, #{pxToRemBuild(76)});
+  --_footer-divider-thickness: var(--footer-divider-thickness, #{px-to-rem-build(1)});
+  --_footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(76)});
   @include mq($from: small) {
-    --_footer-clock-width: var(--footer-clock-width, #{pxToRemBuild(112)});
+    --_footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(112)});
   }
 
   // Contextual design for sbb-stack
@@ -20,6 +20,7 @@
 
 .footer {
   @include page-spacing;
+
   margin-block-start: var(--sbb-spacing-responsive-l);
   padding-block-start: var(--sbb-spacing-responsive-l);
   padding-block-end: var(--sbb-spacing-responsive-l);
@@ -34,6 +35,7 @@
 
 .columns {
   @include page-spacing__inner;
+
   display: flex;
   flex-wrap: wrap;
   column-gap: var(--_footer-gap-horizontal);
@@ -51,6 +53,7 @@
       max-width: calc(25% - ((3 * var(--_footer-gap-horizontal)) / 4));
     }
   }
+
   ::slotted([slot='clock']) {
     max-width: var(--_footer-clock-width);
     @include mq($from: zero) {
