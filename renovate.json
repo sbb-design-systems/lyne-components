@@ -32,10 +32,6 @@
     {
       "groupName": "commitlint",
       "matchPackagePrefixes": ["@commitlint/", "standard-version"]
-    },
-    {
-      "matchPackageNames": ["renovate"],
-      "extends": ["schedule:monthly"]
     }
   ]
 }
