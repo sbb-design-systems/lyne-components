@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.3 (2022-06-28)
+
+### Features
+
+- **link:** add new inline variant ([#1248](https://github.com/lyne-design-system/lyne-components/issues/1248)) ([b02e614](https://github.com/lyne-design-system/lyne-components/commit/b02e614b5aa55a6b7dc4d9749f6905fdd6f87b79))
+
 ### 0.1.2 (2022-06-27)
 
 ### 0.1.1 (2022-06-27)
