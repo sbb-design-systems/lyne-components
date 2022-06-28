@@ -1,8 +1,5 @@
 import images from '../../global/images';
-import {
-  ColorCharcoalDefault,
-  ColorWhiteDefault
-} from 'lyne-design-tokens/dist/js/tokens.es6';
+import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import events from './sbb-button.events.ts';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
@@ -17,17 +14,13 @@ const wrapperStyle = (context) => {
     return `background: url('${images[5]}');background-size: cover;`;
   }
 
-  const variantsWithDarkBg = [
-    'primary-negative',
-    'secondary-negative',
-    'transparent-negative'
-  ];
+  const variantsWithDarkBg = ['primary-negative', 'secondary-negative', 'transparent-negative'];
 
   if (variantsWithDarkBg.includes(context.args.variant)) {
     return 'background-color: #484040;';
   }
 
-  return `background-color: ${ColorWhiteDefault};`;
+  return `background-color: ${SbbColorWhiteDefault};`;
 };
 
 const focusStyle = (context) => {
@@ -35,13 +28,13 @@ const focusStyle = (context) => {
     'primary-negative',
     'secondary-negative',
     'translucent-negative',
-    'transparent-negative'
+    'transparent-negative',
   ];
 
   if (variantsWithDarkBg.includes(context.args.variant)) {
     // eslint-disable-next-line no-warning-comments
     // TODO: Use css variable if globally available
-    return `--focus-outline-color-override:${ColorWhiteDefault};`;
+    return `--focus-outline-color-override:${SbbColorWhiteDefault};`;
   }
 
   return '';
@@ -60,7 +53,7 @@ const FixedWidthTemplate = (args) => (
       <sbb-button
         {...args}
         style={{
-          width: '200px'
+          width: '200px',
         }}
       >
         {getMarkupForSvg(args.iconSlot)}
@@ -69,9 +62,9 @@ const FixedWidthTemplate = (args) => (
     <p>
       <sbb-button
         {...args}
-        label='Wide Button'
+        label="Wide Button"
         style={{
-          width: '600px'
+          width: '600px',
         }}
       >
         {getMarkupForSvg(args.iconSlot)}
@@ -84,58 +77,53 @@ const FixedWidthTemplate = (args) => (
 
 const icon = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Icon'
-  }
+    category: 'Icon',
+  },
 };
 
 const iconDescription = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Icon'
-  }
+    category: 'Icon',
+  },
 };
 
 const iconSlot = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'arrow-right-small',
-    'arrow-down-small',
-    'arrow-compass-small',
-    'pie-small'
-  ],
+  options: ['arrow-right-small', 'arrow-down-small', 'arrow-compass-small', 'pie-small'],
   table: {
-    category: 'Icon'
-  }
+    category: 'Icon',
+  },
 };
 
 const disabledArg = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'General properties'
-  }
+    category: 'General properties',
+  },
 };
 
 const label = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'General properties'
-  }
+    category: 'General properties',
+  },
 };
 
 const variant = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'primary',
@@ -145,35 +133,32 @@ const variant = {
     'primary-negative',
     'secondary-negative',
     'translucent-negative',
-    'transparent-negative'
+    'transparent-negative',
   ],
   table: {
-    category: 'General properties'
-  }
+    category: 'General properties',
+  },
 };
 
 const size = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'l',
-    'm'
-  ],
+  options: ['l', 'm'],
   table: {
-    category: 'General properties'
-  }
+    category: 'General properties',
+  },
 };
 
 /* eslint-disable sort-keys */
 const basicArgTypes = {
   variant,
   size,
-  'disabled': disabledArg,
+  disabled: disabledArg,
   label,
   icon,
   iconSlot,
-  'icon-description': iconDescription
+  'icon-description': iconDescription,
 };
 
 const basicArgs = {
@@ -184,7 +169,7 @@ const basicArgs = {
   icon: true,
   iconSlot: iconSlot.options[0],
   name: 'sample-name',
-  value: 'sample-value'
+  value: 'sample-value',
 };
 /* eslint-enable sort-keys */
 
@@ -238,7 +223,7 @@ const [
   primaryNegativeOptions,
   secondaryNegativeOptions,
   translucentNegativeOptions,
-  transparentNegativeOptions
+  transparentNegativeOptions,
 ] = variant.options;
 
 /* eslint-disable prefer-destructuring */
@@ -263,75 +248,75 @@ iconOnly.args['icon-description'] = 'Icon description for screenreaders';
 disabled.args.disabled = true;
 
 primary.documentation = {
-  title: 'Primary'
+  title: 'Primary',
 };
 
 secondary.documentation = {
-  title: 'Secondary'
+  title: 'Secondary',
 };
 
 translucent.documentation = {
-  title: 'Translucent'
+  title: 'Translucent',
 };
 
 transparent.documentation = {
-  title: 'Transparent'
+  title: 'Transparent',
 };
 
 primaryNegative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
-    }
+      'background-color': SbbColorCharcoalDefault,
+    },
   },
-  title: 'Primary Negative'
+  title: 'Primary Negative',
 };
 
 secondaryNegative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
-    }
+      'background-color': SbbColorCharcoalDefault,
+    },
   },
-  title: 'Secondary Negative'
+  title: 'Secondary Negative',
 };
 
 translucentNegative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
-    }
+      'background-color': SbbColorCharcoalDefault,
+    },
   },
-  title: 'Translucent Negative'
+  title: 'Translucent Negative',
 };
 
 transparentNegative.documentation = {
   container: {
     styles: {
-      'background-color': ColorCharcoalDefault
-    }
+      'background-color': SbbColorCharcoalDefault,
+    },
   },
-  title: 'Transparent Negative'
+  title: 'Transparent Negative',
 };
 
 noIcon.documentation = {
-  title: 'No Icon'
+  title: 'No Icon',
 };
 
 iconOnly.documentation = {
-  title: 'Icon only'
+  title: 'Icon only',
 };
 
 sizeM.documentation = {
-  title: 'M size'
+  title: 'M size',
 };
 
 disabled.documentation = {
-  title: 'Disabled'
+  title: 'Disabled',
 };
 
 fixedWidth.documentation = {
-  title: 'Fixed width with overflow'
+  title: 'Fixed width with overflow',
 };
 
 export default {
@@ -340,21 +325,21 @@ export default {
       <div style={`${wrapperStyle(context)}padding: 2rem;${focusStyle(context)}`}>
         <Story />
       </div>
-    )
+    ),
   ],
   documentation: {
-    disableArgs: ['iconslot']
+    disableArgs: ['iconslot'],
   },
   parameters: {
     actions: {
-      handles: [events.click]
+      handles: [events.click],
     },
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/sbb-button'
+  title: 'components/sbb-button',
 };

@@ -1,10 +1,4 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop,
-  Watch
-} from '@stencil/core';
+import { Component, Element, h, Prop, Watch } from '@stencil/core';
 import events from './sbb-timetable-row-button.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
@@ -13,13 +7,11 @@ import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-timetable-row-button.default.scss',
-    shared: 'styles/sbb-timetable-row-button.shared.scss'
+    shared: 'styles/sbb-timetable-row-button.shared.scss',
   },
-  tag: 'sbb-timetable-row-button'
+  tag: 'sbb-timetable-row-button',
 })
-
 export class SbbTimetableRowButton {
-
   private _button!: HTMLElement;
   private _currentLanguage = getDocumentLang();
 
@@ -34,8 +26,9 @@ export class SbbTimetableRowButton {
    * the button.
    */
   @Prop({
-    reflect: true
-  }) public expanded?: boolean;
+    reflect: true,
+  })
+  public expanded?: boolean;
 
   @Watch('expanded')
   public watchStateHandler(newValue: boolean): void {
@@ -44,7 +37,6 @@ export class SbbTimetableRowButton {
   }
 
   private _toggleAriaAttributes(click): void {
-
     if (click) {
       this.expanded = !this.expanded;
     }
@@ -52,11 +44,9 @@ export class SbbTimetableRowButton {
     const expand = String(this.expanded);
 
     this._button.setAttribute('aria-expanded', expand);
-
   }
 
   private _clickHandler = (): void => {
-
     this._toggleAriaAttributes(true);
 
     let eventDetail;
@@ -68,7 +58,7 @@ export class SbbTimetableRowButton {
     const event = new CustomEvent(events.click, {
       bubbles: true,
       composed: true,
-      detail: eventDetail
+      detail: eventDetail,
     });
 
     this._element.dispatchEvent(event);
@@ -77,21 +67,19 @@ export class SbbTimetableRowButton {
   public render(): JSX.Element {
     return (
       <button
-        aria-expanded='false'
-        aria-haspopup='true'
+        aria-expanded="false"
+        aria-haspopup="true"
         aria-label={`${i18nShowConnectionDetailsAndBuyOptions[this._currentLanguage]}`}
         onClick={this._clickHandler}
         ref={(el): void => {
           this._button = el;
         }}
-        type='button'
-      >
-      </button>
+        type="button"
+      ></button>
     );
   }
 
   public componentDidRender(): void {
     this._toggleAriaAttributes(false);
   }
-
 }

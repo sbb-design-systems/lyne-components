@@ -6,33 +6,29 @@ const Template = (args) => (
   <sbb-timetable-transportation-walk
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
-  >
-  </sbb-timetable-transportation-walk>
+  ></sbb-timetable-transportation-walk>
 );
 
 const appearance = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'first-level',
-    'second-level'
-  ]
+  options: ['first-level', 'second-level'],
 };
 
 const config = {
   table: {
-    disable: false
-  }
+    disable: false,
+  },
 };
 
 const defaultArgTypes = {
   appearance,
-  config
+  config,
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0]
+  appearance: appearance.options[0],
 };
 
 /* ************************************************* */
@@ -43,11 +39,11 @@ export const SbbTimetableTransportationDepartureWalk = Template.bind({});
 SbbTimetableTransportationDepartureWalk.argTypes = defaultArgTypes;
 SbbTimetableTransportationDepartureWalk.args = {
   ...defaultArgs,
-  config: sampleData[0]
+  config: sampleData[0],
 };
 
 SbbTimetableTransportationDepartureWalk.documentation = {
-  title: 'SBB Timetable Departure Walk'
+  title: 'SBB Timetable Departure Walk',
 };
 
 export const SbbTimetableTransportationArrivalWalk = Template.bind({});
@@ -55,11 +51,11 @@ export const SbbTimetableTransportationArrivalWalk = Template.bind({});
 SbbTimetableTransportationArrivalWalk.argTypes = defaultArgTypes;
 SbbTimetableTransportationArrivalWalk.args = {
   ...defaultArgs,
-  config: sampleData[1]
+  config: sampleData[1],
 };
 
 SbbTimetableTransportationArrivalWalk.documentation = {
-  title: 'SBB Timetable Departure Walk'
+  title: 'SBB Timetable Departure Walk',
 };
 
 export const SbbTimetableTransportationWalkSecondLevel = Template.bind({});
@@ -68,23 +64,19 @@ SbbTimetableTransportationWalkSecondLevel.argTypes = defaultArgTypes;
 SbbTimetableTransportationWalkSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
-  config: sampleData[3]
+  config: sampleData[3],
 };
 
 SbbTimetableTransportationWalkSecondLevel.documentation = {
-  title: 'SBB Timetable Walk - Second Level'
+  title: 'SBB Timetable Walk - Second Level',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-transportation-walk'
+  title: 'internals/sbb-timetable-transportation-walk',
 };

@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
@@ -17,13 +13,11 @@ import { InterfaceLinkButtonAttributes } from './sbb-link-button.custom';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-link-button.default.scss',
-    shared: 'styles/sbb-link-button.shared.scss'
+    shared: 'styles/sbb-link-button.shared.scss',
   },
-  tag: 'sbb-link-button'
+  tag: 'sbb-link-button',
 })
-
 export class SbbLinkButton {
-
   /**
    * If set to true, the browser will
    * show the download dialog on click.
@@ -69,7 +63,6 @@ export class SbbLinkButton {
   @Prop() public variant: InterfaceLinkButtonAttributes['variant'] = 'primary';
 
   public render(): JSX.Element {
-
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
 
@@ -107,7 +100,7 @@ export class SbbLinkButton {
     if (openInNewWindow) {
       addtitionalLinkAttributes = {
         rel: 'external noopener nofollow',
-        target: '_blank'
+        target: '_blank',
       };
       ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
     }
@@ -115,33 +108,31 @@ export class SbbLinkButton {
     if (this.idValue) {
       addtitionalLinkAttributes = {
         ...addtitionalLinkAttributes,
-        id: this.idValue
+        id: this.idValue,
       };
     }
 
     return (
       <a
         aria-label={ariaLabel}
-        class={
-          `link-button
+        class={`link-button
           ${iconPositionClass}
           ${iconFlipClass}
-          ${variantClass}`
-        }
+          ${variantClass}`}
         download={this.download}
         dir={currentWritingMode}
         href={this.hrefValue}
         {...addtitionalLinkAttributes}
       >
+        {this.icon ? (
+          <span class="link-button__icon">
+            <slot name="icon" />
+          </span>
+        ) : (
+          ''
+        )}
 
-        {this.icon
-          ? <span class='link-button__icon'><slot name='icon'/></span>
-          : ''
-        }
-
-        <span class='link-button__text'>
-          {this.text}
-        </span>
+        <span class="link-button__text">{this.text}</span>
       </a>
     );
   }

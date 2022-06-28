@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import icons from '../../global/icons/timetable.json';
@@ -10,27 +6,26 @@ import { InterfaceTimetableParkAndRailAttributes } from './sbb-timetable-park-an
 import {
   i18nAvailableAtDepartingStation,
   i18nDistanceMeter,
-  i18nWalkingDistanceToDepartureStation
+  i18nWalkingDistanceToDepartureStation,
 } from '../../global/i18n';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-timetable-park-and-rail.default.scss',
-    shared: 'styles/sbb-timetable-park-and-rail.shared.scss'
+    shared: 'styles/sbb-timetable-park-and-rail.shared.scss',
   },
-  tag: 'sbb-timetable-park-and-rail'
+  tag: 'sbb-timetable-park-and-rail',
 })
-
 export class SbbTimetableParkAndRail {
-
   private _currentLanguage = getDocumentLang();
 
   /**
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceTimetableParkAndRailAttributes['appearance'] = 'first-level';
+  @Prop()
+  public appearance?: InterfaceTimetableParkAndRailAttributes['appearance'] = 'first-level';
 
   /**
    * Stringified JSON which defines most of the
@@ -41,7 +36,6 @@ export class SbbTimetableParkAndRail {
   @Prop() public config!: string;
 
   public render(): JSX.Element {
-
     const config = JSON.parse(this.config);
 
     let a11yMeters = i18nDistanceMeter.multiple.long[this._currentLanguage];
@@ -50,11 +44,14 @@ export class SbbTimetableParkAndRail {
       a11yMeters = i18nDistanceMeter.single.long[this._currentLanguage];
     }
 
-    const a11yDistanceToDepartureText = i18nWalkingDistanceToDepartureStation[this._currentLanguage];
+    const a11yDistanceToDepartureText =
+      i18nWalkingDistanceToDepartureStation[this._currentLanguage];
     const a11yDistance = config.distance;
     const a11yDistanceText = `(${a11yDistance} ${a11yMeters} ${a11yDistanceToDepartureText})`;
 
-    const a11yLabel = `${i18nAvailableAtDepartingStation[this._currentLanguage]} ${a11yDistanceText}`;
+    const a11yLabel = `${
+      i18nAvailableAtDepartingStation[this._currentLanguage]
+    } ${a11yDistanceText}`;
 
     const appearanceClass = ` park-and-rail--${this.appearance}`;
 
@@ -62,12 +59,11 @@ export class SbbTimetableParkAndRail {
       <div class={`park-and-rail${appearanceClass}`}>
         <span
           aria-label={a11yLabel}
-          class='park-and-rail__icon'
+          class="park-and-rail__icon"
           innerHTML={icons['park-and-rail-small']}
-          role='text'
+          role="text"
           title={a11yLabel}
-        >
-        </span>
+        ></span>
       </div>
     );
   }

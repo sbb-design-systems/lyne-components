@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-barrier-free', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableBarrierFree],
-      html: `<sbb-timetable-barrier-free config='${config}' />`
+      html: `<sbb-timetable-barrier-free config='${config}' />`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-barrier-free
             config="{&quot;icon&quot;:&quot;wheelchair&quot;,&quot;text&quot;:&quot;Independent boarding/alighting possible.&quot;}"
         >
@@ -44,5 +41,4 @@ describe('sbb-timetable-barrier-free', () => {
         </sbb-timetable-barrier-free>
       `);
   });
-
 });

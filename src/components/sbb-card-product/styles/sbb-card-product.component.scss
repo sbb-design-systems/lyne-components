@@ -14,10 +14,10 @@
 
 :host {
   @include card-host-properties;
-  --slot-icon-spacing-inline: var(--spacing-fixed-4x);
-  --slot-details-spacing-top: var(--spacing-fixed-2x);
-  --slot-action-spacing-top: var(--spacing-fixed-4x);
-  --card-text-color: var(--color--charcoal-default);
+  --slot-icon-spacing-inline: var(--sbb-spacing-fixed-4x);
+  --slot-details-spacing-top: var(--sbb-spacing-fixed-2x);
+  --slot-action-spacing-top: var(--sbb-spacing-fixed-4x);
+  --card-text-color: var(--sbb-color-charcoal-default);
 }
 
 /* ************************************************* */
@@ -37,10 +37,10 @@
 
 .card-product__icon {
   display: none;
-  padding-inline-end: pxToRem(var(--slot-icon-spacing-inline));
+  padding-inline-end: var(--slot-icon-spacing-inline);
 }
 
-::slotted( [slot="icon"] ) {
+::slotted([slot='icon']) {
   display: flex;
 }
 
@@ -56,11 +56,11 @@
 }
 
 .card-product__details {
-  padding-block-start: pxToRem(var(--slot-details-spacing-top));
+  padding-block-start: var(--slot-details-spacing-top);
 }
 
 .card-product__action {
-  padding-block-start: pxToRem(var(--slot-action-spacing-top));
+  padding-block-start: var(--slot-action-spacing-top);
   flex-shrink: 0;
 }
 
@@ -102,7 +102,7 @@
   @include mq($from: medium) {
     display: block;
     .card-product__action {
-      padding-block-start: pxToRem(var(--slot-action-spacing-top));
+      padding-block-start: var(--slot-action-spacing-top);
     }
   }
   // And here we switch back again to the 'small' breakpoint layout
@@ -131,5 +131,5 @@
 .card-product__text {
   @include text-s--regular();
   margin: 0;
-  color: var(--color-granite-default);
+  color: var(--sbb-color-granite-default);
 }

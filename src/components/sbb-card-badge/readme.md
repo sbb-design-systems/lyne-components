@@ -1,7 +1,5 @@
 # sbb-card-badge
 
-
-
 <!-- Auto Generated Below -->
 
 

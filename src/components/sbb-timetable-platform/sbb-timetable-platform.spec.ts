@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-platform', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetablePlatform],
-      html: `<sbb-timetable-platform config='${config}'/>`
+      html: `<sbb-timetable-platform config='${config}'/>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-platform
             config="{&quot;platform&quot;:&quot;13A/C&quot;}"
         >
@@ -37,5 +34,4 @@ describe('sbb-timetable-platform', () => {
         </sbb-timetable-platform>
       `);
   });
-
 });

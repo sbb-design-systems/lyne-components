@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-grid', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbGrid],
-      html: '<sbb-grid />'
+      html: '<sbb-grid />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-grid>
           <mock:shadow-root>
           <div class="grid grid--base grid--primary"></div>
@@ -19,5 +16,4 @@ describe('sbb-grid', () => {
         </sbb-grid>
       `);
   });
-
 });

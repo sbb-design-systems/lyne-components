@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-input-error', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbInputError],
-      html: '<sbb-input-error message="This is a required field."></sbb-input-error>'
+      html: '<sbb-input-error message="This is a required field."></sbb-input-error>',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-input-error
             message="This is a required field."
         >
@@ -27,5 +24,4 @@ describe('sbb-input-error', () => {
         </sbb-input-error>
       `);
   });
-
 });

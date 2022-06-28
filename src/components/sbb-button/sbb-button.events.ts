@@ -3,5 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  click: 'sbb-button_click'
+  click: 'sbb-button_click',
 };

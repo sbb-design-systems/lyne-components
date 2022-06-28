@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('__name__', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [__nameUpperCase__],
-      html: '<__name__ />'
+      html: '<__name__ />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <__name__>
           <mock:shadow-root>
             <button class="some-class"></button>
@@ -19,5 +16,4 @@ describe('__name__', () => {
         </__name__>
       `);
   });
-
 });

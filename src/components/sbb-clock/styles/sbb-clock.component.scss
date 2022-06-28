@@ -62,7 +62,7 @@
 }
 
 .sbb-clock__hand-minutes {
-  transition: transform 0.2s cubic-bezier(.4,2.08,.55,.44);
+  transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
 }
 
 .sbb-clock__hand-minutes--no-transition {
@@ -75,7 +75,7 @@
   animation-timing-function: linear;
   animation-play-state: var(--clock-animation-play-state);
   animation-iteration-count: infinite;
-  fill: var(--color-red-default);
+  fill: var(--sbb-color-red-default);
 }
 
 .sbb-clock__hand-seconds--initial-minute {
@@ -104,7 +104,8 @@
   0% {
     transform: rotateZ(0deg);
   }
-  97.5%, 100% {
+  97.5%,
+  100% {
     transform: rotateZ(360deg);
   }
 }
@@ -113,7 +114,8 @@
   0% {
     transform: rotateZ(var(--clock-seconds-animation-start-angle));
   }
-  97.5%, 100% {
+  97.5%,
+  100% {
     transform: rotateZ(360deg);
   }
 }

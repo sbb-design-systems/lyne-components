@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[3]);
 
 describe('sbb-timetable-occupancy', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableOccupancy],
-      html: `<sbb-timetable-occupancy config='${config}' />`
+      html: `<sbb-timetable-occupancy config='${config}' />`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-occupancy
             config="{&quot;occupancyItems&quot;:[{&quot;class&quot;:&quot;1&quot;,&quot;icon&quot;:&quot;utilization-low&quot;,&quot;occupancy&quot;:&quot;low&quot;},{&quot;class&quot;:&quot;2&quot;,&quot;icon&quot;:&quot;utilization-medium&quot;,&quot;occupancy&quot;:&quot;medium&quot;}]}"
         >
@@ -82,5 +79,4 @@ describe('sbb-timetable-occupancy', () => {
         </sbb-timetable-occupancy>
       `);
   });
-
 });

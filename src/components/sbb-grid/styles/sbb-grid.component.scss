@@ -3,7 +3,8 @@
 // and default mode
 @include host-component-properties;
 
-:host {}
+:host {
+}
 
 .grid--base {
   @include grid-base();

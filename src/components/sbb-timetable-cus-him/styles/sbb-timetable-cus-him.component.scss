@@ -1,5 +1,5 @@
 :host {
-  --cus-him-icon-height: 16; // TODO: Missing Design Token
+  --cus-him-icon-height: #{pxToRemBuild(16)}; // TODO: Missing Design Token
 }
 
 .cus-him {
@@ -20,7 +20,7 @@
 // ----------------------------------------------
 .cus-him--second-level-list {
   --cus-him-width: auto;
-  --cus-him-icon-height: 20;
+  --cus-him-icon-height: #{pxToRemBuild(20)};
   --list-item-justification: flex-start;
 }
 
@@ -29,29 +29,28 @@
 .cus-him--second-level-button,
 .cus-him--second-level-message {
   display: flex;
-  gap: pxToRem(var(--spacing-fixed-1x));
+  gap: var(--sbb-spacing-fixed-1x);
   padding: 0;
 }
 
 .cus-him--second-level-message__text {
   @include text-xs--bold();
-  color: var(--color-red-default);
+  color: var(--sbb-color-red-default);
 }
 
 .cus-him--second-level-message .cus-him__icon {
-  margin-block-start: pxToRem(2);
+  margin-block-start: #{pxToRemBuild(2)};
 
   @include mq($from: medium) {
-    margin-block-start: pxToRem(3);
+    margin-block-start: #{pxToRemBuild(3)};
   }
-
 }
 
 // Second Level Button appearance
 // ----------------------------------------------
 .cus-him--second-level-button {
-  --cus-him-icon-height: 20;
-  gap: pxToRem(var(--spacing-fixed-2x));
+  --cus-him-icon-height: #{pxToRemBuild(20)};
+  gap: var(--sbb-spacing-fixed-2x);
 }
 
 .cus-him--second-level-button__text {
@@ -60,12 +59,11 @@
 }
 
 .cus-him--second-level-button .cus-him__icon {
-  margin-block-start: pxToRem(1);
+  margin-block-start: #{pxToRemBuild(1)};
 
   @include mq($from: medium) {
-    margin-block-start: pxToRem(3);
+    margin-block-start: #{pxToRemBuild(3)};
   }
-
 }
 
 // General List Styling
@@ -74,8 +72,8 @@
   @include listReset();
   display: flex;
   flex-wrap: wrap;
-  gap: pxToRem(var(--spacing-fixed-1x));
-  min-height: pxToRem(var(--cus-him-icon-height));
+  gap: var(--sbb-spacing-fixed-1x);
+  min-height: var(--cus-him-icon-height);
 }
 
 .cus-him--first-level-list .cus-him__list {
@@ -83,8 +81,8 @@
 }
 
 .cus-him__list-item {
-  width: pxToRem(var(--cus-him-icon-height));
-  height: pxToRem(var(--cus-him-icon-width));
+  width: var(--cus-him-icon-height);
+  height: var(--cus-him-icon-width);
 }
 
 .cus-him__icon {
@@ -95,8 +93,8 @@
 
 .cus-him__icon,
 .cus-him__icon svg {
-  width: pxToRem(var(--cus-him-icon-height));
-  height: pxToRem(var(--cus-him-icon-width));
+  width: var(--cus-him-icon-height);
+  height: var(--cus-him-icon-width);
 }
 
 .cus-him__icon svg {

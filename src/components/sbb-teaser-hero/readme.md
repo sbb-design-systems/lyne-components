@@ -1,7 +1,5 @@
 # sbb-teaser-hero
 
-
-
 <!-- Auto Generated Below -->
 
 

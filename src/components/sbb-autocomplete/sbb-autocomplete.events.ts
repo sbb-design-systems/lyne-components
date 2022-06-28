@@ -1,3 +1,3 @@
 export default {
-  selected: 'sbb-autocomplete_selected'
+  selected: 'sbb-autocomplete_selected',
 };

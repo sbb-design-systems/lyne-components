@@ -8,13 +8,13 @@
   // the design tokens
 
   // Reminder: --_section-gap-horizontal needs a new responsive gap design token
-  // var(--spacing-responsive-s); is just a placeholder for now
-  --_section-gap-horizontal: var(--section-gap-horizontal, var(--spacing-responsive-s));
-  --_section-gap-vertical: var(--section-gap-vertical, var(--spacing-responsive-l));
+  // var(--sbb-spacing-responsive-s); is just a placeholder for now
+  --_section-gap-horizontal: var(--section-gap-horizontal, var(--sbb-spacing-responsive-s));
+  --_section-gap-vertical: var(--section-gap-vertical, var(--sbb-spacing-responsive-l));
   --_section-background-color: var(--section-background-color, none);
 
   // Contextual design for sbb-stack
-  --stack-text-color-normal: var(--color-metal-default);
+  --stack-text-color-normal: var(--sbb-color-metal-default);
 }
 
 .section {
@@ -28,8 +28,8 @@
 }
 
 .section--primary-negative {
-  --_section-background-color: var(--color-charcoal-default);
-  --title-text-color-normal: var(--color-storm-default);
+  --_section-background-color: var(--sbb-color-charcoal-default);
+  --title-text-color-normal: var(--sbb-color-storm-default);
 }
 
 .section--page-spacing {
@@ -73,19 +73,19 @@
 
   display: flex;
   flex-wrap: wrap;
-  column-gap: pxToRem(var(--_section-gap-horizontal));
-  row-gap: pxToRem(var(--_section-gap-vertical));
+  column-gap: var(--_section-gap-horizontal);
+  row-gap: var(--_section-gap-vertical);
 
-  ::slotted( [slot] ) {
+  ::slotted([slot]) {
     flex-basis: 100%;
 
     @include mq($from: small) {
-      flex: 0 0 calc(50% - (#{pxToRem(var(--_section-gap-horizontal))}/2));
-      max-width: calc(50% - (#{pxToRem(var(--_section-gap-horizontal))}/2));
+      flex: 0 0 calc(50% - (var(--_section-gap-horizontal) / 2));
+      max-width: calc(50% - (var(--_section-gap-horizontal) / 2));
     }
     @include mq($from: wide) {
-      flex: 0 0 calc(25% - ((3*#{pxToRem(var(--_section-gap-horizontal))})/4));
-      max-width: calc(25% - ((3*#{pxToRem(var(--_section-gap-horizontal))})/4));
+      flex: 0 0 calc(25% - ((3 * var(--_section-gap-horizontal)) / 4));
+      max-width: calc(25% - ((3 * var(--_section-gap-horizontal)) / 4));
     }
   }
 }
@@ -98,10 +98,10 @@
 
   display: flex;
   flex-wrap: wrap;
-  column-gap: pxToRem(var(--_section-gap-horizontal));
-  row-gap: pxToRem(var(--_section-gap-vertical));
+  column-gap: var(--_section-gap-horizontal);
+  row-gap: var(--_section-gap-vertical);
 
-  ::slotted( [slot] ) {
+  ::slotted([slot]) {
     flex-basis: 100%;
   }
 }

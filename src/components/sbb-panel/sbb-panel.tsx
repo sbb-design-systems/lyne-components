@@ -1,21 +1,15 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { InterfacePanelAttributes } from './sbb-panel.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-panel.default.scss',
-    shared: 'styles/sbb-panel.shared.scss'
+    shared: 'styles/sbb-panel.shared.scss',
   },
-  tag: 'sbb-panel'
+  tag: 'sbb-panel',
 })
-
 export class SbbPanel {
-
   /** The text to show in the panel */
   @Prop() public text!: string;
 
@@ -32,18 +26,17 @@ export class SbbPanel {
     const TAGNAME = this.tag;
 
     return (
-      <div class='panel'>
-        <TAGNAME class='panel__text'>{this.text}</TAGNAME>
+      <div class="panel">
+        <TAGNAME class="panel__text">{this.text}</TAGNAME>
 
         <sbb-button
-          class='panel__button'
+          class="panel__button"
           label={this.buttonText}
-          variant='secondary-negative'
-          size='m'
+          variant="secondary-negative"
+          size="m"
           event-id={this.eventId}
           visual-button-only
         />
-
       </div>
     );
   }

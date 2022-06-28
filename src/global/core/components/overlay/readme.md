@@ -1,7 +1,5 @@
 # sbb-overlay
 
-
-
 <!-- Auto Generated Below -->
 
 
@@ -26,7 +24,7 @@
 
 ### `dismiss(data?: any, role?: string) => Promise<boolean>`
 
-
+Dismiss the overlay.
 
 #### Returns
 
@@ -36,7 +34,7 @@ Type: `Promise<boolean>`
 
 ### `present() => Promise<void>`
 
-
+Present the overlay.
 
 #### Returns
 

@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[1]);
 
 describe('sbb-timetable-cus-him', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableCusHim],
-      html: `<sbb-timetable-cus-him config='${config}' appearance="first-level-list"/>`
+      html: `<sbb-timetable-cus-him config='${config}' appearance="first-level-list"/>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-cus-him
             config="{&quot;cusHimItems&quot;:[{&quot;icon&quot;:&quot;alternative&quot;,&quot;text&quot;:&quot;Alternative connection due to the current service situation. Please check again for any changes shortly before starting your journey.&quot;},{&quot;icon&quot;:&quot;delay&quot;,&quot;text&quot;:&quot;Connection delayed.&quot;},{&quot;icon&quot;:&quot;disruption&quot;,&quot;text&quot;:&quot;Disruption!&quot;}]}"
             appearance="first-level-list"
@@ -71,5 +68,4 @@ describe('sbb-timetable-cus-him', () => {
         </sbb-timetable-cus-him>
       `);
   });
-
 });

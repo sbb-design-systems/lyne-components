@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[1]);
 
 describe('sbb-timetable-row-day-change', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableRowDayChange],
-      html: `<sbb-timetable-row-day-change config='${config}' />`
+      html: `<sbb-timetable-row-day-change config='${config}' />`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-row-day-change
             config="{&quot;colSpan&quot;:9,&quot;date&quot;:&quot;02.12.2021&quot;,&quot;day&quot;:&quot;Thursday&quot;,&quot;dayChange&quot;:false,&quot;hidden&quot;:false}"
         >
@@ -44,5 +41,4 @@ describe('sbb-timetable-row-day-change', () => {
         </sbb-timetable-row-day-change>
       `);
   });
-
 });

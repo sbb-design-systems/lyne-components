@@ -7,7 +7,7 @@ const sampleImages: string[] = [
   'https://cdn.img.sbb.ch/content/dam/internet/lyne/Digitale-Werbung-SBB.jpg',
   'https://cdn.img.sbb.ch/content/dam/internet/lyne/Bahnhof-Luzern.jpg',
   'https://cdn.img.sbb.ch/content/dam/internet/lyne/Einheitswagen-IV-EuroCity.jpg',
-  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Einsatzstrecken_EW4-Eurocity.jpg'
+  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Einsatzstrecken_EW4-Eurocity.jpg',
 ];
 
 export default sampleImages;

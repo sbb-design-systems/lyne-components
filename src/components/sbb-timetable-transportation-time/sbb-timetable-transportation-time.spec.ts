@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-transportation-time', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableTransportationTime],
-      html: `<sbb-timetable-transportation-time config='${config}'/>`
+      html: `<sbb-timetable-transportation-time config='${config}'/>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-transportation-time
             config="{&quot;time&quot;:&quot;15:14&quot;,&quot;type&quot;:&quot;departure&quot;}"
         >
@@ -41,5 +38,4 @@ describe('sbb-timetable-transportation-time', () => {
         </sbb-timetable-transportation-time>
       `);
   });
-
 });

@@ -1,7 +1,5 @@
 # sbb-accordion-item
 
-
-
 <!-- Auto Generated Below -->
 
 

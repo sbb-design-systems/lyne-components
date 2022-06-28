@@ -1,6 +1,7 @@
 # CI/CD
 
 ## SemVer
+
 We adhere to the semantic versioning standard. With each merge into master, the potential next version is automatically determined by the `sematic-release` package.
 
 Only commits that adhere to the `Conventional Commits` standard ([https://www.conventionalcommits.org/](https://www.conventionalcommits.org/)) will trigger semantic releases accordingly.
@@ -8,6 +9,7 @@ Only commits that adhere to the `Conventional Commits` standard ([https://www.co
 To make sure developers properly style their commit messages, we use `husky` together with `commit-lint`.
 
 ## Tools
+
 - [GitHub](https://github.com/lyne-design-system/lyne-components): Source code repository.
 - [GitHub Actions](https://github.com/lyne-design-system/lyne-components/actions): CI & CD is done with GitHub Actions.
 - [Netlify](https://app.netlify.com/): The storybook build and the deployments page are deployed to Netlify.
@@ -16,9 +18,9 @@ To make sure developers properly style their commit messages, we use `husky` tog
 - [Git Guardian](https://gitguardian.com/): checks the code for security vulnerabilities
 - [Snyk](https://snyk.io/): checks all the dependencies for vulnerabilities
 
-
 ## Artefacts
 
 The following build artefacts are relevant for deployments:
+
 - `./dist` & `./loader`: stencil components that are published to npm
 - `./storybook-static`: the storybook build that is deployed to netlify

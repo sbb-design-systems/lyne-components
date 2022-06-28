@@ -8,7 +8,8 @@ export default (jsonString: string): any => {
   }
 
   // make sure that we have `leg` key in object
-  const errorMessage = 'sbb-pearl-chain error: attribute legs has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
+  const errorMessage =
+    'sbb-pearl-chain error: attribute legs has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
   const jsonObject = JSON.parse(jsonString);
   const jsonObjectKeys = Object.keys(jsonObject);
 
@@ -19,9 +20,7 @@ export default (jsonString: string): any => {
   }
 
   // make sure we get an array of legs
-  const {
-    legs
-  } = jsonObject;
+  const { legs } = jsonObject;
 
   if (!Array.isArray(legs)) {
     console.warn(errorMessage);
@@ -37,10 +36,7 @@ export default (jsonString: string): any => {
   let wrongKeyDetected = false;
   let durationIsMissing = false;
   let sum = 0;
-  const allowedKeys = [
-    'cancellation',
-    'duration'
-  ];
+  const allowedKeys = ['cancellation', 'duration'];
 
   legs.forEach((leg) => {
     const legKeys = Object.keys(leg);

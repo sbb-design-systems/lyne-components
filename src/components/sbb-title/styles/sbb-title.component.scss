@@ -5,7 +5,7 @@
 
 :host {
   // @todo define where to handle font color: see inherited.scss
-  --_title-text-color-normal: var(--title-text-color-normal, var(--color-charcoal-default));
+  --_title-text-color-normal: var(--title-text-color-normal, var(--sbb-color-charcoal-default));
 }
 
 // TODO re-factor to a more generic class later

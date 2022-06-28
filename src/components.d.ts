@@ -516,8 +516,14 @@ export namespace Components {
         "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbOverlay {
+        /**
+          * Dismiss the overlay.
+         */
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
         "overlayIndex": number;
+        /**
+          * Present the overlay.
+         */
         "present": () => Promise<void>;
     }
     interface SbbPanel {
