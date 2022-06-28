@@ -1,9 +1,4 @@
-import {
-  Component,
-  h,
-  Prop,
-  Watch
-} from '@stencil/core';
+import { Component, h, Prop, Watch } from '@stencil/core';
 
 import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 
@@ -17,16 +12,15 @@ import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-teaser.default.scss',
-    shared: 'styles/sbb-teaser.shared.scss'
+    shared: 'styles/sbb-teaser.shared.scss',
   },
-  tag: 'sbb-teaser'
+  tag: 'sbb-teaser',
 })
 
 /**
  * Generalized Teaser - for displaying an image, headline and paragraph
  */
 export class SbbTeaser {
-
   /** Teaser appearance */
   @Prop() public appearance?: InterfaceTeaserAttributes['appearance'] = 'primary';
 
@@ -47,7 +41,9 @@ export class SbbTeaser {
   @Watch('accessibilityLabel')
   validateAccessibilityLabel(newValue: string) {
     const isBlank = typeof newValue !== 'string' || newValue === '';
-    if (isBlank) { throw new Error('accessibilityLabel: required') }
+    if (isBlank) {
+      throw new Error('accessibilityLabel: required');
+    }
   }
   /* eslint-enable */
 
@@ -90,7 +86,6 @@ export class SbbTeaser {
   }
 
   public render(): JSX.Element {
-
     /**
      * Add generic additional attributes
      * ----------------------------------------------------------------
@@ -99,7 +94,7 @@ export class SbbTeaser {
       alt: this.imgAlt,
       description: this.description,
       headline: this.headline,
-      src: this.imgSrc
+      src: this.imgSrc,
     };
 
     const ariaLabel = this.accessibilityLabel;
@@ -107,20 +102,24 @@ export class SbbTeaser {
     return (
       <a
         aria-label={ariaLabel}
-        class={
-          `teaser teaser--${this.appearance} ${this.isStacked === true
-            ? 'teaser--is-stacked'
-            : ''}`
-        }
+        class={`teaser teaser--${this.appearance} ${
+          this.isStacked === true ? 'teaser--is-stacked' : ''
+        }`}
         href={this.hrefValue}
         {...additionalTeaserAttributes}
       >
-        <div class='teaser__content'>
-          <div class='teaser__inner'>
-            <div class='teaser__wrapper'><slot name='image'/></div>
-            <div class='teaser__text'>
-              <div class='teaser__lead'><slot name='headline'/></div>
-              <div class='teaser__description'><slot name='description'/></div>
+        <div class="teaser__content">
+          <div class="teaser__inner">
+            <div class="teaser__wrapper">
+              <slot name="image" />
+            </div>
+            <div class="teaser__text">
+              <div class="teaser__lead">
+                <slot name="headline" />
+              </div>
+              <div class="teaser__description">
+                <slot name="description" />
+              </div>
             </div>
           </div>
         </div>
