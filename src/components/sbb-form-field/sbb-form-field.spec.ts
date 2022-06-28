@@ -1,20 +1,17 @@
-import {newSpecPage} from '@stencil/core/testing';
-import {SbbFormField} from './sbb-form-field';
+import { newSpecPage } from '@stencil/core/testing';
+import { SbbFormField } from './sbb-form-field';
 
 describe('sbb-form-field', () => {
   it('renders input', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbFormField],
       html: `
         <sbb-form-field label="Fill input">
           <input slot='input' class='input' placeholder='This is an input' />
-        </sbb-form-field>`
+        </sbb-form-field>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-form-field label="Fill input">
           <mock:shadow-root>
             <div class="input-wrapper">
@@ -43,5 +40,4 @@ describe('sbb-form-field', () => {
         </sbb-form-field>
       `);
   });
-
 });

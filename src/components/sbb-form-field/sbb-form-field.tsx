@@ -1,9 +1,4 @@
-import {
-  Component,
-  Element,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 
 /**
@@ -14,13 +9,11 @@ import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-form-field.default.scss',
-    shared: 'styles/sbb-form-field.shared.scss'
+    shared: 'styles/sbb-form-field.shared.scss',
   },
-  tag: 'sbb-form-field'
+  tag: 'sbb-form-field',
 })
-
 export class SbbFormField {
-
   private _id: string;
 
   private _idError: string;
@@ -36,21 +29,17 @@ export class SbbFormField {
   @Element() private _element: HTMLElement;
 
   public componentWillLoad(): void {
-    this._idError = this._element.querySelector('[slot="error"]')
-      ?.getAttribute('idError');
+    this._idError = this._element.querySelector('[slot="error"]')?.getAttribute('idError');
 
     if (this._idError) {
-      this._element.querySelector('[slot="input"]')
-        .setAttribute('aria-describedby', this._idError);
+      this._element.querySelector('[slot="input"]').setAttribute('aria-describedby', this._idError);
     }
   }
 
   private _onSlotInputChange(): void {
-    this._element.querySelector('[slot="input"]')
-      .setAttribute('id', 'input');
+    this._element.querySelector('[slot="input"]').setAttribute('id', 'input');
 
-    this._id = this._element.querySelector('[slot="input"]')
-      .getAttribute('id');
+    this._id = this._element.querySelector('[slot="input"]').getAttribute('id');
 
     this._input = this._element.querySelector('[slot="input"]') as HTMLInputElement;
   }
@@ -60,32 +49,29 @@ export class SbbFormField {
   }
 
   public render(): JSX.Element {
-    const optional = this.optional
-      ? ' (optional)'
-      : '';
+    const optional = this.optional ? ' (optional)' : '';
 
     return (
       // eslint-disable-next-line max-len
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-      <div onClick={this._setFocus.bind(this)} class='input-wrapper'>
-        <label
-          class='input-label'
-          htmlFor={this._id}>
-          <slot name='label'>
-            <span>{ this.label }</span>
-          </slot> {optional}
+      <div onClick={this._setFocus.bind(this)} class="input-wrapper">
+        <label class="input-label" htmlFor={this._id}>
+          <slot name="label">
+            <span>{this.label}</span>
+          </slot>{' '}
+          {optional}
         </label>
         <div>
-          <slot name='prefix'></slot>
+          <slot name="prefix"></slot>
         </div>
         <div>
-          <slot name='input' onSlotchange={this._onSlotInputChange.bind(this)}></slot>
+          <slot name="input" onSlotchange={this._onSlotInputChange.bind(this)}></slot>
         </div>
         <div>
-          <slot name='suffix'></slot>
+          <slot name="suffix"></slot>
         </div>
         <div>
-          <slot name='error'></slot>
+          <slot name="error"></slot>
         </div>
       </div>
     );
