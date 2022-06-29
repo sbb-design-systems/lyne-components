@@ -13,15 +13,15 @@ describe('sbb-teaser', () => {
         <sbb-teaser accessibility-label="Sbb teaser" href-value="https://github.com/lyne-design-system/lyne-components" is-stacked>
           <mock:shadow-root>
            <a aria-label="Sbb teaser" class="teaser  teaser--is-stacked teaser--primary" href="https://github.com/lyne-design-system/lyne-components">
-            <div class="teaser__content">
-              <div class="teaser__inner">
-                <div class='teaser__image-wrapper'><slot name='image'/></div>
-                <div class='teaser__text'>
-                  <div class='teaser__lead'><slot name='headline'/></div>
-                  <div class='teaser__description'><slot name='description'/></div>
-                </div>
-              </div>
-            </div>
+            <span class="teaser__content">
+              <span class="teaser__inner">
+                <span class='teaser__image-wrapper'><slot name='image'/></span>
+                <span class='teaser__text'>
+                  <span class='teaser__lead'><slot name='headline'/></span>
+                  <span class='teaser__description'><slot name='description'/></span>
+                </span>
+              </span>
+            </span>
             </a>
           </mock:shadow-root>
         </sbb-teaser>
@@ -39,15 +39,15 @@ describe('sbb-teaser', () => {
         <sbb-teaser accessibility-label="Sbb teaser" href-value="https://github.com/lyne-design-system/lyne-components">
           <mock:shadow-root>
            <a aria-label="Sbb teaser" class="teaser teaser--primary" href="https://github.com/lyne-design-system/lyne-components">
-            <div class="teaser__content">
-              <div class="teaser__inner">
-                <div class='teaser__image-wrapper'><slot name='image'/></div>
-                <div class='teaser__text'>
-                  <div class='teaser__lead'><slot name='headline'/></div>
-                  <div class='teaser__description'><slot name='description'/></div>
-                </div>
-              </div>
-            </div>
+            <span class="teaser__content">
+              <span class="teaser__inner">
+                <span class='teaser__image-wrapper'><slot name='image'/></span>
+                <span class='teaser__text'>
+                  <span class='teaser__lead'><slot name='headline'/></span>
+                  <span class='teaser__description'><slot name='description'/></span>
+                </span>
+              </span>
+            </span>
             </a>
           </mock:shadow-root>
         </sbb-teaser>
