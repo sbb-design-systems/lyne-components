@@ -1860,7 +1860,7 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@namics/stylelint-bem@^7.0.0":
+"@namics/stylelint-bem@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@namics/stylelint-bem/-/stylelint-bem-7.0.0.tgz#58dafcb1be601c3f77267493faf6e17f3bf0d1fb"
   integrity sha512-XimlWZbCotBQbwB5YwcB5d7HNhoY4YBWyfoMbDcEuUWOCEmXDbfwsSDJR+cytm+/Z+lDVRnHd+iM01AaF0+R4A==
@@ -12138,7 +12138,7 @@ style-to-object@0.3.0, style-to-object@^0.3.0:
   dependencies:
     inline-style-parser "0.1.1"
 
-stylelint-config-prettier-scss@^0.0.1:
+stylelint-config-prettier-scss@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/stylelint-config-prettier-scss/-/stylelint-config-prettier-scss-0.0.1.tgz#22feaa28c6ca07e74be34c8506219fa4e2c34886"
   integrity sha512-lBAYG9xYOh2LeWEPC/64xeUxwOTnQ8nDyBijQoWoJb10/bMGrUwnokpt8jegGck2Vbtxh6XGwH63z5qBcVHreQ==
@@ -12164,7 +12164,7 @@ stylelint-config-recommended@^7.0.0:
   resolved "https://registry.yarnpkg.com/stylelint-config-recommended/-/stylelint-config-recommended-7.0.0.tgz#7497372ae83ab7a6fffc18d7d7b424c6480ae15e"
   integrity sha512-yGn84Bf/q41J4luis1AZ95gj0EQwRX8lWmGmBwkwBNSkpGSpl66XcPTulxGa/Z91aPoNGuIGBmFkcM1MejMo9Q==
 
-stylelint-config-standard-scss@^4.0.0:
+stylelint-config-standard-scss@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/stylelint-config-standard-scss/-/stylelint-config-standard-scss-4.0.0.tgz#9c1dc99eea73394bf22ad15648a5b1d9b74ff649"
   integrity sha512-xizu8PTEyB6zYXBiVg6VtvUYn9m57x+6ZtaOdaxsfpbe5eagLPGNlbYnKfm/CfN69ArUpnwR6LjgsTHzlGbtXQ==
@@ -12179,7 +12179,7 @@ stylelint-config-standard@^25.0.0:
   dependencies:
     stylelint-config-recommended "^7.0.0"
 
-stylelint-scss@^4.0.0, stylelint-scss@^4.2.0:
+stylelint-scss@4.2.0, stylelint-scss@^4.0.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-4.2.0.tgz#e25fd390ee38a7e89fcfaec2a8f9dce2ec6ddee8"
   integrity sha512-HHHMVKJJ5RM9pPIbgJ/XA67h9H0407G68Rm69H4fzFbFkyDMcTV1Byep3qdze5+fJ3c0U7mJrbj6S0Fg072uZA==
@@ -12190,7 +12190,7 @@ stylelint-scss@^4.0.0, stylelint-scss@^4.2.0:
     postcss-selector-parser "^6.0.6"
     postcss-value-parser "^4.1.0"
 
-stylelint@^14.9.1:
+stylelint@14.9.1:
   version "14.9.1"
   resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.9.1.tgz#6494ed38f148b1e75b402d678a3b6a8aae86dfda"
   integrity sha512-RdAkJdPiLqHawCSnu21nE27MjNXaVd4WcOHA4vK5GtIGjScfhNnaOuWR2wWdfKFAvcWQPOYe311iveiVKSmwsA==
