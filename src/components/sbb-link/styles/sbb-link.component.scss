@@ -9,25 +9,28 @@
   --text-color-normal: var(--sbb-color-granite-default);
   --text-color-hover-focus: var(--sbb-color-red125-default);
   --text-color-active: var(--sbb-color-red150-default);
+
+  // Necessary to forward styles to native link
+  @include text-inherit;
+
+  color: inherit;
 }
 
-.link--negative {
-  --text-color-normal: var(--sbb-color-white-default);
-  --text-color-hover-focus: var(--sbb-color-cloud-default);
-  --text-color-active: var(--sbb-color-silver-default);
-}
-
-.link {
+.sbb-link {
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
   color: var(--text-color-normal);
   text-decoration: none;
   word-break: break-word;
-  fill: currentColor;
+  fill: currentcolor;
 
   &:focus-visible {
-    @include focusOutline();
+    @include focusOutline;
+  }
+
+  &:active {
+    color: var(--text-color-active);
   }
 
   @include ifForcedColors {
@@ -37,36 +40,57 @@
   }
 }
 
-.link:active {
-  color: var(--text-color-active);
+.sbb-link--block-negative,
+.sbb-link--inline-negative {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-.link:focus,
-.link:hover {
-  color: var(--text-color-hover-focus);
+.sbb-link--block-negative {
+  --text-color-normal: var(--sbb-color-white-default);
+  --text-color-hover-focus: var(--sbb-color-cloud-default);
+  --text-color-active: var(--sbb-color-silver-default);
 }
 
-.link__icon {
+.sbb-link--inline,
+.sbb-link--inline-negative {
+  @include text-inherit;
+
+  color: inherit;
+  text-decoration: underline;
+}
+
+.sbb-link--inline-negative {
+  --text-color-hover-focus: var(--sbb-color-graphite-default);
+  --text-color-active: var(--sbb-color-metal-default);
+}
+
+.sbb-link--text-xs {
+  @include text-xs--regular;
+}
+
+.sbb-link--text-s {
+  @include text-s--regular;
+}
+
+.sbb-link--text-m {
+  @include text-m--regular;
+}
+
+@include hover-mq($hover: true) {
+  .sbb-link:hover {
+    color: var(--text-color-hover-focus);
+  }
+}
+
+.sbb-link__icon {
   width: var(--sbb-size-icon-ui-small);
   height: var(--sbb-size-icon-ui-small);
 }
 
-.link--icon-placement-end .link__icon {
+.sbb-link--icon-placement-end .sbb-link__icon {
   order: 2;
 }
 
-.link[dir='rtl'].link--icon-flip .link__icon {
+.sbb-link[dir='rtl'].sbb-link--icon-flip .sbb-link__icon {
   transform: scaleX(-1);
-}
-
-.link--text-xs {
-  @include text-xs--regular();
-}
-
-.link--text-s {
-  @include text-s--regular();
-}
-
-.link--text-m {
-  @include text-m--regular();
 }

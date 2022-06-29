@@ -1,12 +1,13 @@
 :host {
-  --walk-icon-height: #{pxToRemBuild(24)};
+  --walk-icon-height: #{px-to-rem-build(24)};
   --walk-icon-width: var(--walk-icon-height);
 }
 
 .walk {
   display: flex;
   align-items: center;
-  @include text-s--regular();
+  @include text-s--regular;
+
   margin: 0;
   pointer-events: all;
   cursor: help;
@@ -21,16 +22,17 @@
 }
 
 .walk__text--visually-hidden {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }
 
 .walk__icon {
-  width: #{pxToRemBuild(10)};
+  width: #{px-to-rem-build(10)};
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
 .walk--second-level {
-  @include text-xs--regular();
+  @include text-xs--regular;
+
   cursor: pointer;
 }
 
@@ -48,7 +50,7 @@
   float: left;
   height: var(--walk-icon-height);
   width: var(--walk-icon-width);
-  transform: translateX(#{pxToRemBuild(-7)});
+  transform: translateX(#{px-to-rem-build(-7)});
 
   @include ifForcedColors {
     fill: CanvasText;

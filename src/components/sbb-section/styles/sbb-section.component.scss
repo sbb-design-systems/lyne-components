@@ -1,3 +1,6 @@
+/* stylelint-disable */
+// TODO: solve stylelint issues
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin, available for shared
 // and default mode
@@ -58,7 +61,7 @@
 
     .columns,
     .full-width {
-      @include page-spacing--ultra-plus__inner();
+      @include page-spacing__inner--ultra-plus;
     }
   }
 }
@@ -70,7 +73,6 @@
   width: 100%;
   padding: 0;
   margin: 0;
-
   display: flex;
   flex-wrap: wrap;
   column-gap: var(--_section-gap-horizontal);
@@ -95,7 +97,6 @@
   width: 100%;
   padding: 0;
   margin: 0;
-
   display: flex;
   flex-wrap: wrap;
   column-gap: var(--_section-gap-horizontal);
@@ -105,3 +106,5 @@
     flex-basis: 100%;
   }
 }
+
+/* stylelint-enable */

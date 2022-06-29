@@ -3,6 +3,6 @@
 /**
  * size: value in px (no unit)
  */
-@function pxToRemBuild($size) {
-  @return ((math.div($size, 16)) + 0rem);
+@function px-to-rem-build($size) {
+  @return ((math.div($size, 16)) * 1rem);
 }

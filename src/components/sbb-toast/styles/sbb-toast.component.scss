@@ -11,7 +11,7 @@
   --toast-padding-block: var(--sbb-spacing-responsive-xxxs);
   --toast-padding-inline: var(--sbb-spacing-responsive-xs);
   --toast-margin: var(--sbb-spacing-responsive-s);
-  --toast-max-width: #{pxToRemBuild(400)};
+  --toast-max-width: #{px-to-rem-build(400)};
   --toast-width: #{calc(100% - (2 * var(--sbb-spacing-responsive-s-zero)))};
 }
 
@@ -78,12 +78,19 @@
 .toast-icon {
   line-height: 0;
   align-self: start;
-  fill: currentColor;
+  fill: currentcolor;
+}
+
+.toast-button {
+  @include buttonReset;
+
+  color: var(--toast-color-default);
 }
 
 .toast-action,
 .toast-action .toast-button {
   @include text-s--regular;
+
   margin-left: auto;
   cursor: pointer;
   pointer-events: all;
@@ -92,11 +99,6 @@
 .toast-link {
   color: var(--toast-color-default);
   text-decoration: none;
-}
-
-.toast-button {
-  @include buttonReset;
-  color: var(--toast-color-default);
 }
 
 .toast-link:focus-visible,

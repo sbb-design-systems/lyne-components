@@ -1,15 +1,14 @@
-@import 'mixins/mixins_shadows';
-@import 'mixins/mixins_spacing';
-@import 'mixins/mixins_a11y';
-@import 'mixins/mixins_card';
-@import 'mixins/mixins_buttons';
-@import 'mixins/mixins_typo';
-@import 'mixins/mixins_shadows';
-@import 'mixins/mixins_grid_layout';
+@import 'mixins/mixins_shadows.scss';
+@import 'mixins/mixins_spacing.scss';
+@import 'mixins/mixins_a11y.scss';
+@import 'mixins/mixins_card.scss';
+@import 'mixins/mixins_buttons.scss';
+@import 'mixins/mixins_typo.scss';
+@import 'mixins/mixins_grid_layout.scss';
 
-@import 'mixins/mixins_dev_and_debug';
+@import 'mixins/mixins_dev_and_debug.scss';
 
-@mixin listReset {
+@mixin list-reset {
   list-style: none;
   margin: 0;
   padding: 0;

@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -39,6 +39,7 @@
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
     "lint:js": "eslint \"**/*.js\"",
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
+    "lint:styles": "stylelint \"**/*.scss\"",
     "start:stencil": "stencil build --prod --watch --docs",
     "start:storybook": "start-storybook -p 6006 -s dist",
     "start": "npm-run-all --sequential build:stencil --parallel start:stencil start:storybook",
@@ -48,13 +49,14 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@babel/core": "7.18.5",
-    "@babel/plugin-syntax-jsx": "7.17.12",
-    "@babel/plugin-transform-react-jsx": "7.17.12",
+    "@babel/core": "7.18.6",
+    "@babel/plugin-syntax-jsx": "7.18.6",
+    "@babel/plugin-transform-react-jsx": "7.18.6",
     "@brightlayer-ui/storybook-rtl-addon": "1.1.0",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
-    "@sbb-esta/lyne-design-tokens": "0.1.7",
+    "@namics/stylelint-bem": "7.0.0",
+    "@sbb-esta/lyne-design-tokens": "0.2.0",
     "@stencil/core": "2.17.0",
     "@stencil/sass": "1.5.2",
     "@storybook/addon-a11y": "6.5.9",
@@ -62,11 +64,11 @@
     "@storybook/html": "6.5.9",
     "@types/jest": "27.5.2",
     "@types/puppeteer": "5.4.6",
-    "@typescript-eslint/eslint-plugin": "5.29.0",
-    "@typescript-eslint/parser": "5.29.0",
+    "@typescript-eslint/eslint-plugin": "5.30.0",
+    "@typescript-eslint/parser": "5.30.0",
     "axios": "0.27.2",
     "babel-loader": "8.2.5",
-    "chromatic": "6.6.3",
+    "chromatic": "6.6.4",
     "esbuild": "0.14.47",
     "eslint": "8.18.0",
     "eslint-config-prettier": "8.5.0",
@@ -83,9 +85,10 @@
     "jsx-transform": "2.4.1",
     "lint-staged": "13.0.3",
     "lyne-helper-trigger-travis": "1.0.6",
-    "lyne-icons": "4.34.2",
+    "lyne-icons": "4.35.1",
     "minimist": "1.2.6",
     "npm-run-all": "4.1.5",
+    "postcss": "^8.4.14",
     "prettier": "2.7.1",
     "puppeteer": "15.1.1",
     "shelljs": "0.8.5",
@@ -93,6 +96,10 @@
     "standard-version": "9.5.0",
     "stencil-inline-svg": "1.1.0",
     "storybook-addon-breakpoints": "1.0.0",
+    "stylelint": "14.9.1",
+    "stylelint-config-prettier-scss": "0.0.1",
+    "stylelint-config-standard-scss": "4.0.0",
+    "stylelint-scss": "4.2.0",
     "typescript": "4.7.4",
     "yargs": "17.5.1"
   },
@@ -118,6 +125,9 @@
     ],
     "*.{js,ts,yaml,yml}": [
       "eslint --fix"
+    ],
+    "*.{scss}": [
+      "stylelint --fix"
     ]
   }
 }

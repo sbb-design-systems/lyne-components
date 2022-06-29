@@ -14,6 +14,7 @@
 
 :host {
   @include card-host-properties;
+
   --slot-icon-spacing-inline: var(--sbb-spacing-fixed-4x);
   --slot-details-spacing-top: var(--sbb-spacing-fixed-2x);
   --slot-action-spacing-top: var(--sbb-spacing-fixed-4x);
@@ -21,7 +22,9 @@
 }
 
 /* ************************************************* */
+
 /* Layout & spacing                                  */
+
 /* ************************************************* */
 .card-product {
   @include card-product-reset;
@@ -32,7 +35,7 @@
 }
 
 .card-product--tall {
-  @include card--m--tall;
+  @include card--m-tall;
 }
 
 .card-product__icon {
@@ -98,13 +101,16 @@
       align-self: flex-end;
     }
   }
+
   // Switch back to initial layout (button position)
   @include mq($from: medium) {
     display: block;
+
     .card-product__action {
       padding-block-start: var(--slot-action-spacing-top);
     }
   }
+
   // And here we switch back again to the 'small' breakpoint layout
   @include mq($from: wide) {
     display: flex;
@@ -112,7 +118,9 @@
 }
 
 /* ************************************************* */
+
 /* Styling                                           */
+
 /* ************************************************* */
 
 .card-product--primary {
@@ -124,12 +132,13 @@
 }
 
 .card-product__lead {
-  @include title-6();
+  @include title-6;
 }
 
 .card-product__category,
 .card-product__text {
-  @include text-s--regular();
+  @include text-s--regular;
+
   margin: 0;
   color: var(--sbb-color-granite-default);
 }
