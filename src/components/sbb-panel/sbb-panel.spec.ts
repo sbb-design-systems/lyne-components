@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-panel', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbPanel],
-      html: '<sbb-panel text="Example panel text" button-text="Button text" />'
+      html: '<sbb-panel text="Example panel text" button-text="Button text" />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-panel text="Example panel text" button-text="Button text">
           <mock:shadow-root>
             <div class="panel">

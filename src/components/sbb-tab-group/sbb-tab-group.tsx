@@ -7,7 +7,7 @@ import {
   Host,
   Listen,
   Method,
-  Prop
+  Prop,
 } from '@stencil/core';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
@@ -24,29 +24,20 @@ import throttle from '../../global/helpers/throttle';
  */
 
 const tabObserverConfig: MutationObserverInit = {
-  attributeFilter: [
-    'active',
-    'disabled'
-  ]
+  attributeFilter: ['active', 'disabled'],
 };
 
-const SUPPORTED_CONTENT_WRAPPERS = [
-  'ARTICLE',
-  'DIV',
-  'SECTION'
-];
+const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION'];
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-tab-group.default.scss',
-    shared: 'styles/sbb-tab-group.shared.scss'
+    shared: 'styles/sbb-tab-group.shared.scss',
   },
-  tag: 'sbb-tab-group'
+  tag: 'sbb-tab-group',
 })
-
 export class SbbTabGroup {
-
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
    * the tab group, the first enabled tab will be selected.
@@ -57,8 +48,9 @@ export class SbbTabGroup {
    * On selected tab change
    */
   @Event({
-    eventName: 'sbb-tab-group_tab-change'
-  }) public selectedTabChanged: EventEmitter<void>;
+    eventName: 'sbb-tab-group_tab-change',
+  })
+  public selectedTabChanged: EventEmitter<void>;
 
   /**
    * Disable tab by index
@@ -90,11 +82,14 @@ export class SbbTabGroup {
   private _lastUId = 0;
   private _tabContentElement: HTMLElement;
   private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
-  private _tabContentResizeObserver = new ResizeObserver(this._onTabContentElementResize.bind(this));
+  private _tabContentResizeObserver = new ResizeObserver(
+    this._onTabContentElementResize.bind(this)
+  );
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
-    return (Array.from(this._element.children)
-      .filter((child) => (/^H\d$/u).test(child.tagName)) as InterfaceSbbTabGroupTab[]);
+    return Array.from(this._element.children).filter((child) =>
+      /^H\d$/u.test(child.tagName)
+    ) as InterfaceSbbTabGroupTab[];
   }
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
@@ -114,8 +109,7 @@ export class SbbTabGroup {
 
   private _onContentSlotChange = (): void => {
     this._tabContentElement = this._element.shadowRoot.querySelector('div.tab-content');
-    const loadedTabs = this._getTabs()
-      .filter((tab) => !this.tabs.includes(tab));
+    const loadedTabs = this._getTabs().filter((tab) => !this.tabs.includes(tab));
 
     // if a new tab/content is added to the tab group
     if (loadedTabs.length) {
@@ -149,9 +143,11 @@ export class SbbTabGroup {
   }
 
   private _initSelection(): void {
-    if (this.initialSelectedIndex >= 0 &&
-        this.initialSelectedIndex < this.tabs.length &&
-        !this.tabs[this.initialSelectedIndex].hasAttribute('disabled')) {
+    if (
+      this.initialSelectedIndex >= 0 &&
+      this.initialSelectedIndex < this.tabs.length &&
+      !this.tabs[this.initialSelectedIndex].hasAttribute('disabled')
+    ) {
       this.tabs[this.initialSelectedIndex].tabGroupActions.select();
     } else {
       this._enabledTabs[0]?.tabGroupActions.select();
@@ -163,7 +159,7 @@ export class SbbTabGroup {
       if (mutation.type !== 'attributes') {
         return;
       }
-      const tab = (mutation.target as InterfaceSbbTabGroupTab);
+      const tab = mutation.target as InterfaceSbbTabGroupTab;
 
       if (mutation.attributeName === 'disabled') {
         if (this._isValidTabAttribute(tab, 'disabled')) {
@@ -247,7 +243,7 @@ export class SbbTabGroup {
         } else if (tab.disabled) {
           console.warn('You cannot activate a disabled tab');
         }
-      }
+      },
     };
     this._ensureId(tab);
     if (SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.tagName)) {
@@ -255,7 +251,9 @@ export class SbbTabGroup {
     } else {
       tab.insertAdjacentHTML('afterend', '<div>No content.</div>');
       tab.relatedContent = tab.nextElementSibling;
-      console.warn(`Missing content: you should provide a related content for the tab ${tab.outerHTML}.`);
+      console.warn(
+        `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`
+      );
     }
     tab.tabIndex = -1;
     tab.active = tab.hasAttribute('active') && !tab.hasAttribute('disabled');
@@ -281,15 +279,14 @@ export class SbbTabGroup {
     const enabledTabs = this._enabledTabs;
     const cur = enabledTabs.findIndex((t) => t.active);
     const size = enabledTabs.length;
-    const prev = cur === 0
-      ? size - 1
-      : cur - 1;
-    const next = cur === size - 1
-      ? 0
-      : cur + 1;
+    const prev = cur === 0 ? size - 1 : cur - 1;
+    const next = cur === size - 1 ? 0 : cur + 1;
 
     // don't trap nested handling
-    if ((evt.target as HTMLElement) !== this._element && (evt.target as HTMLElement).parentElement !== this._element) {
+    if (
+      (evt.target as HTMLElement) !== this._element &&
+      (evt.target as HTMLElement).parentElement !== this._element
+    ) {
       return;
     }
 
@@ -307,11 +304,11 @@ export class SbbTabGroup {
   public render(): JSX.Element {
     return (
       <Host>
-        <div class='tab-group' role='tablist'>
-          <slot name='tab-bar' onSlotchange={this._onTabsSlotChange}></slot>
+        <div class="tab-group" role="tablist">
+          <slot name="tab-bar" onSlotchange={this._onTabsSlotChange}></slot>
         </div>
 
-        <div class='tab-content'>
+        <div class="tab-content">
           <slot onSlotchange={throttle(this._onContentSlotChange, 250)}></slot>
         </div>
       </Host>

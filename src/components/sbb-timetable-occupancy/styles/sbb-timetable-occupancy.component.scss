@@ -1,44 +1,44 @@
 :host {
-  --occupancy-icon-height: 12;
-  --occupancy-icon-width: 14;
+  --occupancy-icon-height: #{px-to-rem-build(12)};
+  --occupancy-icon-width: #{px-to-rem-build(14)};
 
   @include mq($from: medium) {
-    --occupancy-icon-height: 16;
-    --occupancy-icon-width: 19;
+    --occupancy-icon-height: #{px-to-rem-build(16)};
+    --occupancy-icon-width: #{px-to-rem-build(19)};
   }
-
 }
 
 .occupancy__list {
-  @include listReset();
+  @include list-reset;
+
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  gap: pxToRem(var(--spacing-fixed-2x));
+  gap: var(--sbb-spacing-fixed-2x);
 }
 
 .occupancy__list-item {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  gap: pxToRem(2);
+  gap: #{px-to-rem-build(2)};
 }
 
 .occupancy__class--visual {
-  @include text-s--regular();
+  @include text-s--regular;
 }
 
 .occupancy__class--visually-hidden {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }
 
 .occupancy__icon {
-  height: pxToRem(var(--occupancy-icon-height));
+  height: var(--occupancy-icon-height);
 }
 
 .occupancy__icon svg {
   float: inline-start;
-  height: pxToRem(var(--occupancy-icon-height));
-  width: pxToRem(var(--occupancy-icon-width));
-  fill: currentColor;
+  height: var(--occupancy-icon-height);
+  width: var(--occupancy-icon-width);
+  fill: currentcolor;
 }

@@ -1,8 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-tab-group', () => {
-  let element,
-    page;
+  let element, page;
 
   beforeEach(async () => {
     page = await newE2EPage();
@@ -21,29 +20,25 @@ describe('sbb-tab-group', () => {
   });
 
   it('renders', () => {
-    expect(element)
-      .toHaveClass('hydrated');
+    expect(element).toHaveClass('hydrated');
   });
 
   it('renders tab content', async () => {
     const content = await page.find('sbb-tab-group > h1 + div');
 
-    expect(content.textContent)
-      .toEqual('Test tab content 1');
+    expect(content.textContent).toEqual('Test tab content 1');
   });
 
   it('renders no content tab panel', async () => {
     const content = await page.find('sbb-tab-group > h4 + div');
 
-    expect(content.textContent)
-      .toEqual('No content.');
+    expect(content.textContent).toEqual('No content.');
   });
 
   it('renders initial selected index', async () => {
     const initialSelectedTab = await page.find('sbb-tab-group > h2');
 
-    expect(initialSelectedTab)
-      .toHaveAttribute('active');
+    expect(initialSelectedTab).toHaveAttribute('active');
   });
 
   describe('events', () => {
@@ -51,8 +46,7 @@ describe('sbb-tab-group', () => {
       const tab = await page.find('sbb-tab-group > h1');
 
       await tab.click();
-      expect(tab)
-        .toHaveAttribute('active');
+      expect(tab).toHaveAttribute('active');
     });
 
     it('dispatches event on tab change', async () => {
@@ -60,8 +54,7 @@ describe('sbb-tab-group', () => {
       const changeSpy = await page.spyOnEvent('sbb-tab-group_tab-change');
 
       await tab.click();
-      expect(changeSpy)
-        .toHaveReceivedEventTimes(1);
+      expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
     it('selects tab on left arrow key pressed', async () => {
@@ -69,8 +62,7 @@ describe('sbb-tab-group', () => {
       await page.keyboard.down('ArrowLeft');
       const tab = await page.find('sbb-tab-group > h1');
 
-      expect(tab)
-        .toHaveAttribute('active');
+      expect(tab).toHaveAttribute('active');
     });
 
     it('selects tab on right arrow key pressed', async () => {
@@ -78,8 +70,7 @@ describe('sbb-tab-group', () => {
       await page.keyboard.down('ArrowRight');
       const tab = await page.find('sbb-tab-group > h4');
 
-      expect(tab)
-        .toHaveAttribute('active');
+      expect(tab).toHaveAttribute('active');
     });
 
     it('wraps around on arrow key navigation', async () => {
@@ -88,8 +79,7 @@ describe('sbb-tab-group', () => {
       await page.keyboard.down('ArrowRight');
       const tab = await page.find('sbb-tab-group > h1');
 
-      expect(tab)
-        .toHaveAttribute('active');
+      expect(tab).toHaveAttribute('active');
     });
   });
 });

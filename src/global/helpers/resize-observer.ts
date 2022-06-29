@@ -13,6 +13,5 @@ export class NodeResizeObserver implements ResizeObserver {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const AgnosticResizeObserver = (typeof ResizeObserver === 'undefined')
-  ? NodeResizeObserver
-  : ResizeObserver;
+export const AgnosticResizeObserver =
+  typeof ResizeObserver === 'undefined' ? NodeResizeObserver : ResizeObserver;

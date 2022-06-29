@@ -1,7 +1,4 @@
-import {
-  ColorCharcoalDefault,
-  ColorWhiteDefault
-} from 'lyne-design-tokens/dist/js/tokens.es6';
+import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -17,7 +14,7 @@ const documentationPlatformContainerStyle = (context) => {
   }
 
   return {
-    'background-color': ColorCharcoalDefault
+    'background-color': SbbColorCharcoalDefault,
   };
 };
 
@@ -29,10 +26,10 @@ const wrapperStyle = (context) => {
   const variantsOnDarkBg = ['primary-negative'];
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${ColorWhiteDefault};`;
+    return `background-color: ${SbbColorWhiteDefault};`;
   }
 
-  return `background-color: ${ColorCharcoalDefault};`;
+  return `background-color: ${SbbColorCharcoalDefault};`;
 };
 
 /* ************************************************* */
@@ -41,66 +38,49 @@ const wrapperStyle = (context) => {
 
 const markup = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'h1',
-    'h2',
-    'h3',
-    'h4',
-    'h5',
-    'h6',
-    'p',
-    'span'
-  ]
+  options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'],
 };
 
 const appearance = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'primary',
-    'primary-negative'
-  ],
+  options: ['primary', 'primary-negative'],
   table: {
-    category: 'Appearance'
-  }
+    category: 'Appearance',
+  },
 };
 
 const size = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    4,
-    5
-  ]
+  options: [4, 5],
 };
 
 const defaultArgTypes = {
   appearance,
   markup,
-  size
+  size,
 };
 
 const defaultArgs = {
-  'appearance': appearance.options[0],
-  'destination': 'Loèche-les-Bains',
+  appearance: appearance.options[0],
+  destination: 'Loèche-les-Bains',
   'is-round-trip': false,
   'journey-header-id': '',
-  'markup': 'h1',
-  'origin': 'La Chaux de Fonds',
-  'size': 5
+  markup: 'h1',
+  origin: 'La Chaux de Fonds',
+  size: 5,
 };
 
 /* ************************************************* */
 /* Storybook template                                */
 /* ************************************************* */
 
-const Template = (args) => (
-  <sbb-journey-header {...args} />
-);
+const Template = (args) => <sbb-journey-header {...args} />;
 
 /* ************************************************* */
 /* The Stories                                       */
@@ -113,12 +93,9 @@ h1.argTypes = defaultArgTypes;
 h1.args = JSON.parse(JSON.stringify(defaultArgs));
 h1.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Journey header as h1'
+  title: 'Journey header as h1',
 };
 
 /* --- Journey header as h2, h4 style -------------- */
@@ -128,16 +105,13 @@ h2InH4Style.argTypes = defaultArgTypes;
 h2InH4Style.args = {
   ...defaultArgs,
   markup: 'h2',
-  size: 4
+  size: 4,
 };
 h2InH4Style.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Journey header as h2, in h4 style'
+  title: 'Journey header as h2, in h4 style',
 };
 
 /* --- Journey header as h2, h4 style, round trip -- */
@@ -147,17 +121,14 @@ h2InH4StyleRoundTrip.argTypes = defaultArgTypes;
 h2InH4StyleRoundTrip.args = {
   ...defaultArgs,
   'is-round-trip': true,
-  'markup': 'h2',
-  'size': 4
+  markup: 'h2',
+  size: 4,
 };
 h2InH4StyleRoundTrip.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Journey header as h2, in h4 style'
+  title: 'Journey header as h2, in h4 style',
 };
 
 /* --- Journey header as h2, h4 style, round trip, short text -- */
@@ -166,20 +137,17 @@ export const h2InH4StyleRoundTripShortText = Template.bind({});
 h2InH4StyleRoundTripShortText.argTypes = defaultArgTypes;
 h2InH4StyleRoundTripShortText.args = {
   ...defaultArgs,
-  'destination': 'Thun',
+  destination: 'Thun',
   'is-round-trip': true,
-  'markup': 'h2',
-  'origin': 'Bern',
-  'size': 4
+  markup: 'h2',
+  origin: 'Bern',
+  size: 4,
 };
 h2InH4StyleRoundTripShortText.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Journey header as h2, in h4 style'
+  title: 'Journey header as h2, in h4 style',
 };
 
 /* --- Journey header negative as h1 --------------- */
@@ -188,16 +156,13 @@ export const h1Negative = Template.bind({});
 h1Negative.argTypes = defaultArgTypes;
 h1Negative.args = {
   ...defaultArgs,
-  appearance: appearance.options[1]
+  appearance: appearance.options[1],
 };
 h1Negative.documentation = {
   container: {
-    styles:
-      (context) => (
-        documentationPlatformContainerStyle(context)
-      )
+    styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Journey header Negative as h1'
+  title: 'Journey header Negative as h1',
 };
 
 /* ************************************************* */
@@ -208,14 +173,14 @@ export default {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem`}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/timetable/sbb-journey-header'
+  title: 'components/timetable/sbb-journey-header',
 };

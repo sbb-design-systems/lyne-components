@@ -5,33 +5,33 @@
 
 :host {
   display: block;
-  margin-block-start: pxToRem(var(--spacing-fixed-1x));
+  margin-block-start: var(--sbb-spacing-fixed-1x);
 
-  --text-color: var(--color-red125-default);
-  --icon-size: 14;
+  --text-color: var(--sbb-color-red125-default);
+  --icon-size: #{px-to-rem-build(14)};
 
   @include ifForcedColors {
     --text-color: LinkText;
   }
-
 }
 
 // Error
 // ----------------------------------------------
 .input-label-error {
-  @include text-xs--regular();
+  @include text-xs--regular;
+
   display: flex;
   align-items: center;
   color: var(--text-color);
 }
 
 .input-label-error__icon {
-  line-height: pxToRem(var(--icon-size));
-  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+  line-height: var(--icon-size);
+  margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
 .input-label-error__icon svg {
-  width: pxToRem(var(--icon-size));
-  height: pxToRem(var(--icon-size));
-  fill: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  fill: currentcolor;
 }

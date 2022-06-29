@@ -10,46 +10,42 @@
   --font-family: 'SBBWeb Light';
   --letter-spacing: 0.01em;
   --line-height: 1.3;
-  --font-size: 24;
-
-  --panel-width: 223;
-  --panel-height: 167;
-  --button-margin: var(--spacing-responsive-xs-small);
-  --panel-padding-inline: var(--spacing-responsive-m-small);
-  --panel-padding-block: var(--spacing-responsive-s-small);
-  --triangle-height: 33;
+  --font-size: #{px-to-rem-build(24)};
+  --panel-width: #{px-to-rem-build(223)};
+  --panel-height: #{px-to-rem-build(167)};
+  --button-margin: var(--sbb-spacing-responsive-xs-small);
+  --panel-padding-inline: var(--sbb-spacing-responsive-m-small);
+  --panel-padding-block: var(--sbb-spacing-responsive-s-small);
+  --triangle-height: #{px-to-rem-build(33)};
 
   @include mq($from: medium) {
     // TODO: missing design tokens
-    --font-size: 32;
+    --font-size: #{px-to-rem-build(32)};
     --line-height: 1.3;
-
-    --panel-width: 321;
-    --panel-height: 240.11;
-    --button-margin: var(--spacing-responsive-xs-medium);
-    --panel-padding-inline: var(--spacing-responsive-m-medium);
-    --panel-padding-block: var(--spacing-responsive-s-medium);
-    --triangle-height: 47.45;
+    --panel-width: #{px-to-rem-build(321)};
+    --panel-height: #{px-to-rem-build(240.11)};
+    --button-margin: var(--sbb-spacing-responsive-xs-medium);
+    --panel-padding-inline: var(--sbb-spacing-responsive-m-medium);
+    --panel-padding-block: var(--sbb-spacing-responsive-s-medium);
+    --triangle-height: #{px-to-rem-build(47.45)};
   }
 
   @include mq($from: wide) {
     // TODO: missing design tokens
-    --font-size: 40;
+    --font-size: #{px-to-rem-build(40)};
     --line-height: 1.2;
-
-    --panel-width: 428;
-    --panel-height: 320.38;
-    --panel-padding-inline: var(--spacing-responsive-m-wide);
-    --panel-padding-block: var(--spacing-responsive-s-wide);
-    --triangle-height: 63.31;
+    --panel-width: #{px-to-rem-build(428)};
+    --panel-height: #{px-to-rem-build(320.38)};
+    --panel-padding-inline: var(--sbb-spacing-responsive-m-wide);
+    --panel-padding-block: var(--sbb-spacing-responsive-s-wide);
+    --triangle-height: #{px-to-rem-build(63.31)};
   }
 
-  --background-color: var(--color-red-default);
-  --text-color: var(--color-white-default);
+  --background-color: var(--sbb-color-red-default);
+  --text-color: var(--sbb-color-white-default);
 
-  padding-block-start: pxToRem(var(--triangle-height));
-  padding-block-end: pxToRem(var(--triangle-height));
-
+  padding-block-start: var(--triangle-height);
+  padding-block-end: var(--triangle-height);
 }
 
 .panel {
@@ -58,52 +54,50 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: pxToRem(var(--panel-width));
-  min-height: #{pxToRem(var(--panel-height))};
-  padding-inline-start: pxToRem(var(--panel-padding-inline));
-  padding-inline-end: pxToRem(var(--panel-padding-inline));
-  padding-block-start: pxToRem(var(--panel-padding-block));
-  padding-block-end: pxToRem(var(--panel-padding-block));
+  width: var(--panel-width);
+  min-height: var(--panel-height);
+  padding-inline-start: var(--panel-padding-inline);
+  padding-inline-end: var(--panel-padding-inline);
+  padding-block-start: var(--panel-padding-block);
+  padding-block-end: var(--panel-padding-block);
   background-color: var(--background-color);
 
   @include ifForcedColors {
-    border: pxToRem(1) solid CanvasText;
+    border: #{px-to-rem-build(1)} solid CanvasText;
   }
-
 }
 
-.panel:before,
-.panel:after {
+.panel::before,
+.panel::after {
   content: '';
   position: absolute;
   left: 0;
   width: 0;
   height: 0;
   z-index: 0;
-  border-inline-end: pxToRem(var(--panel-width)) solid transparent;
+  border-inline-end: var(--panel-width) solid transparent;
 
   @include ifForcedColors {
     display: none;
   }
-
 }
 
-.panel:before {
-  top: calc(-1 * #{pxToRem(var(--triangle-height))});
-  border-block-end: pxToRem(var(--triangle-height)) solid var(--background-color);
+.panel::before {
+  top: calc(-1 * var(--triangle-height));
+  border-block-end: var(--triangle-height) solid var(--background-color);
 }
 
-.panel:after {
-  bottom: calc(-1 * #{pxToRem(var(--triangle-height))});
-  border-block-start: pxToRem(var(--triangle-height)) solid var(--background-color);
+.panel::after {
+  bottom: calc(-1 * var(--triangle-height));
+  border-block-start: var(--triangle-height) solid var(--background-color);
 }
 
 .panel__text {
   padding: 0;
   margin: 0;
-  color: var(--color-white-default);
+  color: var(--sbb-color-white-default);
   font-family: var(--font-family);
-  font-size: pxToRem(var(--font-size));
+  font-size: var(--font-size);
   font-weight: normal;
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
@@ -112,6 +106,6 @@
 }
 
 .panel__button {
-  margin-top: pxToRem(var(--button-margin));
+  margin-top: var(--button-margin);
   z-index: 1;
 }

@@ -3,13 +3,13 @@
  * as return type
  */
 export default (jsonString: string): any => {
-
   if (!jsonString || jsonString.length === 0) {
     return [];
   }
 
   // make sure that we have `breakpoints` key in object
-  const errorMessage = 'sbb-image error: attribute breakpoints has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
+  const errorMessage =
+    'sbb-image error: attribute breakpoints has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
   const jsonObject = JSON.parse(jsonString);
   const jsonObjectKeys = Object.keys(jsonObject);
 
@@ -20,9 +20,7 @@ export default (jsonString: string): any => {
   }
 
   // make sure we get an array of breakpoints
-  const {
-    breakpoints
-  } = jsonObject;
+  const { breakpoints } = jsonObject;
 
   if (!Array.isArray(breakpoints)) {
     console.warn(errorMessage);
@@ -38,10 +36,7 @@ export default (jsonString: string): any => {
   let wrongKeyDetected = false;
   let missingKeyDetected = false;
 
-  const allowedKeys = [
-    'image',
-    'mediaQueries'
-  ];
+  const allowedKeys = ['image', 'mediaQueries'];
 
   breakpoints.forEach((breakpoint) => {
     const breakpointKeys = Object.keys(breakpoint);
@@ -57,7 +52,6 @@ export default (jsonString: string): any => {
         missingKeyDetected = true;
       }
     });
-
   });
 
   if (wrongKeyDetected || missingKeyDetected) {

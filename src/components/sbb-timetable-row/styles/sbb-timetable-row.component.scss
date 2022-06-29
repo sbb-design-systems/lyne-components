@@ -7,8 +7,7 @@
   display: block;
 
   --row-min-height: 108;
-  --third-row-min-height: 27;
-
+  --third-row-min-height: #{px-to-rem-build(27)};
   --flex-basis-pillar-columns: 50; // left and right of pearl chain
   --flex-basis-pillar-columns-walking-icon: 85; // if an icon is present, we have to increase the basis
 
@@ -16,30 +15,26 @@
     --row-min-height: 114;
     --flex-basis-pillar-columns: 55;
   }
-
 }
 
 :host(sbb-timetable-row) {
-  margin-block-end: pxToRem(var(--spacing-fixed-1x));
+  margin-block-end: var(--sbb-spacing-fixed-1x);
 }
 
 .timetable__row {
-  @include card--m();
+  @include card--m;
 
   position: relative;
   display: flex;
   flex: 0 0 100%;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   align-items: flex-start;
   justify-content: space-between;
-  column-gap: pxToRem(var(--spacing-fixed-2x));
-
+  column-gap: var(--sbb-spacing-fixed-2x);
   padding-block-start: var(--card-padding-top);
   padding-inline-end: var(--card-padding-right);
   padding-block-end: var(--card-padding-bottom);
   padding-inline-start: var(--card-padding-left);
-
 }
 
 .timetable__row > sbb-timetable-row-header,
@@ -63,7 +58,7 @@
 }
 
 .timetable__row > sbb-timetable-row-header {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }
 
 .timetable__row > sbb-timetable-row-button {
@@ -86,10 +81,9 @@
 .timetable__row > sbb-timetable-duration,
 .timetable__row > sbb-timetable-cus-him {
   align-items: center;
-  min-height: pxToRem(var(--third-row-min-height));
+  min-height: var(--third-row-min-height);
 
   &.visually-empty {
     position: absolute;
   }
-
 }

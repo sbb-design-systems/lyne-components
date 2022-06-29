@@ -8,11 +8,11 @@ assignees: ''
 
 <!--
 
-Hi there! 👋🏾 It looks like you were having an issue with our documentation. 
+Hi there! 👋🏾 It looks like you were having an issue with our documentation.
 
-If you miss something or you have not yet found an answer to your question the [Lyne Components documentation](https://github.com/lyne-design-system/lyne-components/docs) might hold it. 
+If you miss something or you have not yet found an answer to your question the [Lyne Components documentation](https://github.com/lyne-design-system/lyne-components/docs) might hold it.
 
-Maybe also have a quick look at our [documentation issues](https://github.com/lyne-design-system/lyne-components/issues?q=label%3A%22type%3A+docs+%F0%9F%93%96%22+) if your question has been asked/raised before or even might have been solved. 
+Maybe also have a quick look at our [documentation issues](https://github.com/lyne-design-system/lyne-components/issues?q=label%3A%22type%3A+docs+%F0%9F%93%96%22+) if your question has been asked/raised before or even might have been solved.
 
 If those resources do not help or if something needs to be optimized/incomplete, is wrong or outdated in our documentation, help us out by filling out some details below!
 
@@ -23,11 +23,12 @@ Thanks in advance!
 -->
 
 ## Preflight Checklist
+
 <!-- Please ensure you've completed the following steps by replacing [ ] with [x]-->
 
-* [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CONTRIBUTING.md) for this project.
-* [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CODE_OF_CONDUCT.md) that this project adheres to.
-* [ ] I have searched the issue tracker for an issue that matches the one I want to file, without success.
+- [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CONTRIBUTING.md) for this project.
+- [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CODE_OF_CONDUCT.md) that this project adheres to.
+- [ ] I have searched the issue tracker for an issue that matches the one I want to file, without success.
 
 ## To which package(s) is this related?
 
@@ -40,7 +41,7 @@ Thanks in advance!
 - [ ] `lyne-design-tokens`
 - [ ] `non package issue`
 
-## Is this related to a specific version? 
+## Is this related to a specific version?
 
 <!-- Define the version since the documentation has been missing, optimizable, incomplete, wrong or outdated -->
 

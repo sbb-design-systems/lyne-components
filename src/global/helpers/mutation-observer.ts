@@ -13,6 +13,5 @@ export class NodeMutationObserver implements MutationObserver {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const AgnosticMutationObserver = (typeof MutationObserver === 'undefined')
-  ? NodeMutationObserver
-  : MutationObserver;
+export const AgnosticMutationObserver =
+  typeof MutationObserver === 'undefined' ? NodeMutationObserver : MutationObserver;

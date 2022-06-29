@@ -4,16 +4,16 @@
 @include host-component-properties;
 
 :host {
-  --_icon-spacing-inset: var(--spacing-fixed-1x);
-  --_title-text-color-normal: var(--title-text-color-normal, var(--color-charcoal-default));
+  --_icon-spacing-inset: var(--sbb-spacing-fixed-1x);
+  --_title-text-color-normal: var(--title-text-color-normal, var(--sbb-color-charcoal-default));
 }
 
 .journey-header[id] {
-  @include scrollMarginBlockStart();
+  @include scrollMarginBlockStart;
 }
 
 .journey-header {
-  @include fontSmoothing();
+  @include fontSmoothing;
 
   display: flex;
   flex-wrap: wrap;
@@ -23,7 +23,7 @@
   color: var(--_title-text-color-normal);
 
   // Right to left expression
-  &[dir="rtl"] {
+  &[dir='rtl'] {
     .journey-header__icon {
       transform: rotate(-180deg);
     }
@@ -31,30 +31,28 @@
 }
 
 .journey-header--primary-negative {
-  @include title--negative();
+  @include title--negative;
 }
 
 .journey-header--size-4 {
-  @include title-4();
+  @include title-4;
 }
 
 .journey-header--size-5 {
-  @include title-5();
+  @include title-5;
 }
 
 .connection--visually-hidden {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }
-
-.connection--visual  {}
 
 .icon {
   display: flex;
   align-items: center;
-  padding-inline: pxToRem(var(--_icon-spacing-inset));
+  padding-inline: var(--_icon-spacing-inset);
 
   svg {
-    fill: currentColor;
+    fill: currentcolor;
 
     @include ifForcedColors {
       fill: ButtonText;

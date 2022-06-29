@@ -1,3 +1,6 @@
+/* stylelint-disable */
+// TODO: solve stylelint issues
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin, available for shared
 // and default mode
@@ -11,7 +14,6 @@
   // velocity is based on --typo-scale-default as a distance. so a
   // --expand-transition of 100ms physically means: 100ms / 1rem
   --expand-transtion-velocity: 20;
-
   --chevron-transition-timing-function: ease-in;
   --chevron-transition-duration: 200ms;
   --expand-transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
@@ -21,30 +23,27 @@
   --expand-transition-duration: 150ms;
   --header-transition-timing-function: ease-in;
   --header-transition-duration: 180ms;
-
-  --color-heading-hover: var(--color-anthracite-default);
-  --color-default: var(--color-white-default);
-  --color-black: var(--color-black-default);
-  --icon-size: var(--size-icon-ui-small);
-  --header-padding-block: var(--spacing-fixed-5x);
-  --icon-padding-inline-end: var(--spacing-fixed-3x);
-  --body-padding-block: var(--spacing-fixed-5x);
-  --border-color: var(--color-cloud-default);
+  --color-heading-hover: var(--sbb-color-anthracite-default);
+  --color-default: var(--sbb-color-white-default);
+  --color-black: var(--sbb-color-black-default);
+  --icon-size: var(--sbb-size-icon-ui-small);
+  --header-padding-block: var(--sbb-spacing-fixed-5x);
+  --icon-padding-inline-end: var(--sbb-spacing-fixed-3x);
+  --body-padding-block: var(--sbb-spacing-fixed-5x);
+  --border-color: var(--sbb-color-cloud-default);
 }
 
 .accordion-item {
   width: 100%;
   background-color: var(--color-default);
-  border-radius: pxToRem(var(--border-radius-small));
 
   // no support in safari for border-start-start-radius etc.
-  border-top-left-radius: pxToRem(var(--border-radius-start-start));
-  border-top-right-radius: pxToRem(var(--border-radius-start-end));
-  border-bottom-left-radius: pxToRem(var(--border-radius-end-start));
-  border-bottom-right-radius: pxToRem(var(--border-radius-end-end));
-  border-block-end: pxToRem(var(--border-width)) solid var(--border-color);
-  transition: background-color var(--header-transition-duration) var(--header-transition-timing-function),
-              color var(--header-transition-duration) var(--header-transition-timing-function);
+  border-radius: var(--border-radius-start-start) var(--border-radius-start-end)
+    var(--border-radius-end-end) var(--border-radius-end-start);
+  border-block-end: var(--border-width) solid var(--border-color);
+  transition: background-color var(--header-transition-duration)
+      var(--header-transition-timing-function),
+    color var(--header-transition-duration) var(--header-transition-timing-function);
 
   :host(.focus-visible) & {
     @include focusOutline;
@@ -58,15 +57,16 @@
 
 .accordion-item__button {
   @include buttonReset;
-  @include text-m--regular();
+  @include text-m--regular;
+
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  padding-block-start: pxToRem(var(--header-padding-block));
-  padding-block-end: pxToRem(var(--header-padding-block));
-  padding-inline-start: pxToRem(var(--header-padding-inline));
-  padding-inline-end: pxToRem(var(--header-padding-inline));
+  padding-block-start: var(--header-padding-block);
+  padding-block-end: var(--header-padding-block);
+  padding-inline-start: var(--header-padding-inline);
+  padding-inline-end: var(--header-padding-inline);
   color: inherit;
 }
 
@@ -81,16 +81,16 @@
 }
 
 .accordion-item__icon {
-  color: currentColor;
+  color: currentcolor;
   flex-shrink: 0;
   flex-grow: 0;
 }
 
 ::slotted(svg[slot='icon']) {
   display: block;
-  height: pxToRem(var(--icon-size));
-  margin-inline-end: pxToRem(var(--icon-padding-inline-end));
-  fill: currentColor;
+  height: var(--icon-size);
+  margin-inline-end: var(--icon-padding-inline-end);
+  fill: currentcolor;
 }
 
 .accordion-item__title {
@@ -102,18 +102,16 @@
 }
 
 .accordion-item__chevron {
-  flex-basis: pxToRem(var(--icon-size));
-  flex-shrink: 0;
-  flex-grow: 0;
-  height: pxToRem(var(--icon-size));
-  padding-inline-start: pxToRem(var(--header-padding-inline));
+  flex: 0 0 var(--icon-size);
+  height: var(--icon-size);
+  padding-inline-start: var(--header-padding-inline);
 }
 
 .accordion-item__chevron svg {
   display: block;
   transition: transform var(--chevron-transition-duration) var(--chevron-transition-timing-function);
   transform-style: preserve-3d;
-  fill: currentColor;
+  fill: currentcolor;
 }
 
 .accordion-item__chevron--rotate svg {
@@ -121,7 +119,7 @@
 }
 
 .accordion-item__body {
-  font-family: var(--typo-type-face-sbb-roman); // TODO remove once generic styles will be in
+  font-family: var(--sbb-typo-type-face-sbb-roman); // TODO remove once generic styles will be in
   box-sizing: border-box;
   overflow: hidden;
   transition-property: height, opacity;
@@ -135,14 +133,16 @@
 }
 
 .accordion-item--has-icon .accordion-item__body-inner {
-  padding-inline-start: calc(#{pxToRem(var(--body-padding-inline))} + #{pxToRem(var(--icon-size))} + #{pxToRem(var(--icon-padding-inline-end))});
+  padding-inline-start: calc(
+    var(--body-padding-inline) + var(--icon-size) + var(--icon-padding-inline-end)
+  );
 }
 
 .accordion-item__body-inner {
   box-sizing: border-box;
-  padding-inline-start: pxToRem(var(--body-padding-inline));
-  padding-inline-end: pxToRem(var(--body-padding-inline));
-  padding-block-end: pxToRem(var(--body-padding-block));
+  padding-inline-start: var(--body-padding-inline);
+  padding-inline-end: var(--body-padding-inline);
+  padding-block-end: var(--body-padding-block);
 }
 
 // style first slot child
@@ -162,7 +162,7 @@
 }
 
 // Forced Colors
-@include ifForcedColors() {
+@include ifForcedColors {
   .accordion-item--open .accordion-item__button,
   .accordion-item:not(.accordion-item--disabled):hover,
   .accordion-item:not(.accordion-item--disabled):focus-within {
@@ -172,16 +172,16 @@
     }
 
     color: HighlightText;
-
   }
 
   .accordion-item {
-    border: pxToRem(1) solid CanvasText;
+    border: #{px-to-rem-build(1)} solid CanvasText;
   }
 
   .accordion-item__chevron svg,
   ::slotted(svg[slot='icon']) {
     color: ButtonText;
   }
-
 }
+
+/* stylelint-enable */

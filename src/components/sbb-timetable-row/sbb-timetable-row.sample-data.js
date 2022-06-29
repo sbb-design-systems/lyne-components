@@ -20,16 +20,16 @@ export default [
       departureWalk: transportationWalkData[0],
       pearlChain: {
         legs: pearlChainData.stop3,
-        status: 'future'
+        status: 'future',
       },
-      transportationNumber: transportationNumberData['train']
+      transportationNumber: transportationNumberData['train'],
     },
     duration: durationData[0],
     occupancy: occupancyItemsData[3],
     parkAndRail: parkAndRailData[0],
     platform: platformData[0],
     rowHeader: rowHeaderData[0],
-    travelHints: travelHintsData[0]
+    travelHints: travelHintsData[0],
   },
   {
     cusHim: cusHimData[2],
@@ -40,20 +40,20 @@ export default [
       departureWalk: transportationWalkData[2],
       pearlChain: {
         legs: pearlChainData.stop1,
-        status: 'future'
+        status: 'future',
       },
-      transportationNumber: transportationNumberData['cableCar']
+      transportationNumber: transportationNumberData['cableCar'],
     },
     duration: durationData[1],
     occupancy: occupancyItemsData[5],
     parkAndRail: parkAndRailData[0],
     platform: platformData[1],
     rowHeader: rowHeaderData[1],
-    travelHints: travelHintsData[0]
+    travelHints: travelHintsData[0],
   },
   {
     cusHim: {
-      cusHimItems: []
+      cusHimItems: [],
     },
     details: {
       arrivalTime: transportationTimeData[3],
@@ -62,16 +62,16 @@ export default [
       departureWalk: transportationWalkData[2],
       pearlChain: {
         legs: pearlChainData.stop1,
-        status: 'future'
+        status: 'future',
       },
-      transportationNumber: transportationNumberData['cableCar']
+      transportationNumber: transportationNumberData['cableCar'],
     },
     duration: durationData[1],
     occupancy: occupancyItemsData[5],
     parkAndRail: parkAndRailData[0],
     platform: platformData[1],
     rowHeader: rowHeaderData[1],
-    travelHints: travelHintsData[1]
+    travelHints: travelHintsData[1],
   },
   {
     cusHim: cusHimData[2],
@@ -82,15 +82,15 @@ export default [
       departureWalk: transportationWalkData[2],
       pearlChain: {
         legs: pearlChainData.stop1,
-        status: 'future'
+        status: 'future',
       },
-      transportationNumber: transportationNumberData['cableCar']
+      transportationNumber: transportationNumberData['cableCar'],
     },
     duration: durationData[1],
     occupancy: occupancyItemsData[5],
     parkAndRail: parkAndRailData[0],
     platform: platformData[1],
     rowHeader: rowHeaderData[1],
-    travelHints: travelHintsData[1]
-  }
+    travelHints: travelHintsData[1],
+  },
 ];

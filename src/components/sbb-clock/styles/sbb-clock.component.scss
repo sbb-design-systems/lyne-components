@@ -34,16 +34,12 @@
   backface-visibility: hidden;
 }
 
-.sbb-clock--not-initialized .sbb-clock__hand-hours,
-.sbb-clock--not-initialized .sbb-clock__hand-minutes,
-.sbb-clock--not-initialized .sbb-clock__hand-seconds {
-  display: none;
-}
-
 .sbb-clock__hand-minutes {
   @supports not (aspect-ratio: 1 / 1) {
     transform-origin: 50% 49.625%;
   }
+
+  transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
 }
 
 .sbb-clock__hand-hours {
@@ -55,14 +51,10 @@
 }
 
 .sbb-clock__hand-hours--initial-hour {
-  animation-name: handHoursAnimationInitialHour;
+  animation-name: hand-hours-animation-initial-hour;
   animation-duration: var(--clock-hours-animation-duration);
   animation-play-state: var(--clock-animation-play-state);
   animation-iteration-count: 1;
-}
-
-.sbb-clock__hand-minutes {
-  transition: transform 0.2s cubic-bezier(.4,2.08,.55,.44);
 }
 
 .sbb-clock__hand-minutes--no-transition {
@@ -70,19 +62,25 @@
 }
 
 .sbb-clock__hand-seconds {
-  animation-name: handSecondsAnimation;
+  animation-name: hand-seconds-animation;
   animation-duration: 60s;
   animation-timing-function: linear;
   animation-play-state: var(--clock-animation-play-state);
   animation-iteration-count: infinite;
-  fill: var(--color-red-default);
+  fill: var(--sbb-color-red-default);
 }
 
 .sbb-clock__hand-seconds--initial-minute {
-  animation-name: handSecondsAnimationInitialMinute;
+  animation-name: hand-seconds-animation-initial-minute;
   animation-duration: var(--clock-seconds-animation-duration);
   animation-play-state: var(--clock-animation-play-state);
   animation-iteration-count: 1;
+}
+
+.sbb-clock--not-initialized .sbb-clock__hand-hours,
+.sbb-clock--not-initialized .sbb-clock__hand-minutes,
+.sbb-clock--not-initialized .sbb-clock__hand-seconds {
+  display: none;
 }
 
 @keyframes rotate {
@@ -91,29 +89,34 @@
   }
 }
 
-@keyframes handHoursAnimationInitialHour {
+@keyframes hand-hours-animation-initial-hour {
   0% {
     transform: rotateZ(var(--clock-hours-animation-start-angle));
   }
+
   100% {
     transform: rotateZ(720deg);
   }
 }
 
-@keyframes handSecondsAnimation {
+@keyframes hand-seconds-animation {
   0% {
     transform: rotateZ(0deg);
   }
-  97.5%, 100% {
+
+  97.5%,
+  100% {
     transform: rotateZ(360deg);
   }
 }
 
-@keyframes handSecondsAnimationInitialMinute {
+@keyframes hand-seconds-animation-initial-minute {
   0% {
     transform: rotateZ(var(--clock-seconds-animation-start-angle));
   }
-  97.5%, 100% {
+
+  97.5%,
+  100% {
     transform: rotateZ(360deg);
   }
 }

@@ -1,9 +1,4 @@
-import {
-  Component,
-  h,
-  Host,
-  Prop
-} from '@stencil/core';
+import { Component, h, Host, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import icons from '../../global/icons/timetable.json';
@@ -14,13 +9,11 @@ import { i18nNone } from '../../global/i18n';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-timetable-cus-him.default.scss',
-    shared: 'styles/sbb-timetable-cus-him.shared.scss'
+    shared: 'styles/sbb-timetable-cus-him.shared.scss',
   },
-  tag: 'sbb-timetable-cus-him'
+  tag: 'sbb-timetable-cus-him',
 })
-
 export class SbbTimetableCusHim {
-
   private _currentLanguage = getDocumentLang();
 
   /**
@@ -38,7 +31,6 @@ export class SbbTimetableCusHim {
   @Prop() public appearance?: InterfaceTimetableCusHimAttributes['appearance'] = 'first-level-list';
 
   private _renderAppearance(cusHimItems): JSX.Element {
-
     /**
      * Let's check if we should render a list or
      * an individual message on the second level of
@@ -48,43 +40,36 @@ export class SbbTimetableCusHim {
      * the second return after the if statement.
      */
     if (this.appearance.indexOf('list') !== -1) {
-
       if (cusHimItems.length === 1) {
-
         // eslint-disable-next-line prefer-destructuring
         const cusHimItem = cusHimItems[0];
 
         return (
           <span
             aria-label={cusHimItem.text}
-            class='cus-him__icon'
+            class="cus-him__icon"
             innerHTML={icons[cusHimItem.icon]}
-            role='text'
+            role="text"
             title={cusHimItem.text}
           ></span>
         );
       }
 
       return (
-        <ul
-          class='cus-him__list'
-          role='list'
-        >
+        <ul class="cus-him__list" role="list">
           {cusHimItems.map((cusHimItem) => (
-            <li class='cus-him__list-item'>
+            <li class="cus-him__list-item">
               <span
                 aria-label={cusHimItem.text}
-                class='cus-him__icon'
+                class="cus-him__icon"
                 innerHTML={icons[cusHimItem.icon]}
-                role='text'
+                role="text"
                 title={cusHimItem.text}
-              >
-              </span>
+              ></span>
             </li>
           ))}
         </ul>
       );
-
     }
 
     // eslint-disable-next-line prefer-destructuring
@@ -92,48 +77,34 @@ export class SbbTimetableCusHim {
     const appearanceClass = this.appearance;
 
     return (
-      <p
-        aria-label={cusHimItem.text}
-        class={`cus-him--${appearanceClass}`}
-      >
+      <p aria-label={cusHimItem.text} class={`cus-him--${appearanceClass}`}>
         <span
-          class='cus-him__icon'
+          class="cus-him__icon"
           innerHTML={icons[cusHimItem.icon]}
-          role='text'
+          role="text"
           title={cusHimItem.text}
-        >
-        </span>
-        <span
-          class={`cus-him--${appearanceClass}__text`}
-        >
-          {cusHimItem.text}
-        </span>
+        ></span>
+        <span class={`cus-him__text--${appearanceClass}`}>{cusHimItem.text}</span>
       </p>
     );
-
   }
 
   public render(): JSX.Element {
-
-    const {
-      cusHimItems
-    } = JSON.parse(this.config);
+    const { cusHimItems } = JSON.parse(this.config);
 
     const a11yLabel = i18nNone[this._currentLanguage];
     const appearanceClass = ` cus-him--${this.appearance}`;
 
-    const hostClass = cusHimItems.length === 0
-      ? 'visually-empty'
-      : '';
+    const hostClass = cusHimItems.length === 0 ? 'visually-empty' : '';
 
     return (
       <Host class={hostClass}>
         <div class={`cus-him${appearanceClass}`}>
-          {
-            cusHimItems && cusHimItems.length > 0
-              ? this._renderAppearance(cusHimItems)
-              : <span class='cus-him__text--visually-hidden'>{a11yLabel}</span>
-          }
+          {cusHimItems && cusHimItems.length > 0 ? (
+            this._renderAppearance(cusHimItems)
+          ) : (
+            <span class="cus-him__text--visually-hidden">{a11yLabel}</span>
+          )}
         </div>
       </Host>
     );

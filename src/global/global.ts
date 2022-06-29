@@ -32,16 +32,12 @@ export const initialize = (): Mode => {
    * We see if the mode was set as an attribute on <html>
    * which could have been set by the user, or by pre-rendering
    */
-  defaultMode = (doc.documentElement.getAttribute('mode') === 'shared'
-    ? 'shared'
-    : 'default');
+  defaultMode = doc.documentElement.getAttribute('mode') === 'shared' ? 'shared' : 'default';
 
   const isSbbElement = (elm: HTMLElement): boolean => elm.tagName && elm.tagName.startsWith('sbb-');
 
-  const isAllowedSbbModeValue = (elmMode: string): boolean => [
-    'default',
-    'shared'
-  ].includes(elmMode);
+  const isAllowedSbbModeValue = (elmMode: string): boolean =>
+    ['default', 'shared'].includes(elmMode);
 
   setMode((elm: any) => {
     while (elm) {

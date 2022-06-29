@@ -3,12 +3,7 @@ import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
 import sampleData from './sbb-pearl-chain.sample-data';
 
-const Template = ({
-  legs,
-  cancelPart,
-  ...args
-}) => {
-
+const Template = ({ legs, cancelPart, ...args }) => {
   const newLegsData = JSON.parse(JSON.stringify(legs));
 
   newLegsData.legs.forEach((leg, index) => {
@@ -20,11 +15,7 @@ const Template = ({
   });
 
   return (
-    <sbb-pearl-chain
-      legs={JSON.stringify(newLegsData)}
-      disable-animation={isChromatic}
-      {...args}
-    />
+    <sbb-pearl-chain legs={JSON.stringify(newLegsData)} disable-animation={isChromatic} {...args} />
   );
 };
 
@@ -36,190 +27,150 @@ export const Stops4 = Template.bind({});
 export const Stops9 = Template.bind({});
 
 NoStops.documentation = {
-  title: 'No stops'
+  title: 'No stops',
 };
 
 Stop1.documentation = {
-  title: 'One Stop'
+  title: 'One Stop',
 };
 
 Stops2.documentation = {
-  title: '2 Stops'
+  title: '2 Stops',
 };
 
 Stops3.documentation = {
-  title: '3 Stops'
+  title: '3 Stops',
 };
 
 Stops4.documentation = {
-  title: '4 Stops'
+  title: '4 Stops',
 };
 
 Stops9.documentation = {
-  title: '9 Stops'
+  title: '9 Stops',
 };
 
 const status = {
   control: {
-    type: 'inline-radio'
+    type: 'inline-radio',
   },
-  options: [
-    'past',
-    '0',
-    '25',
-    '33',
-    '50',
-    '66',
-    '75',
-    '100',
-    'future'
-  ]
+  options: ['past', '0', '25', '33', '50', '66', '75', '100', 'future'],
 };
 
 const legs = {
   table: {
-    disable: true
-  }
+    disable: true,
+  },
 };
 
 NoStops.argTypes = {
   cancelPart: {
     control: {
-      type: 'inline-check'
+      type: 'inline-check',
     },
-    options: [1]
+    options: [1],
   },
   legs,
-  status
+  status,
 };
 
 NoStops.args = {
   legs: sampleData.stop0,
-  status: 'future'
+  status: 'future',
 };
 
 Stop1.argTypes = {
   cancelPart: {
     control: {
-      type: 'inline-check'
+      type: 'inline-check',
     },
-    options: [
-      1,
-      2
-    ]
+    options: [1, 2],
   },
   legs,
-  status
+  status,
 };
 
 Stop1.args = {
   legs: sampleData.stop1,
-  status: 'past'
+  status: 'past',
 };
 
 Stops2.argTypes = {
   cancelPart: {
     control: {
-      type: 'inline-check'
+      type: 'inline-check',
     },
-    options: [
-      1,
-      2,
-      3
-    ]
+    options: [1, 2, 3],
   },
   legs,
-  status
+  status,
 };
 
 Stops2.args = {
   legs: sampleData.stop2,
-  status: '50'
+  status: '50',
 };
 
 Stops3.argTypes = {
   cancelPart: {
     control: {
-      type: 'inline-check'
+      type: 'inline-check',
     },
-    options: [
-      1,
-      2,
-      3,
-      4
-    ]
+    options: [1, 2, 3, 4],
   },
   legs,
-  status
+  status,
 };
 
 Stops3.args = {
   legs: sampleData.stop3,
-  status: 'future'
+  status: 'future',
 };
 
 Stops4.argTypes = {
   cancelPart: {
     control: {
-      type: 'inline-check'
+      type: 'inline-check',
     },
-    options: [
-      1,
-      2,
-      3,
-      4,
-      5
-    ]
+    options: [1, 2, 3, 4, 5],
   },
   legs,
-  status
+  status,
 };
 
 Stops4.args = {
   legs: sampleData.stop4,
-  status: 'past'
+  status: 'past',
 };
 
 Stops9.argTypes = {
   cancelPart: {
     control: {
-      type: 'inline-check'
+      type: 'inline-check',
     },
-    options: [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10
-    ]
+    options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   },
   legs,
-  status
+  status,
 };
 
 Stops9.args = {
   legs: sampleData.stop9,
-  status: '66'
+  status: '66',
 };
 
 export default {
   decorators: [
     (Story) => (
       <div style={'max-width: 20rem;'}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/sbb-pearl-chain'
+  title: 'components/sbb-pearl-chain',
 };
-

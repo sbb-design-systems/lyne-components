@@ -1,19 +1,19 @@
 @mixin page-spacing() {
-  padding-inline-start: pxToRem(var(--page-base-offset-responsive));
-  padding-inline-end: pxToRem(var(--page-base-offset-responsive));
+  padding-inline-start: var(--sbb-page-base-offset-responsive);
+  padding-inline-end: var(--sbb-page-base-offset-responsive);
 }
 
 @mixin page-spacing__inner() {
   @include mq($from: wide) {
-    width: calc(pxToRem($breakpoint-wide-min) - (2 * pxToRem(var(--page-base-offset-responsive))));
+    width: calc(#{$sbb-breakpoint-wide-min} - (2 * var(--sbb-page-base-offset-responsive)));
     margin-inline-start: auto;
     margin-inline-end: auto;
   }
 }
 
-@mixin page-spacing--ultra-plus__inner() {
+@mixin page-spacing__inner--ultra-plus() {
   @include mq($from: ultra) {
-    width: pxToRem($breakpoint-ultra-min);
+    width: $sbb-breakpoint-ultra-min;
     margin-inline-start: auto;
     margin-inline-end: auto;
   }
@@ -126,7 +126,6 @@
 //   @include spacing-responsive($rsp-space-map-xxl, $property);
 // }
 
-
 // ////////////////////////////////////////////////////////////////////////////////
 // /// Usage examples
 // ////////////////////////////////////////////////////////////////////////////////
@@ -153,7 +152,7 @@
 //   --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
 // }
 
-// @mixin card--m--tall {
+// @mixin card--m-tall {
 //   @include spacing-responsive-xxs('--card-padding-right');
 //   @include spacing-responsive-xxs('--card-padding-left');
 //   --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
@@ -167,7 +166,7 @@
 //   @include spacing-responsive-xxs('--card-padding-left');
 // }
 
-// @mixin card--l--tall  {
+// @mixin card--l-tall  {
 //   @include spacing-responsive-xxs('--card-padding-right');
 //   @include spacing-responsive-xxs('--card-padding-bottom');
 //   @include spacing-responsive-xxs('--card-padding-left');
@@ -181,7 +180,7 @@
 //   @include spacing-responsive-s('--card-padding-left');
 // }
 
-// @mixin card--xl--tall {
+// @mixin card--xl-tall {
 //   @include spacing-responsive-s('--card-padding-right');
 //   @include spacing-responsive-xxs('--card-padding-bottom');
 //   @include spacing-responsive-s('--card-padding-left');
@@ -195,7 +194,7 @@
 //   @include spacing-responsive-s('--card-padding-left');
 // }
 
-// @mixin card--xxl--tall {
+// @mixin card--xxl-tall {
 //   @include card--xxl;
 //   // @include spacing-responsive-s('--card-padding-top');
 //   // @include spacing-responsive-s('--card-padding-right');

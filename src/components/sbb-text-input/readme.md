@@ -1,7 +1,5 @@
 # sbb-text-input
 
-
-
 <!-- Auto Generated Below -->
 
 

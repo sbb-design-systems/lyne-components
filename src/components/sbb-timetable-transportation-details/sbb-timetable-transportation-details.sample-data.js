@@ -11,8 +11,8 @@ export default [
     departureWalk: transportationWalkData[0],
     pearlChain: {
       legs: pearlChainData.stop1,
-      status: 'future'
+      status: 'future',
     },
-    transportationNumber: transportationNumberData['train']
-  }
+    transportationNumber: transportationNumberData['train'],
+  },
 ];

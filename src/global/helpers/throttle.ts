@@ -1,5 +1,7 @@
-
-const throttle = <F extends (...args: any[]) => any>(func: F, delay: number): (...args: Parameters<F>) => Promise<ReturnType<F>> => {
+const throttle = <F extends (...args: any[]) => any>(
+  func: F,
+  delay: number
+): ((...args: Parameters<F>) => Promise<ReturnType<F>>) => {
   let shouldWait = false;
 
   const throttled = (...args: Parameters<F>): any => {

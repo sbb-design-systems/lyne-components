@@ -1,12 +1,11 @@
-//*****************************************************************************
+// *****************************************************************************
 //
 // Each component needs to use the host-component-properties mixin
 // to provide a streamlined component experience / developer experience.
 //
-//*****************************************************************************
+// *****************************************************************************
 
 @mixin host-component-properties {
-
   @include box-sizing;
 
   :host {

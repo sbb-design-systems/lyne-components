@@ -1,27 +1,18 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
-import {
-  i18nDurationHour,
-  i18nDurationMinute
-} from '../../global/i18n';
+import { i18nDurationHour, i18nDurationMinute } from '../../global/i18n';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-timetable-duration.default.scss',
-    shared: 'styles/sbb-timetable-duration.shared.scss'
+    shared: 'styles/sbb-timetable-duration.shared.scss',
   },
-  tag: 'sbb-timetable-duration'
+  tag: 'sbb-timetable-duration',
 })
-
 export class SbbTimetableDuration {
-
   private _currentLanguage = getDocumentLang();
 
   /**
@@ -33,7 +24,6 @@ export class SbbTimetableDuration {
   @Prop() public config!: string;
 
   public render(): JSX.Element {
-
     const config = JSON.parse(this.config);
 
     const hoursLabelShort = i18nDurationHour.multiple.short[this._currentLanguage];
@@ -62,21 +52,11 @@ export class SbbTimetableDuration {
     a11yLabel += ` ${config.minutes} ${minutesLabelLong}.`;
 
     return (
-      <p
-        aria-label={a11yLabel}
-        class='duration'
-        role='text'
-      >
-        <span
-          aria-hidden='true'
-          class='duration__text--visual'
-          role='presentation'
-        >
+      <p aria-label={a11yLabel} class="duration" role="text">
+        <span aria-hidden="true" class="duration__text--visual" role="presentation">
           {visualText}
         </span>
-        <span class='duration__text--visually-hidden'>
-          {a11yLabel}
-        </span>
+        <span class="duration__text--visually-hidden">{a11yLabel}</span>
       </p>
     );
   }

@@ -1,7 +1,5 @@
 # sbb-image
 
-
-
 <!-- Auto Generated Below -->
 
 

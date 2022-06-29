@@ -1,4 +1,4 @@
-//*****************************************************************************
+// *****************************************************************************
 // Important
 //
 // Changes in global.scss and from global.scss referenced .scss files only
@@ -9,33 +9,26 @@
 // https://github.com/ionic-team/stencil-sass/issues/8
 // https://github.com/ionic-team/stencil-sass/issues/15
 //
-//*****************************************************************************
-
-// Core variables, are always needed
-
-:root {
-  // Core variables for :root context
-  @include lyne-components-css-vars;
-}
+// *****************************************************************************
 
 // Theming: override core variables and enable theme/mode through uncommenting
 // whished theme/mode
 
-//@import "theme/sbb-ch/mode--dark/variables.scss";
-//@import "theme/sbb-ch/mode--compact/variables.scss";
-//@import "theme/sbb-ch/mode--dark-compact.variables.scss";
+// @import "theme/sbb-ch/mode--dark/variables.scss";
+// @import "theme/sbb-ch/mode--compact/variables.scss";
+// @import "theme/sbb-ch/mode--dark-compact.variables.scss";
 
-//:root {
-  //@include theme-sbb-ch-mode--dark-variables;
-  //@include theme-sbb-ch-mode--compact-variables;
-  //@include theme-sbb-ch-mode--dark-compact-variables;
-//}
+// :root {
+// @include theme-sbb-ch-mode--dark-variables;
+// @include theme-sbb-ch-mode--compact-variables;
+// @include theme-sbb-ch-mode--dark-compact-variables;
+// }
 
 // Font face declaration
 //
 // The font-face declaration is only available for shared mode since font-face
 // declarations can not yet be made within the shadow root of a web component.
-@import "core/shared/font-face.scss";
+@import 'core/shared/font-face.scss';
 
 // Normalize (modern normalize) appearance
 //
@@ -44,6 +37,13 @@
 // self-contained/encapsulated components need to be done for each component
 // separately within COMPONENT-NAME.default.scss
 // https://github.com/lyne-design-system/lyne-components/pull/716#issuecomment-934213307
-@import "core/shared/normalize.scss";
+@import 'core/shared/normalize.scss';
 
-@import "global.scss";
+@import 'global.scss';
+
+// Core variables, are always needed
+
+:root {
+  // Core variables for :root context
+  @include lyne-components-css-vars;
+}

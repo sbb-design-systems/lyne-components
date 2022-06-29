@@ -1,0 +1,48 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "nodenv": {
+    "enabled": false
+  },
+  "lockFileMaintenance": {
+    "schedule": ["before 7am on monday"],
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
+      "automerge": true,
+      "automergeType": "branch",
+      "automergeStrategy": "squash"
+    },
+    {
+      "matchPackageNames": ["@types/node", "@types/jest", "jest", "jest-cli"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "groupName": "esta",
+      "matchPackagePrefixes": ["@sbb-esta/"],
+      "prPriority": 10
+    },
+    {
+      "groupName": "eslint",
+      "matchPackagePrefixes": ["@typescript-eslint/", "eslint"]
+    },
+    {
+      "groupName": "commitlint",
+      "matchPackagePrefixes": ["@commitlint/", "standard-version"]
+    },
+    {
+      "groupName": "stylelint",
+      "matchPackagePrefixes": [
+        "@namics/stylelint-bem",
+        "postcss",
+        "stylelint",
+        "stylelint-config-prettier-scss",
+        "stylelint-config-standard-scss",
+        "stylelint-scss"
+      ]
+    }
+  ]
+}

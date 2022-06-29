@@ -4,15 +4,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-image', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbImage],
-      html: `<sbb-image image-src="${images[0]}"></sbb-image>`
+      html: `<sbb-image image-src="${images[0]}"></sbb-image>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-image image-src="${images[0]}">
           <mock:shadow-root>
             <figure class="image__figure">
@@ -30,5 +27,4 @@ describe('sbb-image', () => {
         </sbb-image>
       `);
   });
-
 });

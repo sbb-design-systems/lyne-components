@@ -6,41 +6,41 @@
 :host {
   display: block;
 
-  --transportation-min-width: 38;
+  --transportation-min-width: #{px-to-rem-build(38)};
 
   @include mq($from: medium) {
-    --transportation-min-width: 43;
+    --transportation-min-width: #{px-to-rem-build(43)};
   }
-
 }
 
 .time {
-  min-width: pxToRem(var(--transportation-min-width));
+  min-width: var(--transportation-min-width);
   margin: 0;
-  font-appearance-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums;
 }
 
 .time--departure {
-  @include text-s--bold();
+  @include text-s--bold;
 }
 
 .time--first-level.time--departure {
-  margin-inline-end: pxToRem(var(--spacing-fixed-3x));
+  margin-inline-end: var(--sbb-spacing-fixed-3x);
 }
 
 .time--first-level.time--arrival {
-  @include text-s--bold();
-  margin-inline-start: pxToRem(var(--spacing-fixed-3x));
+  @include text-s--bold;
+
+  margin-inline-start: var(--sbb-spacing-fixed-3x);
 }
 
 .time-second-level.time--departure {
-  @include text-s--bold();
+  @include text-s--bold;
 }
 
 .time--second-level.time--arrival {
-  @include text-s--regular();
+  @include text-s--regular;
 }
 
 .time__text--visually-hidden {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }

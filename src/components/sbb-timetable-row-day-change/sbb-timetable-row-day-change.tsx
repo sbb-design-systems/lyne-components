@@ -1,28 +1,18 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
-import {
-  i18nAttention,
-  i18nConnectionsDepartOn,
-  i18nDayChange
-} from '../../global/i18n';
+import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../../global/i18n';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-timetable-row-day-change.default.scss',
-    shared: 'styles/sbb-timetable-row-day-change.shared.scss'
+    shared: 'styles/sbb-timetable-row-day-change.shared.scss',
   },
-  tag: 'sbb-timetable-row-day-change'
+  tag: 'sbb-timetable-row-day-change',
 })
-
 export class SbbTimetableRowDayChange {
-
   private _currentLanguage = getDocumentLang();
 
   /**
@@ -34,7 +24,6 @@ export class SbbTimetableRowDayChange {
   @Prop() public config!: string;
 
   public render(): JSX.Element {
-
     const config = JSON.parse(this.config);
 
     let attention = '';
@@ -61,19 +50,11 @@ export class SbbTimetableRowDayChange {
         // @ts-expect-error the role makes the colspan attribute usable
         colspan={config.colSpan}
       >
-        <h2 class='day-change__text'>
-          <span
-            aria-hidden='true'
-            class='day-change__text--visual'
-            role='presentation'
-          >
+        <h2 class="day-change__text">
+          <span aria-hidden="true" class="day-change__text--visual" role="presentation">
             {visualText}
           </span>
-          <span
-            aria-label={a11yLabel}
-            class='day-change__text--visually-hidden'
-            role='text'
-          >
+          <span aria-label={a11yLabel} class="day-change__text--visually-hidden" role="text">
             {dayChange} {attention} {departsOn} {config.day}, {config.date}
           </span>
         </h2>

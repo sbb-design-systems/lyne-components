@@ -4,36 +4,33 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-link', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbLink],
-      html: `<sbb-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="positive"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></sbb-link>`
+      html: `<sbb-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="block"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></sbb-link>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-link
             href-value="https://github.com/lyne-design-system/lyne-components"
             icon-placement="end"
             icon="chevron-small-right-small"
             text="Travelcards &amp; tickets"
             text-size="m"
-            variant="positive"
+            variant="block"
         >
           <mock:shadow-root>
             <a
                 aria-label="Travelcards &amp; tickets. Link target opens in new window."
-                class="link link--icon-placement-end link--positive link--text-m"
+                class="sbb-link sbb-link--icon-placement-end sbb-link--block sbb-link--text-m"
                 dir="ltr"
                 href="https://github.com/lyne-design-system/lyne-components"
                 target="_blank"
                 rel="external noopener nofollow"
             >
-                <span class="link__icon">
+                <span class="sbb-link__icon">
                     <slot name="icon"></slot>
                 </span>
-                <span class="link__text">Travelcards & tickets</span>
+                <span class="sbb-link__text">Travelcards & tickets</span>
             </a>
           </mock:shadow-root>
           <span slot="icon">
@@ -45,6 +42,4 @@ describe('sbb-link', () => {
         </sbb-link>
       `);
   });
-
 });
-

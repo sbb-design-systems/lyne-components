@@ -16,21 +16,18 @@ describe('sbb-tab-group', () => {
               <div>Test tab content 3</div>
               <h4>Test tab label 4</h4>
             </sbb-tab-group>`,
-      supportsShadowDom: true
+      supportsShadowDom: true,
     });
     component = page.doc.querySelector('sbb-tab-group');
   });
 
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTabGroup],
-      html: '<sbb-tab-group />'
+      html: '<sbb-tab-group />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-tab-group>
           <mock:shadow-root>
           <div class="tab-group" role="tablist">
@@ -49,8 +46,7 @@ describe('sbb-tab-group', () => {
     await page.waitForChanges();
     const tab = page.root.querySelector('h2');
 
-    expect(tab)
-      .toHaveAttribute('active');
+    expect(tab).toHaveAttribute('active');
   });
 
   it('disables tab by index', async () => {
@@ -58,8 +54,7 @@ describe('sbb-tab-group', () => {
     await page.waitForChanges();
     const tab = page.root.querySelector('h1');
 
-    expect(tab)
-      .toHaveAttribute('disabled');
+    expect(tab).toHaveAttribute('disabled');
   });
 
   it('enables tab by index', async () => {
@@ -67,8 +62,7 @@ describe('sbb-tab-group', () => {
     await page.waitForChanges();
     const tab = page.root.querySelector('h3');
 
-    expect(tab).not
-      .toHaveAttribute('disabled');
+    expect(tab).not.toHaveAttribute('disabled');
   });
 
   it('does not activate a disabled tab', async () => {
@@ -77,16 +71,14 @@ describe('sbb-tab-group', () => {
     tab.disabled = true;
     component.activateTab(2);
     await page.waitForChanges();
-    expect(tab).not
-      .toHaveAttribute('active');
+    expect(tab).not.toHaveAttribute('active');
   });
 
   describe('initial tab', () => {
     it('activates the first tab', () => {
       const tab = page.root.querySelector('h1');
 
-      expect(tab)
-        .toHaveAttribute('active');
+      expect(tab).toHaveAttribute('active');
     });
 
     it('activates the first enabled tab if targets a disabled tab', async () => {
@@ -98,12 +90,11 @@ describe('sbb-tab-group', () => {
                 <h2>Test tab label 2</h2>
                 <div>Test tab content 2</div>
               </sbb-tab-group>`,
-        supportsShadowDom: true
+        supportsShadowDom: true,
       });
       const tab = page.root.querySelector('h2');
 
-      expect(tab)
-        .toHaveAttribute('active');
+      expect(tab).toHaveAttribute('active');
     });
 
     it('activates the first enabled tab if exceeds the length of the tab group', async () => {
@@ -115,12 +106,11 @@ describe('sbb-tab-group', () => {
                 <h2>Test tab label 2</h2>
                 <div>Test tab content 2</div>
               </sbb-tab-group>`,
-        supportsShadowDom: true
+        supportsShadowDom: true,
       });
       const tab = page.root.querySelector('h1');
 
-      expect(tab)
-        .toHaveAttribute('active');
+      expect(tab).toHaveAttribute('active');
     });
   });
 
@@ -134,14 +124,13 @@ describe('sbb-tab-group', () => {
       tab2.focus = jest.fn();
 
       const event = new KeyboardEvent('keydown', {
-        key: 'ArrowRight'
+        key: 'ArrowRight',
       });
 
       component.dispatchEvent(event);
       await page.waitForChanges();
 
-      expect(tab2)
-        .toHaveAttribute('active');
+      expect(tab2).toHaveAttribute('active');
     });
 
     it('wraps around on left arrow key pressed', async () => {
@@ -153,14 +142,13 @@ describe('sbb-tab-group', () => {
       tab4.focus = jest.fn();
 
       const event = new KeyboardEvent('keydown', {
-        key: 'ArrowLeft'
+        key: 'ArrowLeft',
       });
 
       component.dispatchEvent(event);
       await page.waitForChanges();
 
-      expect(tab4)
-        .toHaveAttribute('active');
+      expect(tab4).toHaveAttribute('active');
     });
   });
 });

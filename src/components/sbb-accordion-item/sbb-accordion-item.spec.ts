@@ -5,15 +5,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-accordion-item', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbAccordionItem],
-      html: '<sbb-accordion-item />'
+      html: '<sbb-accordion-item />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-accordion-item>
           <mock:shadow-root>
             <div class="accordion-item accordion-item--closed" role="listitem">
@@ -36,5 +33,4 @@ describe('sbb-accordion-item', () => {
         </sbb-accordion-item>
       `);
   });
-
 });

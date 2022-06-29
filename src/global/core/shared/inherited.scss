@@ -6,15 +6,15 @@
 // CSS properties which can not travel the shadow boundary but need to be defined
 // on each component are defined through %host-component-properties
 // in global/core/components/utilities.scss which each component needs to @extend
-@import "./../../mixins.scss";
+@import './../../mixins.scss';
 
 html,
 :host {
-  @include text();
+  @include text;
 }
 
 body,
 :host {
   font-family: var(--typo-default-font-family);
-  color: var(--lyne-font-default-color);
+  color: var(--sbb-font-default-color);
 }

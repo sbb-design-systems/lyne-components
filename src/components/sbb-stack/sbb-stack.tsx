@@ -1,22 +1,15 @@
-import {
-  Component,
-  h,
-  Host,
-  Prop
-} from '@stencil/core';
+import { Component, h, Host, Prop } from '@stencil/core';
 import { InterfaceStackAttributes } from './sbb-stack.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-stack.default.scss',
-    shared: 'styles/sbb-stack.shared.scss'
+    shared: 'styles/sbb-stack.shared.scss',
   },
-  tag: 'sbb-stack'
+  tag: 'sbb-stack',
 })
-
 export class SbbStack {
-
   /** Stack appearance */
   @Prop() public appearance?: InterfaceStackAttributes['appearance'] = 'vertical';
 
@@ -24,7 +17,8 @@ export class SbbStack {
    * Collapse horizontal stack into vertical layout below a
    * certain breakpoint. This has only an effect for horizontal appearances.
    */
-  @Prop() public collapseHorizontalBelow?: InterfaceStackAttributes['collapseHorizontalBelow'];
+  @Prop()
+  public collapseHorizontalBelow?: InterfaceStackAttributes['collapseHorizontalBelow'];
 
   /**
    * Stack gap horizontal, defines the space between each stack items in the
@@ -79,7 +73,6 @@ export class SbbStack {
   @Prop() public tag?: InterfaceStackAttributes['tag'] = 'div';
 
   public render(): JSX.Element {
-
     let className = `stack stack--${this.appearance}`;
 
     if (this.collapseHorizontalBelow) {
@@ -103,37 +96,37 @@ export class SbbStack {
     if (this.gapHorizontal) {
       inlineStyles = {
         ...inlineStyles,
-        'column-gap': `calc(var(--spacing-${this.gapHorizontal}) / var(--typo-scale-default) * 1rem)`
+        'column-gap': `var(--sbb-spacing-${this.gapHorizontal})`,
       };
     }
     if (this.gapVertical) {
       inlineStyles = {
         ...inlineStyles,
-        'row-gap': `calc(var(--spacing-${this.gapVertical}) / var(--typo-scale-default) * 1rem)`
+        'row-gap': `var(--sbb-spacing-${this.gapVertical})`,
       };
     }
     if (this.spaceLeading) {
       inlineStyles = {
         ...inlineStyles,
-        'margin-block-start': `calc(var(--spacing-${this.spaceLeading}) / var(--typo-scale-default) * 1rem)`
+        'margin-block-start': `var(--sbb-spacing-${this.spaceLeading})`,
       };
     }
     if (this.spaceTrailing) {
       inlineStyles = {
         ...inlineStyles,
-        'margin-block-end': `calc(var(--spacing-${this.spaceTrailing}) / var(--typo-scale-default) * 1rem)`
+        'margin-block-end': `var(--sbb-spacing-${this.spaceTrailing})`,
       };
     }
     if (this.stackWidth) {
       inlineStyles = {
         ...inlineStyles,
-        width: `${this.stackWidth}`
+        width: `${this.stackWidth}`,
       };
     }
     if (this.stackHeight) {
       inlineStyles = {
         ...inlineStyles,
-        height: `${this.stackHeight}`
+        height: `${this.stackHeight}`,
       };
     }
 
@@ -141,13 +134,12 @@ export class SbbStack {
 
     const attrs = {
       class: className,
-      style: inlineStyles
+      style: inlineStyles,
     };
 
     return (
       <Host>
-        <TAGNAME {...attrs}
-        >
+        <TAGNAME {...attrs}>
           <slot />
         </TAGNAME>
       </Host>

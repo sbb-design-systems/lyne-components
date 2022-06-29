@@ -3,226 +3,250 @@ import events from './sbb-tab-group.events.ts';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <sbb-tab-group initial-selected-index='0' dir={args.dir}>
-
-    <h1>{args.labelTab1}<sbb-tab-amount>{args.amountSlotTab1}</sbb-tab-amount></h1>
+  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+    <h1>
+      {args.labelTab1}
+      <sbb-tab-amount>{args.amountSlotTab1}</sbb-tab-amount>
+    </h1>
     <div>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
-      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
       <h3>Content heading</h3>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
     </div>
 
-    <h2>{args.labelTab2}<sbb-tab-amount>{args.amountSlotTab2}</sbb-tab-amount></h2>
+    <h2>
+      {args.labelTab2}
+      <sbb-tab-amount>{args.amountSlotTab2}</sbb-tab-amount>
+    </h2>
     <section>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
     </section>
 
-    <h3 disabled={args.disabled}>{args.labelTab3}<sbb-tab-amount>{args.amountSlotTab3}</sbb-tab-amount></h3>
+    <h3 disabled={args.disabled}>
+      {args.labelTab3}
+      <sbb-tab-amount>{args.amountSlotTab3}</sbb-tab-amount>
+    </h3>
     <div>I was disabled.</div>
 
-    <h4>{args.labelTab4}<sbb-tab-amount>{args.amountSlotTab4}</sbb-tab-amount></h4>
+    <h4>
+      {args.labelTab4}
+      <sbb-tab-amount>{args.amountSlotTab4}</sbb-tab-amount>
+    </h4>
     <article>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
-      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
     </article>
-
   </sbb-tab-group>
 );
 
 const TemplateNested = (args) => (
-  <sbb-tab-group initial-selected-index='0' dir={args.dir}>
-
-    <h1>{args.labelTab1}<sbb-tab-amount>{args.amountSlotTab1}</sbb-tab-amount></h1>
+  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+    <h1>
+      {args.labelTab1}
+      <sbb-tab-amount>{args.amountSlotTab1}</sbb-tab-amount>
+    </h1>
     <div>
-      <sbb-tab-group initial-selected-index='1' dir={args.dir}>
+      <sbb-tab-group initial-selected-index="1" dir={args.dir}>
         <h1>Nested tab</h1>
         <div>
-          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-          adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
-          ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
+          faucibus turpis in eu mi bibendum neque egestas congue.
         </div>
 
         <h2>Nested tab</h2>
         <div>
-          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-          adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna.
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna.
         </div>
       </sbb-tab-group>
     </div>
 
-    <h2>{args.labelTab2}<sbb-tab-amount>{args.amountSlotTab2}</sbb-tab-amount></h2>
+    <h2>
+      {args.labelTab2}
+      <sbb-tab-amount>{args.amountSlotTab2}</sbb-tab-amount>
+    </h2>
     <div>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec.
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
     </div>
 
-    <h3 disabled={args.disabled}>{args.labelTab3}<sbb-tab-amount>{args.amountSlotTab3}</sbb-tab-amount></h3>
+    <h3 disabled={args.disabled}>
+      {args.labelTab3}
+      <sbb-tab-amount>{args.amountSlotTab3}</sbb-tab-amount>
+    </h3>
     <div>I was disabled.</div>
 
-    <h4>{args.labelTab4}<sbb-tab-amount>{args.amountSlotTab4}</sbb-tab-amount></h4>
+    <h4>
+      {args.labelTab4}
+      <sbb-tab-amount>{args.amountSlotTab4}</sbb-tab-amount>
+    </h4>
     <div>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam
-      adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec
-      ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
     </div>
-
   </sbb-tab-group>
 );
 
 const dir = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'unset',
-    'ltr',
-    'rtl'
-  ],
+  options: ['unset', 'ltr', 'rtl'],
   table: {
-    category: 'Tab group'
-  }
+    category: 'Tab group',
+  },
 };
 
 const labelTab1 = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Tab1'
-  }
+    category: 'Tab1',
+  },
 };
 const iconSlotTab1 = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'arrow-right-small',
     'arrow-down-small',
     'arrow-compass-small',
     'pie-small',
-    'qrcode-small'
+    'qrcode-small',
   ],
   table: {
-    category: 'Tab1'
-  }
+    category: 'Tab1',
+  },
 };
 const amountSlotTab1 = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Tab1'
-  }
+    category: 'Tab1',
+  },
 };
 
 const labelTab2 = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Tab2'
-  }
+    category: 'Tab2',
+  },
 };
 const iconSlotTab2 = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'arrow-right-small',
     'arrow-down-small',
     'arrow-compass-small',
     'pie-small',
-    'qrcode-small'
+    'qrcode-small',
   ],
   table: {
-    category: 'Tab2'
-  }
+    category: 'Tab2',
+  },
 };
 const amountSlotTab2 = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Tab2'
-  }
+    category: 'Tab2',
+  },
 };
 
 const labelTab3 = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Tab3'
-  }
+    category: 'Tab3',
+  },
 };
 const iconSlotTab3 = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'arrow-right-small',
     'arrow-down-small',
     'arrow-compass-small',
     'pie-small',
-    'qrcode-small'
+    'qrcode-small',
   ],
   table: {
-    category: 'Tab3'
-  }
+    category: 'Tab3',
+  },
 };
 const amountSlotTab3 = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Tab3'
-  }
+    category: 'Tab3',
+  },
 };
 
 const labelTab4 = {
   control: {
-    type: 'text'
+    type: 'text',
   },
   table: {
-    category: 'Tab4'
-  }
+    category: 'Tab4',
+  },
 };
 const iconSlotTab4 = {
   control: {
-    type: 'select'
+    type: 'select',
   },
   options: [
     'arrow-right-small',
     'arrow-down-small',
     'arrow-compass-small',
     'pie-small',
-    'qrcode-small'
+    'qrcode-small',
   ],
   table: {
-    category: 'Tab4'
-  }
+    category: 'Tab4',
+  },
 };
 const amountSlotTab4 = {
   control: {
-    type: 'number'
+    type: 'number',
   },
   table: {
-    category: 'Tab4'
-  }
+    category: 'Tab4',
+  },
 };
 
 const disabledArg = {
   control: {
-    type: 'boolean'
+    type: 'boolean',
   },
   table: {
-    category: 'Disabled Tab'
-  }
+    category: 'Disabled Tab',
+  },
 };
 
 /* eslint-disable sort-keys */
@@ -240,7 +264,7 @@ const basicArgTypes = {
   labelTab4,
   iconSlotTab4,
   amountSlotTab4,
-  disabled: disabledArg
+  disabled: disabledArg,
 };
 
 const basicArgs = {
@@ -257,7 +281,7 @@ const basicArgs = {
   labelTab4: 'Tab label four',
   iconSlotTab4: '',
   amountSlotTab4,
-  disabled: true
+  disabled: true,
 };
 
 export const defaultTabs = Template.bind({});
@@ -300,36 +324,36 @@ numbersAndIcons.args.iconSlotTab3 = iconSlotTab1.options[2];
 numbersAndIcons.args.iconSlotTab4 = iconSlotTab1.options[3];
 
 defaultTabs.documentation = {
-  title: 'Default Tabs'
+  title: 'Default Tabs',
 };
 numbers.documentation = {
-  title: 'Tabs with numbers'
+  title: 'Tabs with numbers',
 };
 icons.documentation = {
-  title: 'Tabs with icons'
+  title: 'Tabs with icons',
 };
 numbersAndIcons.documentation = {
-  title: 'Tabs with numbers and icons'
+  title: 'Tabs with numbers and icons',
 };
 
 export default {
   decorators: [
     (Story) => (
       <div style={'padding: 2rem'}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   parameters: {
     actions: {
-      handles: [events.selectedTabChanged]
+      handles: [events.selectedTabChanged],
     },
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/tabs/sbb-tab-group'
+  title: 'components/tabs/sbb-tab-group',
 };

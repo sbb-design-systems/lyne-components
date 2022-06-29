@@ -8,10 +8,10 @@
 }
 
 @mixin focusOutline {
-  outline-offset: pxToRem(var(--focus-outline-offset));
-  outline: var(--focus-outline-color) solid pxToRem(var(--focus-outline-width));
+  outline-offset: var(--sbb-focus-outline-offset);
+  outline: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
 
-  @include ifForcedColors() {
+  @include ifForcedColors {
     outline-color: Highlight;
   }
 }
@@ -29,5 +29,5 @@
 }
 
 @mixin scrollMarginBlockStart() {
-  scroll-margin-block-start: pxToRem(var(--spacing-fixed-10x));
+  scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
 }

@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
@@ -17,13 +13,11 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-link.default.scss',
-    shared: 'styles/sbb-link.shared.scss'
+    shared: 'styles/sbb-link.shared.scss',
   },
-  tag: 'sbb-link'
+  tag: 'sbb-link',
 })
-
 export class SbbLink {
-
   /**
    * If set to true, the browser will
    * show the download dialog on click.
@@ -38,6 +32,7 @@ export class SbbLink {
    * choose from the small icon variants from
    * the ui-icons category from here
    * https://lyne.sbb.ch/tokens/icons/.
+   * Inline variant doesn't support icons.
    */
   @Prop() public icon?: string;
 
@@ -66,17 +61,21 @@ export class SbbLink {
   /**
    * Text size, the link should get in the
    * non button variation.
+   * With inline variant, the text size adapts to where it is used.
    */
   @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
 
   /**
    * Choose the link style variant.
    */
-  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'positive';
+  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'block';
+
+  private get _inlineVariant(): boolean {
+    return this.variant === 'inline' || this.variant === 'inline-negative';
+  }
 
   public render(): JSX.Element {
-
-    const textSizeClass = ` link--text-${this.textSize}`;
+    const textSizeClass = this._inlineVariant ? '' : ` sbb-link--text-${this.textSize}`;
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
 
@@ -93,63 +92,61 @@ export class SbbLink {
     let iconPositionClass = '';
 
     if (this.icon) {
-      iconPositionClass = ` link--icon-placement-${this.iconPlacement}`;
+      iconPositionClass = ` sbb-link--icon-placement-${this.iconPlacement}`;
     }
 
     let iconFlipClass = '';
 
     if (this.icon && this.iconFlip) {
-      iconFlipClass = ' link--icon-flip';
+      iconFlipClass = ' sbb-link--icon-flip';
     }
 
-    const variantClass = ` link--${this.variant}`;
+    const variantClass = ` sbb-link--${this.variant}`;
 
     /**
      * Add additional attributes
      * ----------------------------------------------------------------
      */
-    let addtitionalLinkAttributes = {};
+    let additionalLinkAttributes = {};
     let ariaLabel = this.text;
 
     if (openInNewWindow) {
-      addtitionalLinkAttributes = {
+      additionalLinkAttributes = {
         rel: 'external noopener nofollow',
-        target: '_blank'
+        target: '_blank',
       };
       ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
     }
 
     if (this.idValue) {
-      addtitionalLinkAttributes = {
-        ...addtitionalLinkAttributes,
-        id: this.idValue
+      additionalLinkAttributes = {
+        ...additionalLinkAttributes,
+        id: this.idValue,
       };
     }
 
     return (
       <a
         aria-label={ariaLabel}
-        class={
-          `link
+        class={`sbb-link
           ${textSizeClass}
           ${iconPositionClass}
           ${iconFlipClass}
-          ${variantClass}`
-        }
+          ${variantClass}`}
         download={this.download}
         dir={currentWritingMode}
         href={this.hrefValue}
-        {...addtitionalLinkAttributes}
+        {...additionalLinkAttributes}
       >
+        {this.icon && !this._inlineVariant ? (
+          <span class="sbb-link__icon">
+            <slot name="icon" />
+          </span>
+        ) : (
+          ''
+        )}
 
-        {this.icon
-          ? <span class='link__icon'><slot name='icon'/></span>
-          : ''
-        }
-
-        <span class='link__text'>
-          {this.text}
-        </span>
+        <span class="sbb-link__text">{this.text}</span>
       </a>
     );
   }

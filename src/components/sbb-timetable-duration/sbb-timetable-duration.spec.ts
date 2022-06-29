@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-duration', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableDuration],
-      html: `<sbb-timetable-duration config='${config}' />`
+      html: `<sbb-timetable-duration config='${config}' />`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-duration
             config="{&quot;hours&quot;:0,&quot;minutes&quot;:37}"
         >
@@ -39,5 +36,4 @@ describe('sbb-timetable-duration', () => {
         </sbb-timetable-duration>
       `);
   });
-
 });

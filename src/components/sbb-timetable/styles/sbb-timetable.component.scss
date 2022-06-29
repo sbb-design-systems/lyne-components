@@ -11,10 +11,10 @@
   // contain: content;
   display: flex;
   flex-direction: column;
-  margin-block-start: pxToRem(var(--spacing-fixed-1x));
+  margin-block-start: var(--sbb-spacing-fixed-1x);
 }
 
 .timetable > svg,
 .timetable__column-headers {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }

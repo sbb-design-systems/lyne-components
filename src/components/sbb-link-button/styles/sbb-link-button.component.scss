@@ -18,12 +18,14 @@
 
 .link-button--secondary-negative {
   @include buttonSecondaryNegativeVariables;
+  @include buttonShadowDisabled;
 }
 
 .link-button {
-  @include button();
+  @include button;
+
   text-decoration: none;
-  fill: currentColor;
+  fill: currentcolor;
   width: fit-content;
 
   @include ifForcedColors {
@@ -39,22 +41,19 @@
 
 // If the the device can hover over elements with ease
 @include hover-mq($hover: true) {
-    .link-button:hover {
-      @include buttonHover;
-      &::before {
-        @include ifForcedColors {
-          border-color: LinkText;
-        }
+  .link-button:hover {
+    @include buttonHover;
+
+    &::before {
+      @include ifForcedColors {
+        border-color: LinkText;
       }
     }
   }
+}
 
 .link-button:active {
   @include buttonActive;
-}
-
-.link-button--secondary-negative {
-  @include buttonShadowDisabled;
 }
 
 .link-button__text,
@@ -74,6 +73,6 @@
   order: 2;
 }
 
-.link-button[dir="rtl"].link--icon-flip .link-button__icon {
+.link-button[dir='rtl'].link--icon-flip .link-button__icon {
   transform: scaleX(-1);
 }

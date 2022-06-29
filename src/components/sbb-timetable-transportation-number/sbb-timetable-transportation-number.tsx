@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 
 import icons from '../../global/icons/timetable.json';
 import { InterfaceTimetableTransportationNumberAttributes } from './sbb-timetable-transportation-number.custom';
@@ -11,18 +7,18 @@ import { InterfaceTimetableTransportationNumberAttributes } from './sbb-timetabl
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-timetable-transportation-number.default.scss',
-    shared: 'styles/sbb-timetable-transportation-number.shared.scss'
+    shared: 'styles/sbb-timetable-transportation-number.shared.scss',
   },
-  tag: 'sbb-timetable-transportation-number'
+  tag: 'sbb-timetable-transportation-number',
 })
-
 export class SbbTimetableTransportationNumber {
-
   /**
    * Set the desired appearance of
    * the component.
    */
-  @Prop() public appearance?: InterfaceTimetableTransportationNumberAttributes['appearance'] = 'first-level';
+  @Prop()
+  public appearance?: InterfaceTimetableTransportationNumberAttributes['appearance'] =
+    'first-level';
 
   /**
    * Stringified JSON which defines most of the
@@ -33,7 +29,6 @@ export class SbbTimetableTransportationNumber {
   @Prop() public config!: string;
 
   public render(): JSX.Element {
-
     const config = JSON.parse(this.config);
     const a11yLabel = `${config.meansOfTransport.text} ${config.product.text} ${config.marketingName} ${config.direction}`;
 
@@ -50,40 +45,27 @@ export class SbbTimetableTransportationNumber {
      */
 
     return (
-      <p
-        aria-label={a11yLabel}
-        class={`transportation-number${appearanceClasses}`}
-        role='text'
-      >
-        <span
-          aria-hidden='true'
-          class='transportation-number--visual'
-          role='presentation'
-        >
+      <p aria-label={a11yLabel} class={`transportation-number${appearanceClasses}`} role="text">
+        <span aria-hidden="true" class="transportation-number--visual" role="presentation">
           <span
-            class='transportation-number__means_of_transport'
+            class="transportation-number__means-of-transport"
             innerHTML={icons[config.meansOfTransport.picto]}
-          >
-          </span>
-          {config.product.icon
-            ? <span
-              class='transportation-number__product-icon'
+          ></span>
+          {config.product.icon ? (
+            <span
+              class="transportation-number__product-icon"
               innerHTML={icons[config.product.icon]}
-            >
-            </span>
-            : <span class='transportation-number__product-text'>
-              {config.product.text}
-            </span>
-          }
-          <span class='transportation-number__direction'>
-            <span class='transportation-number__direction_text'>
+            ></span>
+          ) : (
+            <span class="transportation-number__product-text">{config.product.text}</span>
+          )}
+          <span class="transportation-number__direction">
+            <span class="transportation-number__direction-text">
               {config.marketingName} {config.direction}
             </span>
           </span>
         </span>
-        <span class='transportation-number--visually-hidden'>
-          {a11yLabel}
-        </span>
+        <span class="transportation-number--visually-hidden">{a11yLabel}</span>
       </p>
     );
   }
