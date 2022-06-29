@@ -1,78 +1,60 @@
-@mixin image-aspect-ratio-4-3 {
-  aspect-ratio: 4 / 3;
-}
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available for shared
+// and default mode
+@include host-component-properties;
 
 :host {
-  --sbb-hover-scale: 1.02;
+  display: inline-block;
+
+  --teaser-scale-hover: 1.02;
+  --teaser-description-color: var(--sbb-color-metal-default);
+  --teaser-flex-direction: row;
+  --teaser-align-items: center;
+  --teaser-gap: var(--sbb-spacing-fixed-4x);
 }
 
-/* ************************************************* */
-/* Layout & spacing                                  */
-/* ************************************************* */
 .teaser {
-  border: none;
   text-decoration: none;
-  text-align: start;
 
-  &:hover {
-    ::slotted([slot='image']) {
-      @include shadow-level-9-hard;
-      transform: scale(var(--sbb-hover-scale));
-    }
+  &:focus-visible {
+    @include focusOutline;
   }
 }
 
+.teaser--primary-negative {
+  --teaser-description-color: var(--sbb-color-black-default);
+}
+
+.teaser--is-stacked {
+  --teaser-flex-direction: column;
+  --teaser-align-items: baseline;
+  --teaser-gap: var(--sbb-spacing-fixed-3x);
+}
+
 ::slotted([slot='image']) {
-  @include image-aspect-ratio-4-3;
   display: block;
   object-fit: cover;
   border-radius: var(--sbb-border-radius-4x);
   width: 100%;
   transition: var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  aspect-ratio: 4 / 3;
+
+  .teaser:hover & {
+    @include shadow-level-9-hard;
+
+    transform: scale(var(--teaser-scale-hover));
+  }
 }
 
 .teaser__inner {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
+  display: inline-flex;
+  flex-flow: var(--teaser-flex-direction) nowrap;
+  align-items: var(--teaser-align-items);
+  gap: var(--teaser-gap);
 }
 
-.teaser__wrapper {
+.teaser__image-wrapper {
   width: 100%;
-  margin-inline-end: var(--sbb-spacing-fixed-4x);
-  margin-block-end: 0;
-}
-
-// Layout switch
-
-.teaser__inner {
-  .teaser--is-stacked & {
-    flex-direction: column;
-    align-items: baseline;
-  }
-}
-
-.teaser__text {
-  .teaser--is-stacked & {
-    margin-inline-start: 0;
-  }
-}
-
-.teaser__wrapper {
-  .teaser--is-stacked & {
-    margin-inline-end: 0;
-    margin-block-end: var(--sbb-spacing-fixed-3x);
-  }
-}
-
-/* ************************************************* */
-/* Styling                                           */
-/* ************************************************* */
-
-.teaser__description {
-  .teaser--primary-negative & {
-    color: var(--sbb-color-black-default);
-  }
 }
 
 .teaser__lead {
@@ -80,12 +62,12 @@
 }
 
 .teaser__description {
-  @include text-s--regular();
+  @include text-s--regular;
   @include clampLines($lines: 2);
-  color: var(--sbb-color-metal-default);
+
+  color: var(--teaser-description-color);
 }
 
 ::slotted([slot='description']) {
-  margin-block-start: 0;
-  margin-block-end: 0;
+  margin-block: 0;
 }

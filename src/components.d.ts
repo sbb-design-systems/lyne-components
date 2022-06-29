@@ -647,33 +647,13 @@ export namespace Components {
          */
         "appearance"?: InterfaceTeaserAttributes['appearance'];
         /**
-          * The description attribute
-         */
-        "description": '';
-        /**
-          * The headline attribute
-         */
-        "headline": '';
-        /**
           * The href value you want to link to
          */
         "hrefValue": string;
         /**
-          * The image alt
-         */
-        "imgAlt": string;
-        /**
-          * The image src
-         */
-        "imgSrc": string;
-        /**
-          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image
+          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked": boolean;
-        /**
-          * We would use this Prop if the margin and the aspect-ratio of the sbb-image is customizable
-         */
-        "pictureSizesConfig"?: string;
     }
     interface SbbTeaserHero {
         /**
@@ -1927,33 +1907,13 @@ declare namespace LocalJSX {
          */
         "appearance"?: InterfaceTeaserAttributes['appearance'];
         /**
-          * The description attribute
-         */
-        "description"?: '';
-        /**
-          * The headline attribute
-         */
-        "headline"?: '';
-        /**
           * The href value you want to link to
          */
         "hrefValue": string;
         /**
-          * The image alt
-         */
-        "imgAlt"?: string;
-        /**
-          * The image src
-         */
-        "imgSrc"?: string;
-        /**
-          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image
+          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked"?: boolean;
-        /**
-          * We would use this Prop if the margin and the aspect-ratio of the sbb-image is customizable
-         */
-        "pictureSizesConfig"?: string;
     }
     interface SbbTeaserHero {
         /**

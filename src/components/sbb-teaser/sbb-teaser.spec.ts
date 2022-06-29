@@ -15,7 +15,7 @@ describe('sbb-teaser', () => {
            <a aria-label="Sbb teaser" class="teaser  teaser--is-stacked teaser--primary" href="https://github.com/lyne-design-system/lyne-components">
             <div class="teaser__content">
               <div class="teaser__inner">
-                <div class='teaser__wrapper'><slot name='image'/></div>
+                <div class='teaser__image-wrapper'><slot name='image'/></div>
                 <div class='teaser__text'>
                   <div class='teaser__lead'><slot name='headline'/></div>
                   <div class='teaser__description'><slot name='description'/></div>
@@ -41,7 +41,7 @@ describe('sbb-teaser', () => {
            <a aria-label="Sbb teaser" class="teaser teaser--primary" href="https://github.com/lyne-design-system/lyne-components">
             <div class="teaser__content">
               <div class="teaser__inner">
-                <div class='teaser__wrapper'><slot name='image'/></div>
+                <div class='teaser__image-wrapper'><slot name='image'/></div>
                 <div class='teaser__text'>
                   <div class='teaser__lead'><slot name='headline'/></div>
                   <div class='teaser__description'><slot name='description'/></div>

@@ -123,7 +123,7 @@ const SlotSbbTeaserLongDescriptionTemplate = (args) => (
 /* ************************************************* */
 
 const TemplateDefaultTeaser = (args) => (
-  <sbb-teaser {...args} style="display: inline-block">
+  <sbb-teaser {...args}>
     <SlotSbbTeaserImageTemplate {...sbbTeaserImageArgs} style="width:110px;" />
     <SlotSbbTeaserHeadlineTemplate {...sbbTeaserHeadlineArgs} />
     <SlotSbbTeaserDescriptionTemplate {...sbbTeaserDescriptionArgs} />
@@ -163,7 +163,7 @@ const TemplateTeaserList = (args) => (
   </ul>
 );
 
-const TemplateTeaserListisStacked = (args) => (
+const TemplateTeaserListIsStacked = (args) => (
   <ul style="display:grid; list-style: none; grid-template-columns: repeat(auto-fit, 20rem); gap: 2rem;">
     <li>
       <TemplateDefaultTeaser {...args} style="" />
@@ -189,7 +189,7 @@ export const defaultTeaser = TemplateDefaultTeaser.bind({});
 export const primaryNegative = TemplateNegativ.bind({});
 export const TeaserWithLongText = TemplateLongText.bind({});
 export const teaserList = TemplateTeaserList.bind({});
-export const teaserListisStacked = TemplateTeaserListisStacked.bind({});
+export const teaserListIsStacked = TemplateTeaserListIsStacked.bind({});
 
 defaultTeaser.argTypes = defaultArgTypes;
 defaultTeaser.args = {
@@ -215,8 +215,8 @@ teaserList.args = {
   isStacked: false,
 };
 
-teaserListisStacked.argTypes = defaultArgTypes;
-teaserListisStacked.args = {
+teaserListIsStacked.argTypes = defaultArgTypes;
+teaserListIsStacked.args = {
   ...defaultArgs,
 };
 

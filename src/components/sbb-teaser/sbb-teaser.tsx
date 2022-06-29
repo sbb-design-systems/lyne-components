@@ -55,30 +55,12 @@ export class SbbTeaser {
   /** The href value you want to link to */
   @Prop() public hrefValue!: string;
 
-  /** The image src */
-  @Prop() public imgSrc: string;
-
-  /** The image alt */
-  @Prop() public imgAlt: string;
-
-  /** The headline attribute */
-  @Prop() public headline: '';
-
-  /** The description attribute*/
-  @Prop() public description: '';
-
   /**
    * Teaser variant -
    * when this is true the text-content will be under the image
-   * otherwise it will be displayed next to the image
+   * otherwise it will be displayed next to the image.
    */
   @Prop() public isStacked: boolean;
-
-  /**
-   * We would use this Prop if the margin and the aspect-ratio
-   * of the sbb-image is customizable
-   */
-  @Prop() public pictureSizesConfig?: string;
 
   public componentWillLoad(): void {
     // Validate props
@@ -86,17 +68,6 @@ export class SbbTeaser {
   }
 
   public render(): JSX.Element {
-    /**
-     * Add generic additional attributes
-     * ----------------------------------------------------------------
-     */
-    const additionalTeaserAttributes = {
-      alt: this.imgAlt,
-      description: this.description,
-      headline: this.headline,
-      src: this.imgSrc,
-    };
-
     const ariaLabel = this.accessibilityLabel;
 
     return (
@@ -106,23 +77,22 @@ export class SbbTeaser {
           this.isStacked === true ? 'teaser--is-stacked' : ''
         }`}
         href={this.hrefValue}
-        {...additionalTeaserAttributes}
       >
-        <div class="teaser__content">
-          <div class="teaser__inner">
-            <div class="teaser__wrapper">
+        <span class="teaser__content">
+          <span class="teaser__inner">
+            <span class="teaser__image-wrapper">
               <slot name="image" />
-            </div>
-            <div class="teaser__text">
-              <div class="teaser__lead">
+            </span>
+            <span class="teaser__text">
+              <span class="teaser__lead">
                 <slot name="headline" />
-              </div>
-              <div class="teaser__description">
+              </span>
+              <span class="teaser__description">
                 <slot name="description" />
-              </div>
-            </div>
-          </div>
-        </div>
+              </span>
+            </span>
+          </span>
+        </span>
       </a>
     );
   }
