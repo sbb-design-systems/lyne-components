@@ -84,7 +84,7 @@ export class SbbTimetableCusHim {
           role="text"
           title={cusHimItem.text}
         ></span>
-        <span class={`cus-him--${appearanceClass}__text`}>{cusHimItem.text}</span>
+        <span class={`cus-him__text--${appearanceClass}`}>{cusHimItem.text}</span>
       </p>
     );
   }

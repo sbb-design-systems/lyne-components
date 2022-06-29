@@ -10,38 +10,35 @@
   --font-family: 'SBBWeb Light';
   --letter-spacing: 0.01em;
   --line-height: 1.3;
-  --font-size: #{pxToRemBuild(24)};
-
-  --panel-width: #{pxToRemBuild(223)};
-  --panel-height: #{pxToRemBuild(167)};
+  --font-size: #{px-to-rem-build(24)};
+  --panel-width: #{px-to-rem-build(223)};
+  --panel-height: #{px-to-rem-build(167)};
   --button-margin: var(--sbb-spacing-responsive-xs-small);
   --panel-padding-inline: var(--sbb-spacing-responsive-m-small);
   --panel-padding-block: var(--sbb-spacing-responsive-s-small);
-  --triangle-height: #{pxToRemBuild(33)};
+  --triangle-height: #{px-to-rem-build(33)};
 
   @include mq($from: medium) {
     // TODO: missing design tokens
-    --font-size: #{pxToRemBuild(32)};
+    --font-size: #{px-to-rem-build(32)};
     --line-height: 1.3;
-
-    --panel-width: #{pxToRemBuild(321)};
-    --panel-height: #{pxToRemBuild(240.11)};
+    --panel-width: #{px-to-rem-build(321)};
+    --panel-height: #{px-to-rem-build(240.11)};
     --button-margin: var(--sbb-spacing-responsive-xs-medium);
     --panel-padding-inline: var(--sbb-spacing-responsive-m-medium);
     --panel-padding-block: var(--sbb-spacing-responsive-s-medium);
-    --triangle-height: #{pxToRemBuild(47.45)};
+    --triangle-height: #{px-to-rem-build(47.45)};
   }
 
   @include mq($from: wide) {
     // TODO: missing design tokens
-    --font-size: #{pxToRemBuild(40)};
+    --font-size: #{px-to-rem-build(40)};
     --line-height: 1.2;
-
-    --panel-width: #{pxToRemBuild(428)};
-    --panel-height: #{pxToRemBuild(320.38)};
+    --panel-width: #{px-to-rem-build(428)};
+    --panel-height: #{px-to-rem-build(320.38)};
     --panel-padding-inline: var(--sbb-spacing-responsive-m-wide);
     --panel-padding-block: var(--sbb-spacing-responsive-s-wide);
-    --triangle-height: #{pxToRemBuild(63.31)};
+    --triangle-height: #{px-to-rem-build(63.31)};
   }
 
   --background-color: var(--sbb-color-red-default);
@@ -66,12 +63,12 @@
   background-color: var(--background-color);
 
   @include ifForcedColors {
-    border: #{pxToRemBuild(1)} solid CanvasText;
+    border: #{px-to-rem-build(1)} solid CanvasText;
   }
 }
 
-.panel:before,
-.panel:after {
+.panel::before,
+.panel::after {
   content: '';
   position: absolute;
   left: 0;
@@ -85,12 +82,12 @@
   }
 }
 
-.panel:before {
+.panel::before {
   top: calc(-1 * var(--triangle-height));
   border-block-end: var(--triangle-height) solid var(--background-color);
 }
 
-.panel:after {
+.panel::after {
   bottom: calc(-1 * var(--triangle-height));
   border-block-start: var(--triangle-height) solid var(--background-color);
 }

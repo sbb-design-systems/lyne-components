@@ -18,7 +18,7 @@
   --border-radius-end-end: 0;
   --color-background-hover: var(--sbb-color-white-default);
 
-  @include ifForcedColors() {
+  @include ifForcedColors {
     --item-margin-block: var(--sbb-spacing-fixed-1x);
     --body-padding-inline: var(--sbb-spacing-fixed-6x);
     --header-padding-inline: var(--sbb-spacing-fixed-6x);
@@ -39,6 +39,7 @@
   --color-background-hover: var(--sbb-color-white-alpha-60);
 }
 
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
 ::slotted(sbb-accordion-item:not(:first-child)) {
   margin-block-start: var(--item-margin-block);
 }

@@ -10,7 +10,7 @@
 
 html,
 :host {
-  @include text();
+  @include text;
 }
 
 body,

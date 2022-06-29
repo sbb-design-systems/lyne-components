@@ -11,7 +11,7 @@
   }
 }
 
-@mixin page-spacing--ultra-plus__inner() {
+@mixin page-spacing__inner--ultra-plus() {
   @include mq($from: ultra) {
     width: $sbb-breakpoint-ultra-min;
     margin-inline-start: auto;
@@ -152,7 +152,7 @@
 //   --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
 // }
 
-// @mixin card--m--tall {
+// @mixin card--m-tall {
 //   @include spacing-responsive-xxs('--card-padding-right');
 //   @include spacing-responsive-xxs('--card-padding-left');
 //   --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
@@ -166,7 +166,7 @@
 //   @include spacing-responsive-xxs('--card-padding-left');
 // }
 
-// @mixin card--l--tall  {
+// @mixin card--l-tall  {
 //   @include spacing-responsive-xxs('--card-padding-right');
 //   @include spacing-responsive-xxs('--card-padding-bottom');
 //   @include spacing-responsive-xxs('--card-padding-left');
@@ -180,7 +180,7 @@
 //   @include spacing-responsive-s('--card-padding-left');
 // }
 
-// @mixin card--xl--tall {
+// @mixin card--xl-tall {
 //   @include spacing-responsive-s('--card-padding-right');
 //   @include spacing-responsive-xxs('--card-padding-bottom');
 //   @include spacing-responsive-s('--card-padding-left');
@@ -194,7 +194,7 @@
 //   @include spacing-responsive-s('--card-padding-left');
 // }
 
-// @mixin card--xxl--tall {
+// @mixin card--xxl-tall {
 //   @include card--xxl;
 //   // @include spacing-responsive-s('--card-padding-top');
 //   // @include spacing-responsive-s('--card-padding-right');

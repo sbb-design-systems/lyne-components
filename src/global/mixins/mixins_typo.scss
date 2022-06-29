@@ -11,33 +11,39 @@
 }
 
 @mixin title-1 {
-  @include title();
+  @include title;
+
   font-size: var(--sbb-font-size-title-1);
 }
 
 @mixin title-2 {
-  @include title();
+  @include title;
+
   font-size: var(--sbb-font-size-title-2);
 }
 
 @mixin title-3 {
-  @include title();
+  @include title;
+
   font-size: var(--sbb-font-size-title-3);
 }
 
 @mixin title-4 {
-  @include title();
+  @include title;
+
   font-size: var(--sbb-font-size-title-4);
 }
 
 @mixin title-5 {
-  @include title();
+  @include title;
+
   font-size: var(--sbb-font-size-title-5);
   line-height: var(--sbb-typo-line-height-body-text);
 }
 
 @mixin title-6 {
-  @include title();
+  @include title;
+
   font-size: var(--sbb-font-size-title-6);
   line-height: var(--sbb-typo-line-height-body-text);
 }
@@ -61,53 +67,58 @@
 }
 
 @mixin text-xl--regular {
-  @include text();
+  @include text;
+
   font-size: var(--sbb-font-size-text-xl);
 }
 
 @mixin text-xl--bold {
-  @include text-xl--regular();
-  @include text--bold();
+  @include text-xl--regular;
+  @include text--bold;
 }
 
 @mixin text-m--regular {
-  @include text();
+  @include text;
+
   font-size: var(--sbb-font-size-text-m);
 }
 
 @mixin text-m--bold {
-  @include text-m--regular();
-  @include text--bold();
+  @include text-m--regular;
+  @include text--bold;
 }
 
 @mixin text-s--regular {
-  @include text();
+  @include text;
+
   font-size: var(--sbb-font-size-text-s);
 }
 
 @mixin text-s--bold {
-  @include text-s--regular();
-  @include text--bold();
+  @include text-s--regular;
+  @include text--bold;
 }
 
 @mixin text-xs--regular {
-  @include text();
+  @include text;
+
   font-size: var(--sbb-font-size-text-xs);
 }
 
 @mixin text-xs--bold {
-  @include text-xs--regular();
-  @include text--bold();
+  @include text-xs--regular;
+  @include text--bold;
 }
 
 @mixin text-xxs--regular {
-  @include text();
+  @include text;
+
   font-size: var(--sbb-font-size-text-xxs);
 }
 
 @mixin text-xxs--bold {
-  @include text-xxs--regular();
-  @include text--bold();
+  @include text-xxs--regular;
+  @include text--bold;
 }
 
 @mixin text-inherit {
@@ -121,6 +132,7 @@
 // ----------------------------------------------------------------------------------------------------
 // Typo: Font Smoothing Mixins
 // ----------------------------------------------------------------------------------------------------
+
 /**
  * Better font rendering (on OS X)
  * http://maximilianhoffmann.com/posts/better-font-rendering-on-osx

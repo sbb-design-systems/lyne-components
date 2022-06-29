@@ -422,7 +422,7 @@
 - re-working timetable details and adding lyne-timetable-transportation time module ([7e474db](https://github.com/lyne-design-system/lyne-components/commit/7e474db17314cd96e9500f06074d705eef86baa5))
 - re-working timetable rows to slots ([7620e76](https://github.com/lyne-design-system/lyne-components/commit/7620e7660745fb7531b9f8d8232b126815d184dd))
 - re-working timetable to be able to use svgsprites ([2823e18](https://github.com/lyne-design-system/lyne-components/commit/2823e18517f3bcb3f444ce0031a5fbb1efd4eb25))
-- removing ellipsis behaviour for 2nd level number\_\_direction_text ([885981d](https://github.com/lyne-design-system/lyne-components/commit/885981dc14cec507b367493c299e28ff94b82064))
+- removing ellipsis behaviour for 2nd level number\_\_direction-text ([885981d](https://github.com/lyne-design-system/lyne-components/commit/885981dc14cec507b367493c299e28ff94b82064))
 - reworking multiple things ([1d2314a](https://github.com/lyne-design-system/lyne-components/commit/1d2314a9ec583266b4e5cc2f67b149ed72455280))
 - stitching individual parts together, wip state just to be save ([92d2569](https://github.com/lyne-design-system/lyne-components/commit/92d25696cb1464d36ac82e2d8108f3f683be5e90))
 - working on basic test and small improvements ([f72db4b](https://github.com/lyne-design-system/lyne-components/commit/f72db4be7b88a08852c67e232b83163e111e75a7))

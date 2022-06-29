@@ -2,13 +2,15 @@
   padding-block-start: var(--sbb-spacing-fixed-2x);
   padding-block-end: var(--sbb-spacing-fixed-1x);
 }
+
 .day-change__text {
-  @include text-xs--regular();
+  @include text-xs--regular;
+
   margin: 0;
   color: var(--sbb-color-smoke-default);
 }
 
 .day-change--visually-hidden,
 .day-change__text--visually-hidden {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }

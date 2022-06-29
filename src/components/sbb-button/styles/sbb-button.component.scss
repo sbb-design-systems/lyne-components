@@ -5,7 +5,15 @@
 
 :host {
   display: inline-block;
-  @include buttonVariables();
+  @include buttonVariables;
+}
+
+:host ::slotted(svg) {
+  fill: currentcolor;
+
+  @include ifForcedColors {
+    fill: ButtonText;
+  }
 }
 
 .button--primary-negative {
@@ -85,7 +93,7 @@
 }
 
 .button {
-  @include button();
+  @include button;
 }
 
 .button--primary:not(:disabled),
@@ -108,6 +116,7 @@
 
   &.button:disabled::after {
     inset-inline: unset;
+
     // Width of line through is fixed in icon variant
     width: var(--icon-size);
   }
@@ -126,6 +135,7 @@
   &::after {
     content: '';
     @include absoluteCenterY;
+
     background-color: var(--color-disabled-text);
     height: var(--line-through-height-disabled);
     inset-inline: var(--padding-inline);
@@ -176,12 +186,4 @@
 
 .button__icon-description {
   @include screenReaderOnly;
-}
-
-:host ::slotted(svg) {
-  fill: currentColor;
-
-  @include ifForcedColors {
-    fill: ButtonText;
-  }
 }

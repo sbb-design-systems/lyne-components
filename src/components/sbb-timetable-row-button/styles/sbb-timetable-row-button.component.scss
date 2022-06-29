@@ -11,9 +11,10 @@
 }
 
 button {
-  @include card();
-  @include card--primary-negative();
-  @include card--m();
+  @include card;
+  @include card--primary-negative;
+  @include card--m;
+
   width: 100%;
   min-height: 100%;
   border: 0;
