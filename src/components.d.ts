@@ -1878,7 +1878,7 @@ declare namespace LocalJSX {
         /**
           * On selected tab change
          */
-        "onSbb-tab-group_tab-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
+        "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
     }
     interface SbbTeaserHero {
         /**

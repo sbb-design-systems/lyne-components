@@ -3,5 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  selectedTabChanged: 'sbb-tab-group_tab-change',
+  selectedTabChanged: 'sbb-tab-group_did-change',
 };

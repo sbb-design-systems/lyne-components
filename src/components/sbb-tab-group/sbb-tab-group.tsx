@@ -48,7 +48,7 @@ export class SbbTabGroup {
    * On selected tab change
    */
   @Event({
-    eventName: 'sbb-tab-group_tab-change',
+    eventName: 'sbb-tab-group_did-change',
   })
   public selectedTabChanged: EventEmitter<void>;
 

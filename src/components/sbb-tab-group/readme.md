@@ -47,7 +47,7 @@ Tab groups can be nested (e.g. a tab's related content can contain another tab g
 
 | Event                      | Description            | Type                |
 | -------------------------- | ---------------------- | ------------------- |
-| `sbb-tab-group_tab-change` | On selected tab change | `CustomEvent<void>` |
+| `sbb-tab-group_did-change` | On selected tab change | `CustomEvent<void>` |
 
 
 ## Methods

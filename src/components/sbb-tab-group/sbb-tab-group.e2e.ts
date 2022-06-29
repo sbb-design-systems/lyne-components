@@ -51,7 +51,7 @@ describe('sbb-tab-group', () => {
 
     it('dispatches event on tab change', async () => {
       const tab = await page.find('sbb-tab-group > h1');
-      const changeSpy = await page.spyOnEvent('sbb-tab-group_tab-change');
+      const changeSpy = await page.spyOnEvent('sbb-tab-group_did-change');
 
       await tab.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
