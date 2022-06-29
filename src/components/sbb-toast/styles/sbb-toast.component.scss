@@ -38,7 +38,7 @@
   padding-block: var(--toast-padding-block);
   padding-inline: var(--toast-padding-inline);
   margin: var(--toast-margin) 0;
-  width: calc(100% - (2 * var(--spacing-responsive-s-zero)));
+  width: calc(100% - (2 * var(--sbb-spacing-responsive-s-zero)));
 
   @include mq($from: small) {
     width: var(--toast-max-width);

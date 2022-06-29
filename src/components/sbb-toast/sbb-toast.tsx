@@ -266,16 +266,14 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
     switch (this._internalConfig.action.type) {
       case 'link': {
         return (
-          <a
+          <sbb-link
             class="toast-link sbb-focusable"
-            href={this._internalConfig.action.href}
-            target="_blank"
-            rel="noreferrer"
+            hrefValue={this._internalConfig.action.href}
+            variant="inline-negative"
+            text={this._internalConfig.action.label}
             role={this._internalConfig.action.role}
             onClick={this.dismiss.bind(this, null, 'link')}
-          >
-            {this._internalConfig.action.label}
-          </a>
+          />
         );
       }
       case 'action': {

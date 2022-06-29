@@ -94,9 +94,7 @@ describe('sbb-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <a class="sbb-focusable toast-link" href="https://www.sbb.ch" rel="noreferrer" target="_blank">
-                    Link
-                  </a>
+                  <sbb-link class="sbb-focusable toast-link" hrefvalue="https://www.sbb.ch" text="Link" variant="inline-negative"></sbb-link>
                 </span>
               </div>
             </div>
@@ -282,9 +280,7 @@ describe('sbb-toast', () => {
                   </span>
                   <span class="toast-spacer"></span>
                   <span class="toast-action">
-                     <a class="sbb-focusable toast-link" href="https://www.sbb.ch" rel="noreferrer" target="_blank">
-                      Link
-                    </a>
+                     <sbb-link class="sbb-focusable toast-link" hrefvalue="https://www.sbb.ch" text="Link" variant="inline-negative"></sbb-link>
                   </span>
                 </div>
               </div>

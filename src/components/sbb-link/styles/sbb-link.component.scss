@@ -22,7 +22,8 @@
   gap: var(--sbb-spacing-fixed-1x);
   color: var(--text-color-normal);
   text-decoration: none;
-  word-break: break-word;
+
+  // word-break: break-word; // FIXME
   fill: currentcolor;
 
   &:focus-visible {

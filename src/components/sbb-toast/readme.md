@@ -112,6 +112,19 @@ Type: `Promise<void>`
 
 
 
+## Dependencies
+
+### Depends on
+
+- [sbb-link](../sbb-link)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-toast --> sbb-link
+  style sbb-toast fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

@@ -25,6 +25,19 @@
 | `"icon"` | Slot used to display the icon, if one is set |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-toast](../sbb-toast)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-toast --> sbb-link
+  style sbb-link fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 
