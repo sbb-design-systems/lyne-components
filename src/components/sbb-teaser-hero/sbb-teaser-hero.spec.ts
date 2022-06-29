@@ -5,11 +5,10 @@ describe('sbb-teaser-hero', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-title="sbb teaser" link="https://www.sbb.ch" new-window-info-text="Link öffnet in neuem Fenster." open-in-new-window="true"></sbb-teaser-hero>'
+      html: '<sbb-teaser-hero accessibility-title="sbb teaser" link="https://www.sbb.ch" new-window-info-text="Link öffnet in neuem Fenster." open-in-new-window="true"></sbb-teaser-hero>',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
       <sbb-teaser-hero accessibility-title="sbb teaser" link="https://www.sbb.ch" new-window-info-text="Link öffnet in neuem Fenster." open-in-new-window="true">
           <mock:shadow-root>
             <a class="teaser-hero" aria-label="sbb teaser" href="https://www.sbb.ch" rel="external noopener nofollow" target="_blank">

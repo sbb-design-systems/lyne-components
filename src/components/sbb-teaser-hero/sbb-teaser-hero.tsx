@@ -1,9 +1,4 @@
-import {
-  Component,
-  h,
-  Prop,
-  Watch
-} from '@stencil/core';
+import { Component, h, Prop, Watch } from '@stencil/core';
 // import tokens from 'sbb-design-tokens/dist/js/tokens.json';
 
 /**
@@ -18,7 +13,6 @@ import {
   tag: 'sbb-teaser-hero',
 })
 export class SbbTeaserHero {
-
   /**
    * Link for the hero teaser.
    */
@@ -47,7 +41,9 @@ export class SbbTeaserHero {
   @Watch('accessibilityTitle')
   validateAccessibilityTitle(newValue: string) {
     const isBlank = typeof newValue !== 'string' || newValue === '';
-    if (isBlank) { throw new Error('accessibilityTitle: required') }
+    if (isBlank) {
+      throw new Error('accessibilityTitle: required');
+    }
   }
 
   public componentWillLoad(): void {
@@ -60,9 +56,8 @@ export class SbbTeaserHero {
    */
 
   public render(): JSX.Element {
-
     const linkAttributes = {};
-    const ariaLabel = this.accessibilityTitle
+    const ariaLabel = this.accessibilityTitle;
 
     if (this.openInNewWindow) {
       linkAttributes['rel'] = 'external noopener nofollow';
@@ -70,22 +65,18 @@ export class SbbTeaserHero {
     }
 
     return (
-      <a
-        class='teaser-hero'
-        href={this.link}
-        aria-label={ariaLabel}
-        {...linkAttributes}
-      >
-        <sbb-title level='1' visually-hidden='true' text={ariaLabel} />
-        <div class='teaser-hero__panel'>
-          <slot name='panel'/>
+      <a class="teaser-hero" href={this.link} aria-label={ariaLabel} {...linkAttributes}>
+        <sbb-title level="1" visually-hidden="true" text={ariaLabel} />
+        <div class="teaser-hero__panel">
+          <slot name="panel" />
         </div>
-        <slot name='image'/>
+        <slot name="image" />
 
-        {this.openInNewWindow && this.newWindowInfoText
-          ? <span class='teaser-hero__link-info-text'>{this.newWindowInfoText}</span>
-          : ''
-        }
+        {this.openInNewWindow && this.newWindowInfoText ? (
+          <span class="teaser-hero__link-info-text">{this.newWindowInfoText}</span>
+        ) : (
+          ''
+        )}
       </a>
     );
   }

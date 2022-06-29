@@ -23,7 +23,7 @@
   }
 
   &:hover {
-    ::slotted( [slot="panel"] ) {
+    ::slotted([slot='panel']) {
       opacity: 1;
     }
   }
@@ -33,12 +33,11 @@
   @include screenReaderOnly;
 }
 
-
 .teaser-hero__panel {
-  @include  absoluteCenterY();
+  @include absoluteCenterY();
 }
 
-::slotted( [slot="image"] ) {
+::slotted([slot='image']) {
   @include image-aspect-ratio-1-1;
   display: block;
   object-fit: cover;

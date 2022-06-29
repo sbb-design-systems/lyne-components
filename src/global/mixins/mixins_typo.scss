@@ -68,7 +68,7 @@
 
 @mixin text-xxl--regular {
   @include text();
-  font-size: pxToRem(var(--lyne-font-size-text-xxl));
+  font-size: var(--sbb-font-size-text-xxl);
 }
 
 @mixin text-xl--regular {

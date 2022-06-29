@@ -5,11 +5,10 @@ describe('lyne-panel', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbPanel],
-      html: '<sbb-panel />'
+      html: '<sbb-panel />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-panel>
           <mock:shadow-root>
             <div class="panel">

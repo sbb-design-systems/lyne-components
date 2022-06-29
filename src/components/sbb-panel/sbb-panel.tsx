@@ -11,7 +11,6 @@ import { InterfacePanelAttributes } from './sbb-panel.custom';
  * @slot text - to render the text
  * @slot link- to render the link
  */
-
 export class SbbPanel {
   /** The text to show in the panel */
   @Prop() public text!: string;
@@ -27,9 +26,13 @@ export class SbbPanel {
 
   public render(): JSX.Element {
     return (
-      <div class='panel'>
-        <div class='panel__text'><slot name='text'/></div>
-        <div class='panel__link'><slot name='link'/></div>
+      <div class="panel">
+        <div class="panel__text">
+          <slot name="text" />
+        </div>
+        <div class="panel__link">
+          <slot name="link" />
+        </div>
       </div>
     );
   }
