@@ -20,5 +20,3 @@ If you think you have identified a vulnerability or security related issue withi
 - Include **anyone else** on the disclosure email
 
 When reporting an issue, include as much information as possible — necessary. Just tell us what you found, how to reproduce it, and any concerns you have about it. We will respond as soon as possible and follow up with any missing information.
-
-Besides providing your insights via email you can also report the vulnerability / security issue through our [bug bounty program](https://hackerone.com/sbb-cff-ffs).
