@@ -34,11 +34,12 @@
 }
 
 .teaser-hero__panel {
-  @include absoluteCenterY();
+  @include absoluteCenterY;
 }
 
 ::slotted([slot='image']) {
   @include image-aspect-ratio-1-1;
+
   display: block;
   object-fit: cover;
   width: 100%;

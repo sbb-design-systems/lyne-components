@@ -84,7 +84,8 @@
 }
 
 ::slotted([slot='text']) {
-  @include text-xxl--regular();
+  @include text-xxl--regular;
+
   color: var(--sbb-color-white-default);
   margin-block-start: 0;
   margin-block-end: var(--text-margin-block-end);

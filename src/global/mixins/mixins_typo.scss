@@ -67,7 +67,8 @@
 }
 
 @mixin text-xxl--regular {
-  @include text();
+  @include text;
+
   font-size: var(--sbb-font-size-text-xxl);
 }
 
