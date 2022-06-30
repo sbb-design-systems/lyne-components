@@ -5,15 +5,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-button', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<sbb-button label="Label" variant="secondary-negative" icon="true">${lyneIcons.icons['arrow-right-small']}</sbb-button>`
+      html: `<sbb-button label="Label" variant="secondary-negative" icon="true">${lyneIcons.icons['arrow-right-small']}</sbb-button>`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-button icon="true" label="Label" variant="secondary-negative">
           <mock:shadow-root>
             <button class="button button--size-l button--secondary-negative" type="button">
@@ -34,13 +31,11 @@ describe('sbb-button', () => {
     const page = await newSpecPage({
       components: [SbbButton],
       html: '<sbb-button label="I am a button"></sbb-button>',
-      supportsShadowDom: true
+      supportsShadowDom: true,
     });
 
     const {
-      root: {
-        shadowRoot
-      }
+      root: { shadowRoot },
     } = page;
 
     const button = shadowRoot.querySelector('button');
@@ -49,10 +44,8 @@ describe('sbb-button', () => {
     page.win.addEventListener(events.click, buttonSpy);
     button.click();
     await page.waitForChanges();
-    expect(buttonSpy)
-      .toHaveBeenCalled();
-    expect(buttonSpy.mock.calls[0][0].detail)
-      .toEqual(undefined);
+    expect(buttonSpy).toHaveBeenCalled();
+    expect(buttonSpy.mock.calls[0][0].detail).toEqual(undefined);
   });
 
   it('Should emit click event on click with correct payload', async () => {
@@ -60,13 +53,11 @@ describe('sbb-button', () => {
     const page = await newSpecPage({
       components: [SbbButton],
       html: `<sbb-button label="I am a button" event-id="${eventId}"></sbb-button>`,
-      supportsShadowDom: true
+      supportsShadowDom: true,
     });
 
     const {
-      root: {
-        shadowRoot
-      }
+      root: { shadowRoot },
     } = page;
 
     const button = shadowRoot.querySelector('button');
@@ -75,9 +66,7 @@ describe('sbb-button', () => {
     page.win.addEventListener(events.click, buttonSpy);
     button.click();
     await page.waitForChanges();
-    expect(buttonSpy)
-      .toHaveBeenCalled();
-    expect(buttonSpy.mock.calls[0][0].detail)
-      .toEqual(eventId);
+    expect(buttonSpy).toHaveBeenCalled();
+    expect(buttonSpy.mock.calls[0][0].detail).toEqual(eventId);
   });
 });

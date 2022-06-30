@@ -4,8 +4,8 @@
 @include host-component-properties;
 
 :host {
-  --_icon-spacing-inset: var(--spacing-fixed-1x);
-  --_title-text-color-normal: var(--title-text-color-normal, var(--color-charcoal-default));
+  --_icon-spacing-inset: var(--sbb-spacing-fixed-1x);
+  --_title-text-color-normal: var(--title-text-color-normal, var(--sbb-color-charcoal-default));
 }
 
 .journey-header[id] {
@@ -23,7 +23,7 @@
   color: var(--_title-text-color-normal);
 
   // Right to left expression
-  &[dir="rtl"] {
+  &[dir='rtl'] {
     .journey-header__icon {
       transform: rotate(-180deg);
     }
@@ -46,12 +46,13 @@
   @include screenReaderOnly();
 }
 
-.connection--visual  {}
+.connection--visual {
+}
 
 .icon {
   display: flex;
   align-items: center;
-  padding-inline: pxToRem(var(--_icon-spacing-inset));
+  padding-inline: var(--_icon-spacing-inset);
 
   svg {
     fill: currentColor;

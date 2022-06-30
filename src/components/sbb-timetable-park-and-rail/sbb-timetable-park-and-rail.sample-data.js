@@ -1,6 +1,6 @@
 export default [
   {
-    distance: 178
+    distance: 178,
   },
-  {}
+  {},
 ];

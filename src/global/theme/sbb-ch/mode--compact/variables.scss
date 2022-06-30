@@ -2,39 +2,39 @@
   // Spacing
   // ...
   // Typo
-  --lyne-font-size-title-1: var(--typo-scale-2x);
-  --lyne-font-size-title-2: var(--typo-scale-1-5x);
-  --lyne-font-size-title-3: var(--typo-scale-1-25x);
-  --lyne-font-size-title-4: var(--typo-scale-1-125x);
-  --lyne-font-size-title-5: var(--typo-scale-default);
-  --lyne-font-size-title-6: var(--typo-scale-0-875x);
-  --lyne-font-size-text-xl: var(--typo-scale-1-125x);
-  --lyne-font-size-text-m: var(--typo-scale-default);
-  --lyne-font-size-text-s: var(--typo-scale-0-875x);
-  --lyne-font-size-text-xs: var(--typo-scale-0-75x);
+  --lyne-font-size-title-1: var(--sbb-typo-scale-2x);
+  --lyne-font-size-title-2: var(--sbb-typo-scale-1-5x);
+  --lyne-font-size-title-3: var(--sbb-typo-scale-1-25x);
+  --lyne-font-size-title-4: var(--sbb-typo-scale-1-125x);
+  --lyne-font-size-title-5: var(--sbb-typo-scale-default);
+  --lyne-font-size-title-6: var(--sbb-typo-scale-0-875x);
+  --lyne-font-size-text-xl: var(--sbb-typo-scale-1-125x);
+  --lyne-font-size-text-m: var(--sbb-typo-scale-default);
+  --lyne-font-size-text-s: var(--sbb-typo-scale-0-875x);
+  --lyne-font-size-text-xs: var(--sbb-typo-scale-0-75x);
 
   @include mq($from: small) {
-    --lyne-font-size-title-1: var(--typo-scale-2-5x);
+    --lyne-font-size-title-1: var(--sbb-typo-scale-2-5x);
   }
 
   @include mq($from: medium) {
-    --lyne-font-size-title-2: var(--typo-scale-1-5x);
-    --lyne-font-size-title-3: var(--typo-scale-1-25x);
-    --lyne-font-size-title-4: var(--typo-scale-1-125x);
-    --lyne-font-size-title-5: var(--typo-scale-default);
-    --lyne-font-size-title-6: var(--typo-scale-0-875x);
-    --lyne-font-size-text-xl: var(--typo-scale-1-125x);
-    --lyne-font-size-text-m: var(--typo-scale-default);
-    --lyne-font-size-text-s: var(--typo-scale-0-875x);
-    --lyne-font-size-text-xs: var(--typo-scale-0-75x);
+    --lyne-font-size-title-2: var(--sbb-typo-scale-1-5x);
+    --lyne-font-size-title-3: var(--sbb-typo-scale-1-25x);
+    --lyne-font-size-title-4: var(--sbb-typo-scale-1-125x);
+    --lyne-font-size-title-5: var(--sbb-typo-scale-default);
+    --lyne-font-size-title-6: var(--sbb-typo-scale-0-875x);
+    --lyne-font-size-text-xl: var(--sbb-typo-scale-1-125x);
+    --lyne-font-size-text-m: var(--sbb-typo-scale-default);
+    --lyne-font-size-text-s: var(--sbb-typo-scale-0-875x);
+    --lyne-font-size-text-xs: var(--sbb-typo-scale-0-75x);
   }
 
   @include mq($from: large) {
-    --lyne-font-size-title-1: var(--typo-scale-2-5x);
+    --lyne-font-size-title-1: var(--sbb-typo-scale-2-5x);
   }
 
   @include mq($from: ultra) {
-    --lyne-font-size-title-1: var(--typo-scale-2-5x);
+    --lyne-font-size-title-1: var(--sbb-typo-scale-2-5x);
   }
   // ... and so on
 }

@@ -8,27 +8,27 @@ const Template = (args) => (
 export const sbbFormError = Template.bind({});
 
 sbbFormError.documentation = {
-  title: 'Title which will be rendered on documentation platform'
+  title: 'Title which will be rendered on documentation platform',
 };
 
 export default {
   decorators: [
     (Story) => (
       <div style={'padding: 2rem'}>
-        <Story/>
+        <Story />
       </div>
-    )
+    ),
   ],
   documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform']
+    disableArgs: ['someArgToDisableForDocumentationPlatform'],
   },
   parameters: {
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'components/form elements/sbb-form-error'
+  title: 'components/form elements/sbb-form-error',
 };

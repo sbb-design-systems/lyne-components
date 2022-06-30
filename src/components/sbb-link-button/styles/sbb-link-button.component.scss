@@ -39,15 +39,15 @@
 
 // If the the device can hover over elements with ease
 @include hover-mq($hover: true) {
-    .link-button:hover {
-      @include buttonHover;
-      &::before {
-        @include ifForcedColors {
-          border-color: LinkText;
-        }
+  .link-button:hover {
+    @include buttonHover;
+    &::before {
+      @include ifForcedColors {
+        border-color: LinkText;
       }
     }
   }
+}
 
 .link-button:active {
   @include buttonActive;
@@ -74,6 +74,6 @@
   order: 2;
 }
 
-.link-button[dir="rtl"].link--icon-flip .link-button__icon {
+.link-button[dir='rtl'].link--icon-flip .link-button__icon {
   transform: scaleX(-1);
 }

@@ -6,18 +6,17 @@ import sampleData from './sbb-timetable-row-column-headers.sample-data';
 const Template = (args) => (
   <sbb-timetable-row-column-headers
     config={JSON.stringify(args.config)}
-  >
-  </sbb-timetable-row-column-headers>
+  ></sbb-timetable-row-column-headers>
 );
 
 const config = {
   table: {
-    disable: false
-  }
+    disable: false,
+  },
 };
 
 const defaultArgTypes = {
-  config
+  config,
 };
 
 /* ************************************************* */
@@ -27,23 +26,19 @@ export const SbbTimetableRowColumnHeaders = Template.bind({});
 
 SbbTimetableRowColumnHeaders.argTypes = defaultArgTypes;
 SbbTimetableRowColumnHeaders.args = {
-  config: sampleData
+  config: sampleData,
 };
 
 SbbTimetableRowColumnHeaders.documentation = {
-  title: 'SBB Timetable Row Column Headers'
+  title: 'SBB Timetable Row Column Headers',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-row-column-headers'
+  title: 'internals/sbb-timetable-row-column-headers',
 };

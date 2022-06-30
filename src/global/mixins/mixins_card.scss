@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 @mixin card-host-properties {
-  --card-border-radius: #{pxToRem(var(--border-radius-4x))};
+  --card-border-radius: var(--sbb-border-radius-4x);
   --card-padding-top: ;
   --card-padding-right: ;
   --card-padding-bottom: ;
@@ -31,7 +31,7 @@
   position: relative;
   overflow: hidden;
   user-select: text;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   transition: var(--card-hover-animation);
 
@@ -41,13 +41,13 @@
 
   // If the the device can hover over elements with ease
   @include hover-mq($hover: true) {
-      &:hover {
-        @include card--shadow;
-      }
+    &:hover {
+      @include card--shadow;
     }
+  }
 
   @include ifForcedColors {
-    border: pxToRem(1) solid ButtonText;
+    border: #{pxToRemBuild(1)} solid ButtonText;
 
     &:disabled {
       border-color: GrayText;
@@ -57,19 +57,19 @@
 
 // Card appearance
 @mixin card--primary {
-  --card-background-color: var(--color-milk-default);
+  --card-background-color: var(--sbb-color-milk-default);
 }
 
 @mixin card--primary-negative {
-  --card-background-color: var(--color-white-default);
+  --card-background-color: var(--sbb-color-white-default);
 }
 
 // Card sizing
 @mixin card--xs {
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-3x))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-3))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-xxs))};
+  --card-padding-top: var(--sbb-spacing-fixed-3x);
+  --card-padding-right: var(--sbb-spacing-responsive-xxs);
+  --card-padding-bottom: var(--sbb-spacing-fixed-3);
+  --card-padding-left: var(--sbb-spacing-responsive-xxs);
   // @include spacing-responsive-xxs('--card-padding-right');
   // @include spacing-responsive-xxs('--card-padding-left');
   // --card-padding-top: #{pxToRem(var(--spacing-fixed-3x))};
@@ -77,10 +77,10 @@
 }
 
 @mixin card--s {
-  --card-padding-top: #{pxToRem(var(--spacing-responsive-xxxs))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-responsive-xxxs))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-xxs))};
+  --card-padding-top: var(--sbb-spacing-responsive-xxxs);
+  --card-padding-right: var(--sbb-spacing-responsive-xxs);
+  --card-padding-bottom: var(--sbb-spacing-responsive-xxxs);
+  --card-padding-left: var(--sbb-spacing-responsive-xxs);
   // @include spacing-responsive-xxxs('--card-padding-top');
   // @include spacing-responsive-xxs('--card-padding-right');
   // @include spacing-responsive-xxxs('--card-padding-bottom');
@@ -88,10 +88,10 @@
 }
 
 @mixin card--m {
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-4x))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-xxs))};
+  --card-padding-top: var(--sbb-spacing-fixed-4x);
+  --card-padding-right: var(--sbb-spacing-responsive-xxs);
+  --card-padding-bottom: var(--sbb-spacing-fixed-4x);
+  --card-padding-left: var(--sbb-spacing-responsive-xxs);
   // @include spacing-responsive-xxs('--card-padding-right');
   // @include spacing-responsive-xxs('--card-padding-left');
   // --card-padding-top: #{pxToRem(var(--spacing-fixed-4x))};
@@ -99,10 +99,10 @@
 }
 
 @mixin card--m--tall {
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-xxs))};
+  --card-padding-top: var(--sbb-spacing-fixed-6x);
+  --card-padding-right: var(--sbb-spacing-responsive-xxs);
+  --card-padding-bottom: var(--sbb-spacing-fixed-4x);
+  --card-padding-left: var(--sbb-spacing-responsive-xxs);
   // @include spacing-responsive-xxs('--card-padding-right');
   // @include spacing-responsive-xxs('--card-padding-left');
   // --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
@@ -110,21 +110,21 @@
 }
 
 @mixin card--l {
-  --card-padding-top: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-xxs))};
+  --card-padding-top: var(--sbb-spacing-responsive-xxs);
+  --card-padding-right: var(--sbb-spacing-responsive-xxs);
+  --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
+  --card-padding-left: var(--sbb-spacing-responsive-xxs);
   // @include spacing-responsive-xxs('--card-padding-top');
   // @include spacing-responsive-xxs('--card-padding-right');
   // @include spacing-responsive-xxs('--card-padding-bottom');
   // @include spacing-responsive-xxs('--card-padding-left');
 }
 
-@mixin card--l--tall  {
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-xxs))};
+@mixin card--l--tall {
+  --card-padding-top: var(--sbb-spacing-fixed-6x);
+  --card-padding-right: var(--sbb-spacing-responsive-xxs);
+  --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
+  --card-padding-left: var(--sbb-spacing-responsive-xxs);
   // @include spacing-responsive-xxs('--card-padding-right');
   // @include spacing-responsive-xxs('--card-padding-bottom');
   // @include spacing-responsive-xxs('--card-padding-left');
@@ -132,10 +132,10 @@
 }
 
 @mixin card--xl {
-  --card-padding-top: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-s))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-s))};
+  --card-padding-top: var(--sbb-spacing-responsive-xxs);
+  --card-padding-right: var(--sbb-spacing-responsive-s);
+  --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
+  --card-padding-left: var(--sbb-spacing-responsive-s);
   // @include spacing-responsive-xxs('--card-padding-top');
   // @include spacing-responsive-s('--card-padding-right');
   // @include spacing-responsive-xxs('--card-padding-bottom');
@@ -143,10 +143,10 @@
 }
 
 @mixin card--xl--tall {
-  --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-s))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-responsive-xxs))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-s))};
+  --card-padding-top: var(--sbb-spacing-fixed-6x);
+  --card-padding-right: var(--sbb-spacing-responsive-s);
+  --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
+  --card-padding-left: var(--sbb-spacing-responsive-s);
   // @include spacing-responsive-s('--card-padding-right');
   // @include spacing-responsive-xxs('--card-padding-bottom');
   // @include spacing-responsive-s('--card-padding-left');
@@ -154,10 +154,10 @@
 }
 
 @mixin card--xxl {
-  --card-padding-top: #{pxToRem(var(--spacing-responsive-s))};
-  --card-padding-right: #{pxToRem(var(--spacing-responsive-s))};
-  --card-padding-bottom: #{pxToRem(var(--spacing-responsive-s))};
-  --card-padding-left: #{pxToRem(var(--spacing-responsive-s))};
+  --card-padding-top: var(--sbb-spacing-responsive-s);
+  --card-padding-right: var(--sbb-spacing-responsive-s);
+  --card-padding-bottom: var(--sbb-spacing-responsive-s);
+  --card-padding-left: var(--sbb-spacing-responsive-s);
   // @include spacing-responsive-s('--card-padding-top');
   // @include spacing-responsive-s('--card-padding-right');
   // @include spacing-responsive-s('--card-padding-bottom');
@@ -170,7 +170,6 @@
 
 @mixin card--shadow {
   &:not(:disabled) {
-
     @include shadow-level-9-hard;
 
     padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));

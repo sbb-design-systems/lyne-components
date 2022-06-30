@@ -288,7 +288,7 @@ export namespace Components {
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface SbbFormError {
-        "id": string;
+        "idError": string;
     }
     interface SbbFormField {
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
@@ -516,8 +516,14 @@ export namespace Components {
         "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbOverlay {
+        /**
+          * Dismiss the overlay.
+         */
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
         "overlayIndex": number;
+        /**
+          * Present the overlay.
+         */
         "present": () => Promise<void>;
     }
     interface SbbPanel {
@@ -1513,7 +1519,7 @@ declare namespace LocalJSX {
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface SbbFormError {
-        "id"?: string;
+        "idError"?: string;
     }
     interface SbbFormField {
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];

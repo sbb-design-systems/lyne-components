@@ -1,7 +1,5 @@
 import events from './sbb-button.events';
-import {
-  E2EElement, E2EPage, newE2EPage
-} from '@stencil/core/testing';
+import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-button', () => {
   let element: E2EElement, page: E2EPage;
@@ -14,8 +12,7 @@ describe('sbb-button', () => {
 
   it('renders', async () => {
     element = await page.find('sbb-button');
-    expect(element)
-      .toHaveClass('hydrated');
+    expect(element).toHaveClass('hydrated');
   });
 
   it('renders button text', async () => {
@@ -25,8 +22,7 @@ describe('sbb-button', () => {
     await page.waitForChanges();
     const button = await page.find('sbb-button >>> .button__label');
 
-    expect(button.textContent)
-      .toEqual(buttonText);
+    expect(button.textContent).toEqual(buttonText);
   });
 
   describe('events', () => {
@@ -37,8 +33,7 @@ describe('sbb-button', () => {
       const changeSpy = await page.spyOnEvent(events.click);
 
       await button.click();
-      expect(changeSpy)
-        .toHaveReceivedEventTimes(1);
+      expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
     it('dispatches correct event payload on click with no id', async () => {
@@ -48,8 +43,7 @@ describe('sbb-button', () => {
       const changeSpy = await page.spyOnEvent(events.click);
 
       await button.click();
-      expect(changeSpy)
-        .toHaveReceivedEventDetail(null);
+      expect(changeSpy).toHaveReceivedEventDetail(null);
     });
 
     it('dispatches correct event payload on click with id', async () => {
@@ -62,8 +56,7 @@ describe('sbb-button', () => {
       const changeSpy = await page.spyOnEvent(events.click);
 
       await button.click();
-      expect(changeSpy)
-        .toHaveReceivedEventDetail(buttonId);
+      expect(changeSpy).toHaveReceivedEventDetail(buttonId);
     });
   });
 });

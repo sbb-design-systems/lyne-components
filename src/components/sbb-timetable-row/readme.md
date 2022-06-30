@@ -1,7 +1,5 @@
 # sbb-timetable-row
 
-
-
 <!-- Auto Generated Below -->
 
 

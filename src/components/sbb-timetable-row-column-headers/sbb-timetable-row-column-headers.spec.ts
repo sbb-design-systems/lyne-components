@@ -6,15 +6,12 @@ const config = JSON.stringify(sampleData);
 
 describe('sbb-timetable-row-column-headers', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbTimetableRowColumnHeaders],
-      html: `<sbb-timetable-row-column-headers config='${config}' />`
+      html: `<sbb-timetable-row-column-headers config='${config}' />`,
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-timetable-row-column-headers
             config="[&quot;Short Infos&quot;,&quot;Summary&quot;,&quot;&quot;,&quot;Platfom&quot;,&quot;Occupancy Forecast&quot;,&quot;Travel hints&quot;,&quot;Duration&quot;,&quot;Real time information&quot;]"
         >
@@ -33,5 +30,4 @@ describe('sbb-timetable-row-column-headers', () => {
         </sbb-timetable-row-column-headers>
       `);
   });
-
 });

@@ -1,10 +1,4 @@
-import {
-  Component,
-  Event,
-  EventEmitter,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 
 /**
@@ -15,13 +9,11 @@ import { InterfaceButtonAttributes } from './sbb-button.custom';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-button.default.scss',
-    shared: 'styles/sbb-button.shared.scss'
+    shared: 'styles/sbb-button.shared.scss',
   },
-  tag: 'sbb-button'
+  tag: 'sbb-button',
 })
-
 export class SbbButton {
-
   /** Label text to show on the button */
   @Prop() public label? = '';
 
@@ -71,8 +63,9 @@ export class SbbButton {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-button_click'
-  }) public click: EventEmitter<any>;
+    eventName: 'sbb-button_click',
+  })
+  public click: EventEmitter<any>;
 
   public render(): JSX.Element {
     const hasNoLabel = !this.label || this.label.length < 1;
@@ -89,59 +82,50 @@ export class SbbButton {
 
     const sizeClass = `button--size-${this.size}`;
     const variantClass = `button--${this.variant}`;
-    const iconClass = hasNoLabel
-      ? 'button--icon-only'
-      : '';
-    const semanticClass = this.visualButtonOnly
-      ? 'button--visual-only'
-      : '';
+    const iconClass = hasNoLabel ? 'button--icon-only' : '';
+    const semanticClass = this.visualButtonOnly ? 'button--visual-only' : '';
 
     const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass}`;
 
-    const TAGNAME = this.visualButtonOnly
-      ? 'div'
-      : 'button';
+    const TAGNAME = this.visualButtonOnly ? 'div' : 'button';
 
     const mainAttributes = {
-      class: buttonClass
+      class: buttonClass,
     };
 
     const buttonAttributes = {
       ...mainAttributes,
       'aria-haspopup': this.ariaHaspopup,
-      'disabled': this.disabled,
-      'name': this.name,
-      'onClick': (): void => {
+      disabled: this.disabled,
+      name: this.name,
+      onClick: (): void => {
         if (!this.visualButtonOnly) {
           this.click.emit(this.eventId);
         }
       },
-      'type': this.type,
-      'value': this.value
+      type: this.type,
+      value: this.value,
     };
 
-    const finalAttributes = this.visualButtonOnly
-      ? mainAttributes
-      : buttonAttributes;
+    const finalAttributes = this.visualButtonOnly ? mainAttributes : buttonAttributes;
 
     return (
       <TAGNAME {...finalAttributes}>
+        {this.icon && hasNoLabel && this.iconDescription ? (
+          <span class="button__icon-description">{this.iconDescription}</span>
+        ) : (
+          ''
+        )}
 
-        {this.icon && hasNoLabel && this.iconDescription
-          ? <span class='button__icon-description'>{this.iconDescription}</span>
-          : ''
-        }
+        {this.icon === true ? (
+          <span class="button__icon">
+            <slot />
+          </span>
+        ) : (
+          ''
+        )}
 
-        {this.icon === true
-          ? <span class='button__icon'><slot /></span>
-          : ''
-        }
-
-        {hasNoLabel
-          ? ''
-          : <span class='button__label'>{this.label}</span>
-        }
-
+        {hasNoLabel ? '' : <span class="button__label">{this.label}</span>}
       </TAGNAME>
     );
   }

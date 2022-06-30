@@ -1,8 +1,4 @@
-import {
-  Component,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes } from './sbb-pearl-chain.custom';
 import legsData from './sbb-pearl-chain.helper';
 
@@ -10,13 +6,11 @@ import legsData from './sbb-pearl-chain.helper';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-pearl-chain.default.scss',
-    shared: 'styles/sbb-pearl-chain.shared.scss'
+    shared: 'styles/sbb-pearl-chain.shared.scss',
   },
-  tag: 'sbb-pearl-chain'
+  tag: 'sbb-pearl-chain',
 })
-
 export class SbbPearlChain {
-
   /**
    * Define, if the pearl-chain represents a connection in the past,
    * in the future or if it is a currently running connection.
@@ -46,17 +40,13 @@ export class SbbPearlChain {
   public render(): JSX.Element {
     const legs = legsData(this.legs);
 
-    const statusClass = this.status === 'past'
-      ? ' pearl-chain--past'
-      : '';
+    const statusClass = this.status === 'past' ? ' pearl-chain--past' : '';
 
     let departureCancelClass = '';
     let arrivalCancelClass = '';
 
     if (legs.length > 0) {
-      departureCancelClass = legs[0].cancellation
-        ? ' pearl-chain--departure-cancellation'
-        : '';
+      departureCancelClass = legs[0].cancellation ? ' pearl-chain--departure-cancellation' : '';
 
       if (legs.length > 1) {
         arrivalCancelClass = legs[legs.length - 1].cancellation
@@ -65,9 +55,7 @@ export class SbbPearlChain {
       }
 
       if (legs.length === 1) {
-        arrivalCancelClass = legs[0].cancellation
-          ? ' pearl-chain--arrival-cancellation'
-          : '';
+        arrivalCancelClass = legs[0].cancellation ? ' pearl-chain--arrival-cancellation' : '';
       }
     }
 
@@ -84,45 +72,31 @@ export class SbbPearlChain {
 
     const statusStyle = statusIsRunning
       ? {
-        '--status-position': `${this.status}`
-      }
+          '--status-position': `${this.status}`,
+        }
       : {};
 
-    const animationClass = this.disableAnimation
-      ? ' pearl-chain__status--no-animation'
-      : '';
+    const animationClass = this.disableAnimation ? ' pearl-chain__status--no-animation' : '';
 
     return (
       <div class={classes}>
-
         {/* render legs */}
         {legs.map((leg) => {
           const legStyle = {
-            'flex-basis': `${leg.duration}%`
+            'flex-basis': `${leg.duration}%`,
           };
 
-          const legCancelClass = leg.cancellation
-            ? ' pearl-chain__leg--cancellation'
-            : '';
+          const legCancelClass = leg.cancellation ? ' pearl-chain__leg--cancellation' : '';
 
-          return (
-            <div
-              class={`pearl-chain__leg${legCancelClass}`}
-              style={legStyle}
-            ></div>
-          );
+          return <div class={`pearl-chain__leg${legCancelClass}`} style={legStyle}></div>;
         })}
 
         {/* render current location point */}
-        {statusIsRunning
-          ? (
-            <span
-              style={statusStyle}
-              class={`pearl-chain__status${animationClass}`}
-            ></span>
-          )
-          : ''
-        }
+        {statusIsRunning ? (
+          <span style={statusStyle} class={`pearl-chain__status${animationClass}`}></span>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

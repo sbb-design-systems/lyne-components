@@ -4,15 +4,15 @@
 @include host-component-properties;
 
 :host {
-  --card-badge-color-primary: var(--color-white-default);
-  --card-badge-color-primary-negative: var(--color-black-default);
-  --card-badge-background-color-primary: var(--color-black-default);
-  --card-badge-background-color-primary-negative: var(--color-white-default);
-  --card-badge-border-color-primary-negative: var(--color-aluminium-default);
+  --card-badge-color-primary: var(--sbb-color-white-default);
+  --card-badge-color-primary-negative: var(--sbb-color-black-default);
+  --card-badge-background-color-primary: var(--sbb-color-black-default);
+  --card-badge-background-color-primary-negative: var(--sbb-color-white-default);
+  --card-badge-border-color-primary-negative: var(--sbb-color-aluminium-default);
 
   @include ifForcedColors() {
-    border-inline-start: pxToRem(1) solid CanvasText;
-    border-block-end: pxToRem(1) solid CanvasText;;
+    border-inline-start: #{pxToRemBuild(1)} solid CanvasText;
+    border-block-end: #{pxToRemBuild(1)} solid CanvasText;
   }
 }
 
@@ -22,21 +22,21 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline-end: 0;
-  padding-inline-start: pxToRem(var(--spacing-fixed-1x));
-  padding-inline-end: pxToRem(var(--spacing-fixed-8x));
-  border-end-start-radius: pxToRem(var(--border-radius-4x));
+  padding-inline-start: var(--sbb-spacing-fixed-1x);
+  padding-inline-end: var(--sbb-spacing-fixed-8x);
+  border-end-start-radius: var(--sbb-border-radius-4x);
 
   // Left to right expression
-  right: pxToRem(var(--spacing-fixed-3x), true);
+  right: calc(var(--sbb-spacing-fixed-3x) * -1);
   transform: skew(16deg, 0deg);
   > * {
     transform: skew(-16deg, 0deg);
-    padding-inline-start: .5em;
+    padding-inline-start: 0.5em;
   }
   // Right to left expression
-  &[dir="rtl"] {
+  &[dir='rtl'] {
     right: initial;
-    left: pxToRem(var(--spacing-fixed-3x), true);
+    left: calc(var(--sbb-spacing-fixed-3x) * -1);
     transform: skew(-16deg, 0deg);
     > * {
       transform: skew(16deg, 0deg);

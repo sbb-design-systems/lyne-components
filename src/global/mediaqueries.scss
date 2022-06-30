@@ -1,22 +1,33 @@
 // Inspired by: https://github.com/sass-mq/sass-mq
 
-@import './node_modules/lyne-design-tokens/dist/scss/variables.scss';
+@use 'sass:math';
+@import './node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss';
 
 $mq-breakpoints: (
-  zero: $breakpoint-zero-min, // 0
-  micro: $breakpoint-micro-min, // 360
-  small: $breakpoint-small-min, // 600
-  medium: $breakpoint-medium-min, // 840
-  large: $breakpoint-large-min, // 1024
-  wide: $breakpoint-wide-min, // 1280
-  ultra: $breakpoint-ultra-min, // 1440
-  ultra--max-content: ($breakpoint-ultra-min+(2*$spacing-fixed-18x)) // 1440 + 2*72
+  zero: $sbb-breakpoint-zero-min,
+  // 0
+  micro: $sbb-breakpoint-micro-min,
+  // 360
+  small: $sbb-breakpoint-small-min,
+  // 600
+  medium: $sbb-breakpoint-medium-min,
+  // 840
+  large: $sbb-breakpoint-large-min,
+  // 1024
+  wide: $sbb-breakpoint-wide-min,
+  // 1280
+  ultra: $sbb-breakpoint-ultra-min,
+  // 1440
+  ultra--max-content:
+    (
+      $sbb-breakpoint-ultra-min + (2 * $sbb-spacing-fixed-18x),
+    ),
 ) !default;
 
 $mq-media-type: all !default;
 
-@function mq-px2rem($px, $modifier) {
-  @return calc(calc(#{$px + $modifier} * 1rem) / #{$typo-scale-default});
+@function mq-px2rem($rem, $modifier) {
+  @return calc(#{$rem + (math.div($modifier, 16) * 1rem)});
 }
 
 @function mq-get-breakpoint-width($name, $breakpoints: $mq-breakpoints) {
@@ -32,7 +43,7 @@ $mq-media-type: all !default;
   $to: false,
   $and: false,
   $media-type: $mq-media-type,
-  $breakpoints: $mq-breakpoints,
+  $breakpoints: $mq-breakpoints
 ) {
   $min-width: 0;
   $max-width: 0;
@@ -56,9 +67,15 @@ $mq-media-type: all !default;
     }
   }
 
-  @if $min-width != 0 { $media-query: '#{$media-query} and (min-width: #{$min-width})'; }
-  @if $max-width != 0 { $media-query: '#{$media-query} and (max-width: #{$max-width})'; }
-  @if $and { $media-query: '#{$media-query} and #{$and}'; }
+  @if $min-width != 0 {
+    $media-query: '#{$media-query} and (min-width: #{$min-width})';
+  }
+  @if $max-width != 0 {
+    $media-query: '#{$media-query} and (max-width: #{$max-width})';
+  }
+  @if $and {
+    $media-query: '#{$media-query} and #{$and}';
+  }
 
   // Remove unnecessary media query prefix 'all and '
   @if ($media-type == 'all' and $media-query != '') {
@@ -69,7 +86,6 @@ $mq-media-type: all !default;
   @media #{$media-type + $media-query} {
     @content;
   }
-
 }
 
 @mixin hover-mq($hover: true) {

@@ -1,7 +1,5 @@
 # sbb-sbb-logo
 
-
-
 <!-- Auto Generated Below -->
 
 

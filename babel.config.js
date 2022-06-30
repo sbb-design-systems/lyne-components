@@ -4,14 +4,14 @@ module.exports = {
     [
       '@babel/plugin-transform-react-jsx',
       {
-        pragma: 'h'
-      }
+        pragma: 'h',
+      },
     ],
     [
       '@babel/plugin-proposal-private-property-in-object',
       {
-        loose: true
-      }
-    ]
-  ]
+        loose: true,
+      },
+    ],
+  ],
 };

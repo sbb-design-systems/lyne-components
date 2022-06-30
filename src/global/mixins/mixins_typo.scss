@@ -4,65 +4,65 @@
 
 @mixin title {
   margin: 0;
-  font-family: var(--typo-type-face-sbb-bold);
+  font-family: var(--sbb-typo-type-face-sbb-bold);
   font-weight: normal;
-  line-height: var(--typo-line-height-titles);
-  letter-spacing: var(--typo-letter-spacing-titles);
+  line-height: var(--sbb-typo-line-height-titles);
+  letter-spacing: var(--sbb-typo-letter-spacing-titles);
 }
 
 @mixin title-1 {
   @include title();
-  font-size: pxToRem(var(--lyne-font-size-title-1));
+  font-size: var(--lyne-font-size-title-1);
 }
 
 @mixin title-2 {
   @include title();
-  font-size: pxToRem(var(--lyne-font-size-title-2));
+  font-size: var(--lyne-font-size-title-2);
 }
 
 @mixin title-3 {
   @include title();
-  font-size: pxToRem(var(--lyne-font-size-title-3));
+  font-size: var(--lyne-font-size-title-3);
 }
 
 @mixin title-4 {
   @include title();
-  font-size: pxToRem(var(--lyne-font-size-title-4));
+  font-size: var(--lyne-font-size-title-4);
 }
 
 @mixin title-5 {
   @include title();
-  font-size: pxToRem(var(--lyne-font-size-title-5));
-  line-height: var(--typo-line-height-body-text);
+  font-size: var(--lyne-font-size-title-5);
+  line-height: var(--sbb-typo-line-height-body-text);
 }
 
 @mixin title-6 {
   @include title();
-  font-size: pxToRem(var(--lyne-font-size-title-6));
-  line-height: var(--typo-line-height-body-text);
+  font-size: var(--lyne-font-size-title-6);
+  line-height: var(--sbb-typo-line-height-body-text);
 }
 
 @mixin title--negative {
-  --_title-text-color-normal: var(--color-milk-default);
+  --_title-text-color-normal: var(--sbb-color-milk-default);
 }
 
 // ----------------------------------------------------------------------------------------------------
 // Typo: Text Style Mixins
 // ----------------------------------------------------------------------------------------------------
 @mixin text {
-  font-family: var(--typo-type-face-sbb-roman);
+  font-family: var(--sbb-typo-type-face-sbb-roman);
   font-weight: normal;
-  line-height: var(--typo-line-height-body-text);
-  letter-spacing: var(--typo-letter-spacing-body-text);
+  line-height: var(--sbb-typo-line-height-body-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-body-text);
 }
 
 @mixin text--bold {
-  font-family: var(--typo-type-face-sbb-bold);
+  font-family: var(--sbb-typo-type-face-sbb-bold);
 }
 
 @mixin text-xl--regular {
   @include text();
-  font-size: pxToRem(var(--lyne-font-size-text-xl));
+  font-size: var(--lyne-font-size-text-xl);
 }
 
 @mixin text-xl--bold {
@@ -72,7 +72,7 @@
 
 @mixin text-m--regular {
   @include text();
-  font-size: pxToRem(var(--lyne-font-size-text-m));
+  font-size: var(--lyne-font-size-text-m);
 }
 
 @mixin text-m--bold {
@@ -82,7 +82,7 @@
 
 @mixin text-s--regular {
   @include text();
-  font-size: pxToRem(var(--lyne-font-size-text-s));
+  font-size: var(--lyne-font-size-text-s);
 }
 
 @mixin text-s--bold {
@@ -92,7 +92,7 @@
 
 @mixin text-xs--regular {
   @include text();
-  font-size: pxToRem(var(--lyne-font-size-text-xs));
+  font-size: var(--lyne-font-size-text-xs);
 }
 
 @mixin text-xs--bold {
@@ -102,7 +102,7 @@
 
 @mixin text-xxs--regular {
   @include text();
-  font-size: pxToRem(var(--lyne-font-size-text-xxs));
+  font-size: var(--lyne-font-size-text-xxs);
 }
 
 @mixin text-xxs--bold {
@@ -139,6 +139,6 @@
 
 @mixin placeholder() {
   ::placeholder {
-    color: var(--color-metal-default);
+    color: var(--sbb-color-metal-default);
   }
 }

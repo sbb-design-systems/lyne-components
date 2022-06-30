@@ -6,33 +6,29 @@ const Template = (args) => (
   <sbb-timetable-transportation-number
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
-  >
-  </sbb-timetable-transportation-number>
+  ></sbb-timetable-transportation-number>
 );
 
 const appearance = {
   control: {
-    type: 'select'
+    type: 'select',
   },
-  options: [
-    'first-level',
-    'second-level'
-  ]
+  options: ['first-level', 'second-level'],
 };
 
 const config = {
   table: {
-    disable: false
-  }
+    disable: false,
+  },
 };
 
 const defaultArgTypes = {
   appearance,
-  config
+  config,
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0]
+  appearance: appearance.options[0],
 };
 
 /* ************************************************* */
@@ -43,11 +39,11 @@ export const BusFirstLevel = Template.bind({});
 BusFirstLevel.argTypes = defaultArgTypes;
 BusFirstLevel.args = {
   ...defaultArgs,
-  config: sampleData.bus
+  config: sampleData.bus,
 };
 
 BusFirstLevel.documentation = {
-  title: 'Bus - First Level'
+  title: 'Bus - First Level',
 };
 
 export const BusSecondLevel = Template.bind({});
@@ -56,11 +52,11 @@ BusSecondLevel.argTypes = defaultArgTypes;
 BusSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
-  config: sampleData.bus
+  config: sampleData.bus,
 };
 
 BusSecondLevel.documentation = {
-  title: 'Bus - Second Level'
+  title: 'Bus - Second Level',
 };
 
 export const CableCarFirstLevel = Template.bind({});
@@ -68,11 +64,11 @@ export const CableCarFirstLevel = Template.bind({});
 CableCarFirstLevel.argTypes = defaultArgTypes;
 CableCarFirstLevel.args = {
   ...defaultArgs,
-  config: sampleData.cableCar
+  config: sampleData.cableCar,
 };
 
 CableCarFirstLevel.documentation = {
-  title: 'Cable Car - First Level'
+  title: 'Cable Car - First Level',
 };
 
 export const CableCarSecondLevel = Template.bind({});
@@ -81,11 +77,11 @@ CableCarSecondLevel.argTypes = defaultArgTypes;
 CableCarSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
-  config: sampleData.cableCar
+  config: sampleData.cableCar,
 };
 
 CableCarSecondLevel.documentation = {
-  title: 'Cable Car - Second Level'
+  title: 'Cable Car - Second Level',
 };
 
 export const TrainFirstLevel = Template.bind({});
@@ -93,11 +89,11 @@ export const TrainFirstLevel = Template.bind({});
 TrainFirstLevel.argTypes = defaultArgTypes;
 TrainFirstLevel.args = {
   ...defaultArgs,
-  config: sampleData.train
+  config: sampleData.train,
 };
 
 TrainFirstLevel.documentation = {
-  title: 'Train - First Level'
+  title: 'Train - First Level',
 };
 
 export const TrainSecondLevel = Template.bind({});
@@ -106,11 +102,11 @@ TrainSecondLevel.argTypes = defaultArgTypes;
 TrainSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
-  config: sampleData.train
+  config: sampleData.train,
 };
 
 TrainSecondLevel.documentation = {
-  title: 'Train - Second Level'
+  title: 'Train - Second Level',
 };
 
 export const TramFirstLevel = Template.bind({});
@@ -118,11 +114,11 @@ export const TramFirstLevel = Template.bind({});
 TramFirstLevel.argTypes = defaultArgTypes;
 TramFirstLevel.args = {
   ...defaultArgs,
-  config: sampleData.tram
+  config: sampleData.tram,
 };
 
 TramFirstLevel.documentation = {
-  title: 'Tram - First Level'
+  title: 'Tram - First Level',
 };
 
 export const TramSecondLevel = Template.bind({});
@@ -131,26 +127,22 @@ TramSecondLevel.argTypes = defaultArgTypes;
 TramSecondLevel.args = {
   ...defaultArgs,
   appearance: appearance.options[1],
-  config: sampleData.tram
+  config: sampleData.tram,
 };
 
 TramSecondLevel.documentation = {
-  title: 'Tram - Second Level'
+  title: 'Tram - Second Level',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     backgrounds: {
-      disable: true
+      disable: true,
     },
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-transportation-number'
+  title: 'internals/sbb-timetable-transportation-number',
 };

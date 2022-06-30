@@ -11,21 +11,19 @@ Therefore we have some extra information that we provide inside the `.stories.js
 Let's look at a simple story:
 
 ```javascript
-export const SimpleStory = (args) => (
-  <lyne-sample-component {...args} />
-);
+export const SimpleStory = (args) => <lyne-sample-component {...args} />;
 ```
 
-You can define properties like title and specific container styling for a story  like this:
+You can define properties like title and specific container styling for a story like this:
 
 ```javascript
 SimpleStory.documentation = {
   container: {
     styles: {
-      'background-color': '#eb0000'
-    }
+      'background-color': '#eb0000',
+    },
   },
-  title: 'Title for the story'
+  title: 'Title for the story',
 };
 ```
 
@@ -40,8 +38,8 @@ In this case it is important that we `hide` this property from the documentation
 ```javascript
 export default {
   documentation: {
-    disableArgs: ['iconslot']
+    disableArgs: ['iconslot'],
   },
-  title: 'Sample Lyne Component'
+  title: 'Sample Lyne Component',
 };
 ```

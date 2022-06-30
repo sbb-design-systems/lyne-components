@@ -3,20 +3,17 @@ import readme from './readme.md';
 import sampleData from './sbb-timetable-duration.sample-data';
 
 const Template = (args) => (
-  <sbb-timetable-duration
-    config={JSON.stringify(args.config)}
-  >
-  </sbb-timetable-duration>
+  <sbb-timetable-duration config={JSON.stringify(args.config)}></sbb-timetable-duration>
 );
 
 const config = {
   table: {
-    disable: false
-  }
+    disable: false,
+  },
 };
 
 const defaultArgTypes = {
-  config
+  config,
 };
 
 /* ************************************************* */
@@ -26,45 +23,41 @@ export const MinutesOnly = Template.bind({});
 
 MinutesOnly.argTypes = defaultArgTypes;
 MinutesOnly.args = {
-  config: sampleData[0]
+  config: sampleData[0],
 };
 
 MinutesOnly.documentation = {
-  title: 'Minutes'
+  title: 'Minutes',
 };
 
 export const OneHourOneMinute = Template.bind({});
 
 OneHourOneMinute.argTypes = defaultArgTypes;
 OneHourOneMinute.args = {
-  config: sampleData[1]
+  config: sampleData[1],
 };
 
 OneHourOneMinute.documentation = {
-  title: 'One Hour / One Minute'
+  title: 'One Hour / One Minute',
 };
 
 export const HoursAndMinutes = Template.bind({});
 
 HoursAndMinutes.argTypes = defaultArgTypes;
 HoursAndMinutes.args = {
-  config: sampleData[2]
+  config: sampleData[2],
 };
 
 HoursAndMinutes.documentation = {
-  title: 'Hours and Minutes'
+  title: 'Hours and Minutes',
 };
 
 export default {
-  decorators: [
-    (Story) => (
-      <Story/>
-    )
-  ],
+  decorators: [(Story) => <Story />],
   parameters: {
     docs: {
-      extractComponentDescription: () => readme
-    }
+      extractComponentDescription: () => readme,
+    },
   },
-  title: 'internals/sbb-timetable-duration'
+  title: 'internals/sbb-timetable-duration',
 };

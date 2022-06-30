@@ -1,23 +1,15 @@
-import {
-  Component,
-  Element,
-  h,
-  Host,
-  Prop
-} from '@stencil/core';
+import { Component, Element, h, Host, Prop } from '@stencil/core';
 import { InterfaceFooterAttributes } from './sbb-footer.custom';
 
 @Component({
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-footer.default.scss',
-    shared: 'styles/sbb-footer.shared.scss'
+    shared: 'styles/sbb-footer.shared.scss',
   },
-  tag: 'sbb-footer'
+  tag: 'sbb-footer',
 })
-
 export class SbbFooter {
-
   /** Footer appearance */
   @Prop() public appearance?: InterfaceFooterAttributes['appearance'] = 'primary';
 
@@ -45,26 +37,38 @@ export class SbbFooter {
   }
 
   public render(): JSX.Element {
-
     const className = `footer footer--${this.appearance}`;
 
     const attrs = {
-      class: className
+      class: className,
     };
 
     return (
       <Host>
-        <footer role='contentinfo' {...attrs}
-        >
-          <sbb-title level='1' visually-hidden='true' text={this.accessibilityTitle} />
-          {this._hasCol1Slot || this._hasCol2Slot || this._hasCol3Slot || this._hasCol4Slot || this._hasClockSlot
-            ? <div class='columns'><slot name='col-1'/><slot name='col-2'/><slot name='col-3'/><slot name='col-4'/><slot name='clock'/></div>
-            : ''
-          }
-          {this._hasBottomSlot
-            ? <div class='bottom'><slot name='bottom' /></div>
-            : ''
-          }
+        <footer role="contentinfo" {...attrs}>
+          <sbb-title level="1" visually-hidden="true" text={this.accessibilityTitle} />
+          {this._hasCol1Slot ||
+          this._hasCol2Slot ||
+          this._hasCol3Slot ||
+          this._hasCol4Slot ||
+          this._hasClockSlot ? (
+            <div class="columns">
+              <slot name="col-1" />
+              <slot name="col-2" />
+              <slot name="col-3" />
+              <slot name="col-4" />
+              <slot name="clock" />
+            </div>
+          ) : (
+            ''
+          )}
+          {this._hasBottomSlot ? (
+            <div class="bottom">
+              <slot name="bottom" />
+            </div>
+          ) : (
+            ''
+          )}
         </footer>
       </Host>
     );
