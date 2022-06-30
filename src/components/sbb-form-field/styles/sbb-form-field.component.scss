@@ -21,15 +21,14 @@
   --text-color-readonly: var(--sbb-color-granite-default);
   --text-color-disabled: var(--border-color-disabled);
 
-  --input-height: 48px; // TODO Design Token??
-  --input-padding-start: 19px;
+  --input-height: var(--sbb-size-form-element-l-min-height-small);
 
   --input-with-icon-padding-inline-start: 44px; //TODO Design Token?
 
   --icon-size: var(--size-icon-ui-small);
 
   @include mq($from: medium) {
-    --input-height: 56px; // TODO Design Token??
+    --input-height: var(--sbb-size-form-element-l-min-height-medium);
   }
 
   @include ifForcedColors {
@@ -61,13 +60,12 @@
   width: 100%;
   box-sizing: border-box;
   height: var(--input-height);
-  padding-block-start: var(--input-padding-start);
-  padding-inline-start: (var(--sbb-spacing-fixed-3x));
+  padding-block-start: var(--sbb-spacing-fixed-5x);
+  padding-inline-start: var(--sbb-spacing-fixed-3x);
   padding-inline-end: var(--sbb-spacing-fixed-3x);
 
   background-color: var(--background-color-default);
-  // to fix
-  border: 1px solid var(--border-color-default);
+  border: var(--sbb-border-width-1x) solid var(--border-color-default);
   border-radius: var(--sbb-border-radius-4x);
 }
 
@@ -97,8 +95,7 @@
   @include shadow-level-5-hard;
 
   @include ifForcedColors() {
-    // to fix
-    border: 1px solid CanvasText;
+    border: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
 
