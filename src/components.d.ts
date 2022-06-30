@@ -288,7 +288,6 @@ export namespace Components {
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface SbbFormError {
-        "idError": string;
     }
     interface SbbFormField {
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
@@ -1527,7 +1526,6 @@ declare namespace LocalJSX {
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface SbbFormError {
-        "idError"?: string;
     }
     interface SbbFormField {
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];

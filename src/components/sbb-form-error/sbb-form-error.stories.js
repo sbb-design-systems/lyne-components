@@ -1,11 +1,9 @@
 import { h } from 'jsx-dom';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import readme from './readme.md';
 
 const TemplateErrorWithIconAndMessage = (args) => (
   <sbb-form-error {...args}>
-    <span slot='icon'>{getMarkupForSvg('circle-information-small')}</span>
-    <p slot='message'>This is a required field.</p>
+    This is a required field.
   </sbb-form-error>
 );
 

@@ -2,7 +2,11 @@ import { Component, Element, h, Prop } from '@stencil/core';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot label - Use this to document a slot.
+ * @slot prefix - Use this to document a slot.
+ * @slot input - Use this to document a slot.
+ * @slot suffix - Use this to document a slot.
+ * @slot error - Use this to document a slot.
  */
 
 @Component({
