@@ -2,7 +2,7 @@
 
 ## Code style
 
-This project uses [Prettier](https://prettier.io/) for the code format.
+This project uses [Prettier](https://prettier.io/) to enforce a consistent code format.
 
 ## Coding practices
 
@@ -207,7 +207,7 @@ handleClick() {
 }
 
 /** PREFER: describes the action performed by the function. */
-activateRipple() {
+openDialog() {
   // ...
 }
 ```
@@ -216,7 +216,65 @@ activateRipple() {
 
 Inheritence cannot be used for components, as StencilJS does not allow it.
 
+#### Prefer for-of instead of forEach
+
+Prefer usage of `for (... of ...)` instead of forEach, as it is slightly more performant.
+Exceptions can be made, if only one action/line is performed.
+
+```ts
+/** AVOID: do not use forEach for actions that require multiple lines. */
+array.forEach((value) => {
+  // perform
+  // actions
+  // on multiple
+  // lines
+});
+
+/** PREFER: use for of. */
+for (const value of array) {
+  // perform
+  // actions
+  // on multiple
+  // lines
+}
+
+/** ALLOWED: if only one action is necessary. */
+array.forEach((value) => call(value));
+```
+
+#### Prefer nullish coalescing and optional chaining
+
+Nullish coalescing and optional chaining usually shorten the code, while not sacrificing
+readability. It also potentially reduces reads/assignments of variables.
+
+```ts
+/** AVOID: requires multiple checks. */
+if (data && data.nested && data.nested.action) {
+  data.nested.action();
+}
+
+/** PREFER: use optional chaining for shorter code. */
+data?.nested?.action.?();
+
+/** AVOID: requires multiple checks. */
+if (data) {
+  return data;
+} else if (data2) {
+  return data2;
+} else {
+  return data3;
+}
+
+/** PREFER: use optional chaining for shorter code. */
+return data ?? data2 ?? data3;
+```
+
 ### StencilJS
+
+#### Event naming
+
+Use the wording `will` to name events happening before an action and `did` to name events happening
+after an action (e.g. `will-open` and `did-open`).
 
 #### Prefer properties/attributes to CSS classes
 

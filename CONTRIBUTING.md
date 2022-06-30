@@ -50,7 +50,7 @@ chances of your issue being dealt with quickly:
 - **Suggest a Fix** - if you can't fix the bug yourself, perhaps you can point to what might be
   causing the problem (line of code or commit)
 
-You can file new issues by providing the above information [here](https://github.com/lyne-design-system/lyne-components/issues/new).
+You can file new issues by providing the above information [here](https://github.com/lyne-design-system/lyne-components/issues/new/choose).
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 
