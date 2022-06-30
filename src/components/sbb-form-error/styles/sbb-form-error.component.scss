@@ -3,10 +3,21 @@
 // and default mode
 @include host-component-properties;
 
-:host {
-  --some-color-var: var(--color-black-default);
+// Error
+::slotted(.input-label-error) {
+  @include text-xs--regular();
+  display: flex;
+  align-items: center;
+  color: var(--color-red125-default);
 }
 
-.some-class {
-  color: var(--some-color-var);
+::slotted(.input-label-error__icon) {
+  line-height: pxToRem(var(--icon-size));
+  margin-inline-end: pxToRem(var(--spacing-fixed-1x));
+}
+
+::slotted(.input-label-error__icon svg) {
+  width: pxToRem(var(--icon-size));
+  height: pxToRem(var(--icon-size));
+  fill: currentColor;
 }

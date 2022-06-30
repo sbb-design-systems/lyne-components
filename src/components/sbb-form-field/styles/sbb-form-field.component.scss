@@ -18,6 +18,7 @@
 
   --background-color-default: var(--color-white-default);
   --background-color-disabled: var(--color-milk-default);
+  --text-color-readonly: var(--color-granite-default);
   --text-color-disabled: var(--border-color-disabled);
 
   --input-height: 48; // TODO Design Token??
@@ -77,11 +78,18 @@
 
 ::slotted(.input[disabled]) {
   color: var(--text-color-disabled);
+  border-color: var(--text-color-disabled);
   background-color: var(--background-color-disabled);
 }
 
 ::slotted(.input[disabled] + .input-label) {
   color: var(--text-color-disabled);
+}
+
+::slotted(.input[readonly]) {
+  color: var(--text-color-readonly);
+  border-color: var(--text-color-disabled);
+  background-color: var(--background-color-disabled);
 }
 
 ::slotted(.input--no-border) {
@@ -94,7 +102,6 @@
 }
 
 // Input Variant
-// ----------------------------------------------
 .input-wrapper--label-hidden .input {
   padding-block-start: 0;
 }
