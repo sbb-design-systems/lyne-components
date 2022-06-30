@@ -69,7 +69,7 @@
     "@typescript-eslint/parser": "5.30.0",
     "axios": "0.27.2",
     "babel-loader": "8.2.5",
-    "chromatic": "6.6.4",
+    "chromatic": "6.7.0",
     "esbuild": "0.14.48",
     "eslint": "8.18.0",
     "eslint-config-prettier": "8.5.0",
