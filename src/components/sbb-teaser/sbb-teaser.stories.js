@@ -1,23 +1,6 @@
-import {
-  SbbColorMilkDefault,
-  SbbColorWhiteDefault,
-} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
+import { SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-
-/* ************************************************* */
-/* Storybook component wrapper, used in Storybook    */
-/* ************************************************* */
-
-const wrapperStyle = (context) => {
-  const variantsOnDarkBg = ['primary-negative'];
-
-  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${SbbColorWhiteDefault};`;
-  }
-
-  return `background-color: ${SbbColorMilkDefault};`;
-};
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -32,15 +15,6 @@ const accessibilityLabel = {
   table: {
     category: 'General',
   },
-};
-
-/* --- Darkmode -------------------------------------- */
-
-const appearance = {
-  control: {
-    type: 'select',
-  },
-  options: ['primary', 'primary-negative'],
 };
 
 /* --- Layout ------------------------------------- */
@@ -68,7 +42,6 @@ const hrefValue = {
 const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   isStacked,
-  appearance,
   'href-value': hrefValue,
 };
 
@@ -78,7 +51,6 @@ const defaultArgs = {
   isStacked: true,
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   description: 'This is a paragraph',
-  appearance: appearance.options[0],
 };
 
 /* ************************************************* */
@@ -129,8 +101,6 @@ const TemplateDefaultTeaser = (args) => (
     <SlotSbbTeaserDescriptionTemplate {...sbbTeaserDescriptionArgs} />
   </sbb-teaser>
 );
-
-const TemplateNegativ = (args) => <TemplateDefaultTeaser {...args} />;
 
 const TemplateLongText = (args) => (
   <sbb-teaser {...args} style="width: 110px">
@@ -186,7 +156,6 @@ const TemplateTeaserListIsStacked = (args) => (
 
 /* --- Teaser, Journey --------- */
 export const defaultTeaser = TemplateDefaultTeaser.bind({});
-export const primaryNegative = TemplateNegativ.bind({});
 export const TeaserWithLongText = TemplateLongText.bind({});
 export const teaserList = TemplateTeaserList.bind({});
 export const teaserListIsStacked = TemplateTeaserListIsStacked.bind({});
@@ -194,12 +163,6 @@ export const teaserListIsStacked = TemplateTeaserListIsStacked.bind({});
 defaultTeaser.argTypes = defaultArgTypes;
 defaultTeaser.args = {
   ...defaultArgs,
-};
-
-primaryNegative.argTypes = defaultArgTypes;
-primaryNegative.args = {
-  ...defaultArgs,
-  appearance: appearance.options[1],
 };
 
 TeaserWithLongText.argTypes = defaultArgTypes;
@@ -229,23 +192,14 @@ defaultTeaser.documentation = {
   title: 'Teaser, Journey',
 };
 
-primaryNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorMilkDefault,
-    },
-  },
-  title: 'Primary Negative',
-};
-
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
 export default {
   decorators: [
-    (Story, context) => (
-      <div style={`${wrapperStyle(context)} padding: 2rem; max-width: 760px`}>
+    (Story) => (
+      <div style={`padding: 2rem; max-width: 760px`}>
         <Story />
       </div>
     ),

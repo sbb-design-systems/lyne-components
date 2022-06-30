@@ -12,7 +12,7 @@ describe('sbb-teaser', () => {
       expect(root).toEqualHtml(`
         <sbb-teaser accessibility-label="Sbb teaser" href-value="https://github.com/lyne-design-system/lyne-components" is-stacked>
           <mock:shadow-root>
-           <a aria-label="Sbb teaser" class="teaser  teaser--is-stacked teaser--primary" href="https://github.com/lyne-design-system/lyne-components">
+           <a aria-label="Sbb teaser" class="teaser  teaser--is-stacked" href="https://github.com/lyne-design-system/lyne-components">
             <span class="teaser__content">
               <span class="teaser__inner">
                 <span class='teaser__image-wrapper'><slot name='image'/></span>
@@ -38,7 +38,7 @@ describe('sbb-teaser', () => {
       expect(root).toEqualHtml(`
         <sbb-teaser accessibility-label="Sbb teaser" href-value="https://github.com/lyne-design-system/lyne-components">
           <mock:shadow-root>
-           <a aria-label="Sbb teaser" class="teaser teaser--primary" href="https://github.com/lyne-design-system/lyne-components">
+           <a aria-label="Sbb teaser" class="teaser" href="https://github.com/lyne-design-system/lyne-components">
             <span class="teaser__content">
               <span class="teaser__inner">
                 <span class='teaser__image-wrapper'><slot name='image'/></span>

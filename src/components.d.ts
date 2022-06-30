@@ -25,7 +25,6 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
-import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
@@ -642,10 +641,6 @@ export namespace Components {
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
-        /**
-          * Teaser appearance
-         */
-        "appearance"?: InterfaceTeaserAttributes['appearance'];
         /**
           * The href value you want to link to
          */
@@ -1902,10 +1897,6 @@ declare namespace LocalJSX {
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
-        /**
-          * Teaser appearance
-         */
-        "appearance"?: InterfaceTeaserAttributes['appearance'];
         /**
           * The href value you want to link to
          */

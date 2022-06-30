@@ -1,7 +1,5 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
 
-import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
-
 /**
  * @slot image - Slot used to render the image
  * @slot headline - Slot used to render the headline
@@ -12,18 +10,15 @@ import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-teaser.default.scss',
-    shared: 'styles/sbb-teaser.shared.scss',
+    shared: 'styles/sbb-teaser.shared.scss'
   },
-  tag: 'sbb-teaser',
+  tag: 'sbb-teaser'
 })
 
 /**
  * Generalized Teaser - for displaying an image, headline and paragraph
  */
 export class SbbTeaser {
-  /** Teaser appearance */
-  @Prop() public appearance?: InterfaceTeaserAttributes['appearance'] = 'primary';
-
   /**
    * The text which gets exposed to screen reader users. The text should
    * reflect all the information
@@ -73,9 +68,7 @@ export class SbbTeaser {
     return (
       <a
         aria-label={ariaLabel}
-        class={`teaser teaser--${this.appearance} ${
-          this.isStacked === true ? 'teaser--is-stacked' : ''
-        }`}
+        class={`teaser ${this.isStacked === true ? 'teaser--is-stacked' : ''}`}
         href={this.hrefValue}
       >
         <span class="teaser__content">
