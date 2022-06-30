@@ -29,7 +29,7 @@ export class SbbFormField {
   @Element() private _element: HTMLElement;
 
   public componentWillLoad(): void {
-    this._idError = this._element.querySelector('[slot="error"]')?.getAttribute('idError');
+    this._idError = this._element.querySelector('[slot="error"]')?.getAttribute('id');
 
     if (this._idError) {
       this._element.querySelector('[slot="input"]').setAttribute('aria-describedby', this._idError);

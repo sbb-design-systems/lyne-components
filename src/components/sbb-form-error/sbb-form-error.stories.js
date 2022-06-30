@@ -1,14 +1,18 @@
 import { h } from 'jsx-dom';
+import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import readme from './readme.md';
 
-const Template = (args) => (
-  <sbb-form-error {...args}><span class="input-label-error">This is a required field.</span></sbb-form-error>
+const TemplateErrorWithIconAndMessage = (args) => (
+  <sbb-form-error {...args}>
+    <span slot='icon'>{getMarkupForSvg('circle-information-small')}</span>
+    <p slot='message'>This is a required field.</p>
+  </sbb-form-error>
 );
 
-export const sbbFormError = Template.bind({});
+export const errorWithOnlyIconAndMessage = TemplateErrorWithIconAndMessage.bind({});
 
-sbbFormError.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+errorWithOnlyIconAndMessage.documentation = {
+  title: 'sbb-form-error component with message and icon',
 };
 
 export default {

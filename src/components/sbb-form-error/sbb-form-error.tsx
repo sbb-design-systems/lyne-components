@@ -14,7 +14,12 @@ export class SbbFormError {
   public render(): JSX.Element {
     return (
       <div id={this.idError}>
-        <slot />
+        <div>
+          <slot name='icon' />
+        </div>
+        <div>
+          <slot name='message' />
+        </div>
       </div>
     );
   }
