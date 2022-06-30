@@ -1,15 +1,29 @@
 import { h } from 'jsx-dom';
+import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import readme from './readme.md';
 
-const TemplateErrorWithIconAndMessage = (args) => (
+const TemplateErrorWithDefaultIconAndMessage = (args) => (
   <sbb-form-error {...args}>
     This is a required field.
   </sbb-form-error>
 );
 
-export const errorWithOnlyIconAndMessage = TemplateErrorWithIconAndMessage.bind({});
+const TemplateErrorWithIconAndMessage = (args) => (
+  <sbb-form-error {...args}>
+    <span slot='icon'>{getMarkupForSvg('pie-small')}</span>
+    This is a required field.
+  </sbb-form-error>
+);
 
-errorWithOnlyIconAndMessage.documentation = {
+export const errorWithDefaultIconAndMessage = TemplateErrorWithDefaultIconAndMessage.bind({});
+
+errorWithDefaultIconAndMessage.documentation = {
+  title: 'sbb-form-error component with message and icon',
+};
+
+export const errorWithIconAndMessage = TemplateErrorWithIconAndMessage.bind({});
+
+errorWithIconAndMessage.documentation = {
   title: 'sbb-form-error component with message and icon',
 };
 
