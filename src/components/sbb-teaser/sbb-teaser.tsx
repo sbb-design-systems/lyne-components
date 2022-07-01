@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch } from '@stencil/core';
+import { Component, h, Prop, Watch, Element } from '@stencil/core';
 
 /**
  * @slot image - Slot used to render the image
@@ -10,9 +10,9 @@ import { Component, h, Prop, Watch } from '@stencil/core';
   shadow: true,
   styleUrls: {
     default: 'styles/sbb-teaser.default.scss',
-    shared: 'styles/sbb-teaser.shared.scss'
+    shared: 'styles/sbb-teaser.shared.scss',
   },
-  tag: 'sbb-teaser'
+  tag: 'sbb-teaser',
 })
 
 /**
@@ -57,9 +57,29 @@ export class SbbTeaser {
    */
   @Prop() public isStacked: boolean;
 
+  @Element() private _element: HTMLElement;
+
   public componentWillLoad(): void {
     // Validate props
     this.validateAccessibilityLabel(this.accessibilityLabel);
+  }
+
+  private _linkMutationObserver = new MutationObserver((mutations) => {
+    mutations?.forEach((mutation) => {
+      const element = mutation.target as HTMLElement;
+
+      if (element.nodeName === 'SBB-TITLE' && element.getAttribute('level') !== '5') {
+        element.setAttribute('level', '5');
+      }
+    });
+  });
+
+  public connectedCallback(): void {
+    this._element.querySelectorAll('sbb-title')?.forEach((element) => {
+      this._linkMutationObserver.observe(element, {
+        attributes: true,
+      });
+    });
   }
 
   public render(): JSX.Element {

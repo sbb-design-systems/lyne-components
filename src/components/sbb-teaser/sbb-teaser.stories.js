@@ -70,12 +70,10 @@ const sbbTeaserHeadlineArgs = {
     'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
 };
 
-const SlotSbbTeaserHeadlineTemplate = (args) => (
-  <sbb-title slot="headline" level="5" text={args.headline} />
-);
+const SlotSbbTeaserHeadlineTemplate = (args) => <sbb-title slot="headline" text={args.headline} />;
 
 const SlotSbbTeaserLongHeadlineTemplate = (args) => (
-  <sbb-title slot="headline" level="5" text={args.longHeadline} />
+  <sbb-title slot="headline" text={args.longHeadline} />
 );
 
 const sbbTeaserDescriptionArgs = {

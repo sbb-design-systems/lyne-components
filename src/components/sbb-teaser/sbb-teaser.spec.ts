@@ -1,6 +1,19 @@
 import { SbbTeaser } from './sbb-teaser';
 import { newSpecPage } from '@stencil/core/testing';
 
+beforeAll(() => {
+  const mutationObserverMock = jest
+    .fn<MutationObserver, [MutationCallback]>()
+    .mockImplementation(() => {
+      return {
+        observe: jest.fn(),
+        disconnect: jest.fn(),
+        takeRecords: jest.fn(),
+      };
+    });
+  global.MutationObserver = mutationObserverMock;
+});
+
 describe('sbb-teaser', () => {
   describe('sbb-teaser is stacked', () => {
     it('renders', async () => {

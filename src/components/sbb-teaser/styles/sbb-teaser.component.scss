@@ -4,7 +4,7 @@
 @include host-component-properties;
 
 :host {
-  display: inline-block;
+  display: inline-flex;
 
   --teaser-scale-hover: 1.02;
   --teaser-description-color: var(--sbb-color-metal-default);
@@ -14,11 +14,16 @@
 }
 
 .teaser {
+  display: inline-flex;
   text-decoration: none;
 
   &:focus-visible {
     @include focusOutline;
   }
+}
+
+.teaser__content {
+  display: inherit;
 }
 
 .teaser--primary-negative {
