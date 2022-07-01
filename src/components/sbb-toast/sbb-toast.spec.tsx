@@ -1,4 +1,5 @@
 import { h } from '@stencil/core';
+import sbbButtonEvents from '../sbb-button/sbb-button.events';
 import { SbbToast } from './sbb-toast';
 import { newSpecPage } from '@stencil/core/testing';
 import {
@@ -57,9 +58,9 @@ describe('sbb-toast', () => {
                </span>
                <span class="toast-spacer"></span>
                <span class="toast-action">
-                 <button class="sbb-focusable toast-button" role="cancel" type="button">
+                 <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
                    <span class="toast-close"></span>
-                 </button>
+                 </sbb-button>
                </span>
              </div>
            </div>
@@ -238,10 +239,9 @@ describe('sbb-toast', () => {
                </span>
                <span class="toast-spacer"></span>
                <span class="toast-action">
-                 <button class="sbb-focusable toast-button" role="cancel" type="button">
-                   <span class="toast-close">
-                   </span>
-                 </button>
+                 <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
+                   <span class="toast-close"></span>
+                 </sbb-button>
                </span>
              </div>
            </div>
@@ -481,10 +481,9 @@ describe('sbb-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                 <button class="sbb-focusable toast-button" role="cancel" type="button">
-                   <span class="toast-close">
-                   </span>
-                 </button>
+                  <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
+                    <span class="toast-close"></span>
+                  </sbb-button>
                </span>
               </div>
             </div>
@@ -504,9 +503,8 @@ describe('sbb-toast', () => {
 
     await toast.present();
     const onDidDismiss = toast.onDidDismiss();
-    const toastButton = page.root.shadowRoot.querySelector('button');
-
-    toastButton.click();
+    // query and click for button doesn't work; click event is correctly catched
+    toast.dispatchEvent(new CustomEvent(sbbButtonEvents.click));
     await expect(onDidDismiss).resolves.toStrictEqual(returnOnDismiss);
   });
 });

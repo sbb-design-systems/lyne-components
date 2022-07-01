@@ -40,11 +40,13 @@
 ### Used by
 
  - [sbb-panel](../sbb-panel)
+ - [sbb-toast](../sbb-toast)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-panel --> sbb-button
+  sbb-toast --> sbb-button
   style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

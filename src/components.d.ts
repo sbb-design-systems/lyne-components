@@ -930,7 +930,7 @@ export namespace Components {
          */
         "config": InterfaceToastConfiguration;
         /**
-          * If `true`, the toast will play enter-leave animations.
+          * Indicates whether the toast will play enter-leave animations.
          */
         "disableAnimation": boolean;
         /**
@@ -940,15 +940,15 @@ export namespace Components {
          */
         "dismiss": (data?: any, role?: string) => Promise<boolean>;
         /**
-          * Animation to use when the toast is presented.
+          * The animation used when the toast is presented.
          */
         "enterAnimation"?: AnimationBuilder;
         /**
-          * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+          * Indicates whether the keyboard is automatically dismissed when the overlay is presented.
          */
         "keyboardClose": boolean;
         /**
-          * Animation to use when the toast is dismissed.
+          * The animation used when the toast is dismissed.
          */
         "leaveAnimation"?: AnimationBuilder;
         /**
@@ -2195,19 +2195,19 @@ declare namespace LocalJSX {
          */
         "config"?: InterfaceToastConfiguration;
         /**
-          * If `true`, the toast will play enter-leave animations.
+          * Indicates whether the toast will play enter-leave animations.
          */
         "disableAnimation"?: boolean;
         /**
-          * Animation to use when the toast is presented.
+          * The animation used when the toast is presented.
          */
         "enterAnimation"?: AnimationBuilder;
         /**
-          * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+          * Indicates whether the keyboard is automatically dismissed when the overlay is presented.
          */
         "keyboardClose"?: boolean;
         /**
-          * Animation to use when the toast is dismissed.
+          * The animation used when the toast is dismissed.
          */
         "leaveAnimation"?: AnimationBuilder;
         /**

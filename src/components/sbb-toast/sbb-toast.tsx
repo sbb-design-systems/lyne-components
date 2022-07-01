@@ -6,6 +6,7 @@ import {
   EventEmitter,
   h,
   Host,
+  Listen,
   Method,
   Prop,
 } from '@stencil/core';
@@ -21,7 +22,7 @@ import {
   InterfaceOverlay,
   InterfaceOverlayEventDetail,
 } from '../../global/core/components/overlay/overlays-interface';
-import { CssClassMap, getClassList } from '../../global/helpers/get-class-list';
+import { getClassList } from '../../global/helpers/get-class-list';
 import { StringSanitizer } from '../../global/helpers/sanitization/string-sanitizer';
 import { DEFAULT_Z_INDEX_TOAST } from '../../global/z-index-list';
 import { toastEnterAnimation } from './animations/sbb-toast.enter';
@@ -38,7 +39,7 @@ import { InterfaceToastAction, InterfaceToastConfiguration } from './sbb-toast.c
 })
 export class SbbToast implements ComponentInterface, InterfaceOverlay {
   /**
-   * Used to avoid dismissal if presenting is ongoing, and viceversa.
+   * Used to avoid dismissal if presenting is ongoing, and vice-versa.
    */
   public presented: boolean;
 
@@ -50,12 +51,12 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
   @Prop() public overlayIndex: number;
 
   /**
-   * If `true`, the toast will play enter-leave animations.
+   * Indicates whether the toast will play enter-leave animations.
    */
   @Prop() public disableAnimation = false;
 
   /**
-   * If `true`, the keyboard will be automatically
+   * Indicates whether the keyboard is automatically
    * dismissed when the overlay is presented.
    */
   @Prop() public keyboardClose = false;
@@ -66,15 +67,18 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
   @Prop() public config: InterfaceToastConfiguration;
 
   /**
-   * Animation to use when the toast is presented.
+   * The animation used when the toast is presented.
    */
   @Prop() public enterAnimation?: AnimationBuilder;
 
   /**
-   * Animation to use when the toast is dismissed.
+   * The animation used when the toast is dismissed.
    */
   @Prop() public leaveAnimation?: AnimationBuilder;
 
+  /**
+   * The internal toast element.
+   */
   @Element() public el!: HTMLSbbToastElement;
 
   /**
@@ -110,11 +114,13 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
   public willPresent: EventEmitter<void>;
 
   /**
+   * @internal
    * Internal timeout.
    */
   private _durationTimeout: ReturnType<typeof setTimeout>;
 
   /**
+   * @internal
    * Internal toast configuration;
    * value is merged between the default and the public one.
    */
@@ -126,7 +132,7 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
   private _hasIconSlot: boolean;
 
   /**
-   * Setup the configuration and prepare the overlay.
+   * Set up the configuration and prepare the overlay.
    */
   public connectedCallback(): void {
     const defaultConfig: InterfaceToastConfiguration = {
@@ -200,56 +206,30 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
   }
 
   /**
-   * Renders the action/icon button.
-   * @param onClickFn Callback on button click.
-   * @param innerToastEl The HTML rendered as button content.
-   * @returns The button that will be rendered as action/icon.
+   * Listen to the close icon click event to dismiss the toast.
+   * FIXME: can't use constant from sbb-button.events.ts due bug https://github.com/ionic-team/stencil/issues/2924
    */
-  private _renderActionCommonButton(
-    onClickFn: () => Promise<boolean>,
-    innerToastEl: JSX.Element
-  ): JSX.Element {
-    return (
-      <button
-        type="button"
-        onClick={onClickFn}
-        role={this._internalConfig.action.role}
-        class={this._buttonClass()}
-      >
-        {innerToastEl}
-      </button>
-    );
+  @Listen('sbb-button_click')
+  public dismissFromCloseIcon(): void {
+    this.dismiss(null, 'cancel');
   }
 
   /**
    * Creates the CSS classes for the action button.
-   * @returns A CssClassMap with two default CSS classes and all the CSS classes
+   * @returns A string which contains two default CSS classes and all the CSS classes
    * added by consumers in _internalConfig.action.cssClass.
    */
-  private _buttonClass(): CssClassMap {
-    const fn: (acc: CssClassMap, curr: string) => CssClassMap = (
-      acc: CssClassMap,
-      curr: string
-    ) => {
-      acc[curr] = true;
-
-      return acc;
-    };
-
+  private _buttonClass(): string {
     const classArray: string[] = getClassList(this._internalConfig.action.cssClass);
 
-    return {
-      'sbb-focusable': true,
-      'toast-button': true,
-      ...classArray.reduce(fn, {}),
-    };
+    return `sbb-focusable toast-button ${classArray.join('')}`;
   }
 
   /**
    * Triggers the action handler and dismiss the toast.
    * @param action The action provided bu consumers in the toast config.
    */
-  private _handleActionButtonClick(action: InterfaceToastAction): Promise<boolean> {
+  private _callActionHandlerAndDismiss(action: InterfaceToastAction): Promise<boolean> {
     try {
       action.handler();
     } catch (e) {
@@ -268,8 +248,8 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
         return (
           <sbb-link
             class="toast-link sbb-focusable"
-            hrefValue={this._internalConfig.action.href}
             variant="inline-negative"
+            hrefValue={this._internalConfig.action.href}
             text={this._internalConfig.action.label}
             role={this._internalConfig.action.role}
             onClick={this.dismiss.bind(this, null, 'link')}
@@ -277,16 +257,30 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
         );
       }
       case 'action': {
-        const innerElement = <span class="toast-label">{this._internalConfig.action.label}</span>;
-        const clickFn = this._handleActionButtonClick.bind(this, this._internalConfig.action);
-
-        return this._renderActionCommonButton(clickFn, innerElement);
+        return (
+          <button
+            type="button"
+            role={this._internalConfig.action.role}
+            class={this._buttonClass()}
+            onClick={this._callActionHandlerAndDismiss.bind(this, this._internalConfig.action)}
+          >
+            <span class="toast-label">{this._internalConfig.action.label}</span>
+          </button>
+        );
       }
       case 'icon': {
-        const innerElement = <span class="toast-close" innerHTML={crossSmall} />;
-        const clickFn = this.dismiss.bind(this, null, 'cancel');
-
-        return this._renderActionCommonButton(clickFn, innerElement);
+        return (
+          <sbb-button
+            variant="transparent-negative"
+            icon={true}
+            iconDescription="Icon. Close the toast."
+            size="m"
+            role={this._internalConfig.action.role}
+            class={this._buttonClass()}
+          >
+            <span class="toast-close" innerHTML={crossSmall} />
+          </sbb-button>
+        );
       }
       default:
         throw new Error('Invalid action!');
@@ -338,7 +332,7 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
               innerHTML={StringSanitizer.sanitizeDOMString(this._internalConfig.message)}
             />
             {actionContent && [
-              <span class="toast-spacer"></span>,
+              <span class="toast-spacer" />,
               <span class="toast-action">{actionContent}</span>,
             ]}
           </div>

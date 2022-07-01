@@ -50,13 +50,13 @@ Toasts don't take focus.
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                            | Type                                              | Default     |
-| ------------------ | ------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------- |
-| `config`           | --                  | Exposed toast configuration.                                                           | `InterfaceToastConfiguration`                     | `undefined` |
-| `disableAnimation` | `disable-animation` | If `true`, the toast will play enter-leave animations.                                 | `boolean`                                         | `false`     |
-| `enterAnimation`   | --                  | Animation to use when the toast is presented.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
-| `keyboardClose`    | `keyboard-close`    | If `true`, the keyboard will be automatically dismissed when the overlay is presented. | `boolean`                                         | `false`     |
-| `leaveAnimation`   | --                  | Animation to use when the toast is dismissed.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
+| Property           | Attribute           | Description                                                                              | Type                                              | Default     |
+| ------------------ | ------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------- |
+| `config`           | --                  | Exposed toast configuration.                                                             | `InterfaceToastConfiguration`                     | `undefined` |
+| `disableAnimation` | `disable-animation` | Indicates whether the toast will play enter-leave animations.                            | `boolean`                                         | `false`     |
+| `enterAnimation`   | --                  | The animation used when the toast is presented.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
+| `keyboardClose`    | `keyboard-close`    | Indicates whether the keyboard is automatically dismissed when the overlay is presented. | `boolean`                                         | `false`     |
+| `leaveAnimation`   | --                  | The animation used when the toast is dismissed.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
 
 
 ## Events
@@ -117,11 +117,13 @@ Type: `Promise<void>`
 ### Depends on
 
 - [sbb-link](../sbb-link)
+- [sbb-button](../sbb-button)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-toast --> sbb-link
+  sbb-toast --> sbb-button
   style sbb-toast fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
