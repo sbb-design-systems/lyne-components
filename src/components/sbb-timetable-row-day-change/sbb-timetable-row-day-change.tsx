@@ -6,10 +6,7 @@ import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../../glo
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-row-day-change.default.scss',
-    shared: 'styles/sbb-timetable-row-day-change.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-row-day-change.scss',
   tag: 'sbb-timetable-row-day-change',
 })
 export class SbbTimetableRowDayChange {

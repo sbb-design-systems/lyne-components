@@ -6,10 +6,7 @@ import { i18nBarrierFreeTravel } from '../../global/i18n';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-barrier-free.default.scss',
-    shared: 'styles/sbb-timetable-barrier-free.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-barrier-free.scss',
   tag: 'sbb-timetable-barrier-free',
 })
 export class SbbTimetableBarrierFree {

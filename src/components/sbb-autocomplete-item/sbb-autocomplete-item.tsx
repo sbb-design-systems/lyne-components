@@ -8,10 +8,7 @@ import { InterfaceAutocompleteItemAttributes } from './sbb-autocomplete-item.cus
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-autocomplete-item.default.scss',
-    shared: 'styles/sbb-autocomplete-item.shared.scss',
-  },
+  styleUrl: 'sbb-autocomplete-item.scss',
   tag: 'sbb-autocomplete-item',
 })
 export class SbbAutocompleteItem {

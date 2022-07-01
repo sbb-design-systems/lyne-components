@@ -7,10 +7,7 @@ import { i18nArrival, i18nDeparture } from '../../global/i18n';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-transportation-time.default.scss',
-    shared: 'styles/sbb-timetable-transportation-time.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-transportation-time.scss',
   tag: 'sbb-timetable-transportation-time',
 })
 export class SbbTimetableTransportationTime {

@@ -2,10 +2,7 @@ import { Component, h, Prop } from '@stencil/core';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-row-column-headers.default.scss',
-    shared: 'styles/sbb-timetable-row-column-headers.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-row-column-headers.scss',
   tag: 'sbb-timetable-row-column-headers',
 })
 export class SbbTimetableRowColumnHeaders {

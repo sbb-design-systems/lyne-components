@@ -11,10 +11,7 @@ import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-card-badge.default.scss',
-    shared: 'styles/sbb-card-badge.shared.scss',
-  },
+  styleUrl: 'sbb-card-badge.scss',
   tag: 'sbb-card-badge',
 })
 export class SbbCardBadge {

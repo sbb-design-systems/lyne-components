@@ -11,10 +11,7 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-link.default.scss',
-    shared: 'styles/sbb-link.shared.scss',
-  },
+  styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
 export class SbbLink {

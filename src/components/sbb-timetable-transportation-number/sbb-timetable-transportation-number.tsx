@@ -5,10 +5,7 @@ import { InterfaceTimetableTransportationNumberAttributes } from './sbb-timetabl
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-transportation-number.default.scss',
-    shared: 'styles/sbb-timetable-transportation-number.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-transportation-number.scss',
   tag: 'sbb-timetable-transportation-number',
 })
 export class SbbTimetableTransportationNumber {
