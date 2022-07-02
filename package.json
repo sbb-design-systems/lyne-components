@@ -71,7 +71,7 @@
     "babel-loader": "8.2.5",
     "chromatic": "6.7.0",
     "esbuild": "0.14.48",
-    "eslint": "8.18.0",
+    "eslint": "8.19.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-jest": "26.5.3",
     "eslint-plugin-jsx-a11y": "6.6.0",
