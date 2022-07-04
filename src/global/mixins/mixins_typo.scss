@@ -66,12 +66,6 @@
   font-family: var(--sbb-typo-type-face-sbb-bold);
 }
 
-@mixin text-xxl--regular {
-  @include text;
-
-  font-size: var(--sbb-font-size-text-xxl);
-}
-
 @mixin text-xl--regular {
   @include text;
 

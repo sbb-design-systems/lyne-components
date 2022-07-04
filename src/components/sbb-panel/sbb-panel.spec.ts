@@ -1,7 +1,20 @@
 import { SbbPanel } from './sbb-panel';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('lyne-panel', () => {
+beforeAll(() => {
+  const mutationObserverMock = jest
+    .fn<MutationObserver, [MutationCallback]>()
+    .mockImplementation(() => {
+      return {
+        observe: jest.fn(),
+        disconnect: jest.fn(),
+        takeRecords: jest.fn(),
+      };
+    });
+  global.MutationObserver = mutationObserverMock;
+});
+
+describe('sbb-panel', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbPanel],

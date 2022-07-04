@@ -13,7 +13,6 @@
   --sbb-font-size-title-4: var(--sbb-typo-scale-1-25x);
   --sbb-font-size-title-5: var(--sbb-typo-scale-default);
   --sbb-font-size-title-6: var(--sbb-typo-scale-0-875x);
-  --sbb-font-size-text-xxl: var(--sbb-typo-scale-1-5x);
   --sbb-font-size-text-xl: var(--sbb-typo-scale-1-25x);
   --sbb-font-size-text-m: var(--sbb-typo-scale-default);
   --sbb-font-size-text-s: var(--sbb-typo-scale-0-875x);
@@ -38,7 +37,6 @@
 
   @include mq($from: large) {
     --sbb-font-size-title-1: var(--sbb-typo-scale-3-5x);
-    --sbb-font-size-text-xxl: var(--sbb-typo-scale-2-5x);
   }
 
   @include mq($from: ultra) {

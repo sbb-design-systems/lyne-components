@@ -23,7 +23,6 @@ import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-import { InterfacePanelAttributes } from "./components/sbb-panel/sbb-panel.custom";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
@@ -547,6 +546,10 @@ export namespace Components {
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant": InterfaceLinkAttributes['variant'];
+        /**
+          * Set this property to true if you want only a visual represenation of a link, but no interaction (a span instead of a link will be rendered).
+         */
+        "visualLinkOnly"?: boolean;
     }
     interface SbbLinkButton {
         /**
@@ -623,21 +626,9 @@ export namespace Components {
     }
     interface SbbPanel {
         /**
-          * The text to use as button text
+          * The prop for deciding if the panel should contain a link or not
          */
-        "buttonText": string;
-        /**
-          * Id which is sent in the click event payload for the button
-         */
-        "eventId"?: string;
-        /**
-          * The tag to use for the text element
-         */
-        "tag"?: InterfacePanelAttributes['tag'];
-        /**
-          * The text to show in the panel
-         */
-        "text": string;
+        "hasCalltoActionLink"?: boolean;
     }
     interface SbbPearlChain {
         /**
@@ -1931,6 +1922,10 @@ declare namespace LocalJSX {
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant"?: InterfaceLinkAttributes['variant'];
+        /**
+          * Set this property to true if you want only a visual represenation of a link, but no interaction (a span instead of a link will be rendered).
+         */
+        "visualLinkOnly"?: boolean;
     }
     interface SbbLinkButton {
         /**
@@ -2003,21 +1998,9 @@ declare namespace LocalJSX {
     }
     interface SbbPanel {
         /**
-          * The text to use as button text
+          * The prop for deciding if the panel should contain a link or not
          */
-        "buttonText": string;
-        /**
-          * Id which is sent in the click event payload for the button
-         */
-        "eventId"?: string;
-        /**
-          * The tag to use for the text element
-         */
-        "tag"?: InterfacePanelAttributes['tag'];
-        /**
-          * The text to show in the panel
-         */
-        "text": string;
+        "hasCalltoActionLink"?: boolean;
     }
     interface SbbPearlChain {
         /**

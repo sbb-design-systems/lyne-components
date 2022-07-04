@@ -12,17 +12,50 @@ import { InterfacePanelAttributes } from './sbb-panel.custom';
  * @slot link- to render the link
  */
 export class SbbPanel {
-  /** The text to show in the panel */
-  @Prop() public text!: string;
+  /** The prop for deciding if the panel should contain a link or not */
+  @Prop() public hasCalltoActionLink? = false;
 
-  /** The text to use as button text */
-  @Prop() public buttonText!: string;
+  @Element() private _element: HTMLElement;
 
-  /** Id which is sent in the click event payload for the button*/
-  @Prop() public eventId?: string;
+  public componentWillLoad(): void {
+    this._element.querySelectorAll('sbb-link')?.forEach((element) => {
+      element['visualLinkOnly'] = this.hasCalltoActionLink;
+    });
+  }
+  /**
+   * will change the props for the sbb-link
+   */
+  private _linkMutationObserver = new MutationObserver((mutations) => {
+    mutations?.forEach((mutation) => {
+      const element = mutation.target as HTMLElement;
 
-  /** The tag to use for the text element */
-  @Prop() public tag?: InterfacePanelAttributes['tag'] = 'p';
+      if (element.nodeName !== 'SBB-LINK') return;
+
+      if (element.getAttribute('icon') !== 'chevron-small-right-small') {
+        element.setAttribute('icon', 'chevron-small-right-small');
+      }
+
+      if (element.getAttribute('icon-placement') !== 'end') {
+        element.setAttribute('icon-placement', 'end');
+      }
+
+      if (element.getAttribute('text-size') !== 'm') {
+        element.setAttribute('text-size', 'm');
+      }
+
+      if (element.getAttribute('variant') !== 'block-negative') {
+        element.setAttribute('variant', 'block-negative');
+      }
+    });
+  });
+
+  public connectedCallback(): void {
+    this._element.querySelectorAll('sbb-link')?.forEach((element) => {
+      this._linkMutationObserver.observe(element, {
+        attributes: true,
+      });
+    });
+  }
 
   public render(): JSX.Element {
     return (

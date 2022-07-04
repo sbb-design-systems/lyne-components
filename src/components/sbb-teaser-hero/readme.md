@@ -15,11 +15,10 @@
 
 ## Slots
 
-| Slot                           | Description                      |
-| ------------------------------ | -------------------------------- |
-| `"hiddenTitle"`                | to place the accessibility title |
-| `"image"`                      | to render the image              |
-| `"panel- to render the panel"` |                                  |
+| Slot      | Description         |
+| --------- | ------------------- |
+| `"image"` | to render the image |
+| `"panel"` | to render the panel |
 
 
 ## Dependencies

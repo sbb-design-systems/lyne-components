@@ -1,17 +1,32 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 
 /* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
+/* --- text ---------------------------------------- */
+
+const panelText = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'text',
+  },
+};
+
 /* --- text slot ----------------------------------- */
 
+const sbbTextArgTypes = {
+  text: panelText,
+};
 const sbbTextArgs = {
   text: 'Rücksichtsvoll mit SBB Green Class',
 };
 
-const SlotSbbTextTemplate = (args) => <p slot="text">{args.text}</p>;
+const SlotTemplateSbbText = (args) => <span slot="text">{args.text}</span>;
 
 /* --- link slot ----------------------------------- */
 
@@ -33,28 +48,41 @@ const SlotSbbLinkTemplate = (args) => (
     variant="block-negative"
   >
     <span slot="icon">
-      <svg width="24" height="24" viewBox="0,0,24,24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="m10.6776,7.74045,3.949,3.90395.3597.3557-.3597.3555-3.95,3.904-.70297-.7112L13.5639,12,9.97459,8.4516l.70301-.71115z"
-        ></path>
-      </svg>
+      <span slot="icon">{getMarkupForSvg('chevron-small-right-small')}</span>
     </span>
   </sbb-link>
 );
 
 const TemplateSbbPanelDefault = (args) => (
   <sbb-panel {...args}>
-    <SlotSbbTextTemplate {...sbbTextArgs} />
+    <SlotTemplateSbbText {...args} />
     <SlotSbbLinkTemplate {...sbbLinkArgs} />
   </sbb-panel>
 );
 
+const TemplateSbbPanelWithoutLink = (args) => (
+  <sbb-panel {...args}>
+    <SlotTemplateSbbText {...args} />
+  </sbb-panel>
+);
+
 export const DefaultSbbPanel = TemplateSbbPanelDefault.bind({});
+export const WithoutLinkSbbPanel = TemplateSbbPanelWithoutLink.bind({});
+
+DefaultSbbPanel.argTypes = sbbTextArgTypes;
+
+DefaultSbbPanel.args = {
+  ...sbbTextArgs,
+};
+
+WithoutLinkSbbPanel.argTypes = sbbTextArgTypes;
+
+WithoutLinkSbbPanel.args = {
+  ...sbbTextArgs,
+};
 
 DefaultSbbPanel.documentation = {
-  title: 'LynePanel, Default',
+  title: 'SbbPanel, Default',
 };
 
 export default {

@@ -3,10 +3,14 @@
 @include host-component-properties;
 
 :host {
-  --panel-opacity: 0.9;
-  --panel-padding-inline: var(--sbb-spacing-responsive-m-small);
-  --panel-padding-block: var(--sbb-spacing-responsive-s-small);
-  --background-color: var(--sbb-color-red-default);
+  --panel-font-family: 'SBBWeb Light';
+  --panel-letter-spacing: 0.01em;
+  --panel-line-height: 1.2;
+  --panel-font-size-text-xxl: var(--sbb-typo-scale-1-5x);
+  --panel-opacity: var(--panel-opacity-override, 0.9);
+  --panel-padding-inline: var(--sbb-spacing-responsive-m);
+  --panel-padding-block: var(--sbb-spacing-responsive-s);
+  --panel-background-color: var(--sbb-color-red-default);
   --text-margin-block-end: var(--sbb-spacing-fixed-6x);
 
   // TODO: missing design tokens
@@ -15,29 +19,27 @@
   --triangle-height: #{px-to-rem-build(33)};
 
   @include mq($from: medium) {
-    --panel-padding-inline: var(--sbb-spacing-responsive-m-medium);
-    --panel-padding-block: var(--sbb-spacing-responsive-s-medium);
-
     // TODO: missing design tokens
     --panel-width: #{px-to-rem-build(321)};
     --panel-height: #{px-to-rem-build(240.11)};
-    --triangle-height: #{px-to-rem-build(45)};
+    --triangle-height: #{px-to-rem-build(47.45)};
+    --panel-line-height: 1.3;
   }
 
   @include mq($from: large) {
-    --panel-padding-inline: var(--sbb-spacing-responsive-m-wide);
-    --panel-padding-block: var(--sbb-spacing-responsive-s-wide);
-
     // TODO: missing design tokens
     --panel-width: #{px-to-rem-build(428)};
     --panel-height: #{px-to-rem-build(320.38)};
-    --triangle-height: #{px-to-rem-build(65)};
+    --triangle-height: #{px-to-rem-build(63.31)};
+    --panel-font-size-text-xxl: var(--sbb-typo-scale-2-5x);
   }
 
-  position: relative;
+  --sbb-focus-outline-color: var(
+    --sbb-focus-outline-color-override,
+    var(--sbb-focus-outline-color-default)
+  );
+
   opacity: var(--panel-opacity);
-  padding-block-start: var(--triangle-height);
-  padding-block-end: var(--triangle-height);
 }
 
 .panel {
@@ -46,47 +48,40 @@
   flex-direction: column;
   justify-content: center;
   width: var(--panel-width);
-  min-height: var(--panel-height);
-  padding-inline-start: var(--panel-padding-inline);
-  padding-inline-end: var(--panel-padding-inline);
-  padding-block-start: var(--panel-padding-block);
-  padding-block-end: var(--panel-padding-block);
-  background-color: var(--background-color);
+  min-height: calc(var(--panel-height) + var(--triangle-height) * 2);
+  padding: calc(var(--sbb-spacing-responsive-s) + var(--triangle-height))
+    var(--sbb-spacing-responsive-m);
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: var(--panel-width);
+    height: calc(var(--panel-height) + var(--triangle-height) * 2);
+    background-color: var(--sbb-color-red-default);
+    left: 0;
+    z-index: -1;
+    clip-path: polygon(
+      0 0,
+      100% var(--triangle-height),
+      100% calc(100% - calc(var(--triangle-height))),
+      0% 100%
+    );
+  }
 
   @include ifForcedColors {
     border: #{px-to-rem-build(1)} solid CanvasText;
   }
 }
 
-.panel::before,
-.panel::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 0;
-  border-inline-end: var(--panel-width) solid transparent;
-  z-index: 0;
-
-  @include ifForcedColors {
-    display: none;
-  }
-}
-
-.panel::before {
-  top: calc(-1 * var(--triangle-height));
-  border-block-end: var(--triangle-height) solid var(--background-color);
-}
-
-.panel::after {
-  bottom: calc(-1 * var(--triangle-height));
-  border-block-start: var(--triangle-height) solid var(--background-color);
-}
-
 ::slotted([slot='text']) {
-  @include text-xxl--regular;
-
+  font-family: var(--panel-font-family);
+  font-size: var(--panel-font-size-text-xxl);
   color: var(--sbb-color-white-default);
+  line-height: var(--panel-line-height);
   margin-block-start: 0;
-  margin-block-end: var(--text-margin-block-end);
+  margin-block-end: 0;
+}
+
+::slotted([slot='link']) {
+  margin-block-start: var(--text-margin-block-end);
 }
