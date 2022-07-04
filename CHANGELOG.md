@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.5 (2022-07-04)
+
+### Bug Fixes
+
+- remove engine config as it blocks consumers ([99e80db](https://github.com/lyne-design-system/lyne-components/commit/99e80db9ce98ae9c7cfcffda445485dd15e55484))
+
 ### 0.1.4 (2022-06-28)
 
 ### 0.1.3 (2022-06-28)
