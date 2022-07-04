@@ -4,14 +4,18 @@ import readme from './readme.md';
 
 const TemplateErrorWithDefaultIconAndMessage = (args) => (
   <sbb-form-error {...args}>
-    This is a required field.
+    <span class='input-label-error'>
+      This is a required field.
+    </span>
   </sbb-form-error>
 );
 
 const TemplateErrorWithIconAndMessage = (args) => (
   <sbb-form-error {...args}>
-    <span slot='icon'>{getMarkupForSvg('pie-small')}</span>
-    This is a required field.
+    <span slot='icon' class='input-label-error__icon'>{getMarkupForSvg('pie-small')}</span>
+    <span class='input-label-error'>      
+      This is a required field.
+    </span>
   </sbb-form-error>
 );
 
