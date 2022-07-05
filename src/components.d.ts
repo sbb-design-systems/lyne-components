@@ -35,6 +35,7 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
+import { InterfaceCheckToggleAttributes } from "./components/sbb-toggle-check/sbb-link.custom";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -935,6 +936,24 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToggleCheck {
+        "acceccibilityDescribedBy"?: string;
+        "acceccibilityLabel"?: string;
+        "acceccibilityLabelledby"?: string;
+        "checked": boolean;
+        "disabled": boolean;
+        /**
+          * Id which is sent in the change event payload
+         */
+        "eventId"?: string;
+        "icon": string;
+        /**
+          * The label position relative to the toggle. Defaults to 'after'
+         */
+        "labelPosition"?: InterfaceCheckToggleAttributes['labelPosition'];
+        "name"?: string;
+        "toggleId": string;
+    }
 }
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -943,6 +962,10 @@ export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
+}
+export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleCheckElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -1221,6 +1244,12 @@ declare global {
         prototype: HTMLSbbTitleElement;
         new (): HTMLSbbTitleElement;
     };
+    interface HTMLSbbToggleCheckElement extends Components.SbbToggleCheck, HTMLStencilElement {
+    }
+    var HTMLSbbToggleCheckElement: {
+        prototype: HTMLSbbToggleCheckElement;
+        new (): HTMLSbbToggleCheckElement;
+    };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
@@ -1268,6 +1297,7 @@ declare global {
         "sbb-timetable-transportation-walk": HTMLSbbTimetableTransportationWalkElement;
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
+        "sbb-toggle-check": HTMLSbbToggleCheckElement;
     }
 }
 declare namespace LocalJSX {
@@ -2170,6 +2200,25 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToggleCheck {
+        "acceccibilityDescribedBy"?: string;
+        "acceccibilityLabel"?: string;
+        "acceccibilityLabelledby"?: string;
+        "checked"?: boolean;
+        "disabled": boolean;
+        /**
+          * Id which is sent in the change event payload
+         */
+        "eventId"?: string;
+        "icon"?: string;
+        /**
+          * The label position relative to the toggle. Defaults to 'after'
+         */
+        "labelPosition"?: InterfaceCheckToggleAttributes['labelPosition'];
+        "name"?: string;
+        "onChanged"?: (event: SbbToggleCheckCustomEvent<boolean>) => void;
+        "toggleId"?: string;
+    }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
@@ -2217,6 +2266,7 @@ declare namespace LocalJSX {
         "sbb-timetable-transportation-walk": SbbTimetableTransportationWalk;
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
+        "sbb-toggle-check": SbbToggleCheck;
     }
 }
 export { LocalJSX as JSX };
@@ -2269,6 +2319,7 @@ declare module "@stencil/core" {
             "sbb-timetable-transportation-walk": LocalJSX.SbbTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationWalkElement>;
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
+            "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
         }
     }
 }

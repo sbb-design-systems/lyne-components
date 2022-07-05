@@ -1,0 +1,90 @@
+:host {
+  display: inline-flex;
+
+  --toggle-check-width: #{px-to-rem-build(48)};
+  --toggle-check-height: #{px-to-rem-build(28)};
+  --toggle-check-circle-diameter: #{px-to-rem-build(24)};
+  --toggle-check-circle-offset: #{px-to-rem-build(2)};
+}
+
+.toggle-check {
+  display: inline-flex;
+  align-items: center;
+  color: var(--sbb-color-charcoal-default);
+  @include text-s--regular;
+}
+
+.toggle-check__slider--after {
+  margin-inline-end: var(--sbb-spacing-fixed-3x);
+}
+
+.toggle-check__slider--before {
+  margin-inline-start: var(--sbb-spacing-fixed-3x);
+}
+
+input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+}
+
+.toggle-check__slider {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  min-width: var(--toggle-check-width);
+  min-height: var(--toggle-check-height);
+  border-radius: #{px-to-rem-build(28)};
+  background-color: var(--sbb-color-smoke-default);
+}
+
+.toggle-check__circle {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: var(--toggle-check-circle-diameter);
+  height: var(--toggle-check-circle-diameter);
+  border-radius: #{px-to-rem-build(24)};
+  background-color: var(--sbb-color-white-default);
+  will-change: transform;
+  box-shadow: 0 #{px-to-rem-build(1)} #{px-to-rem-build(8)} 0 var(--sbb-color-smoke-default);
+  transform: translate(var(--toggle-check-circle-offset), -50%);
+  transition: var(--sbb-animation-duration-6x);
+
+  // checked state
+  .toggle-check--checked & {
+    transform: translate(calc(100% - var(--toggle-check-circle-offset)), -50%);
+  }
+}
+
+// checked state
+.toggle-check--checked .toggle-check__slider {
+  background-color: var(--sbb-color-red-default);
+}
+
+::slotted([slot='icon']) {
+  fill: var(--sbb-color-red-default);
+}
+
+// disabled state
+.toggle-check--disabled {
+  cursor: not-allowed;
+  color: var(--sbb-color-graphite-default);
+
+  .toggle-check__slider {
+    cursor: not-allowed;
+    background-color: var(--sbb-color-cloud-default);
+
+    & .toggle-check__circle {
+      background-color: var(--sbb-color-milk-default);
+    }
+  }
+
+  ::slotted([slot='icon']) {
+    fill: var(--sbb-color-granite-default);
+  }
+}
+
+// focus state
+input[type='checkbox']:focus-visible + .toggle-check__slider {
+  @include focusOutline;
+}
