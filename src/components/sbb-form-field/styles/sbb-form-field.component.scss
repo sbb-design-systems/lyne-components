@@ -25,7 +25,7 @@
 
   --input-with-icon-padding-inline-start: 44px; //TODO Design Token?
 
-  --icon-size: var(--size-icon-ui-small);
+  --icon-size: var(--sbb-size-icon-ui-small);
 
   @include mq($from: medium) {
     --input-height: var(--sbb-size-form-element-l-min-height-medium);
@@ -99,6 +99,15 @@
   }
 }
 
+// Input Icon
+::slotted(.input__icon) {
+  @include absoluteCenterY;
+  inset-inline-start: var(--sbb-spacing-fixed-3x);
+  height: var(--icon-size);
+  overflow: hidden;
+  fill: currentColor;
+}
+
 // Input Variant
 .input-wrapper--label-hidden .input {
   padding-block-start: 0;
@@ -147,14 +156,4 @@
 
 .input-wrapper--with-icon .input-label {
   padding-inline-start: var(--input-with-icon-padding-inline-start);
-}
-
-// Icon
-// ----------------------------------------------
-.input__icon {
-  @include absoluteCenterY;
-  inset-inline-start: var(--sbb-spacing-fixed-3x);
-  height: var(--icon-size);
-  overflow: hidden;
-  fill: currentColor;
 }

@@ -31,9 +31,8 @@ const TemplateInputWithError = (args) => (
 
 const TemplateInputWithIcons = (args) => (
   <sbb-form-field {...args}>
-    <span slot="prefix">{getMarkupForSvg('pie-small')}</span>
-    <input slot="input" placeholder="Name" />
-    <span slot="suffix">{getMarkupForSvg('circle-information-small')}</span>
+    <span slot="prefix" class="input__icon">{getMarkupForSvg('circle-information-small')}</span>
+    <input slot="input" class="input" placeholder="Name" />
   </sbb-form-field>
 );
 
@@ -49,7 +48,7 @@ const TemplateSelect = (args) => (
 
 const TemplateSelectDisabled = (args) => (
   <sbb-form-field {...args}>
-    <select slot="input" placeholder="Name" disabled>
+    <select slot="input" class="input select" placeholder="Name" disabled>
       <option>Value 1</option>
       <option>Value 2</option>
       <option>Value 3</option>
@@ -59,7 +58,7 @@ const TemplateSelectDisabled = (args) => (
 
 const TemplateSelectWithError = (args) => (
   <sbb-form-field {...args}>
-    <select slot="input" placeholder="Name">
+    <select slot="input" class="input select" placeholder="Name">
       <option>Value 1</option>
       <option>Value 2</option>
       <option>Value 3</option>
@@ -73,7 +72,7 @@ const TemplateSelectWithError = (args) => (
 const TemplateSelectWithIcons = (args) => (
   <sbb-form-field {...args}>
     <span slot="prefix">{getMarkupForSvg('pie-small')}</span>
-    <select slot="input" placeholder="Name">
+    <select slot="input" class="input select" placeholder="Name">
       <option>Value 1</option>
       <option>Value 2</option>
       <option>Value 3</option>
