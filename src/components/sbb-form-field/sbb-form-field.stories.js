@@ -9,16 +9,28 @@ const TemplateInput = (args) => (
 );
 
 const TemplateInputDisabled = (args) => (
-  <sbb-form-field {...args}>
-    <input slot="input" class="input" placeholder="Name" disabled value="Disabled" />
+  <sbb-form-field errorSpace={args.errorSpace} label={args.label} optional={args.optional}>
+    <input
+      slot="input"
+      class="input"
+      placeholder="Name"
+      disabled={args.disabled}
+      value="Disabled"
+    />
   </sbb-form-field>
 );
 
-const TemplateInputReadOnly = (args) => (
-  <sbb-form-field {...args}>
-    <input slot="input" class="input" placeholder="Name" readOnly value="Readonly" />
-  </sbb-form-field>
-);
+const TemplateInputReadOnly = (args) => [
+  <sbb-form-field errorSpace={args.errorSpace} label={args.label} optional={args.optional}>
+    <input
+      slot="input"
+      class="input"
+      placeholder="Name"
+      readOnly={args.readonly}
+      value="Readonly"
+    />
+  </sbb-form-field>,
+];
 
 const TemplateInputWithError = (args) => (
   <sbb-form-field {...args}>
@@ -100,6 +112,18 @@ const optionalArg = {
   },
 };
 
+const disabled = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const readonly = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const basicArgTypes = {
   errorSpace: errorSpaceArg,
   label: labelArg,
@@ -124,9 +148,10 @@ formWithLabelAndInput.documentation = {
 
 export const formWithInputDisabled = TemplateInputDisabled.bind({});
 
-formWithInputDisabled.argTypes = basicArgTypes;
+formWithInputDisabled.argTypes = { ...basicArgTypes, disabled };
 
 formWithInputDisabled.args = JSON.parse(JSON.stringify(basicArgs));
+formWithInputDisabled.args.disabled = true;
 
 formWithInputDisabled.documentation = {
   title: 'sbb-form-field component with input disabled',
@@ -134,9 +159,10 @@ formWithInputDisabled.documentation = {
 
 export const formWithInputInReadOnly = TemplateInputReadOnly.bind({});
 
-formWithInputInReadOnly.argTypes = basicArgTypes;
+formWithInputInReadOnly.argTypes = { ...basicArgTypes, readonly };
 
 formWithInputInReadOnly.args = JSON.parse(JSON.stringify(basicArgs));
+formWithInputInReadOnly.args.readonly = true;
 
 formWithInputInReadOnly.documentation = {
   title: 'sbb-form-field with input in readonly',
