@@ -3,19 +3,13 @@ import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import readme from './readme.md';
 
 const TemplateErrorWithDefaultIconAndMessage = (args) => (
-  <sbb-form-error {...args}>
-    <span class='input-label-error'>
-      This is a required field.
-    </span>
-  </sbb-form-error>
+  <sbb-form-error {...args}>This is a required field.</sbb-form-error>
 );
 
 const TemplateErrorWithIconAndMessage = (args) => (
   <sbb-form-error {...args}>
-    <span slot='icon' class='input-label-error__icon'>{getMarkupForSvg('pie-small')}</span>
-    <span class='input-label-error'>      
-      This is a required field.
-    </span>
+    <span slot="icon">{getMarkupForSvg('pie-small')}</span>
+    This is a required field.
   </sbb-form-error>
 );
 

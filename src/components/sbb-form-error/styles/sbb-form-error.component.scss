@@ -5,13 +5,13 @@
 
 :host {
   position: relative;
-  // error height = text line-height 
+  // error height = text line-height
   min-height: calc(var(--sbb-typo-line-height-body-text) * var(--lyne-font-size-text-xs));
   --icon-size: var(--sbb-size-icon-ui-small);
 }
 
 // Error
-::slotted(.input-label-error) {
+.input-label-error {
   @include text-xs--regular();
   display: flex;
   align-items: center;
@@ -22,7 +22,8 @@
   left: calc(var(--icon-size) + var(--sbb-spacing-fixed-1x));
 }
 
-::slotted(.input-label-error__icon), svg {
+.input-label-error__icon,
+svg {
   line-height: var(--icon-size);
   fill: var(--sbb-color-red125-default);
   @include absoluteCenterY;
