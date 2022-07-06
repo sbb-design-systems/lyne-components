@@ -60,7 +60,7 @@ const TemplateSelect = (args) => (
 
 const TemplateSelectDisabled = (args) => (
   <sbb-form-field {...args}>
-    <select slot="input" class="input select" placeholder="Name" disabled>
+    <select slot="input" class="input select" placeholder="Name" disabled={args.disabled}>
       <option>Value 1</option>
       <option>Value 2</option>
       <option>Value 3</option>
@@ -150,8 +150,7 @@ export const formWithInputDisabled = TemplateInputDisabled.bind({});
 
 formWithInputDisabled.argTypes = { ...basicArgTypes, disabled };
 
-formWithInputDisabled.args = JSON.parse(JSON.stringify(basicArgs));
-formWithInputDisabled.args.disabled = true;
+formWithInputDisabled.args = JSON.parse(JSON.stringify({ ...basicArgs, disabled: true }));
 
 formWithInputDisabled.documentation = {
   title: 'sbb-form-field component with input disabled',
@@ -161,8 +160,7 @@ export const formWithInputInReadOnly = TemplateInputReadOnly.bind({});
 
 formWithInputInReadOnly.argTypes = { ...basicArgTypes, readonly };
 
-formWithInputInReadOnly.args = JSON.parse(JSON.stringify(basicArgs));
-formWithInputInReadOnly.args.readonly = true;
+formWithInputInReadOnly.args = JSON.parse(JSON.stringify({ ...basicArgs, readonly: true }));
 
 formWithInputInReadOnly.documentation = {
   title: 'sbb-form-field with input in readonly',
@@ -200,9 +198,9 @@ formWithLabelAndSelect.documentation = {
 
 export const formWithSelectDisabled = TemplateSelectDisabled.bind({});
 
-formWithSelectDisabled.argTypes = basicArgTypes;
+formWithSelectDisabled.argTypes = { ...basicArgTypes, disabled };
 
-formWithSelectDisabled.args = JSON.parse(JSON.stringify(basicArgs));
+formWithSelectDisabled.args = JSON.parse(JSON.stringify({ ...basicArgs, disabled: true }));
 
 formWithSelectDisabled.documentation = {
   title: 'sbb-form-field component with select disabled',
