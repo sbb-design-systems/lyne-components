@@ -23,7 +23,7 @@
 
   --input-height: var(--sbb-size-form-element-l-min-height-small);
 
-  --input-with-icon-padding-inline-start: 44px; //TODO Design Token?
+  --input-with-icon-padding-inline: calc(var(--sbb-spacing-fixed-3x) + var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-2x));
 
   --icon-size: var(--sbb-size-icon-ui-small);
 
@@ -100,21 +100,28 @@
 }
 
 // Input Icon
-::slotted(.input__icon) {
+::slotted(.input__icon-prefix),
+::slotted(.input__icon-suffix) {
   @include absoluteCenterY;
-  inset-inline-start: var(--sbb-spacing-fixed-3x);
   height: var(--icon-size);
   overflow: hidden;
   fill: currentColor;
 }
 
-// Input Variant
-.input-wrapper--label-hidden .input {
-  padding-block-start: 0;
+::slotted(.input__icon-prefix) {
+  inset-inline-start: var(--sbb-spacing-fixed-3x);
+}
+::slotted(.input__icon-suffix) {
+  inset-inline-end: var(--sbb-spacing-fixed-3x);
 }
 
-.input-wrapper--with-icon .input {
-  padding-inline-start: var(--input-with-icon-padding-inline-start);
+// Input Variant
+.form--prefix ::slotted(.input) {
+  padding-inline-start: var(--input-with-icon-padding-inline);
+}
+
+.form--suffix ::slotted(.input) {
+  padding-inline-end: var(--input-with-icon-padding-inline);
 }
 
 .input-wrapper--error .input {
@@ -123,7 +130,6 @@
 }
 
 // Label
-// ----------------------------------------------
 .input-label {
   @include text-xs--regular();
   position: absolute;
@@ -139,7 +145,6 @@
   user-select: none;
   pointer-events: none;
 }
-
 .input-label--text {
   @include ellipsis();
 }
@@ -149,11 +154,6 @@
 }
 
 // Label Variants
-// ----------------------------------------------
-.input-wrapper--label-hidden .input-label {
-  @include screenReaderOnly();
-}
-
-.input-wrapper--with-icon .input-label {
-  padding-inline-start: var(--input-with-icon-padding-inline-start);
+.form--prefix .input-label {
+  padding-inline-start: var(--input-with-icon-padding-inline);
 }
