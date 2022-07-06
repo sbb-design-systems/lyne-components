@@ -43,7 +43,9 @@ const TemplateInputWithError = (args) => (
 
 const TemplateInputWithIcons = (args) => (
   <sbb-form-field {...args}>
-    <span slot="prefix" class="input__icon">{getMarkupForSvg('circle-information-small')}</span>
+    <span slot="prefix" class="input__icon">
+      {getMarkupForSvg('circle-information-small')}
+    </span>
     <input slot="input" class="input" placeholder="Name" />
   </sbb-form-field>
 );

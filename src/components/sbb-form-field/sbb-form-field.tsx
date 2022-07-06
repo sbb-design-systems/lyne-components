@@ -89,9 +89,12 @@ export class SbbFormField {
 
   public render(): JSX.Element {
     const optional = this.optional ? '(optional)' : '';
+    const cssClassErrorSpace = this.errorSpace;
+    const cssClassSlotPrefix = this._element.querySelector('[slot="prefix"]') ? 'form--prefix' : '';
+    const cssClassSlotSuffix = this._element.querySelector('[slot="suffix"]') ? 'form--suffix' : '';
     const cssClassReadonly = this._readonly ? 'form--readonly' : '';
     const cssClassDisabled = this._disabled ? 'form--disabled' : '';
-    const cssClass = `input-wrapper ${cssClassReadonly} ${cssClassDisabled}`;
+    const cssClass = `input-wrapper ${cssClassErrorSpace} ${cssClassSlotPrefix} ${cssClassSlotSuffix} ${cssClassReadonly} ${cssClassDisabled}`;
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div onClick={this._setFocus.bind(this)} class={cssClass}>
