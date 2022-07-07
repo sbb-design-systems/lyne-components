@@ -112,6 +112,10 @@ export class SbbFormField {
         .setAttribute('id', `sbb-form-field-input-${nextId++}`);
     }
 
+    this._element
+      .querySelector('[slot="input"]')
+      .setAttribute('class', `input form--field--size-${this.size}`);
+
     this._id = this._element.querySelector('[slot="input"]').getAttribute('id');
 
     this._input = this._element.querySelector('[slot="input"]') as HTMLInputElement;
