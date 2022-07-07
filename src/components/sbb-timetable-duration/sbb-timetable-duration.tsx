@@ -6,10 +6,7 @@ import { i18nDurationHour, i18nDurationMinute } from '../../global/i18n';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-duration.default.scss',
-    shared: 'styles/sbb-timetable-duration.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-duration.scss',
   tag: 'sbb-timetable-duration',
 })
 export class SbbTimetableDuration {

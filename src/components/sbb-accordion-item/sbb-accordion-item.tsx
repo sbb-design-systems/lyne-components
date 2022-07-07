@@ -18,10 +18,7 @@ const iconSlotName = 'icon';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-accordion-item.default.scss',
-    shared: 'styles/sbb-accordion-item.shared.scss',
-  },
+  styleUrl: 'sbb-accordion-item.scss',
   tag: 'sbb-accordion-item',
 })
 export class SbbAccordionItem {

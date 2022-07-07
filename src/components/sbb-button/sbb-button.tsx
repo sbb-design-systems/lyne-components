@@ -7,10 +7,7 @@ import { InterfaceButtonAttributes } from './sbb-button.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-button.default.scss',
-    shared: 'styles/sbb-button.shared.scss',
-  },
+  styleUrl: 'sbb-button.scss',
   tag: 'sbb-button',
 })
 export class SbbButton {

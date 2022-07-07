@@ -2,10 +2,7 @@ import { Component, h } from '@stencil/core';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-slot-component.default.scss',
-    shared: 'styles/sbb-slot-component.shared.scss',
-  },
+  styleUrl: 'sbb-slot-component.scss',
   tag: 'sbb-slot-component',
 })
 export class SbbSlotComponent {

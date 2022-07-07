@@ -7,10 +7,7 @@ import { i18nClass, i18nOccupancy } from '../../global/i18n';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-occupancy.default.scss',
-    shared: 'styles/sbb-timetable-occupancy.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-occupancy.scss',
   tag: 'sbb-timetable-occupancy',
 })
 export class SbbTimetableOccupancy {

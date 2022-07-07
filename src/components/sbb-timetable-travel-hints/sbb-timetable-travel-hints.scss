@@ -1,0 +1,245 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --travel-hint-icon-height: #{px-to-rem-build(12)};
+  --travel-hint-icon-scaling-factor: 0.75;
+
+  @include mq($from: medium) {
+    --travel-hint-icon-height: #{px-to-rem-build(16)};
+    --travel-hint-icon-scaling-factor: 1;
+  }
+}
+
+.travel-hints__list {
+  @include list-reset;
+
+  display: flex;
+  gap: var(--sbb-spacing-fixed-1x);
+}
+
+.travel-hints--first-level-list .travel-hints__list {
+  justify-content: flex-end;
+}
+
+.travel-hints__icon {
+  pointer-events: all;
+  cursor: help;
+}
+
+.travel-hints__icon,
+.travel-hints__icon svg {
+  height: var(--travel-hint-icon-height);
+}
+
+.travel-hints__icon svg {
+  float: inline-start;
+}
+
+.travel-hints__text--visually-hidden {
+  @include screenReaderOnly;
+}
+
+@mixin widthWithScalingFactor($width) {
+  width: calc(var(--travel-hint-icon-scaling-factor) * #{px-to-rem-build($width)});
+}
+
+// This might look like a terribly complicated solution but was unfortunately the most efficient and
+// flexible way to achieve the desired visual outcome under the current setup with image sprites and
+// the way the browsers interpret them.
+
+// All these icons have the same height but a variable width without any white room around them to
+// great an absolutely equal spacing.
+
+.travel-hints__icon--sa-mi svg {
+  @include widthWithScalingFactor(8);
+}
+
+.travel-hints__icon--sa-r svg {
+  @include widthWithScalingFactor(9);
+}
+
+.travel-hints__icon--sa-s svg {
+  @include widthWithScalingFactor(10);
+}
+
+.travel-hints__icon--sa-1,
+.travel-hints__icon--sa-2,
+.travel-hints__icon--sa-p {
+  svg {
+    @include widthWithScalingFactor(11);
+  }
+}
+
+.travel-hints__icon--sa-y,
+.travel-hints__icon--sa-z {
+  svg {
+    @include widthWithScalingFactor(12);
+  }
+}
+
+.travel-hints__icon--sa-gl,
+.travel-hints__icon--sa-gn,
+.travel-hints__icon--sa-rr {
+  svg {
+    @include widthWithScalingFactor(13);
+  }
+}
+
+.travel-hints__icon--sa-wr svg {
+  @include widthWithScalingFactor(14);
+}
+
+.travel-hints__icon--sa-x svg {
+  @include widthWithScalingFactor(15);
+}
+
+.travel-hints__icon--sa-pa svg {
+  @include widthWithScalingFactor(16);
+}
+
+.travel-hints__icon--sa-vi svg {
+  @include widthWithScalingFactor(17);
+}
+
+.travel-hints__icon--sa-fl svg {
+  @include widthWithScalingFactor(18);
+}
+
+.travel-hints__icon--sa-b,
+.travel-hints__icon--sa-je,
+.travel-hints__icon--sa-pl,
+.travel-hints__icon--sa-sl,
+.travel-hints__icon--sa-vl,
+.travel-hints__icon--sa-vr {
+  svg {
+    @include widthWithScalingFactor(19);
+  }
+}
+
+.travel-hints__icon--sa-bl,
+.travel-hints__icon--sa-fs,
+.travel-hints__icon--sa-le,
+.travel-hints__icon--sa-tf,
+.travel-hints__icon--sa-ts {
+  svg {
+    @include widthWithScalingFactor(20);
+  }
+}
+
+.travel-hints__icon--sa-cc,
+.travel-hints__icon--sa-ep,
+.travel-hints__icon--sa-fa,
+.travel-hints__icon--sa-fz,
+.travel-hints__icon--sa-lc,
+.travel-hints__icon--sa-nj,
+.travel-hints__icon--sa-sb,
+.travel-hints__icon--sa-tc,
+.travel-hints__icon--sa-tt,
+.travel-hints__icon--sa-wl {
+  svg {
+    @include widthWithScalingFactor(21);
+  }
+}
+
+.travel-hints__icon--sa-bc,
+.travel-hints__icon--sa-pr,
+.travel-hints__icon--sa-rb,
+.travel-hints__icon--sa-re,
+.travel-hints__icon--sa-sc,
+.travel-hints__icon--sa-sz,
+.travel-hints__icon--sa-tq,
+.travel-hints__icon--sa-vn,
+.travel-hints__icon--sa-vp,
+.travel-hints__icon--sa-yb {
+  svg {
+    @include widthWithScalingFactor(22);
+  }
+}
+
+.travel-hints__icon--sa-br,
+.travel-hints__icon--sa-bz,
+.travel-hints__icon--sa-gp,
+.travel-hints__icon--sa-gr,
+.travel-hints__icon--sa-gz,
+.travel-hints__icon--sa-rc,
+.travel-hints__icon--sa-rt,
+.travel-hints__icon--sa-rz,
+.travel-hints__icon--sa-sd,
+.travel-hints__icon--sa-sn,
+.travel-hints__icon--sa-tk,
+.travel-hints__icon--sa-ws,
+.travel-hints__icon--sa-yt {
+  svg {
+    @include widthWithScalingFactor(23);
+  }
+}
+
+.travel-hints__icon--sa-nf,
+.travel-hints__icon--sa-sh,
+.travel-hints__icon--sa-sv {
+  svg {
+    @include widthWithScalingFactor(24);
+  }
+}
+
+.travel-hints__icon--sa-bk,
+.travel-hints__icon--sa-bv,
+.travel-hints__icon--sa-rq,
+.travel-hints__icon--sa-om,
+.travel-hints__icon--sa-ry,
+.travel-hints__icon--sa-vx,
+.travel-hints__icon--sa-xp,
+.travel-hints__icon--sa-xr {
+  svg {
+    @include widthWithScalingFactor(25);
+  }
+}
+
+.travel-hints__icon--sa-dz,
+.travel-hints__icon--sa-uk,
+.travel-hints__icon--sa-xt {
+  svg {
+    @include widthWithScalingFactor(26);
+  }
+}
+
+.travel-hints__icon--sa-hk,
+.travel-hints__icon--sa-hn {
+  svg {
+    @include widthWithScalingFactor(27);
+  }
+}
+
+.travel-hints__icon--sa-mc,
+.travel-hints__icon--sa-mp,
+.travel-hints__icon--sa-sm {
+  svg {
+    @include widthWithScalingFactor(28);
+  }
+}
+
+.travel-hints__icon--sa-fw,
+.travel-hints__icon--sa-ym,
+.travel-hints__icon--sa-zm {
+  svg {
+    @include widthWithScalingFactor(29);
+  }
+}
+
+.travel-hints__icon--sa-wv {
+  @include widthWithScalingFactor(31);
+}
+
+.travel-hints__icon--sa-vb {
+  @include widthWithScalingFactor(32);
+}
+
+.travel-hints__icon--sa-kw {
+  @include widthWithScalingFactor(33);
+}
+
+.travel-hints__icon--sa-aw {
+  @include widthWithScalingFactor(34);
+}

@@ -4,10 +4,7 @@ import legsData from './sbb-pearl-chain.helper';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-pearl-chain.default.scss',
-    shared: 'styles/sbb-pearl-chain.shared.scss',
-  },
+  styleUrl: 'sbb-pearl-chain.scss',
   tag: 'sbb-pearl-chain',
 })
 export class SbbPearlChain {

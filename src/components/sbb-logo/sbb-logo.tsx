@@ -5,10 +5,7 @@ import sbbLogoSVG from './assets/sbb_logo.svg';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-logo.default.scss',
-    shared: 'styles/sbb-logo.shared.scss',
-  },
+  styleUrl: 'sbb-logo.scss',
   tag: 'sbb-logo',
 })
 export class SbbLogo {

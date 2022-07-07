@@ -3,10 +3,7 @@ import { InterfaceStackAttributes } from './sbb-stack.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-stack.default.scss',
-    shared: 'styles/sbb-stack.shared.scss',
-  },
+  styleUrl: 'sbb-stack.scss',
   tag: 'sbb-stack',
 })
 export class SbbStack {

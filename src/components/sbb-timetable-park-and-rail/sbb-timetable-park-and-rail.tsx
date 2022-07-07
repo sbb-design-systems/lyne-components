@@ -11,10 +11,7 @@ import {
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-park-and-rail.default.scss',
-    shared: 'styles/sbb-timetable-park-and-rail.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-park-and-rail.scss',
   tag: 'sbb-timetable-park-and-rail',
 })
 export class SbbTimetableParkAndRail {
