@@ -16,5 +16,5 @@
 
 .timetable > svg,
 .timetable__column-headers {
-  @include screenReaderOnly();
+  @include screenReaderOnly;
 }

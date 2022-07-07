@@ -9,6 +9,7 @@
 
 .autocomplete-item {
   @include text-s--bold;
+
   background-color: var(--sbb-color-white-default);
   border-radius: var(--sbb-border-radius-4x);
   padding-block-start: var(--sbb-spacing-fixed-2x);
@@ -31,7 +32,7 @@
 .autocomplete-item:focus {
   background-color: var(--sbb-color-milk-default);
 
-  @include ifForcedColors() {
+  @include ifForcedColors {
     background-color: Highlight;
     color: HighlightText;
 

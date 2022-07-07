@@ -1,4 +1,4 @@
-//*****************************************************************************
+// *****************************************************************************
 // Important
 //
 // Changes in global.scss and from global.scss referenced .scss files only
@@ -9,26 +9,19 @@
 // https://github.com/ionic-team/stencil-sass/issues/8
 // https://github.com/ionic-team/stencil-sass/issues/15
 //
-//*****************************************************************************
-
-// Core variables, are always needed
-
-:host {
-  // Core variables for :host context
-  @include lyne-components-css-vars;
-}
+// *****************************************************************************
 
 // Theming, override core variables and enable theme/mode through uncommenting
 // whished theme/mode
-//@import "theme/sbb-ch/mode--dark/variables.scss";
-//@import "theme/sbb-ch/mode--compact/variables.scss";
-//@import "theme/sbb-ch/mode--dark-compact.variables.scss";
+// @import "theme/sbb-ch/mode--dark/variables.scss";
+// @import "theme/sbb-ch/mode--compact/variables.scss";
+// @import "theme/sbb-ch/mode--dark-compact.variables.scss";
 
-//:host {
-//@include theme-sbb-ch-mode--dark-variables;
-//@include theme-sbb-ch-mode--compact-variables;
-//@include theme-sbb-ch-mode--dark-compact-variables;
-//}
+// :host {
+// @include theme-sbb-ch-mode--dark-variables;
+// @include theme-sbb-ch-mode--compact-variables;
+// @include theme-sbb-ch-mode--dark-compact-variables;
+// }
 
 // Font face declaration
 //
@@ -38,3 +31,10 @@
 // See `.storybook/preview-head.html` as an example.
 
 @import 'global.scss';
+
+// Core variables, are always needed
+
+:host {
+  // Core variables for :host context
+  @include lyne-components-css-vars;
+}

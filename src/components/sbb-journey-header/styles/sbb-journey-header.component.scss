@@ -9,11 +9,11 @@
 }
 
 .journey-header[id] {
-  @include scrollMarginBlockStart();
+  @include scrollMarginBlockStart;
 }
 
 .journey-header {
-  @include fontSmoothing();
+  @include fontSmoothing;
 
   display: flex;
   flex-wrap: wrap;
@@ -31,22 +31,19 @@
 }
 
 .journey-header--primary-negative {
-  @include title--negative();
+  @include title--negative;
 }
 
 .journey-header--size-4 {
-  @include title-4();
+  @include title-4;
 }
 
 .journey-header--size-5 {
-  @include title-5();
+  @include title-5;
 }
 
 .connection--visually-hidden {
-  @include screenReaderOnly();
-}
-
-.connection--visual {
+  @include screenReaderOnly;
 }
 
 .icon {
@@ -55,7 +52,7 @@
   padding-inline: var(--_icon-spacing-inset);
 
   svg {
-    fill: currentColor;
+    fill: currentcolor;
 
     @include ifForcedColors {
       fill: ButtonText;

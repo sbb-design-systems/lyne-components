@@ -19,6 +19,21 @@ jobs:
       - name: Run eslint
         run: yarn lint
 
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Yarn Install
+        uses: ./.github/actions/yarn-install
+
+      - name: 'Integrity: Verify workspace integrity'
+        run: yarn integrity
+      - name: 'Integrity: Assert no changes (run `yarn integrity` if this fails)'
+        run: git diff --exit-code
+
   test:
     runs-on: ubuntu-latest
     steps:

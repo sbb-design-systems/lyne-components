@@ -85,7 +85,7 @@
 }
 
 .image__caption {
-  @include text-xs--regular();
+  @include text-xs--regular;
 }
 
 // Variant: Hero Teaser

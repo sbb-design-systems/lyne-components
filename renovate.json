@@ -32,6 +32,17 @@
     {
       "groupName": "commitlint",
       "matchPackagePrefixes": ["@commitlint/", "standard-version"]
+    },
+    {
+      "groupName": "stylelint",
+      "matchPackagePrefixes": [
+        "@namics/stylelint-bem",
+        "postcss",
+        "stylelint",
+        "stylelint-config-prettier-scss",
+        "stylelint-config-standard-scss",
+        "stylelint-scss"
+      ]
     }
   ]
 }

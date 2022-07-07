@@ -11,7 +11,7 @@
 
   // Forced Colors Variant
   // ----------------------------------------------
-  @include ifForcedColors() {
+  @include ifForcedColors {
     .sbb-signet--default,
     .sbb-signet--white-on-black {
       --sbb-signet-background-color: ButtonText;
@@ -24,12 +24,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--sbb-signet-background-color);
 }
 
 .sbb-signet .sbb-signet__svg {
   aspect-ratio: 2/1; // No Fallback for now...
   width: 100%;
   height: auto;
+
   // @TODO check what triggers to break the signet through border-box model
   box-sizing: content-box;
 }
@@ -58,12 +60,6 @@
   padding-inline-end: 7.5%;
   padding-block-end: 9%;
   padding-inline-start: 75%;
-}
-
-// Default Variant
-// ----------------------------------------------
-.sbb-signet {
-  background-color: var(--sbb-signet-background-color);
 }
 
 #sbb-signet__icon {

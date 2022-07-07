@@ -10,11 +10,11 @@
 
 html,
 :host {
-  @include text();
+  @include text;
 }
 
 body,
 :host {
   font-family: var(--typo-default-font-family);
-  color: var(--lyne-font-default-color);
+  color: var(--sbb-font-default-color);
 }

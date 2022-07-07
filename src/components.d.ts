@@ -424,7 +424,7 @@ export namespace Components {
          */
         "hrefValue": string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
          */
         "icon"?: string;
         /**
@@ -444,7 +444,7 @@ export namespace Components {
          */
         "text": string;
         /**
-          * Text size, the link should get in the non button variation.
+          * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize": InterfaceLinkAttributes['textSize'];
         /**
@@ -1662,7 +1662,7 @@ declare namespace LocalJSX {
          */
         "hrefValue": string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
          */
         "icon"?: string;
         /**
@@ -1682,7 +1682,7 @@ declare namespace LocalJSX {
          */
         "text": string;
         /**
-          * Text size, the link should get in the non button variation.
+          * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
         /**

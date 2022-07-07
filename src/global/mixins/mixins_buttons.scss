@@ -32,37 +32,34 @@
   --color-hover-background: var(--sbb-color-red125-default);
   --color-hover-border: var(--sbb-color-red125-default);
   --color-hover-text: var(--sbb-color-milk-default);
-
   --border-width: var(--sbb-border-width-2x);
   --border-radius: var(--sbb-border-radius-16x);
-  --min-height: var(--size-form-element-l-min-height);
+  --min-height: var(--sbb-size-form-element-l-min-height);
   --transition-duration: var(--sbb-animation-duration-2x);
   --transition-easing-function: var(--sbb-animation-easing);
   --padding-block-min: var(--sbb-spacing-fixed-1x);
   --padding-inline: var(--sbb-spacing-fixed-8x);
   --gap: var(--sbb-spacing-fixed-2x);
-
   --shadow-1-default-color: var(--sbb-color-red-alpha-20);
-  --shadow-1-default-blur: #{pxToRemBuild(16)};
-  --shadow-1-default-offset-x: #{pxToRemBuild(0)};
-  --shadow-1-default-offset-y: #{pxToRemBuild(2)};
-  --shadow-1-default-spread: #{pxToRemBuild(0)};
+  --shadow-1-default-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
+  --shadow-1-default-offset-x: var(--sbb-shadow-elevation-level-3-shadow-1-offset-x);
+  --shadow-1-default-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
+  --shadow-1-default-spread: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
   --shadow-2-default-color: var(--sbb-color-red125-alpha-20);
-  --shadow-2-default-blur: #{pxToRemBuild(4)};
-  --shadow-2-default-offset-x: #{pxToRemBuild(0)};
-  --shadow-2-default-offset-y: #{pxToRemBuild(1)};
-  --shadow-2-default-spread: #{pxToRemBuild(0)};
-
+  --shadow-2-default-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
+  --shadow-2-default-offset-x: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x);
+  --shadow-2-default-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --shadow-2-default-spread: var(--sbb-shadow-elevation-level-3-shadow-2-spread);
   --shadow-1-hover-color: var(--sbb-color-red-alpha-20);
-  --shadow-1-hover-blur: #{pxToRemBuild(8)};
-  --shadow-1-hover-offset-x: #{pxToRemBuild(0)};
-  --shadow-1-hover-offset-y: #{pxToRemBuild(1)};
-  --shadow-1-hover-spread: #{pxToRemBuild(0)};
+  --shadow-1-hover-blur: calc(var(--sbb-shadow-elevation-level-3-shadow-1-blur) * 0.5);
+  --shadow-1-hover-offset-x: var(--sbb-shadow-elevation-level-3-shadow-1-offset-x);
+  --shadow-1-hover-offset-y: calc(var(--sbb-shadow-elevation-level-3-shadow-1-offset-y) * 0.5);
+  --shadow-1-hover-spread: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
   --shadow-2-hover-color: var(--sbb-color-red125-alpha-20);
-  --shadow-2-hover-blur: #{pxToRemBuild(2)};
-  --shadow-2-hover-offset-x: #{pxToRemBuild(0)};
-  --shadow-2-hover-offset-y: #{pxToRemBuild(1)};
-  --shadow-2-hover-spread: #{pxToRemBuild(0)};
+  --shadow-2-hover-blur: calc(var(--sbb-shadow-elevation-level-3-shadow-2-blur) * 0.5);
+  --shadow-2-hover-offset-x: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x);
+  --shadow-2-hover-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --shadow-2-hover-spread: var(--sbb-shadow-elevation-level-3-shadow-2-spread);
 
   @include mq($from: medium) {
     --padding-inline: var(--sbb-spacing-fixed-10x);
@@ -82,28 +79,26 @@
   --color-hover-background: var(--sbb-color-milk-default);
   --color-hover-border: var(--sbb-color-milk-default);
   --color-hover-text: var(--sbb-color-red125-default);
-
   --shadow-1-default-color: var(--sbb-color-smoke-alpha-20);
-  --shadow-1-default-blur: #{pxToRemBuild(16)};
-  --shadow-1-default-offset-x: #{pxToRemBuild(0)};
-  --shadow-1-default-offset-y: #{pxToRemBuild(2)};
-  --shadow-1-default-spread: #{pxToRemBuild(0)};
+  --shadow-1-default-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
+  --shadow-1-default-offset-x: var(--sbb-shadow-elevation-level-3-shadow-1-offset-x);
+  --shadow-1-default-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
+  --shadow-1-default-spread: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
   --shadow-2-default-color: var(--sbb-color-metal-alpha-20);
-  --shadow-2-default-blur: #{pxToRemBuild(4)};
-  --shadow-2-default-offset-x: #{pxToRemBuild(0)};
-  --shadow-2-default-offset-y: #{pxToRemBuild(1)};
-  --shadow-2-default-spread: #{pxToRemBuild(0)};
-
+  --shadow-2-default-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
+  --shadow-2-default-offset-x: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x);
+  --shadow-2-default-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --shadow-2-default-spread: var(--sbb-shadow-elevation-level-3-shadow-2-spread);
   --shadow-1-hover-color: var(--sbb-color-smoke-alpha-20);
-  --shadow-1-hover-blur: #{pxToRemBuild(16)};
-  --shadow-1-hover-offset-x: #{pxToRemBuild(0)};
-  --shadow-1-hover-offset-y: #{pxToRemBuild(2)};
-  --shadow-1-hover-spread: #{pxToRemBuild(0)};
+  --shadow-1-hover-blur: calc(var(--sbb-shadow-elevation-level-3-shadow-1-blur) * 0.5);
+  --shadow-1-hover-offset-x: var(--sbb-shadow-elevation-level-3-shadow-1-offset-x);
+  --shadow-1-hover-offset-y: calc(var(--sbb-shadow-elevation-level-3-shadow-1-offset-y) * 0.5);
+  --shadow-1-hover-spread: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
   --shadow-2-hover-color: var(--sbb-color-metal-alpha-20);
-  --shadow-2-hover-blur: #{pxToRemBuild(4)};
-  --shadow-2-hover-offset-x: #{pxToRemBuild(0)};
-  --shadow-2-hover-offset-y: #{pxToRemBuild(1)};
-  --shadow-2-hover-spread: #{pxToRemBuild(0)};
+  --shadow-2-hover-blur: calc(var(--sbb-shadow-elevation-level-3-shadow-2-blur) * 0.5);
+  --shadow-2-hover-offset-x: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x);
+  --shadow-2-hover-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --shadow-2-hover-spread: var(--sbb-shadow-elevation-level-3-shadow-2-spread);
 }
 
 @mixin buttonSecondaryVariables {
@@ -119,28 +114,26 @@
   --color-hover-background: var(--sbb-color-milk-default);
   --color-hover-border: var(--sbb-color-cloud-default);
   --color-hover-text: var(--sbb-color-iron-default);
-
   --shadow-1-default-color: var(--sbb-color-platinum-alpha-20);
-  --shadow-1-default-blur: #{pxToRemBuild(16)};
-  --shadow-1-default-offset-x: #{pxToRemBuild(0)};
-  --shadow-1-default-offset-y: #{pxToRemBuild(2)};
-  --shadow-1-default-spread: #{pxToRemBuild(0)};
+  --shadow-1-default-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
+  --shadow-1-default-offset-x: var(--sbb-shadow-elevation-level-3-shadow-1-offset-x);
+  --shadow-1-default-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
+  --shadow-1-default-spread: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
   --shadow-2-default-color: var(--sbb-color-cement-alpha-20);
-  --shadow-2-default-blur: #{pxToRemBuild(4)};
-  --shadow-2-default-offset-x: #{pxToRemBuild(0)};
-  --shadow-2-default-offset-y: #{pxToRemBuild(1)};
-  --shadow-2-default-spread: #{pxToRemBuild(0)};
-
+  --shadow-2-default-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
+  --shadow-2-default-offset-x: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x);
+  --shadow-2-default-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --shadow-2-default-spread: var(--sbb-shadow-elevation-level-3-shadow-2-spread);
   --shadow-1-hover-color: var(--sbb-color-platinum-alpha-20);
-  --shadow-1-hover-blur: #{pxToRemBuild(16)};
-  --shadow-1-hover-offset-x: #{pxToRemBuild(0)};
-  --shadow-1-hover-offset-y: #{pxToRemBuild(2)};
-  --shadow-1-hover-spread: #{pxToRemBuild(0)};
+  --shadow-1-hover-blur: calc(var(--sbb-shadow-elevation-level-3-shadow-1-blur) * 0.5);
+  --shadow-1-hover-offset-x: var(--sbb-shadow-elevation-level-3-shadow-1-offset-x);
+  --shadow-1-hover-offset-y: calc(var(--sbb-shadow-elevation-level-3-shadow-1-offset-y) * 0.5);
+  --shadow-1-hover-spread: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
   --shadow-2-hover-color: var(--sbb-color-cement-alpha-20);
-  --shadow-2-hover-blur: #{pxToRemBuild(4)};
-  --shadow-2-hover-offset-x: #{pxToRemBuild(0)};
-  --shadow-2-hover-offset-y: #{pxToRemBuild(1)};
-  --shadow-2-hover-spread: #{pxToRemBuild(0)};
+  --shadow-2-hover-blur: calc(var(--sbb-shadow-elevation-level-3-shadow-2-blur) * 0.5);
+  --shadow-2-hover-offset-x: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x);
+  --shadow-2-hover-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --shadow-2-hover-spread: var(--sbb-shadow-elevation-level-3-shadow-2-spread);
 }
 
 @mixin buttonSecondaryNegativeVariables {
@@ -160,7 +153,7 @@
 
 @mixin buttonSizeMVariables {
   --border-width: var(--sbb-border-width-1x);
-  --min-height: var(--size-form-element-m-min-height);
+  --min-height: var(--sbb-size-form-element-m-min-height);
   --padding-inline: var(--sbb-spacing-fixed-5x);
 
   @include mq($from: medium) {
@@ -202,13 +195,12 @@
     border: var(--border-width) solid var(--color-default-border);
     border-radius: var(--border-radius);
     background-color: var(--color-default-background);
-
     transition-duration: var(--transition-duration);
     transition-timing-function: var(--transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
 
     @include ifForcedColors {
-      border: #{pxToRemBuild(1)} solid windowText;
+      border: #{px-to-rem-build(1)} solid windowText;
     }
   }
 
@@ -240,13 +232,12 @@
 }
 
 @mixin buttonHover {
-  --translate-y-content-hover: #{pxToRemBuild(-1)};
+  --translate-y-content-hover: #{px-to-rem-build(-1)};
 
   color: var(--color-hover-text);
 
   &::before {
     inset: calc(var(--border-width) * -1);
-
     background-color: var(--color-hover-background);
     border-color: var(--color-hover-border);
     box-shadow: var(--shadow-1-hover-offset-x) var(--shadow-1-hover-offset-y)
@@ -270,7 +261,7 @@
 
 @mixin buttonLabelTransition {
   transition: transform var(--transition-duration) var(--transition-easing-function);
-  transform: translateY(var(--translate-y-content-hover, #{pxToRemBuild(0)}));
+  transform: translateY(var(--translate-y-content-hover, #{px-to-rem-build(0)}));
 }
 
 @mixin buttonLabel {
@@ -282,5 +273,5 @@
   display: block;
   width: var(--icon-size);
   height: var(--icon-size);
-  color: currentColor;
+  color: currentcolor;
 }

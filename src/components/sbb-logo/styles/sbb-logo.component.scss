@@ -15,7 +15,7 @@
 
   // Forced Colors Variant
   // ----------------------------------------------
-  @include ifForcedColors() {
+  @include ifForcedColors {
     .sbb-logo--default,
     .sbb-logo--negative,
     .sbb-logo--on-red,
@@ -89,6 +89,7 @@
 // ----------------------------------------------
 .sbb-logo--on-red {
   background: var(--sbb-color-red-default);
+
   --sbb-logo-word-mark-color: var(--sbb-color-white-default);
   --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
 }
@@ -105,6 +106,7 @@
 // ----------------------------------------------
 .sbb-logo--white-on-black {
   background: var(--sbb-color-black-default);
+
   --sbb-logo-word-mark-color: var(--sbb-color-white-default);
   --sbb-logo-panel-color: none;
   --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);

@@ -1,3 +1,6 @@
+/* stylelint-disable */
+// TODO: solve stylelint issues
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin, available for shared
 // and default mode
@@ -13,6 +16,7 @@
   margin: 0;
   padding: 0;
   display: block;
+
   // width: fit-content;
 }
 
@@ -23,6 +27,7 @@
 
 .stack {
   display: flex;
+
   // Gap and padding are defined as inline styles within component depending
   // on the stack properties. This is made on purpose. With this technique the CSS
   // footprint of the stack component can be heavily reduced instead of shipping
@@ -39,6 +44,7 @@
 
 .stack--vertical--centered {
   @extend %stack--vertical;
+
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -52,23 +58,27 @@
 
 .stack--horizontal--end {
   @extend %stack--horizontal;
+
   justify-content: flex-end;
 }
 
 .stack--horizontal--start--centered {
   @extend %stack--horizontal;
+
   align-items: center;
   justify-content: flex-start;
 }
 
 .stack--horizontal--end--centered {
   @extend %stack--horizontal;
+
   align-items: center;
   justify-content: flex-end;
 }
 
 .stack--horizontal--centered {
   @extend %stack--horizontal;
+
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -76,11 +86,13 @@
 
 .stack--horizontal--space-between {
   @extend %stack--horizontal;
+
   justify-content: space-between;
 }
 
 .stack--horizontal--space-between--centered {
   @extend %stack--horizontal;
+
   justify-content: space-between;
   align-items: center;
 }
@@ -110,7 +122,9 @@
   font-weight: normal;
   line-height: var(--sbb-typo-line-height-body-text);
   letter-spacing: var(--sbb-typo-letter-spacing-body-text);
-  font-size: var(--lyne-font-size-text-s);
+  font-size: var(--sbb-font-size-text-s);
   color: var(--_stack-text-color-normal);
   width: inherit;
 }
+
+/* stylelint-enable */

@@ -1,9 +1,9 @@
 :host {
-  --park-and-rail-icon-height: #{pxToRemBuild(16)};
+  --park-and-rail-icon-height: #{px-to-rem-build(16)};
   --park-and-rail-icon-width: var(--park-and-rail-icon-height);
 
   @include mq($from: medium) {
-    --park-and-rail-icon-height: #{pxToRemBuild(24)};
+    --park-and-rail-icon-height: #{px-to-rem-build(24)};
     --park-and-rail-icon-width: var(--park-and-rail-icon-height);
   }
 }
