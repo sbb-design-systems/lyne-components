@@ -7,7 +7,7 @@
   position: relative;
   margin-block-start: var(--sbb-spacing-fixed-1x);
   // error height = text line-height
-  min-height: calc(var(--sbb-typo-line-height-body-text) * var(--lyne-font-size-text-xs));
+  min-height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
   --icon-size: var(--sbb-size-icon-ui-small);
 }
 

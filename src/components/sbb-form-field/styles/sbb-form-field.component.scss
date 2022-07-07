@@ -30,12 +30,6 @@
   @include mq($from: medium) {
     --input-height: var(--sbb-size-form-element-l-min-height-medium);
   }
-
-  @include ifForcedColors {
-    --border-color-error: LinkText;
-    --text-color-input-error: LinkText;
-    --text-color-disabled: GrayText;
-  }
 }
 
 .input-wrapper {
@@ -55,8 +49,8 @@
   @include text-m--regular();
   @include placeholder();
   @include ellipsis();
-  -webkit-appearance: none;
 
+  -webkit-appearance: none;
   width: 100%;
   box-sizing: border-box;
   height: var(--input-height);
@@ -124,7 +118,8 @@
   padding-inline-end: var(--input-with-icon-padding-inline);
 }
 
-.input-wrapper--error .input {
+::slotted(.sbb-invalid),
+::slotted(.ng-touched.ng-invalid) {
   color: inherit;
   border-color: var(--border-color-error);
 }

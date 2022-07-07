@@ -34,7 +34,7 @@ const TemplateInputReadOnly = (args) => [
 
 const TemplateInputWithError = (args) => (
   <sbb-form-field {...args}>
-    <input slot="input" class="input" placeholder="Name" />
+    <input slot="input" class="input sbb-invalid" placeholder="Name" />
     <sbb-form-error id="error" class="input-label-error" slot="error">
       This is a required field.
     </sbb-form-error>
