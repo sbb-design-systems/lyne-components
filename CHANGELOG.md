@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.7 (2022-07-07)
+
+### Bug Fixes
+
+- fix focus outline override ([60ea2b0](https://github.com/lyne-design-system/lyne-components/commit/60ea2b0d837ac931bc857c6dcd3d5b2aef1dc19d))
+
 ### 0.1.6 (2022-07-07)
 
 ### 0.1.5 (2022-07-04)
