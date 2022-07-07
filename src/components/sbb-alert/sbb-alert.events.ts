@@ -5,5 +5,5 @@
 export default {
   didDismiss: 'sbb-alert_did-dismiss',
   didPresent: 'sbb-alert_did-present',
-  willPresent: 'sbb-alert_will-present'
+  willPresent: 'sbb-alert_will-present',
 };

@@ -1,0 +1,100 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-alert-background-color: var(--sbb-color-midnight-default);
+  --sbb-alert-border-radius: var(--sbb-border-radius-4x);
+  --sbb-alert-color: var(--sbb-color-aluminium-default);
+  --sbb-alert-padding: var(--sbb-spacing-responsive-xxxs);
+  --sbb-alert-title-font-size: var(--sbb-font-size-title-5);
+  --sbb-alert-title-line-height: var(--sbb-typo-line-height-body-text);
+
+  // TODO: with sbb icon component, handle also other sizes
+  --sbb-alert-icon-size: var(--sbb-size-icon-timetable-him-cus);
+  --sbb-alert-close-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-alert-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-alert-close-button-wrapper-width: var(--sbb-spacing-fixed-10x);
+
+  @include mq($from: medium) {
+    --sbb-alert-close-button-wrapper-width: var(--sbb-spacing-fixed-12x);
+  }
+}
+
+.sbb-alert__transition-wrapper {
+  transition: height var(--sbb-animation-duration-6x) ease-in;
+  overflow: hidden;
+}
+
+.sbb-alert {
+  @include text-s--regular;
+
+  display: flex;
+  gap: var(--sbb-alert-gap);
+  min-width: fit-content;
+  padding: var(--sbb-alert-padding);
+  overflow-y: hidden;
+  color: var(--sbb-alert-color);
+  background-color: var(--sbb-alert-background-color);
+  border-radius: var(--sbb-alert-border-radius);
+  transition: opacity var(--sbb-animation-duration-6x) ease-in;
+}
+
+.sbb-alert--size-l {
+  --sbb-alert-title-font-size: var(--sbb-font-size-title-3);
+  --sbb-alert-title-line-height: var(--sbb-typo-line-height-titles);
+  --sbb-alert-icon-size: calc(1.5 * var(--sbb-size-icon-timetable-him-cus));
+}
+
+.sbb-alert__icon,
+.sbb-alert__close-button-wrapper {
+  flex: 0;
+}
+
+.sbb-alert__icon {
+  display: flex;
+  align-items: center;
+
+  // Align the height to the line-height. Because the line-height is written as a multiplier, we need to multiply it by the font-size.
+  height: calc(var(--sbb-alert-title-font-size) * var(--sbb-alert-title-line-height));
+}
+
+.sbb-alert__content {
+  flex: 1;
+}
+
+.sbb-alert__close-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  // Subtract gap as we can not make a gap exception just for the left gap of the close button wrapper
+  flex-basis: calc(var(--sbb-alert-close-button-wrapper-width) - var(--sbb-alert-gap));
+}
+
+.sbb-alert__close-button {
+  // Reduce the reserved space of the button to 24px (--sbb-alert-close-icon-size)
+  margin: calc(
+    -1 * (var(--sbb-size-form-element-m-min-height) - var(--sbb-alert-close-icon-size)) * 0.5
+  );
+}
+
+// Ensure correct sbb-title styling regardless how the sbb-title is configured.
+::slotted(sbb-title) {
+  --sbb-font-size-title-1: var(--sbb-alert-title-font-size);
+  --sbb-font-size-title-2: var(--sbb-alert-title-font-size);
+  --sbb-font-size-title-3: var(--sbb-alert-title-font-size);
+  --sbb-font-size-title-4: var(--sbb-alert-title-font-size);
+  --sbb-font-size-title-5: var(--sbb-alert-title-font-size);
+  --sbb-typo-line-height-titles: var(--sbb-alert-title-line-height);
+  --sbb-typo-line-height-body-text: var(--sbb-alert-title-line-height);
+  --_title-text-color-normal: var(--sbb-color-milk-default);
+}
+
+::slotted(svg[slot='icon']),
+slot[name='icon'] svg {
+  display: block;
+  height: var(--sbb-alert-icon-size);
+  width: var(--sbb-alert-icon-size);
+  fill: currentcolor;
+}

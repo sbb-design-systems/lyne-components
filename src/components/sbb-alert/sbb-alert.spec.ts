@@ -3,15 +3,12 @@ import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-alert', () => {
   it('renders', async () => {
-    const {
-      root
-    } = await newSpecPage({
+    const { root } = await newSpecPage({
       components: [SbbAlert],
-      html: '<sbb-alert />'
+      html: '<sbb-alert />',
     });
 
-    expect(root)
-      .toEqualHtml(`
+    expect(root).toEqualHtml(`
         <sbb-alert>
           <mock:shadow-root>
             <button class="some-class"></button>
@@ -19,5 +16,4 @@ describe('sbb-alert', () => {
         </sbb-alert>
       `);
   });
-
 });

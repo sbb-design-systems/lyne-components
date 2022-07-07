@@ -345,7 +345,7 @@ export const i18nCloseAlert: any = {
   de: 'Meldung schliessen',
   en: 'Close message',
   fr: 'Fermer message',
-  it: 'Chiudere il messaggio'
+  it: 'Chiudere il messaggio',
 };
 
 /* eslint-enable sort-keys */

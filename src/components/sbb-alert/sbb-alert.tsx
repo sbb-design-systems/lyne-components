@@ -1,13 +1,4 @@
-import {
-  Component,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  Method,
-  Prop
-} from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Method, Prop } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 import { guid } from '../../global/guid';
 
@@ -23,15 +14,12 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-alert.default.scss',
-    shared: 'styles/sbb-alert.shared.scss'
-  },
-  tag: 'sbb-alert'
+  styleUrl: 'sbb-alert.scss',
+  tag: 'sbb-alert',
 })
 export class SbbAlert {
   @Prop({
-    attribute: 'id'
+    attribute: 'id',
   })
   public internalId: InterfaceAlertAttributes['id'] = `sbb-alert-${guid()}`;
 
@@ -53,14 +41,13 @@ export class SbbAlert {
    * Choose between `off`, `polite` and `assertive`.
    */
   @Prop()
-  public ariaLivePoliteness: InterfaceAlertAttributes['ariaLivePoliteness'] =
-      'polite';
+  public ariaLivePoliteness: InterfaceAlertAttributes['ariaLivePoliteness'] = 'polite';
 
   /**
    * Emits when the fade in animation starts.
    */
   @Event({
-    eventName: 'sbb-alert_will-present'
+    eventName: 'sbb-alert_will-present',
   })
   public willPresent: EventEmitter<void>;
 
@@ -68,7 +55,7 @@ export class SbbAlert {
    * Emits when the fade in animation ends and the button is displayed.
    */
   @Event({
-    eventName: 'sbb-alert_did-present'
+    eventName: 'sbb-alert_did-present',
   })
   public didPresent: EventEmitter<void>;
 
@@ -76,7 +63,7 @@ export class SbbAlert {
    * Emits when the alert was hidden.
    */
   @Event({
-    eventName: 'sbb-alert_did-dismiss'
+    eventName: 'sbb-alert_did-dismiss',
   })
   public didDismiss: EventEmitter<void>;
 
@@ -118,7 +105,7 @@ export class SbbAlert {
       'transitionend',
       this._onHeightTransitionEnd.bind(this),
       {
-        once: true
+        once: true,
       }
     );
   }
@@ -133,13 +120,9 @@ export class SbbAlert {
       return;
     }
 
-    this._alertElement.addEventListener(
-      'transitionend',
-      this._onOpacityTransitionEnd.bind(this),
-      {
-        once: true
-      }
-    );
+    this._alertElement.addEventListener('transitionend', this._onOpacityTransitionEnd.bind(this), {
+      once: true,
+    });
   }
 
   private _onOpacityTransitionEnd(): void {
@@ -170,20 +153,14 @@ export class SbbAlert {
   }
 
   public render(): JSX.Element {
-    const readonly = this.readonly
-      ? ' sbb-alert--readonly'
-      : '';
+    const readonly = this.readonly ? ' sbb-alert--readonly' : '';
 
     const a11yCloseAlert = i18nCloseAlert[this._currentLanguage];
 
     return (
-      <Host
-        role='alert'
-        aria-live={this.ariaLivePoliteness}
-        id={this.internalId}
-      >
+      <Host role="alert" aria-live={this.ariaLivePoliteness} id={this.internalId}>
         <div
-          class='sbb-alert_transition-wrapper'
+          class="sbb-alert__transition-wrapper"
           ref={(el): void => {
             this._transitionWrapperElement = el;
           }}
@@ -197,27 +174,26 @@ export class SbbAlert {
               if (isFirstInitialization) {
                 this._initFadeInTransitionStyles();
               }
-
             }}
           >
-            <span class='sbb-alert_icon' aria-hidden='true'>
-              <slot name='icon'>
+            <span class="sbb-alert__icon" aria-hidden="true">
+              <slot name="icon">
                 <span innerHTML={infoIcon} />
               </slot>
             </span>
-            <span class='sbb-alert_content'>
+            <span class="sbb-alert__content">
               <slot />
             </span>
             {!readonly && (
-              <span class='sbb-alert_close-button-wrapper'>
+              <span class="sbb-alert__close-button-wrapper">
                 <sbb-button
-                  variant='transparent-negative'
+                  variant="transparent-negative"
                   icon={true}
-                  size='m'
+                  size="m"
                   onClick={this.dismiss.bind(this)}
                   iconDescription={a11yCloseAlert}
                   aria-controls={this.internalId}
-                  class='sbb-alert_close-button-wrapper_button'
+                  class="sbb-alert__close-button"
                   innerHTML={circleCrossSmallIcon}
                 />
               </span>
