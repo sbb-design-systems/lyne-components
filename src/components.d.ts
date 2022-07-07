@@ -937,21 +937,45 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
     interface SbbToggleCheck {
-        "acceccibilityDescribedBy"?: string;
-        "acceccibilityLabel"?: string;
-        "acceccibilityLabelledby"?: string;
+        /**
+          * the aria-describedby prop for the hidden input
+         */
+        "accessibilityDescribedBy"?: string;
+        /**
+          * the aria-label prop for the hidden input
+         */
+        "accessibilityLabel"?: string;
+        /**
+          * the aria-labelledby prop for the hidden input
+         */
+        "accessibilityLabelledby"?: string;
+        /**
+          * Whether the toggle-check is checked.
+         */
         "checked": boolean;
+        /**
+          * the disabled prop for the disabled state
+         */
         "disabled": boolean;
         /**
           * Id which is sent in the change event payload
          */
         "eventId"?: string;
+        /**
+          * the svg name for the true state - default -> 'tick-small'
+         */
         "icon": string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
         "labelPosition"?: InterfaceCheckToggleAttributes['labelPosition'];
+        /**
+          * name of the toggle-check
+         */
         "name"?: string;
+        /**
+          * id of the toggle-check
+         */
         "toggleId": string;
     }
 }
@@ -2201,22 +2225,49 @@ declare namespace LocalJSX {
         "visuallyHidden"?: false;
     }
     interface SbbToggleCheck {
-        "acceccibilityDescribedBy"?: string;
-        "acceccibilityLabel"?: string;
-        "acceccibilityLabelledby"?: string;
+        /**
+          * the aria-describedby prop for the hidden input
+         */
+        "accessibilityDescribedBy"?: string;
+        /**
+          * the aria-label prop for the hidden input
+         */
+        "accessibilityLabel"?: string;
+        /**
+          * the aria-labelledby prop for the hidden input
+         */
+        "accessibilityLabelledby"?: string;
+        /**
+          * Whether the toggle-check is checked.
+         */
         "checked"?: boolean;
+        /**
+          * the disabled prop for the disabled state
+         */
         "disabled": boolean;
         /**
           * Id which is sent in the change event payload
          */
         "eventId"?: string;
+        /**
+          * the svg name for the true state - default -> 'tick-small'
+         */
         "icon"?: string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
         "labelPosition"?: InterfaceCheckToggleAttributes['labelPosition'];
+        /**
+          * name of the toggle-check
+         */
         "name"?: string;
+        /**
+          * event for emiting whenever selection is changed
+         */
         "onChanged"?: (event: SbbToggleCheckCustomEvent<boolean>) => void;
+        /**
+          * id of the toggle-check
+         */
         "toggleId"?: string;
     }
     interface IntrinsicElements {

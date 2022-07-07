@@ -3,67 +3,66 @@ import { InterfaceCheckToggleAttributes } from './sbb-link.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-toggle-check.default.scss',
-    shared: 'styles/sbb-toggle-check.shared.scss',
-  },
+  styleUrl: 'sbb-toggle-check.scss',
   tag: 'sbb-toggle-check',
 })
 export class SbbToggleCheck {
   private _checkbox: HTMLInputElement;
 
-  // checked
-  @Prop({ mutable: true }) public checked: boolean;
+  /** Whether the toggle-check is checked. */
+  @Prop({ mutable: true }) public checked = false;
 
-  // name of the toggle-check
+  /** name of the toggle-check */
   @Prop() public name?: string;
 
-  // id of the toggle-check
+  /** id of the toggle-check */
   @Prop() public toggleId: string;
 
   /** Id which is sent in the change event payload */
   @Prop() public eventId?: string;
 
-  // the svg for the true state
+  /** the svg name for the true state - default -> 'tick-small' */
   @Prop() public icon = 'tick-small';
 
+  /** the disabled prop for the disabled state */
   @Prop() public disabled!: boolean;
 
   /** The label position relative to the toggle. Defaults to 'after' */
   @Prop() public labelPosition?: InterfaceCheckToggleAttributes['labelPosition'] = 'after';
 
-  @Prop() public acceccibilityLabel?: string;
+  /** the aria-label prop for the hidden input */
+  @Prop() public accessibilityLabel?: string;
 
-  @Prop() public acceccibilityLabelledby?: string;
+  /** the aria-labelledby prop for the hidden input */
+  @Prop() public accessibilityLabelledby?: string;
 
-  @Prop() public acceccibilityDescribedBy?: string;
+  /** the aria-describedby prop for the hidden input */
+  @Prop() public accessibilityDescribedBy?: string;
 
-  //event for emiting whenever selection is changed
+  /** event for emiting whenever selection is changed */
   @Event() public changed: EventEmitter<boolean>;
 
-  public changedHandler(check: boolean): void {
+  /** set checked to the state of the input-checkbox */
+  private _toggle(): void {
+    this.checked = this._checkbox?.checked;
+  }
+
+  /** handles the change event and toggles the checked state */
+  private _changedHandler(check: boolean): void {
     this.changed.emit(check);
-    this.toggle();
+    this._toggle();
   }
 
-  public componentDidRender(): void {
-    this.synchCheckState();
-  }
-
-  // handles the toggle when it is undefined or changed without a click
-  public synchCheckState(): void {
+  /** handles the toggle when it is undefined or changed without a click */
+  private _synchCheckState(): void {
+    this._checkbox.checked = this.checked;
     if (this.checked === undefined) {
       this.checked = this._checkbox?.checked;
     }
 
-    if (this.checked !== this._checkbox?.checked) {
+    if (this._checkbox?.checked !== this.checked) {
       this._checkbox.checked = this.checked;
     }
-  }
-
-  // set checked to the state of the input-checkbox
-  public toggle(): void {
-    this.checked = this._checkbox?.checked;
   }
 
   public render(): JSX.Element {
@@ -79,11 +78,12 @@ export class SbbToggleCheck {
           id={this.toggleId}
           disabled={this.disabled}
           onChange={(): void => {
-            this.changedHandler(this.checked);
+            this._changedHandler(this.checked);
+            console.log(this._checkbox.checked);
           }}
-          aria-label={this.acceccibilityLabel}
-          aria-labelledby={this.acceccibilityLabelledby}
-          aria-describedby={this.acceccibilityDescribedBy}
+          aria-label={this.accessibilityLabel}
+          aria-labelledby={this.accessibilityLabelledby}
+          aria-describedby={this.accessibilityDescribedBy}
         />
         {this.labelPosition === 'before' ? <slot /> : ''}
         <span class={`toggle-check__slider toggle-check__slider--${this.labelPosition}`}>
@@ -100,5 +100,9 @@ export class SbbToggleCheck {
         {this.labelPosition === 'after' ? <slot /> : ''}
       </label>
     );
+  }
+
+  public componentDidRender(): void {
+    this._synchCheckState();
   }
 }

@@ -1,4 +1,5 @@
 :host {
+  // only with inline-flex the component gets the right space
   display: inline-flex;
 
   --toggle-check-width: #{px-to-rem-build(48)};
@@ -31,6 +32,7 @@ input[type='checkbox'] {
   position: relative;
   cursor: pointer;
   display: inline-block;
+  overflow: hidden;
   min-width: var(--toggle-check-width);
   min-height: var(--toggle-check-height);
   border-radius: #{px-to-rem-build(28)};
@@ -38,6 +40,8 @@ input[type='checkbox'] {
 }
 
 .toggle-check__circle {
+  @include shadow-level-5-hard;
+
   content: '';
   position: absolute;
   top: 50%;
