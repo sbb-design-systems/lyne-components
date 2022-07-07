@@ -102,6 +102,12 @@ const TemplateSelectWithIcons = (args) => (
   </sbb-form-field>
 );
 
+const disabledArg = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const errorSpaceArg = {
   control: {
     type: 'select',
@@ -121,28 +127,31 @@ const optionalArg = {
   },
 };
 
-const disabled = {
+const readonlyArg = {
   control: {
     type: 'boolean',
   },
 };
 
-const readonly = {
+const sizeArg = {
   control: {
-    type: 'boolean',
+    type: 'inline-radio',
   },
+  options: ['l', 'm']
 };
 
 const basicArgTypes = {
   errorSpace: errorSpaceArg,
   label: labelArg,
   optional: optionalArg,
+  size: sizeArg
 };
 
 const basicArgs = {
   errorSpace: 'default',
   label: 'Name',
   optional: false,
+  size: 'l'
 };
 
 export const formWithLabelAndInput = TemplateInput.bind({});
@@ -157,7 +166,7 @@ formWithLabelAndInput.documentation = {
 
 export const formWithInputDisabled = TemplateInputDisabled.bind({});
 
-formWithInputDisabled.argTypes = { ...basicArgTypes, disabled };
+formWithInputDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg };
 
 formWithInputDisabled.args = JSON.parse(JSON.stringify({ ...basicArgs, disabled: true }));
 
@@ -167,7 +176,7 @@ formWithInputDisabled.documentation = {
 
 export const formWithInputInReadOnly = TemplateInputReadOnly.bind({});
 
-formWithInputInReadOnly.argTypes = { ...basicArgTypes, readonly };
+formWithInputInReadOnly.argTypes = { ...basicArgTypes, readonly: readonlyArg };
 
 formWithInputInReadOnly.args = JSON.parse(JSON.stringify({ ...basicArgs, readonly: true }));
 
@@ -207,7 +216,7 @@ formWithLabelAndSelect.documentation = {
 
 export const formWithSelectDisabled = TemplateSelectDisabled.bind({});
 
-formWithSelectDisabled.argTypes = { ...basicArgTypes, disabled };
+formWithSelectDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg };
 
 formWithSelectDisabled.args = JSON.parse(JSON.stringify({ ...basicArgs, disabled: true }));
 

@@ -290,9 +290,22 @@ export namespace Components {
     interface SbbFormError {
     }
     interface SbbFormField {
+        /**
+          * Add a specific space if the `<sbb-error>` is present.
+         */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
+        /**
+          * Add a `<label>` for the input.
+         */
         "label": string;
+        /**
+          * Indicates whether the input is optional.
+         */
         "optional"?: boolean;
+        /**
+          * Size variant, either l or m.
+         */
+        "size"?: InterfaceSbbFormFieldAttributes['size'];
     }
     interface SbbGrid {
         /**
@@ -1528,9 +1541,22 @@ declare namespace LocalJSX {
     interface SbbFormError {
     }
     interface SbbFormField {
+        /**
+          * Add a specific space if the `<sbb-error>` is present.
+         */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
+        /**
+          * Add a `<label>` for the input.
+         */
         "label"?: string;
+        /**
+          * Indicates whether the input is optional.
+         */
         "optional"?: boolean;
+        /**
+          * Size variant, either l or m.
+         */
+        "size"?: InterfaceSbbFormFieldAttributes['size'];
     }
     interface SbbGrid {
         /**
