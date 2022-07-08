@@ -10,7 +10,7 @@ const TemplateInput = (args) => (
 
 const TemplateInputWithoutBorder = (args) => (
   <sbb-form-field {...args}>
-    <input slot="input" class="input" placeholder="Name" />
+    <input slot="input" class="input form-field--borderless" placeholder="Name" />
   </sbb-form-field>
 );
 

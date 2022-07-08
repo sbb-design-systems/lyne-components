@@ -74,7 +74,12 @@
   height: var(--input-height-l);
   border-radius: var(--sbb-border-radius-8x);
 }
-
+::slotted(.input.form-field--borderless),
+::slotted(.input.form-field--borderless:focus),
+::slotted(.sbb-invalid.form-field--borderless),
+::slotted(.ng-touched.ng-invalid.form-field--borderless) {
+  border-color: var(--background-color-default);
+}
 ::slotted(.input:focus) {
   border-color: var(--border-color-focus);
   outline: none;
@@ -85,9 +90,11 @@
   border-color: var(--text-color-disabled);
   background-color: var(--background-color-disabled);
 }
-
 ::slotted(.input[disabled] + .input-label) {
   color: var(--text-color-disabled);
+}
+::slotted(.input.form-field--borderless[disabled]) {
+  border-color: var(--background-color-disabled);
 }
 
 ::slotted(.input[readonly]) {
@@ -95,14 +102,8 @@
   border-color: var(--text-color-disabled);
   background-color: var(--background-color-disabled);
 }
-
-::slotted(.input--no-border) {
-  border: none;
-  @include shadow-level-5-hard;
-
-  @include ifForcedColors() {
-    border: var(--sbb-border-width-1x) solid CanvasText;
-  }
+::slotted(.input.form-field--borderless[readonly]) {
+  border-color: var(--background-color-disabled);
 }
 
 // Input Icon
