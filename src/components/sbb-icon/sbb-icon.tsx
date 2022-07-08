@@ -10,11 +10,12 @@ import { validateContent } from './validate';
 export class SbbIcon {
   private _svgName: string;
   private _svgNamespace = 'sbb';
+  private _ariaHidden: string;
 
   @Element() private _element!: HTMLElement;
 
   /**
-   * The icon svg content rendered on the page: <svg>...</svg>
+   * The icon svg content rendered on the page: <svg>...</svg>.
    */
   @State() private _svgIcon: string;
 
@@ -54,38 +55,42 @@ export class SbbIcon {
   }
 
   private _loadSvgIcon(iconName: string): void {
-    if (iconName) {
-      const [namespace, name] = this._splitIconName(iconName);
+    if (!iconName) {
+      return;
+    }
 
-      if (namespace) {
-        this._svgNamespace = namespace;
-      }
+    const [namespace, name] = this._splitIconName(iconName);
 
-      if (name) {
-        this._svgName = name;
-      }
+    if (namespace) {
+      this._svgNamespace = namespace;
+    }
 
-      // generate a default label in case user does not provide their own
-      if (this._svgName) {
-        this._ariaLabel = this._getAriaLabel() || `Icon ${this._svgName.replace(/-/g, ' ')}`;
-      }
+    if (name) {
+      this._svgName = name;
+    }
 
-      // try to load SVG from registered icons
-      this._svgIcon = this._loadRegisteredIcon();
+    this._ariaHidden = this._getAriaHidden();
 
-      if (this._svgIcon) {
-        return;
-      }
+    // generate a default label in case user does not provide their own
+    if (this._ariaHidden === 'false' && this._svgName) {
+      this._ariaLabel = this._getAriaLabel() || `Icon ${this._svgName.replace(/-/g, ' ')}`;
+    }
 
-      const url = this._resolveSvgUrl();
+    // try to load SVG from registered icons
+    this._svgIcon = this._loadRegisteredIcon();
 
-      if (url) {
-        if (cachedIcons.has(url)) {
-          // if it's already loaded
-          this._svgIcon = cachedIcons.get(url);
-        } else {
-          getSvgContent(url, this.sanitize).then(() => (this._svgIcon = cachedIcons.get(url)));
-        }
+    if (this._svgIcon) {
+      return;
+    }
+
+    const url = this._resolveSvgUrl();
+
+    if (url) {
+      if (cachedIcons.has(url)) {
+        // if it's already loaded
+        this._svgIcon = cachedIcons.get(url);
+      } else {
+        getSvgContent(url, this.sanitize).then(() => (this._svgIcon = cachedIcons.get(url)));
       }
     }
   }
@@ -130,11 +135,9 @@ export class SbbIcon {
   public render(): JSX.Element {
     return (
       <Host
-        aria-hidden={this._getAriaHidden() === 'false' ? 'false' : 'true'}
+        aria-hidden={this._ariaHidden === 'false' ? 'false' : 'true'}
         aria-label={
-          this._ariaLabel !== undefined && this._getAriaHidden() === 'false'
-            ? this._ariaLabel
-            : null
+          this._ariaLabel !== undefined && this._ariaHidden === 'false' ? this._ariaLabel : null
         }
         role="img"
         class={`sbb-icon ${this._svgName || ''}`}
@@ -149,7 +152,7 @@ export class SbbIcon {
   }
 
   /**
-   * Register a new custom namespace.
+   * Registers a new custom namespace.
    * @param namespace The namespace to register runtime.
    * @param path The url from which to retrieve the icons.
    */
@@ -160,7 +163,7 @@ export class SbbIcon {
   }
 
   /**
-   * Register a new custom icon.
+   * Registers a new custom icon.
    * @param namespace The namespace to register runtime.
    * @param name The custom icon name.
    * @param svg The icon svg content: "<svg>...</svg>".

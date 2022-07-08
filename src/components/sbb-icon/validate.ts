@@ -1,13 +1,19 @@
 const isStr = (val: any): val is string => typeof val === 'string';
 
+/**
+ * Sanitizes the SVG element and all its child nodes.
+ * Does not allow `<script>` elements, or any attributes that start with `on`, such as `onclick`.
+ */
 export const isValid = (elm: HTMLElement): boolean => {
   if (elm.nodeType === 1) {
+    // is an Element node like <div>, <p> or <svg>
     if (elm.nodeName.toLowerCase() === 'script') {
       return false;
     }
 
+    // do not allow attributes starting with `on`
     for (let i = 0; i < elm.attributes.length; i++) {
-      const val = elm.attributes[i].value;
+      const val = elm.attributes[i].name;
       if (isStr(val) && val.toLowerCase().indexOf('on') === 0) {
         return false;
       }
@@ -22,6 +28,11 @@ export const isValid = (elm: HTMLElement): boolean => {
   return true;
 };
 
+/**
+ * Validates the SVG content by checking that it has only one root element `<svg>`,
+ * adding the `color-immutable` class if the `colorImmutable` option is set to `true`,
+ * and sanitizing the provided content as long as the `sanitize` property is not explicitly set to `false`.
+ */
 export const validateContent = (
   svgContent: string,
   sanitize = true,
@@ -49,7 +60,7 @@ export const validateContent = (
       return div.innerHTML;
     }
 
-    // sanitize the svg element, do not allow scripts
+    // sanitize the svg element
     if (isValid(svgElm as any)) {
       return div.innerHTML;
     }

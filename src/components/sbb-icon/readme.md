@@ -31,13 +31,13 @@ In the HTML, you can now use the namespace as shown below:
 
 ### Register an icon
 
-In order to register a custom namespace, use the `registerIcon` API by providing: 
+In order to register a custom icon, use the `registerIcon` API by providing: 
 - the name of the icon;
 - the name of the namespace;
 - the SVG content to render on the page;
 - the properties `sanitize` and `colorImmutable` (optional).
 
-If set to true, "colorImmutable" adds the class "color-immutable" to the SVG to prevent changing the icon color.
+If set to true, `colorImmutable` adds the class `color-immutable` to the SVG to prevent changing the icon color.
 The example below shows how to register and render a custom icon named `app-logo` with a custom namespace named `custom`:
 
 ```js

@@ -4,10 +4,12 @@
 
 :host {
   --sbb-icon-margin-inline: 0;
+  --sbb-icon-margin-block: 0;
 
   display: inline-block;
   line-height: 0;
   margin-inline: var(--sbb-icon-margin-inline-override, var(--sbb-icon-margin-inline));
+  margin-block: var(--sbb-icon-margin-block-override, var(--sbb-icon-margin-block));
 }
 
 svg:not(.color-immutable) {
