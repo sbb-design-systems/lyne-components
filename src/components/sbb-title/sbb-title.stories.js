@@ -126,5 +126,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-title',
+  title: 'components/sbb-title (Unfinished)',
 };

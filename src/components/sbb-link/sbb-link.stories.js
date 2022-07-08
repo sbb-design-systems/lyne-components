@@ -288,5 +288,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-link',
+  title: 'components/sbb-link (Unfinished)',
 };

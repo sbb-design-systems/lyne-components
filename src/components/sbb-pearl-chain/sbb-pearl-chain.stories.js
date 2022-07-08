@@ -172,5 +172,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-pearl-chain',
+  title: 'components/sbb-pearl-chain (Unfinished)',
 };

@@ -23,5 +23,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-panel',
+  title: 'components/sbb-panel (Unfinished)',
 };
