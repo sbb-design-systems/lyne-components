@@ -1,5 +1,5 @@
 import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
-import { getSvgContent, iconNamespaces, cachedIcons, registeredIcons } from './request';
+import { getSvgContent, iconNamespaces, registeredIcons } from './request';
 import { validateContent } from './validate';
 
 @Component({
@@ -54,7 +54,7 @@ export class SbbIcon {
     }
   }
 
-  private _loadSvgIcon(iconName: string): void {
+  private async _loadSvgIcon(iconName: string): Promise<void> {
     if (!iconName) {
       return;
     }
@@ -86,12 +86,7 @@ export class SbbIcon {
     const url = this._resolveSvgUrl();
 
     if (url) {
-      if (cachedIcons.has(url)) {
-        // if it's already loaded
-        this._svgIcon = cachedIcons.get(url);
-      } else {
-        getSvgContent(url, this.sanitize).then(() => (this._svgIcon = cachedIcons.get(url)));
-      }
+      this._svgIcon = await getSvgContent(url, this.sanitize);
     }
   }
 
