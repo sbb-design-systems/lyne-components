@@ -8,8 +8,14 @@ const TemplateInput = (args) => (
   </sbb-form-field>
 );
 
+const TemplateInputWithoutBorder = (args) => (
+  <sbb-form-field {...args}>
+    <input slot="input" class="input" placeholder="Name" />
+  </sbb-form-field>
+);
+
 const TemplateInputDisabled = (args) => (
-  <sbb-form-field errorSpace={args.errorSpace} label={args.label} optional={args.optional}>
+  <sbb-form-field error={args.error} label={args.label} optional={args.optional}>
     <input
       slot="input"
       class="input"
@@ -21,7 +27,7 @@ const TemplateInputDisabled = (args) => (
 );
 
 const TemplateInputReadOnly = (args) => [
-  <sbb-form-field errorSpace={args.errorSpace} label={args.label} optional={args.optional}>
+  <sbb-form-field error={args.error} label={args.label} optional={args.optional}>
     <input
       slot="input"
       class="input"
@@ -108,7 +114,7 @@ const disabledArg = {
   },
 };
 
-const errorSpaceArg = {
+const errorArg = {
   control: {
     type: 'select',
   },
@@ -141,14 +147,14 @@ const sizeArg = {
 };
 
 const basicArgTypes = {
-  errorSpace: errorSpaceArg,
+  error: errorArg,
   label: labelArg,
   optional: optionalArg,
   size: sizeArg
 };
 
 const basicArgs = {
-  errorSpace: 'default',
+  error: 'default',
   label: 'Name',
   optional: false,
   size: 'l'
@@ -162,6 +168,16 @@ formWithLabelAndInput.args = JSON.parse(JSON.stringify(basicArgs));
 
 formWithLabelAndInput.documentation = {
   title: 'sbb-form-field component with label and input',
+};
+
+export const formWithLabelAndInputWithoutBorder = TemplateInputWithoutBorder.bind({});
+
+formWithLabelAndInputWithoutBorder.argTypes = basicArgTypes;
+
+formWithLabelAndInputWithoutBorder.args = JSON.parse(JSON.stringify(basicArgs));
+
+formWithLabelAndInputWithoutBorder.documentation = {
+  title: 'sbb-form-field component with label and input, without border',
 };
 
 export const formWithInputDisabled = TemplateInputDisabled.bind({});
