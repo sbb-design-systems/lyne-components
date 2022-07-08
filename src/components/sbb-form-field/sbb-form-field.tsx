@@ -23,7 +23,7 @@ export class SbbFormField {
   /**
    * Add a specific space if the `<sbb-error>` is present.
    */
-  @Prop() public error?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'default';
+  @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'default';
 
   /**
    * Add a `<label>` for the input.
@@ -150,7 +150,7 @@ export class SbbFormField {
 
   public render(): JSX.Element {
     const optional = this.optional ? '(optional)' : '';
-    const cssClassErrorSpace = `form-field--error-space-${this.error}`;
+    const cssClassErrorSpace = `form-field--error-space-${this.errorSpace}`;
     const cssSizeClass = `form-field--size-${this.size}`;
     const cssClassSlotPrefix = this._element.querySelector('[slot="prefix"]') ? 'form--prefix' : '';
     const cssClassSlotSuffix = this._element.querySelector('[slot="suffix"]') ? 'form--suffix' : '';
