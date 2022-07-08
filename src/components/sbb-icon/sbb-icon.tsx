@@ -80,6 +80,7 @@ export class SbbIcon {
     this._svgIcon = this._loadRegisteredIcon();
 
     if (this._svgIcon) {
+      this._element.shadowRoot.innerHTML = this._svgIcon;
       return;
     }
 
@@ -88,6 +89,8 @@ export class SbbIcon {
     if (url) {
       this._svgIcon = await getSvgContent(url, this.sanitize);
     }
+
+    this._element.shadowRoot.innerHTML = this._svgIcon ?? '';
   }
 
   private _splitIconName(iconName: string): [string, string] {
@@ -135,14 +138,8 @@ export class SbbIcon {
           this._ariaLabel !== undefined && this._ariaHidden === 'false' ? this._ariaLabel : null
         }
         role="img"
-        class={`sbb-icon ${this._svgName || ''}`}
-      >
-        {this._svgIcon ? (
-          <div class="sbb-icon-inner" innerHTML={this._svgIcon}></div>
-        ) : (
-          <div class="sbb-icon-inner"></div>
-        )}
-      </Host>
+        class={`sbb-icon ${this._svgName ?? ''}`}
+      ></Host>
     );
   }
 
