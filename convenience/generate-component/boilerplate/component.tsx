@@ -8,10 +8,7 @@ import { Interface__nameUpperCase__Attributes } from './__name__.custom.d';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/__name__.default.scss',
-    shared: 'styles/__name__.shared.scss',
-  },
+  styleUrl: '__name__.scss',
   tag: '__name__',
 })
 export class __nameUpperCase__ {

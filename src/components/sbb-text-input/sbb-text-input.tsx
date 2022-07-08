@@ -12,10 +12,7 @@ import debounce from '../../global/helpers/debounce';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-text-input.default.scss',
-    shared: 'styles/sbb-text-input.shared.scss',
-  },
+  styleUrl: 'sbb-text-input.scss',
   tag: 'sbb-text-input',
 })
 export class SbbTextInput {

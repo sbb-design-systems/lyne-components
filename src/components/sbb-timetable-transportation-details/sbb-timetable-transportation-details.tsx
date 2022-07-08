@@ -2,10 +2,7 @@ import { Component, h, Prop } from '@stencil/core';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-transportation-details.default.scss',
-    shared: 'styles/sbb-timetable-transportation-details.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-transportation-details.scss',
   tag: 'sbb-timetable-transportation-details',
 })
 export class SbbTimetableTransportationDetails {

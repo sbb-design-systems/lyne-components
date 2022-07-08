@@ -11,10 +11,7 @@ const eventListenerOptions = {
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-image.default.scss',
-    shared: 'styles/sbb-image.shared.scss',
-  },
+  styleUrl: 'sbb-image.scss',
   tag: 'sbb-image',
 })
 export class SbbImage {

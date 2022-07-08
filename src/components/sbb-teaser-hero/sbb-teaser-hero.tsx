@@ -4,10 +4,7 @@ import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-teaser-hero.default.scss',
-    shared: 'styles/sbb-teaser-hero.shared.scss',
-  },
+  styleUrl: 'sbb-teaser-hero.scss',
   tag: 'sbb-teaser-hero',
 })
 export class SbbTeaserHero {

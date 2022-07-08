@@ -3,10 +3,7 @@ import errorIcon from './assets/error_icon.svg';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-input-error.default.scss',
-    shared: 'styles/sbb-input-error.shared.scss',
-  },
+  styleUrl: 'sbb-input-error.scss',
   tag: 'sbb-input-error',
 })
 export class SbbInputError {

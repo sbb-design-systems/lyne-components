@@ -3,10 +3,7 @@ import { InterfaceTitleAttributes } from './sbb-title.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-title.default.scss',
-    shared: 'styles/sbb-title.shared.scss',
-  },
+  styleUrl: 'sbb-title.scss',
   tag: 'sbb-title',
 })
 export class SbbTitle {

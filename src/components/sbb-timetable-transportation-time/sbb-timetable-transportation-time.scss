@@ -1,0 +1,45 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  display: block;
+
+  --transportation-min-width: #{px-to-rem-build(38)};
+
+  @include mq($from: medium) {
+    --transportation-min-width: #{px-to-rem-build(43)};
+  }
+}
+
+.time {
+  min-width: var(--transportation-min-width);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.time--departure {
+  @include text-s--bold;
+}
+
+.time--first-level.time--departure {
+  margin-inline-end: var(--sbb-spacing-fixed-3x);
+}
+
+.time--first-level.time--arrival {
+  @include text-s--bold;
+
+  margin-inline-start: var(--sbb-spacing-fixed-3x);
+}
+
+.time-second-level.time--departure {
+  @include text-s--bold;
+}
+
+.time--second-level.time--arrival {
+  @include text-s--regular;
+}
+
+.time__text--visually-hidden {
+  @include screenReaderOnly;
+}

@@ -6,10 +6,7 @@ import { InterfaceTimetablePlatformAttributes } from './sbb-timetable-platform.c
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-platform.default.scss',
-    shared: 'styles/sbb-timetable-platform.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-platform.scss',
   tag: 'sbb-timetable-platform',
 })
 export class SbbTimetablePlatform {

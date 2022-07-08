@@ -2,8 +2,8 @@
 
 <!-- Please ensure you've completed the following steps by replacing [ ] with [x]-->
 
-- [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CONTRIBUTING.md) for this project.
-- [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/master/.github/CODE_OF_CONDUCT.md) that this project adheres to.
+- [ ] I have read the [Contributing Guidelines](https://github.com/lyne-design-system/lyne-components/blob/master/CONTRIBUTING.md) for this project.
+- [ ] I agree to follow the [Code of Conduct](https://github.com/lyne-design-system/lyne-components/blob/master/CODE_OF_CONDUCT.md) that this project adheres to.
 - [ ] I have searched the [pull request tracker](https://github.com/lyne-design-system/lyne-components/pulls) for a Pull Request (PR) that matches the one I want to submit, without success.
 
 ## Issue
@@ -64,11 +64,3 @@ Please check the type of change your PR introduces:
 ## Other information
 
 <!-- Any other information that is important to this PR such as screenshots of how the component looks before and after the change. -->
-
-## Mentions
-
-<!-- Please leave this mention -->
-
-@lyne-design-system/core
-
-<!-- Add other mentions -->

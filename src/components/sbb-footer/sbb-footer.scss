@@ -1,0 +1,82 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--sbb-grid-base-gutter-responsive));
+  --_footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
+  --_footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
+  --_footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
+  --_footer-divider-thickness: var(--footer-divider-thickness, #{px-to-rem-build(1)});
+  --_footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(76)});
+  @include mq($from: small) {
+    --_footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(112)});
+  }
+
+  // Contextual design for sbb-stack
+  --stack-text-color-normal: var(--sbb-color-granite-default);
+}
+
+.footer {
+  @include page-spacing;
+
+  margin-block-start: var(--sbb-spacing-responsive-l);
+  padding-block-start: var(--sbb-spacing-responsive-l);
+  padding-block-end: var(--sbb-spacing-responsive-l);
+  background-color: var(--_footer-background-color);
+}
+
+.footer--primary-negative {
+  --_footer-divider-color: var(--sbb-color-iron-default);
+  --_footer-background-color: var(--sbb-color-charcoal-default);
+  --title-text-color-normal: var(--sbb-color-storm-default);
+}
+
+.columns {
+  @include page-spacing__inner;
+
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--_footer-gap-horizontal);
+  row-gap: var(--_footer-gap-vertical);
+
+  ::slotted([slot]) {
+    flex-basis: 100%;
+
+    @include mq($from: small) {
+      flex: 0 0 calc(50% - (var(--_footer-gap-horizontal) / 2));
+      max-width: calc(50% - (var(--_footer-gap-horizontal) / 2));
+    }
+    @include mq($from: wide) {
+      flex: 0 0 calc(25% - ((3 * var(--_footer-gap-horizontal)) / 4));
+      max-width: calc(25% - ((3 * var(--_footer-gap-horizontal)) / 4));
+    }
+  }
+
+  ::slotted([slot='clock']) {
+    max-width: var(--_footer-clock-width);
+    @include mq($from: zero) {
+      order: -1;
+    }
+    @include mq($from: small) {
+      order: initial;
+    }
+    @include mq($from: wide) {
+      margin-inline-start: auto;
+    }
+  }
+}
+
+.bottom {
+  @include page-spacing__inner;
+}
+
+// Increase sbb-footer resilience
+//
+// Only apply spacing and thin line if footer bottom has a predecessor, excluding
+// the hidden title which always needs to be present
+:not(.title--visually-hidden) + .bottom {
+  margin-block-start: var(--sbb-spacing-responsive-xl);
+  border-block-start: var(--_footer-divider-thickness) solid var(--_footer-divider-color);
+  padding-block-start: var(--sbb-spacing-fixed-8x);
+}

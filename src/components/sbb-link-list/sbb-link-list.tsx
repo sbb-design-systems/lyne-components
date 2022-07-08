@@ -10,10 +10,7 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-link-list.default.scss',
-    shared: 'styles/sbb-link-list.shared.scss',
-  },
+  styleUrl: 'sbb-link-list.scss',
   tag: 'sbb-link-list',
 })
 export class SbbLinkList {

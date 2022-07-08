@@ -6,10 +6,7 @@ import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-journey-header.default.scss',
-    shared: 'styles/sbb-journey-header.shared.scss',
-  },
+  styleUrl: 'sbb-journey-header.scss',
   tag: 'sbb-journey-header',
 })
 export class SbbJourneyHeader {

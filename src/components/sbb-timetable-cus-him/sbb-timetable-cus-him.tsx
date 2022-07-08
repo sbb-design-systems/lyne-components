@@ -7,10 +7,7 @@ import { i18nNone } from '../../global/i18n';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-cus-him.default.scss',
-    shared: 'styles/sbb-timetable-cus-him.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-cus-him.scss',
   tag: 'sbb-timetable-cus-him',
 })
 export class SbbTimetableCusHim {

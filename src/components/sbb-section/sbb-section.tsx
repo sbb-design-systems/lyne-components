@@ -3,10 +3,7 @@ import { InterfaceSectionAttributes } from './sbb-section.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-section.default.scss',
-    shared: 'styles/sbb-section.shared.scss',
-  },
+  styleUrl: 'sbb-section.scss',
   tag: 'sbb-section',
 })
 export class SbbSection {

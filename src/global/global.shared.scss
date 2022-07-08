@@ -6,6 +6,7 @@
 // is necessary so the changes get reflected in the global CSS (sbb-components.css)
 //
 // This is a known and unsolved stencil-sass bug: see
+// https://github.com/ionic-team/stencil/issues/2635
 // https://github.com/ionic-team/stencil-sass/issues/8
 // https://github.com/ionic-team/stencil-sass/issues/15
 //
@@ -25,18 +26,9 @@
 // }
 
 // Font face declaration
-//
-// The font-face declaration is only available for shared mode since font-face
-// declarations can not yet be made within the shadow root of a web component.
 @import 'core/shared/font-face.scss';
 
 // Normalize (modern normalize) appearance
-//
-// The CSS normalization is only available for shared mode but not for the
-// self-contained/encapsulated mode (default). Resets/normalizations for
-// self-contained/encapsulated components need to be done for each component
-// separately within COMPONENT-NAME.default.scss
-// https://github.com/lyne-design-system/lyne-components/pull/716#issuecomment-934213307
 @import 'core/shared/normalize.scss';
 
 @import 'global.scss';

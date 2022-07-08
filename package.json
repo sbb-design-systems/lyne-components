@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.1.4",
+  "version": "0.1.8",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -16,11 +16,6 @@
   },
   "bugs": {
     "url": "https://github.com/lyne-design-system/lyne-components/issues"
-  },
-  "engines": {
-    "node": ">=14.0.0 <15.0.0",
-    "yarn": ">= 1.0.0",
-    "npm": "Please use Yarn instead of NPM to install dependencies. See: https://yarnpkg.com/lang/en/docs/install/"
   },
   "files": [
     "dist/",
@@ -57,7 +52,7 @@
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
     "@namics/stylelint-bem": "7.0.0",
-    "@sbb-esta/lyne-design-tokens": "0.2.0",
+    "@sbb-esta/lyne-design-tokens": "0.2.1",
     "@stencil/core": "2.17.0",
     "@stencil/sass": "1.5.2",
     "@storybook/addon-a11y": "6.5.9",
@@ -65,13 +60,13 @@
     "@storybook/html": "6.5.9",
     "@types/jest": "27.5.2",
     "@types/puppeteer": "5.4.6",
-    "@typescript-eslint/eslint-plugin": "5.30.0",
-    "@typescript-eslint/parser": "5.30.0",
+    "@typescript-eslint/eslint-plugin": "5.30.5",
+    "@typescript-eslint/parser": "5.30.5",
     "axios": "0.27.2",
     "babel-loader": "8.2.5",
-    "chromatic": "6.6.4",
-    "esbuild": "0.14.47",
-    "eslint": "8.18.0",
+    "chromatic": "6.7.0",
+    "esbuild": "0.14.48",
+    "eslint": "8.19.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-jest": "26.5.3",
     "eslint-plugin-jsx-a11y": "6.6.0",
@@ -86,12 +81,12 @@
     "jsx-transform": "2.4.1",
     "lint-staged": "13.0.3",
     "lyne-helper-trigger-travis": "1.0.6",
-    "lyne-icons": "4.35.1",
+    "lyne-icons": "4.39.4",
     "minimist": "1.2.6",
     "npm-run-all": "4.1.5",
     "postcss": "8.4.14",
     "prettier": "2.7.1",
-    "puppeteer": "15.1.1",
+    "puppeteer": "15.3.1",
     "shelljs": "0.8.5",
     "simple-git": "3.10.0",
     "standard-version": "9.5.0",
