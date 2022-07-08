@@ -8,11 +8,8 @@ import { Component, h, Prop, Watch, Element } from '@stencil/core';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-teaser.default.scss',
-    shared: 'styles/sbb-teaser.shared.scss',
-  },
-  tag: 'sbb-teaser',
+  styleUrl: 'sbb-teaser.scss',
+  tag: 'sbb-teaser'
 })
 
 /**
@@ -32,9 +29,8 @@ export class SbbTeaser {
    * Check if accessibilityLabel is provided since it is a required prop,
    * otherwise throw an error.
    */
-  /* eslint-disable */
   @Watch('accessibilityLabel')
-  validateAccessibilityLabel(newValue: string) {
+  private _validateAccessibilityLabel(newValue: string): void {
     const isBlank = typeof newValue !== 'string' || newValue === '';
     if (isBlank) {
       throw new Error('accessibilityLabel: required');
@@ -61,10 +57,10 @@ export class SbbTeaser {
 
   public componentWillLoad(): void {
     // Validate props
-    this.validateAccessibilityLabel(this.accessibilityLabel);
+    this._validateAccessibilityLabel(this.accessibilityLabel);
   }
 
-  private _linkMutationObserver = new MutationObserver((mutations) => {
+  private _titleMutationObserver = new MutationObserver((mutations) => {
     mutations?.forEach((mutation) => {
       const element = mutation.target as HTMLElement;
 
@@ -76,8 +72,8 @@ export class SbbTeaser {
 
   public connectedCallback(): void {
     this._element.querySelectorAll('sbb-title')?.forEach((element) => {
-      this._linkMutationObserver.observe(element, {
-        attributes: true,
+      this._titleMutationObserver.observe(element, {
+        attributes: true
       });
     });
   }

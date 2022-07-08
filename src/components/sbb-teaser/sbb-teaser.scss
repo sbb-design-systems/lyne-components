@@ -4,6 +4,7 @@
 @include host-component-properties;
 
 :host {
+  // needed for correct behavior
   display: inline-flex;
 
   --teaser-scale-hover: 1.02;
@@ -23,7 +24,7 @@
 }
 
 .teaser__content {
-  display: inherit;
+  display: inline-flex;
 }
 
 .teaser--primary-negative {
