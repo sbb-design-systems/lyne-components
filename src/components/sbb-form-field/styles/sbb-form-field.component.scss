@@ -28,12 +28,12 @@
 
   // waiting for token update
   // --input-height-m: var(--sbb-size-form-element-m-min-height-small)
-  --input-height-m: 48px;
-  --input-height-l: 56px;
+  --input-height-m: var(--sbb-size-form-element-m-min-height-small);
+  --input-height-l: var(--sbb-size-form-element-l-min-height-small);
 
   @include mq($from: medium) {
-    --input-height-m: 56px;
-    --input-height-l: 64px;
+    --input-height-m: var(--sbb-size-form-element-m-min-height-medium);
+    --input-height-l: var(--sbb-size-form-element-l-min-height-medium);
   }
 }
 
