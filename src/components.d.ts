@@ -293,7 +293,7 @@ export namespace Components {
         /**
           * Add a specific space if the `<sbb-error>` is present.
          */
-        "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
+        "error"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         /**
           * Add a `<label>` for the input.
          */
@@ -1544,7 +1544,7 @@ declare namespace LocalJSX {
         /**
           * Add a specific space if the `<sbb-error>` is present.
          */
-        "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
+        "error"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         /**
           * Add a `<label>` for the input.
          */

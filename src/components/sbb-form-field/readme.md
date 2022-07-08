@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property     | Attribute     | Description                                           | Type                     | Default     |
-| ------------ | ------------- | ----------------------------------------------------- | ------------------------ | ----------- |
-| `errorSpace` | `error-space` | Add a specific space if the `<sbb-error>` is present. | `"default" \| "reserve"` | `'default'` |
-| `label`      | `label`       | Add a `<label>` for the input.                        | `string`                 | `undefined` |
-| `optional`   | `optional`    | Indicates whether the input is optional.              | `boolean`                | `undefined` |
-| `size`       | `size`        | Size variant, either l or m.                          | `"l" \| "m"`             | `'l'`       |
+| Property   | Attribute  | Description                                           | Type                     | Default     |
+| ---------- | ---------- | ----------------------------------------------------- | ------------------------ | ----------- |
+| `error`    | `error`    | Add a specific space if the `<sbb-error>` is present. | `"default" \| "reserve"` | `'default'` |
+| `label`    | `label`    | Add a `<label>` for the input.                        | `string`                 | `undefined` |
+| `optional` | `optional` | Indicates whether the input is optional.              | `boolean`                | `undefined` |
+| `size`     | `size`     | Size variant, either l or m.                          | `"l" \| "m"`             | `'l'`       |
 
 
 ## Slots
