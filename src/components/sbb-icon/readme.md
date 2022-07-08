@@ -9,7 +9,23 @@ The example below shows how to render an icon named `app-icon-medium` that point
 <sbb-icon name="app-icon-medium"></sbb-icon>
 ```
 
+### Accessibility
+
+Similar to an `<img>` element, an icon alone does not convey any useful information for a
+screen-reader user. The user of `<sbb-icon>` must provide additional information pertaining to how
+the icon is used. Based on the use-cases described below, `sbb-icon` is marked as
+`aria-hidden="true"` by default, but this can be overridden by adding `aria-hidden="false"` to the
+element.
+
+In thinking about accessibility, it is useful to place icon use into one of three categories:
+
+1. **Decorative**: the icon conveys no real semantic meaning and is purely cosmetic.
+2. **Interactive**: a user will click or otherwise interact with the icon to perform some action.
+3. **Indicator**: the icon is not interactive, but it conveys some information, such as a status.
+   This includes using the icon in place of text inside of a larger message.
+
 ### Register a namespace
+*This feature is subject to change**
 
 In order to register a custom namespace, use the `registerNamespace` API by providing: 
 - the name of the namespace;
@@ -30,6 +46,7 @@ In the HTML, you can now use the namespace as shown below:
 ```
 
 ### Register an icon
+*This feature is subject to change**
 
 In order to register a custom icon, use the `registerIcon` API by providing: 
 - the name of the icon;
@@ -51,7 +68,8 @@ In the HTML, you can now use the icon as shown below:
 <!-- Will render the registered SVG icon -->
 <sbb-icon name="custom:my-icon"></sbb-icon>
 ```
-> **Note:** In order to use the registration API to register a new namespace/icon, it is necessary to import the `sbb_icon` module from the path `@sbb-esta/lyne-components/dist/esm/sbb-icon.entry.js`. This is a temporary solution for this specific use, which will eventually be changed with a different approach.
+
+> ***Note:** In order to use the registration API to register a new namespace/icon, it is necessary to import the `sbb_icon` module from the path `@sbb-esta/lyne-components/dist/esm/sbb-icon.entry.js`. This is a temporary solution for this specific use, which will eventually be changed with a different approach.
 
 <!-- Auto Generated Below -->
 
