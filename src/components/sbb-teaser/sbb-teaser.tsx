@@ -9,7 +9,7 @@ import { Component, h, Prop, Watch, Element } from '@stencil/core';
 @Component({
   shadow: true,
   styleUrl: 'sbb-teaser.scss',
-  tag: 'sbb-teaser'
+  tag: 'sbb-teaser',
 })
 
 /**
@@ -73,7 +73,7 @@ export class SbbTeaser {
   public connectedCallback(): void {
     this._element.querySelectorAll('sbb-title')?.forEach((element) => {
       this._titleMutationObserver.observe(element, {
-        attributes: true
+        attributes: true,
       });
     });
   }

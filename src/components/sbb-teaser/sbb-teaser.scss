@@ -40,14 +40,11 @@
 ::slotted([slot='image']) {
   display: block;
   object-fit: cover;
-  border-radius: var(--sbb-border-radius-4x);
   width: 100%;
   transition: var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   aspect-ratio: 4 / 3;
 
   .teaser:hover & {
-    @include shadow-level-9-hard;
-
     transform: scale(var(--teaser-scale-hover));
   }
 }
@@ -61,6 +58,13 @@
 
 .teaser__image-wrapper {
   width: 100%;
+  overflow: hidden;
+  border-radius: var(--sbb-border-radius-4x);
+  transition: var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+
+  .teaser:hover & {
+    @include shadow-level-9-hard;
+  }
 }
 
 .teaser__lead {
