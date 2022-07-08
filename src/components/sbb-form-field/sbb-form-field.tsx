@@ -23,7 +23,7 @@ export class SbbFormField {
   /**
    * Add a specific space if the `<sbb-error>` is present.
    */
-  @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'default';
+  @Prop() public error?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'default';
 
   /**
    * Add a `<label>` for the input.
@@ -112,9 +112,12 @@ export class SbbFormField {
         .setAttribute('id', `sbb-form-field-input-${nextId++}`);
     }
 
+    const inputCssClass = this._element
+      .querySelector('[slot="input"]').getAttribute('class');
+
     this._element
       .querySelector('[slot="input"]')
-      .setAttribute('class', `input form-field--size-${this.size}`);
+      .setAttribute('class', `${inputCssClass} form-field--size-${this.size}`);
 
     this._id = this._element.querySelector('[slot="input"]').getAttribute('id');
 
@@ -147,7 +150,7 @@ export class SbbFormField {
 
   public render(): JSX.Element {
     const optional = this.optional ? '(optional)' : '';
-    const cssClassErrorSpace = this.errorSpace;
+    const cssClassErrorSpace = `form-field--error-space-${this.error}`;
     const cssSizeClass = `form-field--size-${this.size}`;
     const cssClassSlotPrefix = this._element.querySelector('[slot="prefix"]') ? 'form--prefix' : '';
     const cssClassSlotSuffix = this._element.querySelector('[slot="suffix"]') ? 'form--suffix' : '';
