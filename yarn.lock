@@ -8972,10 +8972,10 @@ lyne-helper-trigger-travis@1.0.6, lyne-helper-trigger-travis@~1.0.3:
   resolved "https://registry.yarnpkg.com/lyne-helper-trigger-travis/-/lyne-helper-trigger-travis-1.0.6.tgz#cc04cc0a6c10a3d5c3e7693a578d164cf7d3d183"
   integrity sha512-K5XeHtsynOwEq8EuM6NZrW+5BchHp2E13qkKR5D1DbgronCnUZQm5G7XaL4JK2FZ6ID2ClC/6yr6GtkDbZyQ/Q==
 
-lyne-icons@4.39.4:
-  version "4.39.4"
-  resolved "https://registry.yarnpkg.com/lyne-icons/-/lyne-icons-4.39.4.tgz#c2b46b31b0f0ab56496124d573476f6e9fee2daf"
-  integrity sha512-CPWgO66G/gnhBUR3Ts8s7h6R5DvQF20LTBq2YE6qK+6O4aeUIAwWDCdbX11Kqrqxl5vKI1vZcQxprRtSCGt5kw==
+lyne-icons@4.40.0:
+  version "4.40.0"
+  resolved "https://registry.yarnpkg.com/lyne-icons/-/lyne-icons-4.40.0.tgz#803a1ba2e839973e9da41471f36beb8699b0c7f8"
+  integrity sha512-oAweW3xSGJjYaLKQmL3CH0rJwwRl8KgLljojKHuCZb7Col4LYzcKy9vQ0Kh9l8bbMcOD8PDf+LDCJNPJ/iQ8QA==
   dependencies:
     lyne-helper-trigger-travis "~1.0.3"
     ncp "~2.0.0"
