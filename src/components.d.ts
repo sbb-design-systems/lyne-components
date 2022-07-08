@@ -11,6 +11,7 @@ import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-ca
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
+import { InterfaceSbbFormErrorAttributes } from "./components/sbb-form-error/sbb-form-error.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
@@ -288,6 +289,10 @@ export namespace Components {
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface SbbFormError {
+        /**
+          * Add a specific space if the `<sbb-error>` is present.
+         */
+        "errorSpace"?: InterfaceSbbFormErrorAttributes['errorSpace'];
     }
     interface SbbFormField {
         /**
@@ -1539,6 +1544,10 @@ declare namespace LocalJSX {
         "appearance"?: InterfaceFooterAttributes['appearance'];
     }
     interface SbbFormError {
+        /**
+          * Add a specific space if the `<sbb-error>` is present.
+         */
+        "errorSpace"?: InterfaceSbbFormErrorAttributes['errorSpace'];
     }
     interface SbbFormField {
         /**

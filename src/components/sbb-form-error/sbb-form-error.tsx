@@ -1,4 +1,5 @@
-import { Component, h, Host } from '@stencil/core';
+import {Component, h, Host, Prop} from '@stencil/core';
+import {InterfaceSbbFormErrorAttributes} from "./sbb-form-error.custom";
 
 let nextId = 0;
 @Component({
@@ -10,7 +11,16 @@ let nextId = 0;
   tag: 'sbb-form-error',
 })
 export class SbbFormError {
+
+  /**
+   * Add a specific space if the `<sbb-error>` is present.
+   */
+  @Prop() public errorSpace?: InterfaceSbbFormErrorAttributes['errorSpace'] = 'default';
+
   public render(): JSX.Element {
+    const cssClassErrorSpace = `form-error--error-space-${this.errorSpace}`;
+    const cssClass = `input-label-error__icon ${cssClassErrorSpace}`;
+
     return (
       <Host
         ref={(host): void => {
@@ -19,7 +29,7 @@ export class SbbFormError {
           }
         }}
       >
-        <span class="input-label-error__icon">
+        <span class={cssClass}>
           <slot name="icon">
             <svg width="24" height="24" viewBox="0,0,24,24" xmlns="http://www.w3.org/2000/svg">
               <path

@@ -41,7 +41,7 @@ const TemplateInputReadOnly = (args) => [
 const TemplateInputWithError = (args) => (
   <sbb-form-field {...args}>
     <input slot="input" class="input sbb-invalid" placeholder="Name" />
-    <sbb-form-error id="error" class="input-label-error" slot="error">
+    <sbb-form-error error-space={args['error-space']} id="error" class="input-label-error" slot="error">
       This is a required field.
     </sbb-form-error>
   </sbb-form-field>
@@ -81,12 +81,12 @@ const TemplateSelectDisabled = (args) => (
 
 const TemplateSelectWithError = (args) => (
   <sbb-form-field {...args}>
-    <select slot="input" class="input select" placeholder="Name">
+    <select slot="input" class="input select sbb-invalid" placeholder="Name">
       <option>Value 1</option>
       <option>Value 2</option>
       <option>Value 3</option>
     </select>
-    <sbb-form-error idError="error" slot="error">
+    <sbb-form-error error-space={args['error-space']} id="error" slot="error">
       This is a required field.
     </sbb-form-error>
   </sbb-form-field>

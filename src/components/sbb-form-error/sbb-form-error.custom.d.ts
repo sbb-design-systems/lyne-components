@@ -1,3 +1,3 @@
 export interface InterfaceSbbFormErrorAttributes {
-  someInterface: 'opt1' | 'opt2';
+  errorSpace: 'default' | 'reserve';
 }
