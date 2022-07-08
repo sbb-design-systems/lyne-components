@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.8 (2022-07-08)
+
+### Features
+
+- **sbb-icon:** introduce sbb-icon component ([#1286](https://github.com/lyne-design-system/lyne-components/issues/1286)) ([e10adb3](https://github.com/lyne-design-system/lyne-components/commit/e10adb3671a91fbe1e4f704b3a3ecdfc76f8ea38))
+
 ### 0.1.7 (2022-07-07)
 
 ### Bug Fixes
