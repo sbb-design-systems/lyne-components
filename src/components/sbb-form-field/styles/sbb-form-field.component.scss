@@ -21,14 +21,19 @@
   --text-color-readonly: var(--sbb-color-granite-default);
   --text-color-disabled: var(--border-color-disabled);
 
-  --input-height: var(--sbb-size-form-element-l-min-height-small);
-
   --input-with-icon-padding-inline: calc(var(--sbb-spacing-fixed-3x) + var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-2x));
 
   --icon-size: var(--sbb-size-icon-ui-small);
 
+
+  // waiting for token update
+  // --input-height-m: var(--sbb-size-form-element-m-min-height-small)
+  --input-height-m: 48px;
+  --input-height-l: 56px;
+
   @include mq($from: medium) {
-    --input-height: var(--sbb-size-form-element-l-min-height-medium);
+    --input-height-m: 56px;
+    --input-height-l: 64px;
   }
 }
 
@@ -53,14 +58,21 @@
   -webkit-appearance: none;
   width: 100%;
   box-sizing: border-box;
-  height: var(--input-height);
   padding-block-start: var(--sbb-spacing-fixed-5x);
   padding-inline-start: var(--sbb-spacing-fixed-3x);
   padding-inline-end: var(--sbb-spacing-fixed-3x);
 
   background-color: var(--background-color-default);
   border: var(--sbb-border-width-1x) solid var(--border-color-default);
+}
+
+::slotted(.input.form-field--size-m) {
+  height: var(--input-height-m);
   border-radius: var(--sbb-border-radius-4x);
+}
+::slotted(.input.form-field--size-l) {
+  height: var(--input-height-l);
+  border-radius: var(--sbb-border-radius-8x);
 }
 
 ::slotted(.input:focus) {
@@ -149,6 +161,9 @@
 }
 
 // Label Variants
+.form-field--size-l .input-label {
+  padding-block-start: var(--sbb-spacing-fixed-1x);
+}
 .form--prefix .input-label {
   padding-inline-start: var(--input-with-icon-padding-inline);
 }

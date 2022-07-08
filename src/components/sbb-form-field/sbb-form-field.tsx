@@ -114,7 +114,7 @@ export class SbbFormField {
 
     this._element
       .querySelector('[slot="input"]')
-      .setAttribute('class', `input form--field--size-${this.size}`);
+      .setAttribute('class', `input form-field--size-${this.size}`);
 
     this._id = this._element.querySelector('[slot="input"]').getAttribute('id');
 
@@ -148,7 +148,7 @@ export class SbbFormField {
   public render(): JSX.Element {
     const optional = this.optional ? '(optional)' : '';
     const cssClassErrorSpace = this.errorSpace;
-    const cssSizeClass = `form--field--size-${this.size}`;
+    const cssSizeClass = `form-field--size-${this.size}`;
     const cssClassSlotPrefix = this._element.querySelector('[slot="prefix"]') ? 'form--prefix' : '';
     const cssClassSlotSuffix = this._element.querySelector('[slot="suffix"]') ? 'form--suffix' : '';
     const cssClassReadonly = this._readonly ? 'form--readonly' : '';
