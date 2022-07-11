@@ -31,10 +31,7 @@ import { InterfaceToastAction, InterfaceToastConfiguration } from './sbb-toast.c
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-toast.default.scss',
-    shared: 'styles/sbb-toast.shared.scss',
-  },
+  styleUrl: 'sbb-toast.scss',
   tag: 'sbb-toast',
 })
 export class SbbToast implements ComponentInterface, InterfaceOverlay {
