@@ -45,16 +45,16 @@ Tab groups can be nested (e.g. a tab's related content can contain another tab g
 
 ## Events
 
-| Event                      | Description            | Type                |
-| -------------------------- | ---------------------- | ------------------- |
-| `sbb-tab-group_did-change` | On selected tab change | `CustomEvent<void>` |
+| Event                      | Description                       | Type                |
+| -------------------------- | --------------------------------- | ------------------- |
+| `sbb-tab-group_did-change` | Emit event on selected tab change | `CustomEvent<void>` |
 
 
 ## Methods
 
 ### `activateTab(tabIndex: number) => Promise<void>`
 
-Activate tab by index
+Activates a tab by index.
 
 #### Returns
 
@@ -64,7 +64,7 @@ Type: `Promise<void>`
 
 ### `disableTab(tabIndex: number) => Promise<void>`
 
-Disable tab by index
+Disables a tab by index.
 
 #### Returns
 
@@ -74,7 +74,7 @@ Type: `Promise<void>`
 
 ### `enableTab(tabIndex: number) => Promise<void>`
 
-Enable tab by index
+Enables a tab by index.
 
 #### Returns
 

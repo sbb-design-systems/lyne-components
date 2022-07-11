@@ -1,6 +1,5 @@
 // Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin, available for shared
-// and default mode
+// travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
 .tab-group {
@@ -15,10 +14,8 @@
   ::slotted(h5),
   ::slotted(h6) {
     margin: 0;
-    @include text-xs--bold;
-
-    display: inline-block;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
     padding-block: var(--sbb-spacing-fixed-2x);
     padding-inline: var(--sbb-spacing-fixed-5x);
     border-radius: var(--sbb-spacing-fixed-5x);
@@ -28,12 +25,14 @@
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     cursor: pointer;
-    @include fontSmoothing;
-    @include ellipsis;
-
     transition-duration: var(--sbb-animation-duration-4x);
     transition-timing-function: var(--sbb-animation-easing);
     transition-property: color, background-color, box-shadow, outline-offset, padding-block;
+
+    --sbb-icon-margin-inline-override: 0 var(--sbb-spacing-fixed-1x);
+    @include text-xs--bold;
+    @include fontSmoothing;
+    @include ellipsis;
   }
 
   // If the the device can hover over elements with ease

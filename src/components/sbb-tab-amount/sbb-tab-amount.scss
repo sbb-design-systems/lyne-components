@@ -1,6 +1,5 @@
 // Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin, available for shared
-// and default mode
+// travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
 :host {

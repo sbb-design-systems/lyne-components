@@ -16,7 +16,7 @@ import throttle from '../../global/helpers/throttle';
 
 /**
  * @slot tab-bar - Pass an heading tag to display a label in the tab bar.
- * Example: `<h1>Tab label</h1>`
+ * E.g. `<h1>Tab label</h1>`
  * @slot unnamed - Pass html-content to show as the content of the tab.
  * Wrap the content in a div, a section or an article:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
@@ -31,13 +31,20 @@ const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION'];
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-tab-group.default.scss',
-    shared: 'styles/sbb-tab-group.shared.scss',
-  },
+  styleUrl: 'sbb-tab-group.scss',
   tag: 'sbb-tab-group',
 })
 export class SbbTabGroup {
+  public tabs: InterfaceSbbTabGroupTab[] = [];
+  private _lastUId = 0;
+  private _tabContentElement: HTMLElement;
+  private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
+  private _tabContentResizeObserver = new ResizeObserver(
+    this._onTabContentElementResize.bind(this)
+  );
+
+  @Element() private _element: HTMLElement;
+
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
    * the tab group, the first enabled tab will be selected.
@@ -45,7 +52,7 @@ export class SbbTabGroup {
   @Prop() public initialSelectedIndex = 0;
 
   /**
-   * On selected tab change
+   * Emit event on selected tab change
    */
   @Event({
     eventName: 'sbb-tab-group_did-change',
@@ -53,7 +60,8 @@ export class SbbTabGroup {
   public selectedTabChanged: EventEmitter<void>;
 
   /**
-   * Disable tab by index
+   * Disables a tab by index.
+   * @param tabIndex The index of the tab tou want to disable.
    */
   @Method()
   public async disableTab(tabIndex: number): Promise<void> {
@@ -61,7 +69,8 @@ export class SbbTabGroup {
   }
 
   /**
-   * Enable tab by index
+   * Enables a tab by index.
+   * @param tabIndex The index of the tab tou want to enable.
    */
   @Method()
   public async enableTab(tabIndex: number): Promise<void> {
@@ -69,22 +78,13 @@ export class SbbTabGroup {
   }
 
   /**
-   * Activate tab by index
+   * Activates a tab by index.
+   * @param tabIndex The index of the tab tou want to activate.
    */
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {
     await this.tabs[tabIndex]?.tabGroupActions.select();
   }
-
-  @Element() private _element: HTMLElement;
-
-  public tabs: InterfaceSbbTabGroupTab[];
-  private _lastUId = 0;
-  private _tabContentElement: HTMLElement;
-  private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
-  private _tabContentResizeObserver = new ResizeObserver(
-    this._onTabContentElementResize.bind(this)
-  );
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
     return Array.from(this._element.children).filter((child) =>
@@ -309,7 +309,7 @@ export class SbbTabGroup {
         </div>
 
         <div class="tab-content">
-          <slot onSlotchange={throttle(this._onContentSlotChange, 250)}></slot>
+          <slot onSlotchange={throttle(this._onContentSlotChange, 150)}></slot>
         </div>
       </Host>
     );

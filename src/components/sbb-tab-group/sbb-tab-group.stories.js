@@ -2,11 +2,50 @@ import { h } from 'jsx-dom';
 import events from './sbb-tab-group.events.ts';
 import readme from './readme.md';
 
-const Template = (args) => (
+const DefaultTemplate = (args) => (
   <sbb-tab-group initial-selected-index="0" dir={args.dir}>
     <h1>
-      {args.labelTab1}
-      <sbb-tab-amount>{args.amountSlotTab1}</sbb-tab-amount>
+      <sbb-icon name={args.iconSlot}></sbb-icon>
+      {args.label}
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </h1>
+    <div>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
+      <h3>Content heading</h3>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+    </div>
+
+    <h2>Tab label two</h2>
+    <section>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+    </section>
+
+    <h3 disabled={args.disabled}>Tab label three</h3>
+    <div>I was disabled.</div>
+
+    <h4>Tab label four</h4>
+    <article>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
+    </article>
+  </sbb-tab-group>
+);
+
+const NumbersTemplate = (args) => (
+  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+    <h1>
+      <sbb-icon name={args.iconSlot}></sbb-icon>
+      {args.label}
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
     </h1>
     <div>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
@@ -20,8 +59,8 @@ const Template = (args) => (
     </div>
 
     <h2>
-      {args.labelTab2}
-      <sbb-tab-amount>{args.amountSlotTab2}</sbb-tab-amount>
+      Tab label two
+      <sbb-tab-amount>123</sbb-tab-amount>
     </h2>
     <section>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
@@ -30,14 +69,14 @@ const Template = (args) => (
     </section>
 
     <h3 disabled={args.disabled}>
-      {args.labelTab3}
-      <sbb-tab-amount>{args.amountSlotTab3}</sbb-tab-amount>
+      Tab label three
+      <sbb-tab-amount>123</sbb-tab-amount>
     </h3>
     <div>I was disabled.</div>
 
     <h4>
-      {args.labelTab4}
-      <sbb-tab-amount>{args.amountSlotTab4}</sbb-tab-amount>
+      Tab label four
+      <sbb-tab-amount>123</sbb-tab-amount>
     </h4>
     <article>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
@@ -48,11 +87,109 @@ const Template = (args) => (
   </sbb-tab-group>
 );
 
-const TemplateNested = (args) => (
+const IconsTemplate = (args) => (
   <sbb-tab-group initial-selected-index="0" dir={args.dir}>
     <h1>
-      {args.labelTab1}
-      <sbb-tab-amount>{args.amountSlotTab1}</sbb-tab-amount>
+      <sbb-icon name={args.iconSlot}></sbb-icon>
+      {args.label}
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </h1>
+    <div>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
+      <h3>Content heading</h3>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+    </div>
+
+    <h2>
+      <sbb-icon name="swisspass-small"></sbb-icon>
+      Tab label two
+    </h2>
+    <section>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+    </section>
+
+    <h3 disabled={args.disabled}>
+      <sbb-icon name="train-small"></sbb-icon>
+      Tab label three
+    </h3>
+    <div>I was disabled.</div>
+
+    <h4>
+      <sbb-icon name="pie-small"></sbb-icon>
+      Tab label four
+    </h4>
+    <article>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
+    </article>
+  </sbb-tab-group>
+);
+
+const IconsAndNumbersTemplate = (args) => (
+  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+    <h1>
+      <sbb-icon name={args.iconSlot}></sbb-icon>
+      {args.label}
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </h1>
+    <div>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
+      <h3>Content heading</h3>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+    </div>
+
+    <h2>
+      <sbb-icon name="swisspass-small"></sbb-icon>
+      Tab label two
+      <sbb-tab-amount>123</sbb-tab-amount>
+    </h2>
+    <section>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec.
+    </section>
+
+    <h3 disabled={args.disabled}>
+      <sbb-icon name="train-small"></sbb-icon>
+      Tab label three
+      <sbb-tab-amount>123</sbb-tab-amount>
+    </h3>
+    <div>I was disabled.</div>
+
+    <h4>
+      <sbb-icon name="pie-small"></sbb-icon>
+      Tab label four
+      <sbb-tab-amount>123</sbb-tab-amount>
+    </h4>
+    <article>
+      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.
+    </article>
+  </sbb-tab-group>
+);
+
+const NestedTemplate = (args) => (
+  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+    <h1>
+      <sbb-icon name={args.iconSlot}></sbb-icon>
+      {args.label}
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
     </h1>
     <div>
       <sbb-tab-group initial-selected-index="1" dir={args.dir}>
@@ -74,31 +211,34 @@ const TemplateNested = (args) => (
     </div>
 
     <h2>
-      {args.labelTab2}
-      <sbb-tab-amount>{args.amountSlotTab2}</sbb-tab-amount>
+      <sbb-icon name="swisspass-small"></sbb-icon>
+      Tab label two
+      <sbb-tab-amount>123</sbb-tab-amount>
     </h2>
-    <div>
+    <section>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
       urna neque viverra justo nec.
-    </div>
+    </section>
 
     <h3 disabled={args.disabled}>
-      {args.labelTab3}
-      <sbb-tab-amount>{args.amountSlotTab3}</sbb-tab-amount>
+      <sbb-icon name="train-small"></sbb-icon>
+      Tab label three
+      <sbb-tab-amount>123</sbb-tab-amount>
     </h3>
     <div>I was disabled.</div>
 
     <h4>
-      {args.labelTab4}
-      <sbb-tab-amount>{args.amountSlotTab4}</sbb-tab-amount>
+      <sbb-icon name="pie-small"></sbb-icon>
+      Tab label four
+      <sbb-tab-amount>123</sbb-tab-amount>
     </h4>
-    <div>
+    <article>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
       urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
       turpis in eu mi bibendum neque egestas congue.
-    </div>
+    </article>
   </sbb-tab-group>
 );
 
@@ -112,7 +252,7 @@ const dir = {
   },
 };
 
-const labelTab1 = {
+const label = {
   control: {
     type: 'text',
   },
@@ -120,123 +260,21 @@ const labelTab1 = {
     category: 'Tab1',
   },
 };
-const iconSlotTab1 = {
+const iconSlot = {
   control: {
     type: 'select',
   },
-  options: [
-    'arrow-right-small',
-    'arrow-down-small',
-    'arrow-compass-small',
-    'pie-small',
-    'qrcode-small',
-  ],
+  options: ['app-icon-small', 'train-small', 'swisspass-small', 'pie-small'],
   table: {
     category: 'Tab1',
   },
 };
-const amountSlotTab1 = {
+const amountSlot = {
   control: {
     type: 'number',
   },
   table: {
     category: 'Tab1',
-  },
-};
-
-const labelTab2 = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Tab2',
-  },
-};
-const iconSlotTab2 = {
-  control: {
-    type: 'select',
-  },
-  options: [
-    'arrow-right-small',
-    'arrow-down-small',
-    'arrow-compass-small',
-    'pie-small',
-    'qrcode-small',
-  ],
-  table: {
-    category: 'Tab2',
-  },
-};
-const amountSlotTab2 = {
-  control: {
-    type: 'number',
-  },
-  table: {
-    category: 'Tab2',
-  },
-};
-
-const labelTab3 = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Tab3',
-  },
-};
-const iconSlotTab3 = {
-  control: {
-    type: 'select',
-  },
-  options: [
-    'arrow-right-small',
-    'arrow-down-small',
-    'arrow-compass-small',
-    'pie-small',
-    'qrcode-small',
-  ],
-  table: {
-    category: 'Tab3',
-  },
-};
-const amountSlotTab3 = {
-  control: {
-    type: 'number',
-  },
-  table: {
-    category: 'Tab3',
-  },
-};
-
-const labelTab4 = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Tab4',
-  },
-};
-const iconSlotTab4 = {
-  control: {
-    type: 'select',
-  },
-  options: [
-    'arrow-right-small',
-    'arrow-down-small',
-    'arrow-compass-small',
-    'pie-small',
-    'qrcode-small',
-  ],
-  table: {
-    category: 'Tab4',
-  },
-};
-const amountSlotTab4 = {
-  control: {
-    type: 'number',
-  },
-  table: {
-    category: 'Tab4',
   },
 };
 
@@ -252,76 +290,52 @@ const disabledArg = {
 /* eslint-disable sort-keys */
 const basicArgTypes = {
   dir,
-  labelTab1,
-  iconSlotTab1,
-  amountSlotTab1,
-  labelTab2,
-  iconSlotTab2,
-  amountSlotTab2,
-  labelTab3,
-  iconSlotTab3,
-  amountSlotTab3,
-  labelTab4,
-  iconSlotTab4,
-  amountSlotTab4,
+  label,
+  iconSlot,
+  amountSlot,
   disabled: disabledArg,
 };
 
 const basicArgs = {
   dir,
-  labelTab1: 'Tab label one',
-  iconSlotTab1: '',
-  amountSlotTab1,
-  labelTab2: 'Tab label two',
-  iconSlotTab2: '',
-  amountSlotTab2,
-  labelTab3: 'Tab label three',
-  iconSlotTab3: '',
-  amountSlotTab3,
-  labelTab4: 'Tab label four',
-  iconSlotTab4: '',
-  amountSlotTab4,
+  label: 'Tab label one',
+  iconSlot: '',
+  amountSlot: '',
   disabled: true,
 };
 
-export const defaultTabs = Template.bind({});
-export const numbers = Template.bind({});
-export const icons = Template.bind({});
-export const numbersAndIcons = Template.bind({});
-export const nestedTabGroups = TemplateNested.bind({});
+export const defaultTabs = DefaultTemplate.bind({});
+export const numbers = NumbersTemplate.bind({});
+export const icons = IconsTemplate.bind({});
+export const numbersAndIcons = IconsAndNumbersTemplate.bind({});
+export const nestedTabGroups = NestedTemplate.bind({});
+export const tintedBackground = IconsAndNumbersTemplate.bind({});
 
 defaultTabs.argTypes = basicArgTypes;
 numbers.argTypes = basicArgTypes;
 icons.argTypes = basicArgTypes;
 numbersAndIcons.argTypes = basicArgTypes;
 nestedTabGroups.argTypes = basicArgTypes;
+tintedBackground.argTypes = basicArgTypes;
 
 defaultTabs.args = JSON.parse(JSON.stringify(basicArgs));
 numbers.args = JSON.parse(JSON.stringify(basicArgs));
 icons.args = JSON.parse(JSON.stringify(basicArgs));
 numbersAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
 nestedTabGroups.args = JSON.parse(JSON.stringify(basicArgs));
+tintedBackground.args = JSON.parse(JSON.stringify(basicArgs));
+
+tintedBackground.decorators = [(Story) => <Story style={'background: #f6f6f6; padding: 2rem;'} />];
 
 /* VARIANTS */
-numbers.args.amountSlotTab1 = '23';
-numbers.args.amountSlotTab2 = '14';
-numbers.args.amountSlotTab3 = '5';
-numbers.args.amountSlotTab4 = '29';
-
-/* eslint-disable prefer-destructuring */
-icons.args.iconSlotTab1 = iconSlotTab1.options[0];
-icons.args.iconSlotTab2 = iconSlotTab1.options[1];
-icons.args.iconSlotTab3 = iconSlotTab1.options[2];
-icons.args.iconSlotTab4 = iconSlotTab1.options[3];
-
-numbersAndIcons.args.amountSlotTab1 = '23';
-numbersAndIcons.args.amountSlotTab2 = '14';
-numbersAndIcons.args.amountSlotTab3 = '5';
-numbersAndIcons.args.amountSlotTab4 = '29';
-numbersAndIcons.args.iconSlotTab1 = iconSlotTab1.options[0];
-numbersAndIcons.args.iconSlotTab2 = iconSlotTab1.options[1];
-numbersAndIcons.args.iconSlotTab3 = iconSlotTab1.options[2];
-numbersAndIcons.args.iconSlotTab4 = iconSlotTab1.options[3];
+numbers.args.amountSlot = '77';
+icons.args.iconSlot = iconSlot.options[0];
+numbersAndIcons.args.amountSlot = '16';
+numbersAndIcons.args.iconSlot = iconSlot.options[0];
+nestedTabGroups.args.amountSlot = '16';
+nestedTabGroups.args.iconSlot = iconSlot.options[0];
+tintedBackground.args.amountSlot = '16';
+tintedBackground.args.iconSlot = iconSlot.options[0];
 
 defaultTabs.documentation = {
   title: 'Default Tabs',
@@ -335,15 +349,59 @@ icons.documentation = {
 numbersAndIcons.documentation = {
   title: 'Tabs with numbers and icons',
 };
+tintedBackground.documentation = {
+  title: 'Tab group on non-white background',
+};
+
+defaultTabs.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem'}>
+      <Story />
+    </div>
+  ),
+];
+
+numbers.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem'}>
+      <Story />
+    </div>
+  ),
+];
+
+icons.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem'}>
+      <Story />
+    </div>
+  ),
+];
+
+numbersAndIcons.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem'}>
+      <Story />
+    </div>
+  ),
+];
+
+nestedTabGroups.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem'}>
+      <Story />
+    </div>
+  ),
+];
+
+tintedBackground.decorators = [
+  (Story) => (
+    <div style={'background: #f6f6f6; padding: 2rem'}>
+      <Story />
+    </div>
+  ),
+];
 
 export default {
-  decorators: [
-    (Story) => (
-      <div style={'padding: 2rem'}>
-        <Story />
-      </div>
-    ),
-  ],
   parameters: {
     actions: {
       handles: [events.selectedTabChanged],

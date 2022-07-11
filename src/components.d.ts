@@ -632,15 +632,18 @@ export namespace Components {
     }
     interface SbbTabGroup {
         /**
-          * Activate tab by index
+          * Activates a tab by index.
+          * @param tabIndex The index of the tab tou want to activate.
          */
         "activateTab": (tabIndex: number) => Promise<void>;
         /**
-          * Disable tab by index
+          * Disables a tab by index.
+          * @param tabIndex The index of the tab tou want to disable.
          */
         "disableTab": (tabIndex: number) => Promise<void>;
         /**
-          * Enable tab by index
+          * Enables a tab by index.
+          * @param tabIndex The index of the tab tou want to enable.
          */
         "enableTab": (tabIndex: number) => Promise<void>;
         /**
@@ -1905,7 +1908,7 @@ declare namespace LocalJSX {
          */
         "initialSelectedIndex"?: number;
         /**
-          * On selected tab change
+          * Emit event on selected tab change
          */
         "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
     }

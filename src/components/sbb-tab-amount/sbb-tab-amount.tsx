@@ -6,10 +6,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-tab-amount.default.scss',
-    shared: 'styles/sbb-tab-amount.shared.scss',
-  },
+  styleUrl: 'sbb-tab-amount.scss',
   tag: 'sbb-tab-amount',
 })
 export class SbbTabAmount {
