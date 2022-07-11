@@ -82,7 +82,7 @@ defaultTeaser.argTypes = {
 
 defaultTeaser.args = {
   link: 'https://www.sbb.ch',
-  accessibilityTitle: 'sbb-teaser-hero label',
+  'accessibility-title': 'sbb teaser hero label',
   text: 'Rücksichtsvoll mit SBB Green Class',
   'open-in-new-window': openInNewWindowControl.options[1],
 };
@@ -118,7 +118,7 @@ openInNewWindow.documentation = {
 export default {
   decorators: [
     (Story) => (
-      <div>
+      <div style="padding: 1em">
         <Story />
       </div>
     ),

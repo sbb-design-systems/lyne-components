@@ -34,11 +34,6 @@
     --panel-font-size-text-xxl: var(--sbb-typo-scale-2-5x);
   }
 
-  --sbb-focus-outline-color: var(
-    --sbb-focus-outline-color-override,
-    var(--sbb-focus-outline-color-default)
-  );
-
   opacity: var(--panel-opacity);
 }
 
@@ -48,25 +43,16 @@
   flex-direction: column;
   justify-content: center;
   width: var(--panel-width);
-  min-height: calc(var(--panel-height) + var(--triangle-height) * 2);
+  height: calc(var(--panel-height) + var(--triangle-height) * 2);
   padding: calc(var(--sbb-spacing-responsive-s) + var(--triangle-height))
     var(--sbb-spacing-responsive-m);
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: var(--panel-width);
-    height: calc(var(--panel-height) + var(--triangle-height) * 2);
-    background-color: var(--sbb-color-red-default);
-    left: 0;
-    z-index: -1;
-    clip-path: polygon(
-      0 0,
-      100% var(--triangle-height),
-      100% calc(100% - calc(var(--triangle-height))),
-      0% 100%
-    );
-  }
+  clip-path: polygon(
+    0 0,
+    100% var(--triangle-height),
+    100% calc(100% - calc(var(--triangle-height))),
+    0% 100%
+  );
+  background-color: var(--sbb-color-red-default);
 
   @include ifForcedColors {
     border: #{px-to-rem-build(1)} solid CanvasText;

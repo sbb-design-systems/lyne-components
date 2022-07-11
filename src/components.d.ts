@@ -628,7 +628,7 @@ export namespace Components {
         /**
           * The prop for deciding if the panel should contain a link or not
          */
-        "hasCalltoActionLink"?: boolean;
+        "hasCallToActionLink"?: boolean;
     }
     interface SbbPearlChain {
         /**
@@ -2000,7 +2000,7 @@ declare namespace LocalJSX {
         /**
           * The prop for deciding if the panel should contain a link or not
          */
-        "hasCalltoActionLink"?: boolean;
+        "hasCallToActionLink"?: boolean;
     }
     interface SbbPearlChain {
         /**

@@ -36,7 +36,7 @@ export class SbbTeaserHero {
   public componentWillLoad(): void {
     /** ensure that the sbb-panel don't contain a link */
     this._element.querySelectorAll('sbb-panel')?.forEach((element) => {
-      element['hasCalltoActionLink'] = true;
+      element['hasCallToActionLink'] = true;
     });
   }
 
@@ -59,12 +59,10 @@ export class SbbTeaserHero {
         aria-label={this.accessibilityTitle}
         {...linkAttributes}
       >
-        <sbb-title level="1" visually-hidden="true" text={this.accessibilityTitle} />
         <span class="teaser-hero__panel">
           <slot name="panel" />
         </span>
         <slot name="image" />
-
         {this.openInNewWindow && this.newWindowInfoText ? (
           <span class="teaser-hero__link-info-text">{this.newWindowInfoText}</span>
         ) : (

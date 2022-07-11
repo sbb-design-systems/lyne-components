@@ -13,15 +13,10 @@ import { InterfacePanelAttributes } from './sbb-panel.custom';
  */
 export class SbbPanel {
   /** The prop for deciding if the panel should contain a link or not */
-  @Prop() public hasCalltoActionLink? = false;
+  @Prop() public hasCallToActionLink? = false;
 
   @Element() private _element: HTMLElement;
 
-  public componentWillLoad(): void {
-    this._element.querySelectorAll('sbb-link')?.forEach((element) => {
-      element['visualLinkOnly'] = this.hasCalltoActionLink;
-    });
-  }
   /**
    * will change the props for the sbb-link
    */
@@ -30,6 +25,8 @@ export class SbbPanel {
       const element = mutation.target as HTMLElement;
 
       if (element.nodeName !== 'SBB-LINK') return;
+
+      element['visualLinkOnly'] = this.hasCallToActionLink;
 
       if (element.getAttribute('icon') !== 'chevron-small-right-small') {
         element.setAttribute('icon', 'chevron-small-right-small');

@@ -21,19 +21,6 @@
 | `"panel"` | to render the panel |
 
 
-## Dependencies
-
-### Depends on
-
-- [sbb-title](../sbb-title)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-teaser-hero --> sbb-title
-  style sbb-teaser-hero fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 

@@ -41,15 +41,10 @@ const SlotSbbLinkTemplate = (args) => (
     href-value={args.href}
     icon="chevron-small-right-small"
     icon-flip=""
-    icon-placement="end"
     id-value=""
     text={args.text}
-    text-size="m"
-    variant="block-negative"
   >
-    <span slot="icon">
-      <span slot="icon">{getMarkupForSvg('chevron-small-right-small')}</span>
-    </span>
+    <span slot="icon">{getMarkupForSvg('chevron-small-right-small')}</span>
   </sbb-link>
 );
 
