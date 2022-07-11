@@ -137,6 +137,16 @@
   border-color: var(--border-color-error);
 }
 
+// Error message
+:host([error-space="reserve"]) {
+  margin-block-end: calc(var(--sbb-spacing-fixed-1x) + (var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)));
+}
+::slotted(.input-label-error[error-space="reserve"]) {
+  position: absolute;
+  width: 100%;
+  bottom: calc(-1 * (var(--sbb-spacing-fixed-1x) + (var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs))));
+}
+
 // Label
 .input-label {
   @include text-xs--regular();
