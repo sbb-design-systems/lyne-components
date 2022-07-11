@@ -1,0 +1,109 @@
+/* stylelint-disable */
+// TODO: solve stylelint issues
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  // Todo during grid enhancements, refactor below gutter tokens / add them to
+  // the design tokens
+
+  // Reminder: --_section-gap-horizontal needs a new responsive gap design token
+  // var(--sbb-spacing-responsive-s); is just a placeholder for now
+  --_section-gap-horizontal: var(--section-gap-horizontal, var(--sbb-spacing-responsive-s));
+  --_section-gap-vertical: var(--section-gap-vertical, var(--sbb-spacing-responsive-l));
+  --_section-background-color: var(--section-background-color, none);
+
+  // Contextual design for sbb-stack
+  --stack-text-color-normal: var(--sbb-color-metal-default);
+}
+
+.section {
+  // margin-block-start: pxToRem(var(--spacing-responsive-l));
+  // padding-block-start: pxToRem(var(--spacing-responsive-l));
+  // padding-block-end: pxToRem(var(--spacing-responsive-l));
+  .columns,
+  .full-width {
+    background-color: var(--_section-background-color);
+  }
+}
+
+.section--primary-negative {
+  --_section-background-color: var(--sbb-color-charcoal-default);
+  --title-text-color-normal: var(--sbb-color-storm-default);
+}
+
+.section--page-spacing {
+  @include page-spacing;
+
+  .columns,
+  .full-width {
+    @include page-spacing__inner;
+  }
+}
+
+.section--full-bleed--until-ultra {
+  @include mq($from: ultra) {
+    @include page-spacing;
+
+    .columns,
+    .full-width {
+      @include page-spacing__inner;
+    }
+  }
+}
+
+.section--full-bleed--until-ultra-plus {
+  @include mq($from: ultra) {
+    @include page-spacing;
+
+    .columns,
+    .full-width {
+      @include page-spacing__inner--ultra-plus;
+    }
+  }
+}
+
+// The following section/column/grid handling will be addressed in the grid pr
+// and can be overlooked for now here
+.columns {
+  // Reset
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--_section-gap-horizontal);
+  row-gap: var(--_section-gap-vertical);
+
+  ::slotted([slot]) {
+    flex-basis: 100%;
+
+    @include mq($from: small) {
+      flex: 0 0 calc(50% - (var(--_section-gap-horizontal) / 2));
+      max-width: calc(50% - (var(--_section-gap-horizontal) / 2));
+    }
+    @include mq($from: wide) {
+      flex: 0 0 calc(25% - ((3 * var(--_section-gap-horizontal)) / 4));
+      max-width: calc(25% - ((3 * var(--_section-gap-horizontal)) / 4));
+    }
+  }
+}
+
+.full-width {
+  // Reset
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--_section-gap-horizontal);
+  row-gap: var(--_section-gap-vertical);
+
+  ::slotted([slot]) {
+    flex-basis: 100%;
+  }
+}
+
+/* stylelint-enable */

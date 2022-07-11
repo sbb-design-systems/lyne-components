@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.8 (2022-07-08)
+
+### Features
+
+- **sbb-icon:** introduce sbb-icon component ([#1286](https://github.com/lyne-design-system/lyne-components/issues/1286)) ([e10adb3](https://github.com/lyne-design-system/lyne-components/commit/e10adb3671a91fbe1e4f704b3a3ecdfc76f8ea38))
+
+### 0.1.7 (2022-07-07)
+
+### Bug Fixes
+
+- fix focus outline override ([60ea2b0](https://github.com/lyne-design-system/lyne-components/commit/60ea2b0d837ac931bc857c6dcd3d5b2aef1dc19d))
+
+### 0.1.6 (2022-07-07)
+
+### 0.1.5 (2022-07-04)
+
+### Bug Fixes
+
+- remove engine config as it blocks consumers ([99e80db](https://github.com/lyne-design-system/lyne-components/commit/99e80db9ce98ae9c7cfcffda445485dd15e55484))
+
 ### 0.1.4 (2022-06-28)
 
 ### 0.1.3 (2022-06-28)

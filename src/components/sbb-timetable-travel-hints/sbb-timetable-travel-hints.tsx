@@ -7,10 +7,7 @@ import { i18nNone } from '../../global/i18n';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-travel-hints.default.scss',
-    shared: 'styles/sbb-timetable-travel-hints.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-travel-hints.scss',
   tag: 'sbb-timetable-travel-hints',
 })
 export class SbbTimetableTravelHints {

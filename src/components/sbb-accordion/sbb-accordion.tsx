@@ -7,10 +7,7 @@ import events from '../sbb-accordion-item/sbb-accordion-item.events';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-accordion.default.scss',
-    shared: 'styles/sbb-accordion.shared.scss',
-  },
+  styleUrl: 'sbb-accordion.scss',
   tag: 'sbb-accordion',
 })
 export class SbbAccordion {

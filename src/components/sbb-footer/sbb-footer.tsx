@@ -3,10 +3,7 @@ import { InterfaceFooterAttributes } from './sbb-footer.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-footer.default.scss',
-    shared: 'styles/sbb-footer.shared.scss',
-  },
+  styleUrl: 'sbb-footer.scss',
   tag: 'sbb-footer',
 })
 export class SbbFooter {

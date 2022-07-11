@@ -14,10 +14,7 @@ import {
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-transportation-walk.default.scss',
-    shared: 'styles/sbb-timetable-transportation-walk.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-transportation-walk.scss',
   tag: 'sbb-timetable-transportation-walk',
 })
 export class SbbTimetableTransportationWalk {

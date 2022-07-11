@@ -1,0 +1,60 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --_icon-spacing-inset: var(--sbb-spacing-fixed-1x);
+  --_title-text-color-normal: var(--title-text-color-normal, var(--sbb-color-charcoal-default));
+}
+
+.journey-header[id] {
+  @include scrollMarginBlockStart;
+}
+
+.journey-header {
+  @include fontSmoothing;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  color: var(--_title-text-color-normal);
+
+  // Right to left expression
+  &[dir='rtl'] {
+    .journey-header__icon {
+      transform: rotate(-180deg);
+    }
+  }
+}
+
+.journey-header--primary-negative {
+  @include title--negative;
+}
+
+.journey-header--size-4 {
+  @include title-4;
+}
+
+.journey-header--size-5 {
+  @include title-5;
+}
+
+.connection--visually-hidden {
+  @include screenReaderOnly;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--_icon-spacing-inset);
+
+  svg {
+    fill: currentcolor;
+
+    @include ifForcedColors {
+      fill: ButtonText;
+    }
+  }
+}

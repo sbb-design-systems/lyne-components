@@ -19,10 +19,7 @@ import { InterfaceCardProductAttributes } from './sbb-card-product.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-card-product.default.scss',
-    shared: 'styles/sbb-card-product.shared.scss',
-  },
+  styleUrl: 'sbb-card-product.scss',
   tag: 'sbb-card-product',
 })
 

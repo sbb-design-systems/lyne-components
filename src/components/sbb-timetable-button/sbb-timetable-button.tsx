@@ -8,10 +8,7 @@ import { i18nEarlierConnections, i18nLaterConnections, i18nShowOnMap } from '../
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-button.default.scss',
-    shared: 'styles/sbb-timetable-button.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-button.scss',
   tag: 'sbb-timetable-button',
 })
 export class SbbTimetableButton {
