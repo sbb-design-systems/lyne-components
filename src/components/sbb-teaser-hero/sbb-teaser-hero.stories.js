@@ -72,5 +72,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-teaser-hero',
+  title: 'components/sbb-teaser-hero (Unfinished)',
 };

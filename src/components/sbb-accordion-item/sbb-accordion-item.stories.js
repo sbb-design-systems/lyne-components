@@ -61,5 +61,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-accordion-item',
+  title: 'components/sbb-accordion-item (Unfinished)',
 };

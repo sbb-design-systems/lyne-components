@@ -282,5 +282,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-footer',
+  title: 'components/sbb-footer (Unfinished)',
 };

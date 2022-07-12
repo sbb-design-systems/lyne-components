@@ -515,5 +515,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-text-input',
+  title: 'components/form elements/sbb-text-input (Unfinished)',
 };
