@@ -938,15 +938,15 @@ export namespace Components {
     }
     interface SbbToggleCheck {
         /**
-          * the aria-describedby prop for the hidden input
+          * The aria-describedby prop for the hidden input.
          */
         "accessibilityDescribedBy"?: string;
         /**
-          * the aria-label prop for the hidden input
+          * The aria-label prop for the hidden input.
          */
         "accessibilityLabel"?: string;
         /**
-          * the aria-labelledby prop for the hidden input
+          * The aria-labelledby prop for the hidden input.
          */
         "accessibilityLabelledby"?: string;
         /**
@@ -954,29 +954,33 @@ export namespace Components {
          */
         "checked": boolean;
         /**
-          * the disabled prop for the disabled state
+          * The disabled prop for the disabled state.
          */
         "disabled": boolean;
         /**
-          * Id which is sent in the change event payload
-         */
-        "eventId"?: string;
-        /**
-          * the svg name for the true state - default -> 'tick-small'
+          * The svg name for the true state - default -> 'tick-small'
          */
         "icon": string;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "inputId": string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
         "labelPosition"?: InterfaceCheckToggleAttributes['labelPosition'];
         /**
-          * name of the toggle-check
+          * Name of the toggle-check.
          */
         "name"?: string;
         /**
-          * id of the toggle-check
+          * The required prop for the required state.
          */
-        "toggleId": string;
+        "required"?: boolean;
+        /**
+          * Value of toggle-check.
+         */
+        "value"?: string;
     }
 }
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
@@ -2226,15 +2230,15 @@ declare namespace LocalJSX {
     }
     interface SbbToggleCheck {
         /**
-          * the aria-describedby prop for the hidden input
+          * The aria-describedby prop for the hidden input.
          */
         "accessibilityDescribedBy"?: string;
         /**
-          * the aria-label prop for the hidden input
+          * The aria-label prop for the hidden input.
          */
         "accessibilityLabel"?: string;
         /**
-          * the aria-labelledby prop for the hidden input
+          * The aria-labelledby prop for the hidden input.
          */
         "accessibilityLabelledby"?: string;
         /**
@@ -2242,33 +2246,37 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
-          * the disabled prop for the disabled state
+          * The disabled prop for the disabled state.
          */
         "disabled": boolean;
         /**
-          * Id which is sent in the change event payload
-         */
-        "eventId"?: string;
-        /**
-          * the svg name for the true state - default -> 'tick-small'
+          * The svg name for the true state - default -> 'tick-small'
          */
         "icon"?: string;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "inputId"?: string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
         "labelPosition"?: InterfaceCheckToggleAttributes['labelPosition'];
         /**
-          * name of the toggle-check
+          * Name of the toggle-check.
          */
         "name"?: string;
         /**
-          * event for emiting whenever selection is changed
+          * Event for emiting whenever selection is changed.
          */
-        "onChanged"?: (event: SbbToggleCheckCustomEvent<boolean>) => void;
+        "onSbbChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
         /**
-          * id of the toggle-check
+          * The required prop for the required state.
          */
-        "toggleId"?: string;
+        "required"?: boolean;
+        /**
+          * Value of toggle-check.
+         */
+        "value"?: string;
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;

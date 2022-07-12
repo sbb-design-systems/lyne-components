@@ -1,7 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
-import events from './sbb-toggle-check.events';
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -45,7 +44,6 @@ const defaultArgs = {
   'label-position': labelPosition[1],
   label: 'Title',
   name: 'toggle',
-  'toggle-id': 'toggle1',
   icon: 'tick-small',
 };
 
@@ -97,9 +95,6 @@ export default {
   title: 'components/sbb-toggle-check',
 
   parameters: {
-    actions: {
-      handles: [events.changed],
-    },
     backgrounds: {
       disable: true,
     },
