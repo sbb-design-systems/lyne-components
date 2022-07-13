@@ -193,5 +193,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-link-button',
+  title: 'components/sbb-link-button (Unfinished)',
 };

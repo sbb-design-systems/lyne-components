@@ -36,5 +36,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-input-error',
+  title: 'components/form elements/sbb-input-error (Unfinished)',
 };

@@ -139,5 +139,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'components/layout/sbb-section',
+  title: 'components/layout/sbb-section (Unfinished)',
 };

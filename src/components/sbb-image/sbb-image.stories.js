@@ -164,5 +164,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-image',
+  title: 'components/sbb-image (Unfinished)',
 };

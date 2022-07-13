@@ -171,5 +171,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-autocomplete',
+  title: 'components/sbb-autocomplete (Unfinished)',
 };

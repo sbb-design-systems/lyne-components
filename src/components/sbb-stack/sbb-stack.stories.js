@@ -347,5 +347,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'components/layout/sbb-stack',
+  title: 'components/layout/sbb-stack (Unfinished)',
 };
