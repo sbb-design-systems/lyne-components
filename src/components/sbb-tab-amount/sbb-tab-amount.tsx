@@ -12,7 +12,7 @@ import { Component, h, Host } from '@stencil/core';
 export class SbbTabAmount {
   public render(): JSX.Element {
     return (
-      <Host slot="sbb-tab-amount">
+      <Host slot="amount">
         <span class="tab-amount">
           <slot />
         </span>

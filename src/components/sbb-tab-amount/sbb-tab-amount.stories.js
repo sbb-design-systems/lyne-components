@@ -10,7 +10,7 @@ amount.args = {
 };
 
 amount.documentation = {
-  title: 'Lyne Tab Amount',
+  title: 'Tab Amount',
 };
 
 export default {

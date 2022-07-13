@@ -10,6 +10,6 @@ span {
   @include text;
 
   vertical-align: middle;
-  color: var(--sbb-amount-color-override, var(--sbb-color-metal-default));
+  line-height: 0;
   padding-inline-start: var(--sbb-spacing-fixed-1x);
 }

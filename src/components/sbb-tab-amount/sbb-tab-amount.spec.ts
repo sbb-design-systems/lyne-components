@@ -9,7 +9,7 @@ describe('sbb-tab-amount', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-tab-amount slot="sbb-tab-amount">
+        <sbb-tab-amount slot="amount">
           <mock:shadow-root>
             <span class='tab-amount'>
               <slot/>

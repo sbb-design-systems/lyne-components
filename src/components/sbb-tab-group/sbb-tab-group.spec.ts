@@ -8,13 +8,13 @@ describe('sbb-tab-group', () => {
     page = await newSpecPage({
       components: [SbbTabGroup],
       html: `<sbb-tab-group initial-selected-index="0">
-              <h1>Test tab label 1</h1>
+              <sbb-tab-title>Test tab label 1</sbb-tab-title>
               <div>Test tab content 1</div>
-              <h2>Test tab label 2</h2>
+              <sbb-tab-title>Test tab label 2</sbb-tab-title>
               <div>Test tab content 2</div>
-              <h3 disabled>Test tab label 3</h3>
+              <sbb-tab-title disabled>Test tab label 3</sbb-tab-title>
               <div>Test tab content 3</div>
-              <h4>Test tab label 4</h4>
+              <sbb-tab-title>Test tab label 4</sbb-tab-title>
             </sbb-tab-group>`,
       supportsShadowDom: true,
     });
@@ -44,7 +44,7 @@ describe('sbb-tab-group', () => {
   it('activates tab by index', async () => {
     component.activateTab(1);
     await page.waitForChanges();
-    const tab = page.root.querySelector('h2');
+    const tab = page.root.querySelectorAll('sbb-tab-title')[1];
 
     expect(tab).toHaveAttribute('active');
   });
@@ -52,7 +52,7 @@ describe('sbb-tab-group', () => {
   it('disables tab by index', async () => {
     component.disableTab(0);
     await page.waitForChanges();
-    const tab = page.root.querySelector('h1');
+    const tab = page.root.querySelectorAll('sbb-tab-title')[0];
 
     expect(tab).toHaveAttribute('disabled');
   });
@@ -60,13 +60,13 @@ describe('sbb-tab-group', () => {
   it('enables tab by index', async () => {
     component.enableTab(2);
     await page.waitForChanges();
-    const tab = page.root.querySelector('h3');
+    const tab = page.root.querySelectorAll('sbb-tab-title')[2];
 
     expect(tab).not.toHaveAttribute('disabled');
   });
 
   it('does not activate a disabled tab', async () => {
-    const tab = page.root.querySelector('h3');
+    const tab = page.root.querySelectorAll('sbb-tab-title')[2];
 
     tab.disabled = true;
     component.activateTab(2);
@@ -76,7 +76,7 @@ describe('sbb-tab-group', () => {
 
   describe('initial tab', () => {
     it('activates the first tab', () => {
-      const tab = page.root.querySelector('h1');
+      const tab = page.root.querySelectorAll('sbb-tab-title')[0];
 
       expect(tab).toHaveAttribute('active');
     });
@@ -85,14 +85,14 @@ describe('sbb-tab-group', () => {
       page = await newSpecPage({
         components: [SbbTabGroup],
         html: `<sbb-tab-group initial-selected-index="0">
-                <h1 disabled>Test tab label 1</h1>
+                <sbb-tab-title disabled>Test tab label 1</sbb-tab-title>
                 <div>Test tab content 1</div>
-                <h2>Test tab label 2</h2>
+                <sbb-tab-title>Test tab label 2</sbb-tab-title>
                 <div>Test tab content 2</div>
               </sbb-tab-group>`,
         supportsShadowDom: true,
       });
-      const tab = page.root.querySelector('h2');
+      const tab = page.root.querySelectorAll('sbb-tab-title')[1];
 
       expect(tab).toHaveAttribute('active');
     });
@@ -101,14 +101,14 @@ describe('sbb-tab-group', () => {
       page = await newSpecPage({
         components: [SbbTabGroup],
         html: `<sbb-tab-group initial-selected-index="2">
-                <h1>Test tab label 1</h1>
+                <sbb-tab-title>Test tab label 1</sbb-tab-title>
                 <div>Test tab content 1</div>
-                <h2>Test tab label 2</h2>
+                <sbb-tab-title>Test tab label 2</sbb-tab-title>
                 <div>Test tab content 2</div>
               </sbb-tab-group>`,
         supportsShadowDom: true,
       });
-      const tab = page.root.querySelector('h1');
+      const tab = page.root.querySelectorAll('sbb-tab-title')[0];
 
       expect(tab).toHaveAttribute('active');
     });
@@ -116,8 +116,8 @@ describe('sbb-tab-group', () => {
 
   describe('events', () => {
     it('selects tab on right arrow key pressed', async () => {
-      const tab1 = page.root.querySelector('h1');
-      const tab2 = page.root.querySelector('h2');
+      const tab1 = page.root.querySelectorAll('sbb-tab-title')[0];
+      const tab2 = page.root.querySelectorAll('sbb-tab-title')[1];
 
       // Mock focus function
       tab1.focus = jest.fn();
@@ -134,8 +134,8 @@ describe('sbb-tab-group', () => {
     });
 
     it('wraps around on left arrow key pressed', async () => {
-      const tab1 = page.root.querySelector('h1');
-      const tab4 = page.root.querySelector('h4');
+      const tab1 = page.root.querySelectorAll('sbb-tab-title')[0];
+      const tab4 = page.root.querySelectorAll('sbb-tab-title')[3];
 
       // Mock focus function
       tab1.focus = jest.fn();

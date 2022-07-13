@@ -4,11 +4,11 @@ import readme from './readme.md';
 
 const DefaultTemplate = (args) => (
   <sbb-tab-group initial-selected-index="0" dir={args.dir}>
-    <h1>
-      <sbb-icon name={args.iconSlot}></sbb-icon>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
       <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
-    </h1>
+    </sbb-tab-title>
     <div>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -20,17 +20,17 @@ const DefaultTemplate = (args) => (
       urna neque viverra justo nec.
     </div>
 
-    <h2>Tab label two</h2>
+    <sbb-tab-title>Tab title two</sbb-tab-title>
     <section>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
       urna neque viverra justo nec.
     </section>
 
-    <h3 disabled={args.disabled}>Tab label three</h3>
+    <sbb-tab-title disabled={args.disabled}>Tab title three</sbb-tab-title>
     <div>I was disabled.</div>
 
-    <h4>Tab label four</h4>
+    <sbb-tab-title>Tab title four</sbb-tab-title>
     <article>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -42,11 +42,11 @@ const DefaultTemplate = (args) => (
 
 const NumbersTemplate = (args) => (
   <sbb-tab-group initial-selected-index="0" dir={args.dir}>
-    <h1>
-      <sbb-icon name={args.iconSlot}></sbb-icon>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
       <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
-    </h1>
+    </sbb-tab-title>
     <div>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -58,26 +58,26 @@ const NumbersTemplate = (args) => (
       urna neque viverra justo nec.
     </div>
 
-    <h2>
-      Tab label two
+    <sbb-tab-title>
+      Tab title two
       <sbb-tab-amount>123</sbb-tab-amount>
-    </h2>
+    </sbb-tab-title>
     <section>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
       urna neque viverra justo nec.
     </section>
 
-    <h3 disabled={args.disabled}>
-      Tab label three
+    <sbb-tab-title disabled={args.disabled}>
+      Tab title three
       <sbb-tab-amount>123</sbb-tab-amount>
-    </h3>
+    </sbb-tab-title>
     <div>I was disabled.</div>
 
-    <h4>
-      Tab label four
+    <sbb-tab-title>
+      Tab title four
       <sbb-tab-amount>123</sbb-tab-amount>
-    </h4>
+    </sbb-tab-title>
     <article>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -89,11 +89,11 @@ const NumbersTemplate = (args) => (
 
 const IconsTemplate = (args) => (
   <sbb-tab-group initial-selected-index="0" dir={args.dir}>
-    <h1>
-      <sbb-icon name={args.iconSlot}></sbb-icon>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
       <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
-    </h1>
+    </sbb-tab-title>
     <div>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -105,26 +105,26 @@ const IconsTemplate = (args) => (
       urna neque viverra justo nec.
     </div>
 
-    <h2>
-      <sbb-icon name="swisspass-small"></sbb-icon>
-      Tab label two
-    </h2>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name="swisspass-small"></sbb-icon>
+      Tab title two
+    </sbb-tab-title>
     <section>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
       urna neque viverra justo nec.
     </section>
 
-    <h3 disabled={args.disabled}>
-      <sbb-icon name="train-small"></sbb-icon>
-      Tab label three
-    </h3>
+    <sbb-tab-title disabled={args.disabled}>
+      <sbb-icon slot="icon" name="train-small"></sbb-icon>
+      Tab title three
+    </sbb-tab-title>
     <div>I was disabled.</div>
 
-    <h4>
-      <sbb-icon name="pie-small"></sbb-icon>
-      Tab label four
-    </h4>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name="pie-small"></sbb-icon>
+      Tab title four
+    </sbb-tab-title>
     <article>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -136,11 +136,11 @@ const IconsTemplate = (args) => (
 
 const IconsAndNumbersTemplate = (args) => (
   <sbb-tab-group initial-selected-index="0" dir={args.dir}>
-    <h1>
-      <sbb-icon name={args.iconSlot}></sbb-icon>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
       <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
-    </h1>
+    </sbb-tab-title>
     <div>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -152,29 +152,29 @@ const IconsAndNumbersTemplate = (args) => (
       urna neque viverra justo nec.
     </div>
 
-    <h2>
-      <sbb-icon name="swisspass-small"></sbb-icon>
-      Tab label two
-      <sbb-tab-amount>123</sbb-tab-amount>
-    </h2>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name="swisspass-small"></sbb-icon>
+      Tab title two
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </sbb-tab-title>
     <section>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
       urna neque viverra justo nec.
     </section>
 
-    <h3 disabled={args.disabled}>
-      <sbb-icon name="train-small"></sbb-icon>
-      Tab label three
-      <sbb-tab-amount>123</sbb-tab-amount>
-    </h3>
+    <sbb-tab-title disabled={args.disabled}>
+      <sbb-icon slot="icon" name="train-small"></sbb-icon>
+      Tab title three
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </sbb-tab-title>
     <div>I was disabled.</div>
 
-    <h4>
-      <sbb-icon name="pie-small"></sbb-icon>
-      Tab label four
-      <sbb-tab-amount>123</sbb-tab-amount>
-    </h4>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name="pie-small"></sbb-icon>
+      Tab title four
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </sbb-tab-title>
     <article>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -186,14 +186,14 @@ const IconsAndNumbersTemplate = (args) => (
 
 const NestedTemplate = (args) => (
   <sbb-tab-group initial-selected-index="0" dir={args.dir}>
-    <h1>
-      <sbb-icon name={args.iconSlot}></sbb-icon>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
       <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
-    </h1>
+    </sbb-tab-title>
     <div>
       <sbb-tab-group initial-selected-index="1" dir={args.dir}>
-        <h1>Nested tab</h1>
+        <sbb-tab-title level="2">Nested tab</sbb-tab-title>
         <div>
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
           elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
@@ -201,7 +201,7 @@ const NestedTemplate = (args) => (
           faucibus turpis in eu mi bibendum neque egestas congue.
         </div>
 
-        <h2>Nested tab</h2>
+        <sbb-tab-title level="2">Nested tab</sbb-tab-title>
         <div>
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
           elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
@@ -210,29 +210,29 @@ const NestedTemplate = (args) => (
       </sbb-tab-group>
     </div>
 
-    <h2>
-      <sbb-icon name="swisspass-small"></sbb-icon>
-      Tab label two
-      <sbb-tab-amount>123</sbb-tab-amount>
-    </h2>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name="swisspass-small"></sbb-icon>
+      Tab title two
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </sbb-tab-title>
     <section>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
       urna neque viverra justo nec.
     </section>
 
-    <h3 disabled={args.disabled}>
-      <sbb-icon name="train-small"></sbb-icon>
-      Tab label three
-      <sbb-tab-amount>123</sbb-tab-amount>
-    </h3>
+    <sbb-tab-title disabled={args.disabled}>
+      <sbb-icon slot="icon" name="train-small"></sbb-icon>
+      Tab title three
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </sbb-tab-title>
     <div>I was disabled.</div>
 
-    <h4>
-      <sbb-icon name="pie-small"></sbb-icon>
-      Tab label four
-      <sbb-tab-amount>123</sbb-tab-amount>
-    </h4>
+    <sbb-tab-title>
+      <sbb-icon slot="icon" name="pie-small"></sbb-icon>
+      Tab title four
+      <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
+    </sbb-tab-title>
     <article>
       Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
       elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -260,6 +260,7 @@ const label = {
     category: 'Tab1',
   },
 };
+
 const iconSlot = {
   control: {
     type: 'select',
@@ -269,6 +270,7 @@ const iconSlot = {
     category: 'Tab1',
   },
 };
+
 const amountSlot = {
   control: {
     type: 'number',
@@ -287,7 +289,6 @@ const disabledArg = {
   },
 };
 
-/* eslint-disable sort-keys */
 const basicArgTypes = {
   dir,
   label,

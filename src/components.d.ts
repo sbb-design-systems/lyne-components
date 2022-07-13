@@ -25,6 +25,7 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
+import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
@@ -651,6 +652,20 @@ export namespace Components {
          */
         "initialSelectedIndex": number;
     }
+    interface SbbTabTitle {
+        /**
+          * Active tab boolean
+         */
+        "active"?: boolean;
+        /**
+          * Disabled tab boolean
+         */
+        "disabled"?: boolean;
+        /**
+          * Title level
+         */
+        "level"?: InterfaceTabTitleAttributes['level'];
+    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -1130,6 +1145,12 @@ declare global {
         prototype: HTMLSbbTabGroupElement;
         new (): HTMLSbbTabGroupElement;
     };
+    interface HTMLSbbTabTitleElement extends Components.SbbTabTitle, HTMLStencilElement {
+    }
+    var HTMLSbbTabTitleElement: {
+        prototype: HTMLSbbTabTitleElement;
+        new (): HTMLSbbTabTitleElement;
+    };
     interface HTMLSbbTeaserHeroElement extends Components.SbbTeaserHero, HTMLStencilElement {
     }
     var HTMLSbbTeaserHeroElement: {
@@ -1284,6 +1305,7 @@ declare global {
         "sbb-stack": HTMLSbbStackElement;
         "sbb-tab-amount": HTMLSbbTabAmountElement;
         "sbb-tab-group": HTMLSbbTabGroupElement;
+        "sbb-tab-title": HTMLSbbTabTitleElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-text-input": HTMLSbbTextInputElement;
         "sbb-timetable": HTMLSbbTimetableElement;
@@ -1912,6 +1934,20 @@ declare namespace LocalJSX {
          */
         "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
     }
+    interface SbbTabTitle {
+        /**
+          * Active tab boolean
+         */
+        "active"?: boolean;
+        /**
+          * Disabled tab boolean
+         */
+        "disabled"?: boolean;
+        /**
+          * Title level
+         */
+        "level"?: InterfaceTabTitleAttributes['level'];
+    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -2243,6 +2279,7 @@ declare namespace LocalJSX {
         "sbb-stack": SbbStack;
         "sbb-tab-amount": SbbTabAmount;
         "sbb-tab-group": SbbTabGroup;
+        "sbb-tab-title": SbbTabTitle;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-text-input": SbbTextInput;
         "sbb-timetable": SbbTimetable;
@@ -2297,6 +2334,7 @@ declare module "@stencil/core" {
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
             "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
+            "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;

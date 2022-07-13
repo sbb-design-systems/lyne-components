@@ -1,0 +1,119 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.sbb-tab-title {
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  padding-block: var(--sbb-spacing-fixed-2x);
+  padding-inline: var(--sbb-spacing-fixed-5x);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+    border-radius: var(--sbb-spacing-fixed-6x);
+    background-color: transparent;
+    transition-duration: var(--sbb-animation-duration-4x);
+    transition-timing-function: var(--sbb-animation-easing);
+    transition-property: inset, background-color, border-color, box-shadow;
+  }
+
+  .sbb-tab-title-text {
+    @include text-xs--bold;
+    @include fontSmoothing;
+    @include ellipsis;
+  }
+
+  ::slotted(*),
+  .sbb-tab-title-text {
+    transition: transform var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+    transform: translateY(0);
+  }
+
+  ::slotted(sbb-icon) {
+    margin-inline: 0 var(--sbb-spacing-fixed-1x);
+  }
+
+  ::slotted(sbb-tab-amount) {
+    @include text-xs--bold;
+    @include fontSmoothing;
+
+    color: var(--sbb-color-metal-default);
+  }
+}
+
+// If the the device can hover over elements with ease
+@include hover-mq($hover: true) {
+  .sbb-tab-title:hover {
+    ::slotted(*),
+    .sbb-tab-title-text {
+      transform: translateY(calc(var(--sbb-border-width-1x) * -1));
+    }
+
+    &::before {
+      inset: calc(var(--sbb-border-width-2x) * -1);
+      background-color: var(--sbb-color-milk-default);
+    }
+  }
+}
+
+.sbb-tab-title.active {
+  color: var(--sbb-color-white-default);
+
+  &::before {
+    border-color: var(--sbb-color-black-default);
+    background-color: var(--sbb-color-black-default);
+  }
+}
+
+.sbb-tab-title.disabled {
+  cursor: unset;
+  position: relative;
+  pointer-events: none;
+  color: var(--sbb-color-platinum-default);
+
+  ::slotted(sbb-tab-amount) {
+    color: var(--sbb-color-platinum-default);
+  }
+
+  &::before {
+    border-color: var(--sbb-color-milk-default);
+    background-color: var(--sbb-color-milk-default);
+  }
+
+  &::after {
+    content: '';
+    inset: 50% var(--sbb-spacing-fixed-5x);
+    border-bottom: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
+    @include absoluteCenterY;
+  }
+}
+
+:host(:focus-visible) {
+  outline: 0;
+
+  .sbb-tab-title {
+    &::before {
+      @include focusOutline;
+    }
+  }
+}
+
+.sbb-tab-title:not(.active):active {
+  &::before {
+    border-color: var(--sbb-color-black-default);
+    background-color: transparent;
+  }
+}

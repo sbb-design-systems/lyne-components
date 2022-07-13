@@ -15,9 +15,9 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
 import throttle from '../../global/helpers/throttle';
 
 /**
- * @slot tab-bar - Pass an heading tag to display a label in the tab bar.
+ * @slot tab-bar - Provide an heading tag to display a label in the tab bar.
  * E.g. `<h1>Tab label</h1>`
- * @slot unnamed - Pass html-content to show as the content of the tab.
+ * @slot unnamed - Provide html-content to show as the content of the tab.
  * Wrap the content in a div, a section or an article:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
@@ -88,7 +88,7 @@ export class SbbTabGroup {
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
     return Array.from(this._element.children).filter((child) =>
-      /^H\d$/u.test(child.tagName)
+      /^SBB-TAB-TITLE$/u.test(child.tagName)
     ) as InterfaceSbbTabGroupTab[];
   }
 
