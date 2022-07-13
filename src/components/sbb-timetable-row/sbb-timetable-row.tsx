@@ -2,10 +2,7 @@ import { Component, h, Prop } from '@stencil/core';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-row.default.scss',
-    shared: 'styles/sbb-timetable-row.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-row.scss',
   tag: 'sbb-timetable-row',
 })
 export class SbbTimetableRow {

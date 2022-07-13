@@ -171,9 +171,6 @@
 
   --sbb-focus-outline-color-default: var(--sbb-color-black-default);
   --sbb-focus-outline-color-dark: var(--sbb-color-white-default);
-  --sbb-focus-outline-color: var(
-    --sbb-focus-outline-color-override,
-    var(--sbb-focus-outline-color-default)
-  );
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
   --sbb-focus-outline-width: var(--sbb-border-width-1x);
 }

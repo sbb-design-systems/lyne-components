@@ -3,10 +3,7 @@ import { InterfaceGridAttributes } from './sbb-grid.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-grid.default.scss',
-    shared: 'styles/sbb-grid.shared.scss',
-  },
+  styleUrl: 'sbb-grid.scss',
   tag: 'sbb-grid',
 })
 export class SbbGrid {

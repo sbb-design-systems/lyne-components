@@ -18,10 +18,7 @@ const eventListenerOptions = {
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-clock.default.scss',
-    shared: 'styles/sbb-clock.shared.scss',
-  },
+  styleUrl: 'sbb-clock.scss',
   tag: 'sbb-clock',
 })
 export class SbbClock {

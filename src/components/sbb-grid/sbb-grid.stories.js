@@ -390,5 +390,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/layout/sbb-grid',
+  title: 'components/layout/sbb-grid (Unfinished)',
 };

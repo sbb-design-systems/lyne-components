@@ -181,5 +181,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-accordion',
+  title: 'components/sbb-accordion (Unfinished)',
 };

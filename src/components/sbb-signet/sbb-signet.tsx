@@ -5,10 +5,7 @@ import sbbSignetSVG from './assets/sbb_signet.svg';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-signet.default.scss',
-    shared: 'styles/sbb-signet.shared.scss',
-  },
+  styleUrl: 'sbb-signet.scss',
   tag: 'sbb-signet',
 })
 export class SbbSignet {

@@ -787,5 +787,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/cards/sbb-card-product',
+  title: 'components/cards/sbb-card-product (Unfinished)',
 };

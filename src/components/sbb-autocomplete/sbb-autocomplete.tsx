@@ -9,10 +9,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-autocomplete.default.scss',
-    shared: 'styles/sbb-autocomplete.shared.scss',
-  },
+  styleUrl: 'sbb-autocomplete.scss',
   tag: 'sbb-autocomplete',
 })
 export class SbbAutocomplete {

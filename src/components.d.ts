@@ -322,6 +322,17 @@ export namespace Components {
          */
         "variant"?: InterfaceGridAttributes['variant'];
     }
+    interface SbbIcon {
+        /**
+          * The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
+         */
+        "name": string;
+        /**
+          * When set to `false`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`.
+          * @default true
+         */
+        "sanitize": boolean;
+    }
     interface SbbImage {
         /**
           * An alt text is not always necessary (e.g. in teaser cards when additional link text is provided). In this case we can leave the value of the alt attribute blank, but the attribute itself still needs to be present. That way we can signal assistive technology, that they can skip the image.
@@ -1028,6 +1039,12 @@ declare global {
         prototype: HTMLSbbGridElement;
         new (): HTMLSbbGridElement;
     };
+    interface HTMLSbbIconElement extends Components.SbbIcon, HTMLStencilElement {
+    }
+    var HTMLSbbIconElement: {
+        prototype: HTMLSbbIconElement;
+        new (): HTMLSbbIconElement;
+    };
     interface HTMLSbbImageElement extends Components.SbbImage, HTMLStencilElement {
     }
     var HTMLSbbImageElement: {
@@ -1251,6 +1268,7 @@ declare global {
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
         "sbb-grid": HTMLSbbGridElement;
+        "sbb-icon": HTMLSbbIconElement;
         "sbb-image": HTMLSbbImageElement;
         "sbb-input-error": HTMLSbbInputErrorElement;
         "sbb-journey-header": HTMLSbbJourneyHeaderElement;
@@ -1576,6 +1594,17 @@ declare namespace LocalJSX {
           * Grid variant
          */
         "variant"?: InterfaceGridAttributes['variant'];
+    }
+    interface SbbIcon {
+        /**
+          * The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
+         */
+        "name"?: string;
+        /**
+          * When set to `false`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`.
+          * @default true
+         */
+        "sanitize"?: boolean;
     }
     interface SbbImage {
         /**
@@ -2210,6 +2239,7 @@ declare namespace LocalJSX {
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
         "sbb-grid": SbbGrid;
+        "sbb-icon": SbbIcon;
         "sbb-image": SbbImage;
         "sbb-input-error": SbbInputError;
         "sbb-journey-header": SbbJourneyHeader;
@@ -2263,6 +2293,7 @@ declare module "@stencil/core" {
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
+            "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
             "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;
             "sbb-input-error": LocalJSX.SbbInputError & JSXBase.HTMLAttributes<HTMLSbbInputErrorElement>;
             "sbb-journey-header": LocalJSX.SbbJourneyHeader & JSXBase.HTMLAttributes<HTMLSbbJourneyHeaderElement>;

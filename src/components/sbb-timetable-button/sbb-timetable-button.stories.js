@@ -137,5 +137,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-timetable-button',
+  title: 'components/timetable/sbb-timetable-button (Unfinished)',
 };

@@ -5,10 +5,7 @@ import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-timetable-row-button.default.scss',
-    shared: 'styles/sbb-timetable-row-button.shared.scss',
-  },
+  styleUrl: 'sbb-timetable-row-button.scss',
   tag: 'sbb-timetable-row-button',
 })
 export class SbbTimetableRowButton {

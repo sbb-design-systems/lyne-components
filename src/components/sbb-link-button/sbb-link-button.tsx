@@ -11,10 +11,7 @@ import { InterfaceLinkButtonAttributes } from './sbb-link-button.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-link-button.default.scss',
-    shared: 'styles/sbb-link-button.shared.scss',
-  },
+  styleUrl: 'sbb-link-button.scss',
   tag: 'sbb-link-button',
 })
 export class SbbLinkButton {

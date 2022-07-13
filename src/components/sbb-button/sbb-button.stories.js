@@ -34,7 +34,7 @@ const focusStyle = (context) => {
   if (variantsWithDarkBg.includes(context.args.variant)) {
     // eslint-disable-next-line no-warning-comments
     // TODO: Use css variable if globally available
-    return `--sbb-focus-outline-color-override:${SbbColorWhiteDefault};`;
+    return `--sbb-focus-outline-color:${SbbColorWhiteDefault};`;
   }
 
   return '';
@@ -341,5 +341,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-button',
+  title: 'components/sbb-button (Unfinished)',
 };

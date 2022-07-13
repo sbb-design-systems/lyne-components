@@ -57,5 +57,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-timetable',
+  title: 'components/timetable/sbb-timetable (Unfinished)',
 };

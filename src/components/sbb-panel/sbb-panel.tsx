@@ -3,10 +3,7 @@ import { InterfacePanelAttributes } from './sbb-panel.custom';
 
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-panel.default.scss',
-    shared: 'styles/sbb-panel.shared.scss',
-  },
+  styleUrl: 'sbb-panel.scss',
   tag: 'sbb-panel',
 })
 export class SbbPanel {
