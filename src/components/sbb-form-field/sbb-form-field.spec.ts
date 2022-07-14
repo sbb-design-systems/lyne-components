@@ -14,7 +14,7 @@ describe('sbb-form-field', () => {
     expect(root).toEqualHtml(`
         <sbb-form-field label="Fill input">
           <mock:shadow-root>
-            <div class="input-wrapper">
+            <div class="form-field--error-space-default form-field--size-l input-wrapper">
               <label class="input-label">
                 <slot name="label">
                   <span>
@@ -53,7 +53,7 @@ describe('sbb-form-field', () => {
     expect(root).toEqualHtml(`
         <sbb-form-field label="Fill input">
           <mock:shadow-root>
-            <div class="input-wrapper form--disabled">
+            <div class="form--disabled form-field--error-space-default form-field--size-l input-wrapper">
               <label class="input-label">
                 <slot name="label">
                   <span>
@@ -95,7 +95,7 @@ describe('sbb-form-field', () => {
     expect(root).toEqualHtml(`
         <sbb-form-field label="Fill input">
           <mock:shadow-root>
-            <div class="input-wrapper form--readonly">
+            <div class="form--readonly form-field--error-space-default form-field--size-l input-wrapper">
               <label class="input-label">
                 <slot name="label">
                   <span>
