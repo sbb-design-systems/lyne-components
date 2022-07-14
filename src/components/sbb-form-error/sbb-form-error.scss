@@ -27,9 +27,10 @@
   left: calc(var(--icon-size) + var(--sbb-spacing-fixed-1x));
 }
 
-.input-label-error__icon,
-svg {
-  line-height: var(--icon-size);
-  fill: var(--sbb-color-red125-default);
+.sbb-icon {
   @include absoluteCenterY;
+}
+
+.sbb-icon svg {
+  fill: var(--sbb-color-red125-default);
 }
