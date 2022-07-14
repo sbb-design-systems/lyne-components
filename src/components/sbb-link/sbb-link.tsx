@@ -50,7 +50,7 @@ export class SbbLink {
    * If this is set to true an span element will be used
    * instead of a anchor or a button
    */
-  @Prop() public staticSpan?: boolean;
+  @Prop() public staticSpan?: boolean = false;
 
   /**
    * The icon can either be place before or after
@@ -137,9 +137,16 @@ export class SbbLink {
     attributeList = {
       ...attributeList,
       dir: currentWritingMode,
-      'aria-label': ariaLabelText,
       class: this._getClassString,
     };
+
+    // Only apply aria-label on button or anchor (no need on span)
+    if (this.ariaText && !this.staticSpan) {
+      attributeList = {
+        ...attributeList,
+        'aria-label': ariaLabelText,
+      };
+    }
 
     if (this.idValue) {
       attributeList = {

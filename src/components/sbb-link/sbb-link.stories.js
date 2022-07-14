@@ -135,7 +135,7 @@ const variant = {
 const defaultArgTypes = {
   download,
   disabled,
-  staticSpan,
+  'static-span': staticSpan,
   'href-value': hrefValue,
   icon,
   'icon-flip': iconFlip,
@@ -150,7 +150,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   download: false,
   disabled: false,
-  staticSpan: false,
+  'static-span': false,
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   icon: '',
   'icon-flip': false,
