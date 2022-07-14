@@ -69,6 +69,21 @@
   }
 }
 
+.toast.toast-icon-wrapper {
+  padding-inline-end: calc(
+    (2 * var(--sbb-spacing-fixed-2x)) + var(--sbb-size-button-m-min-height-small)
+  );
+  @include mq($from: medium) {
+    padding-inline-end: calc(
+      (2 * var(--sbb-spacing-fixed-2x)) + var(--sbb-size-button-m-min-height-medium)
+    );
+  }
+
+  .toast-spacer {
+    display: none;
+  }
+}
+
 .toast-text {
   flex-grow: 1;
 }
@@ -93,6 +108,12 @@
   margin-left: auto;
   cursor: pointer;
   pointer-events: all;
+}
+
+.toast-action-icon {
+  @include absoluteCenterY;
+
+  right: var(--sbb-spacing-fixed-2x);
 }
 
 .toast-link {

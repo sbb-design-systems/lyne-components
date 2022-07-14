@@ -240,43 +240,50 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
    * Renders the action button (link/action/close icon).
    */
   private _renderAction(): JSX.Element {
+    console.log('render');
     switch (this._internalConfig.action.type) {
       case 'link': {
         return (
-          <sbb-link
-            class="toast-link sbb-focusable"
-            variant="inline-negative"
-            hrefValue={this._internalConfig.action.href}
-            text={this._internalConfig.action.label}
-            role={this._internalConfig.action.role}
-            onClick={this.dismiss.bind(this, null, 'link')}
-          />
+          <span class="toast-action">
+            <sbb-link
+              class="toast-link sbb-focusable"
+              variant="inline-negative"
+              hrefValue={this._internalConfig.action.href}
+              text={this._internalConfig.action.label}
+              role={this._internalConfig.action.role}
+              onClick={this.dismiss.bind(this, null, 'link')}
+            />
+          </span>
         );
       }
       case 'action': {
         return (
-          <button
-            type="button"
-            role={this._internalConfig.action.role}
-            class={this._buttonClass()}
-            onClick={this._callActionHandlerAndDismiss.bind(this, this._internalConfig.action)}
-          >
-            <span class="toast-label">{this._internalConfig.action.label}</span>
-          </button>
+          <span class="toast-action">
+            <button
+              type="button"
+              role={this._internalConfig.action.role}
+              class={this._buttonClass()}
+              onClick={this._callActionHandlerAndDismiss.bind(this, this._internalConfig.action)}
+            >
+              <span class="toast-label">{this._internalConfig.action.label}</span>
+            </button>
+          </span>
         );
       }
       case 'icon': {
         return (
-          <sbb-button
-            variant="transparent-negative"
-            icon={true}
-            iconDescription="Icon. Close the toast."
-            size="m"
-            role={this._internalConfig.action.role}
-            class={this._buttonClass()}
-          >
-            <span class="toast-close" innerHTML={crossSmall} />
-          </sbb-button>
+          <span class="toast-action toast-action-icon">
+            <sbb-button
+              variant="transparent-negative"
+              icon={true}
+              iconDescription="Icon. Close the toast."
+              size="m"
+              role={this._internalConfig.action.role}
+              class={this._buttonClass()}
+            >
+              <span class="toast-close" innerHTML={crossSmall} />
+            </sbb-button>
+          </span>
         );
       }
       default:
@@ -308,6 +315,9 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
       );
     }
 
+    let toastClass = `toast toast-vertical-${this._internalConfig.verticalPosition} toast-horizontal-${this._internalConfig.horizontalPosition}`;
+    toastClass += this._internalConfig.action.type === 'icon' ? ' toast-icon-wrapper' : ''; // FIXME icon class name
+
     return (
       <Host
         aria-live={this._internalConfig.ariaLivePoliteness}
@@ -320,9 +330,7 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
         }}
       >
         <div class="toast-wrapper">
-          <div
-            class={`toast toast-vertical-${this._internalConfig.verticalPosition} toast-horizontal-${this._internalConfig.horizontalPosition}`}
-          >
+          <div class={toastClass}>
             {iconTemplate}
             <span
               class="toast-text"
@@ -330,7 +338,7 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
             />
             {actionContent && [
               <span class="toast-spacer" />,
-              <span class="toast-action">{actionContent}</span>,
+              actionContent,
             ]}
           </div>
         </div>
