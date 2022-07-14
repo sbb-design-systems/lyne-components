@@ -247,14 +247,3 @@ export class SbbLink {
     );
   }
 }
-
-
-refactor: 1239 sbb-link refactor
-
-- change content-text from property to slot
-- add button condition if no href is present and corresponding attribute support
-- add staic-span condition/config
-
-BREAKING CHANGE:
-- the text is now set via slot (default slot)
-- the aria-label has its own property instead of the former text property
