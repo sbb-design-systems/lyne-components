@@ -79,7 +79,7 @@ export class SbbFormField {
   private _formFieldAttributeObserver = new MutationObserver(this._onAttributesChange.bind(this));
 
   public componentWillLoad(): void {
-    this._idError = this._element.querySelector('[slot="error"]')?.getAttribute('id');
+    this._idError = this._element?.querySelector('[slot="error"]')?.getAttribute('id');
     if (this._idError) {
       this._element.querySelector('[slot="input"]').setAttribute('aria-describedby', this._idError);
     }
@@ -103,13 +103,13 @@ export class SbbFormField {
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input`.
    */
   private _onSlotInputChange(): void {
-    if (!this._element.querySelector('[slot="input"]').getAttribute('id')) {
+    if (!this._element?.querySelector('[slot="input"]')?.getAttribute('id')) {
       this._element
         .querySelector('[slot="input"]')
         .setAttribute('id', `sbb-form-field-input-${nextId++}`);
     }
 
-    const inputCssClass = this._element.querySelector('[slot="input"]').getAttribute('class');
+    const inputCssClass = this._element?.querySelector('[slot="input"]')?.getAttribute('class');
 
     this._element
       .querySelector('[slot="input"]')

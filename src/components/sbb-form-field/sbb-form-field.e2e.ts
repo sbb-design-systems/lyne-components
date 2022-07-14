@@ -5,7 +5,7 @@ describe('sbb-form-field', () => {
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-form-field></sbb-form-field>');
+    await page.setContent('<sbb-form-field><input slot="input"/></sbb-form-field>');
 
     element = await page.find('sbb-form-field');
     expect(element).toHaveClass('hydrated');
