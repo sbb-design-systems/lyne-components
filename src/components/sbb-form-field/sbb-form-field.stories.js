@@ -52,6 +52,53 @@ const TemplateInputWithError = (args) => (
   </sbb-form-field>
 );
 
+const TemplateInputWithErrorSpace = (args) => {
+  const sbbFormError = (
+    <sbb-form-error
+      error-space={args['error-space']}
+      id="error-1"
+      className="input-label-error"
+      slot="error"
+    >
+      This is a required field.
+    </sbb-form-error>
+  );
+
+  return (
+    <form>
+      <sbb-form-field id="sbb-form-field" {...args}>
+        <input
+          id="sbb-form-field-input"
+          onFocus={(event) => {
+            if (event.currentTarget.value === '') {
+              document.getElementById('sbb-form-field').append(sbbFormError);
+              document
+                .getElementById('sbb-form-field-input')
+                .setAttribute('class', 'input sbb-invalid form-field--size-l');
+            }
+          }}
+          onBlur={(event) => {
+            if (event.currentTarget.value !== '') {
+              sbbFormError.remove();
+              document
+                .getElementById('sbb-form-field-input')
+                .setAttribute('class', 'input form-field--size-l');
+            }
+          }}
+          slot="input"
+          class="input sbb-invalid"
+          placeholder="Name"
+        />
+        {sbbFormError}
+      </sbb-form-field>
+      <br />
+      <sbb-form-field {...args}>
+        <input slot="input" class="input" placeholder="Name" />
+      </sbb-form-field>
+    </form>
+  );
+};
+
 const TemplateInputWithIcons = (args) => (
   <sbb-form-field {...args}>
     <span slot="prefix" class="input__icon-prefix">
@@ -67,6 +114,16 @@ const TemplateInputWithIcons = (args) => (
 const TemplateSelect = (args) => (
   <sbb-form-field {...args}>
     <select slot="input" class="input select" placeholder="Name">
+      <option>Value 1</option>
+      <option>Value 2</option>
+      <option>Value 3</option>
+    </select>
+  </sbb-form-field>
+);
+
+const TemplateSelectWithoutBorder = (args) => (
+  <sbb-form-field {...args}>
+    <select slot="input" class="input form-field--borderless" placeholder="Name">
       <option>Value 1</option>
       <option>Value 2</option>
       <option>Value 3</option>
@@ -96,6 +153,58 @@ const TemplateSelectWithError = (args) => (
     </sbb-form-error>
   </sbb-form-field>
 );
+
+const TemplateSelectWithErrorSpace = (args) => {
+  const sbbFormError = (
+    <sbb-form-error
+      error-space={args['error-space']}
+      id="error-1"
+      className="input-label-error"
+      slot="error"
+    >
+      This is a required field.
+    </sbb-form-error>
+  );
+
+  return (
+    <form>
+      <sbb-form-field id="sbb-form-field" {...args}>
+        <select
+          id="sbb-form-field-input"
+          onFocus={(event) => {
+            if (event.currentTarget.value === '') {
+              document.getElementById('sbb-form-field').append(sbbFormError);
+              document
+                .getElementById('sbb-form-field-input')
+                .setAttribute('class', 'input sbb-invalid form-field--size-l');
+            }
+          }}
+          onBlur={(event) => {
+            if (event.currentTarget.value !== '') {
+              sbbFormError.remove();
+              document
+                .getElementById('sbb-form-field-input')
+                .setAttribute('class', 'input form-field--size-l');
+            }
+          }}
+          slot="input"
+          class="input sbb-invalid"
+          placeholder="Name"
+        >
+          <option>{''}</option>
+          <option>Value 1</option>
+          <option>Value 2</option>
+          <option>Value 3</option>
+        </select>
+        {sbbFormError}
+      </sbb-form-field>
+      <br />
+      <sbb-form-field {...args}>
+        <input slot="input" class="input" placeholder="Name" />
+      </sbb-form-field>
+    </form>
+  );
+};
 
 const TemplateSelectWithIcons = (args) => (
   <sbb-form-field {...args}>
@@ -152,14 +261,12 @@ const sizeArg = {
 };
 
 const basicArgTypes = {
-  'error-space': errorSpaceArg,
   label: labelArg,
   optional: optionalArg,
   size: sizeArg,
 };
 
 const basicArgs = {
-  'error-space': 'default',
   label: 'Name',
   optional: false,
   size: 'l',
@@ -215,6 +322,18 @@ formWithLabelInputAndError.documentation = {
   title: 'sbb-form-field component with label, input and error',
 };
 
+export const formWithLabelInputAndErrorSpace = TemplateInputWithErrorSpace.bind({});
+
+formWithLabelInputAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
+
+formWithLabelInputAndErrorSpace.args = JSON.parse(
+  JSON.stringify({ ...basicArgs, 'error-space': 'default' })
+);
+
+formWithLabelInputAndErrorSpace.documentation = {
+  title: 'sbb-form-field component with label, input, error and error-space',
+};
+
 export const formWithLabelInputAndIcons = TemplateInputWithIcons.bind({});
 
 formWithLabelInputAndIcons.argTypes = basicArgTypes;
@@ -235,6 +354,16 @@ formWithLabelAndSelect.documentation = {
   title: 'sbb-form-field component with label and select',
 };
 
+export const formWithLabelAndSelectWithoutBorder = TemplateSelectWithoutBorder.bind({});
+
+formWithLabelAndSelectWithoutBorder.argTypes = basicArgTypes;
+
+formWithLabelAndSelectWithoutBorder.args = JSON.parse(JSON.stringify(basicArgs));
+
+formWithLabelAndSelectWithoutBorder.documentation = {
+  title: 'sbb-form-field component with label and select, without border',
+};
+
 export const formWithSelectDisabled = TemplateSelectDisabled.bind({});
 
 formWithSelectDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg };
@@ -253,6 +382,18 @@ formWithLabelSelectAndError.args = JSON.parse(JSON.stringify(basicArgs));
 
 formWithLabelSelectAndError.documentation = {
   title: 'sbb-form-field component with label and select',
+};
+
+export const formWithLabelSelectAndErrorSpace = TemplateSelectWithErrorSpace.bind({});
+
+formWithLabelSelectAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
+
+formWithLabelSelectAndErrorSpace.args = JSON.parse(
+  JSON.stringify({ ...basicArgs, 'error-space': 'default' })
+);
+
+formWithLabelSelectAndErrorSpace.documentation = {
+  title: 'sbb-form-field component with label, input, error and error-space',
 };
 
 export const formWithLabelSelectAndIcons = TemplateSelectWithIcons.bind({});
