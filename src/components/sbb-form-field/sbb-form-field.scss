@@ -7,24 +7,19 @@
   display: block;
 
   --text-color-label: var(--sbb-color-metal-default);
-
   --text-color-input-default: var(--sbb-color-charcoal-default);
   --text-color-input-error: var(--sbb-color-red125-default);
-
   --border-color-default: var(--sbb-color-smoke-default);
   --border-color-disabled: var(--sbb-color-graphite-default);
   --border-color-error: var(--sbb-color-red125-default);
   --border-color-focus: var(--sbb-color-charcoal-default);
-
   --background-color-default: var(--sbb-color-white-default);
   --background-color-disabled: var(--sbb-color-milk-default);
   --text-color-readonly: var(--sbb-color-granite-default);
   --text-color-disabled: var(--border-color-disabled);
-
   --input-with-icon-padding-inline: calc(
     var(--sbb-spacing-fixed-3x) + var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-2x)
   );
-
   --icon-size: var(--sbb-size-icon-ui-small);
 
   // waiting for token update
@@ -52,9 +47,9 @@
 
 // Input
 ::slotted(.input) {
-  @include text-m--regular();
-  @include placeholder();
-  @include ellipsis();
+  @include text-m--regular;
+  @include placeholder;
+  @include ellipsis;
 
   -webkit-appearance: none;
   width: 100%;
@@ -62,7 +57,6 @@
   padding-block-start: var(--sbb-spacing-fixed-5x);
   padding-inline-start: var(--sbb-spacing-fixed-3x);
   padding-inline-end: var(--sbb-spacing-fixed-3x);
-
   background-color: var(--background-color-default);
   border: var(--sbb-border-width-1x) solid var(--border-color-default);
 }
@@ -71,16 +65,19 @@
   height: var(--input-height-m);
   border-radius: var(--sbb-border-radius-4x);
 }
+
 ::slotted(.input.form-field--size-l) {
   height: var(--input-height-l);
   border-radius: var(--sbb-border-radius-8x);
 }
+
 ::slotted(.input.form-field--borderless),
 ::slotted(.input.form-field--borderless:focus),
 ::slotted(.sbb-invalid.form-field--borderless),
 ::slotted(.ng-touched.ng-invalid.form-field--borderless) {
   border-color: var(--background-color-default);
 }
+
 ::slotted(.input:focus) {
   border-color: var(--border-color-focus);
   outline: none;
@@ -91,9 +88,11 @@
   border-color: var(--text-color-disabled);
   background-color: var(--background-color-disabled);
 }
+
 ::slotted(.input[disabled] + .input-label) {
   color: var(--text-color-disabled);
 }
+
 ::slotted(.input.form-field--borderless[disabled]) {
   border-color: var(--background-color-disabled);
 }
@@ -103,6 +102,7 @@
   border-color: var(--text-color-disabled);
   background-color: var(--background-color-disabled);
 }
+
 ::slotted(.input.form-field--borderless[readonly]) {
   border-color: var(--background-color-disabled);
 }
@@ -111,14 +111,16 @@
 ::slotted(.input__icon-prefix),
 ::slotted(.input__icon-suffix) {
   @include absoluteCenterY;
+
   height: var(--icon-size);
   overflow: hidden;
-  fill: currentColor;
+  fill: currentcolor;
 }
 
 ::slotted(.input__icon-prefix) {
   inset-inline-start: var(--sbb-spacing-fixed-3x);
 }
+
 ::slotted(.input__icon-suffix) {
   inset-inline-end: var(--sbb-spacing-fixed-3x);
 }
@@ -145,6 +147,7 @@
       (var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs))
   );
 }
+
 ::slotted(.input-label-error[error-space='reserve']) {
   position: absolute;
   width: 100%;
@@ -156,12 +159,12 @@
 
 // Label
 .input-label {
-  @include text-xs--regular();
+  @include text-xs--regular;
+
   position: absolute;
   inset-block-start: var(--sbb-spacing-fixed-1x);
   inset-block-end: var(--sbb-spacing-fixed-1x);
   inset-inline-start: 0;
-
   display: flex;
   max-width: 100%;
   padding-inline-start: var(--sbb-spacing-fixed-3x);
@@ -170,8 +173,9 @@
   user-select: none;
   pointer-events: none;
 }
+
 .input-label--text {
-  @include ellipsis();
+  @include ellipsis;
 }
 
 .input-label--optional {
@@ -182,6 +186,7 @@
 .form-field--size-l .input-label {
   padding-block-start: var(--sbb-spacing-fixed-1x);
 }
+
 .form--prefix .input-label {
   padding-inline-start: var(--input-with-icon-padding-inline);
 }
