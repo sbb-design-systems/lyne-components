@@ -104,6 +104,7 @@ jobs:
           name: storybook
           path: storybook-static/
       - name: Publish to Chromatic
+        id: chromatic-publish
         uses: chromaui/action@v1
         # TODO: Figure out why chromatic is failing
         continue-on-error: true
@@ -112,6 +113,8 @@ jobs:
           storybookBuildDir: storybook-static
           exitOnceUploaded: true
           exitZeroOnChanges: true
+      - run: echo "${{ toJSON(github) }}"
+      - run: echo "${{ toJSON(steps.chromatic-publish.outputs) }}"
 
   netlify:
     runs-on: ubuntu-latest
