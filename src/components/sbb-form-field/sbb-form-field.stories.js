@@ -41,7 +41,12 @@ const TemplateInputReadOnly = (args) => [
 const TemplateInputWithError = (args) => (
   <sbb-form-field {...args}>
     <input slot="input" class="input sbb-invalid" placeholder="Name" />
-    <sbb-form-error error-space={args['error-space']} id="error" class="input-label-error" slot="error">
+    <sbb-form-error
+      error-space={args['error-space']}
+      id="error"
+      class="input-label-error"
+      slot="error"
+    >
       This is a required field.
     </sbb-form-error>
   </sbb-form-field>
@@ -143,21 +148,21 @@ const sizeArg = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm']
+  options: ['l', 'm'],
 };
 
 const basicArgTypes = {
   'error-space': errorSpaceArg,
   label: labelArg,
   optional: optionalArg,
-  size: sizeArg
+  size: sizeArg,
 };
 
 const basicArgs = {
   'error-space': 'default',
   label: 'Name',
   optional: false,
-  size: 'l'
+  size: 'l',
 };
 
 export const formWithLabelAndInput = TemplateInput.bind({});

@@ -21,10 +21,11 @@
   --text-color-readonly: var(--sbb-color-granite-default);
   --text-color-disabled: var(--border-color-disabled);
 
-  --input-with-icon-padding-inline: calc(var(--sbb-spacing-fixed-3x) + var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-2x));
+  --input-with-icon-padding-inline: calc(
+    var(--sbb-spacing-fixed-3x) + var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-2x)
+  );
 
   --icon-size: var(--sbb-size-icon-ui-small);
-
 
   // waiting for token update
   // --input-height-m: var(--sbb-size-form-element-m-min-height-small)
@@ -138,13 +139,19 @@
 }
 
 // Error message
-:host([error-space="reserve"]) {
-  margin-block-end: calc(var(--sbb-spacing-fixed-1x) + (var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)));
+:host([error-space='reserve']) {
+  margin-block-end: calc(
+    var(--sbb-spacing-fixed-1x) +
+      (var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs))
+  );
 }
-::slotted(.input-label-error[error-space="reserve"]) {
+::slotted(.input-label-error[error-space='reserve']) {
   position: absolute;
   width: 100%;
-  bottom: calc(-1 * (var(--sbb-spacing-fixed-1x) + (var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs))));
+  bottom: calc(
+    -1 * (var(--sbb-spacing-fixed-1x) +
+          (var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)))
+  );
 }
 
 // Label

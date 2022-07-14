@@ -13,10 +13,7 @@ let nextId = 0;
  */
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-form-field.default.scss',
-    shared: 'styles/sbb-form-field.shared.scss',
-  },
+  styleUrl: './sbb-form-field.scss',
   tag: 'sbb-form-field',
 })
 export class SbbFormField {
@@ -112,8 +109,7 @@ export class SbbFormField {
         .setAttribute('id', `sbb-form-field-input-${nextId++}`);
     }
 
-    const inputCssClass = this._element
-      .querySelector('[slot="input"]').getAttribute('class');
+    const inputCssClass = this._element.querySelector('[slot="input"]').getAttribute('class');
 
     this._element
       .querySelector('[slot="input"]')

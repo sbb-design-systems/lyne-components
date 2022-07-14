@@ -6,19 +6,23 @@
 :host {
   position: relative;
   margin-block-start: var(--sbb-spacing-fixed-1x);
+
   // error height = text line-height
   min-height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
+
   --icon-size: var(--sbb-size-icon-ui-small);
 }
 
 // Error
 .input-label-error {
-  @include text-xs--regular();
+  @include text-xs--regular;
+
   display: flex;
   align-items: center;
   color: var(--sbb-color-red125-default);
   position: absolute;
   top: 0;
+
   // reserving space for icon
   left: calc(var(--icon-size) + var(--sbb-spacing-fixed-1x));
 }

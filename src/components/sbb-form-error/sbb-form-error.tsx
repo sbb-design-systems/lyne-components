@@ -1,17 +1,13 @@
-import {Component, h, Host, Prop} from '@stencil/core';
-import {InterfaceSbbFormErrorAttributes} from "./sbb-form-error.custom";
+import { Component, h, Host, Prop } from '@stencil/core';
+import { InterfaceSbbFormErrorAttributes } from './sbb-form-error.custom';
 
 let nextId = 0;
 @Component({
   shadow: true,
-  styleUrls: {
-    default: 'styles/sbb-form-error.default.scss',
-    shared: 'styles/sbb-form-error.shared.scss',
-  },
+  styleUrl: './sbb-form-error.scss',
   tag: 'sbb-form-error',
 })
 export class SbbFormError {
-
   /**
    * Add a specific space if the `<sbb-error>` is present.
    */
