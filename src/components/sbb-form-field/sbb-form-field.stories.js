@@ -1,5 +1,4 @@
 import { h } from 'jsx-dom';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import readme from './readme.md';
 
 const TemplateInput = (args) => (
@@ -102,11 +101,11 @@ const TemplateInputWithErrorSpace = (args) => {
 const TemplateInputWithIcons = (args) => (
   <sbb-form-field {...args}>
     <span slot="prefix" class="input__icon-prefix">
-      <sbb-icon name='pie-small' />
+      <sbb-icon name="pie-small" />
     </span>
     <input slot="input" class="input" placeholder="Name" />
     <span slot="suffix" class="input__icon-suffix">
-      <sbb-icon name='circle-information-small' />
+      <sbb-icon name="circle-information-small" />
     </span>
   </sbb-form-field>
 );
@@ -209,7 +208,7 @@ const TemplateSelectWithErrorSpace = (args) => {
 const TemplateSelectWithIcons = (args) => (
   <sbb-form-field {...args}>
     <span slot="prefix" class="input__icon-prefix">
-      <sbb-icon name='pie-small' />
+      <sbb-icon name="pie-small" />
     </span>
     <select slot="input" class="input select" placeholder="Name">
       <option>Value 1</option>
@@ -217,7 +216,7 @@ const TemplateSelectWithIcons = (args) => (
       <option>Value 3</option>
     </select>
     <span slot="suffix" class="input__icon-suffix">
-      <sbb-icon name='circle-information-small' />
+      <sbb-icon name="circle-information-small" />
     </span>
   </sbb-form-field>
 );

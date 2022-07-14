@@ -27,7 +27,7 @@ export class SbbFormError {
       >
         <span class={cssClass}>
           <slot name="icon">
-            <sbb-icon name='circle-information-small' />
+            <sbb-icon name="circle-information-small" />
           </slot>
         </span>
         <span class="input-label-error">
