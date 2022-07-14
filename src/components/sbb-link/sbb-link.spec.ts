@@ -6,7 +6,11 @@ describe('sbb-link', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
-      html: `<sbb-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end" icon="chevron-small-right-small" text="Travelcards &amp; tickets" text-size="m" variant="block"><span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span></sbb-link>`,
+      html: `<sbb-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end"
+            icon="chevron-small-right-small" text-size="m" variant="block" aria-text="Travelcards &amp; tickets">
+            <span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span>
+            Travelcards &amp; tickets.
+            </sbb-link>`,
     });
 
     expect(root).toEqualHtml(`
@@ -14,13 +18,13 @@ describe('sbb-link', () => {
             href-value="https://github.com/lyne-design-system/lyne-components"
             icon-placement="end"
             icon="chevron-small-right-small"
-            text="Travelcards &amp; tickets"
             text-size="m"
             variant="block"
+            aria-text="Travelcards &amp; tickets"
         >
           <mock:shadow-root>
             <a
-                aria-label="Travelcards &amp; tickets. Link target opens in new window."
+                aria-label="Travelcards & tickets. Link target opens in new window."
                 class="sbb-link sbb-link--icon-placement-end sbb-link--block sbb-link--text-m"
                 dir="ltr"
                 href="https://github.com/lyne-design-system/lyne-components"
@@ -30,7 +34,7 @@ describe('sbb-link', () => {
                 <span class="sbb-link__icon">
                     <slot name="icon"></slot>
                 </span>
-                <span class="sbb-link__text">Travelcards & tickets</span>
+                <slot></slot>
             </a>
           </mock:shadow-root>
           <span slot="icon">
@@ -39,6 +43,7 @@ describe('sbb-link', () => {
                 </path>
             </svg>
           </span>
+          Travelcards &amp; tickets.
         </sbb-link>
       `);
   });

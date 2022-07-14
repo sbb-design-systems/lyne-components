@@ -456,9 +456,29 @@ export namespace Components {
     }
     interface SbbLink {
         /**
+          * The link text we want to visually show.
+         */
+        "ariaText"?: string;
+        /**
+          * Name attribute if link is used as button
+         */
+        "buttonName"?: string;
+        /**
+          * Type attribute if link is used as button
+         */
+        "buttonType"?: InterfaceLinkAttributes['buttonType'];
+        /**
+          * Disabled attribute if link is used as button
+         */
+        "disabled"?: boolean;
+        /**
           * If set to true, the browser will show the download dialog on click.
          */
         "download"?: boolean;
+        /**
+          * Form attribute if link is used as button
+         */
+        "formId"?: string;
         /**
           * The href value you want to link to
          */
@@ -480,9 +500,9 @@ export namespace Components {
          */
         "idValue"?: string;
         /**
-          * The link text we want to visually show.
+          * If this is set to true an span element will be used instead of a anchor or a button
          */
-        "text": string;
+        "staticSpan"?: boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
@@ -1818,9 +1838,29 @@ declare namespace LocalJSX {
     }
     interface SbbLink {
         /**
+          * The link text we want to visually show.
+         */
+        "ariaText"?: string;
+        /**
+          * Name attribute if link is used as button
+         */
+        "buttonName"?: string;
+        /**
+          * Type attribute if link is used as button
+         */
+        "buttonType"?: InterfaceLinkAttributes['buttonType'];
+        /**
+          * Disabled attribute if link is used as button
+         */
+        "disabled"?: boolean;
+        /**
           * If set to true, the browser will show the download dialog on click.
          */
         "download"?: boolean;
+        /**
+          * Form attribute if link is used as button
+         */
+        "formId"?: string;
         /**
           * The href value you want to link to
          */
@@ -1842,9 +1882,9 @@ declare namespace LocalJSX {
          */
         "idValue"?: string;
         /**
-          * The link text we want to visually show.
+          * If this is set to true an span element will be used instead of a anchor or a button
          */
-        "text": string;
+        "staticSpan"?: boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */

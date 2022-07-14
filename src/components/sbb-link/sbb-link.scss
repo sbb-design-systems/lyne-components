@@ -39,6 +39,10 @@
   }
 }
 
+button.sbb-link {
+  @include buttonReset;
+}
+
 .sbb-link--block-negative,
 .sbb-link--inline-negative {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);

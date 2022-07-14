@@ -23,6 +23,7 @@ const wrapperStyle = (context) => {
 const Template = (args) => (
   <sbb-link {...args}>
     {args.icon && <span slot="icon">{getMarkupForSvg(args.icon)}</span>}
+    {args.text}
   </sbb-link>
 );
 
@@ -43,11 +44,23 @@ const InlineTemplate = (args, context) => (
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
     ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
     dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-    sit amet. <sbb-link {...args}></sbb-link>
+    sit amet. <sbb-link {...args}>{args.text}</sbb-link>
   </p>
 );
 
 const download = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const staticSpan = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const disabled = {
   control: {
     type: 'boolean',
   },
@@ -99,6 +112,12 @@ const text = {
   },
 };
 
+const ariaText = {
+  control: {
+    type: 'text',
+  },
+};
+
 const textSize = {
   control: {
     type: 'select',
@@ -115,11 +134,14 @@ const variant = {
 
 const defaultArgTypes = {
   download,
+  disabled,
+  staticSpan,
   'href-value': hrefValue,
   icon,
   'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
   'id-value': idValue,
+  'aria-text': ariaText,
   text,
   'text-size': textSize,
   variant,
@@ -127,11 +149,14 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   download: false,
+  disabled: false,
+  staticSpan: false,
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   icon: '',
   'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
   'id-value': '',
+  'aria-text': 'Travelcards & tickets',
   text: 'Travelcards & tickets',
   'text-size': textSize.options[1],
   variant: variant.options[0],
