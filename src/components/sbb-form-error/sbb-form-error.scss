@@ -29,8 +29,5 @@
 
 .sbb-icon {
   @include absoluteCenterY;
-}
-
-.sbb-icon svg {
-  fill: var(--sbb-color-red125-default);
+  color: var(--sbb-color-red125-default);
 }
