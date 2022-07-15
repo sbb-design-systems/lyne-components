@@ -12,7 +12,7 @@ Each tab has a related content, distinct from other tabs' content. Tab panels ca
 
 A tab can be selected, unselected, or disabled. Disable a tab to mark it as unavailable. Disabled tabs cannot be focused and may be invisible to assistive technologies such as screen readers.
 
-Tab buttons can have an icon to the left of the label; provide an `sbb-icon` component within the `sbb-tab-title` tag using the `slot="icon"` in order to show it. They can also have numbers to the right of the label by providing an `sbb-tab-amount` within the `sbb-tab-title` tag.
+Tab buttons can show an icon on the left side of the label; provide an `sbb-icon` component within the `sbb-tab-title` tag using the `slot="icon"` to include the icon. They can also show numbers on the right side of the label by providing an `sbb-tab-amount` within the `sbb-tab-title` tag.
 
 ```html
 <!-- Icon - remember to use the 'small' version of the icon to make it fit correctly into the tab button -->
@@ -35,7 +35,7 @@ Tab buttons can have an icon to the left of the label; provide an `sbb-icon` com
 </sbb-tab-title>
 ```
 
-Tab groups can also be nested, this means that a tab's related content can contain another tab group as shown in the "Nested Tab Groups" example.
+Tab groups can also be nested, this means that a tab's content block can contain an entire tab group, as shown in the "Nested Tab Groups" example.
 
 <!-- Auto Generated Below -->
 
