@@ -316,7 +316,7 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
     }
 
     let toastClass = `toast toast-vertical-${this._internalConfig.verticalPosition} toast-horizontal-${this._internalConfig.horizontalPosition}`;
-    toastClass += this._internalConfig.action.type === 'icon' ? ' toast-icon-wrapper' : ''; // FIXME icon class name
+    toastClass += this._internalConfig.action.type === 'icon' ? ' toast--button-icon' : '';
 
     return (
       <Host
