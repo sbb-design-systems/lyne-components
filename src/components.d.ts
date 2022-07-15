@@ -479,6 +479,59 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbCheckbox {
+        /**
+          * The aria-describedby prop for the hidden input.
+         */
+        "acceccibilityDescribedBy"?: string;
+        /**
+          * The aria-label prop for the hidden input.
+         */
+        "acceccibilityLabel"?: string;
+        /**
+          * The aria-labelledby prop for the hidden input.
+         */
+        "acceccibilityLabelledby"?: string;
+        "checkIcon": 'tick-small';
+        /**
+          * Whether the checkbox is checked.
+         */
+        "checked": boolean;
+        /**
+          * The disabled prop for the disabled state.
+         */
+        "disabled": boolean;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "inputId": string;
+        "labelIcon": '';
+        /**
+          * The label position relative to the labelIcon. Defaults to false
+         */
+        "labelReversed": boolean;
+        /**
+          * Whether the checkbox label has spacing to the labelIcon.
+         */
+        "labelSpace": boolean;
+        /**
+          * Name of the checkbox
+         */
+        "name"?: string;
+        /**
+          * The required prop for the required state.
+         */
+        "required"?: boolean;
+        "tristateIcon": 'minus-small';
+        /**
+          * Whether the checkbox is tristated.
+         */
+        "tristated"?: boolean;
+        /**
+          * Value of checkbox.
+         */
+        "value"?: string;
+    }
     interface SbbClock {
         /**
           * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
@@ -1764,6 +1817,12 @@ declare global {
         prototype: HTMLSbbCardProductElement;
         new (): HTMLSbbCardProductElement;
     };
+    interface HTMLSbbCheckboxElement extends Components.SbbCheckbox, HTMLStencilElement {
+    }
+    var HTMLSbbCheckboxElement: {
+        prototype: HTMLSbbCheckboxElement;
+        new (): HTMLSbbCheckboxElement;
+    };
     interface HTMLSbbClockElement extends Components.SbbClock, HTMLStencilElement {
     }
     var HTMLSbbClockElement: {
@@ -2106,6 +2165,7 @@ declare global {
         "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
+        "sbb-checkbox": HTMLSbbCheckboxElement;
         "sbb-clock": HTMLSbbClockElement;
         "sbb-dialog": HTMLSbbDialogElement;
         "sbb-divider": HTMLSbbDividerElement;
@@ -2607,6 +2667,63 @@ declare namespace LocalJSX {
         "type"?: InterfaceCardProductAttributes['type'];
         /**
           * The value attribute to use for the button
+         */
+        "value"?: string;
+    }
+    interface SbbCheckbox {
+        /**
+          * The aria-describedby prop for the hidden input.
+         */
+        "acceccibilityDescribedBy"?: string;
+        /**
+          * The aria-label prop for the hidden input.
+         */
+        "acceccibilityLabel"?: string;
+        /**
+          * The aria-labelledby prop for the hidden input.
+         */
+        "acceccibilityLabelledby"?: string;
+        "checkIcon"?: 'tick-small';
+        /**
+          * Whether the checkbox is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * The disabled prop for the disabled state.
+         */
+        "disabled": boolean;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "inputId"?: string;
+        "labelIcon"?: '';
+        /**
+          * The label position relative to the labelIcon. Defaults to false
+         */
+        "labelReversed"?: boolean;
+        /**
+          * Whether the checkbox label has spacing to the labelIcon.
+         */
+        "labelSpace"?: boolean;
+        /**
+          * Name of the checkbox
+         */
+        "name"?: string;
+        /**
+          * Event for emiting whenever selection is changed.
+         */
+        "onSbbChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        /**
+          * The required prop for the required state.
+         */
+        "required"?: boolean;
+        "tristateIcon"?: 'minus-small';
+        /**
+          * Whether the checkbox is tristated.
+         */
+        "tristated"?: boolean;
+        /**
+          * Value of checkbox.
          */
         "value"?: string;
     }
@@ -3823,6 +3940,7 @@ declare namespace LocalJSX {
         "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
+        "sbb-checkbox": SbbCheckbox;
         "sbb-clock": SbbClock;
         "sbb-dialog": SbbDialog;
         "sbb-divider": SbbDivider;
@@ -3895,6 +4013,7 @@ declare module "@stencil/core" {
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
+            "sbb-checkbox": LocalJSX.SbbCheckbox & JSXBase.HTMLAttributes<HTMLSbbCheckboxElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
             "sbb-dialog": LocalJSX.SbbDialog & JSXBase.HTMLAttributes<HTMLSbbDialogElement>;
             "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;

@@ -1,0 +1,86 @@
+:host {
+  display: block;
+
+  --checkbox-border-width: #{px-to-rem-build(1)};
+  --checkbox-width: calc(#{px-to-rem-build(18)} - var(--checkbox-border-width));
+  --checkbox-height: var(--checkbox-width);
+  --checkbox-border-color: var(--sbb-color-smoke-default);
+  --checkbox-cursor: pointer;
+  --checkbox-selection-color: var(--sbb-color-red-default);
+  --checkbox-label-color: var(--sbb-color-charcoal-default);
+
+  .checkbox--disabled {
+    --checkbox-color: var(--sbb-color-graphite-default);
+    --checkbox-border-color: var(--sbb-color-graphite-default);
+    --checkbox-cursor: not-allowed;
+    --checkbox-selection-color: (--sbb-color-graphite-default);
+    --checkbox-label-color: var(--sbb-color-smoke-default);
+  }
+}
+
+.checkbox {
+  @include text-s--regular;
+
+  position: relative;
+  display: block;
+  color: var(--sbb-color-charcoal-default);
+}
+
+.checkbox__inner {
+  display: flex;
+  align-items: center;
+}
+
+input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  cursor: inherit;
+
+  // Puts the element behind the parent while keeping it visible so that
+  // it allows `click` events to propagate up.
+  z-index: -1;
+}
+
+.checkbox__selection {
+  position: relative;
+  cursor: var(--checkbox-cursor);
+  min-width: var(--checkbox-width);
+  height: var(--checkbox-height);
+  border-radius: #{px-to-rem-build(4)};
+  border: var(--checkbox-border-width) solid var(--checkbox-border-color);
+  background-color: var(--sbb-color-white-default);
+  color: var(--checkbox-selection-color);
+}
+
+// WIP: Icon is bigger then --checkbox-width
+.checkbox__icon {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+}
+
+.checkbox__label {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+  margin-left: var(--sbb-spacing-fixed-2x);
+  color: var(--checkbox-label-color);
+}
+
+.checkbox__label--reverse {
+  flex-direction: row-reverse;
+}
+
+.checkbox__label--space {
+  width: 100%;
+  justify-content: space-between;
+}
+
+input[type='checkbox']:focus-visible + .checkbox__inner {
+  border-radius: #{px-to-rem-build(4)};
+  @include focusOutline;
+}
