@@ -10,6 +10,7 @@
 .sbb-tab-title {
   position: relative;
   margin: 0;
+  min-height: var(--sbb-spacing-fixed-10x);
   display: flex;
   align-items: center;
   padding-block: var(--sbb-spacing-fixed-2x);
