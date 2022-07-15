@@ -113,26 +113,20 @@ jobs:
           exitZeroOnChanges: true
       - name: Add comment to PR with link to storybook
         uses: actions/github-script@v6
+        env:
+          storybookUrl: ${{ steps.chromatic-publish.outputs.storybookUrl }}
         with:
           script: |
-            console.log(context);
-            /*
+            const storybookUrl = process.env.storybookUrl;
             const createdAtDate = new Date(
               context.payload.pull_request.created_at
             ).toLocaleString('de');
             github.rest.issues.createComment({
-              issue_number: pullRequest.number,
+              issue_number: context.payload.pull_request.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `Preview ready from ${
-                pullRequest.head.sha
-              } at ${createdAtDate}:\n- ${previewBaseUrl}${
-                moduleUrl ? `\n- Examples link: ${moduleUrl}` : ''
-              }`,
+              body: `Preview ready from ${context.sha} at ${createdAtDate}:\n- ${storybookUrl}`,
             });
-            */
-      - run: echo "${{ toJSON(github) }}"
-      - run: echo "${{ toJSON(steps.chromatic-publish.outputs) }}"
 
   netlify:
     runs-on: ubuntu-latest
