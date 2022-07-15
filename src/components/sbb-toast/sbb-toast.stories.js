@@ -1,4 +1,3 @@
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import sbbToastEvents from './sbb-toast.events';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -10,10 +9,6 @@ const getCommonConfig = (args) => ({
   message: args.message,
   timeout: args.timeout,
   verticalPosition: args.verticalPosition,
-});
-
-const getIconConfig = (iconslot) => ({
-  icon: getMarkupForSvg(iconslot).outerHTML,
 });
 
 const getLinkConfig = (args) => ({
@@ -74,7 +69,7 @@ const templateConfig = (args) => ({
     action: {
       type: 'icon',
     },
-    icon: getMarkupForSvg(args.iconSlot).outerHTML,
+    icon: args.iconSlot,
   },
 });
 const Template = (args) => <sbb-toast {...templateConfig(args)} />;
@@ -145,8 +140,8 @@ const TemplateNoIconAndButtonAction = (args) => (
 
 const openIconAndActionCloseIcon = (args) => {
   const config = {
+    icon: args.iconSlot,
     ...getCommonConfig(args),
-    ...getIconConfig(args.iconSlot),
     ...getCloseIconConfig(),
   };
   const toast = createAndSetupToast(args, config);
@@ -161,8 +156,8 @@ const TemplateIconAndCloseIconAction = (args) => (
 
 const openIconAndNoCloseIconActionWithEventListeners = async (args) => {
   const config = {
+    icon: args.iconSlot,
     ...getCommonConfig(args),
-    ...getIconConfig(args.iconSlot),
     ...getCloseIconConfig(),
   };
   const toast = createAndSetupToast(args, config);
@@ -198,8 +193,8 @@ const TemplateIconAndNoCloseIconActionWithEventListeners = (args) => (
 
 const openIconAndLinkAction = (args) => {
   const config = {
+    icon: args.iconSlot,
     ...getCommonConfig(args),
-    ...getIconConfig(args.iconSlot),
     ...getLinkConfig(args),
   };
   const toast = createAndSetupToast(args, config);
@@ -214,8 +209,8 @@ const TemplateIconAndLinkAction = (args) => (
 
 const openIconAndButtonAction = (args) => {
   const config = {
+    icon: args.iconSlot,
     ...getCommonConfig(args),
-    ...getIconConfig(args.iconSlot),
     ...getActionConfig(args),
   };
   const toast = createAndSetupToast(args, config);

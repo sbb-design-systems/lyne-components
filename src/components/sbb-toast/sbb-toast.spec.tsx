@@ -16,7 +16,7 @@ describe('sbb-toast', () => {
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
@@ -45,19 +45,19 @@ describe('sbb-toast', () => {
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
         <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-2" role="dialog" style="z-index: 60002;">
           <mock:shadow-root>
            <div class="toast-wrapper">
-             <div class="toast toast-vertical-end toast-horizontal-center">
+             <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
                <span class="toast-text">
                  Message
                </span>
                <span class="toast-spacer"></span>
-               <span class="toast-action">
+               <span class="toast-action toast-action-icon">
                  <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
                    <span class="toast-close"></span>
                  </sbb-button>
@@ -82,7 +82,7 @@ describe('sbb-toast', () => {
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
@@ -117,7 +117,7 @@ describe('sbb-toast', () => {
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
@@ -145,12 +145,12 @@ describe('sbb-toast', () => {
 
   it('renders the toast with the icon and the message', async () => {
     const config: InterfaceToastConfiguration = {
-      icon: '<svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>',
+      icon: 'icon-name',
       message: 'Message',
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
@@ -159,7 +159,7 @@ describe('sbb-toast', () => {
             <div class="toast-wrapper">
               <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-icon">
-                  <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
+                  <sbb-icon name='icon-name'/>
                 </span>
                 <span class="toast-text">
                   Message
@@ -218,27 +218,27 @@ describe('sbb-toast', () => {
     };
     const config: InterfaceToastConfiguration = {
       action,
-      icon: '<svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>',
+      icon: 'icon-name',
       message: 'Message',
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
         <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-7" role="dialog" style="z-index: 60007;">
           <mock:shadow-root>
            <div class="toast-wrapper">
-             <div class="toast toast-vertical-end toast-horizontal-center">
+             <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
                <span class="toast-icon">
-                 <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
+                 <sbb-icon name='icon-name'/>
                </span>
                <span class="toast-text">
                  Message
                </span>
                <span class="toast-spacer"></span>
-               <span class="toast-action">
+               <span class="toast-action toast-action-icon">
                  <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
                    <span class="toast-close"></span>
                  </sbb-button>
@@ -259,12 +259,12 @@ describe('sbb-toast', () => {
     };
     const config: InterfaceToastConfiguration = {
       action,
-      icon: '<svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>',
+      icon: 'icon-name',
       message: 'Message',
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
@@ -273,7 +273,7 @@ describe('sbb-toast', () => {
               <div class="toast-wrapper">
                 <div class="toast toast-vertical-end toast-horizontal-center">
                   <span class="toast-icon">
-                    <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
+                    <sbb-icon name='icon-name'/>
                   </span>
                   <span class="toast-text">
                     Message
@@ -298,12 +298,12 @@ describe('sbb-toast', () => {
     };
     const config: InterfaceToastConfiguration = {
       action,
-      icon: '<svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>',
+      icon: 'icon-name',
       message: 'Message',
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
@@ -312,7 +312,7 @@ describe('sbb-toast', () => {
             <div class="toast-wrapper">
               <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-icon">
-                  <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
+                  <sbb-icon name='icon-name'/>
                 </span>
                 <span class="toast-text">
                   Message
@@ -342,12 +342,12 @@ describe('sbb-toast', () => {
     };
     const config: InterfaceToastConfiguration = {
       action,
-      icon: '<svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>',
+      icon: 'icon-name',
       message: 'Message',
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(root).toEqualHtml(`
@@ -356,7 +356,7 @@ describe('sbb-toast', () => {
             <div class="toast-wrapper">
               <div class="toast toast-vertical-end toast-horizontal-center">
                 <span class="toast-icon">
-                  <svg height="24" width="24"><circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red"/></svg>
+                  <sbb-icon name='icon-name'/>
                 </span>
                 <span class="toast-text">
                   Message
@@ -383,7 +383,7 @@ describe('sbb-toast', () => {
     };
     const page = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(page.root).toEqualHtml(`
@@ -421,7 +421,7 @@ describe('sbb-toast', () => {
     };
     const page = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(page.root).toEqualHtml(`
@@ -468,19 +468,19 @@ describe('sbb-toast', () => {
     };
     const page = await newSpecPage({
       components: [SbbToast],
-      template: () => <sbb-toast config={config}></sbb-toast>,
+      template: () => <sbb-toast config={config} />,
     });
 
     expect(page.root).toEqualHtml(`
        <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-13" role="dialog" style="z-index: 60013;">
           <mock:shadow-root>
             <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
+              <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
                 <span class="toast-text">
                   Message
                 </span>
                 <span class="toast-spacer"></span>
-                <span class="toast-action">
+                <span class="toast-action toast-action-icon">
                   <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
                     <span class="toast-close"></span>
                   </sbb-button>
@@ -503,7 +503,7 @@ describe('sbb-toast', () => {
 
     await toast.present();
     const onDidDismiss = toast.onDidDismiss();
-    // query and click for button doesn't work; click event is correctly catched
+    // query and click for button doesn't work; click event is correctly caught
     toast.dispatchEvent(new CustomEvent(sbbButtonEvents.click));
     await expect(onDidDismiss).resolves.toStrictEqual(returnOnDismiss);
   });

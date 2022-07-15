@@ -78,9 +78,6 @@ export interface InterfaceToastConfiguration {
   /** SVG string or reference to a SVG element for icon. */
   icon?: string | HTMLElement;
 
-  /** Id of <template> to use for the icon. */
-  iconTemplate?: string;
-
   /** Action configuration. */
   action?: InterfaceToastLink | InterfaceToastAction | InterfaceToastIcon;
 

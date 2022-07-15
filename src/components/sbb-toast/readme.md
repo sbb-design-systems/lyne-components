@@ -118,12 +118,14 @@ Type: `Promise<void>`
 
 - [sbb-link](../sbb-link)
 - [sbb-button](../sbb-button)
+- [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-toast --> sbb-link
   sbb-toast --> sbb-button
+  sbb-toast --> sbb-icon
   style sbb-toast fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -240,7 +240,6 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
    * Renders the action button (link/action/close icon).
    */
   private _renderAction(): JSX.Element {
-    console.log('render');
     switch (this._internalConfig.action.type) {
       case 'link': {
         return (
@@ -306,7 +305,11 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
     let iconTemplate = '';
 
     if (typeof this._internalConfig.icon === 'string') {
-      iconTemplate = <span class="toast-icon" innerHTML={this._internalConfig.icon} />;
+      iconTemplate = (
+        <span class="toast-icon">
+          <sbb-icon name={this._internalConfig.icon} />
+        </span>
+      );
     } else if (this._hasIconSlot) {
       iconTemplate = (
         <span class="toast-icon">
@@ -316,7 +319,7 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
     }
 
     let toastClass = `toast toast-vertical-${this._internalConfig.verticalPosition} toast-horizontal-${this._internalConfig.horizontalPosition}`;
-    toastClass += this._internalConfig.action.type === 'icon' ? ' toast--button-icon' : '';
+    toastClass += this._internalConfig.action?.type === 'icon' ? ' toast--button-icon' : '';
 
     return (
       <Host
@@ -336,10 +339,7 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
               class="toast-text"
               innerHTML={StringSanitizer.sanitizeDOMString(this._internalConfig.message)}
             />
-            {actionContent && [
-              <span class="toast-spacer" />,
-              actionContent,
-            ]}
+            {actionContent && [<span class="toast-spacer" />, actionContent]}
           </div>
         </div>
       </Host>
