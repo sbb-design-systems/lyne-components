@@ -41,7 +41,7 @@ export class SbbToggleCheck {
   @Prop() public accessibilityLabelledby?: string;
 
   /** The aria-describedby prop for the hidden input. */
-  @Prop() public accessibilityDescribedBy?: string;
+  @Prop() public accessibilityDescribedby?: string;
 
   /** Event for emiting whenever selection is changed. */
   @Event() public sbbChange: EventEmitter;
@@ -51,25 +51,12 @@ export class SbbToggleCheck {
     this.checked = this._checkbox?.checked;
   }
 
-  /** Handles the toggle when it is undefined or changed without a click. */
-  private _synchCheckState(): void {
-    this._checkbox.checked = this.checked;
-    if (this.checked === undefined) {
-      this.checked = this._checkbox?.checked;
-    }
-
-    if (this._checkbox?.checked !== this.checked) {
-      this._checkbox.checked = this.checked;
-    }
-  }
-
   @Watch('checked')
   public checkedChanged(isChecked: boolean): void {
     this.sbbChange.emit({
       checked: isChecked,
       value: this.value,
     });
-    console.log('testttt');
   }
 
   public render(): JSX.Element {
@@ -93,28 +80,15 @@ export class SbbToggleCheck {
           }}
           aria-label={this.accessibilityLabel}
           aria-labelledby={this.accessibilityLabelledby}
-          aria-describedby={this.accessibilityDescribedBy}
+          aria-describedby={this.accessibilityDescribedby}
         />
         {this.labelPosition === 'before' ? <slot /> : ''}
         <span class={`toggle-check__slider toggle-check__slider--${this.labelPosition}`}>
           <span class="toggle-check__circle">
             {this.checked ? (
-              <span class="toggle-check__tick">
-                <slot name="icon">
-                  <svg
-                    width="36"
-                    height="36"
-                    viewBox="0,0,36,36"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="m28.8534,10.8683-13.5,13.485-.3536.3532-.3533-.3534-6.00002-6,.70711-.7071,5.64661,5.6467,13.1465-13.1319.7067.7075z"
-                    />
-                  </svg>
-                </slot>
-              </span>
+              <slot name="icon">
+                <sbb-icon name={this.icon}></sbb-icon>
+              </slot>
             ) : (
               ''
             )}
@@ -123,9 +97,5 @@ export class SbbToggleCheck {
         {this.labelPosition === 'after' ? <slot /> : ''}
       </label>
     );
-  }
-
-  public componentDidRender(): void {
-    this._synchCheckState();
   }
 }

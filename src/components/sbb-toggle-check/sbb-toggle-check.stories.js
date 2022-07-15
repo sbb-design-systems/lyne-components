@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -44,7 +43,6 @@ const defaultArgs = {
   'label-position': labelPosition[1],
   label: 'Title',
   name: 'toggle',
-  icon: 'tick-small',
 };
 
 /* ************************************************* */
@@ -52,10 +50,7 @@ const defaultArgs = {
 /* ************************************************* */
 
 const ToggleCheckDefaultTemplate = (args) => (
-  <sbb-toggle-check {...args}>
-    {args.label}
-    <span slot="icon">{getMarkupForSvg(args.icon)}</span>
-  </sbb-toggle-check>
+  <sbb-toggle-check {...args}>{args.label}</sbb-toggle-check>
 );
 
 export const sbbToggleCheckDefault = ToggleCheckDefaultTemplate.bind({});

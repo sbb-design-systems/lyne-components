@@ -61,13 +61,9 @@ describe('sbb-toggle-check', () => {
                 <input checked="" id="sbb-checkbox-3" type="checkbox"/>
                 <span class="toggle-check__slider toggle-check__slider--after">
                   <span class="toggle-check__circle">
-                    <span class="toggle-check__tick">
-                      <slot name="icon">
-                        <svg height="36" viewBox="0,0,36,36" width="36" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd" d="m28.8534,10.8683-13.5,13.485-.3536.3532-.3533-.3534-6.00002-6,.70711-.7071,5.64661,5.6467,13.1465-13.1319.7067.7075z" fill-rule="evenodd"></path>
-                        </svg>
-                      </slot>
-                    </span>
+                    <slot name="icon">
+                      <sbb-icon name="tick-small"></sbb-icon>
+                    </slot>
                   </span>
                 </span>
                 <slot></slot>
@@ -115,13 +111,9 @@ describe('sbb-toggle-check', () => {
                 <input checked="" type="checkbox" disabled id="sbb-checkbox-5"/>
                 <span class="toggle-check__slider toggle-check__slider--after">
                   <span class="toggle-check__circle">
-                    <span class="toggle-check__tick">
-                      <slot name="icon">
-                        <svg height="36" viewBox="0,0,36,36" width="36" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd" d="m28.8534,10.8683-13.5,13.485-.3536.3532-.3533-.3534-6.00002-6,.70711-.7071,5.64661,5.6467,13.1465-13.1319.7067.7075z" fill-rule="evenodd"></path>
-                        </svg>
-                      </slot>
-                    </span>
+                    <slot name="icon">
+                      <sbb-icon name="tick-small"></sbb-icon>
+                    </slot>
                   </span>
                 </span>
                 <slot></slot>

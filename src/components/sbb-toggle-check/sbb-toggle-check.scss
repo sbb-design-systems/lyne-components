@@ -1,3 +1,31 @@
+:host {
+  // We use inline-flex here to avoid leaking white space due to the svg element.
+  display: inline-flex;
+
+  --toggle-check-color: var(--sbb-color-charcoal-default);
+  --toggle-check-background: var(--sbb-color-smoke-default);
+  --toggle-check-fill: var(--sbb-color-red-default);
+  --toggle-check-circle-background: var(--sbb-color-white-default);
+  --toggle-check-width: #{px-to-rem-build(48)};
+  --toggle-check-height: #{px-to-rem-build(28)};
+  --toggle-check-circle-diameter: #{px-to-rem-build(24)};
+  --toggle-check-circle-offset: #{px-to-rem-build(2)};
+  --toggle-check-cursor: pointer;
+
+  .toggle-check--checked {
+    --toggle-check-checked-background: var(--sbb-color-red-default);
+  }
+
+  .toggle-check--disabled {
+    --toggle-check-color: var(--sbb-color-graphite-default);
+    --toggle-check-background: var(--sbb-color-cloud-default);
+    --toggle-check-checked-background: var(--sbb-color-cloud-default);
+    --toggle-check-fill: var(--sbb-color-granite-default);
+    --toggle-check-circle-background: var(--sbb-color-milk-default);
+    --toggle-check-cursor: not-allowed;
+  }
+}
+
 .toggle-check {
   position: relative;
   display: inline-flex;
@@ -23,6 +51,9 @@ input[type='checkbox'] {
   width: 100%;
   height: 100%;
   cursor: inherit;
+
+  // Puts the element behind the parent while keeping it visible so that
+  // it allows `click` events to propagate up.
   z-index: -1;
 }
 
@@ -34,8 +65,9 @@ input[type='checkbox'] {
   top: 50%;
   width: var(--toggle-check-circle-diameter);
   height: var(--toggle-check-circle-diameter);
-  border-radius: #{px-to-rem-build(24)};
+  border-radius: var(--toggle-check-height);
   background-color: var(--toggle-check-circle-background);
+  color: var(--toggle-check-fill);
   will-change: transform;
   transform: translate(var(--toggle-check-circle-offset), -50%);
   transition: var(--sbb-animation-duration-6x);
@@ -43,10 +75,6 @@ input[type='checkbox'] {
   .toggle-check--checked & {
     transform: translate(calc(100% - var(--toggle-check-circle-offset)), -50%);
   }
-}
-
-::slotted([slot='icon']) {
-  fill: var(--toggle-check-fill);
 }
 
 .toggle-check__slider {
@@ -60,33 +88,10 @@ input[type='checkbox'] {
   background-color: var(--toggle-check-background);
 
   .toggle-check--checked & {
-    background-color: var(--sbb-color-red-default);
+    background: var(--toggle-check-checked-background);
   }
 
   input[type='checkbox']:focus-visible + & {
     @include focusOutline;
-  }
-}
-
-:host {
-  // We use inline-flex here to avoid leaking white space due to the svg element.
-  display: inline-flex;
-
-  --toggle-check-color: var(--sbb-color-charcoal-default);
-  --toggle-check-background: var(--sbb-color-smoke-default);
-  --toggle-check-fill: var(--sbb-color-red-default);
-  --toggle-check-circle-background: var(--sbb-color-white-default);
-  --toggle-check-width: #{px-to-rem-build(48)};
-  --toggle-check-height: #{px-to-rem-build(28)};
-  --toggle-check-circle-diameter: #{px-to-rem-build(24)};
-  --toggle-check-circle-offset: #{px-to-rem-build(2)};
-  --toggle-check-cursor: pointer;
-
-  &.toggle-check--disabled {
-    --toggle-check-color: var(--sbb-color-graphite-default);
-    --toggle-check-background: var(--sbb-color-cloud-default);
-    --toggle-check-fill: var(--sbb-color-granite-default);
-    --toggle-check-circle-background: var(--sbb-color-milk-default);
-    --toggle-check-cursor: not-allowed;
   }
 }

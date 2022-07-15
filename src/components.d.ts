@@ -940,7 +940,7 @@ export namespace Components {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "accessibilityDescribedBy"?: string;
+        "accessibilityDescribedby"?: string;
         /**
           * The aria-label prop for the hidden input.
          */
@@ -2232,7 +2232,7 @@ declare namespace LocalJSX {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "accessibilityDescribedBy"?: string;
+        "accessibilityDescribedby"?: string;
         /**
           * The aria-label prop for the hidden input.
          */
