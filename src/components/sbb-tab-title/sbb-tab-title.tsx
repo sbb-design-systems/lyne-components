@@ -4,7 +4,7 @@ import { InterfaceTabTitleAttributes } from './sbb-tab-title.custom';
 /**
  * @slot unnamed - This slot will show the provided tab title.
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
- * @slot amount - Provide a `sbb-tab-amount` to show an amount to the right of the title.
+ * @slot amount - Provide an `sbb-tab-amount` to show an amount to the right of the title.
  */
 
 @Component({
@@ -13,14 +13,17 @@ import { InterfaceTabTitleAttributes } from './sbb-tab-title.custom';
   tag: 'sbb-tab-title',
 })
 export class SbbTabTitle {
-  /** Title level */
+  /**
+   * The level will correspond to the heading tag generated in the title.
+   * Use this property to generate the appropriate header tag, taking SEO into consideration.
+   */
   @Prop() public level?: InterfaceTabTitleAttributes['level'] = '1';
 
-  /** Active tab boolean */
+  /** Active tab state */
   @Prop()
   public active?: boolean;
 
-  /** Disabled tab boolean */
+  /** Disabled tab state */
   @Prop()
   public disabled?: boolean;
 

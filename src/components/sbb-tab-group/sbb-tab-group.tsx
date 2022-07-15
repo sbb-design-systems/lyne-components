@@ -15,9 +15,9 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
 import throttle from '../../global/helpers/throttle';
 
 /**
- * @slot tab-bar - Provide an heading tag to display a label in the tab bar.
- * E.g. `<h1>Tab label</h1>`
- * @slot unnamed - Provide html-content to show as the content of the tab.
+ * @slot tab-bar - Provide an `sbb-tab-title` in order to display a label in the tab bar.
+ * E.g. `<sbb-tab-title>Tab label</sbb-tab-title>`
+ * @slot unnamed - Provide html-content to show as tab content.
  * Wrap the content in a div, a section or an article:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
@@ -52,7 +52,7 @@ export class SbbTabGroup {
   @Prop() public initialSelectedIndex = 0;
 
   /**
-   * Emit event on selected tab change
+   * Emits an event on selected tab change
    */
   @Event({
     eventName: 'sbb-tab-group_did-change',
@@ -61,7 +61,7 @@ export class SbbTabGroup {
 
   /**
    * Disables a tab by index.
-   * @param tabIndex The index of the tab tou want to disable.
+   * @param tabIndex The index of the tab you want to disable.
    */
   @Method()
   public async disableTab(tabIndex: number): Promise<void> {
@@ -70,7 +70,7 @@ export class SbbTabGroup {
 
   /**
    * Enables a tab by index.
-   * @param tabIndex The index of the tab tou want to enable.
+   * @param tabIndex The index of the tab you want to enable.
    */
   @Method()
   public async enableTab(tabIndex: number): Promise<void> {
@@ -79,7 +79,7 @@ export class SbbTabGroup {
 
   /**
    * Activates a tab by index.
-   * @param tabIndex The index of the tab tou want to activate.
+   * @param tabIndex The index of the tab you want to activate.
    */
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {

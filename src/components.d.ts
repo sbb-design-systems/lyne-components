@@ -634,17 +634,17 @@ export namespace Components {
     interface SbbTabGroup {
         /**
           * Activates a tab by index.
-          * @param tabIndex The index of the tab tou want to activate.
+          * @param tabIndex The index of the tab you want to activate.
          */
         "activateTab": (tabIndex: number) => Promise<void>;
         /**
           * Disables a tab by index.
-          * @param tabIndex The index of the tab tou want to disable.
+          * @param tabIndex The index of the tab you want to disable.
          */
         "disableTab": (tabIndex: number) => Promise<void>;
         /**
           * Enables a tab by index.
-          * @param tabIndex The index of the tab tou want to enable.
+          * @param tabIndex The index of the tab you want to enable.
          */
         "enableTab": (tabIndex: number) => Promise<void>;
         /**
@@ -654,15 +654,15 @@ export namespace Components {
     }
     interface SbbTabTitle {
         /**
-          * Active tab boolean
+          * Active tab state
          */
         "active"?: boolean;
         /**
-          * Disabled tab boolean
+          * Disabled tab state
          */
         "disabled"?: boolean;
         /**
-          * Title level
+          * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
         "level"?: InterfaceTabTitleAttributes['level'];
     }
@@ -1930,21 +1930,21 @@ declare namespace LocalJSX {
          */
         "initialSelectedIndex"?: number;
         /**
-          * Emit event on selected tab change
+          * Emits an event on selected tab change
          */
         "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
     }
     interface SbbTabTitle {
         /**
-          * Active tab boolean
+          * Active tab state
          */
         "active"?: boolean;
         /**
-          * Disabled tab boolean
+          * Disabled tab state
          */
         "disabled"?: boolean;
         /**
-          * Title level
+          * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
         "level"?: InterfaceTabTitleAttributes['level'];
     }
