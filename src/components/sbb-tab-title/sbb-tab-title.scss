@@ -24,7 +24,7 @@
     inset: 0;
     border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
     border-radius: var(--sbb-spacing-fixed-6x);
-    background-color: transparent;
+    background-color: var(--sbb-color-white-default);
     transition-duration: var(--sbb-animation-duration-4x);
     transition-timing-function: var(--sbb-animation-easing);
     transition-property: inset, background-color, border-color, box-shadow;
@@ -76,6 +76,10 @@
     border-color: var(--sbb-color-black-default);
     background-color: var(--sbb-color-black-default);
   }
+
+  ::slotted(sbb-tab-amount) {
+    color: var(--sbb-color-cement-default);
+  }
 }
 
 .sbb-tab-title.disabled {
@@ -114,6 +118,6 @@
 .sbb-tab-title:not(.active):active {
   &::before {
     border-color: var(--sbb-color-black-default);
-    background-color: transparent;
+    background-color: var(--sbb-color-white-default);
   }
 }
