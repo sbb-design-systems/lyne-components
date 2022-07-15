@@ -106,13 +106,31 @@ jobs:
       - name: Publish to Chromatic
         id: chromatic-publish
         uses: chromaui/action@v1
-        # TODO: Figure out why chromatic is failing
-        continue-on-error: true
         with:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           storybookBuildDir: storybook-static
           exitOnceUploaded: true
           exitZeroOnChanges: true
+      - name: Add comment to PR with link to storybook
+        uses: actions/github-script@v6
+        with:
+          script: |
+            console.log(context);
+            /*
+            const createdAtDate = new Date(
+              context.payload.pull_request.created_at
+            ).toLocaleString('de');
+            github.rest.issues.createComment({
+              issue_number: pullRequest.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Preview ready from ${
+                pullRequest.head.sha
+              } at ${createdAtDate}:\n- ${previewBaseUrl}${
+                moduleUrl ? `\n- Examples link: ${moduleUrl}` : ''
+              }`,
+            });
+            */
       - run: echo "${{ toJSON(github) }}"
       - run: echo "${{ toJSON(steps.chromatic-publish.outputs) }}"
 
