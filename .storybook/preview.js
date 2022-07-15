@@ -4,42 +4,26 @@ import '../dist/lyne-components/lyne-components.css';
 
 defineCustomElements();
 
-const getBreakpointTokens = () => {
-  const tokens = TokensRaw.tokens;
-
-  return tokens.filter((token) => {
-    const isBreakpoint = token.attributes.category === 'breakpoint';
-    const isMin = token.attributes.item === 'min';
-
-    return isBreakpoint && isMin;
-  });
-};
+const getBreakpointTokens = () =>
+  TokensRaw.tokens.filter(
+    (token) => token.path.includes('breakpoint') && token.attributes.item === 'min'
+  );
 
 const getViewports = () => {
-  let viewports = [];
-
-  getBreakpointTokens().forEach((breakpoint) => {
-    viewports.push(breakpoint.value);
-  });
-
   /**
    * CHROMATIC RESTRICTIONS:
    * - min allowed value = 320
    * - max allowed value = 1800
    */
-  viewports = viewports.map((viewport) => {
-    if (viewport > 1800) {
+  return getBreakpointTokens().map((breakpoint) => {
+    if (breakpoint.value > 1800) {
       return 1800;
-    }
-
-    if (viewport < 320) {
+    } else if (breakpoint.value < 320) {
       return 320;
     }
 
-    return viewport;
+    return breakpoint.value;
   });
-
-  return viewports;
 };
 
 const getBreakpointNames = () => {

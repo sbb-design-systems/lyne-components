@@ -104,14 +104,29 @@ jobs:
           name: storybook
           path: storybook-static/
       - name: Publish to Chromatic
+        id: chromatic-publish
         uses: chromaui/action@v1
-        # TODO: Figure out why chromatic is failing
-        continue-on-error: true
         with:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           storybookBuildDir: storybook-static
           exitOnceUploaded: true
           exitZeroOnChanges: true
+      - name: Add comment to PR with link to storybook
+        uses: actions/github-script@v6
+        env:
+          storybookUrl: ${{ steps.chromatic-publish.outputs.storybookUrl }}
+        with:
+          script: |
+            const storybookUrl = process.env.storybookUrl;
+            const createdAtDate = new Date(
+              context.payload.pull_request.created_at
+            ).toLocaleString('de');
+            github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Preview ready from ${context.sha} at ${createdAtDate}:\n- ${storybookUrl}`,
+            });
 
   netlify:
     runs-on: ubuntu-latest
