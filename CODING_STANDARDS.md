@@ -115,7 +115,7 @@ class ConfigBuilder {
 
 #### Access modifiers
 
-- Use `public` keyword as it is the recommendation by StencilJS.
+- Use `public` keyword as it is the recommendation by Stencil.js.
 - Use `private` when appropriate and possible, prefixing the name with an underscore.
 - Use `protected` when appropriate and possible with no prefix.
 
@@ -214,7 +214,7 @@ openDialog() {
 
 #### Inheritance
 
-Inheritence cannot be used for components, as StencilJS does not allow it.
+Inheritence cannot be used for components, as Stencil.js does not allow it.
 
 #### Prefer for-of instead of forEach
 
@@ -269,7 +269,7 @@ if (data) {
 return data ?? data2 ?? data3;
 ```
 
-### StencilJS
+### Stencil.js
 
 #### Event naming
 
@@ -300,6 +300,82 @@ Use `@Prop() variant: 'default' | 'etc'` to provide different design variants fo
 #### Use `negative` property, if a component has a color negative specification
 
 Use `@Prop() negative: boolean` to provide a color negative design for a component.
+
+#### Forwarding aria attributes
+
+For certain components we need to forward aria attributes to an inner element in the component.
+e.g. `<sbb-checkbox>` has an inner `<input type="checkbox">`.
+
+For these scenarios, we provide properties for each relevant aria attribute with the name replacing
+`aria-*` with `accessibility-*`.
+
+```ts
+/** This will be forwarded as aria-describedby to the relevant nested element. */
+@Prop() public accessibilityDescribedby?: string;
+/** This will be forwarded as aria-label to the relevant nested element. */
+@Prop() public accessibilityLabel?: string;
+/** This will be forwarded as aria-labelledby to the relevant nested element. */
+@Prop() public accessibilityLabelledby?: string;
+```
+
+#### id handling
+
+Element ids are relevent for both connecting elements for specific functionality and to provide a
+better experience for accessibility.
+
+##### Nested id
+
+We sometimes need to forward ids to inner elements, in order to facilitate screen reader usage.
+For this a property should be provided with a default value. The name of the property should be
+`inputId` for custom form elements and `{componentName}Id` for everything else.
+
+The default value should be `sbb-component-name-element-name-${++nextId}`, with `let nextId = 0;` being declared
+in the global scope before the component.
+
+```ts
+let nextId = 0;
+
+@Component({
+  shadow: true,
+  styleUrl: 'sbb-title.scss',
+  tag: 'sbb-title',
+})
+export class SbbTitle {
+  ...
+  /** This id will be forwarded to the relevant inner element. */
+  @Prop() public titleId = `sbb-title-heading-${++nextId}`;
+  ...
+}
+```
+
+##### Host id
+
+In certain scenarios a component should have a default id (e.g. when the usage of the id is
+expected).
+
+Since Stencil.js warns from creating properties of existing/native properties (e.g. id), we should
+not create id properties.
+
+There are various ways to assign an id to the host. One option is to use the `assignId` function:
+
+```ts
+let nextId = 0;
+
+@Component({
+  shadow: true,
+  styleUrl: 'sbb-title.scss',
+  tag: 'sbb-title',
+})
+export class SbbTitle {
+  public render(): JSX.Element {
+    ...
+    return (
+      <Host
+        ref={assignId(() => `sbb-title-${++nextId}`)}
+      ...
+  }
+}
+```
 
 ### CSS
 
