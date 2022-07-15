@@ -5964,10 +5964,10 @@ eslint-config-prettier@8.5.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
   integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
 
-eslint-plugin-jest@26.5.3:
-  version "26.5.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-26.5.3.tgz#a3ceeaf4a757878342b8b00eca92379b246e5505"
-  integrity sha512-sICclUqJQnR1bFRZGLN2jnSVsYOsmPYYnroGCIMVSvTS3y8XR3yjzy1EcTQmk6typ5pRgyIWzbjqxK6cZHEZuQ==
+eslint-plugin-jest@26.6.0:
+  version "26.6.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-26.6.0.tgz#546804fa42da75d7d58d4d3b278d5186abd3f6c0"
+  integrity sha512-f8n46/97ZFdU4KqeQYqO8AEVGIhHWvkpgNBWHH3jrM28/y8llnbf3IjfIKv6p2pZIMinK1PCqbbROxs9Eud02Q==
   dependencies:
     "@typescript-eslint/utils" "^5.10.0"
 
@@ -10539,10 +10539,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-puppeteer@15.3.2:
-  version "15.3.2"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-15.3.2.tgz#62162739044d570ab9907f85b1e1bbcf52adc79e"
-  integrity sha512-6z4fTHCHTpG3Yu7zqP0mLfCmkNkgw5KSUfLAwuBabz9Pkqoe0Z08hqUx5GNxhhMgEo4YVOSPBshePA6zliznWQ==
+puppeteer@15.4.0:
+  version "15.4.0"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-15.4.0.tgz#31f043ee64cc4e1b5cbe99ad900653aab4afb186"
+  integrity sha512-wxJRbofjaycCaQ9fhABlToJobrjxlABiFi6NvdkOPVJMYFblxDlDTjkg+b6bZYi7xN+lEXn84GBZsA5DYb3wfw==
   dependencies:
     cross-fetch "3.1.5"
     debug "4.3.4"
