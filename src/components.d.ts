@@ -919,19 +919,15 @@ export namespace Components {
          */
         "level"?: InterfaceTitleAttributes1['level'];
         /**
-          * Text for the title
+          * Choose negative variant
          */
-        "text": string;
+        "negative"?: boolean;
         /**
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
-        "titleId"?: '';
+        "titleId": string;
         /**
-          * Choose the title style variant
-         */
-        "variant": InterfaceTitleAttributes1['variant'];
-        /**
-          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
+          * Visual level for the title. Optional, if not set, the value of level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
         /**
@@ -2158,19 +2154,15 @@ declare namespace LocalJSX {
          */
         "level"?: InterfaceTitleAttributes1['level'];
         /**
-          * Text for the title
+          * Choose negative variant
          */
-        "text": string;
+        "negative"?: boolean;
         /**
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
-        "titleId"?: '';
+        "titleId"?: string;
         /**
-          * Choose the title style variant
-         */
-        "variant"?: InterfaceTitleAttributes1['variant'];
-        /**
-          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
+          * Visual level for the title. Optional, if not set, the value of level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
         /**

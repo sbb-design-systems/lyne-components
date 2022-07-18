@@ -167,14 +167,14 @@ const Template = (args) => (
               class="i-pretend-to-be-the-avatar-component"
               style="min-width: 72px; width: 72px; height: 72px; background-color: var(--sbb-color-cloud-default); border-radius: 50%; display:flex;'"
             ></span>
-            <sbb-title level="2" text="Willkommen, Christina Müller" visual-level="1"></sbb-title>
+            <sbb-title level="2" visual-level="1">
+              Willkommen, Christina Müller
+            </sbb-title>
           </sbb-stack>
           <sbb-stack appearance="vertical" gap-vertical="responsive-s">
-            <sbb-title
-              level="3"
-              text="Ihre aktuellen Billette & Reisen."
-              visual-level="4"
-            ></sbb-title>
+            <sbb-title level="3" visual-level="4">
+              Ihre aktuellen Billette & Reisen.
+            </sbb-title>
             <sbb-stack tag="ul" appearance="vertical" gap-vertical="fixed-4x">
               <li>
                 <sbb-card-product
@@ -201,7 +201,9 @@ const Template = (args) => (
                     <span>Sparbillett</span>
                   </div>
                   <div slot="title">
-                    <sbb-title level="2" text="GA" visual-level="1"></sbb-title>
+                    <sbb-title level="2" visual-level="1">
+                      GA
+                    </sbb-title>
                     <sbb-journey-header
                       destination="Loèche-les-Bains"
                       is-round-trip=""
@@ -211,7 +213,9 @@ const Template = (args) => (
                     ></sbb-journey-header>
                   </div>
                   <div slot="lead">
-                    <sbb-title level="3" text="Generalabonnement" visual-level="6"></sbb-title>
+                    <sbb-title level="3" visual-level="6">
+                      Generalabonnement
+                    </sbb-title>
                   </div>
                   <div slot="text">
                     <span>2. Klasse, gültig bis 30.11.2021</span>
@@ -281,11 +285,9 @@ const Template = (args) => (
                     <span>Sparbillett</span>
                   </div>
                   <div slot="title">
-                    <sbb-title
-                      level="2"
-                      text="Libero Tageskarte: Alle Zonen"
-                      visual-level="6"
-                    ></sbb-title>
+                    <sbb-title level="2" visual-level="6">
+                      Libero Tageskarte: Alle Zonen
+                    </sbb-title>
                   </div>
                   <div slot="text">
                     <span>Heute, Gültig 24 Stunden</span>
@@ -366,12 +368,9 @@ const Template = (args) => (
         space-leading="responsive-l"
         space-trailing="responsive-l"
       >
-        <sbb-title
-          level="2"
-          text="Ihre Billette & Abos."
-          variant="positive"
-          visual-level="2"
-        ></sbb-title>
+        <sbb-title level="2" visual-level="2">
+          Ihre Billette & Abos.
+        </sbb-title>
         <sbb-grid variant="base--top-products">
           <sbb-card-product
             style="height: 100%;"
@@ -391,7 +390,9 @@ const Template = (args) => (
               </svg>
             </div>
             <div slot="title">
-              <sbb-title level="2" text="Tageskarte" visual-level="6"></sbb-title>
+              <sbb-title level="2" visual-level="6">
+                Tageskarte
+              </sbb-title>
             </div>
             <div slot="text">
               <span>Gültig heute</span>
@@ -423,7 +424,9 @@ const Template = (args) => (
               </svg>
             </div>
             <div slot="title">
-              <sbb-title level="2" text="Velo Tageskarte" visual-level="6"></sbb-title>
+              <sbb-title level="2" visual-level="6">
+                Velo Tageskarte
+              </sbb-title>
             </div>
             <div slot="text">
               <span>Gültig heute</span>
@@ -455,7 +458,9 @@ const Template = (args) => (
               </svg>
             </div>
             <div slot="title">
-              <sbb-title level="2" text="Libero Kurzstrecke" visual-level="6"></sbb-title>
+              <sbb-title level="2" visual-level="6">
+                Libero Kurzstrecke
+              </sbb-title>
             </div>
             <div slot="text">
               <span>Gültig heute</span>
@@ -478,10 +483,14 @@ const Template = (args) => (
             href-value="https://github.com/lyne-design-system/lyne-components"
           >
             <div slot="title">
-              <sbb-title level="2" text="GA" visual-level="1"></sbb-title>
+              <sbb-title level="2" visual-level="1">
+                GA
+              </sbb-title>
             </div>
             <div slot="lead">
-              <sbb-title level="3" text="Generalabonnement" visual-level="6"></sbb-title>
+              <sbb-title level="3" visual-level="6">
+                Generalabonnement
+              </sbb-title>
             </div>
             <div slot="text">
               <span>2. Klasse, gültig bis 30.11.2021</span>
@@ -631,7 +640,9 @@ const Template = (args) => (
       </div>
       <div slot="col-3">
         <sbb-stack>
-          <sbb-title level="2" text="Newsletter." visual-level="5"></sbb-title>
+          <sbb-title level="2" visual-level="5">
+            Newsletter.
+          </sbb-title>
           <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
           <sbb-stack space-leading="fixed-3x">
             <sbb-link-button
