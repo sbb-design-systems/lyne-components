@@ -127,9 +127,9 @@ export class SbbIcon {
     return (
       <Host role="img" class={`sbb-icon ${this._svgName ?? ''}`}>
         {this._svgIcon ? (
-          <div class="sbb-icon-inner" innerHTML={this._svgIcon}></div>
+          <span class="sbb-icon-inner" innerHTML={this._svgIcon}></span>
         ) : (
-          <div class="sbb-icon-inner"></div>
+          <span class="sbb-icon-inner"></span>
         )}
       </Host>
     );
