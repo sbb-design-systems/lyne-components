@@ -298,6 +298,14 @@ export namespace Components {
     }
     interface SbbIcon {
         /**
+          * The aria-hidden property is set to "true" by default, since an icon alone does not convey any useful information for a screen-reader user.
+         */
+        "ariaHidden": string;
+        /**
+          * Only set the aria-label if aria-hidden is set to "false".
+         */
+        "ariaLabel": string;
+        /**
           * The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
          */
         "name": string;
@@ -1532,6 +1540,14 @@ declare namespace LocalJSX {
         "variant"?: InterfaceGridAttributes['variant'];
     }
     interface SbbIcon {
+        /**
+          * The aria-hidden property is set to "true" by default, since an icon alone does not convey any useful information for a screen-reader user.
+         */
+        "ariaHidden"?: string;
+        /**
+          * Only set the aria-label if aria-hidden is set to "false".
+         */
+        "ariaLabel"?: string;
         /**
           * The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
          */
