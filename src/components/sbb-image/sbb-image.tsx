@@ -76,7 +76,7 @@ export class SbbImage {
   @Prop() public decoding: InterfaceImageAttributes['decoding'] = 'auto';
 
   /**
-   * Set this to true, to receive visual guideance where the custom focal
+   * Set this to true, to receive visual guidance where the custom focal
    * point is currently set.
    */
   @Prop() public focalPointDebug = false;
@@ -90,13 +90,6 @@ export class SbbImage {
    * Pass in a floating number between 0 (top) and 1 (bottom).
    */
   @Prop() public focalPointY = 1;
-
-  /**
-   * In cases when the image is just serving a decorative purpose,
-   * we can hide it from assistive technologies (e.g. an image
-   * in a teaser card)
-   */
-  @Prop() public hideFromScreenreader = false;
 
   /**
    * Right now the module is heavily coupled with the image delivery
@@ -224,10 +217,9 @@ export class SbbImage {
   @Prop() public pictureSizesConfig?: string;
 
   /**
-   * Based on the variant, we apply specific aspect ratios
-   * to the image accross all viewports.
+   * Variant Teaser-Hero: we apply specific aspect ratios to the image accross all viewports.
    */
-  @Prop() public variant?: InterfaceImageAttributes['variant'];
+  @Prop() public variantTeaserHero = false;
 
   private _addLoadedClass(): void {
     this._loadedClass = ' image__figure--loaded';
@@ -246,23 +238,31 @@ export class SbbImage {
     return `${breakpointSizeNameValue / tokens['sbb-typo-scale-default']}rem`;
   }
 
-  private _removeFocusAbilityFromLinksInCaption(): void {
-    this._linksInCaption.forEach((link) => {
-      link.setAttribute('tabindex', '-1');
-    });
-  }
-
   private _addFocusAbilityToLinksInCaption(): void {
     this._linksInCaption.forEach((link) => {
       link.removeAttribute('tabindex');
     });
   }
 
+  private _removeDoubledQuestionMarksFromUrl(imageUrlWithParams: string): string {
+    const imgUrlParts = imageUrlWithParams?.split('?');
+
+    if (imgUrlParts?.length <= 1) {
+      return imageUrlWithParams;
+    }
+
+    const [imgUrl, ...params] = imgUrlParts;
+
+    return `${imgUrl}?${params.reverse().join('&')}`;
+  }
+
   public render(): JSX.Element {
+
+    // TODO : Refactor construction of URL & MediaQueries
+
     const imageSrc = this.imageSrc ? this.imageSrc : this.imageSrcExamples;
 
     const attributes: {
-      ariaHidden?: string;
       role?: string;
     } = {};
 
@@ -300,11 +300,6 @@ export class SbbImage {
      * (auto, compress, fit, ...)
      */
     imageUrlWithParams = this._removeDoubledQuestionMarksFromUrl(imageUrlWithParams);
-
-    if (this.hideFromScreenreader) {
-      attributes['aria-hidden'] = 'true';
-      attributes.role = 'presentation';
-    }
 
     if (this.loading === 'lazy') {
       this.decoding = 'async';
@@ -387,7 +382,7 @@ export class SbbImage {
 
     const configs = pictureSizesConfigData(pictureSizesConfig);
 
-    const variantClass = this.variant ? ` image__figure--${this.variant}` : '';
+    const variantClass = this.variantTeaserHero ? ` image__figure--teaser-hero` : '';
 
     return (
       <figure class={`image__figure${variantClass}${this._loadedClass}`} {...attributes}>
@@ -466,11 +461,11 @@ export class SbbImage {
             ref={(el): void => {
               this._captionElement = el;
             }}
-          ></figcaption>
+          />
         ) : (
           ''
         )}
-        {schemaData ? <script type="application/ld+json" innerHTML={schemaData}></script> : ''}
+        {schemaData ? <script type="application/ld+json" innerHTML={schemaData}/> : ''}
       </figure>
     );
   }
@@ -495,22 +490,8 @@ export class SbbImage {
       return;
     }
 
-    if (this.hideFromScreenreader) {
-      this._removeFocusAbilityFromLinksInCaption();
-    } else {
-      this._addFocusAbilityToLinksInCaption();
-    }
+    this._addFocusAbilityToLinksInCaption();
   }
 
-  private _removeDoubledQuestionMarksFromUrl(imageUrlWithParams: string): string {
-    const imgUrlParts = imageUrlWithParams?.split('?');
 
-    if (imgUrlParts?.length <= 1) {
-      return imageUrlWithParams;
-    }
-
-    const [imgUrl, ...params] = imgUrlParts;
-
-    return `${imgUrl}?${params.reverse().join('&')}`;
-  }
 }
