@@ -5,13 +5,13 @@
 :host {
   display: inline-block;
   line-height: 0;
-  margin-inline: var(--sbb-icon-margin-inline-override);
-  margin-block: var(--sbb-icon-margin-block-override);
+  margin-inline: var(--sbb-icon-margin-inline);
+  margin-block: var(--sbb-icon-margin-block);
 }
 
 svg {
-  width: var(--sbb-icon-width-override);
-  height: var(--sbb-icon-height-override);
+  width: var(--sbb-icon-svg-width);
+  height: var(--sbb-icon-svg-height);
 
   &:not(.color-immutable) {
     [fill]:not([fill='none']) {
