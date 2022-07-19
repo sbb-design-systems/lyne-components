@@ -299,6 +299,14 @@ export namespace Components {
     }
     interface SbbIcon {
         /**
+          * The aria-hidden property is set to "true" by default, since an icon alone does not convey any useful information for a screen-reader user.
+         */
+        "ariaHidden": string;
+        /**
+          * Only set the aria-label if aria-hidden is set to "false".
+         */
+        "ariaLabel": string;
+        /**
           * The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
          */
         "name": string;
@@ -949,19 +957,15 @@ export namespace Components {
          */
         "level"?: InterfaceTitleAttributes1['level'];
         /**
-          * Text for the title
+          * Choose negative variant
          */
-        "text": string;
+        "negative"?: boolean;
         /**
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
-        "titleId"?: '';
+        "titleId": string;
         /**
-          * Choose the title style variant
-         */
-        "variant": InterfaceTitleAttributes1['variant'];
-        /**
-          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
+          * Visual level for the title. Optional, if not set, the value of level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
         /**
@@ -1595,6 +1599,14 @@ declare namespace LocalJSX {
         "variant"?: InterfaceGridAttributes['variant'];
     }
     interface SbbIcon {
+        /**
+          * The aria-hidden property is set to "true" by default, since an icon alone does not convey any useful information for a screen-reader user.
+         */
+        "ariaHidden"?: string;
+        /**
+          * Only set the aria-label if aria-hidden is set to "false".
+         */
+        "ariaLabel"?: string;
         /**
           * The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
          */
@@ -2231,19 +2243,15 @@ declare namespace LocalJSX {
          */
         "level"?: InterfaceTitleAttributes1['level'];
         /**
-          * Text for the title
+          * Choose negative variant
          */
-        "text": string;
+        "negative"?: boolean;
         /**
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
-        "titleId"?: '';
+        "titleId"?: string;
         /**
-          * Choose the title style variant
-         */
-        "variant"?: InterfaceTitleAttributes1['variant'];
-        /**
-          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
+          * Visual level for the title. Optional, if not set, the value of level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
         /**

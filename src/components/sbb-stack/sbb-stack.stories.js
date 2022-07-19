@@ -193,7 +193,9 @@ const defaultArgs = {
 
 const template = (args) => (
   <sbb-stack {...args}>
-    <sbb-title level="2" text="Lyne" variant="positive" visual-level="5"></sbb-title>
+    <sbb-title level="2" visual-level="5">
+      Lyne
+    </sbb-title>
     <p>Is user-centered and empowering, holistic and inclusive, encourages ...</p>
     <sbb-link-button
       href-value="https://github.com/lyne-design-system/lyne-components"
@@ -227,7 +229,9 @@ const templatePlaceholder = (args) => <sbb-stack {...args}></sbb-stack>;
 
 const templatePlaceholderWithTitle = (args) => (
   <sbb-stack {...args}>
-    <sbb-title level="2" text="Stack placeholder" variant="positive" visual-level="5"></sbb-title>
+    <sbb-title level="2" visual-level="5">
+      Stack placeholder
+    </sbb-title>
   </sbb-stack>
 );
 
