@@ -350,6 +350,10 @@ export namespace Components {
          */
         "alt"?: string;
         /**
+          * Set an aspect ratio default is '16-9' (16/9) other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
+         */
+        "aspectRatio": string;
+        /**
           * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
@@ -370,7 +374,7 @@ export namespace Components {
          */
         "decoding": InterfaceImageAttributes['decoding'];
         /**
-          * Set this to true, to receive visual guideance where the custom focal point is currently set.
+          * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug": boolean;
         /**
@@ -382,17 +386,9 @@ export namespace Components {
          */
         "focalPointY": number;
         /**
-          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
-         */
-        "hideFromScreenreader": boolean;
-        /**
           * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
          */
         "imageSrc"?: string;
-        /**
-          * Just some example image file you can use to play around with the component.
-         */
-        "imageSrcExamples"?: string;
         /**
           * The importance attribute is fairly new attribute which should help the browser decide which resources it should prioritise during page load. We will set the attribute value based on the value, we receive in the loading attribute. 'eager', which we use for the largest image within the initial viewport, will set the attribute value to 'high'. 'lazy', which we use for images below the fold, will set the attribute value to 'low'.
          */
@@ -406,6 +402,11 @@ export namespace Components {
          */
         "lqip": boolean;
         /**
+          * No radius: if set to true, there will be no border-radius on the image
+          * @private
+         */
+        "noRadius": boolean;
+        /**
           * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.
          */
         "performanceMark"?: string;
@@ -414,9 +415,9 @@ export namespace Components {
          */
         "pictureSizesConfig"?: string;
         /**
-          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
+          * Variant Teaser-Hero: we apply specific aspect ratios to the image accross all viewports.
          */
-        "variant"?: InterfaceImageAttributes['variant'];
+        "variantTeaserHero": boolean;
     }
     interface SbbInputError {
         /**
@@ -1744,6 +1745,10 @@ declare namespace LocalJSX {
          */
         "alt"?: string;
         /**
+          * Set an aspect ratio default is '16-9' (16/9) other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
+         */
+        "aspectRatio"?: string;
+        /**
           * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
@@ -1764,7 +1769,7 @@ declare namespace LocalJSX {
          */
         "decoding"?: InterfaceImageAttributes['decoding'];
         /**
-          * Set this to true, to receive visual guideance where the custom focal point is currently set.
+          * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug"?: boolean;
         /**
@@ -1776,17 +1781,9 @@ declare namespace LocalJSX {
          */
         "focalPointY"?: number;
         /**
-          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
-         */
-        "hideFromScreenreader"?: boolean;
-        /**
           * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
          */
         "imageSrc"?: string;
-        /**
-          * Just some example image file you can use to play around with the component.
-         */
-        "imageSrcExamples"?: string;
         /**
           * The importance attribute is fairly new attribute which should help the browser decide which resources it should prioritise during page load. We will set the attribute value based on the value, we receive in the loading attribute. 'eager', which we use for the largest image within the initial viewport, will set the attribute value to 'high'. 'lazy', which we use for images below the fold, will set the attribute value to 'low'.
          */
@@ -1800,6 +1797,11 @@ declare namespace LocalJSX {
          */
         "lqip"?: boolean;
         /**
+          * No radius: if set to true, there will be no border-radius on the image
+          * @private
+         */
+        "noRadius"?: boolean;
+        /**
           * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.
          */
         "performanceMark"?: string;
@@ -1808,9 +1810,9 @@ declare namespace LocalJSX {
          */
         "pictureSizesConfig"?: string;
         /**
-          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
+          * Variant Teaser-Hero: we apply specific aspect ratios to the image accross all viewports.
          */
-        "variant"?: InterfaceImageAttributes['variant'];
+        "variantTeaserHero"?: boolean;
     }
     interface SbbInputError {
         /**
