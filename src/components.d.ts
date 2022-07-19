@@ -961,13 +961,29 @@ export namespace Components {
     }
     interface SbbTimetableRowButton {
         /**
-          * Id which is sent in the event of clicking the button
+          * The aria-controls prop for the button.
          */
-        "eventId"?: string;
+        "accessibilityControls"?: string;
+        /**
+          * The aria-haspopup prop for the button.
+         */
+        "accessibilityHaspopup"?: string;
+        /**
+          * The aria-label prop for the button.
+         */
+        "accessibilityLabel"?: string;
         /**
           * Set to true to initially show the state, which would get set by pressing the button.
          */
         "expanded"?: boolean;
+        /**
+          * The name prop for the button.
+         */
+        "name"?: string;
+        /**
+          * The role prop for the button.
+         */
+        "role"?: string;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -2402,13 +2418,33 @@ declare namespace LocalJSX {
     }
     interface SbbTimetableRowButton {
         /**
-          * Id which is sent in the event of clicking the button
+          * The aria-controls prop for the button.
          */
-        "eventId"?: string;
+        "accessibilityControls"?: string;
+        /**
+          * The aria-haspopup prop for the button.
+         */
+        "accessibilityHaspopup"?: string;
+        /**
+          * The aria-label prop for the button.
+         */
+        "accessibilityLabel"?: string;
         /**
           * Set to true to initially show the state, which would get set by pressing the button.
          */
         "expanded"?: boolean;
+        /**
+          * The name prop for the button.
+         */
+        "name"?: string;
+        /**
+          * Event for emiting whenever state is changed.
+         */
+        "onSbbTimetableRowButtonClick"?: (event: SbbTimetableRowButtonCustomEvent<any>) => void;
+        /**
+          * The role prop for the button.
+         */
+        "role"?: string;
     }
     interface SbbTimetableRowColumnHeaders {
         /**

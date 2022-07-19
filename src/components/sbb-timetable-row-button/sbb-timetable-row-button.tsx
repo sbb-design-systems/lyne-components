@@ -1,7 +1,4 @@
-import { Component, Element, h, JSX, Prop, Watch } from '@stencil/core';
-import events from './sbb-timetable-row-button.events';
-import getDocumentLang from '../../global/helpers/get-document-lang';
-import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
+import { Component, h, Prop, Event, Watch, EventEmitter } from '@stencil/core';
 
 @Component({
   shadow: true,
@@ -10,12 +7,6 @@ import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
 })
 export class SbbTimetableRowButton {
   private _button!: HTMLElement;
-  private _currentLanguage = getDocumentLang();
-
-  @Element() private _element: HTMLElement;
-
-  /** Id which is sent in the event of clicking the button */
-  @Prop() public eventId?: string;
 
   /**
    * Set to true to initially show the
@@ -27,13 +18,34 @@ export class SbbTimetableRowButton {
   })
   public expanded?: boolean;
 
+  /** The aria-label prop for the button. */
+  @Prop() public accessibilityLabel?: string;
+
+  /** The aria-controls prop for the button. */
+  @Prop() public accessibilityControls?: string;
+
+  /** The aria-haspopup prop for the button. */
+  @Prop() public accessibilityHaspopup?: string;
+
+  /** The role prop for the button. */
+  @Prop() public role?: string;
+
+  /** The name prop for the button. */
+  @Prop() public name?: string;
+
+  /** Event for emiting whenever state is changed. */
+  @Event() public sbbTimetableRowButtonClick: EventEmitter;
+
+  /** watches the expanded attribute*/
   @Watch('expanded')
   public watchStateHandler(newValue: boolean): void {
+    this.sbbTimetableRowButtonClick.emit();
     this.expanded = newValue;
     this._toggleAriaAttributes(false);
   }
 
-  private _toggleAriaAttributes(click): void {
+  /** toggles the expanded attribute */
+  private _toggleAriaAttributes(click: boolean): void {
     if (click) {
       this.expanded = !this.expanded;
     }
@@ -43,40 +55,28 @@ export class SbbTimetableRowButton {
     this._button.setAttribute('aria-expanded', expand);
   }
 
+  /** toggles the expanded attribute onClick*/
   private _clickHandler = (): void => {
     this._toggleAriaAttributes(true);
-
-    let eventDetail;
-
-    if (this.eventId) {
-      eventDetail = this.eventId;
-    }
-
-    const event = new CustomEvent(events.click, {
-      bubbles: true,
-      composed: true,
-      detail: eventDetail,
-    });
-
-    this._element.dispatchEvent(event);
   };
 
   public render(): JSX.Element {
     return (
       <button
         aria-expanded="false"
-        aria-haspopup="true"
-        aria-label={`${i18nShowConnectionDetailsAndBuyOptions[this._currentLanguage]}`}
+        aria-haspopup={this.accessibilityHaspopup}
+        aria-label={this.accessibilityLabel}
+        aria-controls={this.accessibilityControls}
         onClick={this._clickHandler}
         ref={(el): void => {
           this._button = el;
         }}
         type="button"
-      ></button>
+        role={this.role}
+        name={this.name}
+      >
+        <slot />
+      </button>
     );
-  }
-
-  public componentDidRender(): void {
-    this._toggleAriaAttributes(false);
   }
 }
