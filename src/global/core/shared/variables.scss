@@ -155,6 +155,18 @@
 
   //////////////////////////////////////////////////////////////////////////////
   ///
+  /// Responsive button size
+
+  --sbb-size-button-m-min-height: var(--sbb-size-button-m-min-height-zero);
+  --sbb-size-button-l-min-height: var(--sbb-size-button-l-min-height-zero);
+
+  @include mq($from: medium) {
+    --sbb-size-button-m-min-height: var(--sbb-size-button-m-min-height-medium);
+    --sbb-size-button-l-min-height: var(--sbb-size-button-l-min-height-medium);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
   /// Responsive form element size
 
   --sbb-size-form-element-m-min-height: var(--sbb-size-form-element-m-min-height-zero);
