@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.11 (2022-07-19)
+
+### Bug Fixes
+
+- **button:** use new design tokens for size ([#1306](https://github.com/lyne-design-system/lyne-components/issues/1306)) ([21f20aa](https://github.com/lyne-design-system/lyne-components/commit/21f20aa429b38f501bdc8be0764d129d57e73121))
+
 ### 0.1.10 (2022-07-18)
 
 ### 0.1.9 (2022-07-18)
