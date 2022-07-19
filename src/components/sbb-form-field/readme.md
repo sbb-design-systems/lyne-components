@@ -1,6 +1,30 @@
 # sbb-form-field
 
+The `sbb-form-field` component provides a way of rendering a form input wrapper with label and errors.
 
+## Usage
+
+The examples below show how to render the component:
+
+```html
+<sbb-form-field>
+  <input slot="input" />
+</sbb-form-field>
+
+
+<sbb-form-field>
+  <span slot="label">Input Label</span>
+  <input slot="input" />
+  <sbb-form-error>This field is required!</sbb-form-error>
+</sbb-form-field>
+```
+
+## Accesibility
+
+`<sbb-form-field>` does not provide additional accessibility features.
+
+When `<sbb-error>` is present, `<sbb-form-field>` automatically adds inside the `<input>` the `aria-describedby` attribute. 
+Additionally, `<sbb-error>` applies `aria-live="polite"` by default such that assistive technology will announce errors when they appear.
 
 <!-- Auto Generated Below -->
 
@@ -20,7 +44,7 @@
 | Slot       | Description                                             |
 | ---------- | ------------------------------------------------------- |
 | `"error"`  | Slot to render an error.                                |
-| `"input"`  | slot to render an input.                                |
+| `"input"`  | Slot to render an input.                                |
 | `"label"`  | Slot to render a label.                                 |
 | `"prefix"` | Slot to render an icon on the left side of the input.   |
 | `"suffix"` | Slot to render an icon on ther right side of the input. |

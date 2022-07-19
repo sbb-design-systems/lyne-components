@@ -19,6 +19,7 @@ export class SbbFormError {
 
     return (
       <Host
+        aria-live="polite"
         ref={(host): void => {
           if (!host.id) {
             host.id = `sbb-form-error-${++nextId}`;

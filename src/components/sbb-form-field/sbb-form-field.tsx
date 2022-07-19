@@ -7,7 +7,7 @@ let nextId = 0;
 /**
  * @slot label - Slot to render a label.
  * @slot prefix - Slot to render an icon on the left side of the input.
- * @slot input - slot to render an input.
+ * @slot input - Slot to render an input.
  * @slot suffix - Slot to render an icon on ther right side of the input.
  * @slot error - Slot to render an error.
  */
