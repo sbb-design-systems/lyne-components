@@ -113,7 +113,7 @@
 .toast-action-icon {
   @include absoluteCenterY;
 
-  right: var(--sbb-spacing-fixed-2x);
+  inset-inline-end: var(--sbb-spacing-fixed-2x);
 }
 
 .toast-link {
