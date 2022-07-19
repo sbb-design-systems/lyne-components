@@ -18,6 +18,12 @@ export class SbbImage {
   private _captionElement?: HTMLElement;
   private _imageElement!: HTMLElement;
   private _linksInCaption;
+  private _config = {
+    nonRetinaQuality: '45',
+    // nonRetinaDataSaver: '30',
+    retinaQuality: '20',
+    // retinaDataSaver: '10'
+  };
 
   @State() private _loadedClass = '';
 
@@ -102,12 +108,6 @@ export class SbbImage {
    * LYNE Core Team.
    */
   @Prop() public imageSrc?: string;
-
-  /**
-   * Just some example image file you can use to play around with
-   * the component.
-   */
-  @Prop() public imageSrcExamples?: string;
 
   /**
    * The importance attribute is fairly new attribute which should
@@ -221,9 +221,18 @@ export class SbbImage {
    */
   @Prop() public variantTeaserHero = false;
 
-  private _addLoadedClass(): void {
-    this._loadedClass = ' image__figure--loaded';
-  }
+  /**
+   * No radius: if set to true, there will be no border-radius on the image
+   * @private
+   */
+  @Prop() public noRadius = false;
+
+  /**
+   * Set an aspect ratio
+   * default is '16-9' (16/9)
+   * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
+   */
+  @Prop() public aspectRatio = '16-9';
 
   private _logPerformanceMarks(): void {
     if (window.performance.mark && this.performanceMark) {
@@ -244,88 +253,46 @@ export class SbbImage {
     });
   }
 
-  private _removeDoubledQuestionMarksFromUrl(imageUrlWithParams: string): string {
-    const imgUrlParts = imageUrlWithParams?.split('?');
-
-    if (imgUrlParts?.length <= 1) {
-      return imageUrlWithParams;
+  private _prepareImageUrl(baseUrl: string, lquip = false): string {
+    if (!baseUrl || baseUrl === '') {
+      return '';
     }
 
-    const [imgUrl, ...params] = imgUrlParts;
+    const imageUrlObj = new URL(baseUrl);
 
-    return `${imgUrl}?${params.reverse().join('&')}`;
-  }
-
-  public render(): JSX.Element {
-
-    // TODO : Refactor construction of URL & MediaQueries
-
-    const imageSrc = this.imageSrc ? this.imageSrc : this.imageSrcExamples;
-
-    const attributes: {
-      role?: string;
-    } = {};
-
-    const qualitySettings = {
-      nonRetina: '45',
-      nonRetinaDataSaver: '30',
-      retina: '20',
-      retinaDataSaver: '10',
-    };
-
-    const retinaQuality = qualitySettings.retina;
-    const nonRetinaQuality = qualitySettings.nonRetina;
-
-    const imageParameters = {
-      autoImprove: 'auto=format,compress,cs=tinysrgb',
-      crop: `&fit=crop&crop=focalpoint&fp-x=${this.focalPointX}&fp-y=${this.focalPointY}&fp-z=1`,
-      focalPointDebug: '&fp-debug=true',
-    };
-
-    let imageUrlLQIP = `${imageSrc}?blur=100&w=100&h=56`;
-    let imageUrlWithParams = `${imageSrc}?${imageParameters.autoImprove}`;
+    if (lquip) {
+      // blur and size: ?blur=100&w=100&h=56
+      imageUrlObj.searchParams.append('blur', '100');
+      imageUrlObj.searchParams.append('w', '100');
+      imageUrlObj.searchParams.append('h', '56');
+    } else {
+      // CDN Information: https://docs.imgix.com/apis/rendering
+      // param.autoImprove: ?auto=format,compress,cs=tinysrgb
+      imageUrlObj.searchParams.append('auto', 'format,compress,cs=tinysrgb');
+    }
 
     if (this.customFocalPoint) {
-      imageUrlWithParams = `${imageUrlWithParams}${imageParameters.crop}`;
-      imageUrlLQIP = `${imageUrlLQIP}${imageParameters.crop}`;
+      // crop: `&fit=crop&crop=focalpoint&fp-x=${this.focalPointX}&fp-y=${this.focalPointY}&fp-z=1`,
+      imageUrlObj.searchParams.append('fit', 'crop');
+      imageUrlObj.searchParams.append('crop', 'focalpoint');
+      imageUrlObj.searchParams.append('fp-x', this.focalPointX.toString(10));
+      imageUrlObj.searchParams.append('fp-y', this.focalPointY.toString(10));
+      imageUrlObj.searchParams.append('fp-z', '1');
     }
 
     if (this.focalPointDebug) {
-      imageUrlWithParams = `${imageUrlWithParams}${imageParameters.focalPointDebug}`;
+      // focalPointDebug: '&fp-debug=true'
+      imageUrlObj.searchParams.append('fp-debug', 'true');
     }
 
-    /*
-     * merge params component user could define by adding it to
-     * url (imgix.com?flip=h) and params added before
-     * (auto, compress, fit, ...)
-     */
-    imageUrlWithParams = this._removeDoubledQuestionMarksFromUrl(imageUrlWithParams);
+    return imageUrlObj.href;
+  }
 
-    if (this.loading === 'lazy') {
-      this.decoding = 'async';
-      this.importance = 'low';
-    }
-
-    let { caption } = this;
-
-    let schemaData = '';
-
-    if (this.copyright) {
-      caption = `${this.caption} ©${this.copyright}`;
-      schemaData = `{
-        "@context": "https://schema.org",
-        "@type": "Photograph",
-        "image": "${imageSrc}",
-        "copyrightHolder": {
-          "@type": "${this.copyrightHolder}",
-          "name": "${this.copyright}"
-        }
-      }`;
-    }
-
-    let { pictureSizesConfig } = this;
+  private _preparePictureSizeConfigs(): any {
+    let pictureSizesConfig;
 
     if (this.pictureSizesConfig === undefined) {
+      // default config
       pictureSizesConfig = `{
         "breakpoints": [
           {
@@ -380,12 +347,76 @@ export class SbbImage {
       }`;
     }
 
-    const configs = pictureSizesConfigData(pictureSizesConfig);
+    return pictureSizesConfigData(pictureSizesConfig);
+  }
 
+  private _createMediaQueryString(mediaQueries): string {
+    let mediaQuery = '';
+
+    mediaQueries.forEach((mq) => {
+      const mqCondition = mq.conditionFeature;
+      let mqValue;
+
+      if (mq.conditionFeatureValue.lyneDesignToken) {
+        mqValue = this._matchMediaQueryDesignToken(mq.conditionFeatureValue.value);
+      } else {
+        mqValue = mq.conditionFeatureValue.value;
+      }
+
+      const mqCombiner = mq.conditionOperator ? ` ${mq.conditionOperator} ` : '';
+
+      mediaQuery += `(${mqCondition}: ${mqValue})${mqCombiner}`;
+    });
+
+    return mediaQuery;
+  }
+
+  public render(): JSX.Element {
+    let { caption } = this;
+    let schemaData = '';
     const variantClass = this.variantTeaserHero ? ` image__figure--teaser-hero` : '';
+    let additionalClasses = '';
+
+    if (this.noRadius) {
+      additionalClasses = ` image__figure--no-radius`;
+    }
+
+    if (this.aspectRatio) {
+      additionalClasses += ` image__figure--ratio-${this.aspectRatio}`;
+    }
+
+    const attributes: {
+      role?: string;
+    } = {};
+
+    const imageUrlLQIP = this._prepareImageUrl(this.imageSrc, true);
+    const imageUrlWithParams = this._prepareImageUrl(this.imageSrc, false);
+
+    if (this.loading === 'lazy') {
+      this.decoding = 'async';
+      this.importance = 'low';
+    }
+
+    if (this.copyright) {
+      caption = `${this.caption} ©${this.copyright}`;
+      schemaData = `{
+        "@context": "https://schema.org",
+        "@type": "Photograph",
+        "image": "${this.imageSrc}",
+        "copyrightHolder": {
+          "@type": "${this.copyrightHolder}",
+          "name": "${this.copyright}"
+        }
+      }`;
+    }
+
+    const pictureSizeConfigs = this._preparePictureSizeConfigs();
 
     return (
-      <figure class={`image__figure${variantClass}${this._loadedClass}`} {...attributes}>
+      <figure
+        class={`image__figure${variantClass}${this._loadedClass}${additionalClasses}`}
+        {...attributes}
+      >
         <div class="image__wrapper">
           {this.lqip ? (
             <img
@@ -403,38 +434,20 @@ export class SbbImage {
 
           <picture>
             {/* render picture element sources */}
-            {configs.map((config) => {
-              const { mediaQueries } = config;
-
+            {pictureSizeConfigs.map((config) => {
               const imageHeight = config.image.height;
               const imageWidth = config.image.width;
-
-              let mediaQuery = '';
-
-              mediaQueries.forEach((mq) => {
-                const mqCondition = mq.conditionFeature;
-                let mqValue;
-
-                if (mq.conditionFeatureValue.lyneDesignToken) {
-                  mqValue = this._matchMediaQueryDesignToken(mq.conditionFeatureValue.value);
-                } else {
-                  mqValue = mq.conditionFeatureValue.value;
-                }
-
-                const mqCombiner = mq.conditionOperator ? ` ${mq.conditionOperator} ` : '';
-
-                mediaQuery += `(${mqCondition}: ${mqValue})${mqCombiner}`;
-              });
+              const mediaQuery = this._createMediaQueryString(config.mediaQueries);
 
               return [
                 <source
                   media={`${mediaQuery}`}
                   sizes={`${imageWidth}px`}
                   srcSet={
-                    `${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${nonRetinaQuality} ${imageWidth}w, ` +
-                    `${imageUrlWithParams}&w=${imageWidth * 2}&h=${
-                      imageHeight * 2
-                    }&q=${retinaQuality} ${imageWidth * 2}w`
+                    `${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${this._config.nonRetinaQuality} ${imageWidth}w, ` +
+                    `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${
+                      this._config.retinaQuality
+                    } ${imageWidth * 2}w`
                   }
                 />,
               ];
@@ -442,7 +455,7 @@ export class SbbImage {
             <img
               alt={this.alt}
               class="image__img"
-              src={imageSrc}
+              src={this.imageSrc}
               width="1000"
               height="562"
               loading={this.loading}
@@ -465,7 +478,7 @@ export class SbbImage {
         ) : (
           ''
         )}
-        {schemaData ? <script type="application/ld+json" innerHTML={schemaData}/> : ''}
+        {schemaData ? <script type="application/ld+json" innerHTML={schemaData} /> : ''}
       </figure>
     );
   }
@@ -475,7 +488,7 @@ export class SbbImage {
       'load',
       () => {
         this._logPerformanceMarks();
-        this._addLoadedClass();
+        this._loadedClass = ' image__figure--loaded';
       },
       eventListenerOptions
     );
@@ -492,6 +505,4 @@ export class SbbImage {
 
     this._addFocusAbilityToLinksInCaption();
   }
-
-
 }
