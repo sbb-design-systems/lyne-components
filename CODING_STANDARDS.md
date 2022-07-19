@@ -377,6 +377,36 @@ export class SbbTitle {
 }
 ```
 
+#### Context detection
+
+For various use cases, a component might need to behave or render in a specific way when placed
+within another component (e.g. a `<sbb-link>` should not render an `<a>` or `<button>` element
+when placed in another `<a>` or `<button>` ancester or `<sbb-title>` should be designed in a
+specific way when placed within a `<sbb-alert>`, etc.).
+
+(Ideally we could use the `:host-context` for the styling part, but the Firefox and Safari
+teams have indicated that this will not be implemented:
+https://github.com/w3c/csswg-drafts/issues/1914)
+
+For this purpose we provide the `hostContext(selector: string, base: Element): Element | null`
+function, which returns the closest match or null, if no match is found.
+
+This can be used in the `connectedCallback()` (see
+[Stencil.js Lifecycles](https://stenciljs.com/docs/component-lifecycle)) method of a component,
+which should minimize the performance impact of this detection.
+
+**Usages of this functionality should be carefully considered. If a component has too many variants
+depending on context, this should be discussed at design level.**
+
+```ts
+@Element() el!: HTMLElement;
+
+connectedCallback() {
+  // Check if the current element is nested in either an `<a>` or `<button>` element.
+  this._isNestedInButtonAnchor = !!hostContext('a,button', this.el);
+}
+```
+
 ### CSS
 
 #### BEM
