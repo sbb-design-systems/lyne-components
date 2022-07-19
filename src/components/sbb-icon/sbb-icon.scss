@@ -23,6 +23,7 @@ svg {
     }
 
     // stylelint-disable plugin/stylelint-bem-namics
+    // stylelint-disable selector-not-notation
     // TODO: Maybe improve this solution in CDN Image
     & >,
     :where(:not([stroke]):not([fill])) {
@@ -30,6 +31,7 @@ svg {
         fill: currentcolor;
       }
     }
+    // stylelint-enable selector-not-notation
     // stylelint-enable plugin/stylelint-bem-namics
   }
 }
