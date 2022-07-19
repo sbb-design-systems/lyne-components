@@ -27,7 +27,7 @@ const tabObserverConfig: MutationObserverInit = {
   attributeFilter: ['active', 'disabled'],
 };
 
-const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION'];
+const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION', 'SBB-TAB-GROUP'];
 
 @Component({
   shadow: true,
@@ -247,10 +247,15 @@ export class SbbTabGroup {
     };
     this._ensureId(tab);
     if (SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.tagName)) {
-      tab.relatedContent = tab.nextElementSibling;
+      tab.relatedContent = tab.nextElementSibling as HTMLElement;
+      if (tab.relatedContent.nodeName === 'SBB-TAB-GROUP') {
+        tab.relatedContent.classList.add('tab-group--nested');
+      } else {
+        tab.relatedContent.tabIndex = 0;
+      }
     } else {
       tab.insertAdjacentHTML('afterend', '<div>No content.</div>');
-      tab.relatedContent = tab.nextElementSibling;
+      tab.relatedContent = tab.nextElementSibling as HTMLElement;
       console.warn(
         `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`
       );

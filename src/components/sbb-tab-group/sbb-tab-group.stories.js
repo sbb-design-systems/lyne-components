@@ -191,24 +191,22 @@ const NestedTemplate = (args) => (
       {args.label}
       <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
     </sbb-tab-title>
-    <div>
-      <sbb-tab-group initial-selected-index="1" dir={args.dir}>
-        <sbb-tab-title level="2">Nested tab</sbb-tab-title>
-        <div>
-          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
-          rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
-          faucibus turpis in eu mi bibendum neque egestas congue.
-        </div>
+    <sbb-tab-group initial-selected-index="1" dir={args.dir}>
+      <sbb-tab-title level="2">Nested tab</sbb-tab-title>
+      <div>
+        Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+        elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+        rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed
+        faucibus turpis in eu mi bibendum neque egestas congue.
+      </div>
 
-        <sbb-tab-title level="2">Nested tab</sbb-tab-title>
-        <div>
-          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
-          rhoncus urna.
-        </div>
-      </sbb-tab-group>
-    </div>
+      <sbb-tab-title level="2">Nested tab</sbb-tab-title>
+      <section>
+        Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+        elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+        rhoncus urna.
+      </section>
+    </sbb-tab-group>
 
     <sbb-tab-title>
       <sbb-icon slot="icon" name="swisspass-small"></sbb-icon>

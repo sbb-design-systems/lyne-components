@@ -10,7 +10,7 @@ export interface InterfaceSbbTabGroupActions {
 export interface InterfaceSbbTabGroupTab extends HTMLStencilElement {
   active?: boolean;
   disabled?: boolean;
-  relatedContent?: Element;
+  relatedContent?: HTMLElement;
   index?: number;
   tabGroupActions?: InterfaceSbbTabGroupActions;
 }
