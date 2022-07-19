@@ -13,10 +13,9 @@ describe('sbb-timetable-row-button', () => {
           <mock:shadow-root>
             <button
                 aria-expanded="false"
-                aria-haspopup="true"
-                aria-label="Connection details and purchase options"
                 type="button"
             >
+              <slot/>
             </button>
           </mock:shadow-root>
         </sbb-timetable-row-button>

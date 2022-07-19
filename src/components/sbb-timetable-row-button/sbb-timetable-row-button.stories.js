@@ -1,8 +1,8 @@
-import events from './sbb-timetable-row-button.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from './sbb-timetable-row-button.events';
 
-const Template = (args) => <sbb-timetable-row-button {...args}></sbb-timetable-row-button>;
+const Template = (args) => <sbb-timetable-row-button {...args}>Content</sbb-timetable-row-button>;
 
 const expanded = {
   control: {
@@ -39,7 +39,7 @@ export default {
   },
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: [events.sbbTimetableRowButtonClick],
     },
     backgrounds: {
       disable: true,

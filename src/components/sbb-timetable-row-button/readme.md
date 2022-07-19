@@ -8,10 +8,21 @@ here to show the various configuration options to component developers. !!
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                          | Type      | Default     |
-| ---------- | ---------- | ------------------------------------------------------------------------------------ | --------- | ----------- |
-| `eventId`  | `event-id` | Id which is sent in the event of clicking the button                                 | `string`  | `undefined` |
-| `expanded` | `expanded` | Set to true to initially show the state, which would get set by pressing the button. | `boolean` | `undefined` |
+| Property                | Attribute                | Description                                                                          | Type      | Default     |
+| ----------------------- | ------------------------ | ------------------------------------------------------------------------------------ | --------- | ----------- |
+| `accessibilityControls` | `accessibility-controls` | The aria-controls prop for the button.                                               | `string`  | `undefined` |
+| `accessibilityHaspopup` | `accessibility-haspopup` | The aria-haspopup prop for the button.                                               | `string`  | `undefined` |
+| `accessibilityLabel`    | `accessibility-label`    | The aria-label prop for the button.                                                  | `string`  | `undefined` |
+| `expanded`              | `expanded`               | Set to true to initially show the state, which would get set by pressing the button. | `boolean` | `undefined` |
+| `name`                  | `name`                   | The name prop for the button.                                                        | `string`  | `undefined` |
+| `role`                  | `role`                   | The role prop for the button.                                                        | `string`  | `undefined` |
+
+
+## Events
+
+| Event                        | Description                                  | Type               |
+| ---------------------------- | -------------------------------------------- | ------------------ |
+| `sbbTimetableRowButtonClick` | Event for emiting whenever state is changed. | `CustomEvent<any>` |
 
 
 ----------------------------------------------
