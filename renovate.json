@@ -4,6 +4,9 @@
   "nodenv": {
     "enabled": false
   },
+  "nvm": {
+    "enabled": false
+  },
   "lockFileMaintenance": {
     "schedule": ["before 7am on monday"],
     "enabled": true
