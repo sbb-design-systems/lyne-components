@@ -136,7 +136,7 @@ export class SbbLink {
     let ariaLabelText = this.accessibilityLabel;
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
-    const attributeList = {};
+    const attributeList: Record<string, string> = {};
 
     Object.assign(attributeList, {
       dir: currentWritingMode || undefined,
@@ -189,7 +189,10 @@ export class SbbLink {
     let iconPositionClass = '';
 
     if (this.icon) {
-      iconPositionClass = ` sbb-link--icon-placement-${this.iconPlacement}`;
+      iconPositionClass =
+        this.iconPlacement === 'start'
+          ? ' sbb-link--icon-placement-start'
+          : ' sbb-link--icon-placement-end';
     }
 
     let iconFlipClass = '';
