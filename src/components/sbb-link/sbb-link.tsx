@@ -202,8 +202,8 @@ export class SbbLink {
     }
 
     const inlineClass = this.inline ? ' sbb-link--inline' : '';
-    const negativClass = this.negative ? ' sbb-link--negative' : '';
+    const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
-    return `sbb-link${textSizeClass}${iconPositionClass}${iconFlipClass}${inlineClass}${negativClass}`;
+    return `sbb-link${textSizeClass}${iconPositionClass}${iconFlipClass}${inlineClass}${negativeClass}`;
   }
 }
