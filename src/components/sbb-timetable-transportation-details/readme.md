@@ -15,10 +15,6 @@ here to show the various configuration options to component developers. !!
 
 ## Dependencies
 
-### Used by
-
- - [sbb-timetable-row](../sbb-timetable-row)
-
 ### Depends on
 
 - [sbb-timetable-transportation-number](../sbb-timetable-transportation-number)

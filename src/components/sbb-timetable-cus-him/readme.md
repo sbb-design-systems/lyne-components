@@ -19,13 +19,11 @@ here to show the various configuration options to component developers. !!
 ### Used by
 
  - [sbb-timetable-button](../sbb-timetable-button)
- - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-timetable-button --> sbb-timetable-cus-him
-  sbb-timetable-row --> sbb-timetable-cus-him
   style sbb-timetable-cus-him fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

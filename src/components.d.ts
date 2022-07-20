@@ -1046,10 +1046,10 @@ export namespace Components {
         "config": string;
     }
     interface SbbTimetableRow {
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
-        "config": string;
+        "accessiblityLabel": string;
+        "direction": string;
+        "pictogramName": string;
+        "transportNumber"?: string;
     }
     interface SbbTimetableRowButton {
         /**
@@ -2616,10 +2616,10 @@ declare namespace LocalJSX {
         "config": string;
     }
     interface SbbTimetableRow {
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
-        "config": string;
+        "accessiblityLabel"?: string;
+        "direction"?: string;
+        "pictogramName"?: string;
+        "transportNumber"?: string;
     }
     interface SbbTimetableRowButton {
         /**
