@@ -98,7 +98,6 @@ In the HTML, you can now use the icon as shown below:
 
  - [sbb-link](../sbb-link)
  - [sbb-toggle-check](../sbb-toggle-check)
-
 ### Graph
 ```mermaid
 graph TD;
