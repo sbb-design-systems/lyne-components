@@ -183,11 +183,6 @@ export class SbbLink {
     return attributeList;
   }
 
-  /**
-   * Get the constructed class string for the given config of the element
-   * @private
-   * @return <string>
-   */
   private get _getClassString(): string {
     const textSizeClass = this.inline ? '' : ` sbb-link--text-${this.textSize}`;
 
