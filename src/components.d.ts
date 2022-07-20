@@ -10,6 +10,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
+import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
@@ -275,6 +276,16 @@ export namespace Components {
           * If set to true, the clock will be paused.
          */
         "paused"?: boolean;
+    }
+    interface SbbDivider {
+        /**
+          * Footer appearance
+         */
+        "appearance"?: InterfaceSbbDividerAttributes['appearance'];
+        /**
+          * Documentation for someProp
+         */
+        "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
     interface SbbFooter {
         /**
@@ -997,6 +1008,12 @@ declare global {
         prototype: HTMLSbbClockElement;
         new (): HTMLSbbClockElement;
     };
+    interface HTMLSbbDividerElement extends Components.SbbDivider, HTMLStencilElement {
+    }
+    var HTMLSbbDividerElement: {
+        prototype: HTMLSbbDividerElement;
+        new (): HTMLSbbDividerElement;
+    };
     interface HTMLSbbFooterElement extends Components.SbbFooter, HTMLStencilElement {
     }
     var HTMLSbbFooterElement: {
@@ -1234,6 +1251,7 @@ declare global {
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
+        "sbb-divider": HTMLSbbDividerElement;
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-grid": HTMLSbbGridElement;
         "sbb-icon": HTMLSbbIconElement;
@@ -1518,6 +1536,16 @@ declare namespace LocalJSX {
           * If set to true, the clock will be paused.
          */
         "paused"?: boolean;
+    }
+    interface SbbDivider {
+        /**
+          * Footer appearance
+         */
+        "appearance"?: InterfaceSbbDividerAttributes['appearance'];
+        /**
+          * Documentation for someProp
+         */
+        "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
     interface SbbFooter {
         /**
@@ -2187,6 +2215,7 @@ declare namespace LocalJSX {
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
+        "sbb-divider": SbbDivider;
         "sbb-footer": SbbFooter;
         "sbb-grid": SbbGrid;
         "sbb-icon": SbbIcon;
@@ -2239,6 +2268,7 @@ declare module "@stencil/core" {
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
+            "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;

@@ -1,0 +1,27 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --_divider-color: var(--sbb-color-iron-default);
+  --_divider-background-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
+}
+
+.sbb-divider {
+  display: block;
+
+  // TODO needed height to be refactored, used for stories preview
+  height: 400px;
+
+  &--horizontal {
+    border-top: 0.5px solid var(--_divider-color);
+  }
+
+  &--vertical {
+    border-left: 0.5px solid var(--_divider-color);
+  }
+
+  &--primary-negative {
+    background: var(--sbb-color-black-default);
+  }
+}
