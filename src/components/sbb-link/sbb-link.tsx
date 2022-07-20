@@ -48,7 +48,7 @@ export class SbbLink {
 
   /**
    * If this is set to true an span element will be used
-   * instead of a anchor or a button
+   * instead of an anchor or a button
    */
   @Prop() public isStatic: boolean = false;
 
