@@ -7,7 +7,7 @@ describe('sbb-link', () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
       html: `<sbb-link href="https://github.com/lyne-design-system/lyne-components" icon-placement="end"
-            icon="chevron-small-right-small" text-size="m" variant="block" aria-text="Travelcards &amp; tickets">
+            icon="chevron-small-right-small" text-size="m" accessibility-label="Travelcards &amp; tickets">
             <span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span>
             Travelcards &amp; tickets.
             </sbb-link>`,
@@ -19,13 +19,11 @@ describe('sbb-link', () => {
             icon-placement="end"
             icon="chevron-small-right-small"
             text-size="m"
-            variant="block"
-            aria-text="Travelcards &amp; tickets"
-        >
+            accessibility-label="Travelcards &amp; tickets">
           <mock:shadow-root>
             <a
                 aria-label="Travelcards & tickets. Link target opens in new window."
-                class="sbb-link sbb-link--icon-placement-end sbb-link--block sbb-link--text-m"
+                class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"
                 dir="ltr"
                 href="https://github.com/lyne-design-system/lyne-components"
                 target="_blank"
@@ -50,8 +48,7 @@ describe('sbb-link', () => {
   it('renders a link as a button', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
-      html: `<sbb-link icon-placement="end" icon="chevron-small-right-small" text-size="m"
-            variant="block">
+      html: `<sbb-link icon-placement="end" icon="chevron-small-right-small" text-size="m">
             <span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span>
             Travelcards &amp; tickets.
             </sbb-link>`,
@@ -61,11 +58,10 @@ describe('sbb-link', () => {
         <sbb-link
             icon-placement="end"
             icon="chevron-small-right-small"
-            text-size="m"
-            variant="block">
+            text-size="m">
           <mock:shadow-root>
             <button
-                class="sbb-link sbb-link--icon-placement-end sbb-link--block sbb-link--text-m"
+                class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"
                 dir="ltr">
                 <span class="sbb-link__icon">
                     <slot name="icon"></slot>
@@ -86,8 +82,7 @@ describe('sbb-link', () => {
   it('renders a link as a span', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
-      html: `<sbb-link is-static="true" icon-placement="end" icon="chevron-small-right-small" text-size="m"
-            variant="block">
+      html: `<sbb-link is-static="true" icon-placement="end" icon="chevron-small-right-small" text-size="m">
             <span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span>
             Travelcards &amp; tickets.
             </sbb-link>`,
@@ -98,11 +93,10 @@ describe('sbb-link', () => {
             is-static="true"
             icon-placement="end"
             icon="chevron-small-right-small"
-            text-size="m"
-            variant="block">
+            text-size="m">
           <mock:shadow-root>
             <span
-                class="sbb-link sbb-link--icon-placement-end sbb-link--block sbb-link--text-m"
+                class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"
                 dir="ltr">
                 <span class="sbb-link__icon">
                     <slot name="icon"></slot>

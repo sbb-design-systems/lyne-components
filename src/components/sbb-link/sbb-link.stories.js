@@ -13,7 +13,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
-  if (!context.args.variant.includes('-negative')) {
+  if (!context.args.negative) {
     return `background-color: ${SbbColorWhiteDefault};`;
   }
 
@@ -30,7 +30,7 @@ const Template = (args) => (
 const paragraphStyle = (context) => {
   let color;
 
-  if (context.args.variant.includes('-negative')) {
+  if (context.args.negative) {
     color = `color: ${SbbColorAluminiumDefault};`;
   } else {
     color = `color: ${SbbColorIronDefault};`;
@@ -47,6 +47,18 @@ const InlineTemplate = (args, context) => (
     sit amet. <sbb-link {...args}>{args.text}</sbb-link>
   </p>
 );
+
+const inline = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const negative = {
+  control: {
+    type: 'boolean',
+  },
+};
 
 const download = {
   control: {
@@ -112,7 +124,7 @@ const text = {
   },
 };
 
-const ariaText = {
+const accessibilityLabel = {
   control: {
     type: 'text',
   },
@@ -125,41 +137,36 @@ const textSize = {
   options: ['xs', 's', 'm'],
 };
 
-const variant = {
-  control: {
-    type: 'select',
-  },
-  options: ['block', 'block-negative', 'inline', 'inline-negative'],
-};
-
 const defaultArgTypes = {
   download,
   disabled,
+  negative,
+  inline,
   'is-static': isStatic,
   href: href,
   icon,
   'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
   'id-value': idValue,
-  'aria-text': ariaText,
+  'accessibility-label': accessibilityLabel,
   text,
   'text-size': textSize,
-  variant,
 };
 
 const defaultArgs = {
   download: false,
   disabled: false,
+  negative: false,
+  inline: false,
   'is-static': false,
   href: 'https://github.com/lyne-design-system/lyne-components',
   icon: '',
   'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
   'id-value': '',
-  'aria-text': 'Travelcards & tickets',
+  'accessibility-label': 'Travelcards & tickets',
   text: 'Travelcards & tickets',
   'text-size': textSize.options[1],
-  variant: variant.options[0],
 };
 
 /* ************************************************* */
@@ -207,7 +214,7 @@ BlockNegativeS.argTypes = defaultArgTypes;
 BlockNegativeS.args = {
   ...defaultArgs,
   'text-size': textSize.options[1],
-  variant: variant.options[1],
+  negative: true,
 };
 
 BlockNegativeS.documentation = {
@@ -236,7 +243,7 @@ BlockNegativeIconStart.args = {
   icon: 'chevron-small-left-small',
   'icon-flip': true,
   'text-size': textSize.options[0],
-  variant: variant.options[1],
+  negative: true,
 };
 
 BlockNegativeIconStart.documentation = {
@@ -267,7 +274,7 @@ BlockNegativeIconEnd.args = {
   'icon-flip': true,
   'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0],
-  variant: variant.options[1],
+  negative: true,
 };
 
 BlockNegativeIconEnd.documentation = {
@@ -280,7 +287,7 @@ Inline.argTypes = defaultArgTypes;
 Inline.args = {
   ...defaultArgs,
   text: 'Show more',
-  variant: variant.options[2],
+  inline: true,
 };
 
 Inline.documentation = {
@@ -293,7 +300,8 @@ InlineNegative.argTypes = defaultArgTypes;
 InlineNegative.args = {
   ...defaultArgs,
   text: 'Show more',
-  variant: variant.options[3],
+  inline: true,
+  negative: true,
 };
 
 InlineNegative.documentation = {

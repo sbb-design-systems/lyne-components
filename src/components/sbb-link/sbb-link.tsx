@@ -50,7 +50,7 @@ export class SbbLink {
    * If this is set to true an span element will be used
    * instead of an anchor or a button
    */
-  @Prop() public isStatic: boolean = false;
+  @Prop() public isStatic = false;
 
   /**
    * The icon can either be place before or after
@@ -61,7 +61,12 @@ export class SbbLink {
   /**
    * The aria-label attribute text. (optional)
    */
-  @Prop() public ariaText?: string;
+  @Prop() public accessibilityLabel?: string;
+
+  /**
+   * Negative coloring variante flag
+   */
+  @Prop() public negative: boolean;
 
   /**
    * Text size, the link should get in the
@@ -71,9 +76,9 @@ export class SbbLink {
   @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
 
   /**
-   * Choose the link style variant.
+   * Applies link inline styles (underline, inherit coloring/font-size etc).
    */
-  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'block';
+  @Prop() public inline = false;
 
   /**
    * Disabled attribute if link is used as button (optional)
@@ -102,7 +107,7 @@ export class SbbLink {
     let TAG_NAME;
     if (this.isStatic) {
       TAG_NAME = 'span';
-    } else if(this.href) {
+    } else if (this.href) {
       TAG_NAME = 'a';
     } else {
       TAG_NAME = 'button';
@@ -110,7 +115,7 @@ export class SbbLink {
 
     return (
       <TAG_NAME {...this._getAttributeList}>
-        {this.icon && !this._inlineVariant ? (
+        {this.icon && !this.inline ? (
           <span class="sbb-link__icon">
             <slot name="icon" />
           </span>
@@ -128,11 +133,10 @@ export class SbbLink {
    * @return <object>
    */
   private get _getAttributeList(): object {
-    let ariaLabelText = this.ariaText;
+    let ariaLabelText = this.accessibilityLabel;
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
-
-    let attributeList = {};
+    const attributeList = {};
 
     Object.assign(attributeList, {
       dir: currentWritingMode || undefined,
@@ -159,7 +163,6 @@ export class SbbLink {
     }
 
     if (!this.isStatic) {
-
       if (this.href) {
         // Anchor case
         Object.assign(attributeList, {
@@ -175,91 +178,9 @@ export class SbbLink {
           disabled: this.disabled ? 'true' : undefined,
         });
       }
-
-
     }
-
-    // Anchor specific attributes
-    /*
-    if (this.href && !this.isStatic) {
-
-      attributeList = {
-        ...attributeList,
-        href: this.href,
-      };
-
-      if (openInNewWindow) {
-        ariaLabelText += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
-        attributeList = {
-          ...attributeList,
-          rel: 'external noopener nofollow',
-          target: '_blank',
-          'aria-label': ariaLabelText,
-        };
-      }
-
-
-      if (this.download) {
-        attributeList = {
-          ...attributeList,
-          download: '',
-        };
-      }
-
-
-
-      if (this.disabled) {
-        attributeList = {
-          ...attributeList,
-          tabIndex: '-1',
-        };
-      }
-
-
-    }  */
-
-    // Button specific attributes
-    /*
-    if (!this.href && !this.isStatic) {
-
-      if (this.disabled) {
-        attributeList = {
-          ...attributeList,
-          disabled: '',
-        };
-      }
-
-      if (this.type) {
-        attributeList = {
-          ...attributeList,
-          type: this.type,
-        };
-      }
-
-      if (this.name) {
-        attributeList = {
-          ...attributeList,
-          name: this.name,
-        };
-      }
-
-      if (this.form) {
-        attributeList = {
-          ...attributeList,
-          form: this.form,
-        };
-      }
-
-
-    }
-
-     */
 
     return attributeList;
-  }
-
-  private get _inlineVariant(): boolean {
-    return this.variant === 'inline' || this.variant === 'inline-negative';
   }
 
   /**
@@ -268,7 +189,7 @@ export class SbbLink {
    * @return <string>
    */
   private get _getClassString(): string {
-    const textSizeClass = this._inlineVariant ? '' : ` sbb-link--text-${this.textSize}`;
+    const textSizeClass = this.inline ? '' : ` sbb-link--text-${this.textSize}`;
 
     let iconPositionClass = '';
 
@@ -282,8 +203,9 @@ export class SbbLink {
       iconFlipClass = ' sbb-link--icon-flip';
     }
 
-    const variantClass = ` sbb-link--${this.variant}`;
+    const inlineClass = this.inline ? ' sbb-link--inline' : '';
+    const negativClass = this.negative ? ' sbb-link--negative' : '';
 
-    return `sbb-link${textSizeClass}${iconPositionClass}${iconFlipClass}${variantClass}`;
+    return `sbb-link${textSizeClass}${iconPositionClass}${iconFlipClass}${inlineClass}${negativClass}`;
   }
 }

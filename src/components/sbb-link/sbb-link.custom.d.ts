@@ -1,6 +1,6 @@
 export interface InterfaceLinkAttributes {
   iconPlacement?: 'start' | 'end';
   textSize?: 'xs' | 's' | 'm';
-  variant?: 'block' | 'block-negative' | 'inline' | 'inline-negative';
+  variant?: 'block' | 'inline';
   buttonType?: 'button' | 'reset' | 'submit';
 }

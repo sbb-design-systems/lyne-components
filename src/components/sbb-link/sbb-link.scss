@@ -43,26 +43,22 @@ button.sbb-link {
   @include buttonReset;
 }
 
-.sbb-link--block-negative,
-.sbb-link--inline-negative {
+.sbb-link--negative {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-}
-
-.sbb-link--block-negative {
   --text-color-normal: var(--sbb-color-white-default);
   --text-color-hover-focus: var(--sbb-color-cloud-default);
   --text-color-active: var(--sbb-color-silver-default);
 }
 
 .sbb-link--inline,
-.sbb-link--inline-negative {
+.sbb-link--inline.sbb-link--negative {
   @include text-inherit;
 
   color: inherit;
   text-decoration: underline;
 }
 
-.sbb-link--inline-negative {
+.sbb-link--inline.sbb-link--negative {
   --text-color-hover-focus: var(--sbb-color-graphite-default);
   --text-color-active: var(--sbb-color-metal-default);
 }

@@ -458,7 +458,7 @@ export namespace Components {
         /**
           * The aria-label attribute text. (optional)
          */
-        "ariaText"?: string;
+        "accessibilityLabel"?: string;
         /**
           * Disabled attribute if link is used as button (optional)
          */
@@ -492,13 +492,21 @@ export namespace Components {
          */
         "idValue"?: string;
         /**
-          * If this is set to true an span element will be used instead of a anchor or a button
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
+         */
+        "inline": boolean;
+        /**
+          * If this is set to true an span element will be used instead of an anchor or a button
          */
         "isStatic": boolean;
         /**
           * Name attribute if link is used as button (optional)
          */
         "name"?: string;
+        /**
+          * Negative coloring variante flag
+         */
+        "negative": boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
@@ -507,10 +515,6 @@ export namespace Components {
           * Type attribute if link is used as button (optional)
          */
         "type"?: InterfaceLinkAttributes['buttonType'];
-        /**
-          * Choose the link style variant.
-         */
-        "variant": InterfaceLinkAttributes['variant'];
     }
     interface SbbLinkButton {
         /**
@@ -1840,7 +1844,7 @@ declare namespace LocalJSX {
         /**
           * The aria-label attribute text. (optional)
          */
-        "ariaText"?: string;
+        "accessibilityLabel"?: string;
         /**
           * Disabled attribute if link is used as button (optional)
          */
@@ -1874,13 +1878,21 @@ declare namespace LocalJSX {
          */
         "idValue"?: string;
         /**
-          * If this is set to true an span element will be used instead of a anchor or a button
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
+         */
+        "inline"?: boolean;
+        /**
+          * If this is set to true an span element will be used instead of an anchor or a button
          */
         "isStatic"?: boolean;
         /**
           * Name attribute if link is used as button (optional)
          */
         "name"?: string;
+        /**
+          * Negative coloring variante flag
+         */
+        "negative"?: boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
@@ -1889,10 +1901,6 @@ declare namespace LocalJSX {
           * Type attribute if link is used as button (optional)
          */
         "type"?: InterfaceLinkAttributes['buttonType'];
-        /**
-          * Choose the link style variant.
-         */
-        "variant"?: InterfaceLinkAttributes['variant'];
     }
     interface SbbLinkButton {
         /**
