@@ -17,32 +17,32 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 export class SbbLink {
   /**
    * If set to true, the browser will
-   * show the download dialog on click.
+   * show the download dialog on click (optional).
    */
   @Prop() public download?: boolean;
 
-  /** The href value you want to link to */
-  @Prop() public hrefValue!: string;
+  /** The href value you want to link to (mandatory otherwise the link becomes a button)*/
+  @Prop() public href!: string;
 
   /**
    * The icon name we want to use,
    * choose from the small icon variants from
    * the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/.
+   * https://lyne.sbb.ch/tokens/icons/ (optional).
    * Inline variant doesn't support icons.
    */
   @Prop() public icon?: string;
 
   /**
    * Pass in an id, if you need to identify
-   * the link element.
+   * the link element (optional).
    */
   @Prop() public idValue?: string;
 
   /**
    * Decide whether the icon should get flipped
    * horizontally if the document writing mode
-   * is changed from ltr to rtl or vice versa.
+   * is changed from ltr to rtl or vice versa (optional).
    */
   @Prop() public iconFlip?: boolean;
 
@@ -50,7 +50,7 @@ export class SbbLink {
    * If this is set to true an span element will be used
    * instead of a anchor or a button
    */
-  @Prop() public staticSpan?: boolean = false;
+  @Prop() public isStatic: boolean = false;
 
   /**
    * The icon can either be place before or after
@@ -58,7 +58,9 @@ export class SbbLink {
    */
   @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
-  /** The link text we want to visually show. */
+  /**
+   * The aria-label attribute text. (optional)
+   */
   @Prop() public ariaText?: string;
 
   /**
@@ -74,24 +76,187 @@ export class SbbLink {
   @Prop() public variant: InterfaceLinkAttributes['variant'] = 'block';
 
   /**
-   * Disabled attribute if link is used as button
+   * Disabled attribute if link is used as button (optional)
    */
   @Prop() public disabled?: boolean;
 
   /**
-   * Name attribute if link is used as button
+   * Name attribute if link is used as button (optional)
    */
-  @Prop() public buttonName?: string;
+  @Prop() public name?: string;
 
   /**
-   * Form attribute if link is used as button
+   * Form attribute if link is used as button (optional)
    */
-  @Prop() public formId?: string;
+  @Prop() public form?: string;
 
   /**
-   * Type attribute if link is used as button
+   * Type attribute if link is used as button (optional)
    */
-  @Prop() public buttonType?: InterfaceLinkAttributes['buttonType'];
+  @Prop() public type?: InterfaceLinkAttributes['buttonType'];
+
+  /**
+   * Render element
+   */
+  public render(): JSX.Element {
+    let TAG_NAME;
+    if (this.isStatic) {
+      TAG_NAME = 'span';
+    } else if(this.href) {
+      TAG_NAME = 'a';
+    } else {
+      TAG_NAME = 'button';
+    }
+
+    return (
+      <TAG_NAME {...this._getAttributeList}>
+        {this.icon && !this._inlineVariant ? (
+          <span class="sbb-link__icon">
+            <slot name="icon" />
+          </span>
+        ) : (
+          ''
+        )}
+        <slot />
+      </TAG_NAME>
+    );
+  }
+
+  /**
+   * Get the attributelist base on the config and the resulting element
+   * @private
+   * @return <object>
+   */
+  private get _getAttributeList(): object {
+    let ariaLabelText = this.ariaText;
+    const currentLanguage = getDocumentLang();
+    const currentWritingMode = getDocumentWritingMode();
+
+    let attributeList = {};
+
+    Object.assign(attributeList, {
+      dir: currentWritingMode || undefined,
+      class: this._getClassString || undefined,
+      'aria-label': ariaLabelText || undefined,
+      name: this.name || undefined,
+      id: this.idValue || undefined,
+    });
+
+    let openInNewWindow = false;
+
+    if (!window.location.href.includes(this.href)) {
+      openInNewWindow = true;
+    }
+
+    if (openInNewWindow && !this.isStatic && this.href) {
+      ariaLabelText += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
+
+      Object.assign(attributeList, {
+        rel: 'external noopener nofollow',
+        target: '_blank',
+        'aria-label': ariaLabelText || undefined,
+      });
+    }
+
+    if (!this.isStatic) {
+
+      if (this.href) {
+        // Anchor case
+        Object.assign(attributeList, {
+          href: this.href,
+          download: this.download ? '' : undefined,
+          tabIndex: this.disabled ? '-1' : undefined,
+        });
+      } else {
+        // Button case
+        Object.assign(attributeList, {
+          type: this.type || undefined,
+          form: this.form || undefined,
+          disabled: this.disabled ? 'true' : undefined,
+        });
+      }
+
+
+    }
+
+    // Anchor specific attributes
+    /*
+    if (this.href && !this.isStatic) {
+
+      attributeList = {
+        ...attributeList,
+        href: this.href,
+      };
+
+      if (openInNewWindow) {
+        ariaLabelText += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
+        attributeList = {
+          ...attributeList,
+          rel: 'external noopener nofollow',
+          target: '_blank',
+          'aria-label': ariaLabelText,
+        };
+      }
+
+
+      if (this.download) {
+        attributeList = {
+          ...attributeList,
+          download: '',
+        };
+      }
+
+
+
+      if (this.disabled) {
+        attributeList = {
+          ...attributeList,
+          tabIndex: '-1',
+        };
+      }
+
+
+    }  */
+
+    // Button specific attributes
+    /*
+    if (!this.href && !this.isStatic) {
+
+      if (this.disabled) {
+        attributeList = {
+          ...attributeList,
+          disabled: '',
+        };
+      }
+
+      if (this.type) {
+        attributeList = {
+          ...attributeList,
+          type: this.type,
+        };
+      }
+
+      if (this.name) {
+        attributeList = {
+          ...attributeList,
+          name: this.name,
+        };
+      }
+
+      if (this.form) {
+        attributeList = {
+          ...attributeList,
+          form: this.form,
+        };
+      }
+
+
+    }
+
+     */
+
+    return attributeList;
+  }
 
   private get _inlineVariant(): boolean {
     return this.variant === 'inline' || this.variant === 'inline-negative';
@@ -120,137 +285,5 @@ export class SbbLink {
     const variantClass = ` sbb-link--${this.variant}`;
 
     return `sbb-link${textSizeClass}${iconPositionClass}${iconFlipClass}${variantClass}`;
-  }
-
-  /**
-   * Get the attributelist base on the config and the resulting element
-   * @private
-   * @return <object>
-   */
-  private get _getAttributeList(): object {
-    let ariaLabelText = this.ariaText;
-    const currentLanguage = getDocumentLang();
-    const currentWritingMode = getDocumentWritingMode();
-
-    let attributeList = {};
-
-    attributeList = {
-      ...attributeList,
-      dir: currentWritingMode,
-      class: this._getClassString,
-    };
-
-    // Only apply aria-label on button or anchor (no need on span)
-    if (this.ariaText && !this.staticSpan) {
-      attributeList = {
-        ...attributeList,
-        'aria-label': ariaLabelText,
-      };
-    }
-
-    if (this.idValue) {
-      attributeList = {
-        ...attributeList,
-        id: this.idValue,
-      };
-    }
-
-    let openInNewWindow = false;
-
-    if (!window.location.href.includes(this.hrefValue)) {
-      openInNewWindow = true;
-    }
-
-    // Anchor specific attributes
-    if (this.hrefValue && !this.staticSpan) {
-      attributeList = {
-        ...attributeList,
-        href: this.hrefValue,
-      };
-
-      if (openInNewWindow) {
-        ariaLabelText += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
-        attributeList = {
-          ...attributeList,
-          rel: 'external noopener nofollow',
-          target: '_blank',
-          'aria-label': ariaLabelText,
-        };
-      }
-
-      if (this.download) {
-        attributeList = {
-          ...attributeList,
-          download: '',
-        };
-      }
-
-      if (this.disabled) {
-        attributeList = {
-          ...attributeList,
-          tabIndex: '-1',
-        };
-      }
-    }
-
-    // Button specific attributes
-    if (!this.hrefValue && !this.staticSpan) {
-      if (this.disabled) {
-        attributeList = {
-          ...attributeList,
-          disabled: '',
-        };
-      }
-
-      if (this.buttonType) {
-        attributeList = {
-          ...attributeList,
-          type: this.buttonType,
-        };
-      }
-
-      if (this.buttonName) {
-        attributeList = {
-          ...attributeList,
-          name: this.buttonName,
-        };
-      }
-
-      if (this.formId) {
-        attributeList = {
-          ...attributeList,
-          form: this.buttonName,
-        };
-      }
-    }
-
-    return attributeList;
-  }
-
-  /**
-   * Render element
-   */
-  public render(): JSX.Element {
-    let TAG_NAME;
-    if (!this.hrefValue && !this.staticSpan) {
-      TAG_NAME = 'button';
-    } else if (!this.hrefValue && this.staticSpan) {
-      TAG_NAME = 'span';
-    } else {
-      TAG_NAME = 'a';
-    }
-
-    return (
-      <TAG_NAME {...this._getAttributeList}>
-        {this.icon && !this._inlineVariant ? (
-          <span class="sbb-link__icon">
-            <slot name="icon" />
-          </span>
-        ) : (
-          ''
-        )}
-        <slot />
-      </TAG_NAME>
-    );
   }
 }

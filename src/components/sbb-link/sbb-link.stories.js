@@ -54,7 +54,7 @@ const download = {
   },
 };
 
-const staticSpan = {
+const isStatic = {
   control: {
     type: 'boolean',
   },
@@ -75,7 +75,7 @@ const iconFlip = {
   },
 };
 
-const hrefValue = {
+const href = {
   control: {
     type: 'text',
   },
@@ -135,8 +135,8 @@ const variant = {
 const defaultArgTypes = {
   download,
   disabled,
-  'static-span': staticSpan,
-  'href-value': hrefValue,
+  'is-static': isStatic,
+  href: href,
   icon,
   'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
@@ -150,8 +150,8 @@ const defaultArgTypes = {
 const defaultArgs = {
   download: false,
   disabled: false,
-  'static-span': false,
-  'href-value': 'https://github.com/lyne-design-system/lyne-components',
+  'is-static': false,
+  href: 'https://github.com/lyne-design-system/lyne-components',
   icon: '',
   'icon-flip': false,
   'icon-placement': iconPlacement.options[0],

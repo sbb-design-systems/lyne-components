@@ -6,7 +6,7 @@ describe('sbb-link', () => {
   it('renders a plain link', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
-      html: `<sbb-link href-value="https://github.com/lyne-design-system/lyne-components" icon-placement="end"
+      html: `<sbb-link href="https://github.com/lyne-design-system/lyne-components" icon-placement="end"
             icon="chevron-small-right-small" text-size="m" variant="block" aria-text="Travelcards &amp; tickets">
             <span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span>
             Travelcards &amp; tickets.
@@ -15,7 +15,7 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
-            href-value="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/lyne-design-system/lyne-components"
             icon-placement="end"
             icon="chevron-small-right-small"
             text-size="m"
@@ -86,7 +86,7 @@ describe('sbb-link', () => {
   it('renders a link as a span', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
-      html: `<sbb-link static-span="true" icon-placement="end" icon="chevron-small-right-small" text-size="m"
+      html: `<sbb-link is-static="true" icon-placement="end" icon="chevron-small-right-small" text-size="m"
             variant="block">
             <span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span>
             Travelcards &amp; tickets.
@@ -95,7 +95,7 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
-            static-span="true"
+            is-static="true"
             icon-placement="end"
             icon="chevron-small-right-small"
             text-size="m"
