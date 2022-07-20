@@ -110,13 +110,13 @@ export class SbbTeaserHero {
       <a class="teaser-hero" href={this.link} {...linkAttributes}>
         <sbb-image
           aspect-ratio="1-1"
-          no-radius='true'
+          no-radius="true"
           class="teaser-hero__image"
           image-src={this.imageSrc}
           loading={this.imageLoading}
           lqip
           performance-mark="teaser-hero"
-          variant-teaser-hero='true'
+          variant-teaser-hero="true"
           picture-sizes-config={JSON.stringify(this._pictureSizesConfig)}
         ></sbb-image>
 
