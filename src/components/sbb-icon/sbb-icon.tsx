@@ -10,7 +10,6 @@ import { validateContent } from './validate';
 export class SbbIcon {
   private _svgName: string;
   private _svgNamespace = 'sbb';
-  private _ariaHidden: string;
 
   @Element() private _element!: HTMLElement;
 
@@ -20,16 +19,11 @@ export class SbbIcon {
   @State() private _svgIcon: string;
 
   /**
-   * Only set the aria-label if aria-hidden is not set to "true".
-   */
-  @State() private _ariaLabel: string;
-
-  /**
    * The provided name consisting of the namespace and the name of the icon.
    * If the namespace is missing, the default namespace "sbb" will be used.
    * E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
    */
-  @Prop() public name: string;
+  @Prop({ reflect: true }) public name: string;
 
   /**
    * When set to `false`, SVG content that is HTTP fetched will not be checked
@@ -38,6 +32,17 @@ export class SbbIcon {
    * @default true
    */
   @Prop() public sanitize = true;
+
+  /**
+   * The aria-hidden property is set to "true" by default, since an icon alone
+   * does not convey any useful information for a screen-reader user.
+   */
+  @Prop({ reflect: true }) public ariaHidden = 'true';
+
+  /**
+   * Only set the aria-label if aria-hidden is set to "false".
+   */
+  @Prop({ mutable: true, reflect: true }) public ariaLabel: string;
 
   public connectedCallback(): void {
     this._loadSvgIcon(this.name);
@@ -69,18 +74,16 @@ export class SbbIcon {
       this._svgName = name;
     }
 
-    this._ariaHidden = this._getAriaHidden();
-
     // generate a default label in case user does not provide their own
-    if (this._ariaHidden === 'false' && this._svgName) {
-      this._ariaLabel = this._getAriaLabel() || `Icon ${this._svgName.replace(/-/g, ' ')}`;
+    // and aria-hidden is set to "false"
+    if (this.ariaHidden === 'false' && !this.ariaLabel && this._svgName) {
+      this.ariaLabel = `Icon ${this._svgName.replace(/-/g, ' ')}`;
     }
 
     // try to load SVG from registered icons
     this._svgIcon = this._loadRegisteredIcon();
 
     if (this._svgIcon) {
-      this._element.shadowRoot.innerHTML = this._svgIcon;
       return;
     }
 
@@ -89,8 +92,6 @@ export class SbbIcon {
     if (url) {
       this._svgIcon = await getSvgContent(url, this.sanitize);
     }
-
-    this._element.shadowRoot.innerHTML = this._svgIcon ?? '';
   }
 
   private _splitIconName(iconName: string): [string, string] {
@@ -122,24 +123,15 @@ export class SbbIcon {
     }
   }
 
-  private _getAriaHidden(): string {
-    return this._element.getAttribute('aria-hidden');
-  }
-
-  private _getAriaLabel(): string {
-    return this._element.getAttribute('aria-label');
-  }
-
   public render(): JSX.Element {
     return (
-      <Host
-        aria-hidden={this._ariaHidden === 'false' ? 'false' : 'true'}
-        aria-label={
-          this._ariaLabel !== undefined && this._ariaHidden === 'false' ? this._ariaLabel : null
-        }
-        role="img"
-        class={`sbb-icon ${this._svgName ?? ''}`}
-      ></Host>
+      <Host role="img" class={`sbb-icon ${this._svgName ?? ''}`}>
+        {this._svgIcon ? (
+          <span class="sbb-icon-inner" innerHTML={this._svgIcon}></span>
+        ) : (
+          <span class="sbb-icon-inner"></span>
+        )}
+      </Host>
     );
   }
 

@@ -166,7 +166,9 @@ const Template = (args) => (
     </div>
     <div slot="col-3">
       <sbb-stack>
-        <sbb-title level="2" text="Newsletter." variant="block" visual-level="5"></sbb-title>
+        <sbb-title level="2" visual-level="5">
+          Newsletter.
+        </sbb-title>
         <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
         <sbb-stack space-leading="fixed-3x">
           <sbb-link-button

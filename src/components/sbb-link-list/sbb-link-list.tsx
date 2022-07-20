@@ -67,10 +67,11 @@ export class SbbLinkList {
           <sbb-title
             id={id}
             level={this.titleLevel}
-            text={this.titleText}
-            variant={this.variant}
             visual-level="5"
-          ></sbb-title>
+            negative={this.variant === 'negative'}
+          >
+            {this.titleText}
+          </sbb-title>
         ) : (
           ''
         )}

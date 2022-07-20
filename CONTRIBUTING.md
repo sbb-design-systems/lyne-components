@@ -54,8 +54,8 @@ You can file new issues by providing the above information [here](https://github
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 
-Before you submit your Pull Request (PR) consider the following guidelines:
-
+- Search [GitHub](https://github.com/angular/components/pulls) for an open or closed PR
+  that relates to your submission. You don't want to duplicate effort.
 - Make your changes in a new git branch:
 
   ```shell
@@ -84,6 +84,20 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 
 - In GitHub, send a pull request to `lyne-components:master`.
   The PR title and message should as well conform to the [commit message conventions](#commit).
+
+- If we suggest changes then:
+
+  - Make the required updates.
+  - Re-run tests to ensure tests are still passing.
+  - Rebase your branch and force push to your GitHub repository (this will update your Pull
+    Request):
+
+    ```shell
+    git rebase upstream/master -i
+    git push -f
+    ```
+
+That's it! Thank you for your contribution!
 
 ## <a name="rules"></a> Coding Rules
 

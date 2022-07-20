@@ -34,7 +34,7 @@ describe('sbb-link-list', () => {
         >
           <mock:shadow-root>
             <div>
-                <sbb-title id="title-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" level="2" text="Help &amp; Contact" variant="positive" visual-level="5"></sbb-title>
+                <sbb-title id="title-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" level="2" visual-level="5">Help &amp; Contact</sbb-title>
                 <ul aria-labelledby="title-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" class="link-list link-list--vertical" role="list">
                     <slot name="link-list__item">
                     </slot>

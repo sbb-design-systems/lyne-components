@@ -152,7 +152,7 @@ const Template = (args) => (
         space-leading="responsive-l"
         space-trailing="responsive-l"
       >
-        <sbb-title level="2" text="Top Produkte." variant="positive" visual-level="2"></sbb-title>
+        <sbb-title level="2">Top Produkte.</sbb-title>
         <sbb-grid variant="base--top-products">
           <sbb-card-product
             style="height: 100%;"
@@ -172,7 +172,9 @@ const Template = (args) => (
               </svg>
             </div>
             <div slot="title">
-              <sbb-title level="2" text="Tageskarte" visual-level="6"></sbb-title>
+              <sbb-title level="2" visual-level="6">
+                Tageskarte
+              </sbb-title>
             </div>
             <div slot="text">
               <span>Gültig heute</span>
@@ -204,7 +206,9 @@ const Template = (args) => (
               </svg>
             </div>
             <div slot="title">
-              <sbb-title level="2" text="Velo Tageskarte" visual-level="6"></sbb-title>
+              <sbb-title level="2" visual-level="6">
+                Velo Tageskarte
+              </sbb-title>
             </div>
             <div slot="text">
               <span>Gültig heute</span>
@@ -236,7 +240,9 @@ const Template = (args) => (
               </svg>
             </div>
             <div slot="title">
-              <sbb-title level="2" text="Libero Kurzstrecke" visual-level="6"></sbb-title>
+              <sbb-title level="2" visual-level="6">
+                Libero Kurzstrecke
+              </sbb-title>
             </div>
             <div slot="text">
               <span>Gültig heute</span>
@@ -268,7 +274,9 @@ const Template = (args) => (
               </svg>
             </div>
             <div slot="title">
-              <sbb-title level="2" text="Streckenkarte" visual-level="6"></sbb-title>
+              <sbb-title level="2" visual-level="6">
+                Streckenkarte
+              </sbb-title>
             </div>
             <div slot="text">
               <span>Für regelmässige Streckenfahrten</span>
@@ -291,14 +299,14 @@ const Template = (args) => (
             href-value="https://github.com/lyne-design-system/lyne-components"
           >
             <div slot="title">
-              <sbb-title level="2" text="GA" visual-level="1"></sbb-title>
+              <sbb-title level="2" visual-level="1">
+                GA
+              </sbb-title>
             </div>
             <div slot="lead">
-              <sbb-title
-                level="3"
-                text="Mit dem Generalabonnement geniessen Sie freie Fahrt."
-                visual-level="6"
-              ></sbb-title>
+              <sbb-title level="3" visual-level="6">
+                Mit dem Generalabonnement geniessen Sie freie Fahrt.
+              </sbb-title>
             </div>
             <div slot="action">
               <sbb-button
@@ -317,14 +325,14 @@ const Template = (args) => (
             href-value="https://github.com/lyne-design-system/lyne-components"
           >
             <div slot="title">
-              <sbb-title level="2" text="1/2" visual-level="1"></sbb-title>
+              <sbb-title level="2" visual-level="1">
+                1/2
+              </sbb-title>
             </div>
             <div slot="lead">
-              <sbb-title
-                level="3"
-                text="Mit dem Halbtax zum halben Preis fahren."
-                visual-level="6"
-              ></sbb-title>
+              <sbb-title level="3" visual-level="6">
+                Mit dem Halbtax zum halben Preis fahren.
+              </sbb-title>
             </div>
             <div slot="action">
               <sbb-button
@@ -491,7 +499,9 @@ const Template = (args) => (
       </div>
       <div slot="col-3">
         <sbb-stack>
-          <sbb-title level="2" text="Newsletter." visual-level="5"></sbb-title>
+          <sbb-title level="2" visual-level="5">
+            Newsletter.
+          </sbb-title>
           <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
           <sbb-stack space-leading="fixed-3x">
             <sbb-link-button
