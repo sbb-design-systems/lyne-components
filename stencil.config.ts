@@ -1,12 +1,12 @@
 import { inlineSvg } from 'stencil-inline-svg';
 import jestConfig from './.jest.config.js';
 import { sass } from '@stencil/sass';
-import { StencilConfig } from '@stencil/core/internal';
+import { Config } from '@stencil/core';
 import { basename, dirname, join, resolve } from 'path';
 import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import ts from 'typescript';
 
-export const config: StencilConfig = {
+export const config: Config = {
   globalScript: 'src/global/global.ts',
   globalStyle: 'src/global/global.shared.scss',
   namespace: 'lyne-components',
