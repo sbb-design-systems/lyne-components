@@ -12,6 +12,7 @@ import {
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import { hostContext } from '../../global/helpers/host-context';
 import throttle from '../../global/helpers/throttle';
 
 /**
@@ -37,6 +38,7 @@ const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION', 'SBB-TAB-GROUP'
 export class SbbTabGroup {
   public tabs: InterfaceSbbTabGroupTab[] = [];
   private _lastUId = 0;
+  private _isNested: boolean;
   private _tabContentElement: HTMLElement;
   private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
   private _tabContentResizeObserver = new ResizeObserver(
@@ -94,6 +96,10 @@ export class SbbTabGroup {
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
     return this.tabs.filter((t) => !t.hasAttribute('disabled'));
+  }
+
+  public connectedCallback(): void {
+    this._isNested = !!hostContext('sbb-tab-group', this._element.parentElement);
   }
 
   public componentWillLoad(): void {
@@ -248,9 +254,7 @@ export class SbbTabGroup {
     this._ensureId(tab);
     if (SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.tagName)) {
       tab.relatedContent = tab.nextElementSibling as HTMLElement;
-      if (tab.relatedContent.nodeName === 'SBB-TAB-GROUP') {
-        tab.relatedContent.classList.add('tab-group--nested');
-      } else {
+      if (tab.relatedContent.nodeName !== 'SBB-TAB-GROUP') {
         tab.relatedContent.tabIndex = 0;
       }
     } else {
@@ -308,7 +312,7 @@ export class SbbTabGroup {
 
   public render(): JSX.Element {
     return (
-      <Host>
+      <Host class={this._isNested ? 'tab-group--nested' : ''}>
         <div class="tab-group" role="tablist">
           <slot name="tab-bar" onSlotchange={this._onTabsSlotChange}></slot>
         </div>
