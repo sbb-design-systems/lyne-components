@@ -546,10 +546,6 @@ export namespace Components {
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant": InterfaceLinkAttributes['variant'];
-        /**
-          * Set this property to true if you want only a visual represenation of a link, but no interaction (a span instead of a link will be rendered).
-         */
-        "visualLinkOnly"?: boolean;
     }
     interface SbbLinkButton {
         /**
@@ -1922,10 +1918,6 @@ declare namespace LocalJSX {
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant"?: InterfaceLinkAttributes['variant'];
-        /**
-          * Set this property to true if you want only a visual represenation of a link, but no interaction (a span instead of a link will be rendered).
-         */
-        "visualLinkOnly"?: boolean;
     }
     interface SbbLinkButton {
         /**

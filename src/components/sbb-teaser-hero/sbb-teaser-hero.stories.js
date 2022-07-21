@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 
 /* --- link ---------------------------------------- */
 
@@ -33,7 +32,7 @@ const sbbPanelLinkArgs = {
 
 const SlotPanelSbbLinkTemplate = (args) => (
   <sbb-link slot="link" href-value={args.href} icon-flip="" id-value="" text={args.text}>
-    <span slot="icon">{getMarkupForSvg('chevron-small-right-small')}</span>
+    <sbb-icon slot="icon" name="chevron-small-right-small"></sbb-icon>
   </sbb-link>
 );
 

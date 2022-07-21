@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 
 /* ************************************************* */
 /* Slot templates, used in Storybook template        */
@@ -44,7 +43,7 @@ const SlotSbbLinkTemplate = (args) => (
     id-value=""
     text={args.text}
   >
-    <span slot="icon">{getMarkupForSvg('chevron-small-right-small')}</span>
+    <sbb-icon slot="icon" name="chevron-small-right-small"></sbb-icon>
   </sbb-link>
 );
 

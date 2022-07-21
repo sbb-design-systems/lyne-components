@@ -11,18 +11,18 @@
   --panel-padding-inline: var(--sbb-spacing-responsive-m);
   --panel-padding-block: var(--sbb-spacing-responsive-s);
   --panel-background-color: var(--sbb-color-red-default);
-  --text-margin-block-end: var(--sbb-spacing-fixed-6x);
+  --text-margin-block-start: var(--sbb-spacing-fixed-6x);
 
   // TODO: missing design tokens
   --panel-width: #{px-to-rem-build(223)};
   --panel-height: #{px-to-rem-build(167)};
-  --triangle-height: #{px-to-rem-build(33)};
+  --panel-triangle-height: #{px-to-rem-build(33)};
 
   @include mq($from: medium) {
     // TODO: missing design tokens
     --panel-width: #{px-to-rem-build(321)};
     --panel-height: #{px-to-rem-build(240.11)};
-    --triangle-height: #{px-to-rem-build(47.45)};
+    --panel-triangle-height: #{px-to-rem-build(47.45)};
     --panel-line-height: 1.3;
   }
 
@@ -30,7 +30,7 @@
     // TODO: missing design tokens
     --panel-width: #{px-to-rem-build(428)};
     --panel-height: #{px-to-rem-build(320.38)};
-    --triangle-height: #{px-to-rem-build(63.31)};
+    --panel-triangle-height: #{px-to-rem-build(63.31)};
     --panel-font-size-text-xxl: var(--sbb-typo-scale-2-5x);
   }
 
@@ -43,13 +43,13 @@
   flex-direction: column;
   justify-content: center;
   width: var(--panel-width);
-  height: calc(var(--panel-height) + var(--triangle-height) * 2);
-  padding: calc(var(--sbb-spacing-responsive-s) + var(--triangle-height))
+  height: calc(var(--panel-height) + var(--panel-triangle-height) * 2);
+  padding: calc(var(--sbb-spacing-responsive-s) + var(--panel-triangle-height))
     var(--sbb-spacing-responsive-m);
   clip-path: polygon(
     0 0,
-    100% var(--triangle-height),
-    100% calc(100% - calc(var(--triangle-height))),
+    100% var(--panel-triangle-height),
+    100% calc(100% - var(--panel-triangle-height)),
     0% 100%
   );
   background-color: var(--sbb-color-red-default);
@@ -64,10 +64,9 @@
   font-size: var(--panel-font-size-text-xxl);
   color: var(--sbb-color-white-default);
   line-height: var(--panel-line-height);
-  margin-block-start: 0;
-  margin-block-end: 0;
+  margin-block: 0;
 }
 
 ::slotted([slot='link']) {
-  margin-block-start: var(--text-margin-block-end);
+  margin-block-start: var(--text-margin-block-start);
 }

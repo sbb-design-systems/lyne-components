@@ -26,7 +26,7 @@ export class SbbPanel {
 
       if (element.nodeName !== 'SBB-LINK') return;
 
-      element['visualLinkOnly'] = this.hasCallToActionLink;
+      element['isStatic'] = this.hasCallToActionLink;
 
       if (element.getAttribute('icon') !== 'chevron-small-right-small') {
         element.setAttribute('icon', 'chevron-small-right-small');
