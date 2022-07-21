@@ -52,7 +52,7 @@
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
     "@namics/stylelint-bem": "7.0.0",
-    "@sbb-esta/lyne-design-tokens": "0.2.1",
+    "@sbb-esta/lyne-design-tokens": "0.2.2",
     "@stencil/core": "2.17.0",
     "@stencil/sass": "1.5.2",
     "@storybook/addon-a11y": "6.5.9",
@@ -109,6 +109,42 @@
   "unpkg": "dist/lyne-components/",
   "publishConfig": {
     "access": "public"
+  },
+  "standard-version": {
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "section": "Documentation"
+      },
+      {
+        "type": "style",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "refactor",
+        "hidden": "Refactor"
+      },
+      {
+        "type": "perf",
+        "hidden": "Performance"
+      },
+      {
+        "type": "test",
+        "hidden": true
+      }
+    ]
   },
   "prettier": {
     "singleQuote": true,

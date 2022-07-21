@@ -1813,10 +1813,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@sbb-esta/lyne-design-tokens@0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.2.1.tgz#ff1f72ea3b8bd41c0fb65c95f3878e127285db02"
-  integrity sha512-jh+gKiFzOTHosNAWoVymFH6nF7wlaEySE5fMGZap/O/aaeBikBvSKsybtvE80ouOKXhoTenh4e0vka1ic/5Oog==
+"@sbb-esta/lyne-design-tokens@0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.2.2.tgz#67d297c33760715af38942a13a0c03519a1f6b13"
+  integrity sha512-qXCH+6g9htOdqkee6QsN0fmdWpa2BhpYR1+uguUtZqRAFlcA/csc8bsPcxJIdHHL0R3vhq05WkZyZTMYGGPvPA==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
