@@ -10,7 +10,9 @@
   // error height = text line-height
   min-height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
 
-  --icon-size: var(--sbb-size-icon-ui-small);
+  //--icon-size: var(--sbb-size-icon-ui-small);
+  // TODO icon width token
+  --sbb-icon-svg-width: 17px;
 }
 
 // Error
@@ -24,7 +26,7 @@
   top: 0;
 
   // reserving space for icon
-  left: calc(var(--icon-size) + var(--sbb-spacing-fixed-1x));
+  left: calc(var(--sbb-icon-svg-width) + var(--sbb-spacing-fixed-1x));
 }
 
 .sbb-icon {
