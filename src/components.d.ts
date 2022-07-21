@@ -35,7 +35,7 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
-import { InterfaceCheckToggleAttributes } from "./components/sbb-toggle-check/sbb-link.custom";
+import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -968,7 +968,7 @@ export namespace Components {
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
-        "labelPosition"?: InterfaceCheckToggleAttributes['labelPosition'];
+        "labelPosition"?: InterfaceToggleCheckAttributes['labelPosition'];
         /**
           * Name of the toggle-check.
          */
@@ -2260,7 +2260,7 @@ declare namespace LocalJSX {
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
-        "labelPosition"?: InterfaceCheckToggleAttributes['labelPosition'];
+        "labelPosition"?: InterfaceToggleCheckAttributes['labelPosition'];
         /**
           * Name of the toggle-check.
          */

@@ -18,8 +18,8 @@ The label is provided as the content to the `<sbb-toggle-check>` element.
 It can be displayed after or before the toggle-check.
 
 If you don't want the label to appear next to the toggle-check, you can use
-[`accessibility-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html) or
-[`accessibility-labelledby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA16.html) to
+`accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) or
+`accessibility-labelledby` (forwarded as [`aria-labelledby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA16.html)) to
 specify an appropriate label.
 
 ## Accessibility
@@ -30,14 +30,13 @@ This internal checkbox receives focus and is automatically labelled by the text 
 `<sbb-toggle-check>`, as this degrades the experience for users of assistive technology.
 
 Always provide an accessible label via `accessibility-label` or `accessibility-labelledby` for checkboxes without
-descriptive text content. For dynamic labels, `SbbToggleCheck` provides input properties for binding
-`aria-label` and `aria-labelledby`. This means that you should not use the `attr.` prefix when
-binding these properties, as demonstrated below.
+descriptive text content.
 
-Additionaly you can use [`accessibility-describedby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA1.html) to describe the element on which the attribute is set.
+Additionaly you can use `accessibility-describedby` (forwarded as [`aria-describedby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA1.html))
+to describe the element on which the attribute is set.
 
 ```html
-<sbb-toggle-check aria-label="isSubscribedToEmailsMessage" />
+<sbb-toggle-check accessibility-label="Subscribed to email message" />
 ```
 
 <!-- Auto Generated Below -->

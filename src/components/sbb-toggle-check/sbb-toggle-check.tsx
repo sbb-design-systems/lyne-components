@@ -1,5 +1,5 @@
 import { Component, Prop, h, Event, EventEmitter, Watch } from '@stencil/core';
-import { InterfaceCheckToggleAttributes } from './sbb-link.custom';
+import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 
 let nextId = 0;
 @Component({
@@ -32,7 +32,7 @@ export class SbbToggleCheck {
   @Prop() public required?: boolean;
 
   /** The label position relative to the toggle. Defaults to 'after' */
-  @Prop() public labelPosition?: InterfaceCheckToggleAttributes['labelPosition'] = 'after';
+  @Prop() public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] = 'after';
 
   /** The aria-label prop for the hidden input. */
   @Prop() public accessibilityLabel?: string;
@@ -45,11 +45,6 @@ export class SbbToggleCheck {
 
   /** Event for emiting whenever selection is changed. */
   @Event() public sbbChange: EventEmitter;
-
-  /** Set checked to the state of the input-checkbox. */
-  private _toggle(): void {
-    this.checked = this._checkbox?.checked;
-  }
 
   @Watch('checked')
   public checkedChanged(isChecked: boolean): void {
@@ -76,7 +71,7 @@ export class SbbToggleCheck {
           value={this.value}
           onChange={(event: Event): void => {
             event.stopPropagation();
-            this._toggle();
+            this.checked = this._checkbox?.checked;
           }}
           aria-label={this.accessibilityLabel}
           aria-labelledby={this.accessibilityLabelledby}
