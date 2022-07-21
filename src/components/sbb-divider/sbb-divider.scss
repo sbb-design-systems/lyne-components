@@ -10,14 +10,12 @@
 .sbb-divider {
   display: block;
 
-  // TODO needed height to be refactored, used for stories preview
-  height: 400px;
-
   &--horizontal {
     border-top: 0.5px solid var(--_divider-color);
   }
 
   &--vertical {
+    height: 100%;
     border-left: 0.5px solid var(--_divider-color);
   }
 

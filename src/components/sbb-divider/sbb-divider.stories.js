@@ -27,7 +27,7 @@ const wrapperStyle = (context) => {
   return `background-color: ${SbbColorBlackDefault};`;
 };
 
-const Template = (args) => <sbb-divider {...args}></sbb-divider>;
+const Template = (args) => <sbb-divider {...args} />;
 
 const orientation = {
   control: {
@@ -85,7 +85,7 @@ export default {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)} padding: 20px;`}>
-        <Story />
+        <Story style="height: 400px;" />
       </div>
     ),
   ],
