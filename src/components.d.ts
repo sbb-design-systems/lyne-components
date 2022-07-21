@@ -279,11 +279,11 @@ export namespace Components {
     }
     interface SbbDivider {
         /**
-          * Footer appearance
+          * Appearance property for displaying the component in dark mode
          */
         "appearance"?: InterfaceSbbDividerAttributes['appearance'];
         /**
-          * Documentation for someProp
+          * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
          */
         "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
@@ -1539,11 +1539,11 @@ declare namespace LocalJSX {
     }
     interface SbbDivider {
         /**
-          * Footer appearance
+          * Appearance property for displaying the component in dark mode
          */
         "appearance"?: InterfaceSbbDividerAttributes['appearance'];
         /**
-          * Documentation for someProp
+          * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
          */
         "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }

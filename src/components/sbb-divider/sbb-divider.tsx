@@ -11,10 +11,10 @@ import { InterfaceSbbDividerAttributes } from './sbb-divider.custom.d';
   tag: 'sbb-divider',
 })
 export class SbbDivider {
-  /** Footer appearance */
+  /** Appearance property for displaying the component in dark mode */
   @Prop() public appearance?: InterfaceSbbDividerAttributes['appearance'] = 'primary';
 
-  /** Documentation for someProp */
+  /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
   @Prop() public orientation?: InterfaceSbbDividerAttributes['orientation'] = 'horizontal';
 
   public render(): JSX.Element {
