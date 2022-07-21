@@ -1,7 +1,10 @@
 import { Component, h, Prop, State } from '@stencil/core';
 
-import { InterfaceImageAttributes } from './sbb-image.custom';
-import pictureSizesConfigData from './sbb-image.helper';
+import {
+  InterfaceImageAttributes,
+  InterfaceImageAttributesSizesConfigBreakpoint,
+} from './sbb-image.custom';
+import imageHelperGetBreakpoints from './sbb-image.helper';
 import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
 
 const eventListenerOptions = {
@@ -151,8 +154,9 @@ export class SbbImage {
    * With the pictureSizesConfig object, you can pass in information
    * into image about what kind of source elements should get
    * rendered. mediaQueries accepts multiple Media Query entries
-   * which can get combined by defining a conditionOperator. An
-   * example could look like this:
+   * which can get combined by defining a conditionOperator.
+   * Type is: stringified InterfaceImageAttributesSizesConfig-Object
+   * An example could look like this:
    * {
    *    "breakpoints": [
    *      {
@@ -232,7 +236,7 @@ export class SbbImage {
    * default is '16-9' (16/9)
    * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
    */
-  @Prop() public aspectRatio = '16-9';
+  @Prop() public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16-9';
 
   private _logPerformanceMarks(): void {
     if (window.performance.mark && this.performanceMark) {
@@ -288,17 +292,19 @@ export class SbbImage {
     return imageUrlObj.href;
   }
 
-  private _preparePictureSizeConfigs(): any {
+  private _preparePictureSizeConfigs(): InterfaceImageAttributesSizesConfigBreakpoint[] {
     let pictureSizesConfig;
 
-    if (this.pictureSizesConfig === undefined) {
+    if (this.pictureSizesConfig) {
+      pictureSizesConfig = this.pictureSizesConfig;
+    } else {
       // default config
       pictureSizesConfig = `{
         "breakpoints": [
           {
             "image": {
-              "height": "675",
-              "width": "1200"
+              "height": 675,
+              "width": 1200
             },
             "mediaQueries": [
               {
@@ -313,8 +319,8 @@ export class SbbImage {
           },
           {
             "image": {
-              "height": "549",
-              "width": "976"
+              "height": 549,
+              "width": 976
             },
             "mediaQueries": [
               {
@@ -329,8 +335,8 @@ export class SbbImage {
           },
           {
             "image": {
-              "height": "180",
-              "width": "320"
+              "height": 180,
+              "width": 320
             },
             "mediaQueries": [
               {
@@ -347,7 +353,7 @@ export class SbbImage {
       }`;
     }
 
-    return pictureSizesConfigData(pictureSizesConfig);
+    return imageHelperGetBreakpoints(pictureSizesConfig);
   }
 
   private _createMediaQueryString(mediaQueries): string {
