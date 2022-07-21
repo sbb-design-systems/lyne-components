@@ -110,6 +110,42 @@
   "publishConfig": {
     "access": "public"
   },
+  "standard-version": {
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "section": "Documentation"
+      },
+      {
+        "type": "style",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "refactor",
+        "hidden": "Refactor"
+      },
+      {
+        "type": "perf",
+        "hidden": "Performance"
+      },
+      {
+        "type": "test",
+        "hidden": true
+      }
+    ]
+  },
   "prettier": {
     "singleQuote": true,
     "endOfLine": "lf",
