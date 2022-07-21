@@ -36,7 +36,7 @@ I tested the build on the following browsers:
 - [ ] Chrome Mobile
 - [ ] Safari Mobile
 
-## Scrren readers
+## Screen readers
 
 I tested the build on the following browsers:
 
