@@ -28,8 +28,8 @@ export class SbbDivider {
           ${orientationPositionClass}
           ${appearanceClass}`}
         role="separator"
-        aria-orientation={this.orientation}>
-      </div>
+        aria-orientation={this.orientation}
+      ></div>
     );
   }
 }
