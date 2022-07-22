@@ -11,7 +11,7 @@
   display: block;
 
   &--horizontal {
-    border-top: 0.5px solid var(--_divider-color);
+    border-top: #{px-to-rem-build(1)} solid var(--_divider-color);
   }
 
   &--vertical {
