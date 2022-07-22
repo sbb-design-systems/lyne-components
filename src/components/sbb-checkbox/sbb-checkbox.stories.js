@@ -42,8 +42,6 @@ const defaultArgs = {
   disabled: false,
   label: 'Label',
   name: 'checkbox',
-  'check-icon': 'tick-small',
-  'tristate-icon': 'minus-small',
 };
 
 /* ************************************************* */

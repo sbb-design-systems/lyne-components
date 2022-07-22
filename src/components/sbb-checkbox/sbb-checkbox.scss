@@ -5,16 +5,16 @@
   --checkbox-width: calc(#{px-to-rem-build(18)} - var(--checkbox-border-width));
   --checkbox-height: var(--checkbox-width);
   --checkbox-border-color: var(--sbb-color-smoke-default);
-  --checkbox-cursor: pointer;
   --checkbox-selection-color: var(--sbb-color-red-default);
   --checkbox-label-color: var(--sbb-color-charcoal-default);
+  --checkbox-cursor: pointer;
 
   .checkbox--disabled {
     --checkbox-color: var(--sbb-color-graphite-default);
     --checkbox-border-color: var(--sbb-color-graphite-default);
-    --checkbox-cursor: not-allowed;
-    --checkbox-selection-color: (--sbb-color-graphite-default);
+    --checkbox-selection-color: var(--sbb-color-graphite-default);
     --checkbox-label-color: var(--sbb-color-smoke-default);
+    --checkbox-cursor: not-allowed;
   }
 }
 
@@ -54,14 +54,22 @@ input[type='checkbox'] {
   border-radius: #{px-to-rem-build(4)};
   border: var(--checkbox-border-width) solid var(--checkbox-border-color);
   background-color: var(--sbb-color-white-default);
-  color: var(--checkbox-selection-color);
 }
 
 // todo: icon is bigger then --checkbox-width
 .checkbox__icon {
+  display: inline-flex;
   position: absolute;
-  top: -20%;
-  left: -20%;
+  width: 100%;
+  height: 100%;
+
+  svg {
+    margin: auto;
+  }
+
+  svg path {
+    stroke: var(--checkbox-selection-color);
+  }
 }
 
 .checkbox__label {

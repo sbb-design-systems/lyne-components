@@ -19,7 +19,7 @@ describe('sbb-checkbox', () => {
     it('emit event on click', async () => {
       await page.waitForChanges();
       const checkbox = await page.find('sbb-checkbox');
-      const changeSpy = await page.spyOnEvent(events.sbbChange);
+      const changeSpy = await page.spyOnEvent(events.sbbCheckboxChange);
 
       await checkbox.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);

@@ -492,7 +492,6 @@ export namespace Components {
           * The aria-labelledby prop for the hidden input.
          */
         "acceccibilityLabelledby"?: string;
-        "checkIcon": 'tick-small';
         /**
           * Whether the checkbox is checked.
          */
@@ -522,7 +521,6 @@ export namespace Components {
           * The required prop for the required state.
          */
         "required"?: boolean;
-        "tristateIcon": 'minus-small';
         /**
           * Whether the checkbox is tristated.
          */
@@ -2683,7 +2681,6 @@ declare namespace LocalJSX {
           * The aria-labelledby prop for the hidden input.
          */
         "acceccibilityLabelledby"?: string;
-        "checkIcon"?: 'tick-small';
         /**
           * Whether the checkbox is checked.
          */
@@ -2712,12 +2709,11 @@ declare namespace LocalJSX {
         /**
           * Event for emiting whenever selection is changed.
          */
-        "onSbbChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        "onSbbCheckboxChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
         /**
           * The required prop for the required state.
          */
         "required"?: boolean;
-        "tristateIcon"?: 'minus-small';
         /**
           * Whether the checkbox is tristated.
          */

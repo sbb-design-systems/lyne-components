@@ -22,12 +22,6 @@ export class SbbCheckbox {
   @Prop() public inputId = `sbb-checkbox-${++nextId}`;
 
   //** the svg for the true state */
-  @Prop() public checkIcon: 'tick-small';
-
-  //** the svg for the true state */
-  @Prop() public tristateIcon: 'minus-small';
-
-  //** the svg for the true state */
   @Prop() public labelIcon: '';
 
   /** The disabled prop for the disabled state. */
@@ -55,20 +49,46 @@ export class SbbCheckbox {
   @Prop() public acceccibilityDescribedBy?: string;
 
   /** Event for emiting whenever selection is changed. */
-  @Event() public sbbChange: EventEmitter;
+  @Event() public sbbCheckboxChange: EventEmitter;
 
-  /** sets the string acording to the state */
-  private _setState(): string {
+  /** render the svg acording to the state */
+  private _renderStateIcon(): JSX.Element {
     if (this.checked === true) {
-      return 'check';
+      return (
+        <svg
+          width="10"
+          height="8"
+          viewBox="0 0 10 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 4.33 3.462 7 9 1"
+            stroke="#EB0000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
     } else if (this.tristated === true && this.checked === false) {
-      return 'tristate';
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="2" viewBox="0 0 8 2" fill="none">
+          <path
+            d="M1 1H7"
+            stroke="#EB0000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
     }
   }
 
   @Watch('checked')
   public checkedChanged(isChecked: boolean): void {
-    this.sbbChange.emit({
+    this.sbbCheckboxChange.emit({
       checked: isChecked,
       value: this.value,
     });
@@ -76,12 +96,11 @@ export class SbbCheckbox {
 
   public render(): JSX.Element {
     const disabled = this.disabled ? 'checkbox--disabled' : '';
-    const state = this._setState() ? `checkbox--${this._setState()}` : '';
     const labelReversed = this.labelReversed ? `checkbox__label--reverse` : '';
     const labelSpace = this.labelSpace ? `checkbox__label--space` : '';
 
     return (
-      <label class={`checkbox ${disabled} ${state}`} htmlFor={this.inputId}>
+      <label class={`checkbox ${disabled}`} htmlFor={this.inputId}>
         <input
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
@@ -100,19 +119,7 @@ export class SbbCheckbox {
         />
         <span class="checkbox__inner">
           <span class="checkbox__selection">
-            <span class="checkbox__icon">
-              {this._setState() ? (
-                <span>
-                  {this._setState() === 'check' ? (
-                    <sbb-icon name={this.checkIcon} />
-                  ) : (
-                    <sbb-icon name={this.tristateIcon} />
-                  )}
-                </span>
-              ) : (
-                ''
-              )}
-            </span>
+            <span class="checkbox__icon">{this._renderStateIcon()}</span>
           </span>
           <span class={`checkbox__label ${labelReversed} ${labelSpace}`}>
             <slot />
