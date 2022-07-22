@@ -1,6 +1,43 @@
-# sbb-checkbox
 
+`<sbb-checkbox>` provides the same functionality as a native `<input type="checkbox">`
+enhanced with the SBB Design.
 
+```html
+<sbb-checkbox
+  value="single-checkbox"
+  disabled="false"
+  checked="false"
+>
+  Example
+</sbb-checkbox>
+```
+
+## Label
+
+The label is provided as the content to the `<sbb-checkbox>` element.
+It can be displayed after or before the checkbox.
+
+If you don't want the label to appear next to the checkbox, you can use
+`accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) or
+`accessibility-labelledby` (forwarded as [`aria-labelledby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA16.html)) to
+specify an appropriate label.
+
+## Accessibility
+
+`SbbToggleCheck` uses an internal `<input type="checkbox">` to provide an accessible experience.
+This internal checkbox receives focus and is automatically labelled by the text content of the
+`<sbb-checkbox>` element. Avoid adding other interactive controls into the content of
+`<sbb-checkbox>`, as this degrades the experience for users of assistive technology.
+
+Always provide an accessible label via `accessibility-label` or `accessibility-labelledby` for checkboxes without
+descriptive text content.
+
+Additionaly you can use `accessibility-describedby` (forwarded as [`aria-describedby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA1.html))
+to describe the element on which the attribute is set.
+
+```html
+<sbb-checkbox accessibility-label="Subscribed to email message" />
+```
 
 <!-- Auto Generated Below -->
 

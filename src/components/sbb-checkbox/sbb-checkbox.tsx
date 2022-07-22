@@ -12,15 +12,6 @@ export class SbbCheckbox {
   /** Whether the checkbox is checked. */
   @Prop({ mutable: true }) public checked: boolean;
 
-  /** Whether the checkbox is tristated. */
-  @Prop() public tristated?: boolean;
-
-  /** The disabled prop for the disabled state. */
-  @Prop() public disabled!: boolean;
-
-  /** The required prop for the required state. */
-  @Prop() public required?: boolean;
-
   /** Value of checkbox. */
   @Prop() public value?: string;
 
@@ -30,12 +21,6 @@ export class SbbCheckbox {
   /** Id of the internal input element - default id will be set automatically. */
   @Prop() public inputId = `sbb-checkbox-${++nextId}`;
 
-  /** The label position relative to the labelIcon. Defaults to false */
-  @Prop() public labelReversed = false;
-
-  /** Whether the checkbox label has spacing to the labelIcon. */
-  @Prop() public labelSpace = false;
-
   //** the svg for the true state */
   @Prop() public checkIcon: 'tick-small';
 
@@ -44,6 +29,21 @@ export class SbbCheckbox {
 
   //** the svg for the true state */
   @Prop() public labelIcon: '';
+
+  /** The disabled prop for the disabled state. */
+  @Prop() public disabled!: boolean;
+
+  /** The required prop for the required state. */
+  @Prop() public required?: boolean;
+
+  /** Whether the checkbox is tristated. */
+  @Prop() public tristated?: boolean;
+
+  /** The label position relative to the labelIcon. Defaults to false */
+  @Prop() public labelReversed = false;
+
+  /** Whether the checkbox label has spacing to the labelIcon. */
+  @Prop() public labelSpace = false;
 
   /** The aria-label prop for the hidden input. */
   @Prop() public acceccibilityLabel?: string;
@@ -56,11 +56,6 @@ export class SbbCheckbox {
 
   /** Event for emiting whenever selection is changed. */
   @Event() public sbbChange: EventEmitter;
-
-  /** set checked to the state of the input-checkbox */
-  private _toggle(): void {
-    this.checked = this._checkbox?.checked;
-  }
 
   /** sets the string acording to the state */
   private _setState(): string {
@@ -97,7 +92,7 @@ export class SbbCheckbox {
           checked={this.checked}
           value={this.value}
           onChange={(): void => {
-            this._toggle();
+            this.checked = this._checkbox?.checked;
           }}
           aria-label={this.acceccibilityLabel}
           aria-labelledby={this.acceccibilityLabelledby}
