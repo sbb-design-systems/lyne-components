@@ -3,6 +3,15 @@ import readme from './readme.md';
 
 // import sampleData from './sbb-timetable-row.sample-data';
 
+const loading = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Input',
+  },
+};
+
 const Template = (args) => (
   <sbb-timetable-row {...args}>
     {/*<sbb-card-badge slot="badge" text="text"></sbb-card-badge>*/}
@@ -54,7 +63,9 @@ const Template = (args) => (
   </sbb-timetable-row>
 );
 
-const defaultArgTypes = {};
+const defaultArgTypes = {
+  loading: loading,
+};
 
 /* ************************************************* */
 /* The Stories                                       */
@@ -63,6 +74,12 @@ export const SbbTimetableRow = Template.bind({});
 
 SbbTimetableRow.argTypes = defaultArgTypes;
 SbbTimetableRow.args = {};
+
+export const SbbTimetableRowLoading = Template.bind({});
+SbbTimetableRowLoading.argTypes = defaultArgTypes;
+SbbTimetableRowLoading.args = {
+  loading: true,
+};
 
 SbbTimetableRow.documentation = {
   title: 'SBB Timetable Row',

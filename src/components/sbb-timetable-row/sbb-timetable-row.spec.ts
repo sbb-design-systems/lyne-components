@@ -52,4 +52,26 @@ describe('sbb-timetable-row', () => {
         </sbb-timetable-row>
       `);
   });
+
+  describe('sbb-timetable-row loading state', () => {
+    it('renders in loading state', async () => {
+      const { root } = await newSpecPage({
+        components: [SbbTimetableRow],
+        html: `<sbb-timetable-row loading=""/>`,
+      });
+
+      expect(root).toEqualHtml(`
+          <sbb-timetable-row loading="">
+            <mock:shadow-root>
+              <div class="loading">
+                <span class="loading__badge"></span>
+                <div class="loading__row"></div>
+                <div class="loading__row"></div>
+                <div class="loading__row"></div>
+              </div>
+            </mock:shadow-root>
+          </sbb-timetable-row>
+        `);
+    });
+  });
 });

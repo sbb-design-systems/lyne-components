@@ -25,10 +25,6 @@
   border-end-start-radius: var(--sbb-border-radius-4x);
   z-index: inherit;
 
-  // Left to right expression
-  right: calc(var(--sbb-spacing-fixed-3x) * -1);
-  transform: skew(16deg, 0deg);
-
   > * {
     transform: skew(-16deg, 0deg);
     padding-inline-start: var(--sbb-spacing-fixed-2x);
