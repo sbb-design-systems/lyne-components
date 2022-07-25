@@ -956,6 +956,7 @@ export namespace Components {
     interface SbbTimetableRow {
         "accessiblityLabel": string;
         "direction": string;
+        "loading"?: boolean;
         "pictogramName": string;
         "transportNumber"?: string;
     }
@@ -2397,6 +2398,7 @@ declare namespace LocalJSX {
     interface SbbTimetableRow {
         "accessiblityLabel"?: string;
         "direction"?: string;
+        "loading"?: boolean;
         "pictogramName"?: string;
         "transportNumber"?: string;
     }

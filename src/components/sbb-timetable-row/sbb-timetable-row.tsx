@@ -12,7 +12,24 @@ export class SbbTimetableRow {
   @Prop() public transportNumber?: string;
   @Prop() public direction = 'Richtung Hauptbahnhof';
 
+  @Prop() public loading?: boolean;
+
+  private _renderSkeleton(): JSX.Element {
+    return (
+      <div class="loading">
+        <span class="loading__badge"></span>
+        <div class="loading__row"></div>
+        <div class="loading__row"></div>
+        <div class="loading__row"></div>
+      </div>
+    );
+  }
+
   public render(): JSX.Element {
+    if (this.loading === true) {
+      return this._renderSkeleton();
+    }
+
     return (
       // <sbb-timetable-row-button role="presentation" accessiblity-label={this.accessiblityLabel}>
       <div class={`timetable__row`} role="row">

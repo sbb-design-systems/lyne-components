@@ -1,5 +1,10 @@
+:host {
+  --row-badge-padding: var(--sbb-spacing-fixed-6x);
+}
+
 .timetable__row {
   position: relative;
+  overflow: hidden;
 }
 
 .timetable__row-header {
@@ -51,4 +56,50 @@
   margin: 0;
   list-style-type: none;
   text-decoration: none;
+}
+
+.loading {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-2x);
+  padding-block-start: var(--row-badge-padding);
+  overflow: hidden;
+  cursor: progress;
+}
+
+.loading__row,
+.loading__badge {
+  animation: skeleton-pulse 2s linear infinite alternate;
+}
+
+.loading__row {
+  width: 100%;
+  height: #{px-to-rem-build(24)};
+  border-radius: #{px-to-rem-build(2)};
+}
+
+.loading__row:first-of-type {
+  width: 75%;
+
+  @include mq($from: medium) {
+    width: 100%;
+  }
+}
+
+.loading__badge {
+  @include card-badge;
+
+  width: 15%;
+  height: #{px-to-rem-build(20)};
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background: var(--sbb-color-milk-default);
+  }
+
+  100% {
+    background: var(--sbb-color-cloud-default);
+  }
 }

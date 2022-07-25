@@ -5,12 +5,13 @@
 
 ## Properties
 
-| Property            | Attribute            | Description | Type     | Default                   |
-| ------------------- | -------------------- | ----------- | -------- | ------------------------- |
-| `accessiblityLabel` | `accessiblity-label` |             | `string` | `undefined`               |
-| `direction`         | `direction`          |             | `string` | `'Richtung Hauptbahnhof'` |
-| `pictogramName`     | `pictogram-name`     |             | `string` | `'tick-small'`            |
-| `transportNumber`   | `transport-number`   |             | `string` | `undefined`               |
+| Property            | Attribute            | Description | Type      | Default                   |
+| ------------------- | -------------------- | ----------- | --------- | ------------------------- |
+| `accessiblityLabel` | `accessiblity-label` |             | `string`  | `undefined`               |
+| `direction`         | `direction`          |             | `string`  | `'Richtung Hauptbahnhof'` |
+| `loading`           | `loading`            |             | `boolean` | `undefined`               |
+| `pictogramName`     | `pictogram-name`     |             | `string`  | `'tick-small'`            |
+| `transportNumber`   | `transport-number`   |             | `string`  | `undefined`               |
 
 
 ## Dependencies
