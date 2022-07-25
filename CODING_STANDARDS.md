@@ -506,6 +506,24 @@ do this:
 }
 ```
 
+##### Avoid scss & rule concatenation
+
+The use of scss & rule concatenation hurts readability and makes it more complicated to search for.
+
+```scss
+// Avoid
+.sbb-divider {
+  &--negative {
+    ...
+  }
+}
+
+// Prefer
+.sbb-divider--negative {
+  ...
+}
+```
+
 #### Never set a margin on a host element.
 
 The end-user of a component should be the one to decide how much margin a component has around it.
