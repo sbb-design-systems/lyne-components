@@ -1,4 +1,4 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, Prop, Element } from '@stencil/core';
 
 @Component({
   shadow: true,
@@ -11,8 +11,15 @@ export class SbbTimetableRow {
   @Prop() public pictogramName = 'tick-small';
   @Prop() public transportNumber?: string;
   @Prop() public direction = 'Richtung Hauptbahnhof';
-
   @Prop() public loading?: boolean;
+
+  /** Host element */
+  @Element() private _hostElement: HTMLElement;
+  private _hasBadgeSlot: boolean;
+
+  public componentWillLoad(): void {
+    this._hasBadgeSlot = Boolean(this._hostElement.querySelector('[slot="badge"]'));
+  }
 
   private _renderSkeleton(): JSX.Element {
     return (
@@ -26,13 +33,15 @@ export class SbbTimetableRow {
   }
 
   public render(): JSX.Element {
+    const badgeClass = this._hasBadgeSlot ? 'timetable__row-badge' : '';
+
     if (this.loading === true) {
       return this._renderSkeleton();
     }
 
     return (
       // <sbb-timetable-row-button role="presentation" accessiblity-label={this.accessiblityLabel}>
-      <div class={`timetable__row`} role="row">
+      <div class={`timetable__row ${badgeClass}`} role="row">
         <slot name="badge" />
         <div class="timetable__row-header" role="rowheader">
           <slot name="pictogram"></slot>

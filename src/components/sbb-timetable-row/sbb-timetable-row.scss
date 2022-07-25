@@ -7,6 +7,10 @@
   overflow: hidden;
 }
 
+.timetable__row-badge {
+  padding-block-start: var(--row-badge-padding);
+}
+
 .timetable__row-header {
   display: flex;
   gap: 1rem;
