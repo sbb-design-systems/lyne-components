@@ -37,14 +37,18 @@ export class SbbFormField {
    */
   @Prop() public size?: InterfaceSbbFormFieldAttributes['size'] = 'l';
 
+  @State() private _prefixElement: Element[] = [];
+
+  @State() private _suffixElement: Element[] = [];
+
   /**
-   * @internal
+   *
    * It is used internally to get the native `readonly` attribute from `<input>`.
    */
   @State() private _readonly: boolean;
 
   /**
-   * @internal
+   *
    * It is used internally to get the native `disabled` attribute from `<input>`.
    */
   @State() private _disabled: boolean;
@@ -55,28 +59,22 @@ export class SbbFormField {
   @Element() private _element: HTMLElement;
 
   /**
-   * @internal
-   * It is used internally to set the `for` attribute of the `<label>`.
-   */
-  private _id: string;
-
-  /**
-   * @internal
+   *
    * It is used internally to set the `aria-describedby` attribute into the `input` whether the `<sbb-form-error>` is present.
    */
   private _idError: string;
 
   /**
-   * @internal
+   *
    * It is used internally to get the `input` slot.
    */
-  private _input: HTMLInputElement;
+  private _input: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
   /**
-   * @internal
+   *
    * Listen the changes on `readonly` and `disabled` attributes of `<input>`.
    */
-  private _formFieldAttributeObserver = new MutationObserver(this._onAttributesChange.bind(this));
+  private _formFieldAttributeObserver = new MutationObserver(() => this._onAttributesChange);
 
   public componentWillLoad(): void {
     this._idError = this._element?.querySelector('[slot="error"]')?.getAttribute('id');
@@ -102,22 +100,14 @@ export class SbbFormField {
    * @private
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input`.
    */
-  private _onSlotInputChange(): void {
-    if (!this._element?.querySelector('[slot="input"]')?.getAttribute('id')) {
-      this._element
-        .querySelector('[slot="input"]')
-        .setAttribute('id', `sbb-form-field-input-${nextId++}`);
+  private _onSlotInputChange(event: Event): void {
+    this._input = (event.target as HTMLSlotElement).assignedElements()[0] as HTMLElement;
+
+    if (!this._input.id) {
+      this._input.id = `sbb-form-field-input-${nextId++}`;
     }
 
-    const inputCssClass = this._element?.querySelector('[slot="input"]')?.getAttribute('class');
-
-    this._element
-      .querySelector('[slot="input"]')
-      .setAttribute('class', `${inputCssClass} form-field--size-${this.size}`);
-
-    this._id = this._element.querySelector('[slot="input"]').getAttribute('id');
-
-    this._input = this._element.querySelector('[slot="input"]') as HTMLInputElement;
+    this._input.classList.add(`form-field--size-${this.size}`);
   }
 
   /**
@@ -146,30 +136,40 @@ export class SbbFormField {
 
   public render(): JSX.Element {
     const optional = this.optional ? '(optional)' : '';
-    const cssClassErrorSpace = `form-field--error-space-${this.errorSpace}`;
-    const cssSizeClass = `form-field--size-${this.size}`;
-    const cssClassSlotPrefix = this._element.querySelector('[slot="prefix"]') ? 'form--prefix' : '';
-    const cssClassSlotSuffix = this._element.querySelector('[slot="suffix"]') ? 'form--suffix' : '';
-    const cssClassReadonly = this._readonly ? 'form--readonly' : '';
-    const cssClassDisabled = this._disabled ? 'form--disabled' : '';
-    const cssClass = `input-wrapper ${cssClassErrorSpace} ${cssSizeClass} ${cssClassSlotPrefix} ${cssClassSlotSuffix} ${cssClassReadonly} ${cssClassDisabled}`;
+
+    const cssClass = `input-wrapper form-field--error-space-${this.errorSpace} form-field--size-${
+      this.size
+    } ${this._prefixElement.length ?? 'form--prefix'} 
+    ${this._suffixElement.length ?? 'form--suffix'} ${this._readonly ?? 'form--readonly'} ${
+      this._disabled ?? 'form--disabled'
+    }`;
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div onClick={this._setFocus.bind(this)} class={cssClass}>
-        <label class="input-label" htmlFor={this._id}>
+        <label class="input-label" htmlFor={this._input?.id}>
           <slot name="label">
             <span>{this.label}</span>
           </slot>
           &nbsp;{optional}
         </label>
         <div>
-          <slot name="prefix"></slot>
+          <slot
+            name="prefix"
+            onSlotchange={(event) =>
+              (this._prefixElement = (event.target as HTMLSlotElement).assignedElements())
+            }
+          ></slot>
         </div>
         <div>
-          <slot name="input" onSlotchange={this._onSlotInputChange.bind(this)}></slot>
+          <slot name="input" onSlotchange={(event) => this._onSlotInputChange(event)}></slot>
         </div>
         <div>
-          <slot name="suffix"></slot>
+          <slot
+            name="suffix"
+            onSlotchange={(event) =>
+              (this._suffixElement = (event.target as HTMLSlotElement).assignedElements())
+            }
+          ></slot>
         </div>
         <div>
           <slot name="error"></slot>

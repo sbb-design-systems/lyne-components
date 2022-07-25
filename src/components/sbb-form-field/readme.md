@@ -23,7 +23,7 @@ The examples below show how to render the component:
 
 `<sbb-form-field>` does not provide additional accessibility features.
 
-When `<sbb-error>` is present, `<sbb-form-field>` automatically adds inside the `<input>` the `aria-describedby` attribute. 
+When `<sbb-form-error>` is present, `<sbb-form-field>` automatically adds inside the `<input>` the `aria-describedby` attribute. 
 Additionally, `<sbb-error>` applies `aria-live="polite"` by default such that assistive technology will announce errors when they appear.
 
 <!-- Auto Generated Below -->

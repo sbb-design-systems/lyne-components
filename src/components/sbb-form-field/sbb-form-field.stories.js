@@ -268,7 +268,7 @@ const basicArgTypes = {
 const basicArgs = {
   label: 'Name',
   optional: false,
-  size: 'l',
+  size: 'm',
 };
 
 export const formWithLabelAndInput = TemplateInput.bind({});

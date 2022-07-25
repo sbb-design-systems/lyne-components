@@ -1,4 +1,5 @@
 import { Component, h, Host, Prop } from '@stencil/core';
+import { assignId } from '../../global/helpers/assign-id';
 import { InterfaceSbbFormErrorAttributes } from './sbb-form-error.custom';
 
 let nextId = 0;
@@ -18,14 +19,7 @@ export class SbbFormError {
     const cssClass = `input-label-error__icon ${cssClassErrorSpace}`;
 
     return (
-      <Host
-        aria-live="polite"
-        ref={(host): void => {
-          if (!host.id) {
-            host.id = `sbb-form-error-${++nextId}`;
-          }
-        }}
-      >
+      <Host aria-live="polite" ref={assignId(() => `sbb-form-error-${++nextId}`)}>
         <span class={cssClass}>
           <slot name="icon">
             <sbb-icon name="circle-information-small" />
