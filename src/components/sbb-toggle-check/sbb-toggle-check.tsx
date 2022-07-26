@@ -1,5 +1,6 @@
 import { Component, Prop, h, Event, EventEmitter, Watch } from '@stencil/core';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 let nextId = 0;
 @Component({
@@ -7,7 +8,7 @@ let nextId = 0;
   styleUrl: 'sbb-toggle-check.scss',
   tag: 'sbb-toggle-check',
 })
-export class SbbToggleCheck {
+export class SbbToggleCheck implements AccessibilityProperties {
   private _checkbox: HTMLInputElement;
 
   /** Whether the toggle-check is checked. */
@@ -35,13 +36,13 @@ export class SbbToggleCheck {
   @Prop() public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] = 'after';
 
   /** The aria-label prop for the hidden input. */
-  @Prop() public accessibilityLabel?: string;
+  @Prop() public accessibilityLabel: string | undefined;
 
   /** The aria-labelledby prop for the hidden input. */
-  @Prop() public accessibilityLabelledby?: string;
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /** The aria-describedby prop for the hidden input. */
-  @Prop() public accessibilityDescribedby?: string;
+  @Prop() public accessibilityDescribedby: string | undefined;
 
   /** Event for emiting whenever selection is changed. */
   @Event() public sbbChange: EventEmitter;
@@ -74,8 +75,8 @@ export class SbbToggleCheck {
             this.checked = this._checkbox?.checked;
           }}
           aria-label={this.accessibilityLabel}
-          aria-labelledby={this.accessibilityLabelledby}
           aria-describedby={this.accessibilityDescribedby}
+          aria-labelledby={this.accessibilityLabelledby}
         />
         {this.labelPosition === 'before' ? <slot /> : ''}
         <span class={`toggle-check__slider toggle-check__slider--${this.labelPosition}`}>
