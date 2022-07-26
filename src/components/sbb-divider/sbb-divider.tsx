@@ -1,10 +1,6 @@
 import { Component, h, Host, Prop } from '@stencil/core';
 import { InterfaceSbbDividerAttributes } from './sbb-divider.custom.d';
 
-/**
- * @slot unnamed - Use this to document a slot.
- */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-divider.scss',
