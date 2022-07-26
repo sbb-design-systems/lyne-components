@@ -4,6 +4,7 @@
 
 :host {
   --divider-color: var(--sbb-color-cloud-default);
+  --border-width: var(--sbb-border-width-1x);
 }
 
 .sbb-divider {
@@ -11,12 +12,12 @@
 }
 
 .sbb-divider--horizontal {
-  border-top: #{px-to-rem-build(1)} solid var(--divider-color);
+  border-top: var(--border-width) solid var(--_divider-color);
 }
 
 .sbb-divider--vertical {
   height: 100%;
-  border-left: #{px-to-rem-build(1)} solid var(--divider-color);
+  border-left: var(--border-width) solid var(--divider-color);
 }
 
 .sbb-divider--negative {

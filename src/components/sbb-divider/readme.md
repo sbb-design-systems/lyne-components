@@ -11,13 +11,6 @@
 | `orientation` | `orientation` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. | `"horizontal" \| "vertical"` | `'horizontal'` |
 
 
-## Slots
-
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
-
-
 ----------------------------------------------
 
 
