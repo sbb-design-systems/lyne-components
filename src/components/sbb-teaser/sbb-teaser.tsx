@@ -1,8 +1,9 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
+import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 
 /**
  * @slot image - Slot used to render the image
- * @slot headline - Slot used to render the headline
+ * @slot title - Slot used to render the title
  * @slot description - Slot used to render the description
  */
 
@@ -13,7 +14,7 @@ import { Component, h, Prop, Watch } from '@stencil/core';
 })
 
 /**
- * Generalized Teaser - for displaying an image, headline and paragraph
+ * Generalized Teaser - for displaying an image, title and paragraph
  */
 export class SbbTeaser {
   /**
@@ -24,6 +25,12 @@ export class SbbTeaser {
    * Ticket price starts at X.
    */
   @Prop() public accessibilityLabel!: string;
+
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby?: string;
+
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  @Prop() public accessibilityLabelledby?: string;
 
   /**
    * Check if accessibilityLabel is provided since it is a required prop,
@@ -36,7 +43,6 @@ export class SbbTeaser {
       throw new Error('accessibilityLabel: required');
     }
   }
-  /* eslint-enable */
 
   /**
    * component attributes
@@ -44,7 +50,7 @@ export class SbbTeaser {
    */
 
   /** The href value you want to link to */
-  @Prop() public hrefValue!: string;
+  @Prop() public href!: string;
 
   /**
    * Teaser variant -
@@ -53,19 +59,24 @@ export class SbbTeaser {
    */
   @Prop() public isStacked: boolean;
 
+  /**
+   * Heading level of the sbb-title element (e.g. h1-h6)
+   */
+  @Prop() public titleLevel: InterfaceTeaserAttributes['titleLevel'] = '5';
+
   public componentWillLoad(): void {
     // Validate props
     this._validateAccessibilityLabel(this.accessibilityLabel);
   }
 
   public render(): JSX.Element {
-    const ariaLabel = this.accessibilityLabel;
-
     return (
       <a
-        aria-label={ariaLabel}
+        aria-label={this.accessibilityLabel}
+        aria-describedby={this.accessibilityDescribedby}
+        aria-labelledby={this.accessibilityLabelledby}
         class={`teaser ${this.isStacked === true ? 'teaser--is-stacked' : ''}`}
-        href={this.hrefValue}
+        href={this.href}
       >
         <span class="teaser__content">
           <span class="teaser__inner">
@@ -73,8 +84,8 @@ export class SbbTeaser {
               <slot name="image" />
             </span>
             <span class="teaser__text">
-              <sbb-title level="5" class="teaser__lead">
-                <slot name="headline" />
+              <sbb-title level={this.titleLevel} visualLevel="5" class="teaser__lead">
+                <slot name="title" />
               </sbb-title>
               <span class="teaser__description">
                 <slot name="description" />

@@ -25,6 +25,7 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
+import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
@@ -638,17 +639,29 @@ export namespace Components {
     }
     interface SbbTeaser {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string;
+        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
         /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string;
+        /**
           * The href value you want to link to
          */
-        "hrefValue": string;
+        "href": string;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked": boolean;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6)
+         */
+        "titleLevel": InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
         /**
@@ -1894,17 +1907,29 @@ declare namespace LocalJSX {
     }
     interface SbbTeaser {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string;
+        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
         /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string;
+        /**
           * The href value you want to link to
          */
-        "hrefValue": string;
+        "href": string;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked"?: boolean;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6)
+         */
+        "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
         /**
