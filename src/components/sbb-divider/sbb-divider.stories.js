@@ -100,5 +100,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-divider (Unfinished)',
+  title: 'components/sbb-divider',
 };
