@@ -11,7 +11,7 @@ describe('sbb-divider', () => {
     expect(root).toEqualHtml(`
         <sbb-divider>
           <mock:shadow-root>
-           <div aria-orientation="horizontal" class="sbb-divider sbb-divider--horizontal sbb-divider--primary" role="separator"></div>
+           <div aria-orientation="horizontal" class="sbb-divider sbb-divider--horizontal" role="separator"></div>
           </mock:shadow-root>
         </sbb-divider>
       `);
