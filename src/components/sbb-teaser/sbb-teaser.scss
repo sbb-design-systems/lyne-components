@@ -4,7 +4,7 @@
 @include host-component-properties;
 
 :host {
-  // needed for correct behavior
+  // If using inline-block, there is a small space below the sbb-teaser which can be removed by using inline-flex.
   display: inline-flex;
 
   --teaser-scale-hover: 1.02;
@@ -25,10 +25,6 @@
 
 .teaser__content {
   display: inline-flex;
-}
-
-.teaser--primary-negative {
-  --teaser-description-color: var(--sbb-color-black-default);
 }
 
 .teaser--is-stacked {
