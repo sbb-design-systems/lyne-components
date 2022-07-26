@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.12 (2022-07-21)
+
+### Features
+
+- **sbb-toggle-check:** initial implementation ([#1283](https://github.com/lyne-design-system/lyne-components/issues/1283)) ([8db48df](https://github.com/lyne-design-system/lyne-components/commit/8db48df27f2cc9fa4674d78757605b8d6c459dfc))
+
 ### 0.1.11 (2022-07-19)
 
 ### Bug Fixes

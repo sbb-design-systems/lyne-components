@@ -84,6 +84,19 @@ In the HTML, you can now use the icon as shown below:
 | `sanitize`   | `sanitize`    | When set to `false`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`.                 | `boolean` | `true`      |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-toggle-check](../sbb-toggle-check)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-toggle-check --> sbb-icon
+  style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

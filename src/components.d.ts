@@ -36,6 +36,7 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
+import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -973,6 +974,52 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToggleCheck {
+        /**
+          * The aria-describedby prop for the hidden input.
+         */
+        "accessibilityDescribedby"?: string;
+        /**
+          * The aria-label prop for the hidden input.
+         */
+        "accessibilityLabel"?: string;
+        /**
+          * The aria-labelledby prop for the hidden input.
+         */
+        "accessibilityLabelledby"?: string;
+        /**
+          * Whether the toggle-check is checked.
+         */
+        "checked": boolean;
+        /**
+          * The disabled prop for the disabled state.
+         */
+        "disabled": boolean;
+        /**
+          * The svg name for the true state - default -> 'tick-small'
+         */
+        "icon": string;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "inputId": string;
+        /**
+          * The label position relative to the toggle. Defaults to 'after'
+         */
+        "labelPosition"?: InterfaceToggleCheckAttributes['labelPosition'];
+        /**
+          * Name of the toggle-check.
+         */
+        "name"?: string;
+        /**
+          * The required prop for the required state.
+         */
+        "required"?: boolean;
+        /**
+          * Value of toggle-check.
+         */
+        "value"?: string;
+    }
 }
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -985,6 +1032,10 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
+}
+export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleCheckElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -1281,6 +1332,12 @@ declare global {
         prototype: HTMLSbbTitleElement;
         new (): HTMLSbbTitleElement;
     };
+    interface HTMLSbbToggleCheckElement extends Components.SbbToggleCheck, HTMLStencilElement {
+    }
+    var HTMLSbbToggleCheckElement: {
+        prototype: HTMLSbbToggleCheckElement;
+        new (): HTMLSbbToggleCheckElement;
+    };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
@@ -1331,6 +1388,7 @@ declare global {
         "sbb-timetable-transportation-walk": HTMLSbbTimetableTransportationWalkElement;
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
+        "sbb-toggle-check": HTMLSbbToggleCheckElement;
     }
 }
 declare namespace LocalJSX {
@@ -2259,6 +2317,56 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToggleCheck {
+        /**
+          * The aria-describedby prop for the hidden input.
+         */
+        "accessibilityDescribedby"?: string;
+        /**
+          * The aria-label prop for the hidden input.
+         */
+        "accessibilityLabel"?: string;
+        /**
+          * The aria-labelledby prop for the hidden input.
+         */
+        "accessibilityLabelledby"?: string;
+        /**
+          * Whether the toggle-check is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * The disabled prop for the disabled state.
+         */
+        "disabled": boolean;
+        /**
+          * The svg name for the true state - default -> 'tick-small'
+         */
+        "icon"?: string;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "inputId"?: string;
+        /**
+          * The label position relative to the toggle. Defaults to 'after'
+         */
+        "labelPosition"?: InterfaceToggleCheckAttributes['labelPosition'];
+        /**
+          * Name of the toggle-check.
+         */
+        "name"?: string;
+        /**
+          * Event for emiting whenever selection is changed.
+         */
+        "onSbbChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
+        /**
+          * The required prop for the required state.
+         */
+        "required"?: boolean;
+        /**
+          * Value of toggle-check.
+         */
+        "value"?: string;
+    }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
@@ -2309,6 +2417,7 @@ declare namespace LocalJSX {
         "sbb-timetable-transportation-walk": SbbTimetableTransportationWalk;
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
+        "sbb-toggle-check": SbbToggleCheck;
     }
 }
 export { LocalJSX as JSX };
@@ -2364,6 +2473,7 @@ declare module "@stencil/core" {
             "sbb-timetable-transportation-walk": LocalJSX.SbbTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationWalkElement>;
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
+            "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
         }
     }
 }
