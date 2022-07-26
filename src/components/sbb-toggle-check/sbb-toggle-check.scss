@@ -31,6 +31,7 @@
   display: inline-flex;
   align-items: center;
   color: var(--toggle-check-color);
+  user-select: none;
   @include text-s--regular;
 }
 
