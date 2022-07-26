@@ -3,8 +3,8 @@
 @include host-component-properties;
 
 :host {
-  --_divider-color: var(--sbb-color-cloud-default);
-  --_divider-background-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
+  --divider-color: var(--sbb-color-cloud-default);
+  --divider-background-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
 }
 
 .sbb-divider {
@@ -12,12 +12,12 @@
 }
 
 .sbb-divider--horizontal {
-  border-top: #{px-to-rem-build(1)} solid var(--_divider-color);
+  border-top: #{px-to-rem-build(1)} solid var(--divider-color);
 }
 
 .sbb-divider--vertical {
   height: 100%;
-  border-left: #{px-to-rem-build(1)} solid var(--_divider-color);
+  border-left: #{px-to-rem-build(1)} solid var(--divider-color);
 }
 
 .sbb-divider--negative {
