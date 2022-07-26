@@ -3,23 +3,23 @@
 @include host-component-properties;
 
 :host {
-  --_divider-color: var(--sbb-color-iron-default);
+  --_divider-color: var(--sbb-color-cloud-default);
   --_divider-background-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
 }
 
 .sbb-divider {
   display: block;
+}
 
-  &--horizontal {
-    border-top: #{px-to-rem-build(1)} solid var(--_divider-color);
-  }
+.sbb-divider--horizontal {
+  border-top: #{px-to-rem-build(1)} solid var(--_divider-color);
+}
 
-  &--vertical {
-    height: 100%;
-    border-left: 0.5px solid var(--_divider-color);
-  }
+.sbb-divider--vertical {
+  height: 100%;
+  border-left: #{px-to-rem-build(1)} solid var(--_divider-color);
+}
 
-  &--primary-negative {
-    background: var(--sbb-color-black-default);
-  }
+.sbb-divider--negative {
+  border-color: var(--sbb-color-iron-default);
 }
