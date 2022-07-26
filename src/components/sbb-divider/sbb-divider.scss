@@ -7,19 +7,19 @@
   --border-width: var(--sbb-border-width-1x);
 }
 
-.sbb-divider {
+:host(.sbb-divider) {
   display: block;
 }
 
-.sbb-divider--horizontal {
+:host(.sbb-divider--horizontal) {
   border-top: var(--border-width) solid var(--divider-color);
 }
 
-.sbb-divider--vertical {
+:host(.sbb-divider--vertical) {
   height: 100%;
   border-left: var(--border-width) solid var(--divider-color);
 }
 
-.sbb-divider--negative {
+:host(.sbb-divider--negative) {
   border-color: var(--sbb-color-iron-default);
 }
