@@ -23,6 +23,19 @@
 | `"image"`       | Slot used to render the image       |
 
 
+## Dependencies
+
+### Depends on
+
+- [sbb-title](../sbb-title)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-teaser --> sbb-title
+  style sbb-teaser fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

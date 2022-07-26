@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch, Element } from '@stencil/core';
+import { Component, h, Prop, Watch } from '@stencil/core';
 
 /**
  * @slot image - Slot used to render the image
@@ -53,29 +53,9 @@ export class SbbTeaser {
    */
   @Prop() public isStacked: boolean;
 
-  @Element() private _element: HTMLElement;
-
   public componentWillLoad(): void {
     // Validate props
     this._validateAccessibilityLabel(this.accessibilityLabel);
-  }
-
-  private _titleMutationObserver = new MutationObserver((mutations) => {
-    mutations?.forEach((mutation) => {
-      const element = mutation.target as HTMLElement;
-
-      if (element.nodeName === 'SBB-TITLE' && element.getAttribute('level') !== '5') {
-        element.setAttribute('level', '5');
-      }
-    });
-  });
-
-  public connectedCallback(): void {
-    this._element.querySelectorAll('sbb-title')?.forEach((element) => {
-      this._titleMutationObserver.observe(element, {
-        attributes: true,
-      });
-    });
   }
 
   public render(): JSX.Element {
@@ -93,9 +73,9 @@ export class SbbTeaser {
               <slot name="image" />
             </span>
             <span class="teaser__text">
-              <span class="teaser__lead">
+              <sbb-title level="5" class="teaser__lead">
                 <slot name="headline" />
-              </span>
+              </sbb-title>
               <span class="teaser__description">
                 <slot name="description" />
               </span>

@@ -45,12 +45,19 @@ const defaultArgTypes = {
   'href-value': hrefValue,
 };
 
+const sbbTeaserHeadlineArgs = {
+  headline: 'This is a title',
+  longHeadline:
+    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+};
+
 const defaultArgs = {
   'accessibility-label':
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
   isStacked: true,
   'href-value': 'https://github.com/lyne-design-system/lyne-components',
   description: 'This is a paragraph',
+  ...sbbTeaserHeadlineArgs,
 };
 
 /* ************************************************* */
@@ -64,16 +71,10 @@ const sbbTeaserImageArgs = {
 
 const SlotSbbTeaserImageTemplate = (args) => <img slot="image" src={args.src} alt={args.alt} />;
 
-const sbbTeaserHeadlineArgs = {
-  headline: 'This is a title',
-  longHeadline:
-    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-};
-
-const SlotSbbTeaserHeadlineTemplate = (args) => <sbb-title slot="headline" text={args.headline} />;
+const SlotSbbTeaserHeadlineTemplate = (args) => <span slot="headline">{args.headline}</span>;
 
 const SlotSbbTeaserLongHeadlineTemplate = (args) => (
-  <sbb-title slot="headline" text={args.longHeadline} />
+  <span slot="headline">{args.longHeadline}</span>
 );
 
 const sbbTeaserDescriptionArgs = {

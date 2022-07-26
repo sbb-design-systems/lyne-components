@@ -1,25 +1,12 @@
 import { SbbTeaser } from './sbb-teaser';
 import { newSpecPage } from '@stencil/core/testing';
 
-beforeAll(() => {
-  const mutationObserverMock = jest
-    .fn<MutationObserver, [MutationCallback]>()
-    .mockImplementation(() => {
-      return {
-        observe: jest.fn(),
-        disconnect: jest.fn(),
-        takeRecords: jest.fn(),
-      };
-    });
-  global.MutationObserver = mutationObserverMock;
-});
-
 describe('sbb-teaser', () => {
   describe('sbb-teaser is stacked', () => {
     it('renders', async () => {
       const { root } = await newSpecPage({
         components: [SbbTeaser],
-        html: '<sbb-teaser href-value="https://github.com/lyne-design-system/lyne-components" is-stacked accessibility-label="Sbb teaser" />',
+        html: '<sbb-teaser href-value="https://github.com/lyne-design-system/lyne-components" is-stacked accessibility-label="Sbb teaser"></sbb-teaser>',
       });
 
       expect(root).toEqualHtml(`
@@ -30,9 +17,10 @@ describe('sbb-teaser', () => {
               <span class="teaser__inner">
                 <span class='teaser__image-wrapper'><slot name='image'/></span>
                 <span class='teaser__text'>
-                  <span class='teaser__lead'><slot name='headline'/></span>
+                  <sbb-title class="teaser__lead" level="5">
+                    <slot name='headline'/></sbb-title>
                   <span class='teaser__description'><slot name='description'/></span>
-                </span>
+                </>
               </span>
             </span>
             </a>
@@ -56,7 +44,9 @@ describe('sbb-teaser', () => {
               <span class="teaser__inner">
                 <span class='teaser__image-wrapper'><slot name='image'/></span>
                 <span class='teaser__text'>
-                  <span class='teaser__lead'><slot name='headline'/></span>
+                  <sbb-title class="teaser__lead" level="5">
+                    <slot name='headline'/>
+                  </sbb-title>
                   <span class='teaser__description'><slot name='description'/></span>
                 </span>
               </span>
