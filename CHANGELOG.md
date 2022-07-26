@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.14 (2022-07-26)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** prevent the toggle from freezing on double-click ([#1315](https://github.com/lyne-design-system/lyne-components/issues/1315)) ([98a8d1a](https://github.com/lyne-design-system/lyne-components/commit/98a8d1afc352670cee11ddf7328e9a67c1a703ef))
+
 ### 0.1.13 (2022-07-26)
 
 ### 0.1.12 (2022-07-21)
