@@ -3,7 +3,7 @@ import events from './sbb-tab-group.events.ts';
 import readme from './readme.md';
 
 const DefaultTemplate = (args) => (
-  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+  <sbb-tab-group initial-selected-index="0">
     <sbb-tab-title>
       <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
@@ -41,7 +41,7 @@ const DefaultTemplate = (args) => (
 );
 
 const NumbersTemplate = (args) => (
-  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+  <sbb-tab-group initial-selected-index="0">
     <sbb-tab-title>
       <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
@@ -88,7 +88,7 @@ const NumbersTemplate = (args) => (
 );
 
 const IconsTemplate = (args) => (
-  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+  <sbb-tab-group initial-selected-index="0">
     <sbb-tab-title>
       <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
@@ -135,7 +135,7 @@ const IconsTemplate = (args) => (
 );
 
 const IconsAndNumbersTemplate = (args) => (
-  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+  <sbb-tab-group initial-selected-index="0">
     <sbb-tab-title>
       <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
@@ -185,13 +185,13 @@ const IconsAndNumbersTemplate = (args) => (
 );
 
 const NestedTemplate = (args) => (
-  <sbb-tab-group initial-selected-index="0" dir={args.dir}>
+  <sbb-tab-group initial-selected-index="0">
     <sbb-tab-title>
       <sbb-icon slot="icon" name={args.iconSlot}></sbb-icon>
       {args.label}
       <sbb-tab-amount>{args.amountSlot}</sbb-tab-amount>
     </sbb-tab-title>
-    <sbb-tab-group initial-selected-index="1" dir={args.dir}>
+    <sbb-tab-group initial-selected-index="1">
       <sbb-tab-title level="2">Nested tab</sbb-tab-title>
       <div>
         Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
@@ -240,16 +240,6 @@ const NestedTemplate = (args) => (
   </sbb-tab-group>
 );
 
-const dir = {
-  control: {
-    type: 'select',
-  },
-  options: ['unset', 'ltr', 'rtl'],
-  table: {
-    category: 'Tab group',
-  },
-};
-
 const label = {
   control: {
     type: 'text',
@@ -288,7 +278,6 @@ const disabledArg = {
 };
 
 const basicArgTypes = {
-  dir,
   label,
   iconSlot,
   amountSlot,
@@ -296,7 +285,6 @@ const basicArgTypes = {
 };
 
 const basicArgs = {
-  dir,
   label: 'Tab label one',
   iconSlot: '',
   amountSlot: '',

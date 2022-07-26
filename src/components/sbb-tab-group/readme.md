@@ -1,7 +1,7 @@
 Tab groups are used to organize and gather tabs that the user can navigate through. Use tabs when you want to provide navigation within blocks of content, instead of showing everything in one place or requiring the user to navigate between several different views.
 
 ## Usage
-In order to display a tab label within the tab bar, provide an `sbb-tab-title` right before the related tab content. The content element should be wrapped in a `div`, a `section` or an `article` and placed right after its relative tab title.
+In order to display a tab label within the tab bar, provide an `sbb-tab-title` right before the related tab content. The content element should be wrapped in a `div`, a `section` or an `article` and placed right after its relative tab title. Tab groups can also be nested, this means that a tab's content block can be represented by another `sbb-tab-group`, as shown in the "Nested Tab Groups" example.
 
 Each tab has a related content, distinct from other tabs' content. Tab panels can present different sections of content and include text, images, forms, other tab groups, etc.
 
@@ -34,8 +34,6 @@ Tab buttons can show an icon on the left side of the label; provide an `sbb-icon
   <sbb-tab-amount>123</sbb-tab-amount>
 </sbb-tab-title>
 ```
-
-Tab groups can also be nested, this means that a tab's content block can contain an entire tab group, as shown in the "Nested Tab Groups" example.
 
 <!-- Auto Generated Below -->
 

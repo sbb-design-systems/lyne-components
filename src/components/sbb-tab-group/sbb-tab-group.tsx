@@ -14,12 +14,13 @@ import { AgnosticMutationObserver as MutationObserver } from '../../global/helpe
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import { hostContext } from '../../global/helpers/host-context';
 import throttle from '../../global/helpers/throttle';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 
 /**
  * @slot tab-bar - Provide an `sbb-tab-title` in order to display a label in the tab bar.
  * E.g. `<sbb-tab-title>Tab label</sbb-tab-title>`
  * @slot unnamed - Provide html-content to show as tab content.
- * Wrap the content in a div, a section or an article:
+ * Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
  */
@@ -39,6 +40,7 @@ export class SbbTabGroup {
   public tabs: InterfaceSbbTabGroupTab[] = [];
   private _lastUId = 0;
   private _isNested: boolean;
+  private _currentWritingMode: string;
   private _tabContentElement: HTMLElement;
   private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
   private _tabContentResizeObserver = new ResizeObserver(
@@ -99,6 +101,7 @@ export class SbbTabGroup {
   }
 
   public connectedCallback(): void {
+    this._currentWritingMode = getDocumentWritingMode();
     this._isNested = !!hostContext('sbb-tab-group', this._element.parentElement);
   }
 
@@ -299,11 +302,14 @@ export class SbbTabGroup {
       return;
     }
 
-    if (evt.key === 'ArrowLeft' || evt.key === 'ArrowUp') {
+    const prevKey = this._currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
+    const nextKey = this._currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
+
+    if (evt.key === prevKey || evt.key === 'ArrowUp') {
       enabledTabs[prev]?.tabGroupActions.select();
       enabledTabs[prev]?.focus();
       evt.preventDefault();
-    } else if (evt.key === 'ArrowRight' || evt.key === 'ArrowDown') {
+    } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
       enabledTabs[next]?.tabGroupActions.select();
       enabledTabs[next]?.focus();
       evt.preventDefault();
@@ -312,7 +318,7 @@ export class SbbTabGroup {
 
   public render(): JSX.Element {
     return (
-      <Host class={this._isNested ? 'tab-group--nested' : ''}>
+      <Host class={this._isNested ? 'tab-group--nested' : ''} dir={this._currentWritingMode}>
         <div class="tab-group" role="tablist">
           <slot name="tab-bar" onSlotchange={this._onTabsSlotChange}></slot>
         </div>

@@ -28,7 +28,7 @@ describe('sbb-tab-group', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-tab-group>
+        <sbb-tab-group dir="ltr">
           <mock:shadow-root>
           <div class="tab-group" role="tablist">
             <slot name="tab-bar"></slot>

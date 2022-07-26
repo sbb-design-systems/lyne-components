@@ -15,19 +15,13 @@
   margin-top: var(--sbb-spacing-responsive-m);
   transition: height var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
-  ::slotted(div),
-  ::slotted(section),
-  ::slotted(article),
-  ::slotted(sbb-tab-group) {
+  ::slotted(*) {
     visibility: hidden;
     opacity: 0;
     height: 0;
   }
 
-  ::slotted(div[active]),
-  ::slotted(section[active]),
-  ::slotted(article[active]),
-  ::slotted(sbb-tab-group[active]) {
+  ::slotted(*[active]) {
     visibility: visible;
     opacity: 1;
     height: fit-content;
@@ -40,11 +34,10 @@
 
 // stylelint-disable plugin/stylelint-bem-namics
 // Make inactive nested tab groups non-focusable, to ensure accessibility
-:host(.tab-group--nested:not([active])),
 :host(.tab-group--nested:not([active])) *,
-:host(.tab-group--nested:not([active])) ::slotted(div[active]),
-:host(.tab-group--nested:not([active])) ::slotted(section[active]),
-:host(.tab-group--nested:not([active])) ::slotted(article[active]) {
+:host(.tab-group--nested:not([active])) ::slotted(*) {
   visibility: hidden;
+  opacity: 0;
+  height: 0;
 }
 // stylelint-enable plugin/stylelint-bem-namics
