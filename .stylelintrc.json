@@ -50,6 +50,7 @@
         ]
       }
     ],
-    "number-max-precision": 12
+    "number-max-precision": 12,
+    "value-no-vendor-prefix": [true, { "ignoreValues": ["box"] }]
   }
 }
