@@ -281,7 +281,7 @@ export namespace Components {
         /**
           * Appearance property for displaying the component in dark mode
          */
-        "appearance"?: InterfaceSbbDividerAttributes['appearance'];
+        "negative"?: boolean;
         /**
           * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
          */
@@ -1541,7 +1541,7 @@ declare namespace LocalJSX {
         /**
           * Appearance property for displaying the component in dark mode
          */
-        "appearance"?: InterfaceSbbDividerAttributes['appearance'];
+        "negative"?: boolean;
         /**
           * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
          */

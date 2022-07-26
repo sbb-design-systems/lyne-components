@@ -5,10 +5,10 @@
 
 ## Properties
 
-| Property      | Attribute     | Description                                                                                   | Type                              | Default        |
-| ------------- | ------------- | --------------------------------------------------------------------------------------------- | --------------------------------- | -------------- |
-| `appearance`  | `appearance`  | Appearance property for displaying the component in dark mode                                 | `"primary" \| "primary-negative"` | `'primary'`    |
-| `orientation` | `orientation` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. | `"horizontal" \| "vertical"`      | `'horizontal'` |
+| Property      | Attribute     | Description                                                                                   | Type                         | Default        |
+| ------------- | ------------- | --------------------------------------------------------------------------------------------- | ---------------------------- | -------------- |
+| `negative`    | `negative`    | Appearance property for displaying the component in dark mode                                 | `boolean`                    | `false`        |
+| `orientation` | `orientation` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. | `"horizontal" \| "vertical"` | `'horizontal'` |
 
 
 ## Slots

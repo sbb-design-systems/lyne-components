@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Host, Prop } from '@stencil/core';
 import { InterfaceSbbDividerAttributes } from './sbb-divider.custom.d';
 
 /**
@@ -12,24 +12,26 @@ import { InterfaceSbbDividerAttributes } from './sbb-divider.custom.d';
 })
 export class SbbDivider {
   /** Appearance property for displaying the component in dark mode */
-  @Prop() public appearance?: InterfaceSbbDividerAttributes['appearance'] = 'primary';
+  @Prop() public negative?: boolean = false;
 
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
   @Prop() public orientation?: InterfaceSbbDividerAttributes['orientation'] = 'horizontal';
 
   public render(): JSX.Element {
-    const orientationPositionClass = 'sbb-divider--' + this.orientation;
-    const appearanceClass = 'sbb-divider--' + this.appearance;
+    const orientationClass = 'sbb-divider--' + this.orientation;
+    const negativeClass = this.negative ? 'sbb-divider--negative' : '';
 
     return (
-      <div
-        class={`
+      <Host>
+        <div
+          class={`
           sbb-divider
-          ${orientationPositionClass}
-          ${appearanceClass}`}
-        role="separator"
-        aria-orientation={this.orientation}
-      ></div>
+          ${orientationClass}
+          ${negativeClass}`}
+          role="separator"
+          aria-orientation={this.orientation}
+        />
+      </Host>
     );
   }
 }

@@ -6,25 +6,27 @@ import {
 } from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens';
 
 const documentationPlatformContainerStyle = (context) => {
-  const variantsOnDarkBg = ['primary-negative'];
-
-  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+  if (context.args.negative) {
     return {};
   }
 
-  return {
-    'background-color': SbbColorWhiteDefault,
-  };
+  return `background-color: ${SbbColorWhiteDefault};`;
 };
 
 const wrapperStyle = (context) => {
-  const variantsOnDarkBg = ['primary-negative'];
+  setTimeout(() => {
+    // eslint-disable-next-line no-undef
+    let sbbDividerHTMLElement = document.querySelectorAll('sbb-divider');
+    if (sbbDividerHTMLElement) {
+      sbbDividerHTMLElement[0].style.height = '340px';
+    }
+  });
 
-  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${SbbColorWhiteDefault};`;
+  if (context.args.negative) {
+    return `background-color: ${SbbColorBlackDefault};`;
   }
 
-  return `background-color: ${SbbColorBlackDefault};`;
+  return `background-color: ${SbbColorWhiteDefault};`;
 };
 
 const Template = (args) => <sbb-divider {...args} />;
@@ -36,11 +38,10 @@ const orientation = {
   options: ['horizontal', 'vertical'],
 };
 
-const appearance = {
+const negative = {
   control: {
-    type: 'select',
+    type: 'boolean',
   },
-  options: ['primary', 'primary-negative'],
   table: {
     category: 'Appearance',
   },
@@ -48,12 +49,12 @@ const appearance = {
 
 const defaultArgTypes = {
   orientation,
-  appearance,
+  negative,
 };
 
 const defaultArgs = {
   orientation: orientation.options[0],
-  appearance: appearance.options[0],
+  negative: false,
 };
 
 export const divider = Template.bind({});
@@ -72,7 +73,7 @@ export const dividerNegative = Template.bind({});
 dividerNegative.argTypes = defaultArgTypes;
 dividerNegative.args = {
   ...defaultArgs,
-  appearance: appearance.options[1],
+  negative: true,
 };
 dividerNegative.documentation = {
   container: {
@@ -85,7 +86,7 @@ export default {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)} padding: 20px;`}>
-        <Story style="height: 400px;" />
+        <Story />
       </div>
     ),
   ],
@@ -100,5 +101,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-divider (Unfinished)',
+  title: 'components/sbb-divider',
 };
