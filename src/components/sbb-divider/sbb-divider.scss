@@ -5,6 +5,7 @@
 :host {
   --_divider-color: var(--sbb-color-iron-default);
 }
+  --border-width: var(--sbb-border-width-1x);
 
 .sbb-divider {
   display: block;
