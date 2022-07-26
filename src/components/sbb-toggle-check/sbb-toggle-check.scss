@@ -32,6 +32,7 @@
   align-items: center;
   color: var(--toggle-check-color);
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
   @include text-s--regular;
 }
 
