@@ -10,9 +10,7 @@
   // error height = text line-height
   min-height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
 
-  // --icon-size: var(--sbb-size-icon-ui-small);
-  // TODO icon width token
-  --sbb-icon-svg-width: 17px;
+  --sbb-icon-svg-width: var(--sbb-size-icon-form-error);
 }
 
 // Error
