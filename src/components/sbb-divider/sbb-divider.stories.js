@@ -14,14 +14,6 @@ const documentationPlatformContainerStyle = (context) => {
 };
 
 const wrapperStyle = (context) => {
-  setTimeout(() => {
-    // eslint-disable-next-line no-undef
-    let sbbDividerHTMLElement = document.querySelectorAll('sbb-divider');
-    if (sbbDividerHTMLElement) {
-      sbbDividerHTMLElement[0].style.height = '340px';
-    }
-  });
-
   if (context.args.negative) {
     return `background-color: ${SbbColorBlackDefault};`;
   }
@@ -29,7 +21,11 @@ const wrapperStyle = (context) => {
   return `background-color: ${SbbColorWhiteDefault};`;
 };
 
-const Template = (args) => <sbb-divider {...args} />;
+const Template = (args) => (
+  <div style="height: 340px; padding: 20px;">
+    <sbb-divider {...args} />
+  </div>
+);
 
 const orientation = {
   control: {
@@ -85,7 +81,7 @@ dividerNegative.documentation = {
 export default {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)} padding: 20px;`}>
+      <div style={`${wrapperStyle(context)}`}>
         <Story />
       </div>
     ),
