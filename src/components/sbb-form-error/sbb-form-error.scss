@@ -27,12 +27,12 @@
   left: calc(var(--sbb-icon-svg-width) + var(--sbb-spacing-fixed-1x));
 }
 
-.sbb-icon{
+.sbb-icon {
   @include absoluteCenterY;
-  
+
   color: var(--sbb-color-red125-default);
 }
 
-::slotted(span) {  
+::slotted(span) {
   color: var(--sbb-color-red125-default);
 }
