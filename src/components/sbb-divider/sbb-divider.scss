@@ -7,8 +7,8 @@
   --border-width: var(--sbb-border-width-1x);
 }
 
-:host(.sbb-divider) {
-  display: block;
+:host(.sbb-divider--negative) {
+  --divider-color: var(--sbb-color-iron-default);
 }
 
 :host(.sbb-divider--horizontal) {
@@ -18,8 +18,4 @@
 :host(.sbb-divider--vertical) {
   height: 100%;
   border-left: var(--border-width) solid var(--divider-color);
-}
-
-:host(.sbb-divider--negative) {
-  border-color: var(--sbb-color-iron-default);
 }
