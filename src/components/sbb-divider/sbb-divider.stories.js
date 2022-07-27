@@ -3,7 +3,7 @@ import readme from './readme.md';
 import {
   SbbColorBlackDefault,
   SbbColorWhiteDefault,
-} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens';
+} from '@sbb-esta/lyne-design-tokens';
 
 const documentationPlatformContainerStyle = (context) => {
   if (context.args.negative) {
