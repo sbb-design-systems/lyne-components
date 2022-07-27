@@ -108,6 +108,7 @@ sbbToggleCheckDisabledChecked.args = {
 sbbToggleCheckCustomIcon.argTypes = defaultArgTypes;
 sbbToggleCheckCustomIcon.args = {
   ...defaultArgs,
+  checked: true,
 };
 
 sbbToggleCheckDefault.documentation = {
