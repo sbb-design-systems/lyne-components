@@ -8,9 +8,7 @@ let nextId = 0;
   tag: 'sbb-form-error',
 })
 export class SbbFormError {
-
   public render(): JSX.Element {
-
     return (
       <Host aria-live="polite" ref={assignId(() => `sbb-form-error-${++nextId}`)}>
         <span>
