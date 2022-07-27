@@ -30,7 +30,7 @@
 .sbb-icon,
 ::slotted(span) {
   @include absoluteCenterY;
-  
+
   height: var(--sbb-icon-svg-width);
   color: var(--sbb-color-red125-default);
 }
