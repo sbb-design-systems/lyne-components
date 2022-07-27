@@ -1,5 +1,6 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
 import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 /**
  * @slot image - Slot used to render the image
@@ -16,7 +17,7 @@ import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 /**
  * Generalized Teaser - for displaying an image, title and paragraph
  */
-export class SbbTeaser {
+export class SbbTeaser implements AccessibilityProperties {
   /**
    * The text which gets exposed to screen reader users. The text should
    * reflect all the information
@@ -24,13 +25,13 @@ export class SbbTeaser {
    * Example text: Connection from X to Y, via Z, on date X.
    * Ticket price starts at X.
    */
-  @Prop() public accessibilityLabel!: string;
+  @Prop() public accessibilityLabel!: string | undefined;
 
   /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby?: string;
+  @Prop() public accessibilityDescribedby: string | undefined;
 
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby?: string;
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * Check if accessibilityLabel is provided since it is a required prop,

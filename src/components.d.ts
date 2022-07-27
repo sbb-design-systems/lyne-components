@@ -194,9 +194,17 @@ export namespace Components {
     }
     interface SbbCardBadge {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
         /**
           * Badge appearance
          */
@@ -220,9 +228,17 @@ export namespace Components {
     }
     interface SbbCardProduct {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
         /**
           * CardProduct appearance
          */
@@ -642,15 +658,15 @@ export namespace Components {
         /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby": string | undefined;
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby": string | undefined;
         /**
           * The href value you want to link to
          */
@@ -967,15 +983,15 @@ export namespace Components {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby": string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel": string | undefined;
         /**
           * The aria-labelledby prop for the hidden input.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the toggle-check is checked.
          */
@@ -1523,9 +1539,17 @@ declare namespace LocalJSX {
     }
     interface SbbCardBadge {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Badge appearance
          */
@@ -1549,9 +1573,17 @@ declare namespace LocalJSX {
     }
     interface SbbCardProduct {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * CardProduct appearance
          */
@@ -1967,15 +1999,15 @@ declare namespace LocalJSX {
         /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby"?: string | undefined;
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * The href value you want to link to
          */
@@ -2292,15 +2324,15 @@ declare namespace LocalJSX {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby"?: string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel"?: string | undefined;
         /**
           * The aria-labelledby prop for the hidden input.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the toggle-check is checked.
          */
