@@ -19,7 +19,7 @@ export class SbbDivider {
       <Host
           class={{
             'sbb-divider': true,
-            ['sbb-divider--' + this.orientation]: true,
+            [`sbb-divider--${this.orientation}`]: true,
             'sbb-divider--negative': this.negative
           }}
           role="separator"
