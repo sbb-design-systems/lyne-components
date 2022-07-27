@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.16 (2022-07-27)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** fix various issues ([#1317](https://github.com/lyne-design-system/lyne-components/issues/1317)) ([e13c447](https://github.com/lyne-design-system/lyne-components/commit/e13c44716c1b8b49f95ac518c8e48d53438b947e))
+
 ### 0.1.15 (2022-07-27)
 
 ### 0.1.14 (2022-07-26)
