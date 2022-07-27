@@ -44,7 +44,7 @@ export class SbbToggleCheck implements AccessibilityProperties {
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** Event for emiting whenever selection is changed. */
+  /** Emits whenever the selection has changed.  */
   @Event() public sbbChange: EventEmitter;
 
   @Watch('checked')
@@ -58,9 +58,10 @@ export class SbbToggleCheck implements AccessibilityProperties {
   public render(): JSX.Element {
     const disabled = this.disabled ? 'toggle-check--disabled' : '';
     const checked = this.checked ? 'toggle-check--checked' : '';
+    const labelPosition = `toggle-check--${this.labelPosition}`;
 
     return (
-      <label class={`toggle-check ${disabled} ${checked}`} htmlFor={this.inputId}>
+      <label class={`toggle-check ${disabled} ${checked} ${labelPosition}`} htmlFor={this.inputId}>
         <input
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
@@ -78,19 +79,18 @@ export class SbbToggleCheck implements AccessibilityProperties {
           aria-describedby={this.accessibilityDescribedby}
           aria-labelledby={this.accessibilityLabelledby}
         />
-        {this.labelPosition === 'before' ? <slot /> : ''}
-        <span class={`toggle-check__slider toggle-check__slider--${this.labelPosition}`}>
-          <span class="toggle-check__circle">
-            {this.checked ? (
-              <slot name="icon">
-                <sbb-icon name={this.icon}></sbb-icon>
-              </slot>
-            ) : (
-              ''
-            )}
+        <span class={'toggle-check__container'}>
+          <slot />
+          <span class={`toggle-check__slider`}>
+            <span class="toggle-check__circle">
+              {this.checked && (
+                <slot name="icon">
+                  <sbb-icon name={this.icon}></sbb-icon>
+                </slot>
+              )}
+            </span>
           </span>
         </span>
-        {this.labelPosition === 'after' ? <slot /> : ''}
       </label>
     );
   }

@@ -44,3 +44,8 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
+@mixin zeroWidthSpace() {
+  content: '\200B';
+  user-select: none;
+}
