@@ -14,17 +14,16 @@ export class SbbDivider {
   @Prop() public orientation?: InterfaceSbbDividerAttributes['orientation'] = 'horizontal';
 
   public render(): JSX.Element {
-
     return (
       <Host
-          class={{
-            'sbb-divider': true,
-            [`sbb-divider--${this.orientation}`]: true,
-            'sbb-divider--negative': this.negative
-          }}
-          role="separator"
-          aria-orientation={this.orientation}
-        />
+        class={{
+          'sbb-divider': true,
+          [`sbb-divider--${this.orientation}`]: true,
+          'sbb-divider--negative': this.negative,
+        }}
+        role="separator"
+        aria-orientation={this.orientation}
+      />
     );
   }
 }
