@@ -53,8 +53,10 @@ const ToggleCheckDefaultTemplate = (args) => (
   <sbb-toggle-check {...args}>{args.label}</sbb-toggle-check>
 );
 
+const ToggleCheckWithoutLabelTemplate = (args) => <sbb-toggle-check {...args}></sbb-toggle-check>;
+
 export const sbbToggleCheckDefault = ToggleCheckDefaultTemplate.bind({});
-export const sbbToggleCheckWithoutLabel = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckWithoutLabel = ToggleCheckWithoutLabelTemplate.bind({});
 export const sbbToggleCheckDisabled = ToggleCheckDefaultTemplate.bind({});
 export const sbbToggleCheckDisabledChecked = ToggleCheckDefaultTemplate.bind({});
 
@@ -66,7 +68,6 @@ sbbToggleCheckDefault.args = {
 sbbToggleCheckWithoutLabel.argTypes = defaultArgTypes;
 sbbToggleCheckWithoutLabel.args = {
   ...defaultArgs,
-  'label-position': '',
 };
 
 sbbToggleCheckDisabled.argTypes = defaultArgTypes;

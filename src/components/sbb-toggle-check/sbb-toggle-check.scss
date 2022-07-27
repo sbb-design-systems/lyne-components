@@ -48,11 +48,8 @@
 }
 
 .toggle-check {
-  @include text-s--regular;
-
   position: relative;
   display: flex;
-  align-items: center;
   color: var(--toggle-check-color);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -79,9 +76,12 @@ input[type='checkbox'] {
 }
 
 .toggle-check__container {
+  @include text-s--regular;
+
   display: flex;
   flex-direction: var(--toggle-check-flex-direction);
   gap: var(--sbb-spacing-fixed-3x);
+  align-items: center;
 }
 
 .toggle-check__slider {
