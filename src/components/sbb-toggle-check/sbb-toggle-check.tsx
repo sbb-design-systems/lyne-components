@@ -83,9 +83,9 @@ export class SbbToggleCheck implements AccessibilityProperties {
           aria-describedby={this.accessibilityDescribedby}
           aria-labelledby={this.accessibilityLabelledby}
         />
-        <span class={'toggle-check__container'}>
+        <span class="toggle-check__container">
           <slot />
-          <span class={`toggle-check__slider`}>
+          <span class="toggle-check__slider">
             <span class="toggle-check__circle">
               <slot name="icon">
                 <sbb-icon name={this.icon}></sbb-icon>
