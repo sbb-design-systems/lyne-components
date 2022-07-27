@@ -409,6 +409,28 @@ connectedCallback() {
 }
 ```
 
+### Storybook
+
+#### Testing margins with chromatic
+
+We have to guarantee that a component doesn't have unwanted margins and/or white space around it.
+This primarily applies to inline or inline block elements.
+
+By adding an outline to a story, respectively a component,
+chromatic can automatically detect if some margins or white spaces changed accidentally.
+
+Use the `chromaticOutlineDecorator` function to wrap an outline around a component and place it in your story.
+
+Example Story:
+
+```js
+export default {
+  title: 'components/form-elements/sbb-toggle-check',
+  decorators: [chromaticOutlineDecorator()],
+  ...
+};
+```
+
 ### CSS
 
 #### BEM

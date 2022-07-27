@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { chromaticOutlineDecorator } from '../../global/helpers/storybook';
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -117,7 +118,7 @@ sbbToggleCheckDefault.documentation = {
 
 export default {
   title: 'components/form-elements/sbb-toggle-check',
-
+  decorators: [chromaticOutlineDecorator()],
   parameters: {
     backgrounds: {
       disable: true,
