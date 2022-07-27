@@ -14,7 +14,12 @@ const TemplateInputWithoutBorder = (args) => (
 );
 
 const TemplateInputDisabled = (args) => (
-  <sbb-form-field error-space={args['error-space']} label={args.label} optional={args.optional}>
+  <sbb-form-field
+    error-space={args['error-space']}
+    label={args.label}
+    optional={args.optional}
+    size={args.size}
+  >
     <input
       slot="input"
       class="input"
@@ -26,7 +31,12 @@ const TemplateInputDisabled = (args) => (
 );
 
 const TemplateInputReadOnly = (args) => [
-  <sbb-form-field error-space={args['error-space']} label={args.label} optional={args.optional}>
+  <sbb-form-field
+    error-space={args['error-space']}
+    label={args.label}
+    optional={args.optional}
+    size={args.size}
+  >
     <input
       slot="input"
       class="input"

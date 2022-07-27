@@ -37,9 +37,17 @@ export class SbbFormField {
    */
   @Prop() public size?: InterfaceSbbFormFieldAttributes['size'] = 'l';
 
-  @State() private _prefixElement: Element[] = [];
+  /**
+   *
+   * It is used internally to get the native `disabled` attribute from `<input>`.
+   */
+  @State() private _disabled: boolean;
 
-  @State() private _suffixElement: Element[] = [];
+  /**
+   *
+   * It is used internally to get the `prefix` slot.
+   */
+  @State() private _prefixElement: Element[] = [];
 
   /**
    *
@@ -49,9 +57,9 @@ export class SbbFormField {
 
   /**
    *
-   * It is used internally to get the native `disabled` attribute from `<input>`.
+   * It is used internally to get the `suffix` slot.
    */
-  @State() private _disabled: boolean;
+  @State() private _suffixElement: Element[] = [];
 
   /**
    * The internal `<sbb-form-field>` element.
@@ -76,32 +84,35 @@ export class SbbFormField {
    */
   private _formFieldAttributeObserver = new MutationObserver(() => this._onAttributesChange);
 
-  public componentWillLoad(): void {
-    this._idError = this._element?.querySelector('[slot="error"]')?.getAttribute('id');
-    if (this._idError) {
-      this._element.querySelector('[slot="input"]').setAttribute('aria-describedby', this._idError);
-    }
-
-    const input = this._element.querySelector('[slot="input"]');
-    this._readonly = input.hasAttribute('readonly');
-    this._disabled = input.hasAttribute('disabled');
-
-    this._formFieldAttributeObserver.observe(input, {
-      attributes: true,
-      attributeFilter: ['readonly', 'disabled'],
-    });
-  }
-
   public disconnectedCallback(): void {
     this._formFieldAttributeObserver.disconnect();
   }
 
   /**
    * @private
-   * It is used internally to assign the attributes of `<input>` to `_id` and `_input`.
+   * It is used internally to set the aria-describedby attribute into the input whether the <sbb-form-error> is present.
+   */
+  private _onSlotErrorChange(event: Event): void {
+    this._idError = (event.target as HTMLSlotElement).assignedElements()[0].id;
+    if (this._idError) {
+      this._element.querySelector('[slot="input"]').setAttribute('aria-describedby', this._idError);
+    }
+  }
+
+  /**
+   * @private
+   * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
   private _onSlotInputChange(event: Event): void {
     this._input = (event.target as HTMLSlotElement).assignedElements()[0] as HTMLElement;
+
+    this._readonly = this._input.hasAttribute('readonly');
+    this._disabled = this._input.hasAttribute('disabled');
+
+    this._formFieldAttributeObserver.observe(this._input, {
+      attributes: true,
+      attributeFilter: ['readonly', 'disabled'],
+    });
 
     if (!this._input.id) {
       this._input.id = `sbb-form-field-input-${nextId++}`;
@@ -139,10 +150,11 @@ export class SbbFormField {
 
     const cssClass = `input-wrapper form-field--error-space-${this.errorSpace} form-field--size-${
       this.size
-    } ${this._prefixElement.length ?? 'form--prefix'} 
-    ${this._suffixElement.length ?? 'form--suffix'} ${this._readonly ?? 'form--readonly'} ${
-      this._disabled ?? 'form--disabled'
+    } ${this._prefixElement.length > 0 ? 'form--prefix' : ''} 
+    ${this._suffixElement.length ? 'form--suffix' : ''} ${this._readonly ? 'form--readonly' : ''} ${
+      this._disabled ? 'form--disabled' : ''
     }`;
+
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div onClick={this._setFocus.bind(this)} class={cssClass}>
@@ -172,7 +184,7 @@ export class SbbFormField {
           ></slot>
         </div>
         <div>
-          <slot name="error"></slot>
+          <slot name="error" onSlotchange={(event) => this._onSlotErrorChange(event)}></slot>
         </div>
       </div>
     );

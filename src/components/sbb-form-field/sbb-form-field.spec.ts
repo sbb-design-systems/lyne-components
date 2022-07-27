@@ -45,38 +45,38 @@ describe('sbb-form-field', () => {
     const { root } = await newSpecPage({
       components: [SbbFormField],
       html: `
-        <sbb-form-field label="Fill input">
-          <input slot='input' class='input' disabled placeholder='This is an input' />
-        </sbb-form-field>`,
+      <sbb-form-field label="Fill input">
+        <input slot='input' class='input' disabled placeholder='This is an input' />
+      </sbb-form-field>`,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-form-field label="Fill input">
-          <mock:shadow-root>
-            <div class="form--disabled form-field--error-space-default form-field--size-l input-wrapper">
-              <label class="input-label">
-                <slot name="label">
-                  <span>
-                    Fill input
-                  </span>
-                </slot>
-              </label>
-              <div>
-                <slot name="prefix"></slot>
-              </div>
-              <div>
-                <slot name="input"></slot>
-              </div>
-              <div>
-                <slot name="suffix"></slot>
-              </div>
-              <div>
-                <slot name="error"></slot>
-              </div>
-            </div>
-          </mock:shadow-root>
-          <input slot='input' class='input' disabled placeholder='This is an input' />
-        </sbb-form-field>
+    <sbb-form-field label="Fill input">
+    <mock:shadow-root>
+      <div class="form-field--error-space-default form-field--size-l input-wrapper">
+        <label class="input-label">
+          <slot name="label">
+            <span>
+              Fill input
+            </span>
+          </slot>
+        </label>
+        <div>
+          <slot name="prefix"></slot>
+        </div>
+        <div>
+          <slot name="input"></slot>
+        </div>
+        <div>
+          <slot name="suffix"></slot>
+        </div>
+        <div>
+          <slot name="error"></slot>
+        </div>
+      </div>
+    </mock:shadow-root>
+    <input slot='input' class='input' disabled placeholder='This is an input' />
+  </sbb-form-field>
       `);
   });
 
@@ -85,7 +85,7 @@ describe('sbb-form-field', () => {
       components: [SbbFormField],
       html: `
         <sbb-form-field label="Fill input">
-          <input slot='input' class='input' readonly placeholder='This is an input' />
+        <input aria-describedby="error" class="input" readonly placeholder="This is an input" slot="input">
           <sbb-form-error id="error" slot="error">
             You can't change this value.
           </sbb-form-error>
@@ -95,7 +95,7 @@ describe('sbb-form-field', () => {
     expect(root).toEqualHtml(`
         <sbb-form-field label="Fill input">
           <mock:shadow-root>
-            <div class="form--readonly form-field--error-space-default form-field--size-l input-wrapper">
+            <div class="form-field--error-space-default form-field--size-l input-wrapper">
               <label class="input-label">
                 <slot name="label">
                   <span>
