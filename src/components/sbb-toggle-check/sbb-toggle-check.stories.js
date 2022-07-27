@@ -117,7 +117,7 @@ sbbToggleCheckDefault.documentation = {
 };
 
 export default {
-  title: 'components/form-elements/sbb-toggle-check',
+  title: 'components/form elements/sbb-toggle-check',
   decorators: [chromaticOutlineDecorator()],
   parameters: {
     backgrounds: {
