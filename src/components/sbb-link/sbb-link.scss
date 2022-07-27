@@ -50,8 +50,7 @@ button.sbb-link {
   --text-color-active: var(--sbb-color-silver-default);
 }
 
-.sbb-link--inline,
-.sbb-link--inline.sbb-link--negative {
+.sbb-link--inline {
   @include text-inherit;
 
   color: inherit;
@@ -81,15 +80,15 @@ button.sbb-link {
   }
 }
 
-.sbb-link__icon {
+sbb-icon {
   width: var(--sbb-size-icon-ui-small);
   height: var(--sbb-size-icon-ui-small);
 }
 
-.sbb-link--icon-placement-end .sbb-link__icon {
+.sbb-link--icon-placement-end sbb-icon {
   order: 2;
 }
 
-.sbb-link[dir='rtl'].sbb-link--icon-flip .sbb-link__icon {
+.sbb-link.sbb-link--icon-flip sbb-icon {
   transform: scaleX(-1);
 }

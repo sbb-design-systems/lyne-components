@@ -456,9 +456,17 @@ export namespace Components {
     }
     interface SbbLink {
         /**
-          * The aria-label attribute text. (optional)
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string;
         /**
           * Disabled attribute if link is used as button (optional)
          */
@@ -492,10 +500,6 @@ export namespace Components {
          */
         "idValue"?: string;
         /**
-          * Applies link inline styles (underline, inherit coloring/font-size etc).
-         */
-        "inline": boolean;
-        /**
           * If this is set to true an span element will be used instead of an anchor or a button
          */
         "isStatic": boolean;
@@ -515,6 +519,10 @@ export namespace Components {
           * Type attribute if link is used as button (optional)
          */
         "type"?: InterfaceLinkAttributes['buttonType'];
+        /**
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
+         */
+        "variant": InterfaceLinkAttributes['variant'];
     }
     interface SbbLinkButton {
         /**
@@ -1842,9 +1850,17 @@ declare namespace LocalJSX {
     }
     interface SbbLink {
         /**
-          * The aria-label attribute text. (optional)
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string;
         /**
           * Disabled attribute if link is used as button (optional)
          */
@@ -1878,10 +1894,6 @@ declare namespace LocalJSX {
          */
         "idValue"?: string;
         /**
-          * Applies link inline styles (underline, inherit coloring/font-size etc).
-         */
-        "inline"?: boolean;
-        /**
           * If this is set to true an span element will be used instead of an anchor or a button
          */
         "isStatic"?: boolean;
@@ -1901,6 +1913,10 @@ declare namespace LocalJSX {
           * Type attribute if link is used as button (optional)
          */
         "type"?: InterfaceLinkAttributes['buttonType'];
+        /**
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
+         */
+        "variant"?: InterfaceLinkAttributes['variant'];
     }
     interface SbbLinkButton {
         /**

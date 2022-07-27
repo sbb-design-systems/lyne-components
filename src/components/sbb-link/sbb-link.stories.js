@@ -48,10 +48,11 @@ const InlineTemplate = (args, context) => (
   </p>
 );
 
-const inline = {
+const variant = {
   control: {
-    type: 'boolean',
+    type: 'select',
   },
+  options: ['block', 'inline'],
 };
 
 const negative = {
@@ -141,7 +142,6 @@ const defaultArgTypes = {
   download,
   disabled,
   negative,
-  inline,
   'is-static': isStatic,
   href: href,
   icon,
@@ -151,13 +151,13 @@ const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   text,
   'text-size': textSize,
+  variant,
 };
 
 const defaultArgs = {
   download: false,
   disabled: false,
   negative: false,
-  inline: false,
   'is-static': false,
   href: 'https://github.com/lyne-design-system/lyne-components',
   icon: '',
@@ -167,6 +167,7 @@ const defaultArgs = {
   'accessibility-label': 'Travelcards & tickets',
   text: 'Travelcards & tickets',
   'text-size': textSize.options[1],
+  variant: variant.options[0],
 };
 
 /* ************************************************* */
@@ -287,7 +288,7 @@ Inline.argTypes = defaultArgTypes;
 Inline.args = {
   ...defaultArgs,
   text: 'Show more',
-  inline: true,
+  variant: variant.options[1],
 };
 
 Inline.documentation = {
@@ -300,7 +301,7 @@ InlineNegative.argTypes = defaultArgTypes;
 InlineNegative.args = {
   ...defaultArgs,
   text: 'Show more',
-  inline: true,
+  variant: variant.options[1],
   negative: true,
 };
 
