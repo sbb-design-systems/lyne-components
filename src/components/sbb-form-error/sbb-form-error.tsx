@@ -1,6 +1,5 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 import { assignId } from '../../global/helpers/assign-id';
-import { InterfaceSbbFormErrorAttributes } from './sbb-form-error.custom';
 
 let nextId = 0;
 @Component({
@@ -9,18 +8,12 @@ let nextId = 0;
   tag: 'sbb-form-error',
 })
 export class SbbFormError {
-  /**
-   * Add a specific space if the `<sbb-error>` is present.
-   */
-  @Prop() public errorSpace?: InterfaceSbbFormErrorAttributes['errorSpace'] = 'default';
 
   public render(): JSX.Element {
-    const cssClassErrorSpace = `form-error--error-space-${this.errorSpace}`;
-    const cssClass = `input-label-error__icon ${cssClassErrorSpace}`;
 
     return (
       <Host aria-live="polite" ref={assignId(() => `sbb-form-error-${++nextId}`)}>
-        <span class={cssClass}>
+        <span>
           <slot name="icon">
             <sbb-icon name="circle-information-small" />
           </slot>
