@@ -11,7 +11,7 @@ describe('sbb-form-error', () => {
     expect(root).toEqualHtml(`
       <sbb-form-error aria-live="polite" id="sbb-form-error-1">
           <mock:shadow-root>
-            <span class="form-error--error-space-default input-label-error__icon">
+            <span>
               <slot name='icon'>
                 <sbb-icon name="circle-information-small"></sbb-icon>
               </slot>
