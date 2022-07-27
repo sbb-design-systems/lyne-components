@@ -1,9 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import {
-  SbbColorBlackDefault,
-  SbbColorWhiteDefault,
-} from '@sbb-esta/lyne-design-tokens';
+import { SbbColorBlackDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 
 const documentationPlatformContainerStyle = (context) => {
   if (context.args.negative) {
