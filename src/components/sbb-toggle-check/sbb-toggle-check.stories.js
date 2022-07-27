@@ -53,20 +53,43 @@ const ToggleCheckDefaultTemplate = (args) => (
   <sbb-toggle-check {...args}>{args.label}</sbb-toggle-check>
 );
 
+const ToggleCheckWithoutLabelTemplate = (args) => <sbb-toggle-check {...args}></sbb-toggle-check>;
+
+const ToggleCheckCustomIconTemplate = (args) => (
+  <sbb-toggle-check {...args}>
+    <sbb-icon slot="icon" name="eye-small"></sbb-icon>
+    {args.label}
+  </sbb-toggle-check>
+);
+
 export const sbbToggleCheckDefault = ToggleCheckDefaultTemplate.bind({});
-export const sbbToggleCheckWithoutLabel = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckDefaultChecked = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckLabelBefore = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckWithoutLabel = ToggleCheckWithoutLabelTemplate.bind({});
 export const sbbToggleCheckDisabled = ToggleCheckDefaultTemplate.bind({});
 export const sbbToggleCheckDisabledChecked = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckCustomIcon = ToggleCheckCustomIconTemplate.bind({});
 
 sbbToggleCheckDefault.argTypes = defaultArgTypes;
 sbbToggleCheckDefault.args = {
   ...defaultArgs,
 };
 
+sbbToggleCheckDefaultChecked.argTypes = defaultArgTypes;
+sbbToggleCheckDefaultChecked.args = {
+  ...defaultArgs,
+  checked: true,
+};
+
+sbbToggleCheckLabelBefore.argTypes = defaultArgTypes;
+sbbToggleCheckLabelBefore.args = {
+  ...defaultArgs,
+  'label-position': 'before',
+};
+
 sbbToggleCheckWithoutLabel.argTypes = defaultArgTypes;
 sbbToggleCheckWithoutLabel.args = {
   ...defaultArgs,
-  'label-position': '',
 };
 
 sbbToggleCheckDisabled.argTypes = defaultArgTypes;
@@ -82,12 +105,18 @@ sbbToggleCheckDisabledChecked.args = {
   checked: true,
 };
 
+sbbToggleCheckCustomIcon.argTypes = defaultArgTypes;
+sbbToggleCheckCustomIcon.args = {
+  ...defaultArgs,
+  checked: true,
+};
+
 sbbToggleCheckDefault.documentation = {
   title: 'Default',
 };
 
 export default {
-  title: 'components/sbb-toggle-check',
+  title: 'components/form-elements/sbb-toggle-check',
 
   parameters: {
     backgrounds: {

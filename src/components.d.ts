@@ -2358,7 +2358,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Event for emiting whenever selection is changed.
+          * Emits whenever the selection has changed.
          */
         "onSbbChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
         /**

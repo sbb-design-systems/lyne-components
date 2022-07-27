@@ -1,4 +1,4 @@
-import { Component, Prop, h, Event, EventEmitter, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
@@ -44,7 +44,7 @@ export class SbbToggleCheck implements AccessibilityProperties {
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** Event for emiting whenever selection is changed. */
+  /** Emits whenever the selection has changed.  */
   @Event() public sbbChange: EventEmitter;
 
   @Watch('checked')
@@ -56,11 +56,16 @@ export class SbbToggleCheck implements AccessibilityProperties {
   }
 
   public render(): JSX.Element {
-    const disabled = this.disabled ? 'toggle-check--disabled' : '';
-    const checked = this.checked ? 'toggle-check--checked' : '';
-
     return (
-      <label class={`toggle-check ${disabled} ${checked}`} htmlFor={this.inputId}>
+      <label
+        class={{
+          'toggle-check': true,
+          [`toggle-check--${this.labelPosition}`]: true,
+          'toggle-check--checked': this.checked,
+          'toggle-check--disabled': this.disabled,
+        }}
+        htmlFor={this.inputId}
+      >
         <input
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
@@ -78,19 +83,16 @@ export class SbbToggleCheck implements AccessibilityProperties {
           aria-describedby={this.accessibilityDescribedby}
           aria-labelledby={this.accessibilityLabelledby}
         />
-        {this.labelPosition === 'before' ? <slot /> : ''}
-        <span class={`toggle-check__slider toggle-check__slider--${this.labelPosition}`}>
-          <span class="toggle-check__circle">
-            {this.checked ? (
+        <span class="toggle-check__container">
+          <slot />
+          <span class="toggle-check__slider">
+            <span class="toggle-check__circle">
               <slot name="icon">
                 <sbb-icon name={this.icon}></sbb-icon>
               </slot>
-            ) : (
-              ''
-            )}
+            </span>
           </span>
         </span>
-        {this.labelPosition === 'after' ? <slot /> : ''}
       </label>
     );
   }

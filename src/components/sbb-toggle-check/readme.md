@@ -61,9 +61,9 @@ to describe the element on which the attribute is set.
 
 ## Events
 
-| Event       | Description                                      | Type               |
-| ----------- | ------------------------------------------------ | ------------------ |
-| `sbbChange` | Event for emiting whenever selection is changed. | `CustomEvent<any>` |
+| Event       | Description                               | Type               |
+| ----------- | ----------------------------------------- | ------------------ |
+| `sbbChange` | Emits whenever the selection has changed. | `CustomEvent<any>` |
 
 
 ## Dependencies
