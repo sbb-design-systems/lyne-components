@@ -45,7 +45,10 @@
   transform: translateY(-50%);
 }
 
+/** This mixin can be used to avoid spacing problems by inserting an invisible space as pseudo element. */
 @mixin zeroWidthSpace() {
-  content: '\200B';
-  user-select: none;
+  &::before {
+    content: '\200B';
+    user-select: none;
+  }
 }

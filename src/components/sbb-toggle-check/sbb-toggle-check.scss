@@ -13,6 +13,7 @@
   --toggle-check-circle-transform: translate(var(--toggle-check-circle-offset), -50%);
   --toggle-check-cursor: pointer;
   --toggle-check-flex-direction: row-reverse;
+  --toggle-check-icon-opacity: 0;
 
   @include ifForcedColors {
     --toggle-check-circle-background: Canvas;
@@ -23,6 +24,7 @@
 .toggle-check--checked {
   --toggle-check-background: var(--sbb-color-red-default);
   --toggle-check-circle-transform: translate(calc(100% - var(--toggle-check-circle-offset)), -50%);
+  --toggle-check-icon-opacity: 1;
 
   @include ifForcedColors {
     --toggle-check-fill: Highlight;
@@ -48,16 +50,14 @@
 }
 
 .toggle-check {
+  // Avoids unwanted space displayed if no label text is set.
+  @include zeroWidthSpace;
+
   position: relative;
   display: flex;
   color: var(--toggle-check-color);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-/* Avoids unwanted space displayed if no label text is set. */
-.toggle-check::before {
-  @include zeroWidthSpace;
 }
 
 input[type='checkbox'] {
@@ -110,5 +110,11 @@ input[type='checkbox'] {
   color: var(--toggle-check-fill);
   will-change: transform;
   transform: var(--toggle-check-circle-transform);
-  transition: var(--sbb-animation-duration-6x);
+  transition: transform ease var(--sbb-animation-duration-6x);
+}
+
+::slotted(sbb-icon),
+slot[name='icon'] sbb-icon {
+  opacity: var(--toggle-check-icon-opacity);
+  transition: opacity ease var(--sbb-animation-duration-6x);
 }

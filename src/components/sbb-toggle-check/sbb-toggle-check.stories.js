@@ -55,14 +55,36 @@ const ToggleCheckDefaultTemplate = (args) => (
 
 const ToggleCheckWithoutLabelTemplate = (args) => <sbb-toggle-check {...args}></sbb-toggle-check>;
 
+const ToggleCheckCustomIconTemplate = (args) => (
+  <sbb-toggle-check {...args}>
+    <sbb-icon slot="icon" name="eye-small"></sbb-icon>
+    {args.label}
+  </sbb-toggle-check>
+);
+
 export const sbbToggleCheckDefault = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckDefaultChecked = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckLabelBefore = ToggleCheckDefaultTemplate.bind({});
 export const sbbToggleCheckWithoutLabel = ToggleCheckWithoutLabelTemplate.bind({});
 export const sbbToggleCheckDisabled = ToggleCheckDefaultTemplate.bind({});
 export const sbbToggleCheckDisabledChecked = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckCustomIcon = ToggleCheckCustomIconTemplate.bind({});
 
 sbbToggleCheckDefault.argTypes = defaultArgTypes;
 sbbToggleCheckDefault.args = {
   ...defaultArgs,
+};
+
+sbbToggleCheckDefaultChecked.argTypes = defaultArgTypes;
+sbbToggleCheckDefaultChecked.args = {
+  ...defaultArgs,
+  checked: true,
+};
+
+sbbToggleCheckLabelBefore.argTypes = defaultArgTypes;
+sbbToggleCheckLabelBefore.args = {
+  ...defaultArgs,
+  'label-position': 'before',
 };
 
 sbbToggleCheckWithoutLabel.argTypes = defaultArgTypes;
@@ -81,6 +103,11 @@ sbbToggleCheckDisabledChecked.args = {
   ...defaultArgs,
   disabled: true,
   checked: true,
+};
+
+sbbToggleCheckCustomIcon.argTypes = defaultArgTypes;
+sbbToggleCheckCustomIcon.args = {
+  ...defaultArgs,
 };
 
 sbbToggleCheckDefault.documentation = {

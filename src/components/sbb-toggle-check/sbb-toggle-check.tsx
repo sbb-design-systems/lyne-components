@@ -1,4 +1,4 @@
-import { Component, Prop, h, Event, EventEmitter, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
@@ -56,12 +56,16 @@ export class SbbToggleCheck implements AccessibilityProperties {
   }
 
   public render(): JSX.Element {
-    const disabled = this.disabled ? 'toggle-check--disabled' : '';
-    const checked = this.checked ? 'toggle-check--checked' : '';
-    const labelPosition = `toggle-check--${this.labelPosition}`;
-
     return (
-      <label class={`toggle-check ${disabled} ${checked} ${labelPosition}`} htmlFor={this.inputId}>
+      <label
+        class={{
+          'toggle-check': true,
+          [`toggle-check--${this.labelPosition}`]: true,
+          'toggle-check--checked': this.checked,
+          'toggle-check--disabled': this.disabled,
+        }}
+        htmlFor={this.inputId}
+      >
         <input
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
@@ -83,11 +87,9 @@ export class SbbToggleCheck implements AccessibilityProperties {
           <slot />
           <span class={`toggle-check__slider`}>
             <span class="toggle-check__circle">
-              {this.checked && (
-                <slot name="icon">
-                  <sbb-icon name={this.icon}></sbb-icon>
-                </slot>
-              )}
+              <slot name="icon">
+                <sbb-icon name={this.icon}></sbb-icon>
+              </slot>
             </span>
           </span>
         </span>
