@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.15 (2022-07-27)
+
+### 0.1.14 (2022-07-26)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** prevent the toggle from freezing on double-click ([#1315](https://github.com/lyne-design-system/lyne-components/issues/1315)) ([98a8d1a](https://github.com/lyne-design-system/lyne-components/commit/98a8d1afc352670cee11ddf7328e9a67c1a703ef))
+
+### 0.1.13 (2022-07-26)
+
+### 0.1.12 (2022-07-21)
+
+### Features
+
+- **sbb-toggle-check:** initial implementation ([#1283](https://github.com/lyne-design-system/lyne-components/issues/1283)) ([8db48df](https://github.com/lyne-design-system/lyne-components/commit/8db48df27f2cc9fa4674d78757605b8d6c459dfc))
+
+### 0.1.11 (2022-07-19)
+
+### Bug Fixes
+
+- **button:** use new design tokens for size ([#1306](https://github.com/lyne-design-system/lyne-components/issues/1306)) ([21f20aa](https://github.com/lyne-design-system/lyne-components/commit/21f20aa429b38f501bdc8be0764d129d57e73121))
+
+### 0.1.10 (2022-07-18)
+
+### 0.1.9 (2022-07-18)
+
+### Features
+
+- **sbb-icon:** add width and height CSS variables and refactor ([#1297](https://github.com/lyne-design-system/lyne-components/issues/1297)) ([fc15052](https://github.com/lyne-design-system/lyne-components/commit/fc150521e6abc77ed5113e450572778dcc1cfd0e))
+
 ### 0.1.8 (2022-07-08)
 
 ### Features

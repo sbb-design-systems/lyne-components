@@ -25,6 +25,7 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
+import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
@@ -35,8 +36,7 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
-import { InterfaceToastConfiguration } from "./components/sbb-toast/sbb-toast.custom";
-import { AnimationBuilder } from "./global/core/components/animations/animation-interface";
+import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -194,9 +194,17 @@ export namespace Components {
     }
     interface SbbCardBadge {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
         /**
           * Badge appearance
          */
@@ -220,9 +228,17 @@ export namespace Components {
     }
     interface SbbCardProduct {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
         /**
           * CardProduct appearance
          */
@@ -299,6 +315,14 @@ export namespace Components {
         "variant"?: InterfaceGridAttributes['variant'];
     }
     interface SbbIcon {
+        /**
+          * The aria-hidden property is set to "true" by default, since an icon alone does not convey any useful information for a screen-reader user.
+         */
+        "ariaHidden": string;
+        /**
+          * Only set the aria-label if aria-hidden is set to "false".
+         */
+        "ariaLabel": string;
         /**
           * The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
          */
@@ -632,6 +656,32 @@ export namespace Components {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
+    interface SbbTeaser {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * The href value you want to link to
+         */
+        "href": string;
+        /**
+          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
+         */
+        "isStacked": boolean;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6)
+         */
+        "titleLevel": InterfaceTeaserAttributes['titleLevel'];
+    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -915,19 +965,15 @@ export namespace Components {
          */
         "level"?: InterfaceTitleAttributes1['level'];
         /**
-          * Text for the title
+          * Choose negative variant
          */
-        "text": string;
+        "negative"?: boolean;
         /**
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
-        "titleId"?: '';
+        "titleId": string;
         /**
-          * Choose the title style variant
-         */
-        "variant": InterfaceTitleAttributes1['variant'];
-        /**
-          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
+          * Visual level for the title. Optional, if not set, the value of level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
         /**
@@ -935,46 +981,51 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
-    interface SbbToast {
+    interface SbbToggleCheck {
         /**
-          * Exposed toast configuration.
+          * The aria-describedby prop for the hidden input.
          */
-        "config": InterfaceToastConfiguration;
+        "accessibilityDescribedby": string | undefined;
         /**
-          * Indicates whether the toast will play enter-leave animations.
+          * The aria-label prop for the hidden input.
          */
-        "disableAnimation": boolean;
+        "accessibilityLabel": string | undefined;
         /**
-          * Dismiss the toast overlay after it has been presented.
-          * @param data Any data to emit in the dismiss events.
-          * @param role The role of the element that is dismissing the toast. Example: `"cancel"` for close icon `"timeout"` for auto-close
+          * The aria-labelledby prop for the hidden input.
          */
-        "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        "accessibilityLabelledby": string | undefined;
         /**
-          * The animation used when the toast is presented.
+          * Whether the toggle-check is checked.
          */
-        "enterAnimation"?: AnimationBuilder;
+        "checked": boolean;
         /**
-          * Indicates whether the keyboard is automatically dismissed when the overlay is presented.
+          * The disabled prop for the disabled state.
          */
-        "keyboardClose": boolean;
+        "disabled": boolean;
         /**
-          * The animation used when the toast is dismissed.
+          * The svg name for the true state - default -> 'tick-small'
          */
-        "leaveAnimation"?: AnimationBuilder;
+        "icon": string;
         /**
-          * Returns a promise that resolves when the toast did dismiss.
+          * Id of the internal input element - default id will be set automatically.
          */
-        "onDidDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
+        "inputId": string;
         /**
-          * Returns a promise that resolves when the toast will dismiss.
+          * The label position relative to the toggle. Defaults to 'after'
          */
-        "onWillDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
-        "overlayIndex": number;
+        "labelPosition"?: InterfaceToggleCheckAttributes['labelPosition'];
         /**
-          * Present the toast overlay after it has been created.
+          * Name of the toggle-check.
          */
-        "present": () => Promise<void>;
+        "name"?: string;
+        /**
+          * The required prop for the required state.
+         */
+        "required"?: boolean;
+        /**
+          * Value of toggle-check.
+         */
+        "value"?: string;
     }
 }
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
@@ -985,9 +1036,9 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
 }
-export interface SbbToastCustomEvent<T> extends CustomEvent<T> {
+export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLSbbToastElement;
+    target: HTMLSbbToggleCheckElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -1140,6 +1191,12 @@ declare global {
         prototype: HTMLSbbStackElement;
         new (): HTMLSbbStackElement;
     };
+    interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
+    }
+    var HTMLSbbTeaserElement: {
+        prototype: HTMLSbbTeaserElement;
+        new (): HTMLSbbTeaserElement;
+    };
     interface HTMLSbbTeaserHeroElement extends Components.SbbTeaserHero, HTMLStencilElement {
     }
     var HTMLSbbTeaserHeroElement: {
@@ -1266,11 +1323,11 @@ declare global {
         prototype: HTMLSbbTitleElement;
         new (): HTMLSbbTitleElement;
     };
-    interface HTMLSbbToastElement extends Components.SbbToast, HTMLStencilElement {
+    interface HTMLSbbToggleCheckElement extends Components.SbbToggleCheck, HTMLStencilElement {
     }
-    var HTMLSbbToastElement: {
-        prototype: HTMLSbbToastElement;
-        new (): HTMLSbbToastElement;
+    var HTMLSbbToggleCheckElement: {
+        prototype: HTMLSbbToggleCheckElement;
+        new (): HTMLSbbToggleCheckElement;
     };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
@@ -1298,6 +1355,7 @@ declare global {
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
+        "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-text-input": HTMLSbbTextInputElement;
         "sbb-timetable": HTMLSbbTimetableElement;
@@ -1319,7 +1377,7 @@ declare global {
         "sbb-timetable-transportation-walk": HTMLSbbTimetableTransportationWalkElement;
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
-        "sbb-toast": HTMLSbbToastElement;
+        "sbb-toggle-check": HTMLSbbToggleCheckElement;
     }
 }
 declare namespace LocalJSX {
@@ -1483,9 +1541,17 @@ declare namespace LocalJSX {
     }
     interface SbbCardBadge {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Badge appearance
          */
@@ -1509,9 +1575,17 @@ declare namespace LocalJSX {
     }
     interface SbbCardProduct {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * CardProduct appearance
          */
@@ -1588,6 +1662,14 @@ declare namespace LocalJSX {
         "variant"?: InterfaceGridAttributes['variant'];
     }
     interface SbbIcon {
+        /**
+          * The aria-hidden property is set to "true" by default, since an icon alone does not convey any useful information for a screen-reader user.
+         */
+        "ariaHidden"?: string;
+        /**
+          * Only set the aria-label if aria-hidden is set to "false".
+         */
+        "ariaLabel"?: string;
         /**
           * The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
          */
@@ -1915,6 +1997,32 @@ declare namespace LocalJSX {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
+    interface SbbTeaser {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * The href value you want to link to
+         */
+        "href": string;
+        /**
+          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
+         */
+        "isStacked"?: boolean;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6)
+         */
+        "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
+    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -2198,19 +2306,15 @@ declare namespace LocalJSX {
          */
         "level"?: InterfaceTitleAttributes1['level'];
         /**
-          * Text for the title
+          * Choose negative variant
          */
-        "text": string;
+        "negative"?: boolean;
         /**
           * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
          */
-        "titleId"?: '';
+        "titleId"?: string;
         /**
-          * Choose the title style variant
-         */
-        "variant"?: InterfaceTitleAttributes1['variant'];
-        /**
-          * Visual level for the title. If you don't define the visual-level, the value for level will be used.
+          * Visual level for the title. Optional, if not set, the value of level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
         /**
@@ -2218,44 +2322,55 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
-    interface SbbToast {
+    interface SbbToggleCheck {
         /**
-          * Exposed toast configuration.
+          * The aria-describedby prop for the hidden input.
          */
-        "config"?: InterfaceToastConfiguration;
+        "accessibilityDescribedby"?: string | undefined;
         /**
-          * Indicates whether the toast will play enter-leave animations.
+          * The aria-label prop for the hidden input.
          */
-        "disableAnimation"?: boolean;
+        "accessibilityLabel"?: string | undefined;
         /**
-          * The animation used when the toast is presented.
+          * The aria-labelledby prop for the hidden input.
          */
-        "enterAnimation"?: AnimationBuilder;
+        "accessibilityLabelledby"?: string | undefined;
         /**
-          * Indicates whether the keyboard is automatically dismissed when the overlay is presented.
+          * Whether the toggle-check is checked.
          */
-        "keyboardClose"?: boolean;
+        "checked"?: boolean;
         /**
-          * The animation used when the toast is dismissed.
+          * The disabled prop for the disabled state.
          */
-        "leaveAnimation"?: AnimationBuilder;
+        "disabled": boolean;
         /**
-          * Emitted after the toast has dismissed.
+          * The svg name for the true state - default -> 'tick-small'
          */
-        "onSbb-toast_did-dismiss"?: (event: SbbToastCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "icon"?: string;
         /**
-          * Emitted after the toast has presented.
+          * Id of the internal input element - default id will be set automatically.
          */
-        "onSbb-toast_did-present"?: (event: SbbToastCustomEvent<void>) => void;
+        "inputId"?: string;
         /**
-          * Emitted before the toast has dismissed.
+          * The label position relative to the toggle. Defaults to 'after'
          */
-        "onSbb-toast_will-dismiss"?: (event: SbbToastCustomEvent<InterfaceOverlayEventDetail>) => void;
+        "labelPosition"?: InterfaceToggleCheckAttributes['labelPosition'];
         /**
-          * Emitted before the toast has presented.
+          * Name of the toggle-check.
          */
-        "onSbb-toast_will-present"?: (event: SbbToastCustomEvent<void>) => void;
-        "overlayIndex"?: number;
+        "name"?: string;
+        /**
+          * Event for emiting whenever selection is changed.
+         */
+        "onSbbChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
+        /**
+          * The required prop for the required state.
+         */
+        "required"?: boolean;
+        /**
+          * Value of toggle-check.
+         */
+        "value"?: string;
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
@@ -2283,6 +2398,7 @@ declare namespace LocalJSX {
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
+        "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-text-input": SbbTextInput;
         "sbb-timetable": SbbTimetable;
@@ -2304,7 +2420,7 @@ declare namespace LocalJSX {
         "sbb-timetable-transportation-walk": SbbTimetableTransportationWalk;
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
-        "sbb-toast": SbbToast;
+        "sbb-toggle-check": SbbToggleCheck;
     }
 }
 export { LocalJSX as JSX };
@@ -2336,6 +2452,7 @@ declare module "@stencil/core" {
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
+            "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;
@@ -2357,7 +2474,7 @@ declare module "@stencil/core" {
             "sbb-timetable-transportation-walk": LocalJSX.SbbTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationWalkElement>;
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
-            "sbb-toast": LocalJSX.SbbToast & JSXBase.HTMLAttributes<HTMLSbbToastElement>;
+            "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
         }
     }
 }

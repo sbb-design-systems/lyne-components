@@ -84,22 +84,24 @@ In the HTML, you can now use the icon as shown below:
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                                                                                                   | Type      | Default     |
-| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `name`     | `name`     | The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`. | `string`  | `undefined` |
-| `sanitize` | `sanitize` | When set to `false`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`.                 | `boolean` | `true`      |
+| Property     | Attribute     | Description                                                                                                                                                                                                   | Type      | Default     |
+| ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `ariaHidden` | `aria-hidden` | The aria-hidden property is set to "true" by default, since an icon alone does not convey any useful information for a screen-reader user.                                                                    | `string`  | `'true'`    |
+| `ariaLabel`  | `aria-label`  | Only set the aria-label if aria-hidden is set to "false".                                                                                                                                                     | `string`  | `undefined` |
+| `name`       | `name`        | The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`. | `string`  | `undefined` |
+| `sanitize`   | `sanitize`    | When set to `false`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`.                 | `boolean` | `true`      |
 
 
 ## Dependencies
 
 ### Used by
 
- - [sbb-toast](../sbb-toast)
+ - [sbb-toggle-check](../sbb-toggle-check)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-toast --> sbb-icon
+  sbb-toggle-check --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

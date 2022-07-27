@@ -3,31 +3,33 @@
 @include host-component-properties;
 
 :host {
-  --sbb-icon-margin-inline: 0;
-  --sbb-icon-margin-block: 0;
-
   display: inline-block;
   line-height: 0;
-  margin-inline: var(--sbb-icon-margin-inline-override, var(--sbb-icon-margin-inline));
-  margin-block: var(--sbb-icon-margin-block-override, var(--sbb-icon-margin-block));
+  margin-inline: var(--sbb-icon-margin-inline);
+  margin-block: var(--sbb-icon-margin-block);
 }
 
-svg:not(.color-immutable) {
-  [fill]:not([fill='none']) {
-    fill: currentcolor;
-  }
+svg {
+  width: var(--sbb-icon-svg-width);
+  height: var(--sbb-icon-svg-height);
 
-  [stroke]:not([stroke='none']) {
-    stroke: currentcolor;
-  }
-
-  /* stylelint-disable plugin/stylelint-bem-namics */
-  // TODO: Maybe improve this solution in CDN Image
-  & >,
-  :where(:not([stroke]):not([fill])) {
-    :where(path, polygon, polyline):where(:not([stroke]):not([fill])) {
+  &:not(.color-immutable) {
+    [fill]:not([fill='none']) {
       fill: currentcolor;
     }
+
+    [stroke]:not([stroke='none']) {
+      stroke: currentcolor;
+    }
+
+    // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+    // TODO: Maybe improve this solution in CDN Image
+    & >,
+    :where(:not([stroke]):not([fill])) {
+      :where(path, polygon, polyline):where(:not([stroke]):not([fill])) {
+        fill: currentcolor;
+      }
+    }
+    // stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
   }
-  /* stylelint-enable plugin/stylelint-bem-namics */
 }

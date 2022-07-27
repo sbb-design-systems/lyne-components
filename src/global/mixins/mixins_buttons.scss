@@ -34,7 +34,7 @@
   --color-hover-text: var(--sbb-color-milk-default);
   --border-width: var(--sbb-border-width-2x);
   --border-radius: var(--sbb-border-radius-16x);
-  --min-height: var(--sbb-size-form-element-l-min-height);
+  --min-height: var(--sbb-size-button-l-min-height);
   --transition-duration: var(--sbb-animation-duration-2x);
   --transition-easing-function: var(--sbb-animation-easing);
   --padding-block-min: var(--sbb-spacing-fixed-1x);
@@ -153,7 +153,7 @@
 
 @mixin buttonSizeMVariables {
   --border-width: var(--sbb-border-width-1x);
-  --min-height: var(--sbb-size-form-element-m-min-height);
+  --min-height: var(--sbb-size-button-m-min-height);
   --padding-inline: var(--sbb-spacing-fixed-5x);
 
   @include mq($from: medium) {

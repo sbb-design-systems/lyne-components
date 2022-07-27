@@ -246,5 +246,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/cards/sbb-card-badge',
+  title: 'components/cards/sbb-card-badge (Unfinished)',
 };

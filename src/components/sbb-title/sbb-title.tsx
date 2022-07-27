@@ -1,21 +1,19 @@
 import { Component, h, Prop } from '@stencil/core';
 import { InterfaceTitleAttributes } from './sbb-title.custom';
 
+let nextId = 0;
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-title.scss',
   tag: 'sbb-title',
 })
 export class SbbTitle {
-  /** Text for the title */
-  @Prop() public text!: string;
-
   /** Title level */
   @Prop() public level?: InterfaceTitleAttributes['level'] = '1';
 
   /**
-   * Visual level for the title. If you don't define the visual-level,
-   * the value for level will be used.
+   * Visual level for the title. Optional, if not set, the value of level will be used.
    */
   @Prop() public visualLevel?: InterfaceTitleAttributes['visualLevel'];
 
@@ -25,7 +23,7 @@ export class SbbTitle {
    * a relationship with another element through the use of aria-labelledby
    * or aria-describedby or just offer an anchor target
    */
-  @Prop() public titleId?: '';
+  @Prop() public titleId = `sbb-title-${++nextId}`;
 
   /**
    * Sometimes we need a title in the markup to present a proper hierarchy
@@ -35,31 +33,38 @@ export class SbbTitle {
   @Prop() public visuallyHidden?: false;
 
   /**
-   * Choose the title style variant
+   * Choose negative variant
    */
-  @Prop() public variant: InterfaceTitleAttributes['variant'] = 'positive';
+  @Prop() public negative?: boolean = false;
 
   public render(): JSX.Element {
     const TAGNAME = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
 
-    const visuallyHidden = this.visuallyHidden ? ' title--hidden' : '';
+    const cssClasses = this._createCssClassesString();
 
-    let { visualLevel } = this;
+    return (
+      <TAGNAME class={cssClasses} id={this.titleId}>
+        <slot />
+      </TAGNAME>
+    );
+  }
 
-    if (!this.visualLevel) {
-      visualLevel = this.level;
+  /**
+   * Create the string containing the list of css-classes, depending on given parameters
+   * @private
+   */
+  private _createCssClassesString(): string {
+    let cssNames = 'title';
+
+    if (this.visuallyHidden) {
+      cssNames += ' title--hidden';
     }
 
-    const className = `title title-${visualLevel}${visuallyHidden} title--${this.variant}`;
-
-    const attrs = {
-      class: className,
-    };
-
-    if (this.titleId && this.titleId !== '') {
-      attrs['id'] = this.titleId;
+    if (this.negative) {
+      cssNames += ' title--negative';
     }
 
-    return <TAGNAME {...attrs}>{this.text}</TAGNAME>;
+    const visualLevel = this.visualLevel ? this.visualLevel : this.level;
+    return cssNames + ` title-${visualLevel}`;
   }
 }

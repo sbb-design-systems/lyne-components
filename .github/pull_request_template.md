@@ -16,8 +16,8 @@ Please check if your PR fulfills the following requirements:
 
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been reviewed and added / updated if needed (for bug fixes / features)
-- [ ] Build (`npm run build`) was run locally and any changes were pushed
-- [ ] Lint (`npm run lint`) has passed locally and any fixes were made for failures
+- [ ] Build (`yarn build`) was run locally and any changes were pushed
+- [ ] Lint (`yarn lint`) has passed locally and any fixes were made for failures
 
 ## Changes
 
@@ -31,12 +31,23 @@ I tested the build on the following browsers:
 
 - [ ] Firefox Desktop
 - [ ] Chrome Desktop
+- [ ] Edge Desktop
 - [ ] Safari Desktop
-- [ ] Firefox Mobile
 - [ ] Chrome Mobile
 - [ ] Safari Mobile
-- [ ] Opera
-- [ ] Brave
+
+## Screen readers
+
+I tested the build on the following browsers:
+
+- [ ] JAWS Firefox Desktop
+- [ ] JAWS Chrome Desktop
+- [ ] NVDA Firefox Desktop
+- [ ] NVDA Chrome Desktop
+- [ ] VoiceOver Safari Desktop
+- [ ] VoiceOver Chrome Desktop
+- [ ] VoiceOver Safari Mobile
+- [ ] Android Accessibility Suite Chrome Mobile
 
 ## Pull request type
 

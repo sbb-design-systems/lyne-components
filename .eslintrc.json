@@ -37,10 +37,6 @@
         "@typescript-eslint/naming-convention": [
           "error",
           {
-            "custom": {
-              "match": true,
-              "regex": "^I[a-z]"
-            },
             "format": ["PascalCase"],
             "selector": "interface"
           },

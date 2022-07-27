@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.1.8",
+  "version": "0.1.15",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -45,14 +45,14 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@babel/core": "7.18.6",
+    "@babel/core": "7.18.9",
     "@babel/plugin-syntax-jsx": "7.18.6",
     "@babel/plugin-transform-react-jsx": "7.18.6",
     "@brightlayer-ui/storybook-rtl-addon": "1.1.0",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
     "@namics/stylelint-bem": "7.0.0",
-    "@sbb-esta/lyne-design-tokens": "0.2.1",
+    "@sbb-esta/lyne-design-tokens": "0.2.2",
     "@stencil/core": "2.17.0",
     "@stencil/sass": "1.5.2",
     "@storybook/addon-a11y": "6.5.9",
@@ -60,16 +60,16 @@
     "@storybook/html": "6.5.9",
     "@types/jest": "27.5.2",
     "@types/puppeteer": "5.4.6",
-    "@typescript-eslint/eslint-plugin": "5.30.5",
-    "@typescript-eslint/parser": "5.30.5",
+    "@typescript-eslint/eslint-plugin": "5.31.0",
+    "@typescript-eslint/parser": "5.31.0",
     "axios": "0.27.2",
     "babel-loader": "8.2.5",
-    "chromatic": "6.7.0",
-    "esbuild": "0.14.49",
-    "eslint": "8.19.0",
+    "chromatic": "6.7.1",
+    "esbuild": "0.14.50",
+    "eslint": "8.20.0",
     "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-jest": "26.5.3",
-    "eslint-plugin-jsx-a11y": "6.6.0",
+    "eslint-plugin-jest": "26.6.0",
+    "eslint-plugin-jsx-a11y": "6.6.1",
     "eslint-plugin-react": "7.30.1",
     "eslint-plugin-yaml": "0.5.0",
     "focus-visible": "5.2.0",
@@ -86,7 +86,7 @@
     "npm-run-all": "4.1.5",
     "postcss": "8.4.14",
     "prettier": "2.7.1",
-    "puppeteer": "15.3.2",
+    "puppeteer": "15.5.0",
     "shelljs": "0.8.5",
     "simple-git": "3.10.0",
     "standard-version": "9.5.0",
@@ -94,7 +94,7 @@
     "storybook-addon-breakpoints": "1.0.0",
     "stylelint": "14.9.1",
     "stylelint-config-prettier-scss": "0.0.1",
-    "stylelint-config-standard-scss": "4.0.0",
+    "stylelint-config-standard-scss": "5.0.0",
     "stylelint-scss": "4.3.0",
     "typescript": "4.7.4",
     "yargs": "17.5.1"
@@ -109,6 +109,42 @@
   "unpkg": "dist/lyne-components/",
   "publishConfig": {
     "access": "public"
+  },
+  "standard-version": {
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "section": "Documentation"
+      },
+      {
+        "type": "style",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "refactor",
+        "hidden": "Refactor"
+      },
+      {
+        "type": "perf",
+        "hidden": "Performance"
+      },
+      {
+        "type": "test",
+        "hidden": true
+      }
+    ]
   },
   "prettier": {
     "singleQuote": true,

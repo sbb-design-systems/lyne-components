@@ -90,7 +90,9 @@ const TemplateGridTopProducts = (args) => (
         </svg>
       </div>
       <div slot="title">
-        <sbb-title level="2" text="Tageskarte" visual-level="6"></sbb-title>
+        <sbb-title level="2" visual-level="6">
+          Tageskarte
+        </sbb-title>
       </div>
       <div slot="text">
         <span>Gültig heute</span>
@@ -122,7 +124,9 @@ const TemplateGridTopProducts = (args) => (
         </svg>
       </div>
       <div slot="title">
-        <sbb-title level="2" text="Velo Tageskarte" visual-level="6"></sbb-title>
+        <sbb-title level="2" visual-level="6">
+          Velo Tageskarte
+        </sbb-title>
       </div>
       <div slot="text">
         <span>Gültig heute</span>
@@ -154,7 +158,9 @@ const TemplateGridTopProducts = (args) => (
         </svg>
       </div>
       <div slot="title">
-        <sbb-title level="2" text="Libero Kurzstrecke" visual-level="6"></sbb-title>
+        <sbb-title level="2" visual-level="6">
+          Libero Kurzstrecke
+        </sbb-title>
       </div>
       <div slot="text">
         <span>Gültig heute</span>
@@ -186,7 +192,9 @@ const TemplateGridTopProducts = (args) => (
         </svg>
       </div>
       <div slot="title">
-        <sbb-title level="2" text="Streckenkarte" visual-level="6"></sbb-title>
+        <sbb-title level="2" visual-level="6">
+          Streckenkarte
+        </sbb-title>
       </div>
       <div slot="text">
         <span>Für regelmässige Streckenfahrten</span>
@@ -209,14 +217,14 @@ const TemplateGridTopProducts = (args) => (
       href-value="https://github.com/lyne-design-system/lyne-components"
     >
       <div slot="title">
-        <sbb-title level="2" text="GA" visual-level="1"></sbb-title>
+        <sbb-title level="2" visual-level="1">
+          GA
+        </sbb-title>
       </div>
       <div slot="lead">
-        <sbb-title
-          level="3"
-          text="Mit dem Generalabonnement geniessen Sie freie Fahrt."
-          visual-level="6"
-        ></sbb-title>
+        <sbb-title level="3" visual-level="6">
+          Mit dem Generalabonnement geniessen Sie freie Fahrt.
+        </sbb-title>
       </div>
       <div slot="action">
         <sbb-button
@@ -235,14 +243,14 @@ const TemplateGridTopProducts = (args) => (
       href-value="https://github.com/lyne-design-system/lyne-components"
     >
       <div slot="title">
-        <sbb-title level="2" text="1/2" visual-level="1"></sbb-title>
+        <sbb-title level="2" visual-level="1">
+          1/2
+        </sbb-title>
       </div>
       <div slot="lead">
-        <sbb-title
-          level="3"
-          text="Mit dem Halbtax zum halben Preis fahren."
-          visual-level="6"
-        ></sbb-title>
+        <sbb-title level="3" visual-level="6">
+          Mit dem Halbtax zum halben Preis fahren.
+        </sbb-title>
       </div>
       <div slot="action">
         <sbb-button
@@ -277,7 +285,9 @@ const TemplateTickets = (args) => (
         <span>Sparbillett</span>
       </div>
       <div slot="title">
-        <sbb-title level="2" text="Libero Tageskarte: Alle Zonen" visual-level="6"></sbb-title>
+        <sbb-title level="2" visual-level="6">
+          Libero Tageskarte: Alle Zonen
+        </sbb-title>
       </div>
       <div slot="text">
         <span>Heute, Gültig 24 Stunden</span>
@@ -390,5 +400,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/layout/sbb-grid',
+  title: 'components/layout/sbb-grid (Unfinished)',
 };

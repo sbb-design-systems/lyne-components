@@ -4,6 +4,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import events from './sbb-card-product.events';
 import { InterfaceCardProductAttributes } from './sbb-card-product.custom';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 /**
  * @slot icon - Slot used to render the product icon
@@ -26,7 +27,7 @@ import { InterfaceCardProductAttributes } from './sbb-card-product.custom';
 /**
  * Generalized product card — merge of ticket and subscription
  */
-export class SbbCardProduct {
+export class SbbCardProduct implements AccessibilityProperties {
   /** CardProduct appearance */
   @Prop() public appearance?: InterfaceCardProductAttributes['appearance'] = 'primary';
 
@@ -44,7 +45,13 @@ export class SbbCardProduct {
    * Example text: Connection from X to Y, via Z, on date X.
    * Ticket price starts at X.
    */
-  @Prop() public accessibilityLabel!: string;
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * Check if accessibilityLabel is provided since it is a required prop,
@@ -256,6 +263,8 @@ export class SbbCardProduct {
     return (
       <TAGNAME
         aria-label={ariaLabel}
+        aria-describedby={this.accessibilityDescribedby}
+        aria-labelledby={this.accessibilityLabelledby}
         class={`card-product card-product--${this.appearance} card-product--${this.layout}
           ${cardSizeClass}`}
         {...additionalCardAttributes}

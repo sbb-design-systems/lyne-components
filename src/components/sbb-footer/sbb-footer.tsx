@@ -43,7 +43,9 @@ export class SbbFooter {
     return (
       <Host>
         <footer role="contentinfo" {...attrs}>
-          <sbb-title level="1" visually-hidden="true" text={this.accessibilityTitle} />
+          <sbb-title level="1" visually-hidden="true">
+            {this.accessibilityTitle}
+          </sbb-title>
           {this._hasCol1Slot ||
           this._hasCol2Slot ||
           this._hasCol3Slot ||
