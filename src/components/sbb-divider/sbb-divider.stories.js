@@ -53,15 +53,15 @@ const defaultArgs = {
   negative: false,
 };
 
-export const divider = Template.bind({});
+export const dividerDefault = Template.bind({});
 
-divider.args = JSON.parse(JSON.stringify(defaultArgs));
-divider.argTypes = defaultArgTypes;
-divider.documentation = {
+dividerDefault.args = JSON.parse(JSON.stringify(defaultArgs));
+dividerDefault.argTypes = defaultArgTypes;
+dividerDefault.documentation = {
   container: {
     styles: (context) => documentationPlatformContainerStyle(context),
   },
-  title: 'Divider',
+  title: 'Divider Default',
 };
 
 export const dividerNegative = Template.bind({});
@@ -76,6 +76,32 @@ dividerNegative.documentation = {
     styles: (context) => documentationPlatformContainerStyle(context),
   },
   title: 'Divider Negative',
+};
+
+export const dividerHorizontal = Template.bind({});
+dividerHorizontal.argTypes = defaultArgTypes;
+dividerHorizontal.args = {
+  ...defaultArgs,
+  orientation: 'horizontal',
+};
+dividerHorizontal.documentation = {
+  container: {
+    styles: (context) => documentationPlatformContainerStyle(context),
+  },
+  title: 'Divider Horizontal',
+};
+
+export const dividerVertical = Template.bind({});
+dividerVertical.argTypes = defaultArgTypes;
+dividerVertical.args = {
+  ...defaultArgs,
+  orientation: 'vertical',
+};
+dividerVertical.documentation = {
+  container: {
+    styles: (context) => documentationPlatformContainerStyle(context),
+  },
+  title: 'Divider Vertical',
 };
 
 export default {
