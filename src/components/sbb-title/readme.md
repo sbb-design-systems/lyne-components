@@ -25,14 +25,12 @@ it is possible to use the `visual-level`.
 
  - [sbb-footer](../sbb-footer)
  - [sbb-link-list](../sbb-link-list)
- - [sbb-teaser](../sbb-teaser)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-footer --> sbb-title
   sbb-link-list --> sbb-title
-  sbb-teaser --> sbb-title
   style sbb-title fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

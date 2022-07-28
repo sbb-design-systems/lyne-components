@@ -10,7 +10,6 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
-import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
@@ -27,7 +26,6 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
-import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
@@ -295,16 +293,6 @@ export namespace Components {
           * If set to true, the clock will be paused.
          */
         "paused"?: boolean;
-    }
-    interface SbbDivider {
-        /**
-          * Appearance property for displaying the component in dark mode
-         */
-        "negative"?: boolean;
-        /**
-          * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
-         */
-        "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
     interface SbbFooter {
         /**
@@ -685,32 +673,6 @@ export namespace Components {
           * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
          */
         "tag"?: InterfaceStackAttributes['tag'];
-    }
-    interface SbbTeaser {
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
-          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
-          * The href value you want to link to
-         */
-        "href": string;
-        /**
-          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
-         */
-        "isStacked": boolean;
-        /**
-          * Heading level of the sbb-title element (e.g. h1-h6)
-         */
-        "titleLevel": InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
         /**
@@ -1119,12 +1081,6 @@ declare global {
         prototype: HTMLSbbClockElement;
         new (): HTMLSbbClockElement;
     };
-    interface HTMLSbbDividerElement extends Components.SbbDivider, HTMLStencilElement {
-    }
-    var HTMLSbbDividerElement: {
-        prototype: HTMLSbbDividerElement;
-        new (): HTMLSbbDividerElement;
-    };
     interface HTMLSbbFooterElement extends Components.SbbFooter, HTMLStencilElement {
     }
     var HTMLSbbFooterElement: {
@@ -1238,12 +1194,6 @@ declare global {
     var HTMLSbbStackElement: {
         prototype: HTMLSbbStackElement;
         new (): HTMLSbbStackElement;
-    };
-    interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
-    }
-    var HTMLSbbTeaserElement: {
-        prototype: HTMLSbbTeaserElement;
-        new (): HTMLSbbTeaserElement;
     };
     interface HTMLSbbTeaserHeroElement extends Components.SbbTeaserHero, HTMLStencilElement {
     }
@@ -1386,7 +1336,6 @@ declare global {
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
-        "sbb-divider": HTMLSbbDividerElement;
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
@@ -1406,7 +1355,6 @@ declare global {
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
-        "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-text-input": HTMLSbbTextInputElement;
         "sbb-timetable": HTMLSbbTimetableElement;
@@ -1691,16 +1639,6 @@ declare namespace LocalJSX {
           * If set to true, the clock will be paused.
          */
         "paused"?: boolean;
-    }
-    interface SbbDivider {
-        /**
-          * Appearance property for displaying the component in dark mode
-         */
-        "negative"?: boolean;
-        /**
-          * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
-         */
-        "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
     interface SbbFooter {
         /**
@@ -2078,32 +2016,6 @@ declare namespace LocalJSX {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
-    interface SbbTeaser {
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
-          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
-          * The href value you want to link to
-         */
-        "href": string;
-        /**
-          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
-         */
-        "isStacked"?: boolean;
-        /**
-          * Heading level of the sbb-title element (e.g. h1-h6)
-         */
-        "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
-    }
     interface SbbTeaserHero {
         /**
           * Button text property for sbb-panel. See sbb-panel for additional info
@@ -2462,7 +2374,6 @@ declare namespace LocalJSX {
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
-        "sbb-divider": SbbDivider;
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
@@ -2482,7 +2393,6 @@ declare namespace LocalJSX {
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
-        "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-text-input": SbbTextInput;
         "sbb-timetable": SbbTimetable;
@@ -2519,7 +2429,6 @@ declare module "@stencil/core" {
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
-            "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
@@ -2539,7 +2448,6 @@ declare module "@stencil/core" {
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
-            "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;
