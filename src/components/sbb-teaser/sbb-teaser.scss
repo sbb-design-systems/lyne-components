@@ -13,29 +13,28 @@
   --teaser-gap: var(--sbb-spacing-fixed-4x);
 }
 
+.teaser--is-stacked {
+  --teaser-flex-direction: column;
+  --teaser-align-items: baseline;
+  --teaser-gap: var(--sbb-spacing-fixed-3x);
+}
+
 .teaser {
   @include zeroWidthSpace;
 
-  text-decoration: none;
   display: flex;
-  flex-flow: var(--teaser-flex-direction) nowrap;
-  align-items: var(--teaser-align-items);
-  gap: var(--teaser-gap);
+  text-decoration: none;
 
   &:focus-visible {
     @include focusOutline;
   }
 }
 
-.teaser--is-stacked {
-  --teaser-flex-direction: column;
-  --teaser-align-items: baseline;
-  --teaser-gap: var(--sbb-spacing-fixed-3x);
-
-  &::before {
-    // Deactivate zero width fix for stacked variant.
-    content: none;
-  }
+.teaser__container {
+  display: flex;
+  flex-flow: var(--teaser-flex-direction) nowrap;
+  align-items: var(--teaser-align-items);
+  gap: var(--teaser-gap);
 }
 
 ::slotted([slot='image']) {

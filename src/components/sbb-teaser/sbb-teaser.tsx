@@ -79,15 +79,17 @@ export class SbbTeaser implements AccessibilityProperties {
         class={`teaser ${this.isStacked === true ? 'teaser--is-stacked' : ''}`}
         href={this.href}
       >
-        <span class="teaser__image-wrapper">
-          <slot name="image" />
-        </span>
-        <span class="teaser__text">
-          <sbb-title level={this.titleLevel} visualLevel="5" class="teaser__lead">
-            <slot name="title" />
-          </sbb-title>
-          <span class="teaser__description">
-            <slot name="description" />
+        <span class="teaser__container">
+          <span class="teaser__image-wrapper">
+            <slot name="image" />
+          </span>
+          <span class="teaser__text">
+            <sbb-title level={this.titleLevel} visualLevel="5" class="teaser__lead">
+              <slot name="title" />
+            </sbb-title>
+            <span class="teaser__description">
+              <slot name="description" />
+            </span>
           </span>
         </span>
       </a>
