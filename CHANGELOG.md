@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.19 (2022-07-28)
+
+### Bug Fixes
+
+- **sbb-teaser:** remove unwanted space and fix stories ([#1321](https://github.com/lyne-design-system/lyne-components/issues/1321)) ([490b6f4](https://github.com/lyne-design-system/lyne-components/commit/490b6f44d1680b35dcedaa58e5195c59e1f15008))
+
 ### 0.1.18 (2022-07-28)
 
 ### Features
