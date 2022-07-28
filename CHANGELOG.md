@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.17 (2022-07-28)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** fix story path ([625d90b](https://github.com/lyne-design-system/lyne-components/commit/625d90bdc096e9a16d7b06d839ea2536b1d7c53b))
+
 ### 0.1.16 (2022-07-27)
 
 ### Bug Fixes
