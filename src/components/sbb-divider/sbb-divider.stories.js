@@ -1,6 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { SbbColorBlackDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
+import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 
 const documentationPlatformContainerStyle = (context) => {
   if (context.args.negative) {
@@ -50,37 +50,10 @@ const defaultArgs = {
   negative: false,
 };
 
-export const dividerDefault = Template.bind({});
-
-dividerDefault.args = JSON.parse(JSON.stringify(defaultArgs));
-dividerDefault.argTypes = defaultArgTypes;
-dividerDefault.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Divider Default',
-};
-
-export const dividerNegative = Template.bind({});
-
-dividerNegative.argTypes = defaultArgTypes;
-dividerNegative.args = {
-  ...defaultArgs,
-  negative: true,
-};
-dividerNegative.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Divider Negative',
-};
-
 export const dividerHorizontal = Template.bind({});
+
+dividerHorizontal.args = JSON.parse(JSON.stringify(defaultArgs));
 dividerHorizontal.argTypes = defaultArgTypes;
-dividerHorizontal.args = {
-  ...defaultArgs,
-  orientation: 'horizontal',
-};
 dividerHorizontal.documentation = {
   container: {
     styles: (context) => documentationPlatformContainerStyle(context),
@@ -99,6 +72,20 @@ dividerVertical.documentation = {
     styles: (context) => documentationPlatformContainerStyle(context),
   },
   title: 'Divider Vertical',
+};
+
+export const dividerNegative = Template.bind({});
+
+dividerNegative.argTypes = defaultArgTypes;
+dividerNegative.args = {
+  ...defaultArgs,
+  negative: true,
+};
+dividerNegative.documentation = {
+  container: {
+    styles: (context) => documentationPlatformContainerStyle(context),
+  },
+  title: 'Divider Negative',
 };
 
 export default {
