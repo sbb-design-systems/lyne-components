@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.18 (2022-07-28)
+
+### Features
+
+- **sbb-divider:** initial implementation ([#1309](https://github.com/lyne-design-system/lyne-components/issues/1309)) ([7dcf833](https://github.com/lyne-design-system/lyne-components/commit/7dcf8333cfe074fad78aaebb1e113558c9db893c))
+
 ### 0.1.17 (2022-07-28)
 
 ### Bug Fixes
