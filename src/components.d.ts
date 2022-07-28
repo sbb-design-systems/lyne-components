@@ -488,7 +488,7 @@ export namespace Components {
          */
         "icon"?: string;
         /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa (optional).
+          * Decide whether the icon should get flipped horizontally to the left or to the right.
          */
         "iconFlip"?: boolean;
         /**
@@ -1882,7 +1882,7 @@ declare namespace LocalJSX {
          */
         "icon"?: string;
         /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa (optional).
+          * Decide whether the icon should get flipped horizontally to the left or to the right.
          */
         "iconFlip"?: boolean;
         /**
