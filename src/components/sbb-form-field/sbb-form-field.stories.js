@@ -83,7 +83,7 @@ const TemplateInputWithErrorSpace = (args) => {
               document.getElementById('sbb-form-field').append(sbbFormError);
               document
                 .getElementById('sbb-form-field-input')
-                .setAttribute('class', 'input sbb-invalid form-field--size-l');
+                .setAttribute('class', `input sbb-invalid form-field--size-${args.size}`);
             }
           }}
           onBlur={(event) => {
@@ -91,7 +91,7 @@ const TemplateInputWithErrorSpace = (args) => {
               sbbFormError.remove();
               document
                 .getElementById('sbb-form-field-input')
-                .setAttribute('class', 'input form-field--size-l');
+                .setAttribute('class', `input form-field--size-${args.size}`);
             }
           }}
           slot="input"
