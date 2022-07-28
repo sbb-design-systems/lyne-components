@@ -12,7 +12,7 @@ const documentationPlatformContainerStyle = (context) => {
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
-    return `background-color: ${SbbColorBlackDefault};`;
+    return `background-color: ${SbbColorCharcoalDefault};`;
   }
 
   return `background-color: ${SbbColorWhiteDefault};`;
