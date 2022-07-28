@@ -42,8 +42,7 @@ export class SbbLink implements AccessibilityProperties {
 
   /**
    * Decide whether the icon should get flipped
-   * horizontally if the document writing mode
-   * is changed from ltr to rtl or vice versa (optional).
+   * horizontally to the left or to the right.
    */
   @Prop() public iconFlip?: boolean;
 
