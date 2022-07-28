@@ -29,9 +29,9 @@ describe('sbb-link', () => {
                 target="_blank"
                 rel="external noopener nofollow"
             >
-                <span class="sbb-link__icon">
-                    <slot name="icon"></slot>
-                </span>
+                 <slot name="icon">
+                  <sbb-icon name="chevron-small-right-small"></sbb-icon>
+                  </slot>
                 <slot></slot>
             </a>
           </mock:shadow-root>
@@ -63,9 +63,9 @@ describe('sbb-link', () => {
             <button
                 class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"
                 dir="ltr">
-                <span class="sbb-link__icon">
-                    <slot name="icon"></slot>
-                </span>
+                <slot name="icon">
+                  <sbb-icon name="chevron-small-right-small"></sbb-icon>
+                  </slot>
                 <slot></slot>
             </button>
           </mock:shadow-root>
@@ -98,9 +98,9 @@ describe('sbb-link', () => {
             <span
                 class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"
                 dir="ltr">
-                <span class="sbb-link__icon">
-                    <slot name="icon"></slot>
-                </span>
+                <slot name="icon">
+                  <sbb-icon name="chevron-small-right-small"></sbb-icon>
+                </slot>
                 <slot></slot>
             </span>
           </mock:shadow-root>

@@ -37,6 +37,10 @@
     text-decoration: underline;
     text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
   }
+
+  ::slotted([slot='icon']) {
+    display: inline-flex;
+  }
 }
 
 button.sbb-link {
@@ -80,15 +84,10 @@ button.sbb-link {
   }
 }
 
-sbb-icon {
-  width: var(--sbb-size-icon-ui-small);
-  height: var(--sbb-size-icon-ui-small);
-}
-
-.sbb-link--icon-placement-end sbb-icon {
+.sbb-link--icon-placement-end ::slotted(*:last-of-type) {
   order: 2;
 }
 
-.sbb-link.sbb-link--icon-flip sbb-icon {
+.sbb-link.sbb-link--icon-flip ::slotted(*:last-of-type) {
   transform: scaleX(-1);
 }

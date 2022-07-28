@@ -4,6 +4,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -14,15 +15,15 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink {
+export class SbbLink implements AccessibilityProperties {
   /**
    * If set to true, the browser will
    * show the download dialog on click (optional).
    */
   @Prop() public download?: boolean;
 
-  /** The href value you want to link to (mandatory otherwise the link becomes a button)*/
-  @Prop() public href!: string;
+  /** The href value you want to link to (if its not present link becomes a button)*/
+  @Prop() public href?: string;
 
   /**
    * The icon name we want to use,
@@ -59,7 +60,7 @@ export class SbbLink {
   @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
   /**
-   * Negative coloring variante flag
+   * Negative coloring variant flag
    */
   @Prop() public negative: boolean;
 
@@ -95,14 +96,14 @@ export class SbbLink {
    */
   @Prop() public type?: InterfaceLinkAttributes['buttonType'];
 
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby?: string;
-
   /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel?: string;
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby: string | undefined;
 
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby?: string;
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * Get the attributelist base on the config and the resulting element
@@ -201,10 +202,10 @@ export class SbbLink {
 
     return (
       <TAG_NAME {...this._getAttributeList}>
-        {this.icon && this.variant !== 'inline' ? (
-          <sbb-icon name={this.icon}></sbb-icon>
-        ) : (
-          ''
+        {this.variant !== 'inline' && (
+          <slot name="icon">
+            <sbb-icon name={this.icon}></sbb-icon>
+          </slot>
         )}
         <slot />
       </TAG_NAME>

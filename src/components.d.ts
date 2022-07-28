@@ -458,15 +458,15 @@ export namespace Components {
         /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby": string | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel": string | undefined;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby": string | undefined;
         /**
           * Disabled attribute if link is used as button (optional)
          */
@@ -480,9 +480,9 @@ export namespace Components {
          */
         "form"?: string;
         /**
-          * The href value you want to link to (mandatory otherwise the link becomes a button)
+          * The href value you want to link to (if its not present link becomes a button)
          */
-        "href": string;
+        "href"?: string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
@@ -508,7 +508,7 @@ export namespace Components {
          */
         "name"?: string;
         /**
-          * Negative coloring variante flag
+          * Negative coloring variant flag
          */
         "negative": boolean;
         /**
@@ -1852,15 +1852,15 @@ declare namespace LocalJSX {
         /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby"?: string | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel"?: string | undefined;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Disabled attribute if link is used as button (optional)
          */
@@ -1874,9 +1874,9 @@ declare namespace LocalJSX {
          */
         "form"?: string;
         /**
-          * The href value you want to link to (mandatory otherwise the link becomes a button)
+          * The href value you want to link to (if its not present link becomes a button)
          */
-        "href": string;
+        "href"?: string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
@@ -1902,7 +1902,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Negative coloring variante flag
+          * Negative coloring variant flag
          */
         "negative"?: boolean;
         /**
