@@ -93,7 +93,7 @@ export class SbbFormField {
    * It is used internally to set the aria-describedby attribute into the input whether the <sbb-form-error> is present.
    */
   private _onSlotErrorChange(event: Event): void {
-    this._idError = (event.target as HTMLSlotElement).assignedElements()[0].id;
+    this._idError = (event.target as HTMLSlotElement).assignedElements()[0]?.id;
     if (this._idError) {
       this._element.querySelector('[slot="input"]').setAttribute('aria-describedby', this._idError);
     }
