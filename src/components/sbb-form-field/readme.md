@@ -33,6 +33,7 @@ Additionally, `<sbb-error>` applies `aria-live="polite"` by default such that as
 
 | Property     | Attribute     | Description                                           | Type                     | Default     |
 | ------------ | ------------- | ----------------------------------------------------- | ------------------------ | ----------- |
+| `borderless` | `borderless`  | Whether to display the form field without a border.   | `boolean`                | `false`     |
 | `errorSpace` | `error-space` | Add a specific space if the `<sbb-error>` is present. | `"default" \| "reserve"` | `'default'` |
 | `label`      | `label`       | Add a `<label>` for the input.                        | `string`                 | `undefined` |
 | `optional`   | `optional`    | Indicates whether the input is optional.              | `boolean`                | `undefined` |

@@ -11,7 +11,7 @@ export class SbbFormError {
   public render(): JSX.Element {
     return (
       <Host aria-live="polite" ref={assignId(() => `sbb-form-error-${++nextId}`)}>
-        <span>
+        <span class="form-error__icon">
           <slot name="icon">
             <sbb-icon name="circle-information-small" />
           </slot>
