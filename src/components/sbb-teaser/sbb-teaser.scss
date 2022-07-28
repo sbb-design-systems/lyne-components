@@ -4,8 +4,7 @@
 @include host-component-properties;
 
 :host {
-  // If using inline-block, there is a small space below the sbb-teaser which can be removed by using inline-flex.
-  display: inline-flex;
+  display: inline-block;
 
   --teaser-scale-hover: 1.02;
   --teaser-description-color: var(--sbb-color-metal-default);
@@ -15,16 +14,15 @@
 }
 
 .teaser {
-  display: inline-flex;
   text-decoration: none;
+  display: flex;
+  flex-flow: var(--teaser-flex-direction) nowrap;
+  align-items: var(--teaser-align-items);
+  gap: var(--teaser-gap);
 
   &:focus-visible {
     @include focusOutline;
   }
-}
-
-.teaser__content {
-  display: inline-flex;
 }
 
 .teaser--is-stacked {
@@ -43,13 +41,6 @@
   .teaser:hover & {
     transform: scale(var(--teaser-scale-hover));
   }
-}
-
-.teaser__inner {
-  display: inline-flex;
-  flex-flow: var(--teaser-flex-direction) nowrap;
-  align-items: var(--teaser-align-items);
-  gap: var(--teaser-gap);
 }
 
 .teaser__image-wrapper {
