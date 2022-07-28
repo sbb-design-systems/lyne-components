@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.18 (2022-07-28)
+
+### Features
+
+- **sbb-divider:** initial implementation ([#1309](https://github.com/lyne-design-system/lyne-components/issues/1309)) ([7dcf833](https://github.com/lyne-design-system/lyne-components/commit/7dcf8333cfe074fad78aaebb1e113558c9db893c))
+
+### 0.1.17 (2022-07-28)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** fix story path ([625d90b](https://github.com/lyne-design-system/lyne-components/commit/625d90bdc096e9a16d7b06d839ea2536b1d7c53b))
+
+### 0.1.16 (2022-07-27)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** fix various issues ([#1317](https://github.com/lyne-design-system/lyne-components/issues/1317)) ([e13c447](https://github.com/lyne-design-system/lyne-components/commit/e13c44716c1b8b49f95ac518c8e48d53438b947e))
+
+### 0.1.15 (2022-07-27)
+
+### 0.1.14 (2022-07-26)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** prevent the toggle from freezing on double-click ([#1315](https://github.com/lyne-design-system/lyne-components/issues/1315)) ([98a8d1a](https://github.com/lyne-design-system/lyne-components/commit/98a8d1afc352670cee11ddf7328e9a67c1a703ef))
+
+### 0.1.13 (2022-07-26)
+
 ### 0.1.12 (2022-07-21)
 
 ### Features
