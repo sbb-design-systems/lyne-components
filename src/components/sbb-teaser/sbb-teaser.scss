@@ -4,8 +4,7 @@
 @include host-component-properties;
 
 :host {
-  // If using inline-block, there is a small space below the sbb-teaser which can be removed by using inline-flex.
-  display: inline-flex;
+  display: inline-block;
 
   --teaser-scale-hover: 1.02;
   --teaser-description-color: var(--sbb-color-metal-default);
@@ -14,8 +13,16 @@
   --teaser-gap: var(--sbb-spacing-fixed-4x);
 }
 
+.teaser--is-stacked {
+  --teaser-flex-direction: column;
+  --teaser-align-items: baseline;
+  --teaser-gap: var(--sbb-spacing-fixed-3x);
+}
+
 .teaser {
-  display: inline-flex;
+  @include zeroWidthSpace;
+
+  display: flex;
   text-decoration: none;
 
   &:focus-visible {
@@ -23,14 +30,11 @@
   }
 }
 
-.teaser__content {
-  display: inline-flex;
-}
-
-.teaser--is-stacked {
-  --teaser-flex-direction: column;
-  --teaser-align-items: baseline;
-  --teaser-gap: var(--sbb-spacing-fixed-3x);
+.teaser__container {
+  display: flex;
+  flex-flow: var(--teaser-flex-direction) nowrap;
+  align-items: var(--teaser-align-items);
+  gap: var(--teaser-gap);
 }
 
 ::slotted([slot='image']) {
@@ -43,13 +47,6 @@
   .teaser:hover & {
     transform: scale(var(--teaser-scale-hover));
   }
-}
-
-.teaser__inner {
-  display: inline-flex;
-  flex-flow: var(--teaser-flex-direction) nowrap;
-  align-items: var(--teaser-align-items);
-  gap: var(--teaser-gap);
 }
 
 .teaser__image-wrapper {
