@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
@@ -193,6 +194,9 @@ export namespace Components {
           * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
+    }
+    interface SbbCard {
+        "size"?: InterfaceSbbCardAttributes['size'];
     }
     interface SbbCardBadge {
         /**
@@ -1084,6 +1088,12 @@ declare global {
         prototype: HTMLSbbButtonElement;
         new (): HTMLSbbButtonElement;
     };
+    interface HTMLSbbCardElement extends Components.SbbCard, HTMLStencilElement {
+    }
+    var HTMLSbbCardElement: {
+        prototype: HTMLSbbCardElement;
+        new (): HTMLSbbCardElement;
+    };
     interface HTMLSbbCardBadgeElement extends Components.SbbCardBadge, HTMLStencilElement {
     }
     var HTMLSbbCardBadgeElement: {
@@ -1366,6 +1376,7 @@ declare global {
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-autocomplete-item": HTMLSbbAutocompleteItemElement;
         "sbb-button": HTMLSbbButtonElement;
+        "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
@@ -1572,6 +1583,9 @@ declare namespace LocalJSX {
           * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
+    }
+    interface SbbCard {
+        "size"?: InterfaceSbbCardAttributes['size'];
     }
     interface SbbCardBadge {
         /**
@@ -2410,6 +2424,7 @@ declare namespace LocalJSX {
         "sbb-autocomplete": SbbAutocomplete;
         "sbb-autocomplete-item": SbbAutocompleteItem;
         "sbb-button": SbbButton;
+        "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
@@ -2467,6 +2482,7 @@ declare module "@stencil/core" {
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-autocomplete-item": LocalJSX.SbbAutocompleteItem & JSXBase.HTMLAttributes<HTMLSbbAutocompleteItemElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
+            "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
