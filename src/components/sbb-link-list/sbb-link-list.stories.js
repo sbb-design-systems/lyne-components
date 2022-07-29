@@ -10,50 +10,57 @@ const wrapperStyle = (context) => {
   return `background-color: ${SbbColorCharcoalDefault};`;
 };
 
-// TODO: Check for better solution
-const transformLinkVariant = (old) => old.replace('positive', 'block');
-
 const Template = (args) => (
   <sbb-link-list {...args}>
     <li class="link-list__item" slot="link-list__item">
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+        href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         text="Rückerstattungen"
         text-size={args.textSize}
-        variant={transformLinkVariant(args.variant)}
-      ></sbb-link>
+        negative={args.variant === 'negative' ? '' : undefined}
+      >
+        Rückerstattungen
+      </sbb-link>
     </li>
     <li className="link-list__item" slot="link-list__item">
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+        href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         text="Fundbüro"
         text-size={args.textSize}
-        variant={transformLinkVariant(args.variant)}
-      ></sbb-link>
+        negative={args.variant === 'negative' ? '' : undefined}
+      >
+        Fundbüro
+      </sbb-link>
     </li>
     <li className="link-list__item" slot="link-list__item">
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+        href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         text="Beschwerden"
         text-size={args.textSize}
-        variant={transformLinkVariant(args.variant)}
-      ></sbb-link>
+        negative={args.variant === 'negative' ? '' : undefined}
+      >
+        Beschwerden
+      </sbb-link>
     </li>
     <li className="link-list__item" slot="link-list__item">
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+        href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         text="Lob aussprechen"
         text-size={args.textSize}
-        variant={transformLinkVariant(args.variant)}
-      ></sbb-link>
+        negative={args.variant === 'negative' ? '' : undefined}
+      >
+        Lob aussprechen
+      </sbb-link>
     </li>
     <li className="link-list__item" slot="link-list__item">
       <sbb-link
-        href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+        href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         text="Sachbeschädigung melden"
         text-size={args.textSize}
-        variant={transformLinkVariant(args.variant)}
-      ></sbb-link>
+        negative={args.variant === 'negative' ? '' : undefined}
+      >
+        Sachbeschädigung melden
+      </sbb-link>
     </li>
   </sbb-link-list>
 );

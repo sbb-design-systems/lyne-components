@@ -456,39 +456,63 @@ export namespace Components {
     }
     interface SbbLink {
         /**
-          * If set to true, the browser will show the download dialog on click.
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Disabled attribute if link is used as button (optional)
+         */
+        "disabled"?: boolean;
+        /**
+          * If set to true, the browser will show the download dialog on click (optional).
          */
         "download"?: boolean;
         /**
-          * The href value you want to link to
+          * Form attribute if link is used as button (optional)
          */
-        "hrefValue": string;
+        "form"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The href value you want to link to (if its not present link becomes a button)
+         */
+        "href"?: string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
         /**
           * The icon can either be place before or after the text.
          */
         "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the link element.
+          * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
         /**
-          * The link text we want to visually show.
+          * Name attribute if link is used as button (optional)
          */
-        "text": string;
+        "name"?: string;
+        /**
+          * Negative coloring variant flag
+         */
+        "negative": boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize": InterfaceLinkAttributes['textSize'];
         /**
-          * Choose the link style variant.
+          * Type attribute if link is used as button (optional)
+         */
+        "type": InterfaceLinkAttributes['buttonType'];
+        /**
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant": InterfaceLinkAttributes['variant'];
     }
@@ -1818,39 +1842,63 @@ declare namespace LocalJSX {
     }
     interface SbbLink {
         /**
-          * If set to true, the browser will show the download dialog on click.
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Disabled attribute if link is used as button (optional)
+         */
+        "disabled"?: boolean;
+        /**
+          * If set to true, the browser will show the download dialog on click (optional).
          */
         "download"?: boolean;
         /**
-          * The href value you want to link to
+          * Form attribute if link is used as button (optional)
          */
-        "hrefValue": string;
+        "form"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The href value you want to link to (if its not present link becomes a button)
+         */
+        "href"?: string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
         /**
           * The icon can either be place before or after the text.
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the link element.
+          * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
         /**
-          * The link text we want to visually show.
+          * Name attribute if link is used as button (optional)
          */
-        "text": string;
+        "name"?: string;
+        /**
+          * Negative coloring variant flag
+         */
+        "negative"?: boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
-          * Choose the link style variant.
+          * Type attribute if link is used as button (optional)
+         */
+        "type"?: InterfaceLinkAttributes['buttonType'];
+        /**
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant"?: InterfaceLinkAttributes['variant'];
     }

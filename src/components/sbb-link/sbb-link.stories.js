@@ -13,7 +13,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
-  if (!context.args.variant.includes('-negative')) {
+  if (!context.args.negative) {
     return `background-color: ${SbbColorWhiteDefault};`;
   }
 
@@ -23,13 +23,14 @@ const wrapperStyle = (context) => {
 const Template = (args) => (
   <sbb-link {...args}>
     {args.icon && <span slot="icon">{getMarkupForSvg(args.icon)}</span>}
+    {args.text}
   </sbb-link>
 );
 
 const paragraphStyle = (context) => {
   let color;
 
-  if (context.args.variant.includes('-negative')) {
+  if (context.args.negative) {
     color = `color: ${SbbColorAluminiumDefault};`;
   } else {
     color = `color: ${SbbColorIronDefault};`;
@@ -43,11 +44,30 @@ const InlineTemplate = (args, context) => (
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
     ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
     dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-    sit amet. <sbb-link {...args}></sbb-link>
+    sit amet. <sbb-link {...args}>{args.text}</sbb-link>
   </p>
 );
 
+const variant = {
+  control: {
+    type: 'select',
+  },
+  options: ['block', 'inline'],
+};
+
+const negative = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const download = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const disabled = {
   control: {
     type: 'boolean',
   },
@@ -62,7 +82,7 @@ const iconFlip = {
   },
 };
 
-const hrefValue = {
+const href = {
   control: {
     type: 'text',
   },
@@ -99,6 +119,12 @@ const text = {
   },
 };
 
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const textSize = {
   control: {
     type: 'select',
@@ -106,20 +132,16 @@ const textSize = {
   options: ['xs', 's', 'm'],
 };
 
-const variant = {
-  control: {
-    type: 'select',
-  },
-  options: ['block', 'block-negative', 'inline', 'inline-negative'],
-};
-
 const defaultArgTypes = {
   download,
-  'href-value': hrefValue,
+  disabled,
+  negative,
+  href: href,
   icon,
   'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
   'id-value': idValue,
+  'accessibility-label': accessibilityLabel,
   text,
   'text-size': textSize,
   variant,
@@ -127,11 +149,14 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   download: false,
-  'href-value': 'https://github.com/lyne-design-system/lyne-components',
+  disabled: false,
+  negative: false,
+  href: 'https://github.com/lyne-design-system/lyne-components',
   icon: '',
   'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
   'id-value': '',
+  'accessibility-label': 'Travelcards & tickets',
   text: 'Travelcards & tickets',
   'text-size': textSize.options[1],
   variant: variant.options[0],
@@ -182,7 +207,7 @@ BlockNegativeS.argTypes = defaultArgTypes;
 BlockNegativeS.args = {
   ...defaultArgs,
   'text-size': textSize.options[1],
-  variant: variant.options[1],
+  negative: true,
 };
 
 BlockNegativeS.documentation = {
@@ -211,7 +236,7 @@ BlockNegativeIconStart.args = {
   icon: 'chevron-small-left-small',
   'icon-flip': true,
   'text-size': textSize.options[0],
-  variant: variant.options[1],
+  negative: true,
 };
 
 BlockNegativeIconStart.documentation = {
@@ -242,7 +267,7 @@ BlockNegativeIconEnd.args = {
   'icon-flip': true,
   'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0],
-  variant: variant.options[1],
+  negative: true,
 };
 
 BlockNegativeIconEnd.documentation = {
@@ -255,7 +280,7 @@ Inline.argTypes = defaultArgTypes;
 Inline.args = {
   ...defaultArgs,
   text: 'Show more',
-  variant: variant.options[2],
+  variant: variant.options[1],
 };
 
 Inline.documentation = {
@@ -268,7 +293,8 @@ InlineNegative.argTypes = defaultArgTypes;
 InlineNegative.args = {
   ...defaultArgs,
   text: 'Show more',
-  variant: variant.options[3],
+  variant: variant.options[1],
+  negative: true,
 };
 
 InlineNegative.documentation = {
@@ -288,5 +314,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-link (Unfinished)',
+  title: 'components/sbb-link',
 };
