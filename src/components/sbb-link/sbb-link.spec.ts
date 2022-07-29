@@ -62,7 +62,8 @@ describe('sbb-link', () => {
           <mock:shadow-root>
             <button
                 class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"
-                dir="ltr">
+                dir="ltr"
+                type="button">
                 <slot name="icon">
                   <sbb-icon name="chevron-small-right-small"></sbb-icon>
                   </slot>
@@ -82,15 +83,17 @@ describe('sbb-link', () => {
   it('renders a link as a span', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
-      html: `<sbb-link is-static="true" icon-placement="end" icon="chevron-small-right-small" text-size="m">
-            <span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span>
+      html: `
+      <a>
+        <sbb-link icon-placement="end" icon="chevron-small-right-small" text-size="m">
+          <span slot="icon">${lyneIcons.icons['chevron-small-right-small']}</span>
             Travelcards &amp; tickets.
-            </sbb-link>`,
+        </sbb-link>
+      </a>`,
     });
 
     expect(root).toEqualHtml(`
         <sbb-link
-            is-static="true"
             icon-placement="end"
             icon="chevron-small-right-small"
             text-size="m">

@@ -1,10 +1,11 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Prop, State } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import { hostContext } from '../../global/helpers/host-context';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -15,7 +16,7 @@ import { AccessibilityProperties } from '../../global/interfaces/accessibility-p
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink implements AccessibilityProperties {
+export class SbbLink implements AccessibilityProperties, ComponentInterface {
   /**
    * If set to true, the browser will
    * show the download dialog on click (optional).
@@ -39,18 +40,6 @@ export class SbbLink implements AccessibilityProperties {
    * the link element (optional).
    */
   @Prop() public idValue?: string;
-
-  /**
-   * Decide whether the icon should get flipped
-   * horizontally to the left or to the right.
-   */
-  @Prop() public iconFlip?: boolean;
-
-  /**
-   * If this is set to true an span element will be used
-   * instead of an anchor or a button
-   */
-  @Prop() public isStatic = false;
 
   /**
    * The icon can either be place before or after
@@ -93,7 +82,7 @@ export class SbbLink implements AccessibilityProperties {
   /**
    * Type attribute if link is used as button (optional)
    */
-  @Prop() public type?: InterfaceLinkAttributes['buttonType'];
+  @Prop() public type: InterfaceLinkAttributes['buttonType'] = 'button';
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
@@ -105,64 +94,68 @@ export class SbbLink implements AccessibilityProperties {
   @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
+   * If this is set to true an span element will be used
+   * instead of an anchor or a button
+   */
+  @State() private _isStatic = false;
+
+  @Element() public el!: HTMLElement;
+
+  public connectedCallback(): void {
+    // Check if the current element is nested in either an `<a>` or `<button>` element.
+    this._isStatic = !!hostContext('a,button', this.el);
+  }
+
+  /**
    * Get the attributelist base on the config and the resulting element
-   * @private
    * @return <object>
    */
-  private get _getAttributeList(): object {
-    let ariaLabelText = this.accessibilityLabel;
+  private _getAttributeList(): object {
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
     const attributeList: Record<string, string> = {};
 
     Object.assign(attributeList, {
       dir: currentWritingMode,
-      class: this._getClassString,
-      'aria-label': ariaLabelText || undefined,
+      class: this._getClassString(),
+      'aria-label': this.accessibilityLabel || undefined,
+      'aria-labelledby': this.accessibilityLabelledby || undefined,
+      'aria-describedby': this.accessibilityDescribedby || undefined,
       name: this.name || undefined,
       id: this.idValue || undefined,
     });
 
-    let openInNewWindow = false;
-
-    if (!window.location.href.includes(this.href)) {
-      openInNewWindow = true;
-    }
-
-    if (openInNewWindow && !this.isStatic && this.href) {
-      ariaLabelText += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
-
+    const openInNewWindow = !window.location.href.includes(this.href);
+    if (openInNewWindow && !this._isStatic && this.href) {
       Object.assign(attributeList, {
         rel: 'external noopener nofollow',
         target: '_blank',
-        'aria-label': ariaLabelText || undefined,
+        'aria-label':
+          `${attributeList['aria-label']}. ${i18nTargetOpensInNewWindow[currentLanguage]}` ||
+          undefined,
       });
     }
 
-    if (this.isStatic) {
+    if (this._isStatic) {
       return attributeList;
-    }
-
-    if (this.href) {
+    } else if (this.href) {
       // Anchor case
-      Object.assign(attributeList, {
+      return Object.assign(attributeList, {
         href: this.href,
         download: this.download ? '' : undefined,
         tabIndex: this.disabled ? '-1' : undefined,
       });
-    } else {
-      // Button case
-      Object.assign(attributeList, {
-        type: this.type || undefined,
-        form: this.form || undefined,
-        disabled: this.disabled ? 'true' : undefined,
-      });
     }
 
-    return attributeList;
+    // Button case
+    return Object.assign(attributeList, {
+      type: this.type || undefined,
+      form: this.form || undefined,
+      disabled: this.disabled ? 'true' : undefined,
+    });
   }
 
-  private get _getClassString(): string {
+  private _getClassString(): string {
     const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
 
     let iconPositionClass = '';
@@ -174,24 +167,18 @@ export class SbbLink implements AccessibilityProperties {
           : ' sbb-link--icon-placement-end';
     }
 
-    let iconFlipClass = '';
-
-    if (this.icon && this.iconFlip) {
-      iconFlipClass = ' sbb-link--icon-flip';
-    }
-
     const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
     const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
-    return `sbb-link${textSizeClass}${iconPositionClass}${iconFlipClass}${inlineClass}${negativeClass}`;
+    return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
   }
 
   /**
    * Render element
    */
   public render(): JSX.Element {
-    let TAG_NAME;
-    if (this.isStatic) {
+    let TAG_NAME: string;
+    if (this._isStatic) {
       TAG_NAME = 'span';
     } else if (this.href) {
       TAG_NAME = 'a';
@@ -200,7 +187,7 @@ export class SbbLink implements AccessibilityProperties {
     }
 
     return (
-      <TAG_NAME {...this._getAttributeList}>
+      <TAG_NAME {...this._getAttributeList()}>
         {this.variant !== 'inline' && (
           <slot name="icon">
             <sbb-icon name={this.icon}></sbb-icon>

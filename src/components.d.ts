@@ -488,10 +488,6 @@ export namespace Components {
          */
         "icon"?: string;
         /**
-          * Decide whether the icon should get flipped horizontally to the left or to the right.
-         */
-        "iconFlip"?: boolean;
-        /**
           * The icon can either be place before or after the text.
          */
         "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
@@ -499,10 +495,6 @@ export namespace Components {
           * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
-        /**
-          * If this is set to true an span element will be used instead of an anchor or a button
-         */
-        "isStatic": boolean;
         /**
           * Name attribute if link is used as button (optional)
          */
@@ -518,7 +510,7 @@ export namespace Components {
         /**
           * Type attribute if link is used as button (optional)
          */
-        "type"?: InterfaceLinkAttributes['buttonType'];
+        "type": InterfaceLinkAttributes['buttonType'];
         /**
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
@@ -1882,10 +1874,6 @@ declare namespace LocalJSX {
          */
         "icon"?: string;
         /**
-          * Decide whether the icon should get flipped horizontally to the left or to the right.
-         */
-        "iconFlip"?: boolean;
-        /**
           * The icon can either be place before or after the text.
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
@@ -1893,10 +1881,6 @@ declare namespace LocalJSX {
           * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
-        /**
-          * If this is set to true an span element will be used instead of an anchor or a button
-         */
-        "isStatic"?: boolean;
         /**
           * Name attribute if link is used as button (optional)
          */

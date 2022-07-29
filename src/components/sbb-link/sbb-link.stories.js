@@ -67,12 +67,6 @@ const download = {
   },
 };
 
-const isStatic = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const disabled = {
   control: {
     type: 'boolean',
@@ -142,7 +136,6 @@ const defaultArgTypes = {
   download,
   disabled,
   negative,
-  'is-static': isStatic,
   href: href,
   icon,
   'icon-flip': iconFlip,
@@ -158,7 +151,6 @@ const defaultArgs = {
   download: false,
   disabled: false,
   negative: false,
-  'is-static': false,
   href: 'https://github.com/lyne-design-system/lyne-components',
   icon: '',
   'icon-flip': false,
@@ -322,5 +314,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-link (Unfinished)',
+  title: 'components/sbb-link',
 };
