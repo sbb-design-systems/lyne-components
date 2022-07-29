@@ -1,4 +1,16 @@
-# **name**
+# sbb-card
+
+The sbb-card is a container in which is possible to put other html tag. It provides a slot in which is possible to put the `<sbb-card-badge>`.
+
+## Usage
+
+The example below show how to render the component with `<sbb-card-badge>`:
+
+```html
+<sbb-card>
+    <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
+  </sbb-card>
+```
 
 <!-- Auto Generated Below -->
 
@@ -15,7 +27,7 @@
 | Slot        | Description                        |
 | ----------- | ---------------------------------- |
 | `"badge"`   | Slot to render `<sbb-card-badge>`. |
-| `"unnamed"` | Use this to document a slot.       |
+| `"unnamed"` | Slot to render the content.        |
 
 
 ----------------------------------------------
