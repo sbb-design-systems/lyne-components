@@ -2,7 +2,7 @@ import { Component, h, Host, Prop } from '@stencil/core';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Slot to render the content.
  * @slot badge - Slot to render `<sbb-card-badge>`.
  */
 
