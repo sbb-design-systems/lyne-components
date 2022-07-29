@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -64,8 +64,8 @@
     "@typescript-eslint/parser": "5.31.0",
     "axios": "0.27.2",
     "babel-loader": "8.2.5",
-    "chromatic": "6.7.1",
-    "esbuild": "0.14.50",
+    "chromatic": "6.7.2",
+    "esbuild": "0.14.51",
     "eslint": "8.20.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-jest": "26.6.0",
