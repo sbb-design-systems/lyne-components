@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.2.0 (2022-07-29)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-link:** - the text is now set via slot (default slot)
+
+* the aria-label has its own property instead of the former text property
+* iconFlip has been removed
+
+### Features
+
+- **sbb-link:** refactor sbb-link according to new specification ([#1292](https://github.com/lyne-design-system/lyne-components/issues/1292)) ([108310a](https://github.com/lyne-design-system/lyne-components/commit/108310aac4540f32bcf57febf364e3aae6cf7672))
+
 ### 0.1.19 (2022-07-28)
 
 ### Bug Fixes
