@@ -17,9 +17,9 @@ The example below show how to render the component with `<sbb-card-badge>`:
 
 ## Properties
 
-| Property | Attribute | Description | Type                                         | Default |
-| -------- | --------- | ----------- | -------------------------------------------- | ------- |
-| `size`   | `size`    |             | `"l" \| "m" \| "s" \| "xl" \| "xs" \| "xxl"` | `'m'`   |
+| Property | Attribute | Description                                   | Type                                         | Default |
+| -------- | --------- | --------------------------------------------- | -------------------------------------------- | ------- |
+| `size`   | `size`    | Size variant, either xs, s, m, l, xl and xxl. | `"l" \| "m" \| "s" \| "xl" \| "xs" \| "xxl"` | `'m'`   |
 
 
 ## Slots
