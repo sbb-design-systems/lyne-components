@@ -196,6 +196,9 @@ export namespace Components {
         "visualButtonOnly"?: boolean;
     }
     interface SbbCard {
+        /**
+          * Size variant, either xs, s, m, l, xl and xxl.
+         */
         "size"?: InterfaceSbbCardAttributes['size'];
     }
     interface SbbCardBadge {
@@ -1586,6 +1589,9 @@ declare namespace LocalJSX {
         "visualButtonOnly"?: boolean;
     }
     interface SbbCard {
+        /**
+          * Size variant, either xs, s, m, l, xl and xxl.
+         */
         "size"?: InterfaceSbbCardAttributes['size'];
     }
     interface SbbCardBadge {
