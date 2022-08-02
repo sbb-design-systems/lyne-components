@@ -1,22 +1,115 @@
 :host {
+  --row-gap: var(--sbb-spacing-fixed-2x);
   --row-badge-padding: var(--sbb-spacing-fixed-6x);
 }
 
+// override icons sizes
+::slotted([slot='travelHints']) {
+  --sbb-icon-svg-width: #{px-to-rem-build(16)};
+  --sbb-icon-svg-height: #{px-to-rem-build(16)};
+}
+
+::slotted([slot='occupancyFirstClass']),
+::slotted([slot='occupancySecondClass']) {
+  --sbb-icon-svg-width: #{px-to-rem-build(14.25)};
+  --sbb-icon-svg-height: #{px-to-rem-build(12)};
+
+  @include mq($from: medium) {
+    --sbb-icon-svg-width: #{px-to-rem-build(19)};
+    --sbb-icon-svg-height: #{px-to-rem-build(16)};
+  }
+}
+
+::slotted([slot='pictogram']) {
+  --sbb-icon-svg-width: #{px-to-rem-build(20)};
+  --sbb-icon-svg-height: #{px-to-rem-build(20)};
+}
+
+::slotted([slot='warning']) {
+  --sbb-icon-svg-width: #{px-to-rem-build(16)};
+  --sbb-icon-svg-height: #{px-to-rem-build(16)};
+
+  align-self: center;
+}
+
+.screenreaderonly {
+  @include screenReaderOnly;
+}
+
+// resets lists
+ul {
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+::slotted(svg),
+::slotted(ul),
+::slotted(div),
+li {
+  display: inline-flex;
+  align-self: center;
+}
+
+::slotted(svg),
+::slotted(ul),
+::slotted(div),
+::slotted(span),
+::slotted(p),
+::slotted(time),
+time,
+li,
+span {
+  align-self: center;
+}
+
+::slotted([slot='pearlChain']),
+.timetable__row-chain {
+  flex: 1 1 auto;
+  align-self: center;
+  margin-inline: var(--sbb-spacing-fixed-3x);
+}
+
+::slotted([slot='pearlChain']),
+::slotted([slot='walkTimeBefore']),
+::slotted([slot='leftTime']),
+::slotted([slot='rightTime']),
+::slotted([slot='walkTimeAfter']) {
+  align-self: center;
+}
+
+.timetable__row-transportnumber,
+::slotted([slot='leftTime']),
+::slotted([slot='rightTime']) {
+  @include text-s--bold;
+
+  line-height: unset;
+  white-space: nowrap;
+}
+
 .timetable__row {
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--row-gap);
 }
 
 .timetable__row-badge {
-  padding-block-start: var(--row-badge-padding);
+  padding-block-start: calc(var(--row-gap) - var(--row-badge-padding));
 }
 
 .timetable__row-header {
   display: flex;
-  gap: 1rem;
+  gap: var(--sbb-spacing-fixed-2x);
 }
 
-::slotted([slot='direction']) {
+.timetable__row-details {
+  gap: var(--sbb-spacing-fixed-1x);
+}
+
+::slotted([slot='direction']),
+p {
   @include ellipsis;
 
   margin: 0;
@@ -29,47 +122,31 @@
   justify-content: space-between;
 }
 
-::slotted([slot='pearlChain']) {
-  flex: 1 1 auto;
-  align-self: center;
+.timetable__row-footer {
+  gap: var(--sbb-spacing-fixed-2x);
 }
 
-::slotted([slot='pearlChain']),
-::slotted([slot='walkTimeBefore']),
-::slotted([slot='leftTime']),
-::slotted([slot='rightTime']),
-::slotted([slot='walkTimeAfter']) {
-  align-self: center;
-}
-
-::slotted([slot='walkTimeBefore']),
-::slotted([slot='walkTimeAfter']),
+.timetable__row-walktime,
 .timetable__row-occupancy li {
   display: inline-flex;
+  align-items: center;
 }
 
-::slotted([slot='leftTime']),
-::slotted([slot='rightTime']) {
-  @include text-m--bold;
+.timetable__row-walktime:first-of-type {
+  transform: translateX(calc(-1 * var(--sbb-spacing-fixed-1x)));
+  margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
-::slotted([slot='travelHints']),
-.timetable__row-occupancy {
-  display: inline-flex;
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  text-decoration: none;
+.timetable__row-walktime:last-of-type {
+  transform: translateX(var(--sbb-spacing-fixed-1x));
+  margin-inline-start: var(--sbb-spacing-fixed-1x);
 }
 
 .loading {
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-2x);
-  padding-block-start: var(--row-badge-padding);
-  overflow: hidden;
-  cursor: progress;
+  padding-block-start: var(--sbb-spacing-fixed-2x);
 }
 
 .loading__row,
@@ -96,6 +173,16 @@
 
   width: 15%;
   height: #{px-to-rem-build(20)};
+}
+
+.timetable__row-occupancy {
+  @include text-s--regular;
+
+  gap: var(--sbb-spacing-fixed-2x);
+
+  li {
+    gap: var(--sbb-spacing-fixed-1x);
+  }
 }
 
 @keyframes skeleton-pulse {

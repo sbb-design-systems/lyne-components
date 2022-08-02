@@ -33,6 +33,7 @@ import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-b
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 import { InterfaceTimetablePlatformAttributes } from "./components/sbb-timetable-platform/sbb-timetable-platform.custom";
+import { InterfaceTimetableRowAttributes } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
@@ -954,11 +955,9 @@ export namespace Components {
         "config": string;
     }
     interface SbbTimetableRow {
-        "accessiblityLabel": string;
-        "direction": string;
+        "accessibilityLabel"?: string;
+        "config": InterfaceTimetableRowAttributes['trip'];
         "loading"?: boolean;
-        "pictogramName": string;
-        "transportNumber"?: string;
     }
     interface SbbTimetableRowButton {
         /**
@@ -2396,11 +2395,9 @@ declare namespace LocalJSX {
         "config": string;
     }
     interface SbbTimetableRow {
-        "accessiblityLabel"?: string;
-        "direction"?: string;
+        "accessibilityLabel"?: string;
+        "config": InterfaceTimetableRowAttributes['trip'];
         "loading"?: boolean;
-        "pictogramName"?: string;
-        "transportNumber"?: string;
     }
     interface SbbTimetableRowButton {
         /**

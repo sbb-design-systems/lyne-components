@@ -20,7 +20,6 @@ here to show the various configuration options to component developers. !!
 - [sbb-timetable-transportation-number](../sbb-timetable-transportation-number)
 - [sbb-timetable-transportation-walk](../sbb-timetable-transportation-walk)
 - [sbb-timetable-transportation-time](../sbb-timetable-transportation-time)
-- [sbb-pearl-chain](../sbb-pearl-chain)
 
 ### Graph
 ```mermaid
@@ -28,7 +27,6 @@ graph TD;
   sbb-timetable-transportation-details --> sbb-timetable-transportation-number
   sbb-timetable-transportation-details --> sbb-timetable-transportation-walk
   sbb-timetable-transportation-details --> sbb-timetable-transportation-time
-  sbb-timetable-transportation-details --> sbb-pearl-chain
   style sbb-timetable-transportation-details fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

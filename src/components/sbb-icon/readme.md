@@ -97,12 +97,14 @@ In the HTML, you can now use the icon as shown below:
 ### Used by
 
  - [sbb-link](../sbb-link)
+ - [sbb-timetable-row](../sbb-timetable-row)
  - [sbb-toggle-check](../sbb-toggle-check)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-link --> sbb-icon
+  sbb-timetable-row --> sbb-icon
   sbb-toggle-check --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
