@@ -351,6 +351,9 @@ export namespace Components {
          */
         "variant"?: InterfaceGridAttributes['variant'];
     }
+    interface SbbHeader {
+        "shadow": boolean;
+    }
     interface SbbIcon {
         /**
           * The aria-hidden property is set to "true" by default, since an icon alone does not convey any useful information for a screen-reader user.
@@ -1139,6 +1142,12 @@ declare global {
         prototype: HTMLSbbGridElement;
         new (): HTMLSbbGridElement;
     };
+    interface HTMLSbbHeaderElement extends Components.SbbHeader, HTMLStencilElement {
+    }
+    var HTMLSbbHeaderElement: {
+        prototype: HTMLSbbHeaderElement;
+        new (): HTMLSbbHeaderElement;
+    };
     interface HTMLSbbIconElement extends Components.SbbIcon, HTMLStencilElement {
     }
     var HTMLSbbIconElement: {
@@ -1387,6 +1396,7 @@ declare global {
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
         "sbb-grid": HTMLSbbGridElement;
+        "sbb-header": HTMLSbbHeaderElement;
         "sbb-icon": HTMLSbbIconElement;
         "sbb-image": HTMLSbbImageElement;
         "sbb-journey-header": HTMLSbbJourneyHeaderElement;
@@ -1742,6 +1752,9 @@ declare namespace LocalJSX {
           * Grid variant
          */
         "variant"?: InterfaceGridAttributes['variant'];
+    }
+    interface SbbHeader {
+        "shadow"?: boolean;
     }
     interface SbbIcon {
         /**
@@ -2438,6 +2451,7 @@ declare namespace LocalJSX {
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
         "sbb-grid": SbbGrid;
+        "sbb-header": SbbHeader;
         "sbb-icon": SbbIcon;
         "sbb-image": SbbImage;
         "sbb-journey-header": SbbJourneyHeader;
@@ -2496,6 +2510,7 @@ declare module "@stencil/core" {
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
+            "sbb-header": LocalJSX.SbbHeader & JSXBase.HTMLAttributes<HTMLSbbHeaderElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
             "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;
             "sbb-journey-header": LocalJSX.SbbJourneyHeader & JSXBase.HTMLAttributes<HTMLSbbJourneyHeaderElement>;
