@@ -1,96 +1,93 @@
-import cusHimData from '../sbb-timetable-cus-him/sbb-timetable-cus-him.sample-data';
-import durationData from '../sbb-timetable-duration/sbb-timetable-duration.sample-data';
-import occupancyItemsData from '../sbb-timetable-occupancy/sbb-timetable-occupancy.sample-data';
-import parkAndRailData from '../sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.sample-data';
-import pearlChainData from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
-import platformData from '../sbb-timetable-platform/sbb-timetable-platform.sample-data';
-import rowHeaderData from '../sbb-timetable-row-header/sbb-timetable-row-header.sample-data';
-import transportationNumberData from '../sbb-timetable-transportation-number/sbb-timetable-transportation-number.sample-data';
-import transportationTimeData from '../sbb-timetable-transportation-time/sbb-timetable-transportation-time.sample-data';
-import transportationWalkData from '../sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.sample-data';
-import travelHintsData from '../sbb-timetable-travel-hints/sbb-timetable-travel-hints.sample-data';
-
-export default [
-  {
-    cusHim: cusHimData[2],
-    details: {
-      arrivalTime: transportationTimeData[1],
-      arrivalWalk: transportationWalkData[1],
-      departureTime: transportationTimeData[0],
-      departureWalk: transportationWalkData[0],
-      pearlChain: {
-        legs: pearlChainData.stop3,
-        status: 'future',
+export default {
+  legs: [{ duration: 90, id: 'test' }],
+  notices: [
+    {
+      name: 'sa-z',
+      text: {
+        template: 'Tilting train',
+        arguments: null,
       },
-      transportationNumber: transportationNumberData['train'],
+      type: 'ATTRIBUTE',
+      priority: 10,
+      routeIndexFrom: 6,
+      routeIndexTo: 9,
     },
-    duration: durationData[0],
-    occupancy: occupancyItemsData[3],
-    parkAndRail: parkAndRailData[0],
-    platform: platformData[0],
-    rowHeader: rowHeaderData[0],
-    travelHints: travelHintsData[0],
-  },
-  {
-    cusHim: cusHimData[2],
-    details: {
-      arrivalTime: transportationTimeData[3],
-      arrivalWalk: transportationWalkData[3],
-      departureTime: transportationTimeData[2],
-      departureWalk: transportationWalkData[2],
-      pearlChain: {
-        legs: pearlChainData.stop1,
-        status: 'future',
+    {
+      name: 'sa-rr',
+      text: {
+        template: 'Tilting train',
+        arguments: null,
       },
-      transportationNumber: transportationNumberData['cableCar'],
+      type: 'ATTRIBUTE',
+      priority: 100,
+      routeIndexFrom: 6,
+      routeIndexTo: 9,
     },
-    duration: durationData[1],
-    occupancy: occupancyItemsData[5],
-    parkAndRail: parkAndRailData[0],
-    platform: platformData[1],
-    rowHeader: rowHeaderData[1],
-    travelHints: travelHintsData[0],
-  },
-  {
-    cusHim: {
-      cusHimItems: [],
-    },
-    details: {
-      arrivalTime: transportationTimeData[3],
-      arrivalWalk: transportationWalkData[3],
-      departureTime: transportationTimeData[2],
-      departureWalk: transportationWalkData[2],
-      pearlChain: {
-        legs: pearlChainData.stop1,
-        status: 'future',
+    {
+      name: 'sa-om',
+      text: {
+        template: 'Tilting train',
+        arguments: null,
       },
-      transportationNumber: transportationNumberData['cableCar'],
+      type: 'ATTRIBUTE',
+      priority: 40,
+      routeIndexFrom: 6,
+      routeIndexTo: 9,
     },
-    duration: durationData[1],
-    occupancy: occupancyItemsData[5],
-    parkAndRail: parkAndRailData[0],
-    platform: platformData[1],
-    rowHeader: rowHeaderData[1],
-    travelHints: travelHintsData[1],
-  },
-  {
-    cusHim: cusHimData[2],
-    details: {
-      arrivalTime: transportationTimeData[3],
-      arrivalWalk: transportationWalkData[3],
-      departureTime: transportationTimeData[2],
-      departureWalk: transportationWalkData[2],
-      pearlChain: {
-        legs: pearlChainData.stop1,
-        status: 'future',
+    {
+      name: 'sa-fs',
+      text: {
+        template: 'Tilting train',
+        arguments: null,
       },
-      transportationNumber: transportationNumberData['cableCar'],
+      type: 'ATTRIBUTE',
+      priority: 20,
+      routeIndexFrom: 6,
+      routeIndexTo: 9,
     },
-    duration: durationData[1],
-    occupancy: occupancyItemsData[5],
-    parkAndRail: parkAndRailData[0],
-    platform: platformData[1],
-    rowHeader: rowHeaderData[1],
-    travelHints: travelHintsData[1],
+    {
+      name: 'sa-z',
+      text: {
+        template: 'Tilting train',
+        arguments: null,
+      },
+      type: 'ATTRIBUTE',
+      priority: 100,
+      routeIndexFrom: 6,
+      routeIndexTo: 9,
+    },
+  ],
+  situations: [{ cause: 'delay', broadcastMessages: 'test', priority: 60 }],
+  summary: {
+    arrival: {
+      delay: 0,
+      quayChanged: false,
+      quayName: 'Gl. 88',
+      time: new Date('2022-07-28T13:48:00+02:00'),
+    },
+    arrivalWalk: 5,
+    departure: {
+      delay: 0,
+      quayChanged: false,
+      quayName: '7',
+      time: new Date('2022-07-28T13:16:00+02:00'),
+    },
+    departureWalk: 8,
+    direction: 'Luzern',
+    duration: 48,
+    occupancy: {
+      firstClass: 'low',
+      secondClass: 'low',
+    },
+    product: {
+      number: '27',
+      vehicleMode: 'train-small',
+      name: 'IR 27 2473',
+      line: 27,
+      vehicleSubModeShortName: 'IR',
+    },
+    tripStatus: true,
   },
-];
+  tripId: 'id-1',
+  valid: true,
+};
