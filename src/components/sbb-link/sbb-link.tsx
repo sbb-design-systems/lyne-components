@@ -131,8 +131,9 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
         rel: 'external noopener nofollow',
         target: '_blank',
         'aria-label':
-          `${attributeList['aria-label']}. ${i18nTargetOpensInNewWindow[currentLanguage]}` ||
-          undefined,
+          `${attributeList['aria-label'] ?? 'Link'}. ${
+            i18nTargetOpensInNewWindow[currentLanguage]
+          }` || undefined,
       });
     }
 

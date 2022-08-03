@@ -1,4 +1,5 @@
 import { AnimationBuilder } from '../../global/core/components/animations/animation-interface';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 export interface InterfaceSbbToastAttributes {
   ariaLivePoliteness: 'off' | 'assertive' | 'polite';
@@ -25,16 +26,14 @@ export interface InterfaceToastCommonAction {
 /**
  * Interface for toast's link.
  */
-export interface InterfaceToastLink extends InterfaceToastCommonAction {
+export interface InterfaceToastLink extends InterfaceToastCommonAction, AccessibilityProperties {
   type: 'link';
 
   /** Anchor tag label. */
   label: string;
 
   /**
-   * Link reference. NOTE:
-   * - it will be opened in a new window;
-   * - toast wil be closed on click.
+   * Link reference. NOTE: toast wil be closed on click.
    */
   href: string;
 }

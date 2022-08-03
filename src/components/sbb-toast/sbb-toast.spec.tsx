@@ -71,6 +71,9 @@ describe('sbb-toast', () => {
 
   it('renders the toast with the message and the link action', async () => {
     const action: InterfaceToastLink = {
+      accessibilityDescribedby: null,
+      accessibilityLabel: 'Link accessible label',
+      accessibilityLabelledby: null,
       href: 'https://www.sbb.ch',
       label: 'Link',
       role: null,
@@ -95,7 +98,9 @@ describe('sbb-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <sbb-link class="sbb-focusable toast-link" hrefvalue="https://www.sbb.ch" text="Link" variant="inline-negative"></sbb-link>
+                  <sbb-link accessibilitylabel="Link accessible label" class="sbb-focusable toast-link" href="https://www.sbb.ch" negative="" variant="inline">
+                    Link
+                  </sbb-link>
                 </span>
               </div>
             </div>
@@ -252,6 +257,9 @@ describe('sbb-toast', () => {
 
   it('renders the toast with the icon and the message and the link action', async () => {
     const action: InterfaceToastLink = {
+      accessibilityDescribedby: null,
+      accessibilityLabel: 'Link accessible label',
+      accessibilityLabelledby: null,
       href: 'https://www.sbb.ch',
       label: 'Link',
       role: null,
@@ -280,7 +288,9 @@ describe('sbb-toast', () => {
                   </span>
                   <span class="toast-spacer"></span>
                   <span class="toast-action">
-                     <sbb-link class="sbb-focusable toast-link" hrefvalue="https://www.sbb.ch" text="Link" variant="inline-negative"></sbb-link>
+                    <sbb-link accessibilitylabel="Link accessible label" class="sbb-focusable toast-link" href="https://www.sbb.ch" negative="" variant="inline">
+                      Link
+                    </sbb-link>
                   </span>
                 </div>
               </div>

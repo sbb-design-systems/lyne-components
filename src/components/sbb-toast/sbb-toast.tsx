@@ -246,12 +246,17 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
           <span class="toast-action">
             <sbb-link
               class="toast-link sbb-focusable"
-              variant="inline-negative"
-              hrefValue={this._internalConfig.action.href}
-              text={this._internalConfig.action.label}
+              variant="inline"
+              negative={true}
+              accessibilityLabel={this._internalConfig.action.accessibilityLabel}
+              accessibilityLabelledby={this._internalConfig.action.accessibilityLabelledby}
+              accessibilityDescribedby={this._internalConfig.action.accessibilityDescribedby}
+              href={this._internalConfig.action.href}
               role={this._internalConfig.action.role}
               onClick={this.dismiss.bind(this, null, 'link')}
-            />
+            >
+              {this._internalConfig.action.label}
+            </sbb-link>
           </span>
         );
       }

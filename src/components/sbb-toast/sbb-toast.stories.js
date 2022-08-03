@@ -13,6 +13,9 @@ const getCommonConfig = (args) => ({
 
 const getLinkConfig = (args) => ({
   action: {
+    accessibilityDescribedby: null,
+    accessibilityLabel: 'Link accessible label',
+    accessibilityLabelledby: null,
     href: args.href,
     label: args.label,
     type: 'link',
