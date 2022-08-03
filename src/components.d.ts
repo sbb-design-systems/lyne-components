@@ -172,6 +172,10 @@ export namespace Components {
          */
         "name"?: string;
         /**
+          * Negative coloring variant flag
+         */
+        "negative": boolean;
+        /**
           * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
@@ -1488,6 +1492,10 @@ declare namespace LocalJSX {
           * The name attribute to use for the button
          */
         "name"?: string;
+        /**
+          * Negative coloring variant flag
+         */
+        "negative"?: boolean;
         /**
           * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button.
          */

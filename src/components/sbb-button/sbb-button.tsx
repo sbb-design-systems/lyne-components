@@ -54,6 +54,11 @@ export class SbbButton {
   @Prop() public ariaHaspopup?: InterfaceButtonAttributes['popup'];
 
   /**
+   * Negative coloring variant flag
+   */
+  @Prop() public negative: boolean;
+
+  /**
    * Emits whenever the native button click event triggers.
    * TODO: Switch to a better event type during refactoring sbb-button.
    */
@@ -81,8 +86,9 @@ export class SbbButton {
     const variantClass = `button--${this.variant}`;
     const iconClass = hasNoLabel ? 'button--icon-only' : '';
     const semanticClass = this.visualButtonOnly ? 'button--visual-only' : '';
+    const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
-    const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass}`;
+    const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass} ${negativeClass}`;
 
     const TAGNAME = this.visualButtonOnly ? 'div' : 'button';
 
