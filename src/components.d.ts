@@ -16,7 +16,6 @@ import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
-import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -491,40 +490,6 @@ export namespace Components {
           * Choose the link style variant.
          */
         "variant": InterfaceLinkAttributes['variant'];
-    }
-    interface SbbLinkButton {
-        /**
-          * If set to true, the browser will show the download dialog on click.
-         */
-        "download"?: boolean;
-        /**
-          * The href value you want to link to
-         */
-        "hrefValue": string;
-        /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
-         */
-        "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
-        /**
-          * The icon can either be place before or after the text
-         */
-        "iconPlacement": InterfaceLinkButtonAttributes['iconPlacement'];
-        /**
-          * Pass in an id, if you need to identify the link element.
-         */
-        "idValue"?: string;
-        /**
-          * The link text we want to visually show
-         */
-        "text": string;
-        /**
-          * Choose the link button style variant
-         */
-        "variant": InterfaceLinkButtonAttributes['variant'];
     }
     interface SbbLinkList {
         /**
@@ -1146,12 +1111,6 @@ declare global {
         prototype: HTMLSbbLinkElement;
         new (): HTMLSbbLinkElement;
     };
-    interface HTMLSbbLinkButtonElement extends Components.SbbLinkButton, HTMLStencilElement {
-    }
-    var HTMLSbbLinkButtonElement: {
-        prototype: HTMLSbbLinkButtonElement;
-        new (): HTMLSbbLinkButtonElement;
-    };
     interface HTMLSbbLinkListElement extends Components.SbbLinkList, HTMLStencilElement {
     }
     var HTMLSbbLinkListElement: {
@@ -1361,7 +1320,6 @@ declare global {
         "sbb-input-error": HTMLSbbInputErrorElement;
         "sbb-journey-header": HTMLSbbJourneyHeaderElement;
         "sbb-link": HTMLSbbLinkElement;
-        "sbb-link-button": HTMLSbbLinkButtonElement;
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-overlay": HTMLSbbOverlayElement;
@@ -1853,40 +1811,6 @@ declare namespace LocalJSX {
           * Choose the link style variant.
          */
         "variant"?: InterfaceLinkAttributes['variant'];
-    }
-    interface SbbLinkButton {
-        /**
-          * If set to true, the browser will show the download dialog on click.
-         */
-        "download"?: boolean;
-        /**
-          * The href value you want to link to
-         */
-        "hrefValue": string;
-        /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
-         */
-        "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
-        /**
-          * The icon can either be place before or after the text
-         */
-        "iconPlacement"?: InterfaceLinkButtonAttributes['iconPlacement'];
-        /**
-          * Pass in an id, if you need to identify the link element.
-         */
-        "idValue"?: string;
-        /**
-          * The link text we want to visually show
-         */
-        "text": string;
-        /**
-          * Choose the link button style variant
-         */
-        "variant"?: InterfaceLinkButtonAttributes['variant'];
     }
     interface SbbLinkList {
         /**
@@ -2415,7 +2339,6 @@ declare namespace LocalJSX {
         "sbb-input-error": SbbInputError;
         "sbb-journey-header": SbbJourneyHeader;
         "sbb-link": SbbLink;
-        "sbb-link-button": SbbLinkButton;
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
         "sbb-overlay": SbbOverlay;
@@ -2470,7 +2393,6 @@ declare module "@stencil/core" {
             "sbb-input-error": LocalJSX.SbbInputError & JSXBase.HTMLAttributes<HTMLSbbInputErrorElement>;
             "sbb-journey-header": LocalJSX.SbbJourneyHeader & JSXBase.HTMLAttributes<HTMLSbbJourneyHeaderElement>;
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
-            "sbb-link-button": LocalJSX.SbbLinkButton & JSXBase.HTMLAttributes<HTMLSbbLinkButtonElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
