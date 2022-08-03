@@ -148,6 +148,10 @@ export namespace Components {
          */
         "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
         /**
+          * The type attribute to use for the button
+         */
+        "buttonType"?: InterfaceButtonAttributes['buttonType'];
+        /**
           * Set to true to get a disabled button
          */
         "disabled"?: boolean;
@@ -156,9 +160,9 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
-          * Define if icon should be shown or not
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
-        "icon"?: boolean;
+        "icon"?: string;
         /**
           * If you use an icon without a label, you must provide an iconDescription
          */
@@ -176,12 +180,13 @@ export namespace Components {
          */
         "negative": boolean;
         /**
+          * Define if icon should be shown or not
+         */
+        "showIcon"?: boolean;
+        /**
           * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
-        /**
-          * The type attribute to use for the button
-         */
         "type"?: InterfaceButtonAttributes['type'];
         /**
           * The value attribute to use for the button
@@ -1469,6 +1474,10 @@ declare namespace LocalJSX {
          */
         "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
         /**
+          * The type attribute to use for the button
+         */
+        "buttonType"?: InterfaceButtonAttributes['buttonType'];
+        /**
           * Set to true to get a disabled button
          */
         "disabled"?: boolean;
@@ -1477,9 +1486,9 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * Define if icon should be shown or not
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
-        "icon"?: boolean;
+        "icon"?: string;
         /**
           * If you use an icon without a label, you must provide an iconDescription
          */
@@ -1501,12 +1510,13 @@ declare namespace LocalJSX {
          */
         "onSbb-button_click"?: (event: SbbButtonCustomEvent<any>) => void;
         /**
+          * Define if icon should be shown or not
+         */
+        "showIcon"?: boolean;
+        /**
           * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
-        /**
-          * The type attribute to use for the button
-         */
         "type"?: InterfaceButtonAttributes['type'];
         /**
           * The value attribute to use for the button

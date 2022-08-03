@@ -9,6 +9,7 @@ export interface InterfaceButtonAttributes {
     | 'transparent'
     | 'transparent-negative';
   size: 'l' | 'm';
-  type: 'button' | 'reset' | 'submit';
+  type: 'button' | 'a' | 'span';
+  buttonType: 'button' | 'reset' | 'submit';
   popup: 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
 }

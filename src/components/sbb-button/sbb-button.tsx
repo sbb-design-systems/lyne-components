@@ -33,12 +33,23 @@ export class SbbButton {
   @Prop() public eventId?: string;
 
   /** Define if icon should be shown or not */
-  @Prop() public icon? = false;
+  @Prop() public showIcon? = false;
+
+  /**
+   * The icon name we want to use,
+   * choose from the small icon variants from
+   * the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/ (optional).
+   * Inline variant doesn't support icons.
+   */
+  @Prop() public icon?: string;
 
   /** If you use an icon without a label, you must provide an iconDescription */
   @Prop() public iconDescription?: string;
 
   /** The type attribute to use for the button */
+  @Prop() public buttonType?: InterfaceButtonAttributes['buttonType'] = 'button';
+
   @Prop() public type?: InterfaceButtonAttributes['type'] = 'button';
 
   /** The name attribute to use for the button */
@@ -90,7 +101,7 @@ export class SbbButton {
 
     const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass} ${negativeClass}`;
 
-    const TAGNAME = this.visualButtonOnly ? 'div' : 'button';
+    const TAGNAME = this.visualButtonOnly ? 'span' : this.type;
 
     const mainAttributes = {
       class: buttonClass,
@@ -120,15 +131,20 @@ export class SbbButton {
           ''
         )}
 
-        {this.icon === true ? (
+        {this.showIcon ? (
           <span class="button__icon">
-            <slot />
+            <slot name="icon">
+            <sbb-icon name={this.icon}/>
+          </slot>
           </span>
         ) : (
           ''
         )}
 
-        {hasNoLabel ? '' : <span class="button__label">{this.label}</span>}
+        {hasNoLabel ? '' :
+          <span class="button__label">
+            <slot />
+          </span>}
       </TAGNAME>
     );
   }
