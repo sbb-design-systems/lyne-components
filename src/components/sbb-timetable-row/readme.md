@@ -38,8 +38,8 @@
 
 ### Depends on
 
-- [sbb-icon](../sbb-icon)
 - [sbb-timetable-row-button](../sbb-timetable-row-button)
+- [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid

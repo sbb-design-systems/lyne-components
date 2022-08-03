@@ -105,6 +105,7 @@ span {
 }
 
 .timetable__row-details {
+  display: inline-flex;
   gap: var(--sbb-spacing-fixed-1x);
 }
 
@@ -140,6 +141,12 @@ p {
 .timetable__row-walktime:last-of-type {
   transform: translateX(var(--sbb-spacing-fixed-1x));
   margin-inline-start: var(--sbb-spacing-fixed-1x);
+}
+
+.timetable__row-platform--changed {
+  @include text-m--bold;
+
+  color: var(--sbb-color-red-default);
 }
 
 .loading {

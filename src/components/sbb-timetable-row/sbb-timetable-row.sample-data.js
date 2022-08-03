@@ -86,7 +86,9 @@ export default {
       line: 27,
       vehicleSubModeShortName: 'IR',
     },
-    tripStatus: true,
+    tripStatus: {
+      quayChanged: true,
+    },
   },
   tripId: 'id-1',
   valid: true,
