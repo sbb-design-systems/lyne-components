@@ -13,6 +13,7 @@ import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
+import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
@@ -327,6 +328,11 @@ export namespace Components {
     }
     interface SbbHeader {
         "shadow": boolean;
+    }
+    interface SbbHeaderAction {
+        "expandFrom": InterfaceSbbHeaderActionAttributes['expandFrom'];
+        "icon"?: string;
+        "isAnchorOrButton": boolean;
     }
     interface SbbIcon {
         /**
@@ -1149,6 +1155,12 @@ declare global {
         prototype: HTMLSbbHeaderElement;
         new (): HTMLSbbHeaderElement;
     };
+    interface HTMLSbbHeaderActionElement extends Components.SbbHeaderAction, HTMLStencilElement {
+    }
+    var HTMLSbbHeaderActionElement: {
+        prototype: HTMLSbbHeaderActionElement;
+        new (): HTMLSbbHeaderActionElement;
+    };
     interface HTMLSbbIconElement extends Components.SbbIcon, HTMLStencilElement {
     }
     var HTMLSbbIconElement: {
@@ -1390,6 +1402,7 @@ declare global {
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-grid": HTMLSbbGridElement;
         "sbb-header": HTMLSbbHeaderElement;
+        "sbb-header-action": HTMLSbbHeaderActionElement;
         "sbb-icon": HTMLSbbIconElement;
         "sbb-image": HTMLSbbImageElement;
         "sbb-input-error": HTMLSbbInputErrorElement;
@@ -1723,6 +1736,11 @@ declare namespace LocalJSX {
     }
     interface SbbHeader {
         "shadow"?: boolean;
+    }
+    interface SbbHeaderAction {
+        "expandFrom"?: InterfaceSbbHeaderActionAttributes['expandFrom'];
+        "icon"?: string;
+        "isAnchorOrButton"?: boolean;
     }
     interface SbbIcon {
         /**
@@ -2472,6 +2490,7 @@ declare namespace LocalJSX {
         "sbb-footer": SbbFooter;
         "sbb-grid": SbbGrid;
         "sbb-header": SbbHeader;
+        "sbb-header-action": SbbHeaderAction;
         "sbb-icon": SbbIcon;
         "sbb-image": SbbImage;
         "sbb-input-error": SbbInputError;
@@ -2528,6 +2547,7 @@ declare module "@stencil/core" {
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
             "sbb-header": LocalJSX.SbbHeader & JSXBase.HTMLAttributes<HTMLSbbHeaderElement>;
+            "sbb-header-action": LocalJSX.SbbHeaderAction & JSXBase.HTMLAttributes<HTMLSbbHeaderActionElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
             "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;
             "sbb-input-error": LocalJSX.SbbInputError & JSXBase.HTMLAttributes<HTMLSbbInputErrorElement>;

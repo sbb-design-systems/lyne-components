@@ -88,12 +88,14 @@ In the HTML, you can now use the icon as shown below:
 
 ### Used by
 
+ - [sbb-header-action](../sbb-header-action)
  - [sbb-link](../sbb-link)
  - [sbb-toggle-check](../sbb-toggle-check)
 
 ### Graph
 ```mermaid
 graph TD;
+  sbb-header-action --> sbb-icon
   sbb-link --> sbb-icon
   sbb-toggle-check --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
