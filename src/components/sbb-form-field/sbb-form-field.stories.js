@@ -65,7 +65,6 @@ const TemplateInputWithErrorSpace = (args) => {
         />
         {sbbFormError}
       </sbb-form-field>
-      <br />
       <sbb-form-field {...args}>
         <input placeholder="Name" />
       </sbb-form-field>
@@ -150,7 +149,6 @@ const TemplateSelectWithErrorSpace = (args) => {
         </select>
         {sbbFormError}
       </sbb-form-field>
-      <br />
       <sbb-form-field {...args}>
         <input placeholder="Name" />
       </sbb-form-field>

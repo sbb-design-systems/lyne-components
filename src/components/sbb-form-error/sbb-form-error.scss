@@ -10,9 +10,13 @@
   align-items: flex-start;
   color: var(--sbb-color-red125-default);
   @include text-xs--regular;
+  // fix for "display: flex" taking unnecessary space below the element
+  @include zeroWidthSpace;
 
   // error height = text line-height
   min-height: var(--form-error-height);
+  // fix for line-height taking more than reserved space
+  line-height: 1;
 
   --sbb-icon-svg-width: var(--sbb-size-icon-form-error);
   --sbb-icon-svg-height: var(--sbb-size-icon-form-error);
@@ -22,4 +26,10 @@
   height: var(--sbb-size-icon-form-error);
   padding-inline-end: var(--sbb-spacing-fixed-1x);
   padding-block-start: calc((var(--form-error-height) - var(--sbb-size-icon-form-error)) / 2);
+}
+
+.input-label-error {
+  // fix for line-height taking more than reserved space
+  line-height: var(--sbb-typo-line-height-body-text);
+  vertical-align: text-top;
 }
