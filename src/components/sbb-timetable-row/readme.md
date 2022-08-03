@@ -38,14 +38,14 @@
 
 ### Depends on
 
-- [sbb-icon](../sbb-icon)
 - [sbb-timetable-row-button](../sbb-timetable-row-button)
+- [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-timetable-row --> sbb-icon
   sbb-timetable-row --> sbb-timetable-row-button
+  sbb-timetable-row --> sbb-icon
   style sbb-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

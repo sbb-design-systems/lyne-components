@@ -78,20 +78,6 @@ export class SbbTimetableRow {
     this._hasWalkTimeAfter = Boolean(this._hostElement.querySelector('[slot="walkTimeAfter"]'));
   }
 
-  private _renderProduct(): JSX.Element {
-    const transport: string = this.config.summary.product.vehicleSubModeShortName?.toLowerCase();
-
-    if (this._possibleTransportTypes.includes(transport)) {
-      return <sbb-icon name={transport + '-' + this.config.summary.product.line} />;
-    } else {
-      return (
-        <span class="timetable__row-transportnumber">
-          {this.config.summary.product.vehicleSubModeShortName + this.config.summary.product.line}
-        </span>
-      );
-    }
-  }
-
   private _renderSkeleton(): JSX.Element {
     return (
       //tbd disabled and tab={-1} prop to button
@@ -104,6 +90,22 @@ export class SbbTimetableRow {
         </div>
       </sbb-timetable-row-button>
     );
+  }
+
+  private _renderProduct(): JSX.Element {
+    const transport: string = this.config.summary.product.vehicleSubModeShortName?.toLowerCase();
+
+    if (this._possibleTransportTypes.includes(transport)) {
+      return <sbb-icon name={transport + '-' + this.config.summary.product.line} />;
+    } else {
+      return (
+        <span class="timetable__row-transportnumber">
+          {this.config.summary.product.vehicleSubModeShortName +
+            ' ' +
+            this.config.summary.product.line}
+        </span>
+      );
+    }
   }
 
   private _renderDuration(duration: number): JSX.Element {
