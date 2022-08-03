@@ -126,6 +126,7 @@ graph TD;
   sbb-toast --> sbb-link
   sbb-toast --> sbb-button
   sbb-toast --> sbb-icon
+  sbb-link --> sbb-icon
   style sbb-toast fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

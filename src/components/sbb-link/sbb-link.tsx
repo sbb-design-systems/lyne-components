@@ -1,9 +1,11 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Prop, State } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import { hostContext } from '../../global/helpers/host-context';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -14,37 +16,30 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink {
+export class SbbLink implements AccessibilityProperties, ComponentInterface {
   /**
    * If set to true, the browser will
-   * show the download dialog on click.
+   * show the download dialog on click (optional).
    */
   @Prop() public download?: boolean;
 
-  /** The href value you want to link to */
-  @Prop() public hrefValue!: string;
+  /** The href value you want to link to (if its not present link becomes a button)*/
+  @Prop() public href?: string;
 
   /**
    * The icon name we want to use,
    * choose from the small icon variants from
    * the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/.
+   * https://lyne.sbb.ch/tokens/icons/ (optional).
    * Inline variant doesn't support icons.
    */
   @Prop() public icon?: string;
 
   /**
    * Pass in an id, if you need to identify
-   * the link element.
+   * the link element (optional).
    */
   @Prop() public idValue?: string;
-
-  /**
-   * Decide whether the icon should get flipped
-   * horizontally if the document writing mode
-   * is changed from ltr to rtl or vice versa.
-   */
-  @Prop() public iconFlip?: boolean;
 
   /**
    * The icon can either be place before or after
@@ -52,8 +47,10 @@ export class SbbLink {
    */
   @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
-  /** The link text we want to visually show. */
-  @Prop() public text!: string;
+  /**
+   * Negative coloring variant flag
+   */
+  @Prop() public negative: boolean;
 
   /**
    * Text size, the link should get in the
@@ -63,88 +60,141 @@ export class SbbLink {
   @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
 
   /**
-   * Choose the link style variant.
+   * Applies link inline styles (underline, inherit coloring/font-size etc).
    */
   @Prop() public variant: InterfaceLinkAttributes['variant'] = 'block';
 
-  private get _inlineVariant(): boolean {
-    return this.variant === 'inline' || this.variant === 'inline-negative';
+  /**
+   * Disabled attribute if link is used as button (optional)
+   */
+  @Prop() public disabled?: boolean;
+
+  /**
+   * Name attribute if link is used as button (optional)
+   */
+  @Prop() public name?: string;
+
+  /**
+   * Form attribute if link is used as button (optional)
+   */
+  @Prop() public form?: string;
+
+  /**
+   * Type attribute if link is used as button (optional)
+   */
+  @Prop() public type: InterfaceLinkAttributes['buttonType'] = 'button';
+
+  /** This will be forwarded as aria-label to the relevant nested element. */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  @Prop() public accessibilityLabelledby: string | undefined;
+
+  /**
+   * If this is set to true an span element will be used
+   * instead of an anchor or a button
+   */
+  @State() private _isStatic = false;
+
+  @Element() public el!: HTMLElement;
+
+  public connectedCallback(): void {
+    // Check if the current element is nested in either an `<a>` or `<button>` element.
+    this._isStatic = !!hostContext('a,button', this.el);
   }
 
-  public render(): JSX.Element {
-    const textSizeClass = this._inlineVariant ? '' : ` sbb-link--text-${this.textSize}`;
+  /**
+   * Get the attributelist base on the config and the resulting element
+   * @return <object>
+   */
+  private _getAttributeList(): object {
     const currentLanguage = getDocumentLang();
     const currentWritingMode = getDocumentWritingMode();
+    const attributeList: Record<string, string> = {};
 
-    let openInNewWindow = false;
+    Object.assign(attributeList, {
+      dir: currentWritingMode,
+      class: this._getClassString(),
+      'aria-label': this.accessibilityLabel || undefined,
+      'aria-labelledby': this.accessibilityLabelledby || undefined,
+      'aria-describedby': this.accessibilityDescribedby || undefined,
+      name: this.name || undefined,
+      id: this.idValue || undefined,
+    });
 
-    if (!window.location.href.includes(this.hrefValue)) {
-      openInNewWindow = true;
+    const openInNewWindow = !window.location.href.includes(this.href);
+    if (openInNewWindow && !this._isStatic && this.href) {
+      Object.assign(attributeList, {
+        rel: 'external noopener nofollow',
+        target: '_blank',
+        'aria-label':
+          `${attributeList['aria-label']}. ${i18nTargetOpensInNewWindow[currentLanguage]}` ||
+          undefined,
+      });
     }
 
-    /**
-     * Add additional CSS classes
-     * ----------------------------------------------------------------
-     */
+    if (this._isStatic) {
+      return attributeList;
+    } else if (this.href) {
+      // Anchor case
+      return Object.assign(attributeList, {
+        href: this.href,
+        download: this.download ? '' : undefined,
+        tabIndex: this.disabled ? '-1' : undefined,
+      });
+    }
+
+    // Button case
+    return Object.assign(attributeList, {
+      type: this.type || undefined,
+      form: this.form || undefined,
+      disabled: this.disabled ? 'true' : undefined,
+    });
+  }
+
+  private _getClassString(): string {
+    const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
+
     let iconPositionClass = '';
 
     if (this.icon) {
-      iconPositionClass = ` sbb-link--icon-placement-${this.iconPlacement}`;
+      iconPositionClass =
+        this.iconPlacement === 'start'
+          ? ' sbb-link--icon-placement-start'
+          : ' sbb-link--icon-placement-end';
     }
 
-    let iconFlipClass = '';
+    const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
+    const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
-    if (this.icon && this.iconFlip) {
-      iconFlipClass = ' sbb-link--icon-flip';
-    }
+    return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
+  }
 
-    const variantClass = ` sbb-link--${this.variant}`;
-
-    /**
-     * Add additional attributes
-     * ----------------------------------------------------------------
-     */
-    let additionalLinkAttributes = {};
-    let ariaLabel = this.text;
-
-    if (openInNewWindow) {
-      additionalLinkAttributes = {
-        rel: 'external noopener nofollow',
-        target: '_blank',
-      };
-      ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
-    }
-
-    if (this.idValue) {
-      additionalLinkAttributes = {
-        ...additionalLinkAttributes,
-        id: this.idValue,
-      };
+  /**
+   * Render element
+   */
+  public render(): JSX.Element {
+    let TAG_NAME: string;
+    if (this._isStatic) {
+      TAG_NAME = 'span';
+    } else if (this.href) {
+      TAG_NAME = 'a';
+    } else {
+      TAG_NAME = 'button';
     }
 
     return (
-      <a
-        aria-label={ariaLabel}
-        class={`sbb-link
-          ${textSizeClass}
-          ${iconPositionClass}
-          ${iconFlipClass}
-          ${variantClass}`}
-        download={this.download}
-        dir={currentWritingMode}
-        href={this.hrefValue}
-        {...additionalLinkAttributes}
-      >
-        {this.icon && !this._inlineVariant ? (
-          <span class="sbb-link__icon">
-            <slot name="icon" />
-          </span>
-        ) : (
-          ''
+      <TAG_NAME {...this._getAttributeList()}>
+        {this.variant !== 'inline' && (
+          <slot name="icon">
+            <sbb-icon name={this.icon}></sbb-icon>
+          </slot>
         )}
-
-        <span class="sbb-link__text">{this.text}</span>
-      </a>
+        <slot />
+      </TAG_NAME>
     );
   }
 }

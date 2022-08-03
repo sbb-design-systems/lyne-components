@@ -96,11 +96,15 @@ In the HTML, you can now use the icon as shown below:
 
 ### Used by
 
+ - [sbb-link](../sbb-link)
+ - [sbb-toast](../sbb-toast)
  - [sbb-toggle-check](../sbb-toggle-check)
 
 ### Graph
 ```mermaid
 graph TD;
+  sbb-link --> sbb-icon
+  sbb-toast --> sbb-icon
   sbb-toggle-check --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

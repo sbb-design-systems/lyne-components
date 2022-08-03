@@ -10,6 +10,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
+import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
@@ -36,6 +37,8 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
+import { InterfaceToastConfiguration } from "./components/sbb-toast/sbb-toast.custom";
+import { AnimationBuilder } from "./global/core/components/animations/animation-interface";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
@@ -294,6 +297,16 @@ export namespace Components {
          */
         "paused"?: boolean;
     }
+    interface SbbDivider {
+        /**
+          * Appearance property for displaying the component in dark mode
+         */
+        "negative"?: boolean;
+        /**
+          * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
+         */
+        "orientation"?: InterfaceSbbDividerAttributes['orientation'];
+    }
     interface SbbFooter {
         /**
           * Footer title text, visually hidden,  necessary for screenreaders
@@ -445,39 +458,63 @@ export namespace Components {
     }
     interface SbbLink {
         /**
-          * If set to true, the browser will show the download dialog on click.
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Disabled attribute if link is used as button (optional)
+         */
+        "disabled"?: boolean;
+        /**
+          * If set to true, the browser will show the download dialog on click (optional).
          */
         "download"?: boolean;
         /**
-          * The href value you want to link to
+          * Form attribute if link is used as button (optional)
          */
-        "hrefValue": string;
+        "form"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The href value you want to link to (if its not present link becomes a button)
+         */
+        "href"?: string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
         /**
           * The icon can either be place before or after the text.
          */
         "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the link element.
+          * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
         /**
-          * The link text we want to visually show.
+          * Name attribute if link is used as button (optional)
          */
-        "text": string;
+        "name"?: string;
+        /**
+          * Negative coloring variant flag
+         */
+        "negative": boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize": InterfaceLinkAttributes['textSize'];
         /**
-          * Choose the link style variant.
+          * Type attribute if link is used as button (optional)
+         */
+        "type": InterfaceLinkAttributes['buttonType'];
+        /**
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant": InterfaceLinkAttributes['variant'];
     }
@@ -981,6 +1018,47 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToast {
+        /**
+          * Exposed toast configuration.
+         */
+        "config": InterfaceToastConfiguration;
+        /**
+          * Indicates whether the toast will play enter-leave animations.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Dismiss the toast overlay after it has been presented.
+          * @param data Any data to emit in the dismiss events.
+          * @param role The role of the element that is dismissing the toast. Example: `"cancel"` for close icon `"timeout"` for auto-close
+         */
+        "dismiss": (data?: any, role?: string) => Promise<boolean>;
+        /**
+          * The animation used when the toast is presented.
+         */
+        "enterAnimation"?: AnimationBuilder;
+        /**
+          * Indicates whether the keyboard is automatically dismissed when the overlay is presented.
+         */
+        "keyboardClose": boolean;
+        /**
+          * The animation used when the toast is dismissed.
+         */
+        "leaveAnimation"?: AnimationBuilder;
+        /**
+          * Returns a promise that resolves when the toast did dismiss.
+         */
+        "onDidDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
+        /**
+          * Returns a promise that resolves when the toast will dismiss.
+         */
+        "onWillDismiss": <T = any>() => Promise<InterfaceOverlayEventDetail<T>>;
+        "overlayIndex": number;
+        /**
+          * Present the toast overlay after it has been created.
+         */
+        "present": () => Promise<void>;
+    }
     interface SbbToggleCheck {
         /**
           * The aria-describedby prop for the hidden input.
@@ -1036,6 +1114,10 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
 }
+export interface SbbToastCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToastElement;
+}
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleCheckElement;
@@ -1088,6 +1170,12 @@ declare global {
     var HTMLSbbClockElement: {
         prototype: HTMLSbbClockElement;
         new (): HTMLSbbClockElement;
+    };
+    interface HTMLSbbDividerElement extends Components.SbbDivider, HTMLStencilElement {
+    }
+    var HTMLSbbDividerElement: {
+        prototype: HTMLSbbDividerElement;
+        new (): HTMLSbbDividerElement;
     };
     interface HTMLSbbFooterElement extends Components.SbbFooter, HTMLStencilElement {
     }
@@ -1323,6 +1411,12 @@ declare global {
         prototype: HTMLSbbTitleElement;
         new (): HTMLSbbTitleElement;
     };
+    interface HTMLSbbToastElement extends Components.SbbToast, HTMLStencilElement {
+    }
+    var HTMLSbbToastElement: {
+        prototype: HTMLSbbToastElement;
+        new (): HTMLSbbToastElement;
+    };
     interface HTMLSbbToggleCheckElement extends Components.SbbToggleCheck, HTMLStencilElement {
     }
     var HTMLSbbToggleCheckElement: {
@@ -1338,6 +1432,7 @@ declare global {
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
+        "sbb-divider": HTMLSbbDividerElement;
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-grid": HTMLSbbGridElement;
         "sbb-icon": HTMLSbbIconElement;
@@ -1377,6 +1472,7 @@ declare global {
         "sbb-timetable-transportation-walk": HTMLSbbTimetableTransportationWalkElement;
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
+        "sbb-toast": HTMLSbbToastElement;
         "sbb-toggle-check": HTMLSbbToggleCheckElement;
     }
 }
@@ -1641,6 +1737,16 @@ declare namespace LocalJSX {
          */
         "paused"?: boolean;
     }
+    interface SbbDivider {
+        /**
+          * Appearance property for displaying the component in dark mode
+         */
+        "negative"?: boolean;
+        /**
+          * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
+         */
+        "orientation"?: InterfaceSbbDividerAttributes['orientation'];
+    }
     interface SbbFooter {
         /**
           * Footer title text, visually hidden,  necessary for screenreaders
@@ -1792,39 +1898,63 @@ declare namespace LocalJSX {
     }
     interface SbbLink {
         /**
-          * If set to true, the browser will show the download dialog on click.
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Disabled attribute if link is used as button (optional)
+         */
+        "disabled"?: boolean;
+        /**
+          * If set to true, the browser will show the download dialog on click (optional).
          */
         "download"?: boolean;
         /**
-          * The href value you want to link to
+          * Form attribute if link is used as button (optional)
          */
-        "hrefValue": string;
+        "form"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The href value you want to link to (if its not present link becomes a button)
+         */
+        "href"?: string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
         /**
           * The icon can either be place before or after the text.
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the link element.
+          * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
         /**
-          * The link text we want to visually show.
+          * Name attribute if link is used as button (optional)
          */
-        "text": string;
+        "name"?: string;
+        /**
+          * Negative coloring variant flag
+         */
+        "negative"?: boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
-          * Choose the link style variant.
+          * Type attribute if link is used as button (optional)
+         */
+        "type"?: InterfaceLinkAttributes['buttonType'];
+        /**
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant"?: InterfaceLinkAttributes['variant'];
     }
@@ -2322,6 +2452,45 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToast {
+        /**
+          * Exposed toast configuration.
+         */
+        "config"?: InterfaceToastConfiguration;
+        /**
+          * Indicates whether the toast will play enter-leave animations.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * The animation used when the toast is presented.
+         */
+        "enterAnimation"?: AnimationBuilder;
+        /**
+          * Indicates whether the keyboard is automatically dismissed when the overlay is presented.
+         */
+        "keyboardClose"?: boolean;
+        /**
+          * The animation used when the toast is dismissed.
+         */
+        "leaveAnimation"?: AnimationBuilder;
+        /**
+          * Emitted after the toast has dismissed.
+         */
+        "onSbb-toast_did-dismiss"?: (event: SbbToastCustomEvent<InterfaceOverlayEventDetail>) => void;
+        /**
+          * Emitted after the toast has presented.
+         */
+        "onSbb-toast_did-present"?: (event: SbbToastCustomEvent<void>) => void;
+        /**
+          * Emitted before the toast has dismissed.
+         */
+        "onSbb-toast_will-dismiss"?: (event: SbbToastCustomEvent<InterfaceOverlayEventDetail>) => void;
+        /**
+          * Emitted before the toast has presented.
+         */
+        "onSbb-toast_will-present"?: (event: SbbToastCustomEvent<void>) => void;
+        "overlayIndex"?: number;
+    }
     interface SbbToggleCheck {
         /**
           * The aria-describedby prop for the hidden input.
@@ -2360,7 +2529,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Event for emiting whenever selection is changed.
+          * Emits whenever the selection has changed.
          */
         "onSbbChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
         /**
@@ -2381,6 +2550,7 @@ declare namespace LocalJSX {
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
+        "sbb-divider": SbbDivider;
         "sbb-footer": SbbFooter;
         "sbb-grid": SbbGrid;
         "sbb-icon": SbbIcon;
@@ -2420,6 +2590,7 @@ declare namespace LocalJSX {
         "sbb-timetable-transportation-walk": SbbTimetableTransportationWalk;
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
+        "sbb-toast": SbbToast;
         "sbb-toggle-check": SbbToggleCheck;
     }
 }
@@ -2435,6 +2606,7 @@ declare module "@stencil/core" {
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
+            "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
@@ -2474,6 +2646,7 @@ declare module "@stencil/core" {
             "sbb-timetable-transportation-walk": LocalJSX.SbbTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationWalkElement>;
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
+            "sbb-toast": LocalJSX.SbbToast & JSXBase.HTMLAttributes<HTMLSbbToastElement>;
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
         }
     }
