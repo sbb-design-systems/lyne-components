@@ -44,7 +44,10 @@ const focusStyle = (context) => {
 
 const Template = (args) => (
   <div>
-    <sbb-button {...args}>{getMarkupForSvg(args.iconSlot)}</sbb-button>
+    <sbb-button {...args}>
+      {getMarkupForSvg(args.iconSlot)}
+      {args.label}
+    </sbb-button>
   </div>
 );
 const FixedWidthTemplate = (args) => (

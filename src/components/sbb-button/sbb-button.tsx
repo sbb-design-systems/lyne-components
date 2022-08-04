@@ -1,10 +1,6 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 
-/**
- * @slot unnamed - Slot to render svg icon. You must pass an svg-element.
- */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-button.scss',
@@ -117,7 +113,7 @@ export class SbbButton {
           this.click.emit(this.eventId);
         }
       },
-      type: this.type,
+      type: this.buttonType,
       value: this.value,
     };
 
@@ -134,8 +130,8 @@ export class SbbButton {
         {this.showIcon ? (
           <span class="button__icon">
             <slot name="icon">
-            <sbb-icon name={this.icon}/>
-          </slot>
+              <sbb-icon name={this.icon}/>
+            </slot>
           </span>
         ) : (
           ''
