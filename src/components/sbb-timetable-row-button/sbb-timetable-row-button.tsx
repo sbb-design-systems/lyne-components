@@ -1,4 +1,4 @@
-import { Component, h, Prop, Event, Watch, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Event, Watch, EventEmitter, JSX } from '@stencil/core';
 
 @Component({
   shadow: true,
@@ -26,6 +26,12 @@ export class SbbTimetableRowButton {
 
   /** The aria-haspopup prop for the button. */
   @Prop() public accessibilityHaspopup?: string;
+
+  /** The disabled prop for the button. */
+  @Prop() public disabled?: boolean;
+
+  /** The tabIndex prop for the button. */
+  @Prop() public tab?: number;
 
   /** The role prop for the button. */
   @Prop() public role?: string;
@@ -63,6 +69,8 @@ export class SbbTimetableRowButton {
   public render(): JSX.Element {
     return (
       <button
+        disabled={this.disabled}
+        tabIndex={this.tab}
         aria-expanded="false"
         aria-haspopup={this.accessibilityHaspopup}
         aria-label={this.accessibilityLabel}

@@ -973,6 +973,10 @@ export namespace Components {
          */
         "accessibilityLabel"?: string;
         /**
+          * The disabled prop for the button.
+         */
+        "disabled"?: boolean;
+        /**
           * Set to true to initially show the state, which would get set by pressing the button.
          */
         "expanded"?: boolean;
@@ -984,6 +988,10 @@ export namespace Components {
           * The role prop for the button.
          */
         "role"?: string;
+        /**
+          * The tabIndex prop for the button.
+         */
+        "tab"?: number;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -1130,6 +1138,10 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
+}
+export interface SbbTimetableRowButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTimetableRowButtonElement;
 }
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2430,6 +2442,10 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string;
         /**
+          * The disabled prop for the button.
+         */
+        "disabled"?: boolean;
+        /**
           * Set to true to initially show the state, which would get set by pressing the button.
          */
         "expanded"?: boolean;
@@ -2445,6 +2461,10 @@ declare namespace LocalJSX {
           * The role prop for the button.
          */
         "role"?: string;
+        /**
+          * The tabIndex prop for the button.
+         */
+        "tab"?: number;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
