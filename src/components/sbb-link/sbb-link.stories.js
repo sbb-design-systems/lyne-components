@@ -11,6 +11,7 @@ import {
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from './sbb-link.events';
 
 const wrapperStyle = (context) => {
   if (!context.args.negative) {
@@ -132,9 +133,21 @@ const textSize = {
   options: ['xs', 's', 'm'],
 };
 
+const type = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+};
+
+const eventId = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   download,
-  disabled,
   negative,
   href: href,
   icon,
@@ -301,6 +314,48 @@ InlineNegative.documentation = {
   title: 'Inline Negative',
 };
 
+const defaultArgTypesButton = {
+  disabled,
+  'event-id': eventId,
+  negative,
+  icon,
+  'icon-flip': iconFlip,
+  'icon-placement': iconPlacement,
+  'id-value': idValue,
+  text,
+  type,
+  variant,
+};
+
+const defaultArgsButton = {
+  disabled: false,
+  'event-id': 'Event ID for button click',
+  negative: false,
+  icon: '',
+  'icon-flip': false,
+  'icon-placement': iconPlacement.options[0],
+  'id-value': '',
+  text: 'Travelcards & tickets',
+  type: type.options[0],
+  variant: variant.options[1],
+};
+
+const InlineTemplateButton = (args, context) => (
+  <p style={paragraphStyle(context)}>
+    Lorem ipsum dolor sit amet. <sbb-link {...args}>{args.text}</sbb-link>
+  </p>
+);
+
+export const InlineButton = InlineTemplateButton.bind({});
+
+InlineButton.argTypes = defaultArgTypesButton;
+
+InlineButton.args = defaultArgsButton;
+
+InlineNegative.documentation = {
+  title: 'Inline Button',
+};
+
 export default {
   decorators: [
     (Story, context) => (
@@ -310,6 +365,9 @@ export default {
     ),
   ],
   parameters: {
+    actions: {
+      handles: [events.click],
+    },
     docs: {
       extractComponentDescription: () => readme,
     },

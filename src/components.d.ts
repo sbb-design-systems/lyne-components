@@ -476,6 +476,10 @@ export namespace Components {
          */
         "download"?: boolean;
         /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
           * Form attribute if link is used as button (optional)
          */
         "form"?: string;
@@ -1064,6 +1068,10 @@ export namespace Components {
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbButtonElement;
+}
+export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbLinkElement;
 }
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1862,6 +1870,10 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
           * Form attribute if link is used as button (optional)
          */
         "form"?: string;
@@ -1889,6 +1901,10 @@ declare namespace LocalJSX {
           * Negative coloring variant flag
          */
         "negative"?: boolean;
+        /**
+          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
+         */
+        "onSbb-link-button_click"?: (event: SbbLinkCustomEvent<any>) => void;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */

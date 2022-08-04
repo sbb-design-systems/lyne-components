@@ -45,6 +45,12 @@
 
 button.sbb-link {
   @include buttonReset;
+
+  cursor: pointer;
+}
+
+button.sbb-link:disabled {
+  cursor: default;
 }
 
 .sbb-link--negative {

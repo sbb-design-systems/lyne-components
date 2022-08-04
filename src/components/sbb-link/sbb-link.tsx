@@ -1,4 +1,13 @@
-import { Component, ComponentInterface, Element, h, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Prop,
+  State,
+} from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
@@ -99,6 +108,20 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
    */
   @State() private _isStatic = false;
 
+  /** Id which is sent in the click event payload */
+  @Prop() public eventId?: string;
+
+  /**
+   * Emits whenever the native button click event triggers.
+   * TODO: similar to the one in sbb-button. To be fixed together.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-link-button_click',
+  })
+  public click: EventEmitter<any>;
+
   @Element() public el!: HTMLElement;
 
   public connectedCallback(): void {
@@ -152,7 +175,14 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
       type: this.type || undefined,
       form: this.form || undefined,
       disabled: this.disabled ? 'true' : undefined,
+      onClick: this._emitButtonClick.bind(this),
     });
+  }
+
+  private _emitButtonClick(): void {
+    if (!this.disabled) {
+      this.click.emit(this.eventId);
+    }
   }
 
   private _getClassString(): string {

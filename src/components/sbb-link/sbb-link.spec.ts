@@ -45,6 +45,7 @@ describe('sbb-link', () => {
         </sbb-link>
       `);
   });
+
   it('renders a link as a button', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
@@ -80,6 +81,7 @@ describe('sbb-link', () => {
         </sbb-link>
       `);
   });
+
   it('renders a link as a span', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
