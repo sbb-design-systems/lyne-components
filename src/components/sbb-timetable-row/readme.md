@@ -37,7 +37,6 @@ graph TD;
   sbb-timetable-transportation-details --> sbb-timetable-transportation-number
   sbb-timetable-transportation-details --> sbb-timetable-transportation-walk
   sbb-timetable-transportation-details --> sbb-timetable-transportation-time
-  sbb-timetable-transportation-details --> sbb-pearl-chain
   style sbb-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

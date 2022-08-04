@@ -32,10 +32,6 @@ export class SbbTimetableTransportationDetails {
         <sbb-timetable-transportation-time
           config={JSON.stringify(config.departureTime)}
         ></sbb-timetable-transportation-time>
-        <sbb-pearl-chain
-          legs={JSON.stringify(config.pearlChain.legs)}
-          status={config.pearlChain.status}
-        ></sbb-pearl-chain>
         <sbb-timetable-transportation-time
           config={JSON.stringify(config.arrivalTime)}
         ></sbb-timetable-transportation-time>
