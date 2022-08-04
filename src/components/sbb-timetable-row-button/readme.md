@@ -13,9 +13,11 @@ here to show the various configuration options to component developers. !!
 | `accessibilityControls` | `accessibility-controls` | The aria-controls prop for the button.                                               | `string`  | `undefined` |
 | `accessibilityHaspopup` | `accessibility-haspopup` | The aria-haspopup prop for the button.                                               | `string`  | `undefined` |
 | `accessibilityLabel`    | `accessibility-label`    | The aria-label prop for the button.                                                  | `string`  | `undefined` |
+| `disabled`              | `disabled`               | The disabled prop for the button.                                                    | `boolean` | `undefined` |
 | `expanded`              | `expanded`               | Set to true to initially show the state, which would get set by pressing the button. | `boolean` | `undefined` |
 | `name`                  | `name`                   | The name prop for the button.                                                        | `string`  | `undefined` |
 | `role`                  | `role`                   | The role prop for the button.                                                        | `string`  | `undefined` |
+| `tab`                   | `tab`                    | The tabIndex prop for the button.                                                    | `number`  | `undefined` |
 
 
 ## Events
