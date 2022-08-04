@@ -87,6 +87,7 @@
 
 .pearl-chain--past {
   color: var(--color-past);
+  position: relative;
 
   @include ifForcedColors {
     color: GrayText;
@@ -185,28 +186,39 @@
   }
 }
 
-.pearl-chain__status {
-  --dot-size: var(--dot-size-large);
-  @include dot;
-
-  top: 0;
-  background-color: var(--color-current-location);
-  z-index: 3;
-
-  // --status-position: defined in .tsx file
-  $real-chain-length: calc(100% - var(--dot-size-large));
-  $real-position: calc(#{var(--status-position)} / 100 * #{$real-chain-length});
-
-  left: $real-position;
-  animation: pulse 3s infinite;
-
-  @include ifForcedColors {
-    background-color: ActiveText;
-  }
-}
-
 .pearl-chain__status--no-animation {
   animation: unset;
+}
+
+.pearl-chain__leg--position {
+  position: absolute;
+  left: 0;
+  background-color: var(--color-past);
+  width: var(--status-position);
+  height: 2px;
+  z-index: 300;
+
+  &::after {
+    content: '';
+    position: absolute;
+
+    --dot-size: var(--dot-size-large);
+    @include dot;
+
+    top: calc(-1 * ((var(--dot-size-large) / 2) - 1px));
+    background-color: var(--color-current-location);
+    z-index: 3;
+
+    // --status-position: defined in .tsx file
+    $real-position: var(--status-position);
+
+    right: 0;
+    animation: pulse 3s infinite;
+
+    @include ifForcedColors {
+      background-color: ActiveText;
+    }
+  }
 }
 
 @keyframes pulse {

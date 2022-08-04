@@ -1,6 +1,5 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
-import { InterfacePearlChainAttributes } from './sbb-pearl-chain.custom';
-import legsData from './sbb-pearl-chain.helper';
+import { Component, h, Prop } from '@stencil/core';
+import { InterfacePearlChainAttributes, Leg } from './sbb-pearl-chain.custom';
 
 @Component({
   shadow: true,
@@ -8,25 +7,18 @@ import legsData from './sbb-pearl-chain.helper';
   tag: 'sbb-pearl-chain',
 })
 export class SbbPearlChain {
-  /**
-   * Define, if the pearl-chain represents a connection in the past,
-   * in the future or if it is a currently running connection.
-   * If it is currently running, provide a number between 0 and 100,
-   * which will represent the current location on the pearl-chain.
-   */
-  @Prop() public status?: InterfacePearlChainAttributes['status'];
+  private _currentTime = new Date();
 
   /**
-   * Stringified JSON to define the legs of the pearl-chain.
+   * define the legs of the pearl-chain.
    * Format:
-   * `{"legs": [{"cancellation": true, "duration": 25}, ...]}`
-   * `duration`: number between 0 and 100. Duration of the leg is relative
+   * `{"legs": [{"duration": 25}, ...]}`
+   * `duration` in minutes. Duration of the leg is relative
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
-   * `cancellation`: if set, the leg will be marked as canceled.
    */
 
-  @Prop() public legs!: string;
+  @Prop() public legs!: InterfacePearlChainAttributes['legs'];
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -34,66 +26,94 @@ export class SbbPearlChain {
    */
   @Prop() public disableAnimation?: boolean;
 
+  private _getLegStatus(leg: Leg): string {
+    return leg.arrival?.time.getTime() < this._currentTime.getTime() ? 'past' : '';
+  }
+
+  private _getAllDuration(legs: InterfacePearlChainAttributes['legs']): number {
+    let sum = 0;
+
+    legs.forEach((leg) => {
+      sum += leg.duration;
+    });
+    return sum;
+  }
+
+  private _getRelativeDuration(legs: InterfacePearlChainAttributes['legs'], leg: Leg): number {
+    const allDurations = this._getAllDuration(legs);
+
+    return Math.round((leg.duration / allDurations) * 100);
+  }
+
+  private _getCurrentPositionTotal(legs: InterfacePearlChainAttributes['legs']): number {
+    const progress = Math.abs(this._currentTime.getTime() - legs[0].departure?.time.getTime());
+    const total = Math.abs(
+      legs[legs.length - 1].arrival?.time.getTime() - legs[0].departure?.time.getTime()
+    );
+
+    return Math.round((progress / total) * 100);
+  }
+
+  private _renderPosition(): JSX.Element {
+    const currentPosition = this._getCurrentPositionTotal(this.legs);
+
+    const statusStyle = {
+      '--status-position': `${currentPosition}%`,
+    };
+
+    if (currentPosition > 0 && currentPosition <= 100) {
+      return <div style={statusStyle} class="pearl-chain__leg--position pearl-chain__status"></div>;
+    }
+  }
+
   public render(): JSX.Element {
-    const legs = legsData(this.legs);
-
-    const statusClass = this.status === 'past' ? ' pearl-chain--past' : '';
-
     let departureCancelClass = '';
     let arrivalCancelClass = '';
 
-    if (legs.length > 0) {
-      departureCancelClass = legs[0].cancellation ? ' pearl-chain--departure-cancellation' : '';
-
-      if (legs.length > 1) {
-        arrivalCancelClass = legs[legs.length - 1].cancellation
-          ? ' pearl-chain--arrival-cancellation'
+    if (this.legs.length > 0) {
+      departureCancelClass =
+        this.legs[0].serviceJourney?.serviceAlteration?.cancelled === true
+          ? ' pearl-chain--departure-cancellation'
           : '';
+
+      if (this.legs.length > 1) {
+        arrivalCancelClass =
+          this.legs[this.legs.length - 1].serviceJourney?.serviceAlteration?.cancelled === true
+            ? ' pearl-chain--arrival-cancellation'
+            : '';
       }
 
-      if (legs.length === 1) {
-        arrivalCancelClass = legs[0].cancellation ? ' pearl-chain--arrival-cancellation' : '';
-      }
-    }
-
-    const classes = `pearl-chain${statusClass}${departureCancelClass}${arrivalCancelClass}`;
-    const statusIsRunning = this.status && this.status !== 'past' && this.status !== 'future';
-
-    if (statusIsRunning) {
-      if (this.status > 100) {
-        this.status = 100;
-      } else if (this.status < 0) {
-        this.status = 0;
+      if (this.legs.length === 1) {
+        arrivalCancelClass =
+          this.legs[0].serviceJourney?.serviceAlteration?.cancelled === true
+            ? ' pearl-chain--arrival-cancellation'
+            : '';
       }
     }
-
-    const statusStyle = statusIsRunning
-      ? {
-          '--status-position': `${this.status}`,
-        }
-      : {};
-
-    const animationClass = this.disableAnimation ? ' pearl-chain__status--no-animation' : '';
 
     return (
-      <div class={classes}>
-        {/* render legs */}
-        {legs.map((leg) => {
+      <div class={`pearl-chain ${arrivalCancelClass} ${departureCancelClass}`}>
+        {this.legs.map((leg: Leg) => {
+          const duration = this._getRelativeDuration(this.legs, leg);
           const legStyle = {
-            'flex-basis': `${leg.duration}%`,
+            'flex-basis': `${duration}%`,
           };
 
-          const legCancelClass = leg.cancellation ? ' pearl-chain__leg--cancellation' : '';
+          const cancelled =
+            leg.serviceJourney?.serviceAlteration?.cancelled === true
+              ? 'pearl-chain__leg--cancellation'
+              : '';
 
-          return <div class={`pearl-chain__leg${legCancelClass}`} style={legStyle}></div>;
+          return (
+            <div
+              class={`pearl-chain__leg pearl-chain--${this._getLegStatus(leg)} ${cancelled}`}
+              style={legStyle}
+            >
+              {this._getLegStatus(leg)}
+            </div>
+          );
         })}
-
-        {/* render current location point */}
-        {statusIsRunning ? (
-          <span style={statusStyle} class={`pearl-chain__status${animationClass}`}></span>
-        ) : (
-          ''
-        )}
+        {this._renderPosition()}
       </div>
     );
   }
