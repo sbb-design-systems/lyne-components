@@ -70,7 +70,7 @@ describe('sbb-form-field', () => {
               <div class="form-field__input">
                 <slot></slot>
               </div>
-            </div>  
+            </div>
             <div class="form-field__suffix form-field__suffix--empty">
               <slot name="suffix"></slot>
             </div>
@@ -80,7 +80,7 @@ describe('sbb-form-field', () => {
           </div>
         </mock:shadow-root>
         <input class="input" disabled="" placeholder="This is an input" slot="input">
-      </sbb-form-field>    
+      </sbb-form-field>
     `);
   });
 
@@ -122,22 +122,12 @@ describe('sbb-form-field', () => {
           <div class="form-field__error form-field__error--empty">
             <slot name="error"></slot>
           </div>
-        </mock:shadow-root>  
+        </mock:shadow-root>
         <input aria-describedby="error" class="input" placeholder="This is an input" readonly="" slot="input">
         <sbb-form-error id="error" slot="error">
-          <mock:shadow-root>
-            <span class="form-error__icon">
-              <slot name="icon">
-                <sbb-icon role="img" class="sbb-icon circle-information-small hydrated" name="circle-information-small" aria-hidden="true"></sbb-icon>
-              </slot>
-            </span>
-            <span class="input-label-error">
-              <slot></slot>
-            </span>
-            You can't change this value.
-          </mock:shadow-root>  
+          You can't change this value.
         </sbb-form-error>
-      </sbb-form-field>  
+      </sbb-form-field>
     `);
   });
 });

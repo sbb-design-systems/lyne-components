@@ -117,6 +117,7 @@
 }
 
 // Input
+/* stylelint-disable plugin/stylelint-bem-namics */
 .form-field__input ::slotted(:is(input, select, .sbb-field-input)) {
   @include text-m--regular;
   @include placeholder;
@@ -131,6 +132,7 @@
   color: var(--form-field-text-color);
   background-color: var(--form-field-background-color);
 }
+/* stylelint-enable plugin/stylelint-bem-namics */
 
 .form-field__error {
   &:not(.form-field__suffix--empty) {
