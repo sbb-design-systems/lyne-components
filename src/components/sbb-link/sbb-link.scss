@@ -50,6 +50,7 @@ button.sbb-link {
 }
 
 button.sbb-link:disabled {
+  pointer-events: none;
   cursor: default;
 }
 
@@ -85,7 +86,7 @@ button.sbb-link:disabled {
 }
 
 @include hover-mq($hover: true) {
-  .sbb-link:hover {
+  .sbb-link:hover:not(:disabled) {
     color: var(--text-color-hover-focus);
   }
 }
