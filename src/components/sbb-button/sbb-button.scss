@@ -7,12 +7,13 @@
   @include buttonVariables;
 }
 
-:host ::slotted(svg) {
+.button__icon {
   fill: currentcolor;
 
   @include ifForcedColors {
     fill: ButtonText;
   }
+  @include buttonIcon;
 }
 
 .button--primary-negative {
@@ -177,10 +178,6 @@
 
 .button__label {
   @include buttonLabel;
-}
-
-.button__icon {
-  @include buttonIcon;
 }
 
 .button__icon-description {
