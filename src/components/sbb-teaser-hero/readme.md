@@ -29,7 +29,6 @@ graph TD;
   sbb-teaser-hero --> sbb-image
   sbb-teaser-hero --> sbb-panel
   sbb-panel --> sbb-button
-  sbb-button --> sbb-icon
   style sbb-teaser-hero fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

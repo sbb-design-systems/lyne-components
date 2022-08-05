@@ -45,7 +45,7 @@ const focusStyle = (context) => {
 const Template = (args) => (
   <div>
     <sbb-button {...args}>
-      {getMarkupForSvg(args.iconSlot)}
+      {args.icon && <span slot="icon">{getMarkupForSvg(args.iconSlot)}</span>}
       {args.label}
     </sbb-button>
   </div>
@@ -59,7 +59,7 @@ const FixedWidthTemplate = (args) => (
           width: '200px',
         }}
       >
-        {getMarkupForSvg(args.iconSlot)}
+        {args.icon && <span slot="icon">{getMarkupForSvg(args.iconSlot)}</span>}
       </sbb-button>
     </p>
     <p>
@@ -70,7 +70,7 @@ const FixedWidthTemplate = (args) => (
           width: '600px',
         }}
       >
-        {getMarkupForSvg(args.iconSlot)}
+        {args.icon && <span slot="icon">{getMarkupForSvg(args.iconSlot)}</span>}
       </sbb-button>
     </p>
   </div>

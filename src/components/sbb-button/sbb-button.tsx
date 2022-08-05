@@ -29,7 +29,7 @@ export class SbbButton {
   @Prop() public eventId?: string;
 
   /** Define if icon should be shown or not */
-  @Prop() public showIcon? = false;
+  @Prop() public icon? = true;
 
   /**
    * The icon name we want to use,
@@ -38,7 +38,7 @@ export class SbbButton {
    * https://lyne.sbb.ch/tokens/icons/ (optional).
    * Inline variant doesn't support icons.
    */
-  @Prop() public icon?: string;
+  @Prop() public iconName?: string;
 
   /** If you use an icon without a label, you must provide an iconDescription */
   @Prop() public iconDescription?: string;
@@ -121,27 +121,39 @@ export class SbbButton {
 
     return (
       <TAGNAME {...finalAttributes}>
-        {this.icon && hasNoLabel && this.iconDescription ? (
+        {this.icon && hasNoLabel && this.iconDescription && (
           <span class="button__icon-description">{this.iconDescription}</span>
-        ) : (
-          ''
         )}
 
-        {this.showIcon ? (
+        {this.icon && (
           <span class="button__icon">
-            <slot name="icon">
-              <sbb-icon name={this.icon}/>
-            </slot>
+            <slot name="icon" />
           </span>
-        ) : (
-          ''
         )}
 
-        {hasNoLabel ? '' :
+        {!hasNoLabel && (
           <span class="button__label">
             <slot />
-          </span>}
+          </span>
+        )}
       </TAGNAME>
+    // <TAGNAME {...finalAttributes}>
+    //   {this.icon && hasNoLabel && this.iconDescription ? (
+    //     <span class="button__icon-description">{this.iconDescription}</span>
+    //   ) : (
+    //     ''
+    //   )}
+    //
+    //   {this.icon === true ? (
+    //     <span class="button__icon">
+    //         <slot />
+    //       </span>
+    //   ) : (
+    //     ''
+    //   )}
+    //
+    //   {hasNoLabel ? '' : <span class="button__label">{this.label}</span>}
+    // </TAGNAME>
     );
   }
 }

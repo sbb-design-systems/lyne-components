@@ -160,13 +160,17 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
+          * Define if icon should be shown or not
          */
-        "icon"?: string;
+        "icon"?: boolean;
         /**
           * If you use an icon without a label, you must provide an iconDescription
          */
         "iconDescription"?: string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
+         */
+        "iconName"?: string;
         /**
           * Label text to show on the button
          */
@@ -179,10 +183,6 @@ export namespace Components {
           * Negative coloring variant flag
          */
         "negative": boolean;
-        /**
-          * Define if icon should be shown or not
-         */
-        "showIcon"?: boolean;
         /**
           * Size variant, either l or m.
          */
@@ -1486,13 +1486,17 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
+          * Define if icon should be shown or not
          */
-        "icon"?: string;
+        "icon"?: boolean;
         /**
           * If you use an icon without a label, you must provide an iconDescription
          */
         "iconDescription"?: string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
+         */
+        "iconName"?: string;
         /**
           * Label text to show on the button
          */
@@ -1509,10 +1513,6 @@ declare namespace LocalJSX {
           * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button.
          */
         "onSbb-button_click"?: (event: SbbButtonCustomEvent<any>) => void;
-        /**
-          * Define if icon should be shown or not
-         */
-        "showIcon"?: boolean;
         /**
           * Size variant, either l or m.
          */
