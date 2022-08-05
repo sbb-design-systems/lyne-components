@@ -137,23 +137,6 @@ export class SbbButton {
           </span>
         )}
       </TAGNAME>
-    // <TAGNAME {...finalAttributes}>
-    //   {this.icon && hasNoLabel && this.iconDescription ? (
-    //     <span class="button__icon-description">{this.iconDescription}</span>
-    //   ) : (
-    //     ''
-    //   )}
-    //
-    //   {this.icon === true ? (
-    //     <span class="button__icon">
-    //         <slot />
-    //       </span>
-    //   ) : (
-    //     ''
-    //   )}
-    //
-    //   {hasNoLabel ? '' : <span class="button__label">{this.label}</span>}
-    // </TAGNAME>
     );
   }
 }
