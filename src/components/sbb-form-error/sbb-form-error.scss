@@ -10,11 +10,13 @@
   align-items: flex-start;
   color: var(--sbb-color-red125-default);
   @include text-xs--regular;
+
   // fix for "display: flex" taking unnecessary space below the element
   @include zeroWidthSpace;
 
   // error height = text line-height
   min-height: var(--form-error-height);
+
   // fix for line-height taking more than reserved space
   line-height: 1;
 
