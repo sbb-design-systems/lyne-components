@@ -271,9 +271,7 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
               class={this._buttonClass()}
               onClick={this._callActionHandlerAndDismiss.bind(this, this._internalConfig.action)}
             >
-              <span class="toast-label">
-                {this._internalConfig.action.label}
-              </span>
+              <span class="toast-label">{this._internalConfig.action.label}</span>
             </sbb-link>
           </span>
         );
