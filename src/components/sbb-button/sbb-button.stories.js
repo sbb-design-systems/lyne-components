@@ -153,6 +153,15 @@ const size = {
   },
 };
 
+const visualButtonOnlyArg = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'General properties',
+  },
+};
+
 /* eslint-disable sort-keys */
 const basicArgTypes = {
   variant,
@@ -162,6 +171,7 @@ const basicArgTypes = {
   icon,
   iconSlot,
   'icon-description': iconDescription,
+  'visual-button-only': visualButtonOnlyArg,
 };
 
 const basicArgs = {
@@ -173,6 +183,7 @@ const basicArgs = {
   iconSlot: iconSlot.options[0],
   name: 'sample-name',
   value: 'sample-value',
+  'visual-button-only': false,
 };
 /* eslint-enable sort-keys */
 
@@ -189,6 +200,7 @@ export const iconOnly = Template.bind({});
 export const sizeM = Template.bind({});
 export const disabled = Template.bind({});
 export const fixedWidth = FixedWidthTemplate.bind({});
+export const visualButtonOnly = Template.bind({});
 
 primary.argTypes = basicArgTypes;
 secondary.argTypes = basicArgTypes;
@@ -203,6 +215,7 @@ iconOnly.argTypes = basicArgTypes;
 sizeM.argTypes = basicArgTypes;
 disabled.argTypes = basicArgTypes;
 fixedWidth.argTypes = basicArgTypes;
+visualButtonOnly.argTypes = basicArgTypes;
 
 primary.args = JSON.parse(JSON.stringify(basicArgs));
 secondary.args = JSON.parse(JSON.stringify(basicArgs));
@@ -217,6 +230,7 @@ iconOnly.args = JSON.parse(JSON.stringify(basicArgs));
 sizeM.args = JSON.parse(JSON.stringify(basicArgs));
 disabled.args = JSON.parse(JSON.stringify(basicArgs));
 fixedWidth.args = JSON.parse(JSON.stringify(basicArgs));
+visualButtonOnly.args = JSON.parse(JSON.stringify(basicArgs));
 
 const [
   primaryOptions,
@@ -249,6 +263,7 @@ iconOnly.args.label = '';
 iconOnly.args['icon-description'] = 'Icon description for screenreaders';
 
 disabled.args.disabled = true;
+visualButtonOnly.args.visualButtonOnly = true;
 
 primary.documentation = {
   title: 'Primary',
@@ -316,6 +331,10 @@ sizeM.documentation = {
 
 disabled.documentation = {
   title: 'Disabled',
+};
+
+visualButtonOnly.documentation = {
+  title: 'Visual only',
 };
 
 fixedWidth.documentation = {
