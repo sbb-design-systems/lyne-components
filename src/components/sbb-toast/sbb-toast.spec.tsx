@@ -135,11 +135,11 @@ describe('sbb-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <button class="sbb-focusable toast-button" type="button">
+                  <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline">
                     <span class="toast-label">
                       Button
                     </span>
-                  </button>
+                  </sbb-link>
                 </span>
               </div>
             </div>
@@ -329,11 +329,11 @@ describe('sbb-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <button class="sbb-focusable toast-button" type="button">
+                  <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline">
                     <span class="toast-label">
                       Button
                     </span>
-                  </button>
+                  </sbb-link>
                 </span>
               </div>
             </div>
@@ -373,11 +373,11 @@ describe('sbb-toast', () => {
                 </span>
                 <span class="toast-spacer"></span>
                 <span class="toast-action">
-                  <button class="sbb-focusable toast-button my-css-class" type="button">
+                  <sbb-link class="my-css-class sbb-focusable toast-button" negative="" type="button" variant="inline">
                     <span class="toast-label">
                       Button
                     </span>
-                  </button>
+                  </sbb-link>
                 </span>
               </div>
             </div>

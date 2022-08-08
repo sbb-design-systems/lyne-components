@@ -263,14 +263,18 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
       case 'action': {
         return (
           <span class="toast-action">
-            <button
+            <sbb-link
               type="button"
+              variant="inline"
+              negative={true}
               role={this._internalConfig.action.role}
               class={this._buttonClass()}
               onClick={this._callActionHandlerAndDismiss.bind(this, this._internalConfig.action)}
             >
-              <span class="toast-label">{this._internalConfig.action.label}</span>
-            </button>
+              <span class="toast-label">
+                {this._internalConfig.action.label}
+              </span>
+            </sbb-link>
           </span>
         );
       }
