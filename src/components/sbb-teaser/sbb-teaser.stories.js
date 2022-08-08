@@ -1,4 +1,3 @@
-import { SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.mjs';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -7,6 +6,24 @@ import readme from './readme.md';
 /* ************************************************* */
 
 /* --- General ------------------------------------- */
+
+const title = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'General',
+  },
+};
+
+const description = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'General',
+  },
+};
 
 const accessibilityLabel = {
   control: {
@@ -40,110 +57,64 @@ const href = {
 
 /* eslint-disable sort-keys */
 const defaultArgTypes = {
+  title,
+  description,
   'accessibility-label': accessibilityLabel,
   isStacked,
-  href: href,
-};
-
-const sbbTeaserTitleArgs = {
-  title: 'This is a title',
-  longTitle:
-    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+  href,
 };
 
 const defaultArgs = {
+  title: 'This is a title',
+  description: 'This is a paragraph',
   'accessibility-label':
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
   isStacked: true,
   href: 'https://github.com/lyne-design-system/lyne-components',
-  description: 'This is a paragraph',
-  ...sbbTeaserTitleArgs,
 };
 
 /* ************************************************* */
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
-const sbbTeaserImageArgs = {
-  src: 'https://via.placeholder.com/400x300',
-  alt: '400x300 image',
-};
-
-const SlotSbbTeaserImageTemplate = (args) => <img slot="image" src={args.src} alt={args.alt} />;
-
-const SlotSbbTeaserTitleTemplate = (args) => <span slot="title">{args.title}</span>;
-
-const SlotSbbTeaserLongTitleTemplate = (args) => <span slot="title">{args.longTitle}</span>;
-
-const sbbTeaserDescriptionArgs = {
-  description: 'This is a paragraph',
-  longDescription:
-    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-};
-
-const SlotSbbTeaserDescriptionTemplate = (args) => <p slot="description">{args.description}</p>;
-
-const SlotSbbTeaserLongDescriptionTemplate = (args) => (
-  <p slot="description">{args.longDescription}</p>
-);
-
 /* ************************************************* */
 /* Storybook templates                               */
 /* ************************************************* */
 
-const TemplateDefaultTeaser = (args) => (
-  <sbb-teaser {...args}>
-    <SlotSbbTeaserImageTemplate {...sbbTeaserImageArgs} style="width:110px;" />
-    <SlotSbbTeaserTitleTemplate {...sbbTeaserTitleArgs} />
-    <SlotSbbTeaserDescriptionTemplate {...sbbTeaserDescriptionArgs} />
-  </sbb-teaser>
-);
+const TemplateDefaultTeaser = (args) => {
+  const { title, description, ...remainingArgs } = args;
 
-const TemplateLongText = (args) => (
-  <sbb-teaser {...args} style="width: 110px">
-    <SlotSbbTeaserImageTemplate {...sbbTeaserImageArgs} style="max-width:110px;" />
-    <SlotSbbTeaserLongTitleTemplate {...sbbTeaserTitleArgs} />
-    <SlotSbbTeaserLongDescriptionTemplate {...sbbTeaserDescriptionArgs} />
-  </sbb-teaser>
-);
+  const sbbTeaserImageArgs = {
+    src: 'https://via.placeholder.com/400x300',
+    alt: '400x300 image',
+  };
+
+  return (
+    <sbb-teaser {...remainingArgs}>
+      <img slot="image" src={sbbTeaserImageArgs.src} alt={sbbTeaserImageArgs.alt} />
+      <span slot="title">{title}</span>
+      <p slot="description">{description}</p>
+    </sbb-teaser>
+  );
+};
 
 const TemplateTeaserList = (args) => (
   <ul style="display:grid; list-style: none; grid-template-columns: repeat(auto-fit, 20rem); gap: 2rem;">
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
+    {[...Array(6)].map(() => (
+      <li>
+        <TemplateDefaultTeaser {...args} style="" />
+      </li>
+    ))}
   </ul>
 );
 
 const TemplateTeaserListIsStacked = (args) => (
   <ul style="display:grid; list-style: none; grid-template-columns: repeat(auto-fit, 20rem); gap: 2rem;">
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
-    <li>
-      <TemplateDefaultTeaser {...args} style="" />
-    </li>
+    {[...Array(4)].map(() => (
+      <li>
+        <TemplateDefaultTeaser {...args} style="" />
+      </li>
+    ))}
   </ul>
 );
 
@@ -153,7 +124,7 @@ const TemplateTeaserListIsStacked = (args) => (
 
 /* --- Teaser, Journey --------- */
 export const defaultTeaser = TemplateDefaultTeaser.bind({});
-export const TeaserWithLongText = TemplateLongText.bind({});
+export const TeaserWithLongText = TemplateDefaultTeaser.bind({});
 export const teaserList = TemplateTeaserList.bind({});
 export const teaserListIsStacked = TemplateTeaserListIsStacked.bind({});
 
@@ -165,6 +136,8 @@ defaultTeaser.args = {
 TeaserWithLongText.argTypes = defaultArgTypes;
 TeaserWithLongText.args = {
   ...defaultArgs,
+  title:
+    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
   description:
     'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
 };
@@ -178,15 +151,6 @@ teaserList.args = {
 teaserListIsStacked.argTypes = defaultArgTypes;
 teaserListIsStacked.args = {
   ...defaultArgs,
-};
-
-defaultTeaser.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorWhiteDefault,
-    },
-  },
-  title: 'Teaser, Journey',
 };
 
 /* ************************************************* */
