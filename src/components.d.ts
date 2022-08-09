@@ -15,11 +15,10 @@ import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.cu
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
-import { ButtonType } from "./global/interfaces/link-button-properties";
+import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
-import { LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";

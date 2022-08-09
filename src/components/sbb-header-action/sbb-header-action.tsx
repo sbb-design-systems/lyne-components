@@ -1,7 +1,8 @@
 import { Component, Event, EventEmitter, JSX, h, Host, Prop } from '@stencil/core';
 import {
   ButtonType,
-  getLinkButtonAttributeList,
+  getButtonAttributeList,
+  getLinkAttributeList,
   LinkButtonProperties,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
@@ -102,22 +103,21 @@ export class SbbHeaderAction implements LinkButtonProperties {
   public render(): JSX.Element {
     let TAG_NAME: string;
     let attributeList: object;
+    let classString: string;
 
     if (this.href) {
       TAG_NAME = 'a';
-      attributeList = getLinkButtonAttributeList(this.actionHeaderId, 'header-action__link', this);
+      attributeList = getLinkAttributeList(this, this);
+      classString = 'header-action__link';
     } else {
       TAG_NAME = 'button';
-      attributeList = getLinkButtonAttributeList(
-        this.actionHeaderId,
-        'header-action__button',
-        this
-      );
+      attributeList = getButtonAttributeList(this);
+      classString = 'header-action__button';
     }
 
     return (
       <Host expand-from={this.expandFrom}>
-        <TAG_NAME {...attributeList}>
+        <TAG_NAME id={this.actionHeaderId} class={classString} {...attributeList}>
           <span class="header-action__icon">
             <slot name="icon">
               <sbb-icon name={this.icon} />
