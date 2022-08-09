@@ -1,13 +1,62 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from './sbb-header-action.events';
 
-const Template = (args) => <sbb-header-action {...args}></sbb-header-action>;
+const Template = (args) => (
+  <sbb-header-action {...args}>
+    <span>{args.text}</span>
+  </sbb-header-action>
+);
 
-const iconArg = {
+const download = {
   control: {
-    type: 'select',
+    type: 'boolean',
   },
-  options: ['arrow-right-small', 'arrow-down-small', 'arrow-compass-small', 'pie-small'],
+  table: {
+    category: 'Link',
+  },
+};
+
+const disabled = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const href = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const icon = {
+  control: {
+    type: 'text',
+  },
+};
+
+const actionHeaderId = {
+  control: {
+    type: 'text',
+  },
+};
+
+const text = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
 };
 
 const expandFromArg = {
@@ -17,22 +66,26 @@ const expandFromArg = {
   options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
-const isAnchorOrButtonArg = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const basicArgTypes = {
-  icon: iconArg,
-  'expand-from': expandFromArg,
-  'is-anchor-or-button': isAnchorOrButtonArg,
+  download,
+  disabled,
+  href: href,
+  icon,
+  'action-header-id': actionHeaderId,
+  'accessibility-label': accessibilityLabel,
+  text,
+  'expand-from-arg': expandFromArg,
 };
 
 const basicArgs = {
-  icon: 'pie-small',
-  'expand-from': 'medium',
-  'is-anchor-or-button': false,
+  download: false,
+  disabled: false,
+  href: 'https://github.com/lyne-design-system/lyne-components',
+  icon: 'hamburger-menu-small',
+  'action-header-id': 'menu',
+  'accessibility-label': 'Accessibility label',
+  text: 'Menu',
+  'expand-from-arg': expandFromArg.options[0],
 };
 
 export const sbbHeaderAction = Template.bind({});
@@ -42,7 +95,7 @@ sbbHeaderAction.args = JSON.parse(JSON.stringify(basicArgs));
 sbbHeaderAction.argTypes = basicArgTypes;
 
 sbbHeaderAction.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+  title: 'Header action (link version)',
 };
 
 export default {
@@ -53,10 +106,10 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
+    actions: {
+      handles: [events.click],
+    },
     backgrounds: {
       disable: true,
     },

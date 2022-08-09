@@ -14,6 +14,7 @@ import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divi
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
+import { ButtonType } from "./global/interfaces/link-button-properties";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
@@ -331,9 +332,49 @@ export namespace Components {
         "shadow": boolean;
     }
     interface SbbHeaderAction {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        "actionHeaderId": string;
+        /**
+          * Whether the button is disabled.
+         */
+        "disabled": boolean | undefined;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download": boolean | undefined;
+        /**
+          * Id sent in the click event payload. TODO verify if needed and if string is the correct type
+         */
+        "eventId": string;
         "expandFrom": InterfaceSbbHeaderActionAttributes['expandFrom'];
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form": string | undefined;
+        /**
+          * The href value you want to link to.
+         */
+        "href": string | undefined;
         "icon"?: string;
-        "isAnchorOrButton": boolean;
+        /**
+          * The name of the button.
+         */
+        "name": string | undefined;
+        /**
+          * Default behaviour of the button.
+         */
+        "type": ButtonType | undefined;
     }
     interface SbbIcon {
         /**
@@ -1112,6 +1153,10 @@ export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbButtonElement;
 }
+export interface SbbHeaderActionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbHeaderActionElement;
+}
 export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbLinkElement;
@@ -1805,9 +1850,53 @@ declare namespace LocalJSX {
         "shadow"?: boolean;
     }
     interface SbbHeaderAction {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        "actionHeaderId"?: string;
+        /**
+          * Whether the button is disabled.
+         */
+        "disabled"?: boolean | undefined;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean | undefined;
+        /**
+          * Id sent in the click event payload. TODO verify if needed and if string is the correct type
+         */
+        "eventId"?: string;
         "expandFrom"?: InterfaceSbbHeaderActionAttributes['expandFrom'];
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string | undefined;
+        /**
+          * The href value you want to link to.
+         */
+        "href"?: string | undefined;
         "icon"?: string;
-        "isAnchorOrButton"?: boolean;
+        /**
+          * The name of the button.
+         */
+        "name"?: string | undefined;
+        /**
+          * Emits the eventId to parent on button click. TODO check if it's possible to use a better type than 'any'.
+         */
+        "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<any>) => void;
+        /**
+          * Default behaviour of the button.
+         */
+        "type"?: ButtonType | undefined;
     }
     interface SbbIcon {
         /**
