@@ -14,6 +14,7 @@ import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divi
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
+import { ButtonType } from "./global/interfaces/link-button-properties";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
@@ -330,9 +331,49 @@ export namespace Components {
         "shadow": boolean;
     }
     interface SbbHeaderAction {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        "actionHeaderId": string;
+        /**
+          * Button: whether the button is disabled.
+         */
+        "disabled": boolean | undefined;
+        /**
+          * Link: whether the browser will show the download dialog on click.
+         */
+        "download": boolean | undefined;
+        /**
+          * Button: id sent in the click event payload.
+         */
+        "eventId": string;
         "expandFrom": InterfaceSbbHeaderActionAttributes['expandFrom'];
+        /**
+          * Button: form attribute.
+         */
+        "form": string | undefined;
+        /**
+          * Link: the href value you want to link to.
+         */
+        "href": string | undefined;
         "icon"?: string;
-        "isAnchorOrButton": boolean;
+        /**
+          * Button: name attribute.
+         */
+        "name": string | undefined;
+        /**
+          * Button: type attribute.
+         */
+        "type": ButtonType | undefined;
     }
     interface SbbIcon {
         /**
@@ -479,19 +520,23 @@ export namespace Components {
         /**
           * Disabled attribute if link is used as button (optional)
          */
-        "disabled"?: boolean;
+        "disabled": boolean;
         /**
           * If set to true, the browser will show the download dialog on click (optional).
          */
-        "download"?: boolean;
+        "download": boolean;
+        /**
+          * Id which is sent in the click event payload
+         */
+        "eventId": string;
         /**
           * Form attribute if link is used as button (optional)
          */
-        "form"?: string;
+        "form": string;
         /**
           * The href value you want to link to (if its not present link becomes a button)
          */
-        "href"?: string;
+        "href": string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
@@ -507,7 +552,7 @@ export namespace Components {
         /**
           * Name attribute if link is used as button (optional)
          */
-        "name"?: string;
+        "name": string;
         /**
           * Negative coloring variant flag
          */
@@ -1073,6 +1118,14 @@ export namespace Components {
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbButtonElement;
+}
+export interface SbbHeaderActionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbHeaderActionElement;
+}
+export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbLinkElement;
 }
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1738,9 +1791,53 @@ declare namespace LocalJSX {
         "shadow"?: boolean;
     }
     interface SbbHeaderAction {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        "actionHeaderId"?: string;
+        /**
+          * Button: whether the button is disabled.
+         */
+        "disabled"?: boolean | undefined;
+        /**
+          * Link: whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean | undefined;
+        /**
+          * Button: id sent in the click event payload.
+         */
+        "eventId"?: string;
         "expandFrom"?: InterfaceSbbHeaderActionAttributes['expandFrom'];
+        /**
+          * Button: form attribute.
+         */
+        "form"?: string | undefined;
+        /**
+          * Link: the href value you want to link to.
+         */
+        "href"?: string | undefined;
         "icon"?: string;
-        "isAnchorOrButton"?: boolean;
+        /**
+          * Button: name attribute.
+         */
+        "name"?: string | undefined;
+        /**
+          * Button: click function.
+         */
+        "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<any>) => void;
+        /**
+          * Button: type attribute.
+         */
+        "type"?: ButtonType | undefined;
     }
     interface SbbIcon {
         /**
@@ -1893,6 +1990,10 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
           * Form attribute if link is used as button (optional)
          */
         "form"?: string;
@@ -1920,6 +2021,10 @@ declare namespace LocalJSX {
           * Negative coloring variant flag
          */
         "negative"?: boolean;
+        /**
+          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
+         */
+        "onSbb-link-button_click"?: (event: SbbLinkCustomEvent<any>) => void;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */

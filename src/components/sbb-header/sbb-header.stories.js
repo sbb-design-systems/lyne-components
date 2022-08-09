@@ -1,16 +1,25 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-header {...args}></sbb-header>;
+const Template = (args) => (
+  <sbb-header {...args}>
+    <div>
+      <sbb-header-action
+        icon="hamburger-menu-small"
+        href="https://lyne-icons.netlify.app/icons/hamburger-menu-small.svg"
+      >
+        Test
+      </sbb-header-action>
+    </div>
+  </sbb-header>
+);
 
-export const story1 = Template.bind({});
+export const header = Template.bind({});
 
-story1.args = {
-  'some-prop': 'opt1',
-};
+header.args = {};
 
-story1.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+header.documentation = {
+  title: 'Header',
 };
 
 export default {
@@ -21,9 +30,6 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
     backgrounds: {
       disable: true,
@@ -32,5 +38,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-header',
+  title: 'components/header/sbb-header',
 };
