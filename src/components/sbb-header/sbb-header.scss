@@ -3,9 +3,49 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  display: block;
+
+  --header-padding: var(--sbb-spacing-fixed-5x);
+  --header-height: #{px-to-rem-build(56)}; // fixme
+  --logo-width: #{px-to-rem-build(151.33)}; // fixme
+  --logo-height: #{px-to-rem-build(16)}; // fixme
+
+  @include mq($from: small) {
+    --header-padding: #{px-to-rem-build(96)}; // fixme
+  }
+  @include mq($from: medium) {
+    --header-height: #{px-to-rem-build(96)}; // fixme
+    --logo-width: #{px-to-rem-build(189.17)}; // fixme
+    --logo-height: #{px-to-rem-build(20)}; // fixme
+  }
+  @include mq($from: large) {
+    --header-padding: var(--sbb-spacing-fixed-14x);
+  }
 }
 
-.some-class {
-  color: var(--some-color-var);
+.sbb-header {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  padding: 0 var(--header-padding);
+  background: var(--sbb-color-white-default);
+}
+
+.sbb-header__wrapper {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  height: #{px-to-rem-build(56)}; // fixme
+  width: 100%;
+}
+
+.sbb-header__right {
+  width: var(--logo-width);
+  height: var(--logo-height);
+  margin-left: var(--sbb-spacing-responsive-s);
 }
