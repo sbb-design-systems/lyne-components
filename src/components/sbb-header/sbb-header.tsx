@@ -14,11 +14,19 @@ export class SbbHeader {
 
   public render(): JSX.Element {
     return (
-      <Host class={this.shadow ? 'sbb-header-shadow--display' : 'sbb-header-shadow--hide'}>
-        <slot />
-        <slot name="logo">
-          <sbb-logo></sbb-logo>
-        </slot>
+      <Host class={this.shadow ? 'sbb-header--shadow--display' : 'sbb-header--shadow--hide'}>
+        <div class="sbb-header">
+          <div class="sbb-header__wrapper">
+            <div class="sbb-header__left">
+              <slot />
+            </div>
+            <div class="sbb-header__right">
+              <slot name="logo">
+                <sbb-logo protectiveRoom="none" />
+              </slot>
+            </div>
+          </div>
+        </div>
       </Host>
     );
   }
