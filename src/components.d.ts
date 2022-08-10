@@ -552,9 +552,21 @@ export namespace Components {
     }
     interface SbbLinkList {
         /**
-          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
+          * Selected breakpoint from that the list will be appears horizontal.
          */
-        "listDirection": InterfaceLinkListAttributes['direction'];
+        "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
+        /**
+          * Negative coloring variant flag
+         */
+        "negative": boolean;
+        /**
+          * The direction in which the list will be shown vertical or horizontal.
+         */
+        "orientation": InterfaceLinkListAttributes['direction'];
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId": string;
         /**
           * The semantic level of the title, e.g. 3 = h3
          */
@@ -563,10 +575,6 @@ export namespace Components {
           * The title text we want to show before the list
          */
         "titleText"?: string;
-        /**
-          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
-         */
-        "variant": InterfaceLinkListAttributes['variant'];
     }
     interface SbbLogo {
         /**
@@ -1938,9 +1946,21 @@ declare namespace LocalJSX {
     }
     interface SbbLinkList {
         /**
-          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
+          * Selected breakpoint from that the list will be appears horizontal.
          */
-        "listDirection"?: InterfaceLinkListAttributes['direction'];
+        "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
+        /**
+          * Negative coloring variant flag
+         */
+        "negative"?: boolean;
+        /**
+          * The direction in which the list will be shown vertical or horizontal.
+         */
+        "orientation"?: InterfaceLinkListAttributes['direction'];
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId"?: string;
         /**
           * The semantic level of the title, e.g. 3 = h3
          */
@@ -1949,10 +1969,6 @@ declare namespace LocalJSX {
           * The title text we want to show before the list
          */
         "titleText"?: string;
-        /**
-          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
-         */
-        "variant"?: InterfaceLinkListAttributes['variant'];
     }
     interface SbbLogo {
         /**

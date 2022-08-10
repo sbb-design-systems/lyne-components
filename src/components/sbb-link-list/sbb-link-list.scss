@@ -24,15 +24,58 @@ sbb-title {
   @include link-list--horizontal;
 }
 
-.link-list--horizontal-from-large {
-  @include mq($from: large) {
-    @include link-list--horizontal;
+.link-list--horizontal-from {
+  &-zero {
+    @include mq($from: zero) {
+      @include link-list--horizontal;
+    }
+  }
+
+  &-micro {
+    @include mq($from: micro) {
+      @include link-list--horizontal;
+    }
+  }
+
+  &-small {
+    @include mq($from: small) {
+      @include link-list--horizontal;
+    }
+  }
+
+  &-medium {
+    @include mq($from: medium) {
+      @include link-list--horizontal;
+    }
+  }
+
+  &-large {
+    @include mq($from: large) {
+      @include link-list--horizontal;
+    }
+  }
+
+  &-wide {
+    @include mq($from: wide) {
+      @include link-list--horizontal;
+    }
+  }
+
+  &-ultra {
+    @include mq($from: ultra) {
+      @include link-list--horizontal;
+    }
   }
 }
 
 /* stylelint-disable-next-line plugin/stylelint-bem-namics */
 ::slotted(.link-list__item:not(:last-child)) {
   margin-block-end: var(--sbb-spacing-fixed-3x);
+}
+
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+sbb-button {
+  margin-block-start: var(--sbb-spacing-fixed-6x);
 }
 
 // Need to be after the ::slotted(.link-list__item:not(:last-child))

@@ -1,5 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
-import { guid } from '../../global/guid';
+import { Component, h, Prop, Element } from '@stencil/core';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
 
@@ -8,20 +7,39 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
  * list items with the links inside
  */
 
+let nextId = 0;
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-link-list.scss',
   tag: 'sbb-link-list',
 })
 export class SbbLinkList {
-  private _guid: string;
+  private _hideTitleAndButton = false;
+
+  /** Sbb-Link elements */
+  private _links: HTMLSbbLinkElement[];
+
+  /** Host element */
+  @Element() private _element!: HTMLElement;
+
+  /** This id will be forwarded to the relevant inner element. */
+  @Prop() public titleId = `sbb-link-list-heading-${++nextId}`;
 
   /**
-   * The direction in which the list will be shown. "-from-large" indicates that
-   * the list will be horizontal from above large breakpoint. Below it has the
-   * default behaviour which is a vertical list.
+   * Negative coloring variant flag
    */
-  @Prop() public listDirection: InterfaceLinkListAttributes['direction'] = 'vertical';
+  @Prop() public negative: boolean;
+
+  /**
+   * Selected breakpoint from that the list will be appears horizontal.
+   */
+  @Prop() public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
+
+  /**
+   * The direction in which the list will be shown vertical or horizontal.
+   */
+  @Prop() public orientation: InterfaceLinkListAttributes['direction'] = 'vertical';
 
   /**
    * The title text we want to show
@@ -35,53 +53,78 @@ export class SbbLinkList {
    */
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
 
+  private _getClassString(): string {
+    let horizontalClass = this.horizontalFrom
+      ? ` link-list--horizontal-from-${this.horizontalFrom}`
+      : '';
+
+    if (!horizontalClass) {
+      horizontalClass = this.orientation === 'horizontal' ? ' link-list--horizontal' : '';
+    }
+
+    return `link-list${horizontalClass}`;
+  }
+
   /**
-   * Choose the link list style. This
-   * does not refer to light or dark
-   * mode, but the background color
-   * on which the list is placed. Light
-   * and dark mode styling will be applied
-   * differently.
+   * Create an array with only the sbb-link-children
+   * @private
    */
-  @Prop() public variant: InterfaceLinkListAttributes['variant'] = 'positive';
+  private _readLinks(): void {
+    this._links = Array.from(this._element.children).filter(
+      (e): e is HTMLSbbLinkElement => e.tagName === 'SBB-LINK'
+    );
+  }
 
   public componentWillLoad(): void {
-    this._guid = guid();
+    this._readLinks();
   }
 
   public render(): JSX.Element {
     let additionalAttributes = {};
 
-    const id = `title-${this._guid}`;
-
     if (this.titleText) {
       additionalAttributes = {
-        'aria-labelledby': id,
+        'aria-labelledby': this.titleId,
       };
     }
+
+    if (this.horizontalFrom || this.orientation === 'horizontal') {
+      this._hideTitleAndButton = true;
+    }
+
+    this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
     return (
       // the role="list" is needed for voice over: https://bit.ly/3CDiZaG
       <div>
-        {this.titleText ? (
+        {!this._hideTitleAndButton && (
           <sbb-title
-            id={id}
+            id={this.titleId}
             level={this.titleLevel}
             visual-level="5"
-            negative={this.variant === 'negative'}
+            negative={this.negative}
           >
-            {this.titleText}
+            <span slot="title">{this.titleText}</span>
           </sbb-title>
-        ) : (
-          ''
         )}
         <ul
           {...additionalAttributes}
-          class={`link-list link-list--${this.listDirection}`}
+          class={this._getClassString()}
           role="list"
+          aria-labelledby={this.titleText ? this.titleId : undefined}
         >
-          <slot name="link-list__item" />
+          {this._links.map((_, index) => (
+            <li>
+              <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
+            </li>
+          ))}
         </ul>
+        <span>
+          <slot onSlotchange={(): void => this._readLinks()} />
+        </span>
+        {!this._hideTitleAndButton && (
+          <slot name="button"></slot>
+        )}
       </div>
     );
   }
