@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, JSX, h, Host, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, JSX, Prop } from '@stencil/core';
 import {
   ButtonType,
   getButtonAttributeList,
