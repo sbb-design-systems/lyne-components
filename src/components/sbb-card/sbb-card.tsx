@@ -23,20 +23,17 @@ export class SbbCard {
    * @param size The size selected.
    * @returns True whether size is equal to m, l, xl or xxl. False otherwise.
    */
-  private _showSBBBadge(size: string): boolean {
-    if (size === 'm' || size === 'l' || size === 'xl' || size === 'xxl') {
-      return true;
-    }
-    return false;
+  private static _showSBBBadge(size: string): boolean {
+    return size === 'm' || size === 'l' || size === 'xl' || size === 'xxl';
   }
 
   public render(): JSX.Element {
     return (
-      <Host>
+      <Host class={{ card__badge: SbbCard._showSBBBadge(this.size) }}>
         <span>
           <slot />
         </span>
-        {this._showSBBBadge(this.size) && (
+        {SbbCard._showSBBBadge(this.size) && (
           <span>
             <slot name="badge" />
           </span>
