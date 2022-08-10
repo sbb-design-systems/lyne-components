@@ -104,15 +104,31 @@ export class SbbHeaderAction implements LinkButtonProperties {
   }
 
   public render(): JSX.Element {
-    const attributeList = getLinkButtonAttributeList(this.actionHeaderId, '', this);
-    const TAG_NAME: string = this.href ? 'a' : 'button';
+    let TAG_NAME: string;
+    let attributeList: object;
+
+    if (this.href) {
+      TAG_NAME = 'a';
+      attributeList = getLinkButtonAttributeList(this.actionHeaderId, 'header-action__link', this);
+    } else {
+      TAG_NAME = 'button';
+      attributeList = getLinkButtonAttributeList(
+        this.actionHeaderId,
+        'header-action__button',
+        this
+      );
+    }
 
     return (
       <TAG_NAME {...attributeList}>
-        <slot name="icon">
-          <sbb-icon name={this.icon} />
-        </slot>
-        <slot />
+        <span class="header-action__icon">
+          <slot name="icon">
+            <sbb-icon name={this.icon} />
+          </slot>
+        </span>
+        <span class="header-action__label">
+          <slot />
+        </span>
       </TAG_NAME>
     );
   }

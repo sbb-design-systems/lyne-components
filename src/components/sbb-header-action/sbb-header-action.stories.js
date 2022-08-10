@@ -3,9 +3,17 @@ import readme from './readme.md';
 import events from './sbb-header-action.events';
 
 const Template = (args) => (
-  <sbb-header-action {...args}>
-    <span>{args.text}</span>
-  </sbb-header-action>
+  <div style="display: flex; justify-content: start;">
+    <sbb-header-action {...args}>
+      <span>{args.text} 1</span>
+    </sbb-header-action>
+    <sbb-header-action {...args}>
+      <span>{args.text} 2</span>
+    </sbb-header-action>
+    <sbb-header-action {...args}>
+      <span>{args.text} 3</span>
+    </sbb-header-action>
+  </div>
 );
 
 const download = {
