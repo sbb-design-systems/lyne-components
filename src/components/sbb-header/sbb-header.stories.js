@@ -3,14 +3,12 @@ import readme from './readme.md';
 
 const Template = (args) => (
   <sbb-header {...args}>
-    <div>
-      <sbb-header-action
-        icon="hamburger-menu-small"
-        href="https://lyne-icons.netlify.app/icons/hamburger-menu-small.svg"
-      >
-        Test
-      </sbb-header-action>
-    </div>
+    <sbb-header-action
+      icon="hamburger-menu-small"
+      href="https://lyne-icons.netlify.app/icons/hamburger-menu-small.svg"
+    >
+      Test
+    </sbb-header-action>
   </sbb-header>
 );
 
