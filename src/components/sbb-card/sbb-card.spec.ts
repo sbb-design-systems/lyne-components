@@ -9,7 +9,7 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-card class="card__badge">
+        <sbb-card>
           <mock:shadow-root>
             <span>
               <slot></slot>
