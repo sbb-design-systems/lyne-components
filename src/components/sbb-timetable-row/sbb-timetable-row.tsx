@@ -2,13 +2,16 @@ import { Component, h, Prop, Element } from '@stencil/core';
 import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { i18nDirection, i18nDeparture, i18nArrival } from '../../global/i18n';
 import {
-  i18nDirection,
-  i18nWalkingDistanceArrival,
-  i18nWalkingDistanceDeparture,
-  i18nDeparture,
-  i18nArrival,
-} from '../../global/i18n';
+  durationToTime,
+  isProductIcon,
+  renderIconProduct,
+  renderStringProduct,
+  renderTime,
+  walkTimeAfter,
+  walkTimeBefore,
+} from './sbb-timetable-row.helper';
 
 /**
  * @slot badge - Slot used to render the sbb-card-badge component
@@ -37,28 +40,6 @@ import {
 })
 export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
-
-  private _possibleTransportTypes = [
-    'bex',
-    'cnl',
-    'ec',
-    'en',
-    'gex',
-    'ic',
-    'ice',
-    'icn',
-    'ir',
-    'nj',
-    'ogv',
-    'pe',
-    're',
-    'rj',
-    'rjx',
-    'rx',
-    'sn',
-    'rgv',
-    'vae',
-  ];
 
   @Prop() public loading?: boolean;
 
@@ -92,42 +73,8 @@ export class SbbTimetableRow {
     );
   }
 
-  private _renderProduct(): JSX.Element {
-    const transport: string = this.config.summary.product.vehicleSubModeShortName?.toLowerCase();
-
-    if (this._possibleTransportTypes.includes(transport)) {
-      return <sbb-icon name={transport + '-' + this.config.summary.product.line} />;
-    } else {
-      return (
-        <span class="timetable__row-transportnumber">
-          {this.config.summary.product.vehicleSubModeShortName +
-            ' ' +
-            this.config.summary.product.line}
-        </span>
-      );
-    }
-  }
-
-  private _renderDuration(duration: number): JSX.Element {
-    let durationValue = '';
-    const hours = Math.floor(duration / 60);
-    const minutes = duration % 60;
-
-    hours >= 1 ? (durationValue += hours + ' h ') : '';
-    minutes >= 1 ? (durationValue += minutes + ' min') : '';
-
-    return <time>{durationValue}</time>;
-  }
-
-  private _renderTime(time: Date): string {
-    const hours = time.getHours();
-    const minutes = time.getMinutes();
-
-    return hours + ':' + minutes;
-  }
-
   private _sortPriority(items: Notice[] | PtSituation[]): Notice[] | PtSituation[] {
-    items.sort((a, b) => {
+    items?.sort((a, b) => {
       return parseFloat(b.priority) - parseFloat(a.priority);
     });
     return items;
@@ -141,25 +88,25 @@ export class SbbTimetableRow {
     const badgeClass = this._hasBadgeSlot ? 'timetable__row-badge' : '';
 
     const {
+      price,
       //legs,
       notices,
       situations,
-      summary,
       tripId,
       valid,
     }: InterfaceTimetableRowAttributes['trip'] = this.config;
 
     const {
+      product,
+      direction,
+      departureWalk,
+      departure,
       arrival,
       arrivalWalk,
-      departure,
-      departureWalk,
-      direction,
-      duration,
-      occupancy,
-      product,
       tripStatus,
-    } = summary;
+      occupancy,
+      duration,
+    } = this.config?.summary || {};
 
     const sortedNotices = this._sortPriority(notices);
     const sortedSituations = this._sortPriority(situations);
@@ -168,15 +115,25 @@ export class SbbTimetableRow {
       // use sbb-timetable-row-button as wrapper
       <div id={tripId} role="presentation" accessibility-label={this.accessibilityLabel}>
         <div class={`timetable__row ${badgeClass}`} role="row">
-          {valid ? <slot name="badge" /> : ''}
+          {valid ? (
+            <slot name="badge">
+              <sbb-card-badge>
+                <span slot="generic">{price}</span>
+              </sbb-card-badge>
+            </slot>
+          ) : (
+            ''
+          )}
           <div class="timetable__row-header" role="rowheader">
             <div class="timetable__row-details">
-              <span>
-                <slot name="pictogram">
-                  <sbb-icon name={product?.vehicleMode} />
-                </slot>
-              </span>
-              {this._renderProduct()}
+              <slot name="pictogram">
+                <sbb-icon name={product?.vehicleMode} />
+              </slot>
+              <slot name="product">
+                {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase()) === true
+                  ? renderIconProduct(product?.vehicleSubModeShortName, product?.line)
+                  : renderStringProduct(product?.vehicleSubModeShortName, product?.line)}
+              </slot>
             </div>
             <slot name="direction">
               <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>
@@ -184,77 +141,53 @@ export class SbbTimetableRow {
           </div>
 
           <div class="timetable__row-body" role="gridcell">
-            {this._hasWalkTimeBefore || departureWalk ? (
-              <span class="timetable__row-walktime">
-                <sbb-icon name="walk-small"></sbb-icon>
-                <slot name="walkTimeBefore">
-                  <time dateTime={'TP' + departureWalk + 'M'}>
-                    <span class="screenreaderonly">
-                      {i18nWalkingDistanceDeparture[this._currentLanguage]}
-                    </span>
-                    {departureWalk}
-                    <span aria-hidden="true">'</span>
-                  </time>
-                </slot>
-              </span>
-            ) : (
-              ''
-            )}
+            {this._hasWalkTimeBefore || departureWalk ? walkTimeBefore(departureWalk) : ''}
 
             <slot name="leftTime">
-              <time dateTime={'' + departure.time}>
+              <time class="timetable__row-time" dateTime={'' + departure?.time}>
                 <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
 
-                {this._renderTime(departure.time)}
+                {renderTime(departure?.time)}
               </time>
             </slot>
             <slot name="pearlChain">
-              {/* <sbb-pearl-chain class="timetable__row-chain" legs={legs}></sbb-pearl-chain> */}
+              {/* <sbb-pearl-chain class="timetable__row-chain" legs={legs} /> */}
             </slot>
             <slot name="rightTime">
-              <time dateTime={'' + arrival.time}>
+              <time class="timetable__row-time" dateTime={'' + arrival?.time}>
                 <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-                {this._renderTime(arrival.time)}
+                {renderTime(arrival?.time)}
               </time>
             </slot>
-            {this._hasWalkTimeAfter || arrivalWalk ? (
-              <span class="timetable__row-walktime">
-                <slot name="walkTimeAfter">
-                  <time dateTime={'TP' + arrivalWalk + 'M'}>
-                    <span class="screenreaderonly">
-                      {i18nWalkingDistanceArrival[this._currentLanguage]}
-                    </span>
-                    {arrivalWalk}
-                    <span aria-hidden="true">'</span>
-                  </time>
-                </slot>
-                <sbb-icon name="walk-small"></sbb-icon>
-              </span>
-            ) : (
-              ''
-            )}
+            {this._hasWalkTimeAfter || arrivalWalk ? walkTimeAfter(arrivalWalk) : ''}
           </div>
 
           <div class="timetable__row-footer" role="gridcell">
             <slot name="platform">
-              <span class={tripStatus.quayChanged ? `timetable__row-platform--changed` : ''}>
-                {arrival.quayName}
+              <span class={tripStatus?.quayChanged ? `timetable__row-platform--changed` : ''}>
+                {arrival?.quayName}
               </span>
             </slot>
 
-            {occupancy.firstClass || occupancy.secondClass ? (
+            {occupancy?.firstClass || occupancy?.secondClass ? (
               <div>
                 <ul class="timetable__row-occupancy" role="list">
                   <li>
-                    {occupancy.firstClass ? '1.' : ''}
+                    {occupancy?.firstClass ? '1.' : ''}
                     <slot name="occupancyFirstClass">
-                      <sbb-icon name={`utilization-` + occupancy.firstClass} />
+                      <sbb-icon
+                        class="occupancy__item"
+                        name={`utilization-` + occupancy?.firstClass}
+                      />
                     </slot>
                   </li>
                   <li>
-                    {occupancy.secondClass ? '2.' : ''}
+                    {occupancy?.secondClass ? '2.' : ''}
                     <slot name="occupancySecondClass">
-                      <sbb-icon name={`utilization-` + occupancy.secondClass} />
+                      <sbb-icon
+                        class="occupancy__item"
+                        name={`utilization-` + occupancy?.secondClass}
+                      />
                     </slot>
                   </li>
                 </ul>
@@ -262,12 +195,17 @@ export class SbbTimetableRow {
             ) : (
               ''
             )}
-            {sortedNotices.length > 0 ? (
+            {sortedNotices?.length > 0 ? (
               <ul class="timetable__row-hints" role="list">
                 {sortedNotices.map((notice, index) =>
                   index < 4 ? (
-                    <li class="travel-hints__list-item">
-                      <sbb-icon name={notice.name} aria-hidden="false" aria-label={notice.text} />
+                    <li>
+                      <sbb-icon
+                        class="travel-hints__item"
+                        name={notice?.name}
+                        aria-hidden="false"
+                        aria-label={notice?.text}
+                      />
                     </li>
                   ) : (
                     ''
@@ -278,14 +216,16 @@ export class SbbTimetableRow {
               ''
             )}
             <slot name="travelHints"></slot>
-            <slot name="duration">{this._renderDuration(duration)}</slot>
+            <slot name="duration">
+              <time class="">{durationToTime(duration)}</time>
+            </slot>
             <slot name="warning">
-              {sortedSituations.length > 0 ? (
-                <span>
+              {sortedSituations?.length > 0 ? (
+                <span class="timetable__row-warning">
                   {sortedSituations.map((situation, index) =>
                     index <= 1 ? (
                       <sbb-icon
-                        name={situation.cause.toLowerCase()}
+                        name={situation.cause?.toLowerCase()}
                         aria-hidden="false"
                         aria-label={situation.broadcastMessages}
                       />

@@ -1,5 +1,29 @@
 export default {
-  legs: [{ duration: 90, id: 'test' }],
+  price: '% ab CHF 39.90',
+  legs: [
+    {
+      duration: 360,
+      id: 'test',
+      arrival: { time: new Date('2022-08-09T15:00:00+02:00') },
+      departure: { time: new Date('2022-08-09T09:00:00+02:00') },
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+    {
+      duration: 60,
+      id: 'test',
+      arrival: { time: new Date('2022-08-09T16:01:00+02:00') },
+      departure: { time: new Date('2022-08-09T15:01:00+02:00') },
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+  ],
   notices: [
     {
       name: 'sa-z',
@@ -74,7 +98,7 @@ export default {
     },
     departureWalk: 8,
     direction: 'Luzern',
-    duration: 48,
+    duration: 60 * 48 + 130,
     occupancy: {
       firstClass: 'low',
       secondClass: 'low',
