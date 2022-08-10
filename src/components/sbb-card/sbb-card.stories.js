@@ -1,11 +1,11 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-card {...args}>Test</sbb-card>;
+const Template = (args) => <sbb-card {...args}>SBB card example text.</sbb-card>;
 
 const TemplateWithBadge = (args) => (
   <sbb-card {...args}>
-    <div> Test </div>
+    SBB card example text.
     <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
   </sbb-card>
 );
@@ -48,7 +48,7 @@ sbbCardWithSbbBadge.documentation = {
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={'padding: 2rem; background: lightgray;'}>
         <Story />
       </div>
     ),
