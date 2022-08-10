@@ -1,10 +1,11 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-card {...args}></sbb-card>;
+const Template = (args) => <sbb-card {...args}>Test</sbb-card>;
 
 const TemplateWithBadge = (args) => (
   <sbb-card {...args}>
+    <div> Test </div>
     <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
   </sbb-card>
 );

@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, Host, Prop, State } from '@stencil/core';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 
 /**
@@ -17,6 +17,9 @@ export class SbbCard {
    */
   @Prop() public size?: InterfaceSbbCardAttributes['size'] = 'm';
 
+  /* @internal */
+  @State() public hasBadge = false;
+
   /**
    * It is used internally to show the `<sbb-card>`.
    *
@@ -27,15 +30,19 @@ export class SbbCard {
     return size === 'm' || size === 'l' || size === 'xl' || size === 'xxl';
   }
 
+  private _onSlotBadgeChange(): void {
+    this.hasBadge = true;
+  }
+
   public render(): JSX.Element {
     return (
-      <Host class={{ card__badge: SbbCard._showSBBBadge(this.size) }}>
+      <Host class={{ card__badge: SbbCard._showSBBBadge(this.size) && this.hasBadge }}>
         <span>
           <slot />
         </span>
         {SbbCard._showSBBBadge(this.size) && (
           <span>
-            <slot name="badge" />
+            <slot name="badge" onSlotchange={(): void => this._onSlotBadgeChange()} />
           </span>
         )}
       </Host>
