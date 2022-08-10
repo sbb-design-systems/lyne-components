@@ -1,8 +1,4 @@
-declare type Leg = {
-  /** duration from previous transferpoint to current in minutes */
-  duration: number;
-  id: string;
-};
+// import { Leg } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 
 export type Notice = {
   name?: string;
@@ -126,49 +122,31 @@ declare type TripSummary = {
   tripStatus: TripStatus;
 };
 
-export type TransportTypes =
-  | 'bex'
-  | 'cnl'
-  | 'ec'
-  | 'en'
-  | 'gex'
-  | 'ic'
-  | 'ice'
-  | 'icn'
-  | 'ir'
-  | 'nj'
-  | 'ogv'
-  | 'pe'
-  | 're'
-  | 'rj'
-  | 'rjx'
-  | 'rx'
-  | 'sn'
-  | 'rgv'
-  | 'vae';
+declare type Trip = {
+  price: string;
 
+  /** List of transfer points */
+  // legs: Leg[];
+  /**
+   * List of legs travel hints
+   * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2
+   */
+  notices?: Notice[];
+  /**
+   * List of legs situation messages
+   * Usefull for level 1, may not needed for level 2
+   */
+  situations?: PtSituation[];
+  /**
+   * Summary of most relevant aspects of the given Trip and its PTRideLeg's
+   * Usefull for level 1, not needed for level 2
+   */
+  summary: TripSummary;
+  /** contains all info for ZVS::Reise to get TripOffer price from NOVA */
+  tripId: string;
+  /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
+  valid?: boolean;
+};
 export interface InterfaceTimetableRowAttributes {
-  trip: {
-    /** List of transfer points */
-    legs: Leg[];
-    /**
-     * List of legs travel hints
-     * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2
-     */
-    notices?: Notice[];
-    /**
-     * List of legs situation messages
-     * Usefull for level 1, may not needed for level 2
-     */
-    situations?: PtSituation[];
-    /**
-     * Summary of most relevant aspects of the given Trip and its PTRideLeg's
-     * Usefull for level 1, not needed for level 2
-     */
-    summary: TripSummary;
-    /** contains all info for ZVS::Reise to get TripOffer price from NOVA */
-    tripId: string;
-    /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
-    valid?: boolean;
-  };
+  trip: Trip;
 }

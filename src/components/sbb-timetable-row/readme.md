@@ -5,11 +5,11 @@
 
 ## Properties
 
-| Property              | Attribute             | Description | Type                                                                                                                      | Default     |
-| --------------------- | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `accessibilityLabel`  | `accessibility-label` |             | `string`                                                                                                                  | `undefined` |
-| `config` _(required)_ | --                    |             | `{ legs: Leg[]; notices?: Notice[]; situations?: PtSituation[]; summary: TripSummary; tripId: string; valid?: boolean; }` | `undefined` |
-| `loading`             | `loading`             |             | `boolean`                                                                                                                 | `undefined` |
+| Property              | Attribute             | Description | Type                                                                                                                        | Default     |
+| --------------------- | --------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `accessibilityLabel`  | `accessibility-label` |             | `string`                                                                                                                    | `undefined` |
+| `config` _(required)_ | --                    |             | `{ price: string; notices?: Notice[]; situations?: PtSituation[]; summary: TripSummary; tripId: string; valid?: boolean; }` | `undefined` |
+| `loading`             | `loading`             |             | `boolean`                                                                                                                   | `undefined` |
 
 
 ## Slots
@@ -39,6 +39,7 @@
 ### Depends on
 
 - [sbb-timetable-row-button](../sbb-timetable-row-button)
+- [sbb-card-badge](../sbb-card-badge)
 - [sbb-icon](../sbb-icon)
 
 ### Graph

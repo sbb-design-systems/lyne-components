@@ -4,11 +4,13 @@
 }
 
 // override icons sizes
+.travel-hints__item,
 ::slotted([slot='travelHints']) {
   --sbb-icon-svg-width: #{px-to-rem-build(16)};
   --sbb-icon-svg-height: #{px-to-rem-build(16)};
 }
 
+.occupancy__item,
 ::slotted([slot='occupancyFirstClass']),
 ::slotted([slot='occupancySecondClass']) {
   --sbb-icon-svg-width: #{px-to-rem-build(14.25)};
@@ -25,11 +27,27 @@
   --sbb-icon-svg-height: #{px-to-rem-build(20)};
 }
 
+::slotted(svg),
+::slotted(ul),
+::slotted(div),
+::slotted(span),
+::slotted(p),
+::slotted(time),
+time,
+li,
+span {
+  align-self: center;
+}
+
 ::slotted([slot='warning']) {
   --sbb-icon-svg-width: #{px-to-rem-build(16)};
   --sbb-icon-svg-height: #{px-to-rem-build(16)};
 
   align-self: center;
+
+  span {
+    display: inline-flex;
+  }
 }
 
 .screenreaderonly {
@@ -53,18 +71,6 @@ li {
   align-self: center;
 }
 
-::slotted(svg),
-::slotted(ul),
-::slotted(div),
-::slotted(span),
-::slotted(p),
-::slotted(time),
-time,
-li,
-span {
-  align-self: center;
-}
-
 ::slotted([slot='pearlChain']),
 .timetable__row-chain {
   flex: 1 1 auto;
@@ -72,6 +78,7 @@ span {
   margin-inline: var(--sbb-spacing-fixed-3x);
 }
 
+.timetable__row-transport,
 ::slotted([slot='pearlChain']),
 ::slotted([slot='walkTimeBefore']),
 ::slotted([slot='leftTime']),
@@ -81,15 +88,19 @@ span {
 }
 
 .timetable__row-transportnumber,
+.timetable__row-time,
 ::slotted([slot='leftTime']),
 ::slotted([slot='rightTime']) {
   @include text-s--bold;
 
   line-height: unset;
   white-space: nowrap;
+  align-self: center;
 }
 
 .timetable__row {
+  @include text-s--regular;
+
   display: flex;
   flex-direction: column;
   gap: var(--row-gap);
@@ -104,7 +115,8 @@ span {
   gap: var(--sbb-spacing-fixed-2x);
 }
 
-.timetable__row-details {
+.timetable__row-details,
+.timetable__row-hints {
   display: inline-flex;
   gap: var(--sbb-spacing-fixed-1x);
 }
@@ -114,6 +126,7 @@ p {
   @include ellipsis;
 
   margin: 0;
+  align-self: center;
 }
 
 .timetable__row-body,
@@ -133,6 +146,10 @@ p {
   align-items: center;
 }
 
+.timetable__row-walktime {
+  @include text-xxs--regular;
+}
+
 .timetable__row-walktime:first-of-type {
   transform: translateX(calc(-1 * var(--sbb-spacing-fixed-1x)));
   margin-inline-end: var(--sbb-spacing-fixed-1x);
@@ -147,6 +164,10 @@ p {
   @include text-m--bold;
 
   color: var(--sbb-color-red-default);
+}
+
+.timetable__row-warning {
+  display: inline-flex;
 }
 
 .loading {
@@ -183,8 +204,6 @@ p {
 }
 
 .timetable__row-occupancy {
-  @include text-s--regular;
-
   gap: var(--sbb-spacing-fixed-2x);
 
   li {
