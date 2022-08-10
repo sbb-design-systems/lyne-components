@@ -106,7 +106,7 @@
     --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-wide);
   }
   @include mq($from: ultra) {
-    --sbb-page-base-offset-responsive: 0rem;
+    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-ultra);
   }
 
   //////////////////////////////////////////////////////////////////////////////

@@ -67,7 +67,7 @@ const accessibilityLabel = {
   },
 };
 
-const expandFromArg = {
+const expandFrom = {
   control: {
     type: 'inline-radio',
   },
@@ -82,7 +82,7 @@ const basicArgTypes = {
   'action-header-id': actionHeaderId,
   'accessibility-label': accessibilityLabel,
   text,
-  'expand-from-arg': expandFromArg,
+  'expand-from': expandFrom,
 };
 
 const basicArgs = {
@@ -93,7 +93,7 @@ const basicArgs = {
   'action-header-id': 'menu',
   'accessibility-label': 'Accessibility label',
   text: 'Menu',
-  'expand-from-arg': expandFromArg.options[0],
+  'expand-from': expandFrom.options[0],
 };
 
 export const sbbHeaderAction = Template.bind({});
