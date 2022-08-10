@@ -12,9 +12,6 @@ const wrapperStyle = (context) => {
 
 const Template = (args) => (
   <sbb-link-list {...args}>
-    <sbb-title>
-      <span slot="title">{args.titleText}</span>
-    </sbb-title>
     <sbb-link
       href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
       text="Rückerstattungen"
@@ -199,5 +196,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-link-list (Unfinished)',
+  title: 'components/sbb-link-list',
 };

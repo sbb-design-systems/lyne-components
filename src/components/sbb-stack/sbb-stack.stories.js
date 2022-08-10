@@ -194,7 +194,7 @@ const defaultArgs = {
 const template = (args) => (
   <sbb-stack {...args}>
     <sbb-title level="2" visual-level="5">
-      Lyne
+      <span slot="title">Lyne</span>
     </sbb-title>
     <p>Is user-centered and empowering, holistic and inclusive, encourages ...</p>
     <sbb-link-button

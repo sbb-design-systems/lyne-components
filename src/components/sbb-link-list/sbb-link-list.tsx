@@ -122,9 +122,7 @@ export class SbbLinkList {
         <span>
           <slot onSlotchange={(): void => this._readLinks()} />
         </span>
-        {!this._hideTitleAndButton && (
-          <slot name="button"></slot>
-        )}
+        {!this._hideTitleAndButton && <slot name="button"></slot>}
       </div>
     );
   }

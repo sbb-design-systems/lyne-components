@@ -168,12 +168,12 @@ const Template = (args) => (
               style="min-width: 72px; width: 72px; height: 72px; background-color: var(--sbb-color-cloud-default); border-radius: 50%; display:flex;'"
             ></span>
             <sbb-title level="2" visual-level="1">
-              Willkommen, Christina Müller
+              <span slot="title">Willkommen, Christina Müller</span>
             </sbb-title>
           </sbb-stack>
           <sbb-stack appearance="vertical" gap-vertical="responsive-s">
             <sbb-title level="3" visual-level="4">
-              Ihre aktuellen Billette & Reisen.
+              <span slot="title">Ihre aktuellen Billette & Reisen.</span>
             </sbb-title>
             <sbb-stack tag="ul" appearance="vertical" gap-vertical="fixed-4x">
               <li>
@@ -202,7 +202,7 @@ const Template = (args) => (
                   </div>
                   <div slot="title">
                     <sbb-title level="2" visual-level="1">
-                      GA
+                      <span slot="title">GA</span>
                     </sbb-title>
                     <sbb-journey-header
                       destination="Loèche-les-Bains"
@@ -214,7 +214,7 @@ const Template = (args) => (
                   </div>
                   <div slot="lead">
                     <sbb-title level="3" visual-level="6">
-                      Generalabonnement
+                      <span slot="title">Generalabonnement</span>
                     </sbb-title>
                   </div>
                   <div slot="text">
@@ -286,7 +286,7 @@ const Template = (args) => (
                   </div>
                   <div slot="title">
                     <sbb-title level="2" visual-level="6">
-                      Libero Tageskarte: Alle Zonen
+                      <span slot="title">Libero Tageskarte: Alle Zonen</span>
                     </sbb-title>
                   </div>
                   <div slot="text">
@@ -369,7 +369,7 @@ const Template = (args) => (
         space-trailing="responsive-l"
       >
         <sbb-title level="2" visual-level="2">
-          Ihre Billette & Abos.
+          <span slot="title">Ihre Billette & Abos.</span>
         </sbb-title>
         <sbb-grid variant="base--top-products">
           <sbb-card-product
@@ -391,7 +391,7 @@ const Template = (args) => (
             </div>
             <div slot="title">
               <sbb-title level="2" visual-level="6">
-                Tageskarte
+                <span slot="title">Tageskarte</span>
               </sbb-title>
             </div>
             <div slot="text">
@@ -425,7 +425,7 @@ const Template = (args) => (
             </div>
             <div slot="title">
               <sbb-title level="2" visual-level="6">
-                Velo Tageskarte
+                <span slot="title">Velo Tageskarte</span>
               </sbb-title>
             </div>
             <div slot="text">
@@ -459,7 +459,7 @@ const Template = (args) => (
             </div>
             <div slot="title">
               <sbb-title level="2" visual-level="6">
-                Libero Kurzstrecke
+                <span slot="title">Libero Kurzstrecke</span>
               </sbb-title>
             </div>
             <div slot="text">
@@ -484,12 +484,12 @@ const Template = (args) => (
           >
             <div slot="title">
               <sbb-title level="2" visual-level="1">
-                GA
+                <span slot="title">GA</span>
               </sbb-title>
             </div>
             <div slot="lead">
               <sbb-title level="3" visual-level="6">
-                Generalabonnement
+                <span slot="title">Generalabonnement</span>
               </sbb-title>
             </div>
             <div slot="text">
@@ -544,46 +544,46 @@ const Template = (args) => (
             title-text="Help &amp; Contact."
             variant="positive"
           >
-            <li class="link-list__item" slot="link-list__item">
-              <sbb-link
-                href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-                text="Rückerstattungen"
-                text-size="s"
-                variant="positive"
-              ></sbb-link>
-            </li>
-            <li class="link-list__item" slot="link-list__item">
-              <sbb-link
-                href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-                text="Fundbüro"
-                text-size="s"
-                variant="positive"
-              ></sbb-link>
-            </li>
-            <li class="link-list__item" slot="link-list__item">
-              <sbb-link
-                href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-                text="Beschwerden"
-                text-size="s"
-                variant="positive"
-              ></sbb-link>
-            </li>
-            <li class="link-list__item" slot="link-list__item">
-              <sbb-link
-                href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-                text="Lob aussprechen"
-                text-size="s"
-                variant="positive"
-              ></sbb-link>
-            </li>
-            <li class="link-list__item" slot="link-list__item">
-              <sbb-link
-                href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-                text="Sachbeschädigung melden"
-                text-size="s"
-                variant="positive"
-              ></sbb-link>
-            </li>
+            <sbb-link
+              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+              text="Rückerstattungen"
+              text-size="s"
+              variant="positive"
+            >
+              Rückerstattungen
+            </sbb-link>
+            <sbb-link
+              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+              text="Fundbüro"
+              text-size="s"
+              variant="positive"
+            >
+              Fundbüro
+            </sbb-link>
+            <sbb-link
+              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+              text="Beschwerden"
+              text-size="s"
+              variant="positive"
+            >
+              Beschwerden
+            </sbb-link>
+            <sbb-link
+              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+              text="Lob aussprechen"
+              text-size="s"
+              variant="positive"
+            >
+              Lob aussprechen
+            </sbb-link>
+            <sbb-link
+              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+              text="Sachbeschädigung melden"
+              text-size="s"
+              variant="positive"
+            >
+              Sachbeschädigung melden
+            </sbb-link>
           </sbb-link-list>
           <sbb-stack space-leading="fixed-3x">
             <sbb-link-button
@@ -596,52 +596,52 @@ const Template = (args) => (
       </div>
       <div slot="col-2">
         <sbb-link-list textsize="s" title-level="2" title-text="More SBB." variant="positive">
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Jobs & careers"
-              text-size="s"
-              variant="positive"
-            ></sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Rail traffic information"
-              text-size="s"
-              variant="positive"
-            ></sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="SBB News"
-              text-size="s"
-              variant="positive"
-            ></sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="SBB Community"
-              text-size="s"
-              variant="positive"
-            ></sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Company"
-              text-size="s"
-              variant="positive"
-            ></sbb-link>
-          </li>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="Jobs & careers"
+            text-size="s"
+            variant="positive"
+          >
+            Jobs & careers
+          </sbb-link>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="Rail traffic information"
+            text-size="s"
+            variant="positive"
+          >
+            Rail traffic information
+          </sbb-link>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="SBB News"
+            text-size="s"
+            variant="positive"
+          >
+            SBB News
+          </sbb-link>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="SBB Community"
+            text-size="s"
+            variant="positive"
+          >
+            SBB Community
+          </sbb-link>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="Company"
+            text-size="s"
+            variant="positive"
+          >
+            Company
+          </sbb-link>
         </sbb-link-list>
       </div>
       <div slot="col-3">
         <sbb-stack>
           <sbb-title level="2" visual-level="5">
-            Newsletter.
+            <span slot="title">Newsletter.</span>
           </sbb-title>
           <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
           <sbb-stack space-leading="fixed-3x">
@@ -664,46 +664,46 @@ const Template = (args) => (
           list-direction="horizontal-from-large"
           variant="positive"
         >
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Rückerstattungen"
-              text-size="xs"
-              variant="positive"
-            ></sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Fundbüro"
-              text-size="xs"
-              variant="positive"
-            ></sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Beschwerden"
-              text-size="xs"
-              variant="positive"
-            ></sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Lob aussprechen"
-              text-size="xs"
-              variant="positive"
-            ></sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Sachbeschädigung melden"
-              text-size="xs"
-              variant="positive"
-            ></sbb-link>
-          </li>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="Rückerstattungen"
+            text-size="xs"
+            variant="positive"
+          >
+            Rückerstattungen
+          </sbb-link>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="Fundbüro"
+            text-size="xs"
+            variant="positive"
+          >
+            Fundbüro
+          </sbb-link>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="Beschwerden"
+            text-size="xs"
+            variant="positive"
+          >
+            Beschwerden
+          </sbb-link>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="Lob aussprechen"
+            text-size="xs"
+            variant="positive"
+          >
+            Lob aussprechen
+          </sbb-link>
+          <sbb-link
+            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            text="Sachbeschädigung melden"
+            text-size="xs"
+            variant="positive"
+          >
+            Sachbeschädigung melden
+          </sbb-link>
         </sbb-link-list>
       </div>
     </sbb-footer>

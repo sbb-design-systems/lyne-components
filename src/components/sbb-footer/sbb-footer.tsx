@@ -44,7 +44,7 @@ export class SbbFooter {
       <Host>
         <footer role="contentinfo" {...attrs}>
           <sbb-title level="1" visually-hidden="true">
-            {this.accessibilityTitle}
+            <span slot="title">{this.accessibilityTitle}</span>
           </sbb-title>
           {this._hasCol1Slot ||
           this._hasCol2Slot ||
