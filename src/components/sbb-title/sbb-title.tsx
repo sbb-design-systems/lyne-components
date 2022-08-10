@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, Element, h, Prop } from '@stencil/core';
 import { InterfaceTitleAttributes } from './sbb-title.custom';
 
 let nextId = 0;
@@ -9,6 +9,11 @@ let nextId = 0;
   tag: 'sbb-title',
 })
 export class SbbTitle {
+  private _hasTextContent = false;
+
+  /** Host element */
+  @Element() private _element!: HTMLElement;
+
   /** Title level */
   @Prop() public level?: InterfaceTitleAttributes['level'] = '1';
 
@@ -37,16 +42,21 @@ export class SbbTitle {
    */
   @Prop() public negative?: boolean = false;
 
+  public componentWillLoad(): void {
+    this._hasTextContent = !!(this._element.querySelector('[slot="title"]') as HTMLSpanElement)
+      .innerText;
+  }
+
   public render(): JSX.Element {
     const TAGNAME = `h${this.level}`; // eslint-disable-line @typescript-eslint/no-unused-vars
 
     const cssClasses = this._createCssClassesString();
 
-    return (
+    return this._hasTextContent ? (
       <TAGNAME class={cssClasses} id={this.titleId}>
-        <slot />
+        <slot name="title" />
       </TAGNAME>
-    );
+    ) : undefined;
   }
 
   /**

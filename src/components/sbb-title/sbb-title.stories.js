@@ -11,7 +11,11 @@ const wrapperStyle = (context) => {
 };
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
-const Template = (args) => <sbb-title {...args}>{args.text}</sbb-title>;
+const Template = (args) => (
+  <sbb-title {...args}>
+    <span slot="title">{args.text}</span>
+  </sbb-title>
+);
 
 const levels = {
   control: {
