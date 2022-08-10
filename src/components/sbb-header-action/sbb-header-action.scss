@@ -2,16 +2,71 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-:host {
-  --some-color-var: var(--color-black-default);
+:host([expand-from='zero']) {
+  @include mq($from: zero) {
+    .header-action__label {
+      display: block;
+    }
+  }
+}
+
+:host([expand-from='micro']) {
+  @include mq($from: micro) {
+    .header-action__label {
+      display: block;
+    }
+  }
+}
+
+:host([expand-from='small']) {
+  @include mq($from: small) {
+    .header-action__label {
+      display: block;
+    }
+  }
+}
+
+:host([expand-from='medium']) {
+  @include mq($from: medium) {
+    .header-action__label {
+      display: block;
+    }
+  }
+}
+
+:host([expand-from='large']) {
+  @include mq($from: large) {
+    .header-action__label {
+      display: block;
+    }
+  }
+}
+
+:host([expand-from='wide']) {
+  @include mq($from: wide) {
+    .header-action__label {
+      display: block;
+    }
+  }
+}
+
+:host([expand-from='ultra']) {
+  @include mq($from: ultra) {
+    .header-action__label {
+      display: block;
+    }
+  }
 }
 
 .header-action__icon {
-  margin-left: var(--sbb-spacing-fixed-5x);
   margin-right: var(--sbb-spacing-fixed-2x);
+  @include mq($from: small) {
+    margin-left: var(--sbb-spacing-fixed-5x);
+  }
 }
 
 .header-action__label {
+  display: none;
   margin-right: var(--sbb-spacing-fixed-5x);
 }
 
