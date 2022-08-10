@@ -9,29 +9,30 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-card>
+        <sbb-card class="card__badge">
           <mock:shadow-root>
-          <span>
-                 <slot></slot>
-               </span>
-               <span>
-                 <slot name="badge"></slot>
-               </span>
+            <span>
+              <slot></slot>
+            </span>
+            <span>
+              <slot name="badge"></slot>
+            </span>
           </mock:shadow-root>
-        </sbb-card>
+        </sbb-cardcard__badge>
       `);
   });
 
   it('renders sbb-card with sbb-card-badge', async () => {
     const { root } = await newSpecPage({
       components: [SbbCard],
-      html: `<sbb-card>
-        <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
-      </sbb-card>`,
+      html: `
+        <sbb-card size='xl' >
+            <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
+        </sbb-card>`,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-card>
+        <sbb-card class="card__badge" size='xl' >
           <mock:shadow-root>
             <span>
               <slot></slot>
