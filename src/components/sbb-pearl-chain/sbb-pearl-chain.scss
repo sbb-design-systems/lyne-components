@@ -45,7 +45,7 @@
 
   background-color: currentcolor;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 
   @include ifForcedColors {
     background-color: CanvasText;
@@ -190,35 +190,32 @@
   animation: unset;
 }
 
-.pearl-chain__leg--position {
+.pearl-chain__position {
+  position: absolute;
+
+  --dot-size: var(--dot-size-large);
+  @include dot;
+
+  background-color: var(--color-current-location);
+  top: 0;
+  z-index: 4;
+
+  // --status-position: defined in .tsx file
+  left: var(--status-position);
+  animation: pulse 3s infinite;
+
+  @include ifForcedColors {
+    background-color: ActiveText;
+  }
+}
+
+.pearl-chain__leg--past {
   position: absolute;
   left: 0;
   background-color: var(--color-past);
   width: var(--status-position);
-  height: 2px;
-  z-index: 300;
-
-  &::after {
-    content: '';
-    position: absolute;
-
-    --dot-size: var(--dot-size-large);
-    @include dot;
-
-    top: calc(-1 * ((var(--dot-size-large) / 2) - 1px));
-    background-color: var(--color-current-location);
-    z-index: 3;
-
-    // --status-position: defined in .tsx file
-    $real-position: var(--status-position);
-
-    right: 0;
-    animation: pulse 3s infinite;
-
-    @include ifForcedColors {
-      background-color: ActiveText;
-    }
-  }
+  height: var(--border-width);
+  z-index: 1;
 }
 
 @keyframes pulse {

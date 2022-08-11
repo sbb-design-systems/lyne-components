@@ -46,9 +46,9 @@ export class SbbPearlChain {
   }
 
   private _getCurrentPositionTotal(legs: InterfacePearlChainAttributes['legs']): number {
-    const progress = Math.abs(this._currentTime.getTime() - legs[0].departure?.time.getTime());
+    const progress = Math.abs(this._currentTime.getTime() - legs[0]?.departure?.time.getTime());
     const total = Math.abs(
-      legs[legs.length - 1].arrival?.time.getTime() - legs[0].departure?.time.getTime()
+      legs[legs?.length - 1].arrival?.time?.getTime() - legs[0]?.departure?.time?.getTime()
     );
 
     return Math.round((progress / total) * 100);
@@ -62,7 +62,19 @@ export class SbbPearlChain {
     };
 
     if (currentPosition > 0 && currentPosition <= 100) {
-      return <div style={statusStyle} class="pearl-chain__leg--position pearl-chain__status"></div>;
+      return <span style={statusStyle} class="pearl-chain__position"></span>;
+    }
+  }
+
+  private _renderPastLeg(): JSX.Element {
+    const currentPosition = this._getCurrentPositionTotal(this.legs);
+
+    const statusStyle = {
+      '--status-position': `${currentPosition}%`,
+    };
+
+    if (currentPosition > 0 && currentPosition <= 100) {
+      return <div style={statusStyle} class="pearl-chain__leg--past"></div>;
     }
   }
 
@@ -70,20 +82,20 @@ export class SbbPearlChain {
     let departureCancelClass = '';
     let arrivalCancelClass = '';
 
-    if (this.legs.length > 0) {
+    if (this.legs?.length > 0) {
       departureCancelClass =
         this.legs[0].serviceJourney?.serviceAlteration?.cancelled === true
           ? ' pearl-chain--departure-cancellation'
           : '';
 
-      if (this.legs.length > 1) {
+      if (this.legs?.length > 1) {
         arrivalCancelClass =
           this.legs[this.legs.length - 1].serviceJourney?.serviceAlteration?.cancelled === true
             ? ' pearl-chain--arrival-cancellation'
             : '';
       }
 
-      if (this.legs.length === 1) {
+      if (this.legs?.length === 1) {
         arrivalCancelClass =
           this.legs[0].serviceJourney?.serviceAlteration?.cancelled === true
             ? ' pearl-chain--arrival-cancellation'
@@ -93,7 +105,8 @@ export class SbbPearlChain {
 
     return (
       <div class={`pearl-chain ${arrivalCancelClass} ${departureCancelClass}`}>
-        {this.legs.map((leg: Leg) => {
+        {this._renderPosition()}
+        {this.legs?.map((leg: Leg) => {
           const duration = this._getRelativeDuration(this.legs, leg);
           const legStyle = {
             'flex-basis': `${duration}%`,
@@ -108,12 +121,10 @@ export class SbbPearlChain {
             <div
               class={`pearl-chain__leg pearl-chain--${this._getLegStatus(leg)} ${cancelled}`}
               style={legStyle}
-            >
-              {this._getLegStatus(leg)}
-            </div>
+            ></div>
           );
         })}
-        {this._renderPosition()}
+        {this._renderPastLeg()}
       </div>
     );
   }

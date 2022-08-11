@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 // import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
-
+import data from './sbb-pearl-chain.sample-data';
 const Template = (args) => {
   return <sbb-pearl-chain legs={args.legs} />;
 };
@@ -10,6 +10,11 @@ export const NoStops = Template.bind({});
 export const ManyStops = Template.bind({});
 export const Cancelled = Template.bind({});
 export const CancelledManyStops = Template.bind({});
+export const withData = Template.bind({});
+
+withData.args = {
+  legs: data,
+};
 
 NoStops.documentation = {
   title: 'No stops',
@@ -46,7 +51,7 @@ Cancelled.args = {
       duration: 300,
       serviceJourney: {
         serviceAlteration: {
-          cancelled: false,
+          cancelled: true,
         },
       },
     },
