@@ -35,7 +35,7 @@ export const isProductIcon = (transport: string): boolean => {
     'rx',
     'sn',
     'rgv',
-    'vae',
+    'vae'
   ];
 
   if (possibleTransportTypes.includes(transport)) {
@@ -45,19 +45,19 @@ export const isProductIcon = (transport: string): boolean => {
   return false;
 };
 
+export const convertDate = (time: Date): string => {
+  const hours = time?.getHours();
+  const minutes = time?.getMinutes();
+
+  return hours + ':' + minutes;
+};
+
 export const renderIconProduct = (transport: string, line: string): JSX.Element => {
   return <sbb-icon class="timetable__row-transport" name={transport.toLowerCase() + '-' + line} />;
 };
 
 export const renderStringProduct = (vehicleName: string, line: string): JSX.Element => {
   return <span class="timetable__row-transportnumber">{vehicleName + ' ' + line}</span>;
-};
-
-export const renderTime = (time: Date): string => {
-  const hours = time?.getHours();
-  const minutes = time?.getMinutes();
-
-  return hours + ':' + minutes;
 };
 
 export const walkTimeBefore = (walkTime: number): JSX.Element => {

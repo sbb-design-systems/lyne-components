@@ -4,26 +4,25 @@ import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-time
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nDirection, i18nDeparture, i18nArrival } from '../../global/i18n';
 import {
+  convertDate,
   durationToTime,
   isProductIcon,
   renderIconProduct,
   renderStringProduct,
-  renderTime,
   walkTimeAfter,
-  walkTimeBefore,
+  walkTimeBefore
 } from './sbb-timetable-row.helper';
 
 /**
  * @slot badge - Slot used to render the sbb-card-badge component
- * @slot pictogram - Slot used to render the product category
+ * @slot product - Slot used to render the product category
  * @slot transportNumber - Slot used to render the icon for the transportation number
  * - alternative: override with the `transportNumber` Prop
  * @slot direction - Slot used to render the direction text
  * @slot walkTimeBefore - Slot used to render the walk time - renders automaticly the walk-icon next to it - recommandation: use `<time>` tag here
  * @slot walkTimeAfter - Slot used to render the walk time - renders automaticly the walk-icon next to it - recommandation: use `<time>` tag here
- * @slot leftTime - Slot used to render the time for the transportation time - recommandation: use `<time>` tag here
- * @slot rightTime - Slot used to render the departure time - recommandation: use `<time datetime="">` tag here
- * @slot leftTime - Slot used to render the arrival time - recommandation: use `<time datetime="">` tag here
+ * @slot rightTime - Slot used to render the arrival time - recommandation: use `<time datetime="">` tag here
+ * @slot leftTime - Slot used to render the departure time - recommandation: use `<time datetime="">` tag here
  * @slot pearlChain - Slot used to render the sbb-pearchain-chain component
  * @slot platform - Slot used to render the platform
  * @slot occupancyFirstClass - Slot used to render the icon for the occupancy in the first class
@@ -36,19 +35,29 @@ import {
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
-  tag: 'sbb-timetable-row',
+  tag: 'sbb-timetable-row'
 })
 export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
 
-  @Prop() public loading?: boolean;
+  /**
+   * loading state -
+   * when this is true it will be render skeleton with an idling animation
+   */
+  @Prop() public loading = false;
 
-  @Prop() public config!: InterfaceTimetableRowAttributes['trip'];
+  /**
+   * config Prop -
+   * use this prop if slots are not prefered.
+   */
+  @Prop() public config?: InterfaceTimetableRowAttributes['trip'];
 
-  @Prop() public accessibilityLabel?: string;
+  /** This will be forwarded as aria-label to the relevant element. */
+  @Prop() public accessibilityLabel: string;
 
   /** Host element */
   @Element() private _hostElement: HTMLElement;
+
   private _hasBadgeSlot: boolean;
   private _hasWalkTimeBefore: boolean;
   private _hasWalkTimeAfter: boolean;
@@ -59,20 +68,27 @@ export class SbbTimetableRow {
     this._hasWalkTimeAfter = Boolean(this._hostElement.querySelector('[slot="walkTimeAfter"]'));
   }
 
+  /** skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
       //tbd disabled and tab={-1} prop to button
-      <sbb-timetable-row-button class="loading" role="presentation">
+      // sbb-timetable-row-button with disabled state
+      <div class="loading" role="presentation">
         <div class="loading">
           <span class="loading__badge"></span>
           <div class="loading__row"></div>
           <div class="loading__row"></div>
           <div class="loading__row"></div>
         </div>
-      </sbb-timetable-row-button>
+      </div>
     );
   }
 
+  /**
+   * sorts the Array and sets the items with the highest priority to the top
+   * @param items Array with the type of Notice or PtSituation.
+   * @returns sorted Array with the type of Notice or PtSituation.
+   */
   private _sortPriority(items: Notice[] | PtSituation[]): Notice[] | PtSituation[] {
     items?.sort((a, b) => {
       return parseFloat(b.priority) - parseFloat(a.priority);
@@ -81,7 +97,7 @@ export class SbbTimetableRow {
   }
 
   public render(): JSX.Element {
-    if (this.loading === true) {
+    if (this.loading) {
       return this._renderSkeleton();
     }
 
@@ -92,8 +108,7 @@ export class SbbTimetableRow {
       //legs,
       notices,
       situations,
-      tripId,
-      valid,
+      tripId
     }: InterfaceTimetableRowAttributes['trip'] = this.config;
 
     const {
@@ -105,7 +120,7 @@ export class SbbTimetableRow {
       arrivalWalk,
       tripStatus,
       occupancy,
-      duration,
+      duration
     } = this.config?.summary || {};
 
     const sortedNotices = this._sortPriority(notices);
@@ -115,15 +130,12 @@ export class SbbTimetableRow {
       // use sbb-timetable-row-button as wrapper
       <div id={tripId} role="presentation" accessibility-label={this.accessibilityLabel}>
         <div class={`timetable__row ${badgeClass}`} role="row">
-          {valid ? (
-            <slot name="badge">
-              <sbb-card-badge>
-                <span slot="generic">{price}</span>
-              </sbb-card-badge>
-            </slot>
-          ) : (
-            ''
-          )}
+          <slot name="badge">
+            <sbb-card-badge>
+              <span slot="generic">{price}</span>
+            </sbb-card-badge>
+          </slot>
+
           <div class="timetable__row-header" role="rowheader">
             <div class="timetable__row-details">
               <slot name="pictogram">
@@ -147,7 +159,7 @@ export class SbbTimetableRow {
               <time class="timetable__row-time" dateTime={'' + departure?.time}>
                 <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
 
-                {renderTime(departure?.time)}
+                {convertDate(departure?.time)}
               </time>
             </slot>
             <slot name="pearlChain">
@@ -156,7 +168,7 @@ export class SbbTimetableRow {
             <slot name="rightTime">
               <time class="timetable__row-time" dateTime={'' + arrival?.time}>
                 <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-                {renderTime(arrival?.time)}
+                {convertDate(arrival?.time)}
               </time>
             </slot>
             {this._hasWalkTimeAfter || arrivalWalk ? walkTimeAfter(arrivalWalk) : ''}
