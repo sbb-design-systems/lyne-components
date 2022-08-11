@@ -4,15 +4,12 @@
 }
 
 // override icons sizes
-.travel-hints__item,
-::slotted([slot='travelHints']) {
+.travel-hints__item {
   --sbb-icon-svg-width: #{px-to-rem-build(16)};
   --sbb-icon-svg-height: #{px-to-rem-build(16)};
 }
 
-.occupancy__item,
-::slotted([slot='occupancyFirstClass']),
-::slotted([slot='occupancySecondClass']) {
+.occupancy__item {
   --sbb-icon-svg-width: #{px-to-rem-build(14.25)};
   --sbb-icon-svg-height: #{px-to-rem-build(12)};
 
@@ -22,32 +19,13 @@
   }
 }
 
-::slotted([slot='pictogram']) {
-  --sbb-icon-svg-width: #{px-to-rem-build(20)};
-  --sbb-icon-svg-height: #{px-to-rem-build(20)};
-}
-
-::slotted(svg),
-::slotted(ul),
-::slotted(div),
-::slotted(span),
-::slotted(p),
-::slotted(time),
+svg,
+ul,
+p,
 time,
 li,
 span {
   align-self: center;
-}
-
-::slotted([slot='warning']) {
-  --sbb-icon-svg-width: #{px-to-rem-build(16)};
-  --sbb-icon-svg-height: #{px-to-rem-build(16)};
-
-  align-self: center;
-
-  span {
-    display: inline-flex;
-  }
 }
 
 .screenreaderonly {
@@ -63,34 +41,23 @@ ul {
   text-decoration: none;
 }
 
-::slotted(svg),
-::slotted(ul),
-::slotted(div),
 li {
   display: inline-flex;
   align-self: center;
 }
 
-::slotted([slot='pearlChain']),
 .timetable__row-chain {
   flex: 1 1 auto;
   align-self: center;
   margin-inline: var(--sbb-spacing-fixed-3x);
 }
 
-.timetable__row-transport,
-::slotted([slot='pearlChain']),
-::slotted([slot='walkTimeBefore']),
-::slotted([slot='leftTime']),
-::slotted([slot='rightTime']),
-::slotted([slot='walkTimeAfter']) {
+.timetable__row-transport {
   align-self: center;
 }
 
 .timetable__row-transportnumber,
-.timetable__row-time,
-::slotted([slot='leftTime']),
-::slotted([slot='rightTime']) {
+.timetable__row-time {
   @include text-s--bold;
 
   line-height: unset;
@@ -121,8 +88,7 @@ li {
   gap: var(--sbb-spacing-fixed-1x);
 }
 
-::slotted([slot='direction']),
-p {
+.timetable__row-header p {
   @include ellipsis;
 
   margin: 0;

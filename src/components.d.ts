@@ -960,11 +960,11 @@ export namespace Components {
          */
         "accessibilityLabel": string;
         /**
-          * config Prop - use this prop if slots are not prefered.
+          * The config Prop
          */
         "config"?: InterfaceTimetableRowAttributes['trip'];
         /**
-          * loading state - when this is true it will be render skeleton with an idling animation
+          * The loading state - when this is true it will be render skeleton with an idling animation
          */
         "loading": boolean;
     }
@@ -2409,11 +2409,11 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string;
         /**
-          * config Prop - use this prop if slots are not prefered.
+          * The config Prop
          */
         "config"?: InterfaceTimetableRowAttributes['trip'];
         /**
-          * loading state - when this is true it will be render skeleton with an idling animation
+          * The loading state - when this is true it will be render skeleton with an idling animation
          */
         "loading"?: boolean;
     }
