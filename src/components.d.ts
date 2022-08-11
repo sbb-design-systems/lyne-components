@@ -955,9 +955,18 @@ export namespace Components {
         "config": string;
     }
     interface SbbTimetableRow {
-        "accessibilityLabel"?: string;
-        "config": InterfaceTimetableRowAttributes['trip'];
-        "loading"?: boolean;
+        /**
+          * This will be forwarded as aria-label to the relevant element.
+         */
+        "accessibilityLabel": string;
+        /**
+          * config Prop - use this prop if slots are not prefered.
+         */
+        "config"?: InterfaceTimetableRowAttributes['trip'];
+        /**
+          * loading state - when this is true it will be render skeleton with an idling animation
+         */
+        "loading": boolean;
     }
     interface SbbTimetableRowButton {
         /**
@@ -2395,8 +2404,17 @@ declare namespace LocalJSX {
         "config": string;
     }
     interface SbbTimetableRow {
+        /**
+          * This will be forwarded as aria-label to the relevant element.
+         */
         "accessibilityLabel"?: string;
-        "config": InterfaceTimetableRowAttributes['trip'];
+        /**
+          * config Prop - use this prop if slots are not prefered.
+         */
+        "config"?: InterfaceTimetableRowAttributes['trip'];
+        /**
+          * loading state - when this is true it will be render skeleton with an idling animation
+         */
         "loading"?: boolean;
     }
     interface SbbTimetableRowButton {
