@@ -11,7 +11,11 @@ describe('sbb-menu', () => {
     expect(root).toEqualHtml(`
         <sbb-menu>
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <dialog class="sbb-menu">
+              <div class="sbb-menu__content">
+                <slot></slot>
+              </div>
+            </dialog>
           </mock:shadow-root>
         </sbb-menu>
       `);

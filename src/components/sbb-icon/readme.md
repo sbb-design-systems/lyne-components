@@ -100,6 +100,7 @@ In the HTML, you can now use the icon as shown below:
  - [sbb-button](../sbb-button)
  - [sbb-form-field](../sbb-form-field)
  - [sbb-link](../sbb-link)
+ - [sbb-menu-action](../sbb-menu-action)
  - [sbb-toggle-check](../sbb-toggle-check)
 
 ### Graph
@@ -109,6 +110,7 @@ graph TD;
   sbb-button --> sbb-icon
   sbb-form-field --> sbb-icon
   sbb-link --> sbb-icon
+  sbb-menu-action --> sbb-icon
   sbb-toggle-check --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
