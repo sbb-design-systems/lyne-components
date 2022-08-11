@@ -35,7 +35,7 @@ export const isProductIcon = (transport: string): boolean => {
     'rx',
     'sn',
     'rgv',
-    'vae'
+    'vae',
   ];
 
   if (possibleTransportTypes.includes(transport)) {

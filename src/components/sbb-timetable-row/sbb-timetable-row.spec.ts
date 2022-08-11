@@ -16,50 +16,32 @@ describe('sbb-timetable-row', () => {
               <div class="timetable__row" role="row">
                 <div class="timetable__row-header" role="rowheader">
                   <div class="timetable__row-details">
-                      <slot name="pictogram">
-                        <sbb-icon></sbb-icon>
-                      </slot>
-                    <slot name="product">
-                      <span class="timetable__row-transportnumber">
-                        undefined undefined
-                      </span>
-                    </slot>
+                    <sbb-icon></sbb-icon>
+                    <span class="timetable__row-transportnumber">
+                      undefined undefined
+                    </span>
                   </div>
-                  <slot name="direction">
-                    <p>
-                      Direction undefined
-                    </p>
-                  </slot>
+                  <p>
+                    Direction undefined
+                  </p>
                 </div>
                 <div class="timetable__row-body" role="gridcell">
-                  <slot name="leftTime">
-                    <time class="timetable__row-time" datetime="undefined">
-                      <span class="screenreaderonly">
-                        Departure
-                      </span>
-                      undefined:undefined
-                    </time>
-                  </slot>
-                  <slot name="pearlChain">
-                  </slot>
-                  <slot name="rightTime">
-                    <time class="timetable__row-time" datetime="undefined">
-                      <span class="screenreaderonly">
-                        Arrival
-                      </span>
-                      undefined:undefined
-                    </time>
-                  </slot>
+                  <time class="timetable__row-time" datetime="undefined">
+                    <span class="screenreaderonly">
+                      Departure
+                    </span>
+                    undefined:undefined
+                  </time>
+                  <time class="timetable__row-time" datetime="undefined">
+                    <span class="screenreaderonly">
+                      Arrival
+                    </span>
+                    undefined:undefined
+                  </time>
                 </div>
                 <div class="timetable__row-footer" role="gridcell">
-                  <slot name="platform">
-                    <span></span>
-                  </slot>
-                  <slot name="travelHints"></slot>
-                  <slot name="duration">
-                    <time></time>
-                  </slot>
-                  <slot name="warning"></slot>
+                <span></span>
+                <time></time>
                 </div>
               </div>
             </div>

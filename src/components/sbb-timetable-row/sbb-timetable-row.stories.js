@@ -14,7 +14,7 @@ const loading = {
 // TEMPLATES
 
 const Template = (args) => (
-  <sbb-timetable-row {...args} style="position: relative;">
+  <sbb-timetable-row {...args}>
     <sbb-pearl-chain slot="pearlChain" class="timetable__row-chain" />
   </sbb-timetable-row>
 );
