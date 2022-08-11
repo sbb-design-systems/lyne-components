@@ -1,0 +1,56 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+.sbb-action {
+  width: 100%;
+  color: inherit;
+  border: none;
+  background-color: transparent;
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-action__content {
+  @include text-xs--regular;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  border-radius: var(--sbb-border-radius-8x);
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+  transition: background-color var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
+
+  sbb-icon {
+    min-width: var(--sbb-border-radius-16x);
+    padding-inline-end: var(--sbb-spacing-fixed-2x);
+  }
+
+  @include hover-mq($hover: true) {
+    &:hover {
+      background-color: var(--sbb-color-iron-default);
+    }
+  }
+}
+
+.sbb-action__label {
+  @include ellipsis;
+
+  padding-inline-end: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-action__amount {
+  @include text-xxs--bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: auto;
+  padding-inline: var(--sbb-spacing-fixed-1x);
+  border-radius: var(--sbb-border-radius-8x);
+  background-color: var(--sbb-color-red-default);
+  min-width: var(--sbb-spacing-fixed-4x);
+  max-height: var(--sbb-spacing-fixed-4x);
+}

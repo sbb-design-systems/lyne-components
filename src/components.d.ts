@@ -779,6 +779,24 @@ export namespace Components {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface SbbMenu {
+        "closeMenu": () => Promise<void>;
+        "openMenu": () => Promise<void>;
+        /**
+          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or a HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
+    interface SbbMenuAction {
+        /**
+          * Documentation for amount
+         */
+        "amount"?: string;
+        /**
+          * Documentation for icon
+         */
+        "icon"?: string;
+    }
     interface SbbOverlay {
         /**
           * Dismiss the overlay.
@@ -1267,6 +1285,10 @@ export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbLinkElement;
 }
+export interface SbbMenuActionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbMenuActionElement;
+}
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
@@ -1421,6 +1443,18 @@ declare global {
     var HTMLSbbLogoElement: {
         prototype: HTMLSbbLogoElement;
         new (): HTMLSbbLogoElement;
+    };
+    interface HTMLSbbMenuElement extends Components.SbbMenu, HTMLStencilElement {
+    }
+    var HTMLSbbMenuElement: {
+        prototype: HTMLSbbMenuElement;
+        new (): HTMLSbbMenuElement;
+    };
+    interface HTMLSbbMenuActionElement extends Components.SbbMenuAction, HTMLStencilElement {
+    }
+    var HTMLSbbMenuActionElement: {
+        prototype: HTMLSbbMenuActionElement;
+        new (): HTMLSbbMenuActionElement;
     };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
@@ -1632,6 +1666,8 @@ declare global {
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
+        "sbb-menu": HTMLSbbMenuElement;
+        "sbb-menu-action": HTMLSbbMenuActionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -2429,6 +2465,26 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface SbbMenu {
+        /**
+          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or a HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
+    interface SbbMenuAction {
+        /**
+          * Documentation for amount
+         */
+        "amount"?: string;
+        /**
+          * Documentation for icon
+         */
+        "icon"?: string;
+        /**
+          * Emits whenever the menu action click event triggers.
+         */
+        "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -2913,6 +2969,8 @@ declare namespace LocalJSX {
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
+        "sbb-menu": SbbMenu;
+        "sbb-menu-action": SbbMenuAction;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -2973,6 +3031,8 @@ declare module "@stencil/core" {
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
+            "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
+            "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;

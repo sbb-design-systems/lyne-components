@@ -3,9 +3,90 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  --sbb-menu-position-x: 0;
+  --sbb-menu-position-y: 0;
 }
 
-.some-class {
-  color: var(--some-color-var);
+// stylelint-disable plugin/stylelint-bem-namics
+::slotted(:not(sbb-menu-action)) {
+  display: block;
+  padding-inline: var(--sbb-spacing-fixed-5x);
+}
+// stylelint-enable plugin/stylelint-bem-namics
+
+::slotted(sbb-divider) {
+  // TODO --> evalute parent detection to set the color
+  --divider-color: var(--sbb-color-iron-default);
+
+  margin: var(--sbb-spacing-fixed-2x) 0;
+}
+
+.sbb-menu {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  min-width: 100%;
+  text-align: start;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: unset;
+  right: unset;
+  will-change: visibility, transform, opacity, margin;
+  transform: translateY(100%);
+  transition-property: visibility, transform, opacity;
+  transition-duration: var(--sbb-animation-duration-6x);
+  transition-timing-function: ease;
+  color: var(--sbb-color-white-default);
+  border: none;
+  border-radius: var(--sbb-border-radius-4x) var(--sbb-border-radius-4x) 0 0;
+  background-color: var(--sbb-color-black-default);
+  padding-inline: 0;
+  padding-block: var(--sbb-spacing-fixed-1x);
+
+  &[open] {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0%);
+  }
+
+  &::backdrop {
+    background: rgb(0 0 0 / 20%);
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    height: var(--sbb-spacing-fixed-8x);
+  }
+}
+
+@include mq($from: medium) {
+  .sbb-menu {
+    position: absolute;
+    left: var(--sbb-menu-position-x);
+    top: var(--sbb-menu-position-y);
+    right: unset;
+    bottom: unset;
+    transform: none;
+    margin-block: var(--sbb-spacing-fixed-2x) 0;
+    transition-property: visibility, margin, opacity;
+    min-width: 240px;
+    max-width: 320px;
+    border-radius: var(--sbb-border-radius-4x);
+
+    &[open] {
+      margin-block: 0;
+    }
+
+    &::backdrop {
+      background: transparent;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
 }

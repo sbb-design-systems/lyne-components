@@ -5,16 +5,32 @@
 
 ## Properties
 
-| Property   | Attribute   | Description                | Type               | Default     |
-| ---------- | ----------- | -------------------------- | ------------------ | ----------- |
-| `someProp` | `some-prop` | Documentation for someProp | `"opt1" \| "opt2"` | `undefined` |
+| Property  | Attribute | Description                                                                                                | Type                    | Default     |
+| --------- | --------- | ---------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `trigger` | `trigger` | The element that will trigger the menu dialog. Accepts both a string (id of an element) or a HTML element. | `HTMLElement \| string` | `undefined` |
 
 
-## Slots
+## Methods
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+### `closeMenu() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `openMenu() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ----------------------------------------------
