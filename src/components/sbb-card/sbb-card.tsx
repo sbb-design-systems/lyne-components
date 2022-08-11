@@ -37,7 +37,7 @@ export class SbbCard {
   public render(): JSX.Element {
     return (
       <Host class={{ card__badge: SbbCard._showSBBBadge(this.size) && this.hasBadge }}>
-        <span>
+        <span class="card__content">
           <slot />
         </span>
         {SbbCard._showSBBBadge(this.size) && (
