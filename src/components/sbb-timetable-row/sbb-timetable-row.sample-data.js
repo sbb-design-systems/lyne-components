@@ -90,8 +90,8 @@ export const config = {
     direction: 'Luzern',
     duration: 1172,
     occupancy: {
-      firstClass: 'low',
-      secondClass: 'low',
+      firstClass: 'high',
+      secondClass: 'high',
     },
     product: {
       number: '27',
