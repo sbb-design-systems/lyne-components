@@ -9,9 +9,7 @@
   border-radius: var(--sbb-border-radius-4x);
   padding-inline: var(--sbb-spacing-responsive-xxs-small);
   overflow: hidden;
-  transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
-  transition-duration: var(--sbb-animation-duration-4x);
-  transition-timing-function: var(--sbb-animation-easing);
+  transition-property: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
   @include mq($from: medium) {
     padding-inline: var(--sbb-spacing-responsive-xxs-medium);
@@ -74,7 +72,5 @@
 }
 
 :host(:active) {
-  box-shadow: inset 0 0 0 var(--sbb-border-width-2x) var(--sbb-color-smoke-default);
-  box-shadow: inset 0 0 0 var(--sbb-border-width-2x) var(--sbb-color-smoke-default);
   box-shadow: inset 0 0 0 var(--sbb-border-width-2x) var(--sbb-color-smoke-default);
 }
