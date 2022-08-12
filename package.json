@@ -161,5 +161,8 @@
     "*.{scss}": [
       "stylelint --fix"
     ]
+  },
+  "dependencies": {
+    "@stencil/react-output-target": "^0.3.1"
   }
 }

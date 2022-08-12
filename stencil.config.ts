@@ -4,6 +4,7 @@ import { sass } from '@stencil/sass';
 import { Config } from '@stencil/core';
 import { basename, dirname, join, resolve } from 'path';
 import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
+import { reactOutputTarget } from '@stencil/react-output-target';
 import ts from 'typescript';
 
 export const config: Config = {
@@ -11,6 +12,10 @@ export const config: Config = {
   globalStyle: 'src/global/global.shared.scss',
   namespace: 'lyne-components',
   outputTargets: [
+    reactOutputTarget({
+      componentCorePackage: 'lyne-components',
+      proxiesFile: '../src/components/components.ts',
+    }),
     {
       type: 'dist-hydrate-script',
     },
