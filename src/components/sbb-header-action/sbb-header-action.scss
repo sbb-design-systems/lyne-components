@@ -59,6 +59,7 @@
 }
 
 .header-action__icon {
+  line-height: 0;
   margin-right: var(--sbb-spacing-fixed-2x);
   @include mq($from: small) {
     margin-left: var(--sbb-spacing-fixed-5x);
@@ -72,7 +73,9 @@
 
 .header-action__link {
   display: flex;
+  flex-direction: row;
   align-content: center;
+  align-items: center;
 }
 
 .header-action__button {
