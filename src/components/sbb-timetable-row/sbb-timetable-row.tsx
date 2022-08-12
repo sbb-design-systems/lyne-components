@@ -36,16 +36,14 @@ export class SbbTimetableRow {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
-      //tbd disabled and tab={-1} prop to button
-      // sbb-timetable-row-button with disabled state
-      <div class="loading" role="presentation">
+      <sbb-timetable-row-button disabled class="loading" role="presentation">
         <div class="loading">
           <span class="loading__badge"></span>
           <div class="loading__row"></div>
           <div class="loading__row"></div>
           <div class="loading__row"></div>
         </div>
-      </div>
+      </sbb-timetable-row-button>
     );
   }
 
@@ -66,13 +64,8 @@ export class SbbTimetableRow {
       return this._renderSkeleton();
     }
 
-    const {
-      price,
-      //legs,
-      notices,
-      situations,
-      tripId,
-    }: InterfaceTimetableRowAttributes['trip'] = this.config;
+    const { price, legs, notices, situations, tripId }: InterfaceTimetableRowAttributes['trip'] =
+      this.config;
 
     const {
       product,
@@ -92,8 +85,11 @@ export class SbbTimetableRow {
     const sortedSituations = this._sortPriority(situations);
 
     return (
-      // use sbb-timetable-row-button as wrapper
-      <div id={tripId} role="presentation" accessibility-label={this.accessibilityLabel}>
+      <sbb-timetable-row-button
+        id={tripId}
+        role="presentation"
+        accessibility-label={this.accessibilityLabel}
+      >
         <div class={`timetable__row ${badgeClass}`} role="row">
           {price && (
             <sbb-card-badge>
@@ -119,7 +115,7 @@ export class SbbTimetableRow {
 
               {convertDate(departure?.time)}
             </time>
-            {/* <sbb-pearl-chain class="timetable__row-chain" legs={legs} /> */}
+            <sbb-pearl-chain class="timetable__row-chain" legs={legs} />
             <time class="timetable__row-time" dateTime={'' + arrival?.time}>
               <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
               {convertDate(arrival?.time)}
@@ -194,7 +190,7 @@ export class SbbTimetableRow {
             )}
           </div>
         </div>
-      </div>
+      </sbb-timetable-row-button>
     );
   }
 }

@@ -1,4 +1,4 @@
-import { convertDate, durationToTime, isProductIcon } from './sbb-timetable-row.helper';
+import { durationToTime, isProductIcon } from './sbb-timetable-row.helper';
 
 describe('durationToTime', () => {
   it('should return only minutes', () => {
@@ -21,11 +21,5 @@ describe('isProductIcon', () => {
 
   it('should return false', () => {
     expect(isProductIcon('icc')).toBe(false);
-  });
-});
-
-describe('convertDate', () => {
-  it('should return time', () => {
-    expect(convertDate(new Date('2022-07-28T13:16:00+02:00'))).toBe('13:16');
   });
 });

@@ -106,20 +106,22 @@
 }
 
 // dot on leg
-.pearl-chain__leg:not(:first-child)::before {
-  --dot-size: var(--dot-size-small);
-  @include dot;
+.pearl-chain__leg:not(:first-child) {
+  &::before {
+    --dot-size: var(--dot-size-small);
+    @include dot;
 
-  box-sizing: border-box;
-  top: calc(var(--dot-size) / -2 + var(--border-width) / 2);
-  left: 0;
-  background-color: var(--color-white);
-  border: var(--border-width) solid currentcolor;
-  z-index: 2;
+    box-sizing: border-box;
+    top: calc(var(--dot-size) / -2 + var(--border-width) / 2);
+    left: 0;
+    background-color: var(--color-white);
+    border: var(--border-width) solid currentcolor;
+    z-index: 2;
 
-  @include ifForcedColors {
-    .pearl-chain--past & {
-      border-color: GrayText;
+    @include ifForcedColors {
+      .pearl-chain--past & {
+        border-color: GrayText;
+      }
     }
   }
 }

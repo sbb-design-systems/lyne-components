@@ -11,6 +11,19 @@
 | `legs` _(required)_ | --                  | define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. | `Leg[]`   | `undefined` |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-timetable-row](../sbb-timetable-row)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-timetable-row --> sbb-pearl-chain
+  style sbb-pearl-chain fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

@@ -27,6 +27,19 @@ here to show the various configuration options to component developers. !!
 | `sbbTimetableRowButtonClick` | Event for emiting whenever state is changed. | `CustomEvent<any>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-timetable-row](../sbb-timetable-row)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-timetable-row --> sbb-timetable-row-button
+  style sbb-timetable-row-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

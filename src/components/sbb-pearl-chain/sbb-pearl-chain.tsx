@@ -50,7 +50,6 @@ export class SbbPearlChain {
     const total = Math.abs(
       legs[legs?.length - 1].arrival?.time?.getTime() - legs[0]?.departure?.time?.getTime()
     );
-
     return Math.round((progress / total) * 100);
   }
 

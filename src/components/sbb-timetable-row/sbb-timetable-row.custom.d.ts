@@ -1,4 +1,4 @@
-// import { Leg } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
+import { Leg } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 
 export type Notice = {
   name?: string;
@@ -126,7 +126,7 @@ declare type Trip = {
   price: string;
 
   /** List of transfer points */
-  // legs: Leg[];
+  legs: Leg[];
   /**
    * List of legs travel hints
    * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2

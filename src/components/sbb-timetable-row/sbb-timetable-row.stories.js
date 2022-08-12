@@ -1,40 +1,54 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import data from './sbb-timetable-row.sample-data';
-
-const loading = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'State',
-  },
-};
+import {
+  config,
+  configPosition,
+  configMinimal,
+  configCancelled,
+  configCancelledStops,
+  configPast,
+} from './sbb-timetable-row.sample-data';
 
 // TEMPLATES
-
-const Template = (args) => (
-  <sbb-timetable-row {...args}>
-    <sbb-pearl-chain slot="pearlChain" class="timetable__row-chain" />
-  </sbb-timetable-row>
-);
-
-const defaultArgTypes = {
-  loading: loading,
-};
+const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
 export const SbbTimetableRow = Template.bind({});
-SbbTimetableRow.argTypes = defaultArgTypes;
 SbbTimetableRow.args = {
-  config: data,
+  config: config,
+};
+
+export const SbbTimetableRowPosition = Template.bind({});
+SbbTimetableRowPosition.args = {
+  config: configPosition,
+};
+
+export const SbbTimetableRowMinimal = Template.bind({});
+SbbTimetableRowMinimal.args = {
+  config: configMinimal,
+};
+
+export const SbbTimetableRowCancelled = Template.bind({});
+SbbTimetableRowCancelled.args = {
+  config: configCancelled,
+};
+
+export const SbbTimetableRowCancelledStops = Template.bind({});
+SbbTimetableRowCancelledStops.args = {
+  config: configCancelledStops,
+};
+
+export const SbbTimetableRowPast = Template.bind({});
+SbbTimetableRowPast.args = {
+  config: configPast,
 };
 
 export const SbbTimetableRowLoading = Template.bind({});
 SbbTimetableRowLoading.args = {
   loading: true,
+  config: config,
 };
 
 SbbTimetableRow.documentation = {

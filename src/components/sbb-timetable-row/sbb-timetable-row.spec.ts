@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { SbbTimetableRow } from './sbb-timetable-row';
-import sampleData from './sbb-timetable-row.sample-data';
+import { config } from './sbb-timetable-row.sample-data';
 
 describe('sbb-timetable-row', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbTimetableRow],
-      html: `<sbb-timetable-row config='${sampleData}'/>`,
+      html: `<sbb-timetable-row config='${config}'/>`,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-timetable-row config="${sampleData}">
+        <sbb-timetable-row config='${config}'>
           <mock:shadow-root>
-            <div role="presentation">
+            <sbb-timetable-row-button role="presentation">
               <div class="timetable__row" role="row">
                 <div class="timetable__row-header" role="rowheader">
                   <div class="timetable__row-details">
@@ -32,6 +32,7 @@ describe('sbb-timetable-row', () => {
                     </span>
                     undefined:undefined
                   </time>
+                  <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
                   <time class="timetable__row-time" datetime="undefined">
                     <span class="screenreaderonly">
                       Arrival
@@ -44,7 +45,7 @@ describe('sbb-timetable-row', () => {
                 <time></time>
                 </div>
               </div>
-            </div>
+            </sbb-timetable-row-button>
           </mock:shadow-root>
         </sbb-timetable-row>
       `);
