@@ -274,7 +274,6 @@ export class SbbTabGroup {
     tab.setAttribute('aria-controls', this._ensureId(tab.relatedContent));
     tab.setAttribute('aria-selected', 'false');
     tab.relatedContent.setAttribute('role', 'tabpanel');
-    tab.relatedContent.setAttribute('aria-labelledby', tab.id);
     if (tab.active) {
       tab.relatedContent.setAttribute('active', '');
     }
