@@ -20,7 +20,7 @@ export interface LinkButtonProperties extends AccessibilityProperties {
   /**
    * Button: whether the button is disabled.
    */
-  disabled: boolean | undefined;
+  disabled?: boolean | undefined;
 
   /**
    * Button: name attribute.
@@ -92,9 +92,9 @@ export function getLinkButtonAttributeList(
       Object.assign(attributeList, {
         rel: 'external noopener nofollow',
         target: '_blank',
-        'aria-label':
-          `${attributeList['aria-label']}. ${i18nTargetOpensInNewWindow[getDocumentLang()]}` ||
-          undefined,
+        'aria-label': attributeList['aria-label']
+          ? `${attributeList['aria-label']}. ${i18nTargetOpensInNewWindow[getDocumentLang()]}`
+          : undefined,
       });
     }
     return Object.assign(attributeList, {
