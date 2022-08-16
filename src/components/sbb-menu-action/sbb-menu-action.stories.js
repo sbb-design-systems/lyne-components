@@ -36,5 +36,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'sbb-menu-action',
+  title: 'components/menu/sbb-menu-action',
 };

@@ -1,4 +1,4 @@
-import { Component, Element, h, Listen, Method, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, Listen, Method, Prop, State, Watch } from '@stencil/core';
 
 /**
  * @slot unnamed - Use this slot to project any content inside the component.
@@ -25,6 +25,11 @@ export class SbbMenu {
    * Accepts both a string (id of an element) or a HTML element.
    */
   @Prop() public trigger: string | HTMLElement;
+
+  /**
+   *
+   */
+  @State() public fixed = false;
 
   /**
    * Check if the trigger is valid and wether it's a string or an HTMLElement
@@ -106,6 +111,8 @@ export class SbbMenu {
   }
 
   private _setMenuPosition(properties: { menuOffset: number }): void {
+    this.fixed = false;
+
     const menuTrigger = this._triggerEl;
     const menu = this._dialog;
 
@@ -114,7 +121,7 @@ export class SbbMenu {
 
     // default menu alignment is "start/below"
     let menuXPosition = menuTrigger.offsetLeft;
-    let menuYPosition = menuTrigger.offsetTop + menuTriggerRec.height + properties?.menuOffset;
+    let menuYPosition = menuTrigger.offsetTop + menuTriggerRec.height + properties.menuOffset;
 
     // check if horizontal alignment needs to be changed to "end"
     if (window.innerWidth < menuXPosition + menuRec.width) {
@@ -123,11 +130,16 @@ export class SbbMenu {
 
     // check if vertical alignment needs to be changed to "above"
     if (
+      !this.fixed &&
       window.innerHeight <
-        menuTriggerRec.top + menuTriggerRec.height + menuRec.height + MENU_OFFSET &&
-      menuTriggerRec.top > menuRec.height
+        menuTriggerRec.top + menuTriggerRec.height + menuRec.height + properties.menuOffset
     ) {
-      menuYPosition = menuTrigger.offsetTop - menuRec.height - properties?.menuOffset;
+      // check if menu exceeds window's height
+      if (menuTriggerRec.top > menuRec.height) {
+        menuYPosition = menuTrigger.offsetTop - menuRec.height - properties.menuOffset;
+      } else {
+        this.fixed = true;
+      }
     }
 
     menu.style.setProperty('--sbb-menu-position-x', `${menuXPosition}px`);
@@ -206,7 +218,7 @@ export class SbbMenu {
 
   public render(): JSX.Element {
     return (
-      <dialog class="sbb-menu">
+      <dialog class={`sbb-menu ${this.fixed ? 'sbb-menu--fixed' : ''}`}>
         <div class="sbb-menu__content">
           <slot></slot>
         </div>

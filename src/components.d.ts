@@ -26,6 +26,7 @@ import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
+import { ButtonType } from "./global/interfaces/link-button-properties";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
@@ -789,13 +790,57 @@ export namespace Components {
     }
     interface SbbMenuAction {
         /**
+          * Documentation for the prop
+         */
+        "accessibilityDescribedby": string;
+        /**
+          * Documentation for the prop
+         */
+        "accessibilityLabel": string;
+        /**
+          * Documentation for the prop
+         */
+        "accessibilityLabelledby": string;
+        /**
           * Documentation for amount
          */
-        "amount"?: string;
+        "amount": string;
+        /**
+          * Documentation for the prop
+         */
+        "disabled": boolean;
+        /**
+          * Documentation for the prop
+         */
+        "download": boolean;
+        /**
+          * Documentation for the prop
+         */
+        "eventId": string;
+        /**
+          * Form attribute if link is used as button
+         */
+        "form": string;
+        /**
+          * Documentation for the prop
+         */
+        "href": string;
         /**
           * Documentation for icon
          */
-        "icon"?: string;
+        "icon": string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "menuActionId": string;
+        /**
+          * Documentation for the prop
+         */
+        "name": string;
+        /**
+          * Documentation for the prop
+         */
+        "type": ButtonType;
     }
     interface SbbOverlay {
         /**
@@ -2473,17 +2518,61 @@ declare namespace LocalJSX {
     }
     interface SbbMenuAction {
         /**
+          * Documentation for the prop
+         */
+        "accessibilityDescribedby"?: string;
+        /**
+          * Documentation for the prop
+         */
+        "accessibilityLabel"?: string;
+        /**
+          * Documentation for the prop
+         */
+        "accessibilityLabelledby"?: string;
+        /**
           * Documentation for amount
          */
         "amount"?: string;
+        /**
+          * Documentation for the prop
+         */
+        "disabled"?: boolean;
+        /**
+          * Documentation for the prop
+         */
+        "download"?: boolean;
+        /**
+          * Documentation for the prop
+         */
+        "eventId"?: string;
+        /**
+          * Form attribute if link is used as button
+         */
+        "form"?: string;
+        /**
+          * Documentation for the prop
+         */
+        "href"?: string;
         /**
           * Documentation for icon
          */
         "icon"?: string;
         /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "menuActionId"?: string;
+        /**
+          * Documentation for the prop
+         */
+        "name"?: string;
+        /**
           * Emits whenever the menu action click event triggers.
          */
         "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
+        /**
+          * Documentation for the prop
+         */
+        "type"?: ButtonType;
     }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;

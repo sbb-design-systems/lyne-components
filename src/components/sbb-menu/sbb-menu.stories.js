@@ -14,44 +14,34 @@ const userInfoStyle = {
   fontSize: 'var(--sbb-font-size-text-xxs)',
 };
 
-const Template = (args) => (
-  <div style="text-align: left">
-    <sbb-button
-      id="menu-trigger-1"
-      size="m"
-      label="Open menu"
-      style="margin-bottom: 2rem"
-    ></sbb-button>
+const DefaultTemplate = (args) => (
+  <div>
+    <sbb-button id="menu-trigger-1" size="m" label="Open menu"></sbb-button>
+
     <sbb-menu {...args} trigger="menu-trigger-1">
-      <sbb-menu-action icon="link-small" href="javascript:void(0)">
+      <sbb-menu-action
+        icon="link-small"
+        href="https://github.com/lyne-design-system/lyne-components"
+      >
         View
       </sbb-menu-action>
-      <sbb-menu-action icon="pen-small" href="javascript:void(0)">
-        Edit
+      <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
+      <sbb-menu-action icon="swisspass-small" amount="2" disabled>
+        Details
       </sbb-menu-action>
-      <sbb-menu-action icon="swisspass-small" amount="2" onclick="console.log('Button clicked')">
-        Delete
-      </sbb-menu-action>
-
       <sbb-divider />
-
-      <sbb-menu-action icon="cross-small" onclick="console.log('Close clicked')">
-        Cancel
-      </sbb-menu-action>
+      <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
     </sbb-menu>
+  </div>
+);
 
-    <div style="width: 100%; height: 250px; background: var(--sbb-color-cloud-default);"></div>
+const CustomContentTemplate = (args) => (
+  <div>
+    <sbb-button id="menu-trigger-2" size="m" label="Open menu"></sbb-button>
 
-    <sbb-button
-      id="menu-trigger-2"
-      size="m"
-      label="Open menu"
-      style="margin: 2rem 0rem 2rem 0rem"
-    ></sbb-button>
     <sbb-menu {...args} trigger="menu-trigger-2">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
-      {/* TODO --> fix sbb-link component */}
       <sbb-link
         href="https://github.com/lyne-design-system/lyne-components"
         text-size="xs"
@@ -59,38 +49,36 @@ const Template = (args) => (
       >
         Profile
       </sbb-link>
-
       <sbb-divider />
-
-      <sbb-menu-action icon="link-small" href="javascript:void(0)">
+      <sbb-menu-action
+        icon="link-small"
+        href="https://github.com/lyne-design-system/lyne-components"
+      >
         View
       </sbb-menu-action>
-      <sbb-menu-action icon="pen-small" href="javascript:void(0)">
-        Edit
+      <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
+      <sbb-menu-action icon="swisspass-small" amount="123">
+        Details
       </sbb-menu-action>
-      <sbb-menu-action icon="swisspass-small" amount="123" onclick="console.log('Button clicked')">
-        Delete
-      </sbb-menu-action>
-
       <sbb-divider />
-
-      <sbb-menu-action icon="cross-small" onclick="console.log('Close clicked')">
-        Cancel
-      </sbb-menu-action>
+      <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
     </sbb-menu>
-
-    <div style="width: 100%; height: 250px; background: var(--sbb-color-cloud-default);"></div>
   </div>
 );
 
-export const story1 = Template.bind({});
+export const Default = DefaultTemplate.bind({});
+export const CustomContent = CustomContentTemplate.bind({});
 
-story1.args = {
+Default.args = {
   'some-prop': 'opt1',
 };
 
-story1.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+Default.documentation = {
+  title: 'Default',
+};
+
+CustomContent.documentation = {
+  title: 'Custom Content',
 };
 
 export default {
@@ -115,5 +103,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'sbb-menu',
+  title: 'components/menu/sbb-menu',
 };
