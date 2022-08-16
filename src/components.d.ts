@@ -10,6 +10,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
+import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
@@ -26,6 +27,7 @@ import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
+import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
@@ -194,9 +196,17 @@ export namespace Components {
     }
     interface SbbCardBadge {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
         /**
           * Badge appearance
          */
@@ -220,9 +230,17 @@ export namespace Components {
     }
     interface SbbCardProduct {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
         /**
           * CardProduct appearance
          */
@@ -277,6 +295,16 @@ export namespace Components {
           * If set to true, the clock will be paused.
          */
         "paused"?: boolean;
+    }
+    interface SbbDivider {
+        /**
+          * Appearance property for displaying the component in dark mode
+         */
+        "negative"?: boolean;
+        /**
+          * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
+         */
+        "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
     interface SbbFooter {
         /**
@@ -429,39 +457,63 @@ export namespace Components {
     }
     interface SbbLink {
         /**
-          * If set to true, the browser will show the download dialog on click.
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Disabled attribute if link is used as button (optional)
+         */
+        "disabled"?: boolean;
+        /**
+          * If set to true, the browser will show the download dialog on click (optional).
          */
         "download"?: boolean;
         /**
-          * The href value you want to link to
+          * Form attribute if link is used as button (optional)
          */
-        "hrefValue": string;
+        "form"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The href value you want to link to (if its not present link becomes a button)
+         */
+        "href"?: string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
         /**
           * The icon can either be place before or after the text.
          */
         "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the link element.
+          * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
         /**
-          * The link text we want to visually show.
+          * Name attribute if link is used as button (optional)
          */
-        "text": string;
+        "name"?: string;
+        /**
+          * Negative coloring variant flag
+         */
+        "negative": boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize": InterfaceLinkAttributes['textSize'];
         /**
-          * Choose the link style variant.
+          * Type attribute if link is used as button (optional)
+         */
+        "type": InterfaceLinkAttributes['buttonType'];
+        /**
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant": InterfaceLinkAttributes['variant'];
     }
@@ -674,6 +726,32 @@ export namespace Components {
           * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
         "level"?: InterfaceTabTitleAttributes['level'];
+    }
+    interface SbbTeaser {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * The href value you want to link to
+         */
+        "href": string;
+        /**
+          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
+         */
+        "isStacked": boolean;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6)
+         */
+        "titleLevel": InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
         /**
@@ -978,15 +1056,15 @@ export namespace Components {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby": string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel": string | undefined;
         /**
           * The aria-labelledby prop for the hidden input.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the toggle-check is checked.
          */
@@ -1085,6 +1163,12 @@ declare global {
     var HTMLSbbClockElement: {
         prototype: HTMLSbbClockElement;
         new (): HTMLSbbClockElement;
+    };
+    interface HTMLSbbDividerElement extends Components.SbbDivider, HTMLStencilElement {
+    }
+    var HTMLSbbDividerElement: {
+        prototype: HTMLSbbDividerElement;
+        new (): HTMLSbbDividerElement;
     };
     interface HTMLSbbFooterElement extends Components.SbbFooter, HTMLStencilElement {
     }
@@ -1205,6 +1289,12 @@ declare global {
     var HTMLSbbTabTitleElement: {
         prototype: HTMLSbbTabTitleElement;
         new (): HTMLSbbTabTitleElement;
+    };
+    interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
+    }
+    var HTMLSbbTeaserElement: {
+        prototype: HTMLSbbTeaserElement;
+        new (): HTMLSbbTeaserElement;
     };
     interface HTMLSbbTeaserHeroElement extends Components.SbbTeaserHero, HTMLStencilElement {
     }
@@ -1347,6 +1437,7 @@ declare global {
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
+        "sbb-divider": HTMLSbbDividerElement;
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-grid": HTMLSbbGridElement;
         "sbb-icon": HTMLSbbIconElement;
@@ -1367,6 +1458,7 @@ declare global {
         "sbb-tab-amount": HTMLSbbTabAmountElement;
         "sbb-tab-group": HTMLSbbTabGroupElement;
         "sbb-tab-title": HTMLSbbTabTitleElement;
+        "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-text-input": HTMLSbbTextInputElement;
         "sbb-timetable": HTMLSbbTimetableElement;
@@ -1552,9 +1644,17 @@ declare namespace LocalJSX {
     }
     interface SbbCardBadge {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Badge appearance
          */
@@ -1578,9 +1678,17 @@ declare namespace LocalJSX {
     }
     interface SbbCardProduct {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * CardProduct appearance
          */
@@ -1635,6 +1743,16 @@ declare namespace LocalJSX {
           * If set to true, the clock will be paused.
          */
         "paused"?: boolean;
+    }
+    interface SbbDivider {
+        /**
+          * Appearance property for displaying the component in dark mode
+         */
+        "negative"?: boolean;
+        /**
+          * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
+         */
+        "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
     interface SbbFooter {
         /**
@@ -1787,39 +1905,63 @@ declare namespace LocalJSX {
     }
     interface SbbLink {
         /**
-          * If set to true, the browser will show the download dialog on click.
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Disabled attribute if link is used as button (optional)
+         */
+        "disabled"?: boolean;
+        /**
+          * If set to true, the browser will show the download dialog on click (optional).
          */
         "download"?: boolean;
         /**
-          * The href value you want to link to
+          * Form attribute if link is used as button (optional)
          */
-        "hrefValue": string;
+        "form"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The href value you want to link to (if its not present link becomes a button)
+         */
+        "href"?: string;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
         /**
           * The icon can either be place before or after the text.
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the link element.
+          * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
         /**
-          * The link text we want to visually show.
+          * Name attribute if link is used as button (optional)
          */
-        "text": string;
+        "name"?: string;
+        /**
+          * Negative coloring variant flag
+         */
+        "negative"?: boolean;
         /**
           * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
-          * Choose the link style variant.
+          * Type attribute if link is used as button (optional)
+         */
+        "type"?: InterfaceLinkAttributes['buttonType'];
+        /**
+          * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
         "variant"?: InterfaceLinkAttributes['variant'];
     }
@@ -2017,6 +2159,32 @@ declare namespace LocalJSX {
           * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
         "level"?: InterfaceTabTitleAttributes['level'];
+    }
+    interface SbbTeaser {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * The href value you want to link to
+         */
+        "href": string;
+        /**
+          * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
+         */
+        "isStacked"?: boolean;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6)
+         */
+        "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
         /**
@@ -2321,15 +2489,15 @@ declare namespace LocalJSX {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby"?: string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel"?: string | undefined;
         /**
           * The aria-labelledby prop for the hidden input.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the toggle-check is checked.
          */
@@ -2355,7 +2523,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Event for emiting whenever selection is changed.
+          * Emits whenever the selection has changed.
          */
         "onSbbChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
         /**
@@ -2376,6 +2544,7 @@ declare namespace LocalJSX {
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
+        "sbb-divider": SbbDivider;
         "sbb-footer": SbbFooter;
         "sbb-grid": SbbGrid;
         "sbb-icon": SbbIcon;
@@ -2396,6 +2565,7 @@ declare namespace LocalJSX {
         "sbb-tab-amount": SbbTabAmount;
         "sbb-tab-group": SbbTabGroup;
         "sbb-tab-title": SbbTabTitle;
+        "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-text-input": SbbTextInput;
         "sbb-timetable": SbbTimetable;
@@ -2432,6 +2602,7 @@ declare module "@stencil/core" {
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
+            "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
@@ -2452,6 +2623,7 @@ declare module "@stencil/core" {
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
             "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
+            "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;

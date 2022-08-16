@@ -310,13 +310,15 @@ For these scenarios, we provide properties for each relevant aria attribute with
 `aria-*` with `accessibility-*`.
 
 ```ts
-/** This will be forwarded as aria-describedby to the relevant nested element. */
-@Prop() public accessibilityDescribedby?: string;
 /** This will be forwarded as aria-label to the relevant nested element. */
-@Prop() public accessibilityLabel?: string;
+@Prop() public accessibilityLabel: string | undefined;
+/** This will be forwarded as aria-describedby to the relevant nested element. */
+@Prop() public accessibilityDescribedby: string | undefined;
 /** This will be forwarded as aria-labelledby to the relevant nested element. */
-@Prop() public accessibilityLabelledby?: string;
+@Prop() public accessibilityLabelledby: string | undefined;
 ```
+
+For consistency, please use the AccessibilityProperties interface (see sbb-teaser.tsx as a reference).
 
 #### id handling
 

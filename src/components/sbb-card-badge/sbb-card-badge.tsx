@@ -1,6 +1,7 @@
 import { Component, Element, h, Prop } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 /**
  * @slot generic - Slot used to render generic content. Since this slot is
@@ -14,7 +15,7 @@ import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
   styleUrl: 'sbb-card-badge.scss',
   tag: 'sbb-card-badge',
 })
-export class SbbCardBadge {
+export class SbbCardBadge implements AccessibilityProperties {
   /**
    * Accessibility label text. This text gets exposed to screen reader users.
    * The text should reflect all the information which gets passed into the
@@ -23,7 +24,13 @@ export class SbbCardBadge {
    *
    * Example text: Sales ticket price starts at CHF 37.50
    */
-  @Prop() public accessibilityLabel!: string;
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /** Badge appearance */
   @Prop() public appearance: InterfaceCardBadgeAttributes['appearance'] = 'primary';
@@ -63,6 +70,8 @@ export class SbbCardBadge {
     return (
       <span
         aria-label={this.accessibilityLabel}
+        aria-describedby={this.accessibilityDescribedby}
+        aria-labelledby={this.accessibilityLabelledby}
         class={`card-badge
           ${appearanceClass}
           ${sizeClass}`}

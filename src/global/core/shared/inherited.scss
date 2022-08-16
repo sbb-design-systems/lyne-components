@@ -8,13 +8,8 @@
 // in global/core/components/utilities.scss which each component needs to @extend
 @import './../../mixins.scss';
 
-html,
-:host {
+html {
   @include text;
-}
 
-body,
-:host {
-  font-family: var(--typo-default-font-family);
   color: var(--sbb-font-default-color);
 }

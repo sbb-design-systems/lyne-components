@@ -1,45 +1,63 @@
 :host {
-  // We use inline-flex here to avoid leaking white space due to the svg element.
-  display: inline-flex;
+  display: inline-block;
 
   --toggle-check-color: var(--sbb-color-charcoal-default);
   --toggle-check-background: var(--sbb-color-smoke-default);
   --toggle-check-fill: var(--sbb-color-red-default);
   --toggle-check-circle-background: var(--sbb-color-white-default);
-  --toggle-check-width: #{px-to-rem-build(48)};
-  --toggle-check-height: #{px-to-rem-build(28)};
-  --toggle-check-circle-diameter: #{px-to-rem-build(24)};
-  --toggle-check-circle-offset: #{px-to-rem-build(2)};
+  --toggle-check-circle-offset: var(--sbb-border-width-2x);
+  --toggle-check-circle-diameter: var(--sbb-size-icon-ui-small);
+  --toggle-check-height: calc(
+    var(--toggle-check-circle-diameter) + 2 * var(--toggle-check-circle-offset)
+  );
+  --toggle-check-circle-transform: translate(var(--toggle-check-circle-offset), -50%);
   --toggle-check-cursor: pointer;
+  --toggle-check-flex-direction: row-reverse;
+  --toggle-check-icon-opacity: 0;
 
-  .toggle-check--checked {
-    --toggle-check-checked-background: var(--sbb-color-red-default);
+  @include ifForcedColors {
+    --toggle-check-circle-background: Canvas;
+    --toggle-check-background: CanvasText;
   }
+}
 
-  .toggle-check--disabled {
-    --toggle-check-color: var(--sbb-color-graphite-default);
-    --toggle-check-background: var(--sbb-color-cloud-default);
-    --toggle-check-checked-background: var(--sbb-color-cloud-default);
-    --toggle-check-fill: var(--sbb-color-granite-default);
-    --toggle-check-circle-background: var(--sbb-color-milk-default);
-    --toggle-check-cursor: not-allowed;
+.toggle-check--checked {
+  --toggle-check-background: var(--sbb-color-red-default);
+  --toggle-check-circle-transform: translate(calc(100% - var(--toggle-check-circle-offset)), -50%);
+  --toggle-check-icon-opacity: 1;
+
+  @include ifForcedColors {
+    --toggle-check-fill: Highlight;
+    --toggle-check-background: Highlight;
   }
+}
+
+.toggle-check--disabled {
+  --toggle-check-color: var(--sbb-color-graphite-default);
+  --toggle-check-background: var(--sbb-color-cloud-default);
+  --toggle-check-fill: var(--sbb-color-granite-default);
+  --toggle-check-circle-background: var(--sbb-color-milk-default);
+  --toggle-check-cursor: not-allowed;
+
+  @include ifForcedColors {
+    --toggle-check-fill: GrayText;
+    --toggle-check-background: GrayText;
+  }
+}
+
+.toggle-check--before {
+  --toggle-check-flex-direction: row;
 }
 
 .toggle-check {
+  // Avoids unwanted space displayed if no label text is set.
+  @include zeroWidthSpace;
+
   position: relative;
-  display: inline-flex;
-  align-items: center;
+  display: flex;
   color: var(--toggle-check-color);
-  @include text-s--regular;
-}
-
-.toggle-check__slider--after {
-  margin-inline-end: var(--sbb-spacing-fixed-3x);
-}
-
-.toggle-check__slider--before {
-  margin-inline-start: var(--sbb-spacing-fixed-3x);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input[type='checkbox'] {
@@ -48,8 +66,8 @@ input[type='checkbox'] {
   top: 0;
   left: 0;
   margin: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   cursor: inherit;
 
   // Puts the element behind the parent while keeping it visible so that
@@ -57,41 +75,46 @@ input[type='checkbox'] {
   z-index: -1;
 }
 
+.toggle-check__container {
+  @include text-s--regular;
+
+  display: flex;
+  flex-direction: var(--toggle-check-flex-direction);
+  gap: var(--sbb-spacing-fixed-3x);
+  align-items: center;
+}
+
+.toggle-check__slider {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  min-width: calc(2 * var(--toggle-check-circle-diameter));
+  height: var(--toggle-check-height);
+  border-radius: var(--toggle-check-height);
+  background-color: var(--toggle-check-background);
+  cursor: var(--toggle-check-cursor);
+
+  input[type='checkbox']:focus-visible + .toggle-check__container & {
+    @include focusOutline;
+  }
+}
+
 .toggle-check__circle {
   @include shadow-level-5-hard;
+  @include absoluteCenterY;
 
-  content: '';
-  position: absolute;
-  top: 50%;
   width: var(--toggle-check-circle-diameter);
   height: var(--toggle-check-circle-diameter);
   border-radius: var(--toggle-check-height);
   background-color: var(--toggle-check-circle-background);
   color: var(--toggle-check-fill);
   will-change: transform;
-  transform: translate(var(--toggle-check-circle-offset), -50%);
-  transition: var(--sbb-animation-duration-6x);
-
-  .toggle-check--checked & {
-    transform: translate(calc(100% - var(--toggle-check-circle-offset)), -50%);
-  }
+  transform: var(--toggle-check-circle-transform);
+  transition: transform ease var(--sbb-animation-duration-6x);
 }
 
-.toggle-check__slider {
-  position: relative;
-  cursor: var(--toggle-check-cursor);
-  display: inline-block;
-  overflow: hidden;
-  min-width: var(--toggle-check-width);
-  height: var(--toggle-check-height);
-  border-radius: var(--toggle-check-height);
-  background-color: var(--toggle-check-background);
-
-  .toggle-check--checked & {
-    background: var(--toggle-check-checked-background);
-  }
-
-  input[type='checkbox']:focus-visible + & {
-    @include focusOutline;
-  }
+::slotted(sbb-icon),
+slot[name='icon'] sbb-icon {
+  opacity: var(--toggle-check-icon-opacity);
+  transition: opacity ease var(--sbb-animation-duration-6x);
 }

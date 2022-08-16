@@ -1,5 +1,6 @@
-import { Component, Prop, h, Event, EventEmitter, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 let nextId = 0;
 @Component({
@@ -7,7 +8,7 @@ let nextId = 0;
   styleUrl: 'sbb-toggle-check.scss',
   tag: 'sbb-toggle-check',
 })
-export class SbbToggleCheck {
+export class SbbToggleCheck implements AccessibilityProperties {
   private _checkbox: HTMLInputElement;
 
   /** Whether the toggle-check is checked. */
@@ -35,15 +36,15 @@ export class SbbToggleCheck {
   @Prop() public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] = 'after';
 
   /** The aria-label prop for the hidden input. */
-  @Prop() public accessibilityLabel?: string;
+  @Prop() public accessibilityLabel: string | undefined;
 
   /** The aria-labelledby prop for the hidden input. */
-  @Prop() public accessibilityLabelledby?: string;
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /** The aria-describedby prop for the hidden input. */
-  @Prop() public accessibilityDescribedby?: string;
+  @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** Event for emiting whenever selection is changed. */
+  /** Emits whenever the selection has changed.  */
   @Event() public sbbChange: EventEmitter;
 
   @Watch('checked')
@@ -55,11 +56,16 @@ export class SbbToggleCheck {
   }
 
   public render(): JSX.Element {
-    const disabled = this.disabled ? 'toggle-check--disabled' : '';
-    const checked = this.checked ? 'toggle-check--checked' : '';
-
     return (
-      <label class={`toggle-check ${disabled} ${checked}`} htmlFor={this.inputId}>
+      <label
+        class={{
+          'toggle-check': true,
+          [`toggle-check--${this.labelPosition}`]: true,
+          'toggle-check--checked': this.checked,
+          'toggle-check--disabled': this.disabled,
+        }}
+        htmlFor={this.inputId}
+      >
         <input
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
@@ -74,22 +80,19 @@ export class SbbToggleCheck {
             this.checked = this._checkbox?.checked;
           }}
           aria-label={this.accessibilityLabel}
-          aria-labelledby={this.accessibilityLabelledby}
           aria-describedby={this.accessibilityDescribedby}
+          aria-labelledby={this.accessibilityLabelledby}
         />
-        {this.labelPosition === 'before' ? <slot /> : ''}
-        <span class={`toggle-check__slider toggle-check__slider--${this.labelPosition}`}>
-          <span class="toggle-check__circle">
-            {this.checked ? (
+        <span class="toggle-check__container">
+          <slot />
+          <span class="toggle-check__slider">
+            <span class="toggle-check__circle">
               <slot name="icon">
                 <sbb-icon name={this.icon}></sbb-icon>
               </slot>
-            ) : (
-              ''
-            )}
+            </span>
           </span>
         </span>
-        {this.labelPosition === 'after' ? <slot /> : ''}
       </label>
     );
   }

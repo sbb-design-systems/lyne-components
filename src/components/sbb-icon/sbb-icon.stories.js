@@ -9,7 +9,13 @@ const iconName = {
   control: {
     type: 'select',
   },
-  options: ['app-icon-medium', 'train-medium', 'swisspass-medium', 'pie-medium'],
+  options: [
+    'app-icon-medium',
+    'train-medium',
+    'swisspass-medium',
+    'pie-medium',
+    'chevron-small-left-small',
+  ],
 };
 
 const defaultArgTypes = {
