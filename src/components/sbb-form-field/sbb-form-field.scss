@@ -14,6 +14,8 @@
   --form-field-label-color: var(--sbb-color-metal-default);
   --form-field-padding-inline: var(--sbb-spacing-fixed-3x);
   --form-field-text-color: var(--sbb-color-charcoal-default);
+  --form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
+  --form-field-error-padding-block-start: var(--form-field-error-divider-width);
 
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
@@ -22,6 +24,10 @@
   @include mq($from: medium) {
     --form-field-height: var(--sbb-size-form-element-m-min-height-medium);
   }
+}
+
+.form-field__error--empty {
+  --form-field-error-padding-block-start: 0;
 }
 
 :host(:focus-within) {
@@ -67,7 +73,7 @@
   --form-field-error-min-height: calc(
     var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)
   );
-  --form-field-error-padding-block-start: var(--sbb-border-width-1x);
+  --form-field-error-padding-block-start-override: var(--form-field-error-divider-width);
 }
 
 .form-field__wrapper {
@@ -135,10 +141,11 @@
 /* stylelint-enable plugin/stylelint-bem-namics */
 
 .form-field__error {
-  &:not(.form-field__suffix--empty) {
-    --form-field-error-padding-block-start: var(--sbb-border-width-1x);
-  }
+  display: flex;
 
   min-height: var(--form-field-error-min-height);
-  margin-block-start: var(--form-field-error-padding-block-start);
+  margin-block-start: var(
+    --form-field-error-padding-block-start-override,
+    var(--form-field-error-padding-block-start)
+  );
 }
