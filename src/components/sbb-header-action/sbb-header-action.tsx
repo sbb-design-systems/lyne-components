@@ -20,72 +20,70 @@ let nextId = 0;
 })
 export class SbbHeaderAction implements LinkButtonProperties {
   /**
-   *
+   * Id of the action element.
    */
   @Prop() public actionHeaderId = `sbb-action-header-${++nextId}`;
 
   /**
-   *
+   * Used to set the minimum breakpoint from which the label is displayed.
+   * Eg. if set to 'large', the label will be visible for breakpoints large, wide, ultra,
+   * and hidden for all the other.
    */
   @Prop() public expandFrom: InterfaceSbbHeaderActionAttributes['expandFrom'] = 'medium';
 
   /**
-   *
+   * The icon name used in the element. See sbb-icon components for more details.
    */
   @Prop() public icon?: string;
 
   /**
-   *
+   * This will be forwarded as aria-describedby to the relevant nested element.
    */
   @Prop() public accessibilityDescribedby: string | undefined;
 
   /**
-   *
+   * This will be forwarded as aria-label to the relevant nested element.
    */
   @Prop() public accessibilityLabel: string | undefined;
 
   /**
-   *
+   * This will be forwarded as aria-labelledby to the relevant nested element.
    */
   @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
-   *
+   * Indicates wheter the browser will show the download dialog on click.
    */
   @Prop() public download: boolean | undefined;
 
   /**
-   *
+   * The href value you want to link to.
    */
   @Prop() public href: string | undefined;
 
   /**
-   *
+   * Form attribute if component is displayed as a button.
    */
   @Prop() public form: string | undefined;
 
   /**
-   *
+   * Name attribute if component is displayed as a button.
    */
   @Prop() public name: string | undefined;
 
   /**
-   *
+   * Type attribute if component is displayed as a button.
    */
   @Prop() public type: ButtonType | undefined;
 
   /**
-   *
-   */
-  @Prop() public disabled: boolean | undefined;
-
-  /**
-   *
+   * Id sent in the click event payload
    */
   @Prop() public eventId: string;
 
   /**
-   *
+   * Emits whenever the native button click event triggers.
+   * TODO: similar to the one in sbb-button. To be fixed together.
    */
   @Event({
     bubbles: true,
@@ -95,12 +93,10 @@ export class SbbHeaderAction implements LinkButtonProperties {
   public click: EventEmitter<any>;
 
   /**
-   *
+   * Method triggered on button click.
    */
   public emitButtonClick(): void {
-    if (!this.disabled) {
-      this.click.emit(this.eventId);
-    }
+    this.click.emit(this.eventId);
   }
 
   public render(): JSX.Element {

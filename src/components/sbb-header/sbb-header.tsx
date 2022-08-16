@@ -1,7 +1,8 @@
 import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Slot used to render the actions on the left side.
+ * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
  */
 
 @Component({
@@ -10,11 +11,17 @@ import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
   tag: 'sbb-header',
 })
 export class SbbHeader {
+  /**
+   * Used to display a box-shadow below the component on y-axis scroll whether set to true.
+   */
   @Prop() public shadow: boolean;
 
   /** @internal */
   @State() private _isScrolled: boolean;
 
+  /**
+   * Listen to window scroll to possibly show the box shadow (in combination with `shadow` property)
+   */
   @Listen('scroll', { target: 'window' })
   public handleScroll(): void {
     this._isScrolled = window.scrollY !== 0;
@@ -22,7 +29,7 @@ export class SbbHeader {
 
   public render(): JSX.Element {
     return (
-      <div class={{ 'sbb-header': true, 'sbb-header--shadow': this.shadow && this._isScrolled }}>
+      <header class={{ 'sbb-header': true, 'sbb-header--shadow': this.shadow && this._isScrolled }}>
         <div class="sbb-header__wrapper">
           <div class="sbb-header__left">
             <slot />
@@ -33,7 +40,7 @@ export class SbbHeader {
             </slot>
           </div>
         </div>
-      </div>
+      </header>
     );
   }
 }
