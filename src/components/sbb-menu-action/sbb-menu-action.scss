@@ -2,15 +2,18 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-.sbb-action {
+.sbb-menu-action__link,
+.sbb-menu-action__button {
+  display: block;
   width: 100%;
-  color: inherit;
+  color: var(--sbb-color-white-default);
+  text-decoration: none;
   border: none;
   background-color: transparent;
   padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
 }
 
-.sbb-action__content {
+.sbb-menu-action__content {
   @include text-xs--regular;
 
   cursor: pointer;
@@ -35,13 +38,24 @@
   }
 }
 
-.sbb-action__label {
+.sbb-menu-action__label {
   @include ellipsis;
 
   padding-inline-end: var(--sbb-spacing-fixed-2x);
 }
 
-.sbb-action__amount {
+.sbb-menu-action__button[disabled] {
+  sbb-icon {
+    color: var(--sbb-color-graphite-default);
+  }
+
+  .sbb-menu-action__label {
+    color: var(--sbb-color-graphite-default);
+    text-decoration: line-through;
+  }
+}
+
+.sbb-menu-action__amount {
   @include text-xxs--bold;
 
   display: flex;

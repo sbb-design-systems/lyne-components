@@ -15,7 +15,6 @@
 // stylelint-enable plugin/stylelint-bem-namics
 
 ::slotted(sbb-divider) {
-  // TODO --> evalute parent detection to set the color
   --divider-color: var(--sbb-color-iron-default);
 
   margin: var(--sbb-spacing-fixed-2x) 0;
@@ -26,7 +25,9 @@
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
+  overflow: scroll;
   min-width: 100%;
+  max-height: calc(100vh - var(--sbb-spacing-fixed-8x));
   text-align: start;
   position: fixed;
   left: 0;
@@ -79,6 +80,12 @@
 
     &[open] {
       margin-block: 0;
+    }
+
+    &.sbb-menu--fixed {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     &::backdrop {
