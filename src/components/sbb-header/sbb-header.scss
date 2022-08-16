@@ -16,9 +16,13 @@
   }
 }
 
+.sbb-header--shadow {
+  @include shadow-level-3-hard;
+}
+
 .sbb-header {
   display: block;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
