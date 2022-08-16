@@ -9,7 +9,7 @@ describe('sbb-header', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-header class="sbb-header--shadow--hide">
+      <sbb-header>
         <mock:shadow-root>
           <div class="sbb-header">
             <div class="sbb-header__wrapper">
