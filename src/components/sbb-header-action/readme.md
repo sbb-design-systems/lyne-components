@@ -1,32 +1,37 @@
-# **name**
+# sbb-header-action
+
+The component represents an action element contained by the [sbb-header](../sbb-header/readme.md) component.
+
+As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link.
+Consumers can set the icon and the label; the property `expandFrom` defined the minimum breakpoint 
+from which the label is displayed.
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property                   | Attribute                   | Description                                                                                 | Type                                                                       | Default                           |
-| -------------------------- | --------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------- |
-| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.                  | `string`                                                                   | `undefined`                       |
-| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                        | `string`                                                                   | `undefined`                       |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                   | `string`                                                                   | `undefined`                       |
-| `actionHeaderId`           | `action-header-id`          |                                                                                             | `string`                                                                   | ``sbb-action-header.${++nextId}`` |
-| `disabled`                 | `disabled`                  | Whether the button is disabled.                                                             | `boolean`                                                                  | `undefined`                       |
-| `download`                 | `download`                  | Whether the browser will show the download dialog on click.                                 | `boolean`                                                                  | `undefined`                       |
-| `eventId`                  | `event-id`                  | Id sent in the click event payload. TODO verify if needed and if string is the correct type | `string`                                                                   | `undefined`                       |
-| `expandFrom`               | `expand-from`               |                                                                                             | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `'medium'`                        |
-| `form`                     | `form`                      | The <form> element to associate the button with.                                            | `string`                                                                   | `undefined`                       |
-| `href`                     | `href`                      | The href value you want to link to.                                                         | `string`                                                                   | `undefined`                       |
-| `icon`                     | `icon`                      |                                                                                             | `string`                                                                   | `undefined`                       |
-| `name`                     | `name`                      | The name of the button.                                                                     | `string`                                                                   | `undefined`                       |
-| `type`                     | `type`                      | Default behaviour of the button.                                                            | `"button" \| "reset" \| "submit"`                                          | `undefined`                       |
+| Property                   | Attribute                   | Description                                                                                                                                                                              | Type                                                                       | Default                           |
+| -------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------- |
+| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.                                                                                                               | `string`                                                                   | `undefined`                       |
+| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                                                                                                     | `string`                                                                   | `undefined`                       |
+| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                                                                                                                | `string`                                                                   | `undefined`                       |
+| `actionHeaderId`           | `action-header-id`          | Id of the action element.                                                                                                                                                                | `string`                                                                   | ``sbb-action-header-${++nextId}`` |
+| `download`                 | `download`                  | Indicates wheter the browser will show the download dialog on click.                                                                                                                     | `boolean`                                                                  | `undefined`                       |
+| `eventId`                  | `event-id`                  | Id sent in the click event payload                                                                                                                                                       | `string`                                                                   | `undefined`                       |
+| `expandFrom`               | `expand-from`               | Used to set the minimum breakpoint from which the label is displayed. Eg. if set to 'large', the label will be visible for breakpoints large, wide, ultra, and hidden for all the other. | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `'medium'`                        |
+| `form`                     | `form`                      | Form attribute if component is displayed as a button.                                                                                                                                    | `string`                                                                   | `undefined`                       |
+| `href`                     | `href`                      | The href value you want to link to.                                                                                                                                                      | `string`                                                                   | `undefined`                       |
+| `icon`                     | `icon`                      | The icon name used in the element. See sbb-icon components for more details.                                                                                                             | `string`                                                                   | `undefined`                       |
+| `name`                     | `name`                      | Name attribute if component is displayed as a button.                                                                                                                                    | `string`                                                                   | `undefined`                       |
+| `type`                     | `type`                      | Type attribute if component is displayed as a button.                                                                                                                                    | `"button" \| "reset" \| "submit"`                                          | `undefined`                       |
 
 
 ## Events
 
-| Event                            | Description                                                                                               | Type               |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------ |
-| `sbb-header-action-button_click` | Emits the eventId to parent on button click. TODO check if it's possible to use a better type than 'any'. | `CustomEvent<any>` |
+| Event                            | Description                                                                                                          | Type               |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `sbb-header-action-button_click` | Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together. | `CustomEvent<any>` |
 
 
 ## Slots

@@ -329,6 +329,9 @@ export namespace Components {
         "variant"?: InterfaceGridAttributes['variant'];
     }
     interface SbbHeader {
+        /**
+          * Used to display a box-shadow below the component on y-axis scroll whether set to true.
+         */
         "shadow": boolean;
     }
     interface SbbHeaderAction {
@@ -344,35 +347,40 @@ export namespace Components {
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby": string | undefined;
+        /**
+          * Id of the action element.
+         */
         "actionHeaderId": string;
         /**
-          * Whether the button is disabled.
-         */
-        "disabled": boolean | undefined;
-        /**
-          * Whether the browser will show the download dialog on click.
+          * Indicates wheter the browser will show the download dialog on click.
          */
         "download": boolean | undefined;
         /**
-          * Id sent in the click event payload. TODO verify if needed and if string is the correct type
+          * Id sent in the click event payload
          */
         "eventId": string;
+        /**
+          * Used to set the minimum breakpoint from which the label is displayed. Eg. if set to 'large', the label will be visible for breakpoints large, wide, ultra, and hidden for all the other.
+         */
         "expandFrom": InterfaceSbbHeaderActionAttributes['expandFrom'];
         /**
-          * The <form> element to associate the button with.
+          * Form attribute if component is displayed as a button.
          */
         "form": string | undefined;
         /**
           * The href value you want to link to.
          */
         "href": string | undefined;
+        /**
+          * The icon name used in the element. See sbb-icon components for more details.
+         */
         "icon"?: string;
         /**
-          * The name of the button.
+          * Name attribute if component is displayed as a button.
          */
         "name": string | undefined;
         /**
-          * Default behaviour of the button.
+          * Type attribute if component is displayed as a button.
          */
         "type": ButtonType | undefined;
     }
@@ -1847,6 +1855,9 @@ declare namespace LocalJSX {
         "variant"?: InterfaceGridAttributes['variant'];
     }
     interface SbbHeader {
+        /**
+          * Used to display a box-shadow below the component on y-axis scroll whether set to true.
+         */
         "shadow"?: boolean;
     }
     interface SbbHeaderAction {
@@ -1862,39 +1873,44 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Id of the action element.
+         */
         "actionHeaderId"?: string;
         /**
-          * Whether the button is disabled.
-         */
-        "disabled"?: boolean | undefined;
-        /**
-          * Whether the browser will show the download dialog on click.
+          * Indicates wheter the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
         /**
-          * Id sent in the click event payload. TODO verify if needed and if string is the correct type
+          * Id sent in the click event payload
          */
         "eventId"?: string;
+        /**
+          * Used to set the minimum breakpoint from which the label is displayed. Eg. if set to 'large', the label will be visible for breakpoints large, wide, ultra, and hidden for all the other.
+         */
         "expandFrom"?: InterfaceSbbHeaderActionAttributes['expandFrom'];
         /**
-          * The <form> element to associate the button with.
+          * Form attribute if component is displayed as a button.
          */
         "form"?: string | undefined;
         /**
           * The href value you want to link to.
          */
         "href"?: string | undefined;
+        /**
+          * The icon name used in the element. See sbb-icon components for more details.
+         */
         "icon"?: string;
         /**
-          * The name of the button.
+          * Name attribute if component is displayed as a button.
          */
         "name"?: string | undefined;
         /**
-          * Emits the eventId to parent on button click. TODO check if it's possible to use a better type than 'any'.
+          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
          */
         "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<any>) => void;
         /**
-          * Default behaviour of the button.
+          * Type attribute if component is displayed as a button.
          */
         "type"?: ButtonType | undefined;
     }
