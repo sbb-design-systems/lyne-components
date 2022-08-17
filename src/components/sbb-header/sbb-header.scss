@@ -17,7 +17,7 @@
 }
 
 .sbb-header--shadow {
-  @include shadow-level-3-hard;
+  @include shadow-level-9-soft;
 }
 
 .sbb-header {
@@ -40,6 +40,10 @@
   padding: 0;
   height: #{px-to-rem-build(56)}; // fixme
   width: 100%;
+}
+
+.sbb-header__left {
+  display: flex;
 }
 
 .sbb-header__right {
