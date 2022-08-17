@@ -28,6 +28,7 @@
   width: 100vw;
   padding: 0 var(--sbb-page-base-offset-responsive);
   background: var(--sbb-color-white-default);
+  transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 }
 
 .sbb-header__wrapper {
