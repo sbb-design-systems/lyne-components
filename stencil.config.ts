@@ -6,6 +6,7 @@ import { basename, dirname, join, resolve } from 'path';
 import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import { reactOutputTarget } from '@stencil/react-output-target';
 import ts from 'typescript';
+import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
   globalScript: 'src/global/global.ts',
@@ -39,6 +40,11 @@ export const config: Config = {
       file: './dist/documentation/jsonDocs.json',
       type: 'docs-json',
     },
+    reactOutputTarget({
+      componentCorePackage: '@sbb-esta/lyne-components',
+      proxiesFile: './lyne-components-react/src/components/stencil-generated/index.ts',
+      includeDefineCustomElements: true,
+    })
   ],
   plugins: [
     inlineSvg(),
