@@ -6,23 +6,27 @@
 :host {
   display: inline-block;
   width: #{px-to-rem-build(300)};
+  min-width: #{px-to-rem-build(150)};
 
   --form-field-background-color: var(--sbb-color-white-default);
   --form-field-border-color: var(--sbb-color-smoke-default);
   --form-field-border-radius: var(--sbb-border-radius-4x);
-  --form-field-height: var(--sbb-size-form-element-m-min-height-small);
+  --form-field-height: var(--sbb-size-form-element-m-min-height);
   --form-field-label-color: var(--sbb-color-metal-default);
+  --form-field-prefix-color: var(--sbb-color-metal-default);
   --form-field-padding-inline: var(--sbb-spacing-fixed-3x);
   --form-field-text-color: var(--sbb-color-charcoal-default);
   --form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
   --form-field-error-padding-block-start: var(--form-field-error-divider-width);
+  --form-field-gap: var(--sbb-spacing-fixed-2x);
+  --form-field-label-to-input-gap: #{px-to-rem-build(-4)};
 
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
 
   @include mq($from: medium) {
-    --form-field-height: var(--sbb-size-form-element-m-min-height-medium);
+    --form-field-label-to-input-gap: #{px-to-rem-build(-6)};
   }
 }
 
@@ -32,16 +36,13 @@
 
 :host(:focus-within) {
   --form-field-border-color: var(--sbb-color-charcoal-default);
+  --form-field-prefix-color: var(--sbb-color-charcoal-default);
 }
 
 :host(.form-field--size-l) {
   --form-field-border-radius: var(--sbb-border-radius-8x);
-  --form-field-height: var(--sbb-size-form-element-l-min-height-medium);
+  --form-field-height: var(--sbb-size-form-element-l-min-height);
   --form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
-
-  @include mq($from: medium) {
-    --form-field-height: var(--sbb-size-form-element-l-min-height-medium);
-  }
 }
 
 :host(.sbb-invalid) {
@@ -57,10 +58,12 @@
 
 :host(.form-field--readonly) {
   --form-field-label-color: var(--sbb-color-granite-default);
+  --form-field-prefix-color: var(--sbb-color-granite-default);
 }
 
 :host(.form-field--disabled) {
   --form-field-label-color: var(--sbb-color-graphite-default);
+  --form-field-prefix-color: var(--sbb-color-graphite-default);
   --form-field-text-color: var(--sbb-color-graphite-default);
 }
 
@@ -76,50 +79,65 @@
   --form-field-error-padding-block-start-override: var(--form-field-error-divider-width);
 }
 
+.form-field__space-wrapper {
+  display: flex;
+  flex-direction: column;
+  @include zeroWidthSpace;
+}
+
 .form-field__wrapper {
-  position: relative;
   display: flex;
   align-items: center;
-  padding-inline: var(--form-field-padding-inline);
+  gap: var(--form-field-gap);
+  padding-inline: calc(var(--form-field-padding-inline) - var(--sbb-border-width-1x));
   border: var(--sbb-border-width-1x) solid var(--form-field-border-color);
   border-radius: var(--form-field-border-radius);
   height: var(--form-field-height);
   background-color: var(--form-field-background-color);
-
-  // Avoids unwanted space displayed if no label text is set.
-  @include zeroWidthSpace;
 }
 
-.form-field__prefix,
-.form-field__suffix {
-  flex: 0 0 auto;
-  height: var(--sbb-size-icon-ui-small);
+// Ensure slotted inline elements are vertically centered
+::slotted(*[slot='prefix']),
+::slotted(*[slot='suffix']) {
+  display: flex;
 }
 
-.form-field__prefix:not(.form-field__prefix--empty) {
-  padding-inline-end: var(--sbb-spacing-fixed-2x);
-}
-
-.form-field__suffix:not(.form-field__suffix--empty) {
-  padding-inline-start: var(--sbb-spacing-fixed-2x);
+::slotted(*[slot='prefix']) {
+  color: var(--form-field-prefix-color);
 }
 
 .form-field__input-container {
-  display: flex;
-  flex-direction: column;
   flex: 1 1 auto;
+
+  // Prevents overflowing parent
+  min-width: 0;
 }
 
 // Label
 .form-field__label {
   @include text-xs--regular;
-  @include ellipsis;
 
   display: flex;
   max-width: 100%;
+  position: relative;
+
+  // Moves label down to meet requirements
+  inset-block-end: calc(0.5 * var(--form-field-label-to-input-gap));
   color: var(--form-field-label-color);
   user-select: none;
   pointer-events: none;
+}
+
+::slotted(*[slot='label']),
+slot[name='label'] > span {
+  @include ellipsis;
+}
+
+.form-field__input {
+  position: relative;
+
+  // Moves input up to meet requirements
+  inset-block-start: calc(0.5 * var(--form-field-label-to-input-gap));
 }
 
 // Input

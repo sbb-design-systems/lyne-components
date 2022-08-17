@@ -50,5 +50,7 @@
   &::before {
     content: '\200B';
     user-select: none;
+    width: 0;
+    height: 0;
   }
 }

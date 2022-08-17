@@ -53,16 +53,6 @@ export class SbbFormField {
   @State() private _readonly: boolean;
 
   /**
-   * It is used internally to get the `prefix` slot.
-   */
-  @State() private _prefixElements: Element[] = [];
-
-  /**
-   * It is used internally to get the `suffix` slot.
-   */
-  @State() private _suffixElements: Element[] = [];
-
-  /**
    * It is used internally to get the `suffix` slot.
    */
   @State() private _errorElements: Element[] = [];
@@ -159,53 +149,37 @@ export class SbbFormField {
           'sbb-invalid': this._invalid,
         }}
       >
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        <div onClick={(): void => this._setFocus()} class="form-field__wrapper">
-          <div
-            class={{
-              'form-field__prefix': true,
-              'form-field__prefix--empty': !this._prefixElements.length,
-            }}
-          >
-            <slot
-              name="prefix"
-              onSlotchange={(event): unknown =>
-                (this._prefixElements = (event.target as HTMLSlotElement).assignedElements())
-              }
-            ></slot>
-          </div>
-          <div class="form-field__input-container">
-            <label class="form-field__label" htmlFor={this._input?.id}>
-              <slot name="label">
-                <span>{this.label}</span>
-              </slot>
-              {this.optional && <span>&nbsp;(optional)</span>}
-            </label>
-            <div class="form-field__input">
-              <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
+        <div class="form-field__space-wrapper">
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+          <div onClick={(): void => this._setFocus()} class="form-field__wrapper">
+            <slot name="prefix"></slot>
+
+            <div class="form-field__input-container">
+              <label class="form-field__label" htmlFor={this._input?.id}>
+                <slot name="label">
+                  <span>{this.label}</span>
+                </slot>
+                {this.optional && <span>&nbsp;(optional)</span>}
+              </label>
+              <div class="form-field__input">
+                <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
+              </div>
             </div>
+
+            <slot name="suffix"></slot>
           </div>
+
           <div
             class={{
-              'form-field__suffix': true,
-              'form-field__suffix--empty': !this._suffixElements.length,
+              'form-field__error': true,
+              'form-field__error--empty': !this._errorElements.length,
             }}
           >
             <slot
-              name="suffix"
-              onSlotchange={(event): unknown =>
-                (this._suffixElements = (event.target as HTMLSlotElement).assignedElements())
-              }
+              name="error"
+              onSlotchange={(event): void => this._onSlotErrorChange(event)}
             ></slot>
           </div>
-        </div>
-        <div
-          class={{
-            'form-field__error': true,
-            'form-field__error--empty': !this._errorElements.length,
-          }}
-        >
-          <slot name="error" onSlotchange={(event): void => this._onSlotErrorChange(event)}></slot>
         </div>
       </Host>
     );
