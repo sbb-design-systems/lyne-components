@@ -68,6 +68,9 @@
 
 .header-action__label {
   display: none;
+  color: var(--sbb-color-black-default);
+  @include text-xs--bold;
+
   margin-right: var(--sbb-spacing-fixed-5x);
 }
 
@@ -76,6 +79,7 @@
   flex-direction: row;
   align-content: center;
   align-items: center;
+  text-decoration: none;
 }
 
 .header-action__button {
