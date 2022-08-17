@@ -8,7 +8,6 @@ import {
   SbbTypoScaleDefault,
   SbbTypoTypeFaceSbbRoman,
 } from '@sbb-esta/lyne-design-tokens';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-link.events';
@@ -21,12 +20,7 @@ const wrapperStyle = (context) => {
   return `background-color: ${SbbColorCharcoalDefault};`;
 };
 
-const Template = (args) => (
-  <sbb-link {...args}>
-    {args.icon && <span slot="icon">{getMarkupForSvg(args.icon)}</span>}
-    {args.text}
-  </sbb-link>
-);
+const Template = (args) => <sbb-link {...args}>{args.text}</sbb-link>;
 
 const paragraphStyle = (context) => {
   let color;
@@ -71,15 +65,6 @@ const download = {
 const disabled = {
   control: {
     type: 'boolean',
-  },
-};
-
-const iconFlip = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Icon',
   },
 };
 
@@ -151,7 +136,6 @@ const defaultArgTypes = {
   negative,
   href: href,
   icon,
-  'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
   'id-value': idValue,
   'accessibility-label': accessibilityLabel,
@@ -166,7 +150,6 @@ const defaultArgs = {
   negative: false,
   href: 'https://github.com/lyne-design-system/lyne-components',
   icon: '',
-  'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
   'id-value': '',
   'accessibility-label': 'Travelcards & tickets',
@@ -233,7 +216,6 @@ BlockIconStart.argTypes = defaultArgTypes;
 BlockIconStart.args = {
   ...defaultArgs,
   icon: 'chevron-small-left-small',
-  'icon-flip': true,
   'text-size': textSize.options[0],
 };
 
@@ -247,7 +229,6 @@ BlockNegativeIconStart.argTypes = defaultArgTypes;
 BlockNegativeIconStart.args = {
   ...defaultArgs,
   icon: 'chevron-small-left-small',
-  'icon-flip': true,
   'text-size': textSize.options[0],
   negative: true,
 };
@@ -262,7 +243,6 @@ BlockIconEnd.argTypes = defaultArgTypes;
 BlockIconEnd.args = {
   ...defaultArgs,
   icon: 'chevron-small-right-small',
-  'icon-flip': true,
   'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0],
 };
@@ -277,7 +257,6 @@ BlockNegativeIconEnd.argTypes = defaultArgTypes;
 BlockNegativeIconEnd.args = {
   ...defaultArgs,
   icon: 'chevron-small-right-small',
-  'icon-flip': true,
   'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0],
   negative: true,
@@ -319,7 +298,6 @@ const defaultArgTypesButton = {
   'event-id': eventId,
   negative,
   icon,
-  'icon-flip': iconFlip,
   'icon-placement': iconPlacement,
   'id-value': idValue,
   text,
@@ -332,7 +310,6 @@ const defaultArgsButton = {
   'event-id': 'Event ID for button click',
   negative: false,
   icon: '',
-  'icon-flip': false,
   'icon-placement': iconPlacement.options[0],
   'id-value': '',
   text: 'Travelcards & tickets',

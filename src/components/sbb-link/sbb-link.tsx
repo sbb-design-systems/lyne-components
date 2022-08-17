@@ -71,7 +71,7 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
   /**
    * Applies link inline styles (underline, inherit coloring/font-size etc).
    */
-  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'block';
+  @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
   /**
    * Disabled attribute if link is used as button (optional)
@@ -187,16 +187,10 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
 
   private _getClassString(): string {
     const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-
-    let iconPositionClass = '';
-
-    if (this.icon) {
-      iconPositionClass =
-        this.iconPlacement === 'start'
-          ? ' sbb-link--icon-placement-start'
-          : ' sbb-link--icon-placement-end';
-    }
-
+    const iconPositionClass =
+      this.iconPlacement === 'start'
+        ? ' sbb-link--icon-placement-start'
+        : ' sbb-link--icon-placement-end';
     const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
     const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
@@ -219,9 +213,7 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
     return (
       <TAG_NAME {...this._getAttributeList()}>
         {this.variant !== 'inline' && (
-          <slot name="icon">
-            <sbb-icon name={this.icon}></sbb-icon>
-          </slot>
+          <slot name="icon">{this.icon && <sbb-icon name={this.icon}></sbb-icon>}</slot>
         )}
         <slot />
       </TAG_NAME>
