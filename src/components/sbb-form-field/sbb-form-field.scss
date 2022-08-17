@@ -72,7 +72,6 @@
 }
 
 :host(.form-field--error-space-reserve) {
-  // TODO: Fix hack
   --form-field-error-min-height: calc(
     var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)
   );
@@ -160,7 +159,6 @@ slot[name='label'] > span {
 
 .form-field__error {
   display: flex;
-
   min-height: var(--form-field-error-min-height);
   margin-block-start: var(
     --form-field-error-padding-block-start-override,
