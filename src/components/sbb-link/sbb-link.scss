@@ -45,6 +45,13 @@
 
 button.sbb-link {
   @include buttonReset;
+
+  cursor: pointer;
+}
+
+button.sbb-link:disabled {
+  pointer-events: none;
+  cursor: default;
 }
 
 .sbb-link--negative {
@@ -79,7 +86,7 @@ button.sbb-link {
 }
 
 @include hover-mq($hover: true) {
-  .sbb-link:hover {
+  .sbb-link:hover:not(:disabled) {
     color: var(--text-color-hover-focus);
   }
 }
