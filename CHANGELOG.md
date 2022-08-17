@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.3 (2022-08-17)
+
+### Bug Fixes
+
+- **sbb-button:** button doesn't emit eventId ([#1332](https://github.com/lyne-design-system/lyne-components/issues/1332)) ([b2abf37](https://github.com/lyne-design-system/lyne-components/commit/b2abf3723457ab64b79c8bc99e669cdd428c0d9a))
+
 ### 0.2.2 (2022-08-17)
 
 ### Bug Fixes
