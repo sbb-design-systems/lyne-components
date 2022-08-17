@@ -51,3 +51,7 @@
   height: var(--logo-height);
   margin-left: var(--sbb-spacing-responsive-s);
 }
+
+::slotted(.header-action__container) {
+  display: flex;
+}
