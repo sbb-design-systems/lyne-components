@@ -1,7 +1,7 @@
 # sbb-header
 
 The component represents the Lyne header; it is meant to be used as a container for the logo on the right side
-(the default one is the [sbb-logo](../sbb-logo)) and [sbb-header-action](../sbb-header-action/readme.md)s
+(the default one is the [sbb-logo](../sbb-logo/readme.md)) and [sbb-header-action](../sbb-header-action/readme.md)s
 on the left side (like menu, search and so on).
 
 <!-- Auto Generated Below -->
