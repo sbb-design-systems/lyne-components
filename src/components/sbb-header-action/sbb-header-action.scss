@@ -71,6 +71,7 @@
   color: var(--sbb-color-black-default);
   @include text-xs--bold;
 
+  line-height: 1;
   margin-right: var(--sbb-spacing-fixed-5x);
 }
 
@@ -84,4 +85,6 @@
 
 .header-action__button {
   @include button;
+
+  display: flex;
 }
