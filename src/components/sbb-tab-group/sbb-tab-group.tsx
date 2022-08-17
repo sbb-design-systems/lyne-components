@@ -31,6 +31,8 @@ const tabObserverConfig: MutationObserverInit = {
 
 const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION', 'SBB-TAB-GROUP'];
 
+let nextId = 0;
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-tab-group.scss',
@@ -38,9 +40,7 @@ const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION', 'SBB-TAB-GROUP'
 })
 export class SbbTabGroup {
   public tabs: InterfaceSbbTabGroupTab[] = [];
-  private _lastUId = 0;
   private _isNested: boolean;
-  private _currentWritingMode: string;
   private _tabContentElement: HTMLElement;
   private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
   private _tabContentResizeObserver = new ResizeObserver(
@@ -101,7 +101,6 @@ export class SbbTabGroup {
   }
 
   public connectedCallback(): void {
-    this._currentWritingMode = getDocumentWritingMode();
     this._isNested = !!hostContext('sbb-tab-group', this._element.parentElement);
   }
 
@@ -141,14 +140,8 @@ export class SbbTabGroup {
     }
   };
 
-  private _nextUId(): string {
-    return `sbb-tab-${++this._lastUId}`;
-  }
-
-  private _ensureId(el): string {
-    el.id = el.id || this._nextUId();
-
-    return el.id;
+  private _assignId(): string {
+    return `sbb-tab-panel-${++nextId}`;
   }
 
   private _initSelection(): void {
@@ -254,9 +247,9 @@ export class SbbTabGroup {
         }
       },
     };
-    this._ensureId(tab);
     if (SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.tagName)) {
       tab.relatedContent = tab.nextElementSibling as HTMLElement;
+      tab.relatedContent.id = this._assignId();
       if (tab.relatedContent.nodeName !== 'SBB-TAB-GROUP') {
         tab.relatedContent.tabIndex = 0;
       }
@@ -271,7 +264,7 @@ export class SbbTabGroup {
     tab.active = tab.hasAttribute('active') && !tab.hasAttribute('disabled');
     tab.disabled = tab.hasAttribute('disabled');
     tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-controls', this._ensureId(tab.relatedContent));
+    tab.setAttribute('aria-controls', tab.relatedContent.id);
     tab.setAttribute('aria-selected', 'false');
     tab.relatedContent.setAttribute('role', 'tabpanel');
     if (tab.active) {
@@ -301,8 +294,9 @@ export class SbbTabGroup {
       return;
     }
 
-    const prevKey = this._currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
-    const nextKey = this._currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
+    const currentWritingMode = getDocumentWritingMode();
+    const prevKey = currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
+    const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
 
     if (evt.key === prevKey || evt.key === 'ArrowUp') {
       enabledTabs[prev]?.tabGroupActions.select();
@@ -317,7 +311,7 @@ export class SbbTabGroup {
 
   public render(): JSX.Element {
     return (
-      <Host class={this._isNested ? 'tab-group--nested' : ''} dir={this._currentWritingMode}>
+      <Host class={this._isNested ? 'tab-group--nested' : ''}>
         <div class="tab-group" role="tablist">
           <slot name="tab-bar" onSlotchange={this._onTabsSlotChange}></slot>
         </div>
