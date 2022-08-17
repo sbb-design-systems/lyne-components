@@ -17,11 +17,6 @@
 
 :host([variant='block']) {
   display: flex;
-
-  .sbb-link--icon-placement-end ::slotted(*),
-  .sbb-link--icon-placement-end sbb-icon {
-    order: 2;
-  }
 }
 
 .sbb-link {
@@ -98,4 +93,9 @@ button.sbb-link:disabled {
   .sbb-link:hover:not(:disabled) {
     color: var(--text-color-hover-focus);
   }
+}
+
+.sbb-link--icon-placement-end ::slotted(*),
+.sbb-link--icon-placement-end sbb-icon {
+  order: 2;
 }

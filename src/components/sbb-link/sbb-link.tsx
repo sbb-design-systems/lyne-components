@@ -71,7 +71,7 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
   /**
    * Applies link inline styles (underline, inherit coloring/font-size etc).
    */
-  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'block';
+  @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
   /**
    * Disabled attribute if link is used as button (optional)
