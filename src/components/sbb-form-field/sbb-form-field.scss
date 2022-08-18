@@ -120,7 +120,7 @@
   max-width: 100%;
 
   // Moves label down and input up to meet positioning requirements
-  margin-bottom: var(--form-field-label-to-input-gap);
+  margin-block-end: var(--form-field-label-to-input-gap);
   color: var(--form-field-label-color);
   user-select: none;
   pointer-events: none;
