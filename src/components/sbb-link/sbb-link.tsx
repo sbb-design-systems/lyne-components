@@ -147,7 +147,8 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
    */
   private _getClassString(): string {
     const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-    const iconPositionClass = this.iconPlacement === 'end' ? ` sbb-link--icon-placement-${this.iconPlacement}` : '';
+    const iconPositionClass =
+      this.iconPlacement === 'end' ? ` sbb-link--icon-placement-${this.iconPlacement}` : '';
     const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
     const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
@@ -171,9 +172,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     return (
       <TAG_NAME {...attributeList}>
         {this.variant !== 'inline' && (
-          <slot name="icon">
-            {this.iconName && <sbb-icon name={this.iconName} />}
-          </slot>
+          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         )}
         <slot />
       </TAG_NAME>
