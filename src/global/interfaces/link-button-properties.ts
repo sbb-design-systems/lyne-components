@@ -54,7 +54,7 @@ export interface ButtonProperties {
   name: string | undefined;
 
   /**
-   * Emits the eventId to its parent on button click.
+   * Emits the eventId to parent on button click.
    * TODO check if it's possible to use a better type than 'any'.
    */
   click: EventEmitter<any> | undefined;
@@ -62,10 +62,10 @@ export interface ButtonProperties {
   /**
    * The function triggered on button click.
    */
-  emitButtonClick: () => void | undefined;
+  emitButtonClick: (() => void) | undefined;
 
   /**
-   * Id sent as click event payload.
+   * Id sent in the click event payload.
    * TODO verify if needed and if string is the correct type
    */
   eventId?: string | undefined;
@@ -107,19 +107,19 @@ export interface LinkButtonProperties
 export function getLinkButtonBaseAttributeList(
   elementId: string,
   elementClassName: string,
-  accessibilityProps: AccessibilityProperties
+  accessibilityProps?: AccessibilityProperties
 ): object {
   return {
     dir: getDocumentWritingMode(),
     ...(elementId && { id: elementId }),
     ...(elementClassName && { class: elementClassName }),
-    ...(accessibilityProps.accessibilityLabel && {
+    ...(accessibilityProps?.accessibilityLabel && {
       'aria-label': accessibilityProps.accessibilityLabel,
     }),
-    ...(accessibilityProps.accessibilityLabelledby && {
+    ...(accessibilityProps?.accessibilityLabelledby && {
       'aria-labelledby': accessibilityProps.accessibilityLabelledby,
     }),
-    ...(accessibilityProps.accessibilityDescribedby && {
+    ...(accessibilityProps?.accessibilityDescribedby && {
       'aria-describedby': accessibilityProps.accessibilityDescribedby,
     }),
   };
@@ -137,6 +137,10 @@ export function getLinkButtonAttributeList(
   elementClassName: string,
   linkButtonProps: LinkButtonProperties
 ): object {
+  if (!linkButtonProps) {
+    return getLinkButtonBaseAttributeList(elementId, elementClassName);
+  }
+
   let attributeList: object = getLinkButtonBaseAttributeList(
     elementId,
     elementClassName,
