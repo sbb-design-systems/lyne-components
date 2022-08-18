@@ -1,5 +1,6 @@
 import { Component, h, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes, Leg } from './sbb-pearl-chain.custom';
+import { isPast, differenceInMinutes, isFuture } from 'date-fns';
 
 @Component({
   shadow: true,
@@ -7,8 +8,6 @@ import { InterfacePearlChainAttributes, Leg } from './sbb-pearl-chain.custom';
   tag: 'sbb-pearl-chain',
 })
 export class SbbPearlChain {
-  private _currentTime = new Date();
-
   /**
    * define the legs of the pearl-chain.
    * Format:
@@ -26,10 +25,6 @@ export class SbbPearlChain {
    */
   @Prop() public disableAnimation?: boolean;
 
-  private _getLegStatus(leg: Leg): string {
-    return leg.arrival?.time.getTime() < this._currentTime.getTime() ? 'past' : '';
-  }
-
   private _getAllDuration(legs: InterfacePearlChainAttributes['legs']): number {
     let sum = 0;
 
@@ -45,41 +40,49 @@ export class SbbPearlChain {
     return Math.round((leg.duration / allDurations) * 100);
   }
 
-  private _getCurrentPositionTotal(legs: InterfacePearlChainAttributes['legs']): number {
-    const progress = Math.abs(this._currentTime.getTime() - legs[0]?.departure?.time.getTime());
-    const total = Math.abs(
-      legs[legs?.length - 1].arrival?.time?.getTime() - legs[0]?.departure?.time?.getTime()
-    );
+  private _getProgress(start: Date, end: Date): number {
+    const progress = differenceInMinutes(Date.now(), start);
+    const total = differenceInMinutes(end, start);
+
     return Math.round((progress / total) * 100);
   }
 
-  private _renderPosition(): JSX.Element {
-    const currentPosition = this._getCurrentPositionTotal(this.legs);
+  private _getStatus(start: Date, end: Date): string {
+    if (isFuture(start)) {
+      return 'future';
+    }
+    if (isPast(start) && isPast(end)) {
+      return 'past';
+    }
+    if (isPast(start) && isFuture(end)) {
+      return 'progress';
+    }
+  }
 
-    const statusStyle = {
+  private _renderPosition(): JSX.Element {
+    const currentPosition = this._getProgress(
+      this.legs[0].departure?.time,
+      this.legs[this.legs.length - 1].arrival?.time
+    );
+
+    let statusStyle = {
       '--status-position': `${currentPosition}%`,
     };
+
+    if (currentPosition >= 10) {
+      const defaultLegStyle = { ...statusStyle };
+      statusStyle = { ...defaultLegStyle, ...{ transform: `translateX(-100%)` } };
+    }
 
     if (currentPosition > 0 && currentPosition <= 100) {
       return <span style={statusStyle} class="pearl-chain__position"></span>;
     }
   }
 
-  private _renderPastLeg(): JSX.Element {
-    const currentPosition = this._getCurrentPositionTotal(this.legs);
-
-    const statusStyle = {
-      '--status-position': `${currentPosition}%`,
-    };
-
-    if (currentPosition > 0 && currentPosition <= 100) {
-      return <div style={statusStyle} class="pearl-chain__leg--past"></div>;
-    }
-  }
-
   public render(): JSX.Element {
     let departureCancelClass = '';
     let arrivalCancelClass = '';
+    let statusClass = '';
 
     if (this.legs?.length > 0) {
       departureCancelClass =
@@ -100,30 +103,45 @@ export class SbbPearlChain {
             ? ' pearl-chain--arrival-cancellation'
             : '';
       }
+
+      statusClass =
+        'pearl-chain--' +
+        this._getStatus(
+          this.legs[0].departure?.time,
+          this.legs[this.legs.length - 1].arrival?.time
+        );
     }
 
     return (
-      <div class={`pearl-chain ${arrivalCancelClass} ${departureCancelClass}`}>
+      <div class={`pearl-chain ${statusClass} ${arrivalCancelClass} ${departureCancelClass}`}>
         {this._renderPosition()}
         {this.legs?.map((leg: Leg) => {
           const duration = this._getRelativeDuration(this.legs, leg);
-          const legStyle = {
-            'flex-basis': `${duration}%`,
+          let legStyle = {
+            width: `${duration}%`,
           };
+
+          if (this._getStatus(leg.departure?.time, leg.arrival?.time) === 'progress') {
+            const defaultLegStyle = { ...legStyle };
+            legStyle = {
+              ...defaultLegStyle,
+              ...{
+                '--leg-status': `${this._getProgress(leg.departure?.time, leg.arrival?.time)}%`,
+              },
+            };
+          }
 
           const cancelled =
             leg.serviceJourney?.serviceAlteration?.cancelled === true
               ? 'pearl-chain__leg--cancellation'
               : '';
 
-          return (
-            <div
-              class={`pearl-chain__leg pearl-chain--${this._getLegStatus(leg)} ${cancelled}`}
-              style={legStyle}
-            ></div>
-          );
+          const legStatus = this._getStatus(leg.departure?.time, leg.arrival?.time)
+            ? 'pearl-chain__leg--' + this._getStatus(leg.departure?.time, leg.arrival?.time)
+            : '';
+
+          return <div class={`pearl-chain__leg ${legStatus} ${cancelled}`} style={legStyle}></div>;
         })}
-        {this._renderPastLeg()}
       </div>
     );
   }

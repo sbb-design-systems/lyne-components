@@ -127,8 +127,6 @@ li {
 }
 
 .timetable__row-platform--changed {
-  @include text-m--bold;
-
   color: var(--sbb-color-red-default);
 }
 

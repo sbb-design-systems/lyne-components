@@ -12,8 +12,8 @@ describe('sbb-timetable-row', () => {
     expect(root).toEqualHtml(`
         <sbb-timetable-row config='${config}'>
           <mock:shadow-root>
-            <sbb-timetable-row-button role="presentation">
-              <div class="timetable__row" role="row">
+          <sbb-timetable-row-button role="presentation">
+            <div class="timetable__row" role="row">
                 <div class="timetable__row-header" role="rowheader">
                   <div class="timetable__row-details">
                     <sbb-icon></sbb-icon>
@@ -30,23 +30,20 @@ describe('sbb-timetable-row', () => {
                     <span class="screenreaderonly">
                       Departure
                     </span>
-                    undefined:undefined
                   </time>
                   <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
                   <time class="timetable__row-time" datetime="undefined">
                     <span class="screenreaderonly">
                       Arrival
                     </span>
-                    undefined:undefined
                   </time>
                 </div>
                 <div class="timetable__row-footer" role="gridcell">
-                <span></span>
-                <time></time>
+                  <span></span>
+                  <time></time>
                 </div>
               </div>
             </sbb-timetable-row-button>
-          </mock:shadow-root>
         </sbb-timetable-row>
       `);
   });

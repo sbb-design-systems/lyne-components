@@ -4,7 +4,6 @@ import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-time
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nDirection, i18nDeparture, i18nArrival } from '../../global/i18n';
 import {
-  convertDate,
   durationToTime,
   isProductIcon,
   renderIconProduct,
@@ -12,6 +11,7 @@ import {
   walkTimeAfter,
   walkTimeBefore,
 } from './sbb-timetable-row.helper';
+import { format } from 'date-fns';
 
 @Component({
   shadow: true,
@@ -113,12 +113,12 @@ export class SbbTimetableRow {
             <time class="timetable__row-time" dateTime={'' + departure?.time}>
               <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
 
-              {convertDate(departure?.time)}
+              {departure?.time && format(departure?.time, 'H:mm')}
             </time>
             <sbb-pearl-chain class="timetable__row-chain" legs={legs} />
             <time class="timetable__row-time" dateTime={'' + arrival?.time}>
               <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-              {convertDate(arrival?.time)}
+              {arrival?.time && format(arrival?.time, 'H:mm')}
             </time>
             {arrivalWalk ? walkTimeAfter(arrivalWalk) : ''}
           </div>

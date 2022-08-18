@@ -6,11 +6,11 @@ describe('durationToTime', () => {
   });
 
   it('should return day with hours', () => {
-    expect(durationToTime(3000)).toBe('2 d 2 h ');
+    expect(durationToTime(3000)).toBe('2 d 2 h');
   });
 
   it('should return hours', () => {
-    expect(durationToTime(60)).toBe('1 h ');
+    expect(durationToTime(60)).toBe('1 h');
   });
 });
 

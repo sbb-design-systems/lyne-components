@@ -1,18 +1,38 @@
 import { h } from '@stencil/core';
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMinutes,
+  subHours,
+  addMinutes,
+  subDays,
+} from 'date-fns';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../../global/i18n';
 
 export const durationToTime = (duration: number): string => {
-  let durationValue = '';
-  const days = Math.floor(duration / 1440);
-  const hours = Math.floor((duration / 60) % 24);
-  const minutes = duration % 60;
+  const result = [];
+  const now = Date.now();
+  let future = addMinutes(now, duration);
 
-  days >= 1 ? (durationValue += days + ' d ') : '';
-  hours >= 1 ? (durationValue += hours + ' h ') : '';
-  minutes >= 1 ? (durationValue += minutes + ' min') : '';
+  const days = differenceInDays(future, now);
+  if (days > 0) {
+    result.push(`${days} d`);
+    future = subDays(future, days);
+  }
 
-  return durationValue;
+  const hours = differenceInHours(future, now);
+  if (hours > 0) {
+    result.push(`${hours} h`);
+    future = subHours(future, hours);
+  }
+
+  const minutes = differenceInMinutes(future, now);
+  if (minutes > 0) {
+    result.push(`${minutes} min`);
+  }
+
+  return result.join(' ');
 };
 
 export const isProductIcon = (transport: string): boolean => {
@@ -45,15 +65,12 @@ export const isProductIcon = (transport: string): boolean => {
   return false;
 };
 
-export const convertDate = (time: Date): string => {
-  const hours = time?.getHours();
-  const minutes = time?.getMinutes();
-
-  return hours + ':' + minutes;
-};
-
-export const renderIconProduct = (transport: string, line: string): JSX.Element => {
-  return <sbb-icon class="timetable__row-transport" name={transport.toLowerCase() + '-' + line} />;
+export const renderIconProduct = (transport: string, line?: string): JSX.Element => {
+  let dashLine = '';
+  if (line) {
+    dashLine = '-' + line;
+  }
+  return <sbb-icon class="timetable__row-transport" name={transport.toLowerCase() + dashLine} />;
 };
 
 export const renderStringProduct = (vehicleName: string, line: string): JSX.Element => {

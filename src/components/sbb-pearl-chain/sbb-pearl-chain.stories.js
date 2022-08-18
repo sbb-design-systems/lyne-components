@@ -11,6 +11,7 @@ export const ManyStops = Template.bind({});
 export const Cancelled = Template.bind({});
 export const CancelledManyStops = Template.bind({});
 export const withData = Template.bind({});
+export const Past = Template.bind({});
 
 withData.args = {
   legs: data,
@@ -94,6 +95,44 @@ CancelledManyStops.args = {
     },
     {
       duration: 300,
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+  ],
+};
+
+Past.args = {
+  legs: [
+    {
+      duration: 120,
+      id: 'test',
+      arrival: { time: new Date('2022-08-16T05:00:00') },
+      departure: { time: new Date('2022-08-16T03:00:00') },
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+    {
+      duration: 600,
+      id: 'test',
+      arrival: { time: new Date('2022-08-16T17:00:00') },
+      departure: { time: new Date('2022-08-16T08:00:00') },
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+    {
+      duration: 600,
+      id: 'test',
+      arrival: { time: new Date('2022-08-16T17:00:00') },
+      departure: { time: new Date('2022-08-16T08:00:00') },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
