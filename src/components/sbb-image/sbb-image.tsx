@@ -6,6 +6,7 @@ import {
 } from './sbb-image.custom';
 import imageHelperGetBreakpoints from './sbb-image.helper';
 import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
+import { hostContext } from '../../global/helpers/host-context';
 
 const eventListenerOptions = {
   once: true,
