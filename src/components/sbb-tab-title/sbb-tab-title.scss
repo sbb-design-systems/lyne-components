@@ -44,6 +44,7 @@
   .sbb-tab-title-text {
     transition: transform var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
     transform: translateY(0);
+    will-change: transform;
   }
 
   ::slotted(sbb-icon) {
