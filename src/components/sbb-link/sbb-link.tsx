@@ -26,7 +26,7 @@ import { hostContext } from '../../global/helpers/host-context';
   tag: 'sbb-link',
 })
 export class SbbLink implements LinkButtonProperties, ComponentInterface {
-  @Element() public el!: HTMLElement;
+  @Element() private _el!: HTMLElement;
 
   /**
    * Applies link inline styles (underline, inherit coloring/font-size etc).
@@ -130,7 +130,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
 
   public connectedCallback(): void {
     // Check if the current element is nested in either an `<a>` or `<button>` element.
-    this._isStatic = !!hostContext('a,button', this.el);
+    this._isStatic = !!hostContext('a,button', this._el);
   }
 
   /**
