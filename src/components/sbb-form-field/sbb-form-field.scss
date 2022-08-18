@@ -19,15 +19,11 @@
   --form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
   --form-field-error-padding-block-start: var(--form-field-error-divider-width);
   --form-field-gap: var(--sbb-spacing-fixed-2x);
-  --form-field-label-to-input-gap: #{px-to-rem-build(-4)};
+  --form-field-label-to-input-gap: calc(-1 * var(--sbb-spacing-fixed-1x));
 
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
-
-  @include mq($from: medium) {
-    --form-field-label-to-input-gap: #{px-to-rem-build(-6)};
-  }
 }
 
 .form-field__error--empty {
@@ -137,6 +133,12 @@ slot[name='label'] > span {
   @include text-m--regular;
   @include placeholder;
   @include ellipsis;
+
+  // To be more specific than normalize stylings we need to use important
+  // TODO: Find a better solution
+  font-size: var(--sbb-font-size-text-m) !important;
+  font-family: var(--sbb-typo-type-face-sbb-roman) !important;
+  line-height: var(--sbb-typo-line-height-body-text) !important;
 
   -webkit-appearance: none;
   width: 100%;
