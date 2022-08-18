@@ -134,12 +134,6 @@ slot[name='label'] > span {
   @include placeholder;
   @include ellipsis;
 
-  // To be more specific than normalize stylings we need to use important
-  // TODO: Find a better solution
-  font-size: var(--sbb-font-size-text-m) !important;
-  font-family: var(--sbb-typo-type-face-sbb-roman) !important;
-  line-height: var(--sbb-typo-line-height-body-text) !important;
-
   -webkit-appearance: none;
   width: 100%;
   box-sizing: border-box;
@@ -148,6 +142,12 @@ slot[name='label'] > span {
   padding: 0;
   color: var(--form-field-text-color);
   background-color: var(--form-field-background-color);
+
+  // To be more specific than the styles in normalize.scss we need to use !important
+  // TODO: Find a better solution
+  font-size: var(--sbb-font-size-text-m) !important;
+  font-family: var(--sbb-typo-type-face-sbb-roman) !important;
+  line-height: var(--sbb-typo-line-height-body-text) !important;
 }
 /* stylelint-enable plugin/stylelint-bem-namics */
 
