@@ -2,7 +2,7 @@ import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 
 import {
   InterfaceImageAttributes,
-  InterfaceImageAttributesSizesConfigBreakpoint
+  InterfaceImageAttributesSizesConfigBreakpoint,
 } from './sbb-image.custom';
 import imageHelperGetBreakpoints from './sbb-image.helper';
 import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
@@ -10,13 +10,13 @@ import { hostContext } from '../../global/helpers/host-context';
 
 const eventListenerOptions = {
   once: true,
-  passive: true
+  passive: true,
 };
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-image.scss',
-  tag: 'sbb-image'
+  tag: 'sbb-image',
 })
 export class SbbImage {
   private _captionElement?: HTMLElement;
@@ -24,7 +24,7 @@ export class SbbImage {
   private _linksInCaption;
   private _config = {
     nonRetinaQuality: '45',
-    retinaQuality: '20'
+    retinaQuality: '20',
   };
   private _variantTeaserHero = false;
 
@@ -412,22 +412,22 @@ export class SbbImage {
     return (
       <figure
         class={{
-          'image__figure': true,
+          image__figure: true,
           [`image__figure--teaser-hero`]: this._variantTeaserHero,
           'image__figure--no-radius': this.noRadius,
           [`image__figure--ratio-${this.aspectRatio}`]: true,
-          [`${this._loadedClass}`]: true
+          [`${this._loadedClass}`]: true,
         }}
         {...attributes}
       >
-        <div class='image__wrapper'>
+        <div class="image__wrapper">
           {this.lqip ? (
             <img
-              alt=''
-              class='image__blur-hash'
+              alt=""
+              class="image__blur-hash"
               src={imageUrlLQIP}
-              width='1000'
-              height='562'
+              width="1000"
+              height="562"
               loading={this.loading}
               decoding={this.decoding}
             />
@@ -452,15 +452,15 @@ export class SbbImage {
                       this._config.retinaQuality
                     } ${imageWidth * 2}w`
                   }
-                />
+                />,
               ];
             })}
             <img
               alt={this.alt}
-              class='image__img'
+              class="image__img"
               src={this.imageSrc}
-              width='1000'
-              height='562'
+              width="1000"
+              height="562"
               loading={this.loading}
               decoding={this.decoding}
               importance={this.importance}
@@ -472,7 +472,7 @@ export class SbbImage {
         </div>
         {caption ? (
           <figcaption
-            class='image__caption'
+            class="image__caption"
             innerHTML={caption}
             ref={(el): void => {
               this._captionElement = el;
@@ -481,7 +481,7 @@ export class SbbImage {
         ) : (
           ''
         )}
-        {schemaData ? <script type='application/ld+json' innerHTML={schemaData} /> : ''}
+        {schemaData ? <script type="application/ld+json" innerHTML={schemaData} /> : ''}
       </figure>
     );
   }
