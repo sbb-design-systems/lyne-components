@@ -8,12 +8,12 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-
-import getDocumentLang from '../../global/helpers/get-document-lang';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
+import {
+  getLinkButtonAttributeList,
+  getLinkButtonBaseAttributeList,
+  LinkButtonProperties,
+} from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
-import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { hostContext } from '../../global/helpers/host-context';
 
 /**
@@ -25,48 +25,8 @@ import { hostContext } from '../../global/helpers/host-context';
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink implements AccessibilityProperties, ComponentInterface {
-  /**
-   * If set to true, the browser will
-   * show the download dialog on click (optional).
-   */
-  @Prop() public download?: boolean;
-
-  /** The href value you want to link to (if its not present link becomes a button)*/
-  @Prop() public href?: string;
-
-  /**
-   * The icon name we want to use,
-   * choose from the small icon variants from
-   * the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/ (optional).
-   * Inline variant doesn't support icons.
-   */
-  @Prop() public icon?: string;
-
-  /**
-   * Pass in an id, if you need to identify
-   * the link element (optional).
-   */
-  @Prop() public idValue?: string;
-
-  /**
-   * The icon can either be place before or after
-   * the text.
-   */
-  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
-
-  /**
-   * Negative coloring variant flag
-   */
-  @Prop() public negative: boolean;
-
-  /**
-   * Text size, the link should get in the
-   * non button variation.
-   * With inline variant, the text size adapts to where it is used.
-   */
-  @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
+export class SbbLink implements LinkButtonProperties, ComponentInterface {
+  @Element() public el!: HTMLElement;
 
   /**
    * Applies link inline styles (underline, inherit coloring/font-size etc).
@@ -74,42 +34,58 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
   @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
   /**
-   * Disabled attribute if link is used as button (optional)
+   * Negative coloring variant flag.
    */
-  @Prop() public disabled?: boolean;
+  @Prop() public negative = false;
+
+  /**
+   * Text size, the link should get in the non-button variation.
+   * With inline variant, the text size adapts to where it is used.
+   */
+  @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
+
+  /**
+   * If this is set to true an span element will be used instead of an anchor or a button.
+   * @internal
+   */
+  @State() private _isStatic = false;
+
+  /**
+   * The icon name we want to use, choose from the small icon variants from the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/ (optional).
+   * Inline variant doesn't support icons.
+   */
+  @Prop() public iconName?: string;
+
+  /**
+   * The icon can either be place before or after the text (optional).
+   */
+  @Prop() public iconPlacement?: InterfaceLinkAttributes['iconPlacement'];
+
+  /**
+   * The href value you want to link to (optional, if its not present link becomes a button)
+   */
+  @Prop() public href: string | undefined;
+
+  /**
+   * If set to true, the browser will show the download dialog on click (optional).
+   */
+  @Prop() public download?: boolean;
+
+  /**
+   * Pass in an id, if you need to identify the link element (optional).
+   */
+  @Prop() public idValue?: string;
 
   /**
    * Name attribute if link is used as button (optional)
    */
-  @Prop() public name?: string;
-
-  /**
-   * Form attribute if link is used as button (optional)
-   */
-  @Prop() public form?: string;
+  @Prop() public name: string | undefined;
 
   /**
    * Type attribute if link is used as button (optional)
    */
-  @Prop() public type: InterfaceLinkAttributes['buttonType'] = 'button';
-
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
-  /**
-   * If this is set to true an span element will be used
-   * instead of an anchor or a button
-   */
-  @State() private _isStatic = false;
-
-  /** Id which is sent in the click event payload */
-  @Prop() public eventId?: string;
+  @Prop() public type: InterfaceLinkAttributes['buttonType'] | undefined;
 
   /**
    * Emits whenever the native button click event triggers.
@@ -120,9 +96,37 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
     composed: true,
     eventName: 'sbb-link-button_click',
   })
-  public click: EventEmitter<any>;
+  public click: EventEmitter<any> | undefined;
 
-  @Element() public el!: HTMLElement;
+  /**
+   * Form attribute if link is used as button (optional)
+   */
+  @Prop() public form?: string;
+
+  /**
+   * Disabled attribute if link is used as button (optional)
+   */
+  @Prop() public disabled?: boolean;
+
+  /**
+   * Id which is sent in the click event payload
+   */
+  @Prop() public eventId?: string;
+
+  /**
+   * This will be forwarded as aria-label to the relevant nested element.
+   */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /**
+   * This will be forwarded as aria-describedby to the relevant nested element.
+   */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /**
+   * This will be forwarded as aria-labelledby to the relevant nested element.
+   */
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   public connectedCallback(): void {
     // Check if the current element is nested in either an `<a>` or `<button>` element.
@@ -130,90 +134,44 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
   }
 
   /**
-   * Get the attributelist base on the config and the resulting element
-   * @return <object>
+   * Method triggered at button click to emit the click event (can be caught from parent component).
    */
-  private _getAttributeList(): object {
-    const currentLanguage = getDocumentLang();
-    const currentWritingMode = getDocumentWritingMode();
-    const attributeList: Record<string, string> = {};
-
-    Object.assign(attributeList, {
-      dir: currentWritingMode,
-      class: this._getClassString(),
-      'aria-label': this.accessibilityLabel || undefined,
-      'aria-labelledby': this.accessibilityLabelledby || undefined,
-      'aria-describedby': this.accessibilityDescribedby || undefined,
-      name: this.name || undefined,
-      id: this.idValue || undefined,
-    });
-
-    const openInNewWindow = !window.location.href.includes(this.href);
-    if (openInNewWindow && !this._isStatic && this.href) {
-      Object.assign(attributeList, {
-        rel: 'external noopener nofollow',
-        target: '_blank',
-        'aria-label':
-          `${attributeList['aria-label']}. ${i18nTargetOpensInNewWindow[currentLanguage]}` ||
-          undefined,
-      });
-    }
-
-    if (this._isStatic) {
-      return attributeList;
-    } else if (this.href) {
-      // Anchor case
-      return Object.assign(attributeList, {
-        href: this.href,
-        download: this.download ? '' : undefined,
-        tabIndex: this.disabled ? '-1' : undefined,
-      });
-    }
-
-    // Button case
-    return Object.assign(attributeList, {
-      type: this.type || undefined,
-      form: this.form || undefined,
-      disabled: this.disabled ? 'true' : undefined,
-      onClick: this._emitButtonClick.bind(this),
-    });
-  }
-
-  private _emitButtonClick(): void {
+  public emitButtonClick(): void {
     if (!this.disabled) {
       this.click.emit(this.eventId);
     }
   }
 
+  /**
+   * Generate the class attribute based on component's parameters.
+   */
   private _getClassString(): string {
     const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-    const iconPositionClass =
-      this.iconPlacement === 'start'
-        ? ' sbb-link--icon-placement-start'
-        : ' sbb-link--icon-placement-end';
+    const iconPositionClass = ` sbb-link--icon-placement-${this.iconPlacement || 'start'}`;
     const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
     const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
     return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
   }
 
-  /**
-   * Render element
-   */
   public render(): JSX.Element {
     let TAG_NAME: string;
+    let attributeList: object = getLinkButtonBaseAttributeList(
+      this.idValue,
+      this._getClassString(),
+      this
+    );
     if (this._isStatic) {
       TAG_NAME = 'span';
-    } else if (this.href) {
-      TAG_NAME = 'a';
     } else {
-      TAG_NAME = 'button';
+      TAG_NAME = this.href ? 'a' : 'button';
+      attributeList = getLinkButtonAttributeList(this.idValue, this._getClassString(), this);
     }
 
     return (
-      <TAG_NAME {...this._getAttributeList()}>
+      <TAG_NAME {...attributeList}>
         {this.variant !== 'inline' && (
-          <slot name="icon">{this.icon && <sbb-icon name={this.icon}></sbb-icon>}</slot>
+          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         )}
         <slot />
       </TAG_NAME>

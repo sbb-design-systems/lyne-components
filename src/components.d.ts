@@ -484,17 +484,17 @@ export namespace Components {
          */
         "form"?: string;
         /**
-          * The href value you want to link to (if its not present link becomes a button)
+          * The href value you want to link to (optional, if its not present link becomes a button)
          */
-        "href"?: string;
+        "href": string | undefined;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
-          * The icon can either be place before or after the text.
+          * The icon can either be place before or after the text (optional).
          */
-        "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
+        "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
           * Pass in an id, if you need to identify the link element (optional).
          */
@@ -502,19 +502,19 @@ export namespace Components {
         /**
           * Name attribute if link is used as button (optional)
          */
-        "name"?: string;
+        "name": string | undefined;
         /**
-          * Negative coloring variant flag
+          * Negative coloring variant flag.
          */
         "negative": boolean;
         /**
-          * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
+          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize": InterfaceLinkAttributes['textSize'];
         /**
           * Type attribute if link is used as button (optional)
          */
-        "type": InterfaceLinkAttributes['buttonType'];
+        "type": InterfaceLinkAttributes['buttonType'] | undefined;
         /**
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
@@ -1878,15 +1878,15 @@ declare namespace LocalJSX {
          */
         "form"?: string;
         /**
-          * The href value you want to link to (if its not present link becomes a button)
+          * The href value you want to link to (optional, if its not present link becomes a button)
          */
-        "href"?: string;
+        "href"?: string | undefined;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
-          * The icon can either be place before or after the text.
+          * The icon can either be place before or after the text (optional).
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
@@ -1896,9 +1896,9 @@ declare namespace LocalJSX {
         /**
           * Name attribute if link is used as button (optional)
          */
-        "name"?: string;
+        "name"?: string | undefined;
         /**
-          * Negative coloring variant flag
+          * Negative coloring variant flag.
          */
         "negative"?: boolean;
         /**
@@ -1906,13 +1906,13 @@ declare namespace LocalJSX {
          */
         "onSbb-link-button_click"?: (event: SbbLinkCustomEvent<any>) => void;
         /**
-          * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
+          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
           * Type attribute if link is used as button (optional)
          */
-        "type"?: InterfaceLinkAttributes['buttonType'];
+        "type"?: InterfaceLinkAttributes['buttonType'] | undefined;
         /**
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */

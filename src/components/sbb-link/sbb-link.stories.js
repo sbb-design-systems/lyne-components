@@ -56,43 +56,6 @@ const negative = {
   },
 };
 
-const download = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const disabled = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const href = {
-  control: {
-    type: 'text',
-  },
-};
-
-const icon = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Icon',
-  },
-};
-
-const iconPlacement = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['start', 'end'],
-  table: {
-    category: 'Icon',
-  },
-};
-
 const idValue = {
   control: {
     type: 'text',
@@ -118,16 +81,77 @@ const textSize = {
   options: ['xs', 's', 'm'],
 };
 
+const icon = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Icon',
+  },
+};
+
+const iconPlacement = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['start', 'end'],
+  table: {
+    category: 'Icon',
+  },
+};
+
+const download = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const href = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
 const type = {
   control: {
     type: 'select',
   },
   options: ['button', 'reset', 'submit'],
+  table: {
+    category: 'Button',
+  },
+};
+
+const name = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
 };
 
 const eventId = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const disabled = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
   },
 };
 
@@ -135,7 +159,7 @@ const defaultArgTypes = {
   download,
   negative,
   href: href,
-  icon,
+  'icon-name': icon,
   'icon-placement': iconPlacement,
   'id-value': idValue,
   'accessibility-label': accessibilityLabel,
@@ -146,10 +170,9 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   download: false,
-  disabled: false,
   negative: false,
   href: 'https://github.com/lyne-design-system/lyne-components',
-  icon: '',
+  'icon-name': '',
   'icon-placement': iconPlacement.options[0],
   'id-value': '',
   'accessibility-label': 'Travelcards & tickets',
@@ -215,7 +238,7 @@ export const BlockIconStart = Template.bind({});
 BlockIconStart.argTypes = defaultArgTypes;
 BlockIconStart.args = {
   ...defaultArgs,
-  icon: 'chevron-small-left-small',
+  'icon-name': 'chevron-small-left-small',
   'text-size': textSize.options[0],
 };
 
@@ -228,7 +251,7 @@ export const BlockNegativeIconStart = Template.bind({});
 BlockNegativeIconStart.argTypes = defaultArgTypes;
 BlockNegativeIconStart.args = {
   ...defaultArgs,
-  icon: 'chevron-small-left-small',
+  'icon-name': 'chevron-small-left-small',
   'text-size': textSize.options[0],
   negative: true,
 };
@@ -242,7 +265,7 @@ export const BlockIconEnd = Template.bind({});
 BlockIconEnd.argTypes = defaultArgTypes;
 BlockIconEnd.args = {
   ...defaultArgs,
-  icon: 'chevron-small-right-small',
+  'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0],
 };
@@ -256,7 +279,7 @@ export const BlockNegativeIconEnd = Template.bind({});
 BlockNegativeIconEnd.argTypes = defaultArgTypes;
 BlockNegativeIconEnd.args = {
   ...defaultArgs,
-  icon: 'chevron-small-right-small',
+  'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
   'text-size': textSize.options[0],
   negative: true,
@@ -294,10 +317,12 @@ InlineNegative.documentation = {
 };
 
 const defaultArgTypesButton = {
+  'accessibility-label': accessibilityLabel,
   disabled,
   'event-id': eventId,
   negative,
-  icon,
+  'icon-name': icon,
+  name,
   'icon-placement': iconPlacement,
   'id-value': idValue,
   text,
@@ -306,10 +331,12 @@ const defaultArgTypesButton = {
 };
 
 const defaultArgsButton = {
+  'accessibility-label': 'Travelcards & tickets',
   disabled: false,
   'event-id': 'Event ID for button click',
   negative: false,
-  icon: '',
+  'icon-name': '',
+  name: 'Button name',
   'icon-placement': iconPlacement.options[0],
   'id-value': '',
   text: 'Travelcards & tickets',
