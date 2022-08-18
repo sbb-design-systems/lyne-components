@@ -11,11 +11,9 @@ The examples below shows how the component is used:
 
 <!-- It is possible to override the default icon -->
 <sbb-form-error>
-    <span slot="icon">
-      <sbb-icon name="pie-small" />
-    </span>
-    This is a required field.
-  </sbb-form-error>
+  <sbb-icon name="pie-small" slot="icon"/>
+  This is a required field.
+</sbb-form-error>
 ```
 
 
@@ -23,19 +21,4 @@ The examples below shows how the component is used:
 <!-- Auto Generated Below -->
 
 
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-form-error --> sbb-icon
-  style sbb-form-error fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
-
-

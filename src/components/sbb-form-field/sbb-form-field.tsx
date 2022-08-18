@@ -155,12 +155,14 @@ export class SbbFormField {
             <slot name="prefix"></slot>
 
             <div class="form-field__input-container">
-              <label class="form-field__label" htmlFor={this._input?.id}>
-                <slot name="label">
-                  <span>{this.label}</span>
-                </slot>
-                {this.optional && <span>&nbsp;(optional)</span>}
-              </label>
+              {this.label && (
+                <label class="form-field__label" htmlFor={this._input?.id}>
+                  <slot name="label">
+                    <span>{this.label}</span>
+                  </slot>
+                  {this.optional && <span>&nbsp;(optional)</span>}
+                </label>
+              )}
               <div class="form-field__input">
                 <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
               </div>

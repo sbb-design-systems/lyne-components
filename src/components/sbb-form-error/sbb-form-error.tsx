@@ -13,7 +13,19 @@ export class SbbFormError {
       <Host aria-live="polite" ref={assignId(() => `sbb-form-error-${++nextId}`)}>
         <span class="form-error__icon">
           <slot name="icon">
-            <sbb-icon name="circle-information-small" />
+            <svg
+              class="form-error__icon-svg"
+              aria-hidden="true"
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line x1="7" y1="3" x2="7" y2="8.5" />
+              <line x1="7" y1="10" x2="7" y2="11" />
+              <circle cx="7" cy="7" r="6.5" />
+            </svg>
           </slot>
         </span>
         <span class="input-label-error">

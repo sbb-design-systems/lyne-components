@@ -12,28 +12,27 @@
 
   @include text-xs--regular;
 
-  // Fix for "display: flex" taking unnecessary space below the element
-  @include zeroWidthSpace;
-
-  display: inline-flex;
+  display: flex;
   align-items: flex-start;
   color: var(--sbb-color-red125-default);
 
   // Error height = text line-height
   min-height: var(--form-error-height);
-
-  // Fix for line-height taking more than reserved space
-  line-height: 1;
 }
 
 .form-error__icon {
-  height: var(--sbb-size-icon-form-error);
+  display: flex;
+  align-items: center;
+  height: var(--form-error-height);
   margin-inline-end: var(--sbb-spacing-fixed-1x);
-  margin-block-start: calc((var(--form-error-height) - var(--sbb-size-icon-form-error)) / 2);
 }
 
 .input-label-error {
   // Fix for line-height taking more than reserved space
   line-height: var(--sbb-typo-line-height-body-text);
   vertical-align: text-top;
+}
+
+.form-error__icon-svg {
+  stroke: currentColor;
 }

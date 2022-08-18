@@ -7,9 +7,7 @@ const TemplateErrorWithDefaultIconAndMessage = (args) => (
 
 const TemplateErrorWithIconAndMessage = (args) => (
   <sbb-form-error {...args}>
-    <span slot="icon">
-      <sbb-icon name="pie-small" />
-    </span>
+    <sbb-icon name="pie-small" slot="icon" />
     This is a required field.
   </sbb-form-error>
 );
