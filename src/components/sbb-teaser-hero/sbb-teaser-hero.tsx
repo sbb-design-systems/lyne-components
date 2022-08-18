@@ -116,7 +116,6 @@ export class SbbTeaserHero {
           loading={this.imageLoading}
           lqip
           performance-mark="teaser-hero"
-          variant-teaser-hero="true"
           picture-sizes-config={JSON.stringify(this._pictureSizesConfig)}
         ></sbb-image>
 

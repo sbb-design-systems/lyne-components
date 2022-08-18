@@ -1,21 +1,21 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, Element, h, Prop, State } from '@stencil/core';
 
 import {
   InterfaceImageAttributes,
-  InterfaceImageAttributesSizesConfigBreakpoint,
+  InterfaceImageAttributesSizesConfigBreakpoint
 } from './sbb-image.custom';
 import imageHelperGetBreakpoints from './sbb-image.helper';
 import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
 
 const eventListenerOptions = {
   once: true,
-  passive: true,
+  passive: true
 };
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-image.scss',
-  tag: 'sbb-image',
+  tag: 'sbb-image'
 })
 export class SbbImage {
   private _captionElement?: HTMLElement;
@@ -23,10 +23,11 @@ export class SbbImage {
   private _linksInCaption;
   private _config = {
     nonRetinaQuality: '45',
-    // nonRetinaDataSaver: '30',
-    retinaQuality: '20',
-    // retinaDataSaver: '10'
+    retinaQuality: '20'
   };
+  private _variantTeaserHero = false;
+
+  @Element() public el!: HTMLElement;
 
   @State() private _loadedClass = '';
 
@@ -221,13 +222,7 @@ export class SbbImage {
   @Prop() public pictureSizesConfig?: string;
 
   /**
-   * Variant Teaser-Hero: we apply specific aspect ratios to the image accross all viewports.
-   */
-  @Prop() public variantTeaserHero = false;
-
-  /**
    * No radius: if set to true, there will be no border-radius on the image
-   * @private
    */
   @Prop() public noRadius = false;
 
@@ -377,19 +372,14 @@ export class SbbImage {
     return mediaQuery;
   }
 
+  public connectedCallback(): void {
+    // Check if the current element is nested in either an `<a>` or `<button>` element.
+    this._variantTeaserHero = !!hostContext('sbb-teaser-hero', this.el);
+  }
+
   public render(): JSX.Element {
     let { caption } = this;
     let schemaData = '';
-    const variantClass = this.variantTeaserHero ? ` image__figure--teaser-hero` : '';
-    let additionalClasses = '';
-
-    if (this.noRadius) {
-      additionalClasses = ` image__figure--no-radius`;
-    }
-
-    if (this.aspectRatio) {
-      additionalClasses += ` image__figure--ratio-${this.aspectRatio}`;
-    }
 
     const attributes: {
       role?: string;
@@ -420,17 +410,23 @@ export class SbbImage {
 
     return (
       <figure
-        class={`image__figure${variantClass}${this._loadedClass}${additionalClasses}`}
+        class={{
+          'image__figure': true,
+          [`image__figure--teaser-hero`]: this._variantTeaserHero,
+          'image__figure--no-radius': this.noRadius,
+          [`image__figure--ratio-${this.aspectRatio}`]: true,
+          [`${this._loadedClass}`]: true
+        }}
         {...attributes}
       >
-        <div class="image__wrapper">
+        <div class='image__wrapper'>
           {this.lqip ? (
             <img
-              alt=""
-              class="image__blur-hash"
+              alt=''
+              class='image__blur-hash'
               src={imageUrlLQIP}
-              width="1000"
-              height="562"
+              width='1000'
+              height='562'
               loading={this.loading}
               decoding={this.decoding}
             />
@@ -455,15 +451,15 @@ export class SbbImage {
                       this._config.retinaQuality
                     } ${imageWidth * 2}w`
                   }
-                />,
+                />
               ];
             })}
             <img
               alt={this.alt}
-              class="image__img"
+              class='image__img'
               src={this.imageSrc}
-              width="1000"
-              height="562"
+              width='1000'
+              height='562'
               loading={this.loading}
               decoding={this.decoding}
               importance={this.importance}
@@ -475,7 +471,7 @@ export class SbbImage {
         </div>
         {caption ? (
           <figcaption
-            class="image__caption"
+            class='image__caption'
             innerHTML={caption}
             ref={(el): void => {
               this._captionElement = el;
@@ -484,7 +480,7 @@ export class SbbImage {
         ) : (
           ''
         )}
-        {schemaData ? <script type="application/ld+json" innerHTML={schemaData} /> : ''}
+        {schemaData ? <script type='application/ld+json' innerHTML={schemaData} /> : ''}
       </figure>
     );
   }

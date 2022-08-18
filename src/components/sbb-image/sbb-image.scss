@@ -88,7 +88,7 @@
 }
 
 .image__caption {
-  margin-top: var(--sbb-spacing-fixed-4x);
+  margin-block-start: var(--sbb-spacing-fixed-4x);
   @include text-xs--regular;
 }
 
