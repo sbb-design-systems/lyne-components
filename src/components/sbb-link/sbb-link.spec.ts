@@ -45,7 +45,7 @@ describe('sbb-link', () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
       html: `
-        <sbb-link icon-placement="end" text-size="m">
+        <sbb-link is-icon-at-end="true" text-size="m">
           <span slot="icon">
             ${lyneIcons.icons['chevron-small-right-small']}
           </span>
@@ -55,7 +55,7 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
-            icon-placement="end"
+            is-icon-at-end="true"
             text-size="m"
             variant="block">
           <mock:shadow-root>
@@ -83,7 +83,7 @@ describe('sbb-link', () => {
       components: [SbbLink],
       html: `
       <a>
-        <sbb-link icon-placement="end" icon-name="chevron-small-right-small" text-size="m">
+        <sbb-link is-icon-at-end="true" icon-name="chevron-small-right-small" text-size="m">
           Travelcards &amp; tickets.
         </sbb-link>
       </a>`,
@@ -91,7 +91,7 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
-            icon-placement="end"
+            is-icon-at-end="true"
             icon-name="chevron-small-right-small"
             text-size="m"
             variant="block">

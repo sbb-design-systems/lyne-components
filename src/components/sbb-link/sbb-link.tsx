@@ -58,9 +58,9 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   @Prop() public iconName?: string;
 
   /**
-   * The icon can either be place before or after the text (optional).
+   * Moves the icon to the end of the component if set to true (optional).
    */
-  @Prop() public iconPlacement?: InterfaceLinkAttributes['iconPlacement'];
+  @Prop() public isIconAtEnd?: boolean;
 
   /**
    * The href value you want to link to (optional, if its not present link becomes a button)
@@ -147,8 +147,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
    */
   private _getClassString(): string {
     const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-    const iconPositionClass =
-      this.iconPlacement === 'end' ? ` sbb-link--icon-placement-${this.iconPlacement}` : '';
+    const iconPositionClass = this.isIconAtEnd ? ` sbb-link--icon-placement-end` : '';
     const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
     const negativeClass = this.negative ? ' sbb-link--negative' : '';
 

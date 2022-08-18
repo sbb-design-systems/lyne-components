@@ -90,11 +90,10 @@ const icon = {
   },
 };
 
-const iconPlacement = {
+const isIconAtEnd = {
   control: {
-    type: 'inline-radio',
+    type: 'boolean',
   },
-  options: ['start', 'end'],
   table: {
     category: 'Icon',
   },
@@ -160,7 +159,7 @@ const defaultArgTypes = {
   negative,
   href: href,
   'icon-name': icon,
-  'icon-placement': iconPlacement,
+  'is-icon-at-end': isIconAtEnd,
   'id-value': idValue,
   'accessibility-label': accessibilityLabel,
   text,
@@ -173,7 +172,7 @@ const defaultArgs = {
   negative: false,
   href: 'https://github.com/lyne-design-system/lyne-components',
   'icon-name': '',
-  'icon-placement': iconPlacement.options[0],
+  'is-icon-at-end': false,
   'id-value': '',
   'accessibility-label': 'Travelcards & tickets',
   text: 'Travelcards & tickets',
@@ -266,7 +265,7 @@ BlockIconEnd.argTypes = defaultArgTypes;
 BlockIconEnd.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
-  'icon-placement': iconPlacement.options[1],
+  'is-icon-at-end': true,
   'text-size': textSize.options[0],
 };
 
@@ -280,7 +279,7 @@ BlockNegativeIconEnd.argTypes = defaultArgTypes;
 BlockNegativeIconEnd.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
-  'icon-placement': iconPlacement.options[1],
+  'is-icon-at-end': true,
   'text-size': textSize.options[0],
   negative: true,
 };
@@ -297,6 +296,10 @@ Inline.args = {
   text: 'Show more',
   variant: variant.options[1],
 };
+delete Inline.argTypes['icon-name'];
+delete Inline.args['icon-name'];
+delete Inline.argTypes['is-icon-at-end'];
+delete Inline.args['is-icon-at-end'];
 
 Inline.documentation = {
   title: 'Inline',
@@ -311,6 +314,10 @@ InlineNegative.args = {
   variant: variant.options[1],
   negative: true,
 };
+delete InlineNegative.argTypes['icon-name'];
+delete InlineNegative.args['icon-name'];
+delete InlineNegative.argTypes['is-icon-at-end'];
+delete InlineNegative.args['is-icon-at-end'];
 
 InlineNegative.documentation = {
   title: 'Inline Negative',
@@ -321,9 +328,7 @@ const defaultArgTypesButton = {
   disabled,
   'event-id': eventId,
   negative,
-  'icon-name': icon,
   name,
-  'icon-placement': iconPlacement,
   'id-value': idValue,
   text,
   type,
@@ -335,9 +340,7 @@ const defaultArgsButton = {
   disabled: false,
   'event-id': 'Event ID for button click',
   negative: false,
-  'icon-name': '',
   name: 'Button name',
-  'icon-placement': iconPlacement.options[0],
   'id-value': '',
   text: 'Travelcards & tickets',
   type: type.options[0],
