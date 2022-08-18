@@ -7,12 +7,6 @@ const TemplateInput = (args) => (
   </sbb-form-field>
 );
 
-const TemplateInputWithoutBorder = (args) => (
-  <sbb-form-field {...args}>
-    <input placeholder="Name" />
-  </sbb-form-field>
-);
-
 const TemplateInputDisabled = (args) => (
   <sbb-form-field
     error-space={args['error-space']}
@@ -47,27 +41,31 @@ const TemplateInputWithErrorSpace = (args) => {
 
   return (
     <form>
-      <sbb-form-field id="sbb-form-field" {...args}>
-        <input
-          id="sbb-form-field-input"
-          onFocus={(event) => {
-            if (event.currentTarget.value === '') {
-              document.getElementById('sbb-form-field').append(sbbFormError);
-            }
-          }}
-          onBlur={(event) => {
-            if (event.currentTarget.value !== '') {
-              sbbFormError.remove();
-            }
-          }}
-          class="sbb-invalid"
-          placeholder="Name"
-        />
-        {sbbFormError}
-      </sbb-form-field>
-      <sbb-form-field {...args}>
-        <input placeholder="Name" />
-      </sbb-form-field>
+      <div>
+        <sbb-form-field id="sbb-form-field" {...args}>
+          <input
+            id="sbb-form-field-input"
+            onFocus={(event) => {
+              if (event.currentTarget.value === '') {
+                document.getElementById('sbb-form-field').append(sbbFormError);
+              }
+            }}
+            onBlur={(event) => {
+              if (event.currentTarget.value !== '') {
+                sbbFormError.remove();
+              }
+            }}
+            class="sbb-invalid"
+            placeholder="Name"
+          />
+          {sbbFormError}
+        </sbb-form-field>
+      </div>
+      <div>
+        <sbb-form-field {...args}>
+          <input placeholder="Name" />
+        </sbb-form-field>
+      </div>
     </form>
   );
 };
@@ -126,32 +124,36 @@ const TemplateSelectWithErrorSpace = (args) => {
 
   return (
     <form>
-      <sbb-form-field id="sbb-form-field" {...args}>
-        <select
-          id="sbb-form-field-input"
-          onFocus={(event) => {
-            if (event.currentTarget.value === '') {
-              document.getElementById('sbb-form-field').append(sbbFormError);
-            }
-          }}
-          onBlur={(event) => {
-            if (event.currentTarget.value !== '') {
-              sbbFormError.remove();
-            }
-          }}
-          class="sbb-invalid"
-          placeholder="Name"
-        >
-          <option>{''}</option>
-          <option>Value 1</option>
-          <option>Value 2</option>
-          <option>Value 3</option>
-        </select>
-        {sbbFormError}
-      </sbb-form-field>
-      <sbb-form-field {...args}>
-        <input placeholder="Name" />
-      </sbb-form-field>
+      <div>
+        <sbb-form-field id="sbb-form-field" {...args}>
+          <select
+            id="sbb-form-field-input"
+            onFocus={(event) => {
+              if (event.currentTarget.value === '') {
+                document.getElementById('sbb-form-field').append(sbbFormError);
+              }
+            }}
+            onBlur={(event) => {
+              if (event.currentTarget.value !== '') {
+                sbbFormError.remove();
+              }
+            }}
+            class="sbb-invalid"
+            placeholder="Name"
+          >
+            <option>{''}</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+          </select>
+          {sbbFormError}
+        </sbb-form-field>
+      </div>
+      <div>
+        <sbb-form-field {...args}>
+          <input placeholder="Name" />
+        </sbb-form-field>
+      </div>
     </form>
   );
 };
@@ -240,7 +242,7 @@ formWithLabelAndInput.documentation = {
   title: 'sbb-form-field component with label and input',
 };
 
-export const formWithLabelAndInputWithoutBorder = TemplateInputWithoutBorder.bind({});
+export const formWithLabelAndInputWithoutBorder = TemplateInput.bind({});
 
 formWithLabelAndInputWithoutBorder.argTypes = basicArgTypes;
 
