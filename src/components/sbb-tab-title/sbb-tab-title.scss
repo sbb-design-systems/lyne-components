@@ -38,8 +38,6 @@
     @include text-xs--bold;
     @include fontSmoothing;
     @include ellipsis;
-
-    padding-inline-end: var(--sbb-spacing-fixed-1x);
   }
 
   ::slotted(*),

@@ -7,6 +7,7 @@
   @include fontSmoothing;
 
   display: inline-block;
+  padding-inline-start: var(--sbb-spacing-fixed-1x);
 }
 
 span {
