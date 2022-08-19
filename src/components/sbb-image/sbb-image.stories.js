@@ -11,6 +11,13 @@ const imageSrc = {
   options: images,
 };
 
+const borderRadius = {
+  control: {
+    type: 'select',
+  },
+  options: ['true', 'false'],
+};
+
 const aspectRatio = {
   control: { type: 'select' },
   options: ['free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'],
@@ -104,7 +111,7 @@ export const Default = Template.bind({});
 Default.argTypes = {
   alt: '',
   caption: '',
-  'no-radius': false,
+  'border-radius': borderRadius,
   'aspect-ratio': aspectRatio,
   copyright,
   'copyright-holder': copyrightHolder,
@@ -122,7 +129,8 @@ Default.args = {
   alt: '',
   caption:
     'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
-  'no-radius': false,
+  // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
+  'border-radius': 'true',
   'aspect-ratio': '',
   copyright: '',
   'copyright-holder': copyrightHolder.options[0],
@@ -138,6 +146,19 @@ Default.args = {
 
 Default.documentation = {
   title: 'Default image',
+};
+
+export const NoCaptionNoRadius = Template.bind({});
+
+NoCaptionNoRadius.argTypes = Default.argTypes;
+NoCaptionNoRadius.args = {
+  ...Default.args,
+  'border-radius': 'false',
+  caption: '',
+};
+
+NoCaptionNoRadius.documentation = {
+  title: 'No caption, no radius',
 };
 
 export default {

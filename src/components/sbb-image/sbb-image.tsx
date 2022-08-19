@@ -223,9 +223,9 @@ export class SbbImage {
   @Prop() public pictureSizesConfig?: string;
 
   /**
-   * No radius: if set to true, there will be no border-radius on the image
+   * border-radius: if set to false, there will be no border-radius on the image
    */
-  @Prop() public noRadius = false;
+  @Prop() public borderRadius = true;
 
   /**
    * Set an aspect ratio
@@ -267,7 +267,7 @@ export class SbbImage {
       imageUrlObj.searchParams.append('h', '56');
     } else {
       // CDN Information: https://docs.imgix.com/apis/rendering
-      // param.autoImprove: ?auto=format,compress,cs=tinysrgb
+      // param.auto: ?auto=format,compress,cs=tinysrgb
       imageUrlObj.searchParams.append('auto', 'format,compress,cs=tinysrgb');
     }
 
@@ -414,7 +414,7 @@ export class SbbImage {
         class={{
           image__figure: true,
           [`image__figure--teaser-hero`]: this._variantTeaserHero,
-          'image__figure--no-radius': this.noRadius,
+          [`image__figure--no-radius`]: !this.borderRadius,
           [`image__figure--ratio-${this.aspectRatio}`]: true,
           [`${this._loadedClass}`]: true,
         }}

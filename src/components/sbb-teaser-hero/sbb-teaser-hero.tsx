@@ -110,7 +110,7 @@ export class SbbTeaserHero {
       <a class="teaser-hero" href={this.link} {...linkAttributes}>
         <sbb-image
           aspect-ratio="1-1"
-          no-radius="true"
+          border-radius="false"
           class="teaser-hero__image"
           image-src={this.imageSrc}
           loading={this.imageLoading}

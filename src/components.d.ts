@@ -354,6 +354,10 @@ export namespace Components {
          */
         "aspectRatio": InterfaceImageAttributes['aspectRatio'];
         /**
+          * border-radius: if set to false, there will be no border-radius on the image
+         */
+        "borderRadius": boolean;
+        /**
           * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
@@ -401,10 +405,6 @@ export namespace Components {
           * If set to true, we show a blurred version of the image as placeholder before the actual image shows up. This will help to improve the perceived loading performance. Read more about the idea of lqip here: https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
          */
         "lqip": boolean;
-        /**
-          * No radius: if set to true, there will be no border-radius on the image
-         */
-        "noRadius": boolean;
         /**
           * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.
          */
@@ -1744,6 +1744,10 @@ declare namespace LocalJSX {
          */
         "aspectRatio"?: InterfaceImageAttributes['aspectRatio'];
         /**
+          * border-radius: if set to false, there will be no border-radius on the image
+         */
+        "borderRadius"?: boolean;
+        /**
           * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
@@ -1791,10 +1795,6 @@ declare namespace LocalJSX {
           * If set to true, we show a blurred version of the image as placeholder before the actual image shows up. This will help to improve the perceived loading performance. Read more about the idea of lqip here: https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
          */
         "lqip"?: boolean;
-        /**
-          * No radius: if set to true, there will be no border-radius on the image
-         */
-        "noRadius"?: boolean;
         /**
           * With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.
          */
