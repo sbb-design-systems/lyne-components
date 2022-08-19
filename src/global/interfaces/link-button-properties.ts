@@ -5,123 +5,177 @@ import { i18nTargetOpensInNewWindow } from '../i18n';
 import { AccessibilityProperties } from './accessibility-properties';
 
 /**
- * Type attribute enum for button HTML tag
+ * Enumeration for type attribute in <button> HTML tag.
  */
 export type ButtonType = 'button' | 'reset' | 'submit';
 
 /**
- * The interface contains all the possible attributes of both the <a> and <button> tags.
- * It is intended to be used in all cases where a component renders a tag that can be an <a> or a <button>,
- * eg. depending on whether the value of the href attribute is present or not.
- * A class could not be created because StencilJS does not support inheritance.
+ * Enumeration for 'target' attribute in <a> HTML tag.
  */
-export interface LinkButtonProperties extends AccessibilityProperties {
-  /**
-   * Link: whether the browser will show the download dialog on click.
-   */
-  download: boolean | undefined;
+export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
+/**
+ * The interface contains attributes that can be set on an <a> tag.
+ */
+export interface LinkProperties {
   /**
-   *  Link: the href value you want to link to.
+   *  The href value you want to link to.
    */
   href: string | undefined;
 
   /**
-   * Button: whether the button is disabled.
+   * Whether the browser will show the download dialog on click.
    */
-  disabled: boolean | undefined;
+  download?: boolean | undefined;
 
   /**
-   * Button: name attribute.
+   * The relationship of the linked URL as space-separated link types.
    */
-  name: string | undefined;
+  rel?: string | undefined;
 
   /**
-   * Button: form attribute.
+   * Where to display the linked URL.
    */
-  form: string | undefined;
+  target?: LinkTargetType | string | undefined;
+}
 
+/**
+ * The interface contains attributes that can be set on an <button> tag.
+ */
+export interface ButtonProperties {
   /**
-   * Button: type attribute.
+   * Default behaviour of the button.
    */
   type: ButtonType | undefined;
 
   /**
-   * Button: click function.
+   * The name of the button.
    */
-  click: EventEmitter<any>;
+  name: string | undefined;
 
   /**
-   * Button: id sent in the click event payload.
+   * Emits the eventId to parent on button click.
+   * TODO check if it's possible to use a better type than 'any'.
    */
-  eventId: string;
+  click: EventEmitter<any> | undefined;
 
   /**
-   * Button: function triggered on click
+   * The function triggered on button click.
    */
-  emitButtonClick: () => void;
+  emitButtonClick: (() => void) | undefined;
+
+  /**
+   * Id sent in the click event payload.
+   * TODO verify if needed and if string is the correct type
+   */
+  eventId?: string | undefined;
+
+  /**
+   * The <form> element to associate the button with.
+   */
+  form?: string | undefined;
+
+  /**
+   * The value associated with button `name` when it's submitted with the form data.
+   */
+  value?: string | undefined;
+
+  /**
+   * Whether the button is disabled.
+   */
+  disabled?: boolean | undefined;
 }
 
 /**
- * Creates the basic attribute list for the link/button tag.
- * @param idValue HTML element's id
- * @param className HTML element's CSS class
+ * The interface contains the possible attributes of both the <a> and the <button> tags.
+ * It is intended to be used in all cases where a component needs to render a tag that can be an <a> or a <button>,
+ * for instance depending on whether the value of the href attribute is present or not.
+ * NOTE: a class could not be created because StencilJS does not support inheritance/component extension.
+ */
+export interface LinkButtonProperties
+  extends LinkProperties,
+    ButtonProperties,
+    AccessibilityProperties {}
+
+/**
+ * Creates the basic attribute list for the link/button tag; undefined/null properties are not set.
+ * @param elementId HTML element's id
+ * @param elementClassName HTML element's CSS class
  * @param accessibilityProps HTML element's accessibility properties
  * @returns an object with the all the properties set
  */
 export function getLinkButtonBaseAttributeList(
-  idValue: string,
-  className: string,
-  accessibilityProps: AccessibilityProperties
+  elementId: string,
+  elementClassName: string,
+  accessibilityProps?: AccessibilityProperties
 ): object {
   return {
-    id: idValue || undefined,
-    class: className,
     dir: getDocumentWritingMode(),
-    'aria-label': accessibilityProps.accessibilityLabel || undefined,
-    'aria-labelledby': accessibilityProps.accessibilityLabelledby || undefined,
-    'aria-describedby': accessibilityProps.accessibilityDescribedby || undefined,
+    ...(elementId && { id: elementId }),
+    ...(elementClassName && { class: elementClassName }),
+    ...(accessibilityProps?.accessibilityLabel && {
+      'aria-label': accessibilityProps.accessibilityLabel,
+    }),
+    ...(accessibilityProps?.accessibilityLabelledby && {
+      'aria-labelledby': accessibilityProps.accessibilityLabelledby,
+    }),
+    ...(accessibilityProps?.accessibilityDescribedby && {
+      'aria-describedby': accessibilityProps.accessibilityDescribedby,
+    }),
   };
 }
 
 /**
- * Creates a list of attributes for the link or button tags, depending on whether the href attribute value is present.
- * @param idValue HTML element's id
- * @param className HTML element's CSS class
+ * Creates a list of attributes for the <a> or <button> tags, depending on whether the href attribute value is present.
+ * @param elementId HTML element's id
+ * @param elementClassName HTML element's CSS class
  * @param linkButtonProps properties from the link/button component implementation
  * @returns an object with the right properties for each case
  */
 export function getLinkButtonAttributeList(
-  idValue: string,
-  className: string,
+  elementId: string,
+  elementClassName: string,
   linkButtonProps: LinkButtonProperties
 ): object {
-  const attributeList: object = getLinkButtonBaseAttributeList(idValue, className, linkButtonProps);
+  if (!linkButtonProps) {
+    return getLinkButtonBaseAttributeList(elementId, elementClassName);
+  }
+
+  let attributeList: object = getLinkButtonBaseAttributeList(
+    elementId,
+    elementClassName,
+    linkButtonProps
+  );
 
   // Anchor case
   if (linkButtonProps.href) {
     if (!window.location.href.includes(linkButtonProps.href)) {
-      Object.assign(attributeList, {
-        rel: 'external noopener nofollow',
-        target: '_blank',
-        'aria-label':
-          `${attributeList['aria-label']}. ${i18nTargetOpensInNewWindow[getDocumentLang()]}` ||
-          undefined,
-      });
+      attributeList = {
+        ...attributeList,
+        rel: linkButtonProps.rel || 'external noopener nofollow',
+        target: linkButtonProps.target || '_blank',
+        ...(attributeList['aria-label'] && {
+          'aria-label': `${attributeList['aria-label']}. ${
+            i18nTargetOpensInNewWindow[getDocumentLang()]
+          }`,
+        }),
+      };
     }
-    return Object.assign(attributeList, {
+    return {
+      ...attributeList,
       href: linkButtonProps.href,
-      download: linkButtonProps.download ? '' : undefined,
-      tabIndex: linkButtonProps.disabled ? '-1' : undefined,
-    });
+      ...(linkButtonProps.download && { download: '' }),
+      ...(linkButtonProps.disabled && { tabIndex: '-1' }),
+    };
   }
 
   // Button case
-  return Object.assign(attributeList, {
-    name: linkButtonProps.name || undefined,
-    type: linkButtonProps.type || undefined,
-    form: linkButtonProps.form || undefined,
-    disabled: linkButtonProps.disabled ? 'true' : undefined,
+  return {
+    ...attributeList,
+    name: linkButtonProps.name,
+    type: linkButtonProps.type || 'button',
     onClick: linkButtonProps.emitButtonClick.bind(linkButtonProps),
-  });
+    ...(linkButtonProps.form && { form: linkButtonProps.form }),
+    ...(linkButtonProps.disabled && { disabled: 'true' }),
+  };
 }
