@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.5 (2022-08-19)
+
+### Features
+
+- **sbb-link:** implement LinkButtonProperties interface ([#1344](https://github.com/lyne-design-system/lyne-components/issues/1344)) ([77e15cf](https://github.com/lyne-design-system/lyne-components/commit/77e15cfcf27d54e820208738cb233160792c90b4))
+
 ### 0.2.4 (2022-08-17)
 
 ### Bug Fixes
