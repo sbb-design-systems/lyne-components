@@ -19,6 +19,7 @@ describe('sbb-link', () => {
             icon-placement="end"
             icon="chevron-small-right-small"
             text-size="m"
+            variant="block"
             accessibility-label="Travelcards &amp; tickets">
           <mock:shadow-root>
             <a
@@ -45,6 +46,7 @@ describe('sbb-link', () => {
         </sbb-link>
       `);
   });
+
   it('renders a link as a button', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
@@ -58,7 +60,8 @@ describe('sbb-link', () => {
         <sbb-link
             icon-placement="end"
             icon="chevron-small-right-small"
-            text-size="m">
+            text-size="m"
+            variant="block">
           <mock:shadow-root>
             <button
                 class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"
@@ -80,6 +83,7 @@ describe('sbb-link', () => {
         </sbb-link>
       `);
   });
+
   it('renders a link as a span', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
@@ -96,7 +100,8 @@ describe('sbb-link', () => {
         <sbb-link
             icon-placement="end"
             icon="chevron-small-right-small"
-            text-size="m">
+            text-size="m"
+            variant="block">
           <mock:shadow-root>
             <span
                 class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"

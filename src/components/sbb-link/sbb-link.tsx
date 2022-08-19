@@ -1,4 +1,13 @@
-import { Component, ComponentInterface, Element, h, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Prop,
+  State,
+} from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
@@ -62,7 +71,7 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
   /**
    * Applies link inline styles (underline, inherit coloring/font-size etc).
    */
-  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'block';
+  @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
   /**
    * Disabled attribute if link is used as button (optional)
@@ -98,6 +107,20 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
    * instead of an anchor or a button
    */
   @State() private _isStatic = false;
+
+  /** Id which is sent in the click event payload */
+  @Prop() public eventId?: string;
+
+  /**
+   * Emits whenever the native button click event triggers.
+   * TODO: similar to the one in sbb-button. To be fixed together.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-link-button_click',
+  })
+  public click: EventEmitter<any>;
 
   @Element() public el!: HTMLElement;
 
@@ -152,21 +175,22 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
       type: this.type || undefined,
       form: this.form || undefined,
       disabled: this.disabled ? 'true' : undefined,
+      onClick: this._emitButtonClick.bind(this),
     });
+  }
+
+  private _emitButtonClick(): void {
+    if (!this.disabled) {
+      this.click.emit(this.eventId);
+    }
   }
 
   private _getClassString(): string {
     const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-
-    let iconPositionClass = '';
-
-    if (this.icon) {
-      iconPositionClass =
-        this.iconPlacement === 'start'
-          ? ' sbb-link--icon-placement-start'
-          : ' sbb-link--icon-placement-end';
-    }
-
+    const iconPositionClass =
+      this.iconPlacement === 'start'
+        ? ' sbb-link--icon-placement-start'
+        : ' sbb-link--icon-placement-end';
     const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
     const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
@@ -189,9 +213,7 @@ export class SbbLink implements AccessibilityProperties, ComponentInterface {
     return (
       <TAG_NAME {...this._getAttributeList()}>
         {this.variant !== 'inline' && (
-          <slot name="icon">
-            <sbb-icon name={this.icon}></sbb-icon>
-          </slot>
+          <slot name="icon">{this.icon && <sbb-icon name={this.icon}></sbb-icon>}</slot>
         )}
         <slot />
       </TAG_NAME>

@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.4 (2022-08-17)
+
+### Bug Fixes
+
+- **sbb-link:** handle icon slot and icon placement correctly ([#1340](https://github.com/lyne-design-system/lyne-components/issues/1340)) ([69bd54b](https://github.com/lyne-design-system/lyne-components/commit/69bd54b9141bf0c53cca1936f4c4d2c4eb4fb4c4))
+
+### 0.2.3 (2022-08-17)
+
+### Bug Fixes
+
+- **sbb-button:** button doesn't emit eventId ([#1332](https://github.com/lyne-design-system/lyne-components/issues/1332)) ([b2abf37](https://github.com/lyne-design-system/lyne-components/commit/b2abf3723457ab64b79c8bc99e669cdd428c0d9a))
+
+### 0.2.2 (2022-08-17)
+
+### Bug Fixes
+
+- add event to link button ([#1327](https://github.com/lyne-design-system/lyne-components/issues/1327)) ([8cfcd50](https://github.com/lyne-design-system/lyne-components/commit/8cfcd509a5ee9551d1827be595db622fa9ca2ec2))
+
 ### 0.2.1 (2022-08-11)
 
 ## 0.2.0 (2022-07-29)
