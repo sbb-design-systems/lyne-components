@@ -12,6 +12,19 @@
 | `status`            | `status`            | Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.                                                                                                                                            | `"future" \| "past" \| number` | `undefined` |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-timetable-row](../sbb-timetable-row)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-timetable-row --> sbb-pearl-chain
+  style sbb-pearl-chain fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

@@ -76,7 +76,7 @@ declare type TimeQuayWrapper = {
   /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
   quayName?: string;
   /** planned arrival/departure time */
-  time: Date;
+  time: string;
 };
 
 declare type ServiceProduct = {
@@ -123,10 +123,11 @@ declare type TripSummary = {
 };
 
 declare type Trip = {
-  price: string;
+  price?: string;
 
   /** List of transfer points */
-  // legs: Leg[];
+  // legs?: Leg[];
+
   /**
    * List of legs travel hints
    * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2
@@ -141,9 +142,9 @@ declare type Trip = {
    * Summary of most relevant aspects of the given Trip and its PTRideLeg's
    * Usefull for level 1, not needed for level 2
    */
-  summary: TripSummary;
+  summary?: TripSummary;
   /** contains all info for ZVS::Reise to get TripOffer price from NOVA */
-  tripId: string;
+  id?: string;
   /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
   valid?: boolean;
 };
