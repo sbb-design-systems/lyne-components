@@ -9,9 +9,6 @@
 }
 
 .tab-content {
-  @include text;
-
-  color: var(--sbb-color-iron-default);
   margin-top: var(--sbb-spacing-responsive-m);
   transition: height var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
