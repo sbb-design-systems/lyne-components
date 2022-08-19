@@ -9,14 +9,14 @@ import {
   renderIconProduct,
   renderStringProduct,
   walkTimeAfter,
-  walkTimeBefore,
+  walkTimeBefore
 } from './sbb-timetable-row.helper';
 import { format } from 'date-fns-tz';
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
-  tag: 'sbb-timetable-row',
+  tag: 'sbb-timetable-row'
 })
 export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
@@ -82,13 +82,16 @@ export class SbbTimetableRow {
       arrivalWalk,
       tripStatus,
       occupancy,
-      duration,
+      duration
     } = this.config?.summary || {};
 
     const badgeClass = price?.length ? 'timetable__row-badge' : '';
 
     const sortedNotices = this._sortPriority(notices);
     const sortedSituations = this._sortPriority(situations);
+
+    const arrivalTime: string = arrival?.time && format(new Date(arrival?.time), 'H:mm');
+    const departureTime: string = departure?.time && format(new Date(departure?.time), 'H:mm');
 
     return (
       <div id={id} role="presentation" accessibility-label={this.accessibilityLabel}>
@@ -117,10 +120,9 @@ export class SbbTimetableRow {
           <div class="timetable__row-body" role="gridcell">
             {departureWalk ? walkTimeBefore(departureWalk) : ''}
 
-            <time class="timetable__row-time" dateTime={'' + departure?.time}>
+            <time class="timetable__row-time" dateTime={departureTime}>
               <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
-
-              {departure?.time && format(new Date(departure?.time), 'H:mm')}
+              {departureTime}
             </time>
             <sbb-pearl-chain class="timetable__row-chain" legs=""></sbb-pearl-chain>
             {/*<sbb-pearl-chain
@@ -128,9 +130,9 @@ export class SbbTimetableRow {
               legs={legs}
               disable-animation={this.disableAnimation}
               />*/}
-            <time class="timetable__row-time" dateTime={'' + arrival?.time}>
+            <time class="timetable__row-time" dateTime={arrivalTime}>
               <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-              {arrival?.time && format(new Date(arrival?.time), 'H:mm')}
+              {arrivalTime}
             </time>
             {arrivalWalk ? walkTimeAfter(arrivalWalk) : ''}
           </div>

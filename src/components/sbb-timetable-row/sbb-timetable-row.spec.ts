@@ -36,7 +36,7 @@ describe('sbb-timetable-row', () => {
                 <div class="timetable__row-body" role="gridcell">
                   <span class="timetable__row-walktime">
                     <sbb-icon name="walk-small"></sbb-icon>
-                    <time datetime="Thu Jan 01 1970 01:00:00 GMT+0100 (Mitteleuropäische Normalzeit)">
+                    <time datetime="P8M">
                       <span class="screenreaderonly">
                         minutes of walking time before departure:
                       </span>
@@ -46,21 +46,21 @@ describe('sbb-timetable-row', () => {
                       </span>
                     </time>
                   </span>
-                  <time class="timetable__row-time" datetime="2022-10-28T02:48:00+02:00">
+                  <time class="timetable__row-time" datetime="2:48">
                     <span class="screenreaderonly">
                       Departure
                     </span>
                     2:48
                   </time>
                   <sbb-pearl-chain class="timetable__row-chain" legs=""></sbb-pearl-chain>
-                  <time class="timetable__row-time" datetime="2022-10-28T21:16:00+02:00">
+                  <time class="timetable__row-time" datetime="21:16">
                     <span class="screenreaderonly">
                       Arrival
                     </span>
                     21:16
                   </time>
                   <span class="timetable__row-walktime">
-                    <time datetime="Thu Jan 01 1970 01:00:00 GMT+0100 (Mitteleuropäische Normalzeit)">
+                    <time datetime="P5M">
                       <span class="screenreaderonly">
                         minutes of walking time after arrival:
                       </span>

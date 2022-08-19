@@ -5,9 +5,8 @@ import {
   differenceInMinutes,
   subHours,
   addMinutes,
-  subDays,
+  subDays
 } from 'date-fns';
-import { toDate } from 'date-fns-tz';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../../global/i18n';
 
@@ -56,7 +55,7 @@ export const isProductIcon = (transport: string): boolean => {
     'rx',
     'sn',
     'rgv',
-    'vae',
+    'vae'
   ];
 
   if (possibleTransportTypes.includes(transport)) {
@@ -82,7 +81,7 @@ export const walkTimeBefore = (walkTime: number): JSX.Element => {
   return (
     <span class="timetable__row-walktime">
       <sbb-icon name="walk-small"></sbb-icon>
-      <time dateTime={'' + toDate(walkTime)}>
+      <time dateTime={'P' + walkTime + 'M'}>
         <span class="screenreaderonly">{i18nWalkingDistanceDeparture[getDocumentLang()]}</span>
         {walkTime}
         <span aria-hidden="true">'</span>
@@ -94,7 +93,7 @@ export const walkTimeBefore = (walkTime: number): JSX.Element => {
 export const walkTimeAfter = (walkTime: number): JSX.Element => {
   return (
     <span class="timetable__row-walktime">
-      <time dateTime={'' + toDate(walkTime)}>
+      <time dateTime={'P' + walkTime + 'M'}>
         <span class="screenreaderonly">{i18nWalkingDistanceArrival[getDocumentLang()]}</span>
         {walkTime}
         <span aria-hidden="true">'</span>
