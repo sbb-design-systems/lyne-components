@@ -29,6 +29,7 @@
   position: relative;
   box-sizing: border-box;
   display: flex;
+  justify-content: space-between;
   flex-wrap: nowrap;
   color: var(--sbb-color-default);
   width: 100%;
@@ -50,6 +51,10 @@
   @include ifForcedColors {
     background-color: CanvasText;
   }
+}
+
+.pearl-chain--progress::before {
+  color: var(--color-past);
 }
 
 .pearl-chain::before {
@@ -99,27 +104,43 @@
   flex-grow: 0;
   position: relative;
   height: var(--border-width);
+  border-right: var(--spacing-small) solid var(--color-white);
+  background-color: currentcolor;
 
   @include ifForcedColors {
     color: CanvasText;
   }
 }
 
+.pearl-chain__leg:last-of-type {
+  border: none;
+}
+
+.pearl-chain__leg--past {
+  color: var(--color-past);
+}
+
+.pearl-chain__leg--progress::before {
+  color: var(--color-past);
+}
+
 // dot on leg
-.pearl-chain__leg:not(:first-child)::before {
-  --dot-size: var(--dot-size-small);
-  @include dot;
+.pearl-chain__leg:not(:first-child) {
+  &::before {
+    --dot-size: var(--dot-size-small);
+    @include dot;
 
-  box-sizing: border-box;
-  top: calc(var(--dot-size) / -2 + var(--border-width) / 2);
-  left: 0;
-  background-color: var(--color-white);
-  border: var(--border-width) solid currentcolor;
-  z-index: 2;
+    box-sizing: border-box;
+    top: calc(var(--dot-size) / -2 + var(--border-width) / 2);
+    left: 0;
+    background-color: var(--color-white);
+    border: var(--border-width) solid currentcolor;
+    z-index: 2;
 
-  @include ifForcedColors {
-    .pearl-chain--past & {
-      border-color: GrayText;
+    @include ifForcedColors {
+      .pearl-chain--past & {
+        border-color: GrayText;
+      }
     }
   }
 }
@@ -129,7 +150,6 @@
   content: '';
   position: absolute;
   top: 0;
-  right: var(--spacing-small);
   bottom: 0;
   left: 0;
   background-color: currentcolor;
@@ -147,6 +167,11 @@
 
 .pearl-chain__leg:last-of-type::after {
   right: calc(-1 * var(--border-width));
+}
+
+.pearl-chain__leg--progress::after {
+  background-color: var(--color-past);
+  width: var(--leg-status);
 }
 
 .pearl-chain__leg--cancellation {
@@ -175,19 +200,16 @@
   );
   background-repeat: repeat-x;
   background-size: calc(2 * var(--spacing-small)) var(--border-width);
+  right: var(--border-width);
 }
 
 .pearl-chain__leg--cancellation::after,
 .pearl-chain--past .pearl-chain__leg--cancellation::after {
   @include ifForcedColors {
     background: none;
-    border-top: #{px-to-rem-build(1)} dashed currentColor;
+    border-top: #{px-to-rem-build(1)} dashed currentcolor;
     transform: translateY(#{px-to-rem-build(1)});
   }
-}
-
-.pearl-chain__status--no-animation {
-  animation: unset;
 }
 
 .pearl-chain__position {
@@ -209,13 +231,8 @@
   }
 }
 
-.pearl-chain__leg--past {
-  position: absolute;
-  left: 0;
-  background-color: var(--color-past);
-  width: var(--status-position);
-  height: var(--border-width);
-  z-index: 1;
+.pearl-chain__position--no-animation {
+  animation: unset;
 }
 
 @keyframes pulse {
