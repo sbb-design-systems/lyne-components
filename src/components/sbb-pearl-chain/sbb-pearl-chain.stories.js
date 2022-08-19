@@ -109,8 +109,8 @@ Past.args = {
     {
       duration: 120,
       id: 'test',
-      arrival: { time: new Date('2022-08-16T05:00:00') },
-      departure: { time: new Date('2022-08-16T03:00:00') },
+      arrival: { time: '2022-08-16T05:00:00' },
+      departure: { time: '2022-08-16T03:00:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -120,8 +120,8 @@ Past.args = {
     {
       duration: 600,
       id: 'test',
-      arrival: { time: new Date('2022-08-16T17:00:00') },
-      departure: { time: new Date('2022-08-16T08:00:00') },
+      arrival: { time: '2022-08-16T17:00:00' },
+      departure: { time: '2022-08-16T08:00:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -131,8 +131,8 @@ Past.args = {
     {
       duration: 600,
       id: 'test',
-      arrival: { time: new Date('2022-08-16T17:00:00') },
-      departure: { time: new Date('2022-08-16T08:00:00') },
+      arrival: { time: '2022-08-16T17:00:00' },
+      departure: { time: '2022-08-16T08:00:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,

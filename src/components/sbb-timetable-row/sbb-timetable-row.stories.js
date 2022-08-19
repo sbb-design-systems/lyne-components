@@ -22,6 +22,13 @@ SbbTimetableRow.args = {
 
 export const SbbTimetableRowPosition = Template.bind({});
 SbbTimetableRowPosition.args = {
+  disableAnimation: false,
+  config: configPosition,
+};
+
+export const SbbTimetableRowPositionDisabledAnimation = Template.bind({});
+SbbTimetableRowPositionDisabledAnimation.args = {
+  disableAnimation: true,
   config: configPosition,
 };
 

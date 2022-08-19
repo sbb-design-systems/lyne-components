@@ -24,10 +24,10 @@ declare type ServiceAlteration = {
 export type Leg = {
   duration: number;
   arrival?: {
-    time: Date;
+    time: string;
   };
   departure?: {
-    time: Date;
+    time: string;
   };
   serviceJourney?: {
     serviceAlteration: ServiceAlteration;

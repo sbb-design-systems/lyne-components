@@ -5,11 +5,12 @@
 
 ## Properties
 
-| Property             | Attribute             | Description                                                                               | Type                                                                                                                                         | Default     |
-| -------------------- | --------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant element.                             | `string`                                                                                                                                     | `undefined` |
-| `config`             | --                    | The config Prop                                                                           | `{ price?: string; legs?: Leg[]; notices?: Notice[]; situations?: PtSituation[]; summary?: TripSummary; tripId?: string; valid?: boolean; }` | `undefined` |
-| `loading`            | `loading`             | The loading state - when this is true it will be render skeleton with an idling animation | `boolean`                                                                                                                                    | `false`     |
+| Property             | Attribute             | Description                                                                                       | Type                                                                                                                                     | Default     |
+| -------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant element.                                     | `string`                                                                                                                                 | `undefined` |
+| `config`             | --                    | The config Prop                                                                                   | `{ price?: string; legs?: Leg[]; notices?: Notice[]; situations?: PtSituation[]; summary?: TripSummary; id?: string; valid?: boolean; }` | `undefined` |
+| `disableAnimation`   | `disable-animation`   | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. | `boolean`                                                                                                                                | `undefined` |
+| `loading`            | `loading`             | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`                                                                                                                                | `false`     |
 
 
 ## Dependencies

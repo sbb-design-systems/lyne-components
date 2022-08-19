@@ -76,7 +76,7 @@ declare type TimeQuayWrapper = {
   /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
   quayName?: string;
   /** planned arrival/departure time */
-  time: Date;
+  time: string;
 };
 
 declare type ServiceProduct = {
@@ -143,7 +143,7 @@ declare type Trip = {
    */
   summary?: TripSummary;
   /** contains all info for ZVS::Reise to get TripOffer price from NOVA */
-  tripId?: string;
+  id?: string;
   /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
   valid?: boolean;
 };

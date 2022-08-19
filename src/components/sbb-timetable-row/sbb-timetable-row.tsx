@@ -33,6 +33,9 @@ export class SbbTimetableRow {
   /** This will be forwarded as aria-label to the relevant element. */
   @Prop() public accessibilityLabel: string;
 
+  /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
+  @Prop() public disableAnimation?: boolean;
+
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
@@ -64,8 +67,8 @@ export class SbbTimetableRow {
       return this._renderSkeleton();
     }
 
-    const { price, legs, notices, situations, tripId }: InterfaceTimetableRowAttributes['trip'] =
-      this.config;
+    const { price, legs, notices, situations, id }: InterfaceTimetableRowAttributes['trip'] =
+      this.config || {};
 
     const {
       product,
@@ -86,7 +89,7 @@ export class SbbTimetableRow {
 
     return (
       <sbb-timetable-row-button
-        id={tripId}
+        id={id}
         role="presentation"
         accessibility-label={this.accessibilityLabel}
       >
@@ -113,12 +116,16 @@ export class SbbTimetableRow {
             <time class="timetable__row-time" dateTime={'' + departure?.time}>
               <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
 
-              {departure?.time && format(departure?.time, 'H:mm')}
+              {departure?.time && format(new Date(departure?.time), 'H:mm')}
             </time>
-            <sbb-pearl-chain class="timetable__row-chain" legs={legs} />
+            <sbb-pearl-chain
+              class="timetable__row-chain"
+              legs={legs}
+              disable-animation={this.disableAnimation}
+            />
             <time class="timetable__row-time" dateTime={'' + arrival?.time}>
               <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-              {arrival?.time && format(arrival?.time, 'H:mm')}
+              {arrival?.time && format(new Date(arrival?.time), 'H:mm')}
             </time>
             {arrivalWalk ? walkTimeAfter(arrivalWalk) : ''}
           </div>

@@ -2,8 +2,8 @@ export default [
   {
     duration: 60,
     id: 'test',
-    arrival: { time: new Date('2022-08-18T05:00') },
-    departure: { time: new Date('2022-08-18T04:00') },
+    arrival: { time: '2022-08-18T05:00' },
+    departure: { time: '2022-08-18T04:00' },
     serviceJourney: {
       serviceAlteration: {
         cancelled: false,
@@ -13,8 +13,8 @@ export default [
   {
     duration: 660,
     id: 'test',
-    arrival: { time: new Date('2022-08-18T16:00') },
-    departure: { time: new Date('2022-08-18T05:00') },
+    arrival: { time: '2022-08-18T16:00' },
+    departure: { time: '2022-08-18T05:00' },
     serviceJourney: {
       serviceAlteration: {
         cancelled: false,

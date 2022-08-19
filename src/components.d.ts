@@ -1056,6 +1056,10 @@ export namespace Components {
          */
         "config"?: InterfaceTimetableRowAttributes['trip'];
         /**
+          * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
+         */
+        "disableAnimation"?: boolean;
+        /**
           * The loading state - when this is true it will be render skeleton with an idling animation
          */
         "loading": boolean;
@@ -2657,6 +2661,10 @@ declare namespace LocalJSX {
           * The config Prop
          */
         "config"?: InterfaceTimetableRowAttributes['trip'];
+        /**
+          * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
+         */
+        "disableAnimation"?: boolean;
         /**
           * The loading state - when this is true it will be render skeleton with an idling animation
          */

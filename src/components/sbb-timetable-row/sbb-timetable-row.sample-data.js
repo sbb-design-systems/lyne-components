@@ -77,14 +77,14 @@ export const config = {
       delay: 0,
       quayChanged: false,
       quayName: 'Gl. 88',
-      time: new Date('2022-10-28T21:16:00+02:00'),
+      time: '2022-10-28T21:16:00+02:00',
     },
     arrivalWalk: 5,
     departure: {
       delay: 0,
       quayChanged: false,
       quayName: '7',
-      time: new Date('2022-10-28T02:48:00+02:00'),
+      time: '2022-10-28T02:48:00+02:00',
     },
     departureWalk: 8,
     direction: 'Luzern',
@@ -113,8 +113,8 @@ export const configPosition = {
     {
       duration: 60,
       id: 'test',
-      arrival: { time: new Date('2022-08-18T05:00') },
-      departure: { time: new Date('2022-08-18T04:00') },
+      arrival: { time: '2023-08-18T05:00' },
+      departure: { time: '2021-08-18T04:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -122,10 +122,10 @@ export const configPosition = {
       },
     },
     {
-      duration: 660,
+      duration: 780,
       id: 'test',
-      arrival: { time: new Date('2022-08-18T16:00') },
-      departure: { time: new Date('2022-08-18T05:00') },
+      arrival: { time: '2024-08-18T18:00' },
+      departure: { time: '2023-08-18T05:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -196,14 +196,14 @@ export const configPosition = {
       delay: 0,
       quayChanged: false,
       quayName: 'Gl. 88',
-      time: new Date('2022-07-28T13:48:00+02:00'),
+      time: '2022-07-28T13:48:00+02:00',
     },
     arrivalWalk: 5,
     departure: {
       delay: 0,
       quayChanged: false,
       quayName: '7',
-      time: new Date('2022-07-28T13:16:00+02:00'),
+      time: '2022-07-28T13:16:00+02:00',
     },
     departureWalk: 8,
     direction: 'Luzern',
@@ -232,8 +232,8 @@ export const configMinimal = {
     {
       duration: 360,
       id: 'test',
-      arrival: { time: new Date('2022-08-40T15:00:00+02:00') },
-      departure: { time: new Date('2022-04-30T15:00:00+02:00') },
+      arrival: { time: '2022-08-40T15:00:00+02:00' },
+      departure: { time: '2022-04-30T15:00:00+02:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -246,13 +246,13 @@ export const configMinimal = {
       delay: 0,
       quayChanged: false,
       quayName: 'Gl. 88',
-      time: new Date('2022-07-28T13:48:00+02:00'),
+      time: '2022-07-28T13:48:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
       quayName: '7',
-      time: new Date('2022-07-28T13:16:00+02:00'),
+      time: '2022-07-28T13:16:00+02:00',
     },
     direction: 'Mars',
     duration: 20,
@@ -282,13 +282,13 @@ export const configCancelled = {
       delay: 0,
       quayChanged: false,
       quayName: 'Gl. 88',
-      time: new Date('2022-07-28T13:48:00+02:00'),
+      time: '2022-07-28T13:48:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
       quayName: '7',
-      time: new Date('2022-07-28T13:16:00+02:00'),
+      time: '2022-07-28T13:16:00+02:00',
     },
     direction: 'Mars',
     duration: 20,
@@ -348,13 +348,13 @@ export const configCancelledStops = {
       delay: 0,
       quayChanged: false,
       quayName: 'Gl. 88',
-      time: new Date('2022-07-28T13:48:00+02:00'),
+      time: '2022-07-28T13:48:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
       quayName: '7',
-      time: new Date('2022-07-28T13:16:00+02:00'),
+      time: '2022-07-28T13:16:00+02:00',
     },
     direction: 'Mars',
     duration: 20,
@@ -373,8 +373,8 @@ export const configPast = {
     {
       duration: 360,
       id: 'test',
-      arrival: { time: new Date('2022-07-30T17:00:00+02:00') },
-      departure: { time: new Date('2022-07-01T05:00:00+02:00') },
+      arrival: { time: '2022-07-30T17:00:00+02:00' },
+      departure: { time: '2022-07-01T05:00:00+02:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -384,8 +384,8 @@ export const configPast = {
     {
       duration: 360,
       id: 'test',
-      arrival: { time: new Date('2022-07-30T17:00:00+02:00') },
-      departure: { time: new Date('2022-07-01T05:00:00+02:00') },
+      arrival: { time: '2022-07-30T17:00:00+02:00' },
+      departure: { time: '2022-07-01T05:00:00+02:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -395,8 +395,8 @@ export const configPast = {
     {
       duration: 360,
       id: 'test',
-      arrival: { time: new Date('2022-07-30T17:00:00+02:00') },
-      departure: { time: new Date('2022-07-01T05:00:00+02:00') },
+      arrival: { time: '2022-07-30T17:00:00+02:00' },
+      departure: { time: '2022-07-01T05:00:00+02:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -409,13 +409,13 @@ export const configPast = {
       delay: 0,
       quayChanged: false,
       quayName: 'Gl. 88',
-      time: new Date('2022-07-28T13:48:00+02:00'),
+      time: '2022-07-28T13:48:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
       quayName: '7',
-      time: new Date('2022-07-28T13:16:00+02:00'),
+      time: '2022-07-28T13:16:00+02:00',
     },
     direction: 'Mars',
     duration: 20,

@@ -212,10 +212,6 @@
   }
 }
 
-.pearl-chain__status--no-animation {
-  animation: unset;
-}
-
 .pearl-chain__position {
   position: absolute;
 
@@ -233,6 +229,10 @@
   @include ifForcedColors {
     background-color: ActiveText;
   }
+}
+
+.pearl-chain__position--no-animation {
+  animation: unset;
 }
 
 @keyframes pulse {
