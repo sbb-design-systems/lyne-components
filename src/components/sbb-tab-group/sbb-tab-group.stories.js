@@ -312,8 +312,6 @@ numbersAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
 nestedTabGroups.args = JSON.parse(JSON.stringify(basicArgs));
 tintedBackground.args = JSON.parse(JSON.stringify(basicArgs));
 
-tintedBackground.decorators = [(Story) => <Story style={'background: #f6f6f6; padding: 2rem;'} />];
-
 /* VARIANTS */
 numbers.args.amountSlot = '77';
 icons.args.iconSlot = iconSlot.options[0];
@@ -348,7 +346,7 @@ defaultTabs.decorators = [
   ),
 ];
 
-numbers.decorators = [
+const templateRes = [
   (Story) => (
     <div style={'padding: 2rem'}>
       <Story />
@@ -356,33 +354,13 @@ numbers.decorators = [
   ),
 ];
 
-icons.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem'}>
-      <Story />
-    </div>
-  ),
-];
-
-numbersAndIcons.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem'}>
-      <Story />
-    </div>
-  ),
-];
-
-nestedTabGroups.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem'}>
-      <Story />
-    </div>
-  ),
-];
-
+numbers.decorators = templateRes;
+icons.decorators = templateRes;
+numbersAndIcons.decorators = templateRes;
+nestedTabGroups.decorators = templateRes;
 tintedBackground.decorators = [
   (Story) => (
-    <div style={'background: #f6f6f6; padding: 2rem'}>
+    <div style={'background: var(--sbb-color-milk-default); padding: 2rem'}>
       <Story />
     </div>
   ),

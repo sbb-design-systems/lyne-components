@@ -25,10 +25,12 @@
     visibility: visible;
     opacity: 1;
     height: fit-content;
-    transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-duration-4x)
-        var(--sbb-animation-easing),
-      visibility var(--sbb-animation-duration-4x) var(--sbb-animation-duration-4x)
-        var(--sbb-animation-easing);
+    transition: {
+      duration: var(--sbb-animation-duration-4x);
+      delay: var(--sbb-animation-duration-4x);
+      timing-function: var(--sbb-animation-easing);
+      property: opacity, visibility;
+    }
   }
 }
 

@@ -17,8 +17,8 @@ import throttle from '../../global/helpers/throttle';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 
 /**
- * @slot tab-bar - Provide an `sbb-tab-title` in order to display a label in the tab bar.
- * E.g. `<sbb-tab-title>Tab label</sbb-tab-title>`
+ * @slot tab-bar - When you provide the `sbb-tab-title` tag through the unnamed slot,
+ * it will be automatically moved to this slot. You do not need to use it directly.
  * @slot unnamed - Provide html-content to show as tab content.
  * Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`:
  * This is correct: `<div>Some text <p>Some other text</p></div>`

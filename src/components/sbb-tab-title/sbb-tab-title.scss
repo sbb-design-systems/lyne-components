@@ -38,6 +38,8 @@
     @include text-xs--bold;
     @include fontSmoothing;
     @include ellipsis;
+
+    padding-inline-end: var(--sbb-spacing-fixed-1x);
   }
 
   ::slotted(*),
@@ -49,13 +51,6 @@
 
   ::slotted(sbb-icon) {
     margin-inline: 0 var(--sbb-spacing-fixed-1x);
-  }
-
-  ::slotted(sbb-tab-amount) {
-    @include text-xs--bold;
-    @include fontSmoothing;
-
-    color: var(--sbb-color-metal-default);
   }
 }
 
@@ -90,7 +85,7 @@
   }
 
   ::slotted(sbb-tab-amount) {
-    color: var(--sbb-color-cement-default);
+    --sbb-amount-color-override: var(--sbb-color-cement-default);
   }
 }
 
@@ -101,7 +96,7 @@
   color: var(--sbb-color-platinum-default);
 
   ::slotted(sbb-tab-amount) {
-    color: var(--sbb-color-platinum-default);
+    --sbb-amount-color-override: var(--sbb-color-platinum-default);
   }
 
   &::before {

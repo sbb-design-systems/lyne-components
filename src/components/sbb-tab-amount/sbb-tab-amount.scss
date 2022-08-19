@@ -3,13 +3,14 @@
 @include host-component-properties;
 
 :host {
+  @include text-xs--regular;
+  @include fontSmoothing;
+
   display: inline-block;
 }
 
 span {
-  @include text;
-
+  color: var(--sbb-amount-color-override, var(--sbb-color-metal-default));
   vertical-align: middle;
   line-height: 0;
-  padding-inline-start: var(--sbb-spacing-fixed-1x);
 }
