@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceImageAttributes } from '../sbb-image/sbb-image.custom';
 import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
 

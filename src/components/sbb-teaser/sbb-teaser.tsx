@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch } from '@stencil/core';
+import { Component, h, JSX, Prop, Watch } from '@stencil/core';
 import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 

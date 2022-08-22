@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, JSX, Prop, State } from '@stencil/core';
 
 import { InterfaceImageAttributes } from './sbb-image.custom';
 import pictureSizesConfigData from './sbb-image.helper';
