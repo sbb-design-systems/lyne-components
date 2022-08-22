@@ -31,10 +31,6 @@
     transition-duration: var(--sbb-animation-duration-4x);
     transition-timing-function: var(--sbb-animation-easing);
     transition-property: inset, background-color, border-color, box-shadow;
-
-    @include ifForcedColors {
-      border: #{px-to-rem-build(1)} solid windowText;
-    }
   }
 
   .sbb-tab-title__text {
@@ -101,11 +97,19 @@
 
   ::slotted(sbb-tab-amount) {
     --sbb-amount-color-override: var(--sbb-color-platinum-default);
+
+    @include ifForcedColors {
+      --sbb-amount-color-override: GrayText;
+    }
   }
 
   &::before {
     border-color: var(--sbb-color-milk-default);
     background-color: var(--sbb-color-milk-default);
+
+    @include ifForcedColors {
+      border-color: GrayText;
+    }
   }
 
   // Line through content
@@ -114,6 +118,13 @@
     inset: 50% var(--sbb-spacing-fixed-5x);
     border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
     @include absoluteCenterY;
+    @include ifForcedColors {
+      border-color: GrayText;
+    }
+  }
+
+  @include ifForcedColors {
+    color: GrayText;
   }
 }
 
