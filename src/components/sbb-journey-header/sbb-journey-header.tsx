@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import iconOneWay from 'lyne-icons/dist/icons/arrow-long-right-small.svg';
 import iconRoundTrip from 'lyne-icons/dist/icons/arrows-left-right-small.svg';

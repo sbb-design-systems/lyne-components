@@ -1,4 +1,4 @@
-import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, h, JSX, Host, Prop, State, Watch } from '@stencil/core';
 import { getSvgContent, iconNamespaces, registeredIcons } from './request';
 import { validateContent } from './validate';
 

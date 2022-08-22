@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';

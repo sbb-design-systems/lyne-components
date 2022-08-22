@@ -4,7 +4,7 @@ import {
   Element,
   Event,
   EventEmitter,
-  h,
+  h, JSX,
   Prop,
   State,
 } from '@stencil/core';
