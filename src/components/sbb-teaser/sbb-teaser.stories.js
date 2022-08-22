@@ -1,6 +1,8 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+import placeholderImage from './stories/placeholder.png';
+
 /* ************************************************* */
 /* Storybook controls                                */
 /* ************************************************* */
@@ -85,7 +87,7 @@ const TemplateDefaultTeaser = (args) => {
   const { title, description, ...remainingArgs } = args;
 
   const sbbTeaserImageArgs = {
-    src: 'https://via.placeholder.com/400x300',
+    src: placeholderImage,
     alt: '400x300 image',
   };
 
