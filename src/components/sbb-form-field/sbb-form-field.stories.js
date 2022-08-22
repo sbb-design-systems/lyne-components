@@ -211,7 +211,9 @@ const basicArgs = {
   borderless: false,
   size: 'm',
   status: '',
-  errortext: 'This is a required field.'
+  errortext: 'This is a required field.',
+  disabled: false,
+  readonly: false
 };
 
 export const formWithLabelAndInput = TemplateInput.bind({});
@@ -222,6 +224,16 @@ formWithLabelAndInput.args = JSON.parse(JSON.stringify({...basicArgs}));
 
 formWithLabelAndInput.documentation = {
   title: 'sbb-form-field component with label and input',
+};
+
+export const formWithLabelAndInputNoLabel = TemplateInput.bind({});
+
+formWithLabelAndInputNoLabel.argTypes = basicArgTypes;
+
+formWithLabelAndInputNoLabel.args = JSON.parse(JSON.stringify({...basicArgs, label: ''}));
+
+formWithLabelAndInputNoLabel.documentation = {
+  title: 'sbb-form-field component with label and input and no label',
 };
 
 export const formWithLabelAndInputWithoutBorder = TemplateInput.bind({});
@@ -270,7 +282,7 @@ export const formWithLabelInputAndErrorLongText = TemplateInputWithError.bind({}
 
 formWithLabelInputAndErrorLongText.argTypes = basicArgTypes;
 
-formWithLabelInputAndErrorLongText.args = JSON.parse(JSON.stringify({...basicArgs, errortext: 'This is a required field, insert only characters and numbers.'}));
+formWithLabelInputAndErrorLongText.args = JSON.parse(JSON.stringify({...basicArgs, errortext: 'This is a required field, insert only characters and numbers.', label: 'This label name is so long that needs ellipsis to fit'}));
 
 formWithLabelInputAndErrorLongText.documentation = {
   title: 'sbb-form-field component with label, input and error with long text',
