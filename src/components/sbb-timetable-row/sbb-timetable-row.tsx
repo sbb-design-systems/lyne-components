@@ -9,14 +9,14 @@ import {
   renderIconProduct,
   renderStringProduct,
   walkTimeAfter,
-  walkTimeBefore,
+  walkTimeBefore
 } from './sbb-timetable-row.helper';
 import { format } from 'date-fns-tz';
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
-  tag: 'sbb-timetable-row',
+  tag: 'sbb-timetable-row'
 })
 export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
@@ -82,7 +82,7 @@ export class SbbTimetableRow {
       arrivalWalk,
       tripStatus,
       occupancy,
-      duration,
+      duration
     } = this.config?.summary || {};
 
     const badgeClass = price?.length ? 'timetable__row-badge' : '';
@@ -93,8 +93,14 @@ export class SbbTimetableRow {
     const arrivalTime: string = arrival?.time && format(new Date(arrival?.time), 'H:mm');
     const departureTime: string = departure?.time && format(new Date(departure?.time), 'H:mm');
 
+    // delete class relative after merge
     return (
-      <div id={id} role="presentation" accessibility-label={this.accessibilityLabel}>
+      <div
+        class="relative"
+        id={id}
+        role="presentation"
+        accessibility-label={this.accessibilityLabel}
+      >
         {/*<sbb-timetable-row-button
           id={id}
           role="presentation"
