@@ -32,7 +32,7 @@
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
-.input-label-error {
+.form-error-content {
   // Fix for line-height taking more than reserved space
   line-height: var(--sbb-typo-line-height-body-text);
   vertical-align: text-top;

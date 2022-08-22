@@ -6,9 +6,9 @@ let nextId = 0;
 
 /**
  * @slot label - Slot to render a label.
- * @slot prefix - Slot to render an icon on the left side of the input.
+ * @slot prefix - Slot to render an icon at the left side of the input.
  * @slot input - Slot to render an input.
- * @slot suffix - Slot to render an icon on ther right side of the input.
+ * @slot suffix - Slot to render an icon at the right side of the input.
  * @slot error - Slot to render an error.
  */
 @Component({
@@ -18,12 +18,14 @@ let nextId = 0;
 })
 export class SbbFormField {
   /**
-   * Add a specific space if the `<sbb-error>` is present.
+   * Whether to reserve space for an error message.
+   * `default` does not reserve any space.
+   * `reserve` does reserve one row for an error message.
    */
   @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'default';
 
   /**
-   * Add a `<label>` for the input.
+   * Label text for the input which is internally rendered as `<label>`.
    */
   @Prop() public label: string;
 
@@ -35,7 +37,7 @@ export class SbbFormField {
   /**
    * Size variant, either l or m.
    */
-  @Prop() public size?: InterfaceSbbFormFieldAttributes['size'] = 'l';
+  @Prop() public size?: InterfaceSbbFormFieldAttributes['size'] = 'm';
 
   /** Whether to display the form field without a border. */
   @Prop() public borderless = false;
@@ -53,7 +55,7 @@ export class SbbFormField {
   @State() private _readonly: boolean;
 
   /**
-   * It is used internally to get the `suffix` slot.
+   * It is used internally to get the `error` slot.
    */
   @State() private _errorElements: Element[] = [];
 
@@ -68,7 +70,7 @@ export class SbbFormField {
   private _input: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
   /**
-   * Listen the changes on `readonly` and `disabled` attributes of `<input>`.
+   * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
    */
   private _formFieldAttributeObserver = new MutationObserver((mutations: MutationRecord[]) =>
     this._onAttributesChange(mutations)
@@ -79,7 +81,7 @@ export class SbbFormField {
   }
 
   /**
-   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-form-erro> instances.
+   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-form-error> instances.
    */
   private _onSlotErrorChange(event: Event): void {
     this._errorElements = (event.target as HTMLSlotElement).assignedElements();
@@ -111,7 +113,7 @@ export class SbbFormField {
 
   /**
    * @private
-   * It is used internally to set the focus in the `<input>`.
+   * It is used internally to set the focus to the input element.
    */
   private _setFocus(): void {
     this._input.focus();

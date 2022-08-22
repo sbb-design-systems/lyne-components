@@ -19,7 +19,7 @@ The examples below show how to render the component:
 </sbb-form-field>
 ```
 
-## Accesibility
+## Accessibility
 
 `<sbb-form-field>` does not provide additional accessibility features.
 
@@ -31,24 +31,24 @@ Additionally, `<sbb-error>` applies `aria-live="polite"` by default such that as
 
 ## Properties
 
-| Property     | Attribute     | Description                                           | Type                     | Default     |
-| ------------ | ------------- | ----------------------------------------------------- | ------------------------ | ----------- |
-| `borderless` | `borderless`  | Whether to display the form field without a border.   | `boolean`                | `false`     |
-| `errorSpace` | `error-space` | Add a specific space if the `<sbb-error>` is present. | `"default" \| "reserve"` | `'default'` |
-| `label`      | `label`       | Add a `<label>` for the input.                        | `string`                 | `undefined` |
-| `optional`   | `optional`    | Indicates whether the input is optional.              | `boolean`                | `undefined` |
-| `size`       | `size`        | Size variant, either l or m.                          | `"l" \| "m"`             | `'l'`       |
+| Property     | Attribute     | Description                                                                                                                               | Type                     | Default     |
+| ------------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ----------- |
+| `borderless` | `borderless`  | Whether to display the form field without a border.                                                                                       | `boolean`                | `false`     |
+| `errorSpace` | `error-space` | Whether to reserve space for an error message. `default` does not reserve any space. `reserve` does reserve one row for an error message. | `"default" \| "reserve"` | `'default'` |
+| `label`      | `label`       | Label text for the input which is internally rendered as `<label>`.                                                                       | `string`                 | `undefined` |
+| `optional`   | `optional`    | Indicates whether the input is optional.                                                                                                  | `boolean`                | `undefined` |
+| `size`       | `size`        | Size variant, either l or m.                                                                                                              | `"l" \| "m"`             | `'m'`       |
 
 
 ## Slots
 
-| Slot       | Description                                             |
-| ---------- | ------------------------------------------------------- |
-| `"error"`  | Slot to render an error.                                |
-| `"input"`  | Slot to render an input.                                |
-| `"label"`  | Slot to render a label.                                 |
-| `"prefix"` | Slot to render an icon on the left side of the input.   |
-| `"suffix"` | Slot to render an icon on ther right side of the input. |
+| Slot       | Description                                            |
+| ---------- | ------------------------------------------------------ |
+| `"error"`  | Slot to render an error.                               |
+| `"input"`  | Slot to render an input.                               |
+| `"label"`  | Slot to render a label.                                |
+| `"prefix"` | Slot to render an icon at the left side of the input.  |
+| `"suffix"` | Slot to render an icon at the right side of the input. |
 
 
 ----------------------------------------------

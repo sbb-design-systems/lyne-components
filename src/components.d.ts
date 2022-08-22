@@ -324,11 +324,11 @@ export namespace Components {
          */
         "borderless": boolean;
         /**
-          * Add a specific space if the `<sbb-error>` is present.
+          * Whether to reserve space for an error message. `default` does not reserve any space. `reserve` does reserve one row for an error message.
          */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         /**
-          * Add a `<label>` for the input.
+          * Label text for the input which is internally rendered as `<label>`.
          */
         "label": string;
         /**
@@ -1748,11 +1748,11 @@ declare namespace LocalJSX {
          */
         "borderless"?: boolean;
         /**
-          * Add a specific space if the `<sbb-error>` is present.
+          * Whether to reserve space for an error message. `default` does not reserve any space. `reserve` does reserve one row for an error message.
          */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         /**
-          * Add a `<label>` for the input.
+          * Label text for the input which is internally rendered as `<label>`.
          */
         "label"?: string;
         /**

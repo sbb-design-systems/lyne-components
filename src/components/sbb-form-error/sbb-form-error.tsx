@@ -28,7 +28,7 @@ export class SbbFormError {
             </svg>
           </slot>
         </span>
-        <span class="input-label-error">
+        <span class="form-error-content">
           <slot />
         </span>
       </Host>

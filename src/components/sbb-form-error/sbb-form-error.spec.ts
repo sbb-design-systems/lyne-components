@@ -28,7 +28,7 @@ describe('sbb-form-error', () => {
                 </svg>
               </slot>
             </span>
-            <span class="input-label-error">
+            <span class="form-error-content">
               <slot></slot>
             </span>
           </mock:shadow-root>
