@@ -62,7 +62,7 @@ const defaultArgTypes = {
   title,
   description,
   'accessibility-label': accessibilityLabel,
-  isStacked,
+  'is-stacked': isStacked,
   href,
 };
 
@@ -71,7 +71,7 @@ const defaultArgs = {
   description: 'This is a paragraph',
   'accessibility-label':
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
-  isStacked: true,
+  'is-stacked': true,
   href: 'https://github.com/lyne-design-system/lyne-components',
 };
 
@@ -147,7 +147,7 @@ TeaserWithLongText.args = {
 teaserList.argTypes = defaultArgTypes;
 teaserList.args = {
   ...defaultArgs,
-  isStacked: false,
+  'is-stacked': false,
 };
 
 teaserListIsStacked.argTypes = defaultArgTypes;
