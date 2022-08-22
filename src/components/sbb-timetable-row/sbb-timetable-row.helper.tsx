@@ -5,7 +5,7 @@ import {
   differenceInMinutes,
   subHours,
   addMinutes,
-  subDays
+  subDays,
 } from 'date-fns';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../../global/i18n';
@@ -55,7 +55,7 @@ export const isProductIcon = (transport: string): boolean => {
     'rx',
     'sn',
     'rgv',
-    'vae'
+    'vae',
   ];
 
   if (possibleTransportTypes.includes(transport)) {

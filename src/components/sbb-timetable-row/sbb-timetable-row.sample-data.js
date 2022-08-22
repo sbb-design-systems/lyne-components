@@ -373,8 +373,8 @@ export const configPast = {
     {
       duration: 360,
       id: 'test',
-      arrival: { time: '2022-07-30T17:00:00+02:00' },
-      departure: { time: '2022-07-01T05:00:00+02:00' },
+      arrival: { time: '2020-08-04T15:00:00+02:00' },
+      departure: { time: '2020-07-01T05:00:00+02:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -384,8 +384,8 @@ export const configPast = {
     {
       duration: 360,
       id: 'test',
-      arrival: { time: '2022-07-30T17:00:00+02:00' },
-      departure: { time: '2022-07-01T05:00:00+02:00' },
+      arrival: { time: '2021-07-30T17:00:00+02:00' },
+      departure: { time: '2021-07-01T05:00:00+02:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -395,8 +395,8 @@ export const configPast = {
     {
       duration: 360,
       id: 'test',
-      arrival: { time: '2022-07-30T17:00:00+02:00' },
-      departure: { time: '2022-07-01T05:00:00+02:00' },
+      arrival: { time: '2021-09-30T17:00:00+02:00' },
+      departure: { time: '2021-08-04T15:00:00+02:00' },
       serviceJourney: {
         serviceAlteration: {
           cancelled: false,
@@ -409,13 +409,13 @@ export const configPast = {
       delay: 0,
       quayChanged: false,
       quayName: 'Gl. 88',
-      time: '2022-07-28T13:48:00+02:00',
+      time: '2021-08-04T20:00:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
       quayName: '7',
-      time: '2022-07-28T13:16:00+02:00',
+      time: '2020-08-04T15:00:00+02:00',
     },
     direction: 'Mars',
     duration: 20,

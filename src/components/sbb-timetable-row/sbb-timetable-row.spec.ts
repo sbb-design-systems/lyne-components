@@ -46,18 +46,18 @@ describe('sbb-timetable-row', () => {
                       </span>
                     </time>
                   </span>
-                  <time class="timetable__row-time" datetime="2:48">
+                  <time class="timetable__row-time" datetime="0:48">
                     <span class="screenreaderonly">
                       Departure
                     </span>
-                    2:48
+                    0:48
                   </time>
                   <sbb-pearl-chain class="timetable__row-chain" legs=""></sbb-pearl-chain>
-                  <time class="timetable__row-time" datetime="21:16">
+                  <time class="timetable__row-time" datetime="19:16">
                     <span class="screenreaderonly">
                       Arrival
                     </span>
-                    21:16
+                    19:16
                   </time>
                   <span class="timetable__row-walktime">
                     <time datetime="P5M">
