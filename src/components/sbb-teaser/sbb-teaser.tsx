@@ -76,7 +76,7 @@ export class SbbTeaser implements AccessibilityProperties {
         aria-label={this.accessibilityLabel}
         aria-describedby={this.accessibilityDescribedby}
         aria-labelledby={this.accessibilityLabelledby}
-        class={`teaser ${this.isStacked === true ? 'teaser--is-stacked' : ''}`}
+        class={{ teaser: true, ['teaser--is-stacked']: this.isStacked }}
         href={this.href}
       >
         <span class="teaser__container">
