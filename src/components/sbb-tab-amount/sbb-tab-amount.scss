@@ -13,4 +13,5 @@ span {
   color: var(--sbb-amount-color-override, var(--sbb-color-metal-default));
   vertical-align: middle;
   line-height: 0;
+  transition: color var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 }

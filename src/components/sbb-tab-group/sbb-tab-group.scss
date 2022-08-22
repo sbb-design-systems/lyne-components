@@ -9,7 +9,7 @@
 }
 
 .tab-content {
-  margin-top: var(--sbb-spacing-responsive-m);
+  margin-block-start: var(--sbb-spacing-responsive-m);
   transition: height var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
   ::slotted(*) {

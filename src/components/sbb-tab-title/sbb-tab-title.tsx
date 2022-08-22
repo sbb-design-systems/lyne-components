@@ -33,12 +33,14 @@ export class SbbTabTitle {
     return (
       <Host>
         <TAGNAME
-          class={`sbb-tab-title ${!this.disabled && this.active ? 'active' : ''} ${
-            this.disabled ? 'disabled' : ''
-          }`}
+          class={{
+            'sbb-tab-title': true,
+            'sbb-tab-title--active': !this.disabled && this.active,
+            'sbb-tab-title--disabled': this.disabled,
+          }}
         >
           <slot name="icon"></slot>
-          <span class="sbb-tab-title-text">
+          <span class="sbb-tab-title__text">
             <slot></slot>
           </span>
           <slot name="amount"></slot>

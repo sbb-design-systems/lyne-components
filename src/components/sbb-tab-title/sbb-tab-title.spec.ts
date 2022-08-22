@@ -13,7 +13,7 @@ describe('sbb-tab-title', () => {
           <mock:shadow-root>
           <h1 class="sbb-tab-title">
             <slot name="icon"></slot>
-            <span class="sbb-tab-title-text">
+            <span class="sbb-tab-title__text">
               <slot></slot>
             </span>
             <slot name="amount"></slot>
@@ -34,7 +34,7 @@ describe('sbb-tab-title', () => {
           <mock:shadow-root>
           <h2 class="sbb-tab-title">
             <slot name="icon"></slot>
-            <span class="sbb-tab-title-text">
+            <span class="sbb-tab-title__text">
               <slot></slot>
             </span>
             <slot name="amount"></slot>
@@ -55,7 +55,7 @@ describe('sbb-tab-title', () => {
           <mock:shadow-root>
           <h1 class="sbb-tab-title">
             <slot name="icon"></slot>
-            <span class="sbb-tab-title-text">
+            <span class="sbb-tab-title__text">
               <slot></slot>
             </span>
             <slot name="amount"></slot>

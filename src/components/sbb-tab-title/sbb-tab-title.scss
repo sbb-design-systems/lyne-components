@@ -19,9 +19,7 @@
   gap: var(--sbb-spacing-fixed-1x);
   user-select: none;
   cursor: pointer;
-  transition-duration: var(--sbb-animation-duration-4x);
-  transition-timing-function: var(--sbb-animation-easing);
-  transition-property: color;
+  transition: color var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
   &::before {
     position: absolute;
@@ -33,16 +31,20 @@
     transition-duration: var(--sbb-animation-duration-4x);
     transition-timing-function: var(--sbb-animation-easing);
     transition-property: inset, background-color, border-color, box-shadow;
+
+    @include ifForcedColors {
+      border: #{px-to-rem-build(1)} solid windowText;
+    }
   }
 
-  .sbb-tab-title-text {
+  .sbb-tab-title__text {
     @include text-xs--bold;
     @include fontSmoothing;
     @include ellipsis;
   }
 
   ::slotted(*),
-  .sbb-tab-title-text {
+  .sbb-tab-title__text {
     transition: transform var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
     transform: translateY(0);
     will-change: transform;
@@ -53,17 +55,24 @@
 @include hover-mq($hover: true) {
   .sbb-tab-title:hover {
     ::slotted(*),
-    .sbb-tab-title-text {
+    .sbb-tab-title__text {
       transform: translateY(calc(var(--sbb-border-width-1x) * -1));
     }
 
     &::before {
       inset: calc(var(--sbb-border-width-2x) * -1);
+
+      @include ifForcedColors {
+        border-color: Highlight;
+      }
+    }
+
+    &:not(.sbb-tab-title--active)::before {
       background-color: var(--sbb-color-milk-default);
     }
   }
 
-  .sbb-tab-title:not(.active):active {
+  .sbb-tab-title:not(.sbb-tab-title--active):active {
     &::before {
       border-color: var(--sbb-color-black-default);
       background-color: var(--sbb-color-white-default);
@@ -71,7 +80,7 @@
   }
 }
 
-.sbb-tab-title.active {
+.sbb-tab-title--active {
   color: var(--sbb-color-white-default);
 
   &::before {
@@ -84,7 +93,7 @@
   }
 }
 
-.sbb-tab-title.disabled {
+.sbb-tab-title--disabled {
   cursor: unset;
   position: relative;
   pointer-events: none;
@@ -99,10 +108,11 @@
     background-color: var(--sbb-color-milk-default);
   }
 
+  // Line through content
   &::after {
     content: '';
     inset: 50% var(--sbb-spacing-fixed-5x);
-    border-bottom: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
+    border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
     @include absoluteCenterY;
   }
 }
