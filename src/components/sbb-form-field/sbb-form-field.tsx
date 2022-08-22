@@ -1,4 +1,6 @@
 import { Component, Host, h, Prop, State } from '@stencil/core';
+import getDocumentLang from '../../global/helpers/get-document-lang';
+import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 
@@ -39,17 +41,17 @@ export class SbbFormField {
    */
   @Prop() public size?: InterfaceSbbFormFieldAttributes['size'] = 'm';
 
-  /** Whether to display the form field without a border. */
+  /**
+   * Whether to display the form field without a border.
+   */
   @Prop() public borderless = false;
 
   /**
-   *
    * It is used internally to get the native `disabled` attribute from `<input>`.
    */
   @State() private _disabled: boolean;
 
   /**
-   *
    * It is used internally to get the native `readonly` attribute from `<input>`.
    */
   @State() private _readonly: boolean;
@@ -59,10 +61,17 @@ export class SbbFormField {
    */
   @State() private _errorElements: Element[] = [];
 
-  /** Whether the input inside the form field is invalid. */
+  /**
+   * Whether the input inside the form field is invalid.
+   */
   @State() private _invalid = false;
 
   private _originalInputAriaDescribedby?: string;
+
+  /**
+   * Get the document language; used for translations.
+   */
+  private _currentLanguage = getDocumentLang();
 
   /**
    * It is used internally to get the `input` slot.
@@ -162,7 +171,9 @@ export class SbbFormField {
                   <slot name="label">
                     <span>{this.label}</span>
                   </slot>
-                  {this.optional && <span>&nbsp;(optional)</span>}
+                  {this.optional && (
+                    <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
+                  )}
                 </label>
               )}
               <div class="form-field__input">
