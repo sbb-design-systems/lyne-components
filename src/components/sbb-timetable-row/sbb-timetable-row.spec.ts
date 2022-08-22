@@ -17,7 +17,7 @@ describe('sbb-timetable-row', () => {
       expect(page.root).toEqualHtml(`
         <sbb-timetable-row>
           <mock:shadow-root>
-            <div role="presentation">
+            <div class="relative" role="presentation">
               <div class="timetable__row timetable__row-badge" role="row">
                 <sbb-card-badge>
                   <span slot="generic">

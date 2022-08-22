@@ -74,7 +74,7 @@ li {
 }
 
 .timetable__row-badge {
-  padding-block-start: calc(var(--row-gap) - var(--row-badge-padding));
+  padding-block-start: calc(var(--row-badge-padding) - var(--row-gap));
 }
 
 .timetable__row-header {
@@ -188,4 +188,5 @@ li {
 // delete after merge
 .relative {
   position: relative;
+  overflow: hidden;
 }

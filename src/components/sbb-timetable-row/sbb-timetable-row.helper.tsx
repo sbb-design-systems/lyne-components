@@ -1,4 +1,5 @@
-import { h } from '@stencil/core';
+import { h, JSX } from '@stencil/core';
+
 import {
   differenceInDays,
   differenceInHours,
@@ -7,6 +8,7 @@ import {
   addMinutes,
   subDays,
 } from 'date-fns';
+
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../../global/i18n';
 
