@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.6 (2022-08-22)
+
+### Bug Fixes
+
+- **sbb-teaser:** add png loader to story bundler ([#1347](https://github.com/lyne-design-system/lyne-components/issues/1347)) ([dd35929](https://github.com/lyne-design-system/lyne-components/commit/dd35929a90867f510e705f95e1e53e79ab54d002))
+
 ### 0.2.5 (2022-08-19)
 
 ### Features
