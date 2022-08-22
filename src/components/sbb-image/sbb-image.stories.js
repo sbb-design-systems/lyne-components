@@ -4,14 +4,23 @@ import readme from './readme.md';
 
 const Template = (args) => <sbb-image {...args} />;
 
-const customFocalPoint = {
+const imageSrc = {
   control: {
-    type: 'inline-radio',
+    type: 'select',
+  },
+  options: images,
+};
+
+const borderRadius = {
+  control: {
+    type: 'select',
   },
   options: ['true', 'false'],
-  table: {
-    category: 'Focal Point',
-  },
+};
+
+const aspectRatio = {
+  control: { type: 'select' },
+  options: ['free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'],
 };
 
 const copyright = {
@@ -33,11 +42,19 @@ const copyrightHolder = {
   },
 };
 
+const customFocalPoint = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Focal Point',
+  },
+};
+
 const focalPointDebug = {
   control: {
-    type: 'inline-radio',
+    type: 'boolean',
   },
-  options: ['true', 'false'],
   table: {
     category: 'Focal Point',
   },
@@ -61,26 +78,6 @@ const focalPointY = {
   },
 };
 
-const imageSrc = {
-  control: {
-    type: 'text',
-  },
-};
-
-const imageSrcExamples = {
-  control: {
-    type: 'select',
-  },
-  options: images,
-};
-
-const hideFromScreenreader = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['true', 'false'],
-};
-
 const loading = {
   control: {
     type: 'inline-radio',
@@ -93,9 +90,8 @@ const loading = {
 
 const lqip = {
   control: {
-    type: 'inline-radio',
+    type: 'boolean',
   },
-  options: ['true', 'false'],
   table: {
     category: 'Performance',
   },
@@ -110,45 +106,59 @@ const performanceMark = {
   },
 };
 
-export const sbbImage = Template.bind({});
+export const Default = Template.bind({});
 
-sbbImage.argTypes = {
+Default.argTypes = {
   alt: '',
   caption: '',
+  'border-radius': borderRadius,
+  'aspect-ratio': aspectRatio,
   copyright,
   'copyright-holder': copyrightHolder,
   'custom-focal-point': customFocalPoint,
   'focal-point-debug': focalPointDebug,
   'focal-point-x': focalPointX,
   'focal-point-y': focalPointY,
-  'hide-from-screenreader': hideFromScreenreader,
   'image-src': imageSrc,
-  'image-src-examples': imageSrcExamples,
   loading,
   lqip,
   'performance-mark': performanceMark,
 };
 
-sbbImage.args = {
+Default.args = {
   alt: '',
   caption:
     'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+  // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
+  'border-radius': 'true',
+  'aspect-ratio': '',
   copyright: '',
   'copyright-holder': copyrightHolder.options[0],
-  'custom-focal-point': customFocalPoint.options[1],
-  'focal-point-debug': focalPointDebug.options[1],
+  'custom-focal-point': false,
+  'focal-point-debug': false,
   'focal-point-x': '',
   'focal-point-y': '',
-  'hide-from-screenreader': hideFromScreenreader.options[1],
-  'image-src': '',
-  'image-src-examples': imageSrcExamples.options[0],
-  loading: loading.options[0],
-  lqip: lqip.options[0],
+  'image-src': imageSrc.options[0],
+  loading: loading.options[1],
+  lqip: true,
   'performance-mark': '',
 };
 
-sbbImage.documentation = {
+Default.documentation = {
   title: 'Default image',
+};
+
+export const NoCaptionNoRadius = Template.bind({});
+
+NoCaptionNoRadius.argTypes = Default.argTypes;
+NoCaptionNoRadius.args = {
+  ...Default.args,
+  'border-radius': 'false',
+  caption: '',
+};
+
+NoCaptionNoRadius.documentation = {
+  title: 'No caption, no radius',
 };
 
 export default {
@@ -164,5 +174,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-image (Unfinished)',
+  title: 'components/sbb-image',
 };

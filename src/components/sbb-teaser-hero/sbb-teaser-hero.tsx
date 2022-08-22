@@ -109,15 +109,13 @@ export class SbbTeaserHero {
     return (
       <a class="teaser-hero" href={this.link} {...linkAttributes}>
         <sbb-image
+          aspect-ratio="1-1"
           class="teaser-hero__image"
-          pictureSizesConfig={JSON.stringify(this._pictureSizesConfig)}
-          customFocalPoint={true}
-          hideFromScreenreader={true}
-          imageSrc={this.imageSrc}
+          image-src={this.imageSrc}
           loading={this.imageLoading}
           lqip
-          performanceMark="teaser-hero"
-          variant="teaser-hero"
+          performance-mark="teaser-hero"
+          picture-sizes-config={JSON.stringify(this._pictureSizesConfig)}
         ></sbb-image>
 
         <sbb-panel

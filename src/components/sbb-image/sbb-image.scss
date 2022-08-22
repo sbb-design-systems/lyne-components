@@ -2,50 +2,6 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-@mixin image-aspect-ratio-1-1 {
-  aspect-ratio: 1 / 1;
-}
-
-@mixin image-aspect-ratio-1-2 {
-  aspect-ratio: 1 / 2;
-}
-
-@mixin image-aspect-ratio-2-1 {
-  aspect-ratio: 2 / 1;
-}
-
-@mixin image-aspect-ratio-2-3 {
-  aspect-ratio: 2 / 3;
-}
-
-@mixin image-aspect-ratio-3-2 {
-  aspect-ratio: 3 / 2;
-}
-
-@mixin image-aspect-ratio-3-4 {
-  aspect-ratio: 3 / 4;
-}
-
-@mixin image-aspect-ratio-4-3 {
-  aspect-ratio: 4 / 3;
-}
-
-@mixin image-aspect-ratio-4-5 {
-  aspect-ratio: 4 / 5;
-}
-
-@mixin image-aspect-ratio-5-4 {
-  aspect-ratio: 5 / 4;
-}
-
-@mixin image-aspect-ratio-9-16 {
-  aspect-ratio: 9 / 16;
-}
-
-@mixin image-aspect-ratio-16-9 {
-  aspect-ratio: 16 / 9;
-}
-
 :host {
   --image-border-radius: var(--sbb-border-radius-4x);
 }
@@ -56,7 +12,8 @@
 
 .image__figure img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .image__lqip,
@@ -78,20 +35,71 @@
   position: relative;
   overflow: hidden;
   max-width: 100%;
-  margin-bottom: var(--sbb-spacing-fixed-4x);
   border-radius: var(--image-border-radius);
-  @include image-aspect-ratio-16-9;
+}
+
+// aspect ratios 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'
+.image__figure--ratio-free .image__wrapper {
+  aspect-ratio: auto;
+}
+
+.image__figure--ratio-1-1 .image__wrapper {
+  aspect-ratio: 1 / 1;
+}
+
+.image__figure--ratio-1-2 .image__wrapper {
+  aspect-ratio: 1 / 2;
+}
+
+.image__figure--ratio-2-1 .image__wrapper {
+  aspect-ratio: 2 / 1;
+}
+
+.image__figure--ratio-2-3 .image__wrapper {
+  aspect-ratio: 2 / 3;
+}
+
+.image__figure--ratio-3-2 .image__wrapper {
+  aspect-ratio: 3 / 2;
+}
+
+.image__figure--ratio-3-4 .image__wrapper {
+  aspect-ratio: 3 / 4;
+}
+
+.image__figure--ratio-4-3 .image__wrapper {
+  aspect-ratio: 4 / 3;
+}
+
+.image__figure--ratio-4-5 .image__wrapper {
+  aspect-ratio: 4 / 5;
+}
+
+.image__figure--ratio-5-4 .image__wrapper {
+  aspect-ratio: 5 / 4;
+}
+
+.image__figure--ratio-16-9 .image__wrapper {
+  aspect-ratio: 16 / 9;
+}
+
+.image__figure--ratio-9-16 .image__wrapper {
+  aspect-ratio: 9 / 16;
 }
 
 .image__caption {
+  margin-block-start: var(--sbb-spacing-fixed-4x);
   @include text-xs--regular;
+}
+
+// no radius
+.image__figure--no-radius .image__wrapper {
+  border-radius: 0;
 }
 
 // Variant: Hero Teaser
 .image__figure--teaser-hero .image__wrapper {
-  @include image-aspect-ratio-1-1;
-
   @include mq($from: small) {
-    @include image-aspect-ratio-16-9;
+    aspect-ratio: 16 / 9;
   }
 }
