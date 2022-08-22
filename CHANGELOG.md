@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.3.0 (2022-08-22)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-image:** removed properties: 'hideFromScreenreader', 'variant', 'imageSrcExample'
+
+- **sbb-image:** various refactorings ([#1305](https://github.com/lyne-design-system/lyne-components/issues/1305)) ([d57859c](https://github.com/lyne-design-system/lyne-components/commit/d57859c32a338abe4fb7cb4ba7da91860773f5b0))
+
 ### 0.2.6 (2022-08-22)
 
 ### Bug Fixes
