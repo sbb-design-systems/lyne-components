@@ -16,6 +16,7 @@
   align-items: center;
   padding-block: var(--sbb-spacing-fixed-2x);
   padding-inline: var(--sbb-spacing-fixed-5x);
+  gap: var(--sbb-spacing-fixed-1x);
   user-select: none;
   cursor: pointer;
   transition-duration: var(--sbb-animation-duration-4x);
@@ -45,10 +46,6 @@
     transition: transform var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
     transform: translateY(0);
     will-change: transform;
-  }
-
-  ::slotted(sbb-icon) {
-    margin-inline: 0 var(--sbb-spacing-fixed-1x);
   }
 }
 
