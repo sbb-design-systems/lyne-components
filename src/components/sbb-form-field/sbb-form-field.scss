@@ -44,6 +44,11 @@
 :host(.sbb-invalid) {
   --form-field-border-color: var(--sbb-color-red125-default);
   --form-field-text-color: var(--sbb-color-red125-default);
+
+  @include ifForcedColors {
+    --form-field-border-color: LinkText;
+    --form-field-text-color: LinkText;
+  }
 }
 
 :host(.form-field--readonly),
@@ -61,6 +66,12 @@
   --form-field-label-color: var(--sbb-color-graphite-default);
   --form-field-prefix-color: var(--sbb-color-graphite-default);
   --form-field-text-color: var(--sbb-color-graphite-default);
+
+  @include ifForcedColors {
+    --form-field-label-color: GrayText;
+    --form-field-prefix-color: GrayText;
+    --form-field-text-color: GrayText;
+  }
 }
 
 :host(.form-field--borderless) {
