@@ -374,7 +374,7 @@ export class SbbImage {
   }
 
   public connectedCallback(): void {
-    // Check if the current element is nested in either an `<a>` or `<button>` element.
+    // Check if the current element is nested in an `<sbb-teaser-hero>` element.
     this._variantTeaserHero = !!hostContext('sbb-teaser-hero', this.el);
   }
 
@@ -414,7 +414,7 @@ export class SbbImage {
         class={{
           image__figure: true,
           [`image__figure--teaser-hero`]: this._variantTeaserHero,
-          [`image__figure--no-radius`]: !this.borderRadius,
+          [`image__figure--no-radius`]: !this.borderRadius || this._variantTeaserHero,
           [`image__figure--ratio-${this.aspectRatio}`]: true,
           [`${this._loadedClass}`]: true,
         }}
