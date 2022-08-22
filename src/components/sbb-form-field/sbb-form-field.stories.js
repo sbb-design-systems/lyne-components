@@ -2,14 +2,19 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const TemplateInput = (args) => (
-  <sbb-form-field 
+  <sbb-form-field
     error-space={args['error-space']}
     label={args.label}
     optional={args.optional}
     size={args.size}
     borderless={args.borderless}
   >
-    <input placeholder="Name" disabled={args.disabled} readOnly={args.readonly} value={args.status} />
+    <input
+      placeholder="Name"
+      disabled={args.disabled}
+      readOnly={args.readonly}
+      value={args.status}
+    />
   </sbb-form-field>
 );
 
@@ -220,7 +225,7 @@ export const formWithLabelAndInput = TemplateInput.bind({});
 
 formWithLabelAndInput.argTypes = basicArgTypes;
 
-formWithLabelAndInput.args = JSON.parse(JSON.stringify({...basicArgs}));
+formWithLabelAndInput.args = JSON.parse(JSON.stringify({ ...basicArgs }));
 
 formWithLabelAndInput.documentation = {
   title: 'sbb-form-field component with label and input',
@@ -252,7 +257,9 @@ export const formWithInputDisabled = TemplateInput.bind({});
 
 formWithInputDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg, status: statusArg };
 
-formWithInputDisabled.args = JSON.parse(JSON.stringify({ ...basicArgs, disabled: true, status: 'disabled'}));
+formWithInputDisabled.args = JSON.parse(
+  JSON.stringify({ ...basicArgs, disabled: true, status: 'disabled' })
+);
 
 formWithInputDisabled.documentation = {
   title: 'sbb-form-field component with input disabled',
@@ -262,7 +269,9 @@ export const formWithInputInReadOnly = TemplateInput.bind({});
 
 formWithInputInReadOnly.argTypes = { ...basicArgTypes, readonly: readonlyArg, status: statusArg };
 
-formWithInputInReadOnly.args = JSON.parse(JSON.stringify({ ...basicArgs, readonly: true, status: 'readonly'}));
+formWithInputInReadOnly.args = JSON.parse(
+  JSON.stringify({ ...basicArgs, readonly: true, status: 'readonly' })
+);
 
 formWithInputInReadOnly.documentation = {
   title: 'sbb-form-field with input in readonly',
