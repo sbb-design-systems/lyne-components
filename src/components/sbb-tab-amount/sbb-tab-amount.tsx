@@ -1,4 +1,4 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, h, Host, JSX } from '@stencil/core';
 
 /**
  * @slot unnamed - Slot to render an amount next to a tab label.

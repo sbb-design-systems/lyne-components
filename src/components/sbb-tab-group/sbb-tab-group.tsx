@@ -5,6 +5,7 @@ import {
   EventEmitter,
   h,
   Host,
+  JSX,
   Listen,
   Method,
   Prop,
