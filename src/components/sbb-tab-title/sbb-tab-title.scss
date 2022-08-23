@@ -3,6 +3,9 @@
 @include host-component-properties;
 
 :host {
+  --sbb-tab-title-height: #{px-to-rem-build(40)};
+  --sbb-tab-title-border-radius: var(--sbb-tab-title-height);
+
   display: inline-block;
   max-width: 100%;
   -webkit-tap-highlight-color: transparent;
@@ -11,7 +14,7 @@
 .sbb-tab-title {
   position: relative;
   margin: 0;
-  min-height: var(--sbb-spacing-fixed-10x);
+  min-height: var(--sbb-tab-title-height);
   display: flex;
   align-items: center;
   padding-block: var(--sbb-spacing-fixed-2x);
@@ -26,7 +29,7 @@
     content: '';
     inset: 0;
     border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
-    border-radius: var(--sbb-spacing-fixed-6x);
+    border-radius: var(--sbb-tab-title-border-radius);
     background-color: var(--sbb-color-white-default);
     transition-duration: var(--sbb-animation-duration-4x);
     transition-timing-function: var(--sbb-animation-easing);
