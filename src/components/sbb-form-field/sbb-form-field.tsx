@@ -111,7 +111,8 @@ export class SbbFormField {
     this._disabled = this._input.hasAttribute('disabled');
     this._invalid =
       this._input.classList.contains('sbb-invalid') ||
-      (this._input.classList.contains('ng-touched') && this._input.classList.contains('ng-invalid'));
+      (this._input.classList.contains('ng-touched') &&
+        this._input.classList.contains('ng-invalid'));
 
     this._formFieldAttributeObserver.observe(this._input, {
       attributes: true,
