@@ -68,18 +68,14 @@ const TemplateInputWithIcons = (args) => (
 );
 
 const TemplateSelect = (args) => (
-  <sbb-form-field {...args}>
-    <select placeholder="Name">
-      <option>Value 1</option>
-      <option>Value 2</option>
-      <option>Value 3</option>
-    </select>
-  </sbb-form-field>
-);
-
-const TemplateSelectDisabled = (args) => (
-  <sbb-form-field {...args}>
-    <select disabled={args.disabled}>
+  <sbb-form-field
+    error-space={args['error-space']}
+    label={args.label}
+    optional={args.optional}
+    size={args.size}
+    borderless={args.borderless}
+  >
+    <select placeholder="Name" disabled={args.disabled}>
       <option>Value 1</option>
       <option>Value 2</option>
       <option>Value 3</option>
@@ -347,11 +343,13 @@ formWithLabelAndSelectWithoutBorder.documentation = {
   title: 'sbb-form-field component with label and select, without border',
 };
 
-export const formWithSelectDisabled = TemplateSelectDisabled.bind({});
+export const formWithSelectDisabled = TemplateSelect.bind({});
 
-formWithSelectDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg };
+formWithSelectDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg, status: statusArg };
 
-formWithSelectDisabled.args = JSON.parse(JSON.stringify({ ...basicArgs, disabled: true }));
+formWithSelectDisabled.args = JSON.parse(
+  JSON.stringify({ ...basicArgs, disabled: true, status: 'disabled' })
+);
 
 formWithSelectDisabled.documentation = {
   title: 'sbb-form-field component with select disabled',
