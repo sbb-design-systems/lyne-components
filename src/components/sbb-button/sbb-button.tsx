@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 
 /**

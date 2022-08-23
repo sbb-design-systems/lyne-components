@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import errorIcon from './assets/error_icon.svg';
 
 @Component({

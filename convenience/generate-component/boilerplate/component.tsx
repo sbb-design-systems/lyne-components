@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import events from './__name__.events';
 import { Interface__nameUpperCase__Attributes } from './__name__.custom.d';
 

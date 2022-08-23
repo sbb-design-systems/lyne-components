@@ -351,6 +351,14 @@ export namespace Components {
          */
         "alt"?: string;
         /**
+          * Set an aspect ratio default is '16-9' (16/9) other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
+         */
+        "aspectRatio": InterfaceImageAttributes['aspectRatio'];
+        /**
+          * border-radius: if set to false, there will be no border-radius on the image
+         */
+        "borderRadius": boolean;
+        /**
           * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
@@ -371,7 +379,7 @@ export namespace Components {
          */
         "decoding": InterfaceImageAttributes['decoding'];
         /**
-          * Set this to true, to receive visual guideance where the custom focal point is currently set.
+          * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug": boolean;
         /**
@@ -383,17 +391,9 @@ export namespace Components {
          */
         "focalPointY": number;
         /**
-          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
-         */
-        "hideFromScreenreader": boolean;
-        /**
           * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
          */
         "imageSrc"?: string;
-        /**
-          * Just some example image file you can use to play around with the component.
-         */
-        "imageSrcExamples"?: string;
         /**
           * The importance attribute is fairly new attribute which should help the browser decide which resources it should prioritise during page load. We will set the attribute value based on the value, we receive in the loading attribute. 'eager', which we use for the largest image within the initial viewport, will set the attribute value to 'high'. 'lazy', which we use for images below the fold, will set the attribute value to 'low'.
          */
@@ -411,13 +411,9 @@ export namespace Components {
          */
         "performanceMark"?: string;
         /**
-          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
+          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. Type is: stringified InterfaceImageAttributesSizesConfig-Object An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
          */
         "pictureSizesConfig"?: string;
-        /**
-          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
-         */
-        "variant"?: InterfaceImageAttributes['variant'];
     }
     interface SbbInputError {
         /**
@@ -1807,6 +1803,14 @@ declare namespace LocalJSX {
          */
         "alt"?: string;
         /**
+          * Set an aspect ratio default is '16-9' (16/9) other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
+         */
+        "aspectRatio"?: InterfaceImageAttributes['aspectRatio'];
+        /**
+          * border-radius: if set to false, there will be no border-radius on the image
+         */
+        "borderRadius"?: boolean;
+        /**
           * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
@@ -1827,7 +1831,7 @@ declare namespace LocalJSX {
          */
         "decoding"?: InterfaceImageAttributes['decoding'];
         /**
-          * Set this to true, to receive visual guideance where the custom focal point is currently set.
+          * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug"?: boolean;
         /**
@@ -1839,17 +1843,9 @@ declare namespace LocalJSX {
          */
         "focalPointY"?: number;
         /**
-          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
-         */
-        "hideFromScreenreader"?: boolean;
-        /**
           * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
          */
         "imageSrc"?: string;
-        /**
-          * Just some example image file you can use to play around with the component.
-         */
-        "imageSrcExamples"?: string;
         /**
           * The importance attribute is fairly new attribute which should help the browser decide which resources it should prioritise during page load. We will set the attribute value based on the value, we receive in the loading attribute. 'eager', which we use for the largest image within the initial viewport, will set the attribute value to 'high'. 'lazy', which we use for images below the fold, will set the attribute value to 'low'.
          */
@@ -1867,13 +1863,9 @@ declare namespace LocalJSX {
          */
         "performanceMark"?: string;
         /**
-          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
+          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. Type is: stringified InterfaceImageAttributesSizesConfig-Object An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
          */
         "pictureSizesConfig"?: string;
-        /**
-          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
-         */
-        "variant"?: InterfaceImageAttributes['variant'];
     }
     interface SbbInputError {
         /**

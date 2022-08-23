@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes } from './sbb-pearl-chain.custom';
 import legsData from './sbb-pearl-chain.helper';
 

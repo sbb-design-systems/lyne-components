@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, State } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
