@@ -26,7 +26,7 @@ describe('sbb-link', () => {
           <mock:shadow-root>
             <a
               aria-label="Travelcards & tickets. Link target opens in new window."
-              class="sbb-link sbb-link--text-m"
+              class="sbb-link sbb-link--text-m sbb-link--icon-placement-start"
               dir="ltr"
               href="https://github.com/lyne-design-system/lyne-components"
               target="_blank"
@@ -45,7 +45,7 @@ describe('sbb-link', () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
       html: `
-        <sbb-link is-icon-at-end="true" text-size="m">
+        <sbb-link icon-placement="end" text-size="m">
           <span slot="icon">
             ${lyneIcons.icons['chevron-small-right-small']}
           </span>
@@ -55,7 +55,7 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
-            is-icon-at-end="true"
+            icon-placement="end"
             text-size="m"
             variant="block">
           <mock:shadow-root>
@@ -83,7 +83,7 @@ describe('sbb-link', () => {
       components: [SbbLink],
       html: `
       <a>
-        <sbb-link is-icon-at-end="true" icon-name="chevron-small-right-small" text-size="m">
+        <sbb-link icon-placement="end" icon-name="chevron-small-right-small" text-size="m">
           Travelcards &amp; tickets.
         </sbb-link>
       </a>`,
@@ -91,7 +91,7 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
-            is-icon-at-end="true"
+            icon-placement="end"
             icon-name="chevron-small-right-small"
             text-size="m"
             variant="block">
@@ -102,6 +102,30 @@ describe('sbb-link', () => {
               </slot>
               <slot></slot>
             </span>
+          </mock:shadow-root>
+          Travelcards &amp; tickets.
+        </sbb-link>
+      `);
+  });
+
+  it('renders the inline variant', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbLink],
+      html: `
+        <sbb-link variant="inline" text-size="m" href="#link">
+          Travelcards &amp; tickets.
+        </sbb-link>`,
+    });
+
+    expect(root).toEqualHtml(`
+        <sbb-link
+            text-size="m"
+            variant="inline"
+            href="#link">
+          <mock:shadow-root>
+            <a class="sbb-link sbb-link--icon-placement-start sbb-link--inline" dir="ltr" href="#link" rel="external noopener nofollow" target="_blank">
+              <slot></slot>
+            </a>
           </mock:shadow-root>
           Travelcards &amp; tickets.
         </sbb-link>

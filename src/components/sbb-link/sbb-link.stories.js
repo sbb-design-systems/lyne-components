@@ -43,6 +43,12 @@ const InlineTemplate = (args, context) => (
   </p>
 );
 
+const text = {
+  control: {
+    type: 'text',
+  },
+};
+
 const variant = {
   control: {
     type: 'select',
@@ -56,24 +62,6 @@ const negative = {
   },
 };
 
-const idValue = {
-  control: {
-    type: 'text',
-  },
-};
-
-const text = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
 const textSize = {
   control: {
     type: 'select',
@@ -81,7 +69,7 @@ const textSize = {
   options: ['xs', 's', 'm'],
 };
 
-const icon = {
+const iconName = {
   control: {
     type: 'text',
   },
@@ -90,12 +78,22 @@ const icon = {
   },
 };
 
-const isIconAtEnd = {
+const iconPlacement = {
   control: {
-    type: 'boolean',
+    type: 'inline-radio',
   },
+  options: ['start', 'end'],
   table: {
     category: 'Icon',
+  },
+};
+
+const href = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
   },
 };
 
@@ -108,12 +106,36 @@ const download = {
   },
 };
 
-const href = {
+const idValue = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityDescribedby = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityLabelledby = {
+  control: {
+    type: 'text',
+  },
+};
+
+const name = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'Link',
+    category: 'Button',
   },
 };
 
@@ -127,7 +149,16 @@ const type = {
   },
 };
 
-const name = {
+const disabled = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const form = {
   control: {
     type: 'text',
   },
@@ -145,168 +176,146 @@ const eventId = {
   },
 };
 
-const disabled = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
 const defaultArgTypes = {
-  download,
+  text,
+  variant,
   negative,
+  'text-size': textSize,
+  'icon-name': iconName,
+  'icon-placement': iconPlacement,
   href: href,
-  'icon-name': icon,
-  'is-icon-at-end': isIconAtEnd,
+  download,
   'id-value': idValue,
   'accessibility-label': accessibilityLabel,
-  text,
-  'text-size': textSize,
-  variant,
+  'accessibility-describedby': accessibilityDescribedby,
+  'accessibility-labelledby': accessibilityLabelledby,
+  name,
+  type,
+  form,
+  disabled,
+  'event-id': eventId,
 };
 
 const defaultArgs = {
-  download: false,
+  text: 'Travelcards & tickets',
+  variant: variant.options[0],
   negative: false,
-  href: 'https://github.com/lyne-design-system/lyne-components',
+  'text-size': textSize.options[1],
   'icon-name': '',
-  'is-icon-at-end': false,
+  'icon-placement': iconPlacement.options[0],
+  href: 'https://github.com/lyne-design-system/lyne-components',
+  download: false,
   'id-value': '',
   'accessibility-label': 'Travelcards & tickets',
-  text: 'Travelcards & tickets',
-  'text-size': textSize.options[1],
-  variant: variant.options[0],
+  'accessibility-describedby': '',
+  'accessibility-labelledby': '',
+  name: 'Button name',
+  type: type.options[0],
+  form: '',
+  disabled: false,
+  'event-id': 'Event ID for button click',
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
 export const BlockXS = Template.bind({});
-
 BlockXS.argTypes = defaultArgTypes;
 BlockXS.args = {
   ...defaultArgs,
   'text-size': textSize.options[0],
 };
-
 BlockXS.documentation = {
   title: 'Block Size XS',
 };
 
 export const BlockS = Template.bind({});
-
 BlockS.argTypes = defaultArgTypes;
 BlockS.args = {
   ...defaultArgs,
   'text-size': textSize.options[1],
 };
-
 BlockS.documentation = {
   title: 'Block Size S',
 };
 
 export const BlockM = Template.bind({});
-
 BlockM.argTypes = defaultArgTypes;
 BlockM.args = {
   ...defaultArgs,
   'text-size': textSize.options[2],
 };
-
 BlockM.documentation = {
   title: 'Block Size M',
 };
 
 export const BlockNegativeS = Template.bind({});
-
 BlockNegativeS.argTypes = defaultArgTypes;
 BlockNegativeS.args = {
   ...defaultArgs,
   'text-size': textSize.options[1],
   negative: true,
 };
-
 BlockNegativeS.documentation = {
   title: 'Block Negative Size S',
 };
 
 export const BlockIconStart = Template.bind({});
-
 BlockIconStart.argTypes = defaultArgTypes;
 BlockIconStart.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-left-small',
-  'text-size': textSize.options[0],
 };
-
 BlockIconStart.documentation = {
   title: 'Block Icon Start',
 };
 
 export const BlockNegativeIconStart = Template.bind({});
-
 BlockNegativeIconStart.argTypes = defaultArgTypes;
 BlockNegativeIconStart.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-left-small',
-  'text-size': textSize.options[0],
   negative: true,
 };
-
 BlockNegativeIconStart.documentation = {
   title: 'Block Negative Icon Start',
 };
 
 export const BlockIconEnd = Template.bind({});
-
 BlockIconEnd.argTypes = defaultArgTypes;
 BlockIconEnd.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
-  'is-icon-at-end': true,
-  'text-size': textSize.options[0],
+  'icon-placement': iconPlacement.options[1],
 };
-
 BlockIconEnd.documentation = {
   title: 'Block End Start',
 };
 
 export const BlockNegativeIconEnd = Template.bind({});
-
 BlockNegativeIconEnd.argTypes = defaultArgTypes;
 BlockNegativeIconEnd.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
-  'is-icon-at-end': true,
-  'text-size': textSize.options[0],
+  'icon-placement': iconPlacement.options[1],
   negative: true,
 };
-
 BlockNegativeIconEnd.documentation = {
   title: 'Block Negative Icon End',
 };
 
 export const Inline = InlineTemplate.bind({});
-
 Inline.argTypes = defaultArgTypes;
 Inline.args = {
   ...defaultArgs,
   text: 'Show more',
   variant: variant.options[1],
 };
-delete Inline.argTypes['icon-name'];
-delete Inline.args['icon-name'];
-delete Inline.argTypes['is-icon-at-end'];
-delete Inline.args['is-icon-at-end'];
-
 Inline.documentation = {
   title: 'Inline',
 };
 
 export const InlineNegative = InlineTemplate.bind({});
-
 InlineNegative.argTypes = defaultArgTypes;
 InlineNegative.args = {
   ...defaultArgs,
@@ -314,51 +323,18 @@ InlineNegative.args = {
   variant: variant.options[1],
   negative: true,
 };
-delete InlineNegative.argTypes['icon-name'];
-delete InlineNegative.args['icon-name'];
-delete InlineNegative.argTypes['is-icon-at-end'];
-delete InlineNegative.args['is-icon-at-end'];
-
 InlineNegative.documentation = {
   title: 'Inline Negative',
 };
 
-const defaultArgTypesButton = {
-  'accessibility-label': accessibilityLabel,
-  disabled,
-  'event-id': eventId,
-  negative,
-  name,
-  'id-value': idValue,
-  text,
-  type,
-  variant,
+export const InlineButton = InlineTemplate.bind({});
+InlineButton.argTypes = defaultArgTypes;
+InlineButton.args = {
+  ...defaultArgs,
+  text: 'Show more',
+  variant: 'inline',
+  href: '',
 };
-
-const defaultArgsButton = {
-  'accessibility-label': 'Travelcards & tickets',
-  disabled: false,
-  'event-id': 'Event ID for button click',
-  negative: false,
-  name: 'Button name',
-  'id-value': '',
-  text: 'Travelcards & tickets',
-  type: type.options[0],
-  variant: variant.options[1],
-};
-
-const InlineTemplateButton = (args, context) => (
-  <p style={paragraphStyle(context)}>
-    Lorem ipsum dolor sit amet. <sbb-link {...args}>{args.text}</sbb-link>
-  </p>
-);
-
-export const InlineButton = InlineTemplateButton.bind({});
-
-InlineButton.argTypes = defaultArgTypesButton;
-
-InlineButton.args = defaultArgsButton;
-
 InlineNegative.documentation = {
   title: 'Inline Button',
 };
