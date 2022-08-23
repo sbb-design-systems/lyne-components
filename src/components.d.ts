@@ -26,6 +26,7 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
+import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
@@ -689,6 +690,43 @@ export namespace Components {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
+    interface SbbTabAmount {
+    }
+    interface SbbTabGroup {
+        /**
+          * Activates a tab by index.
+          * @param tabIndex The index of the tab you want to activate.
+         */
+        "activateTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Disables a tab by index.
+          * @param tabIndex The index of the tab you want to disable.
+         */
+        "disableTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Enables a tab by index.
+          * @param tabIndex The index of the tab you want to enable.
+         */
+        "enableTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
+        "initialSelectedIndex": number;
+    }
+    interface SbbTabTitle {
+        /**
+          * Active tab state
+         */
+        "active"?: boolean;
+        /**
+          * Disabled tab state
+         */
+        "disabled"?: boolean;
+        /**
+          * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
+         */
+        "level"?: InterfaceTabTitleAttributes['level'];
+    }
     interface SbbTeaser {
         /**
           * This will be forwarded as aria-describedby to the relevant nested element.
@@ -1073,6 +1111,10 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
 }
+export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTabGroupElement;
+}
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleCheckElement;
@@ -1233,6 +1275,24 @@ declare global {
     var HTMLSbbStackElement: {
         prototype: HTMLSbbStackElement;
         new (): HTMLSbbStackElement;
+    };
+    interface HTMLSbbTabAmountElement extends Components.SbbTabAmount, HTMLStencilElement {
+    }
+    var HTMLSbbTabAmountElement: {
+        prototype: HTMLSbbTabAmountElement;
+        new (): HTMLSbbTabAmountElement;
+    };
+    interface HTMLSbbTabGroupElement extends Components.SbbTabGroup, HTMLStencilElement {
+    }
+    var HTMLSbbTabGroupElement: {
+        prototype: HTMLSbbTabGroupElement;
+        new (): HTMLSbbTabGroupElement;
+    };
+    interface HTMLSbbTabTitleElement extends Components.SbbTabTitle, HTMLStencilElement {
+    }
+    var HTMLSbbTabTitleElement: {
+        prototype: HTMLSbbTabTitleElement;
+        new (): HTMLSbbTabTitleElement;
     };
     interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
     }
@@ -1399,6 +1459,9 @@ declare global {
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
+        "sbb-tab-amount": HTMLSbbTabAmountElement;
+        "sbb-tab-group": HTMLSbbTabGroupElement;
+        "sbb-tab-title": HTMLSbbTabTitleElement;
         "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-text-input": HTMLSbbTextInputElement;
@@ -2079,6 +2142,32 @@ declare namespace LocalJSX {
          */
         "tag"?: InterfaceStackAttributes['tag'];
     }
+    interface SbbTabAmount {
+    }
+    interface SbbTabGroup {
+        /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
+        "initialSelectedIndex"?: number;
+        /**
+          * Emits an event on selected tab change
+         */
+        "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
+    }
+    interface SbbTabTitle {
+        /**
+          * Active tab state
+         */
+        "active"?: boolean;
+        /**
+          * Disabled tab state
+         */
+        "disabled"?: boolean;
+        /**
+          * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
+         */
+        "level"?: InterfaceTabTitleAttributes['level'];
+    }
     interface SbbTeaser {
         /**
           * This will be forwarded as aria-describedby to the relevant nested element.
@@ -2481,6 +2570,9 @@ declare namespace LocalJSX {
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
+        "sbb-tab-amount": SbbTabAmount;
+        "sbb-tab-group": SbbTabGroup;
+        "sbb-tab-title": SbbTabTitle;
         "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-text-input": SbbTextInput;
@@ -2536,6 +2628,9 @@ declare module "@stencil/core" {
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
+            "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
+            "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
+            "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
