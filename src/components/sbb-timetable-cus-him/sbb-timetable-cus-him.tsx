@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, JSX, Host, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import icons from '../../global/icons/timetable.json';

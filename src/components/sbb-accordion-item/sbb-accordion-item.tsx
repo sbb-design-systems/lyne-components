@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
 import events from './sbb-accordion-item.events';
 import { guid } from '../../global/guid';

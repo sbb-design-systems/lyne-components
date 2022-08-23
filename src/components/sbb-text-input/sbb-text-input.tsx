@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import events from './sbb-text-input.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nMandatoryField, i18nOptional } from '../../global/i18n';

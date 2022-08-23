@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.3.1 (2022-08-23)
+
+### Features
+
+- **sbb-tab-group:** introduce new tab group component ([#1088](https://github.com/lyne-design-system/lyne-components/issues/1088)) ([31ec9ec](https://github.com/lyne-design-system/lyne-components/commit/31ec9ec920f0318d3ea266ef6d9fe5f92668c855))
+
+## 0.3.0 (2022-08-22)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-image:** removed properties: 'hideFromScreenreader', 'variant', 'imageSrcExample'
+
+- **sbb-image:** various refactorings ([#1305](https://github.com/lyne-design-system/lyne-components/issues/1305)) ([d57859c](https://github.com/lyne-design-system/lyne-components/commit/d57859c32a338abe4fb7cb4ba7da91860773f5b0))
+
+### 0.2.6 (2022-08-22)
+
+### Bug Fixes
+
+- **sbb-teaser:** add png loader to story bundler ([#1347](https://github.com/lyne-design-system/lyne-components/issues/1347)) ([dd35929](https://github.com/lyne-design-system/lyne-components/commit/dd35929a90867f510e705f95e1e53e79ab54d002))
+
+### 0.2.5 (2022-08-19)
+
+### Features
+
+- **sbb-link:** implement LinkButtonProperties interface ([#1344](https://github.com/lyne-design-system/lyne-components/issues/1344)) ([77e15cf](https://github.com/lyne-design-system/lyne-components/commit/77e15cfcf27d54e820208738cb233160792c90b4))
+
+### 0.2.4 (2022-08-17)
+
+### Bug Fixes
+
+- **sbb-link:** handle icon slot and icon placement correctly ([#1340](https://github.com/lyne-design-system/lyne-components/issues/1340)) ([69bd54b](https://github.com/lyne-design-system/lyne-components/commit/69bd54b9141bf0c53cca1936f4c4d2c4eb4fb4c4))
+
+### 0.2.3 (2022-08-17)
+
+### Bug Fixes
+
+- **sbb-button:** button doesn't emit eventId ([#1332](https://github.com/lyne-design-system/lyne-components/issues/1332)) ([b2abf37](https://github.com/lyne-design-system/lyne-components/commit/b2abf3723457ab64b79c8bc99e669cdd428c0d9a))
+
+### 0.2.2 (2022-08-17)
+
+### Bug Fixes
+
+- add event to link button ([#1327](https://github.com/lyne-design-system/lyne-components/issues/1327)) ([8cfcd50](https://github.com/lyne-design-system/lyne-components/commit/8cfcd509a5ee9551d1827be595db622fa9ca2ec2))
+
+### 0.2.1 (2022-08-11)
+
 ## 0.2.0 (2022-07-29)
 
 ### ⚠ BREAKING CHANGES

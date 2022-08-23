@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import { guid } from '../../global/guid';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';

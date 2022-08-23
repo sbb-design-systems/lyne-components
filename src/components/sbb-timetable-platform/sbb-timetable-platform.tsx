@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nFromPlatform } from '../../global/i18n';

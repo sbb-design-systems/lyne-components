@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, State } from '@stencil/core';
+import { Component, Host, h, JSX, Prop, State } from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
@@ -109,6 +109,9 @@ export class SbbFormField {
 
     this._readonly = this._input.hasAttribute('readonly');
     this._disabled = this._input.hasAttribute('disabled');
+    this._invalid =
+      this._input.classList.contains('sbb-invalid') ||
+      (this._input.classList.contains('ng-touched') && this._input.classList.contains('ng-invalid'));
 
     this._formFieldAttributeObserver.observe(this._input, {
       attributes: true,

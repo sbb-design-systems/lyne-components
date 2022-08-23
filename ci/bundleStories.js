@@ -19,6 +19,7 @@ const buildFiles = (files) => {
     loader: {
       '.js': 'jsx',
       '.md': 'text',
+      '.png': 'binary',
     },
     // minify: true,
     outdir: config.bundleDir,

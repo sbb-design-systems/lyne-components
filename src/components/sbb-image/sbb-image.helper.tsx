@@ -1,8 +1,13 @@
+import {
+  InterfaceImageAttributesSizesConfig,
+  InterfaceImageAttributesSizesConfigBreakpoint,
+} from './sbb-image.custom';
+
 /**
- * we check the structure of the data manually, so it's save to use `any`
+ * we check the structure of the data manually, so it's safe to use `any`
  * as return type
  */
-export default (jsonString: string): any => {
+export default (jsonString: string): InterfaceImageAttributesSizesConfigBreakpoint[] => {
   if (!jsonString || jsonString.length === 0) {
     return [];
   }
@@ -10,19 +15,25 @@ export default (jsonString: string): any => {
   // make sure that we have `breakpoints` key in object
   const errorMessage =
     'sbb-image error: attribute breakpoints has wrong data format. Reference the documentation to see how you should format the data for this attribute.';
-  const jsonObject = JSON.parse(jsonString);
-  const jsonObjectKeys = Object.keys(jsonObject);
 
-  if (!jsonObjectKeys.includes('breakpoints')) {
+  let jsonObject: InterfaceImageAttributesSizesConfig;
+
+  try {
+    jsonObject = JSON.parse(jsonString);
+  } catch (error) {
+    console.warn(errorMessage);
+
+    return [];
+  }
+
+  if (!jsonObject.breakpoints || jsonObject.breakpoints.length === 0) {
     console.warn(errorMessage);
 
     return [];
   }
 
   // make sure we get an array of breakpoints
-  const { breakpoints } = jsonObject;
-
-  if (!Array.isArray(breakpoints)) {
+  if (!Array.isArray(jsonObject.breakpoints)) {
     console.warn(errorMessage);
 
     return [];
@@ -38,7 +49,7 @@ export default (jsonString: string): any => {
 
   const allowedKeys = ['image', 'mediaQueries'];
 
-  breakpoints.forEach((breakpoint) => {
+  jsonObject.breakpoints.forEach((breakpoint) => {
     const breakpointKeys = Object.keys(breakpoint);
 
     breakpointKeys.forEach((breakpointKey) => {
@@ -60,12 +71,5 @@ export default (jsonString: string): any => {
     return [];
   }
 
-  // make sure there are at least 1 breakpoint
-  if (breakpoints.length < 1) {
-    console.warn(errorMessage);
-
-    return [];
-  }
-
-  return breakpoints as any;
+  return jsonObject.breakpoints;
 };

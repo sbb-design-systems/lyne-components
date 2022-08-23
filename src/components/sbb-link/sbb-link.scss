@@ -15,6 +15,10 @@
   color: inherit;
 }
 
+:host([variant='block']) {
+  display: flex;
+}
+
 .sbb-link {
   display: flex;
   align-items: center;
@@ -45,6 +49,13 @@
 
 button.sbb-link {
   @include buttonReset;
+
+  cursor: pointer;
+}
+
+button.sbb-link:disabled {
+  pointer-events: none;
+  cursor: default;
 }
 
 .sbb-link--negative {
@@ -79,15 +90,12 @@ button.sbb-link {
 }
 
 @include hover-mq($hover: true) {
-  .sbb-link:hover {
+  .sbb-link:hover:not(:disabled) {
     color: var(--text-color-hover-focus);
   }
 }
 
-.sbb-link--icon-placement-end ::slotted(*:last-of-type) {
+.sbb-link--icon-placement-end ::slotted(*),
+.sbb-link--icon-placement-end sbb-icon {
   order: 2;
-}
-
-.sbb-link.sbb-link--icon-flip ::slotted(*:last-of-type) {
-  transform: scaleX(-1);
 }
