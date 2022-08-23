@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.3.1 (2022-08-23)
+
+### Features
+
+- **sbb-tab-group:** introduce new tab group component ([#1088](https://github.com/lyne-design-system/lyne-components/issues/1088)) ([31ec9ec](https://github.com/lyne-design-system/lyne-components/commit/31ec9ec920f0318d3ea266ef6d9fe5f92668c855))
+
 ## 0.3.0 (2022-08-22)
 
 ### ⚠ BREAKING CHANGES
