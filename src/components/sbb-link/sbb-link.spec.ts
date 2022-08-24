@@ -10,7 +10,12 @@ describe('sbb-link', () => {
         <sbb-link
           href="https://github.com/lyne-design-system/lyne-components"
           text-size="m"
-          accessibility-label="Travelcards &amp; tickets">
+          download
+          id-value="id"
+          accessibility-label="Travelcards & tickets"
+          accessibility-describedbdy="id"
+          accessibility-labelledby="id"
+          >
             Travelcards &amp; tickets.
           </sbb-link>
       `,
@@ -18,19 +23,26 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
+          variant="block"
           href="https://github.com/lyne-design-system/lyne-components"
           text-size="m"
-          variant="block"
-          accessibility-label="Travelcards &amp; tickets"
+          download
+          id-value="id"
+          accessibility-label="Travelcards & tickets"
+          accessibility-describedbdy="id"
+          accessibility-labelledby="id"
           >
           <mock:shadow-root>
             <a
-              aria-label="Travelcards & tickets. Link target opens in new window."
-              class="sbb-link sbb-link--text-m sbb-link--icon-placement-start"
+              aria-label="Travelcards &amp; tickets. Link target opens in new window."
+              aria-labelledby="id"
+              class="sbb-link sbb-link--icon-placement-start sbb-link--text-m"
               dir="ltr"
+              download=""
               href="https://github.com/lyne-design-system/lyne-components"
-              target="_blank"
+              id="id"
               rel="external noopener nofollow"
+              target="_blank"
             >
               <slot name="icon"></slot>
               <slot></slot>
@@ -45,7 +57,7 @@ describe('sbb-link', () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
       html: `
-        <sbb-link icon-placement="end" text-size="m">
+        <sbb-link icon-placement="end" text-size="m" negative name="name" type="submit" form="formid" disabled event-id="eventId">
           <span slot="icon">
             ${lyneIcons.icons['chevron-small-right-small']}
           </span>
@@ -57,12 +69,23 @@ describe('sbb-link', () => {
         <sbb-link
             icon-placement="end"
             text-size="m"
-            variant="block">
+            variant="block"
+            negative
+            name="name"
+            type="submit"
+            form="formid"
+            disabled
+            event-id="eventId"
+            >
           <mock:shadow-root>
             <button
-              class="sbb-link sbb-link--icon-placement-end sbb-link--text-m"
+              class="sbb-link sbb-link--icon-placement-end sbb-link--negative sbb-link--text-m"
               dir="ltr"
-              type="button">
+              disabled="true"
+              form="formid"
+              name="name"
+              type="submit"
+              >
               <slot name="icon"></slot>
               <slot></slot>
             </button>

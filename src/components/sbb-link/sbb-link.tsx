@@ -172,8 +172,9 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
       attributeList = getLinkButtonAttributeList(this.idValue, this._getClassString(), this);
     }
 
+    // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <TAG_NAME {...attributeList}>
+      <TAG_NAME {...attributeList} ref={(btn) => this.form && btn?.setAttribute('form', this.form)}>
         {this.variant !== 'inline' && (
           <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         )}

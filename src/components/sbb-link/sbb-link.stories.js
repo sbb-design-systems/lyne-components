@@ -304,6 +304,31 @@ BlockNegativeIconEnd.documentation = {
   title: 'Block Negative Icon End',
 };
 
+export const BlockButton = Template.bind({});
+BlockButton.argTypes = defaultArgTypes;
+BlockButton.args = {
+  ...defaultArgs,
+  href: '',
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+};
+BlockButton.documentation = {
+  title: 'Block Button',
+};
+
+export const BlockButtonNegative = Template.bind({});
+BlockButtonNegative.argTypes = defaultArgTypes;
+BlockButtonNegative.args = {
+  ...defaultArgs,
+  negative: true,
+  href: '',
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+};
+BlockButtonNegative.documentation = {
+  title: 'Block Button Negative',
+};
+
 export const Inline = InlineTemplate.bind({});
 Inline.argTypes = defaultArgTypes;
 Inline.args = {
