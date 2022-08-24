@@ -1,3 +1,4 @@
+// FIXME slotchange is not triggered, see https://github.com/ionic-team/stencil/issues/3536
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-form-field', () => {

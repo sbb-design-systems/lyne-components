@@ -1,3 +1,4 @@
+// FIXME slotchange is not triggered, see https://github.com/ionic-team/stencil/issues/3536
 import { newSpecPage } from '@stencil/core/testing';
 import { SbbFormField } from './sbb-form-field';
 

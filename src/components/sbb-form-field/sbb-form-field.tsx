@@ -125,7 +125,6 @@ export class SbbFormField {
   }
 
   /**
-   * @private
    * It is used internally to set the focus to the input element.
    */
   private _setFocus(): void {
@@ -134,7 +133,6 @@ export class SbbFormField {
 
   /**
    * @param mutationsList The list of the attributes
-   * @private
    * It is used internally to bind on the `MutationObserver`.
    */
   private _onAttributesChange(mutationsList: MutationRecord[]): void {

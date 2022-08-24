@@ -6,7 +6,7 @@ const TemplateBasicInput = (args) => (
     class={args.class}
     placeholder={args.placeholder}
     disabled={args.disabled}
-    readOnly={args.readonly}
+    readonly={args.readonly}
     value={args.value}
   />
 );
@@ -273,7 +273,9 @@ const basicArgs = {
 
 export const Input = TemplateInput.bind({});
 Input.argTypes = basicArgTypes;
-Input.args = JSON.parse(JSON.stringify({ ...basicArgs }));
+Input.args = JSON.parse(
+  JSON.stringify({ ...basicArgs, value: 'This input value is so long that needs ellipsis to fit' })
+);
 Input.documentation = {
   title: 'sbb-form-field component with label and input',
 };
@@ -321,6 +323,7 @@ InputLongLabelAndErrorSpace.args = JSON.parse(
     'error-space': 'reserve',
     class: 'sbb-invalid',
     label: 'This label name is so long that needs ellipsis to fit',
+    value: 'This input value is so long that needs ellipsis to fit',
   })
 );
 InputLongLabelAndErrorSpace.documentation = {
