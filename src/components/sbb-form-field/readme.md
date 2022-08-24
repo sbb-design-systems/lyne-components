@@ -42,13 +42,13 @@ Additionally, `<sbb-error>` applies `aria-live="polite"` by default such that as
 
 ## Slots
 
-| Slot       | Description                                            |
-| ---------- | ------------------------------------------------------ |
-| `"error"`  | Slot to render an error.                               |
-| `"input"`  | Slot to render an input.                               |
-| `"label"`  | Slot to render a label.                                |
-| `"prefix"` | Slot to render an icon at the left side of the input.  |
-| `"suffix"` | Slot to render an icon at the right side of the input. |
+| Slot        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `"error"`   | Slot to render an error.                               |
+| `"label"`   | Slot to render a label.                                |
+| `"prefix"`  | Slot to render an icon at the left side of the input.  |
+| `"suffix"`  | Slot to render an icon at the right side of the input. |
+| `"unnamed"` | Slot to render an input/selct.                         |
 
 
 ----------------------------------------------

@@ -1,6 +1,24 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const TemplateBasicInput = (args) => (
+  <input
+    class={args.class}
+    placeholder={args.placeholder}
+    disabled={args.disabled}
+    readOnly={args.readonly}
+    value={args.value}
+  />
+);
+
+const TemplateBasicSelect = (args) => (
+  <select class={args.class} placeholder={args.placeholder} disabled={args.disabled}>
+    <option>Value 1</option>
+    <option>Value 2</option>
+    <option>Value 3</option>
+  </select>
+);
+
 const TemplateInput = (args) => (
   <sbb-form-field
     error-space={args['error-space']}
@@ -9,19 +27,7 @@ const TemplateInput = (args) => (
     size={args.size}
     borderless={args.borderless}
   >
-    <input
-      placeholder="Name"
-      disabled={args.disabled}
-      readOnly={args.readonly}
-      value={args.status}
-    />
-  </sbb-form-field>
-);
-
-const TemplateInputWithError = (args) => (
-  <sbb-form-field {...args}>
-    <input class="sbb-invalid" placeholder="Name" />
-    <sbb-form-error slot="error">{args.errortext}</sbb-form-error>
+    {TemplateBasicInput(args)}
   </sbb-form-field>
 );
 
@@ -31,30 +37,32 @@ const TemplateInputWithErrorSpace = (args) => {
   return (
     <form>
       <div>
-        <sbb-form-field id="sbb-form-field" {...args}>
+        <sbb-form-field
+          id="sbb-form-field"
+          error-space={args['error-space']}
+          label={args.label}
+          optional={args.optional}
+          size={args.size}
+          borderless={args.borderless}
+        >
           <input
             id="sbb-form-field-input"
-            onFocus={(event) => {
-              if (event.currentTarget.value === '') {
-                document.getElementById('sbb-form-field').append(sbbFormError);
-              }
-            }}
-            onBlur={(event) => {
+            onKeyUp={(event) => {
               if (event.currentTarget.value !== '') {
                 sbbFormError.remove();
+                document.getElementById('sbb-form-field').classList.remove(args.class);
+              } else {
+                document.getElementById('sbb-form-field').append(sbbFormError);
+                document.getElementById('sbb-form-field').classList.add(args.class);
               }
             }}
-            class="sbb-invalid"
-            placeholder="Name"
+            class={args.class}
+            placeholder={args.placeholder}
           />
           {sbbFormError}
         </sbb-form-field>
       </div>
-      <div>
-        <sbb-form-field {...args}>
-          <input placeholder="Name" />
-        </sbb-form-field>
-      </div>
+      <div>Some text, right below the form-field, inside a div.</div>
     </form>
   );
 };
@@ -62,7 +70,7 @@ const TemplateInputWithErrorSpace = (args) => {
 const TemplateInputWithIcons = (args) => (
   <sbb-form-field {...args}>
     <sbb-icon slot="prefix" name="pie-small" />
-    <input placeholder="Name" />
+    {TemplateBasicInput(args)}
     <sbb-icon slot="suffix" name="circle-information-small" />
   </sbb-form-field>
 );
@@ -75,22 +83,7 @@ const TemplateSelect = (args) => (
     size={args.size}
     borderless={args.borderless}
   >
-    <select placeholder="Name" disabled={args.disabled}>
-      <option>Value 1</option>
-      <option>Value 2</option>
-      <option>Value 3</option>
-    </select>
-  </sbb-form-field>
-);
-
-const TemplateSelectWithError = (args) => (
-  <sbb-form-field {...args}>
-    <select class="sbb-invalid">
-      <option>Value 1</option>
-      <option>Value 2</option>
-      <option>Value 3</option>
-    </select>
-    <sbb-form-error slot="error">This is a required field.</sbb-form-error>
+    {TemplateBasicSelect(args)}
   </sbb-form-field>
 );
 
@@ -100,21 +93,27 @@ const TemplateSelectWithErrorSpace = (args) => {
   return (
     <form>
       <div>
-        <sbb-form-field id="sbb-form-field" {...args}>
+        <sbb-form-field
+          id="sbb-form-field"
+          error-space={args['error-space']}
+          label={args.label}
+          optional={args.optional}
+          size={args.size}
+          borderless={args.borderless}
+        >
           <select
             id="sbb-form-field-input"
-            onFocus={(event) => {
-              if (event.currentTarget.value === '') {
-                document.getElementById('sbb-form-field').append(sbbFormError);
-              }
-            }}
-            onBlur={(event) => {
+            onChange={(event) => {
               if (event.currentTarget.value !== '') {
                 sbbFormError.remove();
+                document.getElementById('sbb-form-field').classList.remove(args.class);
+              } else {
+                document.getElementById('sbb-form-field').append(sbbFormError);
+                document.getElementById('sbb-form-field').classList.add(args.class);
               }
             }}
-            class="sbb-invalid"
-            placeholder="Name"
+            class={args.class}
+            placeholder={args.placeholder}
           >
             <option>{''}</option>
             <option>Value 1</option>
@@ -125,9 +124,7 @@ const TemplateSelectWithErrorSpace = (args) => {
         </sbb-form-field>
       </div>
       <div>
-        <sbb-form-field {...args}>
-          <input placeholder="Name" />
-        </sbb-form-field>
+        <div>Some text, right below the form-field, inside a div.</div>
       </div>
     </form>
   );
@@ -138,26 +135,64 @@ const TemplateSelectWithIcons = (args) => (
     <span slot="prefix">
       <sbb-icon name="pie-small" />
     </span>
-    <select>
-      <option>Value 1</option>
-      <option>Value 2</option>
-      <option>Value 3</option>
-    </select>
+    {TemplateBasicSelect(args)}
     <span slot="suffix">
       <sbb-icon name="circle-information-small" />
     </span>
   </sbb-form-field>
 );
 
+const placeholderArg = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Input attribute',
+  },
+};
+
+const classArg = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Input attribute',
+  },
+};
+
 const disabledArg = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Input attribute',
+  },
 };
 
-const statusArg = {
+const readonlyArg = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Input attribute',
+  },
+};
+
+const valueArg = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Input attribute',
+  },
+};
+
+const errortextArg = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Error slot',
   },
 };
 
@@ -166,11 +201,17 @@ const errorSpaceArg = {
     type: 'select',
   },
   options: ['default', 'reserve'],
+  table: {
+    category: 'Form-field attribute',
+  },
 };
 
 const labelArg = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Form-field attribute',
   },
 };
 
@@ -178,17 +219,17 @@ const optionalArg = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Form-field attribute',
+  },
 };
 
 const borderlessArg = {
   control: {
     type: 'boolean',
   },
-};
-
-const readonlyArg = {
-  control: {
-    type: 'boolean',
+  table: {
+    category: 'Form-field attribute',
   },
 };
 
@@ -196,194 +237,130 @@ const sizeArg = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['m', 'l'],
+  table: {
+    category: 'Form-field attribute',
+  },
 };
 
 const basicArgTypes = {
+  'error-space': errorSpaceArg,
   label: labelArg,
   optional: optionalArg,
   borderless: borderlessArg,
   size: sizeArg,
+  class: classArg,
+  placeholder: placeholderArg,
+  disabled: disabledArg,
+  readonly: readonlyArg,
+  value: valueArg,
+  errortext: errortextArg,
 };
 
 const basicArgs = {
-  label: 'Name',
+  'error-space': 'default',
+  label: 'Input name',
   optional: false,
   borderless: false,
   size: 'm',
-  status: '',
-  errortext: 'This is a required field.',
+  class: '',
+  placeholder: 'Input placeholder',
+  value: 'Input value',
   disabled: false,
   readonly: false,
+  errortext: 'This is a required field.',
 };
 
-export const formWithLabelAndInput = TemplateInput.bind({});
-
-formWithLabelAndInput.argTypes = basicArgTypes;
-
-formWithLabelAndInput.args = JSON.parse(JSON.stringify({ ...basicArgs }));
-
-formWithLabelAndInput.documentation = {
+export const Input = TemplateInput.bind({});
+Input.argTypes = basicArgTypes;
+Input.args = JSON.parse(JSON.stringify({ ...basicArgs }));
+Input.documentation = {
   title: 'sbb-form-field component with label and input',
 };
 
-export const formWithLabelAndInputNoLabel = TemplateInput.bind({});
-
-formWithLabelAndInputNoLabel.argTypes = basicArgTypes;
-
-formWithLabelAndInputNoLabel.args = JSON.parse(JSON.stringify({ ...basicArgs, label: '' }));
-
-formWithLabelAndInputNoLabel.documentation = {
+export const InputNoLabel = TemplateInput.bind({});
+InputNoLabel.argTypes = basicArgTypes;
+InputNoLabel.args = JSON.parse(JSON.stringify({ ...basicArgs, label: '' }));
+InputNoLabel.documentation = {
   title: 'sbb-form-field component with label and input and no label',
 };
 
-export const formWithLabelAndInputWithoutBorder = TemplateInput.bind({});
-
-formWithLabelAndInputWithoutBorder.argTypes = basicArgTypes;
-
-formWithLabelAndInputWithoutBorder.args = JSON.parse(
-  JSON.stringify({ ...basicArgs, borderless: true })
-);
-
-formWithLabelAndInputWithoutBorder.documentation = {
+export const InputWithoutBorder = TemplateInput.bind({});
+InputWithoutBorder.argTypes = basicArgTypes;
+InputWithoutBorder.args = JSON.parse(JSON.stringify({ ...basicArgs, borderless: true }));
+InputWithoutBorder.documentation = {
   title: 'sbb-form-field component with label and input, without border',
 };
 
-export const formWithInputDisabled = TemplateInput.bind({});
-
-formWithInputDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg, status: statusArg };
-
-formWithInputDisabled.args = JSON.parse(
-  JSON.stringify({ ...basicArgs, disabled: true, status: 'disabled' })
-);
-
-formWithInputDisabled.documentation = {
+export const InputDisabled = TemplateInput.bind({});
+InputDisabled.argTypes = basicArgTypes;
+InputDisabled.args = JSON.parse(JSON.stringify({ ...basicArgs, disabled: true }));
+InputDisabled.documentation = {
   title: 'sbb-form-field component with input disabled',
 };
 
-export const formWithInputInReadOnly = TemplateInput.bind({});
-
-formWithInputInReadOnly.argTypes = { ...basicArgTypes, readonly: readonlyArg, status: statusArg };
-
-formWithInputInReadOnly.args = JSON.parse(
-  JSON.stringify({ ...basicArgs, readonly: true, status: 'readonly' })
-);
-
-formWithInputInReadOnly.documentation = {
+export const InputReadonly = TemplateInput.bind({});
+InputReadonly.argTypes = basicArgTypes;
+InputReadonly.args = JSON.parse(JSON.stringify({ ...basicArgs, readonly: true }));
+InputReadonly.documentation = {
   title: 'sbb-form-field with input in readonly',
 };
 
-export const formWithLabelInputAndError = TemplateInputWithError.bind({});
-
-formWithLabelInputAndError.argTypes = basicArgTypes;
-
-formWithLabelInputAndError.args = JSON.parse(JSON.stringify(basicArgs));
-
-formWithLabelInputAndError.documentation = {
-  title: 'sbb-form-field component with label, input and error',
-};
-
-export const formWithLabelInputAndErrorLongText = TemplateInputWithError.bind({});
-
-formWithLabelInputAndErrorLongText.argTypes = basicArgTypes;
-
-formWithLabelInputAndErrorLongText.args = JSON.parse(
-  JSON.stringify({
-    ...basicArgs,
-    errortext: 'This is a required field, insert only characters and numbers.',
-    label: 'This label name is so long that needs ellipsis to fit',
-  })
-);
-
-formWithLabelInputAndErrorLongText.documentation = {
-  title: 'sbb-form-field component with label, input and error with long text',
-};
-
-export const formWithLabelInputAndErrorSpace = TemplateInputWithErrorSpace.bind({});
-
-formWithLabelInputAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
-
-formWithLabelInputAndErrorSpace.args = JSON.parse(
-  JSON.stringify({ ...basicArgs, 'error-space': 'default' })
-);
-
-formWithLabelInputAndErrorSpace.documentation = {
-  title: 'sbb-form-field component with label, input, error and error-space',
-};
-
-export const formWithLabelInputAndIcons = TemplateInputWithIcons.bind({});
-
-formWithLabelInputAndIcons.argTypes = basicArgTypes;
-
-formWithLabelInputAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
-
-formWithLabelInputAndIcons.documentation = {
+export const InputAndIcons = TemplateInputWithIcons.bind({});
+InputAndIcons.argTypes = basicArgTypes;
+InputAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
+InputAndIcons.documentation = {
   title: 'sbb-form-field component with label, input and icons',
 };
 
-export const formWithLabelAndSelect = TemplateSelect.bind({});
-
-formWithLabelAndSelect.argTypes = basicArgTypes;
-
-formWithLabelAndSelect.args = JSON.parse(JSON.stringify(basicArgs));
-
-formWithLabelAndSelect.documentation = {
-  title: 'sbb-form-field component with label and select',
-};
-
-export const formWithLabelAndSelectWithoutBorder = TemplateSelect.bind({});
-
-formWithLabelAndSelectWithoutBorder.argTypes = basicArgTypes;
-
-formWithLabelAndSelectWithoutBorder.args = JSON.parse(
-  JSON.stringify({ ...basicArgs, borderless: true })
+export const InputLongLabelAndErrorSpace = TemplateInputWithErrorSpace.bind({});
+InputLongLabelAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
+InputLongLabelAndErrorSpace.args = JSON.parse(
+  JSON.stringify({
+    ...basicArgs,
+    'error-space': 'reserve',
+    class: 'sbb-invalid',
+    label: 'This label name is so long that needs ellipsis to fit',
+  })
 );
-
-formWithLabelAndSelectWithoutBorder.documentation = {
-  title: 'sbb-form-field component with label and select, without border',
-};
-
-export const formWithSelectDisabled = TemplateSelect.bind({});
-
-formWithSelectDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg, status: statusArg };
-
-formWithSelectDisabled.args = JSON.parse(
-  JSON.stringify({ ...basicArgs, disabled: true, status: 'disabled' })
-);
-
-formWithSelectDisabled.documentation = {
-  title: 'sbb-form-field component with select disabled',
-};
-
-export const formWithLabelSelectAndError = TemplateSelectWithError.bind({});
-
-formWithLabelSelectAndError.argTypes = basicArgTypes;
-
-formWithLabelSelectAndError.args = JSON.parse(JSON.stringify(basicArgs));
-
-formWithLabelSelectAndError.documentation = {
-  title: 'sbb-form-field component with label and select',
-};
-
-export const formWithLabelSelectAndErrorSpace = TemplateSelectWithErrorSpace.bind({});
-
-formWithLabelSelectAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
-
-formWithLabelSelectAndErrorSpace.args = JSON.parse(
-  JSON.stringify({ ...basicArgs, 'error-space': 'default' })
-);
-
-formWithLabelSelectAndErrorSpace.documentation = {
+InputLongLabelAndErrorSpace.documentation = {
   title: 'sbb-form-field component with label, input, error and error-space',
 };
 
-export const formWithLabelSelectAndIcons = TemplateSelectWithIcons.bind({});
+export const Select = TemplateSelect.bind({});
+Select.argTypes = basicArgTypes;
+Select.args = JSON.parse(JSON.stringify(basicArgs));
+Select.documentation = {
+  title: 'sbb-form-field component with label and select',
+};
 
-formWithLabelSelectAndIcons.argTypes = basicArgTypes;
+export const SelectWithoutBorder = TemplateSelect.bind({});
+SelectWithoutBorder.argTypes = basicArgTypes;
+SelectWithoutBorder.args = JSON.parse(JSON.stringify({ ...basicArgs, borderless: true }));
+SelectWithoutBorder.documentation = {
+  title: 'sbb-form-field component with label and select, without border',
+};
 
-formWithLabelSelectAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
+export const SelectDisabled = TemplateSelect.bind({});
+SelectDisabled.argTypes = basicArgTypes;
+SelectDisabled.args = JSON.parse(JSON.stringify({ ...basicArgs, disabled: true }));
+SelectDisabled.documentation = {
+  title: 'sbb-form-field component with select disabled',
+};
 
-formWithLabelSelectAndIcons.documentation = {
+export const SelectErrorSpace = TemplateSelectWithErrorSpace.bind({});
+SelectErrorSpace.argTypes = basicArgTypes;
+SelectErrorSpace.args = JSON.parse(
+  JSON.stringify({ ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' })
+);
+SelectErrorSpace.documentation = {
+  title: 'sbb-form-field component with label, input, error and error-space',
+};
+
+export const SelectAndIcons = TemplateSelectWithIcons.bind({});
+SelectAndIcons.argTypes = basicArgTypes;
+SelectAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
+SelectAndIcons.documentation = {
   title: 'sbb-form-field component with label, select and icons',
 };
 
@@ -395,9 +372,6 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
     backgrounds: {
       disable: true,
