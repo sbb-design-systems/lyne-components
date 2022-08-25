@@ -1,4 +1,4 @@
-import { Component, Element, h, Listen, Method, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, h, JSX, Listen, Method, Prop, State, Watch } from '@stencil/core';
 
 /**
  * @slot unnamed - Use this slot to project any content inside the component.
