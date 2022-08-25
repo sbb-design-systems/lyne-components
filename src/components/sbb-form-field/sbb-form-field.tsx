@@ -76,7 +76,7 @@ export class SbbFormField {
   /**
    * It is used internally to get the `input` slot.
    */
-  private _input: HTMLInputElement | HTMLSelectElement | HTMLElement;
+  private _input: HTMLInputElement | HTMLSelectElement | HTMLElement | undefined;
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -97,7 +97,7 @@ export class SbbFormField {
     const value = this._errorElements.length
       ? this._errorElements.map((e) => e.id).join(',')
       : this._originalInputAriaDescribedby;
-    this._input.setAttribute('aria-describedby', value);
+    this._input?.setAttribute('aria-describedby', value);
   }
 
   /**
@@ -105,22 +105,24 @@ export class SbbFormField {
    */
   private _onSlotInputChange(event: Event): void {
     this._input = (event.target as HTMLSlotElement).assignedElements()[0] as HTMLElement;
-    this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
+    if (this._input) {
+      this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
 
-    this._readonly = this._input.hasAttribute('readonly');
-    this._disabled = this._input.hasAttribute('disabled');
-    this._invalid =
-      this._input.classList.contains('sbb-invalid') ||
-      (this._input.classList.contains('ng-touched') &&
-        this._input.classList.contains('ng-invalid'));
+      this._readonly = this._input.hasAttribute('readonly');
+      this._disabled = this._input.hasAttribute('disabled');
+      this._invalid =
+        this._input.classList.contains('sbb-invalid') ||
+        (this._input.classList.contains('ng-touched') &&
+          this._input.classList.contains('ng-invalid'));
 
-    this._formFieldAttributeObserver.observe(this._input, {
-      attributes: true,
-      attributeFilter: ['readonly', 'disabled', 'class'],
-    });
+      this._formFieldAttributeObserver.observe(this._input, {
+        attributes: true,
+        attributeFilter: ['readonly', 'disabled', 'class'],
+      });
 
-    if (!this._input.id) {
-      this._input.id = `sbb-form-field-input-${nextId++}`;
+      if (!this._input.id) {
+        this._input.id = `sbb-form-field-input-${nextId++}`;
+      }
     }
   }
 
@@ -128,7 +130,7 @@ export class SbbFormField {
    * It is used internally to set the focus to the input element.
    */
   private _setFocus(): void {
-    this._input.focus();
+    this._input?.focus();
   }
 
   /**
