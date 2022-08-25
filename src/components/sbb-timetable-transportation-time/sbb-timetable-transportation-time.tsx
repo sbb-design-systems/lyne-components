@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { InterfaceTimetableTransportationTimeAttributes } from './sbb-timetable-transportation-time.custom';

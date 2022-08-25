@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 
 import { InterfaceLogoAttributes } from './sbb-logo.custom';
 import sbbLogoSVG from './assets/sbb_logo.svg';

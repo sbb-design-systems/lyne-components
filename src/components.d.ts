@@ -26,6 +26,7 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
+import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
@@ -350,6 +351,14 @@ export namespace Components {
          */
         "alt"?: string;
         /**
+          * Set an aspect ratio default is '16-9' (16/9) other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
+         */
+        "aspectRatio": InterfaceImageAttributes['aspectRatio'];
+        /**
+          * border-radius: if set to false, there will be no border-radius on the image
+         */
+        "borderRadius": boolean;
+        /**
           * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
@@ -370,7 +379,7 @@ export namespace Components {
          */
         "decoding": InterfaceImageAttributes['decoding'];
         /**
-          * Set this to true, to receive visual guideance where the custom focal point is currently set.
+          * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug": boolean;
         /**
@@ -382,17 +391,9 @@ export namespace Components {
          */
         "focalPointY": number;
         /**
-          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
-         */
-        "hideFromScreenreader": boolean;
-        /**
           * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
          */
         "imageSrc"?: string;
-        /**
-          * Just some example image file you can use to play around with the component.
-         */
-        "imageSrcExamples"?: string;
         /**
           * The importance attribute is fairly new attribute which should help the browser decide which resources it should prioritise during page load. We will set the attribute value based on the value, we receive in the loading attribute. 'eager', which we use for the largest image within the initial viewport, will set the attribute value to 'high'. 'lazy', which we use for images below the fold, will set the attribute value to 'low'.
          */
@@ -410,13 +411,9 @@ export namespace Components {
          */
         "performanceMark"?: string;
         /**
-          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
+          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. Type is: stringified InterfaceImageAttributesSizesConfig-Object An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
          */
         "pictureSizesConfig"?: string;
-        /**
-          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
-         */
-        "variant"?: InterfaceImageAttributes['variant'];
     }
     interface SbbInputError {
         /**
@@ -476,21 +473,25 @@ export namespace Components {
          */
         "download"?: boolean;
         /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
           * Form attribute if link is used as button (optional)
          */
         "form"?: string;
         /**
-          * The href value you want to link to (if its not present link becomes a button)
+          * The href value you want to link to (optional, if its not present link becomes a button)
          */
-        "href"?: string;
+        "href": string | undefined;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
-          * The icon can either be place before or after the text.
+          * Moves the icon to the end of the component if set to true (optional).
          */
-        "iconPlacement": InterfaceLinkAttributes['iconPlacement'];
+        "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
           * Pass in an id, if you need to identify the link element (optional).
          */
@@ -498,19 +499,19 @@ export namespace Components {
         /**
           * Name attribute if link is used as button (optional)
          */
-        "name"?: string;
+        "name": string | undefined;
         /**
-          * Negative coloring variant flag
+          * Negative coloring variant flag.
          */
         "negative": boolean;
         /**
-          * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
+          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize": InterfaceLinkAttributes['textSize'];
         /**
           * Type attribute if link is used as button (optional)
          */
-        "type": InterfaceLinkAttributes['buttonType'];
+        "type": InterfaceLinkAttributes['buttonType'] | undefined;
         /**
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
@@ -696,6 +697,43 @@ export namespace Components {
           * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
          */
         "tag"?: InterfaceStackAttributes['tag'];
+    }
+    interface SbbTabAmount {
+    }
+    interface SbbTabGroup {
+        /**
+          * Activates a tab by index.
+          * @param tabIndex The index of the tab you want to activate.
+         */
+        "activateTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Disables a tab by index.
+          * @param tabIndex The index of the tab you want to disable.
+         */
+        "disableTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Enables a tab by index.
+          * @param tabIndex The index of the tab you want to enable.
+         */
+        "enableTab": (tabIndex: number) => Promise<void>;
+        /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
+        "initialSelectedIndex": number;
+    }
+    interface SbbTabTitle {
+        /**
+          * Active tab state
+         */
+        "active"?: boolean;
+        /**
+          * Disabled tab state
+         */
+        "disabled"?: boolean;
+        /**
+          * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
+         */
+        "level"?: InterfaceTabTitleAttributes['level'];
     }
     interface SbbTeaser {
         /**
@@ -1073,9 +1111,17 @@ export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbButtonElement;
 }
+export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbLinkElement;
+}
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
+}
+export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTabGroupElement;
 }
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1237,6 +1283,24 @@ declare global {
     var HTMLSbbStackElement: {
         prototype: HTMLSbbStackElement;
         new (): HTMLSbbStackElement;
+    };
+    interface HTMLSbbTabAmountElement extends Components.SbbTabAmount, HTMLStencilElement {
+    }
+    var HTMLSbbTabAmountElement: {
+        prototype: HTMLSbbTabAmountElement;
+        new (): HTMLSbbTabAmountElement;
+    };
+    interface HTMLSbbTabGroupElement extends Components.SbbTabGroup, HTMLStencilElement {
+    }
+    var HTMLSbbTabGroupElement: {
+        prototype: HTMLSbbTabGroupElement;
+        new (): HTMLSbbTabGroupElement;
+    };
+    interface HTMLSbbTabTitleElement extends Components.SbbTabTitle, HTMLStencilElement {
+    }
+    var HTMLSbbTabTitleElement: {
+        prototype: HTMLSbbTabTitleElement;
+        new (): HTMLSbbTabTitleElement;
     };
     interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
     }
@@ -1403,6 +1467,9 @@ declare global {
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
+        "sbb-tab-amount": HTMLSbbTabAmountElement;
+        "sbb-tab-group": HTMLSbbTabGroupElement;
+        "sbb-tab-title": HTMLSbbTabTitleElement;
         "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-text-input": HTMLSbbTextInputElement;
@@ -1744,6 +1811,14 @@ declare namespace LocalJSX {
          */
         "alt"?: string;
         /**
+          * Set an aspect ratio default is '16-9' (16/9) other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
+         */
+        "aspectRatio"?: InterfaceImageAttributes['aspectRatio'];
+        /**
+          * border-radius: if set to false, there will be no border-radius on the image
+         */
+        "borderRadius"?: boolean;
+        /**
           * A caption can provide additional context to the image (e.g. descriptions and the like). Links will automatically receive tabindex=-1 if hideFromScreenreader is set to true. That way they will no longer become focusable.
          */
         "caption"?: string;
@@ -1764,7 +1839,7 @@ declare namespace LocalJSX {
          */
         "decoding"?: InterfaceImageAttributes['decoding'];
         /**
-          * Set this to true, to receive visual guideance where the custom focal point is currently set.
+          * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug"?: boolean;
         /**
@@ -1776,17 +1851,9 @@ declare namespace LocalJSX {
          */
         "focalPointY"?: number;
         /**
-          * In cases when the image is just serving a decorative purpose, we can hide it from assistive technologies (e.g. an image in a teaser card)
-         */
-        "hideFromScreenreader"?: boolean;
-        /**
           * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
          */
         "imageSrc"?: string;
-        /**
-          * Just some example image file you can use to play around with the component.
-         */
-        "imageSrcExamples"?: string;
         /**
           * The importance attribute is fairly new attribute which should help the browser decide which resources it should prioritise during page load. We will set the attribute value based on the value, we receive in the loading attribute. 'eager', which we use for the largest image within the initial viewport, will set the attribute value to 'high'. 'lazy', which we use for images below the fold, will set the attribute value to 'low'.
          */
@@ -1804,13 +1871,9 @@ declare namespace LocalJSX {
          */
         "performanceMark"?: string;
         /**
-          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
+          * With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. Type is: stringified InterfaceImageAttributesSizesConfig-Object An example could look like this: {    "breakpoints": [      {        "image": {          "height": "675",          "width": "1200"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-large-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "549",          "width": "976"        },        "mediaQueries": [          {            "conditionFeature": "min-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-small-min"            },            "conditionOperator": false          }        ]      },      {        "image": {          "height": "180",          "width": "320"        },        "mediaQueries": [          {            "conditionFeature": "max-width",            "conditionFeatureValue": {              "lyneDesignToken": true,              "value": "breakpoint-micro-max"            },            "conditionOperator": "and"          },          {            "conditionFeature": "orientation",            "conditionFeatureValue": {              "lyneDesignToken": false,              "value": "landscape"            },            "conditionOperator": false          }        ]      }    ]  }
          */
         "pictureSizesConfig"?: string;
-        /**
-          * Based on the variant, we apply specific aspect ratios to the image accross all viewports.
-         */
-        "variant"?: InterfaceImageAttributes['variant'];
     }
     interface SbbInputError {
         /**
@@ -1870,19 +1933,23 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
+          * Id which is sent in the click event payload
+         */
+        "eventId"?: string;
+        /**
           * Form attribute if link is used as button (optional)
          */
         "form"?: string;
         /**
-          * The href value you want to link to (if its not present link becomes a button)
+          * The href value you want to link to (optional, if its not present link becomes a button)
          */
-        "href"?: string;
+        "href"?: string | undefined;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
-          * The icon can either be place before or after the text.
+          * Moves the icon to the end of the component if set to true (optional).
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
@@ -1892,19 +1959,23 @@ declare namespace LocalJSX {
         /**
           * Name attribute if link is used as button (optional)
          */
-        "name"?: string;
+        "name"?: string | undefined;
         /**
-          * Negative coloring variant flag
+          * Negative coloring variant flag.
          */
         "negative"?: boolean;
         /**
-          * Text size, the link should get in the non button variation. With inline variant, the text size adapts to where it is used.
+          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
+         */
+        "onSbb-link-button_click"?: (event: SbbLinkCustomEvent<any>) => void;
+        /**
+          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
           * Type attribute if link is used as button (optional)
          */
-        "type"?: InterfaceLinkAttributes['buttonType'];
+        "type"?: InterfaceLinkAttributes['buttonType'] | undefined;
         /**
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
@@ -2086,6 +2157,32 @@ declare namespace LocalJSX {
           * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
          */
         "tag"?: InterfaceStackAttributes['tag'];
+    }
+    interface SbbTabAmount {
+    }
+    interface SbbTabGroup {
+        /**
+          * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
+         */
+        "initialSelectedIndex"?: number;
+        /**
+          * Emits an event on selected tab change
+         */
+        "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
+    }
+    interface SbbTabTitle {
+        /**
+          * Active tab state
+         */
+        "active"?: boolean;
+        /**
+          * Disabled tab state
+         */
+        "disabled"?: boolean;
+        /**
+          * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
+         */
+        "level"?: InterfaceTabTitleAttributes['level'];
     }
     interface SbbTeaser {
         /**
@@ -2489,6 +2586,9 @@ declare namespace LocalJSX {
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
+        "sbb-tab-amount": SbbTabAmount;
+        "sbb-tab-group": SbbTabGroup;
+        "sbb-tab-title": SbbTabTitle;
         "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-text-input": SbbTextInput;
@@ -2544,6 +2644,9 @@ declare module "@stencil/core" {
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
+            "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
+            "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
+            "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;

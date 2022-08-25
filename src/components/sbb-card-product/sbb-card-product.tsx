@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, Watch } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';

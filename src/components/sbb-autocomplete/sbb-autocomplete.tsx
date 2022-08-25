@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, State } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 
 import { i18nUseArrowKeysToNavigate, i18nXResultsAvailable } from '../../global/i18n';
 

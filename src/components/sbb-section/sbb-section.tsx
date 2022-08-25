@@ -1,4 +1,4 @@
-import { Component, Element, h, Host, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Host, Prop } from '@stencil/core';
 import { InterfaceSectionAttributes } from './sbb-section.custom';
 
 @Component({

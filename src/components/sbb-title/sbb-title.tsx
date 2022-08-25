@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, h, Element, JSX, Prop } from '@stencil/core';
 import { InterfaceTitleAttributes } from './sbb-title.custom';
 
 let nextId = 0;
