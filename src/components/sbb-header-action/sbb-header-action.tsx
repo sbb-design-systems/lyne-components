@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, JSX, h, Host, Prop } from '@stencil/core';
 import {
   ButtonType,
   getLinkButtonAttributeList,
@@ -52,7 +52,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
   @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
-   * Indicates wheter the browser will show the download dialog on click.
+   * Indicates whether the browser will show the download dialog on click.
    */
   @Prop() public download: boolean | undefined;
 

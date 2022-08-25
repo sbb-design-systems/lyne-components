@@ -377,7 +377,7 @@ export namespace Components {
          */
         "actionHeaderId": string;
         /**
-          * Indicates wheter the browser will show the download dialog on click.
+          * Indicates whether the browser will show the download dialog on click.
          */
         "download": boolean | undefined;
         /**
@@ -1843,7 +1843,7 @@ declare namespace LocalJSX {
          */
         "actionHeaderId"?: string;
         /**
-          * Indicates wheter the browser will show the download dialog on click.
+          * Indicates whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
         /**
