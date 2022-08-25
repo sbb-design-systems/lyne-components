@@ -282,42 +282,42 @@ export const Input = TemplateInput.bind({});
 Input.argTypes = basicArgTypes;
 Input.args = { ...basicArgs, value: 'This input value is so long that it needs ellipsis to fit.' };
 Input.documentation = {
-  title: 'sbb-form-field component with label and input',
+  title: 'sbb-form-field component with input tag and long text',
 };
 
 export const InputNoLabel = TemplateInput.bind({});
 InputNoLabel.argTypes = basicArgTypes;
 InputNoLabel.args = { ...basicArgs, label: '' };
 InputNoLabel.documentation = {
-  title: 'sbb-form-field component with label and input and no label',
+  title: 'sbb-form-field component with input tag without label',
 };
 
 export const InputWithoutBorder = TemplateInput.bind({});
 InputWithoutBorder.argTypes = basicArgTypes;
 InputWithoutBorder.args = { ...basicArgs, borderless: true };
 InputWithoutBorder.documentation = {
-  title: 'sbb-form-field component with label and input, without border',
+  title: 'sbb-form-field component with input tag and borderless',
 };
 
 export const InputDisabled = TemplateInput.bind({});
 InputDisabled.argTypes = basicArgTypes;
 InputDisabled.args = { ...basicArgs, disabled: true };
 InputDisabled.documentation = {
-  title: 'sbb-form-field component with input disabled',
+  title: 'sbb-form-field component with input tag disabled',
 };
 
 export const InputReadonly = TemplateInput.bind({});
 InputReadonly.argTypes = basicArgTypes;
 InputReadonly.args = { ...basicArgs, readonly: true };
 InputReadonly.documentation = {
-  title: 'sbb-form-field with input in readonly',
+  title: 'sbb-form-field with input tag readonly',
 };
 
-export const InputAndIcons = TemplateInputWithIcons.bind({});
-InputAndIcons.argTypes = basicArgTypes;
-InputAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
-InputAndIcons.documentation = {
-  title: 'sbb-form-field component with label, input and icons',
+export const InputOptionalAndIcons = TemplateInputWithIcons.bind({});
+InputOptionalAndIcons.argTypes = basicArgTypes;
+InputOptionalAndIcons.args = { ...basicArgs, optional: true };
+InputOptionalAndIcons.documentation = {
+  title: 'sbb-form-field component with input tag, optional label and prefix/suffix icons',
 };
 
 export const InputLongLabelAndErrorSpace = TemplateInputWithErrorSpace.bind({});
@@ -330,42 +330,42 @@ InputLongLabelAndErrorSpace.args = {
   value: 'This input value is so long that it needs ellipsis to fit.',
 };
 InputLongLabelAndErrorSpace.documentation = {
-  title: 'sbb-form-field component with label, input, error and error-space',
+  title: 'sbb-form-field component with input tag, sbb-form-error and long error message',
 };
 
 export const Select = TemplateSelect.bind({});
 Select.argTypes = basicArgTypes;
 Select.args = JSON.parse(JSON.stringify(basicArgs));
 Select.documentation = {
-  title: 'sbb-form-field component with label and select',
+  title: 'sbb-form-field component with select tag',
 };
 
 export const SelectWithoutBorder = TemplateSelect.bind({});
 SelectWithoutBorder.argTypes = basicArgTypes;
 SelectWithoutBorder.args = { ...basicArgs, borderless: true };
 SelectWithoutBorder.documentation = {
-  title: 'sbb-form-field component with label and select, without border',
+  title: 'sbb-form-field component with select tag and borderless',
 };
 
 export const SelectDisabled = TemplateSelect.bind({});
 SelectDisabled.argTypes = basicArgTypes;
 SelectDisabled.args = { ...basicArgs, disabled: true };
 SelectDisabled.documentation = {
-  title: 'sbb-form-field component with select disabled',
+  title: 'sbb-form-field component with disabled select tag',
 };
 
 export const SelectErrorSpace = TemplateSelectWithErrorSpace.bind({});
 SelectErrorSpace.argTypes = basicArgTypes;
 SelectErrorSpace.args = { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' };
 SelectErrorSpace.documentation = {
-  title: 'sbb-form-field component with label, input, error and error-space',
+  title: 'sbb-form-field component with select tag and sbb-form-error',
 };
 
-export const SelectAndIcons = TemplateSelectWithIcons.bind({});
-SelectAndIcons.argTypes = basicArgTypes;
-SelectAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
-SelectAndIcons.documentation = {
-  title: 'sbb-form-field component with label, select and icons',
+export const SelectOptionalAndIcons = TemplateSelectWithIcons.bind({});
+SelectOptionalAndIcons.argTypes = basicArgTypes;
+SelectOptionalAndIcons.args = { ...basicArgs, optional: true };
+SelectOptionalAndIcons.documentation = {
+  title: 'sbb-form-field component with select tag, optional label and prefix/suffix icons',
 };
 
 export default {
