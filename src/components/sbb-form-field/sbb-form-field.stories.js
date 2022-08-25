@@ -63,6 +63,8 @@ const TemplateInputWithErrorSpace = (args) => {
             }}
             class={args.class}
             placeholder={args.placeholder}
+            disabled={args.disabled}
+            readonly={args.readonly}
           />
           {sbbFormError}
         </sbb-form-field>
