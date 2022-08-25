@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.4.0 (2022-08-25)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-link:** rename isIconAtEnd property to iconPlacement
+
+### Bug Fixes
+
+- **sbb-link:** rename property isIconAtEnd to iconPlacement and fix stories ([#1350](https://github.com/lyne-design-system/lyne-components/issues/1350)) ([10962ec](https://github.com/lyne-design-system/lyne-components/commit/10962ec4b28ed8fec1926277c77c640e96708b6e))
+
 ### 0.3.2 (2022-08-24)
 
 ### 0.3.1 (2022-08-23)
