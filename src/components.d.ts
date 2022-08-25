@@ -489,13 +489,13 @@ export namespace Components {
          */
         "iconName"?: string;
         /**
+          * Moves the icon to the end of the component if set to true (optional).
+         */
+        "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
+        /**
           * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
-        /**
-          * Moves the icon to the end of the component if set to true (optional).
-         */
-        "isIconAtEnd"?: boolean;
         /**
           * Name attribute if link is used as button (optional)
          */
@@ -1941,13 +1941,13 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
+          * Moves the icon to the end of the component if set to true (optional).
+         */
+        "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
+        /**
           * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
-        /**
-          * Moves the icon to the end of the component if set to true (optional).
-         */
-        "isIconAtEnd"?: boolean;
         /**
           * Name attribute if link is used as button (optional)
          */
