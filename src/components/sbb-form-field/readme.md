@@ -51,6 +51,19 @@ Additionally, `<sbb-error>` applies `aria-live="polite"` by default such that as
 | `"unnamed"` | Slot to render an input/select.                        |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-autocomplete](../sbb-autocomplete)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-autocomplete --> sbb-form-field
+  style sbb-form-field fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

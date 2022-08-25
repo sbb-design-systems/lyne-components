@@ -24,15 +24,14 @@
 
 ### Depends on
 
-- [sbb-text-input](../sbb-text-input)
+- [sbb-form-field](../sbb-form-field)
 - [sbb-autocomplete-item](../sbb-autocomplete-item)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-autocomplete --> sbb-text-input
+  sbb-autocomplete --> sbb-form-field
   sbb-autocomplete --> sbb-autocomplete-item
-  sbb-text-input --> sbb-input-error
   style sbb-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

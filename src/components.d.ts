@@ -29,7 +29,6 @@ import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.cu
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
-import { InterfaceTextInputAttributes } from "./components/sbb-text-input/sbb-text-input.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
@@ -440,12 +439,6 @@ export namespace Components {
          */
         "pictureSizesConfig"?: string;
     }
-    interface SbbInputError {
-        /**
-          * The error message, we want to show.
-         */
-        "message": string;
-    }
     interface SbbJourneyHeader {
         /**
           * Journey header appearance
@@ -808,96 +801,6 @@ export namespace Components {
          */
         "text": string;
     }
-    interface SbbTextInput {
-        /**
-          * If set to true, the input element will have no border, but a drop shadow.
-         */
-        "borderless"?: boolean;
-        /**
-          * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
-         */
-        "debounceInputEvent"?: number;
-        /**
-          * Id which is sent as the id in the eventDetail payload
-         */
-        "eventId"?: string;
-        /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
-         */
-        "icon"?: string;
-        /**
-          * The aria-autocomplete attribute for the input element.
-         */
-        "inputAriaAutoComplete"?: InterfaceTextInputAttributes['inputAriaAutoComplete'];
-        /**
-          * The id to use as the aira-controls attribute for the input element.
-         */
-        "inputAriaControls"?: string;
-        /**
-          * Set aria-expanded on the input element.
-         */
-        "inputAriaExpanded"?: boolean;
-        /**
-          * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
-         */
-        "inputAutoCompleteValue"?: InterfaceTextInputAttributes['inputAutoCompleteValue'];
-        /**
-          * If set to true, the input field will be disabled.
-         */
-        "inputDisabled"?: boolean;
-        /**
-          * If set to true, we will set an an error message for the current input field.
-         */
-        "inputError"?: boolean;
-        /**
-          * Each input needs to have an individual id. If no id is provided, the component will create a unique id by itself.
-         */
-        "inputId"?: string;
-        /**
-          * Pass on a expected max length.
-         */
-        "inputMaxLength"?: number;
-        /**
-          * Pass on a expected min length.
-         */
-        "inputMinLength"?: number;
-        /**
-          * Each input should have an individual name.
-         */
-        "inputName": string;
-        /**
-          * Add a validation pattern (regex) the input should follow. Read more here: https://mzl.la/3C3HTiG
-         */
-        "inputPattern"?: string;
-        /**
-          * Add a placeholder to show what kind of input is expected.
-         */
-        "inputPlaceholder"?: string;
-        /**
-          * If set to true, an input in this field will be required.
-         */
-        "inputRequired"?: boolean;
-        /**
-          * The role attribute used for the input element.
-         */
-        "inputRole"?: InterfaceTextInputAttributes['inputRole'];
-        /**
-          * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
-         */
-        "inputType": string;
-        /**
-          * Value for the input element.
-         */
-        "inputValue"?: string;
-        /**
-          * Each input element needs to have a label associated with it.
-         */
-        "label": string;
-        /**
-          * If set to false, the label will be visually hidden but still be in the markup to provide proper semantics
-         */
-        "labelVisible"?: boolean;
-    }
     interface SbbTimetable {
     }
     interface SbbTimetableBarrierFree {
@@ -1235,12 +1138,6 @@ declare global {
         prototype: HTMLSbbImageElement;
         new (): HTMLSbbImageElement;
     };
-    interface HTMLSbbInputErrorElement extends Components.SbbInputError, HTMLStencilElement {
-    }
-    var HTMLSbbInputErrorElement: {
-        prototype: HTMLSbbInputErrorElement;
-        new (): HTMLSbbInputErrorElement;
-    };
     interface HTMLSbbJourneyHeaderElement extends Components.SbbJourneyHeader, HTMLStencilElement {
     }
     var HTMLSbbJourneyHeaderElement: {
@@ -1342,12 +1239,6 @@ declare global {
     var HTMLSbbTeaserHeroElement: {
         prototype: HTMLSbbTeaserHeroElement;
         new (): HTMLSbbTeaserHeroElement;
-    };
-    interface HTMLSbbTextInputElement extends Components.SbbTextInput, HTMLStencilElement {
-    }
-    var HTMLSbbTextInputElement: {
-        prototype: HTMLSbbTextInputElement;
-        new (): HTMLSbbTextInputElement;
     };
     interface HTMLSbbTimetableElement extends Components.SbbTimetable, HTMLStencilElement {
     }
@@ -1485,7 +1376,6 @@ declare global {
         "sbb-grid": HTMLSbbGridElement;
         "sbb-icon": HTMLSbbIconElement;
         "sbb-image": HTMLSbbImageElement;
-        "sbb-input-error": HTMLSbbInputErrorElement;
         "sbb-journey-header": HTMLSbbJourneyHeaderElement;
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-button": HTMLSbbLinkButtonElement;
@@ -1503,7 +1393,6 @@ declare global {
         "sbb-tab-title": HTMLSbbTabTitleElement;
         "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
-        "sbb-text-input": HTMLSbbTextInputElement;
         "sbb-timetable": HTMLSbbTimetableElement;
         "sbb-timetable-barrier-free": HTMLSbbTimetableBarrierFreeElement;
         "sbb-timetable-button": HTMLSbbTimetableButtonElement;
@@ -1930,12 +1819,6 @@ declare namespace LocalJSX {
          */
         "pictureSizesConfig"?: string;
     }
-    interface SbbInputError {
-        /**
-          * The error message, we want to show.
-         */
-        "message": string;
-    }
     interface SbbJourneyHeader {
         /**
           * Journey header appearance
@@ -2287,96 +2170,6 @@ declare namespace LocalJSX {
          */
         "text": string;
     }
-    interface SbbTextInput {
-        /**
-          * If set to true, the input element will have no border, but a drop shadow.
-         */
-        "borderless"?: boolean;
-        /**
-          * Debounce type for the input change event in ms. If you set this value to e.g. 300, we fire the input event only every 300ms.
-         */
-        "debounceInputEvent"?: number;
-        /**
-          * Id which is sent as the id in the eventDetail payload
-         */
-        "eventId"?: string;
-        /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
-         */
-        "icon"?: string;
-        /**
-          * The aria-autocomplete attribute for the input element.
-         */
-        "inputAriaAutoComplete"?: InterfaceTextInputAttributes['inputAriaAutoComplete'];
-        /**
-          * The id to use as the aira-controls attribute for the input element.
-         */
-        "inputAriaControls"?: string;
-        /**
-          * Set aria-expanded on the input element.
-         */
-        "inputAriaExpanded"?: boolean;
-        /**
-          * Choose either on, off or one of the existing autocomplete values. Read more about them here: https://mzl.la/3wpfaDV
-         */
-        "inputAutoCompleteValue"?: InterfaceTextInputAttributes['inputAutoCompleteValue'];
-        /**
-          * If set to true, the input field will be disabled.
-         */
-        "inputDisabled"?: boolean;
-        /**
-          * If set to true, we will set an an error message for the current input field.
-         */
-        "inputError"?: boolean;
-        /**
-          * Each input needs to have an individual id. If no id is provided, the component will create a unique id by itself.
-         */
-        "inputId"?: string;
-        /**
-          * Pass on a expected max length.
-         */
-        "inputMaxLength"?: number;
-        /**
-          * Pass on a expected min length.
-         */
-        "inputMinLength"?: number;
-        /**
-          * Each input should have an individual name.
-         */
-        "inputName": string;
-        /**
-          * Add a validation pattern (regex) the input should follow. Read more here: https://mzl.la/3C3HTiG
-         */
-        "inputPattern"?: string;
-        /**
-          * Add a placeholder to show what kind of input is expected.
-         */
-        "inputPlaceholder"?: string;
-        /**
-          * If set to true, an input in this field will be required.
-         */
-        "inputRequired"?: boolean;
-        /**
-          * The role attribute used for the input element.
-         */
-        "inputRole"?: InterfaceTextInputAttributes['inputRole'];
-        /**
-          * Define which input type you would like to use. Read more about the individual advantages here, most of the are related to show the user the most convienient keyboard: https://bit.ly/3wuQE47
-         */
-        "inputType": string;
-        /**
-          * Value for the input element.
-         */
-        "inputValue"?: string;
-        /**
-          * Each input element needs to have a label associated with it.
-         */
-        "label": string;
-        /**
-          * If set to false, the label will be visually hidden but still be in the markup to provide proper semantics
-         */
-        "labelVisible"?: boolean;
-    }
     interface SbbTimetable {
     }
     interface SbbTimetableBarrierFree {
@@ -2622,7 +2415,6 @@ declare namespace LocalJSX {
         "sbb-grid": SbbGrid;
         "sbb-icon": SbbIcon;
         "sbb-image": SbbImage;
-        "sbb-input-error": SbbInputError;
         "sbb-journey-header": SbbJourneyHeader;
         "sbb-link": SbbLink;
         "sbb-link-button": SbbLinkButton;
@@ -2640,7 +2432,6 @@ declare namespace LocalJSX {
         "sbb-tab-title": SbbTabTitle;
         "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
-        "sbb-text-input": SbbTextInput;
         "sbb-timetable": SbbTimetable;
         "sbb-timetable-barrier-free": SbbTimetableBarrierFree;
         "sbb-timetable-button": SbbTimetableButton;
@@ -2682,7 +2473,6 @@ declare module "@stencil/core" {
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
             "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;
-            "sbb-input-error": LocalJSX.SbbInputError & JSXBase.HTMLAttributes<HTMLSbbInputErrorElement>;
             "sbb-journey-header": LocalJSX.SbbJourneyHeader & JSXBase.HTMLAttributes<HTMLSbbJourneyHeaderElement>;
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-button": LocalJSX.SbbLinkButton & JSXBase.HTMLAttributes<HTMLSbbLinkButtonElement>;
@@ -2700,7 +2490,6 @@ declare module "@stencil/core" {
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
-            "sbb-text-input": LocalJSX.SbbTextInput & JSXBase.HTMLAttributes<HTMLSbbTextInputElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;
             "sbb-timetable-barrier-free": LocalJSX.SbbTimetableBarrierFree & JSXBase.HTMLAttributes<HTMLSbbTimetableBarrierFreeElement>;
             "sbb-timetable-button": LocalJSX.SbbTimetableButton & JSXBase.HTMLAttributes<HTMLSbbTimetableButtonElement>;

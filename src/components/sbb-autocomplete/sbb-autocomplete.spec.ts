@@ -7,19 +7,22 @@ describe('sbb-autocomplete', () => {
     const { root } = await newSpecPage({
       components: [SbbAutocomplete],
       html: `
-<sbb-autocomplete
-  items='${sampleData}'
-  inputName='test-input'
-  inputLabel='input-label'
-  minChars='2'
-></sbb-autocomplete>`,
+        <sbb-autocomplete
+          items='${sampleData}'
+          inputName='test-input'
+          inputLabel='input-label'
+          minChars='2'
+        ></sbb-autocomplete>
+      `,
     });
 
     expect(root).toEqualHtml(`
       <sbb-autocomplete inputlabel="input-label" inputname="test-input" items="[{&quot;text&quot;: &quot;Bern&quot;},{&quot;text&quot;: &quot;Bern, Hauptbahnhof&quot;},{&quot;text&quot;: &quot;Bern (Marzilibahn)&quot;},{&quot;text&quot;: &quot;Bern Marzili&quot;},{&quot;text&quot;: &quot;Bern Matte&quot;},{&quot;text&quot;: &quot;Bern Münsterplattform&quot;},{&quot;text&quot;: &quot;Bern Europaplatz, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Bahnhof&quot;},{&quot;text&quot;: &quot;Bern, Brunnadernstrasse&quot;},{&quot;text&quot;: &quot;Bern, Bärenplatz&quot;}]" minchars="2">
           <mock:shadow-root>
             <div class="autocomplete">
-              <sbb-text-input debounceinputevent="200" inputariaautocomplete="list" inputariacontrols="autocomplete-list" inputautocompletevalue="off" inputrequired="" inputrole="combobox" inputtype="text"></sbb-text-input>
+              <sbb-form-field>
+                <input aria-autocomplete="list" aria-controls="autocomplete-list" autocomplete="off" role="combobox" type="text">
+              </sbb-form-field>
               <p
                   class="autocomplete__accessibility-hint"
                   role='status'
