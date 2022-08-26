@@ -9,14 +9,14 @@ import {
   renderIconProduct,
   renderStringProduct,
   walkTimeAfter,
-  walkTimeBefore,
+  walkTimeBefore
 } from './sbb-timetable-row.helper';
 import { format } from 'date-fns-tz';
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
-  tag: 'sbb-timetable-row',
+  tag: 'sbb-timetable-row'
 })
 export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
@@ -82,7 +82,7 @@ export class SbbTimetableRow {
       arrivalWalk,
       tripStatus,
       occupancy,
-      duration,
+      duration
     } = this.config?.summary || {};
 
     const badgeClass = price?.length ? 'timetable__row-badge' : '';
@@ -145,7 +145,7 @@ export class SbbTimetableRow {
 
           <div class="timetable__row-footer" role="gridcell">
             <span class={tripStatus?.quayChanged ? `timetable__row-platform--changed` : ''}>
-              {arrival?.quayName}
+              {departure?.quayRtName}
             </span>
 
             {occupancy?.firstClass || occupancy?.secondClass ? (
@@ -177,7 +177,7 @@ export class SbbTimetableRow {
                     <li>
                       <sbb-icon
                         class="travel-hints__item"
-                        name={notice?.name}
+                        name={'sa-' + notice?.name.toLowerCase()}
                         aria-hidden="false"
                         aria-label={notice?.text}
                       />

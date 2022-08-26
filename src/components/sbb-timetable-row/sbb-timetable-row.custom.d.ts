@@ -7,14 +7,14 @@ export type Notice = {
   /** Text format with linkable parameters */
   text?: string;
   /** additional information, like phone, email, url according to text */
-  textArguments?: TextArgument;
+  textArguments?: TextArgument[];
   /** Type of Notice */
   type?: NoticeTypeEnum;
 };
 
 declare type TextArgument = {
   type?: TextArgumentEnum;
-  values?: string;
+  values?: string[];
 };
 
 declare enum TextArgumentEnum {
@@ -74,7 +74,7 @@ declare type TimeQuayWrapper = {
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
   quayChanged?: boolean;
   /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
-  quayName?: string;
+  quayRtName?: string;
   /** planned arrival/departure time */
   time: string;
 };
