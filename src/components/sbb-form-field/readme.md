@@ -21,10 +21,11 @@ The examples below show how to render the component:
 
 ## Accessibility
 
-`<sbb-form-field>` does not provide additional accessibility features.
+By itself, `<sbb-form-field>` does not apply any additional accessibility treatment to a form element. However, several of the form field's optional features interact with the form element contained within the form field.
 
-When `<sbb-form-error>` is present, `<sbb-form-field>` automatically adds inside the `<input>` the `aria-describedby` attribute. 
-Additionally, `<sbb-error>` applies `aria-live="polite"` by default such that assistive technology will announce errors when they appear.
+When you provide a label via `label` attribute or `slot="label"`, `<sbb-form-field>` automatically associates this label with the field's form element via a native <label> element, using the for attribute to reference the control's ID.
+
+When you provide informational text via `<sbb-form-error>`, `<sbb-form-error>` automatically adds these elements' IDs to the form element's aria-describedby attribute. Additionally, `<sbb-form-error>` applies aria-live="polite" by default such that assistive technology will announce errors when they appear.
 
 <!-- Auto Generated Below -->
 
