@@ -24,7 +24,7 @@ export class SbbFormField {
    * `default` does not reserve any space.
    * `reserve` does reserve one row for an error message.
    */
-  @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'default';
+  @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'none';
 
   /**
    * Label text for the input which is internally rendered as `<label>`.
@@ -66,6 +66,7 @@ export class SbbFormField {
    */
   @State() private _invalid = false;
 
+  /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
 
   /**
@@ -76,14 +77,16 @@ export class SbbFormField {
   /**
    * It is used internally to get the `input` slot.
    */
-  private _input: HTMLInputElement | HTMLSelectElement | HTMLElement | undefined;
+  private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
    */
-  private _formFieldAttributeObserver = new MutationObserver((mutations: MutationRecord[]) =>
-    this._onAttributesChange(mutations)
-  );
+  private _formFieldAttributeObserver = new MutationObserver((mutations: MutationRecord[]) => {
+    if (mutations.some((m) => m.type === 'attributes')) {
+      this._readInputState();
+    }
+  });
 
   public disconnectedCallback(): void {
     this._formFieldAttributeObserver.disconnect();
@@ -94,26 +97,25 @@ export class SbbFormField {
    */
   private _onSlotErrorChange(event: Event): void {
     this._errorElements = (event.target as HTMLSlotElement).assignedElements();
-    const value = this._errorElements.length
-      ? this._errorElements.map((e) => e.id).join(',')
-      : this._originalInputAriaDescribedby;
-    this._input?.setAttribute('aria-describedby', value);
+    this._applyAriaDescribedby();
   }
 
   /**
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
   private _onSlotInputChange(event: Event): void {
-    this._input = (event.target as HTMLSlotElement).assignedElements()[0] as HTMLElement;
+    this._input = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find(
+        (e): e is HTMLElement =>
+          e.tagName === 'INPUT' ||
+          e.tagName === 'SELECT' ||
+          e.classList.contains('sbb-form-field-element')
+      );
     if (this._input) {
       this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
-
-      this._readonly = this._input.hasAttribute('readonly');
-      this._disabled = this._input.hasAttribute('disabled');
-      this._invalid =
-        this._input.classList.contains('sbb-invalid') ||
-        (this._input.classList.contains('ng-touched') &&
-          this._input.classList.contains('ng-invalid'));
+      this._applyAriaDescribedby();
+      this._readInputState();
 
       this._formFieldAttributeObserver.observe(this._input, {
         attributes: true,
@@ -126,30 +128,20 @@ export class SbbFormField {
     }
   }
 
-  /**
-   * It is used internally to set the focus to the input element.
-   */
-  private _setFocus(): void {
-    this._input?.focus();
+  private _readInputState(): void {
+    this._readonly = this._input.hasAttribute('readonly');
+    this._disabled = this._input.hasAttribute('disabled');
+    this._invalid =
+      this._input.classList.contains('sbb-invalid') ||
+      (this._input.classList.contains('ng-touched') &&
+        this._input.classList.contains('ng-invalid'));
   }
 
-  /**
-   * @param mutationsList The list of the attributes
-   * It is used internally to bind on the `MutationObserver`.
-   */
-  private _onAttributesChange(mutationsList: MutationRecord[]): void {
-    for (const mutationRecord of mutationsList) {
-      if (mutationRecord.type !== 'attributes') {
-        return;
-      }
-      const inputEl = mutationRecord.target as HTMLInputElement;
-      this._disabled = inputEl.hasAttribute('disabled');
-      this._readonly = inputEl.hasAttribute('readonly');
-      const list = inputEl.classList;
-      this._invalid =
-        list.contains('sbb-invalid') ||
-        (list.contains('ng-touched') && list.contains('ng-invalid'));
-    }
+  private _applyAriaDescribedby(): void {
+    const value = this._errorElements.length
+      ? this._errorElements.map((e) => e.id).join(',')
+      : this._originalInputAriaDescribedby;
+    this._input?.setAttribute('aria-describedby', value);
   }
 
   public render(): JSX.Element {
@@ -166,7 +158,7 @@ export class SbbFormField {
       >
         <div class="form-field__space-wrapper">
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div onClick={(): void => this._setFocus()} class="form-field__wrapper">
+          <div onClick={(): void => this._input?.focus()} class="form-field__wrapper">
             <slot name="prefix"></slot>
 
             <div class="form-field__input-container">

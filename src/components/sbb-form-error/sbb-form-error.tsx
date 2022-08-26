@@ -2,6 +2,7 @@ import { Component, h, JSX, Host } from '@stencil/core';
 import { assignId } from '../../global/helpers/assign-id';
 
 let nextId = 0;
+
 @Component({
   shadow: true,
   styleUrl: './sbb-form-error.scss',
@@ -10,7 +11,7 @@ let nextId = 0;
 export class SbbFormError {
   public render(): JSX.Element {
     return (
-      <Host aria-live="polite" ref={assignId(() => `sbb-form-error-${++nextId}`)}>
+      <Host aria-live="polite" slot="error" ref={assignId(() => `sbb-form-error-${++nextId}`)}>
         <span class="form-error__icon">
           <slot name="icon">
             <svg

@@ -1,31 +1,71 @@
 # sbb-form-field
 
-The `sbb-form-field` component provides a way of rendering a form input wrapper with label and errors.
+`<sbb-form-field>` is intended to be used as a form input wrapper with label and errors.
+
+In this document, "form field" refers to the wrapper component `<sbb-form-field>` and
+"form field control" refers to the component that the `<sbb-form-field>` is wrapping
+(e.g. the input, select, etc.)
+
+The following components are designed to work inside a `<sbb-form-field>`:
+
+- `<input>`
+- `<select>`
 
 ## Usage
 
 The examples below show how to render the component:
 
 ```html
-<sbb-form-field>
-  <input slot="input" />
+<sbb-form-field label="Example">
+  <input />
 </sbb-form-field>
 
 
 <sbb-form-field>
-  <span slot="label">Input Label</span>
-  <input slot="input" />
+  <span slot="label">Example</span>
+  <input />
   <sbb-form-error>This field is required!</sbb-form-error>
+</sbb-form-field>
+```
+
+### Error messages
+
+Error messages can be shown under the form field by adding `sbb-form-error` elements inside the
+form field.
+
+#### Reserve error space
+
+In order to avoid the layout from "jumping" when an error is shown, the option of setting
+`error-space="reserve"` on the `<sbb-form-field>` will reserve space for a single line of an error
+message.
+
+### Prefix & Suffix
+
+It is possible to add content as a prefix or suffix in a `<sbb-form-field>`. This can be done via
+the `prefix` and `suffix` slots. 
+
+```html
+<sbb-form-field label="Example">
+  <sbb-icon slot="prefix" name="pie-small" />
+  <input />
+  <sbb-icon slot="suffix" name="circle-information-small" />
 </sbb-form-field>
 ```
 
 ## Accessibility
 
-By itself, `<sbb-form-field>` does not apply any additional accessibility treatment to a form element. However, several of the form field's optional features interact with the form element contained within the form field.
+By itself, `<sbb-form-field>` does not apply any additional accessibility treatment to a form
+element. However, several of the form field's optional features interact with the form element
+contained within the form field.
 
-When you provide a label via `label` attribute or `slot="label"`, `<sbb-form-field>` automatically associates this label with the field's form element via a native <label> element, using the for attribute to reference the control's ID.
+When you provide a label via `label` attribute or `slot="label"`, `<sbb-form-field>` automatically
+associates this label with the field's form element via a native <label> element, using the for
+attribute to reference the control's ID.
 
-When you provide informational text via `<sbb-form-error>`, `<sbb-form-error>` automatically adds these elements' IDs to the form element's aria-describedby attribute. Additionally, `<sbb-form-error>` applies aria-live="polite" by default such that assistive technology will announce errors when they appear.
+When you provide informational text via `<sbb-form-error>`, `<sbb-form-error>` automatically adds
+these elements' IDs to the form element's aria-describedby attribute. Additionally,
+`<sbb-form-error>` applies aria-live="polite" by default such that assistive technology will
+announce errors when they appear.
 
 <!-- Auto Generated Below -->
 

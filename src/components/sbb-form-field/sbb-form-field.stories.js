@@ -37,7 +37,7 @@ const TemplateInput = (args) => (
 );
 
 const TemplateInputWithErrorSpace = (args) => {
-  const sbbFormError = <sbb-form-error slot="error">{args.errortext}</sbb-form-error>;
+  const sbbFormError = <sbb-form-error>{args.errortext}</sbb-form-error>;
 
   return (
     <form>
@@ -95,7 +95,7 @@ const TemplateSelect = (args) => (
 );
 
 const TemplateSelectWithErrorSpace = (args) => {
-  const sbbFormError = <sbb-form-error slot="error">{args.errortext}</sbb-form-error>;
+  const sbbFormError = <sbb-form-error>{args.errortext}</sbb-form-error>;
 
   return (
     <form>
@@ -209,7 +209,7 @@ const errorSpaceArg = {
   control: {
     type: 'select',
   },
-  options: ['default', 'reserve'],
+  options: ['none', 'reserve'],
   table: {
     category: 'Form-field attribute',
   },
@@ -267,7 +267,7 @@ const basicArgTypes = {
 };
 
 const basicArgs = {
-  'error-space': 'default',
+  'error-space': 'none',
   label: 'Input name',
   optional: false,
   borderless: false,

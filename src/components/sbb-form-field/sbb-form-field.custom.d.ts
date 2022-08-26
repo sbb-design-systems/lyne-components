@@ -1,4 +1,4 @@
 export interface InterfaceSbbFormFieldAttributes {
-  errorSpace: 'default' | 'reserve';
+  errorSpace: 'none' | 'reserve';
   size: 'l' | 'm';
 }

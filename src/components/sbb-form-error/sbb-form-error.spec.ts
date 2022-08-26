@@ -5,11 +5,11 @@ describe('sbb-form-error', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbFormError],
-      html: '<sbb-form-error><span slot="error">Required</span></sbb-form-error>',
+      html: '<sbb-form-error>Required</sbb-form-error>',
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-error aria-live="polite" id="sbb-form-error-1">
+      <sbb-form-error aria-live="polite" id="sbb-form-error-1" slot="error">
           <mock:shadow-root>
             <span class="form-error__icon">
               <slot name='icon'>
@@ -32,7 +32,7 @@ describe('sbb-form-error', () => {
               <slot></slot>
             </span>
           </mock:shadow-root>
-          <span slot="error">Required</span>
+          Required
         </sbb-form-error>
       `);
   });
