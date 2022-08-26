@@ -6,7 +6,7 @@ describe('sbb-button', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-button label="I am a button"></sbb-button>');
+    await page.setContent('<sbb-button>I am a button</sbb-button>');
     element = await page.find('sbb-button');
   });
 
@@ -16,18 +16,14 @@ describe('sbb-button', () => {
   });
 
   it('renders button text', async () => {
-    const buttonText = 'Custom Button Text';
-
-    element.setProperty('label', buttonText);
     await page.waitForChanges();
     const button = await page.find('sbb-button >>> .button__label');
 
-    expect(button.textContent).toEqual(buttonText);
+    expect(button.innerHTML).toEqual('<slot></slot>');
   });
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      element.setProperty('text', 'Custom Button Text');
       await page.waitForChanges();
       const button = await page.find('sbb-button >>> button');
       const changeSpy = await page.spyOnEvent(events.click);
@@ -37,7 +33,6 @@ describe('sbb-button', () => {
     });
 
     it('dispatches correct event payload on click with no id', async () => {
-      element.setProperty('text', 'Custom Button Text');
       await page.waitForChanges();
       const button = await page.find('sbb-button >>> button');
       const changeSpy = await page.spyOnEvent(events.click);
@@ -49,7 +44,6 @@ describe('sbb-button', () => {
     it('dispatches correct event payload on click with id', async () => {
       const buttonId = 'buttonId';
 
-      element.setProperty('text', 'Custom Button Text');
       element.setProperty('eventId', buttonId);
       await page.waitForChanges();
       const button = await page.find('sbb-button >>> button');

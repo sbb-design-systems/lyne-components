@@ -160,6 +160,10 @@ export namespace Components {
          */
         "eventId"?: string;
         /**
+          * The href value you want to link to
+         */
+        "href"?: string;
+        /**
           * Define if icon should be shown or not
          */
         "icon"?: boolean;
@@ -172,9 +176,9 @@ export namespace Components {
          */
         "iconName"?: string;
         /**
-          * Label text to show on the button
+          * set as icon-only, no label, no text
          */
-        "label"?: string;
+        "iconOnly": boolean;
         /**
           * The name attribute to use for the button
          */
@@ -197,7 +201,7 @@ export namespace Components {
          */
         "variant"?: InterfaceButtonAttributes['variant'];
         /**
-          * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
     }
@@ -1510,6 +1514,10 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
+          * The href value you want to link to
+         */
+        "href"?: string;
+        /**
           * Define if icon should be shown or not
          */
         "icon"?: boolean;
@@ -1522,9 +1530,9 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * Label text to show on the button
+          * set as icon-only, no label, no text
          */
-        "label"?: string;
+        "iconOnly"?: boolean;
         /**
           * The name attribute to use for the button
          */
@@ -1551,7 +1559,7 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceButtonAttributes['variant'];
         /**
-          * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
     }

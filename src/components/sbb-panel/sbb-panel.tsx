@@ -28,12 +28,14 @@ export class SbbPanel {
 
         <sbb-button
           class="panel__button"
-          label={this.buttonText}
-          variant="secondary-negative"
+          variant="secondary"
+          negative={true}
           size="m"
           event-id={this.eventId}
-          visual-button-only
-        />
+          visual-button-only={true}
+        >
+          {this.buttonText}
+        </sbb-button>
       </div>
     );
   }

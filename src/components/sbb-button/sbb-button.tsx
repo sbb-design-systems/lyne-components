@@ -7,8 +7,8 @@ import { InterfaceButtonAttributes } from './sbb-button.custom';
   tag: 'sbb-button',
 })
 export class SbbButton {
-  /** Label text to show on the button */
-  @Prop() public label? = '';
+  /** set as icon-only, no label, no text */
+  @Prop() public iconOnly = false;
 
   /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
@@ -16,8 +16,11 @@ export class SbbButton {
   /** Size variant, either l or m. */
   @Prop() public size?: InterfaceButtonAttributes['size'] = 'l';
 
+  /** The href value you want to link to */
+  @Prop() public href?: string;
+
   /**
-   * Set this property to true if you want only a visual represenation of a
+   * Set this property to true if you want only a visual representation of a
    * button, but no interaction (a div instead of a button will be rendered).
    */
   @Prop() public visualButtonOnly?: boolean;
@@ -77,51 +80,56 @@ export class SbbButton {
   public click: EventEmitter<any>;
 
   public render(): JSX.Element {
-    const hasNoLabel = !this.label || this.label.length < 1;
-
-    // security exit, if neither label nor icon is provided via props
-    if (hasNoLabel && !this.icon) {
-      return <p>Config error: either label or icon must be provided</p>;
-    }
-
-    // security exit for icon only button with no icon description
-    if (hasNoLabel && this.icon && !this.iconDescription) {
-      return <p>Config error: you must provide an icon description</p>;
-    }
-
     const sizeClass = `button--size-${this.size}`;
     const variantClass = `button--${this.variant}`;
-    const iconClass = hasNoLabel ? 'button--icon-only' : '';
+    const iconClass = this.iconOnly ? 'button--icon-only' : '';
     const semanticClass = this.visualButtonOnly ? 'button--visual-only' : '';
-    const negativeClass = this.negative ? ' sbb-link--negative' : '';
+    const negativeClass = this.negative ? ' button--negative' : '';
 
     const buttonClass = `button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass} ${negativeClass}`;
 
     const TAGNAME = this.visualButtonOnly ? 'span' : this.type;
 
-    const mainAttributes = {
+    const baseAttributes: object = {
       class: buttonClass,
     };
 
-    const buttonAttributes = {
-      ...mainAttributes,
-      'aria-haspopup': this.ariaHaspopup,
-      disabled: this.disabled,
-      name: this.name,
-      onClick: (): void => {
-        if (!this.visualButtonOnly) {
-          this.click.emit(this.eventId);
-        }
-      },
-      type: this.buttonType,
-      value: this.value,
-    };
-
-    const finalAttributes = this.visualButtonOnly ? mainAttributes : buttonAttributes;
+    let finalAttributes = baseAttributes;
+    if (this.visualButtonOnly || this.type === 'span') {
+      // is static: no additional attributes
+      finalAttributes = baseAttributes;
+    } else if (this.type === 'a') {
+      // is a link
+      finalAttributes = {
+        ...baseAttributes,
+        href: this.href,
+        value: this.value,
+        onClick: (): void => {
+          if (!this.visualButtonOnly) {
+            this.click.emit(this.eventId);
+          }
+        },
+      };
+    } else {
+      // is a button
+      finalAttributes = {
+        ...baseAttributes,
+        'aria-haspopup': this.ariaHaspopup,
+        disabled: this.disabled,
+        name: this.name,
+        onClick: (): void => {
+          if (!this.visualButtonOnly) {
+            this.click.emit(this.eventId);
+          }
+        },
+        type: this.buttonType,
+        value: this.value,
+      };
+    }
 
     return (
       <TAGNAME {...finalAttributes}>
-        {this.icon && hasNoLabel && this.iconDescription && (
+        {this.icon && this.iconDescription && (
           <span class="button__icon-description">{this.iconDescription}</span>
         )}
 
@@ -131,7 +139,7 @@ export class SbbButton {
           </span>
         )}
 
-        {!hasNoLabel && (
+        {!this.iconOnly && (
           <span class="button__label">
             <slot />
           </span>

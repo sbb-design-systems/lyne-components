@@ -15,7 +15,7 @@ describe('sbb-panel', () => {
               <p class="panel__text">
                 Example panel text
               </p>
-              <sbb-button class="panel__button" label="Button text" size="m" variant="secondary-negative" visual-button-only=""></sbb-button>
+              <sbb-button class="panel__button" size="m" variant="secondary" negative="" visual-button-only="">Button text</sbb-button>
             </div>
           </mock:shadow-root>
         </sbb-panel>

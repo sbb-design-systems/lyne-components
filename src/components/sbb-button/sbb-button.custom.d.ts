@@ -1,13 +1,5 @@
 export interface InterfaceButtonAttributes {
-  variant:
-    | 'primary'
-    | 'primary-negative'
-    | 'secondary'
-    | 'secondary-negative'
-    | 'translucent'
-    | 'translucent-negative'
-    | 'transparent'
-    | 'transparent-negative';
+  variant: 'primary' | 'secondary' | 'translucent' | 'transparent';
   size: 'l' | 'm';
   type: 'button' | 'a' | 'span';
   buttonType: 'button' | 'reset' | 'submit';
