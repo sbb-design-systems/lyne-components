@@ -74,7 +74,7 @@ describe('sbb-timetable-row', () => {
                 </div>
                 <div class="timetable__row-footer" role="gridcell">
                   <span class="timetable__row-platform--changed">
-                    Gl. 88
+                    7
                   </span>
                   <div>
                     <ul class="timetable__row-occupancy" role="list">
@@ -90,16 +90,16 @@ describe('sbb-timetable-row', () => {
                   </div>
                   <ul class="timetable__row-hints" role="list">
                     <li>
-                      <sbb-icon aria-hidden="false" class="travel-hints__item" name="sa-rr"></sbb-icon>
+                      <sbb-icon aria-hidden="false" aria-label="Tilting train" class="travel-hints__item" name="sa-rr"></sbb-icon>
                     </li>
                     <li>
-                      <sbb-icon aria-hidden="false" class="travel-hints__item" name="sa-z"></sbb-icon>
+                      <sbb-icon aria-hidden="false" aria-label="Tilting train" class="travel-hints__item" name="sa-z"></sbb-icon>
                     </li>
                     <li>
-                      <sbb-icon aria-hidden="false" class="travel-hints__item" name="sa-om"></sbb-icon>
+                      <sbb-icon aria-hidden="false" aria-label="Tilting train" class="travel-hints__item" name="sa-om"></sbb-icon>
                     </li>
                     <li>
-                      <sbb-icon aria-hidden="false" class="travel-hints__item" name="sa-fs"></sbb-icon>
+                      <sbb-icon aria-hidden="false" aria-label="Tilting train" class="travel-hints__item" name="sa-fs"></sbb-icon>
                     </li>
                   </ul>
                   <time>

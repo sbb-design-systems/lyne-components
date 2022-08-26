@@ -16,55 +16,45 @@ export const config = {
   ],
   notices: [
     {
-      name: 'sa-z',
-      text: {
-        template: 'Tilting train',
-        arguments: null,
-      },
+      name: 'z',
+      text: 'Tilting train',
       type: 'ATTRIBUTE',
       priority: 10,
       routeIndexFrom: 6,
       routeIndexTo: 9,
     },
     {
-      name: 'sa-rr',
-      text: {
-        template: 'Tilting train',
-        arguments: null,
-      },
+      name: 'rr',
+      text: 'Tilting train',
       type: 'ATTRIBUTE',
       priority: 100,
       routeIndexFrom: 6,
       routeIndexTo: 9,
     },
     {
-      name: 'sa-om',
-      text: {
-        template: 'Tilting train',
-        arguments: null,
-      },
+      name: 'om',
+      text: 'Tilting train',
+      textArguments: [
+        {
+          values: ['www.swiss.com/airrail'],
+        },
+      ],
       type: 'ATTRIBUTE',
       priority: 40,
       routeIndexFrom: 6,
       routeIndexTo: 9,
     },
     {
-      name: 'sa-fs',
-      text: {
-        template: 'Tilting train',
-        arguments: null,
-      },
+      name: 'fs',
+      text: 'Tilting train',
       type: 'ATTRIBUTE',
       priority: 20,
       routeIndexFrom: 6,
       routeIndexTo: 9,
     },
     {
-      name: 'sa-z',
-      text: {
-        template: 'Tilting train',
-        arguments: null,
-      },
+      name: 'z',
+      text: 'Tilting train',
       type: 'ATTRIBUTE',
       priority: 100,
       routeIndexFrom: 6,
@@ -76,14 +66,14 @@ export const config = {
     arrival: {
       delay: 0,
       quayChanged: false,
-      quayName: 'Gl. 88',
+      quayRtName: 'Gl. 88',
       time: '2022-10-28T21:16:00+02:00',
     },
     arrivalWalk: 5,
     departure: {
       delay: 0,
       quayChanged: false,
-      quayName: '7',
+      quayRtName: '7',
       time: '2022-10-28T02:48:00+02:00',
     },
     departureWalk: 8,
@@ -135,7 +125,7 @@ export const configPosition = {
   ],
   notices: [
     {
-      name: 'sa-z',
+      name: 'Z',
       text: {
         template: 'Tilting train',
         arguments: null,
@@ -146,7 +136,7 @@ export const configPosition = {
       routeIndexTo: 9,
     },
     {
-      name: 'sa-rr',
+      name: 'RR',
       text: {
         template: 'Tilting train',
         arguments: null,
@@ -157,7 +147,7 @@ export const configPosition = {
       routeIndexTo: 9,
     },
     {
-      name: 'sa-om',
+      name: 'om',
       text: {
         template: 'Tilting train',
         arguments: null,
@@ -168,7 +158,7 @@ export const configPosition = {
       routeIndexTo: 9,
     },
     {
-      name: 'sa-fs',
+      name: 'FS',
       text: {
         template: 'Tilting train',
         arguments: null,
@@ -179,7 +169,7 @@ export const configPosition = {
       routeIndexTo: 9,
     },
     {
-      name: 'sa-z',
+      name: 'Z',
       text: {
         template: 'Tilting train',
         arguments: null,
@@ -195,14 +185,14 @@ export const configPosition = {
     arrival: {
       delay: 0,
       quayChanged: false,
-      quayName: 'Gl. 88',
+      quayRtName: 'Gl. 88',
       time: '2022-07-28T13:48:00+02:00',
     },
     arrivalWalk: 5,
     departure: {
       delay: 0,
       quayChanged: false,
-      quayName: '7',
+      quayRtName: 'Gl. 88',
       time: '2022-07-28T13:16:00+02:00',
     },
     departureWalk: 8,
@@ -245,13 +235,13 @@ export const configMinimal = {
     arrival: {
       delay: 0,
       quayChanged: false,
-      quayName: 'Gl. 88',
+      quayRtName: 'Gl. 88',
       time: '2022-07-28T13:48:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
-      quayName: '7',
+      quayRtName: '7',
       time: '2022-07-28T13:16:00+02:00',
     },
     direction: 'Mars',
@@ -281,13 +271,13 @@ export const configCancelled = {
     arrival: {
       delay: 0,
       quayChanged: false,
-      quayName: 'Gl. 88',
+      quayRtName: 'Gl. 88',
       time: '2022-07-28T13:48:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
-      quayName: '7',
+      quayRtName: '7',
       time: '2022-07-28T13:16:00+02:00',
     },
     direction: 'Mars',
@@ -347,13 +337,13 @@ export const configCancelledStops = {
     arrival: {
       delay: 0,
       quayChanged: false,
-      quayName: 'Gl. 88',
+      quayRtName: 'Gl. 88',
       time: '2022-07-28T13:48:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
-      quayName: '7',
+      quayRtName: '7',
       time: '2022-07-28T13:16:00+02:00',
     },
     direction: 'Mars',
@@ -408,14 +398,14 @@ export const configPast = {
     arrival: {
       delay: 0,
       quayChanged: false,
-      quayName: 'Gl. 88',
-      time: '2022-07-28T13:48:00+02:00',
+      quayRtName: 'Gl. 88',
+      time: '2021-08-04T20:00:00+02:00',
     },
     departure: {
       delay: 0,
       quayChanged: false,
-      quayName: '7',
-      time: '2022-07-28T13:16:00+02:00',
+      quayRtName: '7',
+      time: '2020-08-04T15:00:00+02:00',
     },
     direction: 'Mars',
     duration: 20,
