@@ -23,6 +23,7 @@ import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
+import { InterfaceJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
@@ -737,6 +738,9 @@ export namespace Components {
           * Journey header size
          */
         "size"?: InterfaceJourneyHeaderAttributes['size'];
+    }
+    interface SbbJourneySummary {
+        "summaryConfig": InterfaceJourneySummaryAttributes['config'];
     }
     interface SbbLink {
         /**
@@ -1581,6 +1585,12 @@ declare global {
         prototype: HTMLSbbJourneyHeaderElement;
         new (): HTMLSbbJourneyHeaderElement;
     };
+    interface HTMLSbbJourneySummaryElement extends Components.SbbJourneySummary, HTMLStencilElement {
+    }
+    var HTMLSbbJourneySummaryElement: {
+        prototype: HTMLSbbJourneySummaryElement;
+        new (): HTMLSbbJourneySummaryElement;
+    };
     interface HTMLSbbLinkElement extends Components.SbbLink, HTMLStencilElement {
     }
     var HTMLSbbLinkElement: {
@@ -1820,6 +1830,7 @@ declare global {
         "sbb-icon": HTMLSbbIconElement;
         "sbb-image": HTMLSbbImageElement;
         "sbb-journey-header": HTMLSbbJourneyHeaderElement;
+        "sbb-journey-summary": HTMLSbbJourneySummaryElement;
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
@@ -2568,6 +2579,9 @@ declare namespace LocalJSX {
          */
         "size"?: InterfaceJourneyHeaderAttributes['size'];
     }
+    interface SbbJourneySummary {
+        "summaryConfig": InterfaceJourneySummaryAttributes['config'];
+    }
     interface SbbLink {
         /**
           * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
@@ -3273,6 +3287,7 @@ declare namespace LocalJSX {
         "sbb-icon": SbbIcon;
         "sbb-image": SbbImage;
         "sbb-journey-header": SbbJourneyHeader;
+        "sbb-journey-summary": SbbJourneySummary;
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
@@ -3337,6 +3352,7 @@ declare module "@stencil/core" {
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
             "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;
             "sbb-journey-header": LocalJSX.SbbJourneyHeader & JSXBase.HTMLAttributes<HTMLSbbJourneyHeaderElement>;
+            "sbb-journey-summary": LocalJSX.SbbJourneySummary & JSXBase.HTMLAttributes<HTMLSbbJourneySummaryElement>;
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;

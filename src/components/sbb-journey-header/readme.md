@@ -16,6 +16,19 @@
 | `size`                     | `size`              | Journey header size                                                                                                                                                                                    | `"4" \| "5"`                                                    | `'5'`       |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-journey-summary](../sbb-journey-summary)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-journey-summary --> sbb-journey-header
+  style sbb-journey-header fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 
