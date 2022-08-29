@@ -112,6 +112,15 @@ const disabledArg = {
   },
 };
 
+const eventId = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'General properties',
+  },
+};
+
 const label = {
   control: {
     type: 'text',
@@ -156,6 +165,7 @@ const basicArgTypes = {
   size,
   disabled: disabledArg,
   label,
+  eventId,
   icon,
   iconSlot,
   'icon-description': iconDescription,
@@ -166,6 +176,7 @@ const basicArgs = {
   size: size.options[0],
   disabled: false,
   label: 'Button',
+  'event-id': 'Event ID',
   icon: true,
   iconSlot: iconSlot.options[0],
   name: 'sample-name',

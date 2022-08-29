@@ -5,6 +5,7 @@ import {
   Event,
   EventEmitter,
   h,
+  JSX,
   Method,
   Prop,
 } from '@stencil/core';

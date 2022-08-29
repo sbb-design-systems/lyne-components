@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 
 import { InterfaceSignetAttributes } from './sbb-signet.custom';
 import sbbSignetSVG from './assets/sbb_signet.svg';
