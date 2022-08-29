@@ -90,6 +90,10 @@ export namespace Components {
           * Dismiss the alert.
          */
         "dismiss": () => Promise<void>;
+        /**
+          * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
+         */
+        "iconName": string;
         "internalId": string;
         /**
           * Present the alert.
@@ -1511,6 +1515,10 @@ declare namespace LocalJSX {
           * Whether the fade in animation should be disabled.
          */
         "disableAnimation"?: boolean;
+        /**
+          * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
+         */
+        "iconName"?: string;
         "internalId"?: string;
         /**
           * Emits when the alert was hidden.

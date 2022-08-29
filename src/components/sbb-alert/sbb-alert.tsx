@@ -1,7 +1,6 @@
 import { Component, Element, Event, EventEmitter, h, JSX, Host, Method, Prop } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 
-import infoIcon from 'lyne-icons/dist/icons/info.svg';
 import circleCrossSmallIcon from 'lyne-icons/dist/icons/circle-cross-small.svg';
 import { i18nCloseAlert } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
@@ -9,8 +8,8 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 let nextId = 0;
 
 /**
- * @slot icon - Pass a svg to display an icon left to the title.
- * @slot content - Pass html-content to show as the content of the alert.
+ * @slot icon - Should be a sbb-icon which is displayed next to the title.
+ * @slot unnamed - Content of the alert.
  */
 @Component({
   shadow: true,
@@ -18,6 +17,10 @@ let nextId = 0;
   tag: 'sbb-alert',
 })
 export class SbbAlert {
+
+  /**
+   * @internal
+   */
   @Prop({
     attribute: 'id',
     reflect: true,
@@ -43,6 +46,13 @@ export class SbbAlert {
    */
   @Prop()
   public ariaLivePoliteness: InterfaceAlertAttributes['ariaLivePoliteness'] = 'assertive';
+
+  /**
+   * Name of the icon which will be forward to the nested `sbb-icon`.
+   * Choose the icons from https://lyne.sbb.ch/tokens/icons/.
+   * Styling is optimized for icons of type HIM-CUS.
+   */
+  @Prop() public iconName: string = 'info';
 
   /** Emits when the fade in animation starts. */
   @Event({
@@ -168,9 +178,9 @@ export class SbbAlert {
               }
             }}
           >
-            <span class="sbb-alert__icon" aria-hidden="true">
+            <span class="sbb-alert__icon">
               <slot name="icon">
-                <span innerHTML={infoIcon} />
+                <sbb-icon name={this.iconName}></sbb-icon>
               </slot>
             </span>
             <span class="sbb-alert__content">

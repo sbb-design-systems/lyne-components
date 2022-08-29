@@ -10,8 +10,6 @@
   --sbb-alert-padding: var(--sbb-spacing-responsive-xxxs);
   --sbb-alert-title-font-size: var(--sbb-font-size-title-5);
   --sbb-alert-title-line-height: var(--sbb-typo-line-height-body-text);
-
-  // TODO: with sbb icon component, handle also other sizes
   --sbb-alert-icon-size: var(--sbb-size-icon-timetable-him-cus);
   --sbb-alert-close-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-alert-gap: var(--sbb-spacing-fixed-2x);
@@ -58,6 +56,9 @@
 
   // Align the height to the line-height. Because the line-height is written as a multiplier, we need to multiply it by the font-size.
   height: calc(var(--sbb-alert-title-font-size) * var(--sbb-alert-title-line-height));
+
+  --sbb-icon-svg-width: var(--sbb-alert-icon-size);
+  --sbb-icon-svg-height: var(--sbb-alert-icon-size);
 }
 
 .sbb-alert__content {
@@ -89,12 +90,4 @@
   --sbb-typo-line-height-titles: var(--sbb-alert-title-line-height);
   --sbb-typo-line-height-body-text: var(--sbb-alert-title-line-height);
   --_title-text-color-normal: var(--sbb-color-milk-default);
-}
-
-::slotted(svg[slot='icon']),
-slot[name='icon'] svg {
-  display: block;
-  height: var(--sbb-alert-icon-size);
-  width: var(--sbb-alert-icon-size);
-  fill: currentcolor;
 }

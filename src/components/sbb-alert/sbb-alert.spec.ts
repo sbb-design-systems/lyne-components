@@ -13,9 +13,9 @@ describe('sbb-alert', () => {
           <mock:shadow-root>
             <div class="sbb-alert__transition-wrapper" style="height: undefinedpx;">
               <div class="sbb-alert sbb-alert--size-m" style="opacity: 0;">
-                <span aria-hidden="true" class="sbb-alert__icon">
+                <span class="sbb-alert__icon">
                   <slot name="icon">
-                    <span></span>
+                    <sbb-icon name="info"></sbb-icon>
                   </slot>
                 </span>
                 <span class="sbb-alert__content">
