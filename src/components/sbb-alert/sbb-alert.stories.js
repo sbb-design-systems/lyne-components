@@ -6,7 +6,7 @@ import { h } from 'jsx-dom';
 const TemplateDefaultIcon = (args) => (
   <div>
     <sbb-alert {...args}>
-      <sbb-title text="Streckenunterbruch zwischen Stadelhofen und Zürich HB" />
+      <sbb-title>Streckenunterbruch zwischen Stadelhofen und Zürich HB</sbb-title>
       Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils zwischen 22:30 – 06:00 Uhr
       Bauarbeiten statt. Sie müssen mit geänderten Fahrzeiten und geänderten Anschlüssen rechnen.{' '}
       <sbb-link text="Mehr erfahren" href-value="#" variant="inline-negative"></sbb-link>
@@ -45,7 +45,7 @@ customIconSvg.setAttribute('slot', 'icon');
 const TemplateCustomIcon = (args) => (
   <sbb-alert {...args}>
     {customIconSvg}
-    <sbb-title text="Streckenunterbruch zwischen Stadelhofen und Zürich HB" />
+    <sbb-title>Streckenunterbruch zwischen Stadelhofen und Zürich HB</sbb-title>
     {getMarkupForSvg('disruption')}
     Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils zwischen 22:30 – 06:00 Uhr
     Bauarbeiten statt. Sie müssen mit geänderten Fahrzeiten und geänderten Anschlüssen rechnen.
@@ -70,28 +70,40 @@ const size = {
   options: ['m', 'l'],
 };
 
+const disabledArg = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const readonlyArg = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes = {
   'aria-live-politeness': ariaLivePoliteness,
-  disableAnimation: false,
-  readonly: true,
+  'disable-animation': disabledArg,
+  readonly: readonlyArg,
   size,
 };
 
 const defaultArgs = {
   'aria-live-politeness': ariaLivePoliteness.options[1],
-  disableAnimation: false,
+  'disable-animation': false,
   readonly: false,
   size: size.options[0],
 };
 
 defaultIcon.argTypes = defaultArgTypes;
-defaultIcon.args = JSON.parse(JSON.stringify(defaultArgs));
+defaultIcon.args = { ...defaultArgs };
 defaultIcon.documentation = {
   title: 'Alert with default icon',
 };
 
 customIcon.argTypes = defaultArgTypes;
-customIcon.args = JSON.parse(JSON.stringify(defaultArgs));
+customIcon.args = { ...defaultArgs };
 customIcon.documentation = {
   title: 'Alert with a custom icon',
 };

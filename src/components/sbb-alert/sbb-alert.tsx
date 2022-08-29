@@ -1,17 +1,17 @@
 import { Component, Element, Event, EventEmitter, h, JSX, Host, Method, Prop } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
-import { guid } from '../../global/guid';
 
 import infoIcon from 'lyne-icons/dist/icons/info.svg';
 import circleCrossSmallIcon from 'lyne-icons/dist/icons/circle-cross-small.svg';
 import { i18nCloseAlert } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
+let nextId = 0;
+
 /**
  * @slot icon - Pass a svg to display an icon left to the title.
  * @slot content - Pass html-content to show as the content of the alert.
  */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-alert.scss',
@@ -20,48 +20,43 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 export class SbbAlert {
   @Prop({
     attribute: 'id',
+    reflect: true,
   })
-  public internalId: InterfaceAlertAttributes['id'] = `sbb-alert-${guid()}`;
+  public internalId = `sbb-alert-${++nextId}`;
 
   /**
    * Whether the alert is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
    */
-  @Prop() public readonly: InterfaceAlertAttributes['readonly'] = true;
+  @Prop({ reflect: true }) public readonly = false;
 
   /** You can choose between `m` or `l` size. */
   @Prop() public size: InterfaceAlertAttributes['size'] = 'm';
 
   /** Whether the fade in animation should be disabled. */
-  @Prop()
-  public disableAnimation: InterfaceAlertAttributes['disableAnimation'] = false;
+  @Prop() public disableAnimation = false;
 
   /**
    * Aria-live politeness defines how to announce the alert to the user.
    * Choose between `off`, `polite` and `assertive`.
+   * As the role `alert` is applied too, default is `assertive`.
    */
   @Prop()
-  public ariaLivePoliteness: InterfaceAlertAttributes['ariaLivePoliteness'] = 'polite';
+  public ariaLivePoliteness: InterfaceAlertAttributes['ariaLivePoliteness'] = 'assertive';
 
-  /**
-   * Emits when the fade in animation starts.
-   */
+  /** Emits when the fade in animation starts. */
   @Event({
     eventName: 'sbb-alert_will-present',
   })
   public willPresent: EventEmitter<void>;
 
-  /**
-   * Emits when the fade in animation ends and the button is displayed.
-   */
+  /** Emits when the fade in animation ends and the button is displayed. */
   @Event({
     eventName: 'sbb-alert_did-present',
   })
   public didPresent: EventEmitter<void>;
 
-  /**
-   * Emits when the alert was hidden.
-   */
+  /** Emits when the alert was hidden. */
   @Event({
     eventName: 'sbb-alert_did-dismiss',
   })
@@ -91,12 +86,10 @@ export class SbbAlert {
     }
     this.willPresent.emit();
     this.presented = true;
-
     this._initFadeInTransitionStyles();
 
     if (this.disableAnimation) {
       this._onHeightTransitionEnd();
-
       return;
     }
 
@@ -116,7 +109,6 @@ export class SbbAlert {
 
     if (this.disableAnimation) {
       this._onOpacityTransitionEnd();
-
       return;
     }
 
@@ -137,7 +129,6 @@ export class SbbAlert {
     }
 
     this.presented = false;
-
     this._element.style.display = 'none';
     this.didDismiss.emit();
   }
@@ -153,12 +144,10 @@ export class SbbAlert {
   }
 
   public render(): JSX.Element {
-    const readonly = this.readonly ? ' sbb-alert--readonly' : '';
-
     const a11yCloseAlert = i18nCloseAlert[this._currentLanguage];
 
     return (
-      <Host role="alert" aria-live={this.ariaLivePoliteness} id={this.internalId}>
+      <Host role="alert" aria-live={this.ariaLivePoliteness}>
         <div
           class="sbb-alert__transition-wrapper"
           ref={(el): void => {
@@ -166,7 +155,10 @@ export class SbbAlert {
           }}
         >
           <div
-            class={`sbb-alert sbb-alert--size-${this.size}${readonly}`}
+            class={{
+              'sbb-alert': true,
+              [`sbb-alert--size-${this.size}`]: true,
+            }}
             ref={(el): void => {
               const isFirstInitialization = !this._alertElement;
 
@@ -184,7 +176,7 @@ export class SbbAlert {
             <span class="sbb-alert__content">
               <slot />
             </span>
-            {!readonly && (
+            {!this.readonly && (
               <span class="sbb-alert__close-button-wrapper">
                 <sbb-button
                   variant="transparent-negative"

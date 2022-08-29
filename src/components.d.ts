@@ -79,18 +79,18 @@ export namespace Components {
     }
     interface SbbAlert {
         /**
-          * Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`.
+          * Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`. As the role `alert` is applied too, default is `assertive`.
          */
         "ariaLivePoliteness": InterfaceAlertAttributes['ariaLivePoliteness'];
         /**
           * Whether the fade in animation should be disabled.
          */
-        "disableAnimation": InterfaceAlertAttributes['disableAnimation'];
+        "disableAnimation": boolean;
         /**
           * Dismiss the alert.
          */
         "dismiss": () => Promise<void>;
-        "internalId": InterfaceAlertAttributes['id'];
+        "internalId": string;
         /**
           * Present the alert.
          */
@@ -98,7 +98,7 @@ export namespace Components {
         /**
           * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
-        "readonly": InterfaceAlertAttributes['readonly'];
+        "readonly": boolean;
         /**
           * You can choose between `m` or `l` size.
          */
@@ -1504,14 +1504,14 @@ declare namespace LocalJSX {
     }
     interface SbbAlert {
         /**
-          * Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`.
+          * Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`. As the role `alert` is applied too, default is `assertive`.
          */
         "ariaLivePoliteness"?: InterfaceAlertAttributes['ariaLivePoliteness'];
         /**
           * Whether the fade in animation should be disabled.
          */
-        "disableAnimation"?: InterfaceAlertAttributes['disableAnimation'];
-        "internalId"?: InterfaceAlertAttributes['id'];
+        "disableAnimation"?: boolean;
+        "internalId"?: string;
         /**
           * Emits when the alert was hidden.
          */
@@ -1527,7 +1527,7 @@ declare namespace LocalJSX {
         /**
           * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
-        "readonly"?: InterfaceAlertAttributes['readonly'];
+        "readonly"?: boolean;
         /**
           * You can choose between `m` or `l` size.
          */
