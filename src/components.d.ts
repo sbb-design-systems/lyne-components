@@ -324,7 +324,7 @@ export namespace Components {
          */
         "borderless": boolean;
         /**
-          * Whether to reserve space for an error message. `default` does not reserve any space. `reserve` does reserve one row for an error message.
+          * Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.
          */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         /**
@@ -1704,7 +1704,7 @@ declare namespace LocalJSX {
          */
         "borderless"?: boolean;
         /**
-          * Whether to reserve space for an error message. `default` does not reserve any space. `reserve` does reserve one row for an error message.
+          * Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.
          */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         /**

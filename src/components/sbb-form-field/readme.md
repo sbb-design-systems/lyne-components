@@ -72,13 +72,13 @@ announce errors when they appear.
 
 ## Properties
 
-| Property     | Attribute     | Description                                                                                                                               | Type                  | Default     |
-| ------------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------- |
-| `borderless` | `borderless`  | Whether to display the form field without a border.                                                                                       | `boolean`             | `false`     |
-| `errorSpace` | `error-space` | Whether to reserve space for an error message. `default` does not reserve any space. `reserve` does reserve one row for an error message. | `"none" \| "reserve"` | `'none'`    |
-| `label`      | `label`       | Label text for the input which is internally rendered as `<label>`.                                                                       | `string`              | `undefined` |
-| `optional`   | `optional`    | Indicates whether the input is optional.                                                                                                  | `boolean`             | `undefined` |
-| `size`       | `size`        | Size variant, either l or m.                                                                                                              | `"l" \| "m"`          | `'m'`       |
+| Property     | Attribute     | Description                                                                                                                            | Type                  | Default     |
+| ------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------- |
+| `borderless` | `borderless`  | Whether to display the form field without a border.                                                                                    | `boolean`             | `false`     |
+| `errorSpace` | `error-space` | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message. | `"none" \| "reserve"` | `'none'`    |
+| `label`      | `label`       | Label text for the input which is internally rendered as `<label>`.                                                                    | `string`              | `undefined` |
+| `optional`   | `optional`    | Indicates whether the input is optional.                                                                                               | `boolean`             | `undefined` |
+| `size`       | `size`        | Size variant, either l or m.                                                                                                           | `"l" \| "m"`          | `'m'`       |
 
 
 ## Slots
