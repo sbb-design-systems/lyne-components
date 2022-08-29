@@ -36,6 +36,18 @@ const TemplateInput = (args) => (
   </sbb-form-field>
 );
 
+const TemplateInputWithSlottedLabel = (args) => (
+  <sbb-form-field
+    error-space={args['error-space']}
+    optional={args.optional}
+    size={args.size}
+    borderless={args.borderless}
+  >
+    <span slot="label">{args.label}</span>
+    {TemplateBasicInput(args)}
+  </sbb-form-field>
+);
+
 const TemplateInputWithErrorSpace = (args) => {
   const sbbFormError = <sbb-form-error>{args.errortext}</sbb-form-error>;
 
@@ -292,6 +304,13 @@ InputNoLabel.argTypes = basicArgTypes;
 InputNoLabel.args = { ...basicArgs, label: '' };
 InputNoLabel.documentation = {
   title: 'sbb-form-field component with input tag without label',
+};
+
+export const InputWithSlottedLabel = TemplateInputWithSlottedLabel.bind({});
+InputWithSlottedLabel.argTypes = basicArgTypes;
+InputWithSlottedLabel.args = { ...basicArgs, value: 'Random value' };
+InputWithSlottedLabel.documentation = {
+  title: 'sbb-form-field component with slotted label',
 };
 
 export const InputWithoutBorder = TemplateInput.bind({});

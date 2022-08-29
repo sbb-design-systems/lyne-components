@@ -131,6 +131,10 @@
   color: var(--form-field-label-color);
   user-select: none;
   pointer-events: none;
+
+  &[hidden] {
+    display: none;
+  }
 }
 
 ::slotted(*[slot='label']),

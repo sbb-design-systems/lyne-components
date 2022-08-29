@@ -42,6 +42,49 @@ describe('sbb-form-field', () => {
     `);
   });
 
+  // TODO: Enable once onSlotchange is fixed https://github.com/ionic-team/stencil/issues/3536
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('renders slotted label', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbFormField],
+      html: `
+        <sbb-form-field>
+          <span slot="label">Fill input</span>
+          <input slot='input' class='input' placeholder='This is an input' />
+        </sbb-form-field>`,
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-form-field class="form-field--error-space-none form-field--size-m">
+        <mock:shadow-root>
+          <div class="form-field__space-wrapper">
+            <div class="form-field__wrapper">
+               <slot name="prefix"></slot>
+              <div class="form-field__input-container">
+                <label class="form-field__label">
+                  <slot name="label">
+                    <span></span>
+                  </slot>
+                </label>
+                <div class="form-field__input">
+                  <slot></slot>
+                </div>
+              </div>
+               <slot name="suffix"></slot>
+            </div>
+            <div class="form-field__error form-field__error--empty">
+              <slot name="error"></slot>
+            </div>
+          </div>
+        </mock:shadow-root>
+        <span>
+          Fill input
+        </span>
+        <input class="input" placeholder="This is an input" slot="input">
+      </sbb-form-field>
+    `);
+  });
+
   it('renders disabled input', async () => {
     const { root } = await newSpecPage({
       components: [SbbFormField],
@@ -146,11 +189,16 @@ describe('sbb-form-field', () => {
             <div class="form-field__wrapper">
               <slot name="prefix"></slot>
               <div class="form-field__input-container">
+                <label class="form-field__label" hidden>
+                  <slot name="label">
+                    <span></span>
+                  </slot>
+                </label>
                 <div class="form-field__input">
                   <slot></slot>
                 </div>
               </div>
-               <slot name="suffix"></slot>
+              <slot name="suffix"></slot>
             </div>
             <div class="form-field__error form-field__error--empty">
               <slot name="error"></slot>

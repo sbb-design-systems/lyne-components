@@ -66,6 +66,11 @@ export class SbbFormField {
    */
   @State() private _invalid = false;
 
+  /**
+   * Whether the label slot has any content.
+   */
+  @State() private _hasSlottedLabel = false;
+
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
 
@@ -162,16 +167,24 @@ export class SbbFormField {
             <slot name="prefix"></slot>
 
             <div class="form-field__input-container">
-              {this.label && (
-                <label class="form-field__label" htmlFor={this._input?.id}>
-                  <slot name="label">
-                    <span>{this.label}</span>
-                  </slot>
-                  {this.optional && (
-                    <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
-                  )}
-                </label>
-              )}
+              <label
+                class="form-field__label"
+                htmlFor={this._input?.id}
+                hidden={!this.label && !this._hasSlottedLabel}
+              >
+                <slot
+                  name="label"
+                  onSlotchange={(event) =>
+                    (this._hasSlottedLabel =
+                      (event.target as HTMLSlotElement).assignedElements().length > 0)
+                  }
+                >
+                  <span>{this.label}</span>
+                </slot>
+                {this.optional && (
+                  <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
+                )}
+              </label>
               <div class="form-field__input">
                 <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
               </div>
