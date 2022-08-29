@@ -14,7 +14,7 @@
 
 ### `closeMenu() => Promise<void>`
 
-
+Close menu
 
 #### Returns
 
@@ -24,7 +24,7 @@ Type: `Promise<void>`
 
 ### `openMenu() => Promise<void>`
 
-
+Open menu
 
 #### Returns
 
