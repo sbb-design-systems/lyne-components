@@ -41,6 +41,7 @@ let nextId = 0;
 })
 export class SbbTabGroup {
   public tabs: InterfaceSbbTabGroupTab[] = [];
+  private _selectedTab: InterfaceSbbTabGroupTab;
   private _isNested: boolean;
   private _tabContentElement: HTMLElement;
   private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
@@ -149,7 +150,7 @@ export class SbbTabGroup {
     if (
       this.initialSelectedIndex >= 0 &&
       this.initialSelectedIndex < this.tabs.length &&
-      !this.tabs[this.initialSelectedIndex].hasAttribute('disabled')
+      !this.tabs[this.initialSelectedIndex].disabled
     ) {
       this.tabs[this.initialSelectedIndex].tabGroupActions.select();
     } else {
@@ -165,7 +166,7 @@ export class SbbTabGroup {
       const tab = mutation.target as InterfaceSbbTabGroupTab;
 
       if (mutation.attributeName === 'disabled') {
-        if (this._isValidTabAttribute(tab, 'disabled')) {
+        if (this._isValidTabAttribute(tab, 'disabled') && tab !== this._selectedTab) {
           tab.tabGroupActions.disable();
         } else if (tab.disabled) {
           tab.tabGroupActions.enable();
@@ -174,7 +175,7 @@ export class SbbTabGroup {
       if (mutation.attributeName === 'active') {
         if (this._isValidTabAttribute(tab, 'active') && !tab.disabled) {
           tab.tabGroupActions.select();
-        } else if (tab.active) {
+        } else if (tab === this._selectedTab) {
           tab.setAttribute('active', '');
         }
       }
@@ -233,14 +234,17 @@ export class SbbTabGroup {
         }
       },
       select: (): void => {
-        if (!tab.active && !tab.disabled) {
-          const prevTab = this.tabs.find((t) => t.active);
+        if (tab !== this._selectedTab && !tab.disabled) {
+          const prevTab = this._selectedTab;
 
           if (prevTab) {
             prevTab.tabGroupActions.deactivate();
             this._tabContentResizeObserver.unobserve(prevTab.relatedContent);
           }
+
           tab.tabGroupActions.activate();
+          this._selectedTab = tab;
+
           this._tabContentResizeObserver.observe(tab.relatedContent);
           this.selectedTabChanged.emit();
         } else if (tab.disabled) {
@@ -268,6 +272,7 @@ export class SbbTabGroup {
     tab.setAttribute('aria-controls', tab.relatedContent.id);
     tab.setAttribute('aria-selected', 'false');
     tab.relatedContent.setAttribute('role', 'tabpanel');
+    tab.relatedContent.removeAttribute('active');
     if (tab.active) {
       tab.relatedContent.setAttribute('active', '');
     }
