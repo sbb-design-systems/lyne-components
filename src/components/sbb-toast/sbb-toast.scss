@@ -85,14 +85,8 @@
 }
 
 .toast-text {
+  word-break: break-all;
   flex-grow: 1;
-}
-
-// FIXME temporary, waiting for sbb-icon
-.toast-icon {
-  line-height: 0;
-  align-self: start;
-  fill: currentcolor;
 }
 
 .toast-button {

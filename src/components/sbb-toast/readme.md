@@ -10,12 +10,12 @@ The toast configuration must be set using the  `InterfaceToastConfiguration` int
 Mandatory: the message that will be displayed. Long messages use multiple lines (no ellipsis).
 </br> Default: `null`.
 ###### timeout
-Optional: how long (in ms) the toast will be displayed. If 0, it will never be dismissed.
+Optional: how long (in ms) the toast will be displayed. If 0, it will never be automatically dismissed.
 </br> Default: `6000`.
 ###### icon
-TBD waiting for sbb-icon
-###### iconTemplate
-TBD waiting for sbb-icon
+Optional: the toast can display an icon before the message. This can be done in two ways:
+- directly passing the SVG element to render;
+- passing an appropriate `name` (string) for the [sbb-icon component](../sbb-icon/readme.md).
 ###### action
 Optional: the toast can display an action item.
 - Link button (see `InterfaceToastLink`): on click, the defined page will be open in a new tab, then the toast will be dismissed. 

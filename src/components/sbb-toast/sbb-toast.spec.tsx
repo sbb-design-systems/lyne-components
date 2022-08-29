@@ -20,18 +20,18 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-1" role="status" tabindex="-1" style="z-index: 60001;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-text">
-                  Message
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-1" role="status" tabindex="-1" style="z-index: 60001;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <span class="toast-text">
+                Message
+              </span>
             </div>
-          </mock:shadow-root>
-        </sbb-toast>
-      `);
+          </div>
+        </mock:shadow-root>
+      </sbb-toast>
+    `);
   });
 
   it('renders the toast with the message and the close icon action', async () => {
@@ -49,24 +49,24 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-2" role="dialog" style="z-index: 60002;">
-          <mock:shadow-root>
-           <div class="toast-wrapper">
-             <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
-               <span class="toast-text">
-                 Message
-               </span>
-               <span class="toast-spacer"></span>
-               <span class="toast-action toast-action-icon">
-                 <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
-                   <span class="toast-close"></span>
-                 </sbb-button>
-               </span>
-             </div>
-           </div>
-          </mock:shadow-root>
-        </sbb-toast>
-      `);
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-2" role="dialog" style="z-index: 60002;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
+              <span class="toast-text">
+                Message
+              </span>
+              <span class="toast-spacer"></span>
+              <span class="toast-action toast-action-icon">
+                <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
+                  <span class="toast-close"></span>
+                </sbb-button>
+              </span>
+            </div>
+         </div>
+        </mock:shadow-root>
+      </sbb-toast>
+    `);
   });
 
   it('renders the toast with the message and the link action', async () => {
@@ -89,24 +89,24 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-3" role="dialog" style="z-index: 60003;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-text">
-                  Message
-                </span>
-                <span class="toast-spacer"></span>
-                <span class="toast-action">
-                  <sbb-link accessibilitylabel="Link accessible label" class="sbb-focusable toast-link" href="https://www.sbb.ch" negative="" variant="inline">
-                    Link
-                  </sbb-link>
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-3" role="dialog" style="z-index: 60003;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <span class="toast-text">
+                Message
+              </span>
+              <span class="toast-spacer"></span>
+              <span class="toast-action">
+                <sbb-link accessibilitylabel="Link accessible label" class="sbb-focusable toast-link" href="https://www.sbb.ch" negative="" variant="inline">
+                  Link
+                </sbb-link>
+              </span>
             </div>
-          </mock:shadow-root>
-        </sbb-toast>
-      `);
+          </div>
+        </mock:shadow-root>
+      </sbb-toast>
+    `);
   });
 
   it('renders the toast with the message and the button action', async () => {
@@ -126,26 +126,26 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-4" role="dialog" style="z-index: 60004;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-text">
-                  Message
-                </span>
-                <span class="toast-spacer"></span>
-                <span class="toast-action">
-                  <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline">
-                    <span class="toast-label">
-                      Button
-                    </span>
-                  </sbb-link>
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-4" role="dialog" style="z-index: 60004;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <span class="toast-text">
+                Message
+              </span>
+              <span class="toast-spacer"></span>
+              <span class="toast-action">
+                <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline">
+                  <span class="toast-label">
+                    Button
+                  </span>
+                </sbb-link>
+              </span>
             </div>
-          </mock:shadow-root>
-        </sbb-toast>
-      `);
+          </div>
+        </mock:shadow-root>
+      </sbb-toast>
+    `);
   });
 
   it('renders the toast with the icon and the message', async () => {
@@ -159,61 +159,51 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-5" role="status" tabindex="-1" style="z-index: 60005;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-icon">
-                  <sbb-icon name='icon-name'/>
-                </span>
-                <span class="toast-text">
-                  Message
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-5" role="status" tabindex="-1" style="z-index: 60005;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <sbb-icon name='icon-name'></sbb-icon>
+              <span class="toast-text">
+                Message
+              </span>
             </div>
-          </mock:shadow-root>
-        </sbb-toast>
+          </div>
+        </mock:shadow-root>
+      </sbb-toast>
       `);
   });
 
   it('renders the toast with the icon as slot and the message', async () => {
     const config: InterfaceToastConfiguration = {
       message: 'Message',
+      icon: (
+        <svg height="24" width="24">
+          <circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red" />
+        </svg>
+      ),
     };
     const { root } = await newSpecPage({
       components: [SbbToast],
-      template: () => (
-        <sbb-toast config={config}>
-          <span slot="icon">
-            <svg height="24" width="24">
-              <circle cx="50" cy="50" r="24" stroke="black" stroke-width="3" fill="red" />
-            </svg>
-          </span>
-        </sbb-toast>
-      ),
+      template: () => <sbb-toast config={config}></sbb-toast>,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-6" role="status" tabindex="-1" style="z-index: 60006;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-icon">
-                  <slot name="icon"></slot>
-                </span>
-                <span class="toast-text">
-                  Message
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-6" role="status" tabindex="-1" style="z-index: 60006;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <svg height="24" width="24">
+                <circle cx="50" cy="50" fill="red" r="24" stroke="black" stroke-width="3"></circle>
+              </svg>
+              <span class="toast-text">
+                Message
+              </span>
             </div>
-          </mock:shadow-root>
-          <span slot="icon">
-            <svg height="24" width="24">
-              <circle cx="50" cy="50" fill="red" r="24" stroke="black" stroke-width="3"></circle>
-            </svg>
-          </span>
-        </sbb-toast>
-      `);
+          </div>
+        </mock:shadow-root>
+      </sbb-toast>
+    `);
   });
 
   it('renders the toast with the icon and message and the close icon action', async () => {
@@ -232,27 +222,25 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-7" role="dialog" style="z-index: 60007;">
-          <mock:shadow-root>
-           <div class="toast-wrapper">
-             <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
-               <span class="toast-icon">
-                 <sbb-icon name='icon-name'/>
-               </span>
-               <span class="toast-text">
-                 Message
-               </span>
-               <span class="toast-spacer"></span>
-               <span class="toast-action toast-action-icon">
-                 <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
-                   <span class="toast-close"></span>
-                 </sbb-button>
-               </span>
-             </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-7" role="dialog" style="z-index: 60007;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
+              <sbb-icon name='icon-name'></sbb-icon>
+              <span class="toast-text">
+               Message
+              </span>
+              <span class="toast-spacer"></span>
+              <span class="toast-action toast-action-icon">
+                <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
+                  <span class="toast-close"></span>
+                </sbb-button>
+              </span>
            </div>
-          </mock:shadow-root>
-        </sbb-toast>
-      `);
+         </div>
+        </mock:shadow-root>
+      </sbb-toast>
+    `);
   });
 
   it('renders the toast with the icon and the message and the link action', async () => {
@@ -276,27 +264,25 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-         <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-8" role="dialog" style="z-index: 60008;">
-            <mock:shadow-root>
-              <div class="toast-wrapper">
-                <div class="toast toast-vertical-end toast-horizontal-center">
-                  <span class="toast-icon">
-                    <sbb-icon name='icon-name'/>
-                  </span>
-                  <span class="toast-text">
-                    Message
-                  </span>
-                  <span class="toast-spacer"></span>
-                  <span class="toast-action">
-                    <sbb-link accessibilitylabel="Link accessible label" class="sbb-focusable toast-link" href="https://www.sbb.ch" negative="" variant="inline">
-                      Link
-                    </sbb-link>
-                  </span>
-                </div>
-              </div>
-         </mock:shadow-root>
-       </sbb-toast>
-       `);
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-8" role="dialog" style="z-index: 60008;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <sbb-icon name='icon-name'></sbb-icon>
+              <span class="toast-text">
+                Message
+              </span>
+              <span class="toast-spacer"></span>
+              <span class="toast-action">
+                <sbb-link accessibilitylabel="Link accessible label" class="sbb-focusable toast-link" href="https://www.sbb.ch" negative="" variant="inline">
+                  Link
+                </sbb-link>
+              </span>
+            </div>
+          </div>
+      </mock:shadow-root>
+      </sbb-toast>
+   `);
   });
 
   it('renders the toast with the icon and the message and the button action', async () => {
@@ -317,29 +303,27 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-       <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-9" role="dialog" style="z-index: 60009;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-icon">
-                  <sbb-icon name='icon-name'/>
-                </span>
-                <span class="toast-text">
-                  Message
-                </span>
-                <span class="toast-spacer"></span>
-                <span class="toast-action">
-                  <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline">
-                    <span class="toast-label">
-                      Button
-                    </span>
-                  </sbb-link>
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-9" role="dialog" style="z-index: 60009;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <sbb-icon name='icon-name'></sbb-icon>
+              <span class="toast-text">
+                Message
+              </span>
+              <span class="toast-spacer"></span>
+              <span class="toast-action">
+                <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline">
+                  <span class="toast-label">
+                    Button
+                  </span>
+                </sbb-link>
+              </span>
             </div>
-           </mock:shadow-root>
-       </sbb-toast>
-     `);
+          </div>
+         </mock:shadow-root>
+      </sbb-toast>
+   `);
   });
 
   it('renders the toast with the icon and the message and the button action with custom CSS', async () => {
@@ -361,29 +345,27 @@ describe('sbb-toast', () => {
     });
 
     expect(root).toEqualHtml(`
-       <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-10" role="dialog" style="z-index: 60010;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-icon">
-                  <sbb-icon name='icon-name'/>
-                </span>
-                <span class="toast-text">
-                  Message
-                </span>
-                <span class="toast-spacer"></span>
-                <span class="toast-action">
-                  <sbb-link class="my-css-class sbb-focusable toast-button" negative="" type="button" variant="inline">
-                    <span class="toast-label">
-                      Button
-                    </span>
-                  </sbb-link>
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-10" role="dialog" style="z-index: 60010;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <sbb-icon name='icon-name'></sbb-icon>
+              <span class="toast-text">
+                Message
+              </span>
+              <span class="toast-spacer"></span>
+              <span class="toast-action">
+                <sbb-link class="my-css-class sbb-focusable toast-button" negative="" type="button" variant="inline">
+                  <span class="toast-label">
+                    Button
+                  </span>
+                </sbb-link>
+              </span>
             </div>
-           </mock:shadow-root>
-       </sbb-toast>
-     `);
+          </div>
+         </mock:shadow-root>
+      </sbb-toast>
+    `);
   });
 
   it('renders the toast and present it', async () => {
@@ -397,18 +379,18 @@ describe('sbb-toast', () => {
     });
 
     expect(page.root).toEqualHtml(`
-       <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-11" role="status" tabindex="-1" style="z-index: 60011;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-text">
-                  Message
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-11" role="status" tabindex="-1" style="z-index: 60011;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <span class="toast-text">
+                Message
+              </span>
             </div>
-           </mock:shadow-root>
-       </sbb-toast>
-     `);
+          </div>
+         </mock:shadow-root>
+      </sbb-toast>
+    `);
 
     const toast = page.doc.querySelector('sbb-toast');
 
@@ -435,18 +417,18 @@ describe('sbb-toast', () => {
     });
 
     expect(page.root).toEqualHtml(`
-       <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-12" role="status" tabindex="-1" style="z-index: 60012;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center">
-                <span class="toast-text">
-                  Message
-                </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-12" role="status" tabindex="-1" style="z-index: 60012;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center">
+              <span class="toast-text">
+                Message
+              </span>
             </div>
-           </mock:shadow-root>
-       </sbb-toast>
-     `);
+          </div>
+         </mock:shadow-root>
+      </sbb-toast>
+    `);
 
     const toast = page.doc.querySelector('sbb-toast');
 
@@ -482,24 +464,24 @@ describe('sbb-toast', () => {
     });
 
     expect(page.root).toEqualHtml(`
-       <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-13" role="dialog" style="z-index: 60013;">
-          <mock:shadow-root>
-            <div class="toast-wrapper">
-              <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
-                <span class="toast-text">
-                  Message
-                </span>
-                <span class="toast-spacer"></span>
-                <span class="toast-action toast-action-icon">
-                  <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
-                    <span class="toast-close"></span>
-                  </sbb-button>
-               </span>
-              </div>
+      <sbb-toast aria-atomic="true" aria-live="polite" class="overlay-hidden" id="sbb-overlay-13" role="dialog" style="z-index: 60013;">
+        <mock:shadow-root>
+          <div class="toast-wrapper">
+            <div class="toast toast-vertical-end toast-horizontal-center toast--button-icon">
+              <span class="toast-text">
+                Message
+              </span>
+              <span class="toast-spacer"></span>
+              <span class="toast-action toast-action-icon">
+                <sbb-button class="sbb-focusable toast-button" icon="" icondescription="Icon. Close the toast." role="cancel" size="m" variant="transparent-negative">
+                  <span class="toast-close"></span>
+                </sbb-button>
+             </span>
             </div>
-           </mock:shadow-root>
-       </sbb-toast>
-     `);
+          </div>
+         </mock:shadow-root>
+      </sbb-toast>
+    `);
 
     const toast = page.doc.querySelector('sbb-toast');
 

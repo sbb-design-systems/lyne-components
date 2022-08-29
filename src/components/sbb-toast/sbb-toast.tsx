@@ -1,12 +1,11 @@
 import {
   Component,
-  ComponentInterface,
   Element,
   Event,
   EventEmitter,
   h,
-  JSX,
   Host,
+  JSX,
   Listen,
   Method,
   Prop,
@@ -35,7 +34,7 @@ import { InterfaceToastAction, InterfaceToastConfiguration } from './sbb-toast.c
   styleUrl: 'sbb-toast.scss',
   tag: 'sbb-toast',
 })
-export class SbbToast implements ComponentInterface, InterfaceOverlay {
+export class SbbToast implements InterfaceOverlay {
   /**
    * Used to avoid dismissal if presenting is ongoing, and vice-versa.
    */
@@ -125,11 +124,6 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
   private _internalConfig: InterfaceToastConfiguration;
 
   /**
-   * Used to check if the icon slot needs to be rendered.
-   */
-  private _hasIconSlot: boolean;
-
-  /**
    * Set up the configuration and prepare the overlay.
    */
   public connectedCallback(): void {
@@ -146,13 +140,6 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
       ...this.config,
     };
     prepareOverlay(this.el);
-  }
-
-  /**
-   * Evaluate if the icon slot is provided by consumers.
-   */
-  public componentWillLoad(): void {
-    this._hasIconSlot = Boolean(this.el.querySelector('[slot="icon"]'));
   }
 
   /**
@@ -310,22 +297,6 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
       actionContent = this._renderAction();
     }
 
-    let iconTemplate = '';
-
-    if (typeof this._internalConfig.icon === 'string') {
-      iconTemplate = (
-        <span class="toast-icon">
-          <sbb-icon name={this._internalConfig.icon} />
-        </span>
-      );
-    } else if (this._hasIconSlot) {
-      iconTemplate = (
-        <span class="toast-icon">
-          <slot name="icon" />
-        </span>
-      );
-    }
-
     let toastClass = `toast toast-vertical-${this._internalConfig.verticalPosition} toast-horizontal-${this._internalConfig.horizontalPosition}`;
     toastClass += this._internalConfig.action?.type === 'icon' ? ' toast--button-icon' : '';
 
@@ -342,7 +313,11 @@ export class SbbToast implements ComponentInterface, InterfaceOverlay {
       >
         <div class="toast-wrapper">
           <div class={toastClass}>
-            {iconTemplate}
+            {typeof this._internalConfig.icon === 'string' ? (
+              <sbb-icon name={this._internalConfig.icon} />
+            ) : (
+              this._internalConfig.icon
+            )}
             <span
               class="toast-text"
               innerHTML={StringSanitizer.sanitizeDOMString(this._internalConfig.message)}
