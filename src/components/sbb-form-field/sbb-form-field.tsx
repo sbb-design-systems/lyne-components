@@ -21,7 +21,7 @@ let nextId = 0;
 export class SbbFormField {
   /**
    * Whether to reserve space for an error message.
-   * `default` does not reserve any space.
+   * `none` does not reserve any space.
    * `reserve` does reserve one row for an error message.
    */
   @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'none';
