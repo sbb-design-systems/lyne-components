@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, h, Host, Method, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, JSX, Host, Method, Prop } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 import { guid } from '../../global/guid';
 
