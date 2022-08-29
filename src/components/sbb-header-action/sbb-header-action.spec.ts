@@ -11,7 +11,7 @@ describe('sbb-header-action', () => {
     expect(root).toEqualHtml(`
       <sbb-header-action expand-from="medium">
         <mock:shadow-root>
-          <button class="header-action__button" dir="ltr" id="sbb-action-header-1">
+          <button class="header-action__button" dir="ltr" id="sbb-action-header-1" type="button">
             <span class="header-action__icon">
               <slot name="icon">
                 <sbb-icon></sbb-icon>
