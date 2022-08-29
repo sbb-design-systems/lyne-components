@@ -25,8 +25,9 @@
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
-  overflow: scroll;
   min-width: 100%;
+
+  // todo --> create margin var
   max-height: calc(100vh - var(--sbb-spacing-fixed-8x));
   text-align: start;
   position: fixed;
@@ -36,15 +37,17 @@
   right: unset;
   will-change: visibility, transform, opacity, margin;
   transform: translateY(100%);
-  transition-property: visibility, transform, opacity;
-  transition-duration: var(--sbb-animation-duration-6x);
-  transition-timing-function: ease;
   color: var(--sbb-color-white-default);
   border: none;
   border-radius: var(--sbb-border-radius-4x) var(--sbb-border-radius-4x) 0 0;
   background-color: var(--sbb-color-black-default);
   padding-inline: 0;
   padding-block: var(--sbb-spacing-fixed-1x);
+  transition: {
+    duration: var(--sbb-animation-duration-6x);
+    timing-function: ease;
+    property: visibility, transform, opacity;
+  }
 
   &[open] {
     visibility: visible;
@@ -66,26 +69,33 @@
 
 @include mq($from: medium) {
   .sbb-menu {
-    position: absolute;
-    left: var(--sbb-menu-position-x);
-    top: var(--sbb-menu-position-y);
+    position: fixed;
+    top: 0;
+    left: 0;
     right: unset;
     bottom: unset;
     transform: none;
+    min-height: 120px;
+    max-height: var(--sbb-menu-max-height);
     margin-block: var(--sbb-spacing-fixed-2x) 0;
-    transition-property: visibility, margin, opacity;
     min-width: 240px;
     max-width: 320px;
     border-radius: var(--sbb-border-radius-4x);
-
-    &[open] {
-      margin-block: 0;
+    transition: {
+      property: visibility, margin, opacity;
     }
 
-    &.sbb-menu--fixed {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
+    &[open] {
+      position: absolute;
+      margin-block: 0;
+      top: var(--sbb-menu-position-y);
+      left: var(--sbb-menu-position-x);
+
+      &.sbb-menu--dismissing {
+        visibility: hidden;
+        opacity: 0;
+        margin-block: var(--sbb-spacing-fixed-2x) 0;
+      }
     }
 
     &::backdrop {
@@ -96,4 +106,8 @@
       display: none;
     }
   }
+}
+
+.sbb-menu--overflows {
+  overflow-y: scroll;
 }

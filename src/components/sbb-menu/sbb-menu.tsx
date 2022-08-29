@@ -1,11 +1,12 @@
 import { Component, Element, h, JSX, Listen, Method, Prop, State, Watch } from '@stencil/core';
+import { getElementPosition } from './position';
+import { isMediumUltra } from './breakpoint';
 
 /**
  * @slot unnamed - Use this slot to project any content inside the component.
  */
 
 const MENU_OFFSET = 8;
-const INTERACTIVE_ELEMENTS = ['BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
 
 @Component({
   shadow: true,
@@ -13,12 +14,10 @@ const INTERACTIVE_ELEMENTS = ['BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
   tag: 'sbb-menu',
 })
 export class SbbMenu {
-  // TODO --> improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
-  private _dialog: HTMLDialogElement | any;
-  private _triggerEl: HTMLElement;
-  private _triggerController: AbortController;
-
-  @Element() private _element: HTMLElement;
+  /**
+   * Component element
+   */
+  @Element() public el!: HTMLElement;
 
   /**
    * The element that will trigger the menu dialog.
@@ -27,21 +26,106 @@ export class SbbMenu {
   @Prop() public trigger: string | HTMLElement;
 
   /**
-   *
+   * Open sate
    */
-  @State() public fixed = false;
+  @State() public open = false;
 
   /**
-   * Check if the trigger is valid and wether it's a string or an HTMLElement
-   * and attach click event listener.
+   * Fixed state
    */
+  @State() public isDismissing = false;
+
+  /**
+   * Overflows window height
+   */
+  @State() public overflows = false;
+
+  /**
+   * Open menu
+   */
+  @Method()
+  public async openMenu(): Promise<void> {
+    this.open = true;
+    this._setMenuPosition();
+    this._dialog.showModal();
+  }
+
+  /**
+   * Close menu
+   */
+  @Method()
+  public async closeMenu(): Promise<void> {
+    if (isMediumUltra()) {
+      this.isDismissing = true;
+    } else {
+      this._dialog.close();
+    }
+  }
+
+  // Reset position on window resize
+  @Listen('resize', { target: 'window', passive: true })
+  public onResizeWindowEvent(): void {
+    if (this.open) {
+      this._setMenuPosition();
+    }
+  }
+
+  // Close menu on action clicked
+  @Listen('sbb-menu-action_click')
+  public onMenuActionClick(event): void {
+    console.log(event.detail);
+    this.closeMenu();
+  }
+
+  // Remove trigger click listener on trigger change
   @Watch('trigger')
+  public removeTriggerClickListener(newValue, oldValue): void {
+    if (newValue !== oldValue) {
+      this._triggerController.abort();
+    }
+  }
+
+  public componentDidLoad(): void {
+    this._dialog = this.el.shadowRoot.querySelector('dialog');
+
+    // validate trigger element and attach click event
+    this._configureTriggerElement(this.trigger);
+
+    // set the menu position relative to the trigger
+    this._setMenuPosition();
+
+    // close menu on interactive elements click
+    this._dismissOnInteractiveElementClick();
+
+    // close menu on backdrop click
+    this._dismissOnBackdropClick();
+
+    // listen for transitionend event on dialog dismiss
+    this._onMenuDismissTransitionEnd();
+
+    this.open = this.el.hasAttribute('open');
+    if (this.open) {
+      this.openMenu();
+    }
+
+    // TODO --> emit events did-close, did-open (?)...
+    this._dialog.addEventListener('close', () => {
+      this.open = false;
+    });
+  }
+
+  // TODO --> improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
+  private _dialog: HTMLDialogElement | any;
+  private _triggerEl: HTMLElement;
+  private _triggerController: AbortController;
+
+  // Check if the trigger is valid and attach click event listener
   private _configureTriggerElement(trigger): void {
     if (!trigger) {
-      console.warn('You should provide a valid trigger for the sbb-menu.');
       return;
     }
 
+    // check wether it's a string or an HTMLElement
     if (this._isElement(trigger)) {
       this._triggerEl = trigger;
     } else if (typeof trigger === 'string') {
@@ -53,49 +137,7 @@ export class SbbMenu {
       this._triggerEl.addEventListener('click', () => this.openMenu(), {
         signal: this._triggerController.signal,
       });
-      this._handleTriggerElementRemoved();
-      this._handleTriggerElementIdChanged();
-    } else {
-      console.warn('You should provide a valid trigger for the sbb-menu.');
     }
-  }
-
-  /**
-   * Any click on an interactive element inside the <sbb-menu>
-   * that bubbles to the container will close the menu.
-   */
-  @Listen('click')
-  public handleClickEvent(event): void {
-    const hasHref = (event.target as HTMLElement).hasAttribute('href');
-    const isInteractiveElement = INTERACTIVE_ELEMENTS.includes(
-      (event.target as HTMLElement).nodeName
-    );
-
-    if (hasHref || isInteractiveElement) {
-      this._dialog.close();
-    }
-  }
-
-  @Listen('resize', { target: 'window' })
-  public handleResizeWindowEvent(): void {
-    this._dialog?.close();
-  }
-
-  @Listen('sbb-menu-action_click')
-  public onMenuActionClick(event: any): void {
-    console.log(event.detail);
-    this.closeMenu();
-  }
-
-  public componentDidLoad(): void {
-    this._dialog = this._element.shadowRoot.querySelector('dialog');
-
-    // TODO --> emit events didClose, didOpen...
-    this._dialog.addEventListener('close', function () {
-      console.log(`Dialog closed`);
-    });
-
-    this._configureTriggerElement(this.trigger);
   }
 
   // Returns true if it is a DOM element
@@ -103,122 +145,67 @@ export class SbbMenu {
     return o instanceof window.Element;
   }
 
-  private _isMediumUltra(): boolean {
-    const mediumBreakpoint = getComputedStyle(document.documentElement).getPropertyValue(
-      '--sbb-breakpoint-medium-min'
-    );
-    return window.matchMedia(`(min-width: ${mediumBreakpoint})`).matches;
+  // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container
+  private _dismissOnInteractiveElementClick(): void {
+    const query = '[href], button:not([disabled]), sbb-button:not([disabled]), sbb-link';
+    const interactiveElements = this.el.querySelectorAll(query);
+    interactiveElements.forEach((el) => el.addEventListener('click', () => this.closeMenu()));
   }
 
-  private _setMenuPosition(properties: { menuOffset: number }): void {
-    this.fixed = false;
-
-    const menuTrigger = this._triggerEl;
-    const menu = this._dialog;
-
-    const menuTriggerRec = menuTrigger.getBoundingClientRect();
-    const menuRec = menu.getBoundingClientRect();
-
-    // default menu alignment is "start/below"
-    let menuXPosition = menuTrigger.offsetLeft;
-    let menuYPosition = menuTrigger.offsetTop + menuTriggerRec.height + properties.menuOffset;
-
-    // check if horizontal alignment needs to be changed to "end"
-    if (window.innerWidth < menuXPosition + menuRec.width) {
-      menuXPosition = menuTriggerRec.right - menuRec.width;
-    }
-
-    // check if vertical alignment needs to be changed to "above"
-    if (
-      !this.fixed &&
-      window.innerHeight <
-        menuTriggerRec.top + menuTriggerRec.height + menuRec.height + properties.menuOffset
-    ) {
-      // check if menu exceeds window's height
-      if (menuTriggerRec.top > menuRec.height) {
-        menuYPosition = menuTrigger.offsetTop - menuRec.height - properties.menuOffset;
-      } else {
-        this.fixed = true;
-      }
-    }
-
-    menu.style.setProperty('--sbb-menu-position-x', `${menuXPosition}px`);
-    menu.style.setProperty('--sbb-menu-position-y', `${menuYPosition}px`);
-  }
-
+  // Close menu on backdrop clicked
   private _dismissOnBackdropClick(): void {
-    const controller = new AbortController();
+    this._dialog.addEventListener('click', (event) => {
+      const rect = this._dialog.getBoundingClientRect();
+      const isInDialog =
+        rect.top <= event.clientY &&
+        event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX &&
+        event.clientX <= rect.left + rect.width;
 
-    this._dialog.addEventListener(
-      'click',
-      (event) => {
-        const rect = this._dialog.getBoundingClientRect();
-        const isInDialog =
-          rect.top <= event.clientY &&
-          event.clientY <= rect.top + rect.height &&
-          rect.left <= event.clientX &&
-          event.clientX <= rect.left + rect.width;
-
-        if (!isInDialog) {
-          this._dialog.close();
-          controller.abort();
-        }
-      },
-      {
-        signal: controller.signal,
-      }
-    );
-  }
-
-  private _handleTriggerElementRemoved(): void {
-    const parent = this._triggerEl.parentNode;
-    if (!parent) throw new Error('The node must already be attached');
-    const obs = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        for (const el of Array.from(mutation.removedNodes)) {
-          if (el === this._triggerEl) {
-            obs.disconnect();
-            this._triggerController.abort();
-          }
-        }
+      if (!isInDialog) {
+        this.closeMenu();
       }
     });
-
-    obs.observe(parent, {
-      childList: true,
-      attributeFilter: ['id'],
-    });
   }
 
-  private _handleTriggerElementIdChanged(): void {
-    const obs = new MutationObserver(() => {
-      obs.disconnect();
-      this._triggerController.abort();
-    });
-
-    obs.observe(this._triggerEl, {
-      attributeFilter: ['id'],
-    });
+  // Set menu position x and y to '0' one the menu is closed and the transition ended
+  private _onMenuDismissTransitionEnd(): void {
+    this._dialog.ontransitionend = (event) => {
+      if (this.isDismissing && event.propertyName === 'opacity') {
+        console.log('Transition ended');
+        this.isDismissing = false;
+        this._dialog.close();
+      }
+    };
   }
 
-  @Method()
-  public async openMenu(): Promise<void> {
-    if (this._isMediumUltra()) {
-      this._setMenuPosition({ menuOffset: MENU_OFFSET });
+  // Set menu position
+  private _setMenuPosition(): void {
+    if (!isMediumUltra() || !this._dialog || !this._triggerEl) {
+      return;
     }
-    // close menu on backdrop click
-    this._dismissOnBackdropClick();
-    this._dialog.showModal();
-  }
 
-  @Method()
-  public async closeMenu(): Promise<void> {
-    await this._dialog.close();
+    const menuPosition = getElementPosition(this._dialog, this._triggerEl, {
+      elementOffset: MENU_OFFSET,
+    });
+
+    this.el.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
+    this.el.style.setProperty('--sbb-menu-position-y', `${menuPosition.top}px`);
+
+    this.overflows = menuPosition.overflows;
+    this.el.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
   }
 
   public render(): JSX.Element {
     return (
-      <dialog class={`sbb-menu ${this.fixed ? 'sbb-menu--fixed' : ''}`}>
+      <dialog
+        class={{
+          'sbb-menu': true,
+          'sbb-menu--open': this.open,
+          'sbb-menu--dismissing': this.isDismissing,
+          'sbb-menu--overflows': this.overflows,
+        }}
+      >
         <div class="sbb-menu__content">
           <slot></slot>
         </div>

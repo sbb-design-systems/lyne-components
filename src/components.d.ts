@@ -765,7 +765,13 @@ export namespace Components {
         "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbMenu {
+        /**
+          * Close menu
+         */
         "closeMenu": () => Promise<void>;
+        /**
+          * Open menu
+         */
         "openMenu": () => Promise<void>;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or a HTML element.
