@@ -85,6 +85,7 @@ jobs:
             dist/
             hydrate/
             loader/
+            react-library/dist/
       - name: Store storybook artifacts
         uses: actions/upload-artifact@v3
         with:

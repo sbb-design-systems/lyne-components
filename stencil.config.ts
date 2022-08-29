@@ -2,6 +2,7 @@ import { inlineSvg } from 'stencil-inline-svg';
 import jestConfig from './.jest.config.js';
 import { sass } from '@stencil/sass';
 import { Config } from '@stencil/core';
+import { reactOutputTarget as react } from '@stencil/react-output-target';
 import { basename, dirname, join, resolve } from 'path';
 import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import ts from 'typescript';
@@ -19,7 +20,7 @@ export const config: Config = {
       type: 'dist',
     },
     {
-      type: 'dist-custom-elements-bundle',
+      type: 'dist-custom-elements',
     },
     {
       footer: '',
@@ -34,6 +35,11 @@ export const config: Config = {
       file: './dist/documentation/jsonDocs.json',
       type: 'docs-json',
     },
+    react({
+      componentCorePackage: '@sbb-esta/lyne-components',
+      proxiesFile: '../react-library/src/components/stencil-generated/index.ts',
+      includeDefineCustomElements: true,
+    }),
   ],
   plugins: [
     inlineSvg(),
