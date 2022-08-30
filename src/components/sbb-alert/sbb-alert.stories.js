@@ -1,6 +1,5 @@
 import events from './sbb-alert.events.ts';
 import readme from './readme.md';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 
 const TemplateDefaultIcon = (args) => (
@@ -38,15 +37,10 @@ const TemplateDefaultIcon = (args) => (
   </div>
 );
 
-const customIconSvg = getMarkupForSvg('disruption');
-
-customIconSvg.setAttribute('slot', 'icon');
-
 const TemplateCustomIcon = (args) => (
   <sbb-alert {...args}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
     <sbb-title level="1">Streckenunterbruch zwischen Stadelhofen und Zürich HB</sbb-title>
-    {getMarkupForSvg('disruption')}
     Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils zwischen 22:30 – 06:00 Uhr
     Bauarbeiten statt. Sie müssen mit geänderten Fahrzeiten und geänderten Anschlüssen rechnen.
   </sbb-alert>
