@@ -17,7 +17,6 @@ let nextId = 0;
   tag: 'sbb-alert',
 })
 export class SbbAlert {
-
   /**
    * @internal
    */
