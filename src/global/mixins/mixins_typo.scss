@@ -158,7 +158,7 @@
 }
 
 @mixin placeholder() {
-  ::placeholder {
+  &::placeholder {
     color: var(--sbb-color-metal-default);
   }
 }

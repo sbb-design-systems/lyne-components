@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.5.0 (2022-08-30)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-form-field:** - Removes the `sbb-input-text` and replaces it with `sbb-form-field`
+
+* Removes the `sbb-input-error` and replaces it with `sbb-form-error`
+
+### Features
+
+- **sbb-form-field:** initial implementation ([#1303](https://github.com/lyne-design-system/lyne-components/issues/1303)) ([b2ec4f0](https://github.com/lyne-design-system/lyne-components/commit/b2ec4f0a853536ed2f867efcce42f69ea59b8629))
+
 ## 0.4.0 (2022-08-25)
 
 ### ⚠ BREAKING CHANGES
