@@ -52,25 +52,25 @@
   color: var(--toast-color-default);
   border-radius: var(--toast-border-radius);
 
-  &.toast-vertical-start {
-    inset-block-start: 0;
-    inset-block-end: auto;
-  }
-
-  &.toast-horizontal-start {
-    inset-inline-start: var(--toast-margin);
-    transform: none;
-  }
-
-  &.toast-horizontal-end {
-    inset-inline-start: auto;
-    inset-inline-end: var(--toast-margin);
-    transform: none;
-  }
-
   @include ifForcedColors {
     border: #{px-to-rem-build(1)} solid windowText;
   }
+}
+
+.toast-vertical-start {
+  inset-block-start: 0;
+  inset-block-end: auto;
+}
+
+.toast-horizontal-start {
+  inset-inline-start: var(--toast-margin);
+  transform: none;
+}
+
+.toast-horizontal-end {
+  inset-inline-start: auto;
+  inset-inline-end: var(--toast-margin);
+  transform: none;
 }
 
 .toast.toast--button-icon {
