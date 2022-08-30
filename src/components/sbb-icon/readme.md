@@ -96,6 +96,7 @@ In the HTML, you can now use the icon as shown below:
 
 ### Used by
 
+ - [sbb-form-field](../sbb-form-field)
  - [sbb-link](../sbb-link)
  - [sbb-toast](../sbb-toast)
  - [sbb-toggle-check](../sbb-toggle-check)
@@ -103,6 +104,7 @@ In the HTML, you can now use the icon as shown below:
 ### Graph
 ```mermaid
 graph TD;
+  sbb-form-field --> sbb-icon
   sbb-link --> sbb-icon
   sbb-toast --> sbb-icon
   sbb-toggle-check --> sbb-icon
