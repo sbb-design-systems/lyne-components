@@ -156,8 +156,9 @@ export class SbbFormField {
           [`form-field--error-space-${this.errorSpace}`]: true,
           [`form-field--size-${this.size}`]: true,
           'form-field--borderless': this.borderless,
-          'form-field--readonly': this._readonly,
           'form-field--disabled': this._disabled,
+          'form-field--readonly': this._readonly,
+          'form-field--select': this._input?.tagName === 'SELECT',
           'sbb-invalid': this._invalid,
         }}
       >
@@ -188,14 +189,13 @@ export class SbbFormField {
               <div class="form-field__input">
                 <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
               </div>
+              {this._input?.tagName === 'SELECT' && (
+                <sbb-icon
+                  name="chevron-small-down-small"
+                  class="sbb-form-field__select-input-icon"
+                ></sbb-icon>
+              )}
             </div>
-
-            {this._input?.tagName === 'SELECT' && (
-              <sbb-icon
-                name="chevron-small-down-small"
-                class="sbb-form-field__select-input-icon"
-              ></sbb-icon>
-            )}
 
             <slot name="suffix"></slot>
           </div>

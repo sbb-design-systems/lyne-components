@@ -20,6 +20,7 @@
   --form-field-error-padding-block-start: var(--form-field-error-divider-width);
   --form-field-gap: var(--sbb-spacing-fixed-2x);
   --form-field-label-to-input-gap: calc(-1 * var(--sbb-spacing-fixed-1x));
+  --form-field-select-inline-padding-end: calc(var(--sbb-icon-svg-width) + var(--form-field-gap));
 
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
@@ -104,10 +105,17 @@
 
 // Ensure slotted inline elements are vertically centered
 ::slotted(*[slot='prefix']),
-::slotted(*[slot='suffix']),
-.sbb-form-field__select-input-icon {
+::slotted(*[slot='suffix']) {
   min-width: var(--sbb-icon-svg-width);
   display: flex;
+}
+
+.sbb-form-field__select-input-icon {
+  @include absoluteCenterY;
+
+  inset-inline-end: 0;
+  position: absolute;
+  pointer-events: none;
 }
 
 ::slotted(*[slot='prefix']) {
@@ -116,6 +124,7 @@
 
 .form-field__input-container {
   flex: 1 1 auto;
+  position: relative;
 
   // Prevents overflowing parent
   min-width: 0;
@@ -137,6 +146,10 @@
   &[hidden] {
     display: none;
   }
+
+  :host(.form-field--select) & {
+    padding-inline-end: var(--form-field-select-inline-padding-end);
+  }
 }
 
 ::slotted(*[slot='label']),
@@ -146,7 +159,7 @@ slot[name='label'] > span {
 
 // Input
 /* stylelint-disable plugin/stylelint-bem-namics */
-.form-field__input ::slotted(:is(input, select, .sbb-form-field-element)) {
+.form-field__input ::slotted(:where(input, select, .sbb-form-field-element)) {
   @include text-m--regular;
   @include placeholder;
   @include ellipsis;
@@ -167,6 +180,10 @@ slot[name='label'] > span {
   line-height: var(--sbb-typo-line-height-body-text) !important;
 }
 /* stylelint-enable plugin/stylelint-bem-namics */
+
+.form-field__input ::slotted(select) {
+  padding-inline-end: var(--form-field-select-inline-padding-end);
+}
 
 .form-field__error {
   display: flex;
