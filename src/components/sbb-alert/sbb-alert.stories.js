@@ -49,10 +49,17 @@ export const defaultIcon = TemplateDefaultIcon.bind({});
 
 export const customIcon = TemplateCustomIcon.bind({});
 
-const titleValue = {
+const titleContent = {
   control: {
     type: 'text',
   },
+};
+
+const titleLevel = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
 };
 
 const ariaLivePoliteness = {
@@ -82,7 +89,8 @@ const readonly = {
 };
 
 const defaultArgTypes = {
-  'title-value': titleValue,
+  'title-content': titleContent,
+  'title-level': titleLevel,
   'aria-live-politeness': ariaLivePoliteness,
   'disable-animation': disabled,
   readonly: readonly,
@@ -90,7 +98,8 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  'title-value': 'Streckenunterbruch zwischen Stadelhofen und Zürich HB',
+  'title-content': 'Streckenunterbruch zwischen Stadelhofen und Zürich HB',
+  'title-level': 3,
   'aria-live-politeness': ariaLivePoliteness.options[1],
   'disable-animation': false,
   readonly: false,

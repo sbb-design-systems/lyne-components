@@ -54,10 +54,10 @@ export class SbbAlert {
    */
   @Prop() public iconName: string = 'info';
 
-  /** Title text */
-  @Prop() public titleValue?: string;
+  /** Content of title. */
+  @Prop() public titleContent?: string;
 
-  /** Level of title, will be rendered as heading tag (e.g. h5) */
+  /** Level of title, will be rendered as heading tag (e.g. h5). */
   @Prop() public titleLevel: InterfaceAlertAttributes['titleLevel'] = '3';
 
   /** Emits when the fade in animation starts. */
@@ -195,7 +195,7 @@ export class SbbAlert {
                 visual-level={this.size === 'l' ? '3' : '5'}
                 negative
               >
-                <slot name="title">{this.titleValue}</slot>
+                <slot name="title">{this.titleContent}</slot>
               </sbb-title>
               <slot />
             </span>

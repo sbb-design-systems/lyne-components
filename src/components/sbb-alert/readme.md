@@ -14,8 +14,8 @@
 | `iconName`           | `icon-name`            | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.       | `string`                                 | `'info'`      |
 | `readonly`           | `readonly`             | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                                | `boolean`                                | `false`       |
 | `size`               | `size`                 | You can choose between `m` or `l` size.                                                                                                                                         | `"l" \| "m"`                             | `'m'`         |
-| `titleLevel`         | `title-level`          | Level of title, will be rendered as heading tag (e.g. h5)                                                                                                                       | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`         |
-| `titleValue`         | `title-value`          | Title text                                                                                                                                                                      | `string`                                 | `undefined`   |
+| `titleContent`       | `title-content`        | Content of title.                                                                                                                                                               | `string`                                 | `undefined`   |
+| `titleLevel`         | `title-level`          | Level of title, will be rendered as heading tag (e.g. h5).                                                                                                                      | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`         |
 
 
 ## Events
