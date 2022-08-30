@@ -1,4 +1,5 @@
-import { Component, Prop, h, Event, EventEmitter, Watch } from '@stencil/core';
+import { Component, Prop, h, Event, EventEmitter, Watch, JSX } from '@stencil/core';
+import { InterfaceCheckboxAttributes } from './sbb-checkbox.custom';
 
 let nextId = 0;
 @Component({
@@ -34,7 +35,7 @@ export class SbbCheckbox {
   @Prop() public tristated?: boolean;
 
   /** The label position relative to the labelIcon. Defaults to false */
-  @Prop() public labelReversed = false;
+  @Prop() public labelPosition: InterfaceCheckboxAttributes['labelPosition'] = 'after';
 
   /** Whether the checkbox label has spacing to the labelIcon. */
   @Prop() public labelSpace = false;
@@ -49,29 +50,11 @@ export class SbbCheckbox {
   @Prop() public acceccibilityDescribedBy?: string;
 
   /** Event for emiting whenever selection is changed. */
-  @Event() public sbbCheckboxChange: EventEmitter;
+  @Event() public sbbChange: EventEmitter;
 
   /** render the svg acording to the state */
   private _renderStateIcon(): JSX.Element {
-    if (this.checked === true) {
-      return (
-        <svg
-          width="10"
-          height="8"
-          viewBox="0 0 10 8"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1 4.33 3.462 7 9 1"
-            stroke="#EB0000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      );
-    } else if (this.tristated === true && this.checked === false) {
+    if (this.tristated) {
       return (
         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="2" viewBox="0 0 8 2" fill="none">
           <path
@@ -84,11 +67,27 @@ export class SbbCheckbox {
         </svg>
       );
     }
+
+    if (!this.checked) {
+      return;
+    }
+
+    return (
+      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M1 4.33 3.462 7 9 1"
+          stroke="#EB0000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    );
   }
 
   @Watch('checked')
   public checkedChanged(isChecked: boolean): void {
-    this.sbbCheckboxChange.emit({
+    this.sbbChange.emit({
       checked: isChecked,
       value: this.value,
     });
@@ -96,7 +95,7 @@ export class SbbCheckbox {
 
   public render(): JSX.Element {
     const disabled = this.disabled ? 'checkbox--disabled' : '';
-    const labelReversed = this.labelReversed ? `checkbox__label--reverse` : '';
+    const labelPosition = this.labelPosition === 'before' ? `checkbox__label--before` : '';
     const labelSpace = this.labelSpace ? `checkbox__label--space` : '';
 
     return (
@@ -110,7 +109,8 @@ export class SbbCheckbox {
           required={this.required}
           checked={this.checked}
           value={this.value}
-          onChange={(): void => {
+          onChange={(event: Event): void => {
+            event.stopPropagation();
             this.checked = this._checkbox?.checked;
           }}
           aria-label={this.acceccibilityLabel}
@@ -121,7 +121,7 @@ export class SbbCheckbox {
           <span class="checkbox__selection">
             <span class="checkbox__icon">{this._renderStateIcon()}</span>
           </span>
-          <span class={`checkbox__label ${labelReversed} ${labelSpace}`}>
+          <span class={`checkbox__label ${labelPosition} ${labelSpace}`}>
             <slot />
             {this.labelIcon !== '' ? <sbb-icon name={this.labelIcon} /> : ''}
           </span>

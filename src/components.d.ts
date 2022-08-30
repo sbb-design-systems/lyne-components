@@ -15,6 +15,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
+import { InterfaceCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -508,7 +509,7 @@ export namespace Components {
         /**
           * The label position relative to the labelIcon. Defaults to false
          */
-        "labelReversed": boolean;
+        "labelPosition": InterfaceCheckboxAttributes['labelPosition'];
         /**
           * Whether the checkbox label has spacing to the labelIcon.
          */
@@ -2697,7 +2698,7 @@ declare namespace LocalJSX {
         /**
           * The label position relative to the labelIcon. Defaults to false
          */
-        "labelReversed"?: boolean;
+        "labelPosition"?: InterfaceCheckboxAttributes['labelPosition'];
         /**
           * Whether the checkbox label has spacing to the labelIcon.
          */
@@ -2709,7 +2710,7 @@ declare namespace LocalJSX {
         /**
           * Event for emiting whenever selection is changed.
          */
-        "onSbbCheckboxChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        "onSbbChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
         /**
           * The required prop for the required state.
          */

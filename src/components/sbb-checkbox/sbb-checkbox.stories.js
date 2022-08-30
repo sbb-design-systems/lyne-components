@@ -29,11 +29,19 @@ const label = {
   },
 };
 
+const labelPosition = {
+  control: {
+    type: 'select',
+  },
+  options: ['before', 'after'],
+};
+
 const defaultArgTypes = {
   checked,
   tristated,
   disabled,
   label,
+  'label-position': labelPosition,
 };
 
 const defaultArgs = {
@@ -57,6 +65,7 @@ const CheckboxDefaultTemplate = (args) => (
 const CheckboxSpacingTemplate = (args) => <sbb-checkbox {...args}>{args.label}</sbb-checkbox>;
 
 export const sbbCheckboxDefault = CheckboxDefaultTemplate.bind({});
+export const sbbCheckboxTristated = CheckboxDefaultTemplate.bind({});
 export const sbbCheckboxWithLabelIcon = CheckboxDefaultTemplate.bind({});
 export const sbbCheckboxWithSpacedLabelIcon = CheckboxSpacingTemplate.bind({});
 export const sbbCheckboxWithLabelIconReversed = CheckboxDefaultTemplate.bind({});
@@ -66,6 +75,12 @@ export const sbbCheckboxDisabledTristated = CheckboxDefaultTemplate.bind({});
 sbbCheckboxDefault.argTypes = defaultArgTypes;
 sbbCheckboxDefault.args = {
   ...defaultArgs,
+};
+
+sbbCheckboxTristated.argTypes = defaultArgTypes;
+sbbCheckboxTristated.args = {
+  ...defaultArgs,
+  tristated: true,
 };
 
 sbbCheckboxWithLabelIcon.argTypes = defaultArgTypes;
@@ -85,7 +100,7 @@ sbbCheckboxWithLabelIconReversed.argTypes = defaultArgTypes;
 sbbCheckboxWithLabelIconReversed.args = {
   ...defaultArgs,
   'label-icon': 'tickets-class-small',
-  'label-reversed': true,
+  'label-position': labelPosition.options[0],
 };
 
 sbbCheckboxDisabledChecked.argTypes = defaultArgTypes;

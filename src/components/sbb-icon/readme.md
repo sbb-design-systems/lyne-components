@@ -98,6 +98,7 @@ In the HTML, you can now use the icon as shown below:
 
  - [sbb-alert](../sbb-alert)
  - [sbb-button](../sbb-button)
+ - [sbb-checkbox](../sbb-checkbox)
  - [sbb-form-field](../sbb-form-field)
  - [sbb-header-action](../sbb-header-action)
  - [sbb-link](../sbb-link)
@@ -112,6 +113,7 @@ In the HTML, you can now use the icon as shown below:
 graph TD;
   sbb-alert --> sbb-icon
   sbb-button --> sbb-icon
+  sbb-checkbox --> sbb-icon
   sbb-form-field --> sbb-icon
   sbb-header-action --> sbb-icon
   sbb-link --> sbb-icon
