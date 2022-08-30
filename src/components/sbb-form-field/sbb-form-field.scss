@@ -104,7 +104,9 @@
 
 // Ensure slotted inline elements are vertically centered
 ::slotted(*[slot='prefix']),
-::slotted(*[slot='suffix']) {
+::slotted(*[slot='suffix']),
+.sbb-form-field__select-input-icon {
+  min-width: var(--sbb-icon-svg-width);
   display: flex;
 }
 

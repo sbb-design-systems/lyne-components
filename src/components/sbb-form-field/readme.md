@@ -98,9 +98,14 @@ announce errors when they appear.
 
  - [sbb-autocomplete](../sbb-autocomplete)
 
+### Depends on
+
+- [sbb-icon](../sbb-icon)
+
 ### Graph
 ```mermaid
 graph TD;
+  sbb-form-field --> sbb-icon
   sbb-autocomplete --> sbb-form-field
   style sbb-form-field fill:#f9f,stroke:#333,stroke-width:4px
 ```

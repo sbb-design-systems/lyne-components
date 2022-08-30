@@ -190,6 +190,10 @@ export class SbbFormField {
               </div>
             </div>
 
+            {this._input?.tagName === 'SELECT' && (
+              <sbb-icon name="chevron-small-down-small" class="sbb-form-field__select-input-icon"></sbb-icon>
+            )}
+
             <slot name="suffix"></slot>
           </div>
 
