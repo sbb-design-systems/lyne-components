@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, h, Prop, JSX } from '@stencil/core';
 
 /**
  * @slot image - to render the image
@@ -17,6 +17,16 @@ export class SbbTeaserHero {
   @Prop() public link!: string;
 
   /**
+   * Panel Text for the hero teaser.
+   */
+  @Prop() public panelText!: string;
+
+  /**
+   * Panel link text for the hero teaser.
+   */
+  @Prop() public panelLinkText!: string;
+
+  /**
    * If set, the link will be opened in a new window.
    */
   @Prop() public openInNewWindow?: boolean;
@@ -28,21 +38,8 @@ export class SbbTeaserHero {
    */
   @Prop() public newWindowInfoText?: string;
 
-  @Element() private _element: HTMLElement;
-
   /** Teaser title text, visually hidden,  necessary for screenreaders */
   @Prop() public accessibilityTitle!: string;
-
-  public componentWillLoad(): void {
-    /** ensure that the sbb-panel don't contain a link */
-    this._element.querySelectorAll('sbb-panel')?.forEach((element) => {
-      element['hasCallToActionLink'] = true;
-    });
-  }
-
-  /**
-   * ----------------------------------------------------------------
-   */
 
   public render(): JSX.Element {
     const linkAttributes = {};
@@ -60,7 +57,24 @@ export class SbbTeaserHero {
         {...linkAttributes}
       >
         <span class="teaser-hero__panel">
-          <slot name="panel" />
+          <slot name="panel">
+            {this.panelText && (
+              <sbb-panel>
+                <span slot="text">{this.panelText}</span>
+                {this.panelLinkText && (
+                  <sbb-link
+                    slot="link"
+                    icon-name="chevron-small-right-small"
+                    icon-placement="end"
+                    text-size="m"
+                    negative
+                  >
+                    {this.panelLinkText}
+                  </sbb-link>
+                )}
+              </sbb-panel>
+            )}
+          </slot>
         </span>
         <slot name="image" />
         {this.openInNewWindow && this.newWindowInfoText ? (

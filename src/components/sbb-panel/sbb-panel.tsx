@@ -1,5 +1,4 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
-import { InterfacePanelAttributes } from './sbb-panel.custom';
+import { Component, h, JSX, Prop, Element } from '@stencil/core';
 
 @Component({
   shadow: true,
@@ -12,57 +11,51 @@ import { InterfacePanelAttributes } from './sbb-panel.custom';
  * @slot link- to render the link
  */
 export class SbbPanel {
-  /** The prop for deciding if the panel should contain a link or not */
-  @Prop() public hasCallToActionLink? = false;
-
   @Element() private _element: HTMLElement;
 
   /**
-   * will change the props for the sbb-link
+   * Link for the hero teaser.
    */
-  private _linkMutationObserver = new MutationObserver((mutations) => {
-    mutations?.forEach((mutation) => {
-      const element = mutation.target as HTMLElement;
+  @Prop() public text?: string;
 
-      if (element.nodeName !== 'SBB-LINK') return;
+  /**
+   * Link for the hero teaser.
+   */
+  @Prop() public linkText?: string;
 
-      element['isStatic'] = this.hasCallToActionLink;
+  /**
+   * href for the hero teaser.
+   */
+  @Prop() public href?: string;
 
-      if (element.getAttribute('icon') !== 'chevron-small-right-small') {
-        element.setAttribute('icon', 'chevron-small-right-small');
-      }
+  private _hasLinkSlot: boolean;
 
-      if (element.getAttribute('icon-placement') !== 'end') {
-        element.setAttribute('icon-placement', 'end');
-      }
-
-      if (element.getAttribute('text-size') !== 'm') {
-        element.setAttribute('text-size', 'm');
-      }
-
-      if (element.getAttribute('variant') !== 'block-negative') {
-        element.setAttribute('variant', 'block-negative');
-      }
-    });
-  });
-
-  public connectedCallback(): void {
-    this._element.querySelectorAll('sbb-link')?.forEach((element) => {
-      this._linkMutationObserver.observe(element, {
-        attributes: true,
-      });
-    });
+  public componentWillLoad(): void {
+    // Check link slots
+    this._hasLinkSlot = Boolean(this._element.querySelector('[slot="link"]'));
   }
 
   public render(): JSX.Element {
     return (
       <div class="panel">
         <div class="panel__text">
-          <slot name="text" />
+          <slot name="text">{this.text}</slot>
         </div>
-        <div class="panel__link">
-          <slot name="link" />
-        </div>
+        {(this.linkText || this._hasLinkSlot) && (
+          <div class="panel__link">
+            <slot name="link">
+              <sbb-link
+                icon-name="chevron-small-right-small"
+                icon-placement="end"
+                text-size="m"
+                negative
+                href={this.href}
+              >
+                {this.linkText}
+              </sbb-link>
+            </slot>
+          </div>
+        )}
       </div>
     );
   }

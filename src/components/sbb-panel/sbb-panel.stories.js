@@ -5,74 +5,39 @@ import readme from './readme.md';
 /* Slot templates, used in Storybook template        */
 /* ************************************************* */
 
-/* --- text ---------------------------------------- */
+const TemplateSbbPanelDefault = (args) => <sbb-panel {...args}></sbb-panel>;
 
-const panelText = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'text',
-  },
-};
+const TemplateSbbPanelWithoutLink = (args) => <sbb-panel {...args}></sbb-panel>;
 
-/* --- text slot ----------------------------------- */
-
-const sbbTextArgTypes = {
-  text: panelText,
-};
-const sbbTextArgs = {
-  text: 'Rücksichtsvoll mit SBB Green Class',
-};
-
-const SlotTemplateSbbText = (args) => <span slot="text">{args.text}</span>;
-
-/* --- link slot ----------------------------------- */
-
-const sbbLinkArgs = {
-  href: 'https://www.sbb.ch/',
-  text: 'Mehr erfahren',
-};
-
-const SlotSbbLinkTemplate = (args) => (
-  <sbb-link
-    slot="link"
-    href-value={args.href}
-    icon="chevron-small-right-small"
-    icon-flip=""
-    id-value=""
-    text={args.text}
-  >
-    <sbb-icon slot="icon" name="chevron-small-right-small"></sbb-icon>
-  </sbb-link>
-);
-
-const TemplateSbbPanelDefault = (args) => (
+const TemplateSbbPanelSlot = (args) => (
   <sbb-panel {...args}>
-    <SlotTemplateSbbText {...args} />
-    <SlotSbbLinkTemplate {...sbbLinkArgs} />
-  </sbb-panel>
-);
-
-const TemplateSbbPanelWithoutLink = (args) => (
-  <sbb-panel {...args}>
-    <SlotTemplateSbbText {...args} />
+    <span slot="text">{args.text}</span>
+    <sbb-link slot="link" href={args.href} negative>
+      {args.linkText}
+    </sbb-link>
   </sbb-panel>
 );
 
 export const DefaultSbbPanel = TemplateSbbPanelDefault.bind({});
 export const WithoutLinkSbbPanel = TemplateSbbPanelWithoutLink.bind({});
+export const PanelSlots = TemplateSbbPanelSlot.bind({});
 
-DefaultSbbPanel.argTypes = sbbTextArgTypes;
-
-DefaultSbbPanel.args = {
-  ...sbbTextArgs,
+const defaultArgs = {
+  text: 'Rücksichtsvoll mit SBB Green Class',
 };
 
-WithoutLinkSbbPanel.argTypes = sbbTextArgTypes;
+DefaultSbbPanel.args = {
+  ...defaultArgs,
+  'link-text': 'Mehr erfahren',
+  href: 'https://www.sbb.ch',
+};
 
-WithoutLinkSbbPanel.args = {
-  ...sbbTextArgs,
+WithoutLinkSbbPanel.args = defaultArgs;
+
+PanelSlots.args = {
+  ...defaultArgs,
+  linkText: 'Mehr erfahren',
+  href: 'https://www.sbb.ch',
 };
 
 DefaultSbbPanel.documentation = {

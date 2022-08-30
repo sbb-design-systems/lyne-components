@@ -48,6 +48,11 @@ anchor or button tag, it is internally rendered as a span in order to not break 
 
 ## Dependencies
 
+### Used by
+
+ - [sbb-panel](../sbb-panel)
+ - [sbb-teaser-hero](../sbb-teaser-hero)
+
 ### Depends on
 
 - [sbb-icon](../sbb-icon)
@@ -56,6 +61,8 @@ anchor or button tag, it is internally rendered as a span in order to not break 
 ```mermaid
 graph TD;
   sbb-link --> sbb-icon
+  sbb-panel --> sbb-link
+  sbb-teaser-hero --> sbb-link
   style sbb-link fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

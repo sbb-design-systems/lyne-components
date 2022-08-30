@@ -622,9 +622,17 @@ export namespace Components {
     }
     interface SbbPanel {
         /**
-          * The prop for deciding if the panel should contain a link or not
+          * href for the hero teaser.
          */
-        "hasCallToActionLink"?: boolean;
+        "href"?: string;
+        /**
+          * Link for the hero teaser.
+         */
+        "linkText"?: string;
+        /**
+          * Link for the hero teaser.
+         */
+        "text"?: string;
     }
     interface SbbPearlChain {
         /**
@@ -788,6 +796,14 @@ export namespace Components {
           * If set, the link will be opened in a new window.
          */
         "openInNewWindow"?: boolean;
+        /**
+          * Panel link text for the hero teaser.
+         */
+        "panelLinkText": string;
+        /**
+          * Panel Text for the hero teaser.
+         */
+        "panelText": string;
     }
     interface SbbTimetable {
     }
@@ -1990,9 +2006,17 @@ declare namespace LocalJSX {
     }
     interface SbbPanel {
         /**
-          * The prop for deciding if the panel should contain a link or not
+          * href for the hero teaser.
          */
-        "hasCallToActionLink"?: boolean;
+        "href"?: string;
+        /**
+          * Link for the hero teaser.
+         */
+        "linkText"?: string;
+        /**
+          * Link for the hero teaser.
+         */
+        "text"?: string;
     }
     interface SbbPearlChain {
         /**
@@ -2145,6 +2169,14 @@ declare namespace LocalJSX {
           * If set, the link will be opened in a new window.
          */
         "openInNewWindow"?: boolean;
+        /**
+          * Panel link text for the hero teaser.
+         */
+        "panelLinkText": string;
+        /**
+          * Panel Text for the hero teaser.
+         */
+        "panelText": string;
     }
     interface SbbTimetable {
     }

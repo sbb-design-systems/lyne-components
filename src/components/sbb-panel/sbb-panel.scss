@@ -59,6 +59,7 @@
   }
 }
 
+.panel__text,
 ::slotted([slot='text']) {
   font-family: var(--panel-font-family);
   font-size: var(--panel-font-size-text-xxl);
@@ -67,6 +68,6 @@
   margin-block: 0;
 }
 
-::slotted([slot='link']) {
+.panel__link {
   margin-block-start: var(--text-margin-block-start);
 }

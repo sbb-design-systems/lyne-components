@@ -21,6 +21,8 @@
 
 .teaser-hero__panel {
   @include absoluteCenterY;
+
+  z-index: 1;
 }
 
 ::slotted([slot='image']) {
