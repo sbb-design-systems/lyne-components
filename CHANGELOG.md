@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.5.1 (2022-08-30)
+
+### Bug Fixes
+
+- **sbb-form-field:** enable click on select arrow ([#1356](https://github.com/lyne-design-system/lyne-components/issues/1356)) ([91a52a7](https://github.com/lyne-design-system/lyne-components/commit/91a52a70d4c0e5d42ebca731d381c25667b53cfe))
+
 ## 0.5.0 (2022-08-30)
 
 ### ⚠ BREAKING CHANGES
