@@ -80,15 +80,3 @@
     -1 * (var(--sbb-size-form-element-m-min-height) - var(--sbb-alert-close-icon-size)) * 0.5
   );
 }
-
-// Ensure correct sbb-title styling regardless how the sbb-title is configured.
-::slotted(sbb-title) {
-  --sbb-font-size-title-1: var(--sbb-alert-title-font-size);
-  --sbb-font-size-title-2: var(--sbb-alert-title-font-size);
-  --sbb-font-size-title-3: var(--sbb-alert-title-font-size);
-  --sbb-font-size-title-4: var(--sbb-alert-title-font-size);
-  --sbb-font-size-title-5: var(--sbb-alert-title-font-size);
-  --sbb-typo-line-height-titles: var(--sbb-alert-title-line-height);
-  --sbb-typo-line-height-body-text: var(--sbb-alert-title-line-height);
-  --_title-text-color-normal: var(--sbb-color-milk-default);
-}

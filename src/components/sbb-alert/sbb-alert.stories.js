@@ -5,7 +5,6 @@ import { h } from 'jsx-dom';
 const TemplateDefaultIcon = (args) => (
   <div>
     <sbb-alert {...args}>
-      <sbb-title level="1">Streckenunterbruch zwischen Stadelhofen und Zürich HB</sbb-title>
       Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils zwischen 22:30 – 06:00 Uhr
       Bauarbeiten statt. Sie müssen mit geänderten Fahrzeiten und geänderten Anschlüssen rechnen.{' '}
       <sbb-link href="#">Mehr erfahren</sbb-link>
@@ -40,7 +39,7 @@ const TemplateDefaultIcon = (args) => (
 const TemplateCustomIcon = (args) => (
   <sbb-alert {...args}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
-    <sbb-title level="1">Streckenunterbruch zwischen Stadelhofen und Zürich HB</sbb-title>
+    <span slot="title">Streckenunterbruch zwischen Stadelhofen und Zürich HB</span>
     Zwischen Bern und Olten finden vom 03.11.2021 – 05.12.2022 jeweils zwischen 22:30 – 06:00 Uhr
     Bauarbeiten statt. Sie müssen mit geänderten Fahrzeiten und geänderten Anschlüssen rechnen.
   </sbb-alert>
@@ -49,6 +48,12 @@ const TemplateCustomIcon = (args) => (
 export const defaultIcon = TemplateDefaultIcon.bind({});
 
 export const customIcon = TemplateCustomIcon.bind({});
+
+const titleValue = {
+  control: {
+    type: 'text',
+  },
+};
 
 const ariaLivePoliteness = {
   control: {
@@ -64,26 +69,28 @@ const size = {
   options: ['m', 'l'],
 };
 
-const disabledArg = {
+const disabled = {
   control: {
     type: 'boolean',
   },
 };
 
-const readonlyArg = {
+const readonly = {
   control: {
     type: 'boolean',
   },
 };
 
 const defaultArgTypes = {
+  'title-value': titleValue,
   'aria-live-politeness': ariaLivePoliteness,
-  'disable-animation': disabledArg,
-  readonly: readonlyArg,
+  'disable-animation': disabled,
+  readonly: readonly,
   size,
 };
 
 const defaultArgs = {
+  'title-value': 'Streckenunterbruch zwischen Stadelhofen und Zürich HB',
   'aria-live-politeness': ariaLivePoliteness.options[1],
   'disable-animation': false,
   readonly: false,

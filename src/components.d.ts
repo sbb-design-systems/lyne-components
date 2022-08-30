@@ -107,6 +107,14 @@ export namespace Components {
           * You can choose between `m` or `l` size.
          */
         "size": InterfaceAlertAttributes['size'];
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h5)
+         */
+        "titleLevel": InterfaceAlertAttributes['titleLevel'];
+        /**
+          * Title text
+         */
+        "titleValue"?: string;
     }
     interface SbbAutocomplete {
         /**
@@ -1540,6 +1548,14 @@ declare namespace LocalJSX {
           * You can choose between `m` or `l` size.
          */
         "size"?: InterfaceAlertAttributes['size'];
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h5)
+         */
+        "titleLevel"?: InterfaceAlertAttributes['titleLevel'];
+        /**
+          * Title text
+         */
+        "titleValue"?: string;
     }
     interface SbbAutocomplete {
         /**

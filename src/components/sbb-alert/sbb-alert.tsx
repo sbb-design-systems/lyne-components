@@ -9,6 +9,7 @@ let nextId = 0;
 
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title.
+ * @slot title - Title content.
  * @slot unnamed - Content of the alert.
  */
 @Component({
@@ -52,6 +53,12 @@ export class SbbAlert {
    * Styling is optimized for icons of type HIM-CUS.
    */
   @Prop() public iconName: string = 'info';
+
+  /** Title text */
+  @Prop() public titleValue?: string;
+
+  /** Level of title, will be rendered as heading tag (e.g. h5) */
+  @Prop() public titleLevel: InterfaceAlertAttributes['titleLevel'] = '3';
 
   /** Emits when the fade in animation starts. */
   @Event({
@@ -183,6 +190,13 @@ export class SbbAlert {
               </slot>
             </span>
             <span class="sbb-alert__content">
+              <sbb-title
+                level={this.titleLevel}
+                visual-level={this.size === 'l' ? '3' : '5'}
+                negative
+              >
+                <slot name="title">{this.titleValue}</slot>
+              </sbb-title>
               <slot />
             </span>
             {!this.readonly && (
