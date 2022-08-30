@@ -67,6 +67,10 @@
     inset-inline-end: var(--toast-margin);
     transform: none;
   }
+
+  @include ifForcedColors {
+    border: #{px-to-rem-build(1)} solid windowText;
+  }
 }
 
 .toast.toast--button-icon {
@@ -129,5 +133,8 @@
   svg {
     vertical-align: middle;
     fill: var(--toast-color-default);
+    @include ifForcedColors {
+      --toast-color-default: CanvasText;
+    }
   }
 }
