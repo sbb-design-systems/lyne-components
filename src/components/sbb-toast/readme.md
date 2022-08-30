@@ -52,7 +52,7 @@ Toasts don't take focus.
 
 | Property           | Attribute           | Description                                                                              | Type                                              | Default     |
 | ------------------ | ------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------- |
-| `config`           | --                  | Exposed toast configuration.                                                             | `InterfaceToastConfiguration`                     | `undefined` |
+| `config`           | --                  | Public toast configuration.                                                              | `InterfaceToastConfiguration`                     | `undefined` |
 | `disableAnimation` | `disable-animation` | Indicates whether the toast will play enter-leave animations.                            | `boolean`                                         | `false`     |
 | `enterAnimation`   | --                  | The animation used when the toast is presented.                                          | `(baseEl: any, opts?: any) => InterfaceAnimation` | `undefined` |
 | `keyboardClose`    | `keyboard-close`    | Indicates whether the keyboard is automatically dismissed when the overlay is presented. | `boolean`                                         | `false`     |

@@ -41,7 +41,7 @@ export interface InterfaceToastLink extends InterfaceToastCommonAction, Accessib
 /**
  * Interface for toast's action.
  */
-export interface InterfaceToastAction extends InterfaceToastCommonAction {
+export interface InterfaceToastAction extends InterfaceToastCommonAction, AccessibilityProperties {
   type: 'action';
 
   /** Action button label. */

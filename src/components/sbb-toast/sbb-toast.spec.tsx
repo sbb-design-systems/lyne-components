@@ -111,6 +111,9 @@ describe('sbb-toast', () => {
 
   it('renders the toast with the message and the button action', async () => {
     const action: InterfaceToastAction = {
+      accessibilityDescribedby: null,
+      accessibilityLabel: 'Link accessible label',
+      accessibilityLabelledby: null,
       handler: jest.fn(),
       label: 'Button',
       role: null,
@@ -135,7 +138,7 @@ describe('sbb-toast', () => {
               </span>
               <span class="toast-spacer"></span>
               <span class="toast-action">
-                <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline">
+                <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline" accessibilitylabel="Link accessible label">
                   <span class="toast-label">
                     Button
                   </span>
@@ -287,6 +290,9 @@ describe('sbb-toast', () => {
 
   it('renders the toast with the icon and the message and the button action', async () => {
     const action: InterfaceToastAction = {
+      accessibilityDescribedby: null,
+      accessibilityLabel: 'Link accessible label',
+      accessibilityLabelledby: null,
       handler: jest.fn(),
       label: 'Button',
       role: null,
@@ -313,7 +319,7 @@ describe('sbb-toast', () => {
               </span>
               <span class="toast-spacer"></span>
               <span class="toast-action">
-                <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline">
+                <sbb-link class="sbb-focusable toast-button" negative="" type="button" variant="inline" accessibilitylabel="Link accessible label">
                   <span class="toast-label">
                     Button
                   </span>
@@ -328,6 +334,9 @@ describe('sbb-toast', () => {
 
   it('renders the toast with the icon and the message and the button action with custom CSS', async () => {
     const action: InterfaceToastAction = {
+      accessibilityDescribedby: null,
+      accessibilityLabel: 'Link accessible label',
+      accessibilityLabelledby: null,
       cssClass: 'my-css-class',
       handler: jest.fn(),
       label: 'Button',
@@ -355,7 +364,7 @@ describe('sbb-toast', () => {
               </span>
               <span class="toast-spacer"></span>
               <span class="toast-action">
-                <sbb-link class="my-css-class sbb-focusable toast-button" negative="" type="button" variant="inline">
+                <sbb-link class="my-css-class sbb-focusable toast-button" negative="" type="button" variant="inline" accessibilitylabel="Link accessible label">
                   <span class="toast-label">
                     Button
                   </span>

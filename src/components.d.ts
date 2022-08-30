@@ -1058,7 +1058,7 @@ export namespace Components {
     }
     interface SbbToast {
         /**
-          * Exposed toast configuration.
+          * Public toast configuration.
          */
         "config": InterfaceToastConfiguration;
         /**
@@ -2551,7 +2551,7 @@ declare namespace LocalJSX {
     }
     interface SbbToast {
         /**
-          * Exposed toast configuration.
+          * Public toast configuration.
          */
         "config"?: InterfaceToastConfiguration;
         /**

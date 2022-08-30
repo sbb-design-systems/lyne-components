@@ -24,7 +24,9 @@ import {
 } from '../../global/core/components/overlay/overlays-interface';
 import { getClassList } from '../../global/helpers/get-class-list';
 import { StringSanitizer } from '../../global/helpers/sanitization/string-sanitizer';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { DEFAULT_Z_INDEX_TOAST } from '../../global/z-index-list';
+import { SbbLink } from '../sbb-link/sbb-link';
 import { toastEnterAnimation } from './animations/sbb-toast.enter';
 import { toastLeaveAnimation } from './animations/sbb-toast.leave';
 import { InterfaceToastAction, InterfaceToastConfiguration } from './sbb-toast.custom';
@@ -59,7 +61,7 @@ export class SbbToast implements InterfaceOverlay {
   @Prop() public keyboardClose = false;
 
   /**
-   * Exposed toast configuration.
+   * Public toast configuration.
    */
   @Prop() public config: InterfaceToastConfiguration;
 
@@ -158,7 +160,6 @@ export class SbbToast implements InterfaceOverlay {
 
   /**
    * Dismiss the toast overlay after it has been presented.
-   *
    * @param data Any data to emit in the dismiss events.
    * @param role The role of the element that is dismissing the toast.
    * Example:
@@ -211,6 +212,27 @@ export class SbbToast implements InterfaceOverlay {
   }
 
   /**
+   * Sets the common properties for the sbb-link component used in the action button.
+   */
+  private static _setCommonPropsForSbbLink(
+    accessibilityProps: AccessibilityProperties
+  ): Partial<SbbLink> {
+    return {
+      variant: 'inline',
+      negative: true,
+      ...(accessibilityProps?.accessibilityLabel && {
+        accessibilityLabel: accessibilityProps.accessibilityLabel,
+      }),
+      ...(accessibilityProps?.accessibilityLabelledby && {
+        accessibilityLabelledby: accessibilityProps.accessibilityLabelledby,
+      }),
+      ...(accessibilityProps?.accessibilityDescribedby && {
+        accessibilityDescribedby: accessibilityProps.accessibilityDescribedby,
+      }),
+    };
+  }
+
+  /**
    * Triggers the action handler and dismiss the toast.
    * @param action The action provided bu consumers in the toast config.
    */
@@ -233,12 +255,8 @@ export class SbbToast implements InterfaceOverlay {
         return (
           <span class="toast-action">
             <sbb-link
+              {...SbbToast._setCommonPropsForSbbLink(this._internalConfig.action)}
               class="toast-link sbb-focusable"
-              variant="inline"
-              negative={true}
-              accessibilityLabel={this._internalConfig.action.accessibilityLabel}
-              accessibilityLabelledby={this._internalConfig.action.accessibilityLabelledby}
-              accessibilityDescribedby={this._internalConfig.action.accessibilityDescribedby}
               href={this._internalConfig.action.href}
               role={this._internalConfig.action.role}
               onClick={this.dismiss.bind(this, null, 'link')}
@@ -252,9 +270,8 @@ export class SbbToast implements InterfaceOverlay {
         return (
           <span class="toast-action">
             <sbb-link
+              {...SbbToast._setCommonPropsForSbbLink(this._internalConfig.action)}
               type="button"
-              variant="inline"
-              negative={true}
               role={this._internalConfig.action.role}
               class={this._buttonClass()}
               onClick={this._callActionHandlerAndDismiss.bind(this, this._internalConfig.action)}
