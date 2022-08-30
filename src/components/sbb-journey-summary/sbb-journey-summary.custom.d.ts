@@ -13,7 +13,7 @@ declare type TimeQuayWrapper = {
 };
 
 declare type SummaryConfig = {
-  leg: Leg[];
+  legs: string;
   vias: string[];
   startPoint: string;
   destination: string;

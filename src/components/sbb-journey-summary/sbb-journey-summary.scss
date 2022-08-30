@@ -1,3 +1,52 @@
-:host {
-  border: 1px solid var(--sbb-color-red-default);
+.journey-summary {
+  padding: var(--sbb-spacing-responsive-s);
+  display: flex;
+  flex-direction: column;
+}
+
+.journey-summary__via-block {
+  display: flex;
+
+  .journey-summary__via-text {
+    padding-right: var(--sbb-spacing-fixed-1x);
+  }
+}
+
+.journey-summary__vias {
+  @include ellipsis;
+
+  margin-top: 0;
+  margin-bottom: var(--sbb-spacing-fixed-1x);
+  padding-left: 0;
+}
+
+.journey-summary__via {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.journey-summary__transportation-details {
+  display: flex;
+  flex-direction: row;
+  gap: var(--sbb-spacing-fixed-3x);
+  align-items: center;
+
+  .journey-summary__pearlchain {
+    flex: 1 1 auto;
+  }
+}
+
+.journey-summary__walktime {
+  align-items: center;
+  display: inline-flex;
+}
+
+ul li {
+  list-style: none;
+  display: inline;
+}
+
+.screenreaderonly {
+  @include screenReaderOnly;
 }
