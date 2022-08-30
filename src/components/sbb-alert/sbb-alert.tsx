@@ -52,7 +52,7 @@ export class SbbAlert {
    * Choose the icons from https://lyne.sbb.ch/tokens/icons/.
    * Styling is optimized for icons of type HIM-CUS.
    */
-  @Prop() public iconName: string = 'info';
+  @Prop() public iconName = 'info';
 
   /** Content of title. */
   @Prop() public titleContent?: string;
