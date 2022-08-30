@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop, State } from '@stencil/core';
+import { Component, h, Host, JSX, Prop, State } from '@stencil/core';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 
 /**
