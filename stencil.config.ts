@@ -37,7 +37,7 @@ export const config: Config = {
     },
     react({
       componentCorePackage: '@sbb-esta/lyne-components',
-      proxiesFile: '../react-library/src/components/stencil-generated/index.ts',
+      proxiesFile: './react-library/src/components/stencil-generated/index.ts',
       includeDefineCustomElements: true,
     }),
   ],

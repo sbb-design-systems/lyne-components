@@ -79,7 +79,7 @@ export const createOverlayComponent = <
       if (this.props.onDidDismiss) {
         this.props.onDidDismiss(event);
       }
-      setRef(this.props.forwardedRef, null);
+      setRef(this.props.forwardedRef, null)
     }
 
     shouldComponentUpdate(nextProps: Props) {
@@ -152,10 +152,7 @@ export const createOverlayComponent = <
        * overlay is dismissing otherwise component
        * will be hidden before animation is done.
        */
-      return ReactDOM.createPortal(
-        this.props.isOpen || isDismissing ? this.props.children : null,
-        this.el
-      );
+      return ReactDOM.createPortal(this.props.isOpen || isDismissing ? this.props.children : null, this.el);
     }
   }
 
