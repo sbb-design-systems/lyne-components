@@ -36,11 +36,11 @@
   position: fixed;
   padding-block: var(--toast-padding-block);
   padding-inline: var(--toast-padding-inline);
-  margin: var(--toast-margin) 0;
+  margin-block: var(--toast-margin);
   width: calc(100% - (2 * var(--sbb-spacing-responsive-s-zero)));
 
   @include mq($from: small) {
-    width: var(--toast-max-width);
+    width: fit-content;
   }
 
   display: flex;
@@ -89,7 +89,7 @@
 }
 
 .toast-text {
-  word-break: break-all;
+  word-break: break-word;
   flex-grow: 1;
 }
 
