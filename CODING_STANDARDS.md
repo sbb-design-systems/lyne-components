@@ -593,7 +593,7 @@ e.g. for a label that receives ellipsis, if it is too long to fit in a container
 #### Controls
 
 Basically, all `@Props()` decorated properties should be included as a control in a story.
-To be consistence, provide every control in every story. In some cases this can be relaxed,
+To be consistent, provide every control in every story. In some cases this can be relaxed,
 or some stories should have some special controls.
 
 #### Templates
