@@ -1,22 +1,19 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import { i18nDirection, i18nDeparture, i18nArrival } from '../../global/i18n';
+import { i18nDirection } from '../../global/i18n';
 import {
   durationToTime,
   isProductIcon,
   renderIconProduct,
   renderStringProduct,
-  walkTimeAfter,
-  walkTimeBefore
 } from './sbb-timetable-row.helper';
-import { format } from 'date-fns';
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
-  tag: 'sbb-timetable-row'
+  tag: 'sbb-timetable-row',
 })
 export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
@@ -79,7 +76,7 @@ export class SbbTimetableRow {
       arrivalWalk,
       tripStatus,
       occupancy,
-      duration
+      duration,
     } = this.config?.summary || {};
 
     const badgeClass = price?.length ? 'timetable__row-badge' : '';
@@ -103,39 +100,27 @@ export class SbbTimetableRow {
           <div class="timetable__row-header" role="rowheader">
             <div class="timetable__row-details">
               <sbb-icon name={product?.vehicleMode} />
-              {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase()) === true
+              {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase())
                 ? renderIconProduct(product?.vehicleSubModeShortName, product?.line)
                 : renderStringProduct(product?.vehicleSubModeShortName, product?.line)}
             </div>
             <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>
           </div>
-
-          <div class="timetable__row-body" role="gridcell">
-            {departureWalk ? walkTimeBefore(departureWalk) : ''}
-
-            <time class="timetable__row-time" dateTime={'' + departure?.time}>
-              <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
-
-              {departure?.time && format(new Date(departure?.time), 'H:mm')}
-            </time>
-            <sbb-pearl-chain
-              class="timetable__row-chain"
-              legs={legs}
-              disable-animation={this.disableAnimation}
-            />
-            <time class="timetable__row-time" dateTime={'' + arrival?.time}>
-              <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-              {arrival?.time && format(new Date(arrival?.time), 'H:mm')}
-            </time>
-            {arrivalWalk ? walkTimeAfter(arrivalWalk) : ''}
-          </div>
+          <sbb-pearl-chain-time
+            legs={legs}
+            departureTime={departure?.time}
+            arrivalTime={arrival?.time}
+            departureWalk={departureWalk}
+            arrivalWalk={arrivalWalk}
+            disableAnimation={this.disableAnimation}
+          ></sbb-pearl-chain-time>
 
           <div class="timetable__row-footer" role="gridcell">
             <span class={tripStatus?.quayChanged ? `timetable__row-platform--changed` : ''}>
               {departure?.quayRtName}
             </span>
 
-            {occupancy?.firstClass || occupancy?.secondClass ? (
+            {(occupancy?.firstClass || occupancy?.secondClass) && (
               <div>
                 <ul class="timetable__row-occupancy" role="list">
                   <li>
@@ -154,8 +139,6 @@ export class SbbTimetableRow {
                   </li>
                 </ul>
               </div>
-            ) : (
-              ''
             )}
             {sortedNotices?.length > 0 ? (
               <ul class="timetable__row-hints" role="list">

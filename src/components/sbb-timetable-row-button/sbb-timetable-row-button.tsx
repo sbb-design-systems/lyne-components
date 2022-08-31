@@ -1,7 +1,4 @@
-import { Component, Element, h, JSX, Prop, Watch } from '@stencil/core';
-import events from './sbb-timetable-row-button.events';
-import getDocumentLang from '../../global/helpers/get-document-lang';
-import { i18nShowConnectionDetailsAndBuyOptions } from '../../global/i18n';
+import { Component, h, JSX, Prop, Watch, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   shadow: true,
@@ -79,9 +76,7 @@ export class SbbTimetableRowButton {
         aria-label={this.accessibilityLabel}
         aria-controls={this.accessibilityControls}
         onClick={this._clickHandler}
-        ref={(el): void => {
-          this._button = el;
-        }}
+        ref={(el) => (this._button = el)}
         type="button"
         role={this.role}
         name={this.name}

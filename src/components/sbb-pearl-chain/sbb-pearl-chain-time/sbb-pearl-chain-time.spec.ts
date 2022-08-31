@@ -1,0 +1,192 @@
+import { newSpecPage } from '@stencil/core/testing';
+import { SbbPearlChainTime } from './sbb-pearl-chain-time';
+
+describe('sbb-pearl-chain-time', () => {
+  it('should render component with time', async () => {
+    const page = await newSpecPage({
+      components: [SbbPearlChainTime],
+      html: `
+        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00'>
+        </sbb-pearl-chain-time>
+      `,
+    });
+    page.rootInstance.legs = [
+      {
+        duration: 60,
+      },
+    ];
+    await page.waitForChanges();
+    expect(page.root).toEqualHtml(`
+        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00'>
+          <mock:shadow-root>
+            <time class="timetable__row-time" datetime="2022-08-16T12:00:00">
+              <span class="screenreaderonly">
+                Departure
+              </span>
+              12:00
+            </time>
+            <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
+            <time class="timetable__row-time" datetime="2022-08-16T15:00:00">
+              <span class="screenreaderonly">
+                Arrival
+              </span>
+              15:00
+            </time>
+          </mock:shadow-root>
+        </sbb-pearl-chain>
+      `);
+  });
+
+  it('should render component with departure walk', async () => {
+    const page = await newSpecPage({
+      components: [SbbPearlChainTime],
+      html: `
+        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10">
+        </sbb-pearl-chain-time>
+      `,
+    });
+    page.rootInstance.legs = [
+      {
+        duration: 60,
+      },
+    ];
+    await page.waitForChanges();
+    expect(page.root).toEqualHtml(`
+        <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="10">
+          <mock:shadow-root>
+            <span class="timetable__row-walktime">
+              <sbb-icon name="walk-small"></sbb-icon>
+              <time datetime="10M">
+                <span class="screenreaderonly">
+                  minutes of walking time before departure:
+                </span>
+                10
+                <span aria-hidden="true">
+                  '
+                </span>
+              </time>
+            </span>
+            <time class="timetable__row-time" datetime="2022-08-16T12:00:00">
+              <span class="screenreaderonly">
+                Departure
+              </span>
+              12:00
+            </time>
+            <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
+            <time class="timetable__row-time" datetime="2022-08-16T15:00:00">
+              <span class="screenreaderonly">
+                Arrival
+              </span>
+              15:00
+            </time>
+          </mock:shadow-root>
+        </sbb-pearl-chain>
+      `);
+  });
+
+  it('should render component with arrival walk', async () => {
+    const page = await newSpecPage({
+      components: [SbbPearlChainTime],
+      html: `
+        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' arrival-walk="10">
+        </sbb-pearl-chain-time>
+      `,
+    });
+    page.rootInstance.legs = [
+      {
+        duration: 60,
+      },
+    ];
+    await page.waitForChanges();
+    expect(page.root).toEqualHtml(`
+        <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10">
+          <mock:shadow-root>
+            <time class="timetable__row-time" datetime="2022-08-16T12:00:00">
+              <span class="screenreaderonly">
+                Departure
+              </span>
+              12:00
+            </time>
+            <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
+            <time class="timetable__row-time" datetime="2022-08-16T15:00:00">
+              <span class="screenreaderonly">
+                Arrival
+              </span>
+              15:00
+            </time>
+            <span class="timetable__row-walktime">
+              <time datetime="10M">
+                <span class="screenreaderonly">
+                  minutes of walking time after arrival:
+                </span>
+                10
+                <span aria-hidden="true">
+                  '
+                </span>
+              </time>
+              <sbb-icon name="walk-small"></sbb-icon>
+            </span>
+          </mock:shadow-root>
+        </sbb-pearl-chain>
+      `);
+  });
+
+  it('should render component with departure and arrival walk', async () => {
+    const page = await newSpecPage({
+      components: [SbbPearlChainTime],
+      html: `
+        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="20" arrival-walk="10" >
+        </sbb-pearl-chain-time>
+      `,
+    });
+    page.rootInstance.legs = [
+      {
+        duration: 60,
+      },
+    ];
+    await page.waitForChanges();
+    expect(page.root).toEqualHtml(`
+        <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10">
+          <mock:shadow-root>
+            <span class="timetable__row-walktime">
+              <sbb-icon name="walk-small"></sbb-icon>
+              <time datetime="20M">
+                <span class="screenreaderonly">
+                  minutes of walking time before departure:
+                </span>
+                20
+                <span aria-hidden="true">
+                  '
+                </span>
+              </time>
+            </span>
+            <time class="timetable__row-time" datetime="2022-08-16T12:00:00">
+              <span class="screenreaderonly">
+                Departure
+              </span>
+              12:00
+            </time>
+            <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
+            <time class="timetable__row-time" datetime="2022-08-16T15:00:00">
+              <span class="screenreaderonly">
+                Arrival
+              </span>
+              15:00
+            </time>
+            <span class="timetable__row-walktime">
+              <time datetime="10M">
+                <span class="screenreaderonly">
+                  minutes of walking time after arrival:
+                </span>
+                10
+                <span aria-hidden="true">
+                  '
+                </span>
+              </time>
+              <sbb-icon name="walk-small"></sbb-icon>
+            </span>
+          </mock:shadow-root>
+        </sbb-pearl-chain>
+      `);
+  });
+});

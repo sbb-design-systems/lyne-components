@@ -15,12 +15,12 @@
 
 ### Used by
 
- - [sbb-timetable-row](../sbb-timetable-row)
+ - [sbb-pearl-chain-time](sbb-pearl-chain-time)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-timetable-row --> sbb-pearl-chain
+  sbb-pearl-chain-time --> sbb-pearl-chain
   style sbb-pearl-chain fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

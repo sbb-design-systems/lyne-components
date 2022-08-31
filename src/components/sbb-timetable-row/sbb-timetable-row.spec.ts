@@ -33,45 +33,7 @@ describe('sbb-timetable-row', () => {
                     Direction Luzern
                   </p>
                 </div>
-                <div class="timetable__row-body" role="gridcell">
-                  <span class="timetable__row-walktime">
-                    <sbb-icon name="walk-small"></sbb-icon>
-                    <time datetime="Thu Jan 01 1970 01:00:00 GMT+0100 (Mitteleuropäische Normalzeit)">
-                      <span class="screenreaderonly">
-                        minutes of walking time before departure:
-                      </span>
-                      8
-                      <span aria-hidden="true">
-                        '
-                      </span>
-                    </time>
-                  </span>
-                  <time class="timetable__row-time" datetime="2022-10-28T02:48:00+02:00">
-                    <span class="screenreaderonly">
-                      Departure
-                    </span>
-                    2:48
-                  </time>
-                  <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
-                  <time class="timetable__row-time" datetime="2022-10-28T21:16:00+02:00">
-                    <span class="screenreaderonly">
-                      Arrival
-                    </span>
-                    21:16
-                  </time>
-                  <span class="timetable__row-walktime">
-                    <time datetime="Thu Jan 01 1970 01:00:00 GMT+0100 (Mitteleuropäische Normalzeit)">
-                      <span class="screenreaderonly">
-                        minutes of walking time after arrival:
-                      </span>
-                      5
-                      <span aria-hidden="true">
-                        '
-                      </span>
-                    </time>
-                    <sbb-icon name="walk-small"></sbb-icon>
-                  </span>
-                </div>
+                <sbb-pearl-chain-time arrivaltime="2022-10-28T21:16:00+02:00" arrivalwalk="5" departuretime="2022-10-28T02:48:00+02:00" departurewalk="8"></sbb-pearl-chain-time>
                 <div class="timetable__row-footer" role="gridcell">
                   <span class="timetable__row-platform--changed">
                     7

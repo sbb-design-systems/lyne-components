@@ -46,12 +46,6 @@ li {
   align-self: center;
 }
 
-.timetable__row-chain {
-  flex: 1 1 auto;
-  align-self: center;
-  margin-inline: var(--sbb-spacing-fixed-3x);
-}
-
 .timetable__row-transport {
   align-self: center;
 }
@@ -95,35 +89,21 @@ li {
   align-self: center;
 }
 
-.timetable__row-body,
 .timetable__row-footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-
-.timetable__row-footer {
   gap: var(--sbb-spacing-fixed-2x);
 }
 
-.timetable__row-walktime,
+.timetable__row-occupancy {
+  gap: var(--sbb-spacing-fixed-2x);
+}
+
 .timetable__row-occupancy li {
   display: inline-flex;
   align-items: center;
-}
-
-.timetable__row-walktime {
-  @include text-xxs--regular;
-}
-
-.timetable__row-walktime:first-of-type {
-  transform: translateX(calc(-1 * var(--sbb-spacing-fixed-1x)));
-  margin-inline-end: var(--sbb-spacing-fixed-1x);
-}
-
-.timetable__row-walktime:last-of-type {
-  transform: translateX(var(--sbb-spacing-fixed-1x));
-  margin-inline-start: var(--sbb-spacing-fixed-1x);
+  gap: var(--sbb-spacing-fixed-1x);
 }
 
 .timetable__row-platform--changed {
@@ -165,14 +145,6 @@ li {
 
   width: 15%;
   height: #{px-to-rem-build(20)};
-}
-
-.timetable__row-occupancy {
-  gap: var(--sbb-spacing-fixed-2x);
-
-  li {
-    gap: var(--sbb-spacing-fixed-1x);
-  }
 }
 
 @keyframes skeleton-pulse {

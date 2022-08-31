@@ -74,8 +74,8 @@ describe('sbb-pearl-chain', () => {
         <sbb-pearl-chain>
           <mock:shadow-root>
             <div class="pearl-chain">
-              <div class="pearl-chain__leg pearl-chain__leg--past" style="width: 8%;"></div>
-              <div class="pearl-chain__leg pearl-chain__leg--past" style="width: 92%;"></div>
+              <div class="pearl-chain__leg pearl-chain__leg--past" style="width: 8.333333333333332%;"></div>
+              <div class="pearl-chain__leg pearl-chain__leg--past" style="width: 91.66666666666666%;"></div>
             </div>
           </mock:shadow-root>
         </sbb-pearl-chain>

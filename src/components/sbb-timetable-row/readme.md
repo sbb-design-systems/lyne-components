@@ -20,7 +20,7 @@
 - [sbb-timetable-row-button](../sbb-timetable-row-button)
 - [sbb-card-badge](../sbb-card-badge)
 - [sbb-icon](../sbb-icon)
-- [sbb-pearl-chain](../sbb-pearl-chain)
+- [sbb-pearl-chain-time](../sbb-pearl-chain/sbb-pearl-chain-time)
 
 ### Graph
 ```mermaid
@@ -28,7 +28,9 @@ graph TD;
   sbb-timetable-row --> sbb-timetable-row-button
   sbb-timetable-row --> sbb-card-badge
   sbb-timetable-row --> sbb-icon
-  sbb-timetable-row --> sbb-pearl-chain
+  sbb-timetable-row --> sbb-pearl-chain-time
+  sbb-pearl-chain-time --> sbb-icon
+  sbb-pearl-chain-time --> sbb-pearl-chain
   style sbb-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

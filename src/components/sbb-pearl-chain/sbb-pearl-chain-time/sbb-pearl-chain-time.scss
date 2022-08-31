@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.timetable__row-walktime {
+  @include text-xxs--regular;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+.timetable__row-walktime:first-of-type {
+  transform: translateX(calc(-1 * var(--sbb-spacing-fixed-1x)));
+  margin-inline-end: var(--sbb-spacing-fixed-1x);
+}
+
+.timetable__row-walktime:last-of-type {
+  transform: translateX(var(--sbb-spacing-fixed-1x));
+  margin-inline-start: var(--sbb-spacing-fixed-1x);
+}
+
+.timetable__row-chain {
+  flex: 1 1 auto;
+  align-self: center;
+  margin-inline: var(--sbb-spacing-fixed-3x);
+}
+
+.screenreaderonly {
+  @include screenReaderOnly;
+}

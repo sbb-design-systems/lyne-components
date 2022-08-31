@@ -1,4 +1,4 @@
-import { h } from '@stencil/core';
+import { h, JSX } from '@stencil/core';
 import {
   differenceInDays,
   differenceInHours,
@@ -7,9 +7,8 @@ import {
   addMinutes,
   subDays,
 } from 'date-fns';
-import { toDate } from 'date-fns-tz';
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../../global/i18n';
+import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
 
 export const durationToTime = (duration: number): string => {
   const result = [];
@@ -24,13 +23,13 @@ export const durationToTime = (duration: number): string => {
 
   const hours = differenceInHours(future, now);
   if (hours > 0) {
-    result.push(`${hours} h`);
+    result.push(`${hours} ${i18nDurationHour.multiple.short[getDocumentLang()]}`);
     future = subHours(future, hours);
   }
 
   const minutes = differenceInMinutes(future, now);
   if (minutes > 0) {
-    result.push(`${minutes} min`);
+    result.push(`${minutes} ${i18nDurationMinute.multiple.short[getDocumentLang()]}`);
   }
 
   return result.join(' ');
@@ -76,30 +75,4 @@ export const renderIconProduct = (transport: string, line?: string): JSX.Element
 
 export const renderStringProduct = (vehicleName: string, line: string): JSX.Element => {
   return <span class="timetable__row-transportnumber">{vehicleName + ' ' + line}</span>;
-};
-
-export const walkTimeBefore = (walkTime: number): JSX.Element => {
-  return (
-    <span class="timetable__row-walktime">
-      <sbb-icon name="walk-small"></sbb-icon>
-      <time dateTime={'' + toDate(walkTime)}>
-        <span class="screenreaderonly">{i18nWalkingDistanceDeparture[getDocumentLang()]}</span>
-        {walkTime}
-        <span aria-hidden="true">'</span>
-      </time>
-    </span>
-  );
-};
-
-export const walkTimeAfter = (walkTime: number): JSX.Element => {
-  return (
-    <span class="timetable__row-walktime">
-      <time dateTime={'' + toDate(walkTime)}>
-        <span class="screenreaderonly">{i18nWalkingDistanceArrival[getDocumentLang()]}</span>
-        {walkTime}
-        <span aria-hidden="true">'</span>
-      </time>
-      <sbb-icon name="walk-small"></sbb-icon>
-    </span>
-  );
 };
