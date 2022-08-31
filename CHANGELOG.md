@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.5.2 (2022-08-31)
+
+### Features
+
+- add @sbb-esta/lyne-components-react for react consumers ([#1360](https://github.com/lyne-design-system/lyne-components/issues/1360)) ([5a02ba0](https://github.com/lyne-design-system/lyne-components/commit/5a02ba04468a9a3bd2698aa072b8c98ff587f08c))
+
 ### 0.5.1 (2022-08-30)
 
 ### Bug Fixes
