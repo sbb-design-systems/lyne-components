@@ -144,8 +144,8 @@ export function getLinkAttributeList(
 
   const linkAttributeList = Object.assign(baseAttributeList, {
     href: linkProperties.href,
-    ...(linkProperties.download && { download: '' }),
-    ...(buttonProperties.disabled && { tabIndex: '-1' }),
+    download: linkProperties.download ? '' : undefined,
+    tabIndex: buttonProperties.disabled ? '-1' : undefined,
   });
 
   if (window.location.href.includes(linkProperties.href)) {
@@ -155,11 +155,9 @@ export function getLinkAttributeList(
   return Object.assign(linkAttributeList, {
     rel: linkProperties.rel || 'external noopener nofollow',
     target: linkProperties.target || '_blank',
-    ...(linkProperties.accessibilityLabel && {
-      'aria-label': `${linkProperties.accessibilityLabel}. ${
-        i18nTargetOpensInNewWindow[getDocumentLang()]
-      }`,
-    }),
+    'aria-label': linkProperties.accessibilityLabel
+      ? `${linkProperties.accessibilityLabel}. ${i18nTargetOpensInNewWindow[getDocumentLang()]}`
+      : i18nTargetOpensInNewWindow[getDocumentLang()],
   });
 }
 
@@ -174,8 +172,8 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     name: buttonProperties.name,
     type: buttonProperties.type || 'button',
     onClick: buttonProperties.emitButtonClick.bind(buttonProperties),
-    ...(buttonProperties.form && { form: buttonProperties.form }),
-    ...(buttonProperties.disabled && { disabled: 'true' }),
+    form: buttonProperties.form || undefined,
+    disabled: buttonProperties.disabled ? 'true' : undefined,
   });
 }
 
