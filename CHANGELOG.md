@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.5.4 (2022-09-01)
+
+### Bug Fixes
+
+- define compilation target for bundled storybook stories ([e3b2494](https://github.com/lyne-design-system/lyne-components/commit/e3b2494e21635c02a52bcbe10b283c9a05dcaef5))
+
 ### 0.5.3 (2022-09-01)
 
 ### Bug Fixes
