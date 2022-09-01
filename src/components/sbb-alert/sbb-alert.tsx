@@ -57,7 +57,7 @@ export class SbbAlert {
   /** Content of title. */
   @Prop() public titleContent?: string;
 
-  /** Level of title, will be rendered as heading tag (e.g. h5). */
+  /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @Prop() public titleLevel: InterfaceAlertAttributes['titleLevel'] = '3';
 
   /** Emits when the fade in animation starts. */

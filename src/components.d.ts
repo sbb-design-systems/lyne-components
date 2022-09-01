@@ -112,7 +112,7 @@ export namespace Components {
          */
         "titleContent"?: string;
         /**
-          * Level of title, will be rendered as heading tag (e.g. h5).
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
          */
         "titleLevel": InterfaceAlertAttributes['titleLevel'];
     }
@@ -1553,7 +1553,7 @@ declare namespace LocalJSX {
          */
         "titleContent"?: string;
         /**
-          * Level of title, will be rendered as heading tag (e.g. h5).
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
          */
         "titleLevel"?: InterfaceAlertAttributes['titleLevel'];
     }

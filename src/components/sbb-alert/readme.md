@@ -15,7 +15,7 @@
 | `readonly`           | `readonly`             | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                                | `boolean`                                | `false`       |
 | `size`               | `size`                 | You can choose between `m` or `l` size.                                                                                                                                         | `"l" \| "m"`                             | `'m'`         |
 | `titleContent`       | `title-content`        | Content of title.                                                                                                                                                               | `string`                                 | `undefined`   |
-| `titleLevel`         | `title-level`          | Level of title, will be rendered as heading tag (e.g. h5).                                                                                                                      | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`         |
+| `titleLevel`         | `title-level`          | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                                 | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`         |
 
 
 ## Events
