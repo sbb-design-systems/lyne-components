@@ -13,6 +13,7 @@
       "jsx": true
     }
   },
+  "ignorePatterns": ["**/react-library/**/*"],
   "overrides": [
     {
       "files": ["*.js"],

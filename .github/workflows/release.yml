@@ -66,6 +66,19 @@ jobs:
         run: yarn publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Download artifacts'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const version = require('./package.json').version;
+            const path = `${process.env.GITHUB_WORKSPACE}/react-library/package.json`;
+            const pkgJson = fs.readFileSync(path, 'utf8');
+            fs.writeFileSync(path, pkgJson.replace(/0.0.0-PLACEHOLDER/g, version), 'utf8');
+      - name: 'Release: Publish @sbb-esta/lyne-components-react'
+        run: yarn publish react-library --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create versioned storybook
         run: STORYBOOK_COMPONENTS_VERSION=$(cat package.json | jq --raw-output '.version') npm run build:storybook

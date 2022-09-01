@@ -23,6 +23,7 @@ const buildFiles = (files) => {
     },
     // minify: true,
     outdir: config.bundleDir,
+    target: 'node16',
   });
 };
 
