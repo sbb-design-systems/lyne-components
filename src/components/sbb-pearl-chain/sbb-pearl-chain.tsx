@@ -1,6 +1,6 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes, Leg } from './sbb-pearl-chain.custom';
-import { isPast, differenceInMinutes, isFuture } from 'date-fns';
+import { isPast, isFuture, differenceInMinutes } from 'date-fns';
 import { toDate } from 'date-fns-tz';
 
 enum Status {
@@ -44,10 +44,10 @@ export class SbbPearlChain {
   }
 
   private _getProgress(start: Date, end: Date): number {
-    const progress = differenceInMinutes(Date.now(), start);
     const total = differenceInMinutes(end, start);
+    const progress = differenceInMinutes(Date.now(), start);
 
-    return Math.round((progress / total) * 100);
+    return (progress / total) * 100;
   }
 
   private _getStatus(start: Date, end: Date): Status {
@@ -59,8 +59,8 @@ export class SbbPearlChain {
     return Status.future;
   }
 
-  private _renderPosition(): JSX.Element {
-    const currentPosition = this._getProgress(this._departureTime, this._arrivalTime);
+  private _renderPosition(start: Date, end: Date): JSX.Element {
+    const currentPosition = this._getProgress(start, end);
 
     const statusStyle = (): Record<string, string> => {
       return {
@@ -99,7 +99,6 @@ export class SbbPearlChain {
 
     return (
       <div class={`pearl-chain ${statusClass} ${arrivalCancelClass}  ${departureCancelClass}`}>
-        {this._renderPosition()}
         {this.legs?.map((leg: Leg) => {
           const duration = this._getRelativeDuration(this.legs, leg);
 
@@ -119,12 +118,15 @@ export class SbbPearlChain {
             ? 'pearl-chain__leg--cancellation'
             : '';
 
-          const legStatus = this._getStatus(departure, arrival)
-            ? 'pearl-chain__leg--' + this._getStatus(departure, arrival)
-            : '';
+          const legStatus =
+            this._getStatus(departure, arrival) &&
+            'pearl-chain__leg--' + this._getStatus(departure, arrival);
 
           return (
-            <div class={`pearl-chain__leg ${legStatus} ${cancelled}`} style={legStyle()}></div>
+            <div class={`pearl-chain__leg ${legStatus} ${cancelled}`} style={legStyle()}>
+              {this._getStatus(departure, arrival) === Status.progress &&
+                this._renderPosition(departure, arrival)}
+            </div>
           );
         })}
       </div>

@@ -219,7 +219,7 @@
   @include dot;
 
   background-color: var(--color-current-location);
-  top: 0;
+  top: -200%;
   z-index: 4;
 
   // --status-position: defined in .tsx file
