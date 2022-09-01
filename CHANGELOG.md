@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.5.3 (2022-09-01)
+
+### Bug Fixes
+
+- **sbb-link:** fix normalize button styles to not interfere with sbb-link in Safari ([#1365](https://github.com/lyne-design-system/lyne-components/issues/1365)) ([2b417f1](https://github.com/lyne-design-system/lyne-components/commit/2b417f102b16f767d6bb7491f25cbad457fc0bec))
+
 ### 0.5.2 (2022-08-31)
 
 ### Bug Fixes
