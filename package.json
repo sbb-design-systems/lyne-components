@@ -176,5 +176,9 @@
     "*.{scss}": [
       "stylelint --fix"
     ]
+  },
+  "dependencies": {
+    "date-fns": "^2.29.2",
+    "date-fns-tz": "^1.3.7"
   }
 }

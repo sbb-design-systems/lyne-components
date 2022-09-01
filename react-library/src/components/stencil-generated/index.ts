@@ -39,6 +39,7 @@ export const SbbMenuAction = /*@__PURE__*/createReactComponent<JSX.SbbMenuAction
 export const SbbOverlay = /*@__PURE__*/createReactComponent<JSX.SbbOverlay, HTMLSbbOverlayElement>('sbb-overlay');
 export const SbbPearlChain = /*@__PURE__*/createReactComponent<JSX.SbbPearlChain, HTMLSbbPearlChainElement>('sbb-pearl-chain');
 export const SbbPearlChainTime = /*@__PURE__*/createReactComponent<JSX.SbbPearlChainTime, HTMLSbbPearlChainTimeElement>('sbb-pearl-chain-time');
+export const SbbPearlChainVertical = /*@__PURE__*/createReactComponent<JSX.SbbPearlChainVertical, HTMLSbbPearlChainVerticalElement>('sbb-pearl-chain-vertical');
 export const SbbSection = /*@__PURE__*/createReactComponent<JSX.SbbSection, HTMLSbbSectionElement>('sbb-section');
 export const SbbSignet = /*@__PURE__*/createReactComponent<JSX.SbbSignet, HTMLSbbSignetElement>('sbb-signet');
 export const SbbSlotComponent = /*@__PURE__*/createReactComponent<JSX.SbbSlotComponent, HTMLSbbSlotComponentElement>('sbb-slot-component');
