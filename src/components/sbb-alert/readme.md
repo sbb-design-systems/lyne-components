@@ -1,5 +1,43 @@
 # sbb-alert
 
+The alert component should be used to display important messages to a client. 
+There are two sizes available and a `sbb-alert` can optionally be hidden by a user. 
+It's possible to place an action, which by clicking navigates somewhere to display more information.
+
+Hint: 
+Hiding the alert by a user does not remove it from the DOM, this would be in responsibility
+of the library consumer to do it by reacting to the specific event.
+However, after closing, a "display: none" style to hide it from screen readers is being added.
+
+## Usage
+
+Default:
+
+```html
+<sbb-alert title-content='Interruption between Berne and Olten' icon-name='disruption'>
+  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock 
+  construction work will take place. 
+  You have to expect changed travel times and changed connections. <sbb-link href="#">Show more</sbb-link>
+</sbb-alert>
+```
+
+Slot variant:
+
+```html
+<sbb-alert>
+  <span slot='title'>Interruption between Berne and Olten</span>
+  <sbb-icon slot='icon' name='disruption'></sbb-icon>
+  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock 
+  construction work will take place. 
+  You have to expect changed travel times and changed connections. <sbb-link href="#">Show more</sbb-link>
+</sbb-alert>
+```
+
+## Accessibility
+
+You can control the aria-live value to define on how to announce the alert to a user.
+If there is more than one alert, we recommend to wrap it in a container with a hidden
+heading tag for screen reader users.
 
 
 <!-- Auto Generated Below -->
@@ -77,5 +115,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-
