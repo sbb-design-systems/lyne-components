@@ -8,7 +8,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 let nextId = 0;
 
 /**
- * @slot icon - Should be a sbb-icon which is displayed next to the title.
+ * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
  * @slot unnamed - Content of the alert.
  */
@@ -119,24 +119,6 @@ export class SbbAlert {
     );
   }
 
-  private _onHeightTransitionEnd(): void {
-    this._transitionWrapperElement.style.removeProperty('height');
-    this._alertElement.style.removeProperty('opacity');
-
-    if (this.disableAnimation) {
-      this._onOpacityTransitionEnd();
-      return;
-    }
-
-    this._alertElement.addEventListener('transitionend', this._onOpacityTransitionEnd.bind(this), {
-      once: true,
-    });
-  }
-
-  private _onOpacityTransitionEnd(): void {
-    this.didPresent.emit();
-  }
-
   /** Dismiss the alert. */
   // eslint-disable-next-line require-await
   @Method() public async dismiss(): Promise<void> {
@@ -157,6 +139,24 @@ export class SbbAlert {
     }
     this._transitionWrapperElement.style.height = '0';
     this._alertElement.style.opacity = '0';
+  }
+
+  private _onHeightTransitionEnd(): void {
+    this._transitionWrapperElement.style.removeProperty('height');
+    this._alertElement.style.removeProperty('opacity');
+
+    if (this.disableAnimation) {
+      this._onOpacityTransitionEnd();
+      return;
+    }
+
+    this._alertElement.addEventListener('transitionend', this._onOpacityTransitionEnd.bind(this), {
+      once: true,
+    });
+  }
+
+  private _onOpacityTransitionEnd(): void {
+    this.didPresent.emit();
   }
 
   public render(): JSX.Element {

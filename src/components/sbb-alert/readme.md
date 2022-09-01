@@ -52,11 +52,11 @@ Type: `Promise<void>`
 
 ## Slots
 
-| Slot        | Description                                                |
-| ----------- | ---------------------------------------------------------- |
-| `"icon"`    | Should be a sbb-icon which is displayed next to the title. |
-| `"title"`   | Title content.                                             |
-| `"unnamed"` | Content of the alert.                                      |
+| Slot        | Description                                                                                                |
+| ----------- | ---------------------------------------------------------------------------------------------------------- |
+| `"icon"`    | Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
+| `"title"`   | Title content.                                                                                             |
+| `"unnamed"` | Content of the alert.                                                                                      |
 
 
 ## Dependencies
