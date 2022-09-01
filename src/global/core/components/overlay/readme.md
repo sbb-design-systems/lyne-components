@@ -1,5 +1,4 @@
 # sbb-overlay
-Example component for overlay system. Not meant to be used.
 
 <!-- Auto Generated Below -->
 
