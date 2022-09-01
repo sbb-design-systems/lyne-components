@@ -14,18 +14,16 @@ describe('getLinkButtonBaseAttributeList', () => {
     };
     const expectedObj = {
       dir: 'ltr',
-      id: 'a',
-      class: 'b',
       'aria-label': 'Test',
     };
-    expect(getLinkButtonBaseAttributeList('a', 'b', accessibilityProps)).toEqual(expectedObj);
+    expect(getLinkButtonBaseAttributeList(accessibilityProps)).toEqual(expectedObj);
   });
 
-  it('should return the param object without undefined or null values', () => {
+  it('should return empty object without undefined or null values', () => {
     const expectedObj = {
       dir: 'ltr',
     };
-    expect(getLinkButtonBaseAttributeList(null, null)).toEqual(expectedObj);
+    expect(getLinkButtonBaseAttributeList(null)).toEqual(expectedObj);
   });
 });
 
@@ -44,14 +42,12 @@ describe('getLinkButtonAttributeList', () => {
     };
     const expectedObj: object = {
       dir: 'ltr',
-      id: 'x',
-      class: 'y',
       href: 'link',
       rel: 'external noopener nofollow',
       target: '_self',
       'aria-label': 'Test. Link target opens in new window.',
     };
-    expect(getLinkButtonAttributeList('x', 'y', linkButtonProperties)).toEqual(expectedObj);
+    expect(getLinkButtonAttributeList(linkButtonProperties)).toEqual(expectedObj);
   });
 
   it('should return attributes for button', () => {
@@ -69,14 +65,12 @@ describe('getLinkButtonAttributeList', () => {
     };
     const expectedObj: object = {
       dir: 'ltr',
-      id: 'alfa',
-      class: 'beta',
       name: 'Button',
       type: 'submit',
       'aria-label': 'Test',
     };
     // jest can't compare functions as emitButtonClick, so objectContaining(...) API is used
-    expect(getLinkButtonAttributeList('alfa', 'beta', linkButtonProperties)).toEqual(
+    expect(getLinkButtonAttributeList(linkButtonProperties)).toEqual(
       expect.objectContaining(expectedObj)
     );
   });
