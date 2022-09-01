@@ -11,7 +11,7 @@
   --toast-padding-inline: var(--sbb-spacing-responsive-xs);
   --toast-margin: var(--sbb-spacing-responsive-s);
   --toast-max-width: #{px-to-rem-build(400)};
-  --toast-width: #{calc(100% - (2 * var(--sbb-spacing-responsive-s-zero)))};
+  --toast-width: #{calc(100% - (2 * var(--sbb-spacing-responsive-s)))};
 }
 
 .overlay-hidden {
@@ -37,10 +37,10 @@
   padding-block: var(--toast-padding-block);
   padding-inline: var(--toast-padding-inline);
   margin-block: var(--toast-margin);
-  width: calc(100% - (2 * var(--sbb-spacing-responsive-s-zero)));
+  width: var(--toast-width);
 
   @include mq($from: small) {
-    width: fit-content;
+    width: var(--toast-max-width);
   }
 
   display: flex;
