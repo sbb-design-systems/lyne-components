@@ -780,43 +780,43 @@ export namespace Components {
     }
     interface SbbMenuAction {
         /**
-          * Documentation for the prop
+          * This will be forwarded as aria-describedby to the relevant nested element.
          */
         "accessibilityDescribedby": string;
         /**
-          * Documentation for the prop
+          * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string;
         /**
-          * Documentation for the prop
+          * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby": string;
         /**
-          * Documentation for amount
+          * Value shown as badge at component end.
          */
         "amount": string;
         /**
-          * Documentation for the prop
+          * Whether the button is disabled.
          */
         "disabled": boolean;
         /**
-          * Documentation for the prop
+          * Whether the browser will show the download dialog on click.
          */
         "download": boolean;
         /**
-          * Documentation for the prop
+          * Id sent in the click event payload.
          */
         "eventId": string;
         /**
-          * Form attribute if link is used as button
+          * The <form> element to associate the button with.
          */
         "form": string;
         /**
-          * Documentation for the prop
+          * The href value you want to link to.
          */
         "href": string;
         /**
-          * Documentation for icon
+          * The name property passed to `sbb-icon` component.
          */
         "icon": string;
         /**
@@ -824,11 +824,11 @@ export namespace Components {
          */
         "menuActionId": string;
         /**
-          * Documentation for the prop
+          * The name of the button.
          */
         "name": string;
         /**
-          * Documentation for the prop
+          * Default behaviour of the button.
          */
         "type": ButtonType;
     }
@@ -2467,43 +2467,43 @@ declare namespace LocalJSX {
     }
     interface SbbMenuAction {
         /**
-          * Documentation for the prop
+          * This will be forwarded as aria-describedby to the relevant nested element.
          */
         "accessibilityDescribedby"?: string;
         /**
-          * Documentation for the prop
+          * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string;
         /**
-          * Documentation for the prop
+          * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby"?: string;
         /**
-          * Documentation for amount
+          * Value shown as badge at component end.
          */
         "amount"?: string;
         /**
-          * Documentation for the prop
+          * Whether the button is disabled.
          */
         "disabled"?: boolean;
         /**
-          * Documentation for the prop
+          * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean;
         /**
-          * Documentation for the prop
+          * Id sent in the click event payload.
          */
         "eventId"?: string;
         /**
-          * Form attribute if link is used as button
+          * The <form> element to associate the button with.
          */
         "form"?: string;
         /**
-          * Documentation for the prop
+          * The href value you want to link to.
          */
         "href"?: string;
         /**
-          * Documentation for icon
+          * The name property passed to `sbb-icon` component.
          */
         "icon"?: string;
         /**
@@ -2511,7 +2511,7 @@ declare namespace LocalJSX {
          */
         "menuActionId"?: string;
         /**
-          * Documentation for the prop
+          * The name of the button.
          */
         "name"?: string;
         /**
@@ -2519,7 +2519,7 @@ declare namespace LocalJSX {
          */
         "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
         /**
-          * Documentation for the prop
+          * Default behaviour of the button.
          */
         "type"?: ButtonType;
     }

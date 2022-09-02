@@ -7,6 +7,7 @@ import {
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
+ * @slot icon - Use this slot to provide an SVG icon. If `icon` is set, a sbb-icon will be used.
  */
 
 // TODO --> nextId test mechanism
@@ -24,62 +25,62 @@ export class SbbMenuAction implements LinkButtonProperties {
   @Prop() public menuActionId = `sbb-menu-action-${++nextId}`;
 
   /**
-   * Documentation for the prop
+   * Whether the browser will show the download dialog on click.
    */
   @Prop() public download: boolean;
 
   /**
-   * Documentation for the prop
+   *  The href value you want to link to.
    */
   @Prop() public href: string;
 
   /**
-   * Documentation for the prop
+   * Whether the button is disabled.
    */
   @Prop() public disabled: boolean;
 
   /**
-   * Documentation for the prop
+   * The name of the button.
    */
   @Prop() public name: string;
 
   /**
-   * Form attribute if link is used as button
+   * The <form> element to associate the button with.
    */
   @Prop() public form: string;
 
   /**
-   * Documentation for the prop
+   * Default behaviour of the button.
    */
   @Prop() public type: ButtonType;
 
   /**
-   * Documentation for the prop
+   * Id sent in the click event payload.
    */
   @Prop() public eventId: string;
 
   /**
-   * Documentation for icon
+   * The name property passed to `sbb-icon` component.
    */
   @Prop() public icon: string;
 
   /**
-   * Documentation for amount
+   * Value shown as badge at component end.
    */
   @Prop() public amount: string;
 
   /**
-   * Documentation for the prop
+   * This will be forwarded as aria-label to the relevant nested element.
    */
   @Prop() public accessibilityLabel: string;
 
   /**
-   * Documentation for the prop
+   * This will be forwarded as aria-describedby to the relevant nested element.
    */
   @Prop() public accessibilityDescribedby: string;
 
   /**
-   * Documentation for the prop
+   * This will be forwarded as aria-labelledby to the relevant nested element.
    */
   @Prop() public accessibilityLabelledby: string;
 
@@ -93,6 +94,9 @@ export class SbbMenuAction implements LinkButtonProperties {
   })
   public click: EventEmitter<any>;
 
+  /**
+   * The function triggered on button click.
+   */
   public emitButtonClick(): void {
     if (!this.disabled) {
       this.click.emit(this.eventId);
@@ -118,7 +122,7 @@ export class SbbMenuAction implements LinkButtonProperties {
     return (
       <TAG_NAME {...attributeList}>
         <div class="sbb-menu-action__content">
-          <sbb-icon name={this.icon}></sbb-icon>
+          <slot name="icon">{this.icon && <sbb-icon name={this.icon} />}</slot>
           <span class="sbb-menu-action__label">
             <slot />
           </span>
