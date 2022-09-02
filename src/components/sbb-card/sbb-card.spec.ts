@@ -9,40 +9,43 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-card>
-          <mock:shadow-root>
+      <sbb-card>
+        <mock:shadow-root>
+          <span class="card__content">
+            <slot></slot>
+          </span>
           <span>
-                 <slot></slot>
-               </span>
-               <span>
-                 <slot name="badge"></slot>
-               </span>
-          </mock:shadow-root>
-        </sbb-card>
-      `);
+            <slot name="badge"></slot>
+          </span>
+        </mock:shadow-root>
+      </sbb-cardcard__badge>
+    `);
   });
 
-  it('renders sbb-card with sbb-card-badge', async () => {
+  // TODO: Enable once onSlotchange is fixed https://github.com/ionic-team/stencil/issues/3536
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('renders sbb-card with sbb-card-badge', async () => {
     const { root } = await newSpecPage({
       components: [SbbCard],
-      html: `<sbb-card>
-        <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
-      </sbb-card>`,
+      html: `
+        <sbb-card size='xl' >
+          <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
+        </sbb-card>`,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-card>
-          <mock:shadow-root>
-            <span>
-              <slot></slot>
-            </span>
-            <span>
-              <slot name="badge"></slot>
-            </span>
-          </mock:shadow-root>
-          <sbb-card-badge appearance="primary" is-discount="" slot="badge"></sbb-card-badge>
-        </sbb-card>
-      `);
+      <sbb-card class="card__badge" size='xl' >
+        <mock:shadow-root>
+          <span class="card__content">
+            <slot></slot>
+          </span>
+          <span>
+            <slot name="badge"></slot>
+          </span>
+        </mock:shadow-root>
+        <sbb-card-badge appearance="primary" is-discount="" slot="badge"></sbb-card-badge>
+      </sbb-card>
+    `);
   });
 
   it('renders sbb-card without sbb-card-badge', async () => {
@@ -54,14 +57,14 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-card size="s">
-          <mock:shadow-root>
-            <span>
-              <slot></slot>
-            </span>
-          </mock:shadow-root>
-          <sbb-card-badge appearance="primary" is-discount="" slot="badge"></sbb-card-badge>
-        </sbb-card>
-      `);
+      <sbb-card size="s">
+        <mock:shadow-root>
+          <span class="card__content">
+            <slot></slot>
+          </span>
+        </mock:shadow-root>
+        <sbb-card-badge appearance="primary" is-discount="" slot="badge"></sbb-card-badge>
+      </sbb-card>
+    `);
   });
 });

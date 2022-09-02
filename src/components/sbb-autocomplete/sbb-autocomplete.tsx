@@ -1,9 +1,8 @@
-import { Component, Element, h, Prop, State } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 
 import { i18nUseArrowKeysToNavigate, i18nXResultsAvailable } from '../../global/i18n';
 
 import events from './sbb-autocomplete.events';
-import inputEvents from '../sbb-text-input/sbb-text-input.events';
 import itemsDataHelper from './sbb-autocomplete.helper';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
@@ -88,7 +87,7 @@ export class SbbAutocomplete {
 
   @Element() private _element: HTMLElement;
 
-  private _inputElement!: HTMLSbbTextInputElement;
+  private _inputElement!: HTMLSbbFormFieldElement;
   private _list!: HTMLUListElement;
   private _dataItems!: [any];
   private _currentLanguage = getDocumentLang();
@@ -174,35 +173,9 @@ export class SbbAutocomplete {
     }
   };
 
-  private _selectInputText = (): void => {
-    const event = new CustomEvent('select', {
-      bubbles: false,
-      composed: false,
-    });
-
-    /**
-     * sbb-text-input listens to this event
-     */
-    this._inputElement.dispatchEvent(event);
-  };
-
-  private _focusInputElement = (): void => {
-    const event = new CustomEvent('focus', {
-      bubbles: false,
-      composed: false,
-    });
-
-    /**
-     * sbb-text-input listens to this event
-     */
-    this._inputElement.dispatchEvent(event);
-
-    this._userDidManipulateInputValue = false;
-  };
-
   private _handleInput = (evt): void => {
-    this._inputValue = evt.detail.value;
-    this.value = evt.detail.value;
+    this._inputValue = evt.target.value;
+    this.value = evt.target.value;
     this._userDidManipulateInputValue = true;
     this._showAutocompleteList();
   };
@@ -242,7 +215,6 @@ export class SbbAutocomplete {
 
   private _handleFocus = (): void => {
     this._showAutocompleteList();
-    this._selectInputText();
   };
 
   private _handleBlur = (): void => {
@@ -283,7 +255,7 @@ export class SbbAutocomplete {
     this.value = firstElement.innerText;
     this._isVisible = false;
 
-    this._focusInputElement();
+    this._userDidManipulateInputValue = false;
   };
 
   /**
@@ -295,8 +267,8 @@ export class SbbAutocomplete {
   public componentDidLoad(): void {
     this._element.addEventListener('focus', this._handleFocus);
     this._element.addEventListener('blur', this._handleBlur);
-    this._inputElement.addEventListener(inputEvents.input, this._handleInput);
-    this._inputElement.addEventListener('keydown', this._handleKeyPress);
+    this._inputElement.querySelector('input').addEventListener('input', this._handleInput);
+    this._inputElement.querySelector('input').addEventListener('keydown', this._handleKeyPress);
     this._list.addEventListener('click', this._handleListClick);
 
     this._initialInputValue = this.value;
@@ -305,8 +277,8 @@ export class SbbAutocomplete {
   public disconnectCallback(): void {
     this._element.removeEventListener('focus', this._handleFocus);
     this._element.removeEventListener('blur', this._handleBlur);
-    this._inputElement.removeEventListener(inputEvents.input, this._handleInput);
-    this._inputElement.removeEventListener('keydown', this._handleKeyPress);
+    this._inputElement.querySelector('input').removeEventListener('input', this._handleInput);
+    this._inputElement.querySelector('input').removeEventListener('keydown', this._handleKeyPress);
     this._list.removeEventListener('click', this._handleListClick);
   }
 
@@ -360,28 +332,27 @@ export class SbbAutocomplete {
 
   public render(): JSX.Element {
     this._dataItems = itemsDataHelper(this.items);
-
     return (
       <div class="autocomplete">
-        <sbb-text-input
-          inputAutoCompleteValue="off"
-          inputName={this.inputName}
-          inputType="text"
-          label={this.inputLabel}
-          inputPlaceholder={this.inputPlaceholder}
-          labelVisible={this.inputLabelVisible}
-          inputRequired
-          debounceInputEvent={this.inputDebounceTimeout}
+        <sbb-form-field
+          {...(this.inputLabelVisible && { label: this.inputLabel })}
           borderless={this.inputBorderless}
-          inputAriaExpanded={this._isVisible}
-          inputRole="combobox"
-          inputAriaAutoComplete="list"
-          inputAriaControls={this.autocompleteId}
-          inputValue={this.value}
           ref={(el): void => {
             this._inputElement = el;
           }}
-        ></sbb-text-input>
+        >
+          <input
+            autocomplete="off"
+            name={this.inputName}
+            type="text"
+            placeholder={this.inputPlaceholder}
+            aria-expanded={this._isVisible}
+            role="combobox"
+            aria-autocomplete="list"
+            aria-controls={this.autocompleteId}
+            value={this.value}
+          />
+        </sbb-form-field>
 
         <p class="autocomplete__accessibility-hint" role="status" tabindex="-1">
           {this._a11yHelpText()}

@@ -3,9 +3,74 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  position: relative;
+  background-color: var(--sbb-color-white-default);
+  width: 100%;
+  border-radius: var(--sbb-border-radius-4x);
+  padding-inline: var(--sbb-spacing-responsive-xxs-small);
+  overflow: hidden;
+  transition-property: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+
+  @include mq($from: medium) {
+    padding-inline: var(--sbb-spacing-responsive-xxs-medium);
+  }
 }
 
-.some-class {
-  color: var(--some-color-var);
+:host([size='xs']) {
+  padding-block: var(--sbb-spacing-fixed-3x);
+}
+
+:host([size='s']) {
+  padding-block: var(--sbb-spacing-responsive-xxxs-small);
+
+  @include mq($from: medium) {
+    padding-block: var(--sbb-spacing-responsive-xxxs-medium);
+  }
+}
+
+:host([size='m']) {
+  padding-block: var(--sbb-spacing-fixed-3x);
+}
+
+:host([size='l']) {
+  padding-block: var(--sbb-spacing-fixed-4x);
+}
+
+:host([size='xl']) {
+  padding-block: var(--sbb-spacing-responsive-xxs-small);
+
+  @include mq($from: medium) {
+    padding-block: var(--sbb-spacing-responsive-xxs-medium);
+  }
+}
+
+:host(.card__badge[size='m']),
+:host(.card__badge[size='l']),
+:host(.card__badge[size='xl']) {
+  padding-block-start: var(--sbb-spacing-fixed-6x);
+}
+
+:host([size='xxl']) {
+  padding-block: var(--sbb-spacing-responsive-s-small);
+
+  @include mq($from: medium) {
+    padding-block: var(--sbb-spacing-responsive-s-medium);
+  }
+}
+
+.card__content {
+  display: block;
+  transition: transform var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+}
+
+:host(:hover) {
+  cursor: pointer;
+
+  .card__content {
+    transform: translateY(-2px);
+  }
+}
+
+:host(:active) {
+  box-shadow: inset 0 0 0 var(--sbb-border-width-2x) var(--sbb-color-smoke-default);
 }

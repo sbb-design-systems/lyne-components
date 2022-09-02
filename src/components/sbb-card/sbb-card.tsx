@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, Host, JSX, Prop, State } from '@stencil/core';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 
 /**
@@ -17,28 +17,32 @@ export class SbbCard {
    */
   @Prop() public size?: InterfaceSbbCardAttributes['size'] = 'm';
 
+  /* @internal */
+  @State() public hasBadge = false;
+
   /**
    * It is used internally to show the `<sbb-card>`.
    *
    * @param size The size selected.
    * @returns True whether size is equal to m, l, xl or xxl. False otherwise.
    */
-  private _showSBBBadge(size: string): boolean {
-    if (size === 'm' || size === 'l' || size === 'xl' || size === 'xxl') {
-      return true;
-    }
-    return false;
+  private static _showSBBBadge(size: string): boolean {
+    return size === 'm' || size === 'l' || size === 'xl' || size === 'xxl';
+  }
+
+  private _onSlotBadgeChange(): void {
+    this.hasBadge = true;
   }
 
   public render(): JSX.Element {
     return (
-      <Host>
-        <span>
+      <Host class={{ card__badge: SbbCard._showSBBBadge(this.size) && this.hasBadge }}>
+        <span class="card__content">
           <slot />
         </span>
-        {this._showSBBBadge(this.size) && (
+        {SbbCard._showSBBBadge(this.size) && (
           <span>
-            <slot name="badge" />
+            <slot name="badge" onSlotchange={(): void => this._onSlotBadgeChange()} />
           </span>
         )}
       </Host>

@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, JSX, Host, Prop } from '@stencil/core';
 import { InterfaceSbbDividerAttributes } from './sbb-divider.custom.d';
 
 @Component({

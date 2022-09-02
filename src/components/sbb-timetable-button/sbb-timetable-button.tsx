@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop, Watch } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, Watch } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-right-small.svg';
 import events from './sbb-timetable-button.events';
 import getDocumentLang from '../../global/helpers/get-document-lang';
