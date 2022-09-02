@@ -19,7 +19,16 @@
       "automergeStrategy": "squash"
     },
     {
-      "matchPackageNames": ["@types/node", "@types/jest", "jest", "jest-cli"],
+      "matchPackageNames": [
+        "@types/node",
+        "@types/jest",
+        "@types/react",
+        "@types/react-dom",
+        "jest",
+        "jest-cli",
+        "react",
+        "react-dom"
+      ],
       "matchUpdateTypes": ["major"],
       "enabled": false
     },

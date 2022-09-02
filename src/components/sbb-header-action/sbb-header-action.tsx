@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Component, Event, EventEmitter, h, JSX, Host, Prop } from '@stencil/core';
+=======
+import { Component, Event, EventEmitter, JSX, h, Host, Prop } from '@stencil/core';
+>>>>>>> 0cf3a8a39c3c0685fc2309d50f8f52141dd9784b
 import {
   ButtonType,
   getLinkButtonAttributeList,
