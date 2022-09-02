@@ -2,17 +2,6 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-.sbb-menu-action__link,
-.sbb-menu-action__button {
-  display: block;
-  width: 100%;
-  color: var(--sbb-color-white-default);
-  text-decoration: none;
-  border: none;
-  background-color: transparent;
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
-}
-
 .sbb-menu-action__content {
   @include text-xs--regular;
 
@@ -34,6 +23,27 @@
   @include hover-mq($hover: true) {
     &:hover {
       background-color: var(--sbb-color-iron-default);
+    }
+  }
+}
+
+.sbb-menu-action__link,
+.sbb-menu-action__button {
+  display: block;
+  width: 100%;
+  color: var(--sbb-color-white-default);
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
+
+  &:focus-visible {
+    outline: 0;
+
+    .sbb-menu-action__content {
+      outline: var(--sbb-focus-outline-width) solid var(--sbb-color-white-default);
+      outline-offset: var(--sbb-focus-outline-offset);
+      border-radius: var(--sbb-border-radius-8x);
     }
   }
 }

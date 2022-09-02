@@ -782,15 +782,15 @@ export namespace Components {
     }
     interface SbbMenu {
         /**
-          * Close menu
+          * Closes the menu.
          */
         "closeMenu": () => Promise<void>;
         /**
-          * Open menu
+          * Opens the menu on trigger click.
          */
         "openMenu": () => Promise<void>;
         /**
-          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or a HTML element.
+          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
     }
@@ -1335,6 +1335,10 @@ export interface SbbCardCustomEvent<T> extends CustomEvent<T> {
 export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbLinkElement;
+}
+export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbMenuElement;
 }
 export interface SbbMenuActionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2518,7 +2522,23 @@ declare namespace LocalJSX {
     }
     interface SbbMenu {
         /**
-          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or a HTML element.
+          * Emits whenever the menu is closed.
+         */
+        "onSbb-menu_did-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu is opened.
+         */
+        "onSbb-menu_did-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu begins the closing transition.
+         */
+        "onSbb-menu_will-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu starts the opening transition.
+         */
+        "onSbb-menu_will-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
     }
@@ -2572,7 +2592,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Emits whenever the menu action click event triggers.
+          * Emits whenever the menu action is clicked.
          */
         "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
         /**

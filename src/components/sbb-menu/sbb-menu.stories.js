@@ -1,4 +1,4 @@
-// import events from './sbb-menu.events.ts';
+import events from './sbb-menu.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -17,11 +17,8 @@ const userInfoStyle = {
 const DefaultTemplate = (args) => (
   <div>
     <sbb-button id="menu-trigger-1" size="m" label="Menu trigger"></sbb-button>
-    <sbb-menu {...args} trigger="menu-trigger-1" open>
-      <sbb-menu-action
-        icon="link-small"
-        href="https://github.com/lyne-design-system/lyne-components"
-      >
+    <sbb-menu {...args} trigger="menu-trigger-1">
+      <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
       <sbb-menu-action icon="pen-small" amount="1" disabled>
@@ -40,21 +37,14 @@ const CustomContentTemplate = (args) => (
   <div>
     <sbb-button id="menu-trigger-2" size="m" label="Menu trigger"></sbb-button>
 
-    <sbb-menu {...args} trigger="menu-trigger-2" open>
+    <sbb-menu {...args} trigger="menu-trigger-2">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
-      <sbb-link
-        href="https://github.com/lyne-design-system/lyne-components"
-        text-size="xs"
-        variant="block"
-      >
+      <sbb-link href="https://www.sbb.ch/en" text-size="xs" variant="block">
         Profile
       </sbb-link>
       <sbb-divider />
-      <sbb-menu-action
-        icon="link-small"
-        href="https://github.com/lyne-design-system/lyne-components"
-      >
+      <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
       <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
@@ -74,11 +64,7 @@ const LongContentTemplate = (args) => (
     <sbb-menu {...args} trigger="menu-trigger-3">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
-      <sbb-link
-        href="https://github.com/lyne-design-system/lyne-components"
-        text-size="xs"
-        variant="block"
-      >
+      <sbb-link href="https://www.sbb.ch/en" text-size="xs" variant="block">
         Profile
       </sbb-link>
       <sbb-divider />
@@ -114,18 +100,11 @@ const EllipsisTemplate = (args) => (
     <sbb-menu {...args} trigger="menu-trigger-4">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
-      <sbb-link
-        href="https://github.com/lyne-design-system/lyne-components"
-        text-size="xs"
-        variant="block"
-      >
+      <sbb-link href="https://www.sbb.ch/en" text-size="xs" variant="block">
         Profile
       </sbb-link>
       <sbb-divider />
-      <sbb-menu-action
-        icon="link-small"
-        href="https://github.com/lyne-design-system/lyne-components"
-      >
+      <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
       <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
@@ -177,7 +156,7 @@ export default {
   },
   parameters: {
     actions: {
-      // handles: [events.click],
+      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
     },
     backgrounds: {
       disable: true,

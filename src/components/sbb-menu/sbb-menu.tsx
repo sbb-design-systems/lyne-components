@@ -1,6 +1,18 @@
-import { Component, Element, h, JSX, Listen, Method, Prop, State, Watch } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  JSX,
+  Listen,
+  Method,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import { getElementPosition } from './position';
-import { isMediumUltra } from './breakpoint';
+import { isBreakpoint } from './breakpoint';
 
 /**
  * @slot unnamed - Use this slot to project any content inside the component.
@@ -14,55 +26,90 @@ const MENU_OFFSET = 8;
   tag: 'sbb-menu',
 })
 export class SbbMenu {
-  /**
-   * Component element
-   */
   @Element() public el!: HTMLElement;
 
   /**
    * The element that will trigger the menu dialog.
-   * Accepts both a string (id of an element) or a HTML element.
+   * Accepts both a string (id of an element) or an HTML element.
    */
   @Prop() public trigger: string | HTMLElement;
 
   /**
-   * Open sate
+   * Whether the menu is open.
    */
   @State() public open = false;
 
   /**
-   * Fixed state
+   * Whether the menu is closing.
    */
   @State() public isDismissing = false;
 
-  /**
-   * Overflows window height
-   */
-  @State() public overflows = false;
+  // todo --> improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
+  private _dialog: HTMLDialogElement | any;
+  private _triggerEl: HTMLElement;
+  private _triggerController: AbortController;
 
   /**
-   * Open menu
+   * Emits whenever the menu starts the opening transition.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-menu_will-open',
+  })
+  public willOpen: EventEmitter<void>;
+
+  /**
+   * Emits whenever the menu is opened.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-menu_did-open',
+  })
+  public didOpen: EventEmitter<void>;
+
+  /**
+   * Emits whenever the menu begins the closing transition.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-menu_will-close',
+  })
+  public willClose: EventEmitter<void>;
+
+  /**
+   * Emits whenever the menu is closed.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-menu_did-close',
+  })
+  public didClose: EventEmitter<void>;
+
+  /**
+   * Opens the menu on trigger click.
    */
   @Method()
   public async openMenu(): Promise<void> {
-    this.open = true;
+    this.willOpen.emit();
     this._setMenuPosition();
     this._dialog.showModal();
   }
 
   /**
-   * Close menu
+   * Closes the menu.
    */
   @Method()
+  @Listen('sbb-menu-action_click')
   public async closeMenu(): Promise<void> {
-    if (isMediumUltra()) {
-      this.isDismissing = true;
-    } else {
-      this._dialog.close();
-    }
+    this.willClose.emit();
+    this.isDismissing = true;
   }
 
-  // Reset position on window resize
+  // Resets position on window resize.
   @Listen('resize', { target: 'window', passive: true })
   public onResizeWindowEvent(): void {
     if (this.open) {
@@ -70,14 +117,16 @@ export class SbbMenu {
     }
   }
 
-  // Close menu on action clicked
-  @Listen('sbb-menu-action_click')
-  public onMenuActionClick(event): void {
-    console.log(event.detail);
-    this.closeMenu();
+  // Closes the menu on "Esc" key pressed.
+  @Listen('keydown', { target: 'window' })
+  public onEscAction(event: KeyboardEvent): void {
+    if (this.open && event.key === 'Escape') {
+      event.preventDefault();
+      this.closeMenu();
+    }
   }
 
-  // Remove trigger click listener on trigger change
+  // Removes trigger click listener on trigger change.
   @Watch('trigger')
   public removeTriggerClickListener(newValue, oldValue): void {
     if (newValue !== oldValue) {
@@ -100,32 +149,17 @@ export class SbbMenu {
     // close menu on backdrop click
     this._dismissOnBackdropClick();
 
-    // listen for transitionend event on dialog dismiss
-    this._onMenuDismissTransitionEnd();
-
-    this.open = this.el.hasAttribute('open');
-    if (this.open) {
-      this.openMenu();
-    }
-
-    // TODO --> emit events did-close, did-open (?)...
-    this._dialog.addEventListener('close', () => {
-      this.open = false;
-    });
+    // listen for menu transition to end
+    this._dialog.ontransitionend = (event) => this._onMenuTransitionEnd(event);
   }
 
-  // TODO --> improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
-  private _dialog: HTMLDialogElement | any;
-  private _triggerEl: HTMLElement;
-  private _triggerController: AbortController;
-
-  // Check if the trigger is valid and attach click event listener
+  // Check if the trigger is valid and attach click event listener.
   private _configureTriggerElement(trigger): void {
     if (!trigger) {
       return;
     }
 
-    // check wether it's a string or an HTMLElement
+    // check whether it's a string or an HTMLElement
     if (this._isElement(trigger)) {
       this._triggerEl = trigger;
     } else if (typeof trigger === 'string') {
@@ -140,19 +174,19 @@ export class SbbMenu {
     }
   }
 
-  // Returns true if it is a DOM element
+  // Returns true if it is a DOM element.
   private _isElement(o): boolean {
     return o instanceof window.Element;
   }
 
-  // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container
+  // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
   private _dismissOnInteractiveElementClick(): void {
     const query = '[href], button:not([disabled]), sbb-button:not([disabled]), sbb-link';
     const interactiveElements = this.el.querySelectorAll(query);
     interactiveElements.forEach((el) => el.addEventListener('click', () => this.closeMenu()));
   }
 
-  // Close menu on backdrop clicked
+  // Close menu on backdrop clicked.
   private _dismissOnBackdropClick(): void {
     this._dialog.addEventListener('click', (event) => {
       const rect = this._dialog.getBoundingClientRect();
@@ -168,20 +202,50 @@ export class SbbMenu {
     });
   }
 
-  // Set menu position x and y to '0' one the menu is closed and the transition ended
-  private _onMenuDismissTransitionEnd(): void {
-    this._dialog.ontransitionend = (event) => {
-      if (this.isDismissing && event.propertyName === 'opacity') {
-        console.log('Transition ended');
-        this.isDismissing = false;
-        this._dialog.close();
-      }
-    };
+  // Set menu position (x, y) to '0' once the menu is closed and the transition ended to prevent the
+  // viewport from overflowing. And set the focus to the first focusable element once the menu is open.
+  private _onMenuTransitionEnd(event): void {
+    if (event.propertyName !== 'opacity') {
+      return;
+    }
+
+    if (this.isDismissing) {
+      this.isDismissing = false;
+      this.open = false;
+      this._dialog.scrollTo(0, 0);
+      this._dialog.close();
+      this.didClose.emit();
+    } else {
+      this.open = true;
+      this.didOpen.emit();
+      this._setDialogFocus();
+    }
   }
 
-  // Set menu position
+  // Set focus on the first focusable element.
+  private _setDialogFocus() {
+    const query = `
+      button:not([disabled]), 
+      [href], 
+      input:not([disabled]), 
+      select:not([disabled]), 
+      textarea:not([disabled]), 
+      details:not([disabled]), 
+      summary:not(:disabled),
+      [tabindex]:not([tabindex="-1"]):not([disabled]),
+      sbb-button:not([disabled]),
+      sbb-link:not([disabled]),
+      sbb-menu-action:not([disabled])
+    `;
+
+    const firstFocusable = Array.from(this.el.querySelectorAll(query))[0] as HTMLElement;
+    firstFocusable.tabIndex = 0;
+    firstFocusable.focus();
+  }
+
+  // Set menu position and max height if the breakpoint is medium-ultra.
   private _setMenuPosition(): void {
-    if (!isMediumUltra() || !this._dialog || !this._triggerEl) {
+    if (!isBreakpoint('medium', 'ultra') || !this._dialog || !this._triggerEl) {
       return;
     }
 
@@ -191,8 +255,6 @@ export class SbbMenu {
 
     this.el.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
     this.el.style.setProperty('--sbb-menu-position-y', `${menuPosition.top}px`);
-
-    this.overflows = menuPosition.overflows;
     this.el.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
   }
 
@@ -203,7 +265,6 @@ export class SbbMenu {
           'sbb-menu': true,
           'sbb-menu--open': this.open,
           'sbb-menu--dismissing': this.isDismissing,
-          'sbb-menu--overflows': this.overflows,
         }}
       >
         <div class="sbb-menu__content">
