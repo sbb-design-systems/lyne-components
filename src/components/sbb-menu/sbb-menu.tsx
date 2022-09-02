@@ -11,8 +11,8 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { getElementPosition } from './position';
-import { isBreakpoint } from './breakpoint';
+import { getElementPosition } from '../../global/helpers/position';
+import { isBreakpoint } from '../../global/helpers/breakpoint';
 
 /**
  * @slot unnamed - Use this slot to project any content inside the component.
@@ -128,7 +128,7 @@ export class SbbMenu {
 
   // Removes trigger click listener on trigger change.
   @Watch('trigger')
-  public removeTriggerClickListener(newValue, oldValue): void {
+  public removeTriggerClickListener(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
       this._triggerController.abort();
     }
@@ -140,9 +140,6 @@ export class SbbMenu {
     // validate trigger element and attach click event
     this._configureTriggerElement(this.trigger);
 
-    // set the menu position relative to the trigger
-    this._setMenuPosition();
-
     // close menu on interactive elements click
     this._dismissOnInteractiveElementClick();
 
@@ -150,18 +147,18 @@ export class SbbMenu {
     this._dismissOnBackdropClick();
 
     // listen for menu transition to end
-    this._dialog.ontransitionend = (event) => this._onMenuTransitionEnd(event);
+    this._dialog.ontransitionend = (event: TransitionEvent) => this._onMenuTransitionEnd(event);
   }
 
   // Check if the trigger is valid and attach click event listener.
-  private _configureTriggerElement(trigger): void {
+  private _configureTriggerElement(trigger: string | HTMLElement): void {
     if (!trigger) {
       return;
     }
 
     // check whether it's a string or an HTMLElement
     if (this._isElement(trigger)) {
-      this._triggerEl = trigger;
+      this._triggerEl = trigger as HTMLElement;
     } else if (typeof trigger === 'string') {
       this._triggerEl = document.getElementById(trigger);
     }
@@ -175,7 +172,7 @@ export class SbbMenu {
   }
 
   // Returns true if it is a DOM element.
-  private _isElement(o): boolean {
+  private _isElement(o: string | HTMLElement): boolean {
     return o instanceof window.Element;
   }
 
@@ -188,7 +185,7 @@ export class SbbMenu {
 
   // Close menu on backdrop clicked.
   private _dismissOnBackdropClick(): void {
-    this._dialog.addEventListener('click', (event) => {
+    this._dialog.addEventListener('click', (event: MouseEvent) => {
       const rect = this._dialog.getBoundingClientRect();
       const isInDialog =
         rect.top <= event.clientY &&
@@ -204,7 +201,7 @@ export class SbbMenu {
 
   // Set menu position (x, y) to '0' once the menu is closed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the menu is open.
-  private _onMenuTransitionEnd(event): void {
+  private _onMenuTransitionEnd(event: TransitionEvent): void {
     if (event.propertyName !== 'opacity') {
       return;
     }
