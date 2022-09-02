@@ -5,6 +5,9 @@ export interface ElementPositionInfos {
   maxHeight: string;
 }
 
+/**
+ * Gets the absolute position of an element relative to the page.
+ */
 export function getOffset(el): { top: number; left: number } {
   const rect = el.getBoundingClientRect();
   return {
@@ -13,6 +16,17 @@ export function getOffset(el): { top: number; left: number } {
   };
 }
 
+/**
+ * Determines the position of an element relative to a trigger element by evaluating
+ * the optimal position based on the available space.
+ *
+ * @param element The element of which to calculate the position.
+ * @param trigger The element relative to which to calculate the position.
+ * @param properties Properties to take into account in calculations.
+ * @param properties.elementOffset The distance to be added between the element in question and the trigger.
+ * @returns Returns an object containing the left position, the top position, a boolean indicating whether
+ * the element overflows or not the window, and the maximum height of the element.
+ */
 export function getElementPosition(
   element,
   trigger,

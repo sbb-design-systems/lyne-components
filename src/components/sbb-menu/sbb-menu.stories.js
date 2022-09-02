@@ -17,7 +17,7 @@ const userInfoStyle = {
 const DefaultTemplate = (args) => (
   <div>
     <sbb-button id="menu-trigger-1" size="m" label="Menu trigger"></sbb-button>
-    <sbb-menu {...args} trigger="menu-trigger-1">
+    <sbb-menu {...args} trigger="menu-trigger-1" ref={(menu) => menu.openMenu()}>
       <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
