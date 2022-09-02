@@ -8,16 +8,16 @@
   display: flex;
 
   .journey-summary__via-text {
-    padding-right: var(--sbb-spacing-fixed-1x);
+    padding-inline-end: var(--sbb-spacing-fixed-1x);
   }
 }
 
 .journey-summary__vias {
   @include ellipsis;
 
-  margin-top: 0;
-  margin-bottom: var(--sbb-spacing-fixed-1x);
-  padding-left: 0;
+  margin-block-start: 0;
+  margin-block-end: var(--sbb-spacing-fixed-1x);
+  padding-inline-start: 0;
 }
 
 .journey-summary__via {
@@ -38,6 +38,8 @@
 }
 
 .journey-summary__walktime {
+  @include text-xxs--regular;
+
   align-items: center;
   display: inline-flex;
 }

@@ -6,13 +6,12 @@ const data: InterfaceJourneySummaryAttributes = {
   config: {
     legs: '',
     vias: ['via'],
-    startPoint: '',
+    origin: '',
     destination: '',
     arrivalWalk: 0,
     departure: { time: '2022-08-29T20:30:00' },
     arrival: { time: '2022-08-29T22:30:00' },
     departureWalk: 0,
-    duration: 0,
   },
 };
 
@@ -25,7 +24,7 @@ describe('sbb-journey-summary', () => {
     page.rootInstance.summaryConfig = data?.config;
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
-      ` <sbb-journey-summary>
+      `<sbb-journey-summary>
     <mock:shadow-root>
       <div class="journey-summary">
         <div class="journey-summary__via-block">
@@ -40,23 +39,14 @@ describe('sbb-journey-summary', () => {
         </div>
         <div class="journey-summary__body">
           <span>
-            <time>
+            <time datetime="29 8">
               29.08,
             </time>
+            <time datetime="2 0">
             <span>
-              <time>
-                2
-              </time>
-              <span>
-                h
-              </span>
-              <time>
-                0
-              </time>
-              <span>
-                m
-              </span>
-            </span>
+              2h
+           </span>
+             0min
           </span>
           <div class="journey-summary__transportation-details">
             <span class="screenreaderonly">
@@ -64,7 +54,7 @@ describe('sbb-journey-summary', () => {
             </span>
             0
             <time>
-             20:30
+              20:30
             </time>
             <div class="journey-summary__pearlchain">
               <sbb-pearl-chain legs=""></sbb-pearl-chain>
@@ -77,7 +67,7 @@ describe('sbb-journey-summary', () => {
             </span>
             0
           </div>
-          <div class="journey-summary_slot">
+          <div class="journey-summary__slot">
             <slot></slot>
           </div>
         </div>

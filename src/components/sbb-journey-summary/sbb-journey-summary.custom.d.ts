@@ -15,13 +15,12 @@ declare type TimeQuayWrapper = {
 declare type SummaryConfig = {
   legs: string;
   vias: string[];
-  startPoint: string;
+  origin: string;
   destination: string;
   arrivalWalk: number;
   departure: TimeQuayWrapper;
   arrival: TimeQuayWrapper;
   departureWalk: number;
-  duration: number;
 };
 
 export interface InterfaceJourneySummaryAttributes {

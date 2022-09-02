@@ -18,7 +18,7 @@ const Template = (args) => (
       >
         <sbb-icon name="context-menu-small"></sbb-icon>
       </sbb-button>
-      <sbb-button label="Billette ab 12"></sbb-button>
+      <sbb-button label="Button label"></sbb-button>
     </div>
   </sbb-journey-summary>
 );
@@ -30,14 +30,14 @@ export const summaryDate = Template.bind({});
 summary.args = {
   vias: ['via1', 'via2', 'via3', 'via4', 'via5', 'via6'],
   legs: '{"legs": [{"cancellation": false, "duration": 50},{"cancellation": false, "duration": 50}]}',
-  startPoint: 'Station',
+  origin: 'Station',
   destination: 'Station',
   departure: { time: '2022-08-29T20:30:00+02:00' },
-  arrival: { time: '2022-08-29T22:30:00+02:00' },
+  arrival: { time: '2022-08-29T20:35:00+02:00' },
 };
 
 summaryNoVias.args = {
-  startPoint: 'Station',
+  origin: 'Station',
   destination: 'Station',
   legs: '{"legs": [{"cancellation": false, "duration": 20},{"cancellation": false, "duration": 80}]}',
   arrivalWalk: 10,
@@ -47,7 +47,7 @@ summaryNoVias.args = {
 };
 
 summaryNoArrivalWalk.args = {
-  startPoint: 'Station',
+  origin: 'Station',
   destination: 'Station',
   legs: '{"legs": [{"cancellation": false, "duration": 60},{"cancellation": false, "duration": 40}]}',
   departureWalk: 5,
@@ -58,7 +58,7 @@ summaryNoArrivalWalk.args = {
 summaryDate.args = {
   vias: ['via1', 'via2', 'via3', 'via4'],
   legs: '{"legs": [{"cancellation": false, "duration": 50},{"cancellation": false, "duration": 50}]}',
-  startPoint: 'Station',
+  origin: 'Station',
   destination: 'Station',
   departure: { time: '2022-09-19T20:30:00+02:00' },
   arrival: { time: '2022-09-19T22:30:00+02:00' },

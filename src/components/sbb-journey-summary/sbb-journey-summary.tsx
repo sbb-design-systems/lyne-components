@@ -19,29 +19,38 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   tag: 'sbb-journey-summary',
 })
 export class SbbJourneySummary {
+  /**  The config prop */
   @Prop() public summaryConfig!: InterfaceJourneySummaryAttributes['config'];
 
   private _currentLanguage = getDocumentLang();
 
-  private _formatTime(duration): JSX.Element {
+  /**  formats the duration of the journey */
+  private _formatTime(duration: Duration): JSX.Element {
     return (
-      <span>
-        <time>{duration.hours}</time>
-        <span>{i18nDurationHour.single.short[this._currentLanguage]}</span>
-        <time>{duration.minutes}</time>
-        <span>{i18nDurationMinute.single.short[this._currentLanguage]}</span>
-      </span>
+      <time dateTime={duration.hours + ' ' + duration.minutes}>
+        {duration.hours > 0 && (
+          <span>
+            {duration.hours}
+            {i18nDurationHour.single.short[this._currentLanguage] + ' '}
+          </span>
+        )}
+        {duration.minutes}
+        {i18nDurationMinute.multiple.short[this._currentLanguage]}
+      </time>
     );
   }
 
-  private _renderJourneyStart(departureTime: Date, arrivalTime: Date): JSX.Element {
-    let duration: Duration;
-    if (isBefore(departureTime, arrivalTime))
-      duration = intervalToDuration({ start: departureTime, end: arrivalTime });
-    else {
-      duration =
-        isValid(arrivalTime) && intervalToDuration({ start: arrivalTime, end: departureTime });
+  private _getDuration(startTime: Date, endTime: Date): Duration {
+    if (isValid(startTime) && isValid(endTime)) {
+      return intervalToDuration({ start: startTime, end: endTime });
     }
+  }
+
+  /**  renders the date of the journey or if it is the current or next day */
+  private _renderJourneyStart(departureTime: Date, arrivalTime: Date): JSX.Element {
+    const duration: Duration = isBefore(departureTime, arrivalTime)
+      ? this._getDuration(departureTime, arrivalTime)
+      : this._getDuration(arrivalTime, departureTime);
 
     if (isTomorrow(departureTime) || isToday(departureTime)) {
       return isTomorrow(departureTime) ? (
@@ -57,7 +66,9 @@ export class SbbJourneySummary {
     if (isValid(departureTime))
       return (
         <span>
-          <time>{format(departureTime, 'dd.MM, ')}</time>
+          <time dateTime={format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
+            {format(departureTime, 'dd.MM, ')}
+          </time>
           {this._formatTime(duration)}
         </span>
       );
@@ -80,41 +91,34 @@ export class SbbJourneySummary {
     );
   }
 
-  private _renderWalkTime(before: boolean, duration: number): JSX.Element {
-    if (before)
-      return (
-        <span class="journey-summary__walktime">
-          <sbb-icon name="walk-small"></sbb-icon>
-          <time>
-            {duration}
-            <span aria-hidden="true">'</span>
-          </time>
-          <span class="screenreaderonly">
-            {i18nWalkingDistanceDeparture[this._currentLanguage]}
-          </span>
-        </span>
-      );
+  /** renders the optional walktimes, the icon is displayed either before or after the time*/
+  private _renderWalkTime(iconBefore: boolean, duration: number): JSX.Element {
     return (
       <span class="journey-summary__walktime">
-        <time>
+        {iconBefore && <sbb-icon name="walk-small"></sbb-icon>}
+        <time dateTime={duration.toString()}>
           {duration}
           <span aria-hidden="true">'</span>
         </time>
-        <span class="screenreaderonly">{i18nWalkingDistanceArrival[this._currentLanguage]}</span>
-        <sbb-icon name="walk-small"></sbb-icon>
+        <span class="screenreaderonly">
+          {iconBefore
+            ? i18nWalkingDistanceDeparture[this._currentLanguage]
+            : i18nWalkingDistanceArrival[this._currentLanguage]}
+        </span>
+        {!iconBefore && <sbb-icon name="walk-small"></sbb-icon>}
       </span>
     );
   }
 
   public render(): JSX.Element {
-    const { vias, startPoint, destination } = this.summaryConfig || {};
+    const { vias, origin, destination } = this.summaryConfig || {};
     const departureTime: Date = parseISO(this.summaryConfig?.departure?.time);
     const arrivalTime: Date = parseISO(this.summaryConfig?.arrival?.time);
 
     return (
       <div class="journey-summary">
-        {startPoint && (
-          <sbb-journey-header origin={startPoint} destination={destination}></sbb-journey-header>
+        {origin && (
+          <sbb-journey-header origin={origin} destination={destination}></sbb-journey-header>
         )}
         {vias && this._renderJourneyVias(vias)}
         <div class="journey-summary__body">
@@ -132,7 +136,7 @@ export class SbbJourneySummary {
             {this.summaryConfig?.arrivalWalk &&
               this._renderWalkTime(false, this.summaryConfig?.arrivalWalk)}
           </div>
-          <div class="journey-summary_slot">
+          <div class="journey-summary__slot">
             <slot />
           </div>
         </div>
