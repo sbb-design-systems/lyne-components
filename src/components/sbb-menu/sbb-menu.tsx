@@ -128,7 +128,10 @@ export class SbbMenu {
 
   // Removes trigger click listener on trigger change.
   @Watch('trigger')
-  public removeTriggerClickListener(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+  public removeTriggerClickListener(
+    newValue: string | HTMLElement,
+    oldValue: string | HTMLElement
+  ): void {
     if (newValue !== oldValue) {
       this._triggerController.abort();
     }
