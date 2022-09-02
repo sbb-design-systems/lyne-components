@@ -84,7 +84,7 @@ export class SbbMenuAction implements LinkButtonProperties {
   @Prop() public accessibilityLabelledby: string;
 
   /**
-   * Emits whenever the menu action click event triggers.
+   * Emits whenever the menu action is clicked.
    */
   @Event({
     bubbles: true,

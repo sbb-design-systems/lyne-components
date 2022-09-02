@@ -24,9 +24,9 @@
 
 ## Events
 
-| Event                   | Description                                          | Type               |
-| ----------------------- | ---------------------------------------------------- | ------------------ |
-| `sbb-menu-action_click` | Emits whenever the menu action click event triggers. | `CustomEvent<any>` |
+| Event                   | Description                                | Type               |
+| ----------------------- | ------------------------------------------ | ------------------ |
+| `sbb-menu-action_click` | Emits whenever the menu action is clicked. | `CustomEvent<any>` |
 
 
 ## Dependencies
