@@ -92,7 +92,7 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "shelljs": "0.8.5",
-    "simple-git": "3.13.0",
+    "simple-git": "3.14.0",
     "standard-version": "9.5.0",
     "stencil-inline-svg": "1.1.0",
     "storybook-addon-breakpoints": "1.0.0",
