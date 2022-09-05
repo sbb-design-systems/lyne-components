@@ -68,21 +68,27 @@ export class SbbCheckbox {
       );
     }
 
-    if (!this.checked) {
-      return;
+    if (this.checked) {
+      return (
+        <svg
+          width="10"
+          height="8"
+          viewBox="0 0 10 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 4.33 3.462 7 9 1"
+            stroke="#EB0000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      );
     }
 
-    return (
-      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M1 4.33 3.462 7 9 1"
-          stroke="#EB0000"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    );
+    return;
   }
 
   @Watch('checked')
