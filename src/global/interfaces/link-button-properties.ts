@@ -2,7 +2,7 @@ import { EventEmitter } from '@stencil/core';
 import getDocumentLang from '../helpers/get-document-lang';
 import getDocumentWritingMode from '../helpers/get-document-writing-mode';
 import { i18nTargetOpensInNewWindow } from '../i18n';
-import { AccessibilityProperties } from './accessibility-properties';
+import { AccessibilityProperties, getAccessibilityAttributeList } from './accessibility-properties';
 
 /**
  * Enumeration for type attribute in <button> HTML tag.
@@ -95,31 +95,11 @@ export interface ButtonProperties extends AccessibilityProperties {
 export interface LinkButtonProperties extends LinkProperties, ButtonProperties {}
 
 /**
- * Lists all attributes for the AccessibilityProperties interface
- * @param accessibilityProps accessibility props
- */
-export function getAccessibilityAttributeList(
-  accessibilityProps: AccessibilityProperties
-): Record<string, string> {
-  return {
-    ...(accessibilityProps?.accessibilityLabel && {
-      'aria-label': accessibilityProps.accessibilityLabel,
-    }),
-    ...(accessibilityProps?.accessibilityLabelledby && {
-      'aria-labelledby': accessibilityProps.accessibilityLabelledby,
-    }),
-    ...(accessibilityProps?.accessibilityDescribedby && {
-      'aria-describedby': accessibilityProps.accessibilityDescribedby,
-    }),
-  };
-}
-
-/**
  * Creates the basic attribute list for the link/button tag; undefined/null properties are not set.
  * @param accessibilityProps accessibility props
  */
 export function getLinkButtonBaseAttributeList(
-  accessibilityProps: AccessibilityProperties
+  accessibilityProps?: AccessibilityProperties | null
 ): Record<string, string> {
   return Object.assign(
     { dir: getDocumentWritingMode() },
@@ -142,22 +122,24 @@ export function getLinkAttributeList(
     return baseAttributeList;
   }
 
-  const linkAttributeList = Object.assign(baseAttributeList, {
-    href: linkProperties.href,
-    download: linkProperties.download ? '' : undefined,
-    tabIndex: buttonProperties.disabled ? '-1' : undefined,
-  });
-
-  if (window.location.href.includes(linkProperties.href)) {
-    return linkAttributeList;
+  let ariaLabel = baseAttributeList['aria-label'];
+  if (ariaLabel && linkProperties.target === '_blank') {
+    ariaLabel += `. ${i18nTargetOpensInNewWindow[getDocumentLang()]}`;
+  } else if (linkProperties.target === '_blank') {
+    ariaLabel = i18nTargetOpensInNewWindow[getDocumentLang()];
   }
 
-  return Object.assign(linkAttributeList, {
-    rel: linkProperties.rel || 'external noopener nofollow',
-    target: linkProperties.target || '_blank',
-    'aria-label': linkProperties.accessibilityLabel
-      ? `${linkProperties.accessibilityLabel}. ${i18nTargetOpensInNewWindow[getDocumentLang()]}`
-      : i18nTargetOpensInNewWindow[getDocumentLang()],
+  return Object.assign(baseAttributeList, {
+    href: linkProperties.href,
+    download: linkProperties.download ? '' : undefined,
+    tabIndex: buttonProperties?.disabled ? '-1' : undefined,
+    target: linkProperties.target,
+    rel: linkProperties.rel
+      ? linkProperties.rel
+      : linkProperties.target === '_blank'
+      ? 'external noopener nofollow'
+      : undefined,
+    'aria-label': ariaLabel,
   });
 }
 
@@ -169,11 +151,12 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
   const baseAttributeList = getLinkButtonBaseAttributeList(buttonProperties);
 
   return Object.assign(baseAttributeList, {
-    name: buttonProperties.name,
+    name: buttonProperties.name || undefined,
     type: buttonProperties.type || 'button',
-    onClick: buttonProperties.emitButtonClick.bind(buttonProperties),
+    onClick: buttonProperties.emitButtonClick?.bind(buttonProperties),
     form: buttonProperties.form || undefined,
     disabled: buttonProperties.disabled ? 'true' : undefined,
+    value: buttonProperties.value ?? undefined,
   });
 }
 

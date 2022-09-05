@@ -13,6 +13,7 @@ import {
   getLinkButtonAttributeList,
   getLinkButtonBaseAttributeList,
   LinkButtonProperties,
+  LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { hostContext } from '../../global/helpers/host-context';
@@ -74,6 +75,16 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   @Prop() public download?: boolean;
 
   /**
+   * The relationship of the linked URL as space-separated link types.
+   */
+  @Prop() public rel?: string | undefined;
+
+  /**
+   * Where to display the linked URL.
+   */
+  @Prop() public target?: LinkTargetType | string | undefined;
+
+  /**
    * Pass in an id, if you need to identify the link element (optional).
    */
   @Prop() public idValue?: string;
@@ -87,6 +98,11 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
    * Type attribute if link is used as button (optional)
    */
   @Prop() public type: InterfaceLinkAttributes['buttonType'] | undefined;
+
+  /**
+   * The value associated with button `name` when it's submitted with the form data.
+   */
+  @Prop() public value?: string;
 
   /**
    * Emits whenever the native button click event triggers.
