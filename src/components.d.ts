@@ -620,20 +620,6 @@ export namespace Components {
          */
         "present": () => Promise<void>;
     }
-    interface SbbPanel {
-        /**
-          * href for the hero teaser.
-         */
-        "href"?: string;
-        /**
-          * Link for the hero teaser.
-         */
-        "linkText"?: string;
-        /**
-          * Link for the hero teaser.
-         */
-        "text"?: string;
-    }
     interface SbbPearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
@@ -1178,12 +1164,6 @@ declare global {
         prototype: HTMLSbbOverlayElement;
         new (): HTMLSbbOverlayElement;
     };
-    interface HTMLSbbPanelElement extends Components.SbbPanel, HTMLStencilElement {
-    }
-    var HTMLSbbPanelElement: {
-        prototype: HTMLSbbPanelElement;
-        new (): HTMLSbbPanelElement;
-    };
     interface HTMLSbbPearlChainElement extends Components.SbbPearlChain, HTMLStencilElement {
     }
     var HTMLSbbPearlChainElement: {
@@ -1386,7 +1366,6 @@ declare global {
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-overlay": HTMLSbbOverlayElement;
-        "sbb-panel": HTMLSbbPanelElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
@@ -2004,20 +1983,6 @@ declare namespace LocalJSX {
         "onWillPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
-    interface SbbPanel {
-        /**
-          * href for the hero teaser.
-         */
-        "href"?: string;
-        /**
-          * Link for the hero teaser.
-         */
-        "linkText"?: string;
-        /**
-          * Link for the hero teaser.
-         */
-        "text"?: string;
-    }
     interface SbbPearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
@@ -2429,7 +2394,6 @@ declare namespace LocalJSX {
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
         "sbb-overlay": SbbOverlay;
-        "sbb-panel": SbbPanel;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
@@ -2487,7 +2451,6 @@ declare module "@stencil/core" {
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
-            "sbb-panel": LocalJSX.SbbPanel & JSXBase.HTMLAttributes<HTMLSbbPanelElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
