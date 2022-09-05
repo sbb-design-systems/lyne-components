@@ -1,29 +1,29 @@
 # sbb-teaser-hero
 
-For this component you can either use slots or props to render the panel component.
+The hero teaser should be an eye-catcher and should have an emotional effect on the user with its large image component. 
 
-# Usage with slots:
+The `sbb-teaser-hero` is a link with a description, an action call and a background image.
+You can either use slots or props to render the `sbb-teaser-hero` component.
 
-````
-<sbb-teaser-hero {...args}>
-  <sbb-panel slot="panel">
-    <span slot="text">Sbb teaser hero with Slots</span>
-    <sbb-link slot="link" negative>
-      Mehr erfahren
-    </sbb-link>
-  </sbb-panel>
+## Usage with props
 
-  <sbb-image slot="image"/>
+```html
+<sbb-teaser-hero href="https://www.sbb.ch" link-content="Find out more" image-src="https://path-to-source" image-alt="SBB CFF FFS Employee">
+  Break out and explore castles and palaces.
 </sbb-teaser-hero>
 ```
 
-# Usage with props and image slot:
+## Usage with slots
 
-```
-<sbb-teaser-hero {...args}>
-  <sbb-image slot="image" />
+```html
+<sbb-teaser-hero href="https://www.sbb.ch">
+  Break out and explore castles and palaces.
+  <sbb-image slot="image" image-src="https://path-to-source" alt="SBB CFF FFS Employee"/>
+  <span slot="link-content">Find out more</span>
 </sbb-teaser-hero>
 ```
+
+
 
 
 <!-- Auto Generated Below -->
@@ -31,22 +31,27 @@ For this component you can either use slots or props to render the panel compone
 
 ## Properties
 
-| Property                          | Attribute              | Description                                                                                                                                                           | Type      | Default     |
-| --------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `accessibilityTitle` _(required)_ | `accessibility-title`  | Teaser title text, visually hidden,  necessary for screenreaders                                                                                                      | `string`  | `undefined` |
-| `link` _(required)_               | `link`                 | Link for the hero teaser.                                                                                                                                             | `string`  | `undefined` |
-| `newWindowInfoText`               | `new-window-info-text` | If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window"). | `string`  | `undefined` |
-| `openInNewWindow`                 | `open-in-new-window`   | If set, the link will be opened in a new window.                                                                                                                      | `boolean` | `undefined` |
-| `panelLinkText` _(required)_      | `panel-link-text`      | Panel link text for the hero teaser.                                                                                                                                  | `string`  | `undefined` |
-| `panelText` _(required)_          | `panel-text`           | Panel Text for the hero teaser.                                                                                                                                       | `string`  | `undefined` |
+| Property                   | Attribute                   | Description                                                                | Type     | Default     |
+| -------------------------- | --------------------------- | -------------------------------------------------------------------------- | -------- | ----------- |
+| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element. | `string` | `undefined` |
+| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.       | `string` | `undefined` |
+| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.  | `string` | `undefined` |
+| `href`                     | `href`                      | The href value you want to link to.                                        | `string` | `undefined` |
+| `idValue`                  | `id-value`                  | Pass in an id, if you need to identify the inner link element.             | `string` | `undefined` |
+| `imageAlt`                 | `image-alt`                 | Image alt text will be passed to `sbb-image`.                              | `string` | `undefined` |
+| `imageSrc`                 | `image-src`                 | Image src will be passed to `sbb-image`.                                   | `string` | `undefined` |
+| `linkContent`              | `link-content`              | Panel link text for the hero teaser.                                       | `string` | `undefined` |
+| `rel`                      | `rel`                       | The relationship of the linked URL as space-separated link types.          | `string` | `undefined` |
+| `target`                   | `target`                    | Where to display the linked URL.                                           | `string` | `undefined` |
 
 
 ## Slots
 
-| Slot      | Description         |
-| --------- | ------------------- |
-| `"image"` | to render the image |
-| `"panel"` | to render the panel |
+| Slot             | Description                                 |
+| ---------------- | ------------------------------------------- |
+| `"image"`        | the background image, can be a `sbb-image`. |
+| `"link-content"` | link content of the panel                   |
+| `"unnamed"`      | text content of panel                       |
 
 
 ## Dependencies
@@ -54,15 +59,15 @@ For this component you can either use slots or props to render the panel compone
 ### Depends on
 
 - [sbb-link](../sbb-link)
+- [sbb-image](../sbb-image)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-teaser-hero --> sbb-link
+  sbb-teaser-hero --> sbb-image
   sbb-link --> sbb-icon
   style sbb-teaser-hero fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
-
-
