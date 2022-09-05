@@ -4,6 +4,7 @@ import {
   getButtonAttributeList,
   getLinkAttributeList,
   LinkButtonProperties,
+  LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 
 /**
@@ -36,6 +37,16 @@ export class SbbMenuAction implements LinkButtonProperties {
   @Prop() public href: string;
 
   /**
+   * The relationship of the linked URL as space-separated link types.
+   */
+  @Prop() public rel: string | undefined;
+
+  /**
+   * Where to display the linked URL.
+   */
+  @Prop() public target: LinkTargetType | string | undefined;
+
+  /**
    * Whether the button is disabled.
    */
   @Prop() public disabled: boolean;
@@ -59,6 +70,11 @@ export class SbbMenuAction implements LinkButtonProperties {
    * Id sent in the click event payload.
    */
   @Prop() public eventId: string;
+
+  /**
+   * The value associated with button `name` when it's submitted with the form data.
+   */
+  @Prop() public value: string | undefined;
 
   /**
    * The name property passed to `sbb-icon` component.

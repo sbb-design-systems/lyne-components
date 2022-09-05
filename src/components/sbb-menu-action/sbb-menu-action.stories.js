@@ -41,6 +41,24 @@ const download = {
   },
 };
 
+const target = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const rel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
 const menuActionId = {
   control: {
     type: 'text',
@@ -102,6 +120,15 @@ const form = {
   },
 };
 
+const value = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const eventId = {
   control: {
     type: 'text',
@@ -115,8 +142,10 @@ const defaultArgTypes = {
   text,
   icon,
   amount,
-  href: href,
+  href,
   download,
+  rel,
+  target,
   'menu-action-id': menuActionId,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
@@ -126,6 +155,7 @@ const defaultArgTypes = {
   form,
   disabled,
   'event-id': eventId,
+  value,
 };
 
 const defaultArgs = {
@@ -138,6 +168,8 @@ const defaultArgs = {
   text: 'Details',
   href: 'https://github.com/lyne-design-system/lyne-components',
   download: false,
+  rel: undefined,
+  target: '_blank',
   name: undefined,
   type: undefined,
   form: undefined,
@@ -149,9 +181,11 @@ const buttonArgs = {
   ...defaultArgs,
   href: undefined,
   download: undefined,
+  target: undefined,
   name: 'detail',
   type: type.options[0],
   form: 'form-name',
+  value: 'Value',
   'event-id': 'Event ID for button click',
 };
 

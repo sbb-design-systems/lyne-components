@@ -35,16 +35,16 @@ describe('sbb-menu-action', () => {
     const { root } = await newSpecPage({
       components: [SbbMenuAction],
       html: `
-        <sbb-menu-action icon="menu-small" amount="123456" href="https://github.com/lyne-design-system/lyne-components">
+        <sbb-menu-action icon="menu-small" amount="123456" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
           <span>Action</span>
         </sbb-menu-action>
       `,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-menu-action amount="123456" icon="menu-small" href="https://github.com/lyne-design-system/lyne-components">
+        <sbb-menu-action amount="123456" icon="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
           <mock:shadow-root>
-            <a class="sbb-menu-action__link" dir="ltr" id="sbb-menu-action-2" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
+            <a class="sbb-menu-action__link" dir="ltr" id="sbb-menu-action-2" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank" aria-label="Link target opens in new window.">
               <div class="sbb-menu-action__content">
                 <span class="sbb-menu-action__icon">
                   <slot name="icon">
