@@ -1,8 +1,15 @@
 import { Component, h, Prop, JSX } from '@stencil/core';
+import {
+  getLinkAttributeList,
+  getLinkButtonBaseAttributeList,
+  LinkProperties,
+  LinkTargetType,
+} from '../../global/interfaces/link-button-properties';
 
 /**
- * @slot image - to render the image
- * @slot panel - to render the panel
+ * @slot unnamed - text content of panel
+ * @slot link-content - link content of the panel
+ * @slot image - the background image, can be a `sbb-image`.
  */
 
 @Component({
@@ -10,73 +17,69 @@ import { Component, h, Prop, JSX } from '@stencil/core';
   styleUrl: 'sbb-teaser-hero.scss',
   tag: 'sbb-teaser-hero',
 })
-export class SbbTeaserHero {
-  /**
-   * Link for the hero teaser.
-   */
-  @Prop() public link!: string;
+export class SbbTeaserHero implements LinkProperties {
+  /** This will be forwarded as aria-label to the relevant nested element. */
+  @Prop() public accessibilityLabel: string | undefined;
 
-  /**
-   * Panel Text for the hero teaser.
-   */
-  @Prop() public panelText!: string;
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby: string | undefined;
 
-  /**
-   * Panel link text for the hero teaser.
-   */
-  @Prop() public panelLinkText!: string;
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  @Prop() public accessibilityLabelledby: string | undefined;
 
-  /**
-   * If set, the link will be opened in a new window.
-   */
-  @Prop() public openInNewWindow?: boolean;
+  /** The href value you want to link to. */
+  @Prop() public href: string | undefined;
 
-  /**
-   * If `openInNewWindow` is set, you should provide according information
-   * which will be read aloud for screenreader users (e.g. "Link target will
-   * open in a new window").
-   */
-  @Prop() public newWindowInfoText?: string;
+  /** The relationship of the linked URL as space-separated link types. */
+  @Prop() public rel?: string | undefined;
 
-  /** Teaser title text, visually hidden,  necessary for screenreaders */
-  @Prop() public accessibilityTitle!: string;
+  /** Where to display the linked URL. */
+  @Prop() public target?: LinkTargetType | string | undefined;
+
+  /** Pass in an id, if you need to identify the inner link element. */
+  @Prop() public idValue?: string;
+
+  /** Panel link text for the hero teaser. */
+  @Prop() public linkContent?: string;
+
+  /** Image src will be passed to `sbb-image`. */
+  @Prop() public imageSrc?: string;
+
+  /** Image alt text will be passed to `sbb-image`. */
+  @Prop() public imageAlt?: string;
 
   public render(): JSX.Element {
-    const linkAttributes = {};
-
-    if (this.openInNewWindow) {
-      linkAttributes['rel'] = 'external noopener nofollow';
-      linkAttributes['target'] = '_blank';
+    let TAG_NAME: string;
+    let linkAttributeList: Record<string, string>;
+    if (this.href) {
+      TAG_NAME = 'a';
+      linkAttributeList = getLinkAttributeList(this);
+    } else {
+      TAG_NAME = 'span';
+      linkAttributeList = getLinkButtonBaseAttributeList(this);
     }
 
     return (
-      <a
-        class="teaser-hero"
-        href={this.link}
-        aria-label={this.accessibilityTitle}
-        {...linkAttributes}
-      >
+      <TAG_NAME class="teaser-hero" id={this.idValue} {...linkAttributeList}>
         <span class="teaser-hero__panel">
           <span class="teaser-hero__panel-text">
-            <slot name="text">{this.panelText}</slot>
+            <slot />
           </span>
           <sbb-link
             class="teaser-hero__panel-link"
             icon-name="chevron-small-right-small"
             icon-placement="end"
             text-size="m"
+            disabled={!this.href}
             negative
           >
-            <slot name="panel-link-text">{this.panelLinkText}</slot>
+            <slot name="link-content">{this.linkContent}</slot>
           </sbb-link>
         </span>
-        <slot name="image" />
-        {this.openInNewWindow && this.newWindowInfoText ? (
-          <span class="teaser-hero__link-info-text">{this.newWindowInfoText}</span>
-        ) : (
-          ''
-        )}
-      </a>
+        <slot name="image">
+          <sbb-image image-src={this.imageSrc} image-alt={this.imageAlt}></sbb-image>
+        </slot>
+      </TAG_NAME>
     );
   }
 }

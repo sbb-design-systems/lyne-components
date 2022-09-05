@@ -767,29 +767,45 @@ export namespace Components {
     }
     interface SbbTeaserHero {
         /**
-          * Teaser title text, visually hidden,  necessary for screenreaders
+          * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "accessibilityTitle": string;
+        "accessibilityDescribedby": string | undefined;
         /**
-          * Link for the hero teaser.
+          * This will be forwarded as aria-label to the relevant nested element.
          */
-        "link": string;
+        "accessibilityLabel": string | undefined;
         /**
-          * If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window").
+          * This will be forwarded as aria-labelledby to the relevant nested element.
          */
-        "newWindowInfoText"?: string;
+        "accessibilityLabelledby": string | undefined;
         /**
-          * If set, the link will be opened in a new window.
+          * The href value you want to link to.
          */
-        "openInNewWindow"?: boolean;
+        "href": string | undefined;
+        /**
+          * Pass in an id, if you need to identify the inner link element.
+         */
+        "idValue"?: string;
+        /**
+          * Image alt text will be passed to `sbb-image`.
+         */
+        "imageAlt"?: string;
+        /**
+          * Image src will be passed to `sbb-image`.
+         */
+        "imageSrc"?: string;
         /**
           * Panel link text for the hero teaser.
          */
-        "panelLinkText": string;
+        "linkContent"?: string;
         /**
-          * Panel Text for the hero teaser.
+          * The relationship of the linked URL as space-separated link types.
          */
-        "panelText": string;
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
     }
     interface SbbTimetable {
     }
@@ -2119,29 +2135,45 @@ declare namespace LocalJSX {
     }
     interface SbbTeaserHero {
         /**
-          * Teaser title text, visually hidden,  necessary for screenreaders
+          * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "accessibilityTitle": string;
+        "accessibilityDescribedby"?: string | undefined;
         /**
-          * Link for the hero teaser.
+          * This will be forwarded as aria-label to the relevant nested element.
          */
-        "link": string;
+        "accessibilityLabel"?: string | undefined;
         /**
-          * If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window").
+          * This will be forwarded as aria-labelledby to the relevant nested element.
          */
-        "newWindowInfoText"?: string;
+        "accessibilityLabelledby"?: string | undefined;
         /**
-          * If set, the link will be opened in a new window.
+          * The href value you want to link to.
          */
-        "openInNewWindow"?: boolean;
+        "href"?: string | undefined;
+        /**
+          * Pass in an id, if you need to identify the inner link element.
+         */
+        "idValue"?: string;
+        /**
+          * Image alt text will be passed to `sbb-image`.
+         */
+        "imageAlt"?: string;
+        /**
+          * Image src will be passed to `sbb-image`.
+         */
+        "imageSrc"?: string;
         /**
           * Panel link text for the hero teaser.
          */
-        "panelLinkText": string;
+        "linkContent"?: string;
         /**
-          * Panel Text for the hero teaser.
+          * The relationship of the linked URL as space-separated link types.
          */
-        "panelText": string;
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
     }
     interface SbbTimetable {
     }

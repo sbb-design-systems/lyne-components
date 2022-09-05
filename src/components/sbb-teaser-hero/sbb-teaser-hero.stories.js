@@ -1,96 +1,129 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-/* --- link ---------------------------------------- */
-
-const openInNewWindowControl = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['true', 'false'],
-};
-
-/* --- text ---------------------------------------- */
-
-const panelText = {
+const accessibilityLabel = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'text',
+    category: 'link',
   },
 };
 
-const sbbTeaserHeroImageArgs = {
-  imageSrc:
-    'https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333&fp-z=1&w=1536&h=960&auto=format,compress,cs=tinysrgb&q=30',
+const href = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'link',
+  },
 };
 
-const SlotTeaserHeroImageTemplate = (args) => (
-  <sbb-image slot="image" image-src={args.imageSrc} alt="SBB CFF FFS Angestellte" />
-);
+const rel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'link',
+  },
+};
 
-// --- Component
+const target = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'link',
+  },
+};
+
+const content = {
+  control: {
+    type: 'text',
+  },
+};
+
+const linkContent = {
+  control: {
+    type: 'text',
+  },
+};
+
+const imageSrc = {
+  control: {
+    type: 'text',
+  },
+};
+
+const imageAlt = {
+  control: {
+    type: 'text',
+  },
+};
+
+const defaultArgTypes = {
+  accessibilityLabel,
+  href,
+  rel,
+  target,
+  content,
+  'link-content': linkContent,
+  'image-src': imageSrc,
+  'image-alt': imageAlt,
+};
+
+const defaultArgs = {
+  accessibilityLabel: 'sbb teaser hero label',
+  href: 'https://www.sbb.ch',
+  rel: undefined,
+  target: undefined,
+  content: 'Break out and explore castles and palaces.',
+  'link-content': 'Find out more',
+  'image-src':
+    'https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333',
+  'image-alt': 'SBB CFF FFS Employee',
+};
 
 const TemplateSbbTeaserHeroDefault = (args) => (
+  <sbb-teaser-hero {...args}>{args.content}</sbb-teaser-hero>
+);
+
+const TemplateSbbHeaserWithSlots = (args) => (
   <sbb-teaser-hero {...args}>
-    <SlotTeaserHeroImageTemplate {...sbbTeaserHeroImageArgs} />
+    {args.content}
+    <span slot="link-content">{args['link-content']}</span>
+    <sbb-image slot="image" image-src={args['image-src']} alt={args['image-alt']} />
   </sbb-teaser-hero>
 );
 
-const TemplateSbbPanelWithoutLink = (args) => (
-  <sbb-teaser-hero {...args}>
-    <SlotTeaserHeroImageTemplate {...sbbTeaserHeroImageArgs} />
-  </sbb-teaser-hero>
-);
-
-const TemplateSbbPanelWithSlots = (args) => (
-  <sbb-teaser-hero {...args}>
-    <span slot="text">{args['panel-text']}</span>
-    <span slot="panel-link-text">{args['panel-link-text']}</span>
-    <SlotTeaserHeroImageTemplate {...sbbTeaserHeroImageArgs} />
-  </sbb-teaser-hero>
-);
+/* ************************************************* */
+/* The Stories                                       */
+/* ************************************************* */
 
 export const defaultTeaser = TemplateSbbTeaserHeroDefault.bind({});
-export const openInNewWindow = TemplateSbbTeaserHeroDefault.bind({});
-export const withoutLink = TemplateSbbPanelWithoutLink.bind({});
-export const withSlots = TemplateSbbPanelWithSlots.bind({});
-
-defaultTeaser.argTypes = {
-  'open-in-new-window': openInNewWindowControl,
-};
-
+defaultTeaser.argTypes = defaultArgTypes;
 defaultTeaser.args = {
-  link: 'https://www.sbb.ch',
-  'accessibility-title': 'sbb teaser hero label',
-  'panel-text': 'Rücksichtsvoll mit SBB Green Class',
-  'panel-link-text': 'Mehr erfahren',
-  'open-in-new-window': openInNewWindowControl.options[1],
+  ...defaultArgs,
 };
 
-defaultTeaser.documentation = {
-  title: 'Default Teaser',
-};
-
-openInNewWindow.argTypes = {
-  'open-in-new-window': openInNewWindowControl,
-  text: panelText,
-};
-
+export const openInNewWindow = TemplateSbbTeaserHeroDefault.bind({});
+openInNewWindow.argTypes = defaultArgTypes;
 openInNewWindow.args = {
-  'panel-text': 'Rücksichtsvoll mit SBB Green Class',
-  link: 'https://www.sbb.ch',
-  'new-window-info-text': 'Link öffnet in neuem Fenster.',
-  'open-in-new-window': openInNewWindowControl.options[0],
+  ...defaultArgs,
+  target: '_blank',
 };
 
+export const withoutLink = TemplateSbbTeaserHeroDefault.bind({});
+withoutLink.argTypes = defaultArgTypes;
 withoutLink.args = {
-  'panel-text': 'Rücksichtsvoll mit SBB Green Class',
+  ...defaultArgs,
+  href: undefined,
 };
 
-openInNewWindow.documentation = {
-  title: 'Teaser Link open in new Window',
+export const withSlots = TemplateSbbHeaserWithSlots.bind({});
+withSlots.argTypes = defaultArgTypes;
+withSlots.args = {
+  ...defaultArgs,
 };
 
 export default {

@@ -13,16 +13,6 @@
   &:focus-visible {
     @include focusOutline;
   }
-
-  @include hover-mq($hover: true) {
-    &:hover {
-      --panel-background-color: var(--sbb-color-red-default);
-    }
-  }
-}
-
-.teaser-hero__link-info-text {
-  @include screenReaderOnly;
 }
 
 .teaser-hero__panel {
