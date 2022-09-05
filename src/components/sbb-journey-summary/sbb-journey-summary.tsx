@@ -1,7 +1,7 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import isTomorrow from 'date-fns/isTomorrow';
-import { isToday, parseISO, format, intervalToDuration, isBefore, isValid } from 'date-fns';
+import { isToday, parseISO, format, intervalToDuration, isValid } from 'date-fns';
 import {
   i18nArrival,
   i18nDeparture,
@@ -40,17 +40,24 @@ export class SbbJourneySummary {
     );
   }
 
+  /** returns duration in hours and minutes */
   private _getDuration(startTime: Date, endTime: Date): Duration {
     if (isValid(startTime) && isValid(endTime)) {
-      return intervalToDuration({ start: startTime, end: endTime });
+      const interval = intervalToDuration({ start: startTime, end: endTime });
+      if (interval.days > 0) {
+        const intervalDayChange: Duration = {
+          hours: interval.hours + interval.days * 24,
+          minutes: interval.minutes,
+        };
+        return intervalDayChange;
+      } else return interval;
     }
+    return { hours: 0, minutes: 0 };
   }
 
   /**  renders the date of the journey or if it is the current or next day */
   private _renderJourneyStart(departureTime: Date, arrivalTime: Date): JSX.Element {
-    const duration: Duration = isBefore(departureTime, arrivalTime)
-      ? this._getDuration(departureTime, arrivalTime)
-      : this._getDuration(arrivalTime, departureTime);
+    const duration: Duration = this._getDuration(arrivalTime, departureTime);
 
     if (isTomorrow(departureTime) || isToday(departureTime)) {
       return isTomorrow(departureTime) ? (
