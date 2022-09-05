@@ -34,15 +34,13 @@ describe('sbb-link', () => {
           >
           <mock:shadow-root>
             <a
-              aria-label="Travelcards &amp; tickets. Link target opens in new window."
+              aria-label="Travelcards & tickets"
               aria-labelledby="id"
               class="sbb-link sbb-link--icon-placement-start sbb-link--text-m"
               dir="ltr"
               download=""
               href="https://github.com/lyne-design-system/lyne-components"
               id="id"
-              rel="external noopener nofollow"
-              target="_blank"
             >
               <slot name="icon"></slot>
               <slot></slot>
@@ -135,7 +133,7 @@ describe('sbb-link', () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
       html: `
-        <sbb-link variant="inline" text-size="m" href="#link">
+        <sbb-link variant="inline" text-size="m" href="#link" target="_blank">
           Travelcards &amp; tickets.
         </sbb-link>`,
     });
@@ -144,9 +142,11 @@ describe('sbb-link', () => {
         <sbb-link
             text-size="m"
             variant="inline"
-            href="#link">
+            href="#link"
+            target="_blank"
+>
           <mock:shadow-root>
-            <a class="sbb-link sbb-link--icon-placement-start sbb-link--inline" dir="ltr" href="#link" rel="external noopener nofollow" target="_blank">
+            <a aria-label="Link target opens in new window." class="sbb-link sbb-link--icon-placement-start sbb-link--inline" dir="ltr" href="#link" rel="external noopener nofollow" target="_blank">
               <slot></slot>
             </a>
           </mock:shadow-root>
