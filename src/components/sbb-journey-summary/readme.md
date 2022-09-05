@@ -1,15 +1,20 @@
-# sbb-journey-summary
+The `<sbb-journey-summary>` displays  the main information of a journey. It contains information about the arrival and depature, the date when the journey takes place and how long the trip will be. 
+It also consists of a pearl-chain with arrival and departure time. In addtition to that, it is also possible to display the walktimes at the begin and end of a journey. 
+The component has a unnamed slot where other elements can be added, i.e. buttons.
 
-
-
+## Usage
+The Example below shows how to render the component with a button in the slot.
+```
+<sbb-journey-summary summaryConfig={config}><sbb-button /></sbb-journey-summary>
+```
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property                     | Attribute | Description | Type                                                                                                                                                                                             | Default     |
-| ---------------------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| `summaryConfig` _(required)_ | --        |             | `{ legs: string; vias: string[]; startPoint: string; destination: string; arrivalWalk: number; departure: TimeQuayWrapper; arrival: TimeQuayWrapper; departureWalk: number; duration: number; }` | `undefined` |
+| Property                     | Attribute | Description     | Type                                                                                                                                                                       | Default     |
+| ---------------------------- | --------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `summaryConfig` _(required)_ | --        | The config prop | `{ legs: string; vias: string[]; origin: string; destination: string; arrivalWalk: number; departure: TimeQuayWrapper; arrival: TimeQuayWrapper; departureWalk: number; }` | `undefined` |
 
 
 ## Dependencies

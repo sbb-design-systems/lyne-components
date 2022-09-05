@@ -1,4 +1,5 @@
 import { h } from 'jsx-dom';
+import readme from './readme.md';
 
 const Template = (args) => (
   <sbb-journey-summary summaryConfig={args}>
@@ -70,5 +71,13 @@ summaryDate.args = {
 
 export default {
   decorators: [(Story) => <Story />],
+  parameters: {
+    backgrounds: {
+      disable: true,
+    },
+    docs: {
+      extractComponentDescription: () => readme,
+    },
+  },
   title: 'components/timetable/sbb-journey-summary (Unfinished)',
 };
