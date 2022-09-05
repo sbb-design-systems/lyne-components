@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -14,18 +15,17 @@ import {
 import { getElementPosition } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 
+const MENU_OFFSET = 8;
+
 /**
  * @slot unnamed - Use this slot to project any content inside the component.
  */
-
-const MENU_OFFSET = 8;
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-menu.scss',
   tag: 'sbb-menu',
 })
-export class SbbMenu {
+export class SbbMenu implements ComponentInterface {
   @Element() public el!: HTMLElement;
 
   /**
@@ -37,17 +37,12 @@ export class SbbMenu {
   /**
    * Whether the menu is open.
    */
-  @State() public open = false;
+  @State() private _open = false;
 
   /**
    * Whether the menu is closing.
    */
-  @State() public isDismissing = false;
-
-  // todo --> improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
-  private _dialog: HTMLDialogElement | any;
-  private _triggerEl: HTMLElement;
-  private _triggerController: AbortController;
+  @State() private _isDismissing = false;
 
   /**
    * Emits whenever the menu starts the opening transition.
@@ -106,13 +101,13 @@ export class SbbMenu {
   @Listen('sbb-menu-action_click')
   public async closeMenu(): Promise<void> {
     this.willClose.emit();
-    this.isDismissing = true;
+    this._isDismissing = true;
   }
 
   // Resets position on window resize.
   @Listen('resize', { target: 'window', passive: true })
   public onResizeWindowEvent(): void {
-    if (this.open) {
+    if (this._open) {
       this._setMenuPosition();
     }
   }
@@ -120,7 +115,7 @@ export class SbbMenu {
   // Closes the menu on "Esc" key pressed.
   @Listen('keydown', { target: 'window' })
   public onEscAction(event: KeyboardEvent): void {
-    if (this.open && event.key === 'Escape') {
+    if (this._open && event.key === 'Escape') {
       event.preventDefault();
       this.closeMenu();
     }
@@ -136,6 +131,20 @@ export class SbbMenu {
       this._triggerController.abort();
     }
   }
+
+  // Returns true if it is a DOM element.
+  private static _isElement(o: string | HTMLElement): boolean {
+    return o instanceof window.Element;
+  }
+
+  // todo --> improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
+  private _dialog: HTMLDialogElement | any;
+
+  // The element that triggers the open of the sbb-menu.
+  private _triggerEl: HTMLElement;
+
+  // Controller used to abort the open of the abb-menu on trigger change.
+  private _triggerController: AbortController;
 
   public componentDidLoad(): void {
     this._dialog = this.el.shadowRoot.querySelector('dialog');
@@ -160,10 +169,10 @@ export class SbbMenu {
     }
 
     // check whether it's a string or an HTMLElement
-    if (this._isElement(trigger)) {
-      this._triggerEl = trigger as HTMLElement;
-    } else if (typeof trigger === 'string') {
+    if (typeof trigger === 'string') {
       this._triggerEl = document.getElementById(trigger);
+    } else if (SbbMenu._isElement(trigger)) {
+      this._triggerEl = trigger;
     }
 
     if (this._triggerEl) {
@@ -172,11 +181,6 @@ export class SbbMenu {
         signal: this._triggerController.signal,
       });
     }
-  }
-
-  // Returns true if it is a DOM element.
-  private _isElement(o: string | HTMLElement): boolean {
-    return o instanceof window.Element;
   }
 
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
@@ -209,28 +213,28 @@ export class SbbMenu {
       return;
     }
 
-    if (this.isDismissing) {
-      this.isDismissing = false;
-      this.open = false;
+    if (this._isDismissing) {
+      this._isDismissing = false;
+      this._open = false;
       this._dialog.scrollTo(0, 0);
       this._dialog.close();
       this.didClose.emit();
     } else {
-      this.open = true;
+      this._open = true;
       this.didOpen.emit();
       this._setDialogFocus();
     }
   }
 
   // Set focus on the first focusable element.
-  private _setDialogFocus() {
+  private _setDialogFocus(): void {
     const query = `
-      button:not([disabled]), 
-      [href], 
-      input:not([disabled]), 
-      select:not([disabled]), 
-      textarea:not([disabled]), 
-      details:not([disabled]), 
+      button:not([disabled]),
+      [href],
+      input:not([disabled]),
+      select:not([disabled]),
+      textarea:not([disabled]),
+      details:not([disabled]),
       summary:not(:disabled),
       [tabindex]:not([tabindex="-1"]):not([disabled]),
       sbb-button:not([disabled]),
@@ -263,8 +267,8 @@ export class SbbMenu {
       <dialog
         class={{
           'sbb-menu': true,
-          'sbb-menu--open': this.open,
-          'sbb-menu--dismissing': this.isDismissing,
+          'sbb-menu--open': this._open,
+          'sbb-menu--dismissing': this._isDismissing,
         }}
       >
         <div class="sbb-menu__content">

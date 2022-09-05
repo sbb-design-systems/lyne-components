@@ -43,6 +43,14 @@ An amount can be rendered at the end of the action element as white text in a re
 | `sbb-menu-action_click` | Emits whenever the menu action is clicked. | `CustomEvent<any>` |
 
 
+## Slots
+
+| Slot        | Description                                                                      |
+| ----------- | -------------------------------------------------------------------------------- |
+| `"icon"`    | Use this slot to provide an SVG icon. If `icon` is set, a sbb-icon will be used. |
+| `"unnamed"` | Use this slot to provide the menu action label.                                  |
+
+
 ## Dependencies
 
 ### Depends on

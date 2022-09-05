@@ -14,9 +14,6 @@ export function isBreakpoint(from: Breakpoint, to: Breakpoint): boolean {
   const breakpointMin = computedStyle.getPropertyValue(`--sbb-breakpoint-${from}-min`);
   const breakpointMax = computedStyle.getPropertyValue(`--sbb-breakpoint-${to}-max`);
 
-  const media = window.matchMedia(
-    `(min-width: ${breakpointMin}) and (max-width: ${breakpointMax})`
-  ).matches;
-
-  return media;
+  return window.matchMedia(`(min-width: ${breakpointMin}) and (max-width: ${breakpointMax})`)
+    .matches;
 }

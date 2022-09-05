@@ -7,14 +7,12 @@ import {
   LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 
+let nextId = 0;
+
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
  * @slot icon - Use this slot to provide an SVG icon. If `icon` is set, a sbb-icon will be used.
  */
-
-// TODO --> nextId test mechanism
-let nextId = 0;
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-menu-action.scss',
