@@ -12,7 +12,6 @@
   --panel-padding-block: var(--sbb-spacing-responsive-s);
   --panel-background-color: var(--sbb-color-red-default);
   --text-margin-block-start: var(--sbb-spacing-fixed-6x);
-
   --panel-width: #{px-to-rem-build(223)};
   --panel-height: #{px-to-rem-build(167)};
   --panel-triangle-height: #{px-to-rem-build(33)};
@@ -31,8 +30,6 @@
     --panel-font-size-text: var(--sbb-typo-scale-2-5x);
     --panel-line-height: 1.2;
   }
-
-  opacity: var(--panel-opacity);
 }
 
 .panel {
@@ -51,6 +48,8 @@
     0% 100%
   );
   background-color: var(--sbb-color-red-default);
+  opacity: var(--panel-opacity);
+  transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
   @include ifForcedColors {
     border: #{px-to-rem-build(1)} solid CanvasText;
@@ -59,6 +58,8 @@
 
 .panel__text,
 ::slotted([slot='text']) {
+  @include fontSmoothing;
+
   font-family: var(--panel-font-family);
   font-size: var(--panel-font-size-text);
   color: var(--sbb-color-white-default);
@@ -66,8 +67,6 @@
   margin-block: 0;
   font-weight: normal;
   letter-spacing: var(--panel-letter-spacing);
-
-  @include fontSmoothing;
 }
 
 .panel__link {
