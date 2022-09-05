@@ -3,9 +3,7 @@ import {
   ButtonProperties,
   getButtonAttributeList,
   getLinkAttributeList,
-  getLinkButtonAttributeList,
   getLinkButtonBaseAttributeList,
-  LinkButtonProperties,
   LinkProperties,
 } from './link-button-properties';
 
@@ -154,49 +152,5 @@ describe('getButtonAttributeList', () => {
 
     // jest can't compare functions as emitButtonClick, so objectContaining(...) API is used
     expect(getButtonAttributeList(buttonProperties)).toEqual(expect.objectContaining(expectedObj));
-  });
-});
-
-describe('getLinkButtonAttributeList', () => {
-  it('should return attributes for link', () => {
-    const linkButtonProperties: LinkButtonProperties = {
-      href: 'link',
-      click: undefined,
-      emitButtonClick: undefined,
-      name: undefined,
-      type: undefined,
-      accessibilityLabel: 'Test',
-      accessibilityDescribedby: null,
-      accessibilityLabelledby: null,
-    };
-    const expectedObj: Record<string, string> = {
-      dir: 'ltr',
-      href: 'link',
-      'aria-label': 'Test',
-    };
-    expect(getLinkButtonAttributeList(linkButtonProperties)).toEqual(expectedObj);
-  });
-
-  it('should return attributes for button', () => {
-    const linkButtonProperties: LinkButtonProperties = {
-      href: undefined,
-      click: undefined,
-      emitButtonClick: undefined,
-      name: 'button',
-      type: 'submit',
-      accessibilityLabel: 'Test',
-      accessibilityDescribedby: null,
-      accessibilityLabelledby: null,
-    };
-    const expectedObj: Record<string, string> = {
-      dir: 'ltr',
-      name: 'button',
-      type: 'submit',
-      'aria-label': 'Test',
-    };
-    // jest can't compare functions as emitButtonClick, so objectContaining(...) API is used
-    expect(getLinkButtonAttributeList(linkButtonProperties)).toEqual(
-      expect.objectContaining(expectedObj)
-    );
   });
 });

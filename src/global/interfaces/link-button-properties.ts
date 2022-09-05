@@ -159,25 +159,3 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     value: buttonProperties.value ?? undefined,
   });
 }
-
-/**
- * Creates a list of attributes for the <a> or <button> tags,
- * depending on whether the href attribute value is present.
- * Undefined/null properties are not set.
- * @param linkButtonProps properties from the link/button component implementation
- */
-export function getLinkButtonAttributeList(
-  linkButtonProps: LinkButtonProperties
-): Record<string, string> {
-  if (!linkButtonProps) {
-    return;
-  }
-
-  // Anchor case
-  if (linkButtonProps.href) {
-    return getLinkAttributeList(linkButtonProps, linkButtonProps);
-  }
-
-  // Button case
-  return getButtonAttributeList(linkButtonProps);
-}

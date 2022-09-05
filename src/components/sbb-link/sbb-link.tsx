@@ -10,7 +10,8 @@ import {
   State,
 } from '@stencil/core';
 import {
-  getLinkButtonAttributeList,
+  getButtonAttributeList,
+  getLinkAttributeList,
   getLinkButtonBaseAttributeList,
   LinkButtonProperties,
   LinkTargetType,
@@ -180,9 +181,12 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     if (this._isStatic) {
       TAG_NAME = 'span';
       attributeList = getLinkButtonBaseAttributeList(this);
+    } else if (this.href) {
+      TAG_NAME = 'a';
+      attributeList = getLinkAttributeList(this, this);
     } else {
-      TAG_NAME = this.href ? 'a' : 'button';
-      attributeList = getLinkButtonAttributeList(this);
+      TAG_NAME = 'button';
+      attributeList = getButtonAttributeList(this);
     }
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
