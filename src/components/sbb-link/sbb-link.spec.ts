@@ -79,7 +79,7 @@ describe('sbb-link', () => {
             <button
               class="sbb-link sbb-link--icon-placement-end sbb-link--negative sbb-link--text-m"
               dir="ltr"
-              disabled
+              disabled="true"
               form="formid"
               name="name"
               type="submit"
