@@ -43,6 +43,13 @@ Type: `Promise<void>`
 
 
 
+## Slots
+
+| Slot        | Description                                                |
+| ----------- | ---------------------------------------------------------- |
+| `"unnamed"` | Use this slot to project any content inside the component. |
+
+
 ----------------------------------------------
 
 

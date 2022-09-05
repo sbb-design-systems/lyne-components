@@ -119,29 +119,16 @@ const EllipsisTemplate = (args) => (
 );
 
 export const Default = DefaultTemplate.bind({});
+Default.documentation = { title: 'Default' };
+
 export const CustomContent = CustomContentTemplate.bind({});
+CustomContent.documentation = { title: 'Custom Content' };
+
 export const LongContent = LongContentTemplate.bind({});
+LongContent.documentation = { title: 'Long Content' };
+
 export const Ellipsis = EllipsisTemplate.bind({});
-
-Default.args = {
-  'some-prop': 'opt1',
-};
-
-Default.documentation = {
-  title: 'Default',
-};
-
-CustomContent.documentation = {
-  title: 'Custom Content',
-};
-
-CustomContent.documentation = {
-  title: 'Long Content',
-};
-
-Ellipsis.documentation = {
-  title: 'Ellipsis',
-};
+Ellipsis.documentation = { title: 'Ellipsis' };
 
 export default {
   decorators: [
@@ -151,9 +138,6 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
     actions: {
       handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
