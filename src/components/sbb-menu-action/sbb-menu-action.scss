@@ -14,16 +14,17 @@
   padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
   transition: background-color var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
 
-  sbb-icon {
-    min-width: var(--sbb-border-radius-16x);
-    padding-inline-end: var(--sbb-spacing-fixed-2x);
-  }
-
   @include hover-mq($hover: true) {
     &:hover {
       background-color: var(--sbb-color-iron-default);
     }
   }
+}
+
+.sbb-menu-action__icon {
+  display: flex;
+  min-width: var(--sbb-spacing-fixed-8x);
+  padding-inline-end: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-menu-action__link,

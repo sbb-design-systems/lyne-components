@@ -160,21 +160,7 @@ const getBasicTemplate = (args, id, icon) => (
     <span>
       {args.text} {id}
     </span>
-    {icon && (
-      <span slot="icon" style="padding-right: 8px; line-height: 0">
-        <svg
-          style="fill: white;"
-          aria-hidden="true"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <polygon points="4,4 20,4 4,20 20,20" />
-        </svg>
-      </span>
-    )}
+    {icon && <sbb-icon slot="icon" name="pie-small" />}
   </sbb-menu-action>
 );
 
@@ -189,7 +175,7 @@ const TemplateMenuAction = (args) => (
 const TemplateMenuActionCustomIcon = (args) => (
   <div>
     {getBasicTemplate(args, 1, true)}
-    {getBasicTemplate(args, 2, true)}
+    {getBasicTemplate(args, 2, false)}
     {getBasicTemplate(args, 3, true)}
   </div>
 );
@@ -208,11 +194,11 @@ menuActionButton.documentation = {
   title: 'Menu action - button mode',
 };
 
-export const menuActionLinkCustomIcon = TemplateMenuActionCustomIcon.bind({});
-menuActionLinkCustomIcon.argTypes = defaultArgTypes;
-menuActionLinkCustomIcon.args = { ...defaultArgs, icon: undefined };
-menuActionLinkCustomIcon.documentation = {
-  title: 'Menu action - link mode, custom icon',
+export const menuActionLinkCustomIconNoAmount = TemplateMenuActionCustomIcon.bind({});
+menuActionLinkCustomIconNoAmount.argTypes = defaultArgTypes;
+menuActionLinkCustomIconNoAmount.args = { ...defaultArgs, icon: undefined, amount: undefined };
+menuActionLinkCustomIconNoAmount.documentation = {
+  title: 'Menu action - link mode, custom icon, no amount',
 };
 
 export const menuActionLinkNoIconNoAmount = TemplateMenuAction.bind({});
