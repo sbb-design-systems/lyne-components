@@ -8,10 +8,12 @@
   --panel-line-height: var(--sbb-typo-line-height-titles);
   --panel-font-size: var(--sbb-typo-scale-1-5x);
   --panel-color: var(--sbb-color-white-default);
-  --panel-background-color: var(--sbb-color-red-default);
-  --panel-opacity: var(--panel-opacity-override, 0.9);
+
+  // TODO: replace by token
+  --panel-background-color: rgb(235 0 0 / 90%);
   --panel-padding-block: var(--sbb-spacing-responsive-s);
   --panel-padding-inline: var(--sbb-spacing-responsive-m);
+  --panel-gap: var(--sbb-spacing-responsive-xs);
   --panel-width: #{px-to-rem-build(223)};
   --panel-height: #{px-to-rem-build(167)};
   --panel-triangle-height: #{px-to-rem-build(33)};
@@ -37,6 +39,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: var(--panel-gap);
   width: var(--panel-width);
   height: calc(var(--panel-height) + var(--panel-triangle-height) * 2);
   padding: calc(var(--panel-padding-block) + var(--panel-triangle-height))
@@ -48,8 +51,7 @@
     0% 100%
   );
   background-color: var(--panel-background-color);
-  opacity: var(--panel-opacity);
-  transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: background var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
   @include ifForcedColors {
     border: #{px-to-rem-build(1)} solid CanvasText;
