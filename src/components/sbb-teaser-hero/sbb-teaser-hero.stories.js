@@ -46,12 +46,8 @@ const TemplateSbbPanelWithoutLink = (args) => (
 
 const TemplateSbbPanelWithSlots = (args) => (
   <sbb-teaser-hero {...args}>
-    <sbb-panel slot="panel">
-      <span slot="text">Sbb teaser hero with Slots</span>
-      <sbb-link slot="link" negative>
-        Mehr erfahren
-      </sbb-link>
-    </sbb-panel>
+    <span slot="text">{args['panel-text']}</span>
+    <span slot="panel-link-text">{args['panel-link-text']}</span>
     <SlotTeaserHeroImageTemplate {...sbbTeaserHeroImageArgs} />
   </sbb-teaser-hero>
 );
@@ -111,5 +107,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-teaser-hero (Unfinished)',
+  title: 'components/sbb-teaser-hero',
 };

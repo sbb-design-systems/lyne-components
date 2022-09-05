@@ -53,15 +53,12 @@ For this component you can either use slots or props to render the panel compone
 
 ### Depends on
 
-- [sbb-panel](../sbb-panel)
 - [sbb-link](../sbb-link)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-teaser-hero --> sbb-panel
   sbb-teaser-hero --> sbb-link
-  sbb-panel --> sbb-link
   sbb-link --> sbb-icon
   style sbb-teaser-hero fill:#f9f,stroke:#333,stroke-width:4px
 ```

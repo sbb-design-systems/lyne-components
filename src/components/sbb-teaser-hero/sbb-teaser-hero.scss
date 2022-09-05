@@ -2,6 +2,10 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+:host {
+  @include panel-variables;
+}
+
 .teaser-hero {
   position: relative;
   display: block;
@@ -10,8 +14,10 @@
     @include focusOutline;
   }
 
-  &:hover {
-    --panel-opacity-override: 1;
+  @include hover-mq($hover: true) {
+    &:hover {
+      --panel-background-color: var(--sbb-color-red-default);
+    }
   }
 }
 
@@ -20,18 +26,16 @@
 }
 
 .teaser-hero__panel {
+  @include panel;
   @include absoluteCenterY;
 
   z-index: 1;
 }
 
-::slotted([slot='image']) {
-  display: block;
-  object-fit: cover;
-  width: 100%;
-  aspect-ratio: 1 / 1;
+.teaser-hero__panel-text {
+  @include panel-text;
+}
 
-  @include mq($from: small) {
-    aspect-ratio: 16 / 9;
-  }
+.teaser-hero__panel-link {
+  @include fontSmoothing;
 }

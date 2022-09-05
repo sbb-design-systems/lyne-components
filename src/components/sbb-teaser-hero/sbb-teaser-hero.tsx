@@ -57,24 +57,18 @@ export class SbbTeaserHero {
         {...linkAttributes}
       >
         <span class="teaser-hero__panel">
-          <slot name="panel">
-            {this.panelText && (
-              <sbb-panel>
-                <span slot="text">{this.panelText}</span>
-                {this.panelLinkText && (
-                  <sbb-link
-                    slot="link"
-                    icon-name="chevron-small-right-small"
-                    icon-placement="end"
-                    text-size="m"
-                    negative
-                  >
-                    {this.panelLinkText}
-                  </sbb-link>
-                )}
-              </sbb-panel>
-            )}
-          </slot>
+          <span class="teaser-hero__panel-text">
+            <slot name="text">{this.panelText}</slot>
+          </span>
+          <sbb-link
+            class="teaser-hero__panel-link"
+            icon-name="chevron-small-right-small"
+            icon-placement="end"
+            text-size="m"
+            negative
+          >
+            <slot name="panel-link-text">{this.panelLinkText}</slot>
+          </sbb-link>
         </span>
         <slot name="image" />
         {this.openInNewWindow && this.newWindowInfoText ? (
