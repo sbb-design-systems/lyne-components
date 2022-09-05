@@ -1,7 +1,8 @@
 import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
 import {
   ButtonType,
-  getLinkButtonAttributeList,
+  getButtonAttributeList,
+  getLinkAttributeList,
   LinkButtonProperties,
 } from '../../global/interfaces/link-button-properties';
 
@@ -105,22 +106,21 @@ export class SbbMenuAction implements LinkButtonProperties {
 
   public render(): JSX.Element {
     let TAG_NAME: string;
+    let className: string;
     let attributeList: object;
 
     if (this.href) {
       TAG_NAME = 'a';
-      attributeList = getLinkButtonAttributeList(this.menuActionId, 'sbb-menu-action__link', this);
+      attributeList = getLinkAttributeList(this);
+      className = 'sbb-menu-action__link';
     } else {
       TAG_NAME = 'button';
-      attributeList = getLinkButtonAttributeList(
-        this.menuActionId,
-        'sbb-menu-action__button',
-        this
-      );
+      attributeList = getButtonAttributeList(this);
+      className = 'sbb-menu-action__button';
     }
 
     return (
-      <TAG_NAME {...attributeList}>
+      <TAG_NAME id={this.menuActionId} class={className} {...attributeList}>
         <div class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon">{this.icon && <sbb-icon name={this.icon} />}</slot>

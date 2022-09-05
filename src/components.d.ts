@@ -25,7 +25,6 @@ import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
-import { ButtonType } from "./global/interfaces/link-button-properties";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
