@@ -74,11 +74,7 @@ export class SbbPearlChain {
       };
     };
 
-    const animation = this.disableAnimation
-      ? this.disableAnimation === true
-        ? 'pearl-chain__position--no-animation'
-        : ''
-      : '';
+    const animation = this.disableAnimation ? 'pearl-chain__position--no-animation' : '';
 
     if (currentPosition > 0 && currentPosition <= 100) {
       return <span style={statusStyle()} class={`pearl-chain__position ${animation}`}></span>;
