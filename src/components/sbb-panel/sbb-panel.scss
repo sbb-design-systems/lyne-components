@@ -3,70 +3,16 @@
 @include host-component-properties;
 
 :host {
-  --panel-font-family: 'SBBWeb Light';
-  --panel-letter-spacing: 0.01em;
-  --panel-line-height: var(--sbb-typo-line-height-titles);
-  --panel-font-size-text: var(--sbb-typo-scale-1-5x);
-  --panel-opacity: var(--panel-opacity-override, 0.9);
-  --panel-padding-inline: var(--sbb-spacing-responsive-m);
-  --panel-padding-block: var(--sbb-spacing-responsive-s);
-  --panel-background-color: var(--sbb-color-red-default);
-  --text-margin-block-start: var(--sbb-spacing-fixed-6x);
-  --panel-width: #{px-to-rem-build(223)};
-  --panel-height: #{px-to-rem-build(167)};
-  --panel-triangle-height: #{px-to-rem-build(33)};
-
-  @include mq($from: medium) {
-    --panel-width: #{px-to-rem-build(321)};
-    --panel-height: #{px-to-rem-build(240.11)};
-    --panel-triangle-height: #{px-to-rem-build(47.45)};
-    --panel-font-size-text: var(--sbb-typo-scale-2x);
-  }
-
-  @include mq($from: large) {
-    --panel-width: #{px-to-rem-build(428)};
-    --panel-height: #{px-to-rem-build(320.38)};
-    --panel-triangle-height: #{px-to-rem-build(63.31)};
-    --panel-font-size-text: var(--sbb-typo-scale-2-5x);
-    --panel-line-height: 1.2;
-  }
+  @include panel-variables;
 }
 
 .panel {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: var(--panel-width);
-  height: calc(var(--panel-height) + var(--panel-triangle-height) * 2);
-  padding: calc(var(--sbb-spacing-responsive-s) + var(--panel-triangle-height))
-    var(--sbb-spacing-responsive-m);
-  clip-path: polygon(
-    0 0,
-    100% var(--panel-triangle-height),
-    100% calc(100% - var(--panel-triangle-height)),
-    0% 100%
-  );
-  background-color: var(--sbb-color-red-default);
-  opacity: var(--panel-opacity);
-  transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
-
-  @include ifForcedColors {
-    border: #{px-to-rem-build(1)} solid CanvasText;
-  }
+  @include panel;
 }
 
 .panel__text,
 ::slotted([slot='text']) {
-  @include fontSmoothing;
-
-  font-family: var(--panel-font-family);
-  font-size: var(--panel-font-size-text);
-  color: var(--sbb-color-white-default);
-  line-height: var(--panel-line-height);
-  margin-block: 0;
-  font-weight: normal;
-  letter-spacing: var(--panel-letter-spacing);
+  @include panel-text;
 }
 
 .panel__link {
