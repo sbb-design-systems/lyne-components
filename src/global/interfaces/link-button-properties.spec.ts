@@ -39,7 +39,7 @@ describe('getLinkAttributeList', () => {
       accessibilityDescribedby: null,
       accessibilityLabelledby: null,
     };
-    const expectedObj: object = {
+    const expectedObj: Record<string, string> = {
       dir: 'ltr',
       href: 'link',
       'aria-label': 'Test',
@@ -55,7 +55,7 @@ describe('getLinkAttributeList', () => {
       accessibilityDescribedby: null,
       accessibilityLabelledby: null,
     };
-    const expectedObj: object = {
+    const expectedObj: Record<string, string> = {
       dir: 'ltr',
       href: 'link',
       target: '_blank',
@@ -74,7 +74,7 @@ describe('getLinkAttributeList', () => {
       accessibilityDescribedby: null,
       accessibilityLabelledby: null,
     };
-    const expectedObj: object = {
+    const expectedObj: Record<string, string> = {
       dir: 'ltr',
       href: 'link',
       target: '_blank',
@@ -92,7 +92,7 @@ describe('getLinkAttributeList', () => {
       accessibilityDescribedby: null,
       accessibilityLabelledby: null,
     };
-    const expectedObj: object = {
+    const expectedObj: Record<string, string> = {
       dir: 'ltr',
       href: 'link',
       target: 'custom',
@@ -118,7 +118,7 @@ describe('getLinkAttributeList', () => {
       type: undefined,
       disabled: true,
     };
-    const expectedObj: object = {
+    const expectedObj: Record<string, string> = {
       dir: 'ltr',
       href: 'link',
       tabIndex: '-1',
@@ -143,7 +143,7 @@ describe('getButtonAttributeList', () => {
       type: 'submit',
       value: 'value',
     };
-    const expectedObj: object = {
+    const expectedObj: Record<string, string> = {
       dir: 'ltr',
       'aria-label': 'Test',
       form: 'formid',
@@ -169,7 +169,7 @@ describe('getLinkButtonAttributeList', () => {
       accessibilityDescribedby: null,
       accessibilityLabelledby: null,
     };
-    const expectedObj: object = {
+    const expectedObj: Record<string, string> = {
       dir: 'ltr',
       href: 'link',
       'aria-label': 'Test',
@@ -188,7 +188,7 @@ describe('getLinkButtonAttributeList', () => {
       accessibilityDescribedby: null,
       accessibilityLabelledby: null,
     };
-    const expectedObj: object = {
+    const expectedObj: Record<string, string> = {
       dir: 'ltr',
       name: 'button',
       type: 'submit',

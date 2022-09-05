@@ -19,7 +19,7 @@ export interface AccessibilityProperties {
 export function getAccessibilityAttributeList(
   accessibilityProps?: AccessibilityProperties | null
 ): Record<string, string> {
-  return Object.assign({
+  return {
     'aria-label': accessibilityProps?.accessibilityLabel
       ? accessibilityProps.accessibilityLabel
       : undefined,
@@ -29,5 +29,5 @@ export function getAccessibilityAttributeList(
     'aria-describedby': accessibilityProps?.accessibilityDescribedby
       ? accessibilityProps.accessibilityDescribedby
       : undefined,
-  });
+  };
 }

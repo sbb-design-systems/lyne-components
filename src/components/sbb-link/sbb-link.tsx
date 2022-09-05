@@ -176,9 +176,10 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
 
   public render(): JSX.Element {
     let TAG_NAME: string;
-    let attributeList: object = getLinkButtonBaseAttributeList(this);
+    let attributeList: Record<string, string>;
     if (this._isStatic) {
       TAG_NAME = 'span';
+      attributeList = getLinkButtonBaseAttributeList(this);
     } else {
       TAG_NAME = this.href ? 'a' : 'button';
       attributeList = getLinkButtonAttributeList(this);
@@ -187,7 +188,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <TAG_NAME
-        {...(this.idValue && { id: this.idValue })}
+        id={this.idValue}
         class={this._getClassString()}
         {...attributeList}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
