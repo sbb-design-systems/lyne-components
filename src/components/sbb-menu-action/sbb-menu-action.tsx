@@ -122,7 +122,9 @@ export class SbbMenuAction implements LinkButtonProperties {
     return (
       <TAG_NAME {...attributeList}>
         <div class="sbb-menu-action__content">
-          <slot name="icon">{this.icon && <sbb-icon name={this.icon} />}</slot>
+          <span class="sbb-menu-action__icon">
+            <slot name="icon">{this.icon && <sbb-icon name={this.icon} />}</slot>
+          </span>
           <span class="sbb-menu-action__label">
             <slot />
           </span>

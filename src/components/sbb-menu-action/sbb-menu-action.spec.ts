@@ -17,7 +17,9 @@ describe('sbb-menu-action', () => {
           <mock:shadow-root>
             <button class="sbb-menu-action__button" dir="ltr" id="sbb-menu-action-1" type="button">
               <div class="sbb-menu-action__content">
-                <slot name="icon"></slot>
+                <span class="sbb-menu-action__icon">
+                  <slot name="icon"></slot>
+                </span>
                 <span class="sbb-menu-action__label">
                   <slot></slot>
                 </span>
@@ -44,9 +46,11 @@ describe('sbb-menu-action', () => {
           <mock:shadow-root>
             <a class="sbb-menu-action__link" dir="ltr" id="sbb-menu-action-2" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
               <div class="sbb-menu-action__content">
-                <slot name="icon">
-                  <sbb-icon name='menu-small'/>
-                </slot>
+                <span class="sbb-menu-action__icon">
+                  <slot name="icon">
+                    <sbb-icon name='menu-small'/>
+                  </slot>
+                </span>
                 <span class="sbb-menu-action__label">
                   <slot></slot>
                 </span>
