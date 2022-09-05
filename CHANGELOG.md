@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.6.0 (2022-09-05)
+
+### ⚠ BREAKING CHANGES
+
+- The link does not anymore himself decides to set target="\_blank". It's now up to the consumer to decide if a link should be opened in a new window.
+
+- refine link button properties interfaces ([#1367](https://github.com/lyne-design-system/lyne-components/issues/1367)) ([d0b30aa](https://github.com/lyne-design-system/lyne-components/commit/d0b30aa1fbf019b70b96291e53206e6a4faf332c))
+
 ### 0.5.4 (2022-09-01)
 
 ### Bug Fixes
