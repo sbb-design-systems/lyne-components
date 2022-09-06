@@ -47,11 +47,11 @@ You can either use slots or props to render the `sbb-teaser-hero` component.
 
 ## Slots
 
-| Slot             | Description                                 |
-| ---------------- | ------------------------------------------- |
-| `"image"`        | the background image, can be a `sbb-image`. |
-| `"link-content"` | link content of the panel                   |
-| `"unnamed"`      | text content of panel                       |
+| Slot             | Description                                |
+| ---------------- | ------------------------------------------ |
+| `"image"`        | the background image, can be a `sbb-image` |
+| `"link-content"` | link content of the panel                  |
+| `"unnamed"`      | text content of panel                      |
 
 
 ## Dependencies
