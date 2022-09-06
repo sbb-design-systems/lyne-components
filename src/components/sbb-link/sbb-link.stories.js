@@ -238,22 +238,22 @@ const defaultArgs = {
   variant: variant.options[0],
   negative: false,
   'text-size': textSize.options[1],
-  'icon-name': '',
+  'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
   href: 'https://github.com/lyne-design-system/lyne-components',
   download: false,
-  target: '',
-  rel: '',
-  'id-value': '',
+  target: undefined,
+  rel: undefined,
+  'id-value': undefined,
   'accessibility-label': 'Travelcards & tickets',
-  'accessibility-describedby': '',
-  'accessibility-labelledby': '',
+  'accessibility-describedby': undefined,
+  'accessibility-labelledby': undefined,
   name: 'Button name',
   type: type.options[0],
-  form: '',
+  form: undefined,
   disabled: false,
   'event-id': 'Event ID for button click',
-  value: '',
+  value: undefined,
 };
 
 /* ************************************************* */
@@ -348,7 +348,7 @@ export const BlockButton = Template.bind({});
 BlockButton.argTypes = defaultArgTypes;
 BlockButton.args = {
   ...defaultArgs,
-  href: '',
+  href: undefined,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
@@ -361,7 +361,7 @@ BlockButtonNegative.argTypes = defaultArgTypes;
 BlockButtonNegative.args = {
   ...defaultArgs,
   negative: true,
-  href: '',
+  href: undefined,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
@@ -378,6 +378,19 @@ BlockWithSlottedIcon.args = {
 };
 BlockWithSlottedIcon.documentation = {
   title: 'Block with slotted icon',
+};
+
+export const BlockLinkOpensInNewWindow = IconSlotTemplate.bind({});
+BlockLinkOpensInNewWindow.argTypes = defaultArgTypes;
+BlockLinkOpensInNewWindow.args = {
+  ...defaultArgs,
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+  target: '_blank',
+  'accessibility-label': undefined,
+};
+BlockLinkOpensInNewWindow.documentation = {
+  title: 'Block link opened in new window',
 };
 
 export const Inline = InlineTemplate.bind({});
@@ -409,7 +422,7 @@ InlineButton.args = {
   ...defaultArgs,
   text: 'Show more',
   variant: 'inline',
-  href: '',
+  href: undefined,
 };
 InlineNegative.documentation = {
   title: 'Inline Button',
