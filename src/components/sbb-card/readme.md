@@ -1,6 +1,6 @@
 # sbb-card
 
-The sbb-card is a container in which is possible to put other html tag. It provides a slot in which is possible to put the `<sbb-card-badge>`.
+The `sbb-card` component is a generic content container; its task is to contain HTML elements related to a single subject. The `sbb-card-badge` component can be used via slot to display a badge in the upper right corner.
 
 ## Usage
 
