@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.6.1 (2022-09-06)
+
+### Bug Fixes
+
+- **sbb-link:** fix placement of slotted icon ([#1371](https://github.com/lyne-design-system/lyne-components/issues/1371)) ([d70e1f8](https://github.com/lyne-design-system/lyne-components/commit/d70e1f8a257121724164470007f9f618bd97d626))
+
 ## 0.6.0 (2022-09-05)
 
 ### ⚠ BREAKING CHANGES
