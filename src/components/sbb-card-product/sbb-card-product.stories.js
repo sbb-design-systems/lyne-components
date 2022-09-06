@@ -237,11 +237,7 @@ const sbbTitleTravelCardHalfFareArgs = {
   'visual-level': 1,
 };
 
-const SlotSbbTitleTemplate = (args) => (
-  <sbb-title {...args}>
-    <span>{args.text}</span>
-  </sbb-title>
-);
+const SlotSbbTitleTemplate = (args) => <sbb-title {...args}>{args.text}</sbb-title>;
 
 const sbbJourneyHeaderArgs = {
   destination: 'Loèche-les-Bains',
@@ -279,11 +275,7 @@ const sbbLeadHalfFareLongArgs = {
   'visual-level': 6,
 };
 
-const SlotSbbLeadTemplate = (args) => (
-  <sbb-title {...args}>
-    <span>{args.text}</span>
-  </sbb-title>
-);
+const SlotSbbLeadTemplate = (args) => <sbb-title {...args}>{args.text}</sbb-title>;
 
 /* --- text slot ---------------------------------- */
 

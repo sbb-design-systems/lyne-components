@@ -17,7 +17,7 @@ describe('sbb-teaser', () => {
               <span class='teaser__image-wrapper'><slot name='image'/></span>
                 <span class='teaser__text'>
                   <sbb-title class="teaser__lead" level="5" visuallevel="5">
-                    <slot/>
+                    <slot name='title'/>
                   </sbb-title>
                 <span class='teaser__description'><slot name='description'/></span>
               </span>
@@ -42,7 +42,7 @@ describe('sbb-teaser', () => {
                 <span class='teaser__image-wrapper'><slot name='image'/></span>
                   <span class='teaser__text'>
                     <sbb-title class="teaser__lead" level="5" visuallevel="5">
-                      <slot/>
+                      <slot name='title'/>
                     </sbb-title>
                   <span class='teaser__description'><slot name='description'/></span>
                 </span>

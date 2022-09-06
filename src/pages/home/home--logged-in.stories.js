@@ -168,12 +168,12 @@ const Template = (args) => (
               style="min-width: 72px; width: 72px; height: 72px; background-color: var(--sbb-color-cloud-default); border-radius: 50%; display:flex;'"
             ></span>
             <sbb-title level="2" visual-level="1">
-              <span>Willkommen, Christina Müller</span>
+              Willkommen, Christina Müller
             </sbb-title>
           </sbb-stack>
           <sbb-stack appearance="vertical" gap-vertical="responsive-s">
             <sbb-title level="3" visual-level="4">
-              <span>Ihre aktuellen Billette & Reisen.</span>
+              Ihre aktuellen Billette & Reisen.
             </sbb-title>
             <sbb-stack tag="ul" appearance="vertical" gap-vertical="fixed-4x">
               <li>
@@ -202,7 +202,7 @@ const Template = (args) => (
                   </div>
                   <div slot="title">
                     <sbb-title level="2" visual-level="1">
-                      <span>GA</span>
+                      GA
                     </sbb-title>
                     <sbb-journey-header
                       destination="Loèche-les-Bains"
@@ -214,7 +214,7 @@ const Template = (args) => (
                   </div>
                   <div slot="lead">
                     <sbb-title level="3" visual-level="6">
-                      <span>Generalabonnement</span>
+                      Generalabonnement
                     </sbb-title>
                   </div>
                   <div slot="text">
@@ -286,7 +286,7 @@ const Template = (args) => (
                   </div>
                   <div slot="title">
                     <sbb-title level="2" visual-level="6">
-                      <span>Libero Tageskarte: Alle Zonen</span>
+                      Libero Tageskarte: Alle Zonen
                     </sbb-title>
                   </div>
                   <div slot="text">
@@ -369,7 +369,7 @@ const Template = (args) => (
         space-trailing="responsive-l"
       >
         <sbb-title level="2" visual-level="2">
-          <span>Ihre Billette & Abos.</span>
+          Ihre Billette & Abos.
         </sbb-title>
         <sbb-grid variant="base--top-products">
           <sbb-card-product
@@ -425,7 +425,7 @@ const Template = (args) => (
             </div>
             <div slot="title">
               <sbb-title level="2" visual-level="6">
-                <span>Velo Tageskarte</span>
+                Velo Tageskarte
               </sbb-title>
             </div>
             <div slot="text">
@@ -459,7 +459,7 @@ const Template = (args) => (
             </div>
             <div slot="title">
               <sbb-title level="2" visual-level="6">
-                <span>Libero Kurzstrecke</span>
+                Libero Kurzstrecke
               </sbb-title>
             </div>
             <div slot="text">
@@ -484,12 +484,12 @@ const Template = (args) => (
           >
             <div slot="title">
               <sbb-title level="2" visual-level="1">
-                <span>GA</span>
+                GA
               </sbb-title>
             </div>
             <div slot="lead">
               <sbb-title level="3" visual-level="6">
-                <span>Generalabonnement</span>
+                Generalabonnement
               </sbb-title>
             </div>
             <div slot="text">
@@ -641,7 +641,7 @@ const Template = (args) => (
       <div slot="col-3">
         <sbb-stack>
           <sbb-title level="2" visual-level="5">
-            <span>Newsletter.</span>
+            Newsletter.
           </sbb-title>
           <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
           <sbb-stack space-leading="fixed-3x">
