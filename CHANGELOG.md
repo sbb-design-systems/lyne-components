@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.6.2 (2022-09-06)
+
+### Bug Fixes
+
+- **sbb-link:** fix accessibility of external links ([#1372](https://github.com/lyne-design-system/lyne-components/issues/1372)) ([e371af8](https://github.com/lyne-design-system/lyne-components/commit/e371af8a9058c04e3c206fa5b4dc3508d1381367))
+
 ### 0.6.1 (2022-09-06)
 
 ### Bug Fixes
