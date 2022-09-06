@@ -11,14 +11,14 @@ describe('sbb-card', () => {
     expect(root).toEqualHtml(`
       <sbb-card>
         <mock:shadow-root>
+        <span>
+            <slot name="badge"></slot>
+          </span>
           <span class="card__content">
             <slot></slot>
           </span>
-          <span>
-            <slot name="badge"></slot>
-          </span>
         </mock:shadow-root>
-      </sbb-cardcard__badge>
+      </sbb-card>
     `);
   });
 
@@ -52,6 +52,9 @@ describe('sbb-card', () => {
     const { root } = await newSpecPage({
       components: [SbbCard],
       html: `<sbb-card size="s">
+        <span>
+          <p>Test</p>
+        </span>
         <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
       </sbb-card>`,
     });
@@ -63,6 +66,9 @@ describe('sbb-card', () => {
             <slot></slot>
           </span>
         </mock:shadow-root>
+        <span>
+          <p>Test</p>
+        </span>
         <sbb-card-badge appearance="primary" is-discount="" slot="badge"></sbb-card-badge>
       </sbb-card>
     `);
