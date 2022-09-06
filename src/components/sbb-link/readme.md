@@ -41,9 +41,10 @@ anchor or button tag, it is internally rendered as a span in order to not break 
 
 ## Slots
 
-| Slot     | Description                                  |
-| -------- | -------------------------------------------- |
-| `"icon"` | Slot used to display the icon, if one is set |
+| Slot        | Description                                  |
+| ----------- | -------------------------------------------- |
+| `"icon"`    | Slot used to display the icon, if one is set |
+| `"unnamed"` | Link Content                                 |
 
 
 ## Dependencies

@@ -5,6 +5,8 @@ import {
   LinkProperties,
   LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 
 /**
  * @slot unnamed - text content of panel
@@ -51,9 +53,12 @@ export class SbbTeaserHero implements LinkProperties {
   public render(): JSX.Element {
     let TAG_NAME: string;
     let linkAttributeList: Record<string, string>;
+    let shouldDisplayNewWindowText = false;
+
     if (this.href) {
       TAG_NAME = 'a';
       linkAttributeList = getLinkAttributeList(this);
+      shouldDisplayNewWindowText = !this.accessibilityLabel && this.target === '_blank';
     } else {
       TAG_NAME = 'span';
       linkAttributeList = getLinkButtonBaseAttributeList(this);
@@ -77,8 +82,13 @@ export class SbbTeaserHero implements LinkProperties {
           </sbb-link>
         </span>
         <slot name="image">
-          <sbb-image image-src={this.imageSrc} image-alt={this.imageAlt}></sbb-image>
+          <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>
         </slot>
+        {shouldDisplayNewWindowText && (
+          <span class="sbb-teaser-hero__opens-in-new-window">
+            . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+          </span>
+        )}
       </TAG_NAME>
     );
   }

@@ -62,7 +62,7 @@ const imageAlt = {
 };
 
 const defaultArgTypes = {
-  accessibilityLabel,
+  'accessibility-label': accessibilityLabel,
   href,
   rel,
   target,
@@ -73,7 +73,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  accessibilityLabel: 'sbb teaser hero label',
+  'accessibility-label': undefined,
   href: 'https://www.sbb.ch',
   rel: undefined,
   target: undefined,
@@ -88,7 +88,7 @@ const TemplateSbbTeaserHeroDefault = (args) => (
   <sbb-teaser-hero {...args}>{args.content}</sbb-teaser-hero>
 );
 
-const TemplateSbbHeaserWithSlots = (args) => (
+const TemplateSbbTeaserWithSlots = (args) => (
   <sbb-teaser-hero {...args}>
     {args.content}
     <span slot="link-content">{args['link-content']}</span>
@@ -120,7 +120,7 @@ withoutLink.args = {
   href: undefined,
 };
 
-export const withSlots = TemplateSbbHeaserWithSlots.bind({});
+export const withSlots = TemplateSbbTeaserWithSlots.bind({});
 withSlots.argTypes = defaultArgTypes;
 withSlots.args = {
   ...defaultArgs,

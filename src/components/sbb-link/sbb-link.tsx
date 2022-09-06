@@ -22,6 +22,7 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
 /**
+ * @slot unnamed - Link Content
  * @slot icon - Slot used to display the icon, if one is set
  */
 

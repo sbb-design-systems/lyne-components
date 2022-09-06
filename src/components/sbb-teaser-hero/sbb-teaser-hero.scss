@@ -29,3 +29,7 @@
 .sbb-teaser-hero__panel-link {
   @include fontSmoothing;
 }
+
+.sbb-teaser-hero__opens-in-new-window {
+  @include screenReaderOnly;
+}
