@@ -49,22 +49,17 @@ describe('sbb-teaser-hero', () => {
   it('should render without link', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
+      html: '<sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">
           <mock:shadow-root>
-            <a
-              aria-describedby="describedby"
-              aria-label="label. Link target opens in new window."
-              aria-labelledby="labelledby"
+            <span
+              aria-label="label"
               class="teaser-hero"
               dir="ltr"
               id="id1"
-              href="https://www.sbb.ch"
-              rel="external"
-              target="_blank"
             >
               <span class="teaser-hero__panel">
                 <span class="teaser-hero__panel-text">
@@ -76,6 +71,7 @@ describe('sbb-teaser-hero', () => {
                   icon-placement="end"
                   text-size="m"
                   negative
+                  disabled=""
                 >
                   <slot name="link-content">Find out more</slot>
                 </sbb-link>
@@ -83,7 +79,7 @@ describe('sbb-teaser-hero', () => {
              <slot name="image">
                <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee"></sbb-image>
              </slot>
-            </a>
+            </span>
           </mock:shadow-root>
           Break out and explore castles and palaces.
         </sbb-teaser-hero>
@@ -93,22 +89,17 @@ describe('sbb-teaser-hero', () => {
   it('should render with slots', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
+      html: '<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">Break out and explore castles and palaces.<span slot="link-content">Find out more</span><sbb-image slot="image" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image></sbb-teaser-hero>',
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">
           <mock:shadow-root>
             <a
-              aria-describedby="describedby"
-              aria-label="label. Link target opens in new window."
-              aria-labelledby="labelledby"
+              aria-label="label"
               class="teaser-hero"
               dir="ltr"
-              id="id1"
               href="https://www.sbb.ch"
-              rel="external"
-              target="_blank"
             >
               <span class="teaser-hero__panel">
                 <span class="teaser-hero__panel-text">
@@ -121,15 +112,15 @@ describe('sbb-teaser-hero', () => {
                   text-size="m"
                   negative
                 >
-                  <slot name="link-content">Find out more</slot>
+                  <slot name="link-content"></slot>
                 </sbb-link>
               </span>
-             <slot name="image">
-               <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee"></sbb-image>
-             </slot>
+             <slot name="image"><sbb-image></sbb-image></slot>
             </a>
           </mock:shadow-root>
           Break out and explore castles and palaces.
+          <span slot="link-content">Find out more</span>
+          <sbb-image slot="image" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image>
         </sbb-teaser-hero>
       `);
   });
