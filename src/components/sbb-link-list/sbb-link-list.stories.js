@@ -12,6 +12,7 @@ const wrapperStyle = (context) => {
 
 const Template = (args) => (
   <sbb-link-list {...args}>
+    <span slot="title">{args['title-text']}</span>
     <sbb-link
       href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
       text="Rückerstattungen"
@@ -135,28 +136,27 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const LinkListPositive = Template.bind({});
+export const LinkListDefault = Template.bind({});
 
-LinkListPositive.argTypes = defaultArgTypes;
-LinkListPositive.args = {
+LinkListDefault.argTypes = defaultArgTypes;
+LinkListDefault.args = {
   ...defaultArgs,
 };
 
-LinkListPositive.documentation = {
-  title: 'Link List Positive',
+LinkListDefault.documentation = {
+  title: 'Link List',
 };
 
-export const LinkListXSNoTitle = Template.bind({});
+export const LinkListXS = Template.bind({});
 
-LinkListXSNoTitle.argTypes = defaultArgTypes;
-LinkListXSNoTitle.args = {
+LinkListXS.argTypes = defaultArgTypes;
+LinkListXS.args = {
   ...defaultArgs,
   textSize: textSize.options[0],
-  'title-text': '',
 };
 
-LinkListXSNoTitle.documentation = {
-  title: 'Link List XS No Title',
+LinkListXS.documentation = {
+  title: 'Link List - Textsize extra small',
 };
 
 export const LinkListNoTitle = Template.bind({});

@@ -22,7 +22,6 @@
 .sbb-link {
   display: flex;
   align-items: center;
-  gap: var(--sbb-spacing-fixed-1x);
   color: var(--text-color-normal);
   text-decoration: none;
   word-break: break-word;
@@ -97,6 +96,11 @@ button.sbb-link:disabled {
   .sbb-link:hover:not(:disabled) {
     color: var(--text-color-hover-focus);
   }
+}
+
+.sbb-link--icon-placement-start,
+.sbb-link--icon-placement-end {
+  gap: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-link--icon-placement-end ::slotted(*),

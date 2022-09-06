@@ -17,8 +17,8 @@ import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custo
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
-import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
+import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePanelAttributes } from "./components/sbb-panel/sbb-panel.custom";
@@ -553,7 +553,7 @@ export namespace Components {
     }
     interface SbbLinkList {
         /**
-          * Selected breakpoint from that the list will be appears horizontal.
+          * Selected breakpoint from which the list is rendered horizontally.
          */
         "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
@@ -2017,7 +2017,7 @@ declare namespace LocalJSX {
     }
     interface SbbLinkList {
         /**
-          * Selected breakpoint from that the list will be appears horizontal.
+          * Selected breakpoint from which the list is rendered horizontally.
          */
         "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**

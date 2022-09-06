@@ -85,7 +85,7 @@ export class SbbTeaser implements AccessibilityProperties {
           </span>
           <span class="teaser__text">
             <sbb-title level={this.titleLevel} visualLevel="5" class="teaser__lead">
-              <slot name="title" />
+              <slot />
             </sbb-title>
             <span class="teaser__description">
               <slot name="description" />

@@ -239,7 +239,7 @@ const sbbTitleTravelCardHalfFareArgs = {
 
 const SlotSbbTitleTemplate = (args) => (
   <sbb-title {...args}>
-    <span slot="title">{args.text}</span>
+    <span>{args.text}</span>
   </sbb-title>
 );
 
@@ -281,7 +281,7 @@ const sbbLeadHalfFareLongArgs = {
 
 const SlotSbbLeadTemplate = (args) => (
   <sbb-title {...args}>
-    <span slot="title">{args.text}</span>
+    <span>{args.text}</span>
   </sbb-title>
 );
 

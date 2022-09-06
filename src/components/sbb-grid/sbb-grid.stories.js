@@ -91,7 +91,7 @@ const TemplateGridTopProducts = (args) => (
       </div>
       <div slot="title">
         <sbb-title level="2" visual-level="6">
-          <span slot="title">Tageskarte</span>
+          <span>Tageskarte</span>
         </sbb-title>
       </div>
       <div slot="text">
@@ -125,7 +125,7 @@ const TemplateGridTopProducts = (args) => (
       </div>
       <div slot="title">
         <sbb-title level="2" visual-level="6">
-          <span slot="title">Velo Tageskarte</span>
+          <span>Velo Tageskarte</span>
         </sbb-title>
       </div>
       <div slot="text">
@@ -159,7 +159,7 @@ const TemplateGridTopProducts = (args) => (
       </div>
       <div slot="title">
         <sbb-title level="2" visual-level="6">
-          <span slot="title">Libero Kurzstrecke</span>
+          <span>Libero Kurzstrecke</span>
         </sbb-title>
       </div>
       <div slot="text">
@@ -193,7 +193,7 @@ const TemplateGridTopProducts = (args) => (
       </div>
       <div slot="title">
         <sbb-title level="2" visual-level="6">
-          <span slot="title">Streckenkarte</span>
+          <span>Streckenkarte</span>
         </sbb-title>
       </div>
       <div slot="text">
@@ -218,12 +218,12 @@ const TemplateGridTopProducts = (args) => (
     >
       <div slot="title">
         <sbb-title level="2" visual-level="1">
-          <span slot="title">GA</span>
+          <span>GA</span>
         </sbb-title>
       </div>
       <div slot="lead">
         <sbb-title level="3" visual-level="6">
-          <span slot="title">Mit dem Generalabonnement geniessen Sie freie Fahrt.</span>
+          <span>Mit dem Generalabonnement geniessen Sie freie Fahrt.</span>
         </sbb-title>
       </div>
       <div slot="action">
@@ -244,12 +244,12 @@ const TemplateGridTopProducts = (args) => (
     >
       <div slot="title">
         <sbb-title level="2" visual-level="1">
-          <span slot="title">1/2</span>
+          <span>1/2</span>
         </sbb-title>
       </div>
       <div slot="lead">
         <sbb-title level="3" visual-level="6">
-          <span slot="title">Mit dem Halbtax zum halben Preis fahren.</span>
+          <span>Mit dem Halbtax zum halben Preis fahren.</span>
         </sbb-title>
       </div>
       <div slot="action">
@@ -286,7 +286,7 @@ const TemplateTickets = (args) => (
       </div>
       <div slot="title">
         <sbb-title level="2" visual-level="6">
-          <span slot="title">Libero Tageskarte: Alle Zonen</span>
+          <span>Libero Tageskarte: Alle Zonen</span>
         </sbb-title>
       </div>
       <div slot="text">

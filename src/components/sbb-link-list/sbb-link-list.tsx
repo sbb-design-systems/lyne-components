@@ -1,4 +1,4 @@
-import { Component, h, Prop, JSX, Element } from '@stencil/core';
+import { Component, h, Prop, State, JSX, Element } from '@stencil/core';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
 
@@ -15,31 +15,8 @@ let nextId = 0;
   tag: 'sbb-link-list',
 })
 export class SbbLinkList {
-  private _hideTitleAndButton = false;
-
-  /** Sbb-Link elements */
-  private _links: HTMLSbbLinkElement[];
-
-  /** Host element */
-  @Element() private _element!: HTMLElement;
-
   /** This id will be forwarded to the relevant inner element. */
   @Prop() public titleId = `sbb-link-list-heading-${++nextId}`;
-
-  /**
-   * Negative coloring variant flag
-   */
-  @Prop() public negative: boolean;
-
-  /**
-   * Selected breakpoint from that the list will be appears horizontal.
-   */
-  @Prop() public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
-
-  /**
-   * The direction in which the list will be shown vertical or horizontal.
-   */
-  @Prop() public orientation: InterfaceLinkListAttributes['direction'] = 'vertical';
 
   /**
    * The title text we want to show
@@ -52,6 +29,30 @@ export class SbbLinkList {
    * e.g. 3 = h3
    */
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
+
+  /**
+   * Negative coloring variant flag
+   */
+  @Prop() public negative: boolean;
+
+  /**
+   * Selected breakpoint from which the list is rendered horizontally.
+   */
+  @Prop() public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
+
+  /**
+   * The direction in which the list will be shown vertical or horizontal.
+   */
+  @Prop() public orientation: InterfaceLinkListAttributes['direction'] = 'vertical';
+
+  private _hideTitle = false;
+  private _titleIsSlotted: boolean;
+
+  /** Sbb-Link elements */
+  @State() private _links: HTMLSbbLinkElement[];
+
+  /** Host element */
+  @Element() private _element!: HTMLElement;
 
   private _getClassString(): string {
     let horizontalClass = this.horizontalFrom
@@ -67,7 +68,6 @@ export class SbbLinkList {
 
   /**
    * Create an array with only the sbb-link-children
-   * @private
    */
   private _readLinks(): void {
     this._links = Array.from(this._element.children).filter(
@@ -75,7 +75,8 @@ export class SbbLinkList {
     );
   }
 
-  public componentWillLoad(): void {
+  public connectedCallback(): void {
+    this._titleIsSlotted = Boolean(this._element.querySelector('[slot="title"]'));
     this._readLinks();
   }
 
@@ -89,7 +90,7 @@ export class SbbLinkList {
     }
 
     if (this.horizontalFrom || this.orientation === 'horizontal') {
-      this._hideTitleAndButton = true;
+      this._hideTitle = true;
     }
 
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
@@ -97,15 +98,12 @@ export class SbbLinkList {
     return (
       // the role="list" is needed for voice over: https://bit.ly/3CDiZaG
       <div>
-        {!this._hideTitleAndButton && (
-          <sbb-title
-            id={this.titleId}
-            level={this.titleLevel}
-            visual-level="5"
-            negative={this.negative}
-          >
-            <span slot="title">{this.titleText}</span>
+        {(!this._hideTitle && this._titleIsSlotted) || this.titleText ? (
+          <sbb-title level={this.titleLevel} visual-level="5" negative={this.negative}>
+            <slot name="title">{this.titleText}</slot>
           </sbb-title>
+        ) : (
+          ''
         )}
         <ul
           {...additionalAttributes}
@@ -122,7 +120,6 @@ export class SbbLinkList {
         <span>
           <slot onSlotchange={(): void => this._readLinks()} />
         </span>
-        {!this._hideTitleAndButton && <slot name="button"></slot>}
       </div>
     );
   }
