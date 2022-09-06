@@ -42,7 +42,7 @@ sbbCardWithSbbBadge.argTypes = basicArgTypes;
 sbbCardWithSbbBadge.args = JSON.parse(JSON.stringify(basicArgs));
 
 sbbCardWithSbbBadge.documentation = {
-  title: 'Card with badge (slot hided whether sizes are below m).',
+  title: 'Card with badge (the slot is hidden whether sizes are below m).',
 };
 
 export default {
@@ -53,9 +53,6 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
     backgrounds: {
       disable: true,
