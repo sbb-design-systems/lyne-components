@@ -50,22 +50,22 @@ export class SbbTeaserHero implements LinkProperties {
   /** Image alt text will be passed to `sbb-image`. */
   @Prop() public imageAlt?: string;
 
-  public render(): JSX.Element {
-    let TAG_NAME: string;
-    let linkAttributeList: Record<string, string>;
-    let shouldDisplayNewWindowText = false;
-
+  private _resolveRenderVariables() {
     if (this.href) {
-      TAG_NAME = 'a';
-      linkAttributeList = getLinkAttributeList(this);
-      shouldDisplayNewWindowText = !this.accessibilityLabel && this.target === '_blank';
-    } else {
-      TAG_NAME = 'span';
-      linkAttributeList = getLinkButtonBaseAttributeList(this);
+      return {
+        TAG_NAME: 'a',
+        attributes: getLinkAttributeList(this),
+        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
+      };
     }
+    return { TAG_NAME: 'span', attributes: getLinkButtonBaseAttributeList(this) };
+  }
+
+  public render(): JSX.Element {
+    const { TAG_NAME, attributes, screenReaderNewWindowInfo } = this._resolveRenderVariables();
 
     return (
-      <TAG_NAME class="sbb-teaser-hero" id={this.idValue} {...linkAttributeList}>
+      <TAG_NAME class="sbb-teaser-hero" id={this.idValue} {...attributes}>
         <span class="sbb-teaser-hero__panel">
           <span class="sbb-teaser-hero__panel-text">
             <slot />
@@ -84,7 +84,7 @@ export class SbbTeaserHero implements LinkProperties {
         <slot name="image">
           <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>
         </slot>
-        {shouldDisplayNewWindowText && (
+        {screenReaderNewWindowInfo && (
           <span class="sbb-teaser-hero__opens-in-new-window">
             . {i18nTargetOpensInNewWindow[getDocumentLang()]}
           </span>
