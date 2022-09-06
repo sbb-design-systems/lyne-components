@@ -58,7 +58,6 @@ describe('getLinkAttributeList', () => {
       href: 'link',
       target: '_blank',
       rel: 'external noopener nofollow',
-      'aria-label': 'Link target opens in new window.',
     };
     expect(getLinkAttributeList(linkProperties)).toEqual(expectedObj);
   });

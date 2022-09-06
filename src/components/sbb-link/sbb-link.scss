@@ -99,3 +99,7 @@ button.sbb-link:disabled {
 .sbb-link--icon-placement-end sbb-icon {
   order: 2;
 }
+
+.sbb-link__opens-in-new-window {
+  @include screenReaderOnly;
+}
