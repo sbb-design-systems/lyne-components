@@ -31,18 +31,18 @@ You can either use slots or props to render the `sbb-teaser-hero` component.
 
 ## Properties
 
-| Property                   | Attribute                   | Description                                                                | Type     | Default     |
-| -------------------------- | --------------------------- | -------------------------------------------------------------------------- | -------- | ----------- |
-| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element. | `string` | `undefined` |
-| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.       | `string` | `undefined` |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.  | `string` | `undefined` |
-| `href`                     | `href`                      | The href value you want to link to.                                        | `string` | `undefined` |
-| `idValue`                  | `id-value`                  | Pass in an id, if you need to identify the inner link element.             | `string` | `undefined` |
-| `imageAlt`                 | `image-alt`                 | Image alt text will be passed to `sbb-image`.                              | `string` | `undefined` |
-| `imageSrc`                 | `image-src`                 | Image src will be passed to `sbb-image`.                                   | `string` | `undefined` |
-| `linkContent`              | `link-content`              | Panel link text for the hero teaser.                                       | `string` | `undefined` |
-| `rel`                      | `rel`                       | The relationship of the linked URL as space-separated link types.          | `string` | `undefined` |
-| `target`                   | `target`                    | Where to display the linked URL.                                           | `string` | `undefined` |
+| Property                   | Attribute                   | Description                                                       | Type     | Default     |
+| -------------------------- | --------------------------- | ----------------------------------------------------------------- | -------- | ----------- |
+| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the anchor tag.     | `string` | `undefined` |
+| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to anchor tag.               | `string` | `undefined` |
+| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the anchor tag.      | `string` | `undefined` |
+| `href`                     | `href`                      | The href value you want to link to.                               | `string` | `undefined` |
+| `idValue`                  | `id-value`                  | Pass in an id, if you need to identify the inner link element.    | `string` | `undefined` |
+| `imageAlt`                 | `image-alt`                 | Image alt text will be passed to `sbb-image`.                     | `string` | `undefined` |
+| `imageSrc`                 | `image-src`                 | Image src will be passed to `sbb-image`.                          | `string` | `undefined` |
+| `linkContent`              | `link-content`              | Panel link text.                                                  | `string` | `undefined` |
+| `rel`                      | `rel`                       | The relationship of the linked URL as space-separated link types. | `string` | `undefined` |
+| `target`                   | `target`                    | Where to display the linked URL.                                  | `string` | `undefined` |
 
 
 ## Slots

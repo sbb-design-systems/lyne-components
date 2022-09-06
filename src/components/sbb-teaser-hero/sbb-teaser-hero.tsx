@@ -18,13 +18,13 @@ import {
   tag: 'sbb-teaser-hero',
 })
 export class SbbTeaserHero implements LinkProperties {
-  /** This will be forwarded as aria-label to the relevant nested element. */
+  /** This will be forwarded as aria-label to anchor tag. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  /** This will be forwarded as aria-describedby to the anchor tag. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  /** This will be forwarded as aria-labelledby to the anchor tag. */
   @Prop() public accessibilityLabelledby: string | undefined;
 
   /** The href value you want to link to. */
@@ -39,7 +39,7 @@ export class SbbTeaserHero implements LinkProperties {
   /** Pass in an id, if you need to identify the inner link element. */
   @Prop() public idValue?: string;
 
-  /** Panel link text for the hero teaser. */
+  /** Panel link text. */
   @Prop() public linkContent?: string;
 
   /** Image src will be passed to `sbb-image`. */

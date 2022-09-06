@@ -767,15 +767,15 @@ export namespace Components {
     }
     interface SbbTeaserHero {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
+          * This will be forwarded as aria-describedby to the anchor tag.
          */
         "accessibilityDescribedby": string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to anchor tag.
          */
         "accessibilityLabel": string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
+          * This will be forwarded as aria-labelledby to the anchor tag.
          */
         "accessibilityLabelledby": string | undefined;
         /**
@@ -795,7 +795,7 @@ export namespace Components {
          */
         "imageSrc"?: string;
         /**
-          * Panel link text for the hero teaser.
+          * Panel link text.
          */
         "linkContent"?: string;
         /**
@@ -2135,15 +2135,15 @@ declare namespace LocalJSX {
     }
     interface SbbTeaserHero {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
+          * This will be forwarded as aria-describedby to the anchor tag.
          */
         "accessibilityDescribedby"?: string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to anchor tag.
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
+          * This will be forwarded as aria-labelledby to the anchor tag.
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
@@ -2163,7 +2163,7 @@ declare namespace LocalJSX {
          */
         "imageSrc"?: string;
         /**
-          * Panel link text for the hero teaser.
+          * Panel link text.
          */
         "linkContent"?: string;
         /**

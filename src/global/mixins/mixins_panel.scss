@@ -3,33 +3,33 @@
 // ----------------------------------------------------------------------------------------------------
 
 @mixin panel-variables {
-  --panel-font-family: 'SBBWeb Light';
-  --panel-letter-spacing: 0.01em;
+  --panel-width: #{px-to-rem-build(223)};
+  --panel-height: #{px-to-rem-build(167)};
+  --panel-triangle-height: #{px-to-rem-build(33)};
+  --panel-font-family: var(--sbb-typo-type-face-sbb-light);
+  --panel-letter-spacing: var(--sbb-typo-letter-spacing-titles);
   --panel-line-height: var(--sbb-typo-line-height-titles);
   --panel-font-size: var(--sbb-typo-scale-1-5x);
   --panel-color: var(--sbb-color-white-default);
   --panel-background-color: var(--sbb-color-red-alpha-90);
   --panel-background-color-hover: var(--sbb-color-red-default);
-  --panel-padding-block: var(--sbb-spacing-responsive-s);
+  --panel-padding-block: var(--panel-triangle-height);
   --panel-padding-inline: var(--sbb-spacing-responsive-m);
   --panel-gap: var(--sbb-spacing-responsive-xs);
-  --panel-width: #{px-to-rem-build(223)};
-  --panel-height: #{px-to-rem-build(167)};
-  --panel-triangle-height: #{px-to-rem-build(33)};
 
   @include mq($from: medium) {
-    --panel-font-size: var(--sbb-typo-scale-2x);
     --panel-width: #{px-to-rem-build(321)};
     --panel-height: #{px-to-rem-build(240.11)};
     --panel-triangle-height: #{px-to-rem-build(47.45)};
+    --panel-font-size: var(--sbb-typo-scale-2x);
   }
 
   @include mq($from: large) {
-    --panel-font-size: var(--sbb-typo-scale-2-5x);
-    --panel-line-height: 1.2;
     --panel-width: #{px-to-rem-build(428)};
     --panel-height: #{px-to-rem-build(320.38)};
     --panel-triangle-height: #{px-to-rem-build(63.31)};
+    --panel-font-size: var(--sbb-typo-scale-2-5x);
+    --panel-line-height: 1.2;
   }
 }
 
@@ -40,9 +40,9 @@
   justify-content: center;
   gap: var(--panel-gap);
   width: var(--panel-width);
-  height: calc(var(--panel-height) + var(--panel-triangle-height) * 2);
-  padding: calc(var(--panel-padding-block) + var(--panel-triangle-height))
-    var(--panel-padding-inline);
+  height: calc(var(--panel-height) + 2 * var(--panel-triangle-height));
+  padding-block: var(--panel-padding-block);
+  padding-inline: var(--panel-padding-inline);
   clip-path: polygon(
     0 0,
     100% var(--panel-triangle-height),
