@@ -134,11 +134,15 @@ export class SbbJourneySummary {
             <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
             {this.summaryConfig?.departureWalk &&
               this._renderWalkTime(true, this.summaryConfig?.departureWalk)}
-            {isValid(departureTime) && <time>{format(departureTime, 'HH:mm')}</time>}
+            {isValid(departureTime) && (
+              <time class="journey-summary__time">{format(departureTime, 'HH:mm')}</time>
+            )}
             <div class="journey-summary__pearlchain">
               <sbb-pearl-chain legs={this.summaryConfig?.legs} />
             </div>
-            {isValid(arrivalTime) && <time>{format(arrivalTime, 'HH:mm')}</time>}
+            {isValid(arrivalTime) && (
+              <time class="journey-summary__time">{format(arrivalTime, 'HH:mm')}</time>
+            )}
             <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
             {this.summaryConfig?.arrivalWalk &&
               this._renderWalkTime(false, this.summaryConfig?.arrivalWalk)}

@@ -1,4 +1,6 @@
 .journey-summary {
+  @include text-s--regular;
+
   padding: var(--sbb-spacing-responsive-s);
   display: flex;
   flex-direction: column;
@@ -42,6 +44,10 @@
 
   align-items: center;
   display: inline-flex;
+}
+
+.journey-summary__time {
+  @include text-s--bold;
 }
 
 ul li {

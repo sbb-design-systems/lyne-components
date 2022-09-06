@@ -66,13 +66,13 @@ describe('sbb-journey-summary', () => {
               Departure
             </span>
             0
-            <time>
+            <time class="journey-summary__time">
               20:30
             </time>
             <div class="journey-summary__pearlchain">
               <sbb-pearl-chain legs=""></sbb-pearl-chain>
             </div>
-            <time>
+            <time class="journey-summary__time">
               22:30
             </time>
             <span class="screenreaderonly">
@@ -124,13 +124,13 @@ describe('sbb-journey-summary', () => {
                 Departure
               </span>
               0
-              <time>
+              <time class="journey-summary__time">
                 20:30
               </time>
               <div class="journey-summary__pearlchain">
                 <sbb-pearl-chain legs=""></sbb-pearl-chain>
               </div>
-              <time>
+              <time class="journey-summary__time">
                 22:30
               </time>
               <span class="screenreaderonly">
