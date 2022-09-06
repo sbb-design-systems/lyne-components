@@ -37,7 +37,7 @@ describe('sbb-teaser-hero', () => {
                 </sbb-link>
               </span>
              <slot name="image">
-               <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee"></sbb-image>
+               <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image>
              </slot>
             </a>
           </mock:shadow-root>
@@ -77,7 +77,7 @@ describe('sbb-teaser-hero', () => {
                 </sbb-link>
               </span>
              <slot name="image">
-               <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee"></sbb-image>
+               <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image>
              </slot>
             </span>
           </mock:shadow-root>
