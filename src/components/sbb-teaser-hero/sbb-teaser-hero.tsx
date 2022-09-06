@@ -50,19 +50,27 @@ export class SbbTeaserHero implements LinkProperties {
   /** Image alt text will be passed to `sbb-image`. */
   @Prop() public imageAlt?: string;
 
-  private _resolveRenderVariables() {
+  private _resolveRenderVariables(): {
+    screenReaderNewWindowInfo?: boolean;
+    attributes: Record<string, string>;
+    tagName: 'a' | 'span';
+  } {
     if (this.href) {
       return {
-        TAG_NAME: 'a',
+        tagName: 'a',
         attributes: getLinkAttributeList(this),
         screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
       };
     }
-    return { TAG_NAME: 'span', attributes: getLinkButtonBaseAttributeList(this) };
+    return { tagName: 'span', attributes: getLinkButtonBaseAttributeList(this) };
   }
 
   public render(): JSX.Element {
-    const { TAG_NAME, attributes, screenReaderNewWindowInfo } = this._resolveRenderVariables();
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      screenReaderNewWindowInfo,
+    } = this._resolveRenderVariables();
 
     return (
       <TAG_NAME class="sbb-teaser-hero" id={this.idValue} {...attributes}>

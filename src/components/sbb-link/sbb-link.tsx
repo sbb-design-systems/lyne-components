@@ -178,24 +178,32 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
   }
 
-  private _resolveRenderVariables() {
+  private _resolveRenderVariables(): {
+    screenReaderNewWindowInfo?: boolean;
+    attributes: Record<string, string>;
+    tagName: 'a' | 'button' | 'span';
+  } {
     if (this._isStatic) {
       return {
-        TAG_NAME: 'span',
+        tagName: 'span',
         attributes: getLinkButtonBaseAttributeList(this),
       };
     } else if (this.href) {
       return {
-        TAG_NAME: 'a',
+        tagName: 'a',
         attributes: getLinkAttributeList(this, this),
         screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
       };
     }
-    return { TAG_NAME: 'button', attributes: getButtonAttributeList(this) };
+    return { tagName: 'button', attributes: getButtonAttributeList(this) };
   }
 
   public render(): JSX.Element {
-    const { TAG_NAME, attributes, screenReaderNewWindowInfo } = this._resolveRenderVariables();
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      screenReaderNewWindowInfo,
+    } = this._resolveRenderVariables();
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
