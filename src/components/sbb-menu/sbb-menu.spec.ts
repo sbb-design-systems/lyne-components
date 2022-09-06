@@ -7,22 +7,15 @@ describe('sbb-menu', () => {
   // beforeEach(async () => {
   //   page = await newSpecPage({
   //     components: [SbbMenu],
-  //     html: `<sbb-button id="menu-trigger" size="m" label="Menu trigger"></sbb-button>
-  //             <sbb-menu>
-  //               <sbb-menu-action icon="link-small" href="https://github.com/lyne-design-system/lyne-components">
-  //                 View
-  //               </sbb-menu-action>
-  //               <sbb-menu-action icon="pen-small">
-  //                 Edit
-  //               </sbb-menu-action>
-  //               <sbb-menu-action icon="swisspass-small" amount="2" disabled>
-  //                 Details
-  //               </sbb-menu-action>
-  //               <sbb-divider />
-  //               <sbb-menu-action icon="cross-small">
-  //                 Cancel
-  //               </sbb-menu-action>
-  //             </sbb-menu>`,
+  //     html: `<sbb-button id="menu-trigger" label="Menu trigger"></sbb-button>
+  //           <sbb-menu trigger="menu-trigger">
+  //             <sbb-link href="https://www.sbb.ch/en" variant="block">Profile</sbb-link>
+  //             <sbb-menu-action icon="tick-small">View</sbb-menu-action>
+  //             <sbb-menu-action icon="pen-small" amount="1" disabled>Edit</sbb-menu-action>
+  //             <sbb-menu-action icon="swisspass-small" amount="2">Details</sbb-menu-action>
+  //             <sbb-divider />
+  //             <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+  //           </sbb-menu>`,
   //     supportsShadowDom: true,
   //   });
   //   component = page.doc.querySelector('sbb-menu');
@@ -47,6 +40,13 @@ describe('sbb-menu', () => {
         </sbb-menu>
       `);
   });
+
+  // it('opens the menu', async () => {
+  //   component.openMenu();
+  //   await page.waitForChanges();
+
+  //   expect(component).toHaveAttribute('open');
+  // });
 
   // it('accepts id of an element to set the trigger', async () => {
   //   //

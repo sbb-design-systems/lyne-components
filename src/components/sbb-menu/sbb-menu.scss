@@ -5,6 +5,9 @@
 :host {
   --sbb-menu-position-x: 0;
   --sbb-menu-position-y: 0;
+  --sbb-menu-min-height: #{px-to-rem-build(120)};
+  --sbb-menu-max-width: #{px-to-rem-build(320)};
+  --sbb-menu-min-width: #{px-to-rem-build(240)};
 }
 
 // stylelint-disable plugin/stylelint-bem-namics
@@ -21,28 +24,23 @@
 }
 
 .sbb-menu {
-  display: block;
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  min-width: 100%;
+  --sbb-menu-transform: translateY(100%);
 
-  // todo --> create margin var
   max-height: calc(100vh - var(--sbb-spacing-fixed-8x));
+  min-width: 100%;
   text-align: start;
   position: fixed;
   left: 0;
   bottom: 0;
   top: unset;
   right: unset;
-  will-change: visibility, transform, opacity, margin;
-  transform: translateY(100%);
   color: var(--sbb-color-white-default);
   border: none;
   border-radius: var(--sbb-border-radius-4x) var(--sbb-border-radius-4x) 0 0;
   background-color: var(--sbb-color-black-default);
   padding-inline: 0;
   padding-block: var(--sbb-spacing-fixed-1x);
+  will-change: visibility, transform, opacity;
   transition: {
     property: visibility, transform, opacity;
     duration: var(--sbb-animation-duration-6x);
@@ -50,17 +48,20 @@
   }
 
   &[open] {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: all;
-    transform: translateY(0%);
+    animation: {
+      name: show;
+      duration: var(--sbb-animation-duration-6x);
+      timing-function: ease;
+    }
   }
 
   &::backdrop {
-    opacity: 1;
     background: rgb(0 0 0 / 20%);
-    will-change: opacity;
-    transition: opacity var(--sbb-animation-duration-6x) ease;
+    animation: {
+      name: show-backdrop;
+      duration: 0.24s;
+      timing-function: ease;
+    }
   }
 
   &::after {
@@ -70,45 +71,28 @@
   }
 
   &.sbb-menu--dismissing {
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(100%);
+    animation-name: hide;
 
     &::backdrop {
-      opacity: 0;
+      animation-name: hide-backdrop;
     }
   }
 }
 
 @include mq($from: medium) {
   .sbb-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
+    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
+
+    position: absolute;
+    top: var(--sbb-menu-position-y);
+    left: var(--sbb-menu-position-x);
     right: unset;
     bottom: unset;
-    transform: none;
-    min-height: 120px;
     max-height: var(--sbb-menu-max-height);
-    margin-block: var(--sbb-spacing-fixed-2x) 0;
-    min-width: 240px;
-    max-width: 320px;
+    min-height: var(--sbb-menu-min-height);
+    max-width: var(--sbb-menu-max-width);
+    min-width: var(--sbb-menu-min-width);
     border-radius: var(--sbb-border-radius-4x);
-    transition-property: visibility, margin, opacity;
-
-    &[open] {
-      position: absolute;
-      margin-block: 0;
-      top: var(--sbb-menu-position-y);
-      left: var(--sbb-menu-position-x);
-
-      &.sbb-menu--dismissing {
-        visibility: hidden;
-        opacity: 0;
-        margin-block: var(--sbb-spacing-fixed-2x) 0;
-        transform: none;
-      }
-    }
 
     &::backdrop {
       background: transparent;
@@ -118,5 +102,49 @@
     &::after {
       display: none;
     }
+  }
+}
+
+@keyframes show {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    transform: var(--sbb-menu-transform);
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes hide {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    transform: var(--sbb-menu-transform);
+  }
+}
+
+@keyframes show-backdrop {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hide-backdrop {
+  to {
+    opacity: 0;
   }
 }
