@@ -13,7 +13,6 @@
   --panel-color: var(--sbb-color-white-default);
   --panel-background-color: var(--sbb-color-red-alpha-90);
   --panel-background-color-hover: var(--sbb-color-red-default);
-  --panel-padding-block: var(--panel-triangle-height);
   --panel-padding-inline: var(--sbb-spacing-responsive-m);
   --panel-gap: var(--sbb-spacing-responsive-xs);
 
@@ -41,7 +40,7 @@
   gap: var(--panel-gap);
   width: var(--panel-width);
   height: calc(var(--panel-height) + 2 * var(--panel-triangle-height));
-  padding-block: var(--panel-padding-block);
+  padding-block: var(--panel-triangle-height);
   padding-inline: var(--panel-padding-inline);
   clip-path: polygon(
     0 0,
