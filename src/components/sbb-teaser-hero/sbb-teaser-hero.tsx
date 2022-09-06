@@ -11,7 +11,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 /**
  * @slot unnamed - text content of panel
  * @slot link-content - link content of the panel
- * @slot image - the background image, can be a `sbb-image`.
+ * @slot image - the background image, can be a `sbb-image`
  */
 
 @Component({
