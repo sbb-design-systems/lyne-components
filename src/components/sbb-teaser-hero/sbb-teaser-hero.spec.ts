@@ -15,19 +15,19 @@ describe('sbb-teaser-hero', () => {
               aria-describedby="describedby"
               aria-label="label. Link target opens in new window."
               aria-labelledby="labelledby"
-              class="teaser-hero"
+              class="sbb-teaser-hero"
               dir="ltr"
               id="id1"
               href="https://www.sbb.ch"
               rel="external"
               target="_blank"
             >
-              <span class="teaser-hero__panel">
-                <span class="teaser-hero__panel-text">
+              <span class="sbb-teaser-hero__panel">
+                <span class="sbb-teaser-hero__panel-text">
                   <slot></slot>
                 </span>
                 <sbb-link
-                  class="teaser-hero__panel-link"
+                  class="sbb-teaser-hero__panel-link"
                   icon-name="chevron-small-right-small"
                   icon-placement="end"
                   text-size="m"
@@ -57,16 +57,16 @@ describe('sbb-teaser-hero', () => {
           <mock:shadow-root>
             <span
               aria-label="label"
-              class="teaser-hero"
+              class="sbb-teaser-hero"
               dir="ltr"
               id="id1"
             >
-              <span class="teaser-hero__panel">
-                <span class="teaser-hero__panel-text">
+              <span class="sbb-teaser-hero__panel">
+                <span class="sbb-teaser-hero__panel-text">
                   <slot></slot>
                 </span>
                 <sbb-link
-                  class="teaser-hero__panel-link"
+                  class="sbb-teaser-hero__panel-link"
                   icon-name="chevron-small-right-small"
                   icon-placement="end"
                   text-size="m"
@@ -97,16 +97,16 @@ describe('sbb-teaser-hero', () => {
           <mock:shadow-root>
             <a
               aria-label="label"
-              class="teaser-hero"
+              class="sbb-teaser-hero"
               dir="ltr"
               href="https://www.sbb.ch"
             >
-              <span class="teaser-hero__panel">
-                <span class="teaser-hero__panel-text">
+              <span class="sbb-teaser-hero__panel">
+                <span class="sbb-teaser-hero__panel-text">
                   <slot></slot>
                 </span>
                 <sbb-link
-                  class="teaser-hero__panel-link"
+                  class="sbb-teaser-hero__panel-link"
                   icon-name="chevron-small-right-small"
                   icon-placement="end"
                   text-size="m"

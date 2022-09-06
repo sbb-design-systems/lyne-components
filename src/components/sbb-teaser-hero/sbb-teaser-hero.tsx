@@ -60,13 +60,13 @@ export class SbbTeaserHero implements LinkProperties {
     }
 
     return (
-      <TAG_NAME class="teaser-hero" id={this.idValue} {...linkAttributeList}>
-        <span class="teaser-hero__panel">
-          <span class="teaser-hero__panel-text">
+      <TAG_NAME class="sbb-teaser-hero" id={this.idValue} {...linkAttributeList}>
+        <span class="sbb-teaser-hero__panel">
+          <span class="sbb-teaser-hero__panel-text">
             <slot />
           </span>
           <sbb-link
-            class="teaser-hero__panel-link"
+            class="sbb-teaser-hero__panel-link"
             icon-name="chevron-small-right-small"
             icon-placement="end"
             text-size="m"
