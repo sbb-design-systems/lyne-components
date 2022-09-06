@@ -11,9 +11,7 @@ describe('sbb-card', () => {
     expect(root).toEqualHtml(`
       <sbb-card>
         <mock:shadow-root>
-        <span>
-            <slot name="badge"></slot>
-          </span>
+          <slot name="badge"></slot>
           <span class="card__content">
             <slot></slot>
           </span>
