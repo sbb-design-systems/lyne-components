@@ -5,7 +5,6 @@ const config = {
   boilerplateComponentName: 'component',
   boilerplateDirectory: 'convenience/generate-component/boilerplate',
   sourceDirectory: 'src/components',
-  stylesFolder: 'styles',
 };
 
 const convertKebabCaseToPascalCase = (string) => {
@@ -44,7 +43,6 @@ const getBoilerplateFiles = async (_sourceFiles, _foundFiles) => {
 
 const createDirectories = (targetDirectory) => {
   fs.mkdirSync(targetDirectory);
-  fs.mkdirSync(`${targetDirectory}/${config.stylesFolder}`);
 };
 
 const copyFiles = (foundFiles, componentName, targetDirectory) => {

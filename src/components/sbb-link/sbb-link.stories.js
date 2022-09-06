@@ -106,6 +106,24 @@ const download = {
   },
 };
 
+const target = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const rel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
 const idValue = {
   control: {
     type: 'text',
@@ -176,6 +194,15 @@ const eventId = {
   },
 };
 
+const value = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const defaultArgTypes = {
   text,
   variant,
@@ -183,8 +210,10 @@ const defaultArgTypes = {
   'text-size': textSize,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
-  href: href,
+  href,
   download,
+  target,
+  rel,
   'id-value': idValue,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
@@ -194,6 +223,7 @@ const defaultArgTypes = {
   form,
   disabled,
   'event-id': eventId,
+  value,
 };
 
 const defaultArgs = {
@@ -205,6 +235,8 @@ const defaultArgs = {
   'icon-placement': iconPlacement.options[0],
   href: 'https://github.com/lyne-design-system/lyne-components',
   download: false,
+  target: '',
+  rel: '',
   'id-value': '',
   'accessibility-label': 'Travelcards & tickets',
   'accessibility-describedby': '',
@@ -214,6 +246,7 @@ const defaultArgs = {
   form: '',
   disabled: false,
   'event-id': 'Event ID for button click',
+  value: '',
 };
 
 /* ************************************************* */

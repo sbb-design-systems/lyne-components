@@ -582,5 +582,28 @@ When it is not super obvious, include a brief description of what a class repres
 .sbb-datepicker-input-mask { }
 ```
 
+### Storybook
+
+#### Variants of stories
+
+In order to avoid chromatic detected regressions, it's recommended to create separate stories for all visual variants.
+It's also recommended to include stories for the most important side cases,
+e.g. for a label that receives ellipsis, if it is too long to fit in a container.
+
+#### Controls
+
+Basically, all `@Props()` decorated properties should be included as a control in a story.
+To be consistent, provide every control in every story. In some cases this can be relaxed,
+or some stories should have some special controls.
+
+#### Templates
+
+Templates can be very large, so try to reuse the common code blocks (avoiding duplication).
+
+#### Language of stories
+
+Stories with its example texts should be written in English
+to be neutral and also understandable for all developers and consumers.
+
 [ts-mixins]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-mix-in-classes
 [lyne-design-tokens]: https://github.com/lyne-design-system/lyne-design-tokens

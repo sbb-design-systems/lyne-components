@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.6.0 (2022-09-05)
+
+### ⚠ BREAKING CHANGES
+
+- The link does not anymore himself decides to set target="\_blank". It's now up to the consumer to decide if a link should be opened in a new window.
+
+- refine link button properties interfaces ([#1367](https://github.com/lyne-design-system/lyne-components/issues/1367)) ([d0b30aa](https://github.com/lyne-design-system/lyne-components/commit/d0b30aa1fbf019b70b96291e53206e6a4faf332c))
+
+### 0.5.4 (2022-09-01)
+
+### Bug Fixes
+
+- define compilation target for bundled storybook stories ([e3b2494](https://github.com/lyne-design-system/lyne-components/commit/e3b2494e21635c02a52bcbe10b283c9a05dcaef5))
+
+### 0.5.3 (2022-09-01)
+
+### Bug Fixes
+
+- **sbb-link:** fix normalize button styles to not interfere with sbb-link in Safari ([#1365](https://github.com/lyne-design-system/lyne-components/issues/1365)) ([2b417f1](https://github.com/lyne-design-system/lyne-components/commit/2b417f102b16f767d6bb7491f25cbad457fc0bec))
+
+### 0.5.2 (2022-08-31)
+
+### Bug Fixes
+
+- create release ([4848646](https://github.com/lyne-design-system/lyne-components/commit/4848646c779f24176c06e4e15b58e0090b7cd2e7))
+
+### 0.5.1 (2022-08-30)
+
+### Bug Fixes
+
+- **sbb-form-field:** enable click on select arrow ([#1356](https://github.com/lyne-design-system/lyne-components/issues/1356)) ([91a52a7](https://github.com/lyne-design-system/lyne-components/commit/91a52a70d4c0e5d42ebca731d381c25667b53cfe))
+
+## 0.5.0 (2022-08-30)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-form-field:** - Removes the `sbb-input-text` and replaces it with `sbb-form-field`
+
+* Removes the `sbb-input-error` and replaces it with `sbb-form-error`
+
+### Features
+
+- **sbb-form-field:** initial implementation ([#1303](https://github.com/lyne-design-system/lyne-components/issues/1303)) ([b2ec4f0](https://github.com/lyne-design-system/lyne-components/commit/b2ec4f0a853536ed2f867efcce42f69ea59b8629))
+
 ## 0.4.0 (2022-08-25)
 
 ### ⚠ BREAKING CHANGES
