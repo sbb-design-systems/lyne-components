@@ -24,7 +24,7 @@ export class SbbCard {
    * It is used internally to show the `<sbb-card>`.
    *
    * @param size The size selected.
-   * @returns True whether size is equal to m, l, xl or xxl. False otherwise.
+   * @returns True whether size is equal to m, l, xl or xxl.
    */
   private _showSBBBadge(size: string): boolean {
     return size === 'm' || size === 'l' || size === 'xl' || size === 'xxl';
@@ -34,14 +34,12 @@ export class SbbCard {
     return (
       <Host class={{ card__badge: this._showSBBBadge(this.size) && this._hasBadge }}>
         {this._showSBBBadge(this.size) && (
-          <span>
-            <slot
-              name="badge"
-              onSlotchange={(event) =>
-                (this._hasBadge = (event.target as HTMLSlotElement).assignedElements().length > 0)
-              }
-            />
-          </span>
+          <slot
+            name="badge"
+            onSlotchange={(event) =>
+              (this._hasBadge = (event.target as HTMLSlotElement).assignedElements().length > 0)
+            }
+          />
         )}
         <span class="card__content">
           <slot />
