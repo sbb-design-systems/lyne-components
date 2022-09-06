@@ -78,16 +78,17 @@ export class SbbTeaserHero implements LinkProperties {
           <span class="sbb-teaser-hero__panel-text">
             <slot />
           </span>
-          <sbb-link
-            class="sbb-teaser-hero__panel-link"
-            icon-name="chevron-small-right-small"
-            icon-placement="end"
-            text-size="m"
-            disabled={!this.href}
-            negative
-          >
-            <slot name="link-content">{this.linkContent}</slot>
-          </sbb-link>
+          {this.href && (
+            <sbb-link
+              class="sbb-teaser-hero__panel-link"
+              icon-name="chevron-small-right-small"
+              icon-placement="end"
+              text-size="m"
+              negative
+            >
+              <slot name="link-content">{this.linkContent}</slot>
+            </sbb-link>
+          )}
         </span>
         <slot name="image">
           <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>

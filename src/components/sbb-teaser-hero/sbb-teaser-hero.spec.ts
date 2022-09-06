@@ -65,16 +65,6 @@ describe('sbb-teaser-hero', () => {
                 <span class="sbb-teaser-hero__panel-text">
                   <slot></slot>
                 </span>
-                <sbb-link
-                  class="sbb-teaser-hero__panel-link"
-                  icon-name="chevron-small-right-small"
-                  icon-placement="end"
-                  text-size="m"
-                  negative
-                  disabled=""
-                >
-                  <slot name="link-content">Find out more</slot>
-                </sbb-link>
               </span>
              <slot name="image">
                <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image>
