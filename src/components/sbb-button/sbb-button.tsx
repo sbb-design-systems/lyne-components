@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 
 @Component({
@@ -79,6 +79,12 @@ export class SbbButton {
   })
   public click: EventEmitter<any>;
 
+  private _emitEventIdOnClick(): void {
+    if (!this.visualButtonOnly) {
+      this.click.emit(this.eventId);
+    }
+  }
+
   public render(): JSX.Element {
     const sizeClass = `button--size-${this.size}`;
     const variantClass = `button--${this.variant}`;
@@ -104,11 +110,7 @@ export class SbbButton {
         ...baseAttributes,
         href: this.href,
         value: this.value,
-        onClick: (): void => {
-          if (!this.visualButtonOnly) {
-            this.click.emit(this.eventId);
-          }
-        },
+        onClick: this._emitEventIdOnClick.bind(this),
       };
     } else {
       // is a button
@@ -117,11 +119,7 @@ export class SbbButton {
         'aria-haspopup': this.ariaHaspopup,
         disabled: this.disabled,
         name: this.name,
-        onClick: (): void => {
-          if (!this.visualButtonOnly) {
-            this.click.emit(this.eventId);
-          }
-        },
+        onClick: this._emitEventIdOnClick.bind(this),,
         type: this.buttonType,
         value: this.value,
       };

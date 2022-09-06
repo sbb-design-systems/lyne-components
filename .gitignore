@@ -1,9 +1,10 @@
-dist/
-www/
-loader/
-hydrate/
-storybook-static/
-coverage/
+/dist
+/www
+/loader
+/hydrate
+/storybook-static
+/coverage
+/react-library/dist
 
 *~
 *.sw[mnpcod]

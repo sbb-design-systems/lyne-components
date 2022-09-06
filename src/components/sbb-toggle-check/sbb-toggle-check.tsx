@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, Prop, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, h, JSX, Prop, Watch } from '@stencil/core';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 

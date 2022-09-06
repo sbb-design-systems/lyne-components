@@ -1,4 +1,9 @@
-The `sbb-icon` component provides a solid way of rendering registered and named icons. The component will dynamically load an SVG for each icon, avoiding multiple requests to the same icon. The icon components are not tied to specific icon sets; you can register a new SVG icon or a custom namespace and then provide the `sbb-icon` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`. Note that if you do not provide a namespace, the default namespace "sbb" will be used pointing to the [SBB Icons CDN](https://lyne-icons.netlify.app/). 
+The `sbb-icon` component provides a solid way of rendering registered and named icons. 
+The component will dynamically load an SVG for each icon, avoiding multiple requests to the same icon. 
+The icon components are not tied to specific icon sets; you can register a new SVG icon or a custom namespace 
+and then provide the `sbb-icon` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`. 
+Note that if you do not provide a namespace, the default namespace "sbb" will be used 
+pointing to the [SBB Icons CDN](https://lyne-icons.netlify.app/). 
 
 ## Usage
 
@@ -31,7 +36,8 @@ In order to register a custom namespace, use the `registerNamespace` API by prov
 - the name of the namespace;
 - the URL from which to fetch the icons.
 
-The example below shows how to register and use a custom namespace called `my-namespace` (you can also overwrite the default "sbb" namespace with your own custom url):
+The example below shows how to register and use a custom namespace called `my-namespace` 
+(you can also overwrite the default "sbb" namespace with your own custom url):
 
 ```js
 import { sbb_icon } from '@sbb-esta/lyne-components/dist/esm/sbb-icon.entry.js';
@@ -69,7 +75,9 @@ In the HTML, you can now use the icon as shown below:
 <sbb-icon name="custom:my-icon"></sbb-icon>
 ```
 
-> ***Note:** In order to use the registration API to register a new namespace/icon, it is necessary to import the `sbb_icon` module from the path `@sbb-esta/lyne-components/dist/esm/sbb-icon.entry.js`. This is a temporary solution for this specific use, which will eventually be changed with a different approach.
+> ***Note:** In order to use the registration API to register a new namespace/icon, 
+> it is necessary to import the `sbb_icon` module from the path `@sbb-esta/lyne-components/dist/esm/sbb-icon.entry.js`. 
+> This is a temporary solution for this specific use, which will eventually be changed with a different approach.
 
 <!-- Auto Generated Below -->
 
@@ -88,12 +96,14 @@ In the HTML, you can now use the icon as shown below:
 
 ### Used by
 
+ - [sbb-form-field](../sbb-form-field)
  - [sbb-link](../sbb-link)
  - [sbb-toggle-check](../sbb-toggle-check)
 
 ### Graph
 ```mermaid
 graph TD;
+  sbb-form-field --> sbb-icon
   sbb-link --> sbb-icon
   sbb-toggle-check --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
