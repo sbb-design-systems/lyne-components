@@ -2,6 +2,10 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+:host(:focus-within) {
+  outline: none;
+}
+
 .sbb-menu-action__content {
   @include text-xs--regular;
 

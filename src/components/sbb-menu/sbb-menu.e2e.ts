@@ -1,7 +1,8 @@
+// import events from './sbb-menu.events';
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-menu', () => {
-  let element, page, trigger;
+  let element, page;
 
   beforeEach(async () => {
     page = await newE2EPage();
@@ -16,7 +17,7 @@ describe('sbb-menu', () => {
         <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
       </sbb-menu>
     `);
-    trigger = await page.find('sbb-button');
+    // trigger = await page.find('sbb-button');
     element = await page.find('sbb-menu');
   });
 
@@ -24,48 +25,104 @@ describe('sbb-menu', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('renders an icon', async () => {
-    //
-  });
+  // it('renders an icon', async () => {
+  //   //
+  // });
 
-  it('renders an amount', async () => {
-    //
-  });
+  // it('renders an amount', async () => {
+  //   //
+  // });
 
-  it('renders no amount if disabled', async () => {
-    //
-  });
+  // it('renders no amount if disabled', async () => {
+  //   //
+  // });
 
-  it('opens on trigger click', async () => {
-    await trigger.click();
-    const dialog = await page.find('sbb-menu >>> dialog');
+  // it('opens on trigger click', async () => {
+  //   const dialog = await page.find('sbb-menu >>> dialog');
+  //   const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
 
-    expect(dialog).toHaveAttribute('open');
-  });
+  //   await trigger.click();
+  //   await page.waitForChanges();
 
-  it('closes on menu action click', async () => {
-    await trigger.click();
-    const menuAction = await page.find('sbb-menu > sbb-menu-action');
-    await menuAction.click();
-    const dialog = await page.find('sbb-menu >>> dialog');
+  //   expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
 
-    expect(dialog).toHaveClass('sbb-menu--dismissing');
-  });
+  //   const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
-  it('closes on interactive element click', async () => {
-    await trigger.click();
-    const menuLink = await page.find('sbb-menu > sbb-link');
-    await menuLink.click();
-    const dialog = await page.find('sbb-menu >>> dialog');
+  //   await page.waitForChanges();
 
-    expect(dialog).toHaveClass('sbb-menu--dismissing');
-  });
+  //   expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+  //   expect(dialog).toHaveAttribute('open');
+  // });
+
+  // it('closes on menu action click', async () => {
+  //   await trigger.click();
+  //   await page.waitForChanges();
+
+  //   const dialog = await page.find('sbb-menu >>> dialog');
+  //   expect(dialog).toHaveAttribute('open');
+
+  //   const menuAction = await page.find('sbb-menu > sbb-menu-action');
+  //   expect(menuAction).not.toBeNull();
+
+  //   const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+
+  //   await menuAction.click();
+  //   await page.waitForChanges();
+
+  //   expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+
+  //   const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+
+  //   await page.waitForChanges();
+
+  //   expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+  //   expect(dialog).not.toHaveAttribute('open');
+  // });
+
+  // it('closes on interactive element click', async () => {
+  //   await trigger.click();
+  //   await page.waitForChanges();
+
+  //   const dialog = await page.find('sbb-menu >>> dialog');
+  //   expect(dialog).toHaveAttribute('open');
+
+  //   const menuLink = await page.find('sbb-menu > sbb-link');
+  //   expect(menuLink).not.toBeNull();
+
+  //   const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+
+  //   await menuLink.click();
+  //   await page.waitForChanges();
+
+  //   expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+
+  //   const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+
+  //   await page.waitForChanges();
+
+  //   expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+  //   expect(dialog).not.toHaveAttribute('open');
+  // });
 
   // it('closes on "Esc" key pressed', async () => {
   //   await trigger.click();
-  //   await page.keyboard.down('Escape');
-  //   const dialog = await page.find('sbb-menu >>> dialog');
+  //   await page.waitForChanges();
 
-  //   expect(dialog).toHaveClass('sbb-menu--dismissing');
+  //   const dialog = await page.find('sbb-menu >>> dialog');
+  //   expect(dialog).toHaveAttribute('open');
+
+  //   const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+
+  //   await page.keyboard.down('Escape');
+  //   await page.waitForChanges();
+
+  //   expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+
+  //   const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+
+  //   await page.waitForChanges();
+
+  //   expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+  //   expect(dialog).not.toHaveAttribute('open');
   // });
 });

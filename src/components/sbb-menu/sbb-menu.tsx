@@ -158,8 +158,8 @@ export class SbbMenu implements ComponentInterface {
     // close menu on backdrop click
     this._dismissOnBackdropClick();
 
-    // listen for menu transition to end
-    this._dialog.ontransitionend = (event: TransitionEvent) => this._onMenuTransitionEnd(event);
+    // listen for menu animation to end
+    this._dialog.onanimationend = (event: AnimationEvent) => this._onMenuAnimationEnd(event);
   }
 
   // Check if the trigger is valid and attach click event listener.
@@ -208,21 +208,19 @@ export class SbbMenu implements ComponentInterface {
 
   // Set menu position (x, y) to '0' once the menu is closed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the menu is open.
-  private _onMenuTransitionEnd(event: TransitionEvent): void {
-    if (event.propertyName !== 'opacity') {
-      return;
+  private _onMenuAnimationEnd(event: AnimationEvent): void {
+    if (event.animationName === 'show') {
+      this._open = true;
+      this.didOpen.emit();
+      this._setDialogFocus();
     }
 
-    if (this._isDismissing) {
+    if (event.animationName === 'hide') {
       this._isDismissing = false;
       this._open = false;
       this._dialog.scrollTo(0, 0);
       this._dialog.close();
       this.didClose.emit();
-    } else {
-      this._open = true;
-      this.didOpen.emit();
-      this._setDialogFocus();
     }
   }
 
