@@ -188,9 +188,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     } else if (this.href) {
       TAG_NAME = 'a';
       attributeList = getLinkAttributeList(this, this);
-      if (!this.accessibilityLabel && this.target === '_blank') {
-        shouldDisplayNewWindowText = true;
-      }
+      shouldDisplayNewWindowText = !this.accessibilityLabel && this.target === '_blank';
     } else {
       TAG_NAME = 'button';
       attributeList = getButtonAttributeList(this);
