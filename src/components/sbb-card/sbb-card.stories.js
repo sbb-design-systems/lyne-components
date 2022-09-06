@@ -5,8 +5,8 @@ const Template = (args) => <sbb-card {...args}>SBB card example text.</sbb-card>
 
 const TemplateWithBadge = (args) => (
   <sbb-card {...args}>
-    SBB card example text.
-    <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
+    Example text.
+    <sbb-card-badge slot="badge" appearance="primary" is-discount price="19.99" text="from CHF" />
   </sbb-card>
 );
 
