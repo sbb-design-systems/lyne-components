@@ -8,9 +8,8 @@
   --panel-line-height: var(--sbb-typo-line-height-titles);
   --panel-font-size: var(--sbb-typo-scale-1-5x);
   --panel-color: var(--sbb-color-white-default);
-
-  // TODO: replace by token
-  --panel-background-color: rgb(235 0 0 / 90%);
+  --panel-background-color: var(--sbb-color-red-alpha-90);
+  --panel-background-color-hover: var(--sbb-color-red-default);
   --panel-padding-block: var(--sbb-spacing-responsive-s);
   --panel-padding-inline: var(--sbb-spacing-responsive-m);
   --panel-gap: var(--sbb-spacing-responsive-xs);
@@ -55,7 +54,7 @@
 
   @include hover-mq($hover: true) {
     &:hover {
-      --panel-background-color: var(--sbb-color-red-default);
+      --panel-background-color: var(--panel-background-color-hover);
     }
   }
 }
