@@ -20,8 +20,6 @@ const wrapperStyle = (context) => {
   return `background-color: ${SbbColorCharcoalDefault};`;
 };
 
-const Template = (args) => <sbb-link {...args}>{args.text}</sbb-link>;
-
 const paragraphStyle = (context) => {
   let color;
 
@@ -33,6 +31,15 @@ const paragraphStyle = (context) => {
 
   return `${color} font-family: ${SbbTypoTypeFaceSbbRoman}; font-weight: normal; line-height: ${SbbTypoLineHeightBodyText}; letter-spacing: ${SbbTypoLetterSpacingBodyText}; font-size: ${SbbTypoScaleDefault}px`;
 };
+
+const Template = (args) => <sbb-link {...args}>{args.text}</sbb-link>;
+
+const IconSlotTemplate = (args) => (
+  <sbb-link {...args}>
+    {args.text}
+    <sbb-icon slot="icon" name={args['icon-name']}></sbb-icon>
+  </sbb-link>
+);
 
 const InlineTemplate = (args, context) => (
   <p style={paragraphStyle(context)}>
@@ -360,6 +367,17 @@ BlockButtonNegative.args = {
 };
 BlockButtonNegative.documentation = {
   title: 'Block Button Negative',
+};
+
+export const BlockWithSlottedIcon = IconSlotTemplate.bind({});
+BlockWithSlottedIcon.argTypes = defaultArgTypes;
+BlockWithSlottedIcon.args = {
+  ...defaultArgs,
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+};
+BlockWithSlottedIcon.documentation = {
+  title: 'Block with slotted icon',
 };
 
 export const Inline = InlineTemplate.bind({});
