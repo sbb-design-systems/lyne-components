@@ -21,19 +21,18 @@ export class SbbCard {
   @State() private _hasBadge = false;
 
   /**
-   * It is used internally to show the `<sbb-card>`.
+   * It is used internally to show the `<sbb-card-badge>`.
    *
-   * @param size The size selected.
    * @returns True whether size is equal to m, l, xl or xxl. False otherwise.
    */
-  private _showSBBBadge(size: string): boolean {
-    return size === 'm' || size === 'l' || size === 'xl' || size === 'xxl';
+  private _showSBBBadge(): boolean {
+    return this.size === 'm' || this.size === 'l' || this.size === 'xl' || this.size === 'xxl';
   }
 
   public render(): JSX.Element {
     return (
-      <Host class={{ card__badge: this._showSBBBadge(this.size) && this._hasBadge }}>
-        {this._showSBBBadge(this.size) && (
+      <Host class={{ 'sbb-card__badge': this._showSBBBadge() && this._hasBadge }}>
+        {this._showSBBBadge() && (
           <span>
             <slot
               name="badge"
