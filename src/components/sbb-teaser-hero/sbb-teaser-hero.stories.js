@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import sampleImages from '../../global/images';
 
 const accessibilityLabel = {
   control: {
@@ -79,8 +80,7 @@ const defaultArgs = {
   target: undefined,
   content: 'Break out and explore castles and palaces.',
   'link-content': 'Find out more',
-  'image-src':
-    'https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333',
+  'image-src': sampleImages[1],
   'image-alt': 'SBB CFF FFS Employee',
 };
 
