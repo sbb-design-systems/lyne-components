@@ -2,7 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => (
-  <sbb-journey-summary summaryConfig={args}>
+  <sbb-journey-summary config={args}>
     <div
       style={{
         display: 'flex',

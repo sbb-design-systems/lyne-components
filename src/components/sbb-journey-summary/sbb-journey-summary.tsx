@@ -1,7 +1,7 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
-import isTomorrow from 'date-fns/isTomorrow';
-import { isToday, parseISO, format, intervalToDuration, isValid } from 'date-fns';
+import { isTomorrow, isToday, parseISO, intervalToDuration, isValid } from 'date-fns';
+import { format } from 'date-fns-tz'
 import {
   i18nArrival,
   i18nDeparture,
@@ -20,7 +20,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 })
 export class SbbJourneySummary {
   /**  The config prop */
-  @Prop() public summaryConfig!: InterfaceJourneySummaryAttributes['config'];
+  @Prop() public config!: InterfaceJourneySummaryAttributes['config'];
 
   private _currentLanguage = getDocumentLang();
 
@@ -118,9 +118,9 @@ export class SbbJourneySummary {
   }
 
   public render(): JSX.Element {
-    const { vias, origin, destination } = this.summaryConfig || {};
-    const departureTime: Date = parseISO(this.summaryConfig?.departure?.time);
-    const arrivalTime: Date = parseISO(this.summaryConfig?.arrival?.time);
+    const { vias, origin, destination } = this.config || {};
+    const departureTime: Date = parseISO(this.config?.departure?.time);
+    const arrivalTime: Date = parseISO(this.config?.arrival?.time);
 
     return (
       <div class="journey-summary">
@@ -132,24 +132,22 @@ export class SbbJourneySummary {
           {this._renderJourneyStart(departureTime, arrivalTime)}
           <div class="journey-summary__transportation-details">
             <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
-            {this.summaryConfig?.departureWalk &&
-              this._renderWalkTime(true, this.summaryConfig?.departureWalk)}
+            {this.config?.departureWalk &&
+              this._renderWalkTime(true, this.config?.departureWalk)}
             {isValid(departureTime) && (
               <time class="journey-summary__time">{format(departureTime, 'HH:mm')}</time>
             )}
             <div class="journey-summary__pearlchain">
-              <sbb-pearl-chain legs={this.summaryConfig?.legs} />
+              <sbb-pearl-chain legs={this.config?.legs} />
             </div>
             {isValid(arrivalTime) && (
               <time class="journey-summary__time">{format(arrivalTime, 'HH:mm')}</time>
             )}
             <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-            {this.summaryConfig?.arrivalWalk &&
-              this._renderWalkTime(false, this.summaryConfig?.arrivalWalk)}
+            {this.config?.arrivalWalk &&
+              this._renderWalkTime(false, this.config?.arrivalWalk)}
           </div>
-          <div class="journey-summary__slot">
-            <slot />
-          </div>
+          <slot />
         </div>
       </div>
     );

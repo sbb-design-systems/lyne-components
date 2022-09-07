@@ -743,7 +743,7 @@ export namespace Components {
         /**
           * The config prop
          */
-        "summaryConfig": InterfaceJourneySummaryAttributes['config'];
+        "config": InterfaceJourneySummaryAttributes['config'];
     }
     interface SbbLink {
         /**
@@ -2586,7 +2586,7 @@ declare namespace LocalJSX {
         /**
           * The config prop
          */
-        "summaryConfig": InterfaceJourneySummaryAttributes['config'];
+        "config": InterfaceJourneySummaryAttributes['config'];
     }
     interface SbbLink {
         /**
