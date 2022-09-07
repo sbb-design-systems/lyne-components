@@ -2,24 +2,6 @@ import { SbbCard } from './sbb-card';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-card', () => {
-  it('renders sbb-card', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbCard],
-      html: '<sbb-card></sbb-card>',
-    });
-
-    expect(root).toEqualHtml(`
-      <sbb-card>
-        <mock:shadow-root>
-          <slot name="badge"></slot>
-          <span class="card__content">
-            <slot></slot>
-          </span>
-        </mock:shadow-root>
-      </sbb-card>
-    `);
-  });
-
   // TODO: Enable once onSlotchange is fixed https://github.com/ionic-team/stencil/issues/3536
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('renders sbb-card with sbb-card-badge', async () => {
@@ -37,9 +19,7 @@ describe('sbb-card', () => {
           <span class="card__content">
             <slot></slot>
           </span>
-          <span>
-            <slot name="badge"></slot>
-          </span>
+          <slot name="badge"></slot>
         </mock:shadow-root>
         <sbb-card-badge appearance="primary" is-discount="" slot="badge"></sbb-card-badge>
       </sbb-card>
@@ -49,12 +29,14 @@ describe('sbb-card', () => {
   it('renders sbb-card without sbb-card-badge', async () => {
     const { root } = await newSpecPage({
       components: [SbbCard],
-      html: `<sbb-card size="s">
-        <span>
-          <p>Test</p>
-        </span>
-        <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
-      </sbb-card>`,
+      html: `
+        <sbb-card size="s">
+          <span>
+            <p>Test</p>
+          </span>
+          <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
+        </sbb-card>
+      `,
     });
 
     expect(root).toEqualHtml(`
