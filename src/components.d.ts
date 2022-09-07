@@ -197,7 +197,7 @@ export namespace Components {
     }
     interface SbbCard {
         /**
-          * Size variant, either xs, s, m, l, xl and xxl.
+          * Size variant, either xs, s, m, l, xl or xxl.
          */
         "size"?: InterfaceSbbCardAttributes['size'];
     }
@@ -1589,7 +1589,7 @@ declare namespace LocalJSX {
     }
     interface SbbCard {
         /**
-          * Size variant, either xs, s, m, l, xl and xxl.
+          * Size variant, either xs, s, m, l, xl or xxl.
          */
         "size"?: InterfaceSbbCardAttributes['size'];
     }
