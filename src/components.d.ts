@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
@@ -16,7 +17,6 @@ import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
-import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
@@ -146,13 +146,21 @@ export namespace Components {
     }
     interface SbbButton {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
-        /**
-          * The type attribute to use for the button
-         */
-        "buttonType"?: InterfaceButtonAttributes['buttonType'];
         /**
           * Set to true to get a disabled button
          */
@@ -164,7 +172,7 @@ export namespace Components {
         /**
           * The href value you want to link to
          */
-        "href"?: string;
+        "href": string | undefined;
         /**
           * Define if icon should be shown or not
          */
@@ -184,7 +192,7 @@ export namespace Components {
         /**
           * The name attribute to use for the button
          */
-        "name"?: string;
+        "name": string | undefined;
         /**
           * Negative coloring variant flag
          */
@@ -193,7 +201,10 @@ export namespace Components {
           * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
-        "type"?: InterfaceButtonAttributes['type'];
+        /**
+          * The type attribute to use for the button
+         */
+        "type": InterfaceLinkAttributes['buttonType'] | undefined;
         /**
           * The value attribute to use for the button
          */
@@ -1506,13 +1517,21 @@ declare namespace LocalJSX {
     }
     interface SbbButton {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
-        /**
-          * The type attribute to use for the button
-         */
-        "buttonType"?: InterfaceButtonAttributes['buttonType'];
         /**
           * Set to true to get a disabled button
          */
@@ -1524,7 +1543,7 @@ declare namespace LocalJSX {
         /**
           * The href value you want to link to
          */
-        "href"?: string;
+        "href"?: string | undefined;
         /**
           * Define if icon should be shown or not
          */
@@ -1544,7 +1563,7 @@ declare namespace LocalJSX {
         /**
           * The name attribute to use for the button
          */
-        "name"?: string;
+        "name"?: string | undefined;
         /**
           * Negative coloring variant flag
          */
@@ -1557,7 +1576,10 @@ declare namespace LocalJSX {
           * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
-        "type"?: InterfaceButtonAttributes['type'];
+        /**
+          * The type attribute to use for the button
+         */
+        "type"?: InterfaceLinkAttributes['buttonType'] | undefined;
         /**
           * The value attribute to use for the button
          */
