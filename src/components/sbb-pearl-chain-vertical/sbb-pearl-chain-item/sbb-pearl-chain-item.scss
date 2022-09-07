@@ -1,0 +1,51 @@
+
+.pearl-chain-item__line{
+  position: absolute;
+  top: 0.25rem;
+  bottom: 0;
+  flex: 1 1 0%;
+  width: 2px;
+  border-right-width: 1px;
+  background-color: rgb(0 0 0);
+  margin-left: 4px;
+}
+
+.pearl-chain-item__row{
+  position: relative;
+}
+
+.pearl-chain-item__row-left{
+  vertical-align: top;
+}
+
+.pearl-chain-item__row-right{
+  vertical-align: top;
+}
+
+.pearl-chain-item__middle{
+  vertical-align: top;
+  border-spacing: 0;
+}
+
+.pearl-chain-item__dot{
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  background-color: black;
+  border-color: white;
+}
+
+.pearl-chain-item__row-middle{
+  padding-top: 0;
+  vertical-align: top;
+}
+
+.pearl-chain-item__left-slot{
+  margin-top: 1px;
+  padding-right:  2rem;
+}
+
+.pearl-chain-item__right-slot{
+  margin-left: 2rem;
+  padding-bottom: 1rem;
+}
