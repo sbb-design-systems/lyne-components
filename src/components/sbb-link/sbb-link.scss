@@ -103,7 +103,11 @@ button.sbb-link:disabled {
   gap: var(--sbb-spacing-fixed-1x);
 }
 
-.sbb-link--icon-placement-end ::slotted(*),
+.sbb-link--icon-placement-end ::slotted([slot='icon']),
 .sbb-link--icon-placement-end sbb-icon {
   order: 2;
+}
+
+.sbb-link__opens-in-new-window {
+  @include screenReaderOnly;
 }

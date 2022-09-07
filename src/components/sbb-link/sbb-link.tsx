@@ -18,6 +18,8 @@ import {
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { hostContext } from '../../global/helpers/host-context';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -178,12 +180,15 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   public render(): JSX.Element {
     let TAG_NAME: string;
     let attributeList: Record<string, string>;
+    let shouldDisplayNewWindowText = false;
+
     if (this._isStatic) {
       TAG_NAME = 'span';
       attributeList = getLinkButtonBaseAttributeList(this);
     } else if (this.href) {
       TAG_NAME = 'a';
       attributeList = getLinkAttributeList(this, this);
+      shouldDisplayNewWindowText = !this.accessibilityLabel && this.target === '_blank';
     } else {
       TAG_NAME = 'button';
       attributeList = getButtonAttributeList(this);
@@ -201,6 +206,11 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
           <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         )}
         <slot />
+        {shouldDisplayNewWindowText && (
+          <span class="sbb-link__opens-in-new-window">
+            . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+          </span>
+        )}
       </TAG_NAME>
     );
   }

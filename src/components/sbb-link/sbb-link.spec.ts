@@ -146,8 +146,9 @@ describe('sbb-link', () => {
             target="_blank"
 >
           <mock:shadow-root>
-            <a aria-label="Link target opens in new window." class="sbb-link sbb-link--icon-placement-start sbb-link--inline" dir="ltr" href="#link" rel="external noopener nofollow" target="_blank">
+            <a class="sbb-link sbb-link--icon-placement-start sbb-link--inline" dir="ltr" href="#link" rel="external noopener nofollow" target="_blank">
               <slot></slot>
+              <span class="sbb-link__opens-in-new-window">. Link target opens in new window.</span>
             </a>
           </mock:shadow-root>
           Travelcards &amp; tickets.
