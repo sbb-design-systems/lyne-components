@@ -17,7 +17,7 @@ describe('sbb-button', () => {
 
   it('renders button text', async () => {
     await page.waitForChanges();
-    const button = await page.find('sbb-button >>> .button__label');
+    const button = await page.find('sbb-button >>> .sbb-button__label');
 
     expect(button.innerHTML).toEqual('<slot></slot>');
   });

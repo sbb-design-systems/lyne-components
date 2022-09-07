@@ -55,7 +55,7 @@
   }
 }
 
-.button {
+.sbb-button {
   @include buttonReset;
   @include stretch(width);
   @include text-xs--bold;
@@ -103,8 +103,8 @@
   }
 }
 
-.button--primary {
-  &.button--negative {
+.sbb-button--primary {
+  &.sbb-button--negative {
     --color-active-background: var(--sbb-color-cloud-default);
     --color-active-border: var(--sbb-color-cloud-default);
     --color-active-text: var(--sbb-color-red150-default);
@@ -140,7 +140,7 @@
   }
 }
 
-.button--secondary {
+.sbb-button--secondary {
   --color-active-background: var(--sbb-color-cloud-default);
   --color-active-border: var(--sbb-color-cloud-default);
   --color-active-text: var(--sbb-color-anthracite-default);
@@ -174,7 +174,7 @@
   --shadow-2-hover-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
   --shadow-2-hover-spread: var(--sbb-shadow-elevation-level-3-shadow-2-spread);
 
-  &.button--negative {
+  &.sbb-button--negative {
     --color-active-background: transparent;
     --color-active-border: var(--sbb-color-cloud-default);
     --color-active-text: var(--sbb-color-cloud-default);
@@ -190,7 +190,7 @@
   }
 }
 
-.button--translucent {
+.sbb-button--translucent {
   --color-active-background: var(--sbb-color-black-alpha-70);
   --color-active-border: var(--sbb-color-black-alpha-0);
   --color-active-text: var(--sbb-color-cloud-default);
@@ -204,7 +204,7 @@
   --color-hover-border: var(--sbb-color-black-alpha-0);
   --color-hover-text: var(--sbb-color-milk-default);
 
-  &.button--negative {
+  &.sbb-button--negative {
     --color-active-background: var(--sbb-color-white-alpha-70);
     --color-active-border: var(--sbb-color-white-alpha-0);
     --color-active-text: var(--sbb-color-anthracite-default);
@@ -220,7 +220,7 @@
   }
 }
 
-.button--transparent {
+.sbb-button--transparent {
   --color-active-background: var(--sbb-color-cloud-default);
   --color-active-border: var(--sbb-color-cloud-default);
   --color-active-text: var(--sbb-color-black-default);
@@ -234,7 +234,7 @@
   --color-hover-border: var(--sbb-color-milk-default);
   --color-hover-text: var(--sbb-color-black-default);
 
-  &.button--negative {
+  &.sbb-button--negative {
     --color-active-background: var(--sbb-color-iron-default);
     --color-active-border: var(--sbb-color-iron-default);
     --color-active-text: var(--sbb-color-white-default);
@@ -250,7 +250,7 @@
   }
 }
 
-.button__icon {
+.sbb-button__icon {
   fill: currentcolor;
 
   @include ifForcedColors {
@@ -263,7 +263,7 @@
   color: currentcolor;
 }
 
-.button--size-m {
+.sbb-button--size-m {
   --border-width: var(--sbb-border-width-1x);
   --min-height: var(--sbb-size-button-m-min-height);
   --padding-inline: var(--sbb-spacing-fixed-5x);
@@ -273,8 +273,8 @@
   }
 }
 
-.button--primary:not(:disabled),
-.button--secondary:not(:disabled) {
+.sbb-button--primary:not(:disabled),
+.sbb-button--secondary:not(:disabled) {
   &::before {
     box-shadow: var(--shadow-1-default-offset-x) var(--shadow-1-default-offset-y)
         var(--shadow-1-default-blur) var(--shadow-1-default-spread) var(--shadow-1-default-color),
@@ -283,19 +283,19 @@
   }
 }
 
-.button--visual-only {
+.sbb-button--visual-only {
   width: fit-content;
   user-select: none;
 }
 
-.button--icon-only {
+.sbb-button--icon-only {
   --padding-inline: 0;
   --icon-margin-inline-end: 0;
 
   width: var(--min-height);
   justify-content: center;
 
-  &.button:disabled::after {
+  &.sbb-button:disabled::after {
     inset-inline: unset;
 
     // Width of line through is fixed in icon variant
@@ -303,7 +303,7 @@
   }
 }
 
-.button:disabled {
+.sbb-button:disabled {
   color: var(--color-disabled-text);
   cursor: default;
 
@@ -335,7 +335,7 @@
 
 // If the the device can hover over elements with ease
 @include hover-mq($hover: true) {
-  .button:hover:not(:disabled) {
+  .sbb-button:hover:not(:disabled) {
     --translate-y-content-hover: #{px-to-rem-build(-1)};
 
     color: var(--color-hover-text);
@@ -356,7 +356,7 @@
   }
 }
 
-.button:active:not(:disabled) {
+.sbb-button:active:not(:disabled) {
   &::before {
     color: var(--color-active-text);
     background-color: var(--color-active-background);
@@ -364,11 +364,11 @@
   }
 }
 
-.button--secondary-negative,
-.button--translucent,
-.button--translucent-negative,
-.button--transparent,
-.button--transparent-negative {
+.sbb-button--secondary-negative,
+.sbb-button--translucent,
+.sbb-button--translucent-negative,
+.sbb-button--transparent,
+.sbb-button--transparent-negative {
   &::before {
     box-shadow: none;
   }
@@ -381,17 +381,17 @@
   }
 }
 
-.button__label,
-.button__icon {
+.sbb-button__label,
+.sbb-button__icon {
   transition: transform var(--transition-duration) var(--transition-easing-function);
   transform: translateY(var(--translate-y-content-hover, #{px-to-rem-build(0)}));
 }
 
-.button__label {
+.sbb-button__label {
   display: block;
   @include ellipsis;
 }
 
-.button__icon-description {
+.sbb-button__icon-description {
   @include screenReaderOnly;
 }

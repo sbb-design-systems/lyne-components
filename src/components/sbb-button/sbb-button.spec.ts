@@ -13,11 +13,11 @@ describe('sbb-button', () => {
     expect(root).toEqualHtml(`
         <sbb-button variant='secondary' negative='true' icon='true'>
           <mock:shadow-root>
-            <button class='button button--size-l button--secondary button--negative' type='button'>
-              <span class='button__icon'>
+            <button class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--negative' type='button'>
+              <span class='sbb-button__icon'>
                 <slot name='icon'></slot>
               </span>
-              <span class='button__label'><slot></slot></span>
+              <span class='sbb-button__label'><slot></slot></span>
             </button>
           </mock:shadow-root>
           <span slot='icon'>
