@@ -6,7 +6,7 @@ describe('sbb-teaser-hero', () => {
   it('should render all properties', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
+      html: `<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
@@ -50,7 +50,7 @@ describe('sbb-teaser-hero', () => {
   it('should render without link', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
+      html: `<sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
@@ -80,7 +80,7 @@ describe('sbb-teaser-hero', () => {
   it('should render with slots', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">Break out and explore castles and palaces.<span slot="link-content">Find out more</span><sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image></sbb-teaser-hero>',
+      html: `<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">Break out and explore castles and palaces.<span slot="link-content">Find out more</span><sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image></sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
