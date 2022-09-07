@@ -1,15 +1,16 @@
 import { SbbTeaserHero } from './sbb-teaser-hero';
 import { newSpecPage } from '@stencil/core/testing';
+import sampleImages from '../../global/images';
 
 describe('sbb-teaser-hero', () => {
   it('should render all properties', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
+      html: '<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
           <mock:shadow-root>
             <a
               aria-describedby="describedby"
@@ -37,7 +38,7 @@ describe('sbb-teaser-hero', () => {
                 </sbb-link>
               </span>
              <slot name="image">
-               <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image>
+               <sbb-image image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>
              </slot>
             </a>
           </mock:shadow-root>
@@ -49,11 +50,11 @@ describe('sbb-teaser-hero', () => {
   it('should render without link', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
+      html: '<sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>',
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
           <mock:shadow-root>
             <span
               aria-label="label"
@@ -67,7 +68,7 @@ describe('sbb-teaser-hero', () => {
                 </span>
               </span>
              <slot name="image">
-               <sbb-image image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image>
+               <sbb-image image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>
              </slot>
             </span>
           </mock:shadow-root>
@@ -79,7 +80,7 @@ describe('sbb-teaser-hero', () => {
   it('should render with slots', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: '<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">Break out and explore castles and palaces.<span slot="link-content">Find out more</span><sbb-image slot="image" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image></sbb-teaser-hero>',
+      html: '<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">Break out and explore castles and palaces.<span slot="link-content">Find out more</span><sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image></sbb-teaser-hero>',
     });
 
     expect(root).toEqualHtml(`
@@ -110,7 +111,7 @@ describe('sbb-teaser-hero', () => {
           </mock:shadow-root>
           Break out and explore castles and palaces.
           <span slot="link-content">Find out more</span>
-          <sbb-image slot="image" image-src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/frau-im-ferien.jpg?crop=focalpoint&fp-x=0.5053125&fp-y=0.6458333" alt="SBB CFF FFS Employee"></sbb-image>
+          <sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>
         </sbb-teaser-hero>
       `);
   });
