@@ -72,43 +72,38 @@ const Template = (args) => (
         >
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text="Rückerstattungen"
             text-size="s"
             variant="block"
           >
-            Rückerstattungen
+            Refunds
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text="Fundbüro"
             text-size="s"
             variant="block"
           >
-            Fundbüro
+            Lost property office
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text="Beschwerden"
             text-size="s"
             variant="block"
           >
-            Beschwerden
+            Complaints
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text="Lob aussprechen"
             text-size="s"
             variant="block"
           >
-            Lob aussprechen
+            Praise
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text="Sachbeschädigung melden"
             text-size="s"
             variant="block"
           >
-            Sachbeschädigung melden
+            Report property damage
           </sbb-link>
         </sbb-link-list>
         <sbb-stack space-leading="fixed-3x">
@@ -124,7 +119,6 @@ const Template = (args) => (
       <sbb-link-list textsize="s" title-level="2" title-text="More SBB." variant="positive">
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="Jobs & careers"
           text-size="s"
           variant="block"
         >
@@ -132,7 +126,6 @@ const Template = (args) => (
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="Rail traffic information"
           text-size="s"
           variant="block"
         >
@@ -140,7 +133,6 @@ const Template = (args) => (
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="SBB News"
           text-size="s"
           variant="block"
         >
@@ -148,7 +140,6 @@ const Template = (args) => (
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="SBB Community"
           text-size="s"
           variant="block"
         >
@@ -156,7 +147,6 @@ const Template = (args) => (
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="Company"
           text-size="s"
           variant="block"
         >
@@ -192,43 +182,38 @@ const Template = (args) => (
       >
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="Rückerstattungen"
           text-size="xs"
           variant="block"
         >
-          Rückerstattungen
+          Refunds
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="Fundbüro"
           text-size="xs"
           variant="block"
         >
-          Fundbüro
+          Lost property office
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="Beschwerden"
           text-size="xs"
           variant="block"
         >
-          Beschwerden
+          Complaints
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="Lob aussprechen"
           text-size="xs"
           variant="block"
         >
-          Lob aussprechen
+          Praise
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text="Sachbeschädigung melden"
           text-size="xs"
           variant="block"
         >
-          Sachbeschädigung melden
+          Report property damage
         </sbb-link>
       </sbb-link-list>
     </div>

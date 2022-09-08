@@ -592,9 +592,13 @@ export namespace Components {
          */
         "negative": boolean;
         /**
-          * The direction in which the list will be shown vertical or horizontal.
+          * The orientation in which the list will be shown vertical or horizontal.
          */
-        "orientation": InterfaceLinkListAttributes['direction'];
+        "orientation": InterfaceLinkListAttributes['orientation'];
+        /**
+          * The title text we want to show before the list
+         */
+        "titleContent"?: string;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -603,10 +607,6 @@ export namespace Components {
           * The semantic level of the title, e.g. 3 = h3
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
-        /**
-          * The title text we want to show before the list
-         */
-        "titleText"?: string;
     }
     interface SbbLogo {
         /**
@@ -1996,9 +1996,13 @@ declare namespace LocalJSX {
          */
         "negative"?: boolean;
         /**
-          * The direction in which the list will be shown vertical or horizontal.
+          * The orientation in which the list will be shown vertical or horizontal.
          */
-        "orientation"?: InterfaceLinkListAttributes['direction'];
+        "orientation"?: InterfaceLinkListAttributes['orientation'];
+        /**
+          * The title text we want to show before the list
+         */
+        "titleContent"?: string;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -2007,10 +2011,6 @@ declare namespace LocalJSX {
           * The semantic level of the title, e.g. 3 = h3
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
-        /**
-          * The title text we want to show before the list
-         */
-        "titleText"?: string;
     }
     interface SbbLogo {
         /**

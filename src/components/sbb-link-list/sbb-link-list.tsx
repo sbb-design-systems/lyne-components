@@ -2,11 +2,6 @@ import { Component, h, Prop, State, JSX, Element } from '@stencil/core';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
 
-/**
- * @slot link-list__item - Use this to render the
- * list items with the links inside
- */
-
 let nextId = 0;
 
 @Component({
@@ -16,13 +11,13 @@ let nextId = 0;
 })
 export class SbbLinkList {
   /** This id will be forwarded to the relevant inner element. */
-  @Prop() public titleId = `sbb-link-list-heading-${++nextId}`;
+  @Prop() public titleId = `sbb-link-list-title-${++nextId}`;
 
   /**
    * The title text we want to show
    * before the list
    */
-  @Prop() public titleText?: string;
+  @Prop() public titleContent?: string;
 
   /**
    * The semantic level of the title,
@@ -41,12 +36,9 @@ export class SbbLinkList {
   @Prop() public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
 
   /**
-   * The direction in which the list will be shown vertical or horizontal.
+   * The orientation in which the list will be shown vertical or horizontal.
    */
-  @Prop() public orientation: InterfaceLinkListAttributes['direction'] = 'vertical';
-
-  private _hideTitle = false;
-  private _titleIsSlotted: boolean;
+  @Prop() public orientation: InterfaceLinkListAttributes['orientation'] = 'vertical';
 
   /** Sbb-Link elements */
   @State() private _links: HTMLSbbLinkElement[];
@@ -54,20 +46,22 @@ export class SbbLinkList {
   /** Host element */
   @Element() private _element!: HTMLElement;
 
+  private _hasSlottedTitle: boolean;
+
   private _getClassString(): string {
     let horizontalClass = this.horizontalFrom
-      ? ` link-list--horizontal-from-${this.horizontalFrom}`
+      ? ` sbb-link-list--horizontal-from-${this.horizontalFrom}`
       : '';
 
     if (!horizontalClass) {
-      horizontalClass = this.orientation === 'horizontal' ? ' link-list--horizontal' : '';
+      horizontalClass = this.orientation === 'horizontal' ? ' sbb-link-list--horizontal' : '';
     }
 
-    return `link-list${horizontalClass}`;
+    return `sbb-link-list${horizontalClass}`;
   }
 
   /**
-   * Create an array with only the sbb-link-children
+   * Create an array with only the sbb-link children
    */
   private _readLinks(): void {
     this._links = Array.from(this._element.children).filter(
@@ -75,42 +69,42 @@ export class SbbLinkList {
     );
   }
 
+  private _onSlotTitleChange(event): void {
+    this._hasSlottedTitle = (event.target as HTMLSlotElement).assignedElements().length > 0;
+  }
+
   public connectedCallback(): void {
-    this._titleIsSlotted = Boolean(this._element.querySelector('[slot="title"]'));
     this._readLinks();
   }
 
   public render(): JSX.Element {
     let additionalAttributes = {};
 
-    if (this.titleText) {
+    if (this._hasSlottedTitle || this.titleContent) {
       additionalAttributes = {
         'aria-labelledby': this.titleId,
       };
     }
 
-    if (this.horizontalFrom || this.orientation === 'horizontal') {
-      this._hideTitle = true;
-    }
-
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
     return (
-      // the role="list" is needed for voice over: https://bit.ly/3CDiZaG
-      <div>
-        {(!this._hideTitle && this._titleIsSlotted) || this.titleText ? (
-          <sbb-title level={this.titleLevel} visual-level="5" negative={this.negative}>
-            <slot name="title">{this.titleText}</slot>
+      <div class={this._getClassString()}>
+        {this._hasSlottedTitle || this.titleContent ? (
+          <sbb-title
+            level={this.titleLevel}
+            visual-level="5"
+            negative={this.negative}
+            titleId={this.titleId}
+          >
+            <slot onSlotchange={(event): void => this._onSlotTitleChange(event)} name="title">
+              {this.titleContent}
+            </slot>
           </sbb-title>
         ) : (
           ''
         )}
-        <ul
-          {...additionalAttributes}
-          class={this._getClassString()}
-          role="list"
-          aria-labelledby={this.titleText ? this.titleId : undefined}
-        >
+        <ul {...additionalAttributes} role="list">
           {this._links.map((_, index) => (
             <li>
               <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />

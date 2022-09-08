@@ -10,52 +10,46 @@ const wrapperStyle = (context) => {
   return `background-color: ${SbbColorWhiteDefault};`;
 };
 
-const Template = (args) => (
+const LinkTemplate = (args) => (
+  <sbb-link
+    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    text-size={args.textSize}
+    negative={args.negative}
+  >
+    {args.linkTitle}
+  </sbb-link>
+);
+
+// SlottedTitle
+const TemplateSlottedTitle = (args) => (
   <sbb-link-list {...args}>
-    <span slot="title">{args['title-text']}</span>
-    <sbb-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      text="Rückerstattungen"
-      text-size={args.textSize}
-      negative={args.negative}
-    >
-      Rückerstattungen
-    </sbb-link>
-    <sbb-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      text="Fundbüro"
-      text-size={args.textSize}
-      negative={args.negative}
-    >
-      Fundbüro
-    </sbb-link>
-    <sbb-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      text="Beschwerden"
-      text-size={args.textSize}
-      negative={args.negative}
-    >
-      Beschwerden
-    </sbb-link>
-    <sbb-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      text="Lob aussprechen"
-      text-size={args.textSize}
-      negative={args.negative}
-    >
-      Lob aussprechen
-    </sbb-link>
-    <sbb-link
-      href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      text="Sachbeschädigung melden"
-      text-size={args.textSize}
-      negative={args.negative}
-    >
-      Sachbeschädigung melden
-    </sbb-link>
-    <span slot="button"></span>
+    <span slot="title">{args['title-content']}</span>
+    {links.map((linkTitle) => {
+      const linkArgs = {
+        linkTitle,
+        textSize: args.textSize,
+        negative: args.negative,
+      };
+      return <LinkTemplate {...linkArgs} />;
+    })}
   </sbb-link-list>
 );
+
+// TitleAsProperty
+const Template = (args) => (
+  <sbb-link-list {...args}>
+    {links.map((linkTitle) => {
+      const linkArgs = {
+        linkTitle,
+        textSize: args.textSize,
+        negative: args.negative,
+      };
+      return <LinkTemplate {...linkArgs} />;
+    })}
+  </sbb-link-list>
+);
+
+const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
 const orientation = {
   control: {
@@ -87,7 +81,7 @@ const textSize = {
   },
 };
 
-const titleText = {
+const titleContent = {
   control: {
     type: 'text',
   },
@@ -121,7 +115,7 @@ const defaultArgTypes = {
   'horizontal-from': horizontalFrom,
   textSize,
   'title-level': titleLevel,
-  'title-text': titleText,
+  'title-content': titleContent,
   negative,
 };
 
@@ -129,7 +123,7 @@ const defaultArgs = {
   orientation: orientation.options[0],
   textSize: textSize.options[1],
   'title-level': titleLevel.options[0],
-  'title-text': 'Help & Contact',
+  'title-content': 'Help & Contact',
   negative: false,
 };
 
@@ -164,7 +158,7 @@ export const LinkListNoTitle = Template.bind({});
 LinkListNoTitle.argTypes = defaultArgTypes;
 LinkListNoTitle.args = {
   ...defaultArgs,
-  'title-text': '',
+  'title-content': '',
 };
 
 LinkListNoTitle.documentation = {
@@ -181,6 +175,18 @@ LinkListNegative.args = {
 
 LinkListNegative.documentation = {
   title: 'Link List Negative',
+};
+
+export const LinkListWithSlottedTitle = TemplateSlottedTitle.bind({});
+// TODO discuss solution with Lukas and Jeremias
+LinkListWithSlottedTitle.argTypes = defaultArgTypes;
+LinkListWithSlottedTitle.args = {
+  ...defaultArgs,
+  'title-content': '',
+};
+
+LinkListWithSlottedTitle.documentation = {
+  title: 'Link List with slotted title',
 };
 
 export default {

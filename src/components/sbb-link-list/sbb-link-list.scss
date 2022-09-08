@@ -2,31 +2,33 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-:host {
-  display: block;
-}
-
 sbb-title {
   margin-block-end: var(--sbb-spacing-fixed-3x);
 }
 
-.link-list {
+.sbb-link-list ul {
   @include list-reset;
 }
 
 @mixin link-list--horizontal {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: var(--sbb-spacing-fixed-8x);
+  sbb-title {
+    @include screenReaderOnly;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--sbb-spacing-fixed-8x);
+  }
 }
 
-.link-list--horizontal {
+.sbb-link-list--horizontal {
   @include link-list--horizontal;
 }
 
 @each $breakpointName, $value in $mq-breakpoints {
   /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-  .link-list--horizontal-from-#{$breakpointName} {
+  .sbb-link-list--horizontal-from-#{$breakpointName} {
     @include mq($from: #{$breakpointName}) {
       @include link-list--horizontal;
     }
@@ -34,17 +36,16 @@ sbb-title {
 }
 
 /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-::slotted(.link-list__item:not(:last-child)) {
+::slotted(sbb-link:not(:last-child)) {
   margin-block-end: var(--sbb-spacing-fixed-3x);
 }
 
-// Need to be after the ::slotted(.link-list__item:not(:last-child))
 // selector due to specificity
-.link-list--horizontal ::slotted(.link-list__item) {
+.sbb-link-list--horizontal ::slotted(sbb-link) {
   margin-block-end: unset;
 }
 
-.link-list--horizontal-from-large ::slotted(.link-list__item) {
+.sbb-link-list--horizontal-from-large ::slotted(sbb-link) {
   @include mq($from: large) {
     margin-block-end: unset;
   }
