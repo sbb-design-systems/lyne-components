@@ -86,20 +86,20 @@ sbbCheckboxTristated.args = {
 sbbCheckboxWithLabelIcon.argTypes = defaultArgTypes;
 sbbCheckboxWithLabelIcon.args = {
   ...defaultArgs,
-  'label-icon': 'tickets-class-small',
+  'icon-name': 'tickets-class-small',
 };
 
 sbbCheckboxWithSpacedLabelIcon.argTypes = defaultArgTypes;
 sbbCheckboxWithSpacedLabelIcon.args = {
   ...defaultArgs,
-  'label-icon': 'tickets-class-small',
+  'icon-name': 'tickets-class-small',
   'label-space': true,
 };
 
 sbbCheckboxWithLabelIconReversed.argTypes = defaultArgTypes;
 sbbCheckboxWithLabelIconReversed.args = {
   ...defaultArgs,
-  'label-icon': 'tickets-class-small',
+  'icon-name': 'tickets-class-small',
   'icon-placement': iconPlacement.options[0],
 };
 

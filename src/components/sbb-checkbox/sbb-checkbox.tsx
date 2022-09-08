@@ -1,4 +1,5 @@
 import { Component, Prop, h, Event, EventEmitter, Watch, JSX } from '@stencil/core';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { InterfaceCheckboxAttributes } from './sbb-checkbox.custom';
 
 let nextId = 0;
@@ -7,7 +8,8 @@ let nextId = 0;
   styleUrl: 'sbb-checkbox.scss',
   tag: 'sbb-checkbox',
 })
-export class SbbCheckbox {
+export class SbbCheckbox implements AccessibilityProperties {
+
   private _checkbox: HTMLInputElement;
 
   /** Whether the checkbox is checked. */
@@ -22,8 +24,8 @@ export class SbbCheckbox {
   /** Id of the internal input element - default id will be set automatically. */
   @Prop() public inputId = `sbb-checkbox-${++nextId}`;
 
-  //** the svg for the true state */
-  @Prop() public labelIcon: '';
+    /** The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). */
+  @Prop() public iconName: '';
 
   /** The disabled prop for the disabled state. */
   @Prop() public disabled!: boolean;
@@ -41,18 +43,18 @@ export class SbbCheckbox {
   @Prop() public labelSpace = false;
 
   /** The aria-label prop for the hidden input. */
-  @Prop() public acceccibilityLabel?: string;
+  @Prop() public accessibilityLabel: string;
 
   /** The aria-labelledby prop for the hidden input. */
-  @Prop() public acceccibilityLabelledby?: string;
+  @Prop() public accessibilityLabelledby: string;
 
   /** The aria-describedby prop for the hidden input. */
-  @Prop() public acceccibilityDescribedBy?: string;
+  @Prop() public accessibilityDescribedby: string;
 
   /** Event for emiting whenever selection is changed. */
   @Event() public sbbChange: EventEmitter;
 
-  /** render the svg acording to the state */
+  /** render the svg according to the state */
   private _renderStateIcon(): JSX.Element {
     if (this.indeterminate) {
       return (
@@ -119,9 +121,9 @@ export class SbbCheckbox {
             event.stopPropagation();
             this.checked = this._checkbox?.checked;
           }}
-          aria-label={this.acceccibilityLabel}
-          aria-labelledby={this.acceccibilityLabelledby}
-          aria-describedby={this.acceccibilityDescribedBy}
+          aria-label={this.accessibilityLabel}
+          aria-labelledby={this.accessibilityLabelledby}
+          aria-describedby={this.accessibilityDescribedby}
         />
         <span class="checkbox__inner">
           <span class="checkbox__selection">
@@ -129,7 +131,7 @@ export class SbbCheckbox {
           </span>
           <span class={`checkbox__label ${iconPlacement} ${labelSpace}`}>
             <slot />
-            {this.labelIcon !== '' ? <sbb-icon name={this.labelIcon} /> : ''}
+            {this.iconName !== '' ? <sbb-icon name={this.iconName} /> : ''}
           </span>
         </span>
       </label>

@@ -484,15 +484,15 @@ export namespace Components {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "acceccibilityDescribedBy"?: string;
+        "accessibilityDescribedby": string;
         /**
           * The aria-label prop for the hidden input.
          */
-        "acceccibilityLabel"?: string;
+        "accessibilityLabel": string;
         /**
           * The aria-labelledby prop for the hidden input.
          */
-        "acceccibilityLabelledby"?: string;
+        "accessibilityLabelledby": string;
         /**
           * Whether the checkbox is checked.
          */
@@ -501,6 +501,10 @@ export namespace Components {
           * The disabled prop for the disabled state.
          */
         "disabled": boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+         */
+        "iconName": '';
         /**
           * The label position relative to the labelIcon. Defaults to end
          */
@@ -513,7 +517,6 @@ export namespace Components {
           * Id of the internal input element - default id will be set automatically.
          */
         "inputId": string;
-        "labelIcon": '';
         /**
           * Whether the checkbox label has spacing to the labelIcon.
          */
@@ -2673,15 +2676,15 @@ declare namespace LocalJSX {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "acceccibilityDescribedBy"?: string;
+        "accessibilityDescribedby"?: string;
         /**
           * The aria-label prop for the hidden input.
          */
-        "acceccibilityLabel"?: string;
+        "accessibilityLabel"?: string;
         /**
           * The aria-labelledby prop for the hidden input.
          */
-        "acceccibilityLabelledby"?: string;
+        "accessibilityLabelledby"?: string;
         /**
           * Whether the checkbox is checked.
          */
@@ -2690,6 +2693,10 @@ declare namespace LocalJSX {
           * The disabled prop for the disabled state.
          */
         "disabled": boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+         */
+        "iconName"?: '';
         /**
           * The label position relative to the labelIcon. Defaults to end
          */
@@ -2702,7 +2709,6 @@ declare namespace LocalJSX {
           * Id of the internal input element - default id will be set automatically.
          */
         "inputId"?: string;
-        "labelIcon"?: '';
         /**
           * Whether the checkbox label has spacing to the labelIcon.
          */
