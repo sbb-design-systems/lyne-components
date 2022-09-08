@@ -2,13 +2,7 @@ import events from './sbb-alert.events.ts';
 import readme from './readme.md';
 import { h } from 'jsx-dom';
 
-const Default = (args) => (
-  <sbb-alert {...args}>
-    {args['content-slot-text']} <sbb-link href="#">Show more</sbb-link>
-  </sbb-alert>
-);
-
-const WithoutLink = (args) => <sbb-alert {...args}>{args['content-slot-text']}</sbb-alert>;
+const Default = (args) => <sbb-alert {...args}>{args['content-slot-text']}</sbb-alert>;
 
 const Playground = (args) => (
   <div>
@@ -44,7 +38,7 @@ const CustomSlots = (args) => (
   <sbb-alert {...args}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
     <span slot="title">{args['title-content']}</span>
-    {args['content-slot-text']} <sbb-link href="#">Show more</sbb-link>
+    {args['content-slot-text']}
   </sbb-alert>
 );
 
@@ -99,6 +93,69 @@ const contentSlotText = {
   },
 };
 
+const linkContent = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const href = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const target = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const rel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const accessibilityDescribedby = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const accessibilityLabelledby = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
 const defaultArgTypes = {
   'title-content': titleContent,
   'title-level': titleLevel,
@@ -108,6 +165,13 @@ const defaultArgTypes = {
   'aria-live-politeness': ariaLivePoliteness,
   'icon-name': iconName,
   'content-slot-text': contentSlotText,
+  'link-content': linkContent,
+  href,
+  target,
+  rel,
+  'accessibility-label': accessibilityLabel,
+  'accessibility-describedby': accessibilityDescribedby,
+  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -119,7 +183,14 @@ const defaultArgs = {
   'aria-live-politeness': ariaLivePoliteness.options[2],
   'icon-name': 'info',
   'content-slot-text':
-    "Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
+    "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
+  'link-content': undefined,
+  href: 'https://www.sbb.ch',
+  target: undefined,
+  rel: undefined,
+  'accessibility-label': undefined,
+  'accessibility-describedby': undefined,
+  'accessibility-labelledby': undefined,
 };
 
 export const defaultAlert = Playground.bind({});
@@ -138,9 +209,13 @@ export const withDisabledAnimation = Default.bind({});
 withDisabledAnimation.argTypes = defaultArgTypes;
 withDisabledAnimation.args = { ...defaultArgs, 'disable-animation': true };
 
-export const withoutLink = WithoutLink.bind({});
+export const withoutLink = Default.bind({});
 withoutLink.argTypes = defaultArgTypes;
-withoutLink.args = { ...defaultArgs };
+withoutLink.args = { ...defaultArgs, href: undefined };
+
+export const withCustomLinkText = Default.bind({});
+withCustomLinkText.argTypes = defaultArgTypes;
+withCustomLinkText.args = { ...defaultArgs, ['link-content']: 'Follow this link (custom text)' };
 
 export const iconAndTitleAsSlot = CustomSlots.bind({});
 iconAndTitleAsSlot.argTypes = defaultArgTypes;

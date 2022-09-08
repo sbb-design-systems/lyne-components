@@ -1,9 +1,23 @@
-import { Component, Element, Event, EventEmitter, h, JSX, Host, Method, Prop } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  JSX,
+  Host,
+  Method,
+  Prop,
+  ComponentInterface,
+  Fragment,
+} from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 
 import circleCrossSmallIcon from 'lyne-icons/dist/icons/circle-cross-small.svg';
-import { i18nCloseAlert } from '../../global/i18n';
+import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { LinkProperties, LinkTargetType } from '../../global/interfaces/link-button-properties';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 let nextId = 0;
 
@@ -17,7 +31,7 @@ let nextId = 0;
   styleUrl: 'sbb-alert.scss',
   tag: 'sbb-alert',
 })
-export class SbbAlert {
+export class SbbAlert implements LinkProperties, ComponentInterface {
   /**
    * @internal
    */
@@ -58,7 +72,28 @@ export class SbbAlert {
   @Prop() public titleContent?: string;
 
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @Prop() public titleLevel: InterfaceAlertAttributes['titleLevel'] = '3';
+  @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
+
+  /** This will be forwarded as aria-label to the relevant nested element. */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  @Prop() public accessibilityLabelledby: string | undefined;
+
+  /** The href value you want to link to. */
+  @Prop() public href: string | undefined;
+
+  /** The relationship of the linked URL as space-separated link types. */
+  @Prop() public rel: string | undefined;
+
+  /** Where to display the linked URL. */
+  @Prop() public target: LinkTargetType | string | undefined;
+
+  /** Content of the link */
+  @Prop() public linkContent?: string;
 
   /** Emits when the fade in animation starts. */
   @Event({
@@ -85,7 +120,7 @@ export class SbbAlert {
   private _transitionWrapperElement!: HTMLElement;
   private _alertElement!: HTMLElement;
   private _firstRenderingDone = false;
-  private _currentLanguage = getDocumentLang();
+  private _currentLangauge = getDocumentLang();
 
   public componentDidRender(): void {
     if (!this._firstRenderingDone) {
@@ -95,7 +130,6 @@ export class SbbAlert {
   }
 
   /** Present the alert. */
-  // eslint-disable-next-line require-await
   @Method() public async present(): Promise<void> {
     if (this.presented) {
       return;
@@ -120,7 +154,6 @@ export class SbbAlert {
   }
 
   /** Dismiss the alert. */
-  // eslint-disable-next-line require-await
   @Method() public async dismiss(): Promise<void> {
     if (!this.presented) {
       return;
@@ -159,9 +192,18 @@ export class SbbAlert {
     this.didPresent.emit();
   }
 
-  public render(): JSX.Element {
-    const a11yCloseAlert = i18nCloseAlert[this._currentLanguage];
+  private _linkProperties(): LinkProperties {
+    return {
+      accessibilityLabel: this.accessibilityLabel,
+      accessibilityDescribedby: this.accessibilityDescribedby,
+      accessibilityLabelledby: this.accessibilityLabelledby,
+      href: this.href,
+      rel: this.rel,
+      target: this.target,
+    };
+  }
 
+  public render(): JSX.Element {
     return (
       <Host role="alert" aria-live={this.ariaLivePoliteness}>
         <div
@@ -185,9 +227,7 @@ export class SbbAlert {
             }}
           >
             <span class="sbb-alert__icon">
-              <slot name="icon">
-                <sbb-icon name={this.iconName}></sbb-icon>
-              </slot>
+              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
             </span>
             <span class="sbb-alert__content">
               <sbb-title
@@ -198,6 +238,14 @@ export class SbbAlert {
                 <slot name="title">{this.titleContent}</slot>
               </sbb-title>
               <slot />
+              {this.href && (
+                <Fragment>
+                  &nbsp;
+                  <sbb-link {...this._linkProperties()} variant="inline" negative>
+                    {this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLangauge]}
+                  </sbb-link>
+                </Fragment>
+              )}
             </span>
             {!this.readonly && (
               <span class="sbb-alert__close-button-wrapper">
@@ -206,7 +254,7 @@ export class SbbAlert {
                   icon={true}
                   size="m"
                   onClick={this.dismiss.bind(this)}
-                  iconDescription={a11yCloseAlert}
+                  iconDescription={i18nCloseAlert[this._currentLangauge]}
                   aria-controls={this.internalId}
                   class="sbb-alert__close-button"
                   innerHTML={circleCrossSmallIcon}

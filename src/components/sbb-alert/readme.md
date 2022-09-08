@@ -45,15 +45,22 @@ heading tag for screen reader users.
 
 ## Properties
 
-| Property             | Attribute              | Description                                                                                                                                                                     | Type                                     | Default       |
-| -------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------- |
-| `ariaLivePoliteness` | `aria-live-politeness` | Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`. As the role `alert` is applied too, default is `assertive`. | `"assertive" \| "off" \| "polite"`       | `'assertive'` |
-| `disableAnimation`   | `disable-animation`    | Whether the fade in animation should be disabled.                                                                                                                               | `boolean`                                | `false`       |
-| `iconName`           | `icon-name`            | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.       | `string`                                 | `'info'`      |
-| `readonly`           | `readonly`             | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                                | `boolean`                                | `false`       |
-| `size`               | `size`                 | You can choose between `m` or `l` size.                                                                                                                                         | `"l" \| "m"`                             | `'m'`         |
-| `titleContent`       | `title-content`        | Content of title.                                                                                                                                                               | `string`                                 | `undefined`   |
-| `titleLevel`         | `title-level`          | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                                 | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`         |
+| Property                   | Attribute                   | Description                                                                                                                                                                     | Type                                     | Default       |
+| -------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------- |
+| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.                                                                                                      | `string`                                 | `undefined`   |
+| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                                                                                            | `string`                                 | `undefined`   |
+| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                                                                                                       | `string`                                 | `undefined`   |
+| `ariaLivePoliteness`       | `aria-live-politeness`      | Aria-live politeness defines how to announce the alert to the user. Choose between `off`, `polite` and `assertive`. As the role `alert` is applied too, default is `assertive`. | `"assertive" \| "off" \| "polite"`       | `'assertive'` |
+| `disableAnimation`         | `disable-animation`         | Whether the fade in animation should be disabled.                                                                                                                               | `boolean`                                | `false`       |
+| `href`                     | `href`                      | The href value you want to link to.                                                                                                                                             | `string`                                 | `undefined`   |
+| `iconName`                 | `icon-name`                 | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.       | `string`                                 | `'info'`      |
+| `linkContent`              | `link-content`              | Content of the link                                                                                                                                                             | `string`                                 | `undefined`   |
+| `readonly`                 | `readonly`                  | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                                | `boolean`                                | `false`       |
+| `rel`                      | `rel`                       | The relationship of the linked URL as space-separated link types.                                                                                                               | `string`                                 | `undefined`   |
+| `size`                     | `size`                      | You can choose between `m` or `l` size.                                                                                                                                         | `"l" \| "m"`                             | `'m'`         |
+| `target`                   | `target`                    | Where to display the linked URL.                                                                                                                                                | `string`                                 | `undefined`   |
+| `titleContent`             | `title-content`             | Content of title.                                                                                                                                                               | `string`                                 | `undefined`   |
+| `titleLevel`               | `title-level`               | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                                 | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`         |
 
 
 ## Events
@@ -103,6 +110,7 @@ Type: `Promise<void>`
 
 - [sbb-icon](../sbb-icon)
 - [sbb-title](../sbb-title)
+- [sbb-link](../sbb-link)
 - [sbb-button](../sbb-button)
 
 ### Graph
@@ -110,8 +118,12 @@ Type: `Promise<void>`
 graph TD;
   sbb-alert --> sbb-icon
   sbb-alert --> sbb-title
+  sbb-alert --> sbb-link
   sbb-alert --> sbb-button
+  sbb-link --> sbb-icon
   style sbb-alert fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
+
+

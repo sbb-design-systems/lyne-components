@@ -32,7 +32,7 @@
   gap: var(--sbb-alert-gap);
   min-width: fit-content;
   padding: var(--sbb-alert-padding);
-  overflow-y: hidden;
+  overflow: hidden;
   color: var(--sbb-alert-color);
   background-color: var(--sbb-alert-background-color);
   border-radius: var(--sbb-alert-border-radius);

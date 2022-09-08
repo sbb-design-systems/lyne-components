@@ -348,4 +348,11 @@ export const i18nCloseAlert: any = {
   it: 'Chiudere il messaggio',
 };
 
+export const i18nFindOutMore: any = {
+  de: 'Mehr erfahren',
+  en: 'Find out more',
+  fr: 'En savoir plus',
+  it: 'Per saperne più',
+};
+
 /* eslint-enable sort-keys */
