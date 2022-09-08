@@ -122,8 +122,14 @@ declare type TripSummary = {
   tripStatus: TripStatus;
 };
 
+declare type Price = {
+  price: string;
+  text: string;
+  isDiscount: boolean;
+};
+
 declare type Trip = {
-  price?: string;
+  price?: Price;
 
   /** List of transfer points */
   legs?: Leg[];

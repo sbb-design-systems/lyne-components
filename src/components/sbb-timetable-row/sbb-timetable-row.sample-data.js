@@ -1,5 +1,9 @@
 export const config = {
-  price: '% ab CHF 39.90',
+  price: {
+    price: '12',
+    text: 'ab CHF',
+    isDiscount: true,
+  },
   legs: [
     {
       duration: 360,

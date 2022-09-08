@@ -79,7 +79,7 @@ export class SbbTimetableRow {
       duration,
     } = this.config?.summary || {};
 
-    const badgeClass = price?.length ? 'timetable__row-badge' : '';
+    const badgeClass = price?.price ? 'timetable__row-badge' : '';
 
     const sortedNotices = this._sortPriority(notices);
     const sortedSituations = this._sortPriority(situations);
@@ -92,9 +92,12 @@ export class SbbTimetableRow {
       >
         <div class={`timetable__row ${badgeClass}`} role="row">
           {price && (
-            <sbb-card-badge>
-              <span slot="generic">{price}</span>
-            </sbb-card-badge>
+            <sbb-card-badge
+              appearance={price.isDiscount ? 'primary' : 'primary-negative'}
+              price={price.price}
+              text={price.text}
+              isDiscount={price.isDiscount}
+            />
           )}
 
           <div class="timetable__row-header" role="rowheader">

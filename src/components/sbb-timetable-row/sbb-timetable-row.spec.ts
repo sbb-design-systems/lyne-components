@@ -19,11 +19,7 @@ describe('sbb-timetable-row', () => {
           <mock:shadow-root>
             <sbb-timetable-row-button role="presentation">
               <div class="timetable__row timetable__row-badge" role="row">
-                <sbb-card-badge>
-                  <span slot="generic">
-                    % ab CHF 39.90
-                  </span>
-                </sbb-card-badge>
+                <sbb-card-badge appearance="primary" isdiscount="" price="12" text="ab CHF"></sbb-card-badge>
                 <div class="timetable__row-header" role="rowheader">
                   <div class="timetable__row-details">
                     <sbb-icon name="train-small"></sbb-icon>
