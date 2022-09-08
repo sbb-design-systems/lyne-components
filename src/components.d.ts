@@ -506,6 +506,10 @@ export namespace Components {
          */
         "iconPlacement": InterfaceCheckboxAttributes['iconPlacement'];
         /**
+          * Whether the checkbox is indeterminate.
+         */
+        "indeterminate"?: boolean;
+        /**
           * Id of the internal input element - default id will be set automatically.
          */
         "inputId": string;
@@ -522,10 +526,6 @@ export namespace Components {
           * The required prop for the required state.
          */
         "required"?: boolean;
-        /**
-          * Whether the checkbox is tristated.
-         */
-        "tristated"?: boolean;
         /**
           * Value of checkbox.
          */
@@ -2695,6 +2695,10 @@ declare namespace LocalJSX {
          */
         "iconPlacement"?: InterfaceCheckboxAttributes['iconPlacement'];
         /**
+          * Whether the checkbox is indeterminate.
+         */
+        "indeterminate"?: boolean;
+        /**
           * Id of the internal input element - default id will be set automatically.
          */
         "inputId"?: string;
@@ -2715,10 +2719,6 @@ declare namespace LocalJSX {
           * The required prop for the required state.
          */
         "required"?: boolean;
-        /**
-          * Whether the checkbox is tristated.
-         */
-        "tristated"?: boolean;
         /**
           * Value of checkbox.
          */

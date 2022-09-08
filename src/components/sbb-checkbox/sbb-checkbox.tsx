@@ -31,8 +31,8 @@ export class SbbCheckbox {
   /** The required prop for the required state. */
   @Prop() public required?: boolean;
 
-  /** Whether the checkbox is tristated. */
-  @Prop() public tristated?: boolean;
+  /** Whether the checkbox is indeterminate. */
+  @Prop() public indeterminate?: boolean;
 
   /** The label position relative to the labelIcon. Defaults to end */
   @Prop() public iconPlacement: InterfaceCheckboxAttributes['iconPlacement'] = 'end';
@@ -54,7 +54,7 @@ export class SbbCheckbox {
 
   /** render the svg acording to the state */
   private _renderStateIcon(): JSX.Element {
-    if (this.tristated) {
+    if (this.indeterminate) {
       return (
         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="2" viewBox="0 0 8 2" fill="none">
           <path

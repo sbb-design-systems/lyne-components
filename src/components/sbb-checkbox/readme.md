@@ -52,12 +52,12 @@ to describe the element on which the attribute is set.
 | `checked`                  | `checked`                    | Whether the checkbox is checked.                                         | `boolean`          | `undefined`                  |
 | `disabled` _(required)_    | `disabled`                   | The disabled prop for the disabled state.                                | `boolean`          | `undefined`                  |
 | `iconPlacement`            | `icon-placement`             | The label position relative to the labelIcon. Defaults to end            | `"end" \| "start"` | `'end'`                      |
+| `indeterminate`            | `indeterminate`              | Whether the checkbox is indeterminate.                                   | `boolean`          | `undefined`                  |
 | `inputId`                  | `input-id`                   | Id of the internal input element - default id will be set automatically. | `string`           | ``sbb-checkbox-${++nextId}`` |
 | `labelIcon`                | `label-icon`                 |                                                                          | `""`               | `undefined`                  |
 | `labelSpace`               | `label-space`                | Whether the checkbox label has spacing to the labelIcon.                 | `boolean`          | `false`                      |
 | `name`                     | `name`                       | Name of the checkbox                                                     | `string`           | `undefined`                  |
 | `required`                 | `required`                   | The required prop for the required state.                                | `boolean`          | `undefined`                  |
-| `tristated`                | `tristated`                  | Whether the checkbox is tristated.                                       | `boolean`          | `undefined`                  |
 | `value`                    | `value`                      | Value of checkbox.                                                       | `string`           | `undefined`                  |
 
 

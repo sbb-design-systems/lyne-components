@@ -11,7 +11,7 @@ const checked = {
   },
 };
 
-const tristated = {
+const indeterminate = {
   control: {
     type: 'boolean',
   },
@@ -38,7 +38,7 @@ const iconPlacement = {
 
 const defaultArgTypes = {
   checked,
-  tristated,
+  indeterminate,
   disabled,
   label,
   'icon-placement': iconPlacement,
@@ -46,7 +46,7 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   checked: false,
-  tristated: tristated,
+  indeterminate: indeterminate,
   disabled: false,
   label: 'Label',
   name: 'checkbox',
@@ -80,7 +80,7 @@ sbbCheckboxDefault.args = {
 sbbCheckboxTristated.argTypes = defaultArgTypes;
 sbbCheckboxTristated.args = {
   ...defaultArgs,
-  tristated: true,
+  indeterminate: true,
 };
 
 sbbCheckboxWithLabelIcon.argTypes = defaultArgTypes;
@@ -114,7 +114,7 @@ sbbCheckboxDisabledTristated.argTypes = defaultArgTypes;
 sbbCheckboxDisabledTristated.args = {
   ...defaultArgs,
   disabled: true,
-  tristated: true,
+  indeterminate: true,
 };
 
 sbbCheckboxDefault.documentation = {
