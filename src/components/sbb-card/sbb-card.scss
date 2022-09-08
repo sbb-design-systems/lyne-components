@@ -35,9 +35,7 @@
   --sbb-card-padding-block: var(--sbb-spacing-responsive-s);
 }
 
-:host(.sbb-card__badge[size='m']),
-:host(.sbb-card__badge[size='l']),
-:host(.sbb-card__badge[size='xl']) {
+:host(.sbb-card__badge) {
   padding-block-start: var(--sbb-spacing-fixed-6x);
 }
 
