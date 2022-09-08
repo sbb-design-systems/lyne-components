@@ -35,13 +35,13 @@
   --sbb-card-padding-block: var(--sbb-spacing-responsive-s);
 }
 
-:host(.card__badge[size='m']),
-:host(.card__badge[size='l']),
-:host(.card__badge[size='xl']) {
+:host(.sbb-card__badge[size='m']),
+:host(.sbb-card__badge[size='l']),
+:host(.sbb-card__badge[size='xl']) {
   padding-block-start: var(--sbb-spacing-fixed-6x);
 }
 
-.card__content {
+.sbb-card__content {
   display: block;
   transition: transform var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
 }
@@ -52,7 +52,7 @@
 
     cursor: pointer;
 
-    .card__content {
+    .sbb-card__content {
       transform: translateY(#{px-to-rem-build(-2)});
     }
   }
