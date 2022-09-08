@@ -484,15 +484,15 @@ export namespace Components {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "accessibilityDescribedby": string;
+        "accessibilityDescribedby": string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
         /**
           * The aria-labelledby prop for the hidden input.
          */
-        "accessibilityLabelledby": string;
+        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the checkbox is checked.
          */
@@ -2676,15 +2676,15 @@ declare namespace LocalJSX {
         /**
           * The aria-describedby prop for the hidden input.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby"?: string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel"?: string | undefined;
         /**
           * The aria-labelledby prop for the hidden input.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the checkbox is checked.
          */

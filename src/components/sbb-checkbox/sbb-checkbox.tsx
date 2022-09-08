@@ -9,7 +9,6 @@ let nextId = 0;
   tag: 'sbb-checkbox',
 })
 export class SbbCheckbox implements AccessibilityProperties {
-
   private _checkbox: HTMLInputElement;
 
   /** Whether the checkbox is checked. */
@@ -24,7 +23,7 @@ export class SbbCheckbox implements AccessibilityProperties {
   /** Id of the internal input element - default id will be set automatically. */
   @Prop() public inputId = `sbb-checkbox-${++nextId}`;
 
-    /** The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). */
+  /** The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). */
   @Prop() public iconName: '';
 
   /** The disabled prop for the disabled state. */
@@ -43,13 +42,13 @@ export class SbbCheckbox implements AccessibilityProperties {
   @Prop() public labelSpace = false;
 
   /** The aria-label prop for the hidden input. */
-  @Prop() public accessibilityLabel: string;
+  @Prop() public accessibilityLabel: string | undefined;
 
   /** The aria-labelledby prop for the hidden input. */
-  @Prop() public accessibilityLabelledby: string;
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /** The aria-describedby prop for the hidden input. */
-  @Prop() public accessibilityDescribedby: string;
+  @Prop() public accessibilityDescribedby: string | undefined;
 
   /** Event for emiting whenever selection is changed. */
   @Event() public sbbChange: EventEmitter;
@@ -102,12 +101,12 @@ export class SbbCheckbox implements AccessibilityProperties {
   }
 
   public render(): JSX.Element {
-    const disabled = this.disabled ? 'checkbox--disabled' : '';
-    const iconPlacement = this.iconPlacement === 'start' ? `checkbox__label--start` : '';
-    const labelSpace = this.labelSpace ? `checkbox__label--space` : '';
+    const disabled = this.disabled ? 'sbb-checkbox--disabled' : '';
+    const iconPlacement = this.iconPlacement === 'start' ? `sbb-checkbox__label--start` : '';
+    const labelSpace = this.labelSpace ? `sbb-checkbox__label--space` : '';
 
     return (
-      <label class={`checkbox ${disabled}`} htmlFor={this.inputId}>
+      <label class={`sbb-checkbox ${disabled}`} htmlFor={this.inputId}>
         <input
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
@@ -125,11 +124,11 @@ export class SbbCheckbox implements AccessibilityProperties {
           aria-labelledby={this.accessibilityLabelledby}
           aria-describedby={this.accessibilityDescribedby}
         />
-        <span class="checkbox__inner">
-          <span class="checkbox__selection">
-            <span class="checkbox__icon">{this._renderStateIcon()}</span>
+        <span class="sbb-checkbox__inner">
+          <span class="sbb-checkbox__selection">
+            <span class="sbb-checkbox__icon">{this._renderStateIcon()}</span>
           </span>
-          <span class={`checkbox__label ${iconPlacement} ${labelSpace}`}>
+          <span class={`sbb-checkbox__label ${iconPlacement} ${labelSpace}`}>
             <slot />
             {this.iconName !== '' ? <sbb-icon name={this.iconName} /> : ''}
           </span>

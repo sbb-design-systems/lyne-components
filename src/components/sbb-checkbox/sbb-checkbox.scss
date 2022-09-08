@@ -1,34 +1,36 @@
-:host {
-  display: block;
+@include host-component-properties;
 
-  --checkbox-border-width: #{px-to-rem-build(1)};
+:host {
+  --checkbox-border-width: var(--sbb-border-width-1x);
   --checkbox-width: calc(#{px-to-rem-build(18)} - var(--checkbox-border-width));
   --checkbox-height: var(--checkbox-width);
   --checkbox-border-color: var(--sbb-color-smoke-default);
   --checkbox-selection-color: var(--sbb-color-red-default);
   --checkbox-label-color: var(--sbb-color-charcoal-default);
   --checkbox-cursor: pointer;
-
-  .checkbox--disabled {
-    --checkbox-color: var(--sbb-color-graphite-default);
-    --checkbox-border-color: var(--sbb-color-graphite-default);
-    --checkbox-selection-color: var(--sbb-color-graphite-default);
-    --checkbox-label-color: var(--sbb-color-smoke-default);
-    --checkbox-cursor: not-allowed;
-  }
+  --checkbox-border-radius: #{px-to-rem-build(4)};
 }
 
-.checkbox {
+.sbb-checkbox--disabled {
+  --checkbox-color: var(--sbb-color-graphite-default);
+  --checkbox-border-color: var(--sbb-color-graphite-default);
+  --checkbox-selection-color: var(--sbb-color-graphite-default);
+  --checkbox-label-color: var(--sbb-color-smoke-default);
+  --checkbox-cursor: not-allowed;
+}
+
+.sbb-checkbox {
   @include text-s--regular;
 
   position: relative;
   display: block;
-  color: var(--sbb-color-charcoal-default);
+  color: var(--checkbox-label-color);
 }
 
-.checkbox__inner {
+.sbb-checkbox__inner {
   display: flex;
   align-items: center;
+  gap: var(--sbb-spacing-fixed-2x);
 }
 
 input[type='checkbox'] {
@@ -46,18 +48,18 @@ input[type='checkbox'] {
   z-index: -1;
 }
 
-.checkbox__selection {
+.sbb-checkbox__selection {
   position: relative;
   cursor: var(--checkbox-cursor);
   min-width: var(--checkbox-width);
   height: var(--checkbox-height);
-  border-radius: #{px-to-rem-build(4)};
+  border-radius: var(--checkbox-border-radius);
   border: var(--checkbox-border-width) solid var(--checkbox-border-color);
   background-color: var(--sbb-color-white-default);
 }
 
 // todo: icon is bigger then --checkbox-width
-.checkbox__icon {
+.sbb-checkbox__icon {
   display: inline-flex;
   position: absolute;
   width: 100%;
@@ -67,23 +69,22 @@ input[type='checkbox'] {
     margin: auto;
   }
 
-  svg path {
+  path {
     stroke: var(--checkbox-selection-color);
   }
 }
 
-.checkbox__label {
+.sbb-checkbox__label {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
-  margin-left: var(--sbb-spacing-fixed-2x);
   color: var(--checkbox-label-color);
 }
 
-.checkbox__label--start {
+.sbb-checkbox__label--start {
   flex-direction: row-reverse;
 }
 
-.checkbox__label--space {
+.sbb-checkbox__label--space {
   width: 100%;
   justify-content: space-between;
 }
