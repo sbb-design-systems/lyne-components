@@ -29,11 +29,11 @@ const label = {
   },
 };
 
-const labelPosition = {
+const iconPlacement = {
   control: {
     type: 'select',
   },
-  options: ['before', 'after'],
+  options: ['start', 'end'],
 };
 
 const defaultArgTypes = {
@@ -41,7 +41,7 @@ const defaultArgTypes = {
   tristated,
   disabled,
   label,
-  'label-position': labelPosition,
+  'icon-placement': iconPlacement,
 };
 
 const defaultArgs = {
@@ -100,7 +100,7 @@ sbbCheckboxWithLabelIconReversed.argTypes = defaultArgTypes;
 sbbCheckboxWithLabelIconReversed.args = {
   ...defaultArgs,
   'label-icon': 'tickets-class-small',
-  'label-position': labelPosition.options[0],
+  'icon-placement': iconPlacement.options[0],
 };
 
 sbbCheckboxDisabledChecked.argTypes = defaultArgTypes;

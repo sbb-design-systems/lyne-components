@@ -1,3 +1,3 @@
 export interface InterfaceCheckboxAttributes {
-  labelPosition?: 'before' | 'after';
+  iconPlacement?: 'start' | 'end';
 }

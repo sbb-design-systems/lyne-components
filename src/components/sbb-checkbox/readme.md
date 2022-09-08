@@ -44,21 +44,21 @@ to describe the element on which the attribute is set.
 
 ## Properties
 
-| Property                   | Attribute                    | Description                                                              | Type                  | Default                      |
-| -------------------------- | ---------------------------- | ------------------------------------------------------------------------ | --------------------- | ---------------------------- |
-| `acceccibilityDescribedBy` | `acceccibility-described-by` | The aria-describedby prop for the hidden input.                          | `string`              | `undefined`                  |
-| `acceccibilityLabel`       | `acceccibility-label`        | The aria-label prop for the hidden input.                                | `string`              | `undefined`                  |
-| `acceccibilityLabelledby`  | `acceccibility-labelledby`   | The aria-labelledby prop for the hidden input.                           | `string`              | `undefined`                  |
-| `checked`                  | `checked`                    | Whether the checkbox is checked.                                         | `boolean`             | `undefined`                  |
-| `disabled` _(required)_    | `disabled`                   | The disabled prop for the disabled state.                                | `boolean`             | `undefined`                  |
-| `inputId`                  | `input-id`                   | Id of the internal input element - default id will be set automatically. | `string`              | ``sbb-checkbox-${++nextId}`` |
-| `labelIcon`                | `label-icon`                 |                                                                          | `""`                  | `undefined`                  |
-| `labelPosition`            | `label-position`             | The label position relative to the labelIcon. Defaults to false          | `"after" \| "before"` | `'after'`                    |
-| `labelSpace`               | `label-space`                | Whether the checkbox label has spacing to the labelIcon.                 | `boolean`             | `false`                      |
-| `name`                     | `name`                       | Name of the checkbox                                                     | `string`              | `undefined`                  |
-| `required`                 | `required`                   | The required prop for the required state.                                | `boolean`             | `undefined`                  |
-| `tristated`                | `tristated`                  | Whether the checkbox is tristated.                                       | `boolean`             | `undefined`                  |
-| `value`                    | `value`                      | Value of checkbox.                                                       | `string`              | `undefined`                  |
+| Property                   | Attribute                    | Description                                                              | Type               | Default                      |
+| -------------------------- | ---------------------------- | ------------------------------------------------------------------------ | ------------------ | ---------------------------- |
+| `acceccibilityDescribedBy` | `acceccibility-described-by` | The aria-describedby prop for the hidden input.                          | `string`           | `undefined`                  |
+| `acceccibilityLabel`       | `acceccibility-label`        | The aria-label prop for the hidden input.                                | `string`           | `undefined`                  |
+| `acceccibilityLabelledby`  | `acceccibility-labelledby`   | The aria-labelledby prop for the hidden input.                           | `string`           | `undefined`                  |
+| `checked`                  | `checked`                    | Whether the checkbox is checked.                                         | `boolean`          | `undefined`                  |
+| `disabled` _(required)_    | `disabled`                   | The disabled prop for the disabled state.                                | `boolean`          | `undefined`                  |
+| `iconPlacement`            | `icon-placement`             | The label position relative to the labelIcon. Defaults to end            | `"end" \| "start"` | `'end'`                      |
+| `inputId`                  | `input-id`                   | Id of the internal input element - default id will be set automatically. | `string`           | ``sbb-checkbox-${++nextId}`` |
+| `labelIcon`                | `label-icon`                 |                                                                          | `""`               | `undefined`                  |
+| `labelSpace`               | `label-space`                | Whether the checkbox label has spacing to the labelIcon.                 | `boolean`          | `false`                      |
+| `name`                     | `name`                       | Name of the checkbox                                                     | `string`           | `undefined`                  |
+| `required`                 | `required`                   | The required prop for the required state.                                | `boolean`          | `undefined`                  |
+| `tristated`                | `tristated`                  | Whether the checkbox is tristated.                                       | `boolean`          | `undefined`                  |
+| `value`                    | `value`                      | Value of checkbox.                                                       | `string`           | `undefined`                  |
 
 
 ## Events

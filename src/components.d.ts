@@ -502,14 +502,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * The label position relative to the labelIcon. Defaults to end
+         */
+        "iconPlacement": InterfaceCheckboxAttributes['iconPlacement'];
+        /**
           * Id of the internal input element - default id will be set automatically.
          */
         "inputId": string;
         "labelIcon": '';
-        /**
-          * The label position relative to the labelIcon. Defaults to false
-         */
-        "labelPosition": InterfaceCheckboxAttributes['labelPosition'];
         /**
           * Whether the checkbox label has spacing to the labelIcon.
          */
@@ -2691,14 +2691,14 @@ declare namespace LocalJSX {
          */
         "disabled": boolean;
         /**
+          * The label position relative to the labelIcon. Defaults to end
+         */
+        "iconPlacement"?: InterfaceCheckboxAttributes['iconPlacement'];
+        /**
           * Id of the internal input element - default id will be set automatically.
          */
         "inputId"?: string;
         "labelIcon"?: '';
-        /**
-          * The label position relative to the labelIcon. Defaults to false
-         */
-        "labelPosition"?: InterfaceCheckboxAttributes['labelPosition'];
         /**
           * Whether the checkbox label has spacing to the labelIcon.
          */

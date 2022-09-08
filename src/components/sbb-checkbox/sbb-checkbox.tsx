@@ -34,8 +34,8 @@ export class SbbCheckbox {
   /** Whether the checkbox is tristated. */
   @Prop() public tristated?: boolean;
 
-  /** The label position relative to the labelIcon. Defaults to false */
-  @Prop() public labelPosition: InterfaceCheckboxAttributes['labelPosition'] = 'after';
+  /** The label position relative to the labelIcon. Defaults to end */
+  @Prop() public iconPlacement: InterfaceCheckboxAttributes['iconPlacement'] = 'end';
 
   /** Whether the checkbox label has spacing to the labelIcon. */
   @Prop() public labelSpace = false;
@@ -101,7 +101,7 @@ export class SbbCheckbox {
 
   public render(): JSX.Element {
     const disabled = this.disabled ? 'checkbox--disabled' : '';
-    const labelPosition = this.labelPosition === 'before' ? `checkbox__label--before` : '';
+    const iconPlacement = this.iconPlacement === 'start' ? `checkbox__label--start` : '';
     const labelSpace = this.labelSpace ? `checkbox__label--space` : '';
 
     return (
@@ -127,7 +127,7 @@ export class SbbCheckbox {
           <span class="checkbox__selection">
             <span class="checkbox__icon">{this._renderStateIcon()}</span>
           </span>
-          <span class={`checkbox__label ${labelPosition} ${labelSpace}`}>
+          <span class={`checkbox__label ${iconPlacement} ${labelSpace}`}>
             <slot />
             {this.labelIcon !== '' ? <sbb-icon name={this.labelIcon} /> : ''}
           </span>
