@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from './sbb-checkbox.events';
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -125,6 +126,9 @@ export default {
   title: 'components/sbb-checkbox',
 
   parameters: {
+    actions: {
+      handles: [events.sbbChange],
+    },
     backgrounds: {
       disable: true,
     },
