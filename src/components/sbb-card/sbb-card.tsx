@@ -40,7 +40,7 @@ export class SbbCard {
             }
           />
         )}
-        <span class="card__content">
+        <span class="sbb-card__content">
           <slot />
         </span>
       </Host>
