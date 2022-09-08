@@ -13,7 +13,7 @@ import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 })
 export class SbbCard {
   /**
-   * Size variant, either xs, s, m, l, xl and xxl.
+   * Size variant, either xs, s, m, l, xl or xxl.
    */
   @Prop() public size?: InterfaceSbbCardAttributes['size'] = 'm';
 

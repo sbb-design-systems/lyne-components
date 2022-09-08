@@ -10,12 +10,16 @@ import {
   State,
 } from '@stencil/core';
 import {
-  getLinkButtonAttributeList,
+  getButtonAttributeList,
+  getLinkAttributeList,
   getLinkButtonBaseAttributeList,
   LinkButtonProperties,
+  LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { hostContext } from '../../global/helpers/host-context';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -74,6 +78,16 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   @Prop() public download?: boolean;
 
   /**
+   * The relationship of the linked URL as space-separated link types.
+   */
+  @Prop() public rel?: string | undefined;
+
+  /**
+   * Where to display the linked URL.
+   */
+  @Prop() public target?: LinkTargetType | string | undefined;
+
+  /**
    * Pass in an id, if you need to identify the link element (optional).
    */
   @Prop() public idValue?: string;
@@ -87,6 +101,11 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
    * Type attribute if link is used as button (optional)
    */
   @Prop() public type: InterfaceLinkAttributes['buttonType'] | undefined;
+
+  /**
+   * The value associated with button `name` when it's submitted with the form data.
+   */
+  @Prop() public value?: string;
 
   /**
    * Emits whenever the native button click event triggers.
@@ -160,25 +179,38 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
 
   public render(): JSX.Element {
     let TAG_NAME: string;
-    let attributeList: object = getLinkButtonBaseAttributeList(
-      this.idValue,
-      this._getClassString(),
-      this
-    );
+    let attributeList: Record<string, string>;
+    let shouldDisplayNewWindowText = false;
+
     if (this._isStatic) {
       TAG_NAME = 'span';
+      attributeList = getLinkButtonBaseAttributeList(this);
+    } else if (this.href) {
+      TAG_NAME = 'a';
+      attributeList = getLinkAttributeList(this, this);
+      shouldDisplayNewWindowText = !this.accessibilityLabel && this.target === '_blank';
     } else {
-      TAG_NAME = this.href ? 'a' : 'button';
-      attributeList = getLinkButtonAttributeList(this.idValue, this._getClassString(), this);
+      TAG_NAME = 'button';
+      attributeList = getButtonAttributeList(this);
     }
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <TAG_NAME {...attributeList} ref={(btn) => this.form && btn?.setAttribute('form', this.form)}>
+      <TAG_NAME
+        id={this.idValue}
+        class={this._getClassString()}
+        {...attributeList}
+        ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
+      >
         {this.variant !== 'inline' && (
           <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         )}
         <slot />
+        {shouldDisplayNewWindowText && (
+          <span class="sbb-link__opens-in-new-window">
+            . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+          </span>
+        )}
       </TAG_NAME>
     );
   }

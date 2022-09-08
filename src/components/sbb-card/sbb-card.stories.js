@@ -29,7 +29,7 @@ export const sbbCard = Template.bind({});
 
 sbbCard.argTypes = basicArgTypes;
 
-sbbCard.args = JSON.parse(JSON.stringify(basicArgs));
+sbbCard.args = { ...basicArgs };
 
 sbbCard.documentation = {
   title: 'Card.',
@@ -39,7 +39,7 @@ export const sbbCardWithSbbBadge = TemplateWithBadge.bind({});
 
 sbbCardWithSbbBadge.argTypes = basicArgTypes;
 
-sbbCardWithSbbBadge.args = JSON.parse(JSON.stringify(basicArgs));
+sbbCardWithSbbBadge.args = { ...basicArgs };
 
 sbbCardWithSbbBadge.documentation = {
   title: 'Card with badge (the slot is hidden whether sizes are below m).',
