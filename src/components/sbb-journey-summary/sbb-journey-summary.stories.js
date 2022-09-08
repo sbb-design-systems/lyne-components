@@ -9,6 +9,7 @@ const Template = (args) => (
         paddingTop: '24px',
         justifyContent: 'space-between',
       }}
+      slot="content"
     >
       <sbb-button
         variant="secondary"
@@ -24,10 +25,23 @@ const Template = (args) => (
   </sbb-journey-summary>
 );
 
+const TemplateNoSlot = (args) => <sbb-journey-summary config={args}></sbb-journey-summary>;
+
+export const summaryNoSlot = TemplateNoSlot.bind({});
 export const summary = Template.bind({});
 export const summaryNoVias = Template.bind({});
 export const summaryNoArrivalWalk = Template.bind({});
 export const summaryDate = Template.bind({});
+
+summaryNoSlot.args = {
+  vias: ['via1', 'via2', 'via3', 'via4', 'via5', 'via6'],
+  legs: '{"legs": [{"cancellation": false, "duration": 50},{"cancellation": false, "duration": 50}]}',
+  origin: 'Station',
+  destination: 'Station',
+  departure: { time: '2022-08-29T20:30:00+02:00' },
+  arrival: { time: '2022-08-29T20:35:00+02:00' },
+};
+
 summary.args = {
   vias: ['via1', 'via2', 'via3', 'via4', 'via5', 'via6'],
   legs: '{"legs": [{"cancellation": false, "duration": 50},{"cancellation": false, "duration": 50}]}',

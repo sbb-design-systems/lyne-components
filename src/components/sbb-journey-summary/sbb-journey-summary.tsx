@@ -1,7 +1,7 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop, Element } from '@stencil/core';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, parseISO, intervalToDuration, isValid } from 'date-fns';
-import { format } from 'date-fns-tz'
+import { format } from 'date-fns-tz';
 import {
   i18nArrival,
   i18nDeparture,
@@ -23,6 +23,14 @@ export class SbbJourneySummary {
   @Prop() public config!: InterfaceJourneySummaryAttributes['config'];
 
   private _currentLanguage = getDocumentLang();
+
+  @Element() private _hostElement: HTMLElement;
+
+  private _hasContentSlot: boolean;
+
+  public componentWillLoad(): void {
+    this._hasContentSlot = Boolean(this._hostElement.querySelector('[slot="content"]'));
+  }
 
   /**  formats the duration of the journey */
   private _formatTime(duration: Duration): JSX.Element {
@@ -132,8 +140,7 @@ export class SbbJourneySummary {
           {this._renderJourneyStart(departureTime, arrivalTime)}
           <div class="journey-summary__transportation-details">
             <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
-            {this.config?.departureWalk &&
-              this._renderWalkTime(true, this.config?.departureWalk)}
+            {this.config?.departureWalk && this._renderWalkTime(true, this.config?.departureWalk)}
             {isValid(departureTime) && (
               <time class="journey-summary__time">{format(departureTime, 'HH:mm')}</time>
             )}
@@ -144,10 +151,13 @@ export class SbbJourneySummary {
               <time class="journey-summary__time">{format(arrivalTime, 'HH:mm')}</time>
             )}
             <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-            {this.config?.arrivalWalk &&
-              this._renderWalkTime(false, this.config?.arrivalWalk)}
+            {this.config?.arrivalWalk && this._renderWalkTime(false, this.config?.arrivalWalk)}
           </div>
-          <slot />
+          {this._hasContentSlot && (
+            <div class="journey-summary__slot">
+              <slot name="content" />
+            </div>
+          )}
         </div>
       </div>
     );
