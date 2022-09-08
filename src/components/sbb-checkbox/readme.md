@@ -12,10 +12,35 @@ enhanced with the SBB Design.
 </sbb-checkbox>
 ```
 
+Example with an Icon:
+
+```html
+<sbb-checkbox
+  value="single-checkbox"
+  disabled="false"
+  checked="false"
+  icon-name= "tickets-class-small"
+>
+  Example
+</sbb-checkbox>
+```
+Example with an Icon and placement before the label:
+
+```html
+<sbb-checkbox
+  value="single-checkbox"
+  disabled="false"
+  checked="false"
+  icon-name= "tickets-class-small"
+  icon-placement= "start"
+>
+  Example
+</sbb-checkbox>
+```
 ## Label
 
 The label is provided as the content to the `<sbb-checkbox>` element.
-It can be displayed after or before the checkbox.
+It can be displayed after or before the checkbox with the `icon-placement` property. 
 
 If you don't want the label to appear next to the checkbox, you can use
 `accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) or
@@ -24,7 +49,7 @@ specify an appropriate label.
 
 ## Accessibility
 
-`SbbToggleCheck` uses an internal `<input type="checkbox">` to provide an accessible experience.
+`SbbCheckbox` uses an internal `<input type="checkbox">` to provide an accessible experience.
 This internal checkbox receives focus and is automatically labelled by the text content of the
 `<sbb-checkbox>` element. Avoid adding other interactive controls into the content of
 `<sbb-checkbox>`, as this degrades the experience for users of assistive technology.
