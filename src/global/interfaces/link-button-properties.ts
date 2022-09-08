@@ -125,8 +125,6 @@ export function getLinkAttributeList(
   let ariaLabel = baseAttributeList['aria-label'];
   if (ariaLabel && linkProperties.target === '_blank') {
     ariaLabel += `. ${i18nTargetOpensInNewWindow[getDocumentLang()]}`;
-  } else if (linkProperties.target === '_blank') {
-    ariaLabel = i18nTargetOpensInNewWindow[getDocumentLang()];
   }
 
   return Object.assign(baseAttributeList, {
