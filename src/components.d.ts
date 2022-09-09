@@ -30,7 +30,7 @@ import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
-import { InterfacePearlChainAttributes as InterfacePearlChainAttributes1 } from "./components/sbb-pearl-chain-vertical/sbb-pearl-chain-vertical.custom";
+import { PearlChainItemAttributes } from "./components/sbb-pearl-chain-vertical/sbb-pearl-chain-item/sbb-pearl-chain-item.custom.s";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
@@ -1007,16 +1007,10 @@ export namespace Components {
          */
         "legs": InterfacePearlChainAttributes['legs'];
     }
+    interface SbbPearlChainItem {
+        "pearChainItemAttributes": PearlChainItemAttributes;
+    }
     interface SbbPearlChainVertical {
-        /**
-          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
-         */
-        "disableAnimation"?: boolean;
-        "dotVariant": InterfacePearlChainAttributes1['variant'];
-        /**
-          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
-         */
-        "legs": InterfacePearlChainAttributes1['legs'];
     }
     interface SbbSection {
         /**
@@ -1658,6 +1652,12 @@ declare global {
         prototype: HTMLSbbPearlChainTimeElement;
         new (): HTMLSbbPearlChainTimeElement;
     }
+    interface HTMLSbbPearlChainItemElement extends Components.SbbPearlChainItem, HTMLStencilElement {
+    }
+    var HTMLSbbPearlChainItemElement: {
+        prototype: HTMLSbbPearlChainItemElement;
+        new (): HTMLSbbPearlChainItemElement;
+    };
     interface HTMLSbbPearlChainVerticalElement extends Components.SbbPearlChainVertical, HTMLStencilElement {
     }
     var HTMLSbbPearlChainVerticalElement: {
@@ -1864,6 +1864,7 @@ declare global {
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
+        "sbb-pearl-chain-item": HTMLSbbPearlChainItemElement;
         "sbb-pearl-chain-vertical": HTMLSbbPearlChainVerticalElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
@@ -2876,16 +2877,10 @@ declare namespace LocalJSX {
          */
         "legs": InterfacePearlChainAttributes['legs'];
     }
+    interface SbbPearlChainItem {
+        "pearChainItemAttributes"?: PearlChainItemAttributes;
+    }
     interface SbbPearlChainVertical {
-        /**
-          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
-         */
-        "disableAnimation"?: boolean;
-        "dotVariant"?: InterfacePearlChainAttributes1['variant'];
-        /**
-          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
-         */
-        "legs": InterfacePearlChainAttributes1['legs'];
     }
     interface SbbSection {
         /**
@@ -3340,6 +3335,7 @@ declare namespace LocalJSX {
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
+        "sbb-pearl-chain-item": SbbPearlChainItem;
         "sbb-pearl-chain-vertical": SbbPearlChainVertical;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
@@ -3406,6 +3402,7 @@ declare module "@stencil/core" {
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
+            "sbb-pearl-chain-item": LocalJSX.SbbPearlChainItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainItemElement>;
             "sbb-pearl-chain-vertical": LocalJSX.SbbPearlChainVertical & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
