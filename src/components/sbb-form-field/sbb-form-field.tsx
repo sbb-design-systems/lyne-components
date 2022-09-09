@@ -1,8 +1,22 @@
-import { Component, Host, h, JSX, Prop, State } from '@stencil/core';
+import {
+  Component,
+  Host,
+  h,
+  JSX,
+  Prop,
+  State,
+  ComponentInterface,
+  Element,
+  Listen,
+} from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import {
+  hasNamedSlotElement,
+  observeNamedSlotChanges,
+} from '../../global/helpers/observe-named-slot-changes';
 
 let nextId = 0;
 
@@ -18,7 +32,7 @@ let nextId = 0;
   styleUrl: './sbb-form-field.scss',
   tag: 'sbb-form-field',
 })
-export class SbbFormField {
+export class SbbFormField implements ComponentInterface {
   /**
    * Whether to reserve space for an error message.
    * `none` does not reserve any space.
@@ -71,6 +85,8 @@ export class SbbFormField {
    */
   @State() private _hasSlottedLabel = false;
 
+  @Element() private _element: HTMLElement;
+
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
 
@@ -93,8 +109,20 @@ export class SbbFormField {
     }
   });
 
+  public connectedCallback(): void {
+    this._hasSlottedLabel = hasNamedSlotElement(this._element, 'label');
+    observeNamedSlotChanges(this._element);
+  }
+
   public disconnectedCallback(): void {
     this._formFieldAttributeObserver.disconnect();
+  }
+
+  @Listen('◬slotNameChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    if (event.detail.has('label')) {
+      this._hasSlottedLabel = hasNamedSlotElement(this._element, 'label');
+    }
   }
 
   /**
@@ -173,13 +201,7 @@ export class SbbFormField {
                 htmlFor={this._input?.id}
                 hidden={!this.label && !this._hasSlottedLabel}
               >
-                <slot
-                  name="label"
-                  onSlotchange={(event) =>
-                    (this._hasSlottedLabel =
-                      (event.target as HTMLSlotElement).assignedElements().length > 0)
-                  }
-                >
+                <slot name="label">
                   <span>{this.label}</span>
                 </slot>
                 {this.optional && (
