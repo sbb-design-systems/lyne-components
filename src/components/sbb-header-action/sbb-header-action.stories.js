@@ -16,30 +16,9 @@ const Template = (args) => (
   </div>
 );
 
-const download = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const disabled = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const href = {
+const text = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Link',
   },
 };
 
@@ -55,9 +34,92 @@ const actionHeaderId = {
   },
 };
 
-const text = {
+const expandFrom = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+};
+
+const href = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const download = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const target = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const rel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const name = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const type = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+  table: {
+    category: 'Button',
+  },
+};
+
+const form = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const eventId = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const value = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
   },
 };
 
@@ -67,43 +129,77 @@ const accessibilityLabel = {
   },
 };
 
-const expandFrom = {
+const accessibilityDescribedby = {
   control: {
-    type: 'inline-radio',
+    type: 'text',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+};
+
+const accessibilityLabelledby = {
+  control: {
+    type: 'text',
+  },
 };
 
 const basicArgTypes = {
-  download,
-  disabled,
-  href: href,
-  icon,
-  'action-header-id': actionHeaderId,
-  'accessibility-label': accessibilityLabel,
   text,
+  icon,
   'expand-from': expandFrom,
+  'action-header-id': actionHeaderId,
+  href,
+  target,
+  rel,
+  download,
+  type,
+  name,
+  value,
+  form,
+  eventId,
+  'accessibility-label': accessibilityLabel,
+  'accessibility-describedby': accessibilityDescribedby,
+  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const basicArgs = {
-  download: false,
-  disabled: false,
-  href: 'https://github.com/lyne-design-system/lyne-components',
-  icon: 'hamburger-menu-small',
-  'action-header-id': 'menu',
-  'accessibility-label': 'Accessibility label',
   text: 'Menu',
+  icon: 'hamburger-menu-small',
   'expand-from': expandFrom.options[0],
+  'action-header-id': 'menu',
+  href: 'https://github.com/lyne-design-system/lyne-components',
+  target: '_blank',
+  download: false,
+  type: undefined,
+  name: undefined,
+  value: undefined,
+  form: undefined,
+  eventId: undefined,
+  'accessibility-label': 'Accessibility label',
+  'accessibility-describedby': undefined,
+  'accessibility-labelledby': undefined,
 };
 
-export const sbbHeaderAction = Template.bind({});
-
-sbbHeaderAction.args = JSON.parse(JSON.stringify(basicArgs));
-
-sbbHeaderAction.argTypes = basicArgTypes;
-
-sbbHeaderAction.documentation = {
+export const sbbHeaderActionLink = Template.bind({});
+sbbHeaderActionLink.argTypes = basicArgTypes;
+sbbHeaderActionLink.args = { ...basicArgs };
+sbbHeaderActionLink.documentation = {
   title: 'Header action (link version)',
+};
+
+export const sbbHeaderActionButton = Template.bind({});
+sbbHeaderActionButton.argTypes = basicArgTypes;
+sbbHeaderActionButton.args = {
+  ...basicArgs,
+  href: undefined,
+  target: undefined,
+  download: undefined,
+  type: 'button',
+  name: 'header-button',
+  value: undefined,
+  form: undefined,
+  eventId: 'Header button',
+};
+sbbHeaderActionButton.documentation = {
+  title: 'Header action (button version)',
 };
 
 export default {

@@ -404,9 +404,21 @@ export namespace Components {
          */
         "name": string | undefined;
         /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel": string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target": LinkTargetType | string | undefined;
+        /**
           * Type attribute if component is displayed as a button.
          */
         "type": ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value": string | undefined;
     }
     interface SbbIcon {
         /**
@@ -1874,9 +1886,21 @@ declare namespace LocalJSX {
          */
         "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<any>) => void;
         /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
           * Type attribute if component is displayed as a button.
          */
         "type"?: ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string | undefined;
     }
     interface SbbIcon {
         /**

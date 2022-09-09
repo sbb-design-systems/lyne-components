@@ -4,6 +4,7 @@ import {
   getButtonAttributeList,
   getLinkAttributeList,
   LinkButtonProperties,
+  LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 
@@ -63,6 +64,16 @@ export class SbbHeaderAction implements LinkButtonProperties {
   @Prop() public href: string | undefined;
 
   /**
+   * The relationship of the linked URL as space-separated link types.
+   */
+  @Prop() public rel: string | undefined;
+
+  /**
+   * Where to display the linked URL.
+   */
+  @Prop() public target: LinkTargetType | string | undefined;
+
+  /**
    * Form attribute if component is displayed as a button.
    */
   @Prop() public form: string | undefined;
@@ -76,6 +87,11 @@ export class SbbHeaderAction implements LinkButtonProperties {
    * Type attribute if component is displayed as a button.
    */
   @Prop() public type: ButtonType | undefined;
+
+  /**
+   * The value associated with button `name` when it's submitted with the form data.
+   */
+  @Prop() public value: string | undefined;
 
   /**
    * Id sent in the click event payload

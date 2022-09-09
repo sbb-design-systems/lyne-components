@@ -29,11 +29,11 @@ describe('sbb-header-action', () => {
   it('renders an anchor tag into the shadow root', async () => {
     const { root } = await newSpecPage({
       components: [SbbHeaderAction],
-      html: '<sbb-header-action expand-from="medium" href="https://github.com/lyne-design-system/lyne-components" />',
+      html: '<sbb-header-action expand-from="medium" href="https://github.com/lyne-design-system/lyne-components" target="_blank" />',
     });
 
     expect(root).toEqualHtml(`
-    <sbb-header-action expand-from="medium" href="https://github.com/lyne-design-system/lyne-components">
+    <sbb-header-action expand-from="medium" href="https://github.com/lyne-design-system/lyne-components" target="_blank" >
       <mock:shadow-root>
         <a dir="ltr" id="sbb-action-header-2" rel="external noopener nofollow" target="_blank" class="header-action__link" id="sbb-action-header-2" href="https://github.com/lyne-design-system/lyne-components">
           <span class="header-action__icon">
