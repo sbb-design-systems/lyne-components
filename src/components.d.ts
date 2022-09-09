@@ -1078,17 +1078,16 @@ export namespace Components {
          */
         "accessibilityLabel": string;
         /**
-          * The config Prop
-         */
-        "config"?: InterfaceTimetableRowAttributes['trip'];
-        /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
+        "loadingPrice"?: boolean;
+        "loadingTrip"?: boolean;
+        "price"?: InterfaceTimetableRowAttributes['price'];
         /**
-          * The loading state - when this is true it will be render skeleton with an idling animation
+          * The trip Prop
          */
-        "loading": boolean;
+        "trip"?: InterfaceTimetableRowAttributes['trip'];
     }
     interface SbbTimetableRowButton {
         /**
@@ -2721,17 +2720,16 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string;
         /**
-          * The config Prop
-         */
-        "config"?: InterfaceTimetableRowAttributes['trip'];
-        /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
+        "loadingPrice"?: boolean;
+        "loadingTrip"?: boolean;
+        "price"?: InterfaceTimetableRowAttributes['price'];
         /**
-          * The loading state - when this is true it will be render skeleton with an idling animation
+          * The trip Prop
          */
-        "loading"?: boolean;
+        "trip"?: InterfaceTimetableRowAttributes['trip'];
     }
     interface SbbTimetableRowButton {
         /**

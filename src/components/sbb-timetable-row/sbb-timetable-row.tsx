@@ -7,7 +7,6 @@ import {
   durationToTime,
   isProductIcon,
   renderIconProduct,
-  renderStringProduct,
 } from './sbb-timetable-row.helper';
 
 @Component({
@@ -22,10 +21,12 @@ export class SbbTimetableRow {
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
-  @Prop() public loading = false;
+ 
 
-  /** The config Prop */
-  @Prop() public config?: InterfaceTimetableRowAttributes['trip'];
+  /** The trip Prop */
+  @Prop() public trip?: InterfaceTimetableRowAttributes['trip'];
+
+  @Prop() public price?: InterfaceTimetableRowAttributes['price'];
 
   /** This will be forwarded as aria-label to the relevant element. */
   @Prop() public accessibilityLabel: string;
@@ -33,12 +34,15 @@ export class SbbTimetableRow {
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
 
+  @Prop() public loadingTrip?: boolean;
+
+  @Prop() public loadingPrice?: boolean;
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
       <sbb-timetable-row-button disabled class="loading" role="presentation">
         <div class="loading">
-          <span class="loading__badge"></span>
+          {this.price != undefined && <span class="loading__badge"></span>}
           <div class="loading__row"></div>
           <div class="loading__row"></div>
           <div class="loading__row"></div>
@@ -59,13 +63,16 @@ export class SbbTimetableRow {
     return items;
   }
 
+
   public render(): JSX.Element {
-    if (this.loading) {
+    if (this.loadingTrip) {
       return this._renderSkeleton();
     }
 
-    const { price, legs, notices, situations, id }: InterfaceTimetableRowAttributes['trip'] =
-      this.config || {};
+    console.log(this.loadingPrice);
+
+    const { legs, notices, situations, id }: InterfaceTimetableRowAttributes['trip'] =
+      this.trip || {};
 
     const {
       product,
@@ -77,13 +84,10 @@ export class SbbTimetableRow {
       tripStatus,
       occupancy,
       duration,
-    } = this.config?.summary || {};
-
-    const badgeClass = price?.price ? 'timetable__row-badge' : '';
-
+    } = this.trip?.summary || {};
+    const badgeClass = this.price?.price ? 'timetable__row-badge' : '';
     const sortedNotices = this._sortPriority(notices);
     const sortedSituations = this._sortPriority(situations);
-
     return (
       <sbb-timetable-row-button
         id={id}
@@ -91,13 +95,14 @@ export class SbbTimetableRow {
         accessibility-label={this.accessibilityLabel}
       >
         <div class={`timetable__row ${badgeClass}`} role="row">
-          {price && (
+          {this.loadingPrice  && <span class="loading__badge"></span>}
+          {this.price && !this.loadingPrice && (
             <sbb-card-badge
-              appearance={price.isDiscount ? 'primary' : 'primary-negative'}
-              price={price.price}
-              text={price.text}
-              isDiscount={price.isDiscount}
-            />
+            appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
+            price={this.price.price}
+            text={this.price.text}
+            isDiscount={this.price.isDiscount}
+          />
           )}
 
           <div class="timetable__row-header" role="rowheader">
@@ -105,7 +110,7 @@ export class SbbTimetableRow {
               <sbb-icon name={product?.vehicleMode} />
               {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase())
                 ? renderIconProduct(product?.vehicleSubModeShortName, product?.line)
-                : renderStringProduct(product?.vehicleSubModeShortName, product?.line)}
+                : <span class="timetable__row-transportnumber">{product?.vehicleSubModeShortName + ' ' + product?.line}</span>}
             </div>
             <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>
           </div>

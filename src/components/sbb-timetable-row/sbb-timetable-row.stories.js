@@ -17,45 +17,49 @@ const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
 /* ************************************************* */
 export const SbbTimetableRow = Template.bind({});
 SbbTimetableRow.args = {
-  config: config,
+  'loading-price': config.loadingPrice,
+  'loading-trip': config.loadingTrip,
+  trip: config.trip,
+  price: config.price,
 };
 
 export const SbbTimetableRowPosition = Template.bind({});
 SbbTimetableRowPosition.args = {
   disableAnimation: false,
-  config: configPosition,
+  trip: configPosition.trip,
 };
 
 export const SbbTimetableRowPositionDisabledAnimation = Template.bind({});
 SbbTimetableRowPositionDisabledAnimation.args = {
   disableAnimation: true,
-  config: configPosition,
+  trip: configPosition.trip,
 };
 
 export const SbbTimetableRowMinimal = Template.bind({});
 SbbTimetableRowMinimal.args = {
-  config: configMinimal,
+  trip: configMinimal.trip,
 };
 
 export const SbbTimetableRowCancelled = Template.bind({});
 SbbTimetableRowCancelled.args = {
-  config: configCancelled,
+  trip: configCancelled.trip,
 };
 
 export const SbbTimetableRowCancelledStops = Template.bind({});
 SbbTimetableRowCancelledStops.args = {
-  config: configCancelledStops,
+  trip: configCancelledStops.trip,
 };
 
 export const SbbTimetableRowPast = Template.bind({});
 SbbTimetableRowPast.args = {
-  config: configPast,
+  trip: configPast.trip,
 };
 
 export const SbbTimetableRowLoading = Template.bind({});
 SbbTimetableRowLoading.args = {
-  loading: true,
-  config: config,
+  loadingTrip: true,
+  trip: config.trip,
+  price: config.price,
 };
 
 SbbTimetableRow.documentation = {

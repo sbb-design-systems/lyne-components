@@ -122,15 +122,13 @@ declare type TripSummary = {
   tripStatus: TripStatus;
 };
 
-declare type Price = {
+export type Price = {
   price: string;
   text: string;
   isDiscount: boolean;
 };
 
 declare type Trip = {
-  price?: Price;
-
   /** List of transfer points */
   legs?: Leg[];
   /**
@@ -155,4 +153,5 @@ declare type Trip = {
 };
 export interface InterfaceTimetableRowAttributes {
   trip: Trip;
+  price?: Price;
 }
