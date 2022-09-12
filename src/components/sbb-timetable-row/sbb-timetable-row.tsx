@@ -26,6 +26,7 @@ export class SbbTimetableRow {
   /** The trip Prop */
   @Prop() public trip?: InterfaceTimetableRowAttributes['trip'];
 
+  /** The price Prop,  which consits of the data for the badge*/
   @Prop() public price?: InterfaceTimetableRowAttributes['price'];
 
   /** This will be forwarded as aria-label to the relevant element. */
@@ -34,9 +35,15 @@ export class SbbTimetableRow {
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
 
+    /**
+   * The loading state -
+   * when this is true it will be render skeleton with an idling animation
+   */
   @Prop() public loadingTrip?: boolean;
 
+  /** When this prop is true the badge for the price will appear loading*/
   @Prop() public loadingPrice?: boolean;
+
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
@@ -88,6 +95,7 @@ export class SbbTimetableRow {
     const badgeClass = this.price?.price ? 'timetable__row-badge' : '';
     const sortedNotices = this._sortPriority(notices);
     const sortedSituations = this._sortPriority(situations);
+
     return (
       <sbb-timetable-row-button
         id={id}

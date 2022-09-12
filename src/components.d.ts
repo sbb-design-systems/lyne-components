@@ -1081,8 +1081,17 @@ export namespace Components {
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
+        /**
+          * When this prop is true the badge for the price will appear loading
+         */
         "loadingPrice"?: boolean;
+        /**
+          * The loading state - when this is true it will be render skeleton with an idling animation
+         */
         "loadingTrip"?: boolean;
+        /**
+          * The price Prop,  which consits of the data for the badge
+         */
         "price"?: InterfaceTimetableRowAttributes['price'];
         /**
           * The trip Prop
@@ -2723,8 +2732,17 @@ declare namespace LocalJSX {
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
+        /**
+          * When this prop is true the badge for the price will appear loading
+         */
         "loadingPrice"?: boolean;
+        /**
+          * The loading state - when this is true it will be render skeleton with an idling animation
+         */
         "loadingTrip"?: boolean;
+        /**
+          * The price Prop,  which consits of the data for the badge
+         */
         "price"?: InterfaceTimetableRowAttributes['price'];
         /**
           * The trip Prop
