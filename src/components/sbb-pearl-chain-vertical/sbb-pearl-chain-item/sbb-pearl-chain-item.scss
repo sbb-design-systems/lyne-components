@@ -1,51 +1,109 @@
+@include host-component-properties;
 
-.pearl-chain-item__line{
-  position: absolute;
-  top: 0.25rem;
-  bottom: 0;
-  flex: 1 1 0%;
-  width: 2px;
-  border-right-width: 1px;
-  background-color: rgb(0 0 0);
-  margin-left: 4px;
+@mixin dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  border-color: white;
 }
 
-.pearl-chain-item__row{
+@mixin dot--transfer {
+  --dot-size: var(--dot-size-small);
+  @include dot;
+
+  box-sizing: border-box;
+  left: calc(var(--dot-size) / -2 + var(--border-width) / 2);
+  background-color: var(--color-white);
+  border: var(--border-width) solid currentcolor;
+  z-index: 2;
+
+  @include ifForcedColors {
+    .pearl-chain--past & {
+      border-color: GrayText;
+    }
+  }
+}
+
+@mixin border {
+  position: absolute;
+  top: 0.3rem;
+  bottom: 0;
+  flex: 1 1 0%;
+  margin-inline-start: 4px;
+  width: 2px;
+  margin-top: 4px;
+}
+
+:host {
+  --dot-size-large: #{px-to-rem-build(10)};
+  --dot-size-small: #{px-to-rem-build(8)};
+  --border-width: var(--sbb-border-width-2x);
+  --spacing-small: var(--sbb-spacing-fixed-1x);
+  --color-white: var(--sbb-color-white-default);
+  --color-default: var(--sbb-color-black-default);
+  --color-current-location: var(--sbb-color-red-default);
+  --color-current-location-dark: var(--sbb-color-red150-default);
+  --color-cancellation: var(--sbb-color-red-default);
+  --color-past: var(--sbb-color-metal-default);
+}
+
+.pearl-chain-item {
   position: relative;
 }
 
-.pearl-chain-item__row-left{
+.pearl-chain-item__line-standard {
+  @include border;
+
+  border-right-width: 1px;
+  background-color: rgb(0 0 0);
+}
+
+.pearl-chain-item__line-dotted {
+  @include border;
+
+  border-width: 1px;
+  border-style: dashed;
+}
+
+.pearl-chain-item__row-left,
+.pearl-chain-item__row-right {
   vertical-align: top;
 }
 
-.pearl-chain-item__row-right{
-  vertical-align: top;
-}
-
-.pearl-chain-item__middle{
+.pearl-chain-item__middle {
   vertical-align: top;
   border-spacing: 0;
 }
 
-.pearl-chain-item__dot{
-  height: 10px;
-  width: 10px;
-  border-radius: 100%;
-  background-color: black;
-  border-color: white;
+.pearl-chain-item__dot-standard {
+  @include dot;
 }
 
-.pearl-chain-item__row-middle{
+.pearl-chain-item__dot-thick-bullet {
+  @include dot--transfer;
+
+  background-color: var(--color-white) !important;
+}
+
+.red {
+  background-color: var(--color-cancellation);
+}
+
+.black {
+  background-color: var(--color-default);
+}
+
+.pearl-chain-item__row-middle {
   padding-top: 0;
   vertical-align: top;
 }
 
-.pearl-chain-item__left-slot{
+.pearl-chain-item__left-slot {
   margin-top: 1px;
-  padding-right:  2rem;
+  padding-right: 2rem;
 }
 
-.pearl-chain-item__right-slot{
+.pearl-chain-item__right-slot {
   margin-left: 2rem;
   padding-bottom: 1rem;
 }
