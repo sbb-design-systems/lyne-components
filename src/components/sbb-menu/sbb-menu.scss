@@ -92,6 +92,12 @@
   }
 }
 
+@include ifForcedColors {
+  dialog {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+}
+
 @include mq($from: medium) {
   .sbb-menu {
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
