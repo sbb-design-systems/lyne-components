@@ -185,9 +185,12 @@ export class SbbMenu implements ComponentInterface {
 
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
   private _dismissOnInteractiveElementClick(): void {
-    const query = '[href], button:not([disabled]), sbb-button:not([disabled]), sbb-link';
-    const interactiveElements = this.el.querySelectorAll(query);
-    interactiveElements.forEach((el) => el.addEventListener('click', () => this.closeMenu()));
+    const interactiveElements = this.el.querySelectorAll('[href], button, sbb-button, sbb-link');
+    interactiveElements.forEach((el: Element) => {
+      if (!el.hasAttribute('disabled')) {
+        el.addEventListener('click', () => this.closeMenu());
+      }
+    });
   }
 
   // Close menu on backdrop clicked.
