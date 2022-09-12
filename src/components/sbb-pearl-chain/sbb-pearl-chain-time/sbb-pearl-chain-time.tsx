@@ -45,36 +45,20 @@ export class SbbPearlChainTime {
    */
   @Prop() public disableAnimation?: boolean;
 
-  private _walkTime = (walkTime: number, position: string): JSX.Element => {
-    if (position === 'after') {
-      return (
-        <span class="timetable__row-walktime">
-          <time dateTime={walkTime + 'M'}>
-            <span class="screenreaderonly">{i18nWalkingDistanceArrival[getDocumentLang()]}</span>
-            {walkTime}
-            <span aria-hidden="true">'</span>
-          </time>
-          <sbb-icon name="walk-small"></sbb-icon>
-        </span>
-      );
-    } else {
-      return (
-        <span class="timetable__row-walktime">
-          <sbb-icon name="walk-small"></sbb-icon>
-          <time dateTime={walkTime + 'M'}>
-            <span class="screenreaderonly">{i18nWalkingDistanceDeparture[getDocumentLang()]}</span>
-            {walkTime}
-            <span aria-hidden="true">'</span>
-          </time>
-        </span>
-      );
-    }
-  };
 
   public render(): JSX.Element {
     return (
       <Host>
-        {this.departureWalk && this._walkTime(this.departureWalk, 'before')}
+        {this.departureWalk && (
+          <span class="timetable__row-walktime">
+            <sbb-icon name="walk-small"></sbb-icon>
+            <time dateTime={this.departureWalk + 'M'}>
+              <span class="screenreaderonly">{i18nWalkingDistanceDeparture[getDocumentLang()]}</span>
+              {this.departureWalk}
+              <span aria-hidden="true">'</span>
+            </time>
+          </span>
+        )}
         <time class="timetable__row-time" dateTime={'' + this.departureTime}>
           <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
           {this.departureTime && format(new Date(this.departureTime), 'H:mm')}
@@ -88,7 +72,15 @@ export class SbbPearlChainTime {
           <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
           {this.arrivalTime && format(new Date(this.arrivalTime), 'H:mm')}
         </time>
-        {this.arrivalWalk && this._walkTime(this.arrivalWalk, 'after')}
+        {this.arrivalWalk &&
+          (<span class="timetable__row-walktime">
+          <time dateTime={this.arrivalWalk + 'M'}>
+            <span class="screenreaderonly">{i18nWalkingDistanceArrival[getDocumentLang()]}</span>
+            {this.arrivalWalk}
+            <span aria-hidden="true">'</span>
+          </time>
+          <sbb-icon name="walk-small"></sbb-icon>
+        </span>)}
       </Host>
     );
   }
