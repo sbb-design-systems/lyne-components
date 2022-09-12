@@ -12,6 +12,7 @@ const data: InterfaceJourneySummaryAttributes = {
     departure: { time: '2022-08-29T20:30:00' },
     arrival: { time: '2022-08-29T22:30:00' },
     departureWalk: 0,
+    duration: 60,
   },
 };
 
@@ -25,6 +26,7 @@ const dataWithoutVia: InterfaceJourneySummaryAttributes = {
     departure: { time: '2022-08-29T20:30:00' },
     arrival: { time: '2022-08-29T22:30:00' },
     departureWalk: 0,
+    duration: 100,
   },
 };
 

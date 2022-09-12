@@ -40,6 +40,7 @@ summaryNoSlot.args = {
   destination: 'Station',
   departure: { time: '2022-08-29T20:30:00+02:00' },
   arrival: { time: '2022-08-29T20:35:00+02:00' },
+  duration: 60,
 };
 
 summary.args = {
@@ -49,6 +50,7 @@ summary.args = {
   destination: 'Station',
   departure: { time: '2022-08-29T20:30:00+02:00' },
   arrival: { time: '2022-08-29T20:35:00+02:00' },
+  duration: 120,
 };
 
 summaryNoVias.args = {
@@ -59,6 +61,7 @@ summaryNoVias.args = {
   departureWalk: 5,
   departure: { time: '2022-08-29T20:30:00+02:00' },
   arrival: { time: '2022-08-29T22:30:00+02:00' },
+  duration: 120,
 };
 
 summaryNoArrivalWalk.args = {
@@ -68,6 +71,7 @@ summaryNoArrivalWalk.args = {
   departureWalk: 5,
   departure: { time: '2022-08-30T20:30:00+02:00' },
   arrival: { time: '2022-08-29T22:30:00+02:00' },
+  duration: 120,
 };
 
 summaryDate.args = {
@@ -77,6 +81,7 @@ summaryDate.args = {
   destination: 'Station',
   departure: { time: '2022-09-19T20:30:00+02:00' },
   arrival: { time: '2022-09-19T22:30:00+02:00' },
+  duration: 120,
 };
 
 /* ************************************************* */

@@ -1,6 +1,6 @@
 import { Component, h, JSX, Prop, Element } from '@stencil/core';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
-import { isTomorrow, isToday, parseISO, intervalToDuration, isValid } from 'date-fns';
+import { isTomorrow, isToday, parseISO, isValid } from 'date-fns';
 import { format } from 'date-fns-tz';
 import {
   i18nArrival,
@@ -48,24 +48,18 @@ export class SbbJourneySummary {
     );
   }
 
-  /** returns duration in hours and minutes */
-  private _getDuration(startTime: Date, endTime: Date): Duration {
-    if (isValid(startTime) && isValid(endTime)) {
-      const interval = intervalToDuration({ start: startTime, end: endTime });
-      if (interval.days > 0) {
-        const intervalDayChange: Duration = {
-          hours: interval.hours + interval.days * 24,
-          minutes: interval.minutes,
-        };
-        return intervalDayChange;
-      } else return interval;
-    }
-    return { hours: 0, minutes: 0 };
+  private _convertDuration(duration: number): Duration {
+    const hours = duration / 60;
+    const rhours = Math.floor(hours);
+    const minutes = (hours - rhours) * 60;
+    const rminutes = Math.round(minutes);
+    const dur: Duration = { hours: rhours, minutes: rminutes };
+    return dur;
   }
 
   /**  renders the date of the journey or if it is the current or next day */
-  private _renderJourneyStart(departureTime: Date, arrivalTime: Date): JSX.Element {
-    const duration: Duration = this._getDuration(arrivalTime, departureTime);
+  private _renderJourneyStart(departureTime: Date, dur: number): JSX.Element {
+    const duration: Duration = this._convertDuration(dur);
 
     if (isTomorrow(departureTime) || isToday(departureTime)) {
       return isTomorrow(departureTime) ? (
@@ -126,10 +120,9 @@ export class SbbJourneySummary {
   }
 
   public render(): JSX.Element {
-    const { vias, origin, destination } = this.config || {};
+    const { vias, origin, destination, duration } = this.config || {};
     const departureTime: Date = parseISO(this.config?.departure?.time);
     const arrivalTime: Date = parseISO(this.config?.arrival?.time);
-
     return (
       <div class="journey-summary">
         {origin && (
@@ -137,7 +130,7 @@ export class SbbJourneySummary {
         )}
         {vias && this._renderJourneyVias(vias)}
         <div class="journey-summary__body">
-          {this._renderJourneyStart(departureTime, arrivalTime)}
+          {this._renderJourneyStart(departureTime, duration)}
           <div class="journey-summary__transportation-details">
             <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
             {this.config?.departureWalk && this._renderWalkTime(true, this.config?.departureWalk)}

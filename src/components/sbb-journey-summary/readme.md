@@ -12,9 +12,9 @@ The Example below shows how to render the component with a button in the slot.
 
 ## Properties
 
-| Property              | Attribute | Description     | Type                                                                                                                                                                       | Default     |
-| --------------------- | --------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `config` _(required)_ | --        | The config prop | `{ legs: string; vias: string[]; origin: string; destination: string; arrivalWalk: number; departure: TimeQuayWrapper; arrival: TimeQuayWrapper; departureWalk: number; }` | `undefined` |
+| Property              | Attribute | Description     | Type                                                                                                                                                                                         | Default     |
+| --------------------- | --------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `config` _(required)_ | --        | The config prop | `{ legs: string; vias: string[]; origin: string; destination: string; arrivalWalk: number; departure: TimeQuayWrapper; arrival: TimeQuayWrapper; departureWalk: number; duration: number; }` | `undefined` |
 
 
 ## Dependencies

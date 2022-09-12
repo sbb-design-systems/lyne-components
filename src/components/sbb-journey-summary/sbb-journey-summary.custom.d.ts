@@ -21,6 +21,7 @@ declare type SummaryConfig = {
   departure: TimeQuayWrapper;
   arrival: TimeQuayWrapper;
   departureWalk: number;
+  duration: number;
 };
 
 export interface InterfaceJourneySummaryAttributes {
