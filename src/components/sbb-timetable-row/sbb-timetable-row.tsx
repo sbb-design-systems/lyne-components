@@ -3,11 +3,7 @@ import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-time
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nDirection } from '../../global/i18n';
-import {
-  durationToTime,
-  isProductIcon,
-  renderIconProduct,
-} from './sbb-timetable-row.helper';
+import { durationToTime, isProductIcon, renderIconProduct } from './sbb-timetable-row.helper';
 
 @Component({
   shadow: true,
@@ -21,7 +17,6 @@ export class SbbTimetableRow {
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
- 
 
   /** The trip Prop */
   @Prop() public trip?: InterfaceTimetableRowAttributes['trip'];
@@ -35,7 +30,7 @@ export class SbbTimetableRow {
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
 
-    /**
+  /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
@@ -70,13 +65,10 @@ export class SbbTimetableRow {
     return items;
   }
 
-
   public render(): JSX.Element {
     if (this.loadingTrip) {
       return this._renderSkeleton();
     }
-
-    console.log(this.loadingPrice);
 
     const { legs, notices, situations, id }: InterfaceTimetableRowAttributes['trip'] =
       this.trip || {};
@@ -103,22 +95,26 @@ export class SbbTimetableRow {
         accessibility-label={this.accessibilityLabel}
       >
         <div class={`timetable__row ${badgeClass}`} role="row">
-          {this.loadingPrice  && <span class="loading__badge"></span>}
+          {this.loadingPrice && <span class="loading__badge"></span>}
           {this.price && !this.loadingPrice && (
             <sbb-card-badge
-            appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
-            price={this.price.price}
-            text={this.price.text}
-            isDiscount={this.price.isDiscount}
-          />
+              appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
+              price={this.price.price}
+              text={this.price.text}
+              isDiscount={this.price.isDiscount}
+            />
           )}
 
           <div class="timetable__row-header" role="rowheader">
             <div class="timetable__row-details">
               <sbb-icon name={product?.vehicleMode} />
-              {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase())
-                ? renderIconProduct(product?.vehicleSubModeShortName, product?.line)
-                : <span class="timetable__row-transportnumber">{product?.vehicleSubModeShortName + ' ' + product?.line}</span>}
+              {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase()) ? (
+                renderIconProduct(product?.vehicleSubModeShortName, product?.line)
+              ) : (
+                <span class="timetable__row-transportnumber">
+                  {product?.vehicleSubModeShortName + ' ' + product?.line}
+                </span>
+              )}
             </div>
             <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>
           </div>

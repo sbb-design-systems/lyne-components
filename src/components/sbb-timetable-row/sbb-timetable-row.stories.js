@@ -57,7 +57,7 @@ SbbTimetableRowPast.args = {
 
 export const SbbTimetableRowLoading = Template.bind({});
 SbbTimetableRowLoading.args = {
-  loadingTrip: true,
+  'loading-trip': true,
   trip: config.trip,
   price: config.price,
 };
