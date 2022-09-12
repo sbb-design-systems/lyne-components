@@ -1,4 +1,4 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import events from '../sbb-accordion-item/sbb-accordion-item.events';
 
 /**

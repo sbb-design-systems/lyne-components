@@ -1,0 +1,142 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-tab-title-height: #{px-to-rem-build(40)};
+  --sbb-tab-title-border-radius: var(--sbb-tab-title-height);
+
+  display: inline-block;
+  max-width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sbb-tab-title {
+  position: relative;
+  margin: 0;
+  min-height: var(--sbb-tab-title-height);
+  display: flex;
+  align-items: center;
+  padding-block: var(--sbb-spacing-fixed-2x);
+  padding-inline: var(--sbb-spacing-fixed-5x);
+  gap: var(--sbb-spacing-fixed-1x);
+  user-select: none;
+  cursor: pointer;
+  transition: color var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+
+  &::before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+    border-radius: var(--sbb-tab-title-border-radius);
+    background-color: var(--sbb-color-white-default);
+    transition-duration: var(--sbb-animation-duration-4x);
+    transition-timing-function: var(--sbb-animation-easing);
+    transition-property: inset, background-color, border-color, box-shadow;
+  }
+
+  .sbb-tab-title__text {
+    @include text-xs--bold;
+    @include fontSmoothing;
+    @include ellipsis;
+  }
+
+  ::slotted(*),
+  .sbb-tab-title__text {
+    transition: transform var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+    transform: translateY(0);
+    will-change: transform;
+  }
+}
+
+// If the the device can hover over elements with ease
+@include hover-mq($hover: true) {
+  .sbb-tab-title:hover {
+    ::slotted(*),
+    .sbb-tab-title__text {
+      transform: translateY(calc(var(--sbb-border-width-1x) * -1));
+    }
+
+    &::before {
+      inset: calc(var(--sbb-border-width-2x) * -1);
+
+      @include ifForcedColors {
+        border-color: Highlight;
+      }
+    }
+
+    &:not(.sbb-tab-title--active)::before {
+      background-color: var(--sbb-color-milk-default);
+    }
+  }
+
+  .sbb-tab-title:not(.sbb-tab-title--active):active {
+    &::before {
+      border-color: var(--sbb-color-black-default);
+      background-color: var(--sbb-color-white-default);
+    }
+  }
+}
+
+.sbb-tab-title--active {
+  color: var(--sbb-color-white-default);
+
+  &::before {
+    border-color: var(--sbb-color-black-default);
+    background-color: var(--sbb-color-black-default);
+  }
+
+  ::slotted(sbb-tab-amount) {
+    --sbb-amount-color-override: var(--sbb-color-cement-default);
+  }
+}
+
+.sbb-tab-title--disabled {
+  cursor: unset;
+  position: relative;
+  pointer-events: none;
+  color: var(--sbb-color-platinum-default);
+
+  ::slotted(sbb-tab-amount) {
+    --sbb-amount-color-override: var(--sbb-color-platinum-default);
+
+    @include ifForcedColors {
+      --sbb-amount-color-override: GrayText;
+    }
+  }
+
+  &::before {
+    border-color: var(--sbb-color-milk-default);
+    background-color: var(--sbb-color-milk-default);
+
+    @include ifForcedColors {
+      border-color: GrayText;
+    }
+  }
+
+  // Line through content
+  &::after {
+    content: '';
+    inset: 50% var(--sbb-spacing-fixed-5x);
+    border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
+    @include absoluteCenterY;
+    @include ifForcedColors {
+      border-color: GrayText;
+    }
+  }
+
+  @include ifForcedColors {
+    color: GrayText;
+  }
+}
+
+:host(:focus-visible) {
+  outline: 0;
+
+  .sbb-tab-title {
+    &::before {
+      @include focusOutline;
+    }
+  }
+}

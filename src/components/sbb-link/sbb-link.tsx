@@ -5,17 +5,21 @@ import {
   Event,
   EventEmitter,
   h,
+  JSX,
   Prop,
   State,
 } from '@stencil/core';
-
 import {
-  getLinkButtonAttributeList,
+  getButtonAttributeList,
+  getLinkAttributeList,
   getLinkButtonBaseAttributeList,
   LinkButtonProperties,
+  LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { hostContext } from '../../global/helpers/host-context';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 
 /**
  * @slot icon - Slot used to display the icon, if one is set
@@ -27,90 +31,81 @@ import { hostContext } from '../../global/helpers/host-context';
   tag: 'sbb-link',
 })
 export class SbbLink implements LinkButtonProperties, ComponentInterface {
+  @Element() private _el!: HTMLElement;
+
   /**
-   * If set to true, the browser will
-   * show the download dialog on click (optional).
+   * Applies link inline styles (underline, inherit coloring/font-size etc).
    */
-  @Prop() public download: boolean;
-
-  /** The href value you want to link to (if its not present link becomes a button)*/
-  @Prop() public href: string;
+  @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
   /**
-   * The icon name we want to use,
-   * choose from the small icon variants from
-   * the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/ (optional).
-   * Inline variant doesn't support icons.
+   * Negative coloring variant flag.
    */
-  @Prop() public icon?: string;
+  @Prop() public negative = false;
 
   /**
-   * Pass in an id, if you need to identify
-   * the link element (optional).
-   */
-  @Prop() public idValue?: string;
-
-  /**
-   * The icon can either be place before or after
-   * the text.
-   */
-  @Prop() public iconPlacement: InterfaceLinkAttributes['iconPlacement'] = 'start';
-
-  /**
-   * Negative coloring variant flag
-   */
-  @Prop() public negative: boolean;
-
-  /**
-   * Text size, the link should get in the
-   * non button variation.
+   * Text size, the link should get in the non-button variation.
    * With inline variant, the text size adapts to where it is used.
    */
   @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
 
   /**
-   * Applies link inline styles (underline, inherit coloring/font-size etc).
+   * If this is set to true an span element will be used instead of an anchor or a button.
+   * @internal
    */
-  @Prop() public variant: InterfaceLinkAttributes['variant'] = 'block';
+  @State() private _isStatic = false;
 
   /**
-   * Disabled attribute if link is used as button (optional)
+   * The icon name we want to use, choose from the small icon variants from the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/ (optional).
+   * Inline variant doesn't support icons.
    */
-  @Prop() public disabled: boolean;
+  @Prop() public iconName?: string;
+
+  /**
+   * Moves the icon to the end of the component if set to true (optional).
+   */
+  @Prop() public iconPlacement?: InterfaceLinkAttributes['iconPlacement'] = 'start';
+
+  /**
+   * The href value you want to link to (optional, if its not present link becomes a button)
+   */
+  @Prop() public href: string | undefined;
+
+  /**
+   * If set to true, the browser will show the download dialog on click (optional).
+   */
+  @Prop() public download?: boolean;
+
+  /**
+   * The relationship of the linked URL as space-separated link types.
+   */
+  @Prop() public rel?: string | undefined;
+
+  /**
+   * Where to display the linked URL.
+   */
+  @Prop() public target?: LinkTargetType | string | undefined;
+
+  /**
+   * Pass in an id, if you need to identify the link element (optional).
+   */
+  @Prop() public idValue?: string;
 
   /**
    * Name attribute if link is used as button (optional)
    */
-  @Prop() public name: string;
-
-  /**
-   * Form attribute if link is used as button (optional)
-   */
-  @Prop() public form: string;
+  @Prop() public name: string | undefined;
 
   /**
    * Type attribute if link is used as button (optional)
    */
-  @Prop() public type: InterfaceLinkAttributes['buttonType'] = 'button';
-
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
+  @Prop() public type: InterfaceLinkAttributes['buttonType'] | undefined;
 
   /**
-   * If this is set to true an span element will be used
-   * instead of an anchor or a button
+   * The value associated with button `name` when it's submitted with the form data.
    */
-  @State() private _isStatic = false;
-
-  /** Id which is sent in the click event payload */
-  @Prop() public eventId: string;
+  @Prop() public value?: string;
 
   /**
    * Emits whenever the native button click event triggers.
@@ -121,64 +116,101 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     composed: true,
     eventName: 'sbb-link-button_click',
   })
-  public click: EventEmitter<any>;
+  public click: EventEmitter<any> | undefined;
 
-  @Element() public el!: HTMLElement;
+  /**
+   * Form attribute if link is used as button (optional)
+   */
+  @Prop() public form: string;
+
+  /**
+   * Disabled attribute if link is used as button (optional)
+   */
+  @Prop() public disabled?: boolean;
+
+  /**
+   * Id which is sent in the click event payload
+   */
+  @Prop() public eventId?: string;
+
+  /**
+   * This will be forwarded as aria-label to the relevant nested element.
+   */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /**
+   * This will be forwarded as aria-describedby to the relevant nested element.
+   */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /**
+   * This will be forwarded as aria-labelledby to the relevant nested element.
+   */
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   public connectedCallback(): void {
     // Check if the current element is nested in either an `<a>` or `<button>` element.
-    this._isStatic = !!hostContext('a,button', this.el);
+    this._isStatic = !!hostContext('a,button', this._el);
   }
 
+  /**
+   * Method triggered at button click to emit the click event (can be caught from parent component).
+   */
   public emitButtonClick(): void {
     if (!this.disabled) {
       this.click.emit(this.eventId);
     }
   }
 
+  /**
+   * Generate the class attribute based on component's parameters.
+   */
   private _getClassString(): string {
     const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-
-    let iconPositionClass = '';
-
-    if (this.icon) {
-      iconPositionClass =
-        this.iconPlacement === 'start'
-          ? ' sbb-link--icon-placement-start'
-          : ' sbb-link--icon-placement-end';
-    }
-
+    const iconPositionClass =
+      this.iconPlacement === 'start'
+        ? ' sbb-link--icon-placement-start'
+        : ' sbb-link--icon-placement-end';
     const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
     const negativeClass = this.negative ? ' sbb-link--negative' : '';
 
     return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
   }
 
-  /**
-   * Render element
-   */
   public render(): JSX.Element {
     let TAG_NAME: string;
-    let attributeList: object = getLinkButtonBaseAttributeList(
-      this.idValue,
-      this._getClassString(),
-      this
-    );
+    let attributeList: Record<string, string>;
+    let shouldDisplayNewWindowText = false;
+
     if (this._isStatic) {
       TAG_NAME = 'span';
+      attributeList = getLinkButtonBaseAttributeList(this);
+    } else if (this.href) {
+      TAG_NAME = 'a';
+      attributeList = getLinkAttributeList(this, this);
+      shouldDisplayNewWindowText = !this.accessibilityLabel && this.target === '_blank';
     } else {
-      TAG_NAME = this.href ? 'a' : 'button';
-      attributeList = getLinkButtonAttributeList(this.idValue, this._getClassString(), this);
+      TAG_NAME = 'button';
+      attributeList = getButtonAttributeList(this);
     }
 
+    // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <TAG_NAME {...attributeList}>
+      <TAG_NAME
+        id={this.idValue}
+        class={this._getClassString()}
+        {...attributeList}
+        ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
+      >
         {this.variant !== 'inline' && (
-          <slot name="icon">
-            <sbb-icon name={this.icon} />
-          </slot>
+          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         )}
         <slot />
+        {shouldDisplayNewWindowText && (
+          <span class="sbb-link__opens-in-new-window">
+            . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+          </span>
+        )}
       </TAG_NAME>
     );
   }

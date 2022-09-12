@@ -11,7 +11,7 @@ describe('sbb-header-action', () => {
     expect(root).toEqualHtml(`
       <sbb-header-action expand-from="medium">
         <mock:shadow-root>
-          <button class="header-action__button" dir="ltr" id="sbb-action-header-1">
+          <button class="header-action__button" dir="ltr" id="sbb-action-header-1" type="button">
             <span class="header-action__icon">
               <slot name="icon">
                 <sbb-icon></sbb-icon>
@@ -23,6 +23,30 @@ describe('sbb-header-action', () => {
           </button>
         </mock:shadow-root>
       </sbb-header-action>
+    `);
+  });
+
+  it('renders an anchor tag into the shadow root', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbHeaderAction],
+      html: '<sbb-header-action expand-from="medium" href="https://github.com/lyne-design-system/lyne-components" target="_blank" />',
+    });
+
+    expect(root).toEqualHtml(`
+    <sbb-header-action expand-from="medium" href="https://github.com/lyne-design-system/lyne-components" target="_blank" >
+      <mock:shadow-root>
+        <a dir="ltr" id="sbb-action-header-2" rel="external noopener nofollow" target="_blank" class="header-action__link" id="sbb-action-header-2" href="https://github.com/lyne-design-system/lyne-components">
+          <span class="header-action__icon">
+            <slot name="icon">
+              <sbb-icon></sbb-icon>
+            </slot>
+          </span>
+          <span class="header-action__label">
+            <slot></slot>
+          </span>
+        </a>
+      </mock:shadow-root>
+    </sbb-header-action>
     `);
   });
 });

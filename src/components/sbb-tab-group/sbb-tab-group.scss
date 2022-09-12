@@ -1,0 +1,42 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+.tab-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-3x);
+}
+
+.tab-content {
+  margin-block-start: var(--sbb-spacing-responsive-m);
+  transition: height var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+
+  ::slotted(*) {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+  }
+
+  ::slotted(*[active]) {
+    visibility: visible;
+    opacity: 1;
+    height: fit-content;
+    transition: {
+      duration: var(--sbb-animation-duration-4x);
+      delay: var(--sbb-animation-duration-4x);
+      timing-function: var(--sbb-animation-easing);
+      property: opacity, visibility;
+    }
+  }
+}
+
+// stylelint-disable plugin/stylelint-bem-namics
+// Make inactive nested tab groups non-focusable, to ensure accessibility
+:host(.tab-group--nested:not([active])) *,
+:host(.tab-group--nested:not([active])) ::slotted(*) {
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+}
+// stylelint-enable plugin/stylelint-bem-namics
