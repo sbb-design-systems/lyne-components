@@ -4,4 +4,5 @@
  */
 export default {
   didDismissAlert: 'sbb-alert-group_did-dismiss-alert',
+  empty: 'sbb-alert-group_empty',
 };

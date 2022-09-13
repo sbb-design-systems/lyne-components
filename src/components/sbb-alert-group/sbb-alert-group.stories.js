@@ -73,7 +73,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.didDismissAlert],
+      handles: [events.didDismissAlert, events.empty],
     },
     backgrounds: {
       disable: true,

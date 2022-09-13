@@ -1,3 +1,3 @@
 export interface InterfaceSbbAlertGroupAttributes {
-  ariaRole: 'alert' | 'status' | string;
+  role: 'alert' | 'status' | string;
 }

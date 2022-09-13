@@ -27,29 +27,27 @@ As default the `sbb-alert-group` has the role `alert` which means that if a new 
 it will be immediately announced to screen reader users. You can change the `role` or `aria-live` attributes to fit your needs.
 For example, you can set the `role` to `status` which implicitly sets `aria-live` to `polite`.
 If all alerts are dismissed, it's recommended to completely remove the `sbb-alert-group` from DOM. 
-See the next section on how to catch the event if there are no more alerts displayed.
+You can catch this moment by listening to `sbb-alert-group_empty` event and react accordingly.
 
-## Check whether alerts are displayed
-If you need to check whether an alert is displayed, use the public property `hasAlerts` of the SbbAlertGroup.
-If you listen to `sbb-alert-group_did-dismiss-alert` event and then check for `hasAlerts` afterwards you always have an updated state.
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property                  | Attribute                   | Description                                                                                                                                                                | Type                                     | Default     |
-| ------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `accessibilityTitle`      | `accessibility-title`       | Title for this alert group which is only visible for screen reader users.                                                                                                  | `string`                                 | `undefined` |
-| `accessibilityTitleLevel` | `accessibility-title-level` | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                          | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`       |
-| `roleInternal`            | `role`                      | Role defines how to announce alerts to the user. 'alert': sets aria-live to assertive and aria-atomic to true. 'status': sets aria-live to polite and aria-atomic to true. | `string`                                 | `'alert'`   |
+| Property                  | Attribute                   | Description                                                                                                                                                                              | Type                                     | Default     |
+| ------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `accessibilityTitle`      | `accessibility-title`       | Title for this alert group which is only visible for screen reader users.                                                                                                                | `string`                                 | `undefined` |
+| `accessibilityTitleLevel` | `accessibility-title-level` | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                        | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`       |
+| `role`                    | `role`                      | The role attribute defines how to announce alerts to the user. 'alert': sets aria-live to assertive and aria-atomic to true. 'status': sets aria-live to polite and aria-atomic to true. | `string`                                 | `'alert'`   |
 
 
 ## Events
 
-| Event                               | Description                               | Type                               |
-| ----------------------------------- | ----------------------------------------- | ---------------------------------- |
-| `sbb-alert-group_did-dismiss-alert` | Emits when an alert was removed from DOM. | `CustomEvent<HTMLSbbAlertElement>` |
+| Event                               | Description                                 | Type                               |
+| ----------------------------------- | ------------------------------------------- | ---------------------------------- |
+| `sbb-alert-group_did-dismiss-alert` | Emits when an alert was removed from DOM.   | `CustomEvent<HTMLSbbAlertElement>` |
+| `sbb-alert-group_empty`             | Emits when `sbb-alert-group` becomes empty. | `CustomEvent<void>`                |
 
 
 ## Slots
@@ -61,5 +59,3 @@ If you listen to `sbb-alert-group_did-dismiss-alert` event and then check for `h
 
 
 ----------------------------------------------
-
-
