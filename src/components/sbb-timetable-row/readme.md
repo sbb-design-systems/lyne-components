@@ -1,4 +1,14 @@
-# sbb-timetable-row
+
+The `<sbb-timetable-row>` component displays a journey.  
+
+
+## Usage 
+
+The args are the same, as in the table below. If the `loading-trip` property is true, the whole row is displayed with an loading animation instead of the data. The `loading-price` property does the same for the card-badge.
+
+```html
+<sbb-timetable-row {...args}></sbb-timetable-row>
+```
 
 <!-- Auto Generated Below -->
 
