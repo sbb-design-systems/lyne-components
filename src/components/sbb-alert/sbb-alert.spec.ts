@@ -5,11 +5,11 @@ describe('sbb-alert', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbAlert],
-      html: '<sbb-alert title-content="Interruption" title-level="2" />',
+      html: '<sbb-alert title-content="Interruption" title-level="2" id="custom-id">Alert content</sbb-alert>',
     });
 
     expect(root).toEqualHtml(`
-        <sbb-alert aria-live="assertive" id="sbb-alert-1" role="alert" title-content="Interruption" title-level="2">
+        <sbb-alert aria-live="assertive" id="custom-id" role="alert" title-content="Interruption" title-level="2">
           <mock:shadow-root>
             <div class="sbb-alert__transition-wrapper" style="height: undefinedpx;">
               <div class="sbb-alert sbb-alert--size-m" style="opacity: 0;">
@@ -25,11 +25,12 @@ describe('sbb-alert', () => {
                   <slot></slot>
                 </span>
                 <span class="sbb-alert__close-button-wrapper">
-                  <sbb-button aria-controls="sbb-alert-1" class="sbb-alert__close-button" icon="" icondescription="Close message" size="m" variant="transparent-negative"></sbb-button>
+                  <sbb-button aria-controls="custom-id" class="sbb-alert__close-button" icon="" icondescription="Close message" size="m" variant="transparent-negative"></sbb-button>
                 </span>
               </div>
             </div>
           </mock:shadow-root>
+           Alert content
         </sbb-alert>
       `);
   });

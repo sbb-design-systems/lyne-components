@@ -1,11 +1,9 @@
 import {
   Component,
-  Element,
   Event,
   EventEmitter,
   h,
   JSX,
-  Host,
   Method,
   Prop,
   ComponentInterface,
@@ -54,14 +52,6 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   @Prop() public disableAnimation = false;
 
   /**
-   * Aria-live politeness defines how to announce the alert to the user.
-   * Choose between `off`, `polite` and `assertive`.
-   * As the role `alert` is applied too, default is `assertive`.
-   */
-  @Prop()
-  public ariaLivePoliteness: InterfaceAlertAttributes['ariaLivePoliteness'] = 'assertive';
-
-  /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
    * Choose the icons from https://lyne.sbb.ch/tokens/icons/.
    * Styling is optimized for icons of type HIM-CUS.
@@ -107,36 +97,33 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   })
   public didPresent: EventEmitter<void>;
 
-  /** Emits when the alert was hidden. */
+  /** Emits when dismissal of an alert was requested. */
   @Event({
-    eventName: 'sbb-alert_did-dismiss',
+    eventName: 'sbb-alert_dismissal-requested',
   })
-  public didDismiss: EventEmitter<void>;
+  public dismissalRequested: EventEmitter<void>;
 
-  /** Whether the alert is presented or not. */
-  public presented = false;
-
-  @Element() private _element: HTMLElement;
   private _transitionWrapperElement!: HTMLElement;
   private _alertElement!: HTMLElement;
-  private _firstRenderingDone = false;
+
   private _currentLangauge = getDocumentLang();
+  private _firstRenderingDone = false;
 
   public componentDidRender(): void {
     if (!this._firstRenderingDone) {
-      this.present();
+      this._present();
     }
     this._firstRenderingDone = true;
   }
 
+  /** Requests dismissal of the alert. */
+  @Method() public async requestDismissal(): Promise<void> {
+    this.dismissalRequested.emit();
+  }
+
   /** Present the alert. */
-  @Method() public async present(): Promise<void> {
-    if (this.presented) {
-      return;
-    }
+  private _present(): Promise<void> {
     this.willPresent.emit();
-    this.presented = true;
-    this._initFadeInTransitionStyles();
 
     if (this.disableAnimation) {
       this._onHeightTransitionEnd();
@@ -153,20 +140,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
     );
   }
 
-  /** Dismiss the alert. */
-  @Method() public async dismiss(): Promise<void> {
-    if (!this.presented) {
-      return;
-    }
-
-    this.presented = false;
-    this._element.style.display = 'none';
-    this.didDismiss.emit();
-  }
-
   private _initFadeInTransitionStyles(): void {
-    this._element.style.removeProperty('display');
-
     if (this.disableAnimation) {
       return;
     }
@@ -205,65 +179,63 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="alert" aria-live={this.ariaLivePoliteness}>
+      <div
+        class="sbb-alert__transition-wrapper"
+        ref={(el): void => {
+          this._transitionWrapperElement = el;
+        }}
+      >
         <div
-          class="sbb-alert__transition-wrapper"
+          class={{
+            'sbb-alert': true,
+            [`sbb-alert--size-${this.size}`]: true,
+          }}
           ref={(el): void => {
-            this._transitionWrapperElement = el;
+            const isFirstInitialization = !this._alertElement;
+
+            this._alertElement = el;
+            if (isFirstInitialization) {
+              this._initFadeInTransitionStyles();
+            }
           }}
         >
-          <div
-            class={{
-              'sbb-alert': true,
-              [`sbb-alert--size-${this.size}`]: true,
-            }}
-            ref={(el): void => {
-              const isFirstInitialization = !this._alertElement;
-
-              this._alertElement = el;
-              if (isFirstInitialization) {
-                this._initFadeInTransitionStyles();
-              }
-            }}
-          >
-            <span class="sbb-alert__icon">
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </span>
-            <span class="sbb-alert__content">
-              <sbb-title
-                level={this.titleLevel}
-                visual-level={this.size === 'l' ? '3' : '5'}
-                negative
-              >
-                <slot name="title">{this.titleContent}</slot>
-              </sbb-title>
-              <slot />
-              {this.href && (
-                <Fragment>
-                  &nbsp;
-                  <sbb-link {...this._linkProperties()} variant="inline" negative>
-                    {this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLangauge]}
-                  </sbb-link>
-                </Fragment>
-              )}
-            </span>
-            {!this.readonly && (
-              <span class="sbb-alert__close-button-wrapper">
-                <sbb-button
-                  variant="transparent-negative"
-                  icon={true}
-                  size="m"
-                  onClick={this.dismiss.bind(this)}
-                  iconDescription={i18nCloseAlert[this._currentLangauge]}
-                  aria-controls={this.internalId}
-                  class="sbb-alert__close-button"
-                  innerHTML={circleCrossSmallIcon}
-                />
-              </span>
+          <span class="sbb-alert__icon">
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+          </span>
+          <span class="sbb-alert__content">
+            <sbb-title
+              level={this.titleLevel}
+              visual-level={this.size === 'l' ? '3' : '5'}
+              negative
+            >
+              <slot name="title">{this.titleContent}</slot>
+            </sbb-title>
+            <slot />
+            {this.href && (
+              <Fragment>
+                &nbsp;
+                <sbb-link {...this._linkProperties()} variant="inline" negative>
+                  {this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLangauge]}
+                </sbb-link>
+              </Fragment>
             )}
-          </div>
+          </span>
+          {!this.readonly && (
+            <span class="sbb-alert__close-button-wrapper">
+              <sbb-button
+                variant="transparent-negative"
+                icon={true}
+                size="m"
+                onClick={this.requestDismissal.bind(this)}
+                iconDescription={i18nCloseAlert[this._currentLangauge]}
+                aria-controls={this.internalId}
+                class="sbb-alert__close-button"
+                innerHTML={circleCrossSmallIcon}
+              />
+            </span>
+          )}
         </div>
-      </Host>
+      </div>
     );
   }
 }

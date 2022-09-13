@@ -3,7 +3,7 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didDismiss: 'sbb-alert_did-dismiss',
   didPresent: 'sbb-alert_did-present',
+  dismissalRequested: 'sbb-alert_dismissal-requested',
   willPresent: 'sbb-alert_will-present',
 };

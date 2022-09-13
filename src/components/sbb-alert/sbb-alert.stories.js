@@ -4,35 +4,20 @@ import { h } from 'jsx-dom';
 
 const Default = (args) => <sbb-alert {...args}>{args['content-slot-text']}</sbb-alert>;
 
-const Playground = (args) => (
-  <div>
-    <Default {...args}></Default>
-    <p>Other Content on the page</p>
-    <div
-      style={{
-        display: 'flex',
-        gap: '8px',
-      }}
-    >
-      <sbb-button
-        variant="secondary"
-        label="Present"
-        onClick={() => {
-          // eslint-disable-next-line no-undef
-          document.querySelector('sbb-alert').present();
-        }}
-      ></sbb-button>
-      <sbb-button
-        variant="secondary"
-        label="Dismiss"
-        onClick={() => {
-          // eslint-disable-next-line no-undef
-          document.querySelector('sbb-alert').dismiss();
-        }}
-      ></sbb-button>
+const DefaultWithOtherContent = (args) => {
+  return (
+    <div>
+      <Default {...args}></Default>
+      <p>Other Content on the page.</p>
+      {!args.readonly && (
+        <p>
+          Dismissal event of the alert has to be caught by the consumer and the alert has to be
+          manually removed from DOM. See `sbb-alert-group` for demonstration.
+        </p>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 const CustomSlots = (args) => (
   <sbb-alert {...args}>
@@ -72,13 +57,6 @@ const disabledAnimation = {
   control: {
     type: 'boolean',
   },
-};
-
-const ariaLivePoliteness = {
-  control: {
-    type: 'select',
-  },
-  options: ['off', 'polite', 'assertive'],
 };
 
 const iconName = {
@@ -162,7 +140,6 @@ const defaultArgTypes = {
   size,
   readonly,
   'disable-animation': disabledAnimation,
-  'aria-live-politeness': ariaLivePoliteness,
   'icon-name': iconName,
   'content-slot-text': contentSlotText,
   'link-content': linkContent,
@@ -180,7 +157,6 @@ const defaultArgs = {
   size: size.options[0],
   readonly: false,
   'disable-animation': false,
-  'aria-live-politeness': ariaLivePoliteness.options[2],
   'icon-name': 'info',
   'content-slot-text':
     "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
@@ -193,7 +169,7 @@ const defaultArgs = {
   'accessibility-labelledby': undefined,
 };
 
-export const defaultAlert = Playground.bind({});
+export const defaultAlert = DefaultWithOtherContent.bind({});
 defaultAlert.argTypes = defaultArgTypes;
 defaultAlert.args = { ...defaultArgs };
 
@@ -235,7 +211,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.willPresent, events.didPresent, events.didDismiss],
+      handles: [events.willPresent, events.didPresent, events.dismissalRequested],
     },
     backgrounds: {
       disable: true,
@@ -244,5 +220,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-alert',
+  title: 'components/alert/sbb-alert',
 };
