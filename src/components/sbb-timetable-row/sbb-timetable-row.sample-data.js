@@ -68,7 +68,7 @@ export const config = {
       arrival: {
         delay: 0,
         quayChanged: false,
-        quayRtName: 'Gl. 88',
+        quayRtName: '88',
         time: '2022-10-28T21:16:00+02:00',
       },
       arrivalWalk: 5,
@@ -194,14 +194,14 @@ export const configPosition = {
       arrival: {
         delay: 0,
         quayChanged: false,
-        quayRtName: 'Gl. 88',
+        quayRtName: '88',
         time: '2022-07-28T13:48:00+02:00',
       },
       arrivalWalk: 5,
       departure: {
         delay: 0,
         quayChanged: false,
-        quayRtName: 'Gl. 88',
+        quayRtName: '88',
         time: '2022-07-28T13:16:00+02:00',
       },
       departureWalk: 8,
@@ -246,7 +246,7 @@ export const configMinimal = {
       arrival: {
         delay: 0,
         quayChanged: false,
-        quayRtName: 'Gl. 88',
+        quayRtName: '88',
         time: '2022-07-28T13:48:00+02:00',
       },
       departure: {
@@ -284,7 +284,7 @@ export const configCancelled = {
       arrival: {
         delay: 0,
         quayChanged: false,
-        quayRtName: 'Gl. 88',
+        quayRtName: '88',
         time: '2022-07-28T13:48:00+02:00',
       },
       departure: {
@@ -352,7 +352,7 @@ export const configCancelledStops = {
       arrival: {
         delay: 0,
         quayChanged: false,
-        quayRtName: 'Gl. 88',
+        quayRtName: '88',
         time: '2022-07-28T13:48:00+02:00',
       },
       departure: {
@@ -415,7 +415,7 @@ export const configPast = {
       arrival: {
         delay: 0,
         quayChanged: false,
-        quayRtName: 'Gl. 88',
+        quayRtName: '88',
         time: '2021-08-04T20:00:00+02:00',
       },
       departure: {

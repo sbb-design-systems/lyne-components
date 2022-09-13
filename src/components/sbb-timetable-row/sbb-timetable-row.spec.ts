@@ -36,6 +36,9 @@ describe('sbb-timetable-row', () => {
                 <span class="screenreaderonly">
                   from platform
                 </span>
+                <span class="timetable__row--platform">
+                  Pl.
+                </span>
                 7
               </span>
               <div>

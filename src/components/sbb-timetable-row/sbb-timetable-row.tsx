@@ -130,6 +130,9 @@ export class SbbTimetableRow {
           <div class="timetable__row-footer" role="gridcell">
             <span class={tripStatus?.quayChanged ? `timetable__row-platform--changed` : ''}>
               <span class="screenreaderonly">{i18nFromPlatform.long[this._currentLanguage]}</span>
+              <span class="timetable__row--platform">
+                {i18nFromPlatform.short[this._currentLanguage]}
+              </span>
               {departure?.quayRtName}
             </span>
 

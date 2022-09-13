@@ -32,6 +32,10 @@ span {
   @include screenReaderOnly;
 }
 
+.timetable__row--platform {
+  margin-inline-end: var(--sbb-spacing-fixed-1x);
+}
+
 // resets lists
 ul {
   display: inline-flex;
