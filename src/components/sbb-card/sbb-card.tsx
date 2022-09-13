@@ -31,7 +31,7 @@ export class SbbCard {
 
   public render(): JSX.Element {
     return (
-      <Host class={{ 'sbb-card__badge': this._showSBBBadge() && this._hasBadge }}>
+      <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
         {this._showSBBBadge() && (
           <slot
             name="badge"

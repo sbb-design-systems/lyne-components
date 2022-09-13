@@ -1,3 +1,4 @@
+import React from 'react';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
