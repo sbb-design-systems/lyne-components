@@ -11,16 +11,15 @@ import { InterfaceSbbActionGroupAttributes } from './sbb-action-group.custom';
   tag: 'sbb-action-group',
 })
 export class SbbActionGroup {
-
   @Prop() public orientation: InterfaceSbbActionGroupAttributes['orientation'] = 'horizontal';
-  
+
   @Prop() public horizontalFrom?: InterfaceSbbActionGroupAttributes['horizontalFrom'] = 'medium';
-  
+
   @Prop() public align: InterfaceSbbActionGroupAttributes['align'] = 'start';
-  
+
   public render(): JSX.Element {
     return (
-      <Host slot='action-group'>
+      <Host slot="action-group">
         <slot />
       </Host>
     );
