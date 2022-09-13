@@ -19,14 +19,14 @@ describe('sbb-pearl-chain-time', () => {
     expect(page.root).toEqualHtml(`
         <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00'>
           <mock:shadow-root>
-            <time class="timetable__row-time" datetime="2022-08-16T12:00:00">
+            <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
               <span class="screenreaderonly">
                 Departure
               </span>
               12:00
             </time>
-            <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
-            <time class="timetable__row-time" datetime="2022-08-16T15:00:00">
+            <sbb-pearl-chain class="sbb-pearl-chain__time-chain"></sbb-pearl-chain>
+            <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
               <span class="screenreaderonly">
                 Arrival
               </span>
@@ -54,7 +54,7 @@ describe('sbb-pearl-chain-time', () => {
     expect(page.root).toEqualHtml(`
         <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="10">
           <mock:shadow-root>
-            <span class="timetable__row-walktime">
+            <span class="sbb-pearl-chain__time-walktime">
               <sbb-icon name="walk-small"></sbb-icon>
               <time datetime="10M">
                 <span class="screenreaderonly">
@@ -66,14 +66,14 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
               </time>
             </span>
-            <time class="timetable__row-time" datetime="2022-08-16T12:00:00">
+            <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
               <span class="screenreaderonly">
                 Departure
               </span>
               12:00
             </time>
-            <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
-            <time class="timetable__row-time" datetime="2022-08-16T15:00:00">
+            <sbb-pearl-chain class="sbb-pearl-chain__time-chain"></sbb-pearl-chain>
+            <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
               <span class="screenreaderonly">
                 Arrival
               </span>
@@ -101,20 +101,20 @@ describe('sbb-pearl-chain-time', () => {
     expect(page.root).toEqualHtml(`
         <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10">
           <mock:shadow-root>
-            <time class="timetable__row-time" datetime="2022-08-16T12:00:00">
+            <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
               <span class="screenreaderonly">
                 Departure
               </span>
               12:00
             </time>
-            <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
-            <time class="timetable__row-time" datetime="2022-08-16T15:00:00">
+            <sbb-pearl-chain class="sbb-pearl-chain__time-chain"></sbb-pearl-chain>
+            <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
               <span class="screenreaderonly">
                 Arrival
               </span>
               15:00
             </time>
-            <span class="timetable__row-walktime">
+            <span class="sbb-pearl-chain__time-walktime">
               <time datetime="10M">
                 <span class="screenreaderonly">
                   minutes of walking time after arrival:
@@ -148,7 +148,7 @@ describe('sbb-pearl-chain-time', () => {
     expect(page.root).toEqualHtml(`
         <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10">
           <mock:shadow-root>
-            <span class="timetable__row-walktime">
+            <span class="sbb-pearl-chain__time-walktime">
               <sbb-icon name="walk-small"></sbb-icon>
               <time datetime="20M">
                 <span class="screenreaderonly">
@@ -160,20 +160,20 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
               </time>
             </span>
-            <time class="timetable__row-time" datetime="2022-08-16T12:00:00">
+            <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
               <span class="screenreaderonly">
                 Departure
               </span>
               12:00
             </time>
-            <sbb-pearl-chain class="timetable__row-chain"></sbb-pearl-chain>
-            <time class="timetable__row-time" datetime="2022-08-16T15:00:00">
+            <sbb-pearl-chain class="sbb-pearl-chain__time-chain"></sbb-pearl-chain>
+            <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
               <span class="screenreaderonly">
                 Arrival
               </span>
               15:00
             </time>
-            <span class="timetable__row-walktime">
+            <span class="sbb-pearl-chain__time-walktime">
               <time datetime="10M">
                 <span class="screenreaderonly">
                   minutes of walking time after arrival:

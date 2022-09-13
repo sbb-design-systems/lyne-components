@@ -4,12 +4,12 @@
 }
 
 // override icons sizes
-.travel-hints__item {
+.sbb-travel-hints__item {
   --sbb-icon-svg-width: #{px-to-rem-build(16)};
   --sbb-icon-svg-height: #{px-to-rem-build(16)};
 }
 
-.occupancy__item {
+.sbb-occupancy__item {
   --sbb-icon-svg-width: #{px-to-rem-build(14.25)};
   --sbb-icon-svg-height: #{px-to-rem-build(12)};
 
@@ -32,7 +32,7 @@ span {
   @include screenReaderOnly;
 }
 
-.timetable__row--platform {
+.sbb-timetable__row--platform {
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
@@ -50,12 +50,12 @@ li {
   align-self: center;
 }
 
-.timetable__row-transport {
+.sbb-timetable__row-transport {
   align-self: center;
 }
 
-.timetable__row-transportnumber,
-.timetable__row-time {
+.sbb-timetable__row-transportnumber,
+.sbb-timetable__row-time {
   @include text-s--bold;
 
   line-height: unset;
@@ -63,7 +63,7 @@ li {
   align-self: center;
 }
 
-.timetable__row {
+.sbb-timetable__row {
   @include text-s--regular;
 
   display: flex;
@@ -71,72 +71,72 @@ li {
   gap: var(--row-gap);
 }
 
-.timetable__row-badge {
+.sbb-timetable__row-badge {
   padding-block-start: calc(var(--row-gap) - var(--row-badge-padding));
 }
 
-.timetable__row-header {
+.sbb-timetable__row-header {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
 }
 
-.timetable__row-details,
-.timetable__row-hints {
+.sbb-timetable__row-details,
+.sbb-timetable__row-hints {
   display: inline-flex;
   gap: var(--sbb-spacing-fixed-1x);
 }
 
-.timetable__row-header p {
+.sbb-timetable__row-header p {
   @include ellipsis;
 
   margin: 0;
   align-self: center;
 }
 
-.timetable__row-footer {
+.sbb-timetable__row-footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--sbb-spacing-fixed-2x);
 }
 
-.timetable__row-occupancy {
+.sbb-timetable__row-occupancy {
   gap: var(--sbb-spacing-fixed-2x);
 }
 
-.timetable__row-occupancy li {
+.sbb-timetable__row-occupancy li {
   display: inline-flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
 }
 
-.timetable__row-platform--changed {
+.sbb-timetable__row-platform--changed {
   color: var(--sbb-color-red-default);
 }
 
-.timetable__row-warning {
+.sbb-timetable__row-warning {
   display: inline-flex;
 }
 
-.loading {
+.sbb-loading {
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-2x);
   padding-block-start: var(--sbb-spacing-fixed-2x);
 }
 
-.loading__row,
-.loading__badge {
+.sbb-loading__row,
+.sbb-loading__badge {
   animation: skeleton-pulse 2s linear infinite alternate;
 }
 
-.loading__row {
+.sbb-loading__row {
   width: 100%;
   height: #{px-to-rem-build(24)};
   border-radius: #{px-to-rem-build(2)};
 }
 
-.loading__row:first-of-type {
+.sbb-loading__row:first-of-type {
   width: 75%;
 
   @include mq($from: medium) {
@@ -144,7 +144,7 @@ li {
   }
 }
 
-.loading__badge {
+.sbb-loading__badge {
   @include card-badge;
 
   width: 15%;

@@ -42,12 +42,12 @@ export class SbbTimetableRow {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
-      <sbb-timetable-row-button disabled class="loading" role="presentation">
-        <div class="loading">
-          {this.price != undefined && <span class="loading__badge"></span>}
-          <div class="loading__row"></div>
-          <div class="loading__row"></div>
-          <div class="loading__row"></div>
+      <sbb-timetable-row-button disabled class="sbb-loading" role="presentation">
+        <div class="sbb-loading">
+          {this.price != undefined && <span class="sbb-loading__badge"></span>}
+          <div class="sbb-loading__row"></div>
+          <div class="sbb-loading__row"></div>
+          <div class="sbb-loading__row"></div>
         </div>
       </sbb-timetable-row-button>
     );
@@ -84,7 +84,7 @@ export class SbbTimetableRow {
       occupancy,
       duration,
     } = this.trip?.summary || {};
-    const badgeClass = this.price?.price ? 'timetable__row-badge' : '';
+    const badgeClass = this.price?.price ? 'sbb-timetable__row-badge' : '';
     const sortedNotices = this._sortPriority(notices);
     const sortedSituations = this._sortPriority(situations);
 
@@ -94,8 +94,8 @@ export class SbbTimetableRow {
         role="presentation"
         accessibility-label={this.accessibilityLabel}
       >
-        <div class={`timetable__row ${badgeClass}`} role="row">
-          {this.loadingPrice && <span class="loading__badge"></span>}
+        <div class={`sbb-timetable__row ${badgeClass}`} role="row">
+          {this.loadingPrice && <span class="sbb-loading__badge"></span>}
           {this.price && !this.loadingPrice && (
             <sbb-card-badge
               appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
@@ -105,13 +105,13 @@ export class SbbTimetableRow {
             />
           )}
 
-          <div class="timetable__row-header" role="rowheader">
-            <div class="timetable__row-details">
+          <div class="sbb-timetable__row-header" role="rowheader">
+            <div class="sbb-timetable__row-details">
               <sbb-icon name={product?.vehicleMode} />
               {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase()) ? (
                 renderIconProduct(product?.vehicleSubModeShortName, product?.line)
               ) : (
-                <span class="timetable__row-transportnumber">
+                <span class="sbb-timetable__row-transportnumber">
                   {product?.vehicleSubModeShortName + ' ' + product?.line}
                 </span>
               )}
@@ -127,10 +127,10 @@ export class SbbTimetableRow {
             disableAnimation={this.disableAnimation}
           ></sbb-pearl-chain-time>
 
-          <div class="timetable__row-footer" role="gridcell">
-            <span class={tripStatus?.quayChanged ? `timetable__row-platform--changed` : ''}>
+          <div class="sbb-timetable__row-footer" role="gridcell">
+            <span class={tripStatus?.quayChanged ? `sbb-timetable__row-platform--changed` : ''}>
               <span class="screenreaderonly">{i18nFromPlatform.long[this._currentLanguage]}</span>
-              <span class="timetable__row--platform">
+              <span class="sbb-timetable__row--platform">
                 {i18nFromPlatform.short[this._currentLanguage]}
               </span>
               {departure?.quayRtName}
@@ -138,11 +138,11 @@ export class SbbTimetableRow {
 
             {(occupancy?.firstClass || occupancy?.secondClass) && (
               <div>
-                <ul class="timetable__row-occupancy" role="list">
+                <ul class="sbb-timetable__row-occupancy" role="list">
                   <li>
                     {occupancy?.firstClass ? '1.' : ''}
                     <sbb-icon
-                      class="occupancy__item"
+                      class="sbb-occupancy__item"
                       name={`utilization-` + occupancy?.firstClass}
                     />
                     <span class="screenreaderonly">{i18nClass.first[this._currentLanguage]}</span>
@@ -153,7 +153,7 @@ export class SbbTimetableRow {
                   <li>
                     {occupancy?.secondClass ? '2.' : ''}
                     <sbb-icon
-                      class="occupancy__item"
+                      class="sbb-occupancy__item"
                       name={`utilization-` + occupancy?.secondClass}
                     />
                     <span class="screenreaderonly">{i18nClass.second[this._currentLanguage]}</span>
@@ -165,12 +165,12 @@ export class SbbTimetableRow {
               </div>
             )}
             {sortedNotices?.length > 0 ? (
-              <ul class="timetable__row-hints" role="list">
+              <ul class="sbb-timetable__row-hints" role="list">
                 {sortedNotices.map((notice, index) =>
                   index < 4 ? (
                     <li>
                       <sbb-icon
-                        class="travel-hints__item"
+                        class="sbb-travel-hints__item"
                         name={'sa-' + notice?.name.toLowerCase()}
                         aria-hidden="false"
                         aria-label={notice?.text}
@@ -186,7 +186,7 @@ export class SbbTimetableRow {
             )}
             <time>{durationToTime(duration)}</time>
             {sortedSituations?.length > 0 ? (
-              <span class="timetable__row-warning">
+              <span class="sbb-timetable__row-warning">
                 {sortedSituations.map((situation, index) =>
                   index <= 1 ? (
                     <sbb-icon

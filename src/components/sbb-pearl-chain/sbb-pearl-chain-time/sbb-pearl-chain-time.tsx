@@ -8,7 +8,7 @@ import {
 } from '../../../global/i18n';
 import getDocumentLang from '../../../global/helpers/get-document-lang';
 import { format } from 'date-fns-tz';
-import { removeTimezoneFromDate } from './timezone-helper';
+import { removeTimezoneFromDate } from './helper/timezone-helper';
 
 @Component({
   shadow: true,
@@ -53,7 +53,7 @@ export class SbbPearlChainTime {
     return (
       <Host>
         {this.departureWalk && (
-          <span class="timetable__row-walktime">
+          <span class="sbb-pearl-chain__time-walktime">
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.departureWalk + 'M'}>
               <span class="screenreaderonly">
@@ -64,21 +64,21 @@ export class SbbPearlChainTime {
             </time>
           </span>
         )}
-        <time class="timetable__row-time" dateTime={'' + this.departureTime}>
+        <time class="sbb-pearl-chain__time-time" dateTime={'' + this.departureTime}>
           <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
           {this.departureTime && format(departure, 'H:mm')}
         </time>
         <sbb-pearl-chain
-          class="timetable__row-chain"
+          class="sbb-pearl-chain__time-chain"
           legs={this.legs}
           disable-animation={this.disableAnimation}
         />
-        <time class="timetable__row-time" dateTime={'' + this.arrivalTime}>
+        <time class="sbb-pearl-chain__time-time" dateTime={'' + this.arrivalTime}>
           <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
           {this.arrivalTime && format(arrival, 'H:mm')}
         </time>
         {this.arrivalWalk && (
-          <span class="timetable__row-walktime">
+          <span class="sbb-pearl-chain__time-walktime">
             <time dateTime={this.arrivalWalk + 'M'}>
               <span class="screenreaderonly">{i18nWalkingDistanceArrival[getDocumentLang()]}</span>
               {this.arrivalWalk}

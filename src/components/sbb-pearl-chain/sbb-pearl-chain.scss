@@ -25,7 +25,7 @@
   --color-past: var(--sbb-color-metal-default);
 }
 
-.pearl-chain {
+.sbb-pearl-chain {
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -39,8 +39,8 @@
 }
 
 // first and last dot
-.pearl-chain::before,
-.pearl-chain::after {
+.sbb-pearl-chain::before,
+.sbb-pearl-chain::after {
   --dot-size: var(--dot-size-large);
   @include dot;
 
@@ -53,27 +53,27 @@
   }
 }
 
-.pearl-chain--progress::before {
+.sbb-pearl-chain--progress::before {
   color: var(--color-past);
 }
 
-.pearl-chain::before {
+.sbb-pearl-chain::before {
   left: 0;
 }
 
-.pearl-chain::after {
+.sbb-pearl-chain::after {
   right: 0;
 }
 
-.pearl-chain.pearl-chain--past::before,
-.pearl-chain.pearl-chain--past::after {
+.sbb-pearl-chain.sbb-pearl-chain--past::before,
+.sbb-pearl-chain.sbb-pearl-chain--past::after {
   @include ifForcedColors {
     background-color: GrayText;
   }
 }
 
-.pearl-chain--departure-cancellation::before,
-.pearl-chain--arrival-cancellation::after {
+.sbb-pearl-chain--departure-cancellation::before,
+.sbb-pearl-chain--arrival-cancellation::after {
   color: var(--color-cancellation);
 
   @include ifForcedColors {
@@ -81,8 +81,8 @@
   }
 }
 
-.pearl-chain--departure-cancellation.pearl-chain--past::before,
-.pearl-chain--arrival-cancellation.pearl-chain--past::after {
+.sbb-pearl-chain--departure-cancellation.pearl-chain--past::before,
+.sbb-pearl-chain--arrival-cancellation.pearl-chain--past::after {
   color: var(--color-past);
 
   @include ifForcedColors {
@@ -90,7 +90,7 @@
   }
 }
 
-.pearl-chain--past {
+.sbb-pearl-chain--past {
   color: var(--color-past);
   position: relative;
 
@@ -99,7 +99,7 @@
   }
 }
 
-.pearl-chain__leg {
+.sbb-pearl-chain__leg {
   flex-shrink: 0;
   flex-grow: 0;
   position: relative;
@@ -112,20 +112,20 @@
   }
 }
 
-.pearl-chain__leg:last-of-type {
+.sbb-pearl-chain__leg:last-of-type {
   border: none;
 }
 
-.pearl-chain__leg--past {
+.sbb-pearl-chain__leg--past {
   color: var(--color-past);
 }
 
-.pearl-chain__leg--progress::before {
+.sbb-pearl-chain__leg--progress::before {
   color: var(--color-past);
 }
 
 // dot on leg
-.pearl-chain__leg:not(:first-child) {
+.sbb-pearl-chain__leg:not(:first-child) {
   &::before {
     --dot-size: var(--dot-size-small);
     @include dot;
@@ -138,7 +138,7 @@
     z-index: 2;
 
     @include ifForcedColors {
-      .pearl-chain--past & {
+      .sbb-pearl-chain--past & {
         border-color: GrayText;
       }
     }
@@ -146,7 +146,7 @@
 }
 
 // line on leg
-.pearl-chain__leg::after {
+.sbb-pearl-chain__leg::after {
   content: '';
   position: absolute;
   top: 0;
@@ -159,25 +159,25 @@
   @include ifForcedColors {
     background-color: CanvasText;
 
-    .pearl-chain--past & {
+    .sbb-pearl-chain--past & {
       background-color: GrayText;
     }
   }
 }
 
-.pearl-chain__leg:last-of-type::after {
+.sbb-pearl-chain__leg:last-of-type::after {
   right: calc(-1 * var(--border-width));
 }
 
-.pearl-chain__leg--progress::after {
+.sbb-pearl-chain__leg--progress::after {
   background-color: var(--color-past);
   width: var(--leg-status);
 }
 
-.pearl-chain__leg--cancellation {
+.sbb-pearl-chain__leg--cancellation {
   color: var(--color-cancellation);
 
-  .pearl-chain--past & {
+  .sbb-pearl-chain--past & {
     color: var(--color-past);
 
     @include ifForcedColors {
@@ -190,7 +190,7 @@
   }
 }
 
-.pearl-chain__leg--cancellation::after {
+.sbb-pearl-chain__leg--cancellation::after {
   background-color: unset;
   background-image: linear-gradient(
     to right,
@@ -203,8 +203,8 @@
   right: var(--border-width);
 }
 
-.pearl-chain__leg--cancellation::after,
-.pearl-chain--past .pearl-chain__leg--cancellation::after {
+.sbb-pearl-chain__leg--cancellation::after,
+.sbb-pearl-chain--past .sbb-pearl-chain__leg--cancellation::after {
   @include ifForcedColors {
     background: none;
     border-top: #{px-to-rem-build(1)} dashed currentcolor;
@@ -212,7 +212,7 @@
   }
 }
 
-.pearl-chain__position {
+.sbb-pearl-chain__position {
   position: absolute;
 
   --dot-size: var(--dot-size-large);
@@ -231,7 +231,7 @@
   }
 }
 
-.pearl-chain__position--no-animation {
+.sbb-pearl-chain__position--no-animation {
   animation: unset;
 }
 
