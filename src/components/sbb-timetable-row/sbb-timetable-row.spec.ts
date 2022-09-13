@@ -33,6 +33,9 @@ describe('sbb-timetable-row', () => {
             <sbb-pearl-chain-time arrivaltime="2022-10-28T21:16:00+02:00" arrivalwalk="5" departuretime="2022-10-28T02:48:00+02:00" departurewalk="8"></sbb-pearl-chain-time>
             <div class="timetable__row-footer" role="gridcell">
               <span class="timetable__row-platform--changed">
+                <span class="screenreaderonly">
+                  from platform
+                </span>
                 7
               </span>
               <div>
@@ -40,10 +43,22 @@ describe('sbb-timetable-row', () => {
                   <li>
                     1.
                     <sbb-icon class="occupancy__item" name="utilization-high"></sbb-icon>
+                    <span class="screenreaderonly">
+                      First Class
+                    </span>
+                    <span class="screenreaderonly">
+                      Very high occupancy expected.
+                    </span>
                   </li>
                   <li>
                     2.
                     <sbb-icon class="occupancy__item" name="utilization-high"></sbb-icon>
+                    <span class="screenreaderonly">
+                      Second Class
+                    </span>
+                    <span class="screenreaderonly">
+                      Very high occupancy expected.
+                    </span>
                   </li>
                 </ul>
               </div>

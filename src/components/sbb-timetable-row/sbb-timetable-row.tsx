@@ -2,7 +2,7 @@ import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import { i18nDirection } from '../../global/i18n';
+import { i18nClass, i18nDirection, i18nFromPlatform, i18nOccupancy } from '../../global/i18n';
 import { durationToTime, isProductIcon, renderIconProduct } from './sbb-timetable-row.helper';
 
 @Component({
@@ -129,6 +129,7 @@ export class SbbTimetableRow {
 
           <div class="timetable__row-footer" role="gridcell">
             <span class={tripStatus?.quayChanged ? `timetable__row-platform--changed` : ''}>
+              <span class="screenreaderonly">{i18nFromPlatform.long[this._currentLanguage]}</span>
               {departure?.quayRtName}
             </span>
 
@@ -141,6 +142,10 @@ export class SbbTimetableRow {
                       class="occupancy__item"
                       name={`utilization-` + occupancy?.firstClass}
                     />
+                    <span class="screenreaderonly">{i18nClass.first[this._currentLanguage]}</span>
+                    <span class="screenreaderonly">
+                      {i18nOccupancy[occupancy.firstClass.toLowerCase()][this._currentLanguage]}
+                    </span>
                   </li>
                   <li>
                     {occupancy?.secondClass ? '2.' : ''}
@@ -148,6 +153,10 @@ export class SbbTimetableRow {
                       class="occupancy__item"
                       name={`utilization-` + occupancy?.secondClass}
                     />
+                    <span class="screenreaderonly">{i18nClass.second[this._currentLanguage]}</span>
+                    <span class="screenreaderonly">
+                      {i18nOccupancy[occupancy.secondClass.toLowerCase()][this._currentLanguage]}
+                    </span>
                   </li>
                 </ul>
               </div>
