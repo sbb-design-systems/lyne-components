@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
+import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
@@ -18,7 +19,6 @@ import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
-import { LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
@@ -197,9 +197,61 @@ export namespace Components {
     }
     interface SbbCard {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean | undefined;
+        /**
+          * Id sent in the click event payload.
+         */
+        "eventId"?: string | undefined;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string | undefined;
+        /**
+          * The href value you want to link to.
+         */
+        "href": string | undefined;
+        /**
+          * Id used to identify the inner element.
+         */
+        "idValue"?: string;
+        /**
+          * The name of the button.
+         */
+        "name": string | undefined;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
           * Size variant, either xs, s, m, l, xl or xxl.
          */
         "size"?: InterfaceSbbCardAttributes['size'];
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Default behaviour of the button.
+         */
+        "type": ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string | undefined;
     }
     interface SbbCardBadge {
         /**
@@ -1044,6 +1096,10 @@ export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbButtonElement;
 }
+export interface SbbCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbCardElement;
+}
 export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbLinkElement;
@@ -1589,9 +1645,65 @@ declare namespace LocalJSX {
     }
     interface SbbCard {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean | undefined;
+        /**
+          * Id sent in the click event payload.
+         */
+        "eventId"?: string | undefined;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string | undefined;
+        /**
+          * The href value you want to link to.
+         */
+        "href"?: string | undefined;
+        /**
+          * Id used to identify the inner element.
+         */
+        "idValue"?: string;
+        /**
+          * The name of the button.
+         */
+        "name"?: string | undefined;
+        /**
+          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
+         */
+        "onSbb-card-button_click"?: (event: SbbCardCustomEvent<any>) => void;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
           * Size variant, either xs, s, m, l, xl or xxl.
          */
         "size"?: InterfaceSbbCardAttributes['size'];
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Default behaviour of the button.
+         */
+        "type"?: ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string | undefined;
     }
     interface SbbCardBadge {
         /**
