@@ -9,9 +9,9 @@ describe('sbb-action-group', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-action-group>
+        <sbb-action-group slot="action-group">
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <slot></slot>
           </mock:shadow-root>
         </sbb-action-group>
       `);
