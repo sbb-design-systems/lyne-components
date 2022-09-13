@@ -11,9 +11,7 @@ The example below show how to render the component with `<sbb-card-badge>`:
 ```html
 <sbb-card>
   <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
-  <div>
-    <p>Card content</p>
-  </div>
+  Card content
 </sbb-card>
 ```
 

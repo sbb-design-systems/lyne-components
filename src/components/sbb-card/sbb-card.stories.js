@@ -1,32 +1,28 @@
-import React from 'react';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Content = () => [
-  <sbb-title level="4">Example text</sbb-title>,
-  <div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut
-    blandit libero cursus vel. Nunc eu congue mauris. Quisque sed facilisis leo. Curabitur
-    malesuada, nibh ac blandit vehicula, urna sem scelerisque magna, sed tincidunt neque arcu ac
-    justo.
-  </div>,
-];
+const ContentText =
+  () => `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio,
+  ut blandit libero cursus vel. Nunc eu congue mauris. Quisque sed facilisis leo. Curabitur malesuada, nibh ac
+  blandit vehicula, urna sem scelerisque magna, sed tincidunt neque arcu ac justo.`;
+
+const Content = () => [<sbb-title level="4">Example text</sbb-title>, ContentText()];
 
 const Template = (args) => <sbb-card {...args}>{Content()}</sbb-card>;
 
-const TemplateWithBadge = (args, style) => (
-  <sbb-card style={style} {...args}>
-    {Content()}
+const TemplateWithBadge = (args) => (
+  <sbb-card {...args}>
     <sbb-card-badge slot="badge" appearance="primary" is-discount price="19.99" text="from CHF" />
+    {Content()}
   </sbb-card>
 );
 
 const TemplateMultipleCards = (args) => (
-  <div style="display: flex; justify-content: space-evenly">
-    {TemplateWithBadge(args, 'width: 25vw; margin: 1rem;')}
-    {TemplateWithBadge(args, 'width: 25vw; margin: 1rem;')}
-    {TemplateWithBadge(args, 'width: 25vw; margin: 1rem;')}
-    {TemplateWithBadge(args, 'width: 25vw; margin: 1rem;')}
+  <div style="display: flex; gap: 1rem;">
+    {TemplateWithBadge(args)}
+    {TemplateWithBadge(args)}
+    {TemplateWithBadge(args)}
+    {TemplateWithBadge(args)}
   </div>
 );
 
