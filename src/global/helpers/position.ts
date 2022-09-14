@@ -1,9 +1,7 @@
-export interface ElementRectangle {
-  scrollHeight: number;
-  clientHeight: number;
-  scrollWidth: number;
-  clientWidth: number;
-}
+type ElementRectangle = Pick<
+  Element,
+  'scrollHeight' | 'clientHeight' | 'scrollWidth' | 'clientWidth'
+>;
 
 export interface ElementPositionInfos {
   top: number;
