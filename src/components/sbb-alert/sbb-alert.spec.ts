@@ -9,7 +9,7 @@ describe('sbb-alert', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-alert aria-live="assertive" id="custom-id" role="alert" title-content="Interruption" title-level="2">
+        <sbb-alert id="custom-id" title-content="Interruption" title-level="2">
           <mock:shadow-root>
             <div class="sbb-alert__transition-wrapper" style="height: undefinedpx;">
               <div class="sbb-alert sbb-alert--size-m" style="opacity: 0;">
