@@ -1,4 +1,4 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
 import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
@@ -39,6 +39,14 @@ export class SbbTimetableRow {
   /** When this prop is true the badge for the price will appear loading*/
   @Prop() public loadingPrice?: boolean;
 
+  /** This click event gets emitted when the user clicks on the component*/
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-timetable-row_click',
+  })
+  public sbbClick: EventEmitter<any>;
+
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
@@ -64,6 +72,12 @@ export class SbbTimetableRow {
     });
     return items;
   }
+
+  private _clickHandler = (): void => {
+    this.sbbClick.emit({
+      bubbles: true,
+    });
+  };
 
   public render(): JSX.Element {
     if (this.loadingTrip) {
@@ -93,6 +107,7 @@ export class SbbTimetableRow {
         id={id}
         role="presentation"
         accessibility-label={this.accessibilityLabel}
+        onClick={this._clickHandler}
       >
         <div class={`sbb-timetable__row ${badgeClass}`} role="row">
           {this.loadingPrice && <span class="sbb-loading__badge"></span>}

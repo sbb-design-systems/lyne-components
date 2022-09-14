@@ -1290,6 +1290,10 @@ export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
 }
+export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTimetableRowElement;
+}
 export interface SbbTimetableRowButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTimetableRowButtonElement;
@@ -2740,6 +2744,10 @@ declare namespace LocalJSX {
           * The loading state - when this is true it will be render skeleton with an idling animation
          */
         "loadingTrip"?: boolean;
+        /**
+          * This click event gets emitted when the user clicks on the component
+         */
+        "onSbb-timetable-row_click"?: (event: SbbTimetableRowCustomEvent<any>) => void;
         /**
           * The price Prop,  which consits of the data for the badge
          */

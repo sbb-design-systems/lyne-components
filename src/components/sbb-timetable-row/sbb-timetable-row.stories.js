@@ -8,6 +8,7 @@ import {
   configCancelledStops,
   configPast,
 } from './sbb-timetable-row.sample-data';
+import events from './sbb-timetable-row.events';
 
 // TEMPLATES
 const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
@@ -75,6 +76,9 @@ export default {
     ),
   ],
   parameters: {
+    actions: {
+      handles: [events.sbbClick],
+    },
     docs: {
       extractComponentDescription: () => readme,
     },

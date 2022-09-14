@@ -25,6 +25,13 @@ The args are the same, as in the table below. If the `loading-trip` property is 
 | `trip`               | --                    | The trip Prop                                                                                     | `{ legs?: Leg[]; notices?: Notice[]; situations?: PtSituation[]; summary?: TripSummary; id?: string; valid?: boolean; }` | `undefined` |
 
 
+## Events
+
+| Event                     | Description                                                         | Type               |
+| ------------------------- | ------------------------------------------------------------------- | ------------------ |
+| `sbb-timetable-row_click` | This click event gets emitted when the user clicks on the component | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Depends on
