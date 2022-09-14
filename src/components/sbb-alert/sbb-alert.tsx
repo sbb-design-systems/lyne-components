@@ -46,7 +46,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   @Prop({ reflect: true }) public readonly = false;
 
   /** You can choose between `m` or `l` size. */
-  @Prop() public size: InterfaceAlertAttributes['size'] = 'm';
+  @Prop({ reflect: true }) public size: InterfaceAlertAttributes['size'] = 'm';
 
   /** Whether the fade in animation should be disabled. */
   @Prop() public disableAnimation = false;
@@ -166,11 +166,11 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
     this.didPresent.emit();
   }
 
-  private _linkProperties(): LinkProperties {
+  private _linkProperties() {
     return {
-      accessibilityLabel: this.accessibilityLabel,
-      accessibilityDescribedby: this.accessibilityDescribedby,
-      accessibilityLabelledby: this.accessibilityLabelledby,
+      ['accessibility-label']: this.accessibilityLabel,
+      ['accessibility-describedby']: this.accessibilityDescribedby,
+      ['accessibility-labelledby']: this.accessibilityLabelledby,
       href: this.href,
       rel: this.rel,
       target: this.target,
@@ -186,10 +186,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
         }}
       >
         <div
-          class={{
-            'sbb-alert': true,
-            [`sbb-alert--size-${this.size}`]: true,
-          }}
+          class="sbb-alert"
           ref={(el): void => {
             const isFirstInitialization = !this._alertElement;
 
