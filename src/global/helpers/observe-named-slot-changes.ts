@@ -14,6 +14,8 @@ const extractSlotNames = (nodeLists: NodeList[], slotNames = new Set<string>()):
 };
 
 const observer = new AgnosticMutationObserver((mutations) => {
+  // Aggregate multiple mutations to the corresponding target.
+  // This prevents the sbbSlotNameChange to be triggered multiple times for the same target.
   const mutationMap = mutations.reduce(
     (map, mutation) =>
       map.set(
@@ -24,7 +26,7 @@ const observer = new AgnosticMutationObserver((mutations) => {
   );
   mutationMap.forEach((slotNames, host) => {
     if (slotNames.size) {
-      host.dispatchEvent(new CustomEvent('◬slotNameChange', { detail: slotNames }));
+      host.dispatchEvent(new CustomEvent('sbbSlotNameChange', { detail: slotNames }));
     }
   });
 });
@@ -39,26 +41,9 @@ const observer = new AgnosticMutationObserver((mutations) => {
  * and observed nodes can still be garbage collected.
  * https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/disconnect#usage_notes
  *
- * @example
- * ```
- * private _hasTitle = false;
- *
- * @Element() private _element: HTMLElement;
- *
- * public connectedCallback(): void {
- *   this._hasTitle = !!this._element.query
- *   observeNamedSlotChanges(this._element);
- * }
- *
- * @Listen('◬slotNameChange', { passive: true })
- * public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
- *   console.log(Date.now(), event);
- * }
- * ```
- *
  * @param element The host element to observe.
  */
-export function observeNamedSlotChanges(element: Element): void {
+function observeNamedSlotChanges(element: Element): void {
   // We only observe the child list of the host element, both for performance and to reduce
   // complexity. If we were to observe the slot attribute of the children, this could only be done
   // via subtree (which includes host and children of children), which would make it more difficult
@@ -68,14 +53,85 @@ export function observeNamedSlotChanges(element: Element): void {
   observer.observe(element, { childList: true });
 }
 
+function hasNamedSlotElement(element: Element, name: string): boolean {
+  return !!element.querySelector(`[slot="${name}"]`);
+}
+
+export type NamedSlotState = Readonly<Record<string, boolean>>;
+
 /**
- * Checks whether an element with the given slot attribute name exists as a child of the given
- * element.
+ * Creates a frozen object with the given names as key with the value being false.
+ *
+ * @param names Names of slots.
+ * @returns A frozen object with the given slot names as keys.
+ */
+export function createNamedSlotState(...names: string[]): NamedSlotState {
+  return Object.freeze(
+    names.reduce(
+      (state, key) => Object.assign(state, { [key]: false }),
+      {} as Record<string, boolean>
+    )
+  );
+}
+
+/**
+ * Queries the host element for child elements with the slot names from the given state.
  *
  * @param element The host element.
- * @param name The name of the slot.
- * @returns Whether an element with the given slot attribute name exists.
+ * @param state The previous state.
+ * @param names Slot names to check (optional).
+ * @returns A new frozen object with values being set to true, if the host contains elements
+ *   with the corresponding slot name.
  */
-export function hasNamedSlotElement(element: Element, name: string): boolean {
-  return !!element.querySelector(`[slot="${name}"]`);
+export function queryNamedSlotState(
+  element: HTMLElement,
+  state: Record<string, boolean>,
+  names?: Set<string>
+): NamedSlotState {
+  const newState = { ...state };
+  if (names) {
+    names.forEach((name) => {
+      if (name in newState) {
+        newState[name] = hasNamedSlotElement(element, name);
+      }
+    });
+  } else {
+    for (const name of Object.keys(newState)) {
+      newState[name] = hasNamedSlotElement(element, name);
+    }
+  }
+
+  return Object.freeze(newState);
+}
+
+/**
+ * Queries the host element for child elements with the slot names from the given state and.
+ *
+ * @example
+ * ```
+ * @Element() private _element: HTMLElement;
+ *
+ * @State() private _namedSlots = createNamedSlotState('title');
+ *
+ * public connectedCallback(): void {
+ *   this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+ * }
+ *
+ * @Listen('sbbSlotNameChange', { passive: true })
+ * public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+ *   this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+ * }
+ * ```
+ *
+ * @param element The host element.
+ * @param state The previous state.
+ * @returns A new frozen object with values being set to true, if the host contains elements
+ *   with the corresponding slot name.
+ */
+export function queryAndObserveNamedSlotState(
+  element: HTMLElement,
+  state: Record<string, boolean>
+): NamedSlotState {
+  observeNamedSlotChanges(element);
+  return queryNamedSlotState(element, state);
 }

@@ -14,8 +14,9 @@ import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import {
-  hasNamedSlotElement,
-  observeNamedSlotChanges,
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 
 let nextId = 0;
@@ -80,10 +81,8 @@ export class SbbFormField implements ComponentInterface {
    */
   @State() private _invalid = false;
 
-  /**
-   * Whether the label slot has any content.
-   */
-  @State() private _hasSlottedLabel = false;
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('label');
 
   @Element() private _element: HTMLElement;
 
@@ -110,19 +109,16 @@ export class SbbFormField implements ComponentInterface {
   });
 
   public connectedCallback(): void {
-    this._hasSlottedLabel = hasNamedSlotElement(this._element, 'label');
-    observeNamedSlotChanges(this._element);
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
   public disconnectedCallback(): void {
     this._formFieldAttributeObserver.disconnect();
   }
 
-  @Listen('◬slotNameChange', { passive: true })
+  @Listen('sbbSlotNameChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    if (event.detail.has('label')) {
-      this._hasSlottedLabel = hasNamedSlotElement(this._element, 'label');
-    }
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   /**
@@ -196,18 +192,16 @@ export class SbbFormField implements ComponentInterface {
             <slot name="prefix"></slot>
 
             <div class="form-field__input-container">
-              <label
-                class="form-field__label"
-                htmlFor={this._input?.id}
-                hidden={!this.label && !this._hasSlottedLabel}
-              >
-                <slot name="label">
-                  <span>{this.label}</span>
-                </slot>
-                {this.optional && (
-                  <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
-                )}
-              </label>
+              {(this.label || this._namedSlots.label) && (
+                <label class="form-field__label" htmlFor={this._input?.id}>
+                  <slot name="label">
+                    <span>{this.label}</span>
+                  </slot>
+                  {this.optional && (
+                    <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
+                  )}
+                </label>
+              )}
               <div class="form-field__input">
                 <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
               </div>
