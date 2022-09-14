@@ -17,6 +17,21 @@ import { isBreakpoint } from '../../global/helpers/breakpoint';
 
 const MENU_OFFSET = 8;
 
+const INTERACTIVE_COMPONENTS = ['SBB-BUTTON', 'SBB-LINK', 'SBB-MENU-ACTION'];
+
+const IS_FOCUSABLE_QUERY = `
+  button:not([disabled]),
+  [href],
+  input:not([disabled]),
+  select:not([disabled]),
+  textarea:not([disabled]),
+  details:not([disabled]),
+  summary:not(:disabled),
+  [tabindex]:not([tabindex="-1"]):not([disabled]),
+  sbb-button:not([disabled]),
+  sbb-link:not([disabled]),
+  sbb-menu-action:not([disabled])`;
+
 /**
  * @slot unnamed - Use this slot to project any content inside the component.
  */
@@ -137,7 +152,7 @@ export class SbbMenu implements ComponentInterface {
     return o instanceof window.Element;
   }
 
-  // todo --> improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
+  // TODO: improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
   private _dialog: HTMLDialogElement | any;
 
   // The element that triggers the open of the sbb-menu.
@@ -185,6 +200,7 @@ export class SbbMenu implements ComponentInterface {
 
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
   private _dismissOnInteractiveElementClick(): void {
+    // TODO: improve the query once "https://github.com/ionic-team/stencil/issues/3588" has been solved
     const interactiveElements = this.el.querySelectorAll('[href], button, sbb-button, sbb-link');
     interactiveElements.forEach((el: Element) => {
       if (!el.hasAttribute('disabled')) {
@@ -229,28 +245,19 @@ export class SbbMenu implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const query = `
-      button:not([disabled]),
-      [href],
-      input:not([disabled]),
-      select:not([disabled]),
-      textarea:not([disabled]),
-      details:not([disabled]),
-      summary:not(:disabled),
-      [tabindex]:not([tabindex="-1"]):not([disabled]),
-      sbb-button:not([disabled]),
-      sbb-link:not([disabled]),
-      sbb-menu-action:not([disabled])
-    `;
-
-    const firstFocusable = Array.from(this.el.querySelectorAll(query))[0] as HTMLElement;
-    firstFocusable.tabIndex = 0;
-    firstFocusable.focus();
+    const firstFocusable = Array.from(
+      this.el.querySelectorAll(IS_FOCUSABLE_QUERY)
+    )[0] as HTMLElement;
+    if (INTERACTIVE_COMPONENTS.includes(firstFocusable.nodeName)) {
+      (Array.from(this.el.querySelectorAll(IS_FOCUSABLE_QUERY))[0] as HTMLElement).focus();
+    } else {
+      firstFocusable.focus();
+    }
   }
 
   // Set menu position and max height if the breakpoint is medium-ultra.
   private _setMenuPosition(): void {
-    if (!isBreakpoint('medium', 'ultra') || !this._dialog || !this._triggerEl) {
+    if (!isBreakpoint('medium') || !this._dialog || !this._triggerEl) {
       return;
     }
 
