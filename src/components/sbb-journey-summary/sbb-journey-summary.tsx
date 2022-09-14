@@ -1,7 +1,7 @@
 import { Component, h, JSX, Prop, Element } from '@stencil/core';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
-import { isTomorrow, isToday, parseISO, isValid } from 'date-fns';
-import { format } from 'date-fns-tz';
+import { isTomorrow, isToday, isValid, format } from 'date-fns';
+
 import {
   i18nArrival,
   i18nDeparture,
@@ -86,11 +86,11 @@ export class SbbJourneySummary {
   private _renderJourneyVias(vias: string[]): JSX.Element {
     const slicedVias = vias.slice(0, 4);
     return (
-      <div class="journey-summary__via-block">
-        <span class="journey-summary__via-text">Via</span>
-        <ul class="journey-summary__vias">
+      <div class="sbb-journey-summary__via-block">
+        <span class="sbb-journey-summary__via-text">Via</span>
+        <ul class="sbb-journey-summary__vias">
           {slicedVias.map((via, index) => (
-            <li class="journey-summary__via">
+            <li class="sbb-journey-summary__via">
               {via}
               {index !== slicedVias.length - 1 && <span>, </span>}
             </li>
@@ -103,7 +103,7 @@ export class SbbJourneySummary {
   /** renders the optional walktimes, the icon is displayed either before or after the time*/
   private _renderWalkTime(iconBefore: boolean, duration: number): JSX.Element {
     return (
-      <span class="journey-summary__walktime">
+      <span class="sbb-journey-summary__walktime">
         {iconBefore && <sbb-icon name="walk-small"></sbb-icon>}
         <time dateTime={duration.toString()}>
           {duration}
@@ -121,33 +121,34 @@ export class SbbJourneySummary {
 
   public render(): JSX.Element {
     const { vias, origin, destination, duration } = this.config || {};
-    const departureTime: Date = parseISO(this.config?.departure?.time);
-    const arrivalTime: Date = parseISO(this.config?.arrival?.time);
+    const departureTime: Date = new Date(this.config?.departure?.time.substring(0, 19));
+    const arrivalTime: Date = new Date(this.config?.arrival?.time.substring(0, 19));
+
     return (
-      <div class="journey-summary">
+      <div class="sbb-journey-summary">
         {origin && (
           <sbb-journey-header origin={origin} destination={destination}></sbb-journey-header>
         )}
         {vias && this._renderJourneyVias(vias)}
-        <div class="journey-summary__body">
+        <div class="sbb-journey-summary__body">
           {this._renderJourneyStart(departureTime, duration)}
-          <div class="journey-summary__transportation-details">
+          <div class="sbb-journey-summary__transportation-details">
             <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
             {this.config?.departureWalk && this._renderWalkTime(true, this.config?.departureWalk)}
             {isValid(departureTime) && (
-              <time class="journey-summary__time">{format(departureTime, 'HH:mm')}</time>
+              <time class="sbb-journey-summary__time">{format(departureTime, 'HH:mm')}</time>
             )}
-            <div class="journey-summary__pearlchain">
+            <div class="sbb-journey-summary__pearlchain">
               <sbb-pearl-chain legs={this.config?.legs} />
             </div>
             {isValid(arrivalTime) && (
-              <time class="journey-summary__time">{format(arrivalTime, 'HH:mm')}</time>
+              <time class="sbb-journey-summary__time">{format(arrivalTime, 'HH:mm')}</time>
             )}
             <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
             {this.config?.arrivalWalk && this._renderWalkTime(false, this.config?.arrivalWalk)}
           </div>
           {this._hasContentSlot && (
-            <div class="journey-summary__slot">
+            <div class="sbb-journey-summary__slot">
               <slot name="content" />
             </div>
           )}

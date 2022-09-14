@@ -1,4 +1,4 @@
-.journey-summary {
+.sbb-journey-summary {
   @include text-s--regular;
 
   padding: var(--sbb-spacing-responsive-s);
@@ -6,15 +6,15 @@
   flex-direction: column;
 }
 
-.journey-summary__via-block {
+.sbb-journey-summary__via-block {
   display: flex;
 
-  .journey-summary__via-text {
+  .sbb-journey-summary__via-text {
     padding-inline-end: var(--sbb-spacing-fixed-1x);
   }
 }
 
-.journey-summary__vias {
+.sbb-journey-summary__vias {
   @include ellipsis;
 
   margin-block-start: 0;
@@ -22,31 +22,31 @@
   padding-inline-start: 0;
 }
 
-.journey-summary__via {
+.sbb-journey-summary__via {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.journey-summary__transportation-details {
+.sbb-journey-summary__transportation-details {
   display: flex;
   flex-direction: row;
   gap: var(--sbb-spacing-fixed-3x);
   align-items: center;
 
-  .journey-summary__pearlchain {
+  .sbb-journey-summary__pearlchain {
     flex: 1 1 auto;
   }
 }
 
-.journey-summary__walktime {
+.sbb-journey-summary__walktime {
   @include text-xxs--regular;
 
   align-items: center;
   display: inline-flex;
 }
 
-.journey-summary__time {
+.sbb-journey-summary__time {
   @include text-s--bold;
 }
 
