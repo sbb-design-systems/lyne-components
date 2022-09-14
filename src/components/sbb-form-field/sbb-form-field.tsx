@@ -1,8 +1,9 @@
-import { Component, Host, h, JSX, Prop, State } from '@stencil/core';
+import { Component, Host, h, JSX, Prop, State, Element } from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { SlotMarker } from '../../global/helpers/slot-marker';
 
 let nextId = 0;
 
@@ -71,6 +72,18 @@ export class SbbFormField {
    */
   @State() private _hasSlottedLabel = false;
 
+  @Element() private _element: HTMLElement;
+
+  private _slotMarker = new SlotMarker(() => {
+    if (this._disabled) {
+      return 'disabled';
+    } else if (this._readonly) {
+      return 'readonly';
+    } else if (this._invalid) {
+      return 'invalid';
+    }
+  });
+
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
 
@@ -93,8 +106,13 @@ export class SbbFormField {
     }
   });
 
+  public connectedCallback(): void {
+    this._slotMarker.connect(this._element);
+  }
+
   public disconnectedCallback(): void {
     this._formFieldAttributeObserver.disconnect();
+    this._slotMarker.disconnect(this._element);
   }
 
   /**
@@ -140,6 +158,7 @@ export class SbbFormField {
       this._input.classList.contains('sbb-invalid') ||
       (this._input.classList.contains('ng-touched') &&
         this._input.classList.contains('ng-invalid'));
+    this._element.shadowRoot?.querySelectorAll('slot').forEach((s) => this._slotMarker.mark(s));
   }
 
   private _applyAriaDescribedby(): void {
