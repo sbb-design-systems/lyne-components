@@ -37,20 +37,22 @@
   align-items: center;
   justify-content: space-between;
   padding: 0;
+  gap: calc(var(--sbb-spacing-fixed-5x) * 2);
   height: var(--sbb-header-height-override, var(--sbb-header-height));
   width: 100%;
 }
 
-.sbb-header__left {
-  display: flex;
-}
-
-.sbb-header__right {
+.sbb-header__logo {
   width: var(--logo-width);
   height: var(--logo-height);
-  margin-left: var(--sbb-spacing-responsive-s);
+  margin-left: calc(var(--sbb-spacing-responsive-s) - var(--sbb-spacing-fixed-5x));
+  @include mq($to: large) {
+    margin-left: auto;
+  }
 }
 
-::slotted(.header-action__container) {
-  display: flex;
+::slotted(sbb-header-action:first-child) {
+  @include mq($from: large) {
+    margin-right: auto;
+  }
 }
