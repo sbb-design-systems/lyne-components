@@ -95,6 +95,7 @@ button.sbb-link:disabled {
 @include hover-mq($hover: true) {
   .sbb-link:hover:not(:disabled) {
     color: var(--text-color-hover-focus);
+    text-decoration: underline;
   }
 }
 

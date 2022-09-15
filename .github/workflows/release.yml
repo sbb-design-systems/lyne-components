@@ -29,11 +29,8 @@ jobs:
           scope: sbb-esta
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
-      - name: Download artifacts
-        uses: ./.github/actions/download-artifacts-from-workflow
-        with:
-          artifacts: stencil
-      - run: unzip stencil.zip
+      - name: Run build
+        run: yarn build
 
       - name: Bundle stories
         run: node ./ci/bundleStories.js
@@ -92,8 +89,6 @@ jobs:
           autoAcceptChanges: true
           exitZeroOnChanges: true
 
-      - name: Install netlify CLI
-        run: yarn global add netlify-cli
       - name: Publish to netlify
         run: ./ci/netlify_deploy.sh
         env:
