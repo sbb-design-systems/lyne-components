@@ -80,13 +80,12 @@ const Template = (args) => (
   <sbb-section {...args}>
     <sbb-teaser-hero
       slot="full-width"
-      button-text="Mehr erfahren"
-      loading="eager"
+      link-content="Mehr erfahren"
       image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
-      link="https://www.sbb.ch"
-      open-in-new-window="false"
-      text="Rücksichtsvoll mit SBB Green Class."
-    ></sbb-teaser-hero>
+      href="https://www.sbb.ch"
+    >
+      Rücksichtsvoll mit SBB Green Class.
+    </sbb-teaser-hero>
   </sbb-section>
 );
 

@@ -1,34 +1,72 @@
 # sbb-teaser-hero
 
+The hero teaser should be an eye-catcher and should have an emotional effect on the user with its large image component. 
+
+The `sbb-teaser-hero` is a link with a description, an action call and a background image.
+You can either use slots or props to render the `sbb-teaser-hero` component.
+
+## Usage with props
+
+```html
+<sbb-teaser-hero href="https://www.sbb.ch" link-content="Find out more" image-src="https://path-to-source" image-alt="SBB CFF FFS Employee">
+  Break out and explore castles and palaces.
+</sbb-teaser-hero>
+```
+
+## Usage with slots
+
+```html
+<sbb-teaser-hero href="https://www.sbb.ch">
+  Break out and explore castles and palaces.
+  <sbb-image slot="image" image-src="https://path-to-source" alt="SBB CFF FFS Employee"/>
+  <span slot="link-content">Find out more</span>
+</sbb-teaser-hero>
+```
+
+
+
+
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property                  | Attribute              | Description                                                                                                                                                           | Type                | Default     |
-| ------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------- |
-| `buttonText` _(required)_ | `button-text`          | Button text property for sbb-panel. See sbb-panel for additional info                                                                                                 | `string`            | `undefined` |
-| `imageLoading`            | `image-loading`        | Image loading property. See sbb-image for additional info                                                                                                             | `"eager" \| "lazy"` | `'eager'`   |
-| `imageSrc` _(required)_   | `image-src`            | Image source property for sbb-image. See sbb-image for additional info                                                                                                | `string`            | `undefined` |
-| `link` _(required)_       | `link`                 | Link to open if the teaser is clicked/pressed.                                                                                                                        | `string`            | `undefined` |
-| `newWindowInfoText`       | `new-window-info-text` | If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window"). | `string`            | `undefined` |
-| `openInNewWindow`         | `open-in-new-window`   | If set, the link will be opened in a new window.                                                                                                                      | `boolean`           | `undefined` |
-| `text` _(required)_       | `text`                 | Text property for sbb-panel. See sbb-panel for additional info                                                                                                        | `string`            | `undefined` |
+| Property                   | Attribute                   | Description                                                       | Type     | Default     |
+| -------------------------- | --------------------------- | ----------------------------------------------------------------- | -------- | ----------- |
+| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the anchor tag.     | `string` | `undefined` |
+| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to anchor tag.               | `string` | `undefined` |
+| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the anchor tag.      | `string` | `undefined` |
+| `href`                     | `href`                      | The href value you want to link to.                               | `string` | `undefined` |
+| `idValue`                  | `id-value`                  | Pass in an id, if you need to identify the inner link element.    | `string` | `undefined` |
+| `imageAlt`                 | `image-alt`                 | Image alt text will be passed to `sbb-image`.                     | `string` | `undefined` |
+| `imageSrc`                 | `image-src`                 | Image src will be passed to `sbb-image`.                          | `string` | `undefined` |
+| `linkContent`              | `link-content`              | Panel link text.                                                  | `string` | `undefined` |
+| `rel`                      | `rel`                       | The relationship of the linked URL as space-separated link types. | `string` | `undefined` |
+| `target`                   | `target`                    | Where to display the linked URL.                                  | `string` | `undefined` |
+
+
+## Slots
+
+| Slot             | Description                                |
+| ---------------- | ------------------------------------------ |
+| `"image"`        | the background image, can be a `sbb-image` |
+| `"link-content"` | link content of the panel                  |
+| `"unnamed"`      | text content of panel                      |
 
 
 ## Dependencies
 
 ### Depends on
 
+- [sbb-link](../sbb-link)
 - [sbb-image](../sbb-image)
-- [sbb-panel](../sbb-panel)
 
 ### Graph
 ```mermaid
 graph TD;
+  sbb-teaser-hero --> sbb-link
   sbb-teaser-hero --> sbb-image
-  sbb-teaser-hero --> sbb-panel
-  sbb-panel --> sbb-button
+  sbb-link --> sbb-icon
   style sbb-teaser-hero fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
