@@ -2,7 +2,7 @@ import { newSpecPage } from '@stencil/core/testing';
 import { SbbPearlChainVertical } from './sbb-pearl-chain-vertical';
 
 describe('sbb-pearl-chain-vertical', () => {
-  describe('sbb-pearl-chain-vertical with one leg', () => {
+  describe('sbb-pearl-chain-vertical without content', () => {
     it('renders compont with config', async () => {
       const page = await newSpecPage({
         components: [SbbPearlChainVertical],
@@ -20,8 +20,8 @@ describe('sbb-pearl-chain-vertical', () => {
       expect(page.root).toEqualHtml(`
         <sbb-pearl-chain-vertical>
           <mock:shadow-root>
-            <div class="pearl-chain">
-              <div class="pearl-chain__leg pearl-chain__leg--future" style="height: 100%;"></div>
+            <div class="sbb-pearl-chain-vertical" style="display: table;  table-layout: fixed; width: 100%;">
+              <slot></slot>
             </div>
           </mock:shadow-root>
         </sbb-pearl-chain-vertical>

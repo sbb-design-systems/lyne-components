@@ -4,8 +4,8 @@
 
 ## Properties
 
-| Property                  | Attribute | Description | Type                       | Default     |
-| ------------------------- | --------- | ----------- | -------------------------- | ----------- |
-| `pearChainItemAttributes` | --        |             | `PearlChainItemAttributes` | `undefined` |
+| Property                   | Attribute | Description | Type                       | Default     |
+| -------------------------- | --------- | ----------- | -------------------------- | ----------- |
+| `pearlChainItemAttributes` | --        |             | `PearlChainItemAttributes` | `undefined` |
 
 ---

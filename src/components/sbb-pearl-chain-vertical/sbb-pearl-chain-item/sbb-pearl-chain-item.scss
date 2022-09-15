@@ -1,8 +1,8 @@
 @include host-component-properties;
 
 @mixin dot {
-  height: 10px;
-  width: 10px;
+  height: #{px-to-rem-build(10)};
+  width: #{px-to-rem-build(10)};
   border-radius: 100%;
   border-color: white;
 }
@@ -14,7 +14,6 @@
   box-sizing: border-box;
   left: calc(var(--dot-size) / -2 + var(--border-width) / 2);
   background-color: var(--color-white);
-  border: var(--border-width) solid currentcolor;
   z-index: 2;
 
   @include ifForcedColors {
@@ -29,16 +28,18 @@
   top: 0.3rem;
   bottom: 0;
   flex: 1 1 0%;
-  margin-inline-start: 4px;
-  width: 2px;
-  margin-top: 4px;
+  margin-inline-start: #{px-to-rem-build(4)};
+  width: #{px-to-rem-build(2)};
+  margin-top: #{px-to-rem-build(4)};
 }
 
 :host {
   --dot-size-large: #{px-to-rem-build(10)};
   --dot-size-small: #{px-to-rem-build(8)};
   --border-width: var(--sbb-border-width-2x);
+  --border-width-thin: var(--sbb-border-width-1x);
   --spacing-small: var(--sbb-spacing-fixed-1x);
+  --spacing-medium: var(--sbb-spacing-fixed-4x);
   --color-white: var(--sbb-color-white-default);
   --color-default: var(--sbb-color-black-default);
   --color-current-location: var(--sbb-color-red-default);
@@ -47,63 +48,87 @@
   --color-past: var(--sbb-color-metal-default);
 }
 
-.pearl-chain-item {
+.sbb-pearl-chain-item {
   position: relative;
 }
 
-.pearl-chain-item__line-standard {
+.sbb-pearl-chain-item__line-standard {
   @include border;
-
-  border-right-width: 1px;
-  background-color: rgb(0 0 0);
 }
 
-.pearl-chain-item__line-dotted {
+.sbb-pearl-chain-item__line-dotted {
   @include border;
 
+  background-color: transparent !important;
   border-width: 1px;
   border-style: dashed;
 }
 
-.pearl-chain-item__row-left,
-.pearl-chain-item__row-right {
-  vertical-align: top;
+.sbb-pearl-chain-item__line-thin {
+  @include border;
+
+  width: 1px;
+  margin-left: #{px-to-rem-build(4.48)};
 }
 
-.pearl-chain-item__middle {
-  vertical-align: top;
-  border-spacing: 0;
-}
-
-.pearl-chain-item__dot-standard {
+.sbb-pearl-chain-item__dot-standard {
   @include dot;
+
+  border: var(--border-width) currentcolor;
 }
 
-.pearl-chain-item__dot-thick-bullet {
+.sbb-pearl-chain-item__dot-thick-bullet {
   @include dot--transfer;
 
+  border: var(--border-width) solid currentcolor;
+  background-color: transparent !important;
+}
+
+.sbb-pearl-chain-item__dot-thin-bullet {
+  @include dot--transfer;
+
+  border: var(--border-width-thin) solid currentcolor;
   background-color: var(--color-white) !important;
 }
 
-.red {
+.sbb-color__black {
+  background-color: var(--color-default);
+  border-color: var(--color-default);
+}
+
+.sbb-color__red {
+  border-color: var(--color-cancellation);
   background-color: var(--color-cancellation);
 }
 
-.black {
-  background-color: var(--color-default);
+.sbb-color__gray {
+  border-color: var(--color-past);
+  background-color: var(--color-past);
 }
 
-.pearl-chain-item__row-middle {
+.sbb-pearl-chain-item__row-middle {
   padding-top: 0;
   vertical-align: top;
+  padding-left: var(--spacing-small);
+  padding-right: var(--spacing-medium);
 }
 
-.pearl-chain-item__left-slot {
+.sbb-pearl-chain-item__left-slot {
   margin-top: 1px;
-  padding-right: 2rem;
 }
 
-.pearl-chain-item__right-slot {
-  margin-left: 2rem;
-  padding-bottom: 1rem;
+.sbb-pearl-chain-item__row-left {
+  vertical-align: top;
+  position: relative;
+}
+
+.sbb-pearl-chain-item__row-right {
+  vertical-align: top;
+  position: relative;
+  padding-bottom: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-pearl-chain-item__middle {
+  vertical-align: top;
+  border-spacing: 0;
 }
