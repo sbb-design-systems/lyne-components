@@ -222,7 +222,7 @@ buttonWithIconOnly.documentation = {
   title: 'Sbb-Button with icon only',
 };
 
-export const buttonInsideAnchor = AnchorWrappedButtonTemplate.bind({}); // TODO
+export const buttonInsideAnchor = AnchorWrappedButtonTemplate.bind({});
 buttonInsideAnchor.argTypes = basicArgTypes;
 buttonInsideAnchor.args = {
   ...basicArgs,
