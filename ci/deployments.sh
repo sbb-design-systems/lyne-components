@@ -15,4 +15,4 @@ DEPLOYMENTS_PAGE_DIR=NETLIFY_DEPLOYMENTS
 node ./ci/deployments.js --netlifyToken=$NETLIFY_AUTH_TOKEN --netlifySiteId=$NETLIFY_SITE_ID --deploymentsDir=$DEPLOYMENTS_PAGE_DIR
 
 # deploy deployments json
-netlify deploy --prod --site $NETLIFY_SITE_ID_DEPLOYMENTS --auth $NETLIFY_AUTH_TOKEN --dir ./$DEPLOYMENTS_PAGE_DIR/
+yarn netlify deploy --prod --site $NETLIFY_SITE_ID_DEPLOYMENTS --auth $NETLIFY_AUTH_TOKEN --dir ./$DEPLOYMENTS_PAGE_DIR/
