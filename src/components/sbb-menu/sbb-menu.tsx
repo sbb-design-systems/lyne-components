@@ -249,7 +249,9 @@ export class SbbMenu implements ComponentInterface {
       this.el.querySelectorAll(IS_FOCUSABLE_QUERY)
     )[0] as HTMLElement;
     if (INTERACTIVE_COMPONENTS.includes(firstFocusable.nodeName)) {
-      (Array.from(this.el.querySelectorAll(IS_FOCUSABLE_QUERY))[0] as HTMLElement).focus();
+      (
+        Array.from(firstFocusable.shadowRoot.querySelectorAll(IS_FOCUSABLE_QUERY))[0] as HTMLElement
+      ).focus();
     } else {
       firstFocusable.focus();
     }
@@ -257,7 +259,7 @@ export class SbbMenu implements ComponentInterface {
 
   // Set menu position and max height if the breakpoint is medium-ultra.
   private _setMenuPosition(): void {
-    if (!isBreakpoint('medium') || !this._dialog || !this._triggerEl) {
+    if (!isBreakpoint('medium', 'ultra') || !this._dialog || !this._triggerEl) {
       return;
     }
 

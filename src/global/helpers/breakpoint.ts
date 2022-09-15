@@ -8,11 +8,11 @@ type Breakpoint = 'zero' | 'micro' | 'small' | 'medium' | 'wide' | 'large' | 'ul
  * @param to The breakpoint corresponding to the `max-width` value of the media query (optional).
  * @returns A boolean indicating whether the window matches the breakpoint.
  */
-export function isBreakpoint(from: Breakpoint = 'zero', to?: Breakpoint): boolean {
+export function isBreakpoint(from: Breakpoint, to: Breakpoint): boolean {
   const computedStyle = getComputedStyle(document.documentElement);
 
   const breakpointMin = computedStyle.getPropertyValue(`--sbb-breakpoint-${from}-min`);
-  const breakpointMax = to ? computedStyle.getPropertyValue(`--sbb-breakpoint-${to}-max`) : '100vw';
+  const breakpointMax = computedStyle.getPropertyValue(`--sbb-breakpoint-${to}-max`);
 
   return window.matchMedia(`(min-width: ${breakpointMin}) and (max-width: ${breakpointMax})`)
     .matches;
