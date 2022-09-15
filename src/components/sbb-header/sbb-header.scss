@@ -3,12 +3,10 @@
 @include host-component-properties;
 
 :host {
-  --logo-width: #{px-to-rem-build(151.33)}; // fixme
-  --logo-height: #{px-to-rem-build(16)}; // fixme
+  --logo-height: #{px-to-rem-build(16)};
 
   @include mq($from: medium) {
-    --logo-width: #{px-to-rem-build(189.17)}; // fixme
-    --logo-height: #{px-to-rem-build(20)}; // fixme
+    --logo-height: #{px-to-rem-build(20)};
   }
 
   display: block;
@@ -43,8 +41,8 @@
 }
 
 .sbb-header__logo {
-  width: var(--logo-width);
   height: var(--logo-height);
+  aspect-ratio: 19/2;
   margin-left: calc(var(--sbb-spacing-responsive-s) - var(--sbb-spacing-fixed-5x));
   @include mq($to: large) {
     margin-left: auto;
