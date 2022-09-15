@@ -112,11 +112,12 @@ const Template = (args) => (
           </li>
         </sbb-link-list>
         <sbb-stack space-leading="fixed-3x">
-          <sbb-link-button
-            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text="All help topics"
+          <sbb-button
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             variant="primary"
-          ></sbb-link-button>
+          >
+            All help topics
+          </sbb-button>
         </sbb-stack>
       </sbb-stack>
     </div>
@@ -171,11 +172,12 @@ const Template = (args) => (
         </sbb-title>
         <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
         <sbb-stack space-leading="fixed-3x">
-          <sbb-link-button
-            href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text="Subscribe"
+          <sbb-button
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             variant="secondary"
-          ></sbb-link-button>
+          >
+            Subscribe
+          </sbb-button>
         </sbb-stack>
       </sbb-stack>
     </div>

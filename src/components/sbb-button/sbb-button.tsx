@@ -1,14 +1,32 @@
-import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  JSX,
+  Prop,
+  State,
+} from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
-import { LinkButtonProperties } from '../../global/interfaces/link-button-properties';
+import {
+  getButtonAttributeList,
+  getLinkAttributeList,
+  getLinkButtonBaseAttributeList,
+  LinkButtonProperties,
+} from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
+import { hostContext } from '../../global/helpers/host-context';
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-button.scss',
   tag: 'sbb-button',
 })
-export class SbbButton implements LinkButtonProperties {
+export class SbbButton implements LinkButtonProperties, ComponentInterface {
+  @Element() private _el!: HTMLElement;
+
   /** set as icon-only, no label, no text */
   @Prop() public iconOnly = false;
 
@@ -26,6 +44,11 @@ export class SbbButton implements LinkButtonProperties {
    * button, but no interaction (a div instead of a button will be rendered).
    */
   @Prop() public visualButtonOnly?: boolean;
+  /**
+   * If this is set to true an span element will be used instead of an anchor or a button.
+   * @internal
+   */
+  @State() private _isStatic = false;
 
   /** Set to true to get a disabled button */
   @Prop() public disabled? = false;
@@ -34,7 +57,7 @@ export class SbbButton implements LinkButtonProperties {
   @Prop() public eventId?: string;
 
   /** Define if icon should be shown or not */
-  @Prop() public icon? = true;
+  @Prop() public icon? = false;
 
   /**
    * The icon name we want to use,
@@ -63,12 +86,6 @@ export class SbbButton implements LinkButtonProperties {
   @Prop() public negative: boolean;
 
   /**
-   * If you use the button to trigger another widget which itself is covering
-   * the page, you must provide an according attribute for aria-haspopup.
-   */
-  @Prop() public ariaHaspopup?: InterfaceButtonAttributes['popup'];
-
-  /**
    * This will be forwarded as aria-label to the relevant nested element.
    */
   @Prop() public accessibilityLabel: string | undefined;
@@ -84,6 +101,19 @@ export class SbbButton implements LinkButtonProperties {
   @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
+   * When an interaction of this button has an impact on another element(s) in the document, the id
+   * of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute
+   * to the relevant nested element.
+   */
+  @Prop() public accessibilityControls: string | undefined;
+
+  /**
+   * If you use the button to trigger another widget which itself is covering
+   * the page, you must provide an according attribute for aria-haspopup.
+   */
+  @Prop() public accessibilityHasPopup: InterfaceButtonAttributes['popup'] | undefined;
+
+  /**
    * Emits whenever the native button click event triggers.
    * TODO: Switch to a better event type during refactoring sbb-button.
    */
@@ -93,6 +123,11 @@ export class SbbButton implements LinkButtonProperties {
     eventName: 'sbb-button_click',
   })
   public click: EventEmitter<any>;
+
+  public connectedCallback(): void {
+    // Check if the current element is nested in either an `<a>` or `<button>` element.
+    this._isStatic = !!hostContext('a,button', this._el);
+  }
 
   /**
    * Method triggered at button click to emit the click event (can be caught from parent component).
@@ -117,55 +152,37 @@ export class SbbButton implements LinkButtonProperties {
   }
 
   public render(): JSX.Element {
-    const TAGNAME = this.visualButtonOnly ? 'span' : this.type;
-
-    const baseAttributes: object = {
-      class: this._getClassString(),
-    };
-
-    let finalAttributes = baseAttributes;
-    if (this.visualButtonOnly || this.type === 'span') {
-      // is static: no additional attributes
-      finalAttributes = baseAttributes;
-    } else if (this.type === 'a') {
-      // is a link
-      finalAttributes = {
-        ...baseAttributes,
-        href: this.href,
-        value: this.value,
-        onClick: this.emitButtonClick.bind(this),
-      };
+    let TAG_NAME: string;
+    let attributeList: Record<string, string>;
+    if (this._isStatic) {
+      TAG_NAME = 'span';
+      attributeList = getLinkButtonBaseAttributeList(this);
+    } else if (this.href) {
+      TAG_NAME = 'a';
+      attributeList = getLinkAttributeList(this, this);
     } else {
-      // is a button
-      finalAttributes = {
-        ...baseAttributes,
-        'aria-haspopup': this.ariaHaspopup,
-        disabled: this.disabled,
-        name: this.name,
-        onClick: this.emitButtonClick.bind(this),
-        type: this.type,
-        value: this.value,
-      };
+      TAG_NAME = 'button';
+      attributeList = getButtonAttributeList(this);
     }
 
     return (
-      <TAGNAME {...finalAttributes}>
+      <TAG_NAME {...attributeList} class={this._getClassString()}>
         {this.icon && this.iconDescription && (
-          <span class="button__icon-description">{this.iconDescription}</span>
+          <span class="sbb-button__icon-description">{this.iconDescription}</span>
         )}
 
         {this.icon && (
-          <span class="button__icon">
+          <span class="sbb-button__icon">
             <slot name="icon" />
           </span>
         )}
 
         {!this.iconOnly && (
-          <span class="button__label">
+          <span class="sbb-button__label">
             <slot />
           </span>
         )}
-      </TAGNAME>
+      </TAG_NAME>
     );
   }
 }

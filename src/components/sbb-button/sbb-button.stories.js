@@ -42,32 +42,21 @@ const Template = (args) => (
     </sbb-button>
   </div>
 );
-const FixedWidthTemplate = (args) => (
-  <div>
-    <sbb-button>I am a button</sbb-button>
 
-    <p>
-      <sbb-button
-        {...args}
-        style={{
-          width: '200px',
-        }}
-      >
+const AnchorWrappedButtonTemplate = (args) => (
+  <div>
+    <a
+      href="#"
+      style="display: block; text-decoration: none; text-align: center; border-radius: 5px;background-color: #212121;padding: 2rem"
+    >
+      <span style="display: block; color: #fff; text-decoration: none; margin-bottom: 16px;">
+        Example anchor wrapping a sbb-button
+      </span>
+      <sbb-button {...args}>
         {args.icon && <span slot="icon">{getMarkupForSvg(args.iconSlot)}</span>}
         {args.label}
       </sbb-button>
-    </p>
-    <p>
-      <sbb-button
-        {...args}
-        style={{
-          width: '600px',
-        }}
-      >
-        {args.icon && <span slot="icon">{getMarkupForSvg(args.iconSlot)}</span>}
-        Button with long text
-      </sbb-button>
-    </p>
+    </a>
   </div>
 );
 
@@ -77,6 +66,7 @@ const iconOnly = {
   control: {
     type: 'boolean',
   },
+  options: [true, false],
   table: {
     category: 'Icon',
   },
@@ -85,6 +75,7 @@ const icon = {
   control: {
     type: 'boolean',
   },
+  options: [true, false],
   table: {
     category: 'Icon',
   },
@@ -103,7 +94,13 @@ const iconSlot = {
   control: {
     type: 'select',
   },
-  options: ['arrow-right-small', 'arrow-down-small', 'arrow-compass-small', 'pie-small'],
+  options: [
+    'arrow-right-small',
+    'arrow-down-small',
+    'arrow-compass-small',
+    'pie-small',
+    'cross-small',
+  ],
   table: {
     category: 'Icon',
   },
@@ -166,27 +163,17 @@ const size = {
   },
 };
 
-const visualButtonOnlyArg = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'General properties',
-  },
-};
-
 /* eslint-disable sort-keys */
 const basicArgTypes = {
   variant,
   size,
   disabled: disabledArg,
   label,
-  iconOnly,
+  'icon-only': iconOnly,
   eventId,
   icon,
   iconSlot,
   'icon-description': iconDescription,
-  'visual-button-only': visualButtonOnlyArg,
   negative,
 };
 
@@ -196,167 +183,53 @@ const basicArgs = {
   disabled: false,
   label: 'Button',
   'event-id': 'Event ID',
-  iconOnly: false,
-  icon: true,
-  iconSlot: iconSlot.options[0],
+  'icon-only': false,
+  icon: false,
+  iconSlot: iconSlot.options[4],
   name: 'sample-name',
   value: 'sample-value',
-  'visual-button-only': false,
   negative: false,
 };
 /* eslint-enable sort-keys */
-
-export const primary = Template.bind({});
-export const secondary = Template.bind({});
-export const translucent = Template.bind({});
-export const transparent = Template.bind({});
-export const primaryNegative = Template.bind({});
-export const secondaryNegative = Template.bind({});
-export const translucentNegative = Template.bind({});
-export const transparentNegative = Template.bind({});
-export const noIcon = Template.bind({});
-export const withIconOnly = Template.bind({});
-export const sizeM = Template.bind({});
-export const disabled = Template.bind({});
-export const fixedWidth = FixedWidthTemplate.bind({});
-export const visualOnly = Template.bind({});
-
-primary.argTypes = basicArgTypes;
-secondary.argTypes = basicArgTypes;
-translucent.argTypes = basicArgTypes;
-transparent.argTypes = basicArgTypes;
-primaryNegative.argTypes = basicArgTypes;
-secondaryNegative.argTypes = basicArgTypes;
-translucentNegative.argTypes = basicArgTypes;
-transparentNegative.argTypes = basicArgTypes;
-noIcon.argTypes = basicArgTypes;
-withIconOnly.argTypes = basicArgTypes;
-sizeM.argTypes = basicArgTypes;
-disabled.argTypes = basicArgTypes;
-fixedWidth.argTypes = basicArgTypes;
-visualOnly.argTypes = basicArgTypes;
-
-primary.args = JSON.parse(JSON.stringify(basicArgs));
-primary.args.variant = variant.options[0];
-
-secondary.args = JSON.parse(JSON.stringify(basicArgs));
-secondary.args.variant = variant.options[1];
-
-translucent.args = JSON.parse(JSON.stringify(basicArgs));
-translucent.args.variant = variant.options[2];
-
-transparent.args = JSON.parse(JSON.stringify(basicArgs));
-transparent.args.variant = variant.options[3];
-
-primaryNegative.args = JSON.parse(JSON.stringify(basicArgs));
-primaryNegative.args.variant = variant.options[0];
-primaryNegative.args.negative = true;
-
-secondaryNegative.args = JSON.parse(JSON.stringify(basicArgs));
-secondaryNegative.args.variant = variant.options[1];
-secondaryNegative.args.negative = true;
-
-translucentNegative.args = JSON.parse(JSON.stringify(basicArgs));
-translucentNegative.args.variant = variant.options[2];
-translucentNegative.args.negative = true;
-
-transparentNegative.args = JSON.parse(JSON.stringify(basicArgs));
-transparentNegative.args.negative = true;
-transparentNegative.args.variant = variant.options[3];
-
-noIcon.args = JSON.parse(JSON.stringify(basicArgs));
-noIcon.args.icon = false;
-noIcon.args.iconSlot = false;
-
-withIconOnly.args = JSON.parse(JSON.stringify(basicArgs));
-withIconOnly.args.label = '';
-withIconOnly.args['icon-description'] = 'Icon description for screenreaders';
-
-sizeM.args = JSON.parse(JSON.stringify(basicArgs));
-sizeM.args.size = size.options[1];
-
-disabled.args = JSON.parse(JSON.stringify(basicArgs));
-disabled.args.disabled = true;
-
-fixedWidth.args = JSON.parse(JSON.stringify(basicArgs));
-
-visualOnly.args = JSON.parse(JSON.stringify(basicArgs));
-visualOnly.args.visualButtonOnly = true;
-
-primary.documentation = {
-  title: 'Primary',
+// Default, plain button with label only
+export const buttonWithLabelOnly = Template.bind({});
+buttonWithLabelOnly.argTypes = basicArgTypes;
+buttonWithLabelOnly.args = JSON.parse(JSON.stringify(basicArgs));
+buttonWithLabelOnly.documentation = {
+  title: 'Sbb-Button with label',
 };
 
-secondary.documentation = {
-  title: 'Secondary',
+// Plain button with label only
+export const buttonWithLabelAndIcon = Template.bind({});
+buttonWithLabelAndIcon.argTypes = basicArgTypes;
+buttonWithLabelAndIcon.args = {
+  ...basicArgs,
+  icon: true,
+};
+buttonWithLabelAndIcon.documentation = {
+  title: 'Sbb-Button with label and icon',
 };
 
-translucent.documentation = {
-  title: 'Translucent',
+export const buttonWithIconOnly = Template.bind({});
+buttonWithIconOnly.argTypes = basicArgTypes;
+buttonWithIconOnly.args = {
+  ...basicArgs,
+  icon: true,
+  'icon-only': true,
+  label: '',
+};
+buttonWithIconOnly.documentation = {
+  title: 'Sbb-Button with icon only',
 };
 
-transparent.documentation = {
-  title: 'Transparent',
+export const buttonInsideAnchor = AnchorWrappedButtonTemplate.bind({}); // TODO
+buttonInsideAnchor.argTypes = basicArgTypes;
+buttonInsideAnchor.args = {
+  ...basicArgs,
+  icon: true,
 };
-
-primaryNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
-  title: 'Primary Negative',
-};
-
-secondaryNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
-  title: 'Secondary Negative',
-};
-
-translucentNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
-  title: 'Translucent Negative',
-};
-
-transparentNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
-  title: 'Transparent Negative',
-};
-
-noIcon.documentation = {
-  title: 'No Icon',
-};
-
-withIconOnly.documentation = {
-  title: 'Icon only',
-};
-
-sizeM.documentation = {
-  title: 'M size',
-};
-
-disabled.documentation = {
-  title: 'Disabled',
-};
-
-visualOnly.documentation = {
-  title: 'Visual only',
-};
-
-fixedWidth.documentation = {
-  title: 'Fixed width with overflow',
+buttonInsideAnchor.documentation = {
+  title: 'Sbb-Button inside an anchor',
 };
 
 export default {
@@ -381,5 +254,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-button (Unfinished)',
+  title: 'components/sbb-button',
 };

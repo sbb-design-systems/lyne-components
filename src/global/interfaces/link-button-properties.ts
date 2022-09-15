@@ -10,6 +10,11 @@ import { AccessibilityProperties, getAccessibilityAttributeList } from './access
 export type ButtonType = 'button' | 'reset' | 'submit';
 
 /**
+ * Enumeration for the 'aria-haspopup' values on the <button> HTML tag.
+ */
+export type PopupType = 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
+
+/**
  * Enumeration for 'target' attribute in <a> HTML tag.
  */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
@@ -84,6 +89,20 @@ export interface ButtonProperties extends AccessibilityProperties {
    * Whether the button is disabled.
    */
   disabled?: boolean | undefined;
+
+  /**
+   * The aria-controls property identifies the element (or elements)
+   * whose contents or presence are controlled by the element on which
+   * this attribute is set.
+   * The value is forwarded to the native button element.
+   */
+  accessibilityControls?: string | undefined;
+
+  /**
+   * Indicates the availability and type of interactive popup element that can be triggered
+   * by the element
+   */
+  accessibilityHasPopup?: PopupType | undefined;
 }
 
 /**
@@ -155,5 +174,11 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     form: buttonProperties.form || undefined,
     disabled: buttonProperties.disabled ? 'true' : undefined,
     value: buttonProperties.value ?? undefined,
+    'aria-controls': buttonProperties?.accessibilityControls
+      ? buttonProperties?.accessibilityControls
+      : undefined,
+    'aria-haspopup': buttonProperties?.accessibilityHasPopup
+      ? buttonProperties?.accessibilityHasPopup
+      : undefined,
   });
 }

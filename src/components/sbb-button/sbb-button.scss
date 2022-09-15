@@ -103,6 +103,10 @@
   }
 }
 
+a.sbb-button {
+  text-decoration: none;
+}
+
 .sbb-button--primary {
   &.sbb-button--negative {
     --color-active-background: var(--sbb-color-cloud-default);
