@@ -3,21 +3,16 @@
 @include host-component-properties;
 
 :host {
-  display: block;
-
-  --header-height: #{px-to-rem-build(56)}; // fixme
   --logo-width: #{px-to-rem-build(151.33)}; // fixme
   --logo-height: #{px-to-rem-build(16)}; // fixme
 
   @include mq($from: medium) {
-    --header-height: #{px-to-rem-build(96)}; // fixme
     --logo-width: #{px-to-rem-build(189.17)}; // fixme
     --logo-height: #{px-to-rem-build(20)}; // fixme
   }
-}
 
-.sbb-header--shadow {
-  @include shadow-level-9-soft;
+  display: block;
+  height: var(--sbb-header-height-override, var(--sbb-header-height));
 }
 
 .sbb-header {
@@ -31,6 +26,10 @@
   transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 }
 
+.sbb-header--shadow {
+  @include shadow-level-9-soft;
+}
+
 .sbb-header__wrapper {
   display: flex;
   flex: 0 1 auto;
@@ -38,20 +37,22 @@
   align-items: center;
   justify-content: space-between;
   padding: 0;
-  height: #{px-to-rem-build(56)}; // fixme
+  gap: calc(var(--sbb-spacing-fixed-5x) * 2);
+  height: var(--sbb-header-height-override, var(--sbb-header-height));
   width: 100%;
 }
 
-.sbb-header__left {
-  display: flex;
-}
-
-.sbb-header__right {
+.sbb-header__logo {
   width: var(--logo-width);
   height: var(--logo-height);
-  margin-left: var(--sbb-spacing-responsive-s);
+  margin-left: calc(var(--sbb-spacing-responsive-s) - var(--sbb-spacing-fixed-5x));
+  @include mq($to: large) {
+    margin-left: auto;
+  }
 }
 
-::slotted(.header-action__container) {
-  display: flex;
+::slotted(sbb-header-action:first-child) {
+  @include mq($from: large) {
+    margin-right: auto;
+  }
 }

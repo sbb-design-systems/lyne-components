@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.6.2 (2022-09-06)
+
+### Bug Fixes
+
+- **sbb-link:** fix accessibility of external links ([#1372](https://github.com/lyne-design-system/lyne-components/issues/1372)) ([e371af8](https://github.com/lyne-design-system/lyne-components/commit/e371af8a9058c04e3c206fa5b4dc3508d1381367))
+
+### 0.6.1 (2022-09-06)
+
+### Bug Fixes
+
+- **sbb-link:** fix placement of slotted icon ([#1371](https://github.com/lyne-design-system/lyne-components/issues/1371)) ([d70e1f8](https://github.com/lyne-design-system/lyne-components/commit/d70e1f8a257121724164470007f9f618bd97d626))
+
+## 0.6.0 (2022-09-05)
+
+### ⚠ BREAKING CHANGES
+
+- The link does not anymore himself decides to set target="\_blank". It's now up to the consumer to decide if a link should be opened in a new window.
+
+- refine link button properties interfaces ([#1367](https://github.com/lyne-design-system/lyne-components/issues/1367)) ([d0b30aa](https://github.com/lyne-design-system/lyne-components/commit/d0b30aa1fbf019b70b96291e53206e6a4faf332c))
+
 ### 0.5.4 (2022-09-01)
 
 ### Bug Fixes

@@ -15,7 +15,7 @@ import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.cu
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
-import { ButtonType } from "./global/interfaces/link-button-properties";
+import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
@@ -404,9 +404,21 @@ export namespace Components {
          */
         "name": string | undefined;
         /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel": string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target": LinkTargetType | string | undefined;
+        /**
           * Type attribute if component is displayed as a button.
          */
         "type": ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value": string | undefined;
     }
     interface SbbIcon {
         /**
@@ -555,7 +567,7 @@ export namespace Components {
         /**
           * Form attribute if link is used as button (optional)
          */
-        "form"?: string;
+        "form": string;
         /**
           * The href value you want to link to (optional, if its not present link becomes a button)
          */
@@ -581,6 +593,14 @@ export namespace Components {
          */
         "negative": boolean;
         /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
           * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize": InterfaceLinkAttributes['textSize'];
@@ -588,6 +608,10 @@ export namespace Components {
           * Type attribute if link is used as button (optional)
          */
         "type": InterfaceLinkAttributes['buttonType'] | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string;
         /**
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */
@@ -1862,9 +1886,21 @@ declare namespace LocalJSX {
          */
         "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<any>) => void;
         /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
           * Type attribute if component is displayed as a button.
          */
         "type"?: ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string | undefined;
     }
     interface SbbIcon {
         /**
@@ -2043,6 +2079,14 @@ declare namespace LocalJSX {
          */
         "onSbb-link-button_click"?: (event: SbbLinkCustomEvent<any>) => void;
         /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
           * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
@@ -2050,6 +2094,10 @@ declare namespace LocalJSX {
           * Type attribute if link is used as button (optional)
          */
         "type"?: InterfaceLinkAttributes['buttonType'] | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string;
         /**
           * Applies link inline styles (underline, inherit coloring/font-size etc).
          */

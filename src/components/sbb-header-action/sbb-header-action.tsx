@@ -1,12 +1,10 @@
-<<<<<<< HEAD
-import { Component, Event, EventEmitter, h, JSX, Host, Prop } from '@stencil/core';
-=======
-import { Component, Event, EventEmitter, JSX, h, Host, Prop } from '@stencil/core';
->>>>>>> 0cf3a8a39c3c0685fc2309d50f8f52141dd9784b
+import { Component, Event, EventEmitter, h, Host, JSX, Prop } from '@stencil/core';
 import {
   ButtonType,
-  getLinkButtonAttributeList,
+  getButtonAttributeList,
+  getLinkAttributeList,
   LinkButtonProperties,
+  LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 
@@ -66,6 +64,16 @@ export class SbbHeaderAction implements LinkButtonProperties {
   @Prop() public href: string | undefined;
 
   /**
+   * The relationship of the linked URL as space-separated link types.
+   */
+  @Prop() public rel: string | undefined;
+
+  /**
+   * Where to display the linked URL.
+   */
+  @Prop() public target: LinkTargetType | string | undefined;
+
+  /**
    * Form attribute if component is displayed as a button.
    */
   @Prop() public form: string | undefined;
@@ -79,6 +87,11 @@ export class SbbHeaderAction implements LinkButtonProperties {
    * Type attribute if component is displayed as a button.
    */
   @Prop() public type: ButtonType | undefined;
+
+  /**
+   * The value associated with button `name` when it's submitted with the form data.
+   */
+  @Prop() public value: string | undefined;
 
   /**
    * Id sent in the click event payload
@@ -106,22 +119,21 @@ export class SbbHeaderAction implements LinkButtonProperties {
   public render(): JSX.Element {
     let TAG_NAME: string;
     let attributeList: object;
+    let classString: string;
 
     if (this.href) {
       TAG_NAME = 'a';
-      attributeList = getLinkButtonAttributeList(this.actionHeaderId, 'header-action__link', this);
+      attributeList = getLinkAttributeList(this, this);
+      classString = 'header-action__link';
     } else {
       TAG_NAME = 'button';
-      attributeList = getLinkButtonAttributeList(
-        this.actionHeaderId,
-        'header-action__button',
-        this
-      );
+      attributeList = getButtonAttributeList(this);
+      classString = 'header-action__button';
     }
 
     return (
       <Host expand-from={this.expandFrom}>
-        <TAG_NAME {...attributeList}>
+        <TAG_NAME id={this.actionHeaderId} class={classString} {...attributeList}>
           <span class="header-action__icon">
             <slot name="icon">
               <sbb-icon name={this.icon} />

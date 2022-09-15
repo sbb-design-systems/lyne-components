@@ -1,4 +1,4 @@
-import { Component, JSX, h, Listen, Prop, State } from '@stencil/core';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 
 /**
  * @slot unnamed - Slot used to render the actions on the left side.
@@ -31,10 +31,8 @@ export class SbbHeader {
     return (
       <header class={{ 'sbb-header': true, 'sbb-header--shadow': this.shadow && this._isScrolled }}>
         <div class="sbb-header__wrapper">
-          <div class="sbb-header__left">
-            <slot />
-          </div>
-          <div class="sbb-header__right">
+          <slot />
+          <div class="sbb-header__logo">
             <slot name="logo">
               <sbb-logo protectiveRoom="none" />
             </slot>

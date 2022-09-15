@@ -185,4 +185,14 @@
   --sbb-focus-outline-color-dark: var(--sbb-color-white-default);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
   --sbb-focus-outline-width: var(--sbb-border-width-1x);
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Header
+
+  --sbb-header-height: var(--sbb-spacing-fixed-14x);
+
+  @include mq($from: medium) {
+    --sbb-header-height: var(--sbb-spacing-fixed-24x);
+  }
 }
