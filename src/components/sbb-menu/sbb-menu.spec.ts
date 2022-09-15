@@ -53,11 +53,8 @@ describe('sbb-menu', () => {
   });
 
   // it('opens the menu', async () => {
-  //   const component = page.doc.querySelector('sbb-menu');
-  //   const trigger = page.doc.querySelector('sbb-button');
-  //   trigger.click();
-  //   await page.waitForChanges();
-  //   expect(component).toHaveAttribute('open');
+  //   await component.openMenu();
+  //   expect(component).not.toBe(null);
   // });
 
   // it('accepts id of an element to set the trigger', async () => {

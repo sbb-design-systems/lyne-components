@@ -33,7 +33,7 @@ const IS_FOCUSABLE_QUERY = `
   sbb-menu-action:not([disabled])`;
 
 /**
- * @slot unnamed - Use this slot to project any content inside the component.
+ * @slot unnamed - Use this slot to project any content inside the dialog.
  */
 @Component({
   shadow: true,

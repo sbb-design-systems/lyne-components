@@ -1,6 +1,7 @@
 import events from './sbb-menu.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const userNameStyle = {
   fontFamily: 'var(--sbb-typo-type-face-sbb-bold)',
@@ -17,7 +18,7 @@ const userInfoStyle = {
 const DefaultTemplate = (args) => (
   <div>
     <sbb-button id="menu-trigger-1" size="m" label="Menu trigger"></sbb-button>
-    <sbb-menu {...args} trigger="menu-trigger-1" ref={(menu) => menu.openMenu()}>
+    <sbb-menu {...args} trigger="menu-trigger-1" ref={(menu) => isChromatic() && menu.openMenu()}>
       <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
@@ -40,7 +41,7 @@ const CustomContentTemplate = (args) => (
     <sbb-menu {...args} trigger="menu-trigger-2">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
-      <sbb-link href="https://www.sbb.ch/en" text-size="xs" variant="block">
+      <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
         Profile
       </sbb-link>
       <sbb-divider />
@@ -64,7 +65,7 @@ const LongContentTemplate = (args) => (
     <sbb-menu {...args} trigger="menu-trigger-3">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
-      <sbb-link href="https://www.sbb.ch/en" text-size="xs" variant="block">
+      <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
         Profile
       </sbb-link>
       <sbb-divider />
@@ -100,7 +101,7 @@ const EllipsisTemplate = (args) => (
     <sbb-menu {...args} trigger="menu-trigger-4">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
-      <sbb-link href="https://www.sbb.ch/en" text-size="xs" variant="block">
+      <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
         Profile
       </sbb-link>
       <sbb-divider />
