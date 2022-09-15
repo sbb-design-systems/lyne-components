@@ -4,6 +4,8 @@
 
 :host {
   @include panel-variables;
+
+  --teaser-hero-brightness-hover: 1.075;
 }
 
 .sbb-teaser-hero {
@@ -12,6 +14,13 @@
 
   &:focus-visible {
     @include focusOutline;
+  }
+
+  @include hover-mq($hover: true) {
+    &:hover {
+      --panel-background-color: var(--panel-background-color-hover);
+      --teaser-hero-brightness: var(--teaser-hero-brightness-hover);
+    }
   }
 }
 
@@ -32,4 +41,10 @@
 
 .sbb-teaser-hero__opens-in-new-window {
   @include screenReaderOnly;
+}
+
+::slotted([slot='image']),
+sbb-image {
+  filter: brightness(var(--teaser-hero-brightness, 1));
+  transition: filter var(--panel-animation-duration) var(--panel-animation-easing);
 }

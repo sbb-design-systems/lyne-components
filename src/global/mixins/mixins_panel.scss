@@ -15,6 +15,8 @@
   --panel-background-color-hover: var(--sbb-color-red-default);
   --panel-padding-inline: var(--sbb-spacing-responsive-m);
   --panel-gap: var(--sbb-spacing-responsive-xs);
+  --panel-animation-duration: var(--sbb-animation-duration-4x);
+  --panel-animation-easing: var(--sbb-animation-easing);
 
   @include mq($from: medium) {
     --panel-width: #{px-to-rem-build(321)};
@@ -49,7 +51,7 @@
     0% 100%
   );
   background-color: var(--panel-background-color);
-  transition: background var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: background var(--panel-animation-duration) var(--panel-animation-easing);
 
   @include hover-mq($hover: true) {
     &:hover {
