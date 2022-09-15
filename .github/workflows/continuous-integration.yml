@@ -159,7 +159,6 @@ jobs:
           node-version: 16
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
-      - name: Install netlify CLI
       - name: Publish deployments to netlify
         run: ./ci/deployments.sh
         env:
