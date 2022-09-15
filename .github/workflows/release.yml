@@ -29,11 +29,8 @@ jobs:
           scope: sbb-esta
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
-      - name: Download artifacts
-        uses: ./.github/actions/download-artifacts-from-workflow
-        with:
-          artifacts: stencil
-      - run: unzip stencil.zip
+      - name: Run build
+        run: yarn build
 
       - name: Bundle stories
         run: node ./ci/bundleStories.js

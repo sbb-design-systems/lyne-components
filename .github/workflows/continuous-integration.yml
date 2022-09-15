@@ -138,6 +138,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Yarn Install
+        uses: ./.github/actions/yarn-install
       - uses: actions/download-artifact@v3
         with:
           name: storybook
