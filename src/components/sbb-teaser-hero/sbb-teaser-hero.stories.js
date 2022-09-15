@@ -113,13 +113,6 @@ openInNewWindow.args = {
   target: '_blank',
 };
 
-export const withoutLink = TemplateSbbTeaserHeroDefault.bind({});
-withoutLink.argTypes = defaultArgTypes;
-withoutLink.args = {
-  ...defaultArgs,
-  href: undefined,
-};
-
 export const withSlots = TemplateSbbTeaserWithSlots.bind({});
 withSlots.argTypes = defaultArgTypes;
 withSlots.args = {

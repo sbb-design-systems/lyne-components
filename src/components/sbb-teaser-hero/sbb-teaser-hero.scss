@@ -45,6 +45,7 @@
 
 ::slotted([slot='image']),
 sbb-image {
+  will-change: filter;
   filter: brightness(var(--teaser-hero-brightness, 1));
   transition: filter var(--panel-animation-duration) var(--panel-animation-easing);
 }
