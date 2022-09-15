@@ -55,4 +55,7 @@
   @include mq($from: large) {
     margin-right: auto;
   }
+  @include mq($from: small, $to: medium) {
+    --sbb-header-action-visibility-override: block;
+  }
 }

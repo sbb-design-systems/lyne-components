@@ -64,7 +64,7 @@
 }
 
 .header-action__label {
-  display: none;
+  display: var(--sbb-header-action-visibility-override, none);
   color: var(--sbb-color-black-default);
   @include text-xs--bold;
 
