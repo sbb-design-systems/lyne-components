@@ -92,8 +92,6 @@ jobs:
           autoAcceptChanges: true
           exitZeroOnChanges: true
 
-      - name: Install netlify CLI
-        run: yarn global add netlify-cli
       - name: Publish to netlify
         run: ./ci/netlify_deploy.sh
         env:
