@@ -15,6 +15,10 @@
   padding-block-start: var(--sbb-card-padding-block-start);
   padding-block-end: var(--sbb-card-padding-block-end);
   transition: box-shadow var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+
+  @include ifForcedColors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
 }
 
 :host([size='s']) {
@@ -60,6 +64,18 @@
 .sbb-card__content {
   display: block;
   transition: transform var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+}
+
+.sbb-card__link {
+  color: var(--sbb-color-black-default);
+  text-decoration: none;
+}
+
+.sbb-card__button {
+  @include buttonReset;
+  @include text-m--regular;
+
+  text-align: inherit;
 }
 
 @include hover-mq($hover: true) {
