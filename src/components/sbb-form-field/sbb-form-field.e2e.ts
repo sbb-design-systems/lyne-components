@@ -27,5 +27,9 @@ describe('sbb-form-field', () => {
     element.setAttribute('label', 'Label');
     await page.waitForChanges();
     expect(element.shadowRoot.querySelector('label')).not.toBeNull();
+
+    element.removeAttribute('label');
+    await page.waitForChanges();
+    expect(element.shadowRoot.querySelector('label')).toBeNull();
   });
 });
