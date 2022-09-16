@@ -24,15 +24,24 @@ SbbTimetableRow.args = {
   price: config.price,
 };
 
+export const SbbTimetableRowPriceLoading = Template.bind({});
+
+SbbTimetableRowPriceLoading.args = {
+  'loading-price': true,
+  'loading-trip': config.loadingTrip,
+  trip: config.trip,
+  price: config.price,
+};
+
 export const SbbTimetableRowPosition = Template.bind({});
 SbbTimetableRowPosition.args = {
-  disableAnimation: false,
+  'disable-animation': false,
   trip: configPosition.trip,
 };
 
 export const SbbTimetableRowPositionDisabledAnimation = Template.bind({});
 SbbTimetableRowPositionDisabledAnimation.args = {
-  disableAnimation: true,
+  'disable-animation': true,
   trip: configPosition.trip,
 };
 

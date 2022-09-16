@@ -1,5 +1,5 @@
 export const config = {
-  loadingPrice: true,
+  loadingPrice: false,
   loadingTrip: false,
   trip: {
     legs: [
