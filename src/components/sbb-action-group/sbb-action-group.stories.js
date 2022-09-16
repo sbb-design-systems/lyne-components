@@ -17,9 +17,9 @@ const orientationArg = {
 
 const horizontalFromArg = {
   control: {
-    type: 'inline-radio',
+    type: 'select',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
 const alignArg = {
@@ -30,9 +30,9 @@ const alignArg = {
 };
 
 const basicArgs = {
-  orientation: 'horizontal',
-  'horizontal-from': 'medium',
   align: 'start',
+  'horizontal-from': 'medium',
+  orientation: 'horizontal',
 };
 
 const basicArgTypes = {

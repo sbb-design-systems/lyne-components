@@ -81,8 +81,17 @@ export namespace Components {
         "open"?: boolean;
     }
     interface SbbActionGroup {
+        /**
+          * Set the alignment of the components inside the `<sbb-action-group>`.
+         */
         "align": InterfaceSbbActionGroupAttributes['align'];
+        /**
+          * Overrides the behaviour of `orientation` prop
+         */
         "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
+        /**
+          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+         */
         "orientation": InterfaceSbbActionGroupAttributes['orientation'];
     }
     interface SbbAlert {
@@ -1651,8 +1660,17 @@ declare namespace LocalJSX {
         "open"?: boolean;
     }
     interface SbbActionGroup {
+        /**
+          * Set the alignment of the components inside the `<sbb-action-group>`.
+         */
         "align"?: InterfaceSbbActionGroupAttributes['align'];
+        /**
+          * Overrides the behaviour of `orientation` prop
+         */
         "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
+        /**
+          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+         */
         "orientation"?: InterfaceSbbActionGroupAttributes['orientation'];
     }
     interface SbbAlert {
