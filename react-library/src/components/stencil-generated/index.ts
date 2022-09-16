@@ -31,7 +31,6 @@ export const SbbLinkButton = /*@__PURE__*/createReactComponent<JSX.SbbLinkButton
 export const SbbLinkList = /*@__PURE__*/createReactComponent<JSX.SbbLinkList, HTMLSbbLinkListElement>('sbb-link-list');
 export const SbbLogo = /*@__PURE__*/createReactComponent<JSX.SbbLogo, HTMLSbbLogoElement>('sbb-logo');
 export const SbbOverlay = /*@__PURE__*/createReactComponent<JSX.SbbOverlay, HTMLSbbOverlayElement>('sbb-overlay');
-export const SbbPanel = /*@__PURE__*/createReactComponent<JSX.SbbPanel, HTMLSbbPanelElement>('sbb-panel');
 export const SbbPearlChain = /*@__PURE__*/createReactComponent<JSX.SbbPearlChain, HTMLSbbPearlChainElement>('sbb-pearl-chain');
 export const SbbSection = /*@__PURE__*/createReactComponent<JSX.SbbSection, HTMLSbbSectionElement>('sbb-section');
 export const SbbSignet = /*@__PURE__*/createReactComponent<JSX.SbbSignet, HTMLSbbSignetElement>('sbb-signet');

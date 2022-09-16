@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.6.5 (2022-09-15)
+
+### 0.6.4 (2022-09-15)
+
+### 0.6.3 (2022-09-15)
+
+### Bug Fixes
+
+- adapt release process ([3e83e81](https://github.com/lyne-design-system/lyne-components/commit/3e83e81edadc28d9045120ad6751b7f46d332796))
+
 ### 0.6.2 (2022-09-06)
 
 ### Bug Fixes

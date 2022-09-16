@@ -24,7 +24,6 @@ import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-import { InterfacePanelAttributes } from "./components/sbb-panel/sbb-panel.custom";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
@@ -690,24 +689,6 @@ export namespace Components {
          */
         "present": () => Promise<void>;
     }
-    interface SbbPanel {
-        /**
-          * The text to use as button text
-         */
-        "buttonText": string;
-        /**
-          * Id which is sent in the click event payload for the button
-         */
-        "eventId"?: string;
-        /**
-          * The tag to use for the text element
-         */
-        "tag"?: InterfacePanelAttributes['tag'];
-        /**
-          * The text to show in the panel
-         */
-        "text": string;
-    }
     interface SbbPearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
@@ -855,33 +836,45 @@ export namespace Components {
     }
     interface SbbTeaserHero {
         /**
-          * Button text property for sbb-panel. See sbb-panel for additional info
+          * This will be forwarded as aria-describedby to the anchor tag.
          */
-        "buttonText": string;
+        "accessibilityDescribedby": string | undefined;
         /**
-          * Image loading property. See sbb-image for additional info
+          * This will be forwarded as aria-label to anchor tag.
          */
-        "imageLoading"?: InterfaceImageAttributes['loading'];
+        "accessibilityLabel": string | undefined;
         /**
-          * Image source property for sbb-image. See sbb-image for additional info
+          * This will be forwarded as aria-labelledby to the anchor tag.
          */
-        "imageSrc": string;
+        "accessibilityLabelledby": string | undefined;
         /**
-          * Link to open if the teaser is clicked/pressed.
+          * The href value you want to link to.
          */
-        "link": string;
+        "href": string | undefined;
         /**
-          * If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window").
+          * Pass in an id, if you need to identify the inner link element.
          */
-        "newWindowInfoText"?: string;
+        "idValue"?: string;
         /**
-          * If set, the link will be opened in a new window.
+          * Image alt text will be passed to `sbb-image`.
          */
-        "openInNewWindow"?: boolean;
+        "imageAlt"?: string;
         /**
-          * Text property for sbb-panel. See sbb-panel for additional info
+          * Image src will be passed to `sbb-image`.
          */
-        "text": string;
+        "imageSrc"?: string;
+        /**
+          * Panel link text.
+         */
+        "linkContent"?: string;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
     }
     interface SbbTimetable {
     }
@@ -1272,12 +1265,6 @@ declare global {
         prototype: HTMLSbbOverlayElement;
         new (): HTMLSbbOverlayElement;
     };
-    interface HTMLSbbPanelElement extends Components.SbbPanel, HTMLStencilElement {
-    }
-    var HTMLSbbPanelElement: {
-        prototype: HTMLSbbPanelElement;
-        new (): HTMLSbbPanelElement;
-    };
     interface HTMLSbbPearlChainElement extends Components.SbbPearlChain, HTMLStencilElement {
     }
     var HTMLSbbPearlChainElement: {
@@ -1482,7 +1469,6 @@ declare global {
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-overlay": HTMLSbbOverlayElement;
-        "sbb-panel": HTMLSbbPanelElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
@@ -2172,24 +2158,6 @@ declare namespace LocalJSX {
         "onWillPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
         "overlayIndex"?: number;
     }
-    interface SbbPanel {
-        /**
-          * The text to use as button text
-         */
-        "buttonText": string;
-        /**
-          * Id which is sent in the click event payload for the button
-         */
-        "eventId"?: string;
-        /**
-          * The tag to use for the text element
-         */
-        "tag"?: InterfacePanelAttributes['tag'];
-        /**
-          * The text to show in the panel
-         */
-        "text": string;
-    }
     interface SbbPearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
@@ -2326,33 +2294,45 @@ declare namespace LocalJSX {
     }
     interface SbbTeaserHero {
         /**
-          * Button text property for sbb-panel. See sbb-panel for additional info
+          * This will be forwarded as aria-describedby to the anchor tag.
          */
-        "buttonText": string;
+        "accessibilityDescribedby"?: string | undefined;
         /**
-          * Image loading property. See sbb-image for additional info
+          * This will be forwarded as aria-label to anchor tag.
          */
-        "imageLoading"?: InterfaceImageAttributes['loading'];
+        "accessibilityLabel"?: string | undefined;
         /**
-          * Image source property for sbb-image. See sbb-image for additional info
+          * This will be forwarded as aria-labelledby to the anchor tag.
          */
-        "imageSrc": string;
+        "accessibilityLabelledby"?: string | undefined;
         /**
-          * Link to open if the teaser is clicked/pressed.
+          * The href value you want to link to.
          */
-        "link": string;
+        "href"?: string | undefined;
         /**
-          * If `openInNewWindow` is set, you should provide according information which will be read aloud for screenreader users (e.g. "Link target will open in a new window").
+          * Pass in an id, if you need to identify the inner link element.
          */
-        "newWindowInfoText"?: string;
+        "idValue"?: string;
         /**
-          * If set, the link will be opened in a new window.
+          * Image alt text will be passed to `sbb-image`.
          */
-        "openInNewWindow"?: boolean;
+        "imageAlt"?: string;
         /**
-          * Text property for sbb-panel. See sbb-panel for additional info
+          * Image src will be passed to `sbb-image`.
          */
-        "text": string;
+        "imageSrc"?: string;
+        /**
+          * Panel link text.
+         */
+        "linkContent"?: string;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
     }
     interface SbbTimetable {
     }
@@ -2607,7 +2587,6 @@ declare namespace LocalJSX {
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
         "sbb-overlay": SbbOverlay;
-        "sbb-panel": SbbPanel;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
@@ -2667,7 +2646,6 @@ declare module "@stencil/core" {
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
-            "sbb-panel": LocalJSX.SbbPanel & JSXBase.HTMLAttributes<HTMLSbbPanelElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
