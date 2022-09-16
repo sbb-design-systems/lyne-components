@@ -3,6 +3,7 @@
   "compilerOptions": {
     "declaration": true,
     "esModuleInterop": true,
+    "module": "CommonJS",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "outDir": "dist",
