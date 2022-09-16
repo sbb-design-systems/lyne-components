@@ -85,12 +85,12 @@
 
   /* scrollbar itself */
   &::-webkit-scrollbar-thumb {
-    background-color: var(--sbb-color-black-alpha-30);
+    background-color: var(--sbb-color-black-alpha-20);
     border: #{px-to-rem-build(7)} solid var(--sbb-color-white-default);
     border-radius: var(--sbb-border-radius-4x);
 
     @if $color == 'dark' {
-      background-color: var(--sbb-color-white-alpha-30);
+      background-color: var(--sbb-color-white-alpha-20);
       border-color: var(--sbb-color-black-default);
     }
   }
