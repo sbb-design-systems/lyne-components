@@ -13,7 +13,7 @@ const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tortor
     elementum. Nam pharetra, erat a varius porta, quam lacus venenatis libero, at pretium arcu velit
     vel lectus.`;
 
-const content = () => <div style="height: 300px">{text}</div>;
+const content = () => <div style="height: 1280px;">{text}</div>;
 
 const shadow = {
   control: {
@@ -23,10 +23,6 @@ const shadow = {
 
 const basicArgTypes = {
   shadow,
-};
-
-const basicArgs = {
-  shadow: true,
 };
 
 const Template = (args) => [
@@ -39,13 +35,11 @@ const Template = (args) => [
     </sbb-header-action>
   </sbb-header>,
   content(),
-  content(),
-  content(),
 ];
 
 const TemplateActions = (args) => [
   <sbb-header {...args}>
-    <sbb-header-action class="test">
+    <sbb-header-action>
       <span slot="icon">
         <svg
           width="24"
@@ -136,24 +130,27 @@ const TemplateActions = (args) => [
     </sbb-header-action>
   </sbb-header>,
   content(),
-  content(),
-  content(),
 ];
 
 export const header = Template.bind({});
-header.args = JSON.parse(JSON.stringify(basicArgs));
+header.args = { shadow: true };
 header.argTypes = basicArgTypes;
-
 header.documentation = {
-  title: 'Header',
+  title: 'Header with shadow on',
 };
 
-export const headerAction = TemplateActions.bind({});
-headerAction.args = JSON.parse(JSON.stringify(basicArgs));
-headerAction.argTypes = basicArgTypes;
+export const headerNoShadow = Template.bind({});
+headerNoShadow.args = { shadow: false };
+headerNoShadow.argTypes = basicArgTypes;
+headerNoShadow.documentation = {
+  title: 'Header with shadow off',
+};
 
-headerAction.documentation = {
-  title: 'Header with actions',
+export const headerWithActions = TemplateActions.bind({});
+headerWithActions.args = { shadow: true };
+headerWithActions.argTypes = basicArgTypes;
+headerWithActions.documentation = {
+  title: 'Header with custom actions',
 };
 
 export default {
