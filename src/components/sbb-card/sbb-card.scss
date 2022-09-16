@@ -74,6 +74,10 @@
   }
 }
 
+.sbb-card__opens-in-new-window {
+  @include screenReaderOnly;
+}
+
 :host(:active) {
   border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
 }

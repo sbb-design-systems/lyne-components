@@ -1,6 +1,10 @@
 import { Component, Event, EventEmitter, h, Host, JSX, Prop, State } from '@stencil/core';
+import getDocumentLang from '../../global/helpers/get-document-lang';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
+  getButtonAttributeList,
+  getLinkAttributeList,
   LinkButtonProperties,
   LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
@@ -117,19 +121,45 @@ export class SbbCard implements LinkButtonProperties {
   }
 
   public render(): JSX.Element {
+    let TAG_NAME: string;
+    let className: string;
+    let attributeList: Record<string, string>;
+
+    if (this.href) {
+      TAG_NAME = 'a';
+      className = 'sbb-card__link';
+      attributeList = getLinkAttributeList(this, this);
+    } else {
+      TAG_NAME = 'button';
+      className = 'sbb-card__button';
+      attributeList = getButtonAttributeList(this);
+    }
+
     return (
       <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
-        {this._showSBBBadge() && (
-          <slot
-            name="badge"
-            onSlotchange={(event) =>
-              (this._hasBadge = (event.target as HTMLSlotElement).assignedElements().length > 0)
-            }
-          />
-        )}
-        <span class="sbb-card__content">
-          <slot />
-        </span>
+        <TAG_NAME
+          id={this.idValue}
+          class={className}
+          {...attributeList}
+          ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
+        >
+          {this._showSBBBadge() && (
+            <slot
+              name="badge"
+              onSlotchange={(event) =>
+                (this._hasBadge = (event.target as HTMLSlotElement).assignedElements().length > 0)
+              }
+            />
+          )}
+          <span class="sbb-card__content">
+            <slot />
+            {this.href && (
+              <span class="sbb-card__opens-in-new-window">
+                . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+              </span>
+            )}
+          </span>
+        </TAG_NAME>
       </Host>
     );
   }
