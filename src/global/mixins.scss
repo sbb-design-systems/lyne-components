@@ -55,3 +55,61 @@
     height: 0;
   }
 }
+
+@mixin scrollbar($color: 'light', $radius: 0) {
+  /* total width */
+  &::-webkit-scrollbar {
+    width: var(--sbb-spacing-fixed-4x);
+  }
+
+  /* background of the scrollbar except button or resizer */
+  &::-webkit-scrollbar-track {
+    background-color: var(--sbb-color-white-default);
+
+    @if $color == 'dark' {
+      background-color: var(--sbb-color-black-default);
+    }
+
+    @if $radius != 0 {
+      border-radius: $radius;
+    }
+  }
+
+  &::-webkit-scrollbar-track:hover {
+    background-color: var(--sbb-color-white-default);
+
+    @if $color == 'dark' {
+      background-color: var(--sbb-color-black-default);
+    }
+  }
+
+  /* scrollbar itself */
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--sbb-color-black-alpha-30);
+    border: #{px-to-rem-build(7)} solid var(--sbb-color-white-default);
+    border-radius: var(--sbb-border-radius-4x);
+
+    @if $color == 'dark' {
+      background-color: var(--sbb-color-white-alpha-30);
+      border-color: var(--sbb-color-black-default);
+    }
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--sbb-color-black-alpha-60);
+    border: #{px-to-rem-build(5.5)} solid var(--sbb-color-white-default);
+
+    @if $color == 'dark' {
+      background-color: var(--sbb-color-white-alpha-60);
+      border-color: var(--sbb-color-black-default);
+    }
+  }
+
+  /* set button(top and bottom of the scrollbar) */
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  /* style for Firefox */
+  scrollbar-width: thin;
+}

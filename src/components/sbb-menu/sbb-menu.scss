@@ -24,6 +24,8 @@
 }
 
 .sbb-menu {
+  @include scrollbar('dark', var(--sbb-border-radius-4x));
+
   --sbb-menu-transform: translateY(100%);
 
   max-height: calc(100vh - var(--sbb-spacing-fixed-8x));
