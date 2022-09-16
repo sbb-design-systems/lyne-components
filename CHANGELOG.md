@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.6.7 (2022-09-16)
+
+### Bug Fixes
+
+- distribute the react package as commonjs ([532280c](https://github.com/lyne-design-system/lyne-components/commit/532280c4ba3c1d6360dab40067eedab874bb59ad))
+
 ### 0.6.6 (2022-09-16)
 
 ### Bug Fixes
