@@ -17,9 +17,9 @@ const orientationArg = {
 
 const horizontalFromArg = {
   control: {
-    type: 'select',
+    type: 'inline-radio',
   },
-  options: ['', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
 const alignArg = {
