@@ -250,6 +250,7 @@ export default {
       iframeHeight: '400px',
       extractComponentDescription: () => readme,
     },
+    chromatic: { delay: 300 },
   },
   title: 'components/menu/sbb-menu',
 };
