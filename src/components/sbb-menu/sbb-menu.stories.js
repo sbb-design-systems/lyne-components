@@ -38,7 +38,7 @@ const CustomContentTemplate = (args) => (
   <div>
     <sbb-button id="menu-trigger-2" size="m" label="Menu trigger"></sbb-button>
 
-    <sbb-menu {...args} trigger="menu-trigger-2">
+    <sbb-menu {...args} trigger="menu-trigger-2" ref={(menu) => isChromatic() && menu.openMenu()}>
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
       <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
@@ -62,7 +62,7 @@ const LongContentTemplate = (args) => (
   <div>
     <sbb-button id="menu-trigger-3" size="m" label="Menu trigger"></sbb-button>
 
-    <sbb-menu {...args} trigger="menu-trigger-3">
+    <sbb-menu {...args} trigger="menu-trigger-3" ref={(menu) => isChromatic() && menu.openMenu()}>
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
       <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
@@ -98,7 +98,7 @@ const EllipsisTemplate = (args) => (
   <div>
     <sbb-button id="menu-trigger-4" size="m" label="Menu trigger"></sbb-button>
 
-    <sbb-menu {...args} trigger="menu-trigger-4">
+    <sbb-menu {...args} trigger="menu-trigger-4" ref={(menu) => isChromatic() && menu.openMenu()}>
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
       <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
@@ -149,7 +149,7 @@ export default {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: { delay: 300 },
+    chromatic: { delay: 600 },
   },
   title: 'components/menu/sbb-menu',
 };
