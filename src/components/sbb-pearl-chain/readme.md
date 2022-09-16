@@ -1,5 +1,5 @@
 # sbb-pearl-chain
-
+The `<sbb-pearl-chain>` component displays all parts of a journey. Including changes of trains or other kinds of transports. 
 <!-- Auto Generated Below -->
 
 
