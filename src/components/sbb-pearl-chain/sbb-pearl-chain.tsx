@@ -1,7 +1,6 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes, Leg } from './sbb-pearl-chain.custom';
 import { isPast, isFuture, differenceInMinutes } from 'date-fns';
-import { toDate } from 'date-fns-tz';
 
 enum Status {
   progress = 'progress',
@@ -30,8 +29,9 @@ export class SbbPearlChain {
    */
   @Prop() public disableAnimation?: boolean;
 
-  private _departureTime = this.legs && toDate(this.legs[0]?.departure?.time);
-  private _arrivalTime = this.legs && toDate(this.legs[this.legs?.length - 1].arrival?.time);
+  private _departureTime = this.legs && new Date(Date.parse(this.legs[0]?.departure?.time));
+  private _arrivalTime =
+    this.legs && new Date(Date.parse(this.legs[this.legs?.length - 1].arrival?.time));
 
   private _getAllDuration(legs: InterfacePearlChainAttributes['legs']): number {
     return legs.reduce((sum: number, leg) => (sum += leg.duration), 0);
@@ -102,8 +102,8 @@ export class SbbPearlChain {
         {this.legs?.map((leg: Leg) => {
           const duration = this._getRelativeDuration(this.legs, leg);
 
-          const departure = toDate(leg.departure?.time);
-          const arrival = toDate(leg.arrival?.time);
+          const departure = new Date(Date.parse(leg.departure?.time));
+          const arrival = new Date(Date.parse(leg.arrival?.time));
 
           const legStyle = (): Record<string, string> => {
             return {

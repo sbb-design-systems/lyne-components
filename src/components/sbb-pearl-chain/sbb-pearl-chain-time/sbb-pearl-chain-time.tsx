@@ -7,7 +7,7 @@ import {
   i18nWalkingDistanceArrival,
 } from '../../../global/i18n';
 import getDocumentLang from '../../../global/helpers/get-document-lang';
-import { format } from 'date-fns-tz';
+import { format } from 'date-fns';
 import { removeTimezoneFromDate } from './helper/timezone-helper';
 
 @Component({
