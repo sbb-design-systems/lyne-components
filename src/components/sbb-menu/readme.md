@@ -1,8 +1,17 @@
-The `sbb-menu` is a component that you can attach to any element (trigger) to display a context menu. The menu appears on trigger left click. On mobile, the menu is displayed as a sheet with a backdrop; on desktop it will be shown as a floating menu and will calucate the optimal position relative to the trigger element by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
+# sbb-menu
+
+The `sbb-menu` is a component that you can attach to any element (trigger) to display a context menu. 
+The menu appears on trigger left click. 
+
+On mobile, the menu is displayed as a sheet with a backdrop; 
+on desktop it will be shown as a floating menu and will calculate the optimal position relative to the trigger element 
+by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
 
 ## Usage
 
-The menu component allows you to present a custom menu that allows you to perform actions relevant to the current task or to navigate within or outside the application by using the `sbb-menu-action` component along with it or providing custom content inside the dialog as shown below:
+The menu component allows you to present a custom menu that allows you to perform actions relevant to the current task 
+or to navigate within or outside the application by using the `sbb-menu-action` component along with it 
+or providing custom content inside the dialog as shown below:
 
 ```html
 <!-- Trigger element -->
