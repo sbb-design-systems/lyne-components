@@ -3,7 +3,7 @@ import readme from './readme.md';
 import events from './sbb-header-action.events';
 
 const Template = (args) => (
-  <div style="display: flex; justify-content: start;">
+  <div style="display: flex; gap: 2rem;">
     <sbb-header-action {...args}>
       <span>{args.text} 1</span>
     </sbb-header-action>

@@ -13,6 +13,8 @@ const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tortor
     elementum. Nam pharetra, erat a varius porta, quam lacus venenatis libero, at pretium arcu velit
     vel lectus.`;
 
+const content = () => <div style="height: 300px">{text}</div>;
+
 const shadow = {
   control: {
     type: 'boolean',
@@ -36,8 +38,9 @@ const Template = (args) => [
       Test
     </sbb-header-action>
   </sbb-header>,
-  <div style="height: 60vh">{text}</div>,
-  <div style="height: 60vh">{text}</div>,
+  content(),
+  content(),
+  content(),
 ];
 
 const TemplateActions = (args) => [
@@ -132,9 +135,9 @@ const TemplateActions = (args) => [
       Deutsch
     </sbb-header-action>
   </sbb-header>,
-  <div style="height: 60vh">{text}</div>,
-  <div style="height: 60vh">{text}</div>,
-  <div style="height: 60vh">{text}</div>,
+  content(),
+  content(),
+  content(),
 ];
 
 export const header = Template.bind({});
