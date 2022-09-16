@@ -2,7 +2,7 @@ import { Component, h, Host, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbActionGroupAttributes } from './sbb-action-group.custom';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Slot to render the content inside the container.
  */
 
 @Component({
@@ -11,15 +11,28 @@ import { InterfaceSbbActionGroupAttributes } from './sbb-action-group.custom';
   tag: 'sbb-action-group',
 })
 export class SbbActionGroup {
-  @Prop() public orientation: InterfaceSbbActionGroupAttributes['orientation'] = 'horizontal';
+  /**
+   * Set the alignment of the components inside the `<sbb-action-group>`.
+   */
+  @Prop() public align: InterfaceSbbActionGroupAttributes['align'] = 'start';
 
+  /**
+   * Overrides the behaviour of `orientation` prop
+   */
   @Prop() public horizontalFrom?: InterfaceSbbActionGroupAttributes['horizontalFrom'] = 'medium';
 
-  @Prop() public align: InterfaceSbbActionGroupAttributes['align'] = 'start';
+  /**
+   * Indicates the orientation of the components inside the `<sbb-action-group>`.
+   */
+  @Prop() public orientation: InterfaceSbbActionGroupAttributes['orientation'] = 'horizontal';
 
   public render(): JSX.Element {
     return (
-      <Host slot="action-group">
+      <Host
+        class={{
+          [`action-group--align-${this.align}`]: true,
+        }}
+      >
         <slot />
       </Host>
     );
