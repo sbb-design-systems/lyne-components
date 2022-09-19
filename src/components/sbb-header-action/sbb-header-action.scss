@@ -62,6 +62,9 @@
   line-height: 0;
   color: var(--sbb-color-black-default);
   margin-right: var(--sbb-spacing-fixed-2x);
+  @include mq($to: small) {
+    margin-right: 0;
+  }
 }
 
 .header-action__label {
