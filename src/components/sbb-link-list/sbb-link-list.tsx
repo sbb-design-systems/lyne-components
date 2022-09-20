@@ -13,31 +13,19 @@ export class SbbLinkList {
   /** This id will be forwarded to the relevant inner element. */
   @Prop() public titleId = `sbb-link-list-title-${++nextId}`;
 
-  /**
-   * The title text we want to show
-   * before the list
-   */
+  /** The title text we want to show before the list. */
   @Prop() public titleContent?: string;
 
-  /**
-   * The semantic level of the title,
-   * e.g. 3 = h3
-   */
+  /** The semantic level of the title, e.g. 2 = h2. */
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
 
-  /**
-   * Negative coloring variant flag
-   */
+  /** Negative coloring variant flag. */
   @Prop() public negative: boolean;
 
-  /**
-   * Selected breakpoint from which the list is rendered horizontally.
-   */
+  /** Selected breakpoint from which the list is rendered horizontally. */
   @Prop() public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
 
-  /**
-   * The orientation in which the list will be shown vertical or horizontal.
-   */
+  /** The orientation in which the list will be shown vertical or horizontal. */
   @Prop() public orientation: InterfaceLinkListAttributes['orientation'] = 'vertical';
 
   /** Sbb-Link elements */
@@ -78,10 +66,10 @@ export class SbbLinkList {
   }
 
   public render(): JSX.Element {
-    let additionalAttributes = {};
+    let ariaLabelledByAttribute = {};
 
     if (this._hasSlottedTitle || this.titleContent) {
-      additionalAttributes = {
+      ariaLabelledByAttribute = {
         'aria-labelledby': this.titleId,
       };
     }
@@ -90,7 +78,7 @@ export class SbbLinkList {
 
     return (
       <div class={this._getClassString()}>
-        {this._hasSlottedTitle || this.titleContent ? (
+        {(this._hasSlottedTitle || this.titleContent) && (
           <sbb-title
             level={this.titleLevel}
             visual-level="5"
@@ -101,10 +89,8 @@ export class SbbLinkList {
               {this.titleContent}
             </slot>
           </sbb-title>
-        ) : (
-          ''
         )}
-        <ul {...additionalAttributes} role="list">
+        <ul {...ariaLabelledByAttribute}>
           {this._links.map((_, index) => (
             <li>
               <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />

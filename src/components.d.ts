@@ -588,7 +588,7 @@ export namespace Components {
          */
         "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
-          * Negative coloring variant flag
+          * Negative coloring variant flag.
          */
         "negative": boolean;
         /**
@@ -596,7 +596,7 @@ export namespace Components {
          */
         "orientation": InterfaceLinkListAttributes['orientation'];
         /**
-          * The title text we want to show before the list
+          * The title text we want to show before the list.
          */
         "titleContent"?: string;
         /**
@@ -604,7 +604,7 @@ export namespace Components {
          */
         "titleId": string;
         /**
-          * The semantic level of the title, e.g. 3 = h3
+          * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
@@ -1992,7 +1992,7 @@ declare namespace LocalJSX {
          */
         "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
-          * Negative coloring variant flag
+          * Negative coloring variant flag.
          */
         "negative"?: boolean;
         /**
@@ -2000,7 +2000,7 @@ declare namespace LocalJSX {
          */
         "orientation"?: InterfaceLinkListAttributes['orientation'];
         /**
-          * The title text we want to show before the list
+          * The title text we want to show before the list.
          */
         "titleContent"?: string;
         /**
@@ -2008,7 +2008,7 @@ declare namespace LocalJSX {
          */
         "titleId"?: string;
         /**
-          * The semantic level of the title, e.g. 3 = h3
+          * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
