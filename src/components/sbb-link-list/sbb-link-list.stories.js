@@ -158,7 +158,7 @@ export const LinkListNoTitle = Template.bind({});
 LinkListNoTitle.argTypes = defaultArgTypes;
 LinkListNoTitle.args = {
   ...defaultArgs,
-  'title-content': '',
+  'title-content': undefined,
 };
 
 LinkListNoTitle.documentation = {
