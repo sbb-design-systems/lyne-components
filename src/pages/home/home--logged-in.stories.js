@@ -522,13 +522,12 @@ const Template = (args) => (
     <sbb-section width="full-bleed--until-ultra" {...args}>
       <sbb-stack slot="full-width" space-leading="responsive-l" space-trailing="responsive-l">
         <sbb-teaser-hero
-          button-text="Learn more"
-          loading="eager"
+          link-content="Learn more"
           image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
-          link="https://www.sbb.ch"
-          open-in-new-window="false"
-          text="Rücksichtsvoll mit SBB Green Class."
-        ></sbb-teaser-hero>
+          href="https://www.sbb.ch"
+        >
+          Considerate with SBB Green Class.
+        </sbb-teaser-hero>
       </sbb-stack>
     </sbb-section>
 
@@ -572,7 +571,7 @@ const Template = (args) => (
           </sbb-link-list>
           <sbb-stack space-leading="fixed-3x">
             <sbb-link-button
-              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
               text="All help topics"
               variant="primary"
             ></sbb-link-button>
@@ -621,7 +620,7 @@ const Template = (args) => (
           <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
           <sbb-stack space-leading="fixed-3x">
             <sbb-link-button
-              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
               text="Subscribe"
               variant="secondary"
             ></sbb-link-button>

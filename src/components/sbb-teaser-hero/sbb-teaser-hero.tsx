@@ -1,135 +1,104 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
-import { InterfaceImageAttributes } from '../sbb-image/sbb-image.custom';
-import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
+import { Component, h, Prop, JSX } from '@stencil/core';
+import {
+  getLinkAttributeList,
+  getLinkButtonBaseAttributeList,
+  LinkProperties,
+  LinkTargetType,
+} from '../../global/interfaces/link-button-properties';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
+
+/**
+ * @slot unnamed - text content of panel
+ * @slot link-content - link content of the panel
+ * @slot image - the background image, can be a `sbb-image`
+ */
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-teaser-hero.scss',
   tag: 'sbb-teaser-hero',
 })
-export class SbbTeaserHero {
-  private _pictureSizesConfig = {
-    breakpoints: [
-      {
-        image: {
-          height: tokens['sbb-breakpoint-ultra-max'],
-          width: tokens['sbb-breakpoint-ultra-max'],
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'min-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'sbb-breakpoint-ultra-min',
-            },
-            conditionOperator: false,
-          },
-        ],
-      },
-      {
-        image: {
-          height: tokens['sbb-breakpoint-wide-max'],
-          width: tokens['sbb-breakpoint-wide-max'],
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'max-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'sbb-breakpoint-wide-max',
-            },
-            conditionOperator: false,
-          },
-        ],
-      },
-      {
-        image: {
-          height: tokens['sbb-breakpoint-micro-max'],
-          width: tokens['sbb-breakpoint-micro-max'],
-        },
-        mediaQueries: [
-          {
-            conditionFeature: 'max-width',
-            conditionFeatureValue: {
-              lyneDesignToken: true,
-              value: 'sbb-breakpoint-micro-max',
-            },
-            conditionOperator: false,
-          },
-        ],
-      },
-    ],
-  };
+export class SbbTeaserHero implements LinkProperties {
+  /** This will be forwarded as aria-label to anchor tag. */
+  @Prop() public accessibilityLabel: string | undefined;
 
-  /**
-   * Text property for sbb-panel. See sbb-panel for additional info
-   */
-  @Prop() public text!: string;
+  /** This will be forwarded as aria-describedby to the anchor tag. */
+  @Prop() public accessibilityDescribedby: string | undefined;
 
-  /**
-   * Button text property for sbb-panel. See sbb-panel for additional info
-   */
-  @Prop() public buttonText!: string;
+  /** This will be forwarded as aria-labelledby to the anchor tag. */
+  @Prop() public accessibilityLabelledby: string | undefined;
 
-  /**
-   * Image source property for sbb-image. See sbb-image for additional info
-   */
-  @Prop() public imageSrc!: string;
+  /** The href value you want to link to. */
+  @Prop() public href: string | undefined;
 
-  /**
-   * Image loading property. See sbb-image for additional info
-   */
-  @Prop() public imageLoading?: InterfaceImageAttributes['loading'] = 'eager';
+  /** The relationship of the linked URL as space-separated link types. */
+  @Prop() public rel?: string | undefined;
 
-  /**
-   * Link to open if the teaser is clicked/pressed.
-   */
-  @Prop() public link!: string;
+  /** Where to display the linked URL. */
+  @Prop() public target?: LinkTargetType | string | undefined;
 
-  /**
-   * If set, the link will be opened in a new window.
-   */
-  @Prop() public openInNewWindow?: boolean;
+  /** Pass in an id, if you need to identify the inner link element. */
+  @Prop() public idValue?: string;
 
-  /**
-   * If `openInNewWindow` is set, you should provide according information
-   * which will be read aloud for screenreader users (e.g. "Link target will
-   * open in a new window").
-   */
-  @Prop() public newWindowInfoText?: string;
+  /** Panel link text. */
+  @Prop() public linkContent?: string;
+
+  /** Image src will be passed to `sbb-image`. */
+  @Prop() public imageSrc?: string;
+
+  /** Image alt text will be passed to `sbb-image`. */
+  @Prop() public imageAlt?: string;
+
+  private _resolveRenderVariables(): {
+    screenReaderNewWindowInfo?: boolean;
+    attributes: Record<string, string>;
+    tagName: 'a' | 'span';
+  } {
+    if (this.href) {
+      return {
+        tagName: 'a',
+        attributes: getLinkAttributeList(this),
+        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
+      };
+    }
+    return { tagName: 'span', attributes: getLinkButtonBaseAttributeList(this) };
+  }
 
   public render(): JSX.Element {
-    const linkAttributes = {};
-
-    if (this.openInNewWindow) {
-      linkAttributes['rel'] = 'external noopener nofollow';
-      linkAttributes['target'] = '_blank';
-    }
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      screenReaderNewWindowInfo,
+    } = this._resolveRenderVariables();
 
     return (
-      <a class="teaser-hero" href={this.link} {...linkAttributes}>
-        <sbb-image
-          aspect-ratio="1-1"
-          class="teaser-hero__image"
-          image-src={this.imageSrc}
-          loading={this.imageLoading}
-          lqip
-          performance-mark="teaser-hero"
-          picture-sizes-config={JSON.stringify(this._pictureSizesConfig)}
-        ></sbb-image>
-
-        <sbb-panel
-          class="teaser-hero__panel"
-          buttonText={this.buttonText}
-          text={this.text}
-        ></sbb-panel>
-
-        {this.openInNewWindow && this.newWindowInfoText ? (
-          <span class="teaser-hero__link-info-text">{this.newWindowInfoText}</span>
-        ) : (
-          ''
+      <TAG_NAME class="sbb-teaser-hero" id={this.idValue} {...attributes}>
+        <span class="sbb-teaser-hero__panel">
+          <span class="sbb-teaser-hero__panel-text">
+            <slot />
+          </span>
+          {this.href && (
+            <sbb-link
+              class="sbb-teaser-hero__panel-link"
+              icon-name="chevron-small-right-small"
+              icon-placement="end"
+              text-size="m"
+              negative
+            >
+              <slot name="link-content">{this.linkContent}</slot>
+            </sbb-link>
+          )}
+        </span>
+        <slot name="image">
+          <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>
+        </slot>
+        {screenReaderNewWindowInfo && (
+          <span class="sbb-teaser-hero__opens-in-new-window">
+            . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+          </span>
         )}
-      </a>
+      </TAG_NAME>
     );
   }
 }

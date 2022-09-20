@@ -381,13 +381,12 @@ const Template = (args) => (
     <sbb-section width="full-bleed--until-ultra" {...args}>
       <sbb-stack slot="full-width" space-leading="responsive-l" space-trailing="responsive-l">
         <sbb-teaser-hero
-          button-text="Learn more"
-          loading="eager"
+          link-content="Learn more"
           image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
-          link="https://www.sbb.ch"
-          open-in-new-window="false"
-          text="Considerate with SBB Green Class."
-        ></sbb-teaser-hero>
+          href="https://www.sbb.ch"
+        >
+          Considerate with SBB Green Class.
+        </sbb-teaser-hero>
       </sbb-stack>
     </sbb-section>
 

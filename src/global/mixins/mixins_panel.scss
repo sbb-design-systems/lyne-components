@@ -1,0 +1,72 @@
+// ----------------------------------------------------------------------------------------------------
+// Panel Mixins: Achieve the styling of a panel
+// ----------------------------------------------------------------------------------------------------
+
+@mixin panel-variables {
+  --panel-width: #{px-to-rem-build(223)};
+  --panel-height: #{px-to-rem-build(167)};
+  --panel-triangle-height: #{px-to-rem-build(33)};
+  --panel-font-family: var(--sbb-typo-type-face-sbb-light);
+  --panel-letter-spacing: var(--sbb-typo-letter-spacing-titles);
+  --panel-line-height: var(--sbb-typo-line-height-titles);
+  --panel-font-size: var(--sbb-typo-scale-1-5x);
+  --panel-color: var(--sbb-color-white-default);
+  --panel-background-color: var(--sbb-color-red-alpha-90);
+  --panel-background-color-hover: var(--sbb-color-red-default);
+  --panel-padding-inline: var(--sbb-spacing-responsive-m);
+  --panel-gap: var(--sbb-spacing-responsive-xs);
+  --panel-animation-duration: var(--sbb-animation-duration-4x);
+  --panel-animation-easing: var(--sbb-animation-easing);
+
+  @include mq($from: medium) {
+    --panel-width: #{px-to-rem-build(321)};
+    --panel-height: #{px-to-rem-build(240.11)};
+    --panel-triangle-height: #{px-to-rem-build(47.45)};
+    --panel-font-size: var(--sbb-typo-scale-2x);
+  }
+
+  @include mq($from: large) {
+    --panel-width: #{px-to-rem-build(428)};
+    --panel-height: #{px-to-rem-build(320.38)};
+    --panel-triangle-height: #{px-to-rem-build(63.31)};
+    --panel-font-size: var(--sbb-typo-scale-2-5x);
+    --panel-line-height: 1.2;
+  }
+}
+
+@mixin panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--panel-gap);
+  width: var(--panel-width);
+  height: calc(var(--panel-height) + 2 * var(--panel-triangle-height));
+  padding-block: var(--panel-triangle-height);
+  padding-inline: var(--panel-padding-inline);
+  clip-path: polygon(
+    0 0,
+    100% var(--panel-triangle-height),
+    100% calc(100% - var(--panel-triangle-height)),
+    0% 100%
+  );
+  background-color: var(--panel-background-color);
+  transition: background var(--panel-animation-duration) var(--panel-animation-easing);
+
+  @include hover-mq($hover: true) {
+    &:hover {
+      --panel-background-color: var(--panel-background-color-hover);
+    }
+  }
+}
+
+@mixin panel-text {
+  @include fontSmoothing;
+
+  font-family: var(--panel-font-family);
+  font-size: var(--panel-font-size);
+  font-weight: normal;
+  line-height: var(--panel-line-height);
+  letter-spacing: var(--panel-letter-spacing);
+  color: var(--panel-color);
+}
