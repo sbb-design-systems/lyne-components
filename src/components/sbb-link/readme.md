@@ -41,12 +41,17 @@ anchor or button tag, it is internally rendered as a span in order to not break 
 
 ## Slots
 
-| Slot     | Description                                  |
-| -------- | -------------------------------------------- |
-| `"icon"` | Slot used to display the icon, if one is set |
+| Slot        | Description                                  |
+| ----------- | -------------------------------------------- |
+| `"icon"`    | Slot used to display the icon, if one is set |
+| `"unnamed"` | Link Content                                 |
 
 
 ## Dependencies
+
+### Used by
+
+ - [sbb-teaser-hero](../sbb-teaser-hero)
 
 ### Depends on
 
@@ -56,6 +61,7 @@ anchor or button tag, it is internally rendered as a span in order to not break 
 ```mermaid
 graph TD;
   sbb-link --> sbb-icon
+  sbb-teaser-hero --> sbb-link
   style sbb-link fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

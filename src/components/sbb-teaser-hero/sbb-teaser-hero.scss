@@ -3,26 +3,49 @@
 @include host-component-properties;
 
 :host {
-  display: block;
+  @include panel-variables;
+
+  --teaser-hero-brightness-hover: 1.075;
 }
 
-.teaser-hero {
+.sbb-teaser-hero {
   position: relative;
   display: block;
 
   &:focus-visible {
     @include focusOutline;
   }
+
+  @include hover-mq($hover: true) {
+    &:hover {
+      --panel-background-color: var(--panel-background-color-hover);
+      --teaser-hero-brightness: var(--teaser-hero-brightness-hover);
+    }
+  }
 }
 
-.teaser-hero__image {
-  display: block;
-}
-
-.teaser-hero__panel {
+.sbb-teaser-hero__panel {
+  @include panel;
   @include absoluteCenterY;
+
+  z-index: 1;
 }
 
-.teaser-hero__link-info-text {
+.sbb-teaser-hero__panel-text {
+  @include panel-text;
+}
+
+.sbb-teaser-hero__panel-link {
+  @include fontSmoothing;
+}
+
+.sbb-teaser-hero__opens-in-new-window {
   @include screenReaderOnly;
+}
+
+::slotted([slot='image']),
+sbb-image {
+  will-change: filter;
+  filter: brightness(var(--teaser-hero-brightness, 1));
+  transition: filter var(--panel-animation-duration) var(--panel-animation-easing);
 }

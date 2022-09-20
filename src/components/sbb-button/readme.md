@@ -39,6 +39,13 @@ internally rendered as a span in order to not break HTML functionality.
 | `sbb-button_click` | Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button. | `CustomEvent<any>` |
 
 
+## Slots
+
+| Slot        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `"unnamed"` | Slot to render svg icon. You must pass an svg-element. |
+
+
 ## Dependencies
 
 ### Used by

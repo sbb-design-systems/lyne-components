@@ -99,6 +99,8 @@
 
 // Variant: Hero Teaser
 .image__figure--teaser-hero .image__wrapper {
+  aspect-ratio: 1 / 1;
+
   @include mq($from: small) {
     aspect-ratio: 16 / 9;
   }
