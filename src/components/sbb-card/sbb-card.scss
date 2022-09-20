@@ -9,24 +9,34 @@
 
   position: relative;
   overflow: hidden;
-  background-color: var(--sbb-color-white-default);
   border-radius: var(--sbb-border-radius-4x);
-  padding-inline: var(--sbb-card-padding-inline);
-  padding-block-start: var(--sbb-card-padding-block-start);
-  padding-block-end: var(--sbb-card-padding-block-end);
   transition: box-shadow var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+  z-index: 0;
 
-  &::before {
+  &::before,
+  &::after {
     position: absolute;
     content: '';
-    background-color: transparent;
     inset: 0;
-    z-index: 1;
+  }
+
+  &::before {
+    background-color: var(--sbb-color-white-default);
+    z-index: -3;
+  }
+
+  &::after {
+    background-color: transparent;
+    z-index: -1;
   }
 
   @include ifForcedColors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
+}
+
+::slotted(sbb-card-badge) {
+  z-index: -2;
 }
 
 :host([size='s']) {
@@ -75,15 +85,25 @@
 }
 
 .sbb-card__link {
+  display: block;
   color: var(--sbb-color-black-default);
   text-decoration: none;
 }
 
 .sbb-card__button {
   @include buttonReset;
-  @include text-s--regular;
+  @include text-inherit;
 
   text-align: inherit;
+  cursor: pointer;
+}
+
+.sbb-card__button,
+.sbb-card__link {
+  width: 100%;
+  padding-inline: var(--sbb-card-padding-inline);
+  padding-block-start: var(--sbb-card-padding-block-start);
+  padding-block-end: var(--sbb-card-padding-block-end);
 }
 
 @include hover-mq($hover: true) {
@@ -103,7 +123,7 @@
 }
 
 :host(:active) {
-  &::before {
+  &::after {
     border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
     border-radius: var(--sbb-border-radius-4x);
   }
