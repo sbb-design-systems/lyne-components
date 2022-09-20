@@ -116,7 +116,7 @@ const Template = (args) => (
       </sbb-stack>
     </div>
     <div slot="col-2">
-      <sbb-link-list textsize="s" title-level="2" title-text="More SBB." variant="positive">
+      <sbb-link-list textsize="s" title-level="2" title-text="More SBB.">
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="s"

@@ -21,8 +21,11 @@ const LinkTemplate = (args) => (
 );
 
 // SlottedTitle
+// Todo this needs to be fix with the observed-named-slot-change helper
 const TemplateSlottedTitle = (args) => (
-  <sbb-link-list {...args}>
+  <sbb-link-list
+    {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('title-content')))}
+  >
     <span slot="title">{args['title-content']}</span>
     {links.map((linkTitle) => {
       const linkArgs = {
@@ -178,11 +181,10 @@ LinkListNegative.documentation = {
 };
 
 export const LinkListWithSlottedTitle = TemplateSlottedTitle.bind({});
-// TODO discuss solution with Lukas and Jeremias
 LinkListWithSlottedTitle.argTypes = defaultArgTypes;
 LinkListWithSlottedTitle.args = {
   ...defaultArgs,
-  'title-content': '',
+  'title-content': 'Link-list title',
 };
 
 LinkListWithSlottedTitle.documentation = {

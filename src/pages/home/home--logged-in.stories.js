@@ -538,7 +538,7 @@ const Template = (args) => (
     <sbb-footer accessibility-title="Footer" {...args}>
       <div slot="col-1">
         <sbb-stack>
-          <sbb-link-list textsize="s" title-level="2" title-text="Help &amp; Contact.">
+          <sbb-link-list textsize="s" title-level="2" title-content="Help &amp; Contact.">
             <sbb-link
               href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
               text-size="s"
@@ -580,7 +580,7 @@ const Template = (args) => (
         </sbb-stack>
       </div>
       <div slot="col-2">
-        <sbb-link-list textsize="s" title-level="2" title-text="More SBB.">
+        <sbb-link-list textsize="s" title-level="2" title-content="More SBB.">
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             text-size="s"
@@ -632,12 +632,7 @@ const Template = (args) => (
         <sbb-clock initial-time="now" class="chromatic-ignore"></sbb-clock>
       </div>
       <div slot="bottom">
-        <sbb-link-list
-          textsize="xs"
-          title-level="2"
-          title-text=""
-          list-direction="horizontal-from-large"
-        >
+        <sbb-link-list textsize="xs" title-level="2" title-content="" horizontal-from="large">
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             text-size="xs"
