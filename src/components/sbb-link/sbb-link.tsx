@@ -22,6 +22,7 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
 /**
+ * @slot unnamed - Link Content
  * @slot icon - Slot used to display the icon, if one is set
  */
 
@@ -177,36 +178,46 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
   }
 
-  public render(): JSX.Element {
-    let TAG_NAME: string;
-    let attributeList: Record<string, string>;
-    let shouldDisplayNewWindowText = false;
-
+  private _resolveRenderVariables(): {
+    screenReaderNewWindowInfo?: boolean;
+    attributes: Record<string, string>;
+    tagName: 'a' | 'button' | 'span';
+  } {
     if (this._isStatic) {
-      TAG_NAME = 'span';
-      attributeList = getLinkButtonBaseAttributeList(this);
+      return {
+        tagName: 'span',
+        attributes: getLinkButtonBaseAttributeList(this),
+      };
     } else if (this.href) {
-      TAG_NAME = 'a';
-      attributeList = getLinkAttributeList(this, this);
-      shouldDisplayNewWindowText = !this.accessibilityLabel && this.target === '_blank';
-    } else {
-      TAG_NAME = 'button';
-      attributeList = getButtonAttributeList(this);
+      return {
+        tagName: 'a',
+        attributes: getLinkAttributeList(this, this),
+        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
+      };
     }
+    return { tagName: 'button', attributes: getButtonAttributeList(this) };
+  }
+
+  public render(): JSX.Element {
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      screenReaderNewWindowInfo,
+    } = this._resolveRenderVariables();
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <TAG_NAME
         id={this.idValue}
         class={this._getClassString()}
-        {...attributeList}
+        {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
       >
         {this.variant !== 'inline' && (
           <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         )}
         <slot />
-        {shouldDisplayNewWindowText && (
+        {screenReaderNewWindowInfo && (
           <span class="sbb-link__opens-in-new-window">
             . {i18nTargetOpensInNewWindow[getDocumentLang()]}
           </span>

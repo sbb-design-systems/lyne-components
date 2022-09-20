@@ -18,7 +18,7 @@ then
   VERSION="$(cat .version)"
 
   # Deploy Storybook on Netlify
-  netlify deploy --prod --message "::$VERSION::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
+  yarn netlify deploy --prod --message "::$VERSION::" --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./storybook-static/
 
 else
   echo "-->> Skipping netlify depoly"
