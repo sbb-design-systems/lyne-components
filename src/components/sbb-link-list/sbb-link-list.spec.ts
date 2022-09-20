@@ -24,7 +24,7 @@ describe('sbb-link-list', () => {
         <sbb-title level="2" visual-level="5">
           <slot name="title">Help &amp; Contact</slot>
         </sbb-title>
-        <ul aria-labelledby="sbb-link-list-title-1" role="list">
+        <ul aria-labelledby="sbb-link-list-title-1">
       ...
     `
     */
@@ -33,14 +33,14 @@ describe('sbb-link-list', () => {
             title-level="2">
           <mock:shadow-root>
             <div class="sbb-link-list">
-              <ul role="list">
+              <ul>
                 <li><slot name="link-0"></slot></li>
                 <li><slot name="link-1"></slot></li>
                 <li><slot name="link-2"></slot></li>
                 <li><slot name="link-3"></slot></li>
                 <li><slot name="link-4"></slot></li>
               </ul>
-              <span>
+              <span hidden>
                 <slot></slot>
               </span>
             </div>
@@ -76,14 +76,14 @@ describe('sbb-link-list', () => {
                 <slot name="title">
                 Help &amp; Contact
               </sbb-title>
-              <ul aria-labelledby="sbb-link-list-title-2" role="list">
+              <ul aria-labelledby="sbb-link-list-title-2">
                 <li><slot name="link-0"></slot></li>
                 <li><slot name="link-1"></slot></li>
                 <li><slot name="link-2"></slot></li>
                 <li><slot name="link-3"></slot></li>
                 <li><slot name="link-4"></slot></li>
               </ul>
-              <span>
+              <span hidden>
                 <slot></slot>
               </span>
             </div>
@@ -112,14 +112,14 @@ describe('sbb-link-list', () => {
         <sbb-link-list>
           <mock:shadow-root>
             <div class="sbb-link-list">
-              <ul role="list">
+              <ul>
                 <li><slot name="link-0"></slot></li>
                 <li><slot name="link-1"></slot></li>
                 <li><slot name="link-2"></slot></li>
                 <li><slot name="link-3"></slot></li>
                 <li><slot name="link-4"></slot></li>
               </ul>
-              <span>
+              <span hidden>
                 <slot></slot>
               </span>
             </div>
