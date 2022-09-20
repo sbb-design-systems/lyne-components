@@ -1,13 +1,28 @@
 import { newE2EPage } from '@stencil/core/testing';
+import events from './sbb-alert.events';
 
 describe('sbb-alert', () => {
-  let element, page;
+  let alert, page;
 
   it('renders', async () => {
     page = await newE2EPage();
     await page.setContent('<sbb-alert></sbb-alert>');
 
-    element = await page.find('sbb-alert');
-    expect(element).toHaveClass('hydrated');
+    alert = await page.find('sbb-alert');
+    expect(alert).toHaveClass('hydrated');
+  });
+
+  // TODO maybe fix some day. Test just doesn't work for unknown reason.
+  it.skip('should fire animation events', async () => {
+    page = await newE2EPage();
+
+    const willPresentSpy = await page.spyOnEvent(events.willPresent);
+    const didPresentSpy = await page.spyOnEvent(events.didPresent);
+
+    await page.setContent(`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
+    await page.waitForChanges();
+
+    expect(willPresentSpy).toHaveReceivedEventTimes(1);
+    expect(didPresentSpy).toHaveReceivedEventTimes(1);
   });
 });
