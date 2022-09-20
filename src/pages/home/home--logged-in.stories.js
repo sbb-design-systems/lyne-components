@@ -168,7 +168,7 @@ const Template = (args) => (
               style="min-width: 72px; width: 72px; height: 72px; background-color: var(--sbb-color-cloud-default); border-radius: 50%; display:flex;'"
             ></span>
             <sbb-title level="2" visual-level="1">
-              Wellcome, Christina Müller
+              Welcome, Christina Müller
             </sbb-title>
           </sbb-stack>
           <sbb-stack appearance="vertical" gap-vertical="responsive-s">
