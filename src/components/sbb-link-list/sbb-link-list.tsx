@@ -111,7 +111,7 @@ export class SbbLinkList {
             </li>
           ))}
         </ul>
-        <span>
+        <span hidden>
           <slot onSlotchange={(): void => this._readLinks()} />
         </span>
       </div>

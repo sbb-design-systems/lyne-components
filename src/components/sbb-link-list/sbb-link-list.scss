@@ -2,24 +2,28 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-sbb-title {
-  margin-block-end: var(--sbb-spacing-fixed-3x);
-}
-
-.sbb-link-list ul {
-  @include list-reset;
-}
-
 @mixin link-list--horizontal {
   sbb-title {
     @include screenReaderOnly;
   }
 
   ul {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: var(--sbb-spacing-fixed-8x);
+    flex-flow: row wrap;
   }
+}
+
+.sbb-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-link-list ul {
+  @include list-reset;
+
+  display: flex;
+  gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-8x);
+  flex-direction: column;
 }
 
 .sbb-link-list--horizontal {
@@ -32,21 +36,5 @@ sbb-title {
     @include mq($from: #{$breakpointName}) {
       @include link-list--horizontal;
     }
-  }
-}
-
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-::slotted(sbb-link:not(:last-child)) {
-  margin-block-end: var(--sbb-spacing-fixed-3x);
-}
-
-// selector due to specificity
-.sbb-link-list--horizontal ::slotted(sbb-link) {
-  margin-block-end: unset;
-}
-
-.sbb-link-list--horizontal-from-large ::slotted(sbb-link) {
-  @include mq($from: large) {
-    margin-block-end: unset;
   }
 }
