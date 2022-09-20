@@ -213,10 +213,6 @@ export namespace Components {
          */
         "download"?: boolean | undefined;
         /**
-          * Id sent in the click event payload.
-         */
-        "eventId"?: string | undefined;
-        /**
           * The <form> element to associate the button with.
          */
         "form"?: string | undefined;
@@ -1660,10 +1656,6 @@ declare namespace LocalJSX {
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
-        /**
-          * Id sent in the click event payload.
-         */
-        "eventId"?: string | undefined;
         /**
           * The <form> element to associate the button with.
          */

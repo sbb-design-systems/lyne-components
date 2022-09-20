@@ -89,11 +89,6 @@ export class SbbCard implements LinkButtonProperties {
   @Prop() public value?: string | undefined;
 
   /**
-   * Id sent in the click event payload.
-   */
-  @Prop() public eventId?: string | undefined;
-
-  /**
    * Emits whenever the native button click event triggers.
    * TODO: similar to the one in sbb-button. To be fixed together.
    */
@@ -108,7 +103,7 @@ export class SbbCard implements LinkButtonProperties {
    * The function triggered on button click.
    */
   public emitButtonClick(): void {
-    this.click.emit(this.eventId);
+    this.click.emit();
   }
 
   /**

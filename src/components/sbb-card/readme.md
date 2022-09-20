@@ -26,7 +26,6 @@ The example below show how to render the component with `<sbb-card-badge>`:
 | `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.            | `string`                                     | `undefined` |
 | `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.       | `string`                                     | `undefined` |
 | `download`                 | `download`                  | Whether the browser will show the download dialog on click.                     | `boolean`                                    | `undefined` |
-| `eventId`                  | `event-id`                  | Id sent in the click event payload.                                             | `string`                                     | `undefined` |
 | `form`                     | `form`                      | The <form> element to associate the button with.                                | `string`                                     | `undefined` |
 | `href`                     | `href`                      | The href value you want to link to.                                             | `string`                                     | `undefined` |
 | `idValue`                  | `id-value`                  | Id used to identify the inner element.                                          | `string`                                     | `undefined` |

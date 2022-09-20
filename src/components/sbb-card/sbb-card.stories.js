@@ -122,15 +122,6 @@ const form = {
   },
 };
 
-const eventId = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
 const value = {
   control: {
     type: 'text',
@@ -152,7 +143,6 @@ const basicArgTypes = {
   name,
   type,
   form,
-  'event-id': eventId,
   value,
 };
 
@@ -169,7 +159,6 @@ const basicArgs = {
   name: undefined,
   type: undefined,
   form: undefined,
-  'event-id': 'Event ID for button click',
   value: undefined,
 };
 
@@ -182,7 +171,6 @@ const basicArgsButton = {
   type: type.options[0],
   form: 'form-name',
   value: 'Value',
-  'event-id': 'Event ID for button click',
 };
 
 export const sbbCardLink = Template.bind({});
