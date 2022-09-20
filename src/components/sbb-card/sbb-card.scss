@@ -16,6 +16,14 @@
   padding-block-end: var(--sbb-card-padding-block-end);
   transition: box-shadow var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
 
+  &::before {
+    position: absolute;
+    content: '';
+    background-color: transparent;
+    inset: 0;
+    z-index: 1;
+  }
+
   @include ifForcedColors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
@@ -95,5 +103,8 @@
 }
 
 :host(:active) {
-  border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
+  &::before {
+    border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
+    border-radius: var(--sbb-border-radius-4x);
+  }
 }
