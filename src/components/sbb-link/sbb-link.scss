@@ -28,10 +28,6 @@
   word-break: break-word;
   fill: currentcolor;
 
-  &[tabindex='-1'] {
-    pointer-events: none;
-  }
-
   &:focus-visible {
     @include focusOutline;
   }
