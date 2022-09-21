@@ -96,11 +96,11 @@ describe('sbb-card', () => {
     `);
   });
 
-  it('renders sbb-card as button without sbb-card-badge', async () => {
+  it('renders active sbb-card as button without sbb-card-badge', async () => {
     const { root } = await newSpecPage({
       components: [SbbCard],
       html: `
-        <sbb-card size="s" name="button" form="form" value="value">
+        <sbb-card size="s" name="button" form="form" value="value" active="true">
           <h2>Title</h2>
           Content text
         </sbb-card>
@@ -108,7 +108,7 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-card size="s" name="button" form="form" value="value">
+      <sbb-card size="s" name="button" form="form" value="value" active="true" class="sbb-card--active">
         <mock:shadow-root>
           <button class="sbb-card__button" dir="ltr" type="button" name="button" form="form" value="value">
             <span class="sbb-card__content">

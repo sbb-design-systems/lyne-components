@@ -2,7 +2,9 @@
 
 The `sbb-card` component is a generic content container; its task is to contain HTML elements related to a single subject. 
 
-The `sbb-card-badge` component can be used via slot to display a badge in the upper right corner.
+The `sbb-card-badge` component can be used via slot to display a badge in the upper right corner. 
+
+Consumers could conditionally set the value of the `active` attribute to display an active state on the component- 
 
 ## Usage
 
@@ -25,6 +27,7 @@ The example below show how to render the component with `<sbb-card-badge>`:
 | `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.      | `string`                                     | `undefined` |
 | `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.            | `string`                                     | `undefined` |
 | `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.       | `string`                                     | `undefined` |
+| `active`                   | `active`                    | Used to set the component's active state.                                       | `boolean`                                    | `false`     |
 | `download`                 | `download`                  | Whether the browser will show the download dialog on click.                     | `boolean`                                    | `undefined` |
 | `form`                     | `form`                      | The <form> element to associate the button with.                                | `string`                                     | `undefined` |
 | `href`                     | `href`                      | The href value you want to link to.                                             | `string`                                     | `undefined` |

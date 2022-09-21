@@ -34,6 +34,12 @@ const size = {
   options: ['xs', 's', 'm', 'l', 'xl', 'xxl'],
 };
 
+const active = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const href = {
   control: {
     type: 'text',
@@ -132,6 +138,7 @@ const value = {
 };
 const basicArgTypes = {
   size,
+  active,
   href,
   download,
   target,
@@ -148,6 +155,7 @@ const basicArgTypes = {
 
 const basicArgs = {
   size: 'm',
+  active: false,
   href: 'https://github.com/lyne-design-system/lyne-components',
   download: false,
   target: '_blank',
@@ -187,6 +195,13 @@ sbbCardButton.documentation = {
   title: 'Card (button version).',
 };
 
+export const sbbCardButtonActive = Template.bind({});
+sbbCardButtonActive.argTypes = basicArgTypes;
+sbbCardButtonActive.args = { ...basicArgsButton, active: true };
+sbbCardButtonActive.documentation = {
+  title: 'Card active (button version).',
+};
+
 export const sbbCardWithSbbBadgeLink = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLink.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLink.args = { ...basicArgs };
@@ -199,6 +214,13 @@ sbbCardWithSbbBadgeButton.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeButton.args = { ...basicArgsButton };
 sbbCardWithSbbBadgeButton.documentation = {
   title: 'Card with badge (button version - the slot is hidden whether sizes are below m).',
+};
+
+export const sbbCardWithSbbBadgeLinkActive = TemplateWithBadge.bind({});
+sbbCardWithSbbBadgeLinkActive.argTypes = basicArgTypes;
+sbbCardWithSbbBadgeLinkActive.args = { ...basicArgs, active: true };
+sbbCardWithSbbBadgeLinkActive.documentation = {
+  title: 'Card active with badge (link version - the slot is hidden whether sizes are below m).',
 };
 
 export const sbbCardMultiple = TemplateMultipleCards.bind({});

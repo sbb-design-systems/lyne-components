@@ -79,6 +79,13 @@
   --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxs);
 }
 
+:host(.sbb-card--active) {
+  &::after {
+    border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
+    border-radius: var(--sbb-border-radius-4x);
+  }
+}
+
 .sbb-card__content {
   display: block;
   transition: transform var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
@@ -120,11 +127,4 @@
 
 .sbb-card__opens-in-new-window {
   @include screenReaderOnly;
-}
-
-:host(:active) {
-  &::after {
-    border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
-    border-radius: var(--sbb-border-radius-4x);
-  }
 }

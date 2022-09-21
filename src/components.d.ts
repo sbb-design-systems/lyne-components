@@ -209,6 +209,10 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
+          * Used to set the component's active state.
+         */
+        "active": boolean;
+        /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
@@ -1652,6 +1656,10 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Used to set the component's active state.
+         */
+        "active"?: boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */

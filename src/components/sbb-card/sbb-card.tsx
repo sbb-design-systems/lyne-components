@@ -26,6 +26,11 @@ export class SbbCard implements LinkButtonProperties {
   @Prop() public size?: InterfaceSbbCardAttributes['size'] = 'm';
 
   /**
+   * Used to set the component's active state.
+   */
+  @Prop() public active = false;
+
+  /**
    * Id used to identify the inner element.
    */
   @Prop() public idValue?: string;
@@ -131,7 +136,12 @@ export class SbbCard implements LinkButtonProperties {
     }
 
     return (
-      <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
+      <Host
+        class={{
+          'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge,
+          'sbb-card--active': this.active,
+        }}
+      >
         <TAG_NAME
           id={this.idValue}
           class={className}
