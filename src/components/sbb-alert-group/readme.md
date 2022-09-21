@@ -38,11 +38,11 @@ You can catch this moment by listening to `sbb-alert-group_empty` event and reac
 
 ## Properties
 
-| Property                  | Attribute                   | Description                                                                                                                                                                              | Type                                     | Default     |
-| ------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `accessibilityTitle`      | `accessibility-title`       | Title for this alert group which is only visible for screen reader users.                                                                                                                | `string`                                 | `undefined` |
-| `accessibilityTitleLevel` | `accessibility-title-level` | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                        | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`       |
-| `role`                    | `role`                      | The role attribute defines how to announce alerts to the user. 'alert': sets aria-live to assertive and aria-atomic to true. 'status': sets aria-live to polite and aria-atomic to true. | `string`                                 | `'alert'`   |
+| Property                  | Attribute                   | Description                                                                                                                                                                               | Type                                     | Default     |
+| ------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `accessibilityTitle`      | `accessibility-title`       | Title for this alert group which is only visible for screen reader users.                                                                                                                 | `string`                                 | `undefined` |
+| `accessibilityTitleLevel` | `accessibility-title-level` | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                         | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`       |
+| `role`                    | `role`                      | The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true. | `string`                                 | `'status'`  |
 
 
 ## Events
@@ -55,10 +55,12 @@ You can catch this moment by listening to `sbb-alert-group_empty` event and reac
 
 ## Slots
 
-| Slot                    | Description                                                               |
-| ----------------------- | ------------------------------------------------------------------------- |
-| `"accessibility-title"` | title for this alert group which is only visible for screen reader users. |
-| `"unnamed"`             | content slot, should be filled with `sbb-alert` items.                    |
+| Slot                    | Description                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------- |
+| `"accessibility-title"` | title for this sbb-alert-group which is only visible for screen reader users. |
+| `"unnamed"`             | content slot, should be filled with `sbb-alert` items.                        |
 
 
 ----------------------------------------------
+
+
