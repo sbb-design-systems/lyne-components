@@ -1,5 +1,5 @@
-import { Component, Event, EventEmitter, h, JSX, Prop, Watch } from '@stencil/core';
-import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
+import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
+import { InterfaceToggleCheckAttributes, SbbToggleCheckChange } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 let nextId = 0;
@@ -27,10 +27,10 @@ export class SbbToggleCheck implements AccessibilityProperties {
   @Prop() public icon = 'tick-small';
 
   /** The disabled prop for the disabled state. */
-  @Prop() public disabled!: boolean;
+  @Prop({ reflect: true }) public disabled = false;
 
   /** The required prop for the required state. */
-  @Prop() public required?: boolean;
+  @Prop({ reflect: true }) public required = false;
 
   /** The label position relative to the toggle. Defaults to 'after' */
   @Prop() public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] = 'after';
@@ -45,15 +45,7 @@ export class SbbToggleCheck implements AccessibilityProperties {
   @Prop() public accessibilityDescribedby: string | undefined;
 
   /** Emits whenever the selection has changed.  */
-  @Event() public sbbChange: EventEmitter;
-
-  @Watch('checked')
-  public checkedChanged(isChecked: boolean): void {
-    this.sbbChange.emit({
-      checked: isChecked,
-      value: this.value,
-    });
-  }
+  @Event() public sbbChange: EventEmitter<SbbToggleCheckChange>;
 
   public render(): JSX.Element {
     return (
@@ -75,9 +67,12 @@ export class SbbToggleCheck implements AccessibilityProperties {
           required={this.required}
           checked={this.checked}
           value={this.value}
-          onChange={(event: Event): void => {
-            event.stopPropagation();
+          onChange={(): void => {
             this.checked = this._checkbox?.checked;
+            this.sbbChange.emit({
+              checked: this.checked,
+              value: this.value,
+            });
           }}
           aria-label={this.accessibilityLabel}
           aria-describedby={this.accessibilityDescribedby}

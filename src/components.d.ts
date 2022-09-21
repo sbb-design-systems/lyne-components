@@ -15,7 +15,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
-import { InterfaceCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { InterfaceCheckboxAttributes, SbbCheckboxChange } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -49,6 +49,8 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
+import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
+import { InterfaceToggleCheckAttributes, SbbToggleCheckChange } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -504,7 +506,7 @@ export namespace Components {
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */
-        "iconName": '';
+        "icon"?: string;
         /**
           * The label position relative to the labelIcon. Defaults to end
          */
@@ -512,15 +514,11 @@ export namespace Components {
         /**
           * Whether the checkbox is indeterminate.
          */
-        "indeterminate"?: boolean;
+        "indeterminate": boolean;
         /**
           * Id of the internal input element - default id will be set automatically.
          */
         "inputId": string;
-        /**
-          * Whether the checkbox label has spacing to the labelIcon.
-         */
-        "labelSpace": boolean;
         /**
           * Name of the checkbox
          */
@@ -528,7 +526,7 @@ export namespace Components {
         /**
           * The required prop for the required state.
          */
-        "required"?: boolean;
+        "required": boolean;
         /**
           * Value of checkbox.
          */
@@ -1667,7 +1665,7 @@ export namespace Components {
         /**
           * The required prop for the required state.
          */
-        "required"?: boolean;
+        "required": boolean;
         /**
           * Value of toggle-check.
          */
@@ -2692,11 +2690,11 @@ declare namespace LocalJSX {
         /**
           * The disabled prop for the disabled state.
          */
-        "disabled": boolean;
+        "disabled"?: boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */
-        "iconName"?: '';
+        "icon"?: string;
         /**
           * The label position relative to the labelIcon. Defaults to end
          */
@@ -2710,17 +2708,13 @@ declare namespace LocalJSX {
          */
         "inputId"?: string;
         /**
-          * Whether the checkbox label has spacing to the labelIcon.
-         */
-        "labelSpace"?: boolean;
-        /**
           * Name of the checkbox
          */
         "name"?: string;
         /**
           * Event for emiting whenever selection is changed.
          */
-        "onSbbChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        "onSbbChange"?: (event: SbbCheckboxCustomEvent<SbbCheckboxChange>) => void;
         /**
           * The required prop for the required state.
          */
@@ -3859,7 +3853,7 @@ declare namespace LocalJSX {
         /**
           * The disabled prop for the disabled state.
          */
-        "disabled": boolean;
+        "disabled"?: boolean;
         /**
           * The svg name for the true state - default -> 'tick-small'
          */
@@ -3879,7 +3873,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the selection has changed.
          */
-        "onSbbChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
+        "onSbbChange"?: (event: SbbToggleCheckCustomEvent<SbbToggleCheckChange>) => void;
         /**
           * The required prop for the required state.
          */

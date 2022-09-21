@@ -2,7 +2,7 @@
 
 :host {
   --checkbox-border-width: var(--sbb-border-width-1x);
-  --checkbox-width: calc(#{px-to-rem-build(18)} - var(--checkbox-border-width));
+  --checkbox-width: var(--sbb-size-icon-ui-small);
   --checkbox-height: var(--checkbox-width);
   --checkbox-border-color: var(--sbb-color-smoke-default);
   --checkbox-selection-color: var(--sbb-color-red-default);
@@ -51,7 +51,7 @@ input[type='checkbox'] {
 .sbb-checkbox__selection {
   position: relative;
   cursor: var(--checkbox-cursor);
-  min-width: var(--checkbox-width);
+  width: var(--checkbox-width);
   height: var(--checkbox-height);
   border-radius: var(--checkbox-border-radius);
   border: var(--checkbox-border-width) solid var(--checkbox-border-color);
@@ -62,8 +62,12 @@ input[type='checkbox'] {
 .sbb-checkbox__icon {
   display: inline-flex;
   position: absolute;
-  width: 100%;
-  height: 100%;
+
+  // We stretch the icon container over the selection element, in order to allow
+  // full width of the svg icon without ignoring the selection border.
+  margin: calc(var(--sbb-border-width-1x) * -1);
+  width: var(--checkbox-width);
+  height: var(--checkbox-height);
 
   svg {
     margin: auto;

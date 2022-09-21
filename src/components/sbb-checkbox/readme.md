@@ -75,22 +75,21 @@ to describe the element on which the attribute is set.
 | `accessibilityLabel`       | `accessibility-label`       | The aria-label prop for the hidden input.                                                                                                           | `string`           | `undefined`                  |
 | `accessibilityLabelledby`  | `accessibility-labelledby`  | The aria-labelledby prop for the hidden input.                                                                                                      | `string`           | `undefined`                  |
 | `checked`                  | `checked`                   | Whether the checkbox is checked.                                                                                                                    | `boolean`          | `undefined`                  |
-| `disabled` _(required)_    | `disabled`                  | The disabled prop for the disabled state.                                                                                                           | `boolean`          | `undefined`                  |
-| `iconName`                 | `icon-name`                 | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `""`               | `undefined`                  |
+| `disabled`                 | `disabled`                  | The disabled prop for the disabled state.                                                                                                           | `boolean`          | `false`                      |
+| `icon`                     | `icon`                      | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`           | `undefined`                  |
 | `iconPlacement`            | `icon-placement`            | The label position relative to the labelIcon. Defaults to end                                                                                       | `"end" \| "start"` | `'end'`                      |
-| `indeterminate`            | `indeterminate`             | Whether the checkbox is indeterminate.                                                                                                              | `boolean`          | `undefined`                  |
+| `indeterminate`            | `indeterminate`             | Whether the checkbox is indeterminate.                                                                                                              | `boolean`          | `false`                      |
 | `inputId`                  | `input-id`                  | Id of the internal input element - default id will be set automatically.                                                                            | `string`           | ``sbb-checkbox-${++nextId}`` |
-| `labelSpace`               | `label-space`               | Whether the checkbox label has spacing to the labelIcon.                                                                                            | `boolean`          | `false`                      |
 | `name`                     | `name`                      | Name of the checkbox                                                                                                                                | `string`           | `undefined`                  |
-| `required`                 | `required`                  | The required prop for the required state.                                                                                                           | `boolean`          | `undefined`                  |
+| `required`                 | `required`                  | The required prop for the required state.                                                                                                           | `boolean`          | `false`                      |
 | `value`                    | `value`                     | Value of checkbox.                                                                                                                                  | `string`           | `undefined`                  |
 
 
 ## Events
 
-| Event       | Description                                      | Type               |
-| ----------- | ------------------------------------------------ | ------------------ |
-| `sbbChange` | Event for emiting whenever selection is changed. | `CustomEvent<any>` |
+| Event       | Description                                      | Type                             |
+| ----------- | ------------------------------------------------ | -------------------------------- |
+| `sbbChange` | Event for emiting whenever selection is changed. | `CustomEvent<SbbCheckboxChange>` |
 
 
 ## Dependencies

@@ -1,8 +1,9 @@
 import { Component, Prop, h, Event, EventEmitter, Watch, JSX } from '@stencil/core';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { InterfaceCheckboxAttributes } from './sbb-checkbox.custom';
+import { InterfaceCheckboxAttributes, SbbCheckboxChange } from './sbb-checkbox.custom';
 
 let nextId = 0;
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-checkbox.scss',
@@ -12,7 +13,7 @@ export class SbbCheckbox implements AccessibilityProperties {
   private _checkbox: HTMLInputElement;
 
   /** Whether the checkbox is checked. */
-  @Prop({ mutable: true }) public checked: boolean;
+  @Prop({ mutable: true, reflect: true }) public checked: boolean;
 
   /** Value of checkbox. */
   @Prop() public value?: string;
@@ -23,23 +24,24 @@ export class SbbCheckbox implements AccessibilityProperties {
   /** Id of the internal input element - default id will be set automatically. */
   @Prop() public inputId = `sbb-checkbox-${++nextId}`;
 
-  /** The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). */
-  @Prop() public iconName: '';
+  /**
+   * The icon name we want to use, choose from the small icon variants from the ui-icons category
+   * from here https://lyne.sbb.ch/tokens/icons (optional).
+   */
+  @Prop() public icon?: string;
 
   /** The disabled prop for the disabled state. */
-  @Prop() public disabled!: boolean;
+  @Prop({ reflect: true }) public disabled = false;
 
   /** The required prop for the required state. */
-  @Prop() public required?: boolean;
+  @Prop({ reflect: true }) public required = false;
 
   /** Whether the checkbox is indeterminate. */
-  @Prop() public indeterminate?: boolean;
+  @Prop({ reflect: true }) public indeterminate = false;
 
   /** The label position relative to the labelIcon. Defaults to end */
-  @Prop() public iconPlacement: InterfaceCheckboxAttributes['iconPlacement'] = 'end';
-
-  /** Whether the checkbox label has spacing to the labelIcon. */
-  @Prop() public labelSpace = false;
+  @Prop({ reflect: true }) public iconPlacement: InterfaceCheckboxAttributes['iconPlacement'] =
+    'end';
 
   /** The aria-label prop for the hidden input. */
   @Prop() public accessibilityLabel: string | undefined;
@@ -51,46 +53,7 @@ export class SbbCheckbox implements AccessibilityProperties {
   @Prop() public accessibilityDescribedby: string | undefined;
 
   /** Event for emiting whenever selection is changed. */
-  @Event() public sbbChange: EventEmitter;
-
-  /** render the svg according to the state */
-  private _renderStateIcon(): JSX.Element {
-    if (this.indeterminate) {
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="2" viewBox="0 0 8 2" fill="none">
-          <path
-            d="M1 1H7"
-            stroke="#EB0000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      );
-    }
-
-    if (this.checked) {
-      return (
-        <svg
-          width="10"
-          height="8"
-          viewBox="0 0 10 8"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1 4.33 3.462 7 9 1"
-            stroke="#EB0000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      );
-    }
-
-    return;
-  }
+  @Event() public sbbChange: EventEmitter<SbbCheckboxChange>;
 
   @Watch('checked')
   public checkedChanged(isChecked: boolean): void {
@@ -103,12 +66,11 @@ export class SbbCheckbox implements AccessibilityProperties {
   public render(): JSX.Element {
     const disabled = this.disabled ? 'sbb-checkbox--disabled' : '';
     const iconPlacement = this.iconPlacement === 'start' ? `sbb-checkbox__label--start` : '';
-    const labelSpace = this.labelSpace ? `sbb-checkbox__label--space` : '';
 
     return (
       <label class={`sbb-checkbox ${disabled}`} htmlFor={this.inputId}>
         <input
-          ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
+          ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
           type="checkbox"
           name={this.name}
           id={this.inputId}
@@ -116,9 +78,12 @@ export class SbbCheckbox implements AccessibilityProperties {
           required={this.required}
           checked={this.checked}
           value={this.value}
-          onChange={(event: Event): void => {
-            event.stopPropagation();
+          onChange={(): void => {
             this.checked = this._checkbox?.checked;
+            this.sbbChange.emit({
+              checked: this.checked,
+              value: this.value,
+            });
           }}
           aria-label={this.accessibilityLabel}
           aria-labelledby={this.accessibilityLabelledby}
@@ -126,11 +91,28 @@ export class SbbCheckbox implements AccessibilityProperties {
         />
         <span class="sbb-checkbox__inner">
           <span class="sbb-checkbox__selection">
-            <span class="sbb-checkbox__icon">{this._renderStateIcon()}</span>
+            <span class="sbb-checkbox__icon">
+              {(this.checked || this.indeterminate) && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+            </span>
           </span>
-          <span class={`sbb-checkbox__label ${iconPlacement} ${labelSpace}`}>
+          <span class={`sbb-checkbox__label ${iconPlacement}`}>
             <slot />
-            {this.iconName !== '' ? <sbb-icon name={this.iconName} /> : ''}
+            {this.icon !== '' ? <sbb-icon name={this.icon} /> : ''}
           </span>
         </span>
       </label>

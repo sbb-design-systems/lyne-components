@@ -50,20 +50,20 @@ to describe the element on which the attribute is set.
 | `accessibilityLabel`       | `accessibility-label`       | The aria-label prop for the hidden input.                                | `string`              | `undefined`                  |
 | `accessibilityLabelledby`  | `accessibility-labelledby`  | The aria-labelledby prop for the hidden input.                           | `string`              | `undefined`                  |
 | `checked`                  | `checked`                   | Whether the toggle-check is checked.                                     | `boolean`             | `false`                      |
-| `disabled` _(required)_    | `disabled`                  | The disabled prop for the disabled state.                                | `boolean`             | `undefined`                  |
+| `disabled`                 | `disabled`                  | The disabled prop for the disabled state.                                | `boolean`             | `false`                      |
 | `icon`                     | `icon`                      | The svg name for the true state - default -> 'tick-small'                | `string`              | `'tick-small'`               |
 | `inputId`                  | `input-id`                  | Id of the internal input element - default id will be set automatically. | `string`              | ``sbb-checkbox-${++nextId}`` |
 | `labelPosition`            | `label-position`            | The label position relative to the toggle. Defaults to 'after'           | `"after" \| "before"` | `'after'`                    |
 | `name`                     | `name`                      | Name of the toggle-check.                                                | `string`              | `undefined`                  |
-| `required`                 | `required`                  | The required prop for the required state.                                | `boolean`             | `undefined`                  |
+| `required`                 | `required`                  | The required prop for the required state.                                | `boolean`             | `false`                      |
 | `value`                    | `value`                     | Value of toggle-check.                                                   | `string`              | `undefined`                  |
 
 
 ## Events
 
-| Event       | Description                               | Type               |
-| ----------- | ----------------------------------------- | ------------------ |
-| `sbbChange` | Emits whenever the selection has changed. | `CustomEvent<any>` |
+| Event       | Description                               | Type                                |
+| ----------- | ----------------------------------------- | ----------------------------------- |
+| `sbbChange` | Emits whenever the selection has changed. | `CustomEvent<SbbToggleCheckChange>` |
 
 
 ## Dependencies
