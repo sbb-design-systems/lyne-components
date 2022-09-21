@@ -149,7 +149,7 @@ export default {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: { delay: 600 },
+    chromatic: { pauseAnimationAtEnd: true },
   },
   title: 'components/menu/sbb-menu',
 };

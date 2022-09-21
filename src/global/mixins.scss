@@ -71,7 +71,8 @@
     }
 
     @if $radius != 0 {
-      border-radius: $radius;
+      border-end-end-radius: $radius;
+      border-start-end-radius: $radius;
     }
   }
 
