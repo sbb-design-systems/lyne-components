@@ -19,8 +19,8 @@ import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-heade
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
-import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
+import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
@@ -583,21 +583,29 @@ export namespace Components {
     }
     interface SbbLinkList {
         /**
-          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
+          * Selected breakpoint from which the list is rendered horizontally.
          */
-        "listDirection": InterfaceLinkListAttributes['direction'];
+        "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
-          * The semantic level of the title, e.g. 3 = h3
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
+          * The orientation in which the list will be shown vertical or horizontal.
+         */
+        "orientation": InterfaceLinkListAttributes['orientation'];
+        /**
+          * The title text we want to show before the list.
+         */
+        "titleContent"?: string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId": string;
+        /**
+          * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
-        /**
-          * The title text we want to show before the list
-         */
-        "titleText"?: string;
-        /**
-          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
-         */
-        "variant": InterfaceLinkListAttributes['variant'];
     }
     interface SbbLogo {
         /**
@@ -1966,21 +1974,29 @@ declare namespace LocalJSX {
     }
     interface SbbLinkList {
         /**
-          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
+          * Selected breakpoint from which the list is rendered horizontally.
          */
-        "listDirection"?: InterfaceLinkListAttributes['direction'];
+        "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
-          * The semantic level of the title, e.g. 3 = h3
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
+        /**
+          * The orientation in which the list will be shown vertical or horizontal.
+         */
+        "orientation"?: InterfaceLinkListAttributes['orientation'];
+        /**
+          * The title text we want to show before the list.
+         */
+        "titleContent"?: string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId"?: string;
+        /**
+          * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
-        /**
-          * The title text we want to show before the list
-         */
-        "titleText"?: string;
-        /**
-          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
-         */
-        "variant"?: InterfaceLinkListAttributes['variant'];
     }
     interface SbbLogo {
         /**
