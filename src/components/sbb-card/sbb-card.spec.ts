@@ -2,7 +2,7 @@ import { SbbCard } from './sbb-card';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-card', () => {
-  // TODO: Enable once onSlotchange is fixed https://github.com/ionic-team/stencil/issues/3536
+  // TODO: temporary moved to e2e, enable once onSlotchange is fixed https://github.com/ionic-team/stencil/issues/3536
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('renders sbb-card as a link with sbb-card-badge', async () => {
     const { root } = await newSpecPage({
@@ -36,7 +36,7 @@ describe('sbb-card', () => {
     `);
   });
 
-  // TODO: Enable once onSlotchange is fixed https://github.com/ionic-team/stencil/issues/3536
+  // TODO: temporary moved to e2e, enable once onSlotchange is fixed https://github.com/ionic-team/stencil/issues/3536
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('renders sbb-card as a button with sbb-card-badge', async () => {
     const { root } = await newSpecPage({
