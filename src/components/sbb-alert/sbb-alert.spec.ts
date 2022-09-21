@@ -56,6 +56,7 @@ describe('sbb-alert', () => {
                     <slot name="title">Interruption</slot>
                   </sbb-title>
                   <slot></slot>
+                  <span aria-hidden="true"></span>
                   <sbb-link negative variant="inline" accessibility-label="label" accessibility-labelledby="labelledby" accessibility-describedby="describedby" href="https://www.sbb.ch" rel="noopener" target="_blank">
                     Show much more
                   </sbb-link>
