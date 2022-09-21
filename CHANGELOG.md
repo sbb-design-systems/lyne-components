@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.6.8 (2022-09-21)
+
+### Features
+
+- add new text size l ([#1383](https://github.com/lyne-design-system/lyne-components/issues/1383)) ([fd1b915](https://github.com/lyne-design-system/lyne-components/commit/fd1b915c6252aad1deae85718649900da94f8d96))
+
 ### 0.6.7 (2022-09-16)
 
 ### Bug Fixes
