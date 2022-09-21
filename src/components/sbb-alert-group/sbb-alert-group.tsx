@@ -14,7 +14,7 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
  * @slot unnamed - content slot, should be filled with `sbb-alert` items.
- * @slot accessibility-title - title for this alert group which is only visible for screen reader users.
+ * @slot accessibility-title - title for this sbb-alert-group which is only visible for screen reader users.
  */
 
 @Component({
@@ -25,11 +25,12 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 export class SbbAlertGroup {
   /**
    * The role attribute defines how to announce alerts to the user.
-   * 'alert': sets aria-live to assertive and aria-atomic to true.
+   *
    * 'status': sets aria-live to polite and aria-atomic to true.
+   * 'alert': sets aria-live to assertive and aria-atomic to true.
    */
   @Prop({ reflect: true })
-  public role: InterfaceSbbAlertGroupAttributes['role'] = 'alert';
+  public role: InterfaceSbbAlertGroupAttributes['role'] = 'status';
 
   /** Title for this alert group which is only visible for screen reader users. */
   @Prop() public accessibilityTitle: string;

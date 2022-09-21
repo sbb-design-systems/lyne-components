@@ -15,7 +15,7 @@ describe('sbb-alert-group', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='alert'>
+        <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='status'>
           <mock:shadow-root>
             <div class="sbb-alert-group">
               <slot></slot>
@@ -42,7 +42,7 @@ describe('sbb-alert-group', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-alert-group accessibility-level='3' role='alert'>
+        <sbb-alert-group accessibility-level='3' role='status'>
           <mock:shadow-root>
             <div class="sbb-alert-group">
               <slot></slot>

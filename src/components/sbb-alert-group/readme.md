@@ -23,9 +23,12 @@ The `sbb-alert-group` manages the dismissal and accessibility of alerts and also
 By specifying the `accessibility-title` it's possible to add a hidden title to the `sbb-alert-group`. 
 The heading level can be set via `accessibility-title-level`.
 
-As default the `sbb-alert-group` has the role `alert` which means that if a new alert arrives,
-it will be immediately announced to screen reader users. You can change the `role` or `aria-live` attributes to fit your needs.
-For example, you can set the `role` to `status` which implicitly sets `aria-live` to `polite`.
+As default the `sbb-alert-group` has the role `status` which means that if a new alert arrives,
+it will not immediately be announced to screen reader users. 
+You can change the `role` or `aria-live` attributes to fit your needs.
+For example, you can set the `role` to `alert` which implicitly sets `aria-live` to `assertive` 
+and therefore immediately announces the alert to the screen reader user. Notice that with
+role `alert`, not in all combinations of screen readers and browser every part of the alert is fully read.
 If all alerts are dismissed, it's recommended to completely remove the `sbb-alert-group` from DOM. 
 You can catch this moment by listening to `sbb-alert-group_empty` event and react accordingly.
 
@@ -59,5 +62,3 @@ You can catch this moment by listening to `sbb-alert-group_empty` event and reac
 
 
 ----------------------------------------------
-
-

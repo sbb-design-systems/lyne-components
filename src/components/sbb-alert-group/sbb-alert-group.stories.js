@@ -55,7 +55,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   'accessibility-title': 'Disruptions',
   'accessibility-title-level': accessibilityTitleLevel.options[1],
-  role: 'alert',
+  role: 'status',
   'aria-live': undefined,
 };
 
