@@ -210,7 +210,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
             <slot />
             {this.href && (
               <Fragment>
-                &nbsp;
+                <span aria-hidden="true">&nbsp;</span>
                 <sbb-link {...this._linkProperties()} variant="inline" negative>
                   {this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLangauge]}
                 </sbb-link>
