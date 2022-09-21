@@ -20,7 +20,9 @@
   }
 
   @include ifForcedColors {
-    outline: #{px-to-rem-build(1)} solid CanvasText;
+    // Use outline here to not influence content position.
+    // Due to overflow hidden of inner elements it's placed on host.
+    outline: var(--sbb-border-width-1x) solid CanvasText;
     border-radius: var(--sbb-alert-border-radius);
   }
 }
@@ -59,7 +61,8 @@
   display: flex;
   align-items: center;
 
-  // Align the height to the line-height. Because the line-height is written as a multiplier, we need to multiply it by the font-size.
+  // Align the height to the line-height. Because the line-height is written as a multiplier,
+  // we need to multiply it by the font-size.
   height: calc(var(--sbb-alert-title-font-size) * var(--sbb-alert-title-line-height));
   min-width: var(--sbb-alert-icon-size);
 
@@ -82,6 +85,6 @@
 .sbb-alert__close-button {
   // Reduce the reserved space of the button to 24px (--sbb-alert-close-icon-size)
   margin: calc(
-    -1 * (var(--sbb-size-form-element-m-min-height) - var(--sbb-alert-close-icon-size)) * 0.5
+    -0.5 * (var(--sbb-size-form-element-m-min-height) - var(--sbb-alert-close-icon-size))
   );
 }

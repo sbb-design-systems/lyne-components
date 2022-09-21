@@ -14,8 +14,9 @@ describe('sbb-alert-group', () => {
 `,
     });
 
+    // TODO: sbb-alert-group-empty class is wrongly placed in test due to missing slotchange support
     expect(root).toEqualHtml(`
-        <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='status'>
+        <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='status' class="sbb-alert-group-empty">
           <mock:shadow-root>
             <div class="sbb-alert-group">
               <slot></slot>
@@ -41,8 +42,9 @@ describe('sbb-alert-group', () => {
 `,
     });
 
+    // TODO: sbb-alert-group-empty class is wrongly placed in test due to missing slotchange support
     expect(root).toEqualHtml(`
-        <sbb-alert-group accessibility-level='3' role='status'>
+        <sbb-alert-group accessibility-level='3' role='status' class="sbb-alert-group-empty">
           <mock:shadow-root>
             <div class="sbb-alert-group">
               <slot></slot>

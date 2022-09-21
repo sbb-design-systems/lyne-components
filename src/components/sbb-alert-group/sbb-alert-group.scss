@@ -14,7 +14,7 @@
 }
 
 /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-:host(:focus-visible:not(:empty)) {
+:host(:focus-visible:not(.sbb-alert-group-empty)) {
   @include focusOutline;
 
   border-radius: var(--sbb-alert-group-border-radius);

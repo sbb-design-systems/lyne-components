@@ -56,7 +56,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
    * Choose the icons from https://lyne.sbb.ch/tokens/icons/.
    * Styling is optimized for icons of type HIM-CUS.
    */
-  @Prop() public iconName = 'info';
+  @Prop() public iconName?: string;
 
   /** Content of title. */
   @Prop() public titleContent?: string;
@@ -133,7 +133,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
     this._transitionWrapperElement.style.height = `${this._alertElement.offsetHeight}px`;
     this._transitionWrapperElement.addEventListener(
       'transitionend',
-      this._onHeightTransitionEnd.bind(this),
+      () => this._onHeightTransitionEnd(),
       {
         once: true,
       }
@@ -157,7 +157,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
       return;
     }
 
-    this._alertElement.addEventListener('transitionend', this._onOpacityTransitionEnd.bind(this), {
+    this._alertElement.addEventListener('transitionend', () => this._onOpacityTransitionEnd(), {
       once: true,
     });
   }
@@ -197,7 +197,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
           }}
         >
           <span class="sbb-alert__icon">
-            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+            <slot name="icon">{<sbb-icon name={this.iconName || 'info'} />}</slot>
           </span>
           <span class="sbb-alert__content">
             <sbb-title
@@ -223,7 +223,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
                 variant="transparent-negative"
                 icon={true}
                 size="m"
-                onClick={this.requestDismissal.bind(this)}
+                onClick={() => this.requestDismissal()}
                 iconDescription={i18nCloseAlert[this._currentLangauge]}
                 aria-controls={this.internalId}
                 class="sbb-alert__close-button"

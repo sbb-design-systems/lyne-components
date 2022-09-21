@@ -93,7 +93,7 @@ export namespace Components {
         /**
           * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
          */
-        "iconName": string;
+        "iconName"?: string;
         "internalId": string;
         /**
           * Present the alert.

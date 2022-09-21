@@ -4,6 +4,7 @@ import {
   Event,
   EventEmitter,
   h,
+  Host,
   JSX,
   Listen,
   Prop,
@@ -68,15 +69,14 @@ export class SbbAlertGroup {
 
     // Restore focus
     if (hasFocusInsideAlertGroup) {
+      // Set tabindex to 0 the make it focusable and afterwards focus it.
+      // This is done to not completely loose focus after removal of an alert.
+      // Once the sbb-alert-group was blurred, make the alert group not focusable again.
       this._element.tabIndex = 0;
       this._element.focus();
-      this._element.addEventListener(
-        'blur',
-        () => {
-          this._element.removeAttribute('tabindex');
-        },
-        { once: true }
-      );
+      this._element.addEventListener('blur', () => this._element.removeAttribute('tabindex'), {
+        once: true,
+      });
     }
   }
 
@@ -92,14 +92,16 @@ export class SbbAlertGroup {
     const TITLE_TAG_NAME = `h${this.accessibilityTitleLevel}`;
 
     return (
-      <div class="sbb-alert-group">
-        {this._hasAlerts && (
-          <TITLE_TAG_NAME class="sbb-alert-group__title">
-            <slot name="accessibility-title">{this.accessibilityTitle}</slot>
-          </TITLE_TAG_NAME>
-        )}
-        <slot onSlotchange={this._slotChanged.bind(this)} />
-      </div>
+      <Host class={{ 'sbb-alert-group-empty': !this._hasAlerts }}>
+        <div class="sbb-alert-group">
+          {this._hasAlerts && (
+            <TITLE_TAG_NAME class="sbb-alert-group__title">
+              <slot name="accessibility-title">{this.accessibilityTitle}</slot>
+            </TITLE_TAG_NAME>
+          )}
+          <slot onSlotchange={(event) => this._slotChanged(event)} />
+        </div>
+      </Host>
     );
   }
 }
