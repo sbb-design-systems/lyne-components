@@ -18,6 +18,11 @@
   @include mq($from: medium) {
     --sbb-alert-close-button-wrapper-width: var(--sbb-spacing-fixed-12x);
   }
+
+  @include ifForcedColors {
+    outline: #{px-to-rem-build(1)} solid CanvasText;
+    border-radius: var(--sbb-alert-border-radius);
+  }
 }
 
 :host([size='l']) {

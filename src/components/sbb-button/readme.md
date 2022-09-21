@@ -36,6 +36,19 @@
 | `"unnamed"` | Slot to render svg icon. You must pass an svg-element. |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-alert](../sbb-alert)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-alert --> sbb-button
+  style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 
