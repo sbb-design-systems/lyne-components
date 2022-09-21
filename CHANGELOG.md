@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.7.0 (2022-09-21)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-link-list:** - rename prop titleText to titleContent
+
+* rename prop listDirection to horizontalFrom
+* replace old approach for negativ variant with new pattern (boolean instead of variant)
+* add a named slot of title to sbb-link-list to either pass markup or text content to the containing sbb-title component
+* rework the internal slotted sbb-link instances handling completely
+* remove button slot from link-list
+
+- **sbb-link-list:** review/refactor ([#1329](https://github.com/lyne-design-system/lyne-components/issues/1329)) ([bd6f091](https://github.com/lyne-design-system/lyne-components/commit/bd6f091d907a10f32bc43b924f709bba148c75fa)), closes [#1238](https://github.com/lyne-design-system/lyne-components/issues/1238)
+
 ### 0.6.8 (2022-09-21)
 
 ### Features
