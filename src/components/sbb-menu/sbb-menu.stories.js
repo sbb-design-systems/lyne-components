@@ -96,12 +96,7 @@ const LongContentTemplate = (args) => (
 
 const EllipsisTemplate = (args) => (
   <div>
-    <sbb-button
-      id="menu-trigger-4"
-      size="m"
-      label="Menu trigger"
-      ref={(btn) => setTimeout(() => btn.click(), 300)}
-    ></sbb-button>
+    <sbb-button id="menu-trigger-4" size="m" label="Menu trigger"></sbb-button>
 
     <sbb-menu {...args} trigger="menu-trigger-4" ref={(menu) => isChromatic() && menu.openMenu()}>
       <div style={userNameStyle}>Christina Müller</div>
@@ -139,7 +134,7 @@ Ellipsis.documentation = { title: 'Ellipsis' };
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem; min-height: calc(100vh - 2rem)'}>
+      <div style={'padding: 2rem; min-height: 500px'}>
         <Story />
       </div>
     ),
@@ -154,7 +149,7 @@ export default {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: { delay: 300 },
+    chromatic: { delay: 2000 },
   },
   title: 'components/menu/sbb-menu',
 };
