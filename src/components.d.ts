@@ -103,6 +103,9 @@ export namespace Components {
           * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
          */
         "iconName"?: string;
+        /**
+          * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
+         */
         "internalId": string;
         /**
           * Content of the link
@@ -1585,6 +1588,9 @@ declare namespace LocalJSX {
           * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
          */
         "iconName"?: string;
+        /**
+          * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
+         */
         "internalId"?: string;
         /**
           * Content of the link

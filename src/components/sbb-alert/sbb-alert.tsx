@@ -31,6 +31,9 @@ let nextId = 0;
 })
 export class SbbAlert implements LinkProperties, ComponentInterface {
   /**
+   * With this way of handling the id we deviate from the recommended way
+   * that the host id is set with assignId(). This exception was made because the id must
+   * be used with the close button and therefore a reference must exist.
    * @internal
    */
   @Prop({
@@ -134,7 +137,6 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
       return;
     }
 
-    this._transitionWrapperElement.style.height = `${this._alertElement.offsetHeight}px`;
     this._transitionWrapperElement.addEventListener(
       'transitionend',
       () => this._onHeightTransitionEnd(),
@@ -142,6 +144,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
         once: true,
       }
     );
+    this._transitionWrapperElement.style.height = `${this._alertElement.offsetHeight}px`;
   }
 
   private _initFadeInTransitionStyles(): void {
