@@ -109,7 +109,7 @@ function syncEvents(path: string) {
   renderEventsFile();
 
   function iterateSourceFile(node: ts.Node) {
-    if (ts.isPropertyDeclaration(node) && node.decorators?.length) {
+    if (ts.isPropertyDeclaration(node) && ts.getDecorators(node)?.length) {
       checkForEventDecorator(node);
     } else if (ts.isNewExpression(node) && node.expression.getText() === 'CustomEvent') {
       usesCustomEvent = true;
@@ -119,7 +119,7 @@ function syncEvents(path: string) {
   }
 
   function checkForEventDecorator(node: ts.PropertyDeclaration) {
-    const eventDecorator = node.decorators!.find(isEventDecorator);
+    const eventDecorator = ts.getDecorators(node)!.find(isEventDecorator);
     if (!eventDecorator) {
       return;
     }
