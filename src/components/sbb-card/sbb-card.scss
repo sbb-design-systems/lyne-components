@@ -102,13 +102,13 @@
 }
 
 @include hover-mq($hover: true) {
-  :host(:hover) {
-    @include shadow-level-9-hard;
+  :host {
+    .sbb-card:not([active]):hover {
+      @include shadow-level-9-hard;
 
-    cursor: pointer;
-
-    .sbb-card__content {
-      transform: translateY(#{px-to-rem-build(-2)});
+      .sbb-card__content {
+        transform: translateY(#{px-to-rem-build(-2)});
+      }
     }
   }
 }
