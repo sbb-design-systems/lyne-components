@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 
-import circleCrossSmallIcon from 'lyne-icons/dist/icons/circle-cross-small.svg';
+import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
 import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { LinkProperties, LinkTargetType } from '../../global/interfaces/link-button-properties';
@@ -231,7 +231,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
                 iconDescription={i18nCloseAlert[this._currentLangauge]}
                 aria-controls={this.internalId}
                 class="sbb-alert__close-button"
-                innerHTML={circleCrossSmallIcon}
+                innerHTML={crossSmall}
               />
             </span>
           )}

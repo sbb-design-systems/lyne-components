@@ -84,7 +84,5 @@
 
 .sbb-alert__close-button {
   // Reduce the reserved space of the button to 24px (--sbb-alert-close-icon-size)
-  margin: calc(
-    -0.5 * (var(--sbb-size-form-element-m-min-height) - var(--sbb-alert-close-icon-size))
-  );
+  margin: calc(-0.5 * (var(--sbb-size-button-m-min-height) - var(--sbb-alert-close-icon-size)));
 }
