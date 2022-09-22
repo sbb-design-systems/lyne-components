@@ -4,8 +4,7 @@ The alert component should be used to display important messages to a client.
 There are two sizes available and a `sbb-alert` can optionally be hidden by a user. 
 It's possible to place an action, which by clicking navigates somewhere to display more information.
 
-Hint: 
-Clicking on the close button does not remove it from the DOM, this would be in responsibility
+**Note:** Clicking on the close button does not remove it from the DOM, this would be in responsibility
 of the library consumer to do it by reacting to the specific event. 
 See also the `sbb-alert-group` which automatically removes an alert after clicking the close button.
 
@@ -132,5 +131,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-
