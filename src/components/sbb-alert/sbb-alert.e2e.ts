@@ -12,7 +12,8 @@ describe('sbb-alert', () => {
     expect(alert).toHaveClass('hydrated');
   });
 
-  // TODO maybe fix some day. Test just doesn't work for unknown reason.
+  // TODO: maybe fix some day. Test just doesn't work for unknown reason.
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should fire animation events', async () => {
     page = await newE2EPage();
 

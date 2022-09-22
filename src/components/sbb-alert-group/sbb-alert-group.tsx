@@ -80,7 +80,7 @@ export class SbbAlertGroup {
     }
   }
 
-  private _slotChanged(event: Event) {
+  private _slotChanged(event: Event): void {
     const hadAlerts = this._hasAlerts;
     this._hasAlerts = (event.target as HTMLSlotElement).assignedElements().length > 0;
     if (!this._hasAlerts && hadAlerts) {

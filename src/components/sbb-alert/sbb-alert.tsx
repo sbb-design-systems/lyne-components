@@ -112,7 +112,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   private _currentLangauge = getDocumentLang();
   private _firstRenderingDone = false;
 
-  public connectedCallback() {
+  public connectedCallback(): void {
     // Skip very first render where the animation elements are not yet ready.
     // Presentation is postponed to componentDidRender().
     if (this._transitionWrapperElement) {
@@ -180,7 +180,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
     this.didPresent.emit();
   }
 
-  private _linkProperties() {
+  private _linkProperties(): Record<string, string> {
     return {
       ['accessibility-label']: this.accessibilityLabel,
       ['accessibility-describedby']: this.accessibilityDescribedby,
