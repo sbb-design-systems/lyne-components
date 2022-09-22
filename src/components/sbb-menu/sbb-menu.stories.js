@@ -2,6 +2,7 @@ import events from './sbb-menu.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import { userEvent, within } from '@storybook/testing-library';
 
 const userNameStyle = {
   fontFamily: 'var(--sbb-typo-type-face-sbb-bold)',
@@ -17,8 +18,14 @@ const userInfoStyle = {
 
 const DefaultTemplate = (args) => (
   <div>
-    <sbb-button id="menu-trigger-1" size="m" label="Menu trigger"></sbb-button>
-    <sbb-menu {...args} trigger="menu-trigger-1" ref={(menu) => isChromatic() && menu.openMenu()}>
+    <sbb-button
+      data-testid="menu-trigger-1"
+      id="menu-trigger-1"
+      size="m"
+      label="Menu trigger"
+    ></sbb-button>
+    {/* <button id="menu-trigger-1">Trigger</button> */}
+    <sbb-menu {...args} trigger="menu-trigger-1">
       <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
@@ -149,7 +156,22 @@ export default {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: { delay: 2000 },
   },
   title: 'components/menu/sbb-menu',
+};
+
+// Function to emulate pausing between interactions
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+Default.play = async ({ canvasElement }) => {
+  // Starts querying the component from its root
+  const canvas = within(canvasElement);
+  const button = canvas.getByTestId('menu-trigger-1');
+
+  await sleep(600);
+
+  // Looks up the button and interacts with it.
+  await userEvent.click(button);
 };
