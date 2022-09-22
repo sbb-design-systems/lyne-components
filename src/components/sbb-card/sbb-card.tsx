@@ -28,7 +28,7 @@ export class SbbCard implements LinkButtonProperties {
   /**
    * Used to set the component's active state.
    */
-  @Prop() public active = false;
+  @Prop({ reflect: true }) public active = false;
 
   /**
    * Id used to identify the inner element.
@@ -122,26 +122,21 @@ export class SbbCard implements LinkButtonProperties {
 
   public render(): JSX.Element {
     let TAG_NAME: string;
-    let className: string;
+    let className = 'sbb-card';
     let attributeList: Record<string, string>;
 
     if (this.href) {
       TAG_NAME = 'a';
-      className = 'sbb-card__link';
+      className += ' sbb-card__link';
       attributeList = getLinkAttributeList(this, this);
     } else {
       TAG_NAME = 'button';
-      className = 'sbb-card__button';
+      className += ' sbb-card__button';
       attributeList = getButtonAttributeList(this);
     }
 
     return (
-      <Host
-        class={{
-          'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge,
-          'sbb-card--active': this.active,
-        }}
-      >
+      <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
         <TAG_NAME
           id={this.idValue}
           class={className}

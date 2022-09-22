@@ -6,37 +6,6 @@
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
   --sbb-card-padding-block-start: var(--sbb-spacing-fixed-3x);
   --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
-
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--sbb-border-radius-4x);
-  transition: box-shadow var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
-  z-index: 0;
-
-  &::before,
-  &::after {
-    position: absolute;
-    content: '';
-    inset: 0;
-  }
-
-  &::before {
-    background-color: var(--sbb-color-white-default);
-    z-index: -3;
-  }
-
-  &::after {
-    background-color: transparent;
-    z-index: -1;
-  }
-
-  @include ifForcedColors {
-    outline: var(--sbb-border-width-1x) solid CanvasText;
-  }
-}
-
-::slotted(sbb-card-badge) {
-  z-index: -2;
 }
 
 :host([size='s']) {
@@ -79,21 +48,34 @@
   --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxs);
 }
 
-:host(.sbb-card--active) {
-  &::after {
-    border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
+.sbb-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--sbb-border-radius-4x);
+  transition: box-shadow var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+
+  &::before {
+    position: absolute;
+    background-color: transparent;
+    content: '';
+    inset: 0;
     border-radius: var(--sbb-border-radius-4x);
+  }
+
+  &:focus-visible {
+    @include focusOutline;
   }
 }
 
-.sbb-card__content {
-  display: block;
-  transition: transform var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+:host([active]) {
+  .sbb-card::before {
+    border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
+  }
 }
 
 .sbb-card__link {
   display: block;
-  color: var(--sbb-color-black-default);
+  color: inherit;
   text-decoration: none;
 }
 
@@ -101,16 +83,22 @@
   @include buttonReset;
   @include text-inherit;
 
-  text-align: inherit;
+  border-radius: var(--sbb-border-radius-4x);
   cursor: pointer;
 }
 
 .sbb-card__button,
 .sbb-card__link {
   width: 100%;
+  background-color: var(--sbb-color-white-default);
   padding-inline: var(--sbb-card-padding-inline);
   padding-block-start: var(--sbb-card-padding-block-start);
   padding-block-end: var(--sbb-card-padding-block-end);
+}
+
+.sbb-card__content {
+  display: block;
+  transition: transform var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
 }
 
 @include hover-mq($hover: true) {

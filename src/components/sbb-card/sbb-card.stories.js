@@ -21,7 +21,7 @@ const TemplateWithBadge = (args) => (
 const TemplateMultipleCards = (args) => (
   <div style="display: flex; gap: 1rem;">
     {TemplateWithBadge(args)}
-    {TemplateWithBadge(args)}
+    {TemplateWithBadge({ ...args, active: true })}
     {TemplateWithBadge(args)}
     {TemplateWithBadge(args)}
   </div>
@@ -206,21 +206,21 @@ export const sbbCardWithSbbBadgeLink = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLink.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLink.args = { ...basicArgs };
 sbbCardWithSbbBadgeLink.documentation = {
-  title: 'Card with badge (link version - the slot is hidden whether sizes are below m).',
+  title: 'Card with badge (link version - the slot is hidden if sizes are below m).',
 };
 
 export const sbbCardWithSbbBadgeButton = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeButton.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeButton.args = { ...basicArgsButton };
 sbbCardWithSbbBadgeButton.documentation = {
-  title: 'Card with badge (button version - the slot is hidden whether sizes are below m).',
+  title: 'Card with badge (button version - the slot is hidden if sizes are below m).',
 };
 
 export const sbbCardWithSbbBadgeLinkActive = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLinkActive.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLinkActive.args = { ...basicArgs, active: true };
 sbbCardWithSbbBadgeLinkActive.documentation = {
-  title: 'Card active with badge (link version - the slot is hidden whether sizes are below m).',
+  title: 'Card active with badge (link version - the slot is hidden if sizes are below m).',
 };
 
 export const sbbCardMultiple = TemplateMultipleCards.bind({});
