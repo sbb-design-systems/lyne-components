@@ -6,6 +6,9 @@
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
   --sbb-card-padding-block-start: var(--sbb-spacing-fixed-3x);
   --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
+  --sbb-card-border-radius: var(--sbb-border-radius-4x);
+  --sbb-card-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-card-animation-easing: var(--sbb-animation-easing);
 }
 
 :host([size='s']) {
@@ -51,15 +54,14 @@
 .sbb-card {
   position: relative;
   overflow: hidden;
-  border-radius: var(--sbb-border-radius-4x);
-  transition: box-shadow var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 
   &::before {
     position: absolute;
     background-color: transparent;
     content: '';
     inset: 0;
-    border-radius: var(--sbb-border-radius-4x);
+    border-radius: var(--sbb-card-border-radius);
   }
 
   &:focus-visible {
@@ -83,13 +85,13 @@
   @include buttonReset;
   @include text-inherit;
 
-  border-radius: var(--sbb-border-radius-4x);
   cursor: pointer;
 }
 
 .sbb-card__button,
 .sbb-card__link {
   width: 100%;
+  border-radius: var(--sbb-card-border-radius);
   background-color: var(--sbb-color-white-default);
   padding-inline: var(--sbb-card-padding-inline);
   padding-block-start: var(--sbb-card-padding-block-start);
@@ -98,17 +100,16 @@
 
 .sbb-card__content {
   display: block;
-  transition: transform var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+  transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 }
 
 @include hover-mq($hover: true) {
-  :host {
-    .sbb-card:not([active]):hover {
-      @include shadow-level-9-hard;
+  // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+  :host(:not([active]):hover) {
+    @include shadow-level-9-hard;
 
-      .sbb-card__content {
-        transform: translateY(#{px-to-rem-build(-2)});
-      }
+    .sbb-card__content {
+      transform: translateY(#{px-to-rem-build(-2)});
     }
   }
 }

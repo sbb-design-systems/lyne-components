@@ -161,7 +161,7 @@ const basicArgs = {
   target: '_blank',
   rel: undefined,
   'id-value': undefined,
-  'accessibility-label': 'Card content',
+  'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
   name: undefined,
