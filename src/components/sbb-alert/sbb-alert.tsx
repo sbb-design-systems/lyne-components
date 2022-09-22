@@ -109,6 +109,10 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   private _currentLangauge = getDocumentLang();
   private _firstRenderingDone = false;
 
+  public connectedCallback() {
+    this._firstRenderingDone = false;
+  }
+
   public componentDidRender(): void {
     if (!this._firstRenderingDone) {
       this._present();
