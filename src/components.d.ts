@@ -6,6 +6,10 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
+import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
+import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
+import { LinkTargetType } from "./global/interfaces/link-button-properties";
+import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
@@ -20,8 +24,8 @@ import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custo
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
+import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
-import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
@@ -38,7 +42,6 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
-import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
@@ -76,6 +79,82 @@ export namespace Components {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface SbbAlert {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * The href value you want to link to.
+         */
+        "href": string | undefined;
+        /**
+          * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
+         */
+        "iconName"?: string;
+        /**
+          * Whether the fade in animation should be disabled.
+         */
+        "inanimate": boolean;
+        /**
+          * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
+         */
+        "internalId": string;
+        /**
+          * Content of the link
+         */
+        "linkContent"?: string;
+        /**
+          * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
+         */
+        "readonly": boolean;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel": string | undefined;
+        /**
+          * Requests dismissal of the alert.
+         */
+        "requestDismissal": () => Promise<void>;
+        /**
+          * You can choose between `m` or `l` size.
+         */
+        "size": InterfaceAlertAttributes['size'];
+        /**
+          * Where to display the linked URL.
+         */
+        "target": LinkTargetType | string | undefined;
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel": InterfaceTitleAttributes['level'];
+    }
+    interface SbbAlertGroup {
+        /**
+          * Title for this alert group which is only visible for screen reader users.
+         */
+        "accessibilityTitle": string;
+        /**
+          * Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.
+         */
+        "accessibilityTitleLevel": InterfaceTitleAttributes['level'];
+        /**
+          * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
+         */
+        "role": InterfaceSbbAlertGroupAttributes['role'];
     }
     interface SbbAutocomplete {
         /**
@@ -146,6 +225,10 @@ export namespace Components {
         "text": string;
     }
     interface SbbButton {
+        /**
+          * The aria-controls property identifies the element (or elements) whose contents or presence are controlled by the element on which this attribute is set. The value is forwarded to the native button element.
+         */
+        "ariaControls"?: InterfaceButtonAttributes['ariaControls'];
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -642,21 +725,29 @@ export namespace Components {
     }
     interface SbbLinkList {
         /**
-          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
+          * Selected breakpoint from which the list is rendered horizontally.
          */
-        "listDirection": InterfaceLinkListAttributes['direction'];
+        "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
-          * The semantic level of the title, e.g. 3 = h3
+          * Negative coloring variant flag.
          */
-        "titleLevel"?: InterfaceTitleAttributes['level'];
+        "negative": boolean;
         /**
-          * The title text we want to show before the list
+          * The orientation in which the list will be shown vertical or horizontal.
          */
-        "titleText"?: string;
+        "orientation": InterfaceLinkListAttributes['orientation'];
         /**
-          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
+          * The title text we want to show before the list.
          */
-        "variant": InterfaceLinkListAttributes['variant'];
+        "titleContent"?: string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId": string;
+        /**
+          * The semantic level of the title, e.g. 2 = h2.
+         */
+        "titleLevel"?: InterfaceTitleAttributes1['level'];
     }
     interface SbbLogo {
         /**
@@ -1027,7 +1118,7 @@ export namespace Components {
         /**
           * Title level
          */
-        "level"?: InterfaceTitleAttributes1['level'];
+        "level"?: InterfaceTitleAttributes['level'];
         /**
           * Choose negative variant
          */
@@ -1039,7 +1130,7 @@ export namespace Components {
         /**
           * Visual level for the title. Optional, if not set, the value of level will be used.
          */
-        "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
+        "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
           * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
@@ -1092,6 +1183,14 @@ export namespace Components {
         "value"?: string;
     }
 }
+export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbAlertElement;
+}
+export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbAlertGroupElement;
+}
 export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbButtonElement;
@@ -1128,6 +1227,18 @@ declare global {
     var HTMLSbbAccordionItemElement: {
         prototype: HTMLSbbAccordionItemElement;
         new (): HTMLSbbAccordionItemElement;
+    };
+    interface HTMLSbbAlertElement extends Components.SbbAlert, HTMLStencilElement {
+    }
+    var HTMLSbbAlertElement: {
+        prototype: HTMLSbbAlertElement;
+        new (): HTMLSbbAlertElement;
+    };
+    interface HTMLSbbAlertGroupElement extends Components.SbbAlertGroup, HTMLStencilElement {
+    }
+    var HTMLSbbAlertGroupElement: {
+        prototype: HTMLSbbAlertGroupElement;
+        new (): HTMLSbbAlertGroupElement;
     };
     interface HTMLSbbAutocompleteElement extends Components.SbbAutocomplete, HTMLStencilElement {
     }
@@ -1432,6 +1543,8 @@ declare global {
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
+        "sbb-alert": HTMLSbbAlertElement;
+        "sbb-alert-group": HTMLSbbAlertGroupElement;
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-autocomplete-item": HTMLSbbAutocompleteItemElement;
         "sbb-button": HTMLSbbButtonElement;
@@ -1521,6 +1634,98 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
+    interface SbbAlert {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * The href value you want to link to.
+         */
+        "href"?: string | undefined;
+        /**
+          * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
+         */
+        "iconName"?: string;
+        /**
+          * Whether the fade in animation should be disabled.
+         */
+        "inanimate"?: boolean;
+        /**
+          * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
+         */
+        "internalId"?: string;
+        /**
+          * Content of the link
+         */
+        "linkContent"?: string;
+        /**
+          * Emits when the fade in animation ends and the button is displayed.
+         */
+        "onSbb-alert_did-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        /**
+          * Emits when dismissal of an alert was requested.
+         */
+        "onSbb-alert_dismissal-requested"?: (event: SbbAlertCustomEvent<void>) => void;
+        /**
+          * Emits when the fade in animation starts.
+         */
+        "onSbb-alert_will-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        /**
+          * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
+         */
+        "readonly"?: boolean;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * You can choose between `m` or `l` size.
+         */
+        "size"?: InterfaceAlertAttributes['size'];
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
+    interface SbbAlertGroup {
+        /**
+          * Title for this alert group which is only visible for screen reader users.
+         */
+        "accessibilityTitle"?: string;
+        /**
+          * Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.
+         */
+        "accessibilityTitleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * Emits when an alert was removed from DOM.
+         */
+        "onSbb-alert-group_did-dismiss-alert"?: (event: SbbAlertGroupCustomEvent<HTMLSbbAlertElement>) => void;
+        /**
+          * Emits when `sbb-alert-group` becomes empty.
+         */
+        "onSbb-alert-group_empty"?: (event: SbbAlertGroupCustomEvent<void>) => void;
+        /**
+          * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
+         */
+        "role"?: InterfaceSbbAlertGroupAttributes['role'];
+    }
     interface SbbAutocomplete {
         /**
           * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
@@ -1590,6 +1795,10 @@ declare namespace LocalJSX {
         "text": string;
     }
     interface SbbButton {
+        /**
+          * The aria-controls property identifies the element (or elements) whose contents or presence are controlled by the element on which this attribute is set. The value is forwarded to the native button element.
+         */
+        "ariaControls"?: InterfaceButtonAttributes['ariaControls'];
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -2098,21 +2307,29 @@ declare namespace LocalJSX {
     }
     interface SbbLinkList {
         /**
-          * The direction in which the list will be shown. "-from-large" indicates that the list will be horizontal from above large breakpoint. Below it has the default behaviour which is a vertical list.
+          * Selected breakpoint from which the list is rendered horizontally.
          */
-        "listDirection"?: InterfaceLinkListAttributes['direction'];
+        "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
-          * The semantic level of the title, e.g. 3 = h3
+          * Negative coloring variant flag.
          */
-        "titleLevel"?: InterfaceTitleAttributes['level'];
+        "negative"?: boolean;
         /**
-          * The title text we want to show before the list
+          * The orientation in which the list will be shown vertical or horizontal.
          */
-        "titleText"?: string;
+        "orientation"?: InterfaceLinkListAttributes['orientation'];
         /**
-          * Choose the link list style. This does not refer to light or dark mode, but the background color on which the list is placed. Light and dark mode styling will be applied differently.
+          * The title text we want to show before the list.
          */
-        "variant"?: InterfaceLinkListAttributes['variant'];
+        "titleContent"?: string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId"?: string;
+        /**
+          * The semantic level of the title, e.g. 2 = h2.
+         */
+        "titleLevel"?: InterfaceTitleAttributes1['level'];
     }
     interface SbbLogo {
         /**
@@ -2468,7 +2685,7 @@ declare namespace LocalJSX {
         /**
           * Title level
          */
-        "level"?: InterfaceTitleAttributes1['level'];
+        "level"?: InterfaceTitleAttributes['level'];
         /**
           * Choose negative variant
          */
@@ -2480,7 +2697,7 @@ declare namespace LocalJSX {
         /**
           * Visual level for the title. Optional, if not set, the value of level will be used.
          */
-        "visualLevel"?: InterfaceTitleAttributes1['visualLevel'];
+        "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
           * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
@@ -2539,6 +2756,8 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
+        "sbb-alert": SbbAlert;
+        "sbb-alert-group": SbbAlertGroup;
         "sbb-autocomplete": SbbAutocomplete;
         "sbb-autocomplete-item": SbbAutocompleteItem;
         "sbb-button": SbbButton;
@@ -2597,6 +2816,8 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "sbb-accordion": LocalJSX.SbbAccordion & JSXBase.HTMLAttributes<HTMLSbbAccordionElement>;
             "sbb-accordion-item": LocalJSX.SbbAccordionItem & JSXBase.HTMLAttributes<HTMLSbbAccordionItemElement>;
+            "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
+            "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-autocomplete-item": LocalJSX.SbbAutocompleteItem & JSXBase.HTMLAttributes<HTMLSbbAutocompleteItemElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;

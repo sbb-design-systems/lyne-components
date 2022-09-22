@@ -64,6 +64,7 @@ const FixedWidthTemplate = (args) => (
         {...args}
         label="Wide Button"
         style={{
+          maxWidth: '100%',
           width: '600px',
         }}
       >

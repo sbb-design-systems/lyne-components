@@ -1,4 +1,5 @@
 export interface InterfaceButtonAttributes {
+  ariaControls: string;
   variant:
     | 'primary'
     | 'primary-negative'

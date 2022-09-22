@@ -54,6 +54,14 @@ export class SbbButton {
   @Prop() public ariaHaspopup?: InterfaceButtonAttributes['popup'];
 
   /**
+   * The aria-controls property identifies the element (or elements)
+   * whose contents or presence are controlled by the element on which
+   * this attribute is set.
+   * The value is forwarded to the native button element.
+   */
+  @Prop() public ariaControls?: InterfaceButtonAttributes['ariaControls'];
+
+  /**
    * Emits whenever the native button click event triggers.
    * TODO: Switch to a better event type during refactoring sbb-button.
    */
@@ -98,6 +106,7 @@ export class SbbButton {
 
     const buttonAttributes = {
       ...mainAttributes,
+      'aria-controls': this.ariaControls,
       'aria-haspopup': this.ariaHaspopup,
       disabled: this.disabled,
       name: this.name,
