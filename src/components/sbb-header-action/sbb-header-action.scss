@@ -2,6 +2,13 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+:host {
+  display: flex;
+  min-height: var(--sbb-size-button-m-min-height);
+  padding-inline: var(--sbb-spacing-fixed-5x);
+  border-radius: var(--sbb-border-radius-16x);
+}
+
 :host([expand-from='zero']) {
   @include mq($from: zero) {
     .header-action__label {
@@ -58,6 +65,14 @@
   }
 }
 
+:host(:hover) {
+  background-color: var(--sbb-color-milk-default);
+}
+
+:host(:active) {
+  background-color: var(--sbb-color-cloud-default);
+}
+
 .header-action__icon {
   line-height: 0;
   color: var(--sbb-color-black-default);
@@ -71,8 +86,6 @@
   display: var(--sbb-header-action-visibility-override, none);
   color: var(--sbb-color-black-default);
   @include text-xs--bold;
-
-  line-height: 1;
 }
 
 .header-action__link {
