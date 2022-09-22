@@ -92,10 +92,6 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * Whether the fade in animation should be disabled.
-         */
-        "disableAnimation": boolean;
-        /**
           * The href value you want to link to.
          */
         "href": string | undefined;
@@ -103,6 +99,10 @@ export namespace Components {
           * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
          */
         "iconName"?: string;
+        /**
+          * Whether the fade in animation should be disabled.
+         */
+        "inanimate": boolean;
         /**
           * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
          */
@@ -1577,10 +1577,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * Whether the fade in animation should be disabled.
-         */
-        "disableAnimation"?: boolean;
-        /**
           * The href value you want to link to.
          */
         "href"?: string | undefined;
@@ -1588,6 +1584,10 @@ declare namespace LocalJSX {
           * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
          */
         "iconName"?: string;
+        /**
+          * Whether the fade in animation should be disabled.
+         */
+        "inanimate"?: boolean;
         /**
           * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
          */
