@@ -1,18 +1,29 @@
 # sbb-card
 
-The `sbb-card` component is a generic content container; its task is to contain HTML elements related to a single subject. 
+The `sbb-card` component is a generic content container; its task is to contain HTML elements related to a single subject.
+
+Internally, it could be rendered as a link or as a button based on the value of the `href` attribute 
+(as the [sbb-link](../sbb-link/readme.md)). When rendered as a button, consumers could listen to the emitted click event.
+
+It has 6 size variant (from `xs` to `xxl`) base on the `size` attribute value,
+and 2 background variants - white for default and milk for negative - based on the `negative` attribute value.
+Consumers could also conditionally set the value of the `active` attribute to display an active state on the component.
 
 The `sbb-card-badge` component can be used via slot to display a badge in the upper right corner. 
-
-Consumers could conditionally set the value of the `active` attribute to display an active state on the component- 
+Even if provided, it is never displayed when the `sbb-card` size attribute is set to `xs` or `s`.
 
 ## Usage
 
-The example below show how to render the component with `<sbb-card-badge>`:
+The examples below show how to render the component with and without the `<sbb-card-badge>` component.
+In the first one, the `sbb-card` will be internally rendered as a button, in the second one as a link. 
 
 ```html
-<sbb-card>
+<sbb-card size="xl" negative>
   <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
+  Card content
+</sbb-card>
+
+<sbb-card size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
   Card content
 </sbb-card>
 ```
