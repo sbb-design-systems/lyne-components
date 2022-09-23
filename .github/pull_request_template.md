@@ -16,8 +16,8 @@ Please check if your PR fulfills the following requirements:
 
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been reviewed and added / updated if needed (for bug fixes / features)
-- [ ] Build (`yarn build`) was run locally and any changes were pushed
-- [ ] Lint (`yarn lint`) has passed locally and any fixes were made for failures
+
+See [Review Guidelines](../REVIEW.md) for more information what is checked during review process.
 
 ## Changes
 
