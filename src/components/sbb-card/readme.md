@@ -33,6 +33,7 @@ The example below show how to render the component with `<sbb-card-badge>`:
 | `href`                     | `href`                      | The href value you want to link to.                                             | `string`                                     | `undefined` |
 | `idValue`                  | `id-value`                  | Id used to identify the inner element.                                          | `string`                                     | `undefined` |
 | `name`                     | `name`                      | The name of the button.                                                         | `string`                                     | `undefined` |
+| `negative`                 | `negative`                  | Option for set the component background color.                                  | `boolean`                                    | `undefined` |
 | `rel`                      | `rel`                       | The relationship of the linked URL as space-separated link types.               | `string`                                     | `undefined` |
 | `size`                     | `size`                      | Size variant, either xs, s, m, l, xl or xxl.                                    | `"l" \| "m" \| "s" \| "xl" \| "xs" \| "xxl"` | `'m'`       |
 | `target`                   | `target`                    | Where to display the linked URL.                                                | `string`                                     | `undefined` |
@@ -42,9 +43,9 @@ The example below show how to render the component with `<sbb-card-badge>`:
 
 ## Events
 
-| Event                   | Description                                                                                                          | Type               |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `sbb-card-button_click` | Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together. | `CustomEvent<any>` |
+| Event                   | Description                                            | Type               |
+| ----------------------- | ------------------------------------------------------ | ------------------ |
+| `sbb-card-button_click` | Emits whenever the native button click event triggers. | `CustomEvent<any>` |
 
 
 ## Slots

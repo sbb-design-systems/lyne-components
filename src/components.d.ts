@@ -315,6 +315,10 @@ export namespace Components {
          */
         "name": string | undefined;
         /**
+          * Option for set the component background color.
+         */
+        "negative": boolean;
+        /**
           * The relationship of the linked URL as space-separated link types.
          */
         "rel"?: string | undefined;
@@ -1889,7 +1893,11 @@ declare namespace LocalJSX {
          */
         "name"?: string | undefined;
         /**
-          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
+          * Option for set the component background color.
+         */
+        "negative"?: boolean;
+        /**
+          * Emits whenever the native button click event triggers.
          */
         "onSbb-card-button_click"?: (event: SbbCardCustomEvent<any>) => void;
         /**

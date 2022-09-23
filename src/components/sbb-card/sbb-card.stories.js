@@ -1,6 +1,18 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-card.events';
+import {
+  SbbColorMilkDefault,
+  SbbColorWhiteDefault,
+} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens';
+
+const wrapperStyle = (context) => {
+  if (context.args.negative === true) {
+    return `background-color: ${SbbColorWhiteDefault};`;
+  }
+
+  return `background-color: ${SbbColorMilkDefault};`;
+};
 
 const ContentText =
   () => `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio,
@@ -35,6 +47,12 @@ const size = {
 };
 
 const active = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const negative = {
   control: {
     type: 'boolean',
   },
@@ -139,6 +157,7 @@ const value = {
 const basicArgTypes = {
   size,
   active,
+  negative,
   href,
   download,
   target,
@@ -156,6 +175,7 @@ const basicArgTypes = {
 const basicArgs = {
   size: 'm',
   active: false,
+  negative: false,
   href: 'https://github.com/lyne-design-system/lyne-components',
   download: false,
   target: '_blank',
@@ -170,6 +190,11 @@ const basicArgs = {
   value: undefined,
 };
 
+const basicArgsNegative = {
+  ...basicArgs,
+  negative: true,
+};
+
 const basicArgsButton = {
   ...basicArgs,
   href: undefined,
@@ -181,11 +206,23 @@ const basicArgsButton = {
   value: 'Value',
 };
 
+const basicArgsButtonNegative = {
+  ...basicArgsButton,
+  negative: true,
+};
+
 export const sbbCardLink = Template.bind({});
 sbbCardLink.argTypes = basicArgTypes;
 sbbCardLink.args = { ...basicArgs };
 sbbCardLink.documentation = {
   title: 'Card (link version).',
+};
+
+export const sbbCardLinkNegative = Template.bind({});
+sbbCardLinkNegative.argTypes = basicArgTypes;
+sbbCardLinkNegative.args = { ...basicArgsNegative };
+sbbCardLinkNegative.documentation = {
+  title: 'Card negative (link version).',
 };
 
 export const sbbCardButton = Template.bind({});
@@ -195,6 +232,13 @@ sbbCardButton.documentation = {
   title: 'Card (button version).',
 };
 
+export const sbbCardButtonNegative = Template.bind({});
+sbbCardButtonNegative.argTypes = basicArgTypes;
+sbbCardButtonNegative.args = { ...basicArgsButtonNegative };
+sbbCardButtonNegative.documentation = {
+  title: 'Card negative (button version).',
+};
+
 export const sbbCardButtonActive = Template.bind({});
 sbbCardButtonActive.argTypes = basicArgTypes;
 sbbCardButtonActive.args = { ...basicArgsButton, active: true };
@@ -202,18 +246,39 @@ sbbCardButtonActive.documentation = {
   title: 'Card active (button version).',
 };
 
+export const sbbCardButtonActiveNegative = Template.bind({});
+sbbCardButtonActiveNegative.argTypes = basicArgTypes;
+sbbCardButtonActiveNegative.args = { ...basicArgsButtonNegative, active: true };
+sbbCardButtonActiveNegative.documentation = {
+  title: 'Card active negative (button version).',
+};
+
 export const sbbCardWithSbbBadgeLink = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLink.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLink.args = { ...basicArgs };
 sbbCardWithSbbBadgeLink.documentation = {
-  title: 'Card with badge (link version - the slot is hidden if sizes are below m).',
+  title: 'Card with badge (link version - the slot is hidden if size are below m).',
+};
+
+export const sbbCardWithSbbBadgeLinkNegative = TemplateWithBadge.bind({});
+sbbCardWithSbbBadgeLinkNegative.argTypes = basicArgTypes;
+sbbCardWithSbbBadgeLinkNegative.args = { ...basicArgsNegative };
+sbbCardWithSbbBadgeLinkNegative.documentation = {
+  title: 'Card negative with badge (link version - the slot is hidden if size are below m).',
 };
 
 export const sbbCardWithSbbBadgeButton = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeButton.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeButton.args = { ...basicArgsButton };
 sbbCardWithSbbBadgeButton.documentation = {
-  title: 'Card with badge (button version - the slot is hidden if sizes are below m).',
+  title: 'Card with badge (button version - the slot is hidden if size are below m).',
+};
+
+export const sbbCardWithSbbBadgeButtonNegative = TemplateWithBadge.bind({});
+sbbCardWithSbbBadgeButtonNegative.argTypes = basicArgTypes;
+sbbCardWithSbbBadgeButtonNegative.args = { ...basicArgsButtonNegative };
+sbbCardWithSbbBadgeButtonNegative.documentation = {
+  title: 'Card negative with badge (button version - the slot is hidden if size are below m).',
 };
 
 export const sbbCardWithSbbBadgeLinkActive = TemplateWithBadge.bind({});
@@ -223,6 +288,14 @@ sbbCardWithSbbBadgeLinkActive.documentation = {
   title: 'Card active with badge (link version - the slot is hidden if sizes are below m).',
 };
 
+export const sbbCardWithSbbBadgeLinkActiveNegative = TemplateWithBadge.bind({});
+sbbCardWithSbbBadgeLinkActiveNegative.argTypes = basicArgTypes;
+sbbCardWithSbbBadgeLinkActiveNegative.args = { ...basicArgsNegative, active: true };
+sbbCardWithSbbBadgeLinkActiveNegative.documentation = {
+  title:
+    'Card active negative with badge (link version - the slot is hidden if sizes are below m).',
+};
+
 export const sbbCardMultiple = TemplateMultipleCards.bind({});
 sbbCardMultiple.argTypes = basicArgTypes;
 sbbCardMultiple.args = { ...basicArgs };
@@ -230,10 +303,17 @@ sbbCardMultiple.documentation = {
   title: 'Multiple cards.',
 };
 
+export const sbbCardMultipleNegative = TemplateMultipleCards.bind({});
+sbbCardMultipleNegative.argTypes = basicArgTypes;
+sbbCardMultipleNegative.args = { ...basicArgsNegative };
+sbbCardMultipleNegative.documentation = {
+  title: 'Multiple cards negative.',
+};
+
 export default {
   decorators: [
-    (Story) => (
-      <div style={'padding: 2rem; background: lightgray;'}>
+    (Story, context) => (
+      <div style={`${wrapperStyle(context)} padding: 2rem`}>
         <Story />
       </div>
     ),

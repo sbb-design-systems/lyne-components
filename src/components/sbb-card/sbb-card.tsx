@@ -26,6 +26,11 @@ export class SbbCard implements LinkButtonProperties {
   @Prop() public size?: InterfaceSbbCardAttributes['size'] = 'm';
 
   /**
+   * Option for set the component background color.
+   */
+  @Prop({ reflect: true }) public negative: boolean;
+
+  /**
    * Used to set the component's active state.
    */
   @Prop({ reflect: true }) public active = false;
@@ -95,14 +100,13 @@ export class SbbCard implements LinkButtonProperties {
 
   /**
    * Emits whenever the native button click event triggers.
-   * TODO: similar to the one in sbb-button. To be fixed together.
    */
   @Event({
     bubbles: true,
     composed: true,
     eventName: 'sbb-card-button_click',
   })
-  public click: EventEmitter<any> | undefined;
+  public click: EventEmitter<null> | undefined;
 
   /**
    * The function triggered on button click.
