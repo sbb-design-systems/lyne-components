@@ -1,6 +1,11 @@
-import { Component, h, Prop, State, JSX, Element } from '@stencil/core';
+import { Component, h, Prop, State, JSX, Element, Listen } from '@stencil/core';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 let nextId = 0;
 
@@ -31,10 +36,11 @@ export class SbbLinkList {
   /** Sbb-Link elements */
   @State() private _links: HTMLSbbLinkElement[];
 
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('title');
+
   /** Host element */
   @Element() private _element!: HTMLElement;
-
-  private _hasSlottedTitle: boolean;
 
   private _getClassString(): string {
     let horizontalClass = this.horizontalFrom
@@ -57,18 +63,20 @@ export class SbbLinkList {
     );
   }
 
-  private _onSlotTitleChange(event): void {
-    this._hasSlottedTitle = (event.target as HTMLSlotElement).assignedElements().length > 0;
+  public connectedCallback(): void {
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._readLinks();
   }
 
-  public connectedCallback(): void {
-    this._readLinks();
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   public render(): JSX.Element {
     let ariaLabelledByAttribute = {};
 
-    if (this._hasSlottedTitle || this.titleContent) {
+    if (this._namedSlots.title || this.titleContent) {
       ariaLabelledByAttribute = {
         'aria-labelledby': this.titleId,
       };
@@ -78,16 +86,14 @@ export class SbbLinkList {
 
     return (
       <div class={this._getClassString()}>
-        {(this._hasSlottedTitle || this.titleContent) && (
+        {(this._namedSlots.title || this.titleContent) && (
           <sbb-title
             level={this.titleLevel}
             visual-level="5"
             negative={this.negative}
             titleId={this.titleId}
           >
-            <slot onSlotchange={(event): void => this._onSlotTitleChange(event)} name="title">
-              {this.titleContent}
-            </slot>
+            <slot name="title">{this.titleContent}</slot>
           </sbb-title>
         )}
         <ul {...ariaLabelledByAttribute}>

@@ -57,14 +57,29 @@ function hasNamedSlotElement(element: Element, name: string): boolean {
   return !!element.querySelector(`[slot="${name}"]`);
 }
 
-export type NamedSlotState = Readonly<Record<string, boolean>>;
+/**
+ * Type for named slot states. Either a generic readonly record or a named record, if provided
+ * with keys via generic parameter.
+ *
+ * e.g. either { [key: string]: boolean } or { name1: boolean, name2: boolean }
+ */
+export type NamedSlotState<K = unknown> = K extends string
+  ? Readonly<Pick<Record<string, boolean>, K>>
+  : Readonly<Record<string, boolean>>;
 
 /**
  * Creates a frozen object with the given names as key with the value being false.
- *
- * @param names Names of slots.
- * @returns A frozen object with the given slot names as keys.
  */
+export function createNamedSlotState<K extends string>(name: K): NamedSlotState<K>;
+export function createNamedSlotState<K1 extends string, K2 extends string>(
+  name1: K1,
+  name2: K2
+): NamedSlotState<K1 | K2>;
+export function createNamedSlotState<K1 extends string, K2 extends string, K3 extends string>(
+  name1: K1,
+  name2: K2,
+  name3: K3
+): NamedSlotState<K1 | K2 | K3>;
 export function createNamedSlotState(...names: string[]): NamedSlotState {
   return Object.freeze(
     names.reduce(
@@ -83,12 +98,12 @@ export function createNamedSlotState(...names: string[]): NamedSlotState {
  * @returns A new frozen object with values being set to true, if the host contains elements
  *   with the corresponding slot name.
  */
-export function queryNamedSlotState(
+export function queryNamedSlotState<S extends NamedSlotState>(
   element: HTMLElement,
-  state: Record<string, boolean>,
+  state: S,
   names?: Set<string>
-): NamedSlotState {
-  const newState = { ...state };
+): S {
+  const newState: Record<string, boolean> = { ...state };
   if (names) {
     names.forEach((name) => {
       if (name in newState) {
@@ -101,7 +116,7 @@ export function queryNamedSlotState(
     }
   }
 
-  return Object.freeze(newState);
+  return Object.freeze(newState) as S;
 }
 
 /**
@@ -128,10 +143,10 @@ export function queryNamedSlotState(
  * @returns A new frozen object with values being set to true, if the host contains elements
  *   with the corresponding slot name.
  */
-export function queryAndObserveNamedSlotState(
+export function queryAndObserveNamedSlotState<S extends NamedSlotState>(
   element: HTMLElement,
-  state: Record<string, boolean>
-): NamedSlotState {
+  state: S
+): S {
   observeNamedSlotChanges(element);
   return queryNamedSlotState(element, state);
 }
