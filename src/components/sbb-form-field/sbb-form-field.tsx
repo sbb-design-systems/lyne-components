@@ -116,7 +116,7 @@ export class SbbFormField implements ComponentInterface {
     this._formFieldAttributeObserver.disconnect();
   }
 
-  @Listen('sbbSlotNameChange', { passive: true })
+  @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }

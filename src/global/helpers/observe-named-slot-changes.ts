@@ -15,7 +15,7 @@ const extractSlotNames = (nodeLists: NodeList[], slotNames = new Set<string>()):
 
 const observer = new AgnosticMutationObserver((mutations) => {
   // Aggregate multiple mutations to the corresponding target.
-  // This prevents the sbbSlotNameChange to be triggered multiple times for the same target.
+  // This prevents the sbbNamedSlotChange to be triggered multiple times for the same target.
   const mutationMap = mutations.reduce(
     (map, mutation) =>
       map.set(
@@ -26,7 +26,7 @@ const observer = new AgnosticMutationObserver((mutations) => {
   );
   mutationMap.forEach((slotNames, host) => {
     if (slotNames.size) {
-      host.dispatchEvent(new CustomEvent('sbbSlotNameChange', { detail: slotNames }));
+      host.dispatchEvent(new CustomEvent('sbbNamedSlotChange', { detail: slotNames }));
     }
   });
 });
@@ -117,7 +117,7 @@ export function queryNamedSlotState(
  *   this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
  * }
  *
- * @Listen('sbbSlotNameChange', { passive: true })
+ * @Listen('sbbNamedSlotChange', { passive: true })
  * public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
  *   this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
  * }
