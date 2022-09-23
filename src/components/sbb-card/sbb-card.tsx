@@ -23,7 +23,7 @@ export class SbbCard implements LinkButtonProperties {
   /**
    * Size variant, either xs, s, m, l, xl or xxl.
    */
-  @Prop() public size?: InterfaceSbbCardAttributes['size'] = 'm';
+  @Prop({ reflect: true }) public size?: InterfaceSbbCardAttributes['size'] = 'm';
 
   /**
    * Option for set the component background color.

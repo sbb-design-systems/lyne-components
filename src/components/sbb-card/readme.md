@@ -1,20 +1,19 @@
 # sbb-card
 
-The `sbb-card` component is a generic content container; its task is to contain HTML elements related to a single subject.
+The `sbb-card` component is a generic content container as an action element; its task is to contain HTML elements related to a single subject.
 
-Internally, it could be rendered as a link or as a button based on the value of the `href` attribute 
-(as the [sbb-link](../sbb-link/readme.md)). When rendered as a button, consumers could listen to the emitted click event.
+Internally, it is either rendered as an anchor (`<a>`, when used with a `href` attribute) or as a button (when used without a `href` attribute). When rendered as a button, it is possible to listen to the click event to add behavior.
 
-It has 6 size variant (from `xs` to `xxl`) base on the `size` attribute value,
-and 2 background variants - white for default and milk for negative - based on the `negative` attribute value.
-Consumers could also conditionally set the value of the `active` attribute to display an active state on the component.
+There are six size variants available (from `xs` to `xxl`), which can be configured via the `size` attribute value,
+and two background variants, white by default and milk when the `negative` attribute is used.
+Set the `active` attribute to display the card in an active state, which is bordered and has no hover effect.
 
 The `sbb-card-badge` component can be used via slot to display a badge in the upper right corner. 
-Even if provided, it is never displayed when the `sbb-card` size attribute is set to `xs` or `s`.
+The badge is hidden with sizes `xs` or `s`.
 
 ## Usage
 
-The examples below show how to render the component with and without the `<sbb-card-badge>` component.
+The examples below shows how to use the component with and without the `<sbb-card-badge>` component.
 In the first one, the `sbb-card` will be internally rendered as a button, in the second one as a link. 
 
 ```html
