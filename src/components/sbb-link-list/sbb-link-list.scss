@@ -2,47 +2,39 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-:host {
-  display: block;
-}
-
-sbb-title {
-  margin-block-end: var(--sbb-spacing-fixed-3x);
-}
-
-.link-list {
-  @include list-reset;
-}
-
 @mixin link-list--horizontal {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: var(--sbb-spacing-fixed-8x);
-}
+  sbb-title {
+    @include screenReaderOnly;
+  }
 
-.link-list--horizontal {
-  @include link-list--horizontal;
-}
-
-.link-list--horizontal-from-large {
-  @include mq($from: large) {
-    @include link-list--horizontal;
+  ul {
+    flex-flow: row wrap;
   }
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-::slotted(.link-list__item:not(:last-child)) {
-  margin-block-end: var(--sbb-spacing-fixed-3x);
+.sbb-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-3x);
 }
 
-// Need to be after the ::slotted(.link-list__item:not(:last-child))
-// selector due to specificity
-.link-list--horizontal ::slotted(.link-list__item) {
-  margin-block-end: unset;
+.sbb-link-list ul {
+  @include list-reset;
+
+  display: flex;
+  gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-8x);
+  flex-direction: column;
 }
 
-.link-list--horizontal-from-large ::slotted(.link-list__item) {
-  @include mq($from: large) {
-    margin-block-end: unset;
+.sbb-link-list--horizontal {
+  @include link-list--horizontal;
+}
+
+@each $breakpointName, $value in $mq-breakpoints {
+  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+  .sbb-link-list--horizontal-from-#{$breakpointName} {
+    @include mq($from: #{$breakpointName}) {
+      @include link-list--horizontal;
+    }
   }
 }

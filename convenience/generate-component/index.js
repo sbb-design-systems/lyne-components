@@ -79,7 +79,7 @@ const copyFiles = (foundFiles, componentName, targetDirectory) => {
   if (args.length !== 1) {
     console.log(`
 Please pass a component name like so:
-npm run generate my-component-name
+yarn generate my-component-name
     `);
 
     return;

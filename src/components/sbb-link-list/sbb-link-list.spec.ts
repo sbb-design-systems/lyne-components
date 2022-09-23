@@ -4,58 +4,131 @@ import { SbbLinkList } from './sbb-link-list';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-link-list', () => {
-  it('renders', async () => {
+  it('rendered with a slotted title', async () => {
     const { root } = await newSpecPage({
       components: [SbbLinkList],
-      html: `<sbb-link-list title-level="2" title-text="Help &amp; Contact" variant="positive">
-                <li class='link-list__item' slot='link-list__item'>
-                  <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Rückerstattungen' text-size='s'>Rückerstattungen</sbb-link>
-                </li>
-                <li class='link-list__item' slot='link-list__item'>
-                  <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Fundbüro' text-size='s'>Fundbüro</sbb-link>
-                </li>
-                <li class='link-list__item' slot='link-list__item'>
-                  <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Beschwerden' text-size='s'>Beschwerden</sbb-link>
-                </li>
-                <li class='link-list__item' slot='link-list__item'>
-                  <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Lob aussprechen' text-size='s'>Lob aussprechen</sbb-link>
-                </li>
-                <li class='link-list__item' slot='link-list__item'>
-                  <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text='Sachbeschädigung melden' text-size='s'>Sachbeschädigung melden</sbb-link>
-                </li>
+      html: `<sbb-link-list title-level="2">
+              <span slot="title">Help &amp; Contact</span>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Rückerstattungen</sbb-link>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Fundbüro</sbb-link>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Beschwerden</sbb-link>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Lob aussprechen</sbb-link>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Sachbeschädigung melden</sbb-link>
+            </sbb-link-list>`,
+    });
+    /*
+    Due to the missing onSlotEvent the following content is missing in this test case.
+    `
+      ...
+      <mock:shadow-root>
+        <sbb-title level="2" visual-level="5">
+          <slot name="title">Help &amp; Contact</slot>
+        </sbb-title>
+        <ul aria-labelledby="sbb-link-list-title-1">
+      ...
+    `
+    */
+    expect(root).toEqualHtml(`
+        <sbb-link-list
+            title-level="2">
+          <mock:shadow-root>
+            <div class="sbb-link-list">
+              <ul>
+                <li><slot name="link-0"></slot></li>
+                <li><slot name="link-1"></slot></li>
+                <li><slot name="link-2"></slot></li>
+                <li><slot name="link-3"></slot></li>
+                <li><slot name="link-4"></slot></li>
+              </ul>
+              <span hidden>
+                <slot></slot>
+              </span>
+            </div>
+          </mock:shadow-root>
+          <span slot="title">Help &amp; Contact</span>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0" text-size="s">Rückerstattungen</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1" text-size="s">Fundbüro</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2" text-size="s">Beschwerden</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3" text-size="s">Lob aussprechen</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4" text-size="s">Sachbeschädigung melden</sbb-link>
+        </sbb-link-list>
+      `);
+  });
+  it('rendered with a title from properties', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbLinkList],
+      html: `<sbb-link-list title-level="2" title-content="Help &amp; Contact">
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Rückerstattungen</sbb-link>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Fundbüro</sbb-link>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Beschwerden</sbb-link>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Lob aussprechen</sbb-link>
+              <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Sachbeschädigung melden</sbb-link>
             </sbb-link-list>`,
     });
 
     expect(root).toEqualHtml(`
         <sbb-link-list
             title-level="2"
-            title-text="Help &amp; Contact"
-            variant="positive"
-        >
+            title-content="Help &amp; Contact">
           <mock:shadow-root>
-            <div>
-                <sbb-title id="title-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" level="2" visual-level="5">Help &amp; Contact</sbb-title>
-                <ul aria-labelledby="title-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" class="link-list link-list--vertical" role="list">
-                    <slot name="link-list__item">
-                    </slot>
-                </ul>
+            <div class="sbb-link-list">
+              <sbb-title level="2" titleid="sbb-link-list-title-2" visual-level="5">
+                <slot name="title">
+                Help &amp; Contact
+              </sbb-title>
+              <ul aria-labelledby="sbb-link-list-title-2">
+                <li><slot name="link-0"></slot></li>
+                <li><slot name="link-1"></slot></li>
+                <li><slot name="link-2"></slot></li>
+                <li><slot name="link-3"></slot></li>
+                <li><slot name="link-4"></slot></li>
+              </ul>
+              <span hidden>
+                <slot></slot>
+              </span>
             </div>
           </mock:shadow-root>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Rückerstattungen" text-size="s">Rückerstattungen</sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Fundbüro" text-size="s">Fundbüro</sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Beschwerden" text-size="s">Beschwerden</sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Lob aussprechen" text-size="s">Lob aussprechen</sbb-link>
-          </li>
-          <li class="link-list__item" slot="link-list__item">
-            <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" text="Sachbeschädigung melden" text-size="s">Sachbeschädigung melden</sbb-link>
-          </li>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0" text-size="s">Rückerstattungen</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1" text-size="s">Fundbüro</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2" text-size="s">Beschwerden</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3" text-size="s">Lob aussprechen</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4" text-size="s">Sachbeschädigung melden</sbb-link>
+        </sbb-link-list>
+      `);
+  });
+  it('rendered without a title', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbLinkList],
+      html: `<sbb-link-list>
+             <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Rückerstattungen</sbb-link>
+             <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Fundbüro</sbb-link>
+             <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Beschwerden</sbb-link>
+             <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Lob aussprechen</sbb-link>
+             <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Sachbeschädigung melden</sbb-link>
+            </sbb-link-list>`,
+    });
+
+    expect(root).toEqualHtml(`
+        <sbb-link-list>
+          <mock:shadow-root>
+            <div class="sbb-link-list">
+              <ul>
+                <li><slot name="link-0"></slot></li>
+                <li><slot name="link-1"></slot></li>
+                <li><slot name="link-2"></slot></li>
+                <li><slot name="link-3"></slot></li>
+                <li><slot name="link-4"></slot></li>
+              </ul>
+              <span hidden>
+                <slot></slot>
+              </span>
+            </div>
+          </mock:shadow-root>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0" text-size="s">Rückerstattungen</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1" text-size="s">Fundbüro</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2" text-size="s">Beschwerden</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3" text-size="s">Lob aussprechen</sbb-link>
+          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4" text-size="s">Sachbeschädigung melden</sbb-link>
         </sbb-link-list>
       `);
   });

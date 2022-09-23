@@ -530,30 +530,35 @@ The use of scss & rule concatenation hurts readability and makes it more complic
 
 The end-user of a component should be the one to decide how much margin a component has around it.
 
-#### Prefer styling the host element vs. elements inside the template (where possible).
+#### Prefer styling inner elements instead of host.
 
-This makes it easier to override styles when necessary. For example, rather than
+In order to avoid unwanted style overrides from outside,
+prefer to encapsulate styles to inner elements instead of the host.
+We provide css vars as an api to the outside.
+
+For example, rather than
 
 ```scss
-the-host-element {
-  // ...
+:host {
+  --width: 200px;
 
-  .some-child-element {
-    color: red;
-  }
+  display: flex;
+  width: var(--width);
 }
 ```
 
 you can write
 
 ```scss
-the-host-element {
-  // ...
-  color: red;
+:host {
+  --width: 200px;
+}
+
+.component {
+  display: flex;
+  width: var(--width);
 }
 ```
-
-The latter is equivalent for the component, but makes it easier override when necessary.
 
 #### Support styles for Windows high-contrast mode
 

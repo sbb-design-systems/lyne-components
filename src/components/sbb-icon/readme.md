@@ -96,6 +96,7 @@ In the HTML, you can now use the icon as shown below:
 
 ### Used by
 
+ - [sbb-alert](../sbb-alert)
  - [sbb-form-field](../sbb-form-field)
  - [sbb-header-action](../sbb-header-action)
  - [sbb-link](../sbb-link)
@@ -104,6 +105,7 @@ In the HTML, you can now use the icon as shown below:
 ### Graph
 ```mermaid
 graph TD;
+  sbb-alert --> sbb-icon
   sbb-form-field --> sbb-icon
   sbb-header-action --> sbb-icon
   sbb-link --> sbb-icon
