@@ -2,41 +2,46 @@
 
 This document shows what should be done during review process.
 
-A basic review only contains the entries which have an exclamation mark (⚠).
-If there is time or wished, some other items may be considered.
+A basic review only contains the entries which have an exclamation mark (⚠️).
+Depending on circumstances, additional options might be considered.
 
 #### General
 
-- ⚠ Does the code touch anything existent (e.g. new libraries, changed code)?
-- ⚠ Is the build running?
-- ⚠ Are the chromatic tests green or don't affect existing stories in an undesired way?
+- ⚠️ Were changes made that affect existing code (e.g. new libraries, changed global code sections)?
+- ⚠️ Is the build green?
+- ⚠️ Are the chromatic tests green or don't affect existing stories in an undesired way?
 
 #### Architecture
 
 - Reusability for internal usages, is the component flexible enough?
-- Do the chosen properties and public methods make sense?
+- Is the API consistent with existing (finalized) components?
+- Is the meaning of newly added properties and public methods understandable?
 - Can the main content be slotted (achieve flexibility)?
 
 #### Documentation
 
-- Is the consumer documentation present and comprehensible (readme.md, including public property descriptions)?
-- Are there some small examples of how to use the component in the readme.md file?
+- Is the consumer documentation present and comprehensible
+  (readme.md, tsdoc for public properties/methods/classes/interfaces/etc.)?
+- Are code blocks that are not easily understandable documented with an explanation as to why it is
+  necessary?
+- Are there small examples of how to use the component in the readme.md file?
 - Is the documentation (mostly) free of spelling errors?
 - Is the documentation up-to-date with the current implementation?
 - Are all texts written in English language?
 
 #### Tests
 
-- Do the tests cover all important logic (e2e or unit)?
+- Do the tests cover all important logic and variants (e2e or unit)?
 - Are the tests readable for developers?
 
 #### Component
 
-- Does the code have good styling in general (appropriate names, small readable blocks, ...)?
+- Does the code have good styling in general (appropriate names, small readable blocks, etc.)?
 - Does the order of methods and props make sense?
 - Is the implementation performant?
-- Is everything working, when slot content changes, properties change or the component is moved in DOM?
-- Does every method has type declarations?
+- Is everything working, when slot content changes, properties change or the component is moved in
+  DOM?
+- Do all methods have type declarations?
 
 #### Stories
 
@@ -48,16 +53,16 @@ If there is time or wished, some other items may be considered.
 
 #### Styles
 
-- Does the implementation following the coding standards (several points)?
-- ⚠ Is every value from a design token and if not, well documented?
-- Are modern style properties used (e.g. gap, inset, margin-block, padding-inline,...)?
-- Are there as less style definitions as possible (e.g. using gap instead of exceptions for last-child...)?
-- Do the css class names are consistent to BEM and have sbb prefix?
-- Does the visual output looks good comparing with Figma specs (also in responsibility of UX)?
+- Does the implementation follow the coding standards (several points)?
+- ⚠️ Is every value from a design token and if not, well documented?
+- Are modern style properties used (e.g. gap, inset, margin-block, padding-inline, etc.)?
+- Are there as little style definitions as possible (e.g. using gap instead of exceptions for last-child, etc.)?
+- Do the css class names follow BEM and have sbb prefix?
+- Does the visual output match the Figma spec (also confirmed with UX)?
 
 #### Accessibility
 
-- Are the components looking statically correct (aria attributes, native elements...)?
+- Are the components semantically correct (aria attributes, native elements, etc.)?
 - Check if the developer has tested all screen readers?
 - Do some smoke tests.
 - Is Windows high contrast mode supported well?
@@ -69,4 +74,4 @@ If there is time or wished, some other items may be considered.
 
 #### Refactorings
 
-- ⚠ Is every usage of a component refactored too?
+- ⚠️ Is every usage of a component refactored too?
