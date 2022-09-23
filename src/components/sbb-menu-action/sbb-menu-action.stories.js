@@ -160,13 +160,13 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   'menu-action-id': undefined,
-  icon: 'circle-information-small',
+  icon: 'tick-small',
   amount: '99',
   'accessibility-label': 'Details',
   'accessibility-describedby': '',
   'accessibility-labelledby': '',
   text: 'Details',
-  href: 'https://github.com/lyne-design-system/lyne-components',
+  href: 'https://www.sbb.ch/en',
   download: false,
   rel: undefined,
   target: '_blank',

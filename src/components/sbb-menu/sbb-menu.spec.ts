@@ -51,25 +51,4 @@ describe('sbb-menu', () => {
       </sbb-menu>
     `);
   });
-
-  // it('opens the menu', async () => {
-  //   await component.openMenu();
-  //   expect(component).not.toBe(null);
-  // });
-
-  // it('accepts id of an element to set the trigger', async () => {
-  //   //
-  // });
-
-  // it('accepts an HTML element to set the trigger', async () => {
-  //   //
-  // });
-
-  // it('attaches click handler to trigger', async () => {
-  //   //
-  // });
-
-  // it('removes click handler from trigger, if changed', async () => {
-  //   //
-  // });
 });

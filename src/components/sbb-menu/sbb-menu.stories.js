@@ -4,6 +4,58 @@ import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
 
+// Function to emulate pausing between interactions
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const button = canvas.getByTestId('menu-trigger');
+  await sleep(100);
+  await userEvent.click(button);
+};
+//
+const icon = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Menu action',
+  },
+};
+
+const amount = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Menu action',
+  },
+};
+
+const disabled = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Menu action',
+  },
+};
+
+const defaultArgTypes = {
+  icon,
+  amount,
+  disabled,
+};
+
+const defaultArgs = {
+  icon: 'link-small',
+  amount: '123',
+  disabled: false,
+};
+
 const userNameStyle = {
   fontFamily: 'var(--sbb-typo-type-face-sbb-bold)',
   fontSize: 'var(--sbb-font-size-text-xs)',
@@ -19,20 +71,20 @@ const userInfoStyle = {
 const DefaultTemplate = (args) => (
   <div>
     <sbb-button
-      data-testid="menu-trigger-1"
+      data-testid="menu-trigger"
       id="menu-trigger-1"
       size="m"
       label="Menu trigger"
     ></sbb-button>
-    {/* <button id="menu-trigger-1">Trigger</button> */}
-    <sbb-menu {...args} trigger="menu-trigger-1">
-      <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
+
+    <sbb-menu trigger="menu-trigger-1">
+      <sbb-menu-action icon={args.icon} href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
-      <sbb-menu-action icon="pen-small" amount="1" disabled>
+      <sbb-menu-action icon="pen-small" amount="16" disabled={args.disabled}>
         Edit
       </sbb-menu-action>
-      <sbb-menu-action icon="swisspass-small" amount="2">
+      <sbb-menu-action icon="swisspass-small" amount={args.amount}>
         Details
       </sbb-menu-action>
       <sbb-divider />
@@ -43,45 +95,56 @@ const DefaultTemplate = (args) => (
 
 const CustomContentTemplate = (args) => (
   <div>
-    <sbb-button id="menu-trigger-2" size="m" label="Menu trigger"></sbb-button>
+    <sbb-button
+      data-testid="menu-trigger"
+      id="menu-trigger-2"
+      size="m"
+      label="Menu trigger"
+    ></sbb-button>
 
-    <sbb-menu {...args} trigger="menu-trigger-2" ref={(menu) => isChromatic() && menu.openMenu()}>
+    <sbb-menu trigger="menu-trigger-2">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
       <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
         Profile
       </sbb-link>
       <sbb-divider />
-      <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
+      <sbb-menu-action icon={args.icon} href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
-      <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
-      <sbb-menu-action icon="swisspass-small" amount="123">
-        Details
+      <sbb-menu-action icon="tickets-class-small" disabled={args.disabled}>
+        Tickets
+      </sbb-menu-action>
+      <sbb-menu-action icon="shopping-cart-small" amount={args.amount}>
+        Cart
       </sbb-menu-action>
       <sbb-divider />
-      <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+      <sbb-menu-action icon="exit-small">Log Out</sbb-menu-action>
     </sbb-menu>
   </div>
 );
 
 const LongContentTemplate = (args) => (
   <div>
-    <sbb-button id="menu-trigger-3" size="m" label="Menu trigger"></sbb-button>
+    <sbb-button
+      data-testid="menu-trigger"
+      id="menu-trigger-3"
+      size="m"
+      label="Menu trigger"
+    ></sbb-button>
 
-    <sbb-menu {...args} trigger="menu-trigger-3" ref={(menu) => isChromatic() && menu.openMenu()}>
-      <div style={userNameStyle}>Christina Müller</div>
-      <span style={userInfoStyle}>UIS9057</span>
-      <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
-        Profile
-      </sbb-link>
-      <sbb-divider />
-      <sbb-menu-action icon="tick-small" event-id="English">
+    <sbb-menu trigger="menu-trigger-3">
+      <sbb-menu-action
+        icon={args.icon}
+        event-id="English"
+        disabled={args.disabled}
+        amount={args.amount}
+      >
         English
       </sbb-menu-action>
-      <sbb-menu-action event-id="German">Deutsch</sbb-menu-action>
-      <sbb-menu-action event-id="French">Français</sbb-menu-action>
-      <sbb-menu-action event-id="Italian">Italiano</sbb-menu-action>
+      <sbb-menu-action>Deutsch</sbb-menu-action>
+      <sbb-menu-action>Français</sbb-menu-action>
+      <sbb-menu-action>Italiano</sbb-menu-action>
       <sbb-menu-action>Rumantsch</sbb-menu-action>
       <sbb-menu-action>Español</sbb-menu-action>
       <sbb-menu-action>Português</sbb-menu-action>
@@ -103,20 +166,27 @@ const LongContentTemplate = (args) => (
 
 const EllipsisTemplate = (args) => (
   <div>
-    <sbb-button id="menu-trigger-4" size="m" label="Menu trigger"></sbb-button>
+    <sbb-button
+      data-testid="menu-trigger"
+      id="menu-trigger-4"
+      size="m"
+      label="Menu trigger"
+    ></sbb-button>
 
-    <sbb-menu {...args} trigger="menu-trigger-4" ref={(menu) => isChromatic() && menu.openMenu()}>
+    <sbb-menu trigger="menu-trigger-4">
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
       <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
         Profile
       </sbb-link>
       <sbb-divider />
-      <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">
+      <sbb-menu-action icon={args.icon} href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
-      <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
-      <sbb-menu-action icon="swisspass-small" amount="123">
+      <sbb-menu-action icon="pen-small" disabled={args.disabled}>
+        Edit
+      </sbb-menu-action>
+      <sbb-menu-action icon="swisspass-small" amount={args.amount}>
         Very long label that exceeds the maximum width of the menu, very long label that exceeds the
         maximum width of the menu, very long label that exceeds the maximum width of the menu
       </sbb-menu-action>
@@ -127,21 +197,37 @@ const EllipsisTemplate = (args) => (
 );
 
 export const Default = DefaultTemplate.bind({});
+Default.argTypes = defaultArgTypes;
+Default.args = { ...defaultArgs };
+Default.args.disabled = true;
 Default.documentation = { title: 'Default' };
+Default.play = playStory;
 
 export const CustomContent = CustomContentTemplate.bind({});
+CustomContent.argTypes = defaultArgTypes;
+CustomContent.args = { ...defaultArgs };
+CustomContent.args.amount = '2';
 CustomContent.documentation = { title: 'Custom Content' };
+CustomContent.play = playStory;
 
 export const LongContent = LongContentTemplate.bind({});
+LongContent.argTypes = defaultArgTypes;
+LongContent.args = { ...defaultArgs };
+LongContent.args.icon = 'tick-small';
+LongContent.args.amount = '';
 LongContent.documentation = { title: 'Long Content' };
+LongContent.play = playStory;
 
 export const Ellipsis = EllipsisTemplate.bind({});
+Ellipsis.argTypes = defaultArgTypes;
+Ellipsis.args = { ...defaultArgs };
 Ellipsis.documentation = { title: 'Ellipsis' };
+Ellipsis.play = playStory;
 
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem; min-height: 500px'}>
+      <div style={`padding: 2rem; ${isChromatic() && 'min-height: 100vh'}`}>
         <Story />
       </div>
     ),
@@ -158,20 +244,4 @@ export default {
     },
   },
   title: 'components/menu/sbb-menu',
-};
-
-// Function to emulate pausing between interactions
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-Default.play = async ({ canvasElement }) => {
-  // Starts querying the component from its root
-  const canvas = within(canvasElement);
-  const button = canvas.getByTestId('menu-trigger-1');
-
-  await sleep(600);
-
-  // Looks up the button and interacts with it.
-  await userEvent.click(button);
 };
