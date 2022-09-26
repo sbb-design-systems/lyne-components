@@ -46,9 +46,8 @@
   &[open] {
     animation: {
       name: show;
-
-      // duration: var(--sbb-animation-duration-6x);
-      // timing-function: ease;
+      duration: var(--sbb-animation-duration-6x);
+      timing-function: ease;
     }
   }
 
@@ -57,9 +56,8 @@
 
     animation: {
       name: show-backdrop;
-
-      // duration: 0.24s;
-      // timing-function: ease;
+      duration: 0.24s;
+      timing-function: ease;
     }
   }
 
