@@ -1,6 +1,7 @@
 import events from './sbb-menu.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
 
 // Function to emulate pausing between interactions
@@ -226,7 +227,7 @@ Ellipsis.play = playStory;
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={`padding: 2rem; ${isChromatic() && 'min-height: 100vh'}`}>
         <Story />
       </div>
     ),
