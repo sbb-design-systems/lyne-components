@@ -40,6 +40,34 @@
   width: 100%;
 }
 
+// classes for alternative CSS used for custom sbb.ch story
+:host(.sbb-header__alternative) {
+  .sbb-header__wrapper {
+    @include mq($to: medium) {
+      gap: calc(
+        var(--sbb-spacing-responsive-s) -
+          (var(--sbb-size-button-m-min-height) - var(--sbb-size-icon-ui-small))
+      );
+    }
+  }
+
+  ::slotted(.sbb-header__spacer) {
+    display: none;
+    @include mq($from: large) {
+      display: flex;
+      flex-grow: 1;
+    }
+  }
+
+  // TODO add more class based on breakpoints?
+  ::slotted(.sbb-header__action-hidden-medium) {
+    display: none;
+    @include mq($from: medium) {
+      display: block;
+    }
+  }
+}
+
 .sbb-header__logo {
   height: var(--logo-height);
   aspect-ratio: 19/2;
