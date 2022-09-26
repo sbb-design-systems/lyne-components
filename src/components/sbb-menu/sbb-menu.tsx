@@ -157,8 +157,8 @@ export class SbbMenu implements ComponentInterface {
     return o instanceof window.Element;
   }
 
-  // TODO: improve dialog element type check (https://github.com/microsoft/TypeScript/issues/48267)
-  private _dialog: HTMLDialogElement | any;
+  // Internal dialog element
+  private _dialog: HTMLDialogElement;
 
   // The element that triggers the open of the sbb-menu.
   private _triggerEl: HTMLElement;
