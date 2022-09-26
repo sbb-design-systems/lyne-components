@@ -56,6 +56,7 @@
   position: relative;
   overflow: hidden;
   transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  border-radius: var(--sbb-card-border-radius);
 
   &::before {
     position: absolute;
@@ -113,7 +114,7 @@
 
 @include hover-mq($hover: true) {
   // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
-  :host(:not([active]):hover) {
+  :host(:not([active]):hover) .sbb-card {
     @include shadow-level-9-hard;
 
     .sbb-card__content {
