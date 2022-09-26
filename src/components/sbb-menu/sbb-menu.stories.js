@@ -16,7 +16,7 @@ const playStory = async ({ canvasElement }) => {
   await sleep(100);
   await userEvent.click(button);
 };
-//
+
 const icon = {
   control: {
     type: 'text',
@@ -240,6 +240,7 @@ export default {
       disable: true,
     },
     docs: {
+      inlineStories: false,
       extractComponentDescription: () => readme,
     },
   },
