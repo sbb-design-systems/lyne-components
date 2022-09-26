@@ -1,261 +1,126 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const firstButtonTemplate = (alignSelf) => (
+  <sbb-button align-self={alignSelf} variant="secondary" label="Button 1" />
+);
+
+const secondButtonTemplate = (alignSelf) => <sbb-button align-self={alignSelf} label="Button 2" />;
+
+const linkTemplate = (alignSelf) => (
+  <sbb-link
+    align-self={alignSelf}
+    variant="block"
+    text-size="s"
+    icon-name="chevron-small-left-small"
+    icon-placement="start"
+    href="https://github.com/lyne-design-system/lyne-components"
+  >
+    Link
+  </sbb-link>
+);
+
 const TemplateHorizontalAllocation300 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="start" label="Action 2" />
-    <sbb-link
-      align-self="start"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
+    {firstButtonTemplate('start')}
+    {secondButtonTemplate('start')}
+    {linkTemplate('start')}
   </sbb-action-group>
 );
 
 const TemplateHorizontalAllocation111 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="center" label="Action 2" />
-    <sbb-link
-      align-self="end"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
+    {firstButtonTemplate('start')}
+    {secondButtonTemplate('center')}
+    {linkTemplate('end')}
   </sbb-action-group>
 );
 
 const TemplateHorizontalAllocation201 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="start" label="Action 2" />
-    <sbb-link
-      align-self="end"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
+    {firstButtonTemplate('start')}
+    {secondButtonTemplate('start')}
+    {linkTemplate('end')}
   </sbb-action-group>
 );
 
 const TemplateHorizontalAllocation102 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="end" label="Action 2" />
-    <sbb-link
-      align-self="end"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
+    {firstButtonTemplate('start')}
+    {secondButtonTemplate('end')}
+    {linkTemplate('end')}
   </sbb-action-group>
 );
 
 const TemplateHorizontalAllocation200 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="start" label="Action 2" />
+    {firstButtonTemplate('start')}
+    {secondButtonTemplate('start')}
   </sbb-action-group>
 );
 
 const TemplateHorizontalAllocation101 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="end" label="Action 2" />
-  </sbb-action-group>
-);
-
-const TemplateVerticalAllocation300 = (args) => (
-  <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="start" label="Action 2" />
-    <sbb-link
-      align-self="start"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
-  </sbb-action-group>
-);
-
-const TemplateVerticalAllocation200 = (args) => (
-  <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="start" label="Action 2" />
+    {firstButtonTemplate('start')}
+    {secondButtonTemplate('end')}
   </sbb-action-group>
 );
 
 const TemplateVerticalAllocation030 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="center" variant="secondary" label="Action 1" />
-    <sbb-button align-self="center" label="Action 2" />
-    <sbb-link
-      align-self="center"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
+    {firstButtonTemplate('center')}
+    {secondButtonTemplate('center')}
+    {linkTemplate('center')}
   </sbb-action-group>
 );
 
 const TemplateVerticalAllocation020 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="center" variant="secondary" label="Action 1" />
-    <sbb-button align-self="center" label="Action 2" />
+    {firstButtonTemplate('center')}
+    {secondButtonTemplate('center')}
   </sbb-action-group>
 );
 
 const TemplateVerticalAllocation003 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="end" variant="secondary" label="Action 1" />
-    <sbb-button align-self="end" label="Action 2" />
-    <sbb-link
-      align-self="end"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
+    {firstButtonTemplate('end')}
+    {secondButtonTemplate('end')}
+    {linkTemplate('end')}
   </sbb-action-group>
 );
 
 const TemplateVerticalAllocation002 = (args) => (
   <sbb-action-group {...args}>
-    <sbb-button align-self="end" variant="secondary" label="Action 1" />
-    <sbb-button align-self="end" label="Action 2" />
+    {firstButtonTemplate('end')}
+    {secondButtonTemplate('end')}
   </sbb-action-group>
 );
 
-const TemplateVerticalAllocation300FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="start" label="Action 2" />
-    <sbb-link
-      align-self="start"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
-  </sbb-action-group>
-);
-
-const TemplateVerticalAllocation200FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    <sbb-button align-self="start" variant="secondary" label="Action 1" />
-    <sbb-button align-self="start" label="Action 2" />
-  </sbb-action-group>
-);
-
-const TemplateVerticalAllocation030FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    <sbb-button align-self="center" variant="secondary" label="Action 1" />
-    <sbb-button align-self="center" label="Action 2" />
-    <sbb-link
-      align-self="center"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
-  </sbb-action-group>
-);
-
-const TemplateVerticalAllocation020FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    <sbb-button align-self="center" variant="secondary" label="Action 1" />
-    <sbb-button align-self="center" label="Action 2" />
-  </sbb-action-group>
-);
-
-const TemplateVerticalAllocation003FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    <sbb-button align-self="end" variant="secondary" label="Action 1" />
-    <sbb-button align-self="end" label="Action 2" />
-    <sbb-link
-      align-self="end"
-      text="Travelcards &amp; tickets"
-      variant="block"
-      text-size="s"
-      icon-name="chevron-small-left-small"
-      icon-placement="start"
-      href="https://github.com/lyne-design-system/lyne-components"
-    >
-      Travelcards &amp; tickets
-    </sbb-link>
-  </sbb-action-group>
-);
-
-const TemplateVerticalAllocation002FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    <sbb-button align-self="end" variant="secondary" label="Action 1" />
-    <sbb-button align-self="end" label="Action 2" />
-  </sbb-action-group>
-);
-
-const orientationArg = {
+const orientation = {
   control: {
     type: 'inline-radio',
   },
   options: ['horizontal', 'vertical'],
 };
 
-const horizontalFromArg = {
+const horizontalFrom = {
   control: {
     type: 'inline-radio',
   },
   options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
-const alignArg = {
+const align = {
   control: {
     type: 'inline-radio',
   },
   options: ['start', 'center', 'stretch', 'end'],
+};
+
+const basicArgTypes = {
+  align,
+  'horizontal-from': horizontalFrom,
+  orientation,
 };
 
 const basicArgs = {
@@ -264,62 +129,56 @@ const basicArgs = {
   orientation: 'horizontal',
 };
 
-const basicArgTypes = {
-  orientation: orientationArg,
-  'horizontal-from': horizontalFromArg,
-  align: alignArg,
-};
-
 export const sbbActionGroupHorizontalAllocation3_0_0 = TemplateHorizontalAllocation300.bind({});
 sbbActionGroupHorizontalAllocation3_0_0.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation3_0_0.args = basicArgs;
+sbbActionGroupHorizontalAllocation3_0_0.args = { ...basicArgs };
 sbbActionGroupHorizontalAllocation3_0_0.documentation = {
   title: 'SBB Action Group Horizontal Allocation 3-0-0',
 };
 
 export const sbbActionGroupHorizontalAllocation1_1_1 = TemplateHorizontalAllocation111.bind({});
 sbbActionGroupHorizontalAllocation1_1_1.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation1_1_1.args = basicArgs;
+sbbActionGroupHorizontalAllocation1_1_1.args = { ...basicArgs };
 sbbActionGroupHorizontalAllocation1_1_1.documentation = {
   title: 'SBB Action Group Horizontal Allocation 1-1-1',
 };
 
 export const sbbActionGroupHorizontalAllocation2_0_1 = TemplateHorizontalAllocation201.bind({});
 sbbActionGroupHorizontalAllocation2_0_1.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation2_0_1.args = basicArgs;
+sbbActionGroupHorizontalAllocation2_0_1.args = { ...basicArgs };
 sbbActionGroupHorizontalAllocation2_0_1.documentation = {
   title: 'SBB Action Group Horizontal Allocation 2-0-1',
 };
 
 export const sbbActionGroupHorizontalAllocation1_0_2 = TemplateHorizontalAllocation102.bind({});
 sbbActionGroupHorizontalAllocation1_0_2.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation1_0_2.args = basicArgs;
+sbbActionGroupHorizontalAllocation1_0_2.args = { ...basicArgs };
 sbbActionGroupHorizontalAllocation1_0_2.documentation = {
   title: 'SBB Action Group Horizontal Allocation 1-0-2',
 };
 
 export const sbbActionGroupHorizontalAllocation2_0_0 = TemplateHorizontalAllocation200.bind({});
 sbbActionGroupHorizontalAllocation2_0_0.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation2_0_0.args = basicArgs;
+sbbActionGroupHorizontalAllocation2_0_0.args = { ...basicArgs };
 sbbActionGroupHorizontalAllocation2_0_0.documentation = {
   title: 'SBB Action Group Horizontal Allocation 2-0-0',
 };
 
 export const sbbActionGroupHorizontalAllocation1_0_1 = TemplateHorizontalAllocation101.bind({});
 sbbActionGroupHorizontalAllocation1_0_1.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation1_0_1.args = basicArgs;
+sbbActionGroupHorizontalAllocation1_0_1.args = { ...basicArgs };
 sbbActionGroupHorizontalAllocation1_0_1.documentation = {
   title: 'SBB Action Group Horizontal Allocation 1-0-1',
 };
 
-export const sbbActionGroupVerticalAllocation3_0_0 = TemplateVerticalAllocation300.bind({});
+export const sbbActionGroupVerticalAllocation3_0_0 = TemplateHorizontalAllocation300.bind({});
 sbbActionGroupVerticalAllocation3_0_0.argTypes = basicArgTypes;
 sbbActionGroupVerticalAllocation3_0_0.args = { ...basicArgs, orientation: 'vertical' };
 sbbActionGroupVerticalAllocation3_0_0.documentation = {
   title: 'SBB Action Group Vertical Allocation 3-0-0',
 };
 
-export const sbbActionGroupVerticalAllocation2_0_0 = TemplateVerticalAllocation200.bind({});
+export const sbbActionGroupVerticalAllocation2_0_0 = TemplateHorizontalAllocation200.bind({});
 sbbActionGroupVerticalAllocation2_0_0.argTypes = basicArgTypes;
 sbbActionGroupVerticalAllocation2_0_0.args = { ...basicArgs, orientation: 'vertical' };
 sbbActionGroupVerticalAllocation2_0_0.documentation = {
@@ -354,48 +213,54 @@ sbbActionGroupVerticalAllocation0_0_2.documentation = {
   title: 'SBB Action Group Vertical Allocation 0-0-2',
 };
 
-export const sbbActionGroupVerticalAllocation3_0_0FullWidth =
-  TemplateVerticalAllocation300FullWidth.bind({});
+export const sbbActionGroupVerticalAllocation3_0_0FullWidth = TemplateHorizontalAllocation300.bind(
+  {}
+);
 sbbActionGroupVerticalAllocation3_0_0FullWidth.argTypes = basicArgTypes;
 sbbActionGroupVerticalAllocation3_0_0FullWidth.args = { ...basicArgs, orientation: 'vertical' };
 sbbActionGroupVerticalAllocation3_0_0FullWidth.documentation = {
   title: 'SBB Action Group Vertical Allocation 3-0-0',
 };
 
-export const sbbActionGroupVerticalAllocation2_0_0FullWidth =
-  TemplateVerticalAllocation200FullWidth.bind({});
+export const sbbActionGroupVerticalAllocation2_0_0FullWidth = TemplateHorizontalAllocation200.bind(
+  {}
+);
 sbbActionGroupVerticalAllocation2_0_0FullWidth.argTypes = basicArgTypes;
 sbbActionGroupVerticalAllocation2_0_0FullWidth.args = { ...basicArgs, orientation: 'vertical' };
 sbbActionGroupVerticalAllocation2_0_0FullWidth.documentation = {
   title: 'SBB Action Group Vertical Allocation 2-0-0',
 };
 
-export const sbbActionGroupVerticalAllocation0_3_0FullWidth =
-  TemplateVerticalAllocation030FullWidth.bind({});
+export const sbbActionGroupVerticalAllocation0_3_0FullWidth = TemplateVerticalAllocation030.bind(
+  {}
+);
 sbbActionGroupVerticalAllocation0_3_0FullWidth.argTypes = basicArgTypes;
 sbbActionGroupVerticalAllocation0_3_0FullWidth.args = { ...basicArgs, orientation: 'vertical' };
 sbbActionGroupVerticalAllocation0_3_0FullWidth.documentation = {
   title: 'SBB Action Group Vertical Allocation 0-3-0',
 };
 
-export const sbbActionGroupVerticalAllocation0_2_0FullWidth =
-  TemplateVerticalAllocation020FullWidth.bind({});
+export const sbbActionGroupVerticalAllocation0_2_0FullWidth = TemplateVerticalAllocation020.bind(
+  {}
+);
 sbbActionGroupVerticalAllocation0_2_0FullWidth.argTypes = basicArgTypes;
 sbbActionGroupVerticalAllocation0_2_0FullWidth.args = { ...basicArgs, orientation: 'vertical' };
 sbbActionGroupVerticalAllocation0_2_0FullWidth.documentation = {
   title: 'SBB Action Group Vertical Allocation 0-2-0',
 };
 
-export const sbbActionGroupVerticalAllocation0_0_3FullWidth =
-  TemplateVerticalAllocation003FullWidth.bind({});
+export const sbbActionGroupVerticalAllocation0_0_3FullWidth = TemplateVerticalAllocation003.bind(
+  {}
+);
 sbbActionGroupVerticalAllocation0_0_3FullWidth.argTypes = basicArgTypes;
 sbbActionGroupVerticalAllocation0_0_3FullWidth.args = { ...basicArgs, orientation: 'vertical' };
 sbbActionGroupVerticalAllocation0_0_3FullWidth.documentation = {
   title: 'SBB Action Group Vertical Allocation 0-0-3',
 };
 
-export const sbbActionGroupVerticalAllocation0_0_2FullWidth =
-  TemplateVerticalAllocation002FullWidth.bind({});
+export const sbbActionGroupVerticalAllocation0_0_2FullWidth = TemplateVerticalAllocation002.bind(
+  {}
+);
 sbbActionGroupVerticalAllocation0_0_2FullWidth.argTypes = basicArgTypes;
 sbbActionGroupVerticalAllocation0_0_2FullWidth.args = { ...basicArgs, orientation: 'vertical' };
 sbbActionGroupVerticalAllocation0_0_2FullWidth.documentation = {
@@ -410,9 +275,6 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
     backgrounds: {
       disable: true,
