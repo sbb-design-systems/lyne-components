@@ -20,80 +20,86 @@ const linkTemplate = (alignSelf) => (
   </sbb-link>
 );
 
+const TemplateTwoElements = (alignFirst, alignSecond) => [
+  firstButtonTemplate(alignFirst),
+  secondButtonTemplate(alignSecond),
+];
+
+const TemplateThreeElements = (alignFirst, alignSecond, alignThird) => [
+  TemplateTwoElements(alignFirst, alignSecond),
+  linkTemplate(alignThird),
+];
+
 const TemplateHorizontalAllocation300 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('start')}
-    {secondButtonTemplate('start')}
-    {linkTemplate('start')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements()}</sbb-action-group>
 );
 
 const TemplateHorizontalAllocation111 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('start')}
-    {secondButtonTemplate('center')}
-    {linkTemplate('end')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements(null, 'center', null)}</sbb-action-group>
 );
 
 const TemplateHorizontalAllocation201 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('start')}
-    {secondButtonTemplate('start')}
-    {linkTemplate('end')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements(null, null, 'end')}</sbb-action-group>
 );
 
 const TemplateHorizontalAllocation102 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('start')}
-    {secondButtonTemplate('end')}
-    {linkTemplate('end')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements('start')}</sbb-action-group>
 );
 
 const TemplateHorizontalAllocation200 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('start')}
-    {secondButtonTemplate('start')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateTwoElements()}</sbb-action-group>
 );
 
 const TemplateHorizontalAllocation101 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('start')}
-    {secondButtonTemplate('end')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateTwoElements(null, 'end')}</sbb-action-group>
+);
+
+const TemplateVerticalAllocation300 = (args) => (
+  <sbb-action-group {...args}>{TemplateThreeElements()}</sbb-action-group>
+);
+
+const TemplateVerticalAllocation200 = (args) => (
+  <sbb-action-group {...args}>{TemplateTwoElements()}</sbb-action-group>
 );
 
 const TemplateVerticalAllocation030 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('center')}
-    {secondButtonTemplate('center')}
-    {linkTemplate('center')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements()}</sbb-action-group>
 );
 
 const TemplateVerticalAllocation020 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('center')}
-    {secondButtonTemplate('center')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateTwoElements()}</sbb-action-group>
 );
 
 const TemplateVerticalAllocation003 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('end')}
-    {secondButtonTemplate('end')}
-    {linkTemplate('end')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements()}</sbb-action-group>
 );
 
 const TemplateVerticalAllocation002 = (args) => (
-  <sbb-action-group {...args}>
-    {firstButtonTemplate('end')}
-    {secondButtonTemplate('end')}
-  </sbb-action-group>
+  <sbb-action-group {...args}>{TemplateTwoElements()}</sbb-action-group>
+);
+
+const TemplateVerticalAllocation300FullWidth = (args) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(null, null, 'start')}</sbb-action-group>
+);
+
+const TemplateVerticalAllocation200FullWidth = (args) => (
+  <sbb-action-group {...args}>{TemplateTwoElements()}</sbb-action-group>
+);
+
+const TemplateVerticalAllocation030FullWidth = (args) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(null, null, 'center')}</sbb-action-group>
+);
+
+const TemplateVerticalAllocation020FullWidth = (args) => (
+  <sbb-action-group {...args}>{TemplateTwoElements()}</sbb-action-group>
+);
+
+const TemplateVerticalAllocation003FullWidth = (args) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(null, null, 'end')}</sbb-action-group>
+);
+
+const TemplateVerticalAllocation002FullWidth = (args) => (
+  <sbb-action-group {...args}>{TemplateTwoElements()}</sbb-action-group>
 );
 
 const orientation = {
@@ -110,7 +116,7 @@ const horizontalFrom = {
   options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
-const align = {
+const alignGroup = {
   control: {
     type: 'inline-radio',
   },
@@ -118,153 +124,151 @@ const align = {
 };
 
 const basicArgTypes = {
-  align,
+  'align-group': alignGroup,
   'horizontal-from': horizontalFrom,
   orientation,
 };
 
 const basicArgs = {
-  align: 'start',
+  'align-group': 'start',
   'horizontal-from': 'medium',
   orientation: 'horizontal',
 };
 
-export const sbbActionGroupHorizontalAllocation3_0_0 = TemplateHorizontalAllocation300.bind({});
-sbbActionGroupHorizontalAllocation3_0_0.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation3_0_0.args = { ...basicArgs };
-sbbActionGroupHorizontalAllocation3_0_0.documentation = {
-  title: 'SBB Action Group Horizontal Allocation 3-0-0',
+const basicArgsVertical = {
+  ...basicArgs,
+  orientation: 'vertical',
 };
 
-export const sbbActionGroupHorizontalAllocation1_1_1 = TemplateHorizontalAllocation111.bind({});
-sbbActionGroupHorizontalAllocation1_1_1.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation1_1_1.args = { ...basicArgs };
-sbbActionGroupHorizontalAllocation1_1_1.documentation = {
-  title: 'SBB Action Group Horizontal Allocation 1-1-1',
+const basicArgsVerticalFullWidth = {
+  ...basicArgsVertical,
+  'align-group': 'stretch',
 };
 
-export const sbbActionGroupHorizontalAllocation2_0_1 = TemplateHorizontalAllocation201.bind({});
-sbbActionGroupHorizontalAllocation2_0_1.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation2_0_1.args = { ...basicArgs };
-sbbActionGroupHorizontalAllocation2_0_1.documentation = {
-  title: 'SBB Action Group Horizontal Allocation 2-0-1',
+export const HorizontalAllocation3_0_0 = TemplateHorizontalAllocation300.bind({});
+HorizontalAllocation3_0_0.argTypes = basicArgTypes;
+HorizontalAllocation3_0_0.args = { ...basicArgs };
+HorizontalAllocation3_0_0.documentation = {
+  title: 'sbb-action-group horizontal allocation 3-0-0',
 };
 
-export const sbbActionGroupHorizontalAllocation1_0_2 = TemplateHorizontalAllocation102.bind({});
-sbbActionGroupHorizontalAllocation1_0_2.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation1_0_2.args = { ...basicArgs };
-sbbActionGroupHorizontalAllocation1_0_2.documentation = {
-  title: 'SBB Action Group Horizontal Allocation 1-0-2',
+export const HorizontalAllocation1_1_1 = TemplateHorizontalAllocation111.bind({});
+HorizontalAllocation1_1_1.argTypes = basicArgTypes;
+HorizontalAllocation1_1_1.args = { ...basicArgs };
+HorizontalAllocation1_1_1.documentation = {
+  title: 'sbb-action-group horizontal allocation 1-1-1',
 };
 
-export const sbbActionGroupHorizontalAllocation2_0_0 = TemplateHorizontalAllocation200.bind({});
-sbbActionGroupHorizontalAllocation2_0_0.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation2_0_0.args = { ...basicArgs };
-sbbActionGroupHorizontalAllocation2_0_0.documentation = {
-  title: 'SBB Action Group Horizontal Allocation 2-0-0',
+export const HorizontalAllocation2_0_1 = TemplateHorizontalAllocation201.bind({});
+HorizontalAllocation2_0_1.argTypes = basicArgTypes;
+HorizontalAllocation2_0_1.args = { ...basicArgs };
+HorizontalAllocation2_0_1.documentation = {
+  title: 'sbb-action-group horizontal allocation 2-0-1',
 };
 
-export const sbbActionGroupHorizontalAllocation1_0_1 = TemplateHorizontalAllocation101.bind({});
-sbbActionGroupHorizontalAllocation1_0_1.argTypes = basicArgTypes;
-sbbActionGroupHorizontalAllocation1_0_1.args = { ...basicArgs };
-sbbActionGroupHorizontalAllocation1_0_1.documentation = {
-  title: 'SBB Action Group Horizontal Allocation 1-0-1',
+export const HorizontalAllocation1_0_2 = TemplateHorizontalAllocation102.bind({});
+HorizontalAllocation1_0_2.argTypes = basicArgTypes;
+HorizontalAllocation1_0_2.args = { ...basicArgs, 'align-group': 'end' };
+HorizontalAllocation1_0_2.documentation = {
+  title: 'sbb-action-group horizontal allocation 1-0-2',
 };
 
-export const sbbActionGroupVerticalAllocation3_0_0 = TemplateHorizontalAllocation300.bind({});
-sbbActionGroupVerticalAllocation3_0_0.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation3_0_0.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation3_0_0.documentation = {
-  title: 'SBB Action Group Vertical Allocation 3-0-0',
+export const HorizontalAllocation2_0_0 = TemplateHorizontalAllocation200.bind({});
+HorizontalAllocation2_0_0.argTypes = basicArgTypes;
+HorizontalAllocation2_0_0.args = { ...basicArgs };
+HorizontalAllocation2_0_0.documentation = {
+  title: 'sbb-action-group horizontal allocation 2-0-0',
 };
 
-export const sbbActionGroupVerticalAllocation2_0_0 = TemplateHorizontalAllocation200.bind({});
-sbbActionGroupVerticalAllocation2_0_0.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation2_0_0.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation2_0_0.documentation = {
-  title: 'SBB Action Group Vertical Allocation 2-0-0',
+export const HorizontalAllocation1_0_1 = TemplateHorizontalAllocation101.bind({});
+HorizontalAllocation1_0_1.argTypes = basicArgTypes;
+HorizontalAllocation1_0_1.args = { ...basicArgs };
+HorizontalAllocation1_0_1.documentation = {
+  title: 'sbb-action-group horizontal allocation 1-0-1',
 };
 
-export const sbbActionGroupVerticalAllocation0_3_0 = TemplateVerticalAllocation030.bind({});
-sbbActionGroupVerticalAllocation0_3_0.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation0_3_0.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation0_3_0.documentation = {
-  title: 'SBB Action Group Vertical Allocation 0-3-0',
+export const VerticalAllocation3_0_0 = TemplateVerticalAllocation300.bind({});
+VerticalAllocation3_0_0.argTypes = basicArgTypes;
+VerticalAllocation3_0_0.args = { ...basicArgsVertical, 'align-group': 'start' };
+VerticalAllocation3_0_0.documentation = {
+  title: 'sbb-action-group vertical allocation 3-0-0',
 };
 
-export const sbbActionGroupVerticalAllocation0_2_0 = TemplateVerticalAllocation020.bind({});
-sbbActionGroupVerticalAllocation0_2_0.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation0_2_0.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation0_2_0.documentation = {
-  title: 'SBB Action Group Vertical Allocation 0-2-0',
+export const VerticalAllocation2_0_0 = TemplateVerticalAllocation200.bind({});
+VerticalAllocation2_0_0.argTypes = basicArgTypes;
+VerticalAllocation2_0_0.args = { ...basicArgsVertical, 'align-group': 'start' };
+VerticalAllocation2_0_0.documentation = {
+  title: 'sbb-action-group vertical allocation 2-0-0',
 };
 
-export const sbbActionGroupVerticalAllocation0_0_3 = TemplateVerticalAllocation003.bind({});
-sbbActionGroupVerticalAllocation0_0_3.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation0_0_3.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation0_0_3.documentation = {
-  title: 'SBB Action Group Vertical Allocation 0-0-3',
+export const VerticalAllocation0_3_0 = TemplateVerticalAllocation030.bind({});
+VerticalAllocation0_3_0.argTypes = basicArgTypes;
+VerticalAllocation0_3_0.args = { ...basicArgsVertical, 'align-group': 'center' };
+VerticalAllocation0_3_0.documentation = {
+  title: 'sbb-action-group vertical allocation 0-3-0',
 };
 
-export const sbbActionGroupVerticalAllocation0_0_2 = TemplateVerticalAllocation002.bind({});
-sbbActionGroupVerticalAllocation0_0_2.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation0_0_2.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation0_0_2.documentation = {
-  title: 'SBB Action Group Vertical Allocation 0-0-2',
+export const VerticalAllocation0_2_0 = TemplateVerticalAllocation020.bind({});
+VerticalAllocation0_2_0.argTypes = basicArgTypes;
+VerticalAllocation0_2_0.args = { ...basicArgsVertical, 'align-group': 'center' };
+VerticalAllocation0_2_0.documentation = {
+  title: 'sbb-action-group vertical allocation 0-2-0',
 };
 
-export const sbbActionGroupVerticalAllocation3_0_0FullWidth = TemplateHorizontalAllocation300.bind(
-  {}
-);
-sbbActionGroupVerticalAllocation3_0_0FullWidth.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation3_0_0FullWidth.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation3_0_0FullWidth.documentation = {
-  title: 'SBB Action Group Vertical Allocation 3-0-0',
+export const VerticalAllocation0_0_3 = TemplateVerticalAllocation003.bind({});
+VerticalAllocation0_0_3.argTypes = basicArgTypes;
+VerticalAllocation0_0_3.args = { ...basicArgsVertical, 'align-group': 'end' };
+VerticalAllocation0_0_3.documentation = {
+  title: 'sbb-action-group vertical allocation 0-0-3',
 };
 
-export const sbbActionGroupVerticalAllocation2_0_0FullWidth = TemplateHorizontalAllocation200.bind(
-  {}
-);
-sbbActionGroupVerticalAllocation2_0_0FullWidth.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation2_0_0FullWidth.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation2_0_0FullWidth.documentation = {
-  title: 'SBB Action Group Vertical Allocation 2-0-0',
+export const VerticalAllocation0_0_2 = TemplateVerticalAllocation002.bind({});
+VerticalAllocation0_0_2.argTypes = basicArgTypes;
+VerticalAllocation0_0_2.args = { ...basicArgsVertical, 'align-group': 'end' };
+VerticalAllocation0_0_2.documentation = {
+  title: 'sbb-action-group vertical allocation 0-0-2',
 };
 
-export const sbbActionGroupVerticalAllocation0_3_0FullWidth = TemplateVerticalAllocation030.bind(
-  {}
-);
-sbbActionGroupVerticalAllocation0_3_0FullWidth.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation0_3_0FullWidth.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation0_3_0FullWidth.documentation = {
-  title: 'SBB Action Group Vertical Allocation 0-3-0',
+export const VerticalAllocation3_0_0FullWidth = TemplateVerticalAllocation300FullWidth.bind({});
+VerticalAllocation3_0_0FullWidth.argTypes = basicArgTypes;
+VerticalAllocation3_0_0FullWidth.args = { ...basicArgsVerticalFullWidth };
+VerticalAllocation3_0_0FullWidth.documentation = {
+  title: 'sbb-action-group vertical allocation 3-0-0 full width',
 };
 
-export const sbbActionGroupVerticalAllocation0_2_0FullWidth = TemplateVerticalAllocation020.bind(
-  {}
-);
-sbbActionGroupVerticalAllocation0_2_0FullWidth.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation0_2_0FullWidth.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation0_2_0FullWidth.documentation = {
-  title: 'SBB Action Group Vertical Allocation 0-2-0',
+export const VerticalAllocation2_0_0FullWidth = TemplateVerticalAllocation200FullWidth.bind({});
+VerticalAllocation2_0_0FullWidth.argTypes = basicArgTypes;
+VerticalAllocation2_0_0FullWidth.args = { ...basicArgsVerticalFullWidth };
+VerticalAllocation2_0_0FullWidth.documentation = {
+  title: 'sbb-action-group vertical allocation 2-0-0 full width',
 };
 
-export const sbbActionGroupVerticalAllocation0_0_3FullWidth = TemplateVerticalAllocation003.bind(
-  {}
-);
-sbbActionGroupVerticalAllocation0_0_3FullWidth.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation0_0_3FullWidth.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation0_0_3FullWidth.documentation = {
-  title: 'SBB Action Group Vertical Allocation 0-0-3',
+export const VerticalAllocation0_3_0FullWidth = TemplateVerticalAllocation030FullWidth.bind({});
+VerticalAllocation0_3_0FullWidth.argTypes = basicArgTypes;
+VerticalAllocation0_3_0FullWidth.args = { ...basicArgsVerticalFullWidth };
+VerticalAllocation0_3_0FullWidth.documentation = {
+  title: 'sbb-action-group vertical allocation 0-3-0 full width',
 };
 
-export const sbbActionGroupVerticalAllocation0_0_2FullWidth = TemplateVerticalAllocation002.bind(
-  {}
-);
-sbbActionGroupVerticalAllocation0_0_2FullWidth.argTypes = basicArgTypes;
-sbbActionGroupVerticalAllocation0_0_2FullWidth.args = { ...basicArgs, orientation: 'vertical' };
-sbbActionGroupVerticalAllocation0_0_2FullWidth.documentation = {
-  title: 'SBB Action Group Vertical Allocation 0-0-2',
+export const VerticalAllocation0_2_0FullWidth = TemplateVerticalAllocation020FullWidth.bind({});
+VerticalAllocation0_2_0FullWidth.argTypes = basicArgTypes;
+VerticalAllocation0_2_0FullWidth.args = { ...basicArgsVerticalFullWidth };
+VerticalAllocation0_2_0FullWidth.documentation = {
+  title: 'sbb-action-group vertical allocation 0-2-0 full width',
+};
+
+export const VerticalAllocation0_0_3FullWidth = TemplateVerticalAllocation003FullWidth.bind({});
+VerticalAllocation0_0_3FullWidth.argTypes = basicArgTypes;
+VerticalAllocation0_0_3FullWidth.args = { ...basicArgsVerticalFullWidth };
+VerticalAllocation0_0_3FullWidth.documentation = {
+  title: 'sbb-action-group vertical allocation 0-0-3 full width',
+};
+
+export const VerticalAllocation0_0_2FullWidth = TemplateVerticalAllocation002FullWidth.bind({});
+VerticalAllocation0_0_2FullWidth.argTypes = basicArgTypes;
+VerticalAllocation0_0_2FullWidth.args = { ...basicArgsVerticalFullWidth };
+VerticalAllocation0_0_2FullWidth.documentation = {
+  title: 'sbb-action-group vertical allocation 0-0-2 full width',
 };
 
 export default {

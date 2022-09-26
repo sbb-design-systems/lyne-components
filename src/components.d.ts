@@ -82,11 +82,11 @@ export namespace Components {
     }
     interface SbbActionGroup {
         /**
-          * Set the alignment of the components inside the `<sbb-action-group>`.
+          * Set the slotted `<sbb-action-group>` children's alignment.
          */
-        "align": InterfaceSbbActionGroupAttributes['align'];
+        "alignGroup": InterfaceSbbActionGroupAttributes['alignGroup'];
         /**
-          * Overrides the behaviour of `orientation` prop
+          * Overrides the behaviour of `orientation` property.
          */
         "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
         /**
@@ -1661,11 +1661,11 @@ declare namespace LocalJSX {
     }
     interface SbbActionGroup {
         /**
-          * Set the alignment of the components inside the `<sbb-action-group>`.
+          * Set the slotted `<sbb-action-group>` children's alignment.
          */
-        "align"?: InterfaceSbbActionGroupAttributes['align'];
+        "alignGroup"?: InterfaceSbbActionGroupAttributes['alignGroup'];
         /**
-          * Overrides the behaviour of `orientation` prop
+          * Overrides the behaviour of `orientation` property.
          */
         "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
         /**
