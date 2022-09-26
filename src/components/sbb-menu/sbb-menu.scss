@@ -43,22 +43,24 @@
   padding-inline: 0;
   padding-block: var(--sbb-spacing-fixed-1x);
 
-  // &[open] {
-  //   animation: {
-  //     name: show;
-  //     duration: var(--sbb-animation-duration-6x);
-  //     timing-function: ease;
-  //   }
-  // }
+  &[open] {
+    animation: {
+      name: show;
+
+      // duration: var(--sbb-animation-duration-6x);
+      // timing-function: ease;
+    }
+  }
 
   &::backdrop {
     background: rgb(0 0 0 / 20%);
 
-    // animation: {
-    //   name: show-backdrop;
-    //   duration: 0.24s;
-    //   timing-function: ease;
-    // }
+    animation: {
+      name: show-backdrop;
+
+      // duration: 0.24s;
+      // timing-function: ease;
+    }
   }
 
   &::after {
