@@ -9,7 +9,6 @@
     --logo-height: #{px-to-rem-build(20)};
   }
 
-  display: block;
   height: var(--sbb-header-height-override, var(--sbb-header-height));
 }
 
@@ -39,9 +38,6 @@
   gap: calc(var(--sbb-spacing-fixed-5x) * 2);
   height: var(--sbb-header-height-override, var(--sbb-header-height));
   width: 100%;
-  @include mq($to: medium) {
-    gap: var(--sbb-spacing-responsive-s);
-  }
 }
 
 .sbb-header__logo {
@@ -50,24 +46,5 @@
   margin-left: calc(var(--sbb-spacing-responsive-s) - var(--sbb-spacing-fixed-5x));
   @include mq($to: large) {
     margin-left: auto;
-  }
-}
-
-::slotted(sbb-header-action:first-child) {
-  // if breakpoint > large, all elements (except menu) align to the right
-  @include mq($from: large) {
-    margin-right: auto;
-  }
-
-  // if breakpoint = small, menu label is still visible while other labels are hidden
-  @include mq($from: small, $to: medium) {
-    --sbb-header-action-visibility-override: block;
-  }
-}
-
-::slotted(sbb-header-action:last-child) {
-  // if breakpoint < medium, language header action is hidden
-  @include mq($to: medium) {
-    display: none;
   }
 }

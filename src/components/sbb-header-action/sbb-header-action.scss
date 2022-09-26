@@ -2,102 +2,95 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+@mixin expandFromBreakpoint($fromValue) {
+  @include mq($from: $fromValue) {
+    --sbb-header-action-label-display: block;
+    --sbb-header-action-icon-margin: var(--sbb-spacing-fixed-2x);
+    --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
+    --sbb-header-action-min-width: inherit;
+  }
+}
+
 :host {
+  --sbb-header-action-label-display: none;
+  --sbb-header-action-icon-margin: 0;
+  --sbb-header-action-padding-inline: 0;
+  --sbb-header-action-background-color: var(--sbb-color-white-default);
+  --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
+  --sbb-header-action-min-width: var(--sbb-header-action-min-height);
+
   display: flex;
-  min-height: var(--sbb-size-button-m-min-height);
-  padding-inline: var(--sbb-spacing-fixed-5x);
-  border-radius: var(--sbb-border-radius-16x);
 }
 
 :host([expand-from='zero']) {
-  @include mq($from: zero) {
-    .header-action__label {
-      display: block;
-    }
-  }
+  @include expandFromBreakpoint(zero);
 }
 
 :host([expand-from='micro']) {
-  @include mq($from: micro) {
-    .header-action__label {
-      display: block;
-    }
-  }
+  @include expandFromBreakpoint(micro);
 }
 
 :host([expand-from='small']) {
-  @include mq($from: small) {
-    .header-action__label {
-      display: block;
-    }
-  }
+  @include expandFromBreakpoint(small);
 }
 
 :host([expand-from='medium']) {
-  @include mq($from: medium) {
-    .header-action__label {
-      display: block;
-    }
-  }
+  @include expandFromBreakpoint(medium);
 }
 
 :host([expand-from='large']) {
-  @include mq($from: large) {
-    .header-action__label {
-      display: block;
-    }
-  }
+  @include expandFromBreakpoint(large);
 }
 
 :host([expand-from='wide']) {
-  @include mq($from: wide) {
-    .header-action__label {
-      display: block;
-    }
-  }
+  @include expandFromBreakpoint(wide);
 }
 
 :host([expand-from='ultra']) {
-  @include mq($from: ultra) {
-    .header-action__label {
-      display: block;
-    }
-  }
+  @include expandFromBreakpoint(ultra);
 }
 
 :host(:hover) {
-  background-color: var(--sbb-color-milk-default);
+  --sbb-header-action-background-color: var(--sbb-color-milk-default);
 }
 
 :host(:active) {
-  background-color: var(--sbb-color-cloud-default);
+  --sbb-header-action-background-color: var(--sbb-color-cloud-default);
 }
 
 .header-action__icon {
   line-height: 0;
   color: var(--sbb-color-black-default);
-  margin-right: var(--sbb-spacing-fixed-2x);
-  @include mq($to: small) {
-    margin-right: 0;
-  }
+  margin-right: var(--sbb-header-action-icon-margin);
 }
 
 .header-action__label {
-  display: var(--sbb-header-action-visibility-override, none);
-  color: var(--sbb-color-black-default);
   @include text-xs--bold;
+
+  display: var(--sbb-header-action-label-display);
+  color: var(--sbb-color-black-default);
 }
 
 .header-action__link {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
   text-decoration: none;
 }
 
 .header-action__button {
-  @include button;
+  @include buttonReset;
+  @include text-inherit;
 
+  cursor: pointer;
+}
+
+.header-action__link,
+.header-action__button {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  background-color: var(--sbb-header-action-background-color);
+  min-height: var(--sbb-header-action-min-height);
+  min-width: var(--sbb-header-action-min-width);
+  padding-inline: var(--sbb-header-action-padding-inline);
+  border-radius: var(--sbb-border-radius-16x);
 }

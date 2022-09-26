@@ -2,17 +2,13 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-header-action.events';
 
-const Template = (args) => (
+const TemplateSingle = (args) => <sbb-header-action {...args}>{args.text}</sbb-header-action>;
+
+const TemplateMultiple = (args) => (
   <div style="display: flex; gap: 2rem;">
-    <sbb-header-action {...args}>
-      <span>{args.text} 1</span>
-    </sbb-header-action>
-    <sbb-header-action {...args}>
-      <span>{args.text} 2</span>
-    </sbb-header-action>
-    <sbb-header-action {...args}>
-      <span>{args.text} 3</span>
-    </sbb-header-action>
+    <sbb-header-action {...args}>{args.text} 1</sbb-header-action>
+    <sbb-header-action {...args}>{args.text} 2</sbb-header-action>
+    <sbb-header-action {...args}>{args.text} 3</sbb-header-action>
   </div>
 );
 
@@ -173,33 +169,49 @@ const basicArgs = {
   value: undefined,
   form: undefined,
   eventId: undefined,
-  'accessibility-label': 'Accessibility label',
+  'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
 };
 
-export const sbbHeaderActionLink = Template.bind({});
-sbbHeaderActionLink.argTypes = basicArgTypes;
-sbbHeaderActionLink.args = { ...basicArgs };
-sbbHeaderActionLink.documentation = {
-  title: 'Header action (link version)',
-};
-
-export const sbbHeaderActionButton = Template.bind({});
-sbbHeaderActionButton.argTypes = basicArgTypes;
-sbbHeaderActionButton.args = {
+const basicArgsButton = {
   ...basicArgs,
   href: undefined,
   target: undefined,
   download: undefined,
   type: 'button',
   name: 'header-button',
-  value: undefined,
-  form: undefined,
+  value: 'value',
+  form: 'form',
   eventId: 'Header button',
 };
+
+export const sbbHeaderActionLink = TemplateSingle.bind({});
+sbbHeaderActionLink.argTypes = basicArgTypes;
+sbbHeaderActionLink.args = { ...basicArgs };
+sbbHeaderActionLink.documentation = {
+  title: 'Header action (link version)',
+};
+
+export const sbbHeaderActionButton = TemplateSingle.bind({});
+sbbHeaderActionButton.argTypes = basicArgTypes;
+sbbHeaderActionButton.args = { ...basicArgsButton };
 sbbHeaderActionButton.documentation = {
   title: 'Header action (button version)',
+};
+
+export const sbbHeaderActionLinkMultiple = TemplateMultiple.bind({});
+sbbHeaderActionLinkMultiple.argTypes = basicArgTypes;
+sbbHeaderActionLinkMultiple.args = { ...basicArgs };
+sbbHeaderActionLinkMultiple.documentation = {
+  title: 'Header action multiple (link version)',
+};
+
+export const sbbHeaderActionButtonMultiple = TemplateMultiple.bind({});
+sbbHeaderActionButtonMultiple.argTypes = basicArgTypes;
+sbbHeaderActionButtonMultiple.args = { ...basicArgsButton };
+sbbHeaderActionButtonMultiple.documentation = {
+  title: 'Header action multiple (button version)',
 };
 
 export default {
