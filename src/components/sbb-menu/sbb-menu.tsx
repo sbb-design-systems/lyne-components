@@ -50,6 +50,11 @@ export class SbbMenu implements ComponentInterface {
   @Prop() public trigger: string | HTMLElement;
 
   /**
+   * Whether the animation is enabled
+   */
+  @Prop() public noAnimation = false;
+
+  /**
    * Whether the menu is open.
    */
   @State() private _open = false;
@@ -279,6 +284,7 @@ export class SbbMenu implements ComponentInterface {
           'sbb-menu': true,
           'sbb-menu--open': this._open,
           'sbb-menu--dismissing': this._isDismissing,
+          'sbb-menu--no-animation': this.noAnimation,
         }}
       >
         <div class="sbb-menu__content">

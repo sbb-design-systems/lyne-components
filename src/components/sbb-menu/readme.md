@@ -46,9 +46,10 @@ As the menu opens, the focus will automatically be set to the first focusable it
 
 ## Properties
 
-| Property  | Attribute | Description                                                                                                 | Type                    | Default     |
-| --------- | --------- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
-| `trigger` | `trigger` | The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
+| Property      | Attribute      | Description                                                                                                 | Type                    | Default     |
+| ------------- | -------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `noAnimation` | `no-animation` | Whether the animation is enabled                                                                            | `boolean`               | `false`     |
+| `trigger`     | `trigger`      | The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
 
 
 ## Events

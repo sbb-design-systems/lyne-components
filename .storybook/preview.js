@@ -39,7 +39,7 @@ const getBreakpointNames = () => {
 export const parameters = {
   // Set the viewports in Chromatic globally.
   chromatic: {
-    delay: 2000,
+    delay: 1000,
     viewports: getViewports(),
   },
   breakpoints: {

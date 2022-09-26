@@ -785,6 +785,10 @@ export namespace Components {
          */
         "closeMenu": () => Promise<void>;
         /**
+          * Whether the animation is enabled
+         */
+        "noAnimation": boolean;
+        /**
           * Opens the menu on trigger click.
          */
         "openMenu": () => Promise<void>;
@@ -2532,6 +2536,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbMenu {
+        /**
+          * Whether the animation is enabled
+         */
+        "noAnimation"?: boolean;
         /**
           * Emits whenever the menu is closed.
          */
