@@ -77,7 +77,7 @@ const DefaultTemplate = (args) => (
       label="Menu trigger"
     ></sbb-button>
 
-    <sbb-menu trigger="menu-trigger-1">
+    <sbb-menu trigger="menu-trigger-1" no-animation={isChromatic()}>
       <sbb-menu-action icon={args.icon} href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
@@ -102,7 +102,7 @@ const CustomContentTemplate = (args) => (
       label="Menu trigger"
     ></sbb-button>
 
-    <sbb-menu trigger="menu-trigger-2">
+    <sbb-menu trigger="menu-trigger-2" no-animation={isChromatic()}>
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
       <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
@@ -133,7 +133,7 @@ const LongContentTemplate = (args) => (
       label="Menu trigger"
     ></sbb-button>
 
-    <sbb-menu trigger="menu-trigger-3">
+    <sbb-menu trigger="menu-trigger-3" no-animation={isChromatic()}>
       <sbb-menu-action
         icon={args.icon}
         event-id="English"
@@ -173,7 +173,7 @@ const EllipsisTemplate = (args) => (
       label="Menu trigger"
     ></sbb-button>
 
-    <sbb-menu trigger="menu-trigger-4">
+    <sbb-menu trigger="menu-trigger-4" no-animation={isChromatic()}>
       <div style={userNameStyle}>Christina Müller</div>
       <span style={userInfoStyle}>UIS9057</span>
       <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
