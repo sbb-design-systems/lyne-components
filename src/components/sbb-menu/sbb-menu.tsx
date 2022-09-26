@@ -55,11 +55,6 @@ export class SbbMenu implements ComponentInterface {
   @Prop() public noAnimation = false;
 
   /**
-   * Whether the animation is enabled
-   */
-  @Prop() public noAnimation = false;
-
-  /**
    * Whether the menu is open.
    */
   @State() private _open = false;
