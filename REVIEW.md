@@ -7,7 +7,7 @@ Depending on circumstances, additional options might be considered.
 
 #### General
 
-- ⚠️ Were changes made that affect existing code (e.g. new libraries, changed global code sections)?
+- ⚠️ Were changes made that affect existing code (e.g. new dependencies, changed global code sections)?
 - ⚠️ Is the build green?
 - ⚠️ Are the chromatic tests green or don't affect existing stories in an undesired way?
 
@@ -38,7 +38,7 @@ Depending on circumstances, additional options might be considered.
 
 - Does the code have good styling in general (appropriate names, small readable blocks, etc.)?
 - Does the order of methods and props make sense?
-- Is the implementation performant?
+- ⚠️ Is the implementation performant?
 - Is everything working, when slot content changes, properties change or the component is moved in
   DOM?
 - Do all methods have type declarations?
