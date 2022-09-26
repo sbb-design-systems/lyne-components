@@ -3,9 +3,81 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  --sbb-action-group-orientation: row;
 }
 
-.some-class {
-  color: var(--some-color-var);
+.action-group {
+  display: flex;
+  flex-direction: var(--sbb-action-group-orientation);
+  gap: var(--sbb-spacing-fixed-4x);
+}
+
+:host([orientation='vertical']) {
+  --sbb-action-group-orientation: column;
+
+  .action-group--align-start {
+    --sbb-action-group-align-items: flex-start;
+  }
+
+  .action-group--align-center {
+    --sbb-action-group-align-items: center;
+  }
+
+  .action-group--align-stretch {
+    --sbb-action-group-align-items: stretch;
+  }
+
+  .action-group--align-end {
+    --sbb-action-group-align-items: flex-end;
+  }
+
+  .action-group {
+    align-items: var(--sbb-action-group-align-items);
+  }
+
+  ::slotted([align-self='start']) {
+    align-self: flex-start;
+  }
+
+  ::slotted([align-self='center']) {
+    align-self: center;
+  }
+
+  ::slotted([align-self='end']) {
+    align-self: flex-end;
+  }
+}
+
+:host([orientation='horizontal']) {
+  .action-group--align-start {
+    --sbb-action-group-justify-content: flex-start;
+  }
+
+  .action-group--align-center {
+    --sbb-action-group-justify-content: center;
+  }
+
+  .action-group--align-stretch {
+    --sbb-action-group-justify-content: stretch;
+  }
+
+  .action-group--align-end {
+    --sbb-action-group-justify-content: flex-end;
+  }
+
+  .action-group {
+    justify-content: var(--sbb-action-group-justify-content);
+  }
+
+  ::slotted([align-self='start']) {
+    margin-inline-end: auto;
+  }
+
+  ::slotted([align-self='center']) {
+    margin-inline: auto;
+  }
+
+  ::slotted([align-self='end']) {
+    margin-inline-start: auto;
+  }
 }

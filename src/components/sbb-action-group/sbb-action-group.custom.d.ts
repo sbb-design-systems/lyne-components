@@ -1,7 +1,5 @@
 export interface InterfaceSbbActionGroupAttributes {
-  orientation: 'horizontal' | 'vertical';
-
+  alignGroup: 'start' | 'center' | 'stretch' | 'end';
   horizontalFrom?: 'zero' | 'micro' | 'small' | 'medium' | 'large' | 'wide' | 'ultra';
-
-  align: 'start' | 'center' | 'stretch' | 'end';
+  orientation: 'horizontal' | 'vertical';
 }

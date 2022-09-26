@@ -12,28 +12,27 @@ import { InterfaceSbbActionGroupAttributes } from './sbb-action-group.custom';
 })
 export class SbbActionGroup {
   /**
-   * Set the alignment of the components inside the `<sbb-action-group>`.
+   * Set the slotted `<sbb-action-group>` children's alignment.
    */
-  @Prop() public align: InterfaceSbbActionGroupAttributes['align'] = 'start';
+  @Prop() public alignGroup: InterfaceSbbActionGroupAttributes['alignGroup'] = 'start';
 
   /**
-   * Overrides the behaviour of `orientation` prop
+   * Overrides the behaviour of `orientation` property.
    */
   @Prop() public horizontalFrom?: InterfaceSbbActionGroupAttributes['horizontalFrom'] = 'medium';
 
   /**
    * Indicates the orientation of the components inside the `<sbb-action-group>`.
    */
-  @Prop() public orientation: InterfaceSbbActionGroupAttributes['orientation'] = 'horizontal';
+  @Prop({ reflect: true }) public orientation: InterfaceSbbActionGroupAttributes['orientation'] =
+    'horizontal';
 
   public render(): JSX.Element {
     return (
-      <Host
-        class={{
-          [`action-group--align-${this.align}`]: true,
-        }}
-      >
-        <slot />
+      <Host>
+        <div class={`action-group action-group--align-${this.alignGroup}`}>
+          <slot />
+        </div>
       </Host>
     );
   }
