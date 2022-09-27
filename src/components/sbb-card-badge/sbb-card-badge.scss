@@ -21,9 +21,11 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline-end: 0;
-  padding-inline-end: var(--sbb-spacing-fixed-6x);
+  padding-inline-start: var(--sbb-spacing-fixed-1x);
+  padding-inline-end: var(--sbb-spacing-fixed-8x);
   border-end-start-radius: var(--sbb-border-radius-4x);
-  z-index: inherit;
+  right: calc(var(--sbb-spacing-fixed-3x) * -1);
+  transform: skew(16deg, 0deg);
 
   > * {
     transform: skew(-16deg, 0deg);

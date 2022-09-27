@@ -1,5 +1,4 @@
 import { h } from 'jsx-dom';
-// import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
 import data from './sbb-pearl-chain.sample-data';
 const Template = (args) => {

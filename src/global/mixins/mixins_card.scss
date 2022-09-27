@@ -12,7 +12,6 @@
   // Todo: Design tokens need to be defined globally
   --card-hover-shift: 2px;
   --card-hover-animation: 0.03s all ease-out;
-  --card-outline: var(--sbb-color-smoke-default) solid #{px-to-rem-build(2)};
 
   // Needed to fully span on grids e.g. home/products
   height: 100%;
@@ -38,7 +37,7 @@
   &:focus {
     @include card--shadow;
 
-    outline: var(--card-outline);
+    @include focusOutline;
   }
 
   // If the the device can hover over elements with ease

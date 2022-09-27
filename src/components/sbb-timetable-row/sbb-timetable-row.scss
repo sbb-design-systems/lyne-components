@@ -19,15 +19,6 @@
   }
 }
 
-svg,
-ul,
-p,
-time,
-li,
-span {
-  align-self: center;
-}
-
 .screenreaderonly {
   @include screenReaderOnly;
 }
@@ -78,6 +69,7 @@ li {
 .sbb-timetable__row-header {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
+  align-items: center;
 }
 
 .sbb-timetable__row-details,
@@ -98,6 +90,10 @@ li {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--sbb-spacing-fixed-2x);
+
+  > span {
+    align-self: center;
+  }
 }
 
 .sbb-timetable__row-occupancy {
