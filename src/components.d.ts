@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
@@ -16,9 +17,7 @@ import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
-import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { LinkTargetType } from "./global/interfaces/link-button-properties";
-import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -177,10 +176,6 @@ export namespace Components {
           * The href value you want to link to
          */
         "href": string | undefined;
-        /**
-          * Define if icon should be shown or not
-         */
-        "icon"?: boolean;
         /**
           * If you use an icon without a label, you must provide an iconDescription
          */
@@ -1548,10 +1543,6 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * Define if icon should be shown or not
-         */
-        "icon"?: boolean;
-        /**
           * If you use an icon without a label, you must provide an iconDescription
          */
         "iconDescription"?: string;
@@ -1572,7 +1563,7 @@ declare namespace LocalJSX {
          */
         "negative"?: boolean;
         /**
-          * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button.
+          * Emits whenever the native button click event triggers.
          */
         "onSbb-button_click"?: (event: SbbButtonCustomEvent<any>) => void;
         /**
@@ -1925,7 +1916,7 @@ declare namespace LocalJSX {
          */
         "negative"?: boolean;
         /**
-          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
+          * Emits whenever the native button click event triggers.
          */
         "onSbb-link-button_click"?: (event: SbbLinkCustomEvent<any>) => void;
         /**
