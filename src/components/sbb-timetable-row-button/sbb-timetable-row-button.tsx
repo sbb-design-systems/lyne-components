@@ -30,12 +30,6 @@ export class SbbTimetableRowButton {
   /** The disabled prop for the button. */
   @Prop() public disabled?: boolean;
 
-  /** The tabIndex prop for the button. */
-  @Prop() public tab?: number;
-
-  /** The role prop for the button. */
-  @Prop() public role?: string;
-
   /** The name prop for the button. */
   @Prop() public name?: string;
 
@@ -70,7 +64,6 @@ export class SbbTimetableRowButton {
     return (
       <button
         disabled={this.disabled}
-        tabIndex={this.tab}
         aria-expanded="false"
         aria-haspopup={this.accessibilityHaspopup}
         aria-label={this.accessibilityLabel}
@@ -78,7 +71,6 @@ export class SbbTimetableRowButton {
         onClick={this._clickHandler}
         ref={(el) => (this._button = el)}
         type="button"
-        role={this.role}
         name={this.name}
       >
         <slot />

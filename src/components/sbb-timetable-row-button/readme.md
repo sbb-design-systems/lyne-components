@@ -16,8 +16,6 @@ here to show the various configuration options to component developers. !!
 | `disabled`              | `disabled`               | The disabled prop for the button.                                                    | `boolean` | `undefined` |
 | `expanded`              | `expanded`               | Set to true to initially show the state, which would get set by pressing the button. | `boolean` | `undefined` |
 | `name`                  | `name`                   | The name prop for the button.                                                        | `string`  | `undefined` |
-| `role`                  | `role`                   | The role prop for the button.                                                        | `string`  | `undefined` |
-| `tab`                   | `tab`                    | The tabIndex prop for the button.                                                    | `number`  | `undefined` |
 
 
 ## Events

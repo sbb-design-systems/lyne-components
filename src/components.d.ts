@@ -1123,14 +1123,6 @@ export namespace Components {
           * The name prop for the button.
          */
         "name"?: string;
-        /**
-          * The role prop for the button.
-         */
-        "role"?: string;
-        /**
-          * The tabIndex prop for the button.
-         */
-        "tab"?: number;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -2786,14 +2778,6 @@ declare namespace LocalJSX {
           * Event for emiting whenever state is changed.
          */
         "onSbbTimetableRowButtonClick"?: (event: SbbTimetableRowButtonCustomEvent<any>) => void;
-        /**
-          * The role prop for the button.
-         */
-        "role"?: string;
-        /**
-          * The tabIndex prop for the button.
-         */
-        "tab"?: number;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
