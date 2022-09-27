@@ -47,7 +47,7 @@ export class SbbMenu implements ComponentInterface {
    * The element that will trigger the menu dialog.
    * Accepts both a string (id of an element) or an HTML element.
    */
-  @Prop() public trigger: string | HTMLElement;
+  @Prop({ reflect: true }) public trigger: string | HTMLElement;
 
   /**
    * Whether the animation is enabled
@@ -148,16 +148,12 @@ export class SbbMenu implements ComponentInterface {
     oldValue: string | HTMLElement
   ): void {
     if (newValue !== oldValue) {
-      this._triggerController.abort();
+      this._triggerController?.abort();
+      this._configureTriggerElement(this.trigger);
     }
   }
 
-  // Returns true if it is a DOM element.
-  private static _isElement(o: string | HTMLElement): boolean {
-    return o instanceof window.Element;
-  }
-
-  // Internal dialog element
+  // Internal dialog element.
   private _dialog: HTMLDialogElement;
 
   // The element that triggers the open of the sbb-menu.
@@ -191,7 +187,7 @@ export class SbbMenu implements ComponentInterface {
     // check whether it's a string or an HTMLElement
     if (typeof trigger === 'string') {
       this._triggerEl = document.getElementById(trigger);
-    } else if (SbbMenu._isElement(trigger)) {
+    } else if (trigger instanceof window.Element) {
       this._triggerEl = trigger;
     }
 
