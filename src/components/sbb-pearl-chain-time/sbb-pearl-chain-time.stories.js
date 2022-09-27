@@ -17,8 +17,8 @@ minimal.args = {
       duration: 300,
     },
   ],
-  'departure-time': '2022-08-16T12:00:00',
-  'arrival-time': '2022-08-16T15:00:00',
+  'departure-time': '2022-10-28T02:48:00+02:00',
+  'arrival-time': '2022-10-28T12:48:00+02:00',
 };
 
 departureWalk.args = {
@@ -27,8 +27,8 @@ departureWalk.args = {
       duration: 300,
     },
   ],
-  'departure-time': '2022-08-16T12:00:00',
-  'arrival-time': '2022-08-16T15:00:00',
+  'departure-time': '2022-10-28T02:48:00+02:00',
+  'arrival-time': '2022-10-28T12:48:00+02:00',
   'departure-walk': '10',
 };
 
@@ -38,8 +38,8 @@ arrivalWalk.args = {
       duration: 300,
     },
   ],
-  'departure-time': '2022-08-16T12:00:00',
-  'arrival-time': '2022-08-16T15:00:00',
+  'departure-time': '2022-10-28T02:48:00+02:00',
+  'arrival-time': '2022-10-28T12:48:00+02:00',
   'arrival-walk': '10',
 };
 
@@ -49,8 +49,8 @@ maximal.args = {
       duration: 300,
     },
   ],
-  'departure-time': '2022-08-16T12:00:00',
-  'arrival-time': '2022-08-16T15:00:00',
+  'departure-time': '2022-10-28T02:48:00+02:00',
+  'arrival-time': '2022-10-28T12:48:00+02:00',
   'departure-walk': '10',
   'arrival-walk': '10',
 };

@@ -1,12 +1,12 @@
 import { Component, h, JSX, Prop, Host } from '@stencil/core';
-import { InterfacePearlChainAttributes } from '../sbb-pearl-chain.custom';
+import { InterfacePearlChainAttributes } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 import {
   i18nDeparture,
   i18nArrival,
   i18nWalkingDistanceDeparture,
   i18nWalkingDistanceArrival,
-} from '../../../global/i18n';
-import getDocumentLang from '../../../global/helpers/get-document-lang';
+} from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 import { format } from 'date-fns';
 import { removeTimezoneFromDate } from './helper/timezone-helper';
 
@@ -79,12 +79,12 @@ export class SbbPearlChainTime {
         </time>
         {this.arrivalWalk && (
           <span class="sbb-pearl-chain__time-walktime">
+            <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.arrivalWalk + 'M'}>
               <span class="screenreaderonly">{i18nWalkingDistanceArrival[getDocumentLang()]}</span>
               {this.arrivalWalk}
               <span aria-hidden="true">'</span>
             </time>
-            <sbb-icon name="walk-small"></sbb-icon>
           </span>
         )}
       </Host>

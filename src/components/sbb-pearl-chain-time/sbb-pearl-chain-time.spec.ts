@@ -115,6 +115,7 @@ describe('sbb-pearl-chain-time', () => {
               15:00
             </time>
             <span class="sbb-pearl-chain__time-walktime">
+            <sbb-icon name="walk-small"></sbb-icon>
               <time datetime="10M">
                 <span class="screenreaderonly">
                   minutes of walking time after arrival:
@@ -124,7 +125,6 @@ describe('sbb-pearl-chain-time', () => {
                   '
                 </span>
               </time>
-              <sbb-icon name="walk-small"></sbb-icon>
             </span>
           </mock:shadow-root>
         </sbb-pearl-chain>
@@ -174,6 +174,7 @@ describe('sbb-pearl-chain-time', () => {
               15:00
             </time>
             <span class="sbb-pearl-chain__time-walktime">
+            <sbb-icon name="walk-small"></sbb-icon>
               <time datetime="10M">
                 <span class="screenreaderonly">
                   minutes of walking time after arrival:
@@ -183,7 +184,6 @@ describe('sbb-pearl-chain-time', () => {
                   '
                 </span>
               </time>
-              <sbb-icon name="walk-small"></sbb-icon>
             </span>
           </mock:shadow-root>
         </sbb-pearl-chain>

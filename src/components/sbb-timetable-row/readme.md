@@ -28,14 +28,14 @@ price={priceProp} trip={tripProp}></sbb-timetable-row>
 
 ## Properties
 
-| Property             | Attribute             | Description                                                                                       | Type                                                                                                                     | Default     |
-| -------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant element.                                     | `string`                                                                                                                 | `undefined` |
-| `disableAnimation`   | `disable-animation`   | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. | `boolean`                                                                                                                | `undefined` |
-| `loadingPrice`       | `loading-price`       | When this prop is true the badge for the price will appear loading                                | `boolean`                                                                                                                | `undefined` |
-| `loadingTrip`        | `loading-trip`        | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`                                                                                                                | `undefined` |
-| `price`              | --                    | The price Prop,  which consits of the data for the badge                                          | `{ price: string; text: string; isDiscount: boolean; }`                                                                  | `undefined` |
-| `trip`               | --                    | The trip Prop                                                                                     | `{ legs?: Leg[]; notices?: Notice[]; situations?: PtSituation[]; summary?: TripSummary; id?: string; valid?: boolean; }` | `undefined` |
+| Property             | Attribute             | Description                                                                                       | Type      | Default     |
+| -------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant element.                                     | `string`  | `undefined` |
+| `disableAnimation`   | `disable-animation`   | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. | `boolean` | `undefined` |
+| `loadingPrice`       | `loading-price`       | When this prop is true the badge for the price will appear loading                                | `boolean` | `undefined` |
+| `loadingTrip`        | `loading-trip`        | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean` | `undefined` |
+| `price`              | --                    | The price Prop,  which consits of the data for the badge                                          | `Price`   | `undefined` |
+| `trip`               | --                    | The trip Prop                                                                                     | `Trip`    | `undefined` |
 
 
 ## Events
@@ -52,7 +52,7 @@ price={priceProp} trip={tripProp}></sbb-timetable-row>
 - [sbb-timetable-row-button](../sbb-timetable-row-button)
 - [sbb-card-badge](../sbb-card-badge)
 - [sbb-icon](../sbb-icon)
-- [sbb-pearl-chain-time](../sbb-pearl-chain/sbb-pearl-chain-time)
+- [sbb-pearl-chain-time](../sbb-pearl-chain-time)
 
 ### Graph
 ```mermaid

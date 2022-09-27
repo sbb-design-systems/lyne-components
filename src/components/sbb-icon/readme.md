@@ -100,7 +100,7 @@ In the HTML, you can now use the icon as shown below:
  - [sbb-button](../sbb-button)
  - [sbb-form-field](../sbb-form-field)
  - [sbb-link](../sbb-link)
- - [sbb-pearl-chain-time](../sbb-pearl-chain/sbb-pearl-chain-time)
+ - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
  - [sbb-timetable-row](../sbb-timetable-row)
  - [sbb-toggle-check](../sbb-toggle-check)
 

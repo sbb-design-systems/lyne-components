@@ -15,7 +15,7 @@ The `<sbb-pearl-chain>` component displays all parts of a journey. Including cha
 
 ### Used by
 
- - [sbb-pearl-chain-time](sbb-pearl-chain-time)
+ - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
 
 ### Graph
 ```mermaid

@@ -4,6 +4,7 @@ The `<sbb-pearl-chain-time` component adds a optional walk icon and a duration i
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property                     | Attribute           | Description                                                                                                                                                                                                                                                                   | Type      | Default     |
@@ -15,19 +16,19 @@ The `<sbb-pearl-chain-time` component adds a optional walk icon and a duration i
 | `disableAnimation`           | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                | `boolean` | `undefined` |
 | `legs` _(required)_          | --                  | define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. | `Leg[]`   | `undefined` |
 
+
 ## Dependencies
 
 ### Used by
 
-- [sbb-timetable-row](../../sbb-timetable-row)
+ - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Depends on
 
-- [sbb-icon](../../sbb-icon)
-- [sbb-pearl-chain](..)
+- [sbb-icon](../sbb-icon)
+- [sbb-pearl-chain](../sbb-pearl-chain)
 
 ### Graph
-
 ```mermaid
 graph TD;
   sbb-pearl-chain-time --> sbb-icon
@@ -36,4 +37,6 @@ graph TD;
   style sbb-pearl-chain-time fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
+
+

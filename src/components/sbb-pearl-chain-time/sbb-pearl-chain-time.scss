@@ -12,12 +12,11 @@
 }
 
 .sbb-pearl-chain__time-walktime:first-of-type {
-  transform: translateX(calc(-1 * var(--sbb-spacing-fixed-1x)));
-  margin-inline-end: var(--sbb-spacing-fixed-1x);
+  // transform: translateX(calc(-1 * var(--sbb-spacing-fixed-1x)));
+  margin-inline-end: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-pearl-chain__time-walktime:last-of-type {
-  transform: translateX(var(--sbb-spacing-fixed-1x));
   margin-inline-start: var(--sbb-spacing-fixed-1x);
 }
 
@@ -25,6 +24,10 @@
   flex: 1 1 auto;
   align-self: center;
   margin-inline: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-pearl-chain__time-time {
+  @include text-s--bold;
 }
 
 .screenreaderonly {
