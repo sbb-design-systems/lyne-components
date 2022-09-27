@@ -2,11 +2,7 @@ import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes, Leg } from './sbb-pearl-chain.custom';
 import { isPast, isFuture, differenceInMinutes } from 'date-fns';
 
-enum Status {
-  progress = 'progress',
-  future = 'future',
-  past = 'past',
-}
+type Status = 'progress' | 'future' | 'past';
 @Component({
   shadow: true,
   styleUrl: 'sbb-pearl-chain.scss',
@@ -52,11 +48,11 @@ export class SbbPearlChain {
 
   private _getStatus(start: Date, end: Date): Status {
     if (isPast(start) && isFuture(end)) {
-      return Status.progress;
+      return 'progress';
     } else if (isPast(end)) {
-      return Status.past;
+      return 'past';
     }
-    return Status.future;
+    return 'future';
   }
 
   private _renderPosition(start: Date, end: Date): JSX.Element {
@@ -108,7 +104,7 @@ export class SbbPearlChain {
           const legStyle = (): Record<string, string> => {
             return {
               width: `${duration}%`,
-              ...(this._getStatus(departure, arrival) === Status.progress
+              ...(this._getStatus(departure, arrival) === 'progress'
                 ? { '--leg-status': `${this._getProgress(departure, arrival)}%` }
                 : {}),
             };
@@ -124,7 +120,7 @@ export class SbbPearlChain {
 
           return (
             <div class={`sbb-pearl-chain__leg ${legStatus} ${cancelled}`} style={legStyle()}>
-              {this._getStatus(departure, arrival) === Status.progress &&
+              {this._getStatus(departure, arrival) === 'progress' &&
                 this._renderPosition(departure, arrival)}
             </div>
           );
