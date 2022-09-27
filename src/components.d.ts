@@ -465,7 +465,7 @@ export namespace Components {
          */
         "eventId": string;
         /**
-          * Used to set the minimum breakpoint from which the label is displayed. Eg. if set to 'large', the label will be visible for breakpoints large, wide, ultra, and hidden for all the other.
+          * Used to set the minimum breakpoint from which the text is displayed. Eg. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the other.
          */
         "expandFrom": InterfaceSbbHeaderActionAttributes['expandFrom'];
         /**
@@ -2056,7 +2056,7 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * Used to set the minimum breakpoint from which the label is displayed. Eg. if set to 'large', the label will be visible for breakpoints large, wide, ultra, and hidden for all the other.
+          * Used to set the minimum breakpoint from which the text is displayed. Eg. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the other.
          */
         "expandFrom"?: InterfaceSbbHeaderActionAttributes['expandFrom'];
         /**
@@ -2076,9 +2076,9 @@ declare namespace LocalJSX {
          */
         "name"?: string | undefined;
         /**
-          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
+          * Emits whenever the native button click event triggers.
          */
-        "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<any>) => void;
+        "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<string>) => void;
         /**
           * The relationship of the linked URL as space-separated link types.
          */

@@ -1,8 +1,17 @@
 # sbb-header
 
-The component represents the Lyne header; it is meant to be used as a container for the logo on the right side
-(the default one is the [sbb-logo](../sbb-logo/readme.md)) and [sbb-header-action](../sbb-header-action/readme.md)s
-on the left side (like menu, search and so on).
+The `sbb-header` component is a container for actions and logo and it is displayed sticky at page's top.
+
+It has two slots: 
+the first one can contains [sbb-header-action](../sbb-header-action/readme.md)s or other action items,
+like `sbb-button` or `sbb-link`, and it is rendered on the component's right side;
+the second one contains a logo, which by default is the [sbb-logo](../sbb-logo/readme.md).
+
+A box-shadow appears under the component when the page is scrolled if the `shadow` variable is set to `true`. 
+
+The component's height can be overriden by defining the variable `--sbb-header-height-override`.
+
+A custom CSS can be obtained adding the `sbb-header__alternative` class on the component. 
 
 <!-- Auto Generated Below -->
 

@@ -27,11 +27,12 @@ export class SbbHeaderAction implements LinkButtonProperties {
   @Prop() public actionHeaderId = `sbb-action-header-${++nextId}`;
 
   /**
-   * Used to set the minimum breakpoint from which the label is displayed.
-   * Eg. if set to 'large', the label will be visible for breakpoints large, wide, ultra,
+   * Used to set the minimum breakpoint from which the text is displayed.
+   * Eg. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
    * and hidden for all the other.
    */
-  @Prop() public expandFrom: InterfaceSbbHeaderActionAttributes['expandFrom'] = 'medium';
+  @Prop({ reflect: true }) public expandFrom: InterfaceSbbHeaderActionAttributes['expandFrom'] =
+    'medium';
 
   /**
    * The icon name used in the element. See sbb-icon components for more details.
@@ -100,14 +101,13 @@ export class SbbHeaderAction implements LinkButtonProperties {
 
   /**
    * Emits whenever the native button click event triggers.
-   * TODO: similar to the one in sbb-button. To be fixed together.
    */
   @Event({
     bubbles: true,
     composed: true,
     eventName: 'sbb-header-action-button_click',
   })
-  public click: EventEmitter<any>;
+  public click: EventEmitter<string>;
 
   /**
    * Method triggered on button click.
@@ -132,7 +132,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
     }
 
     return (
-      <Host expand-from={this.expandFrom}>
+      <Host>
         <TAG_NAME id={this.actionHeaderId} class={classString} {...attributeList}>
           <span class="header-action__icon">
             <slot name="icon">
