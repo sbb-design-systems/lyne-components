@@ -152,12 +152,18 @@ const LongContentTemplate = (args) => (
       <sbb-menu-action>한국어</sbb-menu-action>
       <sbb-menu-action>广州话</sbb-menu-action>
       <sbb-menu-action>Afrikaans</sbb-menu-action>
-      <sbb-menu-action>українська мова</sbb-menu-action>
       <sbb-menu-action>Svenska</sbb-menu-action>
       <sbb-menu-action>Dansk</sbb-menu-action>
       <sbb-menu-action>Nederlands</sbb-menu-action>
       <sbb-menu-action>Suomi</sbb-menu-action>
+      <sbb-menu-action>українська мова</sbb-menu-action>
       <sbb-menu-action>አማርኛ</sbb-menu-action>
+      <sbb-menu-action>ქართული ენა</sbb-menu-action>
+      <sbb-menu-action>Afrikaans</sbb-menu-action>
+      <sbb-menu-action>Svenska</sbb-menu-action>
+      <sbb-menu-action>Dansk</sbb-menu-action>
+      <sbb-menu-action>Nederlands</sbb-menu-action>
+      <sbb-menu-action>Suomi</sbb-menu-action>
       <sbb-divider />
       <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
     </sbb-menu>
