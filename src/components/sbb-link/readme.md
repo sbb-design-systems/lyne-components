@@ -34,9 +34,9 @@ anchor or button tag, it is internally rendered as a span in order to not break 
 
 ## Events
 
-| Event                   | Description                                                                                                          | Type               |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `sbb-link-button_click` | Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together. | `CustomEvent<any>` |
+| Event                   | Description                                            | Type               |
+| ----------------------- | ------------------------------------------------------ | ------------------ |
+| `sbb-link-button_click` | Emits whenever the native button click event triggers. | `CustomEvent<any>` |
 
 
 ## Slots

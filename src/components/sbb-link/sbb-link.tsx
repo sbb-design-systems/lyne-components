@@ -31,7 +31,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink implements LinkButtonProperties, ComponentInterface {
+export class SbbLink implements LinkButtonProperties<string>, ComponentInterface {
   @Element() private _el!: HTMLElement;
 
   /**
@@ -110,14 +110,13 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
 
   /**
    * Emits whenever the native button click event triggers.
-   * TODO: similar to the one in sbb-button. To be fixed together.
    */
   @Event({
     bubbles: true,
     composed: true,
     eventName: 'sbb-link-button_click',
   })
-  public click: EventEmitter<any> | undefined;
+  public click: EventEmitter | undefined;
 
   /**
    * Form attribute if link is used as button (optional)

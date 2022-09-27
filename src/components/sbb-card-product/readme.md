@@ -27,7 +27,7 @@
 
 | Slot           | Description                                                                  |
 | -------------- | ---------------------------------------------------------------------------- |
-| `"action"`     | Slot used to render the link-button                                          |
+| `"action"`     | Slot used to render the button                                               |
 | `"card-badge"` | Slot used to render the optional card badge e.g. discounts                   |
 | `"category"`   | Slot used to render the product category                                     |
 | `"details"`    | Slot used to render the details                                              |

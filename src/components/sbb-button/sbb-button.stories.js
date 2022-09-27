@@ -36,8 +36,21 @@ const focusStyle = (context) => {
 // we don't need to pass the args.label to the <sbb-button> tag, but Storybook wants all in it.
 const Template = (args) => (
   <div>
-    <sbb-button {...args}>
-      {args.icon && <span slot="icon">{getMarkupForSvg(args.iconSlot)}</span>}
+    <sbb-button
+      {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('label')))}
+    >
+      {args.iconName && <span slot="icon">{args.iconName}</span>}
+      {args.label}
+    </sbb-button>
+  </div>
+);
+
+const SlottedIconTemplate = (args) => (
+  <div>
+    <sbb-button
+      {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('label')))}
+    >
+      <span slot="icon">{getMarkupForSvg('pie-small')}</span>
       {args.label}
     </sbb-button>
   </div>
@@ -52,8 +65,10 @@ const AnchorWrappedButtonTemplate = (args) => (
       <span style="display: block; color: #fff; text-decoration: none; margin-bottom: 16px;">
         Example anchor wrapping a sbb-button
       </span>
-      <sbb-button {...args}>
-        {args.icon && <span slot="icon">{getMarkupForSvg(args.iconSlot)}</span>}
+      <sbb-button
+        {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('label')))}
+      >
+        {args.iconName && <span slot="icon">{args.iconName}</span>}
         {args.label}
       </sbb-button>
     </a>
@@ -61,25 +76,6 @@ const AnchorWrappedButtonTemplate = (args) => (
 );
 
 // --- Arg types
-
-const iconOnly = {
-  control: {
-    type: 'boolean',
-  },
-  options: [true, false],
-  table: {
-    category: 'Icon',
-  },
-};
-const icon = {
-  control: {
-    type: 'boolean',
-  },
-  options: [true, false],
-  table: {
-    category: 'Icon',
-  },
-};
 
 const iconDescription = {
   control: {
@@ -90,11 +86,12 @@ const iconDescription = {
   },
 };
 
-const iconSlot = {
+const iconName = {
   control: {
     type: 'select',
   },
   options: [
+    '',
     'arrow-right-small',
     'arrow-down-small',
     'arrow-compass-small',
@@ -169,10 +166,8 @@ const basicArgTypes = {
   size,
   disabled: disabledArg,
   label,
-  'icon-only': iconOnly,
   eventId,
-  icon,
-  iconSlot,
+  'icon-name': iconName,
   'icon-description': iconDescription,
   negative,
 };
@@ -183,9 +178,7 @@ const basicArgs = {
   disabled: false,
   label: 'Button',
   'event-id': 'Event ID',
-  'icon-only': false,
-  icon: false,
-  iconSlot: iconSlot.options[4],
+  'icon-name': iconName.options[0],
   name: 'sample-name',
   value: 'sample-value',
   negative: false,
@@ -204,7 +197,7 @@ export const buttonWithLabelAndIcon = Template.bind({});
 buttonWithLabelAndIcon.argTypes = basicArgTypes;
 buttonWithLabelAndIcon.args = {
   ...basicArgs,
-  icon: true,
+  'icon-name': iconName.options[5],
 };
 buttonWithLabelAndIcon.documentation = {
   title: 'Sbb-Button with label and icon',
@@ -214,8 +207,7 @@ export const buttonWithIconOnly = Template.bind({});
 buttonWithIconOnly.argTypes = basicArgTypes;
 buttonWithIconOnly.args = {
   ...basicArgs,
-  icon: true,
-  'icon-only': true,
+  'icon-name': iconName.options[5],
   label: '',
 };
 buttonWithIconOnly.documentation = {
@@ -226,9 +218,17 @@ export const buttonInsideAnchor = AnchorWrappedButtonTemplate.bind({});
 buttonInsideAnchor.argTypes = basicArgTypes;
 buttonInsideAnchor.args = {
   ...basicArgs,
-  icon: true,
 };
 buttonInsideAnchor.documentation = {
+  title: 'Sbb-Button inside an anchor',
+};
+
+export const buttonWithSlottedIcon = SlottedIconTemplate.bind({});
+buttonWithSlottedIcon.argTypes = basicArgTypes;
+buttonWithSlottedIcon.args = {
+  ...basicArgs,
+};
+buttonWithSlottedIcon.documentation = {
   title: 'Sbb-Button inside an anchor',
 };
 

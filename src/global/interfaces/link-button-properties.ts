@@ -47,7 +47,7 @@ export interface LinkProperties extends AccessibilityProperties {
 /**
  * The interface contains attributes that can be set on an <button> tag.
  */
-export interface ButtonProperties extends AccessibilityProperties {
+export interface ButtonProperties<T = any> extends AccessibilityProperties {
   /**
    * Default behaviour of the button.
    */
@@ -60,9 +60,8 @@ export interface ButtonProperties extends AccessibilityProperties {
 
   /**
    * Emits the eventId to parent on button click.
-   * TODO check if it's possible to use a better type than 'any'.
    */
-  click: EventEmitter<any> | undefined;
+  click: EventEmitter<T> | undefined;
 
   /**
    * The function triggered on button click.
@@ -73,7 +72,7 @@ export interface ButtonProperties extends AccessibilityProperties {
    * Id sent in the click event payload.
    * TODO verify if needed and if string is the correct type
    */
-  eventId?: string | undefined;
+  eventId?: T | undefined;
 
   /**
    * The <form> element to associate the button with.
@@ -111,7 +110,9 @@ export interface ButtonProperties extends AccessibilityProperties {
  * for instance depending on whether the value of the href attribute is present or not.
  * NOTE: a class could not be created because StencilJS does not support inheritance/component extension.
  */
-export interface LinkButtonProperties extends LinkProperties, ButtonProperties {}
+export interface LinkButtonProperties<ParameterType = any>
+  extends LinkProperties,
+    ButtonProperties<ParameterType> {}
 
 /**
  * Creates the basic attribute list for the link/button tag; undefined/null properties are not set.

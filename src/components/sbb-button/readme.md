@@ -3,7 +3,10 @@
 The `<sbb-button>` implements the design of the Lyne Button. It can both be used as a button (`<button>`) or as a anchor 
 (`<button>`) (if the href property is set). If the `<sbb-button>` is placed inside another or button tag, it is 
 internally rendered as a span in order to not break HTML functionality.
-  
+
+Accessibility note:  
+Use the accessibilityLabel if a button is used only with an icon to give a description of the intention of that button.
+
 <!-- Auto Generated Below -->
 
 
@@ -19,7 +22,6 @@ internally rendered as a span in order to not break HTML functionality.
 | `disabled`                 | `disabled`                  | Set to true to get a disabled button                                                                                                                                                                                            | `boolean`                                                       | `false`     |
 | `eventId`                  | `event-id`                  | Id which is sent in the click event payload                                                                                                                                                                                     | `string`                                                        | `undefined` |
 | `href`                     | `href`                      | The href value you want to link to                                                                                                                                                                                              | `string`                                                        | `undefined` |
-| `icon`                     | `icon`                      | Define if icon should be shown or not                                                                                                                                                                                           | `boolean`                                                       | `false`     |
 | `iconDescription`          | `icon-description`          | If you use an icon without a label, you must provide an iconDescription                                                                                                                                                         | `string`                                                        | `undefined` |
 | `iconName`                 | `icon-name`                 | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.                                      | `string`                                                        | `undefined` |
 | `iconOnly`                 | `icon-only`                 | set as icon-only, no label, no text                                                                                                                                                                                             | `boolean`                                                       | `false`     |
@@ -34,28 +36,21 @@ internally rendered as a span in order to not break HTML functionality.
 
 ## Events
 
-| Event              | Description                                                                                                               | Type               |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `sbb-button_click` | Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button. | `CustomEvent<any>` |
-
-
-## Slots
-
-| Slot        | Description                                            |
-| ----------- | ------------------------------------------------------ |
-| `"unnamed"` | Slot to render svg icon. You must pass an svg-element. |
+| Event              | Description                                            | Type               |
+| ------------------ | ------------------------------------------------------ | ------------------ |
+| `sbb-button_click` | Emits whenever the native button click event triggers. | `CustomEvent<any>` |
 
 
 ## Dependencies
 
-### Used by
+### Depends on
 
- - [sbb-panel](../sbb-panel)
+- [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-panel --> sbb-button
+  sbb-button --> sbb-icon
   style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

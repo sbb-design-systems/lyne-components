@@ -14,3 +14,80 @@
   background: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+/// Basic box-shadow mixin for buttons (0px 1px 4px 0px $color1, 0px 2px 16px 0px $color2;)
+///
+@mixin button-basic-box-shadow($color1, $color2) {
+  box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+      var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
+      var(--sbb-shadow-elevation-level-3-shadow-2-blur)
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) #{$color1},
+    var(--sbb-shadow-elevation-level-3-shadow-1-offset-x)
+      var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
+      var(--sbb-shadow-elevation-level-3-shadow-1-blur)
+      var(--sbb-shadow-elevation-level-3-shadow-1-spread) #{$color2};
+}
+
+/// Basic hover box-shadow mixin for buttons(0px 1px 2px 0px $color1, 0px 1px 8px 0px $color2;)
+///
+@mixin button-basic-hover-box-shadow($color1, $color2) {
+  box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+      var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
+      calc(var(--sbb-shadow-elevation-level-3-shadow-2-blur) * 0.5)
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) #{$color1},
+    var(--sbb-shadow-elevation-level-3-shadow-1-offset-x)
+      var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
+      calc(var(--sbb-shadow-elevation-level-3-shadow-1-blur) * 0.5)
+      var(--sbb-shadow-elevation-level-3-shadow-1-spread) #{$color2};
+}
+
+/// Box-shadow mixin for button as primary variant
+///
+@mixin button-primary-box-shadow {
+  @include button-basic-box-shadow(var(--sbb-color-red125-alpha-20), var(--sbb-color-red-alpha-20));
+}
+
+/// Box-shadow mixin for button as primary variant on hover
+///
+@mixin button-primary-hover-box-shadow {
+  @include button-basic-hover-box-shadow(
+    var(--sbb-color-red125-alpha-20),
+    var(--sbb-color-red-alpha-20)
+  );
+}
+
+/// Box-shadow mixin for button as secondary variant
+///
+@mixin button-secondary-box-shadow {
+  @include button-basic-box-shadow(
+    var(--sbb-color-cement-alpha-20),
+    var(--sbb-color-platinum-alpha-20)
+  );
+}
+
+/// Box-shadow mixin for button as secondary variant on hover
+///
+@mixin button-secondary-hover-box-shadow {
+  @include button-basic-box-shadow(
+    var(--sbb-color-cement-alpha-20),
+    var(--sbb-color-platinum-alpha-20)
+  );
+}
+
+/// Box-shadow mixin for button as primary negative variant
+///
+@mixin button-primary-negative-box-shadow {
+  @include button-basic-box-shadow(
+    var(--sbb-color-metal-alpha-20),
+    var(--sbb-color-smoke-alpha-20)
+  );
+}
+
+/// Box-shadow mixin for button as primary negative button variant on hover
+///
+@mixin button-primary-negative-hover-box-shadow {
+  @include button-basic-hover-box-shadow(
+    var(--sbb-color-metal-alpha-20),
+    var(--sbb-color-smoke-alpha-20)
+  );
+}
