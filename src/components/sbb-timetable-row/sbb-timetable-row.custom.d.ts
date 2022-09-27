@@ -1,6 +1,6 @@
 import { Leg } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 
-export type Notice = {
+export interface Notice {
   name?: string;
   /** Priority - A lower priority value means a higher importance */
   priority?: number;
@@ -9,67 +9,55 @@ export type Notice = {
   /** additional information, like phone, email, url according to text */
   textArguments?: TextArgument[];
   /** Type of Notice */
-  type?: NoticeTypeEnum;
-};
+  type?: NoticeType;
+}
 
-declare type TextArgument = {
-  type?: TextArgumentEnum;
+declare interface TextArgument {
+  type?: TextArgument;
   values?: string[];
-};
-
-declare enum TextArgumentEnum {
-  email = 'EMAIL',
-  phone = 'PHONE',
-  url = 'URL',
 }
 
-declare enum NoticeTypeEnum {
-  attribute = 'ATTRIBUTE',
-  info = 'INFO',
-}
+declare type TextArgument = 'EMAIL' | 'PHONE' | 'URL';
 
-declare enum OccupancyEnum {
-  high = 'HIGH',
-  low = 'LOW',
-  medium = 'MEDIUM',
-  unknown = 'UNKNOWN',
-}
+declare type NoticeType = 'ATTRIBUTE' | 'INFO';
 
-export type PtSituation = {
+declare type OccupancyType = 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
+
+/** A public transportation situation message affecting the planned Public Transport operation */
+export interface PtSituation {
   /** Priority value: lowest = 80, medium = 60, highest = 40, de: Großereignis = 20 */
   broadcastMessages: PtSituationMessage[];
   /** A classification of what caused the SITUATION (HIM category) */
-  cause: PtSituationCauseEnum;
-};
-
-/** A classification of what caused a Situation (HIM category) */
-declare enum PtSituationCauseEnum {
-  constructionSite = 'CONSTRUCTION_SITE',
-  delay = 'DELAY',
-  disturbance = 'DISTURBANCE',
-  endMessage = 'END_MESSAGE',
-  information = 'INFORMATION',
-  trainReplacementByBus = 'TRAIN_REPLACEMENT_BY_BUS',
+  cause: PtSituationCause;
 }
 
+/** A classification of what caused a Situation (HIM category) */
+declare type PtSituationCause =
+  | 'CONSTRUCTION_SITE'
+  | 'DELAY'
+  | 'DISTURBANCE'
+  | 'END_MESSAGE'
+  | 'INFORMATION'
+  | 'TRAIN_REPLACEMENT_BY_BUS';
+
 /** A public transportation situation broadcast message affecting the planned PT operation */
-declare type PtSituationMessage = {
+declare interface PtSituationMessage {
   /** Complete Footer/text of message */
   detail?: string;
   /** Priority rank: default = 100, low = 80, medium = 60, high = 40, de:Großereignis = 20 */
   priority?: string;
   /** Heading of message */
   title?: string;
-};
+}
 
-declare type Occupancy = {
+declare interface Occupancy {
   /** occupancy first class */
-  firstClass?: OccupancyEnum;
+  firstClass?: OccupancyType;
   /** occupancy second class */
-  secondClass?: OccupancyEnum;
-};
+  secondClass?: OccupancyType;
+}
 
-declare type TimeQuayWrapper = {
+declare interface TimeQuayWrapper {
   delay?: number;
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
   quayChanged?: boolean;
@@ -77,9 +65,9 @@ declare type TimeQuayWrapper = {
   quayRtName?: string;
   /** planned arrival/departure time */
   time: string;
-};
+}
 
-declare type ServiceProduct = {
+declare interface ServiceProduct {
   number?: string;
   vehicleMode?: string;
 
@@ -96,9 +84,9 @@ declare type ServiceProduct = {
    * example: IC
    */
   vehicleSubModeShortName: string;
-};
+}
 
-declare type TripStatus = {
+declare interface TripStatus {
   cancelled: boolean;
   /** Contains at least one delay (de:Verspätung) on any PTRideLeg. */
   delayed: boolean;
@@ -108,9 +96,9 @@ declare type TripStatus = {
   partiallyCancelled: boolean;
   /** Contains at least one platform change (de:Gleis-/Kante-/Steg-Änderung) on any PTRideLeg */
   quayChanged: boolean;
-};
+}
 
-declare type TripSummary = {
+declare interface TripSummary {
   arrival: TimeQuayWrapper;
   arrivalWalk: number;
   departure: TimeQuayWrapper;
@@ -120,15 +108,15 @@ declare type TripSummary = {
   occupancy: Occupancy;
   product: ServiceProduct;
   tripStatus: TripStatus;
-};
+}
 
-export type Price = {
+export interface Price {
   price: string;
   text: string;
   isDiscount: boolean;
-};
+}
 
-declare type Trip = {
+declare interface Trip {
   /** List of transfer points */
   legs?: Leg[];
   /**
@@ -150,7 +138,7 @@ declare type Trip = {
   id?: string;
   /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
   valid?: boolean;
-};
+}
 export interface InterfaceTimetableRowAttributes {
   trip: Trip;
   price?: Price;
