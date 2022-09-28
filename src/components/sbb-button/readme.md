@@ -47,10 +47,15 @@ Use the accessibilityLabel if a button is used only with an icon to give a descr
 
 - [sbb-icon](../sbb-icon)
 
+### Used by
+
+ - [sbb-alert](../sbb-alert)
+
 ### Graph
 ```mermaid
 graph TD;
   sbb-button --> sbb-icon
+    sbb-alert --> sbb-button
   style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

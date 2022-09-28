@@ -1,7 +1,7 @@
 import { validateContent } from './validate';
 
 export const iconNamespaces = new Map<string, string>([
-  ['sbb', 'https://lyne-icons.netlify.app/icons/'],
+  ['sbb', 'https://d1s1onrtynjaa8.cloudfront.net/icons/'],
 ]);
 export const registeredIcons = new Map<string, string>();
 const requests = new Map<string, Promise<any>>();

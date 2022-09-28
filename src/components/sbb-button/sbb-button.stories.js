@@ -33,7 +33,6 @@ const focusStyle = (context) => {
 
 // --- Component
 
-// we don't need to pass the args.label to the <sbb-button> tag, but Storybook wants all in it.
 const Template = (args) => (
   <div>
     <sbb-button

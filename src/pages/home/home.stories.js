@@ -146,7 +146,31 @@ const Template = (args) => (
     Top products section
     ************************************************* */}
 
-    <sbb-section width="page-spacing" style="padding-block-start: 7vh;">
+    <sbb-section width="page-spacing" style="padding-block-start: 10vh;">
+      <sbb-grid slot="full-width" variant="base--eight-columns-centered">
+        <sbb-stack slot="eight-columns-centered" stack-width="100%" space-leading="responsive-xxs">
+          <sbb-alert-group accessibility-title="Disruptions">
+            <sbb-alert
+              title-content="Interruption between Genève and Lausanne"
+              href="https://www.sbb.ch"
+              size="l"
+            >
+              The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
+            </sbb-alert>
+            <sbb-alert
+              title-content="Interruption between Berne and Olten"
+              href="https://www.sbb.ch"
+            >
+              Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00
+              o'clock construction work will take place. You have to expect changed travel times and
+              changed connections.
+            </sbb-alert>
+          </sbb-alert-group>
+        </sbb-stack>
+      </sbb-grid>
+    </sbb-section>
+
+    <sbb-section width="page-spacing">
       <sbb-stack
         slot="full-width"
         gap-vertical="responsive-m"
