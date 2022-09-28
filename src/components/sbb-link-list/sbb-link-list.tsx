@@ -91,7 +91,7 @@ export class SbbLinkList {
             level={this.titleLevel}
             visual-level="5"
             negative={this.negative}
-            titleId={this.titleId}
+            title-id={this.titleId}
           >
             <slot name="title">{this.titleContent}</slot>
           </sbb-title>
