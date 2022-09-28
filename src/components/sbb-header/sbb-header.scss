@@ -33,9 +33,9 @@
   flex: 0 1 auto;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0;
-  gap: calc(var(--sbb-spacing-fixed-5x) * 2);
+  gap: 0;
   height: var(--sbb-header-height-override, var(--sbb-header-height));
   width: 100%;
 }
@@ -71,8 +71,7 @@
 .sbb-header__logo {
   height: var(--logo-height);
   aspect-ratio: 19/2;
-  margin-left: calc(var(--sbb-spacing-responsive-s) - var(--sbb-spacing-fixed-5x));
-  @include mq($to: large) {
-    margin-left: auto;
-  }
+
+  // margin-left: calc(var(--sbb-spacing-responsive-s) - var(--sbb-spacing-fixed-5x));
+  margin-left: auto;
 }
