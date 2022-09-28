@@ -67,9 +67,6 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
    */
   @Prop() public iconName?: string;
 
-  /** If you use an icon without a label, you must provide an iconDescription */
-  @Prop() public iconDescription?: string;
-
   /** The type attribute to use for the button */
   @Prop() public type: InterfaceLinkAttributes['buttonType'] | undefined;
 
@@ -183,10 +180,6 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
 
     return (
       <TAG_NAME {...attributeList} class={this._getClassString()}>
-        {this._icon && this.iconDescription && (
-          <span class="sbb-button__icon-description">{this.iconDescription}</span>
-        )}
-
         {this._icon && (
           <span class="sbb-button__icon">
             <slot name="icon" onSlotchange={(event): void => this._onIconSlotChange(event)}>
