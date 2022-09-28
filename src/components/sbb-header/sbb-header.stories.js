@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from '../sbb-header-action/sbb-header-action.events';
 
 const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tortor enim, dictum at vestibulum
     vel, convallis vel tellus. Nunc sed nulla vestibulum, elementum felis quis, convallis velit. Sed
@@ -182,6 +183,9 @@ export default {
   parameters: {
     backgrounds: {
       disable: true,
+    },
+    actions: {
+      handles: [events.click],
     },
     docs: {
       inlineStories: false,
