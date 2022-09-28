@@ -5,7 +5,7 @@ describe('sbb-header-action', () => {
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-header-action></sbb-header-action>');
+    await page.setContent('<sbb-header-action>Action</sbb-header-action>');
 
     element = await page.find('sbb-header-action');
     expect(element).toHaveClass('hydrated');
