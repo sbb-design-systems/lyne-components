@@ -4,16 +4,7 @@ import readme from './readme.md';
 const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tortor enim, dictum at vestibulum
     vel, convallis vel tellus. Nunc sed nulla vestibulum, elementum felis quis, convallis velit. Sed
     molestie nunc vitae risus rutrum fermentum. Donec dictum ullamcorper nulla sit amet dignissim.
-    Nam ipsum odio, faucibus quis lectus ut, suscipit sollicitudin eros. Fusce dignissim lorem id
-    quam fermentum, at feugiat dolor auctor. Duis posuere non tellus vel aliquet. Suspendisse
-    consectetur odio nulla, nec imperdiet libero placerat id. Donec mollis varius aliquam. Sed
-    faucibus euismod risus ac rhoncus. Maecenas pulvinar odio quis neque pulvinar rutrum. Ut sodales
-    commodo fermentum. Proin in orci enim. Nullam augue nibh, cursus eget vestibulum at, ullamcorper
-    ut tortor. Sed eget augue ac odio accumsan fermentum. Morbi volutpat lectus vitae urna mattis
-    elementum. Nam pharetra, erat a varius porta, quam lacus venenatis libero, at pretium arcu velit
-    vel lectus.`;
-
-const content = () => <div style="height: 1280px;">{text}</div>;
+    Nam ipsum odio, faucibus quis lectus ut, suscipit sollicitudin eros.`;
 
 const shadow = {
   control: {
@@ -25,19 +16,31 @@ const basicArgTypes = {
   shadow,
 };
 
+const actions = () => [
+  <sbb-header-action
+    icon="pie-small"
+    href="https://lyne-icons.netlify.app/icons/pie-small.svg"
+    target="_blank"
+  >
+    Pie
+  </sbb-header-action>,
+  <sbb-header-action icon="balloons-small">Balloons</sbb-header-action>,
+  <sbb-header-action icon="bottle-apple-small">Bottle & Apple</sbb-header-action>,
+];
+
 const Template = (args) => [
-  <sbb-header {...args}>
-    <sbb-header-action
-      icon="pie-small"
-      href="https://lyne-icons.netlify.app/icons/pie-small.svg"
-      target="_blank"
-    >
-      Pie
-    </sbb-header-action>
-    <sbb-header-action icon="balloons-small">Balloons</sbb-header-action>
-    <sbb-header-action icon="bottle-apple-small">Bottle & Apple</sbb-header-action>
+  <sbb-header {...args}>{actions()}</sbb-header>,
+  <div style="height: 1280px;">{text}</div>,
+];
+
+const TemplateAutoScroll = (args) => [
+  <sbb-header {...args} ref={() => window.scroll(0, 50)}>
+    {actions()}
   </sbb-header>,
-  content(),
+  <div style="height: 1280px;">
+    {text}
+    <div>Test for Chromatic: content scrolls down 50px on page load to show the shadow-mode.</div>
+  </div>,
 ];
 
 const TemplateActions = (args) => [
@@ -137,7 +140,7 @@ const TemplateActions = (args) => [
       Deutsch
     </sbb-header-action>
   </sbb-header>,
-  <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>,
+  <div>{text}</div>,
 ];
 
 export const header = Template.bind({});
@@ -147,10 +150,17 @@ header.documentation = {
   title: 'Header with shadow on',
 };
 
-export const headerNoShadow = Template.bind({});
-headerNoShadow.args = { shadow: false };
-headerNoShadow.argTypes = basicArgTypes;
-headerNoShadow.documentation = {
+export const headerShadowAutoScroll = TemplateAutoScroll.bind({});
+headerShadowAutoScroll.args = { shadow: true };
+headerShadowAutoScroll.argTypes = basicArgTypes;
+headerShadowAutoScroll.documentation = {
+  title: 'Header with shadow on (auto-scrolled for Chromatic)',
+};
+
+export const headerNoShadowAutoScroll = TemplateAutoScroll.bind({});
+headerNoShadowAutoScroll.args = { shadow: false };
+headerNoShadowAutoScroll.argTypes = basicArgTypes;
+headerNoShadowAutoScroll.documentation = {
   title: 'Header with shadow off',
 };
 
