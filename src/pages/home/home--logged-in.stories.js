@@ -65,8 +65,12 @@ const Template = (args) => (
     {/* *************************************************
     Header section
     ************************************************* */}
-    <sbb-header shadow={true}>
-      <sbb-header-action>
+    <sbb-header
+      shadow={true}
+      style="display: flex; justify-content: flex-start; width: 100%;"
+      class="sbb-header__alternative"
+    >
+      <sbb-header-action expand-from="small">
         <span slot="icon">
           <svg
             width="24"
@@ -85,6 +89,7 @@ const Template = (args) => (
         </span>
         Menu
       </sbb-header-action>
+      <div class="sbb-header__spacer" />
       <sbb-header-action>
         <span slot="icon">
           <svg
@@ -123,7 +128,7 @@ const Template = (args) => (
         </span>
         Christina Müller
       </sbb-header-action>
-      <sbb-header-action>
+      <sbb-header-action className="sbb-header__action-hidden-medium">
         <span slot="icon">
           <svg
             width="24"
