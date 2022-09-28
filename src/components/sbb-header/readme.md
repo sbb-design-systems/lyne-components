@@ -1,13 +1,13 @@
 # sbb-header
 
-The `sbb-header` component is a container for actions and logo and it is displayed sticky at page's top.
+The `sbb-header` component is a container for actions and logo, and it is displayed sticky at page's top.
 
 It has two slots: 
-the first one can contains [sbb-header-action](../sbb-header-action/readme.md)s or other action items,
-like `sbb-button` or `sbb-link`, and it is rendered on the component's right side;
-the second one contains a logo, which by default is the [sbb-logo](../sbb-logo/readme.md).
+the first one can contain one or more [sbb-header-action](../sbb-header-action/readme.md) or other action items
+like `sbb-button` or `sbb-link`, and it is displayed at the left end of the component; the second slot is displayed
+at the right end, and it can contain a logo, which by default is the [sbb-logo](../sbb-logo/readme.md).
 
-A box-shadow appears under the component when the page is scrolled if the `shadow` variable is set to `true`. 
+A box-shadow appears under the component if the `shadow` variable is set to `true`. 
 
 The component's height can be overriden by defining the variable `--sbb-header-height-override`.
 
@@ -15,7 +15,7 @@ A custom CSS can be obtained adding the `sbb-header__alternative` class on the c
 
 ## Usage
 
-The examples below shows how to use the component.
+The examples below shows how to use the component (with shadow on).
 
 ```html
 <sbb-header shadow="true">

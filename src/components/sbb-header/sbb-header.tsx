@@ -1,4 +1,4 @@
-import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 
 /**
  * @slot unnamed - Slot used to render the actions on the left side.
@@ -16,20 +16,9 @@ export class SbbHeader {
    */
   @Prop() public shadow: boolean;
 
-  /** @internal */
-  @State() private _isScrolled: boolean;
-
-  /**
-   * Listen to window scroll to possibly show the box shadow (in combination with `shadow` property).
-   */
-  @Listen('scroll', { target: 'window' })
-  public handleScroll(): void {
-    this._isScrolled = window.scrollY !== 0;
-  }
-
   public render(): JSX.Element {
     return (
-      <header class={{ 'sbb-header': true, 'sbb-header--shadow': this.shadow && this._isScrolled }}>
+      <header class={{ 'sbb-header': true, 'sbb-header--shadow': this.shadow }}>
         <div class="sbb-header__wrapper">
           <slot />
           <div class="sbb-header__logo">
