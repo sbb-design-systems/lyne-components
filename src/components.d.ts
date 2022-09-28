@@ -648,7 +648,7 @@ export namespace Components {
         /**
           * Form attribute if link is used as button (optional)
          */
-        "form": string;
+        "form"?: string;
         /**
           * The href value you want to link to (optional, if its not present link becomes a button)
          */

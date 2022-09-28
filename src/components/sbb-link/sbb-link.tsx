@@ -121,7 +121,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   /**
    * Form attribute if link is used as button (optional)
    */
-  @Prop() public form: string;
+  @Prop() public form?: string;
 
   /**
    * Disabled attribute if link is used as button (optional)
