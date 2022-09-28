@@ -11,6 +11,7 @@ import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custo
 import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
@@ -21,7 +22,6 @@ import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
-import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
