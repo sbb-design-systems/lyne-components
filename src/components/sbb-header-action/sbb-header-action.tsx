@@ -11,8 +11,8 @@ import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 let nextId = 0;
 
 /**
- * @slot icon - Slot used to render the action icon
- * @slot unnamed - Slot used to render the action label
+ * @slot icon - Slot used to render the action icon.
+ * @slot unnamed - Slot used to render the action text.
  */
 
 @Component({
@@ -22,7 +22,7 @@ let nextId = 0;
 })
 export class SbbHeaderAction implements LinkButtonProperties {
   /**
-   * Id of the action element.
+   * Action element's id.
    */
   @Prop() public actionHeaderId = `sbb-action-header-${++nextId}`;
 
@@ -35,7 +35,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
     'medium';
 
   /**
-   * The icon name used in the element. See sbb-icon components for more details.
+   * The icon name used in the action element. See sbb-icon components for more details.
    */
   @Prop() public icon?: string;
 
@@ -95,7 +95,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
   @Prop() public value: string | undefined;
 
   /**
-   * Id sent in the click event payload
+   * Id sent in the click event payload.
    */
   @Prop() public eventId: string;
 

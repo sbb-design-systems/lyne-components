@@ -13,6 +13,23 @@ The component's height can be overriden by defining the variable `--sbb-header-h
 
 A custom CSS can be obtained adding the `sbb-header__alternative` class on the component. 
 
+## Usage
+
+The examples below shows how to use the component.
+
+```html
+<sbb-header shadow="true">
+  <sbb-header-action
+    icon="hamburger-menu-small"
+    href="https://lyne-icons.netlify.app/icons/hamburger-menu-small.svg"
+    target="_blank"
+  >
+    Menu
+  </sbb-header-action>,
+  <sbb-header-action icon="magnifying-glass-small">Suchen</sbb-header-action>,
+</sbb-header>
+```
+
 <!-- Auto Generated Below -->
 
 

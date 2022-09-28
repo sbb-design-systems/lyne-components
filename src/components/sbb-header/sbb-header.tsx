@@ -20,7 +20,7 @@ export class SbbHeader {
   @State() private _isScrolled: boolean;
 
   /**
-   * Listen to window scroll to possibly show the box shadow (in combination with `shadow` property)
+   * Listen to window scroll to possibly show the box shadow (in combination with `shadow` property).
    */
   @Listen('scroll', { target: 'window' })
   public handleScroll(): void {

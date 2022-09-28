@@ -453,7 +453,7 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * Id of the action element.
+          * Action element's id.
          */
         "actionHeaderId": string;
         /**
@@ -461,7 +461,7 @@ export namespace Components {
          */
         "download": boolean | undefined;
         /**
-          * Id sent in the click event payload
+          * Id sent in the click event payload.
          */
         "eventId": string;
         /**
@@ -477,7 +477,7 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * The icon name used in the element. See sbb-icon components for more details.
+          * The icon name used in the action element. See sbb-icon components for more details.
          */
         "icon"?: string;
         /**
@@ -2044,7 +2044,7 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * Id of the action element.
+          * Action element's id.
          */
         "actionHeaderId"?: string;
         /**
@@ -2052,7 +2052,7 @@ declare namespace LocalJSX {
          */
         "download"?: boolean | undefined;
         /**
-          * Id sent in the click event payload
+          * Id sent in the click event payload.
          */
         "eventId"?: string;
         /**
@@ -2068,7 +2068,7 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * The icon name used in the element. See sbb-icon components for more details.
+          * The icon name used in the action element. See sbb-icon components for more details.
          */
         "icon"?: string;
         /**
