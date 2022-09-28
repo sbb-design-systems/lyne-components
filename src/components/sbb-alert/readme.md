@@ -127,6 +127,7 @@ graph TD;
   sbb-alert --> sbb-link
   sbb-alert --> sbb-button
   sbb-link --> sbb-icon
+  sbb-button --> sbb-icon
   style sbb-alert fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

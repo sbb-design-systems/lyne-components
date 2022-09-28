@@ -105,8 +105,8 @@ In the HTML, you can now use the icon as shown below:
 ### Graph
 ```mermaid
 graph TD;
-  sbb-button --> sbb-icon
   sbb-alert --> sbb-icon
+  sbb-button --> sbb-icon
   sbb-form-field --> sbb-icon
   sbb-link --> sbb-icon
   sbb-toggle-check --> sbb-icon

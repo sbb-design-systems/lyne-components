@@ -10,8 +10,6 @@ import {
   Fragment,
 } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
-
-import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
 import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { LinkProperties, LinkTargetType } from '../../global/interfaces/link-button-properties';
@@ -234,14 +232,13 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
           {!this.readonly && (
             <span class="sbb-alert__close-button-wrapper">
               <sbb-button
-                variant="transparent-negative"
-                icon={true}
+                variant="transparent"
+                icon-name="cross-small"
                 size="m"
                 onClick={() => this.requestDismissal()}
-                iconDescription={i18nCloseAlert[this._currentLangauge]}
-                aria-controls={this.internalId}
+                accessibility-label={i18nCloseAlert[this._currentLangauge]}
+                accessibility-controls={this.internalId}
                 class="sbb-alert__close-button"
-                innerHTML={crossSmall}
               />
             </span>
           )}

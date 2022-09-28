@@ -43,19 +43,19 @@ Use the accessibilityLabel if a button is used only with an icon to give a descr
 
 ## Dependencies
 
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
 ### Used by
 
  - [sbb-alert](../sbb-alert)
+
+### Depends on
+
+- [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-button --> sbb-icon
-    sbb-alert --> sbb-button
+  sbb-alert --> sbb-button
   style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
