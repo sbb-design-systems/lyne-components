@@ -37,9 +37,6 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
 
   @Element() private _el!: HTMLElement;
 
-  /** set as icon-only, no label, no text */
-  @Prop() public iconOnly = false;
-
   /** Variant of the button, like primary, secondary etc. */
   @Prop() public variant?: InterfaceButtonAttributes['variant'] = 'primary';
 
