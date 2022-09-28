@@ -150,7 +150,7 @@ const basicArgTypes = {
   name,
   value,
   form,
-  eventId,
+  'event-id': eventId,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
@@ -168,7 +168,7 @@ const basicArgs = {
   name: undefined,
   value: undefined,
   form: undefined,
-  eventId: undefined,
+  'event-id': undefined,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
@@ -183,7 +183,7 @@ const basicArgsButton = {
   name: 'header-button',
   value: 'value',
   form: 'form',
-  eventId: 'Header button',
+  'event-id': 'Header button',
 };
 
 export const sbbHeaderActionLink = TemplateSingle.bind({});
