@@ -177,7 +177,7 @@ const Template = (args) => (
         space-leading="responsive-l"
         space-trailing="responsive-l"
       >
-        <sbb-title level="2">Top Produkte.</sbb-title>
+        <sbb-title level="2">Top Products.</sbb-title>
         <sbb-grid variant="base--top-products">
           <sbb-card-product
             style="height: 100%;"

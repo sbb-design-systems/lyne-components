@@ -199,7 +199,7 @@ const Template = (args) => (
                     </svg>
                   </div>
                   <div slot="category">
-                    <span>Sparbillett</span>
+                    <span>Saver ticket</span>
                   </div>
                   <div slot="title">
                     <sbb-title level="2" visual-level="1">
@@ -239,11 +239,7 @@ const Template = (args) => (
                     </sbb-card-badge>
                   </div>
                   <div slot="action">
-                    <sbb-button
-                      icon-name="qrcode-small"
-                      variant="secondary"
-                      accessibility-label="Ticket"
-                    />
+                    <sbb-button variant="secondary">Ticket</sbb-button>
                   </div>
                 </sbb-card-product>
               </li>
@@ -269,7 +265,7 @@ const Template = (args) => (
                     </svg>
                   </div>
                   <div slot="category">
-                    <span>Sparbillett</span>
+                    <span>Saver ticket</span>
                   </div>
                   <div slot="title">
                     <sbb-title level="2" visual-level="6">
@@ -280,11 +276,7 @@ const Template = (args) => (
                     <span>Today, Valid 24 hours</span>
                   </div>
                   <div slot="action">
-                    <sbb-button
-                      icon-name="qrcode-small"
-                      accessibility-label="Billett"
-                      variant="secondary"
-                    />
+                    <sbb-button variant="secondary">Ticket</sbb-button>
                   </div>
                 </sbb-card-product>
               </li>
@@ -311,7 +303,7 @@ const Template = (args) => (
                     <sbb-pearl-chain legs='{"legs":[{"cancellation":false,"duration":25},{"cancellation":false,"duration":10},{"cancellation":false,"duration":8},{"cancellation":false,"duration":15},{"cancellation":false,"duration":42}]}'></sbb-pearl-chain>
                   </div>
                   <div slot="action">
-                    <sbb-button variant="secondary">Details</sbb-button>
+                    <sbb-button variant="secondary">Ticket</sbb-button>
                   </div>
                 </sbb-card-product>
               </li>

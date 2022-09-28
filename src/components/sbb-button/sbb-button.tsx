@@ -33,7 +33,7 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
    */
   @State() private _isStatic = false;
 
-  @State() private _hasText = true;
+  @State() private _hasText = false;
 
   @Element() private _el!: HTMLElement;
 
@@ -128,6 +128,7 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
   public connectedCallback(): void {
     // Check if the current element is nested in either an `<a>` or `<button>` element.
     this._isStatic = !!hostContext('a,button', this._el);
+    this._hasText = this._el.innerHTML !== '';
     this._checkIconContent();
   }
 

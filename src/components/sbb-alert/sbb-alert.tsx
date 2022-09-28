@@ -233,8 +233,8 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
             <span class="sbb-alert__close-button-wrapper">
               <sbb-button
                 variant="transparent"
+                negative
                 icon-name="cross-small"
-                size="m"
                 onClick={() => this.requestDismissal()}
                 accessibility-label={i18nCloseAlert[this._currentLangauge]}
                 accessibility-controls={this.internalId}
