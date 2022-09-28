@@ -1,10 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-card.events';
-import {
-  SbbColorMilkDefault,
-  SbbColorWhiteDefault,
-} from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens';
+import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 
 const wrapperStyle = (context) => {
   if (context.args.negative === true) {
