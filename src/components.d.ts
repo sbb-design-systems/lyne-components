@@ -255,17 +255,9 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * If you use an icon without a label, you must provide an iconDescription
-         */
-        "iconDescription"?: string;
-        /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "iconName"?: string;
-        /**
-          * set as icon-only, no label, no text
-         */
-        "iconOnly": boolean;
         /**
           * The name attribute to use for the button
          */
@@ -1735,17 +1727,9 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * If you use an icon without a label, you must provide an iconDescription
-         */
-        "iconDescription"?: string;
-        /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "iconName"?: string;
-        /**
-          * set as icon-only, no label, no text
-         */
-        "iconOnly"?: boolean;
         /**
           * The name attribute to use for the button
          */
