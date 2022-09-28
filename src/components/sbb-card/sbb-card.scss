@@ -1,0 +1,128 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-card-background-color: var(--sbb-color-white-default);
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-3x);
+  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
+  --sbb-card-border-radius: var(--sbb-border-radius-4x);
+  --sbb-card-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-card-animation-easing: var(--sbb-animation-easing);
+}
+
+:host([size='s']) {
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxxs);
+}
+
+:host([size='m']) {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxxs);
+}
+
+:host([size='l']) {
+  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-4x);
+}
+
+:host([size='xl']) {
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxs);
+}
+
+:host([size='xxl']) {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-s);
+}
+
+:host(.sbb-card--has-badge[size='m']),
+:host(.sbb-card--has-badge[size='l']),
+:host(.sbb-card--has-badge[size='xl']) {
+  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x);
+}
+
+:host(.sbb-card--has-badge[size='m']) {
+  --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxxs);
+}
+
+:host(.sbb-card--has-badge[size='l']) {
+  --sbb-card-padding-block-end: var(--sbb-spacing-fixed-4x);
+}
+
+:host(.sbb-card--has-badge[size='xl']) {
+  --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxs);
+}
+
+.sbb-card {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  border-radius: var(--sbb-card-border-radius);
+
+  &::before {
+    position: absolute;
+    background-color: transparent;
+    content: '';
+    inset: 0;
+    border-radius: var(--sbb-card-border-radius);
+  }
+
+  &:focus-visible {
+    @include focusOutline;
+  }
+}
+
+:host([active]) {
+  .sbb-card::before {
+    border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
+  }
+}
+
+.sbb-card__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sbb-card__button {
+  @include buttonReset;
+  @include text-inherit;
+
+  cursor: pointer;
+}
+
+.sbb-card__button,
+.sbb-card__link {
+  width: 100%;
+  border-radius: var(--sbb-card-border-radius);
+  background-color: var(--sbb-card-background-color);
+  padding-inline: var(--sbb-card-padding-inline);
+  padding-block-start: var(--sbb-card-padding-block-start);
+  padding-block-end: var(--sbb-card-padding-block-end);
+}
+
+:host([negative]) {
+  .sbb-card__button,
+  .sbb-card__link {
+    --sbb-card-background-color: var(--sbb-color-milk-default);
+  }
+}
+
+.sbb-card__content {
+  display: block;
+  transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+}
+
+@include hover-mq($hover: true) {
+  // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+  :host(:not([active]):hover) .sbb-card {
+    @include shadow-level-9-hard;
+
+    .sbb-card__content {
+      transform: translateY(#{px-to-rem-build(-2)});
+    }
+  }
+}
+
+.sbb-card__opens-in-new-window {
+  @include screenReaderOnly;
+}

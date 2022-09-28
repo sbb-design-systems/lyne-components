@@ -8,10 +8,10 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-import { LinkTargetType } from "./global/interfaces/link-button-properties";
+import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
-import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
+import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
@@ -21,6 +21,7 @@ import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
+import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -286,6 +287,68 @@ export namespace Components {
           * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
+    }
+    interface SbbCard {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Used to set the component's active state.
+         */
+        "active": boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean | undefined;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string | undefined;
+        /**
+          * The href value you want to link to.
+         */
+        "href": string | undefined;
+        /**
+          * Id used to identify the inner element.
+         */
+        "idValue"?: string;
+        /**
+          * The name of the button.
+         */
+        "name": string | undefined;
+        /**
+          * Option for set the component background color.
+         */
+        "negative": boolean;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Size variant, either xs, s, m, l, xl or xxl.
+         */
+        "size"?: InterfaceSbbCardAttributes['size'];
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Default behaviour of the button.
+         */
+        "type": ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string | undefined;
     }
     interface SbbCardBadge {
         /**
@@ -1112,6 +1175,10 @@ export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbButtonElement;
 }
+export interface SbbCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbCardElement;
+}
 export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbLinkElement;
@@ -1170,6 +1237,12 @@ declare global {
     var HTMLSbbButtonElement: {
         prototype: HTMLSbbButtonElement;
         new (): HTMLSbbButtonElement;
+    };
+    interface HTMLSbbCardElement extends Components.SbbCard, HTMLStencilElement {
+    }
+    var HTMLSbbCardElement: {
+        prototype: HTMLSbbCardElement;
+        new (): HTMLSbbCardElement;
     };
     interface HTMLSbbCardBadgeElement extends Components.SbbCardBadge, HTMLStencilElement {
     }
@@ -1449,6 +1522,7 @@ declare global {
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-autocomplete-item": HTMLSbbAutocompleteItemElement;
         "sbb-button": HTMLSbbButtonElement;
+        "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
@@ -1762,6 +1836,72 @@ declare namespace LocalJSX {
           * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
          */
         "visualButtonOnly"?: boolean;
+    }
+    interface SbbCard {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Used to set the component's active state.
+         */
+        "active"?: boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean | undefined;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string | undefined;
+        /**
+          * The href value you want to link to.
+         */
+        "href"?: string | undefined;
+        /**
+          * Id used to identify the inner element.
+         */
+        "idValue"?: string;
+        /**
+          * The name of the button.
+         */
+        "name"?: string | undefined;
+        /**
+          * Option for set the component background color.
+         */
+        "negative"?: boolean;
+        /**
+          * Emits whenever the native button click event triggers.
+         */
+        "onSbb-card-button_click"?: (event: SbbCardCustomEvent<any>) => void;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Size variant, either xs, s, m, l, xl or xxl.
+         */
+        "size"?: InterfaceSbbCardAttributes['size'];
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Default behaviour of the button.
+         */
+        "type"?: ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string | undefined;
     }
     interface SbbCardBadge {
         /**
@@ -2576,6 +2716,7 @@ declare namespace LocalJSX {
         "sbb-autocomplete": SbbAutocomplete;
         "sbb-autocomplete-item": SbbAutocompleteItem;
         "sbb-button": SbbButton;
+        "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
@@ -2634,6 +2775,7 @@ declare module "@stencil/core" {
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-autocomplete-item": LocalJSX.SbbAutocompleteItem & JSXBase.HTMLAttributes<HTMLSbbAutocompleteItemElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
+            "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;

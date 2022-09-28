@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.7.2 (2022-09-28)
+
+### Bug Fixes
+
+- **sbb-card:** use correct import in story ([7f92b67](https://github.com/lyne-design-system/lyne-components/commit/7f92b67112cd69f9d4557ce7cc3c1072415a0431))
+
 ### 0.7.1 (2022-09-22)
 
 ### Features
