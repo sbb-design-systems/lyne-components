@@ -43,7 +43,5 @@
 .sbb-header__logo {
   height: var(--logo-height);
   aspect-ratio: 19/2;
-
-  // margin-left: calc(var(--sbb-spacing-responsive-s) - var(--sbb-spacing-fixed-5x));
-  margin-left: auto;
+  margin-inline-start: auto;
 }

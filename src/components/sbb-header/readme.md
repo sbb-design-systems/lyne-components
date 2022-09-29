@@ -11,7 +11,53 @@ A box-shadow appears under the component if the `shadow` variable is set to `tru
 
 The component's height can be overriden by defining the variable `--sbb-header-height-override`.
 
-A custom CSS can be obtained adding the `sbb-header__alternative` class on the component. 
+## Style
+
+Users can customize position and behaviour of actions inside the `sbb-header` component 
+by adding classes to `sbb-header-action` elements and then defining their own style rules.
+
+An example has been created with the following requirements:
+- 4 action item (with custom icons);
+- the first item is always left aligned and has `expand-from` set to `small`;
+- the other 3 items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
+- the last item is not visible in breakpoints zero to small.
+
+To achieve this result, a `div` tag with a class named `sbb-header__spacer` was added between the first 
+and the second `sbb-header-action` item, then a class named `sbb-header-action__last-element` was added to the last one.
+Finally, the following custom CSS has been added*. The result can be seen in the home and home--logged-in stories.
+
+```css
+.sbb-header__spacer {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .sbb-header__spacer {
+    display: flex;
+    flex-grow: 1;
+  }
+}
+
+.sbb-header-action__last-element {
+  display: none;
+}
+
+@media screen and (min-width: 840px) {
+  .sbb-header-action__last-element {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .sbb-header-action__last-element {
+    margin-inline-end: var(--sbb-spacing-responsive-s);
+  }
+}
+```
+
+*technical note: due the presence of media-query rules, it was not possible to add those rules directly 
+in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),
+so they were wrapped into a `style` tag and added to the Storybook's configuration file named `preview-head.html`.
 
 ## Usage
 
