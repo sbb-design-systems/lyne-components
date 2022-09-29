@@ -207,12 +207,6 @@ const Template = (args) => (
           ></sbb-link-button>
         </span>
       </sbb-link-list>
-      <div>
-        <sbb-title level="2" visual-level="5">
-          Newsletter
-        </sbb-title>
-        <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
-      </div>
       <sbb-button
         variant="secondary"
         size="m"
