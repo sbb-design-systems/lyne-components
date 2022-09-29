@@ -2,9 +2,10 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+// Displays the action item's text and corrects spacings.
 @mixin expandFromBreakpoint($fromValue) {
   @include mq($from: $fromValue) {
-    --sbb-header-action-label-display: block;
+    --sbb-header-action-text-display: block;
     --sbb-header-action-icon-margin: var(--sbb-spacing-fixed-2x);
     --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
     --sbb-header-action-min-width: inherit;
@@ -12,7 +13,7 @@
 }
 
 :host {
-  --sbb-header-action-label-display: none;
+  --sbb-header-action-text-display: none;
   --sbb-header-action-icon-margin: 0;
   --sbb-header-action-padding-inline: 0;
   --sbb-header-action-background-color: var(--sbb-color-white-default);
@@ -64,10 +65,10 @@
   margin-right: var(--sbb-header-action-icon-margin);
 }
 
-.header-action__label {
+.header-action__text {
   @include text-xs--bold;
 
-  display: var(--sbb-header-action-label-display);
+  display: var(--sbb-header-action-text-display);
   color: var(--sbb-color-black-default);
 }
 

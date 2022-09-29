@@ -139,7 +139,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
               <sbb-icon name={this.icon} />
             </slot>
           </span>
-          <span class="header-action__label">
+          <span class="header-action__text">
             <slot />
           </span>
         </TAG_NAME>

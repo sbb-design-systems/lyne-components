@@ -17,7 +17,7 @@ describe('sbb-header-action', () => {
                 <sbb-icon></sbb-icon>
               </slot>
             </span>
-            <span class="header-action__label">
+            <span class="header-action__text">
               <slot></slot>
             </span>
           </button>
@@ -42,7 +42,7 @@ describe('sbb-header-action', () => {
                 <sbb-icon></sbb-icon>
               </slot>
             </span>
-            <span class="header-action__label">
+            <span class="header-action__text">
               <slot></slot>
             </span>
           </a>
