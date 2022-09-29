@@ -2,19 +2,7 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-:host {
-  --sbb-action-group-orientation: row;
-}
-
-.action-group {
-  display: flex;
-  flex-direction: var(--sbb-action-group-orientation);
-  gap: var(--sbb-spacing-fixed-4x);
-}
-
-:host([orientation='vertical']) {
-  --sbb-action-group-orientation: column;
-
+@mixin vertical-action-group {
   .action-group--align-start {
     --sbb-action-group-align-items: flex-start;
   }
@@ -34,18 +22,38 @@
   .action-group {
     align-items: var(--sbb-action-group-align-items);
   }
+}
+
+@mixin vertical-action-group-element-align-reset {
+  --sbb-action-group-orientation: column;
+  @include vertical-action-group;
 
   ::slotted([align-self='start']) {
-    align-self: flex-start;
+    margin-inline-end: unset;
   }
 
   ::slotted([align-self='center']) {
-    align-self: center;
+    margin-inline: unset;
   }
 
   ::slotted([align-self='end']) {
-    align-self: flex-end;
+    margin-inline-start: unset;
   }
+}
+
+:host {
+  --sbb-action-group-orientation: row;
+}
+
+.action-group {
+  display: flex;
+  flex-direction: var(--sbb-action-group-orientation);
+  gap: var(--sbb-spacing-fixed-4x);
+}
+
+:host([orientation='vertical']) {
+  --sbb-action-group-orientation: column;
+  @include vertical-action-group;
 }
 
 :host([orientation='horizontal']) {
@@ -58,7 +66,7 @@
   }
 
   .action-group--align-stretch {
-    --sbb-action-group-justify-content: stretch;
+    --sbb-action-group-justify-content: space-between;
   }
 
   .action-group--align-end {
@@ -80,4 +88,50 @@
   ::slotted([align-self='end']) {
     margin-inline-start: auto;
   }
+}
+
+:host([orientation='horizontal'][horizontal-from='zero']) {
+  @include mq($to: zero) {
+    @include vertical-action-group-element-align-reset;
+  }
+}
+
+:host([orientation='horizontal'][horizontal-from='micro']) {
+  @include mq($to: micro) {
+    @include vertical-action-group-element-align-reset;
+  }
+}
+
+:host([orientation='horizontal'][horizontal-from='small']) {
+  @include mq($to: small) {
+    @include vertical-action-group-element-align-reset;
+  }
+}
+
+:host([orientation='horizontal'][horizontal-from='medium']) {
+  @include mq($to: medium) {
+    @include vertical-action-group-element-align-reset;
+  }
+}
+
+:host([orientation='horizontal'][horizontal-from='large']) {
+  @include mq($to: large) {
+    @include vertical-action-group-element-align-reset;
+  }
+}
+
+:host([orientation='horizontal'][horizontal-from='wide']) {
+  @include mq($to: wide) {
+    @include vertical-action-group-element-align-reset;
+  }
+}
+
+:host([orientation='horizontal'][horizontal-from='ultra']) {
+  @include mq($to: ultra) {
+    @include vertical-action-group-element-align-reset;
+  }
+}
+
+::slotted(sbb-link) {
+  white-space: nowrap;
 }
