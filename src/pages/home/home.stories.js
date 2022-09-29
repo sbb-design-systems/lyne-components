@@ -3,6 +3,7 @@ import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-de
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic';
 
 /* ************************************************* */
 /* Documentation platform container                  */
@@ -25,9 +26,7 @@ const documentationPlatformContainerStyle = (context) => {
 /* ************************************************* */
 
 const wrapperStyle = (context) => {
-  const variantsOnDarkBg = ['primary-negative'];
-
-  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
+  if (!context.args.negative) {
     return `background-color: ${SbbColorWhiteDefault};`;
   }
 
@@ -39,22 +38,18 @@ const wrapperStyle = (context) => {
 /* Storybook controls                                */
 /* ************************************************* */
 
-const appearance = {
+const negative = {
   control: {
-    type: 'select',
-  },
-  options: ['primary', 'primary-negative'],
-  table: {
-    category: 'Appearance',
+    type: 'boolean',
   },
 };
 
 const defaultArgTypes = {
-  appearance,
+  negative,
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
+  negative: false,
 };
 
 const iconBurgerArgs = {
@@ -417,136 +412,152 @@ const Template = (args) => (
     {/* *************************************************
     Footer section
     ************************************************* */}
-    <sbb-footer accessibility-title="Footer" {...args}>
-      <div slot="col-1">
-        <sbb-stack>
-          <sbb-link-list title-level="2" title-content="Help &amp; Contact.">
-            <sbb-link
-              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text-size="s"
-            >
-              Refunds
-            </sbb-link>
-            <sbb-link
-              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text-size="s"
-            >
-              Lost property office
-            </sbb-link>
-            <sbb-link
-              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text-size="s"
-            >
-              Complaints
-            </sbb-link>
-            <sbb-link
-              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text-size="s"
-            >
-              Praise
-            </sbb-link>
-            <sbb-link
-              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text-size="s"
-            >
-              Report property damage
-            </sbb-link>
-          </sbb-link-list>
-          <sbb-stack space-leading="fixed-3x">
-            <sbb-link-button
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="All help topics"
-              variant="primary"
-            ></sbb-link-button>
-          </sbb-stack>
-        </sbb-stack>
-      </div>
-      <div slot="col-2">
-        <sbb-link-list title-level="2" title-content="More SBB.">
+    <sbb-footer accessibility-title="Footer" variant="clock-columns" negative={args.negative}>
+      <div className="sbb-link-list-button-group">
+        <sbb-link-list title-level="2" title-content="Help &amp; Contact.">
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             text-size="s"
-          >
-            Jobs & careers
-          </sbb-link>
-          <sbb-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="s"
-          >
-            Rail traffic information
-          </sbb-link>
-          <sbb-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="s"
-          >
-            SBB News
-          </sbb-link>
-          <sbb-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="s"
-          >
-            SBB Community
-          </sbb-link>
-          <sbb-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="s"
-          >
-            Company
-          </sbb-link>
-        </sbb-link-list>
-      </div>
-      <div slot="col-3">
-        <sbb-stack>
-          <sbb-title level="2" visual-level="5">
-            Newsletter.
-          </sbb-title>
-          <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
-          <sbb-stack space-leading="fixed-3x">
-            <sbb-link-button
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Subscribe"
-              variant="secondary"
-            ></sbb-link-button>
-          </sbb-stack>
-        </sbb-stack>
-      </div>
-      <div slot="clock">
-        <sbb-clock initial-time="now" class="chromatic-ignore"></sbb-clock>
-      </div>
-      <div slot="bottom">
-        <sbb-link-list title-level="2" title-content="" horizontal-from="large">
-          <sbb-link
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="xs"
+            variant="block"
           >
             Refunds
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="xs"
+            text-size="s"
+            variant="block"
           >
             Lost property office
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="xs"
+            text-size="s"
+            variant="block"
           >
             Complaints
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="xs"
+            text-size="s"
+            variant="block"
           >
             Praise
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text-size="xs"
+            text-size="s"
+            variant="block"
           >
             Report property damage
           </sbb-link>
         </sbb-link-list>
+        <sbb-button
+          variant="primary"
+          size="m"
+          label="All help topics"
+          event-id="Event ID"
+          name="sample-name"
+          value="sample-value"
+        ></sbb-button>
       </div>
+      <sbb-link-list title-level="2" title-content="More SBB.">
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="s"
+          variant="block"
+        >
+          Jobs & careers
+        </sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="s"
+          variant="block"
+        >
+          Rail traffic information
+        </sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="s"
+          variant="block"
+        >
+          SBB News
+        </sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="s"
+          variant="block"
+        >
+          SBB Community
+        </sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="s"
+          variant="block"
+        >
+          Company
+        </sbb-link>
+      </sbb-link-list>
+      <div className="sbb-link-list-button-group">
+        <sbb-link-list title-level="2" title-content="Newsletter.">
+          <sbb-link text-size="s" variant="block">
+            Our newsletter regularly informs you of attractive offers from SBB via e-mail.
+          </sbb-link>
+          <span slot="button">
+            <sbb-link-button
+              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+              text="Subscribe"
+              variant="secondary"
+            ></sbb-link-button>
+          </span>
+        </sbb-link-list>
+        <sbb-button
+          variant="secondary"
+          size="m"
+          label="Subscribe"
+          event-id="Event ID"
+          name="sample-name"
+          value="sample-value"
+        ></sbb-button>
+      </div>
+      <sbb-clock {...args.sbbClock}></sbb-clock>
+      <sbb-divider />
+      <sbb-link-list horizontal-from="large">
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="xs"
+          variant="block"
+        >
+          Refunds
+        </sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="xs"
+          variant="block"
+        >
+          Lost property office
+        </sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="xs"
+          variant="block"
+        >
+          Complaints
+        </sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="xs"
+          variant="block"
+        >
+          Praise
+        </sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          text-size="xs"
+          variant="block"
+        >
+          Report property damage
+        </sbb-link>
+      </sbb-link-list>
     </sbb-footer>
   </div>
 );
@@ -566,6 +577,21 @@ home.documentation = {
   },
   title: 'Home 2.0',
 };
+/**
+ * Stop the clock for Chromatic visual regression tests
+ * and set time to given time
+ */
+if (isChromatic()) {
+  home.args.sbbClock = {
+    'initial-time': '01:59:27',
+    paused: true,
+  };
+} else {
+  home.args.sbbClock = {
+    'initial-time': 'now',
+    paused: false,
+  };
+}
 
 /* ************************************************* */
 /* Render storybook section and stories              */

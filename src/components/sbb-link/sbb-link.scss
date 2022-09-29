@@ -27,6 +27,7 @@
   text-decoration: none;
   word-break: break-word;
   fill: currentcolor;
+  text-align: left;
 
   &:focus-visible {
     @include focusOutline;

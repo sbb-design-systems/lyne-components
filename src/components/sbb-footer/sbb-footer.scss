@@ -3,14 +3,14 @@
 @include host-component-properties;
 
 :host {
-  --_footer-gap-horizontal: var(--footer-gap-horizontal, var(--sbb-grid-base-gutter-responsive));
-  --_footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
-  --_footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
-  --_footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
-  --_footer-divider-thickness: var(--footer-divider-thickness, #{px-to-rem-build(1)});
-  --_footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(76)});
+  --sbb-footer-gap-horizontal: var(--footer-gap-horizontal, var(--sbb-grid-base-gutter-responsive));
+  --sbb-footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
+  --sbb-footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
+  --sbb-footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
+  --sbb-footer-divider-thickness: var(--footer-divider-thickness, #{px-to-rem-build(1)});
+  --sbb-footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(76)});
   @include mq($from: small) {
-    --_footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(112)});
+    --sbb-footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(112)});
   }
 
   // Contextual design for sbb-stack
@@ -23,46 +23,104 @@
   margin-block-start: var(--sbb-spacing-responsive-l);
   padding-block-start: var(--sbb-spacing-responsive-l);
   padding-block-end: var(--sbb-spacing-responsive-l);
-  background-color: var(--_footer-background-color);
+  background-color: var(--sbb-footer-background-color);
+
+  ::slotted(.sbb-link-list-button-group) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sbb-spacing-fixed-6x);
+    align-items: flex-start;
+  }
 }
 
-.footer--primary-negative {
-  --_footer-divider-color: var(--sbb-color-iron-default);
-  --_footer-background-color: var(--sbb-color-charcoal-default);
+.footer--negative {
+  --sbb-footer-divider-color: var(--sbb-color-iron-default);
+  --sbb-footer-background-color: var(--sbb-color-charcoal-default);
   --title-text-color-normal: var(--sbb-color-storm-default);
 }
 
-.columns {
-  @include page-spacing__inner;
+.footer--clock-columns {
+  slot {
+    @include page-spacing__inner;
 
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: var(--_footer-gap-horizontal);
-  row-gap: var(--_footer-gap-vertical);
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    column-gap: var(--sbb-footer-gap-horizontal);
+    row-gap: var(--sbb-footer-gap-vertical);
+  }
 
-  ::slotted([slot]) {
-    flex-basis: 100%;
+  ::slotted(sbb-clock) {
+    max-width: var(--sbb-footer-clock-width);
+    grid-row: 1;
+  }
 
-    @include mq($from: small) {
-      flex: 0 0 calc(50% - (var(--_footer-gap-horizontal) / 2));
-      max-width: calc(50% - (var(--_footer-gap-horizontal) / 2));
+  @include mq($from: small) {
+    slot {
+      grid-template-columns: calc(50% - (var(--sbb-footer-gap-horizontal) / 2));
     }
-    @include mq($from: wide) {
-      flex: 0 0 calc(25% - ((3 * var(--_footer-gap-horizontal)) / 4));
-      max-width: calc(25% - ((3 * var(--_footer-gap-horizontal)) / 4));
+
+    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+    ::slotted(:nth-child(-n + 2)) {
+      grid-row: 1;
+    }
+
+    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+    ::slotted(:nth-child(3)),
+    ::slotted(:nth-child(4)) {
+      grid-row: 2;
+    }
+
+    ::slotted(sbb-clock) {
+      align-self: start;
+      grid-row: 2;
+    }
+
+    ::slotted(sbb-divider) {
+      grid-row: 3;
+      grid-column: 1 / 4;
+      width: 100%;
+    }
+
+    ::slotted(*:last-child) {
+      grid-row: 4;
     }
   }
 
-  ::slotted([slot='clock']) {
-    max-width: var(--_footer-clock-width);
-    @include mq($from: zero) {
-      order: -1;
+  @include mq($from: large) {
+    ::slotted(*:last-child) {
+      grid-column: 1 / 4;
     }
-    @include mq($from: small) {
-      order: initial;
+  }
+
+  @include mq($from: wide) {
+    slot {
+      grid-template-columns: repeat(5, calc(25% - ((3 * var(--sbb-footer-gap-horizontal)) / 4)));
     }
-    @include mq($from: wide) {
-      margin-inline-start: auto;
+
+    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+    ::slotted(:nth-child(-n + 4)) {
+      grid-row: 1;
+    }
+
+    ::slotted(sbb-clock) {
+      grid-row: 1;
+      grid-column: 4 / 5;
+      width: 100%;
+      justify-self: start;
+    }
+
+    ::slotted(sbb-divider) {
+      grid-row: 2;
+    }
+
+    ::slotted(*:last-child) {
+      grid-row: 3;
+    }
+
+    ::slotted(sbb-divider),
+    ::slotted(*:last-child) {
+      grid-column: 1 / 5;
     }
   }
 }
@@ -77,6 +135,6 @@
 // the hidden title which always needs to be present
 :not(.title--visually-hidden) + .bottom {
   margin-block-start: var(--sbb-spacing-responsive-xl);
-  border-block-start: var(--_footer-divider-thickness) solid var(--_footer-divider-color);
+  border-block-start: var(--sbb-footer-divider-thickness) solid var(--sbb-footer-divider-color);
   padding-block-start: var(--sbb-spacing-fixed-8x);
 }

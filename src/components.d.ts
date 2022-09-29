@@ -457,9 +457,10 @@ export namespace Components {
          */
         "accessibilityTitle": string;
         /**
-          * Footer appearance
+          * Negative coloring variant flag
          */
-        "appearance"?: InterfaceFooterAttributes['appearance'];
+        "negative": boolean;
+        "variant"?: InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
     }
@@ -2039,9 +2040,10 @@ declare namespace LocalJSX {
          */
         "accessibilityTitle": string;
         /**
-          * Footer appearance
+          * Negative coloring variant flag
          */
-        "appearance"?: InterfaceFooterAttributes['appearance'];
+        "negative"?: boolean;
+        "variant"?: InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
     }
