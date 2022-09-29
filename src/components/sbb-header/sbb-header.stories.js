@@ -37,11 +37,7 @@ const Template = (args) => [
 ];
 
 const TemplateActions = (args) => [
-  <sbb-header
-    {...args}
-    style="display: flex; justify-content: flex-start; width: 100%;"
-    class="sbb-header__alternative"
-  >
+  <sbb-header {...args}>
     <sbb-header-action expand-from="small">
       <span slot="icon">
         <svg
@@ -61,7 +57,7 @@ const TemplateActions = (args) => [
       </span>
       Menu
     </sbb-header-action>
-    <div class="sbb-header__spacer" />
+    <div style="flex: 1 1 0px;" />
     <sbb-header-action>
       <span slot="icon">
         <svg
@@ -100,7 +96,7 @@ const TemplateActions = (args) => [
       </span>
       Anmelden
     </sbb-header-action>
-    <sbb-header-action class="sbb-header__action-hidden-medium">
+    <sbb-header-action>
       <span slot="icon">
         <svg
           width="24"
