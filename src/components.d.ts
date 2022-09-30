@@ -785,9 +785,9 @@ export namespace Components {
          */
         "closeMenu": () => Promise<void>;
         /**
-          * Whether the animation is enabled
+          * Whether the animation is enabled.
          */
-        "noAnimation": boolean;
+        "disableAnimation": boolean;
         /**
           * Opens the menu on trigger click.
          */
@@ -2537,9 +2537,9 @@ declare namespace LocalJSX {
     }
     interface SbbMenu {
         /**
-          * Whether the animation is enabled
+          * Whether the animation is enabled.
          */
-        "noAnimation"?: boolean;
+        "disableAnimation"?: boolean;
         /**
           * Emits whenever the menu is closed.
          */
@@ -2613,7 +2613,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the menu action is clicked.
          */
-        "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
+        "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<string>) => void;
         /**
           * The relationship of the linked URL as space-separated link types.
          */

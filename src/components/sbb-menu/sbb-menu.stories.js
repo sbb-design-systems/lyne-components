@@ -13,7 +13,7 @@ function sleep(ms) {
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const button = canvas.getByTestId('menu-trigger');
-  await sleep(100);
+  await sleep(300);
   await userEvent.click(button);
 };
 
@@ -74,7 +74,7 @@ const triggerButton = (id) => (
 
 const DefaultTemplate = (args) => [
   triggerButton('menu-trigger-1'),
-  <sbb-menu trigger="menu-trigger-1" no-animation={isChromatic()}>
+  <sbb-menu trigger="menu-trigger-1" disable-animation={isChromatic()}>
     <sbb-menu-action icon={args.icon} href="https://www.sbb.ch/en">
       View
     </sbb-menu-action>

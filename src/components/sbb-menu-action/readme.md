@@ -38,9 +38,9 @@ An amount can be rendered at the end of the action element as white text in a re
 
 ## Events
 
-| Event                   | Description                                | Type               |
-| ----------------------- | ------------------------------------------ | ------------------ |
-| `sbb-menu-action_click` | Emits whenever the menu action is clicked. | `CustomEvent<any>` |
+| Event                   | Description                                | Type                  |
+| ----------------------- | ------------------------------------------ | --------------------- |
+| `sbb-menu-action_click` | Emits whenever the menu action is clicked. | `CustomEvent<string>` |
 
 
 ## Slots
