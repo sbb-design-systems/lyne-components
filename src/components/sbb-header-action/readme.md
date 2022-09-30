@@ -3,7 +3,7 @@
 The component represents an action element contained by the [sbb-header](../sbb-header/readme.md) component.
 
 As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link.
-Consumers can set the icon and the label; the property `expandFrom` defined the minimum breakpoint 
+Consumers can set the icon and the label; the property `expandFrom` defines the minimum breakpoint 
 from which the label is displayed.
 
 <!-- Auto Generated Below -->
