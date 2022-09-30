@@ -11,7 +11,6 @@ import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custo
 import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
-import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
@@ -22,6 +21,7 @@ import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
+import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -248,10 +248,6 @@ export namespace Components {
          */
         "disabled"?: boolean;
         /**
-          * Id which is sent in the click event payload
-         */
-        "eventId"?: string;
-        /**
           * The href value you want to link to
          */
         "href": string | undefined;
@@ -259,6 +255,10 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "iconName"?: string;
+        /**
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
+         */
+        "isStatic"?: boolean;
         /**
           * The name attribute to use for the button
          */
@@ -274,7 +274,7 @@ export namespace Components {
         /**
           * The type attribute to use for the button
          */
-        "type": InterfaceLinkAttributes['buttonType'] | undefined;
+        "type": InterfaceButtonAttributes['buttonType'] | undefined;
         /**
           * The value attribute to use for the button
          */
@@ -283,10 +283,6 @@ export namespace Components {
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
-        /**
-          * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
-         */
-        "visualButtonOnly"?: boolean;
     }
     interface SbbCard {
         /**
@@ -1793,10 +1789,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Id which is sent in the click event payload
-         */
-        "eventId"?: string;
-        /**
           * The href value you want to link to
          */
         "href"?: string | undefined;
@@ -1804,6 +1796,10 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
          */
         "iconName"?: string;
+        /**
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
+         */
+        "isStatic"?: boolean;
         /**
           * The name attribute to use for the button
          */
@@ -1823,7 +1819,7 @@ declare namespace LocalJSX {
         /**
           * The type attribute to use for the button
          */
-        "type"?: InterfaceLinkAttributes['buttonType'] | undefined;
+        "type"?: InterfaceButtonAttributes['buttonType'] | undefined;
         /**
           * The value attribute to use for the button
          */
@@ -1832,10 +1828,6 @@ declare namespace LocalJSX {
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
-        /**
-          * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
-         */
-        "visualButtonOnly"?: boolean;
     }
     interface SbbCard {
         /**

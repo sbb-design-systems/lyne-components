@@ -69,12 +69,6 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
   emitButtonClick: (() => void) | undefined;
 
   /**
-   * Id sent in the click event payload.
-   * TODO verify if needed and if string is the correct type
-   */
-  eventId?: T | undefined;
-
-  /**
    * The <form> element to associate the button with.
    */
   form?: string | undefined;
@@ -175,11 +169,7 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     form: buttonProperties.form || undefined,
     disabled: buttonProperties.disabled ? 'true' : undefined,
     value: buttonProperties.value ?? undefined,
-    'aria-controls': buttonProperties?.accessibilityControls
-      ? buttonProperties?.accessibilityControls
-      : undefined,
-    'aria-haspopup': buttonProperties?.accessibilityHasPopup
-      ? buttonProperties?.accessibilityHasPopup
-      : undefined,
+    'aria-controls': buttonProperties?.accessibilityControls ?? undefined,
+    'aria-haspopup': buttonProperties?.accessibilityHasPopup ?? undefined,
   });
 }
