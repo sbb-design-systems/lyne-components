@@ -16,24 +16,16 @@ describe('sbb-link-list', () => {
               <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html' text-size='s'>Sachbeschädigung melden</sbb-link>
             </sbb-link-list>`,
     });
-    /*
-    Due to the missing onSlotEvent the following content is missing in this test case.
-    `
-      ...
-      <mock:shadow-root>
-        <sbb-title level="2" visual-level="5">
-          <slot name="title">Help &amp; Contact</slot>
-        </sbb-title>
-        <ul aria-labelledby="sbb-link-list-title-1">
-      ...
-    `
-    */
+
     expect(root).toEqualHtml(`
         <sbb-link-list
             title-level="2">
           <mock:shadow-root>
             <div class="sbb-link-list">
-              <ul>
+              <sbb-title level="2" title-id="sbb-link-list-title-1" visual-level="5">
+                <slot name="title"></slot>
+              </sbb-title>
+              <ul aria-labelledby="sbb-link-list-title-1">
                 <li><slot name="link-0"></slot></li>
                 <li><slot name="link-1"></slot></li>
                 <li><slot name="link-2"></slot></li>
@@ -72,7 +64,7 @@ describe('sbb-link-list', () => {
             title-content="Help &amp; Contact">
           <mock:shadow-root>
             <div class="sbb-link-list">
-              <sbb-title level="2" titleid="sbb-link-list-title-2" visual-level="5">
+              <sbb-title level="2" title-id="sbb-link-list-title-2" visual-level="5">
                 <slot name="title">
                 Help &amp; Contact
               </sbb-title>
