@@ -107,7 +107,7 @@ export class SbbMenuAction implements LinkButtonProperties {
     composed: true,
     eventName: 'sbb-menu-action_click',
   })
-  public click: EventEmitter<any>;
+  public click: EventEmitter<string>;
 
   /**
    * The function triggered on button click.
@@ -125,7 +125,7 @@ export class SbbMenuAction implements LinkButtonProperties {
 
     if (this.href) {
       TAG_NAME = 'a';
-      attributeList = getLinkAttributeList(this);
+      attributeList = getLinkAttributeList(this, this);
       className = 'sbb-menu-action__link';
     } else {
       TAG_NAME = 'button';
