@@ -169,7 +169,7 @@ describe('sbb-form-field', () => {
     `);
   });
 
-  it('should renders select without label', async () => {
+  it('should render select without label', async () => {
     const { root } = await newSpecPage({
       components: [SbbFormField],
       html: `
@@ -189,11 +189,6 @@ describe('sbb-form-field', () => {
             <div class="form-field__wrapper">
               <slot name="prefix"></slot>
               <div class="form-field__input-container">
-                <label class="form-field__label" hidden>
-                  <slot name="label">
-                    <span></span>
-                  </slot>
-                </label>
                 <div class="form-field__input">
                   <slot></slot>
                 </div>
