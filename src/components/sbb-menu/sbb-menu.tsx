@@ -50,9 +50,9 @@ export class SbbMenu implements ComponentInterface {
   @Prop({ reflect: true }) public trigger: string | HTMLElement;
 
   /**
-   * Whether the animation is enabled
+   * Whether the animation is enabled.
    */
-  @Prop() public noAnimation = false;
+  @Prop() public disableAnimation = false;
 
   /**
    * Whether the menu is open.
@@ -212,7 +212,7 @@ export class SbbMenu implements ComponentInterface {
 
   // Close menu on backdrop clicked.
   private _dismissOnBackdropClick(): void {
-    this._dialog.addEventListener('click', (event: MouseEvent) => {
+    this._dialog.addEventListener('mousedown', (event: MouseEvent) => {
       const rect = this._dialog.getBoundingClientRect();
       const isInDialog =
         rect.top <= event.clientY &&
@@ -280,7 +280,7 @@ export class SbbMenu implements ComponentInterface {
           'sbb-menu': true,
           'sbb-menu--open': this._open,
           'sbb-menu--dismissing': this._isDismissing,
-          'sbb-menu--no-animation': this.noAnimation,
+          'sbb-menu--no-animation': this.disableAnimation,
         }}
       >
         <div class="sbb-menu__content">
