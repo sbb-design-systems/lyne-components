@@ -45,11 +45,6 @@ The examples below shows how to use the component with the `<sbb-action-group>` 
 | `horizontalFrom` | `horizontal-from` | Overrides the behaviour of `orientation` property.                           | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `'medium'`     |
 | `orientation`    | `orientation`     | Indicates the orientation of the components inside the `<sbb-action-group>`. | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
 
-## Events
-
-| Event                   | Description                                            | Type               |
-| ----------------------- | ------------------------------------------------------ | ------------------ |
-| `sbb-button_click` | Emits whenever the native button click event triggers. | `CustomEvent<any>` |
 
 ## Slots
 
