@@ -4,25 +4,23 @@ The `<sbb-button>` implements the design of the Lyne Button. It can both be used
 href property is set). If the `<sbb-button>` is placed inside another or button tag, it is internally rendered as a 
 `<span>` in order to not break HTML structure.
 
-**Accessibility note:**  
-Use the accessibilityLabel property if a button is used only with an icon to give a description of the intention of that button.
-
 ## Usage
-- Simple button
+Simple button
+```html
+<sbb-button>Button text</sbb-button>
 ```
-<sbb-button {...Properties}>
-    Button-Label-text
-<sbb-button />
+
+With slotted icon
+```html
+<sbb-button>
+    <sbb-icon slot="icon" name="info"></sbb-icon>
+    Button text
+</sbb-button>
 ```
-- With slotted icon
-```
-<sbb-button {...Properties}>
-    <span slot="icon">
-        <svg>...</svg>
-    </span>
-    Button-Label-text
-<sbb-button />
-```
+
+## Accessibility
+Use the accessibility-label attribute in case of an icon only button to describe the purpose of the button for screen readers.
+
 <!-- Auto Generated Below -->
 
 

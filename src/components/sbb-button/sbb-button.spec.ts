@@ -11,7 +11,7 @@ describe('sbb-button', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-button variant='primary'>
+        <sbb-button size='l' variant='primary'>
           <mock:shadow-root>
             <button class='sbb-button sbb-button--size-l sbb-button--primary' dir="ltr" type="button">
               <span class='sbb-button__label'><slot></slot></span>
@@ -29,7 +29,7 @@ describe('sbb-button', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-button variant='primary'>
+        <sbb-button size='l' variant='primary'>
           <mock:shadow-root>
             <button class='sbb-button sbb-button--size-l sbb-button--primary' dir="ltr" type="button">
               <span class='sbb-button__icon'>
@@ -51,11 +51,11 @@ describe('sbb-button', () => {
   it('renders a secondary negative button with icon', async () => {
     const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<sbb-button variant='secondary' negative='true' icon-name='arrow-right-small'>Label Text</sbb-button>`,
+      html: `<sbb-button variant='secondary' negative icon-name='arrow-right-small'>Label Text</sbb-button>`,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-button variant='secondary' negative='true' icon-name='arrow-right-small'>
+        <sbb-button variant='secondary' negative='' size='l' icon-name='arrow-right-small'>
           <mock:shadow-root>
             <button class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--negative' dir="ltr" type="button">
               <span class='sbb-button__icon'>
@@ -74,11 +74,11 @@ describe('sbb-button', () => {
   it('renders a sbb-button inside an anchor as span element', async () => {
     const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<a href="#"><sbb-button variant='secondary' negative='true' icon='true'><span slot='icon'>${lyneIcons.icons['arrow-right-small']}</span>this is a button</sbb-button></a>`,
+      html: `<a href="#"><sbb-button variant='secondary' negative><span slot='icon'>${lyneIcons.icons['arrow-right-small']}</span>this is a button</sbb-button></a>`,
     });
 
     expect(root).toEqualHtml(`
-          <sbb-button variant='secondary' negative='true' icon='true'>
+          <sbb-button variant='secondary' negative='' size='l'>
             <mock:shadow-root>
               <span class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--negative' dir="ltr">
                 <span class='sbb-button__icon'>
@@ -116,27 +116,5 @@ describe('sbb-button', () => {
     await page.waitForChanges();
     expect(buttonSpy).toHaveBeenCalled();
     expect(buttonSpy.mock.calls[0][0].detail).toEqual(undefined);
-  });
-
-  it('Should emit click event on click with correct payload', async () => {
-    const eventId = 'testId';
-    const page = await newSpecPage({
-      components: [SbbButton],
-      html: `<sbb-button label='I am a button' event-id='${eventId}'></sbb-button>`,
-      supportsShadowDom: true,
-    });
-
-    const {
-      root: { shadowRoot },
-    } = page;
-
-    const button = shadowRoot.querySelector('button');
-    const buttonSpy = jest.fn();
-
-    page.win.addEventListener(events.click, buttonSpy);
-    button.click();
-    await page.waitForChanges();
-    expect(buttonSpy).toHaveBeenCalled();
-    expect(buttonSpy.mock.calls[0][0].detail).toEqual(eventId);
   });
 });

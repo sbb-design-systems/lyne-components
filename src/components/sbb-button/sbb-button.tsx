@@ -6,6 +6,7 @@ import {
   EventEmitter,
   h,
   JSX,
+  Listen,
   Prop,
   State,
 } from '@stencil/core';
@@ -17,6 +18,11 @@ import {
   LinkButtonProperties,
 } from '../../global/interfaces/link-button-properties';
 import { hostContext } from '../../global/helpers/host-context';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 @Component({
   shadow: true,
@@ -93,15 +99,15 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
    */
   @Prop() public accessibilityHasPopup: InterfaceButtonAttributes['popup'] | undefined;
 
-  /** Define if icon should be shown or not */
-  @State() private _icon = true;
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon');
 
   /** If this is set to true an span element will be used instead of an anchor or a button. */
   @State() private _isStatic = false;
 
   @State() private _hasText = false;
 
-  @Element() private _el!: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   /**
    * Emits whenever the native button click event triggers.
@@ -115,11 +121,16 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
 
   public connectedCallback(): void {
     // Check if the current element is nested in either an `<a>` or `<button>` element.
-    this._isStatic = !!hostContext('a,button,[href]', this._el);
-    this._hasText = Array.from(this._el.childNodes).some(
+    this._isStatic = !!hostContext('a,button,[href]', this._element);
+    this._hasText = Array.from(this._element.childNodes).some(
       (n) => !(n as Element).slot && n.textContent
     );
-    this._icon = !!(this.iconName || this._el.querySelector('[slot="icon"]'));
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+  }
+
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   /**
@@ -135,10 +146,6 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
     this._hasText = (event.target as HTMLSlotElement)
       .assignedNodes()
       .some((n) => !!n.textContent.trim());
-  }
-
-  private _onIconSlotChange(event: Event): void {
-    this._icon = (event.target as HTMLSlotElement).assignedElements().length > 0 || !!this.iconName;
   }
 
   /**
@@ -170,15 +177,13 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
 
     return (
       <TAG_NAME {...attributeList} class={this._getClassString()}>
-        {this._icon && (
+        {(this.iconName || this._namedSlots.icon) && (
           <span class="sbb-button__icon">
-            <slot name="icon" onSlotchange={(event): void => this._onIconSlotChange(event)}>
-              {this.iconName && <sbb-icon name={this.iconName} />}
-            </slot>
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           </span>
         )}
 
-        <span class="sbb-button__label">
+        <span class={{ 'sbb-button__label': true, 'sbb-button__label--hidden': !this._hasText }}>
           <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
         </span>
       </TAG_NAME>

@@ -31,26 +31,5 @@ describe('sbb-button', () => {
       await button.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
-
-    it('dispatches correct event payload on click with no id', async () => {
-      await page.waitForChanges();
-      const button = await page.find('sbb-button >>> button');
-      const changeSpy = await page.spyOnEvent(events.click);
-
-      await button.click();
-      expect(changeSpy).toHaveReceivedEventDetail(null);
-    });
-
-    it('dispatches correct event payload on click with id', async () => {
-      const buttonId = 'buttonId';
-
-      element.setProperty('eventId', buttonId);
-      await page.waitForChanges();
-      const button = await page.find('sbb-button >>> button');
-      const changeSpy = await page.spyOnEvent(events.click);
-
-      await button.click();
-      expect(changeSpy).toHaveReceivedEventDetail(buttonId);
-    });
   });
 });

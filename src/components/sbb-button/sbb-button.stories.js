@@ -33,33 +33,31 @@ const focusStyle = (context) => {
 
 // --- Component
 
-const Template = (args) => (
+const Template = ({ label, ...args }) => (
   <div>
-    <sbb-button
-      {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('label')))}
-    >
+    <sbb-button {...args}>
       {args.iconName && <span slot="icon">{args.iconName}</span>}
-      {args.label}
+      {label}
     </sbb-button>
   </div>
 );
 
-const FixedWidthTemplate = (args) => (
+const FixedWidthTemplate = ({ label, ...args }) => (
   <div>
     <p>
       <sbb-button
-        {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('label')))}
+        {...args}
         style={{
           width: '200px',
         }}
       >
         {args.iconName && <span slot="icon">{args.iconName}</span>}
-        {args.label}
+        {label}
       </sbb-button>
     </p>
     <p>
       <sbb-button
-        {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('label')))}
+        {...args}
         style={{
           maxWidth: '100%',
           width: '600px',
@@ -103,15 +101,6 @@ const iconName = {
 const disabledArg = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'General properties',
-  },
-};
-
-const eventId = {
-  control: {
-    type: 'text',
   },
   table: {
     category: 'General properties',
@@ -163,7 +152,6 @@ const basicArgTypes = {
   size,
   disabled: disabledArg,
   label,
-  eventId,
   'icon-name': iconName,
   'icon-description': iconDescription,
   negative,
@@ -174,7 +162,6 @@ const basicArgs = {
   size: size.options[0],
   disabled: false,
   label: 'Button',
-  'event-id': 'Event ID',
   'icon-name': iconName.options[0],
   name: 'sample-name',
   value: 'sample-value',
@@ -272,9 +259,6 @@ fixedWidth.args = {
 
 /* eslint-enable prefer-destructuring */
 
-//noIcon.args.icon = false;
-// noIcon.args.iconSlot = false;
-
 iconOnly.args = {
   ...basicArgs,
   'icon-name': iconName.options[5],
@@ -354,55 +338,6 @@ disabled.documentation = {
 fixedWidth.documentation = {
   title: 'Fixed width with overflow',
 };
-/*
-// Default, plain button with label only
-export const buttonWithLabelOnly = Template.bind({});
-buttonWithLabelOnly.argTypes = basicArgTypes;
-buttonWithLabelOnly.args = JSON.parse(JSON.stringify(basicArgs));
-buttonWithLabelOnly.documentation = {
-  title: 'Sbb-Button with label',
-};
-
-// Plain button with label only
-export const buttonWithLabelAndIcon = Template.bind({});
-buttonWithLabelAndIcon.argTypes = basicArgTypes;
-buttonWithLabelAndIcon.args = {
-  ...basicArgs,
-  'icon-name': iconName.options[5],
-};
-buttonWithLabelAndIcon.documentation = {
-  title: 'Sbb-Button with label and icon',
-};
-
-export const buttonWithIconOnly = Template.bind({});
-buttonWithIconOnly.argTypes = basicArgTypes;
-buttonWithIconOnly.args = {
-  ...basicArgs,
-  'icon-name': iconName.options[5],
-  label: '',
-};
-buttonWithIconOnly.documentation = {
-  title: 'Sbb-Button with icon only',
-};
-
-export const buttonInsideAnchor = AnchorWrappedButtonTemplate.bind({});
-buttonInsideAnchor.argTypes = basicArgTypes;
-buttonInsideAnchor.args = {
-  ...basicArgs,
-};
-buttonInsideAnchor.documentation = {
-  title: 'Sbb-Button inside an anchor',
-};
-
-export const buttonWithSlottedIcon = SlottedIconTemplate.bind({});
-buttonWithSlottedIcon.argTypes = basicArgTypes;
-buttonWithSlottedIcon.args = {
-  ...basicArgs,
-};
-buttonWithSlottedIcon.documentation = {
-  title: 'Sbb-Button inside an anchor',
-};
- */
 
 export default {
   decorators: [
