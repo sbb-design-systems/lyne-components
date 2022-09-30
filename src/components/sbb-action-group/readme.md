@@ -49,7 +49,7 @@ The examples below shows how to use the component with the `<sbb-action-group>` 
 
 | Event                   | Description                                            | Type               |
 | ----------------------- | ------------------------------------------------------ | ------------------ |
-| `sbb-card-button_click` | Emits whenever the native button click event triggers. | `CustomEvent<any>` |
+| `sbb-button_click` | Emits whenever the native button click event triggers. | `CustomEvent<any>` |
 
 ## Slots
 
