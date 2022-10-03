@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -87,7 +87,7 @@
     "minimist": "1.2.6",
     "netlify-cli": "12.0.2",
     "npm-run-all": "4.1.5",
-    "postcss": "8.4.16",
+    "postcss": "8.4.17",
     "prettier": "2.7.1",
     "puppeteer": "18.0.5",
     "react": "16.14.0",
@@ -103,7 +103,7 @@
     "stylelint-scss": "4.3.0",
     "ts-node": "10.9.1",
     "typescript": "4.8.4",
-    "yargs": "17.5.1"
+    "yargs": "17.6.0"
   },
   "resolutions": {
     "**/@types/react": "16.14.32"
