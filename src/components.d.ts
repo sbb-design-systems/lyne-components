@@ -767,7 +767,7 @@ export namespace Components {
         /**
           * Closes the menu.
          */
-        "closeMenu": () => Promise<void>;
+        "close": () => Promise<void>;
         /**
           * Whether the animation is enabled.
          */
@@ -775,7 +775,7 @@ export namespace Components {
         /**
           * Opens the menu on trigger click.
          */
-        "openMenu": () => Promise<void>;
+        "open": () => Promise<void>;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */

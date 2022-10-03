@@ -24,7 +24,7 @@
 }
 
 .sbb-menu {
-  @include scrollbar('dark', var(--sbb-border-radius-4x));
+  @include scrollbar('dark');
 
   --sbb-menu-transform: translateY(100%);
 

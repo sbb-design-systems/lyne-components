@@ -2,6 +2,10 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+:host {
+  --sbb-menu-action-border-radius: var(--sbb-border-radius-8x);
+}
+
 :host(:focus-within) {
   outline: none;
 }
@@ -14,7 +18,7 @@
   -webkit-tap-highlight-color: transparent;
   display: flex;
   align-items: center;
-  border-radius: var(--sbb-border-radius-8x);
+  border-radius: var(--sbb-menu-action-border-radius);
   padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
   transition: background-color var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
 
@@ -48,7 +52,7 @@
     .sbb-menu-action__content {
       outline: var(--sbb-focus-outline-width) solid var(--sbb-color-white-default);
       outline-offset: var(--sbb-focus-outline-offset);
-      border-radius: var(--sbb-border-radius-8x);
+      border-radius: var(--sbb-menu-action-border-radius);
     }
   }
 }
@@ -67,7 +71,7 @@
   justify-content: center;
   margin-inline-start: auto;
   padding-inline: var(--sbb-spacing-fixed-1x);
-  border-radius: var(--sbb-border-radius-8x);
+  border-radius: var(--sbb-menu-action-border-radius);
   background-color: var(--sbb-color-red-default);
   width: var(--sbb-spacing-fixed-4x);
   min-width: fit-content;

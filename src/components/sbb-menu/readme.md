@@ -64,7 +64,7 @@ As the menu opens, the focus will automatically be set to the first focusable it
 
 ## Methods
 
-### `closeMenu() => Promise<void>`
+### `close() => Promise<void>`
 
 Closes the menu.
 
@@ -74,7 +74,7 @@ Type: `Promise<void>`
 
 
 
-### `openMenu() => Promise<void>`
+### `open() => Promise<void>`
 
 Opens the menu on trigger click.
 
