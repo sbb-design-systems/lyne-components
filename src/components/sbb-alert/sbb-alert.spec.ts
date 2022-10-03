@@ -25,7 +25,7 @@ describe('sbb-alert', () => {
                   <slot></slot>
                 </span>
                 <span class="sbb-alert__close-button-wrapper">
-                  <sbb-button accessibility-controls="sbb-alert-1" class="sbb-alert__close-button" accessibility-label="Close message" icon-name="cross-small" negative="" variant="transparent" negative></sbb-button>
+                  <sbb-button accessibility-controls="sbb-alert-1" class="sbb-alert__close-button" accessibility-label="Close message" icon-name="cross-small" variant="transparent" negative size="m"></sbb-button>
                 </span>
               </div>
             </div>
@@ -62,7 +62,7 @@ describe('sbb-alert', () => {
                   </sbb-link>
                 </span>
                 <span class="sbb-alert__close-button-wrapper">
-                  <sbb-button accessibility-controls="custom-id" class="sbb-alert__close-button" accessibility-label="Close message" icon-name="cross-small" negative="" variant="transparent" negative></sbb-button>
+                  <sbb-button accessibility-controls="custom-id" class="sbb-alert__close-button" accessibility-label="Close message" icon-name="cross-small" negative="" variant="transparent" negative size="m"></sbb-button>
                 </span>
               </div>
             </div>
