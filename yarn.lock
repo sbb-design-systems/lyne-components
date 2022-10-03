@@ -2502,10 +2502,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stencil/core@2.18.0":
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.18.0.tgz#2556b0f8d1fb6f2c06c3fb22de495d59ca7daf05"
-  integrity sha512-NLEY8Jq59smyiivBAxHKipsp9YkkW/K/Vm90zAyXQqukb12i2SFucWHJ1Ik7ropVlhmMVvigyxXgRfQ9quIqtg==
+"@stencil/core@2.18.1":
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.18.1.tgz#f45e99b7abe2a0fa90d3141363601a68df5c08a7"
+  integrity sha512-/fXkh1lwZ+X9JQCw50mPjhBogzEHOBvVC5pLoDLZqodVYK0DGWILM2YLV4dcIUBNEK8/HMDpO/Rq81/rS3mNOw==
 
 "@stencil/react-output-target@0.3.1":
   version "0.3.1"

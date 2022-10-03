@@ -52,7 +52,7 @@
     "@commitlint/config-conventional": "17.1.0",
     "@namics/stylelint-bem": "7.0.0",
     "@sbb-esta/lyne-design-tokens": "0.2.4",
-    "@stencil/core": "2.18.0",
+    "@stencil/core": "2.18.1",
     "@stencil/react-output-target": "0.3.1",
     "@stencil/sass": "2.0.0",
     "@storybook/addon-a11y": "6.5.12",
