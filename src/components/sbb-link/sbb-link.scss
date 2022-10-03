@@ -24,6 +24,8 @@
 }
 
 .sbb-link {
+  @include stretch(width);
+
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
@@ -59,6 +61,7 @@ button.sbb-link {
   @include buttonReset;
 
   cursor: pointer;
+  text-align: left;
 }
 
 button.sbb-link:disabled {

@@ -34,6 +34,12 @@ const paragraphStyle = (context) => {
 
 const Template = ({ text, ...args }) => <sbb-link {...args}>{text}</sbb-link>;
 
+const FixedWidthTemplate = ({ text, ...args }) => (
+  <sbb-link {...args} style="width: 200px;">
+    {text}
+  </sbb-link>
+);
+
 const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }) => (
   <sbb-link {...args}>
     {text}
@@ -361,6 +367,17 @@ BlockNegativeIconEnd.documentation = {
   title: 'Block Negative Icon End',
 };
 
+export const BlockFixedWidth = FixedWidthTemplate.bind({});
+BlockFixedWidth.argTypes = defaultArgTypes;
+BlockFixedWidth.args = {
+  ...defaultArgs,
+  text: 'A lot of link text to show what happens if there is not enough space.',
+  'icon-name': 'chevron-small-left-small',
+};
+BlockFixedWidth.documentation = {
+  title: 'Block Fixed Width',
+};
+
 export const BlockButton = Template.bind({});
 BlockButton.argTypes = defaultArgTypes;
 BlockButton.args = {
@@ -408,6 +425,18 @@ BlockLinkOpensInNewWindow.args = {
 };
 BlockLinkOpensInNewWindow.documentation = {
   title: 'Block link opened in new window',
+};
+
+export const BlockButtonFixedWidth = FixedWidthTemplate.bind({});
+BlockButtonFixedWidth.argTypes = defaultArgTypes;
+BlockButtonFixedWidth.args = {
+  ...defaultArgs,
+  href: undefined,
+  text: 'A lot of link text to show what happens if there is not enough space.',
+  'icon-name': 'chevron-small-left-small',
+};
+BlockButtonFixedWidth.documentation = {
+  title: 'Block Button Fixed Width',
 };
 
 export const Inline = InlineTemplate.bind({});
