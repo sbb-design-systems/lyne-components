@@ -108,7 +108,7 @@ export class SbbMenu implements ComponentInterface {
    * Opens the menu on trigger click.
    */
   @Method()
-  public async openMenu(): Promise<void> {
+  public async open(): Promise<void> {
     this.willOpen.emit();
     this._setMenuPosition();
     this._dialog.showModal();
@@ -119,7 +119,7 @@ export class SbbMenu implements ComponentInterface {
    */
   @Method()
   @Listen('sbb-menu-action_click')
-  public async closeMenu(): Promise<void> {
+  public async close(): Promise<void> {
     this.willClose.emit();
     this._isDismissing = true;
   }
@@ -137,7 +137,7 @@ export class SbbMenu implements ComponentInterface {
   public onEscAction(event: KeyboardEvent): void {
     if (this._open && event.key === 'Escape') {
       event.preventDefault();
-      this.closeMenu();
+      this.close();
     }
   }
 
@@ -193,7 +193,7 @@ export class SbbMenu implements ComponentInterface {
 
     if (this._triggerEl) {
       this._triggerController = new AbortController();
-      this._triggerEl.addEventListener('click', () => this.openMenu(), {
+      this._triggerEl.addEventListener('click', () => this.open(), {
         signal: this._triggerController.signal,
       });
     }
@@ -205,7 +205,7 @@ export class SbbMenu implements ComponentInterface {
     const interactiveElements = this.el.querySelectorAll('[href], button, sbb-button, sbb-link');
     interactiveElements.forEach((el: Element) => {
       if (!el.hasAttribute('disabled')) {
-        el.addEventListener('click', () => this.closeMenu());
+        el.addEventListener('click', () => this.close());
       }
     });
   }
@@ -221,7 +221,7 @@ export class SbbMenu implements ComponentInterface {
         event.clientX <= rect.left + rect.width;
 
       if (!isInDialog) {
-        this.closeMenu();
+        this.close();
       }
     });
   }

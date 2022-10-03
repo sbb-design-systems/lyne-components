@@ -56,18 +56,10 @@
   }
 }
 
-@mixin scrollbar($color: 'light', $radius: 0) {
+@mixin scrollbar($color: 'light') {
   /* total width */
   &::-webkit-scrollbar {
     width: var(--sbb-spacing-fixed-4x);
-  }
-
-  /* background of the scrollbar except button or resizer */
-  &::-webkit-scrollbar-track {
-    @if $radius != 0 {
-      border-end-end-radius: $radius;
-      border-start-end-radius: $radius;
-    }
   }
 
   /* scrollbar itself */
