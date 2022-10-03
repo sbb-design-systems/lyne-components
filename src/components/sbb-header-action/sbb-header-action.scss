@@ -3,6 +3,8 @@
 @include host-component-properties;
 
 // Displays the action item's text and corrects spacings.
+$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+
 @mixin expandFromBreakpoint($fromValue) {
   @include mq($from: $fromValue) {
     --sbb-header-action-text-display: block;
@@ -23,32 +25,10 @@
   display: flex;
 }
 
-:host([expand-from='zero']) {
-  @include expandFromBreakpoint(zero);
-}
-
-:host([expand-from='micro']) {
-  @include expandFromBreakpoint(micro);
-}
-
-:host([expand-from='small']) {
-  @include expandFromBreakpoint(small);
-}
-
-:host([expand-from='medium']) {
-  @include expandFromBreakpoint(medium);
-}
-
-:host([expand-from='large']) {
-  @include expandFromBreakpoint(large);
-}
-
-:host([expand-from='wide']) {
-  @include expandFromBreakpoint(wide);
-}
-
-:host([expand-from='ultra']) {
-  @include expandFromBreakpoint(ultra);
+@each $breakpoint in $breakpoints {
+  :host([expand-from='#{$breakpoint}']) {
+    @include expandFromBreakpoint($breakpoint);
+  }
 }
 
 :host(:hover) {
