@@ -785,43 +785,43 @@ export namespace Components {
         /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "accessibilityDescribedby": string;
+        "accessibilityDescribedby": string | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
-        "accessibilityLabelledby": string;
+        "accessibilityLabelledby": string | undefined;
         /**
           * Value shown as badge at component end.
          */
-        "amount": string;
+        "amount"?: string | undefined;
         /**
           * Whether the button is disabled.
          */
-        "disabled": boolean;
+        "disabled": boolean | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */
-        "download": boolean;
+        "download": boolean | undefined;
         /**
           * Id sent in the click event payload.
          */
-        "eventId": string;
+        "eventId": string | undefined;
         /**
           * The <form> element to associate the button with.
          */
-        "form": string;
+        "form": string | undefined;
         /**
           * The href value you want to link to.
          */
-        "href": string;
+        "href": string | undefined;
         /**
           * The name property passed to `sbb-icon` component.
          */
-        "icon": string;
+        "icon"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -829,7 +829,7 @@ export namespace Components {
         /**
           * The name of the button.
          */
-        "name": string;
+        "name": string | undefined;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
@@ -841,7 +841,7 @@ export namespace Components {
         /**
           * Default behaviour of the button.
          */
-        "type": ButtonType;
+        "type": ButtonType | undefined;
         /**
           * The value associated with button `name` when it's submitted with the form data.
          */
@@ -2488,43 +2488,43 @@ declare namespace LocalJSX {
         /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "accessibilityDescribedby"?: string;
+        "accessibilityDescribedby"?: string | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel"?: string | undefined;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
-        "accessibilityLabelledby"?: string;
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Value shown as badge at component end.
          */
-        "amount"?: string;
+        "amount"?: string | undefined;
         /**
           * Whether the button is disabled.
          */
-        "disabled"?: boolean;
+        "disabled"?: boolean | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */
-        "download"?: boolean;
+        "download"?: boolean | undefined;
         /**
           * Id sent in the click event payload.
          */
-        "eventId"?: string;
+        "eventId"?: string | undefined;
         /**
           * The <form> element to associate the button with.
          */
-        "form"?: string;
+        "form"?: string | undefined;
         /**
           * The href value you want to link to.
          */
-        "href"?: string;
+        "href"?: string | undefined;
         /**
           * The name property passed to `sbb-icon` component.
          */
-        "icon"?: string;
+        "icon"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -2532,7 +2532,7 @@ declare namespace LocalJSX {
         /**
           * The name of the button.
          */
-        "name"?: string;
+        "name"?: string | undefined;
         /**
           * Emits whenever the menu action is clicked.
          */
@@ -2548,7 +2548,7 @@ declare namespace LocalJSX {
         /**
           * Default behaviour of the button.
          */
-        "type"?: ButtonType;
+        "type"?: ButtonType | undefined;
         /**
           * The value associated with button `name` when it's submitted with the form data.
          */

@@ -27,12 +27,12 @@ export class SbbMenuAction implements LinkButtonProperties {
   /**
    * Whether the browser will show the download dialog on click.
    */
-  @Prop() public download: boolean;
+  @Prop() public download: boolean | undefined;
 
   /**
    *  The href value you want to link to.
    */
-  @Prop() public href: string;
+  @Prop() public href: string | undefined;
 
   /**
    * The relationship of the linked URL as space-separated link types.
@@ -47,27 +47,27 @@ export class SbbMenuAction implements LinkButtonProperties {
   /**
    * Whether the button is disabled.
    */
-  @Prop() public disabled: boolean;
+  @Prop() public disabled: boolean | undefined;
 
   /**
    * The name of the button.
    */
-  @Prop() public name: string;
+  @Prop() public name: string | undefined;
 
   /**
    * The <form> element to associate the button with.
    */
-  @Prop() public form: string;
+  @Prop() public form: string | undefined;
 
   /**
    * Default behaviour of the button.
    */
-  @Prop() public type: ButtonType;
+  @Prop() public type: ButtonType | undefined;
 
   /**
    * Id sent in the click event payload.
    */
-  @Prop() public eventId: string;
+  @Prop() public eventId: string | undefined;
 
   /**
    * The value associated with button `name` when it's submitted with the form data.
@@ -77,27 +77,27 @@ export class SbbMenuAction implements LinkButtonProperties {
   /**
    * The name property passed to `sbb-icon` component.
    */
-  @Prop() public icon: string;
+  @Prop() public icon?: string | undefined;
 
   /**
    * Value shown as badge at component end.
    */
-  @Prop() public amount: string;
+  @Prop() public amount?: string | undefined;
 
   /**
    * This will be forwarded as aria-label to the relevant nested element.
    */
-  @Prop() public accessibilityLabel: string;
+  @Prop() public accessibilityLabel: string | undefined;
 
   /**
    * This will be forwarded as aria-describedby to the relevant nested element.
    */
-  @Prop() public accessibilityDescribedby: string;
+  @Prop() public accessibilityDescribedby: string | undefined;
 
   /**
    * This will be forwarded as aria-labelledby to the relevant nested element.
    */
-  @Prop() public accessibilityLabelledby: string;
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * Emits whenever the menu action is clicked.
