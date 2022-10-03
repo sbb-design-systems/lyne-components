@@ -239,7 +239,9 @@ const Template = (args) => (
                     </sbb-card-badge>
                   </div>
                   <div slot="action">
-                    <sbb-button variant="secondary">Ticket</sbb-button>
+                    <sbb-button variant="secondary" static icon-name="qrcode-small">
+                      Ticket
+                    </sbb-button>
                   </div>
                 </sbb-card-product>
               </li>
@@ -276,7 +278,9 @@ const Template = (args) => (
                     <span>Today, Valid 24 hours</span>
                   </div>
                   <div slot="action">
-                    <sbb-button variant="secondary">Ticket</sbb-button>
+                    <sbb-button variant="secondary" static icon-name="qrcode-small">
+                      Ticket
+                    </sbb-button>
                   </div>
                 </sbb-card-product>
               </li>
@@ -297,13 +301,15 @@ const Template = (args) => (
                     ></sbb-journey-header>
                   </div>
                   <div slot="text">
-                    <span>Saturady, 21.02.2021, 1 h 26 min</span>
+                    <span>Saturday, 21.02.2021, 1 h 26 min</span>
                   </div>
                   <div slot="details">
                     <sbb-pearl-chain legs='{"legs":[{"cancellation":false,"duration":25},{"cancellation":false,"duration":10},{"cancellation":false,"duration":8},{"cancellation":false,"duration":15},{"cancellation":false,"duration":42}]}'></sbb-pearl-chain>
                   </div>
                   <div slot="action">
-                    <sbb-button variant="secondary">Ticket</sbb-button>
+                    <sbb-button variant="secondary" static>
+                      Details
+                    </sbb-button>
                   </div>
                 </sbb-card-product>
               </li>
@@ -360,7 +366,7 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button size="m" variant="secondary">
+              <sbb-button size="m" variant="secondary" static>
                 Buy
               </sbb-button>
             </div>
@@ -391,7 +397,7 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button size="m" variant="secondary">
+              <sbb-button size="m" variant="secondary" static>
                 Buy
               </sbb-button>
             </div>
@@ -422,7 +428,7 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button size="m" variant="secondary">
+              <sbb-button size="m" variant="secondary" static>
                 Buy
               </sbb-button>
             </div>
@@ -449,7 +455,7 @@ const Template = (args) => (
               <span>2nd class, valid until 30.11.2022</span>
             </div>
             <div slot="action">
-              <sbb-button icon-name="highlighter-small" variant="secondary">
+              <sbb-button icon-name="highlighter-small" variant="secondary" static>
                 Edit subscription
               </sbb-button>
             </div>

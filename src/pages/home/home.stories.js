@@ -205,7 +205,7 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button size="m" variant="secondary">
+              <sbb-button size="m" variant="secondary" static>
                 Buy
               </sbb-button>
             </div>
@@ -236,7 +236,7 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button size="m" variant="secondary">
+              <sbb-button size="m" variant="secondary" static>
                 Buy
               </sbb-button>
             </div>
@@ -267,7 +267,7 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button size="m" variant="secondary">
+              <sbb-button size="m" variant="secondary" static>
                 Buy
               </sbb-button>
             </div>
@@ -298,7 +298,7 @@ const Template = (args) => (
               <span>For regular trips</span>
             </div>
             <div slot="action">
-              <sbb-button size="m" variant="secondary">
+              <sbb-button size="m" variant="secondary" static>
                 Buy
               </sbb-button>
             </div>
@@ -322,7 +322,9 @@ const Template = (args) => (
               </sbb-title>
             </div>
             <div slot="action">
-              <sbb-button variant="secondary">All GAs at a glance</sbb-button>
+              <sbb-button variant="secondary" static>
+                All GAs at a glance
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -344,7 +346,9 @@ const Template = (args) => (
               </sbb-title>
             </div>
             <div slot="action">
-              <sbb-button variant="secondary">Ride at half price</sbb-button>
+              <sbb-button variant="secondary" static>
+                Ride at half price
+              </sbb-button>
             </div>
           </sbb-card-product>
         </sbb-grid>
@@ -357,7 +361,6 @@ const Template = (args) => (
           <sbb-button
             href="https://github.com/lyne-design-system/lyne-components"
             icon-name="user-small"
-            icon-placement="start"
             variant="primary"
           >
             My tickets & subscriptions
