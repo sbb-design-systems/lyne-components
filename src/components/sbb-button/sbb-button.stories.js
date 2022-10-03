@@ -174,7 +174,7 @@ const type = {
   },
 };
 
-const disabled = {
+const disabledArgType = {
   control: {
     type: 'boolean',
   },
@@ -219,7 +219,7 @@ const defaultArgTypes = {
   name,
   type,
   form,
-  disabled,
+  disabled: disabledArgType,
   value,
 };
 
@@ -377,13 +377,13 @@ sizeM.documentation = {
   title: 'M size',
 };
 
-export const disabledButton = Template.bind({});
-disabledButton.argTypes = defaultArgTypes;
-disabledButton.args = {
+export const disabled = Template.bind({});
+disabled.argTypes = defaultArgTypes;
+disabled.args = {
   ...defaultArgs,
   disabled: true,
 };
-disabledButton.documentation = {
+disabled.documentation = {
   title: 'Disabled',
 };
 
