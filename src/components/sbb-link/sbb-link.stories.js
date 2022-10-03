@@ -32,21 +32,21 @@ const paragraphStyle = (context) => {
   return `${color} font-family: ${SbbTypoTypeFaceSbbRoman}; font-weight: normal; line-height: ${SbbTypoLineHeightBodyText}; letter-spacing: ${SbbTypoLetterSpacingBodyText}; font-size: ${SbbTypoScaleDefault}px`;
 };
 
-const Template = (args) => <sbb-link {...args}>{args.text}</sbb-link>;
+const Template = ({ text, ...args }) => <sbb-link {...args}>{text}</sbb-link>;
 
-const IconSlotTemplate = (args) => (
+const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }) => (
   <sbb-link {...args}>
-    {args.text}
-    <sbb-icon slot="icon" name={args['icon-name']}></sbb-icon>
+    {text}
+    <sbb-icon slot="icon" name={iconName}></sbb-icon>
   </sbb-link>
 );
 
-const InlineTemplate = (args, context) => (
+const InlineTemplate = ({ text, ...args }, context) => (
   <p style={paragraphStyle(context)}>
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
     ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
     dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-    sit amet. <sbb-link {...args}>{args.text}</sbb-link>
+    sit amet. <sbb-link {...args}>{text}</sbb-link>
   </p>
 );
 
@@ -74,6 +74,10 @@ const textSize = {
     type: 'select',
   },
   options: ['xs', 's', 'm'],
+};
+
+const isStatic = {
+  control: { type: 'boolean' },
 };
 
 const iconName = {
@@ -215,6 +219,7 @@ const defaultArgTypes = {
   variant,
   negative,
   'text-size': textSize,
+  static: isStatic,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
   href,
@@ -238,6 +243,7 @@ const defaultArgs = {
   variant: variant.options[0],
   negative: false,
   'text-size': textSize.options[1],
+  static: false,
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
   href: 'https://github.com/lyne-design-system/lyne-components',

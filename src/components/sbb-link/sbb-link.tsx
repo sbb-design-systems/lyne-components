@@ -7,7 +7,6 @@ import {
   h,
   JSX,
   Prop,
-  State,
 } from '@stencil/core';
 import {
   getButtonAttributeList,
@@ -17,7 +16,7 @@ import {
   LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
-import { hostContext } from '../../global/helpers/host-context';
+import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
@@ -30,8 +29,8 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink implements LinkButtonProperties<string>, ComponentInterface {
-  @Element() private _el!: HTMLElement;
+export class SbbLink implements LinkButtonProperties, ComponentInterface {
+  @Element() private _element!: HTMLElement;
 
   /**
    * Applies link inline styles (underline, inherit coloring/font-size etc).
@@ -50,10 +49,10 @@ export class SbbLink implements LinkButtonProperties<string>, ComponentInterface
   @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
 
   /**
-   * If this is set to true an span element will be used instead of an anchor or a button.
-   * @internal
+   * Set this property to true if you want only a visual representation of a
+   * button, but no interaction (a span instead of a button will be rendered).
    */
-  @State() private _isStatic = false;
+  @Prop({ attribute: 'static', mutable: true, reflect: true }) public isStatic = false;
 
   /**
    * The icon name we want to use, choose from the small icon variants from the ui-icons category from here
@@ -115,7 +114,7 @@ export class SbbLink implements LinkButtonProperties<string>, ComponentInterface
     composed: true,
     eventName: 'sbb-link-button_click',
   })
-  public click: EventEmitter | undefined;
+  public click: EventEmitter;
 
   /**
    * Form attribute if link is used as button (optional)
@@ -148,8 +147,8 @@ export class SbbLink implements LinkButtonProperties<string>, ComponentInterface
   @Prop() public accessibilityLabelledby: string | undefined;
 
   public connectedCallback(): void {
-    // Check if the current element is nested in either an `<a>` or `<button>` element.
-    this._isStatic = !!hostContext('a,button', this._el);
+    // Check if the current element is nested in an action element.
+    this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
   }
 
   /**
@@ -181,7 +180,7 @@ export class SbbLink implements LinkButtonProperties<string>, ComponentInterface
     attributes: Record<string, string>;
     tagName: 'a' | 'button' | 'span';
   } {
-    if (this._isStatic) {
+    if (this.isStatic) {
       return {
         tagName: 'span',
         attributes: getLinkButtonBaseAttributeList(this),

@@ -115,12 +115,36 @@ describe('sbb-link', () => {
             icon-placement="end"
             icon-name="chevron-small-right-small"
             text-size="m"
-            variant="block">
+            variant="block"
+            static>
           <mock:shadow-root>
             <span class="sbb-link sbb-link--icon-placement-end sbb-link--text-m" dir="ltr">
               <slot name="icon">
                 <sbb-icon name="chevron-small-right-small"></sbb-icon>
               </slot>
+              <slot></slot>
+            </span>
+          </mock:shadow-root>
+          Travelcards &amp; tickets.
+        </sbb-link>
+      `);
+  });
+
+  it('renders a link as a span by setting static property', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbLink],
+      html: `
+        <sbb-link static>
+          Travelcards &amp; tickets.
+        </sbb-link>
+      `,
+    });
+
+    expect(root).toEqualHtml(`
+        <sbb-link variant="block" static>
+          <mock:shadow-root>
+            <span class="sbb-link sbb-link--icon-placement-start sbb-link--text-s" dir="ltr">
+              <slot name="icon"></slot>
               <slot></slot>
             </span>
           </mock:shadow-root>

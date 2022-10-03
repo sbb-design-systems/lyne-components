@@ -256,9 +256,9 @@ export namespace Components {
          */
         "iconName"?: string;
         /**
-          * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a button will be rendered).
          */
-        "isStatic"?: boolean;
+        "isStatic": boolean;
         /**
           * The name attribute to use for the button
          */
@@ -666,6 +666,10 @@ export namespace Components {
           * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
+        /**
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a button will be rendered).
+         */
+        "isStatic": boolean;
         /**
           * Name attribute if link is used as button (optional)
          */
@@ -1797,7 +1801,7 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * Set this property to true if you want only a visual representation of a button, but no interaction (a div instead of a button will be rendered).
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a button will be rendered).
          */
         "isStatic"?: boolean;
         /**
@@ -2215,6 +2219,10 @@ declare namespace LocalJSX {
           * Pass in an id, if you need to identify the link element (optional).
          */
         "idValue"?: string;
+        /**
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a button will be rendered).
+         */
+        "isStatic"?: boolean;
         /**
           * Name attribute if link is used as button (optional)
          */

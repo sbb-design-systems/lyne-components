@@ -1,6 +1,5 @@
 import events from './sbb-button.events';
 import { SbbButton } from './sbb-button';
-import lyneIcons from 'lyne-icons/dist/icons.json';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-button', () => {
@@ -25,7 +24,7 @@ describe('sbb-button', () => {
   it('renders a primary button with slotted icon', async () => {
     const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<sbb-button variant='primary'><span slot='icon'>${lyneIcons.icons['arrow-right-small']}</span>Label Text</sbb-button>`,
+      html: `<sbb-button variant='primary'><sbb-icon slot='icon' name='chevron-small-left-small'></sbb-icon>Label Text</sbb-button>`,
     });
 
     expect(root).toEqualHtml(`
@@ -38,11 +37,7 @@ describe('sbb-button', () => {
               <span class='sbb-button__label'><slot></slot></span>
             </button>
           </mock:shadow-root>
-          <span slot='icon'>
-            <svg height='24' viewBox='0,0,24,24' width='24' xmlns='http://www.w3.org/2000/svg'>
-              <path clip-rule='evenodd' d='m17.8436,12.1382-3.99-3.99196-.7072.70693,3.1366,3.13823H5v1h11.287l-3.1413,3.1555.7086.7056,3.99-4.008.3519-.3535-.3526-.3528z' fill-rule='evenodd'></path>
-            </svg>
-          </span>
+          <sbb-icon slot='icon' name='chevron-small-left-small'></sbb-icon>
           Label Text
         </sbb-button>
       `);
@@ -74,25 +69,35 @@ describe('sbb-button', () => {
   it('renders a sbb-button inside an anchor as span element', async () => {
     const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<a href="#"><sbb-button variant='secondary' negative><span slot='icon'>${lyneIcons.icons['arrow-right-small']}</span>this is a button</sbb-button></a>`,
+      html: `<a href="#"><sbb-button variant='secondary' negative>this is a button</sbb-button></a>`,
     });
 
     expect(root).toEqualHtml(`
-          <sbb-button variant='secondary' negative='' size='l'>
+          <sbb-button variant='secondary' negative size='l' static>
             <mock:shadow-root>
-              <span class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--negative' dir="ltr">
-                <span class='sbb-button__icon'>
-                  <slot name='icon'></slot>
-                </span>
+              <span class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--negative sbb-button--visual-only' dir="ltr">
                 <span class='sbb-button__label'><slot></slot></span>
               </span>
             </mock:shadow-root>
-            <span slot='icon'>
-            <svg height='24' viewBox='0,0,24,24' width='24' xmlns='http://www.w3.org/2000/svg'>
-              <path clip-rule='evenodd' d='m17.8436,12.1382-3.99-3.99196-.7072.70693,3.1366,3.13823H5v1h11.287l-3.1413,3.1555.7086.7056,3.99-4.008.3519-.3535-.3526-.3528z' fill-rule='evenodd'></path>
-            </svg>
-            </span>
             this is a button
+          </sbb-button>
+      `);
+  });
+
+  it('renders a sbb-button as span element by setting static property', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbButton],
+      html: `<sbb-button variant='secondary' static>this is a static button</sbb-button>`,
+    });
+
+    expect(root).toEqualHtml(`
+          <sbb-button variant='secondary' size='l' static>
+            <mock:shadow-root>
+              <span class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--visual-only' dir="ltr">
+                <span class='sbb-button__label'><slot></slot></span>
+              </span>
+            </mock:shadow-root>
+            this is a static button
           </sbb-button>
       `);
   });

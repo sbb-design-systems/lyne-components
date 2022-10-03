@@ -17,7 +17,7 @@ import {
   getLinkButtonBaseAttributeList,
   LinkButtonProperties,
 } from '../../global/interfaces/link-button-properties';
-import { hostContext } from '../../global/helpers/host-context';
+import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -29,7 +29,7 @@ import {
   styleUrl: 'sbb-button.scss',
   tag: 'sbb-button',
 })
-export class SbbButton implements LinkButtonProperties<string>, ComponentInterface {
+export class SbbButton implements LinkButtonProperties, ComponentInterface {
   /** Variant of the button, like primary, secondary etc. */
   @Prop({ reflect: true }) public variant?: InterfaceButtonAttributes['variant'] = 'primary';
 
@@ -41,9 +41,9 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
 
   /**
    * Set this property to true if you want only a visual representation of a
-   * button, but no interaction (a div instead of a button will be rendered).
+   * button, but no interaction (a span instead of a button will be rendered).
    */
-  @Prop({ attribute: 'static', mutable: true, reflect: true }) public isStatic?: boolean;
+  @Prop({ attribute: 'static', mutable: true, reflect: true }) public isStatic = false;
 
   /** Set to true to get a disabled button */
   @Prop({ reflect: true }) public disabled? = false;
@@ -102,9 +102,6 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
-  /** If this is set to true an span element will be used instead of an anchor or a button. */
-  @State() private _isStatic = false;
-
   @State() private _hasText = false;
 
   @Element() private _element!: HTMLElement;
@@ -120,8 +117,8 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
   public click: EventEmitter;
 
   public connectedCallback(): void {
-    // Check if the current element is nested in either an `<a>` or `<button>` element.
-    this._isStatic = !!hostContext('a,button,[href]', this._element);
+    // Check if the current element is nested in an action element.
+    this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
     this._hasText = Array.from(this._element.childNodes).some(
       (n) => !(n as Element).slot && n.textContent
     );
@@ -164,7 +161,7 @@ export class SbbButton implements LinkButtonProperties<string>, ComponentInterfa
   public render(): JSX.Element {
     let TAG_NAME: string;
     let attributeList: Record<string, string>;
-    if (this._isStatic) {
+    if (this.isStatic) {
       TAG_NAME = 'span';
       attributeList = getLinkButtonBaseAttributeList(this);
     } else if (this.href) {

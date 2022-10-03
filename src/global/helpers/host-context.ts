@@ -18,3 +18,5 @@ export function hostContext(selector: string, element: Element): Element | null 
 
   return null;
 }
+
+export const ACTION_ELEMENTS = 'a,button,sbb-card,sbb-teaser-hero,sbb-teaser';
