@@ -24,7 +24,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
   /**
    * Action element's id.
    */
-  @Prop() public actionHeaderId = `sbb-action-header-${++nextId}`;
+  @Prop() public headerActionId = `sbb-header-action-${++nextId}`;
 
   /**
    * Used to set the minimum breakpoint from which the text is displayed.
@@ -133,7 +133,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
 
     return (
       <Host>
-        <TAG_NAME id={this.actionHeaderId} class={classString} {...attributeList}>
+        <TAG_NAME id={this.headerActionId} class={classString} {...attributeList}>
           <span class="header-action__icon">
             <slot name="icon">
               <sbb-icon name={this.icon} />

@@ -11,7 +11,7 @@ describe('sbb-header-action', () => {
     expect(root).toEqualHtml(`
       <sbb-header-action expand-from="medium" name="test" type="reset" value="value">
         <mock:shadow-root>
-          <button class="header-action__button" dir="ltr" id="sbb-action-header-1" name="test" type="reset" value="value">
+          <button class="header-action__button" dir="ltr" id="sbb-header-action-1" name="test" type="reset" value="value">
             <span class="header-action__icon">
               <slot name="icon">
                 <sbb-icon></sbb-icon>
@@ -36,7 +36,7 @@ describe('sbb-header-action', () => {
     expect(root).toEqualHtml(`
       <sbb-header-action expand-from="small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" >
         <mock:shadow-root>
-          <a dir="ltr" id="sbb-action-header-2" rel="external noopener nofollow" target="_blank" class="header-action__link" href="https://github.com/lyne-design-system/lyne-components">
+          <a dir="ltr" id="sbb-header-action-2" rel="external noopener nofollow" target="_blank" class="header-action__link" href="https://github.com/lyne-design-system/lyne-components">
             <span class="header-action__icon">
               <slot name="icon">
                 <sbb-icon></sbb-icon>

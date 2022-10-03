@@ -516,10 +516,6 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * Action element's id.
-         */
-        "actionHeaderId": string;
-        /**
           * Indicates whether the browser will show the download dialog on click.
          */
         "download": boolean | undefined;
@@ -535,6 +531,10 @@ export namespace Components {
           * Form attribute if component is displayed as a button.
          */
         "form": string | undefined;
+        /**
+          * Action element's id.
+         */
+        "headerActionId": string;
         /**
           * The href value you want to link to.
          */
@@ -2184,10 +2184,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * Action element's id.
-         */
-        "actionHeaderId"?: string;
-        /**
           * Indicates whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
@@ -2203,6 +2199,10 @@ declare namespace LocalJSX {
           * Form attribute if component is displayed as a button.
          */
         "form"?: string | undefined;
+        /**
+          * Action element's id.
+         */
+        "headerActionId"?: string;
         /**
           * The href value you want to link to.
          */
