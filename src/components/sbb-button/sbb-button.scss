@@ -21,6 +21,12 @@
   --sbb-button-color-hover-background: var(--sbb-color-red125-default);
   --sbb-button-color-hover-border: var(--sbb-color-red125-default);
   --sbb-button-color-hover-text: var(--sbb-color-milk-default);
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
+  --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
+  --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
   --sbb-button-border-width: var(--sbb-border-width-2x);
   --sbb-button-border-radius: var(--sbb-border-radius-16x);
   --sbb-button-min-height: var(--sbb-size-button-l-min-height);
@@ -101,6 +107,8 @@ a.sbb-button {
     --sbb-button-color-hover-background: var(--sbb-color-milk-default);
     --sbb-button-color-hover-border: var(--sbb-color-milk-default);
     --sbb-button-color-hover-text: var(--sbb-color-red125-default);
+    --sbb-button-shadow-1-color: var(--sbb-color-smoke-alpha-20);
+    --sbb-button-shadow-2-color: var(--sbb-color-metal-alpha-20);
   }
 }
 
@@ -117,6 +125,8 @@ a.sbb-button {
   --sbb-button-color-hover-background: var(--sbb-color-milk-default);
   --sbb-button-color-hover-border: var(--sbb-color-cloud-default);
   --sbb-button-color-hover-text: var(--sbb-color-iron-default);
+  --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
+  --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
 
   &.sbb-button--negative {
     --sbb-button-color-active-background: transparent;
@@ -217,17 +227,16 @@ a.sbb-button {
   }
 }
 
-.sbb-button--primary:not(:disabled)::before {
-  @include button-primary-box-shadow;
+// stylelint-disable plugin/stylelint-bem-namics
+:is(.sbb-button--primary, .sbb-button--secondary:not(.sbb-button--negative)):not(:disabled, :active)::before {
+  box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+      var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
+    var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
+      var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
+      var(--sbb-button-shadow-1-color);
 }
-
-.sbb-button--primary.sbb-button--negative:not(:disabled)::before {
-  @include button-primary-negative-box-shadow;
-}
-
-.sbb-button--secondary:not(:disabled)::before {
-  @include button-secondary-box-shadow;
-}
+// stylelint-enable plugin/stylelint-bem-namics
 
 .sbb-button--visual-only {
   width: fit-content;
@@ -283,6 +292,11 @@ a.sbb-button {
 @include hover-mq($hover: true) {
   .sbb-button:hover:not(:disabled) {
     --sbb-button-translate-y-content-hover: #{px-to-rem-build(-1)};
+    --sbb-button-shadow-1-offset-y: calc(
+      0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
+    );
+    --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
+    --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
 
     color: var(--sbb-button-color-hover-text);
 
@@ -296,18 +310,6 @@ a.sbb-button {
       }
     }
   }
-
-  .sbb-button--primary:hover:not(:disabled)::before {
-    @include button-primary-hover-box-shadow;
-  }
-
-  .sbb-button--primary.sbb-button--negative:hover:not(:disabled)::before {
-    @include button-primary-negative-hover-box-shadow;
-  }
-
-  .sbb-button--secondary:hover:not(:disabled)::before {
-    @include button-secondary-hover-box-shadow;
-  }
 }
 
 .sbb-button:active:not(:disabled) {
@@ -315,23 +317,6 @@ a.sbb-button {
     color: var(--sbb-button-color-active-text);
     background-color: var(--sbb-button-color-active-background);
     border-color: var(--sbb-button-color-active-border);
-  }
-}
-
-.sbb-button--secondary.sbb-button--negative,
-.sbb-button--translucent,
-.sbb-button--translucent.sbb-button--negative,
-.sbb-button--transparent,
-.sbb-button--transparent.sbb-button--negative {
-  &::before {
-    box-shadow: none;
-  }
-
-  &:hover,
-  &:focus {
-    &:not(:disabled)::before {
-      box-shadow: none;
-    }
   }
 }
 
