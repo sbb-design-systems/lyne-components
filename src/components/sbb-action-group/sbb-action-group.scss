@@ -90,43 +90,98 @@
   }
 }
 
-:host([orientation='horizontal'][horizontal-from='zero']) {
+// horizontal-from overrides orientation vertical
+:host([orientation='vertical'][horizontal-from='zero']),
+:host([orientation='vertical'][horizontal-from='micro']),
+:host([orientation='vertical'][horizontal-from='small']),
+:host([orientation='vertical'][horizontal-from='medium']),
+:host([orientation='vertical'][horizontal-from='large']),
+:host([orientation='vertical'][horizontal-from='wide']),
+:host([orientation='vertical'][horizontal-from='ultra']) {
+  --sbb-action-group-orientation: row;
+
+  .action-group--align-start {
+    --sbb-action-group-justify-content: flex-start;
+    --sbb-action-group-align-items: unset;
+  }
+
+  .action-group--align-center {
+    --sbb-action-group-justify-content: center;
+    --sbb-action-group-align-items: unset;
+  }
+
+  .action-group--align-stretch {
+    --sbb-action-group-justify-content: space-between;
+    --sbb-action-group-align-items: unset;
+  }
+
+  .action-group--align-end {
+    --sbb-action-group-justify-content: flex-end;
+    --sbb-action-group-align-items: unset;
+  }
+
+  .action-group {
+    justify-content: var(--sbb-action-group-justify-content);
+  }
+
+  ::slotted([align-self='start']) {
+    margin-inline-end: auto;
+  }
+
+  ::slotted([align-self='center']) {
+    margin-inline: auto;
+  }
+
+  ::slotted([align-self='end']) {
+    margin-inline-start: auto;
+  }
+}
+
+// horizontal-from overrides orientation horizontal
+:host([orientation='horizontal'][horizontal-from='zero']),
+:host([orientation='vertical'][horizontal-from='zero']) {
   @include mq($to: zero) {
     @include vertical-action-group-element-align-reset;
   }
 }
 
-:host([orientation='horizontal'][horizontal-from='micro']) {
+:host([orientation='horizontal'][horizontal-from='micro']),
+:host([orientation='vertical'][horizontal-from='micro']) {
   @include mq($to: micro) {
     @include vertical-action-group-element-align-reset;
   }
 }
 
-:host([orientation='horizontal'][horizontal-from='small']) {
+:host([orientation='horizontal'][horizontal-from='small']),
+:host([orientation='vertical'][horizontal-from='small']) {
   @include mq($to: small) {
     @include vertical-action-group-element-align-reset;
   }
 }
 
-:host([orientation='horizontal'][horizontal-from='medium']) {
+:host([orientation='horizontal'][horizontal-from='medium']),
+:host([orientation='vertical'][horizontal-from='medium']) {
   @include mq($to: medium) {
     @include vertical-action-group-element-align-reset;
   }
 }
 
-:host([orientation='horizontal'][horizontal-from='large']) {
+:host([orientation='horizontal'][horizontal-from='large']),
+:host([orientation='vertical'][horizontal-from='large']) {
   @include mq($to: large) {
     @include vertical-action-group-element-align-reset;
   }
 }
 
-:host([orientation='horizontal'][horizontal-from='wide']) {
+:host([orientation='horizontal'][horizontal-from='wide']),
+:host([orientation='vertical'][horizontal-from='wide']) {
   @include mq($to: wide) {
     @include vertical-action-group-element-align-reset;
   }
 }
 
-:host([orientation='horizontal'][horizontal-from='ultra']) {
+:host([orientation='horizontal'][horizontal-from='ultra']),
+:host([orientation='vertical'][horizontal-from='ultra']) {
   @include mq($to: ultra) {
     @include vertical-action-group-element-align-reset;
   }
