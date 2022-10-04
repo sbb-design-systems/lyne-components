@@ -144,7 +144,7 @@ describe('sbb-button', () => {
     expect(root).toEqualHtml(`
           <sbb-button variant='secondary' negative size='l' static>
             <mock:shadow-root>
-              <span class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--negative sbb-button--visual-only' dir="ltr">
+              <span class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--negative sbb-button--static' dir="ltr">
                 <span class='sbb-button__label'><slot></slot></span>
               </span>
             </mock:shadow-root>
@@ -162,7 +162,7 @@ describe('sbb-button', () => {
     expect(root).toEqualHtml(`
           <sbb-button variant='secondary' size='l' static>
             <mock:shadow-root>
-              <span class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--visual-only' dir="ltr">
+              <span class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--static' dir="ltr">
                 <span class='sbb-button__label'><slot></slot></span>
               </span>
             </mock:shadow-root>

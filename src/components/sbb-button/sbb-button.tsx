@@ -164,7 +164,7 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
     const sizeClass = `sbb-button--size-${this.size}`;
     const variantClass = `sbb-button--${this.variant}`;
     const iconClass = !this._hasText ? 'sbb-button--icon-only' : '';
-    const semanticClass = this.isStatic ? 'sbb-button--visual-only' : '';
+    const semanticClass = this.isStatic ? 'sbb-button--static' : '';
     const negativeClass = this.negative ? ' sbb-button--negative' : '';
 
     return `sbb-button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass} ${negativeClass}`;
