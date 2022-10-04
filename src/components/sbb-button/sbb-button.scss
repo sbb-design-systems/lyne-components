@@ -261,6 +261,10 @@
         background-color: GrayText;
       }
     }
+
+    @include ifForcedColors {
+      color: GrayText;
+    }
   }
 
   // stylelint-disable plugin/stylelint-bem-namics
@@ -285,6 +289,10 @@
     }
   }
   // stylelint-enable plugin/stylelint-bem-namics
+
+  @include ifForcedColors {
+    color: ButtonText;
+  }
 }
 
 :host([static]) {
