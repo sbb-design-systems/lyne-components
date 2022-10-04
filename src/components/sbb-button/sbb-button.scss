@@ -211,7 +211,8 @@
 
   // If the the device can hover over elements with ease
   @include hover-mq($hover: true) {
-    &:hover:not(:disabled) {
+    // stylelint-disable plugin/stylelint-bem-namics
+    :host(:not([disabled])) &:hover {
       --sbb-button-translate-y-content-hover: #{px-to-rem-build(-1)};
       --sbb-button-shadow-1-offset-y: calc(
         0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
@@ -231,11 +232,13 @@
         }
       }
     }
+    // stylelint-enable plugin/stylelint-bem-namics
   }
 
-  &:disabled {
+  :host([disabled]) & {
     color: var(--sbb-button-color-disabled-text);
     cursor: default;
+    pointer-events: none;
 
     &::before {
       background-color: var(--sbb-button-color-disabled-background);
@@ -257,17 +260,19 @@
     }
   }
 
-  &:active:not(:disabled)::before {
+  // stylelint-disable plugin/stylelint-bem-namics
+  :host(:not([disabled])) &:active::before {
     color: var(--sbb-button-color-active-text);
     background-color: var(--sbb-button-color-active-background);
     border-color: var(--sbb-button-color-active-border);
   }
+  // stylelint-enable plugin/stylelint-bem-namics
 
   // Only apply shadow definitions where it is really used.
   // stylelint-disable plugin/stylelint-bem-namics
-  :host([variant='primary']),
-  :host([variant='secondary']:not([negative])) & {
-    &:not(:disabled, :active)::before {
+  :host([variant='primary']:not([disabled])) &,
+  :host([variant='secondary']:not([negative], [disabled])) & {
+    &:not(:active)::before {
       box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
           var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
           var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
@@ -290,7 +295,7 @@
   width: var(--sbb-button-min-height);
   justify-content: center;
 
-  &.sbb-button:disabled::after {
+  :host([disabled]) &::after {
     inset-inline: unset;
 
     // Width of line through is fixed in icon variant

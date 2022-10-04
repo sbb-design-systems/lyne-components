@@ -157,15 +157,6 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
       .some((n) => !!n.textContent.trim());
   }
 
-  /**
-   * Generate the class attribute based on component's parameters.
-   */
-  private _getClassString(): string {
-    const iconClass = !this._hasText ? 'sbb-button--icon-only' : '';
-
-    return `sbb-button ${iconClass}`;
-  }
-
   private _resolveRenderVariables(): {
     screenReaderNewWindowInfo?: boolean;
     attributes: Record<string, string>;
@@ -197,7 +188,7 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
     return (
       <TAG_NAME
         id={this.idValue}
-        class={this._getClassString()}
+        class={{ 'sbb-button': true, ['sbb-button--icon-only']: !this._hasText }}
         {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
       >
