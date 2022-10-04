@@ -161,13 +161,9 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
    * Generate the class attribute based on component's parameters.
    */
   private _getClassString(): string {
-    const sizeClass = `sbb-button--size-${this.size}`;
-    const variantClass = `sbb-button--${this.variant}`;
     const iconClass = !this._hasText ? 'sbb-button--icon-only' : '';
-    const semanticClass = this.isStatic ? 'sbb-button--static' : '';
-    const negativeClass = this.negative ? ' sbb-button--negative' : '';
 
-    return `sbb-button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass} ${negativeClass}`;
+    return `sbb-button ${iconClass}`;
   }
 
   private _resolveRenderVariables(): {

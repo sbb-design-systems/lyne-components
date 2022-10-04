@@ -41,26 +41,24 @@
   }
 }
 
-.sbb-button--primary {
-  &.sbb-button--negative {
-    --sbb-button-color-active-background: var(--sbb-color-cloud-default);
-    --sbb-button-color-active-border: var(--sbb-color-cloud-default);
-    --sbb-button-color-active-text: var(--sbb-color-red150-default);
-    --sbb-button-color-default-background: var(--sbb-color-white-default);
-    --sbb-button-color-default-border: var(--sbb-color-white-default);
-    --sbb-button-color-default-text: var(--sbb-color-red-default);
-    --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
-    --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
-    --sbb-button-color-disabled-text: var(--sbb-color-white-alpha-60);
-    --sbb-button-color-hover-background: var(--sbb-color-milk-default);
-    --sbb-button-color-hover-border: var(--sbb-color-milk-default);
-    --sbb-button-color-hover-text: var(--sbb-color-red125-default);
-    --sbb-button-shadow-1-color: var(--sbb-color-smoke-alpha-20);
-    --sbb-button-shadow-2-color: var(--sbb-color-metal-alpha-20);
-  }
+:host([variant='primary'][negative]) {
+  --sbb-button-color-active-background: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-text: var(--sbb-color-red150-default);
+  --sbb-button-color-default-background: var(--sbb-color-white-default);
+  --sbb-button-color-default-border: var(--sbb-color-white-default);
+  --sbb-button-color-default-text: var(--sbb-color-red-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
+  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-disabled-text: var(--sbb-color-white-alpha-60);
+  --sbb-button-color-hover-background: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-border: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-text: var(--sbb-color-red125-default);
+  --sbb-button-shadow-1-color: var(--sbb-color-smoke-alpha-20);
+  --sbb-button-shadow-2-color: var(--sbb-color-metal-alpha-20);
 }
 
-.sbb-button--secondary {
+:host([variant='secondary']) {
   --sbb-button-color-active-background: var(--sbb-color-cloud-default);
   --sbb-button-color-active-border: var(--sbb-color-cloud-default);
   --sbb-button-color-active-text: var(--sbb-color-anthracite-default);
@@ -75,24 +73,24 @@
   --sbb-button-color-hover-text: var(--sbb-color-iron-default);
   --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
   --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
-
-  &.sbb-button--negative {
-    --sbb-button-color-active-background: transparent;
-    --sbb-button-color-active-border: var(--sbb-color-cloud-default);
-    --sbb-button-color-active-text: var(--sbb-color-cloud-default);
-    --sbb-button-color-default-background: transparent;
-    --sbb-button-color-default-border: var(--sbb-color-white-default);
-    --sbb-button-color-default-text: var(--sbb-color-white-default);
-    --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
-    --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
-    --sbb-button-color-disabled-text: var(--sbb-color-aluminium-default);
-    --sbb-button-color-hover-background: transparent;
-    --sbb-button-color-hover-border: var(--sbb-color-milk-default);
-    --sbb-button-color-hover-text: var(--sbb-color-milk-default);
-  }
 }
 
-.sbb-button--translucent {
+:host([variant='secondary'][negative]) {
+  --sbb-button-color-active-background: transparent;
+  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-text: var(--sbb-color-cloud-default);
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-border: var(--sbb-color-white-default);
+  --sbb-button-color-default-text: var(--sbb-color-white-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
+  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-disabled-text: var(--sbb-color-aluminium-default);
+  --sbb-button-color-hover-background: transparent;
+  --sbb-button-color-hover-border: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-text: var(--sbb-color-milk-default);
+}
+
+:host([variant='translucent']) {
   --sbb-button-color-active-background: var(--sbb-color-black-alpha-70);
   --sbb-button-color-active-border: var(--sbb-color-black-alpha-0);
   --sbb-button-color-active-text: var(--sbb-color-cloud-default);
@@ -105,24 +103,24 @@
   --sbb-button-color-hover-background: var(--sbb-color-black-alpha-60);
   --sbb-button-color-hover-border: var(--sbb-color-black-alpha-0);
   --sbb-button-color-hover-text: var(--sbb-color-milk-default);
-
-  &.sbb-button--negative {
-    --sbb-button-color-active-background: var(--sbb-color-white-alpha-70);
-    --sbb-button-color-active-border: var(--sbb-color-white-alpha-0);
-    --sbb-button-color-active-text: var(--sbb-color-anthracite-default);
-    --sbb-button-color-default-background: var(--sbb-color-white-alpha-50);
-    --sbb-button-color-default-border: var(--sbb-color-white-alpha-0);
-    --sbb-button-color-default-text: var(--sbb-color-charcoal-default);
-    --sbb-button-color-disabled-background: var(--sbb-color-white-alpha-20);
-    --sbb-button-color-disabled-border: var(--sbb-color-white-alpha-0);
-    --sbb-button-color-disabled-text: var(--sbb-color-platinum-default);
-    --sbb-button-color-hover-background: var(--sbb-color-white-alpha-60);
-    --sbb-button-color-hover-border: var(--sbb-color-white-alpha-0);
-    --sbb-button-color-hover-text: var(--sbb-color-iron-default);
-  }
 }
 
-.sbb-button--transparent {
+:host([variant='translucent'][negative]) {
+  --sbb-button-color-active-background: var(--sbb-color-white-alpha-70);
+  --sbb-button-color-active-border: var(--sbb-color-white-alpha-0);
+  --sbb-button-color-active-text: var(--sbb-color-anthracite-default);
+  --sbb-button-color-default-background: var(--sbb-color-white-alpha-50);
+  --sbb-button-color-default-border: var(--sbb-color-white-alpha-0);
+  --sbb-button-color-default-text: var(--sbb-color-charcoal-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-white-alpha-20);
+  --sbb-button-color-disabled-border: var(--sbb-color-white-alpha-0);
+  --sbb-button-color-disabled-text: var(--sbb-color-platinum-default);
+  --sbb-button-color-hover-background: var(--sbb-color-white-alpha-60);
+  --sbb-button-color-hover-border: var(--sbb-color-white-alpha-0);
+  --sbb-button-color-hover-text: var(--sbb-color-iron-default);
+}
+
+:host([variant='transparent']) {
   --sbb-button-color-active-background: var(--sbb-color-cloud-default);
   --sbb-button-color-active-border: var(--sbb-color-cloud-default);
   --sbb-button-color-active-text: var(--sbb-color-black-default);
@@ -135,24 +133,24 @@
   --sbb-button-color-hover-background: var(--sbb-color-milk-default);
   --sbb-button-color-hover-border: var(--sbb-color-milk-default);
   --sbb-button-color-hover-text: var(--sbb-color-black-default);
-
-  &.sbb-button--negative {
-    --sbb-button-color-active-background: var(--sbb-color-iron-default);
-    --sbb-button-color-active-border: var(--sbb-color-iron-default);
-    --sbb-button-color-active-text: var(--sbb-color-white-default);
-    --sbb-button-color-default-background: transparent;
-    --sbb-button-color-default-border: transparent;
-    --sbb-button-color-default-text: var(--sbb-color-white-default);
-    --sbb-button-color-disabled-background: transparent;
-    --sbb-button-color-disabled-border: transparent;
-    --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
-    --sbb-button-color-hover-background: var(--sbb-color-charcoal-default);
-    --sbb-button-color-hover-border: var(--sbb-color-charcoal-default);
-    --sbb-button-color-hover-text: var(--sbb-color-white-default);
-  }
 }
 
-.sbb-button--size-m {
+:host([variant='transparent'][negative]) {
+  --sbb-button-color-active-background: var(--sbb-color-iron-default);
+  --sbb-button-color-active-border: var(--sbb-color-iron-default);
+  --sbb-button-color-active-text: var(--sbb-color-white-default);
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-border: transparent;
+  --sbb-button-color-default-text: var(--sbb-color-white-default);
+  --sbb-button-color-disabled-background: transparent;
+  --sbb-button-color-disabled-border: transparent;
+  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
+  --sbb-button-color-hover-background: var(--sbb-color-charcoal-default);
+  --sbb-button-color-hover-border: var(--sbb-color-charcoal-default);
+  --sbb-button-color-hover-text: var(--sbb-color-white-default);
+}
+
+:host([size='m']) {
   --sbb-button-border-width: var(--sbb-border-width-1x);
   --sbb-button-min-height: var(--sbb-size-button-m-min-height);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
@@ -264,21 +262,24 @@
     background-color: var(--sbb-button-color-active-background);
     border-color: var(--sbb-button-color-active-border);
   }
+
+  // Only apply shadow definitions where it is really used.
+  // stylelint-disable plugin/stylelint-bem-namics
+  :host([variant='primary']),
+  :host([variant='secondary']:not([negative])) & {
+    &:not(:disabled, :active)::before {
+      box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+          var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
+          var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
+        var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
+          var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
+          var(--sbb-button-shadow-1-color);
+    }
+  }
+  // stylelint-enable plugin/stylelint-bem-namics
 }
 
-// Only apply shadow definitions where it is really used.
-// stylelint-disable plugin/stylelint-bem-namics
-:is(.sbb-button--primary, .sbb-button--secondary:not(.sbb-button--negative)):not(:disabled, :active)::before {
-  box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
-      var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
-    var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
-      var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-      var(--sbb-button-shadow-1-color);
-}
-// stylelint-enable plugin/stylelint-bem-namics
-
-.sbb-button--static {
+:host([static]) {
   user-select: none;
 }
 
