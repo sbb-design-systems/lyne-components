@@ -17,6 +17,7 @@ import {
   getLinkAttributeList,
   getLinkButtonBaseAttributeList,
   LinkButtonProperties,
+  LinkButtonRenderVariables,
   LinkTargetType,
   PopupType,
 } from '../../global/interfaces/link-button-properties';
@@ -168,11 +169,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
-  private _resolveRenderVariables(): {
-    screenReaderNewWindowInfo?: boolean;
-    attributes: Record<string, string>;
-    tagName: 'a' | 'button' | 'span';
-  } {
+  public resolveRenderVariables(): LinkButtonRenderVariables {
     if (this.isStatic) {
       return {
         tagName: 'span',
@@ -193,7 +190,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = this._resolveRenderVariables();
+    } = this.resolveRenderVariables();
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (

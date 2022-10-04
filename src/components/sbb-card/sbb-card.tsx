@@ -18,6 +18,7 @@ import {
   getButtonAttributeList,
   getLinkAttributeList,
   LinkButtonProperties,
+  LinkButtonRenderVariables,
   LinkTargetType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
@@ -147,27 +148,37 @@ export class SbbCard implements LinkButtonProperties {
     return this.size === 'm' || this.size === 'l' || this.size === 'xl' || this.size === 'xxl';
   }
 
-  public render(): JSX.Element {
-    let TAG_NAME: string;
-    let className = 'sbb-card';
-    let attributeList: Record<string, string>;
-
+  public resolveRenderVariables(): LinkButtonRenderVariables {
     if (this.href) {
-      TAG_NAME = 'a';
-      className += ' sbb-card__link';
-      attributeList = getLinkAttributeList(this, this);
+      return {
+        tagName: 'a',
+        attributes: getLinkAttributeList(this, this),
+        cssClass: 'sbb-card sbb-card__link',
+        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
+      };
     } else {
-      TAG_NAME = 'button';
-      className += ' sbb-card__button';
-      attributeList = getButtonAttributeList(this);
+      return {
+        tagName: 'button',
+        attributes: getButtonAttributeList(this),
+        cssClass: 'sbb-card sbb-card__button',
+      };
     }
+  }
+
+  public render(): JSX.Element {
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      cssClass,
+      screenReaderNewWindowInfo,
+    } = this.resolveRenderVariables();
 
     return (
       <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
         <TAG_NAME
           id={this.idValue}
-          class={className}
-          {...attributeList}
+          class={cssClass}
+          {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >
           {this._showSBBBadge() && (
@@ -180,7 +191,7 @@ export class SbbCard implements LinkButtonProperties {
           )}
           <span class="sbb-card__content">
             <slot />
-            {this.href && (
+            {screenReaderNewWindowInfo && (
               <span class="sbb-card__opens-in-new-window">
                 . {i18nTargetOpensInNewWindow[getDocumentLang()]}
               </span>

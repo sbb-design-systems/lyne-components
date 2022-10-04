@@ -77,6 +77,32 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
 }
 
 /**
+ * A set of variables used in `render` function in components that implement LinkButtonProperties.
+ */
+export interface LinkButtonRenderVariables {
+  /**
+   * The tag's name rendered by the component.
+   */
+  tagName: 'a' | 'button' | 'span';
+
+  /**
+   * The tag attributes; can be set using getLinkButtonBaseAttributeList(...),
+   * getLinkAttributeList(...) or getButtonAttributeList(...) methods.
+   */
+  attributes: Record<string, string>;
+
+  /**
+   * The tag's CSS classes.
+   */
+  cssClass?: string;
+
+  /**
+   * Indicates whether the screen reader has to announce that the link will open in a new window.
+   */
+  screenReaderNewWindowInfo?: boolean;
+}
+
+/**
  * The interface contains the possible attributes of both the <a> and the <button> tags.
  * It is intended to be used in all cases where a component needs to render a tag that can be an <a> or a <button>,
  * for instance depending on whether the value of the href attribute is present or not.
@@ -84,7 +110,13 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
  */
 export interface LinkButtonProperties<ParameterType = any>
   extends LinkProperties,
-    ButtonProperties<ParameterType> {}
+    ButtonProperties<ParameterType> {
+  /**
+   * Used to set the correct LinkButtonRenderVariables based on some conditions.
+   * E.g. if href is not set, return tagName = 'button' and attributes = getButtonAttributeList(...).
+   */
+  resolveRenderVariables: () => LinkButtonRenderVariables;
+}
 
 /**
  * Creates the basic attribute list for the link/button tag; undefined/null properties are not set.
