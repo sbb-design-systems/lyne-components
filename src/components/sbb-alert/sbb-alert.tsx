@@ -65,6 +65,18 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
 
+  /** Content of the link. */
+  @Prop() public linkContent?: string;
+
+  /** The href value you want to link to. */
+  @Prop() public href: string | undefined;
+
+  /** Where to display the linked URL. */
+  @Prop() public target: LinkTargetType | string | undefined;
+
+  /** The relationship of the linked URL as space-separated link types. */
+  @Prop() public rel: string | undefined;
+
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
@@ -73,18 +85,6 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
 
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
-
-  /** The href value you want to link to. */
-  @Prop() public href: string | undefined;
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel: string | undefined;
-
-  /** Where to display the linked URL. */
-  @Prop() public target: LinkTargetType | string | undefined;
-
-  /** Content of the link */
-  @Prop() public linkContent?: string;
 
   /** Emits when the fade in animation starts. */
   @Event({

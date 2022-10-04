@@ -23,65 +23,37 @@ export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
  * The interface contains attributes that can be set on an <a> tag.
  */
 export interface LinkProperties extends AccessibilityProperties {
-  /**
-   *  The href value you want to link to.
-   */
+  /** The href value you want to link to. */
   href: string | undefined;
 
-  /**
-   * Whether the browser will show the download dialog on click.
-   */
-  download?: boolean | undefined;
+  /** Where to display the linked URL. */
+  target?: LinkTargetType | string | undefined;
 
-  /**
-   * The relationship of the linked URL as space-separated link types.
-   */
+  /** The relationship of the linked URL as space-separated link types. */
   rel?: string | undefined;
 
-  /**
-   * Where to display the linked URL.
-   */
-  target?: LinkTargetType | string | undefined;
+  /** Whether the browser will show the download dialog on click. */
+  download?: boolean | undefined;
 }
 
 /**
  * The interface contains attributes that can be set on an <button> tag.
  */
 export interface ButtonProperties<T = any> extends AccessibilityProperties {
-  /**
-   * Default behaviour of the button.
-   */
+  /** The type attribute to use for the button. */
   type: ButtonType | undefined;
 
-  /**
-   * The name of the button.
-   */
+  /** Whether the button is disabled. */
+  disabled?: boolean | undefined;
+
+  /** The name attribute to use for the button. */
   name: string | undefined;
 
-  /**
-   * Emits the eventId to parent on button click.
-   */
-  click: EventEmitter<T> | undefined;
-
-  /**
-   * The function triggered on button click.
-   */
-  emitButtonClick: (() => void) | undefined;
-
-  /**
-   * The <form> element to associate the button with.
-   */
-  form?: string | undefined;
-
-  /**
-   * The value associated with button `name` when it's submitted with the form data.
-   */
+  /** The value attribute to use for the button. */
   value?: string | undefined;
 
-  /**
-   * Whether the button is disabled.
-   */
-  disabled?: boolean | undefined;
+  /** The <form> element to associate the button with. */
+  form?: string | undefined;
 
   /**
    * The aria-controls property identifies the element (or elements)
@@ -95,7 +67,13 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
    * Indicates the availability and type of interactive popup element that can be triggered
    * by the element
    */
-  accessibilityHasPopup?: PopupType | undefined;
+  accessibilityHaspopup?: PopupType | undefined;
+
+  /** Emits the event on button click. */
+  click: EventEmitter<T> | undefined;
+
+  /** The function triggered on button click. */
+  emitButtonClick: (() => void) | undefined;
 }
 
 /**
@@ -170,6 +148,6 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     disabled: buttonProperties.disabled ? 'true' : undefined,
     value: buttonProperties.value ?? undefined,
     'aria-controls': buttonProperties?.accessibilityControls ?? undefined,
-    'aria-haspopup': buttonProperties?.accessibilityHasPopup ?? undefined,
+    'aria-haspopup': buttonProperties?.accessibilityHaspopup ?? undefined,
   });
 }

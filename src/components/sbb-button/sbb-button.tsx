@@ -12,10 +12,13 @@ import {
 } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
+  ButtonType,
   getButtonAttributeList,
   getLinkAttributeList,
   getLinkButtonBaseAttributeList,
   LinkButtonProperties,
+  LinkTargetType,
+  PopupType,
 } from '../../global/interfaces/link-button-properties';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import {
@@ -24,6 +27,10 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 
+/**
+ * @slot unnamed - Button Content
+ * @slot icon - Slot used to display the icon, if one is set
+ */
 @Component({
   shadow: true,
   styleUrl: 'sbb-button.scss',
@@ -31,60 +38,56 @@ import {
 })
 export class SbbButton implements LinkButtonProperties, ComponentInterface {
   /** Variant of the button, like primary, secondary etc. */
-  @Prop({ reflect: true }) public variant?: InterfaceButtonAttributes['variant'] = 'primary';
+  @Prop({ reflect: true }) public variant: InterfaceButtonAttributes['variant'] = 'primary';
+
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true }) public negative = false;
 
   /** Size variant, either l or m. */
   @Prop({ reflect: true }) public size?: InterfaceButtonAttributes['size'] = 'l';
 
-  /** The href value you want to link to */
-  @Prop({ reflect: true }) public href: string | undefined;
-
   /**
    * Set this property to true if you want only a visual representation of a
-   * button, but no interaction (a span instead of a button will be rendered).
+   * button, but no interaction (a span instead of a link/button will be rendered).
    */
   @Prop({ attribute: 'static', mutable: true, reflect: true }) public isStatic = false;
 
-  /** Set to true to get a disabled button */
-  @Prop({ reflect: true }) public disabled? = false;
+  /** Pass in an id, if you need to identify the inner element. */
+  @Prop() public idValue?: string;
 
   /**
-   * The icon name we want to use,
-   * choose from the small icon variants from
-   * the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/ (optional).
-   * Inline variant doesn't support icons.
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/.
    */
   @Prop() public iconName?: string;
 
-  /** The type attribute to use for the button */
-  @Prop() public type: InterfaceButtonAttributes['buttonType'] | undefined;
+  /** The href value you want to link to (if it is present, button becomes a link). */
+  @Prop() public href: string | undefined;
 
-  /** The name attribute to use for the button */
+  /** Where to display the linked URL. */
+  @Prop() public target?: LinkTargetType | string | undefined;
+
+  /** The relationship of the linked URL as space-separated link types. */
+  @Prop() public rel?: string | undefined;
+
+  /** Whether the browser will show the download dialog on click. */
+  @Prop() public download?: boolean;
+
+  /** The type attribute to use for the button. */
+  @Prop() public type: ButtonType | undefined;
+
+  /** Whether the button is disabled. */
+  @Prop({ reflect: true }) public disabled? = false;
+
+  /** The name attribute to use for the button. */
   @Prop() public name: string | undefined;
 
-  /** The value attribute to use for the button */
+  /** The value attribute to use for the button. */
   @Prop() public value?: string;
 
-  /**
-   * Negative coloring variant flag
-   */
-  @Prop({ reflect: true }) public negative: boolean;
-
-  /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
+  /** The <form> element to associate the button with. */
+  @Prop() public form?: string;
 
   /**
    * When an interaction of this button has an impact on another element(s) in the document, the id
@@ -97,24 +100,31 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
    * If you use the button to trigger another widget which itself is covering
    * the page, you must provide an according attribute for aria-haspopup.
    */
-  @Prop() public accessibilityHasPopup: InterfaceButtonAttributes['popup'] | undefined;
+  @Prop() public accessibilityHaspopup: PopupType | undefined;
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
-
-  @State() private _hasText = false;
-
-  @Element() private _element!: HTMLElement;
-
-  /**
-   * Emits whenever the native button click event triggers.
-   */
+  /** Emits the event on button click. */
   @Event({
     bubbles: true,
     composed: true,
     eventName: 'sbb-button_click',
   })
   public click: EventEmitter;
+
+  /** This will be forwarded as aria-label to the relevant nested element. */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  @Prop() public accessibilityLabelledby: string | undefined;
+
+  @Element() private _element!: HTMLElement;
+
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon');
+
+  @State() private _hasText = false;
 
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
@@ -172,8 +182,14 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
       attributeList = getButtonAttributeList(this);
     }
 
+    // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <TAG_NAME {...attributeList} class={this._getClassString()}>
+      <TAG_NAME
+        id={this.idValue}
+        class={this._getClassString()}
+        {...attributeList}
+        ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
+      >
         {(this.iconName || this._namedSlots.icon) && (
           <span class="sbb-button__icon">
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>

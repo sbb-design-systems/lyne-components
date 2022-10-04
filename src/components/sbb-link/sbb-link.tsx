@@ -9,11 +9,13 @@ import {
   Prop,
 } from '@stencil/core';
 import {
+  ButtonType,
   getButtonAttributeList,
   getLinkAttributeList,
   getLinkButtonBaseAttributeList,
   LinkButtonProperties,
   LinkTargetType,
+  PopupType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
@@ -30,85 +32,79 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   tag: 'sbb-link',
 })
 export class SbbLink implements LinkButtonProperties, ComponentInterface {
-  @Element() private _element!: HTMLElement;
-
-  /**
-   * Applies link inline styles (underline, inherit coloring/font-size etc).
-   */
+  /** Variant of the link (block or inline). */
   @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
-  /**
-   * Negative coloring variant flag.
-   */
-  @Prop() public negative = false;
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true }) public negative = false;
 
   /**
    * Text size, the link should get in the non-button variation.
    * With inline variant, the text size adapts to where it is used.
    */
-  @Prop() public textSize: InterfaceLinkAttributes['textSize'] = 's';
+  @Prop({ reflect: true }) public textSize: InterfaceLinkAttributes['textSize'] = 's';
 
   /**
    * Set this property to true if you want only a visual representation of a
-   * button, but no interaction (a span instead of a button will be rendered).
+   * link, but no interaction (a span instead of a link/button will be rendered).
    */
   @Prop({ attribute: 'static', mutable: true, reflect: true }) public isStatic = false;
 
+  /** Pass in an id, if you need to identify the inner element. */
+  @Prop() public idValue?: string;
+
   /**
-   * The icon name we want to use, choose from the small icon variants from the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/ (optional).
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/.
    * Inline variant doesn't support icons.
    */
   @Prop() public iconName?: string;
 
-  /**
-   * Moves the icon to the end of the component if set to true (optional).
-   */
+  /** Moves the icon to the end of the component if set to true. */
   @Prop() public iconPlacement?: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
-  /**
-   * The href value you want to link to (optional, if its not present link becomes a button)
-   */
+  /** The href value you want to link to (if its not present link becomes a button). */
   @Prop() public href: string | undefined;
 
-  /**
-   * If set to true, the browser will show the download dialog on click (optional).
-   */
-  @Prop() public download?: boolean;
-
-  /**
-   * The relationship of the linked URL as space-separated link types.
-   */
-  @Prop() public rel?: string | undefined;
-
-  /**
-   * Where to display the linked URL.
-   */
+  /** Where to display the linked URL. */
   @Prop() public target?: LinkTargetType | string | undefined;
 
-  /**
-   * Pass in an id, if you need to identify the link element (optional).
-   */
-  @Prop() public idValue?: string;
+  /** The relationship of the linked URL as space-separated link types. */
+  @Prop() public rel?: string | undefined;
 
-  /**
-   * Name attribute if link is used as button (optional)
-   */
+  /** Whether the browser will show the download dialog on click. */
+  @Prop() public download?: boolean;
+
+  /** The type attribute to use for the button. */
+  @Prop() public type: ButtonType | undefined;
+
+  /** Whether the button is disabled. */
+  @Prop({ reflect: true }) public disabled? = false;
+
+  /** The name attribute to use for the button. */
   @Prop() public name: string | undefined;
 
-  /**
-   * Type attribute if link is used as button (optional)
-   */
-  @Prop() public type: InterfaceLinkAttributes['buttonType'] | undefined;
-
-  /**
-   * The value associated with button `name` when it's submitted with the form data.
-   */
+  /** The value attribute to use for the button. */
   @Prop() public value?: string;
 
+  /** The <form> element to associate the button with. */
+  @Prop() public form?: string;
+
   /**
-   * Emits whenever the native button click event triggers.
+   * When an interaction of this button has an impact on another element(s) in the document, the id
+   * of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute
+   * to the relevant nested element.
    */
+  @Prop() public accessibilityControls: string | undefined;
+
+  /**
+   * If you use the button to trigger another widget which itself is covering
+   * the page, you must provide an according attribute for aria-haspopup.
+   */
+  @Prop() public accessibilityHaspopup: PopupType | undefined;
+
+  /** Emits the event on button click. */
   @Event({
     bubbles: true,
     composed: true,
@@ -116,35 +112,16 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   })
   public click: EventEmitter;
 
-  /**
-   * Form attribute if link is used as button (optional)
-   */
-  @Prop() public form?: string;
-
-  /**
-   * Disabled attribute if link is used as button (optional)
-   */
-  @Prop() public disabled?: boolean;
-
-  /**
-   * Id which is sent in the click event payload
-   */
-  @Prop() public eventId?: string;
-
-  /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
+  /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
+
+  @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
@@ -155,8 +132,8 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
    * Method triggered at button click to emit the click event (can be caught from parent component).
    */
   public emitButtonClick(): void {
-    if (!this.disabled) {
-      this.click.emit(this.eventId);
+    if (!this.disabled && !this.isStatic) {
+      this.click.emit();
     }
   }
 

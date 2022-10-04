@@ -6,13 +6,60 @@ describe('sbb-button', () => {
   it('renders a primary button without icon', async () => {
     const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<sbb-button variant='primary'>Label Text</sbb-button>`,
+      html: `
+        <sbb-button
+          variant="primary"
+          negative
+          size="m"
+          id-value="id"
+          type="button"
+          disabled
+          name="name"
+          value="value"
+          form="formid"
+          accessibility-controls="id"
+          accessibility-haspopup="true"
+          accessibility-label="Travelcards & tickets"
+          accessibility-describedby="id"
+          accessibility-labelledby="id"
+        >
+          Label Text
+        </sbb-button>`,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-button size='l' variant='primary'>
+        <sbb-button
+          variant="primary"
+          negative
+          size="m"
+          id-value="id"
+          type="button"
+          disabled
+          name="name"
+          value="value"
+          form="formid"
+          accessibility-controls="id"
+          accessibility-haspopup="true"
+          accessibility-label="Travelcards & tickets"
+          accessibility-describedby="id"
+          accessibility-labelledby="id"
+        >
           <mock:shadow-root>
-            <button class='sbb-button sbb-button--size-l sbb-button--primary' dir="ltr" type="button">
+            <button
+              class="sbb-button sbb-button--negative sbb-button--primary sbb-button--size-m"
+              dir="ltr"
+              id="id"
+              type="button"
+              disabled="true"
+              name="name"
+              value="value"
+              form="formid"
+              aria-controls="id"
+              aria-haspopup="true"
+              aria-label="Travelcards &amp; tickets"
+              aria-describedby="id"
+              aria-labelledby="id"
+             >
               <span class='sbb-button__label'><slot></slot></span>
             </button>
           </mock:shadow-root>
@@ -43,23 +90,40 @@ describe('sbb-button', () => {
       `);
   });
 
-  it('renders a secondary negative button with icon', async () => {
+  it('renders a button as a link', async () => {
     const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<sbb-button variant='secondary' negative icon-name='arrow-right-small'>Label Text</sbb-button>`,
+      html: `
+        <sbb-button
+          href="http://www.sbb.ch"
+          target="_blank"
+          rel="noopener"
+          download
+        >
+          Label Text
+        </sbb-button>`,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-button variant='secondary' negative='' size='l' icon-name='arrow-right-small'>
+        <sbb-button
+          variant="primary"
+          size="l"
+          href="http://www.sbb.ch"
+          target="_blank"
+          rel="noopener"
+          download
+        >
           <mock:shadow-root>
-            <button class='sbb-button sbb-button--size-l sbb-button--secondary sbb-button--negative' dir="ltr" type="button">
-              <span class='sbb-button__icon'>
-                <slot name='icon'>
-                  <sbb-icon name="arrow-right-small"></sbb-icon>
-                </slot>
-              </span>
+            <a
+              class="sbb-button sbb-button--primary sbb-button--size-l"
+              dir="ltr"
+              href="http://www.sbb.ch"
+              target="_blank"
+              rel="noopener"
+              download
+             >
               <span class='sbb-button__label'><slot></slot></span>
-            </button>
+            </a>
           </mock:shadow-root>
           Label Text
         </sbb-button>
