@@ -31,13 +31,6 @@ Finally, the following custom CSS has been added*. The result can be seen in the
   display: none;
 }
 
-@media screen and (min-width: 1024px) {
-  .sbb-header__spacer {
-    display: flex;
-    flex-grow: 1;
-  }
-}
-
 .sbb-header-action__last-element {
   display: none;
 }
@@ -49,6 +42,11 @@ Finally, the following custom CSS has been added*. The result can be seen in the
 }
 
 @media screen and (min-width: 1024px) {
+  .sbb-header__spacer {
+    display: flex;
+    flex-grow: 1;
+  }
+
   .sbb-header-action__last-element {
     margin-inline-end: var(--sbb-spacing-responsive-s);
   }

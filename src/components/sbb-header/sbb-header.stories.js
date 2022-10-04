@@ -170,6 +170,7 @@ export default {
     },
     docs: {
       inlineStories: false,
+      iframeHeight: '250px',
       extractComponentDescription: () => readme,
     },
   },

@@ -135,9 +135,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
       <Host>
         <TAG_NAME id={this.headerActionId} class={classString} {...attributeList}>
           <span class="header-action__icon">
-            <slot name="icon">
-              <sbb-icon name={this.icon} />
-            </slot>
+            <slot name="icon">{this.icon && <sbb-icon name={this.icon} />}</slot>
           </span>
           <span class="header-action__text">
             <slot />
