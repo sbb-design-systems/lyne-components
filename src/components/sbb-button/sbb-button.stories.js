@@ -28,6 +28,13 @@ const focusStyle = (context) => {
 
 const Template = ({ text, ...args }) => <sbb-button {...args}>{text}</sbb-button>;
 
+const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }) => (
+  <sbb-button {...args}>
+    {text}
+    <sbb-icon slot="icon" name={iconName}></sbb-icon>
+  </sbb-button>
+);
+
 const FixedWidthTemplate = ({ text, ...args }) => (
   <div>
     <p>
@@ -492,6 +499,29 @@ fixedWidth.args = {
 };
 fixedWidth.documentation = {
   title: 'Fixed width with overflow',
+};
+
+export const withSlottedIcon = IconSlotTemplate.bind({});
+withSlottedIcon.argTypes = defaultArgTypes;
+withSlottedIcon.args = {
+  ...defaultArgs,
+  'icon-name': 'chevron-small-right-small',
+};
+withSlottedIcon.documentation = {
+  title: 'With slotted icon',
+};
+
+export const linkOpensInNewWindow = IconSlotTemplate.bind({});
+linkOpensInNewWindow.argTypes = defaultArgTypes;
+linkOpensInNewWindow.args = {
+  ...defaultArgs,
+  href: 'https://www.sbb.ch',
+  'icon-name': 'chevron-small-right-small',
+  target: '_blank',
+  'accessibility-label': undefined,
+};
+linkOpensInNewWindow.documentation = {
+  title: 'Link opened in new window',
 };
 
 export default {
