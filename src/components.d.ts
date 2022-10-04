@@ -524,7 +524,7 @@ export namespace Components {
          */
         "eventId": string;
         /**
-          * Used to set the minimum breakpoint from which the text is displayed. Eg. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the other.
+          * Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others.
          */
         "expandFrom": InterfaceSbbHeaderActionAttributes['expandFrom'];
         /**
@@ -2192,7 +2192,7 @@ declare namespace LocalJSX {
          */
         "eventId"?: string;
         /**
-          * Used to set the minimum breakpoint from which the text is displayed. Eg. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the other.
+          * Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others.
          */
         "expandFrom"?: InterfaceSbbHeaderActionAttributes['expandFrom'];
         /**
