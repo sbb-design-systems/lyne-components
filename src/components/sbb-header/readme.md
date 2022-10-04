@@ -9,7 +9,7 @@ at the right end, and it can contain a logo, which by default is the [sbb-logo](
 
 A box-shadow appears under the component if the `shadow` variable is set to `true`. 
 
-The component's height can be overriden by defining the variable `--sbb-header-height-override`.
+The component's height can be overridden by defining the variable `--sbb-header-height-override`.
 
 ## Style
 
@@ -72,7 +72,7 @@ The examples below shows how to use the component (with shadow on).
   >
     Menu
   </sbb-header-action>,
-  <sbb-header-action icon="magnifying-glass-small">Suchen</sbb-header-action>,
+  <sbb-header-action icon="magnifying-glass-small">Search</sbb-header-action>,
 </sbb-header>
 ```
 

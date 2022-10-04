@@ -28,8 +28,8 @@ export class SbbHeaderAction implements LinkButtonProperties {
 
   /**
    * Used to set the minimum breakpoint from which the text is displayed.
-   * Eg. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
-   * and hidden for all the other.
+   * E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
+   * and hidden for all the others.
    */
   @Prop({ reflect: true }) public expandFrom: InterfaceSbbHeaderActionAttributes['expandFrom'] =
     'medium';
