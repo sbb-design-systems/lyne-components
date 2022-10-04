@@ -77,7 +77,7 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
 }
 
 /**
- * A set of variables used in `render` function in components that implement LinkButtonProperties.
+ * A component that implement LinkButtonProperties could use this interface to set useful variables for render function.
  */
 export interface LinkButtonRenderVariables {
   /**
@@ -86,7 +86,7 @@ export interface LinkButtonRenderVariables {
   tagName: 'a' | 'button' | 'span';
 
   /**
-   * The tag attributes; can be set using getLinkButtonBaseAttributeList(...),
+   * The tag's attributes; can be set using getLinkButtonBaseAttributeList(...),
    * getLinkAttributeList(...) or getButtonAttributeList(...) methods.
    */
   attributes: Record<string, string>;
