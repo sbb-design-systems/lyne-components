@@ -1,5 +1,5 @@
 import images from '../../global/images';
-import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
+import { SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import events from './sbb-button.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -315,11 +315,6 @@ primaryNegative.args = {
   negative: true,
 };
 primaryNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
   title: 'Primary Negative',
 };
 
@@ -331,11 +326,6 @@ secondaryNegative.args = {
   negative: true,
 };
 secondaryNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
   title: 'Secondary Negative',
 };
 
@@ -347,11 +337,6 @@ translucentNegative.args = {
   negative: true,
 };
 translucentNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
   title: 'Translucent Negative',
 };
 
@@ -363,11 +348,6 @@ transparentNegative.args = {
   negative: true,
 };
 transparentNegative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
   title: 'Transparent Negative',
 };
 
@@ -435,11 +415,6 @@ primaryNegativeDisabled.args = {
   disabled: true,
 };
 primaryNegativeDisabled.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
   title: 'Primary Negative Disabled',
 };
 
@@ -452,11 +427,6 @@ secondaryNegativeDisabled.args = {
   disabled: true,
 };
 secondaryNegativeDisabled.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
   title: 'Secondary Negative Disabled',
 };
 
@@ -469,11 +439,6 @@ translucentNegativeDisabled.args = {
   disabled: true,
 };
 translucentNegativeDisabled.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
   title: 'Translucent Negative Disabled',
 };
 
@@ -486,11 +451,6 @@ transparentNegativeDisabled.args = {
   disabled: true,
 };
 transparentNegativeDisabled.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
   title: 'Transparent Negative Disabled',
 };
 
