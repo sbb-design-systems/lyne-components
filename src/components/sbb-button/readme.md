@@ -1,8 +1,9 @@
 # sbb-button
 
-The `<sbb-button>` implements the design of the Lyne Button. It can both be used as a `<button>` or as a `<a>` (if the 
-href property is set). If the `<sbb-button>` is placed inside another or button tag, it is internally rendered as a 
-`<span>` in order to not break HTML structure.
+The `<sbb-button>` implements the design of the Lyne Button. If the `href` property is set, it will internally be rendered as link, otherwise as a button.
+If the `<sbb-button>` is placed inside another action element (e.g. button, link, ...),
+it is internally rendered as a `<span>` in order to not break HTML structure. 
+It's also possible to set the `<sbb-button>` manually into static state by applying `static` property.
 
 ## Usage
 Simple button
@@ -18,16 +19,25 @@ Button with icon
 Button with slotted icon
 ```html
 <sbb-button>
-    <sbb-icon slot="icon" name="info"></sbb-icon>
-    Button text
+  <sbb-icon slot="icon" name="info"></sbb-icon>
+  Button text
 </sbb-button>
 ```
 
 ## Accessibility
-Use the accessibility-label attribute in case of an icon only button to describe the purpose of the button for screen readers.
+Use the accessibility-label attribute in case of an icon only button to describe the purpose of the button for screen reader users.
+
+## Focus outline
+Please make sure, that the focus outline appears in the correct color if using on a dark background.
+You can set it by re-defining the css var on `sbb-button` or any parent element:
+
+```css
+sbb-button {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+```
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -74,7 +84,7 @@ Use the accessibility-label attribute in case of an icon only button to describe
 
 ### Used by
 
- - [sbb-alert](../sbb-alert)
+- [sbb-alert](../sbb-alert)
 
 ### Depends on
 
@@ -89,5 +99,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-
