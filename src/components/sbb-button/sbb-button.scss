@@ -166,6 +166,7 @@
   @include buttonReset;
   @include stretch(width);
   @include text-xs--bold;
+  @include fontSmoothing;
 
   // Reset for link variant
   text-decoration: none;
@@ -187,7 +188,6 @@
   padding-block: var(--sbb-button-padding-block-min);
   padding-inline: var(--sbb-button-padding-inline);
   color: var(--sbb-button-color-default-text);
-  -webkit-font-smoothing: antialiased;
   cursor: pointer;
 
   // Renders background and border in the background absolute to enable the hover animation
