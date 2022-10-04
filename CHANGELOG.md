@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.7.5 (2022-10-03)
+
+### 0.7.4 (2022-09-29)
+
+### Bug Fixes
+
+- **sbb-card:** correct animation duration ([#1390](https://github.com/lyne-design-system/lyne-components/issues/1390)) ([5972346](https://github.com/lyne-design-system/lyne-components/commit/5972346e2dcdf63db2f5d22b80296e886fce9bb4))
+
+### 0.7.3 (2022-09-29)
+
 ### 0.7.2 (2022-09-28)
 
 ### Bug Fixes

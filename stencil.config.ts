@@ -11,6 +11,7 @@ export const config: Config = {
   globalScript: 'src/global/global.ts',
   globalStyle: 'src/global/global.shared.scss',
   namespace: 'lyne-components',
+  sourceMap: true,
   outputTargets: [
     {
       type: 'dist-hydrate-script',

@@ -143,10 +143,6 @@
   user-select: none;
   pointer-events: none;
 
-  &[hidden] {
-    display: none;
-  }
-
   :host(.form-field--select) & {
     padding-inline-end: var(--form-field-select-inline-padding-end);
   }

@@ -8,8 +8,12 @@
   --sbb-card-padding-block-start: var(--sbb-spacing-fixed-3x);
   --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
   --sbb-card-border-radius: var(--sbb-border-radius-4x);
-  --sbb-card-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-card-animation-duration: var(--sbb-animation-duration-1x);
   --sbb-card-animation-easing: var(--sbb-animation-easing);
+}
+
+:host([negative]) {
+  --sbb-card-background-color: var(--sbb-color-milk-default);
 }
 
 :host([size='s']) {
@@ -98,13 +102,6 @@
   padding-inline: var(--sbb-card-padding-inline);
   padding-block-start: var(--sbb-card-padding-block-start);
   padding-block-end: var(--sbb-card-padding-block-end);
-}
-
-:host([negative]) {
-  .sbb-card__button,
-  .sbb-card__link {
-    --sbb-card-background-color: var(--sbb-color-milk-default);
-  }
 }
 
 .sbb-card__content {

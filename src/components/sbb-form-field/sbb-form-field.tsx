@@ -1,8 +1,23 @@
-import { Component, Host, h, JSX, Prop, State } from '@stencil/core';
+import {
+  Component,
+  Host,
+  h,
+  JSX,
+  Prop,
+  State,
+  ComponentInterface,
+  Element,
+  Listen,
+} from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 let nextId = 0;
 
@@ -18,7 +33,7 @@ let nextId = 0;
   styleUrl: './sbb-form-field.scss',
   tag: 'sbb-form-field',
 })
-export class SbbFormField {
+export class SbbFormField implements ComponentInterface {
   /**
    * Whether to reserve space for an error message.
    * `none` does not reserve any space.
@@ -66,10 +81,10 @@ export class SbbFormField {
    */
   @State() private _invalid = false;
 
-  /**
-   * Whether the label slot has any content.
-   */
-  @State() private _hasSlottedLabel = false;
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('label');
+
+  @Element() private _element: HTMLElement;
 
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
@@ -93,8 +108,17 @@ export class SbbFormField {
     }
   });
 
+  public connectedCallback(): void {
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+  }
+
   public disconnectedCallback(): void {
     this._formFieldAttributeObserver.disconnect();
+  }
+
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   /**
@@ -168,24 +192,16 @@ export class SbbFormField {
             <slot name="prefix"></slot>
 
             <div class="form-field__input-container">
-              <label
-                class="form-field__label"
-                htmlFor={this._input?.id}
-                hidden={!this.label && !this._hasSlottedLabel}
-              >
-                <slot
-                  name="label"
-                  onSlotchange={(event) =>
-                    (this._hasSlottedLabel =
-                      (event.target as HTMLSlotElement).assignedElements().length > 0)
-                  }
-                >
-                  <span>{this.label}</span>
-                </slot>
-                {this.optional && (
-                  <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
-                )}
-              </label>
+              {(this.label || this._namedSlots.label) && (
+                <label class="form-field__label" htmlFor={this._input?.id}>
+                  <slot name="label">
+                    <span>{this.label}</span>
+                  </slot>
+                  {this.optional && (
+                    <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
+                  )}
+                </label>
+              )}
               <div class="form-field__input">
                 <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
               </div>
