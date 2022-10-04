@@ -167,6 +167,8 @@
   @include stretch(width);
   @include text-xs--bold;
 
+  // Reset for link variant
+  text-decoration: none;
   position: relative;
   display: flex;
   gap: var(--sbb-button-gap);
@@ -208,12 +210,63 @@
   &:focus-visible::before {
     @include focusOutline;
   }
+
+  // If the the device can hover over elements with ease
+  @include hover-mq($hover: true) {
+    &:hover:not(:disabled) {
+      --sbb-button-translate-y-content-hover: #{px-to-rem-build(-1)};
+      --sbb-button-shadow-1-offset-y: calc(
+        0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
+      );
+      --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
+      --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
+
+      color: var(--sbb-button-color-hover-text);
+
+      &::before {
+        inset: calc(var(--sbb-button-border-width) * -1);
+        background-color: var(--sbb-button-color-hover-background);
+        border-color: var(--sbb-button-color-hover-border);
+
+        @include ifForcedColors {
+          border-color: Highlight;
+        }
+      }
+    }
+  }
+
+  &:disabled {
+    color: var(--sbb-button-color-disabled-text);
+    cursor: default;
+
+    &::before {
+      background-color: var(--sbb-button-color-disabled-background);
+      border-color: var(--sbb-button-color-disabled-border);
+    }
+
+    // Line through content
+    &::after {
+      content: '';
+      @include absoluteCenterY;
+
+      background-color: var(--sbb-button-color-disabled-text);
+      height: var(--sbb-button-disabled-line-through-height);
+      inset-inline: var(--sbb-button-padding-inline);
+
+      @include ifForcedColors {
+        background-color: GrayText;
+      }
+    }
+  }
+
+  &:active:not(:disabled)::before {
+    color: var(--sbb-button-color-active-text);
+    background-color: var(--sbb-button-color-active-background);
+    border-color: var(--sbb-button-color-active-border);
+  }
 }
 
-a.sbb-button {
-  text-decoration: none;
-}
-
+// Only apply shadow definitions where it is really used.
 // stylelint-disable plugin/stylelint-bem-namics
 :is(.sbb-button--primary, .sbb-button--secondary:not(.sbb-button--negative)):not(:disabled, :active)::before {
   box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
@@ -224,68 +277,6 @@ a.sbb-button {
       var(--sbb-button-shadow-1-color);
 }
 // stylelint-enable plugin/stylelint-bem-namics
-
-// If the the device can hover over elements with ease
-@include hover-mq($hover: true) {
-  .sbb-button:hover:not(:disabled) {
-    --sbb-button-translate-y-content-hover: #{px-to-rem-build(-1)};
-    --sbb-button-shadow-1-offset-y: calc(
-      0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
-    );
-    --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
-    --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
-
-    color: var(--sbb-button-color-hover-text);
-
-    &::before {
-      inset: calc(var(--sbb-button-border-width) * -1);
-      background-color: var(--sbb-button-color-hover-background);
-      border-color: var(--sbb-button-color-hover-border);
-
-      @include ifForcedColors {
-        border-color: Highlight;
-      }
-    }
-  }
-}
-
-.sbb-button:disabled {
-  color: var(--sbb-button-color-disabled-text);
-  cursor: default;
-
-  &::before {
-    background-color: var(--sbb-button-color-disabled-background);
-    border-color: var(--sbb-button-color-disabled-border);
-  }
-
-  // Line through content
-  &::after {
-    content: '';
-    @include absoluteCenterY;
-
-    background-color: var(--sbb-button-color-disabled-text);
-    height: var(--sbb-button-disabled-line-through-height);
-    inset-inline: var(--sbb-button-padding-inline);
-
-    @include ifForcedColors {
-      background-color: GrayText;
-    }
-  }
-
-  ::slotted(svg) {
-    @include ifForcedColors {
-      fill: GrayText;
-    }
-  }
-}
-
-.sbb-button:active:not(:disabled) {
-  &::before {
-    color: var(--sbb-button-color-active-text);
-    background-color: var(--sbb-button-color-active-background);
-    border-color: var(--sbb-button-color-active-border);
-  }
-}
 
 .sbb-button--static {
   user-select: none;
