@@ -1,26 +1,14 @@
-export enum LineTypeEnum {
-  dotted = 'dotted',
-  standard = 'standard',
-  thin = 'thin',
-}
+export type LineType = 'dotted' | 'standard' | 'thin';
 
-export enum DotTypeEnum {
-  standard = 'standard',
-  thickBullet = 'thick-bullet',
-  thinBullet = 'thin-bullet',
-}
+export type DotType = 'standard' | 'thick-bullet' | 'thin-bullet';
 
-export enum ColorEnum {
-  red = 'red',
-  gray = 'gray',
-  black = 'black',
-}
+export type Color = 'red' | 'gray' | 'black';
 
 export interface PearlChainItemAttributes {
-  lineType: LineTypeEnum;
-  lineColor: ColorEnum;
-  dotType: DotTypeEnum;
-  dotColor: ColorEnum;
+  lineType: LineType;
+  lineColor: Color;
+  dotType: DotType;
+  dotColor: Color;
   minHeight: string;
   hideDot: boolean;
   hideLine: boolean;

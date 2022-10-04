@@ -1,9 +1,4 @@
 import { h } from 'jsx-dom';
-import {
-  ColorEnum,
-  DotTypeEnum,
-  LineTypeEnum,
-} from './sbb-pearl-chain-item/sbb-pearl-chain-item.custom.d';
 
 // import isChromatic from 'chromatic/isChromatic';
 
@@ -57,10 +52,10 @@ const TemplateTwoDots = (args) => {
       </sbb-pearl-chain-item>
       <sbb-pearl-chain-item
         pearlChainItemAttributes={{
-          lineType: LineTypeEnum.standard,
-          lineColor: ColorEnum.red,
-          dotType: DotTypeEnum.standard,
-          dotColor: ColorEnum.red,
+          lineType: 'standard',
+          lineColor: 'red',
+          dotType: 'standard',
+          dotColor: 'red',
           minHeight: '100px',
           hideLine: true,
         }}
@@ -91,10 +86,10 @@ const TemplateLeftSecondSlot = (args) => {
       </sbb-pearl-chain-item>
       <sbb-pearl-chain-item
         pearlChainItemAttributes={{
-          lineType: LineTypeEnum.standard,
-          lineColor: ColorEnum.red,
-          dotType: DotTypeEnum.standard,
-          dotColor: ColorEnum.red,
+          lineType: 'standard',
+          lineColor: 'red',
+          dotType: 'standard',
+          dotColor: 'red',
           minHeight: '100px',
           hideLine: true,
         }}
@@ -114,46 +109,46 @@ export const defaultPearlChainTwoDots = TemplateTwoDots.bind({});
 export const defaultPearlChainLeftSecondSlot = TemplateLeftSecondSlot.bind({});
 
 defaultPearlChainWithoutContent.args = {
-  lineType: LineTypeEnum.standard,
-  lineColor: ColorEnum.black,
-  dotType: DotTypeEnum.standard,
-  dotColor: ColorEnum.black,
+  lineType: 'standard',
+  lineColor: 'black',
+  dotType: 'standard',
+  dotColor: 'black',
   minHeight: '100px',
   hideLine: false,
 };
 
 defaultPearlChainLeftSecondSlot.args = {
-  lineType: LineTypeEnum.standard,
-  lineColor: ColorEnum.black,
-  dotType: DotTypeEnum.standard,
-  dotColor: ColorEnum.black,
+  lineType: 'standard',
+  lineColor: 'black',
+  dotType: 'standard',
+  dotColor: 'black',
   minHeight: '100px',
   hideLine: false,
 };
 
 defaultPearlChain.args = {
-  lineType: LineTypeEnum.standard,
-  lineColor: ColorEnum.black,
-  dotType: DotTypeEnum.standard,
-  dotColor: ColorEnum.black,
+  lineType: 'standard',
+  lineColor: 'black',
+  dotType: 'standard',
+  dotColor: 'black',
   minHeight: '100px',
   hideLine: false,
 };
 
 defaultPearlChainLeftSlot.args = {
-  lineType: LineTypeEnum.standard,
-  lineColor: ColorEnum.red,
-  dotType: DotTypeEnum.standard,
-  dotColor: ColorEnum.red,
+  lineType: 'standard',
+  lineColor: 'red',
+  dotType: 'standard',
+  dotColor: 'red',
   minHeight: '100px',
   hideLine: false,
 };
 
 defaultPearlChainTwoDots.args = {
-  lineType: LineTypeEnum.standard,
-  lineColor: ColorEnum.red,
-  dotType: DotTypeEnum.standard,
-  dotColor: ColorEnum.red,
+  lineType: 'standard',
+  lineColor: 'red',
+  dotType: 'standard',
+  dotColor: 'red',
   minHeight: '100px',
   hideLine: false,
 };
@@ -161,10 +156,10 @@ defaultPearlChainTwoDots.args = {
 export const blackPearlChain = Template.bind({});
 
 blackPearlChain.args = {
-  lineType: LineTypeEnum.standard,
-  dotType: DotTypeEnum.thickBullet,
-  dotColor: ColorEnum.black,
-  lineColor: ColorEnum.black,
+  lineType: 'standard',
+  dotType: 'thickBullet',
+  dotColor: 'black',
+  lineColor: 'black',
   minHeight: '100px',
   hideLine: false,
 };
@@ -172,12 +167,12 @@ blackPearlChain.args = {
 export const dottedPearlChain = Template.bind({});
 
 dottedPearlChain.args = {
-  lineType: LineTypeEnum.dotted,
-  dotType: DotTypeEnum.thinBullet,
-  dotColor: ColorEnum.red,
+  lineType: 'dotted',
+  dotType: 'thinBullet',
+  dotColor: 'red',
   minHeight: '100px',
   hideLine: false,
-  lineColor: ColorEnum.red,
+  lineColor: 'red',
 };
 
 export default {
