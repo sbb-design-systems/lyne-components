@@ -4,6 +4,7 @@
 
 :host {
   display: inline-block;
+  pointer-events: none;
 
   --text-color-normal: var(--sbb-color-granite-default);
   --text-color-hover-focus: var(--sbb-color-red125-default);
@@ -27,6 +28,7 @@
   text-decoration: none;
   word-break: break-word;
   fill: currentcolor;
+  pointer-events: auto;
 
   &:focus-visible {
     @include focusOutline;
