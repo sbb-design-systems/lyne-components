@@ -39,6 +39,7 @@ sbb-button {
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property                   | Attribute                   | Description                                                                                                                                                                                                                     | Type                                                            | Default     |
@@ -84,7 +85,7 @@ sbb-button {
 
 ### Used by
 
-- [sbb-alert](../sbb-alert)
+ - [sbb-alert](../sbb-alert)
 
 ### Depends on
 
@@ -99,3 +100,5 @@ graph TD;
 ```
 
 ----------------------------------------------
+
+
