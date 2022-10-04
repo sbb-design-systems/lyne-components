@@ -44,29 +44,14 @@ export class SbbCard implements LinkButtonProperties {
   @State() private _hasBadge = false;
 
   /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
-  /**
    *  The href value you want to link to.
    */
   @Prop() public href: string | undefined;
 
   /**
-   * Whether the browser will show the download dialog on click.
+   * Where to display the linked URL.
    */
-  @Prop() public download?: boolean | undefined;
+  @Prop() public target?: LinkTargetType | string | undefined;
 
   /**
    * The relationship of the linked URL as space-separated link types.
@@ -74,9 +59,9 @@ export class SbbCard implements LinkButtonProperties {
   @Prop() public rel?: string | undefined;
 
   /**
-   * Where to display the linked URL.
+   * Whether the browser will show the download dialog on click.
    */
-  @Prop() public target?: LinkTargetType | string | undefined;
+  @Prop() public download?: boolean | undefined;
 
   /**
    * Default behaviour of the button.
@@ -107,6 +92,21 @@ export class SbbCard implements LinkButtonProperties {
     eventName: 'sbb-card-button_click',
   })
   public click: EventEmitter<null> | undefined;
+
+  /**
+   * This will be forwarded as aria-label to the relevant nested element.
+   */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /**
+   * This will be forwarded as aria-describedby to the relevant nested element.
+   */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /**
+   * This will be forwarded as aria-labelledby to the relevant nested element.
+   */
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * The function triggered on button click.

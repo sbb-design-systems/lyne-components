@@ -122,7 +122,12 @@ describe('sbb-button', () => {
               rel="noopener"
               download
              >
-              <span class='sbb-button__label'><slot></slot></span>
+              <span class='sbb-button__label'>
+                <slot></slot>
+                <span class="sbb-button__opens-in-new-window">
+                  . Link target opens in new window.
+                </span>
+              </span>
             </a>
           </mock:shadow-root>
           Label Text

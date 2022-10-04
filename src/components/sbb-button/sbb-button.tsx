@@ -26,6 +26,8 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 
 /**
  * @slot unnamed - Button Content
@@ -168,26 +170,39 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
     return `sbb-button ${variantClass} ${sizeClass} ${iconClass} ${semanticClass} ${negativeClass}`;
   }
 
-  public render(): JSX.Element {
-    let TAG_NAME: string;
-    let attributeList: Record<string, string>;
+  private _resolveRenderVariables(): {
+    screenReaderNewWindowInfo?: boolean;
+    attributes: Record<string, string>;
+    tagName: 'a' | 'button' | 'span';
+  } {
     if (this.isStatic) {
-      TAG_NAME = 'span';
-      attributeList = getLinkButtonBaseAttributeList(this);
+      return {
+        tagName: 'span',
+        attributes: getLinkButtonBaseAttributeList(this),
+      };
     } else if (this.href) {
-      TAG_NAME = 'a';
-      attributeList = getLinkAttributeList(this, this);
-    } else {
-      TAG_NAME = 'button';
-      attributeList = getButtonAttributeList(this);
+      return {
+        tagName: 'a',
+        attributes: getLinkAttributeList(this, this),
+        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
+      };
     }
+    return { tagName: 'button', attributes: getButtonAttributeList(this) };
+  }
+
+  public render(): JSX.Element {
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      screenReaderNewWindowInfo,
+    } = this._resolveRenderVariables();
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <TAG_NAME
         id={this.idValue}
         class={this._getClassString()}
-        {...attributeList}
+        {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
       >
         {(this.iconName || this._namedSlots.icon) && (
@@ -198,6 +213,11 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
 
         <span class={{ 'sbb-button__label': true, 'sbb-button__label--hidden': !this._hasText }}>
           <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
+          {screenReaderNewWindowInfo && (
+            <span class="sbb-button__opens-in-new-window">
+              . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+            </span>
+          )}
         </span>
       </TAG_NAME>
     );

@@ -130,19 +130,18 @@ describe('getLinkAttributeList', () => {
 describe('getButtonAttributeList', () => {
   it('should return attributes for button', () => {
     const buttonProperties: ButtonProperties = {
-      accessibilityDescribedby: '',
-      accessibilityLabel: 'Test',
-      accessibilityLabelledby: '',
-      accessibilityHaspopup: undefined,
-      accessibilityControls: '',
       click: undefined,
-      disabled: false,
       emitButtonClick: () => true,
-      eventId: 'eventId',
-      form: 'formid',
-      name: 'name',
       type: 'submit',
+      disabled: false,
+      name: 'name',
       value: 'value',
+      form: 'formid',
+      accessibilityHaspopup: 'true',
+      accessibilityControls: 'id',
+      accessibilityLabel: 'Test',
+      accessibilityDescribedby: '',
+      accessibilityLabelledby: '',
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -151,6 +150,8 @@ describe('getButtonAttributeList', () => {
       name: 'name',
       type: 'submit',
       value: 'value',
+      'aria-haspopup': 'true',
+      'aria-controls': 'id',
     };
 
     // jest can't compare functions as emitButtonClick, so objectContaining(...) API is used

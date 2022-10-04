@@ -350,3 +350,7 @@ a.sbb-button {
 .sbb-button__label--hidden {
   display: none;
 }
+
+.sbb-button__opens-in-new-window {
+  @include screenReaderOnly;
+}
