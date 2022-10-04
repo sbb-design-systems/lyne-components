@@ -371,13 +371,6 @@ transparentNegative.documentation = {
   title: 'Transparent Negative',
 };
 
-export const noIcon = Template.bind({});
-noIcon.argTypes = defaultArgTypes;
-noIcon.args = { ...defaultArgs, 'icon-name': undefined };
-noIcon.documentation = {
-  title: 'No Icon',
-};
-
 export const iconOnly = Template.bind({});
 iconOnly.argTypes = defaultArgTypes;
 iconOnly.args = {
@@ -389,6 +382,137 @@ iconOnly.documentation = {
   title: 'Icon only',
 };
 
+export const primaryDisabled = Template.bind({});
+primaryDisabled.argTypes = defaultArgTypes;
+primaryDisabled.args = {
+  ...defaultArgs,
+  variant: variant.options[0],
+  disabled: true,
+};
+primaryDisabled.documentation = {
+  title: 'Primary Disabled',
+};
+
+export const secondaryDisabled = Template.bind({});
+secondaryDisabled.argTypes = defaultArgTypes;
+secondaryDisabled.args = {
+  ...defaultArgs,
+  variant: variant.options[1],
+  disabled: true,
+};
+secondaryDisabled.documentation = {
+  title: 'Secondary Disabled',
+};
+
+export const translucentDisabled = Template.bind({});
+translucentDisabled.argTypes = defaultArgTypes;
+translucentDisabled.args = {
+  ...defaultArgs,
+  variant: variant.options[2],
+  disabled: true,
+};
+translucentDisabled.documentation = {
+  title: 'Translucent Disabled',
+};
+
+export const transparentDisabled = Template.bind({});
+transparentDisabled.argTypes = defaultArgTypes;
+transparentDisabled.args = {
+  ...defaultArgs,
+  variant: variant.options[3],
+  disabled: true,
+};
+transparentDisabled.documentation = {
+  title: 'Transparent Disabled',
+};
+
+export const primaryNegativeDisabled = Template.bind({});
+primaryNegativeDisabled.argTypes = defaultArgTypes;
+primaryNegativeDisabled.args = {
+  ...defaultArgs,
+  variant: variant.options[0],
+  negative: true,
+  disabled: true,
+};
+primaryNegativeDisabled.documentation = {
+  container: {
+    styles: {
+      'background-color': SbbColorCharcoalDefault,
+    },
+  },
+  title: 'Primary Negative Disabled',
+};
+
+export const secondaryNegativeDisabled = Template.bind({});
+secondaryNegativeDisabled.argTypes = defaultArgTypes;
+secondaryNegativeDisabled.args = {
+  ...defaultArgs,
+  variant: variant.options[1],
+  negative: true,
+  disabled: true,
+};
+secondaryNegativeDisabled.documentation = {
+  container: {
+    styles: {
+      'background-color': SbbColorCharcoalDefault,
+    },
+  },
+  title: 'Secondary Negative Disabled',
+};
+
+export const translucentNegativeDisabled = Template.bind({});
+translucentNegativeDisabled.argTypes = defaultArgTypes;
+translucentNegativeDisabled.args = {
+  ...defaultArgs,
+  variant: variant.options[2],
+  negative: true,
+  disabled: true,
+};
+translucentNegativeDisabled.documentation = {
+  container: {
+    styles: {
+      'background-color': SbbColorCharcoalDefault,
+    },
+  },
+  title: 'Translucent Negative Disabled',
+};
+
+export const transparentNegativeDisabled = Template.bind({});
+transparentNegativeDisabled.argTypes = defaultArgTypes;
+transparentNegativeDisabled.args = {
+  ...defaultArgs,
+  variant: variant.options[3],
+  negative: true,
+  disabled: true,
+};
+transparentNegativeDisabled.documentation = {
+  container: {
+    styles: {
+      'background-color': SbbColorCharcoalDefault,
+    },
+  },
+  title: 'Transparent Negative Disabled',
+};
+
+export const iconOnlyDisabled = Template.bind({});
+iconOnlyDisabled.argTypes = defaultArgTypes;
+iconOnlyDisabled.args = {
+  ...defaultArgs,
+  'icon-name': 'arrow-right-small',
+  text: undefined,
+  disabled: true,
+};
+iconOnlyDisabled.documentation = {
+  title: 'Icon only Disabled',
+};
+
+export const noIcon = Template.bind({});
+noIcon.argTypes = defaultArgTypes;
+noIcon.args = { ...defaultArgs, 'icon-name': undefined };
+noIcon.documentation = {
+  title: 'No Icon',
+};
+
 export const sizeM = Template.bind({});
 sizeM.argTypes = defaultArgTypes;
 sizeM.args = {
@@ -397,16 +521,6 @@ sizeM.args = {
 };
 sizeM.documentation = {
   title: 'M size',
-};
-
-export const disabled = Template.bind({});
-disabled.argTypes = defaultArgTypes;
-disabled.args = {
-  ...defaultArgs,
-  disabled: true,
-};
-disabled.documentation = {
-  title: 'Disabled',
 };
 
 export const fixedWidth = FixedWidthTemplate.bind({});
