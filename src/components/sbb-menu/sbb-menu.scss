@@ -3,11 +3,13 @@
 @include host-component-properties;
 
 :host {
+  --sbb-menu-position: fixed;
   --sbb-menu-position-x: 0;
   --sbb-menu-position-y: 0;
   --sbb-menu-min-height: #{px-to-rem-build(120)};
   --sbb-menu-max-width: #{px-to-rem-build(320)};
   --sbb-menu-min-width: #{px-to-rem-build(240)};
+  --sbb-menu-border-radius: var(--sbb-border-radius-4x);
 }
 
 // stylelint-disable plugin/stylelint-bem-namics
@@ -31,14 +33,14 @@
   max-height: calc(100vh - var(--sbb-spacing-fixed-8x));
   min-width: 100%;
   text-align: start;
-  position: fixed;
+  position: var(--sbb-menu-position);
   left: 0;
   bottom: 0;
   top: unset;
   right: unset;
   color: var(--sbb-color-white-default);
   border: none;
-  border-radius: var(--sbb-border-radius-4x) var(--sbb-border-radius-4x) 0 0;
+  border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
   background-color: var(--sbb-color-black-default);
   padding-inline: 0;
   padding-block: var(--sbb-spacing-fixed-1x);
@@ -55,6 +57,9 @@
     }
   }
 
+  // On the `::backdrop` it is impossible to use any design tokens,
+  // so inline values must be used (for background and animation duration in this case).
+  // To learn more: https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
   &::backdrop {
     background: rgb(0 0 0 / 20%);
 
@@ -94,9 +99,9 @@
 
 @include mq($from: medium) {
   .sbb-menu {
+    --sbb-menu-position: absolute;
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
 
-    position: absolute;
     top: var(--sbb-menu-position-y);
     left: var(--sbb-menu-position-x);
     right: unset;
@@ -105,7 +110,7 @@
     min-height: var(--sbb-menu-min-height);
     max-width: var(--sbb-menu-max-width);
     min-width: var(--sbb-menu-min-width);
-    border-radius: var(--sbb-border-radius-4x);
+    border-radius: var(--sbb-menu-border-radius);
 
     &::backdrop {
       background: transparent;
@@ -118,6 +123,9 @@
   }
 }
 
+// It is necessary to use animations with keyframes instead of transitions in order not to alter
+// the default `display: block` of the modal otherwise it causes several problems,
+// especially for accessibility.
 @keyframes show {
   from {
     visibility: hidden;
