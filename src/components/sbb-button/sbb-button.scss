@@ -331,16 +331,7 @@
 }
 
 .sbb-button__icon {
-  fill: currentcolor;
-
-  @include ifForcedColors {
-    fill: ButtonText;
-  }
-
-  display: block;
-  width: var(--sbb-button-icon-size);
-  height: var(--sbb-button-icon-size);
-  color: currentcolor;
+  display: flex;
 }
 
 .sbb-button__opens-in-new-window {
