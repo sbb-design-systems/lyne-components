@@ -58,6 +58,7 @@ const TemplateTwoDots = (args) => {
           dotColor: 'red',
           minHeight: '100px',
           hideLine: true,
+          dotSize: 'medium',
         }}
       >
         <div slot="right" style={{ marginTop: '-10px' }}>
@@ -92,6 +93,7 @@ const TemplateLeftSecondSlot = (args) => {
           dotColor: 'red',
           minHeight: '100px',
           hideLine: true,
+          dotSize: 'medium',
         }}
       >
         <div slot="left" style={{ marginTop: '-10px' }}>
@@ -115,6 +117,7 @@ defaultPearlChainWithoutContent.args = {
   dotColor: 'black',
   minHeight: '100px',
   hideLine: false,
+  dotSize: 'medium',
 };
 
 defaultPearlChainLeftSecondSlot.args = {
@@ -124,6 +127,7 @@ defaultPearlChainLeftSecondSlot.args = {
   dotColor: 'black',
   minHeight: '100px',
   hideLine: false,
+  dotSize: 'medium',
 };
 
 defaultPearlChain.args = {
@@ -133,6 +137,7 @@ defaultPearlChain.args = {
   dotColor: 'black',
   minHeight: '100px',
   hideLine: false,
+  dotSize: 'medium',
 };
 
 defaultPearlChainLeftSlot.args = {
@@ -142,6 +147,7 @@ defaultPearlChainLeftSlot.args = {
   dotColor: 'red',
   minHeight: '100px',
   hideLine: false,
+  dotSize: 'medium',
 };
 
 defaultPearlChainTwoDots.args = {
@@ -151,28 +157,31 @@ defaultPearlChainTwoDots.args = {
   dotColor: 'red',
   minHeight: '100px',
   hideLine: false,
+  dotSize: 'medium',
 };
 
 export const blackPearlChain = Template.bind({});
 
 blackPearlChain.args = {
   lineType: 'standard',
-  dotType: 'thickBullet',
+  dotType: 'thick-bullet',
   dotColor: 'black',
   lineColor: 'black',
   minHeight: '100px',
   hideLine: false,
+  dotSize: 'medium',
 };
 
 export const dottedPearlChain = Template.bind({});
 
 dottedPearlChain.args = {
   lineType: 'dotted',
-  dotType: 'thinBullet',
+  dotType: 'thin-bullet',
   dotColor: 'red',
   minHeight: '100px',
   hideLine: false,
   lineColor: 'red',
+  dotSize: 'small',
 };
 
 export default {
@@ -184,7 +193,7 @@ export default {
       control: { type: 'radio' },
     },
     lineColor: {
-      options: ['black', 'red', 'gray'],
+      options: ['black', 'red', 'gray', 'sky'],
       control: { type: 'radio' },
     },
     dotType: {
@@ -192,7 +201,11 @@ export default {
       control: { type: 'radio' },
     },
     dotColor: {
-      options: ['black', 'red', 'gray'],
+      options: ['black', 'red', 'gray', 'sky'],
+      control: { type: 'radio' },
+    },
+    dotSize: {
+      options: ['small', 'medium'],
       control: { type: 'radio' },
     },
   },

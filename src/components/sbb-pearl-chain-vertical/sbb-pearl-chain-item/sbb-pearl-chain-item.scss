@@ -1,19 +1,18 @@
 @include host-component-properties;
 
 @mixin dot {
-  height: #{px-to-rem-build(10)};
-  width: #{px-to-rem-build(10)};
   border-radius: 100%;
   border-color: white;
+  position: relative;
+  z-index: 2;
+  height: var(--dot-size);
+  width: var(--dot-size);
 }
 
 @mixin dot--transfer {
-  --dot-size: var(--dot-size-small);
   @include dot;
 
-  box-sizing: border-box;
-  left: calc(var(--dot-size) / -2 + var(--border-width) / 2);
-  background-color: var(--color-white);
+  background-color: transparent;
   z-index: 2;
 
   @include ifForcedColors {
@@ -25,19 +24,19 @@
 
 @mixin border {
   position: absolute;
-  top: 0.3rem;
+  top: var(--dot-size);
   bottom: 0;
   flex: 1 1 0%;
   margin-inline-start: #{px-to-rem-build(4)};
   width: #{px-to-rem-build(2)};
-  margin-top: #{px-to-rem-build(4)};
 }
 
 :host {
   --dot-size-large: #{px-to-rem-build(10)};
   --dot-size-small: #{px-to-rem-build(8)};
+  --dot-size: var(--dot-size-small);
+  --bullet-border-width: var(--sbb-border-width-2x);
   --border-width: var(--sbb-border-width-2x);
-  --border-width-thin: var(--sbb-border-width-1x);
   --spacing-small: var(--sbb-spacing-fixed-1x);
   --spacing-medium: var(--sbb-spacing-fixed-4x);
   --color-white: var(--sbb-color-white-default);
@@ -46,6 +45,17 @@
   --color-current-location-dark: var(--sbb-color-red150-default);
   --color-cancellation: var(--sbb-color-red-default);
   --color-past: var(--sbb-color-metal-default);
+  --color-sky: #0079c7;
+}
+
+.sbb-pearl-chain-item__dot-size-small {
+  margin-inline-start: #{px-to-rem-build(1)};
+
+  --dot-size: var(--dot-size-small);
+}
+
+.sbb-pearl-chain-item__dot-size-medium {
+  --dot-size: var(--dot-size-large);
 }
 
 .sbb-pearl-chain-item {
@@ -60,7 +70,7 @@
   @include border;
 
   background-color: transparent !important;
-  border-width: 1px;
+  border: 1px;
   border-style: dashed;
 }
 
@@ -80,14 +90,15 @@
 .sbb-pearl-chain-item__dot-thick-bullet {
   @include dot--transfer;
 
-  border: var(--border-width) solid currentcolor;
-  background-color: transparent !important;
+  border: var(--bullet-border-width) solid currentcolor;
+  background-color: var(--color-white) !important;
 }
 
 .sbb-pearl-chain-item__dot-thin-bullet {
+  --bullet-border-width: var(--sbb-border-width-1x);
   @include dot--transfer;
 
-  border: var(--border-width-thin) solid currentcolor;
+  border: var(--bullet-border-width) solid currentcolor;
   background-color: var(--color-white) !important;
 }
 
@@ -106,11 +117,16 @@
   background-color: var(--color-past);
 }
 
+.sbb-color__sky {
+  border-color: var(--color-sky);
+  background-color: var(--color-sky);
+}
+
 .sbb-pearl-chain-item__row-middle {
   padding-top: 0;
   vertical-align: top;
-  padding-left: var(--spacing-small);
-  padding-right: var(--spacing-medium);
+  padding-inline-start: var(--spacing-small);
+  padding-inline-end: var(--spacing-medium);
 }
 
 .sbb-pearl-chain-item__left-slot {

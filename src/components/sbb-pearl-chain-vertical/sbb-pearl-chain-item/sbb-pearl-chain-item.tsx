@@ -10,7 +10,7 @@ export class SbbPearlChainItem {
   @Prop() public pearlChainItemAttributes: PearlChainItemAttributes;
 
   public render(): JSX.Element {
-    const { dotColor, dotType, lineType, lineColor, hideLine, minHeight } =
+    const { dotColor, dotType, lineType, lineColor, hideLine, minHeight , dotSize} =
       this.pearlChainItemAttributes || {};
 
     return (
@@ -28,7 +28,7 @@ export class SbbPearlChainItem {
             {!hideLine && (
               <div class={`sbb-pearl-chain-item__line-${lineType} sbb-color__${lineColor}`}></div>
             )}
-            <div class={`sbb-pearl-chain-item__dot-${dotType} sbb-color__${dotColor}`}></div>
+            <div class={`sbb-pearl-chain-item__dot-${dotType} sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-${dotSize}`}></div>
           </div>
           <div class="sbb-pearl-chain-item__row-right" style={{ display: 'table-cell' }}>
             <slot name="right"></slot>
