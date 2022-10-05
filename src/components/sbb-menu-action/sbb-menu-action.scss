@@ -4,6 +4,7 @@
 
 :host {
   --sbb-menu-action-border-radius: var(--sbb-border-radius-8x);
+  --sbb-menu-action-amount-display: flex;
 }
 
 :host(:focus-within) {
@@ -45,14 +46,15 @@
   border: none;
   background-color: transparent;
   padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
+  margin: 0;
 
   &:focus-visible {
-    outline: 0;
+    outline: none;
 
     .sbb-menu-action__content {
-      outline: var(--sbb-focus-outline-width) solid var(--sbb-color-white-default);
-      outline-offset: var(--sbb-focus-outline-offset);
-      border-radius: var(--sbb-menu-action-border-radius);
+      @include focusOutline;
+
+      outline-color: var(--sbb-color-white-default);
     }
   }
 }
@@ -66,7 +68,7 @@
 .sbb-menu-action__amount {
   @include text-xxs--bold;
 
-  display: flex;
+  display: var(--sbb-menu-action-amount-display);
   align-items: center;
   justify-content: center;
   margin-inline-start: auto;
@@ -89,6 +91,6 @@
   }
 
   .sbb-menu-action__amount {
-    display: none;
+    --sbb-menu-action-amount-display: none;
   }
 }
