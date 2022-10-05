@@ -12,4 +12,24 @@
 svg {
   width: var(--sbb-icon-svg-width);
   height: var(--sbb-icon-svg-height);
+
+  &:not(.color-immutable) {
+    [fill]:not([fill='none']) {
+      fill: currentcolor;
+    }
+
+    [stroke]:not([stroke='none']) {
+      stroke: currentcolor;
+    }
+
+    // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+    // TODO: Maybe improve this solution in CDN Image
+    & >,
+    :where(:not([stroke]):not([fill])) {
+      :where(path, polygon, polyline):where(:not([stroke]):not([fill])) {
+        fill: currentcolor;
+      }
+    }
+    // stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
+  }
 }

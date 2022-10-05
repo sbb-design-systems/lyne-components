@@ -24,6 +24,15 @@ SbbTimetableRow.args = {
   price: config.price,
 };
 
+export const SbbTimetableRowActive = Template.bind({});
+SbbTimetableRowActive.args = {
+  acitve: true,
+  'loading-price': config.loadingPrice,
+  'loading-trip': config.loadingTrip,
+  trip: config.trip,
+  price: config.price,
+};
+
 export const SbbTimetableRowPriceLoading = Template.bind({});
 
 SbbTimetableRowPriceLoading.args = {

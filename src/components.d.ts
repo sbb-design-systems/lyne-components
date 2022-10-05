@@ -1078,6 +1078,10 @@ export namespace Components {
          */
         "accessibilityLabel": string;
         /**
+          * When this prop is true the sbb-card will be in the active state
+         */
+        "acitve"?: boolean;
+        /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
@@ -2724,6 +2728,10 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant element.
          */
         "accessibilityLabel"?: string;
+        /**
+          * When this prop is true the sbb-card will be in the active state
+         */
+        "acitve"?: boolean;
         /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */

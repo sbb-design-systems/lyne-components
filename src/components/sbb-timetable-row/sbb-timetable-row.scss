@@ -1,6 +1,5 @@
 :host {
   --row-gap: var(--sbb-spacing-fixed-2x);
-  --row-badge-padding: var(--sbb-spacing-fixed-6x);
 }
 
 // override icons sizes
@@ -60,10 +59,6 @@ li {
   display: flex;
   flex-direction: column;
   gap: var(--row-gap);
-}
-
-.sbb-timetable__row-badge {
-  padding-block-start: calc(var(--row-gap) - var(--row-badge-padding));
 }
 
 .sbb-timetable__row-header {
@@ -141,8 +136,16 @@ li {
 }
 
 .sbb-loading__badge {
-  @include card-badge;
+  align-items: center;
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  padding-inline-end: var(--sbb-spacing-fixed-6x);
+  border-end-start-radius: var(--sbb-border-radius-4x);
 
+  // Left to right expression
+  right: calc(var(--sbb-spacing-fixed-3x) * -1);
+  transform: skew(16deg, 0deg);
   width: 15%;
   height: #{px-to-rem-build(20)};
 }

@@ -39,6 +39,9 @@ export class SbbTimetableRow {
   /** When this prop is true the badge for the price will appear loading*/
   @Prop() public loadingPrice?: boolean;
 
+  /** When this prop is true the sbb-card will be in the active state*/
+  @Prop() public acitve?: boolean;
+
   /** This click event gets emitted when the user clicks on the component*/
   @Event({
     bubbles: true,
@@ -98,29 +101,28 @@ export class SbbTimetableRow {
       occupancy,
       duration,
     } = this.trip?.summary || {};
-    const badgeClass = this.price?.price ? 'sbb-timetable__row-badge' : '';
     const sortedNotices = this._sortPriority(notices);
     const sortedSituations = this._sortPriority(situations);
 
     return (
-      <sbb-timetable-row-button
-        id={id}
-        role="presentation"
+      <sbb-card
+        active={this.acitve}
+        id-value={id}
         accessibility-label={this.accessibilityLabel}
         onClick={this._clickHandler}
       >
-        <div class={`sbb-timetable__row ${badgeClass}`} role="row">
-          {this.loadingPrice && <span class="sbb-loading__badge"></span>}
-          {this.price && !this.loadingPrice && (
-            <sbb-card-badge
-              appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
-              price={this.price.price}
-              text={this.price.text}
-              isDiscount={this.price.isDiscount}
-            />
-          )}
-
-          <div class="sbb-timetable__row-header" role="rowheader">
+        {this.loadingPrice && <span slot="badge" class="sbb-loading__badge"></span>}
+        {this.price && !this.loadingPrice && (
+          <sbb-card-badge
+            slot="badge"
+            appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
+            price={this.price.price}
+            text={this.price.text}
+            isDiscount={this.price.isDiscount}
+          />
+        )}
+        <div class="sbb-timetable__row">
+          <div class="sbb-timetable__row-header">
             <div class="sbb-timetable__row-details">
               <sbb-icon name={product?.vehicleMode} />
               {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase()) ? (
@@ -142,7 +144,7 @@ export class SbbTimetableRow {
             disableAnimation={this.disableAnimation}
           ></sbb-pearl-chain-time>
 
-          <div class="sbb-timetable__row-footer" role="gridcell">
+          <div class="sbb-timetable__row-footer">
             <span class={tripStatus?.quayChanged ? `sbb-timetable__row-platform--changed` : ''}>
               <span class="screenreaderonly">{i18nFromPlatform.long[this._currentLanguage]}</span>
               <span class="sbb-timetable__row--platform">
@@ -219,7 +221,7 @@ export class SbbTimetableRow {
             )}
           </div>
         </div>
-      </sbb-timetable-row-button>
+      </sbb-card>
     );
   }
 }

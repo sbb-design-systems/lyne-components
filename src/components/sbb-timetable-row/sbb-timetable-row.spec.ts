@@ -18,10 +18,10 @@ describe('sbb-timetable-row', () => {
       expect(page.root).toEqualHtml(`
       <sbb-timetable-row>
       <mock:shadow-root>
-        <sbb-timetable-row-button role="presentation">
-          <div class="sbb-timetable__row sbb-timetable__row-badge" role="row">
-            <sbb-card-badge appearance="primary" isdiscount="" price="12" text="ab CHF"></sbb-card-badge>
-            <div class="sbb-timetable__row-header" role="rowheader">
+        <sbb-card>
+          <sbb-card-badge appearance="primary" isdiscount="" price="12" slot="badge" text="ab CHF"></sbb-card-badge>
+          <div class="sbb-timetable__row">
+            <div class="sbb-timetable__row-header">
               <div class="sbb-timetable__row-details">
                 <sbb-icon name="train-small"></sbb-icon>
                 <sbb-icon class="timetable__row-transport" name="ir-27"></sbb-icon>
@@ -31,7 +31,7 @@ describe('sbb-timetable-row', () => {
               </p>
             </div>
             <sbb-pearl-chain-time arrivaltime="2022-10-28T21:16:00+02:00" arrivalwalk="5" departuretime="2022-10-28T02:48:00+02:00" departurewalk="8"></sbb-pearl-chain-time>
-            <div class="sbb-timetable__row-footer" role="gridcell">
+            <div class="sbb-timetable__row-footer">
               <span class="sbb-timetable__row-platform--changed">
                 <span class="screenreaderonly">
                   from platform
@@ -87,7 +87,7 @@ describe('sbb-timetable-row', () => {
               </span>
             </div>
           </div>
-        </sbb-timetable-row-button>
+        </sbb-card>
       </mock:shadow-root>
     </sbb-timetable-row>
       `);
@@ -128,7 +128,7 @@ describe('sbb-timetable-row', () => {
       });
       page.rootInstance.trip = config.trip;
       page.rootInstance.price = config.price;
-      const element = page.root.shadowRoot.querySelector('sbb-timetable-row-button');
+      const element = page.root.shadowRoot.querySelector('sbb-card');
       const buttonSpy = jest.fn();
 
       page.win.addEventListener('sbb-timetable-row_click', buttonSpy);
