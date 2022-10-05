@@ -5,6 +5,7 @@ import {
   getLinkAttributeList,
   LinkButtonProperties,
   LinkTargetType,
+  PopupType,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 
@@ -98,6 +99,19 @@ export class SbbHeaderAction implements LinkButtonProperties {
    * Id sent in the click event payload.
    */
   @Prop() public eventId: string;
+
+  /**
+   * When an interaction of this button has an impact on another element(s) in the document, the id
+   * of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute
+   * to the relevant nested element.
+   */
+  @Prop() public accessibilityControls: string | undefined;
+
+  /**
+   * If you use the button to trigger another widget which itself is covering
+   * the page, you must provide an according attribute for aria-haspopup.
+   */
+  @Prop() public accessibilityHaspopup: PopupType | undefined;
 
   /**
    * Emits whenever the native button click event triggers.

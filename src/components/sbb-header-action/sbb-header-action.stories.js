@@ -119,6 +119,24 @@ const value = {
   },
 };
 
+const accessibilityControls = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const accessibilityHaspopup = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const accessibilityLabel = {
   control: {
     type: 'text',
@@ -151,6 +169,8 @@ const basicArgTypes = {
   value,
   form,
   'event-id': eventId,
+  'accessibility-controls': accessibilityControls,
+  'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
@@ -169,6 +189,8 @@ const basicArgs = {
   value: undefined,
   form: undefined,
   'event-id': undefined,
+  'accessibility-controls': undefined,
+  'accessibility-haspopup': undefined,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,

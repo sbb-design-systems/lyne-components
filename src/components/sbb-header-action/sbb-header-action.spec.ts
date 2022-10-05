@@ -5,13 +5,17 @@ describe('sbb-header-action', () => {
   it('renders the component as a button with icon', async () => {
     const { root } = await newSpecPage({
       components: [SbbHeaderAction],
-      html: `<sbb-header-action icon='pie-small' name="test" type="reset" value="value">Action</sbb-header-action>`,
+      html: `
+        <sbb-header-action icon='pie-small' name="test" type="reset" value="value" accessibility-controls="id" accessibility-haspopup="dialog">
+          Action
+        </sbb-header-action>
+      `,
     });
 
     expect(root).toEqualHtml(`
-      <sbb-header-action icon='pie-small' expand-from="medium" name="test" type="reset" value="value">
+      <sbb-header-action icon='pie-small' expand-from="medium" name="test" type="reset" value="value" accessibility-controls="id" accessibility-haspopup="dialog">
         <mock:shadow-root>
-          <button class="header-action__button" dir="ltr" id="sbb-header-action-1" name="test" type="reset" value="value">
+          <button class="header-action__button" dir="ltr" id="sbb-header-action-1" name="test" type="reset" value="value" aria-controls="id" aria-haspopup="dialog">
             <span class="header-action__icon">
               <slot name="icon">
                 <sbb-icon name="pie-small"></sbb-icon>
