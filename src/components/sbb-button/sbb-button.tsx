@@ -13,6 +13,7 @@ import {
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
+  forwardHostClick,
   getButtonAttributeList,
   getLinkAttributeList,
   getLinkButtonBaseAttributeList,
@@ -148,6 +149,20 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
   public emitButtonClick(): void {
     if (!this.disabled && !this.isStatic) {
       this.click.emit();
+    }
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    } else {
+      forwardHostClick(
+        event,
+        this._element,
+        this._element.shadowRoot.firstElementChild as HTMLElement // button or a element
+      );
     }
   }
 

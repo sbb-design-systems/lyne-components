@@ -1,6 +1,7 @@
 import { AccessibilityProperties } from './accessibility-properties';
 import {
   ButtonProperties,
+  forwardHostClick,
   getButtonAttributeList,
   getLinkAttributeList,
   getLinkButtonBaseAttributeList,
@@ -156,5 +157,35 @@ describe('getButtonAttributeList', () => {
 
     // jest can't compare functions as emitButtonClick, so objectContaining(...) API is used
     expect(getButtonAttributeList(buttonProperties)).toEqual(expect.objectContaining(expectedObj));
+  });
+});
+
+describe('forwardHostClick', () => {
+  it('should forward host click', () => {
+    const event = new Event('click');
+    const host = new HTMLElement();
+    const actionElement = new HTMLElement();
+
+    // Simulate shadow DOM context
+    jest.spyOn(event, 'composedPath').mockReturnValue([host]);
+    const eventSpy = jest.spyOn(actionElement, 'dispatchEvent');
+
+    forwardHostClick(event, host, actionElement);
+
+    const copiedEvent = eventSpy.mock.lastCall[0];
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(copiedEvent.type).toEqual('click');
+    expect(copiedEvent.bubbles).toEqual(false);
+  });
+
+  it('should not forward because click is not on host', () => {
+    const event = new Event('click');
+    const host = new HTMLElement();
+    const actionElement = new HTMLElement();
+    const eventSpy = jest.spyOn(actionElement, 'dispatchEvent');
+
+    forwardHostClick(event, host, actionElement);
+
+    expect(eventSpy).toHaveBeenCalledTimes(0);
   });
 });

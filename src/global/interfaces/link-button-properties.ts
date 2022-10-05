@@ -151,3 +151,22 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     'aria-haspopup': buttonProperties?.accessibilityHaspopup ?? undefined,
   });
 }
+
+/**
+ * Forwards a click on the host element to the nested action element in order to
+ * simplify the API.
+ */
+export function forwardHostClick(
+  event: Event,
+  host: HTMLElement,
+  nestedActionElement: HTMLElement
+): void {
+  // Check if the click was triggered on the host element and not from inside the shadow DOM.
+  // The composed path includes the full path to the clicked element including shadow DOM.
+  if (event.composedPath()[0] !== host) {
+    return;
+  }
+  const eventConstructor = Object.getPrototypeOf(event).constructor;
+  const copiedEvent = new eventConstructor(event.type, { bubbles: false });
+  nestedActionElement.dispatchEvent(copiedEvent);
+}

@@ -11,7 +11,6 @@ describe('sbb-button', () => {
   });
 
   it('renders', async () => {
-    element = await page.find('sbb-button');
     expect(element).toHaveClass('hydrated');
   });
 
@@ -47,6 +46,26 @@ describe('sbb-button', () => {
 
       await button.click();
       expect(changeSpy).not.toHaveReceivedEvent();
+    });
+
+    it('should stop propagating host click if disabled', async () => {
+      element.setProperty('disabled', true);
+
+      const clickSpy = await page.spyOnEvent('click');
+
+      element.triggerEvent('click');
+      await page.waitForChanges();
+
+      expect(clickSpy).not.toHaveReceivedEvent();
+    });
+
+    it('should forward host click to action element', async () => {
+      const changeSpy = await page.spyOnEvent(events.click);
+
+      element.triggerEvent('click');
+      await page.waitForChanges();
+
+      expect(changeSpy).toHaveReceivedEventTimes(1);
     });
   });
 });

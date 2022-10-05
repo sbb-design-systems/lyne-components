@@ -73,6 +73,30 @@ By setting the css property `pointer-events: none` to the host element and `poin
 on the inner element, the click on the host does not trigger an event anymore. If then, in disabled mode,
 the inner element becomes the css property `pointer-events: none`, no event at all will be triggered.
 
+In order to forward a programmatic click event on the host to the inner action element
+and to prevent event propagation when disabled, the following listener can be used:
+
+```ts
+import { forwardHostClick } from './global/interfaces/link-button-properties';
+import { LinkButtonProperties } from './link-button-properties';
+
+class ActionElement implements LinkButtonProperties {
+  @Listen('click')
+  public handleClick(event: Event): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    } else {
+      forwardHostClick(
+        event,
+        this._element,
+        this._element.shadowRoot.firstElementChild as HTMLElement
+      );
+    }
+  }
+}
+```
+
 ### API Design
 
 #### Boolean arguments

@@ -5,12 +5,20 @@
 :host {
   @include panel-variables;
 
+  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
+  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
+  pointer-events: none;
+
   --teaser-hero-brightness-hover: 1.075;
 }
 
 .sbb-teaser-hero {
   position: relative;
   display: block;
+
+  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
+  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
+  pointer-events: auto;
 
   &:focus-visible {
     @include focusOutline;
