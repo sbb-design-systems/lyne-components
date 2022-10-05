@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.8.0 (2022-10-05)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-button:** - API of sbb-button changed.
+
+* sbb-link-button removed
+
+Co-authored-by: Sébastien Closs <sebastien.closs@one-inside.com>
+Co-authored-by: Hendrik Wernze <hendrik.wernze@sbb.ch>
+Co-authored-by: Lukas Spirig <lukas.spirig@sbb.ch>
+Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
+
+- **sbb-button:** cleanup and adapt to new api ([#1328](https://github.com/lyne-design-system/lyne-components/issues/1328)) ([b2c41f5](https://github.com/lyne-design-system/lyne-components/commit/b2c41f5d75089563b56d6bd9a26f0d944910e5f7)), closes [#1131](https://github.com/lyne-design-system/lyne-components/issues/1131)
+
 ### 0.7.6 (2022-10-05)
 
 ### Bug Fixes
