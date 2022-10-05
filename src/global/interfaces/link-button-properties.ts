@@ -77,7 +77,7 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
 }
 
 /**
- * A component that implement LinkButtonProperties could use this interface to set useful variables for render function.
+ * A component that implements LinkButtonProperties should use this interface to set useful variables for render function.
  */
 export interface LinkButtonRenderVariables {
   /**
@@ -112,7 +112,7 @@ export interface LinkButtonProperties<ParameterType = any>
   extends LinkProperties,
     ButtonProperties<ParameterType> {
   /**
-   * Can be used to set the correct LinkButtonRenderVariables under certain conditions.
+   * Used to set the correct value of LinkButtonRenderVariables under certain conditions.
    * E.g. if href is not set, use getLinkRenderVariables(...), otherwise use getButtonRenderVariables(...).
    */
   resolveRenderVariables: () => LinkButtonRenderVariables;
