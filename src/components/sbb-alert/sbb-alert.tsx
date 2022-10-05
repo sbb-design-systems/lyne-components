@@ -50,7 +50,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   @Prop({ reflect: true }) public size: InterfaceAlertAttributes['size'] = 'm';
 
   /** Whether the fade in animation should be disabled. */
-  @Prop() public inanimate = false;
+  @Prop() public disableAnimation = false;
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
@@ -137,7 +137,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   private _present(): Promise<void> {
     this.willPresent.emit();
 
-    if (this.inanimate) {
+    if (this.disableAnimation) {
       this._onHeightTransitionEnd();
       return;
     }
@@ -153,7 +153,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   }
 
   private _initFadeInTransitionStyles(): void {
-    if (this.inanimate) {
+    if (this.disableAnimation) {
       return;
     }
     this._transitionWrapperElement.style.height = '0';
@@ -164,7 +164,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
     this._transitionWrapperElement.style.removeProperty('height');
     this._alertElement.style.removeProperty('opacity');
 
-    if (this.inanimate) {
+    if (this.disableAnimation) {
       this._onOpacityTransitionEnd();
       return;
     }

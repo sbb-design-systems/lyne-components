@@ -59,7 +59,7 @@ const readonly = {
   },
 };
 
-const inanimate = {
+const disableAnimation = {
   control: {
     type: 'boolean',
   },
@@ -145,7 +145,7 @@ const defaultArgTypes = {
   'title-level': titleLevel,
   size,
   readonly,
-  inanimate,
+  'disable-animation': disableAnimation,
   'icon-name': iconName,
   'content-slot-text': contentSlotText,
   'link-content': linkContent,
@@ -162,7 +162,7 @@ const defaultArgs = {
   'title-level': 3,
   size: size.options[0],
   readonly: false,
-  inanimate: false,
+  'disable-animation': false,
   'icon-name': 'info',
   'content-slot-text':
     "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
@@ -187,9 +187,9 @@ export const withoutCloseButton = Default.bind({});
 withoutCloseButton.argTypes = defaultArgTypes;
 withoutCloseButton.args = { ...defaultArgs, readonly: true };
 
-export const withinanimate = Default.bind({});
-withinanimate.argTypes = defaultArgTypes;
-withinanimate.args = { ...defaultArgs, inanimate: true };
+export const withDisabledAnimation = Default.bind({});
+withDisabledAnimation.argTypes = defaultArgTypes;
+withDisabledAnimation.args = { ...defaultArgs, 'disable-animation': true };
 
 export const withoutLink = Default.bind({});
 withoutLink.argTypes = defaultArgTypes;
