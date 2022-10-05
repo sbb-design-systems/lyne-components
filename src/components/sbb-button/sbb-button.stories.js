@@ -543,5 +543,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-button (Unfinished)',
+  title: 'components/sbb-button',
 };
