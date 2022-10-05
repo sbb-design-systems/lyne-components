@@ -171,7 +171,7 @@ describe('sbb-button', () => {
       `);
   });
 
-  it('Should emit click event on click with no payload', async () => {
+  it('Should emit click event on click', async () => {
     const page = await newSpecPage({
       components: [SbbButton],
       html: '<sbb-button label="I am a button"></sbb-button>',
@@ -189,6 +189,5 @@ describe('sbb-button', () => {
     button.click();
     await page.waitForChanges();
     expect(buttonSpy).toHaveBeenCalled();
-    expect(buttonSpy.mock.calls[0][0].detail).toEqual(undefined);
   });
 });

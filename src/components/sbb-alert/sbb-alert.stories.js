@@ -2,7 +2,9 @@ import events from './sbb-alert.events.ts';
 import readme from './readme.md';
 import { h } from 'jsx-dom';
 
-const Default = (args) => <sbb-alert {...args}>{args['content-slot-text']}</sbb-alert>;
+const Default = ({ 'content-slot-text': contentSlotText, ...args }) => (
+  <sbb-alert {...args}>{contentSlotText}</sbb-alert>
+);
 
 const DefaultWithOtherContent = (args) => {
   return (
@@ -19,11 +21,15 @@ const DefaultWithOtherContent = (args) => {
   );
 };
 
-const CustomSlots = (args) => (
+const CustomSlots = ({
+  'title-content': titleContent,
+  'content-slot-text': contentSlotText,
+  ...args
+}) => (
   <sbb-alert {...args}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
-    <span slot="title">{args['title-content']}</span>
-    {args['content-slot-text']}
+    <span slot="title">{titleContent}</span>
+    {contentSlotText}
   </sbb-alert>
 );
 
