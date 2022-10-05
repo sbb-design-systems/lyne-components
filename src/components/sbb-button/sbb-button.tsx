@@ -14,10 +14,11 @@ import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
   forwardHostClick,
-  getButtonAttributeList,
-  getLinkAttributeList,
+  getButtonRenderVariables,
   getLinkButtonBaseAttributeList,
+  getLinkRenderVariables,
   LinkButtonProperties,
+  LinkButtonRenderVariables,
   LinkTargetType,
   PopupType,
 } from '../../global/interfaces/link-button-properties';
@@ -172,24 +173,16 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
       .some((n) => !!n.textContent.trim());
   }
 
-  private _resolveRenderVariables(): {
-    screenReaderNewWindowInfo?: boolean;
-    attributes: Record<string, string>;
-    tagName: 'a' | 'button' | 'span';
-  } {
+  public resolveRenderVariables(): LinkButtonRenderVariables {
     if (this.isStatic) {
       return {
         tagName: 'span',
         attributes: getLinkButtonBaseAttributeList(this),
       };
     } else if (this.href) {
-      return {
-        tagName: 'a',
-        attributes: getLinkAttributeList(this, this),
-        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
-      };
+      return getLinkRenderVariables(this);
     }
-    return { tagName: 'button', attributes: getButtonAttributeList(this) };
+    return getButtonRenderVariables(this);
   }
 
   public render(): JSX.Element {
@@ -197,7 +190,7 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = this._resolveRenderVariables();
+    } = this.resolveRenderVariables();
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (

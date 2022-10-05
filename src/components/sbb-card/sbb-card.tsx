@@ -15,8 +15,8 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
   forwardHostClick,
-  getButtonAttributeList,
-  getLinkAttributeList,
+  getButtonRenderVariables,
+  getLinkRenderVariables,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -151,15 +151,12 @@ export class SbbCard implements LinkButtonProperties {
   public resolveRenderVariables(): LinkButtonRenderVariables {
     if (this.href) {
       return {
-        tagName: 'a',
-        attributes: getLinkAttributeList(this, this),
+        ...getLinkRenderVariables(this),
         cssClass: 'sbb-card sbb-card__link',
-        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
       };
     } else {
       return {
-        tagName: 'button',
-        attributes: getButtonAttributeList(this),
+        ...getButtonRenderVariables(this),
         cssClass: 'sbb-card sbb-card__button',
       };
     }

@@ -112,8 +112,8 @@ export interface LinkButtonProperties<ParameterType = any>
   extends LinkProperties,
     ButtonProperties<ParameterType> {
   /**
-   * Used to set the correct LinkButtonRenderVariables based on some conditions.
-   * E.g. if href is not set, return tagName = 'button' and attributes = getButtonAttributeList(...).
+   * Can be used to set the correct LinkButtonRenderVariables under certain conditions.
+   * E.g. if href is not set, use getLinkRenderVariables(...), otherwise use getButtonRenderVariables(...).
    */
   resolveRenderVariables: () => LinkButtonRenderVariables;
 }
@@ -182,6 +182,34 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     'aria-controls': buttonProperties?.accessibilityControls ?? undefined,
     'aria-haspopup': buttonProperties?.accessibilityHaspopup ?? undefined,
   });
+}
+
+/**
+ * Set default render variables for link case.
+ * @param linkButtonProperties used to set the 'attributes' property.
+ */
+export function getLinkRenderVariables(
+  linkButtonProperties: LinkButtonProperties
+): Pick<LinkButtonRenderVariables, 'tagName' | 'attributes' | 'screenReaderNewWindowInfo'> {
+  return {
+    tagName: 'a',
+    attributes: getLinkAttributeList(linkButtonProperties, linkButtonProperties),
+    screenReaderNewWindowInfo:
+      !linkButtonProperties.accessibilityLabel && linkButtonProperties.target === '_blank',
+  };
+}
+
+/**
+ * Set default render variables for button case.
+ * @param linkButtonProperties used to set the 'attributes' property.
+ */
+export function getButtonRenderVariables(
+  linkButtonProperties: LinkButtonProperties
+): Pick<LinkButtonRenderVariables, 'tagName' | 'attributes'> {
+  return {
+    tagName: 'button',
+    attributes: getButtonAttributeList(linkButtonProperties),
+  };
 }
 
 /**

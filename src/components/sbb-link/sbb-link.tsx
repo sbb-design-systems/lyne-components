@@ -13,9 +13,9 @@ import {
 import {
   ButtonType,
   forwardHostClick,
-  getButtonAttributeList,
-  getLinkAttributeList,
+  getButtonRenderVariables,
   getLinkButtonBaseAttributeList,
+  getLinkRenderVariables,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -176,13 +176,9 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
         attributes: getLinkButtonBaseAttributeList(this),
       };
     } else if (this.href) {
-      return {
-        tagName: 'a',
-        attributes: getLinkAttributeList(this, this),
-        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
-      };
+      return getLinkRenderVariables(this);
     }
-    return { tagName: 'button', attributes: getButtonAttributeList(this) };
+    return getButtonRenderVariables(this);
   }
 
   public render(): JSX.Element {
