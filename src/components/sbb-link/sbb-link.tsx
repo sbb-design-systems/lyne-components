@@ -5,11 +5,13 @@ import {
   Event,
   EventEmitter,
   h,
-  JSX, Listen,
+  JSX,
+  Listen,
   Prop,
 } from '@stencil/core';
 import {
-  ButtonType, forwardHostClick,
+  ButtonType,
+  forwardHostClick,
   getButtonAttributeList,
   getLinkAttributeList,
   getLinkButtonBaseAttributeList,
