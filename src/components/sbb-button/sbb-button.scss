@@ -4,6 +4,9 @@
 
 :host {
   display: inline-block;
+
+  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
+  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
   pointer-events: none;
 
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
@@ -167,6 +170,8 @@
   @include text-xs--bold;
   @include fontSmoothing;
 
+  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
+  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
   pointer-events: auto;
 
   // Reset for link variant
