@@ -27,7 +27,7 @@ Button with slotted icon
 ## Accessibility
 Use the accessibility properties in case of an icon only button to describe the purpose of the button for screen reader users.
 
-## Focus outline
+### Focus outline
 Please make sure, that the focus outline appears in the correct color if using on a dark background.
 You can set it by re-defining the css var on `sbb-button` or any parent element:
 
