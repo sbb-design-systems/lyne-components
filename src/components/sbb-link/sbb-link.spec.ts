@@ -1,4 +1,3 @@
-import lyneIcons from 'lyne-icons/dist/icons.json';
 import { SbbLink } from './sbb-link';
 import { newSpecPage } from '@stencil/core/testing';
 
@@ -38,7 +37,7 @@ describe('sbb-link', () => {
               aria-labelledby="id"
               class="sbb-link sbb-link--icon-placement-start sbb-link--text-m"
               dir="ltr"
-              download=""
+              download
               href="https://github.com/lyne-design-system/lyne-components"
               id="id"
             >
@@ -55,26 +54,35 @@ describe('sbb-link', () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
       html: `
-        <sbb-link icon-placement="end" text-size="m" negative name="name" type="submit" form="formid" disabled event-id="eventId">
-          <span slot="icon">
-            ${lyneIcons.icons['chevron-small-right-small']}
-          </span>
+        <sbb-link
+          icon-placement="end"
+          text-size="m"
+          negative
+          name="name"
+          type="submit"
+          form="formid"
+          disabled
+          accessibility-controls="id"
+          accessibility-haspopup="true"
+        >
+          <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
           Travelcards &amp; tickets.
         </sbb-link>`,
     });
 
     expect(root).toEqualHtml(`
         <sbb-link
-            icon-placement="end"
-            text-size="m"
-            variant="block"
-            negative
-            name="name"
-            type="submit"
-            form="formid"
-            disabled
-            event-id="eventId"
-            >
+          variant="block"
+          icon-placement="end"
+          text-size="m"
+          negative
+          name="name"
+          type="submit"
+          form="formid"
+          disabled
+          accessibility-controls="id"
+          accessibility-haspopup="true"
+        >
           <mock:shadow-root>
             <button
               class="sbb-link sbb-link--icon-placement-end sbb-link--negative sbb-link--text-m"
@@ -83,17 +91,14 @@ describe('sbb-link', () => {
               form="formid"
               name="name"
               type="submit"
-              >
+              aria-controls="id"
+              aria-haspopup="true"
+            >
               <slot name="icon"></slot>
               <slot></slot>
             </button>
           </mock:shadow-root>
-          <span slot="icon">
-            <svg height="24" viewBox="0,0,24,24" width="24" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="m10.6776,7.74045,3.949,3.90395.3597.3557-.3597.3555-3.95,3.904-.70297-.7112L13.5639,12,9.97459,8.4516l.70301-.71115z">
-              </path>
-            </svg>
-          </span>
+          <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
           Travelcards &amp; tickets.
         </sbb-link>
       `);
@@ -115,12 +120,36 @@ describe('sbb-link', () => {
             icon-placement="end"
             icon-name="chevron-small-right-small"
             text-size="m"
-            variant="block">
+            variant="block"
+            static>
           <mock:shadow-root>
             <span class="sbb-link sbb-link--icon-placement-end sbb-link--text-m" dir="ltr">
               <slot name="icon">
                 <sbb-icon name="chevron-small-right-small"></sbb-icon>
               </slot>
+              <slot></slot>
+            </span>
+          </mock:shadow-root>
+          Travelcards &amp; tickets.
+        </sbb-link>
+      `);
+  });
+
+  it('renders a link as a span by setting static property', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbLink],
+      html: `
+        <sbb-link static>
+          Travelcards &amp; tickets.
+        </sbb-link>
+      `,
+    });
+
+    expect(root).toEqualHtml(`
+        <sbb-link variant="block" static text-size="s">
+          <mock:shadow-root>
+            <span class="sbb-link sbb-link--icon-placement-start sbb-link--text-s" dir="ltr">
+              <slot name="icon"></slot>
               <slot></slot>
             </span>
           </mock:shadow-root>

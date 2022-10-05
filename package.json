@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.7.5",
+  "version": "0.9.0",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -85,7 +85,7 @@
     "lyne-helper-trigger-travis": "1.0.6",
     "lyne-icons": "4.40.0",
     "minimist": "1.2.6",
-    "netlify-cli": "12.0.4",
+    "netlify-cli": "12.0.5",
     "npm-run-all": "4.1.5",
     "postcss": "8.4.17",
     "prettier": "2.7.1",

@@ -4,185 +4,341 @@
 
 :host {
   display: inline-block;
-  @include buttonVariables;
-}
 
-:host ::slotted(svg) {
-  fill: currentcolor;
+  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
+  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
+  pointer-events: none;
 
-  @include ifForcedColors {
-    fill: ButtonText;
+  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-button-disabled-line-through-height: var(--sbb-border-width-2x);
+
+  // we use primary button styles as default values
+  --sbb-button-color-active-background: var(--sbb-color-red150-default);
+  --sbb-button-color-active-border: var(--sbb-color-red150-default);
+  --sbb-button-color-active-text: var(--sbb-color-cloud-default);
+  --sbb-button-color-default-background: var(--sbb-color-red-default);
+  --sbb-button-color-default-border: var(--sbb-color-red-default);
+  --sbb-button-color-default-text: var(--sbb-color-white-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-text: var(--sbb-color-platinum-default);
+  --sbb-button-color-hover-background: var(--sbb-color-red125-default);
+  --sbb-button-color-hover-border: var(--sbb-color-red125-default);
+  --sbb-button-color-hover-text: var(--sbb-color-milk-default);
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
+  --sbb-button-shadow-1-color: var(--sbb-color-red-alpha-20);
+  --sbb-button-shadow-2-color: var(--sbb-color-red125-alpha-20);
+  --sbb-button-border-width: var(--sbb-border-width-2x);
+  --sbb-button-border-radius: var(--sbb-border-radius-16x);
+  --sbb-button-min-height: var(--sbb-size-button-l-min-height);
+  --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+  --sbb-button-gap: var(--sbb-spacing-fixed-2x);
+
+  @include mq($from: medium) {
+    --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
   }
 }
 
-.button--primary-negative {
-  @include buttonPrimaryNegativeVariables;
+:host([variant='primary'][negative]) {
+  --sbb-button-color-active-background: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-text: var(--sbb-color-red150-default);
+  --sbb-button-color-default-background: var(--sbb-color-white-default);
+  --sbb-button-color-default-border: var(--sbb-color-white-default);
+  --sbb-button-color-default-text: var(--sbb-color-red-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
+  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-disabled-text: var(--sbb-color-aluminium-default);
+  --sbb-button-color-hover-background: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-border: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-text: var(--sbb-color-red125-default);
+  --sbb-button-shadow-1-color: var(--sbb-color-smoke-alpha-20);
+  --sbb-button-shadow-2-color: var(--sbb-color-metal-alpha-20);
 }
 
-.button--secondary {
-  @include buttonSecondaryVariables;
+:host([variant='secondary']) {
+  --sbb-button-color-active-background: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-text: var(--sbb-color-anthracite-default);
+  --sbb-button-color-default-background: var(--sbb-color-white-default);
+  --sbb-button-color-default-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-default-text: var(--sbb-color-charcoal-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-text: var(--sbb-color-platinum-default);
+  --sbb-button-color-hover-background: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-hover-text: var(--sbb-color-iron-default);
+  --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
+  --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
 }
 
-.button--secondary-negative {
-  @include buttonSecondaryNegativeVariables;
+:host([variant='secondary'][negative]) {
+  --sbb-button-color-active-background: transparent;
+  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-text: var(--sbb-color-cloud-default);
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-border: var(--sbb-color-white-default);
+  --sbb-button-color-default-text: var(--sbb-color-white-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
+  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-disabled-text: var(--sbb-color-aluminium-default);
+  --sbb-button-color-hover-background: transparent;
+  --sbb-button-color-hover-border: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-text: var(--sbb-color-milk-default);
 }
 
-.button--translucent {
-  --color-active-background: var(--sbb-color-black-alpha-70);
-  --color-active-border: var(--sbb-color-black-alpha-0);
-  --color-active-text: var(--sbb-color-cloud-default);
-  --color-default-background: var(--sbb-color-black-alpha-50);
-  --color-default-border: var(--sbb-color-black-alpha-0);
-  --color-default-text: var(--sbb-color-white-default);
-  --color-disabled-background: var(--sbb-color-black-alpha-20);
-  --color-disabled-border: var(--sbb-color-black-alpha-0);
-  --color-disabled-text: var(--sbb-color-milk-default);
-  --color-hover-background: var(--sbb-color-black-alpha-60);
-  --color-hover-border: var(--sbb-color-black-alpha-0);
-  --color-hover-text: var(--sbb-color-milk-default);
+:host([variant='translucent']) {
+  --sbb-button-color-active-background: var(--sbb-color-black-alpha-70);
+  --sbb-button-color-active-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-active-text: var(--sbb-color-cloud-default);
+  --sbb-button-color-default-background: var(--sbb-color-black-alpha-50);
+  --sbb-button-color-default-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-default-text: var(--sbb-color-white-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-20);
+  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-disabled-text: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-background: var(--sbb-color-black-alpha-60);
+  --sbb-button-color-hover-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-hover-text: var(--sbb-color-milk-default);
 }
 
-.button--translucent-negative {
-  --color-active-background: var(--sbb-color-white-alpha-70);
-  --color-active-border: var(--sbb-color-white-alpha-0);
-  --color-active-text: var(--sbb-color-anthracite-default);
-  --color-default-background: var(--sbb-color-white-alpha-50);
-  --color-default-border: var(--sbb-color-white-alpha-0);
-  --color-default-text: var(--sbb-color-charcoal-default);
-  --color-disabled-background: var(--sbb-color-white-alpha-20);
-  --color-disabled-border: var(--sbb-color-white-alpha-0);
-  --color-disabled-text: var(--sbb-color-platinum-default);
-  --color-hover-background: var(--sbb-color-white-alpha-60);
-  --color-hover-border: var(--sbb-color-white-alpha-0);
-  --color-hover-text: var(--sbb-color-iron-default);
+:host([variant='translucent'][negative]) {
+  --sbb-button-color-active-background: var(--sbb-color-white-alpha-70);
+  --sbb-button-color-active-border: var(--sbb-color-white-alpha-0);
+  --sbb-button-color-active-text: var(--sbb-color-anthracite-default);
+  --sbb-button-color-default-background: var(--sbb-color-white-alpha-50);
+  --sbb-button-color-default-border: var(--sbb-color-white-alpha-0);
+  --sbb-button-color-default-text: var(--sbb-color-charcoal-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-white-alpha-20);
+  --sbb-button-color-disabled-border: var(--sbb-color-white-alpha-0);
+  --sbb-button-color-disabled-text: var(--sbb-color-platinum-default);
+  --sbb-button-color-hover-background: var(--sbb-color-white-alpha-60);
+  --sbb-button-color-hover-border: var(--sbb-color-white-alpha-0);
+  --sbb-button-color-hover-text: var(--sbb-color-iron-default);
 }
 
-.button--transparent {
-  --color-active-background: var(--sbb-color-cloud-default);
-  --color-active-border: var(--sbb-color-cloud-default);
-  --color-active-text: var(--sbb-color-black-default);
-  --color-default-background: transparent;
-  --color-default-border: transparent;
-  --color-default-text: var(--sbb-color-black-default);
-  --color-disabled-background: transparent;
-  --color-disabled-border: transparent;
-  --color-disabled-text: var(--sbb-color-granite-default);
-  --color-hover-background: var(--sbb-color-milk-default);
-  --color-hover-border: var(--sbb-color-milk-default);
-  --color-hover-text: var(--sbb-color-black-default);
+:host([variant='transparent']) {
+  --sbb-button-color-active-background: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-text: var(--sbb-color-black-default);
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-border: transparent;
+  --sbb-button-color-default-text: var(--sbb-color-black-default);
+  --sbb-button-color-disabled-background: transparent;
+  --sbb-button-color-disabled-border: transparent;
+  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
+  --sbb-button-color-hover-background: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-border: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-text: var(--sbb-color-black-default);
 }
 
-.button--transparent-negative {
-  --color-active-background: var(--sbb-color-iron-default);
-  --color-active-border: var(--sbb-color-iron-default);
-  --color-active-text: var(--sbb-color-white-default);
-  --color-default-background: transparent;
-  --color-default-border: transparent;
-  --color-default-text: var(--sbb-color-white-default);
-  --color-disabled-background: transparent;
-  --color-disabled-border: transparent;
-  --color-disabled-text: var(--sbb-color-granite-default);
-  --color-hover-background: var(--sbb-color-charcoal-default);
-  --color-hover-border: var(--sbb-color-charcoal-default);
-  --color-hover-text: var(--sbb-color-white-default);
+:host([variant='transparent'][negative]) {
+  --sbb-button-color-active-background: var(--sbb-color-iron-default);
+  --sbb-button-color-active-border: var(--sbb-color-iron-default);
+  --sbb-button-color-active-text: var(--sbb-color-white-default);
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-border: transparent;
+  --sbb-button-color-default-text: var(--sbb-color-white-default);
+  --sbb-button-color-disabled-background: transparent;
+  --sbb-button-color-disabled-border: transparent;
+  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
+  --sbb-button-color-hover-background: var(--sbb-color-charcoal-default);
+  --sbb-button-color-hover-border: var(--sbb-color-charcoal-default);
+  --sbb-button-color-hover-text: var(--sbb-color-white-default);
 }
 
-.button--size-m {
-  @include buttonSizeMVariables;
+:host([size='m']) {
+  --sbb-button-border-width: var(--sbb-border-width-1x);
+  --sbb-button-min-height: var(--sbb-size-button-m-min-height);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
+
+  @include mq($from: medium) {
+    --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+  }
 }
 
-.button {
-  @include button;
+.sbb-button {
+  @include buttonReset;
+  @include stretch(width);
+  @include text-xs--bold;
+  @include fontSmoothing;
+
+  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
+  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
+  pointer-events: auto;
+
+  // Reset for link variant
+  text-decoration: none;
+  position: relative;
+  display: flex;
+  gap: var(--sbb-button-gap);
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  transition-duration: var(--sbb-button-transition-duration);
+  transition-timing-function: var(--sbb-button-transition-easing-function);
+  transition-property: color;
+  min-height: var(--sbb-button-min-height);
+  border-radius: var(--sbb-button-border-radius);
+
+  // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
+  // Positioning of the content is made by flexbox vertical centering.
+  // The real padding displayed is larger than the defined value below.
+  padding-block: var(--sbb-button-padding-block-min);
+  padding-inline: var(--sbb-button-padding-inline);
+  color: var(--sbb-button-color-default-text);
+  cursor: pointer;
+
+  // Renders background and border in the background absolute to enable the hover animation
+  &::before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    border: var(--sbb-button-border-width) solid var(--sbb-button-color-default-border);
+    border-radius: var(--sbb-button-border-radius);
+    background-color: var(--sbb-button-color-default-background);
+    transition-duration: var(--sbb-button-transition-duration);
+    transition-timing-function: var(--sbb-button-transition-easing-function);
+    transition-property: inset, background-color, border-color, box-shadow;
+
+    @include ifForcedColors {
+      border: #{px-to-rem-build(1)} solid windowText;
+    }
+  }
+
+  &:focus-visible::before {
+    @include focusOutline;
+  }
+
+  // If the the device can hover over elements with ease
+  @include hover-mq($hover: true) {
+    // stylelint-disable plugin/stylelint-bem-namics
+    :host(:not([disabled])) &:hover {
+      --sbb-button-translate-y-content-hover: #{px-to-rem-build(-1)};
+      --sbb-button-shadow-1-offset-y: calc(
+        0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
+      );
+      --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
+      --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
+
+      color: var(--sbb-button-color-hover-text);
+
+      &::before {
+        inset: calc(var(--sbb-button-border-width) * -1);
+        background-color: var(--sbb-button-color-hover-background);
+        border-color: var(--sbb-button-color-hover-border);
+
+        @include ifForcedColors {
+          border-color: Highlight;
+        }
+      }
+    }
+    // stylelint-enable plugin/stylelint-bem-namics
+  }
+
+  :host([disabled]) & {
+    color: var(--sbb-button-color-disabled-text);
+    cursor: default;
+    pointer-events: none;
+
+    &::before {
+      background-color: var(--sbb-button-color-disabled-background);
+      border-color: var(--sbb-button-color-disabled-border);
+    }
+
+    // Line through content
+    &::after {
+      content: '';
+      @include absoluteCenterY;
+
+      background-color: var(--sbb-button-color-disabled-text);
+      height: var(--sbb-button-disabled-line-through-height);
+      inset-inline: var(--sbb-button-padding-inline);
+
+      @include ifForcedColors {
+        background-color: GrayText;
+      }
+    }
+
+    @include ifForcedColors {
+      color: GrayText;
+    }
+  }
+
+  // stylelint-disable plugin/stylelint-bem-namics
+  :host(:not([disabled])) &:active::before {
+    color: var(--sbb-button-color-active-text);
+    background-color: var(--sbb-button-color-active-background);
+    border-color: var(--sbb-button-color-active-border);
+  }
+  // stylelint-enable plugin/stylelint-bem-namics
+
+  // Only apply shadow definitions where it is really used.
+  // stylelint-disable plugin/stylelint-bem-namics
+  :host([variant='primary']:not([disabled])) &,
+  :host([variant='secondary']:not([negative], [disabled])) & {
+    &:not(:active)::before {
+      box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+          var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
+          var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
+        var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
+          var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
+          var(--sbb-button-shadow-1-color);
+    }
+  }
+  // stylelint-enable plugin/stylelint-bem-namics
+
+  @include ifForcedColors {
+    color: ButtonText;
+  }
 }
 
-.button--primary:not(:disabled),
-.button--secondary:not(:disabled),
-.button--primary-negative:not(:disabled) {
-  @include buttonShadowNotDisabled;
-}
-
-.button--visual-only {
-  width: fit-content;
+:host([static]) {
   user-select: none;
 }
 
-.button--icon-only {
-  --padding-inline: 0;
+.sbb-button--icon-only {
+  --sbb-button-padding-inline: 0;
   --icon-margin-inline-end: 0;
 
-  width: var(--min-height);
+  width: var(--sbb-button-min-height);
   justify-content: center;
 
-  &.button:disabled::after {
+  :host([disabled]) &::after {
     inset-inline: unset;
 
     // Width of line through is fixed in icon variant
-    width: var(--icon-size);
+    width: var(--sbb-button-icon-size);
   }
 }
 
-.button:disabled {
-  color: var(--color-disabled-text);
-  cursor: default;
-
-  &::before {
-    background-color: var(--color-disabled-background);
-    border-color: var(--color-disabled-border);
-  }
-
-  // Line through content
-  &::after {
-    content: '';
-    @include absoluteCenterY;
-
-    background-color: var(--color-disabled-text);
-    height: var(--line-through-height-disabled);
-    inset-inline: var(--padding-inline);
-
-    @include ifForcedColors {
-      background-color: GrayText;
-    }
-  }
-
-  ::slotted(svg) {
-    @include ifForcedColors {
-      fill: GrayText;
-    }
-  }
+.sbb-button__label,
+.sbb-button__icon {
+  transition: transform var(--sbb-button-transition-duration)
+    var(--sbb-button-transition-easing-function);
+  transform: translateY(var(--sbb-button-translate-y-content-hover, #{px-to-rem-build(0)}));
 }
 
-// If the the device can hover over elements with ease
-@include hover-mq($hover: true) {
-  .button:hover:not(:disabled) {
-    @include buttonHover;
-  }
+.sbb-button__label {
+  display: block;
+  @include ellipsis;
 }
 
-.button:active:not(:disabled) {
-  @include buttonActive;
+.sbb-button__label--hidden {
+  display: none;
 }
 
-.button--secondary-negative,
-.button--translucent,
-.button--translucent-negative,
-.button--transparent,
-.button--transparent-negative {
-  @include buttonShadowDisabled;
+.sbb-button__icon {
+  display: flex;
 }
 
-.button__label,
-.button__icon {
-  @include buttonLabelTransition;
-}
-
-.button__label {
-  @include buttonLabel;
-}
-
-.button__icon {
-  @include buttonIcon;
-}
-
-.button__icon-description {
+.sbb-button__opens-in-new-window {
   @include screenReaderOnly;
 }

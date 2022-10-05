@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.9.0 (2022-10-05)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-alert:** Property `inanimate` of sbb-alert was renamed to `disable-animation`.
+
+- **sbb-alert:** rename property `inanimate` to `disable-animation` ([#1397](https://github.com/lyne-design-system/lyne-components/issues/1397)) ([1bc4a31](https://github.com/lyne-design-system/lyne-components/commit/1bc4a31016f2496cdfbd6515095bd1a7254c2fd4))
+
+## 0.8.0 (2022-10-05)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-button:** - API of sbb-button changed.
+
+* sbb-link-button removed
+
+Co-authored-by: Sébastien Closs <sebastien.closs@one-inside.com>
+Co-authored-by: Hendrik Wernze <hendrik.wernze@sbb.ch>
+Co-authored-by: Lukas Spirig <lukas.spirig@sbb.ch>
+Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
+
+- **sbb-button:** cleanup and adapt to new api ([#1328](https://github.com/lyne-design-system/lyne-components/issues/1328)) ([b2c41f5](https://github.com/lyne-design-system/lyne-components/commit/b2c41f5d75089563b56d6bd9a26f0d944910e5f7)), closes [#1131](https://github.com/lyne-design-system/lyne-components/issues/1131)
+
+### 0.7.6 (2022-10-05)
+
+### Bug Fixes
+
+- **sbb-logo:** display logo on Safari ([#1395](https://github.com/lyne-design-system/lyne-components/issues/1395)) ([9fee782](https://github.com/lyne-design-system/lyne-components/commit/9fee782ba0774958bddf301a263677452479c676))
+
 ### 0.7.5 (2022-10-03)
 
 ### 0.7.4 (2022-09-29)
