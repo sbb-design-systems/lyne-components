@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.9.0 (2022-10-05)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-alert:** Property `inanimate` of sbb-alert was renamed to `disable-animation`.
+
+- **sbb-alert:** rename property `inanimate` to `disable-animation` ([#1397](https://github.com/lyne-design-system/lyne-components/issues/1397)) ([1bc4a31](https://github.com/lyne-design-system/lyne-components/commit/1bc4a31016f2496cdfbd6515095bd1a7254c2fd4))
+
 ## 0.8.0 (2022-10-05)
 
 ### ⚠ BREAKING CHANGES
