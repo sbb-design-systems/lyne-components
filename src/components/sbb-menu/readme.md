@@ -1,6 +1,6 @@
 # sbb-menu
 
-The `sbb-menu` is a component that you can attach to any element (trigger) to display a context menu. 
+The `sbb-menu` is a component that can be attached to any element (trigger) to display a context menu. 
 The menu appears on trigger left click. 
 
 On mobile, the menu is displayed as a sheet with a backdrop; 
@@ -11,7 +11,7 @@ by evaluating the available space with the following priority: start/below, star
 
 The menu component allows you to present a custom menu that allows you to perform actions relevant to the current task 
 or to navigate within or outside the application by using the `sbb-menu-action` component along with it 
-or providing custom content inside the dialog as shown below:
+or providing custom content inside the component as shown below:
 
 ```html
 <!-- Trigger element -->
@@ -22,15 +22,15 @@ or providing custom content inside the dialog as shown below:
     <div>Christina Müller</div>
     <span>UIS9057</span>
     <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">Profile</sbb-link>
-    
+
     <sbb-divider />
 
     <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-action>
     <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
     <sbb-menu-action icon="swisspass-small" amount="123">Details</sbb-menu-action>
-    
+
     <sbb-divider />
-    
+
     <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
 </sbb-menu>
 ```
@@ -39,7 +39,7 @@ Clicking in the backdrop or pressing the `ESC` key closes the menu.
 
 ### Accessibility
 
-As the menu opens, the focus will automatically be set to the first focusable item within the dialog.
+As the menu opens, the focus will automatically be set to the first focusable item within the component.
 
 <!-- Auto Generated Below -->
 

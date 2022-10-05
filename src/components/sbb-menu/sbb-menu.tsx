@@ -12,7 +12,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { getElementPosition } from '../../global/helpers/position';
+import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 
 const MENU_OFFSET = 8;
@@ -148,38 +148,35 @@ export class SbbMenu implements ComponentInterface {
     oldValue: string | HTMLElement
   ): void {
     if (newValue !== oldValue) {
-      this._triggerController?.abort();
-      this._configureTriggerElement(this.trigger);
+      this._menuController?.abort();
+      this._configure(this.trigger);
     }
   }
 
-  // Internal dialog element.
   private _dialog: HTMLDialogElement;
-
-  // The element that triggers the open of the sbb-menu.
   private _triggerEl: HTMLElement;
-
-  // Controller used to abort the open of the abb-menu on trigger change.
-  private _triggerController: AbortController;
+  private _pointerDownEventOnMenu: boolean;
+  private _menuController: AbortController;
 
   public componentDidLoad(): void {
     this._dialog = this.el.shadowRoot.querySelector('dialog');
 
-    // validate trigger element and attach click event
-    this._configureTriggerElement(this.trigger);
+    // validate trigger element and attach event listeners
+    this._configure(this.trigger);
 
     // close menu on interactive elements click
     this._dismissOnInteractiveElementClick();
-
-    // close menu on backdrop click
-    this._dismissOnBackdropClick();
 
     // listen for menu animation to end
     this._dialog.onanimationend = (event: AnimationEvent) => this._onMenuAnimationEnd(event);
   }
 
-  // Check if the trigger is valid and attach click event listener.
-  private _configureTriggerElement(trigger: string | HTMLElement): void {
+  public disconnectedCallback(): void {
+    this._menuController.abort();
+  }
+
+  // Check if the trigger is valid and attach click event listeners.
+  private _configure(trigger: string | HTMLElement): void {
     if (!trigger) {
       return;
     }
@@ -192,11 +189,19 @@ export class SbbMenu implements ComponentInterface {
     }
 
     if (this._triggerEl) {
-      this._triggerController = new AbortController();
+      this._menuController = new AbortController();
       this._triggerEl.addEventListener('click', () => this.open(), {
-        signal: this._triggerController.signal,
+        signal: this._menuController.signal,
       });
     }
+
+    // close menu on backdrop click
+    this._dialog.addEventListener('pointerdown', this._pointerDownListener, {
+      signal: this._menuController.signal,
+    });
+    this._dialog.addEventListener('click', this._dismissOnBackdropClick, {
+      signal: this._menuController.signal,
+    });
   }
 
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
@@ -205,26 +210,24 @@ export class SbbMenu implements ComponentInterface {
     const interactiveElements = this.el.querySelectorAll('[href], button, sbb-button, sbb-link');
     interactiveElements.forEach((el: Element) => {
       if (!el.hasAttribute('disabled')) {
-        el.addEventListener('click', () => this.close());
+        el.addEventListener('click', () => this.close(), {
+          signal: this._menuController.signal,
+        });
       }
     });
   }
 
-  // Close menu on backdrop clicked.
-  private _dismissOnBackdropClick(): void {
-    this._dialog.addEventListener('mousedown', (event: MouseEvent) => {
-      const rect = this._dialog.getBoundingClientRect();
-      const isInDialog =
-        rect.top <= event.clientY &&
-        event.clientY <= rect.top + rect.height &&
-        rect.left <= event.clientX &&
-        event.clientX <= rect.left + rect.width;
+  // Check if the pointerdown event target is triggered on the menu.
+  private _pointerDownListener = (event: PointerEvent): void => {
+    this._pointerDownEventOnMenu = isEventOnElement(this._dialog, event);
+  };
 
-      if (!isInDialog) {
-        this.close();
-      }
-    });
-  }
+  // Close menu on backdrop click.
+  private _dismissOnBackdropClick = (event: MouseEvent): void => {
+    if (!this._pointerDownEventOnMenu && !isEventOnElement(this._dialog, event)) {
+      this.close();
+    }
+  };
 
   // Set menu position (x, y) to '0' once the menu is closed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the menu is open.
@@ -260,7 +263,7 @@ export class SbbMenu implements ComponentInterface {
 
   // Set menu position and max height if the breakpoint is medium-ultra.
   private _setMenuPosition(): void {
-    if (!isBreakpoint('medium', 'ultra') || !this._dialog || !this._triggerEl) {
+    if (!isBreakpoint('medium') || !this._dialog || !this._triggerEl) {
       return;
     }
 

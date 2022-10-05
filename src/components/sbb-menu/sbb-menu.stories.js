@@ -176,23 +176,19 @@ const EllipsisTemplate = (args) => [
 
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = defaultArgTypes;
-Default.args = { ...defaultArgs };
-Default.args.disabled = true;
+Default.args = { ...defaultArgs, disabled: true };
 Default.documentation = { title: 'Default' };
 Default.play = playStory;
 
 export const CustomContent = CustomContentTemplate.bind({});
 CustomContent.argTypes = defaultArgTypes;
-CustomContent.args = { ...defaultArgs };
-CustomContent.args.amount = '2';
+CustomContent.args = { ...defaultArgs, amount: '2' };
 CustomContent.documentation = { title: 'Custom Content' };
 CustomContent.play = playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.argTypes = defaultArgTypes;
-LongContent.args = { ...defaultArgs };
-LongContent.args.icon = 'tick-small';
-LongContent.args.amount = '';
+LongContent.args = { ...defaultArgs, icon: 'tick-small', amount: undefined };
 LongContent.documentation = { title: 'Long Content' };
 LongContent.play = playStory;
 
