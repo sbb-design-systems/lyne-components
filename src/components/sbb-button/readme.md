@@ -25,7 +25,7 @@ Button with slotted icon
 ```
 
 ## Accessibility
-Use the accessibility-label attribute in case of an icon only button to describe the purpose of the button for screen reader users.
+Use the accessibility properties in case of an icon only button to describe the purpose of the button for screen reader users.
 
 ## Focus outline
 Please make sure, that the focus outline appears in the correct color if using on a dark background.

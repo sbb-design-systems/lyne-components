@@ -15,21 +15,38 @@ describe('sbb-button', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('renders button text', async () => {
-    await page.waitForChanges();
-    const button = await page.find('sbb-button >>> .sbb-button__label');
-
-    expect(button.innerHTML).toEqual('<slot></slot>');
-  });
-
   describe('events', () => {
     it('dispatches event on click', async () => {
       await page.waitForChanges();
-      const button = await page.find('sbb-button >>> button');
+      const button = await page.find('sbb-button >>> .sbb-button');
       const changeSpy = await page.spyOnEvent(events.click);
 
       await button.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
+    });
+
+    it('doesnt dispatch event on click if disabled', async () => {
+      element.setAttribute('disabled', true);
+
+      await page.waitForChanges();
+
+      const button = await page.find('sbb-button >>> .sbb-button');
+      const changeSpy = await page.spyOnEvent(events.click);
+
+      await button.click();
+      expect(changeSpy).not.toHaveReceivedEvent();
+    });
+
+    it('doesnt dispatch event on click if static', async () => {
+      element.setAttribute('static', true);
+
+      await page.waitForChanges();
+
+      const button = await page.find('sbb-button >>> .sbb-button');
+      const changeSpy = await page.spyOnEvent(events.click);
+
+      await button.click();
+      expect(changeSpy).not.toHaveReceivedEvent();
     });
   });
 });
