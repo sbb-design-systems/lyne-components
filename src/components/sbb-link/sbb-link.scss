@@ -5,6 +5,10 @@
 :host {
   display: inline-block;
 
+  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
+  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
+  pointer-events: none;
+
   --text-color-normal: var(--sbb-color-granite-default);
   --text-color-hover-focus: var(--sbb-color-red125-default);
   --text-color-active: var(--sbb-color-red150-default);
@@ -27,6 +31,10 @@
   text-decoration: none;
   word-break: break-word;
   fill: currentcolor;
+
+  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
+  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
+  pointer-events: auto;
 
   &:focus-visible {
     @include focusOutline;

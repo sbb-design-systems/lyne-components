@@ -10,6 +10,11 @@ import { AccessibilityProperties, getAccessibilityAttributeList } from './access
 export type ButtonType = 'button' | 'reset' | 'submit';
 
 /**
+ * Enumeration for the 'aria-haspopup' values on the <button> HTML tag.
+ */
+export type PopupType = 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
+
+/**
  * Enumeration for 'target' attribute in <a> HTML tag.
  */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
@@ -18,72 +23,57 @@ export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
  * The interface contains attributes that can be set on an <a> tag.
  */
 export interface LinkProperties extends AccessibilityProperties {
-  /**
-   *  The href value you want to link to.
-   */
+  /** The href value you want to link to. */
   href: string | undefined;
 
-  /**
-   * Whether the browser will show the download dialog on click.
-   */
-  download?: boolean | undefined;
+  /** Where to display the linked URL. */
+  target?: LinkTargetType | string | undefined;
 
-  /**
-   * The relationship of the linked URL as space-separated link types.
-   */
+  /** The relationship of the linked URL as space-separated link types. */
   rel?: string | undefined;
 
-  /**
-   * Where to display the linked URL.
-   */
-  target?: LinkTargetType | string | undefined;
+  /** Whether the browser will show the download dialog on click. */
+  download?: boolean | undefined;
 }
 
 /**
  * The interface contains attributes that can be set on an <button> tag.
  */
-export interface ButtonProperties extends AccessibilityProperties {
-  /**
-   * Default behaviour of the button.
-   */
+export interface ButtonProperties<T = any> extends AccessibilityProperties {
+  /** The type attribute to use for the button. */
   type: ButtonType | undefined;
 
-  /**
-   * The name of the button.
-   */
+  /** Whether the button is disabled. */
+  disabled?: boolean | undefined;
+
+  /** The name attribute to use for the button. */
   name: string | undefined;
 
-  /**
-   * Emits the eventId to parent on button click.
-   * TODO check if it's possible to use a better type than 'any'.
-   */
-  click: EventEmitter<any> | undefined;
+  /** The value attribute to use for the button. */
+  value?: string | undefined;
 
-  /**
-   * The function triggered on button click.
-   */
-  emitButtonClick: (() => void) | undefined;
-
-  /**
-   * Id sent in the click event payload.
-   * TODO verify if needed and if string is the correct type
-   */
-  eventId?: string | undefined;
-
-  /**
-   * The <form> element to associate the button with.
-   */
+  /** The <form> element to associate the button with. */
   form?: string | undefined;
 
   /**
-   * The value associated with button `name` when it's submitted with the form data.
+   * The aria-controls property identifies the element (or elements)
+   * whose contents or presence are controlled by the element on which
+   * this attribute is set.
+   * The value is forwarded to the native button element.
    */
-  value?: string | undefined;
+  accessibilityControls?: string | undefined;
 
   /**
-   * Whether the button is disabled.
+   * Indicates the availability and type of interactive popup element that can be triggered
+   * by the element
    */
-  disabled?: boolean | undefined;
+  accessibilityHaspopup?: PopupType | undefined;
+
+  /** Emits the event on button click. */
+  click: EventEmitter<T> | undefined;
+
+  /** The function triggered on button click. */
+  emitButtonClick: (() => void) | undefined;
 }
 
 /**
@@ -92,7 +82,9 @@ export interface ButtonProperties extends AccessibilityProperties {
  * for instance depending on whether the value of the href attribute is present or not.
  * NOTE: a class could not be created because StencilJS does not support inheritance/component extension.
  */
-export interface LinkButtonProperties extends LinkProperties, ButtonProperties {}
+export interface LinkButtonProperties<ParameterType = any>
+  extends LinkProperties,
+    ButtonProperties<ParameterType> {}
 
 /**
  * Creates the basic attribute list for the link/button tag; undefined/null properties are not set.
@@ -155,5 +147,7 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     form: buttonProperties.form || undefined,
     disabled: buttonProperties.disabled ? 'true' : undefined,
     value: buttonProperties.value ?? undefined,
+    'aria-controls': buttonProperties?.accessibilityControls ?? undefined,
+    'aria-haspopup': buttonProperties?.accessibilityHaspopup ?? undefined,
   });
 }

@@ -65,6 +65,14 @@ leave it out.
 This applies especially to providing two different APIs to accomplish the same thing. Always
 prefer sticking to a _single_ API for accomplishing something.
 
+#### Click event handling on action elements
+
+If a consumer registers a click event on a host element, e.g. `sbb-button`,
+the click event is triggered even if the button is in disabled mode for example.
+By setting the css property `pointer-events: none` to the host element and `pointer-events: auto`
+on the inner element, the click on the host does not trigger an event anymore. If then, in disabled mode,
+the inner element becomes the css property `pointer-events: none`, no event at all will be triggered.
+
 ### API Design
 
 #### Boolean arguments
