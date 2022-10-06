@@ -12,7 +12,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
+import { getElementPosition } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 
 const MENU_OFFSET = 8;
@@ -155,7 +155,7 @@ export class SbbMenu implements ComponentInterface {
 
   private _dialog: HTMLDialogElement;
   private _triggerEl: HTMLElement;
-  private _pointerDownEventOnMenu: boolean;
+  private _pointerDownEventTarget: string | null;
   private _menuController: AbortController;
 
   public componentDidLoad(): void {
@@ -199,7 +199,7 @@ export class SbbMenu implements ComponentInterface {
     this._dialog.addEventListener('pointerdown', this._pointerDownListener, {
       signal: this._menuController.signal,
     });
-    this._dialog.addEventListener('click', this._dismissOnBackdropClick, {
+    this._dialog.addEventListener('pointerup', this._dismissOnBackdropClick, {
       signal: this._menuController.signal,
     });
   }
@@ -217,14 +217,17 @@ export class SbbMenu implements ComponentInterface {
     });
   }
 
-  // Check if the pointerdown event target is triggered on the menu.
-  private _pointerDownListener = (event: PointerEvent): void => {
-    this._pointerDownEventOnMenu = isEventOnElement(this._dialog, event);
+  // Store pointerdown event target to track origin of click.
+  private _pointerDownListener = ({ target }: PointerEvent): void => {
+    this._pointerDownEventTarget = (target as HTMLElement).nodeName;
   };
 
   // Close menu on backdrop click.
-  private _dismissOnBackdropClick = (event: MouseEvent): void => {
-    if (!this._pointerDownEventOnMenu && !isEventOnElement(this._dialog, event)) {
+  private _dismissOnBackdropClick = ({ target }: PointerEvent): void => {
+    if (
+      this._pointerDownEventTarget === 'DIALOG' &&
+      (target as HTMLElement).nodeName === 'DIALOG'
+    ) {
       this.close();
     }
   };
