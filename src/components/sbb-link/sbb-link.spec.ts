@@ -35,13 +35,12 @@ describe('sbb-link', () => {
             <a
               aria-label="Travelcards & tickets"
               aria-labelledby="id"
-              class="sbb-link sbb-link--icon-placement-start sbb-link--text-m"
+              class="sbb-link"
               dir="ltr"
               download
               href="https://github.com/lyne-design-system/lyne-components"
               id="id"
             >
-              <slot name="icon"></slot>
               <slot></slot>
             </a>
           </mock:shadow-root>
@@ -85,7 +84,7 @@ describe('sbb-link', () => {
         >
           <mock:shadow-root>
             <button
-              class="sbb-link sbb-link--icon-placement-end sbb-link--negative sbb-link--text-m"
+              class="sbb-link"
               dir="ltr"
               disabled="true"
               form="formid"
@@ -94,7 +93,9 @@ describe('sbb-link', () => {
               aria-controls="id"
               aria-haspopup="true"
             >
-              <slot name="icon"></slot>
+              <span class="sbb-link__icon">
+                <slot name="icon"></slot>
+              </span>
               <slot></slot>
             </button>
           </mock:shadow-root>
@@ -123,10 +124,12 @@ describe('sbb-link', () => {
             variant="block"
             static>
           <mock:shadow-root>
-            <span class="sbb-link sbb-link--icon-placement-end sbb-link--text-m" dir="ltr">
-              <slot name="icon">
-                <sbb-icon name="chevron-small-right-small"></sbb-icon>
-              </slot>
+            <span class="sbb-link" dir="ltr">
+              <span class="sbb-link__icon">
+                <slot name="icon">
+                  <sbb-icon name="chevron-small-right-small"></sbb-icon>
+                </slot>
+              </span>
               <slot></slot>
             </span>
           </mock:shadow-root>
@@ -148,8 +151,7 @@ describe('sbb-link', () => {
     expect(root).toEqualHtml(`
         <sbb-link variant="block" static text-size="s">
           <mock:shadow-root>
-            <span class="sbb-link sbb-link--icon-placement-start sbb-link--text-s" dir="ltr">
-              <slot name="icon"></slot>
+            <span class="sbb-link" dir="ltr">
               <slot></slot>
             </span>
           </mock:shadow-root>
@@ -175,7 +177,7 @@ describe('sbb-link', () => {
             target="_blank"
 >
           <mock:shadow-root>
-            <a class="sbb-link sbb-link--icon-placement-start sbb-link--inline" dir="ltr" href="#link" rel="external noopener nofollow" target="_blank">
+            <a class="sbb-link" dir="ltr" href="#link" rel="external noopener nofollow" target="_blank">
               <slot></slot>
               <span class="sbb-link__opens-in-new-window">. Link target opens in new window.</span>
             </a>

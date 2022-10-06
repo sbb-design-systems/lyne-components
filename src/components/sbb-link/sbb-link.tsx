@@ -8,6 +8,7 @@ import {
   JSX,
   Listen,
   Prop,
+  State,
 } from '@stencil/core';
 import {
   ButtonType,
@@ -23,6 +24,11 @@ import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 /**
  * @slot unnamed - Link Content
@@ -123,11 +129,15 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
 
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon');
+
   @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
   /**
@@ -153,19 +163,9 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     }
   }
 
-  /**
-   * Generate the class attribute based on component's parameters.
-   */
-  private _getClassString(): string {
-    const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-    const iconPositionClass =
-      this.iconPlacement === 'start'
-        ? ' sbb-link--icon-placement-start'
-        : ' sbb-link--icon-placement-end';
-    const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
-    const negativeClass = this.negative ? ' sbb-link--negative' : '';
-
-    return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   private _resolveRenderVariables(): {
@@ -199,12 +199,14 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     return (
       <TAG_NAME
         id={this.idValue}
-        class={this._getClassString()}
+        class="sbb-link"
         {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
       >
-        {this.variant !== 'inline' && (
-          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+        {this.variant !== 'inline' && (this.iconName || this._namedSlots.icon) && (
+          <span class="sbb-link__icon">
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+          </span>
         )}
         <slot />
         {screenReaderNewWindowInfo && (
