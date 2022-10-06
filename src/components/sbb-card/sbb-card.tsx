@@ -1,8 +1,20 @@
-import { Component, Event, EventEmitter, h, Host, JSX, Prop, State } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
+  forwardHostClick,
   getButtonAttributeList,
   getLinkAttributeList,
   LinkButtonProperties,
@@ -108,11 +120,22 @@ export class SbbCard implements LinkButtonProperties {
    */
   @Prop() public accessibilityLabelledby: string | undefined;
 
+  @Element() private _element!: HTMLElement;
+
   /**
    * The function triggered on button click.
    */
   public emitButtonClick(): void {
     this.click.emit();
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostClick(
+      event,
+      this._element,
+      this._element.shadowRoot.firstElementChild as HTMLElement // a element
+    );
   }
 
   /**

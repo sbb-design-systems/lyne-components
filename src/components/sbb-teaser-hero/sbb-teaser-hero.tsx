@@ -1,5 +1,6 @@
-import { Component, h, Prop, JSX } from '@stencil/core';
+import { Component, h, Prop, JSX, Listen, Element } from '@stencil/core';
 import {
+  forwardHostClick,
   getLinkAttributeList,
   getLinkButtonBaseAttributeList,
   LinkProperties,
@@ -49,6 +50,17 @@ export class SbbTeaserHero implements LinkProperties {
 
   /** Image alt text will be passed to `sbb-image`. */
   @Prop() public imageAlt?: string;
+
+  @Element() private _element!: HTMLElement;
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostClick(
+      event,
+      this._element,
+      this._element.shadowRoot.firstElementChild as HTMLElement // a element
+    );
+  }
 
   private _resolveRenderVariables(): {
     screenReaderNewWindowInfo?: boolean;
