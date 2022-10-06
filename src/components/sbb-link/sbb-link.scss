@@ -72,6 +72,8 @@
 
   &:focus-visible {
     @include focusOutline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
   :host([disabled]) & {
