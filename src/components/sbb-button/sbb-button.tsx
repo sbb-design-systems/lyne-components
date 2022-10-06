@@ -171,16 +171,12 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
       .some((n) => !!n.textContent.trim());
   }
 
-  public resolveRenderVariables(): LinkButtonRenderVariables {
-    return resolveRenderVariables(this, this.isStatic);
-  }
-
   public render(): JSX.Element {
     const {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = this.resolveRenderVariables();
+    }: LinkButtonRenderVariables = resolveRenderVariables(this, this.isStatic);
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (

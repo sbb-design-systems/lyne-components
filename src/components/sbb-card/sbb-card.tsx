@@ -147,16 +147,12 @@ export class SbbCard implements LinkButtonProperties {
     return this.size === 'm' || this.size === 'l' || this.size === 'xl' || this.size === 'xxl';
   }
 
-  public resolveRenderVariables(): LinkButtonRenderVariables {
-    return resolveRenderVariables(this);
-  }
-
   public render(): JSX.Element {
     const {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = this.resolveRenderVariables();
+    }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
     return (
       <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>

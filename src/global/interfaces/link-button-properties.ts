@@ -105,14 +105,7 @@ export interface LinkButtonRenderVariables {
  */
 export interface LinkButtonProperties<ParameterType = any>
   extends LinkProperties,
-    ButtonProperties<ParameterType> {
-  /**
-   * Used to set the correct value of LinkButtonRenderVariables under certain conditions.
-   * If you want to check only the href value, you should use the resolveRenderVariables function at line 229.
-   * If you have more complex logic, use getLinkRenderVariables(...) and getButtonRenderVariables(...).
-   */
-  resolveRenderVariables: () => LinkButtonRenderVariables;
-}
+    ButtonProperties<ParameterType> {}
 
 /**
  * Creates the basic attribute list for the link/button tag; undefined/null properties are not set.
