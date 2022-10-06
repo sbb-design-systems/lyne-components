@@ -168,21 +168,6 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
-  /**
-   * Generate the class attribute based on component's parameters.
-   */
-  private _getClassString(): string {
-    const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-    const iconPositionClass =
-      this.iconPlacement === 'start'
-        ? ' sbb-link--icon-placement-start'
-        : ' sbb-link--icon-placement-end';
-    const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
-    const negativeClass = this.negative ? ' sbb-link--negative' : '';
-
-    return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
-  }
-
   private _resolveRenderVariables(): {
     screenReaderNewWindowInfo?: boolean;
     attributes: Record<string, string>;
@@ -214,7 +199,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     return (
       <TAG_NAME
         id={this.idValue}
-        class={this._getClassString()}
+        class="sbb-link"
         {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
       >
