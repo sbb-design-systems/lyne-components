@@ -13,6 +13,7 @@ import {
   i18nWalkingDistanceDeparture,
 } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { removeTimezoneFromDate } from './helper/timezone-helper';
 @Component({
   shadow: true,
   styleUrl: 'sbb-journey-summary.scss',
@@ -101,28 +102,27 @@ export class SbbJourneySummary {
   }
 
   /** renders the optional walktimes, the icon is displayed either before or after the time*/
-  private _renderWalkTime(iconBefore: boolean, duration: number): JSX.Element {
+  private _renderWalkTime(departure: boolean, duration: number): JSX.Element {
     return (
       <span class="sbb-journey-summary__walktime">
-        {iconBefore && <sbb-icon name="walk-small"></sbb-icon>}
+        <sbb-icon name="walk-small"></sbb-icon>
         <time dateTime={duration.toString()}>
           {duration}
           <span aria-hidden="true">'</span>
         </time>
         <span class="screenreaderonly">
-          {iconBefore
+          {departure
             ? i18nWalkingDistanceDeparture[this._currentLanguage]
             : i18nWalkingDistanceArrival[this._currentLanguage]}
         </span>
-        {!iconBefore && <sbb-icon name="walk-small"></sbb-icon>}
       </span>
     );
   }
 
   public render(): JSX.Element {
     const { vias, origin, destination, duration } = this.config || {};
-    const departureTime: Date = new Date(this.config?.departure?.time.substring(0, 19));
-    const arrivalTime: Date = new Date(this.config?.arrival?.time.substring(0, 19));
+    const departureTime: Date = removeTimezoneFromDate(this.config?.departure?.time);
+    const arrivalTime: Date = removeTimezoneFromDate(this.config?.arrival?.time);
 
     return (
       <div class="sbb-journey-summary">

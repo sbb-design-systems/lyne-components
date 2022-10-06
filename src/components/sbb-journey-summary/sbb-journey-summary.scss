@@ -8,10 +8,10 @@
 
 .sbb-journey-summary__via-block {
   display: flex;
+}
 
-  .sbb-journey-summary__via-text {
-    padding-inline-end: var(--sbb-spacing-fixed-1x);
-  }
+.sbb-journey-summary__via-text {
+  padding-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-journey-summary__vias {
@@ -33,10 +33,10 @@
   flex-direction: row;
   gap: var(--sbb-spacing-fixed-3x);
   align-items: center;
+}
 
-  .sbb-journey-summary__pearlchain {
-    flex: 1 1 auto;
-  }
+.sbb-journey-summary__pearlchain {
+  flex: 1 1 auto;
 }
 
 .sbb-journey-summary__walktime {
