@@ -27,7 +27,7 @@
   @include stretch(width);
 
   display: flex;
-  align-items: start;
+  align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
   color: var(--text-color-normal);
   text-decoration: none;
@@ -108,6 +108,7 @@ button.sbb-link {
   height: calc(var(--sbb-typo-line-height-body-text) * 1em);
   width: var(--sbb-size-icon-ui-small);
   flex: 0 0 auto;
+  align-self: start;
 
   .sbb-link--icon-placement-end & {
     order: 2;
