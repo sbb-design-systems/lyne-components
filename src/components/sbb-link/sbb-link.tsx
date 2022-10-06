@@ -129,6 +129,9 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
 
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon');
+
   @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
@@ -159,9 +162,6 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
       );
     }
   }
-
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
 
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
