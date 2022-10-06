@@ -6,20 +6,20 @@
 :host {
   display: inline-block;
 
-  --teaser-scale-hover: 1.02;
-  --teaser-description-color: var(--sbb-color-metal-default);
-  --teaser-flex-direction: row;
-  --teaser-align-items: center;
-  --teaser-gap: var(--sbb-spacing-fixed-4x);
+  --sbb-teaser-scale-hover: 1.02;
+  --sbb-teaser-description-color: var(--sbb-color-metal-default);
+  --sbb-teaser-flex-direction: row;
+  --sbb-teaser-align-items: center;
+  --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
 }
 
-.teaser--is-stacked {
-  --teaser-flex-direction: column;
-  --teaser-align-items: baseline;
-  --teaser-gap: var(--sbb-spacing-fixed-3x);
+:host([is-stacked]) {
+  --sbb-teaser-flex-direction: column;
+  --sbb-teaser-align-items: baseline;
+  --sbb-teaser-gap: var(--sbb-spacing-fixed-3x);
 }
 
-.teaser {
+.sbb-teaser {
   @include zeroWidthSpace;
 
   display: flex;
@@ -30,11 +30,11 @@
   }
 }
 
-.teaser__container {
+.sbb-teaser__container {
   display: flex;
-  flex-flow: var(--teaser-flex-direction) nowrap;
-  align-items: var(--teaser-align-items);
-  gap: var(--teaser-gap);
+  flex-flow: var(--sbb-teaser-flex-direction) nowrap;
+  align-items: var(--sbb-teaser-align-items);
+  gap: var(--sbb-teaser-gap);
 }
 
 ::slotted([slot='image']) {
@@ -44,33 +44,41 @@
   transition: var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   aspect-ratio: 4 / 3;
 
-  .teaser:hover & {
-    transform: scale(var(--teaser-scale-hover));
+  @include hover-mq($hover: true) {
+    .sbb-teaser:hover & {
+      transform: scale(var(--sbb-teaser-scale-hover));
+    }
   }
 }
 
-.teaser__image-wrapper {
+.sbb-teaser__image-wrapper {
   width: 100%;
   overflow: hidden;
   border-radius: var(--sbb-border-radius-4x);
   transition: var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
 
-  .teaser:hover & {
-    @include shadow-level-9-hard;
+  @include hover-mq($hover: true) {
+    .sbb-teaser:hover & {
+      @include shadow-level-9-hard;
+    }
   }
 }
 
-.teaser__lead {
+.sbb-teaser__lead {
   @include clampLines($lines: 2);
 }
 
-.teaser__description {
+.sbb-teaser__description {
   @include text-s--regular;
   @include clampLines($lines: 2);
 
-  color: var(--teaser-description-color);
+  color: var(--sbb-teaser-description-color);
 }
 
 ::slotted([slot='description']) {
   margin-block: 0;
+}
+
+.sbb-teaser__opens-in-new-window {
+  @include screenReaderOnly;
 }

@@ -675,7 +675,7 @@ export namespace Components {
          */
         "form"?: string;
         /**
-          * The href value you want to link to (if its not present link becomes a button).
+          * The href value you want to link to (if it is not present link becomes a button).
          */
         "href": string | undefined;
         /**
@@ -907,15 +907,23 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * The href value you want to link to
+          * The href value you want to link to.
          */
-        "href": string;
+        "href": string | undefined;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked": boolean;
         /**
-          * Heading level of the sbb-title element (e.g. h1-h6)
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel": InterfaceTeaserAttributes['titleLevel'];
     }
@@ -2252,7 +2260,7 @@ declare namespace LocalJSX {
          */
         "form"?: string;
         /**
-          * The href value you want to link to (if its not present link becomes a button).
+          * The href value you want to link to (if it is not present link becomes a button).
          */
         "href"?: string | undefined;
         /**
@@ -2473,15 +2481,23 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * The href value you want to link to
+          * The href value you want to link to.
          */
-        "href": string;
+        "href": string | undefined;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked"?: boolean;
         /**
-          * Heading level of the sbb-title element (e.g. h1-h6)
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
     }

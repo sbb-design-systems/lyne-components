@@ -71,7 +71,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   /** Moves the icon to the end of the component if set to true. */
   @Prop() public iconPlacement?: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
-  /** The href value you want to link to (if its not present link becomes a button). */
+  /** The href value you want to link to (if it is not present link becomes a button). */
   @Prop() public href: string | undefined;
 
   /** Where to display the linked URL. */
