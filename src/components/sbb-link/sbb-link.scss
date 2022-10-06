@@ -27,7 +27,7 @@
   @include stretch(width);
 
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: var(--sbb-spacing-fixed-1x);
   color: var(--text-color-normal);
   text-decoration: none;
@@ -51,10 +51,6 @@
     text-decoration: underline;
     text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
   }
-
-  ::slotted([slot='icon']) {
-    display: inline-flex;
-  }
 }
 
 button.sbb-link {
@@ -62,11 +58,11 @@ button.sbb-link {
 
   cursor: pointer;
   text-align: left;
-}
 
-button.sbb-link:disabled {
-  pointer-events: none;
-  cursor: default;
+  &:disabled {
+    pointer-events: none;
+    cursor: default;
+  }
 }
 
 .sbb-link--negative {
@@ -107,9 +103,20 @@ button.sbb-link:disabled {
   }
 }
 
-.sbb-link--icon-placement-end ::slotted([slot='icon']),
-.sbb-link--icon-placement-end sbb-icon {
-  order: 2;
+.sbb-link__icon {
+  position: relative;
+  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  width: var(--sbb-size-icon-ui-small);
+  flex: 0 0 auto;
+
+  .sbb-link--icon-placement-end & {
+    order: 2;
+  }
+
+  ::slotted([slot='icon']),
+  sbb-icon {
+    @include absoluteCenterY;
+  }
 }
 
 .sbb-link__opens-in-new-window {

@@ -204,7 +204,9 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
       >
         {this.variant !== 'inline' && (
-          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+          <span class="sbb-link__icon">
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+          </span>
         )}
         <slot />
         {screenReaderNewWindowInfo && (
