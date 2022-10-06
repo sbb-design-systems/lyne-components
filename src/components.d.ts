@@ -799,9 +799,17 @@ export namespace Components {
     }
     interface SbbMenuAction {
         /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls": string | undefined;
+        /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
         "accessibilityDescribedby": string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup": PopupType | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
@@ -2563,9 +2571,17 @@ declare namespace LocalJSX {
     }
     interface SbbMenuAction {
         /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls"?: string | undefined;
+        /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
         "accessibilityDescribedby"?: string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup"?: PopupType | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
