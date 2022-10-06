@@ -5,6 +5,7 @@ import {
   getLinkAttributeList,
   LinkButtonProperties,
   LinkTargetType,
+  PopupType,
 } from '../../global/interfaces/link-button-properties';
 
 let nextId = 0;
@@ -23,6 +24,31 @@ export class SbbMenuAction implements LinkButtonProperties {
    * This id will be forwarded to the relevant inner element.
    */
   @Prop() public menuActionId = `sbb-menu-action-${++nextId}`;
+
+  /**
+   * The name property passed to `sbb-icon` component.
+   */
+  @Prop() public icon?: string | undefined;
+
+  /**
+   * Value shown as badge at component end.
+   */
+  @Prop() public amount?: string | undefined;
+
+  /**
+   * This will be forwarded as aria-label to the relevant nested element.
+   */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /**
+   * This will be forwarded as aria-describedby to the relevant nested element.
+   */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /**
+   * This will be forwarded as aria-labelledby to the relevant nested element.
+   */
+  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * Whether the browser will show the download dialog on click.
@@ -75,29 +101,17 @@ export class SbbMenuAction implements LinkButtonProperties {
   @Prop() public value: string | undefined;
 
   /**
-   * The name property passed to `sbb-icon` component.
+   * When an interaction of this button has an impact on another element(s) in the document, the id
+   * of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute
+   * to the relevant nested element.
    */
-  @Prop() public icon?: string | undefined;
+  @Prop() public accessibilityControls: string | undefined;
 
   /**
-   * Value shown as badge at component end.
+   * If you use the button to trigger another widget which itself is covering
+   * the page, you must provide an according attribute for aria-haspopup.
    */
-  @Prop() public amount?: string | undefined;
-
-  /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
+  @Prop() public accessibilityHaspopup: PopupType | undefined;
 
   /**
    * Emits whenever the menu action is clicked.

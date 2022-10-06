@@ -138,6 +138,24 @@ const eventId = {
   },
 };
 
+const accessibilityControls = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const accessibilityHaspopup = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
 const defaultArgTypes = {
   text,
   icon,
@@ -156,6 +174,8 @@ const defaultArgTypes = {
   disabled,
   'event-id': eventId,
   value,
+  'accessibility-controls': accessibilityControls,
+  'accessibility-haspopup': accessibilityHaspopup,
 };
 
 const defaultArgs = {
@@ -175,6 +195,8 @@ const defaultArgs = {
   form: undefined,
   'event-id': undefined,
   disabled: false,
+  'accessibility-controls': undefined,
+  'accessibility-haspopup': undefined,
 };
 
 const buttonArgs = {
