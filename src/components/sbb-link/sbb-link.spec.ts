@@ -41,7 +41,6 @@ describe('sbb-link', () => {
               href="https://github.com/lyne-design-system/lyne-components"
               id="id"
             >
-              <slot name="icon"></slot>
               <slot></slot>
             </a>
           </mock:shadow-root>
@@ -94,7 +93,9 @@ describe('sbb-link', () => {
               aria-controls="id"
               aria-haspopup="true"
             >
-              <slot name="icon"></slot>
+              <span class="sbb-link__icon">
+                <slot name="icon"></slot>
+              </span>
               <slot></slot>
             </button>
           </mock:shadow-root>
@@ -124,9 +125,11 @@ describe('sbb-link', () => {
             static>
           <mock:shadow-root>
             <span class="sbb-link sbb-link--icon-placement-end sbb-link--text-m" dir="ltr">
-              <slot name="icon">
-                <sbb-icon name="chevron-small-right-small"></sbb-icon>
-              </slot>
+              <span class="sbb-link__icon">
+                <slot name="icon">
+                  <sbb-icon name="chevron-small-right-small"></sbb-icon>
+                </slot>
+              </span>
               <slot></slot>
             </span>
           </mock:shadow-root>
@@ -149,7 +152,6 @@ describe('sbb-link', () => {
         <sbb-link variant="block" static text-size="s">
           <mock:shadow-root>
             <span class="sbb-link sbb-link--icon-placement-start sbb-link--text-s" dir="ltr">
-              <slot name="icon"></slot>
               <slot></slot>
             </span>
           </mock:shadow-root>
