@@ -312,15 +312,40 @@ BlockM.documentation = {
   title: 'Block Size M',
 };
 
-export const BlockNegativeS = Template.bind({});
-BlockNegativeS.argTypes = defaultArgTypes;
-BlockNegativeS.args = {
+export const BlockXSIcon = Template.bind({});
+BlockXSIcon.argTypes = defaultArgTypes;
+BlockXSIcon.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[0],
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+};
+BlockXSIcon.documentation = {
+  title: 'Block Size XS Icon',
+};
+
+export const BlockSIcon = Template.bind({});
+BlockSIcon.argTypes = defaultArgTypes;
+BlockSIcon.args = {
   ...defaultArgs,
   'text-size': textSize.options[1],
-  negative: true,
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
 };
-BlockNegativeS.documentation = {
-  title: 'Block Negative Size S',
+BlockSIcon.documentation = {
+  title: 'Block Size S Icon',
+};
+
+export const BlockMIcon = Template.bind({});
+BlockMIcon.argTypes = defaultArgTypes;
+BlockMIcon.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[2],
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+};
+BlockMIcon.documentation = {
+  title: 'Block Size M Icon',
 };
 
 export const BlockIconStart = Template.bind({});
@@ -333,38 +358,40 @@ BlockIconStart.documentation = {
   title: 'Block Icon Start',
 };
 
-export const BlockNegativeIconStart = Template.bind({});
-BlockNegativeIconStart.argTypes = defaultArgTypes;
-BlockNegativeIconStart.args = {
+export const BlockNegative = Template.bind({});
+BlockNegative.argTypes = defaultArgTypes;
+BlockNegative.args = {
   ...defaultArgs,
-  'icon-name': 'chevron-small-left-small',
   negative: true,
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
 };
-BlockNegativeIconStart.documentation = {
-  title: 'Block Negative Icon Start',
+BlockNegative.documentation = {
+  title: 'Block Negative Icon',
 };
 
-export const BlockIconEnd = Template.bind({});
-BlockIconEnd.argTypes = defaultArgTypes;
-BlockIconEnd.args = {
+export const BlockWithSlottedIcon = IconSlotTemplate.bind({});
+BlockWithSlottedIcon.argTypes = defaultArgTypes;
+BlockWithSlottedIcon.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
-BlockIconEnd.documentation = {
-  title: 'Block End Start',
+BlockWithSlottedIcon.documentation = {
+  title: 'Block with slotted icon',
 };
 
-export const BlockNegativeIconEnd = Template.bind({});
-BlockNegativeIconEnd.argTypes = defaultArgTypes;
-BlockNegativeIconEnd.args = {
+export const BlockLinkOpensInNewWindow = IconSlotTemplate.bind({});
+BlockLinkOpensInNewWindow.argTypes = defaultArgTypes;
+BlockLinkOpensInNewWindow.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
-  negative: true,
+  target: '_blank',
+  'accessibility-label': undefined,
 };
-BlockNegativeIconEnd.documentation = {
-  title: 'Block Negative Icon End',
+BlockLinkOpensInNewWindow.documentation = {
+  title: 'Block link opened in new window',
 };
 
 export const BlockFixedWidth = FixedWidthTemplate.bind({});
@@ -396,35 +423,10 @@ BlockButtonNegative.args = {
   ...defaultArgs,
   negative: true,
   href: undefined,
-  'icon-name': 'chevron-small-right-small',
-  'icon-placement': iconPlacement.options[1],
+  'icon-name': 'chevron-small-left-small',
 };
 BlockButtonNegative.documentation = {
   title: 'Block Button Negative',
-};
-
-export const BlockWithSlottedIcon = IconSlotTemplate.bind({});
-BlockWithSlottedIcon.argTypes = defaultArgTypes;
-BlockWithSlottedIcon.args = {
-  ...defaultArgs,
-  'icon-name': 'chevron-small-right-small',
-  'icon-placement': iconPlacement.options[1],
-};
-BlockWithSlottedIcon.documentation = {
-  title: 'Block with slotted icon',
-};
-
-export const BlockLinkOpensInNewWindow = IconSlotTemplate.bind({});
-BlockLinkOpensInNewWindow.argTypes = defaultArgTypes;
-BlockLinkOpensInNewWindow.args = {
-  ...defaultArgs,
-  'icon-name': 'chevron-small-right-small',
-  'icon-placement': iconPlacement.options[1],
-  target: '_blank',
-  'accessibility-label': undefined,
-};
-BlockLinkOpensInNewWindow.documentation = {
-  title: 'Block link opened in new window',
 };
 
 export const BlockButtonFixedWidth = FixedWidthTemplate.bind({});
@@ -471,6 +473,19 @@ InlineButton.args = {
   href: undefined,
 };
 InlineNegative.documentation = {
+  title: 'Inline Button',
+};
+
+export const InlineButtonNegative = InlineTemplate.bind({});
+InlineButtonNegative.argTypes = defaultArgTypes;
+InlineButtonNegative.args = {
+  ...defaultArgs,
+  text: 'Show more',
+  variant: 'inline',
+  href: undefined,
+  negative: true,
+};
+InlineButtonNegative.documentation = {
   title: 'Inline Button',
 };
 
