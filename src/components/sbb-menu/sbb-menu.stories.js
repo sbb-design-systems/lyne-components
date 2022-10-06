@@ -69,7 +69,9 @@ const userInfoStyle = {
 };
 
 const triggerButton = (id) => (
-  <sbb-button data-testid="menu-trigger" id={id} size="m" label="Menu trigger"></sbb-button>
+  <sbb-button data-testid="menu-trigger" id={id} size="m">
+    Menu trigger
+  </sbb-button>
 );
 
 const DefaultTemplate = (args) => [
