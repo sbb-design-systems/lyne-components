@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.2 (2022-10-06)
+
+### Bug Fixes
+
+- **sbb-link:** expand clickable area in block variant ([#1394](https://github.com/lyne-design-system/lyne-components/issues/1394)) ([b0fe962](https://github.com/lyne-design-system/lyne-components/commit/b0fe962b3b3f8689af46ef692aca71f51c3e5926)), closes [#1387](https://github.com/lyne-design-system/lyne-components/issues/1387)
+
 ### 0.9.1 (2022-10-06)
 
 ## 0.9.0 (2022-10-05)
