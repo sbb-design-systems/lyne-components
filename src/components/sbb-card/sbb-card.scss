@@ -73,35 +73,37 @@
   &:focus-visible {
     @include focusOutline;
   }
+
+  :host([href]) & {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  // stylelint-disable-next-line plugin/stylelint-bem-namics
+  :host(:not([href])) & {
+    @include buttonReset;
+    @include text-inherit;
+
+    cursor: pointer;
+  }
+
+  // stylelint-disable plugin/stylelint-bem-namics
+  :host([href]) &,
+  :host(:not([href])) & {
+    width: 100%;
+    background-color: var(--sbb-card-background-color);
+    padding-inline: var(--sbb-card-padding-inline);
+    padding-block-start: var(--sbb-card-padding-block-start);
+    padding-block-end: var(--sbb-card-padding-block-end);
+  }
+  // stylelint-enable plugin/stylelint-bem-namics
 }
 
 :host([active]) {
   .sbb-card::before {
     border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
   }
-}
-
-.sbb-card__link {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-}
-
-.sbb-card__button {
-  @include buttonReset;
-  @include text-inherit;
-
-  cursor: pointer;
-}
-
-.sbb-card__button,
-.sbb-card__link {
-  width: 100%;
-  border-radius: var(--sbb-card-border-radius);
-  background-color: var(--sbb-card-background-color);
-  padding-inline: var(--sbb-card-padding-inline);
-  padding-block-start: var(--sbb-card-padding-block-start);
-  padding-block-end: var(--sbb-card-padding-block-end);
 }
 
 .sbb-card__content {

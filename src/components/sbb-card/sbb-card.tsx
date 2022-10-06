@@ -15,11 +15,10 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
   forwardHostClick,
-  getButtonRenderVariables,
-  getLinkRenderVariables,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 
@@ -149,24 +148,13 @@ export class SbbCard implements LinkButtonProperties {
   }
 
   public resolveRenderVariables(): LinkButtonRenderVariables {
-    if (this.href) {
-      return {
-        ...getLinkRenderVariables(this),
-        cssClass: 'sbb-card sbb-card__link',
-      };
-    } else {
-      return {
-        ...getButtonRenderVariables(this),
-        cssClass: 'sbb-card sbb-card__button',
-      };
-    }
+    return resolveRenderVariables(this);
   }
 
   public render(): JSX.Element {
     const {
       tagName: TAG_NAME,
       attributes,
-      cssClass,
       screenReaderNewWindowInfo,
     } = this.resolveRenderVariables();
 
@@ -174,7 +162,7 @@ export class SbbCard implements LinkButtonProperties {
       <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
         <TAG_NAME
           id={this.idValue}
-          class={cssClass}
+          class="sbb-card"
           {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >

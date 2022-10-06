@@ -92,11 +92,6 @@ export interface LinkButtonRenderVariables {
   attributes: Record<string, string>;
 
   /**
-   * The tag's CSS classes.
-   */
-  cssClass?: string;
-
-  /**
    * Indicates whether the screen reader has to announce that the link will open in a new window.
    */
   screenReaderNewWindowInfo?: boolean;
@@ -113,7 +108,8 @@ export interface LinkButtonProperties<ParameterType = any>
     ButtonProperties<ParameterType> {
   /**
    * Used to set the correct value of LinkButtonRenderVariables under certain conditions.
-   * E.g. if href is not set, use getLinkRenderVariables(...), otherwise use getButtonRenderVariables(...).
+   * If you want to check only the href value, you should use the resolveRenderVariables function at line 229.
+   * If you have more complex logic, use getLinkRenderVariables(...) and getButtonRenderVariables(...).
    */
   resolveRenderVariables: () => LinkButtonRenderVariables;
 }
@@ -190,7 +186,7 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
  */
 export function getLinkRenderVariables(
   linkButtonProperties: LinkButtonProperties
-): Pick<LinkButtonRenderVariables, 'tagName' | 'attributes' | 'screenReaderNewWindowInfo'> {
+): LinkButtonRenderVariables {
   return {
     tagName: 'a',
     attributes: getLinkAttributeList(linkButtonProperties, linkButtonProperties),
@@ -205,11 +201,41 @@ export function getLinkRenderVariables(
  */
 export function getButtonRenderVariables(
   linkButtonProperties: LinkButtonProperties
-): Pick<LinkButtonRenderVariables, 'tagName' | 'attributes'> {
+): LinkButtonRenderVariables {
   return {
     tagName: 'button',
     attributes: getButtonAttributeList(linkButtonProperties),
   };
+}
+
+/**
+ * Set default render variables when the element is static (button/link inside another button/link).
+ * @param linkButtonProperties used to set the 'attributes' property.
+ */
+export function getLinkButtonStaticRenderVariables(
+  linkButtonProperties: LinkButtonProperties
+): LinkButtonRenderVariables {
+  return {
+    tagName: 'span',
+    attributes: getLinkButtonBaseAttributeList(linkButtonProperties),
+  };
+}
+
+/**
+ * Set default render variables based on the 'default' condition, checking first `isStatic` parameter, then the `href`.
+ * @param linkButtonProperties used to set the 'attributes' property and to check for `href` value.
+ * @param isStatic renders the default static variable whether is true.
+ */
+export function resolveRenderVariables(
+  linkButtonProperties: LinkButtonProperties,
+  isStatic = false
+): LinkButtonRenderVariables {
+  if (isStatic) {
+    return getLinkButtonStaticRenderVariables(linkButtonProperties);
+  } else if (linkButtonProperties.href) {
+    return getLinkRenderVariables(linkButtonProperties);
+  }
+  return getButtonRenderVariables(linkButtonProperties);
 }
 
 /**

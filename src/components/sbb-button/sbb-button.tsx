@@ -14,13 +14,11 @@ import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
   forwardHostClick,
-  getButtonRenderVariables,
-  getLinkButtonBaseAttributeList,
-  getLinkRenderVariables,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
   PopupType,
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import {
@@ -174,15 +172,7 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
   }
 
   public resolveRenderVariables(): LinkButtonRenderVariables {
-    if (this.isStatic) {
-      return {
-        tagName: 'span',
-        attributes: getLinkButtonBaseAttributeList(this),
-      };
-    } else if (this.href) {
-      return getLinkRenderVariables(this);
-    }
-    return getButtonRenderVariables(this);
+    return resolveRenderVariables(this, this.isStatic);
   }
 
   public render(): JSX.Element {
