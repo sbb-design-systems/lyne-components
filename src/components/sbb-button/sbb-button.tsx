@@ -127,7 +127,7 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
   @State() private _namedSlots = createNamedSlotState('icon');
 
   @State() private _hasText = false;
-  
+
   private _closestForm: HTMLFormElement | null;
 
   public connectedCallback(): void {
