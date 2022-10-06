@@ -3,10 +3,6 @@
 @include host-component-properties;
 
 :host {
-  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
-  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
-  pointer-events: none;
-
   --sbb-card-background-color: var(--sbb-color-white-default);
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
   --sbb-card-padding-block-start: var(--sbb-spacing-fixed-3x);
@@ -61,9 +57,6 @@
 }
 
 .sbb-card {
-  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
-  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
-  pointer-events: auto;
   position: relative;
   overflow: hidden;
   transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);

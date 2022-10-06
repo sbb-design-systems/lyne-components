@@ -9,10 +9,6 @@
   display: inline-block;
   color: inherit;
 
-  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
-  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
-  pointer-events: none;
-
   --sbb-link-color-normal: var(--sbb-color-granite-default);
   --sbb-link-color-hover: var(--sbb-color-red125-default);
   --sbb-link-color-active: var(--sbb-color-red150-default);
@@ -46,10 +42,6 @@
   word-break: break-word;
   cursor: pointer;
   text-align: left;
-
-  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
-  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
-  pointer-events: auto;
 
   :host([text-size='xs']:not([variant='inline'])) & {
     @include text-xs--regular;
