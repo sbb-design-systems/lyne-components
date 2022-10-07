@@ -6,10 +6,29 @@
   --sbb-menu-position: fixed;
   --sbb-menu-position-x: 0;
   --sbb-menu-position-y: 0;
+  --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-menu-min-height: #{px-to-rem-build(120)};
   --sbb-menu-max-width: #{px-to-rem-build(320)};
   --sbb-menu-min-width: #{px-to-rem-build(240)};
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
+}
+
+// On the `::backdrop` it is impossible to use any design tokens,
+// so inline values must be used (for background and animation duration in this case).
+// To learn more: https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
+::backdrop {
+  --sbb-menu-backdrop-color: rgb(0 0 0 / 20%);
+  --sbb-menu-backdrop-animation-name: show-backdrop;
+  --sbb-menu-backdrop-animation-duration: 0.24s;
+  --sbb-menu-backdrop-animation-easing: ease;
+}
+
+:host([disable-animation]) {
+  --sbb-menu-animation-duration: 0s;
+
+  ::backdrop {
+    --sbb-menu-backdrop-animation-duration: 0s;
+  }
 }
 
 // stylelint-disable plugin/stylelint-bem-namics
@@ -22,7 +41,7 @@
 ::slotted(sbb-divider) {
   --divider-color: var(--sbb-color-iron-default);
 
-  margin: var(--sbb-spacing-fixed-2x) 0;
+  margin-block: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-menu {
@@ -48,31 +67,18 @@
   &[open] {
     animation: {
       name: show;
-      duration: var(--sbb-animation-duration-6x);
+      duration: var(--sbb-menu-animation-duration);
       timing-function: ease;
-    }
-
-    &.sbb-menu--no-animation {
-      animation-duration: 0s;
     }
   }
 
-  // On the `::backdrop` it is impossible to use any design tokens,
-  // so inline values must be used (for background and animation duration in this case).
-  // To learn more: https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
   &::backdrop {
-    background: rgb(0 0 0 / 20%);
+    background: var(--sbb-menu-backdrop-color);
 
     animation: {
-      name: show-backdrop;
-      duration: 0.24s;
-      timing-function: ease;
-    }
-  }
-
-  &.sbb-menu--no-animation {
-    &::backdrop {
-      animation-duration: 0s;
+      name: var(--sbb-menu-backdrop-animation-name);
+      duration: var(--sbb-menu-backdrop-animation-duration);
+      timing-function: var(--sbb-menu-backdrop-animation-easing);
     }
   }
 
@@ -86,7 +92,7 @@
     animation-name: hide;
 
     &::backdrop {
-      animation-name: hide-backdrop;
+      --sbb-menu-backdrop-animation-name: hide-backdrop;
     }
   }
 }
@@ -113,7 +119,8 @@
     border-radius: var(--sbb-menu-border-radius);
 
     &::backdrop {
-      background: transparent;
+      --sbb-menu-backdrop-color: transparent;
+
       animation: none;
     }
 
