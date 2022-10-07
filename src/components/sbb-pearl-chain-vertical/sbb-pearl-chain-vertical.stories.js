@@ -196,7 +196,7 @@ export default {
       control: { type: 'radio' },
     },
     dotType: {
-      options: ['standard', 'thin-bullet', 'thick-bullet'],
+      options: ['standard', 'thin-bullet', 'thick-bullet', 'double-bullet'],
       control: { type: 'radio' },
     },
     dotColor: {
@@ -204,7 +204,7 @@ export default {
       control: { type: 'radio' },
     },
     dotSize: {
-      options: ['small', 'medium'],
+      options: ['small', 'medium', 'large'],
       control: { type: 'radio' },
     },
   },

@@ -30,7 +30,14 @@ export class SbbPearlChainItem {
             {!hideLine && (
               <div class={`sbb-pearl-chain-item__line-${lineType} sbb-color__${lineColor}`}></div>
             )}
-            <div class={`sbb-pearl-chain-item__dot-${dotType} sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-${dotSize}`}></div>
+            {dotType !== 'double-bullet' ? 
+            <div class={`sbb-pearl-chain-item__dot-${dotType} sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-${dotSize}`} />
+            :
+            <div class={`sbb-pearl-chain-item__dot-thin-bullet sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-ultra`}>
+             <div class={`sbb-pearl-chain-item__dot-thin-bullet sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-extra-small`}/>
+            </div>
+            }
+         
             {currentPos > 0  && (
                <div style={{transform: `translateY(${currentPos}px)`}} class={`position__dot`}></div>
             )}

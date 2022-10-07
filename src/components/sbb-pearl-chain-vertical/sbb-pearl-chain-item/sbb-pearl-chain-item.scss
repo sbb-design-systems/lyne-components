@@ -32,8 +32,11 @@
 }
 
 :host {
+  --dot-size-ultra: #{px-to-rem-build(12)};
   --dot-size-large: #{px-to-rem-build(10)};
-  --dot-size-small: #{px-to-rem-build(8)};
+  --dot-size-medium: #{px-to-rem-build(8)};
+  --dot-size-small: #{px-to-rem-build(7)};
+  --dot-size-extra-small: #{px-to-rem-build(6)};
   --dot-size: var(--dot-size-small);
   --bullet-border-width: var(--sbb-border-width-2x);
   --border-width: var(--sbb-border-width-2x);
@@ -49,13 +52,32 @@
 }
 
 .sbb-pearl-chain-item__dot-size-small {
-  margin-inline-start: #{px-to-rem-build(1)};
+  margin-inline-start: #{px-to-rem-build(1.5)};
 
   --dot-size: var(--dot-size-small);
 }
 
 .sbb-pearl-chain-item__dot-size-medium {
+  margin-inline-start: #{px-to-rem-build(1)};
+
+  --dot-size: var(--dot-size-medium);
+}
+
+.sbb-pearl-chain-item__dot-size-large {
   --dot-size: var(--dot-size-large);
+}
+
+.sbb-pearl-chain-item__dot-size-ultra{
+  margin-inline-start: -1px;
+
+  --dot-size: var(--dot-size-ultra);
+}
+
+.sbb-pearl-chain-item__dot-size-extra-small{
+  margin-inline-start:  calc(var(--dot-size-extra-small)/2 - var(--bullet-border-width));
+  top: calc(var(--dot-size-extra-small)/2 - var(--bullet-border-width));
+
+  --dot-size: var(--dot-size-extra-small);
 }
 
 .sbb-pearl-chain-item {
