@@ -50,7 +50,6 @@ export class SbbSlider {
   }
 
   private _incrementWithIcon(): void {
-    console.log(this._rangeInput.valueAsNumber);
     if (this._rangeInput.valueAsNumber === +this._rangeInput.max) {
       return;
     } else {
@@ -65,7 +64,6 @@ export class SbbSlider {
   }
 
   private _decrementWithIcon(): void {
-    console.log(this._rangeInput.valueAsNumber);
     if (this._rangeInput.valueAsNumber === +this._rangeInput.min) {
       return;
     } else {
