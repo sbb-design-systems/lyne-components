@@ -1,11 +1,12 @@
-import { Component, Event, EventEmitter, h, Host, JSX, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
+import getDocumentLang from '../../global/helpers/get-document-lang';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
-  getButtonAttributeList,
-  getLinkAttributeList,
   LinkButtonProperties,
   LinkTargetType,
   PopupType,
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 
@@ -63,7 +64,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
   /**
    * The href value you want to link to.
    */
-  @Prop() public href: string | undefined;
+  @Prop({ reflect: true }) public href: string | undefined;
 
   /**
    * The relationship of the linked URL as space-separated link types.
@@ -131,31 +132,25 @@ export class SbbHeaderAction implements LinkButtonProperties {
   }
 
   public render(): JSX.Element {
-    let TAG_NAME: string;
-    let attributeList: object;
-    let classString: string;
-
-    if (this.href) {
-      TAG_NAME = 'a';
-      attributeList = getLinkAttributeList(this, this);
-      classString = 'header-action__link';
-    } else {
-      TAG_NAME = 'button';
-      attributeList = getButtonAttributeList(this);
-      classString = 'header-action__button';
-    }
-
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      screenReaderNewWindowInfo,
+    } = resolveRenderVariables(this);
     return (
-      <Host>
-        <TAG_NAME id={this.headerActionId} class={classString} {...attributeList}>
-          <span class="header-action__icon">
-            <slot name="icon">{this.icon && <sbb-icon name={this.icon} />}</slot>
-          </span>
-          <span class="header-action__text">
-            <slot />
-          </span>
-        </TAG_NAME>
-      </Host>
+      <TAG_NAME id={this.headerActionId} class="sbb-header-action" {...attributes}>
+        <span class="sbb-header-action__icon">
+          <slot name="icon">{this.icon && <sbb-icon name={this.icon} />}</slot>
+        </span>
+        <span class="sbb-header-action__text">
+          <slot />
+          {screenReaderNewWindowInfo && (
+            <span class="sbb-header-action__opens-in-new-window">
+              . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+            </span>
+          )}
+        </span>
+      </TAG_NAME>
     );
   }
 }
