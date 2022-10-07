@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.4 (2022-10-07)
+
+### Features
+
+- add removeTimezoneFromDate as a helper function ([#1402](https://github.com/lyne-design-system/lyne-components/issues/1402)) ([06850c8](https://github.com/lyne-design-system/lyne-components/commit/06850c8bb8f04a2f21f3e604d9e8245d64762ca7))
+
 ### 0.9.3 (2022-10-06)
 
 ### 0.9.2 (2022-10-06)
