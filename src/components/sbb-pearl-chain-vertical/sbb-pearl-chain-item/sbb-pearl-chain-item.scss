@@ -51,6 +51,10 @@
   --color-sky: #0079c7;
 }
 
+.position__dot--disable-animation {
+  animation: unset;
+}
+
 .sbb-pearl-chain-item__dot-size-small {
   margin-inline-start: #{px-to-rem-build(1.5)};
 
@@ -67,15 +71,15 @@
   --dot-size: var(--dot-size-large);
 }
 
-.sbb-pearl-chain-item__dot-size-ultra{
+.sbb-pearl-chain-item__dot-size-ultra {
   margin-inline-start: -1px;
 
   --dot-size: var(--dot-size-ultra);
 }
 
-.sbb-pearl-chain-item__dot-size-extra-small{
-  margin-inline-start:  calc(var(--dot-size-extra-small)/2 - var(--bullet-border-width));
-  top: calc(var(--dot-size-extra-small)/2 - var(--bullet-border-width));
+.sbb-pearl-chain-item__dot-size-extra-small {
+  margin-inline-start: calc(var(--dot-size-extra-small) / 2 - var(--bullet-border-width));
+  top: calc(var(--dot-size-extra-small) / 2 - var(--bullet-border-width));
 
   --dot-size: var(--dot-size-extra-small);
 }
@@ -92,6 +96,7 @@
   --dot-size: var(--dot-size-large);
   @include dot;
 
+  animation: pulse 3s infinite;
   border: var(--border-width) currentcolor;
   border-color: var(--color-cancellation);
   background-color: var(--color-cancellation);
@@ -178,4 +183,14 @@
 .sbb-pearl-chain-item__middle {
   vertical-align: top;
   border-spacing: 0;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-current-location-dark);
+  }
+
+  40% {
+    box-shadow: 0 0 0 #{px-to-rem-build(6)} transparent;
+  }
 }

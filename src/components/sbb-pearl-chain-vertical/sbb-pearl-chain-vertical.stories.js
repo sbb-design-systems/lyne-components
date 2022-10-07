@@ -3,7 +3,7 @@ import { h } from 'jsx-dom';
 const Template = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-item pearlChainItemAttributes={args} disable-animation={true}>
         <div slot="right" style={{ marginTop: '-10px' }}>
           slot for content
           <div>more</div>
@@ -20,7 +20,10 @@ const Template = (args) => {
 const TemplateWithoutContent = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}></sbb-pearl-chain-item>
+      <sbb-pearl-chain-item
+        pearlChainItemAttributes={args}
+        disable-animation={false}
+      ></sbb-pearl-chain-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -57,6 +60,7 @@ const TemplateTwoDots = (args) => {
           minHeight: '100px',
           hideLine: true,
           dotSize: 'medium',
+          position: 0,
         }}
       >
         <div slot="right" style={{ marginTop: '-10px' }}>
@@ -92,6 +96,7 @@ const TemplateLeftSecondSlot = (args) => {
           minHeight: '100px',
           hideLine: true,
           dotSize: 'medium',
+          position: 0,
         }}
       >
         <div slot="left" style={{ marginTop: '-10px' }}>
@@ -116,7 +121,7 @@ defaultPearlChainWithoutContent.args = {
   minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
-  position: '50',
+  position: 50,
 };
 
 defaultPearlChainLeftSecondSlot.args = {
@@ -124,9 +129,10 @@ defaultPearlChainLeftSecondSlot.args = {
   lineColor: 'black',
   dotType: 'standard',
   dotColor: 'black',
-  minHeight: '100px',
+  minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
+  position: 0,
 };
 
 defaultPearlChain.args = {
@@ -134,9 +140,10 @@ defaultPearlChain.args = {
   lineColor: 'black',
   dotType: 'standard',
   dotColor: 'black',
-  minHeight: '100px',
+  minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
+  position: 0,
 };
 
 defaultPearlChainLeftSlot.args = {
@@ -144,9 +151,10 @@ defaultPearlChainLeftSlot.args = {
   lineColor: 'red',
   dotType: 'standard',
   dotColor: 'red',
-  minHeight: '100px',
+  minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
+  position: 0,
 };
 
 defaultPearlChainTwoDots.args = {
@@ -154,9 +162,10 @@ defaultPearlChainTwoDots.args = {
   lineColor: 'red',
   dotType: 'standard',
   dotColor: 'red',
-  minHeight: '100px',
+  minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
+  position: 0,
 };
 
 export const blackPearlChain = Template.bind({});
@@ -166,9 +175,10 @@ blackPearlChain.args = {
   dotType: 'thick-bullet',
   dotColor: 'black',
   lineColor: 'black',
-  minHeight: '100px',
+  minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
+  position: 0,
 };
 
 export const dottedPearlChain = Template.bind({});
@@ -177,10 +187,11 @@ dottedPearlChain.args = {
   lineType: 'dotted',
   dotType: 'thin-bullet',
   dotColor: 'red',
-  minHeight: '100px',
+  minHeight: '100',
   hideLine: false,
   lineColor: 'red',
   dotSize: 'small',
+  position: 0,
 };
 
 export default {
