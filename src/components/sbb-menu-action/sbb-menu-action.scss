@@ -22,12 +22,6 @@
   border-radius: var(--sbb-menu-action-border-radius);
   padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
   transition: background-color var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
-
-  @include hover-mq($hover: true) {
-    &:hover {
-      background-color: var(--sbb-color-iron-default);
-    }
-  }
 }
 
 .sbb-menu-action__icon {
@@ -39,6 +33,7 @@
 
 .sbb-menu-action__link,
 .sbb-menu-action__button {
+  cursor: pointer;
   display: block;
   width: 100%;
   color: var(--sbb-color-white-default);
@@ -55,6 +50,14 @@
       @include focusOutline;
 
       outline-color: var(--sbb-color-white-default);
+    }
+  }
+
+  @include hover-mq($hover: true) {
+    &:hover {
+      .sbb-menu-action__content {
+        background-color: var(--sbb-color-iron-default);
+      }
     }
   }
 }
