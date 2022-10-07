@@ -33,6 +33,7 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
+import { SbbSliderChange } from "./components/sbb-slider/sbb-slider.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
@@ -1097,6 +1098,15 @@ export namespace Components {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface SbbSlider {
+        "disabled"?: boolean;
+        "max"?: string;
+        "min"?: string;
+        "name"?: string;
+        "readonly"?: boolean;
+        "step"?: string;
+        "value"?: string;
+    }
     interface SbbSlotComponent {
     }
     interface SbbStack {
@@ -1556,6 +1566,10 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
 }
+export interface SbbSliderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbSliderElement;
+}
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
@@ -1789,6 +1803,12 @@ declare global {
         prototype: HTMLSbbSignetElement;
         new (): HTMLSbbSignetElement;
     };
+    interface HTMLSbbSliderElement extends Components.SbbSlider, HTMLStencilElement {
+    }
+    var HTMLSbbSliderElement: {
+        prototype: HTMLSbbSliderElement;
+        new (): HTMLSbbSliderElement;
+    };
     interface HTMLSbbSlotComponentElement extends Components.SbbSlotComponent, HTMLStencilElement {
     }
     var HTMLSbbSlotComponentElement: {
@@ -1988,6 +2008,7 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
+        "sbb-slider": HTMLSbbSliderElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
         "sbb-tab-amount": HTMLSbbTabAmountElement;
@@ -3100,6 +3121,16 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface SbbSlider {
+        "disabled"?: boolean;
+        "max"?: string;
+        "min"?: string;
+        "name"?: string;
+        "onSbbChange"?: (event: SbbSliderCustomEvent<SbbSliderChange>) => void;
+        "readonly"?: boolean;
+        "step"?: string;
+        "value"?: string;
+    }
     interface SbbSlotComponent {
     }
     interface SbbStack {
@@ -3580,6 +3611,7 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
+        "sbb-slider": SbbSlider;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
         "sbb-tab-amount": SbbTabAmount;
@@ -3649,6 +3681,7 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
+            "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;

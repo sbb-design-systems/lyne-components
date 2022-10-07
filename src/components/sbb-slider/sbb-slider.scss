@@ -1,0 +1,102 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  line-height: var(--sbb-typo-line-height-body-text);
+
+  --slider-line-height: #{px-to-rem-build(4)};
+  --slider-value-fraction: 0;
+  --slider-step-fraction: 0;
+  --slider-step-gap: #{px-to-rem-build(4)};
+  --slider-knob-size: #{px-to-rem-build(28)};
+  --slider-knob-border-size: #{px-to-rem-build(3)};
+}
+
+.slider__wrapper {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+}
+
+.slider__container {
+  position: relative;
+  width: 400px;
+}
+
+.slider__range-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.slider__line {
+  @include absoluteCenterY;
+
+  height: var(--slider-line-height);
+  width: 100%;
+  border-radius: var(--slider-line-height);
+  overflow: hidden;
+  pointer-events: none;
+
+  &:not(.slider__line--stepped) {
+    background-color: var(--sbb-color-smoke-default);
+  }
+}
+
+.slider__line-disabled {
+  @include absoluteCenterY;
+
+  height: var(--slider-line-height);
+  width: 100%;
+  border-radius: var(--slider-line-height);
+  overflow: hidden;
+  pointer-events: none;
+
+  &:not(.slider__line--stepped) {
+    background-color: var(--sbb-color-graphite-default);
+  }
+}
+
+.slider__line--stepped {
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent var(--slider-step-gap),
+    var(--sbb-color-smoke-default) var(--slider-step-gap),
+    var(--sbb-color-smoke-default) calc(var(--slider-step-fraction) * 100%)
+  );
+}
+
+.slider__selected-line {
+  position: relative;
+  height: 100%;
+  background-color: var(--sbb-color-red-default);
+  width: calc(var(--slider-value-fraction) * 100%);
+}
+
+.slider__selected-line-disabled {
+  position: relative;
+  height: 100%;
+  background-color: var(--sbb-color-smoke-default);
+  width: calc(var(--slider-value-fraction) * 100%);
+}
+
+.slider__knob {
+  @include absoluteCenterY;
+
+  width: var(--slider-knob-size);
+  height: var(--slider-knob-size);
+  inset-inline-start: calc(
+    calc(var(--slider-value-fraction) * 100%) - var(--slider-knob-size) *
+      var(--slider-value-fraction)
+  );
+  background-color: var(--sbb-color-white-default);
+  border: var(--slider-knob-border-size) solid var(--sbb-color-red-default);
+  border-radius: 50%;
+  pointer-events: none;
+
+  .slider__range-input:active ~ &,
+  .slider__range-input:focus-visible ~ & {
+    --slider-knob-size: #{px-to-rem-build(31)};
+  }
+}
