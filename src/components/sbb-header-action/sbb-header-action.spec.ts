@@ -46,6 +46,9 @@ describe('sbb-header-action', () => {
             </span>
             <span class="sbb-header-action__text">
               <slot></slot>
+              <span class="sbb-header-action__opens-in-new-window">
+                . Link target opens in new window.
+              </span>
             </span>
           </a>
         </mock:shadow-root>
