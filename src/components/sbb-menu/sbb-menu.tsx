@@ -286,7 +286,6 @@ export class SbbMenu implements ComponentInterface {
           'sbb-menu': true,
           'sbb-menu--open': this._open,
           'sbb-menu--dismissing': this._isDismissing,
-          'sbb-menu--no-animation': this.disableAnimation,
         }}
       >
         <div class="sbb-menu__content">
