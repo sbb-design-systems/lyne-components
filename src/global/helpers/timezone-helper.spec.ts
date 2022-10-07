@@ -1,12 +1,18 @@
-import { removeTimezoneFromDate } from './timezone-helper';
+import { removeTimezoneFromISOTimeString } from './timezone-helper';
 
 describe('removeTimezoneFromDate', () => {
   it('returns date in local timezone', () => {
-    expect(removeTimezoneFromDate('2022-10-28T21:16:00+03:00')).toStrictEqual(
+    expect(removeTimezoneFromISOTimeString('2022-10-28T21:16:00+03:00')).toStrictEqual(
       new Date('2022-10-28T21:16:00')
     );
   });
   it('returns undefined when date string is invalid', () => {
-    expect(removeTimezoneFromDate('10-28T21:16:00+03:00')).toBe(undefined);
+    expect(removeTimezoneFromISOTimeString('10-28T21:16:00+03:00')).toBe(undefined);
+  });
+
+  it('returns date when date string has no timezone', () => {
+    expect(removeTimezoneFromISOTimeString('2022-10-28T21:16:00')).toStrictEqual(
+      new Date('2022-10-28T21:16:00')
+    );
   });
 });
