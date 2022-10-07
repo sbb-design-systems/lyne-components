@@ -92,6 +92,7 @@
   :host([href]) &,
   :host(:not([href])) & {
     width: 100%;
+    border-radius: var(--sbb-card-border-radius);
     background-color: var(--sbb-card-background-color);
     padding-inline: var(--sbb-card-padding-inline);
     padding-block-start: var(--sbb-card-padding-block-start);
