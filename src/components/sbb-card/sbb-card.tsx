@@ -58,7 +58,7 @@ export class SbbCard implements LinkButtonProperties {
   /**
    *  The href value you want to link to.
    */
-  @Prop() public href: string | undefined;
+  @Prop({ reflect: true }) public href: string | undefined;
 
   /**
    * Where to display the linked URL.
