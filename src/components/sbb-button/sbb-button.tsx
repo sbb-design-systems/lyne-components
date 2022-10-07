@@ -13,12 +13,12 @@ import {
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
-  getButtonAttributeList,
-  getLinkAttributeList,
-  getLinkButtonBaseAttributeList,
+  forwardHostClick,
   LinkButtonProperties,
+  LinkButtonRenderVariables,
   LinkTargetType,
   PopupType,
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import {
@@ -151,30 +151,24 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
     }
   }
 
+  @Listen('click')
+  public handleClick(event: Event): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    } else {
+      forwardHostClick(
+        event,
+        this._element,
+        this._element.shadowRoot.firstElementChild as HTMLElement // button or a element
+      );
+    }
+  }
+
   private _onLabelSlotChange(event: Event): void {
     this._hasText = (event.target as HTMLSlotElement)
       .assignedNodes()
       .some((n) => !!n.textContent.trim());
-  }
-
-  private _resolveRenderVariables(): {
-    screenReaderNewWindowInfo?: boolean;
-    attributes: Record<string, string>;
-    tagName: 'a' | 'button' | 'span';
-  } {
-    if (this.isStatic) {
-      return {
-        tagName: 'span',
-        attributes: getLinkButtonBaseAttributeList(this),
-      };
-    } else if (this.href) {
-      return {
-        tagName: 'a',
-        attributes: getLinkAttributeList(this, this),
-        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
-      };
-    }
-    return { tagName: 'button', attributes: getButtonAttributeList(this) };
   }
 
   public render(): JSX.Element {
@@ -182,7 +176,7 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = this._resolveRenderVariables();
+    }: LinkButtonRenderVariables = resolveRenderVariables(this, this.isStatic);
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (

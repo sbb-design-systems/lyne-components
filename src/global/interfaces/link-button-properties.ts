@@ -73,7 +73,28 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
   click: EventEmitter<T> | undefined;
 
   /** The function triggered on button click. */
-  emitButtonClick: (() => void) | undefined;
+  emitButtonClick: ((event: MouseEvent) => void) | undefined;
+}
+
+/**
+ * A component that implements LinkButtonProperties should use this interface to set useful variables for render function.
+ */
+export interface LinkButtonRenderVariables {
+  /**
+   * The tag's name rendered by the component.
+   */
+  tagName: 'a' | 'button' | 'span';
+
+  /**
+   * The tag's attributes; can be set using getLinkButtonBaseAttributeList(...),
+   * getLinkAttributeList(...) or getButtonAttributeList(...) methods.
+   */
+  attributes: Record<string, string>;
+
+  /**
+   * Indicates whether the screen reader has to announce that the link will open in a new window.
+   */
+  screenReaderNewWindowInfo?: boolean;
 }
 
 /**
@@ -150,4 +171,81 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     'aria-controls': buttonProperties?.accessibilityControls ?? undefined,
     'aria-haspopup': buttonProperties?.accessibilityHaspopup ?? undefined,
   });
+}
+
+/**
+ * Set default render variables for link case.
+ * @param linkButtonProperties used to set the 'attributes' property.
+ */
+export function getLinkRenderVariables(
+  linkButtonProperties: LinkButtonProperties
+): LinkButtonRenderVariables {
+  return {
+    tagName: 'a',
+    attributes: getLinkAttributeList(linkButtonProperties, linkButtonProperties),
+    screenReaderNewWindowInfo:
+      !linkButtonProperties.accessibilityLabel && linkButtonProperties.target === '_blank',
+  };
+}
+
+/**
+ * Set default render variables for button case.
+ * @param linkButtonProperties used to set the 'attributes' property.
+ */
+export function getButtonRenderVariables(
+  linkButtonProperties: LinkButtonProperties
+): LinkButtonRenderVariables {
+  return {
+    tagName: 'button',
+    attributes: getButtonAttributeList(linkButtonProperties),
+  };
+}
+
+/**
+ * Set default render variables when the element is static (button/link inside another button/link).
+ * @param linkButtonProperties used to set the 'attributes' property.
+ */
+export function getLinkButtonStaticRenderVariables(
+  linkButtonProperties: LinkButtonProperties
+): LinkButtonRenderVariables {
+  return {
+    tagName: 'span',
+    attributes: getLinkButtonBaseAttributeList(linkButtonProperties),
+  };
+}
+
+/**
+ * Set default render variables based on the 'default' condition, checking first `isStatic` parameter, then the `href`.
+ * @param linkButtonProperties used to set the 'attributes' property and to check for `href` value.
+ * @param isStatic renders the default static variable whether is true.
+ */
+export function resolveRenderVariables(
+  linkButtonProperties: LinkButtonProperties,
+  isStatic = false
+): LinkButtonRenderVariables {
+  if (isStatic) {
+    return getLinkButtonStaticRenderVariables(linkButtonProperties);
+  } else if (linkButtonProperties.href) {
+    return getLinkRenderVariables(linkButtonProperties);
+  }
+  return getButtonRenderVariables(linkButtonProperties);
+}
+
+/**
+ * Forwards a click on the host element to the nested action element in order to
+ * simplify the API.
+ */
+export function forwardHostClick(
+  event: Event,
+  host: HTMLElement,
+  nestedActionElement: HTMLElement
+): void {
+  // Check if the click was triggered on the host element and not from inside the shadow DOM.
+  // The composed path includes the full path to the clicked element including shadow DOM.
+  if (event.composedPath()[0] !== host) {
+    return;
+  }
+  const eventConstructor = Object.getPrototypeOf(event).constructor;
+  const copiedEvent = new eventConstructor(event.type, { bubbles: false });
+  nestedActionElement.dispatchEvent(copiedEvent);
 }

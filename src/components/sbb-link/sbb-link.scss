@@ -3,110 +3,116 @@
 @include host-component-properties;
 
 :host {
-  display: inline-block;
-
-  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
-  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
-  pointer-events: none;
-
-  --text-color-normal: var(--sbb-color-granite-default);
-  --text-color-hover-focus: var(--sbb-color-red125-default);
-  --text-color-active: var(--sbb-color-red150-default);
-
   // Necessary to forward styles to native link
   @include text-inherit;
 
+  display: inline-block;
   color: inherit;
+
+  --sbb-link-color-normal: var(--sbb-color-granite-default);
+  --sbb-link-color-hover: var(--sbb-color-red125-default);
+  --sbb-link-color-active: var(--sbb-color-red150-default);
 }
 
 :host([variant='block']) {
   display: flex;
 }
 
+:host([negative]) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-link-color-normal: var(--sbb-color-white-default);
+  --sbb-link-color-hover: var(--sbb-color-cloud-default);
+  --sbb-link-color-active: var(--sbb-color-silver-default);
+}
+
+:host([variant='inline'][negative]) {
+  --sbb-link-color-hover: var(--sbb-color-graphite-default);
+  --sbb-link-color-active: var(--sbb-color-metal-default);
+}
+
+// stylelint-disable plugin/stylelint-bem-namics
 .sbb-link {
+  @include stretch(width);
+
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
-  color: var(--text-color-normal);
+  color: var(--sbb-link-color-normal);
   text-decoration: none;
   word-break: break-word;
-  fill: currentcolor;
+  cursor: pointer;
+  text-align: left;
 
-  // See 'Click event handling on action elements' section in CODING_STANDARDS.md
-  // https://github.com/lyne-design-system/lyne-components/blob/master/CODING_STANDARDS.md#click-event-handling-on-action-elements
-  pointer-events: auto;
+  :host([text-size='xs']:not([variant='inline'])) & {
+    @include text-xs--regular;
+  }
+
+  :host([text-size='s']:not([variant='inline'])) & {
+    @include text-s--regular;
+  }
+
+  :host([text-size='m']:not([variant='inline'])) & {
+    @include text-m--regular;
+  }
+
+  :host([variant='inline']) & {
+    @include text-inherit;
+
+    color: inherit;
+    text-decoration: underline;
+  }
 
   &:focus-visible {
     @include focusOutline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
-  &:active {
-    color: var(--text-color-active);
+  :host([disabled]) & {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  :host(:not([disabled])) & {
+    @include hover-mq($hover: true) {
+      &:hover {
+        color: var(--sbb-link-color-hover);
+        text-decoration: underline;
+      }
+    }
+
+    // Active definitions have to be after :hover definitions
+    &:active {
+      color: var(--sbb-link-color-active);
+    }
   }
 
   @include ifForcedColors {
-    fill: LinkText;
     text-decoration: underline;
     text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
   }
-
-  ::slotted([slot='icon']) {
-    display: inline-flex;
-  }
 }
+// stylelint-enable plugin/stylelint-bem-namics
 
 button.sbb-link {
   @include buttonReset;
-
-  cursor: pointer;
 }
 
-button.sbb-link:disabled {
-  pointer-events: none;
-  cursor: default;
-}
+.sbb-link__icon {
+  position: relative;
+  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  width: var(--sbb-size-icon-ui-small);
+  flex: 0 0 auto;
+  align-self: start;
 
-.sbb-link--negative {
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --text-color-normal: var(--sbb-color-white-default);
-  --text-color-hover-focus: var(--sbb-color-cloud-default);
-  --text-color-active: var(--sbb-color-silver-default);
-}
-
-.sbb-link--inline {
-  @include text-inherit;
-
-  color: inherit;
-  text-decoration: underline;
-}
-
-.sbb-link--inline.sbb-link--negative {
-  --text-color-hover-focus: var(--sbb-color-graphite-default);
-  --text-color-active: var(--sbb-color-metal-default);
-}
-
-.sbb-link--text-xs {
-  @include text-xs--regular;
-}
-
-.sbb-link--text-s {
-  @include text-s--regular;
-}
-
-.sbb-link--text-m {
-  @include text-m--regular;
-}
-
-@include hover-mq($hover: true) {
-  .sbb-link:hover:not(:disabled) {
-    color: var(--text-color-hover-focus);
-    text-decoration: underline;
+  :host([icon-placement='end']) & {
+    order: 2;
   }
-}
 
-.sbb-link--icon-placement-end ::slotted([slot='icon']),
-.sbb-link--icon-placement-end sbb-icon {
-  order: 2;
+  ::slotted([slot='icon']),
+  sbb-icon {
+    @include absoluteCenterY;
+  }
 }
 
 .sbb-link__opens-in-new-window {

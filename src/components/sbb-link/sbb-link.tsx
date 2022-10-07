@@ -6,21 +6,28 @@ import {
   EventEmitter,
   h,
   JSX,
+  Listen,
   Prop,
+  State,
 } from '@stencil/core';
 import {
   ButtonType,
-  getButtonAttributeList,
-  getLinkAttributeList,
-  getLinkButtonBaseAttributeList,
+  forwardHostClick,
   LinkButtonProperties,
+  LinkButtonRenderVariables,
   LinkTargetType,
   PopupType,
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 /**
  * @slot unnamed - Link Content
@@ -121,11 +128,15 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
 
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon');
+
   @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
   /**
@@ -137,39 +148,23 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     }
   }
 
-  /**
-   * Generate the class attribute based on component's parameters.
-   */
-  private _getClassString(): string {
-    const textSizeClass = this.variant === 'inline' ? '' : ` sbb-link--text-${this.textSize}`;
-    const iconPositionClass =
-      this.iconPlacement === 'start'
-        ? ' sbb-link--icon-placement-start'
-        : ' sbb-link--icon-placement-end';
-    const inlineClass = this.variant === 'inline' ? ' sbb-link--inline' : '';
-    const negativeClass = this.negative ? ' sbb-link--negative' : '';
-
-    return `sbb-link${textSizeClass}${iconPositionClass}${inlineClass}${negativeClass}`;
+  @Listen('click')
+  public handleClick(event: Event): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    } else {
+      forwardHostClick(
+        event,
+        this._element,
+        this._element.shadowRoot.firstElementChild as HTMLElement // button or a element
+      );
+    }
   }
 
-  private _resolveRenderVariables(): {
-    screenReaderNewWindowInfo?: boolean;
-    attributes: Record<string, string>;
-    tagName: 'a' | 'button' | 'span';
-  } {
-    if (this.isStatic) {
-      return {
-        tagName: 'span',
-        attributes: getLinkButtonBaseAttributeList(this),
-      };
-    } else if (this.href) {
-      return {
-        tagName: 'a',
-        attributes: getLinkAttributeList(this, this),
-        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
-      };
-    }
-    return { tagName: 'button', attributes: getButtonAttributeList(this) };
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   public render(): JSX.Element {
@@ -177,18 +172,20 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = this._resolveRenderVariables();
+    }: LinkButtonRenderVariables = resolveRenderVariables(this, this.isStatic);
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <TAG_NAME
         id={this.idValue}
-        class={this._getClassString()}
+        class="sbb-link"
         {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
       >
-        {this.variant !== 'inline' && (
-          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+        {this.variant !== 'inline' && (this.iconName || this._namedSlots.icon) && (
+          <span class="sbb-link__icon">
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+          </span>
         )}
         <slot />
         {screenReaderNewWindowInfo && (

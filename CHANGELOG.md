@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.5 (2022-10-07)
+
+### Features
+
+- improvement in LinkButtonProperties interface ([#1398](https://github.com/lyne-design-system/lyne-components/issues/1398)) ([433fddc](https://github.com/lyne-design-system/lyne-components/commit/433fddcd4df24e3325ae0b291a849547ca1e0139))
+
+### 0.9.4 (2022-10-07)
+
+### Features
+
+- add removeTimezoneFromDate as a helper function ([#1402](https://github.com/lyne-design-system/lyne-components/issues/1402)) ([06850c8](https://github.com/lyne-design-system/lyne-components/commit/06850c8bb8f04a2f21f3e604d9e8245d64762ca7))
+
+### 0.9.3 (2022-10-06)
+
+### 0.9.2 (2022-10-06)
+
+### Bug Fixes
+
+- **sbb-link:** expand clickable area in block variant ([#1394](https://github.com/lyne-design-system/lyne-components/issues/1394)) ([b0fe962](https://github.com/lyne-design-system/lyne-components/commit/b0fe962b3b3f8689af46ef692aca71f51c3e5926)), closes [#1387](https://github.com/lyne-design-system/lyne-components/issues/1387)
+
+### 0.9.1 (2022-10-06)
+
 ## 0.9.0 (2022-10-05)
 
 ### ⚠ BREAKING CHANGES
