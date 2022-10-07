@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.5 (2022-10-07)
+
+### Features
+
+- improvement in LinkButtonProperties interface ([#1398](https://github.com/lyne-design-system/lyne-components/issues/1398)) ([433fddc](https://github.com/lyne-design-system/lyne-components/commit/433fddcd4df24e3325ae0b291a849547ca1e0139))
+
 ### 0.9.4 (2022-10-07)
 
 ### Features
