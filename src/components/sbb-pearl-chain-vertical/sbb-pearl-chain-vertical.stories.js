@@ -1,7 +1,5 @@
 import { h } from 'jsx-dom';
 
-// import isChromatic from 'chromatic/isChromatic';
-
 const Template = (args) => {
   return (
     <sbb-pearl-chain-vertical>
@@ -115,9 +113,10 @@ defaultPearlChainWithoutContent.args = {
   lineColor: 'black',
   dotType: 'standard',
   dotColor: 'black',
-  minHeight: '100px',
+  minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
+  position: '50',
 };
 
 defaultPearlChainLeftSecondSlot.args = {

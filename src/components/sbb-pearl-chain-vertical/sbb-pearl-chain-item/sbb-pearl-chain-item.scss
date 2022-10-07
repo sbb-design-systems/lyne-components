@@ -66,6 +66,15 @@
   @include border;
 }
 
+.position__dot {
+  --dot-size: var(--dot-size-large);
+  @include dot;
+
+  border: var(--border-width) currentcolor;
+  border-color: var(--color-cancellation);
+  background-color: var(--color-cancellation);
+}
+
 .sbb-pearl-chain-item__line-dotted {
   @include border;
 

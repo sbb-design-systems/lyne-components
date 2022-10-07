@@ -10,15 +10,17 @@ export class SbbPearlChainItem {
   @Prop() public pearlChainItemAttributes: PearlChainItemAttributes;
 
   public render(): JSX.Element {
-    const { dotColor, dotType, lineType, lineColor, hideLine, minHeight , dotSize} =
+    const { dotColor, dotType, lineType, lineColor, hideLine, minHeight, dotSize, position} =
       this.pearlChainItemAttributes || {};
+
+    const currentPos = (position * minHeight/100) - 10;
 
     return (
       <Host class="sbb-pearl-chain-item">
         <div class="sbb-pearl-chain-item" style={{ display: 'table-row' }}>
           <div
             class="sbb-pearl-chain-item__row-left"
-            style={{ display: 'table-cell', height: minHeight }}
+            style={{ display: 'table-cell', height: minHeight + "px"}}
           >
             <div class="sbb-pearl-chain-item__left-slot">
               <slot name="left"></slot>
@@ -29,6 +31,9 @@ export class SbbPearlChainItem {
               <div class={`sbb-pearl-chain-item__line-${lineType} sbb-color__${lineColor}`}></div>
             )}
             <div class={`sbb-pearl-chain-item__dot-${dotType} sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-${dotSize}`}></div>
+            {currentPos > 0  && (
+               <div style={{transform: `translateY(${currentPos}px)`}} class={`position__dot`}></div>
+            )}
           </div>
           <div class="sbb-pearl-chain-item__row-right" style={{ display: 'table-cell' }}>
             <slot name="right"></slot>
