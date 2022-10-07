@@ -84,8 +84,7 @@ export class SbbSlider {
       min: this.min || null,
       max: this.max || null,
       step: this.step || null,
-      disabled: this.disabled || null,
-      readonly: this.readonly || null,
+      disabled: this.disabled || this.readonly || null,
     };
     const step = +this.step;
     const stepFraction = Number.isNaN(step)
