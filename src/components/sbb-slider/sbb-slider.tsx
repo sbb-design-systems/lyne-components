@@ -24,6 +24,10 @@ export class SbbSlider {
 
   @Prop() public disabled?: boolean = false;
 
+  @Prop() public startIcon?: string;
+
+  @Prop() public endIcon?: string;
+
   @Event() public sbbChange: EventEmitter<SbbSliderChange>;
 
   @State() private _valueFraction = 0;
@@ -45,6 +49,36 @@ export class SbbSlider {
     });
   }
 
+  private _incrementWithIcon(): void {
+    console.log(this._rangeInput.valueAsNumber);
+    if (this._rangeInput.valueAsNumber === +this._rangeInput.max) {
+      return;
+    } else {
+      if (this.step) {
+        this._rangeInput.valueAsNumber += +this.step;
+      } else {
+        this._rangeInput.valueAsNumber++;
+      }
+      this._emitChange();
+      this._handleChange();
+    }
+  }
+
+  private _decrementWithIcon(): void {
+    console.log(this._rangeInput.valueAsNumber);
+    if (this._rangeInput.valueAsNumber === +this._rangeInput.min) {
+      return;
+    } else {
+      if (this.step) {
+        this._rangeInput.valueAsNumber -= +this.step;
+      } else {
+        this._rangeInput.valueAsNumber--;
+      }
+      this._emitChange();
+      this._handleChange();
+    }
+  }
+
   public render(): JSX.Element {
     const inputAttributes = {
       value: this.value || null,
@@ -64,9 +98,10 @@ export class SbbSlider {
     // to four pixels.
     // TODO: There is probably a better way to check this, as the width might also be variable.
     const isStepped = this.step && stepFraction > 0.01;
+
     return (
-      <div class="slider__wrapper">
-        <sbb-icon name="circle-minus-small" />
+      <sbb-form-field borderless class="slider__wrapper">
+        <sbb-icon slot="prefix" name={this.startIcon} onClick={() => this._decrementWithIcon()} />
         <div
           class="slider__container"
           style={{
@@ -87,22 +122,24 @@ export class SbbSlider {
           ></input>
           <div
             class={{
-              'slider__line': !this.disabled && !this.readonly,
+              slider__line: !this.disabled && !this.readonly,
               'slider__line-disabled': this.disabled,
               'slider__line-readonly': this.readonly,
               'slider__line--stepped': isStepped,
             }}
           >
-            <div class={{
-              'slider__selected-line': !this.disabled && !this.readonly,
-              'slider__selected-line-disabled': this.disabled,
-              'slider__selected-line-readonly': this.readonly,
-              }}></div>
+            <div
+              class={{
+                'slider__selected-line': !this.disabled && !this.readonly,
+                'slider__selected-line-disabled': this.disabled,
+                'slider__selected-line-readonly': this.readonly,
+              }}
+            ></div>
           </div>
           <div class="slider__knob"></div>
         </div>
-        <sbb-icon name="circle-plus-small" />
-      </div>
+        <sbb-icon slot="suffix" name={this.endIcon} onClick={() => this._incrementWithIcon()} />
+      </sbb-form-field>
     );
   }
 }

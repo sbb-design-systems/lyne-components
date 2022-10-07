@@ -58,6 +58,24 @@ const stepArg = {
   },
 };
 
+const startIconArg = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Slider attribute',
+  },
+};
+
+const endIconArg = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Slider attribute',
+  },
+};
+
 const basicArgTypes = {
   value: valueArg,
   step: stepArg,
@@ -65,6 +83,8 @@ const basicArgTypes = {
   max: maxArg,
   readonly: readonlyArg,
   disabled: disabledArg,
+  'start-icon': startIconArg,
+  'end-icon': endIconArg,
 };
 
 const basicArgs = {
@@ -74,6 +94,8 @@ const basicArgs = {
   max: '100',
   readonly: false,
   disabled: false,
+  'start-icon': 'walk-slow-small',
+  'end-icon': 'walk-fast-small',
 };
 
 export const sbbSlider = Template.bind({});

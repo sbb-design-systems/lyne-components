@@ -1100,10 +1100,12 @@ export namespace Components {
     }
     interface SbbSlider {
         "disabled"?: boolean;
+        "endIcon"?: string;
         "max"?: string;
         "min"?: string;
         "name"?: string;
         "readonly"?: boolean;
+        "startIcon"?: string;
         "step"?: string;
         "value"?: string;
     }
@@ -3123,11 +3125,13 @@ declare namespace LocalJSX {
     }
     interface SbbSlider {
         "disabled"?: boolean;
+        "endIcon"?: string;
         "max"?: string;
         "min"?: string;
         "name"?: string;
         "onSbbChange"?: (event: SbbSliderCustomEvent<SbbSliderChange>) => void;
         "readonly"?: boolean;
+        "startIcon"?: string;
         "step"?: string;
         "value"?: string;
     }
