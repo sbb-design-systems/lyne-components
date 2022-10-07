@@ -15,10 +15,10 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
   forwardHostClick,
-  getButtonAttributeList,
-  getLinkAttributeList,
   LinkButtonProperties,
+  LinkButtonRenderVariables,
   LinkTargetType,
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 
@@ -58,7 +58,7 @@ export class SbbCard implements LinkButtonProperties {
   /**
    *  The href value you want to link to.
    */
-  @Prop() public href: string | undefined;
+  @Prop({ reflect: true }) public href: string | undefined;
 
   /**
    * Where to display the linked URL.
@@ -148,26 +148,18 @@ export class SbbCard implements LinkButtonProperties {
   }
 
   public render(): JSX.Element {
-    let TAG_NAME: string;
-    let className = 'sbb-card';
-    let attributeList: Record<string, string>;
-
-    if (this.href) {
-      TAG_NAME = 'a';
-      className += ' sbb-card__link';
-      attributeList = getLinkAttributeList(this, this);
-    } else {
-      TAG_NAME = 'button';
-      className += ' sbb-card__button';
-      attributeList = getButtonAttributeList(this);
-    }
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      screenReaderNewWindowInfo,
+    }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
     return (
       <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
         <TAG_NAME
           id={this.idValue}
-          class={className}
-          {...attributeList}
+          class="sbb-card"
+          {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >
           {this._showSBBBadge() && (
@@ -180,7 +172,7 @@ export class SbbCard implements LinkButtonProperties {
           )}
           <span class="sbb-card__content">
             <slot />
-            {this.href && (
+            {screenReaderNewWindowInfo && (
               <span class="sbb-card__opens-in-new-window">
                 . {i18nTargetOpensInNewWindow[getDocumentLang()]}
               </span>

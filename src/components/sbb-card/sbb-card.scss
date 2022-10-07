@@ -58,9 +58,14 @@
 
 .sbb-card {
   position: relative;
+  width: 100%;
   overflow: hidden;
-  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  padding-inline: var(--sbb-card-padding-inline);
+  padding-block-start: var(--sbb-card-padding-block-start);
+  padding-block-end: var(--sbb-card-padding-block-end);
   border-radius: var(--sbb-card-border-radius);
+  background-color: var(--sbb-card-background-color);
+  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 
   &::before {
     position: absolute;
@@ -73,35 +78,31 @@
   &:focus-visible {
     @include focusOutline;
   }
+
+  :host([href]) & {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  // stylelint-disable-next-line plugin/stylelint-bem-namics
+  :host(:not([href])) & {
+    @include text-inherit;
+
+    cursor: pointer;
+
+    // can't use @include buttonReset because overrides paddings, backgrounds..., only basic rules added
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 :host([active]) {
   .sbb-card::before {
     border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
   }
-}
-
-.sbb-card__link {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-}
-
-.sbb-card__button {
-  @include buttonReset;
-  @include text-inherit;
-
-  cursor: pointer;
-}
-
-.sbb-card__button,
-.sbb-card__link {
-  width: 100%;
-  border-radius: var(--sbb-card-border-radius);
-  background-color: var(--sbb-card-background-color);
-  padding-inline: var(--sbb-card-padding-inline);
-  padding-block-start: var(--sbb-card-padding-block-start);
-  padding-block-end: var(--sbb-card-padding-block-end);
 }
 
 .sbb-card__content {

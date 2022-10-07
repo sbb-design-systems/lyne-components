@@ -14,12 +14,11 @@ import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
   forwardHostClick,
-  getButtonAttributeList,
-  getLinkAttributeList,
-  getLinkButtonBaseAttributeList,
   LinkButtonProperties,
+  LinkButtonRenderVariables,
   LinkTargetType,
   PopupType,
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import {
@@ -172,32 +171,12 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
       .some((n) => !!n.textContent.trim());
   }
 
-  private _resolveRenderVariables(): {
-    screenReaderNewWindowInfo?: boolean;
-    attributes: Record<string, string>;
-    tagName: 'a' | 'button' | 'span';
-  } {
-    if (this.isStatic) {
-      return {
-        tagName: 'span',
-        attributes: getLinkButtonBaseAttributeList(this),
-      };
-    } else if (this.href) {
-      return {
-        tagName: 'a',
-        attributes: getLinkAttributeList(this, this),
-        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
-      };
-    }
-    return { tagName: 'button', attributes: getButtonAttributeList(this) };
-  }
-
   public render(): JSX.Element {
     const {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = this._resolveRenderVariables();
+    }: LinkButtonRenderVariables = resolveRenderVariables(this, this.isStatic);
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
