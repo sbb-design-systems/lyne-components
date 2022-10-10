@@ -82,6 +82,7 @@
 
   /* style for Firefox */
   scrollbar-width: thin;
+  scrollbar-color: var(--sbb-color-white-alpha-30) transparent;
 }
 
 @mixin scrollbar-dark() {
