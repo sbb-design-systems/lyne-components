@@ -82,7 +82,7 @@
 
   /* style for Firefox */
   scrollbar-width: thin;
-  scrollbar-color: var(--sbb-color-white-alpha-30) transparent;
+  scrollbar-color: currentcolor transparent;
 }
 
 @mixin scrollbar-dark() {
@@ -90,6 +90,8 @@
 
   --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
+
+  scrollbar-color: var(--sbb-color-white-alpha-30) transparent;
 }
 
 @mixin scrollbar-light() {
@@ -97,4 +99,6 @@
 
   --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
+
+  scrollbar-color: var(--sbb-color-black-alpha-30) transparent;
 }
