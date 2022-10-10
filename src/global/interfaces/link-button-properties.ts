@@ -73,7 +73,7 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
   click: EventEmitter<T> | undefined;
 
   /** The function triggered on button click. */
-  emitButtonClick: ((event: MouseEvent) => void) | undefined;
+  emitButtonClick: ((event: Event) => void) | undefined;
 }
 
 /**

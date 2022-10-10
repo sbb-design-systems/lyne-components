@@ -901,7 +901,7 @@ export namespace Components {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string | undefined;
+        "accessibilityLabel": string;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
@@ -2475,7 +2475,7 @@ declare namespace LocalJSX {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string | undefined;
+        "accessibilityLabel": string;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
@@ -2483,7 +2483,7 @@ declare namespace LocalJSX {
         /**
           * The href value you want to link to.
          */
-        "href": string | undefined;
+        "href"?: string | undefined;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */

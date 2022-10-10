@@ -38,7 +38,7 @@ export class SbbTeaser implements LinkProperties {
   @Prop() public titleLevel: InterfaceTeaserAttributes['titleLevel'] = '5';
 
   /** The href value you want to link to. */
-  @Prop() public href!: string | undefined;
+  @Prop() public href: string | undefined;
 
   /** Where to display the linked URL. */
   @Prop() public target?: LinkTargetType | string | undefined;
@@ -53,7 +53,7 @@ export class SbbTeaser implements LinkProperties {
    * Example text: Connection from X to Y, via Z, on date X.
    * Ticket price starts at X.
    */
-  @Prop() public accessibilityLabel!: string | undefined;
+  @Prop() public accessibilityLabel!: string;
 
   /** This will be forwarded as aria-describedby to the relevant nested element. */
   @Prop() public accessibilityDescribedby: string | undefined;
