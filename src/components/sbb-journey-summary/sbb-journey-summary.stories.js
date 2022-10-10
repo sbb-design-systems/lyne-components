@@ -11,16 +11,8 @@ const Template = (args) => (
       }}
       slot="content"
     >
-      <sbb-button
-        variant="secondary"
-        icon=""
-        icon-description="context menu"
-        iconslot="context-menu-small"
-        name="samplename"
-      >
-        <sbb-icon name="context-menu-small"></sbb-icon>
-      </sbb-button>
-      <sbb-button label="Button label"></sbb-button>
+      <sbb-button variant="secondary" icon-name="context-menu-small"></sbb-button>
+      <sbb-button>Button label</sbb-button>
     </div>
   </sbb-journey-summary>
 );

@@ -13,7 +13,8 @@ import {
   i18nWalkingDistanceDeparture,
 } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import { removeTimezoneFromDate } from './helper/timezone-helper';
+import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-journey-summary.scss',
@@ -121,8 +122,8 @@ export class SbbJourneySummary {
 
   public render(): JSX.Element {
     const { vias, origin, destination, duration } = this.config || {};
-    const departureTime: Date = removeTimezoneFromDate(this.config?.departure?.time);
-    const arrivalTime: Date = removeTimezoneFromDate(this.config?.arrival?.time);
+    const departureTime: Date = removeTimezoneFromISOTimeString(this.config?.departure?.time);
+    const arrivalTime: Date = removeTimezoneFromISOTimeString(this.config?.arrival?.time);
 
     return (
       <div class="sbb-journey-summary">
