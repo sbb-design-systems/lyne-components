@@ -1008,6 +1008,7 @@ export namespace Components {
         "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbPearlChainItem {
+        "disableAnimation"?: boolean;
         "pearlChainItemAttributes": PearlChainItemAttributes;
     }
     interface SbbPearlChainVertical {
@@ -2878,6 +2879,7 @@ declare namespace LocalJSX {
         "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbPearlChainItem {
+        "disableAnimation"?: boolean;
         "pearlChainItemAttributes"?: PearlChainItemAttributes;
     }
     interface SbbPearlChainVertical {

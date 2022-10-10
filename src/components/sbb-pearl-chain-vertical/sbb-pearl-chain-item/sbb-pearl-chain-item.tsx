@@ -23,8 +23,9 @@ export class SbbPearlChainItem {
     const { dotColor, dotType, lineType, lineColor, hideLine, minHeight, dotSize, position } =
       this.pearlChainItemAttributes || {};
 
-    const currentPos = (position * this._lineHeight / 100) - 10;
-
+    const currentPos = (position * this._lineHeight) / 100;
+    const dotColorClass =
+      currentPos > 0 && currentPos <= 100 ? 'sbb-color__gray' : `sbb-color__${dotColor}`;
     const animation = this.disableAnimation ? 'position__dot--disable-animation' : '';
 
     return (
@@ -32,25 +33,41 @@ export class SbbPearlChainItem {
         <div class="sbb-pearl-chain-item" style={{ display: 'table-row' }}>
           <div
             class="sbb-pearl-chain-item__row-left"
-            style={{ display: 'table-cell', height: minHeight + "px" }}
+            style={{ display: 'table-cell', height: minHeight + 'px' }}
           >
             <div class="sbb-pearl-chain-item__left-slot">
               <slot name="left"></slot>
             </div>
           </div>
-          <div id='line-height' class="sbb-pearl-chain-item__row-middle" style={{ display: 'table-cell' }}>
+          <div
+            id="line-height"
+            class="sbb-pearl-chain-item__row-middle"
+            style={{ display: 'table-cell' }}
+          >
             {!hideLine && (
-              <div class={`sbb-pearl-chain-item__line-${lineType} sbb-color__${lineColor}`}></div>
+              <div
+                style={{ '--leg-status': `${currentPos}%` }}
+                class={`sbb-pearl-chain-item__line sbb-pearl-chain-item__line-${lineType} sbb-color__${lineColor}`}
+              ></div>
             )}
-            {dotType !== 'double-bullet' ?
-              <div class={`sbb-pearl-chain-item__dot-${dotType} sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-${dotSize}`} />
-              :
-              <div class={`sbb-pearl-chain-item__dot-thin-bullet sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-ultra`}>
-                <div class={`sbb-pearl-chain-item__dot-thin-bullet sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-extra-small`} />
+            {dotType !== 'double-bullet' ? (
+              <div
+                class={`sbb-pearl-chain-item__dot-${dotType} ${dotColorClass} sbb-pearl-chain-item__dot-size-${dotSize}`}
+              />
+            ) : (
+              <div
+                class={`sbb-pearl-chain-item__dot-thin-bullet sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-ultra`}
+              >
+                <div
+                  class={`sbb-pearl-chain-item__dot-thin-bullet sbb-color__${dotColor} sbb-pearl-chain-item__dot-size-extra-small`}
+                />
               </div>
-            }
+            )}
             {currentPos > 0 && (
-              <div style={{ transform: `translateY(${currentPos}px)` }} class={`position__dot ${animation}`}></div>
+              <div
+                style={{ top: `calc(${currentPos}%` }}
+                class={`position__dot ${animation}`}
+              ></div>
             )}
           </div>
           <div class="sbb-pearl-chain-item__row-right" style={{ display: 'table-cell' }}>

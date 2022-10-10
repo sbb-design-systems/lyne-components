@@ -88,6 +88,18 @@
   position: relative;
 }
 
+.sbb-pearl-chain-item__line {
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: var(--leg-status);
+    width: var(--border-width);
+    background-color: var(--color-past);
+  }
+}
+
 .sbb-pearl-chain-item__line-standard {
   @include border;
 }
@@ -96,6 +108,7 @@
   --dot-size: var(--dot-size-large);
   @include dot;
 
+  position: absolute;
   animation: pulse 3s infinite;
   border: var(--border-width) currentcolor;
   border-color: var(--color-cancellation);
@@ -159,6 +172,7 @@
 }
 
 .sbb-pearl-chain-item__row-middle {
+  position: relative;
   padding-top: 0;
   vertical-align: top;
   padding-inline-start: var(--spacing-small);
