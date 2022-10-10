@@ -7,6 +7,7 @@
   --sbb-menu-position-x: 0;
   --sbb-menu-position-y: 0;
   --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-menu-min-height: #{px-to-rem-build(120)};
   --sbb-menu-max-width: #{px-to-rem-build(320)};
   --sbb-menu-min-width: #{px-to-rem-build(240)};
@@ -45,11 +46,10 @@
 }
 
 .sbb-menu {
-  @include scrollbar('dark');
-
   --sbb-menu-transform: translateY(100%);
 
-  max-height: calc(100vh - var(--sbb-spacing-fixed-8x));
+  max-height: var(--sbb-menu-max-height);
+  max-height: 100%;
   min-width: 100%;
   text-align: start;
   position: var(--sbb-menu-position);
@@ -61,8 +61,8 @@
   border: none;
   border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
   background-color: var(--sbb-color-black-default);
-  padding-inline: 0;
-  padding-block: var(--sbb-spacing-fixed-1x);
+  padding: 0;
+  overflow: hidden;
 
   &[open] {
     animation: {
@@ -82,18 +82,26 @@
     }
   }
 
-  &::after {
-    content: '';
-    display: block;
-    height: var(--sbb-spacing-fixed-8x);
-  }
-
   &.sbb-menu--dismissing {
     animation-name: hide;
 
     &::backdrop {
       --sbb-menu-backdrop-animation-name: hide-backdrop;
     }
+  }
+}
+
+.sbb-menu__content {
+  @include scrollbar-dark;
+
+  max-height: var(--sbb-menu-max-height);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  overflow: auto;
+
+  &::after {
+    content: '';
+    display: block;
+    height: var(--sbb-spacing-fixed-8x);
   }
 }
 
@@ -112,7 +120,6 @@
     left: var(--sbb-menu-position-x);
     right: unset;
     bottom: unset;
-    max-height: var(--sbb-menu-max-height);
     min-height: var(--sbb-menu-min-height);
     max-width: var(--sbb-menu-max-width);
     min-width: var(--sbb-menu-min-width);
@@ -123,6 +130,10 @@
 
       animation: none;
     }
+  }
+
+  .sbb-menu__content {
+    min-height: var(--sbb-menu-min-height);
 
     &::after {
       display: none;

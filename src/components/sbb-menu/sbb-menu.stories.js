@@ -117,12 +117,7 @@ const CustomContentTemplate = (args) => [
 const LongContentTemplate = (args) => [
   triggerButton('menu-trigger-3'),
   <sbb-menu trigger="menu-trigger-3" disable-animation={isChromatic()}>
-    <sbb-menu-action
-      icon={args.icon}
-      event-id="English"
-      disabled={args.disabled}
-      amount={args.amount}
-    >
+    <sbb-menu-action icon={args.icon} disabled={args.disabled} amount={args.amount}>
       English
     </sbb-menu-action>
     <sbb-menu-action>Deutsch</sbb-menu-action>
