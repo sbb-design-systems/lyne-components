@@ -7,6 +7,8 @@
  * @returns The closest element matching the selector or null if none is found.
  */
 export function hostContext(selector: string, element: Element): Element | null {
+  // Start with parent element in order to avoid finding element itself
+  element = element.parentElement ?? (element.getRootNode() as ShadowRoot).host;
   while (element && (element as any) !== document && (element as any) !== window) {
     const match = element.closest(selector);
     if (match) {
