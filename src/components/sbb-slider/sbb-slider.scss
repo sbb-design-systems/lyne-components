@@ -11,6 +11,19 @@
   --slider-step-gap: #{px-to-rem-build(4)};
   --slider-knob-size: #{px-to-rem-build(28)};
   --slider-knob-border-size: #{px-to-rem-build(3)};
+  --slider-icon-color: var(--sbb-color-black-default);
+}
+
+:host([disabled]) {
+  --slider-icon-color: var(--sbb-color-graphite-default);
+}
+
+:host([readonly]) {
+  --slider-icon-color: var(--sbb-color-smoke-default);
+}
+
+.sbb-icon {
+  color: var(--slider-icon-color);
 }
 
 .slider__wrapper {
@@ -43,7 +56,8 @@
   }
 }
 
-.slider__line-disabled {
+.slider__line-disabled,
+.slider__line-readonly {
   @include absoluteCenterY;
 
   height: var(--slider-line-height);
@@ -74,15 +88,19 @@
   width: calc(var(--slider-value-fraction) * 100%);
 }
 
-.slider__selected-line-disabled {
+.slider__selected-line-disabled,
+.slider__selected-line-readonly {
   position: relative;
   height: 100%;
   background-color: var(--sbb-color-smoke-default);
   width: calc(var(--slider-value-fraction) * 100%);
 }
 
-.slider__knob {
+.slider__knob,
+.slider__knob-disabled,
+.slider__knob-readonly {
   @include absoluteCenterY;
+  @include shadow-level-5-hard;
 
   width: var(--slider-knob-size);
   height: var(--slider-knob-size);
@@ -90,13 +108,25 @@
     calc(var(--slider-value-fraction) * 100%) - var(--slider-knob-size) *
       var(--slider-value-fraction)
   );
+  transition-property: width, height;
+  transition-duration: var(--sbb-animation-duration-1x);
+  transition-timing-function: ease-in;
   background-color: var(--sbb-color-white-default);
   border: var(--slider-knob-border-size) solid var(--sbb-color-red-default);
   border-radius: 50%;
   pointer-events: none;
+}
 
-  .slider__range-input:active ~ &,
-  .slider__range-input:focus-visible ~ & {
-    --slider-knob-size: #{px-to-rem-build(31)};
-  }
+.slider__range-input:active ~ .slider__knob,
+.slider__range-input:focus-visible ~ .slider__knob {
+  --slider-knob-size: #{px-to-rem-build(31)};
+}
+
+.slider__knob-disabled {
+  background-color: var(--sbb-color-milk-default);
+  border-color: var(--sbb-color-smoke-default);
+}
+
+.slider__knob-readonly {
+  border-color: var(--sbb-color-smoke-default);
 }

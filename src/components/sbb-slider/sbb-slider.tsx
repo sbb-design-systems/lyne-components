@@ -50,30 +50,34 @@ export class SbbSlider {
   }
 
   private _incrementWithIcon(): void {
-    if (this._rangeInput.valueAsNumber === +this._rangeInput.max) {
-      return;
-    } else {
-      if (this.step) {
-        this._rangeInput.valueAsNumber += +this.step;
+    if (!this.disabled && !this.readonly) {
+      if (this._rangeInput.valueAsNumber === +this._rangeInput.max) {
+        return;
       } else {
-        this._rangeInput.valueAsNumber++;
+        if (this.step) {
+          this._rangeInput.valueAsNumber += +this.step;
+        } else {
+          this._rangeInput.valueAsNumber++;
+        }
+        this._emitChange();
+        this._handleChange();
       }
-      this._emitChange();
-      this._handleChange();
     }
   }
 
   private _decrementWithIcon(): void {
-    if (this._rangeInput.valueAsNumber === +this._rangeInput.min) {
-      return;
-    } else {
-      if (this.step) {
-        this._rangeInput.valueAsNumber -= +this.step;
+    if (!this.disabled && !this.readonly) {
+      if (this._rangeInput.valueAsNumber === +this._rangeInput.min) {
+        return;
       } else {
-        this._rangeInput.valueAsNumber--;
+        if (this.step) {
+          this._rangeInput.valueAsNumber -= +this.step;
+        } else {
+          this._rangeInput.valueAsNumber--;
+        }
+        this._emitChange();
+        this._handleChange();
       }
-      this._emitChange();
-      this._handleChange();
     }
   }
 
@@ -133,7 +137,13 @@ export class SbbSlider {
               }}
             ></div>
           </div>
-          <div class="slider__knob"></div>
+          <div
+            class={{
+              'slider__knob': !this.disabled && !this.readonly,
+              'slider__knob-disabled': this.disabled,
+              'slider__knob-readonly': this.readonly,
+            }}
+          ></div>
         </div>
         <sbb-icon slot="suffix" name={this.endIcon} onClick={() => this._incrementWithIcon()} />
       </sbb-form-field>
