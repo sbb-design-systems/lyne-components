@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from '../sbb-header-action/sbb-header-action.events';
+import isChromatic from 'chromatic';
 
 const textContent = () => (
   <div>
@@ -157,7 +158,7 @@ export default {
   decorators: [
     (Story) => (
       <div>
-        <Story />
+        <Story style={`${isChromatic() && 'min-height: 100vh'}`} />
       </div>
     ),
   ],
