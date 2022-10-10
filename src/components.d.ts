@@ -825,15 +825,11 @@ export namespace Components {
         /**
           * Whether the button is disabled.
          */
-        "disabled": boolean | undefined;
+        "disabled": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
         "download": boolean | undefined;
-        /**
-          * Id sent in the click event payload.
-         */
-        "eventId": string | undefined;
         /**
           * The <form> element to associate the button with.
          */
@@ -2597,15 +2593,11 @@ declare namespace LocalJSX {
         /**
           * Whether the button is disabled.
          */
-        "disabled"?: boolean | undefined;
+        "disabled"?: boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
-        /**
-          * Id sent in the click event payload.
-         */
-        "eventId"?: string | undefined;
         /**
           * The <form> element to associate the button with.
          */

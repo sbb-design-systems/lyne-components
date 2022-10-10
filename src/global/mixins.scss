@@ -56,7 +56,7 @@
   }
 }
 
-@mixin scrollbar($color: 'light') {
+@mixin scrollbar() {
   /* total width */
   &::-webkit-scrollbar {
     width: var(--sbb-spacing-fixed-4x);
@@ -64,23 +64,15 @@
 
   /* scrollbar itself */
   &::-webkit-scrollbar-thumb {
-    background-color: var(--sbb-color-black-alpha-30);
+    background-color: var(--sbb-scrollbar-color, currentcolor);
     border: #{px-to-rem-build(7)} solid transparent;
     border-radius: var(--sbb-border-radius-4x);
     background-clip: padding-box;
-
-    @if $color == 'dark' {
-      background-color: var(--sbb-color-white-alpha-30);
-    }
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--sbb-color-black-alpha-60);
+    background-color: var(--sbb-scrollbar-color-hover, currentcolor);
     border-width: #{px-to-rem-build(5.5)};
-
-    @if $color == 'dark' {
-      background-color: var(--sbb-color-white-alpha-60);
-    }
   }
 
   /* set button(top and bottom of the scrollbar) */
@@ -90,4 +82,18 @@
 
   /* style for Firefox */
   scrollbar-width: thin;
+}
+
+@mixin scrollbar-dark() {
+  @include scrollbar;
+
+  --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
+  --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
+}
+
+@mixin scrollbar-light() {
+  @include scrollbar;
+
+  --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
+  --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
 }

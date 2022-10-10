@@ -58,7 +58,7 @@ export class SbbMenuAction implements LinkButtonProperties {
   /**
    *  The href value you want to link to.
    */
-  @Prop() public href: string | undefined;
+  @Prop({ reflect: true }) public href: string | undefined;
 
   /**
    * The relationship of the linked URL as space-separated link types.
@@ -73,7 +73,7 @@ export class SbbMenuAction implements LinkButtonProperties {
   /**
    * Whether the button is disabled.
    */
-  @Prop() public disabled: boolean | undefined;
+  @Prop({ reflect: true }) public disabled = false;
 
   /**
    * The name of the button.
@@ -89,11 +89,6 @@ export class SbbMenuAction implements LinkButtonProperties {
    * Default behaviour of the button.
    */
   @Prop() public type: ButtonType | undefined;
-
-  /**
-   * Id sent in the click event payload.
-   */
-  @Prop() public eventId: string | undefined;
 
   /**
    * The value associated with button `name` when it's submitted with the form data.
@@ -128,7 +123,7 @@ export class SbbMenuAction implements LinkButtonProperties {
    */
   public emitButtonClick(): void {
     if (!this.disabled) {
-      this.click.emit(this.eventId);
+      this.click.emit();
     }
   }
 

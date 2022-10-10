@@ -16,21 +16,8 @@ import { getElementPosition } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 
 const MENU_OFFSET = 8;
-
-const INTERACTIVE_COMPONENTS = ['SBB-BUTTON', 'SBB-LINK', 'SBB-MENU-ACTION'];
-
-const IS_FOCUSABLE_QUERY = `
-  button:not([disabled]),
-  [href],
-  input:not([disabled]),
-  select:not([disabled]),
-  textarea:not([disabled]),
-  details:not([disabled]),
-  summary:not(:disabled),
-  [tabindex]:not([tabindex="-1"]):not([disabled]),
-  sbb-button:not([disabled]),
-  sbb-link:not([disabled]),
-  sbb-menu-action:not([disabled])`;
+const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
+const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action):not([disabled]):not([tabindex="-1"])`;
 
 /**
  * @slot unnamed - Use this slot to project any content inside the dialog.
@@ -52,7 +39,7 @@ export class SbbMenu implements ComponentInterface {
   /**
    * Whether the animation is enabled.
    */
-  @Prop() public disableAnimation = false;
+  @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
    * Whether the menu is open.
@@ -104,6 +91,12 @@ export class SbbMenu implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
+  private _dialog: HTMLDialogElement;
+  private _triggerEl: HTMLElement;
+  private _pointerDownEventTarget: string | null;
+  private _menuController: AbortController;
+  private _resizeController: AbortController;
+
   /**
    * Opens the menu on trigger click.
    */
@@ -124,16 +117,8 @@ export class SbbMenu implements ComponentInterface {
     this._isDismissing = true;
   }
 
-  // Resets position on window resize.
-  @Listen('resize', { target: 'window', passive: true })
-  public onResizeWindowEvent(): void {
-    if (this._open) {
-      this._setMenuPosition();
-    }
-  }
-
   // Closes the menu on "Esc" key pressed.
-  @Listen('keydown', { target: 'window' })
+  @Listen('keydown')
   public onEscAction(event: KeyboardEvent): void {
     if (this._open && event.key === 'Escape') {
       event.preventDefault();
@@ -149,30 +134,21 @@ export class SbbMenu implements ComponentInterface {
   ): void {
     if (newValue !== oldValue) {
       this._menuController?.abort();
+      this._resizeController?.abort();
       this._configure(this.trigger);
     }
   }
-
-  private _dialog: HTMLDialogElement;
-  private _triggerEl: HTMLElement;
-  private _pointerDownEventTarget: string | null;
-  private _menuController: AbortController;
 
   public componentDidLoad(): void {
     this._dialog = this.el.shadowRoot.querySelector('dialog');
 
     // validate trigger element and attach event listeners
     this._configure(this.trigger);
-
-    // close menu on interactive elements click
-    this._dismissOnInteractiveElementClick();
-
-    // listen for menu animation to end
-    this._dialog.onanimationend = (event: AnimationEvent) => this._onMenuAnimationEnd(event);
   }
 
   public disconnectedCallback(): void {
-    this._menuController.abort();
+    this._menuController?.abort();
+    this._resizeController?.abort();
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -188,12 +164,14 @@ export class SbbMenu implements ComponentInterface {
       this._triggerEl = trigger;
     }
 
-    if (this._triggerEl) {
-      this._menuController = new AbortController();
-      this._triggerEl.addEventListener('click', () => this.open(), {
-        signal: this._menuController.signal,
-      });
+    if (!this._triggerEl) {
+      return;
     }
+
+    this._menuController = new AbortController();
+    this._triggerEl.addEventListener('click', () => this.open(), {
+      signal: this._menuController.signal,
+    });
 
     // close menu on backdrop click
     this._dialog.addEventListener('pointerdown', this._pointerDownListener, {
@@ -202,19 +180,37 @@ export class SbbMenu implements ComponentInterface {
     this._dialog.addEventListener('pointerup', this._dismissOnBackdropClick, {
       signal: this._menuController.signal,
     });
+
+    // close menu interactive element click
+    this._dialog.firstElementChild.addEventListener(
+      'click',
+      (event: MouseEvent) => this._dismissOnInteractiveElementClick(event),
+      { signal: this._menuController.signal }
+    );
+
+    // listen for menu animation to end
+    this._dialog.addEventListener(
+      'animationend',
+      (event: AnimationEvent) => this._onMenuAnimationEnd(event),
+      { signal: this._menuController.signal }
+    );
+  }
+
+  // Resets position on window resize.
+  public onResizeWindowEvent(): void {
+    this._resizeController = new AbortController();
+    window.addEventListener('resize', () => this._setMenuPosition(), {
+      passive: true,
+      signal: this._resizeController.signal,
+    });
   }
 
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
-  private _dismissOnInteractiveElementClick(): void {
-    // TODO: improve the query once "https://github.com/ionic-team/stencil/issues/3588" has been solved
-    const interactiveElements = this.el.querySelectorAll('[href], button, sbb-button, sbb-link');
-    interactiveElements.forEach((el: Element) => {
-      if (!el.hasAttribute('disabled')) {
-        el.addEventListener('click', () => this.close(), {
-          signal: this._menuController.signal,
-        });
-      }
-    });
+  private _dismissOnInteractiveElementClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !target.hasAttribute('disabled')) {
+      this.close();
+    }
   }
 
   // Store pointerdown event target to track origin of click.
@@ -239,14 +235,16 @@ export class SbbMenu implements ComponentInterface {
       this._open = true;
       this.didOpen.emit();
       this._setDialogFocus();
+      this.onResizeWindowEvent();
     }
 
     if (event.animationName === 'hide') {
       this._isDismissing = false;
       this._open = false;
-      this._dialog.scrollTo(0, 0);
+      this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();
       this.didClose.emit();
+      this._resizeController?.abort();
     }
   }
 
@@ -255,7 +253,7 @@ export class SbbMenu implements ComponentInterface {
     const firstFocusable = Array.from(
       this.el.querySelectorAll(IS_FOCUSABLE_QUERY)
     )[0] as HTMLElement;
-    if (INTERACTIVE_COMPONENTS.includes(firstFocusable.nodeName)) {
+    if (['SBB-BUTTON', 'SBB-LINK', 'SBB-MENU-ACTION'].includes(firstFocusable.nodeName)) {
       (
         Array.from(firstFocusable.shadowRoot.querySelectorAll(IS_FOCUSABLE_QUERY))[0] as HTMLElement
       ).focus();
