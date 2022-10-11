@@ -128,9 +128,13 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
 
   @State() private _hasText = false;
 
+  private _closestForm: HTMLFormElement | null;
+
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
+    // Check if the current element is nested in a form.
+    this._closestForm = hostContext('form', this._element) as HTMLFormElement;
     this._hasText = Array.from(this._element.childNodes).some(
       (n) => !(n as Element).slot && n.textContent
     );
@@ -146,8 +150,20 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
    * Method triggered at button click to emit the click event (can be caught from parent component).
    */
   public emitButtonClick(): void {
-    if (!this.disabled && !this.isStatic) {
-      this.click.emit();
+    if (this.disabled || this.isStatic) {
+      return;
+    }
+
+    this.click.emit();
+
+    if (!this._closestForm || this.type !== 'submit') {
+      return;
+    }
+
+    if (this._closestForm.requestSubmit) {
+      this._closestForm.requestSubmit();
+    } else {
+      this._closestForm.submit();
     }
   }
 
