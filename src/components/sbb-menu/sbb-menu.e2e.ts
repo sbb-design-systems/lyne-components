@@ -82,4 +82,17 @@ describe('sbb-menu', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     expect(dialog).not.toHaveAttribute('open');
   });
+
+  it('closes on Esc keypress', async () => {
+    const dialog = await page.find('sbb-menu >>> dialog');
+
+    await trigger.click();
+    await page.waitForChanges();
+    expect(dialog).toHaveAttribute('open');
+
+    await page.keyboard.down('Escape');
+    await page.waitForChanges();
+
+    expect(dialog).not.toHaveAttribute('open');
+  });
 });
