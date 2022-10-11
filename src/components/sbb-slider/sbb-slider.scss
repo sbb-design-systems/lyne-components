@@ -28,13 +28,13 @@
 }
 
 .slider__wrapper {
-  display: flex;
-  gap: var(--sbb-spacing-fixed-2x);
+  max-width: #{px-to-rem-build(400)};
+  min-width: #{px-to-rem-build(200)};
+  width: 100%;
 }
 
 .slider__container {
   position: relative;
-  width: 400px;
 }
 
 .slider__range-input {
