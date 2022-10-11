@@ -77,9 +77,9 @@ const orientation = {
 
 const horizontalFrom = {
   control: {
-    type: 'inline-radio',
+    type: 'select',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
 const alignGroup = {
@@ -91,14 +91,14 @@ const alignGroup = {
 
 const basicArgTypes = {
   'align-group': alignGroup,
-  'horizontal-from': horizontalFrom,
   orientation,
+  'horizontal-from': horizontalFrom,
 };
 
 const basicArgs = {
   'align-group': 'start',
-  'horizontal-from': 'medium',
   orientation: 'horizontal',
+  'horizontal-from': 'unset',
 };
 
 const basicArgsVertical = {

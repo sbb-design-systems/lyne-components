@@ -2,21 +2,26 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+$vertical-orientations: (
+  start: flex-start,
+  center: center,
+  stretch: stretch,
+  end: flex-end,
+);
+$horizontal-orientations: (
+  start: flex-start,
+  center: center,
+  stretch: space-between,
+  end: flex-end,
+);
+
 @mixin vertical-action-group {
-  .action-group--align-start {
-    --sbb-action-group-align-items: flex-start;
-  }
-
-  .action-group--align-center {
-    --sbb-action-group-align-items: center;
-  }
-
-  .action-group--align-stretch {
-    --sbb-action-group-align-items: stretch;
-  }
-
-  .action-group--align-end {
-    --sbb-action-group-align-items: flex-end;
+  @each $key, $value in $vertical-orientations {
+    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+    .action-group--align-#{$key} {
+      --sbb-action-group-align-items: #{$value};
+    }
   }
 
   .action-group {
@@ -57,20 +62,11 @@
 }
 
 :host([orientation='horizontal']) {
-  .action-group--align-start {
-    --sbb-action-group-justify-content: flex-start;
-  }
-
-  .action-group--align-center {
-    --sbb-action-group-justify-content: center;
-  }
-
-  .action-group--align-stretch {
-    --sbb-action-group-justify-content: space-between;
-  }
-
-  .action-group--align-end {
-    --sbb-action-group-justify-content: flex-end;
+  @each $key, $value in $horizontal-orientations {
+    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+    .action-group--align-#{$key} {
+      --sbb-action-group-justify-content: #{$value};
+    }
   }
 
   .action-group {
@@ -90,45 +86,42 @@
   }
 }
 
-:host([orientation='horizontal'][horizontal-from='zero']) {
-  @include mq($to: zero) {
-    @include vertical-action-group-element-align-reset;
-  }
-}
+@each $breakpoint in $breakpoints {
+  // horizontal-from overrides orientation vertical
+  :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+    --sbb-action-group-orientation: row;
 
-:host([orientation='horizontal'][horizontal-from='micro']) {
-  @include mq($to: micro) {
-    @include vertical-action-group-element-align-reset;
-  }
-}
+    @each $key, $value in $horizontal-orientations {
+      /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+      .action-group--align-#{$key} {
+        --sbb-action-group-justify-content: #{$value};
+        --sbb-action-group-align-items: unset;
+      }
 
-:host([orientation='horizontal'][horizontal-from='small']) {
-  @include mq($to: small) {
-    @include vertical-action-group-element-align-reset;
-  }
-}
+      .action-group {
+        justify-content: var(--sbb-action-group-justify-content);
+      }
 
-:host([orientation='horizontal'][horizontal-from='medium']) {
-  @include mq($to: medium) {
-    @include vertical-action-group-element-align-reset;
-  }
-}
+      ::slotted([align-self='start']) {
+        margin-inline-end: auto;
+      }
 
-:host([orientation='horizontal'][horizontal-from='large']) {
-  @include mq($to: large) {
-    @include vertical-action-group-element-align-reset;
-  }
-}
+      ::slotted([align-self='center']) {
+        margin-inline: auto;
+      }
 
-:host([orientation='horizontal'][horizontal-from='wide']) {
-  @include mq($to: wide) {
-    @include vertical-action-group-element-align-reset;
+      ::slotted([align-self='end']) {
+        margin-inline-start: auto;
+      }
+    }
   }
-}
 
-:host([orientation='horizontal'][horizontal-from='ultra']) {
-  @include mq($to: ultra) {
-    @include vertical-action-group-element-align-reset;
+  // horizontal-from overrides orientation horizontal
+  :host([orientation='horizontal'][horizontal-from='#{$breakpoint}']),
+  :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+    @include mq($to: #{$breakpoint}) {
+      @include vertical-action-group-element-align-reset;
+    }
   }
 }
 
