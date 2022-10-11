@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.7 (2022-10-11)
+
+### Features
+
+- add possibility to submit forms with sbb-button/sbb-link ([#1403](https://github.com/lyne-design-system/lyne-components/issues/1403)) ([52cdd0f](https://github.com/lyne-design-system/lyne-components/commit/52cdd0f3786b3adb2bbb460ea28f9bd0aa1bc6d4))
+
 ### 0.9.6 (2022-10-10)
 
 ### 0.9.5 (2022-10-07)
