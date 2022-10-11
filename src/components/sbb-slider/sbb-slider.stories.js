@@ -123,7 +123,7 @@ export const sbbSliderStep = TemplateSbbSlider.bind({});
 sbbSliderStep.argTypes = basicArgTypes;
 sbbSliderStep.args = { ...basicArgs, step: '10' };
 sbbSlider.documentation = {
-  title: 'Sbb Slider readonly',
+  title: 'Sbb Slider with step',
 };
 
 export default {
