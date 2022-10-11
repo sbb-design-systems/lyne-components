@@ -86,11 +86,9 @@ const basicArgTypes = {
 };
 
 const basicArgs = {
-  disabled: false,
   'end-icon': 'walk-fast-small',
   max: '100',
   min: '0',
-  readonly: false,
   'start-icon': 'walk-slow-small',
   step: '',
   value: '40',
