@@ -3,14 +3,16 @@ import readme from './readme.md';
 import buttonEvents from '../sbb-button/sbb-button.events';
 import linkEvents from '../sbb-link/sbb-link.events';
 
-const firstButtonTemplate = (alignSelf) => (
-  <sbb-button align-self={alignSelf} variant="secondary">
+const firstButtonTemplate = (size, alignSelf) => (
+  <sbb-button size={size} align-self={alignSelf} variant="secondary">
     Button 1
   </sbb-button>
 );
 
-const secondButtonTemplate = (alignSelf) => (
-  <sbb-button align-self={alignSelf}>Button 2</sbb-button>
+const secondButtonTemplate = (size, alignSelf) => (
+  <sbb-button size={size} align-self={alignSelf}>
+    Button 2
+  </sbb-button>
 );
 
 const linkTemplate = (alignSelf) => (
@@ -26,51 +28,66 @@ const linkTemplate = (alignSelf) => (
   </sbb-link>
 );
 
-const TemplateTwoElements = (alignSelfFirst, alignSelfSecond) => [
-  firstButtonTemplate(alignSelfFirst),
-  secondButtonTemplate(alignSelfSecond),
+const TemplateTwoElements = (size, alignSelfFirst, alignSelfSecond) => [
+  firstButtonTemplate(size, alignSelfFirst),
+  secondButtonTemplate(size, alignSelfSecond),
 ];
 
-const TemplateThreeElements = (alignSelfFirst, alignSelfSecond, alignSelfThird) => [
-  TemplateTwoElements(alignSelfFirst, alignSelfSecond),
+const TemplateThreeElements = (size, alignSelfFirst, alignSelfSecond, alignSelfThird) => [
+  TemplateTwoElements(size, alignSelfFirst, alignSelfSecond),
   linkTemplate(alignSelfThird),
 ];
 
 const CommonTemplateThreeElementsAllocation = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements()}</sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements(args.size)}</sbb-action-group>
 );
 
 const CommonTemplateTwoElementsAllocation = (args) => (
-  <sbb-action-group {...args}>{TemplateTwoElements()}</sbb-action-group>
+  <sbb-action-group {...args}>{TemplateTwoElements(args.size)}</sbb-action-group>
 );
 
 const TemplateHorizontalAllocation111 = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements(null, 'center')}</sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements(args.size, null, 'center')}</sbb-action-group>
 );
 
 const TemplateHorizontalAllocation201 = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements(null, null, 'end')}</sbb-action-group>
+  <sbb-action-group {...args}>
+    {TemplateThreeElements(args.size, null, null, 'end')}
+  </sbb-action-group>
 );
 
 const TemplateHorizontalAllocation102 = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements('start')}</sbb-action-group>
+  <sbb-action-group {...args}>{TemplateThreeElements(args.size, 'start')}</sbb-action-group>
 );
 
 const TemplateHorizontalAllocation101 = (args) => (
-  <sbb-action-group {...args}>{TemplateTwoElements(null, 'end')}</sbb-action-group>
+  <sbb-action-group {...args}>{TemplateTwoElements(args.size, null, 'end')}</sbb-action-group>
 );
 
 const TemplateVerticalAllocation300FullWidth = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements(null, null, 'start')}</sbb-action-group>
+  <sbb-action-group {...args}>
+    {TemplateThreeElements(args.size, null, null, 'start')}
+  </sbb-action-group>
 );
 
 const TemplateVerticalAllocation030FullWidth = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements(null, null, 'center')}</sbb-action-group>
+  <sbb-action-group {...args}>
+    {TemplateThreeElements(args.size, null, null, 'center')}
+  </sbb-action-group>
 );
 
 const TemplateVerticalAllocation003FullWidth = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements(null, null, 'end')}</sbb-action-group>
+  <sbb-action-group {...args}>
+    {TemplateThreeElements(args.size, null, null, 'end')}
+  </sbb-action-group>
 );
+
+const buttonSize = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 'm'],
+};
 
 const orientation = {
   control: {
@@ -97,12 +114,14 @@ const basicArgTypes = {
   'align-group': alignGroup,
   orientation,
   'horizontal-from': horizontalFrom,
+  size: buttonSize,
 };
 
 const basicArgs = {
   'align-group': 'start',
   orientation: 'horizontal',
   'horizontal-from': 'unset',
+  size: buttonSize.options[0],
 };
 
 const basicArgsVertical = {
@@ -113,6 +132,13 @@ const basicArgsVertical = {
 const basicArgsVerticalFullWidth = {
   ...basicArgsVertical,
   'align-group': 'stretch',
+};
+
+export const VerticalToHorizontal3_0_0 = CommonTemplateThreeElementsAllocation.bind({});
+VerticalToHorizontal3_0_0.argTypes = basicArgTypes;
+VerticalToHorizontal3_0_0.args = { ...basicArgsVertical, 'horizontal-from': 'medium' };
+VerticalToHorizontal3_0_0.documentation = {
+  title: 'sbb-action-group allocation 3-0-0',
 };
 
 export const HorizontalAllocation3_0_0 = CommonTemplateThreeElementsAllocation.bind({});
