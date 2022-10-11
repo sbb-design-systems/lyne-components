@@ -781,17 +781,17 @@ export namespace Components {
     }
     interface SbbMenu {
         /**
-          * Closes the menu.
-         */
-        "close": () => Promise<void>;
-        /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
         /**
+          * Dismisses the menu.
+         */
+        "dismiss": () => Promise<void>;
+        /**
           * Opens the menu on trigger click.
          */
-        "open": () => Promise<void>;
+        "present": () => Promise<void>;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -829,11 +829,11 @@ export namespace Components {
         /**
           * Whether the browser will show the download dialog on click.
          */
-        "download": boolean | undefined;
+        "download"?: boolean;
         /**
           * The <form> element to associate the button with.
          */
-        "form": string | undefined;
+        "form"?: string;
         /**
           * The href value you want to link to.
          */
@@ -841,31 +841,31 @@ export namespace Components {
         /**
           * The name property passed to `sbb-icon` component.
          */
-        "icon"?: string | undefined;
+        "iconName"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
         "menuActionId": string;
         /**
-          * The name of the button.
+          * The name attribute to use for the button.
          */
         "name": string | undefined;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
-        "rel": string | undefined;
+        "rel"?: string | undefined;
         /**
           * Where to display the linked URL.
          */
-        "target": LinkTargetType | string | undefined;
+        "target"?: LinkTargetType | string | undefined;
         /**
-          * Default behaviour of the button.
+          * The type attribute to use for the button.
          */
         "type": ButtonType | undefined;
         /**
-          * The value associated with button `name` when it's submitted with the form data.
+          * The value attribute to use for the button.
          */
-        "value": string | undefined;
+        "value"?: string;
     }
     interface SbbOverlay {
         /**
@@ -2545,21 +2545,21 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * Emits whenever the menu is closed.
+          * Emits whenever the menu is dismissed.
          */
-        "onSbb-menu_did-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_did-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu is opened.
+          * Emits whenever the menu is presented.
          */
-        "onSbb-menu_did-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_did-present"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu begins the closing transition.
          */
-        "onSbb-menu_will-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_will-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu starts the opening transition.
+          * Emits whenever the menu starts the presenting transition.
          */
-        "onSbb-menu_will-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_will-present"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -2597,11 +2597,11 @@ declare namespace LocalJSX {
         /**
           * Whether the browser will show the download dialog on click.
          */
-        "download"?: boolean | undefined;
+        "download"?: boolean;
         /**
           * The <form> element to associate the button with.
          */
-        "form"?: string | undefined;
+        "form"?: string;
         /**
           * The href value you want to link to.
          */
@@ -2609,19 +2609,19 @@ declare namespace LocalJSX {
         /**
           * The name property passed to `sbb-icon` component.
          */
-        "icon"?: string | undefined;
+        "iconName"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
         "menuActionId"?: string;
         /**
-          * The name of the button.
+          * The name attribute to use for the button.
          */
         "name"?: string | undefined;
         /**
-          * Emits whenever the menu action is clicked.
+          * Emits the event on button click.
          */
-        "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<string>) => void;
+        "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
@@ -2631,13 +2631,13 @@ declare namespace LocalJSX {
          */
         "target"?: LinkTargetType | string | undefined;
         /**
-          * Default behaviour of the button.
+          * The type attribute to use for the button.
          */
         "type"?: ButtonType | undefined;
         /**
-          * The value associated with button `name` when it's submitted with the form data.
+          * The value attribute to use for the button.
          */
-        "value"?: string | undefined;
+        "value"?: string;
     }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;

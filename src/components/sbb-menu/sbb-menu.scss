@@ -7,6 +7,9 @@
   --sbb-menu-position-x: 0;
   --sbb-menu-position-y: 0;
   --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-menu-animation-easing: ease;
+
+  // TODO: add description
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-menu-min-height: #{px-to-rem-build(120)};
   --sbb-menu-max-width: #{px-to-rem-build(320)};
@@ -18,10 +21,10 @@
 // so inline values must be used (for background and animation duration in this case).
 // To learn more: https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
 ::backdrop {
-  --sbb-menu-backdrop-color: rgb(0 0 0 / 20%);
+  --sbb-menu-backdrop-color: #{$sbb-color-black-alpha-20};
   --sbb-menu-backdrop-animation-name: show-backdrop;
-  --sbb-menu-backdrop-animation-duration: 0.24s;
-  --sbb-menu-backdrop-animation-easing: ease;
+  --sbb-menu-backdrop-animation-duration: #{$sbb-animation-duration-6x}; // --sbb-menu-animation-duration
+  --sbb-menu-backdrop-animation-easing: ease; // --sbb-menu-animation-easing
 }
 
 :host([disable-animation]) {
@@ -49,7 +52,6 @@
   --sbb-menu-transform: translateY(100%);
 
   max-height: var(--sbb-menu-max-height);
-  max-height: 100%;
   min-width: 100%;
   text-align: start;
   position: var(--sbb-menu-position);
@@ -68,10 +70,11 @@
     animation: {
       name: show;
       duration: var(--sbb-menu-animation-duration);
-      timing-function: ease;
+      timing-function: var(--sbb-menu-animation-easing);
     }
   }
 
+  // In this block you can only use variables defined in ::backdrop.
   &::backdrop {
     background: var(--sbb-menu-backdrop-color);
 
@@ -89,30 +92,12 @@
       --sbb-menu-backdrop-animation-name: hide-backdrop;
     }
   }
-}
 
-.sbb-menu__content {
-  @include scrollbar-dark;
-
-  max-height: var(--sbb-menu-max-height);
-  padding-block: var(--sbb-spacing-fixed-1x);
-  overflow: auto;
-
-  &::after {
-    content: '';
-    display: block;
-    height: var(--sbb-spacing-fixed-8x);
-  }
-}
-
-@include ifForcedColors {
-  dialog {
+  @include ifForcedColors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
-}
 
-@include mq($from: medium) {
-  .sbb-menu {
+  @include mq($from: medium) {
     --sbb-menu-position: absolute;
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
 
@@ -131,8 +116,23 @@
       animation: none;
     }
   }
+}
 
-  .sbb-menu__content {
+.sbb-menu__content {
+  @include scrollbar-dark;
+
+  max-height: var(--sbb-menu-max-height);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  overflow: auto;
+
+  // Margin bottom in mobile variant
+  &::after {
+    content: '';
+    display: block;
+    height: var(--sbb-spacing-fixed-8x);
+  }
+
+  @include mq($from: medium) {
     min-height: var(--sbb-menu-min-height);
 
     &::after {

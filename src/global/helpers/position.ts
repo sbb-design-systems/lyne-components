@@ -1,4 +1,4 @@
-type ElementRectangle = Pick<
+export type ElementRectangle = Pick<
   Element,
   'scrollHeight' | 'clientHeight' | 'scrollWidth' | 'clientWidth'
 >;
@@ -29,7 +29,7 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
     elementDisplay = elementStyle.display,
     elementMaxHeight = parseInt(elementStyle.maxHeight, 10).toString();
 
-  // if its not hidden we just return normal height
+  // If it is not hidden we just return normal height
   if (elementDisplay !== 'none' && elementMaxHeight !== '0') {
     return {
       scrollHeight: el.scrollHeight,
@@ -39,8 +39,8 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
     };
   }
 
-  // the element is hidden so:
-  // make the el block in order to meassure its height but still be hidden
+  // The element is hidden so:
+  // make the el block in order to measure its height but still be hidden
   el.style.position = 'absolute';
   el.style.visibility = 'hidden';
   el.style.display = 'block';
@@ -50,7 +50,7 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
     scrollWidth = el.scrollWidth,
     clientWidth = el.clientWidth;
 
-  // reverting to the original values
+  // Reverting to the original values
   el.style.display = null;
   el.style.position = null;
   el.style.visibility = null;
@@ -80,28 +80,28 @@ export function getElementPosition(
   const triggerLeft = getOffset(trigger).left;
   const triggerTop = getOffset(trigger).top;
 
-  // default element alignment is "start/below"
+  // Default element alignment is "start/below"
   let elementXPosition = triggerLeft;
   let elementYPosition = triggerTop + triggerRec.height + properties.elementOffset;
 
-  // calculate element max-height
+  // Calculate element max-height
   let elementMaxHeight = `calc(100vh - ${
     triggerRec.top + triggerRec.height + properties.elementOffset * 2
   }px)`;
 
-  // check if window does not contain element height
+  // Check if window does not contain element height
   const overflows = elementRec.scrollHeight > element.clientHeight;
 
-  // check if horizontal alignment needs to be changed to "end"
+  // Check if horizontal alignment needs to be changed to "end"
   if (window.innerWidth < elementXPosition + elementRec.clientWidth) {
     elementXPosition = elementXPosition - (elementRec.clientWidth - triggerRec.width);
   }
 
-  // check if vertical alignment needs to be changed to "above":
+  // Check if vertical alignment needs to be changed to "above":
   if (
-    // if there is enough space above the trigger
+    // If there is enough space above the trigger
     triggerRec.top > elementRec.scrollHeight + properties.elementOffset &&
-    // if there is not enough space below the trigger
+    // If there is not enough space below the trigger
     window.innerHeight < triggerRec.bottom + elementRec.scrollHeight + properties.elementOffset * 2
   ) {
     elementYPosition = triggerTop - elementRec.scrollHeight - properties.elementOffset;
