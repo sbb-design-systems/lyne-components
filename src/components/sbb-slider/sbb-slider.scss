@@ -14,6 +14,7 @@
   --slider-icon-color: var(--sbb-color-black-default);
 }
 
+// override icons color
 :host([disabled]) {
   --slider-icon-color: var(--sbb-color-graphite-default);
 }
@@ -117,16 +118,17 @@
   pointer-events: none;
 }
 
-.slider__range-input:active ~ .slider__knob,
-.slider__range-input:focus-visible ~ .slider__knob {
-  --slider-knob-size: #{px-to-rem-build(31)};
-}
-
 .slider__knob-disabled {
   background-color: var(--sbb-color-milk-default);
-  border-color: var(--sbb-color-smoke-default);
+  border-color: var(--sbb-color-graphite-default);
 }
 
 .slider__knob-readonly {
   border-color: var(--sbb-color-smoke-default);
+}
+
+// slider knob resize on click (active / focus)
+.slider__range-input:active ~ .slider__knob,
+.slider__range-input:focus-visible ~ .slider__knob {
+  --slider-knob-size: #{px-to-rem-build(31)};
 }
