@@ -7,7 +7,7 @@ describe('sbb-action-group', () => {
       components: [SbbActionGroup],
       html: `
         <sbb-action-group align="start" orientation="horizontal">
-          <sbb-button variant="secondary" label="Button" />
+          <sbb-button variant="secondary">Button</sbb-button>
           <sbb-link
             variant="block"
             text-size="s"
@@ -27,7 +27,7 @@ describe('sbb-action-group', () => {
             <slot></slot>
           </div>
         </mock:shadow-root>
-        <sbb-button variant="secondary" label="Button" />
+        <sbb-button variant="secondary">Button</sbb-button>
         <sbb-link
           variant="block"
           text-size="s"

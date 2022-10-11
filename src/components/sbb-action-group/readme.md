@@ -19,19 +19,19 @@ The examples below shows how to use the `<sbb-action-group>` component using `<s
 
 ```html
 <sbb-action-group>
-  <sbb-button variant="secondary" label="Action 1"/>
-  <sbb-button label="Action 2"/>
+  <sbb-button variant="secondary">Action 1</sbb-button>
+  <sbb-button>Action 2</sbb-button>
 </sbb-action-group>
 
 <sbb-action-group align="end">
-  <sbb-button align-self="start" variant="secondary" label="Action 1"/>
-  <sbb-button variant="secondary" label="Action 2"/>
-  <sbb-button label="Action 3"></sbb-button>
+  <sbb-button align-self="start" variant="secondary">Action 1</sbb-button>
+  <sbb-button variant="secondary">Action 2</sbb-button>
+  <sbb-button>Action 3</sbb-button>
 </sbb-action-group>
 
 <sbb-action-group orientation="vertical">
-  <sbb-button variant="secondary" label="Action 1"/>
-  <sbb-button variant="secondary" label="Action 2"/>
+  <sbb-button variant="secondary">Action 1</sbb-button>
+  <sbb-button variant="secondary">Action 2</sbb-button>
   <sbb-link
     align-self="end"
     variant="block"
@@ -54,8 +54,8 @@ and we consider a template like the following one (possibly removing the link fo
 
 ```html
 <sbb-action-group>
-  <sbb-button label="Button 1" />
-  <sbb-button label="Button 2" />
+  <sbb-button>Button 1</sbb-button>
+  <sbb-button>Button 2</sbb-button>
   <sbb-link variant="block" icon-name="chevron-small-left-small" href="https://github.com/lyne-design-system/lyne-components">
     Link
   </sbb-link>
@@ -115,5 +115,3 @@ the values for `align-group` and `align-self` for the various allocations are as
 
 
 ----------------------------------------------
-
-

@@ -4,10 +4,14 @@ import buttonEvents from '../sbb-button/sbb-button.events';
 import linkEvents from '../sbb-link/sbb-link.events';
 
 const firstButtonTemplate = (alignSelf) => (
-  <sbb-button align-self={alignSelf} variant="secondary" label="Button 1" />
+  <sbb-button align-self={alignSelf} variant="secondary">
+    Button 1
+  </sbb-button>
 );
 
-const secondButtonTemplate = (alignSelf) => <sbb-button align-self={alignSelf} label="Button 2" />;
+const secondButtonTemplate = (alignSelf) => (
+  <sbb-button align-self={alignSelf}>Button 2</sbb-button>
+);
 
 const linkTemplate = (alignSelf) => (
   <sbb-link
