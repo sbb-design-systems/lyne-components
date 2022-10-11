@@ -1,4 +1,4 @@
-import { Component, h, Host, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbActionGroupAttributes } from './sbb-action-group.custom';
 
 /**
@@ -29,11 +29,9 @@ export class SbbActionGroup {
 
   public render(): JSX.Element {
     return (
-      <Host>
-        <div class={`action-group action-group--align-${this.alignGroup}`}>
-          <slot />
-        </div>
-      </Host>
+      <div class={`action-group action-group--align-${this.alignGroup}`}>
+        <slot />
+      </div>
     );
   }
 }
