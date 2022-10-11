@@ -32,21 +32,27 @@ const paragraphStyle = (context) => {
   return `${color} font-family: ${SbbTypoTypeFaceSbbRoman}; font-weight: normal; line-height: ${SbbTypoLineHeightBodyText}; letter-spacing: ${SbbTypoLetterSpacingBodyText}; font-size: ${SbbTypoScaleDefault}px`;
 };
 
-const Template = (args) => <sbb-link {...args}>{args.text}</sbb-link>;
+const Template = ({ text, ...args }) => <sbb-link {...args}>{text}</sbb-link>;
 
-const IconSlotTemplate = (args) => (
-  <sbb-link {...args}>
-    {args.text}
-    <sbb-icon slot="icon" name={args['icon-name']}></sbb-icon>
+const FixedWidthTemplate = ({ text, ...args }) => (
+  <sbb-link {...args} style="width: 200px;">
+    {text}
   </sbb-link>
 );
 
-const InlineTemplate = (args, context) => (
+const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }) => (
+  <sbb-link {...args}>
+    {text}
+    <sbb-icon slot="icon" name={iconName}></sbb-icon>
+  </sbb-link>
+);
+
+const InlineTemplate = ({ text, ...args }, context) => (
   <p style={paragraphStyle(context)}>
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
     ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
     dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-    sit amet. <sbb-link {...args}>{args.text}</sbb-link>
+    sit amet. <sbb-link {...args}>{text}</sbb-link>
   </p>
 );
 
@@ -74,6 +80,16 @@ const textSize = {
     type: 'select',
   },
   options: ['xs', 's', 'm'],
+};
+
+const isStatic = {
+  control: { type: 'boolean' },
+};
+
+const idValue = {
+  control: {
+    type: 'text',
+  },
 };
 
 const iconName = {
@@ -104,15 +120,6 @@ const href = {
   },
 };
 
-const download = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
 const target = {
   control: {
     type: 'text',
@@ -131,36 +138,12 @@ const rel = {
   },
 };
 
-const idValue = {
+const download = {
   control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const name = {
-  control: {
-    type: 'text',
+    type: 'boolean',
   },
   table: {
-    category: 'Button',
+    category: 'Link',
   },
 };
 
@@ -183,16 +166,7 @@ const disabled = {
   },
 };
 
-const form = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const eventId = {
+const name = {
   control: {
     type: 'text',
   },
@@ -210,27 +184,74 @@ const value = {
   },
 };
 
+const form = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const accessibilityControls = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const accessibilityHaspopup = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityDescribedby = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityLabelledby = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   text,
   variant,
   negative,
   'text-size': textSize,
+  static: isStatic,
+  'id-value': idValue,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
   href,
-  download,
   target,
   rel,
-  'id-value': idValue,
+  download,
+  type,
+  disabled,
+  name,
+  value,
+  form,
+  'accessibility-controls': accessibilityControls,
+  'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
-  name,
-  type,
-  form,
-  disabled,
-  'event-id': eventId,
-  value,
 };
 
 const defaultArgs = {
@@ -238,22 +259,24 @@ const defaultArgs = {
   variant: variant.options[0],
   negative: false,
   'text-size': textSize.options[1],
+  static: false,
+  'id-value': undefined,
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
   href: 'https://github.com/lyne-design-system/lyne-components',
-  download: false,
   target: undefined,
   rel: undefined,
-  'id-value': undefined,
+  download: false,
+  type: type.options[0],
+  disabled: false,
+  name: 'Button name',
+  value: undefined,
+  form: undefined,
+  'accessibility-controls': undefined,
+  'accessibility-haspopup': undefined,
   'accessibility-label': 'Travelcards & tickets',
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
-  name: 'Button name',
-  type: type.options[0],
-  form: undefined,
-  disabled: false,
-  'event-id': 'Event ID for button click',
-  value: undefined,
 };
 
 /* ************************************************* */
@@ -289,15 +312,40 @@ BlockM.documentation = {
   title: 'Block Size M',
 };
 
-export const BlockNegativeS = Template.bind({});
-BlockNegativeS.argTypes = defaultArgTypes;
-BlockNegativeS.args = {
+export const BlockXSIcon = Template.bind({});
+BlockXSIcon.argTypes = defaultArgTypes;
+BlockXSIcon.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[0],
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+};
+BlockXSIcon.documentation = {
+  title: 'Block Size XS Icon',
+};
+
+export const BlockSIcon = Template.bind({});
+BlockSIcon.argTypes = defaultArgTypes;
+BlockSIcon.args = {
   ...defaultArgs,
   'text-size': textSize.options[1],
-  negative: true,
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
 };
-BlockNegativeS.documentation = {
-  title: 'Block Negative Size S',
+BlockSIcon.documentation = {
+  title: 'Block Size S Icon',
+};
+
+export const BlockMIcon = Template.bind({});
+BlockMIcon.argTypes = defaultArgTypes;
+BlockMIcon.args = {
+  ...defaultArgs,
+  'text-size': textSize.options[2],
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+};
+BlockMIcon.documentation = {
+  title: 'Block Size M Icon',
 };
 
 export const BlockIconStart = Template.bind({});
@@ -310,63 +358,16 @@ BlockIconStart.documentation = {
   title: 'Block Icon Start',
 };
 
-export const BlockNegativeIconStart = Template.bind({});
-BlockNegativeIconStart.argTypes = defaultArgTypes;
-BlockNegativeIconStart.args = {
-  ...defaultArgs,
-  'icon-name': 'chevron-small-left-small',
-  negative: true,
-};
-BlockNegativeIconStart.documentation = {
-  title: 'Block Negative Icon Start',
-};
-
-export const BlockIconEnd = Template.bind({});
-BlockIconEnd.argTypes = defaultArgTypes;
-BlockIconEnd.args = {
-  ...defaultArgs,
-  'icon-name': 'chevron-small-right-small',
-  'icon-placement': iconPlacement.options[1],
-};
-BlockIconEnd.documentation = {
-  title: 'Block End Start',
-};
-
-export const BlockNegativeIconEnd = Template.bind({});
-BlockNegativeIconEnd.argTypes = defaultArgTypes;
-BlockNegativeIconEnd.args = {
-  ...defaultArgs,
-  'icon-name': 'chevron-small-right-small',
-  'icon-placement': iconPlacement.options[1],
-  negative: true,
-};
-BlockNegativeIconEnd.documentation = {
-  title: 'Block Negative Icon End',
-};
-
-export const BlockButton = Template.bind({});
-BlockButton.argTypes = defaultArgTypes;
-BlockButton.args = {
-  ...defaultArgs,
-  href: undefined,
-  'icon-name': 'chevron-small-right-small',
-  'icon-placement': iconPlacement.options[1],
-};
-BlockButton.documentation = {
-  title: 'Block Button',
-};
-
-export const BlockButtonNegative = Template.bind({});
-BlockButtonNegative.argTypes = defaultArgTypes;
-BlockButtonNegative.args = {
+export const BlockNegative = Template.bind({});
+BlockNegative.argTypes = defaultArgTypes;
+BlockNegative.args = {
   ...defaultArgs,
   negative: true,
-  href: undefined,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
-BlockButtonNegative.documentation = {
-  title: 'Block Button Negative',
+BlockNegative.documentation = {
+  title: 'Block Negative Icon',
 };
 
 export const BlockWithSlottedIcon = IconSlotTemplate.bind({});
@@ -391,6 +392,53 @@ BlockLinkOpensInNewWindow.args = {
 };
 BlockLinkOpensInNewWindow.documentation = {
   title: 'Block link opened in new window',
+};
+
+export const BlockFixedWidth = FixedWidthTemplate.bind({});
+BlockFixedWidth.argTypes = defaultArgTypes;
+BlockFixedWidth.args = {
+  ...defaultArgs,
+  text: 'A lot of link text to show what happens if there is not enough space.',
+  'icon-name': 'chevron-small-left-small',
+};
+BlockFixedWidth.documentation = {
+  title: 'Block Fixed Width',
+};
+
+export const BlockButton = Template.bind({});
+BlockButton.argTypes = defaultArgTypes;
+BlockButton.args = {
+  ...defaultArgs,
+  href: undefined,
+  'icon-name': 'chevron-small-right-small',
+  'icon-placement': iconPlacement.options[1],
+};
+BlockButton.documentation = {
+  title: 'Block Button',
+};
+
+export const BlockButtonNegative = Template.bind({});
+BlockButtonNegative.argTypes = defaultArgTypes;
+BlockButtonNegative.args = {
+  ...defaultArgs,
+  negative: true,
+  href: undefined,
+  'icon-name': 'chevron-small-left-small',
+};
+BlockButtonNegative.documentation = {
+  title: 'Block Button Negative',
+};
+
+export const BlockButtonFixedWidth = FixedWidthTemplate.bind({});
+BlockButtonFixedWidth.argTypes = defaultArgTypes;
+BlockButtonFixedWidth.args = {
+  ...defaultArgs,
+  href: undefined,
+  text: 'A lot of link text to show what happens if there is not enough space.',
+  'icon-name': 'chevron-small-left-small',
+};
+BlockButtonFixedWidth.documentation = {
+  title: 'Block Button Fixed Width',
 };
 
 export const Inline = InlineTemplate.bind({});
@@ -425,6 +473,19 @@ InlineButton.args = {
   href: undefined,
 };
 InlineNegative.documentation = {
+  title: 'Inline Button',
+};
+
+export const InlineButtonNegative = InlineTemplate.bind({});
+InlineButtonNegative.argTypes = defaultArgTypes;
+InlineButtonNegative.args = {
+  ...defaultArgs,
+  text: 'Show more',
+  variant: 'inline',
+  href: undefined,
+  negative: true,
+};
+InlineButtonNegative.documentation = {
   title: 'Inline Button',
 };
 

@@ -67,10 +67,10 @@ Accessibility is mainly done by wrapping the alerts into the `sbb-alert-group`.
 | `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.                                                                                                | `string`                                 | `undefined` |
 | `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                                                                                      | `string`                                 | `undefined` |
 | `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                                                                                                 | `string`                                 | `undefined` |
+| `disableAnimation`         | `disable-animation`         | Whether the fade in animation should be disabled.                                                                                                                         | `boolean`                                | `false`     |
 | `href`                     | `href`                      | The href value you want to link to.                                                                                                                                       | `string`                                 | `undefined` |
 | `iconName`                 | `icon-name`                 | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS. | `string`                                 | `undefined` |
-| `inanimate`                | `inanimate`                 | Whether the fade in animation should be disabled.                                                                                                                         | `boolean`                                | `false`     |
-| `linkContent`              | `link-content`              | Content of the link                                                                                                                                                       | `string`                                 | `undefined` |
+| `linkContent`              | `link-content`              | Content of the link.                                                                                                                                                      | `string`                                 | `undefined` |
 | `readonly`                 | `readonly`                  | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                          | `boolean`                                | `false`     |
 | `rel`                      | `rel`                       | The relationship of the linked URL as space-separated link types.                                                                                                         | `string`                                 | `undefined` |
 | `size`                     | `size`                      | You can choose between `m` or `l` size.                                                                                                                                   | `"l" \| "m"`                             | `'m'`       |
@@ -127,6 +127,7 @@ graph TD;
   sbb-alert --> sbb-link
   sbb-alert --> sbb-button
   sbb-link --> sbb-icon
+  sbb-button --> sbb-icon
   style sbb-alert fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -15,7 +15,7 @@ import { AccessibilityProperties } from '../../global/interfaces/accessibility-p
  * elements are allowed
  * @slot details - Slot used to render the details
  * @slot card-badge - Slot used to render the optional card badge e.g. discounts
- * @slot action - Slot used to render the link-button
+ * @slot action - Slot used to render the button
  */
 
 @Component({

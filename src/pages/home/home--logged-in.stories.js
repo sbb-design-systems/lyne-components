@@ -127,11 +127,12 @@ const Template = (args) => (
           gap-vertical="fixed-4x"
           appearance="vertical--centered"
         >
-          <sbb-link-button
-            href-value="https://github.com/lyne-design-system/lyne-components"
-            text="Timetable toggle pretender"
+          <sbb-button
+            href="https://github.com/lyne-design-system/lyne-components"
             variant="secondary"
-          ></sbb-link-button>
+          >
+            Timetable toggle pretender
+          </sbb-button>
           <sbb-stack
             gap-vertical="fixed-4x"
             appearance="vertical--centered"
@@ -198,7 +199,7 @@ const Template = (args) => (
                     </svg>
                   </div>
                   <div slot="category">
-                    <span>Sparbillett</span>
+                    <span>Saver ticket</span>
                   </div>
                   <div slot="title">
                     <sbb-title level="2" visual-level="1">
@@ -238,24 +239,8 @@ const Template = (args) => (
                     </sbb-card-badge>
                   </div>
                   <div slot="action">
-                    <sbb-button
-                      icon="qrcode-small"
-                      label="Ticket"
-                      variant="secondary"
-                      visual-button-only=""
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0,0,24,24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="m10,14.0001h4v-4h-4v4zm-.99998,1H15V9.00012H9.00002v5.99998zm1.99998-2h2v-2h-2v2zM6.99902,3.99612H10v-1.001H6.99902v1.001zm0,2.0037v-1h-2v1l1,.003v2h1v-1h2v-1.002H10.999v-1H8.99902v.002h-1v1h-1v-.003zm0,3h-1.999v-2h-1v-1h-1v2h1v1h.999v1h2v-1zm5.00048-3.9966h1v-2h-1v.998h-1v1h1v.002zM20,7.00312h1v-1.001h-1v1.001zm-2,5.00058h1v-1h-1v.998h-2v1h2v-.998zM3.99902,4.00322l2-.008v-1h-3v2.008h1v-1zM18,13.0037v2h1v-1h1v1h1v-2h-3zm-5.0005-8.00048v2h1v-1l3-.002v-1h1v-1h-1v-.998h-1v1.998h-1v-.998h-1v1h-1zM16,7.00372v2h1v-.002h1v-1h-1v-.998h-1zm1,14.00138h1v-2h-1v2zm3-1.0033h-1v1h1v.003h1v-2h-1v.997zm0-14.99858h1v-2h-1v-.002h-2v1h2v1.002zm0,10.00048h-1v2.998h-1v1h2v-1h1v-1h-1v-1.998zm0-2.9996h1v-2.001h-1v2.001zm-3-5.00298h2v-1h-2v1zm2,1.0002v2.00198h1v-.99998l1-.002v-1h-2zM11,21.0021h2v-1.001h-2v1.001zM9.99952,8.00132h.99998v.002h1v-2h-1v.998h-.99998v1zm0,11.00048h-1v1h1v.003h.99998v-2h-.99998v.997zM15,19.0047h-1v2h1v-.003h1v-1h-1v-.997zm-7.00098-4.0029-2,.002v1h1v.998h2v-1h-1v-1zM10,17.0021h2v-1h-2v1zm6-6.001h2v-1h-2v1zM2.99902,18.0011h1v-1h-1v1zm2-5h1.001v-1h-1.001v1zm2-3.99998h1v-1h-1v1zM14,8.00212h1v-1.001h-1v1.001zM3.99902,12.0011h1v-1h-1v1zm-1-1h1V9.00112h-1v1.99998zm0,3.001h1v-2.001h-1v2.001zM4.99902,18.0031h2.001v-1h-2.001v1zm0-4.0013h-1v1l-1,.002v1h2v-2.002zm2,5v.003h-1v1h1v.997h1v-1.998h1v-1h-2v.998zm-3,0h-1v2h1v.003h2v-1h-2v-1.003zm2-4.9977h2v-1h-2v1zm0-2h2v-1h-2v1zM17,17.0021h1v-1h-1v1zm-3-.0003h1v2h2v-1h-1v-1.998h1v-2h-1v1.998l-3,.002v1h-1v2h1v-1h1v-1.002z"
-                        ></path>
-                      </svg>
+                    <sbb-button variant="secondary" static icon-name="qrcode-small">
+                      Ticket
                     </sbb-button>
                   </div>
                 </sbb-card-product>
@@ -282,7 +267,7 @@ const Template = (args) => (
                     </svg>
                   </div>
                   <div slot="category">
-                    <span>Sparbillett</span>
+                    <span>Saver ticket</span>
                   </div>
                   <div slot="title">
                     <sbb-title level="2" visual-level="6">
@@ -293,24 +278,8 @@ const Template = (args) => (
                     <span>Today, Valid 24 hours</span>
                   </div>
                   <div slot="action">
-                    <sbb-button
-                      icon="qrcode-small"
-                      label="Billett"
-                      variant="secondary"
-                      visual-button-only=""
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0,0,24,24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="m10,14.0001h4v-4h-4v4zm-.99998,1H15V9.00012H9.00002v5.99998zm1.99998-2h2v-2h-2v2zM6.99902,3.99612H10v-1.001H6.99902v1.001zm0,2.0037v-1h-2v1l1,.003v2h1v-1h2v-1.002H10.999v-1H8.99902v.002h-1v1h-1v-.003zm0,3h-1.999v-2h-1v-1h-1v2h1v1h.999v1h2v-1zm5.00048-3.9966h1v-2h-1v.998h-1v1h1v.002zM20,7.00312h1v-1.001h-1v1.001zm-2,5.00058h1v-1h-1v.998h-2v1h2v-.998zM3.99902,4.00322l2-.008v-1h-3v2.008h1v-1zM18,13.0037v2h1v-1h1v1h1v-2h-3zm-5.0005-8.00048v2h1v-1l3-.002v-1h1v-1h-1v-.998h-1v1.998h-1v-.998h-1v1h-1zM16,7.00372v2h1v-.002h1v-1h-1v-.998h-1zm1,14.00138h1v-2h-1v2zm3-1.0033h-1v1h1v.003h1v-2h-1v.997zm0-14.99858h1v-2h-1v-.002h-2v1h2v1.002zm0,10.00048h-1v2.998h-1v1h2v-1h1v-1h-1v-1.998zm0-2.9996h1v-2.001h-1v2.001zm-3-5.00298h2v-1h-2v1zm2,1.0002v2.00198h1v-.99998l1-.002v-1h-2zM11,21.0021h2v-1.001h-2v1.001zM9.99952,8.00132h.99998v.002h1v-2h-1v.998h-.99998v1zm0,11.00048h-1v1h1v.003h.99998v-2h-.99998v.997zM15,19.0047h-1v2h1v-.003h1v-1h-1v-.997zm-7.00098-4.0029-2,.002v1h1v.998h2v-1h-1v-1zM10,17.0021h2v-1h-2v1zm6-6.001h2v-1h-2v1zM2.99902,18.0011h1v-1h-1v1zm2-5h1.001v-1h-1.001v1zm2-3.99998h1v-1h-1v1zM14,8.00212h1v-1.001h-1v1.001zM3.99902,12.0011h1v-1h-1v1zm-1-1h1V9.00112h-1v1.99998zm0,3.001h1v-2.001h-1v2.001zM4.99902,18.0031h2.001v-1h-2.001v1zm0-4.0013h-1v1l-1,.002v1h2v-2.002zm2,5v.003h-1v1h1v.997h1v-1.998h1v-1h-2v.998zm-3,0h-1v2h1v.003h2v-1h-2v-1.003zm2-4.9977h2v-1h-2v1zm0-2h2v-1h-2v1zM17,17.0021h1v-1h-1v1zm-3-.0003h1v2h2v-1h-1v-1.998h1v-2h-1v1.998l-3,.002v1h-1v2h1v-1h1v-1.002z"
-                        ></path>
-                      </svg>
+                    <sbb-button variant="secondary" static icon-name="qrcode-small">
+                      Ticket
                     </sbb-button>
                   </div>
                 </sbb-card-product>
@@ -332,26 +301,25 @@ const Template = (args) => (
                     ></sbb-journey-header>
                   </div>
                   <div slot="text">
-                    <span>Saturady, 21.02.2021, 1 h 26 min</span>
+                    <span>Saturday, 21.02.2021, 1 h 26 min</span>
                   </div>
                   <div slot="details">
                     <sbb-pearl-chain legs='{"legs":[{"cancellation":false,"duration":25},{"cancellation":false,"duration":10},{"cancellation":false,"duration":8},{"cancellation":false,"duration":15},{"cancellation":false,"duration":42}]}'></sbb-pearl-chain>
                   </div>
                   <div slot="action">
-                    <sbb-button
-                      label="Details"
-                      variant="secondary"
-                      visual-button-only=""
-                    ></sbb-button>
+                    <sbb-button variant="secondary" static>
+                      Details
+                    </sbb-button>
                   </div>
                 </sbb-card-product>
               </li>
             </sbb-stack>
-            <sbb-link-button
-              href-value="https://github.com/lyne-design-system/lyne-components"
-              text="All purchased tickets"
+            <sbb-button
+              href="https://github.com/lyne-design-system/lyne-components"
               variant="secondary"
-            ></sbb-link-button>
+            >
+              All purchased tickets
+            </sbb-button>
           </sbb-stack>
         </sbb-stack>
       </sbb-grid>
@@ -398,12 +366,9 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button
-                label="Buy"
-                size="small"
-                variant="secondary"
-                visual-button-only=""
-              ></sbb-button>
+              <sbb-button size="m" variant="secondary" static>
+                Buy
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -432,12 +397,9 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button
-                label="buy"
-                size="small"
-                variant="secondary"
-                visual-button-only=""
-              ></sbb-button>
+              <sbb-button size="m" variant="secondary" static>
+                Buy
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -466,12 +428,9 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button
-                label="Buy"
-                size="small"
-                variant="secondary"
-                visual-button-only=""
-              ></sbb-button>
+              <sbb-button size="m" variant="secondary" static>
+                Buy
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -496,19 +455,8 @@ const Template = (args) => (
               <span>2nd class, valid until 30.11.2022</span>
             </div>
             <div slot="action">
-              <sbb-button
-                icon="highlighter-small"
-                label="Edit subscription"
-                variant="secondary"
-                visual-button-only=""
-              >
-                <svg width="24" height="24" viewBox="0,0,24,24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="m17.5513,3.84424.3021.30211,3,3,.3021.30211-.2513.34553-8,11.00001-.3441.4732-.4138-.4137-.3167-.3167-.1016.0175c-.2193.0378-.5202.0894-.8459.1447-.5452.0925-1.16545.1962-1.58978.2622-.15323.229-.33883.5095-.49974.7535-.10317.1564-.19582.2973-.26267.399l-.07899.1204-.02139.0326-.00554.0084-.00141.0022-.00035.0005-.00008.0001-.00002.0001-.4182-.2741.41819.2741-.337.5142-.43474-.4347-.21165-.2117-1.15956.773-.12684.0846H2.55908l.52186-.7828,1.77304-2.6595-.6673-.6673.51802-.3363.27223.4194-.27221-.4194h.00004l.00016-.0001.00062-.0004.00243-.0016.00951-.0062.03635-.0236.13265-.0859c.11148-.0722.26436-.1711.42989-.2778.24274-.1565.51538-.3316.72445-.464.06184-.3896.1625-.9921.25396-1.534.05625-.3332.10933-.6453.14835-.8741l.02036-.1192-.31716-.3171-.41376-.4138.47322-.3442L17.2058,4.09553l.3455-.25129zM7.33037,14.0375c-.01603.0946-.03264.1928-.04954.2929-.11266.6674-.23676,1.4122-.28642,1.7436l-.03429.2288-.19661.122c-.1971.1223-.57402.364-.90527.5776l-.0904.0583,2.15556,2.1556.03438-.0522c.20671-.3134.45714-.6916.62792-.9442l.12344-.1826.21808-.0321c.3915-.0575,1.13578-.1815,1.78758-.2921.085-.0144.1682-.0286.2488-.0424l-3.63323-3.6332zm-1.75023,4.2497-1.13946,1.7092h1.40675l.86514-.5768-1.13243-1.1324zm1.68705-5.7271,5.17251,5.1725,7.4045-10.18125-2.3958-2.39579L7.26719,12.5601zm4.08621,1.7934,6-6.00005-.7071-.7071-6,5.99995.7071.7072z"
-                  ></path>
-                </svg>
+              <sbb-button icon-name="highlighter-small" variant="secondary" static>
+                Edit subscription
               </sbb-button>
             </div>
           </sbb-card-product>
@@ -570,11 +518,12 @@ const Template = (args) => (
             </sbb-link>
           </sbb-link-list>
           <sbb-stack space-leading="fixed-3x">
-            <sbb-link-button
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="All help topics"
+            <sbb-button
+              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
               variant="primary"
-            ></sbb-link-button>
+            >
+              All help topics
+            </sbb-button>
           </sbb-stack>
         </sbb-stack>
       </div>
@@ -619,11 +568,12 @@ const Template = (args) => (
           </sbb-title>
           <p>Our newsletter regularly informs you of attractive offers from SBB via e-mail.</p>
           <sbb-stack space-leading="fixed-3x">
-            <sbb-link-button
-              href-value="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-              text="Subscribe"
+            <sbb-button
+              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
               variant="secondary"
-            ></sbb-link-button>
+            >
+              Subscribe
+            </sbb-button>
           </sbb-stack>
         </sbb-stack>
       </div>

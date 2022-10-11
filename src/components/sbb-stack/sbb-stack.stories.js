@@ -197,11 +197,9 @@ const template = (args) => (
       Lyne
     </sbb-title>
     <p>Is user-centered and empowering, holistic and inclusive, encourages ...</p>
-    <sbb-link-button
-      href-value="https://github.com/lyne-design-system/lyne-components"
-      text="Discover Lyne"
-      variant="primary"
-    ></sbb-link-button>
+    <sbb-button href="https://github.com/lyne-design-system/lyne-components" variant="primary">
+      Discover Lyne
+    </sbb-button>
   </sbb-stack>
 );
 

@@ -1,5 +1,4 @@
 import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
@@ -182,14 +181,14 @@ const defaultArgs = {
 /* --- icon slot ----------------------------------- */
 
 const iconArgs = {
-  icon: 'ticket-route-medium',
+  'icon-name': 'ticket-route-medium',
 };
 
 const iconBicycleArgs = {
-  icon: 'bicycle-medium',
+  'icon-name': 'bicycle-medium',
 };
 
-const SlotIconTemplate = (args) => getMarkupForSvg(args.icon);
+const SlotIconTemplate = (args) => <sbb-icon slot="icon" name={args['icon-name']}></sbb-icon>;
 
 /* --- category slot ---------------------------------- */
 
@@ -363,22 +362,20 @@ const actionGAArgs = {
 };
 
 const actionWithPenArgs = {
-  icon: 'highlighter-small',
+  'icon-name': 'highlighter-small',
   label: 'Abo bearbeiten',
   variant: 'secondary',
   'visual-button-only': true,
 };
 
 const actionWithQrArgs = {
-  icon: 'qrcode-small',
+  'icon-name': 'qrcode-small',
   label: 'Billett',
   variant: 'secondary',
   'visual-button-only': true,
 };
 
-const SlotActionTemplate = (args) => (
-  <sbb-button {...args}>{getMarkupForSvg(args.icon)}</sbb-button>
-);
+const SlotActionTemplate = ({ label, ...args }) => <sbb-button {...args}>{label}</sbb-button>;
 
 /* ************************************************* */
 /* Storybook templates                               */
@@ -386,9 +383,7 @@ const SlotActionTemplate = (args) => (
 
 const TemplateTopProductDayPass = (args) => (
   <sbb-card-product {...args}>
-    <div slot="icon">
-      <SlotIconTemplate {...iconArgs} />
-    </div>
+    <SlotIconTemplate {...iconArgs} />
     <div slot="title">
       <SlotSbbTitleTemplate {...sbbTitleDayPassArgs} />
     </div>
@@ -403,9 +398,7 @@ const TemplateTopProductDayPass = (args) => (
 
 const TemplateTopProductDayPassBicycle = (args) => (
   <sbb-card-product {...args}>
-    <div slot="icon">
-      <SlotIconTemplate {...iconBicycleArgs} />
-    </div>
+    <SlotIconTemplate {...iconBicycleArgs} />
     <div slot="title">
       <SlotSbbTitleTemplate {...sbbTitleDayPassBicycleArgs} />
     </div>
@@ -420,9 +413,7 @@ const TemplateTopProductDayPassBicycle = (args) => (
 
 const TemplateTopProductTravelCardPointToPoint = (args) => (
   <sbb-card-product {...args}>
-    <div slot="icon">
-      <SlotIconTemplate {...iconArgs} />
-    </div>
+    <SlotIconTemplate {...iconArgs} />
     <div slot="title">
       <SlotSbbTitleTemplate {...sbbTitleTravelCardPointToPointArgs} />
     </div>
@@ -437,9 +428,7 @@ const TemplateTopProductTravelCardPointToPoint = (args) => (
 
 const TemplateYourProductPointToPointPersonalized = (args) => (
   <sbb-card-product {...args}>
-    <div slot="icon">
-      <SlotIconTemplate {...iconArgs} />
-    </div>
+    <SlotIconTemplate {...iconArgs} />
     <div slot="title">
       <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
     </div>
@@ -454,9 +443,7 @@ const TemplateYourProductPointToPointPersonalized = (args) => (
 
 const TemplateYourProductTravelCardPersonalized = (args) => (
   <sbb-card-product {...args}>
-    <div slot="icon">
-      <SlotIconTemplate {...iconArgs} />
-    </div>
+    <SlotIconTemplate {...iconArgs} />
     <div slot="category">
       <SlotSbbCategoryTemplate {...sbbCategoryArgs} />
     </div>
@@ -553,9 +540,7 @@ const TemplateTravelCardHalfFare = (args) => (
 
 const TemplateTheWholeShabang = (args) => (
   <sbb-card-product {...args}>
-    <div slot="icon">
-      <SlotIconTemplate {...iconArgs} />
-    </div>
+    <SlotIconTemplate {...iconArgs} />
     <div slot="category">
       <SlotSbbCategoryTemplate {...sbbCategoryArgs} />
     </div>

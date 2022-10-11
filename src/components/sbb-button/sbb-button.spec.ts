@@ -1,33 +1,177 @@
 import events from './sbb-button.events';
 import { SbbButton } from './sbb-button';
-import lyneIcons from 'lyne-icons/dist/icons.json';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-button', () => {
-  it('renders', async () => {
+  it('renders a primary button without icon', async () => {
     const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<sbb-button label="Label" variant="secondary-negative" icon="true">${lyneIcons.icons['arrow-right-small']}</sbb-button>`,
+      html: `
+        <sbb-button
+          variant="primary"
+          negative
+          size="m"
+          id-value="id"
+          type="button"
+          disabled
+          name="name"
+          value="value"
+          form="formid"
+          accessibility-controls="id"
+          accessibility-haspopup="true"
+          accessibility-label="Travelcards & tickets"
+          accessibility-describedby="id"
+          accessibility-labelledby="id"
+        >
+          Label Text
+        </sbb-button>`,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-button icon="true" label="Label" variant="secondary-negative">
+        <sbb-button
+          variant="primary"
+          negative
+          size="m"
+          id-value="id"
+          type="button"
+          disabled
+          name="name"
+          value="value"
+          form="formid"
+          accessibility-controls="id"
+          accessibility-haspopup="true"
+          accessibility-label="Travelcards & tickets"
+          accessibility-describedby="id"
+          accessibility-labelledby="id"
+        >
           <mock:shadow-root>
-            <button class="button button--size-l button--secondary-negative" type="button">
-              <span class="button__icon">
-                <slot></slot>
-              </span>
-              <span class="button__label">Label</span>
+            <button
+              class="sbb-button"
+              dir="ltr"
+              id="id"
+              type="button"
+              disabled="true"
+              name="name"
+              value="value"
+              form="formid"
+              aria-controls="id"
+              aria-haspopup="true"
+              aria-label="Travelcards &amp; tickets"
+              aria-describedby="id"
+              aria-labelledby="id"
+             >
+              <span class='sbb-button__label'><slot></slot></span>
             </button>
           </mock:shadow-root>
-          <svg height="24" viewBox="0,0,24,24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" d="m17.8436,12.1382-3.99-3.99196-.7072.70693,3.1366,3.13823H5v1h11.287l-3.1413,3.1555.7086.7056,3.99-4.008.3519-.3535-.3526-.3528z" fill-rule="evenodd"></path>
-          </svg>
+          Label Text
         </sbb-button>
       `);
   });
 
-  it('Should emit click event on click with no payload', async () => {
+  it('renders a primary button with slotted icon', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbButton],
+      html: `<sbb-button variant='primary'><sbb-icon slot='icon' name='chevron-small-left-small'></sbb-icon>Label Text</sbb-button>`,
+    });
+
+    expect(root).toEqualHtml(`
+        <sbb-button size='l' variant='primary'>
+          <mock:shadow-root>
+            <button class='sbb-button' dir="ltr" type="button">
+              <span class='sbb-button__icon'>
+                <slot name='icon'></slot>
+              </span>
+              <span class='sbb-button__label'><slot></slot></span>
+            </button>
+          </mock:shadow-root>
+          <sbb-icon slot='icon' name='chevron-small-left-small'></sbb-icon>
+          Label Text
+        </sbb-button>
+      `);
+  });
+
+  it('renders a button as a link', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbButton],
+      html: `
+        <sbb-button
+          href="http://www.sbb.ch"
+          target="_blank"
+          rel="noopener"
+          download
+        >
+          Label Text
+        </sbb-button>`,
+    });
+
+    expect(root).toEqualHtml(`
+        <sbb-button
+          variant="primary"
+          size="l"
+          href="http://www.sbb.ch"
+          target="_blank"
+          rel="noopener"
+          download
+        >
+          <mock:shadow-root>
+            <a
+              class="sbb-button"
+              dir="ltr"
+              href="http://www.sbb.ch"
+              target="_blank"
+              rel="noopener"
+              download
+             >
+              <span class='sbb-button__label'>
+                <slot></slot>
+                <span class="sbb-button__opens-in-new-window">
+                  . Link target opens in new window.
+                </span>
+              </span>
+            </a>
+          </mock:shadow-root>
+          Label Text
+        </sbb-button>
+      `);
+  });
+
+  it('renders a sbb-button inside an anchor as span element', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbButton],
+      html: `<a href="#"><sbb-button variant='secondary' negative>this is a button</sbb-button></a>`,
+    });
+
+    expect(root).toEqualHtml(`
+          <sbb-button variant='secondary' negative size='l' static>
+            <mock:shadow-root>
+              <span class='sbb-button' dir="ltr">
+                <span class='sbb-button__label'><slot></slot></span>
+              </span>
+            </mock:shadow-root>
+            this is a button
+          </sbb-button>
+      `);
+  });
+
+  it('renders a sbb-button as span element by setting static property', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbButton],
+      html: `<sbb-button variant='secondary' static>this is a static button</sbb-button>`,
+    });
+
+    expect(root).toEqualHtml(`
+          <sbb-button variant='secondary' size='l' static>
+            <mock:shadow-root>
+              <span class='sbb-button' dir="ltr">
+                <span class='sbb-button__label'><slot></slot></span>
+              </span>
+            </mock:shadow-root>
+            this is a static button
+          </sbb-button>
+      `);
+  });
+
+  it('Should emit click event on click', async () => {
     const page = await newSpecPage({
       components: [SbbButton],
       html: '<sbb-button label="I am a button"></sbb-button>',
@@ -45,28 +189,5 @@ describe('sbb-button', () => {
     button.click();
     await page.waitForChanges();
     expect(buttonSpy).toHaveBeenCalled();
-    expect(buttonSpy.mock.calls[0][0].detail).toEqual(undefined);
-  });
-
-  it('Should emit click event on click with correct payload', async () => {
-    const eventId = 'testId';
-    const page = await newSpecPage({
-      components: [SbbButton],
-      html: `<sbb-button label="I am a button" event-id="${eventId}"></sbb-button>`,
-      supportsShadowDom: true,
-    });
-
-    const {
-      root: { shadowRoot },
-    } = page;
-
-    const button = shadowRoot.querySelector('button');
-    const buttonSpy = jest.fn();
-
-    page.win.addEventListener(events.click, buttonSpy);
-    button.click();
-    await page.waitForChanges();
-    expect(buttonSpy).toHaveBeenCalled();
-    expect(buttonSpy.mock.calls[0][0].detail).toEqual(eventId);
   });
 });
