@@ -153,9 +153,17 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
     if (this.disabled || this.isStatic) {
       return;
     }
+
     this.click.emit();
-    if (this._closestForm && this.type === 'submit') {
+
+    if (!this._closestForm || this.type !== 'submit') {
+      return;
+    }
+
+    if (this._closestForm.requestSubmit) {
       this._closestForm.requestSubmit();
+    } else {
+      this._closestForm.submit();
     }
   }
 
