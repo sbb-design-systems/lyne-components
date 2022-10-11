@@ -160,7 +160,7 @@ export class SbbMenu implements ComponentInterface {
     // check whether it's a string or an HTMLElement
     if (typeof trigger === 'string') {
       this._triggerEl = document.getElementById(trigger);
-    } else if (trigger instanceof window.Element) {
+    } else if (trigger instanceof window.HTMLElement) {
       this._triggerEl = trigger;
     }
 
