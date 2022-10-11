@@ -16,62 +16,48 @@ $horizontal-orientations: (
   end: flex-end,
 );
 
-@mixin vertical-action-group {
-  @each $key, $value in $vertical-orientations {
-    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-    .action-group--align-#{$key} {
-      --sbb-action-group-align-items: #{$value};
-    }
-  }
-
-  .action-group {
-    align-items: var(--sbb-action-group-align-items);
-  }
-}
-
-@mixin vertical-action-group-element-align-reset {
-  --sbb-action-group-orientation: column;
-  @include vertical-action-group;
-
-  ::slotted([align-self='start']) {
-    margin-inline-end: unset;
-  }
-
-  ::slotted([align-self='center']) {
-    margin-inline: unset;
-  }
-
-  ::slotted([align-self='end']) {
-    margin-inline-start: unset;
-  }
-}
-
-:host {
+:host([orientation='horizontal']) {
   --sbb-action-group-orientation: row;
+  --sbb-action-group-align-items: center;
 }
 
-.action-group {
-  display: flex;
-  flex-direction: var(--sbb-action-group-orientation);
-  gap: var(--sbb-spacing-fixed-4x);
+@each $key, $value in $horizontal-orientations {
+  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+  :host([orientation='horizontal'][align-group='#{$key}']) {
+    --sbb-action-group-justify-content: #{$value};
+  }
 }
 
 :host([orientation='vertical']) {
   --sbb-action-group-orientation: column;
-  @include vertical-action-group;
 }
 
-:host([orientation='horizontal']) {
-  @each $key, $value in $horizontal-orientations {
-    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-    .action-group--align-#{$key} {
-      --sbb-action-group-justify-content: #{$value};
+@each $key, $value in $vertical-orientations {
+  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+  :host([orientation='vertical'][align-group='#{$key}']) {
+    --sbb-action-group-align-items: #{$value};
+  }
+}
+
+@each $breakpoint in $breakpoints {
+  @include mq($from: #{$breakpoint}) {
+    @each $key, $value in $horizontal-orientations {
+      // horizontal-from overrides orientation vertical
+      :host([orientation='vertical'][horizontal-from='#{$breakpoint}'][align-group='#{$key}']) {
+        --sbb-action-group-orientation: row;
+        --sbb-action-group-align-items: center;
+        --sbb-action-group-justify-content: #{$value};
+      }
     }
   }
+}
 
-  .action-group {
-    justify-content: var(--sbb-action-group-justify-content);
-  }
+.sbb-action-group {
+  display: flex;
+  flex-direction: var(--sbb-action-group-orientation);
+  gap: var(--sbb-spacing-fixed-4x);
+  justify-content: var(--sbb-action-group-justify-content);
+  align-items: var(--sbb-action-group-align-items);
 
   ::slotted([align-self='start']) {
     margin-inline-end: auto;
@@ -83,45 +69,6 @@ $horizontal-orientations: (
 
   ::slotted([align-self='end']) {
     margin-inline-start: auto;
-  }
-}
-
-@each $breakpoint in $breakpoints {
-  // horizontal-from overrides orientation vertical
-  :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
-    --sbb-action-group-orientation: row;
-
-    @each $key, $value in $horizontal-orientations {
-      /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-      .action-group--align-#{$key} {
-        --sbb-action-group-justify-content: #{$value};
-        --sbb-action-group-align-items: unset;
-      }
-
-      .action-group {
-        justify-content: var(--sbb-action-group-justify-content);
-      }
-
-      ::slotted([align-self='start']) {
-        margin-inline-end: auto;
-      }
-
-      ::slotted([align-self='center']) {
-        margin-inline: auto;
-      }
-
-      ::slotted([align-self='end']) {
-        margin-inline-start: auto;
-      }
-    }
-  }
-
-  // horizontal-from overrides orientation horizontal
-  :host([orientation='horizontal'][horizontal-from='#{$breakpoint}']),
-  :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
-    @include mq($to: #{$breakpoint}) {
-      @include vertical-action-group-element-align-reset;
-    }
   }
 }
 

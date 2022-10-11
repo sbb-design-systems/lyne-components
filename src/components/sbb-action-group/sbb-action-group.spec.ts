@@ -21,9 +21,9 @@ describe('sbb-action-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-action-group align="start" orientation="horizontal">
+      <sbb-action-group align="start" orientation="horizontal" align-group="start" horizontal-from="medium">
         <mock:shadow-root>
-          <div class="action-group action-group--align-start">
+          <div class="sbb-action-group">
             <slot></slot>
           </div>
         </mock:shadow-root>

@@ -14,12 +14,14 @@ export class SbbActionGroup {
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.
    */
-  @Prop() public alignGroup: InterfaceSbbActionGroupAttributes['alignGroup'] = 'start';
+  @Prop({ reflect: true }) public alignGroup: InterfaceSbbActionGroupAttributes['alignGroup'] =
+    'start';
 
   /**
    * Overrides the behaviour of `orientation` property.
    */
-  @Prop() public horizontalFrom?: InterfaceSbbActionGroupAttributes['horizontalFrom'] = 'medium';
+  @Prop({ reflect: true })
+  public horizontalFrom?: InterfaceSbbActionGroupAttributes['horizontalFrom'] = 'medium';
 
   /**
    * Indicates the orientation of the components inside the `<sbb-action-group>`.
@@ -29,7 +31,7 @@ export class SbbActionGroup {
 
   public render(): JSX.Element {
     return (
-      <div class={`action-group action-group--align-${this.alignGroup}`}>
+      <div class="sbb-action-group">
         <slot />
       </div>
     );
