@@ -8,10 +8,7 @@ export class SbbPearlChainVertical {
   public render(): JSX.Element {
     return (
       <Host>
-        <div
-          class="sbb-pearl-chain-vertical"
-          style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}
-        >
+        <div class="sbb-pearl-chain-vertical" style={{ display: 'table', tableLayout: 'fixed' }}>
           <slot></slot>
         </div>
       </Host>

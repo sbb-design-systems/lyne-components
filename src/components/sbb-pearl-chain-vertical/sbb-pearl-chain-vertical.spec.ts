@@ -14,7 +14,7 @@ describe('sbb-pearl-chain-vertical', () => {
     expect(page.root).toEqualHtml(`
         <sbb-pearl-chain-vertical>
           <mock:shadow-root>
-            <div class="sbb-pearl-chain-vertical" style="display: table;  table-layout: fixed; width: 100%;">
+            <div class="sbb-pearl-chain-vertical" style="display: table;  table-layout: fixed;">
               <slot></slot>
             </div>
           </mock:shadow-root>
