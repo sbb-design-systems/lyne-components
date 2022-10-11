@@ -2,7 +2,7 @@ import events from './sbb-slider.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-slider {...args}></sbb-slider>;
+const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
 
 const valueArg = {
   control: {
@@ -77,32 +77,53 @@ const endIconArg = {
 };
 
 const basicArgTypes = {
-  value: valueArg,
-  step: stepArg,
-  min: minArg,
-  max: maxArg,
-  readonly: readonlyArg,
   disabled: disabledArg,
-  'start-icon': startIconArg,
   'end-icon': endIconArg,
+  max: maxArg,
+  min: minArg,
+  readonly: readonlyArg,
+  'start-icon': startIconArg,
+  step: stepArg,
+  value: valueArg,
 };
 
 const basicArgs = {
-  value: '40',
-  step: '',
-  min: '0',
-  max: '100',
-  readonly: false,
   disabled: false,
-  'start-icon': 'walk-slow-small',
   'end-icon': 'walk-fast-small',
+  max: '100',
+  min: '0',
+  readonly: false,
+  'start-icon': 'walk-slow-small',
+  step: '',
+  value: '40',
 };
 
-export const sbbSlider = Template.bind({});
+export const sbbSlider = TemplateSbbSlider.bind({});
 sbbSlider.argTypes = basicArgTypes;
 sbbSlider.args = { ...basicArgs };
 sbbSlider.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+  title: 'Sbb Slider',
+};
+
+export const sbbSliderDisabled = TemplateSbbSlider.bind({});
+sbbSliderDisabled.argTypes = basicArgTypes;
+sbbSliderDisabled.args = { ...basicArgs, disabled: true };
+sbbSlider.documentation = {
+  title: 'Sbb Slider disabled',
+};
+
+export const sbbSliderReadonly = TemplateSbbSlider.bind({});
+sbbSliderReadonly.argTypes = basicArgTypes;
+sbbSliderReadonly.args = { ...basicArgs, readonly: true };
+sbbSlider.documentation = {
+  title: 'Sbb Slider readonly',
+};
+
+export const sbbSliderStep = TemplateSbbSlider.bind({});
+sbbSliderStep.argTypes = basicArgTypes;
+sbbSliderStep.args = { ...basicArgs, step: '10' };
+sbbSlider.documentation = {
+  title: 'Sbb Slider readonly',
 };
 
 export default {

@@ -139,7 +139,7 @@ export class SbbSlider {
           </div>
           <div
             class={{
-              'slider__knob': !this.disabled && !this.readonly,
+              slider__knob: !this.disabled && !this.readonly,
               'slider__knob-disabled': this.disabled,
               'slider__knob-readonly': this.readonly,
             }}
