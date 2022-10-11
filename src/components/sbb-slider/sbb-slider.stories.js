@@ -77,11 +77,9 @@ const endIconArg = {
 };
 
 const basicArgTypes = {
-  disabled: disabledArg,
   'end-icon': endIconArg,
   max: maxArg,
   min: minArg,
-  readonly: readonlyArg,
   'start-icon': startIconArg,
   step: stepArg,
   value: valueArg,
@@ -106,14 +104,14 @@ sbbSlider.documentation = {
 };
 
 export const sbbSliderDisabled = TemplateSbbSlider.bind({});
-sbbSliderDisabled.argTypes = basicArgTypes;
+sbbSliderDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg };
 sbbSliderDisabled.args = { ...basicArgs, disabled: true };
 sbbSlider.documentation = {
   title: 'Sbb Slider disabled',
 };
 
 export const sbbSliderReadonly = TemplateSbbSlider.bind({});
-sbbSliderReadonly.argTypes = basicArgTypes;
+sbbSliderReadonly.argTypes = { ...basicArgTypes, readonly: readonlyArg };
 sbbSliderReadonly.args = { ...basicArgs, readonly: true };
 sbbSlider.documentation = {
   title: 'Sbb Slider readonly',
