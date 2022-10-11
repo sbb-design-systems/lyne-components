@@ -17,7 +17,7 @@ import { isBreakpoint } from '../../global/helpers/breakpoint';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
-const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action):not([disabled]):not([tabindex="-1"])`;
+const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action):not([disabled]):not([tabindex="-1"]):not([static])`;
 
 /**
  * @slot unnamed - Use this slot to project any content inside the dialog.
@@ -28,13 +28,11 @@ const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details
   tag: 'sbb-menu',
 })
 export class SbbMenu implements ComponentInterface {
-  @Element() public el!: HTMLElement;
-
   /**
    * The element that will trigger the menu dialog.
    * Accepts both a string (id of an element) or an HTML element.
    */
-  @Prop({ reflect: true }) public trigger: string | HTMLElement;
+  @Prop() public trigger: string | HTMLElement;
 
   /**
    * Whether the animation is enabled.
@@ -42,9 +40,9 @@ export class SbbMenu implements ComponentInterface {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
-   * Whether the menu is open.
+   * Whether the menu is presented.
    */
-  @State() private _open = false;
+  @State() private _presented = false;
 
   /**
    * Whether the menu is closing.
@@ -52,24 +50,24 @@ export class SbbMenu implements ComponentInterface {
   @State() private _isDismissing = false;
 
   /**
-   * Emits whenever the menu starts the opening transition.
+   * Emits whenever the menu starts the presenting transition.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_will-open',
+    eventName: 'sbb-menu_will-present',
   })
-  public willOpen: EventEmitter<void>;
+  public willPresent: EventEmitter<void>;
 
   /**
-   * Emits whenever the menu is opened.
+   * Emits whenever the menu is presented.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_did-open',
+    eventName: 'sbb-menu_did-present',
   })
-  public didOpen: EventEmitter<void>;
+  public didPresent: EventEmitter<void>;
 
   /**
    * Emits whenever the menu begins the closing transition.
@@ -77,19 +75,19 @@ export class SbbMenu implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_will-close',
+    eventName: 'sbb-menu_will-dismiss',
   })
-  public willClose: EventEmitter<void>;
+  public willDismiss: EventEmitter<void>;
 
   /**
-   * Emits whenever the menu is closed.
+   * Emits whenever the menu is dismissed.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_did-close',
+    eventName: 'sbb-menu_did-dismiss',
   })
-  public didClose: EventEmitter<void>;
+  public didDismiss: EventEmitter<void>;
 
   private _dialog: HTMLDialogElement;
   private _triggerEl: HTMLElement;
@@ -97,32 +95,34 @@ export class SbbMenu implements ComponentInterface {
   private _menuController: AbortController;
   private _resizeController: AbortController;
 
+  @Element() private _element!: HTMLElement;
+
   /**
    * Opens the menu on trigger click.
    */
   @Method()
-  public async open(): Promise<void> {
-    this.willOpen.emit();
+  public async present(): Promise<void> {
+    this.willPresent.emit();
     this._setMenuPosition();
     this._dialog.showModal();
   }
 
   /**
-   * Closes the menu.
+   * Dismisses the menu.
    */
   @Method()
   @Listen('sbb-menu-action_click')
-  public async close(): Promise<void> {
-    this.willClose.emit();
+  public async dismiss(): Promise<void> {
+    this.willDismiss.emit();
     this._isDismissing = true;
   }
 
-  // Closes the menu on "Esc" key pressed.
+  // Dismisses the menu on "Esc" key pressed.
   @Listen('keydown')
   public onEscAction(event: KeyboardEvent): void {
-    if (this._open && event.key === 'Escape') {
+    if (this._presented && event.key === 'Escape') {
       event.preventDefault();
-      this.close();
+      this.dismiss();
     }
   }
 
@@ -140,8 +140,6 @@ export class SbbMenu implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    this._dialog = this.el.shadowRoot.querySelector('dialog');
-
     // validate trigger element and attach event listeners
     this._configure(this.trigger);
   }
@@ -160,7 +158,8 @@ export class SbbMenu implements ComponentInterface {
     // check whether it's a string or an HTMLElement
     if (typeof trigger === 'string') {
       this._triggerEl = document.getElementById(trigger);
-    } else if (trigger instanceof window.HTMLElement) {
+      // TODO: Check if window can be avoided
+    } else if (trigger instanceof window.Element) {
       this._triggerEl = trigger;
     }
 
@@ -169,11 +168,11 @@ export class SbbMenu implements ComponentInterface {
     }
 
     this._menuController = new AbortController();
-    this._triggerEl.addEventListener('click', () => this.open(), {
+    this._triggerEl.addEventListener('click', () => this.present(), {
       signal: this._menuController.signal,
     });
 
-    // close menu on backdrop click
+    // Dismiss menu on backdrop click
     this._dialog.addEventListener('pointerdown', this._pointerDownListener, {
       signal: this._menuController.signal,
     });
@@ -181,14 +180,14 @@ export class SbbMenu implements ComponentInterface {
       signal: this._menuController.signal,
     });
 
-    // close menu interactive element click
+    // Dismiss menu on interactive element click
     this._dialog.firstElementChild.addEventListener(
       'click',
-      (event: MouseEvent) => this._dismissOnInteractiveElementClick(event),
+      (event: Event) => this._dismissOnInteractiveElementClick(event),
       { signal: this._menuController.signal }
     );
 
-    // listen for menu animation to end
+    // Listen for menu animation to end
     this._dialog.addEventListener(
       'animationend',
       (event: AnimationEvent) => this._onMenuAnimationEnd(event),
@@ -205,11 +204,11 @@ export class SbbMenu implements ComponentInterface {
     });
   }
 
-  // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
-  private _dismissOnInteractiveElementClick(event: MouseEvent): void {
+  // Dismiss menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
+  private _dismissOnInteractiveElementClick(event: Event): void {
     const target = event.target as HTMLElement;
     if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !target.hasAttribute('disabled')) {
-      this.close();
+      this.dismiss();
     }
   }
 
@@ -218,32 +217,32 @@ export class SbbMenu implements ComponentInterface {
     this._pointerDownEventTarget = (target as HTMLElement).nodeName;
   };
 
-  // Close menu on backdrop click.
+  // Dismiss menu on backdrop click.
   private _dismissOnBackdropClick = ({ target }: PointerEvent): void => {
     if (
       this._pointerDownEventTarget === 'DIALOG' &&
       (target as HTMLElement).nodeName === 'DIALOG'
     ) {
-      this.close();
+      this.dismiss();
     }
   };
 
-  // Set menu position (x, y) to '0' once the menu is closed and the transition ended to prevent the
+  // Set menu position (x, y) to '0' once the menu is dismissed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the menu is open.
   private _onMenuAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'show') {
-      this._open = true;
-      this.didOpen.emit();
+      this._presented = true;
+      this.didPresent.emit();
       this._setDialogFocus();
       this.onResizeWindowEvent();
     }
 
     if (event.animationName === 'hide') {
       this._isDismissing = false;
-      this._open = false;
+      this._presented = false;
       this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();
-      this.didClose.emit();
+      this.didDismiss.emit();
       this._resizeController?.abort();
     }
   }
@@ -251,7 +250,7 @@ export class SbbMenu implements ComponentInterface {
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
     const firstFocusable = Array.from(
-      this.el.querySelectorAll(IS_FOCUSABLE_QUERY)
+      this._element.querySelectorAll(IS_FOCUSABLE_QUERY)
     )[0] as HTMLElement;
     if (['SBB-BUTTON', 'SBB-LINK', 'SBB-MENU-ACTION'].includes(firstFocusable.nodeName)) {
       (
@@ -264,6 +263,7 @@ export class SbbMenu implements ComponentInterface {
 
   // Set menu position and max height if the breakpoint is medium-ultra.
   private _setMenuPosition(): void {
+    // Starting from breakpoint medium
     if (!isBreakpoint('medium') || !this._dialog || !this._triggerEl) {
       return;
     }
@@ -272,17 +272,17 @@ export class SbbMenu implements ComponentInterface {
       elementOffset: MENU_OFFSET,
     });
 
-    this.el.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
-    this.el.style.setProperty('--sbb-menu-position-y', `${menuPosition.top}px`);
-    this.el.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
+    this._element.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
+    this._element.style.setProperty('--sbb-menu-position-y', `${menuPosition.top}px`);
+    this._element.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
   }
 
   public render(): JSX.Element {
     return (
       <dialog
+        ref={(dialogRef) => (this._dialog = dialogRef)}
         class={{
           'sbb-menu': true,
-          'sbb-menu--open': this._open,
           'sbb-menu--dismissing': this._isDismissing,
         }}
       >

@@ -1,8 +1,8 @@
 import events from './sbb-menu.events';
-import { newE2EPage } from '@stencil/core/testing';
+import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
 
 describe('sbb-menu', () => {
-  let element, trigger, page;
+  let element: E2EElement, trigger: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();
@@ -27,8 +27,8 @@ describe('sbb-menu', () => {
 
   it('opens on trigger click', async () => {
     const dialog = await page.find('sbb-menu >>> dialog');
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willOpenEventSpy = await page.spyOnEvent(events.willPresent);
+    const didOpenEventSpy = await page.spyOnEvent(events.didPresent);
 
     await trigger.click();
     await page.waitForChanges();
@@ -42,8 +42,8 @@ describe('sbb-menu', () => {
   });
 
   it('closes on menu action click', async () => {
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const willCloseEventSpy = await page.spyOnEvent(events.willDismiss);
+    const didCloseEventSpy = await page.spyOnEvent(events.didDismiss);
     const dialog = await page.find('sbb-menu >>> dialog');
     const menuAction = await page.find('sbb-menu > sbb-menu-action');
 
@@ -64,8 +64,8 @@ describe('sbb-menu', () => {
   });
 
   it('closes on interactive element click', async () => {
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const willCloseEventSpy = await page.spyOnEvent(events.willDismiss);
+    const didCloseEventSpy = await page.spyOnEvent(events.didDismiss);
     const dialog = await page.find('sbb-menu >>> dialog');
     const menuLink = await page.find('sbb-menu > sbb-link');
 
@@ -95,4 +95,10 @@ describe('sbb-menu', () => {
 
     expect(dialog).not.toHaveAttribute('open');
   });
+
+  // Test focusing first element (or not focusing some cases)
+  // Test keyboard navigation
+  // Test positioning     expect(
+  //       await page.evaluate(() => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop)
+  //     ).toBe(-1);
 });

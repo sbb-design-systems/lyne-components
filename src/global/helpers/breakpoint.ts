@@ -1,4 +1,4 @@
-type Breakpoint = 'zero' | 'micro' | 'small' | 'medium' | 'wide' | 'large' | 'ultra';
+export type Breakpoint = 'zero' | 'micro' | 'small' | 'medium' | 'wide' | 'large' | 'ultra';
 
 /**
  * Checks whether the document matches a particular media query.

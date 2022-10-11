@@ -1,11 +1,12 @@
+@import 'mixins/mixins_a11y.scss';
+@import 'mixins/mixins_buttons.scss';
+@import 'mixins/mixins_card.scss';
+@import 'mixins/mixins_grid_layout.scss';
+@import 'mixins/mixins_panel.scss';
+@import 'mixins/mixins_scrollbar.scss';
 @import 'mixins/mixins_shadows.scss';
 @import 'mixins/mixins_spacing.scss';
-@import 'mixins/mixins_a11y.scss';
-@import 'mixins/mixins_card.scss';
-@import 'mixins/mixins_buttons.scss';
-@import 'mixins/mixins_panel.scss';
 @import 'mixins/mixins_typo.scss';
-@import 'mixins/mixins_grid_layout.scss';
 
 @import 'mixins/mixins_dev_and_debug.scss';
 
@@ -54,51 +55,4 @@
     width: 0;
     height: 0;
   }
-}
-
-@mixin scrollbar() {
-  /* total width */
-  &::-webkit-scrollbar {
-    width: var(--sbb-spacing-fixed-4x);
-  }
-
-  /* scrollbar itself */
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--sbb-scrollbar-color, currentcolor);
-    border: #{px-to-rem-build(7)} solid transparent;
-    border-radius: var(--sbb-border-radius-4x);
-    background-clip: padding-box;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--sbb-scrollbar-color-hover, currentcolor);
-    border-width: #{px-to-rem-build(5.5)};
-  }
-
-  /* set button(top and bottom of the scrollbar) */
-  &::-webkit-scrollbar-button {
-    display: none;
-  }
-
-  /* style for Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: var(--sbb-scrollbar-color-hover, currentcolor) transparent;
-}
-
-@mixin scrollbar-dark() {
-  @include scrollbar;
-
-  --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
-  --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
-
-  scrollbar-color: var(--sbb-color-white-alpha-30) transparent;
-}
-
-@mixin scrollbar-light() {
-  @include scrollbar;
-
-  --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
-  --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
-
-  scrollbar-color: var(--sbb-color-black-alpha-30) transparent;
 }
