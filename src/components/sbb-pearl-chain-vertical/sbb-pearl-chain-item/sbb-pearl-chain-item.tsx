@@ -11,7 +11,6 @@ export class SbbPearlChainItem {
 
   @Prop() public disableAnimation?: boolean;
 
-
   public render(): JSX.Element {
     const { dotColor, dotType, lineType, lineColor, hideLine, minHeight, dotSize, position } =
       this.pearlChainItemAttributes || {};
@@ -31,11 +30,7 @@ export class SbbPearlChainItem {
               <slot name="left"></slot>
             </div>
           </div>
-          <div
-            id="line-height"
-            class="sbb-pearl-chain-item__row--middle"
-            style={{ display: 'table-cell' }}
-          >
+          <div class="sbb-pearl-chain-item__row--middle" style={{ display: 'table-cell' }}>
             {!hideLine && (
               <div
                 style={{ '--leg-status': `${position}%` }}
@@ -56,10 +51,7 @@ export class SbbPearlChainItem {
               </div>
             )}
             {position > 0 && (
-              <div
-                style={{ top: `calc(${position}%` }}
-                class={`position__dot ${animation}`}
-              ></div>
+              <div style={{ top: `calc(${position}%` }} class={`position__dot ${animation}`}></div>
             )}
           </div>
           <div class="sbb-pearl-chain-item__row--right" style={{ display: 'table-cell' }}>

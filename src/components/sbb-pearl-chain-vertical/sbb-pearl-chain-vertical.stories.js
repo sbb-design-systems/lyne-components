@@ -31,7 +31,6 @@ const TemplateLeftSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-item pearlChainItemAttributes={args}>
-        <div slot="right">slot for content</div>
         <div slot="left">slot for content</div>
       </sbb-pearl-chain-item>
     </sbb-pearl-chain-vertical>
@@ -108,10 +107,19 @@ const TemplateLeftSecondSlot = (args) => {
 };
 
 export const defaultPearlChainWithoutContent = TemplateWithoutContent.bind({});
-export const defaultPearlChain = Template.bind({});
+export const defaultPearlChainRightSlot = Template.bind({});
 export const defaultPearlChainLeftSlot = TemplateLeftSlot.bind({});
 export const defaultPearlChainTwoDots = TemplateTwoDots.bind({});
 export const defaultPearlChainLeftSecondSlot = TemplateLeftSecondSlot.bind({});
+export const blackPearlChain = Template.bind({});
+export const dottedPearlChain = Template.bind({});
+export const thinPearlChain = Template.bind({});
+export const thickBulletPearlChain = Template.bind({});
+export const thinBulletPearlChain = Template.bind({});
+export const doubleBulletPearlChain = Template.bind({});
+export const positionPearlChain = Template.bind({});
+
+/** All kinds oft possible slot and dot combinations */
 
 defaultPearlChainWithoutContent.args = {
   lineType: 'standard',
@@ -121,21 +129,9 @@ defaultPearlChainWithoutContent.args = {
   minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
-  position: 50,
 };
 
-defaultPearlChainLeftSecondSlot.args = {
-  lineType: 'standard',
-  lineColor: 'black',
-  dotType: 'standard',
-  dotColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
-  position: 0,
-};
-
-defaultPearlChain.args = {
+defaultPearlChainRightSlot.args = {
   lineType: 'standard',
   lineColor: 'black',
   dotType: 'standard',
@@ -157,18 +153,16 @@ defaultPearlChainLeftSlot.args = {
   position: 0,
 };
 
-defaultPearlChainTwoDots.args = {
+defaultPearlChainLeftSecondSlot.args = {
   lineType: 'standard',
-  lineColor: 'red',
+  lineColor: 'black',
   dotType: 'standard',
-  dotColor: 'red',
+  dotColor: 'black',
   minHeight: '100',
   hideLine: false,
   dotSize: 'medium',
   position: 0,
 };
-
-export const blackPearlChain = Template.bind({});
 
 blackPearlChain.args = {
   lineType: 'standard',
@@ -181,11 +175,22 @@ blackPearlChain.args = {
   position: 0,
 };
 
-export const dottedPearlChain = Template.bind({});
+defaultPearlChainTwoDots.args = {
+  lineType: 'standard',
+  lineColor: 'red',
+  dotType: 'standard',
+  dotColor: 'red',
+  minHeight: '100',
+  hideLine: false,
+  dotSize: 'medium',
+  position: 0,
+};
+
+/** additional dot types */
 
 dottedPearlChain.args = {
   lineType: 'dotted',
-  dotType: 'thin-bullet',
+  dotType: 'standard',
   dotColor: 'red',
   minHeight: '100',
   hideLine: false,
@@ -194,6 +199,61 @@ dottedPearlChain.args = {
   position: 0,
 };
 
+thinPearlChain.args = {
+  lineType: 'thin',
+  dotType: 'standard',
+  dotColor: 'red',
+  minHeight: '100',
+  hideLine: false,
+  lineColor: 'red',
+  dotSize: 'small',
+  position: 0,
+};
+
+/** additional dot types */
+
+thickBulletPearlChain.args = {
+  lineType: 'standard',
+  lineColor: 'black',
+  dotType: 'thick-bullet',
+  dotColor: 'black',
+  minHeight: '100',
+  hideLine: false,
+  dotSize: 'medium',
+};
+
+thinBulletPearlChain.args = {
+  lineType: 'standard',
+  lineColor: 'black',
+  dotType: 'thin-bullet',
+  dotColor: 'black',
+  minHeight: '100',
+  hideLine: false,
+  dotSize: 'medium',
+};
+
+doubleBulletPearlChain.args = {
+  lineType: 'standard',
+  lineColor: 'black',
+  dotType: 'double-bullet',
+  dotColor: 'black',
+  minHeight: '100',
+  hideLine: false,
+  dotSize: 'medium',
+};
+
+/** position */
+
+positionPearlChain.args = {
+  lineType: 'standard',
+  lineColor: 'black',
+  dotType: 'standard',
+  dotColor: 'black',
+  minHeight: '100',
+  hideLine: false,
+  dotSize: 'medium',
+  position: 75,
+};
 export default {
   decorators: [(Story) => <Story />],
   parameters: {},
