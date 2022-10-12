@@ -2,8 +2,8 @@ import events from './sbb-menu-action.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const getBasicTemplate = ({ text, 'id-value': idValue, ...args }, id, iconSlot) => (
-  <sbb-menu-action {...args} id-value={`${idValue}-${id}`}>
+const getBasicTemplate = ({ text, 'menu-action-id': menuActionId, ...args }, id, iconSlot) => (
+  <sbb-menu-action {...args} menu-action-id={`${menuActionId}-${id}`}>
     {text} {id}
     {iconSlot && <sbb-icon slot="icon" name="pie-small" />}
   </sbb-menu-action>
@@ -37,7 +37,7 @@ const amount = {
   },
 };
 
-const idValue = {
+const menuActionId = {
   control: {
     type: 'text',
   },
@@ -173,7 +173,7 @@ const accessibilityLabelledby = {
 const defaultArgTypes = {
   text,
   amount,
-  'id-value': idValue,
+  'menu-action-id': menuActionId,
   'icon-name': iconName,
   href,
   target,
@@ -194,7 +194,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   text: 'Details',
   amount: '99',
-  'id-value': undefined,
+  'menu-action-id': undefined,
   'icon-name': 'tick-small',
 
   href: 'https://www.sbb.ch/en',

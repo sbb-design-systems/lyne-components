@@ -21,7 +21,7 @@ let nextId = 0;
 })
 export class SbbMenuAction implements LinkButtonProperties {
   /** This id will be forwarded to the relevant inner element. */
-  @Prop() public idValue = `sbb-menu-action-${++nextId}`;
+  @Prop() public menuActionId = `sbb-menu-action-${++nextId}`;
 
   /**
    * The name of the icon, choose from the small icon variants
@@ -108,7 +108,7 @@ export class SbbMenuAction implements LinkButtonProperties {
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <TAG_NAME
-        id={this.idValue}
+        id={this.menuActionId}
         class="sbb-menu-action"
         {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}

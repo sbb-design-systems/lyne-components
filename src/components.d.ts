@@ -829,7 +829,7 @@ export namespace Components {
         /**
           * This id will be forwarded to the relevant inner element.
          */
-        "idValue": string;
+        "menuActionId": string;
         /**
           * The name attribute to use for the button.
          */
@@ -2536,7 +2536,7 @@ declare namespace LocalJSX {
         /**
           * This id will be forwarded to the relevant inner element.
          */
-        "idValue"?: string;
+        "menuActionId"?: string;
         /**
           * The name attribute to use for the button.
          */
