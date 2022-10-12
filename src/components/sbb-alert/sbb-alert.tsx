@@ -10,8 +10,6 @@ import {
   Fragment,
 } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
-
-import crossSmall from 'lyne-icons/dist/icons/cross-small.svg';
 import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { LinkProperties, LinkTargetType } from '../../global/interfaces/link-button-properties';
@@ -52,7 +50,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   @Prop({ reflect: true }) public size: InterfaceAlertAttributes['size'] = 'm';
 
   /** Whether the fade in animation should be disabled. */
-  @Prop() public inanimate = false;
+  @Prop() public disableAnimation = false;
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
@@ -67,6 +65,18 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
 
+  /** Content of the link. */
+  @Prop() public linkContent?: string;
+
+  /** The href value you want to link to. */
+  @Prop() public href: string | undefined;
+
+  /** Where to display the linked URL. */
+  @Prop() public target: LinkTargetType | string | undefined;
+
+  /** The relationship of the linked URL as space-separated link types. */
+  @Prop() public rel: string | undefined;
+
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
@@ -75,18 +85,6 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
 
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
-
-  /** The href value you want to link to. */
-  @Prop() public href: string | undefined;
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel: string | undefined;
-
-  /** Where to display the linked URL. */
-  @Prop() public target: LinkTargetType | string | undefined;
-
-  /** Content of the link */
-  @Prop() public linkContent?: string;
 
   /** Emits when the fade in animation starts. */
   @Event({
@@ -139,7 +137,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   private _present(): Promise<void> {
     this.willPresent.emit();
 
-    if (this.inanimate) {
+    if (this.disableAnimation) {
       this._onHeightTransitionEnd();
       return;
     }
@@ -155,7 +153,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   }
 
   private _initFadeInTransitionStyles(): void {
-    if (this.inanimate) {
+    if (this.disableAnimation) {
       return;
     }
     this._transitionWrapperElement.style.height = '0';
@@ -166,7 +164,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
     this._transitionWrapperElement.style.removeProperty('height');
     this._alertElement.style.removeProperty('opacity');
 
-    if (this.inanimate) {
+    if (this.disableAnimation) {
       this._onOpacityTransitionEnd();
       return;
     }
@@ -234,14 +232,14 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
           {!this.readonly && (
             <span class="sbb-alert__close-button-wrapper">
               <sbb-button
-                variant="transparent-negative"
-                icon={true}
+                variant="transparent"
+                negative
                 size="m"
+                icon-name="cross-small"
                 onClick={() => this.requestDismissal()}
-                iconDescription={i18nCloseAlert[this._currentLangauge]}
-                aria-controls={this.internalId}
+                accessibility-label={i18nCloseAlert[this._currentLangauge]}
+                accessibility-controls={this.internalId}
                 class="sbb-alert__close-button"
-                innerHTML={crossSmall}
               />
             </span>
           )}

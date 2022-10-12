@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
+import { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
@@ -22,7 +22,6 @@ import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
-import { InterfaceLinkButtonAttributes } from "./components/sbb-link-button/sbb-link-button.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -93,6 +92,10 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
+          * Whether the fade in animation should be disabled.
+         */
+        "disableAnimation": boolean;
+        /**
           * The href value you want to link to.
          */
         "href": string | undefined;
@@ -101,15 +104,11 @@ export namespace Components {
          */
         "iconName"?: string;
         /**
-          * Whether the fade in animation should be disabled.
-         */
-        "inanimate": boolean;
-        /**
           * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
          */
         "internalId": string;
         /**
-          * Content of the link
+          * Content of the link.
          */
         "linkContent"?: string;
         /**
@@ -225,57 +224,85 @@ export namespace Components {
     }
     interface SbbButton {
         /**
-          * The aria-controls property identifies the element (or elements) whose contents or presence are controlled by the element on which this attribute is set. The value is forwarded to the native button element.
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
          */
-        "ariaControls"?: InterfaceButtonAttributes['ariaControls'];
+        "accessibilityControls": string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
-        "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
+        "accessibilityHaspopup": PopupType | undefined;
         /**
-          * Set to true to get a disabled button
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Whether the button is disabled.
          */
         "disabled"?: boolean;
         /**
-          * Id which is sent in the click event payload
+          * Whether the browser will show the download dialog on click.
          */
-        "eventId"?: string;
+        "download"?: boolean;
         /**
-          * Define if icon should be shown or not
+          * The <form> element to associate the button with.
          */
-        "icon"?: boolean;
+        "form"?: string;
         /**
-          * If you use an icon without a label, you must provide an iconDescription
+          * The href value you want to link to (if it is present, button becomes a link).
          */
-        "iconDescription"?: string;
+        "href": string | undefined;
         /**
-          * Label text to show on the button
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
-        "label"?: string;
+        "iconName"?: string;
         /**
-          * The name attribute to use for the button
+          * Pass in an id, if you need to identify the inner element.
          */
-        "name"?: string;
+        "idValue"?: string;
+        /**
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered).
+         */
+        "isStatic": boolean;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
         /**
           * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
         /**
-          * The type attribute to use for the button
+          * Where to display the linked URL.
          */
-        "type"?: InterfaceButtonAttributes['type'];
+        "target"?: LinkTargetType | string | undefined;
         /**
-          * The value attribute to use for the button
+          * The type attribute to use for the button.
+         */
+        "type": ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
          */
         "value"?: string;
         /**
           * Variant of the button, like primary, secondary etc.
          */
-        "variant"?: InterfaceButtonAttributes['variant'];
-        /**
-          * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
-         */
-        "visualButtonOnly"?: boolean;
+        "variant": InterfaceButtonAttributes['variant'];
     }
     interface SbbCard {
         /**
@@ -455,12 +482,12 @@ export namespace Components {
         /**
           * Footer title text, visually hidden,  necessary for screenreaders
          */
-        "accessibilityTitle": string;
+        "accessibilityTitle"?: string;
         /**
           * Negative coloring variant flag
          */
         "negative": boolean;
-        "variant"?: InterfaceFooterAttributes['variant'];
+        "variant": InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
     }
@@ -617,9 +644,17 @@ export namespace Components {
     }
     interface SbbLink {
         /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls": string | undefined;
+        /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
         "accessibilityDescribedby": string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup": PopupType | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
@@ -629,39 +664,39 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * Disabled attribute if link is used as button (optional)
+          * Whether the button is disabled.
          */
         "disabled"?: boolean;
         /**
-          * If set to true, the browser will show the download dialog on click (optional).
+          * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean;
         /**
-          * Id which is sent in the click event payload
-         */
-        "eventId"?: string;
-        /**
-          * Form attribute if link is used as button (optional)
+          * The <form> element to associate the button with.
          */
         "form"?: string;
         /**
-          * The href value you want to link to (optional, if its not present link becomes a button)
+          * The href value you want to link to (if it is not present link becomes a button).
          */
         "href": string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
          */
         "iconName"?: string;
         /**
-          * Moves the icon to the end of the component if set to true (optional).
+          * Moves the icon to the end of the component if set to true.
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the link element (optional).
+          * Pass in an id, if you need to identify the inner element.
          */
         "idValue"?: string;
         /**
-          * Name attribute if link is used as button (optional)
+          * Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).
+         */
+        "isStatic": boolean;
+        /**
+          * The name attribute to use for the button.
          */
         "name": string | undefined;
         /**
@@ -681,51 +716,17 @@ export namespace Components {
          */
         "textSize": InterfaceLinkAttributes['textSize'];
         /**
-          * Type attribute if link is used as button (optional)
+          * The type attribute to use for the button.
          */
-        "type": InterfaceLinkAttributes['buttonType'] | undefined;
+        "type": ButtonType | undefined;
         /**
-          * The value associated with button `name` when it's submitted with the form data.
+          * The value attribute to use for the button.
          */
         "value"?: string;
         /**
-          * Applies link inline styles (underline, inherit coloring/font-size etc).
+          * Variant of the link (block or inline).
          */
         "variant": InterfaceLinkAttributes['variant'];
-    }
-    interface SbbLinkButton {
-        /**
-          * If set to true, the browser will show the download dialog on click.
-         */
-        "download"?: boolean;
-        /**
-          * The href value you want to link to
-         */
-        "hrefValue": string;
-        /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
-         */
-        "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
-        /**
-          * The icon can either be place before or after the text
-         */
-        "iconPlacement": InterfaceLinkButtonAttributes['iconPlacement'];
-        /**
-          * Pass in an id, if you need to identify the link element.
-         */
-        "idValue"?: string;
-        /**
-          * The link text we want to visually show
-         */
-        "text": string;
-        /**
-          * Choose the link button style variant
-         */
-        "variant": InterfaceLinkButtonAttributes['variant'];
     }
     interface SbbLinkList {
         /**
@@ -901,21 +902,29 @@ export namespace Components {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string | undefined;
+        "accessibilityLabel": string;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * The href value you want to link to
+          * The href value you want to link to.
          */
-        "href": string;
+        "href": string | undefined;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked": boolean;
         /**
-          * Heading level of the sbb-title element (e.g. h1-h6)
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel": InterfaceTeaserAttributes['titleLevel'];
     }
@@ -1340,12 +1349,6 @@ declare global {
         prototype: HTMLSbbLinkElement;
         new (): HTMLSbbLinkElement;
     };
-    interface HTMLSbbLinkButtonElement extends Components.SbbLinkButton, HTMLStencilElement {
-    }
-    var HTMLSbbLinkButtonElement: {
-        prototype: HTMLSbbLinkButtonElement;
-        new (): HTMLSbbLinkButtonElement;
-    };
     interface HTMLSbbLinkListElement extends Components.SbbLinkList, HTMLStencilElement {
     }
     var HTMLSbbLinkListElement: {
@@ -1565,7 +1568,6 @@ declare global {
         "sbb-image": HTMLSbbImageElement;
         "sbb-journey-header": HTMLSbbJourneyHeaderElement;
         "sbb-link": HTMLSbbLinkElement;
-        "sbb-link-button": HTMLSbbLinkButtonElement;
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-overlay": HTMLSbbOverlayElement;
@@ -1652,6 +1654,10 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
+          * Whether the fade in animation should be disabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
           * The href value you want to link to.
          */
         "href"?: string | undefined;
@@ -1660,15 +1666,11 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * Whether the fade in animation should be disabled.
-         */
-        "inanimate"?: boolean;
-        /**
           * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
          */
         "internalId"?: string;
         /**
-          * Content of the link
+          * Content of the link.
          */
         "linkContent"?: string;
         /**
@@ -1800,61 +1802,89 @@ declare namespace LocalJSX {
     }
     interface SbbButton {
         /**
-          * The aria-controls property identifies the element (or elements) whose contents or presence are controlled by the element on which this attribute is set. The value is forwarded to the native button element.
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
          */
-        "ariaControls"?: InterfaceButtonAttributes['ariaControls'];
+        "accessibilityControls"?: string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
-        "ariaHaspopup"?: InterfaceButtonAttributes['popup'];
+        "accessibilityHaspopup"?: PopupType | undefined;
         /**
-          * Set to true to get a disabled button
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Whether the button is disabled.
          */
         "disabled"?: boolean;
         /**
-          * Id which is sent in the click event payload
+          * Whether the browser will show the download dialog on click.
          */
-        "eventId"?: string;
+        "download"?: boolean;
         /**
-          * Define if icon should be shown or not
+          * The <form> element to associate the button with.
          */
-        "icon"?: boolean;
+        "form"?: string;
         /**
-          * If you use an icon without a label, you must provide an iconDescription
+          * The href value you want to link to (if it is present, button becomes a link).
          */
-        "iconDescription"?: string;
+        "href"?: string | undefined;
         /**
-          * Label text to show on the button
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
-        "label"?: string;
+        "iconName"?: string;
         /**
-          * The name attribute to use for the button
+          * Pass in an id, if you need to identify the inner element.
          */
-        "name"?: string;
+        "idValue"?: string;
         /**
-          * Emits whenever the native button click event triggers. TODO: Switch to a better event type during refactoring sbb-button.
+          * Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered).
+         */
+        "isStatic"?: boolean;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
+        /**
+          * Emits the event on button click.
          */
         "onSbb-button_click"?: (event: SbbButtonCustomEvent<any>) => void;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
         /**
           * Size variant, either l or m.
          */
         "size"?: InterfaceButtonAttributes['size'];
         /**
-          * The type attribute to use for the button
+          * Where to display the linked URL.
          */
-        "type"?: InterfaceButtonAttributes['type'];
+        "target"?: LinkTargetType | string | undefined;
         /**
-          * The value attribute to use for the button
+          * The type attribute to use for the button.
+         */
+        "type"?: ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
          */
         "value"?: string;
         /**
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
-        /**
-          * Set this property to true if you want only a visual represenation of a button, but no interaction (a div instead of a button will be rendered).
-         */
-        "visualButtonOnly"?: boolean;
     }
     interface SbbCard {
         /**
@@ -2038,7 +2068,7 @@ declare namespace LocalJSX {
         /**
           * Footer title text, visually hidden,  necessary for screenreaders
          */
-        "accessibilityTitle": string;
+        "accessibilityTitle"?: string;
         /**
           * Negative coloring variant flag
          */
@@ -2200,9 +2230,17 @@ declare namespace LocalJSX {
     }
     interface SbbLink {
         /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls"?: string | undefined;
+        /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
         "accessibilityDescribedby"?: string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup"?: PopupType | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
@@ -2212,39 +2250,39 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * Disabled attribute if link is used as button (optional)
+          * Whether the button is disabled.
          */
         "disabled"?: boolean;
         /**
-          * If set to true, the browser will show the download dialog on click (optional).
+          * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean;
         /**
-          * Id which is sent in the click event payload
-         */
-        "eventId"?: string;
-        /**
-          * Form attribute if link is used as button (optional)
+          * The <form> element to associate the button with.
          */
         "form"?: string;
         /**
-          * The href value you want to link to (optional, if its not present link becomes a button)
+          * The href value you want to link to (if it is not present link becomes a button).
          */
         "href"?: string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/ (optional). Inline variant doesn't support icons.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
          */
         "iconName"?: string;
         /**
-          * Moves the icon to the end of the component if set to true (optional).
+          * Moves the icon to the end of the component if set to true.
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the link element (optional).
+          * Pass in an id, if you need to identify the inner element.
          */
         "idValue"?: string;
         /**
-          * Name attribute if link is used as button (optional)
+          * Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).
+         */
+        "isStatic"?: boolean;
+        /**
+          * The name attribute to use for the button.
          */
         "name"?: string | undefined;
         /**
@@ -2252,7 +2290,7 @@ declare namespace LocalJSX {
          */
         "negative"?: boolean;
         /**
-          * Emits whenever the native button click event triggers. TODO: similar to the one in sbb-button. To be fixed together.
+          * Emits the event on button click.
          */
         "onSbb-link-button_click"?: (event: SbbLinkCustomEvent<any>) => void;
         /**
@@ -2268,51 +2306,17 @@ declare namespace LocalJSX {
          */
         "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
-          * Type attribute if link is used as button (optional)
+          * The type attribute to use for the button.
          */
-        "type"?: InterfaceLinkAttributes['buttonType'] | undefined;
+        "type"?: ButtonType | undefined;
         /**
-          * The value associated with button `name` when it's submitted with the form data.
+          * The value attribute to use for the button.
          */
         "value"?: string;
         /**
-          * Applies link inline styles (underline, inherit coloring/font-size etc).
+          * Variant of the link (block or inline).
          */
         "variant"?: InterfaceLinkAttributes['variant'];
-    }
-    interface SbbLinkButton {
-        /**
-          * If set to true, the browser will show the download dialog on click.
-         */
-        "download"?: boolean;
-        /**
-          * The href value you want to link to
-         */
-        "hrefValue": string;
-        /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/
-         */
-        "icon"?: string;
-        /**
-          * Decide whether the icon should get flipped horizontally if the document writing mode is changed from ltr to rtl or vice versa.
-         */
-        "iconFlip"?: boolean;
-        /**
-          * The icon can either be place before or after the text
-         */
-        "iconPlacement"?: InterfaceLinkButtonAttributes['iconPlacement'];
-        /**
-          * Pass in an id, if you need to identify the link element.
-         */
-        "idValue"?: string;
-        /**
-          * The link text we want to visually show
-         */
-        "text": string;
-        /**
-          * Choose the link button style variant
-         */
-        "variant"?: InterfaceLinkButtonAttributes['variant'];
     }
     interface SbbLinkList {
         /**
@@ -2473,21 +2477,29 @@ declare namespace LocalJSX {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string | undefined;
+        "accessibilityLabel": string;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * The href value you want to link to
+          * The href value you want to link to.
          */
-        "href": string;
+        "href"?: string | undefined;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked"?: boolean;
         /**
-          * Heading level of the sbb-title element (e.g. h1-h6)
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
     }
@@ -2783,7 +2795,6 @@ declare namespace LocalJSX {
         "sbb-image": SbbImage;
         "sbb-journey-header": SbbJourneyHeader;
         "sbb-link": SbbLink;
-        "sbb-link-button": SbbLinkButton;
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
         "sbb-overlay": SbbOverlay;
@@ -2843,7 +2854,6 @@ declare module "@stencil/core" {
             "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;
             "sbb-journey-header": LocalJSX.SbbJourneyHeader & JSXBase.HTMLAttributes<HTMLSbbJourneyHeaderElement>;
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
-            "sbb-link-button": LocalJSX.SbbLinkButton & JSXBase.HTMLAttributes<HTMLSbbLinkButtonElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;

@@ -7,7 +7,7 @@
   --sbb-footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
   --sbb-footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
   --sbb-footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
-  --sbb-footer-divider-thickness: var(--footer-divider-thickness, #{px-to-rem-build(1)});
+  --sbb-footer-divider-thickness: var(--footer-divider-thickness, var(--sbb-border-width-1x));
   --sbb-footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(76)});
   @include mq($from: small) {
     --sbb-footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(112)});
@@ -17,29 +17,13 @@
   --stack-text-color-normal: var(--sbb-color-granite-default);
 }
 
-.footer {
-  @include page-spacing;
-
-  margin-block-start: var(--sbb-spacing-responsive-l);
-  padding-block-start: var(--sbb-spacing-responsive-l);
-  padding-block-end: var(--sbb-spacing-responsive-l);
-  background-color: var(--sbb-footer-background-color);
-
-  ::slotted(.sbb-link-list-button-group) {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sbb-spacing-fixed-6x);
-    align-items: flex-start;
-  }
-}
-
-.footer--negative {
+:host([negative]) {
   --sbb-footer-divider-color: var(--sbb-color-iron-default);
   --sbb-footer-background-color: var(--sbb-color-charcoal-default);
   --title-text-color-normal: var(--sbb-color-storm-default);
 }
 
-.footer--clock-columns {
+:host([variant='clock-columns']) footer {
   slot {
     @include page-spacing__inner;
 
@@ -122,6 +106,22 @@
     ::slotted(*:last-child) {
       grid-column: 1 / 5;
     }
+  }
+}
+
+.footer {
+  @include page-spacing;
+
+  margin-block-start: var(--sbb-spacing-responsive-l);
+  padding-block-start: var(--sbb-spacing-responsive-l);
+  padding-block-end: var(--sbb-spacing-responsive-l);
+  background-color: var(--sbb-footer-background-color);
+
+  ::slotted(.sbb-link-list-button-group) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sbb-spacing-fixed-6x);
+    align-items: flex-start;
   }
 }
 

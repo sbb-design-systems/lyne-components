@@ -10,24 +10,22 @@ export class SbbFooter {
   /**
    * Negative coloring variant flag
    */
-  @Prop() public negative: boolean;
+  @Prop({ reflect: true }) public negative: boolean = false;
 
-  @Prop() public variant?: InterfaceFooterAttributes['variant'] = 'default';
+  /**
+   * Variants to display the footer. The default, displays the content in regular block element
+   * approach. The clock-columns, used a css-grid for displaying the content over different
+   * breakpoints.
+   */
+  @Prop({ reflect: true }) public variant: InterfaceFooterAttributes['variant'] = 'default';
 
   /** Footer title text, visually hidden,  necessary for screenreaders */
-  @Prop() public accessibilityTitle!: string;
+  @Prop() public accessibilityTitle?: string;
 
   public render(): JSX.Element {
-    const variantClass = this.variant !== 'default' ? ' footer--clock-columns' : '';
-    const negativeClass = this.negative ? ' footer--negative' : '';
-
-    const attrs = {
-      class: `footer${variantClass}${negativeClass}`,
-    };
-
     return (
       <Host>
-        <footer role="contentinfo" {...attrs}>
+        <footer role="contentinfo" class="footer">
           {this.accessibilityTitle.length && (
             <sbb-title level="1" visually-hidden="true">
               <span slot="title">{this.accessibilityTitle}</span>

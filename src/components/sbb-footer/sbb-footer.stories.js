@@ -149,13 +149,11 @@ const Template = (args) => (
         </sbb-link>
       </sbb-link-list>
       <sbb-button
+        href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         variant="primary"
-        size="m"
-        label="All help topics"
-        event-id="Event ID"
-        name="sample-name"
-        value="sample-value"
-      ></sbb-button>
+      >
+        All help topics
+      </sbb-button>
     </div>
     <sbb-link-list title-level="2" title-content="More SBB.">
       <sbb-link
@@ -199,22 +197,13 @@ const Template = (args) => (
         <sbb-link text-size="s" variant="block">
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </sbb-link>
-        <span slot="button">
-          <sbb-link-button
-            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            text="Subscribe"
-            variant="secondary"
-          ></sbb-link-button>
-        </span>
       </sbb-link-list>
       <sbb-button
+        href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         variant="secondary"
-        size="m"
-        label="Subscribe"
-        event-id="Event ID"
-        name="sample-name"
-        value="sample-value"
-      ></sbb-button>
+      >
+        Subscribe
+      </sbb-button>
     </div>
     <sbb-clock {...args.sbbClock}></sbb-clock>
     <sbb-divider />

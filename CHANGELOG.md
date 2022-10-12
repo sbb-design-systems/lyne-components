@@ -2,6 +2,75 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.7 (2022-10-11)
+
+### Features
+
+- add possibility to submit forms with sbb-button/sbb-link ([#1403](https://github.com/lyne-design-system/lyne-components/issues/1403)) ([52cdd0f](https://github.com/lyne-design-system/lyne-components/commit/52cdd0f3786b3adb2bbb460ea28f9bd0aa1bc6d4))
+
+### 0.9.6 (2022-10-10)
+
+### 0.9.5 (2022-10-07)
+
+### Features
+
+- improvement in LinkButtonProperties interface ([#1398](https://github.com/lyne-design-system/lyne-components/issues/1398)) ([433fddc](https://github.com/lyne-design-system/lyne-components/commit/433fddcd4df24e3325ae0b291a849547ca1e0139))
+
+### 0.9.4 (2022-10-07)
+
+### Features
+
+- add removeTimezoneFromDate as a helper function ([#1402](https://github.com/lyne-design-system/lyne-components/issues/1402)) ([06850c8](https://github.com/lyne-design-system/lyne-components/commit/06850c8bb8f04a2f21f3e604d9e8245d64762ca7))
+
+### 0.9.3 (2022-10-06)
+
+### 0.9.2 (2022-10-06)
+
+### Bug Fixes
+
+- **sbb-link:** expand clickable area in block variant ([#1394](https://github.com/lyne-design-system/lyne-components/issues/1394)) ([b0fe962](https://github.com/lyne-design-system/lyne-components/commit/b0fe962b3b3f8689af46ef692aca71f51c3e5926)), closes [#1387](https://github.com/lyne-design-system/lyne-components/issues/1387)
+
+### 0.9.1 (2022-10-06)
+
+## 0.9.0 (2022-10-05)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-alert:** Property `inanimate` of sbb-alert was renamed to `disable-animation`.
+
+- **sbb-alert:** rename property `inanimate` to `disable-animation` ([#1397](https://github.com/lyne-design-system/lyne-components/issues/1397)) ([1bc4a31](https://github.com/lyne-design-system/lyne-components/commit/1bc4a31016f2496cdfbd6515095bd1a7254c2fd4))
+
+## 0.8.0 (2022-10-05)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-button:** - API of sbb-button changed.
+
+* sbb-link-button removed
+
+Co-authored-by: Sébastien Closs <sebastien.closs@one-inside.com>
+Co-authored-by: Hendrik Wernze <hendrik.wernze@sbb.ch>
+Co-authored-by: Lukas Spirig <lukas.spirig@sbb.ch>
+Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
+
+- **sbb-button:** cleanup and adapt to new api ([#1328](https://github.com/lyne-design-system/lyne-components/issues/1328)) ([b2c41f5](https://github.com/lyne-design-system/lyne-components/commit/b2c41f5d75089563b56d6bd9a26f0d944910e5f7)), closes [#1131](https://github.com/lyne-design-system/lyne-components/issues/1131)
+
+### 0.7.6 (2022-10-05)
+
+### Bug Fixes
+
+- **sbb-logo:** display logo on Safari ([#1395](https://github.com/lyne-design-system/lyne-components/issues/1395)) ([9fee782](https://github.com/lyne-design-system/lyne-components/commit/9fee782ba0774958bddf301a263677452479c676))
+
+### 0.7.5 (2022-10-03)
+
+### 0.7.4 (2022-09-29)
+
+### Bug Fixes
+
+- **sbb-card:** correct animation duration ([#1390](https://github.com/lyne-design-system/lyne-components/issues/1390)) ([5972346](https://github.com/lyne-design-system/lyne-components/commit/5972346e2dcdf63db2f5d22b80296e886fce9bb4))
+
+### 0.7.3 (2022-09-29)
+
 ### 0.7.2 (2022-09-28)
 
 ### Bug Fixes

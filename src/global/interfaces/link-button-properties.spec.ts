@@ -1,10 +1,17 @@
 import { AccessibilityProperties } from './accessibility-properties';
 import {
   ButtonProperties,
+  forwardHostClick,
   getButtonAttributeList,
+  getButtonRenderVariables,
   getLinkAttributeList,
   getLinkButtonBaseAttributeList,
+  getLinkButtonStaticRenderVariables,
+  getLinkRenderVariables,
+  LinkButtonProperties,
   LinkProperties,
+  resolveLinkRenderVariables,
+  resolveRenderVariables,
 } from './link-button-properties';
 
 describe('getLinkButtonBaseAttributeList', () => {
@@ -109,6 +116,8 @@ describe('getLinkAttributeList', () => {
       accessibilityDescribedby: undefined,
       accessibilityLabel: undefined,
       accessibilityLabelledby: undefined,
+      accessibilityHaspopup: undefined,
+      accessibilityControls: undefined,
       click: undefined,
       emitButtonClick: () => true,
       name: undefined,
@@ -128,17 +137,18 @@ describe('getLinkAttributeList', () => {
 describe('getButtonAttributeList', () => {
   it('should return attributes for button', () => {
     const buttonProperties: ButtonProperties = {
-      accessibilityDescribedby: '',
-      accessibilityLabel: 'Test',
-      accessibilityLabelledby: '',
       click: undefined,
-      disabled: false,
       emitButtonClick: () => true,
-      eventId: 'eventId',
-      form: 'formid',
-      name: 'name',
       type: 'submit',
+      disabled: false,
+      name: 'name',
       value: 'value',
+      form: 'formid',
+      accessibilityHaspopup: 'true',
+      accessibilityControls: 'id',
+      accessibilityLabel: 'Test',
+      accessibilityDescribedby: '',
+      accessibilityLabelledby: '',
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -147,9 +157,188 @@ describe('getButtonAttributeList', () => {
       name: 'name',
       type: 'submit',
       value: 'value',
+      'aria-haspopup': 'true',
+      'aria-controls': 'id',
     };
 
     // jest can't compare functions as emitButtonClick, so objectContaining(...) API is used
     expect(getButtonAttributeList(buttonProperties)).toEqual(expect.objectContaining(expectedObj));
+  });
+});
+
+describe('getLinkRenderVariables', () => {
+  const linkButtonProperties: LinkButtonProperties<void> = {
+    href: 'link',
+    target: '_blank',
+    accessibilityDescribedby: undefined,
+    accessibilityLabel: undefined,
+    accessibilityLabelledby: undefined,
+    click: undefined,
+    emitButtonClick: () => true,
+    name: undefined,
+    type: undefined,
+    disabled: true,
+  };
+
+  it('should return the correct variables with screenReaderNewWindowInfo true', () => {
+    const expectedObj = {
+      tagName: 'a',
+      attributes: {
+        dir: 'ltr',
+        href: 'link',
+        target: '_blank',
+        rel: 'external noopener nofollow',
+        tabIndex: '-1',
+      },
+      screenReaderNewWindowInfo: true,
+    };
+    expect(getLinkRenderVariables(linkButtonProperties, linkButtonProperties)).toEqual(expectedObj);
+  });
+
+  it('should return the correct variables with screenReaderNewWindowInfo false', () => {
+    const linkButtonPropertiesNoScreenReader: LinkButtonProperties<void> = {
+      ...linkButtonProperties,
+      accessibilityLabel: 'accessibilityLabel',
+      target: 'custom',
+    };
+    const expectedObj = {
+      tagName: 'a',
+      attributes: {
+        dir: 'ltr',
+        href: 'link',
+        target: 'custom',
+        'aria-label': 'accessibilityLabel',
+        tabIndex: '-1',
+      },
+      screenReaderNewWindowInfo: false,
+    };
+    expect(
+      getLinkRenderVariables(linkButtonPropertiesNoScreenReader, linkButtonPropertiesNoScreenReader)
+    ).toEqual(expectedObj);
+  });
+});
+
+describe('getButtonRenderVariables', () => {
+  const buttonProperties: ButtonProperties<void> = {
+    accessibilityDescribedby: undefined,
+    accessibilityLabel: undefined,
+    accessibilityLabelledby: undefined,
+    click: undefined,
+    emitButtonClick: () => true,
+    type: 'submit',
+    name: 'name',
+  };
+
+  it('should return the correct variables', () => {
+    const expectedObj = {
+      tagName: 'button',
+      attributes: {
+        dir: 'ltr',
+        name: 'name',
+        type: 'submit',
+      },
+    };
+
+    expect(JSON.stringify(getButtonRenderVariables(buttonProperties))).toEqual(
+      JSON.stringify(expectedObj)
+    );
+  });
+});
+
+describe('getLinkButtonStaticRenderVariables', () => {
+  const accessibilityProperties: AccessibilityProperties = {
+    accessibilityDescribedby: undefined,
+    accessibilityLabel: undefined,
+    accessibilityLabelledby: undefined,
+  };
+  it('should return the correct variables', () => {
+    const expectedObj = {
+      tagName: 'span',
+      attributes: {
+        dir: 'ltr',
+      },
+    };
+
+    expect(getLinkButtonStaticRenderVariables(accessibilityProperties)).toEqual(expectedObj);
+  });
+});
+
+// FIXME how to spy on imported function without workaround? https://github.com/jasmine/jasmine/issues/1414
+describe('resolveRenderVariables', () => {
+  const linkButtonProperties: LinkButtonProperties<void> = {
+    href: 'link',
+    target: undefined,
+    accessibilityDescribedby: undefined,
+    accessibilityLabel: undefined,
+    accessibilityLabelledby: undefined,
+    click: undefined,
+    emitButtonClick: () => undefined,
+    type: undefined,
+    name: undefined,
+  };
+
+  it('should return variables for the static case', () => {
+    const retObj = resolveRenderVariables(linkButtonProperties, true);
+    expect(retObj.tagName).toEqual('span');
+  });
+
+  it('should return variables for the link case', () => {
+    const retObj = resolveRenderVariables(linkButtonProperties);
+    expect(retObj.tagName).toEqual('a');
+  });
+
+  it('should return variables for the button case', () => {
+    const retObj = resolveRenderVariables({ ...linkButtonProperties, href: undefined });
+    expect(retObj.tagName).toEqual('button');
+  });
+});
+
+describe('resolveLinkRenderVariables', () => {
+  const linkProperties: LinkProperties = {
+    href: 'link',
+    target: undefined,
+    accessibilityDescribedby: undefined,
+    accessibilityLabel: undefined,
+    accessibilityLabelledby: undefined,
+  };
+
+  it('should return variables for the static case', () => {
+    const retObj = resolveLinkRenderVariables({ ...linkProperties, href: undefined });
+    expect(retObj.tagName).toEqual('span');
+  });
+
+  it('should return variables for the link case', () => {
+    const retObj = resolveLinkRenderVariables(linkProperties);
+    expect(retObj.tagName).toEqual('a');
+  });
+});
+
+describe('forwardHostClick', () => {
+  it('should forward host click', () => {
+    const event = new Event('click');
+    const host = new HTMLElement();
+    const actionElement = new HTMLElement();
+
+    // Simulate shadow DOM context
+    jest.spyOn(event, 'composedPath').mockReturnValue([host]);
+    const eventSpy = jest.spyOn(actionElement, 'dispatchEvent');
+
+    forwardHostClick(event, host, actionElement);
+
+    const copiedEvent = eventSpy.mock.lastCall[0];
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(copiedEvent.type).toEqual('click');
+    expect(copiedEvent.bubbles).toEqual(false);
+  });
+
+  it('should not forward because click is not on host', () => {
+    const event = new Event('click');
+    const host = new HTMLElement();
+    const actionElement = new HTMLElement();
+    const eventSpy = jest.spyOn(actionElement, 'dispatchEvent');
+
+    forwardHostClick(event, host, actionElement);
+
+    expect(eventSpy).toHaveBeenCalledTimes(0);
   });
 });

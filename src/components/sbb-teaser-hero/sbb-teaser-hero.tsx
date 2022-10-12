@@ -1,9 +1,9 @@
-import { Component, h, Prop, JSX } from '@stencil/core';
+import { Component, Element, h, JSX, Listen, Prop } from '@stencil/core';
 import {
-  getLinkAttributeList,
-  getLinkButtonBaseAttributeList,
+  forwardHostClick,
   LinkProperties,
   LinkTargetType,
+  resolveLinkRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
@@ -50,19 +50,15 @@ export class SbbTeaserHero implements LinkProperties {
   /** Image alt text will be passed to `sbb-image`. */
   @Prop() public imageAlt?: string;
 
-  private _resolveRenderVariables(): {
-    screenReaderNewWindowInfo?: boolean;
-    attributes: Record<string, string>;
-    tagName: 'a' | 'span';
-  } {
-    if (this.href) {
-      return {
-        tagName: 'a',
-        attributes: getLinkAttributeList(this),
-        screenReaderNewWindowInfo: !this.accessibilityLabel && this.target === '_blank',
-      };
-    }
-    return { tagName: 'span', attributes: getLinkButtonBaseAttributeList(this) };
+  @Element() private _element!: HTMLElement;
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostClick(
+      event,
+      this._element,
+      this._element.shadowRoot.firstElementChild as HTMLElement // a element
+    );
   }
 
   public render(): JSX.Element {
@@ -70,7 +66,7 @@ export class SbbTeaserHero implements LinkProperties {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = this._resolveRenderVariables();
+    } = resolveLinkRenderVariables(this);
 
     return (
       <TAG_NAME class="sbb-teaser-hero" id={this.idValue} {...attributes}>

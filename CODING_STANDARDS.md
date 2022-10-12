@@ -65,6 +65,35 @@ leave it out.
 This applies especially to providing two different APIs to accomplish the same thing. Always
 prefer sticking to a _single_ API for accomplishing something.
 
+#### Click event handling on action elements
+
+If a consumer registers a click event on a host element, e.g. `sbb-button`,
+the click event will not be forwarded to the inner action element or prevented when disabled.
+
+In order to forward a programmatic click event on the host to the inner action element
+and to prevent event propagation when disabled, the following listener can be used:
+
+```ts
+import { forwardHostClick } from './global/interfaces/link-button-properties';
+import { LinkButtonProperties } from './link-button-properties';
+
+class ActionElement implements LinkButtonProperties {
+  @Listen('click')
+  public handleClick(event: Event): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    } else {
+      forwardHostClick(
+        event,
+        this._element,
+        this._element.shadowRoot.firstElementChild as HTMLElement
+      );
+    }
+  }
+}
+```
+
 ### API Design
 
 #### Boolean arguments

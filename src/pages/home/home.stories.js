@@ -122,11 +122,12 @@ const Template = (args) => (
           gap-vertical="fixed-4x"
           appearance="vertical--centered"
         >
-          <sbb-link-button
-            href-value="https://github.com/lyne-design-system/lyne-components"
-            text="Timetable toggle pretender"
+          <sbb-button
+            href="https://github.com/lyne-design-system/lyne-components"
             variant="secondary"
-          ></sbb-link-button>
+          >
+            Timetable toggle pretender
+          </sbb-button>
           <sbb-stack
             gap-vertical="fixed-4x"
             appearance="vertical--centered"
@@ -171,7 +172,7 @@ const Template = (args) => (
         space-leading="responsive-l"
         space-trailing="responsive-l"
       >
-        <sbb-title level="2">Top Produkte.</sbb-title>
+        <sbb-title level="2">Top Products.</sbb-title>
         <sbb-grid variant="base--top-products">
           <sbb-card-product
             style="height: 100%;"
@@ -199,12 +200,9 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button
-                label="Buy"
-                size="small"
-                variant="secondary"
-                visual-button-only=""
-              ></sbb-button>
+              <sbb-button size="m" variant="secondary" static>
+                Buy
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -233,12 +231,9 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button
-                label="Buy"
-                size="small"
-                variant="secondary"
-                visual-button-only=""
-              ></sbb-button>
+              <sbb-button size="m" variant="secondary" static>
+                Buy
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -267,12 +262,9 @@ const Template = (args) => (
               <span>Valid today</span>
             </div>
             <div slot="action">
-              <sbb-button
-                label="Buy"
-                size="small"
-                variant="secondary"
-                visual-button-only=""
-              ></sbb-button>
+              <sbb-button size="m" variant="secondary" static>
+                Buy
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -301,12 +293,9 @@ const Template = (args) => (
               <span>For regular trips</span>
             </div>
             <div slot="action">
-              <sbb-button
-                label="Buy"
-                size="small"
-                variant="secondary"
-                visual-button-only=""
-              ></sbb-button>
+              <sbb-button size="m" variant="secondary" static>
+                Buy
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -328,11 +317,9 @@ const Template = (args) => (
               </sbb-title>
             </div>
             <div slot="action">
-              <sbb-button
-                label="All GAs at a glance"
-                variant="secondary"
-                visual-button-only="true"
-              ></sbb-button>
+              <sbb-button variant="secondary" static>
+                All GAs at a glance
+              </sbb-button>
             </div>
           </sbb-card-product>
           <sbb-card-product
@@ -354,11 +341,9 @@ const Template = (args) => (
               </sbb-title>
             </div>
             <div slot="action">
-              <sbb-button
-                label="Ride at half price"
-                variant="secondary"
-                visual-button-only=""
-              ></sbb-button>
+              <sbb-button variant="secondary" static>
+                Ride at half price
+              </sbb-button>
             </div>
           </sbb-card-product>
         </sbb-grid>
@@ -368,28 +353,19 @@ const Template = (args) => (
           gap-horizontal="fixed-4x"
           gap-vertical="fixed-2x"
         >
-          <sbb-link-button
-            href-value="https://github.com/lyne-design-system/lyne-components"
-            icon="user-small"
-            icon-placement="start"
-            text="My tickets & subscriptions"
+          <sbb-button
+            href="https://github.com/lyne-design-system/lyne-components"
+            icon-name="user-small"
             variant="primary"
           >
-            <span slot="icon">
-              <svg width="24" height="24" viewBox="0,0,24,24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="m9.5,8.99976c0-1.73197,1.1887-3,2.5-3s2.5,1.26803,2.5,3c0,1.73194-1.1887,3.00004-2.5,3.00004s-2.5-1.2681-2.5-3.00004zm2.5-4c-2.00269,0-3.5,1.86596-3.5,4,0,.92922.28389,1.80764.76978,2.50324C6.47282,12.9019,5,16.3669,5,19.5v.5h14v-.5c0-3.1497-1.4746-6.6059-4.2697-7.997.4858-.6957.7697-1.57405.7697-2.50324,0-2.13404-1.4973-4-3.5-4zm2.0156,7.27454c-.5617.4541-1.2519.7255-2.0156.7255-.7639,0-1.4543-.2716-2.01615-.7259C7.61923,13.2905,6.16607,16.1356,6.01337,19H17.9868c-.1522-2.8799-1.6079-5.7167-3.9712-6.7257z"
-                ></path>
-              </svg>
-            </span>
-          </sbb-link-button>
-          <sbb-link-button
-            href-value="https://github.com/lyne-design-system/lyne-components"
-            text="All Products"
+            My tickets & subscriptions
+          </sbb-button>
+          <sbb-button
+            href="https://github.com/lyne-design-system/lyne-components"
             variant="secondary"
-          ></sbb-link-button>
+          >
+            All Products
+          </sbb-button>
         </sbb-stack>
       </sbb-stack>
     </sbb-section>
@@ -452,13 +428,11 @@ const Template = (args) => (
           </sbb-link>
         </sbb-link-list>
         <sbb-button
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           variant="primary"
-          size="m"
-          label="All help topics"
-          event-id="Event ID"
-          name="sample-name"
-          value="sample-value"
-        ></sbb-button>
+        >
+          All help topics
+        </sbb-button>
       </div>
       <sbb-link-list title-level="2" title-content="More SBB.">
         <sbb-link
@@ -511,13 +485,11 @@ const Template = (args) => (
           </span>
         </sbb-link-list>
         <sbb-button
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           variant="secondary"
-          size="m"
-          label="Subscribe"
-          event-id="Event ID"
-          name="sample-name"
-          value="sample-value"
-        ></sbb-button>
+        >
+          Subscribe
+        </sbb-button>
       </div>
       <sbb-clock {...args.sbbClock}></sbb-clock>
       <sbb-divider />

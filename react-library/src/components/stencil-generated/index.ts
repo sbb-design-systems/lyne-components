@@ -28,7 +28,6 @@ export const SbbIcon = /*@__PURE__*/createReactComponent<JSX.SbbIcon, HTMLSbbIco
 export const SbbImage = /*@__PURE__*/createReactComponent<JSX.SbbImage, HTMLSbbImageElement>('sbb-image');
 export const SbbJourneyHeader = /*@__PURE__*/createReactComponent<JSX.SbbJourneyHeader, HTMLSbbJourneyHeaderElement>('sbb-journey-header');
 export const SbbLink = /*@__PURE__*/createReactComponent<JSX.SbbLink, HTMLSbbLinkElement>('sbb-link');
-export const SbbLinkButton = /*@__PURE__*/createReactComponent<JSX.SbbLinkButton, HTMLSbbLinkButtonElement>('sbb-link-button');
 export const SbbLinkList = /*@__PURE__*/createReactComponent<JSX.SbbLinkList, HTMLSbbLinkListElement>('sbb-link-list');
 export const SbbLogo = /*@__PURE__*/createReactComponent<JSX.SbbLogo, HTMLSbbLogoElement>('sbb-logo');
 export const SbbOverlay = /*@__PURE__*/createReactComponent<JSX.SbbOverlay, HTMLSbbOverlayElement>('sbb-overlay');

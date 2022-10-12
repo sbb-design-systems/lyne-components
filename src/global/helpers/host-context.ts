@@ -18,3 +18,7 @@ export function hostContext(selector: string, element: Element): Element | null 
 
   return null;
 }
+
+// A list of elements that should not allow another anchor or button element inside them.
+// Needs to be extended if additional elements fall into this category.
+export const ACTION_ELEMENTS = 'a,button,sbb-card,sbb-teaser-hero,sbb-teaser';

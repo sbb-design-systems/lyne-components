@@ -1,12 +1,24 @@
-import { Component, Event, EventEmitter, h, Host, JSX, Prop, State } from '@stencil/core';
+import {
+  Component,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
-  getButtonAttributeList,
-  getLinkAttributeList,
+  forwardHostClick,
   LinkButtonProperties,
+  LinkButtonRenderVariables,
   LinkTargetType,
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 
@@ -44,29 +56,14 @@ export class SbbCard implements LinkButtonProperties {
   @State() private _hasBadge = false;
 
   /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
-  /**
    *  The href value you want to link to.
    */
-  @Prop() public href: string | undefined;
+  @Prop({ reflect: true }) public href: string | undefined;
 
   /**
-   * Whether the browser will show the download dialog on click.
+   * Where to display the linked URL.
    */
-  @Prop() public download?: boolean | undefined;
+  @Prop() public target?: LinkTargetType | string | undefined;
 
   /**
    * The relationship of the linked URL as space-separated link types.
@@ -74,9 +71,9 @@ export class SbbCard implements LinkButtonProperties {
   @Prop() public rel?: string | undefined;
 
   /**
-   * Where to display the linked URL.
+   * Whether the browser will show the download dialog on click.
    */
-  @Prop() public target?: LinkTargetType | string | undefined;
+  @Prop() public download?: boolean | undefined;
 
   /**
    * Default behaviour of the button.
@@ -109,10 +106,36 @@ export class SbbCard implements LinkButtonProperties {
   public click: EventEmitter<null> | undefined;
 
   /**
+   * This will be forwarded as aria-label to the relevant nested element.
+   */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /**
+   * This will be forwarded as aria-describedby to the relevant nested element.
+   */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /**
+   * This will be forwarded as aria-labelledby to the relevant nested element.
+   */
+  @Prop() public accessibilityLabelledby: string | undefined;
+
+  @Element() private _element!: HTMLElement;
+
+  /**
    * The function triggered on button click.
    */
   public emitButtonClick(): void {
     this.click.emit();
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostClick(
+      event,
+      this._element,
+      this._element.shadowRoot.firstElementChild as HTMLElement // a element
+    );
   }
 
   /**
@@ -125,26 +148,18 @@ export class SbbCard implements LinkButtonProperties {
   }
 
   public render(): JSX.Element {
-    let TAG_NAME: string;
-    let className = 'sbb-card';
-    let attributeList: Record<string, string>;
-
-    if (this.href) {
-      TAG_NAME = 'a';
-      className += ' sbb-card__link';
-      attributeList = getLinkAttributeList(this, this);
-    } else {
-      TAG_NAME = 'button';
-      className += ' sbb-card__button';
-      attributeList = getButtonAttributeList(this);
-    }
+    const {
+      tagName: TAG_NAME,
+      attributes,
+      screenReaderNewWindowInfo,
+    }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
     return (
       <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
         <TAG_NAME
           id={this.idValue}
-          class={className}
-          {...attributeList}
+          class="sbb-card"
+          {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >
           {this._showSBBBadge() && (
@@ -157,7 +172,7 @@ export class SbbCard implements LinkButtonProperties {
           )}
           <span class="sbb-card__content">
             <slot />
-            {this.href && (
+            {screenReaderNewWindowInfo && (
               <span class="sbb-card__opens-in-new-window">
                 . {i18nTargetOpensInNewWindow[getDocumentLang()]}
               </span>
