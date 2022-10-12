@@ -24,23 +24,6 @@ Default
   </sbb-link-list>
 </sbb-footer>
 
-
-
-
-
-
-
-
-<ssb-ttr>
-    <slot></slot>
-    
-    <perl-chain></perl-chain>
-    
-    <slot></slot>
-</ssb-ttr>
-
-
-
 ```
 
 Variante clock-columns with wrapped link-list with button:
@@ -81,11 +64,11 @@ Variante clock-columns with wrapped link-list with button:
 
 ## Properties
 
-| Property             | Attribute             | Description                                                      | Type                           | Default     |
-| -------------------- | --------------------- | ---------------------------------------------------------------- | ------------------------------ | ----------- |
-| `accessibilityTitle` | `accessibility-title` | Footer title text, visually hidden,  necessary for screenreaders | `string`                       | `undefined` |
-| `negative`           | `negative`            | Negative coloring variant flag                                   | `boolean`                      | `false`     |
-| `variant`            | `variant`             |                                                                  | `"clock-columns" \| "default"` | `'default'` |
+| Property             | Attribute             | Description                                                                                                                                                                                    | Type                           | Default     |
+| -------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----------- |
+| `accessibilityTitle` | `accessibility-title` | Footer title text, visually hidden,  necessary for screenreaders                                                                                                                               | `string`                       | `undefined` |
+| `negative`           | `negative`            | Negative coloring variant flag                                                                                                                                                                 | `boolean`                      | `false`     |
+| `variant`            | `variant`             | Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints. | `"clock-columns" \| "default"` | `'default'` |
 
 
 ## Dependencies

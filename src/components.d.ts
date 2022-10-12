@@ -487,6 +487,9 @@ export namespace Components {
           * Negative coloring variant flag
          */
         "negative": boolean;
+        /**
+          * Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints.
+         */
         "variant": InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
@@ -2073,6 +2076,9 @@ declare namespace LocalJSX {
           * Negative coloring variant flag
          */
         "negative"?: boolean;
+        /**
+          * Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints.
+         */
         "variant"?: InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
