@@ -482,11 +482,12 @@ export namespace Components {
         /**
           * Footer title text, visually hidden,  necessary for screenreaders
          */
-        "accessibilityTitle": string;
+        "accessibilityTitle"?: string;
         /**
-          * Footer appearance
+          * Negative coloring variant flag
          */
-        "appearance"?: InterfaceFooterAttributes['appearance'];
+        "negative": boolean;
+        "variant": InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
     }
@@ -2067,11 +2068,12 @@ declare namespace LocalJSX {
         /**
           * Footer title text, visually hidden,  necessary for screenreaders
          */
-        "accessibilityTitle": string;
+        "accessibilityTitle"?: string;
         /**
-          * Footer appearance
+          * Negative coloring variant flag
          */
-        "appearance"?: InterfaceFooterAttributes['appearance'];
+        "negative"?: boolean;
+        "variant"?: InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
     }
