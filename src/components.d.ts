@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
+import { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 import { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
@@ -77,6 +78,20 @@ export namespace Components {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface SbbActionGroup {
+        /**
+          * Set the slotted `<sbb-action-group>` children's alignment.
+         */
+        "alignGroup": InterfaceSbbActionGroupAttributes['alignGroup'];
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
+        /**
+          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+         */
+        "orientation": InterfaceSbbActionGroupAttributes['orientation'];
     }
     interface SbbAlert {
         /**
@@ -1240,6 +1255,12 @@ declare global {
         prototype: HTMLSbbAccordionItemElement;
         new (): HTMLSbbAccordionItemElement;
     };
+    interface HTMLSbbActionGroupElement extends Components.SbbActionGroup, HTMLStencilElement {
+    }
+    var HTMLSbbActionGroupElement: {
+        prototype: HTMLSbbActionGroupElement;
+        new (): HTMLSbbActionGroupElement;
+    };
     interface HTMLSbbAlertElement extends Components.SbbAlert, HTMLStencilElement {
     }
     var HTMLSbbAlertElement: {
@@ -1549,6 +1570,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
+        "sbb-action-group": HTMLSbbActionGroupElement;
         "sbb-alert": HTMLSbbAlertElement;
         "sbb-alert-group": HTMLSbbAlertGroupElement;
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
@@ -1638,6 +1660,20 @@ declare namespace LocalJSX {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface SbbActionGroup {
+        /**
+          * Set the slotted `<sbb-action-group>` children's alignment.
+         */
+        "alignGroup"?: InterfaceSbbActionGroupAttributes['alignGroup'];
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
+        /**
+          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+         */
+        "orientation"?: InterfaceSbbActionGroupAttributes['orientation'];
     }
     interface SbbAlert {
         /**
@@ -2775,6 +2811,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
+        "sbb-action-group": SbbActionGroup;
         "sbb-alert": SbbAlert;
         "sbb-alert-group": SbbAlertGroup;
         "sbb-autocomplete": SbbAutocomplete;
@@ -2834,6 +2871,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "sbb-accordion": LocalJSX.SbbAccordion & JSXBase.HTMLAttributes<HTMLSbbAccordionElement>;
             "sbb-accordion-item": LocalJSX.SbbAccordionItem & JSXBase.HTMLAttributes<HTMLSbbAccordionItemElement>;
+            "sbb-action-group": LocalJSX.SbbActionGroup & JSXBase.HTMLAttributes<HTMLSbbActionGroupElement>;
             "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;

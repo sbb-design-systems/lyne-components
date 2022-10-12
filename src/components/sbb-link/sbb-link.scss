@@ -15,7 +15,7 @@
 }
 
 :host([variant='block']) {
-  display: flex;
+  display: block;
 }
 
 :host([negative]) {
