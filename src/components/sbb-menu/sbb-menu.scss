@@ -121,6 +121,7 @@
 .sbb-menu__content {
   @include scrollbar-dark;
 
+  outline: none;
   max-height: var(--sbb-menu-max-height);
   padding-block: var(--sbb-spacing-fixed-1x);
   overflow: auto;
