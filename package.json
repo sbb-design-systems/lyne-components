@@ -59,7 +59,7 @@
     "@storybook/addon-essentials": "6.5.12",
     "@storybook/html": "6.5.12",
     "@types/jest": "27.5.2",
-    "@types/puppeteer": "5.4.6",
+    "@types/puppeteer": "5.4.7",
     "@types/react": "16.14.32",
     "@types/react-dom": "16.9.16",
     "@typescript-eslint/eslint-plugin": "5.40.0",
