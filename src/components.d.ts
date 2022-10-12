@@ -981,6 +981,10 @@ export namespace Components {
          */
         "legs": InterfacePearlChainAttributes['legs'];
     }
+    interface SbbPearlChainItem {
+        "disableAnimation"?: boolean;
+        "pearlChainItemAttributes": PearlChainItemAttributes;
+    }
     interface SbbPearlChainTime {
         /**
           * Prop to render the arrival time - will be formatted as "H:mm"
@@ -1006,10 +1010,6 @@ export namespace Components {
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
         "legs": InterfacePearlChainAttributes['legs'];
-    }
-    interface SbbPearlChainItem {
-        "disableAnimation"?: boolean;
-        "pearlChainItemAttributes": PearlChainItemAttributes;
     }
     interface SbbPearlChainVertical {
     }
@@ -1647,17 +1647,17 @@ declare global {
         prototype: HTMLSbbPearlChainElement;
         new (): HTMLSbbPearlChainElement;
     };
-    interface HTMLSbbPearlChainTimeElement extends Components.SbbPearlChainTime, HTMLStencilElement {
-    }
-    var HTMLSbbPearlChainTimeElement: {
-        prototype: HTMLSbbPearlChainTimeElement;
-        new (): HTMLSbbPearlChainTimeElement;
-    }
     interface HTMLSbbPearlChainItemElement extends Components.SbbPearlChainItem, HTMLStencilElement {
     }
     var HTMLSbbPearlChainItemElement: {
         prototype: HTMLSbbPearlChainItemElement;
         new (): HTMLSbbPearlChainItemElement;
+    };
+    interface HTMLSbbPearlChainTimeElement extends Components.SbbPearlChainTime, HTMLStencilElement {
+    }
+    var HTMLSbbPearlChainTimeElement: {
+        prototype: HTMLSbbPearlChainTimeElement;
+        new (): HTMLSbbPearlChainTimeElement;
     };
     interface HTMLSbbPearlChainVerticalElement extends Components.SbbPearlChainVertical, HTMLStencilElement {
     }
@@ -1864,8 +1864,8 @@ declare global {
         "sbb-menu-action": HTMLSbbMenuActionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
-        "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
         "sbb-pearl-chain-item": HTMLSbbPearlChainItemElement;
+        "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
         "sbb-pearl-chain-vertical": HTMLSbbPearlChainVerticalElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
@@ -2852,6 +2852,10 @@ declare namespace LocalJSX {
          */
         "legs": InterfacePearlChainAttributes['legs'];
     }
+    interface SbbPearlChainItem {
+        "disableAnimation"?: boolean;
+        "pearlChainItemAttributes"?: PearlChainItemAttributes;
+    }
     interface SbbPearlChainTime {
         /**
           * Prop to render the arrival time - will be formatted as "H:mm"
@@ -2877,10 +2881,6 @@ declare namespace LocalJSX {
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
         "legs": InterfacePearlChainAttributes['legs'];
-    }
-    interface SbbPearlChainItem {
-        "disableAnimation"?: boolean;
-        "pearlChainItemAttributes"?: PearlChainItemAttributes;
     }
     interface SbbPearlChainVertical {
     }
@@ -3336,8 +3336,8 @@ declare namespace LocalJSX {
         "sbb-menu-action": SbbMenuAction;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
-        "sbb-pearl-chain-time": SbbPearlChainTime;
         "sbb-pearl-chain-item": SbbPearlChainItem;
+        "sbb-pearl-chain-time": SbbPearlChainTime;
         "sbb-pearl-chain-vertical": SbbPearlChainVertical;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
@@ -3403,8 +3403,8 @@ declare module "@stencil/core" {
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
-            "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
             "sbb-pearl-chain-item": LocalJSX.SbbPearlChainItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainItemElement>;
+            "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
             "sbb-pearl-chain-vertical": LocalJSX.SbbPearlChainVertical & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
