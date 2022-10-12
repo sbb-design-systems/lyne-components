@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.8 (2022-10-12)
+
+### Features
+
+- **sbb-teaser:** allow image size to be configured ([#1407](https://github.com/lyne-design-system/lyne-components/issues/1407)) ([7894d00](https://github.com/lyne-design-system/lyne-components/commit/7894d00455a8cb0c52a8f273d2d30f257d4e07eb))
+
 ### 0.9.7 (2022-10-11)
 
 ### Features
