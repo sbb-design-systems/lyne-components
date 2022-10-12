@@ -136,7 +136,7 @@ export const configPosition = {
       {
         name: 'Z',
         text: {
-          template: 'Tilting train',
+          template: 'hint 1',
           arguments: null,
         },
         type: 'ATTRIBUTE',
@@ -147,7 +147,7 @@ export const configPosition = {
       {
         name: 'RR',
         text: {
-          template: 'Tilting train',
+          template: 'hint 2',
           arguments: null,
         },
         type: 'ATTRIBUTE',
@@ -158,7 +158,7 @@ export const configPosition = {
       {
         name: 'om',
         text: {
-          template: 'Tilting train',
+          template: 'hint 3',
           arguments: null,
         },
         type: 'ATTRIBUTE',
@@ -169,7 +169,7 @@ export const configPosition = {
       {
         name: 'FS',
         text: {
-          template: 'Tilting train',
+          template: 'hint 4',
           arguments: null,
         },
         type: 'ATTRIBUTE',
@@ -180,7 +180,7 @@ export const configPosition = {
       {
         name: 'Z',
         text: {
-          template: 'Tilting train',
+          template: 'hint 5',
           arguments: null,
         },
         type: 'ATTRIBUTE',

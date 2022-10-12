@@ -1,4 +1,4 @@
-declare type ServiceAlteration = {
+export type ServiceAlteration = {
   /** If (partially) cancelled, enduser cancellation info. */
   cancellationInfo?: string;
   /** true: Journey is (partially) cancelled (default=false) */
@@ -6,7 +6,6 @@ declare type ServiceAlteration = {
   /**
    * Enduser text, saying whether there is a delay on PTRideLeg (referring to first/last Stop).
    *
-   * TODO: discuss if needed
    */
   delayText: string;
   /**
@@ -14,7 +13,6 @@ declare type ServiceAlteration = {
    * (de: Anschluss kann gehalten werden, see Trip::valid);
    * false: de:nicht mehr erreichbare Fahrt
    *
-   * TODO: discuss if needed
    */
   reachable: boolean;
   /** true: journey is redirected */

@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
 import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import { i18nClass, i18nDirection, i18nFromPlatform, i18nOccupancy } from '../../global/i18n';
+import { i18nClass, i18nDirection, i18nFromQuay, i18nOccupancy } from '../../global/i18n';
 import { durationToTime, isProductIcon, renderIconProduct } from './sbb-timetable-row.helper';
 
 @Component({
@@ -13,19 +13,14 @@ import { durationToTime, isProductIcon, renderIconProduct } from './sbb-timetabl
 export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
 
-  /**
-   * The loading state -
-   * when this is true it will be render skeleton with an idling animation
-   */
-
   /** The trip Prop */
   @Prop() public trip?: InterfaceTimetableRowAttributes['trip'];
 
-  /** The price Prop,  which consits of the data for the badge*/
+  /** The price Prop, which consists of the data for the badge. */
   @Prop() public price?: InterfaceTimetableRowAttributes['price'];
 
   /** This will be forwarded as aria-label to the relevant element. */
-  @Prop() public accessibilityLabel: string;
+  @Prop() public accessibilityLabel: string | undefined;
 
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
@@ -36,13 +31,13 @@ export class SbbTimetableRow {
    */
   @Prop() public loadingTrip?: boolean;
 
-  /** When this prop is true the badge for the price will appear loading*/
+  /** When this prop is true the badge for the price will appear loading. */
   @Prop() public loadingPrice?: boolean;
 
-  /** When this prop is true the sbb-card will be in the active state*/
+  /** When this prop is true the sbb-card will be in the active state. */
   @Prop() public acitve?: boolean;
 
-  /** This click event gets emitted when the user clicks on the component*/
+  /** This click event gets emitted when the user clicks on the component. */
   @Event({
     bubbles: true,
     composed: true,
@@ -53,19 +48,19 @@ export class SbbTimetableRow {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
-      <sbb-timetable-row-button disabled class="sbb-loading" role="presentation">
-        <div class="sbb-loading">
+      <button disabled class="sbb-loading">
+        <div class="sbb-loading__wrapper">
           {this.price != undefined && <span class="sbb-loading__badge"></span>}
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
         </div>
-      </sbb-timetable-row-button>
+      </button>
     );
   }
 
   /**
-   * sorts the Array and sets the items with the highest priority to the top
+   * Sorts the Array and sets the items with the highest priority to the top
    * @param items Array with the type of Notice or PtSituation.
    * @returns sorted Array with the type of Notice or PtSituation.
    */
@@ -145,41 +140,41 @@ export class SbbTimetableRow {
           ></sbb-pearl-chain-time>
 
           <div class="sbb-timetable__row-footer">
-            <span class={tripStatus?.quayChanged ? `sbb-timetable__row-platform--changed` : ''}>
-              <span class="screenreaderonly">{i18nFromPlatform.long[this._currentLanguage]}</span>
-              <span class="sbb-timetable__row--platform">
-                {i18nFromPlatform.short[this._currentLanguage]}
+            <span class={tripStatus?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
+              <span class="sbb-screenreaderonly">{i18nFromQuay.long[this._currentLanguage]}</span>
+              <span class="sbb-timetable__row--quay">
+                {i18nFromQuay.short[this._currentLanguage]}
               </span>
               {departure?.quayRtName}
             </span>
 
             {(occupancy?.firstClass || occupancy?.secondClass) && (
-              <div>
-                <ul class="sbb-timetable__row-occupancy" role="list">
-                  <li>
-                    {occupancy?.firstClass ? '1.' : ''}
-                    <sbb-icon
-                      class="sbb-occupancy__item"
-                      name={`utilization-` + occupancy?.firstClass}
-                    />
-                    <span class="screenreaderonly">{i18nClass.first[this._currentLanguage]}</span>
-                    <span class="screenreaderonly">
-                      {i18nOccupancy[occupancy.firstClass.toLowerCase()][this._currentLanguage]}
-                    </span>
-                  </li>
-                  <li>
-                    {occupancy?.secondClass ? '2.' : ''}
-                    <sbb-icon
-                      class="sbb-occupancy__item"
-                      name={`utilization-` + occupancy?.secondClass}
-                    />
-                    <span class="screenreaderonly">{i18nClass.second[this._currentLanguage]}</span>
-                    <span class="screenreaderonly">
-                      {i18nOccupancy[occupancy.secondClass.toLowerCase()][this._currentLanguage]}
-                    </span>
-                  </li>
-                </ul>
-              </div>
+              <ul class="sbb-timetable__row-occupancy" role="list">
+                <li>
+                  {occupancy?.firstClass ? '1.' : ''}
+                  <sbb-icon
+                    class="sbb-occupancy__item"
+                    name={`utilization-` + occupancy?.firstClass}
+                  />
+                  <span class="sbb-screenreaderonly">{i18nClass.first[this._currentLanguage]}</span>
+                  <span class="sbb-screenreaderonly">
+                    {i18nOccupancy[occupancy.firstClass.toLowerCase()][this._currentLanguage]}
+                  </span>
+                </li>
+                <li>
+                  {occupancy?.secondClass ? '2.' : ''}
+                  <sbb-icon
+                    class="sbb-occupancy__item"
+                    name={`utilization-` + occupancy?.secondClass}
+                  />
+                  <span class="sbb-screenreaderonly">
+                    {i18nClass.second[this._currentLanguage]}
+                  </span>
+                  <span class="sbb-screenreaderonly">
+                    {i18nOccupancy[occupancy.secondClass.toLowerCase()][this._currentLanguage]}
+                  </span>
+                </li>
+              </ul>
             )}
             {sortedNotices?.length > 0 ? (
               <ul class="sbb-timetable__row-hints" role="list">

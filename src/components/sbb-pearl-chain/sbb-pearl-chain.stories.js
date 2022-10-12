@@ -1,25 +1,23 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import data from './sbb-pearl-chain.sample-data';
+
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const defaultArgTypes = {
+  'disable-animation': disableAnimation,
+};
+
 const Template = (args) => {
   return <sbb-pearl-chain legs={args.legs} />;
 };
 
 export const NoStops = Template.bind({});
-export const ManyStops = Template.bind({});
-export const Cancelled = Template.bind({});
-export const CancelledManyStops = Template.bind({});
-export const withData = Template.bind({});
-export const Past = Template.bind({});
-
-withData.args = {
-  legs: data,
-};
-
-NoStops.documentation = {
-  title: 'No stops',
-};
-
+NoStops.argTypes = defaultArgTypes;
 NoStops.args = {
   legs: [
     {
@@ -27,7 +25,12 @@ NoStops.args = {
     },
   ],
 };
+NoStops.documentation = {
+  title: 'No stops',
+};
 
+export const ManyStops = Template.bind({});
+ManyStops.argTypes = defaultArgTypes;
 ManyStops.args = {
   legs: [
     {
@@ -45,6 +48,8 @@ ManyStops.args = {
   ],
 };
 
+export const Cancelled = Template.bind({});
+Cancelled.argTypes = defaultArgTypes;
 Cancelled.args = {
   legs: [
     {
@@ -58,6 +63,8 @@ Cancelled.args = {
   ],
 };
 
+export const CancelledManyStops = Template.bind({});
+CancelledManyStops.argTypes = defaultArgTypes;
 CancelledManyStops.args = {
   legs: [
     {
@@ -103,6 +110,14 @@ CancelledManyStops.args = {
   ],
 };
 
+export const withData = Template.bind({});
+withData.argTypes = defaultArgTypes;
+withData.args = {
+  legs: data,
+};
+
+export const Past = Template.bind({});
+Past.argTypes = defaultArgTypes;
 Past.args = {
   legs: [
     {
@@ -154,5 +169,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-pearl-chain (Unfinished)',
+  title: 'components/timetable/pearl-chains/sbb-pearl-chain',
 };

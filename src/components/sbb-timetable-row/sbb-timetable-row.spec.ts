@@ -32,39 +32,37 @@ describe('sbb-timetable-row', () => {
             </div>
             <sbb-pearl-chain-time arrivaltime="2022-10-28T21:16:00+02:00" arrivalwalk="5" departuretime="2022-10-28T02:48:00+02:00" departurewalk="8"></sbb-pearl-chain-time>
             <div class="sbb-timetable__row-footer">
-              <span class="sbb-timetable__row-platform--changed">
-                <span class="screenreaderonly">
+              <span class="sbb-timetable__row-quay--changed">
+                <span class="sbb-screenreaderonly">
                   from platform
                 </span>
-                <span class="sbb-timetable__row--platform">
+                <span class="sbb-timetable__row--quay">
                   Pl.
                 </span>
                 7
               </span>
-              <div>
-                <ul class="sbb-timetable__row-occupancy" role="list">
-                  <li>
-                    1.
-                    <sbb-icon class="sbb-occupancy__item" name="utilization-high"></sbb-icon>
-                    <span class="screenreaderonly">
-                      First Class
-                    </span>
-                    <span class="screenreaderonly">
-                      Very high occupancy expected.
-                    </span>
-                  </li>
-                  <li>
-                    2.
-                    <sbb-icon class="sbb-occupancy__item" name="utilization-high"></sbb-icon>
-                    <span class="screenreaderonly">
-                      Second Class
-                    </span>
-                    <span class="screenreaderonly">
-                      Very high occupancy expected.
-                    </span>
-                  </li>
-                </ul>
-              </div>
+              <ul class="sbb-timetable__row-occupancy" role="list">
+                <li>
+                  1.
+                  <sbb-icon class="sbb-occupancy__item" name="utilization-high"></sbb-icon>
+                  <span class="sbb-screenreaderonly">
+                    First Class
+                  </span>
+                  <span class="sbb-screenreaderonly">
+                    Very high occupancy expected.
+                  </span>
+                </li>
+                <li>
+                  2.
+                  <sbb-icon class="sbb-occupancy__item" name="utilization-high"></sbb-icon>
+                  <span class="sbb-screenreaderonly">
+                    Second Class
+                  </span>
+                  <span class="sbb-screenreaderonly">
+                    Very high occupancy expected.
+                  </span>
+                </li>
+              </ul>
               <ul class="sbb-timetable__row-hints" role="list">
                 <li>
                   <sbb-icon aria-hidden="false" aria-label="Tilting train" class="sbb-travel-hints__item" name="sa-rr"></sbb-icon>
@@ -104,13 +102,13 @@ describe('sbb-timetable-row', () => {
       expect(page.root).toEqualHtml(`
         <sbb-timetable-row loading-trip="true">
           <mock:shadow-root>
-            <sbb-timetable-row-button class="sbb-loading" disabled="" role="presentation">
-              <div class="sbb-loading">
+            <button class="sbb-loading" disabled="">
+              <div class="sbb-loading__wrapper">
                 <div class="sbb-loading__row"></div>
                 <div class="sbb-loading__row"></div>
                 <div class="sbb-loading__row"></div>
               </div>
-            </sbb-timetable-row-button>
+            </button>
           </mock:shadow-root>
         </sbb-timetable-row>
       `);

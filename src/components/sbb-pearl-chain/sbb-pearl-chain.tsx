@@ -103,7 +103,7 @@ export class SbbPearlChain {
 
           const legStyle = (): Record<string, string> => {
             return {
-              width: `${duration}%`,
+              '--leg-width': `${duration}%`,
               ...(this._getStatus(departure, arrival) === 'progress'
                 ? { '--leg-status': `${this._getProgress(departure, arrival)}%` }
                 : {}),

@@ -223,7 +223,7 @@ export const i18nEarlierConnections: any = {
   it: 'Collegamenti precedenti',
 };
 
-export const i18nFromPlatform: any = {
+export const i18nFromQuay: any = {
   long: {
     de: 'Von Gleis',
     en: 'from platform',

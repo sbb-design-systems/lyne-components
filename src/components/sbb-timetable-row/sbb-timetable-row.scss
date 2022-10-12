@@ -1,3 +1,5 @@
+@include host-component-properties;
+
 :host {
   --row-gap: var(--sbb-spacing-fixed-2x);
 }
@@ -8,6 +10,7 @@
   --sbb-icon-svg-height: #{px-to-rem-build(16)};
 }
 
+// Design spec: icon should have spesific size
 .sbb-occupancy__item {
   --sbb-icon-svg-width: #{px-to-rem-build(14.25)};
   --sbb-icon-svg-height: #{px-to-rem-build(12)};
@@ -18,21 +21,19 @@
   }
 }
 
-.screenreaderonly {
+.sbb-screenreaderonly {
   @include screenReaderOnly;
 }
 
-.sbb-timetable__row--platform {
+.sbb-timetable__row--quay {
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
 // resets lists
 ul {
+  @include list-reset;
+
   display: inline-flex;
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  text-decoration: none;
 }
 
 li {
@@ -101,7 +102,7 @@ li {
   gap: var(--sbb-spacing-fixed-1x);
 }
 
-.sbb-timetable__row-platform--changed {
+.sbb-timetable__row-quay--changed {
   color: var(--sbb-color-red-default);
 }
 
@@ -110,6 +111,17 @@ li {
 }
 
 .sbb-loading {
+  @include card-host-properties;
+  @include card;
+  @include card--m;
+  @include card--primary-negative;
+
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sbb-loading__wrapper {
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-2x);
@@ -124,7 +136,7 @@ li {
 .sbb-loading__row {
   width: 100%;
   height: #{px-to-rem-build(24)};
-  border-radius: #{px-to-rem-build(2)};
+  border-radius: var(--sbb-border-radius-1x);
 }
 
 .sbb-loading__row:first-of-type {

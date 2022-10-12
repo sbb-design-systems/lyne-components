@@ -27,7 +27,6 @@
 
 .sbb-pearl-chain {
   position: relative;
-  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
@@ -45,7 +44,7 @@
   @include dot;
 
   background-color: currentcolor;
-  top: 0;
+  inset-block-start: 0;
   z-index: 3;
 
   @include ifForcedColors {
@@ -53,16 +52,12 @@
   }
 }
 
-.sbb-pearl-chain--progress::before {
-  color: var(--color-past);
-}
-
 .sbb-pearl-chain::before {
-  left: 0;
+  inset-inline-start: 0;
 }
 
 .sbb-pearl-chain::after {
-  right: 0;
+  inset-inline-end: 0;
 }
 
 .sbb-pearl-chain.sbb-pearl-chain--past::before,
@@ -91,7 +86,6 @@
 }
 
 .sbb-pearl-chain--past {
-  color: var(--color-past);
   position: relative;
 
   @include ifForcedColors {
@@ -104,8 +98,9 @@
   flex-grow: 0;
   position: relative;
   height: var(--border-width);
-  border-right: var(--spacing-small) solid var(--color-white);
+  border-inline-end: var(--spacing-small) solid var(--color-white);
   background-color: currentcolor;
+  width: var(--leg-width);
 
   @include ifForcedColors {
     color: CanvasText;
@@ -116,11 +111,10 @@
   border: none;
 }
 
-.sbb-pearl-chain__leg--past {
-  color: var(--color-past);
-}
-
-.sbb-pearl-chain__leg--progress::before {
+.sbb-pearl-chain__leg--past,
+.sbb-pearl-chain--past,
+.sbb-pearl-chain__leg--progress::before,
+.sbb-pearl-chain--progress::before {
   color: var(--color-past);
 }
 
@@ -130,9 +124,8 @@
     --dot-size: var(--dot-size-small);
     @include dot;
 
-    box-sizing: border-box;
-    top: calc(var(--dot-size) / -2 + var(--border-width) / 2);
-    left: 0;
+    inset-block-start: calc(var(--dot-size) / -2 + var(--border-width) / 2);
+    inset-inline-start: 0;
     background-color: var(--color-white);
     border: var(--border-width) solid currentcolor;
     z-index: 2;
@@ -149,9 +142,9 @@
 .sbb-pearl-chain__leg::after {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
+  inset-block-start: 0;
+  inset-block-end: 0;
+  inset-inline-start: 0;
   background-color: currentcolor;
   border-radius: var(--border-width);
   z-index: 1;
@@ -166,7 +159,7 @@
 }
 
 .sbb-pearl-chain__leg:last-of-type::after {
-  right: calc(-1 * var(--border-width));
+  inset-inline-end: calc(-1 * var(--border-width));
 }
 
 .sbb-pearl-chain__leg--progress::after {
@@ -200,14 +193,14 @@
   );
   background-repeat: repeat-x;
   background-size: calc(2 * var(--spacing-small)) var(--border-width);
-  right: var(--border-width);
+  inset-inline-end: var(--border-width);
 }
 
 .sbb-pearl-chain__leg--cancellation::after,
 .sbb-pearl-chain--past .sbb-pearl-chain__leg--cancellation::after {
   @include ifForcedColors {
     background: none;
-    border-top: #{px-to-rem-build(1)} dashed currentcolor;
+    border-block-start: #{px-to-rem-build(1)} dashed currentcolor;
     transform: translateY(#{px-to-rem-build(1)});
   }
 }
@@ -219,11 +212,11 @@
   @include dot;
 
   background-color: var(--color-current-location);
-  top: -200%;
+  inset-block-start: -200%;
   z-index: 4;
 
   // --status-position: defined in .tsx file
-  left: var(--status-position);
+  inset-inline-start: var(--status-position);
   animation: pulse 3s infinite;
 
   @include ifForcedColors {

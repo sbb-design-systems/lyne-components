@@ -1,6 +1,18 @@
 # sbb-pearl-chain-time
 
-The `<sbb-pearl-chain-time` component adds a optional walk icon and a duration in minutes before and/or after the pearl chain. This indicates, that the user has to walk to get to the destination or to the station to begin the journey.
+The `<sbb-pearl-chain-time` component adds an optional walk icon and a duration in minutes before and/or after the pearl chain. The walk time indicates, that the user has to walk to get to the destination or to the station to begin the journey.
+
+## Usage
+
+```html
+<sbb-pearl-chain-time 
+  legs={this.legs} 
+  departure-time="20:30"
+  arrival-time="21:30" 
+  departure-walk="5" 
+  arrival-walk="3" 
+/>
+```
 
 <!-- Auto Generated Below -->
 
@@ -9,10 +21,10 @@ The `<sbb-pearl-chain-time` component adds a optional walk icon and a duration i
 
 | Property                     | Attribute           | Description                                                                                                                                                                                                                                                                   | Type      | Default     |
 | ---------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `arrivalTime` _(required)_   | `arrival-time`      | Prop to render the arrival time                                                                                                                                                                                                                                               | `string`  | `undefined` |
-| `arrivalWalk`                | `arrival-walk`      | Optional prop to render the walk time after arrival                                                                                                                                                                                                                           | `number`  | `undefined` |
-| `departureTime` _(required)_ | `departure-time`    | Prop to render the departure time                                                                                                                                                                                                                                             | `string`  | `undefined` |
-| `departureWalk`              | `departure-walk`    | Optional prop to render the walk time before departure                                                                                                                                                                                                                        | `number`  | `undefined` |
+| `arrivalTime` _(required)_   | `arrival-time`      | Prop to render the arrival time - will be formatted as "H:mm"                                                                                                                                                                                                                 | `string`  | `undefined` |
+| `arrivalWalk`                | `arrival-walk`      | Optional prop to render the walk time (in minutes) after arrival                                                                                                                                                                                                              | `number`  | `undefined` |
+| `departureTime` _(required)_ | `departure-time`    | Prop to render the departure time - will be formatted as "H:mm"                                                                                                                                                                                                               | `string`  | `undefined` |
+| `departureWalk`              | `departure-walk`    | Optional prop to render the walk time (in minutes) before departure                                                                                                                                                                                                           | `number`  | `undefined` |
 | `disableAnimation`           | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                | `boolean` | `undefined` |
 | `legs` _(required)_          | --                  | define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. | `Leg[]`   | `undefined` |
 

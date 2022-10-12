@@ -1,4 +1,6 @@
-:host {
+@include host-component-properties;
+
+.sbb-pearl-chain__time {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -12,7 +14,6 @@
 }
 
 .sbb-pearl-chain__time-walktime:first-of-type {
-  // transform: translateX(calc(-1 * var(--sbb-spacing-fixed-1x)));
   margin-inline-end: var(--sbb-spacing-fixed-2x);
 }
 
@@ -30,6 +31,6 @@
   @include text-s--bold;
 }
 
-.screenreaderonly {
+.sbb-screenreaderonly {
   @include screenReaderOnly;
 }

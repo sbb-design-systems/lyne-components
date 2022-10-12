@@ -47,10 +47,6 @@
     }
   }
 
-  &:active {
-    outline: var(--card-outline);
-  }
-
   @include ifForcedColors {
     border: #{px-to-rem-build(1)} solid ButtonText;
 

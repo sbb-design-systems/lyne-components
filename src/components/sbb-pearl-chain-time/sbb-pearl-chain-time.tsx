@@ -1,4 +1,4 @@
-import { Component, h, JSX, Prop, Host } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 import {
   i18nDeparture,
@@ -28,16 +28,16 @@ export class SbbPearlChainTime {
    */
   @Prop() public legs!: InterfacePearlChainAttributes['legs'];
 
-  /** Prop to render the departure time */
+  /** Prop to render the departure time - will be formatted as "H:mm" */
   @Prop() public departureTime!: string;
 
-  /** Prop to render the arrival time */
+  /** Prop to render the arrival time - will be formatted as "H:mm" */
   @Prop() public arrivalTime!: string;
 
-  /** Optional prop to render the walk time before departure */
+  /** Optional prop to render the walk time (in minutes) before departure */
   @Prop() public departureWalk?: number;
 
-  /** Optional prop to render the walk time after arrival */
+  /** Optional prop to render the walk time (in minutes) after arrival */
   @Prop() public arrivalWalk?: number;
 
   /**
@@ -51,12 +51,12 @@ export class SbbPearlChainTime {
     const arrival: Date = removeTimezoneFromDate(this.arrivalTime);
 
     return (
-      <Host>
+      <div class="sbb-pearl-chain__time">
         {this.departureWalk && (
           <span class="sbb-pearl-chain__time-walktime">
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.departureWalk + 'M'}>
-              <span class="screenreaderonly">
+              <span class="sbb-screenreaderonly">
                 {i18nWalkingDistanceDeparture[getDocumentLang()]}
               </span>
               {this.departureWalk}
@@ -64,8 +64,8 @@ export class SbbPearlChainTime {
             </time>
           </span>
         )}
-        <time class="sbb-pearl-chain__time-time" dateTime={'' + this.departureTime}>
-          <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
+        <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
+          <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
           {this.departureTime && format(departure, 'H:mm')}
         </time>
         <sbb-pearl-chain
@@ -73,21 +73,23 @@ export class SbbPearlChainTime {
           legs={this.legs}
           disable-animation={this.disableAnimation}
         />
-        <time class="sbb-pearl-chain__time-time" dateTime={'' + this.arrivalTime}>
-          <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
+        <time class="sbb-pearl-chain__time-time" dateTime={this.arrivalTime}>
+          <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
           {this.arrivalTime && format(arrival, 'H:mm')}
         </time>
         {this.arrivalWalk && (
           <span class="sbb-pearl-chain__time-walktime">
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.arrivalWalk + 'M'}>
-              <span class="screenreaderonly">{i18nWalkingDistanceArrival[getDocumentLang()]}</span>
+              <span class="sbb-screenreaderonly">
+                {i18nWalkingDistanceArrival[getDocumentLang()]}
+              </span>
               {this.arrivalWalk}
               <span aria-hidden="true">'</span>
             </time>
           </span>
         )}
-      </Host>
+      </div>
     );
   }
 }

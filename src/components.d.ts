@@ -787,19 +787,19 @@ export namespace Components {
     }
     interface SbbPearlChainTime {
         /**
-          * Prop to render the arrival time
+          * Prop to render the arrival time - will be formatted as "H:mm"
          */
         "arrivalTime": string;
         /**
-          * Optional prop to render the walk time after arrival
+          * Optional prop to render the walk time (in minutes) after arrival
          */
         "arrivalWalk"?: number;
         /**
-          * Prop to render the departure time
+          * Prop to render the departure time - will be formatted as "H:mm"
          */
         "departureTime": string;
         /**
-          * Optional prop to render the walk time before departure
+          * Optional prop to render the walk time (in minutes) before departure
          */
         "departureWalk"?: number;
         /**
@@ -1076,9 +1076,9 @@ export namespace Components {
         /**
           * This will be forwarded as aria-label to the relevant element.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel": string | undefined;
         /**
-          * When this prop is true the sbb-card will be in the active state
+          * When this prop is true the sbb-card will be in the active state.
          */
         "acitve"?: boolean;
         /**
@@ -1086,7 +1086,7 @@ export namespace Components {
          */
         "disableAnimation"?: boolean;
         /**
-          * When this prop is true the badge for the price will appear loading
+          * When this prop is true the badge for the price will appear loading.
          */
         "loadingPrice"?: boolean;
         /**
@@ -1094,39 +1094,13 @@ export namespace Components {
          */
         "loadingTrip"?: boolean;
         /**
-          * The price Prop,  which consits of the data for the badge
+          * The price Prop, which consists of the data for the badge.
          */
         "price"?: InterfaceTimetableRowAttributes['price'];
         /**
           * The trip Prop
          */
         "trip"?: InterfaceTimetableRowAttributes['trip'];
-    }
-    interface SbbTimetableRowButton {
-        /**
-          * The aria-controls prop for the button.
-         */
-        "accessibilityControls"?: string;
-        /**
-          * The aria-haspopup prop for the button.
-         */
-        "accessibilityHaspopup"?: string;
-        /**
-          * The aria-label prop for the button.
-         */
-        "accessibilityLabel"?: string;
-        /**
-          * The disabled prop for the button.
-         */
-        "disabled"?: boolean;
-        /**
-          * Set to true to initially show the state, which would get set by pressing the button.
-         */
-        "expanded"?: boolean;
-        /**
-          * The name prop for the button.
-         */
-        "name"?: string;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -1289,10 +1263,6 @@ export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTimetableRowElement;
-}
-export interface SbbTimetableRowButtonCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbTimetableRowButtonElement;
 }
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1557,12 +1527,6 @@ declare global {
         prototype: HTMLSbbTimetableRowElement;
         new (): HTMLSbbTimetableRowElement;
     };
-    interface HTMLSbbTimetableRowButtonElement extends Components.SbbTimetableRowButton, HTMLStencilElement {
-    }
-    var HTMLSbbTimetableRowButtonElement: {
-        prototype: HTMLSbbTimetableRowButtonElement;
-        new (): HTMLSbbTimetableRowButtonElement;
-    };
     interface HTMLSbbTimetableRowColumnHeadersElement extends Components.SbbTimetableRowColumnHeaders, HTMLStencilElement {
     }
     var HTMLSbbTimetableRowColumnHeadersElement: {
@@ -1667,7 +1631,6 @@ declare global {
         "sbb-timetable-park-and-rail": HTMLSbbTimetableParkAndRailElement;
         "sbb-timetable-platform": HTMLSbbTimetablePlatformElement;
         "sbb-timetable-row": HTMLSbbTimetableRowElement;
-        "sbb-timetable-row-button": HTMLSbbTimetableRowButtonElement;
         "sbb-timetable-row-column-headers": HTMLSbbTimetableRowColumnHeadersElement;
         "sbb-timetable-row-day-change": HTMLSbbTimetableRowDayChangeElement;
         "sbb-timetable-row-header": HTMLSbbTimetableRowHeaderElement;
@@ -2449,19 +2412,19 @@ declare namespace LocalJSX {
     }
     interface SbbPearlChainTime {
         /**
-          * Prop to render the arrival time
+          * Prop to render the arrival time - will be formatted as "H:mm"
          */
         "arrivalTime": string;
         /**
-          * Optional prop to render the walk time after arrival
+          * Optional prop to render the walk time (in minutes) after arrival
          */
         "arrivalWalk"?: number;
         /**
-          * Prop to render the departure time
+          * Prop to render the departure time - will be formatted as "H:mm"
          */
         "departureTime": string;
         /**
-          * Optional prop to render the walk time before departure
+          * Optional prop to render the walk time (in minutes) before departure
          */
         "departureWalk"?: number;
         /**
@@ -2727,9 +2690,9 @@ declare namespace LocalJSX {
         /**
           * This will be forwarded as aria-label to the relevant element.
          */
-        "accessibilityLabel"?: string;
+        "accessibilityLabel"?: string | undefined;
         /**
-          * When this prop is true the sbb-card will be in the active state
+          * When this prop is true the sbb-card will be in the active state.
          */
         "acitve"?: boolean;
         /**
@@ -2737,7 +2700,7 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * When this prop is true the badge for the price will appear loading
+          * When this prop is true the badge for the price will appear loading.
          */
         "loadingPrice"?: boolean;
         /**
@@ -2745,47 +2708,17 @@ declare namespace LocalJSX {
          */
         "loadingTrip"?: boolean;
         /**
-          * This click event gets emitted when the user clicks on the component
+          * This click event gets emitted when the user clicks on the component.
          */
         "onSbb-timetable-row_click"?: (event: SbbTimetableRowCustomEvent<any>) => void;
         /**
-          * The price Prop,  which consits of the data for the badge
+          * The price Prop, which consists of the data for the badge.
          */
         "price"?: InterfaceTimetableRowAttributes['price'];
         /**
           * The trip Prop
          */
         "trip"?: InterfaceTimetableRowAttributes['trip'];
-    }
-    interface SbbTimetableRowButton {
-        /**
-          * The aria-controls prop for the button.
-         */
-        "accessibilityControls"?: string;
-        /**
-          * The aria-haspopup prop for the button.
-         */
-        "accessibilityHaspopup"?: string;
-        /**
-          * The aria-label prop for the button.
-         */
-        "accessibilityLabel"?: string;
-        /**
-          * The disabled prop for the button.
-         */
-        "disabled"?: boolean;
-        /**
-          * Set to true to initially show the state, which would get set by pressing the button.
-         */
-        "expanded"?: boolean;
-        /**
-          * The name prop for the button.
-         */
-        "name"?: string;
-        /**
-          * Event for emiting whenever state is changed.
-         */
-        "onSbbTimetableRowButtonClick"?: (event: SbbTimetableRowButtonCustomEvent<any>) => void;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -2964,7 +2897,6 @@ declare namespace LocalJSX {
         "sbb-timetable-park-and-rail": SbbTimetableParkAndRail;
         "sbb-timetable-platform": SbbTimetablePlatform;
         "sbb-timetable-row": SbbTimetableRow;
-        "sbb-timetable-row-button": SbbTimetableRowButton;
         "sbb-timetable-row-column-headers": SbbTimetableRowColumnHeaders;
         "sbb-timetable-row-day-change": SbbTimetableRowDayChange;
         "sbb-timetable-row-header": SbbTimetableRowHeader;
@@ -3024,7 +2956,6 @@ declare module "@stencil/core" {
             "sbb-timetable-park-and-rail": LocalJSX.SbbTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLSbbTimetableParkAndRailElement>;
             "sbb-timetable-platform": LocalJSX.SbbTimetablePlatform & JSXBase.HTMLAttributes<HTMLSbbTimetablePlatformElement>;
             "sbb-timetable-row": LocalJSX.SbbTimetableRow & JSXBase.HTMLAttributes<HTMLSbbTimetableRowElement>;
-            "sbb-timetable-row-button": LocalJSX.SbbTimetableRowButton & JSXBase.HTMLAttributes<HTMLSbbTimetableRowButtonElement>;
             "sbb-timetable-row-column-headers": LocalJSX.SbbTimetableRowColumnHeaders & JSXBase.HTMLAttributes<HTMLSbbTimetableRowColumnHeadersElement>;
             "sbb-timetable-row-day-change": LocalJSX.SbbTimetableRowDayChange & JSXBase.HTMLAttributes<HTMLSbbTimetableRowDayChangeElement>;
             "sbb-timetable-row-header": LocalJSX.SbbTimetableRowHeader & JSXBase.HTMLAttributes<HTMLSbbTimetableRowHeaderElement>;

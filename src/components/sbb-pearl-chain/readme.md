@@ -1,5 +1,25 @@
 # sbb-pearl-chain
-The `<sbb-pearl-chain>` component displays all parts of a journey. Including changes of trains or other kinds of transports. 
+The `<sbb-pearl-chain>` component displays all parts of a journey. Including changes of trains or other kinds of transports. Also it is possible to render the current position.
+
+## Usage
+
+Minimal examples
+
+```html
+<sbb-pearl-chain 
+  legs={[{duration: 60}, {duration: 120}]}
+/>
+```
+
+Example with time
+
+```html
+<sbb-pearl-chain 
+  legs={[{duration: 60, arrival: { time: '2022-07-31T13:00' }, departure: { time: '2022-07-31T12:00' }]}
+  disable-animation="true" 
+/>
+```
+
 <!-- Auto Generated Below -->
 
 

@@ -1,5 +1,6 @@
 import { Leg } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 
+/** travel hints for the transportation */
 export interface Notice {
   name?: string;
   /** Priority - A lower priority value means a higher importance */
@@ -12,16 +13,16 @@ export interface Notice {
   type?: NoticeType;
 }
 
-declare interface TextArgument {
+export interface TextArgument {
   type?: TextArgument;
   values?: string[];
 }
 
-declare type TextArgument = 'EMAIL' | 'PHONE' | 'URL';
+export type TextArgument = 'EMAIL' | 'PHONE' | 'URL';
 
-declare type NoticeType = 'ATTRIBUTE' | 'INFO';
+export type NoticeType = 'ATTRIBUTE' | 'INFO';
 
-declare type OccupancyType = 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
+export type OccupancyType = 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
 
 /** A public transportation situation message affecting the planned Public Transport operation */
 export interface PtSituation {
@@ -32,7 +33,7 @@ export interface PtSituation {
 }
 
 /** A classification of what caused a Situation (HIM category) */
-declare type PtSituationCause =
+export type PtSituationCause =
   | 'CONSTRUCTION_SITE'
   | 'DELAY'
   | 'DISTURBANCE'
@@ -41,7 +42,7 @@ declare type PtSituationCause =
   | 'TRAIN_REPLACEMENT_BY_BUS';
 
 /** A public transportation situation broadcast message affecting the planned PT operation */
-declare interface PtSituationMessage {
+export interface PtSituationMessage {
   /** Complete Footer/text of message */
   detail?: string;
   /** Priority rank: default = 100, low = 80, medium = 60, high = 40, de:Großereignis = 20 */
@@ -50,14 +51,14 @@ declare interface PtSituationMessage {
   title?: string;
 }
 
-declare interface Occupancy {
+export interface Occupancy {
   /** occupancy first class */
   firstClass?: OccupancyType;
   /** occupancy second class */
   secondClass?: OccupancyType;
 }
 
-declare interface TimeQuayWrapper {
+export interface TimeQuayWrapper {
   delay?: number;
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
   quayChanged?: boolean;
@@ -67,7 +68,7 @@ declare interface TimeQuayWrapper {
   time: string;
 }
 
-declare interface ServiceProduct {
+export interface ServiceProduct {
   number?: string;
   vehicleMode?: string;
 
@@ -86,7 +87,7 @@ declare interface ServiceProduct {
   vehicleSubModeShortName: string;
 }
 
-declare interface TripStatus {
+export interface TripStatus {
   cancelled: boolean;
   /** Contains at least one delay (de:Verspätung) on any PTRideLeg. */
   delayed: boolean;
@@ -98,7 +99,7 @@ declare interface TripStatus {
   quayChanged: boolean;
 }
 
-declare interface TripSummary {
+export interface TripSummary {
   arrival: TimeQuayWrapper;
   arrivalWalk: number;
   departure: TimeQuayWrapper;
@@ -116,7 +117,7 @@ export interface Price {
   isDiscount: boolean;
 }
 
-declare interface Trip {
+export interface Trip {
   /** List of transfer points */
   legs?: Leg[];
   /**

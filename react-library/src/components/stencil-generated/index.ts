@@ -51,7 +51,6 @@ export const SbbTimetableOccupancy = /*@__PURE__*/createReactComponent<JSX.SbbTi
 export const SbbTimetableParkAndRail = /*@__PURE__*/createReactComponent<JSX.SbbTimetableParkAndRail, HTMLSbbTimetableParkAndRailElement>('sbb-timetable-park-and-rail');
 export const SbbTimetablePlatform = /*@__PURE__*/createReactComponent<JSX.SbbTimetablePlatform, HTMLSbbTimetablePlatformElement>('sbb-timetable-platform');
 export const SbbTimetableRow = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRow, HTMLSbbTimetableRowElement>('sbb-timetable-row');
-export const SbbTimetableRowButton = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRowButton, HTMLSbbTimetableRowButtonElement>('sbb-timetable-row-button');
 export const SbbTimetableRowColumnHeaders = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRowColumnHeaders, HTMLSbbTimetableRowColumnHeadersElement>('sbb-timetable-row-column-headers');
 export const SbbTimetableRowDayChange = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRowDayChange, HTMLSbbTimetableRowDayChangeElement>('sbb-timetable-row-day-change');
 export const SbbTimetableRowHeader = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRowHeader, HTMLSbbTimetableRowHeaderElement>('sbb-timetable-row-header');
