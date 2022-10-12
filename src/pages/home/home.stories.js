@@ -394,30 +394,35 @@ const Template = (args) => (
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             text-size="s"
+            variant="block"
           >
             Refunds
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             text-size="s"
+            variant="block"
           >
             Lost property office
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             text-size="s"
+            variant="block"
           >
             Complaints
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             text-size="s"
+            variant="block"
           >
             Praise
           </sbb-link>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
             text-size="s"
+            variant="block"
           >
             Report property damage
           </sbb-link>
@@ -433,30 +438,35 @@ const Template = (args) => (
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="s"
+          variant="block"
         >
           Jobs & careers
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="s"
+          variant="block"
         >
           Rail traffic information
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="s"
+          variant="block"
         >
           SBB News
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="s"
+          variant="block"
         >
           SBB Community
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="s"
+          variant="block"
         >
           Company
         </sbb-link>
@@ -480,30 +490,35 @@ const Template = (args) => (
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          variant="block"
         >
           Refunds
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          variant="block"
         >
           Lost property office
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          variant="block"
         >
           Complaints
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          variant="block"
         >
           Praise
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          variant="block"
         >
           Report property damage
         </sbb-link>
