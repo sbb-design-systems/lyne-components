@@ -10,7 +10,7 @@ export class SbbFooter {
   /**
    * Negative coloring variant flag
    */
-  @Prop({ reflect: true }) public negative: boolean = false;
+  @Prop({ reflect: true }) public negative = false;
 
   /**
    * Variants to display the footer. The default, displays the content in regular block element
