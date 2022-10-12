@@ -9,7 +9,7 @@
   --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-menu-animation-easing: ease;
 
-  // TODO: add description
+  // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-menu-min-height: #{px-to-rem-build(120)};
   --sbb-menu-max-width: #{px-to-rem-build(320)};
@@ -121,6 +121,7 @@
 .sbb-menu__content {
   @include scrollbar-dark;
 
+  outline: none;
   max-height: var(--sbb-menu-max-height);
   padding-block: var(--sbb-spacing-fixed-1x);
   overflow: auto;

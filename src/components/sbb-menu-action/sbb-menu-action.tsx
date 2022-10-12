@@ -12,7 +12,7 @@ let nextId = 0;
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
- * @slot icon - Use this slot to provide an SVG icon. If `icon` is set, a sbb-icon will be used.
+ * @slot icon - Use this slot to provide an icon. If `icon` is set, an sbb-icon will be used.
  */
 @Component({
   shadow: true,
@@ -20,64 +20,44 @@ let nextId = 0;
   tag: 'sbb-menu-action',
 })
 export class SbbMenuAction implements LinkButtonProperties {
-  /**
-   * This id will be forwarded to the relevant inner element.
-   */
+  /** This id will be forwarded to the relevant inner element. */
   @Prop() public menuActionId = `sbb-menu-action-${++nextId}`;
 
   /**
-   * The name property passed to `sbb-icon` component.
+   * The name of the icon, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/.
    */
   @Prop() public iconName?: string | undefined;
 
-  /**
-   * Value shown as badge at component end.
-   */
+  /** Value shown as badge at component end. */
   @Prop() public amount?: string | undefined;
 
-  /**
-   *  The href value you want to link to.
-   */
-  @Prop({ reflect: true }) public href: string | undefined;
+  /** The href value you want to link to (if it is not present menu action becomes a button). */
+  @Prop() public href: string | undefined;
 
-  /**
-   * Where to display the linked URL.
-   */
+  /** Where to display the linked URL. */
   @Prop() public target?: LinkTargetType | string | undefined;
 
-  /**
-   * The relationship of the linked URL as space-separated link types.
-   */
+  /** The relationship of the linked URL as space-separated link types. */
   @Prop() public rel?: string | undefined;
 
-  /**
-   * Whether the browser will show the download dialog on click.
-   */
+  /** Whether the browser will show the download dialog on click. */
   @Prop() public download?: boolean;
 
-  /**
-   * The type attribute to use for the button.
-   */
+  /** The type attribute to use for the button. */
   @Prop() public type: ButtonType | undefined;
 
-  /**
-   * Whether the button is disabled.
-   */
+  /** Whether the button is disabled. */
   @Prop({ reflect: true }) public disabled = false;
 
-  /**
-   * The name attribute to use for the button.
-   */
+  /** The name attribute to use for the button. */
   @Prop() public name: string | undefined;
 
-  /**
-   * The value attribute to use for the button.
-   */
+  /** The value attribute to use for the button. */
   @Prop() public value?: string;
 
-  /**
-   * The <form> element to associate the button with.
-   */
+  /** The <form> element to associate the button with. */
   @Prop() public form?: string;
 
   /**
@@ -101,23 +81,17 @@ export class SbbMenuAction implements LinkButtonProperties {
   })
   public click: EventEmitter;
 
-  /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
+  /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
-   * The function triggered on button click.
+   * Method triggered on button click to emit the click event (can be caught from parent component).
    */
   public emitButtonClick(): void {
     if (!this.disabled) {
@@ -131,25 +105,25 @@ export class SbbMenuAction implements LinkButtonProperties {
       false
     );
 
-    let className: string;
-
-    if (this.href) {
-      className = 'sbb-menu-action__link';
-    } else {
-      className = 'sbb-menu-action__button';
-    }
-
+    // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <TAG_NAME id={this.menuActionId} class={className} {...attributes}>
-        <div class="sbb-menu-action__content">
+      <TAG_NAME
+        id={this.menuActionId}
+        class="sbb-menu-action"
+        {...attributes}
+        ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
+      >
+        <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           </span>
           <span class="sbb-menu-action__label">
             <slot />
           </span>
-          {this.amount && <span class="sbb-menu-action__amount">{this.amount}</span>}
-        </div>
+          {this.amount && !this.disabled && (
+            <span class="sbb-menu-action__amount">{this.amount}</span>
+          )}
+        </span>
       </TAG_NAME>
     );
   }

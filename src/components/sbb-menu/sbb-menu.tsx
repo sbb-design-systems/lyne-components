@@ -94,6 +94,7 @@ export class SbbMenu implements ComponentInterface {
   private _pointerDownEventTarget: string | null;
   private _menuController: AbortController;
   private _resizeController: AbortController;
+  private _openedByKeyboard = false;
 
   @Element() private _element!: HTMLElement;
 
@@ -115,6 +116,7 @@ export class SbbMenu implements ComponentInterface {
   public async dismiss(): Promise<void> {
     this.willDismiss.emit();
     this._isDismissing = true;
+    this._openedByKeyboard = false;
   }
 
   // Dismisses the menu on "Esc" key pressed.
@@ -171,6 +173,17 @@ export class SbbMenu implements ComponentInterface {
     this._triggerEl.addEventListener('click', () => this.present(), {
       signal: this._menuController.signal,
     });
+    this._triggerEl.addEventListener(
+      'keyup',
+      (event: KeyboardEvent) => {
+        if (event.code === 'Enter' || event.code === 'Space') {
+          this._openedByKeyboard = true;
+        }
+      },
+      {
+        signal: this._menuController.signal,
+      }
+    );
 
     // Dismiss menu on backdrop click
     this._dialog.addEventListener('pointerdown', this._pointerDownListener, {
@@ -249,13 +262,23 @@ export class SbbMenu implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const firstFocusable = Array.from(
-      this._element.querySelectorAll(IS_FOCUSABLE_QUERY)
-    )[0] as HTMLElement;
+    if (!this._openedByKeyboard) {
+      // Focusing sbb-menu__content in order to provide
+      // a consistent behavior in Safari where else the
+      // focus-visible styles would be wrongly applied
+      const menuContentElement = this._dialog.firstElementChild as HTMLElement;
+      menuContentElement.tabIndex = 0;
+      menuContentElement.focus();
+      this._element.addEventListener('blur', () => menuContentElement.removeAttribute('tabindex'), {
+        once: true,
+      });
+
+      return;
+    }
+
+    const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
     if (['SBB-BUTTON', 'SBB-LINK', 'SBB-MENU-ACTION'].includes(firstFocusable.nodeName)) {
-      (
-        Array.from(firstFocusable.shadowRoot.querySelectorAll(IS_FOCUSABLE_QUERY))[0] as HTMLElement
-      ).focus();
+      (firstFocusable.shadowRoot.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement).focus();
     } else {
       firstFocusable.focus();
     }
@@ -286,7 +309,8 @@ export class SbbMenu implements ComponentInterface {
           'sbb-menu--dismissing': this._isDismissing,
         }}
       >
-        <div class="sbb-menu__content">
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <div class="sbb-menu__content" tabIndex={0}>
           <slot></slot>
         </div>
       </dialog>

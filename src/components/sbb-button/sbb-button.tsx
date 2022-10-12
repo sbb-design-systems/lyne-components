@@ -80,7 +80,7 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
   @Prop() public type: ButtonType | undefined;
 
   /** Whether the button is disabled. */
-  @Prop({ reflect: true }) public disabled? = false;
+  @Prop({ reflect: true }) public disabled = false;
 
   /** The name attribute to use for the button. */
   @Prop() public name: string | undefined;
@@ -147,7 +147,7 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
   }
 
   /**
-   * Method triggered at button click to emit the click event (can be caught from parent component).
+   * Method triggered on button click to emit the click event (can be caught from parent component).
    */
   public emitButtonClick(): void {
     if (this.disabled || this.isStatic) {
