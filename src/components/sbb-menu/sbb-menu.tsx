@@ -266,7 +266,13 @@ export class SbbMenu implements ComponentInterface {
       // Focusing sbb-menu__content in order to provide
       // a consistent behavior in Safari where else the
       // focus-visible styles would be wrongly applied
-      (this._dialog.firstElementChild as HTMLElement).focus();
+      const menuContentElement = this._dialog.firstElementChild as HTMLElement;
+      menuContentElement.tabIndex = 0;
+      menuContentElement.focus();
+      this._element.addEventListener('blur', () => menuContentElement.removeAttribute('tabindex'), {
+        once: true,
+      });
+
       return;
     }
 
