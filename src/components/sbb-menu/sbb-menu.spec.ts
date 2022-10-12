@@ -26,7 +26,7 @@ describe('sbb-menu', () => {
       <sbb-menu trigger="menu-trigger">
         <mock:shadow-root>
           <dialog class="sbb-menu">
-            <div class="sbb-menu__content" tabindex='0'>
+            <div class="sbb-menu__content">
               <slot></slot>
             </div>
           </dialog>

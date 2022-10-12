@@ -174,7 +174,7 @@ export class SbbMenu implements ComponentInterface {
       signal: this._menuController.signal,
     });
     this._triggerEl.addEventListener(
-      'keyup',
+      'keydown',
       (event: KeyboardEvent) => {
         if (event.code === 'Enter' || event.code === 'Space') {
           this._openedByKeyboard = true;
@@ -309,8 +309,7 @@ export class SbbMenu implements ComponentInterface {
           'sbb-menu--dismissing': this._isDismissing,
         }}
       >
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <div class="sbb-menu__content" tabIndex={0}>
+        <div class="sbb-menu__content">
           <slot></slot>
         </div>
       </dialog>

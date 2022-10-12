@@ -8,13 +8,13 @@ describe('sbb-menu', () => {
     page = await newE2EPage();
     await page.setContent(`
       <sbb-button id="menu-trigger" label="Menu trigger"></sbb-button>
-      <sbb-menu trigger="menu-trigger">
-        <sbb-link href="https://www.sbb.ch/en" text-size="xs" variant="block" target="_blank">Profile</sbb-link>
-        <sbb-menu-action icon="tick-small">View</sbb-menu-action>
-        <sbb-menu-action icon="pen-small" amount="1" disabled>Edit</sbb-menu-action>
-        <sbb-menu-action icon="swisspass-small" amount="2">Details</sbb-menu-action>
-        <sbb-divider />
-        <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+      <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
+        <sbb-link id="menu-link" href="https://www.sbb.ch/en" text-size="xs" variant="block" target="_blank">Profile</sbb-link>
+        <sbb-menu-action id="menu-action-1" icon="tick-small">View</sbb-menu-action>
+        <sbb-menu-action id="menu-action-2" icon="pen-small" amount="1" disabled>Edit</sbb-menu-action>
+        <sbb-menu-action id="menu-action-3" icon="swisspass-small" amount="2">Details</sbb-menu-action>
+        <sbb-divider id="menu-divider" />
+        <sbb-menu-action id="menu-action-4" icon="cross-small">Cancel</sbb-menu-action>
       </sbb-menu>
     `);
     trigger = await page.find('sbb-button');
@@ -39,6 +39,19 @@ describe('sbb-menu', () => {
 
     await page.waitForChanges();
     expect(dialog).toHaveAttribute('open');
+  });
+
+  it('closes on Esc keypress', async () => {
+    const dialog = await page.find('sbb-menu >>> dialog');
+
+    await trigger.click();
+    await page.waitForChanges();
+    expect(dialog).toHaveAttribute('open');
+
+    await page.keyboard.down('Escape');
+    await page.waitForChanges();
+
+    expect(dialog).not.toHaveAttribute('open');
   });
 
   it('closes on menu action click', async () => {
@@ -82,19 +95,6 @@ describe('sbb-menu', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     expect(dialog).not.toHaveAttribute('open');
   });
-
-  // it('closes on Esc keypress', async () => {
-  //   const dialog = await page.find('sbb-menu >>> dialog');
-
-  //   await trigger.click();
-  //   await page.waitForChanges();
-  //   expect(dialog).toHaveAttribute('open');
-
-  //   await page.keyboard.down('Escape');
-  //   await page.waitForChanges();
-
-  //   expect(dialog).not.toHaveAttribute('open');
-  // });
 
   it('is correctly positioned on desktop', async () => {
     page.setViewport({ width: 1200, height: 800 });
@@ -148,5 +148,40 @@ describe('sbb-menu', () => {
     const pageHeight = await page.evaluate(() => window.innerHeight);
 
     expect(menuOffsetTop).toBe(pageHeight - menuHeight);
+  });
+
+  it('sets the focus on the dialog content when the menu is opened by click', async () => {
+    const dialog = await page.find('sbb-menu >>> dialog');
+
+    await trigger.click();
+    await page.waitForChanges();
+    expect(dialog).toHaveAttribute('open');
+
+    await page.waitForChanges();
+    expect(
+      await page.evaluate(
+        () => document.querySelector('sbb-menu').shadowRoot.activeElement.className
+      )
+    ).toBe('sbb-menu__content');
+
+    await page.keyboard.down('Tab');
+    await page.waitForChanges();
+
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('menu-link');
+  });
+
+  it('sets the focus to the first focusable element when the menu is opened by keyboard', async () => {
+    const dialog = await page.find('sbb-menu >>> dialog');
+
+    await page.keyboard.down('Tab');
+    await page.waitForChanges();
+
+    await page.keyboard.down('Enter');
+    await page.waitForChanges();
+
+    expect(dialog).toHaveAttribute('open');
+
+    await page.waitForChanges();
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('menu-link');
   });
 });
