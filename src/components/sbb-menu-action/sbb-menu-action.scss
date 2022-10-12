@@ -4,95 +4,75 @@
 
 :host {
   --sbb-menu-action-border-radius: var(--sbb-border-radius-8x);
-  --sbb-menu-action-amount-display: flex;
+  --sbb-menu-action-outer-horizontal-padding: var(--sbb-spacing-fixed-3x);
+  --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
 }
 
 :host(:focus-within) {
   outline: none;
 }
 
+.sbb-menu-action {
+  @include buttonReset;
+
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  color: var(--sbb-color-white-default);
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  :host([disabled]) & {
+    cursor: default;
+    color: var(--sbb-color-graphite-default);
+  }
+}
+
 .sbb-menu-action__content {
   @include text-xs--regular;
 
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
   display: flex;
   align-items: center;
-  border-radius: var(--sbb-menu-action-border-radius);
+  gap: var(--sbb-menu-action-gap);
   padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+  border-radius: var(--sbb-menu-action-border-radius);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  .sbb-menu-action:focus-visible & {
+    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+    @include focusOutline;
+  }
+
+  @include hover-mq($hover: true) {
+    // stylelint-disable-next-line plugin/stylelint-bem-namics
+    :host(:not([disabled])) .sbb-menu-action:hover & {
+      background-color: var(--sbb-color-iron-default);
+    }
+  }
 }
 
 .sbb-menu-action__icon {
   display: flex;
-  min-width: var(--sbb-spacing-fixed-8x);
-  min-height: var(--sbb-spacing-fixed-6x);
-  padding-inline-end: var(--sbb-spacing-fixed-2x);
-}
-
-.sbb-menu-action__link,
-.sbb-menu-action__button {
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  color: var(--sbb-color-white-default);
-  text-decoration: none;
-  border: none;
-  background-color: transparent;
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
-  margin: 0;
-
-  &:focus-visible {
-    outline: none;
-
-    .sbb-menu-action__content {
-      @include focusOutline;
-
-      outline-color: var(--sbb-color-white-default);
-    }
-  }
-
-  @include hover-mq($hover: true) {
-    &:hover {
-      .sbb-menu-action__content {
-        background-color: var(--sbb-color-iron-default);
-      }
-    }
-  }
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
 }
 
 .sbb-menu-action__label {
   @include ellipsis;
 
-  padding-inline-end: var(--sbb-spacing-fixed-2x);
+  :host([disabled]) & {
+    text-decoration: line-through;
+  }
 }
 
 .sbb-menu-action__amount {
-  @include text-xxs--bold;
+  @include badge;
 
-  display: var(--sbb-menu-action-amount-display);
-  align-items: center;
-  justify-content: center;
-  margin-inline-start: auto;
-  padding-inline: var(--sbb-spacing-fixed-1x);
-  border-radius: var(--sbb-menu-action-border-radius);
-  background-color: var(--sbb-color-red-default);
-  width: var(--sbb-spacing-fixed-4x);
-  min-width: fit-content;
-  max-height: var(--sbb-spacing-fixed-4x);
-}
-
-.sbb-menu-action__button[disabled] {
-  sbb-icon {
-    color: var(--sbb-color-graphite-default);
-  }
-
-  .sbb-menu-action__label {
-    color: var(--sbb-color-graphite-default);
-    text-decoration: line-through;
-  }
-
-  .sbb-menu-action__amount {
-    --sbb-menu-action-amount-display: none;
-  }
+  margin-inline-end: var(--sbb-spacing-fixed-2x);
 }

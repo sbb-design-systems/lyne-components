@@ -17,7 +17,7 @@ const playStory = async ({ canvasElement }) => {
   await userEvent.click(button);
 };
 
-const icon = {
+const iconName = {
   control: {
     type: 'text',
   },
@@ -45,13 +45,13 @@ const disabled = {
 };
 
 const defaultArgTypes = {
-  icon,
+  'icon-name': iconName,
   amount,
   disabled,
 };
 
 const defaultArgs = {
-  icon: 'link-small',
+  'icon-name': 'link-small',
   amount: '123',
   disabled: false,
 };
@@ -77,17 +77,17 @@ const triggerButton = (id) => (
 const DefaultTemplate = (args) => [
   triggerButton('menu-trigger-1'),
   <sbb-menu trigger="menu-trigger-1" disable-animation={isChromatic()}>
-    <sbb-menu-action icon={args.icon} href="https://www.sbb.ch/en">
+    <sbb-menu-action icon-name={args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-action>
-    <sbb-menu-action icon="pen-small" amount="16" disabled={args.disabled}>
+    <sbb-menu-action icon-name="pen-small" amount="16" disabled={args.disabled}>
       Edit
     </sbb-menu-action>
-    <sbb-menu-action icon="swisspass-small" amount={args.amount}>
+    <sbb-menu-action icon-name="swisspass-small" amount={args.amount}>
       Details
     </sbb-menu-action>
     <sbb-divider />
-    <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+    <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
   </sbb-menu>,
 ];
 
@@ -100,24 +100,24 @@ const CustomContentTemplate = (args) => [
       Profile
     </sbb-link>
     <sbb-divider />
-    <sbb-menu-action icon={args.icon} href="https://www.sbb.ch/en">
+    <sbb-menu-action icon-name={args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-action>
-    <sbb-menu-action icon="tickets-class-small" disabled={args.disabled}>
+    <sbb-menu-action icon-name="tickets-class-small" disabled={args.disabled}>
       Tickets
     </sbb-menu-action>
-    <sbb-menu-action icon="shopping-cart-small" amount={args.amount}>
+    <sbb-menu-action icon-name="shopping-cart-small" amount={args.amount}>
       Cart
     </sbb-menu-action>
     <sbb-divider />
-    <sbb-menu-action icon="exit-small">Log Out</sbb-menu-action>
+    <sbb-menu-action icon-name="exit-small">Log Out</sbb-menu-action>
   </sbb-menu>,
 ];
 
 const LongContentTemplate = (args) => [
   triggerButton('menu-trigger-3'),
   <sbb-menu trigger="menu-trigger-3" disable-animation={isChromatic()}>
-    <sbb-menu-action icon={args.icon} disabled={args.disabled} amount={args.amount}>
+    <sbb-menu-action icon-name={args['icon-name']} disabled={args.disabled} amount={args.amount}>
       English
     </sbb-menu-action>
     <sbb-menu-action>Deutsch</sbb-menu-action>
@@ -143,7 +143,7 @@ const LongContentTemplate = (args) => [
     <sbb-menu-action>Nederlands</sbb-menu-action>
     <sbb-menu-action>Suomi</sbb-menu-action>
     <sbb-divider />
-    <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+    <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
   </sbb-menu>,
 ];
 
@@ -156,18 +156,18 @@ const EllipsisTemplate = (args) => [
       Profile
     </sbb-link>
     <sbb-divider />
-    <sbb-menu-action icon={args.icon} href="https://www.sbb.ch/en">
+    <sbb-menu-action icon-name={args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-action>
-    <sbb-menu-action icon="pen-small" disabled={args.disabled}>
+    <sbb-menu-action icon-name="pen-small" disabled={args.disabled}>
       Edit
     </sbb-menu-action>
-    <sbb-menu-action icon="swisspass-small" amount={args.amount}>
+    <sbb-menu-action icon-name="swisspass-small" amount={args.amount}>
       Very long label that exceeds the maximum width of the menu, very long label that exceeds the
       maximum width of the menu, very long label that exceeds the maximum width of the menu
     </sbb-menu-action>
     <sbb-divider />
-    <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+    <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
   </sbb-menu>,
 ];
 
@@ -185,7 +185,7 @@ CustomContent.play = playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.argTypes = defaultArgTypes;
-LongContent.args = { ...defaultArgs, icon: 'tick-small', amount: undefined };
+LongContent.args = { ...defaultArgs, 'icon-name': 'tick-small', amount: undefined };
 LongContent.documentation = { title: 'Long Content' };
 LongContent.play = playStory;
 

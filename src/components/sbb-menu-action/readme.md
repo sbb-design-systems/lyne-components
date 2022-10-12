@@ -5,11 +5,16 @@ The component represents an action element contained by the [sbb-menu](../sbb-me
 As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link,
 depending on the value of the `href` property.
 
-An [sbb-icon](../sbb-icon/readme.md) will be rendered via the `icon` property; otherwise consumers can provide
-their own SVG via slot.
+An [sbb-icon](../sbb-icon/readme.md) will be rendered via the `icon-name` property; otherwise consumers can provide
+their own content via slot named `icon`.
 
 An amount can be rendered at the end of the action element as white text in a red circle via the `amount` property. 
 
+
+### Spacing
+
+For cases where smaller outer paddings are needed, 
+you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to your desired outer padding.
 
 <!-- Auto Generated Below -->
 
@@ -27,9 +32,9 @@ An amount can be rendered at the end of the action element as white text in a re
 | `disabled`                 | `disabled`                  | Whether the button is disabled.                                                                                                                                                                                                 | `boolean`                                                       | `false`                         |
 | `download`                 | `download`                  | Whether the browser will show the download dialog on click.                                                                                                                                                                     | `boolean`                                                       | `undefined`                     |
 | `form`                     | `form`                      | The <form> element to associate the button with.                                                                                                                                                                                | `string`                                                        | `undefined`                     |
-| `href`                     | `href`                      | The href value you want to link to.                                                                                                                                                                                             | `string`                                                        | `undefined`                     |
-| `iconName`                 | `icon-name`                 | The name property passed to `sbb-icon` component.                                                                                                                                                                               | `string`                                                        | `undefined`                     |
-| `menuActionId`             | `menu-action-id`            | This id will be forwarded to the relevant inner element.                                                                                                                                                                        | `string`                                                        | ``sbb-menu-action-${++nextId}`` |
+| `href`                     | `href`                      | The href value you want to link to (if it is not present menu action becomes a button).                                                                                                                                         | `string`                                                        | `undefined`                     |
+| `iconName`                 | `icon-name`                 | The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.                                                                                               | `string`                                                        | `undefined`                     |
+| `idValue`                  | `id-value`                  | This id will be forwarded to the relevant inner element.                                                                                                                                                                        | `string`                                                        | ``sbb-menu-action-${++nextId}`` |
 | `name`                     | `name`                      | The name attribute to use for the button.                                                                                                                                                                                       | `string`                                                        | `undefined`                     |
 | `rel`                      | `rel`                       | The relationship of the linked URL as space-separated link types.                                                                                                                                                               | `string`                                                        | `undefined`                     |
 | `target`                   | `target`                    | Where to display the linked URL.                                                                                                                                                                                                | `string`                                                        | `undefined`                     |
@@ -46,10 +51,10 @@ An amount can be rendered at the end of the action element as white text in a re
 
 ## Slots
 
-| Slot        | Description                                                                      |
-| ----------- | -------------------------------------------------------------------------------- |
-| `"icon"`    | Use this slot to provide an SVG icon. If `icon` is set, a sbb-icon will be used. |
-| `"unnamed"` | Use this slot to provide the menu action label.                                  |
+| Slot        | Description                                                                   |
+| ----------- | ----------------------------------------------------------------------------- |
+| `"icon"`    | Use this slot to provide an icon. If `icon` is set, an sbb-icon will be used. |
+| `"unnamed"` | Use this slot to provide the menu action label.                               |
 
 
 ## Dependencies

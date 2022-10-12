@@ -246,7 +246,7 @@ export namespace Components {
         /**
           * Whether the button is disabled.
          */
-        "disabled"?: boolean;
+        "disabled": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -665,7 +665,7 @@ export namespace Components {
         /**
           * Whether the button is disabled.
          */
-        "disabled"?: boolean;
+        "disabled": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -819,17 +819,17 @@ export namespace Components {
          */
         "form"?: string;
         /**
-          * The href value you want to link to.
+          * The href value you want to link to (if it is not present menu action becomes a button).
          */
         "href": string | undefined;
         /**
-          * The name property passed to `sbb-icon` component.
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
-        "menuActionId": string;
+        "idValue": string;
         /**
           * The name attribute to use for the button.
          */
@@ -2526,17 +2526,17 @@ declare namespace LocalJSX {
          */
         "form"?: string;
         /**
-          * The href value you want to link to.
+          * The href value you want to link to (if it is not present menu action becomes a button).
          */
         "href"?: string | undefined;
         /**
-          * The name property passed to `sbb-icon` component.
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
-        "menuActionId"?: string;
+        "idValue"?: string;
         /**
           * The name attribute to use for the button.
          */

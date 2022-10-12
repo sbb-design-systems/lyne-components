@@ -2,18 +2,32 @@ import events from './sbb-menu-action.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const getBasicTemplate = ({ text, 'id-value': idValue, ...args }, id, iconSlot) => (
+  <sbb-menu-action {...args} id-value={`${idValue}-${id}`}>
+    {text} {id}
+    {iconSlot && <sbb-icon slot="icon" name="pie-small" />}
+  </sbb-menu-action>
+);
+
+const TemplateMenuAction = (args) => (
+  <div>
+    {getBasicTemplate(args, 1)}
+    {getBasicTemplate(args, 2)}
+    {getBasicTemplate(args, 3)}
+  </div>
+);
+
+const TemplateMenuActionCustomIcon = (args) => (
+  <div>
+    {getBasicTemplate(args, 1, true)}
+    {getBasicTemplate(args, 2, false)}
+    {getBasicTemplate(args, 3, true)}
+  </div>
+);
+
 const text = {
   control: {
     type: 'text',
-  },
-};
-
-const icon = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Icon',
   },
 };
 
@@ -23,18 +37,24 @@ const amount = {
   },
 };
 
-const href = {
+const idValue = {
+  control: {
+    type: 'text',
+  },
+};
+
+const iconName = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'Link',
+    category: 'Icon',
   },
 };
 
-const download = {
+const href = {
   control: {
-    type: 'boolean',
+    type: 'text',
   },
   table: {
     category: 'Link',
@@ -59,36 +79,12 @@ const rel = {
   },
 };
 
-const menuActionId = {
+const download = {
   control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const name = {
-  control: {
-    type: 'text',
+    type: 'boolean',
   },
   table: {
-    category: 'Button',
+    category: 'Link',
   },
 };
 
@@ -111,7 +107,7 @@ const disabled = {
   },
 };
 
-const form = {
+const name = {
   control: {
     type: 'text',
   },
@@ -129,7 +125,7 @@ const value = {
   },
 };
 
-const eventId = {
+const form = {
   control: {
     type: 'text',
   },
@@ -156,85 +152,75 @@ const accessibilityHaspopup = {
   },
 };
 
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityDescribedby = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityLabelledby = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   text,
-  icon,
   amount,
+  'id-value': idValue,
+  'icon-name': iconName,
   href,
-  download,
-  rel,
   target,
-  'menu-action-id': menuActionId,
+  rel,
+  download,
+  type,
+  disabled,
+  name,
+  value,
+  form,
+  'accessibility-controls': accessibilityControls,
+  'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
-  name,
-  type,
-  form,
-  disabled,
-  'event-id': eventId,
-  value,
-  'accessibility-controls': accessibilityControls,
-  'accessibility-haspopup': accessibilityHaspopup,
 };
 
 const defaultArgs = {
-  'menu-action-id': undefined,
-  icon: 'tick-small',
+  text: 'Details',
   amount: '99',
+  'id-value': undefined,
+  'icon-name': 'tick-small',
+
+  href: 'https://www.sbb.ch/en',
+  target: '_blank',
+  rel: undefined,
+  download: false,
+  type: undefined,
+  disabled: false,
+  name: undefined,
+  value: undefined,
+  form: undefined,
+  'accessibility-controls': undefined,
+  'accessibility-haspopup': undefined,
   'accessibility-label': 'Details',
   'accessibility-describedby': '',
   'accessibility-labelledby': '',
-  text: 'Details',
-  href: 'https://www.sbb.ch/en',
-  download: false,
-  rel: undefined,
-  target: '_blank',
-  name: undefined,
-  type: undefined,
-  form: undefined,
-  'event-id': undefined,
-  disabled: false,
-  'accessibility-controls': undefined,
-  'accessibility-haspopup': undefined,
 };
 
 const buttonArgs = {
   ...defaultArgs,
   href: undefined,
-  download: undefined,
-  target: undefined,
-  name: 'detail',
   type: type.options[0],
-  form: 'form-name',
+  name: 'detail',
   value: 'Value',
-  'event-id': 'Event ID for button click',
+  form: 'form-name',
 };
-
-const getBasicTemplate = (args, id, icon) => (
-  <sbb-menu-action {...args} menu-action-id={`${args['menu-action-id']}-${id}`}>
-    <span>
-      {args.text} {id}
-    </span>
-    {icon && <sbb-icon slot="icon" name="pie-small" />}
-  </sbb-menu-action>
-);
-
-const TemplateMenuAction = (args) => (
-  <div>
-    {getBasicTemplate(args, 1)}
-    {getBasicTemplate(args, 2)}
-    {getBasicTemplate(args, 3)}
-  </div>
-);
-
-const TemplateMenuActionCustomIcon = (args) => (
-  <div>
-    {getBasicTemplate(args, 1, true)}
-    {getBasicTemplate(args, 2, false)}
-    {getBasicTemplate(args, 3, true)}
-  </div>
-);
 
 export const menuActionLink = TemplateMenuAction.bind({});
 menuActionLink.argTypes = defaultArgTypes;
@@ -252,14 +238,18 @@ menuActionButton.documentation = {
 
 export const menuActionLinkCustomIconNoAmount = TemplateMenuActionCustomIcon.bind({});
 menuActionLinkCustomIconNoAmount.argTypes = defaultArgTypes;
-menuActionLinkCustomIconNoAmount.args = { ...defaultArgs, icon: undefined, amount: undefined };
+menuActionLinkCustomIconNoAmount.args = {
+  ...defaultArgs,
+  amount: undefined,
+  'icon-name': undefined,
+};
 menuActionLinkCustomIconNoAmount.documentation = {
   title: 'Menu action - link mode, custom icon, no amount',
 };
 
 export const menuActionLinkNoIconNoAmount = TemplateMenuAction.bind({});
 menuActionLinkNoIconNoAmount.argTypes = defaultArgTypes;
-menuActionLinkNoIconNoAmount.args = { ...defaultArgs, icon: undefined, amount: undefined };
+menuActionLinkNoIconNoAmount.args = { ...defaultArgs, 'icon-name': undefined, amount: undefined };
 menuActionLinkNoIconNoAmount.documentation = {
   title: 'Menu action - link mode, no icon, no amount',
 };
