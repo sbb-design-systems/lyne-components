@@ -35,7 +35,7 @@ export class SbbTimetableRow {
   @Prop() public loadingPrice?: boolean;
 
   /** When this prop is true the sbb-card will be in the active state. */
-  @Prop() public acitve?: boolean;
+  @Prop() public active?: boolean;
 
   /** This click event gets emitted when the user clicks on the component. */
   @Event({
@@ -101,7 +101,7 @@ export class SbbTimetableRow {
 
     return (
       <sbb-card
-        active={this.acitve}
+        active={this.active}
         id-value={id}
         accessibility-label={this.accessibilityLabel}
         onClick={this._clickHandler}

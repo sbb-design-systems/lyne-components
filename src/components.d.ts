@@ -1080,7 +1080,7 @@ export namespace Components {
         /**
           * When this prop is true the sbb-card will be in the active state.
          */
-        "acitve"?: boolean;
+        "active"?: boolean;
         /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
@@ -2694,7 +2694,7 @@ declare namespace LocalJSX {
         /**
           * When this prop is true the sbb-card will be in the active state.
          */
-        "acitve"?: boolean;
+        "active"?: boolean;
         /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */

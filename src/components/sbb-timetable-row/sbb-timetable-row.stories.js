@@ -34,7 +34,7 @@ const loadingPrice = {
   },
 };
 
-const acitve = {
+const active = {
   control: {
     type: 'boolean',
   },
@@ -45,7 +45,7 @@ const defaultArgTypes = {
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
   'loading-price': loadingPrice,
-  acitve,
+  active,
 };
 
 const defaultArgs = {
@@ -70,7 +70,7 @@ export const SbbTimetableRowActive = Template.bind({});
 SbbTimetableRowActive.argTypes = defaultArgTypes;
 SbbTimetableRowActive.args = {
   ...defaultArgs,
-  acitve: true,
+  active: true,
 };
 
 export const SbbTimetableRowPriceLoading = Template.bind({});

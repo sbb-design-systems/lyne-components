@@ -31,7 +31,7 @@ price={priceProp} trip={tripProp}></sbb-timetable-row>
 | Property             | Attribute             | Description                                                                                       | Type      | Default     |
 | -------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | --------- | ----------- |
 | `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant element.                                     | `string`  | `undefined` |
-| `acitve`             | `acitve`              | When this prop is true the sbb-card will be in the active state.                                  | `boolean` | `undefined` |
+| `active`             | `active`              | When this prop is true the sbb-card will be in the active state.                                  | `boolean` | `undefined` |
 | `disableAnimation`   | `disable-animation`   | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. | `boolean` | `undefined` |
 | `loadingPrice`       | `loading-price`       | When this prop is true the badge for the price will appear loading.                               | `boolean` | `undefined` |
 | `loadingTrip`        | `loading-trip`        | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean` | `undefined` |
