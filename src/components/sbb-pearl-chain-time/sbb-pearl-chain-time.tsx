@@ -8,7 +8,7 @@ import {
 } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { format } from 'date-fns';
-import { removeTimezoneFromDate } from './helper/timezone-helper';
+import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
 
 @Component({
   shadow: true,
@@ -47,8 +47,8 @@ export class SbbPearlChainTime {
   @Prop() public disableAnimation?: boolean;
 
   public render(): JSX.Element {
-    const departure: Date = removeTimezoneFromDate(this.departureTime);
-    const arrival: Date = removeTimezoneFromDate(this.arrivalTime);
+    const departure: Date = removeTimezoneFromISOTimeString(this.departureTime);
+    const arrival: Date = removeTimezoneFromISOTimeString(this.arrivalTime);
 
     return (
       <div class="sbb-pearl-chain__time">
