@@ -112,6 +112,9 @@ graph TD;
   sbb-button --> sbb-icon
   sbb-form-field --> sbb-icon
   sbb-link --> sbb-icon
+  sbb-menu-action --> sbb-icon
+  sbb-pearl-chain-time --> sbb-icon
+  sbb-timetable-row --> sbb-icon
   sbb-toggle-check --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
