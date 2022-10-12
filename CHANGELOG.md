@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.9 (2022-10-12)
+
+### Features
+
+- **sbb-action-group:** initial implementation ([#1391](https://github.com/lyne-design-system/lyne-components/issues/1391)) ([e9be87f](https://github.com/lyne-design-system/lyne-components/commit/e9be87fb9401f52a6b22016454f93fc9e3a7ddd6)), closes [#1368](https://github.com/lyne-design-system/lyne-components/issues/1368)
+
 ### 0.9.8 (2022-10-12)
 
 ### Features
