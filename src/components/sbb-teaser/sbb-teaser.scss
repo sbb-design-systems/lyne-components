@@ -11,12 +11,14 @@
   --sbb-teaser-flex-direction: row;
   --sbb-teaser-align-items: center;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
+  --sbb-teaser-width: fit-content;
 }
 
 :host([is-stacked]) {
   --sbb-teaser-flex-direction: column;
   --sbb-teaser-align-items: baseline;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-teaser-width: 100%;
 }
 
 .sbb-teaser {
@@ -52,7 +54,7 @@
 }
 
 .sbb-teaser__image-wrapper {
-  width: 100%;
+  min-width: var(--sbb-teaser-width);
   overflow: hidden;
   border-radius: var(--sbb-border-radius-4x);
   transition: var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
