@@ -18,10 +18,10 @@ describe('sbb-timetable-transportation-walk', () => {
         >
           <mock:shadow-root>
             <p
-                aria-label="2 minutes of walking time before departure. (Distance 178 Meters)"
+                aria-label="2 minutes of walking time before departure: (Distance 178 Meters)"
                 class="walk walk--first-level walk--departure"
                 role="text"
-                title="2 minutes of walking time before departure. (Distance 178 Meters)"
+                title="2 minutes of walking time before departure: (Distance 178 Meters)"
             >
                 <span class="walk__icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@ describe('sbb-timetable-transportation-walk', () => {
                     </svg>
                 </span>
                 <span aria-hidden="true" class="walk__duration--visual" role="presentation">2'</span>
-                <span class="walk__text--visually-hidden">2 minutes of walking time before departure. (Distance 178 Meters)</span>
+                <span class="walk__text--visually-hidden">2 minutes of walking time before departure: (Distance 178 Meters)</span>
             </p>
           </mock:shadow-root>
         </sbb-timetable-transportation-walk>

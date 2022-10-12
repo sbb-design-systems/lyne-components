@@ -1,20 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import rowButtonEvents from '../sbb-timetable-row-button/sbb-timetable-row-button.events.ts';
-import timeTableButtonEvents from '../sbb-timetable-button/sbb-timetable-button.events.ts';
-
-import sampleData from './sbb-timetable.sample-data';
+import { config } from '../sbb-timetable-row/sbb-timetable-row.sample-data';
 
 const Template = (args) => (
   <sbb-timetable>
-    <sbb-timetable-row-column-headers config={args.columnHeaders} role="row" />
-    <sbb-timetable-row-day-change config={args.timetableRowsDayChange[0]} role="row" />
-    <sbb-timetable-row config={args.timetableRows[0]} role="row" />
-    <sbb-timetable-row config={args.timetableRows[1]} role="row" />
-    <sbb-timetable-row config={args.timetableRows[2]} role="row" />
-    <sbb-timetable-row config={args.timetableRows[3]} role="row" />
-    <sbb-timetable-row-day-change config={args.timetableRowsDayChange[1]} role="row" />
-    <sbb-timetable-row config={args.timetableRows[3]} role="row" />
+    <sbb-timetable-row {...args} />
+    <sbb-timetable-row {...args} />
+    <sbb-timetable-row {...args} />
   </sbb-timetable>
 );
 
@@ -22,19 +14,11 @@ const Template = (args) => (
 /* The Stories                                       */
 /* ************************************************* */
 export const sbbTimetable = Template.bind({});
-
 sbbTimetable.args = {
-  columnHeaders: JSON.stringify(sampleData.columnHeaders),
-  timetableRows: [
-    JSON.stringify(sampleData.timetableRows[0]),
-    JSON.stringify(sampleData.timetableRows[1]),
-    JSON.stringify(sampleData.timetableRows[2]),
-    JSON.stringify(sampleData.timetableRows[3]),
-  ],
-  timetableRowsDayChange: [
-    JSON.stringify(sampleData.timetableRowsDayChange[0]),
-    JSON.stringify(sampleData.timetableRowsDayChange[1]),
-  ],
+  'loading-price': config.loadingPrice,
+  'loading-trip': config.loadingTrip,
+  trip: config.trip,
+  price: config.price,
 };
 
 sbbTimetable.documentation = {
@@ -50,9 +34,6 @@ export default {
     ),
   ],
   parameters: {
-    actions: {
-      handles: [rowButtonEvents.click, timeTableButtonEvents.click],
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

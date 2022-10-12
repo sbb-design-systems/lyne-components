@@ -10,7 +10,8 @@
   // contain: content;
   display: flex;
   flex-direction: column;
-  margin-block-start: var(--sbb-spacing-fixed-1x);
+  margin-block: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-spacing-fixed-1x);
 }
 
 .timetable > svg,

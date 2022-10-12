@@ -66,6 +66,19 @@ In the first one, the `sbb-card` will be internally rendered as a button, in the
 | `"unnamed"` | Slot to render the content.        |
 
 
+## Dependencies
+
+### Used by
+
+ - [sbb-timetable-row](../sbb-timetable-row)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-timetable-row --> sbb-card
+  style sbb-card fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

@@ -37,6 +37,7 @@ import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-b
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 import { InterfaceTimetablePlatformAttributes } from "./components/sbb-timetable-platform/sbb-timetable-platform.custom";
+import { InterfaceTimetableRowAttributes } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
@@ -795,13 +796,35 @@ export namespace Components {
          */
         "disableAnimation"?: boolean;
         /**
-          * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
+          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": string;
+        "legs": InterfacePearlChainAttributes['legs'];
+    }
+    interface SbbPearlChainTime {
         /**
-          * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+          * Prop to render the arrival time - will be formatted as "H:mm"
          */
-        "status"?: InterfacePearlChainAttributes['status'];
+        "arrivalTime": string;
+        /**
+          * Optional prop to render the walk time (in minutes) after arrival
+         */
+        "arrivalWalk"?: number;
+        /**
+          * Prop to render the departure time - will be formatted as "H:mm"
+         */
+        "departureTime": string;
+        /**
+          * Optional prop to render the walk time (in minutes) before departure
+         */
+        "departureWalk"?: number;
+        /**
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
+         */
+        "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbSection {
         /**
@@ -1066,19 +1089,33 @@ export namespace Components {
     }
     interface SbbTimetableRow {
         /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+          * This will be forwarded as aria-label to the relevant element.
          */
-        "config": string;
-    }
-    interface SbbTimetableRowButton {
+        "accessibilityLabel": string | undefined;
         /**
-          * Id which is sent in the event of clicking the button
+          * When this prop is true the sbb-card will be in the active state.
          */
-        "eventId"?: string;
+        "active"?: boolean;
         /**
-          * Set to true to initially show the state, which would get set by pressing the button.
+          * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
-        "expanded"?: boolean;
+        "disableAnimation"?: boolean;
+        /**
+          * When this prop is true the badge for the price will appear loading.
+         */
+        "loadingPrice"?: boolean;
+        /**
+          * The loading state - when this is true it will be render skeleton with an idling animation
+         */
+        "loadingTrip"?: boolean;
+        /**
+          * The price Prop, which consists of the data for the badge.
+         */
+        "price"?: InterfaceTimetableRowAttributes['price'];
+        /**
+          * The trip Prop
+         */
+        "trip"?: InterfaceTimetableRowAttributes['trip'];
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -1238,6 +1275,10 @@ export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
 }
+export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTimetableRowElement;
+}
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleCheckElement;
@@ -1393,6 +1434,12 @@ declare global {
         prototype: HTMLSbbPearlChainElement;
         new (): HTMLSbbPearlChainElement;
     };
+    interface HTMLSbbPearlChainTimeElement extends Components.SbbPearlChainTime, HTMLStencilElement {
+    }
+    var HTMLSbbPearlChainTimeElement: {
+        prototype: HTMLSbbPearlChainTimeElement;
+        new (): HTMLSbbPearlChainTimeElement;
+    };
     interface HTMLSbbSectionElement extends Components.SbbSection, HTMLStencilElement {
     }
     var HTMLSbbSectionElement: {
@@ -1501,12 +1548,6 @@ declare global {
         prototype: HTMLSbbTimetableRowElement;
         new (): HTMLSbbTimetableRowElement;
     };
-    interface HTMLSbbTimetableRowButtonElement extends Components.SbbTimetableRowButton, HTMLStencilElement {
-    }
-    var HTMLSbbTimetableRowButtonElement: {
-        prototype: HTMLSbbTimetableRowButtonElement;
-        new (): HTMLSbbTimetableRowButtonElement;
-    };
     interface HTMLSbbTimetableRowColumnHeadersElement extends Components.SbbTimetableRowColumnHeaders, HTMLStencilElement {
     }
     var HTMLSbbTimetableRowColumnHeadersElement: {
@@ -1593,6 +1634,7 @@ declare global {
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
+        "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
@@ -1611,7 +1653,6 @@ declare global {
         "sbb-timetable-park-and-rail": HTMLSbbTimetableParkAndRailElement;
         "sbb-timetable-platform": HTMLSbbTimetablePlatformElement;
         "sbb-timetable-row": HTMLSbbTimetableRowElement;
-        "sbb-timetable-row-button": HTMLSbbTimetableRowButtonElement;
         "sbb-timetable-row-column-headers": HTMLSbbTimetableRowColumnHeadersElement;
         "sbb-timetable-row-day-change": HTMLSbbTimetableRowDayChangeElement;
         "sbb-timetable-row-header": HTMLSbbTimetableRowHeaderElement;
@@ -2401,13 +2442,35 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
+          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": string;
+        "legs": InterfacePearlChainAttributes['legs'];
+    }
+    interface SbbPearlChainTime {
         /**
-          * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+          * Prop to render the arrival time - will be formatted as "H:mm"
          */
-        "status"?: InterfacePearlChainAttributes['status'];
+        "arrivalTime": string;
+        /**
+          * Optional prop to render the walk time (in minutes) after arrival
+         */
+        "arrivalWalk"?: number;
+        /**
+          * Prop to render the departure time - will be formatted as "H:mm"
+         */
+        "departureTime": string;
+        /**
+          * Optional prop to render the walk time (in minutes) before departure
+         */
+        "departureWalk"?: number;
+        /**
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
+         */
+        "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbSection {
         /**
@@ -2661,19 +2724,37 @@ declare namespace LocalJSX {
     }
     interface SbbTimetableRow {
         /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+          * This will be forwarded as aria-label to the relevant element.
          */
-        "config": string;
-    }
-    interface SbbTimetableRowButton {
+        "accessibilityLabel"?: string | undefined;
         /**
-          * Id which is sent in the event of clicking the button
+          * When this prop is true the sbb-card will be in the active state.
          */
-        "eventId"?: string;
+        "active"?: boolean;
         /**
-          * Set to true to initially show the state, which would get set by pressing the button.
+          * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
-        "expanded"?: boolean;
+        "disableAnimation"?: boolean;
+        /**
+          * When this prop is true the badge for the price will appear loading.
+         */
+        "loadingPrice"?: boolean;
+        /**
+          * The loading state - when this is true it will be render skeleton with an idling animation
+         */
+        "loadingTrip"?: boolean;
+        /**
+          * This click event gets emitted when the user clicks on the component.
+         */
+        "onSbb-timetable-row_click"?: (event: SbbTimetableRowCustomEvent<any>) => void;
+        /**
+          * The price Prop, which consists of the data for the badge.
+         */
+        "price"?: InterfaceTimetableRowAttributes['price'];
+        /**
+          * The trip Prop
+         */
+        "trip"?: InterfaceTimetableRowAttributes['trip'];
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -2834,6 +2915,7 @@ declare namespace LocalJSX {
         "sbb-logo": SbbLogo;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
+        "sbb-pearl-chain-time": SbbPearlChainTime;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
@@ -2852,7 +2934,6 @@ declare namespace LocalJSX {
         "sbb-timetable-park-and-rail": SbbTimetableParkAndRail;
         "sbb-timetable-platform": SbbTimetablePlatform;
         "sbb-timetable-row": SbbTimetableRow;
-        "sbb-timetable-row-button": SbbTimetableRowButton;
         "sbb-timetable-row-column-headers": SbbTimetableRowColumnHeaders;
         "sbb-timetable-row-day-change": SbbTimetableRowDayChange;
         "sbb-timetable-row-header": SbbTimetableRowHeader;
@@ -2894,6 +2975,7 @@ declare module "@stencil/core" {
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
+            "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
@@ -2912,7 +2994,6 @@ declare module "@stencil/core" {
             "sbb-timetable-park-and-rail": LocalJSX.SbbTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLSbbTimetableParkAndRailElement>;
             "sbb-timetable-platform": LocalJSX.SbbTimetablePlatform & JSXBase.HTMLAttributes<HTMLSbbTimetablePlatformElement>;
             "sbb-timetable-row": LocalJSX.SbbTimetableRow & JSXBase.HTMLAttributes<HTMLSbbTimetableRowElement>;
-            "sbb-timetable-row-button": LocalJSX.SbbTimetableRowButton & JSXBase.HTMLAttributes<HTMLSbbTimetableRowButtonElement>;
             "sbb-timetable-row-column-headers": LocalJSX.SbbTimetableRowColumnHeaders & JSXBase.HTMLAttributes<HTMLSbbTimetableRowColumnHeadersElement>;
             "sbb-timetable-row-day-change": LocalJSX.SbbTimetableRowDayChange & JSXBase.HTMLAttributes<HTMLSbbTimetableRowDayChangeElement>;
             "sbb-timetable-row-header": LocalJSX.SbbTimetableRowHeader & JSXBase.HTMLAttributes<HTMLSbbTimetableRowHeaderElement>;

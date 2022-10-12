@@ -302,7 +302,7 @@ const TemplateTickets = (args) => (
         <span>Samstag, 21.02.2021, 1 h 26 min</span>
       </div>
       <div slot="details">
-        <sbb-pearl-chain legs='{"legs":[{"cancellation":false,"duration":25},{"cancellation":false,"duration":10},{"cancellation":false,"duration":8},{"cancellation":false,"duration":15},{"cancellation":false,"duration":42}]}'></sbb-pearl-chain>
+        <sbb-pearl-chain legs={[{ duration: 60 }]}></sbb-pearl-chain>
       </div>
       <div slot="action">
         <sbb-button variant="secondary" static>

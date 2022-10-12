@@ -1,88 +1,173 @@
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
 :host {
-  display: block;
+  --row-gap: var(--sbb-spacing-fixed-2x);
+}
 
-  --row-min-height: 108;
-  --third-row-min-height: #{px-to-rem-build(27)};
-  --flex-basis-pillar-columns: 50; // left and right of pearl chain
-  --flex-basis-pillar-columns-walking-icon: 85; // if an icon is present, we have to increase the basis
+// override icons sizes
+.sbb-travel-hints__item {
+  --sbb-icon-svg-width: #{px-to-rem-build(16)};
+  --sbb-icon-svg-height: #{px-to-rem-build(16)};
+}
+
+// Design spec: icon should have spesific size
+.sbb-occupancy__item {
+  --sbb-icon-svg-width: #{px-to-rem-build(14.25)};
+  --sbb-icon-svg-height: #{px-to-rem-build(12)};
 
   @include mq($from: medium) {
-    --row-min-height: 114;
-    --flex-basis-pillar-columns: 55;
+    --sbb-icon-svg-width: #{px-to-rem-build(19)};
+    --sbb-icon-svg-height: #{px-to-rem-build(16)};
   }
 }
 
-:host(sbb-timetable-row) {
-  margin-block-end: var(--sbb-spacing-fixed-1x);
-}
-
-.timetable__row {
-  @include card--m;
-
-  position: relative;
-  display: flex;
-  flex: 0 0 100%;
-  flex-flow: row wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  column-gap: var(--sbb-spacing-fixed-2x);
-  padding-block-start: var(--card-padding-top);
-  padding-inline-end: var(--card-padding-right);
-  padding-block-end: var(--card-padding-bottom);
-  padding-inline-start: var(--card-padding-left);
-}
-
-.timetable__row > sbb-timetable-row-header,
-.timetable__row > sbb-timetable-transportation-details,
-.timetable__row > sbb-timetable-row-button,
-.timetable__row > sbb-timetable-platform,
-.timetable__row > sbb-timetable-occupancy,
-.timetable__row > sbb-timetable-travel-hints,
-.timetable__row > sbb-timetable-park-and-rail,
-.timetable__row > sbb-timetable-duration,
-.timetable__row > sbb-timetable-cus-him {
-  display: flex;
-  flex: 0 1 auto;
-  position: relative;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.timetable__row svg {
-  float: inline-start;
-}
-
-.timetable__row > sbb-timetable-row-header {
+.sbb-screenreaderonly {
   @include screenReaderOnly;
 }
 
-.timetable__row > sbb-timetable-row-button {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: all;
+.sbb-timetable__row--quay {
+  margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
-.timetable__row > sbb-timetable-transportation-details {
+// resets lists
+ul {
+  @include list-reset;
+
+  display: inline-flex;
+}
+
+li {
+  display: inline-flex;
+  align-self: center;
+}
+
+.sbb-timetable__row-transport {
+  align-self: center;
+}
+
+.sbb-timetable__row-transportnumber,
+.sbb-timetable__row-time {
+  @include text-s--bold;
+
+  line-height: unset;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.sbb-timetable__row {
+  @include text-s--regular;
+
   display: flex;
-  flex: 0 0 100%;
-  max-width: 100%;
+  flex-direction: column;
+  gap: var(--row-gap);
 }
 
-.timetable__row > sbb-timetable-platform,
-.timetable__row > sbb-timetable-occupancy,
-.timetable__row > sbb-timetable-travel-hints,
-.timetable__row > sbb-timetable-park-and-rail,
-.timetable__row > sbb-timetable-duration,
-.timetable__row > sbb-timetable-cus-him {
+.sbb-timetable__row-header {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
   align-items: center;
-  min-height: var(--third-row-min-height);
+}
 
-  &.visually-empty {
-    position: absolute;
+.sbb-timetable__row-details,
+.sbb-timetable__row-hints {
+  display: inline-flex;
+  gap: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-timetable__row-header p {
+  @include ellipsis;
+
+  margin: 0;
+  align-self: center;
+}
+
+.sbb-timetable__row-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--sbb-spacing-fixed-2x);
+
+  > span {
+    align-self: center;
+  }
+}
+
+.sbb-timetable__row-occupancy {
+  gap: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-timetable__row-occupancy li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-timetable__row-quay--changed {
+  color: var(--sbb-color-red-default);
+}
+
+.sbb-timetable__row-warning {
+  display: inline-flex;
+}
+
+.sbb-loading {
+  @include card-host-properties;
+  @include card;
+  @include card--m;
+  @include card--primary-negative;
+
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sbb-loading__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-2x);
+  padding-block-start: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-loading__row,
+.sbb-loading__badge {
+  animation: skeleton-pulse 2s linear infinite alternate;
+}
+
+.sbb-loading__row {
+  width: 100%;
+  height: #{px-to-rem-build(24)};
+  border-radius: var(--sbb-border-radius-1x);
+}
+
+.sbb-loading__row:first-of-type {
+  width: 75%;
+
+  @include mq($from: medium) {
+    width: 100%;
+  }
+}
+
+.sbb-loading__badge {
+  align-items: center;
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  padding-inline-end: var(--sbb-spacing-fixed-6x);
+  border-end-start-radius: var(--sbb-border-radius-4x);
+
+  // Left to right expression
+  right: calc(var(--sbb-spacing-fixed-3x) * -1);
+  transform: skew(16deg, 0deg);
+  width: 15%;
+  height: #{px-to-rem-build(20)};
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background: var(--sbb-color-milk-default);
+  }
+
+  100% {
+    background: var(--sbb-color-cloud-default);
   }
 }

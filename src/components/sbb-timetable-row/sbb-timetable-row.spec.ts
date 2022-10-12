@@ -1,34 +1,138 @@
-import { SbbTimetableRow } from './sbb-timetable-row';
 import { newSpecPage } from '@stencil/core/testing';
-import sampleData from './sbb-timetable-row.sample-data';
-
-const config = JSON.stringify(sampleData[0]);
+import { SbbTimetableRow } from './sbb-timetable-row';
+import { config } from './sbb-timetable-row.sample-data';
 
 describe('sbb-timetable-row', () => {
-  it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbTimetableRow],
-      html: `<sbb-timetable-row config='${config}' role='row'/>`,
-    });
-
-    expect(root).toEqualHtml(`
-        <sbb-timetable-row
-            config="{&quot;cusHim&quot;:{&quot;cusHimItems&quot;:[{&quot;icon&quot;:&quot;alternative&quot;,&quot;text&quot;:&quot;Alternative connection due to the current service situation. Please check again for any changes shortly before starting your journey.&quot;}]},&quot;details&quot;:{&quot;arrivalTime&quot;:{&quot;time&quot;:&quot;15:34&quot;,&quot;type&quot;:&quot;arrival&quot;},&quot;arrivalWalk&quot;:{&quot;distance&quot;:0,&quot;duration&quot;:0,&quot;type&quot;:&quot;arrival&quot;},&quot;departureTime&quot;:{&quot;time&quot;:&quot;15:14&quot;,&quot;type&quot;:&quot;departure&quot;},&quot;departureWalk&quot;:{&quot;distance&quot;:178,&quot;duration&quot;:2,&quot;type&quot;:&quot;departure&quot;},&quot;pearlChain&quot;:{&quot;legs&quot;:{&quot;legs&quot;:[{&quot;cancellation&quot;:false,&quot;duration&quot;:25},{&quot;cancellation&quot;:false,&quot;duration&quot;:10},{&quot;cancellation&quot;:false,&quot;duration&quot;:50},{&quot;cancellation&quot;:false,&quot;duration&quot;:15}]},&quot;status&quot;:&quot;future&quot;},&quot;transportationNumber&quot;:{&quot;direction&quot;:&quot;Direction Romanshorn&quot;,&quot;marketingName&quot;:&quot;&quot;,&quot;meansOfTransport&quot;:{&quot;picto&quot;:&quot;transportation-zug-right&quot;,&quot;text&quot;:&quot;Train&quot;},&quot;product&quot;:{&quot;icon&quot;:&quot;ic-8&quot;,&quot;text&quot;:&quot;IC 8&quot;}}},&quot;duration&quot;:{&quot;hours&quot;:0,&quot;minutes&quot;:37},&quot;occupancy&quot;:{&quot;occupancyItems&quot;:[{&quot;class&quot;:&quot;1&quot;,&quot;icon&quot;:&quot;utilization-low&quot;,&quot;occupancy&quot;:&quot;low&quot;},{&quot;class&quot;:&quot;2&quot;,&quot;icon&quot;:&quot;utilization-medium&quot;,&quot;occupancy&quot;:&quot;medium&quot;}]},&quot;parkAndRail&quot;:{&quot;distance&quot;:178},&quot;platform&quot;:{&quot;platform&quot;:&quot;13A/C&quot;},&quot;rowHeader&quot;:{&quot;departure&quot;:{&quot;direction&quot;:&quot;Direction Romanshorn&quot;,&quot;productMarketingName&quot;:&quot;&quot;,&quot;productText&quot;:&quot;IC 8&quot;,&quot;time&quot;:&quot;15:14&quot;}},&quot;travelHints&quot;:{&quot;travelHintsItems&quot;:[{&quot;icon&quot;:&quot;sa-sb&quot;,&quot;text&quot;:&quot;Description what sa-sb means...&quot;},{&quot;icon&quot;:&quot;sa-rr&quot;,&quot;text&quot;:&quot;Description what sa-rr means...&quot;},{&quot;icon&quot;:&quot;sa-zm&quot;,&quot;text&quot;:&quot;Description what sa-zm means...&quot;}]}}"
-            role="row"
-        >
-          <mock:shadow-root>
-            <div class="timetable__row timetable__row--departure-walk" role="none">
-                <sbb-timetable-row-header config="{&quot;departure&quot;:{&quot;direction&quot;:&quot;Direction Romanshorn&quot;,&quot;productMarketingName&quot;:&quot;&quot;,&quot;productText&quot;:&quot;IC 8&quot;,&quot;time&quot;:&quot;15:14&quot;}}" role="rowheader"></sbb-timetable-row-header>
-                <sbb-timetable-transportation-details config="{&quot;arrivalTime&quot;:{&quot;time&quot;:&quot;15:34&quot;,&quot;type&quot;:&quot;arrival&quot;},&quot;arrivalWalk&quot;:{&quot;distance&quot;:0,&quot;duration&quot;:0,&quot;type&quot;:&quot;arrival&quot;},&quot;departureTime&quot;:{&quot;time&quot;:&quot;15:14&quot;,&quot;type&quot;:&quot;departure&quot;},&quot;departureWalk&quot;:{&quot;distance&quot;:178,&quot;duration&quot;:2,&quot;type&quot;:&quot;departure&quot;},&quot;pearlChain&quot;:{&quot;legs&quot;:{&quot;legs&quot;:[{&quot;cancellation&quot;:false,&quot;duration&quot;:25},{&quot;cancellation&quot;:false,&quot;duration&quot;:10},{&quot;cancellation&quot;:false,&quot;duration&quot;:50},{&quot;cancellation&quot;:false,&quot;duration&quot;:15}]},&quot;status&quot;:&quot;future&quot;},&quot;transportationNumber&quot;:{&quot;direction&quot;:&quot;Direction Romanshorn&quot;,&quot;marketingName&quot;:&quot;&quot;,&quot;meansOfTransport&quot;:{&quot;picto&quot;:&quot;transportation-zug-right&quot;,&quot;text&quot;:&quot;Train&quot;},&quot;product&quot;:{&quot;icon&quot;:&quot;ic-8&quot;,&quot;text&quot;:&quot;IC 8&quot;}}}" role="gridcell"></sbb-timetable-transportation-details>
-                <sbb-timetable-row-button role="gridcell"></sbb-timetable-row-button>
-                <sbb-timetable-platform config="{&quot;platform&quot;:&quot;13A/C&quot;}" role="gridcell"></sbb-timetable-platform>
-                <sbb-timetable-occupancy config="{&quot;occupancyItems&quot;:[{&quot;class&quot;:&quot;1&quot;,&quot;icon&quot;:&quot;utilization-low&quot;,&quot;occupancy&quot;:&quot;low&quot;},{&quot;class&quot;:&quot;2&quot;,&quot;icon&quot;:&quot;utilization-medium&quot;,&quot;occupancy&quot;:&quot;medium&quot;}]}" role="gridcell"></sbb-timetable-occupancy>
-                <sbb-timetable-travel-hints config="{&quot;travelHintsItems&quot;:[{&quot;icon&quot;:&quot;sa-sb&quot;,&quot;text&quot;:&quot;Description what sa-sb means...&quot;},{&quot;icon&quot;:&quot;sa-rr&quot;,&quot;text&quot;:&quot;Description what sa-rr means...&quot;},{&quot;icon&quot;:&quot;sa-zm&quot;,&quot;text&quot;:&quot;Description what sa-zm means...&quot;}]}" role="gridcell"></sbb-timetable-travel-hints>
-                <sbb-timetable-duration config="{&quot;hours&quot;:0,&quot;minutes&quot;:37}" role="gridcell"></sbb-timetable-duration>
-                <sbb-timetable-cus-him config="{&quot;cusHimItems&quot;:[{&quot;icon&quot;:&quot;alternative&quot;,&quot;text&quot;:&quot;Alternative connection due to the current service situation. Please check again for any changes shortly before starting your journey.&quot;}]}" role="gridcell"></sbb-timetable-cus-him>
+  describe('sbb-timetable-row with config', () => {
+    it('renders component with config', async () => {
+      const page = await newSpecPage({
+        components: [SbbTimetableRow],
+        html: `
+            <sbb-timetable-row>
+            </sbb-timetable-row>
+        `,
+      });
+      page.rootInstance.trip = config.trip;
+      page.rootInstance.price = config.price;
+      await page.waitForChanges();
+      expect(page.root).toEqualHtml(`
+      <sbb-timetable-row>
+      <mock:shadow-root>
+        <sbb-card>
+          <sbb-card-badge appearance="primary" isdiscount="" price="12" slot="badge" text="ab CHF"></sbb-card-badge>
+          <div class="sbb-timetable__row">
+            <div class="sbb-timetable__row-header">
+              <div class="sbb-timetable__row-details">
+                <sbb-icon name="train-small"></sbb-icon>
+                <sbb-icon class="timetable__row-transport" name="ir-27"></sbb-icon>
+              </div>
+              <p>
+                Direction Luzern
+              </p>
             </div>
+            <sbb-pearl-chain-time arrivaltime="2022-10-28T21:16:00+02:00" arrivalwalk="5" departuretime="2022-10-28T02:48:00+02:00" departurewalk="8"></sbb-pearl-chain-time>
+            <div class="sbb-timetable__row-footer">
+              <span class="sbb-timetable__row-quay--changed">
+                <span class="sbb-screenreaderonly">
+                  from platform
+                </span>
+                <span class="sbb-timetable__row--quay">
+                  Pl.
+                </span>
+                7
+              </span>
+              <ul class="sbb-timetable__row-occupancy" role="list">
+                <li>
+                  1.
+                  <sbb-icon class="sbb-occupancy__item" name="utilization-high"></sbb-icon>
+                  <span class="sbb-screenreaderonly">
+                    First Class
+                  </span>
+                  <span class="sbb-screenreaderonly">
+                    Very high occupancy expected.
+                  </span>
+                </li>
+                <li>
+                  2.
+                  <sbb-icon class="sbb-occupancy__item" name="utilization-high"></sbb-icon>
+                  <span class="sbb-screenreaderonly">
+                    Second Class
+                  </span>
+                  <span class="sbb-screenreaderonly">
+                    Very high occupancy expected.
+                  </span>
+                </li>
+              </ul>
+              <ul class="sbb-timetable__row-hints" role="list">
+                <li>
+                  <sbb-icon aria-hidden="false" aria-label="Tilting train" class="sbb-travel-hints__item" name="sa-rr"></sbb-icon>
+                </li>
+                <li>
+                  <sbb-icon aria-hidden="false" aria-label="Tilting train" class="sbb-travel-hints__item" name="sa-z"></sbb-icon>
+                </li>
+                <li>
+                  <sbb-icon aria-hidden="false" aria-label="Tilting train" class="sbb-travel-hints__item" name="sa-om"></sbb-icon>
+                </li>
+                <li>
+                  <sbb-icon aria-hidden="false" aria-label="Tilting train" class="sbb-travel-hints__item" name="sa-fs"></sbb-icon>
+                </li>
+              </ul>
+              <time>
+                19 h 32 min
+              </time>
+              <span class="sbb-timetable__row-warning">
+                <sbb-icon aria-hidden="false" aria-label="test" name="delay"></sbb-icon>
+              </span>
+            </div>
+          </div>
+        </sbb-card>
+      </mock:shadow-root>
+    </sbb-timetable-row>
+      `);
+    });
+  });
+
+  describe('sbb-timetable-row loading state', () => {
+    it('renders loading state', async () => {
+      const page = await newSpecPage({
+        components: [SbbTimetableRow],
+        html: `<sbb-timetable-row loading-trip="true" />`,
+      });
+      page.rootInstance.config = { 'loading-trip': true };
+      expect(page.root).toEqualHtml(`
+        <sbb-timetable-row loading-trip="true">
+          <mock:shadow-root>
+            <button class="sbb-loading" disabled="">
+              <div class="sbb-loading__wrapper">
+                <div class="sbb-loading__row"></div>
+                <div class="sbb-loading__row"></div>
+                <div class="sbb-loading__row"></div>
+              </div>
+            </button>
           </mock:shadow-root>
         </sbb-timetable-row>
       `);
+    });
+  });
+
+  describe('sbb-timetable-row click event', () => {
+    it('emits an event when clicked', async () => {
+      const page = await newSpecPage({
+        components: [SbbTimetableRow],
+        html: `
+        <sbb-timetable-row>
+        </sbb-timetable-row>
+       `,
+      });
+      page.rootInstance.trip = config.trip;
+      page.rootInstance.price = config.price;
+      const element = page.root.shadowRoot.querySelector('sbb-card');
+      const buttonSpy = jest.fn();
+
+      page.win.addEventListener('sbb-timetable-row_click', buttonSpy);
+      element.click();
+      await page.waitForChanges();
+      expect(buttonSpy).toHaveBeenCalled();
+    });
   });
 });
