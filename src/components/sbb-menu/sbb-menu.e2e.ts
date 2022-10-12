@@ -83,22 +83,70 @@ describe('sbb-menu', () => {
     expect(dialog).not.toHaveAttribute('open');
   });
 
-  it('closes on Esc keypress', async () => {
+  // it('closes on Esc keypress', async () => {
+  //   const dialog = await page.find('sbb-menu >>> dialog');
+
+  //   await trigger.click();
+  //   await page.waitForChanges();
+  //   expect(dialog).toHaveAttribute('open');
+
+  //   await page.keyboard.down('Escape');
+  //   await page.waitForChanges();
+
+  //   expect(dialog).not.toHaveAttribute('open');
+  // });
+
+  it('is correctly positioned on desktop', async () => {
+    page.setViewport({ width: 1200, height: 800 });
     const dialog = await page.find('sbb-menu >>> dialog');
 
     await trigger.click();
     await page.waitForChanges();
     expect(dialog).toHaveAttribute('open');
 
-    await page.keyboard.down('Escape');
-    await page.waitForChanges();
+    const buttonHeight = await page.evaluate(() =>
+      getComputedStyle(document.documentElement).getPropertyValue(
+        `--sbb-size-button-l-min-height-large`
+      )
+    );
+    expect(buttonHeight.trim()).toBe('3.5rem');
 
-    expect(dialog).not.toHaveAttribute('open');
+    const buttonHeightPx = parseFloat(buttonHeight) * 16;
+    expect(await page.evaluate(() => document.querySelector('sbb-button').offsetHeight)).toBe(
+      buttonHeightPx
+    );
+    expect(await page.evaluate(() => document.querySelector('sbb-button').offsetTop)).toBe(0);
+    expect(await page.evaluate(() => document.querySelector('sbb-button').offsetLeft)).toBe(0);
+
+    // Expect dialog offsetTop to be equal to the trigger height + the dialog offset (8px)
+    expect(
+      await page.evaluate(
+        () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop
+      )
+    ).toBe(buttonHeightPx + 8);
+    expect(
+      await page.evaluate(
+        () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetLeft
+      )
+    ).toBe(0);
   });
 
-  // Test focusing first element (or not focusing some cases)
-  // Test keyboard navigation
-  // Test positioning     expect(
-  //       await page.evaluate(() => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop)
-  //     ).toBe(-1);
+  it('is correctly positioned on mobile', async () => {
+    page.setViewport({ width: 800, height: 600 });
+    const dialog = await page.find('sbb-menu >>> dialog');
+
+    await trigger.click();
+    await page.waitForChanges();
+    expect(dialog).toHaveAttribute('open');
+
+    const menuOffsetTop = await page.evaluate(
+      () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop
+    );
+    const menuHeight = await page.evaluate(
+      () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetHeight
+    );
+    const pageHeight = await page.evaluate(() => window.innerHeight);
+
+    expect(menuOffsetTop).toBe(pageHeight - menuHeight);
+  });
 });
