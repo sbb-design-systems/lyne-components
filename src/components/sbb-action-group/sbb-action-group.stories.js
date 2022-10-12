@@ -38,48 +38,40 @@ const TemplateThreeElements = (size, alignSelfFirst, alignSelfSecond, alignSelfT
   linkTemplate(alignSelfThird),
 ];
 
-const CommonTemplateThreeElementsAllocation = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements(args.size)}</sbb-action-group>
+const CommonTemplateThreeElementsAllocation = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(size)}</sbb-action-group>
 );
 
-const CommonTemplateTwoElementsAllocation = (args) => (
-  <sbb-action-group {...args}>{TemplateTwoElements(args.size)}</sbb-action-group>
+const CommonTemplateTwoElementsAllocation = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateTwoElements(size)}</sbb-action-group>
 );
 
-const TemplateHorizontalAllocation111 = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements(args.size, null, 'center')}</sbb-action-group>
+const TemplateHorizontalAllocation111 = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(size, null, 'center')}</sbb-action-group>
 );
 
-const TemplateHorizontalAllocation201 = (args) => (
-  <sbb-action-group {...args}>
-    {TemplateThreeElements(args.size, null, null, 'end')}
-  </sbb-action-group>
+const TemplateHorizontalAllocation201 = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(size, null, null, 'end')}</sbb-action-group>
 );
 
-const TemplateHorizontalAllocation102 = (args) => (
-  <sbb-action-group {...args}>{TemplateThreeElements(args.size, 'start')}</sbb-action-group>
+const TemplateHorizontalAllocation102 = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(size, 'start')}</sbb-action-group>
 );
 
-const TemplateHorizontalAllocation101 = (args) => (
-  <sbb-action-group {...args}>{TemplateTwoElements(args.size, null, 'end')}</sbb-action-group>
+const TemplateHorizontalAllocation101 = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateTwoElements(size, null, 'end')}</sbb-action-group>
 );
 
-const TemplateVerticalAllocation300FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    {TemplateThreeElements(args.size, null, null, 'start')}
-  </sbb-action-group>
+const TemplateVerticalAllocation300FullWidth = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(size, null, null, 'start')}</sbb-action-group>
 );
 
-const TemplateVerticalAllocation030FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    {TemplateThreeElements(args.size, null, null, 'center')}
-  </sbb-action-group>
+const TemplateVerticalAllocation030FullWidth = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(size, null, null, 'center')}</sbb-action-group>
 );
 
-const TemplateVerticalAllocation003FullWidth = (args) => (
-  <sbb-action-group {...args}>
-    {TemplateThreeElements(args.size, null, null, 'end')}
-  </sbb-action-group>
+const TemplateVerticalAllocation003FullWidth = ({ size, ...args }) => (
+  <sbb-action-group {...args}>{TemplateThreeElements(size, null, null, 'end')}</sbb-action-group>
 );
 
 const buttonSize = {
@@ -87,6 +79,9 @@ const buttonSize = {
     type: 'inline-radio',
   },
   options: ['l', 'm'],
+  table: {
+    category: 'Button',
+  },
 };
 
 const orientation = {
@@ -132,13 +127,6 @@ const basicArgsVertical = {
 const basicArgsVerticalFullWidth = {
   ...basicArgsVertical,
   'align-group': 'stretch',
-};
-
-export const VerticalToHorizontal3_0_0 = CommonTemplateThreeElementsAllocation.bind({});
-VerticalToHorizontal3_0_0.argTypes = basicArgTypes;
-VerticalToHorizontal3_0_0.args = { ...basicArgsVertical, 'horizontal-from': 'medium' };
-VerticalToHorizontal3_0_0.documentation = {
-  title: 'sbb-action-group allocation 3-0-0',
 };
 
 export const HorizontalAllocation3_0_0 = CommonTemplateThreeElementsAllocation.bind({});
@@ -265,6 +253,13 @@ VerticalAllocation0_0_2FullWidth.argTypes = basicArgTypes;
 VerticalAllocation0_0_2FullWidth.args = { ...basicArgsVerticalFullWidth };
 VerticalAllocation0_0_2FullWidth.documentation = {
   title: 'sbb-action-group vertical allocation 0-0-2 full width',
+};
+
+export const VerticalToHorizontal3_0_0 = CommonTemplateThreeElementsAllocation.bind({});
+VerticalToHorizontal3_0_0.argTypes = basicArgTypes;
+VerticalToHorizontal3_0_0.args = { ...basicArgsVertical, 'horizontal-from': 'medium' };
+VerticalToHorizontal3_0_0.documentation = {
+  title: 'sbb-action-group vertical to horizontal allocation 3-0-0',
 };
 
 export default {
