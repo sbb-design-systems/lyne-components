@@ -1099,14 +1099,41 @@ export namespace Components {
         "variant"?: InterfaceSignetAttributes['variant'];
     }
     interface SbbSlider {
+        /**
+          * Disabled state for the inner HTMLInputElement.
+         */
         "disabled"?: boolean;
+        /**
+          * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
+         */
         "endIcon"?: string;
+        /**
+          * Maximum acceptable value for the inner HTMLInputElement.
+         */
         "max"?: string;
+        /**
+          * Minimum acceptable value for the inner HTMLInputElement.
+         */
         "min"?: string;
+        /**
+          * Name of the inner HTMLInputElement.
+         */
         "name"?: string;
+        /**
+          * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
+         */
         "readonly"?: boolean;
+        /**
+          * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
+         */
         "startIcon"?: string;
+        /**
+          * The granularity of the possible values for the inner HTMLInputElement.
+         */
         "step"?: string;
+        /**
+          * Value for the inner HTMLInputElement.
+         */
         "value"?: string;
     }
     interface SbbSlotComponent {
@@ -3124,15 +3151,45 @@ declare namespace LocalJSX {
         "variant"?: InterfaceSignetAttributes['variant'];
     }
     interface SbbSlider {
+        /**
+          * Disabled state for the inner HTMLInputElement.
+         */
         "disabled"?: boolean;
+        /**
+          * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
+         */
         "endIcon"?: string;
+        /**
+          * Maximum acceptable value for the inner HTMLInputElement.
+         */
         "max"?: string;
+        /**
+          * Minimum acceptable value for the inner HTMLInputElement.
+         */
         "min"?: string;
+        /**
+          * Name of the inner HTMLInputElement.
+         */
         "name"?: string;
+        /**
+          * Event emitted when the value of the inner HTMLInputElement changes.
+         */
         "onSbbChange"?: (event: SbbSliderCustomEvent<SbbSliderChange>) => void;
+        /**
+          * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
+         */
         "readonly"?: boolean;
+        /**
+          * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
+         */
         "startIcon"?: string;
+        /**
+          * The granularity of the possible values for the inner HTMLInputElement.
+         */
         "step"?: string;
+        /**
+          * Value for the inner HTMLInputElement.
+         */
         "value"?: string;
     }
     interface SbbSlotComponent {

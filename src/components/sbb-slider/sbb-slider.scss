@@ -3,8 +3,6 @@
 @include host-component-properties;
 
 :host {
-  line-height: var(--sbb-typo-line-height-body-text);
-
   --slider-line-height: #{px-to-rem-build(4)};
   --slider-value-fraction: 0;
   --slider-step-fraction: 0;
@@ -12,6 +10,8 @@
   --slider-knob-size: #{px-to-rem-build(28)};
   --slider-knob-border-size: #{px-to-rem-build(3)};
   --slider-icon-color: var(--sbb-color-black-default);
+
+  line-height: var(--sbb-typo-line-height-body-text);
 }
 
 // override icons color

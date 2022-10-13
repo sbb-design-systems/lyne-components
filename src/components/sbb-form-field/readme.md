@@ -97,7 +97,6 @@ announce errors when they appear.
 ### Used by
 
  - [sbb-autocomplete](../sbb-autocomplete)
- - [sbb-slider](../sbb-slider)
 
 ### Depends on
 
@@ -108,7 +107,6 @@ announce errors when they appear.
 graph TD;
   sbb-form-field --> sbb-icon
   sbb-autocomplete --> sbb-form-field
-  sbb-slider --> sbb-form-field
   style sbb-form-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

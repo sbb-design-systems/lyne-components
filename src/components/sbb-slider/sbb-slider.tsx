@@ -2,36 +2,75 @@ import { Component, Event, EventEmitter, h, JSX, Prop, State } from '@stencil/co
 import { SbbSliderChange } from './sbb-slider.custom';
 
 /**
+ * @slot prefix - Slot to render an icon on the left side of the input.
+ * @slot suffix - Slot to render an icon on the right side of the input.
  */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-slider.scss',
   tag: 'sbb-slider',
 })
 export class SbbSlider {
+  /**
+   * Value for the inner HTMLInputElement.
+   */
   @Prop() public value?: string = '';
 
+  /**
+   * Name of the inner HTMLInputElement.
+   */
   @Prop() public name?: string = '';
 
+  /**
+   * Minimum acceptable value for the inner HTMLInputElement.
+   */
   @Prop() public min?: string = '0';
 
+  /**
+   * Maximum acceptable value for the inner HTMLInputElement.
+   */
   @Prop() public max?: string = '100';
 
+  /**
+   * The granularity of the possible values for the inner HTMLInputElement.
+   */
   @Prop() public step?: string = '';
 
+  /**
+   * Readonly state for the inner HTMLInputElement.
+   * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
+   */
   @Prop() public readonly?: boolean = false;
 
+  /**
+   * Disabled state for the inner HTMLInputElement.
+   */
   @Prop() public disabled?: boolean = false;
 
+  /**
+   * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
+   */
   @Prop() public startIcon?: string;
 
+  /**
+   * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
+   */
   @Prop() public endIcon?: string;
 
+  /**
+   * Event emitted when the value of the inner HTMLInputElement changes.
+   */
   @Event() public sbbChange: EventEmitter<SbbSliderChange>;
 
+  /**
+   * The ratio between the absolute value and the validity interval.
+   * E.g. given `min=0`, `max=100` and `value=50`, then `_valueFraction=0.5`
+   */
   @State() private _valueFraction = 0;
 
+  /**
+   * Reference to the inner HTMLInputElement with type='range'.
+   */
   private _rangeInput!: HTMLInputElement;
 
   private _handleChange(): void {
@@ -101,7 +140,7 @@ export class SbbSlider {
     const isStepped = this.step && stepFraction > 0.01;
 
     return (
-      <sbb-form-field borderless class="slider__wrapper">
+      <div class="slider__wrapper">
         <sbb-icon slot="prefix" name={this.startIcon} onClick={() => this._decrementWithIcon()} />
         <div
           class="slider__container"
@@ -146,7 +185,7 @@ export class SbbSlider {
           ></div>
         </div>
         <sbb-icon slot="suffix" name={this.endIcon} onClick={() => this._incrementWithIcon()} />
-      </sbb-form-field>
+      </div>
     );
   }
 }

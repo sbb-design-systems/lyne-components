@@ -4,6 +4,10 @@ import readme from './readme.md';
 
 const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
 
+const TemplateSbbSliderInFormField = (args) => (
+  <sbb-form-field> {TemplateSbbSlider(args)} </sbb-form-field>
+);
+
 const valueArg = {
   control: {
     type: 'text',
@@ -98,28 +102,35 @@ export const sbbSlider = TemplateSbbSlider.bind({});
 sbbSlider.argTypes = basicArgTypes;
 sbbSlider.args = { ...basicArgs };
 sbbSlider.documentation = {
-  title: 'Sbb Slider',
+  title: 'sbb-slider',
 };
 
 export const sbbSliderDisabled = TemplateSbbSlider.bind({});
 sbbSliderDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg };
 sbbSliderDisabled.args = { ...basicArgs, disabled: true };
 sbbSlider.documentation = {
-  title: 'Sbb Slider disabled',
+  title: 'sbb-slider disabled',
 };
 
 export const sbbSliderReadonly = TemplateSbbSlider.bind({});
 sbbSliderReadonly.argTypes = { ...basicArgTypes, readonly: readonlyArg };
 sbbSliderReadonly.args = { ...basicArgs, readonly: true };
 sbbSlider.documentation = {
-  title: 'Sbb Slider readonly',
+  title: 'sbb-slider readonly',
 };
 
 export const sbbSliderStep = TemplateSbbSlider.bind({});
 sbbSliderStep.argTypes = basicArgTypes;
 sbbSliderStep.args = { ...basicArgs, step: '10' };
 sbbSlider.documentation = {
-  title: 'Sbb Slider with step',
+  title: 'sbb-slider with step',
+};
+
+export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});
+sbbSliderInFormField.argTypes = basicArgTypes;
+sbbSliderInFormField.args = { ...basicArgs };
+sbbSliderInFormField.documentation = {
+  title: 'sbb-slider within sbb-form-field',
 };
 
 export default {
