@@ -182,9 +182,21 @@ export class SbbMenu implements ComponentInterface {
     }
   }
 
-  public componentDidLoad(): void {
+  public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+  }
+
+  public componentDidLoad(): void {
+    // Dismiss menu on interactive element click
+    this._menuContentElement.addEventListener('click', (event: Event) =>
+      this._dismissOnInteractiveElementClick(event)
+    );
+
+    // Listen for menu animation to end
+    this._dialog.addEventListener('animationend', (event: AnimationEvent) =>
+      this._onMenuAnimationEnd(event)
+    );
   }
 
   public disconnectedCallback(): void {
@@ -231,20 +243,6 @@ export class SbbMenu implements ComponentInterface {
     this._element.addEventListener('pointerup', this._dismissOnBackdropClick, {
       signal: this._menuController.signal,
     });
-
-    // Dismiss menu on interactive element click
-    this._dialog.firstElementChild.addEventListener(
-      'click',
-      (event: Event) => this._dismissOnInteractiveElementClick(event),
-      { signal: this._menuController.signal }
-    );
-
-    // Listen for menu animation to end
-    this._dialog.addEventListener(
-      'animationend',
-      (event: AnimationEvent) => this._onMenuAnimationEnd(event),
-      { signal: this._menuController.signal }
-    );
   }
 
   // Resets position on window resize.

@@ -205,7 +205,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
+      handles: [events.willPresent, events.didPresent, events.didDismiss, events.willDismiss],
     },
     backgrounds: {
       disable: true,

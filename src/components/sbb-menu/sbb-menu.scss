@@ -17,6 +17,10 @@
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
   --sbb-menu-backdrop-color: transparent;
 
+  position: fixed;
+  left: 0;
+  top: 0;
+
   // Menu backdrop (only visible on mobile)
   &::before {
     content: '';
