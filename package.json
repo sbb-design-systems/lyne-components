@@ -67,7 +67,7 @@
     "axios": "1.1.2",
     "babel-loader": "8.2.5",
     "chromatic": "6.10.2",
-    "esbuild": "0.15.10",
+    "esbuild": "0.15.11",
     "eslint": "8.25.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-jest": "27.1.1",
