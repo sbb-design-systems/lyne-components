@@ -1,7 +1,15 @@
-declare type Leg = {
+export type Leg = {
   duration: number;
+  arrival?: {
+    time: string;
+  };
+  departure?: {
+    time: string;
+  };
+  serviceJourney?: {
+    serviceAlteration: ServiceAlteration;
+  };
 };
-
 declare type TimeQuayWrapper = {
   delay?: number;
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
@@ -13,7 +21,7 @@ declare type TimeQuayWrapper = {
 };
 
 declare type SummaryConfig = {
-  legs: string;
+  legs: Leg[];
   vias: string[];
   origin: string;
   destination: string;

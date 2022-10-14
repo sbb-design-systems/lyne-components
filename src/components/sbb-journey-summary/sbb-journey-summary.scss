@@ -10,10 +10,6 @@
   display: flex;
 }
 
-.sbb-journey-summary__via-text {
-  padding-inline-end: var(--sbb-spacing-fixed-1x);
-}
-
 .sbb-journey-summary__vias {
   @include ellipsis;
 
@@ -23,6 +19,7 @@
 }
 
 .sbb-journey-summary__via {
+  padding-inline-start: var(--sbb-spacing-fixed-1x);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -744,6 +744,10 @@ export namespace Components {
           * The config prop
          */
         "config": InterfaceJourneySummaryAttributes['config'];
+        /**
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
+         */
+        "disableAnimation"?: boolean;
     }
     interface SbbLink {
         /**
@@ -2587,6 +2591,10 @@ declare namespace LocalJSX {
           * The config prop
          */
         "config": InterfaceJourneySummaryAttributes['config'];
+        /**
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
+         */
+        "disableAnimation"?: boolean;
     }
     interface SbbLink {
         /**

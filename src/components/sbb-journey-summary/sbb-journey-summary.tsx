@@ -24,6 +24,12 @@ export class SbbJourneySummary {
   /**  The config prop */
   @Prop() public config!: InterfaceJourneySummaryAttributes['config'];
 
+  /**
+   * Per default, the current location has a pulsating animation. You can
+   * disable the animation with this property.
+   */
+  @Prop() public disableAnimation?: boolean;
+
   private _currentLanguage = getDocumentLang();
 
   @Element() private _hostElement: HTMLElement;
@@ -86,7 +92,7 @@ export class SbbJourneySummary {
   }
 
   private _renderJourneyVias(vias: string[]): JSX.Element {
-    const slicedVias = vias.slice(0, 4);
+    const slicedVias = vias.slice(0, 5);
     return (
       <div class="sbb-journey-summary__via-block">
         <span class="sbb-journey-summary__via-text">Via</span>
@@ -94,7 +100,7 @@ export class SbbJourneySummary {
           {slicedVias.map((via, index) => (
             <li class="sbb-journey-summary__via">
               {via}
-              {index !== slicedVias.length - 1 && <span>, </span>}
+              {index !== slicedVias.length - 1 && index < 4 && <span>,</span>}
             </li>
           ))}
         </ul>
@@ -140,7 +146,7 @@ export class SbbJourneySummary {
               <time class="sbb-journey-summary__time">{format(departureTime, 'HH:mm')}</time>
             )}
             <div class="sbb-journey-summary__pearlchain">
-              <sbb-pearl-chain legs={this.config?.legs} />
+              <sbb-pearl-chain legs={this.config?.legs} disableAnimation={this.disableAnimation} />
             </div>
             {isValid(arrivalTime) && (
               <time class="sbb-journey-summary__time">{format(arrivalTime, 'HH:mm')}</time>

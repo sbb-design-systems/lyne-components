@@ -4,7 +4,7 @@ import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom'
 
 const data: InterfaceJourneySummaryAttributes = {
   config: {
-    legs: '',
+    legs: [],
     vias: ['via'],
     origin: '',
     destination: '',
@@ -18,7 +18,7 @@ const data: InterfaceJourneySummaryAttributes = {
 
 const dataWithoutVia: InterfaceJourneySummaryAttributes = {
   config: {
-    legs: '',
+    legs: [],
     origin: '',
     vias: [],
     destination: '',
@@ -73,7 +73,7 @@ describe('sbb-journey-summary', () => {
                 20:30
               </time>
               <div class="sbb-journey-summary__pearlchain">
-                <sbb-pearl-chain legs=""></sbb-pearl-chain>
+                <sbb-pearl-chain></sbb-pearl-chain>
               </div>
               <time class="sbb-journey-summary__time">
                 22:30
@@ -128,7 +128,7 @@ describe('sbb-journey-summary', () => {
                 20:30
               </time>
               <div class="sbb-journey-summary__pearlchain">
-                <sbb-pearl-chain legs=""></sbb-pearl-chain>
+                <sbb-pearl-chain></sbb-pearl-chain>
               </div>
               <time class="sbb-journey-summary__time">
                 22:30
