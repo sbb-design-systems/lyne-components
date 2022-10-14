@@ -12,8 +12,8 @@
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-menu-min-height: #{px-to-rem-build(120)};
-  --sbb-menu-max-width: #{px-to-rem-build(320)};
-  --sbb-menu-min-width: #{px-to-rem-build(240)};
+  --sbb-menu-max-width: 100%;
+  --sbb-menu-min-width: 100%;
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
   --sbb-menu-backdrop-color: transparent;
 
@@ -72,7 +72,9 @@
   --sbb-menu-transform: translateY(100%);
 
   max-height: var(--sbb-menu-max-height);
-  min-width: 100%;
+  min-height: var(--sbb-menu-min-height);
+  max-width: var(--sbb-menu-max-width);
+  min-width: var(--sbb-menu-min-width);
   text-align: start;
   position: var(--sbb-menu-position);
   left: 0;
@@ -106,14 +108,13 @@
   @include mq($from: medium) {
     --sbb-menu-position: absolute;
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
+    --sbb-menu-max-width: #{px-to-rem-build(320)};
+    --sbb-menu-min-width: #{px-to-rem-build(180)};
 
     top: var(--sbb-menu-position-y);
     left: var(--sbb-menu-position-x);
     right: unset;
     bottom: unset;
-    min-height: var(--sbb-menu-min-height);
-    max-width: var(--sbb-menu-max-width);
-    min-width: var(--sbb-menu-min-width);
     border-radius: var(--sbb-menu-border-radius);
   }
 }
