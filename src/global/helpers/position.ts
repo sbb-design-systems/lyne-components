@@ -59,6 +59,19 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
 }
 
 /**
+ * Determines whether an event is fired on a specific element.
+ */
+export function isEventOnElement(element: HTMLElement, event: MouseEvent | PointerEvent): boolean {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top <= event.clientY &&
+    event.clientY <= rect.top + rect.height &&
+    rect.left <= event.clientX &&
+    event.clientX <= rect.left + rect.width
+  );
+}
+
+/**
  * Determines the position of an element relative to a trigger element by evaluating
  * the optimal position based on the available space.
  *
