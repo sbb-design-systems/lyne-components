@@ -198,7 +198,7 @@ Ellipsis.play = playStory;
 export default {
   decorators: [
     (Story) => (
-      <div style={`padding: 2rem; ${isChromatic() && 'min-height: 100vh'}`}>
+      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
         <Story />
       </div>
     ),

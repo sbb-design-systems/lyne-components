@@ -112,7 +112,7 @@ export class SbbMenu implements ComponentInterface {
    */
   @Method()
   public async present(): Promise<void> {
-    if (this._isDismissing) {
+    if (this._isDismissing || !this._dialog) {
       return;
     }
 
