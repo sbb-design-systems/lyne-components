@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop } from '@stencil/core';
-import { PearlChainItemAttributes } from './sbb-pearl-chain-item.custom.d';
+import { PearlChainItemAttributes } from './sbb-pearl-chain-item.custom';
 
 @Component({
   shadow: true,
@@ -7,8 +7,11 @@ import { PearlChainItemAttributes } from './sbb-pearl-chain-item.custom.d';
   tag: 'sbb-pearl-chain-item',
 })
 export class SbbPearlChainItem {
+
+   /** The pearlChainItemAttributes Prop for styling the dots and line*/
   @Prop() public pearlChainItemAttributes: PearlChainItemAttributes;
 
+   /** if true the position won't be animated */
   @Prop() public disableAnimation?: boolean;
 
   public render(): JSX.Element {
@@ -16,24 +19,22 @@ export class SbbPearlChainItem {
       this.pearlChainItemAttributes || {};
 
     const dotColorClass =
-      position > 0 && position <= 100 ? 'sbb-color__gray' : `sbb-color__${dotColor}`;
-    const animation = this.disableAnimation ? 'position__dot--disable-animation' : '';
+      position > 0 && position <= 100 ? 'sbb-color--metal' : `sbb-color--${dotColor}`;
+    const animation = this.disableAnimation ? 'sbb-position__dot--disable-animation' : '';
 
     return (
-      <Host class="sbb-pearl-chain-item" style={{ display: 'table-row' }}>
+      <Host class="sbb-pearl-chain-item">
         <div
-          class="sbb-pearl-chain-item__row--left"
-          style={{ display: 'table-cell', height: minHeight + 'px' }}
+          class="sbb-pearl-chain-item__column"
+          style={{ '--sbb-minHeight': `${minHeight}`, height: minHeight + 'px' }}
         >
-          <div class="sbb-pearl-chain-item__left-slot">
-            <slot name="left"></slot>
-          </div>
+          <slot name="left"></slot>
         </div>
-        <div class="sbb-pearl-chain-item__row--middle" style={{ display: 'table-cell' }}>
+        <div class="sbb-pearl-chain-item__column">
           {!hideLine && (
             <div
-              style={{ '--leg-status': `${position}%` }}
-              class={`sbb-pearl-chain-item__line sbb-pearl-chain-item__line--${lineType} sbb-color__${lineColor}`}
+              style={{ '--sbb-leg-status': `${position}%` }}
+              class={`sbb-pearl-chain-item__line sbb-pearl-chain-item__line--${lineType} sbb-color--${lineColor}`}
             ></div>
           )}
           {dotType !== 'double-bullet' ? (
@@ -42,18 +43,18 @@ export class SbbPearlChainItem {
             />
           ) : (
             <div
-              class={`sbb-pearl-chain-item__dot--thin-bullet sbb-color__${dotColor} sbb-pearl-chain-item__dot-size--ultra`}
+              class={`sbb-pearl-chain-item__dot--thin-bullet sbb-color--${dotColor} sbb-pearl-chain-item__dot-size--ultra`}
             >
               <div
-                class={`sbb-pearl-chain-item__dot--thin-bullet sbb-color__${dotColor} sbb-pearl-chain-item__dot-size--extra-small`}
+                class={`sbb-pearl-chain-item__dot--thin-bullet sbb-color--${dotColor} sbb-pearl-chain-item__dot-size--extra-small`}
               />
             </div>
           )}
           {position > 0 && (
-            <div style={{ top: `calc(${position}%` }} class={`position__dot ${animation}`}></div>
+            <div style={{ '--sbb-position': `${position}%` }} class={`sbb-position__dot ${animation}`}></div>
           )}
         </div>
-        <div class="sbb-pearl-chain-item__row--right" style={{ display: 'table-cell' }}>
+        <div class="sbb-pearl-chain-item__column">
           <slot name="right"></slot>
         </div>
       </Host>

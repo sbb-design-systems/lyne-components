@@ -30,7 +30,7 @@ import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
-import { PearlChainItemAttributes } from "./components/sbb-pearl-chain-vertical/sbb-pearl-chain-item/sbb-pearl-chain-item.custom.d";
+import { PearlChainItemAttributes } from "./components/sbb-pearl-chain-vertical/sbb-pearl-chain-item/sbb-pearl-chain-item.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
@@ -982,7 +982,13 @@ export namespace Components {
         "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbPearlChainItem {
+        /**
+          * if true the position won't be animated
+         */
         "disableAnimation"?: boolean;
+        /**
+          * The pearlChainItemAttributes Prop for styling the dots and line
+         */
         "pearlChainItemAttributes": PearlChainItemAttributes;
     }
     interface SbbPearlChainTime {
@@ -2853,7 +2859,13 @@ declare namespace LocalJSX {
         "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbPearlChainItem {
+        /**
+          * if true the position won't be animated
+         */
         "disableAnimation"?: boolean;
+        /**
+          * The pearlChainItemAttributes Prop for styling the dots and line
+         */
         "pearlChainItemAttributes"?: PearlChainItemAttributes;
     }
     interface SbbPearlChainTime {
