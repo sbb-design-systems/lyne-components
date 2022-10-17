@@ -31,10 +31,13 @@
   max-width: #{px-to-rem-build(400)};
   min-width: #{px-to-rem-build(200)};
   width: 100%;
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
 }
 
 .slider__container {
   position: relative;
+  flex-grow: 1;
 }
 
 .slider__range-input {
