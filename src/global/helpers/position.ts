@@ -14,11 +14,16 @@ export interface ElementPositionInfos {
  * Gets the absolute position of an element relative to the page.
  */
 export function getOffset(el: HTMLElement): { top: number; left: number } {
-  const rect = el.getBoundingClientRect();
-  return {
-    left: rect.left + window.scrollX,
-    top: rect.top + window.scrollY,
-  };
+  let leftPosition = 0;
+  let topPosition = 0;
+
+  while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+    leftPosition += el.offsetLeft - el.scrollLeft;
+    topPosition += el.offsetTop - el.scrollTop;
+    el = el.offsetParent as HTMLElement;
+  }
+
+  return { top: topPosition, left: leftPosition };
 }
 
 /**
