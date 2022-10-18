@@ -85,7 +85,7 @@ const Template = (args) => (
         </span>
         Menu
       </sbb-header-action>
-      <div class="sbb-header__spacer" />
+      <div class="spacer" />
       <sbb-header-action>
         <span slot="icon">
           <svg
@@ -135,7 +135,7 @@ const Template = (args) => (
         <sbb-divider />
         <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
       </sbb-menu>
-      <sbb-header-action id="language-menu-trigger" className="sbb-header-action__last-element">
+      <sbb-header-action id="language-menu-trigger" className="last-element">
         <span slot="icon">
           <svg
             width="24"

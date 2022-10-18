@@ -7,7 +7,9 @@ the first one can contain one or more [sbb-header-action](../sbb-header-action/r
 like `sbb-button` or `sbb-link`, and it is displayed at the left end of the component; the second slot is displayed
 at the right end, and it can contain a logo, which by default is the [sbb-logo](../sbb-logo/readme.md).
 
-A box-shadow appears under the component if the `shadow` variable is set to `true`. 
+A box-shadow appears under the component if the `shadow` variable is set to `true`;
+consumers could provide their own logic to set this variable to `true` when the page scrolls down,
+and to `false` when the scroll is at page's top.
 
 The component's height can be overridden by defining the variable `--sbb-header-height-override`.
 
@@ -22,38 +24,38 @@ An example has been created with the following requirements:
 - the other 3 items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
 - the last item is not visible in breakpoints zero to small.
 
-To achieve this result, a `div` tag with a class named `sbb-header__spacer` was added between the first 
-and the second `sbb-header-action` item, then a class named `sbb-header-action__last-element` was added to the last one.
+To achieve this result, a `div` tag with a class named `spacer` was added between the first 
+and the second `sbb-header-action` item, then a class named `last-element` was added to the last one.
 Finally, the following custom CSS has been added*. The result can be seen in the home and home--logged-in stories.
 
 ```css
-.sbb-header__spacer {
+.spacer {
   display: none;
 }
 
-.sbb-header-action__last-element {
+.last-element {
   display: none;
 }
 
 @media screen and (min-width: 840px) {
-  .sbb-header-action__last-element {
+  .last-element {
     display: block;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .sbb-header__spacer {
+  .spacer {
     display: flex;
     flex-grow: 1;
   }
 
-  .sbb-header-action__last-element {
+  .last-element {
     margin-inline-end: var(--sbb-spacing-responsive-s);
   }
 }
 ```
 
-*technical note: due the presence of media-query rules, it was not possible to add those rules directly 
+*Technical note: Due the presence of media-query rules, it was not possible to add those rules directly 
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),
 so they were wrapped into a `style` tag and added to the Storybook's configuration file named `preview-head.html`.
 

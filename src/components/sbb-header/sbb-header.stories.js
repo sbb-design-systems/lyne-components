@@ -58,7 +58,7 @@ const TemplateActions = (args) => [
       </span>
       Menu
     </sbb-header-action>
-    <div class="sbb-header__spacer" />
+    <div class="spacer" />
     <sbb-header-action>
       <span slot="icon">
         <svg
@@ -97,7 +97,7 @@ const TemplateActions = (args) => [
       </span>
       Anmelden
     </sbb-header-action>
-    <sbb-header-action class="sbb-header-action__last-element">
+    <sbb-header-action class="last-element">
       <span slot="icon">
         <svg
           width="24"
