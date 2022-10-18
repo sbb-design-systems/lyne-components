@@ -7,11 +7,10 @@ import { PearlChainItemAttributes } from './sbb-pearl-chain-item.custom';
   tag: 'sbb-pearl-chain-item',
 })
 export class SbbPearlChainItem {
-
-   /** The pearlChainItemAttributes Prop for styling the dots and line*/
+  /** The pearlChainItemAttributes Prop for styling the dots and line*/
   @Prop() public pearlChainItemAttributes: PearlChainItemAttributes;
 
-   /** if true the position won't be animated */
+  /** if true the position won't be animated */
   @Prop() public disableAnimation?: boolean;
 
   public render(): JSX.Element {
@@ -26,7 +25,7 @@ export class SbbPearlChainItem {
       <Host class="sbb-pearl-chain-item">
         <div
           class="sbb-pearl-chain-item__column"
-          style={{ '--sbb-minHeight': `${minHeight}`, height: minHeight + 'px' }}
+          style={{height: minHeight + 'px' }}
         >
           <slot name="left"></slot>
         </div>
@@ -51,7 +50,10 @@ export class SbbPearlChainItem {
             </div>
           )}
           {position > 0 && (
-            <div style={{ '--sbb-position': `${position}%` }} class={`sbb-position__dot ${animation}`}></div>
+            <div
+              style={{ '--sbb-position': `${position}%` }}
+              class={`sbb-position__dot ${animation}`}
+            ></div>
           )}
         </div>
         <div class="sbb-pearl-chain-item__column">

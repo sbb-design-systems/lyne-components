@@ -1,10 +1,67 @@
 import { h } from 'jsx-dom';
+import readme from './readme.md';
+
+const lineType = {
+  options: ['dotted', 'standard', 'thin'],
+  control: { type: 'radio' },
+};
+const lineColor = {
+  options: ['charcoal', 'red', 'metal', 'sky'],
+  control: { type: 'radio' },
+};
+const dotType = {
+  options: ['standard', 'thin-bullet', 'thick-bullet', 'double-bullet'],
+  control: { type: 'radio' },
+};
+const dotColor = {
+  options: ['charcoal', 'red', 'metal', 'sky'],
+  control: { type: 'radio' },
+};
+const dotSize = {
+  options: ['small', 'medium', 'large'],
+  control: { type: 'radio' },
+};
+
+const hideLine = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const minHeight = {
+  control: { type: 'number' },
+};
+
+const position = {
+  control: { type: 'number' },
+};
+const defaultArgTypes = {
+  lineType,
+  lineColor,
+  dotType,
+  dotColor,
+  dotSize,
+  hideLine,
+  minHeight,
+  position,
+};
+
+const defaultArgs = {
+  lineType: lineType.options[1],
+  lineColor: lineColor.options[0],
+  dotType: dotType.options[0],
+  dotColor: dotColor.options[0],
+  minHeight: '100',
+  hideLine: false,
+  dotSize: dotSize.options[1],
+  position: 0,
+};
 
 const Template = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args} disable-animation={true}>
-        <div slot="right" style={{ marginTop: '-10px' }}>
+      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+        <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
           <div>more</div>
@@ -27,11 +84,14 @@ const TemplateWithoutContent = (args) => {
     </sbb-pearl-chain-vertical>
   );
 };
+
 const TemplateLeftSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-item pearlChainItemAttributes={args}>
-        <div slot="left">slot for content</div>
+        <div slot="left" style={{ marginInlineStart: '10px' }}>
+          slot for content
+        </div>
       </sbb-pearl-chain-item>
     </sbb-pearl-chain-vertical>
   );
@@ -41,7 +101,7 @@ const TemplateTwoDots = (args) => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-item pearlChainItemAttributes={args}>
-        <div slot="right" style={{ marginTop: '-10px' }}>
+        <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
           <div>more</div>
@@ -61,11 +121,7 @@ const TemplateTwoDots = (args) => {
           dotSize: 'medium',
           position: 0,
         }}
-      >
-        <div slot="right" style={{ marginTop: '-10px' }}>
-          Test
-        </div>
-      </sbb-pearl-chain-item>
+      ></sbb-pearl-chain-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -74,7 +130,7 @@ const TemplateLeftSecondSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-item pearlChainItemAttributes={args}>
-        <div slot="right" style={{ marginTop: '-8px' }}>
+        <div slot="right" style={{ marginTop: '-8px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
           <div>more</div>
@@ -106,24 +162,15 @@ const TemplateLeftSecondSlot = (args) => {
   );
 };
 
-const connectionDetailTemplate = () => {
+const connectionDetailTemplate = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item
-        pearlChainItemAttributes={{
-          lineType: 'standard',
-          lineColor: 'black',
-          dotType: 'standard',
-          dotColor: 'black',
-          minHeight: '100',
-          hideLine: false,
-          dotSize: 'medium',
-        }}
-      >
+      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
         <div
           slot="right"
           style={{
             marginTop: '-8px',
+            marginInlineStart: '10px',
           }}
         >
           <div
@@ -166,7 +213,7 @@ const connectionDetailTemplate = () => {
             <span>Direction Station</span>
           </div>
         </div>
-        <div slot="left" style={{ marginTop: '-8px' }}>
+        <div slot="left" style={{ marginTop: '-8px', marginInlineEnd: '10px' }}>
           19:00
         </div>
       </sbb-pearl-chain-item>
@@ -187,12 +234,13 @@ const connectionDetailTemplate = () => {
             display: 'flex',
             flexDirection: 'row',
             gap: '100px',
+            marginInlineStart: '10px',
           }}
         >
           <div> Haltestelle</div>
           <div>Gleis 12</div>
         </div>
-        <div slot="left" style={{ marginTop: '-20px' }}>
+        <div slot="left" style={{ marginTop: '-20px', marginInlineEnd: '10px' }}>
           20:00
         </div>
       </sbb-pearl-chain-item>
@@ -200,38 +248,29 @@ const connectionDetailTemplate = () => {
   );
 };
 
-const thirdLevelTemplate = () => {
+const thirdLevelTemplate = (args) => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-item
         pearlChainItemAttributes={{
           lineType: 'thin',
-          lineColor: 'gray',
-          dotColor: 'gray',
+          lineColor: 'metal',
+          dotColor: 'metal',
           minHeight: '39',
           hideLine: false,
           dotSize: 'small',
         }}
       >
-        <div slot="left" style={{ paddingTop: '15px' }}>
+        <div slot="left" style={{ paddingTop: '15px', marginInlineEnd: '10px' }}>
           10:31
         </div>
       </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item
-        pearlChainItemAttributes={{
-          lineType: 'standard',
-          lineColor: 'black',
-          dotColor: 'black',
-          minHeight: '89',
-          hideLine: false,
-          dotType: 'standard',
-          dotSize: 'medium',
-        }}
-      >
+      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
         <div
           slot="right"
           style={{
             marginTop: '-10px',
+            marginInlineStart: '10px',
           }}
         >
           <div
@@ -251,7 +290,7 @@ const thirdLevelTemplate = () => {
             </span>
           </div>
         </div>
-        <div slot="left" style={{ marginTop: '-10px' }}>
+        <div slot="left" style={{ marginTop: '-10px', marginInlineEnd: '10px' }}>
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
         </div>
@@ -259,8 +298,8 @@ const thirdLevelTemplate = () => {
       <sbb-pearl-chain-item
         pearlChainItemAttributes={{
           lineType: 'standard',
-          lineColor: 'black',
-          dotColor: 'black',
+          lineColor: 'charcoal',
+          dotColor: 'charcoal',
           minHeight: '89',
           hideLine: false,
           dotType: 'thick-bullet',
@@ -271,6 +310,7 @@ const thirdLevelTemplate = () => {
           slot="right"
           style={{
             marginTop: '-10px',
+            marginInlineStart: '10px',
           }}
         >
           <div
@@ -291,7 +331,7 @@ const thirdLevelTemplate = () => {
           </div>
         </div>
 
-        <div slot="left" style={{ marginTop: '-10px' }}>
+        <div slot="left" style={{ marginTop: '-10px', marginInlineEnd: '10px' }}>
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
         </div>
@@ -299,8 +339,8 @@ const thirdLevelTemplate = () => {
       <sbb-pearl-chain-item
         pearlChainItemAttributes={{
           lineType: 'thin',
-          lineColor: 'gray',
-          dotColor: 'black',
+          lineColor: 'metal',
+          dotColor: 'charcoal',
           minHeight: '89',
           hideLine: false,
           dotType: 'standard',
@@ -311,6 +351,7 @@ const thirdLevelTemplate = () => {
           slot="right"
           style={{
             marginTop: '-10px',
+            marginInlineStart: '10px',
           }}
         >
           <div
@@ -325,7 +366,7 @@ const thirdLevelTemplate = () => {
           </div>
         </div>
 
-        <div slot="left" style={{ marginTop: '-10px' }}>
+        <div slot="left" style={{ marginTop: '-10px', marginInlineEnd: '10px' }}>
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
         </div>
@@ -333,8 +374,8 @@ const thirdLevelTemplate = () => {
       <sbb-pearl-chain-item
         pearlChainItemAttributes={{
           lineType: 'thin',
-          lineColor: 'gray',
-          dotColor: 'gray',
+          lineColor: 'metal',
+          dotColor: 'metal',
           minHeight: '39',
           hideLine: false,
           dotSize: 'small',
@@ -345,6 +386,7 @@ const thirdLevelTemplate = () => {
           slot="right"
           style={{
             marginTop: '-10px',
+            marginInlineStart: '10px',
           }}
         >
           <div
@@ -358,7 +400,7 @@ const thirdLevelTemplate = () => {
             <div>Gleis 12</div>
           </div>
         </div>
-        <div slot="left" style={{ marginTop: '-10px' }}>
+        <div slot="left" style={{ marginTop: '-10px', marginInlineEnd: '10px' }}>
           <div style={{ fontWeight: 'bold' }}>19:00</div>
         </div>
       </sbb-pearl-chain-item>
@@ -373,14 +415,14 @@ const TimetableInputTemplate = () => {
         <sbb-pearl-chain-item
           pearlChainItemAttributes={{
             lineType: 'thin',
-            lineColor: 'gray',
-            dotColor: 'gray',
+            lineColor: 'metal',
+            dotColor: 'metal',
             minHeight: '40',
             hideLine: false,
             dotType: 'double-bullet',
           }}
         >
-          <div slot="right" style={{ paddingTop: '15px' }}>
+          <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
             <input></input>
           </div>
         </sbb-pearl-chain-item>
@@ -391,26 +433,30 @@ const TimetableInputTemplate = () => {
             style={{ top: '2px' }}
             pearlChainItemAttributes={{
               lineType: 'thin',
-              lineColor: 'gray',
-              dotColor: 'gray',
+              lineColor: 'metal',
+              dotColor: 'metal',
               minHeight: '40',
               hideLine: false,
               dotType: 'thin-bullet',
               dotSize: 'small',
             }}
           >
-            <div slot="right" style={{ paddingLeft: '3px' }}>
+            <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
               <input></input>
             </div>
           </sbb-pearl-chain-item>
           <sbb-pearl-chain-item
             pearlChainItemAttributes={{
-              dotColor: 'gray',
+              dotColor: 'metal',
               minHeight: '40',
               hideLine: true,
               dotType: 'double-bullet',
             }}
-          ></sbb-pearl-chain-item>
+          >
+            <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
+              <input></input>
+            </div>
+          </sbb-pearl-chain-item>
         </sbb-pearl-chain-vertical>
       </div>
     </div>
@@ -425,7 +471,7 @@ const TimetableChange = () => {
           lineType: 'dotted',
           lineColor: 'sky',
           dotType: 'thick-bullet',
-          dotColor: 'black',
+          dotColor: 'charcoal',
           minHeight: '122',
           false: true,
           dotSize: 'medium',
@@ -436,6 +482,7 @@ const TimetableChange = () => {
           slot="right"
           style={{
             marginTop: '-10px',
+            marginInlineStart: '10px',
           }}
         >
           <div
@@ -484,7 +531,7 @@ const TimetableChange = () => {
           lineType: 'dotted',
           lineColor: 'sky',
           dotType: 'standard',
-          dotColor: 'black',
+          dotColor: 'charcoal',
           minHeight: '100px',
           hideLine: true,
           dotSize: 'medium',
@@ -495,6 +542,7 @@ const TimetableChange = () => {
           slot="right"
           style={{
             marginTop: '-10px',
+            marginInlineStart: '10px',
           }}
         >
           <div
@@ -513,12 +561,14 @@ const TimetableChange = () => {
     </sbb-pearl-chain-vertical>
   );
 };
-export const defaultPearlChainWithoutContent = TemplateWithoutContent.bind({});
+
 export const defaultPearlChainRightSlot = Template.bind({});
+export const defaultPearlChainWithoutContent = TemplateWithoutContent.bind({});
+
 export const defaultPearlChainLeftSlot = TemplateLeftSlot.bind({});
 export const defaultPearlChainTwoDots = TemplateTwoDots.bind({});
 export const defaultPearlChainLeftSecondSlot = TemplateLeftSecondSlot.bind({});
-export const blackPearlChain = Template.bind({});
+export const charcoalPearlChain = Template.bind({});
 export const dottedPearlChain = Template.bind({});
 export const thinPearlChain = Template.bind({});
 export const thickBulletPearlChain = Template.bind({});
@@ -535,164 +585,103 @@ export const inputForm = TimetableInputTemplate.bind({});
 export const timetableChange = TimetableChange.bind({});
 
 /** All kinds oft possible slot and dot combinations */
-
-defaultPearlChainWithoutContent.args = {
-  lineType: 'standard',
-  lineColor: 'black',
-  dotType: 'standard',
-  dotColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
-};
-
+defaultPearlChainRightSlot.argTypes = defaultArgTypes;
 defaultPearlChainRightSlot.args = {
-  lineType: 'standard',
-  lineColor: 'black',
-  dotType: 'standard',
-  dotColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
-  position: 0,
+  ...defaultArgs,
+};
+defaultPearlChainWithoutContent.argTypes = defaultArgTypes;
+defaultPearlChainWithoutContent.args = {
+  ...defaultArgs,
 };
 
+defaultPearlChainLeftSlot.argTypes = defaultArgTypes;
 defaultPearlChainLeftSlot.args = {
-  lineType: 'standard',
+  ...defaultArgs,
   lineColor: 'red',
-  dotType: 'standard',
   dotColor: 'red',
   minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
-  position: 0,
 };
 
+defaultPearlChainLeftSecondSlot.argTypes = defaultArgTypes;
 defaultPearlChainLeftSecondSlot.args = {
-  lineType: 'standard',
-  lineColor: 'black',
-  dotType: 'standard',
-  dotColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
-  position: 0,
+  ...defaultArgs,
 };
 
-blackPearlChain.args = {
-  lineType: 'standard',
+charcoalPearlChain.argTypes = defaultArgTypes;
+charcoalPearlChain.args = {
+  ...defaultArgs,
   dotType: 'thick-bullet',
-  dotColor: 'black',
-  lineColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
-  position: 0,
 };
 
+defaultPearlChainTwoDots.argTypes = defaultArgTypes;
 defaultPearlChainTwoDots.args = {
-  lineType: 'standard',
+  ...defaultArgs,
   lineColor: 'red',
-  dotType: 'standard',
   dotColor: 'red',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
-  position: 0,
 };
 
 /** additional dot types */
-
+dottedPearlChain.argTypes = defaultArgTypes;
 dottedPearlChain.args = {
+  ...defaultArgs,
   lineType: 'dotted',
-  dotType: 'standard',
   dotColor: 'red',
-  minHeight: '100',
-  hideLine: false,
   lineColor: 'red',
   dotSize: 'small',
-  position: 0,
 };
 
+thinPearlChain.argTypes = defaultArgTypes;
 thinPearlChain.args = {
+  ...defaultArgs,
   lineType: 'thin',
-  dotType: 'standard',
   dotColor: 'red',
-  minHeight: '100',
-  hideLine: false,
   lineColor: 'red',
   dotSize: 'small',
-  position: 0,
 };
 
 /** additional dot types */
-
+thickBulletPearlChain.argTypes = defaultArgTypes;
 thickBulletPearlChain.args = {
-  lineType: 'standard',
-  lineColor: 'black',
+  ...defaultArgs,
   dotType: 'thick-bullet',
-  dotColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
 };
 
+thinBulletPearlChain.argTypes = defaultArgTypes;
 thinBulletPearlChain.args = {
-  lineType: 'standard',
-  lineColor: 'black',
+  ...defaultArgs,
   dotType: 'thin-bullet',
-  dotColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
 };
 
+doubleBulletPearlChain.argTypes = defaultArgTypes;
 doubleBulletPearlChain.args = {
-  lineType: 'standard',
-  lineColor: 'black',
+  ...defaultArgs,
   dotType: 'double-bullet',
-  dotColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
 };
 
 /** position */
-
+positionPearlChain.argTypes = defaultArgTypes;
 positionPearlChain.args = {
-  lineType: 'standard',
-  lineColor: 'black',
-  dotType: 'standard',
-  dotColor: 'black',
-  minHeight: '100',
-  hideLine: false,
-  dotSize: 'medium',
+  ...defaultArgs,
   position: 75,
+  'disable-animation': false,
+};
+
+connectionDetail.argTypes = defaultArgTypes;
+connectionDetail.args = {
+  ...defaultArgs,
+};
+
+timetableConnection.argTypes = defaultArgTypes;
+timetableConnection.args = {
+  ...defaultArgs,
+  minHeight: '89',
 };
 export default {
   decorators: [(Story) => <Story />],
-  parameters: {},
-  argTypes: {
-    lineType: {
-      options: ['dotted', 'standard', 'thin'],
-      control: { type: 'radio' },
-    },
-    lineColor: {
-      options: ['black', 'red', 'gray', 'sky'],
-      control: { type: 'radio' },
-    },
-    dotType: {
-      options: ['standard', 'thin-bullet', 'thick-bullet', 'double-bullet'],
-      control: { type: 'radio' },
-    },
-    dotColor: {
-      options: ['black', 'red', 'gray', 'sky'],
-      control: { type: 'radio' },
-    },
-    dotSize: {
-      options: ['small', 'medium', 'large'],
-      control: { type: 'radio' },
+  parameters: {
+    docs: {
+      extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-pearl-chain-vertical (Unfinished)',
+  title: 'components/timetable/pearl-chains/sbb-pearl-chain-vertical',
 };
