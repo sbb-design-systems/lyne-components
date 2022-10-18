@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.12 (2022-10-18)
+
+### Features
+
+- **sbb-menu:** introduce sbb-menu component ([#1378](https://github.com/lyne-design-system/lyne-components/issues/1378)) ([4ee0c78](https://github.com/lyne-design-system/lyne-components/commit/4ee0c781a52cfbe13ab03d8cb790b3cb85ffd208))
+
 ### 0.9.11 (2022-10-18)
 
 ### Bug Fixes
