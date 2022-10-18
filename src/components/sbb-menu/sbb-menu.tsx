@@ -138,9 +138,9 @@ export class SbbMenu implements ComponentInterface {
     this._openedByKeyboard = false;
   }
 
-  // Dismisses the menu on "Esc" key pressed.
+  // Dismisses the menu on "Esc" key pressed and traps focus whithin the menu.
   @Listen('keydown')
-  public onEscAction(event: KeyboardEvent): void {
+  public onKeydownEvent(event: KeyboardEvent): void {
     if (!this._presented) {
       return;
     }
@@ -186,18 +186,6 @@ export class SbbMenu implements ComponentInterface {
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-  }
-
-  public componentDidLoad(): void {
-    // Dismiss menu on interactive element click
-    this._menuContentElement.addEventListener('click', (event: Event) =>
-      this._dismissOnInteractiveElementClick(event)
-    );
-
-    // Listen for menu animation to end
-    this._dialog.addEventListener('animationend', (event: AnimationEvent) =>
-      this._onMenuAnimationEnd(event)
-    );
   }
 
   public disconnectedCallback(): void {
@@ -352,15 +340,18 @@ export class SbbMenu implements ComponentInterface {
         }}
       >
         <dialog
+          onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
           ref={(dialogRef) => (this._dialog = dialogRef)}
           class={{
             'sbb-menu': true,
             'sbb-menu--dismissing': this._isDismissing,
           }}
         >
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
-            class="sbb-menu__content"
+            onClick={(event: Event) => this._dismissOnInteractiveElementClick(event)}
             ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
+            class="sbb-menu__content"
           >
             <slot />
           </div>
