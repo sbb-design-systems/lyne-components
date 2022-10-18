@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.11 (2022-10-18)
+
+### Bug Fixes
+
+- avoid finding element itself in `hostContext()` method ([#1405](https://github.com/lyne-design-system/lyne-components/issues/1405)) ([b0caab6](https://github.com/lyne-design-system/lyne-components/commit/b0caab66fd7ac4338bd786ef32c12ec19c9deea6))
+
 ### 0.9.10 (2022-10-12)
 
 ### 0.9.9 (2022-10-12)
