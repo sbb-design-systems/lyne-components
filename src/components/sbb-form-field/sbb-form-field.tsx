@@ -23,9 +23,9 @@ let nextId = 0;
 
 /**
  * @slot label - Slot to render a label.
- * @slot prefix - Slot to render an icon at the left side of the input.
+ * @slot prefix - Slot to render an icon on the left side of the input.
  * @slot unnamed - Slot to render an input/select.
- * @slot suffix - Slot to render an icon at the right side of the input.
+ * @slot suffix - Slot to render an icon on the right side of the input.
  * @slot error - Slot to render an error.
  */
 @Component({

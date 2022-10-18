@@ -1,4 +1,5 @@
-import { Component, Event, EventEmitter, h, JSX, Prop, State } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, JSX, Prop, State } from '@stencil/core';
+import { hostContext } from '../../global/helpers/host-context';
 import { SbbSliderChange } from './sbb-slider.custom';
 
 /**
@@ -68,10 +69,18 @@ export class SbbSlider {
    */
   @State() private _valueFraction = 0;
 
+  @Element() private _element!: HTMLElement;
+
   /**
    * Reference to the inner HTMLInputElement with type='range'.
    */
   private _rangeInput!: HTMLInputElement;
+
+  private _isInFormField: boolean;
+
+  public connectedCallback(): void {
+    this._isInFormField = !!hostContext('sbb-form-field', this._element.parentElement);
+  }
 
   private _handleChange(): void {
     const value = this._rangeInput.valueAsNumber;
@@ -140,52 +149,54 @@ export class SbbSlider {
     const isStepped = this.step && stepFraction > 0.01;
 
     return (
-      <div class="slider__wrapper">
-        <sbb-icon slot="prefix" name={this.startIcon} onClick={() => this._decrementWithIcon()} />
-        <div
-          class="slider__container"
-          style={{
-            '--slider-value-fraction': this._valueFraction.toString(),
-            '--slider-step-fraction': stepFraction.toString(),
-          }}
-        >
-          <input
-            ref={(e) => {
-              this._rangeInput = e;
-              this._handleChange();
-            }}
-            class="slider__range-input"
-            type="range"
-            {...inputAttributes}
-            onChange={() => this._emitChange()}
-            onInput={() => this._handleChange()}
-          ></input>
+      <Host class={{ 'sbb-form-field-element': this._isInFormField }}>
+        <div class="slider__wrapper">
+          <sbb-icon slot="prefix" name={this.startIcon} onClick={() => this._decrementWithIcon()} />
           <div
-            class={{
-              slider__line: !this.disabled && !this.readonly,
-              'slider__line-disabled': this.disabled,
-              'slider__line-readonly': this.readonly,
-              'slider__line--stepped': isStepped,
+            class="slider__container"
+            style={{
+              '--slider-value-fraction': this._valueFraction.toString(),
+              '--slider-step-fraction': stepFraction.toString(),
             }}
           >
+            <input
+              ref={(e) => {
+                this._rangeInput = e;
+                this._handleChange();
+              }}
+              class="slider__range-input"
+              type="range"
+              {...inputAttributes}
+              onChange={() => this._emitChange()}
+              onInput={() => this._handleChange()}
+            ></input>
             <div
               class={{
-                'slider__selected-line': !this.disabled && !this.readonly,
-                'slider__selected-line-disabled': this.disabled,
-                'slider__selected-line-readonly': this.readonly,
+                slider__line: !this.disabled && !this.readonly,
+                'slider__line-disabled': this.disabled,
+                'slider__line-readonly': this.readonly,
+                'slider__line--stepped': isStepped,
+              }}
+            >
+              <div
+                class={{
+                  'slider__selected-line': !this.disabled && !this.readonly,
+                  'slider__selected-line-disabled': this.disabled,
+                  'slider__selected-line-readonly': this.readonly,
+                }}
+              ></div>
+            </div>
+            <div
+              class={{
+                slider__knob: !this.disabled && !this.readonly,
+                'slider__knob-disabled': this.disabled,
+                'slider__knob-readonly': this.readonly,
               }}
             ></div>
           </div>
-          <div
-            class={{
-              slider__knob: !this.disabled && !this.readonly,
-              'slider__knob-disabled': this.disabled,
-              'slider__knob-readonly': this.readonly,
-            }}
-          ></div>
+          <sbb-icon slot="suffix" name={this.endIcon} onClick={() => this._incrementWithIcon()} />
         </div>
-        <sbb-icon slot="suffix" name={this.endIcon} onClick={() => this._incrementWithIcon()} />
-      </div>
+      </Host>
     );
   }
 }

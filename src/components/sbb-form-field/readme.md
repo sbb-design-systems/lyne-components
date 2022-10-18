@@ -87,8 +87,8 @@ announce errors when they appear.
 | ----------- | ------------------------------------------------------ |
 | `"error"`   | Slot to render an error.                               |
 | `"label"`   | Slot to render a label.                                |
-| `"prefix"`  | Slot to render an icon at the left side of the input.  |
-| `"suffix"`  | Slot to render an icon at the right side of the input. |
+| `"prefix"`  | Slot to render an icon on the left side of the input.  |
+| `"suffix"`  | Slot to render an icon on the right side of the input. |
 | `"unnamed"` | Slot to render an input/select.                        |
 
 

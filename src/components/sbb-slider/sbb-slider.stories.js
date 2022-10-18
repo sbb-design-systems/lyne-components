@@ -4,8 +4,10 @@ import readme from './readme.md';
 
 const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
 
-const TemplateSbbSliderInFormField = (args) => (
-  <sbb-form-field> {TemplateSbbSlider(args)} </sbb-form-field>
+const TemplateSbbSliderInFormField = ({ label, optional, borderless, ...args }) => (
+  <sbb-form-field label={label} optional={optional} borderless={borderless}>
+    {TemplateSbbSlider(args)}
+  </sbb-form-field>
 );
 
 const valueArg = {
@@ -80,6 +82,33 @@ const endIconArg = {
   },
 };
 
+const labelArg = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
+const optionalArg = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
+const borderlessArg = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const basicArgTypes = {
   'end-icon': endIconArg,
   max: maxArg,
@@ -87,6 +116,13 @@ const basicArgTypes = {
   'start-icon': startIconArg,
   step: stepArg,
   value: valueArg,
+};
+
+const formFieldBasicArgsTypes = {
+  ...basicArgTypes,
+  label: labelArg,
+  optional: optionalArg,
+  borderless: borderlessArg,
 };
 
 const basicArgs = {
@@ -98,8 +134,15 @@ const basicArgs = {
   value: '40',
 };
 
+const formFieldBasicArgs = {
+  ...basicArgs,
+  label: undefined,
+  optional: undefined,
+  borderless: undefined,
+};
+
 export const sbbSlider = TemplateSbbSlider.bind({});
-sbbSlider.argTypes = basicArgTypes;
+sbbSlider.argTypes = { ...basicArgTypes };
 sbbSlider.args = { ...basicArgs };
 sbbSlider.documentation = {
   title: 'sbb-slider',
@@ -127,8 +170,8 @@ sbbSlider.documentation = {
 };
 
 export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});
-sbbSliderInFormField.argTypes = basicArgTypes;
-sbbSliderInFormField.args = { ...basicArgs };
+sbbSliderInFormField.argTypes = { ...formFieldBasicArgsTypes, disabled: disabledArg };
+sbbSliderInFormField.args = { ...formFieldBasicArgs, disabled: false };
 sbbSliderInFormField.documentation = {
   title: 'sbb-slider within sbb-form-field',
 };
