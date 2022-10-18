@@ -12,7 +12,6 @@ export interface PearlChainItemAttributes {
   dotType: DotType;
   dotColor: Color;
   minHeight: number;
-  hideDot: boolean;
   hideLine: boolean;
   dotSize: DotSize;
   position?: number;

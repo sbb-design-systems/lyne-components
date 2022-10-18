@@ -23,10 +23,7 @@ export class SbbPearlChainItem {
 
     return (
       <Host class="sbb-pearl-chain-item">
-        <div
-          class="sbb-pearl-chain-item__column"
-          style={{height: minHeight + 'px' }}
-        >
+        <div class="sbb-pearl-chain-item__column" style={{ height: minHeight + 'px' }}>
           <slot name="left"></slot>
         </div>
         <div class="sbb-pearl-chain-item__column">

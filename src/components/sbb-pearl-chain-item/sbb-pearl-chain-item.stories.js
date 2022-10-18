@@ -59,5 +59,5 @@ export default {
       control: { type: 'radio' },
     },
   },
-  title: 'components/timetable/pearl-chains/sbb-pearl-chain-item',
+  title: 'components/timetable/pearl-chains/vertical/sbb-pearl-chain-item',
 };

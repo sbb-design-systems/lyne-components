@@ -195,7 +195,7 @@
 }
 
 @keyframes pulse {
-  from {
+  0% {
     box-shadow: 0 0 0 0 var(--sbb-color-red);
   }
 
@@ -209,7 +209,7 @@
 }
 
 @keyframes pulse-dot {
-  from {
+  0% {
     transform: scale(1);
   }
 
@@ -217,7 +217,7 @@
     transform: scale(1.6);
   }
 
-  to {
+  100% {
     transform: scale(1);
   }
 }

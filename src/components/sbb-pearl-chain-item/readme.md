@@ -4,6 +4,7 @@ The `<sbb-pearl-chain-item>` is intended to be used with the `<sbb-pearl-chain-v
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property                   | Attribute           | Description                                                     | Type                       | Default     |
@@ -11,4 +12,7 @@ The `<sbb-pearl-chain-item>` is intended to be used with the `<sbb-pearl-chain-v
 | `disableAnimation`         | `disable-animation` | if true the position won't be animated                          | `boolean`                  | `undefined` |
 | `pearlChainItemAttributes` | --                  | The pearlChainItemAttributes Prop for styling the dots and line | `PearlChainItemAttributes` | `undefined` |
 
----
+
+----------------------------------------------
+
+

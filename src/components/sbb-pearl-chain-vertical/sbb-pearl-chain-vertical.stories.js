@@ -683,5 +683,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/pearl-chains/sbb-pearl-chain-vertical',
+  title: 'components/timetable/pearl-chains/vertical/sbb-pearl-chain-vertical',
 };
