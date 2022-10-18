@@ -1,27 +1,46 @@
 # sbb-pearl-chain
+The `<sbb-pearl-chain>` component displays all parts of a journey. Including changes of trains or other kinds of transports. Also it is possible to render the current position.
+
+## Usage
+
+Minimal examples
+
+```html
+<sbb-pearl-chain 
+  legs={[{duration: 60}, {duration: 120}]}
+/>
+```
+
+Example with time
+
+```html
+<sbb-pearl-chain 
+  legs={[{duration: 60, arrival: { time: '2022-07-31T13:00' }, departure: { time: '2022-07-31T12:00' }]}
+  disable-animation="true" 
+/>
+```
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property            | Attribute           | Description                                                                                                                                                                                                                                                                                                                                                                                        | Type                           | Default     |
-| ------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----------- |
-| `disableAnimation`  | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                                                                                                                                     | `boolean`                      | `undefined` |
-| `legs` _(required)_ | `legs`              | Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled. | `string`                       | `undefined` |
-| `status`            | `status`            | Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.                                                                                                                                            | `"future" \| "past" \| number` | `undefined` |
+| Property            | Attribute           | Description                                                                                                                                                                                                                                                                   | Type      | Default     |
+| ------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `disableAnimation`  | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                | `boolean` | `undefined` |
+| `legs` _(required)_ | --                  | define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. | `Leg[]`   | `undefined` |
 
 
 ## Dependencies
 
 ### Used by
 
- - [sbb-timetable-transportation-details](../sbb-timetable-transportation-details)
+ - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-timetable-transportation-details --> sbb-pearl-chain
+  sbb-pearl-chain-time --> sbb-pearl-chain
   style sbb-pearl-chain fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

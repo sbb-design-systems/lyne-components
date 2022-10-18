@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.12 (2022-10-18)
+
+### Features
+
+- **sbb-menu:** introduce sbb-menu component ([#1378](https://github.com/lyne-design-system/lyne-components/issues/1378)) ([4ee0c78](https://github.com/lyne-design-system/lyne-components/commit/4ee0c781a52cfbe13ab03d8cb790b3cb85ffd208))
+
+### 0.9.11 (2022-10-18)
+
+### Bug Fixes
+
+- avoid finding element itself in `hostContext()` method ([#1405](https://github.com/lyne-design-system/lyne-components/issues/1405)) ([b0caab6](https://github.com/lyne-design-system/lyne-components/commit/b0caab66fd7ac4338bd786ef32c12ec19c9deea6))
+
+### 0.9.10 (2022-10-12)
+
+### 0.9.9 (2022-10-12)
+
+### Features
+
+- **sbb-action-group:** initial implementation ([#1391](https://github.com/lyne-design-system/lyne-components/issues/1391)) ([e9be87f](https://github.com/lyne-design-system/lyne-components/commit/e9be87fb9401f52a6b22016454f93fc9e3a7ddd6)), closes [#1368](https://github.com/lyne-design-system/lyne-components/issues/1368)
+
 ### 0.9.8 (2022-10-12)
 
 ### Features

@@ -1,7 +1,7 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import { i18nFromPlatform } from '../../global/i18n';
+import { i18nFromQuay } from '../../global/i18n';
 import { InterfaceTimetablePlatformAttributes } from './sbb-timetable-platform.custom';
 
 @Component({
@@ -30,8 +30,8 @@ export class SbbTimetablePlatform {
   public render(): JSX.Element {
     const config = JSON.parse(this.config);
 
-    const text = `${i18nFromPlatform.short[this._currentLanguage]} `;
-    const a11yLabel = `${i18nFromPlatform.long[this._currentLanguage]} ${config.platform}.`;
+    const text = `${i18nFromQuay.short[this._currentLanguage]} `;
+    const a11yLabel = `${i18nFromQuay.long[this._currentLanguage]} ${config.platform}.`;
 
     const appearanceClasses = ` platform--${this.appearance}`;
 

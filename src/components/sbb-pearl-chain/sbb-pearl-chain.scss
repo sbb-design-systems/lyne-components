@@ -25,10 +25,10 @@
   --color-past: var(--sbb-color-metal-default);
 }
 
-.pearl-chain {
+.sbb-pearl-chain {
   position: relative;
-  box-sizing: border-box;
   display: flex;
+  justify-content: space-between;
   flex-wrap: nowrap;
   color: var(--sbb-color-default);
   width: 100%;
@@ -38,37 +38,37 @@
 }
 
 // first and last dot
-.pearl-chain::before,
-.pearl-chain::after {
+.sbb-pearl-chain::before,
+.sbb-pearl-chain::after {
   --dot-size: var(--dot-size-large);
   @include dot;
 
   background-color: currentcolor;
-  top: 0;
-  z-index: 2;
+  inset-block-start: 0;
+  z-index: 3;
 
   @include ifForcedColors {
     background-color: CanvasText;
   }
 }
 
-.pearl-chain::before {
-  left: 0;
+.sbb-pearl-chain::before {
+  inset-inline-start: 0;
 }
 
-.pearl-chain::after {
-  right: 0;
+.sbb-pearl-chain::after {
+  inset-inline-end: 0;
 }
 
-.pearl-chain.pearl-chain--past::before,
-.pearl-chain.pearl-chain--past::after {
+.sbb-pearl-chain.sbb-pearl-chain--past::before,
+.sbb-pearl-chain.sbb-pearl-chain--past::after {
   @include ifForcedColors {
     background-color: GrayText;
   }
 }
 
-.pearl-chain--departure-cancellation::before,
-.pearl-chain--arrival-cancellation::after {
+.sbb-pearl-chain--departure-cancellation::before,
+.sbb-pearl-chain--arrival-cancellation::after {
   color: var(--color-cancellation);
 
   @include ifForcedColors {
@@ -76,8 +76,8 @@
   }
 }
 
-.pearl-chain--departure-cancellation.pearl-chain--past::before,
-.pearl-chain--arrival-cancellation.pearl-chain--past::after {
+.sbb-pearl-chain--departure-cancellation.pearl-chain--past::before,
+.sbb-pearl-chain--arrival-cancellation.pearl-chain--past::after {
   color: var(--color-past);
 
   @include ifForcedColors {
@@ -85,52 +85,66 @@
   }
 }
 
-.pearl-chain--past {
-  color: var(--color-past);
+.sbb-pearl-chain--past {
+  position: relative;
 
   @include ifForcedColors {
     color: GrayText;
   }
 }
 
-.pearl-chain__leg {
+.sbb-pearl-chain__leg {
   flex-shrink: 0;
   flex-grow: 0;
   position: relative;
   height: var(--border-width);
+  border-inline-end: var(--spacing-small) solid var(--color-white);
+  background-color: currentcolor;
+  width: var(--leg-width);
 
   @include ifForcedColors {
     color: CanvasText;
   }
 }
 
+.sbb-pearl-chain__leg:last-of-type {
+  border: none;
+}
+
+.sbb-pearl-chain__leg--past,
+.sbb-pearl-chain--past,
+.sbb-pearl-chain__leg--progress::before,
+.sbb-pearl-chain--progress::before {
+  color: var(--color-past);
+}
+
 // dot on leg
-.pearl-chain__leg:not(:first-child)::before {
-  --dot-size: var(--dot-size-small);
-  @include dot;
+.sbb-pearl-chain__leg:not(:first-child) {
+  &::before {
+    --dot-size: var(--dot-size-small);
+    @include dot;
 
-  box-sizing: border-box;
-  top: calc(var(--dot-size) / -2 + var(--border-width) / 2);
-  left: 0;
-  background-color: var(--color-white);
-  border: var(--border-width) solid currentcolor;
-  z-index: 2;
+    inset-block-start: calc(var(--dot-size) / -2 + var(--border-width) / 2);
+    inset-inline-start: 0;
+    background-color: var(--color-white);
+    border: var(--border-width) solid currentcolor;
+    z-index: 2;
 
-  @include ifForcedColors {
-    .pearl-chain--past & {
-      border-color: GrayText;
+    @include ifForcedColors {
+      .sbb-pearl-chain--past & {
+        border-color: GrayText;
+      }
     }
   }
 }
 
 // line on leg
-.pearl-chain__leg::after {
+.sbb-pearl-chain__leg::after {
   content: '';
   position: absolute;
-  top: 0;
-  right: var(--spacing-small);
-  bottom: 0;
-  left: 0;
+  inset-block-start: 0;
+  inset-block-end: 0;
+  inset-inline-start: 0;
   background-color: currentcolor;
   border-radius: var(--border-width);
   z-index: 1;
@@ -138,20 +152,25 @@
   @include ifForcedColors {
     background-color: CanvasText;
 
-    .pearl-chain--past & {
+    .sbb-pearl-chain--past & {
       background-color: GrayText;
     }
   }
 }
 
-.pearl-chain__leg:last-of-type::after {
-  right: calc(-1 * var(--border-width));
+.sbb-pearl-chain__leg:last-of-type::after {
+  inset-inline-end: calc(-1 * var(--border-width));
 }
 
-.pearl-chain__leg--cancellation {
+.sbb-pearl-chain__leg--progress::after {
+  background-color: var(--color-past);
+  width: var(--leg-status);
+}
+
+.sbb-pearl-chain__leg--cancellation {
   color: var(--color-cancellation);
 
-  .pearl-chain--past & {
+  .sbb-pearl-chain--past & {
     color: var(--color-past);
 
     @include ifForcedColors {
@@ -164,7 +183,7 @@
   }
 }
 
-.pearl-chain__leg--cancellation::after {
+.sbb-pearl-chain__leg--cancellation::after {
   background-color: unset;
   background-image: linear-gradient(
     to right,
@@ -174,30 +193,30 @@
   );
   background-repeat: repeat-x;
   background-size: calc(2 * var(--spacing-small)) var(--border-width);
+  inset-inline-end: var(--border-width);
 }
 
-.pearl-chain__leg--cancellation::after,
-.pearl-chain--past .pearl-chain__leg--cancellation::after {
+.sbb-pearl-chain__leg--cancellation::after,
+.sbb-pearl-chain--past .sbb-pearl-chain__leg--cancellation::after {
   @include ifForcedColors {
     background: none;
-    border-top: #{px-to-rem-build(1)} dashed currentColor;
+    border-block-start: #{px-to-rem-build(1)} dashed currentcolor;
     transform: translateY(#{px-to-rem-build(1)});
   }
 }
 
-.pearl-chain__status {
+.sbb-pearl-chain__position {
+  position: absolute;
+
   --dot-size: var(--dot-size-large);
   @include dot;
 
-  top: 0;
   background-color: var(--color-current-location);
-  z-index: 3;
+  inset-block-start: -200%;
+  z-index: 4;
 
   // --status-position: defined in .tsx file
-  $real-chain-length: calc(100% - var(--dot-size-large));
-  $real-position: calc(#{var(--status-position)} / 100 * #{$real-chain-length});
-
-  left: $real-position;
+  inset-inline-start: var(--status-position);
   animation: pulse 3s infinite;
 
   @include ifForcedColors {
@@ -205,7 +224,7 @@
   }
 }
 
-.pearl-chain__status--no-animation {
+.sbb-pearl-chain__position--no-animation {
   animation: unset;
 }
 

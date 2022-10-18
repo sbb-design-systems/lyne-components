@@ -106,7 +106,7 @@ describe('sbb-teaser-hero', () => {
                   <slot name="link-content"></slot>
                 </sbb-link>
               </span>
-             <slot name="image"><sbb-image></sbb-image></slot>
+             <slot name="image"></slot>
             </a>
           </mock:shadow-root>
           Break out and explore castles and palaces.

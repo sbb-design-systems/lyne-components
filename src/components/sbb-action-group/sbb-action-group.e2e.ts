@@ -1,13 +1,13 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('sbb-timetable-row-button', () => {
+describe('sbb-action-group', () => {
   let element, page;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-timetable-row-button></sbb-timetable-row-button>');
+    await page.setContent('<sbb-action-group></sbb-action-group>');
 
-    element = await page.find('sbb-timetable-row-button');
+    element = await page.find('sbb-action-group');
     expect(element).toHaveClass('hydrated');
   });
 });

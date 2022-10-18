@@ -10,6 +10,7 @@ import { defineCustomElements } from '@sbb-esta/lyne-components/loader';
 defineCustomElements();
 export const SbbAccordion = /*@__PURE__*/createReactComponent<JSX.SbbAccordion, HTMLSbbAccordionElement>('sbb-accordion');
 export const SbbAccordionItem = /*@__PURE__*/createReactComponent<JSX.SbbAccordionItem, HTMLSbbAccordionItemElement>('sbb-accordion-item');
+export const SbbActionGroup = /*@__PURE__*/createReactComponent<JSX.SbbActionGroup, HTMLSbbActionGroupElement>('sbb-action-group');
 export const SbbAlert = /*@__PURE__*/createReactComponent<JSX.SbbAlert, HTMLSbbAlertElement>('sbb-alert');
 export const SbbAlertGroup = /*@__PURE__*/createReactComponent<JSX.SbbAlertGroup, HTMLSbbAlertGroupElement>('sbb-alert-group');
 export const SbbAutocomplete = /*@__PURE__*/createReactComponent<JSX.SbbAutocomplete, HTMLSbbAutocompleteElement>('sbb-autocomplete');
@@ -30,8 +31,11 @@ export const SbbJourneyHeader = /*@__PURE__*/createReactComponent<JSX.SbbJourney
 export const SbbLink = /*@__PURE__*/createReactComponent<JSX.SbbLink, HTMLSbbLinkElement>('sbb-link');
 export const SbbLinkList = /*@__PURE__*/createReactComponent<JSX.SbbLinkList, HTMLSbbLinkListElement>('sbb-link-list');
 export const SbbLogo = /*@__PURE__*/createReactComponent<JSX.SbbLogo, HTMLSbbLogoElement>('sbb-logo');
+export const SbbMenu = /*@__PURE__*/createReactComponent<JSX.SbbMenu, HTMLSbbMenuElement>('sbb-menu');
+export const SbbMenuAction = /*@__PURE__*/createReactComponent<JSX.SbbMenuAction, HTMLSbbMenuActionElement>('sbb-menu-action');
 export const SbbOverlay = /*@__PURE__*/createReactComponent<JSX.SbbOverlay, HTMLSbbOverlayElement>('sbb-overlay');
 export const SbbPearlChain = /*@__PURE__*/createReactComponent<JSX.SbbPearlChain, HTMLSbbPearlChainElement>('sbb-pearl-chain');
+export const SbbPearlChainTime = /*@__PURE__*/createReactComponent<JSX.SbbPearlChainTime, HTMLSbbPearlChainTimeElement>('sbb-pearl-chain-time');
 export const SbbSection = /*@__PURE__*/createReactComponent<JSX.SbbSection, HTMLSbbSectionElement>('sbb-section');
 export const SbbSignet = /*@__PURE__*/createReactComponent<JSX.SbbSignet, HTMLSbbSignetElement>('sbb-signet');
 export const SbbSlotComponent = /*@__PURE__*/createReactComponent<JSX.SbbSlotComponent, HTMLSbbSlotComponentElement>('sbb-slot-component');
@@ -50,7 +54,6 @@ export const SbbTimetableOccupancy = /*@__PURE__*/createReactComponent<JSX.SbbTi
 export const SbbTimetableParkAndRail = /*@__PURE__*/createReactComponent<JSX.SbbTimetableParkAndRail, HTMLSbbTimetableParkAndRailElement>('sbb-timetable-park-and-rail');
 export const SbbTimetablePlatform = /*@__PURE__*/createReactComponent<JSX.SbbTimetablePlatform, HTMLSbbTimetablePlatformElement>('sbb-timetable-platform');
 export const SbbTimetableRow = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRow, HTMLSbbTimetableRowElement>('sbb-timetable-row');
-export const SbbTimetableRowButton = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRowButton, HTMLSbbTimetableRowButtonElement>('sbb-timetable-row-button');
 export const SbbTimetableRowColumnHeaders = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRowColumnHeaders, HTMLSbbTimetableRowColumnHeadersElement>('sbb-timetable-row-column-headers');
 export const SbbTimetableRowDayChange = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRowDayChange, HTMLSbbTimetableRowDayChangeElement>('sbb-timetable-row-day-change');
 export const SbbTimetableRowHeader = /*@__PURE__*/createReactComponent<JSX.SbbTimetableRowHeader, HTMLSbbTimetableRowHeaderElement>('sbb-timetable-row-header');
