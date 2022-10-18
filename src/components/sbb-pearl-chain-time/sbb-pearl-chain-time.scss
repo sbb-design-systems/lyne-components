@@ -1,0 +1,36 @@
+@include host-component-properties;
+
+.sbb-pearl-chain__time {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.sbb-pearl-chain__time-walktime {
+  @include text-xxs--regular;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+.sbb-pearl-chain__time-walktime:first-of-type {
+  margin-inline-end: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-pearl-chain__time-walktime:last-of-type {
+  margin-inline-start: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-pearl-chain__time-chain {
+  flex: 1 1 auto;
+  align-self: center;
+  margin-inline: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-pearl-chain__time-time {
+  @include text-s--bold;
+}
+
+.sbb-screenreaderonly {
+  @include screenReaderOnly;
+}

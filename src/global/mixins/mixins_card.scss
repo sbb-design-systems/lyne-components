@@ -36,6 +36,8 @@
 
   &:focus {
     @include card--shadow;
+
+    @include focusOutline;
   }
 
   // If the the device can hover over elements with ease

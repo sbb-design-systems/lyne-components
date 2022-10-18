@@ -73,7 +73,7 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
   click: EventEmitter<T> | undefined;
 
   /** The function triggered on button click. */
-  emitButtonClick: ((event: MouseEvent) => void) | undefined;
+  emitButtonClick: ((event: Event) => void) | undefined;
 }
 
 /**
@@ -175,42 +175,44 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
 
 /**
  * Set default render variables for link case.
- * @param linkButtonProperties used to set the 'attributes' property.
+ * @param linkProperties used to set the 'attributes' property.
+ * @param buttonProperties (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
  */
 export function getLinkRenderVariables(
-  linkButtonProperties: LinkButtonProperties
+  linkProperties: LinkProperties,
+  buttonProperties?: ButtonProperties
 ): LinkButtonRenderVariables {
   return {
     tagName: 'a',
-    attributes: getLinkAttributeList(linkButtonProperties, linkButtonProperties),
+    attributes: getLinkAttributeList(linkProperties, buttonProperties),
     screenReaderNewWindowInfo:
-      !linkButtonProperties.accessibilityLabel && linkButtonProperties.target === '_blank',
+      !linkProperties.accessibilityLabel && linkProperties.target === '_blank',
   };
 }
 
 /**
  * Set default render variables for button case.
- * @param linkButtonProperties used to set the 'attributes' property.
+ * @param buttonProperties used to set the 'attributes' property.
  */
 export function getButtonRenderVariables(
-  linkButtonProperties: LinkButtonProperties
+  buttonProperties: ButtonProperties
 ): LinkButtonRenderVariables {
   return {
     tagName: 'button',
-    attributes: getButtonAttributeList(linkButtonProperties),
+    attributes: getButtonAttributeList(buttonProperties),
   };
 }
 
 /**
  * Set default render variables when the element is static (button/link inside another button/link).
- * @param linkButtonProperties used to set the 'attributes' property.
+ * @param accessibilityProperties used to set the 'attributes' property.
  */
 export function getLinkButtonStaticRenderVariables(
-  linkButtonProperties: LinkButtonProperties
+  accessibilityProperties: AccessibilityProperties
 ): LinkButtonRenderVariables {
   return {
     tagName: 'span',
-    attributes: getLinkButtonBaseAttributeList(linkButtonProperties),
+    attributes: getLinkButtonBaseAttributeList(accessibilityProperties),
   };
 }
 
@@ -226,9 +228,22 @@ export function resolveRenderVariables(
   if (isStatic) {
     return getLinkButtonStaticRenderVariables(linkButtonProperties);
   } else if (linkButtonProperties.href) {
-    return getLinkRenderVariables(linkButtonProperties);
+    return getLinkRenderVariables(linkButtonProperties, linkButtonProperties);
   }
   return getButtonRenderVariables(linkButtonProperties);
+}
+
+/**
+ * Returns the link render variables or static variables if there is no href property.
+ * @param linkProperties used to set variables and to check if href property is set.
+ */
+export function resolveLinkRenderVariables(
+  linkProperties: LinkProperties
+): LinkButtonRenderVariables {
+  if (linkProperties.href) {
+    return getLinkRenderVariables(linkProperties);
+  }
+  return getLinkButtonStaticRenderVariables(linkProperties);
 }
 
 /**

@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
+import { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 import { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
@@ -37,6 +38,7 @@ import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-b
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 import { InterfaceTimetablePlatformAttributes } from "./components/sbb-timetable-platform/sbb-timetable-platform.custom";
+import { InterfaceTimetableRowAttributes } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
@@ -78,6 +80,20 @@ export namespace Components {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface SbbActionGroup {
+        /**
+          * Set the slotted `<sbb-action-group>` children's alignment.
+         */
+        "alignGroup": InterfaceSbbActionGroupAttributes['alignGroup'];
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
+        /**
+          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+         */
+        "orientation": InterfaceSbbActionGroupAttributes['orientation'];
     }
     interface SbbAlert {
         /**
@@ -247,7 +263,7 @@ export namespace Components {
         /**
           * Whether the button is disabled.
          */
-        "disabled"?: boolean;
+        "disabled": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -742,7 +758,7 @@ export namespace Components {
         /**
           * Whether the button is disabled.
          */
-        "disabled"?: boolean;
+        "disabled": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -752,7 +768,7 @@ export namespace Components {
          */
         "form"?: string;
         /**
-          * The href value you want to link to (if its not present link becomes a button).
+          * The href value you want to link to (if it is not present link becomes a button).
          */
         "href": string | undefined;
         /**
@@ -840,6 +856,94 @@ export namespace Components {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface SbbMenu {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Dismisses the menu.
+         */
+        "dismiss": () => Promise<void>;
+        /**
+          * Opens the menu on trigger click.
+         */
+        "present": () => Promise<void>;
+        /**
+          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
+    interface SbbMenuAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls": string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup": PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Value shown as badge at component end.
+         */
+        "amount"?: string | undefined;
+        /**
+          * Whether the button is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string;
+        /**
+          * The href value you want to link to (if it is not present menu action becomes a button).
+         */
+        "href": string | undefined;
+        /**
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string | undefined;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "menuActionId": string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * The type attribute to use for the button.
+         */
+        "type": ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
+         */
+        "value"?: string;
+    }
     interface SbbOverlay {
         /**
           * Dismiss the overlay.
@@ -857,13 +961,35 @@ export namespace Components {
          */
         "disableAnimation"?: boolean;
         /**
-          * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
+          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": string;
+        "legs": InterfacePearlChainAttributes['legs'];
+    }
+    interface SbbPearlChainTime {
         /**
-          * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+          * Prop to render the arrival time - will be formatted as "H:mm"
          */
-        "status"?: InterfacePearlChainAttributes['status'];
+        "arrivalTime": string;
+        /**
+          * Optional prop to render the walk time (in minutes) after arrival
+         */
+        "arrivalWalk"?: number;
+        /**
+          * Prop to render the departure time - will be formatted as "H:mm"
+         */
+        "departureTime": string;
+        /**
+          * Optional prop to render the walk time (in minutes) before departure
+         */
+        "departureWalk"?: number;
+        /**
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
+         */
+        "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbSection {
         /**
@@ -978,21 +1104,29 @@ export namespace Components {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string | undefined;
+        "accessibilityLabel": string;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * The href value you want to link to
+          * The href value you want to link to.
          */
-        "href": string;
+        "href": string | undefined;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked": boolean;
         /**
-          * Heading level of the sbb-title element (e.g. h1-h6)
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel": InterfaceTeaserAttributes['titleLevel'];
     }
@@ -1120,19 +1254,33 @@ export namespace Components {
     }
     interface SbbTimetableRow {
         /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+          * This will be forwarded as aria-label to the relevant element.
          */
-        "config": string;
-    }
-    interface SbbTimetableRowButton {
+        "accessibilityLabel": string | undefined;
         /**
-          * Id which is sent in the event of clicking the button
+          * When this prop is true the sbb-card will be in the active state.
          */
-        "eventId"?: string;
+        "active"?: boolean;
         /**
-          * Set to true to initially show the state, which would get set by pressing the button.
+          * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
-        "expanded"?: boolean;
+        "disableAnimation"?: boolean;
+        /**
+          * When this prop is true the badge for the price will appear loading.
+         */
+        "loadingPrice"?: boolean;
+        /**
+          * The loading state - when this is true it will be render skeleton with an idling animation
+         */
+        "loadingTrip"?: boolean;
+        /**
+          * The price Prop, which consists of the data for the badge.
+         */
+        "price"?: InterfaceTimetableRowAttributes['price'];
+        /**
+          * The trip Prop
+         */
+        "trip"?: InterfaceTimetableRowAttributes['trip'];
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -1288,6 +1436,14 @@ export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbLinkElement;
 }
+export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbMenuElement;
+}
+export interface SbbMenuActionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbMenuActionElement;
+}
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
@@ -1295,6 +1451,10 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
+}
+export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTimetableRowElement;
 }
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1312,6 +1472,12 @@ declare global {
     var HTMLSbbAccordionItemElement: {
         prototype: HTMLSbbAccordionItemElement;
         new (): HTMLSbbAccordionItemElement;
+    };
+    interface HTMLSbbActionGroupElement extends Components.SbbActionGroup, HTMLStencilElement {
+    }
+    var HTMLSbbActionGroupElement: {
+        prototype: HTMLSbbActionGroupElement;
+        new (): HTMLSbbActionGroupElement;
     };
     interface HTMLSbbAlertElement extends Components.SbbAlert, HTMLStencilElement {
     }
@@ -1445,6 +1611,18 @@ declare global {
         prototype: HTMLSbbLogoElement;
         new (): HTMLSbbLogoElement;
     };
+    interface HTMLSbbMenuElement extends Components.SbbMenu, HTMLStencilElement {
+    }
+    var HTMLSbbMenuElement: {
+        prototype: HTMLSbbMenuElement;
+        new (): HTMLSbbMenuElement;
+    };
+    interface HTMLSbbMenuActionElement extends Components.SbbMenuAction, HTMLStencilElement {
+    }
+    var HTMLSbbMenuActionElement: {
+        prototype: HTMLSbbMenuActionElement;
+        new (): HTMLSbbMenuActionElement;
+    };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
     var HTMLSbbOverlayElement: {
@@ -1456,6 +1634,12 @@ declare global {
     var HTMLSbbPearlChainElement: {
         prototype: HTMLSbbPearlChainElement;
         new (): HTMLSbbPearlChainElement;
+    };
+    interface HTMLSbbPearlChainTimeElement extends Components.SbbPearlChainTime, HTMLStencilElement {
+    }
+    var HTMLSbbPearlChainTimeElement: {
+        prototype: HTMLSbbPearlChainTimeElement;
+        new (): HTMLSbbPearlChainTimeElement;
     };
     interface HTMLSbbSectionElement extends Components.SbbSection, HTMLStencilElement {
     }
@@ -1565,12 +1749,6 @@ declare global {
         prototype: HTMLSbbTimetableRowElement;
         new (): HTMLSbbTimetableRowElement;
     };
-    interface HTMLSbbTimetableRowButtonElement extends Components.SbbTimetableRowButton, HTMLStencilElement {
-    }
-    var HTMLSbbTimetableRowButtonElement: {
-        prototype: HTMLSbbTimetableRowButtonElement;
-        new (): HTMLSbbTimetableRowButtonElement;
-    };
     interface HTMLSbbTimetableRowColumnHeadersElement extends Components.SbbTimetableRowColumnHeaders, HTMLStencilElement {
     }
     var HTMLSbbTimetableRowColumnHeadersElement: {
@@ -1634,6 +1812,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
+        "sbb-action-group": HTMLSbbActionGroupElement;
         "sbb-alert": HTMLSbbAlertElement;
         "sbb-alert-group": HTMLSbbAlertGroupElement;
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
@@ -1656,8 +1835,11 @@ declare global {
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
+        "sbb-menu": HTMLSbbMenuElement;
+        "sbb-menu-action": HTMLSbbMenuActionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
+        "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
@@ -1676,7 +1858,6 @@ declare global {
         "sbb-timetable-park-and-rail": HTMLSbbTimetableParkAndRailElement;
         "sbb-timetable-platform": HTMLSbbTimetablePlatformElement;
         "sbb-timetable-row": HTMLSbbTimetableRowElement;
-        "sbb-timetable-row-button": HTMLSbbTimetableRowButtonElement;
         "sbb-timetable-row-column-headers": HTMLSbbTimetableRowColumnHeadersElement;
         "sbb-timetable-row-day-change": HTMLSbbTimetableRowDayChangeElement;
         "sbb-timetable-row-header": HTMLSbbTimetableRowHeaderElement;
@@ -1725,6 +1906,20 @@ declare namespace LocalJSX {
           * Set to true to open the accordion item. Set to false to close it.
          */
         "open"?: boolean;
+    }
+    interface SbbActionGroup {
+        /**
+          * Set the slotted `<sbb-action-group>` children's alignment.
+         */
+        "alignGroup"?: InterfaceSbbActionGroupAttributes['alignGroup'];
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
+        /**
+          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+         */
+        "orientation"?: InterfaceSbbActionGroupAttributes['orientation'];
     }
     interface SbbAlert {
         /**
@@ -2427,7 +2622,7 @@ declare namespace LocalJSX {
          */
         "form"?: string;
         /**
-          * The href value you want to link to (if its not present link becomes a button).
+          * The href value you want to link to (if it is not present link becomes a button).
          */
         "href"?: string | undefined;
         /**
@@ -2519,6 +2714,106 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface SbbMenu {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Emits whenever the menu is dismissed.
+         */
+        "onSbb-menu_did-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu is presented.
+         */
+        "onSbb-menu_did-present"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu begins the closing transition.
+         */
+        "onSbb-menu_will-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu starts the presenting transition.
+         */
+        "onSbb-menu_will-present"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
+    interface SbbMenuAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls"?: string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup"?: PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Value shown as badge at component end.
+         */
+        "amount"?: string | undefined;
+        /**
+          * Whether the button is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string;
+        /**
+          * The href value you want to link to (if it is not present menu action becomes a button).
+         */
+        "href"?: string | undefined;
+        /**
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string | undefined;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "menuActionId"?: string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
+        /**
+          * Emits the event on button click.
+         */
+        "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * The type attribute to use for the button.
+         */
+        "type"?: ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
+         */
+        "value"?: string;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -2532,13 +2827,35 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * Stringified JSON to define the legs of the pearl-chain. Format: `{"legs": [{"cancellation": true, "duration": 25}, ...]}` `duration`: number between 0 and 100. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. `cancellation`: if set, the leg will be marked as canceled.
+          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": string;
+        "legs": InterfacePearlChainAttributes['legs'];
+    }
+    interface SbbPearlChainTime {
         /**
-          * Define, if the pearl-chain represents a connection in the past, in the future or if it is a currently running connection. If it is currently running, provide a number between 0 and 100, which will represent the current location on the pearl-chain.
+          * Prop to render the arrival time - will be formatted as "H:mm"
          */
-        "status"?: InterfacePearlChainAttributes['status'];
+        "arrivalTime": string;
+        /**
+          * Optional prop to render the walk time (in minutes) after arrival
+         */
+        "arrivalWalk"?: number;
+        /**
+          * Prop to render the departure time - will be formatted as "H:mm"
+         */
+        "departureTime": string;
+        /**
+          * Optional prop to render the walk time (in minutes) before departure
+         */
+        "departureWalk"?: number;
+        /**
+          * Per default, the current location has a pulsating animation. You can disable the animation with this property.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
+         */
+        "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbSection {
         /**
@@ -2642,21 +2959,29 @@ declare namespace LocalJSX {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string | undefined;
+        "accessibilityLabel": string;
         /**
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * The href value you want to link to
+          * The href value you want to link to.
          */
-        "href": string;
+        "href"?: string | undefined;
         /**
           * Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image.
          */
         "isStacked"?: boolean;
         /**
-          * Heading level of the sbb-title element (e.g. h1-h6)
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
     }
@@ -2784,19 +3109,37 @@ declare namespace LocalJSX {
     }
     interface SbbTimetableRow {
         /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+          * This will be forwarded as aria-label to the relevant element.
          */
-        "config": string;
-    }
-    interface SbbTimetableRowButton {
+        "accessibilityLabel"?: string | undefined;
         /**
-          * Id which is sent in the event of clicking the button
+          * When this prop is true the sbb-card will be in the active state.
          */
-        "eventId"?: string;
+        "active"?: boolean;
         /**
-          * Set to true to initially show the state, which would get set by pressing the button.
+          * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
-        "expanded"?: boolean;
+        "disableAnimation"?: boolean;
+        /**
+          * When this prop is true the badge for the price will appear loading.
+         */
+        "loadingPrice"?: boolean;
+        /**
+          * The loading state - when this is true it will be render skeleton with an idling animation
+         */
+        "loadingTrip"?: boolean;
+        /**
+          * This click event gets emitted when the user clicks on the component.
+         */
+        "onSbb-timetable-row_click"?: (event: SbbTimetableRowCustomEvent<any>) => void;
+        /**
+          * The price Prop, which consists of the data for the badge.
+         */
+        "price"?: InterfaceTimetableRowAttributes['price'];
+        /**
+          * The trip Prop
+         */
+        "trip"?: InterfaceTimetableRowAttributes['trip'];
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -2934,6 +3277,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
+        "sbb-action-group": SbbActionGroup;
         "sbb-alert": SbbAlert;
         "sbb-alert-group": SbbAlertGroup;
         "sbb-autocomplete": SbbAutocomplete;
@@ -2956,8 +3300,11 @@ declare namespace LocalJSX {
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
+        "sbb-menu": SbbMenu;
+        "sbb-menu-action": SbbMenuAction;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
+        "sbb-pearl-chain-time": SbbPearlChainTime;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
@@ -2976,7 +3323,6 @@ declare namespace LocalJSX {
         "sbb-timetable-park-and-rail": SbbTimetableParkAndRail;
         "sbb-timetable-platform": SbbTimetablePlatform;
         "sbb-timetable-row": SbbTimetableRow;
-        "sbb-timetable-row-button": SbbTimetableRowButton;
         "sbb-timetable-row-column-headers": SbbTimetableRowColumnHeaders;
         "sbb-timetable-row-day-change": SbbTimetableRowDayChange;
         "sbb-timetable-row-header": SbbTimetableRowHeader;
@@ -2995,6 +3341,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "sbb-accordion": LocalJSX.SbbAccordion & JSXBase.HTMLAttributes<HTMLSbbAccordionElement>;
             "sbb-accordion-item": LocalJSX.SbbAccordionItem & JSXBase.HTMLAttributes<HTMLSbbAccordionItemElement>;
+            "sbb-action-group": LocalJSX.SbbActionGroup & JSXBase.HTMLAttributes<HTMLSbbActionGroupElement>;
             "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
@@ -3017,8 +3364,11 @@ declare module "@stencil/core" {
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
+            "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
+            "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
+            "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
@@ -3037,7 +3387,6 @@ declare module "@stencil/core" {
             "sbb-timetable-park-and-rail": LocalJSX.SbbTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLSbbTimetableParkAndRailElement>;
             "sbb-timetable-platform": LocalJSX.SbbTimetablePlatform & JSXBase.HTMLAttributes<HTMLSbbTimetablePlatformElement>;
             "sbb-timetable-row": LocalJSX.SbbTimetableRow & JSXBase.HTMLAttributes<HTMLSbbTimetableRowElement>;
-            "sbb-timetable-row-button": LocalJSX.SbbTimetableRowButton & JSXBase.HTMLAttributes<HTMLSbbTimetableRowButtonElement>;
             "sbb-timetable-row-column-headers": LocalJSX.SbbTimetableRowColumnHeaders & JSXBase.HTMLAttributes<HTMLSbbTimetableRowColumnHeadersElement>;
             "sbb-timetable-row-day-change": LocalJSX.SbbTimetableRowDayChange & JSXBase.HTMLAttributes<HTMLSbbTimetableRowDayChangeElement>;
             "sbb-timetable-row-header": LocalJSX.SbbTimetableRowHeader & JSXBase.HTMLAttributes<HTMLSbbTimetableRowHeaderElement>;

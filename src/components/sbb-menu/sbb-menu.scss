@@ -1,0 +1,176 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-menu-position: fixed;
+  --sbb-menu-position-x: 0;
+  --sbb-menu-position-y: 0;
+  --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-menu-animation-easing: ease;
+
+  // 85vh is not an exact value but looks optimized for mobile view.
+  --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
+  --sbb-menu-min-height: #{px-to-rem-build(120)};
+  --sbb-menu-max-width: 100%;
+  --sbb-menu-min-width: 100%;
+  --sbb-menu-border-radius: var(--sbb-border-radius-4x);
+  --sbb-menu-backdrop-color: transparent;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+
+  // Menu backdrop (only visible on mobile)
+  &::before {
+    content: '';
+    visibility: hidden;
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    background-color: var(--sbb-menu-backdrop-color);
+    transition: {
+      duration: var(--sbb-menu-animation-duration);
+      timing-function: var(--sbb-menu-animation-easing);
+      property: background-color, visibility;
+    }
+  }
+}
+
+:host(.sbb-menu--presented),
+:host(.sbb-menu--presenting) {
+  &::before {
+    --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
+
+    visibility: visible;
+    pointer-events: all;
+
+    @include mq($from: medium) {
+      --sbb-menu-backdrop-color: transparent;
+    }
+  }
+}
+
+:host([disable-animation]) {
+  --sbb-menu-animation-duration: 0s;
+}
+
+// stylelint-disable plugin/stylelint-bem-namics
+::slotted(:not(sbb-menu-action)) {
+  display: block;
+  padding-inline: var(--sbb-spacing-fixed-5x);
+}
+// stylelint-enable plugin/stylelint-bem-namics
+
+::slotted(sbb-divider) {
+  --divider-color: var(--sbb-color-iron-default);
+
+  margin-block: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-menu {
+  --sbb-menu-transform: translateY(100%);
+
+  max-height: var(--sbb-menu-max-height);
+  min-height: var(--sbb-menu-min-height);
+  max-width: var(--sbb-menu-max-width);
+  min-width: var(--sbb-menu-min-width);
+  text-align: start;
+  position: var(--sbb-menu-position);
+  left: 0;
+  bottom: 0;
+  top: unset;
+  right: unset;
+  color: var(--sbb-color-white-default);
+  border: none;
+  border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
+  background-color: var(--sbb-color-black-default);
+  padding: 0;
+  overflow: hidden;
+
+  &[open] {
+    animation: {
+      name: show;
+      duration: var(--sbb-menu-animation-duration);
+      timing-function: var(--sbb-menu-animation-easing);
+    }
+  }
+
+  &.sbb-menu--dismissing {
+    pointer-events: none;
+    animation-name: hide;
+  }
+
+  @include ifForcedColors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  @include mq($from: medium) {
+    --sbb-menu-position: absolute;
+    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
+    --sbb-menu-max-width: #{px-to-rem-build(320)};
+    --sbb-menu-min-width: #{px-to-rem-build(180)};
+
+    top: var(--sbb-menu-position-y);
+    left: var(--sbb-menu-position-x);
+    right: unset;
+    bottom: unset;
+    border-radius: var(--sbb-menu-border-radius);
+  }
+}
+
+.sbb-menu__content {
+  @include scrollbar-dark;
+
+  outline: none;
+  max-height: var(--sbb-menu-max-height);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  overflow: auto;
+
+  // Margin bottom in mobile variant
+  &::after {
+    content: '';
+    display: block;
+    height: var(--sbb-spacing-fixed-8x);
+  }
+
+  @include mq($from: medium) {
+    min-height: var(--sbb-menu-min-height);
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+// It is necessary to use animations with keyframes instead of transitions in order not to alter
+// the default `display: block` of the modal otherwise it causes several problems,
+// especially for accessibility.
+@keyframes show {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    transform: var(--sbb-menu-transform);
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes hide {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    transform: var(--sbb-menu-transform);
+  }
+}

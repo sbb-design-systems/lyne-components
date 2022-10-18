@@ -1,30 +1,85 @@
-import { SbbPearlChain } from './sbb-pearl-chain';
 import { newSpecPage } from '@stencil/core/testing';
-
-const legs = JSON.stringify({
-  legs: [
-    {
-      cancellation: false,
-      duration: 100,
-    },
-  ],
-});
+import { SbbPearlChain } from './sbb-pearl-chain';
 
 describe('sbb-pearl-chain', () => {
-  it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbPearlChain],
-      html: `<sbb-pearl-chain legs='${legs}' />`,
-    });
-
-    expect(root).toEqualHtml(`
-        <sbb-pearl-chain legs="{&quot;legs&quot;:[{&quot;cancellation&quot;:false,&quot;duration&quot;:100}]}">
+  describe('sbb-pearl-chain with one leg', () => {
+    it('renders compont with config', async () => {
+      const page = await newSpecPage({
+        components: [SbbPearlChain],
+        html: `
+            <sbb-pearl-chain>
+            </sbb-pearl-chain>
+        `,
+      });
+      page.rootInstance.legs = [
+        {
+          duration: 60,
+          id: 'test',
+          arrival: { time: '2022-08-18T05:00' },
+          departure: { time: '2022-08-18T04:00' },
+          serviceJourney: {
+            serviceAlteration: {
+              cancelled: false,
+            },
+          },
+        },
+      ];
+      await page.waitForChanges();
+      expect(page.root).toEqualHtml(`
+        <sbb-pearl-chain>
           <mock:shadow-root>
-            <div class="pearl-chain">
-              <div class="pearl-chain__leg" style="flex-basis: 100%;"></div>
+            <div class="sbb-pearl-chain">
+              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--leg-width: 100%;"></div>
             </div>
           </mock:shadow-root>
         </sbb-pearl-chain>
       `);
+    });
+  });
+  describe('sbb-pearl-chain with two legs', () => {
+    it('renders compont with config', async () => {
+      const page = await newSpecPage({
+        components: [SbbPearlChain],
+        html: `
+            <sbb-pearl-chain>
+            </sbb-pearl-chain>
+        `,
+      });
+      page.rootInstance.legs = [
+        {
+          duration: 60,
+          id: 'test',
+          arrival: { time: '2022-08-18T05:00' },
+          departure: { time: '2022-08-18T04:00' },
+          serviceJourney: {
+            serviceAlteration: {
+              cancelled: false,
+            },
+          },
+        },
+        {
+          duration: 660,
+          id: 'test',
+          arrival: { time: '2022-08-18T16:00' },
+          departure: { time: '2022-08-18T05:00' },
+          serviceJourney: {
+            serviceAlteration: {
+              cancelled: false,
+            },
+          },
+        },
+      ];
+      await page.waitForChanges();
+      expect(page.root).toEqualHtml(`
+        <sbb-pearl-chain>
+          <mock:shadow-root>
+            <div class="sbb-pearl-chain">
+              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--leg-width: 8.333333333333332%;"></div>
+              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--leg-width: 91.66666666666666%;"></div>
+            </div>
+          </mock:shadow-root>
+        </sbb-pearl-chain>
+      `);
+    });
   });
 });

@@ -10,6 +10,7 @@ import {
   getLinkRenderVariables,
   LinkButtonProperties,
   LinkProperties,
+  resolveLinkRenderVariables,
   resolveRenderVariables,
 } from './link-button-properties';
 
@@ -176,6 +177,7 @@ describe('getLinkRenderVariables', () => {
     emitButtonClick: () => true,
     name: undefined,
     type: undefined,
+    disabled: true,
   };
 
   it('should return the correct variables with screenReaderNewWindowInfo true', () => {
@@ -186,10 +188,11 @@ describe('getLinkRenderVariables', () => {
         href: 'link',
         target: '_blank',
         rel: 'external noopener nofollow',
+        tabIndex: '-1',
       },
       screenReaderNewWindowInfo: true,
     };
-    expect(getLinkRenderVariables(linkButtonProperties)).toEqual(expectedObj);
+    expect(getLinkRenderVariables(linkButtonProperties, linkButtonProperties)).toEqual(expectedObj);
   });
 
   it('should return the correct variables with screenReaderNewWindowInfo false', () => {
@@ -205,17 +208,18 @@ describe('getLinkRenderVariables', () => {
         href: 'link',
         target: 'custom',
         'aria-label': 'accessibilityLabel',
+        tabIndex: '-1',
       },
       screenReaderNewWindowInfo: false,
     };
-    expect(getLinkRenderVariables(linkButtonPropertiesNoScreenReader)).toEqual(expectedObj);
+    expect(
+      getLinkRenderVariables(linkButtonPropertiesNoScreenReader, linkButtonPropertiesNoScreenReader)
+    ).toEqual(expectedObj);
   });
 });
 
 describe('getButtonRenderVariables', () => {
-  const linkButtonProperties: LinkButtonProperties<void> = {
-    href: undefined,
-    target: undefined,
+  const buttonProperties: ButtonProperties<void> = {
     accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
     accessibilityLabelledby: undefined,
@@ -235,23 +239,17 @@ describe('getButtonRenderVariables', () => {
       },
     };
 
-    expect(JSON.stringify(getButtonRenderVariables(linkButtonProperties))).toEqual(
+    expect(JSON.stringify(getButtonRenderVariables(buttonProperties))).toEqual(
       JSON.stringify(expectedObj)
     );
   });
 });
 
 describe('getLinkButtonStaticRenderVariables', () => {
-  const linkButtonProperties: LinkButtonProperties<void> = {
-    href: undefined,
-    target: undefined,
+  const accessibilityProperties: AccessibilityProperties = {
     accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
     accessibilityLabelledby: undefined,
-    click: undefined,
-    emitButtonClick: () => undefined,
-    type: undefined,
-    name: undefined,
   };
   it('should return the correct variables', () => {
     const expectedObj = {
@@ -261,7 +259,7 @@ describe('getLinkButtonStaticRenderVariables', () => {
       },
     };
 
-    expect(getLinkButtonStaticRenderVariables(linkButtonProperties)).toEqual(expectedObj);
+    expect(getLinkButtonStaticRenderVariables(accessibilityProperties)).toEqual(expectedObj);
   });
 });
 
@@ -292,6 +290,26 @@ describe('resolveRenderVariables', () => {
   it('should return variables for the button case', () => {
     const retObj = resolveRenderVariables({ ...linkButtonProperties, href: undefined });
     expect(retObj.tagName).toEqual('button');
+  });
+});
+
+describe('resolveLinkRenderVariables', () => {
+  const linkProperties: LinkProperties = {
+    href: 'link',
+    target: undefined,
+    accessibilityDescribedby: undefined,
+    accessibilityLabel: undefined,
+    accessibilityLabelledby: undefined,
+  };
+
+  it('should return variables for the static case', () => {
+    const retObj = resolveLinkRenderVariables({ ...linkProperties, href: undefined });
+    expect(retObj.tagName).toEqual('span');
+  });
+
+  it('should return variables for the link case', () => {
+    const retObj = resolveLinkRenderVariables(linkProperties);
+    expect(retObj.tagName).toEqual('a');
   });
 });
 

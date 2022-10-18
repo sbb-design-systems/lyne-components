@@ -1,5 +1,12 @@
 /* eslint-disable sort-keys */
 
+export const i18nDirection: any = {
+  de: 'Richtung',
+  en: 'Direction',
+  fr: 'Direction',
+  it: 'Direzione',
+};
+
 export const i18nArrival: any = {
   de: 'Ankunft',
   en: 'Arrival',
@@ -216,7 +223,7 @@ export const i18nEarlierConnections: any = {
   it: 'Collegamenti precedenti',
 };
 
-export const i18nFromPlatform: any = {
+export const i18nFromQuay: any = {
   long: {
     de: 'Von Gleis',
     en: 'from platform',
@@ -321,17 +328,17 @@ export const i18nWalk: any = {
 };
 
 export const i18nWalkingDistanceArrival: any = {
-  de: 'Minuten Fussweg nach Ankunft.',
-  en: 'minutes of walking time after arrival.',
-  fr: 'minutes trajet à pied après l’arrivée.',
-  it: 'minuti a piedi all’arrivo.',
+  de: 'Minuten Fussweg nach Ankunft:',
+  en: 'minutes of walking time after arrival:',
+  fr: 'minutes trajet à pied après l’arrivée:',
+  it: 'minuti a piedi all’arrivo:',
 };
 
 export const i18nWalkingDistanceDeparture: any = {
-  de: 'Minuten Fussweg vor Abfahrt.',
-  en: 'minutes of walking time before departure.',
-  fr: 'minutes trajet à pied avant le départ.',
-  it: 'minuti a piedi prima della partenza.',
+  de: 'Minuten Fussweg vor Abfahrt:',
+  en: 'minutes of walking time before departure:',
+  fr: 'minutes trajet à pied avant le départ:',
+  it: 'minuti a piedi prima della partenza:',
 };
 
 export const i18nWalkingDistanceToDepartureStation: any = {

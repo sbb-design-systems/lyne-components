@@ -101,6 +101,9 @@ In the HTML, you can now use the icon as shown below:
  - [sbb-form-field](../sbb-form-field)
  - [sbb-header-action](../sbb-header-action)
  - [sbb-link](../sbb-link)
+ - [sbb-menu-action](../sbb-menu-action)
+ - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
+ - [sbb-timetable-row](../sbb-timetable-row)
  - [sbb-toggle-check](../sbb-toggle-check)
 
 ### Graph
@@ -111,6 +114,9 @@ graph TD;
   sbb-form-field --> sbb-icon
   sbb-header-action --> sbb-icon
   sbb-link --> sbb-icon
+  sbb-menu-action --> sbb-icon
+  sbb-pearl-chain-time --> sbb-icon
+  sbb-timetable-row --> sbb-icon
   sbb-toggle-check --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

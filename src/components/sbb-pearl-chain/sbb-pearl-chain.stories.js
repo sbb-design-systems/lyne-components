@@ -1,162 +1,159 @@
 import { h } from 'jsx-dom';
-import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
-import sampleData from './sbb-pearl-chain.sample-data';
+import data from './sbb-pearl-chain.sample-data';
 
-const Template = ({ legs, cancelPart, ...args }) => {
-  const newLegsData = JSON.parse(JSON.stringify(legs));
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
+};
 
-  newLegsData.legs.forEach((leg, index) => {
-    if (cancelPart) {
-      leg.cancellation = cancelPart.indexOf(index + 1) !== -1;
-    } else {
-      leg.cancellation = false;
-    }
-  });
+const defaultArgTypes = {
+  'disable-animation': disableAnimation,
+};
 
-  return (
-    <sbb-pearl-chain legs={JSON.stringify(newLegsData)} disable-animation={isChromatic} {...args} />
-  );
+const Template = (args) => {
+  return <sbb-pearl-chain legs={args.legs} />;
 };
 
 export const NoStops = Template.bind({});
-export const Stop1 = Template.bind({});
-export const Stops2 = Template.bind({});
-export const Stops3 = Template.bind({});
-export const Stops4 = Template.bind({});
-export const Stops9 = Template.bind({});
-
+NoStops.argTypes = defaultArgTypes;
+NoStops.args = {
+  legs: [
+    {
+      duration: 300,
+    },
+  ],
+};
 NoStops.documentation = {
   title: 'No stops',
 };
 
-Stop1.documentation = {
-  title: 'One Stop',
-};
-
-Stops2.documentation = {
-  title: '2 Stops',
-};
-
-Stops3.documentation = {
-  title: '3 Stops',
-};
-
-Stops4.documentation = {
-  title: '4 Stops',
-};
-
-Stops9.documentation = {
-  title: '9 Stops',
-};
-
-const status = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['past', '0', '25', '33', '50', '66', '75', '100', 'future'],
-};
-
-const legs = {
-  table: {
-    disable: true,
-  },
-};
-
-NoStops.argTypes = {
-  cancelPart: {
-    control: {
-      type: 'inline-check',
+export const ManyStops = Template.bind({});
+ManyStops.argTypes = defaultArgTypes;
+ManyStops.args = {
+  legs: [
+    {
+      duration: 300,
     },
-    options: [1],
-  },
-  legs,
-  status,
-};
-
-NoStops.args = {
-  legs: sampleData.stop0,
-  status: 'future',
-};
-
-Stop1.argTypes = {
-  cancelPart: {
-    control: {
-      type: 'inline-check',
+    {
+      duration: 300,
     },
-    options: [1, 2],
-  },
-  legs,
-  status,
-};
-
-Stop1.args = {
-  legs: sampleData.stop1,
-  status: 'past',
-};
-
-Stops2.argTypes = {
-  cancelPart: {
-    control: {
-      type: 'inline-check',
+    {
+      duration: 300,
     },
-    options: [1, 2, 3],
-  },
-  legs,
-  status,
-};
-
-Stops2.args = {
-  legs: sampleData.stop2,
-  status: '50',
-};
-
-Stops3.argTypes = {
-  cancelPart: {
-    control: {
-      type: 'inline-check',
+    {
+      duration: 300,
     },
-    options: [1, 2, 3, 4],
-  },
-  legs,
-  status,
+  ],
 };
 
-Stops3.args = {
-  legs: sampleData.stop3,
-  status: 'future',
-};
-
-Stops4.argTypes = {
-  cancelPart: {
-    control: {
-      type: 'inline-check',
+export const Cancelled = Template.bind({});
+Cancelled.argTypes = defaultArgTypes;
+Cancelled.args = {
+  legs: [
+    {
+      duration: 300,
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: true,
+        },
+      },
     },
-    options: [1, 2, 3, 4, 5],
-  },
-  legs,
-  status,
+  ],
 };
 
-Stops4.args = {
-  legs: sampleData.stop4,
-  status: 'past',
-};
-
-Stops9.argTypes = {
-  cancelPart: {
-    control: {
-      type: 'inline-check',
+export const CancelledManyStops = Template.bind({});
+CancelledManyStops.argTypes = defaultArgTypes;
+CancelledManyStops.args = {
+  legs: [
+    {
+      duration: 300,
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
     },
-    options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  },
-  legs,
-  status,
+    {
+      duration: 300,
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+    {
+      duration: 211,
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: true,
+        },
+      },
+    },
+    {
+      duration: 300,
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: true,
+        },
+      },
+    },
+    {
+      duration: 300,
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+  ],
 };
 
-Stops9.args = {
-  legs: sampleData.stop9,
-  status: '66',
+export const withData = Template.bind({});
+withData.argTypes = defaultArgTypes;
+withData.args = {
+  legs: data,
+};
+
+export const Past = Template.bind({});
+Past.argTypes = defaultArgTypes;
+Past.args = {
+  legs: [
+    {
+      duration: 120,
+      id: 'test',
+      arrival: { time: '2022-08-16T05:00:00' },
+      departure: { time: '2022-08-16T03:00:00' },
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+    {
+      duration: 600,
+      id: 'test',
+      arrival: { time: '2022-08-16T17:00:00' },
+      departure: { time: '2022-08-16T08:00:00' },
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+    {
+      duration: 600,
+      id: 'test',
+      arrival: { time: '2022-08-16T17:00:00' },
+      departure: { time: '2022-08-16T08:00:00' },
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false,
+        },
+      },
+    },
+  ],
 };
 
 export default {
@@ -172,5 +169,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-pearl-chain (Unfinished)',
+  title: 'components/timetable/pearl-chains/sbb-pearl-chain',
 };

@@ -430,7 +430,7 @@ which should minimize the performance impact of this detection.
 depending on context, this should be discussed at design level.**
 
 ```ts
-@Element() el!: HTMLElement;
+@Element() element!: HTMLElement;
 
 connectedCallback() {
   // Check if the current element is nested in either an `<a>` or `<button>` element.
