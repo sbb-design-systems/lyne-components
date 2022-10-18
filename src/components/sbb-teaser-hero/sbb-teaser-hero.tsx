@@ -87,7 +87,7 @@ export class SbbTeaserHero implements LinkProperties {
           )}
         </span>
         <slot name="image">
-          <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>
+          {this.imageSrc && <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>}
         </slot>
         {screenReaderNewWindowInfo && (
           <span class="sbb-teaser-hero__opens-in-new-window">

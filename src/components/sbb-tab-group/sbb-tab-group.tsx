@@ -103,7 +103,7 @@ export class SbbTabGroup {
   }
 
   public connectedCallback(): void {
-    this._isNested = !!hostContext('sbb-tab-group', this._element.parentElement);
+    this._isNested = !!hostContext('sbb-tab-group', this._element);
   }
 
   public componentWillLoad(): void {
