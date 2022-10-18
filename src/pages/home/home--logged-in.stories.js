@@ -105,7 +105,7 @@ const Template = (args) => (
         </span>
         Suchen
       </sbb-header-action>
-      <sbb-header-action>
+      <sbb-header-action id="user-menu-trigger">
         <span slot="icon">
           <svg
             width="24"
@@ -124,7 +124,18 @@ const Template = (args) => (
         </span>
         Christina Müller
       </sbb-header-action>
-      <sbb-header-action className="sbb-header-action__last-element">
+      <sbb-menu trigger="user-menu-trigger">
+        <sbb-menu-action icon-name="user-small" href="/">
+          Account
+        </sbb-menu-action>
+        <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
+        <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+          Shopping cart
+        </sbb-menu-action>
+        <sbb-divider />
+        <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+      </sbb-menu>
+      <sbb-header-action id="language-menu-trigger" className="sbb-header-action__last-element">
         <span slot="icon">
           <svg
             width="24"
@@ -156,6 +167,12 @@ const Template = (args) => (
         </span>
         Deutsch
       </sbb-header-action>
+      <sbb-menu trigger="language-menu-trigger">
+        <sbb-menu-action icon-name="tick-small">Deutsch</sbb-menu-action>
+        <sbb-menu-action>Français</sbb-menu-action>
+        <sbb-menu-action>Italiano</sbb-menu-action>
+        <sbb-menu-action>English</sbb-menu-action>
+      </sbb-menu>
     </sbb-header>
 
     {/* *************************************************

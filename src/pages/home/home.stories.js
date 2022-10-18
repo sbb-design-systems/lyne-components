@@ -124,7 +124,7 @@ const Template = (args) => (
         </span>
         Anmelden
       </sbb-header-action>
-      <sbb-header-action class="sbb-header-action__last-element">
+      <sbb-header-action id="language-menu-trigger" class="sbb-header-action__last-element">
         <span slot="icon">
           <svg
             width="24"
@@ -156,6 +156,12 @@ const Template = (args) => (
         </span>
         Deutsch
       </sbb-header-action>
+      <sbb-menu trigger="language-menu-trigger">
+        <sbb-menu-action icon-name="tick-small">Deutsch</sbb-menu-action>
+        <sbb-menu-action>Français</sbb-menu-action>
+        <sbb-menu-action>Italiano</sbb-menu-action>
+        <sbb-menu-action>English</sbb-menu-action>
+      </sbb-menu>
     </sbb-header>
 
     {/* *************************************************
