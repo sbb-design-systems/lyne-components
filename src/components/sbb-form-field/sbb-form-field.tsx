@@ -99,6 +99,8 @@ export class SbbFormField implements ComponentInterface {
    */
   private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
+  private _isNativeInput?: boolean | undefined;
+
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
    */
@@ -133,14 +135,16 @@ export class SbbFormField implements ComponentInterface {
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
   private _onSlotInputChange(event: Event): void {
-    this._input = (event.target as HTMLSlotElement)
-      .assignedElements()
-      .find(
-        (e): e is HTMLElement =>
-          e.tagName === 'INPUT' ||
-          e.tagName === 'SELECT' ||
-          e.classList.contains('sbb-form-field-element')
-      );
+    const slot = (event.target as HTMLSlotElement).assignedElements();
+    this._isNativeInput = slot.some(
+      (e): boolean => e.tagName === 'INPUT' || e.tagName === 'SELECT'
+    );
+    this._input = slot.find(
+      (e): e is HTMLElement =>
+        e.tagName === 'INPUT' ||
+        e.tagName === 'SELECT' ||
+        e.classList.contains('sbb-form-field-element')
+    );
     if (this._input) {
       this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
       this._applyAriaDescribedby();
@@ -154,6 +158,18 @@ export class SbbFormField implements ComponentInterface {
       if (!this._input.id) {
         this._input.id = `sbb-form-field-input-${nextId++}`;
       }
+    }
+  }
+
+  /**
+   * The `_input` could refer to a custom component; in that case, the inner `input` or `select` must be focused.
+   * @private
+   */
+  private _focusInputElement(): void {
+    if (this._isNativeInput) {
+      this._input?.focus();
+    } else {
+      (this._input?.shadowRoot.querySelector('input,select') as HTMLElement)?.focus();
     }
   }
 
@@ -188,7 +204,7 @@ export class SbbFormField implements ComponentInterface {
       >
         <div class="form-field__space-wrapper">
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div onClick={(): void => this._input?.focus()} class="form-field__wrapper">
+          <div onClick={(): void => this._focusInputElement()} class="form-field__wrapper">
             <slot name="prefix"></slot>
 
             <div class="form-field__input-container">
