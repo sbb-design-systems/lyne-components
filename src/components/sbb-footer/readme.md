@@ -38,7 +38,7 @@ Variante clock-columns with wrapped link-list with button:
       <sbb-link href="#" text-size="s" variant="block" slot="link-3">Praise</sbb-link>
       <sbb-link href="#" text-size="s" variant="block" slot="link-4">Report property damage</sbb-link>
     </sbb-link-list>
-    <sbb-button variant="primary" size="m" label="All help topics" event-id="Event ID" name="sample-name" value="sample-value"></sbb-button>
+    <sbb-button href="#" variant="primary">All help topics</sbb-button>
   </div>
   <sbb-link-list title-level="2" title-content="More SBB.">
     <sbb-link href="#" text-size="s" variant="block" slot="link-0">Jobs & careers</sbb-link>
