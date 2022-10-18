@@ -1,0 +1,76 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-menu-action-border-radius: var(--sbb-border-radius-8x);
+  --sbb-menu-action-outer-horizontal-padding: var(--sbb-spacing-fixed-3x);
+  --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
+}
+
+:host(:focus-within) {
+  outline: none;
+}
+
+.sbb-menu-action {
+  @include buttonReset;
+
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  color: var(--sbb-color-white-default);
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  :host([disabled]) & {
+    cursor: default;
+    color: var(--sbb-color-graphite-default);
+  }
+}
+
+.sbb-menu-action__content {
+  @include text-xs--regular;
+
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-menu-action-gap);
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+  border-radius: var(--sbb-menu-action-border-radius);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  .sbb-menu-action:focus-visible & {
+    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+    @include focusOutline;
+  }
+
+  @include hover-mq($hover: true) {
+    // stylelint-disable-next-line plugin/stylelint-bem-namics
+    :host(:not([disabled])) .sbb-menu-action:hover & {
+      background-color: var(--sbb-color-iron-default);
+    }
+  }
+}
+
+.sbb-menu-action__icon {
+  display: flex;
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-menu-action__label {
+  @include ellipsis;
+
+  :host([disabled]) & {
+    text-decoration: line-through;
+  }
+}
+
+.sbb-menu-action__amount {
+  @include badge;
+}

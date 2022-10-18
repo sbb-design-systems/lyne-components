@@ -262,7 +262,7 @@ export namespace Components {
         /**
           * Whether the button is disabled.
          */
-        "disabled"?: boolean;
+        "disabled": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -681,7 +681,7 @@ export namespace Components {
         /**
           * Whether the button is disabled.
          */
-        "disabled"?: boolean;
+        "disabled": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -778,6 +778,94 @@ export namespace Components {
           * According to the Corporate Design Guidelines the logo can be used in these variants
          */
         "variant"?: InterfaceLogoAttributes['variant'];
+    }
+    interface SbbMenu {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Dismisses the menu.
+         */
+        "dismiss": () => Promise<void>;
+        /**
+          * Opens the menu on trigger click.
+         */
+        "present": () => Promise<void>;
+        /**
+          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
+    interface SbbMenuAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls": string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup": PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Value shown as badge at component end.
+         */
+        "amount"?: string | undefined;
+        /**
+          * Whether the button is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string;
+        /**
+          * The href value you want to link to (if it is not present menu action becomes a button).
+         */
+        "href": string | undefined;
+        /**
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string | undefined;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "menuActionId": string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * The type attribute to use for the button.
+         */
+        "type": ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
+         */
+        "value"?: string;
     }
     interface SbbOverlay {
         /**
@@ -1267,6 +1355,14 @@ export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbLinkElement;
 }
+export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbMenuElement;
+}
+export interface SbbMenuActionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbMenuActionElement;
+}
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
@@ -1421,6 +1517,18 @@ declare global {
     var HTMLSbbLogoElement: {
         prototype: HTMLSbbLogoElement;
         new (): HTMLSbbLogoElement;
+    };
+    interface HTMLSbbMenuElement extends Components.SbbMenu, HTMLStencilElement {
+    }
+    var HTMLSbbMenuElement: {
+        prototype: HTMLSbbMenuElement;
+        new (): HTMLSbbMenuElement;
+    };
+    interface HTMLSbbMenuActionElement extends Components.SbbMenuAction, HTMLStencilElement {
+    }
+    var HTMLSbbMenuActionElement: {
+        prototype: HTMLSbbMenuActionElement;
+        new (): HTMLSbbMenuActionElement;
     };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
@@ -1632,6 +1740,8 @@ declare global {
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
+        "sbb-menu": HTMLSbbMenuElement;
+        "sbb-menu-action": HTMLSbbMenuActionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -2429,6 +2539,106 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
+    interface SbbMenu {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Emits whenever the menu is dismissed.
+         */
+        "onSbb-menu_did-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu is presented.
+         */
+        "onSbb-menu_did-present"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu begins the closing transition.
+         */
+        "onSbb-menu_will-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu starts the presenting transition.
+         */
+        "onSbb-menu_will-present"?: (event: SbbMenuCustomEvent<void>) => void;
+        /**
+          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
+    interface SbbMenuAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls"?: string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup"?: PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Value shown as badge at component end.
+         */
+        "amount"?: string | undefined;
+        /**
+          * Whether the button is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string;
+        /**
+          * The href value you want to link to (if it is not present menu action becomes a button).
+         */
+        "href"?: string | undefined;
+        /**
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string | undefined;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "menuActionId"?: string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
+        /**
+          * Emits the event on button click.
+         */
+        "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * The type attribute to use for the button.
+         */
+        "type"?: ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
+         */
+        "value"?: string;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -2913,6 +3123,8 @@ declare namespace LocalJSX {
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
+        "sbb-menu": SbbMenu;
+        "sbb-menu-action": SbbMenuAction;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -2973,6 +3185,8 @@ declare module "@stencil/core" {
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
+            "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
+            "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
