@@ -1,5 +1,4 @@
 import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
-import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic';
 
@@ -102,7 +101,7 @@ const TemplateDefault = (args) => (
   </sbb-footer>
 );
 
-const Template = (args) => (
+const Template = ({ ...args }) => (
   <sbb-footer accessibility-title="Footer" {...args}>
     <div class="sbb-link-list-button-group">
       <sbb-link-list title-level="2" title-content="Help &amp; Contact.">
@@ -199,7 +198,11 @@ const Template = (args) => (
         Subscribe
       </sbb-button>
     </div>
-    <sbb-clock {...args.sbbClock}></sbb-clock>
+    <sbb-clock
+      {...(isChromatic()
+        ? { 'initial-time': '01:59:27', paused: true }
+        : { 'initial-time': 'now' })}
+    ></sbb-clock>
     <sbb-divider />
     <sbb-link-list horizontal-from="large">
       <sbb-link
@@ -302,30 +305,6 @@ footerDefaultNegative.documentation = {
   },
   title: 'Footer Negative (default/no layout)',
 };
-
-/**
- * Stop the clock for Chromatic visual regression tests
- * and set time to given time
- */
-if (isChromatic()) {
-  footer.args.sbbClock = {
-    'initial-time': '01:59:27',
-    paused: true,
-  };
-  footerNegative.args.sbbClock = {
-    'initial-time': '01:59:27',
-    paused: true,
-  };
-} else {
-  footer.args.sbbClock = {
-    'initial-time': 'now',
-    paused: false,
-  };
-  footerNegative.args.sbbClock = {
-    'initial-time': 'now',
-    paused: false,
-  };
-}
 
 /* ************************************************* */
 /* Render storybook section and stories              */
