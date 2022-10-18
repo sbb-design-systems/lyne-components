@@ -150,6 +150,7 @@ export class SbbMenu implements ComponentInterface {
       return;
     }
 
+    // TODO: Evaluate or extract focus trap mechanism
     if (event.key !== 'Tab') {
       return;
     }
@@ -283,9 +284,7 @@ export class SbbMenu implements ComponentInterface {
       this.didPresent.emit();
       this._setDialogFocus();
       this.onResizeWindowEvent();
-    }
-
-    if (event.animationName === 'hide') {
+    } else if (event.animationName === 'hide') {
       this._isDismissing = false;
       this._presented = false;
       this._dialog.firstElementChild.scrollTo(0, 0);
@@ -297,6 +296,7 @@ export class SbbMenu implements ComponentInterface {
 
   // Avoid possible double focus on some elements.
   private _focusMenuElement(element: HTMLElement): void {
+    // TODO: Consider handling/forwarding focus event on these components
     if (['SBB-BUTTON', 'SBB-LINK', 'SBB-MENU-ACTION'].includes(element.nodeName)) {
       (element.shadowRoot.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement).focus();
     } else {
