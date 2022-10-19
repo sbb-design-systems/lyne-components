@@ -58,6 +58,9 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   min-width: var(--sbb-header-action-min-width);
   padding-inline: var(--sbb-header-action-padding-inline);
   border-radius: var(--sbb-border-radius-16x);
+  transition-property: background-color;
+  transition-duration: var(--sbb-animation-duration-2x);
+  transition-timing-function: ease-in;
   cursor: pointer;
 
   :host([href]) & {
