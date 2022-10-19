@@ -102,6 +102,7 @@ const TemplateDefault = (args) => (
   </sbb-footer>
 );
 
+// TODO find a better approach for newletter link-list
 const Template = ({ ...args }) => (
   <sbb-footer accessibility-title="Footer" {...args}>
     <div class="sbb-link-list-button-group">
