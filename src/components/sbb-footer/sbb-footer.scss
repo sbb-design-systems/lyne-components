@@ -79,7 +79,7 @@
 
   @include mq($from: wide) {
     slot {
-      grid-template-columns: repeat(5, calc(25% - ((3 * var(--sbb-footer-gap-horizontal)) / 4)));
+      grid-template-columns: repeat(4, calc(25% - ((3 * var(--sbb-footer-gap-horizontal)) / 4)));
     }
 
     /* stylelint-disable-next-line plugin/stylelint-bem-namics */
@@ -112,9 +112,7 @@
 .footer {
   @include page-spacing;
 
-  margin-block-start: var(--sbb-spacing-responsive-l);
-  padding-block-start: var(--sbb-spacing-responsive-l);
-  padding-block-end: var(--sbb-spacing-responsive-l);
+  padding-block: var(--sbb-spacing-responsive-l);
   background-color: var(--sbb-footer-background-color);
 
   ::slotted(.sbb-link-list-button-group) {
