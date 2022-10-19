@@ -122,17 +122,3 @@
     align-items: flex-start;
   }
 }
-
-.bottom {
-  @include page-spacing__inner;
-}
-
-// Increase sbb-footer resilience
-//
-// Only apply spacing and thin line if footer bottom has a predecessor, excluding
-// the hidden title which always needs to be present
-:not(.title--visually-hidden) + .bottom {
-  margin-block-start: var(--sbb-spacing-responsive-xl);
-  border-block-start: var(--sbb-footer-divider-thickness) solid var(--sbb-footer-divider-color);
-  padding-block-start: var(--sbb-spacing-fixed-8x);
-}
