@@ -5,20 +5,20 @@ describe('sbb-slider', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbSlider],
-      html: '<sbb-slider />',
+      html: '<sbb-slider max="500" value="100"/>',
     });
 
     expect(root).toEqualHtml(`
-        <sbb-slider>
+        <sbb-slider max="500" value="100">
           <mock:shadow-root>
-               <div class="slider__wrapper">
+               <div class="sbb-slider__wrapper">
                  <sbb-icon slot="prefix"></sbb-icon>
-                 <div class="slider__container" style="--slider-value-fraction: NaN; --slider-step-fraction: 0;">
-                   <input class="slider__range-input" max="100" min="0" type="range">
-                   <div class="slider__line">
-                     <div class="slider__selected-line"></div>
+                 <div class="sbb-slider__container" style="--sbb-slider-value-fraction: NaN; --sbb-slider-step-fraction: 0;">
+                   <input class="sbb-slider__range-input" max="500" min="0" value="100" type="range">
+                   <div class="sbb-slider__line">
+                     <div class="sbb-slider__selected-line"></div>
                    </div>
-                   <div class="slider__knob"></div>
+                   <div class="sbb-slider__knob"></div>
                  </div>
                  <sbb-icon slot="suffix"></sbb-icon>
                </sbb-form-field>

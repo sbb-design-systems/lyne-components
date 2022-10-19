@@ -69,6 +69,9 @@ export class SbbSlider {
    */
   @State() private _valueFraction = 0;
 
+  /**
+   * Host element
+   */
   @Element() private _element!: HTMLElement;
 
   /**
@@ -76,12 +79,18 @@ export class SbbSlider {
    */
   private _rangeInput!: HTMLInputElement;
 
+  /**
+   * Indicates if the component is used within a sbb-form-field.
+   */
   private _isInFormField: boolean;
 
   public connectedCallback(): void {
     this._isInFormField = !!hostContext('sbb-form-field', this._element.parentElement);
   }
 
+  /**
+   * Recalculates the `_valueFraction` on change to correctly display the slider.
+   */
   private _handleChange(): void {
     const value = this._rangeInput.valueAsNumber;
     const min = +this._rangeInput.min;
@@ -89,6 +98,9 @@ export class SbbSlider {
     this._valueFraction = (value - min) / (max - min);
   }
 
+  /**
+   * Emits the change event.
+   */
   private _emitChange(): void {
     this.sbbChange.emit({
       value: this._rangeInput.valueAsNumber,
@@ -97,6 +109,9 @@ export class SbbSlider {
     });
   }
 
+  /**
+   * If an end icon is provided, increases the value when clicking on it.
+   */
   private _incrementWithIcon(): void {
     if (!this.disabled && !this.readonly) {
       if (this._rangeInput.valueAsNumber === +this._rangeInput.max) {
@@ -113,6 +128,9 @@ export class SbbSlider {
     }
   }
 
+  /**
+   * If a start icon is provided, reduces the value when clicking on it.
+   */
   private _decrementWithIcon(): void {
     if (!this.disabled && !this.readonly) {
       if (this._rangeInput.valueAsNumber === +this._rangeInput.min) {
@@ -150,13 +168,13 @@ export class SbbSlider {
 
     return (
       <Host class={{ 'sbb-form-field-element': this._isInFormField }}>
-        <div class="slider__wrapper">
+        <div class="sbb-slider__wrapper">
           <sbb-icon slot="prefix" name={this.startIcon} onClick={() => this._decrementWithIcon()} />
           <div
-            class="slider__container"
+            class="sbb-slider__container"
             style={{
-              '--slider-value-fraction': this._valueFraction.toString(),
-              '--slider-step-fraction': stepFraction.toString(),
+              '--sbb-slider-value-fraction': this._valueFraction.toString(),
+              '--sbb-slider-step-fraction': stepFraction.toString(),
             }}
           >
             <input
@@ -164,7 +182,7 @@ export class SbbSlider {
                 this._rangeInput = e;
                 this._handleChange();
               }}
-              class="slider__range-input"
+              class="sbb-slider__range-input"
               type="range"
               {...inputAttributes}
               onChange={() => this._emitChange()}
@@ -172,25 +190,25 @@ export class SbbSlider {
             ></input>
             <div
               class={{
-                slider__line: !this.disabled && !this.readonly,
-                'slider__line-disabled': this.disabled,
-                'slider__line-readonly': this.readonly,
-                'slider__line--stepped': isStepped,
+                'sbb-slider__line': !this.disabled && !this.readonly,
+                'sbb-slider__line-disabled': this.disabled,
+                'sbb-slider__line-readonly': this.readonly,
+                'sbb-slider__line--stepped': isStepped,
               }}
             >
               <div
                 class={{
-                  'slider__selected-line': !this.disabled && !this.readonly,
-                  'slider__selected-line-disabled': this.disabled,
-                  'slider__selected-line-readonly': this.readonly,
+                  'sbb-slider__selected-line': !this.disabled && !this.readonly,
+                  'sbb-slider__selected-line-disabled': this.disabled,
+                  'sbb-slider__selected-line-readonly': this.readonly,
                 }}
               ></div>
             </div>
             <div
               class={{
-                slider__knob: !this.disabled && !this.readonly,
-                'slider__knob-disabled': this.disabled,
-                'slider__knob-readonly': this.readonly,
+                'sbb-slider__knob': !this.disabled && !this.readonly,
+                'sbb-slider__knob-disabled': this.disabled,
+                'sbb-slider__knob-readonly': this.readonly,
               }}
             ></div>
           </div>
