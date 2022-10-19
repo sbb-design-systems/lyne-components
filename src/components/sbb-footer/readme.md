@@ -32,29 +32,29 @@ Variante clock-columns with wrapped link-list with button:
 <sbb-footer accessibility-title="Footer" variant="clock-columns">
   <div class="sbb-link-list-button-group">
     <sbb-link-list title-level="2" title-content="Help &amp; Contact.">
-      <sbb-link href="#" text-size="s" variant="block" slot="link-0">Refunds</sbb-link>
-      <sbb-link href="#" text-size="s" variant="block" slot="link-1">Lost property office</sbb-link>
-      <sbb-link href="#" text-size="s" variant="block" slot="link-2">Complaints</sbb-link>
-      <sbb-link href="#" text-size="s" variant="block" slot="link-3">Praise</sbb-link>
-      <sbb-link href="#" text-size="s" variant="block" slot="link-4">Report property damage</sbb-link>
+      <sbb-link href="#"  slot="link-0">Refunds</sbb-link>
+      <sbb-link href="#"  slot="link-1">Lost property office</sbb-link>
+      <sbb-link href="#"  slot="link-2">Complaints</sbb-link>
+      <sbb-link href="#"  slot="link-3">Praise</sbb-link>
+      <sbb-link href="#"  slot="link-4">Report property damage</sbb-link>
     </sbb-link-list>
     <sbb-button href="#" variant="primary">All help topics</sbb-button>
   </div>
   <sbb-link-list title-level="2" title-content="More SBB.">
-    <sbb-link href="#" text-size="s" variant="block" slot="link-0">Jobs & careers</sbb-link>
-    <sbb-link href="#" text-size="s" variant="block" slot="link-1">Rail traffic information</sbb-link>
-    <sbb-link href="#" text-size="s" variant="block" slot="link-2">SBB News</sbb-link>
-    <sbb-link href="#" text-size="s" variant="block" slot="link-3">SBB Community</sbb-link>
-    <sbb-link href="#" text-size="s" variant="block" slot="link-4">Company</sbb-link>
+    <sbb-link href="#"  slot="link-0">Jobs & careers</sbb-link>
+    <sbb-link href="#"  slot="link-1">Rail traffic information</sbb-link>
+    <sbb-link href="#"  slot="link-2">SBB News</sbb-link>
+    <sbb-link href="#"  slot="link-3">SBB Community</sbb-link>
+    <sbb-link href="#"  slot="link-4">Company</sbb-link>
   </sbb-link-list>
   ...
   <sbb-divider class="sbb-divider sbb-divider--horizontal hydrated" role="separator" aria-orientation="horizontal"></sbb-divider>  
   <sbb-link-list horizontal-from="large">
-    <sbb-link href="#" text-size="xs" variant="block" slot="link-0">Refunds</sbb-link>
-    <sbb-link href="#" text-size="xs" variant="block" slot="link-1">Lost property office</sbb-link>
-    <sbb-link href="#" text-size="xs" variant="block" slot="link-2">Complaints</sbb-link>
-    <sbb-link href="#" text-size="xs" variant="block" slot="link-3">Praise</sbb-link>
-    <sbb-link href="#" text-size="xs" variant="block" slot="link-4">Report property damage</sbb-link>
+    <sbb-link href="#" text-size="xs"  slot="link-0">Refunds</sbb-link>
+    <sbb-link href="#" text-size="xs"  slot="link-1">Lost property office</sbb-link>
+    <sbb-link href="#" text-size="xs"  slot="link-2">Complaints</sbb-link>
+    <sbb-link href="#" text-size="xs"  slot="link-3">Praise</sbb-link>
+    <sbb-link href="#" text-size="xs"  slot="link-4">Report property damage</sbb-link>
   </sbb-link-list>
 
 </sbb-footer>
