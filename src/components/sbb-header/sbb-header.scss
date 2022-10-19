@@ -3,10 +3,10 @@
 @include host-component-properties;
 
 :host {
-  --logo-height: #{px-to-rem-build(16)};
+  --sbb-logo-height: #{px-to-rem-build(16)};
 
   @include mq($from: medium) {
-    --logo-height: #{px-to-rem-build(20)};
+    --sbb-logo-height: #{px-to-rem-build(20)};
   }
 
   height: var(--sbb-header-height-override, var(--sbb-header-height));
@@ -15,9 +15,7 @@
 .sbb-header {
   display: block;
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
+  inset: 0 0 auto;
   padding: 0 var(--sbb-page-base-offset-responsive);
   background: var(--sbb-color-white-default);
   transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
@@ -31,17 +29,15 @@
 .sbb-header__wrapper {
   display: flex;
   flex: 0 1 auto;
-  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   padding: 0;
-  gap: 0;
   height: var(--sbb-header-height-override, var(--sbb-header-height));
   width: 100%;
 }
 
 .sbb-header__logo {
-  height: var(--logo-height);
+  height: var(--sbb-logo-height);
   aspect-ratio: 19/2;
   margin-inline-start: auto;
 }
