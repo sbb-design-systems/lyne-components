@@ -20,7 +20,9 @@
   "files": [
     "dist/",
     "loader/",
-    "hydrate"
+    "hydrate",
+    "_index.scss",
+    "src/global/**/*.scss"
   ],
   "scripts": {
     "build:stencil": "stencil build --ci --prod --docs",
