@@ -58,17 +58,16 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   min-width: var(--sbb-header-action-min-width);
   padding-inline: var(--sbb-header-action-padding-inline);
   border-radius: var(--sbb-border-radius-16x);
+  cursor: pointer;
 
   :host([href]) & {
     text-decoration: none;
-    cursor: pointer;
   }
 
   /* stylelint-disable-next-line plugin/stylelint-bem-namics */
   :host(:not([href])) & {
     @include text-inherit;
 
-    cursor: pointer;
     border: none;
     appearance: none;
     -webkit-tap-highlight-color: transparent;
