@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.13 (2022-10-19)
+
+### Features
+
+- add experimental sass output ([#1412](https://github.com/lyne-design-system/lyne-components/issues/1412)) ([3ab884f](https://github.com/lyne-design-system/lyne-components/commit/3ab884fdd05a68547f2a8db9bccd6176c14aa1bf))
+
 ### 0.9.12 (2022-10-18)
 
 ### Features
