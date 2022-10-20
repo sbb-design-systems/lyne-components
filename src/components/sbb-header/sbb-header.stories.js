@@ -43,9 +43,7 @@ const TemplateActions = (args) => [
       Menu
     </sbb-header-action>
     <div class="spacer" />
-    <sbb-header-action icon="magnifying-glass-small" stroke="blue">
-      Suchen
-    </sbb-header-action>
+    <sbb-header-action icon="magnifying-glass-small">Suchen</sbb-header-action>
     <sbb-header-action icon="user-small">Anmelden</sbb-header-action>
     <sbb-header-action icon="globe-small">Deutsch</sbb-header-action>
   </sbb-header>,

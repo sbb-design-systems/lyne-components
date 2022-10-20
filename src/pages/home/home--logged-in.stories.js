@@ -135,36 +135,7 @@ const Template = (args) => (
         <sbb-divider />
         <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
       </sbb-menu>
-      <sbb-header-action id="language-menu-trigger" className="last-element">
-        <span slot="icon">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M19.5 12C19.5 7.582 15.918 4 11.5 4C7.082 4 3.5 7.582 3.5 12C3.5 16.418 7.082 20 11.5 20C15.918 20 19.5 16.418 19.5 12Z"
-              stroke="black"
-              stroke-width="2"
-            />
-            <path
-              d="M10 19.4998C8.77764 17.6984 8 15.0088 8 12.0003C8 8.99071 8.77764 6.30111 10 4.49976"
-              stroke="black"
-              stroke-width="2"
-            />
-            <path
-              d="M13 4.49976C14.2228 6.30011 15 8.99071 15 11.9993C15 15.0088 14.2228 17.6974 13 19.4998"
-              stroke="black"
-              stroke-width="2"
-            />
-            <path d="M4 9.49976L19 9.49976" stroke="black" stroke-width="2" />
-            <path d="M19 14.4998L4 14.4998" stroke="black" stroke-width="2" />
-          </svg>
-        </span>
+      <sbb-header-action icon="globe-small" id="language-menu-trigger" className="last-element">
         Deutsch
       </sbb-header-action>
       <sbb-menu trigger="language-menu-trigger">
