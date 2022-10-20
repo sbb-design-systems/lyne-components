@@ -12,6 +12,8 @@
 svg {
   width: var(--sbb-icon-svg-width);
   height: var(--sbb-icon-svg-height);
+  stroke: var(--sbb-icon-svg-stroke-color);
+  stroke-width: var(--sbb-icon-svg-stroke-width);
 
   &:not(.color-immutable) {
     [fill]:not([fill='none']) {
