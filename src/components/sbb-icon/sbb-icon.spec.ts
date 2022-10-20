@@ -78,7 +78,7 @@ describe('sbb-icon', () => {
       </sbb-icon>
     `);
 
-    icon.name = 'pie-medium';
+    icon.setAttribute('name', 'pie-medium');
     await page.waitForChanges();
 
     expect(icon).toEqualHtml(`
