@@ -1,7 +1,7 @@
 import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import readme from './readme.md';
 import { h } from 'jsx-dom';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 
 /* ************************************************* */
 /* Documentation platform container                  */

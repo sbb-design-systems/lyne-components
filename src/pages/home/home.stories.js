@@ -3,7 +3,7 @@ import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-de
 import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 
 /* ************************************************* */
 /* Documentation platform container                  */
