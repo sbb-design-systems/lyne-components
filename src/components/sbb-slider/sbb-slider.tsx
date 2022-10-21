@@ -101,12 +101,22 @@ export class SbbSlider implements ComponentInterface {
   }
 
   /**
-   * Recalculates the `_valueFraction` on change to correctly display the slider.
+   * Recalculates the `_valueFraction` on change to correctly display the slider knob and lines.
+   * The first calculation happens in connectedCallback(...), so since `_rangeInput` is not yet available,
+   * the `min` and `max` values are used; if `value` is not provided, the default value is halfway between min and max
+   * (see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#value).
    */
   private _handleChange(): void {
-    const value: number = this._rangeInput?.valueAsNumber ?? +this.value;
-    const min: number = (this._rangeInput && +this._rangeInput.min) ?? +this.min;
-    const max: number = (this._rangeInput && +this._rangeInput.max) ?? +this.max;
+    let min: number, max: number, value: number;
+    if (this._rangeInput) {
+      min = +this._rangeInput.min;
+      max = +this._rangeInput.max;
+      value = this._rangeInput.valueAsNumber;
+    } else {
+      min = +this.min;
+      max = +this.max;
+      value = this.value ? +this.value : (+this.min + (+this.max - +this.min) / 2);
+    }
     const mathFraction: number = (value - min) / (max - min);
     this._valueFraction =
       isNaN(mathFraction) || mathFraction < 0 ? 0 : mathFraction > 1 ? 1 : mathFraction;
