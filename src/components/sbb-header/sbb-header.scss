@@ -32,8 +32,10 @@
   align-items: center;
   justify-content: flex-start;
   padding: 0;
+  margin-inline: auto;
   height: var(--sbb-header-height-override, var(--sbb-header-height));
   width: 100%;
+  max-width: #{px-to-rem-build(1200)};
 }
 
 .sbb-header__logo {
