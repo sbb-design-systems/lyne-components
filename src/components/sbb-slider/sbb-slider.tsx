@@ -1,4 +1,15 @@
-import { Component, Element, Event, EventEmitter, h, Host, JSX, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Host,
+  JSX,
+  Prop,
+  State,
+} from '@stencil/core';
 import { hostContext } from '../../global/helpers/host-context';
 import { SbbSliderChange } from './sbb-slider.custom';
 
@@ -11,7 +22,7 @@ import { SbbSliderChange } from './sbb-slider.custom';
   styleUrl: 'sbb-slider.scss',
   tag: 'sbb-slider',
 })
-export class SbbSlider {
+export class SbbSlider implements ComponentInterface {
   /**
    * Value for the inner HTMLInputElement.
    */
@@ -86,16 +97,19 @@ export class SbbSlider {
 
   public connectedCallback(): void {
     this._isInFormField = !!hostContext('sbb-form-field', this._element.parentElement);
+    this._handleChange();
   }
 
   /**
    * Recalculates the `_valueFraction` on change to correctly display the slider.
    */
   private _handleChange(): void {
-    const value = this._rangeInput.valueAsNumber;
-    const min = +this._rangeInput.min;
-    const max = +this._rangeInput.max;
-    this._valueFraction = (value - min) / (max - min);
+    const value: number = this._rangeInput?.valueAsNumber ?? +this.value;
+    const min: number = (this._rangeInput && +this._rangeInput.min) ?? +this.min;
+    const max: number = (this._rangeInput && +this._rangeInput.max) ?? +this.max;
+    const mathFraction: number = (value - min) / (max - min);
+    this._valueFraction =
+      isNaN(mathFraction) || mathFraction < 0 ? 0 : mathFraction > 1 ? 1 : mathFraction;
   }
 
   /**
@@ -169,7 +183,11 @@ export class SbbSlider {
     return (
       <Host class={{ 'sbb-form-field-element': this._isInFormField }}>
         <div class="sbb-slider__wrapper">
-          <sbb-icon slot="prefix" name={this.startIcon} onClick={() => this._decrementWithIcon()} />
+          <slot name="prefix">
+            {this.startIcon && (
+              <sbb-icon name={this.startIcon} onClick={() => this._decrementWithIcon()} />
+            )}
+          </slot>
           <div
             class="sbb-slider__container"
             style={{
@@ -183,11 +201,8 @@ export class SbbSlider {
               {...inputAttributes}
               onChange={() => this._emitChange()}
               onInput={() => this._handleChange()}
-              ref={(e) => {
-                this._rangeInput = e;
-                this._handleChange();
-              }}
-            ></input>
+              ref={(input) => (this._rangeInput = input)}
+            />
             <div
               class={{
                 'sbb-slider__line': !this.disabled && !this.readonly,
@@ -212,7 +227,11 @@ export class SbbSlider {
               }}
             ></div>
           </div>
-          <sbb-icon slot="suffix" name={this.endIcon} onClick={() => this._incrementWithIcon()} />
+          <slot name="suffix">
+            {this.endIcon && (
+              <sbb-icon name={this.endIcon} onClick={() => this._incrementWithIcon()} />
+            )}
+          </slot>
         </div>
       </Host>
     );
