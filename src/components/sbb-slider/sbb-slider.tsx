@@ -51,12 +51,12 @@ export class SbbSlider {
   /**
    * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
    */
-  @Prop() public startIcon?: string;
+  @Prop() public startIcon!: string;
 
   /**
    * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
    */
-  @Prop() public endIcon?: string;
+  @Prop() public endIcon!: string;
 
   /**
    * Event emitted when the value of the inner HTMLInputElement changes.
@@ -149,12 +149,12 @@ export class SbbSlider {
 
   public render(): JSX.Element {
     const inputAttributes = {
-      value: this.value || null,
       name: this.name || null,
       min: this.min || null,
       max: this.max || null,
       step: this.step || null,
       disabled: this.disabled || this.readonly || null,
+      value: this.value || null,
     };
     const step = +this.step;
     const stepFraction = Number.isNaN(step)
@@ -178,15 +178,15 @@ export class SbbSlider {
             }}
           >
             <input
-              ref={(e) => {
-                this._rangeInput = e;
-                this._handleChange();
-              }}
               class="sbb-slider__range-input"
               type="range"
               {...inputAttributes}
               onChange={() => this._emitChange()}
               onInput={() => this._handleChange()}
+              ref={(e) => {
+                this._rangeInput = e;
+                this._handleChange();
+              }}
             ></input>
             <div
               class={{

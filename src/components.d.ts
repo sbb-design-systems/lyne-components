@@ -1106,7 +1106,7 @@ export namespace Components {
         /**
           * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
          */
-        "endIcon"?: string;
+        "endIcon": string;
         /**
           * Maximum acceptable value for the inner HTMLInputElement.
          */
@@ -1126,7 +1126,7 @@ export namespace Components {
         /**
           * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
          */
-        "startIcon"?: string;
+        "startIcon": string;
         /**
           * The granularity of the possible values for the inner HTMLInputElement.
          */
@@ -3158,7 +3158,7 @@ declare namespace LocalJSX {
         /**
           * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
          */
-        "endIcon"?: string;
+        "endIcon": string;
         /**
           * Maximum acceptable value for the inner HTMLInputElement.
          */
@@ -3182,7 +3182,7 @@ declare namespace LocalJSX {
         /**
           * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
          */
-        "startIcon"?: string;
+        "startIcon": string;
         /**
           * The granularity of the possible values for the inner HTMLInputElement.
          */
