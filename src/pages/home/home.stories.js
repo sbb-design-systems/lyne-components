@@ -70,7 +70,7 @@ const Template = (args) => (
         Menu
       </sbb-header-action>
       <div class="spacer" />
-      <sbb-header-action>Suchen</sbb-header-action>
+      <sbb-header-action icon="magnifying-glass-small">Suchen</sbb-header-action>
       <sbb-header-action icon="user-small">Anmelden</sbb-header-action>
       <sbb-header-action icon="globe-small" id="language-menu-trigger" class="last-element">
         Deutsch
