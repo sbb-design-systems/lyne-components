@@ -496,11 +496,15 @@ export namespace Components {
     }
     interface SbbFooter {
         /**
-          * Footer title text, visually hidden,  necessary for screenreaders
+          * Footer title text, visually hidden, necessary for screen readers.
          */
         "accessibilityTitle"?: string;
         /**
-          * Negative coloring variant flag
+          * Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
+         */
+        "accessibilityTitleLevel": InterfaceTitleAttributes['level'];
+        /**
+          * Negative coloring variant flag.
          */
         "negative": boolean;
         /**
@@ -2256,11 +2260,15 @@ declare namespace LocalJSX {
     }
     interface SbbFooter {
         /**
-          * Footer title text, visually hidden,  necessary for screenreaders
+          * Footer title text, visually hidden, necessary for screen readers.
          */
         "accessibilityTitle"?: string;
         /**
-          * Negative coloring variant flag
+          * Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
+         */
+        "accessibilityTitleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * Negative coloring variant flag.
          */
         "negative"?: boolean;
         /**

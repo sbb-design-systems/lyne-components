@@ -11,9 +11,8 @@ describe('sbb-footer', () => {
     expect(root).toEqualHtml(`
         <sbb-footer accessibility-title="Footer" variant="default">
           <mock:shadow-root>
-            <footer role="contentinfo" class="footer">
-              <sbb-title level="1" visually-hidden="true">
-              <span slot="title">Footer</span></sbb-title>
+            <footer class="sbb-footer">
+              <h1 class="sbb-footer__title">Footer</h1>
               <slot></slot>
             </footer>
           </mock:shadow-root>

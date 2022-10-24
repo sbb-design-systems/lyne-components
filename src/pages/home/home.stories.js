@@ -6,22 +6,6 @@ import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 
 /* ************************************************* */
-/* Documentation platform container                  */
-/* ************************************************* */
-
-const documentationPlatformContainerStyle = (context) => {
-  const variantsOnDarkBg = ['primary-negative'];
-
-  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return {};
-  }
-
-  return {
-    'background-color': SbbColorCharcoalDefault,
-  };
-};
-
-/* ************************************************* */
 /* Storybook component wrapper, used in Storybook    */
 /* ************************************************* */
 
@@ -390,56 +374,88 @@ const Template = (args) => (
     ************************************************* */}
     <sbb-footer accessibility-title="Footer" variant="clock-columns" negative={args.negative}>
       <div className="sbb-link-list-button-group">
-        <sbb-link-list title-level="2" title-content="Help &amp; Contact.">
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+        <sbb-link-list title-level="2" title-content="Help &amp; Contact." negative={args.negative}>
+          <sbb-link
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            negative={args.negative}
+          >
             Refunds
           </sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+          <sbb-link
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            negative={args.negative}
+          >
             Lost property office
           </sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+          <sbb-link
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            negative={args.negative}
+          >
             Complaints
           </sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+          <sbb-link
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            negative={args.negative}
+          >
             Praise
           </sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+          <sbb-link
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+            negative={args.negative}
+          >
             Report property damage
           </sbb-link>
         </sbb-link-list>
         <sbb-button
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           variant="primary"
+          size="m"
         >
           All help topics
         </sbb-button>
       </div>
-      <sbb-link-list title-level="2" title-content="More SBB.">
-        <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+      <sbb-link-list title-level="2" title-content="More SBB." negative={args.negative}>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          negative={args.negative}
+        >
           Jobs & careers
         </sbb-link>
-        <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          negative={args.negative}
+        >
           Rail traffic information
         </sbb-link>
-        <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          negative={args.negative}
+        >
           SBB News
         </sbb-link>
-        <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          negative={args.negative}
+        >
           SBB Community
         </sbb-link>
-        <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          negative={args.negative}
+        >
           Company
         </sbb-link>
       </sbb-link-list>
       <div className="sbb-link-list-button-group">
-        <sbb-link-list title-level="2" title-content="Newsletter.">
-          <sbb-link>
+        <sbb-link-list title-level="2" title-content="Newsletter." negative={args.negative}>
+          <sbb-link negative={args.negative}>
             Our newsletter regularly informs you of attractive offers from SBB via e-mail.
           </sbb-link>
         </sbb-link-list>
         <sbb-button
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           variant="secondary"
+          size="m"
         >
           Subscribe
         </sbb-button>
@@ -449,35 +465,40 @@ const Template = (args) => (
           ? { 'initial-time': '01:59:27', paused: true }
           : { 'initial-time': 'now' })}
       ></sbb-clock>
-      <sbb-divider />
-      <sbb-link-list horizontal-from="large">
+      <sbb-divider negative={args.negative} />
+      <sbb-link-list horizontal-from="large" negative={args.negative}>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          negative={args.negative}
         >
           Refunds
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          negative={args.negative}
         >
           Lost property office
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          negative={args.negative}
         >
           Complaints
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          negative={args.negative}
         >
           Praise
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           text-size="xs"
+          negative={args.negative}
         >
           Report property damage
         </sbb-link>
@@ -496,9 +517,6 @@ export const home = Template.bind({});
 home.argTypes = defaultArgTypes;
 home.args = JSON.parse(JSON.stringify(defaultArgs));
 home.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
   title: 'Home 2.0',
 };
 

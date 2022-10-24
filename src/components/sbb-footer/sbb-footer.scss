@@ -3,47 +3,92 @@
 @include host-component-properties;
 
 :host {
-  --sbb-footer-gap-horizontal: var(--footer-gap-horizontal, var(--sbb-grid-base-gutter-responsive));
-  --sbb-footer-gap-vertical: var(--footer-gap-vertical, var(--sbb-spacing-responsive-l));
-  --sbb-footer-background-color: var(--footer-background-color, var(--sbb-color-milk-default));
-  --sbb-footer-divider-color: var(--footer-divider-color, var(--sbb-color-cloud-default));
-  --sbb-footer-divider-thickness: var(--footer-divider-thickness, var(--sbb-border-width-1x));
-  --sbb-footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(76)});
-  @include mq($from: small) {
-    --sbb-footer-clock-width: var(--footer-clock-width, #{px-to-rem-build(112)});
-  }
+  --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive);
 
+  // TODO: Remove once sbb-stack is refactored
   // Contextual design for sbb-stack
   --stack-text-color-normal: var(--sbb-color-granite-default);
+  --sbb-footer-gap-horizontal: var(--sbb-grid-base-gutter-responsive);
+  --sbb-footer-gap-vertical: var(--sbb-spacing-responsive-l);
+  --sbb-footer-background-color: var(--sbb-color-milk-default);
+  --sbb-footer-clock-width: #{px-to-rem-build(76)};
+
+  @include mq($from: small) {
+    --sbb-footer-clock-width: #{px-to-rem-build(112)};
+  }
 }
 
 :host([negative]) {
-  --sbb-footer-divider-color: var(--sbb-color-iron-default);
   --sbb-footer-background-color: var(--sbb-color-charcoal-default);
-  --title-text-color-normal: var(--sbb-color-storm-default);
 }
 
-:host([variant='clock-columns']) footer {
-  slot {
-    @include page-spacing__inner;
+.sbb-footer {
+  padding-block: var(--sbb-spacing-responsive-l);
+  padding-inline: var(--sbb-layout-base-offset-responsive);
+  background-color: var(--sbb-footer-background-color);
+}
 
+.sbb-footer__title {
+  @include screenReaderOnly;
+}
+
+::slotted(.sbb-link-list-button-group) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-6x);
+  align-items: flex-start;
+}
+
+:host([variant='clock-columns']) {
+  // Content
+  slot {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
-    column-gap: var(--sbb-footer-gap-horizontal);
-    row-gap: var(--sbb-footer-gap-vertical);
+    gap: var(--sbb-footer-gap-vertical) var(--sbb-footer-gap-horizontal);
+
+    @include mq($from: small) {
+      grid-template-columns: calc(50% - (var(--sbb-footer-gap-horizontal) / 2));
+    }
+
+    @include mq($from: wide) {
+      width: calc(#{$sbb-breakpoint-wide-min} - (2 * var(--sbb-layout-base-offset-responsive)));
+      margin-inline-start: auto;
+      margin-inline-end: auto;
+      grid-template-columns: repeat(4, calc(25% - ((3 * var(--sbb-footer-gap-horizontal)) / 4)));
+    }
   }
 
   ::slotted(sbb-clock) {
     max-width: var(--sbb-footer-clock-width);
     grid-row: 1;
+
+    @include mq($from: small) {
+      align-self: start;
+      grid-row: 2;
+    }
+
+    @include mq($from: wide) {
+      grid-row: 1;
+      grid-column: 4 / 5;
+      width: 100%;
+      justify-self: start;
+    }
+  }
+
+  ::slotted(sbb-divider) {
+    @include mq($from: small) {
+      grid-row: 3;
+      grid-column: 1 / 4;
+      width: 100%;
+    }
+
+    @include mq($from: wide) {
+      grid-row: 2;
+    }
   }
 
   @include mq($from: small) {
-    slot {
-      grid-template-columns: calc(50% - (var(--sbb-footer-gap-horizontal) / 2));
-    }
-
     /* stylelint-disable-next-line plugin/stylelint-bem-namics */
     ::slotted(:nth-child(-n + 2)) {
       grid-row: 1;
@@ -53,17 +98,6 @@
     ::slotted(:nth-child(3)),
     ::slotted(:nth-child(4)) {
       grid-row: 2;
-    }
-
-    ::slotted(sbb-clock) {
-      align-self: start;
-      grid-row: 2;
-    }
-
-    ::slotted(sbb-divider) {
-      grid-row: 3;
-      grid-column: 1 / 4;
-      width: 100%;
     }
 
     ::slotted(*:last-child) {
@@ -78,24 +112,9 @@
   }
 
   @include mq($from: wide) {
-    slot {
-      grid-template-columns: repeat(4, calc(25% - ((3 * var(--sbb-footer-gap-horizontal)) / 4)));
-    }
-
     /* stylelint-disable-next-line plugin/stylelint-bem-namics */
     ::slotted(:nth-child(-n + 4)) {
       grid-row: 1;
-    }
-
-    ::slotted(sbb-clock) {
-      grid-row: 1;
-      grid-column: 4 / 5;
-      width: 100%;
-      justify-self: start;
-    }
-
-    ::slotted(sbb-divider) {
-      grid-row: 2;
     }
 
     ::slotted(*:last-child) {
@@ -106,19 +125,5 @@
     ::slotted(*:last-child) {
       grid-column: 1 / 5;
     }
-  }
-}
-
-.footer {
-  @include page-spacing;
-
-  padding-block: var(--sbb-spacing-responsive-l);
-  background-color: var(--sbb-footer-background-color);
-
-  ::slotted(.sbb-link-list-button-group) {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sbb-spacing-fixed-6x);
-    align-items: flex-start;
   }
 }

@@ -1,6 +1,5 @@
 @mixin page-spacing() {
-  padding-inline-start: var(--sbb-page-base-offset-responsive);
-  padding-inline-end: var(--sbb-page-base-offset-responsive);
+  padding-inline: var(--sbb-page-base-offset-responsive);
 }
 
 @mixin page-spacing__inner() {

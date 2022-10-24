@@ -1,5 +1,6 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { InterfaceFooterAttributes } from './sbb-footer.custom';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 @Component({
   shadow: true,
@@ -8,32 +9,31 @@ import { InterfaceFooterAttributes } from './sbb-footer.custom';
 })
 export class SbbFooter {
   /**
-   * Negative coloring variant flag
-   */
-  @Prop({ reflect: true }) public negative = false;
-
-  /**
    * Variants to display the footer. The default, displays the content in regular block element
    * approach. The clock-columns, used a css-grid for displaying the content over different
    * breakpoints.
    */
   @Prop({ reflect: true }) public variant: InterfaceFooterAttributes['variant'] = 'default';
 
-  /** Footer title text, visually hidden,  necessary for screenreaders */
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true }) public negative = false;
+
+  /** Footer title text, visually hidden, necessary for screen readers. */
   @Prop() public accessibilityTitle?: string;
 
+  /** Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1. */
+  @Prop() public accessibilityTitleLevel: InterfaceTitleAttributes['level'] = '1';
+
   public render(): JSX.Element {
+    const TITLE_TAG_NAME = `h${this.accessibilityTitleLevel}`;
+
     return (
-      <Host>
-        <footer role="contentinfo" class="footer">
-          {this.accessibilityTitle.length && (
-            <sbb-title level="1" visually-hidden="true">
-              <span slot="title">{this.accessibilityTitle}</span>
-            </sbb-title>
-          )}
-          <slot />
-        </footer>
-      </Host>
+      <footer class="sbb-footer">
+        {this.accessibilityTitle && (
+          <TITLE_TAG_NAME class="sbb-footer__title">{this.accessibilityTitle}</TITLE_TAG_NAME>
+        )}
+        <slot />
+      </footer>
     );
   }
 }
