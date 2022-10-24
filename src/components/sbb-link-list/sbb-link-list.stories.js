@@ -13,7 +13,7 @@ const wrapperStyle = (context) => {
 const LinkTemplate = (args) => (
   <sbb-link
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-    text-size={args.textSize}
+    text-size={args.linkTextSize}
     negative={args.negative}
   >
     {args.linkTitle}
@@ -21,15 +21,13 @@ const LinkTemplate = (args) => (
 );
 
 // SlottedTitle
-const TemplateSlottedTitle = (args) => (
-  <sbb-link-list
-    {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('title-content')))}
-  >
-    <span slot="title">{args['title-content']}</span>
+const TemplateSlottedTitle = ({ 'title-content': titleContent, linkTextSize, ...args }) => (
+  <sbb-link-list {...args}>
+    <span slot="title">{titleContent}</span>
     {links.map((linkTitle) => {
       const linkArgs = {
         linkTitle,
-        textSize: args.textSize,
+        linkTextSize,
         negative: args.negative,
       };
       return <LinkTemplate {...linkArgs} />;
@@ -38,12 +36,12 @@ const TemplateSlottedTitle = (args) => (
 );
 
 // TitleAsProperty
-const Template = (args) => (
+const Template = ({ linkTextSize, ...args }) => (
   <sbb-link-list {...args}>
     {links.map((linkTitle) => {
       const linkArgs = {
         linkTitle,
-        textSize: args.textSize,
+        linkTextSize,
         negative: args.negative,
       };
       return <LinkTemplate {...linkArgs} />;
@@ -70,16 +68,6 @@ const horizontalFrom = {
   options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
   table: {
     category: 'List Styling',
-  },
-};
-
-const textSize = {
-  control: {
-    type: 'select',
-  },
-  options: ['xs', 's', 'm'],
-  table: {
-    category: 'List Items',
   },
 };
 
@@ -112,21 +100,31 @@ const negative = {
   },
 };
 
+const linkTextSize = {
+  control: {
+    type: 'select',
+  },
+  options: ['xs', 's', 'm'],
+  table: {
+    category: 'List Items',
+  },
+};
+
 const defaultArgTypes = {
   orientation: orientation,
   'horizontal-from': horizontalFrom,
-  textSize,
   'title-level': titleLevel,
   'title-content': titleContent,
   negative,
+  linkTextSize,
 };
 
 const defaultArgs = {
   orientation: orientation.options[0],
-  textSize: textSize.options[1],
   'title-level': titleLevel.options[0],
   'title-content': 'Help & Contact',
   negative: false,
+  linkTextSize: linkTextSize.options[1],
 };
 
 /* ************************************************* */
@@ -148,7 +146,7 @@ export const LinkListXS = Template.bind({});
 LinkListXS.argTypes = defaultArgTypes;
 LinkListXS.args = {
   ...defaultArgs,
-  textSize: textSize.options[0],
+  linkTextSize: linkTextSize.options[0],
 };
 
 LinkListXS.documentation = {
