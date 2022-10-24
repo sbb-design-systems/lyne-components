@@ -21,15 +21,17 @@ const LinkTemplate = (args) => (
 );
 
 // SlottedTitle
-const TemplateSlottedTitle = (args) => (
-  <sbb-link-list
-    {...Object.fromEntries(Object.entries(args).filter((key) => !key.includes('title-content')))}
-  >
-    <span slot="title">{args['title-content']}</span>
+const TemplateSlottedTitle = ({
+  'title-content': titleContent,
+  'text-size': textSize,
+  ...args
+}) => (
+  <sbb-link-list {...args}>
+    <span slot="title">{titleContent}</span>
     {links.map((linkTitle) => {
       const linkArgs = {
         linkTitle,
-        textSize: args.textSize,
+        textSize: textSize,
         negative: args.negative,
       };
       return <LinkTemplate {...linkArgs} />;
@@ -38,12 +40,12 @@ const TemplateSlottedTitle = (args) => (
 );
 
 // TitleAsProperty
-const Template = (args) => (
+const Template = ({ 'text-size': textSize, ...args }) => (
   <sbb-link-list {...args}>
     {links.map((linkTitle) => {
       const linkArgs = {
         linkTitle,
-        textSize: args.textSize,
+        textSize: textSize,
         negative: args.negative,
       };
       return <LinkTemplate {...linkArgs} />;
