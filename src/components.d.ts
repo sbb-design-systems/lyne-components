@@ -486,7 +486,7 @@ export namespace Components {
     }
     interface SbbDivider {
         /**
-          * Appearance property for displaying the component in dark mode
+          * Negative coloring variant flag
          */
         "negative"?: boolean;
         /**
@@ -2242,7 +2242,7 @@ declare namespace LocalJSX {
     }
     interface SbbDivider {
         /**
-          * Appearance property for displaying the component in dark mode
+          * Negative coloring variant flag
          */
         "negative"?: boolean;
         /**

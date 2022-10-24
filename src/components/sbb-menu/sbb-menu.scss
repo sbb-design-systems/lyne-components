@@ -64,7 +64,7 @@
 // stylelint-enable plugin/stylelint-bem-namics
 
 ::slotted(sbb-divider) {
-  --divider-color: var(--sbb-color-iron-default);
+  --sbb-divider-color: var(--sbb-color-iron-default);
 
   margin-block: var(--sbb-spacing-fixed-2x);
 }
