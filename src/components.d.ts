@@ -261,6 +261,10 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
+          * Pass in an id, if you need to identify the inner element.
+         */
+        "buttonId"?: string;
+        /**
           * Whether the button is disabled.
          */
         "disabled": boolean;
@@ -280,10 +284,6 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
-        /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "idValue"?: string;
         /**
           * Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered).
          */
@@ -339,6 +339,10 @@ export namespace Components {
          */
         "active": boolean;
         /**
+          * Id used to identify the inner element.
+         */
+        "cardId"?: string;
+        /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
@@ -350,10 +354,6 @@ export namespace Components {
           * The href value you want to link to.
          */
         "href": string | undefined;
-        /**
-          * Id used to identify the inner element.
-         */
-        "idValue"?: string;
         /**
           * The name of the button.
          */
@@ -439,6 +439,10 @@ export namespace Components {
          */
         "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
         /**
+          * The ID value you want to reference
+         */
+        "cardProductId"?: string;
+        /**
           * Id which is sent in the click event payload
          */
         "eventId"?: string;
@@ -446,10 +450,6 @@ export namespace Components {
           * The href value you want to link to
          */
         "hrefValue"?: string;
-        /**
-          * The ID value you want to reference
-         */
-        "idValue"?: string;
         /**
           * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
          */
@@ -487,7 +487,7 @@ export namespace Components {
     }
     interface SbbDivider {
         /**
-          * Appearance property for displaying the component in dark mode
+          * Negative coloring variant flag
          */
         "negative"?: boolean;
         /**
@@ -780,13 +780,13 @@ export namespace Components {
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "idValue"?: string;
-        /**
           * Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).
          */
         "isStatic": boolean;
+        /**
+          * Pass in an id, if you need to identify the inner element.
+         */
+        "linkId"?: string;
         /**
           * The name attribute to use for the button.
          */
@@ -1148,10 +1148,6 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * Pass in an id, if you need to identify the inner link element.
-         */
-        "idValue"?: string;
-        /**
           * Image alt text will be passed to `sbb-image`.
          */
         "imageAlt"?: string;
@@ -1171,6 +1167,10 @@ export namespace Components {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
+        /**
+          * Pass in an id, if you need to identify the inner link element.
+         */
+        "teaserHeroId"?: string;
     }
     interface SbbTimetable {
     }
@@ -2103,6 +2103,10 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
+          * Pass in an id, if you need to identify the inner element.
+         */
+        "buttonId"?: string;
+        /**
           * Whether the button is disabled.
          */
         "disabled"?: boolean;
@@ -2122,10 +2126,6 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
-        /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "idValue"?: string;
         /**
           * Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered).
          */
@@ -2185,6 +2185,10 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
+          * Id used to identify the inner element.
+         */
+        "cardId"?: string;
+        /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
@@ -2196,10 +2200,6 @@ declare namespace LocalJSX {
           * The href value you want to link to.
          */
         "href"?: string | undefined;
-        /**
-          * Id used to identify the inner element.
-         */
-        "idValue"?: string;
         /**
           * The name of the button.
          */
@@ -2289,6 +2289,10 @@ declare namespace LocalJSX {
          */
         "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
         /**
+          * The ID value you want to reference
+         */
+        "cardProductId"?: string;
+        /**
           * Id which is sent in the click event payload
          */
         "eventId"?: string;
@@ -2296,10 +2300,6 @@ declare namespace LocalJSX {
           * The href value you want to link to
          */
         "hrefValue"?: string;
-        /**
-          * The ID value you want to reference
-         */
-        "idValue"?: string;
         /**
           * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
          */
@@ -2337,7 +2337,7 @@ declare namespace LocalJSX {
     }
     interface SbbDivider {
         /**
-          * Appearance property for displaying the component in dark mode
+          * Negative coloring variant flag
          */
         "negative"?: boolean;
         /**
@@ -2634,13 +2634,13 @@ declare namespace LocalJSX {
          */
         "iconPlacement"?: InterfaceLinkAttributes['iconPlacement'];
         /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "idValue"?: string;
-        /**
           * Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).
          */
         "isStatic"?: boolean;
+        /**
+          * Pass in an id, if you need to identify the inner element.
+         */
+        "linkId"?: string;
         /**
           * The name attribute to use for the button.
          */
@@ -3003,10 +3003,6 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * Pass in an id, if you need to identify the inner link element.
-         */
-        "idValue"?: string;
-        /**
           * Image alt text will be passed to `sbb-image`.
          */
         "imageAlt"?: string;
@@ -3026,6 +3022,10 @@ declare namespace LocalJSX {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
+        /**
+          * Pass in an id, if you need to identify the inner link element.
+         */
+        "teaserHeroId"?: string;
     }
     interface SbbTimetable {
     }

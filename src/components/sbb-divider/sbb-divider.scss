@@ -3,19 +3,19 @@
 @include host-component-properties;
 
 :host {
-  --divider-color: var(--sbb-color-cloud-default);
-  --divider-border-width: var(--sbb-border-width-1x);
+  --sbb-divider-color: var(--sbb-color-cloud-default);
+  --sbb-divider-border-width: var(--sbb-border-width-1x);
 }
 
-:host(.sbb-divider--negative) {
-  --divider-color: var(--sbb-color-iron-default);
+:host([negative]) {
+  --sbb-divider-color: var(--sbb-color-iron-default);
 }
 
-:host(.sbb-divider--horizontal) {
-  border-top: var(--divider-border-width) solid var(--divider-color);
+:host([orientation='horizontal']) {
+  border-top: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
 }
 
-:host(.sbb-divider--vertical) {
+:host([orientation='vertical']) {
   height: 100%;
-  border-left: var(--divider-border-width) solid var(--divider-color);
+  border-left: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
 }

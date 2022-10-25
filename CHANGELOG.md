@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.9.16 (2022-10-25)
+
+### 0.9.15 (2022-10-24)
+
+### 0.9.14 (2022-10-21)
+
+### Bug Fixes
+
+- typescript compilation error ([#1416](https://github.com/lyne-design-system/lyne-components/issues/1416)) ([ee15959](https://github.com/lyne-design-system/lyne-components/commit/ee159599b79f51467320f40b230cb7ed8f6ba511))
+
+### 0.9.13 (2022-10-19)
+
+### Features
+
+- add experimental sass output ([#1412](https://github.com/lyne-design-system/lyne-components/issues/1412)) ([3ab884f](https://github.com/lyne-design-system/lyne-components/commit/3ab884fdd05a68547f2a8db9bccd6176c14aa1bf))
+
 ### 0.9.12 (2022-10-18)
 
 ### Features

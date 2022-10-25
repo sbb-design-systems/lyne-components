@@ -58,7 +58,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
   @Prop({ attribute: 'static', mutable: true, reflect: true }) public isStatic = false;
 
   /** Pass in an id, if you need to identify the inner element. */
-  @Prop() public idValue?: string;
+  @Prop() public linkId?: string;
 
   /**
    * The icon name we want to use, choose from the small icon variants
@@ -193,7 +193,7 @@ export class SbbLink implements LinkButtonProperties, ComponentInterface {
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <TAG_NAME
-        id={this.idValue}
+        id={this.linkId}
         class="sbb-link"
         {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}

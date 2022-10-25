@@ -86,7 +86,7 @@ const isStatic = {
   control: { type: 'boolean' },
 };
 
-const idValue = {
+const linkId = {
   control: {
     type: 'text',
   },
@@ -235,7 +235,7 @@ const defaultArgTypes = {
   negative,
   'text-size': textSize,
   static: isStatic,
-  'id-value': idValue,
+  'link-id': linkId,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
   href,
@@ -260,7 +260,7 @@ const defaultArgs = {
   negative: false,
   'text-size': textSize.options[1],
   static: false,
-  'id-value': undefined,
+  'link-id': undefined,
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
   href: 'https://github.com/lyne-design-system/lyne-components',

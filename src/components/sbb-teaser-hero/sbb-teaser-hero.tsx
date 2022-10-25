@@ -39,7 +39,7 @@ export class SbbTeaserHero implements LinkProperties {
   @Prop() public target?: LinkTargetType | string | undefined;
 
   /** Pass in an id, if you need to identify the inner link element. */
-  @Prop() public idValue?: string;
+  @Prop() public teaserHeroId?: string;
 
   /** Panel link text. */
   @Prop() public linkContent?: string;
@@ -69,7 +69,7 @@ export class SbbTeaserHero implements LinkProperties {
     } = resolveLinkRenderVariables(this);
 
     return (
-      <TAG_NAME class="sbb-teaser-hero" id={this.idValue} {...attributes}>
+      <TAG_NAME class="sbb-teaser-hero" id={this.teaserHeroId} {...attributes}>
         <span class="sbb-teaser-hero__panel">
           <span class="sbb-teaser-hero__panel-text">
             <slot />

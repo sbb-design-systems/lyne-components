@@ -102,7 +102,7 @@ export class SbbTimetableRow {
     return (
       <sbb-card
         active={this.active}
-        id-value={id}
+        card-id={id}
         accessibility-label={this.accessibilityLabel}
         onClick={this._clickHandler}
       >

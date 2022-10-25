@@ -19,6 +19,7 @@ $horizontal-orientations: (
 :host([orientation='horizontal']) {
   --sbb-action-group-orientation: row;
   --sbb-action-group-align-items: center;
+  --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
 }
 
 @each $key, $value in $horizontal-orientations {
@@ -30,6 +31,7 @@ $horizontal-orientations: (
 
 :host([orientation='vertical']) {
   --sbb-action-group-orientation: column;
+  --sbb-action-group-gap: var(--sbb-spacing-fixed-2x);
 }
 
 @each $key, $value in $vertical-orientations {
@@ -47,6 +49,7 @@ $horizontal-orientations: (
         --sbb-action-group-orientation: row;
         --sbb-action-group-align-items: center;
         --sbb-action-group-justify-content: #{$value};
+        --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
       }
     }
   }
@@ -55,7 +58,7 @@ $horizontal-orientations: (
 .sbb-action-group {
   display: flex;
   flex-direction: var(--sbb-action-group-orientation);
-  gap: var(--sbb-spacing-fixed-4x);
+  gap: var(--sbb-action-group-gap);
   justify-content: var(--sbb-action-group-justify-content);
   align-items: var(--sbb-action-group-align-items);
 

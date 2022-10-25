@@ -52,7 +52,7 @@ const defaultArgs = {
 
 export const dividerHorizontal = Template.bind({});
 
-dividerHorizontal.args = JSON.parse(JSON.stringify(defaultArgs));
+dividerHorizontal.args = { ...defaultArgs };
 dividerHorizontal.argTypes = defaultArgTypes;
 dividerHorizontal.documentation = {
   container: {
