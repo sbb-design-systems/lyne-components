@@ -82,6 +82,24 @@ const endIconArg = {
   },
 };
 
+const accessibilityLabelArg = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityDescribedbyArg = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityLabelledbyArg = {
+  control: {
+    type: 'text',
+  },
+};
+
 const labelArg = {
   control: {
     type: 'text',
@@ -123,6 +141,9 @@ const formFieldBasicArgsTypes = {
   label: labelArg,
   optional: optionalArg,
   borderless: borderlessArg,
+  'accessibility-label': accessibilityLabelArg,
+  'accessibility-describedby': accessibilityDescribedbyArg,
+  'accessibility-labelledby': accessibilityLabelledbyArg,
 };
 
 const basicArgs = {
@@ -132,6 +153,9 @@ const basicArgs = {
   'start-icon': 'walk-slow-small',
   step: '',
   value: '40',
+  'accessibility-label': undefined,
+  'accessibility-describedby': undefined,
+  'accessibility-labelledby': undefined,
 };
 
 const formFieldBasicArgs = {

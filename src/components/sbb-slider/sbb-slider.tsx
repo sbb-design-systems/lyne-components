@@ -11,6 +11,7 @@ import {
   State,
 } from '@stencil/core';
 import { hostContext } from '../../global/helpers/host-context';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { SbbSliderChange } from './sbb-slider.custom';
 
 /**
@@ -22,7 +23,7 @@ import { SbbSliderChange } from './sbb-slider.custom';
   styleUrl: 'sbb-slider.scss',
   tag: 'sbb-slider',
 })
-export class SbbSlider implements ComponentInterface {
+export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   /**
    * Value for the inner HTMLInputElement.
    */
@@ -70,6 +71,21 @@ export class SbbSlider implements ComponentInterface {
   @Prop() public endIcon!: string;
 
   /**
+   * This will be forwarded as aria-label to the relevant nested element.
+   */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /**
+   * This will be forwarded as aria-describedby to the relevant nested element.
+   */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /**
+   * This will be forwarded as aria-labelledby to the relevant nested element.
+   */
+  @Prop() public accessibilityLabelledby: string | undefined;
+
+  /**
    * Event emitted when the value of the inner HTMLInputElement changes.
    */
   @Event() public sbbChange: EventEmitter<SbbSliderChange>;
@@ -96,7 +112,7 @@ export class SbbSlider implements ComponentInterface {
   private _isInFormField: boolean;
 
   public connectedCallback(): void {
-    this._isInFormField = !!hostContext('sbb-form-field', this._element.parentElement);
+    this._isInFormField = !!hostContext('sbb-form-field', this._element);
     this._handleChange();
   }
 
@@ -179,6 +195,9 @@ export class SbbSlider implements ComponentInterface {
       step: this.step || null,
       disabled: this.disabled || this.readonly || null,
       value: this.value || null,
+      'aria-label': this.accessibilityLabel || null,
+      'aria-describedby': this.accessibilityDescribedby || null,
+      'aria-labelledby': this.accessibilityLabelledby || null,
     };
     const step = +this.step;
     const stepFraction = Number.isNaN(step)

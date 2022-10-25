@@ -1100,6 +1100,18 @@ export namespace Components {
     }
     interface SbbSlider {
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
           * Disabled state for the inner HTMLInputElement.
          */
         "disabled"?: boolean;
@@ -3151,6 +3163,18 @@ declare namespace LocalJSX {
         "variant"?: InterfaceSignetAttributes['variant'];
     }
     interface SbbSlider {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
         /**
           * Disabled state for the inner HTMLInputElement.
          */
