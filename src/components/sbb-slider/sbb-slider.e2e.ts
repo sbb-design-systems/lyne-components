@@ -1,5 +1,26 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
+const keyboardPressTimes = async (page: E2EPage, key: string, times: number): Promise<void> => {
+  const input = await page.find('sbb-slider >>> input');
+  await input.focus();
+  for (let i = 0; i < times; i++) {
+    await input.press(key);
+  }
+  await page.waitForChanges();
+};
+
+const clickIconTimes = async (
+  page: E2EPage,
+  iconSelector: string,
+  times: number
+): Promise<void> => {
+  const startIcon = await page.find(iconSelector);
+  for (let i = 0; i < times; i++) {
+    startIcon.triggerEvent('click');
+  }
+  await page.waitForChanges();
+};
+
 describe('sbb-slider with no step', () => {
   let element: E2EElement, page: E2EPage;
 
@@ -41,12 +62,7 @@ describe('sbb-slider with no step', () => {
 
   it('should decrease value by four unit clicking on start icon', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    const startIcon = await page.find('sbb-slider >>> [name="walk-slow-small"]');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    await page.waitForChanges();
+    await clickIconTimes(page, 'sbb-slider >>> [name="walk-slow-small"]', 4);
     expect(sbbSliderChange).toHaveReceivedEventDetail({
       max: 500,
       min: 100,
@@ -56,11 +72,7 @@ describe('sbb-slider with no step', () => {
 
   it('should increase value by three unit clicking on end icon', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    const startIcon = await page.find('sbb-slider >>> [name="walk-fast-small"]');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    await page.waitForChanges();
+    await clickIconTimes(page, 'sbb-slider >>> [name="walk-fast-small"]', 3);
     expect(sbbSliderChange).toHaveReceivedEventDetail({
       max: 500,
       min: 100,
@@ -70,11 +82,17 @@ describe('sbb-slider with no step', () => {
 
   it('should decrease value by two on left arrow keypress', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    const input = await page.find('sbb-slider >>> input');
-    await input.focus();
-    await input.press('ArrowLeft');
-    await input.press('ArrowLeft');
-    await page.waitForChanges();
+    await keyboardPressTimes(page, 'ArrowLeft', 2);
+    expect(sbbSliderChange).toHaveReceivedEventDetail({
+      max: 500,
+      min: 100,
+      value: 398,
+    });
+  });
+
+  it('should decrease value by two on down arrow keypress', async () => {
+    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    await keyboardPressTimes(page, 'ArrowDown', 2);
     expect(sbbSliderChange).toHaveReceivedEventDetail({
       max: 500,
       min: 100,
@@ -84,10 +102,17 @@ describe('sbb-slider with no step', () => {
 
   it('should increase value by one on right arrow keypress', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    const input = await page.find('sbb-slider >>> input');
-    await input.focus();
-    await input.press('ArrowRight');
-    await page.waitForChanges();
+    await keyboardPressTimes(page, 'ArrowRight', 1);
+    expect(sbbSliderChange).toHaveReceivedEventDetail({
+      max: 500,
+      min: 100,
+      value: 401,
+    });
+  });
+
+  it('should increase value by one on up arrow keypress', async () => {
+    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    await keyboardPressTimes(page, 'ArrowUp', 1);
     expect(sbbSliderChange).toHaveReceivedEventDetail({
       max: 500,
       min: 100,
@@ -137,12 +162,7 @@ describe('sbb-slider with step and no default value', () => {
 
   it('should decrease value by four step clicking on start icon', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    const startIcon = await page.find('sbb-slider >>> [name="walk-slow-small"]');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    await page.waitForChanges();
+    await clickIconTimes(page, 'sbb-slider >>> [name="walk-slow-small"]', 4);
     expect(sbbSliderChange).toHaveReceivedEventDetail({
       max: 1000,
       min: 0,
@@ -152,11 +172,7 @@ describe('sbb-slider with step and no default value', () => {
 
   it('should increase value by three step clicking on end icon', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    const startIcon = await page.find('sbb-slider >>> [name="walk-fast-small"]');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    startIcon.triggerEvent('click');
-    await page.waitForChanges();
+    await clickIconTimes(page, 'sbb-slider >>> [name="walk-fast-small"]', 3);
     expect(sbbSliderChange).toHaveReceivedEventDetail({
       max: 1000,
       min: 0,
@@ -166,11 +182,17 @@ describe('sbb-slider with step and no default value', () => {
 
   it('should decrease value by two step on left arrow keypress', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    const input = await page.find('sbb-slider >>> input');
-    await input.focus();
-    await input.press('ArrowLeft');
-    await input.press('ArrowLeft');
-    await page.waitForChanges();
+    await keyboardPressTimes(page, 'ArrowLeft', 2);
+    expect(sbbSliderChange).toHaveReceivedEventDetail({
+      max: 1000,
+      min: 0,
+      value: 300,
+    });
+  });
+
+  it('should decrease value by two step on down arrow keypress', async () => {
+    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    await keyboardPressTimes(page, 'ArrowDown', 2);
     expect(sbbSliderChange).toHaveReceivedEventDetail({
       max: 1000,
       min: 0,
@@ -180,10 +202,17 @@ describe('sbb-slider with step and no default value', () => {
 
   it('should increase value by one step on right arrow keypress', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    const input = await page.find('sbb-slider >>> input');
-    await input.focus();
-    await input.press('ArrowRight');
-    await page.waitForChanges();
+    await keyboardPressTimes(page, 'ArrowRight', 1);
+    expect(sbbSliderChange).toHaveReceivedEventDetail({
+      max: 1000,
+      min: 0,
+      value: 600,
+    });
+  });
+
+  it('should increase value by one step on up arrow keypress', async () => {
+    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    await keyboardPressTimes(page, 'ArrowUp', 1);
     expect(sbbSliderChange).toHaveReceivedEventDetail({
       max: 1000,
       min: 0,
