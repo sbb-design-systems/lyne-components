@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.10.0 (2022-10-25)
+
+### ⚠ BREAKING CHANGES
+
+- Every property called idValue was renamed to ${componentName}Id
+  as documented in CODING_STANDARDS.md. The following components
+  are affected: sbb-button, sbb-card, sbb-card-product, sbb-link, sbb-teaser-hero.
+
+- rename idValue properties to specific names ([#1421](https://github.com/lyne-design-system/lyne-components/issues/1421)) ([181735d](https://github.com/lyne-design-system/lyne-components/commit/181735d40be4f4d213c30db6f52bf64e7025f3f7))
+
 ### 0.9.16 (2022-10-25)
 
 ### 0.9.15 (2022-10-24)
