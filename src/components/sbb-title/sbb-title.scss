@@ -3,7 +3,10 @@
 @include host-component-properties;
 
 :host {
-  --title-text-color-normal: var(--sbb-color-charcoal-default);
+  --sbb-title-text-color-normal: var(
+    --sbb-title-text-color-normal-override,
+    var(--sbb-color-charcoal-default)
+  );
 }
 
 :host([negative]) {
@@ -11,7 +14,7 @@
 }
 
 .sbb-title {
-  color: var(--title-text-color-normal);
+  color: var(--sbb-title-text-color-normal);
   @include fontSmoothing;
 
   :host([visually-hidden]) & {

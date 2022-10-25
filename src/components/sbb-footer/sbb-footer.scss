@@ -29,7 +29,7 @@
 .footer--primary-negative {
   --_footer-divider-color: var(--sbb-color-iron-default);
   --_footer-background-color: var(--sbb-color-charcoal-default);
-  --title-text-color-normal: var(--sbb-color-storm-default);
+  --sbb-title-text-color-normal-override: var(--sbb-color-storm-default);
 }
 
 .columns {
