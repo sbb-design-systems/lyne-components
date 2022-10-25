@@ -118,7 +118,6 @@ describe('getLinkAttributeList', () => {
       accessibilityLabelledby: undefined,
       accessibilityHaspopup: undefined,
       accessibilityControls: undefined,
-      click: undefined,
       emitButtonClick: () => true,
       name: undefined,
       type: undefined,
@@ -137,7 +136,6 @@ describe('getLinkAttributeList', () => {
 describe('getButtonAttributeList', () => {
   it('should return attributes for button', () => {
     const buttonProperties: ButtonProperties = {
-      click: undefined,
       emitButtonClick: () => true,
       type: 'submit',
       disabled: false,
@@ -167,13 +165,12 @@ describe('getButtonAttributeList', () => {
 });
 
 describe('getLinkRenderVariables', () => {
-  const linkButtonProperties: LinkButtonProperties<void> = {
+  const linkButtonProperties: LinkButtonProperties = {
     href: 'link',
     target: '_blank',
     accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
     accessibilityLabelledby: undefined,
-    click: undefined,
     emitButtonClick: () => true,
     name: undefined,
     type: undefined,
@@ -196,7 +193,7 @@ describe('getLinkRenderVariables', () => {
   });
 
   it('should return the correct variables with screenReaderNewWindowInfo false', () => {
-    const linkButtonPropertiesNoScreenReader: LinkButtonProperties<void> = {
+    const linkButtonPropertiesNoScreenReader: LinkButtonProperties = {
       ...linkButtonProperties,
       accessibilityLabel: 'accessibilityLabel',
       target: 'custom',
@@ -219,11 +216,10 @@ describe('getLinkRenderVariables', () => {
 });
 
 describe('getButtonRenderVariables', () => {
-  const buttonProperties: ButtonProperties<void> = {
+  const buttonProperties: ButtonProperties = {
     accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
     accessibilityLabelledby: undefined,
-    click: undefined,
     emitButtonClick: () => true,
     type: 'submit',
     name: 'name',
@@ -265,13 +261,12 @@ describe('getLinkButtonStaticRenderVariables', () => {
 
 // FIXME how to spy on imported function without workaround? https://github.com/jasmine/jasmine/issues/1414
 describe('resolveRenderVariables', () => {
-  const linkButtonProperties: LinkButtonProperties<void> = {
+  const linkButtonProperties: LinkButtonProperties = {
     href: 'link',
     target: undefined,
     accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
     accessibilityLabelledby: undefined,
-    click: undefined,
     emitButtonClick: () => undefined,
     type: undefined,
     name: undefined,

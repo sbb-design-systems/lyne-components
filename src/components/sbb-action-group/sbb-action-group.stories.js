@@ -269,6 +269,9 @@ export default {
     ),
   ],
   parameters: {
+    actions: {
+      handels: ['click'],
+    },
     backgrounds: {
       disable: true,
     },
