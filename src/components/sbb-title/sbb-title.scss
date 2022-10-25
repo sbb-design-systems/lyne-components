@@ -3,47 +3,46 @@
 @include host-component-properties;
 
 :host {
-  // TODO: define where to handle font color: see inherited.scss
-  --_title-text-color-normal: var(--title-text-color-normal, var(--sbb-color-charcoal-default));
+  --title-text-color-normal: var(--sbb-color-charcoal-default);
 }
 
-.title--hidden {
-  @include screenReaderOnly;
-}
-
-.title[id] {
-  @include scrollMarginBlockStart;
-}
-
-.title {
-  color: var(--_title-text-color-normal);
-  @include fontSmoothing;
-}
-
-.title-1 {
-  @include title-1;
-}
-
-.title-2 {
-  @include title-2;
-}
-
-.title-3 {
-  @include title-3;
-}
-
-.title-4 {
-  @include title-4;
-}
-
-.title-5 {
-  @include title-5;
-}
-
-.title-6 {
-  @include title-6;
-}
-
-.title--negative {
+:host([negative]) {
   @include title--negative;
+}
+
+.sbb-title {
+  color: var(--title-text-color-normal);
+  @include fontSmoothing;
+
+  :host([visually-hidden]) & {
+    @include screenReaderOnly;
+  }
+
+  &[id] {
+    @include scrollMarginBlockStart;
+  }
+
+  &.sbb-title--level-1 {
+    @include title-1;
+  }
+
+  &.sbb-title--level-2 {
+    @include title-2;
+  }
+
+  &.sbb-title--level-3 {
+    @include title-3;
+  }
+
+  &.sbb-title--level-4 {
+    @include title-4;
+  }
+
+  &.sbb-title--level-5 {
+    @include title-5;
+  }
+
+  &.sbb-title--level-6 {
+    @include title-6;
+  }
 }
