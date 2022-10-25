@@ -10,7 +10,7 @@ let nextId = 0;
 })
 export class SbbTitle {
   /** Title level */
-  @Prop() public level?: InterfaceTitleAttributes['level'] = '1';
+  @Prop({ reflect: true }) public level?: InterfaceTitleAttributes['level'] = '1';
 
   /** Visual level for the title. Optional, if not set, the value of level will be used. */
   @Prop({ reflect: true }) public visualLevel?: InterfaceTitleAttributes['visualLevel'];
