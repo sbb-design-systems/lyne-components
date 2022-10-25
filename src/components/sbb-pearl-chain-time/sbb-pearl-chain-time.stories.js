@@ -35,8 +35,8 @@ const defaultArgs = {
       duration: 300,
     },
   ],
-  'departure-time': formatDateForDepartureAndArrivalTime(today.setHours(4, 48, 0, 0)),
-  'arrival-time': formatDateForDepartureAndArrivalTime(today.setHours(14, 48, 0, 0)),
+  'departure-time': formatDateForDepartureAndArrivalTime(today.setHours(2, 48, 0, 0)),
+  'arrival-time': formatDateForDepartureAndArrivalTime(today.setHours(12, 48, 0, 0)),
 };
 
 const Template = (args) => {
@@ -73,10 +73,10 @@ maximal.args = {
     {
       duration: 300,
       arrival: {
-        time: formatDateForDepartureAndArrivalTime(addDays(today, 4).setHours(15, 0, 0, 0)),
+        time: formatDateForDepartureAndArrivalTime(addDays(today, 4).setHours(13, 0, 0, 0)),
       },
       departure: {
-        time: formatDateForDepartureAndArrivalTime(subDays(today, 12).setHours(14, 0, 0, 0)),
+        time: formatDateForDepartureAndArrivalTime(subDays(today, 12).setHours(12, 0, 0, 0)),
       },
     },
   ],
