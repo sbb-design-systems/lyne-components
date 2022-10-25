@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from '../sbb-header-action/sbb-header-action.events';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 
 const textContent = () => (
   <div>
