@@ -3,6 +3,21 @@
 -->
 <meta name="components-version" content="%STORYBOOK_COMPONENTS_VERSION%" />
 
+<script>
+  const headerScrollHandler = () => {
+    const header = document.getElementsByTagName('sbb-header')[0];
+    if (header) {
+      if (window.scrollY === 0) {
+        header.removeAttribute('shadow');
+      } else {
+        header.setAttribute('shadow', '');
+      }
+    }
+  };
+  window.onload = () => document.addEventListener('scroll', headerScrollHandler);
+  window.onunload = () => document.removeEventListener('scroll', headerScrollHandler);
+</script>
+
 <style>
   /* Classes used for the custom sbb-header story. */
   .spacer {

@@ -5,10 +5,14 @@ import isChromatic from 'chromatic/isChromatic';
 
 const textContent = () => (
   <div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tortor enim, dictum at vestibulum
-    vel, convallis vel tellus. Nunc sed nulla vestibulum, elementum felis quis, convallis velit. Sed
-    molestie nunc vitae risus rutrum fermentum. Donec dictum ullamcorper nulla sit amet dignissim.
-    Nam ipsum odio, faucibus quis lectus ut, suscipit sollicitudin eros.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
   </div>
 );
 
@@ -45,28 +49,23 @@ const TemplateActions = (args) => [
     <div class="spacer" />
     <sbb-header-action icon="magnifying-glass-small">Suchen</sbb-header-action>
     <sbb-header-action icon="user-small">Anmelden</sbb-header-action>
-    <sbb-header-action icon="globe-small">Deutsch</sbb-header-action>
+    <sbb-header-action icon="globe-small" class="last-element">
+      Deutsch
+    </sbb-header-action>
   </sbb-header>,
   textContent(),
 ];
 
-export const headerShadow = Template.bind({});
-headerShadow.args = { shadow: true };
-headerShadow.argTypes = basicArgTypes;
-headerShadow.documentation = {
-  title: 'Header with shadow on',
-};
-
-export const headerNoShadow = Template.bind({});
-headerNoShadow.args = { shadow: false };
-headerNoShadow.argTypes = basicArgTypes;
-headerNoShadow.documentation = {
-  title: 'Header with shadow off',
+export const header = Template.bind({});
+header.argTypes = basicArgTypes;
+header.args = { shadow: false };
+header.documentation = {
+  title: 'Header',
 };
 
 export const headerWithActions = TemplateActions.bind({});
-headerWithActions.args = { shadow: true };
 headerWithActions.argTypes = basicArgTypes;
+headerWithActions.args = { shadow: false };
 headerWithActions.documentation = {
   title: 'Header with custom actions',
 };

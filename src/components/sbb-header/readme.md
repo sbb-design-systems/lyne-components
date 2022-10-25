@@ -7,11 +7,28 @@ the first one can contain one or more [sbb-header-action](../sbb-header-action/r
 like `sbb-button` or `sbb-link`, and it is displayed at the left end of the component; the second slot is displayed
 at the right end, and it can contain a logo, which by default is the [sbb-logo](../sbb-logo/readme.md).
 
+The component's height can be overridden by defining the variable `--sbb-header-height-override`.
+
 A box-shadow appears under the component if the `shadow` variable is set to `true`;
 consumers could provide their own logic to set this variable to `true` when the page scrolls down,
 and to `false` when the scroll is at page's top.
-
-The component's height can be overridden by defining the variable `--sbb-header-height-override`.
+To achieve this in Storybook, these lines have been added in the configuration file called `preview-head.html`:
+```javascript
+<script>
+  const headerScrollHandler = () => {
+    const header = document.getElementsByTagName('sbb-header')[0];
+    if (header) {
+      if (window.scrollY === 0) {
+        header.removeAttribute('shadow');
+      } else {
+        header.setAttribute('shadow', '');
+      }
+    }
+  };
+  window.onload = () => document.addEventListener('scroll', headerScrollHandler);
+  window.onunload = () => document.removeEventListener('scroll', headerScrollHandler);
+</script>
+```
 
 ## Style
 
