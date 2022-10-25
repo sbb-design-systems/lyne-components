@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.10.1 (2022-10-25)
+
+### Bug Fixes
+
+- **sbb-pearl-chain, sbb-pearl-chain-time:** relative datetime in stories ([#1423](https://github.com/lyne-design-system/lyne-components/issues/1423)) ([5d21890](https://github.com/lyne-design-system/lyne-components/commit/5d218900687aa81e7b1d64119fc3774608d98d49))
+
 ## 0.10.0 (2022-10-25)
 
 ### ⚠ BREAKING CHANGES
