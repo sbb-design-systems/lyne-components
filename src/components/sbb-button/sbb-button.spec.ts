@@ -11,7 +11,7 @@ describe('sbb-button', () => {
           variant="primary"
           negative
           size="m"
-          id-value="id"
+          button-id="id"
           type="button"
           disabled
           name="name"
@@ -32,7 +32,7 @@ describe('sbb-button', () => {
           variant="primary"
           negative
           size="m"
-          id-value="id"
+          button-id="id"
           type="button"
           disabled
           name="name"

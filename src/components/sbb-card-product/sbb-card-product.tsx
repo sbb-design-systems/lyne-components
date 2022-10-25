@@ -35,7 +35,7 @@ export class SbbCardProduct implements AccessibilityProperties {
   @Prop() public layout?: InterfaceCardProductAttributes['layout'] = 'standard';
 
   /** The ID value you want to reference */
-  @Prop() public idValue?: string;
+  @Prop() public cardProductId?: string;
 
   /**
    * The text which gets exposed to screen reader users. The text should
@@ -175,10 +175,10 @@ export class SbbCardProduct implements AccessibilityProperties {
     let additionalCardAttributes = {};
     let ariaLabel = this.accessibilityLabel;
 
-    if (this.idValue) {
+    if (this.cardProductId) {
       additionalCardAttributes = {
         ...additionalCardAttributes,
-        id: this.idValue,
+        id: this.cardProductId,
       };
     }
 

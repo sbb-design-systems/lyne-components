@@ -10,7 +10,7 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           text-size="m"
           download
-          id-value="id"
+          link-id="id"
           accessibility-label="Travelcards & tickets"
           accessibility-describedbdy="id"
           accessibility-labelledby="id"
@@ -26,7 +26,7 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           text-size="m"
           download
-          id-value="id"
+          link-id="id"
           accessibility-label="Travelcards & tickets"
           accessibility-describedbdy="id"
           accessibility-labelledby="id"

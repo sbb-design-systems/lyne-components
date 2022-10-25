@@ -91,7 +91,7 @@ const rel = {
   },
 };
 
-const idValue = {
+const cardId = {
   control: {
     type: 'text',
   },
@@ -159,7 +159,7 @@ const basicArgTypes = {
   download,
   target,
   rel,
-  'id-value': idValue,
+  'card-id': cardId,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
@@ -177,7 +177,7 @@ const basicArgs = {
   download: false,
   target: '_blank',
   rel: undefined,
-  'id-value': undefined,
+  'card-id': undefined,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
