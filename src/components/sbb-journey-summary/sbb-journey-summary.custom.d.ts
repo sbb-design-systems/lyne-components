@@ -1,24 +1,4 @@
-export type Leg = {
-  duration: number;
-  arrival?: {
-    time: string;
-  };
-  departure?: {
-    time: string;
-  };
-  serviceJourney?: {
-    serviceAlteration: ServiceAlteration;
-  };
-};
-declare type TimeQuayWrapper = {
-  delay?: number;
-  /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
-  quayChanged?: boolean;
-  /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
-  quayName?: string;
-  /** planned arrival/departure time */
-  time: string;
-};
+import { Leg, TimeQuayWrapper } from '../../global/interfaces/pearl-chain-properties';
 
 declare type SummaryConfig = {
   legs: Leg[];
