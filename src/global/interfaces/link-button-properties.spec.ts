@@ -321,6 +321,7 @@ describe('forwardHostClick', () => {
     host = new HTMLElement();
     actionElement = new HTMLElement();
   });
+
   it('should forward host click', () => {
     // Simulate shadow DOM context
     jest.spyOn(event, 'composedPath').mockReturnValue([host]);

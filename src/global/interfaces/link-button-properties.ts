@@ -258,10 +258,18 @@ export function forwardHostEvent(
   let copiedEvent: Event;
 
   if (event.cancelable) {
+    // If the event is cancelable, we immediatly cancel it, copy it and dispatch it on the nested
+    // action element. As all of our intended forwardable event types bubble, this ensures
+    // that an event which was dispatched on host, is forwarded to the intended nested action
+    // element and consumers can still add event listeners and deal with the bubbling event
+    // as desired.
     event.preventDefault();
     event.stopImmediatePropagation();
     copiedEvent = new eventConstructor(event.type, event);
   } else {
+    // If the event cannot be cancelled, we just copy it and dispatch it non-bubbling on the nested
+    // action element. This ensures that an event that was programmatically dispatched on the host
+    // is also dispatched on the intended nested action element.
     copiedEvent = new eventConstructor(event.type);
   }
 
