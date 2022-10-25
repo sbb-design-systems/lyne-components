@@ -1,5 +1,9 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { formatDateForDepartureAndArrivalTime } from './sbb-pearl-chain-time.helper';
+import { addDays, subDays } from 'date-fns';
+
+const today = new Date();
 
 const departureWalk = {
   control: {
@@ -31,8 +35,8 @@ const defaultArgs = {
       duration: 300,
     },
   ],
-  'departure-time': '2022-10-28T02:48:00+02:00',
-  'arrival-time': '2022-10-28T12:48:00+02:00',
+  'departure-time': formatDateForDepartureAndArrivalTime(today.setHours(2, 48, 0, 0)),
+  'arrival-time': formatDateForDepartureAndArrivalTime(today.setHours(12, 48, 0, 0)),
 };
 
 const Template = (args) => {
@@ -68,8 +72,12 @@ maximal.args = {
   legs: [
     {
       duration: 300,
-      arrival: { time: '2022-10-20T13:00' },
-      departure: { time: '2022-10-08T12:00' },
+      arrival: {
+        time: formatDateForDepartureAndArrivalTime(addDays(today, 4).setHours(13, 0, 0, 0)),
+      },
+      departure: {
+        time: formatDateForDepartureAndArrivalTime(subDays(today, 12).setHours(12, 0, 0, 0)),
+      },
     },
   ],
 };
