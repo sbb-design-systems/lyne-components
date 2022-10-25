@@ -35,12 +35,9 @@ export class SbbTitle {
 
   public render(): JSX.Element {
     const TAGNAME = `h${this.level}`;
-    const classString = `sbb-title sbb-title--level-${
-      this.visualLevel ? this.visualLevel : this.level
-    }`;
 
     return (
-      <TAGNAME class={classString} id={this.titleId}>
+      <TAGNAME class="sbb-title" id={this.titleId}>
         <slot />
       </TAGNAME>
     );
