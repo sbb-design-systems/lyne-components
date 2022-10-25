@@ -9,7 +9,7 @@ describe('sbb-divider (default)', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-divider aria-orientation="horizontal" class="sbb-divider sbb-divider--horizontal" role="separator">
+      <sbb-divider orientation="horizontal" aria-orientation="horizontal" role="separator">
         <mock:shadow-root></mock:shadow-root>
       </sbb-divider>
     `);
@@ -24,7 +24,7 @@ describe('sbb-divider (horizontal)', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-divider aria-orientation="horizontal" class="sbb-divider sbb-divider--horizontal" orientation="horizontal" role="separator">
+      <sbb-divider orientation="horizontal" aria-orientation="horizontal" role="separator">
         <mock:shadow-root></mock:shadow-root>
       </sbb-divider>
     `);
@@ -39,7 +39,7 @@ describe('sbb-divider (vertical)', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-divider aria-orientation="vertical" class="sbb-divider sbb-divider--vertical" orientation="vertical" role="separator">
+      <sbb-divider orientation="vertical" aria-orientation="vertical" role="separator">
         <mock:shadow-root></mock:shadow-root>
       </sbb-divider>
     `);
@@ -54,7 +54,7 @@ describe('sbb-divider (horizontal, negative)', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-divider aria-orientation="horizontal" class="sbb-divider sbb-divider--horizontal sbb-divider--negative" negative orientation="horizontal" role="separator">
+      <sbb-divider orientation="horizontal" negative aria-orientation="horizontal" role="separator">
         <mock:shadow-root></mock:shadow-root>
       </sbb-divider>
     `);
@@ -69,7 +69,7 @@ describe('sbb-divider (vertical, negative)', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-divider aria-orientation="vertical" class="sbb-divider sbb-divider--vertical sbb-divider--negative" negative orientation="vertical" role="separator">
+      <sbb-divider orientation="vertical" negative aria-orientation="vertical" role="separator">
         <mock:shadow-root></mock:shadow-root>
       </sbb-divider>
     `);
