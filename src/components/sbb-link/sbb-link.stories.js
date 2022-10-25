@@ -10,7 +10,6 @@ import {
 } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-link.events';
 
 const wrapperStyle = (context) => {
   if (!context.args.negative) {
@@ -499,7 +498,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: ['click'],
     },
     docs: {
       extractComponentDescription: () => readme,

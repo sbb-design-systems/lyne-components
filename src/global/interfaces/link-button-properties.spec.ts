@@ -1,7 +1,7 @@
 import { AccessibilityProperties } from './accessibility-properties';
 import {
   ButtonProperties,
-  forwardHostClick,
+  forwardHostEvent,
   getButtonAttributeList,
   getButtonRenderVariables,
   getLinkAttributeList,
@@ -314,16 +314,19 @@ describe('resolveLinkRenderVariables', () => {
 });
 
 describe('forwardHostClick', () => {
-  it('should forward host click', () => {
-    const event = new Event('click');
-    const host = new HTMLElement();
-    const actionElement = new HTMLElement();
+  let event: Event, host: HTMLElement, actionElement: HTMLElement;
 
+  beforeEach(() => {
+    event = new Event('click', { cancelable: true });
+    host = new HTMLElement();
+    actionElement = new HTMLElement();
+  });
+  it('should forward host click', () => {
     // Simulate shadow DOM context
     jest.spyOn(event, 'composedPath').mockReturnValue([host]);
     const eventSpy = jest.spyOn(actionElement, 'dispatchEvent');
 
-    forwardHostClick(event, host, actionElement);
+    forwardHostEvent(event, host, actionElement);
 
     const copiedEvent = eventSpy.mock.lastCall[0];
     expect(eventSpy).toHaveBeenCalledTimes(1);
@@ -332,13 +335,25 @@ describe('forwardHostClick', () => {
   });
 
   it('should not forward because click is not on host', () => {
-    const event = new Event('click');
-    const host = new HTMLElement();
-    const actionElement = new HTMLElement();
     const eventSpy = jest.spyOn(actionElement, 'dispatchEvent');
 
-    forwardHostClick(event, host, actionElement);
+    forwardHostEvent(event, host, actionElement);
 
     expect(eventSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it('should create a new event if original event is not cancelable', () => {
+    event = new Event('click', { cancelable: false });
+
+    // Simulate shadow DOM context
+    jest.spyOn(event, 'composedPath').mockReturnValue([host]);
+
+    const eventSpy = jest.spyOn(actionElement, 'dispatchEvent');
+
+    forwardHostEvent(event, host, actionElement);
+
+    const copiedEvent = eventSpy.mock.lastCall[0];
+    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(copiedEvent.type).toEqual('click');
   });
 });

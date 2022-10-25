@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-card.events';
 import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 
 const wrapperStyle = (context) => {
@@ -317,7 +316,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: ['click'],
     },
     docs: {
       extractComponentDescription: () => readme,

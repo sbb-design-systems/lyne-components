@@ -1,7 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import buttonEvents from '../sbb-button/sbb-button.events';
-import linkEvents from '../sbb-link/sbb-link.events';
 
 const firstButtonTemplate = (size, alignSelf) => (
   <sbb-button size={size} align-self={alignSelf} variant="secondary">
@@ -271,9 +269,6 @@ export default {
     ),
   ],
   parameters: {
-    actions: {
-      handles: [buttonEvents.click, linkEvents.click],
-    },
     backgrounds: {
       disable: true,
     },

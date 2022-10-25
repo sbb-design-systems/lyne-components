@@ -1,4 +1,3 @@
-import { EventEmitter } from '@stencil/core';
 import getDocumentLang from '../helpers/get-document-lang';
 import getDocumentWritingMode from '../helpers/get-document-writing-mode';
 import { i18nTargetOpensInNewWindow } from '../i18n';
@@ -39,7 +38,7 @@ export interface LinkProperties extends AccessibilityProperties {
 /**
  * The interface contains attributes that can be set on an <button> tag.
  */
-export interface ButtonProperties<T = any> extends AccessibilityProperties {
+export interface ButtonProperties extends AccessibilityProperties {
   /** The type attribute to use for the button. */
   type: ButtonType | undefined;
 
@@ -69,11 +68,8 @@ export interface ButtonProperties<T = any> extends AccessibilityProperties {
    */
   accessibilityHaspopup?: PopupType | undefined;
 
-  /** Emits the event on button click. */
-  click: EventEmitter<T> | undefined;
-
   /** The function triggered on button click. */
-  emitButtonClick: ((event: Event) => void) | undefined;
+  emitButtonClick?: ((event: Event) => void) | undefined;
 }
 
 /**
@@ -103,9 +99,7 @@ export interface LinkButtonRenderVariables {
  * for instance depending on whether the value of the href attribute is present or not.
  * NOTE: a class could not be created because StencilJS does not support inheritance/component extension.
  */
-export interface LinkButtonProperties<ParameterType = any>
-  extends LinkProperties,
-    ButtonProperties<ParameterType> {}
+export interface LinkButtonProperties extends LinkProperties, ButtonProperties {}
 
 /**
  * Creates the basic attribute list for the link/button tag; undefined/null properties are not set.
@@ -250,7 +244,7 @@ export function resolveLinkRenderVariables(
  * Forwards a click on the host element to the nested action element in order to
  * simplify the API.
  */
-export function forwardHostClick(
+export function forwardHostEvent(
   event: Event,
   host: HTMLElement,
   nestedActionElement: HTMLElement
@@ -261,6 +255,15 @@ export function forwardHostClick(
     return;
   }
   const eventConstructor = Object.getPrototypeOf(event).constructor;
-  const copiedEvent = new eventConstructor(event.type, { bubbles: false });
+  let copiedEvent: Event;
+
+  if (event.cancelable) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    copiedEvent = new eventConstructor(event.type, event);
+  } else {
+    copiedEvent = new eventConstructor(event.type);
+  }
+
   nestedActionElement.dispatchEvent(copiedEvent);
 }

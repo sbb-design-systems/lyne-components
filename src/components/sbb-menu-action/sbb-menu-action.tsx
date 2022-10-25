@@ -1,6 +1,7 @@
-import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Listen, Prop } from '@stencil/core';
 import {
   ButtonType,
+  forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -73,14 +74,6 @@ export class SbbMenuAction implements LinkButtonProperties {
    */
   @Prop() public accessibilityHaspopup: PopupType | undefined;
 
-  /** Emits the event on button click. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'sbb-menu-action_click',
-  })
-  public click: EventEmitter;
-
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
@@ -90,12 +83,24 @@ export class SbbMenuAction implements LinkButtonProperties {
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
 
-  /**
-   * Method triggered on button click to emit the click event (can be caught from parent component).
-   */
-  public emitButtonClick(): void {
-    if (!this.disabled) {
-      this.click.emit();
+  @Element() private _element: HTMLElement;
+
+  public connectedCallback(): void {
+    // Forward focus call to action element
+    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+  }
+
+  private _actionElement(): HTMLElement {
+    return this._element.shadowRoot.firstElementChild as HTMLElement;
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    } else {
+      forwardHostEvent(event, this._element, this._actionElement());
     }
   }
 

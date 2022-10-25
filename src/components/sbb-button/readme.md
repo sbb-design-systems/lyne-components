@@ -66,13 +66,6 @@ sbb-button {
 | `variant`                  | `variant`                   | Variant of the button, like primary, secondary etc.                                                                                                                                                                             | `"primary" \| "secondary" \| "translucent" \| "transparent"`    | `'primary'` |
 
 
-## Events
-
-| Event              | Description                      | Type               |
-| ------------------ | -------------------------------- | ------------------ |
-| `sbb-button_click` | Emits the event on button click. | `CustomEvent<any>` |
-
-
 ## Slots
 
 | Slot        | Description                                  |
