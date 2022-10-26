@@ -469,35 +469,30 @@ const Template = (args) => (
       <sbb-link-list horizontal-from="large" negative={args.negative}>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text-size="xs"
           negative={args.negative}
         >
           Refunds
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text-size="xs"
           negative={args.negative}
         >
           Lost property office
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text-size="xs"
           negative={args.negative}
         >
           Complaints
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text-size="xs"
           negative={args.negative}
         >
           Praise
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          text-size="xs"
           negative={args.negative}
         >
           Report property damage

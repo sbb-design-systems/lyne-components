@@ -52,10 +52,10 @@
     }
 
     @include mq($from: wide) {
-      width: calc(#{$sbb-breakpoint-wide-min} - (2 * var(--sbb-layout-base-offset-responsive)));
+      max-width: px-to-rem-build(1200); // TODO: Add as design token
       margin-inline-start: auto;
       margin-inline-end: auto;
-      grid-template-columns: repeat(4, calc(25% - ((3 * var(--sbb-footer-gap-horizontal)) / 4)));
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -77,6 +77,17 @@
   }
 
   ::slotted(sbb-divider) {
+    --sbb-footer-inset-block-end: calc(
+      var(--sbb-footer-gap-vertical) - var(--sbb-spacing-responsive-s)
+    );
+
+    position: relative;
+    margin-block-start: calc(
+      var(--sbb-spacing-responsive-xl) -
+        (var(--sbb-footer-gap-vertical) + var(--sbb-footer-inset-block-end))
+    );
+    inset-block-end: calc(-1 * var(--sbb-footer-inset-block-end));
+
     @include mq($from: small) {
       grid-row: 3;
       grid-column: 1 / 4;
