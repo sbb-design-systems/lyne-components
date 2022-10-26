@@ -12,7 +12,7 @@ export function isBreakpoint(from?: Breakpoint, to?: Breakpoint): boolean {
   const computedStyle = getComputedStyle(document.documentElement);
 
   const breakpointMin = computedStyle.getPropertyValue(`--sbb-breakpoint-${from}-min`);
-  const breakpointMax = computedStyle.getPropertyValue(`--sbb-breakpoint-${to}-max`);
+  const breakpointMax = computedStyle.getPropertyValue(`--sbb-breakpoint-${to}-min`);
 
   const minWidth = breakpointMin && `(min-width: ${breakpointMin})`;
   const maxWidth = breakpointMax && `(max-width: ${breakpointMax})`;

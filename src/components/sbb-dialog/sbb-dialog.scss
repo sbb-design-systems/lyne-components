@@ -1,0 +1,240 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-dialog-color: var(--sbb-color-black-default);
+  --sbb-dialog-background-color: var(--sbb-color-white-default);
+  --sbb-dialog-max-width: 100%;
+  --sbb-dialog-max-height: 100%;
+  --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
+  --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-8x);
+  --sbb-dialog-padding-block: var(--sbb-spacing-fixed-4x);
+  --sbb-dialog-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-dialog-animation-easing: ease;
+  --sbb-dialog-backdrop-color: transparent;
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
+  --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+  --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
+  --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
+
+  position: fixed;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  inset: 0;
+  z-index: 10;
+
+  &::before {
+    content: '';
+    visibility: hidden;
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    background-color: var(--sbb-dialog-backdrop-color);
+    transition: {
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: var(--sbb-dialog-animation-easing);
+      property: background-color, visibility;
+    }
+  }
+}
+
+:host(.sbb-dialog--presented),
+:host(.sbb-dialog--presenting) {
+  pointer-events: all;
+
+  @include mq($from: medium) {
+    &::before {
+      --sbb-dialog-backdrop-color: var(--sbb-color-milk-default);
+
+      visibility: visible;
+      pointer-events: all;
+    }
+  }
+}
+
+:host(.sbb-dialog--full-screen)::before {
+  --sbb-dialog-backdrop-color: transparent;
+}
+
+:host([negative]) {
+  --sbb-dialog-color: var(--sbb-color-white-default);
+  --sbb-dialog-background-color: var(--sbb-color-midnight-default);
+  --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
+  --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
+  --sbb-dialog-footer-border: none;
+}
+
+:host([disable-animation]) {
+  --sbb-dialog-animation-duration: 0s;
+}
+
+.sbb-dialog {
+  padding: 0;
+  border: none;
+  max-width: var(--sbb-dialog-max-width);
+  max-height: var(--sbb-dialog-max-height);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  color: var(--sbb-dialog-color);
+  background-color: var(--sbb-dialog-background-color);
+
+  &[open] {
+    animation: {
+      name: show;
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: ease;
+    }
+  }
+
+  &.sbb-dialog--dismissing {
+    pointer-events: none;
+    animation-name: hide;
+  }
+
+  @include ifForcedColors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  @include mq($from: medium) {
+    --sbb-dialog-max-width: min(
+      calc(100vw - calc(var(--sbb-spacing-fixed-30x) * 2)),
+      #{px-to-rem-build(892)}
+    );
+    --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
+
+    border-radius: var(--sbb-dialog-border-radius);
+    height: fit-content;
+    overflow: hidden;
+  }
+}
+
+.sbb-dialog__wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: var(--sbb-dialog-max-height);
+  outline: none;
+
+  @include mq($from: medium) {
+    height: auto;
+  }
+}
+
+.sbb-dialog__header {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-dialog-header-padding-block);
+  background-color: var(--sbb-dialog-background-color);
+  z-index: 10;
+
+  .sbb-dialog__back {
+    margin-inline-end: var(--sbb-spacing-fixed-6x);
+  }
+
+  .sbb-dialog__title {
+    overflow: hidden;
+  }
+
+  .sbb-dialog__dismiss {
+    margin-inline-start: auto;
+    padding-inline-start: var(--sbb-spacing-fixed-6x);
+  }
+
+  @include mq($from: medium) {
+    border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
+  }
+}
+
+.sbb-dialog__content {
+  @include scrollbar;
+
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-dialog-padding-block);
+  overflow: auto;
+}
+
+.sbb-dialog__footer {
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-spacing-responsive-s);
+  margin-block-start: auto;
+  background-color: var(--sbb-dialog-background-color);
+  border-top: var(--sbb-dialog-footer-border);
+}
+
+:host(.sbb-dialog--full-screen) .sbb-dialog {
+  --sbb-dialog-max-width: 100%;
+  --sbb-dialog-max-height: 100%;
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
+
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+
+  .sbb-dialog__header {
+    position: fixed;
+    width: 100%;
+    background-color: transparent;
+    padding-inline: var(--sbb-spacing-fixed-6x);
+  }
+
+  .sbb-dialog__content {
+    padding-block-start: var(--sbb-spacing-fixed-20x);
+    padding-inline: var(--sbb-spacing-responsive-xl);
+    height: 100vh;
+  }
+}
+
+// stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+:host(:not(.sbb-dialog--full-screen, [negative])) .sbb-dialog__has-scrollbar {
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-dialog-footer-border: none;
+
+  .sbb-dialog__header,
+  .sbb-dialog__footer {
+    @include shadow-level-9-soft;
+  }
+}
+
+:host(:not(.sbb-dialog--full-screen)[negative]) .sbb-dialog__has-scrollbar {
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
+}
+
+:host(.sbb-dialog--full-screen:not([negative])) .sbb-dialog {
+  --sbb-dialog-background-color: var(--sbb-color-milk-default);
+}
+// stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
+
+// It is necessary to use animations with keyframes instead of transitions in order not to alter
+// the default `display: block` of the modal otherwise it causes several problems,
+// especially for accessibility.
+@keyframes show {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes hide {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+}
