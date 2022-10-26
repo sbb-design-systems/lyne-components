@@ -1284,7 +1284,7 @@ export namespace Components {
          */
         "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
-          * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
+          * Sometimes we need a title in the markup to present a proper hierarchy to the screen readers while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
         "visuallyHidden"?: false;
     }
@@ -3013,7 +3013,7 @@ declare namespace LocalJSX {
          */
         "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
         /**
-          * Sometimes we need a title in the markup to present a proper hierarchy to the screenreaders while we do not want to let that title appear visually. In this case we set visuallyHidden to true
+          * Sometimes we need a title in the markup to present a proper hierarchy to the screen readers while we do not want to let that title appear visually. In this case we set visuallyHidden to true
          */
         "visuallyHidden"?: false;
     }

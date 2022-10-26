@@ -3,47 +3,51 @@
 @include host-component-properties;
 
 :host {
-  // TODO: define where to handle font color: see inherited.scss
-  --_title-text-color-normal: var(--title-text-color-normal, var(--sbb-color-charcoal-default));
+  --sbb-title-text-color-normal: var(
+    --sbb-title-text-color-normal-override,
+    var(--sbb-color-charcoal-default)
+  );
 }
 
-.title--hidden {
-  @include screenReaderOnly;
-}
-
-.title[id] {
-  @include scrollMarginBlockStart;
-}
-
-.title {
-  color: var(--_title-text-color-normal);
-  @include fontSmoothing;
-}
-
-.title-1 {
-  @include title-1;
-}
-
-.title-2 {
-  @include title-2;
-}
-
-.title-3 {
-  @include title-3;
-}
-
-.title-4 {
-  @include title-4;
-}
-
-.title-5 {
-  @include title-5;
-}
-
-.title-6 {
-  @include title-6;
-}
-
-.title--negative {
+:host([negative]) {
   @include title--negative;
+}
+
+.sbb-title {
+  color: var(--sbb-title-text-color-normal);
+  @include fontSmoothing;
+
+  :host([visually-hidden]) & {
+    @include screenReaderOnly;
+  }
+
+  &[id] {
+    @include scrollMarginBlockStart;
+  }
+
+  // stylelint-disable plugin/stylelint-bem-namics
+  :host(:is([level='1']:not([visual-level]), [visual-level='1'])) & {
+    @include title-1;
+  }
+
+  :host(:is([level='2']:not([visual-level]), [visual-level='2'])) & {
+    @include title-2;
+  }
+
+  :host(:is([level='3']:not([visual-level]), [visual-level='3'])) & {
+    @include title-3;
+  }
+
+  :host(:is([level='4']:not([visual-level]), [visual-level='4'])) & {
+    @include title-4;
+  }
+
+  :host(:is([level='5']:not([visual-level]), [visual-level='5'])) & {
+    @include title-5;
+  }
+
+  :host(:is([level='6']:not([visual-level]), [visual-level='6'])) & {
+    @include title-6;
+  }
+  // stylelint-enable plugin/stylelint-bem-namics
 }
