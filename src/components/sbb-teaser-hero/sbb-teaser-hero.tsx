@@ -1,6 +1,6 @@
 import { Component, Element, h, JSX, Listen, Prop } from '@stencil/core';
 import {
-  forwardHostClick,
+  forwardHostEvent,
   LinkProperties,
   LinkTargetType,
   resolveLinkRenderVariables,
@@ -39,7 +39,7 @@ export class SbbTeaserHero implements LinkProperties {
   @Prop() public target?: LinkTargetType | string | undefined;
 
   /** Pass in an id, if you need to identify the inner link element. */
-  @Prop() public idValue?: string;
+  @Prop() public teaserHeroId?: string;
 
   /** Panel link text. */
   @Prop() public linkContent?: string;
@@ -54,11 +54,18 @@ export class SbbTeaserHero implements LinkProperties {
 
   @Listen('click')
   public handleClick(event: Event): void {
-    forwardHostClick(
-      event,
-      this._element,
-      this._element.shadowRoot.firstElementChild as HTMLElement // a element
-    );
+    if (this.href) {
+      forwardHostEvent(event, this._element, this._actionElement());
+    }
+  }
+
+  private _actionElement(): HTMLElement {
+    return this._element.shadowRoot.firstElementChild as HTMLElement;
+  }
+
+  public connectedCallback(): void {
+    // Forward focus call to action element
+    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
   }
 
   public render(): JSX.Element {
@@ -69,7 +76,7 @@ export class SbbTeaserHero implements LinkProperties {
     } = resolveLinkRenderVariables(this);
 
     return (
-      <TAG_NAME class="sbb-teaser-hero" id={this.idValue} {...attributes}>
+      <TAG_NAME class="sbb-teaser-hero" id={this.teaserHeroId} {...attributes}>
         <span class="sbb-teaser-hero__panel">
           <span class="sbb-teaser-hero__panel-text">
             <slot />

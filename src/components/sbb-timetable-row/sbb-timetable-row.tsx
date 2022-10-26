@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
 import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
@@ -44,6 +44,13 @@ export class SbbTimetableRow {
     eventName: 'sbb-timetable-row_click',
   })
   public sbbClick: EventEmitter<any>;
+
+  @Element() private _element: HTMLElement;
+
+  private _now(): number {
+    const dataNow = +this._element.dataset?.now;
+    return isNaN(dataNow) ? Date.now() : dataNow;
+  }
 
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
@@ -102,7 +109,7 @@ export class SbbTimetableRow {
     return (
       <sbb-card
         active={this.active}
-        id-value={id}
+        card-id={id}
         accessibility-label={this.accessibilityLabel}
         onClick={this._clickHandler}
       >
@@ -137,6 +144,7 @@ export class SbbTimetableRow {
             departureWalk={departureWalk}
             arrivalWalk={arrivalWalk}
             disableAnimation={this.disableAnimation}
+            data-now={this._now()}
           ></sbb-pearl-chain-time>
 
           <div class="sbb-timetable__row-footer">

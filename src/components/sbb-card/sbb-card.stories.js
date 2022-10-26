@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-card.events';
 import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 
 const wrapperStyle = (context) => {
@@ -91,7 +90,7 @@ const rel = {
   },
 };
 
-const idValue = {
+const cardId = {
   control: {
     type: 'text',
   },
@@ -159,7 +158,7 @@ const basicArgTypes = {
   download,
   target,
   rel,
-  'id-value': idValue,
+  'card-id': cardId,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
@@ -177,7 +176,7 @@ const basicArgs = {
   download: false,
   target: '_blank',
   rel: undefined,
-  'id-value': undefined,
+  'card-id': undefined,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
@@ -317,7 +316,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: ['click'],
     },
     docs: {
       extractComponentDescription: () => readme,

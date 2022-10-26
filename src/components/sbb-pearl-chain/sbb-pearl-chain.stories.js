@@ -8,17 +8,30 @@ const disableAnimation = {
   },
 };
 
+const now = {
+  control: {
+    type: 'date',
+  },
+};
+
 const defaultArgTypes = {
   'disable-animation': disableAnimation,
+  'data-now': now,
+};
+
+const defaultArgs = {
+  'disable-animation': false,
+  'data-now': undefined,
 };
 
 const Template = (args) => {
-  return <sbb-pearl-chain legs={args.legs} />;
+  return <sbb-pearl-chain {...args} />;
 };
 
 export const NoStops = Template.bind({});
 NoStops.argTypes = defaultArgTypes;
 NoStops.args = {
+  ...defaultArgs,
   legs: [
     {
       duration: 300,
@@ -32,6 +45,7 @@ NoStops.documentation = {
 export const ManyStops = Template.bind({});
 ManyStops.argTypes = defaultArgTypes;
 ManyStops.args = {
+  ...defaultArgs,
   legs: [
     {
       duration: 300,
@@ -51,6 +65,7 @@ ManyStops.args = {
 export const Cancelled = Template.bind({});
 Cancelled.argTypes = defaultArgTypes;
 Cancelled.args = {
+  ...defaultArgs,
   legs: [
     {
       duration: 300,
@@ -66,6 +81,7 @@ Cancelled.args = {
 export const CancelledManyStops = Template.bind({});
 CancelledManyStops.argTypes = defaultArgTypes;
 CancelledManyStops.args = {
+  ...defaultArgs,
   legs: [
     {
       duration: 300,
@@ -113,12 +129,15 @@ CancelledManyStops.args = {
 export const withData = Template.bind({});
 withData.argTypes = defaultArgTypes;
 withData.args = {
+  ...defaultArgs,
   legs: data,
+  'data-now': new Date('2022-10-15T00:00').valueOf(),
 };
 
 export const Past = Template.bind({});
 Past.argTypes = defaultArgTypes;
 Past.args = {
+  ...defaultArgs,
   legs: [
     {
       duration: 120,

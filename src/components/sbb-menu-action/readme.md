@@ -42,13 +42,6 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 | `value`                    | `value`                     | The value attribute to use for the button.                                                                                                                                                                                      | `string`                                                        | `undefined`                     |
 
 
-## Events
-
-| Event                   | Description                      | Type               |
-| ----------------------- | -------------------------------- | ------------------ |
-| `sbb-menu-action_click` | Emits the event on button click. | `CustomEvent<any>` |
-
-
 ## Slots
 
 | Slot        | Description                                                                   |

@@ -168,6 +168,9 @@ export default {
     ),
   ],
   parameters: {
+    actions: {
+      handles: ['click'],
+    },
     backgrounds: {
       disable: true,
     },

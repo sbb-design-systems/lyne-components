@@ -19,10 +19,17 @@ const disableAnimation = {
   },
 };
 
+const now = {
+  control: {
+    type: 'date',
+  },
+};
+
 const defaultArgTypes = {
   'departure-walk': departureWalk,
   'arrival-walk': arrivalWalk,
   'disable-animation': disableAnimation,
+  'data-now': now,
 };
 
 const defaultArgs = {
@@ -33,6 +40,8 @@ const defaultArgs = {
   ],
   'departure-time': '2022-10-28T02:48:00+02:00',
   'arrival-time': '2022-10-28T12:48:00+02:00',
+  'disable-animation': false,
+  'data-now': undefined,
 };
 
 const Template = (args) => {
@@ -72,6 +81,7 @@ maximal.args = {
       departure: { time: '2022-10-08T12:00' },
     },
   ],
+  'data-now': new Date('2022-10-13T12:00').valueOf(),
 };
 
 export default {

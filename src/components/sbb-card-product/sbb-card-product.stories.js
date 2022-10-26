@@ -50,7 +50,7 @@ const accessibilityLabel = {
   },
 };
 
-const idValue = {
+const cardProductId = {
   control: {
     type: 'text',
   },
@@ -153,7 +153,7 @@ const layout = {
 const defaultArgTypes = {
   appearance,
   layout,
-  'id-value': idValue,
+  'card-product-id': cardProductId,
   'accessibility-label': accessibilityLabel,
   'href-value': hrefValue,
   'is-button': isButton,

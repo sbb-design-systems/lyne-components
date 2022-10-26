@@ -1,4 +1,3 @@
-import events from './sbb-button.events';
 import { SbbButton } from './sbb-button';
 import { newSpecPage } from '@stencil/core/testing';
 
@@ -11,7 +10,7 @@ describe('sbb-button', () => {
           variant="primary"
           negative
           size="m"
-          id-value="id"
+          button-id="id"
           type="button"
           disabled
           name="name"
@@ -32,7 +31,7 @@ describe('sbb-button', () => {
           variant="primary"
           negative
           size="m"
-          id-value="id"
+          button-id="id"
           type="button"
           disabled
           name="name"
@@ -169,25 +168,5 @@ describe('sbb-button', () => {
             this is a static button
           </sbb-button>
       `);
-  });
-
-  it('Should emit click event on click', async () => {
-    const page = await newSpecPage({
-      components: [SbbButton],
-      html: '<sbb-button label="I am a button"></sbb-button>',
-      supportsShadowDom: true,
-    });
-
-    const {
-      root: { shadowRoot },
-    } = page;
-
-    const button = shadowRoot.querySelector('button');
-    const buttonSpy = jest.fn();
-
-    page.win.addEventListener(events.click, buttonSpy);
-    button.click();
-    await page.waitForChanges();
-    expect(buttonSpy).toHaveBeenCalled();
   });
 });

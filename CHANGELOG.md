@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.11.2 (2022-10-26)
+
+### 0.11.1 (2022-10-26)
+
+## 0.11.0 (2022-10-26)
+
+### ⚠ BREAKING CHANGES
+
+- Custom click events on action elements were removed
+  (e.g. `sbb-button_click`, `sbb-link_click`, ...).
+  Please read the property target of the emitted event if you are interested from where an event was triggered.
+
+### Features
+
+- forward focus on host and remove redundant click events ([#1427](https://github.com/lyne-design-system/lyne-components/issues/1427)) ([52b230f](https://github.com/lyne-design-system/lyne-components/commit/52b230fc9f62e193b1eee27b6bb383674f003b3f))
+
+### 0.10.1 (2022-10-25)
+
+### Bug Fixes
+
+- **sbb-pearl-chain, sbb-pearl-chain-time:** relative datetime in stories ([#1423](https://github.com/lyne-design-system/lyne-components/issues/1423)) ([5d21890](https://github.com/lyne-design-system/lyne-components/commit/5d218900687aa81e7b1d64119fc3774608d98d49))
+
+## 0.10.0 (2022-10-25)
+
+### ⚠ BREAKING CHANGES
+
+- Every property called idValue was renamed to ${componentName}Id
+  as documented in CODING_STANDARDS.md. The following components
+  are affected: sbb-button, sbb-card, sbb-card-product, sbb-link, sbb-teaser-hero.
+
+- rename idValue properties to specific names ([#1421](https://github.com/lyne-design-system/lyne-components/issues/1421)) ([181735d](https://github.com/lyne-design-system/lyne-components/commit/181735d40be4f4d213c30db6f52bf64e7025f3f7))
+
+### 0.9.16 (2022-10-25)
+
 ### 0.9.15 (2022-10-24)
 
 ### 0.9.14 (2022-10-21)

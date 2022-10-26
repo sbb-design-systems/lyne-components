@@ -6,11 +6,11 @@ describe('sbb-teaser-hero', () => {
   it('should render all properties', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: `<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
+      html: `<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" teaser-hero-id="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" teaser-hero-id="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
           <mock:shadow-root>
             <a
               aria-describedby="describedby"
@@ -50,11 +50,11 @@ describe('sbb-teaser-hero', () => {
   it('should render without link', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: `<sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
+      html: `<sbb-teaser-hero accessibility-label="label" teaser-hero-id="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" id-value="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero accessibility-label="label" teaser-hero-id="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
           <mock:shadow-root>
             <span
               aria-label="label"
