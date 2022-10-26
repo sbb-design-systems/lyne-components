@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
-import getMarkupForSvg from '../../global/helpers/get-markup-for-svg';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
@@ -36,24 +35,6 @@ const defaultArgs = {
   negative: false,
 };
 
-const iconBurgerArgs = {
-  icon: 'hamburger-menu-small',
-};
-
-const iconSearchArgs = {
-  icon: 'magnifying-glass-small',
-};
-
-const iconLoginArgs = {
-  icon: 'user-small',
-};
-
-const iconLanguageArgs = {
-  icon: 'globe-small',
-};
-
-const SlotIconTemplate = (args) => getMarkupForSvg(args.icon);
-
 /* ************************************************* */
 /* Storybook template                                */
 /* ************************************************* */
@@ -63,33 +44,23 @@ const Template = (args) => (
     {/* *************************************************
     Header section
     ************************************************* */}
-    <sbb-section
-      width="page-spacing"
-      role="banner"
-      style="background-color: var(--sbb-color-white-default); cursor: pointer;"
-    >
-      <sbb-stack
-        slot="full-width"
-        stack-width="100%"
-        gap-horizontal="fixed-10x"
-        space-leading="responsive-xxs"
-        space-trailing="responsive-xxs"
-        appearance="horizontal--space-between--centered"
-      >
-        <sbb-stack gap-horizontal="responsive-xxs" appearance="horizontal--start--centered">
-          <SlotIconTemplate {...iconBurgerArgs} />
-          <SlotIconTemplate {...iconSearchArgs} />
-          <SlotIconTemplate {...iconLoginArgs} />
-          <SlotIconTemplate {...iconLanguageArgs} />
-        </sbb-stack>
-        <sbb-stack gap-horizontal="fixed-10x" appearance="horizontal--end--centered">
-          <sbb-logo
-            protective-room="none"
-            style="display:flex; height: var(--sbb-spacing-responsive-xxs);"
-          ></sbb-logo>
-        </sbb-stack>
-      </sbb-stack>
-    </sbb-section>
+    <sbb-header>
+      <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
+        Menu
+      </sbb-header-action>
+      <div class="spacer" />
+      <sbb-header-action icon-name="magnifying-glass-small">Suchen</sbb-header-action>
+      <sbb-header-action icon-name="user-small">Anmelden</sbb-header-action>
+      <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
+        Deutsch
+      </sbb-header-action>
+      <sbb-menu trigger="language-menu-trigger">
+        <sbb-menu-action icon-name="tick-small">Deutsch</sbb-menu-action>
+        <sbb-menu-action>Français</sbb-menu-action>
+        <sbb-menu-action>Italiano</sbb-menu-action>
+        <sbb-menu-action>English</sbb-menu-action>
+      </sbb-menu>
+    </sbb-header>
 
     {/* *************************************************
     Timetable input section

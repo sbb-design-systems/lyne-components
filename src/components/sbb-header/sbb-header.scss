@@ -1,0 +1,45 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-logo-height: #{px-to-rem-build(16)};
+
+  @include mq($from: medium) {
+    --sbb-logo-height: #{px-to-rem-build(20)};
+  }
+
+  height: var(--sbb-header-height-override, var(--sbb-header-height));
+}
+
+.sbb-header {
+  display: block;
+  position: fixed;
+  inset: 0 0 auto;
+  padding: 0 var(--sbb-page-base-offset-responsive);
+  background: var(--sbb-color-white-default);
+  transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  z-index: 10;
+
+  :host([shadow]) & {
+    @include shadow-level-9-soft;
+  }
+}
+
+.sbb-header__wrapper {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  margin-inline: auto;
+  height: var(--sbb-header-height-override, var(--sbb-header-height));
+  width: 100%;
+  max-width: #{px-to-rem-build(1200)};
+}
+
+.sbb-header__logo {
+  height: var(--sbb-logo-height);
+  aspect-ratio: 19/2;
+  margin-inline-start: auto;
+}

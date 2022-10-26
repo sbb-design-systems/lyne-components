@@ -2,3 +2,46 @@
   Storybook will inject this into the html-head at build time
 -->
 <meta name="components-version" content="%STORYBOOK_COMPONENTS_VERSION%" />
+
+<script>
+  const headerScrollHandler = () => {
+    const header = document.getElementsByTagName('sbb-header')[0];
+    if (header) {
+      if (window.scrollY === 0) {
+        header.removeAttribute('shadow');
+      } else {
+        header.setAttribute('shadow', '');
+      }
+    }
+  };
+  window.onload = () => document.addEventListener('scroll', headerScrollHandler, { passive: true });
+  window.onunload = () => document.removeEventListener('scroll', headerScrollHandler);
+</script>
+
+<style>
+  /* Classes used for the custom sbb-header story. */
+  .spacer {
+    display: none;
+  }
+
+  .last-element {
+    display: none;
+  }
+
+  @media screen and (min-width: 840px) {
+    .last-element {
+      display: block;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .spacer {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    .last-element {
+      margin-inline-end: var(--sbb-spacing-responsive-s);
+    }
+  }
+</style>
