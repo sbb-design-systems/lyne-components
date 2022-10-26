@@ -11,7 +11,7 @@ describe('sbb-title', () => {
     expect(root).toEqualHtml(`
         <sbb-title level="1" visual-level="2" title-id="test">
           <mock:shadow-root>
-            <h1 class="title title-2" id="test"><slot></slot></h1>
+            <h1 class="sbb-title" id="test"><slot></slot></h1>
           </mock:shadow-root>
           Sample Title Text
         </sbb-title>

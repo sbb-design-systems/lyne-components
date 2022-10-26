@@ -4,7 +4,7 @@
 
 :host {
   --_icon-spacing-inset: var(--sbb-spacing-fixed-1x);
-  --_title-text-color-normal: var(--title-text-color-normal, var(--sbb-color-charcoal-default));
+  --sbb-title-text-color-normal: var(--sbb-color-charcoal-default);
 }
 
 .journey-header[id] {
@@ -19,7 +19,7 @@
   justify-content: space-between;
   align-items: center;
   width: fit-content;
-  color: var(--_title-text-color-normal);
+  color: var(--sbb-title-text-color-normal);
 
   // Right to left expression
   &[dir='rtl'] {

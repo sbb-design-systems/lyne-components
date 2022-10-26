@@ -31,7 +31,7 @@
 
 .section--primary-negative {
   --_section-background-color: var(--sbb-color-charcoal-default);
-  --title-text-color-normal: var(--sbb-color-storm-default);
+  --sbb-title-text-color-normal-override: var(--sbb-color-storm-default);
 }
 
 .section--page-spacing {

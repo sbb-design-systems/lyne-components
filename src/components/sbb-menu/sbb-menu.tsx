@@ -126,7 +126,6 @@ export class SbbMenu implements ComponentInterface {
    * Dismisses the menu.
    */
   @Method()
-  @Listen('sbb-menu-action_click')
   public async dismiss(): Promise<void> {
     if (this._isPresenting) {
       return;
@@ -138,7 +137,18 @@ export class SbbMenu implements ComponentInterface {
     this._openedByKeyboard = false;
   }
 
-  // Dismisses the menu on "Esc" key pressed and traps focus whithin the menu.
+  /**
+   * Handles click and checks if its target is an sbb-menu-action.
+   */
+  @Listen('click')
+  public onClick(event: Event): void {
+    const target = event.target as HTMLElement | undefined;
+    if (target?.tagName === 'SBB-MENU-ACTION') {
+      this.dismiss();
+    }
+  }
+
+  // Dismisses the menu on "Esc" key pressed and traps focus within the menu.
   @Listen('keydown')
   public onKeydownEvent(event: KeyboardEvent): void {
     if (!this._presented) {
@@ -158,13 +168,13 @@ export class SbbMenu implements ComponentInterface {
     if (event.shiftKey) {
       // Shift + Tab
       if (document.activeElement === this._firstFocusable) {
-        this._focusMenuElement(this._lastFocusable);
+        this._lastFocusable.focus();
         event.preventDefault();
       }
     } else {
       // Tab
       if (document.activeElement === this._lastFocusable) {
-        this._focusMenuElement(this._firstFocusable);
+        this._firstFocusable.focus();
         event.preventDefault();
       }
     }
@@ -283,15 +293,6 @@ export class SbbMenu implements ComponentInterface {
   }
 
   // Avoid possible double focus on some elements.
-  private _focusMenuElement(element: HTMLElement): void {
-    // TODO: Consider handling/forwarding focus event on these components
-    if (['SBB-BUTTON', 'SBB-LINK', 'SBB-MENU-ACTION'].includes(element.nodeName)) {
-      (element.shadowRoot.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement).focus();
-    } else {
-      element.focus();
-    }
-  }
-
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
     const focusableElements = Array.from(this._element.querySelectorAll(IS_FOCUSABLE_QUERY));
@@ -299,7 +300,7 @@ export class SbbMenu implements ComponentInterface {
     this._lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
 
     if (this._openedByKeyboard) {
-      this._focusMenuElement(this._firstFocusable);
+      this._firstFocusable.focus();
     } else {
       // Focusing sbb-menu__content in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied

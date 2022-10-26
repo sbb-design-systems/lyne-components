@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-header-action.events';
 
 const TemplateSingle = (args) => <sbb-header-action {...args}>{args.text}</sbb-header-action>;
 
@@ -18,10 +17,11 @@ const text = {
   },
 };
 
-const icon = {
+const expandFrom = {
   control: {
-    type: 'text',
+    type: 'inline-radio',
   },
+  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
 const actionHeaderId = {
@@ -30,25 +30,15 @@ const actionHeaderId = {
   },
 };
 
-const expandFrom = {
+const iconName = {
   control: {
-    type: 'inline-radio',
+    type: 'text',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
 const href = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const download = {
-  control: {
-    type: 'boolean',
   },
   table: {
     category: 'Link',
@@ -73,12 +63,12 @@ const rel = {
   },
 };
 
-const name = {
+const download = {
   control: {
-    type: 'text',
+    type: 'boolean',
   },
   table: {
-    category: 'Button',
+    category: 'Link',
   },
 };
 
@@ -92,16 +82,7 @@ const type = {
   },
 };
 
-const form = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const eventId = {
+const name = {
   control: {
     type: 'text',
   },
@@ -111,6 +92,15 @@ const eventId = {
 };
 
 const value = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const form = {
   control: {
     type: 'text',
   },
@@ -157,9 +147,9 @@ const accessibilityLabelledby = {
 
 const basicArgTypes = {
   text,
-  icon,
   'expand-from': expandFrom,
   'header-action-id': actionHeaderId,
+  'icon-name': iconName,
   href,
   target,
   rel,
@@ -168,7 +158,6 @@ const basicArgTypes = {
   name,
   value,
   form,
-  'event-id': eventId,
   'accessibility-controls': accessibilityControls,
   'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
@@ -178,17 +167,17 @@ const basicArgTypes = {
 
 const basicArgs = {
   text: 'Menu',
-  icon: 'hamburger-menu-small',
   'expand-from': expandFrom.options[0],
   'header-action-id': 'menu',
+  'icon-name': 'hamburger-menu-small',
   href: 'https://github.com/lyne-design-system/lyne-components',
   target: '_blank',
+  rel: undefined,
   download: false,
   type: undefined,
   name: undefined,
   value: undefined,
   form: undefined,
-  'event-id': undefined,
   'accessibility-controls': undefined,
   'accessibility-haspopup': undefined,
   'accessibility-label': undefined,
@@ -201,11 +190,10 @@ const basicArgsButton = {
   href: undefined,
   target: undefined,
   download: undefined,
-  type: 'button',
+  type: type.options[0],
   name: 'header-button',
   value: 'value',
   form: 'form',
-  'event-id': 'Header button',
 };
 
 export const sbbHeaderActionLink = TemplateSingle.bind({});
@@ -246,7 +234,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: ['click'],
     },
     backgrounds: {
       disable: true,

@@ -34,13 +34,6 @@ anchor or button tag, it is internally rendered as a span in order to not break 
 | `variant`                  | `variant`                   | Variant of the link (block or inline).                                                                                                                                                                                          | `"block" \| "inline"`                                           | `'block'`   |
 
 
-## Events
-
-| Event                   | Description                      | Type               |
-| ----------------------- | -------------------------------- | ------------------ |
-| `sbb-link-button_click` | Emits the event on button click. | `CustomEvent<any>` |
-
-
 ## Slots
 
 | Slot        | Description                                  |

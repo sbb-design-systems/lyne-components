@@ -1,5 +1,4 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import events from './sbb-card.events';
 
 describe('sbb-card', () => {
   let element: E2EElement, page: E2EPage;
@@ -66,26 +65,40 @@ describe('sbb-card', () => {
   describe('events', () => {
     beforeEach(async () => {
       page = await newE2EPage();
-      await page.setContent('<sbb-card>Card</sbb-card>');
+      await page.setContent('<sbb-card id="outer-id" card-id="inner-id">Card</sbb-card>');
       element = await page.find('sbb-card');
     });
 
     it('dispatches event on click', async () => {
       await page.waitForChanges();
       const card = await page.find('sbb-card >>> .sbb-card');
-      const changeSpy = await page.spyOnEvent(events.click);
+      const changeSpy = await page.spyOnEvent('click');
 
       await card.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
     it('should forward host click to action element', async () => {
-      const changeSpy = await page.spyOnEvent(events.click);
+      const changeSpy = await page.spyOnEvent('click');
 
       element.triggerEvent('click');
       await page.waitForChanges();
 
       expect(changeSpy).toHaveReceivedEventTimes(1);
+    });
+
+    it('should forward host focus event to action element', async () => {
+      const button = await page.find('sbb-card >>> .sbb-card');
+
+      const changeSpy = await button.spyOnEvent('focus');
+
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+
+      // Even the inner native button receives the focus, the active element is the host
+      expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
     });
   });
 });

@@ -1,8 +1,9 @@
-import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop, Element, Listen } from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
+  forwardHostEvent,
   LinkButtonProperties,
   LinkTargetType,
   PopupType,
@@ -23,9 +24,7 @@ let nextId = 0;
   tag: 'sbb-header-action',
 })
 export class SbbHeaderAction implements LinkButtonProperties {
-  /**
-   * Action element's id.
-   */
+  /** Action element's id. */
   @Prop() public headerActionId = `sbb-header-action-${++nextId}`;
 
   /**
@@ -37,69 +36,35 @@ export class SbbHeaderAction implements LinkButtonProperties {
     'medium';
 
   /**
-   * The icon name used in the action element. See sbb-icon components for more details.
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/.
    */
-  @Prop() public icon?: string;
+  @Prop() public iconName?: string;
 
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
-  /**
-   * Indicates whether the browser will show the download dialog on click.
-   */
-  @Prop() public download: boolean | undefined;
-
-  /**
-   * The href value you want to link to.
-   */
+  /** The href value you want to link to (if it is not present sbb-header-action becomes a button). */
   @Prop({ reflect: true }) public href: string | undefined;
 
-  /**
-   * The relationship of the linked URL as space-separated link types.
-   */
-  @Prop() public rel: string | undefined;
+  /** Where to display the linked URL. */
+  @Prop() public target?: LinkTargetType | string | undefined;
 
-  /**
-   * Where to display the linked URL.
-   */
-  @Prop() public target: LinkTargetType | string | undefined;
+  /** The relationship of the linked URL as space-separated link types. */
+  @Prop() public rel?: string | undefined;
 
-  /**
-   * Form attribute if component is displayed as a button.
-   */
-  @Prop() public form: string | undefined;
+  /** Whether the browser will show the download dialog on click. */
+  @Prop() public download?: boolean;
 
-  /**
-   * Name attribute if component is displayed as a button.
-   */
-  @Prop() public name: string | undefined;
-
-  /**
-   * Type attribute if component is displayed as a button.
-   */
+  /** Type attribute if component is displayed as a button. */
   @Prop() public type: ButtonType | undefined;
 
-  /**
-   * The value associated with button `name` when it's submitted with the form data.
-   */
-  @Prop() public value: string | undefined;
+  /** Name attribute if component is displayed as a button. */
+  @Prop() public name: string | undefined;
 
-  /**
-   * Id sent in the click event payload.
-   */
-  @Prop() public eventId: string;
+  /** The value associated with button `name` when it's submitted with the form data. */
+  @Prop() public value?: string;
+
+  /** Form attribute if component is displayed as a button. */
+  @Prop() public form?: string;
 
   /**
    * When an interaction of this button has an impact on another element(s) in the document, the id
@@ -114,21 +79,29 @@ export class SbbHeaderAction implements LinkButtonProperties {
    */
   @Prop() public accessibilityHaspopup: PopupType | undefined;
 
-  /**
-   * Emits whenever the native button click event triggers.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'sbb-header-action-button_click',
-  })
-  public click: EventEmitter<string>;
+  /** This will be forwarded as aria-label to the relevant nested element. */
+  @Prop() public accessibilityLabel: string | undefined;
 
-  /**
-   * Method triggered on button click.
-   */
-  public emitButtonClick(): void {
-    this.click.emit(this.eventId);
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  @Prop() public accessibilityLabelledby: string | undefined;
+
+  @Element() private _element: HTMLElement;
+
+  public connectedCallback(): void {
+    // Forward focus call to action element
+    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+  }
+
+  private _actionElement(): HTMLElement {
+    return this._element.shadowRoot.firstElementChild as HTMLElement;
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostEvent(event, this._element, this._actionElement());
   }
 
   public render(): JSX.Element {
@@ -140,7 +113,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
     return (
       <TAG_NAME id={this.headerActionId} class="sbb-header-action" {...attributes}>
         <span class="sbb-header-action__icon">
-          <slot name="icon">{this.icon && <sbb-icon name={this.icon} />}</slot>
+          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         </span>
         <span class="sbb-header-action__text">
           <slot />
