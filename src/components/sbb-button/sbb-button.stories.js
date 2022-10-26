@@ -1,6 +1,5 @@
 import images from '../../global/images';
 import { SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
-import events from './sbb-button.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -534,7 +533,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: ['click'],
     },
     backgrounds: {
       disable: true,

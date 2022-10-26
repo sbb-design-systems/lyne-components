@@ -128,6 +128,9 @@ export default {
     ),
   ],
   parameters: {
+    actions: {
+      handles: ['click'],
+    },
     docs: {
       extractComponentDescription: () => readme,
     },

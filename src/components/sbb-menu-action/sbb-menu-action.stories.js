@@ -1,4 +1,3 @@
-import events from './sbb-menu-action.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -281,7 +280,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: ['click'],
     },
     backgrounds: {
       disable: true,

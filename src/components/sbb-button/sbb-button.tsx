@@ -1,19 +1,8 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Listen,
-  Prop,
-  State,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
-  forwardHostClick,
+  forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -104,14 +93,6 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
    */
   @Prop() public accessibilityHaspopup: PopupType | undefined;
 
-  /** Emits the event on button click. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'sbb-button_click',
-  })
-  public click: EventEmitter;
-
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
@@ -139,6 +120,13 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
       (n) => !(n as Element).slot && n.textContent
     );
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+
+    // Forward focus call to action element
+    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+  }
+
+  private _actionElement(): HTMLElement {
+    return this._element.shadowRoot.firstElementChild as HTMLElement;
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })
@@ -153,8 +141,6 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
     if (this.disabled || this.isStatic) {
       return;
     }
-
-    this.click.emit();
 
     if (!this._closestForm || this.type !== 'submit') {
       return;
@@ -172,12 +158,8 @@ export class SbbButton implements LinkButtonProperties, ComponentInterface {
     if (this.disabled) {
       event.preventDefault();
       event.stopImmediatePropagation();
-    } else {
-      forwardHostClick(
-        event,
-        this._element,
-        this._element.shadowRoot.firstElementChild as HTMLElement // button or a element
-      );
+    } else if (!this.isStatic) {
+      forwardHostEvent(event, this._element, this._actionElement());
     }
   }
 

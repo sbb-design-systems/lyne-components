@@ -358,7 +358,7 @@ export namespace Components {
          */
         "name": string | undefined;
         /**
-          * Option for set the component background color.
+          * Option to set the component background color.
          */
         "negative": boolean;
         /**
@@ -1343,25 +1343,9 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
-export interface SbbButtonCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbButtonElement;
-}
-export interface SbbCardCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbCardElement;
-}
-export interface SbbLinkCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbLinkElement;
-}
 export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbMenuElement;
-}
-export interface SbbMenuActionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbMenuActionElement;
 }
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2044,10 +2028,6 @@ declare namespace LocalJSX {
          */
         "negative"?: boolean;
         /**
-          * Emits the event on button click.
-         */
-        "onSbb-button_click"?: (event: SbbButtonCustomEvent<any>) => void;
-        /**
           * The relationship of the linked URL as space-separated link types.
          */
         "rel"?: string | undefined;
@@ -2110,13 +2090,9 @@ declare namespace LocalJSX {
          */
         "name"?: string | undefined;
         /**
-          * Option for set the component background color.
+          * Option to set the component background color.
          */
         "negative"?: boolean;
-        /**
-          * Emits whenever the native button click event triggers.
-         */
-        "onSbb-card-button_click"?: (event: SbbCardCustomEvent<any>) => void;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
@@ -2475,10 +2451,6 @@ declare namespace LocalJSX {
          */
         "negative"?: boolean;
         /**
-          * Emits the event on button click.
-         */
-        "onSbb-link-button_click"?: (event: SbbLinkCustomEvent<any>) => void;
-        /**
           * The relationship of the linked URL as space-separated link types.
          */
         "rel"?: string | undefined;
@@ -2618,10 +2590,6 @@ declare namespace LocalJSX {
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
-        /**
-          * Emits the event on button click.
-         */
-        "onSbb-menu-action_click"?: (event: SbbMenuActionCustomEvent<any>) => void;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
