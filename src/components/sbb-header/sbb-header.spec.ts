@@ -31,7 +31,7 @@ describe('sbb-header', () => {
       components: [SbbHeader],
       html: `
         <sbb-header shadow="true">
-          <sbb-header-action icon="hamburger-menu-small" href="https://github.com/lyne-design-system/lyne-components" text="Menu"/>
+          <sbb-header-action icon-name="hamburger-menu-small" href="https://github.com/lyne-design-system/lyne-components" text="Menu"/>
           <div slot="logo">
             <circle cx="25" cy="75" r="20"/>
           </div>
@@ -53,7 +53,7 @@ describe('sbb-header', () => {
             </div>
           </header>
         </mock:shadow-root>
-        <sbb-header-action icon="hamburger-menu-small" href="https://github.com/lyne-design-system/lyne-components" text="Menu"/>
+        <sbb-header-action icon-name="hamburger-menu-small" href="https://github.com/lyne-design-system/lyne-components" text="Menu"/>
         <div slot="logo">
           <circle cx="25" cy="75" r="20"></circle>
         </div>

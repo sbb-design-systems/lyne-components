@@ -567,13 +567,9 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * Indicates whether the browser will show the download dialog on click.
+          * Whether the browser will show the download dialog on click.
          */
-        "download": boolean | undefined;
-        /**
-          * Id sent in the click event payload.
-         */
-        "eventId": string;
+        "download"?: boolean;
         /**
           * Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others.
          */
@@ -581,19 +577,19 @@ export namespace Components {
         /**
           * Form attribute if component is displayed as a button.
          */
-        "form": string | undefined;
+        "form"?: string;
         /**
           * Action element's id.
          */
         "headerActionId": string;
         /**
-          * The href value you want to link to.
+          * The href value you want to link to (if it is not present sbb-header-action becomes a button).
          */
         "href": string | undefined;
         /**
-          * The icon name used in the action element. See sbb-icon components for more details.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
           * Name attribute if component is displayed as a button.
          */
@@ -601,11 +597,11 @@ export namespace Components {
         /**
           * The relationship of the linked URL as space-separated link types.
          */
-        "rel": string | undefined;
+        "rel"?: string | undefined;
         /**
           * Where to display the linked URL.
          */
-        "target": LinkTargetType | string | undefined;
+        "target"?: LinkTargetType | string | undefined;
         /**
           * Type attribute if component is displayed as a button.
          */
@@ -613,7 +609,7 @@ export namespace Components {
         /**
           * The value associated with button `name` when it's submitted with the form data.
          */
-        "value": string | undefined;
+        "value"?: string;
     }
     interface SbbIcon {
         /**
@@ -1419,10 +1415,6 @@ export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
 export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
-}
-export interface SbbHeaderActionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbHeaderActionElement;
 }
 export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2393,13 +2385,9 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * Indicates whether the browser will show the download dialog on click.
+          * Whether the browser will show the download dialog on click.
          */
-        "download"?: boolean | undefined;
-        /**
-          * Id sent in the click event payload.
-         */
-        "eventId"?: string;
+        "download"?: boolean;
         /**
           * Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others.
          */
@@ -2407,27 +2395,23 @@ declare namespace LocalJSX {
         /**
           * Form attribute if component is displayed as a button.
          */
-        "form"?: string | undefined;
+        "form"?: string;
         /**
           * Action element's id.
          */
         "headerActionId"?: string;
         /**
-          * The href value you want to link to.
+          * The href value you want to link to (if it is not present sbb-header-action becomes a button).
          */
         "href"?: string | undefined;
         /**
-          * The icon name used in the action element. See sbb-icon components for more details.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
           * Name attribute if component is displayed as a button.
          */
         "name"?: string | undefined;
-        /**
-          * Emits whenever the native button click event triggers.
-         */
-        "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<string>) => void;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
@@ -2443,7 +2427,7 @@ declare namespace LocalJSX {
         /**
           * The value associated with button `name` when it's submitted with the form data.
          */
-        "value"?: string | undefined;
+        "value"?: string;
     }
     interface SbbIcon {
         /**

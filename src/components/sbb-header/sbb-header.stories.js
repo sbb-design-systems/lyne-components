@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from '../sbb-header-action/sbb-header-action.events';
 import isChromatic from 'chromatic/isChromatic';
 
 const textContent = () => (
@@ -29,27 +28,27 @@ const basicArgTypes = {
 const Template = (args) => [
   <sbb-header {...args}>
     <sbb-header-action
-      icon="pie-small"
+      icon-name="pie-small"
       href="https://lyne-icons.netlify.app/icons/pie-small.svg"
       target="_blank"
     >
       Pie
     </sbb-header-action>
-    <sbb-header-action icon="balloons-small">Balloons</sbb-header-action>
-    <sbb-header-action icon="bottle-apple-small">Bottle & Apple</sbb-header-action>
+    <sbb-header-action icon-name="balloons-small">Balloons</sbb-header-action>
+    <sbb-header-action icon-name="bottle-apple-small">Bottle & Apple</sbb-header-action>
   </sbb-header>,
   textContent(),
 ];
 
 const TemplateActions = (args) => [
   <sbb-header {...args}>
-    <sbb-header-action icon="hamburger-menu-small" expand-from="small">
+    <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
       Menu
     </sbb-header-action>
     <div class="spacer" />
-    <sbb-header-action icon="magnifying-glass-small">Suchen</sbb-header-action>
-    <sbb-header-action icon="user-small">Anmelden</sbb-header-action>
-    <sbb-header-action icon="globe-small" class="last-element">
+    <sbb-header-action icon-name="magnifying-glass-small">Suchen</sbb-header-action>
+    <sbb-header-action icon-name="user-small">Anmelden</sbb-header-action>
+    <sbb-header-action icon-name="globe-small" class="last-element">
       Deutsch
     </sbb-header-action>
   </sbb-header>,
@@ -83,7 +82,7 @@ export default {
       disable: true,
     },
     actions: {
-      handles: [events.click],
+      handles: ['click'],
     },
     docs: {
       inlineStories: false,
