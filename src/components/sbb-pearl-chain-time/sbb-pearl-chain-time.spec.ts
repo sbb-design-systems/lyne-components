@@ -1,12 +1,17 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { SbbPearlChainTime } from './sbb-pearl-chain-time';
 
+const now = new Date('2022-08-16T15:00:00Z').valueOf();
+
 describe('sbb-pearl-chain-time', () => {
   it('should render component with time', async () => {
     const page = await newSpecPage({
       components: [SbbPearlChainTime],
       html: `
-        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00'>
+        <sbb-pearl-chain-time
+          departure-time='2022-08-16T12:00:00'
+          arrival-time='2022-08-16T15:00:00'
+          data-now="${now}">
         </sbb-pearl-chain-time>
       `,
     });
@@ -17,7 +22,7 @@ describe('sbb-pearl-chain-time', () => {
     ];
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-      <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00">
+      <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" data-now="1660662000000">
         <mock:shadow-root>
           <div class="sbb-pearl-chain__time">
             <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
@@ -26,7 +31,7 @@ describe('sbb-pearl-chain-time', () => {
               </span>
               12:00
             </time>
-            <sbb-pearl-chain class="sbb-pearl-chain__time-chain"></sbb-pearl-chain>
+            <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
             <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
               <span class="sbb-screenreaderonly">
                 Arrival
@@ -43,7 +48,11 @@ describe('sbb-pearl-chain-time', () => {
     const page = await newSpecPage({
       components: [SbbPearlChainTime],
       html: `
-        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10">
+        <sbb-pearl-chain-time
+          departure-time='2022-08-16T12:00:00'
+          arrival-time='2022-08-16T15:00:00'
+          departure-walk="10"
+          data-now="${now}">
         </sbb-pearl-chain-time>
       `,
     });
@@ -54,7 +63,7 @@ describe('sbb-pearl-chain-time', () => {
     ];
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10">
+        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10" data-now="1660662000000">
           <mock:shadow-root>
             <div class="sbb-pearl-chain__time">
               <span class="sbb-pearl-chain__time-walktime">
@@ -75,14 +84,14 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
                 12:00
               </time>
-              <sbb-pearl-chain class="sbb-pearl-chain__time-chain"></sbb-pearl-chain>
+              <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
                   Arrival
                 </span>
                 15:00
               </time>
-            </div>   
+            </div>
           </mock:shadow-root>
         </sbb-pearl-chain>
       `);
@@ -92,7 +101,7 @@ describe('sbb-pearl-chain-time', () => {
     const page = await newSpecPage({
       components: [SbbPearlChainTime],
       html: `
-        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' arrival-walk="10">
+        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' arrival-walk="10" data-now="${now}">
         </sbb-pearl-chain-time>
       `,
     });
@@ -103,7 +112,7 @@ describe('sbb-pearl-chain-time', () => {
     ];
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-        <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10">
+        <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10" data-now="1660662000000">
           <mock:shadow-root>
             <div class="sbb-pearl-chain__time">
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
@@ -112,7 +121,7 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
                 12:00
               </time>
-              <sbb-pearl-chain class="sbb-pearl-chain__time-chain"></sbb-pearl-chain>
+              <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
                   Arrival
@@ -137,11 +146,16 @@ describe('sbb-pearl-chain-time', () => {
       `);
   });
 
-  it('should render component with departure and arrival walk', async () => {
+  it('should render' + ' component with departure and arrival walk', async () => {
     const page = await newSpecPage({
       components: [SbbPearlChainTime],
       html: `
-        <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="20" arrival-walk="10" >
+        <sbb-pearl-chain-time
+          departure-time='2022-08-16T12:00:00'
+          arrival-time='2022-08-16T15:00:00'
+          departure-walk="20"
+          arrival-walk="10"
+          data-now="${now}">
         </sbb-pearl-chain-time>
       `,
     });
@@ -152,7 +166,7 @@ describe('sbb-pearl-chain-time', () => {
     ];
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-        <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10">
+        <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10" data-now="1660662000000">
         <mock:shadow-root>
             <div class="sbb-pearl-chain__time">
               <span class="sbb-pearl-chain__time-walktime">
@@ -173,7 +187,7 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
                 12:00
               </time>
-              <sbb-pearl-chain class="sbb-pearl-chain__time-chain"></sbb-pearl-chain>
+              <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
                   Arrival

@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -54,7 +54,7 @@
     "@commitlint/config-conventional": "17.1.0",
     "@namics/stylelint-bem": "8.0.0",
     "@sbb-esta/lyne-design-tokens": "0.2.4",
-    "@stencil/core": "2.18.1",
+    "@stencil/core": "2.19.1",
     "@stencil/react-output-target": "0.3.1",
     "@stencil/sass": "2.0.0",
     "@storybook/addon-a11y": "6.5.13",
@@ -94,7 +94,7 @@
     "npm-run-all": "4.1.5",
     "postcss": "8.4.18",
     "prettier": "2.7.1",
-    "puppeteer": "19.1.2",
+    "puppeteer": "19.2.0",
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "shelljs": "0.8.5",

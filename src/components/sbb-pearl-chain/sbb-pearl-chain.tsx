@@ -1,6 +1,6 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes, Leg } from './sbb-pearl-chain.custom';
-import { isPast, isFuture, differenceInMinutes } from 'date-fns';
+import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 
 type Status = 'progress' | 'future' | 'past';
 @Component({
@@ -25,6 +25,13 @@ export class SbbPearlChain {
    */
   @Prop() public disableAnimation?: boolean;
 
+  @Element() private _element: HTMLElement;
+
+  private _now(): number {
+    const dataNow = +this._element.dataset?.now;
+    return isNaN(dataNow) ? Date.now() : dataNow;
+  }
+
   private _departureTime = this.legs && new Date(Date.parse(this.legs[0]?.departure?.time));
   private _arrivalTime =
     this.legs && new Date(Date.parse(this.legs[this.legs?.length - 1].arrival?.time));
@@ -41,15 +48,16 @@ export class SbbPearlChain {
 
   private _getProgress(start: Date, end: Date): number {
     const total = differenceInMinutes(end, start);
-    const progress = differenceInMinutes(Date.now(), start);
+
+    const progress = differenceInMinutes(this._now(), start);
 
     return (progress / total) * 100;
   }
 
   private _getStatus(start: Date, end: Date): Status {
-    if (isPast(start) && isFuture(end)) {
+    if (isBefore(start, this._now()) && isAfter(end, this._now())) {
       return 'progress';
-    } else if (isPast(end)) {
+    } else if (isBefore(end, this._now())) {
       return 'past';
     }
     return 'future';
