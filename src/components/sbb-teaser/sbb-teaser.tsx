@@ -1,7 +1,7 @@
 import { Component, Element, h, JSX, Listen, Prop, Watch } from '@stencil/core';
 import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 import {
-  forwardHostClick,
+  forwardHostEvent,
   LinkProperties,
   LinkTargetType,
   resolveLinkRenderVariables,
@@ -77,11 +77,18 @@ export class SbbTeaser implements LinkProperties {
 
   @Listen('click')
   public handleClick(event: Event): void {
-    forwardHostClick(
-      event,
-      this._element,
-      this._element.shadowRoot.firstElementChild as HTMLElement // Anchor element
-    );
+    if (this.href) {
+      forwardHostEvent(event, this._element, this._actionElement());
+    }
+  }
+
+  public connectedCallback(): void {
+    // Forward focus call to action element
+    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+  }
+
+  private _actionElement(): HTMLElement {
+    return this._element.shadowRoot.firstElementChild as HTMLElement;
   }
 
   public componentWillLoad(): void {
