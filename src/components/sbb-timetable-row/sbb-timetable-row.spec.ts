@@ -2,7 +2,7 @@ import { newSpecPage } from '@stencil/core/testing';
 import { SbbTimetableRow } from './sbb-timetable-row';
 import { config } from './sbb-timetable-row.sample-data';
 
-const now = new Date('2022-08-16T15:00:00').valueOf();
+const now = new Date('2022-08-16T15:00:00Z').valueOf();
 
 describe('sbb-timetable-row', () => {
   describe('sbb-timetable-row with config', () => {
@@ -18,7 +18,7 @@ describe('sbb-timetable-row', () => {
       page.rootInstance.price = config.price;
       await page.waitForChanges();
       expect(page.root).toEqualHtml(`
-      <sbb-timetable-row data-now="1660654800000">
+      <sbb-timetable-row data-now="1660662000000">
       <mock:shadow-root>
         <sbb-card>
           <sbb-card-badge appearance="primary" isdiscount="" price="12" slot="badge" text="ab CHF"></sbb-card-badge>
@@ -32,7 +32,7 @@ describe('sbb-timetable-row', () => {
                 Direction Luzern
               </p>
             </div>
-            <sbb-pearl-chain-time arrivaltime="2022-10-28T21:16:00+02:00" arrivalwalk="5" departuretime="2022-10-28T02:48:00+02:00" departurewalk="8" data-now="1660654800000"></sbb-pearl-chain-time>
+            <sbb-pearl-chain-time arrivaltime="2022-10-28T21:16:00+02:00" arrivalwalk="5" departuretime="2022-10-28T02:48:00+02:00" departurewalk="8" data-now="1660662000000"></sbb-pearl-chain-time>
             <div class="sbb-timetable__row-footer">
               <span class="sbb-timetable__row-quay--changed">
                 <span class="sbb-screenreaderonly">
@@ -102,7 +102,7 @@ describe('sbb-timetable-row', () => {
       });
       page.rootInstance.config = { 'loading-trip': true };
       expect(page.root).toEqualHtml(`
-        <sbb-timetable-row loading-trip="true" data-now="1660654800000">
+        <sbb-timetable-row loading-trip="true" data-now="1660662000000">
           <mock:shadow-root>
             <button class="sbb-loading" disabled="">
               <div class="sbb-loading__wrapper">
