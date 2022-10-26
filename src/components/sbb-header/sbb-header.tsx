@@ -11,10 +11,8 @@ import { Component, h, JSX, Prop } from '@stencil/core';
   tag: 'sbb-header',
 })
 export class SbbHeader {
-  /**
-   * Used to display a box-shadow below the component on y-axis scroll whether set to true.
-   */
-  @Prop({reflect: true}) public shadow: boolean;
+  /** Used to display a box-shadow below the component on y-axis scroll whether set to true. */
+  @Prop({ reflect: true }) public shadow = false;
 
   public render(): JSX.Element {
     return (

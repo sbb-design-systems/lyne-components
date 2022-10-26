@@ -31,7 +31,10 @@ describe('sbb-header', () => {
       components: [SbbHeader],
       html: `
         <sbb-header shadow="true">
-          <sbb-header-action icon-name="hamburger-menu-small" href="https://github.com/lyne-design-system/lyne-components" text="Menu"/>
+          <sbb-header-action
+            icon-name="hamburger-menu-small"
+            href="https://github.com/lyne-design-system/lyne-components"
+            text="Menu"/>
           <div slot="logo">
             <circle cx="25" cy="75" r="20"/>
           </div>
@@ -40,9 +43,9 @@ describe('sbb-header', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-header shadow="true">
+      <sbb-header shadow="">
         <mock:shadow-root>
-          <header class="sbb-header sbb-header--shadow">
+          <header class="sbb-header">
             <div class="sbb-header__wrapper">
               <slot></slot>
               <div class="sbb-header__logo">
