@@ -65,7 +65,7 @@ const Template = (args) => (
     {/* *************************************************
     Header section
     ************************************************* */}
-    <sbb-header shadow={true}>
+    <sbb-header>
       <sbb-header-action icon="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
