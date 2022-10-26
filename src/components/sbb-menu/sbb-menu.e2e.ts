@@ -7,7 +7,7 @@ describe('sbb-menu', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(`
-      <sbb-button id="menu-trigger" label="Menu trigger"></sbb-button>
+      <sbb-button id="menu-trigger">Menu trigger</sbb-button>
       <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
         <sbb-link id="menu-link" href="https://www.sbb.ch/en" text-size="xs" variant="block" target="_blank">Profile</sbb-link>
         <sbb-menu-action id="menu-action-1" icon="tick-small">View</sbb-menu-action>
