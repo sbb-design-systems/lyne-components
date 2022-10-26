@@ -1,4 +1,4 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 import {
   i18nDeparture,
@@ -46,6 +46,13 @@ export class SbbPearlChainTime {
    */
   @Prop() public disableAnimation?: boolean;
 
+  @Element() private _element: HTMLElement;
+
+  private _now(): number {
+    const dataNow = +this._element.dataset?.now;
+    return isNaN(dataNow) ? Date.now() : dataNow;
+  }
+
   public render(): JSX.Element {
     const departure: Date = removeTimezoneFromISOTimeString(this.departureTime);
     const arrival: Date = removeTimezoneFromISOTimeString(this.arrivalTime);
@@ -72,6 +79,7 @@ export class SbbPearlChainTime {
           class="sbb-pearl-chain__time-chain"
           legs={this.legs}
           disable-animation={this.disableAnimation}
+          data-now={this._now()}
         />
         <time class="sbb-pearl-chain__time-time" dateTime={this.arrivalTime}>
           <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
