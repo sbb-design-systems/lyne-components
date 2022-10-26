@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.12.1 (2022-10-26)
+
+### Features
+
+- **sbb-header:** component implementation ([#1357](https://github.com/lyne-design-system/lyne-components/issues/1357)) ([1b847ab](https://github.com/lyne-design-system/lyne-components/commit/1b847ab92d8abb06f3fafd2b432ddd07d41f9136))
+
 ## 0.12.0 (2022-10-26)
 
 ### ⚠ BREAKING CHANGES
