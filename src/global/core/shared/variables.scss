@@ -106,7 +106,7 @@
   // TODO: Remove once no longer needed.
   --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive);
   @include mq($from: ultra) {
-    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-ultra);
+    --sbb-page-base-offset-responsive: 0rem;
   }
 
   //////////////////////////////////////////////////////////////////////////////

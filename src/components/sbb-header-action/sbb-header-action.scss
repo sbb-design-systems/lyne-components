@@ -39,8 +39,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   }
 }
 
-:host(:hover) {
-  --sbb-header-action-background-color: var(--sbb-color-milk-default);
+@include hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-header-action-background-color: var(--sbb-color-milk-default);
+  }
 }
 
 :host(:active) {
