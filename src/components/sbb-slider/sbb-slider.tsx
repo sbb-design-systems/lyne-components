@@ -30,6 +30,11 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   @Prop() public value?: string = '';
 
   /**
+   * Numeric value for the inner HTMLInputElement.
+   */
+  @Prop() public valueAsNumber?: number;
+
+  /**
    * Name of the inner HTMLInputElement.
    */
   @Prop() public name?: string = '';
@@ -131,7 +136,11 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     } else {
       min = +this.min;
       max = +this.max;
-      value = this.value ? +this.value : +this.min + (+this.max - +this.min) / 2;
+      value = this.value
+        ? +this.value
+        : this.valueAsNumber
+        ? this.valueAsNumber
+        : +this.min + (+this.max - +this.min) / 2;
     }
     const mathFraction: number = (value - min) / (max - min);
     this._valueFraction =
@@ -195,6 +204,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
       step: this.step || null,
       disabled: this.disabled || this.readonly || null,
       value: this.value || null,
+      valueAsNumber: this.valueAsNumber || null,
       'aria-label': this.accessibilityLabel || null,
       'aria-describedby': this.accessibilityDescribedby || null,
       'aria-labelledby': this.accessibilityLabelledby || null,

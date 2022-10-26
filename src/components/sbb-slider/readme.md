@@ -19,6 +19,7 @@
 | `startIcon` _(required)_   | `start-icon`                | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         | `string`  | `undefined` |
 | `step`                     | `step`                      | The granularity of the possible values for the inner HTMLInputElement.                                                                         | `string`  | `''`        |
 | `value`                    | `value`                     | Value for the inner HTMLInputElement.                                                                                                          | `string`  | `''`        |
+| `valueAsNumber`            | `value-as-number`           | Numeric value for the inner HTMLInputElement.                                                                                                  | `number`  | `undefined` |
 
 
 ## Events

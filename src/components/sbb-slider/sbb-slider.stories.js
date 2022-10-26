@@ -19,6 +19,15 @@ const valueArg = {
   },
 };
 
+const valueAsNumberArg = {
+  control: {
+    type: 'number',
+  },
+  table: {
+    category: 'Slider attribute',
+  },
+};
+
 const minArg = {
   control: {
     type: 'text',
@@ -86,17 +95,26 @@ const accessibilityLabelArg = {
   control: {
     type: 'text',
   },
+  table: {
+    category: 'Slider attribute',
+  },
 };
 
 const accessibilityDescribedbyArg = {
   control: {
     type: 'text',
   },
+  table: {
+    category: 'Slider attribute',
+  },
 };
 
 const accessibilityLabelledbyArg = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Slider attribute',
   },
 };
 
@@ -134,6 +152,7 @@ const basicArgTypes = {
   'start-icon': startIconArg,
   step: stepArg,
   value: valueArg,
+  valueAsNumber: valueAsNumberArg,
 };
 
 const formFieldBasicArgsTypes = {
@@ -153,6 +172,7 @@ const basicArgs = {
   'start-icon': 'walk-slow-small',
   step: '',
   value: '40',
+  valueAsNumber: 40,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,

@@ -1147,6 +1147,10 @@ export namespace Components {
           * Value for the inner HTMLInputElement.
          */
         "value"?: string;
+        /**
+          * Numeric value for the inner HTMLInputElement.
+         */
+        "valueAsNumber"?: number;
     }
     interface SbbSlotComponent {
     }
@@ -3215,6 +3219,10 @@ declare namespace LocalJSX {
           * Value for the inner HTMLInputElement.
          */
         "value"?: string;
+        /**
+          * Numeric value for the inner HTMLInputElement.
+         */
+        "valueAsNumber"?: number;
     }
     interface SbbSlotComponent {
     }
