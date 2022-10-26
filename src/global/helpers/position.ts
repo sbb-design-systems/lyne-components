@@ -1,3 +1,5 @@
+export type Alignment = { horizontal: 'start' | 'center' | 'end'; vertical: 'above' | 'below' };
+
 export type ElementRectangle = Pick<
   Element,
   'scrollHeight' | 'clientHeight' | 'scrollWidth' | 'clientWidth'
@@ -6,24 +8,8 @@ export type ElementRectangle = Pick<
 export interface ElementPositionInfos {
   top: number;
   left: number;
-  overflows: boolean;
   maxHeight: string;
-}
-
-/**
- * Gets the absolute position of an element relative to the page.
- */
-export function getOffset(el: HTMLElement): { top: number; left: number } {
-  let leftPosition = 0;
-  let topPosition = 0;
-
-  while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-    leftPosition += el.offsetLeft - el.scrollLeft;
-    topPosition += el.offsetTop - el.scrollTop;
-    el = el.offsetParent as HTMLElement;
-  }
-
-  return { top: topPosition, left: leftPosition };
+  alignment: Alignment;
 }
 
 /**
@@ -82,54 +68,89 @@ export function isEventOnElement(element: HTMLElement, event: MouseEvent | Point
  *
  * @param element The element of which to calculate the position.
  * @param trigger The element relative to which to calculate the position.
- * @param properties Properties to take into account in calculations.
- * @param properties.elementOffset The distance to be added between the element in question and the trigger.
- * @returns Returns an object containing the left position, the top position, a boolean indicating whether
- * the element overflows or not the window, and the maximum height of the element.
+ * @param properties Properties to take into account in calculations (optional).
+ * @param properties.verticalOffset The distance to be added between the element and the trigger (optional).
+ * @param properties.horizontalOffset The horizontal offset to be applied to the element (optional).
+ * @param properties.centered Whether the element should be placed in the center by default (optional).
+ * @returns Returns an object containing the left position, the top position, the maximum height
+ * of the element and the current alignment object.
  */
 export function getElementPosition(
   element: HTMLElement,
   trigger: HTMLElement,
-  properties: { elementOffset: number }
+  properties?: { verticalOffset?: number; horizontalOffset?: number; centered?: boolean }
 ): ElementPositionInfos {
+  const VERTICAL_OFFSET = properties.verticalOffset || 0;
+  const HORIZONTAL_OFFSET = properties.horizontalOffset || 0;
+
   const triggerRec = trigger.getBoundingClientRect();
   const elementRec = getElementRectangle(element);
 
-  const triggerLeft = getOffset(trigger).left;
-  const triggerTop = getOffset(trigger).top;
+  const triggerLeft = triggerRec.left;
+  const triggerTop = triggerRec.top;
+
+  const availableSpaceRight = window.innerWidth - (triggerLeft + triggerRec.width);
+  const availableSpaceAbove = triggerTop - VERTICAL_OFFSET;
+  const availableSpaceBelow =
+    window.innerHeight - (triggerTop + triggerRec.height + VERTICAL_OFFSET);
 
   // Default element alignment is "start/below"
   let elementXPosition = triggerLeft;
-  let elementYPosition = triggerTop + triggerRec.height + properties.elementOffset;
+  let elementYPosition = triggerTop + triggerRec.height + VERTICAL_OFFSET;
+  let elementXOverflow = elementRec.clientWidth - triggerRec.width;
+  const alignment: Alignment = { horizontal: 'start', vertical: 'below' };
 
   // Calculate element max-height
-  let elementMaxHeight = `calc(100vh - ${
-    triggerRec.top + triggerRec.height + properties.elementOffset * 2
-  }px)`;
+  let elementMaxHeight = `${availableSpaceBelow - VERTICAL_OFFSET}px`;
 
-  // Check if window does not contain element height
-  const overflows = elementRec.scrollHeight > element.clientHeight;
+  // Check if horizontal alignment needs to be changed to "center"
+  if (
+    properties.centered &&
+    triggerLeft + triggerRec.width / 2 > elementRec.clientWidth / 2 &&
+    availableSpaceRight > elementXOverflow / 2
+  ) {
+    elementXPosition -= elementXOverflow /= 2;
+    alignment.horizontal = 'center';
+  }
 
   // Check if horizontal alignment needs to be changed to "end"
-  if (window.innerWidth < elementXPosition + elementRec.clientWidth) {
-    elementXPosition = elementXPosition - (elementRec.clientWidth - triggerRec.width);
+  if (availableSpaceRight < elementXOverflow && triggerLeft > elementXOverflow) {
+    elementXPosition = elementXPosition - elementXOverflow;
+    alignment.horizontal = 'end';
+  }
+
+  // Add horizontal offset
+  if (
+    HORIZONTAL_OFFSET &&
+    alignment.horizontal !== 'center' &&
+    triggerRec.width / 2 < HORIZONTAL_OFFSET
+  ) {
+    elementXPosition += HORIZONTAL_OFFSET * (alignment.horizontal === 'start' ? -1 : 1);
+  }
+
+  // Check whether there is sufficient space on both sides
+  if (triggerLeft < elementXOverflow && availableSpaceRight < elementXOverflow) {
+    elementXPosition = window.innerWidth / 2 - elementRec.clientWidth / 2;
   }
 
   // Check if vertical alignment needs to be changed to "above":
   if (
-    // If there is enough space above the trigger
-    triggerRec.top > elementRec.scrollHeight + properties.elementOffset &&
-    // If there is not enough space below the trigger
-    window.innerHeight < triggerRec.bottom + elementRec.scrollHeight + properties.elementOffset * 2
+    availableSpaceBelow < elementRec.clientHeight &&
+    (availableSpaceAbove > elementRec.clientHeight || availableSpaceAbove > availableSpaceBelow)
   ) {
-    elementYPosition = triggerTop - elementRec.scrollHeight - properties.elementOffset;
-    elementMaxHeight = 'fit-content';
+    elementYPosition =
+      availableSpaceAbove < elementRec.clientHeight
+        ? elementYPosition - triggerRec.height - availableSpaceAbove - VERTICAL_OFFSET
+        : triggerTop - elementRec.clientHeight - VERTICAL_OFFSET;
+
+    elementMaxHeight = `${availableSpaceAbove - VERTICAL_OFFSET}px`;
+    alignment.vertical = 'above';
   }
 
   return {
     top: elementYPosition,
     left: elementXPosition,
-    overflows: overflows,
     maxHeight: elementMaxHeight,
+    alignment: alignment,
   };
 }
