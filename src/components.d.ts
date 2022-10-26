@@ -20,6 +20,7 @@ import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divi
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
+import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
@@ -537,6 +538,82 @@ export namespace Components {
           * Grid variant
          */
         "variant"?: InterfaceGridAttributes['variant'];
+    }
+    interface SbbHeader {
+        /**
+          * Used to display a box-shadow below the component on y-axis scroll whether set to true.
+         */
+        "shadow": boolean;
+    }
+    interface SbbHeaderAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls": string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup": PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Indicates whether the browser will show the download dialog on click.
+         */
+        "download": boolean | undefined;
+        /**
+          * Id sent in the click event payload.
+         */
+        "eventId": string;
+        /**
+          * Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others.
+         */
+        "expandFrom": InterfaceSbbHeaderActionAttributes['expandFrom'];
+        /**
+          * Form attribute if component is displayed as a button.
+         */
+        "form": string | undefined;
+        /**
+          * Action element's id.
+         */
+        "headerActionId": string;
+        /**
+          * The href value you want to link to.
+         */
+        "href": string | undefined;
+        /**
+          * The icon name used in the action element. See sbb-icon components for more details.
+         */
+        "icon"?: string;
+        /**
+          * Name attribute if component is displayed as a button.
+         */
+        "name": string | undefined;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel": string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target": LinkTargetType | string | undefined;
+        /**
+          * Type attribute if component is displayed as a button.
+         */
+        "type": ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value": string | undefined;
     }
     interface SbbIcon {
         /**
@@ -1343,6 +1420,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbHeaderActionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbHeaderActionElement;
+}
 export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbMenuElement;
@@ -1465,6 +1546,18 @@ declare global {
     var HTMLSbbGridElement: {
         prototype: HTMLSbbGridElement;
         new (): HTMLSbbGridElement;
+    };
+    interface HTMLSbbHeaderElement extends Components.SbbHeader, HTMLStencilElement {
+    }
+    var HTMLSbbHeaderElement: {
+        prototype: HTMLSbbHeaderElement;
+        new (): HTMLSbbHeaderElement;
+    };
+    interface HTMLSbbHeaderActionElement extends Components.SbbHeaderAction, HTMLStencilElement {
+    }
+    var HTMLSbbHeaderActionElement: {
+        prototype: HTMLSbbHeaderActionElement;
+        new (): HTMLSbbHeaderActionElement;
     };
     interface HTMLSbbIconElement extends Components.SbbIcon, HTMLStencilElement {
     }
@@ -1718,6 +1811,8 @@ declare global {
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
         "sbb-grid": HTMLSbbGridElement;
+        "sbb-header": HTMLSbbHeaderElement;
+        "sbb-header-action": HTMLSbbHeaderActionElement;
         "sbb-icon": HTMLSbbIconElement;
         "sbb-image": HTMLSbbImageElement;
         "sbb-journey-header": HTMLSbbJourneyHeaderElement;
@@ -2269,6 +2364,86 @@ declare namespace LocalJSX {
           * Grid variant
          */
         "variant"?: InterfaceGridAttributes['variant'];
+    }
+    interface SbbHeader {
+        /**
+          * Used to display a box-shadow below the component on y-axis scroll whether set to true.
+         */
+        "shadow"?: boolean;
+    }
+    interface SbbHeaderAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls"?: string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup"?: PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Indicates whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean | undefined;
+        /**
+          * Id sent in the click event payload.
+         */
+        "eventId"?: string;
+        /**
+          * Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others.
+         */
+        "expandFrom"?: InterfaceSbbHeaderActionAttributes['expandFrom'];
+        /**
+          * Form attribute if component is displayed as a button.
+         */
+        "form"?: string | undefined;
+        /**
+          * Action element's id.
+         */
+        "headerActionId"?: string;
+        /**
+          * The href value you want to link to.
+         */
+        "href"?: string | undefined;
+        /**
+          * The icon name used in the action element. See sbb-icon components for more details.
+         */
+        "icon"?: string;
+        /**
+          * Name attribute if component is displayed as a button.
+         */
+        "name"?: string | undefined;
+        /**
+          * Emits whenever the native button click event triggers.
+         */
+        "onSbb-header-action-button_click"?: (event: SbbHeaderActionCustomEvent<string>) => void;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * Type attribute if component is displayed as a button.
+         */
+        "type"?: ButtonType | undefined;
+        /**
+          * The value associated with button `name` when it's submitted with the form data.
+         */
+        "value"?: string | undefined;
     }
     interface SbbIcon {
         /**
@@ -3085,6 +3260,8 @@ declare namespace LocalJSX {
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
         "sbb-grid": SbbGrid;
+        "sbb-header": SbbHeader;
+        "sbb-header-action": SbbHeaderAction;
         "sbb-icon": SbbIcon;
         "sbb-image": SbbImage;
         "sbb-journey-header": SbbJourneyHeader;
@@ -3147,6 +3324,8 @@ declare module "@stencil/core" {
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
             "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
+            "sbb-header": LocalJSX.SbbHeader & JSXBase.HTMLAttributes<HTMLSbbHeaderElement>;
+            "sbb-header-action": LocalJSX.SbbHeaderAction & JSXBase.HTMLAttributes<HTMLSbbHeaderActionElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
             "sbb-image": LocalJSX.SbbImage & JSXBase.HTMLAttributes<HTMLSbbImageElement>;
             "sbb-journey-header": LocalJSX.SbbJourneyHeader & JSXBase.HTMLAttributes<HTMLSbbJourneyHeaderElement>;
