@@ -16,7 +16,7 @@
   display: block;
   position: fixed;
   inset: 0 0 auto;
-  padding: 0 var(--sbb-layout-base-offset-responsive);
+  padding: 0 var(--sbb-page-base-offset-responsive);
   background: var(--sbb-color-white-default);
   transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   z-index: 10;

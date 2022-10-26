@@ -14,7 +14,7 @@
       }
     }
   };
-  window.onload = () => document.addEventListener('scroll', headerScrollHandler);
+  window.onload = () => document.addEventListener('scroll', headerScrollHandler, { passive: true });
   window.onunload = () => document.removeEventListener('scroll', headerScrollHandler);
 </script>
 
