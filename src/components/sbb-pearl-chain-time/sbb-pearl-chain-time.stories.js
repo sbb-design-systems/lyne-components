@@ -1,9 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { formatDateForDepartureAndArrivalTime } from './sbb-pearl-chain-time.helper';
-import { addDays, subDays } from 'date-fns';
-
-const today = new Date();
 
 const departureWalk = {
   control: {
@@ -23,10 +19,17 @@ const disableAnimation = {
   },
 };
 
+const now = {
+  control: {
+    type: 'date',
+  },
+};
+
 const defaultArgTypes = {
   'departure-walk': departureWalk,
   'arrival-walk': arrivalWalk,
   'disable-animation': disableAnimation,
+  'data-now': now,
 };
 
 const defaultArgs = {
@@ -35,8 +38,10 @@ const defaultArgs = {
       duration: 300,
     },
   ],
-  'departure-time': formatDateForDepartureAndArrivalTime(today.setHours(2, 48, 0, 0)),
-  'arrival-time': formatDateForDepartureAndArrivalTime(today.setHours(12, 48, 0, 0)),
+  'departure-time': '2022-10-28T02:48:00+02:00',
+  'arrival-time': '2022-10-28T12:48:00+02:00',
+  'disable-animation': false,
+  'data-now': undefined,
 };
 
 const Template = (args) => {
@@ -72,14 +77,11 @@ maximal.args = {
   legs: [
     {
       duration: 300,
-      arrival: {
-        time: formatDateForDepartureAndArrivalTime(addDays(today, 4).setHours(13, 0, 0, 0)),
-      },
-      departure: {
-        time: formatDateForDepartureAndArrivalTime(subDays(today, 12).setHours(12, 0, 0, 0)),
-      },
+      arrival: { time: '2022-10-20T13:00' },
+      departure: { time: '2022-10-08T12:00' },
     },
   ],
+  'data-now': new Date('2022-10-13T12:00').valueOf(),
 };
 
 export default {

@@ -12,7 +12,7 @@ import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
 
 export const durationToTime = (duration: number): string => {
   const result = [];
-  const now = Date.now();
+  const now = 0;
   let future = addMinutes(now, duration);
 
   const days = differenceInDays(future, now);
@@ -58,11 +58,7 @@ export const isProductIcon = (transport: string): boolean => {
     'vae',
   ];
 
-  if (possibleTransportTypes.includes(transport)) {
-    return true;
-  }
-
-  return false;
+  return possibleTransportTypes.includes(transport);
 };
 
 export const renderIconProduct = (transport: string, line?: string): JSX.Element => {
