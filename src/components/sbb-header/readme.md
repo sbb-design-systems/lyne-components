@@ -83,13 +83,13 @@ The examples below shows how to use the component (with shadow on).
 ```html
 <sbb-header shadow="true">
   <sbb-header-action
-    icon="hamburger-menu-small"
+    icon-name="hamburger-menu-small"
     href="https://lyne-icons.netlify.app/icons/hamburger-menu-small.svg"
     target="_blank"
   >
     Menu
   </sbb-header-action>,
-  <sbb-header-action icon="magnifying-glass-small">Search</sbb-header-action>,
+  <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>,
 </sbb-header>
 ```
 
@@ -98,9 +98,9 @@ The examples below shows how to use the component (with shadow on).
 
 ## Properties
 
-| Property | Attribute | Description                                                                            | Type      | Default     |
-| -------- | --------- | -------------------------------------------------------------------------------------- | --------- | ----------- |
-| `shadow` | `shadow`  | Used to display a box-shadow below the component on y-axis scroll whether set to true. | `boolean` | `undefined` |
+| Property | Attribute | Description                                                                            | Type      | Default |
+| -------- | --------- | -------------------------------------------------------------------------------------- | --------- | ------- |
+| `shadow` | `shadow`  | Used to display a box-shadow below the component on y-axis scroll whether set to true. | `boolean` | `false` |
 
 
 ## Slots

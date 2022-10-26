@@ -45,12 +45,12 @@ const Template = (args) => (
     Header section
     ************************************************* */}
     <sbb-header>
-      <sbb-header-action icon="hamburger-menu-small" expand-from="small">
+      <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
       <div class="spacer" />
-      <sbb-header-action icon="magnifying-glass-small">Suchen</sbb-header-action>
-      <sbb-header-action icon="user-small" id="user-menu-trigger">
+      <sbb-header-action icon-name="magnifying-glass-small">Suchen</sbb-header-action>
+      <sbb-header-action icon-name="user-small" id="user-menu-trigger">
         Christina Müller
       </sbb-header-action>
       <sbb-menu trigger="user-menu-trigger">
@@ -64,7 +64,11 @@ const Template = (args) => (
         <sbb-divider />
         <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
       </sbb-menu>
-      <sbb-header-action icon="globe-small" id="language-menu-trigger" className="last-element">
+      <sbb-header-action
+        icon-name="globe-small"
+        id="language-menu-trigger"
+        className="last-element"
+      >
         Deutsch
       </sbb-header-action>
       <sbb-menu trigger="language-menu-trigger">

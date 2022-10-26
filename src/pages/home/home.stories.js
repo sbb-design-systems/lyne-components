@@ -45,13 +45,13 @@ const Template = (args) => (
     Header section
     ************************************************* */}
     <sbb-header>
-      <sbb-header-action icon="hamburger-menu-small" expand-from="small">
+      <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
       <div class="spacer" />
-      <sbb-header-action icon="magnifying-glass-small">Suchen</sbb-header-action>
-      <sbb-header-action icon="user-small">Anmelden</sbb-header-action>
-      <sbb-header-action icon="globe-small" id="language-menu-trigger" class="last-element">
+      <sbb-header-action icon-name="magnifying-glass-small">Suchen</sbb-header-action>
+      <sbb-header-action icon-name="user-small">Anmelden</sbb-header-action>
+      <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
         Deutsch
       </sbb-header-action>
       <sbb-menu trigger="language-menu-trigger">
