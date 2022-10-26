@@ -496,13 +496,21 @@ export namespace Components {
     }
     interface SbbFooter {
         /**
-          * Footer title text, visually hidden,  necessary for screenreaders
+          * Footer title text, visually hidden, necessary for screen readers.
          */
-        "accessibilityTitle": string;
+        "accessibilityTitle"?: string;
         /**
-          * Footer appearance
+          * Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
          */
-        "appearance"?: InterfaceFooterAttributes['appearance'];
+        "accessibilityTitleLevel": InterfaceTitleAttributes['level'];
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
+          * Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints.
+         */
+        "variant": InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
     }
@@ -2228,13 +2236,21 @@ declare namespace LocalJSX {
     }
     interface SbbFooter {
         /**
-          * Footer title text, visually hidden,  necessary for screenreaders
+          * Footer title text, visually hidden, necessary for screen readers.
          */
-        "accessibilityTitle": string;
+        "accessibilityTitle"?: string;
         /**
-          * Footer appearance
+          * Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
          */
-        "appearance"?: InterfaceFooterAttributes['appearance'];
+        "accessibilityTitleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
+        /**
+          * Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints.
+         */
+        "variant"?: InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
     }

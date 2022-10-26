@@ -56,12 +56,19 @@
   --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-zero);
   --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-zero);
   --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-zero);
+  --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-zero);
+
+  @include mq($from: small) {
+    --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-micro);
+  }
 
   @include mq($from: small) {
     --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-small);
     --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-small);
     --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-small);
+    --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-small);
   }
+
   @include mq($from: medium) {
     --sbb-spacing-responsive-xxxs: var(--sbb-spacing-responsive-xxxs-medium);
     --sbb-spacing-responsive-xxs: var(--sbb-spacing-responsive-xxs-medium);
@@ -71,42 +78,33 @@
     --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-medium);
     --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-medium);
     --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-medium);
+    --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-medium);
   }
+
   @include mq($from: large) {
     --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-large);
     --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-large);
     --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-large);
+    --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-large);
   }
+
   @include mq($from: wide) {
     --sbb-spacing-responsive-m: var(--sbb-spacing-responsive-m-wide);
+    --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-wide);
   }
+
   @include mq($from: ultra) {
     --sbb-spacing-responsive-l: var(--sbb-spacing-responsive-l-ultra);
     --sbb-spacing-responsive-xl: var(--sbb-spacing-responsive-xl-ultra);
     --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-ultra);
+    --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-ultra);
   }
 
   //////////////////////////////////////////////////////////////////////////////
   ///
   /// Responsive page offset
-
-  --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-zero);
-
-  @include mq($from: micro) {
-    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-micro);
-  }
-  @include mq($from: small) {
-    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-small);
-  }
-  @include mq($from: medium) {
-    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-medium);
-  }
-  @include mq($from: large) {
-    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-large);
-  }
-  @include mq($from: wide) {
-    --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive-wide);
-  }
+  // TODO: Remove once no longer needed.
+  --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive);
   @include mq($from: ultra) {
     --sbb-page-base-offset-responsive: 0rem;
   }
