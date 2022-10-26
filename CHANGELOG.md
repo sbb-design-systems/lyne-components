@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.11.0 (2022-10-26)
+
+### ⚠ BREAKING CHANGES
+
+- Custom click events on action elements were removed
+  (e.g. `sbb-button_click`, `sbb-link_click`, ...).
+  Please read the property target of the emitted event if you are interested from where an event was triggered.
+
+### Features
+
+- forward focus on host and remove redundant click events ([#1427](https://github.com/lyne-design-system/lyne-components/issues/1427)) ([52b230f](https://github.com/lyne-design-system/lyne-components/commit/52b230fc9f62e193b1eee27b6bb383674f003b3f))
+
 ### 0.10.1 (2022-10-25)
 
 ### Bug Fixes
