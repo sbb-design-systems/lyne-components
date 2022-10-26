@@ -20,10 +20,10 @@
   background: var(--sbb-color-white-default);
   transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   z-index: 10;
-}
 
-.sbb-header--shadow {
-  @include shadow-level-9-soft;
+  :host([shadow]) & {
+    @include shadow-level-9-soft;
+  }
 }
 
 .sbb-header__wrapper {

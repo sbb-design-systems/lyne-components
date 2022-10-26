@@ -9,11 +9,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-header-action-text-display: none;
   --sbb-header-action-icon-margin: 0;
   --sbb-header-action-padding-inline: 0;
-  --sbb-header-action-background-color: var(--sbb-color-white-default);
+  --sbb-header-action-background-color: transparent;
   --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
 
-  display: flex;
+  display: inline-block;
 }
 
 :host(:first-child) {
@@ -47,24 +47,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-header-action-background-color: var(--sbb-color-cloud-default);
 }
 
-.sbb-header-action__icon {
-  // set stroke on header icons
-  --sbb-icon-svg-stroke-color: currentcolor;
-  --sbb-icon-svg-stroke-width: 0.5px;
-
-  line-height: 0;
-  color: var(--sbb-color-black-default);
-  margin-right: var(--sbb-header-action-icon-margin);
-}
-
-.sbb-header-action__text {
-  @include text-xs--bold;
-
-  display: var(--sbb-header-action-text-display);
-  color: var(--sbb-color-black-default);
-}
-
 .sbb-header-action {
+  @include buttonReset;
+  @include text-inherit;
+
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,18 +67,26 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   transition-timing-function: ease;
   cursor: pointer;
 
-  :host([href]) & {
-    text-decoration: none;
+  &:focus-visible {
+    @include focusOutline;
   }
+}
 
-  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-  :host(:not([href])) & {
-    @include text-inherit;
+.sbb-header-action__icon {
+  // Set stroke on header icons
+  --sbb-icon-svg-stroke-color: currentcolor;
+  --sbb-icon-svg-stroke-width: 0.5px;
 
-    border: none;
-    appearance: none;
-    -webkit-tap-highlight-color: transparent;
-  }
+  line-height: 0;
+  color: var(--sbb-color-black-default);
+  margin-right: var(--sbb-header-action-icon-margin);
+}
+
+.sbb-header-action__text {
+  @include text-xs--bold;
+
+  display: var(--sbb-header-action-text-display);
+  color: var(--sbb-color-black-default);
 }
 
 .sbb-header-action__opens-in-new-window {

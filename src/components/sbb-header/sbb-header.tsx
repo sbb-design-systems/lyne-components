@@ -14,11 +14,11 @@ export class SbbHeader {
   /**
    * Used to display a box-shadow below the component on y-axis scroll whether set to true.
    */
-  @Prop() public shadow: boolean;
+  @Prop({reflect: true}) public shadow: boolean;
 
   public render(): JSX.Element {
     return (
-      <header class={{ 'sbb-header': true, 'sbb-header--shadow': this.shadow }}>
+      <header class="sbb-header">
         <div class="sbb-header__wrapper">
           <slot />
           <div class="sbb-header__logo">

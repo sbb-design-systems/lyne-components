@@ -43,7 +43,7 @@ export class SbbHeaderAction implements LinkButtonProperties {
   @Prop() public iconName?: string;
 
   /** The href value you want to link to (if it is not present sbb-header-action becomes a button). */
-  @Prop({ reflect: true }) public href: string | undefined;
+  @Prop() public href: string | undefined;
 
   /** Where to display the linked URL. */
   @Prop() public target?: LinkTargetType | string | undefined;
