@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.12.0 (2022-10-26)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-footer:** Removed column and bottom slot. The footer has now 2 variations. Default and clock-columns. Default displays every slotted content as blocks and clock-columns use a css-grid.
+
+- **sbb-footer:** general refactoring ([#1409](https://github.com/lyne-design-system/lyne-components/issues/1409)) ([be1e8cc](https://github.com/lyne-design-system/lyne-components/commit/be1e8cc59291f23aeecf79ed151744d564696f88))
+
 ### 0.11.2 (2022-10-26)
 
 ### 0.11.1 (2022-10-26)
