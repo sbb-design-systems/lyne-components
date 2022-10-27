@@ -143,8 +143,8 @@ HoverTrigger.argTypes = defaultArgTypes;
 HoverTrigger.args = {
   ...defaultArgs,
   'hover-trigger': true,
-  'show-delay': 250,
-  'hide-delay': 500,
+  'show-delay': 0,
+  'hide-delay': 0,
 };
 HoverTrigger.documentation = { title: 'Hover Trigger' };
 HoverTrigger.play = playStory;

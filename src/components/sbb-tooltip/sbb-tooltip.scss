@@ -9,17 +9,13 @@
   --sbb-tooltip-arrow-size: var(--sbb-spacing-fixed-4x);
   --sbb-tooltip-arrow-position-x: 0;
   --sbb-tooltip-max-height: #{px-to-rem-build(190)};
-  --sbb-tooltip-max-width: min(100vw, #{px-to-rem-build(320)});
+  --sbb-tooltip-max-width: min(calc(100vw - var(--sbb-spacing-fixed-8x)), #{px-to-rem-build(320)});
   --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
   --sbb-tooltip-padding: var(--sbb-spacing-fixed-4x);
   --sbb-tooltip-background: var(--sbb-color-white-default);
-  --sbb-tooltip-animation-duration: var(--sbb-animation-duration-6x);
-  --sbb-tooltip-animation-easing: ease;
-  --sbb-tooltip-transform: translateY(calc(var(--sbb-spacing-fixed-4x) * -1)) scale(0);
-  --sbb-tooltip-transform-origin: calc(
-      var(--sbb-tooltip-arrow-position-x) + calc(var(--sbb-tooltip-arrow-size) / 2)
-    )
-    top;
+  --sbb-tooltip-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-tooltip-animation-easing: ease-out;
+  --sbb-tooltip-transform: translateY(var(--sbb-spacing-fixed-2x));
 
   position: fixed;
   inset: 0;
@@ -48,7 +44,6 @@
   background-color: var(--sbb-tooltip-background);
 
   &[open] {
-    transform-origin: var(--sbb-tooltip-transform-origin);
     animation: {
       name: show;
       duration: var(--sbb-tooltip-animation-duration);
@@ -73,7 +68,7 @@
     left: var(--sbb-tooltip-arrow-position-x);
     bottom: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
     background-color: var(--sbb-tooltip-background);
-    border-radius: var(--ssbb-spacing-fixed-1x) 0;
+    border-radius: var(--sbb-spacing-fixed-1x) 0;
     transform: rotate(45deg);
     z-index: -1;
 
@@ -107,17 +102,13 @@
     left: var(--sbb-tooltip-arrow-position-x);
     bottom: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
     background-color: var(--sbb-tooltip-background);
-    border-radius: var(--ssbb-spacing-fixed-1x) 0;
+    border-radius: var(--sbb-spacing-fixed-1x) 0;
     transform: rotate(45deg);
   }
 }
 
 .sbb-tooltip--above {
-  --sbb-tooltip-transform: translateY(var(--sbb-spacing-fixed-4x)) scale(0);
-  --sbb-tooltip-transform-origin: calc(
-      var(--sbb-tooltip-arrow-position-x) + calc(var(--sbb-tooltip-arrow-size) / 2)
-    )
-    bottom;
+  --sbb-tooltip-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
 
   &::after,
   .sbb-tooltip__content::before {
@@ -138,7 +129,7 @@
   to {
     visibility: visible;
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -146,7 +137,7 @@
   from {
     visibility: visible;
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 
   to {
