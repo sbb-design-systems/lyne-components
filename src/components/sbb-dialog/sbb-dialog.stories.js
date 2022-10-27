@@ -169,7 +169,6 @@ const formStyle = {
   flexWrap: 'wrap',
   alignItems: 'center',
   gap: 'var(--sbb-spacing-fixed-4x)',
-  paddingBottom: 'var(--sbb-spacing-fixed-3x)',
 };
 
 const DefaultTemplate = (args) => [
