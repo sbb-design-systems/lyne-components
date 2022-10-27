@@ -9,18 +9,6 @@ const keyboardPressTimes = async (page: E2EPage, key: string, times = 1): Promis
   await page.waitForChanges();
 };
 
-const clickIconTimes = async (
-  page: E2EPage,
-  iconSelector: string,
-  times: number
-): Promise<void> => {
-  const startIcon = await page.find(iconSelector);
-  for (let i = 0; i < times; i++) {
-    startIcon.triggerEvent('click');
-  }
-  await page.waitForChanges();
-};
-
 describe('sbb-slider with no step', () => {
   let element: E2EElement, page: E2EPage;
 
@@ -58,58 +46,6 @@ describe('sbb-slider with no step', () => {
         </mock:shadow-root>
       </sbb-slider>
     `);
-  });
-
-  it('should decrease value by four unit clicking on start icon', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-slow-small"]', 4);
-    expect(sbbSliderChange).toHaveReceivedEventDetail({
-      max: 500,
-      min: 100,
-      value: 396,
-    });
-  });
-
-  it('should not decrease value clicking on start icon if disabled', async () => {
-    const slider = await page.find('sbb-slider');
-    slider.setAttribute('disabled', '');
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-slow-small"]', 4);
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
-  });
-
-  it('should not decrease value clicking on start icon if readonly', async () => {
-    const slider = await page.find('sbb-slider');
-    slider.setAttribute('readonly', '');
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-slow-small"]', 4);
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
-  });
-
-  it('should increase value by three unit clicking on end icon', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-fast-small"]', 3);
-    expect(sbbSliderChange).toHaveReceivedEventDetail({
-      max: 500,
-      min: 100,
-      value: 403,
-    });
-  });
-
-  it('should not decrease value clicking on end icon if disabled', async () => {
-    const slider = await page.find('sbb-slider');
-    slider.setAttribute('disabled', '');
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-fast-small"]', 3);
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
-  });
-
-  it('should not decrease value clicking on end icon if readonly', async () => {
-    const slider = await page.find('sbb-slider');
-    slider.setAttribute('readonly', '');
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-fast-small"]', 3);
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
   });
 
   it('should decrease value by two on left arrow keypress', async () => {
@@ -150,6 +86,20 @@ describe('sbb-slider with no step', () => {
       min: 100,
       value: 401,
     });
+  });
+
+  it('should not change value on arrow keypress if disabled', async () => {
+    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    const slider = await page.find('sbb-slider');
+    slider.setAttribute('disabled', '');
+    await keyboardPressTimes(page, 'ArrowLeft');
+    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    await keyboardPressTimes(page, 'ArrowRight');
+    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    await keyboardPressTimes(page, 'ArrowUp');
+    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    await keyboardPressTimes(page, 'ArrowDown');
+    expect(sbbSliderChange).not.toHaveReceivedEvent();
   });
 });
 
@@ -192,58 +142,6 @@ describe('sbb-slider with step and no default value', () => {
     `);
   });
 
-  it('should decrease value by four step clicking on start icon', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-slow-small"]', 4);
-    expect(sbbSliderChange).toHaveReceivedEventDetail({
-      max: 1000,
-      min: 0,
-      value: 100,
-    });
-  });
-
-  it('should not decrease value clicking on start icon if disabled', async () => {
-    const slider = await page.find('sbb-slider');
-    slider.setAttribute('disabled', '');
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-slow-small"]', 4);
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
-  });
-
-  it('should not decrease value clicking on start icon if readonly', async () => {
-    const slider = await page.find('sbb-slider');
-    slider.setAttribute('readonly', '');
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-slow-small"]', 4);
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
-  });
-
-  it('should increase value by three step clicking on end icon', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-fast-small"]', 3);
-    expect(sbbSliderChange).toHaveReceivedEventDetail({
-      max: 1000,
-      min: 0,
-      value: 800,
-    });
-  });
-
-  it('should not decrease value clicking on end icon if disabled', async () => {
-    const slider = await page.find('sbb-slider');
-    slider.setAttribute('disabled', '');
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-fast-small"]', 3);
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
-  });
-
-  it('should not decrease value clicking on end icon if readonly', async () => {
-    const slider = await page.find('sbb-slider');
-    slider.setAttribute('readonly', '');
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
-    await clickIconTimes(page, 'sbb-slider >>> [name="walk-fast-small"]', 3);
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
-  });
-
   it('should decrease value by two step on left arrow keypress', async () => {
     const sbbSliderChange = await page.spyOnEvent('sbbChange');
     await keyboardPressTimes(page, 'ArrowLeft', 2);
@@ -282,5 +180,19 @@ describe('sbb-slider with step and no default value', () => {
       min: 0,
       value: 600,
     });
+  });
+
+  it('should not change value on arrow keypress if readonly', async () => {
+    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    const slider = await page.find('sbb-slider');
+    slider.setAttribute('readonly', '');
+    await keyboardPressTimes(page, 'ArrowLeft');
+    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    await keyboardPressTimes(page, 'ArrowRight');
+    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    await keyboardPressTimes(page, 'ArrowUp');
+    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    await keyboardPressTimes(page, 'ArrowDown');
+    expect(sbbSliderChange).not.toHaveReceivedEvent();
   });
 });

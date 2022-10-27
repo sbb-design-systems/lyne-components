@@ -159,48 +159,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     });
   }
 
-  /**
-   * If an end icon is provided, increases the value when clicking on it.
-   */
-  private _incrementWithIcon(): void {
-    if (this.disabled || this.readonly) {
-      return;
-    }
-
-    if (this._rangeInput.valueAsNumber === +this._rangeInput.max) {
-      return;
-    } else {
-      if (this.step) {
-        this._rangeInput.valueAsNumber += +this.step;
-      } else {
-        this._rangeInput.valueAsNumber++;
-      }
-      this._emitChange();
-      this._handleChange();
-    }
-  }
-
-  /**
-   * If a start icon is provided, reduces the value when clicking on it.
-   */
-  private _decrementWithIcon(): void {
-    if (this.disabled || this.readonly) {
-      return;
-    }
-
-    if (this._rangeInput.valueAsNumber === +this._rangeInput.min) {
-      return;
-    } else {
-      if (this.step) {
-        this._rangeInput.valueAsNumber -= +this.step;
-      } else {
-        this._rangeInput.valueAsNumber--;
-      }
-      this._emitChange();
-      this._handleChange();
-    }
-  }
-
   public render(): JSX.Element {
     const inputAttributes = {
       name: this.name || null,
@@ -227,11 +185,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     return (
       <Host class={{ 'sbb-form-field-element': this._isInFormField }}>
         <div class="sbb-slider__wrapper">
-          <slot name="prefix">
-            {this.startIcon && (
-              <sbb-icon name={this.startIcon} onClick={() => this._decrementWithIcon()} />
-            )}
-          </slot>
+          <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
           <div
             class="sbb-slider__container"
             style={{
@@ -271,11 +225,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
               }}
             ></div>
           </div>
-          <slot name="suffix">
-            {this.endIcon && (
-              <sbb-icon name={this.endIcon} onClick={() => this._incrementWithIcon()} />
-            )}
-          </slot>
+          <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
         </div>
       </Host>
     );
