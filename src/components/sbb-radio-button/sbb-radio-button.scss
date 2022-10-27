@@ -1,0 +1,72 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-radio-button-size: calc(var(--sbb-spacing-fixed-6x) - var(--sbb-border-width-1x));
+  --sbb-radio-button-label-color: var(--color-black-default);
+  --sbb-radio-button-checked-color: var(--sbb-color-red-default);
+  --sbb-radio-button-border-radius: var(--sbb-border-radius-8x);
+  --sbb-radio-button-transition: border var(--sbb-animation-duration-4x) ease;
+  --sbb-radio-button-icon-align: 0;
+
+  display: inline-block;
+  padding-block: #{px-to-rem-build(1)};
+
+  @include mq($from: medium) {
+    --sbb-radio-button-icon-align: calc(var(--sbb-spacing-fixed-1x) / 2);
+  }
+}
+
+:host(:focus-visible) {
+  --sbb-focus-outline-offset: var(--sbb-spacing-fixed-1x);
+  @include focusOutline;
+
+  border-radius: #{px-to-rem-build(0.25)};
+}
+
+:host([disabled]) {
+  --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-checked-color: var(--sbb-color-graphite-default);
+}
+
+/* HTML5 Boilerplate accessible hidden styles */
+[type='radio'] {
+  @include visuallyHidden;
+}
+
+/* One radio button per line */
+label {
+  @include text-s--regular;
+
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  color: var(--sbb-radio-button-label-color);
+  -webkit-tap-highlight-color: transparent;
+}
+
+[type='radio'] + span {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* unchecked style */
+[type='radio'] + span::before {
+  content: '';
+  flex-shrink: 0;
+  width: var(--sbb-radio-button-size);
+  height: var(--sbb-radio-button-size);
+  background: var(--sbb-radio-button-checked-color);
+  border-radius: var(--sbb-radio-button-border-radius);
+  border: calc(var(--sbb-radio-button-size) / 2) solid var(--sbb-color-white-default);
+  box-shadow: 0 0 0 var(--sbb-border-width-1x) var(--sbb-color-smoke-default);
+  margin-inline-end: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-1x));
+  margin-block-start: var(--sbb-radio-button-icon-align);
+  transition: var(--sbb-radio-button-transition);
+}
+
+/* the checked style using the :checked pseudo class */
+[type='radio']:checked + span::before {
+  border-width: #{px-to-rem-build(6)};
+}
