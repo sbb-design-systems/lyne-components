@@ -207,8 +207,8 @@ sbbSlider.documentation = {
 };
 
 export const sbbSliderStep = TemplateSbbSlider.bind({});
-sbbSliderStep.argTypes = basicArgTypes;
-sbbSliderStep.args = { ...basicArgs, step: '10' };
+sbbSliderStep.argTypes = { ...basicArgTypes, disabled: disabledArg };
+sbbSliderStep.args = { ...basicArgs, step: '10', disabled: false };
 sbbSlider.documentation = {
   title: 'sbb-slider with step',
 };
