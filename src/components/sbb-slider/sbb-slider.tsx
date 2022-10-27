@@ -162,18 +162,20 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
    * If an end icon is provided, increases the value when clicking on it.
    */
   private _incrementWithIcon(): void {
-    if (!this.disabled && !this.readonly) {
-      if (this._rangeInput.valueAsNumber === +this._rangeInput.max) {
-        return;
+    if (this.disabled || this.readonly) {
+      return;
+    }
+
+    if (this._rangeInput.valueAsNumber === +this._rangeInput.max) {
+      return;
+    } else {
+      if (this.step) {
+        this._rangeInput.valueAsNumber += +this.step;
       } else {
-        if (this.step) {
-          this._rangeInput.valueAsNumber += +this.step;
-        } else {
-          this._rangeInput.valueAsNumber++;
-        }
-        this._emitChange();
-        this._handleChange();
+        this._rangeInput.valueAsNumber++;
       }
+      this._emitChange();
+      this._handleChange();
     }
   }
 
@@ -181,18 +183,20 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
    * If a start icon is provided, reduces the value when clicking on it.
    */
   private _decrementWithIcon(): void {
-    if (!this.disabled && !this.readonly) {
-      if (this._rangeInput.valueAsNumber === +this._rangeInput.min) {
-        return;
+    if (this.disabled || this.readonly) {
+      return;
+    }
+
+    if (this._rangeInput.valueAsNumber === +this._rangeInput.min) {
+      return;
+    } else {
+      if (this.step) {
+        this._rangeInput.valueAsNumber -= +this.step;
       } else {
-        if (this.step) {
-          this._rangeInput.valueAsNumber -= +this.step;
-        } else {
-          this._rangeInput.valueAsNumber--;
-        }
-        this._emitChange();
-        this._handleChange();
+        this._rangeInput.valueAsNumber--;
       }
+      this._emitChange();
+      this._handleChange();
     }
   }
 

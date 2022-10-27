@@ -33,23 +33,23 @@ Slider inserted in form field
 | `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.                                                                     | `string`  | `undefined` |
 | `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                                                           | `string`  | `undefined` |
 | `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                                                                      | `string`  | `undefined` |
-| `disabled`                 | `disabled`                  | Determines whether the input is disabled.                                                                                                      | `boolean` | `false`     |
-| `readonly`                 | `readonly`                  | Determines whether the input is in readonly state.                                                                                             | `boolean` | `false`     |
+| `disabled`                 | `disabled`                  | Disabled state for the inner HTMLInputElement.                                                                                                 | `boolean` | `false`     |
 | `endIcon` _(required)_     | `end-icon`                  | Name of the icon at component's end, which will be forward to the nested `sbb-icon`.                                                           | `string`  | `undefined` |
-| `max`                      | `max`                       | Maximum acceptable value for the input.                                                                                                        | `string`  | `'100'`     |
-| `min`                      | `min`                       | Minimum acceptable value for the input.                                                                                                        | `string`  | `'0'`       |
-| `name`                     | `name`                      | Name of the input.                                                                                                                             | `string`  | `''`        |
+| `max`                      | `max`                       | Maximum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'100'`     |
+| `min`                      | `min`                       | Minimum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'0'`       |
+| `name`                     | `name`                      | Name of the inner HTMLInputElement.                                                                                                            | `string`  | `''`        |
+| `readonly`                 | `readonly`                  | Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one. | `boolean` | `false`     |
 | `startIcon` _(required)_   | `start-icon`                | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         | `string`  | `undefined` |
-| `step`                     | `step`                      | The size of each movement (increment, decrement or jump between values) of the slider control.                                                 | `string`  | `''`        |
-| `value`                    | `value`                     | Value for the input.                                                                                                                           | `string`  | `''`        |
-| `valueAsNumber`            | `value-as-number`           | Numeric value for the input.                                                                                                                   | `number`  | `undefined` |
+| `step`                     | `step`                      | The granularity of the possible values for the inner HTMLInputElement.                                                                         | `string`  | `''`        |
+| `value`                    | `value`                     | Value for the inner HTMLInputElement.                                                                                                          | `string`  | `''`        |
+| `valueAsNumber`            | `value-as-number`           | Numeric value for the inner HTMLInputElement.                                                                                                  | `number`  | `undefined` |
 
 
 ## Events
 
 | Event       | Description                                                         | Type                           |
 | ----------- | ------------------------------------------------------------------- | ------------------------------ |
-| `sbbChange` | Emits the event on calue change.                                    | `CustomEvent<SbbSliderChange>` |
+| `sbbChange` | Event emitted when the value of the inner HTMLInputElement changes. | `CustomEvent<SbbSliderChange>` |
 
 
 ## Slots
