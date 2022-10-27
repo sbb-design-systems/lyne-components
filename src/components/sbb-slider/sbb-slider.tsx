@@ -136,7 +136,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     } else {
       min = +this.min;
       max = +this.max;
-      value = this.value
+      value = this.value && this.value !== ''
         ? +this.value
         : this.valueAsNumber
         ? this.valueAsNumber
