@@ -136,11 +136,12 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     } else {
       min = +this.min;
       max = +this.max;
-      value = this.value && this.value !== ''
-        ? +this.value
-        : this.valueAsNumber
-        ? this.valueAsNumber
-        : +this.min + (+this.max - +this.min) / 2;
+      value =
+        this.value && this.value !== ''
+          ? +this.value
+          : this.valueAsNumber
+          ? this.valueAsNumber
+          : +this.min + (+this.max - +this.min) / 2;
     }
     const mathFraction: number = (value - min) / (max - min);
     this._valueFraction =
