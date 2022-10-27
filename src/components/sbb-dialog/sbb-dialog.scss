@@ -2,13 +2,18 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+$breakpoints: 'zero', 'micro', 'small', 'medium';
+
 :host {
+  --sbb-dialog-padding-inline-zero: var(--sbb-spacing-fixed-5x);
+  --sbb-dialog-padding-inline-micro: var(--sbb-spacing-fixed-6x);
+  --sbb-dialog-padding-inline-small: var(--sbb-spacing-fixed-12x);
+  --sbb-dialog-padding-inline-medium: var(--sbb-spacing-fixed-8x);
   --sbb-dialog-color: var(--sbb-color-black-default);
   --sbb-dialog-background-color: var(--sbb-color-white-default);
   --sbb-dialog-max-width: 100%;
   --sbb-dialog-max-height: 100%;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
-  --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-dialog-padding-block: var(--sbb-spacing-fixed-4x);
   --sbb-dialog-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-dialog-animation-easing: ease;
@@ -36,6 +41,14 @@
       duration: var(--sbb-dialog-animation-duration);
       timing-function: var(--sbb-dialog-animation-easing);
       property: background-color, visibility;
+    }
+  }
+}
+
+@each $breakpoint in $breakpoints {
+  @include mq($from: #{$breakpoint}) {
+    :host {
+      --sbb-dialog-padding-inline: var(--sbb-dialog-padding-inline-#{$breakpoint});
     }
   }
 }
@@ -183,7 +196,7 @@
 
   .sbb-dialog__content {
     padding-block-start: var(--sbb-spacing-fixed-20x);
-    padding-inline: var(--sbb-spacing-responsive-xl);
+    padding-inline: var(--sbb-layout-base-offset-responsive);
     height: 100vh;
   }
 }
