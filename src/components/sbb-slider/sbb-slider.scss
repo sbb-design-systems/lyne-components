@@ -25,7 +25,6 @@
 
 .sbb-icon {
   color: var(--sbb-slider-icon-color);
-  cursor: pointer;
 }
 
 .sbb-slider__wrapper {
@@ -134,7 +133,7 @@
 }
 
 // slider knob resize on click (active / focus)
-.sbb-slider__range-input:active ~ .slider__knob,
-.sbb-slider__range-input:focus-visible ~ .slider__knob {
+.sbb-slider__range-input:active ~ .sbb-slider__knob,
+.sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
   --sbb-slider-knob-size: #{px-to-rem-build(31)};
 }
