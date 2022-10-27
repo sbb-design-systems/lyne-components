@@ -153,6 +153,9 @@ const basicArgTypes = {
   step: stepArg,
   value: valueArg,
   'value-as-number': valueAsNumberArg,
+  'accessibility-label': accessibilityLabelArg,
+  'accessibility-describedby': accessibilityDescribedbyArg,
+  'accessibility-labelledby': accessibilityLabelledbyArg,
 };
 
 const formFieldBasicArgsTypes = {
@@ -160,9 +163,6 @@ const formFieldBasicArgsTypes = {
   label: labelArg,
   optional: optionalArg,
   borderless: borderlessArg,
-  'accessibility-label': accessibilityLabelArg,
-  'accessibility-describedby': accessibilityDescribedbyArg,
-  'accessibility-labelledby': accessibilityLabelledbyArg,
 };
 
 const basicArgs = {
