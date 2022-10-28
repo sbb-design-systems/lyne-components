@@ -185,9 +185,16 @@ const formFieldBasicArgs = {
 
 export const sbbSlider = TemplateSbbSlider.bind({});
 sbbSlider.argTypes = { ...basicArgTypes };
-sbbSlider.args = { ...basicArgs };
+sbbSlider.args = { ...basicArgs, 'end-icon': 'walk-fast-small', 'start-icon': 'walk-slow-small' };
 sbbSlider.documentation = {
   title: 'sbb-slider',
+};
+
+export const sbbSliderWithoutIcons = TemplateSbbSlider.bind({});
+sbbSliderWithoutIcons.argTypes = { ...basicArgTypes };
+sbbSliderWithoutIcons.args = { ...basicArgs };
+sbbSliderWithoutIcons.documentation = {
+  title: 'sbb-slider without icons',
 };
 
 export const sbbSliderDisabled = TemplateSbbSlider.bind({});
