@@ -42,9 +42,9 @@ export class SbbClock {
    */
   @Prop() public initialTime?: Time;
 
-  private _clockHandHours!: HTMLElement;
-  private _clockHandMinutes!: HTMLElement;
-  private _clockHandSeconds!: HTMLElement;
+  private _clockHandHours: HTMLElement;
+  private _clockHandMinutes: HTMLElement;
+  private _clockHandSeconds: HTMLElement;
 
   private _hours: number;
   private _minutes: number;
@@ -82,20 +82,20 @@ export class SbbClock {
       this._handlePageVisibilityChange.bind(this),
       false
     );
-    this._clockHandHours.removeEventListener('animationend', moveHoursHand);
-    this._clockHandSeconds.removeEventListener('animationend', moveMinutesHand);
+    this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
+    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
     clearInterval(handMovement);
   }
 
   private _removeHoursAnimationStyles(): void {
-    this._clockHandHours.classList.remove('sbb-clock__hand-hours--initial-hour');
+    this._clockHandHours?.classList.remove('sbb-clock__hand-hours--initial-hour');
     this._element.style.removeProperty('--clock-hours-animation-start-angle');
     this._element.style.removeProperty('--clock-hours-animation-duration');
   }
 
   private _removeSecondsAnimationStyles(): void {
-    this._clockHandSeconds.classList.remove('sbb-clock__hand-seconds--initial-minute');
-    this._clockHandMinutes.classList.remove('sbb-clock__hand-minutes--no-transition');
+    this._clockHandSeconds?.classList.remove('sbb-clock__hand-seconds--initial-minute');
+    this._clockHandMinutes?.classList.remove('sbb-clock__hand-minutes--no-transition');
     this._element.style.removeProperty('--clock-seconds-animation-start-angle');
     this._element.style.removeProperty('--clock-seconds-animation-duration');
   }
@@ -141,7 +141,9 @@ export class SbbClock {
       hoursAnimationDuration += this._remainingHours * 3600;
     }
 
-    this._clockHandSeconds.style.animation = '';
+    if (this._clockHandSeconds) {
+      this._clockHandSeconds.style.animation = '';
+    }
 
     this._element.style.setProperty(
       '--clock-hours-animation-start-angle',
@@ -162,8 +164,8 @@ export class SbbClock {
 
     this._setMinutesHand();
 
-    this._clockHandSeconds.classList.add('sbb-clock__hand-seconds--initial-minute');
-    this._clockHandHours.classList.add('sbb-clock__hand-hours--initial-hour');
+    this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
+    this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
     this._element.style.setProperty('--clock-animation-play-state', 'running');
 
     this._isInitialized = true;
@@ -171,7 +173,7 @@ export class SbbClock {
 
   private _setMinutesHand(): void {
     this._minutesAngle = this._minutes * 6;
-    this._clockHandMinutes.style.setProperty(
+    this._clockHandMinutes?.style.setProperty(
       'transform',
       `rotateZ(${Math.ceil(this._minutesAngle)}deg)`
     );
@@ -188,14 +190,14 @@ export class SbbClock {
       this._hoursAngle -= 360;
     }
 
-    this._clockHandHours.style.setProperty(
+    this._clockHandHours?.style.setProperty(
       'transform',
       `rotateZ(${Math.ceil(this._hoursAngle)}deg)`
     );
   }
 
   private _moveMinutesHand(): void {
-    this._clockHandSeconds.removeEventListener('animationend', moveMinutesHand);
+    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
 
     this._removeSecondsAnimationStyles();
 
@@ -213,17 +215,17 @@ export class SbbClock {
 
     if (this.paused) {
       this._moveHandsInitially();
-      this._clockHandSeconds.classList.add('sbb-clock__hand-seconds--initial-minute');
-      this._clockHandHours.classList.add('sbb-clock__hand-hours--initial-hour');
+      this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
+      this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
     } else {
       this._removeSecondsAnimationStyles();
       this._removeHoursAnimationStyles();
     }
 
-    this._clockHandHours.removeEventListener('animationend', moveHoursHand);
-    this._clockHandSeconds.removeEventListener('animationend', moveMinutesHand);
+    this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
+    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
 
-    this._clockHandMinutes.classList.add('sbb-clock__hand-minutes--no-transition');
+    this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
     this._element.style.setProperty('--clock-animation-play-state', 'paused');
   }
@@ -232,8 +234,8 @@ export class SbbClock {
     moveHoursHand = (): void => this._moveHoursHand();
     moveMinutesHand = (): void => this._moveMinutesHand();
 
-    this._clockHandHours.addEventListener('animationend', moveHoursHand, eventListenerOptions);
-    this._clockHandSeconds.addEventListener('animationend', moveMinutesHand, eventListenerOptions);
+    this._clockHandHours?.addEventListener('animationend', moveHoursHand, eventListenerOptions);
+    this._clockHandSeconds?.addEventListener('animationend', moveMinutesHand, eventListenerOptions);
 
     setTimeout(() => {
       this._moveHandsInitially();
