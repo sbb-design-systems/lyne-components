@@ -171,6 +171,8 @@ const basicArgs = {
   step: '',
   value: '40',
   'value-as-number': 40,
+  'start-icon': 'walk-slow-small',
+  'end-icon': 'walk-fast-small',
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
@@ -185,14 +187,14 @@ const formFieldBasicArgs = {
 
 export const sbbSlider = TemplateSbbSlider.bind({});
 sbbSlider.argTypes = { ...basicArgTypes };
-sbbSlider.args = { ...basicArgs, 'end-icon': 'walk-fast-small', 'start-icon': 'walk-slow-small' };
+sbbSlider.args = { ...basicArgs };
 sbbSlider.documentation = {
   title: 'sbb-slider',
 };
 
 export const sbbSliderWithoutIcons = TemplateSbbSlider.bind({});
 sbbSliderWithoutIcons.argTypes = { ...basicArgTypes };
-sbbSliderWithoutIcons.args = { ...basicArgs };
+sbbSliderWithoutIcons.args = { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined };
 sbbSliderWithoutIcons.documentation = {
   title: 'sbb-slider without icons',
 };
@@ -218,22 +220,23 @@ sbbSlider.documentation = {
   title: 'sbb-slider with step',
 };
 
-export const sbbSliderCustomIcons = TemplateSbbSlider.bind({});
-sbbSliderCustomIcons.argTypes = { ...basicArgTypes };
-sbbSliderCustomIcons.args = {
-  ...basicArgs,
-  'start-icon': 'battery-level-empty-small',
-  'end-icon': 'battery-level-high-small',
-};
-sbbSliderCustomIcons.documentation = {
-  title: 'sbb-slider with custom icons',
-};
-
 export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});
 sbbSliderInFormField.argTypes = { ...formFieldBasicArgsTypes, disabled: disabledArg };
 sbbSliderInFormField.args = { ...formFieldBasicArgs, disabled: false };
 sbbSliderInFormField.documentation = {
   title: 'sbb-slider within sbb-form-field',
+};
+
+export const sbbSliderInFormFieldNoIcon = TemplateSbbSliderInFormField.bind({});
+sbbSliderInFormFieldNoIcon.argTypes = { ...formFieldBasicArgsTypes, disabled: disabledArg };
+sbbSliderInFormFieldNoIcon.args = {
+  ...formFieldBasicArgs,
+  disabled: false,
+  'start-icon': undefined,
+  'end-icon': undefined,
+};
+sbbSliderInFormFieldNoIcon.documentation = {
+  title: 'sbb-slider within sbb-form-field without icons',
 };
 
 export default {

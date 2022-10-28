@@ -56,6 +56,7 @@
 
 .sbb-slider__container {
   position: relative;
+  min-height: var(--sbb-size-icon-ui-small);
   flex-grow: 1;
 }
 
@@ -156,4 +157,5 @@
 .sbb-slider__range-input:active ~ .sbb-slider__knob,
 .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
   --sbb-slider-knob-size: #{px-to-rem-build(31)};
+  @include focusOutline;
 }
