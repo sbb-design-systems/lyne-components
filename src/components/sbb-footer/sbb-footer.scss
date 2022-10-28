@@ -3,8 +3,6 @@
 @include host-component-properties;
 
 :host {
-  --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive);
-
   // TODO: Remove once sbb-stack is refactored
   // Contextual design for sbb-stack
   --stack-text-color-normal: var(--sbb-color-granite-default);
@@ -45,18 +43,23 @@
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
-    gap: var(--sbb-footer-gap-vertical) var(--sbb-footer-gap-horizontal);
+    column-gap: var(--sbb-footer-gap-horizontal);
 
     @include mq($from: small) {
       grid-template-columns: calc(50% - (var(--sbb-footer-gap-horizontal) / 2));
     }
 
     @include mq($from: wide) {
-      max-width: px-to-rem-build(1200); // TODO: Add as design token
+      max-width: var(--sbb-layout-base-page-max-width);
       margin-inline-start: auto;
       margin-inline-end: auto;
       grid-template-columns: repeat(4, 1fr);
     }
+  }
+
+  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+  ::slotted(*:not(:last-child, sbb-divider)) {
+    margin-block-end: var(--sbb-footer-gap-vertical);
   }
 
   ::slotted(sbb-clock) {
@@ -77,16 +80,8 @@
   }
 
   ::slotted(sbb-divider) {
-    --sbb-footer-inset-block-end: calc(
-      var(--sbb-footer-gap-vertical) - var(--sbb-spacing-responsive-s)
-    );
-
-    position: relative;
-    margin-block-start: calc(
-      var(--sbb-spacing-responsive-xl) -
-        (var(--sbb-footer-gap-vertical) + var(--sbb-footer-inset-block-end))
-    );
-    inset-block-end: calc(-1 * var(--sbb-footer-inset-block-end));
+    margin-block-start: calc(var(--sbb-spacing-responsive-xl) - var(--sbb-footer-gap-vertical));
+    margin-block-end: var(--sbb-spacing-responsive-s);
 
     @include mq($from: small) {
       grid-row: 3;
