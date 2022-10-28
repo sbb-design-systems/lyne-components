@@ -21,7 +21,7 @@ export class SbbHeader {
           <slot />
           <div class="sbb-header__logo">
             <slot name="logo">
-              <sbb-logo protectiveRoom="none" />
+              <sbb-logo protective-room="none" />
             </slot>
           </div>
         </div>

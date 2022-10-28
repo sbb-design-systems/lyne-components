@@ -7,7 +7,7 @@ the first one can contain one or more [sbb-header-action](../sbb-header-action/r
 like `sbb-button` or `sbb-link`, and it is displayed at the left end of the component; the second slot is displayed
 at the right end, and it can contain a logo, which by default is the [sbb-logo](../sbb-logo/readme.md).
 
-The component's height can be overridden by defining the variable `--sbb-header-height-override`.
+The height of the header can be overridden by re-defining the css variable `--sbb-header-height`.
 
 A box-shadow appears under the component if the `shadow` variable is set to `true`;
 consumers could provide their own logic to set this variable to `true` when the page scrolls down,

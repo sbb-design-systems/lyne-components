@@ -49,16 +49,16 @@ const Template = (args) => (
         Menu
       </sbb-header-action>
       <div class="spacer" />
-      <sbb-header-action icon-name="magnifying-glass-small">Suchen</sbb-header-action>
-      <sbb-header-action icon-name="user-small">Anmelden</sbb-header-action>
+      <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
+      <sbb-header-action icon-name="user-small">Sign in</sbb-header-action>
       <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
-        Deutsch
+        English
       </sbb-header-action>
       <sbb-menu trigger="language-menu-trigger">
-        <sbb-menu-action icon-name="tick-small">Deutsch</sbb-menu-action>
+        <sbb-menu-action>Deutsch</sbb-menu-action>
         <sbb-menu-action>Français</sbb-menu-action>
         <sbb-menu-action>Italiano</sbb-menu-action>
-        <sbb-menu-action>English</sbb-menu-action>
+        <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
       </sbb-menu>
     </sbb-header>
 
@@ -344,7 +344,7 @@ const Template = (args) => (
     Footer section
     ************************************************* */}
     <sbb-footer accessibility-title="Footer" variant="clock-columns" negative={args.negative}>
-      <div className="sbb-link-list-button-group">
+      <div class="sbb-link-list-button-group">
         <sbb-link-list title-level="2" title-content="Help &amp; Contact." negative={args.negative}>
           <sbb-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
@@ -417,7 +417,7 @@ const Template = (args) => (
           Company
         </sbb-link>
       </sbb-link-list>
-      <div className="sbb-link-list-button-group">
+      <div class="sbb-link-list-button-group">
         <sbb-link-list title-level="2" title-content="Newsletter." negative={args.negative}>
           <sbb-link negative={args.negative}>
             Our newsletter regularly informs you of attractive offers from SBB via e-mail.

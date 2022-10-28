@@ -3,13 +3,14 @@
 @include host-component-properties;
 
 :host {
-  --sbb-logo-height: #{px-to-rem-build(16)};
+  --sbb-header-logo-height: #{px-to-rem-build(16)};
 
   @include mq($from: medium) {
-    --sbb-logo-height: #{px-to-rem-build(20)};
+    --sbb-header-logo-height: #{px-to-rem-build(20)};
   }
 
-  height: var(--sbb-header-height-override, var(--sbb-header-height));
+  // Setting the height here reserves the space for the header which will else be lost with fixed position.
+  height: var(--sbb-header-height);
 }
 
 .sbb-header {
@@ -33,13 +34,17 @@
   justify-content: flex-start;
   padding: 0;
   margin-inline: auto;
-  height: var(--sbb-header-height-override, var(--sbb-header-height));
+  height: var(--sbb-header-height);
   width: 100%;
-  max-width: #{px-to-rem-build(1200)};
+  max-width: var(--sbb-layout-base-page-max-width);
 }
 
 .sbb-header__logo {
-  height: var(--sbb-logo-height);
-  aspect-ratio: 19/2;
   margin-inline-start: auto;
+
+  // Only apply height to standard logo, if slotted no styles won't be applied.
+  sbb-logo {
+    height: var(--sbb-header-logo-height);
+    aspect-ratio: 19/2;
+  }
 }

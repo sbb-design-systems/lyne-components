@@ -67,6 +67,9 @@ describe('sbb-menu-action', () => {
 
       // Even the inner native menu action receives the focus, the active element is the host
       expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
+      expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
+        'inner-id'
+      );
     });
   });
 

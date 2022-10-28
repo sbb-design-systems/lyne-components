@@ -7,34 +7,33 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 :host {
   --sbb-header-action-text-display: none;
-  --sbb-header-action-icon-margin: 0;
   --sbb-header-action-padding-inline: 0;
   --sbb-header-action-background-color: transparent;
   --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
+  --sbb-header-first-item-margin-inline-start: calc(
+    -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-size-icon-ui-small))
+  );
 
   display: inline-block;
 }
 
 :host(:first-child) {
-  margin-left: calc(var(--sbb-spacing-fixed-2x) * (-1));
-  @include mq($to: small) {
-    margin-left: calc(var(--sbb-spacing-fixed-3x) * (-1));
-  }
+  margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
 }
 
 @each $breakpoint in $breakpoints {
   :host([expand-from='#{$breakpoint}']) {
     @include mq($from: $breakpoint) {
       --sbb-header-action-text-display: block;
-      --sbb-header-action-icon-margin: var(--sbb-spacing-fixed-2x);
       --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
-      --sbb-header-action-min-width: inherit;
     }
   }
   :host([expand-from='#{$breakpoint}']:first-child) {
     @include mq($from: $breakpoint) {
-      margin-left: calc(var(--sbb-spacing-fixed-5x) * (-1));
+      --sbb-header-first-item-margin-inline-start: calc(
+        var(--sbb-header-action-padding-inline) * (-1)
+      );
     }
   }
 }
@@ -62,12 +61,12 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   min-height: var(--sbb-header-action-min-height);
   min-width: var(--sbb-header-action-min-width);
   padding-inline: var(--sbb-header-action-padding-inline);
-  margin-inline: 0;
   border-radius: var(--sbb-border-radius-16x);
   transition-property: background-color;
   transition-duration: var(--sbb-animation-duration-6x);
   transition-timing-function: ease;
   cursor: pointer;
+  gap: var(--sbb-spacing-fixed-2x);
 
   &:focus-visible {
     @include focusOutline;
@@ -81,7 +80,6 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
   line-height: 0;
   color: var(--sbb-color-black-default);
-  margin-right: var(--sbb-header-action-icon-margin);
 }
 
 .sbb-header-action__text {

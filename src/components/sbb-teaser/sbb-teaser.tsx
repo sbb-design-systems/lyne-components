@@ -9,12 +9,13 @@ import {
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 
+let nextId = 0;
+
 /**
  * @slot image - Slot used to render the image
  * @slot title - Slot used to render the title
  * @slot description - Slot used to render the description
  */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-teaser.scss',
@@ -25,6 +26,9 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
  * Generalized Teaser - for displaying an image, title and paragraph
  */
 export class SbbTeaser implements LinkProperties {
+  /** This id will be forwarded to the relevant inner element. */
+  @Prop() public teaserId = `sbb-teaser-${++nextId}`;
+
   /**
    * Teaser variant -
    * when this is true the text-content will be under the image
@@ -104,7 +108,7 @@ export class SbbTeaser implements LinkProperties {
     } = resolveLinkRenderVariables(this);
 
     return (
-      <TAG_NAME class="sbb-teaser" {...attributes}>
+      <TAG_NAME class="sbb-teaser" {...attributes} id={this.teaserId}>
         <span class="sbb-teaser__container">
           <span class="sbb-teaser__image-wrapper">
             <slot name="image" />

@@ -1,8 +1,31 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import { userEvent, within } from '@storybook/testing-library';
 
-const textContent = () => (
+// Function to emulate pausing between interactions
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const HeaderTemplate = ({ children, ...args }) => [
+  <sbb-header {...args}>
+    <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
+      Menu
+    </sbb-header-action>
+    <div class="spacer" />
+    <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
+    {children}
+    <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      English
+    </sbb-header-action>
+    <sbb-menu trigger="language-menu-trigger">
+      <sbb-menu-action>Deutsch</sbb-menu-action>
+      <sbb-menu-action>Français</sbb-menu-action>
+      <sbb-menu-action>Italiano</sbb-menu-action>
+      <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
+    </sbb-menu>
+  </sbb-header>,
   <div>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
     eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
@@ -12,8 +35,8 @@ const textContent = () => (
     non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
     odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
     mollis eu lorem id, commodo cursus risus.
-  </div>
-);
+  </div>,
+];
 
 const shadow = {
   control: {
@@ -25,49 +48,51 @@ const basicArgTypes = {
   shadow,
 };
 
-const Template = (args) => [
-  <sbb-header {...args}>
+const Template = (args) => (
+  <HeaderTemplate {...args}>
+    <sbb-header-action icon-name="user-small">Sign in</sbb-header-action>
+  </HeaderTemplate>
+);
+
+const TemplateWithUserMenu = (args) => (
+  <HeaderTemplate {...args}>
     <sbb-header-action
-      icon-name="pie-small"
-      href="https://lyne-icons.netlify.app/icons/pie-small.svg"
-      target="_blank"
+      icon-name="user-small"
+      id="user-menu-trigger"
+      data-testid="user-menu-trigger"
     >
-      Pie
+      Christina Müller
     </sbb-header-action>
-    <sbb-header-action icon-name="balloons-small">Balloons</sbb-header-action>
-    <sbb-header-action icon-name="bottle-apple-small">Bottle & Apple</sbb-header-action>
-  </sbb-header>,
-  textContent(),
-];
+    <sbb-menu trigger="user-menu-trigger">
+      <sbb-menu-action icon-name="user-small" href="/">
+        Account
+      </sbb-menu-action>
+      <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
+      <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+        Shopping cart
+      </sbb-menu-action>
+      <sbb-divider />
+      <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+    </sbb-menu>
+  </HeaderTemplate>
+);
 
-const TemplateActions = (args) => [
-  <sbb-header {...args}>
-    <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
-      Menu
-    </sbb-header-action>
-    <div class="spacer" />
-    <sbb-header-action icon-name="magnifying-glass-small">Suchen</sbb-header-action>
-    <sbb-header-action icon-name="user-small">Anmelden</sbb-header-action>
-    <sbb-header-action icon-name="globe-small" class="last-element">
-      Deutsch
-    </sbb-header-action>
-  </sbb-header>,
-  textContent(),
-];
-
-export const header = Template.bind({});
-header.argTypes = basicArgTypes;
-header.args = { shadow: false };
-header.documentation = {
-  title: 'Header',
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const button = canvas.getByTestId('user-menu-trigger');
+  await sleep(500);
+  await userEvent.click(button);
 };
 
-export const headerWithActions = TemplateActions.bind({});
-headerWithActions.argTypes = basicArgTypes;
-headerWithActions.args = { shadow: false };
-headerWithActions.documentation = {
-  title: 'Header with custom actions',
-};
+export const basic = Template.bind({});
+basic.argTypes = basicArgTypes;
+basic.args = { shadow: false };
+
+export const withUserMenu = TemplateWithUserMenu.bind({});
+withUserMenu.argTypes = basicArgTypes;
+withUserMenu.args = { shadow: false };
+withUserMenu.play = playStory;
 
 export default {
   decorators: [
