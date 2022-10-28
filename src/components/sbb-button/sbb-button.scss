@@ -151,7 +151,6 @@
 }
 
 :host([size='m']) {
-  --sbb-button-border-width: var(--sbb-border-width-1x);
   --sbb-button-min-height: var(--sbb-size-button-m-min-height);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
 
