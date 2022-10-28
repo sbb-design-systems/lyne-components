@@ -16,6 +16,7 @@ jobs:
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.conclusion == 'success' &&
       (
+        startsWith(github.event.workflow_run.head_commit.message, 'docs') ||
         startsWith(github.event.workflow_run.head_commit.message, 'feat') ||
         startsWith(github.event.workflow_run.head_commit.message, 'fix') ||
         startsWith(github.event.workflow_run.head_commit.message, 'refactor')
