@@ -104,6 +104,7 @@
     var(--sbb-slider-line-color) var(--sbb-slider-step-gap),
     var(--sbb-slider-line-color) calc(var(--sbb-slider-step-fraction) * 100%)
   );
+  forced-color-adjust: none;
 }
 
 .sbb-slider__selected-line {
