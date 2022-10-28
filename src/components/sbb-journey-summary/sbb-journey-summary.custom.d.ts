@@ -1,6 +1,6 @@
 import { Leg, TimeQuayWrapper } from '../../global/interfaces/pearl-chain-properties';
 
-declare type SummaryConfig = {
+declare interface SummaryConfig {
   legs: Leg[];
   vias: string[];
   origin: string;

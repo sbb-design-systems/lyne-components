@@ -1,4 +1,4 @@
-export type ServiceAlteration = {
+export interface ServiceAlteration {
   /** If (partially) cancelled, enduser cancellation info. */
   cancellationInfo?: string;
   /** true: Journey is (partially) cancelled (default=false) */
@@ -19,7 +19,7 @@ export type ServiceAlteration = {
   redirected: boolean;
 };
 
-export type TimeQuayWrapper = {
+export interface TimeQuayWrapper {
   delay?: number;
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
   quayChanged?: boolean;
