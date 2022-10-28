@@ -13,7 +13,7 @@ function sleep(ms) {
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const button = canvas.getByTestId('menu-trigger');
-  await sleep(300);
+  await sleep(500);
   await userEvent.click(button);
 };
 
@@ -215,6 +215,7 @@ export default {
       iframeHeight: '400px',
       extractComponentDescription: () => readme,
     },
+    chromatic: { delay: 3000 },
   },
   title: 'components/menu/sbb-menu',
 };
