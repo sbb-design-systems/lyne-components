@@ -48,3 +48,7 @@
     aspect-ratio: 19/2;
   }
 }
+
+.sbb-header__wrapper > ::slotted(sbb-header-action:first-child) {
+  margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
+}
