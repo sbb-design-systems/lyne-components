@@ -55,10 +55,10 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   @Prop() public disabled?: boolean = false;
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
-  @Prop() public startIcon?: string = 'walk-slow-small';
+  @Prop() public startIcon?: string;
 
   /** Name of the icon at component's end, which will be forward to the nested `sbb-icon`. */
-  @Prop() public endIcon?: string = 'walk-fast-small';
+  @Prop() public endIcon?: string;
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
@@ -155,9 +155,12 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     return (
       <Host class={{ 'sbb-form-field-element': this._isInFormField }}>
         <div class="sbb-slider__wrapper">
-          <slot name="prefix">
-            <sbb-icon name={this.startIcon} />
-          </slot>
+          {this.startIcon && (
+            <slot name="prefix">
+              <sbb-icon name={this.startIcon} />
+            </slot>
+          )}
+
           <div
             class="sbb-slider__container"
             style={{
@@ -197,9 +200,11 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
               }}
             ></div>
           </div>
-          <slot name="suffix">
-            <sbb-icon name={this.endIcon} />
-          </slot>
+          {this.endIcon && (
+            <slot name="suffix">
+              <sbb-icon name={this.endIcon} />
+            </slot>
+          )}
         </div>
       </Host>
     );
