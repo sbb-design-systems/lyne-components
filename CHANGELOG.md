@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.12.2 (2022-10-28)
+
+### Bug Fixes
+
+- **sbb-button:** fix border size for size m variant ([#1437](https://github.com/lyne-design-system/lyne-components/issues/1437)) ([7fcd384](https://github.com/lyne-design-system/lyne-components/commit/7fcd384036f4cb131d2dc238b05be8f4c9b99a99))
+
 ### 0.12.1 (2022-10-26)
 
 ### Features
