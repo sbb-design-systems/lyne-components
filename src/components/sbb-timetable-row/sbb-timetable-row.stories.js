@@ -40,12 +40,19 @@ const active = {
   },
 };
 
+const now = {
+  control: {
+    type: 'date',
+  },
+};
+
 const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
   'loading-price': loadingPrice,
   active,
+  'data-now': now,
 };
 
 const defaultArgs = {
@@ -54,6 +61,7 @@ const defaultArgs = {
   'loading-trip': config.loadingTrip,
   trip: config.trip,
   price: config.price,
+  'data-now': undefined,
 };
 
 // TEMPLATES
@@ -87,6 +95,7 @@ SbbTimetableRowPosition.argTypes = defaultArgTypes;
 SbbTimetableRowPosition.args = {
   'disable-animation': false,
   trip: configPosition.trip,
+  'data-now': new Date('2023-12-31T10:00').valueOf(),
 };
 
 export const SbbTimetableRowPositionDisabledAnimation = Template.bind({});
@@ -94,12 +103,14 @@ SbbTimetableRowPositionDisabledAnimation.argTypes = defaultArgTypes;
 SbbTimetableRowPositionDisabledAnimation.args = {
   'disable-animation': true,
   trip: configPosition.trip,
+  'data-now': new Date('2023-12-31T10:00').valueOf(),
 };
 
 export const SbbTimetableRowMinimal = Template.bind({});
 SbbTimetableRowMinimal.argTypes = defaultArgTypes;
 SbbTimetableRowMinimal.args = {
   trip: configMinimal.trip,
+  'data-now': new Date('2022-06-30T10:00').valueOf(),
 };
 
 export const SbbTimetableRowCancelled = Template.bind({});
@@ -118,6 +129,7 @@ export const SbbTimetableRowPast = Template.bind({});
 SbbTimetableRowPast.argTypes = defaultArgTypes;
 SbbTimetableRowPast.args = {
   trip: configPast.trip,
+  'data-now': new Date('2022-10-30T17:00:00').valueOf(),
 };
 
 export const SbbTimetableRowLoading = Template.bind({});

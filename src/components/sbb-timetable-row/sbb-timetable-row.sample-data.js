@@ -233,7 +233,7 @@ export const configMinimal = {
       {
         duration: 360,
         id: 'test',
-        arrival: { time: '2022-08-40T15:00:00+02:00' },
+        arrival: { time: '2022-08-31T15:00:00+02:00' },
         departure: { time: '2022-04-30T15:00:00+02:00' },
         serviceJourney: {
           serviceAlteration: {
