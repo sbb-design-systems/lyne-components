@@ -1,26 +1,62 @@
-`<sbb-slider>` is used to display an input of range type, that lets the user specify a numeric value which must be no less than a given value, and no more than another given value. 
+# sbb-slider
+
+The `<sbb-slider>` is an input component that allows for the selection of a value within a range;
+this can be set by consumers using the `min` and `max` properties (default values are 0 and 100).
+
+The initial value can be set using the `value` property (string), or the `valueAsNumber` (number).
+If no value is provided, by default it is set halfway between the minimum and maximum.
+
+The component has two icons at start and end; they can be set using the `startIcon` and `endIcon` properties.
+As an alternative, consumers can define their own icons using the two slots named `prefix` and `suffix`.
+
+It is possible to display the component in disabled or readonly state by using the self-named properties.
+
+The component has also a granular version, that can be activated by setting the `step` parameter. 
+In this case, the possible values are only the multiples of the `step` value.
+
+Consumers can listen to the `sbbChange` event to intercept the native input's change. 
+It emits a `SbbSliderChange` object:
+```ts
+interface SbbSliderChange {
+  value: number;
+  min: number;
+  max: number;
+}
+```
 
 
 ## Usage
-Simple slider
+Simple slider with default range:
 ```html
-<sbb-slider max="100" min="0" value="40" start-icon="walk-slow-small" end-icon="walk-fast-small"></sbb-slider>
+<sbb-slider value="40" start-icon="walk-slow-small" end-icon="walk-fast-small"></sbb-slider>
 ```
 
-Slider with steps
+Slider with steps and custom range:
 ```html
-<sbb-slider max="100" min="0" step="10" value="40" end-icon="walk-fast-small" start-icon="walk-slow-small"></sbb-slider>
+<sbb-slider max="5" min="1" step="1" value="5" end-icon="walk-fast-small" start-icon="walk-slow-small"></sbb-slider>
 ```
 
-Slider inserted in form field
+Slider inside a `<sbb-form-field>`:
 ```html
-<sbb-form-field>
-  <sbb-slider max="100" min="0" value="40" start-icon="walk-slow-small" end-icon="walk-fast-small"></sbb-slider>
+<sbb-form-field label="Slider">
+  <sbb-slider value="0" start-icon="walk-slow-small" end-icon="walk-fast-small"></sbb-slider>
 </sbb-form-field>
 ```
 
 ## Accessibility
-** TBD **
+
+The `<sbb-slider>` has the following behaviour on keypress:
+
+| Key         	| Action                                            	|
+|-------------	|---------------------------------------------------	|
+| Right arrow 	| Increment the slider value by one (or one step).  	|
+| Up arrow    	| Increment the slider value by one (or one step).  	|
+| Left arrow  	| Decrement the slider value by one (or one step).  	|
+| Down arrow  	| Decrement the slider value by one (or one step).  	|
+| Page up     	| Increment the slider value by ten (or ten steps). 	|
+| Page down   	| Decrement the slider value by ten (or ten steps). 	|
+| End         	| Set the value to the maximum.                     	|
+| Home        	| Set the value to the minimum.                     	|
 
 
 <!-- Auto Generated Below -->
@@ -35,6 +71,7 @@ Slider inserted in form field
 | `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                                                                      | `string`  | `undefined` |
 | `disabled`                 | `disabled`                  | Disabled state for the inner HTMLInputElement.                                                                                                 | `boolean` | `false`     |
 | `endIcon` _(required)_     | `end-icon`                  | Name of the icon at component's end, which will be forward to the nested `sbb-icon`.                                                           | `string`  | `undefined` |
+| `form`                     | `form`                      | The <form> element to associate the inner HTMLInputElement with.                                                                               | `string`  | `undefined` |
 | `max`                      | `max`                       | Maximum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'100'`     |
 | `min`                      | `min`                       | Minimum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'0'`       |
 | `name`                     | `name`                      | Name of the inner HTMLInputElement.                                                                                                            | `string`  | `''`        |

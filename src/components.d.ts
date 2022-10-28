@@ -1120,6 +1120,10 @@ export namespace Components {
          */
         "endIcon": string;
         /**
+          * The <form> element to associate the inner HTMLInputElement with.
+         */
+        "form"?: string;
+        /**
           * Maximum acceptable value for the inner HTMLInputElement.
          */
         "max"?: string;
@@ -3187,6 +3191,10 @@ declare namespace LocalJSX {
           * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
          */
         "endIcon": string;
+        /**
+          * The <form> element to associate the inner HTMLInputElement with.
+         */
+        "form"?: string;
         /**
           * Maximum acceptable value for the inner HTMLInputElement.
          */

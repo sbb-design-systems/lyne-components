@@ -24,34 +24,25 @@ import { SbbSliderChange } from './sbb-slider.custom';
   tag: 'sbb-slider',
 })
 export class SbbSlider implements ComponentInterface, AccessibilityProperties {
-  /**
-   * Value for the inner HTMLInputElement.
-   */
+  /** Value for the inner HTMLInputElement. */
   @Prop() public value?: string = '';
 
-  /**
-   * Numeric value for the inner HTMLInputElement.
-   */
+  /** Numeric value for the inner HTMLInputElement. */
   @Prop() public valueAsNumber?: number;
 
-  /**
-   * Name of the inner HTMLInputElement.
-   */
+  /** Name of the inner HTMLInputElement. */
   @Prop() public name?: string = '';
 
-  /**
-   * Minimum acceptable value for the inner HTMLInputElement.
-   */
+  /** The <form> element to associate the inner HTMLInputElement with. */
+  @Prop() public form?: string;
+
+  /** Minimum acceptable value for the inner HTMLInputElement. */
   @Prop() public min?: string = '0';
 
-  /**
-   * Maximum acceptable value for the inner HTMLInputElement.
-   */
+  /** Maximum acceptable value for the inner HTMLInputElement. */
   @Prop() public max?: string = '100';
 
-  /**
-   * The granularity of the possible values for the inner HTMLInputElement.
-   */
+  /** The granularity of the possible values for the inner HTMLInputElement. */
   @Prop() public step?: string = '';
 
   /**
@@ -60,39 +51,25 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
    */
   @Prop() public readonly?: boolean = false;
 
-  /**
-   * Disabled state for the inner HTMLInputElement.
-   */
+  /** Disabled state for the inner HTMLInputElement. */
   @Prop() public disabled?: boolean = false;
 
-  /**
-   * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
-   */
+  /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
   @Prop() public startIcon!: string;
 
-  /**
-   * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
-   */
+  /** Name of the icon at component's end, which will be forward to the nested `sbb-icon`. */
   @Prop() public endIcon!: string;
 
-  /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
+  /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
+  /** This will be forwarded as aria-describedby to the relevant nested element. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
+  /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
 
-  /**
-   * Event emitted when the value of the inner HTMLInputElement changes.
-   */
+  /** Event emitted when the value of the inner HTMLInputElement changes. */
   @Event() public sbbChange: EventEmitter<SbbSliderChange>;
 
   /**
@@ -101,19 +78,13 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
    */
   @State() private _valueFraction = 0;
 
-  /**
-   * Host element
-   */
+  /** Host element */
   @Element() private _element!: HTMLElement;
 
-  /**
-   * Reference to the inner HTMLInputElement with type='range'.
-   */
+  /** Reference to the inner HTMLInputElement with type='range'. */
   private _rangeInput!: HTMLInputElement;
 
-  /**
-   * Indicates if the component is used within a sbb-form-field.
-   */
+  /** Indicates if the component is used within a sbb-form-field. */
   private _isInFormField: boolean;
 
   public connectedCallback(): void {
@@ -148,9 +119,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
       isNaN(mathFraction) || mathFraction < 0 ? 0 : mathFraction > 1 ? 1 : mathFraction;
   }
 
-  /**
-   * Emits the change event.
-   */
+  /** Emits the change event. */
   private _emitChange(): void {
     this.sbbChange.emit({
       value: this._rangeInput.valueAsNumber,
@@ -162,6 +131,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   public render(): JSX.Element {
     const inputAttributes = {
       name: this.name || null,
+      form: this.form || null,
       min: this.min || null,
       max: this.max || null,
       step: this.step || null,
