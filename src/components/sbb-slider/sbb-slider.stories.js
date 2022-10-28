@@ -166,10 +166,8 @@ const formFieldBasicArgsTypes = {
 };
 
 const basicArgs = {
-  'end-icon': 'walk-fast-small',
   max: '100',
   min: '0',
-  'start-icon': 'walk-slow-small',
   step: '',
   value: '40',
   'value-as-number': 40,
@@ -211,6 +209,17 @@ sbbSliderStep.argTypes = { ...basicArgTypes, disabled: disabledArg };
 sbbSliderStep.args = { ...basicArgs, step: '10', disabled: false };
 sbbSlider.documentation = {
   title: 'sbb-slider with step',
+};
+
+export const sbbSliderCustomIcons = TemplateSbbSlider.bind({});
+sbbSliderCustomIcons.argTypes = { ...basicArgTypes };
+sbbSliderCustomIcons.args = {
+  ...basicArgs,
+  'start-icon': 'battery-level-empty-small',
+  'end-icon': 'battery-level-high-small',
+};
+sbbSliderCustomIcons.documentation = {
+  title: 'sbb-slider with custom icons',
 };
 
 export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});

@@ -1118,7 +1118,7 @@ export namespace Components {
         /**
           * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
          */
-        "endIcon": string;
+        "endIcon"?: string;
         /**
           * The <form> element to associate the inner HTMLInputElement with.
          */
@@ -1142,7 +1142,7 @@ export namespace Components {
         /**
           * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
          */
-        "startIcon": string;
+        "startIcon"?: string;
         /**
           * The granularity of the possible values for the inner HTMLInputElement.
          */
@@ -3190,7 +3190,7 @@ declare namespace LocalJSX {
         /**
           * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
          */
-        "endIcon": string;
+        "endIcon"?: string;
         /**
           * The <form> element to associate the inner HTMLInputElement with.
          */
@@ -3218,7 +3218,7 @@ declare namespace LocalJSX {
         /**
           * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
          */
-        "startIcon": string;
+        "startIcon"?: string;
         /**
           * The granularity of the possible values for the inner HTMLInputElement.
          */
