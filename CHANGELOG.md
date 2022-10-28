@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.12.3 (2022-10-28)
+
+### Bug Fixes
+
+- **sbb-clock:** avoid using unset properties ([#1438](https://github.com/lyne-design-system/lyne-components/issues/1438)) ([6ef7e18](https://github.com/lyne-design-system/lyne-components/commit/6ef7e188f46bc2c0254bc288a4a9d047da41deaa))
+
 ### 0.12.2 (2022-10-28)
 
 ### Bug Fixes
