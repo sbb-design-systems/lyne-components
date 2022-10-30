@@ -42,13 +42,15 @@
 .sbb-header__logo {
   margin-inline-start: auto;
 
-  // Only apply height to standard logo, if slotted no styles won't be applied.
+  // Only apply height to standard logo. If slotted, no styles will be applied.
   sbb-logo {
     height: var(--sbb-header-logo-height);
     aspect-ratio: 19/2;
   }
 }
 
+// Fix left offset if first element of the header is a sbb-header-action.
+// The value of the offset is calculated inside sbb-header-action styles.
 .sbb-header__wrapper > ::slotted(sbb-header-action:first-child) {
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
 }

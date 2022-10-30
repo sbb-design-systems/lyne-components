@@ -14,7 +14,8 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
   // Variable is assigned to property from sbb-header if it is first element
   // in header and needs left offset correction.
-  // Move it left by padding between button width and icon.
+  // Move it left by distance between button's left side and the start of the icon.
+  // As result, the icon should be aligned with the left side of the page wrapper.
   --sbb-header-first-item-margin-inline-start: calc(
     -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-size-icon-ui-small))
   );

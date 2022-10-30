@@ -8,7 +8,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const HeaderTemplate = ({ children, ...args }) => [
+const HeaderBasicTemplate = ({ children, ...args }) => [
   <sbb-header {...args}>
     <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
       Menu
@@ -19,7 +19,7 @@ const HeaderTemplate = ({ children, ...args }) => [
     <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
       English
     </sbb-header-action>
-    <sbb-menu trigger="language-menu-trigger">
+    <sbb-menu trigger="language-menu-trigger" disable-animation={isChromatic()}>
       <sbb-menu-action>Deutsch</sbb-menu-action>
       <sbb-menu-action>Français</sbb-menu-action>
       <sbb-menu-action>Italiano</sbb-menu-action>
@@ -38,24 +38,14 @@ const HeaderTemplate = ({ children, ...args }) => [
   </div>,
 ];
 
-const shadow = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const basicArgTypes = {
-  shadow,
-};
-
 const Template = (args) => (
-  <HeaderTemplate {...args}>
+  <HeaderBasicTemplate {...args}>
     <sbb-header-action icon-name="user-small">Sign in</sbb-header-action>
-  </HeaderTemplate>
+  </HeaderBasicTemplate>
 );
 
 const TemplateWithUserMenu = (args) => (
-  <HeaderTemplate {...args}>
+  <HeaderBasicTemplate {...args}>
     <sbb-header-action
       icon-name="user-small"
       id="user-menu-trigger"
@@ -63,7 +53,7 @@ const TemplateWithUserMenu = (args) => (
     >
       Christina Müller
     </sbb-header-action>
-    <sbb-menu trigger="user-menu-trigger">
+    <sbb-menu trigger="user-menu-trigger" disable-animation={isChromatic()}>
       <sbb-menu-action icon-name="user-small" href="/">
         Account
       </sbb-menu-action>
@@ -74,7 +64,7 @@ const TemplateWithUserMenu = (args) => (
       <sbb-divider />
       <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
     </sbb-menu>
-  </HeaderTemplate>
+  </HeaderBasicTemplate>
 );
 
 // Story interaction executed after the story renders
@@ -83,6 +73,16 @@ const playStory = async ({ canvasElement }) => {
   const button = canvas.getByTestId('user-menu-trigger');
   await sleep(500);
   await userEvent.click(button);
+};
+
+const shadow = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const basicArgTypes = {
+  shadow,
 };
 
 export const basic = Template.bind({});
