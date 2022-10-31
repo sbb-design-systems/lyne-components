@@ -9,6 +9,7 @@ import {
   configPast,
 } from './sbb-timetable-row.sample-data';
 import events from './sbb-timetable-row.events';
+import isChromatic from 'chromatic/isChromatic';
 
 const accessibilityLabel = {
   control: {
@@ -65,7 +66,9 @@ const defaultArgs = {
 };
 
 // TEMPLATES
-const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
+const Template = (args) => (
+  <sbb-timetable-row {...args} disable-animation={isChromatic()}></sbb-timetable-row>
+);
 
 /* ************************************************* */
 /* The Stories                                       */

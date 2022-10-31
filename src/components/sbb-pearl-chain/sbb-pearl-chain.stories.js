@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import data from './sbb-pearl-chain.sample-data';
+import isChromatic from 'chromatic/isChromatic';
 
 const disableAnimation = {
   control: {
@@ -20,7 +21,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  'disable-animation': false,
+  'disable-animation': isChromatic(),
   'data-now': undefined,
 };
 
