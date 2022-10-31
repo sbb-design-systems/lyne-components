@@ -63,12 +63,11 @@ const defaultArgs = {
   trip: config.trip,
   price: config.price,
   'data-now': undefined,
+  'disable-animation': isChromatic(),
 };
 
 // TEMPLATES
-const Template = (args) => (
-  <sbb-timetable-row {...args} disable-animation={isChromatic()}></sbb-timetable-row>
-);
+const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
 
 /* ************************************************* */
 /* The Stories                                       */
@@ -96,7 +95,6 @@ SbbTimetableRowPriceLoading.args = {
 export const SbbTimetableRowPosition = Template.bind({});
 SbbTimetableRowPosition.argTypes = defaultArgTypes;
 SbbTimetableRowPosition.args = {
-  'disable-animation': false,
   trip: configPosition.trip,
   'data-now': new Date('2024-06-21T02:29').valueOf(),
 };
