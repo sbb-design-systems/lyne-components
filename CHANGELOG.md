@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.5](https://github.com/lyne-design-system/lyne-components/compare/v0.12.4...v0.12.5) (2022-10-31)
+
+### Features
+
+- enhance timetable-row and pearl-chain ([5479769](https://github.com/lyne-design-system/lyne-components/commit/5479769f544e0fb3e58f1818c54da66bda7e4040))
+
+### Bug Fixes
+
+- add app permission for release ([5fee7fa](https://github.com/lyne-design-system/lyne-components/commit/5fee7fa7fddd9797ac95bda15352bc02d4f4aef3))
+- use correct output for release ([19cf257](https://github.com/lyne-design-system/lyne-components/commit/19cf25735e9910bd4a27bce39a3b577eed8c8c3c))
+
 ### 0.12.4 (2022-10-28)
 
 ### 0.12.3 (2022-10-28)
