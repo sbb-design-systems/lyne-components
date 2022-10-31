@@ -111,7 +111,14 @@ li {
 }
 
 .sbb-loading {
-  pointer-events: none;
+  @include card-host-properties;
+  @include card;
+  @include card--m;
+  @include card--primary-negative;
+
+  border: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .sbb-loading__wrapper {

@@ -9,7 +9,6 @@ import {
 } from 'date-fns';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
-import { PtSituationCauseEnum } from './sbb-timetable-row.custom';
 
 export const durationToTime = (duration: number): string => {
   const result = [];
@@ -34,23 +33,6 @@ export const durationToTime = (duration: number): string => {
   }
 
   return result.join(' ');
-};
-
-export const convertCauseInIconName = (cause: PtSituationCauseEnum): string => {
-  switch (cause) {
-    case 'CONSTRUCTION_SITE':
-      return 'construction';
-    case 'DELAY':
-      return 'delay';
-    case 'END_MESSAGE':
-      return 'message';
-    case 'INFORMATION':
-      return 'info';
-    case 'TRAIN_REPLACEMENT_BY_BUS':
-      return 'replacementbus';
-    default:
-      return '';
-  }
 };
 
 export const isProductIcon = (transport: string): boolean => {
@@ -88,9 +70,5 @@ export const renderIconProduct = (transport: string, line?: string): JSX.Element
 };
 
 export const renderStringProduct = (vehicleName: string, line: string): JSX.Element => {
-  return (
-    <span class="timetable__row-transportnumber">
-      {line !== null ? vehicleName + ' ' + line : vehicleName}
-    </span>
-  );
+  return <span class="timetable__row-transportnumber">{vehicleName + ' ' + line}</span>;
 };

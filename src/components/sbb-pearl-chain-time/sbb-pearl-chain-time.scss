@@ -13,11 +13,11 @@
   align-items: center;
 }
 
-.sbb-pearl-chain__time-walktime--left {
+.sbb-pearl-chain__time-walktime:first-of-type {
   margin-inline-end: var(--sbb-spacing-fixed-2x);
 }
 
-.sbb-pearl-chain__time-walktime--right {
+.sbb-pearl-chain__time-walktime:last-of-type {
   margin-inline-start: var(--sbb-spacing-fixed-1x);
 }
 

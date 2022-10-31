@@ -83,7 +83,7 @@ describe('sbb-timetable-row', () => {
                 19 h 32 min
               </time>
               <span class="sbb-timetable__row-warning">
-                <sbb-icon aria-hidden="false" aria-label="test"></sbb-icon>
+                <sbb-icon aria-hidden="false" aria-label="test" name="delay"></sbb-icon>
               </span>
             </div>
           </div>
@@ -104,13 +104,13 @@ describe('sbb-timetable-row', () => {
       expect(page.root).toEqualHtml(`
         <sbb-timetable-row loading-trip="true" data-now="1660662000000">
           <mock:shadow-root>
-            <sbb-card class="sbb-loading">
+            <button class="sbb-loading" disabled="">
               <div class="sbb-loading__wrapper">
                 <div class="sbb-loading__row"></div>
                 <div class="sbb-loading__row"></div>
                 <div class="sbb-loading__row"></div>
               </div>
-            </sbb-card>
+            </button>
           </mock:shadow-root>
         </sbb-timetable-row>
       `);
