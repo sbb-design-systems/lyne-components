@@ -66,7 +66,7 @@ describe('sbb-pearl-chain-time', () => {
         <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10" data-now="1660662000000">
           <mock:shadow-root>
             <div class="sbb-pearl-chain__time">
-              <span class="sbb-pearl-chain__time-walktime">
+              <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
                 <sbb-icon name="walk-small"></sbb-icon>
                 <time datetime="10M">
                   <span class="sbb-screenreaderonly">
@@ -128,7 +128,7 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
                 15:00
               </time>
-              <span class="sbb-pearl-chain__time-walktime">
+              <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--right">
                 <sbb-icon name="walk-small"></sbb-icon>
                 <time datetime="10M">
                   <span class="sbb-screenreaderonly">
@@ -169,7 +169,7 @@ describe('sbb-pearl-chain-time', () => {
         <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10" data-now="1660662000000">
         <mock:shadow-root>
             <div class="sbb-pearl-chain__time">
-              <span class="sbb-pearl-chain__time-walktime">
+              <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
                 <sbb-icon name="walk-small"></sbb-icon>
                 <time datetime="20M">
                   <span class="sbb-screenreaderonly">
@@ -194,7 +194,7 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
                 15:00
               </time>
-              <span class="sbb-pearl-chain__time-walktime">
+              <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--right">
                 <sbb-icon name="walk-small"></sbb-icon>
                 <time datetime="10M">
                   <span class="sbb-screenreaderonly">
