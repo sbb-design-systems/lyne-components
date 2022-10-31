@@ -1130,6 +1130,10 @@ export namespace Components {
          */
         "target"?: LinkTargetType | string | undefined;
         /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "teaserId": string;
+        /**
           * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel": InterfaceTeaserAttributes['titleLevel'];
@@ -2948,6 +2952,10 @@ declare namespace LocalJSX {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "teaserId"?: string;
         /**
           * Heading level of the sbb-title element (e.g. h1-h6).
          */

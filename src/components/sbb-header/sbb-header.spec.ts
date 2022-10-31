@@ -16,7 +16,7 @@ describe('sbb-header', () => {
               <slot></slot>
               <div class="sbb-header__logo">
                 <slot name="logo">
-                  <sbb-logo protectiveroom="none"></sbb-logo>
+                  <sbb-logo protective-room="none"></sbb-logo>
                 </slot>
               </div>
             </div>
@@ -50,7 +50,7 @@ describe('sbb-header', () => {
               <slot></slot>
               <div class="sbb-header__logo">
                 <slot name="logo">
-                  <sbb-logo protectiveroom="none"></sbb-logo>
+                  <sbb-logo protective-room="none"></sbb-logo>
                 </slot>
               </div>
             </div>

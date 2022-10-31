@@ -9,6 +9,7 @@ import {
   configPast,
 } from './sbb-timetable-row.sample-data';
 import events from './sbb-timetable-row.events';
+import isChromatic from 'chromatic/isChromatic';
 
 const accessibilityLabel = {
   control: {
@@ -62,6 +63,7 @@ const defaultArgs = {
   trip: config.trip,
   price: config.price,
   'data-now': undefined,
+  'disable-animation': isChromatic(),
 };
 
 // TEMPLATES
@@ -93,9 +95,8 @@ SbbTimetableRowPriceLoading.args = {
 export const SbbTimetableRowPosition = Template.bind({});
 SbbTimetableRowPosition.argTypes = defaultArgTypes;
 SbbTimetableRowPosition.args = {
-  'disable-animation': false,
   trip: configPosition.trip,
-  'data-now': new Date('2023-12-31T10:00').valueOf(),
+  'data-now': new Date('2024-06-21T02:29').valueOf(),
 };
 
 export const SbbTimetableRowPositionDisabledAnimation = Template.bind({});

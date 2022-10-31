@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const departureWalk = {
   control: {
@@ -40,7 +41,7 @@ const defaultArgs = {
   ],
   'departure-time': '2022-10-28T02:48:00+02:00',
   'arrival-time': '2022-10-28T12:48:00+02:00',
-  'disable-animation': false,
+  'disable-animation': isChromatic(),
   'data-now': undefined,
 };
 
