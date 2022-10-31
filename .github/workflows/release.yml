@@ -30,7 +30,7 @@ jobs:
           private_key: ${{ secrets.RELEASE_APP_PEM }}
       - uses: actions/checkout@v3
         with:
-          token: ${{ steps.get_token.outputs.app_token }}
+          token: ${{ steps.generate_token.outputs.token }}
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
