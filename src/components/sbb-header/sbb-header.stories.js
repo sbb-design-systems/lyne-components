@@ -71,7 +71,7 @@ const TemplateWithUserMenu = (args) => (
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const button = canvas.getByTestId('user-menu-trigger');
-  await sleep(500);
+  await sleep(800);
   await userEvent.click(button);
 };
 
