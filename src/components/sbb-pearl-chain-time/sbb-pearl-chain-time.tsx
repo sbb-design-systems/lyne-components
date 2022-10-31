@@ -35,10 +35,10 @@ export class SbbPearlChainTime {
   @Prop() public arrivalTime!: string;
 
   /** Optional prop to render the walk time (in minutes) before departure */
-  @Prop() public departureWalk?: number;
+  @Prop() public departureWalk?: any;
 
   /** Optional prop to render the walk time (in minutes) after arrival */
-  @Prop() public arrivalWalk?: number;
+  @Prop() public arrivalWalk?: any;
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -59,8 +59,8 @@ export class SbbPearlChainTime {
 
     return (
       <div class="sbb-pearl-chain__time">
-        {this.departureWalk && (
-          <span class="sbb-pearl-chain__time-walktime">
+        {this.departureWalk > 0 ? (
+          <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.departureWalk + 'M'}>
               <span class="sbb-screenreaderonly">
@@ -70,6 +70,8 @@ export class SbbPearlChainTime {
               <span aria-hidden="true">'</span>
             </time>
           </span>
+        ) : (
+          ''
         )}
         <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
           <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
@@ -85,8 +87,8 @@ export class SbbPearlChainTime {
           <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
           {this.arrivalTime && format(arrival, 'H:mm')}
         </time>
-        {this.arrivalWalk && (
-          <span class="sbb-pearl-chain__time-walktime">
+        {this.arrivalWalk > 0 ? (
+          <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--right">
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.arrivalWalk + 'M'}>
               <span class="sbb-screenreaderonly">
@@ -96,6 +98,8 @@ export class SbbPearlChainTime {
               <span aria-hidden="true">'</span>
             </time>
           </span>
+        ) : (
+          ''
         )}
       </div>
     );

@@ -1,4 +1,4 @@
-import { durationToTime, isProductIcon } from './sbb-timetable-row.helper';
+import { durationToTime, isProductIcon, convertCauseInIconName } from './sbb-timetable-row.helper';
 
 describe('durationToTime', () => {
   it('should return only minutes', () => {
@@ -11,6 +11,15 @@ describe('durationToTime', () => {
 
   it('should return hours', () => {
     expect(durationToTime(60)).toBe('1 h');
+  });
+});
+
+describe('convertCauseInIconName', () => {
+  it('should return construction', () => {
+    expect(convertCauseInIconName('CONSTRUCTION_SITE')).toBe('construction');
+  });
+  it('should return info', () => {
+    expect(convertCauseInIconName('INFORMATION')).toBe('info');
   });
 });
 

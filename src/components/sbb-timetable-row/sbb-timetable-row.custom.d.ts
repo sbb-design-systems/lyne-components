@@ -1,39 +1,43 @@
-import { Leg } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
+import { PTRideLeg } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 
 /** travel hints for the transportation */
 export interface Notice {
-  name?: string;
+  name: string;
   /** Priority - A lower priority value means a higher importance */
-  priority?: number;
+  priority: number;
   /** Text format with linkable parameters */
-  text?: string;
-  /** additional information, like phone, email, url according to text */
-  textArguments?: TextArgument[];
-  /** Type of Notice */
-  type?: NoticeType;
+  text: string;
 }
 
-export interface TextArgument {
-  type?: TextArgument;
-  values?: string[];
-}
-
-export type TextArgument = 'EMAIL' | 'PHONE' | 'URL';
-
-export type NoticeType = 'ATTRIBUTE' | 'INFO';
-
-export type OccupancyType = 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
+/** Occupancy for first and second class at StopPlace */
+export type OccupancyEnum = 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
 
 /** A public transportation situation message affecting the planned Public Transport operation */
 export interface PtSituation {
   /** Priority value: lowest = 80, medium = 60, highest = 40, de: Großereignis = 20 */
   broadcastMessages: PtSituationMessage[];
   /** A classification of what caused the SITUATION (HIM category) */
-  cause: PtSituationCause;
+  cause?: PtSituationCauseEnum | null;
 }
 
+/** Mode of public transportation */
+export type VehicleModeEnum =
+  | 'BUS'
+  | 'CABLEWAY'
+  | 'CHAIRLIFT'
+  | 'COG_RAILWAY'
+  | 'ELEVATOR'
+  | 'GONDOLA'
+  | 'METRO'
+  | 'PLANE'
+  | 'SHIP'
+  | 'TAXI'
+  | 'TRAIN'
+  | 'TRAMWAY'
+  | 'UNKNOWN';
+
 /** A classification of what caused a Situation (HIM category) */
-export type PtSituationCause =
+export type PtSituationCauseEnum =
   | 'CONSTRUCTION_SITE'
   | 'DELAY'
   | 'DISTURBANCE'
@@ -44,47 +48,49 @@ export type PtSituationCause =
 /** A public transportation situation broadcast message affecting the planned PT operation */
 export interface PtSituationMessage {
   /** Complete Footer/text of message */
-  detail?: string;
+  detail: string;
+  id: string;
   /** Priority rank: default = 100, low = 80, medium = 60, high = 40, de:Großereignis = 20 */
-  priority?: string;
+  priority: number;
   /** Heading of message */
-  title?: string;
+  title: string;
 }
 
 export interface Occupancy {
   /** occupancy first class */
-  firstClass?: OccupancyType;
+  firstClass?: OccupancyEnum | null;
   /** occupancy second class */
-  secondClass?: OccupancyType;
+  secondClass?: OccupancyEnum | null;
 }
 
-export interface TimeQuayWrapper {
-  delay?: number;
+export interface ScheduledStopPointDetail {
+  delay: any;
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
-  quayChanged?: boolean;
+  quayChanged?: boolean | null;
   /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
-  quayRtName?: string;
+  quayRtName?: string | null;
   /** planned arrival/departure time */
   time: string;
 }
 
 export interface ServiceProduct {
-  number?: string;
-  vehicleMode?: string;
+  number?: string | null;
+  vehicleMode: VehicleModeEnum;
 
-  corporateIdentityIcon?: string;
+  corporateIdentityIcon?: string | null;
   /**
    * Usually referring to a specific commercial PT route (where direction might be either way), shown on vehicle displays.
    * example: 1
    */
-  line: string;
+  line?: string | null;
   /** Product name for e.g. "IC 1 753" */
   name: string;
   /**
    * Short, displayable name of product-category (related to Vehicle).
    * example: IC
    */
-  vehicleSubModeShortName: string;
+  vehicleSubModeShortName?: string | null;
+  corporateIdentityIcon?: string | null;
 }
 
 export interface TripStatus {
@@ -100,15 +106,15 @@ export interface TripStatus {
 }
 
 export interface TripSummary {
-  arrival: TimeQuayWrapper;
-  arrivalWalk: number;
-  departure: TimeQuayWrapper;
-  departureWalk: number;
-  direction: string;
-  duration: number;
+  arrival?: ScheduledStopPointDetail | null;
+  arrivalWalk: any;
+  departure?: ScheduledStopPointDetail | mull;
+  departureWalk: any;
+  direction?: string | null;
+  duration: any;
   occupancy: Occupancy;
-  product: ServiceProduct;
-  tripStatus: TripStatus;
+  product?: ServiceProduct | null;
+  tripStatus: TripStatus | null;
 }
 
 export interface Price {
@@ -119,26 +125,26 @@ export interface Price {
 
 export interface Trip {
   /** List of transfer points */
-  legs?: Leg[];
+  legs?: PTRideLeg[];
   /**
    * List of legs travel hints
    * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2
    */
-  notices?: Notice[];
+  notices: Notice[];
   /**
    * List of legs situation messages
    * Usefull for level 1, may not needed for level 2
    */
-  situations?: PtSituation[];
+  situations: PtSituation[];
   /**
    * Summary of most relevant aspects of the given Trip and its PTRideLeg's
    * Usefull for level 1, not needed for level 2
    */
   summary?: TripSummary;
   /** contains all info for ZVS::Reise to get TripOffer price from NOVA */
-  id?: string;
+  id: string;
   /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
-  valid?: boolean;
+  valid: boolean;
 }
 export interface InterfaceTimetableRowAttributes {
   trip: Trip;
