@@ -114,6 +114,7 @@ export default {
       iframeHeight: '250px',
       extractComponentDescription: () => readme,
     },
+    chromatic: { delay: 3000 },
   },
   title: 'components/header/sbb-header',
 };
