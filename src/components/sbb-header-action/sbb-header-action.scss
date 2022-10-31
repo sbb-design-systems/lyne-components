@@ -29,7 +29,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
       --sbb-header-action-text-display: block;
       --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
       --sbb-header-first-item-margin-inline-start: calc(
-        var(--sbb-header-action-padding-inline) * (-1)
+        -1 * var(--sbb-header-action-padding-inline)
       );
     }
   }
