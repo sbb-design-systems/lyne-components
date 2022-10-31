@@ -98,7 +98,7 @@ SbbTimetableRowPosition.argTypes = defaultArgTypes;
 SbbTimetableRowPosition.args = {
   'disable-animation': false,
   trip: configPosition.trip,
-  'data-now': new Date('2023-12-31T10:00').valueOf(),
+  'data-now': new Date('2024-06-21T02:29').valueOf(),
 };
 
 export const SbbTimetableRowPositionDisabledAnimation = Template.bind({});
