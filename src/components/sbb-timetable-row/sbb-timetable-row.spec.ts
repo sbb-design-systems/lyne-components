@@ -26,7 +26,7 @@ describe('sbb-timetable-row', () => {
             <div class="sbb-timetable__row-header">
               <div class="sbb-timetable__row-details">
                 <sbb-icon name="train-small"></sbb-icon>
-                <sbb-icon class="timetable__row-transport" name="ir-27"></sbb-icon>
+                <sbb-icon class="sbb-timetable__row-transport" name="ir-27"></sbb-icon>
               </div>
               <p>
                 Direction Luzern
@@ -83,7 +83,7 @@ describe('sbb-timetable-row', () => {
                 19 h 32 min
               </time>
               <span class="sbb-timetable__row-warning">
-                <sbb-icon aria-hidden="false" aria-label="test"></sbb-icon>
+                <sbb-icon aria-hidden="false" aria-label="test" name="delay"></sbb-icon>
               </span>
             </div>
           </div>

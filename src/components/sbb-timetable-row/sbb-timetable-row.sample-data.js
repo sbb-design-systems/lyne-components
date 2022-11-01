@@ -63,7 +63,7 @@ export const config = {
         routeIndexTo: 9,
       },
     ],
-    situations: [{ broadcastMessages: 'test', priority: 60 }],
+    situations: [{ cause: 'DELAY', broadcastMessages: 'test', priority: 60 }],
     summary: {
       arrival: {
         delay: 0,
@@ -189,7 +189,7 @@ export const configPosition = {
         routeIndexTo: 9,
       },
     ],
-    situations: [{ broadcastMessages: 'test', priority: 60 }],
+    situations: [{ cause: 'DELAY', broadcastMessages: 'test', priority: 60 }],
     summary: {
       arrival: {
         delay: 0,

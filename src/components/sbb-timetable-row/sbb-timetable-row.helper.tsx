@@ -84,12 +84,14 @@ export const renderIconProduct = (transport: string, line?: string): JSX.Element
   if (line) {
     dashLine = '-' + line;
   }
-  return <sbb-icon class="timetable__row-transport" name={transport.toLowerCase() + dashLine} />;
+  return (
+    <sbb-icon class="sbb-timetable__row-transport" name={transport.toLowerCase() + dashLine} />
+  );
 };
 
 export const renderStringProduct = (vehicleName: string, line: string): JSX.Element => {
   return (
-    <span class="timetable__row-transportnumber">
+    <span class="sbb-timetable__row-transportnumber">
       {line !== null ? vehicleName + ' ' + line : vehicleName}
     </span>
   );

@@ -1,4 +1,7 @@
-import { PTRideLeg } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
+import {
+  PTRideLeg,
+  ScheduledStopPointDetail,
+} from '../../global/interfaces/pearl-chain-properties';
 
 /** travel hints for the transportation */
 export interface Notice {
@@ -63,34 +66,22 @@ export interface Occupancy {
   secondClass?: OccupancyEnum | null;
 }
 
-export interface ScheduledStopPointDetail {
-  delay: any;
-  /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
-  quayChanged?: boolean | null;
-  /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
-  quayRtName?: string | null;
-  /** planned arrival/departure time */
-  time: string;
-}
-
 export interface ServiceProduct {
   number?: string | null;
   vehicleMode: VehicleModeEnum;
 
-  corporateIdentityIcon?: string | null;
   /**
    * Usually referring to a specific commercial PT route (where direction might be either way), shown on vehicle displays.
-   * example: 1
+   * Example: 1
    */
   line?: string | null;
   /** Product name for e.g. "IC 1 753" */
   name: string;
   /**
    * Short, displayable name of product-category (related to Vehicle).
-   * example: IC
+   * Example: IC
    */
   vehicleSubModeShortName?: string | null;
-  corporateIdentityIcon?: string | null;
 }
 
 export interface TripStatus {
@@ -107,10 +98,13 @@ export interface TripStatus {
 
 export interface TripSummary {
   arrival?: ScheduledStopPointDetail | null;
+  /** type "any" is needed because of the generated types */
   arrivalWalk: any;
   departure?: ScheduledStopPointDetail | mull;
+  /** type "any" is needed because of the generated types */
   departureWalk: any;
   direction?: string | null;
+  /** type "any" is needed because of the generated types */
   duration: any;
   occupancy: Occupancy;
   product?: ServiceProduct | null;

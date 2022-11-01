@@ -986,7 +986,7 @@ export namespace Components {
          */
         "arrivalTime": string;
         /**
-          * Optional prop to render the walk time (in minutes) after arrival
+          * Optional prop to render the walk time (in minutes) after arrival - type "any" is needed because of the generated types
          */
         "arrivalWalk"?: any;
         /**
@@ -994,7 +994,7 @@ export namespace Components {
          */
         "departureTime": string;
         /**
-          * Optional prop to render the walk time (in minutes) before departure
+          * Optional prop to render the walk time (in minutes) before departure - type "any" is needed because of the generated types
          */
         "departureWalk"?: any;
         /**
@@ -2837,7 +2837,7 @@ declare namespace LocalJSX {
          */
         "arrivalTime": string;
         /**
-          * Optional prop to render the walk time (in minutes) after arrival
+          * Optional prop to render the walk time (in minutes) after arrival - type "any" is needed because of the generated types
          */
         "arrivalWalk"?: any;
         /**
@@ -2845,7 +2845,7 @@ declare namespace LocalJSX {
          */
         "departureTime": string;
         /**
-          * Optional prop to render the walk time (in minutes) before departure
+          * Optional prop to render the walk time (in minutes) before departure - type "any" is needed because of the generated types
          */
         "departureWalk"?: any;
         /**

@@ -95,7 +95,8 @@ export class SbbTimetableRow {
       return this._renderSkeleton();
     }
 
-    const { legs, id, notices, situations }: InterfaceTimetableRowAttributes['trip'] = this.trip || {};
+    const { legs, id, notices, situations }: InterfaceTimetableRowAttributes['trip'] =
+      this.trip || {};
 
     const {
       product,
@@ -131,10 +132,8 @@ export class SbbTimetableRow {
         <div class="sbb-timetable__row">
           <div class="sbb-timetable__row-header">
             <div class="sbb-timetable__row-details">
-              {product?.vehicleMode !== 'UNKNOWN' ? (
+              {product?.vehicleMode !== 'UNKNOWN' && (
                 <sbb-icon name={product?.vehicleMode.toLocaleLowerCase() + '-small'} />
-              ) : (
-                ''
               )}
               {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase())
                 ? renderIconProduct(product?.vehicleSubModeShortName, product?.line)

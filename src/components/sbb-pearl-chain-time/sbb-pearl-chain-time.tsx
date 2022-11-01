@@ -34,10 +34,10 @@ export class SbbPearlChainTime {
   /** Prop to render the arrival time - will be formatted as "H:mm" */
   @Prop() public arrivalTime!: string;
 
-  /** Optional prop to render the walk time (in minutes) before departure */
+  /** Optional prop to render the walk time (in minutes) before departure - type "any" is needed because of the generated types */
   @Prop() public departureWalk?: any;
 
-  /** Optional prop to render the walk time (in minutes) after arrival */
+  /** Optional prop to render the walk time (in minutes) after arrival - type "any" is needed because of the generated types */
   @Prop() public arrivalWalk?: any;
 
   /**
@@ -59,7 +59,7 @@ export class SbbPearlChainTime {
 
     return (
       <div class="sbb-pearl-chain__time">
-        {this.departureWalk > 0 ? (
+        {this.departureWalk > 0 && (
           <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.departureWalk + 'M'}>
@@ -70,8 +70,6 @@ export class SbbPearlChainTime {
               <span aria-hidden="true">'</span>
             </time>
           </span>
-        ) : (
-          ''
         )}
         <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
           <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
@@ -87,7 +85,7 @@ export class SbbPearlChainTime {
           <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
           {this.arrivalTime && format(arrival, 'H:mm')}
         </time>
-        {this.arrivalWalk > 0 ? (
+        {this.arrivalWalk > 0 && (
           <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--right">
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.arrivalWalk + 'M'}>
@@ -98,8 +96,6 @@ export class SbbPearlChainTime {
               <span aria-hidden="true">'</span>
             </time>
           </span>
-        ) : (
-          ''
         )}
       </div>
     );
