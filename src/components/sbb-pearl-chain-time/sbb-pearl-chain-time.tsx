@@ -34,11 +34,11 @@ export class SbbPearlChainTime {
   /** Prop to render the arrival time - will be formatted as "H:mm" */
   @Prop() public arrivalTime!: string;
 
-  /** Optional prop to render the walk time (in minutes) before departure - type "any" is needed because of the generated types */
-  @Prop() public departureWalk?: any;
+  /** Optional prop to render the walk time (in minutes) before departure */
+  @Prop() public departureWalk?: number;
 
-  /** Optional prop to render the walk time (in minutes) after arrival - type "any" is needed because of the generated types */
-  @Prop() public arrivalWalk?: any;
+  /** Optional prop to render the walk time (in minutes) after arrival */
+  @Prop() public arrivalWalk?: number;
 
   /**
    * Per default, the current location has a pulsating animation. You can

@@ -986,17 +986,17 @@ export namespace Components {
          */
         "arrivalTime": string;
         /**
-          * Optional prop to render the walk time (in minutes) after arrival - type "any" is needed because of the generated types
+          * Optional prop to render the walk time (in minutes) after arrival
          */
-        "arrivalWalk"?: any;
+        "arrivalWalk"?: number;
         /**
           * Prop to render the departure time - will be formatted as "H:mm"
          */
         "departureTime": string;
         /**
-          * Optional prop to render the walk time (in minutes) before departure - type "any" is needed because of the generated types
+          * Optional prop to render the walk time (in minutes) before departure
          */
-        "departureWalk"?: any;
+        "departureWalk"?: number;
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
@@ -2837,17 +2837,17 @@ declare namespace LocalJSX {
          */
         "arrivalTime": string;
         /**
-          * Optional prop to render the walk time (in minutes) after arrival - type "any" is needed because of the generated types
+          * Optional prop to render the walk time (in minutes) after arrival
          */
-        "arrivalWalk"?: any;
+        "arrivalWalk"?: number;
         /**
           * Prop to render the departure time - will be formatted as "H:mm"
          */
         "departureTime": string;
         /**
-          * Optional prop to render the walk time (in minutes) before departure - type "any" is needed because of the generated types
+          * Optional prop to render the walk time (in minutes) before departure
          */
-        "departureWalk"?: any;
+        "departureWalk"?: number;
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */

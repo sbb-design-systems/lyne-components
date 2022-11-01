@@ -98,14 +98,11 @@ export interface TripStatus {
 
 export interface TripSummary {
   arrival?: ScheduledStopPointDetail | null;
-  /** type "any" is needed because of the generated types */
-  arrivalWalk: any;
+  arrivalWalk: number;
   departure?: ScheduledStopPointDetail | mull;
-  /** type "any" is needed because of the generated types */
-  departureWalk: any;
+  departureWalk: number;
   direction?: string | null;
-  /** type "any" is needed because of the generated types */
-  duration: any;
+  duration: number;
   occupancy: Occupancy;
   product?: ServiceProduct | null;
   tripStatus: TripStatus | null;

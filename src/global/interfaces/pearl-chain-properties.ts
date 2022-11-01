@@ -1,6 +1,6 @@
 export interface ScheduledStopPointDetail {
-  /** delay at arrival/departure (in minutes) - type "any" is needed because of the generated types */
-  delay: any;
+  /** delay at arrival/departure (in minutes) */
+  delay: number;
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
   quayChanged?: boolean | null;
   /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
@@ -46,8 +46,8 @@ export interface PTRideLeg {
   arrival: ScheduledStopPointDetail;
   /** departure time and quay */
   departure: ScheduledStopPointDetail;
-  /** duration from previous transferpoint to current in minutes - type "any" is needed because of the generated types */
-  duration?: any;
+  /** duration from previous transferpoint to current in minutes */
+  duration?: number;
   /** (partial) journey details */
   serviceJourney: ServiceJourney;
 }
