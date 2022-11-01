@@ -501,6 +501,10 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "dialogId": string;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
@@ -2404,6 +2408,10 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby"?: string | undefined;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "dialogId"?: string;
         /**
           * Whether the animation is enabled.
          */

@@ -11,10 +11,18 @@ describe('sbb-dialog', () => {
     expect(root).toEqualHtml(`
       <sbb-dialog class="sbb-dialog--full-screen">
         <mock:shadow-root>
-          <dialog aria-labelledby="sbb-dialog-title-1" class="sbb-dialog">
+          <dialog aria-labelledby="sbb-dialog-title-1" class="sbb-dialog" id="sbb-dialog-1">
             <div class="sbb-dialog__wrapper">
               <div class="sbb-dialog__header">
-                <sbb-button accessibility-label="Close" class="sbb-dialog__dismiss" iconname="cross-small" size="m" type="button" variant="secondary"></sbb-button>
+                <sbb-button
+                  accessibility-label="Close"
+                  class="sbb-dialog__dismiss"
+                  icon-name="cross-small"
+                  size="m"
+                  type="button"
+                  variant="secondary"
+                  accessibility-controls="sbb-dialog-1">
+                </sbb-button>
               </div>
               <div class="sbb-dialog__content">
                 <slot></slot>

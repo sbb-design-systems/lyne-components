@@ -24,6 +24,13 @@ const titleContent = {
   },
 };
 
+const titleLevel = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
+};
+
 const titleBackButton = {
   control: {
     type: 'boolean',
@@ -33,9 +40,6 @@ const titleBackButton = {
 const negative = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'Appearance',
   },
 };
 
@@ -66,22 +70,32 @@ const accessibilityLabelledby = {
   },
 };
 
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const basicArgTypes = {
   'title-content': titleContent,
+  'title-level': titleLevel,
   'title-back-button': titleBackButton,
   negative,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
+  'disable-animation': disableAnimation,
 };
 
 const basicArgs = {
   'title-content': 'Title',
+  'title-level': undefined,
   'title-back-button': true,
   negative: false,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
+  'disable-animation': isChromatic(),
 };
 
 const openDialog = (event, id) => {
@@ -110,8 +124,8 @@ const triggerButton = (dialogId) => (
     data-testid="dialog-trigger"
     size="m"
     type="button"
+    accessibility-controls={dialogId}
     onClick={(event) => openDialog(event, dialogId)}
-    style={'--sbb-focus-outline-color: var(--sbb-focus-outline-color-default)'}
   >
     Open dialog
   </sbb-button>
@@ -144,12 +158,6 @@ const actionGroup = (negative, dialogId) => (
   </sbb-action-group>
 );
 
-const focusStyle = (context) => {
-  if (context.args.negative) {
-    return `--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);`;
-  }
-};
-
 const codeStyle = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   marginInline: 'var(--sbb-spacing-fixed-2x)',
@@ -173,7 +181,7 @@ const formStyle = {
 
 const DefaultTemplate = (args) => [
   triggerButton('my-dialog-1'),
-  <sbb-dialog id="my-dialog-1" {...args} disable-animation={isChromatic()}>
+  <sbb-dialog id="my-dialog-1" {...args}>
     <p id="dialog-content-1" style={'margin: 0'}>
       Dialog content
     </p>
@@ -183,7 +191,7 @@ const DefaultTemplate = (args) => [
 
 const SlottedTitleTemplate = (args) => [
   triggerButton('my-dialog-2'),
-  <sbb-dialog id="my-dialog-2" {...args} disable-animation={isChromatic()}>
+  <sbb-dialog id="my-dialog-2" {...args}>
     <span slot="title">
       <sbb-icon
         name="book-medium"
@@ -203,7 +211,7 @@ const SlottedTitleTemplate = (args) => [
 
 const LongContentTemplate = (args) => [
   triggerButton('my-dialog-3'),
-  <sbb-dialog id="my-dialog-3" {...args} disable-animation={isChromatic()}>
+  <sbb-dialog id="my-dialog-3" {...args}>
     Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
     like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
     Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
@@ -235,12 +243,7 @@ const FormTemplate = (args) => [
       </div>
     </div>
   </div>,
-  <sbb-dialog
-    id="my-dialog-4"
-    {...args}
-    disable-animation={isChromatic()}
-    ref={(dialog) => onFormDialogClose(dialog)}
-  >
+  <sbb-dialog id="my-dialog-4" {...args} ref={(dialog) => onFormDialogClose(dialog)}>
     <div style={'margin-bottom: var(--sbb-spacing-fixed-4x)'}>
       Submit the form below to close the dialog box using the
       <code style={codeStyle}>dismiss(result?: any)</code>
@@ -256,7 +259,6 @@ const FormTemplate = (args) => [
       <sbb-form-field error-space="none" label="Message" size="m">
         <input placeholder="Your custom massage" value="Hello 👋" name="message" />
       </sbb-form-field>
-
       <sbb-form-field error-space="none" label="Favorite animal" size="m">
         <select placeholder="Your favorite animal" name="animal">
           <option>Red Panda</option>
@@ -265,7 +267,6 @@ const FormTemplate = (args) => [
           <option>Elephant</option>
         </select>
       </sbb-form-field>
-
       <sbb-button type="submit" size="m">
         Update details
       </sbb-button>
@@ -275,7 +276,7 @@ const FormTemplate = (args) => [
 
 const NoFooterTemplate = (args) => [
   triggerButton('my-dialog-5'),
-  <sbb-dialog id="my-dialog-5" {...args} disable-animation={isChromatic()}>
+  <sbb-dialog id="my-dialog-5" {...args}>
     <p id="dialog-content-5" style={'margin: 0'}>
       “What really knocks me out is a book that, when you're all done reading it, you wish the
       author that wrote it was a terrific friend of yours and you could call him up on the phone
@@ -287,7 +288,7 @@ const NoFooterTemplate = (args) => [
 
 const FullScreenTemplate = (args) => [
   triggerButton('my-dialog-6'),
-  <sbb-dialog id="my-dialog-6" {...args} disable-animation={isChromatic()}>
+  <sbb-dialog id="my-dialog-6" {...args}>
     <sbb-title visual-level="2" style={'margin-bottom: 1rem'} negative={args.negative}>
       Many Meetings
     </sbb-title>
@@ -310,53 +311,61 @@ const FullScreenTemplate = (args) => [
   </sbb-dialog>,
 ];
 
-export const defaultDialog = DefaultTemplate.bind({});
-defaultDialog.documentation = { title: 'Default Dialog' };
-defaultDialog.argTypes = basicArgTypes;
-defaultDialog.args = { ...basicArgs, 'accessibility-describedby': 'dialog-content-1' };
-defaultDialog.play = playStory;
+export const Default = DefaultTemplate.bind({});
+Default.documentation = { title: 'Default Dialog' };
+Default.argTypes = basicArgTypes;
+Default.args = { ...basicArgs, 'accessibility-describedby': 'dialog-content-1' };
+Default.play = playStory;
 
-export const slottedTitle = SlottedTitleTemplate.bind({});
-slottedTitle.documentation = { title: 'Slotted title' };
-slottedTitle.argTypes = basicArgTypes;
-slottedTitle.args = {
+export const Negative = DefaultTemplate.bind({});
+Negative.documentation = { title: 'Negative Dialog' };
+Negative.argTypes = basicArgTypes;
+Negative.args = {
+  ...basicArgs,
+  'accessibility-describedby': 'dialog-content-1',
+  negative: true,
+};
+Negative.play = playStory;
+
+export const SlottedTitle = SlottedTitleTemplate.bind({});
+SlottedTitle.documentation = { title: 'Slotted title' };
+SlottedTitle.argTypes = basicArgTypes;
+SlottedTitle.args = {
   ...basicArgs,
   'title-content': undefined,
   'title-back-button': false,
   'accessibility-describedby': 'dialog-content-2',
 };
-slottedTitle.play = playStory;
+SlottedTitle.play = playStory;
 
-export const longContent = LongContentTemplate.bind({});
-longContent.documentation = { title: 'Long content' };
-longContent.argTypes = basicArgTypes;
-longContent.args = { ...basicArgs };
-longContent.play = playStory;
+export const LongContent = LongContentTemplate.bind({});
+LongContent.documentation = { title: 'Long content' };
+LongContent.argTypes = basicArgTypes;
+LongContent.args = { ...basicArgs };
+LongContent.play = playStory;
 
-export const form = FormTemplate.bind({});
-form.documentation = { title: 'Dialog with form' };
-form.argTypes = basicArgTypes;
-form.args = { ...basicArgs };
-form.play = playStory;
+export const Form = FormTemplate.bind({});
+Form.documentation = { title: 'Dialog with form' };
+Form.argTypes = basicArgTypes;
+Form.args = { ...basicArgs };
+Form.play = playStory;
 
-export const noFooter = NoFooterTemplate.bind({});
-noFooter.documentation = { title: 'Without footer' };
-noFooter.argTypes = basicArgTypes;
-noFooter.args = { ...basicArgs };
-noFooter.play = playStory;
+export const NoFooter = NoFooterTemplate.bind({});
+NoFooter.documentation = { title: 'Without footer' };
+NoFooter.argTypes = basicArgTypes;
+NoFooter.args = { ...basicArgs };
+NoFooter.play = playStory;
 
-export const fullScreen = FullScreenTemplate.bind({});
-fullScreen.documentation = { title: 'Full screen dialog' };
-fullScreen.argTypes = basicArgTypes;
-fullScreen.args = { ...basicArgs, 'title-content': undefined };
-fullScreen.play = playStory;
+export const FullScreen = FullScreenTemplate.bind({});
+FullScreen.documentation = { title: 'Full screen dialog' };
+FullScreen.argTypes = basicArgTypes;
+FullScreen.args = { ...basicArgs, 'title-content': undefined };
+FullScreen.play = playStory;
 
 export default {
   decorators: [
-    (Story, context) => (
-      <div
-        style={`padding: 2rem; ${focusStyle(context)}; ${isChromatic() ? 'min-height: 100vh' : ''}`}
-      >
+    (Story) => (
+      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
         <Story />
       </div>
     ),

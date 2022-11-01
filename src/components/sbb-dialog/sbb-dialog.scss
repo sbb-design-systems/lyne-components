@@ -2,13 +2,8 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-$breakpoints: 'zero', 'micro', 'small', 'medium';
-
 :host {
-  --sbb-dialog-padding-inline-zero: var(--sbb-spacing-fixed-5x);
-  --sbb-dialog-padding-inline-micro: var(--sbb-spacing-fixed-6x);
-  --sbb-dialog-padding-inline-small: var(--sbb-spacing-fixed-12x);
-  --sbb-dialog-padding-inline-medium: var(--sbb-spacing-fixed-8x);
+  --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-dialog-color: var(--sbb-color-black-default);
   --sbb-dialog-background-color: var(--sbb-color-white-default);
   --sbb-dialog-max-width: 100%;
@@ -30,6 +25,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium';
   inset: 0;
   z-index: 10;
 
+  // Backdrop
   &::before {
     content: '';
     visibility: hidden;
@@ -43,44 +39,72 @@ $breakpoints: 'zero', 'micro', 'small', 'medium';
       property: background-color, visibility;
     }
   }
-}
 
-@each $breakpoint in $breakpoints {
-  @include mq($from: #{$breakpoint}) {
-    :host {
-      --sbb-dialog-padding-inline: var(--sbb-dialog-padding-inline-#{$breakpoint});
-    }
+  @include mq($from: micro) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
+  }
+
+  @include mq($from: small) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
+  }
+
+  @include mq($from: medium) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
+    --sbb-dialog-max-width: min(
+      calc(100vw - calc(var(--sbb-spacing-fixed-30x) * 2)),
+      #{px-to-rem-build(892)}
+    );
+    --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
   }
 }
 
-:host(.sbb-dialog--presented),
-:host(.sbb-dialog--presenting) {
+// stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+:host(:is(.sbb-dialog--presented, .sbb-dialog--presenting)) {
   pointer-events: all;
 
   @include mq($from: medium) {
-    &::before {
-      --sbb-dialog-backdrop-color: var(--sbb-color-milk-default);
+    --sbb-dialog-backdrop-color: var(--sbb-color-milk-default);
 
+    &::before {
       visibility: visible;
       pointer-events: all;
     }
   }
 }
+// stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
 
-:host(.sbb-dialog--full-screen)::before {
+:host(.sbb-dialog--full-screen) {
   --sbb-dialog-backdrop-color: transparent;
+  --sbb-dialog-max-width: 100%;
+  --sbb-dialog-max-height: 100%;
 }
 
 :host([negative]) {
-  --sbb-dialog-color: var(--sbb-color-white-default);
-  --sbb-dialog-background-color: var(--sbb-color-midnight-default);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
+  --sbb-dialog-color: var(--sbb-color-white-default);
+  --sbb-dialog-background-color: var(--sbb-color-midnight-default);
   --sbb-dialog-footer-border: none;
 }
 
 :host([disable-animation]) {
   --sbb-dialog-animation-duration: 0s;
+}
+
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(.sbb-dialog--full-screen:not([negative])) {
+  --sbb-dialog-background-color: var(--sbb-color-milk-default);
+}
+
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen)) {
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
+}
+
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) {
+  --sbb-dialog-footer-border: none;
 }
 
 .sbb-dialog {
@@ -102,9 +126,15 @@ $breakpoints: 'zero', 'micro', 'small', 'medium';
     }
   }
 
-  &.sbb-dialog--dismissing {
+  :host(.sbb-dialog--dismissing) & {
     pointer-events: none;
     animation-name: hide;
+  }
+
+  :host(.sbb-dialog--full-screen) & {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
   }
 
   @include ifForcedColors {
@@ -112,12 +142,6 @@ $breakpoints: 'zero', 'micro', 'small', 'medium';
   }
 
   @include mq($from: medium) {
-    --sbb-dialog-max-width: min(
-      calc(100vw - calc(var(--sbb-spacing-fixed-30x) * 2)),
-      #{px-to-rem-build(892)}
-    );
-    --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
-
     border-radius: var(--sbb-dialog-border-radius);
     height: fit-content;
     overflow: hidden;
@@ -138,28 +162,30 @@ $breakpoints: 'zero', 'micro', 'small', 'medium';
 
 .sbb-dialog__header {
   display: flex;
+  gap: var(--sbb-spacing-fixed-6x);
   align-items: center;
+  justify-content: space-between;
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-header-padding-block);
   background-color: var(--sbb-dialog-background-color);
   z-index: 10;
 
-  .sbb-dialog__back {
-    margin-inline-end: var(--sbb-spacing-fixed-6x);
-  }
-
-  .sbb-dialog__title {
-    overflow: hidden;
-  }
-
-  .sbb-dialog__dismiss {
-    margin-inline-start: auto;
-    padding-inline-start: var(--sbb-spacing-fixed-6x);
+  :host(.sbb-dialog--full-screen) & {
+    position: fixed;
+    width: 100%;
+    background-color: transparent;
+    padding-inline: var(--sbb-spacing-responsive-xs);
+    padding-block-start: var(--sbb-spacing-responsive-xs);
   }
 
   @include mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
   }
+}
+
+.sbb-dialog__title {
+  flex: 1;
+  overflow: hidden;
 }
 
 .sbb-dialog__content {
@@ -168,6 +194,12 @@ $breakpoints: 'zero', 'micro', 'small', 'medium';
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-padding-block);
   overflow: auto;
+
+  :host(.sbb-dialog--full-screen) & {
+    padding-block-start: var(--sbb-spacing-fixed-20x);
+    padding-inline: var(--sbb-layout-base-offset-responsive);
+    height: 100vh;
+  }
 }
 
 .sbb-dialog__footer {
@@ -175,50 +207,14 @@ $breakpoints: 'zero', 'micro', 'small', 'medium';
   padding-block: var(--sbb-spacing-responsive-s);
   margin-block-start: auto;
   background-color: var(--sbb-dialog-background-color);
-  border-top: var(--sbb-dialog-footer-border);
-}
-
-:host(.sbb-dialog--full-screen) .sbb-dialog {
-  --sbb-dialog-max-width: 100%;
-  --sbb-dialog-max-height: 100%;
-  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
-
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-
-  .sbb-dialog__header {
-    position: fixed;
-    width: 100%;
-    background-color: transparent;
-    padding-inline: var(--sbb-spacing-responsive-xs);
-    padding-block-start: var(--sbb-spacing-responsive-xs);
-  }
-
-  .sbb-dialog__content {
-    padding-block-start: var(--sbb-spacing-fixed-20x);
-    padding-inline: var(--sbb-layout-base-offset-responsive);
-    height: 100vh;
-  }
+  border-block-start: var(--sbb-dialog-footer-border);
 }
 
 // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
-:host(:not(.sbb-dialog--full-screen, [negative])) .sbb-dialog__has-scrollbar {
-  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
-  --sbb-dialog-footer-border: none;
-
-  .sbb-dialog__header,
-  .sbb-dialog__footer {
+:is(.sbb-dialog__header, .sbb-dialog__footer) {
+  :host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) & {
     @include shadow-level-9-soft;
   }
-}
-
-:host(:not(.sbb-dialog--full-screen)[negative]) .sbb-dialog__has-scrollbar {
-  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
-}
-
-:host(.sbb-dialog--full-screen:not([negative])) .sbb-dialog {
-  --sbb-dialog-background-color: var(--sbb-color-milk-default);
 }
 // stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
 

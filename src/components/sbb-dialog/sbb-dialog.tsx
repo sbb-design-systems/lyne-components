@@ -28,6 +28,7 @@ import { IS_FOCUSABLE_QUERY, trapFocus } from '../../global/helpers/focus';
  */
 
 let nextId = 0;
+let nextTitleId = 0;
 
 @Component({
   shadow: true,
@@ -38,7 +39,12 @@ export class SbbDialog implements AccessibilityProperties {
   /**
    * This id will be forwarded to the relevant inner element.
    */
-  @Prop() public titleId = `sbb-dialog-title-${++nextId}`;
+  @Prop() public dialogId = `sbb-dialog-${++nextId}`;
+
+  /**
+   * This id will be forwarded to the relevant inner element.
+   */
+  @Prop() public titleId = `sbb-dialog-title-${++nextTitleId}`;
 
   /**
    * Dialog title
@@ -169,7 +175,7 @@ export class SbbDialog implements AccessibilityProperties {
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
 
-  @Element() private _element!: HTMLSbbDialogElement;
+  @Element() private _element!: HTMLElement;
 
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {
@@ -328,18 +334,16 @@ export class SbbDialog implements AccessibilityProperties {
   }
 
   public render(): JSX.Element {
-    let dialogHeader = null,
-      dialogFooter = null;
-
     const closeButton = (
       <sbb-button
         class="sbb-dialog__dismiss"
         accessibility-label="Close"
+        accessibility-controls={this.dialogId}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"
         type="button"
-        iconName="cross-small"
+        icon-name="cross-small"
         onClick={() => this.dismiss()}
       ></sbb-button>
     );
@@ -352,12 +356,12 @@ export class SbbDialog implements AccessibilityProperties {
         negative={this.negative}
         size="m"
         type="button"
-        iconName="chevron-small-left-small"
+        icon-name="chevron-small-left-small"
         onClick={() => this.backClick.emit()}
       ></sbb-button>
     );
 
-    dialogHeader = (
+    const dialogHeader = (
       <div class="sbb-dialog__header">
         {this.titleBackButton && backButton}
         {this._hasTitle && (
@@ -375,38 +379,33 @@ export class SbbDialog implements AccessibilityProperties {
       </div>
     );
 
-    if (this._hasActionGroup) {
-      dialogFooter = (
-        <div class="sbb-dialog__footer">
-          <slot name="action-group" />
-        </div>
-      );
-    }
+    const dialogFooter = (
+      <div class="sbb-dialog__footer">
+        <slot name="action-group" />
+      </div>
+    );
 
     return (
       <Host
         class={{
           'sbb-dialog--presented': this._presented,
           'sbb-dialog--presenting': this._isPresenting,
+          'sbb-dialog--dismissing': this._isDismissing,
           'sbb-dialog--full-screen': !this._hasTitle,
+          'sbb-dialog--has-scrollbar': this._overflows,
         }}
       >
         <dialog
           ref={(dialogRef) => (this._dialog = dialogRef)}
+          id={this.dialogId}
           aria-label={this.accessibilityLabel}
           aria-describedby={this.accessibilityDescribedby}
           aria-labelledby={this.accessibilityLabelledby || this.titleId}
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
-          class={{
-            'sbb-dialog': true,
-            'sbb-dialog--dismissing': this._isDismissing,
-          }}
+          class="sbb-dialog"
         >
           <div
-            class={{
-              'sbb-dialog__wrapper': true,
-              'sbb-dialog__has-scrollbar': this._overflows,
-            }}
+            class="sbb-dialog__wrapper"
             ref={(dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef)}
           >
             {dialogHeader}
@@ -416,7 +415,7 @@ export class SbbDialog implements AccessibilityProperties {
             >
               <slot />
             </div>
-            {dialogFooter}
+            {this._hasActionGroup && dialogFooter}
           </div>
         </dialog>
       </Host>
