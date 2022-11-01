@@ -17,7 +17,7 @@ export interface ServiceAlteration {
   reachable: boolean;
   /** true: journey is redirected */
   redirected: boolean;
-};
+}
 
 export interface TimeQuayWrapper {
   delay?: number;
@@ -27,7 +27,7 @@ export interface TimeQuayWrapper {
   quayName?: string;
   /** planned arrival/departure time */
   time: string;
-};
+}
 
 export interface Leg {
   duration: number;

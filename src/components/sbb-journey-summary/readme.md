@@ -12,10 +12,10 @@ The Example below shows how to render the component with a button in the slot. T
 
 ## Properties
 
-| Property              | Attribute           | Description                                                                                                    | Type                                                                                                                                                                                        | Default     |
-| --------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `config` _(required)_ | --                  | The config prop                                                                                                | `{ legs: Leg[]; vias: string[]; origin: string; destination: string; arrivalWalk: number; departure: TimeQuayWrapper; arrival: TimeQuayWrapper; departureWalk: number; duration: number; }` | `undefined` |
-| `disableAnimation`    | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property. | `boolean`                                                                                                                                                                                   | `undefined` |
+| Property              | Attribute           | Description                                                                                                    | Type            | Default     |
+| --------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- | --------------- | ----------- |
+| `config` _(required)_ | --                  | The config prop                                                                                                | `SummaryConfig` | `undefined` |
+| `disableAnimation`    | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property. | `boolean`       | `undefined` |
 
 
 ## Dependencies

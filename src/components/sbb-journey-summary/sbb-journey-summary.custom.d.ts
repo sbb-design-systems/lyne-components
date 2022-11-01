@@ -10,7 +10,7 @@ declare interface SummaryConfig {
   arrival: TimeQuayWrapper;
   departureWalk: number;
   duration: number;
-};
+}
 
 export interface InterfaceJourneySummaryAttributes {
   config: SummaryConfig;

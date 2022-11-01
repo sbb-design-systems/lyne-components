@@ -1,5 +1,5 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { InterfacePearlChainAttributes, Leg } from './sbb-pearl-chain.custom';
+import { InterfacePearlChainAttributes } from './sbb-pearl-chain.custom';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { Leg } from '../../global/interfaces/pearl-chain-properties';
 
