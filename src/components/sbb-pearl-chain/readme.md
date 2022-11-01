@@ -40,11 +40,13 @@ This is helpful if you need a specific state of the component.
 
 ### Used by
 
+ - [sbb-journey-summary](../sbb-journey-summary)
  - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
 
 ### Graph
 ```mermaid
 graph TD;
+  sbb-journey-summary --> sbb-pearl-chain
   sbb-pearl-chain-time --> sbb-pearl-chain
   style sbb-pearl-chain fill:#f9f,stroke:#333,stroke-width:4px
 ```

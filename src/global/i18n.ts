@@ -362,4 +362,17 @@ export const i18nFindOutMore: any = {
   it: 'Per saperne più',
 };
 
+export const i18nToday: any = {
+  de: 'Heute',
+  en: 'Today',
+  fr: 'Aujourd’hui',
+  it: 'Oggi',
+};
+
+export const i18nTomorrow: any = {
+  de: 'Morgen',
+  en: 'Tomorrow',
+  fr: 'Demain',
+  it: 'Domani',
+};
 /* eslint-enable sort-keys */

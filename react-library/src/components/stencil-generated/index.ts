@@ -30,6 +30,7 @@ export const SbbHeaderAction = /*@__PURE__*/createReactComponent<JSX.SbbHeaderAc
 export const SbbIcon = /*@__PURE__*/createReactComponent<JSX.SbbIcon, HTMLSbbIconElement>('sbb-icon');
 export const SbbImage = /*@__PURE__*/createReactComponent<JSX.SbbImage, HTMLSbbImageElement>('sbb-image');
 export const SbbJourneyHeader = /*@__PURE__*/createReactComponent<JSX.SbbJourneyHeader, HTMLSbbJourneyHeaderElement>('sbb-journey-header');
+export const SbbJourneySummary = /*@__PURE__*/createReactComponent<JSX.SbbJourneySummary, HTMLSbbJourneySummaryElement>('sbb-journey-summary');
 export const SbbLink = /*@__PURE__*/createReactComponent<JSX.SbbLink, HTMLSbbLinkElement>('sbb-link');
 export const SbbLinkList = /*@__PURE__*/createReactComponent<JSX.SbbLinkList, HTMLSbbLinkListElement>('sbb-link-list');
 export const SbbLogo = /*@__PURE__*/createReactComponent<JSX.SbbLogo, HTMLSbbLogoElement>('sbb-logo');
