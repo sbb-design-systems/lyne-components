@@ -72,77 +72,81 @@ const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const SbbTimetableRow = Template.bind({});
-SbbTimetableRow.argTypes = defaultArgTypes;
-SbbTimetableRow.args = defaultArgs;
+export const Basic = Template.bind({});
+Basic.argTypes = defaultArgTypes;
+Basic.args = defaultArgs;
 
-export const SbbTimetableRowActive = Template.bind({});
-SbbTimetableRowActive.argTypes = defaultArgTypes;
-SbbTimetableRowActive.args = {
+export const Active = Template.bind({});
+Active.argTypes = defaultArgTypes;
+Active.args = {
   ...defaultArgs,
   active: true,
 };
 
-export const SbbTimetableRowPriceLoading = Template.bind({});
-SbbTimetableRowPriceLoading.argTypes = defaultArgTypes;
-SbbTimetableRowPriceLoading.args = {
+export const LoadingTrip = Template.bind({});
+LoadingTrip.argTypes = defaultArgTypes;
+LoadingTrip.args = {
+  'loading-trip': true,
+  trip: config.trip,
+  price: config.price,
+};
+
+export const PriceLoading = Template.bind({});
+PriceLoading.argTypes = defaultArgTypes;
+PriceLoading.args = {
   ...defaultArgs,
   'loading-price': true,
   'loading-trip': config.loadingTrip,
   price: config.price,
 };
 
-export const SbbTimetableRowPosition = Template.bind({});
-SbbTimetableRowPosition.argTypes = defaultArgTypes;
-SbbTimetableRowPosition.args = {
+export const LoadingAll = Template.bind({});
+LoadingAll.argTypes = defaultArgTypes;
+LoadingAll.args = {
+  ...defaultArgs,
+  'loading-price': true,
+  'loading-trip': true,
+};
+
+export const Position = Template.bind({});
+Position.argTypes = defaultArgTypes;
+Position.args = {
   trip: configPosition.trip,
   'data-now': new Date('2024-06-21T02:29').valueOf(),
 };
 
-export const SbbTimetableRowPositionDisabledAnimation = Template.bind({});
-SbbTimetableRowPositionDisabledAnimation.argTypes = defaultArgTypes;
-SbbTimetableRowPositionDisabledAnimation.args = {
+export const PositionDisabledAnimation = Template.bind({});
+PositionDisabledAnimation.argTypes = defaultArgTypes;
+PositionDisabledAnimation.args = {
   'disable-animation': true,
   trip: configPosition.trip,
   'data-now': new Date('2023-12-31T10:00').valueOf(),
 };
 
-export const SbbTimetableRowMinimal = Template.bind({});
-SbbTimetableRowMinimal.argTypes = defaultArgTypes;
-SbbTimetableRowMinimal.args = {
+export const Minimal = Template.bind({});
+Minimal.argTypes = defaultArgTypes;
+Minimal.args = {
   trip: configMinimal.trip,
   'data-now': new Date('2022-06-30T10:00').valueOf(),
 };
 
-export const SbbTimetableRowCancelled = Template.bind({});
-SbbTimetableRowCancelled.argTypes = defaultArgTypes;
-SbbTimetableRowCancelled.args = {
+export const Cancelled = Template.bind({});
+Cancelled.argTypes = defaultArgTypes;
+Cancelled.args = {
   trip: configCancelled.trip,
 };
 
-export const SbbTimetableRowCancelledStops = Template.bind({});
-SbbTimetableRowCancelledStops.argTypes = defaultArgTypes;
-SbbTimetableRowCancelledStops.args = {
+export const CancelledStops = Template.bind({});
+CancelledStops.argTypes = defaultArgTypes;
+CancelledStops.args = {
   trip: configCancelledStops.trip,
 };
 
-export const SbbTimetableRowPast = Template.bind({});
-SbbTimetableRowPast.argTypes = defaultArgTypes;
-SbbTimetableRowPast.args = {
+export const Past = Template.bind({});
+Past.argTypes = defaultArgTypes;
+Past.args = {
   trip: configPast.trip,
   'data-now': new Date('2022-10-30T17:00:00').valueOf(),
-};
-
-export const SbbTimetableRowLoading = Template.bind({});
-SbbTimetableRowLoading.argTypes = defaultArgTypes;
-SbbTimetableRowLoading.args = {
-  'loading-trip': true,
-  trip: config.trip,
-  price: config.price,
-};
-
-SbbTimetableRow.documentation = {
-  title: 'SBB Timetable Row',
 };
 
 export default {
