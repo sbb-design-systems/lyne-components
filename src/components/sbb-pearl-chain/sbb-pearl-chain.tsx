@@ -2,7 +2,6 @@ import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { InterfacePearlChainAttributes } from './sbb-pearl-chain.custom';
 import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import { Leg } from '../../global/interfaces/pearl-chain-properties';
 
 type Status = 'progress' | 'future' | 'past';
 @Component({
