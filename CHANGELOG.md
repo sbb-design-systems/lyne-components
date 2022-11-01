@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.6](https://github.com/lyne-design-system/lyne-components/compare/v0.12.5...v0.12.6) (2022-11-01)
+
+### Bug Fixes
+
+- fix layout offset for micro size ([#1441](https://github.com/lyne-design-system/lyne-components/issues/1441)) ([a5aeebb](https://github.com/lyne-design-system/lyne-components/commit/a5aeebbf294a7972f5f1e0ade5090794c5a5aaae))
+
 ### [0.12.5](https://github.com/lyne-design-system/lyne-components/compare/v0.12.4...v0.12.5) (2022-10-31)
 
 ### Features
