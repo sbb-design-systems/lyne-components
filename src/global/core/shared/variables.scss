@@ -58,7 +58,7 @@
   --sbb-spacing-responsive-xxl: var(--sbb-spacing-responsive-xxl-zero);
   --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-zero);
 
-  @include mq($from: small) {
+  @include mq($from: micro) {
     --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-micro);
   }
 
