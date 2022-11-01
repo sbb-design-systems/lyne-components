@@ -63,7 +63,7 @@ export const config = {
         routeIndexTo: 9,
       },
     ],
-    situations: [{ cause: 'delay', broadcastMessages: 'test', priority: 60 }],
+    situations: [{ cause: 'DELAY', broadcastMessages: 'test', priority: 60 }],
     summary: {
       arrival: {
         delay: 0,
@@ -87,7 +87,7 @@ export const config = {
       },
       product: {
         number: '27',
-        vehicleMode: 'train-small',
+        vehicleMode: 'train',
         name: 'IR 27 2473',
         line: 27,
         vehicleSubModeShortName: 'IR',
@@ -189,7 +189,7 @@ export const configPosition = {
         routeIndexTo: 9,
       },
     ],
-    situations: [{ cause: 'delay', broadcastMessages: 'test', priority: 60 }],
+    situations: [{ cause: 'DELAY', broadcastMessages: 'test', priority: 60 }],
     summary: {
       arrival: {
         delay: 0,
@@ -213,7 +213,7 @@ export const configPosition = {
       },
       product: {
         number: '27',
-        vehicleMode: 'train-small',
+        vehicleMode: 'train',
         name: 'IR 27 2473',
         line: 27,
         vehicleSubModeShortName: 'IR',
@@ -259,7 +259,7 @@ export const configMinimal = {
       duration: 20,
       product: {
         number: '27',
-        vehicleMode: 'train-small',
+        vehicleMode: 'train',
         name: 'ISS 27 2473',
         line: 27,
         vehicleSubModeShortName: 'ISS',
@@ -297,7 +297,7 @@ export const configCancelled = {
       duration: 20,
       product: {
         number: '27',
-        vehicleMode: 'train-small',
+        vehicleMode: 'train',
         name: 'ISS 27 2473',
         line: 27,
         vehicleSubModeShortName: 'ISS',
@@ -365,7 +365,7 @@ export const configCancelledStops = {
       duration: 20,
       product: {
         number: '27',
-        vehicleMode: 'train-small',
+        vehicleMode: 'train',
         name: 'ISS 27 2473',
         line: 27,
         vehicleSubModeShortName: 'ISS',
@@ -428,7 +428,7 @@ export const configPast = {
       duration: 20,
       product: {
         number: '27',
-        vehicleMode: 'train-small',
+        vehicleMode: 'train',
         name: 'ISS 27 2473',
         line: 27,
         vehicleSubModeShortName: 'ISS',

@@ -1,13 +1,16 @@
-import { Leg, TimeQuayWrapper } from '../../global/interfaces/pearl-chain-properties';
+import {
+  PTRideLeg,
+  ScheduledStopPointDetail,
+} from '../../global/interfaces/pearl-chain-properties';
 
 declare interface SummaryConfig {
-  legs: Leg[];
+  legs: PTRideLeg[];
   vias: string[];
   origin: string;
   destination: string;
   arrivalWalk: number;
-  departure: TimeQuayWrapper;
-  arrival: TimeQuayWrapper;
+  departure: ScheduledStopPointDetail;
+  arrival: ScheduledStopPointDetail;
   departureWalk: number;
   duration: number;
 }

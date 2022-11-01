@@ -1,9 +1,15 @@
 import { Component, Element, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
-import { InterfaceTimetableRowAttributes, Notice, PtSituation } from './sbb-timetable-row.custom';
+import { InterfaceTimetableRowAttributes, Notice } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nClass, i18nDirection, i18nFromQuay, i18nOccupancy } from '../../global/i18n';
-import { durationToTime, isProductIcon, renderIconProduct } from './sbb-timetable-row.helper';
+import {
+  convertCauseInIconName,
+  durationToTime,
+  isProductIcon,
+  renderIconProduct,
+  renderStringProduct,
+} from './sbb-timetable-row.helper';
 
 @Component({
   shadow: true,
@@ -55,27 +61,27 @@ export class SbbTimetableRow {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
-      <button disabled class="sbb-loading">
+      <sbb-card class="sbb-loading">
+        {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
         <div class="sbb-loading__wrapper">
-          {this.price != undefined && <span class="sbb-loading__badge"></span>}
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
         </div>
-      </button>
+      </sbb-card>
     );
   }
 
   /**
-   * Sorts the Array and sets the items with the highest priority to the top
-   * @param items Array with the type of Notice or PtSituation.
-   * @returns sorted Array with the type of Notice or PtSituation.
+   * Sorts the Notice Array and sets the items with the highest priority to the top
+   * @param items Array with the type of Notice.
+   * @returns sorted Array with the type of Notice.
    */
-  private _sortPriority(items: Notice[] | PtSituation[]): Notice[] | PtSituation[] {
-    items?.sort((a, b) => {
-      return parseFloat(b.priority) - parseFloat(a.priority);
+  private _sortNoticePriority(items: Notice[]): Notice[] {
+    const sortedItems = items?.slice().sort((a, b) => {
+      return b.priority - a.priority;
     });
-    return items;
+    return sortedItems;
   }
 
   private _clickHandler = (): void => {
@@ -89,7 +95,7 @@ export class SbbTimetableRow {
       return this._renderSkeleton();
     }
 
-    const { legs, notices, situations, id }: InterfaceTimetableRowAttributes['trip'] =
+    const { legs, id, notices, situations }: InterfaceTimetableRowAttributes['trip'] =
       this.trip || {};
 
     const {
@@ -103,8 +109,8 @@ export class SbbTimetableRow {
       occupancy,
       duration,
     } = this.trip?.summary || {};
-    const sortedNotices = this._sortPriority(notices);
-    const sortedSituations = this._sortPriority(situations);
+
+    const sortedNotices = notices?.length ? this._sortNoticePriority(notices) : null;
 
     return (
       <sbb-card
@@ -126,14 +132,12 @@ export class SbbTimetableRow {
         <div class="sbb-timetable__row">
           <div class="sbb-timetable__row-header">
             <div class="sbb-timetable__row-details">
-              <sbb-icon name={product?.vehicleMode} />
-              {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase()) ? (
-                renderIconProduct(product?.vehicleSubModeShortName, product?.line)
-              ) : (
-                <span class="sbb-timetable__row-transportnumber">
-                  {product?.vehicleSubModeShortName + ' ' + product?.line}
-                </span>
+              {product?.vehicleMode !== 'UNKNOWN' && (
+                <sbb-icon name={product?.vehicleMode.toLocaleLowerCase() + '-small'} />
               )}
+              {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase())
+                ? renderIconProduct(product?.vehicleSubModeShortName, product?.line)
+                : renderStringProduct(product?.vehicleSubModeShortName, product?.line)}
             </div>
             <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>
           </div>
@@ -155,25 +159,24 @@ export class SbbTimetableRow {
               </span>
               {departure?.quayRtName}
             </span>
-
             {(occupancy?.firstClass || occupancy?.secondClass) && (
               <ul class="sbb-timetable__row-occupancy" role="list">
                 <li>
                   {occupancy?.firstClass ? '1.' : ''}
                   <sbb-icon
                     class="sbb-occupancy__item"
-                    name={`utilization-` + occupancy?.firstClass}
+                    name={`utilization-` + occupancy?.firstClass.toLowerCase()}
                   />
                   <span class="sbb-screenreaderonly">{i18nClass.first[this._currentLanguage]}</span>
                   <span class="sbb-screenreaderonly">
-                    {i18nOccupancy[occupancy.firstClass.toLowerCase()][this._currentLanguage]}
+                    {i18nOccupancy[occupancy?.firstClass.toLowerCase()][this._currentLanguage]}
                   </span>
                 </li>
                 <li>
                   {occupancy?.secondClass ? '2.' : ''}
                   <sbb-icon
                     class="sbb-occupancy__item"
-                    name={`utilization-` + occupancy?.secondClass}
+                    name={`utilization-` + occupancy?.secondClass.toLowerCase()}
                   />
                   <span class="sbb-screenreaderonly">
                     {i18nClass.second[this._currentLanguage]}
@@ -184,14 +187,14 @@ export class SbbTimetableRow {
                 </li>
               </ul>
             )}
-            {sortedNotices?.length > 0 ? (
+            {notices?.length > 0 ? (
               <ul class="sbb-timetable__row-hints" role="list">
-                {sortedNotices.map((notice, index) =>
+                {sortedNotices?.map((notice, index) =>
                   index < 4 ? (
                     <li>
                       <sbb-icon
                         class="sbb-travel-hints__item"
-                        name={'sa-' + notice?.name.toLowerCase()}
+                        name={'sa-' + notice?.name?.toLowerCase()}
                         aria-hidden="false"
                         aria-label={notice?.text}
                       />
@@ -205,12 +208,12 @@ export class SbbTimetableRow {
               ''
             )}
             <time>{durationToTime(duration)}</time>
-            {sortedSituations?.length > 0 ? (
+            {situations?.length > 0 ? (
               <span class="sbb-timetable__row-warning">
-                {sortedSituations.map((situation, index) =>
-                  index <= 1 ? (
+                {situations?.map((situation, index) =>
+                  index < 1 ? (
                     <sbb-icon
-                      name={situation.cause?.toLowerCase()}
+                      name={convertCauseInIconName(situation?.cause)}
                       aria-hidden="false"
                       aria-label={situation.broadcastMessages}
                     />

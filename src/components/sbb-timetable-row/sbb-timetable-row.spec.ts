@@ -26,7 +26,7 @@ describe('sbb-timetable-row', () => {
             <div class="sbb-timetable__row-header">
               <div class="sbb-timetable__row-details">
                 <sbb-icon name="train-small"></sbb-icon>
-                <sbb-icon class="timetable__row-transport" name="ir-27"></sbb-icon>
+                <sbb-icon class="sbb-timetable__row-transport" name="ir-27"></sbb-icon>
               </div>
               <p>
                 Direction Luzern
@@ -104,13 +104,13 @@ describe('sbb-timetable-row', () => {
       expect(page.root).toEqualHtml(`
         <sbb-timetable-row loading-trip="true" data-now="1660662000000">
           <mock:shadow-root>
-            <button class="sbb-loading" disabled="">
+            <sbb-card class="sbb-loading">
               <div class="sbb-loading__wrapper">
                 <div class="sbb-loading__row"></div>
                 <div class="sbb-loading__row"></div>
                 <div class="sbb-loading__row"></div>
               </div>
-            </button>
+            </sbb-card>
           </mock:shadow-root>
         </sbb-timetable-row>
       `);
