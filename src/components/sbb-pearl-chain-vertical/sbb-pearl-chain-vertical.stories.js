@@ -60,7 +60,7 @@ const defaultArgs = {
 const Template = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
         <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
@@ -69,7 +69,7 @@ const Template = (args) => {
           <div>more</div>
           <div>more</div>
         </div>
-      </sbb-pearl-chain-item>
+      </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -77,10 +77,10 @@ const Template = (args) => {
 const TemplateWithoutContent = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={args}
         disable-animation={false}
-      ></sbb-pearl-chain-item>
+      ></sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -88,11 +88,11 @@ const TemplateWithoutContent = (args) => {
 const TemplateLeftSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
         <div slot="left" style={{ marginInlineStart: '10px' }}>
           slot for content
         </div>
-      </sbb-pearl-chain-item>
+      </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -100,7 +100,7 @@ const TemplateLeftSlot = (args) => {
 const TemplateTwoDots = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
         <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
@@ -109,8 +109,8 @@ const TemplateTwoDots = (args) => {
           <div>more</div>
           <div>more</div>
         </div>
-      </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item
+      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
@@ -121,7 +121,7 @@ const TemplateTwoDots = (args) => {
           dotSize: 'medium',
           position: 0,
         }}
-      ></sbb-pearl-chain-item>
+      ></sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -129,7 +129,7 @@ const TemplateTwoDots = (args) => {
 const TemplateLeftSecondSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
         <div slot="right" style={{ marginTop: '-8px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
@@ -141,8 +141,8 @@ const TemplateLeftSecondSlot = (args) => {
         <div slot="left" style={{ marginTop: '-8px' }}>
           19:00
         </div>
-      </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item
+      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
@@ -157,7 +157,7 @@ const TemplateLeftSecondSlot = (args) => {
         <div slot="left" style={{ marginTop: '-10px' }}>
           20:00
         </div>
-      </sbb-pearl-chain-item>
+      </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -165,7 +165,7 @@ const TemplateLeftSecondSlot = (args) => {
 const connectionDetailTemplate = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
         <div
           slot="right"
           style={{
@@ -216,8 +216,8 @@ const connectionDetailTemplate = (args) => {
         <div slot="left" style={{ marginTop: '-8px', marginInlineEnd: '10px' }}>
           19:00
         </div>
-      </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item
+      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
@@ -243,7 +243,7 @@ const connectionDetailTemplate = (args) => {
         <div slot="left" style={{ marginTop: '-20px', marginInlineEnd: '10px' }}>
           20:00
         </div>
-      </sbb-pearl-chain-item>
+      </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -251,7 +251,7 @@ const connectionDetailTemplate = (args) => {
 const thirdLevelTemplate = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
@@ -264,8 +264,8 @@ const thirdLevelTemplate = (args) => {
         <div slot="left" style={{ paddingTop: '15px', marginInlineEnd: '10px' }}>
           10:31
         </div>
-      </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
         <div
           slot="right"
           style={{
@@ -294,8 +294,8 @@ const thirdLevelTemplate = (args) => {
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
         </div>
-      </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item
+      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'standard',
           lineColor: 'charcoal',
@@ -335,8 +335,8 @@ const thirdLevelTemplate = (args) => {
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
         </div>
-      </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item
+      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
@@ -370,8 +370,8 @@ const thirdLevelTemplate = (args) => {
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
         </div>
-      </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item
+      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
@@ -403,7 +403,7 @@ const thirdLevelTemplate = (args) => {
         <div slot="left" style={{ marginTop: '-10px', marginInlineEnd: '10px' }}>
           <div style={{ fontWeight: 'bold' }}>19:00</div>
         </div>
-      </sbb-pearl-chain-item>
+      </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -412,7 +412,7 @@ const TimetableInputTemplate = () => {
   return (
     <div>
       <sbb-pearl-chain-vertical>
-        <sbb-pearl-chain-item
+        <sbb-pearl-chain-vertical-item
           pearlChainItemAttributes={{
             lineType: 'thin',
             lineColor: 'metal',
@@ -425,11 +425,11 @@ const TimetableInputTemplate = () => {
           <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
             <input></input>
           </div>
-        </sbb-pearl-chain-item>
+        </sbb-pearl-chain-vertical-item>
       </sbb-pearl-chain-vertical>
       <div style={{ marginTop: '2px' }}>
         <sbb-pearl-chain-vertical>
-          <sbb-pearl-chain-item
+          <sbb-pearl-chain-vertical-item
             style={{ top: '2px' }}
             pearlChainItemAttributes={{
               lineType: 'thin',
@@ -444,8 +444,8 @@ const TimetableInputTemplate = () => {
             <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
               <input></input>
             </div>
-          </sbb-pearl-chain-item>
-          <sbb-pearl-chain-item
+          </sbb-pearl-chain-vertical-item>
+          <sbb-pearl-chain-vertical-item
             pearlChainItemAttributes={{
               dotColor: 'metal',
               minHeight: '40',
@@ -456,7 +456,7 @@ const TimetableInputTemplate = () => {
             <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
               <input></input>
             </div>
-          </sbb-pearl-chain-item>
+          </sbb-pearl-chain-vertical-item>
         </sbb-pearl-chain-vertical>
       </div>
     </div>
@@ -466,7 +466,7 @@ const TimetableInputTemplate = () => {
 const TimetableChange = () => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'dotted',
           lineColor: 'sky',
@@ -525,8 +525,8 @@ const TimetableChange = () => {
           </div>
           <span style={{ fontSize: '12px' }}>Abfahrt</span>
         </div>
-      </sbb-pearl-chain-item>
-      <sbb-pearl-chain-item
+      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item
         pearlChainItemAttributes={{
           lineType: 'dotted',
           lineColor: 'sky',
@@ -557,7 +557,7 @@ const TimetableChange = () => {
             <div>Gleis 12</div>
           </div>
         </div>
-      </sbb-pearl-chain-item>
+      </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };

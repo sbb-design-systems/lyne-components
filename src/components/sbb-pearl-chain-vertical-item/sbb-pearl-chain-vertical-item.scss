@@ -49,43 +49,43 @@
   animation: unset !important;
 }
 
-.sbb-pearl-chain-item__dot-size--small {
+.sbb-pearl-chain-vertical-item__dot-size--small {
   --sbb-dot-size: var(--sbb-dot-size-small);
 
   inset-inline-start: 50%;
   transform: translateX(-50%);
 }
 
-.sbb-pearl-chain-item__dot-size--medium {
+.sbb-pearl-chain-vertical-item__dot-size--medium {
   --sbb-dot-size: var(--sbb-dot-size-medium);
 
   inset-inline-start: 50%;
   transform: translateX(-50%);
 }
 
-.sbb-pearl-chain-item__dot-size--large {
+.sbb-pearl-chain-vertical-item__dot-size--large {
   --sbb-dot-size: var(--sbb-dot-size-large);
 
   inset-inline-start: 50%;
   transform: translateX(-50%);
 }
 
-.sbb-pearl-chain-item__dot-size--ultra {
+.sbb-pearl-chain-vertical-item__dot-size--ultra {
   --sbb-dot-size: var(--sbb-dot-size-ultra);
 }
 
-.sbb-pearl-chain-item__dot-size--extra-small {
+.sbb-pearl-chain-vertical-item__dot-size--extra-small {
   margin-inline-start: calc(var(--sbb-dot-size-extra-small) / 2 - var(--sbb-bullet-border-width));
   inset-block-start: calc(var(--sbb-dot-size-extra-small) / 2 - var(--sbb-bullet-border-width));
 
   --sbb-dot-size: var(--sbb-dot-size-extra-small);
 }
 
-.sbb-pearl-chain-item {
+.sbb-pearl-chain-vertical-item {
   position: relative;
 }
 
-.sbb-pearl-chain-item__line {
+.sbb-pearl-chain-vertical-item__line {
   position: absolute;
   bottom: 0;
   flex: 1 1 0%;
@@ -120,7 +120,7 @@
   transform: translateX(-50%);
 }
 
-.sbb-pearl-chain-item__line--dotted {
+.sbb-pearl-chain-vertical-item__line--dotted {
   background-color: unset;
   border-color: unset;
   background-image: linear-gradient(
@@ -133,24 +133,24 @@
   background-size: calc(2 * var(--sbb-spacing-small)) var(--sbb-spacing-small);
 }
 
-.sbb-pearl-chain-item__line--thin {
+.sbb-pearl-chain-vertical-item__line--thin {
   width: var(--sbb-border-width-thin);
 }
 
-.sbb-pearl-chain-item__dot--standard {
+.sbb-pearl-chain-vertical-item__dot--standard {
   @include dot;
 
   border: var(--sbb-border-width) currentcolor;
 }
 
-.sbb-pearl-chain-item__dot--thick-bullet {
+.sbb-pearl-chain-vertical-item__dot--thick-bullet {
   @include dot--transfer;
 
   border: var(--sbb-bullet-border-width) solid currentcolor;
   background-color: var(--sbb-color-white) !important;
 }
 
-.sbb-pearl-chain-item__dot--thin-bullet {
+.sbb-pearl-chain-vertical-item__dot--thin-bullet {
   @include dot--transfer;
 
   --sbb-bullet-border-width: var(--sbb-border-width-thin);
@@ -183,13 +183,13 @@
   color: var(--sbb-color-sky);
 }
 
-.sbb-pearl-chain-item__column {
+.sbb-pearl-chain-vertical-item__column {
   display: table-cell;
   position: relative;
   vertical-align: top;
 }
 
-.sbb-pearl-chain-item__middle {
+.sbb-pearl-chain-vertical-item__middle {
   vertical-align: top;
   border-spacing: 0;
 }

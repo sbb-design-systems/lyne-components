@@ -4,7 +4,7 @@ import readme from './readme.md';
 const Template = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
         <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
@@ -13,7 +13,7 @@ const Template = (args) => {
           <div>more</div>
           <div>more</div>
         </div>
-      </sbb-pearl-chain-item>
+      </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
@@ -59,5 +59,5 @@ export default {
       control: { type: 'radio' },
     },
   },
-  title: 'components/timetable/pearl-chains/vertical/sbb-pearl-chain-item',
+  title: 'components/timetable/pearl-chains/vertical/sbb-pearl-chain-vertical-item',
 };

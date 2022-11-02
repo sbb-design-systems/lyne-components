@@ -30,7 +30,7 @@ import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
-import { PearlChainItemAttributes } from "./components/sbb-pearl-chain-item/sbb-pearl-chain-item.custom";
+import { PearlChainItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
@@ -981,16 +981,6 @@ export namespace Components {
          */
         "legs": InterfacePearlChainAttributes['legs'];
     }
-    interface SbbPearlChainItem {
-        /**
-          * if true the position won't be animated
-         */
-        "disableAnimation"?: boolean;
-        /**
-          * The pearlChainItemAttributes Prop for styling the dots and line
-         */
-        "pearlChainItemAttributes": PearlChainItemAttributes;
-    }
     interface SbbPearlChainTime {
         /**
           * Prop to render the arrival time - will be formatted as "H:mm"
@@ -1018,6 +1008,16 @@ export namespace Components {
         "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbPearlChainVertical {
+    }
+    interface SbbPearlChainVerticalItem {
+        /**
+          * if true the position won't be animated
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * The pearlChainItemAttributes Prop for styling the dots and line.
+         */
+        "pearlChainItemAttributes": PearlChainItemAttributes;
     }
     interface SbbSection {
         /**
@@ -1653,12 +1653,6 @@ declare global {
         prototype: HTMLSbbPearlChainElement;
         new (): HTMLSbbPearlChainElement;
     };
-    interface HTMLSbbPearlChainItemElement extends Components.SbbPearlChainItem, HTMLStencilElement {
-    }
-    var HTMLSbbPearlChainItemElement: {
-        prototype: HTMLSbbPearlChainItemElement;
-        new (): HTMLSbbPearlChainItemElement;
-    };
     interface HTMLSbbPearlChainTimeElement extends Components.SbbPearlChainTime, HTMLStencilElement {
     }
     var HTMLSbbPearlChainTimeElement: {
@@ -1670,6 +1664,12 @@ declare global {
     var HTMLSbbPearlChainVerticalElement: {
         prototype: HTMLSbbPearlChainVerticalElement;
         new (): HTMLSbbPearlChainVerticalElement;
+    };
+    interface HTMLSbbPearlChainVerticalItemElement extends Components.SbbPearlChainVerticalItem, HTMLStencilElement {
+    }
+    var HTMLSbbPearlChainVerticalItemElement: {
+        prototype: HTMLSbbPearlChainVerticalItemElement;
+        new (): HTMLSbbPearlChainVerticalItemElement;
     };
     interface HTMLSbbSectionElement extends Components.SbbSection, HTMLStencilElement {
     }
@@ -1870,9 +1870,9 @@ declare global {
         "sbb-menu-action": HTMLSbbMenuActionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
-        "sbb-pearl-chain-item": HTMLSbbPearlChainItemElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
         "sbb-pearl-chain-vertical": HTMLSbbPearlChainVerticalElement;
+        "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
@@ -2858,16 +2858,6 @@ declare namespace LocalJSX {
          */
         "legs": InterfacePearlChainAttributes['legs'];
     }
-    interface SbbPearlChainItem {
-        /**
-          * if true the position won't be animated
-         */
-        "disableAnimation"?: boolean;
-        /**
-          * The pearlChainItemAttributes Prop for styling the dots and line
-         */
-        "pearlChainItemAttributes"?: PearlChainItemAttributes;
-    }
     interface SbbPearlChainTime {
         /**
           * Prop to render the arrival time - will be formatted as "H:mm"
@@ -2895,6 +2885,16 @@ declare namespace LocalJSX {
         "legs": InterfacePearlChainAttributes['legs'];
     }
     interface SbbPearlChainVertical {
+    }
+    interface SbbPearlChainVerticalItem {
+        /**
+          * if true the position won't be animated
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * The pearlChainItemAttributes Prop for styling the dots and line.
+         */
+        "pearlChainItemAttributes"?: PearlChainItemAttributes;
     }
     interface SbbSection {
         /**
@@ -3348,9 +3348,9 @@ declare namespace LocalJSX {
         "sbb-menu-action": SbbMenuAction;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
-        "sbb-pearl-chain-item": SbbPearlChainItem;
         "sbb-pearl-chain-time": SbbPearlChainTime;
         "sbb-pearl-chain-vertical": SbbPearlChainVertical;
+        "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
@@ -3415,9 +3415,9 @@ declare module "@stencil/core" {
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
-            "sbb-pearl-chain-item": LocalJSX.SbbPearlChainItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainItemElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
             "sbb-pearl-chain-vertical": LocalJSX.SbbPearlChainVertical & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalElement>;
+            "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
