@@ -36,5 +36,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'sbb-sector',
+  title: 'components/timetable/train-formation/sbb-sector',
 };

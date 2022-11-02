@@ -36,5 +36,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'sbb-wagon',
+  title: 'components/timetable/train-formation/sbb-wagon',
 };
