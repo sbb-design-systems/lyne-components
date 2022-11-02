@@ -32,7 +32,7 @@ describe('sbb-slider', () => {
             <slot name="prefix">
               <sbb-icon aria-hidden="true" class="hydrated sbb-icon walk-slow-small" name="walk-slow-small" role="img"></sbb-icon>
             </slot>
-            <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.75; --sbb-slider-step-fraction: 0.25;">
+            <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.75;">
               <input class="sbb-slider__range-input" max="500" min="100" type="range">
               <div class="sbb-slider__line">
                 <div class="sbb-slider__selected-line"></div>
