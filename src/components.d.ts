@@ -31,6 +31,7 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
+import { InterfaceSbbSectorAttributes } from "./components/sbb-sector/sbb-sector.custom.d";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
@@ -45,6 +46,9 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
+import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
+import { InterfaceSbbTrainFormationAttributes } from "./components/sbb-train-formation/sbb-train-formation.custom.d";
+import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -1016,6 +1020,12 @@ export namespace Components {
          */
         "width"?: InterfaceSectionAttributes['width'];
     }
+    interface SbbSector {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbSectorAttributes['someInterface'];
+    }
     interface SbbSignet {
         /**
           * The Signet needs to have a certain protective room around it
@@ -1430,6 +1440,24 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbTrain {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbTrainAttributes['someInterface'];
+    }
+    interface SbbTrainFormation {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbTrainFormationAttributes['someInterface'];
+    }
+    interface SbbWagon {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbWagonAttributes['someInterface'];
+    }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1652,6 +1680,12 @@ declare global {
         prototype: HTMLSbbSectionElement;
         new (): HTMLSbbSectionElement;
     };
+    interface HTMLSbbSectorElement extends Components.SbbSector, HTMLStencilElement {
+    }
+    var HTMLSbbSectorElement: {
+        prototype: HTMLSbbSectorElement;
+        new (): HTMLSbbSectorElement;
+    };
     interface HTMLSbbSignetElement extends Components.SbbSignet, HTMLStencilElement {
     }
     var HTMLSbbSignetElement: {
@@ -1814,6 +1848,24 @@ declare global {
         prototype: HTMLSbbToggleCheckElement;
         new (): HTMLSbbToggleCheckElement;
     };
+    interface HTMLSbbTrainElement extends Components.SbbTrain, HTMLStencilElement {
+    }
+    var HTMLSbbTrainElement: {
+        prototype: HTMLSbbTrainElement;
+        new (): HTMLSbbTrainElement;
+    };
+    interface HTMLSbbTrainFormationElement extends Components.SbbTrainFormation, HTMLStencilElement {
+    }
+    var HTMLSbbTrainFormationElement: {
+        prototype: HTMLSbbTrainFormationElement;
+        new (): HTMLSbbTrainFormationElement;
+    };
+    interface HTMLSbbWagonElement extends Components.SbbWagon, HTMLStencilElement {
+    }
+    var HTMLSbbWagonElement: {
+        prototype: HTMLSbbWagonElement;
+        new (): HTMLSbbWagonElement;
+    };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
@@ -1847,6 +1899,7 @@ declare global {
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
         "sbb-section": HTMLSbbSectionElement;
+        "sbb-sector": HTMLSbbSectorElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
@@ -1874,6 +1927,9 @@ declare global {
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
         "sbb-toggle-check": HTMLSbbToggleCheckElement;
+        "sbb-train": HTMLSbbTrainElement;
+        "sbb-train-formation": HTMLSbbTrainFormationElement;
+        "sbb-wagon": HTMLSbbWagonElement;
     }
 }
 declare namespace LocalJSX {
@@ -2867,6 +2923,12 @@ declare namespace LocalJSX {
          */
         "width"?: InterfaceSectionAttributes['width'];
     }
+    interface SbbSector {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbSectorAttributes['someInterface'];
+    }
     interface SbbSignet {
         /**
           * The Signet needs to have a certain protective room around it
@@ -3278,6 +3340,24 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbTrain {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbTrainAttributes['someInterface'];
+    }
+    interface SbbTrainFormation {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbTrainFormationAttributes['someInterface'];
+    }
+    interface SbbWagon {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbWagonAttributes['someInterface'];
+    }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
@@ -3311,6 +3391,7 @@ declare namespace LocalJSX {
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
         "sbb-section": SbbSection;
+        "sbb-sector": SbbSector;
         "sbb-signet": SbbSignet;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
@@ -3338,6 +3419,9 @@ declare namespace LocalJSX {
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
         "sbb-toggle-check": SbbToggleCheck;
+        "sbb-train": SbbTrain;
+        "sbb-train-formation": SbbTrainFormation;
+        "sbb-wagon": SbbWagon;
     }
 }
 export { LocalJSX as JSX };
@@ -3376,6 +3460,7 @@ declare module "@stencil/core" {
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
+            "sbb-sector": LocalJSX.SbbSector & JSXBase.HTMLAttributes<HTMLSbbSectorElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
@@ -3403,6 +3488,9 @@ declare module "@stencil/core" {
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
+            "sbb-train": LocalJSX.SbbTrain & JSXBase.HTMLAttributes<HTMLSbbTrainElement>;
+            "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
+            "sbb-wagon": LocalJSX.SbbWagon & JSXBase.HTMLAttributes<HTMLSbbWagonElement>;
         }
     }
 }
