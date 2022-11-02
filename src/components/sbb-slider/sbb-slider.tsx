@@ -42,9 +42,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   /** Maximum acceptable value for the inner HTMLInputElement. */
   @Prop() public max?: string = '100';
 
-  /** The granularity of the possible values for the inner HTMLInputElement. */
-  @Prop() public step?: string = '';
-
   /**
    * Readonly state for the inner HTMLInputElement.
    * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
@@ -134,7 +131,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
       form: this.form || null,
       min: this.min || null,
       max: this.max || null,
-      step: this.step || null,
       disabled: this.disabled || this.readonly || null,
       valueAsNumber: this.valueAsNumber || null,
       value: this.value || null,
@@ -142,15 +138,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
       'aria-describedby': this.accessibilityDescribedby || null,
       'aria-labelledby': this.accessibilityLabelledby || null,
     };
-    const step = +this.step;
-    const stepFraction = Number.isNaN(step)
-      ? NaN
-      : Math.abs((step - +this.min) / (+this.max - +this.min));
-    // The width of a step must be larger than four pixels, as the gap size is four pixel and
-    // the CSS calculation would only render white space if the size of a step is smaller or equal
-    // to four pixels.
-    // TODO: There is probably a better way to check this, as the width might also be variable.
-    const isStepped = this.step && stepFraction > 0.01;
 
     return (
       <Host class={{ 'sbb-form-field-element': this._isInFormField }}>
@@ -165,7 +152,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
             class="sbb-slider__container"
             style={{
               '--sbb-slider-value-fraction': this._valueFraction.toString(),
-              '--sbb-slider-step-fraction': stepFraction.toString(),
             }}
           >
             <input
@@ -181,7 +167,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
                 'sbb-slider__line': !this.disabled && !this.readonly,
                 'sbb-slider__line-disabled': this.disabled,
                 'sbb-slider__line-readonly': this.readonly,
-                'sbb-slider__line--stepped': isStepped,
               }}
             >
               <div

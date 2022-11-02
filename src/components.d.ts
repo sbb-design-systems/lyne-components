@@ -1144,10 +1144,6 @@ export namespace Components {
          */
         "startIcon"?: string;
         /**
-          * The granularity of the possible values for the inner HTMLInputElement.
-         */
-        "step"?: string;
-        /**
           * Value for the inner HTMLInputElement.
          */
         "value"?: string;
@@ -3219,10 +3215,6 @@ declare namespace LocalJSX {
           * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
          */
         "startIcon"?: string;
-        /**
-          * The granularity of the possible values for the inner HTMLInputElement.
-         */
-        "step"?: string;
         /**
           * Value for the inner HTMLInputElement.
          */

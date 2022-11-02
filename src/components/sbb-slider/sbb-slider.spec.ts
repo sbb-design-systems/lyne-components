@@ -15,7 +15,7 @@ describe('sbb-slider', () => {
             <slot name="prefix">
               <sbb-icon name="walk-slow-small"></sbb-icon>
             </slot>
-            <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.2; --sbb-slider-step-fraction: 0;">
+            <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.2;">
               <input class="sbb-slider__range-input" max="500" min="0" value="100" type="range">
               <div class="sbb-slider__line">
                 <div class="sbb-slider__selected-line"></div>
@@ -28,6 +28,29 @@ describe('sbb-slider', () => {
           </div>
         </mock:shadow-root>
       </sbb-slider>
+    `);
+  });
+
+  it('renders with no icons and default min/max', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbSlider],
+      html: '<sbb-slider value="1"/>',
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-slider value='1'>
+        <mock:shadow-root>
+          <div class="sbb-slider__wrapper">
+            <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.01;">
+              <input class="sbb-slider__range-input" max="100" min="0" value="1" type="range">
+              <div class="sbb-slider__line">
+                <div class="sbb-slider__selected-line"></div>
+              </div>
+              <div class="sbb-slider__knob"></div>
+            </div>
+          </div>
+        </mock:shadow-root>
+      </sbb-slidervalue>
     `);
   });
 });

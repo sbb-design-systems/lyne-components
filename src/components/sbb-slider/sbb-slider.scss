@@ -5,8 +5,6 @@
 :host {
   --sbb-slider-line-height: #{px-to-rem-build(4)};
   --sbb-slider-value-fraction: 0;
-  --sbb-slider-step-fraction: 0;
-  --sbb-slider-step-gap: #{px-to-rem-build(4)};
   --sbb-slider-knob-size: #{px-to-rem-build(28)};
   --sbb-slider-knob-border-size: #{px-to-rem-build(3)};
   --sbb-slider-icon-color: var(--sbb-color-black-default);
@@ -73,13 +71,10 @@
 
   height: var(--sbb-slider-line-height);
   width: 100%;
+  background-color: var(--sbb-slider-line-color);
   border-radius: var(--sbb-slider-line-height);
   overflow: hidden;
   pointer-events: none;
-
-  &:not(.sbb-slider__line--stepped) {
-    background-color: var(--sbb-slider-line-color);
-  }
 }
 
 .sbb-slider__line-disabled,
@@ -88,24 +83,10 @@
 
   height: var(--sbb-slider-line-height);
   width: 100%;
+  background-color: var(--sbb-slider-line-disabled-color);
   border-radius: var(--sbb-slider-line-height);
   overflow: hidden;
   pointer-events: none;
-
-  &:not(.sbb-slider__line--stepped) {
-    background-color: var(--sbb-slider-line-disabled-color);
-  }
-}
-
-.sbb-slider__line--stepped {
-  background: repeating-linear-gradient(
-    to right,
-    transparent 0,
-    transparent var(--sbb-slider-step-gap),
-    var(--sbb-slider-line-color) var(--sbb-slider-step-gap),
-    var(--sbb-slider-line-color) calc(var(--sbb-slider-step-fraction) * 100%)
-  );
-  forced-color-adjust: none;
 }
 
 .sbb-slider__selected-line {
@@ -156,6 +137,7 @@
 // slider knob resize on click (active / focus)
 .sbb-slider__range-input:active ~ .sbb-slider__knob,
 .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
-  --sbb-slider-knob-size: #{px-to-rem-build(31)};
   @include focusOutline;
+
+  --sbb-slider-knob-size: #{px-to-rem-build(31)};
 }

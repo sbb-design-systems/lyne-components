@@ -6,14 +6,11 @@ this can be set by consumers using the `min` and `max` properties (default value
 The initial value can be set using the `value` property (string), or the `valueAsNumber` (number).
 If no value is provided, by default it is set halfway between the minimum and maximum.
 
-The component has two `<sbb-icon>`s at either end; the default `name`s are `walk-slow-small` on the start side 
-and `walk-fast-small` on the end side. Consumers can change them using the `startIcon` and `endIcon` properties, 
+The component can optionally display two `<sbb-icon>`s at either end; 
+consumers could set one/both of them using the `startIcon` and `endIcon` properties, 
 or can provide their own using the two slots named `prefix` and `suffix`.
 
 It is possible to display the component in disabled or readonly state by using the self-named properties.
-
-The component has also a granular version, that can be activated by setting the `step` parameter. 
-In this case, the possible values are only the multiples of the `step` value.
 
 Consumers can listen to the `sbbChange` event to intercept the native input's change. 
 It emits a `SbbSliderChange` object:
@@ -25,16 +22,15 @@ interface SbbSliderChange {
 }
 ```
 
-
 ## Usage
-Simple slider with default range and custom icons:
+Simple slider with default range and icons:
 ```html
 <sbb-slider value="40" start-icon="circle-minus-small" end-icon="circle-plus-small"></sbb-slider>
 ```
 
-Slider with steps and custom range:
+Slider with no icons and custom range:
 ```html
-<sbb-slider max="5" min="1" step="1" value="5"></sbb-slider>
+<sbb-slider max="5" min="1" value="5"></sbb-slider>
 ```
 
 Slider inside a `<sbb-form-field>`:
@@ -46,7 +42,7 @@ Slider inside a `<sbb-form-field>`:
 
 ## Accessibility
 
-The `<sbb-slider>` has the following behaviour on keypress:
+The `<sbb-slider>` has the following behaviour on keypress when focused:
 
 | Key         | Action                                            |
 |-------------|---------------------------------------------------|
@@ -78,7 +74,6 @@ The `<sbb-slider>` has the following behaviour on keypress:
 | `name`                     | `name`                      | Name of the inner HTMLInputElement.                                                                                                            | `string`  | `''`        |
 | `readonly`                 | `readonly`                  | Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one. | `boolean` | `false`     |
 | `startIcon`                | `start-icon`                | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         | `string`  | `undefined` |
-| `step`                     | `step`                      | The granularity of the possible values for the inner HTMLInputElement.                                                                         | `string`  | `''`        |
 | `value`                    | `value`                     | Value for the inner HTMLInputElement.                                                                                                          | `string`  | `''`        |
 | `valueAsNumber`            | `value-as-number`           | Numeric value for the inner HTMLInputElement.                                                                                                  | `number`  | `undefined` |
 

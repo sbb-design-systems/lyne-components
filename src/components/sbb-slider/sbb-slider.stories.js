@@ -64,15 +64,6 @@ const readonlyArg = {
   },
 };
 
-const stepArg = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Slider attribute',
-  },
-};
-
 const startIconArg = {
   control: {
     type: 'text',
@@ -150,7 +141,6 @@ const basicArgTypes = {
   max: maxArg,
   min: minArg,
   'start-icon': startIconArg,
-  step: stepArg,
   value: valueArg,
   'value-as-number': valueAsNumberArg,
   'accessibility-label': accessibilityLabelArg,
@@ -168,7 +158,6 @@ const formFieldBasicArgsTypes = {
 const basicArgs = {
   max: '100',
   min: '0',
-  step: '',
   value: '40',
   'value-as-number': 40,
   'start-icon': 'walk-slow-small',
@@ -211,13 +200,6 @@ sbbSliderReadonly.argTypes = { ...basicArgTypes, readonly: readonlyArg };
 sbbSliderReadonly.args = { ...basicArgs, readonly: true };
 sbbSlider.documentation = {
   title: 'sbb-slider readonly',
-};
-
-export const sbbSliderStep = TemplateSbbSlider.bind({});
-sbbSliderStep.argTypes = { ...basicArgTypes, disabled: disabledArg };
-sbbSliderStep.args = { ...basicArgs, step: '10', disabled: false };
-sbbSlider.documentation = {
-  title: 'sbb-slider with step',
 };
 
 export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});
