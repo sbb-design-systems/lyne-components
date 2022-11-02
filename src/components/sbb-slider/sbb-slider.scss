@@ -21,6 +21,10 @@
   line-height: var(--sbb-typo-line-height-body-text);
 }
 
+:host(.sbb-form-field-element) {
+  overflow: visible !important; // temporary
+}
+
 // override icons color
 :host([disabled]) {
   --sbb-slider-icon-color: var(--sbb-color-graphite-default);
@@ -49,7 +53,7 @@
   width: 100%;
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
-  padding-block: var(--sbb-spacing-fixed-2x);
+  padding-block: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-slider__container {
