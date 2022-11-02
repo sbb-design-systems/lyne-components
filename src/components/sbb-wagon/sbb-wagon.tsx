@@ -1,5 +1,4 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import events from './sbb-wagon.events';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbWagonAttributes } from './sbb-wagon.custom.d';
 
 /**
@@ -16,23 +15,12 @@ export class SbbWagon {
   @Prop()
   public someProp?: InterfaceSbbWagonAttributes['someInterface'];
 
-  @Element() private _element: HTMLElement;
-
-  private _clickHandler = (): void => {
-    const event = new CustomEvent(events.click, {
-      bubbles: true,
-      composed: true,
-      detail: 'some event detail',
-    });
-
-    this._element.dispatchEvent(event);
-  };
 
   public render(): JSX.Element {
     return (
-      <button class="some-class" onClick={this._clickHandler}>
+      <div>
         {this.someProp}
-      </button>
+      </div>
     );
   }
 }

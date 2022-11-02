@@ -1,4 +1,3 @@
-import events from './sbb-train.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -26,9 +25,7 @@ export default {
     disableArgs: ['someArgToDisableForDocumentationPlatform'],
   },
   parameters: {
-    actions: {
-      handles: [events.click],
-    },
+    actions: {},
     backgrounds: {
       disable: true,
     },
