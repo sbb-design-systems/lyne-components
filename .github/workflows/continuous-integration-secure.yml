@@ -25,7 +25,7 @@ jobs:
       - run: unzip coverage.zip -d coverage
       - name: Read PR number
         id: pr-number
-        run: echo "::set-output name=pr::$(<NR)"
+        run: echo "pr=$(<NR)" >> $GITHUB_OUTPUT
         shell: bash
       - uses: codecov/codecov-action@v3
         with:
