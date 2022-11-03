@@ -504,7 +504,7 @@ export namespace Components {
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
           * The label position relative to the labelIcon. Defaults to end
          */
@@ -2696,7 +2696,7 @@ declare namespace LocalJSX {
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
           * The label position relative to the labelIcon. Defaults to end
          */
@@ -2714,7 +2714,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
-          * Event for emiting whenever selection is changed.
+          * Event for emitting whenever selection is changed.
          */
         "onSbbChange"?: (event: SbbCheckboxCustomEvent<SbbCheckboxChange>) => void;
         /**

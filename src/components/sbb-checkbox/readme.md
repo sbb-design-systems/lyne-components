@@ -76,7 +76,7 @@ to describe the element on which the attribute is set.
 | `accessibilityLabelledby`  | `accessibility-labelledby`  | The aria-labelledby prop for the hidden input.                                                                                                      | `string`           | `undefined`                  |
 | `checked`                  | `checked`                   | Whether the checkbox is checked.                                                                                                                    | `boolean`          | `undefined`                  |
 | `disabled`                 | `disabled`                  | The disabled prop for the disabled state.                                                                                                           | `boolean`          | `false`                      |
-| `icon`                     | `icon`                      | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`           | `undefined`                  |
+| `iconName`                 | `icon-name`                 | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`           | `undefined`                  |
 | `iconPlacement`            | `icon-placement`            | The label position relative to the labelIcon. Defaults to end                                                                                       | `"end" \| "start"` | `'end'`                      |
 | `indeterminate`            | `indeterminate`             | Whether the checkbox is indeterminate.                                                                                                              | `boolean`          | `false`                      |
 | `inputId`                  | `input-id`                  | Id of the internal input element - default id will be set automatically.                                                                            | `string`           | ``sbb-checkbox-${++nextId}`` |
@@ -87,9 +87,17 @@ to describe the element on which the attribute is set.
 
 ## Events
 
-| Event       | Description                                      | Type                             |
-| ----------- | ------------------------------------------------ | -------------------------------- |
-| `sbbChange` | Event for emiting whenever selection is changed. | `CustomEvent<SbbCheckboxChange>` |
+| Event       | Description                                       | Type                             |
+| ----------- | ------------------------------------------------- | -------------------------------- |
+| `sbbChange` | Event for emitting whenever selection is changed. | `CustomEvent<SbbCheckboxChange>` |
+
+
+## Slots
+
+| Slot        | Description                                    |
+| ----------- | ---------------------------------------------- |
+| `"icon"`    | Slot used to render the checkbox icon.         |
+| `"unnamed"` | Slot used to render the checkbox label's text. |
 
 
 ## Dependencies

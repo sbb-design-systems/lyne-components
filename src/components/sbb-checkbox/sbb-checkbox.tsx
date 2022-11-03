@@ -4,6 +4,10 @@ import { InterfaceCheckboxAttributes, SbbCheckboxChange } from './sbb-checkbox.c
 
 let nextId = 0;
 
+/**
+ * @slot icon - Slot used to render the checkbox icon.
+ * @slot unnamed - Slot used to render the checkbox label's text.
+ */
 @Component({
   shadow: true,
   styleUrl: 'sbb-checkbox.scss',
@@ -24,12 +28,6 @@ export class SbbCheckbox implements AccessibilityProperties {
   /** Id of the internal input element - default id will be set automatically. */
   @Prop() public inputId = `sbb-checkbox-${++nextId}`;
 
-  /**
-   * The icon name we want to use, choose from the small icon variants from the ui-icons category
-   * from here https://lyne.sbb.ch/tokens/icons (optional).
-   */
-  @Prop() public icon?: string;
-
   /** The disabled prop for the disabled state. */
   @Prop({ reflect: true }) public disabled = false;
 
@@ -38,6 +36,12 @@ export class SbbCheckbox implements AccessibilityProperties {
 
   /** Whether the checkbox is indeterminate. */
   @Prop({ reflect: true }) public indeterminate = false;
+
+  /**
+   * The icon name we want to use, choose from the small icon variants from the ui-icons category
+   * from here https://lyne.sbb.ch/tokens/icons (optional).
+   */
+  @Prop() public iconName?: string;
 
   /** The label position relative to the labelIcon. Defaults to end */
   @Prop({ reflect: true }) public iconPlacement: InterfaceCheckboxAttributes['iconPlacement'] =
@@ -52,7 +56,7 @@ export class SbbCheckbox implements AccessibilityProperties {
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** Event for emiting whenever selection is changed. */
+  /** Event for emitting whenever selection is changed. */
   @Event() public sbbChange: EventEmitter<SbbCheckboxChange>;
 
   @Watch('checked')
@@ -80,10 +84,6 @@ export class SbbCheckbox implements AccessibilityProperties {
           value={this.value}
           onChange={(): void => {
             this.checked = this._checkbox?.checked;
-            this.sbbChange.emit({
-              checked: this.checked,
-              value: this.value,
-            });
           }}
           aria-label={this.accessibilityLabel}
           aria-labelledby={this.accessibilityLabelledby}
@@ -112,7 +112,9 @@ export class SbbCheckbox implements AccessibilityProperties {
           </span>
           <span class={`sbb-checkbox__label ${iconPlacement}`}>
             <slot />
-            {this.icon !== '' ? <sbb-icon name={this.icon} /> : ''}
+            <slot name="icon">
+              {this.iconName && <sbb-icon name={this.iconName} />}
+            </slot>
           </span>
         </span>
       </label>

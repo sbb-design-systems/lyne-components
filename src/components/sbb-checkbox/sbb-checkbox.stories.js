@@ -30,6 +30,24 @@ const label = {
   },
 };
 
+const value = {
+  control: {
+    type: 'text',
+  },
+};
+
+const name = {
+  control: {
+    type: 'text',
+  },
+};
+
+const icon = {
+  control: {
+    type: 'text',
+  },
+};
+
 const iconPlacement = {
   control: {
     type: 'select',
@@ -42,14 +60,18 @@ const defaultArgTypes = {
   indeterminate,
   disabled,
   label,
+  value,
+  name,
+  'icon-name': icon,
   'icon-placement': iconPlacement,
 };
 
 const defaultArgs = {
   checked: false,
-  indeterminate: indeterminate,
+  indeterminate: false,
   disabled: false,
   label: 'Label',
+  value: 'Value',
   name: 'checkbox',
 };
 
@@ -63,67 +85,92 @@ const CheckboxDefaultTemplate = (args) => (
   </sbb-checkbox>
 );
 
-const CheckboxSpacingTemplate = (args) => <sbb-checkbox {...args}>{args.label}</sbb-checkbox>;
+export const defaultUnchecked = CheckboxDefaultTemplate.bind({});
+export const defaultChecked = CheckboxDefaultTemplate.bind({});
+export const defaultTristated = CheckboxDefaultTemplate.bind({});
+export const withIcon = CheckboxDefaultTemplate.bind({});
+export const checkedWithIconReversed = CheckboxDefaultTemplate.bind({});
+export const disabledChecked = CheckboxDefaultTemplate.bind({});
+export const disabledUnchecked = CheckboxDefaultTemplate.bind({});
+export const disabledTristated = CheckboxDefaultTemplate.bind({});
 
-export const sbbCheckboxDefault = CheckboxDefaultTemplate.bind({});
-export const sbbCheckboxTristated = CheckboxDefaultTemplate.bind({});
-export const sbbCheckboxWithLabelIcon = CheckboxDefaultTemplate.bind({});
-export const sbbCheckboxWithSpacedLabelIcon = CheckboxSpacingTemplate.bind({});
-export const sbbCheckboxWithLabelIconReversed = CheckboxDefaultTemplate.bind({});
-export const sbbCheckboxDisabledChecked = CheckboxDefaultTemplate.bind({});
-export const sbbCheckboxDisabledTristated = CheckboxDefaultTemplate.bind({});
-
-sbbCheckboxDefault.argTypes = defaultArgTypes;
-sbbCheckboxDefault.args = {
+defaultUnchecked.argTypes = defaultArgTypes;
+defaultUnchecked.args = {
   ...defaultArgs,
 };
+defaultUnchecked.documentation = {
+  title: 'Checkbox unchecked',
+};
 
-sbbCheckboxTristated.argTypes = defaultArgTypes;
-sbbCheckboxTristated.args = {
+defaultChecked.argTypes = defaultArgTypes;
+defaultChecked.args = {
+  ...defaultArgs,
+  checked: true,
+};
+defaultChecked.documentation = {
+  title: 'Checkbox checked',
+};
+
+defaultTristated.argTypes = defaultArgTypes;
+defaultTristated.args = {
   ...defaultArgs,
   indeterminate: true,
 };
+defaultTristated.documentation = {
+  title: 'Checkbox in indeterminate state',
+};
 
-sbbCheckboxWithLabelIcon.argTypes = defaultArgTypes;
-sbbCheckboxWithLabelIcon.args = {
+withIcon.argTypes = defaultArgTypes;
+withIcon.args = {
   ...defaultArgs,
   'icon-name': 'tickets-class-small',
 };
-
-sbbCheckboxWithSpacedLabelIcon.argTypes = defaultArgTypes;
-sbbCheckboxWithSpacedLabelIcon.args = {
-  ...defaultArgs,
-  'icon-name': 'tickets-class-small',
-  'label-space': true,
+withIcon.documentation = {
+  title: 'Checkbox unchecked with icon at start',
 };
 
-sbbCheckboxWithLabelIconReversed.argTypes = defaultArgTypes;
-sbbCheckboxWithLabelIconReversed.args = {
+checkedWithIconReversed.argTypes = defaultArgTypes;
+checkedWithIconReversed.args = {
   ...defaultArgs,
+  checked: true,
   'icon-name': 'tickets-class-small',
   'icon-placement': iconPlacement.options[0],
 };
+checkedWithIconReversed.documentation = {
+  title: 'Checkbox checked with icon at end',
+};
 
-sbbCheckboxDisabledChecked.argTypes = defaultArgTypes;
-sbbCheckboxDisabledChecked.args = {
+disabledChecked.argTypes = defaultArgTypes;
+disabledChecked.args = {
   ...defaultArgs,
   disabled: true,
   checked: true,
 };
+disabledChecked.documentation = {
+  title: 'Checkbox disabled and unchecked',
+};
 
-sbbCheckboxDisabledTristated.argTypes = defaultArgTypes;
-sbbCheckboxDisabledTristated.args = {
+disabledUnchecked.argTypes = defaultArgTypes;
+disabledUnchecked.args = {
+  ...defaultArgs,
+  disabled: true,
+};
+disabledChecked.documentation = {
+  title: 'Checkbox disabled and unchecked',
+};
+
+disabledTristated.argTypes = defaultArgTypes;
+disabledTristated.args = {
   ...defaultArgs,
   disabled: true,
   indeterminate: true,
 };
-
-sbbCheckboxDefault.documentation = {
-  title: 'Default',
+disabledChecked.documentation = {
+  title: 'Checkbox disabled and in indeterminate state',
 };
 
 export default {
-  title: 'components/sbb-checkbox',
+  title: 'components/form elements/sbb-checkbox',
 
   parameters: {
     actions: {
