@@ -2,7 +2,7 @@ import { waitFor } from '@storybook/testing-library';
 
 export async function waitForStablePosition(
   elementCallback: () => HTMLElement,
-  stableDurationMs = 200
+  stableDurationMs = 400
 ): Promise<void> {
   const element = await waitFor(elementCallback);
   const getPositionString = (): string => JSON.stringify(element.getBoundingClientRect());
