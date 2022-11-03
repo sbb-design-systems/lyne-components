@@ -2,8 +2,9 @@ import events from './sbb-menu.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
-import { userEvent, waitFor, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../global/helpers/wait-for-components-ready';
+import { userEvent, within } from '@storybook/testing-library';
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStable } from '../../global/helpers/testing/wait-for-stable';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
@@ -13,7 +14,12 @@ const playStory = async ({ canvasElement }) => {
     canvas.getByTestId('menu').shadowRoot.querySelector('dialog.sbb-menu')
   );
 
-  const button = await waitFor(() => canvas.getByTestId('menu-trigger'));
+  await waitForStable(
+    () => JSON.stringify(canvas.getByTestId('menu-trigger').getBoundingClientRect()),
+    200
+  );
+
+  const button = canvas.getByTestId('menu-trigger');
   await userEvent.click(button);
 };
 

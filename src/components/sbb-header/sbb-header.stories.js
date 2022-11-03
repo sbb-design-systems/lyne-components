@@ -1,8 +1,9 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
-import { userEvent, waitFor, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../global/helpers/wait-for-components-ready';
+import { userEvent, within } from '@storybook/testing-library';
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStable } from '../../global/helpers/testing/wait-for-stable';
 
 const HeaderBasicTemplate = ({ children, ...args }) => [
   <sbb-header {...args}>
@@ -71,7 +72,12 @@ const playStory = async ({ canvasElement }) => {
     canvas.getByTestId('user-menu').shadowRoot.querySelector('dialog.sbb-menu')
   );
 
-  const button = await waitFor(() => canvas.getByTestId('user-menu-trigger'));
+  await waitForStable(
+    () => JSON.stringify(canvas.getByTestId('user-menu-trigger').getBoundingClientRect()),
+    200
+  );
+
+  const button = canvas.getByTestId('user-menu-trigger');
   await userEvent.click(button);
 };
 
