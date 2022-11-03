@@ -20,6 +20,7 @@ export const SbbCard = /*@__PURE__*/createReactComponent<JSX.SbbCard, HTMLSbbCar
 export const SbbCardBadge = /*@__PURE__*/createReactComponent<JSX.SbbCardBadge, HTMLSbbCardBadgeElement>('sbb-card-badge');
 export const SbbCardProduct = /*@__PURE__*/createReactComponent<JSX.SbbCardProduct, HTMLSbbCardProductElement>('sbb-card-product');
 export const SbbCheckbox = /*@__PURE__*/createReactComponent<JSX.SbbCheckbox, HTMLSbbCheckboxElement>('sbb-checkbox');
+export const SbbCheckboxGroup = /*@__PURE__*/createReactComponent<JSX.SbbCheckboxGroup, HTMLSbbCheckboxGroupElement>('sbb-checkbox-group');
 export const SbbClock = /*@__PURE__*/createReactComponent<JSX.SbbClock, HTMLSbbClockElement>('sbb-clock');
 export const SbbDialog = /*@__PURE__*/createReactComponent<JSX.SbbDialog, HTMLSbbDialogElement>('sbb-dialog');
 export const SbbDivider = /*@__PURE__*/createReactComponent<JSX.SbbDivider, HTMLSbbDividerElement>('sbb-divider');

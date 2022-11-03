@@ -16,6 +16,7 @@ import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custo
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { InterfaceCheckboxAttributes, SbbCheckboxChange } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom.d";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -529,6 +530,12 @@ export namespace Components {
           * Value of checkbox.
          */
         "value"?: string;
+    }
+    interface SbbCheckboxGroup {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbCheckboxGroupAttributes['someInterface'];
     }
     interface SbbClock {
         /**
@@ -1825,6 +1832,12 @@ declare global {
         prototype: HTMLSbbCheckboxElement;
         new (): HTMLSbbCheckboxElement;
     };
+    interface HTMLSbbCheckboxGroupElement extends Components.SbbCheckboxGroup, HTMLStencilElement {
+    }
+    var HTMLSbbCheckboxGroupElement: {
+        prototype: HTMLSbbCheckboxGroupElement;
+        new (): HTMLSbbCheckboxGroupElement;
+    };
     interface HTMLSbbClockElement extends Components.SbbClock, HTMLStencilElement {
     }
     var HTMLSbbClockElement: {
@@ -2168,6 +2181,7 @@ declare global {
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-checkbox": HTMLSbbCheckboxElement;
+        "sbb-checkbox-group": HTMLSbbCheckboxGroupElement;
         "sbb-clock": HTMLSbbClockElement;
         "sbb-dialog": HTMLSbbDialogElement;
         "sbb-divider": HTMLSbbDividerElement;
@@ -2725,6 +2739,12 @@ declare namespace LocalJSX {
           * Value of checkbox.
          */
         "value"?: string;
+    }
+    interface SbbCheckboxGroup {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbCheckboxGroupAttributes['someInterface'];
     }
     interface SbbClock {
         /**
@@ -3940,6 +3960,7 @@ declare namespace LocalJSX {
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-checkbox": SbbCheckbox;
+        "sbb-checkbox-group": SbbCheckboxGroup;
         "sbb-clock": SbbClock;
         "sbb-dialog": SbbDialog;
         "sbb-divider": SbbDivider;
@@ -4013,6 +4034,7 @@ declare module "@stencil/core" {
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-checkbox": LocalJSX.SbbCheckbox & JSXBase.HTMLAttributes<HTMLSbbCheckboxElement>;
+            "sbb-checkbox-group": LocalJSX.SbbCheckboxGroup & JSXBase.HTMLAttributes<HTMLSbbCheckboxGroupElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
             "sbb-dialog": LocalJSX.SbbDialog & JSXBase.HTMLAttributes<HTMLSbbDialogElement>;
             "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;
