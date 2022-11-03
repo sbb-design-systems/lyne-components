@@ -1,9 +1,12 @@
-export type Alignment = { horizontal: 'start' | 'center' | 'end'; vertical: 'above' | 'below' };
-
 export type ElementRectangle = Pick<
-  Element,
-  'scrollHeight' | 'clientHeight' | 'scrollWidth' | 'clientWidth'
+  HTMLElement,
+  'scrollHeight' | 'clientHeight' | 'offsetHeight' | 'scrollWidth' | 'clientWidth' | 'offsetWidth'
 >;
+
+export interface Alignment {
+  horizontal: 'start' | 'center' | 'end';
+  vertical: 'above' | 'below';
+}
 
 export interface ElementPositionInfos {
   top: number;
@@ -25,8 +28,10 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
     return {
       scrollHeight: el.scrollHeight,
       clientHeight: el.clientHeight,
+      offsetHeight: el.offsetHeight,
       scrollWidth: el.scrollWidth,
       clientWidth: el.clientWidth,
+      offsetWidth: el.offsetWidth,
     };
   }
 
@@ -38,15 +43,17 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
 
   const scrollHeight = el.scrollHeight,
     clientHeight = el.clientHeight,
+    offsetHeight = el.offsetHeight,
     scrollWidth = el.scrollWidth,
-    clientWidth = el.clientWidth;
+    clientWidth = el.clientWidth,
+    offsetWidth = el.offsetWidth;
 
   // Reverting to the original values
   el.style.display = null;
   el.style.position = null;
   el.style.visibility = null;
 
-  return { scrollHeight, clientHeight, scrollWidth, clientWidth };
+  return { scrollHeight, clientHeight, offsetHeight, scrollWidth, clientWidth, offsetWidth };
 }
 
 /**
@@ -80,8 +87,8 @@ export function getElementPosition(
   trigger: HTMLElement,
   properties?: { verticalOffset?: number; horizontalOffset?: number; centered?: boolean }
 ): ElementPositionInfos {
-  const VERTICAL_OFFSET = properties.verticalOffset || 0;
-  const HORIZONTAL_OFFSET = properties.horizontalOffset || 0;
+  const verticalOffset = properties?.verticalOffset || 0;
+  const horizontalOffset = properties?.horizontalOffset || 0;
 
   const triggerRec = trigger.getBoundingClientRect();
   const elementRec = getElementRectangle(element);
@@ -90,23 +97,23 @@ export function getElementPosition(
   const triggerTop = triggerRec.top;
 
   const availableSpaceRight = window.innerWidth - (triggerLeft + triggerRec.width);
-  const availableSpaceAbove = triggerTop - VERTICAL_OFFSET;
+  const availableSpaceAbove = triggerTop - verticalOffset;
   const availableSpaceBelow =
-    window.innerHeight - (triggerTop + triggerRec.height + VERTICAL_OFFSET);
+    window.innerHeight - (triggerTop + triggerRec.height + verticalOffset);
 
   // Default element alignment is "start/below"
   let elementXPosition = triggerLeft;
-  let elementYPosition = triggerTop + triggerRec.height + VERTICAL_OFFSET;
-  let elementXOverflow = elementRec.clientWidth - triggerRec.width;
+  let elementYPosition = triggerTop + triggerRec.height + verticalOffset;
+  let elementXOverflow = elementRec.offsetWidth - triggerRec.width;
   const alignment: Alignment = { horizontal: 'start', vertical: 'below' };
 
   // Calculate element max-height
-  let elementMaxHeight = `${availableSpaceBelow - VERTICAL_OFFSET}px`;
+  let elementMaxHeight = `${availableSpaceBelow - verticalOffset}px`;
 
   // Check if horizontal alignment needs to be changed to "center"
   if (
-    properties.centered &&
-    triggerLeft + triggerRec.width / 2 > elementRec.clientWidth / 2 &&
+    properties?.centered &&
+    triggerLeft + triggerRec.width / 2 > elementRec.offsetWidth / 2 &&
     availableSpaceRight > elementXOverflow / 2
   ) {
     elementXPosition -= elementXOverflow /= 2;
@@ -121,29 +128,29 @@ export function getElementPosition(
 
   // Add horizontal offset
   if (
-    HORIZONTAL_OFFSET &&
+    horizontalOffset &&
     alignment.horizontal !== 'center' &&
-    triggerRec.width / 2 < HORIZONTAL_OFFSET
+    triggerRec.width / 2 < horizontalOffset
   ) {
-    elementXPosition += HORIZONTAL_OFFSET * (alignment.horizontal === 'start' ? -1 : 1);
+    elementXPosition += horizontalOffset * (alignment.horizontal === 'start' ? -1 : 1);
   }
 
   // Check whether there is sufficient space on both sides
   if (triggerLeft < elementXOverflow && availableSpaceRight < elementXOverflow) {
-    elementXPosition = window.innerWidth / 2 - elementRec.clientWidth / 2;
+    elementXPosition = window.innerWidth / 2 - elementRec.offsetWidth / 2;
   }
 
   // Check if vertical alignment needs to be changed to "above":
   if (
-    availableSpaceBelow < elementRec.clientHeight &&
-    (availableSpaceAbove > elementRec.clientHeight || availableSpaceAbove > availableSpaceBelow)
+    availableSpaceBelow - verticalOffset < elementRec.scrollHeight &&
+    (availableSpaceAbove > elementRec.scrollHeight || availableSpaceAbove > availableSpaceBelow)
   ) {
     elementYPosition =
-      availableSpaceAbove < elementRec.clientHeight
-        ? elementYPosition - triggerRec.height - availableSpaceAbove - VERTICAL_OFFSET
-        : triggerTop - elementRec.clientHeight - VERTICAL_OFFSET;
+      availableSpaceAbove < elementRec.scrollHeight
+        ? elementYPosition - triggerRec.height - availableSpaceAbove - verticalOffset
+        : triggerTop - elementRec.clientHeight - verticalOffset;
 
-    elementMaxHeight = `${availableSpaceAbove - VERTICAL_OFFSET}px`;
+    elementMaxHeight = `${availableSpaceAbove - verticalOffset}px`;
     alignment.vertical = 'above';
   }
 
