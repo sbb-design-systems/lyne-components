@@ -129,11 +129,6 @@
       left: var(--sbb-menu-position-x);
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
-
-      .sbb-menu__content {
-        max-height: var(--sbb-menu-max-height);
-        min-height: var(--sbb-menu-min-height);
-      }
     }
   }
 }
@@ -155,6 +150,11 @@
 
   @include mq($from: medium) {
     max-height: fit-content;
+
+    .sbb-menu[open] & {
+      max-height: var(--sbb-menu-max-height);
+      min-height: var(--sbb-menu-min-height);
+    }
 
     &::after {
       display: none;
