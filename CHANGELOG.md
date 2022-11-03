@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.10](https://github.com/lyne-design-system/lyne-components/compare/v0.12.9...v0.12.10) (2022-11-03)
+
+### Bug Fixes
+
+- wait for ready for storybook interactions ([#1443](https://github.com/lyne-design-system/lyne-components/issues/1443)) ([36c7979](https://github.com/lyne-design-system/lyne-components/commit/36c79790501ae807f5ac76b21f9772628f65f0a7))
+
 ### [0.12.9](https://github.com/lyne-design-system/lyne-components/compare/v0.12.8...v0.12.9) (2022-11-03)
 
 ### Bug Fixes
