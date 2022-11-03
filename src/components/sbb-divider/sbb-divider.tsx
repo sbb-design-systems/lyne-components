@@ -1,4 +1,4 @@
-import { Component, h, JSX, Host, Prop } from '@stencil/core';
+import { Component, h, Host, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbDividerAttributes } from './sbb-divider.custom.d';
 
 @Component({
@@ -15,6 +15,10 @@ export class SbbDivider {
     'horizontal';
 
   public render(): JSX.Element {
-    return <Host role="separator" aria-orientation={this.orientation} />;
+    return (
+      <Host role="separator" aria-orientation={this.orientation}>
+        <div class="sbb-divider"></div>
+      </Host>
+    );
   }
 }

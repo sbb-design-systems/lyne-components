@@ -11,11 +11,13 @@
   --sbb-divider-color: var(--sbb-color-iron-default);
 }
 
-:host([orientation='horizontal']) {
-  border-top: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
-}
+.sbb-divider {
+  :host([orientation='horizontal']) & {
+    border-top: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
+  }
 
-:host([orientation='vertical']) {
-  height: 100%;
-  border-left: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
+  :host([orientation='vertical']) & {
+    height: 100%;
+    border-left: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
+  }
 }
