@@ -7,6 +7,10 @@
   --sbb-divider-border-width: var(--sbb-border-width-1x);
 }
 
+:host([orientation='vertical']) {
+  height: 100%;
+}
+
 :host([negative]) {
   --sbb-divider-color: var(--sbb-color-iron-default);
 }
