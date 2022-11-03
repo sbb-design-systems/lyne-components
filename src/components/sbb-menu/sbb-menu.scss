@@ -57,7 +57,7 @@
 }
 
 // stylelint-disable plugin/stylelint-bem-namics
-::slotted(:not(sbb-menu-action)) {
+::slotted(:not(sbb-menu-action, sbb-divider)) {
   display: block;
   padding-inline: var(--sbb-spacing-fixed-5x);
 }
