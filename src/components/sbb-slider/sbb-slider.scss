@@ -22,7 +22,8 @@
 }
 
 :host(.sbb-form-field-element) {
-  overflow: visible !important; // temporary
+  --form-field-overflow: visible;
+  --form-field-background-color: transparent;
 }
 
 // override icons color

@@ -22,6 +22,7 @@
   --form-field-gap: var(--sbb-spacing-fixed-2x);
   --form-field-label-to-input-gap: calc(-1 * var(--sbb-spacing-fixed-1x));
   --form-field-select-inline-padding-end: calc(var(--sbb-icon-svg-width) + var(--form-field-gap));
+  --form-field-overflow: hidden;
 
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
@@ -161,6 +162,7 @@ slot[name='label'] > span {
   @include placeholder;
   @include ellipsis;
 
+  overflow: var(--form-field-overflow);
   -webkit-appearance: none;
   width: 100%;
   box-sizing: border-box;

@@ -171,7 +171,7 @@ const formFieldBasicArgs = {
   ...basicArgs,
   label: undefined,
   optional: undefined,
-  borderless: undefined,
+  borderless: true,
 };
 
 export const sbbSlider = TemplateSbbSlider.bind({});
