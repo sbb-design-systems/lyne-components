@@ -1,5 +1,24 @@
-import { Component, Prop, h, Event, EventEmitter, Watch, JSX } from '@stencil/core';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import {
+  Component,
+  Prop,
+  h,
+  Event,
+  EventEmitter,
+  JSX,
+  Element,
+  State,
+  ComponentInterface,
+  Listen,
+} from '@stencil/core';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
+import {
+  AccessibilityProperties,
+  getAccessibilityAttributeList,
+} from '../../global/interfaces/accessibility-properties';
 import { InterfaceCheckboxAttributes, SbbCheckboxChange } from './sbb-checkbox.custom';
 
 let nextId = 0;
@@ -13,7 +32,7 @@ let nextId = 0;
   styleUrl: 'sbb-checkbox.scss',
   tag: 'sbb-checkbox',
 })
-export class SbbCheckbox implements AccessibilityProperties {
+export class SbbCheckbox implements AccessibilityProperties, ComponentInterface {
   private _checkbox: HTMLInputElement;
 
   /** Whether the checkbox is checked. */
@@ -56,23 +75,36 @@ export class SbbCheckbox implements AccessibilityProperties {
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
+  @Element() private _element!: HTMLElement;
+
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon');
+
   /** Event for emitting whenever selection is changed. */
   @Event() public sbbChange: EventEmitter<SbbCheckboxChange>;
 
-  @Watch('checked')
-  public checkedChanged(isChecked: boolean): void {
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  }
+
+  public connectedCallback(): void {
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+  }
+
+  public checkedChanged(): void {
+    this.checked = this._checkbox?.checked;
     this.sbbChange.emit({
-      checked: isChecked,
+      checked: this.checked,
       value: this.value,
     });
   }
 
   public render(): JSX.Element {
-    const disabled = this.disabled ? 'sbb-checkbox--disabled' : '';
     const iconPlacement = this.iconPlacement === 'start' ? `sbb-checkbox__label--start` : '';
 
     return (
-      <label class={`sbb-checkbox ${disabled}`} htmlFor={this.inputId}>
+      <label class="sbb-checkbox" htmlFor={this.inputId}>
         <input
           ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
           type="checkbox"
@@ -82,12 +114,8 @@ export class SbbCheckbox implements AccessibilityProperties {
           required={this.required}
           checked={this.checked}
           value={this.value}
-          onChange={(): void => {
-            this.checked = this._checkbox?.checked;
-          }}
-          aria-label={this.accessibilityLabel}
-          aria-labelledby={this.accessibilityLabelledby}
-          aria-describedby={this.accessibilityDescribedby}
+          {...getAccessibilityAttributeList(this)}
+          onChange={(): void => this.checkedChanged()}
         />
         <span class="sbb-checkbox__inner">
           <span class="sbb-checkbox__selection">
@@ -112,9 +140,11 @@ export class SbbCheckbox implements AccessibilityProperties {
           </span>
           <span class={`sbb-checkbox__label ${iconPlacement}`}>
             <slot />
-            <slot name="icon">
-              {this.iconName && <sbb-icon name={this.iconName} />}
-            </slot>
+            {(this.iconName || this._namedSlots.icon) && (
+              <span class="sbb-checkbox__label--icon">
+                <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+              </span>
+            )}
           </span>
         </span>
       </label>

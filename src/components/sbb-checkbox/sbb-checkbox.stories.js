@@ -55,6 +55,24 @@ const iconPlacement = {
   options: ['start', 'end'],
 };
 
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityDescribedby = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityLabelledby = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   checked,
   indeterminate,
@@ -64,6 +82,9 @@ const defaultArgTypes = {
   name,
   'icon-name': icon,
   'icon-placement': iconPlacement,
+  'accessibility-label': accessibilityLabel,
+  'accessibility-describedby': accessibilityDescribedby,
+  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -73,6 +94,11 @@ const defaultArgs = {
   label: 'Label',
   value: 'Value',
   name: 'checkbox',
+  'icon-name': undefined,
+  'icon-placement': undefined,
+  'accessibility-label': undefined,
+  'accessibility-describedby': undefined,
+  'accessibility-labelledby': undefined,
 };
 
 /* ************************************************* */
@@ -170,8 +196,13 @@ disabledChecked.documentation = {
 };
 
 export default {
-  title: 'components/form elements/sbb-checkbox',
-
+  decorators: [
+    (Story) => (
+      <div style={`padding: 2rem`}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     actions: {
       handles: [events.sbbChange],
@@ -183,4 +214,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
+  title: 'components/form elements/sbb-checkbox',
 };
