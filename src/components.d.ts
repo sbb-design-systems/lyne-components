@@ -48,8 +48,6 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
-import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
-import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom";
 import { InterfaceToggleCheckAttributes, SbbToggleCheckChange } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
@@ -1713,6 +1711,10 @@ export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
 export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
+}
+export interface SbbCheckboxCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbCheckboxElement;
 }
 export interface SbbDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
