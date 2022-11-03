@@ -3,7 +3,7 @@ import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
-import { waitForStable } from '../../global/helpers/testing/wait-for-stable';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 const HeaderBasicTemplate = ({ children, ...args }) => [
   <sbb-header {...args}>
@@ -72,10 +72,7 @@ const playStory = async ({ canvasElement }) => {
     canvas.getByTestId('user-menu').shadowRoot.querySelector('dialog.sbb-menu')
   );
 
-  await waitForStable(
-    () => JSON.stringify(canvas.getByTestId('user-menu-trigger').getBoundingClientRect()),
-    200
-  );
+  await waitForStablePosition(() => canvas.getByTestId('user-menu-trigger'));
 
   const button = canvas.getByTestId('user-menu-trigger');
   await userEvent.click(button);
