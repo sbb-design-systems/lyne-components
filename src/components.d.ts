@@ -16,7 +16,6 @@ import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custo
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { InterfaceCheckboxAttributes, SbbCheckboxChange } from "./components/sbb-checkbox/sbb-checkbox.custom";
-import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom.d";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -535,7 +534,8 @@ export namespace Components {
         /**
           * Documentation for someProp
          */
-        "someProp"?: InterfaceSbbCheckboxGroupAttributes['someInterface'];
+        "disabled": boolean;
+        "required": boolean;
     }
     interface SbbClock {
         /**
@@ -2744,7 +2744,8 @@ declare namespace LocalJSX {
         /**
           * Documentation for someProp
          */
-        "someProp"?: InterfaceSbbCheckboxGroupAttributes['someInterface'];
+        "disabled"?: boolean;
+        "required"?: boolean;
     }
     interface SbbClock {
         /**
