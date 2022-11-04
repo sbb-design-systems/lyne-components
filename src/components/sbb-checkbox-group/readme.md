@@ -15,9 +15,10 @@
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                                                              |
+| ----------- | ------------------------------------------------------------------------ |
+| `"error"`   | Slot use to render the <sbb-form-error> inside the <sbb-checkbox-group>. |
+| `"unnamed"` | Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.  |
 
 
 ----------------------------------------------

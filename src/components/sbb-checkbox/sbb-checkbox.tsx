@@ -136,7 +136,7 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
               )}
             </span>
           </span>
-          <span class='sbb-checkbox__label'>
+          <span class="sbb-checkbox__label">
             <slot />
             {(this.iconName || this._namedSlots.icon) && (
               <span class="sbb-checkbox__label--icon">

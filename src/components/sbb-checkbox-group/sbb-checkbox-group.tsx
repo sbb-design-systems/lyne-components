@@ -1,11 +1,15 @@
 import { Component, Element, h, Host, JSX, Prop, State } from '@stencil/core';
-import { createNamedSlotState, queryAndObserveNamedSlotState } from '../../global/helpers/observe-named-slot-changes';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceCheckboxAttributes } from '../sbb-checkbox/sbb-checkbox.custom';
 
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
+ * @slot error - Slot use to render the <sbb-form-error> inside the <sbb-checkbox-group>.
  */
 
 @Component({
@@ -17,9 +21,9 @@ export class SbbCheckboxGroup {
   /**
    * Id of the checkbox group element.
    */
-   @Prop() public sbbCheckboxGroupId = `sbb-checkbox-group-${++nextId}`;
+  @Prop() public sbbCheckboxGroupId = `sbb-checkbox-group-${++nextId}`;
 
-   /**
+  /**
    * Id of the checkbox group element - default name will be auto-generated.
    */
   @Prop() public name?: string = `${this.sbbCheckboxGroupId}-name`;
@@ -27,12 +31,12 @@ export class SbbCheckboxGroup {
   /**
    * Whether the checkbox group is disabled.
    */
-   @Prop({ reflect: true }) public disabled = false;
+  @Prop({ reflect: true }) public disabled = false;
 
-   /**
-    * Whether the checkbox group is required.
-    */
-   @Prop({ reflect: true }) public required = false;
+  /**
+   * Whether the checkbox group is required.
+   */
+  @Prop({ reflect: true }) public required = false;
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -42,7 +46,7 @@ export class SbbCheckboxGroup {
   @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
-      this._updateCheckboxs();
+    this._updateCheckboxs();
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
@@ -52,8 +56,8 @@ export class SbbCheckboxGroup {
     for (const checkbox of checkboxs) {
       checkbox.name = this.name;
       checkbox.iconPlacement = checkbox.iconPlacement ?? 'start';
-      checkbox.disabled = checkbox.disabled ? checkbox.disabled : this.disabled;
-      checkbox.required = checkbox.required ? checkbox.required : this.required;
+      checkbox.disabled = checkbox.disabled ?? this.disabled;
+      checkbox.required = checkbox.required ?? this.required;
     }
   }
 
@@ -66,7 +70,7 @@ export class SbbCheckboxGroup {
   public render(): JSX.Element {
     return (
       <Host role="checkboxgroup" aria-label={this.name}>
-        <div class='sbb-checkbox-group'>
+        <div class="sbb-checkbox-group">
           <slot />
         </div>
         {this._namedSlots.error && (

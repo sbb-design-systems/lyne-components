@@ -71,6 +71,20 @@ checkboxGroup.documentation = {
   title: 'sbb-checkbox-group',
 };
 
+export const checkboxGroupDisabled = DefaultTemplate.bind({});
+checkboxGroupDisabled.argTypes = basicArgTypes;
+checkboxGroupDisabled.args = { ...basicArgs, disabled: true };
+checkboxGroupDisabled.documentation = {
+  title: 'sbb-checkbox-group disabled',
+};
+
+export const checkboxGroupRequired = DefaultTemplate.bind({});
+checkboxGroupRequired.argTypes = basicArgTypes;
+checkboxGroupRequired.args = { ...basicArgs, required: true };
+checkboxGroupRequired.documentation = {
+  title: 'sbb-checkbox-group required',
+};
+
 export const checkboxGroupWithSbbFormError = ErrorMessageTemplate.bind({});
 checkboxGroupWithSbbFormError.argTypes = basicArgTypes;
 checkboxGroupWithSbbFormError.args = { ...basicArgs, required: true };
