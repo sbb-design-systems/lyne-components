@@ -88,19 +88,9 @@ export class SbbDialog implements AccessibilityProperties {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
-   * Whether the dialog is opened.
+   * The state of the dialog.
    */
-  @State() private _opened = false;
-
-  /**
-   * Whether the dialog is opening.
-   */
-  @State() private _isOpening = false;
-
-  /**
-   * Whether the dialog is closing.
-   */
-  @State() private _isClosing = false;
+  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
   /**
    * Whether the dialog content has a visible scrollbar.
@@ -187,13 +177,13 @@ export class SbbDialog implements AccessibilityProperties {
    */
   @Method()
   public async open(event?: PointerEvent): Promise<void> {
-    if (this._isClosing || !this._dialog) {
+    if (this._state === 'closing' || !this._dialog) {
       return;
     }
 
     this._openedByKeyboard = event?.detail === 0;
     this.willOpen.emit();
-    this._isOpening = true;
+    this._state = 'opening';
     this._dialog.show();
     this._overflows = this._hasScrollbar();
     // Disable scrolling for content below the dialog
@@ -205,20 +195,19 @@ export class SbbDialog implements AccessibilityProperties {
    */
   @Method()
   public async close(result?: any): Promise<any> {
-    if (this._isOpening) {
+    if (this._state === 'opening') {
       return;
     }
 
     this._returnValue = result;
     this.willClose.emit(this._returnValue);
-    this._isClosing = true;
-    this._opened = false;
+    this._state = 'closing';
     this._openedByKeyboard = false;
   }
 
   // Closees the dialog on "Esc" key pressed and traps focus within the dialog.
   private _onKeydownEvent(event: KeyboardEvent): void {
-    if (!this._opened) {
+    if (this._state !== 'opened') {
       return;
     }
 
@@ -277,14 +266,12 @@ export class SbbDialog implements AccessibilityProperties {
   // Wait for dialog transition to complete.
   private _onDialogAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
-      this._isOpening = false;
-      this._opened = true;
+      this._state = 'opened';
       this.didOpen.emit();
       this._setDialogFocus();
       this._attachWindowEvents();
     } else if (event.animationName === 'close') {
-      this._isClosing = false;
-      this._opened = false;
+      this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
       this._dialog.close();
       this.didClose.emit(this._returnValue);
@@ -390,9 +377,7 @@ export class SbbDialog implements AccessibilityProperties {
     return (
       <Host
         class={{
-          'sbb-dialog--opened': this._opened,
-          'sbb-dialog--opening': this._isOpening,
-          'sbb-dialog--closing': this._isClosing,
+          [`sbb-dialog--${this._state}`]: true,
           'sbb-dialog--full-screen': !this._hasTitle,
           'sbb-dialog--has-scrollbar': this._overflows,
         }}
