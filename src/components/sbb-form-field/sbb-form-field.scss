@@ -5,9 +5,8 @@
 
 :host {
   display: inline-block;
-  max-width: #{px-to-rem-build(300)};
   min-width: #{px-to-rem-build(150)};
-  width: 100%;
+  width: min(#{px-to-rem-build(300)}, 100%);
 
   --form-field-background-color: var(--sbb-color-white-default);
   --form-field-border-color: var(--sbb-color-smoke-default);
