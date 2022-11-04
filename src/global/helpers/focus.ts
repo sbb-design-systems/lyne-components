@@ -14,26 +14,15 @@ export class FocusTrap {
         // Dynamically get first and last focusable element, as this might have changed since opening overlay
         const focusableElements = Array.from(element.querySelectorAll(IS_FOCUSABLE_QUERY));
         const firstFocusable = focusableElements[0] as HTMLElement;
-        const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
+        const lastFocusable = focusableElements.at(-1) as HTMLElement;
 
-        if (event.shiftKey) {
-          // Shift + Tab
-          if (
-            element.shadowRoot.activeElement === firstFocusable ||
-            document.activeElement === firstFocusable
-          ) {
-            lastFocusable.focus();
-            event.preventDefault();
-          }
-        } else {
-          // Tab
-          if (
-            element.shadowRoot.activeElement === lastFocusable ||
-            document.activeElement === lastFocusable
-          ) {
-            firstFocusable.focus();
-            event.preventDefault();
-          }
+        const [pivot, next] = event.shiftKey
+          ? [firstFocusable, lastFocusable]
+          : [lastFocusable, firstFocusable];
+
+        if (element.shadowRoot.activeElement === pivot || document.activeElement === pivot) {
+          next.focus();
+          event.preventDefault();
         }
       },
       { signal: this._controller.signal }

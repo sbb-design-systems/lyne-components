@@ -157,8 +157,6 @@ export class SbbMenu implements ComponentInterface {
       this.dismiss();
       return;
     }
-
-    this._focusTrap.trap(this._element);
   }
 
   // Removes trigger click listener on trigger change.
@@ -269,6 +267,7 @@ export class SbbMenu implements ComponentInterface {
       this._presented = true;
       this.didPresent.emit();
       this._setDialogFocus();
+      this._focusTrap.trap(this._element);
       this._attachWindowEvents();
     } else if (event.animationName === 'hide') {
       this._isDismissing = false;
@@ -277,6 +276,7 @@ export class SbbMenu implements ComponentInterface {
       this._dialog.close();
       this.didDismiss.emit();
       this._windowEventsController?.abort();
+      this._focusTrap.disconnect();
     }
   }
 
