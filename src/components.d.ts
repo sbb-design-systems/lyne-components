@@ -533,7 +533,7 @@ export namespace Components {
          */
         "titleId": string;
         /**
-          * This level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
+          * This level corresponds to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
         "titleLevel": InterfaceDialogAttributes['level'];
     }
@@ -2453,7 +2453,7 @@ declare namespace LocalJSX {
          */
         "titleId"?: string;
         /**
-          * This level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
+          * This level corresponds to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
         "titleLevel"?: InterfaceDialogAttributes['level'];
     }
