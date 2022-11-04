@@ -52,7 +52,7 @@ export class SbbDialog implements AccessibilityProperties {
   @Prop() public titleContent: string;
 
   /**
-   * This level will correspond to the heading tag generated in the title.
+   * This level corresponds to the heading tag generated in the title.
    * Use this property to generate the appropriate header tag, taking SEO into consideration.
    */
   @Prop() public titleLevel: InterfaceDialogAttributes['level'] = '1';
@@ -196,6 +196,7 @@ export class SbbDialog implements AccessibilityProperties {
     this._isPresenting = true;
     this._dialog.show();
     this._overflows = this._hasScrollbar();
+    // Disable scrolling for content below the dialog
     document.body.style.overflow = 'hidden';
   }
 
@@ -288,6 +289,7 @@ export class SbbDialog implements AccessibilityProperties {
       this._dialog.close();
       this.didDismiss.emit(this._returnValue);
       this._windowEventsController?.abort();
+      // Enable scrolling for content below the dialog
       document.body.style.overflow = 'auto';
     }
   }

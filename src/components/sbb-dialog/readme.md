@@ -1,11 +1,11 @@
 # sbb-dialog
-The dialog component provides a way to present content above the app's content and can be used in several contexts. The dialog offers the following features:
+The dialog component provides a way to present content on top of the app's content and can be used in several contexts. The dialog offers the following features:
 
 - creates a backdrop, for disabling interaction below the modal;
 - disables scrolling of the page content while open;
 - manages focus properly by setting it on the first focusable element;
 - can have a header and a footer, both of which are optional;
-- can host an `action-group` component in the footer;
+- can host an `sbb-action-group` component in the footer;
 - has a close button, which is always visible;
 - can display a back button next to the title;
 - adds the appropriate ARIA roles automatically.
