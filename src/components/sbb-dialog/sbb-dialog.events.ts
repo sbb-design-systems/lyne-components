@@ -4,8 +4,8 @@
  */
 export default {
   backClick: 'sbb-dialog_request-back-action',
-  didDismiss: 'sbb-dialog_did-dismiss',
-  didPresent: 'sbb-dialog_did-present',
-  willDismiss: 'sbb-dialog_will-dismiss',
-  willPresent: 'sbb-dialog_will-present',
+  didClose: 'sbb-dialog_did-close',
+  didOpen: 'sbb-dialog_did-open',
+  willClose: 'sbb-dialog_will-close',
+  willOpen: 'sbb-dialog_will-open',
 };

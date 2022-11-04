@@ -60,7 +60,7 @@
 }
 
 // stylelint-disable plugin/stylelint-bem-namics
-:host(:is(.sbb-dialog--presented, .sbb-dialog--presenting)) {
+:host(:is(.sbb-dialog--opened, .sbb-dialog--opening)) {
   pointer-events: all;
 
   @include mq($from: medium) {
@@ -127,7 +127,7 @@
     }
   }
 
-  :host(.sbb-dialog--dismissing) & {
+  :host(.sbb-dialog--closing) & {
     pointer-events: none;
     animation-name: close;
   }

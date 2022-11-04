@@ -78,18 +78,18 @@ The ARIA attributes `aria-labelledby` an `aria-describedby` can be set to improv
 
 ## Events
 
-| Event                            | Description                                                 | Type                |
-| -------------------------------- | ----------------------------------------------------------- | ------------------- |
-| `sbb-dialog_did-dismiss`         | Emits whenever the dialog is closed.                        | `CustomEvent<any>`  |
-| `sbb-dialog_did-present`         | Emits whenever the dialog is presented.                     | `CustomEvent<void>` |
-| `sbb-dialog_request-back-action` | Emits whenever the back button is clicked.                  | `CustomEvent<void>` |
-| `sbb-dialog_will-dismiss`        | Emits whenever the dialog begins the closing transition.    | `CustomEvent<any>`  |
-| `sbb-dialog_will-present`        | Emits whenever the dialog starts the presenting transition. | `CustomEvent<void>` |
+| Event                            | Description                                              | Type                |
+| -------------------------------- | -------------------------------------------------------- | ------------------- |
+| `sbb-dialog_did-close`           | Emits whenever the dialog is closed.                     | `CustomEvent<any>`  |
+| `sbb-dialog_did-open`            | Emits whenever the dialog is opened.                     | `CustomEvent<void>` |
+| `sbb-dialog_request-back-action` | Emits whenever the back button is clicked.               | `CustomEvent<void>` |
+| `sbb-dialog_will-close`          | Emits whenever the dialog begins the closing transition. | `CustomEvent<any>`  |
+| `sbb-dialog_will-open`           | Emits whenever the dialog starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Methods
 
-### `dismiss(result?: any) => Promise<any>`
+### `close(result?: any) => Promise<any>`
 
 Closes the dialog element.
 
@@ -99,7 +99,7 @@ Type: `Promise<any>`
 
 
 
-### `present(event?: PointerEvent) => Promise<void>`
+### `open(event?: PointerEvent) => Promise<void>`
 
 Opens the dialog element.
 

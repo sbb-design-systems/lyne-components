@@ -501,6 +501,10 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
+          * Closes the dialog element.
+         */
+        "close": (result?: any) => Promise<any>;
+        /**
           * This id will be forwarded to the relevant inner element.
          */
         "dialogId": string;
@@ -509,17 +513,13 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
-          * Closes the dialog element.
-         */
-        "dismiss": (result?: any) => Promise<any>;
-        /**
           * Negative coloring variant flag.
          */
         "negative": boolean;
         /**
           * Opens the dialog element.
          */
-        "present": (event?: PointerEvent) => Promise<void>;
+        "open": (event?: PointerEvent) => Promise<void>;
         /**
           * Whether a back button is displayed next to the title.
          */
@@ -2423,11 +2423,11 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the dialog is closed.
          */
-        "onSbb-dialog_did-dismiss"?: (event: SbbDialogCustomEvent<any>) => void;
+        "onSbb-dialog_did-close"?: (event: SbbDialogCustomEvent<any>) => void;
         /**
-          * Emits whenever the dialog is presented.
+          * Emits whenever the dialog is opened.
          */
-        "onSbb-dialog_did-present"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onSbb-dialog_did-open"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Emits whenever the back button is clicked.
          */
@@ -2435,11 +2435,11 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the dialog begins the closing transition.
          */
-        "onSbb-dialog_will-dismiss"?: (event: SbbDialogCustomEvent<any>) => void;
+        "onSbb-dialog_will-close"?: (event: SbbDialogCustomEvent<any>) => void;
         /**
-          * Emits whenever the dialog starts the presenting transition.
+          * Emits whenever the dialog starts the opening transition.
          */
-        "onSbb-dialog_will-present"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onSbb-dialog_will-open"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Whether a back button is displayed next to the title.
          */

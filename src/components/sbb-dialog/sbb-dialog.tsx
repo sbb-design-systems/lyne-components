@@ -88,19 +88,19 @@ export class SbbDialog implements AccessibilityProperties {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
-   * Whether the dialog is presented.
+   * Whether the dialog is opened.
    */
-  @State() private _presented = false;
+  @State() private _opened = false;
 
   /**
-   * Whether the dialog is presenting.
+   * Whether the dialog is opening.
    */
-  @State() private _isPresenting = false;
+  @State() private _isOpening = false;
 
   /**
    * Whether the dialog is closing.
    */
-  @State() private _isDismissing = false;
+  @State() private _isClosing = false;
 
   /**
    * Whether the dialog content has a visible scrollbar.
@@ -113,24 +113,24 @@ export class SbbDialog implements AccessibilityProperties {
   @State() private _namedSlots = createNamedSlotState('title', 'action-group');
 
   /**
-   * Emits whenever the dialog starts the presenting transition.
+   * Emits whenever the dialog starts the opening transition.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_will-present',
+    eventName: 'sbb-dialog_will-open',
   })
-  public willPresent: EventEmitter<void>;
+  public willOpen: EventEmitter<void>;
 
   /**
-   * Emits whenever the dialog is presented.
+   * Emits whenever the dialog is opened.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_did-present',
+    eventName: 'sbb-dialog_did-open',
   })
-  public didPresent: EventEmitter<void>;
+  public didOpen: EventEmitter<void>;
 
   /**
    * Emits whenever the dialog begins the closing transition.
@@ -138,9 +138,9 @@ export class SbbDialog implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_will-dismiss',
+    eventName: 'sbb-dialog_will-close',
   })
-  public willDismiss: EventEmitter<any>;
+  public willClose: EventEmitter<any>;
 
   /**
    * Emits whenever the dialog is closed.
@@ -148,9 +148,9 @@ export class SbbDialog implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_did-dismiss',
+    eventName: 'sbb-dialog_did-close',
   })
-  public didDismiss: EventEmitter<any>;
+  public didClose: EventEmitter<any>;
 
   /**
    * Emits whenever the back button is clicked.
@@ -186,14 +186,14 @@ export class SbbDialog implements AccessibilityProperties {
    * Opens the dialog element.
    */
   @Method()
-  public async present(event?: PointerEvent): Promise<void> {
-    if (this._isDismissing || !this._dialog) {
+  public async open(event?: PointerEvent): Promise<void> {
+    if (this._isClosing || !this._dialog) {
       return;
     }
 
     this._openedByKeyboard = event?.detail === 0;
-    this.willPresent.emit();
-    this._isPresenting = true;
+    this.willOpen.emit();
+    this._isOpening = true;
     this._dialog.show();
     this._overflows = this._hasScrollbar();
     // Disable scrolling for content below the dialog
@@ -204,26 +204,26 @@ export class SbbDialog implements AccessibilityProperties {
    * Closes the dialog element.
    */
   @Method()
-  public async dismiss(result?: any): Promise<any> {
-    if (this._isPresenting) {
+  public async close(result?: any): Promise<any> {
+    if (this._isOpening) {
       return;
     }
 
     this._returnValue = result;
-    this.willDismiss.emit(this._returnValue);
-    this._isDismissing = true;
-    this._presented = false;
+    this.willClose.emit(this._returnValue);
+    this._isClosing = true;
+    this._opened = false;
     this._openedByKeyboard = false;
   }
 
-  // Dismisses the dialog on "Esc" key pressed and traps focus within the dialog.
+  // Closees the dialog on "Esc" key pressed and traps focus within the dialog.
   private _onKeydownEvent(event: KeyboardEvent): void {
-    if (!this._presented) {
+    if (!this._opened) {
       return;
     }
 
     if (event.key === 'Escape') {
-      this.dismiss();
+      this.close();
       return;
     }
 
@@ -237,11 +237,11 @@ export class SbbDialog implements AccessibilityProperties {
     this._hasTitle = !!this.titleContent || this._namedSlots['title'];
     this._hasActionGroup = this._namedSlots['action-group'] && this._hasTitle;
 
-    // Dismiss dialog on backdrop click
+    // Close dialog on backdrop click
     this._element.addEventListener('pointerdown', this._pointerDownListener, {
       signal: this._dialogController.signal,
     });
-    this._element.addEventListener('pointerup', this._dismissOnBackdropClick, {
+    this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
       signal: this._dialogController.signal,
     });
   }
@@ -268,26 +268,26 @@ export class SbbDialog implements AccessibilityProperties {
   };
 
   // Close dialog on backdrop click.
-  private _dismissOnBackdropClick = (event: PointerEvent): void => {
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._dialog, event)) {
-      this.dismiss();
+      this.close();
     }
   };
 
   // Wait for dialog transition to complete.
   private _onDialogAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
-      this._isPresenting = false;
-      this._presented = true;
-      this.didPresent.emit();
+      this._isOpening = false;
+      this._opened = true;
+      this.didOpen.emit();
       this._setDialogFocus();
       this._attachWindowEvents();
     } else if (event.animationName === 'close') {
-      this._isDismissing = false;
-      this._presented = false;
+      this._isClosing = false;
+      this._opened = false;
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
       this._dialog.close();
-      this.didDismiss.emit(this._returnValue);
+      this.didClose.emit(this._returnValue);
       this._windowEventsController?.abort();
       // Enable scrolling for content below the dialog
       document.body.style.overflow = 'auto';
@@ -338,7 +338,7 @@ export class SbbDialog implements AccessibilityProperties {
   public render(): JSX.Element {
     const closeButton = (
       <sbb-button
-        class="sbb-dialog__dismiss"
+        class="sbb-dialog__close"
         accessibility-label="Close"
         accessibility-controls={this.dialogId}
         variant={this.negative ? 'transparent' : 'secondary'}
@@ -346,7 +346,7 @@ export class SbbDialog implements AccessibilityProperties {
         size="m"
         type="button"
         icon-name="cross-small"
-        onClick={() => this.dismiss()}
+        onClick={() => this.close()}
       ></sbb-button>
     );
 
@@ -390,9 +390,9 @@ export class SbbDialog implements AccessibilityProperties {
     return (
       <Host
         class={{
-          'sbb-dialog--presented': this._presented,
-          'sbb-dialog--presenting': this._isPresenting,
-          'sbb-dialog--dismissing': this._isDismissing,
+          'sbb-dialog--opened': this._opened,
+          'sbb-dialog--opening': this._isOpening,
+          'sbb-dialog--closing': this._isClosing,
           'sbb-dialog--full-screen': !this._hasTitle,
           'sbb-dialog--has-scrollbar': this._overflows,
         }}

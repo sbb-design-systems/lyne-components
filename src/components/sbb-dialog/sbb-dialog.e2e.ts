@@ -21,7 +21,7 @@ describe('sbb-dialog', () => {
   it('opens the dialog', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
 
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -30,12 +30,12 @@ describe('sbb-dialog', () => {
   it('closes the dialog', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
 
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
 
-    await element.callMethod('dismiss');
+    await element.callMethod('close');
     await page.waitForChanges();
 
     expect(dialog).not.toHaveAttribute('open');
@@ -43,9 +43,9 @@ describe('sbb-dialog', () => {
 
   it('closes the dialog on close button click', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
-    const closeButton = await page.find('sbb-dialog >>> .sbb-dialog__dismiss');
+    const closeButton = await page.find('sbb-dialog >>> .sbb-dialog__close');
 
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -59,7 +59,7 @@ describe('sbb-dialog', () => {
   it('closes the dialog on Esc key press', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
 
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -73,7 +73,7 @@ describe('sbb-dialog', () => {
   it('does not have full-screen class', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
 
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -93,7 +93,7 @@ describe('sbb-dialog', () => {
     element = await page.find('sbb-dialog');
 
     const dialog = await page.find('sbb-dialog >>> dialog');
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');

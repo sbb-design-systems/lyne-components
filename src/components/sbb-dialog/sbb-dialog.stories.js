@@ -103,16 +103,16 @@ const basicArgs = {
 
 const openDialog = (event, id) => {
   const dialog = document.getElementById(id);
-  dialog.present(event);
+  dialog.open(event);
 };
 
 const closeDialog = (id, returnValue) => {
   const dialog = document.getElementById(id);
-  dialog.dismiss(returnValue);
+  dialog.close(returnValue);
 };
 
 const onFormDialogClose = (dialog) => {
-  dialog.addEventListener('sbb-dialog_will-dismiss', (event) => {
+  dialog.addEventListener('sbb-dialog_will-close', (event) => {
     if (event.detail) {
       document.getElementById(
         'returned-value-message'
@@ -254,7 +254,7 @@ const FormTemplate = (args) => [
   >
     <div style={'margin-bottom: var(--sbb-spacing-fixed-4x)'}>
       Submit the form below to close the dialog box using the
-      <code style={codeStyle}>dismiss(result?: any)</code>
+      <code style={codeStyle}>close(result?: any)</code>
       method and returning the form values to update the details.
     </div>
     <form
@@ -381,10 +381,10 @@ export default {
   parameters: {
     actions: {
       handles: [
-        events.willPresent,
+        events.willOpen,
         events.didPresent,
-        events.willDismiss,
-        events.didDismiss,
+        events.willClose,
+        events.didClose,
         events.backClick,
       ],
     },
