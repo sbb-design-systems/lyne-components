@@ -1011,7 +1011,7 @@ export namespace Components {
     }
     interface SbbPearlChainVerticalItem {
         /**
-          * if true the position won't be animated
+          * If true the position won't be animated.
          */
         "disableAnimation"?: boolean;
         /**
@@ -2888,7 +2888,7 @@ declare namespace LocalJSX {
     }
     interface SbbPearlChainVerticalItem {
         /**
-          * if true the position won't be animated
+          * If true the position won't be animated.
          */
         "disableAnimation"?: boolean;
         /**

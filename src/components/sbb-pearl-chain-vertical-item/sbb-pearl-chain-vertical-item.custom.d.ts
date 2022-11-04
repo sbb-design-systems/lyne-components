@@ -9,7 +9,7 @@ export type DotSize = 'small' | 'medium' | 'large';
 export interface PearlChainItemAttributes {
   lineType: LineType;
   lineColor: Color;
-  dotType: DotType;
+  dotType?: DotType;
   dotColor: Color;
   minHeight: number;
   hideLine: boolean;

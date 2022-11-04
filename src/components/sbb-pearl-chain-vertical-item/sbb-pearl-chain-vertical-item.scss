@@ -5,8 +5,8 @@
   border-color: var(--sbb-color-white-default);
   position: relative;
   z-index: 2;
-  height: var(--sbb-dot-size);
-  width: var(--sbb-dot-size);
+  height: var(--sbb-pearl-chain-vertical-item-dot-size);
+  width: var(--sbb-pearl-chain-vertical-item-dot-size);
 }
 
 @mixin dot--transfer {
@@ -24,100 +24,106 @@
 
 :host {
   display: table-row;
+  position: relative;
 
-  --sbb-dot-size-ultra: var(--sbb-spacing-fixed-3x);
-  --sbb-dot-size-large: #{px-to-rem-build(10)};
-  --sbb-dot-size-medium: var(--sbb-spacing-fixed-2x);
-  --sbb-dot-size-small: #{px-to-rem-build(7)};
-  --sbb-dot-size-extra-small: #{px-to-rem-build(6)};
-  --sbb-dot-size: var(--sbb-dot-size-small);
-  --sbb-bullet-border-width: var(--sbb-border-width-2x);
-  --sbb-border-width: var(--sbb-border-width-2x);
-  --sbb-border-width-thin: var(--sbb-border-width-1x);
-  --sbb-spacing-small: var(--sbb-spacing-fixed-1x);
-  --sbb-spacing-medium: var(--sbb-spacing-fixed-4x);
-  --sbb-color-white: var(--sbb-color-white-default);
-  --sbb-color-default: var(--sbb-color-charcoal-default);
-  --sbb-color-current-location: var(--sbb-color-red-default);
-  --sbb-color-current-location-dark: var(--sbb-color-red150-default);
-  --sbb-color-cancellation: var(--sbb-color-red-default);
-  --sbb-color-past: var(--sbb-color-metal-default);
-  --sbb-color-sky: #0079c7;
+  --sbb-pearl-chain-vertical-item-dot-size-ultra: var(--sbb-spacing-fixed-3x);
+  --sbb-pearl-chain-vertical-item-dot-size-large: #{px-to-rem-build(10)};
+  --sbb-pearl-chain-vertical-item-dot-size-medium: var(--sbb-spacing-fixed-2x);
+  --sbb-pearl-chain-vertical-item-dot-size-small: #{px-to-rem-build(7)};
+  --sbb-pearl-chain-vertical-item-dot-size-extra-small: #{px-to-rem-build(6)};
+  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-small);
+  --sbb-pearl-chain-vertical-item-bullet-border-width: var(--sbb-border-width-2x);
+  --sbb-pearl-chain-vertical-item-border-width: var(--sbb-border-width-2x);
+  --sbb-pearl-chain-vertical-item-border-width-thin: var(--sbb-border-width-1x);
+  --sbb-pearl-chain-vertical-item-spacing-small: var(--sbb-spacing-fixed-1x);
+  --sbb-pearl-chain-vertical-item-spacing-medium: var(--sbb-spacing-fixed-4x);
+  --sbb-pearl-chain-vertical-item-color-white: var(--sbb-color-white-default);
+  --sbb-pearl-chain-vertical-item-color-default: var(--sbb-color-charcoal-default);
+  --sbb-pearl-chain-vertical-item-color-red: var(--sbb-color-red-default);
+  --sbb-pearl-chain-vertical-item-color-red-dark: var(--sbb-color-red150-default);
+  --sbb-pearl-chain-vertical-item-color-metal: var(--sbb-color-metal-default);
+  --sbb-pearl-chain-vertical-item-color-sky: #0079c7;
+  --sbb-pearl-chain-vertical-item-inline-start: 50%;
+  --sbb-pearl-chain-vertical-item-transform: translateX(-50%);
 }
 
-.sbb-position__dot--disable-animation {
+.sbb-pearl-chain-vertical-item-position__dot--disable-animation {
   animation: unset !important;
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--small {
-  --sbb-dot-size: var(--sbb-dot-size-small);
+  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-small);
 
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--medium {
-  --sbb-dot-size: var(--sbb-dot-size-medium);
+  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-medium);
 
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--large {
-  --sbb-dot-size: var(--sbb-dot-size-large);
+  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-large);
 
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--ultra {
-  --sbb-dot-size: var(--sbb-dot-size-ultra);
+  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-ultra);
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--extra-small {
-  margin-inline-start: calc(var(--sbb-dot-size-extra-small) / 2 - var(--sbb-bullet-border-width));
-  inset-block-start: calc(var(--sbb-dot-size-extra-small) / 2 - var(--sbb-bullet-border-width));
+  margin-inline-start: calc(
+    var(--sbb-pearl-chain-vertical-item-dot-size-extra-small) / 2 -
+      var(--sbb-pearl-chain-vertical-item-bullet-border-width)
+  );
+  inset-block-start: calc(
+    var(--sbb-pearl-chain-vertical-item-dot-size-extra-small) / 2 -
+      var(--sbb-pearl-chain-vertical-item-bullet-border-width)
+  );
 
-  --sbb-dot-size: var(--sbb-dot-size-extra-small);
-}
-
-.sbb-pearl-chain-vertical-item {
-  position: relative;
+  --sbb-pearl-chain-vertical-item-dot-size: var(
+    --sbb-pearl-chain-vertical-item-dot-size-extra-small
+  );
 }
 
 .sbb-pearl-chain-vertical-item__line {
   position: absolute;
   bottom: 0;
   flex: 1 1 0%;
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
   width: var(--sbb-border-width-2x);
-  inset-block-start: var(--sbb-dot-size);
+  inset-block-start: var(--sbb-pearl-chain-vertical-item-dot-size);
 
   &::after {
     content: '';
     position: absolute;
     inset-inline-start: 0;
     inset-block-start: 0;
-    height: var(--sbb-leg-status);
-    width: var(--sbb-border-width);
-    background-color: var(--sbb-color-past);
+    height: var(--sbb-pearl-chain-vertical-item-leg-status);
+    width: var(--sbb-pearl-chain-vertical-item-border-width);
+    background-color: var(--sbb-pearl-chain-vertical-item-color-metal);
   }
 }
 
-.sbb-position__dot {
+.sbb-pearl-chain-vertical-item-position__dot {
   @include dot;
 
-  --sbb-dot-size: var(--sbb-dot-size-large);
+  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-large);
 
-  inset-block-start: var(--sbb-position);
+  inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
   position: absolute;
   animation: pulse 2800ms var(--sbb-animation-easing) infinite;
-  border: var(--sbb-border-width) currentcolor;
-  border-color: var(--sbb-color-cancellation);
-  background-color: var(--sbb-color-cancellation);
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
+  border: var(--sbb-pearl-chain-vertical-item-border-width) currentcolor;
+  border-color: var(--sbb-pearl-chain-vertical-item-color-red);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-red);
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
 }
 
 .sbb-pearl-chain-vertical-item__line--dotted {
@@ -127,60 +133,63 @@
     to bottom,
     currentcolor 0%,
     currentcolor 50%,
-    var(--sbb-color-white) 50%
+    var(--sbb-pearl-chain-vertical-item-color-white) 50%
   );
   background-repeat: repeat-y;
-  background-size: calc(2 * var(--sbb-spacing-small)) var(--sbb-spacing-small);
+  background-size: calc(2 * var(--sbb-pearl-chain-vertical-item-spacing-small))
+    var(--sbb-pearl-chain-vertical-item-spacing-small);
 }
 
 .sbb-pearl-chain-vertical-item__line--thin {
-  width: var(--sbb-border-width-thin);
+  width: var(--sbb-pearl-chain-vertical-item-border-width-thin);
 }
 
 .sbb-pearl-chain-vertical-item__dot--standard {
   @include dot;
 
-  border: var(--sbb-border-width) currentcolor;
+  border: var(--sbb-pearl-chain-vertical-item-border-width) currentcolor;
 }
 
 .sbb-pearl-chain-vertical-item__dot--thick-bullet {
   @include dot--transfer;
 
-  border: var(--sbb-bullet-border-width) solid currentcolor;
-  background-color: var(--sbb-color-white) !important;
+  border: var(--sbb-pearl-chain-vertical-item-bullet-border-width) solid currentcolor;
+  background-color: var(--sbb-pearl-chain-vertical-item-color-white) !important;
 }
 
 .sbb-pearl-chain-vertical-item__dot--thin-bullet {
   @include dot--transfer;
 
-  --sbb-bullet-border-width: var(--sbb-border-width-thin);
+  --sbb-pearl-chain-vertical-item-bullet-border-width: var(
+    --sbb-pearl-chain-vertical-item-border-width-thin
+  );
 
-  border: var(--sbb-bullet-border-width) solid currentcolor;
-  background-color: var(--sbb-color-white) !important;
+  border: var(--sbb-pearl-chain-vertical-item-bullet-border-width) solid currentcolor;
+  background-color: var(--sbb-pearl-chain-vertical-item-color-white) !important;
 }
 
 .sbb-color--charcoal {
-  background-color: var(--sbb-color-default);
-  border-color: var(--sbb-color-default);
-  color: var(--sbb-color-default);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-default);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-default);
+  color: var(--sbb-pearl-chain-vertical-item-color-default);
 }
 
 .sbb-color--red {
-  border-color: var(--sbb-color-cancellation);
-  background-color: var(--sbb-color-cancellation);
-  color: var(--sbb-color-cancellation);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-red);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-red);
+  color: var(--sbb-pearl-chain-vertical-item-color-red);
 }
 
 .sbb-color--metal {
-  border-color: var(--sbb-color-past);
-  background-color: var(--sbb-color-past);
-  color: var(--sbb-color-past);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-metal);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-metal);
+  color: var(--sbb-pearl-chain-vertical-item-color-metal);
 }
 
 .sbb-color--sky {
-  border-color: var(--sbb-color-sky);
-  background-color: var(--sbb-color-sky);
-  color: var(--sbb-color-sky);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-sky);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-sky);
+  color: var(--sbb-pearl-chain-vertical-item-color-sky);
 }
 
 .sbb-pearl-chain-vertical-item__column {

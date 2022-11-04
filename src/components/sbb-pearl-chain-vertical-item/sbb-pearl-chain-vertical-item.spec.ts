@@ -23,13 +23,13 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item class="sbb-pearl-chain-vertical-item" pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column">
-        <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--standard" style="--sbb-leg-status: 0%;"></div>
+        <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>       
         <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--standard sbb-pearl-chain-vertical-item__dot-size--medium"></div>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column">
@@ -61,13 +61,13 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item class="sbb-pearl-chain-vertical-item" pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column">
-        <div class="sbb-color--red sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--standard" style="--sbb-leg-status: 0%;"></div>
+        <div class="sbb-color--red sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>
         <div class="sbb-color--red sbb-pearl-chain-vertical-item__dot--standard sbb-pearl-chain-vertical-item__dot-size--medium"></div>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column">
@@ -99,22 +99,22 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item class="sbb-pearl-chain-vertical-item" pearlchainitemattributes="">
-      <mock:shadow-root>
-        <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
-          <slot name="left"></slot>
-        </div>
-        <div class="sbb-pearl-chain-vertical-item__column">
-          <div class="sbb-color--metal sbb-pearl-chain-vertical-item__dot--standard sbb-pearl-chain-vertical-item__dot-size--medium"></div>
-        </div>
-        <div class="sbb-pearl-chain-vertical-item__column">
-          <slot name="right"></slot>
-        </div>
-      </mock:shadow-root>
-      <div slot="left">
-        content
+    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <mock:shadow-root>
+      <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
+        <slot name="left"></slot>
       </div>
-    </sbb-pearl-chain-vertical-item>
+      <div class="sbb-pearl-chain-vertical-item__column">
+        <div class="sbb-color--metal sbb-pearl-chain-vertical-item__dot--standard sbb-pearl-chain-vertical-item__dot-size--medium"></div>
+      </div>
+      <div class="sbb-pearl-chain-vertical-item__column">
+        <slot name="right"></slot>
+      </div>
+    </mock:shadow-root>
+    <div slot="left">
+      content
+    </div>
+  </sbb-pearl-chain-vertical-item>
     `);
   });
 
@@ -139,22 +139,22 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item class="sbb-pearl-chain-vertical-item" pearlchainitemattributes="">
-      <mock:shadow-root>
-        <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
-          <slot name="left"></slot>
-        </div>
-        <div class="sbb-pearl-chain-vertical-item__column">
-          <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thick-bullet sbb-pearl-chain-vertical-item__dot-size--small"></div>
-        </div>
-        <div class="sbb-pearl-chain-vertical-item__column">
-          <slot name="right"></slot>
-        </div>
-      </mock:shadow-root>
-      <div slot="right">
-        right content
+    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <mock:shadow-root>
+      <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
+        <slot name="left"></slot>
       </div>
-    </sbb-pearl-chain-vertical-item>
+      <div class="sbb-pearl-chain-vertical-item__column">
+        <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thick-bullet sbb-pearl-chain-vertical-item__dot-size--small"></div>
+      </div>
+      <div class="sbb-pearl-chain-vertical-item__column">
+        <slot name="right"></slot>
+      </div>
+    </mock:shadow-root>
+    <div slot="right">
+      right content
+    </div>
+  </sbb-pearl-chain-vertical-item>
     `);
   });
 
@@ -180,26 +180,25 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item class="sbb-pearl-chain-vertical-item" pearlchainitemattributes="">
-      <mock:shadow-root>
-        <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
-          <slot name="left"></slot>
-        </div>
-        <div class="sbb-pearl-chain-vertical-item__column">
-          <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thick-bullet sbb-pearl-chain-vertical-item__dot-size--medium"></div>
-        </div>
-        <div class="sbb-pearl-chain-vertical-item__column">
-          <slot name="right"></slot>
-        </div>
-      </mock:shadow-root>
-      <div slot="right">
-        right content
+    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <mock:shadow-root>
+      <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
+        <slot name="left"></slot>
       </div>
-      <div slot="left">
-        left content
+      <div class="sbb-pearl-chain-vertical-item__column">
+        <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thick-bullet sbb-pearl-chain-vertical-item__dot-size--medium"></div>
       </div>
-    </sbb-pearl-chain-vertical-item>
-
+      <div class="sbb-pearl-chain-vertical-item__column">
+        <slot name="right"></slot>
+      </div>
+    </mock:shadow-root>
+    <div slot="right">
+      right content
+    </div>
+    <div slot="left">
+      left content
+    </div>
+  </sbb-pearl-chain-vertical-item>
     `);
   });
 
@@ -227,7 +226,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     await page.waitForChanges();
 
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item class="sbb-pearl-chain-vertical-item" pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
@@ -236,7 +235,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
         <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thin-bullet sbb-pearl-chain-vertical-item__dot-size--ultra">
           <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thin-bullet sbb-pearl-chain-vertical-item__dot-size--extra-small"></div>
         </div>
-        <div class="sbb-position__dot" style="--sbb-position: 50%;"></div>
+        <div class="sbb-pearl-chain-vertical-item-position__dot" style="--sbb-pearl-chain-vertical-item-position: 50%;"></div>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column">
         <slot name="right"></slot>

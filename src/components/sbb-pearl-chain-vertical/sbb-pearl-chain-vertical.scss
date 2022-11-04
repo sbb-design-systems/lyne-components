@@ -1,6 +1,4 @@
-:host {
-  border-spacing: 0;
-}
+@include host-component-properties;
 
 .sbb-pearl-chain-vertical {
   display: table;

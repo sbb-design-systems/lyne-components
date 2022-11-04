@@ -180,8 +180,8 @@ const connectionDetailTemplate = (args) => {
               gap: '100px',
             }}
           >
-            <div> Haltestelle</div>
-            <div>Gleis 12</div>
+            <div>Station</div>
+            <div> Pl. 12</div>
           </div>
           <div style={{ paddingBottom: '5px', paddingTop: '5px' }}>
             <div
@@ -200,7 +200,7 @@ const connectionDetailTemplate = (args) => {
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
-                  gap: '95px',
+                  gap: '68px',
                 }}
               >
                 <sbb-icon role="img" name="ir-27" aria-hidden="true"></sbb-icon>
@@ -237,8 +237,8 @@ const connectionDetailTemplate = (args) => {
             marginInlineStart: '10px',
           }}
         >
-          <div> Haltestelle</div>
-          <div>Gleis 12</div>
+          <div> Station</div>
+          <div> Pl. 12</div>
         </div>
         <div slot="left" style={{ marginTop: '-20px', marginInlineEnd: '10px' }}>
           20:00
@@ -280,8 +280,8 @@ const thirdLevelTemplate = (args) => {
               gap: '100px',
             }}
           >
-            <div> Haltestelle</div>
-            <div>Gleis 12</div>
+            <div> Station</div>
+            <div> Pl. 12</div>
           </div>
           <div style={{ paddingBottom: '5px', paddingTop: '5px' }}>
             <span>
@@ -320,8 +320,8 @@ const thirdLevelTemplate = (args) => {
               gap: '100px',
             }}
           >
-            <div> Haltestelle</div>
-            <div>Gleis 12</div>
+            <div> Station</div>
+            <div> Pl. 12</div>
           </div>
           <div style={{ paddingBottom: '5px', paddingTop: '5px' }}>
             <span>
@@ -361,8 +361,8 @@ const thirdLevelTemplate = (args) => {
               gap: '100px',
             }}
           >
-            <div> Haltestelle</div>
-            <div>Gleis 12</div>
+            <div> Station</div>
+            <div> Pl. 12</div>
           </div>
         </div>
 
@@ -396,8 +396,8 @@ const thirdLevelTemplate = (args) => {
               gap: '100px',
             }}
           >
-            <div> Haltestelle</div>
-            <div>Gleis 12</div>
+            <div> Station</div>
+            <div> Pl. 12</div>
           </div>
         </div>
         <div slot="left" style={{ marginTop: '-10px', marginInlineEnd: '10px' }}>
@@ -493,10 +493,10 @@ const TimetableChange = () => {
             }}
           >
             <div>09:45</div>
-            <div>Gleis 12</div>
+            <div> Pl. 12</div>
           </div>
           <div style={{ paddingBottom: '5px' }}>
-            <span style={{ fontSize: '12px' }}>Fußweg</span>
+            <span style={{ fontSize: '12px' }}>Footpath</span>
           </div>
           <div>
             <div
@@ -523,7 +523,7 @@ const TimetableChange = () => {
               <div style={{ fontSize: '12px' }}>150 m</div>
             </div>
           </div>
-          <span style={{ fontSize: '12px' }}>Abfahrt</span>
+          <span style={{ fontSize: '12px' }}>Departure</span>
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
@@ -554,7 +554,7 @@ const TimetableChange = () => {
             }}
           >
             <div>09:45</div>
-            <div>Gleis 12</div>
+            <div>Pl. 12</div>
           </div>
         </div>
       </sbb-pearl-chain-vertical-item>
@@ -683,5 +683,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/pearl-chains/vertical/sbb-pearl-chain-vertical',
+  title: 'components/timetable/pearl-chains/sbb-pearl-chain-vertical',
 };
