@@ -2,10 +2,19 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-:host {
-  --some-color-var: var(--color-black-default);
+.sbb-checkbox-group {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-6x);
+  width: max-content;
 }
 
-.some-class {
-  color: var(--some-color-var);
+:host([orientation='vertical']) .sbb-checkbox-group {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-checkbox-group__error {
+  display: inline-block;
+  margin-block-start: var(--sbb-spacing-fixed-1x);
 }
