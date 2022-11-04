@@ -276,13 +276,13 @@ export class SbbDialog implements AccessibilityProperties {
 
   // Wait for dialog transition to complete.
   private _onDialogAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'show') {
+    if (event.animationName === 'open') {
       this._isPresenting = false;
       this._presented = true;
       this.didPresent.emit();
       this._setDialogFocus();
       this._attachWindowEvents();
-    } else if (event.animationName === 'hide') {
+    } else if (event.animationName === 'close') {
       this._isDismissing = false;
       this._presented = false;
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);

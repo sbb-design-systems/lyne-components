@@ -4,17 +4,20 @@ import readme from './readme.md';
 import sampleImages from '../../global/images';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
-
-// Function to emulate pausing between interactions
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('dialog').shadowRoot.querySelector('dialog.sbb-dialog')
+  );
+
+  await waitForStablePosition(() => canvas.getByTestId('dialog-trigger'));
+
   const button = canvas.getByTestId('dialog-trigger');
-  await sleep(300);
   await userEvent.click(button);
 };
 
@@ -181,7 +184,7 @@ const formStyle = {
 
 const DefaultTemplate = (args) => [
   triggerButton('my-dialog-1'),
-  <sbb-dialog id="my-dialog-1" {...args}>
+  <sbb-dialog data-testid="dialog" id="my-dialog-1" {...args}>
     <p id="dialog-content-1" style={'margin: 0'}>
       Dialog content
     </p>
@@ -191,7 +194,7 @@ const DefaultTemplate = (args) => [
 
 const SlottedTitleTemplate = (args) => [
   triggerButton('my-dialog-2'),
-  <sbb-dialog id="my-dialog-2" {...args}>
+  <sbb-dialog data-testid="dialog" id="my-dialog-2" {...args}>
     <span slot="title">
       <sbb-icon
         name="book-medium"
@@ -211,7 +214,7 @@ const SlottedTitleTemplate = (args) => [
 
 const LongContentTemplate = (args) => [
   triggerButton('my-dialog-3'),
-  <sbb-dialog id="my-dialog-3" {...args}>
+  <sbb-dialog data-testid="dialog" id="my-dialog-3" {...args}>
     Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
     like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
     Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
@@ -243,7 +246,12 @@ const FormTemplate = (args) => [
       </div>
     </div>
   </div>,
-  <sbb-dialog id="my-dialog-4" {...args} ref={(dialog) => onFormDialogClose(dialog)}>
+  <sbb-dialog
+    data-testid="dialog"
+    id="my-dialog-4"
+    {...args}
+    ref={(dialog) => onFormDialogClose(dialog)}
+  >
     <div style={'margin-bottom: var(--sbb-spacing-fixed-4x)'}>
       Submit the form below to close the dialog box using the
       <code style={codeStyle}>dismiss(result?: any)</code>
@@ -276,7 +284,7 @@ const FormTemplate = (args) => [
 
 const NoFooterTemplate = (args) => [
   triggerButton('my-dialog-5'),
-  <sbb-dialog id="my-dialog-5" {...args}>
+  <sbb-dialog data-testid="dialog" id="my-dialog-5" {...args}>
     <p id="dialog-content-5" style={'margin: 0'}>
       “What really knocks me out is a book that, when you're all done reading it, you wish the
       author that wrote it was a terrific friend of yours and you could call him up on the phone
@@ -288,7 +296,7 @@ const NoFooterTemplate = (args) => [
 
 const FullScreenTemplate = (args) => [
   triggerButton('my-dialog-6'),
-  <sbb-dialog id="my-dialog-6" {...args}>
+  <sbb-dialog data-testid="dialog" id="my-dialog-6" {...args}>
     <sbb-title visual-level="2" style={'margin-bottom: 1rem'} negative={args.negative}>
       Many Meetings
     </sbb-title>

@@ -7,6 +7,7 @@
   --sbb-dialog-color: var(--sbb-color-black-default);
   --sbb-dialog-background-color: var(--sbb-color-white-default);
   --sbb-dialog-max-width: 100%;
+  --sbb-dialog-max-width-default: #{px-to-rem-build(892)};
   --sbb-dialog-max-height: 100%;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
   --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
@@ -51,14 +52,14 @@
   @include mq($from: medium) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
     --sbb-dialog-max-width: min(
-      calc(100vw - calc(var(--sbb-spacing-fixed-30x) * 2)),
-      #{px-to-rem-build(892)}
+      calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
+      var(--sbb-dialog-max-width-default)
     );
     --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
   }
 }
 
-// stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+// stylelint-disable plugin/stylelint-bem-namics
 :host(:is(.sbb-dialog--presented, .sbb-dialog--presenting)) {
   pointer-events: all;
 
@@ -71,7 +72,7 @@
     }
   }
 }
-// stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
+// stylelint-enable plugin/stylelint-bem-namics
 
 :host(.sbb-dialog--full-screen) {
   --sbb-dialog-backdrop-color: transparent;
@@ -120,7 +121,7 @@
 
   &[open] {
     animation: {
-      name: show;
+      name: open;
       duration: var(--sbb-dialog-animation-duration);
       timing-function: ease;
     }
@@ -128,7 +129,7 @@
 
   :host(.sbb-dialog--dismissing) & {
     pointer-events: none;
-    animation-name: hide;
+    animation-name: close;
   }
 
   :host(.sbb-dialog--full-screen) & {
@@ -221,7 +222,7 @@
 // It is necessary to use animations with keyframes instead of transitions in order not to alter
 // the default `display: block` of the modal otherwise it causes several problems,
 // especially for accessibility.
-@keyframes show {
+@keyframes open {
   from {
     visibility: hidden;
     opacity: 0;
@@ -235,7 +236,7 @@
   }
 }
 
-@keyframes hide {
+@keyframes close {
   from {
     visibility: visible;
     opacity: 1;
