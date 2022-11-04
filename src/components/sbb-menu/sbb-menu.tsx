@@ -15,10 +15,10 @@ import {
 } from '@stencil/core';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
+import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
-const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action):not([disabled]):not([tabindex="-1"]):not([static])`;
 
 /**
  * @slot unnamed - Use this slot to project any content inside the dialog.
@@ -98,11 +98,10 @@ export class SbbMenu implements ComponentInterface {
   private _dialog: HTMLDialogElement;
   private _triggerElement: HTMLElement;
   private _menuContentElement: HTMLElement;
-  private _firstFocusable: HTMLElement;
-  private _lastFocusable: HTMLElement;
   private _isPointerDownEventOnMenu: boolean;
   private _menuController: AbortController;
-  private _resizeController: AbortController;
+  private _windowEventsController: AbortController;
+  private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
 
   @Element() private _element!: HTMLElement;
@@ -149,8 +148,7 @@ export class SbbMenu implements ComponentInterface {
   }
 
   // Dismisses the menu on "Esc" key pressed and traps focus within the menu.
-  @Listen('keydown')
-  public onKeydownEvent(event: KeyboardEvent): void {
+  private _onKeydownEvent(event: KeyboardEvent): void {
     if (!this._presented) {
       return;
     }
@@ -158,25 +156,6 @@ export class SbbMenu implements ComponentInterface {
     if (event.key === 'Escape') {
       this.dismiss();
       return;
-    }
-
-    // TODO: Evaluate or extract focus trap mechanism
-    if (event.key !== 'Tab') {
-      return;
-    }
-
-    if (event.shiftKey) {
-      // Shift + Tab
-      if (document.activeElement === this._firstFocusable) {
-        this._lastFocusable.focus();
-        event.preventDefault();
-      }
-    } else {
-      // Tab
-      if (document.activeElement === this._lastFocusable) {
-        this._firstFocusable.focus();
-        event.preventDefault();
-      }
     }
   }
 
@@ -188,7 +167,7 @@ export class SbbMenu implements ComponentInterface {
   ): void {
     if (newValue !== oldValue) {
       this._menuController?.abort();
-      this._resizeController?.abort();
+      this._windowEventsController?.abort();
       this._configure(this.trigger);
     }
   }
@@ -200,7 +179,8 @@ export class SbbMenu implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._menuController?.abort();
-    this._resizeController?.abort();
+    this._windowEventsController?.abort();
+    this._focusTrap.disconnect();
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -244,12 +224,18 @@ export class SbbMenu implements ComponentInterface {
     });
   }
 
-  // Resets position on window resize.
-  public onResizeWindowEvent(): void {
-    this._resizeController = new AbortController();
+  private _attachWindowEvents(): void {
+    this._windowEventsController = new AbortController();
+    document.addEventListener('scroll', () => this._setMenuPosition(), {
+      passive: true,
+      signal: this._windowEventsController.signal,
+    });
     window.addEventListener('resize', () => this._setMenuPosition(), {
       passive: true,
-      signal: this._resizeController.signal,
+      signal: this._windowEventsController.signal,
+    });
+    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
+      signal: this._windowEventsController.signal,
     });
   }
 
@@ -281,26 +267,25 @@ export class SbbMenu implements ComponentInterface {
       this._presented = true;
       this.didPresent.emit();
       this._setDialogFocus();
-      this.onResizeWindowEvent();
+      this._focusTrap.trap(this._element);
+      this._attachWindowEvents();
     } else if (event.animationName === 'hide') {
       this._isDismissing = false;
       this._presented = false;
       this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();
       this.didDismiss.emit();
-      this._resizeController?.abort();
+      this._windowEventsController?.abort();
+      this._focusTrap.disconnect();
     }
   }
 
-  // Avoid possible double focus on some elements.
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const focusableElements = Array.from(this._element.querySelectorAll(IS_FOCUSABLE_QUERY));
-    this._firstFocusable = focusableElements[0] as HTMLElement;
-    this._lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
+    const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
 
     if (this._openedByKeyboard) {
-      this._firstFocusable.focus();
+      firstFocusable.focus();
     } else {
       // Focusing sbb-menu__content in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied
@@ -323,8 +308,8 @@ export class SbbMenu implements ComponentInterface {
       return;
     }
 
-    const menuPosition = getElementPosition(this._dialog, this._triggerElement, {
-      elementOffset: MENU_OFFSET,
+    const menuPosition = getElementPosition(this._menuContentElement, this._triggerElement, {
+      verticalOffset: MENU_OFFSET,
     });
 
     this._element.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
