@@ -36,5 +36,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'sbb-checkbox-group',
+  title: 'components/form elements/sbb-checkbox-group',
 };
