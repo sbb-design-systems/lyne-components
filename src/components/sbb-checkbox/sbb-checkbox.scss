@@ -82,13 +82,14 @@ input[type='checkbox'] {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
   color: var(--checkbox-label-color);
-}
 
-.sbb-checkbox__label--start {
-  flex-direction: row-reverse;
+  :host([icon-placement='start']) & {
+    flex-direction: row-reverse;
+  }
 }
 
 input[type='checkbox']:focus-visible + .checkbox__inner {
-  border-radius: #{px-to-rem-build(4)};
   @include focusOutline;
+
+  border-radius: #{px-to-rem-build(4)};
 }

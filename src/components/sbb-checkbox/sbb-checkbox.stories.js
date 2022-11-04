@@ -114,8 +114,8 @@ const CheckboxDefaultTemplate = (args) => (
 export const defaultUnchecked = CheckboxDefaultTemplate.bind({});
 export const defaultChecked = CheckboxDefaultTemplate.bind({});
 export const defaultTristated = CheckboxDefaultTemplate.bind({});
-export const withIcon = CheckboxDefaultTemplate.bind({});
-export const checkedWithIconReversed = CheckboxDefaultTemplate.bind({});
+export const withIconEnd = CheckboxDefaultTemplate.bind({});
+export const checkedWithIconStart = CheckboxDefaultTemplate.bind({});
 export const disabledChecked = CheckboxDefaultTemplate.bind({});
 export const disabledUnchecked = CheckboxDefaultTemplate.bind({});
 export const disabledTristated = CheckboxDefaultTemplate.bind({});
@@ -146,23 +146,23 @@ defaultTristated.documentation = {
   title: 'Checkbox in indeterminate state',
 };
 
-withIcon.argTypes = defaultArgTypes;
-withIcon.args = {
+withIconEnd.argTypes = defaultArgTypes;
+withIconEnd.args = {
   ...defaultArgs,
   'icon-name': 'tickets-class-small',
 };
-withIcon.documentation = {
+withIconEnd.documentation = {
   title: 'Checkbox unchecked with icon at start',
 };
 
-checkedWithIconReversed.argTypes = defaultArgTypes;
-checkedWithIconReversed.args = {
+checkedWithIconStart.argTypes = defaultArgTypes;
+checkedWithIconStart.args = {
   ...defaultArgs,
   checked: true,
   'icon-name': 'tickets-class-small',
   'icon-placement': iconPlacement.options[0],
 };
-checkedWithIconReversed.documentation = {
+checkedWithIconStart.documentation = {
   title: 'Checkbox checked with icon at end',
 };
 

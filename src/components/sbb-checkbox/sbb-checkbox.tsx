@@ -101,8 +101,6 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   }
 
   public render(): JSX.Element {
-    const iconPlacement = this.iconPlacement === 'start' ? `sbb-checkbox__label--start` : '';
-
     return (
       <label class="sbb-checkbox" htmlFor={this.inputId}>
         <input
@@ -138,7 +136,7 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
               )}
             </span>
           </span>
-          <span class={`sbb-checkbox__label ${iconPlacement}`}>
+          <span class='sbb-checkbox__label'>
             <slot />
             {(this.iconName || this._namedSlots.icon) && (
               <span class="sbb-checkbox__label--icon">
