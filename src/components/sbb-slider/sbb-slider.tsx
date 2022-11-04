@@ -86,7 +86,13 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
 
   public connectedCallback(): void {
     this._isInFormField = !!hostContext('sbb-form-field', this._element);
+    // Forward focus call to action element
+    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
     this._handleChange();
+  }
+
+  private _actionElement(): HTMLElement {
+    return this._element.shadowRoot.firstElementChild as HTMLElement;
   }
 
   /**
@@ -142,12 +148,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     return (
       <Host class={{ 'sbb-form-field-element': this._isInFormField }}>
         <div class="sbb-slider__wrapper">
-          {this.startIcon && (
-            <slot name="prefix">
-              <sbb-icon name={this.startIcon} />
-            </slot>
-          )}
-
+          <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
           <div
             class="sbb-slider__container"
             style={{
@@ -162,34 +163,12 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
               onInput={() => this._handleChange()}
               ref={(input) => (this._rangeInput = input)}
             />
-            <div
-              class={{
-                'sbb-slider__line': !this.disabled && !this.readonly,
-                'sbb-slider__line-disabled': this.disabled,
-                'sbb-slider__line-readonly': this.readonly,
-              }}
-            >
-              <div
-                class={{
-                  'sbb-slider__selected-line': !this.disabled && !this.readonly,
-                  'sbb-slider__selected-line-disabled': this.disabled,
-                  'sbb-slider__selected-line-readonly': this.readonly,
-                }}
-              ></div>
+            <div class="sbb-slider__line">
+              <div class="sbb-slider__selected-line"></div>
             </div>
-            <div
-              class={{
-                'sbb-slider__knob': !this.disabled && !this.readonly,
-                'sbb-slider__knob-disabled': this.disabled,
-                'sbb-slider__knob-readonly': this.readonly,
-              }}
-            ></div>
+            <div class="sbb-slider__knob"></div>
           </div>
-          {this.endIcon && (
-            <slot name="suffix">
-              <sbb-icon name={this.endIcon} />
-            </slot>
-          )}
+          <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
         </div>
       </Host>
     );

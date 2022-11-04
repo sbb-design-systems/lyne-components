@@ -80,18 +80,18 @@
   border-radius: var(--sbb-slider-line-height);
   overflow: hidden;
   pointer-events: none;
-}
 
-.sbb-slider__line-disabled,
-.sbb-slider__line-readonly {
-  @include absoluteCenterY;
+  :host([disabled]) &,
+  :host([readonly]) & {
+    @include absoluteCenterY;
 
-  height: var(--sbb-slider-line-height);
-  width: 100%;
-  background-color: var(--sbb-slider-line-disabled-color);
-  border-radius: var(--sbb-slider-line-height);
-  overflow: hidden;
-  pointer-events: none;
+    height: var(--sbb-slider-line-height);
+    width: 100%;
+    background-color: var(--sbb-slider-line-disabled-color);
+    border-radius: var(--sbb-slider-line-height);
+    overflow: hidden;
+    pointer-events: none;
+  }
 }
 
 .sbb-slider__selected-line {
@@ -99,19 +99,17 @@
   height: 100%;
   background-color: var(--sbb-slider-selected-line-color);
   width: calc(var(--sbb-slider-value-fraction) * 100%);
+
+  :host([disabled]) &,
+  :host([readonly]) & {
+    position: relative;
+    height: 100%;
+    background-color: var(--sbb-slider-selected-line-disabled-color);
+    width: calc(var(--sbb-slider-value-fraction) * 100%);
+  }
 }
 
-.sbb-slider__selected-line-disabled,
-.sbb-slider__selected-line-readonly {
-  position: relative;
-  height: 100%;
-  background-color: var(--sbb-slider-selected-line-disabled-color);
-  width: calc(var(--sbb-slider-value-fraction) * 100%);
-}
-
-.sbb-slider__knob,
-.sbb-slider__knob-disabled,
-.sbb-slider__knob-readonly {
+.sbb-slider__knob {
   @include absoluteCenterY;
   @include shadow-level-5-hard;
 
@@ -128,15 +126,15 @@
   border: var(--sbb-slider-knob-border-size) solid var(--sbb-slider-selected-line-color);
   border-radius: 50%;
   pointer-events: none;
-}
 
-.sbb-slider__knob-disabled {
-  background-color: var(--sbb-color-milk-default);
-  border-color: var(--sbb-slider-line-disabled-color);
-}
+  :host([disabled]) & {
+    background-color: var(--sbb-color-milk-default);
+    border-color: var(--sbb-slider-line-disabled-color);
+  }
 
-.sbb-slider__knob-readonly {
-  border-color: var(--sbb-slider-selected-line-disabled-color);
+  :host([readonly]) & {
+    border-color: var(--sbb-slider-selected-line-disabled-color);
+  }
 }
 
 // slider knob resize on click (active / focus)
