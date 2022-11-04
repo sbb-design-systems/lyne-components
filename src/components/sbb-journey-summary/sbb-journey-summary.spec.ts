@@ -64,25 +64,7 @@ describe('sbb-journey-summary', () => {
                 0min
               </time>
             </span>
-            <div class="sbb-journey-summary__transportation-details">
-              <span class="screenreaderonly">
-                Departure
-              </span>
-              0
-              <time class="sbb-journey-summary__time">
-                20:30
-              </time>
-              <div class="sbb-journey-summary__pearlchain">
-                <sbb-pearl-chain></sbb-pearl-chain>
-              </div>
-              <time class="sbb-journey-summary__time">
-                22:30
-              </time>
-              <span class="screenreaderonly">
-                Arrival
-              </span>
-              0
-            </div>
+            <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
           </div>
         </div>
       </mock:shadow-root>
@@ -119,25 +101,7 @@ describe('sbb-journey-summary', () => {
                 40min
               </time>
             </span>
-            <div class="sbb-journey-summary__transportation-details">
-              <span class="screenreaderonly">
-                Departure
-              </span>
-              0
-              <time class="sbb-journey-summary__time">
-                20:30
-              </time>
-              <div class="sbb-journey-summary__pearlchain">
-                <sbb-pearl-chain></sbb-pearl-chain>
-              </div>
-              <time class="sbb-journey-summary__time">
-                22:30
-              </time>
-              <span class="screenreaderonly">
-                Arrival
-              </span>
-              0
-            </div>
+            <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
           </div>
         </div>
       </mock:shadow-root>
