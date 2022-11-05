@@ -1,5 +1,3 @@
-export type Alignment = { horizontal: 'start' | 'center' | 'end'; vertical: 'above' | 'below' };
-
 export type ElementRectangle = Pick<
   HTMLElement,
   'scrollHeight' | 'clientHeight' | 'offsetHeight' | 'scrollWidth' | 'clientWidth' | 'offsetWidth'

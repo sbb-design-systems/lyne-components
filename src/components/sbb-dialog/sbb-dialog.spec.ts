@@ -9,7 +9,7 @@ describe('sbb-dialog', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-dialog class="sbb-dialog--full-screen">
+      <sbb-dialog class="sbb-dialog--closed sbb-dialog--full-screen">
         <mock:shadow-root>
           <dialog aria-labelledby="sbb-dialog-title-1" class="sbb-dialog" id="sbb-dialog-1">
             <div class="sbb-dialog__wrapper">

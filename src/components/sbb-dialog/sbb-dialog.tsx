@@ -19,7 +19,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { IS_FOCUSABLE_QUERY, trapFocus } from '../../global/helpers/focus';
+import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 
 /**
  * @slot unnamed - Use this slot to provide the dialog content.
@@ -156,9 +156,9 @@ export class SbbDialog implements AccessibilityProperties {
   private _dialogWrapperElement: HTMLElement;
   private _dialogContentElement: HTMLElement;
   private _firstFocusable: HTMLElement;
-  private _lastFocusable: HTMLElement;
   private _dialogController: AbortController;
   private _windowEventsController: AbortController;
+  private _focusTrap = new FocusTrap();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
   private _hasTitle = false;
@@ -205,7 +205,7 @@ export class SbbDialog implements AccessibilityProperties {
     this._openedByKeyboard = false;
   }
 
-  // Closees the dialog on "Esc" key pressed and traps focus within the dialog.
+  // Closes the dialog on "Esc" key pressed.
   private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
       return;
@@ -215,8 +215,6 @@ export class SbbDialog implements AccessibilityProperties {
       this.close();
       return;
     }
-
-    trapFocus(event, this._element, this._firstFocusable, this._lastFocusable);
   }
 
   public connectedCallback(): void {
@@ -238,6 +236,7 @@ export class SbbDialog implements AccessibilityProperties {
   public disconnectedCallback(): void {
     this._dialogController?.abort();
     this._windowEventsController?.abort();
+    this._focusTrap.disconnect();
   }
 
   private _attachWindowEvents(): void {
@@ -269,6 +268,7 @@ export class SbbDialog implements AccessibilityProperties {
       this._state = 'opened';
       this.didOpen.emit();
       this._setDialogFocus();
+      this._focusTrap.trap(this._element);
       this._attachWindowEvents();
     } else if (event.animationName === 'close') {
       this._state = 'closed';
@@ -276,6 +276,7 @@ export class SbbDialog implements AccessibilityProperties {
       this._dialog.close();
       this.didClose.emit(this._returnValue);
       this._windowEventsController?.abort();
+      this._focusTrap.disconnect();
       // Enable scrolling for content below the dialog
       document.body.style.overflow = 'auto';
     }
@@ -283,22 +284,9 @@ export class SbbDialog implements AccessibilityProperties {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const focusableElements = Array.from(
-      this._element.shadowRoot.querySelectorAll(IS_FOCUSABLE_QUERY)
-    );
-    this._firstFocusable = focusableElements[0] as HTMLElement;
-    this._lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
-
-    const slottedFocusableElements = Array.from(
-      this._element.querySelectorAll(
-        `${IS_FOCUSABLE_QUERY}${
-          !this._hasActionGroup ? ':not(sbb-action-group, sbb-action-group *)' : ''
-        }`
-      )
-    );
-    this._lastFocusable =
-      (slottedFocusableElements[slottedFocusableElements.length - 1] as HTMLElement) ||
-      this._lastFocusable;
+    this._firstFocusable = this._element.shadowRoot.querySelector(
+      IS_FOCUSABLE_QUERY
+    ) as HTMLElement;
 
     if (this._openedByKeyboard) {
       this._firstFocusable.focus();
@@ -308,12 +296,10 @@ export class SbbDialog implements AccessibilityProperties {
       this._dialogWrapperElement.tabIndex = 0;
       this._dialogWrapperElement.focus();
 
-      this._element.addEventListener(
+      this._dialogWrapperElement.addEventListener(
         'blur',
         () => this._dialogWrapperElement.removeAttribute('tabindex'),
-        {
-          once: true,
-        }
+        { once: true }
       );
     }
   }
