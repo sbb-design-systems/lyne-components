@@ -355,11 +355,25 @@ export const i18nCloseAlert: any = {
   it: 'Chiudere il messaggio',
 };
 
+export const i18nCloseDialog: any = {
+  de: 'Modal schliessen',
+  en: 'Close modal',
+  fr: 'Fermer la modale',
+  it: 'Chiudere la modale',
+};
+
+export const i18nGoBack: any = {
+  de: 'Zurückgehen',
+  en: 'Go back',
+  fr: 'Retourner',
+  it: 'Vai indietro',
+};
+
 export const i18nFindOutMore: any = {
   de: 'Mehr erfahren',
   en: 'Find out more',
   fr: 'En savoir plus',
-  it: 'Per saperne più',
+  it: 'Per saperne di più',
 };
 
 export const i18nToday: any = {

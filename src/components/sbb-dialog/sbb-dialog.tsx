@@ -20,6 +20,8 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
+import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 
 /**
  * @slot unnamed - Use this slot to provide the dialog content.
@@ -164,6 +166,7 @@ export class SbbDialog implements AccessibilityProperties {
   private _hasTitle = false;
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
+  private _currentLangauge = getDocumentLang();
 
   @Element() private _element!: HTMLElement;
 
@@ -312,7 +315,7 @@ export class SbbDialog implements AccessibilityProperties {
     const closeButton = (
       <sbb-button
         class="sbb-dialog__close"
-        accessibility-label="Close"
+        accessibility-label={i18nCloseDialog[this._currentLangauge]}
         accessibility-controls={this.dialogId}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
@@ -326,7 +329,7 @@ export class SbbDialog implements AccessibilityProperties {
     const backButton = (
       <sbb-button
         class="sbb-dialog__back"
-        accessibility-label="Back"
+        accessibility-label={i18nGoBack[this._currentLangauge]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"
