@@ -8,6 +8,7 @@
   --sbb-menu-position-y: 0;
   --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-menu-animation-easing: ease;
+  --sbb-menu-transform: translateY(100%);
   --sbb-menu-max-width: 100%;
   --sbb-menu-min-width: 100%;
 
@@ -16,6 +17,13 @@
   --sbb-menu-min-height: #{px-to-rem-build(120)};
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
   --sbb-menu-backdrop-color: transparent;
+
+  @include mq($from: medium) {
+    --sbb-menu-position: absolute;
+    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
+    --sbb-menu-max-width: #{px-to-rem-build(320)};
+    --sbb-menu-min-width: #{px-to-rem-build(180)};
+  }
 
   position: fixed;
   left: 0;
@@ -40,15 +48,15 @@
 
 :host(.sbb-menu--presented),
 :host(.sbb-menu--presenting) {
-  &::before {
-    --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
+  --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
 
+  @include mq($from: medium) {
+    --sbb-menu-backdrop-color: transparent;
+  }
+
+  &::before {
     visibility: visible;
     pointer-events: all;
-
-    @include mq($from: medium) {
-      --sbb-menu-backdrop-color: transparent;
-    }
   }
 }
 
@@ -70,8 +78,6 @@
 }
 
 .sbb-menu {
-  --sbb-menu-transform: translateY(100%);
-
   display: block;
   visibility: hidden;
   opacity: 0;
@@ -112,11 +118,6 @@
   }
 
   @include mq($from: medium) {
-    --sbb-menu-position: absolute;
-    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
-    --sbb-menu-max-width: #{px-to-rem-build(320)};
-    --sbb-menu-min-width: #{px-to-rem-build(180)};
-
     top: 0;
     left: 0;
     right: unset;
