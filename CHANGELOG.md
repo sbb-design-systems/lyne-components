@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.13](https://github.com/lyne-design-system/lyne-components/compare/v0.12.12...v0.12.13) (2022-11-07)
+
 ### [0.12.12](https://github.com/lyne-design-system/lyne-components/compare/v0.12.11...v0.12.12) (2022-11-04)
 
 ### [0.12.11](https://github.com/lyne-design-system/lyne-components/compare/v0.12.10...v0.12.11) (2022-11-03)
