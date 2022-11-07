@@ -526,6 +526,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * You can choose between `m` or `l` size.
+         */
+        "size": InterfaceCheckboxAttributes['size'];
+        /**
           * Value of checkbox.
          */
         "value"?: string;
@@ -2746,6 +2750,10 @@ declare namespace LocalJSX {
           * The required prop for the required state.
          */
         "required"?: boolean;
+        /**
+          * You can choose between `m` or `l` size.
+         */
+        "size"?: InterfaceCheckboxAttributes['size'];
         /**
           * Value of checkbox.
          */

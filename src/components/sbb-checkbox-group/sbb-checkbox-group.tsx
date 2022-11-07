@@ -1,9 +1,9 @@
-import { Component, Element, h, Host, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { InterfaceCheckboxAttributes } from '../sbb-checkbox/sbb-checkbox.custom';
+import { InterfaceSbbCheckbox } from '../sbb-checkbox/sbb-checkbox.custom';
 
 let nextId = 0;
 
@@ -17,7 +17,7 @@ let nextId = 0;
   styleUrl: 'sbb-checkbox-group.scss',
   tag: 'sbb-checkbox-group',
 })
-export class SbbCheckboxGroup {
+export class SbbCheckboxGroup implements ComponentInterface {
   /**
    * Id of the checkbox group element.
    */
@@ -46,30 +46,27 @@ export class SbbCheckboxGroup {
   @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
-    this._updateCheckboxs();
+    this._updateCheckboxes();
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
-  private _updateCheckboxs(): void {
-    const checkboxs = this._checkboxs;
+  private _updateCheckboxes(): void {
+    const checkboxes = this._checkboxes;
 
-    for (const checkbox of checkboxs) {
+    for (const checkbox of checkboxes) {
       checkbox.name = this.name;
-      checkbox.iconPlacement = checkbox.iconPlacement ?? 'start';
       checkbox.disabled = checkbox.disabled ?? this.disabled;
       checkbox.required = checkbox.required ?? this.required;
     }
   }
 
-  private get _checkboxs(): InterfaceCheckboxAttributes[] {
-    return Array.from(
-      this._element.querySelectorAll('sbb-checkbox')
-    ) as InterfaceCheckboxAttributes[];
+  private get _checkboxes(): InterfaceSbbCheckbox[] {
+    return Array.from(this._element.querySelectorAll('sbb-checkbox')) as InterfaceSbbCheckbox[];
   }
 
   public render(): JSX.Element {
     return (
-      <Host role="checkboxgroup" aria-label={this.name}>
+      <Host aria-label={this.name}>
         <div class="sbb-checkbox-group">
           <slot />
         </div>

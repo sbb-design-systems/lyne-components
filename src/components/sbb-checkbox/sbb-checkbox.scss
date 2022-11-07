@@ -9,6 +9,8 @@
   --checkbox-label-color: var(--sbb-color-charcoal-default);
   --checkbox-cursor: pointer;
   --checkbox-border-radius: #{px-to-rem-build(4)};
+
+  display: inline-block;
 }
 
 :host([disabled]) {
@@ -25,11 +27,15 @@
   position: relative;
   display: block;
   color: var(--checkbox-label-color);
+
+  :host([size='m']) & {
+    @include text-m--regular;
+  }
 }
 
 .sbb-checkbox__inner {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: var(--sbb-spacing-fixed-2x);
 }
 
@@ -40,7 +46,7 @@ input[type='checkbox'] {
 .sbb-checkbox__selection {
   position: relative;
   cursor: var(--checkbox-cursor);
-  width: var(--checkbox-width);
+  min-width: var(--checkbox-width);
   height: var(--checkbox-height);
   border-radius: var(--checkbox-border-radius);
   border: var(--checkbox-border-width) solid var(--checkbox-border-color);

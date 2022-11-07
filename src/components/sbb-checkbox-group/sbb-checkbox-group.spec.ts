@@ -13,7 +13,7 @@ describe('sbb-checkbox-group', () => {
     });
 
     expect(root).toEqualHtml(`
-    <sbb-checkbox-group aria-label="sbb-checkbox-group-1-name" role="checkboxgroup">
+    <sbb-checkbox-group aria-label="sbb-checkbox-group-1-name">
     <mock:shadow-root>
       <div class="sbb-checkbox-group">
         <slot></slot>

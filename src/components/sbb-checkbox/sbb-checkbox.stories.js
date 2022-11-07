@@ -2,9 +2,23 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-checkbox.events';
 
+const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
+quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
+lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tellus vulputate tempor. Vivamus urna
+velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
+metus. Donec pharetra odio at turpis bibendum, vel commodo dui vulputate. Aenean congue nec nisl vel bibendum.
+Praesent sit amet lorem augue. Suspendisse ornare a justo sagittis fermentum.`;
+
 /* ************************************************* */
 /* Storybook controls                                */
 /* ************************************************* */
+
+const size = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+};
 
 const checked = {
   control: {
@@ -74,6 +88,7 @@ const accessibilityLabelledby = {
 };
 
 const defaultArgTypes = {
+  size,
   checked,
   indeterminate,
   disabled,
@@ -88,6 +103,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
+  size: size.options[1],
   checked: false,
   indeterminate: false,
   disabled: false,
@@ -105,20 +121,18 @@ const defaultArgs = {
 /* Storybook templates                               */
 /* ************************************************* */
 
-const CheckboxDefaultTemplate = (args) => (
-  <sbb-checkbox {...args} style="display: inline-block">
-    {args.label}
-  </sbb-checkbox>
-);
+const Template = ({ label, ...args }) => <sbb-checkbox {...args}>{label}</sbb-checkbox>;
 
-export const defaultUnchecked = CheckboxDefaultTemplate.bind({});
-export const defaultChecked = CheckboxDefaultTemplate.bind({});
-export const defaultTristated = CheckboxDefaultTemplate.bind({});
-export const withIconEnd = CheckboxDefaultTemplate.bind({});
-export const checkedWithIconStart = CheckboxDefaultTemplate.bind({});
-export const disabledChecked = CheckboxDefaultTemplate.bind({});
-export const disabledUnchecked = CheckboxDefaultTemplate.bind({});
-export const disabledTristated = CheckboxDefaultTemplate.bind({});
+export const defaultUnchecked = Template.bind({});
+export const defaultChecked = Template.bind({});
+export const defaultIndeterminate = Template.bind({});
+export const sizeM = Template.bind({});
+export const longLabel = Template.bind({});
+export const withIconEnd = Template.bind({});
+export const checkedWithIconStart = Template.bind({});
+export const disabledChecked = Template.bind({});
+export const disabledUnchecked = Template.bind({});
+export const disabledTristated = Template.bind({});
 
 defaultUnchecked.argTypes = defaultArgTypes;
 defaultUnchecked.args = {
@@ -137,13 +151,31 @@ defaultChecked.documentation = {
   title: 'Checkbox checked',
 };
 
-defaultTristated.argTypes = defaultArgTypes;
-defaultTristated.args = {
+defaultIndeterminate.argTypes = defaultArgTypes;
+defaultIndeterminate.args = {
   ...defaultArgs,
   indeterminate: true,
 };
-defaultTristated.documentation = {
+defaultIndeterminate.documentation = {
   title: 'Checkbox in indeterminate state',
+};
+
+sizeM.argTypes = defaultArgTypes;
+sizeM.args = {
+  ...defaultArgs,
+  size: size.options[0],
+};
+sizeM.documentation = {
+  title: 'Checkbox with L size',
+};
+
+longLabel.argTypes = defaultArgTypes;
+longLabel.args = {
+  ...defaultArgs,
+  label: longLabelText,
+};
+longLabel.documentation = {
+  title: 'Checkbox with long label',
 };
 
 withIconEnd.argTypes = defaultArgTypes;

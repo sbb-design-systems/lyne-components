@@ -35,11 +35,14 @@ let nextId = 0;
 export class SbbCheckbox implements AccessibilityProperties, ComponentInterface {
   private _checkbox: HTMLInputElement;
 
+  /** You can choose between `m` or `l` size. */
+  @Prop({ reflect: true }) public size: InterfaceCheckboxAttributes['size'] = 'm';
+
   /** Whether the checkbox is checked. */
   @Prop({ mutable: true, reflect: true }) public checked: boolean;
 
   /** Value of checkbox. */
-  @Prop() public value?: string;
+  @Prop({ reflect: true }) public value?: string;
 
   /** Name of the checkbox */
   @Prop() public name?: string;

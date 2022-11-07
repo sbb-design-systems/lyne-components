@@ -82,6 +82,7 @@ to describe the element on which the attribute is set.
 | `inputId`                  | `input-id`                  | Id of the internal input element - default id will be set automatically.                                                                            | `string`           | ``sbb-checkbox-${++nextId}`` |
 | `name`                     | `name`                      | Name of the checkbox                                                                                                                                | `string`           | `undefined`                  |
 | `required`                 | `required`                  | The required prop for the required state.                                                                                                           | `boolean`          | `false`                      |
+| `size`                     | `size`                      | You can choose between `m` or `l` size.                                                                                                             | `"m" \| "s"`       | `'m'`                        |
 | `value`                    | `value`                     | Value of checkbox.                                                                                                                                  | `string`           | `undefined`                  |
 
 
