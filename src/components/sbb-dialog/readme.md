@@ -13,7 +13,7 @@ The dialog component provides a way to present content on top of the app's conte
 The dialog box can be dismissed by clicking on the close button, clicking on the backdrop, or pressing the `Esc` key.
 
 ## Usage
-In order to show a modal you need to call the `present(event?: PointerEvent)` method on the `sbb-dialog` component:
+In order to show a modal you need to call the `open(event?: PointerEvent)` method on the `sbb-dialog` component:
 
 ```html
 <sbb-button label="Open dialog" click="openDialog(event, 'my-dialog')"></sbb-button>
@@ -25,14 +25,14 @@ In order to show a modal you need to call the `present(event?: PointerEvent)` me
 <script>
   const openDialog = (event, id) => {
     const dialog = document.getElementById(id);
-    dialog.present(event);
+    dialog.open(event);
   };
 </script>
 ```
 
-Note that it is necessary to pass the event object to the `present()` method to allow the dialog to detect whether it has been opened by click or keyboard, so that the focus can be better handled.
+Note that it is necessary to pass the event object to the `open()` method to allow the dialog to detect whether it has been opened by click or keyboard, so that the focus can be better handled.
 
-To dismiss the dialog you need to get a reference to the `sbb-dialog` element and call the `dismiss(result?: any)` method, which will close the dialog element and emit a dismiss event with an optional result as a payload.
+To dismiss the dialog you need to get a reference to the `sbb-dialog` element and call the `close(result?: any)` method, which will close the dialog element and emit a close event with an optional result as a payload.
 
 ### Usage notes
 The dialog title can be provided via the `titleContent` property and via slot `name="title"` (e.g. `<span slot="title">My dialog title</span>`). You can also set the property `titleBackButton` to display the back button in the title section (or content section, if title is omitted) which will emit the event `sbb-dialog_request-back-action` when clicked. 
