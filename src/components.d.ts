@@ -16,7 +16,6 @@ import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custo
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
-import { InterfaceDialogAttributes } from "./components/sbb-dialog/sbb-dialog.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
@@ -525,7 +524,7 @@ export namespace Components {
          */
         "titleBackButton": boolean;
         /**
-          * Dialog title
+          * Dialog title.
          */
         "titleContent": string;
         /**
@@ -533,9 +532,9 @@ export namespace Components {
          */
         "titleId": string;
         /**
-          * This level corresponds to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
+          * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
          */
-        "titleLevel": InterfaceDialogAttributes['level'];
+        "titleLevel": InterfaceTitleAttributes['level'];
     }
     interface SbbDivider {
         /**
@@ -2445,7 +2444,7 @@ declare namespace LocalJSX {
          */
         "titleBackButton"?: boolean;
         /**
-          * Dialog title
+          * Dialog title.
          */
         "titleContent"?: string;
         /**
@@ -2453,9 +2452,9 @@ declare namespace LocalJSX {
          */
         "titleId"?: string;
         /**
-          * This level corresponds to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
+          * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
          */
-        "titleLevel"?: InterfaceDialogAttributes['level'];
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbDivider {
         /**

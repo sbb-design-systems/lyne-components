@@ -15,7 +15,7 @@ describe('sbb-dialog', () => {
             <div class="sbb-dialog__wrapper">
               <div class="sbb-dialog__header">
                 <sbb-button
-                  accessibility-label="Close"
+                  accessibility-label="Close modal"
                   class="sbb-dialog__close"
                   icon-name="cross-small"
                   size="m"

@@ -363,7 +363,7 @@ export const i18nCloseDialog: any = {
 };
 
 export const i18nGoBack: any = {
-  de: 'Zurückgehen',
+  de: 'Zurück',
   en: 'Go back',
   fr: 'Retourner',
   it: 'Vai indietro',

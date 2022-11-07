@@ -12,7 +12,7 @@ import {
   State,
 } from '@stencil/core';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { InterfaceDialogAttributes } from './sbb-dialog.custom';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { isEventOnElement } from '../../global/helpers/position';
 import {
   createNamedSlotState,
@@ -49,15 +49,14 @@ export class SbbDialog implements AccessibilityProperties {
   @Prop() public titleId = `sbb-dialog-title-${++nextTitleId}`;
 
   /**
-   * Dialog title
+   * Dialog title.
    */
   @Prop() public titleContent: string;
 
   /**
-   * This level corresponds to the heading tag generated in the title.
-   * Use this property to generate the appropriate header tag, taking SEO into consideration.
+   * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
    */
-  @Prop() public titleLevel: InterfaceDialogAttributes['level'] = '1';
+  @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '1';
 
   /**
    * Whether a back button is displayed next to the title.
