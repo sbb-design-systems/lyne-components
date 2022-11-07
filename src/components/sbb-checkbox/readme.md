@@ -1,63 +1,65 @@
+# sbb-checkbox
 
-`<sbb-checkbox>` provides the same functionality as a native `<input type="checkbox">`
-enhanced with the SBB Design.
+The `<sbb-checkbox>` component provides the same functionality as a native `<input type="checkbox">` enhanced with the SBB Design.
 
+The component has two `size`, named `s` (default) and `m`. It could be checked or not depending on the value of 
+the `checked` attribute. It could also have a third state, which is set if the `indeterminate` property is true. 
+This is useful when multiple dependent checkboxes are used 
+(e.g. a parent which is checked only if all the children are checked, otherwise is in indeterminate state).
+
+The component can be displayed in disabled or required state by using the self-named properties.
+
+It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>` using 
+the `iconName` property or via custom SVG using the `icon` slot.
+The icon can be placed before or after the label based on the value of the `iconPlacement` property (default: end).
+
+Consumers can listen to the `sbbChange` event to intercept the native input's change. It emits a `SbbCheckboxChange` object:
+```ts
+interface SbbCheckboxChange {
+  checked: boolean;
+  value: boolean;
+}
+```
+
+## Usage
+
+Checked:
 ```html
-<sbb-checkbox
-  value="single-checkbox"
-  disabled="false"
-  checked="false"
->
+<sbb-checkbox value="single-checkbox" checked="true">
   Example
 </sbb-checkbox>
 ```
 
-Example with an Icon:
-
+Unchecked and disabled with icon
 ```html
-<sbb-checkbox
-  value="single-checkbox"
-  disabled="false"
-  checked="false"
-  icon-name= "tickets-class-small"
->
+<sbb-checkbox value="single-checkbox" disabled="false" checked="false" icon-name= "tickets-class-small">
   Example
 </sbb-checkbox>
 ```
-Example with an Icon and placement before the label:
+
+Indeterminate and required with icon placed before the label
 
 ```html
-<sbb-checkbox
-  value="single-checkbox"
-  disabled="false"
-  checked="false"
-  icon-name= "tickets-class-small"
-  icon-placement= "start"
->
+<sbb-checkbox value="single-checkbox" required="true" indeterminate="true" icon-name= "tickets-class-small" icon-placement= "start">
   Example
 </sbb-checkbox>
 ```
-## Label
-
-The label is provided as the content to the `<sbb-checkbox>` element.
-It can be displayed after or before the checkbox with the `icon-placement` property. 
-
-If you don't want the label to appear next to the checkbox, you can use
-`accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) or
-`accessibility-labelledby` (forwarded as [`aria-labelledby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA16.html)) to
-specify an appropriate label.
 
 ## Accessibility
 
-`SbbCheckbox` uses an internal `<input type="checkbox">` to provide an accessible experience.
+The component uses an internal `<input type="checkbox">` element to provide an accessible experience.
 This internal checkbox receives focus and is automatically labelled by the text content of the
 `<sbb-checkbox>` element. Avoid adding other interactive controls into the content of
 `<sbb-checkbox>`, as this degrades the experience for users of assistive technology.
 
 Always provide an accessible label via `accessibility-label` or `accessibility-labelledby` for checkboxes without
 descriptive text content.
+If you don't want the label to appear next to the checkbox, you can use
+`accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) or
+`accessibility-labelledby` (forwarded as [`aria-labelledby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA16.html)) to
+specify an appropriate label.
 
-Additionaly you can use `accessibility-describedby` (forwarded as [`aria-describedby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA1.html))
+Additionally, you can use `accessibility-describedby` (forwarded as [`aria-describedby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA1.html))
 to describe the element on which the attribute is set.
 
 ```html
@@ -82,7 +84,7 @@ to describe the element on which the attribute is set.
 | `inputId`                  | `input-id`                  | Id of the internal input element - default id will be set automatically.                                                                            | `string`           | ``sbb-checkbox-${++nextId}`` |
 | `name`                     | `name`                      | Name of the checkbox                                                                                                                                | `string`           | `undefined`                  |
 | `required`                 | `required`                  | The required prop for the required state.                                                                                                           | `boolean`          | `false`                      |
-| `size`                     | `size`                      | You can choose between `m` or `l` size.                                                                                                             | `"m" \| "s"`       | `'m'`                        |
+| `size`                     | `size`                      | Size of the checkbox.                                                                                                                               | `"m" \| "s"`       | `'s'`                        |
 | `value`                    | `value`                     | Value of checkbox.                                                                                                                                  | `string`           | `undefined`                  |
 
 

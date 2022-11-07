@@ -25,18 +25,6 @@ describe('sbb-checkbox', () => {
       expect(changeSpy).toHaveReceivedEvent();
     });
 
-    it('emit event when prop is set', async () => {
-      await page.waitForChanges();
-      const checkbox = await page.find('sbb-checkbox');
-      const changeSpy = await page.spyOnEvent(events.sbbChange);
-
-      await checkbox.setProperty('checked', true);
-      await checkbox.setProperty('checked', false);
-      await page.waitForChanges();
-
-      expect(changeSpy).toHaveReceivedEvent();
-    });
-
     it('emit event on keypress', async () => {
       await page.waitForChanges();
       const checkbox = await page.find('sbb-checkbox');

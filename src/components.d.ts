@@ -526,7 +526,7 @@ export namespace Components {
          */
         "required": boolean;
         /**
-          * You can choose between `m` or `l` size.
+          * Size of the checkbox.
          */
         "size": InterfaceCheckboxAttributes['size'];
         /**
@@ -2751,7 +2751,7 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
-          * You can choose between `m` or `l` size.
+          * Size of the checkbox.
          */
         "size"?: InterfaceCheckboxAttributes['size'];
         /**
