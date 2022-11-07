@@ -73,6 +73,24 @@ const accessibilityLabelledby = {
   },
 };
 
+const closeAccessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
+  },
+};
+
+const backAccessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
+  },
+};
+
 const disableAnimation = {
   control: {
     type: 'boolean',
@@ -87,6 +105,8 @@ const basicArgTypes = {
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
+  'close-accessibility-label': closeAccessibilityLabel,
+  'back-accessibility-label': backAccessibilityLabel,
   'disable-animation': disableAnimation,
 };
 
@@ -98,6 +118,8 @@ const basicArgs = {
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
+  'close-accessibility-label': undefined,
+  'back-accessibility-label': undefined,
   'disable-animation': isChromatic(),
 };
 
@@ -382,7 +404,7 @@ export default {
     actions: {
       handles: [
         events.willOpen,
-        events.didPresent,
+        events.didOpen,
         events.willClose,
         events.didClose,
         events.backClick,

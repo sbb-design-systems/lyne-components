@@ -500,9 +500,17 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "backAccessibilityLabel": string | undefined;
+        /**
           * Closes the dialog element.
          */
         "close": (result?: any) => Promise<any>;
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "closeAccessibilityLabel": string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -2407,6 +2415,14 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "backAccessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "closeAccessibilityLabel"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
