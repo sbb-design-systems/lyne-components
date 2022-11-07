@@ -119,24 +119,26 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
           onChange={(): void => this.checkedChanged()}
         />
         <span class="sbb-checkbox__inner">
-          <span class="sbb-checkbox__selection">
-            <span class="sbb-checkbox__icon">
-              {(this.checked || this.indeterminate) && (
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              )}
+          <span class="sbb-checkbox__aligner">
+            <span class="sbb-checkbox__selection">
+              <span class="sbb-checkbox__icon">
+                {(this.checked || this.indeterminate) && (
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                )}
+              </span>
             </span>
           </span>
           <span class="sbb-checkbox__label">

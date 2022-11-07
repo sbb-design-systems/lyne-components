@@ -43,6 +43,16 @@ input[type='checkbox'] {
   @include hiddenCheckbox;
 }
 
+.sbb-checkbox__aligner {
+  display: flex;
+  align-items: center;
+  height: calc(var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text));
+
+  :host([size='m']) & {
+    height: calc(var(--sbb-font-size-text-m) * var(--sbb-typo-line-height-body-text));
+  }
+}
+
 .sbb-checkbox__selection {
   position: relative;
   cursor: var(--checkbox-cursor);
