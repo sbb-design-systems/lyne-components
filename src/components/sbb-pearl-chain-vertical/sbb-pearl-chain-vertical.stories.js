@@ -60,7 +60,7 @@ const defaultArgs = {
 const Template = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
@@ -78,7 +78,7 @@ const TemplateWithoutContent = (args) => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={args}
+        pearlChainVerticalItemAttributes={args}
         disable-animation={false}
       ></sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
@@ -88,7 +88,7 @@ const TemplateWithoutContent = (args) => {
 const TemplateLeftSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div slot="left" style={{ marginInlineStart: '10px' }}>
           slot for content
         </div>
@@ -100,7 +100,7 @@ const TemplateLeftSlot = (args) => {
 const TemplateTwoDots = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
@@ -111,7 +111,7 @@ const TemplateTwoDots = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
           dotType: 'standard',
@@ -129,7 +129,7 @@ const TemplateTwoDots = (args) => {
 const TemplateLeftSecondSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div slot="right" style={{ marginTop: '-8px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>
@@ -143,7 +143,7 @@ const TemplateLeftSecondSlot = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
           dotType: 'standard',
@@ -165,7 +165,7 @@ const TemplateLeftSecondSlot = (args) => {
 const connectionDetailTemplate = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div
           slot="right"
           style={{
@@ -218,7 +218,7 @@ const connectionDetailTemplate = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
           minHeight: '100px',
@@ -252,7 +252,7 @@ const thirdLevelTemplate = (args) => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
           dotColor: 'metal',
@@ -265,7 +265,7 @@ const thirdLevelTemplate = (args) => {
           10:31
         </div>
       </sbb-pearl-chain-vertical-item>
-      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div
           slot="right"
           style={{
@@ -296,7 +296,7 @@ const thirdLevelTemplate = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'charcoal',
           dotColor: 'charcoal',
@@ -337,7 +337,7 @@ const thirdLevelTemplate = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
           dotColor: 'charcoal',
@@ -372,7 +372,7 @@ const thirdLevelTemplate = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
           dotColor: 'metal',
@@ -413,7 +413,7 @@ const TimetableInputTemplate = () => {
     <div>
       <sbb-pearl-chain-vertical>
         <sbb-pearl-chain-vertical-item
-          pearlChainItemAttributes={{
+          pearlChainVerticalItemAttributes={{
             lineType: 'thin',
             lineColor: 'metal',
             dotColor: 'metal',
@@ -431,7 +431,7 @@ const TimetableInputTemplate = () => {
         <sbb-pearl-chain-vertical>
           <sbb-pearl-chain-vertical-item
             style={{ top: '2px' }}
-            pearlChainItemAttributes={{
+            pearlChainVerticalItemAttributes={{
               lineType: 'thin',
               lineColor: 'metal',
               dotColor: 'metal',
@@ -446,7 +446,7 @@ const TimetableInputTemplate = () => {
             </div>
           </sbb-pearl-chain-vertical-item>
           <sbb-pearl-chain-vertical-item
-            pearlChainItemAttributes={{
+            pearlChainVerticalItemAttributes={{
               dotColor: 'metal',
               minHeight: '40',
               hideLine: true,
@@ -467,7 +467,7 @@ const TimetableChange = () => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
           lineColor: 'sky',
           dotType: 'thick-bullet',
@@ -527,7 +527,7 @@ const TimetableChange = () => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainItemAttributes={{
+        pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
           lineColor: 'sky',
           dotType: 'standard',

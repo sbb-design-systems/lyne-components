@@ -6,12 +6,12 @@ describe('sbb-pearl-chain-vertical-item', () => {
     const page = await newSpecPage({
       components: [SbbPearlChainVerticalItem],
       html: `
-            <sbb-pearl-chain-vertical-item pearlChainItemAttributes=''> 
+            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
             </sbb-pearl-chain-vertical-item>
       `,
     });
 
-    page.rootInstance.pearlChainItemAttributes = {
+    page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'charcoal',
       dotType: 'standard',
@@ -23,7 +23,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
@@ -44,12 +44,12 @@ describe('sbb-pearl-chain-vertical-item', () => {
     const page = await newSpecPage({
       components: [SbbPearlChainVerticalItem],
       html: `
-            <sbb-pearl-chain-vertical-item pearlChainItemAttributes=''> 
+            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
             </sbb-pearl-chain-vertical-item>
       `,
     });
 
-    page.rootInstance.pearlChainItemAttributes = {
+    page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'red',
       dotType: 'standard',
@@ -61,7 +61,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
@@ -82,13 +82,13 @@ describe('sbb-pearl-chain-vertical-item', () => {
     const page = await newSpecPage({
       components: [SbbPearlChainVerticalItem],
       html: `
-            <sbb-pearl-chain-vertical-item pearlChainItemAttributes=''> 
+            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
             <div slot="left">content</div>
             </sbb-pearl-chain-vertical-item>
       `,
     });
 
-    page.rootInstance.pearlChainItemAttributes = {
+    page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'dotted',
       lineColor: 'charcoal',
       dotType: 'standard',
@@ -99,7 +99,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
@@ -122,13 +122,13 @@ describe('sbb-pearl-chain-vertical-item', () => {
     const page = await newSpecPage({
       components: [SbbPearlChainVerticalItem],
       html: `
-            <sbb-pearl-chain-vertical-item pearlChainItemAttributes=''> 
+            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
             <div slot="right">right content</div>
             </sbb-pearl-chain-vertical-item>
       `,
     });
 
-    page.rootInstance.pearlChainItemAttributes = {
+    page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'red',
       dotType: 'thick-bullet',
@@ -139,7 +139,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
@@ -162,14 +162,14 @@ describe('sbb-pearl-chain-vertical-item', () => {
     const page = await newSpecPage({
       components: [SbbPearlChainVerticalItem],
       html: `
-            <sbb-pearl-chain-vertical-item pearlChainItemAttributes=''> 
+            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
             <div slot="right">right content</div>
             <div slot="left">left content</div>
             </sbb-pearl-chain-vertical-item>
       `,
     });
 
-    page.rootInstance.pearlChainItemAttributes = {
+    page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'red',
       dotType: 'thick-bullet',
@@ -180,7 +180,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await page.waitForChanges();
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
@@ -206,14 +206,14 @@ describe('sbb-pearl-chain-vertical-item', () => {
     const page = await newSpecPage({
       components: [SbbPearlChainVerticalItem],
       html: `
-            <sbb-pearl-chain-vertical-item pearlChainItemAttributes=''> 
+            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
             <div slot="right">right content</div>
             <div slot="left">left content</div>
             </sbb-pearl-chain-vertical-item>
       `,
     });
 
-    page.rootInstance.pearlChainItemAttributes = {
+    page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'red',
       dotType: 'double-bullet',
@@ -226,7 +226,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     await page.waitForChanges();
 
     expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlchainitemattributes="">
+    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
     <mock:shadow-root>
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>

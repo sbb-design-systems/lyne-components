@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop } from '@stencil/core';
-import { PearlChainItemAttributes } from './sbb-pearl-chain-vertical-item.custom';
+import { PearlChainVerticalItemAttributes } from './sbb-pearl-chain-vertical-item.custom';
 
 /**
  * @slot left - content of the left side of the item
@@ -12,15 +12,15 @@ import { PearlChainItemAttributes } from './sbb-pearl-chain-vertical-item.custom
   tag: 'sbb-pearl-chain-vertical-item',
 })
 export class SbbPearlChainVerticalItem {
-  /** The pearlChainItemAttributes Prop for styling the dots and line.*/
-  @Prop() public pearlChainItemAttributes: PearlChainItemAttributes;
+  /** The pearlChainVerticalItemAttributes Prop for styling the dots and line.*/
+  @Prop() public pearlChainVerticalItemAttributes: PearlChainVerticalItemAttributes;
 
   /** If true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
 
   public render(): JSX.Element {
     const { dotColor, dotType, lineType, lineColor, hideLine, minHeight, dotSize, position } =
-      this.pearlChainItemAttributes || {};
+      this.pearlChainVerticalItemAttributes || {};
 
     const dotColorClass =
       position > 0 && position <= 100 ? 'sbb-color--metal' : `sbb-color--${dotColor}`;

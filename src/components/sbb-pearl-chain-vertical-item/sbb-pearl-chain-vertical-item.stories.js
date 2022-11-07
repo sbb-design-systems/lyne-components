@@ -4,7 +4,7 @@ import readme from './readme.md';
 const Template = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div slot="right" style={{ marginTop: '-10px', marginInlineStart: '10px' }}>
           slot for content
           <div>more</div>

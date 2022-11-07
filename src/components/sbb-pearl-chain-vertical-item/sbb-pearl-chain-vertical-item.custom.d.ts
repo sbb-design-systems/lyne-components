@@ -6,7 +6,7 @@ export type Color = 'red' | 'gray' | 'black' | 'sky';
 
 export type DotSize = 'small' | 'medium' | 'large';
 
-export interface PearlChainItemAttributes {
+export interface PearlChainVerticalItemAttributes {
   lineType: LineType;
   lineColor: Color;
   dotType?: DotType;
