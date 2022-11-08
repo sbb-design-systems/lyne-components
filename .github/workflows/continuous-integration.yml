@@ -131,8 +131,8 @@ jobs:
       - name: Publish to netlify
         id: netlify-publish
         run: |
-          deploy_url=$( ./ci/netlify_deploy_branch.sh $GITHUB_REF_NAME | jq '.deploy_url' )
-          echo "storybookUrl=$deploy_url" >> $GITHUB_OUTPUT
+          deploy_url=$(./ci/netlify_deploy_branch.sh $GITHUB_REF_NAME)
+          echo "storybookUrl=$(deploy_url | jq '.deploy_url')" >> $GITHUB_OUTPUT
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
