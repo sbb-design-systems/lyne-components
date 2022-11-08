@@ -153,6 +153,8 @@ const formFieldBasicArgsTypes = {
   label: labelArg,
   optional: optionalArg,
   borderless: borderlessArg,
+  disabled: disabledArg,
+  readonly: readonlyArg,
 };
 
 const basicArgs = {
@@ -169,9 +171,11 @@ const basicArgs = {
 
 const formFieldBasicArgs = {
   ...basicArgs,
-  label: undefined,
+  label: 'Label',
   optional: undefined,
   borderless: true,
+  disabled: false,
+  readonly: false,
 };
 
 export const sbbSlider = TemplateSbbSlider.bind({});
@@ -203,17 +207,16 @@ sbbSlider.documentation = {
 };
 
 export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});
-sbbSliderInFormField.argTypes = { ...formFieldBasicArgsTypes, disabled: disabledArg };
-sbbSliderInFormField.args = { ...formFieldBasicArgs, disabled: false };
+sbbSliderInFormField.argTypes = formFieldBasicArgsTypes;
+sbbSliderInFormField.args = formFieldBasicArgs;
 sbbSliderInFormField.documentation = {
   title: 'sbb-slider within sbb-form-field',
 };
 
 export const sbbSliderInFormFieldNoIcon = TemplateSbbSliderInFormField.bind({});
-sbbSliderInFormFieldNoIcon.argTypes = { ...formFieldBasicArgsTypes, disabled: disabledArg };
+sbbSliderInFormFieldNoIcon.argTypes = formFieldBasicArgsTypes;
 sbbSliderInFormFieldNoIcon.args = {
   ...formFieldBasicArgs,
-  disabled: false,
   'start-icon': undefined,
   'end-icon': undefined,
 };

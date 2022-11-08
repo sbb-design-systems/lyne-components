@@ -24,7 +24,6 @@ describe('sbb-slider', () => {
     expect(element).toHaveClass('hydrated');
     await page.waitForChanges();
 
-    // NOTE: value at line 22 is not reflected; probably related to bug https://github.com/ionic-team/stencil/issues/2946
     expect(element).toEqualHtml(`
       <sbb-slider class="hydrated" start-icon="walk-slow-small" end-icon="walk-fast-small" max="500" min="100" value="400">
         <mock:shadow-root>
