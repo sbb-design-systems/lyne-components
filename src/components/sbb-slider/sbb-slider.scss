@@ -7,6 +7,8 @@
   --sbb-slider-value-fraction: 0;
   --sbb-slider-knob-size: #{px-to-rem-build(28)};
   --sbb-slider-knob-border-size: #{px-to-rem-build(3)};
+  --sbb-slider-knob-color: var(--sbb-color-white-default);
+  --sbb-slider-knob-border-color: var(--sbb-color-red-default);
   --sbb-slider-icon-color: var(--sbb-color-black-default);
   --sbb-slider-selected-line-color: var(--sbb-color-red-default);
   --sbb-slider-selected-line-disabled-color: var(--sbb-color-smoke-default);
@@ -17,8 +19,6 @@
     --sbb-slider-selected-line-color: Highlight;
     --sbb-slider-line-color: CanvasText;
   }
-
-  line-height: var(--sbb-typo-line-height-body-text);
 }
 
 :host(.sbb-form-field-element) {
@@ -44,10 +44,6 @@
   }
 }
 
-.sbb-icon {
-  color: var(--sbb-slider-icon-color);
-}
-
 .sbb-slider__wrapper {
   max-width: #{px-to-rem-build(400)};
   min-width: #{px-to-rem-build(150)};
@@ -55,6 +51,7 @@
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
   padding-block: var(--sbb-spacing-fixed-1x);
+  color: var(--sbb-slider-icon-color);
 }
 
 .sbb-slider__container {
@@ -83,14 +80,7 @@
 
   :host([disabled]) &,
   :host([readonly]) & {
-    @include absoluteCenterY;
-
-    height: var(--sbb-slider-line-height);
-    width: 100%;
-    background-color: var(--sbb-slider-line-disabled-color);
-    border-radius: var(--sbb-slider-line-height);
-    overflow: hidden;
-    pointer-events: none;
+    --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
   }
 }
 
@@ -102,10 +92,7 @@
 
   :host([disabled]) &,
   :host([readonly]) & {
-    position: relative;
-    height: 100%;
-    background-color: var(--sbb-slider-selected-line-disabled-color);
-    width: calc(var(--sbb-slider-value-fraction) * 100%);
+    --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
   }
 }
 
@@ -122,18 +109,19 @@
   transition-property: width, height;
   transition-duration: var(--sbb-animation-duration-1x);
   transition-timing-function: ease-in;
-  background-color: var(--sbb-color-white-default);
-  border: var(--sbb-slider-knob-border-size) solid var(--sbb-slider-selected-line-color);
+  background-color: var(--sbb-slider-knob-color);
+  border: var(--sbb-slider-knob-border-size) solid var(--sbb-slider-knob-border-color);
   border-radius: 50%;
   pointer-events: none;
 
   :host([disabled]) & {
-    background-color: var(--sbb-color-milk-default);
-    border-color: var(--sbb-slider-line-disabled-color);
+    --sbb-slider-knob-color: var(--sbb-color-milk-default);
+    --sbb-slider-knob-border-color: var(--sbb-slider-line-disabled-color);
   }
 
   :host([readonly]) & {
-    border-color: var(--sbb-slider-selected-line-disabled-color);
+    --sbb-slider-knob-color: var(--sbb-color-milk-default);
+    --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
   }
 }
 

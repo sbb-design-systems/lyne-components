@@ -20,7 +20,7 @@ describe('sbb-slider', () => {
     element = await page.find('sbb-slider');
   });
 
-  // NOTE: value at line 22 is not reflected; probably related to bug https://github.com/ionic-team/stencil/issues/2946
+  // NOTE: value at line 36 is not reflected; probably related to bug https://github.com/ionic-team/stencil/issues/2946
   it('renders', async () => {
     expect(element).toHaveClass('hydrated');
     await page.waitForChanges();

@@ -144,12 +144,14 @@ const borderlessArg = {
 };
 
 const basicArgTypes = {
-  'end-icon': endIconArg,
   max: maxArg,
   min: minArg,
-  'start-icon': startIconArg,
+  disabled: disabledArg,
+  readonly: readonlyArg,
   value: valueArg,
   'value-as-number': valueAsNumberArg,
+  'start-icon': startIconArg,
+  'end-icon': endIconArg,
   'accessibility-label': accessibilityLabelArg,
   'accessibility-describedby': accessibilityDescribedbyArg,
   'accessibility-labelledby': accessibilityLabelledbyArg,
@@ -160,13 +162,13 @@ const formFieldBasicArgsTypes = {
   label: labelArg,
   optional: optionalArg,
   borderless: borderlessArg,
-  disabled: disabledArg,
-  readonly: readonlyArg,
 };
 
 const basicArgs = {
   max: '100',
   min: '0',
+  disabled: false,
+  readonly: false,
   value: '40',
   'value-as-number': 40,
   'start-icon': 'walk-slow-small',
@@ -181,8 +183,6 @@ const formFieldBasicArgs = {
   label: 'Label',
   optional: undefined,
   borderless: true,
-  disabled: false,
-  readonly: false,
 };
 
 export const sbbSlider = TemplateSbbSlider.bind({});
@@ -201,20 +201,20 @@ sbbSliderWithoutIcons.documentation = {
 
 export const sbbSliderSlottedIcons = templateSlottedIcons.bind({});
 sbbSliderSlottedIcons.argTypes = { ...basicArgTypes };
-sbbSliderSlottedIcons.args = { ...basicArgs };
+sbbSliderSlottedIcons.args = { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined };
 sbbSliderSlottedIcons.documentation = {
   title: 'sbb-slider with slotted icons',
 };
 
 export const sbbSliderDisabled = TemplateSbbSlider.bind({});
-sbbSliderDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg };
+sbbSliderDisabled.argTypes = { ...basicArgTypes };
 sbbSliderDisabled.args = { ...basicArgs, disabled: true };
 sbbSlider.documentation = {
   title: 'sbb-slider disabled',
 };
 
 export const sbbSliderReadonly = TemplateSbbSlider.bind({});
-sbbSliderReadonly.argTypes = { ...basicArgTypes, readonly: readonlyArg };
+sbbSliderReadonly.argTypes = { ...basicArgTypes };
 sbbSliderReadonly.args = { ...basicArgs, readonly: true };
 sbbSlider.documentation = {
   title: 'sbb-slider readonly',
