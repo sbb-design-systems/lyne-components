@@ -61,7 +61,9 @@ export class SbbCheckboxGroup implements ComponentInterface {
   }
 
   private get _checkboxes(): InterfaceSbbCheckbox[] {
-    return Array.from(this._checkboxGroupElement.querySelectorAll('sbb-checkbox')) as InterfaceSbbCheckbox[];
+    return Array.from(
+      this._checkboxGroupElement.querySelectorAll('sbb-checkbox')
+    ) as InterfaceSbbCheckbox[];
   }
 
   public render(): JSX.Element {
