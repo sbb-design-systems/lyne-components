@@ -1,4 +1,41 @@
 # sbb-checkbox-group
+`<sbb-checkbox-group>` is a component used as a conteiner to wrap the `<sbb-checkbox>` component.
+
+# Usage
+
+The examples below show how to render the component:
+
+```html
+<sbb-checkbox-group name='checkbox-group-1'>
+    <sbb-checkbox name="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
+    <sbb-checkbox name="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
+    <sbb-checkbox name="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+</sbb-checkbox-group>
+```
+
+# States
+The `<sbb-checkbox-group>` can have different states:
+
+- can be completely disabled by setting the property `disabled`;
+- can be required by setting the property `required`.
+
+```html
+<!-- All the child checkboxes will be disabled-->
+<sbb-checkbox-group name='checkbox-group-1' disabled>
+    <sbb-checkbox name="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
+    <sbb-checkbox name="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
+    <sbb-checkbox name="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+</sbb-checkbox-group>
+```
+
+```html
+<!-- All the child checkboxes will be marked as required-->
+<sbb-checkbox-group name='checkbox-group-1'>
+    <sbb-checkbox name="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
+    <sbb-checkbox name="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
+    <sbb-checkbox name="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+</sbb-checkbox-group>
+```
 
 <!-- Auto Generated Below -->
 
