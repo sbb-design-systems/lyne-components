@@ -27,4 +27,56 @@ describe('sbb-checkbox-group', () => {
       </sbb-checkbox-group>
     `);
   });
+
+  it('renders sbb-checkbox-group disabled', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbCheckboxGroup],
+      html: `
+        <sbb-checkbox-group disabled>
+          <sbb-checkbox name="checkbox-1" value="checkbox-1" disabled>Label 1</sbb-checkbox>
+          <sbb-checkbox name="checkbox-2" value="checkbox-2" disabled>Label 2</sbb-checkbox>
+          <sbb-checkbox name="checkbox-3" value="checkbox-3" disabled>Label 3</sbb-checkbox>
+        </sbb-checkbox-group>
+      `,
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-checkbox-group aria-label="sbb-checkbox-group-2-name" disabled>
+        <mock:shadow-root>
+          <div class="sbb-checkbox-group">
+            <slot></slot>
+          </div>
+        </mock:shadow-root>
+        <sbb-checkbox name="checkbox-1" value="checkbox-1" disabled>Label 1</sbb-checkbox>
+        <sbb-checkbox name="checkbox-2" value="checkbox-2" disabled>Label 2</sbb-checkbox>
+        <sbb-checkbox name="checkbox-3" value="checkbox-3" disabled>Label 3</sbb-checkbox>
+      </sbb-checkbox-group>
+    `);
+  });
+
+  it('renders sbb-checkbox-group required', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbCheckboxGroup],
+      html: `
+        <sbb-checkbox-group required>
+          <sbb-checkbox name="checkbox-1" value="checkbox-1" required>Label 1</sbb-checkbox>
+          <sbb-checkbox name="checkbox-2" value="checkbox-2" required>Label 2</sbb-checkbox>
+          <sbb-checkbox name="checkbox-3" value="checkbox-3" required>Label 3</sbb-checkbox>
+        </sbb-checkbox-group>
+      `,
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-checkbox-group aria-label="sbb-checkbox-group-3-name" required>
+        <mock:shadow-root>
+          <div class="sbb-checkbox-group">
+            <slot></slot>
+          </div>
+        </mock:shadow-root>
+        <sbb-checkbox name="checkbox-1" value="checkbox-1" required>Label 1</sbb-checkbox>
+        <sbb-checkbox name="checkbox-2" value="checkbox-2" required>Label 2</sbb-checkbox>
+        <sbb-checkbox name="checkbox-3" value="checkbox-3" required>Label 3</sbb-checkbox>
+      </sbb-checkbox-group>
+    `);
+  });
 });

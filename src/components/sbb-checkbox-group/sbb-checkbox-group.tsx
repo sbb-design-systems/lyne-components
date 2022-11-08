@@ -43,11 +43,11 @@ export class SbbCheckboxGroup implements ComponentInterface {
    */
   @State() private _namedSlots = createNamedSlotState('error');
 
-  @Element() private _element!: HTMLElement;
+  @Element() private _checkboxGroupElement!: HTMLElement;
 
   public connectedCallback(): void {
     this._updateCheckboxes();
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._namedSlots = queryAndObserveNamedSlotState(this._checkboxGroupElement, this._namedSlots);
   }
 
   private _updateCheckboxes(): void {
@@ -61,7 +61,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
   }
 
   private get _checkboxes(): InterfaceSbbCheckbox[] {
-    return Array.from(this._element.querySelectorAll('sbb-checkbox')) as InterfaceSbbCheckbox[];
+    return Array.from(this._checkboxGroupElement.querySelectorAll('sbb-checkbox')) as InterfaceSbbCheckbox[];
   }
 
   public render(): JSX.Element {
