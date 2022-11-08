@@ -73,7 +73,7 @@ const accessibilityLabelledby = {
   },
 };
 
-const closeAccessibilityLabel = {
+const accessibilityCloseLabel = {
   control: {
     type: 'text',
   },
@@ -82,7 +82,7 @@ const closeAccessibilityLabel = {
   },
 };
 
-const backAccessibilityLabel = {
+const accessibilityBackLabel = {
   control: {
     type: 'text',
   },
@@ -105,8 +105,8 @@ const basicArgTypes = {
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
-  'close-accessibility-label': closeAccessibilityLabel,
-  'back-accessibility-label': backAccessibilityLabel,
+  'accessibility-close-label': accessibilityCloseLabel,
+  'accessibility-back-label': accessibilityBackLabel,
   'disable-animation': disableAnimation,
 };
 
@@ -118,8 +118,8 @@ const basicArgs = {
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
-  'close-accessibility-label': undefined,
-  'back-accessibility-label': undefined,
+  'accessibility-close-label': undefined,
+  'accessibility-back-label': undefined,
   'disable-animation': isChromatic(),
 };
 

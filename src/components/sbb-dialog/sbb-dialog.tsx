@@ -86,12 +86,12 @@ export class SbbDialog implements AccessibilityProperties {
   /**
    * This will be forwarded as aria-label to the close button element.
    */
-  @Prop() public closeAccessibilityLabel: string | undefined;
+  @Prop() public accessibilityCloseLabel: string | undefined;
 
   /**
    * This will be forwarded as aria-label to the back button element.
    */
-  @Prop() public backAccessibilityLabel: string | undefined;
+  @Prop() public accessibilityBackLabel: string | undefined;
 
   /**
    * Whether the animation is enabled.
@@ -324,7 +324,7 @@ export class SbbDialog implements AccessibilityProperties {
     const closeButton = (
       <sbb-button
         class="sbb-dialog__close"
-        accessibility-label={this.closeAccessibilityLabel || i18nCloseDialog[this._currentLangauge]}
+        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLangauge]}
         accessibility-controls={this.dialogId}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
@@ -338,7 +338,7 @@ export class SbbDialog implements AccessibilityProperties {
     const backButton = (
       <sbb-button
         class="sbb-dialog__back"
-        accessibility-label={this.backAccessibilityLabel || i18nGoBack[this._currentLangauge]}
+        accessibility-label={this.accessibilityBackLabel || i18nGoBack[this._currentLangauge]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"

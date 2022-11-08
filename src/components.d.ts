@@ -488,6 +488,14 @@ export namespace Components {
     }
     interface SbbDialog {
         /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel": string | undefined;
+        /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
         "accessibilityDescribedby": string | undefined;
@@ -500,17 +508,9 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * This will be forwarded as aria-label to the back button element.
-         */
-        "backAccessibilityLabel": string | undefined;
-        /**
           * Closes the dialog element.
          */
         "close": (result?: any) => Promise<any>;
-        /**
-          * This will be forwarded as aria-label to the close button element.
-         */
-        "closeAccessibilityLabel": string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -2404,6 +2404,14 @@ declare namespace LocalJSX {
     }
     interface SbbDialog {
         /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel"?: string | undefined;
+        /**
           * This will be forwarded as aria-describedby to the relevant nested element.
          */
         "accessibilityDescribedby"?: string | undefined;
@@ -2415,14 +2423,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-labelledby to the relevant nested element.
          */
         "accessibilityLabelledby"?: string | undefined;
-        /**
-          * This will be forwarded as aria-label to the back button element.
-         */
-        "backAccessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-label to the close button element.
-         */
-        "closeAccessibilityLabel"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
