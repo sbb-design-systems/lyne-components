@@ -120,7 +120,6 @@
   }
 
   :host([readonly]) & {
-    --sbb-slider-knob-color: var(--sbb-color-milk-default);
     --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
   }
 }
