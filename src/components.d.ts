@@ -486,6 +486,64 @@ export namespace Components {
          */
         "paused"?: boolean;
     }
+    interface SbbDialog {
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Closes the dialog element.
+         */
+        "close": (result?: any) => Promise<any>;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "dialogId": string;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
+          * Opens the dialog element.
+         */
+        "open": (event?: PointerEvent) => Promise<void>;
+        /**
+          * Whether a back button is displayed next to the title.
+         */
+        "titleBackButton": boolean;
+        /**
+          * Dialog title.
+         */
+        "titleContent": string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId": string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
+         */
+        "titleLevel": InterfaceTitleAttributes['level'];
+    }
     interface SbbDivider {
         /**
           * Negative coloring variant flag
@@ -1439,6 +1497,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbDialogCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbDialogElement;
+}
 export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbMenuElement;
@@ -1531,6 +1593,12 @@ declare global {
     var HTMLSbbClockElement: {
         prototype: HTMLSbbClockElement;
         new (): HTMLSbbClockElement;
+    };
+    interface HTMLSbbDialogElement extends Components.SbbDialog, HTMLStencilElement {
+    }
+    var HTMLSbbDialogElement: {
+        prototype: HTMLSbbDialogElement;
+        new (): HTMLSbbDialogElement;
     };
     interface HTMLSbbDividerElement extends Components.SbbDivider, HTMLStencilElement {
     }
@@ -1827,6 +1895,7 @@ declare global {
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
+        "sbb-dialog": HTMLSbbDialogElement;
         "sbb-divider": HTMLSbbDividerElement;
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
@@ -2332,6 +2401,76 @@ declare namespace LocalJSX {
           * If set to true, the clock will be paused.
          */
         "paused"?: boolean;
+    }
+    interface SbbDialog {
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "dialogId"?: string;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
+        /**
+          * Emits whenever the dialog is closed.
+         */
+        "onSbb-dialog_did-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        /**
+          * Emits whenever the dialog is opened.
+         */
+        "onSbb-dialog_did-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        /**
+          * Emits whenever the back button is clicked.
+         */
+        "onSbb-dialog_request-back-action"?: (event: SbbDialogCustomEvent<void>) => void;
+        /**
+          * Emits whenever the dialog begins the closing transition.
+         */
+        "onSbb-dialog_will-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        /**
+          * Emits whenever the dialog starts the opening transition.
+         */
+        "onSbb-dialog_will-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        /**
+          * Whether a back button is displayed next to the title.
+         */
+        "titleBackButton"?: boolean;
+        /**
+          * Dialog title.
+         */
+        "titleContent"?: string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbDivider {
         /**
@@ -3291,6 +3430,7 @@ declare namespace LocalJSX {
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
+        "sbb-dialog": SbbDialog;
         "sbb-divider": SbbDivider;
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
@@ -3356,6 +3496,7 @@ declare module "@stencil/core" {
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
+            "sbb-dialog": LocalJSX.SbbDialog & JSXBase.HTMLAttributes<HTMLSbbDialogElement>;
             "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;

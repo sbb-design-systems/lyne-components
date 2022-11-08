@@ -1,0 +1,252 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
+  --sbb-dialog-color: var(--sbb-color-black-default);
+  --sbb-dialog-background-color: var(--sbb-color-white-default);
+  --sbb-dialog-max-width: 100%;
+  --sbb-dialog-max-width-default: #{px-to-rem-build(892)};
+  --sbb-dialog-max-height: 100%;
+  --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
+  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-dialog-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-dialog-animation-easing: ease;
+  --sbb-dialog-backdrop-color: transparent;
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
+  --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+  --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
+  --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
+
+  position: fixed;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  inset: 0;
+  z-index: 10;
+
+  // Backdrop
+  &::before {
+    content: '';
+    visibility: hidden;
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    background-color: var(--sbb-dialog-backdrop-color);
+    transition: {
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: var(--sbb-dialog-animation-easing);
+      property: background-color, visibility;
+    }
+  }
+
+  @include mq($from: micro) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
+  }
+
+  @include mq($from: small) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
+  }
+
+  @include mq($from: medium) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
+    --sbb-dialog-max-width: min(
+      calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
+      var(--sbb-dialog-max-width-default)
+    );
+    --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
+  }
+}
+
+// stylelint-disable plugin/stylelint-bem-namics
+:host(:is(.sbb-dialog--opened, .sbb-dialog--opening)) {
+  pointer-events: all;
+
+  @include mq($from: medium) {
+    --sbb-dialog-backdrop-color: var(--sbb-color-milk-default);
+
+    &::before {
+      visibility: visible;
+      pointer-events: all;
+    }
+  }
+}
+// stylelint-enable plugin/stylelint-bem-namics
+
+:host(.sbb-dialog--full-screen) {
+  --sbb-dialog-backdrop-color: transparent;
+  --sbb-dialog-max-width: 100%;
+  --sbb-dialog-max-height: 100%;
+}
+
+:host([negative]) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
+  --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
+  --sbb-dialog-color: var(--sbb-color-white-default);
+  --sbb-dialog-background-color: var(--sbb-color-midnight-default);
+  --sbb-dialog-footer-border: none;
+}
+
+:host([disable-animation]) {
+  --sbb-dialog-animation-duration: 0s;
+}
+
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(.sbb-dialog--full-screen:not([negative])) {
+  --sbb-dialog-background-color: var(--sbb-color-milk-default);
+}
+
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen)) {
+  --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
+}
+
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) {
+  --sbb-dialog-footer-border: none;
+}
+
+.sbb-dialog {
+  padding: 0;
+  border: none;
+  max-width: var(--sbb-dialog-max-width);
+  max-height: var(--sbb-dialog-max-height);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  color: var(--sbb-dialog-color);
+  background-color: var(--sbb-dialog-background-color);
+
+  &[open] {
+    animation: {
+      name: open;
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: ease;
+    }
+  }
+
+  :host(.sbb-dialog--closing) & {
+    pointer-events: none;
+    animation-name: close;
+  }
+
+  :host(.sbb-dialog--full-screen) & {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  @include ifForcedColors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  @include mq($from: medium) {
+    border-radius: var(--sbb-dialog-border-radius);
+    height: fit-content;
+    overflow: hidden;
+  }
+}
+
+.sbb-dialog__wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: var(--sbb-dialog-max-height);
+  outline: none;
+
+  @include mq($from: medium) {
+    height: auto;
+  }
+}
+
+.sbb-dialog__header {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-6x);
+  align-items: start;
+  justify-content: space-between;
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-dialog-header-padding-block);
+  background-color: var(--sbb-dialog-background-color);
+  z-index: 10;
+
+  :host(.sbb-dialog--full-screen) & {
+    position: fixed;
+    width: 100%;
+    background-color: transparent;
+    padding-inline: var(--sbb-spacing-responsive-xs);
+    padding-block-start: var(--sbb-spacing-responsive-xs);
+  }
+
+  @include mq($from: medium) {
+    border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
+  }
+}
+
+.sbb-dialog__title {
+  flex: 1;
+  overflow: hidden;
+  align-self: center;
+}
+
+.sbb-dialog__content {
+  @include scrollbar;
+
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-dialog-padding-block);
+  overflow: auto;
+
+  :host(.sbb-dialog--full-screen) & {
+    padding-block-start: var(--sbb-spacing-fixed-20x);
+    padding-inline: var(--sbb-layout-base-offset-responsive);
+    height: 100vh;
+  }
+}
+
+.sbb-dialog__footer {
+  padding-inline: var(--sbb-dialog-padding-inline);
+  padding-block: var(--sbb-spacing-responsive-s);
+  margin-block-start: auto;
+  background-color: var(--sbb-dialog-background-color);
+  border-block-start: var(--sbb-dialog-footer-border);
+}
+
+// stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+:is(.sbb-dialog__header, .sbb-dialog__footer) {
+  :host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) & {
+    @include shadow-level-9-soft;
+  }
+}
+// stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
+
+// It is necessary to use animations with keyframes instead of transitions in order not to alter
+// the default `display: block` of the modal otherwise it causes several problems,
+// especially for accessibility.
+@keyframes open {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes close {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+}

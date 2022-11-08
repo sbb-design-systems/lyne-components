@@ -24,6 +24,7 @@ it is possible to use the `visual-level`.
 ### Used by
 
  - [sbb-alert](../sbb-alert)
+ - [sbb-dialog](../sbb-dialog)
  - [sbb-link-list](../sbb-link-list)
  - [sbb-teaser](../sbb-teaser)
 
@@ -31,6 +32,7 @@ it is possible to use the `visual-level`.
 ```mermaid
 graph TD;
   sbb-alert --> sbb-title
+  sbb-dialog --> sbb-title
   sbb-link-list --> sbb-title
   sbb-teaser --> sbb-title
   style sbb-title fill:#f9f,stroke:#333,stroke-width:4px
