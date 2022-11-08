@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.14](https://github.com/lyne-design-system/lyne-components/compare/v0.12.13...v0.12.14) (2022-11-08)
+
+### Features
+
+- **sbb-dialog:** introduce sbb-dialog component ([#1413](https://github.com/lyne-design-system/lyne-components/issues/1413)) ([3cce10e](https://github.com/lyne-design-system/lyne-components/commit/3cce10ed35e49193057fce49af5a628a43af12d9))
+
 ### [0.12.13](https://github.com/lyne-design-system/lyne-components/compare/v0.12.12...v0.12.13) (2022-11-07)
 
 ### [0.12.12](https://github.com/lyne-design-system/lyne-components/compare/v0.12.11...v0.12.12) (2022-11-04)
