@@ -117,7 +117,7 @@ export class SbbJourneySummary {
         {origin && (
           <sbb-journey-header origin={origin} destination={destination}></sbb-journey-header>
         )}
-        {vias && this._renderJourneyVias(vias)}
+        {vias?.length > 0 && this._renderJourneyVias(vias)}
         <div class="sbb-journey-summary__body">
           {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure?.time), duration)}
           <sbb-pearl-chain-time

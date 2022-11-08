@@ -83,12 +83,6 @@ describe('sbb-journey-summary', () => {
       `<sbb-journey-summary>
       <mock:shadow-root>
         <div class="sbb-journey-summary">
-          <div class="sbb-journey-summary__via-block">
-            <span class="sbb-journey-summary__via-text">
-              Via
-            </span>
-            <ul class="sbb-journey-summary__vias"></ul>
-          </div>
           <div class="sbb-journey-summary__body">
             <span>
               <time datetime="29 8">
