@@ -4,6 +4,13 @@ import readme from './readme.md';
 
 const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
 
+const templateSlottedIcons = (args) => (
+  <sbb-slider {...args}>
+    <sbb-icon slot="prefix" name="battery-level-empty-small" />
+    <sbb-icon slot="suffix" name="battery-level-high-small" />
+  </sbb-slider>
+);
+
 const TemplateSbbSliderInFormField = ({ label, optional, borderless, ...args }) => (
   <sbb-form-field label={label} optional={optional} borderless={borderless}>
     {TemplateSbbSlider(args)}
@@ -192,6 +199,13 @@ sbbSliderWithoutIcons.documentation = {
   title: 'sbb-slider without icons',
 };
 
+export const sbbSliderSlottedIcons = templateSlottedIcons.bind({});
+sbbSliderSlottedIcons.argTypes = { ...basicArgTypes };
+sbbSliderSlottedIcons.args = { ...basicArgs };
+sbbSliderSlottedIcons.documentation = {
+  title: 'sbb-slider with slotted icons',
+};
+
 export const sbbSliderDisabled = TemplateSbbSlider.bind({});
 sbbSliderDisabled.argTypes = { ...basicArgTypes, disabled: disabledArg };
 sbbSliderDisabled.args = { ...basicArgs, disabled: true };
@@ -207,14 +221,14 @@ sbbSlider.documentation = {
 };
 
 export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});
-sbbSliderInFormField.argTypes = formFieldBasicArgsTypes;
+sbbSliderInFormField.argTypes = { ...formFieldBasicArgsTypes };
 sbbSliderInFormField.args = formFieldBasicArgs;
 sbbSliderInFormField.documentation = {
   title: 'sbb-slider within sbb-form-field',
 };
 
 export const sbbSliderInFormFieldNoIcon = TemplateSbbSliderInFormField.bind({});
-sbbSliderInFormFieldNoIcon.argTypes = formFieldBasicArgsTypes;
+sbbSliderInFormFieldNoIcon.argTypes = { ...formFieldBasicArgsTypes };
 sbbSliderInFormFieldNoIcon.args = {
   ...formFieldBasicArgs,
   'start-icon': undefined,
