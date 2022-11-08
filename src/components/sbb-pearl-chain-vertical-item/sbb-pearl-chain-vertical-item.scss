@@ -198,6 +198,16 @@
   vertical-align: top;
 }
 
+slot[name='left']::slotted(*) {
+  margin-block-start: var(--sbb-pearl-chain-vertical-item-left-top-margin);
+  padding-inline-end: var(--sbb-pearl-chain-vertical-item-left-padding);
+}
+
+slot[name='right']::slotted(*) {
+  margin-block-start: var(--sbb-pearl-chain-vertical-item-right-top-margin);
+  padding-inline-start: var(--sbb-pearl-chain-vertical-item-right-padding);
+}
+
 .sbb-pearl-chain-vertical-item__middle {
   vertical-align: top;
   border-spacing: 0;
@@ -208,11 +218,11 @@
     box-shadow: 0 0 0 0 var(--sbb-color-red);
   }
 
-  40% {
+  50% {
     box-shadow: 0 0 0 #{px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
   }
 
-  80% {
+  100% {
     box-shadow: 0 0 0 0 var(--sbb-color-red);
   }
 }
