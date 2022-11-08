@@ -1,5 +1,6 @@
 export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action):not([disabled]):not([tabindex="-1"]):not([static])`;
 
+// Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
 export function getFocusableElements(elements: HTMLElement[]): HTMLElement[] {
   const focusableEls = new Set<HTMLElement>();
 
