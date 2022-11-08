@@ -38,6 +38,7 @@ This is helpful if you need a specific state of the component.
 
 ### Used by
 
+ - [sbb-journey-summary](../sbb-journey-summary)
  - [sbb-timetable-row](../sbb-timetable-row)
 
 ### Depends on
@@ -50,6 +51,7 @@ This is helpful if you need a specific state of the component.
 graph TD;
   sbb-pearl-chain-time --> sbb-icon
   sbb-pearl-chain-time --> sbb-pearl-chain
+  sbb-journey-summary --> sbb-pearl-chain-time
   sbb-timetable-row --> sbb-pearl-chain-time
   style sbb-pearl-chain-time fill:#f9f,stroke:#333,stroke-width:4px
 ```

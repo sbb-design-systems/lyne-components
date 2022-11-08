@@ -1,7 +1,6 @@
 .sbb-journey-summary {
   @include text-s--regular;
 
-  padding: var(--sbb-spacing-responsive-s);
   display: flex;
   flex-direction: column;
 }
@@ -25,33 +24,7 @@
   text-overflow: ellipsis;
 }
 
-.sbb-journey-summary__transportation-details {
-  display: flex;
-  flex-direction: row;
-  gap: var(--sbb-spacing-fixed-3x);
-  align-items: center;
-}
-
-.sbb-journey-summary__pearlchain {
-  flex: 1 1 auto;
-}
-
-.sbb-journey-summary__walktime {
-  @include text-xxs--regular;
-
-  align-items: center;
-  display: inline-flex;
-}
-
-.sbb-journey-summary__time {
-  @include text-s--bold;
-}
-
 ul li {
   list-style: none;
   display: inline;
-}
-
-.screenreaderonly {
-  @include screenReaderOnly;
 }

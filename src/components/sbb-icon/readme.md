@@ -100,7 +100,6 @@ In the HTML, you can now use the icon as shown below:
  - [sbb-button](../sbb-button)
  - [sbb-form-field](../sbb-form-field)
  - [sbb-header-action](../sbb-header-action)
- - [sbb-journey-summary](../sbb-journey-summary)
  - [sbb-link](../sbb-link)
  - [sbb-menu-action](../sbb-menu-action)
  - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
@@ -114,7 +113,6 @@ graph TD;
   sbb-button --> sbb-icon
   sbb-form-field --> sbb-icon
   sbb-header-action --> sbb-icon
-  sbb-journey-summary --> sbb-icon
   sbb-link --> sbb-icon
   sbb-menu-action --> sbb-icon
   sbb-pearl-chain-time --> sbb-icon

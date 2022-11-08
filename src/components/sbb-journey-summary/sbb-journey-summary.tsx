@@ -2,16 +2,7 @@ import { Component, h, JSX, Prop, Element } from '@stencil/core';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, isValid, format } from 'date-fns';
 
-import {
-  i18nArrival,
-  i18nDeparture,
-  i18nDurationHour,
-  i18nDurationMinute,
-  i18nToday,
-  i18nTomorrow,
-  i18nWalkingDistanceArrival,
-  i18nWalkingDistanceDeparture,
-} from '../../global/i18n';
+import { i18nDurationHour, i18nDurationMinute, i18nToday, i18nTomorrow } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
 
@@ -108,52 +99,35 @@ export class SbbJourneySummary {
     );
   }
 
-  /** renders the optional walktimes, the icon is displayed either before or after the time*/
-  private _renderWalkTime(departure: boolean, duration: number): JSX.Element {
-    return (
-      <span class="sbb-journey-summary__walktime">
-        <sbb-icon name="walk-small"></sbb-icon>
-        <time dateTime={duration.toString()}>
-          {duration}
-          <span aria-hidden="true">'</span>
-        </time>
-        <span class="screenreaderonly">
-          {departure
-            ? i18nWalkingDistanceDeparture[this._currentLanguage]
-            : i18nWalkingDistanceArrival[this._currentLanguage]}
-        </span>
-      </span>
-    );
-  }
-
   public render(): JSX.Element {
-    const { vias, origin, destination, duration } = this.config || {};
-    const departureTime: Date = removeTimezoneFromISOTimeString(this.config?.departure?.time);
-    const arrivalTime: Date = removeTimezoneFromISOTimeString(this.config?.arrival?.time);
+    const {
+      vias,
+      origin,
+      destination,
+      duration,
+      departureWalk,
+      departure,
+      arrivalWalk,
+      arrival,
+      legs,
+    } = this.config || {};
 
     return (
       <div class="sbb-journey-summary">
         {origin && (
           <sbb-journey-header origin={origin} destination={destination}></sbb-journey-header>
         )}
-        {vias && this._renderJourneyVias(vias)}
+        {vias?.length > 0 && this._renderJourneyVias(vias)}
         <div class="sbb-journey-summary__body">
-          {this._renderJourneyStart(departureTime, duration)}
-          <div class="sbb-journey-summary__transportation-details">
-            <span class="screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
-            {this.config?.departureWalk && this._renderWalkTime(true, this.config?.departureWalk)}
-            {isValid(departureTime) && (
-              <time class="sbb-journey-summary__time">{format(departureTime, 'HH:mm')}</time>
-            )}
-            <div class="sbb-journey-summary__pearlchain">
-              <sbb-pearl-chain legs={this.config?.legs} disableAnimation={this.disableAnimation} />
-            </div>
-            {isValid(arrivalTime) && (
-              <time class="sbb-journey-summary__time">{format(arrivalTime, 'HH:mm')}</time>
-            )}
-            <span class="screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-            {this.config?.arrivalWalk && this._renderWalkTime(false, this.config?.arrivalWalk)}
-          </div>
+          {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure?.time), duration)}
+          <sbb-pearl-chain-time
+            arrivalTime={arrival?.time}
+            departureTime={departure?.time}
+            departureWalk={departureWalk}
+            arrivalWalk={arrivalWalk}
+            legs={legs}
+            disableAnimation={this.disableAnimation}
+          />
           {this._hasContentSlot && (
             <div class="sbb-journey-summary__slot">
               <slot name="content" />
