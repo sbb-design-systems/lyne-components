@@ -112,6 +112,22 @@ jobs:
           storybookBuildDir: storybook-static
           exitOnceUploaded: true
           exitZeroOnChanges: true
+      - name: Add comment to PR with link to storybook
+        uses: actions/github-script@v6
+        env:
+          storybookUrl: ${{ steps.chromatic-publish.outputs.storybookUrl }}
+        with:
+          script: |
+            const storybookUrl = process.env.storybookUrl;
+            const createdAtDate = new Date(
+              context.payload.pull_request.created_at
+            ).toLocaleString('de');
+            github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Preview ready from ${context.sha} at ${createdAtDate}:\n- ${storybookUrl}`,
+            });
 
   netlify:
     runs-on: ubuntu-latest
@@ -129,29 +145,10 @@ jobs:
           name: storybook
           path: storybook-static/
       - name: Publish to netlify
-        id: netlify-publish
-        run: |
-          deploy_url=$( ./ci/netlify_deploy_branch.sh $GITHUB_REF_NAME | jq '.deploy_url' )
-          echo "storybookUrl=$deploy_url" >> $GITHUB_OUTPUT
+        run: ./ci/netlify_deploy_branch.sh $GITHUB_REF_NAME
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      - name: Add comment to PR with link to storybook
-        uses: actions/github-script@v6
-        env:
-          storybookUrl: ${{ steps.netlify-publish.outputs.storybookUrl }}
-        with:
-          script: |
-            const storybookUrl = process.env.storybookUrl;
-            const createdAtDate = new Date(
-              context.payload.pull_request.created_at
-            ).toLocaleString('de');
-            github.rest.issues.createComment({
-              issue_number: context.payload.pull_request.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `Preview ready from ${context.sha} at ${createdAtDate}:\n- ${storybookUrl}`,
-            });
 
   netlify-deployments:
     runs-on: ubuntu-latest
