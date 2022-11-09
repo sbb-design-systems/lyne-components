@@ -14,6 +14,8 @@ import {
 } from '@stencil/core';
 import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
+import { i18nCloseTooltip } from '../../global/i18n';
+import getDocumentLang from '../../global/helpers/get-document-lang';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -40,12 +42,12 @@ export class SbbTooltip implements ComponentInterface {
   @Prop() public hoverTrigger?: boolean = false;
 
   /**
-   * Show animation delay.
+   * Open the tooltip after a certain delay.
    */
   @Prop() public showDelay? = 0;
 
   /**
-   * Show animation delay.
+   * Close the tooltip after a certain delay.
    */
   @Prop() public hideDelay? = 0;
 
@@ -53,6 +55,11 @@ export class SbbTooltip implements ComponentInterface {
    * Whether the animation is enabled.
    */
   @Prop({ reflect: true }) public disableAnimation = false;
+
+  /**
+   * This will be forwarded as aria-label to the close button element.
+   */
+  @Prop() public accessibilityCloseLabel: string | undefined;
 
   /**
    * Whether the tooltip is presented.
@@ -70,7 +77,7 @@ export class SbbTooltip implements ComponentInterface {
   @State() private _isDismissing = false;
 
   /**
-   * ...
+   * The alignment of the tooltip relative to the trigger.
    */
   @State() private _alignment: Alignment;
 
@@ -127,6 +134,7 @@ export class SbbTooltip implements ComponentInterface {
   private _hoverTrigger = false;
   private _presentTimeout: ReturnType<typeof setTimeout>;
   private _dismissTimeout: ReturnType<typeof setTimeout>;
+  private _currentLangauge = getDocumentLang();
 
   @Element() private _element!: HTMLElement;
 
@@ -253,13 +261,14 @@ export class SbbTooltip implements ComponentInterface {
 
   private _attachWindowEvents(): void {
     this._windowEventsController = new AbortController();
-    ['resize', 'scroll'].forEach((eventName) =>
-      window.addEventListener(eventName, () => this._setTooltipPosition(), {
-        passive: true,
-        signal: this._windowEventsController.signal,
-      })
-    );
-
+    document.addEventListener('scroll', () => this._setTooltipPosition(), {
+      passive: true,
+      signal: this._windowEventsController.signal,
+    });
+    window.addEventListener('resize', () => this._setTooltipPosition(), {
+      passive: true,
+      signal: this._windowEventsController.signal,
+    });
     window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
       signal: this._windowEventsController.signal,
     });
@@ -299,7 +308,7 @@ export class SbbTooltip implements ComponentInterface {
     if (this._presented) {
       clearTimeout(this._dismissTimeout);
     } else {
-      this._presentTimeout = setTimeout(this.present.bind(this), this.showDelay);
+      this._presentTimeout = setTimeout(() => this.present(), this.showDelay);
     }
   };
 
@@ -314,7 +323,7 @@ export class SbbTooltip implements ComponentInterface {
   // Close tooltip on mouse leaving the trigger/tooltip hover.
   private _dismissOnMouseLeave = (): void => {
     if (this._presented && !this._isDismissing) {
-      this._dismissTimeout = setTimeout(this.dismiss.bind(this), this.hideDelay);
+      this._dismissTimeout = setTimeout(() => this.dismiss(), this.hideDelay);
     }
   };
 
@@ -389,7 +398,9 @@ export class SbbTooltip implements ComponentInterface {
     const closeButton = (
       <span class="sbb-tooltip__dismiss">
         <sbb-button
-          accessibility-label="Close"
+          accessibility-label={
+            this.accessibilityCloseLabel || i18nCloseTooltip[this._currentLangauge]
+          }
           variant="secondary"
           size="m"
           type="button"
@@ -412,7 +423,7 @@ export class SbbTooltip implements ComponentInterface {
           class={{
             'sbb-tooltip': true,
             'sbb-tooltip--dismissing': this._isDismissing,
-            [`sbb-tooltip--${this._alignment?.vertical || 'below'}`]: true,
+            'sbb-tooltip--above': this._alignment?.vertical === 'above',
           }}
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}

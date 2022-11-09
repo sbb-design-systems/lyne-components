@@ -1503,6 +1503,10 @@ export namespace Components {
     }
     interface SbbTooltip {
         /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel": string | undefined;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
@@ -1511,7 +1515,7 @@ export namespace Components {
          */
         "dismiss": () => Promise<void>;
         /**
-          * Show animation delay.
+          * Close the tooltip after a certain delay.
          */
         "hideDelay"?: number;
         /**
@@ -1523,7 +1527,7 @@ export namespace Components {
          */
         "present": () => Promise<void>;
         /**
-          * Show animation delay.
+          * Open the tooltip after a certain delay.
          */
         "showDelay"?: number;
         /**
@@ -3499,11 +3503,15 @@ declare namespace LocalJSX {
     }
     interface SbbTooltip {
         /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel"?: string | undefined;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
         /**
-          * Show animation delay.
+          * Close the tooltip after a certain delay.
          */
         "hideDelay"?: number;
         /**
@@ -3527,7 +3535,7 @@ declare namespace LocalJSX {
          */
         "onSbb-tooltip_will-present"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
-          * Show animation delay.
+          * Open the tooltip after a certain delay.
          */
         "showDelay"?: number;
         /**

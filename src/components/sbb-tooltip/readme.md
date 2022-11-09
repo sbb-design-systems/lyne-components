@@ -70,13 +70,14 @@ As the tooltip opens, the focus will automatically be set to the first focusable
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                    | Type                    | Default     |
-| ------------------ | ------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                              | `boolean`               | `false`     |
-| `hideDelay`        | `hide-delay`        | Show animation delay.                                                                                          | `number`                | `0`         |
-| `hoverTrigger`     | `hover-trigger`     | Whether the tooltip should be triggered on hover.                                                              | `boolean`               | `false`     |
-| `showDelay`        | `show-delay`        | Show animation delay.                                                                                          | `number`                | `0`         |
-| `trigger`          | `trigger`           | The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
+| Property                  | Attribute                   | Description                                                                                                    | Type                    | Default     |
+| ------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                              | `string`                | `undefined` |
+| `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                                                              | `boolean`               | `false`     |
+| `hideDelay`               | `hide-delay`                | Close the tooltip after a certain delay.                                                                       | `number`                | `0`         |
+| `hoverTrigger`            | `hover-trigger`             | Whether the tooltip should be triggered on hover.                                                              | `boolean`               | `false`     |
+| `showDelay`               | `show-delay`                | Open the tooltip after a certain delay.                                                                        | `number`                | `0`         |
+| `trigger`                 | `trigger`                   | The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
 
 
 ## Events

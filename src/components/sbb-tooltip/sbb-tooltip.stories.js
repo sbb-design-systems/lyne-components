@@ -3,17 +3,20 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
-
-// Function to emulate pausing between interactions
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('tooltip').shadowRoot.querySelector('dialog.sbb-tooltip')
+  );
+
+  await waitForStablePosition(() => canvas.getByTestId('tooltip-trigger'));
+
   const button = canvas.getByTestId('tooltip-trigger');
-  await sleep(300);
   await userEvent.click(button);
 };
 
@@ -35,30 +38,39 @@ const hideDelay = {
   },
 };
 
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes = {
   'hover-trigger': hoverTrigger,
   'show-delay': showDelay,
   'hide-delay': hideDelay,
+  'disable-animation': disableAnimation,
 };
 
 const defaultArgs = {
   'hover-trigger': false,
   'show-delay': undefined,
   'hide-delay': undefined,
+  'disable-animation': isChromatic(),
 };
 
-const tooltipTrigger = (position, id) => (
+const tooltipTrigger = (position) => (
   <sbb-icon
     data-testid="tooltip-trigger"
-    id={id}
+    id="tooltip-trigger"
     name="circle-information-small"
+    aria-describedby="tooltip-content"
     style={`margin-inline: 2rem; position: absolute; cursor: pointer; ${position};`}
   />
 );
 
-const tooltip = (args, triggerId) => (
-  <sbb-tooltip trigger={triggerId} {...args} disable-animation={isChromatic()}>
-    <p style={'margin: 0; font-size: var(--sbb-font-size-text-s)'}>
+const tooltip = (args) => (
+  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
+    <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s)'}>
       Simple information tooltip content with action link.{' '}
       <sbb-link text-size="s" variant="inline">
         Link
@@ -67,40 +79,22 @@ const tooltip = (args, triggerId) => (
   </sbb-tooltip>
 );
 
-const StartBelowTemplate = (args) => [
-  tooltipTrigger('left: 2rem', 'tooltip-trigger'),
-  tooltip(args, 'tooltip-trigger'),
-];
+const StartBelowTemplate = (args) => [tooltipTrigger('left: 2rem'), tooltip(args)];
 
-const CenterBelowTemplate = (args) => [
-  tooltipTrigger('left: calc(50% - 44px)', 'tooltip-trigger'),
-  tooltip(args, 'tooltip-trigger'),
-];
+const CenterBelowTemplate = (args) => [tooltipTrigger('left: calc(50% - 44px)'), tooltip(args)];
 
-const EndBelowTemplate = (args) => [
-  tooltipTrigger('right: 2rem', 'tooltip-trigger'),
-  tooltip(args, 'tooltip-trigger'),
-];
+const EndBelowTemplate = (args) => [tooltipTrigger('right: 2rem'), tooltip(args)];
 
-const StartAboveTemplate = (args) => [
-  tooltipTrigger('bottom: 2rem', 'tooltip-trigger'),
-  tooltip(args, 'tooltip-trigger'),
-];
+const StartAboveTemplate = (args) => [tooltipTrigger('bottom: 2rem'), tooltip(args)];
 
 const CenterAboveTemplate = (args) => [
-  tooltipTrigger('left: calc(50% - 44px); bottom: 2rem', 'tooltip-trigger'),
-  tooltip(args, 'tooltip-trigger'),
+  tooltipTrigger('left: calc(50% - 44px); bottom: 2rem'),
+  tooltip(args),
 ];
 
-const EndAboveTemplate = (args) => [
-  tooltipTrigger('right: 2rem; bottom: 2rem', 'tooltip-trigger'),
-  tooltip(args, 'tooltip-trigger'),
-];
+const EndAboveTemplate = (args) => [tooltipTrigger('right: 2rem; bottom: 2rem'), tooltip(args)];
 
-const HoverTriggerTemplate = (args) => [
-  tooltipTrigger('left: 2rem', 'tooltip-trigger'),
-  tooltip(args, 'tooltip-trigger'),
-];
+const HoverTriggerTemplate = (args) => [tooltipTrigger('left: 2rem'), tooltip(args)];
 
 export const StartBelow = StartBelowTemplate.bind({});
 StartBelow.argTypes = defaultArgTypes;
