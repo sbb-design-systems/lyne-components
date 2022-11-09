@@ -9,7 +9,7 @@ describe('sbb-tooltip', () => {
     await page.setContent(`
       <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
       <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
-        Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+        Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
       </sbb-tooltip>
     `);
     trigger = await page.find('sbb-button');

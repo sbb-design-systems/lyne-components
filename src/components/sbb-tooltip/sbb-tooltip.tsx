@@ -19,7 +19,6 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
-const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
 
 /**
  * @slot unnamed - Use this slot to project any content inside the tooltip.
@@ -109,7 +108,7 @@ export class SbbTooltip implements ComponentInterface {
     composed: true,
     eventName: 'sbb-tooltip_will-dismiss',
   })
-  public willDismiss: EventEmitter<void>;
+  public willDismiss: EventEmitter<{ closeTarget: HTMLElement }>;
 
   /**
    * Emits whenever the tooltip is dismissed.
@@ -119,13 +118,14 @@ export class SbbTooltip implements ComponentInterface {
     composed: true,
     eventName: 'sbb-tooltip_did-dismiss',
   })
-  public didDismiss: EventEmitter<void>;
+  public didDismiss: EventEmitter<{ closeTarget: HTMLElement }>;
 
   private _dialog: HTMLDialogElement;
   private _triggerElement: HTMLElement;
   private _tooltipContentElement: HTMLElement;
   private _prevFocusedElement: HTMLElement;
   private _firstFocusable: HTMLElement;
+  private _tooltipCloseElement: HTMLElement;
   private _isPointerDownEventOnTooltip: boolean;
   private _tooltipController: AbortController;
   private _windowEventsController: AbortController;
@@ -157,12 +157,13 @@ export class SbbTooltip implements ComponentInterface {
    * Dismisses the tooltip.
    */
   @Method()
-  public async dismiss(): Promise<void> {
+  public async dismiss(target?: HTMLElement): Promise<void> {
     if (!this._presented || this._isPresenting || this._isDismissing) {
       return;
     }
 
-    this.willDismiss.emit();
+    this._tooltipCloseElement = target;
+    this.willDismiss.emit({ closeTarget: this._tooltipCloseElement });
     this._isDismissing = true;
     this._presented = false;
     this._openedByKeyboard = false;
@@ -282,12 +283,12 @@ export class SbbTooltip implements ComponentInterface {
     });
   }
 
-  // Dismiss tooltip at any click on an interactive element inside the <sbb-tooltip> that bubbles to the container.
-  private _dismissOnInteractiveElementClick(event: Event): void {
+  // Close the tooltip on click of any element that has the 'sbb-tooltip-close' attribute.
+  private _dismissOnSbbTooltipCloseClick(event: Event): void {
     const target = event.target as HTMLElement;
-    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !target.hasAttribute('disabled')) {
+    if (target.hasAttribute('sbb-tooltip-close') && !target.hasAttribute('disabled')) {
       clearTimeout(this._dismissTimeout);
-      this.dismiss();
+      this.dismiss(target);
     }
   }
 
@@ -342,7 +343,7 @@ export class SbbTooltip implements ComponentInterface {
       this._presented = false;
       this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();
-      this.didDismiss.emit();
+      this.didDismiss.emit({ closeTarget: this._tooltipCloseElement });
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
     }
@@ -428,7 +429,7 @@ export class SbbTooltip implements ComponentInterface {
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
-            onClick={(event: Event) => this._dismissOnInteractiveElementClick(event)}
+            onClick={(event: Event) => this._dismissOnSbbTooltipCloseClick(event)}
             ref={(tooltipContentRef) => (this._tooltipContentElement = tooltipContentRef)}
             class="sbb-tooltip__content"
           >

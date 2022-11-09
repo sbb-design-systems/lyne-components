@@ -72,7 +72,7 @@ const tooltip = (args) => (
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
     <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s)'}>
       Simple information tooltip content with action link.{' '}
-      <sbb-link text-size="s" variant="inline">
+      <sbb-link text-size="s" variant="inline" sbb-tooltip-close>
         Link
       </sbb-link>
     </p>

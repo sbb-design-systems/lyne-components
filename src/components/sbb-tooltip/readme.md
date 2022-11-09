@@ -13,12 +13,12 @@ The tooltip can show a simple message and a close button (if the `hover-trigger`
 <!-- Tooltip component with custom content and a link -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">
   <p id="tooltip-content">
-    Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+    Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
   </p>
 </sbb-tooltip>
 ```
 
-The tooltip can be disimissed by clicking on an interactive element within its content, by clicking on the close button or by performing another action on the page.
+The tooltip can be disimissed by clicking on an interactive element within its content, by clicking on the close button or by performing another action on the page. You can also indicate that an element within the tooltip content should close the tooltip when clicked by marking it with the `sbb-tooltip-close` attribute.
 
 You can also indicate that the tooltip should be shown on hover with the property `hover-trigger` and set a custom delay for the show and hide animations (defaults to 1000ms). If hover is not supported by the current device, the component will be triggered on click/tap as default:
 
@@ -82,17 +82,17 @@ As the tooltip opens, the focus will automatically be set to the first focusable
 
 ## Events
 
-| Event                      | Description                                                  | Type                |
-| -------------------------- | ------------------------------------------------------------ | ------------------- |
-| `sbb-tooltip_did-dismiss`  | Emits whenever the tooltip is dismissed.                     | `CustomEvent<void>` |
-| `sbb-tooltip_did-present`  | Emits whenever the tooltip is presented.                     | `CustomEvent<void>` |
-| `sbb-tooltip_will-dismiss` | Emits whenever the tooltip begins the closing transition.    | `CustomEvent<void>` |
-| `sbb-tooltip_will-present` | Emits whenever the tooltip starts the presenting transition. | `CustomEvent<void>` |
+| Event                      | Description                                                  | Type                                         |
+| -------------------------- | ------------------------------------------------------------ | -------------------------------------------- |
+| `sbb-tooltip_did-dismiss`  | Emits whenever the tooltip is dismissed.                     | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `sbb-tooltip_did-present`  | Emits whenever the tooltip is presented.                     | `CustomEvent<void>`                          |
+| `sbb-tooltip_will-dismiss` | Emits whenever the tooltip begins the closing transition.    | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `sbb-tooltip_will-present` | Emits whenever the tooltip starts the presenting transition. | `CustomEvent<void>`                          |
 
 
 ## Methods
 
-### `dismiss() => Promise<void>`
+### `dismiss(target?: HTMLElement) => Promise<void>`
 
 Dismisses the tooltip.
 

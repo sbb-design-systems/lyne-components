@@ -1513,7 +1513,7 @@ export namespace Components {
         /**
           * Dismisses the tooltip.
          */
-        "dismiss": () => Promise<void>;
+        "dismiss": (target?: HTMLElement) => Promise<void>;
         /**
           * Close the tooltip after a certain delay.
          */
@@ -3521,7 +3521,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the tooltip is dismissed.
          */
-        "onSbb-tooltip_did-dismiss"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onSbb-tooltip_did-dismiss"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
           * Emits whenever the tooltip is presented.
          */
@@ -3529,7 +3529,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the tooltip begins the closing transition.
          */
-        "onSbb-tooltip_will-dismiss"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onSbb-tooltip_will-dismiss"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
           * Emits whenever the tooltip starts the presenting transition.
          */
