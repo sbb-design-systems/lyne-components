@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.16](https://github.com/lyne-design-system/lyne-components/compare/v0.12.15...v0.12.16) (2022-11-09)
+
+### Features
+
+- **sbb-pearl-chain-vertical:** initial implementation ([#1366](https://github.com/lyne-design-system/lyne-components/issues/1366)) ([d36a40f](https://github.com/lyne-design-system/lyne-components/commit/d36a40fdb0ff2d8aedd349a116fbf71dc8b001e7))
+
 ### [0.12.15](https://github.com/lyne-design-system/lyne-components/compare/v0.12.14...v0.12.15) (2022-11-08)
 
 ### [0.12.14](https://github.com/lyne-design-system/lyne-components/compare/v0.12.13...v0.12.14) (2022-11-08)
