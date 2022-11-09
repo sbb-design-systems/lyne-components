@@ -19,6 +19,8 @@
     --sbb-slider-selected-line-color: Highlight;
     --sbb-slider-line-color: CanvasText;
   }
+
+  display: inline;
 }
 
 :host(.sbb-form-field-element) {
@@ -125,11 +127,15 @@
 }
 
 // slider knob resize on click (active / focus)
-.sbb-slider__range-input:active ~ .sbb-slider__knob,
-.sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
-  --sbb-slider-knob-size: #{px-to-rem-build(31)};
-}
+/* stylelint-disable plugin/stylelint-bem-namics */
+:host(:not(:is([disabled], [readonly]))) {
+  .sbb-slider__range-input:active ~ .sbb-slider__knob,
+  .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
+    --sbb-slider-knob-size: #{px-to-rem-build(31)};
+  }
 
-.sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
-  @include focusOutline;
+  .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
+    @include focusOutline;
+  }
 }
+/* stylelint-enable plugin/stylelint-bem-namics */

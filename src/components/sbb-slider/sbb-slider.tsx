@@ -87,12 +87,12 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   public connectedCallback(): void {
     this._isInFormField = !!hostContext('sbb-form-field', this._element);
     // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+    this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
     this._handleChange();
   }
 
-  private _actionElement(): HTMLElement {
-    return this._element.shadowRoot.firstElementChild as HTMLElement;
+  private _inputElement(): HTMLElement {
+    return this._element.shadowRoot.querySelector('input');
   }
 
   /**
