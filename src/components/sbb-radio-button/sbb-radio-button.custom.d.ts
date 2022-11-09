@@ -3,8 +3,10 @@ export interface InterfaceSbbRadioButton extends HTMLElement {
   checked: boolean;
   disabled: boolean;
   required: boolean;
+  allowEmptySelection?: boolean;
   value: any;
-  labelSize?: 'm' | 's';
+  size?: 'm' | 's';
+  select?(allowEmptySelection?: boolean): void;
 }
 
 export interface SbbRadioButtonChangeEventDetail {

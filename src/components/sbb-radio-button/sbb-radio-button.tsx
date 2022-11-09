@@ -1,5 +1,4 @@
-import { Component, Element, h, Host, JSX, Listen, Prop } from '@stencil/core';
-import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
+import { Component, Event, EventEmitter, h, Host, JSX, Listen, Method, Prop } from '@stencil/core';
 import { InterfaceSbbRadioButton } from './sbb-radio-button.custom';
 
 let nextId = 0;
@@ -25,6 +24,11 @@ export class SbbRadioButton {
   @Prop({ reflect: true }) public name?: string;
 
   /**
+   * Whether the radio can be deselected.
+   */
+  @Prop() public allowEmptySelection = false;
+
+  /**
    * Value of radio button.
    */
   @Prop({ reflect: true }) public value?: string;
@@ -47,21 +51,40 @@ export class SbbRadioButton {
   /**
    * Label size variant, either m or s.
    */
-  @Prop({ reflect: true }) public labelSize?: InterfaceSbbRadioButton['labelSize'] = 'm';
+  @Prop({ reflect: true }) public size?: InterfaceSbbRadioButton['size'] = 'm';
 
-  private _radioButton: InterfaceSbbRadioButton;
+  // private _radioButton: InterfaceSbbRadioButton;
   private _radioButtonLabelId = `sbb-radio-button-label-${++nextId}`;
 
-  @Element() private _element!: HTMLElement;
+  /**
+   * Emits whenever the radio group value changes.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-radio-button_did-select',
+  })
+  public didSelect: EventEmitter<any>;
 
   @Listen('click')
   public handleClick(event: Event): void {
+    this.select();
+    event.preventDefault();
+  }
+
+  @Method()
+  public async select(): Promise<void> {
     if (this.disabled) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    } else {
-      forwardHostEvent(event, this._element, this._radioButton);
+      return;
     }
+
+    if (this.allowEmptySelection) {
+      this.checked = !this.checked;
+    } else if (!this.checked) {
+      this.checked = true;
+    }
+
+    this.didSelect.emit(this.value);
   }
 
   public render(): JSX.Element {
@@ -74,7 +97,6 @@ export class SbbRadioButton {
       >
         <label id={this._radioButtonLabelId} htmlFor={this.radioButtonId}>
           <input
-            ref={(radioBtn) => (this._radioButton = radioBtn as InterfaceSbbRadioButton)}
             type="radio"
             aria-hidden="true"
             tabindex="-1"

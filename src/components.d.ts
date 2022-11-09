@@ -1081,6 +1081,10 @@ export namespace Components {
     }
     interface SbbRadioButton {
         /**
+          * Whether the radio can be deselected.
+         */
+        "allowEmptySelection": boolean;
+        /**
           * Whether the radio button is checked.
          */
         "checked": boolean;
@@ -1088,10 +1092,6 @@ export namespace Components {
           * Whether the radio button is disabled.
          */
         "disabled": boolean;
-        /**
-          * Label size variant, either m or s.
-         */
-        "labelSize"?: InterfaceSbbRadioButton['labelSize'];
         /**
           * Name of the radio button.
          */
@@ -1104,6 +1104,11 @@ export namespace Components {
           * Whether the radio button is required.
          */
         "required": boolean;
+        "select": () => Promise<void>;
+        /**
+          * Label size variant, either m or s.
+         */
+        "size"?: InterfaceSbbRadioButton['size'];
         /**
           * Value of radio button.
          */
@@ -1667,6 +1672,10 @@ export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
+}
+export interface SbbRadioButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbRadioButtonElement;
 }
 export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -3219,6 +3228,10 @@ declare namespace LocalJSX {
     }
     interface SbbRadioButton {
         /**
+          * Whether the radio can be deselected.
+         */
+        "allowEmptySelection"?: boolean;
+        /**
           * Whether the radio button is checked.
          */
         "checked"?: boolean;
@@ -3227,13 +3240,13 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Label size variant, either m or s.
-         */
-        "labelSize"?: InterfaceSbbRadioButton['labelSize'];
-        /**
           * Name of the radio button.
          */
         "name"?: string;
+        /**
+          * Emits whenever the radio group value changes.
+         */
+        "onSbb-radio-button_did-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -3242,6 +3255,10 @@ declare namespace LocalJSX {
           * Whether the radio button is required.
          */
         "required"?: boolean;
+        /**
+          * Label size variant, either m or s.
+         */
+        "size"?: InterfaceSbbRadioButton['size'];
         /**
           * Value of radio button.
          */

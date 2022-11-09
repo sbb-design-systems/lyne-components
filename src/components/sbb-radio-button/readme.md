@@ -14,15 +14,36 @@ Use multiple `sbb-radio-button` components inside a `sbb-radio-button-group` com
 
 ## Properties
 
-| Property        | Attribute         | Description                                                              | Type         | Default                          |
-| --------------- | ----------------- | ------------------------------------------------------------------------ | ------------ | -------------------------------- |
-| `checked`       | `checked`         | Whether the radio button is checked.                                     | `boolean`    | `false`                          |
-| `disabled`      | `disabled`        | Whether the radio button is disabled.                                    | `boolean`    | `false`                          |
-| `labelSize`     | `label-size`      | Label size variant, either m or s.                                       | `"m" \| "s"` | `'m'`                            |
-| `name`          | `name`            | Name of the radio button.                                                | `string`     | `undefined`                      |
-| `radioButtonId` | `radio-button-id` | Id of the internal input element - default id will be set automatically. | `string`     | ``sbb-radio-button-${++nextId}`` |
-| `required`      | `required`        | Whether the radio button is required.                                    | `boolean`    | `false`                          |
-| `value`         | `value`           | Value of radio button.                                                   | `string`     | `undefined`                      |
+| Property              | Attribute               | Description                                                              | Type         | Default                          |
+| --------------------- | ----------------------- | ------------------------------------------------------------------------ | ------------ | -------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | Whether the radio can be deselected.                                     | `boolean`    | `false`                          |
+| `checked`             | `checked`               | Whether the radio button is checked.                                     | `boolean`    | `false`                          |
+| `disabled`            | `disabled`              | Whether the radio button is disabled.                                    | `boolean`    | `false`                          |
+| `name`                | `name`                  | Name of the radio button.                                                | `string`     | `undefined`                      |
+| `radioButtonId`       | `radio-button-id`       | Id of the internal input element - default id will be set automatically. | `string`     | ``sbb-radio-button-${++nextId}`` |
+| `required`            | `required`              | Whether the radio button is required.                                    | `boolean`    | `false`                          |
+| `size`                | `size`                  | Label size variant, either m or s.                                       | `"m" \| "s"` | `'m'`                            |
+| `value`               | `value`                 | Value of radio button.                                                   | `string`     | `undefined`                      |
+
+
+## Events
+
+| Event                         | Description                                   | Type               |
+| ----------------------------- | --------------------------------------------- | ------------------ |
+| `sbb-radio-button_did-select` | Emits whenever the radio group value changes. | `CustomEvent<any>` |
+
+
+## Methods
+
+### `select() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Slots

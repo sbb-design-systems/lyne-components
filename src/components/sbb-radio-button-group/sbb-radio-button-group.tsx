@@ -100,6 +100,11 @@ export class SbbRadioButtonGroup {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
+  @Listen('sbb-radio-button_did-select', { passive: true })
+  public onRadioButtonSelect(event: CustomEvent<Set<string>>): void {
+    this.value = event.detail;
+  }
+
   private _updateRadios(): void {
     const radios = this._radioButtons;
     const value = this.value ?? radios.find((radio) => radio.checked)?.value;
@@ -110,7 +115,8 @@ export class SbbRadioButtonGroup {
       radio.disabled = radio.disabled ? radio.disabled : this.disabled;
       radio.required = radio.required ? radio.required : this.required;
       radio.tabIndex = radio.checked && !radio.disabled ? 0 : -1;
-      radio.labelSize = this.size;
+      radio.size = this.size;
+      radio.allowEmptySelection = this.allowEmptySelection;
     }
 
     // If no option is selected, make the first one focusable
@@ -125,25 +131,6 @@ export class SbbRadioButtonGroup {
 
   private _getEnabledRadios(): InterfaceSbbRadioButton[] {
     return this._radioButtons.filter((r) => !r.hasAttribute('disabled'));
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    const radio = event.target as InterfaceSbbRadioButton | undefined;
-    if (radio?.tagName !== 'SBB-RADIO-BUTTON') {
-      return;
-    }
-    this._select(radio);
-    event.preventDefault();
-  }
-
-  private _select(radio: InterfaceSbbRadioButton): void {
-    if (this.allowEmptySelection) {
-      radio.checked = !radio.checked;
-    } else if (!radio.checked) {
-      radio.checked = true;
-    }
-    this.value = radio.checked ? radio.value : null;
   }
 
   @Listen('keydown')
@@ -168,11 +155,11 @@ export class SbbRadioButtonGroup {
     const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
 
     if (evt.key === prevKey || evt.key === 'ArrowUp') {
-      this._select(enabledRadios[prev]);
+      enabledRadios[prev].select(this.allowEmptySelection);
       enabledRadios[prev].focus();
       evt.preventDefault();
     } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
-      this._select(enabledRadios[next]);
+      enabledRadios[next].select(this.allowEmptySelection);
       enabledRadios[next].focus();
       evt.preventDefault();
     }

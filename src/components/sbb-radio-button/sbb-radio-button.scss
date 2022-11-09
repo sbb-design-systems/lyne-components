@@ -48,7 +48,7 @@ label {
   color: var(--sbb-radio-button-label-color);
   -webkit-tap-highlight-color: transparent;
 
-  :host([label-size='s']) & {
+  :host([size='s']) & {
     @include text-s--regular;
 
     --sbb-radio-button-icon-align: calc(
