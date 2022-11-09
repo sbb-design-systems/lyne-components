@@ -58,12 +58,9 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   'accessibility-label': 'Aria Label',
-  'loading-price': config.loadingPrice,
-  'loading-trip': config.loadingTrip,
-  trip: config.trip,
-  price: config.price,
-  'data-now': undefined,
   'disable-animation': isChromatic(),
+  active: false,
+  'data-now': undefined,
 };
 
 // TEMPLATES
@@ -74,18 +71,29 @@ const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
 /* ************************************************* */
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
-Basic.args = defaultArgs;
+Basic.args = {
+  ...defaultArgs,
+  'loading-price': config.loadingPrice,
+  'loading-trip': config.loadingTrip,
+  trip: config.trip,
+  price: config.price,
+};
 
 export const Active = Template.bind({});
 Active.argTypes = defaultArgTypes;
 Active.args = {
   ...defaultArgs,
+  'loading-price': config.loadingPrice,
+  'loading-trip': config.loadingTrip,
+  trip: config.trip,
+  price: config.price,
   active: true,
 };
 
 export const LoadingTrip = Template.bind({});
 LoadingTrip.argTypes = defaultArgTypes;
 LoadingTrip.args = {
+  ...defaultArgs,
   'loading-trip': true,
   trip: config.trip,
   price: config.price,
@@ -95,9 +103,10 @@ export const PriceLoading = Template.bind({});
 PriceLoading.argTypes = defaultArgTypes;
 PriceLoading.args = {
   ...defaultArgs,
+  trip: config.trip,
+  price: config.price,
   'loading-price': true,
   'loading-trip': config.loadingTrip,
-  price: config.price,
 };
 
 export const LoadingAll = Template.bind({});
@@ -106,11 +115,14 @@ LoadingAll.args = {
   ...defaultArgs,
   'loading-price': true,
   'loading-trip': true,
+  trip: config.trip,
+  price: config.price,
 };
 
 export const Position = Template.bind({});
 Position.argTypes = defaultArgTypes;
 Position.args = {
+  ...defaultArgs,
   trip: configPosition.trip,
   'data-now': new Date('2024-06-21T02:29').valueOf(),
 };
@@ -118,6 +130,7 @@ Position.args = {
 export const PositionDisabledAnimation = Template.bind({});
 PositionDisabledAnimation.argTypes = defaultArgTypes;
 PositionDisabledAnimation.args = {
+  ...defaultArgs,
   'disable-animation': true,
   trip: configPosition.trip,
   'data-now': new Date('2023-12-31T10:00').valueOf(),
@@ -126,6 +139,7 @@ PositionDisabledAnimation.args = {
 export const Minimal = Template.bind({});
 Minimal.argTypes = defaultArgTypes;
 Minimal.args = {
+  ...defaultArgs,
   trip: configMinimal.trip,
   'data-now': new Date('2022-06-30T10:00').valueOf(),
 };
@@ -133,18 +147,21 @@ Minimal.args = {
 export const Cancelled = Template.bind({});
 Cancelled.argTypes = defaultArgTypes;
 Cancelled.args = {
+  ...defaultArgs,
   trip: configCancelled.trip,
 };
 
 export const CancelledStops = Template.bind({});
 CancelledStops.argTypes = defaultArgTypes;
 CancelledStops.args = {
+  ...defaultArgs,
   trip: configCancelledStops.trip,
 };
 
 export const Past = Template.bind({});
 Past.argTypes = defaultArgTypes;
 Past.args = {
+  ...defaultArgs,
   trip: configPast.trip,
   'data-now': new Date('2022-10-30T17:00:00').valueOf(),
 };
