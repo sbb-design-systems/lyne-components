@@ -52,6 +52,7 @@ describe('sbb-radio-button-group', () => {
       );
 
       await disabledRadio.click();
+      await page.waitForChanges();
 
       expect(disabledRadio).not.toHaveAttribute('checked');
       expect(firstRadio).toHaveAttribute('checked');
@@ -62,11 +63,15 @@ describe('sbb-radio-button-group', () => {
 
       await firstRadio.click();
       await page.keyboard.down('ArrowLeft');
+
+      await page.waitForChanges();
       const radio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-4');
 
       expect(radio).toHaveAttribute('checked');
 
       await firstRadio.click();
+      await page.waitForChanges();
+
       expect(firstRadio).toHaveAttribute('checked');
     });
 
@@ -75,11 +80,15 @@ describe('sbb-radio-button-group', () => {
 
       await firstRadio.click();
       await page.keyboard.down('ArrowRight');
+
+      await page.waitForChanges();
       const radio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
 
       expect(radio).toHaveAttribute('checked');
 
       await firstRadio.click();
+      await page.waitForChanges();
+
       expect(firstRadio).toHaveAttribute('checked');
     });
 
@@ -100,6 +109,8 @@ describe('sbb-radio-button-group', () => {
       expect(radio).toHaveAttribute('checked');
 
       await firstRadio.click();
+      await page.waitForChanges();
+
       expect(firstRadio).toHaveAttribute('checked');
     });
   });
