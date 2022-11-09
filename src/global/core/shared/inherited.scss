@@ -13,3 +13,102 @@ html {
 
   color: var(--sbb-font-default-color);
 }
+
+.sbb-text-bold {
+  @include text--bold;
+}
+
+.sbb-text-xl {
+  @include text-xl--regular;
+}
+
+.sbb-text-l {
+  @include text-l--regular;
+}
+
+.sbb-text-m {
+  @include text-m--regular;
+}
+
+.sbb-text-s {
+  @include text-s--regular;
+}
+
+.sbb-text-xs {
+  @include text-xs--regular;
+}
+
+.sbb-text-xxs {
+  @include text-xxs--regular;
+}
+
+.sbb-list {
+  margin: 0;
+  padding-left: 19px;
+  color: var(--sbb-color-iron-default);
+
+  li {
+    &::marker {
+      position: relative;
+    }
+
+    + li {
+      margin-top: var(--sbb-spacing-fixed-2x);
+    }
+  }
+}
+
+.sbb-list-steps {
+  --sbb-list-steps-marker-dimensions: #{px-to-rem-build(34)};
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: section;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  li {
+    counter-increment: section;
+    display: grid;
+    column-gap: var(--sbb-spacing-responsive-xxxs);
+    background-color: var(--sbb-color-milk-default);
+    border-radius: var(--sbb-border-radius-4x);
+    padding-block: var(--sbb-spacing-fixed-3x);
+    padding-inline: var(--sbb-spacing-responsive-xxs);
+
+    &::before {
+      @include text-xxs--bold;
+
+      content: counter(section);
+      height: var(--sbb-list-steps-marker-dimensions);
+      width: var(--sbb-list-steps-marker-dimensions);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sbb-color-charcoal-default);
+      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement-default);
+      border-radius: 50%;
+      flex-shrink: 0;
+      flex-grow: 0;
+      grid-row: 1 / 3;
+    }
+
+    &::after {
+      content: '';
+      grid-row: 1;
+      height: calc(
+        0.5 *
+          (
+            var(--sbb-list-steps-marker-dimensions) - var(--sbb-typo-line-height-body-text) *
+              var(--sbb-text-font-size)
+          )
+      );
+
+      // Subtract line-height current size - xxs-line-height divided by 2 -> fixes centering.
+    }
+
+    + li {
+      margin-top: var(--sbb-spacing-fixed-1x);
+    }
+  }
+}
