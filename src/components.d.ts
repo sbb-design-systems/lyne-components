@@ -31,6 +31,8 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
+import { InterfaceSbbRadioButton } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonGroup } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
@@ -1087,6 +1089,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Label size variant, either m or s.
+         */
+        "labelSize"?: InterfaceSbbRadioButton['labelSize'];
+        /**
           * Name of the radio button.
          */
         "name"?: string;
@@ -1124,6 +1130,10 @@ export namespace Components {
           * Id of the radio group element.
          */
         "sbbRadioButtonGroupId": string;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbRadioButtonGroup['size'];
         /**
           * The value of the radio group.
          */
@@ -3217,6 +3227,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Label size variant, either m or s.
+         */
+        "labelSize"?: InterfaceSbbRadioButton['labelSize'];
+        /**
           * Name of the radio button.
          */
         "name"?: string;
@@ -3258,6 +3272,10 @@ declare namespace LocalJSX {
           * Id of the radio group element.
          */
         "sbbRadioButtonGroupId"?: string;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbRadioButtonGroup['size'];
         /**
           * The value of the radio group.
          */

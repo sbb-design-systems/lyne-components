@@ -18,6 +18,7 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbRadioButton } from '../sbb-radio-button/sbb-radio-button.custom';
+import { InterfaceSbbRadioButtonGroup } from './sbb-radio-button-group.custom';
 
 let nextId = 0;
 
@@ -62,6 +63,11 @@ export class SbbRadioButtonGroup {
   @Prop({ mutable: true, reflect: true }) public value?: any | null;
 
   /**
+   * Size variant, either m or s.
+   */
+  @Prop({ reflect: true }) public size?: InterfaceSbbRadioButtonGroup['size'] = 'm';
+
+  /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
   @State() private _namedSlots = createNamedSlotState('error');
@@ -85,14 +91,7 @@ export class SbbRadioButtonGroup {
   public didChange: EventEmitter<any>;
 
   public connectedCallback(): void {
-    if (this.value === undefined) {
-      const radio = this._radioButtons.find((radio) => radio.checked) as
-        | InterfaceSbbRadioButton
-        | undefined;
-      this.value = radio?.value;
-    } else {
-      this._updateRadios();
-    }
+    this._updateRadios();
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
@@ -103,14 +102,19 @@ export class SbbRadioButtonGroup {
 
   private _updateRadios(): void {
     const radios = this._radioButtons;
+    const value = this.value ?? radios.find((radio) => radio.checked)?.value;
 
     for (const radio of radios) {
       radio.name = this.name;
-      radio.checked = radio.value === this.value;
+      radio.checked = radio.value === value;
       radio.disabled = radio.disabled ? radio.disabled : this.disabled;
       radio.required = radio.required ? radio.required : this.required;
-      radio.tabIndex = radio.checked ? 0 : -1;
+      radio.tabIndex = radio.checked && !radio.disabled ? 0 : -1;
+      radio.labelSize = this.size;
     }
+
+    // If no option is selected, make the first one focusable
+    radios.length && (radios[0].tabIndex = value || radios[0].disabled ? radios[0].tabIndex : 0);
   }
 
   private get _radioButtons(): InterfaceSbbRadioButton[] {
@@ -145,7 +149,8 @@ export class SbbRadioButtonGroup {
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
     const enabledRadios = this._getEnabledRadios();
-    const cur = enabledRadios.findIndex((t) => t.checked);
+    const checked = enabledRadios.findIndex((t) => t.checked);
+    const cur = checked !== -1 ? checked : 0;
     const size = enabledRadios.length;
     const prev = cur === 0 ? size - 1 : cur - 1;
     const next = cur === size - 1 ? 0 : cur + 1;

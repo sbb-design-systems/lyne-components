@@ -44,6 +44,11 @@ export class SbbRadioButton {
    */
   @Prop({ mutable: true, reflect: true }) public checked = false;
 
+  /**
+   * Label size variant, either m or s.
+   */
+  @Prop({ reflect: true }) public labelSize?: InterfaceSbbRadioButton['labelSize'] = 'm';
+
   private _radioButton: InterfaceSbbRadioButton;
   private _radioButtonLabelId = `sbb-radio-button-label-${++nextId}`;
 
@@ -69,16 +74,16 @@ export class SbbRadioButton {
       >
         <label id={this._radioButtonLabelId} htmlFor={this.radioButtonId}>
           <input
-            ref={(radioBtn) => (this._radioButton = radioBtn)}
+            ref={(radioBtn) => (this._radioButton = radioBtn as InterfaceSbbRadioButton)}
             type="radio"
             aria-hidden="true"
+            tabindex="-1"
             name={this.name}
             id={this.radioButtonId}
             disabled={this.disabled}
             required={this.required}
             checked={this.checked}
             value={this.value}
-            tabIndex={-1}
           />
           <span>
             <slot />

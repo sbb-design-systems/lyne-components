@@ -4,6 +4,7 @@ export interface InterfaceSbbRadioButton extends HTMLElement {
   disabled: boolean;
   required: boolean;
   value: any;
+  labelSize?: 'm' | 's';
 }
 
 export interface SbbRadioButtonChangeEventDetail {

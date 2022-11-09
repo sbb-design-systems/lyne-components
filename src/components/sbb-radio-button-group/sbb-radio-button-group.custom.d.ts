@@ -1,3 +1,3 @@
-export interface HTMLInputElementGroupAttributes {
-  someInterface: 'opt1' | 'opt2';
+export interface InterfaceSbbRadioButtonGroup {
+  size: 's' | 'm';
 }

@@ -26,7 +26,7 @@ describe('sbb-radio-button-group', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-radio-button-group aria-label="sbb-radio-button-group-2-name" role="radiogroup">
+        <sbb-radio-button-group aria-label="sbb-radio-button-group-2-name" role="radiogroup" size="m">
           <mock:shadow-root>
           <div class="sbb-radio-group">
             <slot></slot>

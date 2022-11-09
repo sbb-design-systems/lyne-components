@@ -25,6 +25,13 @@ const disabled = {
   },
 };
 
+const labelSize = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+};
+
 const accessibilityLabel = {
   control: {
     type: 'text',
@@ -53,10 +60,11 @@ const accessibilityLabelledby = {
 };
 
 const defaultArgTypes = {
-  name: name,
-  value: value,
-  checked: checked,
-  disabled: disabled,
+  name,
+  value,
+  checked,
+  disabled,
+  'label-size': labelSize,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
   'accessibility-labelledby': accessibilityLabelledby,
@@ -67,6 +75,7 @@ const defaultArgs = {
   value: 'First value',
   checked: false,
   disabled: false,
+  'label-size': labelSize.options[0],
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
   'accessibility-labelledby': undefined,
@@ -85,6 +94,11 @@ export const Default = DefaultTemplate.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs };
 Default.documentation = { title: 'Default Radio Button' };
+
+export const SizeS = DefaultTemplate.bind({});
+SizeS.argTypes = defaultArgTypes;
+SizeS.args = { ...defaultArgs, 'label-size': labelSize.options[1] };
+SizeS.documentation = { title: 'Radio Button - Size S' };
 
 export const Checked = DefaultTemplate.bind({});
 Checked.argTypes = defaultArgTypes;

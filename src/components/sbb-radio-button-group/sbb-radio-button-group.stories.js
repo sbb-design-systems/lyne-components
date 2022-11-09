@@ -39,13 +39,21 @@ const orientation = {
   options: ['horizontal', 'vertical'],
 };
 
+const size = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+};
+
 const defaultArgTypes = {
-  name: name,
-  value: value,
-  required: required,
-  disabled: disabled,
+  name,
+  value,
+  required,
+  disabled,
   'allow-empty-selection': allowEmptySelection,
-  orientation: orientation,
+  orientation,
+  size,
 };
 
 const defaultArgs = {
@@ -55,6 +63,7 @@ const defaultArgs = {
   disabled: false,
   'allow-empty-selection': false,
   orientation: orientation.options[0],
+  size: size.options[0],
 };
 
 const radioButtons = () => [
@@ -100,6 +109,16 @@ export const Vertical = DefaultTemplate.bind({});
 Vertical.argTypes = defaultArgTypes;
 Vertical.args = { ...defaultArgs, orientation: orientation.options[1] };
 Vertical.documentation = { title: 'Vertical Orientation' };
+
+export const HorizontalSizeS = DefaultTemplate.bind({});
+HorizontalSizeS.argTypes = defaultArgTypes;
+HorizontalSizeS.args = { ...defaultArgs, size: size.options[1] };
+HorizontalSizeS.documentation = { title: 'Horizontal Orientation - Size S' };
+
+export const VerticalSizeS = DefaultTemplate.bind({});
+VerticalSizeS.argTypes = defaultArgTypes;
+VerticalSizeS.args = { ...defaultArgs, orientation: orientation.options[1], size: size.options[1] };
+VerticalSizeS.documentation = { title: 'Vertical Orientation - Size S' };
 
 export const Disabled = DefaultTemplate.bind({});
 Disabled.argTypes = defaultArgTypes;

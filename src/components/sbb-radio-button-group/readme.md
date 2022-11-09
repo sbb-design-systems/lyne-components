@@ -44,14 +44,15 @@ In order to deselect a radio inside the group you can use the `allowEmptySelecti
 
 ## Properties
 
-| Property                | Attribute                   | Description                                                          | Type      | Default                                |
-| ----------------------- | --------------------------- | -------------------------------------------------------------------- | --------- | -------------------------------------- |
-| `allowEmptySelection`   | `allow-empty-selection`     | Whether the radios can be deselected.                                | `boolean` | `false`                                |
-| `disabled`              | `disabled`                  | Whether the radio group is disabled.                                 | `boolean` | `false`                                |
-| `name`                  | `name`                      | Id of the radio group element - default name will be auto-generated. | `string`  | ``${this.sbbRadioButtonGroupId}-name`` |
-| `required`              | `required`                  | Whether the radio group is required.                                 | `boolean` | `false`                                |
-| `sbbRadioButtonGroupId` | `sbb-radio-button-group-id` | Id of the radio group element.                                       | `string`  | ``sbb-radio-button-group-${++nextId}`` |
-| `value`                 | `value`                     | The value of the radio group.                                        | `any`     | `undefined`                            |
+| Property                | Attribute                   | Description                                                          | Type         | Default                                |
+| ----------------------- | --------------------------- | -------------------------------------------------------------------- | ------------ | -------------------------------------- |
+| `allowEmptySelection`   | `allow-empty-selection`     | Whether the radios can be deselected.                                | `boolean`    | `false`                                |
+| `disabled`              | `disabled`                  | Whether the radio group is disabled.                                 | `boolean`    | `false`                                |
+| `name`                  | `name`                      | Id of the radio group element - default name will be auto-generated. | `string`     | ``${this.sbbRadioButtonGroupId}-name`` |
+| `required`              | `required`                  | Whether the radio group is required.                                 | `boolean`    | `false`                                |
+| `sbbRadioButtonGroupId` | `sbb-radio-button-group-id` | Id of the radio group element.                                       | `string`     | ``sbb-radio-button-group-${++nextId}`` |
+| `size`                  | `size`                      | Size variant, either m or s.                                         | `"m" \| "s"` | `'m'`                                  |
+| `value`                 | `value`                     | The value of the radio group.                                        | `any`        | `undefined`                            |
 
 
 ## Events
