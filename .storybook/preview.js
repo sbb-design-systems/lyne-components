@@ -55,6 +55,7 @@ export const parameters = {
         ['home', 'home personalized'],
         'components',
         ['*', 'form elements', 'timetable', 'cards', 'layout'],
+        'styles',
         'brand elements',
         '*',
         'internals',

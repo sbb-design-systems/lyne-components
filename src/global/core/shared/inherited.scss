@@ -60,55 +60,87 @@ html {
 
 .sbb-list-steps {
   --sbb-list-steps-marker-dimensions: #{px-to-rem-build(34)};
+  --sbb-list-steps-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-list-steps-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-list-steps-marker-to-text-gap: var(--sbb-spacing-responsive-xxxs);
+
+  // Additional space from overall li padding to the text because text
+  // has to be centered to marker number.
+  --sbb-list-steps-text-to-marker-block-offset: calc(
+    0.5 *
+      (
+        var(--sbb-list-steps-marker-dimensions) - var(--sbb-typo-line-height-body-text) *
+          var(--sbb-text-font-size)
+      )
+  );
+  --sbb-list-steps-vertical-gap: var(--sbb-spacing-fixed-1x);
+
+  &:where(.sbb-text-s) {
+    --sbb-list-steps-padding-block: var(--sbb-spacing-fixed-4x);
+  }
+
+  &:where(.sbb-text-m, .sbb-text-l, .sbb-text-xl) {
+    --sbb-list-steps-padding-block: var(--sbb-spacing-fixed-5x);
+  }
+
+  &:where(.sbb-text-xl) {
+    @include mq($from: medium) {
+      --sbb-list-steps-marker-dimensions: #{px-to-rem-build(41)};
+    }
+  }
 
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: section;
+  counter-reset: steps;
 
   /* stylelint-disable-next-line no-descending-specificity */
   li {
-    counter-increment: section;
-    display: grid;
-    column-gap: var(--sbb-spacing-responsive-xxxs);
+    position: relative;
+    counter-increment: steps;
     background-color: var(--sbb-color-milk-default);
     border-radius: var(--sbb-border-radius-4x);
-    padding-block: var(--sbb-spacing-fixed-3x);
-    padding-inline: var(--sbb-spacing-responsive-xxs);
+    padding-block-start: calc(
+      var(--sbb-list-steps-padding-block) + var(--sbb-list-steps-text-to-marker-block-offset)
+    );
+    padding-block-end: var(--sbb-list-steps-padding-block);
+    padding-inline-start: calc(
+      var(--sbb-list-steps-padding-inline) + var(--sbb-list-steps-marker-dimensions) +
+        var(--sbb-list-steps-marker-to-text-gap)
+    );
+    padding-inline-end: var(--sbb-list-steps-padding-inline);
+    min-height: calc(
+      var(--sbb-list-steps-marker-dimensions) + 2 * var(--sbb-list-steps-padding-block)
+    );
 
     &::before {
       @include text-xxs--bold;
 
-      content: counter(section);
-      height: var(--sbb-list-steps-marker-dimensions);
-      width: var(--sbb-list-steps-marker-dimensions);
+      content: counter(steps);
+      position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--sbb-color-charcoal-default);
+      height: var(--sbb-list-steps-marker-dimensions);
+      width: var(--sbb-list-steps-marker-dimensions);
+      margin-block-start: calc(-1 * var(--sbb-list-steps-text-to-marker-block-offset));
+      inset-inline-start: var(--sbb-list-steps-padding-inline);
       border: var(--sbb-border-width-1x) solid var(--sbb-color-cement-default);
       border-radius: 50%;
-      flex-shrink: 0;
-      flex-grow: 0;
-      grid-row: 1 / 3;
-    }
-
-    &::after {
-      content: '';
-      grid-row: 1;
-      height: calc(
-        0.5 *
-          (
-            var(--sbb-list-steps-marker-dimensions) - var(--sbb-typo-line-height-body-text) *
-              var(--sbb-text-font-size)
-          )
-      );
-
-      // Subtract line-height current size - xxs-line-height divided by 2 -> fixes centering.
+      color: var(--sbb-color-charcoal-default);
     }
 
     + li {
-      margin-top: var(--sbb-spacing-fixed-1x);
+      margin-block-start: var(--sbb-list-steps-vertical-gap);
+    }
+
+    p {
+      margin-block: 0;
+    }
+
+    // P has to be redefined to be more specific
+    > :is(p, *) + * {
+      margin-block-start: var(--sbb-spacing-responsive-xxxs);
     }
   }
 }
