@@ -26,6 +26,10 @@
   --sbb-tooltip-animation-duration: 0s;
 }
 
+:host(.sbb-tooltip--above) {
+  --sbb-tooltip-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
+}
+
 .sbb-tooltip {
   @include shadow-level-5-hard;
 
@@ -51,11 +55,6 @@
     }
   }
 
-  &.sbb-tooltip--dismissing {
-    pointer-events: none;
-    animation-name: hide;
-  }
-
   // Tooltip arrow
   &::after {
     @include shadow-level-5-hard;
@@ -74,6 +73,17 @@
 
     @include ifForcedColors {
       outline: var(--sbb-border-width-1x) solid CanvasText;
+    }
+  }
+
+  :host(.sbb-tooltip--closing) & {
+    pointer-events: none;
+    animation-name: hide;
+  }
+
+  :host(.sbb-tooltip--above) & {
+    &::after {
+      top: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
     }
   }
 
@@ -105,14 +115,11 @@
     border-radius: var(--sbb-spacing-fixed-1x) 0;
     transform: rotate(45deg);
   }
-}
 
-.sbb-tooltip--above {
-  --sbb-tooltip-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
-
-  &::after,
-  .sbb-tooltip__content::before {
-    top: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
+  :host(.sbb-tooltip--above) & {
+    &::before {
+      top: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
+    }
   }
 }
 

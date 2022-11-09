@@ -153,7 +153,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.willPresent, events.didPresent, events.didDismiss, events.willDismiss],
+      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
     },
     backgrounds: {
       disable: true,

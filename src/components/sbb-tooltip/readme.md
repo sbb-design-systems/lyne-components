@@ -82,19 +82,19 @@ As the tooltip opens, the focus will automatically be set to the first focusable
 
 ## Events
 
-| Event                      | Description                                                  | Type                                         |
-| -------------------------- | ------------------------------------------------------------ | -------------------------------------------- |
-| `sbb-tooltip_did-dismiss`  | Emits whenever the tooltip is dismissed.                     | `CustomEvent<{ closeTarget: HTMLElement; }>` |
-| `sbb-tooltip_did-present`  | Emits whenever the tooltip is presented.                     | `CustomEvent<void>`                          |
-| `sbb-tooltip_will-dismiss` | Emits whenever the tooltip begins the closing transition.    | `CustomEvent<{ closeTarget: HTMLElement; }>` |
-| `sbb-tooltip_will-present` | Emits whenever the tooltip starts the presenting transition. | `CustomEvent<void>`                          |
+| Event                    | Description                                               | Type                                         |
+| ------------------------ | --------------------------------------------------------- | -------------------------------------------- |
+| `sbb-tooltip_did-close`  | Emits whenever the tooltip is closed.                     | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `sbb-tooltip_did-open`   | Emits whenever the tooltip is opened.                     | `CustomEvent<void>`                          |
+| `sbb-tooltip_will-close` | Emits whenever the tooltip begins the closing transition. | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `sbb-tooltip_will-open`  | Emits whenever the tooltip starts the opening transition. | `CustomEvent<void>`                          |
 
 
 ## Methods
 
-### `dismiss(target?: HTMLElement) => Promise<void>`
+### `close(target?: HTMLElement) => Promise<void>`
 
-Dismisses the tooltip.
+Closes the tooltip.
 
 #### Returns
 
@@ -102,7 +102,7 @@ Type: `Promise<void>`
 
 
 
-### `present() => Promise<void>`
+### `open() => Promise<void>`
 
 Opens the tooltip on trigger click.
 

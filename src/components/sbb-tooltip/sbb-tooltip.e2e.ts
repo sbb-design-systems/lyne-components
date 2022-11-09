@@ -23,7 +23,7 @@ describe('sbb-tooltip', () => {
   it('shows the tooltip', async () => {
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -31,8 +31,8 @@ describe('sbb-tooltip', () => {
 
   it('shows on trigger click', async () => {
     const dialog = await page.find('sbb-tooltip >>> dialog');
-    const willOpenEventSpy = await page.spyOnEvent(events.willPresent);
-    const didOpenEventSpy = await page.spyOnEvent(events.didPresent);
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
     await trigger.click();
     await page.waitForChanges();
@@ -48,12 +48,12 @@ describe('sbb-tooltip', () => {
   it('closes the tooltip', async () => {
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
 
-    await element.callMethod('dismiss');
+    await element.callMethod('close');
     await page.waitForChanges();
 
     expect(dialog).not.toHaveAttribute('open');
@@ -61,9 +61,9 @@ describe('sbb-tooltip', () => {
 
   it('closes the dialog on close button click', async () => {
     const dialog = await page.find('sbb-tooltip >>> dialog');
-    const closeButton = await page.find('sbb-tooltip >>> .sbb-tooltip__dismiss');
+    const closeButton = await page.find('sbb-tooltip >>> .sbb-tooltip__close');
 
-    await element.callMethod('present');
+    await element.callMethod('open');
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -88,8 +88,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('closes on interactive element click', async () => {
-    const willCloseEventSpy = await page.spyOnEvent(events.willDismiss);
-    const didCloseEventSpy = await page.spyOnEvent(events.didDismiss);
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const tooltipLink = await page.find('sbb-tooltip > sbb-link');
 

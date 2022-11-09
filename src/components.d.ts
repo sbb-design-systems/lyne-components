@@ -1507,13 +1507,13 @@ export namespace Components {
          */
         "accessibilityCloseLabel": string | undefined;
         /**
+          * Closes the tooltip.
+         */
+        "close": (target?: HTMLElement) => Promise<void>;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
-        /**
-          * Dismisses the tooltip.
-         */
-        "dismiss": (target?: HTMLElement) => Promise<void>;
         /**
           * Close the tooltip after a certain delay.
          */
@@ -1525,7 +1525,7 @@ export namespace Components {
         /**
           * Opens the tooltip on trigger click.
          */
-        "present": () => Promise<void>;
+        "open": () => Promise<void>;
         /**
           * Open the tooltip after a certain delay.
          */
@@ -3519,21 +3519,21 @@ declare namespace LocalJSX {
          */
         "hoverTrigger"?: boolean;
         /**
-          * Emits whenever the tooltip is dismissed.
+          * Emits whenever the tooltip is closed.
          */
-        "onSbb-tooltip_did-dismiss"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        "onSbb-tooltip_did-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
-          * Emits whenever the tooltip is presented.
+          * Emits whenever the tooltip is opened.
          */
-        "onSbb-tooltip_did-present"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onSbb-tooltip_did-open"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
           * Emits whenever the tooltip begins the closing transition.
          */
-        "onSbb-tooltip_will-dismiss"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        "onSbb-tooltip_will-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
-          * Emits whenever the tooltip starts the presenting transition.
+          * Emits whenever the tooltip starts the opening transition.
          */
-        "onSbb-tooltip_will-present"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onSbb-tooltip_will-open"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
           * Open the tooltip after a certain delay.
          */

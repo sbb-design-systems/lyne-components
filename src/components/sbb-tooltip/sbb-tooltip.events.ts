@@ -3,8 +3,8 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didDismiss: 'sbb-tooltip_did-dismiss',
-  didPresent: 'sbb-tooltip_did-present',
-  willDismiss: 'sbb-tooltip_will-dismiss',
-  willPresent: 'sbb-tooltip_will-present',
+  didClose: 'sbb-tooltip_did-close',
+  didOpen: 'sbb-tooltip_did-open',
+  willClose: 'sbb-tooltip_will-close',
+  willOpen: 'sbb-tooltip_will-open',
 };
