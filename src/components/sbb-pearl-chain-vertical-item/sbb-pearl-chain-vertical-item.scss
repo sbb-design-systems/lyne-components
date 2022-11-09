@@ -199,13 +199,13 @@
 }
 
 slot[name='left']::slotted(*) {
-  margin-block-start: var(--sbb-pearl-chain-vertical-item-left-top-margin);
-  padding-inline-end: var(--sbb-pearl-chain-vertical-item-left-padding);
+  margin-block-start: var(--sbb-pearl-chain-vertical-left-item-block-start);
+  padding-inline-end: var(--sbb-pearl-chain-vertical-left-item-inline-end);
 }
 
 slot[name='right']::slotted(*) {
-  margin-block-start: var(--sbb-pearl-chain-vertical-item-right-top-margin);
-  padding-inline-start: var(--sbb-pearl-chain-vertical-item-right-padding);
+  margin-block-start: var(--sbb-pearl-chain-vertical-right-item-block-start);
+  padding-inline-start: var(--sbb-pearl-chain-vertical-right-item-inline-start);
 }
 
 .sbb-pearl-chain-vertical-item__middle {

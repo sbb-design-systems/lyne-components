@@ -7,7 +7,7 @@ const Template = (args) => {
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div
           slot="right"
-          style="--sbb-pearl-chain-vertical-item-right-top-margin:-10px; --sbb-pearl-chain-vertical-item-right-padding:10px"
+          style="--sbb-pearl-chain-vertical-right-item-block-start:-10px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
         >
           slot for content
           <div>more</div>
