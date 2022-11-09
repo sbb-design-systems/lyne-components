@@ -139,7 +139,7 @@ export class SbbFormField implements ComponentInterface {
         (e): e is HTMLElement =>
           e.tagName === 'INPUT' ||
           e.tagName === 'SELECT' ||
-          e.classList.contains('sbb-form-field-element')
+          e.getAttribute('data-sbb-form-field') !== null
       );
 
     if (this._input) {

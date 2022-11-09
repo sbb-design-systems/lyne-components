@@ -5,7 +5,6 @@ import {
   Event,
   EventEmitter,
   h,
-  Host,
   JSX,
   Prop,
   State,
@@ -81,11 +80,10 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   /** Reference to the inner HTMLInputElement with type='range'. */
   private _rangeInput!: HTMLInputElement;
 
-  /** Indicates if the component is used within a sbb-form-field. */
-  private _isInFormField: boolean;
-
   public connectedCallback(): void {
-    this._isInFormField = !!hostContext('sbb-form-field', this._element);
+    if (hostContext('sbb-form-field', this._element)) {
+      this._element.dataset.sbbFormField = '';
+    }
     // Forward focus call to action element
     this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
     this._handleChange();
@@ -146,31 +144,29 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     };
 
     return (
-      <Host class={{ 'sbb-form-field-element': this._isInFormField }}>
-        <div class="sbb-slider__wrapper">
-          <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
-          <div
-            class="sbb-slider__container"
-            style={{
-              '--sbb-slider-value-fraction': this._valueFraction.toString(),
-            }}
-          >
-            <input
-              class="sbb-slider__range-input"
-              type="range"
-              {...inputAttributes}
-              onChange={() => this._emitChange()}
-              onInput={() => this._handleChange()}
-              ref={(input) => (this._rangeInput = input)}
-            />
-            <div class="sbb-slider__line">
-              <div class="sbb-slider__selected-line"></div>
-            </div>
-            <div class="sbb-slider__knob"></div>
+      <div class="sbb-slider__wrapper">
+        <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
+        <div
+          class="sbb-slider__container"
+          style={{
+            '--sbb-slider-value-fraction': this._valueFraction.toString(),
+          }}
+        >
+          <input
+            class="sbb-slider__range-input"
+            type="range"
+            {...inputAttributes}
+            onChange={() => this._emitChange()}
+            onInput={() => this._handleChange()}
+            ref={(input) => (this._rangeInput = input)}
+          />
+          <div class="sbb-slider__line">
+            <div class="sbb-slider__selected-line"></div>
           </div>
-          <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
+          <div class="sbb-slider__knob"></div>
         </div>
-      </Host>
+        <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
+      </div>
     );
   }
 }

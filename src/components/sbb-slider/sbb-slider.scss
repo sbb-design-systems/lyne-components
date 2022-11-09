@@ -23,7 +23,7 @@
   display: inline;
 }
 
-:host(.sbb-form-field-element) {
+:host([data-sbb-form-field]) {
   --form-field-overflow: visible;
   --form-field-background-color: transparent;
 }

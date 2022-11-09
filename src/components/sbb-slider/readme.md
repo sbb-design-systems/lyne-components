@@ -22,6 +22,9 @@ interface SbbSliderChange {
 }
 ```
 
+The component can be used within a `<sbb-form-field>` one; 
+in this case the `<sbb-slider>` receives a `data-sbb-form-field` attribute.
+
 ## Usage
 Simple slider with default range and icons:
 ```html

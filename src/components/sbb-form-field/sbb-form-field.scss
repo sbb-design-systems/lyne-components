@@ -156,7 +156,7 @@ slot[name='label'] > span {
 
 // Input
 /* stylelint-disable plugin/stylelint-bem-namics */
-.form-field__input ::slotted(:where(input, select, .sbb-form-field-element)) {
+.form-field__input ::slotted(:where(input, select, [data-sbb-form-field])) {
   @include text-m--regular;
   @include placeholder;
   @include ellipsis;
