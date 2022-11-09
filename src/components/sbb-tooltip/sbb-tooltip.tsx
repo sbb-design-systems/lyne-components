@@ -13,7 +13,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import { IS_FOCUSABLE_QUERY, trapFocus } from '../../global/helpers/focus';
+import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -119,10 +119,10 @@ export class SbbTooltip implements ComponentInterface {
   private _tooltipContentElement: HTMLElement;
   private _prevFocusedElement: HTMLElement;
   private _firstFocusable: HTMLElement;
-  private _lastFocusable: HTMLElement;
   private _isPointerDownEventOnTooltip: boolean;
   private _tooltipController: AbortController;
   private _windowEventsController: AbortController;
+  private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
   private _hoverTrigger = false;
   private _presentTimeout: ReturnType<typeof setTimeout>;
@@ -171,8 +171,6 @@ export class SbbTooltip implements ComponentInterface {
       this.dismiss();
       return;
     }
-
-    trapFocus(event, this._element, this._firstFocusable, this._lastFocusable);
   }
 
   // Removes trigger click listener on trigger change.
@@ -203,6 +201,7 @@ export class SbbTooltip implements ComponentInterface {
   public disconnectedCallback(): void {
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
+    this._focusTrap.disconnect();
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -327,6 +326,7 @@ export class SbbTooltip implements ComponentInterface {
       this._presented = true;
       this.didPresent.emit();
       this._setTooltipFocus();
+      this._focusTrap.trap(this._element);
       this._attachWindowEvents();
     } else if (event.animationName === 'hide') {
       this._isDismissing = false;
@@ -335,6 +335,7 @@ export class SbbTooltip implements ComponentInterface {
       this._dialog.close();
       this.didDismiss.emit();
       this._windowEventsController?.abort();
+      this._focusTrap.disconnect();
     }
   }
 
@@ -394,7 +395,6 @@ export class SbbTooltip implements ComponentInterface {
           type="button"
           iconName="cross-small"
           onClick={() => this.dismiss()}
-          ref={(closeBtn) => (this._lastFocusable = closeBtn)}
         ></sbb-button>
       </span>
     );
