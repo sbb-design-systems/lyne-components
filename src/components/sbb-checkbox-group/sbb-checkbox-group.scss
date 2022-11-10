@@ -2,16 +2,34 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-.sbb-checkbox-group {
-  display: flex;
-  gap: var(--sbb-spacing-fixed-6x);
-  width: max-content;
+$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+
+:host {
+  --sbb-checkbox-group-align-items: flex-start;
+  --sbb-checkbox-group-orientation: row;
+  --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-6x);
 }
 
-:host([orientation='vertical']) .sbb-checkbox-group {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--sbb-spacing-fixed-3x);
+:host([orientation='vertical']) {
+  --sbb-checkbox-group-orientation: column;
+  --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-3x);
+}
+
+@each $breakpoint in $breakpoints {
+  @include mq($from: #{$breakpoint}) {
+    // horizontal-from overrides orientation vertical
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+      --sbb-checkbox-group-orientation: row;
+    }
+  }
+}
+
+.sbb-checkbox-group {
+  display: flex;
+  width: max-content;
+  flex-direction: var(--sbb-checkbox-group-orientation);
+  align-items: var(--sbb-checkbox-group-align-items);
+  gap: var(--sbb-checkbox-group-gap);
 }
 
 .sbb-checkbox-group__error {

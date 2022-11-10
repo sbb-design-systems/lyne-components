@@ -4,6 +4,7 @@ import {
   queryAndObserveNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbCheckbox } from '../sbb-checkbox/sbb-checkbox.custom';
+import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
 
 let nextId = 0;
 
@@ -37,6 +38,18 @@ export class SbbCheckboxGroup implements ComponentInterface {
    * Whether the checkbox group is required.
    */
   @Prop({ reflect: true }) public required = false;
+
+  /**
+   * Overrides the behaviour of `orientation` property.
+   */
+  @Prop({ reflect: true })
+  public horizontalFrom?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
+
+  /**
+   * Indicates the orientation of the components inside the `<sbb-action-group>`.
+   */
+  @Prop({ reflect: true }) public orientation: InterfaceSbbCheckboxGroupAttributes['orientation'] =
+    'horizontal';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.

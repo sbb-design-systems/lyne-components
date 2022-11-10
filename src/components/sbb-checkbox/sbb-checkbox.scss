@@ -27,6 +27,7 @@
   position: relative;
   display: block;
   color: var(--checkbox-label-color);
+  cursor: var(--checkbox-cursor);
 
   :host([size='m']) & {
     @include text-m--regular;
@@ -55,7 +56,6 @@ input[type='checkbox'] {
 
 .sbb-checkbox__selection {
   position: relative;
-  cursor: var(--checkbox-cursor);
   min-width: var(--checkbox-width);
   height: var(--checkbox-height);
   border-radius: var(--checkbox-border-radius);

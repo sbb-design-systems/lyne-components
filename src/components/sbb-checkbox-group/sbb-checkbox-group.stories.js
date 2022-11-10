@@ -1,33 +1,56 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const checkboxs = () => [
-  <sbb-checkbox name="checkbox-1" value="checkbox-1">
+const checkboxes = (size, checked, iconName, iconPlacement) => [
+  <sbb-checkbox
+    name="checkbox-1"
+    value="checkbox-1"
+    checked={checked}
+    size={size}
+    icon-name={iconName}
+    icon-placement={iconPlacement}
+  >
     Label 1
   </sbb-checkbox>,
-  <sbb-checkbox name="checkbox-2" value="checkbox-2">
+  <sbb-checkbox
+    name="checkbox-2"
+    value="checkbox-2"
+    size={size}
+    icon-name={iconName}
+    icon-placement={iconPlacement}
+  >
     Label 2
   </sbb-checkbox>,
-  <sbb-checkbox name="checkbox-3" value="checkbox-3">
+  <sbb-checkbox
+    name="checkbox-3"
+    value="checkbox-3"
+    size={size}
+    icon-name={iconName}
+    icon-placement={iconPlacement}
+  >
     Label 3
   </sbb-checkbox>,
 ];
 
-const DefaultTemplate = (args) => <sbb-checkbox-group {...args}>{checkboxs()}</sbb-checkbox-group>;
+const DefaultTemplate = ({ size, checked, iconName, iconPlacement, ...args }) => (
+  <sbb-checkbox-group {...args}>
+    {checkboxes(size, checked, iconName, iconPlacement)}
+  </sbb-checkbox-group>
+);
 
-const ErrorMessageTemplate = (args) => {
-  const sbbFormError = <sbb-form-error slot="error">This is a required field.</sbb-form-error>;
-  return (
-    <sbb-checkbox-group {...args} id="sbb-checkbox-group">
-      {checkboxs()}
-      {args.required && sbbFormError}
-    </sbb-checkbox-group>
-  );
-};
+const ErrorMessageTemplate = ({ size, checked, iconName, iconPlacement, ...args }) => (
+  <sbb-checkbox-group {...args} id="sbb-checkbox-group">
+    {checkboxes(size, checked, iconName, iconPlacement)}
+    {args.required && <sbb-form-error slot="error">This is a required field.</sbb-form-error>}
+  </sbb-checkbox-group>
+);
 
 const name = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Checkbox group',
   },
 };
 
@@ -35,11 +58,17 @@ const disabled = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Checkbox group',
+  },
 };
 
 const required = {
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Checkbox group',
   },
 };
 
@@ -48,6 +77,57 @@ const orientation = {
     type: 'inline-radio',
   },
   options: ['horizontal', 'vertical'],
+  table: {
+    category: 'Checkbox group',
+  },
+};
+
+const horizontalFrom = {
+  control: {
+    type: 'select',
+  },
+  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  table: {
+    category: 'Checkbox group',
+  },
+};
+
+const size = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+  table: {
+    category: 'Checkbox',
+  },
+};
+
+const checked = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Checkbox',
+  },
+};
+
+const iconName = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Checkbox',
+  },
+};
+
+const iconPlacement = {
+  control: {
+    type: 'select',
+  },
+  options: ['start', 'end'],
+  table: {
+    category: 'Checkbox',
+  },
 };
 
 const basicArgTypes = {
@@ -55,55 +135,136 @@ const basicArgTypes = {
   disabled,
   required,
   orientation,
+  'horizontal-from': horizontalFrom,
+  size,
+  checked,
+  iconName,
+  iconPlacement,
 };
 
 const basicArgs = {
   name: 'checkbox-group-1',
   disabled: false,
   required: false,
+  orientation: orientation.options[0],
+  'horizontal-from': undefined,
+  size: size.options[1],
+  checked: true,
+  iconName: undefined,
+  iconPlacement: undefined,
+};
+
+const basicArgsVertical = {
+  ...basicArgs,
   orientation: orientation.options[1],
 };
 
-export const checkboxGroup = DefaultTemplate.bind({});
-checkboxGroup.argTypes = basicArgTypes;
-checkboxGroup.args = { ...basicArgs };
-checkboxGroup.documentation = {
-  title: 'sbb-checkbox-group',
+const iconStart = {
+  iconName: 'tickets-class-small',
+  iconPlacement: iconPlacement.options[0],
 };
 
-export const checkboxGroupDisabled = DefaultTemplate.bind({});
-checkboxGroupDisabled.argTypes = basicArgTypes;
-checkboxGroupDisabled.args = { ...basicArgs, disabled: true };
-checkboxGroupDisabled.documentation = {
-  title: 'sbb-checkbox-group disabled',
+const iconEnd = {
+  iconName: 'tickets-class-small',
+  iconPlacement: iconPlacement.options[1],
 };
 
-export const checkboxGroupRequired = DefaultTemplate.bind({});
-checkboxGroupRequired.argTypes = basicArgTypes;
-checkboxGroupRequired.args = { ...basicArgs, required: true };
-checkboxGroupRequired.documentation = {
-  title: 'sbb-checkbox-group required',
+export const horizontal = DefaultTemplate.bind({});
+horizontal.argTypes = basicArgTypes;
+horizontal.args = { ...basicArgs };
+horizontal.documentation = {
+  title: 'sbb-checkbox-group horizontal',
 };
 
-export const checkboxGroupWithSbbFormError = ErrorMessageTemplate.bind({});
-checkboxGroupWithSbbFormError.argTypes = basicArgTypes;
-checkboxGroupWithSbbFormError.args = { ...basicArgs, required: true };
-checkboxGroupWithSbbFormError.documentation = {
-  title: 'sbb-checkbox-group with sbb-form-error',
+export const vertical = DefaultTemplate.bind({});
+vertical.argTypes = basicArgTypes;
+vertical.args = { ...basicArgsVertical };
+vertical.documentation = {
+  title: 'sbb-checkbox-group vertical',
 };
 
-export const checkboxGroupWithOrientationHorizontal = DefaultTemplate.bind({});
-checkboxGroupWithOrientationHorizontal.argTypes = basicArgTypes;
-checkboxGroupWithOrientationHorizontal.args = { ...basicArgs, orientation: orientation.options[0] };
-checkboxGroupWithOrientationHorizontal.documentation = {
-  title: 'sbb-checkbox-group with orientation horizontal',
+export const verticalToHorizontal = DefaultTemplate.bind({});
+verticalToHorizontal.argTypes = basicArgTypes;
+verticalToHorizontal.args = { ...basicArgsVertical, 'horizontal-from': 'medium' };
+verticalToHorizontal.documentation = {
+  title: 'sbb-checkbox-group vertical with horizontal-from set',
 };
 
-export const checkboxGroupWithOrientationVertical = DefaultTemplate.bind({});
-checkboxGroupWithOrientationVertical.argTypes = basicArgTypes;
-checkboxGroupWithOrientationVertical.args = { ...basicArgs };
-checkboxGroupWithOrientationVertical.documentation = {
-  title: 'sbb-checkbox-group with orientation vertical',
+export const horizontalSizeM = DefaultTemplate.bind({});
+horizontalSizeM.argTypes = basicArgTypes;
+horizontalSizeM.args = { ...basicArgs, size: 'm' };
+horizontalSizeM.documentation = {
+  title: 'sbb-checkbox-group horizontal with size m',
+};
+
+export const horizontalDisabled = DefaultTemplate.bind({});
+horizontalDisabled.argTypes = basicArgTypes;
+horizontalDisabled.args = { ...basicArgs, disabled: true };
+horizontalDisabled.documentation = {
+  title: 'sbb-checkbox-group horizontal disabled',
+};
+
+export const verticalDisabled = DefaultTemplate.bind({});
+verticalDisabled.argTypes = basicArgTypes;
+verticalDisabled.args = { ...basicArgsVertical, disabled: true };
+verticalDisabled.documentation = {
+  title: 'sbb-checkbox-group vertical disabled',
+};
+
+export const horizontalRequired = DefaultTemplate.bind({});
+horizontalRequired.argTypes = basicArgTypes;
+horizontalRequired.args = { ...basicArgs, required: true };
+horizontalRequired.documentation = {
+  title: 'sbb-checkbox-group horizontal required',
+};
+
+export const verticalRequired = DefaultTemplate.bind({});
+verticalRequired.argTypes = basicArgTypes;
+verticalRequired.args = { ...basicArgsVertical, required: true };
+verticalRequired.documentation = {
+  title: 'sbb-checkbox-group vertical required',
+};
+
+export const horizontalIconStart = DefaultTemplate.bind({});
+horizontalIconStart.argTypes = basicArgTypes;
+horizontalIconStart.args = { ...basicArgs, ...iconStart };
+horizontalIconStart.documentation = {
+  title: 'sbb-checkbox-group horizontal with icon at start',
+};
+
+export const verticalIconStart = DefaultTemplate.bind({});
+verticalIconStart.argTypes = basicArgTypes;
+verticalIconStart.args = { ...basicArgsVertical, ...iconStart };
+verticalIconStart.documentation = {
+  title: 'sbb-checkbox-group vertical with icon at start',
+};
+
+export const horizontalIconEnd = DefaultTemplate.bind({});
+horizontalIconEnd.argTypes = basicArgTypes;
+horizontalIconEnd.args = { ...basicArgs, ...iconEnd };
+horizontalIconEnd.documentation = {
+  title: 'sbb-checkbox-group horizontal with icon at end',
+};
+
+export const verticalIconEnd = DefaultTemplate.bind({});
+verticalIconEnd.argTypes = basicArgTypes;
+verticalIconEnd.args = { ...basicArgsVertical, ...iconEnd };
+verticalIconEnd.documentation = {
+  title: 'sbb-checkbox-group vertical with icon at end',
+};
+
+export const horizontalWithSbbFormError = ErrorMessageTemplate.bind({});
+horizontalWithSbbFormError.argTypes = basicArgTypes;
+horizontalWithSbbFormError.args = { ...basicArgs, required: true };
+horizontalWithSbbFormError.documentation = {
+  title: 'sbb-checkbox-group horizontal with sbb-form-error',
+};
+
+export const verticalWithSbbFormError = ErrorMessageTemplate.bind({});
+verticalWithSbbFormError.argTypes = basicArgTypes;
+verticalWithSbbFormError.args = { ...basicArgsVertical, required: true };
+verticalWithSbbFormError.documentation = {
+  title: 'sbb-checkbox-group vertical with sbb-form-error',
 };
 
 export default {

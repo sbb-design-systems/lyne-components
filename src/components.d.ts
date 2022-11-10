@@ -16,6 +16,7 @@ import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custo
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { InterfaceCheckboxAttributes, SbbCheckboxChange } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -540,9 +541,17 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
+        /**
           * Id of the checkbox group element - default name will be auto-generated.
          */
         "name"?: string;
+        /**
+          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+         */
+        "orientation": InterfaceSbbCheckboxGroupAttributes['orientation'];
         /**
           * Whether the checkbox group is required.
          */
@@ -2765,9 +2774,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
+        /**
           * Id of the checkbox group element - default name will be auto-generated.
          */
         "name"?: string;
+        /**
+          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+         */
+        "orientation"?: InterfaceSbbCheckboxGroupAttributes['orientation'];
         /**
           * Whether the checkbox group is required.
          */
