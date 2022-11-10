@@ -1,5 +1,7 @@
 /* stylelint-disable plugin/stylelint-bem-namics */
 
+@use 'sass:selector';
+
 @mixin list-reset {
   list-style: none;
   margin: 0;
@@ -10,6 +12,7 @@
 @mixin list {
   --sbb-list-vertical-gap: 0.75em;
   --sbb-list-padding-inline-start: 1.5em;
+  --sbb-list-disc-dimension: 0.3em;
 
   &,
   ul,
@@ -40,8 +43,29 @@
     margin-block-start: var(--sbb-list-vertical-gap);
   }
 
-  ul {
-    list-style-type: disc;
+  // Apply the following block only if ul tag is at selectors level.
+  // This is done by selector.unify which takes care of correct selector concatenation
+  @at-root #{selector.unify(&, 'ul')},
+    & ul {
+    list-style-type: none;
+
+    > li {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset-block-start: calc(0.5em + 0.5 * var(--sbb-list-disc-dimension));
+        inset-inline-start: calc(
+          -1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5 * var(--sbb-list-disc-dimension))
+        );
+        height: var(--sbb-list-disc-dimension);
+        width: var(--sbb-list-disc-dimension);
+        background-color: currentcolor;
+        border-radius: 50%;
+      }
+    }
   }
 }
 
