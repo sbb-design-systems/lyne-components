@@ -14,133 +14,62 @@ html {
   color: var(--sbb-font-default-color);
 }
 
-.sbb-text-bold {
-  @include text--bold;
+.sbb-title-1 {
+  @include title-1;
 }
 
-.sbb-text-xl {
-  @include text-xl--regular;
+.sbb-title-2 {
+  @include title-2;
 }
 
-.sbb-text-l {
-  @include text-l--regular;
+.sbb-title-3 {
+  @include title-3;
 }
 
-.sbb-text-m {
-  @include text-m--regular;
+.sbb-title-4 {
+  @include title-4;
 }
 
-.sbb-text-s {
-  @include text-s--regular;
+.sbb-title-5 {
+  @include title-5;
 }
 
-.sbb-text-xs {
-  @include text-xs--regular;
+.sbb-title-6 {
+  @include title-6;
 }
 
 .sbb-text-xxs {
   @include text-xxs--regular;
 }
 
-.sbb-list {
-  margin: 0;
-  padding-left: 19px;
-  color: var(--sbb-color-iron-default);
-
-  li {
-    &::marker {
-      position: relative;
-    }
-
-    + li {
-      margin-top: var(--sbb-spacing-fixed-2x);
-    }
-  }
+.sbb-text-xs {
+  @include text-xs--regular;
 }
 
-.sbb-list-steps {
-  --sbb-list-steps-marker-dimensions: #{px-to-rem-build(34)};
-  --sbb-list-steps-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-list-steps-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-list-steps-marker-to-text-gap: var(--sbb-spacing-responsive-xxxs);
+.sbb-text-s {
+  @include text-s--regular;
+}
 
-  // Additional space from overall li padding to the text because text
-  // has to be centered to marker number.
-  --sbb-list-steps-text-to-marker-block-offset: calc(
-    0.5 *
-      (
-        var(--sbb-list-steps-marker-dimensions) - var(--sbb-typo-line-height-body-text) *
-          var(--sbb-text-font-size)
-      )
-  );
-  --sbb-list-steps-vertical-gap: var(--sbb-spacing-fixed-1x);
+.sbb-text-m {
+  @include text-m--regular;
+}
 
-  &:where(.sbb-text-s) {
-    --sbb-list-steps-padding-block: var(--sbb-spacing-fixed-4x);
-  }
+.sbb-text-l {
+  @include text-l--regular;
+}
 
-  &:where(.sbb-text-m, .sbb-text-l, .sbb-text-xl) {
-    --sbb-list-steps-padding-block: var(--sbb-spacing-fixed-5x);
-  }
+.sbb-text-xl {
+  @include text-xl--regular;
+}
 
-  &:where(.sbb-text-xl) {
-    @include mq($from: medium) {
-      --sbb-list-steps-marker-dimensions: #{px-to-rem-build(41)};
-    }
-  }
+.sbb-text-bold {
+  @include text--bold;
+}
 
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  counter-reset: steps;
+.sbb-list {
+  @include list;
+}
 
-  /* stylelint-disable-next-line no-descending-specificity */
-  li {
-    position: relative;
-    counter-increment: steps;
-    background-color: var(--sbb-color-milk-default);
-    border-radius: var(--sbb-border-radius-4x);
-    padding-block-start: calc(
-      var(--sbb-list-steps-padding-block) + var(--sbb-list-steps-text-to-marker-block-offset)
-    );
-    padding-block-end: var(--sbb-list-steps-padding-block);
-    padding-inline-start: calc(
-      var(--sbb-list-steps-padding-inline) + var(--sbb-list-steps-marker-dimensions) +
-        var(--sbb-list-steps-marker-to-text-gap)
-    );
-    padding-inline-end: var(--sbb-list-steps-padding-inline);
-    min-height: calc(
-      var(--sbb-list-steps-marker-dimensions) + 2 * var(--sbb-list-steps-padding-block)
-    );
-
-    &::before {
-      @include text-xxs--bold;
-
-      content: counter(steps);
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: var(--sbb-list-steps-marker-dimensions);
-      width: var(--sbb-list-steps-marker-dimensions);
-      margin-block-start: calc(-1 * var(--sbb-list-steps-text-to-marker-block-offset));
-      inset-inline-start: var(--sbb-list-steps-padding-inline);
-      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement-default);
-      border-radius: 50%;
-      color: var(--sbb-color-charcoal-default);
-    }
-
-    + li {
-      margin-block-start: var(--sbb-list-steps-vertical-gap);
-    }
-
-    p {
-      margin-block: 0;
-    }
-
-    // P has to be redefined to be more specific
-    > :is(p, *) + * {
-      margin-block-start: var(--sbb-spacing-responsive-xxxs);
-    }
-  }
+.sbb-step-list {
+  @include step-list;
 }

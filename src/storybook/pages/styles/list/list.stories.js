@@ -15,6 +15,12 @@ const UnorderedListTemplate = () =>
     <h3>Text size {textSize}</h3>,
     <ul class={`sbb-list sbb-text-${textSize}`}>
       <ListContent></ListContent>
+      <li>
+        Nested list
+        <ul>
+          <ListContent></ListContent>
+        </ul>
+      </li>
     </ul>,
   ]);
 
@@ -23,14 +29,26 @@ const OrderedListTemplate = () =>
     <h3>Text size {textSize}</h3>,
     <ol class={`sbb-list sbb-text-${textSize}`}>
       <ListContent></ListContent>
+      <li>
+        Nested list
+        <ol>
+          <ListContent></ListContent>
+        </ol>
+      </li>
     </ol>,
   ]);
 
 const StepsTemplate = () =>
   ['xs', 's', 'm', 'l', 'xl'].map((textSize) => [
     <h3>Text size {textSize}</h3>,
-    <ol class={`sbb-list-steps sbb-text-${textSize}`}>
+    <ol class={`sbb-step-list sbb-text-${textSize}`}>
       <ListContent></ListContent>
+      <li>
+        Nested list
+        <ol class="sbb-list">
+          <ListContent></ListContent>
+        </ol>
+      </li>
     </ol>,
   ]);
 
@@ -41,7 +59,7 @@ export const StepList = StepsTemplate.bind({});
 export default {
   decorators: [
     (Story) => (
-      <div style={'margin: 2rem;'}>
+      <div style={'margin: 2rem'}>
         <Story />
       </div>
     ),
@@ -52,5 +70,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'styles/lists',
+  title: 'styles/list',
 };
