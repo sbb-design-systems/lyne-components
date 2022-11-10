@@ -15,7 +15,7 @@ describe('sbb-checkbox-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-checkbox-group aria-label="sbb-checkbox-group-1-name">
+      <sbb-checkbox-group orientation="horizontal" aria-label="sbb-checkbox-group-1-name">
         <mock:shadow-root>
           <div class="sbb-checkbox-group">
             <slot></slot>
@@ -28,11 +28,11 @@ describe('sbb-checkbox-group', () => {
     `);
   });
 
-  it('renders sbb-checkbox-group disabled', async () => {
+  it('renders disabled', async () => {
     const { root } = await newSpecPage({
       components: [SbbCheckboxGroup],
       html: `
-        <sbb-checkbox-group disabled>
+        <sbb-checkbox-group disabled="true">
           <sbb-checkbox name="checkbox-1" value="checkbox-1" disabled>Label 1</sbb-checkbox>
           <sbb-checkbox name="checkbox-2" value="checkbox-2" disabled>Label 2</sbb-checkbox>
           <sbb-checkbox name="checkbox-3" value="checkbox-3" disabled>Label 3</sbb-checkbox>
@@ -41,7 +41,7 @@ describe('sbb-checkbox-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-checkbox-group aria-label="sbb-checkbox-group-2-name" disabled>
+      <sbb-checkbox-group orientation="horizontal" aria-label="sbb-checkbox-group-2-name" disabled="">
         <mock:shadow-root>
           <div class="sbb-checkbox-group">
             <slot></slot>
@@ -54,11 +54,11 @@ describe('sbb-checkbox-group', () => {
     `);
   });
 
-  it('renders sbb-checkbox-group required', async () => {
+  it('renders required', async () => {
     const { root } = await newSpecPage({
       components: [SbbCheckboxGroup],
       html: `
-        <sbb-checkbox-group required>
+        <sbb-checkbox-group required="true">
           <sbb-checkbox name="checkbox-1" value="checkbox-1" required>Label 1</sbb-checkbox>
           <sbb-checkbox name="checkbox-2" value="checkbox-2" required>Label 2</sbb-checkbox>
           <sbb-checkbox name="checkbox-3" value="checkbox-3" required>Label 3</sbb-checkbox>
@@ -67,7 +67,7 @@ describe('sbb-checkbox-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-checkbox-group aria-label="sbb-checkbox-group-3-name" required>
+      <sbb-checkbox-group orientation="horizontal" aria-label="sbb-checkbox-group-3-name" required="">
         <mock:shadow-root>
           <div class="sbb-checkbox-group">
             <slot></slot>
