@@ -4,7 +4,7 @@ import readme from './readme.md';
 
 const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
 
-const templateSlottedIcons = (args) => (
+const TemplateSlottedIcons = (args) => (
   <sbb-slider {...args}>
     <sbb-icon slot="prefix" name="battery-level-empty-small" />
     <sbb-icon slot="suffix" name="battery-level-high-small" />
@@ -199,7 +199,7 @@ sbbSliderWithoutIcons.documentation = {
   title: 'sbb-slider without icons',
 };
 
-export const sbbSliderSlottedIcons = templateSlottedIcons.bind({});
+export const sbbSliderSlottedIcons = TemplateSlottedIcons.bind({});
 sbbSliderSlottedIcons.argTypes = { ...basicArgTypes };
 sbbSliderSlottedIcons.args = { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined };
 sbbSliderSlottedIcons.documentation = {
