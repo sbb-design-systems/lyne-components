@@ -23,6 +23,29 @@
   display: inline;
 }
 
+:host([disabled]) {
+  --sbb-slider-icon-color: var(--sbb-color-graphite-default);
+  --sbb-slider-knob-color: var(--sbb-color-milk-default);
+  --sbb-slider-knob-border-color: var(--sbb-slider-line-disabled-color);
+}
+
+:host([readonly]) {
+  --sbb-slider-icon-color: var(--sbb-color-smoke-default);
+  --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
+}
+
+:host([disabled]),
+:host([readonly]) {
+  @include ifForcedColors {
+    --sbb-slider-icon-color: GrayText;
+    --sbb-slider-selected-line-disabled-color: GrayText;
+    --sbb-slider-line-disabled-color: GrayText;
+  }
+
+  --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
+  --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
+}
+
 :host([data-sbb-form-field]) {
   --form-field-overflow: visible;
   --form-field-background-color: transparent;
@@ -87,41 +110,6 @@
   border: var(--sbb-slider-knob-border-size) solid var(--sbb-slider-knob-border-color);
   border-radius: 50%;
   pointer-events: none;
-}
-
-// override icons color
-:host([disabled]) {
-  --sbb-slider-icon-color: var(--sbb-color-graphite-default);
-
-  .sbb-slider__knob {
-    --sbb-slider-knob-color: var(--sbb-color-milk-default);
-    --sbb-slider-knob-border-color: var(--sbb-slider-line-disabled-color);
-  }
-}
-
-:host([readonly]) {
-  --sbb-slider-icon-color: var(--sbb-color-smoke-default);
-
-  .sbb-slider__knob {
-    --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
-  }
-}
-
-:host([disabled]),
-:host([readonly]) {
-  @include ifForcedColors {
-    --sbb-slider-icon-color: GrayText;
-    --sbb-slider-selected-line-disabled-color: GrayText;
-    --sbb-slider-line-disabled-color: GrayText;
-  }
-
-  .sbb-slider__line {
-    --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
-  }
-
-  .sbb-slider__selected-line {
-    --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
-  }
 }
 
 // slider knob resize on click (active / focus)
