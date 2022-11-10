@@ -28,24 +28,6 @@
   --form-field-background-color: transparent;
 }
 
-// override icons color
-:host([disabled]) {
-  --sbb-slider-icon-color: var(--sbb-color-graphite-default);
-}
-
-:host([readonly]) {
-  --sbb-slider-icon-color: var(--sbb-color-smoke-default);
-}
-
-:host([disabled]),
-:host([readonly]) {
-  @include ifForcedColors {
-    --sbb-slider-icon-color: GrayText;
-    --sbb-slider-selected-line-disabled-color: GrayText;
-    --sbb-slider-line-disabled-color: GrayText;
-  }
-}
-
 .sbb-slider__wrapper {
   max-width: #{px-to-rem-build(400)};
   min-width: #{px-to-rem-build(150)};
@@ -79,11 +61,6 @@
   border-radius: var(--sbb-slider-line-height);
   overflow: hidden;
   pointer-events: none;
-
-  :host([disabled]) &,
-  :host([readonly]) & {
-    --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
-  }
 }
 
 .sbb-slider__selected-line {
@@ -91,11 +68,6 @@
   height: 100%;
   background-color: var(--sbb-slider-selected-line-color);
   width: calc(var(--sbb-slider-value-fraction) * 100%);
-
-  :host([disabled]) &,
-  :host([readonly]) & {
-    --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
-  }
 }
 
 .sbb-slider__knob {
@@ -115,14 +87,40 @@
   border: var(--sbb-slider-knob-border-size) solid var(--sbb-slider-knob-border-color);
   border-radius: 50%;
   pointer-events: none;
+}
 
-  :host([disabled]) & {
+// override icons color
+:host([disabled]) {
+  --sbb-slider-icon-color: var(--sbb-color-graphite-default);
+
+  .sbb-slider__knob {
     --sbb-slider-knob-color: var(--sbb-color-milk-default);
     --sbb-slider-knob-border-color: var(--sbb-slider-line-disabled-color);
   }
+}
 
-  :host([readonly]) & {
+:host([readonly]) {
+  --sbb-slider-icon-color: var(--sbb-color-smoke-default);
+
+  .sbb-slider__knob {
     --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
+  }
+}
+
+:host([disabled]),
+:host([readonly]) {
+  @include ifForcedColors {
+    --sbb-slider-icon-color: GrayText;
+    --sbb-slider-selected-line-disabled-color: GrayText;
+    --sbb-slider-line-disabled-color: GrayText;
+  }
+
+  .sbb-slider__line {
+    --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
+  }
+
+  .sbb-slider__selected-line {
+    --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
   }
 }
 
