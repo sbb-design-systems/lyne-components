@@ -42,10 +42,10 @@ The tooltip automatically calculates where it should place itself, based on avai
 
 ### When to use
 
-- Describe icons and buttons
-- When more information is useful in helping a user make decisions
-- When an element needs more context or explanation
-- Use when defining a term or inline item
+- Describe icons and buttons.
+- When more information is useful to help a user making decisions.
+- When an element needs more context or explanation.
+- When defining a term or inline item.
 
 ### Accessibility
 
