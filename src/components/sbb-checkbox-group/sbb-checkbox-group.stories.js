@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const checkboxes = (size, checked, iconName, iconPlacement) => [
+const checkboxes = (size, checked, iconName, iconPlacement, label) => [
   <sbb-checkbox
     name="checkbox-1"
     value="checkbox-1"
@@ -10,7 +10,7 @@ const checkboxes = (size, checked, iconName, iconPlacement) => [
     icon-name={iconName}
     icon-placement={iconPlacement}
   >
-    Label 1
+    {label} 1
   </sbb-checkbox>,
   <sbb-checkbox
     name="checkbox-2"
@@ -19,7 +19,7 @@ const checkboxes = (size, checked, iconName, iconPlacement) => [
     icon-name={iconName}
     icon-placement={iconPlacement}
   >
-    Label 2
+    {label} 2
   </sbb-checkbox>,
   <sbb-checkbox
     name="checkbox-3"
@@ -28,19 +28,19 @@ const checkboxes = (size, checked, iconName, iconPlacement) => [
     icon-name={iconName}
     icon-placement={iconPlacement}
   >
-    Label 3
+    {label} 3
   </sbb-checkbox>,
 ];
 
-const DefaultTemplate = ({ size, checked, iconName, iconPlacement, ...args }) => (
+const DefaultTemplate = ({ size, checked, iconName, iconPlacement, label, ...args }) => (
   <sbb-checkbox-group {...args}>
-    {checkboxes(size, checked, iconName, iconPlacement)}
+    {checkboxes(size, checked, iconName, iconPlacement, label)}
   </sbb-checkbox-group>
 );
 
 const ErrorMessageTemplate = ({ size, checked, iconName, iconPlacement, ...args }) => (
   <sbb-checkbox-group {...args} id="sbb-checkbox-group">
-    {checkboxes(size, checked, iconName, iconPlacement)}
+    {checkboxes(size, checked, iconName, iconPlacement, label)}
     {args.required && <sbb-form-error slot="error">This is a required field.</sbb-form-error>}
   </sbb-checkbox-group>
 );
@@ -111,6 +111,15 @@ const checked = {
   },
 };
 
+const label = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Checkbox',
+  },
+};
+
 const iconName = {
   control: {
     type: 'text',
@@ -137,6 +146,7 @@ const basicArgTypes = {
   orientation,
   'horizontal-from': horizontalFrom,
   size,
+  label,
   checked,
   iconName,
   iconPlacement,
@@ -149,6 +159,7 @@ const basicArgs = {
   orientation: orientation.options[0],
   'horizontal-from': undefined,
   size: size.options[1],
+  label: 'Label',
   checked: true,
   iconName: undefined,
   iconPlacement: undefined,

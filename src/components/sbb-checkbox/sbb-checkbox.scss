@@ -93,8 +93,8 @@ input[type='checkbox'] {
   }
 }
 
-input[type='checkbox']:focus-visible + .checkbox__inner {
+input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
   @include focusOutline;
 
-  border-radius: #{px-to-rem-build(4)};
+  border-radius: var(--sbb-border-width-1x);
 }
