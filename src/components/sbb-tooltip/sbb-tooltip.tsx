@@ -124,7 +124,7 @@ export class SbbTooltip implements ComponentInterface {
   private _hoverTrigger = false;
   private _openTimeout: ReturnType<typeof setTimeout>;
   private _closeTimeout: ReturnType<typeof setTimeout>;
-  private _currentLangauge = getDocumentLang();
+  private _currentLanguage = getDocumentLang();
 
   @Element() private _element!: HTMLElement;
 
@@ -387,13 +387,13 @@ export class SbbTooltip implements ComponentInterface {
       <span class="sbb-tooltip__close">
         <sbb-button
           accessibility-label={
-            this.accessibilityCloseLabel || i18nCloseTooltip[this._currentLangauge]
+            this.accessibilityCloseLabel || i18nCloseTooltip[this._currentLanguage]
           }
           variant="secondary"
           size="m"
           type="button"
           iconName="cross-small"
-          onClick={() => this.close()}
+          sbb-tooltip-close
         ></sbb-button>
       </span>
     );

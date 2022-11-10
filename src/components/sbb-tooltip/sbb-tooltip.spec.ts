@@ -19,7 +19,7 @@ describe('sbb-tooltip', () => {
                 </slot>
               </span>
               <span class="sbb-tooltip__close">
-                <sbb-button accessibility-label="Close tooltip" iconname="cross-small" size="m" type="button" variant="secondary"></sbb-button>
+                <sbb-button accessibility-label="Close tooltip" iconname="cross-small" sbb-tooltip-close="" size="m" type="button" variant="secondary"></sbb-button>
               </span>
             </div>
           </dialog>

@@ -71,9 +71,15 @@ const tooltipTrigger = (position) => (
 const tooltip = (args) => (
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
     <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s)'}>
-      Simple information tooltip content with action link.{' '}
-      <sbb-link text-size="s" variant="inline" sbb-tooltip-close>
-        Link
+      Simple information tooltip with link.{' '}
+      <sbb-link
+        text-size="s"
+        variant="block"
+        icon-name="chevron-small-right-small"
+        icon-placement="end"
+        sbb-tooltip-close
+      >
+        Learn More
       </sbb-link>
     </p>
   </sbb-tooltip>
@@ -93,6 +99,17 @@ const CenterAboveTemplate = (args) => [
 ];
 
 const EndAboveTemplate = (args) => [tooltipTrigger('right: 2rem; bottom: 2rem'), tooltip(args)];
+
+const LongContentTemplate = (args) => [
+  tooltipTrigger('left: 2rem'),
+  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
+    <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s)'}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+  </sbb-tooltip>,
+];
 
 const HoverTriggerTemplate = (args) => [tooltipTrigger('left: 2rem'), tooltip(args)];
 
@@ -131,6 +148,12 @@ EndAbove.argTypes = defaultArgTypes;
 EndAbove.args = { ...defaultArgs };
 EndAbove.documentation = { title: 'End Above' };
 EndAbove.play = playStory;
+
+export const LongContent = LongContentTemplate.bind({});
+LongContent.argTypes = defaultArgTypes;
+LongContent.args = { ...defaultArgs };
+LongContent.documentation = { title: 'Long Content' };
+LongContent.play = playStory;
 
 export const HoverTrigger = HoverTriggerTemplate.bind({});
 HoverTrigger.argTypes = defaultArgTypes;

@@ -2,14 +2,25 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+@mixin tooltipArrow {
+  content: '';
+  position: absolute;
+  display: block;
+  width: var(--sbb-tooltip-arrow-size);
+  height: var(--sbb-tooltip-arrow-size);
+  left: var(--sbb-tooltip-arrow-position-x);
+  bottom: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
+  background-color: var(--sbb-tooltip-background);
+  transform: rotate(45deg);
+}
+
 :host {
   --sbb-tooltip-position: absolute;
   --sbb-tooltip-position-x: 0;
   --sbb-tooltip-position-y: 0;
   --sbb-tooltip-arrow-size: var(--sbb-spacing-fixed-4x);
   --sbb-tooltip-arrow-position-x: 0;
-  --sbb-tooltip-max-height: #{px-to-rem-build(190)};
-  --sbb-tooltip-max-width: min(calc(100vw - var(--sbb-spacing-fixed-8x)), #{px-to-rem-build(320)});
+  --sbb-tooltip-max-width: calc(100vw - var(--sbb-spacing-fixed-8x));
   --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
   --sbb-tooltip-padding: var(--sbb-spacing-fixed-4x);
   --sbb-tooltip-background: var(--sbb-color-white-default);
@@ -42,7 +53,6 @@
   border: none;
   border-radius: var(--sbb-tooltip-border-radius);
   padding: 0;
-  max-height: var(--sbb-tooltip-max-height);
   max-width: var(--sbb-tooltip-max-width);
   width: max-content;
   background-color: var(--sbb-tooltip-background);
@@ -57,18 +67,10 @@
 
   // Tooltip arrow
   &::after {
+    @include tooltipArrow;
     @include shadow-level-5-hard;
 
-    content: '';
-    position: absolute;
-    display: block;
-    width: var(--sbb-tooltip-arrow-size);
-    height: var(--sbb-tooltip-arrow-size);
-    left: var(--sbb-tooltip-arrow-position-x);
-    bottom: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
-    background-color: var(--sbb-tooltip-background);
-    border-radius: var(--sbb-spacing-fixed-1x) 0;
-    transform: rotate(45deg);
+    border-radius: #{px-to-rem-build(4)} 0;
     z-index: -1;
 
     @include ifForcedColors {
@@ -99,21 +101,13 @@
   padding: var(--sbb-tooltip-padding);
   outline: none;
   background-color: var(--sbb-tooltip-background);
-  max-height: var(--sbb-tooltip-max-height);
   overflow: hidden;
 
   // Tooltip arrow cover top
   &::before {
-    content: '';
-    position: absolute;
-    display: block;
-    width: var(--sbb-tooltip-arrow-size);
-    height: var(--sbb-tooltip-arrow-size);
-    left: var(--sbb-tooltip-arrow-position-x);
-    bottom: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
-    background-color: var(--sbb-tooltip-background);
+    @include tooltipArrow;
+
     border-radius: var(--sbb-spacing-fixed-1x) 0;
-    transform: rotate(45deg);
   }
 
   :host(.sbb-tooltip--above) & {
