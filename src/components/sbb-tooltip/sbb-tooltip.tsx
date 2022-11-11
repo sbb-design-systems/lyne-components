@@ -191,7 +191,9 @@ export class SbbTooltip implements ComponentInterface {
 
   public componentDidLoad(): void {
     if (this._hoverTrigger) {
-      this._dialog.addEventListener('mouseenter', () => clearTimeout(this._closeTimeout));
+      this._dialog.addEventListener('mouseenter', () => {
+        this._state === 'opened' && clearTimeout(this._closeTimeout);
+      });
       this._dialog.addEventListener('mouseleave', () => this._closeOnMouseLeave());
     }
   }
@@ -220,7 +222,9 @@ export class SbbTooltip implements ComponentInterface {
       return;
     }
 
-    // Check whether the trigger can be hovered
+    // Check whether the trigger can be hovered. Some diveces might interpret the media query (hover: hover) differently,
+    // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
+    // all non-touchscreen devices.
     this._hoverTrigger = this.hoverTrigger && !window.matchMedia('(pointer: coarse)').matches;
 
     this._tooltipController = new AbortController();
@@ -304,13 +308,13 @@ export class SbbTooltip implements ComponentInterface {
 
   private _onTriggerMouseLeave = (): void => {
     if (this._state === 'opened') {
-      this._closeOnMouseLeave();
+      this._closeTimeout = setTimeout(() => this.close(), this.hideDelay);
     } else {
       clearTimeout(this._openTimeout);
     }
   };
 
-  // Close tooltip on mouse leaving the trigger/tooltip hover.
+  // Close tooltip on mouse leaving the tooltip hover.
   private _closeOnMouseLeave = (): void => {
     if (this._state === 'opened') {
       this._closeTimeout = setTimeout(() => this.close(), this.hideDelay);
