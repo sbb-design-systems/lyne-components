@@ -78,13 +78,16 @@ export class SbbRadioButton {
       return;
     }
 
+    let value = this.value;
+
     if (this.allowEmptySelection) {
       this.checked = !this.checked;
+      value = this.checked ? value : undefined;
     } else if (!this.checked) {
       this.checked = true;
     }
 
-    this.didSelect.emit(this.value);
+    this.didSelect.emit(value);
   }
 
   public render(): JSX.Element {
