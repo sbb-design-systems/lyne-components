@@ -299,15 +299,15 @@ export class SbbTooltip implements ComponentInterface {
   };
 
   private _onTriggerMouseEnter = (): void => {
-    if (this._state === 'opened') {
-      clearTimeout(this._closeTimeout);
-    } else {
+    if (this._state !== 'opened' && this._state !== 'opening') {
       this._openTimeout = setTimeout(() => this.open(), this.showDelay);
+    } else {
+      clearTimeout(this._closeTimeout);
     }
   };
 
   private _onTriggerMouseLeave = (): void => {
-    if (this._state === 'opened') {
+    if (this._state !== 'closed' && this._state !== 'closing') {
       this._closeTimeout = setTimeout(() => this.close(), this.hideDelay);
     } else {
       clearTimeout(this._openTimeout);
