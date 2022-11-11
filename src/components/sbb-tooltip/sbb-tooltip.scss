@@ -111,9 +111,6 @@
   }
 }
 
-// It is necessary to use animations with keyframes instead of transitions in order not to alter
-// the default `display: block` of the modal otherwise it causes several problems,
-// especially for accessibility.
 @keyframes show {
   from {
     visibility: hidden;

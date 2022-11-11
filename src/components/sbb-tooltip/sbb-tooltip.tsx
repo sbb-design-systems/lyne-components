@@ -133,7 +133,7 @@ export class SbbTooltip implements ComponentInterface {
    */
   @Method()
   public async open(): Promise<void> {
-    if (this._state === 'closing' || !this._dialog) {
+    if ((this._state !== 'closed' && this._state !== 'closing') || !this._dialog) {
       return;
     }
 
@@ -148,7 +148,7 @@ export class SbbTooltip implements ComponentInterface {
    */
   @Method()
   public async close(target?: HTMLElement): Promise<void> {
-    if (this._state === 'opening') {
+    if (this._state !== 'opened' && this._state !== 'opening') {
       return;
     }
 
@@ -156,7 +156,7 @@ export class SbbTooltip implements ComponentInterface {
     this.willClose.emit({ closeTarget: this._tooltipCloseElement });
     this._state = 'closing';
     this._openedByKeyboard = false;
-    this._prevFocusedElement.focus();
+    this._prevFocusedElement?.focus();
   }
 
   // Closes the tooltip on "Esc" key pressed and traps focus within the tooltip.
@@ -191,10 +191,8 @@ export class SbbTooltip implements ComponentInterface {
 
   public componentDidLoad(): void {
     if (this._hoverTrigger) {
-      this._dialog.addEventListener('mouseenter', () => {
-        this._state === 'opened' && clearTimeout(this._closeTimeout);
-      });
-      this._dialog.addEventListener('mouseleave', () => this._closeOnMouseLeave());
+      this._dialog.addEventListener('mouseenter', () => this._onDialogMouseEnter());
+      this._dialog.addEventListener('mouseleave', () => this._onDialogMouseLeave());
     }
   }
 
@@ -237,9 +235,15 @@ export class SbbTooltip implements ComponentInterface {
         signal: this._tooltipController.signal,
       });
     } else {
-      this._triggerElement.addEventListener('click', () => this.open(), {
-        signal: this._tooltipController.signal,
-      });
+      this._triggerElement.addEventListener(
+        'click',
+        () => {
+          this._state === 'closed' && this.open();
+        },
+        {
+          signal: this._tooltipController.signal,
+        }
+      );
     }
 
     this._triggerElement.addEventListener(
@@ -299,7 +303,7 @@ export class SbbTooltip implements ComponentInterface {
   };
 
   private _onTriggerMouseEnter = (): void => {
-    if (this._state !== 'opened' && this._state !== 'opening') {
+    if (this._state === 'closed' || this._state === 'closing') {
       this._openTimeout = setTimeout(() => this.open(), this.showDelay);
     } else {
       clearTimeout(this._closeTimeout);
@@ -307,16 +311,21 @@ export class SbbTooltip implements ComponentInterface {
   };
 
   private _onTriggerMouseLeave = (): void => {
-    if (this._state !== 'closed' && this._state !== 'closing') {
+    if (this._state === 'opened' || this._state === 'opening') {
       this._closeTimeout = setTimeout(() => this.close(), this.hideDelay);
     } else {
       clearTimeout(this._openTimeout);
     }
   };
 
-  // Close tooltip on mouse leaving the tooltip hover.
-  private _closeOnMouseLeave = (): void => {
-    if (this._state === 'opened') {
+  private _onDialogMouseEnter = (): void => {
+    if (this._state !== 'opening') {
+      clearTimeout(this._closeTimeout);
+    }
+  };
+
+  private _onDialogMouseLeave = (): void => {
+    if (this._state !== 'opening') {
       this._closeTimeout = setTimeout(() => this.close(), this.hideDelay);
     }
   };
@@ -324,13 +333,13 @@ export class SbbTooltip implements ComponentInterface {
   // Set tooltip position (x, y) to '0' once the tooltip is closed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the tooltip is open.
   private _onTooltipAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'show') {
+    if (event.animationName === 'show' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
       this._setTooltipFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
-    } else if (event.animationName === 'hide') {
+    } else if (event.animationName === 'hide' && this._state === 'closing') {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();
