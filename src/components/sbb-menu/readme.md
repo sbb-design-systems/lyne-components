@@ -14,7 +14,7 @@ or to navigate within or outside the application by using the `sbb-menu-action` 
 
 ```html
 <!-- Trigger element -->
-<sbb-button id="menu-trigger" label="Menu trigger"></sbb-button>
+<sbb-button id="menu-trigger">Menu trigger</sbb-button>
 
 <!-- Menu component with menu actions -->
 <sbb-menu trigger="menu-trigger">
@@ -30,7 +30,7 @@ You can also provide custom content inside the `sbb-menu`:
 
 ```html
 <!-- Trigger element -->
-<sbb-button id="menu-trigger" label="Menu trigger"></sbb-button>
+<sbb-button id="menu-trigger">Menu trigger</sbb-button>
 
 <!-- Menu component with custom content and menu actions -->
 <sbb-menu trigger="menu-trigger">

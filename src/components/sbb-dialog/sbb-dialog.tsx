@@ -175,7 +175,7 @@ export class SbbDialog implements AccessibilityProperties {
   private _hasTitle = false;
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
-  private _currentLangauge = getDocumentLang();
+  private _currentLanguage = getDocumentLang();
 
   @Element() private _element!: HTMLElement;
 
@@ -324,7 +324,7 @@ export class SbbDialog implements AccessibilityProperties {
     const closeButton = (
       <sbb-button
         class="sbb-dialog__close"
-        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLangauge]}
+        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
         accessibility-controls={this.dialogId}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
@@ -338,7 +338,7 @@ export class SbbDialog implements AccessibilityProperties {
     const backButton = (
       <sbb-button
         class="sbb-dialog__back"
-        accessibility-label={this.accessibilityBackLabel || i18nGoBack[this._currentLangauge]}
+        accessibility-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"

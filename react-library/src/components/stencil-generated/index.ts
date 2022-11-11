@@ -70,3 +70,4 @@ export const SbbTimetableTransportationWalk = /*@__PURE__*/createReactComponent<
 export const SbbTimetableTravelHints = /*@__PURE__*/createReactComponent<JSX.SbbTimetableTravelHints, HTMLSbbTimetableTravelHintsElement>('sbb-timetable-travel-hints');
 export const SbbTitle = /*@__PURE__*/createReactComponent<JSX.SbbTitle, HTMLSbbTitleElement>('sbb-title');
 export const SbbToggleCheck = /*@__PURE__*/createReactComponent<JSX.SbbToggleCheck, HTMLSbbToggleCheckElement>('sbb-toggle-check');
+export const SbbTooltip = /*@__PURE__*/createReactComponent<JSX.SbbTooltip, HTMLSbbTooltipElement>('sbb-tooltip');

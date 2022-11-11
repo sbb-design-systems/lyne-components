@@ -107,7 +107,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
   private _transitionWrapperElement!: HTMLElement;
   private _alertElement!: HTMLElement;
 
-  private _currentLangauge = getDocumentLang();
+  private _currentLanguage = getDocumentLang();
   private _firstRenderingDone = false;
 
   public connectedCallback(): void {
@@ -224,7 +224,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
               <Fragment>
                 <span aria-hidden="true">&nbsp;</span>
                 <sbb-link {...this._linkProperties()} variant="inline" negative>
-                  {this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLangauge]}
+                  {this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLanguage]}
                 </sbb-link>
               </Fragment>
             )}
@@ -237,7 +237,7 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
                 size="m"
                 icon-name="cross-small"
                 onClick={() => this.requestDismissal()}
-                accessibility-label={i18nCloseAlert[this._currentLangauge]}
+                accessibility-label={i18nCloseAlert[this._currentLanguage]}
                 accessibility-controls={this.internalId}
                 class="sbb-alert__close-button"
               />

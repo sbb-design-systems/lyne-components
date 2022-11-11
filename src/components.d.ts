@@ -1501,6 +1501,40 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbTooltip {
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel": string | undefined;
+        /**
+          * Closes the tooltip.
+         */
+        "close": (target?: HTMLElement) => Promise<void>;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Close the tooltip after a certain delay.
+         */
+        "hideDelay"?: number;
+        /**
+          * Whether the tooltip should be triggered on hover.
+         */
+        "hoverTrigger"?: boolean;
+        /**
+          * Opens the tooltip on trigger click.
+         */
+        "open": () => Promise<void>;
+        /**
+          * Open the tooltip after a certain delay.
+         */
+        "showDelay"?: number;
+        /**
+          * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1533,6 +1567,10 @@ export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleCheckElement;
+}
+export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTooltipElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -1907,6 +1945,12 @@ declare global {
         prototype: HTMLSbbToggleCheckElement;
         new (): HTMLSbbToggleCheckElement;
     };
+    interface HTMLSbbTooltipElement extends Components.SbbTooltip, HTMLStencilElement {
+    }
+    var HTMLSbbTooltipElement: {
+        prototype: HTMLSbbTooltipElement;
+        new (): HTMLSbbTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
@@ -1970,6 +2014,7 @@ declare global {
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
         "sbb-toggle-check": HTMLSbbToggleCheckElement;
+        "sbb-tooltip": HTMLSbbTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -3456,6 +3501,48 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbTooltip {
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel"?: string | undefined;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Close the tooltip after a certain delay.
+         */
+        "hideDelay"?: number;
+        /**
+          * Whether the tooltip should be triggered on hover.
+         */
+        "hoverTrigger"?: boolean;
+        /**
+          * Emits whenever the tooltip is closed.
+         */
+        "onSbb-tooltip_did-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        /**
+          * Emits whenever the tooltip is opened.
+         */
+        "onSbb-tooltip_did-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        /**
+          * Emits whenever the tooltip begins the closing transition.
+         */
+        "onSbb-tooltip_will-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        /**
+          * Emits whenever the tooltip starts the opening transition.
+         */
+        "onSbb-tooltip_will-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        /**
+          * Open the tooltip after a certain delay.
+         */
+        "showDelay"?: number;
+        /**
+          * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
@@ -3519,6 +3606,7 @@ declare namespace LocalJSX {
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
         "sbb-toggle-check": SbbToggleCheck;
+        "sbb-tooltip": SbbTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -3587,6 +3675,7 @@ declare module "@stencil/core" {
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
+            "sbb-tooltip": LocalJSX.SbbTooltip & JSXBase.HTMLAttributes<HTMLSbbTooltipElement>;
         }
     }
 }

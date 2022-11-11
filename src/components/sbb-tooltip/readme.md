@@ -1,0 +1,139 @@
+# sbb-tooltip
+
+The `sbb-tooltip` component is useful for displaying additional information on mouse hover or click of a trigger element. The information included should be contextual, useful, and provide additional communication and clarity to the user.
+
+## Usage
+
+The tooltip can show a simple message and a close button (if the `hover-trigger` property is configured, the close button is hidden), any content is allowed (including HTML elements):
+
+```html
+<!-- Trigger element -->
+<sbb-icon id="tooltip-trigger" name="circle-information-small"/>
+
+<!-- Tooltip component with custom content and a link -->
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger">
+  <p id="tooltip-content">
+    Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
+  </p>
+</sbb-tooltip>
+```
+
+The tooltip can be disimissed by clicking on an interactive element within its content, by clicking on the close button or by performing another action on the page. You can also indicate that an element within the tooltip content should close the tooltip when clicked by marking it with the `sbb-tooltip-close` attribute.
+
+You can also indicate that the tooltip should be shown on hover with the property `hover-trigger` and set a custom delay for the show and hide animations (defaults to 1000ms). If hover is not supported by the current device, the component will be triggered on click/tap as default:
+
+```html
+<!-- Trigger element -->
+<sbb-icon id="tooltip-trigger" name="circle-information-small"/>
+
+<!-- Tooltip component with `hover-trigger` property -->
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger show-delay="500" hide-delay="750">
+  <p id="tooltip-content">
+    Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+  </p>
+</sbb-tooltip>
+```
+
+The tooltip will automatically disappear after the hiding delay if neither the trigger element nor the tooltip are on hover or if another action is performed on the page.
+
+### Placement
+
+The tooltip automatically calculates where it should place itself, based on available space. Default is below and center.
+
+### When to use
+
+- Describe icons and buttons.
+- When more information is useful to help a user making decisions.
+- When an element needs more context or explanation.
+- When defining a term or inline item.
+
+### Accessibility
+
+In order to make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `aria-describedby` and `id` as shown below:
+
+```html
+<!-- Trigger element -->
+<button id="tooltip-trigger" aria-describedby="tooltip-content">Button with tooltip</button>
+
+<!-- Tooltip component with `hover-trigger` property -->
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger show-delay="500" hide-delay="750">
+  <p id="tooltip-content">
+    Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+  </p>
+</sbb-tooltip>
+```
+
+As the tooltip opens, the focus will automatically be set to the first focusable item within the component.
+
+<!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property                  | Attribute                   | Description                                                                                                    | Type                    | Default     |
+| ------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                              | `string`                | `undefined` |
+| `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                                                              | `boolean`               | `false`     |
+| `hideDelay`               | `hide-delay`                | Close the tooltip after a certain delay.                                                                       | `number`                | `0`         |
+| `hoverTrigger`            | `hover-trigger`             | Whether the tooltip should be triggered on hover.                                                              | `boolean`               | `false`     |
+| `showDelay`               | `show-delay`                | Open the tooltip after a certain delay.                                                                        | `number`                | `0`         |
+| `trigger`                 | `trigger`                   | The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
+
+
+## Events
+
+| Event                    | Description                                               | Type                                         |
+| ------------------------ | --------------------------------------------------------- | -------------------------------------------- |
+| `sbb-tooltip_did-close`  | Emits whenever the tooltip is closed.                     | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `sbb-tooltip_did-open`   | Emits whenever the tooltip is opened.                     | `CustomEvent<void>`                          |
+| `sbb-tooltip_will-close` | Emits whenever the tooltip begins the closing transition. | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `sbb-tooltip_will-open`  | Emits whenever the tooltip starts the opening transition. | `CustomEvent<void>`                          |
+
+
+## Methods
+
+### `close(target?: HTMLElement) => Promise<void>`
+
+Closes the tooltip.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `open() => Promise<void>`
+
+Opens the tooltip on trigger click.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
+## Slots
+
+| Slot        | Description                                              |
+| ----------- | -------------------------------------------------------- |
+| `"unnamed"` | Use this slot to project any content inside the tooltip. |
+
+
+## Dependencies
+
+### Depends on
+
+- [sbb-button](../sbb-button)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-tooltip --> sbb-button
+  sbb-button --> sbb-icon
+  style sbb-tooltip fill:#f9f,stroke:#333,stroke-width:4px
+```
+
+----------------------------------------------
+
+

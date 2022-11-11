@@ -362,6 +362,13 @@ export const i18nCloseDialog: any = {
   it: 'Chiudere la modale',
 };
 
+export const i18nCloseTooltip: any = {
+  de: 'Tooltip schliessen',
+  en: 'Close tooltip',
+  fr: 'Fermer le tooltip',
+  it: 'Chiudere il tooltip',
+};
+
 export const i18nGoBack: any = {
   de: 'Zurück',
   en: 'Go back',
