@@ -66,7 +66,7 @@ describe('sbb-checkbox', () => {
   });
 
   describe('state', () => {
-    it('renders sbb-checkbox in checked state', async () => {
+    it('checked', async () => {
       const { root } = await newSpecPage({
         components: [SbbCheckbox],
         html: '<sbb-checkbox checked="true">Label</sbb-checkbox>',
