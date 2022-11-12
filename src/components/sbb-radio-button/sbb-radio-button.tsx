@@ -90,6 +90,11 @@ export class SbbRadioButton {
     this.didSelect.emit(value);
   }
 
+  @Listen('keydown')
+  public handleKeyDown(evt: KeyboardEvent): void {
+    evt.code === 'Space' && this.select();
+  }
+
   public render(): JSX.Element {
     return (
       <Host
