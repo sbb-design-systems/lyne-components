@@ -41,19 +41,9 @@ export class SbbMenu implements ComponentInterface {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
-   * Whether the menu is opened.
+   * The state of the tooltip.
    */
-  @State() private _opened = false;
-
-  /**
-   * Whether the menu is opening.
-   */
-  @State() private _isOpening = false;
-
-  /**
-   * Whether the menu is closing.
-   */
-  @State() private _isClosing = false;
+  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
   /**
    * Emits whenever the menu starts the opening transition.
@@ -111,12 +101,12 @@ export class SbbMenu implements ComponentInterface {
    */
   @Method()
   public async open(): Promise<void> {
-    if (this._isClosing || !this._dialog) {
+    if (this._state === 'closing' || !this._dialog) {
       return;
     }
 
     this.willOpen.emit();
-    this._isOpening = true;
+    this._state = 'opening';
     this._setMenuPosition();
     this._dialog.show();
   }
@@ -126,13 +116,12 @@ export class SbbMenu implements ComponentInterface {
    */
   @Method()
   public async close(): Promise<void> {
-    if (this._isOpening) {
+    if (this._state === 'opening') {
       return;
     }
 
     this.willClose.emit();
-    this._isClosing = true;
-    this._opened = false;
+    this._state = 'closing';
     this._openedByKeyboard = false;
   }
 
@@ -149,7 +138,7 @@ export class SbbMenu implements ComponentInterface {
 
   // Closes the menu on "Esc" key pressed and traps focus within the menu.
   private _onKeydownEvent(event: KeyboardEvent): void {
-    if (!this._opened) {
+    if (this._state !== 'opened') {
       return;
     }
 
@@ -263,15 +252,13 @@ export class SbbMenu implements ComponentInterface {
   // viewport from overflowing. And set the focus to the first focusable element once the menu is open.
   private _onMenuAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'show') {
-      this._isOpening = false;
-      this._opened = true;
+      this._state = 'opened';
       this.didOpen.emit();
       this._setDialogFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
     } else if (event.animationName === 'hide') {
-      this._isClosing = false;
-      this._opened = false;
+      this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();
       this.didClose.emit();
@@ -321,17 +308,15 @@ export class SbbMenu implements ComponentInterface {
     return (
       <Host
         class={{
-          'sbb-menu--opened': this._opened,
-          'sbb-menu--opening': this._isOpening,
+          'sbb-menu--opened': this._state === 'opened',
+          'sbb-menu--opening': this._state === 'opening',
+          'sbb-menu--closing': this._state === 'closing',
         }}
       >
         <dialog
           onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
           ref={(dialogRef) => (this._dialog = dialogRef)}
-          class={{
-            'sbb-menu': true,
-            'sbb-menu--closing': this._isClosing,
-          }}
+          class="sbb-menu"
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div

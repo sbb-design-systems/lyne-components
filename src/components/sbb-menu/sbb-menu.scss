@@ -108,7 +108,7 @@
     }
   }
 
-  &.sbb-menu--closing {
+  :host(.sbb-menu--closing) & {
     pointer-events: none;
     animation-name: hide;
   }
