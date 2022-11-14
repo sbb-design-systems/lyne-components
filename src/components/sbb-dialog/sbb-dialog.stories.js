@@ -128,18 +128,15 @@ const openDialog = (event, id) => {
   dialog.open(event);
 };
 
-const closeDialog = (id, returnValue) => {
-  const dialog = document.getElementById(id);
-  dialog.close(returnValue);
-};
-
 const onFormDialogClose = (dialog) => {
   dialog.addEventListener('sbb-dialog_will-close', (event) => {
     if (event.detail) {
       document.getElementById(
         'returned-value-message'
-      ).innerHTML = `${event.detail.message?.value}`;
-      document.getElementById('returned-value-animal').innerHTML = `${event.detail.animal?.value}`;
+      ).innerHTML = `${event.detail.returnValue.message?.value}`;
+      document.getElementById(
+        'returned-value-animal'
+      ).innerHTML = `${event.detail.returnValue.animal?.value}`;
     }
   });
 };
@@ -156,7 +153,7 @@ const triggerButton = (dialogId) => (
   </sbb-button>
 );
 
-const actionGroup = (negative, dialogId) => (
+const actionGroup = (negative) => (
   <sbb-action-group
     slot="action-group"
     align-group="stretch"
@@ -171,13 +168,14 @@ const actionGroup = (negative, dialogId) => (
       icon-placement="start"
       href="https://www.sbb.ch/en/"
       negative={negative}
+      sbb-dialog-close
     >
       Link
     </sbb-link>
-    <sbb-button size="m" variant="secondary" onClick={() => closeDialog(dialogId)}>
+    <sbb-button size="m" variant="secondary" sbb-dialog-close>
       Cancel
     </sbb-button>
-    <sbb-button size="m" variant="primary" onClick={() => closeDialog(dialogId)}>
+    <sbb-button size="m" variant="primary" sbb-dialog-close>
       Button
     </sbb-button>
   </sbb-action-group>
@@ -276,16 +274,10 @@ const FormTemplate = (args) => [
   >
     <div style={'margin-bottom: var(--sbb-spacing-fixed-4x)'}>
       Submit the form below to close the dialog box using the
-      <code style={codeStyle}>close(result?: any)</code>
+      <code style={codeStyle}>close(result?: any, target?: HTMLElement)</code>
       method and returning the form values to update the details.
     </div>
-    <form
-      style={formStyle}
-      onSubmit={(e) => {
-        e.preventDefault();
-        closeDialog('my-dialog-4', e.target);
-      }}
-    >
+    <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
       <sbb-form-field error-space="none" label="Message" size="m">
         <input placeholder="Your custom massage" value="Hello 👋" name="message" />
       </sbb-form-field>
@@ -297,7 +289,7 @@ const FormTemplate = (args) => [
           <option>Elephant</option>
         </select>
       </sbb-form-field>
-      <sbb-button type="submit" size="m">
+      <sbb-button type="submit" size="m" sbb-dialog-close>
         Update details
       </sbb-button>
     </form>

@@ -22,6 +22,7 @@ import {
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { hostContext } from '../../global/helpers/host-context';
 
 /**
  * @slot unnamed - Use this slot to provide the dialog content.
@@ -167,6 +168,7 @@ export class SbbDialog implements AccessibilityProperties {
   private _dialogWrapperElement: HTMLElement;
   private _dialogContentElement: HTMLElement;
   private _firstFocusable: HTMLElement;
+  private _dialogCloseElement: HTMLElement;
   private _dialogController: AbortController;
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
@@ -206,13 +208,14 @@ export class SbbDialog implements AccessibilityProperties {
    * Closes the dialog element.
    */
   @Method()
-  public async close(result?: any): Promise<any> {
+  public async close(result?: any, target?: HTMLElement): Promise<any> {
     if (this._state === 'opening') {
       return;
     }
 
     this._returnValue = result;
-    this.willClose.emit(this._returnValue);
+    this._dialogCloseElement = target;
+    this.willClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
     this._state = 'closing';
     this._openedByKeyboard = false;
   }
@@ -274,6 +277,20 @@ export class SbbDialog implements AccessibilityProperties {
     }
   };
 
+  // Close the dialog on click of any element that has the 'sbb-dialog-close' attribute.
+  private _closeOnSbbDialogCloseClick(event: Event): void {
+    const target = event.target as HTMLElement;
+
+    if (target.hasAttribute('sbb-dialog-close') && !target.hasAttribute('disabled')) {
+      // Check if the target is a submit element within a form and return the form, if present
+      const closestForm =
+        target.getAttribute('type') === 'submit'
+          ? (hostContext('form', target) as HTMLFormElement)
+          : undefined;
+      this.close(closestForm, target);
+    }
+  }
+
   // Wait for dialog transition to complete.
   private _onDialogAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
@@ -286,7 +303,7 @@ export class SbbDialog implements AccessibilityProperties {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
       this._dialog.close();
-      this.didClose.emit(this._returnValue);
+      this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
       // Enable scrolling for content below the dialog
@@ -331,7 +348,7 @@ export class SbbDialog implements AccessibilityProperties {
         size="m"
         type="button"
         icon-name="cross-small"
-        onClick={() => this.close()}
+        sbb-dialog-close
       ></sbb-button>
     );
 
@@ -389,9 +406,11 @@ export class SbbDialog implements AccessibilityProperties {
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
         >
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
-            class="sbb-dialog__wrapper"
+            onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
             ref={(dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef)}
+            class="sbb-dialog__wrapper"
           >
             {dialogHeader}
             <div

@@ -18,6 +18,7 @@ describe('sbb-dialog', () => {
                   accessibility-label="Close modal"
                   class="sbb-dialog__close"
                   icon-name="cross-small"
+                  sbb-dialog-close=""
                   size="m"
                   type="button"
                   variant="secondary"

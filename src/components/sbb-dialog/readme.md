@@ -32,7 +32,7 @@ In order to show a modal you need to call the `open(event?: PointerEvent)` metho
 
 Note that it is necessary to pass the event object to the `open()` method to allow the dialog to detect whether it has been opened by click or keyboard, so that the focus can be better handled.
 
-To dismiss the dialog you need to get a reference to the `sbb-dialog` element and call the `close(result?: any)` method, which will close the dialog element and emit a close event with an optional result as a payload.
+To dismiss the dialog you need to get a reference to the `sbb-dialog` element and call the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and emit a close event with an optional result as a payload. You can also indicate that an element within the dialog content should close the dialog when clicked by marking it with the `sbb-dialog-close` attribute.
 
 ### Usage notes
 The dialog title can be provided via the `titleContent` property and via slot `name="title"` (e.g. `<span slot="title">My dialog title</span>`). You can also set the property `titleBackButton` to display the back button in the title section (or content section, if title is omitted) which will emit the event `sbb-dialog_request-back-action` when clicked. 
@@ -91,7 +91,7 @@ The ARIA attributes `aria-labelledby` an `aria-describedby` can be set to improv
 
 ## Methods
 
-### `close(result?: any) => Promise<any>`
+### `close(result?: any, target?: HTMLElement) => Promise<any>`
 
 Closes the dialog element.
 

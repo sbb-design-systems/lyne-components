@@ -511,7 +511,7 @@ export namespace Components {
         /**
           * Closes the dialog element.
          */
-        "close": (result?: any) => Promise<any>;
+        "close": (result?: any, target?: HTMLElement) => Promise<any>;
         /**
           * This id will be forwarded to the relevant inner element.
          */
