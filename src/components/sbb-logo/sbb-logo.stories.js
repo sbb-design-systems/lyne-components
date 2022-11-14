@@ -1,6 +1,13 @@
-import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+
+const wrapperStyle = (context) => {
+  if (context.args.variant === 'negative' || context.args.variant === 'white-on-black') {
+    return 'background-color: var(--sbb-color-charcoal-default);';
+  }
+
+  return ``;
+};
 
 const Template = (args) => <sbb-logo {...args} />;
 
@@ -29,112 +36,53 @@ const defaultArgs = {
 };
 
 export const NoProtectiveRoom = Template.bind({});
-
 NoProtectiveRoom.argTypes = defaultArgTypes;
-NoProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
-
-NoProtectiveRoom.documentation = {
-  title: 'No protective room',
-};
-
-/* eslint-disable prefer-destructuring */
+NoProtectiveRoom.args = { ...defaultArgs };
 
 export const IdealProtectiveRoom = Template.bind({});
-
 IdealProtectiveRoom.argTypes = defaultArgTypes;
-IdealProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
-IdealProtectiveRoom.args['protective-room'] = protectiveRoom.options[1];
-
-IdealProtectiveRoom.documentation = {
-  title: 'Ideal protective room',
-};
+IdealProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[1] };
 
 export const MinimalProtectiveRoom = Template.bind({});
-
 MinimalProtectiveRoom.argTypes = defaultArgTypes;
-MinimalProtectiveRoom.args = JSON.parse(JSON.stringify(defaultArgs));
-MinimalProtectiveRoom.args['protective-room'] = protectiveRoom.options[2];
-
-MinimalProtectiveRoom.documentation = {
-  title: 'Minimal protective room',
-};
+MinimalProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[2] };
 
 export const Negative = Template.bind({});
-
 Negative.argTypes = defaultArgTypes;
-Negative.args = JSON.parse(JSON.stringify(defaultArgs));
-Negative.args['protective-room'] = protectiveRoom.options[1];
-Negative.args.variant = variants.options[1];
-
-Negative.decorators = [
-  (Story) => (
-    <div style={`background-color: ${SbbColorCharcoalDefault};`}>
-      <Story />
-    </div>
-  ),
-];
-
-Negative.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
-  title: 'Negative',
+Negative.args = {
+  ...defaultArgs,
+  variant: variants.options[1],
+  'protective-room': protectiveRoom.options[1],
 };
 
 export const OnRed = Template.bind({});
-
 OnRed.argTypes = defaultArgTypes;
-OnRed.args = JSON.parse(JSON.stringify(defaultArgs));
-OnRed.args['protective-room'] = protectiveRoom.options[1];
-OnRed.args.variant = variants.options[2];
-
-OnRed.documentation = {
-  title: 'On red',
+OnRed.args = {
+  ...defaultArgs,
+  variant: variants.options[2],
+  'protective-room': protectiveRoom.options[1],
 };
 
 export const BlackOnWhite = Template.bind({});
-
 BlackOnWhite.argTypes = defaultArgTypes;
-BlackOnWhite.args = JSON.parse(JSON.stringify(defaultArgs));
-BlackOnWhite.args['protective-room'] = protectiveRoom.options[1];
-BlackOnWhite.args.variant = variants.options[3];
-
-BlackOnWhite.documentation = {
-  title: 'Black on white',
+BlackOnWhite.args = {
+  ...defaultArgs,
+  variant: variants.options[3],
+  'protective-room': protectiveRoom.options[1],
 };
 
 export const WhiteOnBlack = Template.bind({});
-
 WhiteOnBlack.argTypes = defaultArgTypes;
-WhiteOnBlack.args = JSON.parse(JSON.stringify(defaultArgs));
-WhiteOnBlack.args['protective-room'] = protectiveRoom.options[1];
-WhiteOnBlack.args.variant = variants.options[4];
-
-WhiteOnBlack.decorators = [
-  (Story) => (
-    <div style={`background-color: ${SbbColorCharcoalDefault};`}>
-      <Story />
-    </div>
-  ),
-];
-
-WhiteOnBlack.documentation = {
-  container: {
-    styles: {
-      'background-color': SbbColorCharcoalDefault,
-    },
-  },
-  title: 'White on black',
+WhiteOnBlack.args = {
+  ...defaultArgs,
+  variant: variants.options[4],
+  'protective-room': protectiveRoom.options[1],
 };
-
-/* eslint-enable prefer-destructuring */
 
 export default {
   decorators: [
-    (Story) => (
-      <div style="max-width: 300px;">
+    (Story, context) => (
+      <div style={`${wrapperStyle(context)};max-width: 300px;`}>
         <Story />
       </div>
     ),

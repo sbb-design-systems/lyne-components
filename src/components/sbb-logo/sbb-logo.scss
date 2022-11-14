@@ -3,70 +3,76 @@
 @include host-component-properties;
 
 :host {
-  display: block;
-
-  // Default Logo Styles
-  // ----------------------------------------------
   --sbb-logo-panel-color: var(--sbb-color-red-default);
   --sbb-logo-panel-stroke-color: var(--sbb-color-red-default);
   --sbb-logo-signet-color: var(--sbb-color-white-default);
   --sbb-logo-word-mark-color: var(--sbb-color-black-default);
+  --sbb-logo-aspect-ratio: 454 / 48;
+  --sbb-logo-svg-container-width: 100%;
+  --sbb-logo-svg-container-height: auto;
+  --sbb-logo-background-color: none;
 
-  // Forced Colors Variant
-  // ----------------------------------------------
   @include ifForcedColors {
-    .sbb-logo--default,
-    .sbb-logo--negative,
-    .sbb-logo--on-red,
-    .sbb-logo--black-on-white,
-    .sbb-logo--white-on-black {
-      --sbb-logo-panel-color: ButtonText;
-      --sbb-logo-panel-stroke-color: ButtonText;
-      --sbb-logo-signet-color: Canvas;
-      --sbb-logo-word-mark-color: ButtonText;
-    }
+    --sbb-logo-panel-color: ButtonText !important;
+    --sbb-logo-panel-stroke-color: ButtonText !important;
+    --sbb-logo-signet-color: Canvas !important;
+    --sbb-logo-word-mark-color: ButtonText !important;
   }
+}
+
+:host([variant='negative']) {
+  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
+}
+
+:host([variant='on-red']) {
+  --sbb-logo-background-color: var(--sbb-color-red-default);
+  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
+  --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
+}
+
+:host([variant='black-on-white']) {
+  --sbb-logo-word-mark-color: var(--sbb-color-black-default);
+  --sbb-logo-panel-color: var(--sbb-color-black-default);
+  --sbb-logo-panel-stroke-color: var(--sbb-color-black-default);
+}
+
+:host([variant='white-on-black']) {
+  --sbb-logo-background-color: var(--sbb-color-black-default);
+  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
+  --sbb-logo-panel-color: none;
+  --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
+}
+
+:host([protective-room='ideal']) {
+  --sbb-logo-aspect-ratio: 550 / 144;
+  --sbb-logo-svg-container-height: 33.333333%; // 48/144 Adapted from Figma
+}
+
+:host([protective-room='minimal']) {
+  --sbb-logo-aspect-ratio: 502 / 96;
+  --sbb-logo-svg-container-height: 50%; // 48/96 Adapted from Figma
 }
 
 .sbb-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 454 / 48; // No Fallback for now...
+  background-color: var(--sbb-logo-background-color);
+  aspect-ratio: var(--sbb-logo-aspect-ratio);
+  @include stretch('height');
+  @include stretch('width');
 }
 
-.sbb-logo .sbb-logo__svg {
-  width: 100%;
-  height: auto;
+.sbb-logo .sbb-logo__svg-container {
   display: flex;
+  height: var(--sbb-logo-svg-container-height);
 }
 
 .sbb-logo svg {
   width: 100%;
   height: 100%;
-  float: inline-start;
 }
 
-.sbb-logo--protective-room-ideal {
-  aspect-ratio: 550 / 144;
-}
-
-.sbb-logo--protective-room-ideal .sbb-logo__svg {
-  width: 82.545454%; // 454/550 Adapted from Figma
-  height: 33.333333%; // 48/144 Adapted from Figma
-}
-
-.sbb-logo--protective-room-minimal {
-  aspect-ratio: 502 / 96;
-}
-
-.sbb-logo--protective-room-minimal .sbb-logo__svg {
-  width: 90.438247%; // 454/502 Adapted from Figma
-  height: 50%; // 48/96 Adapted from Figma
-}
-
-// Positive / Default Variant
-// ----------------------------------------------
 #sbb-logo__word-mark {
   fill: var(--sbb-logo-word-mark-color);
 }
@@ -78,37 +84,4 @@
 
 #sbb-logo__signet {
   fill: var(--sbb-logo-signet-color);
-}
-
-// Negative Variant
-// ----------------------------------------------
-.sbb-logo--negative {
-  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
-}
-
-// On Red Background Variant
-// ----------------------------------------------
-.sbb-logo--on-red {
-  background: var(--sbb-color-red-default);
-
-  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
-  --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
-}
-
-// Black on White Variant
-// ----------------------------------------------
-.sbb-logo--black-on-white {
-  --sbb-logo-word-mark-color: var(--sbb-color-black-default);
-  --sbb-logo-panel-color: var(--sbb-color-black-default);
-  --sbb-logo-panel-stroke-color: var(--sbb-color-black-default);
-}
-
-// White on Black Variant
-// ----------------------------------------------
-.sbb-logo--white-on-black {
-  background: var(--sbb-color-black-default);
-
-  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
-  --sbb-logo-panel-color: none;
-  --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
 }
