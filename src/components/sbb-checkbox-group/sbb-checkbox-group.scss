@@ -10,11 +10,6 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-6x);
 }
 
-:host([orientation='vertical']) {
-  --sbb-checkbox-group-orientation: column;
-  --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-3x);
-}
-
 @each $breakpoint in $breakpoints {
   @include mq($from: #{$breakpoint}) {
     // horizontal-from overrides orientation vertical
@@ -30,6 +25,19 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   flex-direction: var(--sbb-checkbox-group-orientation);
   align-items: var(--sbb-checkbox-group-align-items);
   gap: var(--sbb-checkbox-group-gap);
+}
+
+:host([orientation='vertical']) {
+  --sbb-checkbox-group-orientation: column;
+  --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-3x);
+
+  ::slotted(sbb-checkbox) {
+    width: 100%;
+  }
+
+  .sbb-checkbox-group {
+    width: 100%;
+  }
 }
 
 .sbb-checkbox-group__error {

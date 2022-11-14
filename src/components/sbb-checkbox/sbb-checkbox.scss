@@ -88,8 +88,24 @@ input[type='checkbox'] {
   gap: var(--sbb-spacing-fixed-2x);
   color: var(--checkbox-label-color);
 
+  // fix for Chrome and Safari line-height approximation
+  line-height: max(
+    (var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text)),
+    var(--checkbox-height)
+  );
+
   :host([icon-placement='start']) & {
     flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  :host([icon-placement='end']) & {
+    justify-content: flex-start;
+    flex-grow: 1;
+
+    .sbb-checkbox__label--icon {
+      margin-left: auto;
+    }
   }
 }
 
