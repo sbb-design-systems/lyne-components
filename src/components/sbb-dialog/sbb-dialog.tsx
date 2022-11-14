@@ -281,13 +281,12 @@ export class SbbDialog implements AccessibilityProperties {
   private _closeOnSbbDialogCloseClick(event: Event): void {
     const target = event.target as HTMLElement;
 
-    // Check if the target is a submit element within a form
-    const closestForm =
-      target.getAttribute('type') === 'submit'
-        ? (hostContext('form', target) as HTMLFormElement)
-        : undefined;
-
     if (target.hasAttribute('sbb-dialog-close') && !target.hasAttribute('disabled')) {
+      // Check if the target is a submit element within a form
+      const closestForm =
+        target.getAttribute('type') === 'submit'
+          ? (hostContext('form', target) as HTMLFormElement)
+          : undefined;
       this.close(closestForm, target);
     }
   }
