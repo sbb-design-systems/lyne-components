@@ -2,5 +2,5 @@
 
 .sbb-pearl-chain-vertical {
   display: table;
-  table-layout: fixed;
+  width: var(--sbb-pearl-chain-vertical-width, 100%);
 }

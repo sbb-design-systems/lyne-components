@@ -33,7 +33,7 @@ export class SbbPearlChainVerticalItem {
         <div class="sbb-pearl-chain-vertical-item__column" style={{ height: minHeight + 'px' }}>
           <slot name="left"></slot>
         </div>
-        <div class="sbb-pearl-chain-vertical-item__column">
+        <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
           {!hideLine && (
             <div
               style={{ '--sbb-pearl-chain-vertical-item-leg-status': `${position}%` }}
@@ -60,7 +60,7 @@ export class SbbPearlChainVerticalItem {
             ></div>
           )}
         </div>
-        <div class="sbb-pearl-chain-vertical-item__column">
+        <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
           <slot name="right"></slot>
         </div>
       </Host>

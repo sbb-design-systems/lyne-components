@@ -183,46 +183,40 @@ const connectionDetailTemplate = (args) => {
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div
           slot="right"
-          style="--sbb-pearl-chain-vertical-right-item-block-start:-8px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
+          style="--sbb-pearl-chain-vertical-right-item-block-start:-8px; --sbb-pearl-chain-vertical-right-item-inline-start:10px;"
         >
           <div
             style={{
               display: 'flex',
               flexDirection: 'row',
-              gap: '100px',
+              justifyContent: 'space-between',
             }}
           >
             <div>Station</div>
             <div> Pl. 12</div>
           </div>
-          <div style={{ paddingBottom: '5px', paddingTop: '5px' }}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div>
               <sbb-icon
                 role="img"
                 class="sbb-icon train-small hydrated"
                 name="train-small"
                 aria-hidden="true"
               ></sbb-icon>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: '68px',
-                }}
-              >
-                <sbb-icon role="img" name="ir-27" aria-hidden="true"></sbb-icon>
-                <span>
-                  1.<sbb-icon name="utilization-high"></sbb-icon> 2.
-                  <sbb-icon name="utilization-high"></sbb-icon>
-                </span>
-              </div>
+
+              <sbb-icon role="img" name="ir-27" aria-hidden="true"></sbb-icon>
+              <div>Direction Station</div>
             </div>
-            <span>Direction Station</span>
+            <span>
+              1.<sbb-icon name="utilization-high"></sbb-icon> 2.
+              <sbb-icon name="utilization-high"></sbb-icon>
+            </span>
           </div>
         </div>
         <div
@@ -244,7 +238,7 @@ const connectionDetailTemplate = (args) => {
       >
         <div
           slot="right"
-          style="--sbb-pearl-chain-vertical-right-item-block-start:-20px; --sbb-pearl-chain-vertical-right-item-inline-start:10px;display:flex;flex-direction:row;gap:100px"
+          style="--sbb-pearl-chain-vertical-right-item-block-start:-20px; --sbb-pearl-chain-vertical-right-item-inline-start:10px;display:flex;flex-direction:row; justify-content:space-between"
         >
           <div> Station</div>
           <div> Pl. 12</div>
