@@ -144,28 +144,30 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     };
 
     return (
-      <div class="sbb-slider__wrapper">
-        <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
-        <div
-          class="sbb-slider__container"
-          style={{
-            '--sbb-slider-value-fraction': this._valueFraction.toString(),
-          }}
-        >
-          <input
-            class="sbb-slider__range-input"
-            type="range"
-            {...inputAttributes}
-            onChange={() => this._emitChange()}
-            onInput={() => this._handleChange()}
-            ref={(input) => (this._rangeInput = input)}
-          />
-          <div class="sbb-slider__line">
-            <div class="sbb-slider__selected-line"></div>
+      <div class="sbb-slider__height-container">
+        <div class="sbb-slider__wrapper">
+          <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
+          <div
+            class="sbb-slider__container"
+            style={{
+              '--sbb-slider-value-fraction': this._valueFraction.toString(),
+            }}
+          >
+            <input
+              class="sbb-slider__range-input"
+              type="range"
+              {...inputAttributes}
+              onChange={() => this._emitChange()}
+              onInput={() => this._handleChange()}
+              ref={(input) => (this._rangeInput = input)}
+            />
+            <div class="sbb-slider__line">
+              <div class="sbb-slider__selected-line"></div>
+            </div>
+            <div class="sbb-slider__knob"></div>
           </div>
-          <div class="sbb-slider__knob"></div>
+          <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
         </div>
-        <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
       </div>
     );
   }

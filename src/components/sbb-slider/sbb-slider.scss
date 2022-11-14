@@ -20,7 +20,9 @@
     --sbb-slider-line-color: CanvasText;
   }
 
-  display: inline;
+  display: inline-block;
+  min-width: #{px-to-rem-build(150)};
+  width: min(#{px-to-rem-build(400)}, 100%);
 }
 
 :host([disabled]) {
@@ -51,10 +53,14 @@
   --form-field-background-color: transparent;
 }
 
+.sbb-slider__height-container {
+  @include zeroWidthSpace;
+
+  display: flex;
+  flex-direction: column;
+}
+
 .sbb-slider__wrapper {
-  max-width: #{px-to-rem-build(400)};
-  min-width: #{px-to-rem-build(150)};
-  width: 100%;
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
   padding-block: var(--sbb-spacing-fixed-1x);

@@ -4,10 +4,6 @@
 @include host-component-properties;
 
 :host {
-  display: inline-block;
-  min-width: #{px-to-rem-build(150)};
-  width: min(#{px-to-rem-build(300)}, 100%);
-
   --form-field-background-color: var(--sbb-color-white-default);
   --form-field-border-color: var(--sbb-color-smoke-default);
   --form-field-border-radius: var(--sbb-border-radius-4x);
@@ -26,6 +22,10 @@
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
+
+  display: inline-block;
+  min-width: #{px-to-rem-build(150)};
+  width: min(#{px-to-rem-build(300)}, 100%);
 }
 
 .form-field__error--empty {
