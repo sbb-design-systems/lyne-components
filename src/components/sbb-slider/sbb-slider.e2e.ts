@@ -28,20 +28,22 @@ describe('sbb-slider', () => {
     expect(element).toEqualHtml(`
       <sbb-slider class="hydrated" start-icon="walk-slow-small" end-icon="walk-fast-small" max="500" min="100" value="400">
         <mock:shadow-root>
-          <div class="sbb-slider__wrapper">
-            <slot name="prefix">
-              <sbb-icon aria-hidden="true" class="hydrated sbb-icon walk-slow-small" name="walk-slow-small" role="img"></sbb-icon>
-            </slot>
-            <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.75;">
-              <input class="sbb-slider__range-input" max="500" min="100" type="range">
-              <div class="sbb-slider__line">
-                <div class="sbb-slider__selected-line"></div>
+          <div class="sbb-slider__height-container">
+            <div class="sbb-slider__wrapper">
+              <slot name="prefix">
+                <sbb-icon aria-hidden="true" class="hydrated sbb-icon walk-slow-small" name="walk-slow-small" role="img"></sbb-icon>
+              </slot>
+              <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.75;">
+                <input class="sbb-slider__range-input" max="500" min="100" type="range">
+                <div class="sbb-slider__line">
+                  <div class="sbb-slider__selected-line"></div>
+                </div>
+                <div class="sbb-slider__knob"></div>
               </div>
-              <div class="sbb-slider__knob"></div>
+              <slot name="suffix">
+                <sbb-icon aria-hidden="true" class="hydrated sbb-icon walk-fast-small" name="walk-fast-small" role="img"></sbb-icon>
+              </slot>
             </div>
-            <slot name="suffix">
-              <sbb-icon aria-hidden="true" class="hydrated sbb-icon walk-fast-small" name="walk-fast-small" role="img"></sbb-icon>
-            </slot>
           </div>
         </mock:shadow-root>
       </sbb-slider>

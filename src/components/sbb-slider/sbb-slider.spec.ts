@@ -12,20 +12,22 @@ describe('sbb-slider', () => {
     expect(root).toEqualHtml(`
       <sbb-slider start-icon="walk-slow-small" end-icon="walk-fast-small" max="500" value="100">
         <mock:shadow-root>
-          <div class="sbb-slider__wrapper">
-            <slot name="prefix">
-              <sbb-icon name="walk-slow-small"></sbb-icon>
-            </slot>
-            <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.2;">
-              <input class="sbb-slider__range-input" max="500" min="0" value="100" type="range">
-              <div class="sbb-slider__line">
-                <div class="sbb-slider__selected-line"></div>
+          <div class="sbb-slider__height-container">
+            <div class="sbb-slider__wrapper">
+              <slot name="prefix">
+                <sbb-icon name="walk-slow-small"></sbb-icon>
+              </slot>
+              <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.2;">
+                <input class="sbb-slider__range-input" max="500" min="0" value="100" type="range">
+                <div class="sbb-slider__line">
+                  <div class="sbb-slider__selected-line"></div>
+                </div>
+                <div class="sbb-slider__knob"></div>
               </div>
-              <div class="sbb-slider__knob"></div>
+              <slot name="suffix">
+                <sbb-icon name="walk-fast-small"></sbb-icon>
+              </slot>
             </div>
-            <slot name="suffix">
-              <sbb-icon name="walk-fast-small"></sbb-icon>
-            </slot>
           </div>
         </mock:shadow-root>
       </sbb-slider>
@@ -58,16 +60,18 @@ describe('sbb-slider', () => {
         </mock:shadow-root>
         <sbb-slider data-sbb-form-field>
           <mock:shadow-root>
-            <div class="sbb-slider__wrapper">
-              <slot name="prefix"></slot>
-              <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.5;">
-                <input class="sbb-slider__range-input" max="100" min="0" type="range">
-                <div class="sbb-slider__line">
-                  <div class="sbb-slider__selected-line"></div>
+            <div class="sbb-slider__height-container">
+              <div class="sbb-slider__wrapper">
+                <slot name="prefix"></slot>
+                <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.5;">
+                  <input class="sbb-slider__range-input" max="100" min="0" type="range">
+                  <div class="sbb-slider__line">
+                    <div class="sbb-slider__selected-line"></div>
+                  </div>
+                  <div class="sbb-slider__knob"></div>
                 </div>
-                <div class="sbb-slider__knob"></div>
+                <slot name="suffix"></slot>
               </div>
-              <slot name="suffix"></slot>
             </div>
           </mock:shadow-root>
         </sbb-slider>
@@ -84,16 +88,18 @@ describe('sbb-slider', () => {
     expect(root).toEqualHtml(`
       <sbb-slider value='1'>
         <mock:shadow-root>
-          <div class="sbb-slider__wrapper">
-          <slot name="prefix"></slot>
-            <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.01;">
-              <input class="sbb-slider__range-input" max="100" min="0" value="1" type="range">
-              <div class="sbb-slider__line">
-                <div class="sbb-slider__selected-line"></div>
-              </div>
-              <div class="sbb-slider__knob"></div>
+          <div class="sbb-slider__height-container">
+            <div class="sbb-slider__wrapper">
+              <slot name="prefix"></slot>
+                <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.01;">
+                  <input class="sbb-slider__range-input" max="100" min="0" value="1" type="range">
+                  <div class="sbb-slider__line">
+                    <div class="sbb-slider__selected-line"></div>
+                  </div>
+                  <div class="sbb-slider__knob"></div>
+                </div>
+              <slot name="suffix"></slot>
             </div>
-            <slot name="suffix"></slot>
           </div>
         </mock:shadow-root>
       </sbb-slidervalue>
