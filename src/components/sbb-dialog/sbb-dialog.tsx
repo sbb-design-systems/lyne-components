@@ -282,7 +282,7 @@ export class SbbDialog implements AccessibilityProperties {
     const target = event.target as HTMLElement;
 
     if (target.hasAttribute('sbb-dialog-close') && !target.hasAttribute('disabled')) {
-      // Check if the target is a submit element within a form
+      // Check if the target is a submit element within a form and return the form, if present
       const closestForm =
         target.getAttribute('type') === 'submit'
           ? (hostContext('form', target) as HTMLFormElement)
