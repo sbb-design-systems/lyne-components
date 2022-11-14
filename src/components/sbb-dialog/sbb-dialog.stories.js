@@ -128,11 +128,6 @@ const openDialog = (event, id) => {
   dialog.open(event);
 };
 
-const closeDialog = (id, returnValue) => {
-  const dialog = document.getElementById(id);
-  dialog.close(returnValue);
-};
-
 const onFormDialogClose = (dialog) => {
   dialog.addEventListener('sbb-dialog_will-close', (event) => {
     if (event.detail) {
@@ -282,13 +277,7 @@ const FormTemplate = (args) => [
       <code style={codeStyle}>close(result?: any, target?: HTMLElement)</code>
       method and returning the form values to update the details.
     </div>
-    <form
-      style={formStyle}
-      onSubmit={(e) => {
-        e.preventDefault();
-        closeDialog('my-dialog-4', e.target);
-      }}
-    >
+    <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
       <sbb-form-field error-space="none" label="Message" size="m">
         <input placeholder="Your custom massage" value="Hello 👋" name="message" />
       </sbb-form-field>
@@ -300,7 +289,7 @@ const FormTemplate = (args) => [
           <option>Elephant</option>
         </select>
       </sbb-form-field>
-      <sbb-button type="submit" size="m">
+      <sbb-button type="submit" size="m" sbb-dialog-close>
         Update details
       </sbb-button>
     </form>
