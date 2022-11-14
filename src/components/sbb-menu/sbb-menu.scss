@@ -46,8 +46,8 @@
   }
 }
 
-:host(.sbb-menu--presented),
-:host(.sbb-menu--presenting) {
+:host(.sbb-menu--opened),
+:host(.sbb-menu--opening) {
   --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
 
   @include mq($from: medium) {
@@ -108,7 +108,7 @@
     }
   }
 
-  &.sbb-menu--dismissing {
+  &.sbb-menu--closing {
     pointer-events: none;
     animation-name: hide;
   }
