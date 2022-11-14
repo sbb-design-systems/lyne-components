@@ -12,15 +12,8 @@ or can provide their own using the two slots named `prefix` and `suffix`.
 
 It is possible to display the component in disabled or readonly state by using the self-named properties.
 
-Consumers can listen to the `sbbChange` event to intercept the native input's change. 
-It emits a `SbbSliderChange` object:
-```ts
-interface SbbSliderChange {
-  value: number;
-  min: number;
-  max: number;
-}
-```
+Consumers can listen to the native `change` event to intercept the input's change `event`;
+the current value can be read from `event.target.value`.
 
 The component can be used within a `<sbb-form-field>` one; 
 in this case the `<sbb-slider>` receives a `data-sbb-form-field` attribute.
@@ -79,13 +72,6 @@ The `<sbb-slider>` has the following behaviour on keypress when focused:
 | `startIcon`                | `start-icon`                | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         | `string`  | `undefined` |
 | `value`                    | `value`                     | Value for the inner HTMLInputElement.                                                                                                          | `string`  | `''`        |
 | `valueAsNumber`            | `value-as-number`           | Numeric value for the inner HTMLInputElement.                                                                                                  | `number`  | `undefined` |
-
-
-## Events
-
-| Event       | Description                                                         | Type                           |
-| ----------- | ------------------------------------------------------------------- | ------------------------------ |
-| `sbbChange` | Event emitted when the value of the inner HTMLInputElement changes. | `CustomEvent<SbbSliderChange>` |
 
 
 ## Slots

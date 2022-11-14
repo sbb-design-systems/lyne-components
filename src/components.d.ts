@@ -33,7 +33,6 @@ import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
-import { SbbSliderChange } from "./components/sbb-slider/sbb-slider.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
@@ -1610,10 +1609,6 @@ export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
-}
-export interface SbbSliderCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbSliderElement;
 }
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -3203,10 +3198,6 @@ declare namespace LocalJSX {
           * Name of the inner HTMLInputElement.
          */
         "name"?: string;
-        /**
-          * Event emitted when the value of the inner HTMLInputElement changes.
-         */
-        "onSbbChange"?: (event: SbbSliderCustomEvent<SbbSliderChange>) => void;
         /**
           * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
          */

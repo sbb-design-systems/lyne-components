@@ -1,17 +1,7 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Prop,
-  State,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
 import { hostContext } from '../../global/helpers/host-context';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { SbbSliderChange } from './sbb-slider.custom';
+import { forwardInnerEventToHost } from '../../global/interfaces/link-button-properties';
 
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.
@@ -24,10 +14,10 @@ import { SbbSliderChange } from './sbb-slider.custom';
 })
 export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   /** Value for the inner HTMLInputElement. */
-  @Prop() public value?: string = '';
+  @Prop({ reflect: true }) public value?: string = '';
 
   /** Numeric value for the inner HTMLInputElement. */
-  @Prop() public valueAsNumber?: number;
+  @Prop({ reflect: true }) public valueAsNumber?: number;
 
   /** Name of the inner HTMLInputElement. */
   @Prop() public name?: string = '';
@@ -64,9 +54,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
 
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
-
-  /** Event emitted when the value of the inner HTMLInputElement changes. */
-  @Event() public sbbChange: EventEmitter<SbbSliderChange>;
 
   /**
    * The ratio between the absolute value and the validity interval.
@@ -121,12 +108,10 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   }
 
   /** Emits the change event. */
-  private _emitChange(): void {
-    this.sbbChange.emit({
-      value: this._rangeInput.valueAsNumber,
-      max: +this._rangeInput.max,
-      min: +this._rangeInput.min,
-    });
+  private _emitChange(event): void {
+    this.value = this._rangeInput.valueAsNumber.toString();
+    this.valueAsNumber = this._rangeInput.valueAsNumber;
+    forwardInnerEventToHost(event, this._element);
   }
 
   public render(): JSX.Element {
@@ -157,7 +142,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
               class="sbb-slider__range-input"
               type="range"
               {...inputAttributes}
-              onChange={() => this._emitChange()}
+              onChange={(event: Event) => this._emitChange(event)}
               onInput={() => this._handleChange()}
               ref={(input) => (this._rangeInput = input)}
             />

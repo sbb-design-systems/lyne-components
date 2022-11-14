@@ -1,8 +1,18 @@
-import events from './sbb-slider.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const changeEventHandler = (event) => {
+  const div = document.createElement('div');
+  div.innerText = `Current value is: ${event.target.value}. Min is: ${event.target.min}. Max is ${event.target.max}.`;
+  document.getElementById('container-value').prepend(div);
+};
+
 const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
+
+const TemplateSbbSliderChangeEvent = (args) => [
+  <sbb-slider {...args} onChange={(event) => changeEventHandler(event)}></sbb-slider>,
+  <div style="margin-block-start: 2rem;" id="container-value"></div>,
+];
 
 const TemplateSlottedIcons = (args) => (
   <sbb-slider {...args}>
@@ -192,6 +202,13 @@ sbbSlider.documentation = {
   title: 'sbb-slider',
 };
 
+export const sbbSliderChangeEvent = TemplateSbbSliderChangeEvent.bind({});
+sbbSliderChangeEvent.argTypes = { ...basicArgTypes };
+sbbSliderChangeEvent.args = { ...basicArgs };
+sbbSliderChangeEvent.documentation = {
+  title: 'sbb-slider with listener to change event',
+};
+
 export const sbbSliderWithoutIcons = TemplateSbbSlider.bind({});
 sbbSliderWithoutIcons.argTypes = { ...basicArgTypes };
 sbbSliderWithoutIcons.args = { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined };
@@ -248,7 +265,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.sbbChange],
+      handles: ['change'],
     },
     backgrounds: {
       disable: true,
