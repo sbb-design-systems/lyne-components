@@ -31,6 +31,7 @@ const TemplateInput = (args) => (
     optional={args.optional}
     size={args.size}
     borderless={args.borderless}
+    paddingless={args.paddingless}
   >
     {TemplateBasicInput(args)}
   </sbb-form-field>
@@ -42,6 +43,7 @@ const TemplateInputWithSlottedLabel = (args) => (
     optional={args.optional}
     size={args.size}
     borderless={args.borderless}
+    paddingless={args.paddingless}
   >
     <span slot="label">{args.label}</span>
     {TemplateBasicInput(args)}
@@ -61,6 +63,7 @@ const TemplateInputWithErrorSpace = (args) => {
           optional={args.optional}
           size={args.size}
           borderless={args.borderless}
+          paddingless={args.paddingless}
         >
           <input
             id="sbb-form-field-input"
@@ -101,6 +104,7 @@ const TemplateSelect = (args) => (
     optional={args.optional}
     size={args.size}
     borderless={args.borderless}
+    paddingless={args.paddingless}
   >
     {TemplateBasicSelect(args)}
   </sbb-form-field>
@@ -119,6 +123,7 @@ const TemplateSelectWithErrorSpace = (args) => {
           optional={args.optional}
           size={args.size}
           borderless={args.borderless}
+          paddingless={args.paddingless}
         >
           <select
             id="sbb-form-field-input"
@@ -254,6 +259,15 @@ const borderlessArg = {
   },
 };
 
+const paddinglessArg = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const sizeArg = {
   control: {
     type: 'inline-radio',
@@ -269,6 +283,7 @@ const basicArgTypes = {
   label: labelArg,
   optional: optionalArg,
   borderless: borderlessArg,
+  paddingless: paddinglessArg,
   size: sizeArg,
   class: classArg,
   placeholder: placeholderArg,
@@ -283,6 +298,7 @@ const basicArgs = {
   label: 'Input name',
   optional: false,
   borderless: false,
+  paddingless: false,
   size: 'm',
   class: '',
   placeholder: 'Input placeholder',
@@ -318,6 +334,13 @@ InputWithoutBorder.argTypes = basicArgTypes;
 InputWithoutBorder.args = { ...basicArgs, borderless: true };
 InputWithoutBorder.documentation = {
   title: 'sbb-form-field component with input tag and borderless',
+};
+
+export const InputWithoutBorderNoPadding = TemplateInput.bind({});
+InputWithoutBorderNoPadding.argTypes = basicArgTypes;
+InputWithoutBorderNoPadding.args = { ...basicArgs, borderless: true, paddingless: true };
+InputWithoutBorderNoPadding.documentation = {
+  title: 'sbb-form-field component with input tag, borderless and no padding',
 };
 
 export const InputDisabled = TemplateInput.bind({});
@@ -366,6 +389,13 @@ SelectWithoutBorder.argTypes = basicArgTypes;
 SelectWithoutBorder.args = { ...basicArgs, borderless: true };
 SelectWithoutBorder.documentation = {
   title: 'sbb-form-field component with select tag and borderless',
+};
+
+export const SelectWithoutBorderNoPadding = TemplateSelect.bind({});
+SelectWithoutBorderNoPadding.argTypes = basicArgTypes;
+SelectWithoutBorderNoPadding.args = { ...basicArgs, borderless: true, paddingless: true };
+SelectWithoutBorderNoPadding.documentation = {
+  title: 'sbb-form-field component with select tag, borderless and no padding',
 };
 
 export const SelectDisabled = TemplateSelect.bind({});

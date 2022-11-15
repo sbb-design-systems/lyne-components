@@ -10,7 +10,7 @@
   --form-field-height: var(--sbb-size-form-element-m-min-height);
   --form-field-label-color: var(--sbb-color-metal-default);
   --form-field-prefix-color: var(--sbb-color-metal-default);
-  --form-field-padding-inline: var(--sbb-spacing-fixed-3x);
+  --form-field-padding-inline: calc(var(--sbb-spacing-fixed-3x) - var(--sbb-border-width-1x));
   --form-field-text-color: var(--sbb-color-charcoal-default);
   --form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
   --form-field-error-padding-block-start: var(--form-field-error-divider-width);
@@ -40,7 +40,9 @@
 :host(.form-field--size-l) {
   --form-field-border-radius: var(--sbb-border-radius-8x);
   --form-field-height: var(--sbb-size-form-element-l-min-height);
-  --form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --form-field-padding-inline: calc(
+    var(--sbb-spacing-responsive-xxxs) - var(--sbb-border-width-1x)
+  );
 }
 
 :host(.sbb-invalid) {
@@ -80,6 +82,10 @@
   --form-field-border-color: transparent;
 }
 
+:host(.form-field--paddingless) {
+  --form-field-padding-inline: 0;
+}
+
 :host(.form-field--error-space-reserve) {
   --form-field-error-min-height: calc(
     var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)
@@ -97,7 +103,7 @@
   display: flex;
   align-items: center;
   gap: var(--form-field-gap);
-  padding-inline: calc(var(--form-field-padding-inline) - var(--sbb-border-width-1x));
+  padding-inline: var(--form-field-padding-inline);
   border: var(--sbb-border-width-1x) solid var(--form-field-border-color);
   border-radius: var(--form-field-border-radius);
   height: var(--form-field-height);

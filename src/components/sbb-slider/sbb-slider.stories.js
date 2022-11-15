@@ -22,8 +22,13 @@ const TemplateSlottedIcons = (args) => (
   </sbb-slider>
 );
 
-const TemplateSbbSliderInFormField = ({ label, optional, borderless, ...args }) => (
-  <sbb-form-field label={label} optional={optional} borderless={borderless}>
+const TemplateSbbSliderInFormField = ({ label, optional, borderless, paddingless, ...args }) => (
+  <sbb-form-field
+    label={label}
+    optional={optional}
+    borderless={borderless}
+    paddingless={paddingless}
+  >
     {TemplateSbbSlider(args)}
   </sbb-form-field>
 );
@@ -154,6 +159,15 @@ const borderlessArg = {
   },
 };
 
+const paddinglessArg = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const basicArgTypes = {
   max: maxArg,
   min: minArg,
@@ -173,6 +187,7 @@ const formFieldBasicArgsTypes = {
   label: labelArg,
   optional: optionalArg,
   borderless: borderlessArg,
+  paddingless: paddinglessArg,
 };
 
 const basicArgs = {
@@ -194,6 +209,7 @@ const formFieldBasicArgs = {
   label: 'Label',
   optional: undefined,
   borderless: true,
+  paddingless: false,
 };
 
 export const sbbSlider = TemplateSbbSlider.bind({});
@@ -253,6 +269,28 @@ sbbSliderInFormFieldNoIcon.args = {
   'end-icon': undefined,
 };
 sbbSliderInFormFieldNoIcon.documentation = {
+  title: 'sbb-slider within sbb-form-field without icons',
+};
+
+export const sbbSliderInFormFieldNoPadding = TemplateSbbSliderInFormField.bind({});
+sbbSliderInFormFieldNoPadding.argTypes = { ...formFieldBasicArgsTypes };
+sbbSliderInFormFieldNoPadding.args = {
+  ...formFieldBasicArgs,
+  paddingless: true,
+};
+sbbSliderInFormFieldNoPadding.documentation = {
+  title: 'sbb-slider within sbb-form-field',
+};
+
+export const sbbSliderInFormFieldNoIconNoPadding = TemplateSbbSliderInFormField.bind({});
+sbbSliderInFormFieldNoIconNoPadding.argTypes = { ...formFieldBasicArgsTypes };
+sbbSliderInFormFieldNoIconNoPadding.args = {
+  ...formFieldBasicArgs,
+  paddingless: true,
+  'start-icon': undefined,
+  'end-icon': undefined,
+};
+sbbSliderInFormFieldNoIconNoPadding.documentation = {
   title: 'sbb-slider within sbb-form-field without icons',
 };
 

@@ -593,6 +593,10 @@ export namespace Components {
          */
         "optional"?: boolean;
         /**
+          * Whether to display the form field without lateral padding.
+         */
+        "paddingless": boolean;
+        /**
           * Size variant, either l or m.
          */
         "size"?: InterfaceSbbFormFieldAttributes['size'];
@@ -2652,6 +2656,10 @@ declare namespace LocalJSX {
           * Indicates whether the input is optional.
          */
         "optional"?: boolean;
+        /**
+          * Whether to display the form field without lateral padding.
+         */
+        "paddingless"?: boolean;
         /**
           * Size variant, either l or m.
          */

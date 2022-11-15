@@ -62,6 +62,11 @@ export class SbbFormField implements ComponentInterface {
   @Prop() public borderless = false;
 
   /**
+   * Whether to display the form field without lateral padding.
+   */
+   @Prop() public paddingless = false;
+
+  /**
    * It is used internally to get the native `disabled` attribute from `<input>`.
    */
   @State() private _disabled: boolean;
@@ -179,6 +184,7 @@ export class SbbFormField implements ComponentInterface {
           [`form-field--error-space-${this.errorSpace}`]: true,
           [`form-field--size-${this.size}`]: true,
           'form-field--borderless': this.borderless,
+          'form-field--paddingless': this.paddingless,
           'form-field--disabled': this._disabled,
           'form-field--readonly': this._readonly,
           'form-field--select': this._input?.tagName === 'SELECT',
