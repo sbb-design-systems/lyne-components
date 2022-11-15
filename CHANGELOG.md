@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.19](https://github.com/lyne-design-system/lyne-components/compare/v0.12.18...v0.12.19) (2022-11-15)
+
+### Bug Fixes
+
+- **sbb-pearl-chain-vertical:** add width to columns ([#1455](https://github.com/lyne-design-system/lyne-components/issues/1455)) ([9943ba9](https://github.com/lyne-design-system/lyne-components/commit/9943ba9050847f2fd5f196a916b6f56ede6bb606))
+
 ### [0.12.18](https://github.com/lyne-design-system/lyne-components/compare/v0.12.17...v0.12.18) (2022-11-14)
 
 ### Features
