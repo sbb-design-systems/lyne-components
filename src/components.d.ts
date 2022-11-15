@@ -1779,7 +1779,34 @@ export namespace Components {
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
+        interface SbbToggleOption {
+        /**
+          * Whether the toggle-option is checked.
+         */
+        "checked": boolean;
+        /**
+          * Whether the toggle option is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Name of the toggle-option.
+         */
+        "name"?: string;
+        /**
+          * Whether the toggle-option is required.
+         */
+        "required": boolean;
+        "select": () => Promise<void>;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "toggleOptionId": string;
+        /**
+          * Value of toggle-option.
+         */
+        "value"?: string;
     }
+}
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1836,6 +1863,10 @@ export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTooltipElement;
+}
+export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleOptionElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -4119,6 +4150,36 @@ declare namespace LocalJSX {
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
+    }
+    interface SbbToggleOption {
+        /**
+          * Whether the toggle-option is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * Whether the toggle option is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Name of the toggle-option.
+         */
+        "name"?: string;
+        /**
+          * Emits whenever the toggle-option value changes.
+         */
+        "onSbb-toggle-option_did-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
+        /**
+          * Whether the toggle-option is required.
+         */
+        "required"?: boolean;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "toggleOptionId"?: string;
+        /**
+          * Value of toggle-option.
+         */
+        "value"?: string;
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
