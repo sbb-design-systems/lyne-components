@@ -1,0 +1,18 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+.sbb-toggle {
+  // Avoids unwanted space displayed if no label text is set.
+  @include zeroWidthSpace;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--sbb-color-cloud-default);
+  width: max-content;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 3rem;
+}
