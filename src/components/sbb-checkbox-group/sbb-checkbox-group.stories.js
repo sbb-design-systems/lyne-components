@@ -1,6 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
+quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
+lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tellus vulputate tempor. Vivamus urna
+velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
+metus.`;
+
 const checkboxes = (size, checked, iconName, iconPlacement, label) => [
   <sbb-checkbox
     name="checkbox-1"
@@ -262,6 +268,13 @@ verticalIconEnd.argTypes = basicArgTypes;
 verticalIconEnd.args = { ...basicArgsVertical, ...iconEnd };
 verticalIconEnd.documentation = {
   title: 'sbb-checkbox-group vertical with icon at end',
+};
+
+export const verticalIconEndLongLabel = DefaultTemplate.bind({});
+verticalIconEndLongLabel.argTypes = basicArgTypes;
+verticalIconEndLongLabel.args = { ...basicArgsVertical, ...iconEnd, label: longLabelText };
+verticalIconEndLongLabel.documentation = {
+  title: 'sbb-checkbox-group vertical with icon at end and long label',
 };
 
 export const horizontalWithSbbFormError = ErrorMessageTemplate.bind({});

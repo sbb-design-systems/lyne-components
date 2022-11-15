@@ -44,7 +44,8 @@ input[type='checkbox'] {
   @include hiddenCheckbox;
 }
 
-.sbb-checkbox__aligner {
+.sbb-checkbox__aligner,
+.sbb-checkbox__label--icon {
   display: flex;
   align-items: center;
   height: calc(var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text));
