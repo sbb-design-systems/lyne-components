@@ -95,8 +95,14 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
+  /** Method triggered on checkbox change. If not indeterminate, inverts the value; otherwise sets checked to true. */
   public checkedChanged(): void {
-    this.checked = this._checkbox?.checked;
+    if (this.indeterminate) {
+      this.checked = true;
+      this.indeterminate = false;
+    } else {
+      this.checked = this._checkbox?.checked;
+    }
     this.sbbChange.emit({
       checked: this.checked,
       value: this.value,

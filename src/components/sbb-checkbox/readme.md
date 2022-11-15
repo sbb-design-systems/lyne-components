@@ -2,10 +2,11 @@
 
 The `<sbb-checkbox>` component provides the same functionality as a native `<input type="checkbox">` enhanced with the SBB Design.
 
-The component has two `size`, named `s` (default) and `m`. It could be checked or not depending on the value of 
-the `checked` attribute. It could also have a third state, which is set if the `indeterminate` property is true. 
-This is useful when multiple dependent checkboxes are used 
-(e.g. a parent which is checked only if all the children are checked, otherwise is in indeterminate state).
+The component has two `size`, named `s` (default) and `m`. 
+It could be checked or not depending on the value of the `checked` attribute. 
+It has a third state too, which is set if the `indeterminate` property is true. This is useful when multiple dependent 
+checkboxes are used (e.g. a parent which is checked only if all the children are checked, otherwise is in indeterminate state).
+Clicking on a `sbb-checkbox` in this state sets `checked` to `true` and `indeterminate` to false. 
 
 The component can be displayed in disabled or required state by using the self-named properties.
 
