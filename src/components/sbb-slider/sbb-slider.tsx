@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import { hostContext } from '../../global/helpers/host-context';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { forwardInnerEventToHost } from '../../global/interfaces/link-button-properties';
@@ -14,10 +14,10 @@ import { forwardInnerEventToHost } from '../../global/interfaces/link-button-pro
 })
 export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   /** Value for the inner HTMLInputElement. */
-  @Prop({ reflect: true }) public value?: string = '';
+  @Prop({ mutable: true }) public value?: string = '';
 
   /** Numeric value for the inner HTMLInputElement. */
-  @Prop({ reflect: true }) public valueAsNumber?: number;
+  @Prop({ mutable: true }) public valueAsNumber?: number;
 
   /** Name of the inner HTMLInputElement. */
   @Prop() public name?: string = '';
@@ -80,18 +80,30 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
     return this._element.shadowRoot.querySelector('input');
   }
 
+  @Watch('value')
+  @Watch('valueAsNumber')
+  private _syncValues(newValue: string | number = this._rangeInput.valueAsNumber): void {
+    if (newValue && typeof newValue !== 'number') {
+      newValue = +newValue;
+    }
+
+    this.value = newValue.toString();
+    this.valueAsNumber = newValue as number;
+  }
+
   /**
    * Recalculates the `_valueFraction` on change to correctly display the slider knob and lines.
    * The first calculation happens in connectedCallback(...), so since `_rangeInput` is not yet available,
    * the `min` and `max` values are used; if `value` is not provided, the default value is halfway between min and max
    * (see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#value).
    */
-  private _handleChange(): void {
-    let min: number, max: number, value: number;
+  @Watch('value')
+  @Watch('valueAsNumber')
+  private _handleChange(value = this._rangeInput?.valueAsNumber): void {
+    let min: number, max: number;
     if (this._rangeInput) {
       min = +this._rangeInput.min;
       max = +this._rangeInput.max;
-      value = this._rangeInput.valueAsNumber;
     } else {
       min = +this.min;
       max = +this.max;
@@ -109,8 +121,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
 
   /** Emits the change event. */
   private _emitChange(event): void {
-    this.value = this._rangeInput.valueAsNumber.toString();
-    this.valueAsNumber = this._rangeInput.valueAsNumber;
+    this._syncValues();
     forwardInnerEventToHost(event, this._element);
   }
 

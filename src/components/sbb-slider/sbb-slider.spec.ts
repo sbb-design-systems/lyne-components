@@ -58,7 +58,7 @@ describe('sbb-slider', () => {
             </div>
           </div>
         </mock:shadow-root>
-        <sbb-slider value="" data-sbb-form-field>
+        <sbb-slider data-sbb-form-field>
           <mock:shadow-root>
             <div class="sbb-slider__height-container">
               <div class="sbb-slider__wrapper">

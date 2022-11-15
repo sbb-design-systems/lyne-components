@@ -20,7 +20,7 @@ describe('sbb-slider', () => {
     element = await page.find('sbb-slider');
   });
 
-  // NOTE: value at line 36 is not reflected; probably related to bug https://github.com/ionic-team/stencil/issues/2946
+  // NOTE: value at line 37 is not reflected; probably related to bug https://github.com/ionic-team/stencil/issues/2946
   it('renders', async () => {
     expect(element).toHaveClass('hydrated');
     await page.waitForChanges();
@@ -51,44 +51,45 @@ describe('sbb-slider', () => {
   });
 
   it('should decrease value by two on left arrow keypress', async () => {
-    const sbbSliderChange = await element.spyOnEvent('change');
+    const changeEvent = await element.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowLeft', 2);
-    expect(sbbSliderChange).toHaveReceivedEvent();
-    expect(element.getAttribute('value')).toEqual('398');
+    expect(changeEvent).toHaveReceivedEvent();
+    expect(await element.getProperty('value')).toEqual('398');
   });
 
   it('should decrease value by two on down arrow keypress', async () => {
-    const sbbSliderChange = await page.spyOnEvent('change');
+    const changeEvent = await page.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowDown', 2);
-    expect(sbbSliderChange).toHaveReceivedEvent();
-    expect(element.getAttribute('value')).toEqual('398');
+    expect(changeEvent).toHaveReceivedEvent();
+    expect(await element.getProperty('value')).toEqual('398');
   });
 
   it('should increase value by one on right arrow keypress', async () => {
-    const sbbSliderChange = await page.spyOnEvent('change');
+    const changeEvent = await page.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowRight');
-    expect(sbbSliderChange).toHaveReceivedEvent();
-    expect(element.getAttribute('value')).toEqual('401');
+    expect(changeEvent).toHaveReceivedEvent();
+    expect(await element.getProperty('value')).toEqual('401');
+    expect(await element.getProperty('valueAsNumber')).toEqual(401);
   });
 
   it('should increase value by one on up arrow keypress', async () => {
-    const sbbSliderChange = await page.spyOnEvent('change');
+    const changeEvent = await page.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowUp');
-    expect(sbbSliderChange).toHaveReceivedEvent();
-    expect(element.getAttribute('value')).toEqual('401');
+    expect(changeEvent).toHaveReceivedEvent();
+    expect(await element.getProperty('value')).toEqual('401');
   });
 
   it('should not change value on arrow keypress if disabled', async () => {
-    const sbbSliderChange = await page.spyOnEvent('change');
+    const changeEvent = await page.spyOnEvent('change');
     const slider = await page.find('sbb-slider');
     slider.setAttribute('disabled', '');
     await keyboardPressTimes(page, 'ArrowLeft');
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    expect(changeEvent).not.toHaveReceivedEvent();
     await keyboardPressTimes(page, 'ArrowRight');
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    expect(changeEvent).not.toHaveReceivedEvent();
     await keyboardPressTimes(page, 'ArrowUp');
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    expect(changeEvent).not.toHaveReceivedEvent();
     await keyboardPressTimes(page, 'ArrowDown');
-    expect(sbbSliderChange).not.toHaveReceivedEvent();
+    expect(changeEvent).not.toHaveReceivedEvent();
   });
 });

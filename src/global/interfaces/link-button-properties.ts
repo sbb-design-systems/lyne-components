@@ -284,6 +284,11 @@ export function forwardInnerEventToHost(event: Event, host: HTMLElement): void {
   event.preventDefault();
   event.stopImmediatePropagation();
   const eventConstructor = Object.getPrototypeOf(event).constructor;
-  const copiedEvent: Event = new eventConstructor(event.type, event);
+  const copiedEvent: Event = new eventConstructor(event.type, {
+    ...event,
+    composed: true,
+    bubbles: true,
+    // TODO: Check if it really should be composed and bubbling
+  });
   host.dispatchEvent(copiedEvent);
 }
