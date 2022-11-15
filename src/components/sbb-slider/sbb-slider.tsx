@@ -1,7 +1,7 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
+import { forwardInnerEventToHost } from '../../global/helpers/forward-event';
 import { hostContext } from '../../global/helpers/host-context';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { forwardInnerEventToHost } from '../../global/interfaces/link-button-properties';
 
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.

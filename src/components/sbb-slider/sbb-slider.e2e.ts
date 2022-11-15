@@ -55,6 +55,7 @@ describe('sbb-slider', () => {
     await keyboardPressTimes(page, 'ArrowLeft', 2);
     expect(changeEvent).toHaveReceivedEvent();
     expect(await element.getProperty('value')).toEqual('398');
+    expect(await element.getProperty('valueAsNumber')).toEqual(398);
   });
 
   it('should decrease value by two on down arrow keypress', async () => {
@@ -62,6 +63,7 @@ describe('sbb-slider', () => {
     await keyboardPressTimes(page, 'ArrowDown', 2);
     expect(changeEvent).toHaveReceivedEvent();
     expect(await element.getProperty('value')).toEqual('398');
+    expect(await element.getProperty('valueAsNumber')).toEqual(398);
   });
 
   it('should increase value by one on right arrow keypress', async () => {
@@ -77,6 +79,7 @@ describe('sbb-slider', () => {
     await keyboardPressTimes(page, 'ArrowUp');
     expect(changeEvent).toHaveReceivedEvent();
     expect(await element.getProperty('value')).toEqual('401');
+    expect(await element.getProperty('valueAsNumber')).toEqual(401);
   });
 
   it('should not change value on arrow keypress if disabled', async () => {

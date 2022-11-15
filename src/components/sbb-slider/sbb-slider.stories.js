@@ -3,7 +3,7 @@ import readme from './readme.md';
 
 const changeEventHandler = (event) => {
   const div = document.createElement('div');
-  div.innerText = `Current value is: ${event.target.value}. Min is: ${event.target.min}. Max is ${event.target.max}.`;
+  div.innerText = `current value is: ${event.target.value}. Min is: ${event.target.min}. Max is ${event.target.max}.`;
   document.getElementById('container-value').prepend(div);
 };
 
@@ -11,7 +11,8 @@ const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
 
 const TemplateSbbSliderChangeEvent = (args) => [
   <sbb-slider {...args} onChange={(event) => changeEventHandler(event)}></sbb-slider>,
-  <div style="margin-block-start: 2rem;" id="container-value"></div>,
+  <div style="margin-block-start: 2rem;">Change slider position:</div>,
+  <div id="container-value"></div>,
 ];
 
 const TemplateSlottedIcons = (args) => (
