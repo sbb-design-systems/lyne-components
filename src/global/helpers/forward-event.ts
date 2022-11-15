@@ -4,11 +4,6 @@
  */
 export function forwardInnerEventToHost(event: Event, host: HTMLElement): void {
   const eventConstructor = Object.getPrototypeOf(event).constructor;
-  const copiedEvent: Event = new eventConstructor(event.type, {
-    ...event,
-    composed: true,
-    bubbles: true,
-    // TODO: Check if it really should be composed and bubbling
-  });
+  const copiedEvent: Event = new eventConstructor(event.type, event);
   host.dispatchEvent(copiedEvent);
 }

@@ -59,7 +59,7 @@ describe('sbb-slider', () => {
   });
 
   it('should decrease value by two on down arrow keypress', async () => {
-    const changeEvent = await page.spyOnEvent('change');
+    const changeEvent = await element.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowDown', 2);
     expect(changeEvent).toHaveReceivedEvent();
     expect(await element.getProperty('value')).toEqual('398');
@@ -67,7 +67,7 @@ describe('sbb-slider', () => {
   });
 
   it('should increase value by one on right arrow keypress', async () => {
-    const changeEvent = await page.spyOnEvent('change');
+    const changeEvent = await element.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowRight');
     expect(changeEvent).toHaveReceivedEvent();
     expect(await element.getProperty('value')).toEqual('401');
@@ -75,7 +75,7 @@ describe('sbb-slider', () => {
   });
 
   it('should increase value by one on up arrow keypress', async () => {
-    const changeEvent = await page.spyOnEvent('change');
+    const changeEvent = await element.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowUp');
     expect(changeEvent).toHaveReceivedEvent();
     expect(await element.getProperty('value')).toEqual('401');
@@ -83,7 +83,7 @@ describe('sbb-slider', () => {
   });
 
   it('should not change value on arrow keypress if disabled', async () => {
-    const changeEvent = await page.spyOnEvent('change');
+    const changeEvent = await element.spyOnEvent('change');
     const slider = await page.find('sbb-slider');
     slider.setAttribute('disabled', '');
     await keyboardPressTimes(page, 'ArrowLeft');
