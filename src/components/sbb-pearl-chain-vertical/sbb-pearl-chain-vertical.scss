@@ -1,6 +1,10 @@
 @include host-component-properties;
 
+:host {
+  --sbb-pearl-chain-vertical-width: 100%;
+}
+
 .sbb-pearl-chain-vertical {
   display: table;
-  table-layout: fixed;
+  width: var(--sbb-pearl-chain-vertical-width);
 }

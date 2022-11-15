@@ -28,11 +28,11 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column  sbb-pearl-chain-vertical-item__column--middle">
         <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>       
         <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--standard sbb-pearl-chain-vertical-item__dot-size--medium"></div>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
         <slot name="right"></slot>
       </div>
     </mock:shadow-root>
@@ -66,11 +66,11 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
         <div class="sbb-color--red sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>
         <div class="sbb-color--red sbb-pearl-chain-vertical-item__dot--standard sbb-pearl-chain-vertical-item__dot-size--medium"></div>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
         <slot name="right"></slot>
       </div>
     </mock:shadow-root>
@@ -104,10 +104,10 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
         <div class="sbb-color--metal sbb-pearl-chain-vertical-item__dot--standard sbb-pearl-chain-vertical-item__dot-size--medium"></div>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
         <slot name="right"></slot>
       </div>
     </mock:shadow-root>
@@ -144,10 +144,10 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
         <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thick-bullet sbb-pearl-chain-vertical-item__dot-size--small"></div>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right ">
         <slot name="right"></slot>
       </div>
     </mock:shadow-root>
@@ -185,10 +185,10 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
         <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thick-bullet sbb-pearl-chain-vertical-item__dot-size--medium"></div>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column  sbb-pearl-chain-vertical-item__column--right">
         <slot name="right"></slot>
       </div>
     </mock:shadow-root>
@@ -231,13 +231,13 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
         <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thin-bullet sbb-pearl-chain-vertical-item__dot-size--ultra">
           <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__dot--thin-bullet sbb-pearl-chain-vertical-item__dot-size--extra-small"></div>
         </div>
         <div class="sbb-pearl-chain-vertical-item-position__dot" style="--sbb-pearl-chain-vertical-item-position: 50%;"></div>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
         <slot name="right"></slot>
       </div>
     </mock:shadow-root>
