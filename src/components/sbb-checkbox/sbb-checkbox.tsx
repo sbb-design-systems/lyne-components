@@ -10,6 +10,8 @@ import {
   ComponentInterface,
   Listen,
 } from '@stencil/core';
+import { hostContext } from '../../global/helpers/host-context';
+import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -23,6 +25,11 @@ import { InterfaceCheckboxAttributes, SbbCheckboxChange } from './sbb-checkbox.c
 
 let nextId = 0;
 
+/** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
+const checkboxObserverConfig: MutationObserverInit = {
+  attributeFilter: ['data-required', 'data-disabled'],
+};
+
 /**
  * @slot icon - Slot used to render the checkbox icon.
  * @slot unnamed - Slot used to render the checkbox label's text.
@@ -34,6 +41,17 @@ let nextId = 0;
 })
 export class SbbCheckbox implements AccessibilityProperties, ComponentInterface {
   private _checkbox: HTMLInputElement;
+
+  /** MutationObserver on data attributes. */
+  private _checkboxAttributeObserver = new MutationObserver(
+    this._onCheckboxAttributesChange.bind(this)
+  );
+
+  /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
+  @State() private _disabledFromGroup = false;
+
+  /** Whether the component must be set required due required attribute on sbb-checkbox-group. */
+  @State() private _requiredFromGroup = false;
 
   /** Size of the checkbox. */
   @Prop({ reflect: true }) public size: InterfaceCheckboxAttributes['size'] = 's';
@@ -91,8 +109,37 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
+  /** Set up the initial disabled/required values and start observe attributes changes. */
+  private _setupInitialStateAndAttributeObserver(): void {
+    if (hostContext('sbb-checkbox-group', this._element)) {
+      this._disabledFromGroup = !!this._element.dataset.disabled;
+      this._requiredFromGroup = !!this._element.dataset.required;
+    }
+    this._checkboxAttributeObserver.observe(this._element, checkboxObserverConfig);
+  }
+
+  /** Observe changes on data attributes and set the appropriate values. */
+  private _onCheckboxAttributesChange(mutationsList): void {
+    for (const mutation of mutationsList) {
+      if (mutation.type !== 'attributes') {
+        return;
+      }
+      if (mutation.attributeName === 'data-disabled') {
+        this._disabledFromGroup = true;
+      }
+      if (mutation.attributeName === 'data-required') {
+        this._requiredFromGroup = true;
+      }
+    }
+  }
+
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._setupInitialStateAndAttributeObserver();
+  }
+
+  public disconnectedCallback(): void {
+    this._checkboxAttributeObserver.disconnect();
   }
 
   /** Method triggered on checkbox change. If not indeterminate, inverts the value; otherwise sets checked to true. */
@@ -117,8 +164,8 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
           type="checkbox"
           name={this.name}
           id={this.inputId}
-          disabled={this.disabled}
-          required={this.required}
+          disabled={this.disabled || this._disabledFromGroup}
+          required={this.required || this._requiredFromGroup}
           checked={this.checked}
           value={this.value}
           {...getAccessibilityAttributeList(this)}

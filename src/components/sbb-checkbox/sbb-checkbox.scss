@@ -13,6 +13,7 @@
   display: inline-block;
 }
 
+:host([data-disabled]),
 :host([disabled]) {
   --checkbox-color: var(--sbb-color-graphite-default);
   --checkbox-border-color: var(--sbb-color-graphite-default);

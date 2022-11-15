@@ -7,7 +7,7 @@ lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tel
 velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
 metus.`;
 
-const checkboxes = (size, checked, iconName, iconPlacement, label) => [
+const checkboxes = (size, checked, disabledSingle, iconName, iconPlacement, label) => [
   <sbb-checkbox
     name="checkbox-1"
     value="checkbox-1"
@@ -21,6 +21,7 @@ const checkboxes = (size, checked, iconName, iconPlacement, label) => [
   <sbb-checkbox
     name="checkbox-2"
     value="checkbox-2"
+    disabled={disabledSingle}
     size={size}
     icon-name={iconName}
     icon-placement={iconPlacement}
@@ -38,15 +39,30 @@ const checkboxes = (size, checked, iconName, iconPlacement, label) => [
   </sbb-checkbox>,
 ];
 
-const DefaultTemplate = ({ size, checked, iconName, iconPlacement, label, ...args }) => (
+const DefaultTemplate = ({
+  size,
+  checked,
+  disabledSingle,
+  iconName,
+  iconPlacement,
+  label,
+  ...args
+}) => (
   <sbb-checkbox-group {...args}>
-    {checkboxes(size, checked, iconName, iconPlacement, label)}
+    {checkboxes(size, checked, disabledSingle, iconName, iconPlacement, label)}
   </sbb-checkbox-group>
 );
 
-const ErrorMessageTemplate = ({ size, checked, iconName, iconPlacement, ...args }) => (
+const ErrorMessageTemplate = ({
+  size,
+  checked,
+  disabledSingle,
+  iconName,
+  iconPlacement,
+  ...args
+}) => (
   <sbb-checkbox-group {...args} id="sbb-checkbox-group">
-    {checkboxes(size, checked, iconName, iconPlacement, label)}
+    {checkboxes(size, checked, disabledSingle, iconName, iconPlacement, label)}
     {args.required && <sbb-form-error slot="error">This is a required field.</sbb-form-error>}
   </sbb-checkbox-group>
 );
@@ -117,6 +133,15 @@ const checked = {
   },
 };
 
+const disabledSingle = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Checkbox',
+  },
+};
+
 const label = {
   control: {
     type: 'text',
@@ -154,6 +179,7 @@ const basicArgTypes = {
   size,
   label,
   checked,
+  disabledSingle,
   iconName,
   iconPlacement,
 };
@@ -167,6 +193,7 @@ const basicArgs = {
   size: size.options[1],
   label: 'Label',
   checked: true,
+  disabledSingle: false,
   iconName: undefined,
   iconPlacement: undefined,
 };
@@ -216,14 +243,14 @@ horizontalSizeM.documentation = {
 
 export const horizontalDisabled = DefaultTemplate.bind({});
 horizontalDisabled.argTypes = basicArgTypes;
-horizontalDisabled.args = { ...basicArgs, disabled: true };
+horizontalDisabled.args = { ...basicArgs, disabled: true, disabledSingle: true };
 horizontalDisabled.documentation = {
   title: 'sbb-checkbox-group horizontal disabled',
 };
 
 export const verticalDisabled = DefaultTemplate.bind({});
 verticalDisabled.argTypes = basicArgTypes;
-verticalDisabled.args = { ...basicArgsVertical, disabled: true };
+verticalDisabled.args = { ...basicArgsVertical, disabled: true, disabledSingle: true };
 verticalDisabled.documentation = {
   title: 'sbb-checkbox-group vertical disabled',
 };

@@ -1,4 +1,14 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -63,13 +73,23 @@ export class SbbCheckboxGroup implements ComponentInterface {
     this._namedSlots = queryAndObserveNamedSlotState(this._checkboxGroupElement, this._namedSlots);
   }
 
+  @Watch('required')
+  @Watch('disabled')
   private _updateCheckboxes(): void {
     const checkboxes = this._checkboxes;
 
     for (const checkbox of checkboxes) {
-      checkbox.name = this.name;
-      checkbox.disabled = checkbox.disabled ?? this.disabled;
-      checkbox.required = checkbox.required ?? this.required;
+      if (this.disabled) {
+        checkbox.dataset.disabled = '';
+      } else {
+        delete checkbox.dataset.disabled;
+      }
+
+      if (this.required) {
+        checkbox.dataset.required = '';
+      } else {
+        delete checkbox.dataset.required;
+      }
     }
   }
 
@@ -83,7 +103,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
     return (
       <Host aria-label={this.name}>
         <div class="sbb-checkbox-group">
-          <slot />
+          <slot onSlotchange={() => this._updateCheckboxes()} />
         </div>
         {this._namedSlots.error && (
           <div class="sbb-checkbox-group__error">
