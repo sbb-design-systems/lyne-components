@@ -74,5 +74,7 @@ export const SbbTimetableTransportationTime = /*@__PURE__*/createReactComponent<
 export const SbbTimetableTransportationWalk = /*@__PURE__*/createReactComponent<JSX.SbbTimetableTransportationWalk, HTMLSbbTimetableTransportationWalkElement>('sbb-timetable-transportation-walk');
 export const SbbTimetableTravelHints = /*@__PURE__*/createReactComponent<JSX.SbbTimetableTravelHints, HTMLSbbTimetableTravelHintsElement>('sbb-timetable-travel-hints');
 export const SbbTitle = /*@__PURE__*/createReactComponent<JSX.SbbTitle, HTMLSbbTitleElement>('sbb-title');
+export const SbbToggle = /*@__PURE__*/createReactComponent<JSX.SbbToggle, HTMLSbbToggleElement>('sbb-toggle');
 export const SbbToggleCheck = /*@__PURE__*/createReactComponent<JSX.SbbToggleCheck, HTMLSbbToggleCheckElement>('sbb-toggle-check');
 export const SbbTooltip = /*@__PURE__*/createReactComponent<JSX.SbbTooltip, HTMLSbbTooltipElement>('sbb-tooltip');
+export const SbbToggleOption = /*@__PURE__*/createReactComponent<JSX.SbbToggleOption, HTMLSbbToggleOptionElement>('sbb-toggle-option');
