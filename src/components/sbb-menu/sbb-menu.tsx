@@ -41,7 +41,7 @@ export class SbbMenu implements ComponentInterface {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
-   * The state of the tooltip.
+   * The state of the menu.
    */
   @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
