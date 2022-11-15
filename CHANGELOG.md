@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.13.0](https://github.com/lyne-design-system/lyne-components/compare/v0.12.19...v0.13.0) (2022-11-15)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-menu:** \*\*
+  Use `open` for opening overlays and `close` for closing overlays. The methods `present()` and `dismiss()` become `open()` and `close()`; the tooltip properties `showDelay` and `hideDelay` become `openDelay` and `closeDelay`.
+
+- **sbb-menu:** rename opening and closing methods ([#1456](https://github.com/lyne-design-system/lyne-components/issues/1456)) ([50e7120](https://github.com/lyne-design-system/lyne-components/commit/50e712047709cdd261be5daf760b23afd883a80c))
+
 ### [0.12.19](https://github.com/lyne-design-system/lyne-components/compare/v0.12.18...v0.12.19) (2022-11-15)
 
 ### Bug Fixes
