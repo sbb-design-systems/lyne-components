@@ -51,47 +51,35 @@ describe('sbb-slider', () => {
   });
 
   it('should decrease value by two on left arrow keypress', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    const sbbSliderChange = await element.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowLeft', 2);
-    expect(sbbSliderChange).toHaveReceivedEventDetail({
-      max: 500,
-      min: 100,
-      value: 398,
-    });
+    expect(sbbSliderChange).toHaveReceivedEvent();
+    expect(element.getAttribute('value')).toEqual('398');
   });
 
   it('should decrease value by two on down arrow keypress', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    const sbbSliderChange = await page.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowDown', 2);
-    expect(sbbSliderChange).toHaveReceivedEventDetail({
-      max: 500,
-      min: 100,
-      value: 398,
-    });
+    expect(sbbSliderChange).toHaveReceivedEvent();
+    expect(element.getAttribute('value')).toEqual('398');
   });
 
   it('should increase value by one on right arrow keypress', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    const sbbSliderChange = await page.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowRight');
-    expect(sbbSliderChange).toHaveReceivedEventDetail({
-      max: 500,
-      min: 100,
-      value: 401,
-    });
+    expect(sbbSliderChange).toHaveReceivedEvent();
+    expect(element.getAttribute('value')).toEqual('401');
   });
 
   it('should increase value by one on up arrow keypress', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    const sbbSliderChange = await page.spyOnEvent('change');
     await keyboardPressTimes(page, 'ArrowUp');
-    expect(sbbSliderChange).toHaveReceivedEventDetail({
-      max: 500,
-      min: 100,
-      value: 401,
-    });
+    expect(sbbSliderChange).toHaveReceivedEvent();
+    expect(element.getAttribute('value')).toEqual('401');
   });
 
   it('should not change value on arrow keypress if disabled', async () => {
-    const sbbSliderChange = await page.spyOnEvent('sbbChange');
+    const sbbSliderChange = await page.spyOnEvent('change');
     const slider = await page.find('sbb-slider');
     slider.setAttribute('disabled', '');
     await keyboardPressTimes(page, 'ArrowLeft');
