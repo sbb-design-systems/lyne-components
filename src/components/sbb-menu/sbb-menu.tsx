@@ -251,13 +251,13 @@ export class SbbMenu implements ComponentInterface {
   // Set menu position (x, y) to '0' once the menu is closed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the menu is open.
   private _onMenuAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'show') {
+    if (event.animationName === 'open') {
       this._state = 'opened';
       this.didOpen.emit();
       this._setDialogFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
-    } else if (event.animationName === 'hide') {
+    } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();

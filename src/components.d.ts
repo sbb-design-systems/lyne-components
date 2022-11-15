@@ -1511,13 +1511,13 @@ export namespace Components {
          */
         "close": (target?: HTMLElement) => Promise<void>;
         /**
+          * Close the tooltip after a certain delay.
+         */
+        "closeDelay"?: number;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
-        /**
-          * Close the tooltip after a certain delay.
-         */
-        "hideDelay"?: number;
         /**
           * Whether the tooltip should be triggered on hover.
          */
@@ -1529,7 +1529,7 @@ export namespace Components {
         /**
           * Open the tooltip after a certain delay.
          */
-        "showDelay"?: number;
+        "openDelay"?: number;
         /**
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -3507,13 +3507,13 @@ declare namespace LocalJSX {
          */
         "accessibilityCloseLabel"?: string | undefined;
         /**
+          * Close the tooltip after a certain delay.
+         */
+        "closeDelay"?: number;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
-        /**
-          * Close the tooltip after a certain delay.
-         */
-        "hideDelay"?: number;
         /**
           * Whether the tooltip should be triggered on hover.
          */
@@ -3537,7 +3537,7 @@ declare namespace LocalJSX {
         /**
           * Open the tooltip after a certain delay.
          */
-        "showDelay"?: number;
+        "openDelay"?: number;
         /**
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */

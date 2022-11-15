@@ -62,7 +62,7 @@
 
   &[open] {
     animation: {
-      name: show;
+      name: open;
       duration: var(--sbb-tooltip-animation-duration);
       timing-function: var(--sbb-tooltip-animation-easing);
     }
@@ -81,7 +81,7 @@
 
   :host(.sbb-tooltip--closing) & {
     pointer-events: none;
-    animation-name: hide;
+    animation-name: close;
   }
 
   :host(.sbb-tooltip--above) & {
@@ -111,7 +111,7 @@
   }
 }
 
-@keyframes show {
+@keyframes open {
   from {
     visibility: hidden;
     opacity: 0;
@@ -125,7 +125,7 @@
   }
 }
 
-@keyframes hide {
+@keyframes close {
   from {
     visibility: visible;
     opacity: 1;
