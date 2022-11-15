@@ -1,0 +1,22 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --some-color-var: var(--color-black-default);
+}
+
+input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  margin: 0;
+  right: 0;
+  bottom: 0;
+  cursor: inherit;
+
+  // Puts the element behind the parent while keeping it visible so that
+  // it allows `click` events to propagate up.
+  z-index: -1;
+}
