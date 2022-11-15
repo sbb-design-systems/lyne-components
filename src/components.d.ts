@@ -932,17 +932,17 @@ export namespace Components {
     }
     interface SbbMenu {
         /**
+          * Closes the menu.
+         */
+        "close": () => Promise<void>;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
         /**
-          * Dismisses the menu.
-         */
-        "dismiss": () => Promise<void>;
-        /**
           * Opens the menu on trigger click.
          */
-        "present": () => Promise<void>;
+        "open": () => Promise<void>;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -1511,13 +1511,13 @@ export namespace Components {
          */
         "close": (target?: HTMLElement) => Promise<void>;
         /**
+          * Close the tooltip after a certain delay.
+         */
+        "closeDelay"?: number;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
-        /**
-          * Close the tooltip after a certain delay.
-         */
-        "hideDelay"?: number;
         /**
           * Whether the tooltip should be triggered on hover.
          */
@@ -1529,7 +1529,7 @@ export namespace Components {
         /**
           * Open the tooltip after a certain delay.
          */
-        "showDelay"?: number;
+        "openDelay"?: number;
         /**
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -2935,21 +2935,21 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * Emits whenever the menu is dismissed.
+          * Emits whenever the menu is closed.
          */
-        "onSbb-menu_did-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_did-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu is presented.
+          * Emits whenever the menu is opened.
          */
-        "onSbb-menu_did-present"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_did-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu begins the closing transition.
          */
-        "onSbb-menu_will-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_will-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu starts the presenting transition.
+          * Emits whenever the menu starts the opening transition.
          */
-        "onSbb-menu_will-present"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_will-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -3507,13 +3507,13 @@ declare namespace LocalJSX {
          */
         "accessibilityCloseLabel"?: string | undefined;
         /**
+          * Close the tooltip after a certain delay.
+         */
+        "closeDelay"?: number;
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
-        /**
-          * Close the tooltip after a certain delay.
-         */
-        "hideDelay"?: number;
         /**
           * Whether the tooltip should be triggered on hover.
          */
@@ -3537,7 +3537,7 @@ declare namespace LocalJSX {
         /**
           * Open the tooltip after a certain delay.
          */
-        "showDelay"?: number;
+        "openDelay"?: number;
         /**
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */

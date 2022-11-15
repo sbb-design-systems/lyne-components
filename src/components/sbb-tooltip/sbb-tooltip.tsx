@@ -43,12 +43,12 @@ export class SbbTooltip implements ComponentInterface {
   /**
    * Open the tooltip after a certain delay.
    */
-  @Prop() public showDelay? = 0;
+  @Prop() public openDelay? = 0;
 
   /**
    * Close the tooltip after a certain delay.
    */
-  @Prop() public hideDelay? = 0;
+  @Prop() public closeDelay? = 0;
 
   /**
    * Whether the animation is enabled.
@@ -304,7 +304,7 @@ export class SbbTooltip implements ComponentInterface {
 
   private _onTriggerMouseEnter = (): void => {
     if (this._state === 'closed' || this._state === 'closing') {
-      this._openTimeout = setTimeout(() => this.open(), this.showDelay);
+      this._openTimeout = setTimeout(() => this.open(), this.openDelay);
     } else {
       clearTimeout(this._closeTimeout);
     }
@@ -312,7 +312,7 @@ export class SbbTooltip implements ComponentInterface {
 
   private _onTriggerMouseLeave = (): void => {
     if (this._state === 'opened' || this._state === 'opening') {
-      this._closeTimeout = setTimeout(() => this.close(), this.hideDelay);
+      this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
     } else {
       clearTimeout(this._openTimeout);
     }
@@ -326,20 +326,20 @@ export class SbbTooltip implements ComponentInterface {
 
   private _onDialogMouseLeave = (): void => {
     if (this._state !== 'opening') {
-      this._closeTimeout = setTimeout(() => this.close(), this.hideDelay);
+      this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
     }
   };
 
   // Set tooltip position (x, y) to '0' once the tooltip is closed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the tooltip is open.
   private _onTooltipAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'show' && this._state === 'opening') {
+    if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
       this._setTooltipFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
-    } else if (event.animationName === 'hide' && this._state === 'closing') {
+    } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();

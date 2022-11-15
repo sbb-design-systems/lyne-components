@@ -20,14 +20,14 @@ The tooltip can show a simple message and a close button (if the `hover-trigger`
 
 The tooltip can be disimissed by clicking on an interactive element within its content, by clicking on the close button or by performing another action on the page. You can also indicate that an element within the tooltip content should close the tooltip when clicked by marking it with the `sbb-tooltip-close` attribute.
 
-You can also indicate that the tooltip should be shown on hover with the property `hover-trigger` and set a custom delay for the show and hide animations (defaults to 1000ms). If hover is not supported by the current device, the component will be triggered on click/tap as default:
+You can also indicate that the tooltip should be shown on hover with the property `hover-trigger` and set a custom delay for the open and close animations (defaults to 0). If hover is not supported by the current device, the component will be triggered on click/tap as default:
 
 ```html
 <!-- Trigger element -->
 <sbb-icon id="tooltip-trigger" name="circle-information-small"/>
 
 <!-- Tooltip component with `hover-trigger` property -->
-<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger show-delay="500" hide-delay="750">
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
   </p>
@@ -56,7 +56,7 @@ In order to make screen readers announce the tooltip content when the trigger is
 <button id="tooltip-trigger" aria-describedby="tooltip-content">Button with tooltip</button>
 
 <!-- Tooltip component with `hover-trigger` property -->
-<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger show-delay="500" hide-delay="750">
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
   </p>
@@ -73,10 +73,10 @@ As the tooltip opens, the focus will automatically be set to the first focusable
 | Property                  | Attribute                   | Description                                                                                                    | Type                    | Default     |
 | ------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
 | `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                              | `string`                | `undefined` |
+| `closeDelay`              | `close-delay`               | Close the tooltip after a certain delay.                                                                       | `number`                | `0`         |
 | `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                                                              | `boolean`               | `false`     |
-| `hideDelay`               | `hide-delay`                | Close the tooltip after a certain delay.                                                                       | `number`                | `0`         |
 | `hoverTrigger`            | `hover-trigger`             | Whether the tooltip should be triggered on hover.                                                              | `boolean`               | `false`     |
-| `showDelay`               | `show-delay`                | Open the tooltip after a certain delay.                                                                        | `number`                | `0`         |
+| `openDelay`               | `open-delay`                | Open the tooltip after a certain delay.                                                                        | `number`                | `0`         |
 | `trigger`                 | `trigger`                   | The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
 
 

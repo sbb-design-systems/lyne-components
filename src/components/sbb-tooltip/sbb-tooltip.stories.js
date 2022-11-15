@@ -26,13 +26,13 @@ const hoverTrigger = {
   },
 };
 
-const showDelay = {
+const openDelay = {
   control: {
     type: 'number',
   },
 };
 
-const hideDelay = {
+const closeDelay = {
   control: {
     type: 'number',
   },
@@ -46,15 +46,15 @@ const disableAnimation = {
 
 const defaultArgTypes = {
   'hover-trigger': hoverTrigger,
-  'show-delay': showDelay,
-  'hide-delay': hideDelay,
+  'open-delay': openDelay,
+  'close-delay': closeDelay,
   'disable-animation': disableAnimation,
 };
 
 const defaultArgs = {
   'hover-trigger': false,
-  'show-delay': undefined,
-  'hide-delay': undefined,
+  'open-delay': undefined,
+  'close-delay': undefined,
   'disable-animation': isChromatic(),
 };
 
@@ -160,8 +160,8 @@ HoverTrigger.argTypes = defaultArgTypes;
 HoverTrigger.args = {
   ...defaultArgs,
   'hover-trigger': true,
-  'show-delay': 0,
-  'hide-delay': 0,
+  'open-delay': 0,
+  'close-delay': 0,
 };
 HoverTrigger.documentation = { title: 'Hover Trigger' };
 HoverTrigger.play = playStory;
