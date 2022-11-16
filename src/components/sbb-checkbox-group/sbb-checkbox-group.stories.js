@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from '../sbb-checkbox/sbb-checkbox.events';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -67,6 +68,89 @@ const ErrorMessageTemplate = ({
     {args.required && <sbb-form-error slot="error">This is a required field.</sbb-form-error>}
   </sbb-checkbox-group>
 );
+
+// FIXME to be changed when sbb-slider will be merged due the new event handling.
+let selectedCheckboxes = ['checkbox-1'];
+
+const childCheck = (event) => {
+  if (event.detail.checked) {
+    selectedCheckboxes.push(event.detail.value);
+  } else {
+    selectedCheckboxes.splice(selectedCheckboxes.indexOf(event.detail.value), 1);
+  }
+  document
+    .getElementById('parent')
+    .setAttribute('indeterminate', String(selectedCheckboxes.length === 1));
+  document
+    .getElementById('parent')
+    .setAttribute('checked', String(selectedCheckboxes.length === 2));
+};
+
+const parentCheck = (event) => {
+  if (event.detail.checked) {
+    selectedCheckboxes = ['checkbox-1', 'checkbox-2'];
+  } else {
+    selectedCheckboxes = [];
+  }
+  document.getElementById('checkbox-1').setAttribute('checked', event.detail.checked);
+  document.getElementById('checkbox-2').setAttribute('checked', event.detail.checked);
+};
+
+const IndeterminateGroupTemplate = ({
+  size,
+  disabledSingle,
+  iconName,
+  iconPlacement,
+  label,
+  ...args
+}) => [
+  <div style="margin-block-end: 1rem;">
+    <div>Check/uncheck all the children checkboxes and the parent will be checked/unchecked.</div>
+    <div>Check a single child and the parent will be indeterminate.</div>
+  </div>,
+  <sbb-checkbox-group {...args} id="sbb-checkbox-group">
+    <sbb-checkbox
+      id="parent"
+      name="parent"
+      value="parent"
+      checked="false"
+      indeterminate="true"
+      onSbb-change={(event) => parentCheck(event)}
+      size={size}
+      icon-name={iconName}
+      icon-placement={iconPlacement}
+    >
+      Parent checkbox
+    </sbb-checkbox>
+    <sbb-checkbox
+      id="checkbox-1"
+      name="checkbox-1"
+      value="checkbox-1"
+      checked="true"
+      onSbb-change={(event) => childCheck(event)}
+      size={size}
+      icon-name={iconName}
+      icon-placement={iconPlacement}
+      disabled={disabledSingle}
+      style="margin-inline-start: 2rem;"
+    >
+      {label} option 1
+    </sbb-checkbox>
+    <sbb-checkbox
+      id="checkbox-2"
+      name="checkbox-2"
+      value="checkbox-2"
+      checked="false"
+      onSbb-change={(event) => childCheck(event)}
+      size={size}
+      icon-name={iconName}
+      icon-placement={iconPlacement}
+      style="margin-inline-start: 2rem;"
+    >
+      {label} option 2
+    </sbb-checkbox>
+  </sbb-checkbox-group>,
+];
 
 const name = {
   control: {
@@ -256,20 +340,6 @@ verticalDisabled.documentation = {
   title: 'sbb-checkbox-group vertical disabled',
 };
 
-export const horizontalRequired = DefaultTemplate.bind({});
-horizontalRequired.argTypes = basicArgTypes;
-horizontalRequired.args = { ...basicArgs, required: true };
-horizontalRequired.documentation = {
-  title: 'sbb-checkbox-group horizontal required',
-};
-
-export const verticalRequired = DefaultTemplate.bind({});
-verticalRequired.argTypes = basicArgTypes;
-verticalRequired.args = { ...basicArgsVertical, required: true };
-verticalRequired.documentation = {
-  title: 'sbb-checkbox-group vertical required',
-};
-
 export const horizontalIconStart = DefaultTemplate.bind({});
 horizontalIconStart.argTypes = basicArgTypes;
 horizontalIconStart.args = { ...basicArgs, ...iconStart };
@@ -319,6 +389,15 @@ verticalWithSbbFormError.documentation = {
   title: 'sbb-checkbox-group vertical with sbb-form-error',
 };
 
+export const indeterminateGroup = IndeterminateGroupTemplate.bind({});
+indeterminateGroup.argTypes = { ...basicArgTypes };
+indeterminateGroup.args = { ...basicArgsVertical };
+delete indeterminateGroup.args.checked;
+delete indeterminateGroup.argTypes.checked;
+indeterminateGroup.documentation = {
+  title: 'sbb-checkbox-group with parent in indeterminate state',
+};
+
 export default {
   decorators: [
     (Story) => (
@@ -328,6 +407,9 @@ export default {
     ),
   ],
   parameters: {
+    actions: {
+      handles: [events.sbbChange],
+    },
     backgrounds: {
       disable: true,
     },

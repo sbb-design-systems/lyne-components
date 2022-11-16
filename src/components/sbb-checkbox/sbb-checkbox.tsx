@@ -102,7 +102,11 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   @State() private _namedSlots = createNamedSlotState('icon');
 
   /** Event for emitting whenever selection is changed. */
-  @Event() public sbbChange: EventEmitter<SbbCheckboxChange>;
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-change'
+  }) public sbbChange: EventEmitter<SbbCheckboxChange>;
 
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {

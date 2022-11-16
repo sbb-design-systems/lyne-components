@@ -3,5 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  sbbChange: 'sbbChange',
+  sbbChange: 'sbb-change',
 };

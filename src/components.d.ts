@@ -2754,7 +2754,7 @@ declare namespace LocalJSX {
         /**
           * Event for emitting whenever selection is changed.
          */
-        "onSbbChange"?: (event: SbbCheckboxCustomEvent<SbbCheckboxChange>) => void;
+        "onSbb-change"?: (event: SbbCheckboxCustomEvent<SbbCheckboxChange>) => void;
         /**
           * The required prop for the required state.
          */

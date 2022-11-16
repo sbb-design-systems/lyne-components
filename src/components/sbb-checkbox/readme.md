@@ -91,9 +91,9 @@ to describe the element on which the attribute is set.
 
 ## Events
 
-| Event       | Description                                       | Type                             |
-| ----------- | ------------------------------------------------- | -------------------------------- |
-| `sbbChange` | Event for emitting whenever selection is changed. | `CustomEvent<SbbCheckboxChange>` |
+| Event        | Description                                       | Type                             |
+| ------------ | ------------------------------------------------- | -------------------------------- |
+| `sbb-change` | Event for emitting whenever selection is changed. | `CustomEvent<SbbCheckboxChange>` |
 
 
 ## Slots
