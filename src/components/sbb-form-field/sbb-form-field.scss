@@ -83,7 +83,7 @@
 
 :host([data-input-type='sbb-slider']) {
   --form-field-overflow: visible;
-  --form-field-background-color: transparent;
+  --form-field-background-color: var(--sbb-color-white-default);
 }
 
 :host(.form-field--error-space-reserve) {
