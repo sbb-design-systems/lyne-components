@@ -22,8 +22,8 @@ const TemplateSlottedIcons = (args) => (
   </sbb-slider>
 );
 
-const TemplateSbbSliderInFormField = ({ label, optional, borderless, ...args }) => (
-  <sbb-form-field label={label} optional={optional} borderless={borderless}>
+const TemplateSbbSliderInFormField = ({ label, optional, ...args }) => (
+  <sbb-form-field label={label} optional={optional}>
     {TemplateSbbSlider(args)}
   </sbb-form-field>
 );
@@ -145,15 +145,6 @@ const optionalArg = {
   },
 };
 
-const borderlessArg = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Form-field attribute',
-  },
-};
-
 const basicArgTypes = {
   max: maxArg,
   min: minArg,
@@ -172,7 +163,6 @@ const formFieldBasicArgsTypes = {
   ...basicArgTypes,
   label: labelArg,
   optional: optionalArg,
-  borderless: borderlessArg,
 };
 
 const basicArgs = {
@@ -193,7 +183,6 @@ const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
   optional: undefined,
-  borderless: true,
 };
 
 export const sbbSlider = TemplateSbbSlider.bind({});

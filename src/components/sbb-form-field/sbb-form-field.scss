@@ -76,7 +76,8 @@
   }
 }
 
-:host(.form-field--borderless) {
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(:is(.form-field--borderless, [data-input-type='sbb-slider'])) {
   --form-field-border-color: transparent;
 }
 

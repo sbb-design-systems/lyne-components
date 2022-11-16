@@ -12,8 +12,8 @@ or can provide their own using the two slots named `prefix` and `suffix`.
 
 It is possible to display the component in disabled or readonly state by using the self-named properties.
 
-Consumers can listen to the native `change` event to intercept the input's change `event`;
-the current value can be read from `event.target.value`.
+Consumers can listen to the native `change` event on the `sbb-slider` component to intercept the input's change `event`;
+the current value can be read from `event.target.value` or `event.target.valueAsNumber`.
 
 The component can be used within a `<sbb-form-field>` one; 
 in this case the `<sbb-slider>` receives a `data-sbb-form-field` attribute.

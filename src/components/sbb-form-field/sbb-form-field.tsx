@@ -153,6 +153,8 @@ export class SbbFormField implements ComponentInterface {
       if (!this._input.id) {
         this._input.id = `sbb-form-field-input-${nextId++}`;
       }
+
+      this._element.dataset.inputType = this._input.tagName.toLowerCase();
     }
   }
 
