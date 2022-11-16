@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.13.1](https://github.com/lyne-design-system/lyne-components/compare/v0.13.0...v0.13.1) (2022-11-16)
+
+### Features
+
+- **sbb-slider:** component implementation ([#1426](https://github.com/lyne-design-system/lyne-components/issues/1426)) ([4ad9ef9](https://github.com/lyne-design-system/lyne-components/commit/4ad9ef9ef53e17548952fccc2df566928ee2eef4))
+
 ## [0.13.0](https://github.com/lyne-design-system/lyne-components/compare/v0.12.19...v0.13.0) (2022-11-15)
 
 ### ⚠ BREAKING CHANGES
