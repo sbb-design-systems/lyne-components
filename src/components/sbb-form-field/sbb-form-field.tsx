@@ -64,7 +64,7 @@ export class SbbFormField implements ComponentInterface {
   /**
    * Whether to display the form field without lateral padding.
    */
-   @Prop() public paddingless = false;
+  @Prop() public paddingless = false;
 
   /**
    * It is used internally to get the native `disabled` attribute from `<input>`.

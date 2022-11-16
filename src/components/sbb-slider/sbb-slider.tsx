@@ -1,5 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
-import { forwardInnerEventToHost } from '../../global/helpers/forward-event';
+import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { hostContext } from '../../global/helpers/host-context';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
@@ -122,7 +122,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   /** Emits the change event. */
   private _emitChange(event): void {
     this._syncValues();
-    forwardInnerEventToHost(event, this._element);
+    forwardEventToHost(event, this._element);
   }
 
   public render(): JSX.Element {
