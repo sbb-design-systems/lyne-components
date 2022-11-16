@@ -41,7 +41,7 @@ Unchecked and disabled with icon
 Indeterminate and required with icon placed before the label
 
 ```html
-<sbb-checkbox value="single-checkbox" required="true" indeterminate="true" icon-name= "tickets-class-small" icon-placement= "start">
+<sbb-checkbox value="single-checkbox" required="true" indeterminate="true" icon-name="tickets-class-small" icon-placement="start">
   Example
 </sbb-checkbox>
 ```

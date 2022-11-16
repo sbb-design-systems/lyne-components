@@ -32,22 +32,22 @@ export class SbbCheckboxGroup implements ComponentInterface {
   /**
    * Id of the checkbox group element.
    */
-  @Prop() public sbbCheckboxGroupId = `sbb-checkbox-group-${++nextId}`;
+  @Prop() public checkboxGroupId = `sbb-checkbox-group-${++nextId}`;
 
   /**
    * Id of the checkbox group element - default name will be auto-generated.
    */
-  @Prop() public name?: string = `${this.sbbCheckboxGroupId}-name`;
+  @Prop() public name?: string = `${this.checkboxGroupId}-name`;
 
   /**
    * Whether the checkbox group is disabled.
    */
-  @Prop({ reflect: true }) public disabled = false;
+  @Prop() public disabled = false;
 
   /**
    * Whether the checkbox group is required.
    */
-  @Prop({ reflect: true }) public required = false;
+  @Prop() public required = false;
 
   /**
    * Overrides the behaviour of `orientation` property.

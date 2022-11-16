@@ -537,6 +537,10 @@ export namespace Components {
     }
     interface SbbCheckboxGroup {
         /**
+          * Id of the checkbox group element.
+         */
+        "checkboxGroupId": string;
+        /**
           * Whether the checkbox group is disabled.
          */
         "disabled": boolean;
@@ -556,10 +560,6 @@ export namespace Components {
           * Whether the checkbox group is required.
          */
         "required": boolean;
-        /**
-          * Id of the checkbox group element.
-         */
-        "sbbCheckboxGroupId": string;
     }
     interface SbbClock {
         /**
@@ -2770,6 +2770,10 @@ declare namespace LocalJSX {
     }
     interface SbbCheckboxGroup {
         /**
+          * Id of the checkbox group element.
+         */
+        "checkboxGroupId"?: string;
+        /**
           * Whether the checkbox group is disabled.
          */
         "disabled"?: boolean;
@@ -2789,10 +2793,6 @@ declare namespace LocalJSX {
           * Whether the checkbox group is required.
          */
         "required"?: boolean;
-        /**
-          * Id of the checkbox group element.
-         */
-        "sbbCheckboxGroupId"?: string;
     }
     interface SbbClock {
         /**

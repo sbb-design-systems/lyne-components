@@ -1,25 +1,25 @@
 @include host-component-properties;
 
 :host {
-  --checkbox-border-width: var(--sbb-border-width-1x);
-  --checkbox-width: var(--sbb-size-icon-ui-small);
-  --checkbox-height: var(--checkbox-width);
-  --checkbox-border-color: var(--sbb-color-smoke-default);
-  --checkbox-selection-color: var(--sbb-color-red-default);
-  --checkbox-label-color: var(--sbb-color-charcoal-default);
-  --checkbox-cursor: pointer;
-  --checkbox-border-radius: #{px-to-rem-build(4)};
+  --sbb-checkbox-border-width: var(--sbb-border-width-1x);
+  --sbb-checkbox-width: var(--sbb-size-icon-ui-small);
+  --sbb-checkbox-height: var(--sbb-checkbox-width);
+  --sbb-checkbox-border-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-selection-color: var(--sbb-color-red-default);
+  --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
+  --sbb-checkbox-cursor: pointer;
+  --sbb-checkbox-border-radius: #{px-to-rem-build(4)};
 
   display: inline-block;
 }
 
 :host([data-disabled]),
 :host([disabled]) {
-  --checkbox-color: var(--sbb-color-graphite-default);
-  --checkbox-border-color: var(--sbb-color-graphite-default);
-  --checkbox-selection-color: var(--sbb-color-graphite-default);
-  --checkbox-label-color: var(--sbb-color-smoke-default);
-  --checkbox-cursor: not-allowed;
+  --sbb-checkbox-color: var(--sbb-color-graphite-default);
+  --sbb-checkbox-border-color: var(--sbb-color-graphite-default);
+  --sbb-checkbox-selection-color: var(--sbb-color-graphite-default);
+  --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-cursor: not-allowed;
 }
 
 .sbb-checkbox {
@@ -27,8 +27,8 @@
 
   position: relative;
   display: block;
-  color: var(--checkbox-label-color);
-  cursor: var(--checkbox-cursor);
+  color: var(--sbb-checkbox-label-color);
+  cursor: var(--sbb-checkbox-cursor);
 
   :host([size='m']) & {
     @include text-m--regular;
@@ -42,26 +42,22 @@
 }
 
 input[type='checkbox'] {
-  @include hiddenCheckbox;
+  @include invisibleContainerOverlay;
 }
 
 .sbb-checkbox__aligner,
 .sbb-checkbox__label--icon {
   display: flex;
   align-items: center;
-  height: calc(var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text));
-
-  :host([size='m']) & {
-    height: calc(var(--sbb-font-size-text-m) * var(--sbb-typo-line-height-body-text));
-  }
+  height: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 
 .sbb-checkbox__selection {
   position: relative;
-  min-width: var(--checkbox-width);
-  height: var(--checkbox-height);
-  border-radius: var(--checkbox-border-radius);
-  border: var(--checkbox-border-width) solid var(--checkbox-border-color);
+  min-width: var(--sbb-checkbox-width);
+  height: var(--sbb-checkbox-height);
+  border-radius: var(--sbb-checkbox-border-radius);
+  border: var(--sbb-checkbox-border-width) solid var(--sbb-checkbox-border-color);
   background-color: var(--sbb-color-white-default);
 }
 
@@ -72,29 +68,26 @@ input[type='checkbox'] {
 
   // We stretch the icon container over the selection element, in order to allow
   // full width of the svg icon without ignoring the selection border.
-  margin: calc(var(--sbb-border-width-1x) * -1);
-  width: var(--checkbox-width);
-  height: var(--checkbox-height);
+  margin: calc(#{px-to-rem-build(1)} * -1);
+  width: var(--sbb-checkbox-width);
+  height: var(--sbb-checkbox-height);
 
   svg {
     margin: auto;
   }
 
   path {
-    stroke: var(--checkbox-selection-color);
+    stroke: var(--sbb-checkbox-selection-color);
   }
 }
 
 .sbb-checkbox__label {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
-  color: var(--checkbox-label-color);
+  color: var(--sbb-checkbox-label-color);
 
   // fix for Chrome and Safari line-height approximation
-  line-height: max(
-    (var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text)),
-    var(--checkbox-height)
-  );
+  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-height));
 
   :host([icon-placement='start']) & {
     flex-direction: row-reverse;
@@ -114,5 +107,5 @@ input[type='checkbox'] {
 input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
   @include focusOutline;
 
-  border-radius: var(--sbb-border-width-1x);
+  border-radius: #{px-to-rem-build(1)};
 }

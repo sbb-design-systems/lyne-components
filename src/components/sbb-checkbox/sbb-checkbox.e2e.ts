@@ -1,8 +1,8 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import events from './sbb-checkbox.events';
 
 describe('sbb-checkbox', () => {
-  let element, page;
+  let element: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();

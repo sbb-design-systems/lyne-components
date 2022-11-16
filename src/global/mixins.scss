@@ -2,7 +2,6 @@
 @import 'mixins/mixins_badge.scss';
 @import 'mixins/mixins_buttons.scss';
 @import 'mixins/mixins_card.scss';
-@import 'mixins/mixins_checkbox.scss';
 @import 'mixins/mixins_grid_layout.scss';
 @import 'mixins/mixins_panel.scss';
 @import 'mixins/mixins_scrollbar.scss';
@@ -57,4 +56,18 @@
     width: 0;
     height: 0;
   }
+}
+
+@mixin invisibleContainerOverlay {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  cursor: inherit;
+
+  // Puts the element behind the parent while keeping it visible so that
+  // it allows `click` events to propagate up.
+  z-index: -1;
 }
