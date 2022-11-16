@@ -4,10 +4,6 @@
 @include host-component-properties;
 
 :host {
-  display: inline-block;
-  width: #{px-to-rem-build(300)};
-  min-width: #{px-to-rem-build(150)};
-
   --form-field-background-color: var(--sbb-color-white-default);
   --form-field-border-color: var(--sbb-color-smoke-default);
   --form-field-border-radius: var(--sbb-border-radius-4x);
@@ -21,10 +17,15 @@
   --form-field-gap: var(--sbb-spacing-fixed-2x);
   --form-field-label-to-input-gap: calc(-1 * var(--sbb-spacing-fixed-1x));
   --form-field-select-inline-padding-end: calc(var(--sbb-icon-svg-width) + var(--form-field-gap));
+  --form-field-overflow: hidden;
 
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
+
+  display: inline-block;
+  min-width: #{px-to-rem-build(150)};
+  width: min(#{px-to-rem-build(300)}, 100%);
 }
 
 .form-field__error--empty {
@@ -75,8 +76,14 @@
   }
 }
 
-:host(.form-field--borderless) {
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(:is(.form-field--borderless, [data-input-type='sbb-slider'])) {
   --form-field-border-color: transparent;
+}
+
+:host([data-input-type='sbb-slider']) {
+  --form-field-overflow: visible;
+  --form-field-background-color: var(--sbb-color-white-default);
 }
 
 :host(.form-field--error-space-reserve) {
@@ -155,11 +162,12 @@ slot[name='label'] > span {
 
 // Input
 /* stylelint-disable plugin/stylelint-bem-namics */
-.form-field__input ::slotted(:where(input, select, .sbb-form-field-element)) {
+.form-field__input ::slotted(:where(input, select)) {
   @include text-m--regular;
   @include placeholder;
   @include ellipsis;
 
+  overflow: var(--form-field-overflow);
   -webkit-appearance: none;
   width: 100%;
   box-sizing: border-box;

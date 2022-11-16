@@ -1,0 +1,128 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-slider-line-height: #{px-to-rem-build(4)};
+  --sbb-slider-value-fraction: 0;
+  --sbb-slider-knob-size: #{px-to-rem-build(28)};
+  --sbb-slider-knob-border-size: #{px-to-rem-build(3)};
+  --sbb-slider-knob-color: var(--sbb-color-white-default);
+  --sbb-slider-knob-border-color: var(--sbb-color-red-default);
+  --sbb-slider-icon-color: var(--sbb-color-black-default);
+  --sbb-slider-selected-line-color: var(--sbb-color-red-default);
+  --sbb-slider-selected-line-disabled-color: var(--sbb-color-smoke-default);
+  --sbb-slider-line-color: var(--sbb-color-smoke-default);
+  --sbb-slider-line-disabled-color: var(--sbb-color-graphite-default);
+
+  @include ifForcedColors {
+    --sbb-slider-selected-line-color: Highlight;
+    --sbb-slider-line-color: CanvasText;
+  }
+
+  display: inline-block;
+  min-width: #{px-to-rem-build(150)};
+  width: min(#{px-to-rem-build(400)}, 100%);
+}
+
+:host([disabled]) {
+  --sbb-slider-icon-color: var(--sbb-color-graphite-default);
+  --sbb-slider-knob-color: var(--sbb-color-milk-default);
+  --sbb-slider-knob-border-color: var(--sbb-slider-line-disabled-color);
+}
+
+:host([readonly]) {
+  --sbb-slider-icon-color: var(--sbb-color-smoke-default);
+  --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
+}
+
+:host([disabled]),
+:host([readonly]) {
+  @include ifForcedColors {
+    --sbb-slider-icon-color: GrayText;
+    --sbb-slider-selected-line-disabled-color: GrayText;
+    --sbb-slider-line-disabled-color: GrayText;
+  }
+
+  --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
+  --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
+}
+
+.sbb-slider__height-container {
+  @include zeroWidthSpace;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sbb-slider__wrapper {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  color: var(--sbb-slider-icon-color);
+}
+
+.sbb-slider__container {
+  position: relative;
+  min-height: var(--sbb-size-icon-ui-small);
+  flex-grow: 1;
+}
+
+.sbb-slider__range-input {
+  position: absolute;
+  width: 100%;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+}
+
+.sbb-slider__line {
+  @include absoluteCenterY;
+
+  height: var(--sbb-slider-line-height);
+  width: 100%;
+  background-color: var(--sbb-slider-line-color);
+  border-radius: var(--sbb-slider-line-height);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sbb-slider__selected-line {
+  position: relative;
+  height: 100%;
+  background-color: var(--sbb-slider-selected-line-color);
+  width: calc(var(--sbb-slider-value-fraction) * 100%);
+}
+
+.sbb-slider__knob {
+  @include absoluteCenterY;
+  @include shadow-level-5-hard;
+
+  width: var(--sbb-slider-knob-size);
+  height: var(--sbb-slider-knob-size);
+  inset-inline-start: calc(
+    calc(var(--sbb-slider-value-fraction) * 100%) - var(--sbb-slider-knob-size) *
+      var(--sbb-slider-value-fraction)
+  );
+  transition-property: width, height;
+  transition-duration: var(--sbb-animation-duration-1x);
+  transition-timing-function: ease-in;
+  background-color: var(--sbb-slider-knob-color);
+  border: var(--sbb-slider-knob-border-size) solid var(--sbb-slider-knob-border-color);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+// slider knob resize on click (active / focus)
+/* stylelint-disable plugin/stylelint-bem-namics */
+:host(:not(:is([disabled], [readonly]))) {
+  .sbb-slider__range-input:active ~ .sbb-slider__knob,
+  .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
+    --sbb-slider-knob-size: #{px-to-rem-build(31)};
+  }
+
+  .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
+    @include focusOutline;
+  }
+}
+/* stylelint-enable plugin/stylelint-bem-namics */

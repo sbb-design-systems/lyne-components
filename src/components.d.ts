@@ -1097,6 +1097,60 @@ export namespace Components {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface SbbSlider {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Disabled state for the inner HTMLInputElement.
+         */
+        "disabled"?: boolean;
+        /**
+          * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
+         */
+        "endIcon"?: string;
+        /**
+          * The <form> element to associate the inner HTMLInputElement with.
+         */
+        "form"?: string;
+        /**
+          * Maximum acceptable value for the inner HTMLInputElement.
+         */
+        "max"?: string;
+        /**
+          * Minimum acceptable value for the inner HTMLInputElement.
+         */
+        "min"?: string;
+        /**
+          * Name of the inner HTMLInputElement.
+         */
+        "name"?: string;
+        /**
+          * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
+         */
+        "readonly"?: boolean;
+        /**
+          * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
+         */
+        "startIcon"?: string;
+        /**
+          * Value for the inner HTMLInputElement.
+         */
+        "value"?: string;
+        /**
+          * Numeric value for the inner HTMLInputElement.
+         */
+        "valueAsNumber"?: number;
+    }
     interface SbbSlotComponent {
     }
     interface SbbStack {
@@ -1789,6 +1843,12 @@ declare global {
         prototype: HTMLSbbSignetElement;
         new (): HTMLSbbSignetElement;
     };
+    interface HTMLSbbSliderElement extends Components.SbbSlider, HTMLStencilElement {
+    }
+    var HTMLSbbSliderElement: {
+        prototype: HTMLSbbSliderElement;
+        new (): HTMLSbbSliderElement;
+    };
     interface HTMLSbbSlotComponentElement extends Components.SbbSlotComponent, HTMLStencilElement {
     }
     var HTMLSbbSlotComponentElement: {
@@ -1988,6 +2048,7 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
+        "sbb-slider": HTMLSbbSliderElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
         "sbb-tab-amount": HTMLSbbTabAmountElement;
@@ -3100,6 +3161,60 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceSignetAttributes['variant'];
     }
+    interface SbbSlider {
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Disabled state for the inner HTMLInputElement.
+         */
+        "disabled"?: boolean;
+        /**
+          * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
+         */
+        "endIcon"?: string;
+        /**
+          * The <form> element to associate the inner HTMLInputElement with.
+         */
+        "form"?: string;
+        /**
+          * Maximum acceptable value for the inner HTMLInputElement.
+         */
+        "max"?: string;
+        /**
+          * Minimum acceptable value for the inner HTMLInputElement.
+         */
+        "min"?: string;
+        /**
+          * Name of the inner HTMLInputElement.
+         */
+        "name"?: string;
+        /**
+          * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
+         */
+        "readonly"?: boolean;
+        /**
+          * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
+         */
+        "startIcon"?: string;
+        /**
+          * Value for the inner HTMLInputElement.
+         */
+        "value"?: string;
+        /**
+          * Numeric value for the inner HTMLInputElement.
+         */
+        "valueAsNumber"?: number;
+    }
     interface SbbSlotComponent {
     }
     interface SbbStack {
@@ -3580,6 +3695,7 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
+        "sbb-slider": SbbSlider;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
         "sbb-tab-amount": SbbTabAmount;
@@ -3649,6 +3765,7 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
+            "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
