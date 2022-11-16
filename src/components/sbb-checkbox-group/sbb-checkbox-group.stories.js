@@ -59,6 +59,7 @@ const ErrorMessageTemplate = ({
   disabledSingle,
   iconName,
   iconPlacement,
+  label,
   ...args
 }) => (
   <sbb-checkbox-group {...args} id="sbb-checkbox-group">
