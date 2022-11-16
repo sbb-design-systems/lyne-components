@@ -132,7 +132,7 @@ export const withIconEnd = Template.bind({});
 export const checkedWithIconStart = Template.bind({});
 export const disabledChecked = Template.bind({});
 export const disabledUnchecked = Template.bind({});
-export const disabledTristated = Template.bind({});
+export const disabledIndeterminate = Template.bind({});
 
 defaultUnchecked.argTypes = defaultArgTypes;
 defaultUnchecked.args = {
@@ -217,13 +217,13 @@ disabledChecked.documentation = {
   title: 'Checkbox disabled and unchecked',
 };
 
-disabledTristated.argTypes = defaultArgTypes;
-disabledTristated.args = {
+disabledIndeterminate.argTypes = defaultArgTypes;
+disabledIndeterminate.args = {
   ...defaultArgs,
   disabled: true,
   indeterminate: true,
 };
-disabledChecked.documentation = {
+disabledIndeterminate.documentation = {
   title: 'Checkbox disabled and in indeterminate state',
 };
 

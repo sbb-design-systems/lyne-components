@@ -11,6 +11,10 @@
   --sbb-checkbox-border-radius: #{px-to-rem-build(4)};
 
   display: inline-block;
+
+  @include ifForcedColors {
+    --sbb-checkbox-selection-color: CanvasText;
+  }
 }
 
 :host([data-disabled]),
@@ -20,6 +24,12 @@
   --sbb-checkbox-selection-color: var(--sbb-color-graphite-default);
   --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
   --sbb-checkbox-cursor: not-allowed;
+
+  @include ifForcedColors {
+    --sbb-checkbox-color: GrayText;
+    --sbb-checkbox-label-color: GrayText;
+    --sbb-checkbox-selection-color: GrayText;
+  }
 }
 
 .sbb-checkbox {
