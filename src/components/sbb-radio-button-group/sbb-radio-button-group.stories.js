@@ -2,12 +2,6 @@ import events from './sbb-radio-button-group.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const name = {
-  control: {
-    type: 'text',
-  },
-};
-
 const value = {
   control: {
     type: 'text',
@@ -46,24 +40,30 @@ const size = {
   options: ['m', 's'],
 };
 
+const ariaLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
-  name,
   value,
   required,
   disabled,
   'allow-empty-selection': allowEmptySelection,
   orientation,
   size,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
-  name: 'radio-group-name',
   value: 'Value two',
   required: false,
   disabled: false,
   'allow-empty-selection': false,
   orientation: orientation.options[0],
   size: size.options[0],
+  'aria-label': undefined,
 };
 
 const radioButtons = () => [

@@ -21,6 +21,7 @@ import { InterfaceSbbRadioButton } from '../sbb-radio-button/sbb-radio-button.cu
 import { InterfaceSbbRadioButtonGroup } from './sbb-radio-button-group.custom';
 
 let nextId = 0;
+type RadioButton = InterfaceSbbRadioButton & HTMLElement;
 
 /**
  * @slot unnamed - Use this to provide radio buttons within the group.
@@ -37,11 +38,6 @@ export class SbbRadioButtonGroup {
    * Id of the radio group element.
    */
   @Prop() public radioButtonGroupId = `sbb-radio-button-group-${++nextId}`;
-
-  /**
-   * Id of the radio group element - default name will be auto-generated.
-   */
-  @Prop() public name?: string = `${this.radioButtonGroupId}-name`;
 
   /**
    * Whether the radios can be deselected.
@@ -121,13 +117,6 @@ export class SbbRadioButtonGroup {
     }
   }
 
-  @Watch('name')
-  public updateName(): void {
-    for (const radio of this._radioButtons) {
-      radio.name = this.name;
-    }
-  }
-
   @Watch('allowEmptySelection')
   public updateAllowEmptySelection(): void {
     for (const radio of this._radioButtons) {
@@ -163,7 +152,6 @@ export class SbbRadioButtonGroup {
     const value = this.value ?? this._radioButtons.find((radio) => radio.checked)?.value;
 
     for (const radio of this._radioButtons) {
-      radio.name = this.name;
       radio.checked = radio.value === value;
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
@@ -186,19 +174,20 @@ export class SbbRadioButtonGroup {
     this._setFocusableRadio();
   }
 
-  private get _radioButtons(): InterfaceSbbRadioButton[] {
-    return Array.from(
-      this._element.querySelectorAll('sbb-radio-button')
-    ) as InterfaceSbbRadioButton[];
+  private get _radioButtons(): RadioButton[] {
+    return Array.from(this._element.querySelectorAll('sbb-radio-button')) as RadioButton[];
   }
 
-  private _getEnabledRadios(): InterfaceSbbRadioButton[] {
+  private _getEnabledRadios(): RadioButton[] {
     return this._radioButtons.filter((r) => !r.hasAttribute('disabled'));
   }
 
   private _setFocusableRadio(): void {
     const checked = this._radioButtons.find((radio) => radio.checked);
-    !checked && (this._getEnabledRadios()[0].tabIndex = 0);
+
+    if (!checked) {
+      this._getEnabledRadios()[0].tabIndex = 0;
+    }
   }
 
   @Listen('keydown')
@@ -235,7 +224,7 @@ export class SbbRadioButtonGroup {
 
   public render(): JSX.Element {
     return (
-      <Host role="radiogroup" aria-label={this.name}>
+      <Host role="radiogroup">
         <div class="sbb-radio-group">
           <slot onSlotchange={() => this._updateRadios()} />
         </div>

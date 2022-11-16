@@ -8,11 +8,11 @@ Within a group of radio buttons, only one radio button can be selected at a time
 
 ```html
 <!-- The first option will be selected by default -->
-<sbb-radio-button name="radio-group-name" value="Value one">
+<sbb-radio-button-group name="radio-group-name" value="Value one" aria-label="Radio group label">
   <sbb-radio-button value="Value one">Option one</sbb-radio-button>
   <sbb-radio-button value="Value two">Option two</sbb-radio-button>
   <sbb-radio-button value="Value three">Option three</sbb-radio-button>
-</sbb-radio-button>
+</sbb-radio-button-group>
 ```
 ### States
 
@@ -23,37 +23,40 @@ The radio group can have different states:
 
 ```html
 <!-- All child radio buttons will be disabled -->
-<sbb-radio-button name="radio-group-name" value="Value one" disabled>
+<sbb-radio-button-group name="radio-group-name" value="Value one" aria-label="Radio group label" disabled>
   <sbb-radio-button value="Value one">Option one</sbb-radio-button>
   <sbb-radio-button value="Value two">Option two</sbb-radio-button>
-</sbb-radio-button>
+</sbb-radio-button-group>
 
 <!-- The radio group and all child radio buttons will be marked as required -->
-<sbb-radio-button name="radio-group-name" value="Value one" required>
+<sbb-radio-button-group name="radio-group-name" value="Value one" aria-label="Radio group label" required>
   <sbb-radio-button value="Value one">Option one</sbb-radio-button>
   <sbb-radio-button value="Value two">Option two</sbb-radio-button>
-</sbb-radio-button>
+</sbb-radio-button-group>
 ```
 
 ### Deselecting Radios​
 
 In order to deselect a radio inside the group you can use the `allowEmptySelection` property on the parent radio group, which enables the radios to be deselected (by default, a selected cannot be deselected).
 
+### Accessiility
+
+In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-buton-group`.
+
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property              | Attribute               | Description                                                          | Type         | Default                                |
-| --------------------- | ----------------------- | -------------------------------------------------------------------- | ------------ | -------------------------------------- |
-| `allowEmptySelection` | `allow-empty-selection` | Whether the radios can be deselected.                                | `boolean`    | `false`                                |
-| `disabled`            | `disabled`              | Whether the radio group is disabled.                                 | `boolean`    | `false`                                |
-| `name`                | `name`                  | Id of the radio group element - default name will be auto-generated. | `string`     | ``${this.radioButtonGroupId}-name``    |
-| `orientation`         | `orientation`           | Radio group's orientation, either horizontal or vertical.            | `string`     | `'horizontal'`                         |
-| `radioButtonGroupId`  | `radio-button-group-id` | Id of the radio group element.                                       | `string`     | ``sbb-radio-button-group-${++nextId}`` |
-| `required`            | `required`              | Whether the radio group is required.                                 | `boolean`    | `false`                                |
-| `size`                | `size`                  | Size variant, either m or s.                                         | `"m" \| "s"` | `'m'`                                  |
-| `value`               | `value`                 | The value of the radio group.                                        | `any`        | `undefined`                            |
+| Property              | Attribute               | Description                                               | Type         | Default                                |
+| --------------------- | ----------------------- | --------------------------------------------------------- | ------------ | -------------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | Whether the radios can be deselected.                     | `boolean`    | `false`                                |
+| `disabled`            | `disabled`              | Whether the radio group is disabled.                      | `boolean`    | `false`                                |
+| `orientation`         | `orientation`           | Radio group's orientation, either horizontal or vertical. | `string`     | `'horizontal'`                         |
+| `radioButtonGroupId`  | `radio-button-group-id` | Id of the radio group element.                            | `string`     | ``sbb-radio-button-group-${++nextId}`` |
+| `required`            | `required`              | Whether the radio group is required.                      | `boolean`    | `false`                                |
+| `size`                | `size`                  | Size variant, either m or s.                              | `"m" \| "s"` | `'m'`                                  |
+| `value`               | `value`                 | The value of the radio group.                             | `any`        | `undefined`                            |
 
 
 ## Events

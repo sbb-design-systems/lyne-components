@@ -31,16 +31,11 @@ const radioButtonObserverConfig: MutationObserverInit = {
   styleUrl: 'sbb-radio-button.scss',
   tag: 'sbb-radio-button',
 })
-export class SbbRadioButton {
+export class SbbRadioButton implements InterfaceSbbRadioButton {
   /**
    * Id of the internal input element - default id will be set automatically.
    */
   @Prop() public radioButtonId = `sbb-radio-button-${++nextId}`;
-
-  /**
-   * Name of the radio button.
-   */
-  @Prop() public name: string;
 
   /**
    * Whether the radio can be deselected.
@@ -133,7 +128,9 @@ export class SbbRadioButton {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    evt.code === 'Space' && this.select();
+    if (evt.code === 'Space') {
+      this.select();
+    }
   }
 
   // Set up the initial disabled/required values and start observe attributes changes.
@@ -174,7 +171,6 @@ export class SbbRadioButton {
             type="radio"
             aria-hidden="true"
             tabindex="-1"
-            name={this.name}
             id={this.radioButtonId}
             disabled={this.disabled || this._disabledFromGroup}
             required={this.required || this._requiredFromGroup}

@@ -2,12 +2,6 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-radio-button.events';
 
-const name = {
-  control: {
-    type: 'text',
-  },
-};
-
 const value = {
   control: {
     type: 'text',
@@ -34,7 +28,6 @@ const size = {
 };
 
 const defaultArgTypes = {
-  name,
   value,
   checked,
   disabled,
@@ -42,7 +35,6 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  name: 'radio-group-name',
   value: 'First value',
   checked: false,
   disabled: false,

@@ -1,5 +1,4 @@
-export interface InterfaceSbbRadioButton extends HTMLElement {
-  name: string;
+export interface InterfaceSbbRadioButton {
   checked: boolean;
   disabled: boolean;
   required: boolean;

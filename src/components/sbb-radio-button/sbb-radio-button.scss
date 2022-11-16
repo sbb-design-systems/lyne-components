@@ -17,10 +17,9 @@
 }
 
 :host(:focus-visible) {
-  --sbb-focus-outline-offset: var(--sbb-spacing-fixed-1x);
   @include focusOutline;
 
-  border-radius: 0.25px;
+  border-radius: calc(var(--sbb-border-radius-1x) * 2 - var(--sbb-focus-outline-offset));
 }
 
 :host([data-disabled]),

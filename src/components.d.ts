@@ -1093,10 +1093,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Name of the radio button.
-         */
-        "name": string;
-        /**
           * Id of the internal input element - default id will be set automatically.
          */
         "radioButtonId": string;
@@ -1123,10 +1119,6 @@ export namespace Components {
           * Whether the radio group is disabled.
          */
         "disabled": boolean;
-        /**
-          * Id of the radio group element - default name will be auto-generated.
-         */
-        "name"?: string;
         /**
           * Radio group's orientation, either horizontal or vertical.
          */
@@ -3244,10 +3236,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Name of the radio button.
-         */
-        "name"?: string;
-        /**
           * Emits whenever the radio group value changes.
          */
         "onSbb-radio-button_did-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
@@ -3277,10 +3265,6 @@ declare namespace LocalJSX {
           * Whether the radio group is disabled.
          */
         "disabled"?: boolean;
-        /**
-          * Id of the radio group element - default name will be auto-generated.
-         */
-        "name"?: string;
         /**
           * Emits whenever the radio group value changes.
          */
