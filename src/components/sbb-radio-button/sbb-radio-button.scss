@@ -7,18 +7,12 @@
   --sbb-radio-button-label-color: var(--color-black-default);
   --sbb-radio-button-checked-color: var(--sbb-color-red-default);
   --sbb-radio-button-border-radius: var(--sbb-border-radius-8x);
-  --sbb-radio-button-transition: border var(--sbb-animation-duration-4x) ease;
 
   // Align radio button to the first row of the label based on the line-height so that it's vertically
   // aligned to the label and sticks to the top if the label breaks into multiple lines
   --sbb-radio-button-icon-align: calc(
-    (
-        var(--sbb-font-size-text-m) * var(--sbb-typo-line-height-body-text) -
-          var(--sbb-radio-button-size)
-      ) / 2
+    (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-size)) / 2
   );
-
-  display: inline-block;
 }
 
 :host(:focus-visible) {
@@ -28,6 +22,7 @@
   border-radius: #{px-to-rem-build(0.25)};
 }
 
+:host([data-disabled]),
 :host([disabled]) {
   --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
   --sbb-radio-button-checked-color: var(--sbb-color-graphite-default);
@@ -50,13 +45,6 @@ label {
 
   :host([size='s']) & {
     @include text-s--regular;
-
-    --sbb-radio-button-icon-align: calc(
-      (
-          var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text) -
-            var(--sbb-radio-button-size)
-        ) / 2
-    );
   }
 }
 
@@ -78,7 +66,7 @@ label {
   margin-inline-end: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-1x));
   margin-inline-start: var(--sbb-border-width-1x);
   margin-block-start: var(--sbb-radio-button-icon-align);
-  transition: var(--sbb-radio-button-transition);
+  transition: border var(--sbb-animation-duration-4x) ease;
 }
 
 /* the checked style using the :checked pseudo class */

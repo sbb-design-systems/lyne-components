@@ -32,42 +32,12 @@ const size = {
   options: ['m', 's'],
 };
 
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
 const defaultArgTypes = {
   name,
   value,
   checked,
   disabled,
   size: size,
-  'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -76,9 +46,6 @@ const defaultArgs = {
   checked: false,
   disabled: false,
   size: size.options[0],
-  'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 const DefaultTemplate = (args) => <sbb-radio-button {...args}>Value</sbb-radio-button>;
@@ -119,11 +86,6 @@ export const MultilineLabel = MultilineLabelTemplate.bind({});
 MultilineLabel.argTypes = defaultArgTypes;
 MultilineLabel.args = { ...defaultArgs, checked: true };
 MultilineLabel.documentation = { title: 'Multiline Label Radio Button' };
-
-export const MultilineLabelDisabled = MultilineLabelTemplate.bind({});
-MultilineLabelDisabled.argTypes = defaultArgTypes;
-MultilineLabelDisabled.args = { ...defaultArgs, checked: true, disabled: true };
-MultilineLabelDisabled.documentation = { title: 'Multiline Label Disabled Radio Button' };
 
 export default {
   decorators: [

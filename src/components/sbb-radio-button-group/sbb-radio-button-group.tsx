@@ -23,7 +23,8 @@ import { InterfaceSbbRadioButtonGroup } from './sbb-radio-button-group.custom';
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Use this to provide radio buttons within the group.
+ * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  */
 
 @Component({
@@ -76,8 +77,57 @@ export class SbbRadioButtonGroup {
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
-    this._updateRadios();
+    for (const radio of this._radioButtons) {
+      radio.checked = radio.value === value;
+      radio.tabIndex = radio.checked && !radio.disabled ? 0 : -1;
+    }
+    this._setFocusableRadio();
     this.didChange.emit({ value });
+  }
+
+  @Watch('disabled')
+  public updateDisabled(): void {
+    for (const radio of this._radioButtons) {
+      if (this.disabled) {
+        radio.dataset.disabled = '';
+      } else {
+        delete radio.dataset.disabled;
+      }
+
+      radio.tabIndex = !this.disabled ? radio.tabIndex : -1;
+    }
+  }
+
+  @Watch('required')
+  public updateRequired(): void {
+    for (const radio of this._radioButtons) {
+      if (this.required) {
+        radio.dataset.required = '';
+      } else {
+        delete radio.dataset.required;
+      }
+    }
+  }
+
+  @Watch('size')
+  public updateSize(): void {
+    for (const radio of this._radioButtons) {
+      radio.size = this.size;
+    }
+  }
+
+  @Watch('name')
+  public updateName(): void {
+    for (const radio of this._radioButtons) {
+      radio.name = this.name;
+    }
+  }
+
+  @Watch('allowEmptySelection')
+  public updateAllowEmptySelection(): void {
+    for (const radio of this._radioButtons) {
+      radio.allowEmptySelection = this.allowEmptySelection;
+    }
   }
 
   /**
@@ -91,7 +141,6 @@ export class SbbRadioButtonGroup {
   public didChange: EventEmitter<any>;
 
   public connectedCallback(): void {
-    this._updateRadios();
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
@@ -106,21 +155,30 @@ export class SbbRadioButtonGroup {
   }
 
   private _updateRadios(): void {
-    const radios = this._radioButtons;
-    const value = this.value ?? radios.find((radio) => radio.checked)?.value;
+    const value = this.value ?? this._radioButtons.find((radio) => radio.checked)?.value;
 
-    for (const radio of radios) {
+    for (const radio of this._radioButtons) {
       radio.name = this.name;
       radio.checked = radio.value === value;
-      radio.disabled = radio.disabled ? radio.disabled : this.disabled;
-      radio.required = radio.required ? radio.required : this.required;
-      radio.tabIndex = radio.checked && !radio.disabled ? 0 : -1;
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
+
+      if (this.disabled) {
+        radio.dataset.disabled = '';
+      } else {
+        delete radio.dataset.disabled;
+      }
+
+      if (this.required) {
+        radio.dataset.required = '';
+      } else {
+        delete radio.dataset.required;
+      }
+
+      radio.tabIndex = radio.checked && !radio.disabled ? 0 : -1;
     }
 
-    // If no option is selected, make the first one focusable
-    radios.length && (radios[0].tabIndex = value || radios[0].disabled ? radios[0].tabIndex : 0);
+    this._setFocusableRadio();
   }
 
   private get _radioButtons(): InterfaceSbbRadioButton[] {
@@ -133,10 +191,15 @@ export class SbbRadioButtonGroup {
     return this._radioButtons.filter((r) => !r.hasAttribute('disabled'));
   }
 
+  private _setFocusableRadio(): void {
+    const checked = this._radioButtons.find((radio) => radio.checked);
+    !checked && (this._getEnabledRadios()[0].tabIndex = 0);
+  }
+
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
     const enabledRadios = this._getEnabledRadios();
-    const checked = enabledRadios.findIndex((t) => t.checked);
+    const checked = enabledRadios.findIndex((radio) => radio.checked);
     const cur = checked !== -1 ? checked : 0;
     const size = enabledRadios.length;
     const prev = cur === 0 ? size - 1 : cur - 1;
@@ -169,7 +232,7 @@ export class SbbRadioButtonGroup {
     return (
       <Host role="radiogroup" aria-label={this.name}>
         <div class="sbb-radio-group">
-          <slot />
+          <slot onSlotchange={() => this._updateRadios()} />
         </div>
         {this._namedSlots.error && (
           <div class="sbb-radio-group__error">
