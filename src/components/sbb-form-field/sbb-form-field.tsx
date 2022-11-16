@@ -34,6 +34,9 @@ let nextId = 0;
   tag: 'sbb-form-field',
 })
 export class SbbFormField implements ComponentInterface {
+  // List of supported element selectors in unnamed slot
+  private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER'];
+
   /**
    * Whether to reserve space for an error message.
    * `none` does not reserve any space.
@@ -135,10 +138,7 @@ export class SbbFormField implements ComponentInterface {
   private _onSlotInputChange(event: Event): void {
     this._input = (event.target as HTMLSlotElement)
       .assignedElements()
-      .find(
-        (e): e is HTMLElement =>
-          e.tagName === 'INPUT' || e.tagName === 'SELECT' || e.hasAttribute('data-sbb-form-field')
-      );
+      .find((e): e is HTMLElement => this._supportedInputElements.includes(e.tagName));
 
     if (this._input) {
       this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');

@@ -188,51 +188,30 @@ const formFieldBasicArgs = {
 export const sbbSlider = TemplateSbbSlider.bind({});
 sbbSlider.argTypes = { ...basicArgTypes };
 sbbSlider.args = { ...basicArgs };
-sbbSlider.documentation = {
-  title: 'sbb-slider',
-};
 
 export const sbbSliderChangeEvent = TemplateSbbSliderChangeEvent.bind({});
 sbbSliderChangeEvent.argTypes = { ...basicArgTypes };
 sbbSliderChangeEvent.args = { ...basicArgs };
-sbbSliderChangeEvent.documentation = {
-  title: 'sbb-slider with listener to change event',
-};
 
 export const sbbSliderWithoutIcons = TemplateSbbSlider.bind({});
 sbbSliderWithoutIcons.argTypes = { ...basicArgTypes };
 sbbSliderWithoutIcons.args = { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined };
-sbbSliderWithoutIcons.documentation = {
-  title: 'sbb-slider without icons',
-};
 
 export const sbbSliderSlottedIcons = TemplateSlottedIcons.bind({});
 sbbSliderSlottedIcons.argTypes = { ...basicArgTypes };
 sbbSliderSlottedIcons.args = { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined };
-sbbSliderSlottedIcons.documentation = {
-  title: 'sbb-slider with slotted icons',
-};
 
 export const sbbSliderDisabled = TemplateSbbSlider.bind({});
 sbbSliderDisabled.argTypes = { ...basicArgTypes };
 sbbSliderDisabled.args = { ...basicArgs, disabled: true };
-sbbSlider.documentation = {
-  title: 'sbb-slider disabled',
-};
 
 export const sbbSliderReadonly = TemplateSbbSlider.bind({});
 sbbSliderReadonly.argTypes = { ...basicArgTypes };
 sbbSliderReadonly.args = { ...basicArgs, readonly: true };
-sbbSlider.documentation = {
-  title: 'sbb-slider readonly',
-};
 
 export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});
 sbbSliderInFormField.argTypes = { ...formFieldBasicArgsTypes };
 sbbSliderInFormField.args = formFieldBasicArgs;
-sbbSliderInFormField.documentation = {
-  title: 'sbb-slider within sbb-form-field',
-};
 
 export const sbbSliderInFormFieldNoIcon = TemplateSbbSliderInFormField.bind({});
 sbbSliderInFormFieldNoIcon.argTypes = { ...formFieldBasicArgsTypes };
@@ -241,9 +220,10 @@ sbbSliderInFormFieldNoIcon.args = {
   'start-icon': undefined,
   'end-icon': undefined,
 };
-sbbSliderInFormFieldNoIcon.documentation = {
-  title: 'sbb-slider within sbb-form-field without icons',
-};
+
+export const sbbSliderInFormFieldDisabled = TemplateSbbSliderInFormField.bind({});
+sbbSliderInFormFieldDisabled.argTypes = { ...formFieldBasicArgsTypes };
+sbbSliderInFormFieldDisabled.args = { ...formFieldBasicArgs, disabled: true };
 
 export default {
   decorators: [

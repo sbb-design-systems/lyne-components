@@ -81,6 +81,11 @@
   --form-field-border-color: transparent;
 }
 
+:host([data-input-type='sbb-slider']) {
+  --form-field-overflow: visible;
+  --form-field-background-color: transparent;
+}
+
 :host(.form-field--error-space-reserve) {
   --form-field-error-min-height: calc(
     var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)
@@ -157,7 +162,7 @@ slot[name='label'] > span {
 
 // Input
 /* stylelint-disable plugin/stylelint-bem-namics */
-.form-field__input ::slotted(:where(input, select, [data-sbb-form-field])) {
+.form-field__input ::slotted(:where(input, select, sbb-slider)) {
   @include text-m--regular;
   @include placeholder;
   @include ellipsis;

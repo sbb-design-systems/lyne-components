@@ -1,6 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
-import { hostContext } from '../../global/helpers/host-context';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 /**
@@ -68,9 +67,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   private _rangeInput!: HTMLInputElement;
 
   public connectedCallback(): void {
-    if (hostContext('sbb-form-field', this._element)) {
-      this._element.dataset.sbbFormField = '';
-    }
     // Forward focus call to action element
     this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
     this._handleChange();

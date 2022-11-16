@@ -10,11 +10,7 @@ The following components are designed to work inside a `<sbb-form-field>`:
 
 - `<input>`
 - `<select>`
-
-Custom components can be used too with two _caveant_ to ensure a correct behavior of the component: 
-the `data-sbb-form-field` attribute must be set and a proper focus function must be defined. 
-As an example, see the [sbb-slider](../sbb-slider) component.
-
+- `<sbb-slider>`
 
 ## Usage
 
@@ -116,5 +112,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-
