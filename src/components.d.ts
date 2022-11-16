@@ -1095,7 +1095,7 @@ export namespace Components {
         /**
           * Name of the radio button.
          */
-        "name"?: string;
+        "name": string;
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -1112,7 +1112,7 @@ export namespace Components {
         /**
           * Value of radio button.
          */
-        "value"?: string;
+        "value": string;
     }
     interface SbbRadioButtonGroup {
         /**
@@ -1128,13 +1128,17 @@ export namespace Components {
          */
         "name"?: string;
         /**
-          * Whether the radio group is required.
+          * Radio group's orientation, either horizontal or vertical.
          */
-        "required": boolean;
+        "orientation"?: string;
         /**
           * Id of the radio group element.
          */
-        "sbbRadioButtonGroupId": string;
+        "radioButtonGroupId": string;
+        /**
+          * Whether the radio group is required.
+         */
+        "required": boolean;
         /**
           * Size variant, either m or s.
          */
@@ -3282,13 +3286,17 @@ declare namespace LocalJSX {
          */
         "onSbb-radio-button-group_did-change"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
         /**
-          * Whether the radio group is required.
+          * Radio group's orientation, either horizontal or vertical.
          */
-        "required"?: boolean;
+        "orientation"?: string;
         /**
           * Id of the radio group element.
          */
-        "sbbRadioButtonGroupId"?: string;
+        "radioButtonGroupId"?: string;
+        /**
+          * Whether the radio group is required.
+         */
+        "required"?: boolean;
         /**
           * Size variant, either m or s.
          */

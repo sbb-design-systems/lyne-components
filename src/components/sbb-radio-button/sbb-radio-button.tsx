@@ -40,7 +40,7 @@ export class SbbRadioButton {
   /**
    * Name of the radio button.
    */
-  @Prop({ reflect: true }) public name?: string;
+  @Prop() public name: string;
 
   /**
    * Whether the radio can be deselected.
@@ -50,7 +50,7 @@ export class SbbRadioButton {
   /**
    * Value of radio button.
    */
-  @Prop({ reflect: true }) public value?: string;
+  @Prop() public value: string;
 
   /**
    * Whether the radio button is disabled.
@@ -60,7 +60,7 @@ export class SbbRadioButton {
   /**
    * Whether the radio button is required.
    */
-  @Prop({ reflect: true }) public required = false;
+  @Prop() public required = false;
 
   /**
    * Whether the radio button is checked.
@@ -116,11 +116,11 @@ export class SbbRadioButton {
     if (this.allowEmptySelection) {
       this.checked = !this.checked;
       value = this.checked ? value : undefined;
+      this.didSelect.emit(value);
     } else if (!this.checked) {
       this.checked = true;
+      this.didSelect.emit(value);
     }
-
-    this.didSelect.emit(value);
   }
 
   public connectedCallback(): void {
@@ -165,7 +165,11 @@ export class SbbRadioButton {
         aria-labelledby={this._radioButtonLabelId}
         role="radio"
       >
-        <label id={this._radioButtonLabelId} htmlFor={this.radioButtonId}>
+        <label
+          id={this._radioButtonLabelId}
+          htmlFor={this.radioButtonId}
+          class="sbb-radio-button__label"
+        >
           <input
             type="radio"
             aria-hidden="true"
@@ -176,8 +180,9 @@ export class SbbRadioButton {
             required={this.required || this._requiredFromGroup}
             checked={this.checked}
             value={this.value}
+            class="sbb-radio-button"
           />
-          <span>
+          <span class="sbb-radio-button__label-slot">
             <slot />
           </span>
         </label>

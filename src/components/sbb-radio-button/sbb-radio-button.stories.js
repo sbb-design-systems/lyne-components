@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from './sbb-radio-button.events';
 
 const name = {
   control: {
@@ -52,8 +53,8 @@ const DefaultTemplate = (args) => <sbb-radio-button {...args}>Value</sbb-radio-b
 
 const MultilineLabelTemplate = (args) => (
   <sbb-radio-button {...args}>
-    I have read and agree to all terms, conditions and notices contained or referenced herein (the
-    “Terms of Service“) and the Privacy Policy Statement (“Privacy Policy“).
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+    the industry's standard dummy text ever since the 1500s.
   </sbb-radio-button>
 );
 
@@ -96,6 +97,9 @@ export default {
     ),
   ],
   parameters: {
+    actions: {
+      handles: [events.didSelect],
+    },
     backgrounds: {
       disable: true,
     },

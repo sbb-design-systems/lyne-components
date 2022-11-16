@@ -36,12 +36,12 @@ export class SbbRadioButtonGroup {
   /**
    * Id of the radio group element.
    */
-  @Prop() public sbbRadioButtonGroupId = `sbb-radio-button-group-${++nextId}`;
+  @Prop() public radioButtonGroupId = `sbb-radio-button-group-${++nextId}`;
 
   /**
    * Id of the radio group element - default name will be auto-generated.
    */
-  @Prop() public name?: string = `${this.sbbRadioButtonGroupId}-name`;
+  @Prop() public name?: string = `${this.radioButtonGroupId}-name`;
 
   /**
    * Whether the radios can be deselected.
@@ -51,22 +51,27 @@ export class SbbRadioButtonGroup {
   /**
    * Whether the radio group is disabled.
    */
-  @Prop({ reflect: true }) public disabled = false;
+  @Prop() public disabled = false;
 
   /**
    * Whether the radio group is required.
    */
-  @Prop({ reflect: true }) public required = false;
+  @Prop() public required = false;
 
   /**
    * The value of the radio group.
    */
-  @Prop({ mutable: true, reflect: true }) public value?: any | null;
+  @Prop({ mutable: true }) public value?: any | null;
 
   /**
    * Size variant, either m or s.
    */
-  @Prop({ reflect: true }) public size?: InterfaceSbbRadioButtonGroup['size'] = 'm';
+  @Prop() public size?: InterfaceSbbRadioButtonGroup['size'] = 'm';
+
+  /**
+   * Radio group's orientation, either horizontal or vertical.
+   */
+  @Prop() public orientation?: string = 'horizontal';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -218,11 +223,11 @@ export class SbbRadioButtonGroup {
     const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
 
     if (evt.key === prevKey || evt.key === 'ArrowUp') {
-      enabledRadios[prev].select(this.allowEmptySelection);
+      enabledRadios[prev].select();
       enabledRadios[prev].focus();
       evt.preventDefault();
     } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
-      enabledRadios[next].select(this.allowEmptySelection);
+      enabledRadios[next].select();
       enabledRadios[next].focus();
       evt.preventDefault();
     }
