@@ -67,18 +67,12 @@ input[type='checkbox'] {
   min-width: var(--sbb-checkbox-width);
   height: var(--sbb-checkbox-height);
   border-radius: var(--sbb-checkbox-border-radius);
-  border: var(--sbb-checkbox-border-width) solid var(--sbb-checkbox-border-color);
+  box-shadow: var(--sbb-checkbox-border-color) 0 0 0 var(--sbb-checkbox-border-width) inset;
   background-color: var(--sbb-color-white-default);
 }
 
-// todo: icon is bigger then --checkbox-width
 .sbb-checkbox__icon {
   display: inline-flex;
-  position: absolute;
-
-  // We stretch the icon container over the selection element, in order to allow
-  // full width of the svg icon without ignoring the selection border.
-  margin: calc(#{px-to-rem-build(1)} * -1);
   width: var(--sbb-checkbox-width);
   height: var(--sbb-checkbox-height);
 
@@ -96,7 +90,7 @@ input[type='checkbox'] {
   gap: var(--sbb-spacing-fixed-2x);
   color: var(--sbb-checkbox-label-color);
 
-  // fix for Chrome and Safari line-height approximation
+  // fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
   line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-height));
 
   :host([icon-placement='start']) & {
