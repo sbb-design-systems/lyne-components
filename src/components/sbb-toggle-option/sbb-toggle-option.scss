@@ -17,3 +17,7 @@ input[type='radio'] {
   cursor: inherit;
   z-index: -1;
 }
+
+.sbb-toggle-option {
+  @include text-m--regular;
+}

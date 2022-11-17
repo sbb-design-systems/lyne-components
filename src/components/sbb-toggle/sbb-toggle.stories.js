@@ -14,6 +14,13 @@ const even = {
   },
 };
 
+const size = {
+  control: {
+    type: 'inline-radio',
+    options: ['m', 's'],
+  },
+};
+
 const value = {
   control: {
     type: 'text',
@@ -23,12 +30,14 @@ const value = {
 const defaultArgTypes = {
   disabled,
   even,
+  size,
   value,
 };
 
 const defaultArgs = {
   disabled: false,
   even: false,
+  size: 'm',
   value: 'Option 1',
 };
 
