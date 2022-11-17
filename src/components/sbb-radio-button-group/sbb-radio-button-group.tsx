@@ -17,11 +17,9 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { InterfaceSbbRadioButton } from '../sbb-radio-button/sbb-radio-button.custom';
 import { InterfaceSbbRadioButtonGroup } from './sbb-radio-button-group.custom';
 
 let nextId = 0;
-type RadioButton = InterfaceSbbRadioButton & HTMLElement;
 
 /**
  * @slot unnamed - Use this to provide radio buttons within the group.
@@ -181,11 +179,13 @@ export class SbbRadioButtonGroup {
     this._setFocusableRadio();
   }
 
-  private get _radioButtons(): RadioButton[] {
-    return Array.from(this._element.querySelectorAll('sbb-radio-button')) as RadioButton[];
+  private get _radioButtons(): HTMLSbbRadioButtonElement[] {
+    return Array.from(
+      this._element.querySelectorAll('sbb-radio-button')
+    ) as HTMLSbbRadioButtonElement[];
   }
 
-  private get _enabledRadios(): RadioButton[] | undefined {
+  private get _enabledRadios(): HTMLSbbRadioButtonElement[] | undefined {
     if (!this.disabled) {
       return this._radioButtons.filter((r) => !r.disabled);
     }
@@ -199,7 +199,7 @@ export class SbbRadioButtonGroup {
     }
   }
 
-  private _getRadioTabIndex(radio: RadioButton): number {
+  private _getRadioTabIndex(radio: HTMLSbbRadioButtonElement): number {
     return radio.checked && !radio.disabled && !this.disabled ? 0 : -1;
   }
 

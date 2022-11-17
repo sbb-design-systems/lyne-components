@@ -39,7 +39,7 @@ The radio group can have different states:
 
 In order to deselect a radio inside the group you can use the `allowEmptySelection` property on the parent radio group, which enables the radios to be deselected (by default, a selected cannot be deselected).
 
-### Accessiility
+### Accessibility
 
 In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-buton-group`.
 
