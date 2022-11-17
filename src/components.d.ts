@@ -519,10 +519,6 @@ export namespace Components {
          */
         "inputId": string;
         /**
-          * Name of the checkbox
-         */
-        "name"?: string;
-        /**
           * The required prop for the required state.
          */
         "required": boolean;
@@ -548,10 +544,6 @@ export namespace Components {
           * Overrides the behaviour of `orientation` property.
          */
         "horizontalFrom"?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
-        /**
-          * Id of the checkbox group element - default name will be auto-generated.
-         */
-        "name"?: string;
         /**
           * Indicates the orientation of the components inside the `<sbb-action-group>`.
          */
@@ -2748,10 +2740,6 @@ declare namespace LocalJSX {
          */
         "inputId"?: string;
         /**
-          * Name of the checkbox
-         */
-        "name"?: string;
-        /**
           * Event for emitting whenever selection is changed.
          */
         "onSbb-change"?: (event: SbbCheckboxCustomEvent<SbbCheckboxChange>) => void;
@@ -2781,10 +2769,6 @@ declare namespace LocalJSX {
           * Overrides the behaviour of `orientation` property.
          */
         "horizontalFrom"?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
-        /**
-          * Id of the checkbox group element - default name will be auto-generated.
-         */
-        "name"?: string;
         /**
           * Indicates the orientation of the components inside the `<sbb-action-group>`.
          */

@@ -50,12 +50,6 @@ const value = {
   },
 };
 
-const name = {
-  control: {
-    type: 'text',
-  },
-};
-
 const icon = {
   control: {
     type: 'text',
@@ -94,7 +88,6 @@ const defaultArgTypes = {
   disabled,
   label,
   value,
-  name,
   'icon-name': icon,
   'icon-placement': iconPlacement,
   'accessibility-label': accessibilityLabel,
@@ -109,7 +102,6 @@ const defaultArgs = {
   disabled: false,
   label: 'Label',
   value: 'Value',
-  name: 'checkbox',
   'icon-name': undefined,
   'icon-placement': undefined,
   'accessibility-label': undefined,

@@ -1,7 +1,6 @@
 export interface InterfaceSbbCheckbox extends HTMLElement {
   checked: boolean;
   disabled: boolean;
-  name: string;
   required: boolean;
 }
 

@@ -15,20 +15,20 @@ The component can display one or more `<sbb-form-error>` components right below 
 
 Basic usage:
 ```html
-<sbb-checkbox-group name='checkbox-group-1'>
-  <sbb-checkbox name="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
-  <sbb-checkbox name="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
-  <sbb-checkbox name="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+<sbb-checkbox-group>
+  <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
+  <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
+  <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
 </sbb-checkbox-group>
 ```
 
 Required `sbb-checkbox-group` with error message:
 ```html
 <!-- All the child checkboxes will be marked as required-->
-<sbb-checkbox-group name='checkbox-group-1' required>
-  <sbb-checkbox name="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
-  <sbb-checkbox name="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
-  <sbb-checkbox name="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+<sbb-checkbox-group required>
+  <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
+  <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
+  <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
   <sbb-form-error slot="error">You must accept all the terms and conditions.</sbb-form-error>
 </sbb-checkbox-group>
 ```
@@ -36,10 +36,10 @@ Required `sbb-checkbox-group` with error message:
 Disabled `sbb-checkbox-group` with vertical orientation below `large` breakpoint and horizontal above:
 ```html
 <!-- All the child checkboxes will be disabled-->
-<sbb-checkbox-group name='checkbox-group-1' disabled orientation="vertical" horizontal-from="large">
-  <sbb-checkbox name="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
-  <sbb-checkbox name="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
-  <sbb-checkbox name="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+<sbb-checkbox-group disabled orientation="vertical" horizontal-from="large">
+  <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
+  <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
+  <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
 </sbb-checkbox-group>
 ```
 
@@ -53,7 +53,6 @@ Disabled `sbb-checkbox-group` with vertical orientation below `large` breakpoint
 | `checkboxGroupId` | `checkbox-group-id` | Id of the checkbox group element.                                            | `string`                                                                   | ``sbb-checkbox-group-${++nextId}`` |
 | `disabled`        | `disabled`          | Whether the checkbox group is disabled.                                      | `boolean`                                                                  | `false`                            |
 | `horizontalFrom`  | `horizontal-from`   | Overrides the behaviour of `orientation` property.                           | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`                        |
-| `name`            | `name`              | Id of the checkbox group element - default name will be auto-generated.      | `string`                                                                   | ``${this.checkboxGroupId}-name``   |
 | `orientation`     | `orientation`       | Indicates the orientation of the components inside the `<sbb-action-group>`. | `"horizontal" \| "vertical"`                                               | `'horizontal'`                     |
 | `required`        | `required`          | Whether the checkbox group is required.                                      | `boolean`                                                                  | `false`                            |
 

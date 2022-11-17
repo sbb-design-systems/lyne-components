@@ -62,9 +62,6 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   /** Value of checkbox. */
   @Prop({ reflect: true }) public value?: string;
 
-  /** Name of the checkbox */
-  @Prop() public name?: string;
-
   /** Id of the internal input element - default id will be set automatically. */
   @Prop() public inputId = `sbb-checkbox-${++nextId}`;
 
@@ -167,7 +164,6 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
         <input
           ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
           type="checkbox"
-          name={this.name}
           id={this.inputId}
           disabled={this.disabled || this._disabledFromGroup}
           required={this.required || this._requiredFromGroup}

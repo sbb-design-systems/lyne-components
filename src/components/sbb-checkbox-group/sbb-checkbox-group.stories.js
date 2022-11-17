@@ -10,7 +10,6 @@ metus.`;
 
 const checkboxes = (size, checked, disabledSingle, iconName, iconPlacement, label) => [
   <sbb-checkbox
-    name="checkbox-1"
     value="checkbox-1"
     checked={checked}
     size={size}
@@ -20,7 +19,6 @@ const checkboxes = (size, checked, disabledSingle, iconName, iconPlacement, labe
     {label} 1
   </sbb-checkbox>,
   <sbb-checkbox
-    name="checkbox-2"
     value="checkbox-2"
     disabled={disabledSingle}
     size={size}
@@ -29,13 +27,7 @@ const checkboxes = (size, checked, disabledSingle, iconName, iconPlacement, labe
   >
     {label} 2
   </sbb-checkbox>,
-  <sbb-checkbox
-    name="checkbox-3"
-    value="checkbox-3"
-    size={size}
-    icon-name={iconName}
-    icon-placement={iconPlacement}
-  >
+  <sbb-checkbox value="checkbox-3" size={size} icon-name={iconName} icon-placement={iconPlacement}>
     {label} 3
   </sbb-checkbox>,
 ];
@@ -111,7 +103,6 @@ const IndeterminateGroupTemplate = ({
   <sbb-checkbox-group {...args} id="sbb-checkbox-group">
     <sbb-checkbox
       id="parent"
-      name="parent"
       value="parent"
       checked="false"
       indeterminate="true"
@@ -124,7 +115,6 @@ const IndeterminateGroupTemplate = ({
     </sbb-checkbox>
     <sbb-checkbox
       id="checkbox-1"
-      name="checkbox-1"
       value="checkbox-1"
       checked="true"
       onSbb-change={(event) => childCheck(event)}
@@ -138,7 +128,6 @@ const IndeterminateGroupTemplate = ({
     </sbb-checkbox>
     <sbb-checkbox
       id="checkbox-2"
-      name="checkbox-2"
       value="checkbox-2"
       checked="false"
       onSbb-change={(event) => childCheck(event)}
@@ -151,15 +140,6 @@ const IndeterminateGroupTemplate = ({
     </sbb-checkbox>
   </sbb-checkbox-group>,
 ];
-
-const name = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Checkbox group',
-  },
-};
 
 const disabled = {
   control: {
@@ -256,7 +236,6 @@ const iconPlacement = {
 };
 
 const basicArgTypes = {
-  name,
   disabled,
   required,
   orientation,
@@ -270,7 +249,6 @@ const basicArgTypes = {
 };
 
 const basicArgs = {
-  name: 'checkbox-group-1',
   disabled: false,
   required: false,
   orientation: orientation.options[0],

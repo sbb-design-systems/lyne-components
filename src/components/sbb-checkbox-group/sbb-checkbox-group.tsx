@@ -35,11 +35,6 @@ export class SbbCheckboxGroup implements ComponentInterface {
   @Prop() public checkboxGroupId = `sbb-checkbox-group-${++nextId}`;
 
   /**
-   * Id of the checkbox group element - default name will be auto-generated.
-   */
-  @Prop() public name?: string = `${this.checkboxGroupId}-name`;
-
-  /**
    * Whether the checkbox group is disabled.
    */
   @Prop() public disabled = false;
@@ -101,7 +96,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host aria-label={this.name}>
+      <Host>
         <div class="sbb-checkbox-group">
           <slot onSlotchange={() => this._updateCheckboxes()} />
         </div>

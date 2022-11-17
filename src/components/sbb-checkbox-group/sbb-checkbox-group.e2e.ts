@@ -7,9 +7,9 @@ describe('sbb-checkbox-group', () => {
     page = await newE2EPage();
     await page.setContent(`
       <sbb-checkbox-group>
-        <sbb-checkbox name="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
-        <sbb-checkbox name="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
-        <sbb-checkbox name="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
+        <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
+        <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
+        <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
       </sbb-checkbox-group>
     `);
 
@@ -23,23 +23,23 @@ describe('sbb-checkbox-group', () => {
   //   page = await newE2EPage();
   //   await page.setContent(`
   //     <sbb-checkbox-group>
-  //       <sbb-checkbox id="checkbox-1" name="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
-  //       <sbb-checkbox id="checkbox-2" name="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
+  //       <sbb-checkbox id="checkbox-1" value="checkbox-1">Label 1</sbb-checkbox>
+  //       <sbb-checkbox id="checkbox-2" value="checkbox-2">Label 2</sbb-checkbox>
   //     </sbb-checkbox-group>
   //   `);
   //
   //   element = await page.find('sbb-checkbox-group');
   //   expect(element).toEqualHtml(`
-  //     <sbb-checkbox-group orientation="horizontal" aria-label="sbb-checkbox-group-1-name" class="hydrated">
+  //     <sbb-checkbox-group orientation="horizontal" class="hydrated">
   //       <mock:shadow-root>
   //         <div class="sbb-checkbox-group">
   //           <slot></slot>
   //         </div>
   //       </mock:shadow-root>
-  //       <sbb-checkbox id="checkbox-1" name="checkbox-1" value="checkbox-1" class="hydrated" icon-placement="end" size="s">
+  //       <sbb-checkbox id="checkbox-1" value="checkbox-1" class="hydrated" icon-placement="end" size="s">
   //           Label 1
   //       </sbb-checkbox>
-  //       <sbb-checkbox id="checkbox-2" name="checkbox-2" value="checkbox-2" class="hydrated" icon-placement="end" size="s">
+  //       <sbb-checkbox id="checkbox-2" value="checkbox-2" class="hydrated" icon-placement="end" size="s">
   //           Label 2
   //       </sbb-checkbox>
   //     </sbb-checkbox-group>
@@ -48,16 +48,16 @@ describe('sbb-checkbox-group', () => {
   //   element.setAttribute('disabled', 'true');
   //   await page.waitForChanges();
   //   expect(element).toEqualHtml(`
-  //     <sbb-checkbox-group orientation="horizontal" aria-label="sbb-checkbox-group-1-name" class="hydrated" disabled="">
+  //     <sbb-checkbox-group orientation="horizontal" class="hydrated" disabled="">
   //       <mock:shadow-root>
   //         <div class="sbb-checkbox-group">
   //           <slot></slot>
   //         </div>
   //       </mock:shadow-root>
-  //       <sbb-checkbox id="checkbox-1" name="checkbox-1" value="checkbox-1" class="hydrated" icon-placement="end" size="s" disabled="">
+  //       <sbb-checkbox id="checkbox-1" value="checkbox-1" class="hydrated" icon-placement="end" size="s" disabled="">
   //           Label 1
   //       </sbb-checkbox>
-  //       <sbb-checkbox id="checkbox-2" name="checkbox-2" value="checkbox-2" class="hydrated" icon-placement="end" size="s" disabled="">
+  //       <sbb-checkbox id="checkbox-2" value="checkbox-2" class="hydrated" icon-placement="end" size="s" disabled="">
   //           Label 2
   //       </sbb-checkbox>
   //     </sbb-checkbox-group>
