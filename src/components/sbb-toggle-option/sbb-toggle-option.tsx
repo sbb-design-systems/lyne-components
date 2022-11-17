@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, h, Host, JSX, Listen, Method, Prop } from '@stencil/core';
+import { InterfaceSbbToggleOption } from './sbb-toggle-option.custom';
 
 let nextId = 0;
 
@@ -19,19 +20,9 @@ export class SbbToggleOption {
   @Prop() public toggleOptionId = `sbb-toggle-option-${++nextId}`;
 
   /**
-   * Name of the toggle-option.
+   * Whether the toggle-option is checked.
    */
-  @Prop({ reflect: true }) public name?: string;
-
-  /**
-   * Value of toggle-option.
-   */
-  @Prop({ reflect: true }) public value?: string;
-
-  /**
-   * Name of the icon for `<sbb-icon>`.
-   */
-  @Prop() public iconName?: string;
+  @Prop({ mutable: true, reflect: true }) public checked = false;
 
   /**
    * Whether the toggle option is disabled.
@@ -39,14 +30,24 @@ export class SbbToggleOption {
   @Prop({ reflect: true }) public disabled = false;
 
   /**
-   * Whether the toggle-option is required.
+   * Name of the icon for `<sbb-icon>`.
    */
-  @Prop({ reflect: true }) public required = false;
+  @Prop() public iconName?: string;
 
   /**
-   * Whether the toggle-option is checked.
+   * Name of the toggle-option.
    */
-  @Prop({ mutable: true, reflect: true }) public checked = false;
+  @Prop({ reflect: true }) public name?: string;
+
+  /**
+   * Size variant, either m or s.
+   */
+  @Prop() public size?: InterfaceSbbToggleOption['size'] = 'm';
+
+  /**
+   * Value of toggle-option.
+   */
+  @Prop({ reflect: true }) public value?: string;
 
   /**
    * Emits whenever the toggle-option value changes.
@@ -90,11 +91,10 @@ export class SbbToggleOption {
           name={this.name}
           id={this.toggleOptionId}
           disabled={this.disabled}
-          required={this.required}
           checked={this.checked}
           value={this.value}
         />
-        <span>
+        <span class='sbb-toggle-option'>
           {!this.iconName && <slot />}
           {this.iconName && (
             <slot name="icon">
