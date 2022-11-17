@@ -922,11 +922,11 @@ export namespace Components {
     }
     interface SbbLogo {
         /**
-          * The Logo needs to have a certain protective room around it
+          * Visual protective room around logo.
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
         /**
-          * According to the Corporate Design Guidelines the logo can be used in these variants
+          * Variants of the logo.
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }
@@ -2982,11 +2982,11 @@ declare namespace LocalJSX {
     }
     interface SbbLogo {
         /**
-          * The Logo needs to have a certain protective room around it
+          * Visual protective room around logo.
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
         /**
-          * According to the Corporate Design Guidelines the logo can be used in these variants
+          * Variants of the logo.
          */
         "variant"?: InterfaceLogoAttributes['variant'];
     }

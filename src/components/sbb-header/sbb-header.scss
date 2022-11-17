@@ -45,7 +45,6 @@
   // Only apply height to standard logo. If slotted, no styles will be applied.
   sbb-logo {
     height: var(--sbb-header-logo-height);
-    aspect-ratio: 19/2;
   }
 }
 
