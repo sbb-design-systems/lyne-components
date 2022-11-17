@@ -40,6 +40,11 @@ export class SbbToggle {
   @Prop({ reflect: true }) public disabled = false;
 
   /**
+   * Set the width of the component.
+   */
+  @Prop() public even: boolean;
+
+  /**
    * The value of the toggle.
    */
   @Prop({ mutable: true, reflect: true }) public value?: any | null;
