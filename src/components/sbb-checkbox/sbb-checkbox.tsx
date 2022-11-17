@@ -105,8 +105,9 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-change'
-  }) public sbbChange: EventEmitter<SbbCheckboxChange>;
+    eventName: 'sbb-change',
+  })
+  public sbbChange: EventEmitter<SbbCheckboxChange>;
 
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
