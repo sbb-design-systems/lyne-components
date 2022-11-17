@@ -9,9 +9,12 @@ describe('sbb-toggle-option', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toggle-option>
+    <sbb-toggle-option aria-checked="false">
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <input aria-hidden="true" id="sbb-toggle-option-1" tabindex="-1" type="radio">
+            <span class="sbb-toggle-option">
+              <slot></slot>
+            </span>
           </mock:shadow-root>
         </sbb-toggle-option>
       `);
