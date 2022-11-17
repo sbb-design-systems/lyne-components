@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.14.0](https://github.com/lyne-design-system/lyne-components/compare/v0.13.2...v0.14.0) (2022-11-17)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-signet:** - sbb-logo no longer has different color variants
+
+* sbb-signet no longer white-on-black variant
+
+- **sbb-signet:** adapt to coding standards ([#1457](https://github.com/lyne-design-system/lyne-components/issues/1457)) ([d9ca1a4](https://github.com/lyne-design-system/lyne-components/commit/d9ca1a4b3499b9e9cc5dbf2f32986ba4078ddd9f))
+
 ### [0.13.2](https://github.com/lyne-design-system/lyne-components/compare/v0.13.1...v0.13.2) (2022-11-17)
 
 ### [0.13.1](https://github.com/lyne-design-system/lyne-components/compare/v0.13.0...v0.13.1) (2022-11-16)
