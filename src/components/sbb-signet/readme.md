@@ -5,7 +5,12 @@ please define the desired height or width on `<sbb-signet>`.
 
 ## Usage
 ```html
-<sbb-signet protective-room="none" style="height: 20px;"></sbb-signet>
+<style>
+  sbb-signet {
+    height: 20px;
+  }
+</style>
+<sbb-signet protective-room="none"></sbb-signet>
 ```
 
 <!-- Auto Generated Below -->

@@ -5,7 +5,12 @@ please define the desired height or width on `<sbb-logo>`.
 
 ## Usage
 ```html
-<sbb-logo protective-room="none" style="height: 20px;"></sbb-logo>
+<style>
+  sbb-logo {
+    height: 20px;
+  }
+</style>
+<sbb-logo protective-room="none"></sbb-logo>
 ```
 
 <!-- Auto Generated Below -->
