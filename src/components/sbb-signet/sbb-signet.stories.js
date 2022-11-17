@@ -42,6 +42,9 @@ export default {
     docs: {
       extractComponentDescription: () => readme,
     },
+    chromatic: {
+      viewports: [320],
+    },
   },
   title: 'brand elements/SBB Signet',
 };

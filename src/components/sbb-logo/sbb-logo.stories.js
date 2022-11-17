@@ -51,7 +51,7 @@ Negative.argTypes = defaultArgTypes;
 Negative.args = {
   ...defaultArgs,
   negative: true,
-  'protective-room': protectiveRoom.options[1],
+  'protective-room': protectiveRoom.options[2],
 };
 
 export default {
@@ -65,6 +65,9 @@ export default {
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
+    },
+    chromatic: {
+      viewports: [320],
     },
   },
   title: 'brand elements/SBB Logo',
