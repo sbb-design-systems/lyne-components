@@ -111,5 +111,5 @@ input[type='checkbox'] {
 input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
   @include focusOutline;
 
-  border-radius: #{px-to-rem-build(1)};
+  border-radius: #{px-to-rem-build(4)};
 }
