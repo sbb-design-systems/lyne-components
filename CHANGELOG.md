@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.2](https://github.com/lyne-design-system/lyne-components/compare/v0.14.1...v0.14.2) (2022-11-17)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** handle occupancy error ([#1460](https://github.com/lyne-design-system/lyne-components/issues/1460)) ([2456430](https://github.com/lyne-design-system/lyne-components/commit/2456430df1f656eb5ade62d417ddb6125d12b3a0))
+
 ### [0.14.1](https://github.com/lyne-design-system/lyne-components/compare/v0.14.0...v0.14.1) (2022-11-17)
 
 ### Bug Fixes
