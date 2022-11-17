@@ -1757,6 +1757,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Name of the icon for `<sbb-icon>`.
+         */
+        "iconName"?: string;
+        /**
           * Name of the toggle-option.
          */
         "name"?: string;
@@ -4090,6 +4094,10 @@ declare namespace LocalJSX {
           * Whether the toggle option is disabled.
          */
         "disabled"?: boolean;
+        /**
+          * Name of the icon for `<sbb-icon>`.
+         */
+        "iconName"?: string;
         /**
           * Name of the toggle-option.
          */

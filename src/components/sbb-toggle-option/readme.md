@@ -9,6 +9,7 @@
 | ---------------- | ------------------ | ------------------------------------------------------------------------ | --------- | --------------------------------- |
 | `checked`        | `checked`          | Whether the toggle-option is checked.                                    | `boolean` | `false`                           |
 | `disabled`       | `disabled`         | Whether the toggle option is disabled.                                   | `boolean` | `false`                           |
+| `iconName`       | `icon-name`        | Name of the icon for `<sbb-icon>`.                                       | `string`  | `undefined`                       |
 | `name`           | `name`             | Name of the toggle-option.                                               | `string`  | `undefined`                       |
 | `required`       | `required`         | Whether the toggle-option is required.                                   | `boolean` | `false`                           |
 | `toggleOptionId` | `toggle-option-id` | Id of the internal input element - default id will be set automatically. | `string`  | ``sbb-toggle-option-${++nextId}`` |
@@ -37,10 +38,24 @@ Type: `Promise<void>`
 
 ## Slots
 
-| Slot        | Description                                       |
-| ----------- | ------------------------------------------------- |
-| `"unnamed"` | Use this slot to provide the toggle-option label. |
+| Slot        | Description                                           |
+| ----------- | ----------------------------------------------------- |
+| `"icon"`    | Slot used to render the `<sbb-icon>`.                 |
+| `"unnamed"` | Slot used to render the content inside the component. |
 
+
+## Dependencies
+
+### Depends on
+
+- [sbb-icon](../sbb-icon)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-toggle-option --> sbb-icon
+  style sbb-toggle-option fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 
