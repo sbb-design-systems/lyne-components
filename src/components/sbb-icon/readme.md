@@ -107,6 +107,7 @@ In the HTML, you can now use the icon as shown below:
  - [sbb-slider](../sbb-slider)
  - [sbb-timetable-row](../sbb-timetable-row)
  - [sbb-toggle-check](../sbb-toggle-check)
+ - [sbb-toggle-option](../sbb-toggle-option)
 
 ### Graph
 ```mermaid
@@ -122,6 +123,7 @@ graph TD;
   sbb-slider --> sbb-icon
   sbb-timetable-row --> sbb-icon
   sbb-toggle-check --> sbb-icon
+  sbb-toggle-option --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
