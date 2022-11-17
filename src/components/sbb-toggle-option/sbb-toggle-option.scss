@@ -54,3 +54,7 @@ sbb-icon,
   min-width: var(--sbb-toggle-option-icon-min-size);
   min-height: var(--sbb-toggle-option-icon-min-size);
 }
+
+.sbb-toggle-option {
+  @include text-m--regular;
+}

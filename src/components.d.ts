@@ -1796,11 +1796,11 @@ export namespace Components {
           * Name of the toggle-option.
          */
         "name"?: string;
-        /**
-          * Whether the toggle-option is required.
-         */
-        "required": boolean;
         "select": () => Promise<void>;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbToggleOption['size'];
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -4177,9 +4177,9 @@ declare namespace LocalJSX {
          */
         "onSbb-toggle-option_did-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
         /**
-          * Whether the toggle-option is required.
+          * Size variant, either m or s.
          */
-        "required"?: boolean;
+        "size"?: InterfaceSbbToggleOption['size'];
         /**
           * Id of the internal input element - default id will be set automatically.
          */
