@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.1](https://github.com/lyne-design-system/lyne-components/compare/v0.14.0...v0.14.1) (2022-11-17)
+
+### Bug Fixes
+
+- set color in button-reset mixin to avoid iOS blue color ([#1459](https://github.com/lyne-design-system/lyne-components/issues/1459)) ([f868190](https://github.com/lyne-design-system/lyne-components/commit/f8681904c25d49b1efdbc1d9f9af1d26f8e8d993))
+
 ## [0.14.0](https://github.com/lyne-design-system/lyne-components/compare/v0.13.2...v0.14.0) (2022-11-17)
 
 ### ⚠ BREAKING CHANGES
