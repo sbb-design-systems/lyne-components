@@ -66,6 +66,7 @@
   border-radius: var(--sbb-card-border-radius);
   background-color: var(--sbb-card-background-color);
   transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  color: inherit;
 
   &::before {
     position: absolute;
@@ -81,7 +82,6 @@
 
   :host([href]) & {
     display: block;
-    color: inherit;
     text-decoration: none;
   }
 
@@ -96,7 +96,6 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     -webkit-tap-highlight-color: transparent;
-    color: inherit;
   }
 }
 
