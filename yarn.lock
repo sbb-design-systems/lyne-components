@@ -2499,10 +2499,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sbb-esta/lyne-design-tokens@0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.2.5.tgz#a4282e73e3a86a825e9383869afbb75a5a1308ed"
-  integrity sha512-JPi+wdfYgOJba4wTkrkc2Frj0/XuBAwrHvE/H65aH20+wBYyQdutqtFHRgJzLAmJfgob5OWgMv72RxaO1P1E8A==
+"@sbb-esta/lyne-design-tokens@0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.2.6.tgz#586390f48e910b5e73f0518ca1b28ec8feaf7865"
+  integrity sha512-vLJpTqAsvvli3fP6v8tuDVOya4mfulfc//0qqki/3yqVa4yA7CwYkWJMBqv4AZNK1g27VeFQABykc/Q+rpfSOA==
 
 "@sinclair/typebox@^0.24.1":
   version "0.24.51"
