@@ -922,13 +922,13 @@ export namespace Components {
     }
     interface SbbLogo {
         /**
+          * Variants of the logo.
+         */
+        "negative": boolean;
+        /**
           * Visual protective room around logo.
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
-        /**
-          * Variants of the logo.
-         */
-        "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbMenu {
         /**
@@ -1089,13 +1089,9 @@ export namespace Components {
     }
     interface SbbSignet {
         /**
-          * The Signet needs to have a certain protective room around it
+          * Visual protective room around signet.
          */
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the signet can be used in these variants
-         */
-        "variant"?: InterfaceSignetAttributes['variant'];
     }
     interface SbbSlider {
         /**
@@ -2982,13 +2978,13 @@ declare namespace LocalJSX {
     }
     interface SbbLogo {
         /**
+          * Variants of the logo.
+         */
+        "negative"?: boolean;
+        /**
           * Visual protective room around logo.
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
-        /**
-          * Variants of the logo.
-         */
-        "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbMenu {
         /**
@@ -3153,13 +3149,9 @@ declare namespace LocalJSX {
     }
     interface SbbSignet {
         /**
-          * The Signet needs to have a certain protective room around it
+          * Visual protective room around signet.
          */
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the signet can be used in these variants
-         */
-        "variant"?: InterfaceSignetAttributes['variant'];
     }
     interface SbbSlider {
         /**
