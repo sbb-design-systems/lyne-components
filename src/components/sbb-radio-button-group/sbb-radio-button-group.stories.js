@@ -95,7 +95,7 @@ const ErrorMessageTemplate = (args) => {
     <sbb-radio-button-group
       {...args}
       id="sbb-radio-group"
-      onSbb-radio-button-group_did-change={(event) => {
+      onChange={(event) => {
         if (event.detail.value) {
           sbbFormError.remove();
         } else if (args.required) {
@@ -118,6 +118,15 @@ export const Vertical = DefaultTemplate.bind({});
 Vertical.argTypes = defaultArgTypes;
 Vertical.args = { ...defaultArgs, orientation: orientation.options[1] };
 Vertical.documentation = { title: 'Vertical Orientation' };
+
+export const VerticalToHorizontal = DefaultTemplate.bind({});
+VerticalToHorizontal.argTypes = defaultArgTypes;
+VerticalToHorizontal.args = {
+  ...defaultArgs,
+  orientation: orientation.options[1],
+  'horizontal-from': horizontalFrom.options[4],
+};
+VerticalToHorizontal.documentation = { title: 'Vertical To Horizontal' };
 
 export const HorizontalSizeS = DefaultTemplate.bind({});
 HorizontalSizeS.argTypes = defaultArgTypes;

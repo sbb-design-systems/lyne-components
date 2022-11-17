@@ -3,7 +3,7 @@
 Use multiple `sbb-radio-button` components inside a `sbb-radio-button-group` component in order to display a radio input within a group.
 
 ```html
-<sbb-radio-button-group name="radio-group-name" value="Value one" aria-label="Radio group label">
+<sbb-radio-button-group value="Value one" aria-label="Radio group label">
   <sbb-radio-button value="Value one">Option one</sbb-radio-button>
   <sbb-radio-button value="Value two">Option two</sbb-radio-button>
 </sbb-radio-button-group>

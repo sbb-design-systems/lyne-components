@@ -102,7 +102,7 @@ export class SbbRadioButton implements InterfaceSbbRadioButton {
 
   @Method()
   public async select(): Promise<void> {
-    if (this.disabled) {
+    if (this.disabled || this._disabledFromGroup) {
       return;
     }
 
@@ -146,12 +146,18 @@ export class SbbRadioButton implements InterfaceSbbRadioButton {
   private _onRadioButtonAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-disabled') {
-        this._disabledFromGroup = true;
+        this._disabledFromGroup = !!this._isValidAttribute('data-disabled');
       }
       if (mutation.attributeName === 'data-required') {
-        this._requiredFromGroup = true;
+        this._requiredFromGroup = !!this._isValidAttribute('data-required');
       }
     }
+  }
+
+  private _isValidAttribute(attribute: string): boolean {
+    return (
+      this._element.hasAttribute(attribute) && this._element.getAttribute(attribute) !== 'false'
+    );
   }
 
   public render(): JSX.Element {

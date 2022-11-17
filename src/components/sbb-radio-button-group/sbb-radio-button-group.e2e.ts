@@ -36,7 +36,7 @@ describe('sbb-radio-button-group', () => {
     it('dispatches event on radio change', async () => {
       const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
       const checkedRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
-      const changeSpy = await page.spyOnEvent('sbb-radio-button-group_did-change');
+      const changeSpy = await page.spyOnEvent('change');
 
       await checkedRadio.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);

@@ -3,5 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didChange: 'sbb-radio-button-group_did-change',
+  didChange: 'change',
 };

@@ -8,7 +8,7 @@ Within a group of radio buttons, only one radio button can be selected at a time
 
 ```html
 <!-- The first option will be selected by default -->
-<sbb-radio-button-group name="radio-group-name" value="Value one" aria-label="Radio group label">
+<sbb-radio-button-group value="Value one" aria-label="Radio group label">
   <sbb-radio-button value="Value one">Option one</sbb-radio-button>
   <sbb-radio-button value="Value two">Option two</sbb-radio-button>
   <sbb-radio-button value="Value three">Option three</sbb-radio-button>
@@ -23,13 +23,13 @@ The radio group can have different states:
 
 ```html
 <!-- All child radio buttons will be disabled -->
-<sbb-radio-button-group name="radio-group-name" value="Value one" aria-label="Radio group label" disabled>
+<sbb-radio-button-group value="Value one" aria-label="Radio group label" disabled>
   <sbb-radio-button value="Value one">Option one</sbb-radio-button>
   <sbb-radio-button value="Value two">Option two</sbb-radio-button>
 </sbb-radio-button-group>
 
 <!-- The radio group and all child radio buttons will be marked as required -->
-<sbb-radio-button-group name="radio-group-name" value="Value one" aria-label="Radio group label" required>
+<sbb-radio-button-group value="Value one" aria-label="Radio group label" required>
   <sbb-radio-button value="Value one">Option one</sbb-radio-button>
   <sbb-radio-button value="Value two">Option two</sbb-radio-button>
 </sbb-radio-button-group>
@@ -62,9 +62,9 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 
 ## Events
 
-| Event                               | Description                                   | Type               |
-| ----------------------------------- | --------------------------------------------- | ------------------ |
-| `sbb-radio-button-group_did-change` | Emits whenever the radio group value changes. | `CustomEvent<any>` |
+| Event    | Description                                   | Type               |
+| -------- | --------------------------------------------- | ------------------ |
+| `change` | Emits whenever the radio group value changes. | `CustomEvent<any>` |
 
 
 ## Slots
