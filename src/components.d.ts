@@ -49,7 +49,7 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
-import { InterfaceToggleCheckAttributes, SbbToggleCheckChange } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
+import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -495,6 +495,10 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "checkboxId": string;
+        /**
           * Whether the checkbox is checked.
          */
         "checked": boolean;
@@ -514,10 +518,6 @@ export namespace Components {
           * Whether the checkbox is indeterminate.
          */
         "indeterminate": boolean;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "inputId": string;
         /**
           * The required prop for the required state.
          */
@@ -1763,10 +1763,6 @@ export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTimetableRowElement;
 }
-export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbToggleCheckElement;
-}
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTooltipElement;
@@ -2712,6 +2708,10 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "checkboxId"?: string;
+        /**
           * Whether the checkbox is checked.
          */
         "checked"?: boolean;
@@ -2731,10 +2731,6 @@ declare namespace LocalJSX {
           * Whether the checkbox is indeterminate.
          */
         "indeterminate"?: boolean;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "inputId"?: string;
         /**
           * The required prop for the required state.
          */
@@ -3916,10 +3912,6 @@ declare namespace LocalJSX {
           * Name of the toggle-check.
          */
         "name"?: string;
-        /**
-          * Emits whenever the selection has changed.
-         */
-        "onSbbChange"?: (event: SbbToggleCheckCustomEvent<SbbToggleCheckChange>) => void;
         /**
           * The required prop for the required state.
          */

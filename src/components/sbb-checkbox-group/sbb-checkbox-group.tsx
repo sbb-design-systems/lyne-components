@@ -64,7 +64,6 @@ export class SbbCheckboxGroup implements ComponentInterface {
   @Element() private _checkboxGroupElement!: HTMLElement;
 
   public connectedCallback(): void {
-    this._updateCheckboxes();
     this._namedSlots = queryAndObserveNamedSlotState(this._checkboxGroupElement, this._namedSlots);
   }
 

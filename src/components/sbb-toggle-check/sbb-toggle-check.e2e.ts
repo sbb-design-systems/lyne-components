@@ -1,5 +1,4 @@
 import { newE2EPage } from '@stencil/core/testing';
-import events from './sbb-toggle-check.events';
 
 describe('sbb-toggle-check', () => {
   let element, page;
@@ -19,7 +18,7 @@ describe('sbb-toggle-check', () => {
     it('emit event on click', async () => {
       await page.waitForChanges();
       const toggle = await page.find('sbb-toggle-check');
-      const changeSpy = await page.spyOnEvent(events.sbbChange);
+      const changeSpy = await page.spyOnEvent('change');
 
       await toggle.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);

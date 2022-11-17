@@ -53,13 +53,13 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   @Prop({ reflect: true }) public value?: string;
 
   /** Id of the internal input element - default id will be set automatically. */
-  @Prop() public inputId = `sbb-checkbox-${++nextId}`;
+  @Prop() public checkboxId = `sbb-checkbox-${++nextId}`;
 
   /** The disabled prop for the disabled state. */
   @Prop({ reflect: true }) public disabled = false;
 
   /** The required prop for the required state. */
-  @Prop({ reflect: true }) public required = false;
+  @Prop() public required = false;
 
   /** Whether the checkbox is indeterminate. */
   @Prop({ reflect: true }) public indeterminate = false;
@@ -93,12 +93,16 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
+  // Set up the initial disabled/required values and start observe attributes changes.
+  private _setupInitialStateAndAttributeObserver(): void {
+    this._disabledFromGroup = !!this._element.dataset.groupDisabled;
+    this._requiredFromGroup = !!this._element.dataset.groupRequired;
+    this._checkboxAttributeObserver.observe(this._element, checkboxObserverConfig);
+  }
+
   /** Observe changes on data attributes and set the appropriate values. */
   private _onCheckboxAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
-      if (mutation.type !== 'attributes') {
-        return;
-      }
       if (mutation.attributeName === 'data-group-disabled') {
         this._disabledFromGroup = !!isValidAttribute(this._element, 'data-group-disabled');
       }
@@ -110,7 +114,7 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    this._checkboxAttributeObserver.observe(this._element, checkboxObserverConfig);
+    this._setupInitialStateAndAttributeObserver();
   }
 
   public disconnectedCallback(): void {
@@ -130,11 +134,11 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
 
   public render(): JSX.Element {
     return (
-      <label class="sbb-checkbox" htmlFor={this.inputId}>
+      <label class="sbb-checkbox" htmlFor={this.checkboxId}>
         <input
           ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
           type="checkbox"
-          id={this.inputId}
+          id={this.checkboxId}
           disabled={this.disabled || this._disabledFromGroup}
           required={this.required || this._requiredFromGroup}
           checked={this.checked}

@@ -1,5 +1,6 @@
-import { Component, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
-import { InterfaceToggleCheckAttributes, SbbToggleCheckChange } from './sbb-toggle-check.custom';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import { forwardEventToHost } from '../../global/helpers/forward-event';
+import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 let nextId = 0;
@@ -12,7 +13,7 @@ export class SbbToggleCheck implements AccessibilityProperties {
   private _checkbox: HTMLInputElement;
 
   /** Whether the toggle-check is checked. */
-  @Prop({ mutable: true }) public checked = false;
+  @Prop({ mutable: true, reflect: true }) public checked = false;
 
   /** Value of toggle-check. */
   @Prop() public value?: string;
@@ -21,7 +22,7 @@ export class SbbToggleCheck implements AccessibilityProperties {
   @Prop() public name?: string;
 
   /** Id of the internal input element - default id will be set automatically. */
-  @Prop() public inputId = `sbb-checkbox-${++nextId}`;
+  @Prop() public inputId = `sbb-toggle-checkbox-${++nextId}`;
 
   /** The svg name for the true state - default -> 'tick-small' */
   @Prop() public icon = 'tick-small';
@@ -30,7 +31,7 @@ export class SbbToggleCheck implements AccessibilityProperties {
   @Prop({ reflect: true }) public disabled = false;
 
   /** The required prop for the required state. */
-  @Prop({ reflect: true }) public required = false;
+  @Prop() public required = false;
 
   /** The label position relative to the toggle. Defaults to 'after' */
   @Prop() public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] = 'after';
@@ -44,8 +45,13 @@ export class SbbToggleCheck implements AccessibilityProperties {
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** Emits whenever the selection has changed.  */
-  @Event() public sbbChange: EventEmitter<SbbToggleCheckChange>;
+  @Element() private _element!: HTMLElement;
+
+  /** Method triggered on toggle change. */
+  public checkedChanged(event: Event): void {
+    this.checked = this._checkbox?.checked;
+    forwardEventToHost(event, this._element);
+  }
 
   public render(): JSX.Element {
     return (
@@ -67,13 +73,7 @@ export class SbbToggleCheck implements AccessibilityProperties {
           required={this.required}
           checked={this.checked}
           value={this.value}
-          onChange={(): void => {
-            this.checked = this._checkbox?.checked;
-            this.sbbChange.emit({
-              checked: this.checked,
-              value: this.value,
-            });
-          }}
+          onChange={(event: Event): void => this.checkedChanged(event)}
           aria-label={this.accessibilityLabel}
           aria-describedby={this.accessibilityDescribedby}
           aria-labelledby={this.accessibilityLabelledby}

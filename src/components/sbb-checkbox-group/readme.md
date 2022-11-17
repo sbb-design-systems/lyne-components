@@ -4,7 +4,7 @@ The `<sbb-checkbox-group>` component is used as a container for one or multiple 
 which are projected inside an unnamed slot. 
 
 The `orientation` property is used to set items orientation. Possible values are `horizontal` (default) and `vertical`.
-The optional property `horizontalFrom` can be used in combination with `orientation='vertical` to 
+The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to 
 indicate the minimum breakpoint from which the orientation changes to `horizontal`.
 
 It is possible to mark the entire group as disabled or required using the properties `disabled` and `required`.

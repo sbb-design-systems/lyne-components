@@ -157,7 +157,7 @@ sizeM.args = {
   size: size.options[0],
 };
 sizeM.documentation = {
-  title: 'Checkbox with L size',
+  title: 'Checkbox with medium size',
 };
 
 longLabel.argTypes = defaultArgTypes;
