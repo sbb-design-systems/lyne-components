@@ -3,9 +3,6 @@
 @include host-component-properties;
 
 .sbb-toggle {
-  // Avoids unwanted space displayed if no label text is set.
-  @include zeroWidthSpace;
-
   position: relative;
   display: flex;
   justify-content: center;

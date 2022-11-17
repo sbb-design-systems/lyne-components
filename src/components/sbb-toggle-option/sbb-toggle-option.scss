@@ -7,7 +7,7 @@
 }
 
 input[type='radio'] {
-  position: absolute;
+  position: relative;
   opacity: 0;
   top: 0;
   left: 0;
@@ -15,8 +15,5 @@ input[type='radio'] {
   right: 0;
   bottom: 0;
   cursor: inherit;
-
-  // Puts the element behind the parent while keeping it visible so that
-  // it allows `click` events to propagate up.
   z-index: -1;
 }

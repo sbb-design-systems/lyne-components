@@ -2,9 +2,9 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-toggle-option.events';
 
-const value = {
+const checked = {
   control: {
-    type: 'text',
+    type: 'boolean',
   },
 };
 
@@ -14,24 +14,53 @@ const disabled = {
   },
 };
 
+const iconName = {
+  control: {
+    type: 'text',
+  },
+};
+
+const size = {
+  control: {
+    type: 'inline-radio',
+    options: ['m', 's'],
+  },
+};
+
+const value = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
+  checked,
   disabled,
+  size,
   value,
 };
 
 const defaultArgs = {
+  checked: false,
   disabled: false,
+  size: 'm',
   value: 'Option 1',
 };
 
-const Template = (args) => <sbb-toggle-option {...args}>Option 1</sbb-toggle-option>;
+const DefaultTemplate = (args) => <sbb-toggle-option {...args}>Option 1</sbb-toggle-option>;
 
-export const sbbToggleOption = Template.bind({});
-sbbToggleOption.args = defaultArgs;
+export const sbbToggleOption = DefaultTemplate.bind({});
 sbbToggleOption.argTypes = defaultArgTypes;
-
+sbbToggleOption.args = defaultArgs;
 sbbToggleOption.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+  title: 'sbb-toggle-option',
+};
+
+export const sbbToggleOptionWithIcon = DefaultTemplate.bind({});
+sbbToggleOptionWithIcon.args = { ...defaultArgs, 'icon-name': 'arrow-left-small' };
+sbbToggleOptionWithIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName };
+sbbToggleOptionWithIcon.documentation = {
+  title: 'sbb-toggle-option with custom icon',
 };
 
 export default {

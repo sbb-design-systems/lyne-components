@@ -3,7 +3,8 @@ import { Component, Event, EventEmitter, h, Host, JSX, Listen, Method, Prop } fr
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this slot to provide the toggle-option label.
+ * @slot unnamed - Slot used to render the content inside the component.
+ * @slot icon - Slot used to render the `<sbb-icon>`.
  */
 
 @Component({
@@ -26,6 +27,11 @@ export class SbbToggleOption {
    * Value of toggle-option.
    */
   @Prop({ reflect: true }) public value?: string;
+
+  /**
+   * Name of the icon for `<sbb-icon>`.
+   */
+  @Prop() public iconName?: string;
 
   /**
    * Whether the toggle option is disabled.
@@ -89,7 +95,12 @@ export class SbbToggleOption {
           value={this.value}
         />
         <span>
-          <slot />
+          {!this.iconName && <slot />}
+          {this.iconName && (
+            <slot name="icon">
+              <sbb-icon name={this.iconName}></sbb-icon>
+            </slot>
+          )}
         </span>
       </Host>
     );
