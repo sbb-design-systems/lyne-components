@@ -1656,6 +1656,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Set the width of the component.
+         */
+        "even": boolean;
+        /**
           * Id of the toggle element - default name will be auto-generated.
          */
         "name"?: string;
@@ -3959,6 +3963,10 @@ declare namespace LocalJSX {
           * Whether the toggle is disabled.
          */
         "disabled"?: boolean;
+        /**
+          * Set the width of the component.
+         */
+        "even"?: boolean;
         /**
           * Id of the toggle element - default name will be auto-generated.
          */

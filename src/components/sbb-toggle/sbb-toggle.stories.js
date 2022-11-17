@@ -2,25 +2,33 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-toggle.events';
 
-const value = {
-  control: {
-    type: 'text',
-  },
-};
-
 const disabled = {
   control: {
     type: 'boolean',
   },
 };
 
+const even = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const value = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   disabled,
+  even,
   value,
 };
 
 const defaultArgs = {
   disabled: false,
+  even: false,
   value: 'Option 1',
 };
 
@@ -34,9 +42,8 @@ const DefaultTemplate = (args) => (
 export const sbbToggle = DefaultTemplate.bind({});
 sbbToggle.args = defaultArgs;
 sbbToggle.argTypes = defaultArgTypes;
-
 sbbToggle.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+  title: 'sbb-toggle',
 };
 
 export default {
