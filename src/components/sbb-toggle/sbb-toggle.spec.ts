@@ -9,9 +9,11 @@ describe('sbb-toggle', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toggle>
+        <sbb-toggle aria-label="sbb-toggle-1-name">
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <div class="sbb-toggle">
+              <slot></slot>
+            </div>  
           </mock:shadow-root>
         </sbb-toggle>
       `);
