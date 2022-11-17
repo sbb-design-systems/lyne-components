@@ -10,7 +10,7 @@ import sbbLogoSVG from './assets/sbb_logo.svg';
 })
 export class SbbLogo {
   /** Variants of the logo. */
-  @Prop({ reflect: true }) public variant?: InterfaceLogoAttributes['variant'] = 'default';
+  @Prop({ reflect: true }) public negative = false;
 
   /** Visual protective room around logo. */
   @Prop({ reflect: true }) public protectiveRoom?: InterfaceLogoAttributes['protectiveRoom'] =

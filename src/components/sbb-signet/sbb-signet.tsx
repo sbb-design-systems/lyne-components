@@ -9,23 +9,14 @@ import sbbSignetSVG from './assets/sbb_signet.svg';
   tag: 'sbb-signet',
 })
 export class SbbSignet {
-  /**
-   * According to the Corporate Design Guidelines the signet
-   * can be used in these variants
-   */
-  @Prop() public variant?: InterfaceSignetAttributes['variant'] = 'default';
-
-  /**
-   * The Signet needs to have a certain protective room around it
-   */
-  @Prop() public protectiveRoom?: InterfaceSignetAttributes['protectiveRoom'] = 'ideal';
+  /** Visual protective room around signet. */
+  @Prop({ reflect: true }) public protectiveRoom?: InterfaceSignetAttributes['protectiveRoom'] =
+    'ideal';
 
   public render(): JSX.Element {
     return (
-      <span
-        class={`sbb-signet sbb-signet--${this.variant} sbb-signet--protective-room sbb-signet--protective-room-${this.protectiveRoom}`}
-      >
-        <span class="sbb-signet__svg" innerHTML={sbbSignetSVG}></span>
+      <span class="sbb-signet">
+        <span class="sbb-signet__svg-container" innerHTML={sbbSignetSVG}></span>
       </span>
     );
   }

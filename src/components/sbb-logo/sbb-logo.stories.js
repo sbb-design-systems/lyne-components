@@ -2,7 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
-  if (context.args.variant === 'negative' || context.args.variant === 'white-on-black') {
+  if (context.args.negative) {
     return 'background-color: var(--sbb-color-charcoal-default);';
   }
 
@@ -11,72 +11,47 @@ const wrapperStyle = (context) => {
 
 const Template = (args) => <sbb-logo {...args} />;
 
-const variants = {
+const negative = {
   control: {
-    type: 'select',
+    type: 'boolean',
   },
-  options: ['default', 'negative', 'on-red', 'black-on-white', 'white-on-black'],
 };
 
 const protectiveRoom = {
   control: {
     type: 'select',
   },
-  options: ['none', 'ideal', 'minimal'],
+  options: ['none', 'minimal', 'ideal'],
 };
 
 const defaultArgTypes = {
+  negative,
   'protective-room': protectiveRoom,
-  variant: variants,
 };
 
 const defaultArgs = {
+  negative: false,
   'protective-room': protectiveRoom.options[0],
-  variant: variants.options[0],
 };
 
 export const NoProtectiveRoom = Template.bind({});
 NoProtectiveRoom.argTypes = defaultArgTypes;
 NoProtectiveRoom.args = { ...defaultArgs };
 
-export const IdealProtectiveRoom = Template.bind({});
-IdealProtectiveRoom.argTypes = defaultArgTypes;
-IdealProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[1] };
-
 export const MinimalProtectiveRoom = Template.bind({});
 MinimalProtectiveRoom.argTypes = defaultArgTypes;
-MinimalProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[2] };
+MinimalProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[1] };
+
+export const IdealProtectiveRoom = Template.bind({});
+IdealProtectiveRoom.argTypes = defaultArgTypes;
+IdealProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[2] };
 
 export const Negative = Template.bind({});
 Negative.argTypes = defaultArgTypes;
 Negative.args = {
   ...defaultArgs,
-  variant: variants.options[1],
-  'protective-room': protectiveRoom.options[1],
-};
-
-export const OnRed = Template.bind({});
-OnRed.argTypes = defaultArgTypes;
-OnRed.args = {
-  ...defaultArgs,
-  variant: variants.options[2],
-  'protective-room': protectiveRoom.options[1],
-};
-
-export const BlackOnWhite = Template.bind({});
-BlackOnWhite.argTypes = defaultArgTypes;
-BlackOnWhite.args = {
-  ...defaultArgs,
-  variant: variants.options[3],
-  'protective-room': protectiveRoom.options[1],
-};
-
-export const WhiteOnBlack = Template.bind({});
-WhiteOnBlack.argTypes = defaultArgTypes;
-WhiteOnBlack.args = {
-  ...defaultArgs,
-  variant: variants.options[4],
-  'protective-room': protectiveRoom.options[1],
+  negative: true,
+  'protective-room': protectiveRoom.options[2],
 };
 
 export default {
@@ -90,6 +65,9 @@ export default {
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
+    },
+    chromatic: {
+      viewports: [320],
     },
   },
   title: 'brand elements/SBB Logo',

@@ -20,37 +20,18 @@
   }
 }
 
-:host([variant='negative']) {
+:host([negative]) {
   --sbb-logo-word-mark-color: var(--sbb-color-white-default);
-}
-
-:host([variant='on-red']) {
-  --sbb-logo-background-color: var(--sbb-color-red-default);
-  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
-  --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
-}
-
-:host([variant='black-on-white']) {
-  --sbb-logo-word-mark-color: var(--sbb-color-black-default);
-  --sbb-logo-panel-color: var(--sbb-color-black-default);
-  --sbb-logo-panel-stroke-color: var(--sbb-color-black-default);
-}
-
-:host([variant='white-on-black']) {
-  --sbb-logo-background-color: var(--sbb-color-black-default);
-  --sbb-logo-word-mark-color: var(--sbb-color-white-default);
-  --sbb-logo-panel-color: none;
-  --sbb-logo-panel-stroke-color: var(--sbb-color-white-default);
-}
-
-:host([protective-room='ideal']) {
-  --sbb-logo-aspect-ratio: 550 / 144;
-  --sbb-logo-svg-container-height: 33.333333%; // 48/144 Adapted from Figma
 }
 
 :host([protective-room='minimal']) {
   --sbb-logo-aspect-ratio: 502 / 96;
   --sbb-logo-svg-container-height: 50%; // 48/96 Adapted from Figma
+}
+
+:host([protective-room='ideal']) {
+  --sbb-logo-aspect-ratio: 550 / 144;
+  --sbb-logo-svg-container-height: calc(48 / 144 * 100%);
 }
 
 .sbb-logo {
