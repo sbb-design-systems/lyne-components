@@ -260,7 +260,7 @@ export const i18nNone: any = {
 };
 
 export const i18nOccupancy: any = {
-  none: {
+  unknown: {
     de: 'Keine Belegungsprognose verfügbar.',
     en: 'No occupancy forecast available.',
     fr: "Aucune prévision d'occupation disponible.",

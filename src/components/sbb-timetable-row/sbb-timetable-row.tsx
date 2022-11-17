@@ -161,30 +161,46 @@ export class SbbTimetableRow {
             </span>
             {(occupancy?.firstClass || occupancy?.secondClass) && (
               <ul class="sbb-timetable__row-occupancy" role="list">
-                <li>
-                  {occupancy?.firstClass ? '1.' : ''}
-                  <sbb-icon
-                    class="sbb-occupancy__item"
-                    name={`utilization-` + occupancy?.firstClass.toLowerCase()}
-                  />
-                  <span class="sbb-screenreaderonly">{i18nClass.first[this._currentLanguage]}</span>
-                  <span class="sbb-screenreaderonly">
-                    {i18nOccupancy[occupancy?.firstClass.toLowerCase()][this._currentLanguage]}
-                  </span>
-                </li>
-                <li>
-                  {occupancy?.secondClass ? '2.' : ''}
-                  <sbb-icon
-                    class="sbb-occupancy__item"
-                    name={`utilization-` + occupancy?.secondClass.toLowerCase()}
-                  />
-                  <span class="sbb-screenreaderonly">
-                    {i18nClass.second[this._currentLanguage]}
-                  </span>
-                  <span class="sbb-screenreaderonly">
-                    {i18nOccupancy[occupancy.secondClass.toLowerCase()][this._currentLanguage]}
-                  </span>
-                </li>
+                {occupancy?.firstClass && (
+                  <li>
+                    1.
+                    <sbb-icon
+                      class="sbb-occupancy__item"
+                      name={
+                        occupancy?.firstClass === 'UNKNOWN'
+                          ? 'utilization-none'
+                          : `utilization-` + occupancy?.firstClass?.toLowerCase()
+                      }
+                    />
+                    <span class="sbb-screenreaderonly">
+                      {i18nClass.first[this._currentLanguage]}
+                    </span>
+                    <span class="sbb-screenreaderonly">
+                      {i18nOccupancy[occupancy?.firstClass?.toLowerCase()] &&
+                        i18nOccupancy[occupancy?.firstClass?.toLowerCase()][this._currentLanguage]}
+                    </span>
+                  </li>
+                )}
+                {occupancy?.secondClass && (
+                  <li>
+                    2.
+                    <sbb-icon
+                      class="sbb-occupancy__item"
+                      name={
+                        occupancy?.secondClass === 'UNKNOWN'
+                          ? 'utilization-none'
+                          : `utilization-` + occupancy?.secondClass?.toLowerCase()
+                      }
+                    />
+                    <span class="sbb-screenreaderonly">
+                      {i18nClass.second[this._currentLanguage]}
+                    </span>
+                    <span class="sbb-screenreaderonly">
+                      {i18nOccupancy[occupancy.secondClass?.toLowerCase()] &&
+                        i18nOccupancy[occupancy.secondClass?.toLowerCase()][this._currentLanguage]}
+                    </span>
+                  </li>
+                )}
               </ul>
             )}
             {notices?.length > 0 ? (
