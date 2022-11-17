@@ -70,7 +70,16 @@ input[type='checkbox'] {
   display: flex;
   flex-direction: var(--toggle-check-flex-direction);
   gap: var(--sbb-spacing-fixed-3x);
-  align-items: center;
+  align-items: start;
+}
+
+.toggle-check__label {
+  padding-block-start: calc(
+    (
+        var(--toggle-check-height) -
+          (var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-s))
+      ) / 2
+  );
 }
 
 .toggle-check__slider {
