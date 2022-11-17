@@ -49,6 +49,7 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
+import { InterfaceSbbToggleOption } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
@@ -1668,6 +1669,10 @@ export namespace Components {
          */
         "sbbToggleId": string;
         /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbToggleOption['size'];
+        /**
           * The value of the toggle.
          */
         "value"?: any | null;
@@ -1768,11 +1773,11 @@ export namespace Components {
           * Name of the toggle-option.
          */
         "name"?: string;
-        /**
-          * Whether the toggle-option is required.
-         */
-        "required": boolean;
         "select": () => Promise<void>;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbToggleOption['size'];
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -3997,6 +4002,10 @@ declare namespace LocalJSX {
          */
         "sbbToggleId"?: string;
         /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbToggleOption['size'];
+        /**
           * The value of the toggle.
          */
         "value"?: any | null;
@@ -4115,9 +4124,9 @@ declare namespace LocalJSX {
          */
         "onSbb-toggle-option_did-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
         /**
-          * Whether the toggle-option is required.
+          * Size variant, either m or s.
          */
-        "required"?: boolean;
+        "size"?: InterfaceSbbToggleOption['size'];
         /**
           * Id of the internal input element - default id will be set automatically.
          */

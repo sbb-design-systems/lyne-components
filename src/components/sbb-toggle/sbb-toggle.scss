@@ -3,6 +3,8 @@
 @include host-component-properties;
 
 .sbb-toggle {
+  @include text-m--regular;
+
   position: relative;
   display: flex;
   justify-content: center;
