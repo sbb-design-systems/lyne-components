@@ -20,7 +20,7 @@ const defaultArgs = {
 
 export const NoProtectiveRoom = Template.bind({});
 NoProtectiveRoom.argTypes = defaultArgTypes;
-NoProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[2] };
+NoProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[0] };
 
 export const MinimalProtectiveRoom = Template.bind({});
 MinimalProtectiveRoom.argTypes = defaultArgTypes;
@@ -28,7 +28,7 @@ MinimalProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom
 
 export const IdealProtectiveRoom = Template.bind({});
 IdealProtectiveRoom.argTypes = defaultArgTypes;
-IdealProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[0] };
+IdealProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[2] };
 
 export default {
   decorators: [
