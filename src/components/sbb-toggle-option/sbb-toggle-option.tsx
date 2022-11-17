@@ -94,7 +94,7 @@ export class SbbToggleOption {
           checked={this.checked}
           value={this.value}
         />
-        <span class='sbb-toggle-option'>
+        <span class="sbb-toggle-option">
           {!this.iconName && <slot />}
           {this.iconName && (
             <slot name="icon">
