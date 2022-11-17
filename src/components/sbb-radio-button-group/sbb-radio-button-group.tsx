@@ -97,9 +97,9 @@ export class SbbRadioButtonGroup {
   public updateDisabled(): void {
     for (const radio of this._radioButtons) {
       if (this.disabled) {
-        radio.dataset.disabled = '';
+        radio.dataset.groupDisabled = '';
       } else {
-        delete radio.dataset.disabled;
+        delete radio.dataset.groupDisabled;
       }
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
@@ -109,9 +109,9 @@ export class SbbRadioButtonGroup {
   public updateRequired(): void {
     for (const radio of this._radioButtons) {
       if (this.required) {
-        radio.dataset.required = '';
+        radio.dataset.groupRequired = '';
       } else {
-        delete radio.dataset.required;
+        delete radio.dataset.groupRequired;
       }
     }
   }
@@ -150,7 +150,7 @@ export class SbbRadioButtonGroup {
   }
 
   @Listen('sbb-radio-button_did-select', { passive: true })
-  public onRadioButtonSelect(event: CustomEvent<Set<string>>): void {
+  public onRadioButtonSelect(event: CustomEvent<string>): void {
     this.value = event.detail;
   }
 
@@ -163,15 +163,15 @@ export class SbbRadioButtonGroup {
       radio.allowEmptySelection = this.allowEmptySelection;
 
       if (this.disabled) {
-        radio.dataset.disabled = '';
+        radio.dataset.groupDisabled = '';
       } else {
-        delete radio.dataset.disabled;
+        delete radio.dataset.groupDisabled;
       }
 
       if (this.required) {
-        radio.dataset.required = '';
+        radio.dataset.groupRequired = '';
       } else {
-        delete radio.dataset.required;
+        delete radio.dataset.groupRequired;
       }
 
       radio.tabIndex = this._getRadioTabIndex(radio);
@@ -184,15 +184,17 @@ export class SbbRadioButtonGroup {
     return Array.from(this._element.querySelectorAll('sbb-radio-button')) as RadioButton[];
   }
 
-  private _getEnabledRadios(): RadioButton[] {
-    return this._radioButtons.filter((r) => !(r.hasAttribute('disabled') || r.dataset.disabled));
+  private get _enabledRadios(): RadioButton[] {
+    if (!this.disabled) {
+      return this._radioButtons.filter((r) => !r.disabled);
+    }
   }
 
   private _setFocusableRadio(): void {
     const checked = this._radioButtons.find((radio) => radio.checked);
 
     if (!checked) {
-      this._getEnabledRadios()[0].tabIndex = 0;
+      this._enabledRadios[0].tabIndex = 0;
     }
   }
 
@@ -202,7 +204,7 @@ export class SbbRadioButtonGroup {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    const enabledRadios = this._getEnabledRadios();
+    const enabledRadios = this._enabledRadios;
     const checked = enabledRadios.findIndex((radio) => radio.checked);
     const cur = checked !== -1 ? checked : 0;
     const size = enabledRadios.length;

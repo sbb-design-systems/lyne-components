@@ -19,22 +19,22 @@
 :host(:focus-visible) {
   @include focusOutline;
 
-  border-radius: calc(var(--sbb-border-radius-1x) * 2 - var(--sbb-focus-outline-offset));
+  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
 }
 
-:host([data-disabled]),
+:host([data-group-disabled]),
 :host([disabled]) {
   --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
   --sbb-radio-button-checked-color: var(--sbb-color-graphite-default);
 }
 
 /* HTML5 Boilerplate accessible hidden styles */
-.sbb-radio-button {
+.sbb-radio-button__input {
   @include screenReaderOnly;
 }
 
 /* One radio button per line */
-.sbb-radio-button__label {
+.sbb-radio-button {
   @include text-m--regular;
 
   cursor: pointer;
@@ -47,7 +47,7 @@
     @include text-s--regular;
   }
 
-  :host([data-disabled]) &,
+  :host([data-group-disabled]) &,
   :host([disabled]) & {
     cursor: default;
   }
@@ -56,35 +56,35 @@
 .sbb-radio-button__label-slot {
   display: flex;
   align-items: flex-start;
-}
 
-/* unchecked style */
-.sbb-radio-button__label-slot::before {
-  content: '';
-  flex-shrink: 0;
-  width: var(--sbb-radio-button-size);
-  height: var(--sbb-radio-button-size);
-  background: var(--sbb-radio-button-checked-color);
-  border-radius: var(--sbb-radio-button-border-radius);
+  /* Unchecked style */
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: var(--sbb-radio-button-size);
+    height: var(--sbb-radio-button-size);
+    background: var(--sbb-radio-button-checked-color);
+    border-radius: var(--sbb-radio-button-border-radius);
 
-  // The border was used to generate the animation of the radio-button,
-  // consequently the box-shadow was used as the actual border of the radio.
-  border: calc(var(--sbb-radio-button-size) / 2) solid var(--sbb-color-white-default);
-  box-shadow: 0 0 0 var(--sbb-radio-button-border) var(--sbb-color-smoke-default);
-  margin-inline-end: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-radio-button-border));
-  margin-inline-start: var(--sbb-radio-button-border);
-  margin-block-start: var(--sbb-radio-button-icon-align);
-  transition: border var(--sbb-animation-duration-4x) ease;
+    // The border was used to generate the animation of the radio-button,
+    // consequently the box-shadow was used as the actual border of the radio.
+    border: calc(var(--sbb-radio-button-size) / 2) solid var(--sbb-color-white-default);
+    box-shadow: 0 0 0 var(--sbb-radio-button-border) var(--sbb-color-smoke-default);
+    margin-inline-end: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-radio-button-border));
+    margin-inline-start: var(--sbb-radio-button-border);
+    margin-block-start: var(--sbb-radio-button-icon-align);
+    transition: border var(--sbb-animation-duration-4x) ease;
 
-  :host([data-disabled]) &,
-  :host([disabled]) & {
-    @include ifForcedColors {
-      border-color: GrayText;
+    :host([data-group-disabled]) &,
+    :host([disabled]) & {
+      @include ifForcedColors {
+        border-color: GrayText;
+      }
     }
   }
 }
 
-/* the checked style using the :checked pseudo class */
-.sbb-radio-button:checked + .sbb-radio-button__label-slot::before {
+/* The checked style using the :checked pseudo class */
+.sbb-radio-button__input:checked + .sbb-radio-button__label-slot::before {
   border-width: #{px-to-rem-build(6)};
 }

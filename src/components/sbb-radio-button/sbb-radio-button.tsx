@@ -11,7 +11,6 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import { hostContext } from '../../global/helpers/host-context';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { InterfaceSbbRadioButton } from './sbb-radio-button.custom';
 
@@ -19,7 +18,7 @@ let nextId = 0;
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-required', 'data-disabled'],
+  attributeFilter: ['data-group-required', 'data-group-disabled'],
 };
 
 /**
@@ -135,21 +134,19 @@ export class SbbRadioButton implements InterfaceSbbRadioButton {
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
-    if (hostContext('sbb-radio-button-group', this._element)) {
-      this._disabledFromGroup = !!this._element.dataset.disabled;
-      this._requiredFromGroup = !!this._element.dataset.required;
-    }
+    this._disabledFromGroup = !!this._element.dataset.groupDisabled;
+    this._requiredFromGroup = !!this._element.dataset.groupRequired;
     this._radioButtonAttributeObserver.observe(this._element, radioButtonObserverConfig);
   }
 
   // Observe changes on data attributes and set the appropriate values.
   private _onRadioButtonAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'data-disabled') {
-        this._disabledFromGroup = !!this._isValidAttribute('data-disabled');
+      if (mutation.attributeName === 'data-group-disabled') {
+        this._disabledFromGroup = !!this._isValidAttribute('data-group-disabled');
       }
-      if (mutation.attributeName === 'data-required') {
-        this._requiredFromGroup = !!this._isValidAttribute('data-required');
+      if (mutation.attributeName === 'data-group-required') {
+        this._requiredFromGroup = !!this._isValidAttribute('data-group-required');
       }
     }
   }
@@ -168,11 +165,7 @@ export class SbbRadioButton implements InterfaceSbbRadioButton {
         aria-labelledby={this._radioButtonLabelId}
         role="radio"
       >
-        <label
-          id={this._radioButtonLabelId}
-          htmlFor={this.radioButtonId}
-          class="sbb-radio-button__label"
-        >
+        <label id={this._radioButtonLabelId} htmlFor={this.radioButtonId} class="sbb-radio-button">
           <input
             type="radio"
             aria-hidden="true"
@@ -182,7 +175,7 @@ export class SbbRadioButton implements InterfaceSbbRadioButton {
             required={this.required || this._requiredFromGroup}
             checked={this.checked}
             value={this.value}
-            class="sbb-radio-button"
+            class="sbb-radio-button__input"
           />
           <span class="sbb-radio-button__label-slot">
             <slot />

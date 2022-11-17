@@ -58,6 +58,34 @@ describe('sbb-radio-button-group', () => {
       expect(firstRadio).toHaveAttribute('checked');
     });
 
+    it('preserves radio button disabled state after being disabled from group', async () => {
+      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
+      const secondRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
+      const disabledRadio = await page.find(
+        'sbb-radio-button-group > sbb-radio-button#sbb-radio-3'
+      );
+
+      await element.setProperty('disabled', true);
+      await page.waitForChanges();
+
+      await disabledRadio.click();
+      await page.waitForChanges();
+      expect(disabledRadio).not.toHaveAttribute('checked');
+      expect(firstRadio).toHaveAttribute('checked');
+
+      await secondRadio.click();
+      await page.waitForChanges();
+      expect(secondRadio).not.toHaveAttribute('checked');
+
+      await element.setProperty('disabled', false);
+      await page.waitForChanges();
+
+      await disabledRadio.click();
+      await page.waitForChanges();
+      expect(disabledRadio).not.toHaveAttribute('checked');
+      expect(firstRadio).toHaveAttribute('checked');
+    });
+
     it('selects radio on left arrow key pressed', async () => {
       const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
 
