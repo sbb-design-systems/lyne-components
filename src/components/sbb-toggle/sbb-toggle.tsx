@@ -47,6 +47,11 @@ export class SbbToggle {
   @Prop() public size?: InterfaceSbbToggleAttributes['size'] = 'm';
 
   /**
+   * Set the width of the component.
+   */
+  @Prop() public even: boolean;
+
+  /**
    * The value of the toggle.
    */
   @Prop({ mutable: true, reflect: true }) public value: any | null;
