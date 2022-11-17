@@ -1,6 +1,5 @@
 import { Component, Prop, h, JSX, Element, State, ComponentInterface, Listen } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
-import { hostContext } from '../../global/helpers/host-context';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import {
@@ -18,7 +17,7 @@ let nextId = 0;
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-required', 'data-disabled'],
+  attributeFilter: ['data-group-required', 'data-group-disabled'],
 };
 
 /**
@@ -94,33 +93,24 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
-  /** Set up the initial disabled/required values and start observe attributes changes. */
-  private _setupInitialStateAndAttributeObserver(): void {
-    if (hostContext('sbb-checkbox-group', this._element)) {
-      this._disabledFromGroup = !!this._element.dataset.disabled;
-      this._requiredFromGroup = !!this._element.dataset.required;
-    }
-    this._checkboxAttributeObserver.observe(this._element, checkboxObserverConfig);
-  }
-
   /** Observe changes on data attributes and set the appropriate values. */
-  private _onCheckboxAttributesChange(mutationsList): void {
+  private _onCheckboxAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.type !== 'attributes') {
         return;
       }
-      if (mutation.attributeName === 'data-disabled') {
-        this._disabledFromGroup = !!isValidAttribute(this._element, 'data-disabled');
+      if (mutation.attributeName === 'data-group-disabled') {
+        this._disabledFromGroup = !!isValidAttribute(this._element, 'data-group-disabled');
       }
-      if (mutation.attributeName === 'data-required') {
-        this._requiredFromGroup = !!isValidAttribute(this._element, 'data-required');
+      if (mutation.attributeName === 'data-group-required') {
+        this._requiredFromGroup = !!isValidAttribute(this._element, 'data-group-required');
       }
     }
   }
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    this._setupInitialStateAndAttributeObserver();
+    this._checkboxAttributeObserver.observe(this._element, checkboxObserverConfig);
   }
 
   public disconnectedCallback(): void {

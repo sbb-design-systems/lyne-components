@@ -24,11 +24,11 @@ describe('sbb-checkbox-group', () => {
     await page.waitForChanges();
     expect(element).toEqualAttribute('disabled', 'true');
     const checkboxOne = await page.find('sbb-checkbox-group > sbb-checkbox#checkbox-1');
-    expect(checkboxOne.getAttribute('data-disabled')).not.toBeNull();
+    expect(checkboxOne.getAttribute('data-group-disabled')).not.toBeNull();
     const checkboxTwo = await page.find('sbb-checkbox-group > sbb-checkbox#checkbox-2');
-    expect(checkboxTwo.getAttribute('data-disabled')).not.toBeNull();
+    expect(checkboxTwo.getAttribute('data-group-disabled')).not.toBeNull();
     const checkboxThree = await page.find('sbb-checkbox-group > sbb-checkbox#checkbox-3');
-    expect(checkboxThree.getAttribute('data-disabled')).not.toBeNull();
+    expect(checkboxThree.getAttribute('data-group-disabled')).not.toBeNull();
   });
 
   it('required status', async () => {
@@ -36,10 +36,10 @@ describe('sbb-checkbox-group', () => {
     await page.waitForChanges();
     expect(element).toEqualAttribute('required', 'true');
     const checkboxOne = await page.find('sbb-checkbox-group > sbb-checkbox#checkbox-1');
-    expect(checkboxOne.getAttribute('data-required')).not.toBeNull();
+    expect(checkboxOne.getAttribute('data-group-required')).not.toBeNull();
     const checkboxTwo = await page.find('sbb-checkbox-group > sbb-checkbox#checkbox-2');
-    expect(checkboxTwo.getAttribute('data-required')).not.toBeNull();
+    expect(checkboxTwo.getAttribute('data-group-required')).not.toBeNull();
     const checkboxThree = await page.find('sbb-checkbox-group > sbb-checkbox#checkbox-3');
-    expect(checkboxThree.getAttribute('data-required')).not.toBeNull();
+    expect(checkboxThree.getAttribute('data-group-required')).not.toBeNull();
   });
 });

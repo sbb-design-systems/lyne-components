@@ -17,7 +17,7 @@
   }
 }
 
-:host([data-disabled]),
+:host([data-group-disabled]),
 :host([disabled]) {
   --sbb-checkbox-color: var(--sbb-color-graphite-default);
   --sbb-checkbox-border-color: var(--sbb-color-graphite-default);

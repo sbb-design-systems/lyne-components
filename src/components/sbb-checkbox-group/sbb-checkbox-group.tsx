@@ -75,15 +75,15 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
     for (const checkbox of checkboxes) {
       if (this.disabled) {
-        checkbox.dataset.disabled = '';
+        checkbox.dataset.groupDisabled = '';
       } else {
-        delete checkbox.dataset.disabled;
+        delete checkbox.dataset.groupDisabled;
       }
 
       if (this.required) {
-        checkbox.dataset.required = '';
+        checkbox.dataset.groupRequired = '';
       } else {
-        delete checkbox.dataset.required;
+        delete checkbox.dataset.groupRequired;
       }
     }
   }
