@@ -9,7 +9,7 @@ describe('sbb-radio-button-group', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-radio-button-group role="radiogroup">
+        <sbb-radio-button-group orientation="horizontal" role="radiogroup">
           <mock:shadow-root>
           <div class="sbb-radio-group">
             <slot></slot>

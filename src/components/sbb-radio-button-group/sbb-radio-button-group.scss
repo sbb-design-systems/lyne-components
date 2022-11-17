@@ -2,16 +2,23 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+
+:host {
+  --sbb-radio-button-group-orientation: row;
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-6x);
+}
+
+:host([orientation='vertical']) {
+  --sbb-radio-button-group-orientation: column;
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-3x);
+}
+
 .sbb-radio-group {
   display: flex;
-  gap: var(--sbb-spacing-fixed-6x);
+  flex-direction: var(--sbb-radio-button-group-orientation);
+  gap: var(--sbb-radio-button-group-gap);
   width: max-content;
-
-  :host([orientation='vertical']) & {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sbb-spacing-fixed-3x);
-  }
 }
 
 .sbb-radio-group__error {
@@ -19,4 +26,14 @@
 
   display: inline-block;
   margin-block-start: var(--sbb-spacing-fixed-1x);
+}
+
+@each $breakpoint in $breakpoints {
+  @include mq($from: #{$breakpoint}) {
+    // horizontal-from overrides orientation vertical
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+      --sbb-radio-button-group-orientation: row;
+      --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-6x);
+    }
+  }
 }

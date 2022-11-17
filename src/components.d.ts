@@ -1120,9 +1120,13 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        /**
           * Radio group's orientation, either horizontal or vertical.
          */
-        "orientation"?: string;
+        "orientation": InterfaceSbbRadioButtonGroup['orientation'];
         /**
           * Id of the radio group element.
          */
@@ -3266,13 +3270,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        /**
           * Emits whenever the radio group value changes.
          */
         "onSbb-radio-button-group_did-change"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
         /**
           * Radio group's orientation, either horizontal or vertical.
          */
-        "orientation"?: string;
+        "orientation"?: InterfaceSbbRadioButtonGroup['orientation'];
         /**
           * Id of the radio group element.
          */

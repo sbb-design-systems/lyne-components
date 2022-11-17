@@ -33,6 +33,13 @@ const orientation = {
   options: ['horizontal', 'vertical'],
 };
 
+const horizontalFrom = {
+  control: {
+    type: 'select',
+  },
+  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+};
+
 const size = {
   control: {
     type: 'inline-radio',
@@ -52,6 +59,7 @@ const defaultArgTypes = {
   disabled,
   'allow-empty-selection': allowEmptySelection,
   orientation,
+  'horizontal-from': horizontalFrom,
   size,
   'aria-label': ariaLabel,
 };
@@ -62,6 +70,7 @@ const defaultArgs = {
   disabled: false,
   'allow-empty-selection': false,
   orientation: orientation.options[0],
+  'horizontal-from': undefined,
   size: size.options[0],
   'aria-label': undefined,
 };
