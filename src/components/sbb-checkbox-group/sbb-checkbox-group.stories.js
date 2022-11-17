@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from '../sbb-checkbox/sbb-checkbox.events';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -61,14 +60,13 @@ const ErrorMessageTemplate = ({
   </sbb-checkbox-group>
 );
 
-// FIXME to be changed when sbb-slider will be merged due the new event handling.
 let selectedCheckboxes = ['checkbox-1'];
 
 const childCheck = (event) => {
-  if (event.detail.checked) {
-    selectedCheckboxes.push(event.detail.value);
+  if (event.target.checked) {
+    selectedCheckboxes.push(event.target.value);
   } else {
-    selectedCheckboxes.splice(selectedCheckboxes.indexOf(event.detail.value), 1);
+    selectedCheckboxes.splice(selectedCheckboxes.indexOf(event.target.value), 1);
   }
   document
     .getElementById('parent')
@@ -79,13 +77,13 @@ const childCheck = (event) => {
 };
 
 const parentCheck = (event) => {
-  if (event.detail.checked) {
+  if (event.target.checked) {
     selectedCheckboxes = ['checkbox-1', 'checkbox-2'];
   } else {
     selectedCheckboxes = [];
   }
-  document.getElementById('checkbox-1').setAttribute('checked', event.detail.checked);
-  document.getElementById('checkbox-2').setAttribute('checked', event.detail.checked);
+  document.getElementById('checkbox-1').setAttribute('checked', event.target.checked);
+  document.getElementById('checkbox-2').setAttribute('checked', event.target.checked);
 };
 
 const IndeterminateGroupTemplate = ({
@@ -106,7 +104,7 @@ const IndeterminateGroupTemplate = ({
       value="parent"
       checked="false"
       indeterminate="true"
-      onSbb-change={(event) => parentCheck(event)}
+      onChange={(event) => parentCheck(event)}
       size={size}
       icon-name={iconName}
       icon-placement={iconPlacement}
@@ -117,7 +115,7 @@ const IndeterminateGroupTemplate = ({
       id="checkbox-1"
       value="checkbox-1"
       checked="true"
-      onSbb-change={(event) => childCheck(event)}
+      onChange={(event) => childCheck(event)}
       size={size}
       icon-name={iconName}
       icon-placement={iconPlacement}
@@ -130,7 +128,7 @@ const IndeterminateGroupTemplate = ({
       id="checkbox-2"
       value="checkbox-2"
       checked="false"
-      onSbb-change={(event) => childCheck(event)}
+      onChange={(event) => childCheck(event)}
       size={size}
       icon-name={iconName}
       icon-placement={iconPlacement}
@@ -386,7 +384,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.sbbChange],
+      handles: ['change'],
     },
     backgrounds: {
       disable: true,

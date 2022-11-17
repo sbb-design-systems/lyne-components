@@ -1,16 +1,7 @@
-import {
-  Component,
-  Prop,
-  h,
-  Event,
-  EventEmitter,
-  JSX,
-  Element,
-  State,
-  ComponentInterface,
-  Listen,
-} from '@stencil/core';
+import { Component, Prop, h, JSX, Element, State, ComponentInterface, Listen } from '@stencil/core';
+import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { hostContext } from '../../global/helpers/host-context';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import {
   createNamedSlotState,
@@ -21,7 +12,7 @@ import {
   AccessibilityProperties,
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
-import { InterfaceCheckboxAttributes, SbbCheckboxChange } from './sbb-checkbox.custom';
+import { InterfaceCheckboxAttributes } from './sbb-checkbox.custom';
 
 let nextId = 0;
 
@@ -98,14 +89,6 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
-  /** Event for emitting whenever selection is changed. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'sbb-change',
-  })
-  public sbbChange: EventEmitter<SbbCheckboxChange>;
-
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
@@ -127,10 +110,10 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
         return;
       }
       if (mutation.attributeName === 'data-disabled') {
-        this._disabledFromGroup = true;
+        this._disabledFromGroup = !!isValidAttribute(this._element, 'data-disabled');
       }
       if (mutation.attributeName === 'data-required') {
-        this._requiredFromGroup = true;
+        this._requiredFromGroup = !!isValidAttribute(this._element, 'data-required');
       }
     }
   }
@@ -145,17 +128,14 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   }
 
   /** Method triggered on checkbox change. If not indeterminate, inverts the value; otherwise sets checked to true. */
-  public checkedChanged(): void {
+  public checkedChanged(event: Event): void {
     if (this.indeterminate) {
       this.checked = true;
       this.indeterminate = false;
     } else {
       this.checked = this._checkbox?.checked;
     }
-    this.sbbChange.emit({
-      checked: this.checked,
-      value: this.value,
-    });
+    forwardEventToHost(event, this._element);
   }
 
   public render(): JSX.Element {
@@ -170,7 +150,7 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
           checked={this.checked}
           value={this.value}
           {...getAccessibilityAttributeList(this)}
-          onChange={(): void => this.checkedChanged()}
+          onChange={(event: Event): void => this.checkedChanged(event)}
         />
         <span class="sbb-checkbox__inner">
           <span class="sbb-checkbox__aligner">

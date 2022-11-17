@@ -51,7 +51,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
   public horizontalFrom?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
 
   /**
-   * Indicates the orientation of the components inside the `<sbb-action-group>`.
+   * Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`.
    */
   @Prop({ reflect: true }) public orientation: InterfaceSbbCheckboxGroupAttributes['orientation'] =
     'horizontal';

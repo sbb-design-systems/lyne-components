@@ -14,13 +14,8 @@ It is possible to provide a label via an unnamed slot; the component can optiona
 the `iconName` property or via custom SVG using the `icon` slot.
 The icon can be placed before or after the label based on the value of the `iconPlacement` property (default: end).
 
-Consumers can listen to the `sbbChange` event to intercept the native input's change. It emits a `SbbCheckboxChange` object:
-```ts
-interface SbbCheckboxChange {
-  checked: boolean;
-  value: boolean;
-}
-```
+Consumers can listen to the native `change` event on the `sbb-checkbox` component to intercept the input's change;
+the current state can be read from `event.target.checked`, while the value from `event.target.value`.
 
 ## Usage
 
@@ -39,7 +34,6 @@ Unchecked and disabled with icon
 ```
 
 Indeterminate and required with icon placed before the label
-
 ```html
 <sbb-checkbox value="single-checkbox" required="true" indeterminate="true" icon-name="tickets-class-small" icon-placement="start">
   Example
@@ -86,13 +80,6 @@ to describe the element on which the attribute is set.
 | `required`                 | `required`                  | The required prop for the required state.                                                                                                           | `boolean`          | `false`                      |
 | `size`                     | `size`                      | Size of the checkbox.                                                                                                                               | `"m" \| "s"`       | `'s'`                        |
 | `value`                    | `value`                     | Value of checkbox.                                                                                                                                  | `string`           | `undefined`                  |
-
-
-## Events
-
-| Event        | Description                                       | Type                             |
-| ------------ | ------------------------------------------------- | -------------------------------- |
-| `sbb-change` | Event for emitting whenever selection is changed. | `CustomEvent<SbbCheckboxChange>` |
 
 
 ## Slots

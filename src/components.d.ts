@@ -15,7 +15,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
-import { InterfaceCheckboxAttributes, SbbCheckboxChange } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { InterfaceCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
@@ -545,7 +545,7 @@ export namespace Components {
          */
         "horizontalFrom"?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
         /**
-          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+          * Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`.
          */
         "orientation": InterfaceSbbCheckboxGroupAttributes['orientation'];
         /**
@@ -1735,10 +1735,6 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
-export interface SbbCheckboxCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbCheckboxElement;
-}
 export interface SbbDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbDialogElement;
@@ -2740,10 +2736,6 @@ declare namespace LocalJSX {
          */
         "inputId"?: string;
         /**
-          * Event for emitting whenever selection is changed.
-         */
-        "onSbb-change"?: (event: SbbCheckboxCustomEvent<SbbCheckboxChange>) => void;
-        /**
           * The required prop for the required state.
          */
         "required"?: boolean;
@@ -2770,7 +2762,7 @@ declare namespace LocalJSX {
          */
         "horizontalFrom"?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
         /**
-          * Indicates the orientation of the components inside the `<sbb-action-group>`.
+          * Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`.
          */
         "orientation"?: InterfaceSbbCheckboxGroupAttributes['orientation'];
         /**

@@ -8,8 +8,3 @@ export interface InterfaceCheckboxAttributes {
   size: 'm' | 's';
   iconPlacement?: 'start' | 'end';
 }
-
-export interface SbbCheckboxChange {
-  checked: boolean;
-  value: string;
-}

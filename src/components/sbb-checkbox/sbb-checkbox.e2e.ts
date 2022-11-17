@@ -1,5 +1,4 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import events from './sbb-checkbox.events';
 
 describe('sbb-checkbox', () => {
   let element: E2EElement, page: E2EPage;
@@ -19,8 +18,7 @@ describe('sbb-checkbox', () => {
     it('emit event on click', async () => {
       await page.waitForChanges();
       const checkbox = await page.find('sbb-checkbox');
-      const changeSpy = await page.spyOnEvent(events.sbbChange);
-
+      const changeSpy = await page.spyOnEvent('change');
       await checkbox.click();
       expect(changeSpy).toHaveReceivedEvent();
     });
@@ -28,7 +26,7 @@ describe('sbb-checkbox', () => {
     it('emit event on keypress', async () => {
       await page.waitForChanges();
       const checkbox = await page.find('sbb-checkbox');
-      const changeSpy = await page.spyOnEvent(events.sbbChange);
+      const changeSpy = await page.spyOnEvent('change');
       await checkbox.press('Tab');
       await checkbox.press('Space');
       await page.waitForChanges();
