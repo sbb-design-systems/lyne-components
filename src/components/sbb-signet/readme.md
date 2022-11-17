@@ -4,6 +4,7 @@ The `<sbb-signet>` ensures his aspect ratio and protective room. To use the sign
 please define the desired height or width on `<sbb-signet>`.
 
 ## Usage
+
 ```html
 <style>
   sbb-signet {
@@ -24,3 +25,5 @@ please define the desired height or width on `<sbb-signet>`.
 
 
 ----------------------------------------------
+
+
