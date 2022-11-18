@@ -60,7 +60,7 @@ export class SbbRadioButtonGroup {
   /**
    * Size variant, either m or s.
    */
-  @Prop() public size?: InterfaceSbbRadioButtonGroup['size'] = 'm';
+  @Prop() public size: InterfaceSbbRadioButtonGroup['size'] = 'm';
 
   /**
    * Overrides the behaviour of `orientation` property.

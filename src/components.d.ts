@@ -1104,7 +1104,7 @@ export namespace Components {
         /**
           * Label size variant, either m or s.
          */
-        "size"?: InterfaceSbbRadioButton['size'];
+        "size": InterfaceSbbRadioButton['size'];
         /**
           * Value of radio button.
          */
@@ -1138,7 +1138,7 @@ export namespace Components {
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbRadioButtonGroup['size'];
+        "size": InterfaceSbbRadioButtonGroup['size'];
         /**
           * The value of the radio group.
          */

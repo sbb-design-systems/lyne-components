@@ -30,7 +30,7 @@ const radioButtonObserverConfig: MutationObserverInit = {
   styleUrl: 'sbb-radio-button.scss',
   tag: 'sbb-radio-button',
 })
-export class SbbRadioButton implements InterfaceSbbRadioButton {
+export class SbbRadioButton {
   /**
    * Id of the internal input element - default id will be set automatically.
    */
@@ -64,7 +64,7 @@ export class SbbRadioButton implements InterfaceSbbRadioButton {
   /**
    * Label size variant, either m or s.
    */
-  @Prop({ reflect: true }) public size?: InterfaceSbbRadioButton['size'] = 'm';
+  @Prop({ reflect: true }) public size: InterfaceSbbRadioButton['size'] = 'm';
 
   /**
    * Whether the component must be set disabled due disabled attribute on sbb-radio-button-group.
