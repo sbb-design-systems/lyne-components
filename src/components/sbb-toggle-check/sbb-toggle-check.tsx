@@ -70,6 +70,7 @@ export class SbbToggleCheck implements AccessibilityProperties {
           name={this.name}
           id={this.inputId}
           disabled={this.disabled}
+          aria-disabled={this.disabled}
           required={this.required}
           checked={this.checked}
           value={this.value}

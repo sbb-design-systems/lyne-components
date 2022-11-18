@@ -140,6 +140,7 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
           type="checkbox"
           id={this.checkboxId}
           disabled={this.disabled || this._disabledFromGroup}
+          aria-disabled={this.disabled || this._disabledFromGroup}
           required={this.required || this._requiredFromGroup}
           checked={this.checked}
           value={this.value}
