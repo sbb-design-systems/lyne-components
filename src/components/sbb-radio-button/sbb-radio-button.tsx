@@ -160,8 +160,10 @@ export class SbbRadioButton {
   public render(): JSX.Element {
     return (
       <Host
-        // eslint-disable-next-line jsx-a11y/aria-proptypes
+        /* eslint-disable jsx-a11y/aria-proptypes */
         aria-checked={`${this.checked}`}
+        aria-disabled={`${this.disabled || this._disabledFromGroup}`}
+        /* eslint-enable jsx-a11y/aria-proptypes */
         aria-labelledby={this._radioButtonLabelId}
         role="radio"
       >
