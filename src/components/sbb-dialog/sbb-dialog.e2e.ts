@@ -24,6 +24,7 @@ describe('sbb-dialog', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    expect(element).toHaveClass('sbb-dialog--opened');
     expect(dialog).toHaveAttribute('open');
   });
 
@@ -38,6 +39,7 @@ describe('sbb-dialog', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
+    expect(element).toHaveClass('sbb-dialog--closed');
     expect(dialog).not.toHaveAttribute('open');
   });
 

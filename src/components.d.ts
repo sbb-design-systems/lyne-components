@@ -31,6 +31,8 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
+import { InterfaceSbbRadioButton } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonGroup } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
@@ -1077,6 +1079,71 @@ export namespace Components {
          */
         "pearlChainVerticalItemAttributes": PearlChainVerticalItemAttributes;
     }
+    interface SbbRadioButton {
+        /**
+          * Whether the radio can be deselected.
+         */
+        "allowEmptySelection": boolean;
+        /**
+          * Whether the radio button is checked.
+         */
+        "checked": boolean;
+        /**
+          * Whether the radio button is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "radioButtonId": string;
+        /**
+          * Whether the radio button is required.
+         */
+        "required": boolean;
+        "select": () => Promise<void>;
+        /**
+          * Label size variant, either m or s.
+         */
+        "size": InterfaceSbbRadioButton['size'];
+        /**
+          * Value of radio button.
+         */
+        "value": string;
+    }
+    interface SbbRadioButtonGroup {
+        /**
+          * Whether the radios can be deselected.
+         */
+        "allowEmptySelection": boolean;
+        /**
+          * Whether the radio group is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        /**
+          * Radio group's orientation, either horizontal or vertical.
+         */
+        "orientation": InterfaceSbbRadioButtonGroup['orientation'];
+        /**
+          * Id of the radio group element.
+         */
+        "radioButtonGroupId": string;
+        /**
+          * Whether the radio group is required.
+         */
+        "required": boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size": InterfaceSbbRadioButtonGroup['size'];
+        /**
+          * The value of the radio group.
+         */
+        "value"?: any | null;
+    }
     interface SbbSection {
         /**
           * Section appearance
@@ -1606,6 +1673,14 @@ export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
 }
+export interface SbbRadioButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbRadioButtonElement;
+}
+export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbRadioButtonGroupElement;
+}
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
@@ -1827,6 +1902,18 @@ declare global {
         prototype: HTMLSbbPearlChainVerticalItemElement;
         new (): HTMLSbbPearlChainVerticalItemElement;
     };
+    interface HTMLSbbRadioButtonElement extends Components.SbbRadioButton, HTMLStencilElement {
+    }
+    var HTMLSbbRadioButtonElement: {
+        prototype: HTMLSbbRadioButtonElement;
+        new (): HTMLSbbRadioButtonElement;
+    };
+    interface HTMLSbbRadioButtonGroupElement extends Components.SbbRadioButtonGroup, HTMLStencilElement {
+    }
+    var HTMLSbbRadioButtonGroupElement: {
+        prototype: HTMLSbbRadioButtonGroupElement;
+        new (): HTMLSbbRadioButtonGroupElement;
+    };
     interface HTMLSbbSectionElement extends Components.SbbSection, HTMLStencilElement {
     }
     var HTMLSbbSectionElement: {
@@ -2042,6 +2129,8 @@ declare global {
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
         "sbb-pearl-chain-vertical": HTMLSbbPearlChainVerticalElement;
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
+        "sbb-radio-button": HTMLSbbRadioButtonElement;
+        "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
@@ -3137,6 +3226,78 @@ declare namespace LocalJSX {
          */
         "pearlChainVerticalItemAttributes"?: PearlChainVerticalItemAttributes;
     }
+    interface SbbRadioButton {
+        /**
+          * Whether the radio can be deselected.
+         */
+        "allowEmptySelection"?: boolean;
+        /**
+          * Whether the radio button is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * Whether the radio button is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Emits whenever the radio group value changes.
+         */
+        "onSbb-radio-button_did-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "radioButtonId"?: string;
+        /**
+          * Whether the radio button is required.
+         */
+        "required"?: boolean;
+        /**
+          * Label size variant, either m or s.
+         */
+        "size"?: InterfaceSbbRadioButton['size'];
+        /**
+          * Value of radio button.
+         */
+        "value"?: string;
+    }
+    interface SbbRadioButtonGroup {
+        /**
+          * Whether the radios can be deselected.
+         */
+        "allowEmptySelection"?: boolean;
+        /**
+          * Whether the radio group is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        /**
+          * Emits whenever the radio group value changes.
+         */
+        "onChange"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
+        /**
+          * Radio group's orientation, either horizontal or vertical.
+         */
+        "orientation"?: InterfaceSbbRadioButtonGroup['orientation'];
+        /**
+          * Id of the radio group element.
+         */
+        "radioButtonGroupId"?: string;
+        /**
+          * Whether the radio group is required.
+         */
+        "required"?: boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbRadioButtonGroup['size'];
+        /**
+          * The value of the radio group.
+         */
+        "value"?: any | null;
+    }
     interface SbbSection {
         /**
           * Section appearance
@@ -3685,6 +3846,8 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-time": SbbPearlChainTime;
         "sbb-pearl-chain-vertical": SbbPearlChainVertical;
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
+        "sbb-radio-button": SbbRadioButton;
+        "sbb-radio-button-group": SbbRadioButtonGroup;
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
@@ -3755,6 +3918,8 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
             "sbb-pearl-chain-vertical": LocalJSX.SbbPearlChainVertical & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalElement>;
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
+            "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
+            "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;

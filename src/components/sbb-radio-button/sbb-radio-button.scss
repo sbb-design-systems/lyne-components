@@ -1,0 +1,89 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-radio-button-label-color: var(--color-black-default);
+  --sbb-radio-button-checked-color: var(--sbb-color-red-default);
+  --sbb-radio-button-border: var(--sbb-border-width-1x);
+  --sbb-radio-button-border-radius: var(--sbb-border-radius-8x);
+  --sbb-radio-button-size: calc(var(--sbb-spacing-fixed-6x) - var(--sbb-radio-button-border) * 2);
+
+  // Align radio button to the first row of the label based on the line-height so that it's vertically
+  // aligned to the label and sticks to the top if the label breaks into multiple lines
+  --sbb-radio-button-icon-align: calc(
+    (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-size)) / 2
+  );
+}
+
+:host(:focus-visible) {
+  @include focusOutline;
+
+  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+}
+
+:host([data-group-disabled]),
+:host([disabled]) {
+  --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-checked-color: var(--sbb-color-graphite-default);
+}
+
+.sbb-radio-button__input {
+  @include screenReaderOnly;
+}
+
+// One radio button per line
+.sbb-radio-button {
+  @include text-m--regular;
+
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  color: var(--sbb-radio-button-label-color);
+  -webkit-tap-highlight-color: transparent;
+
+  :host([size='s']) & {
+    @include text-s--regular;
+  }
+
+  :host([data-group-disabled]) &,
+  :host([disabled]) & {
+    cursor: default;
+  }
+}
+
+.sbb-radio-button__label-slot {
+  display: flex;
+  align-items: flex-start;
+
+  // Unchecked style
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: var(--sbb-radio-button-size);
+    height: var(--sbb-radio-button-size);
+    background: var(--sbb-radio-button-checked-color);
+    border-radius: var(--sbb-radio-button-border-radius);
+
+    // The border was used to generate the animation of the radio-button,
+    // consequently the box-shadow was used as the actual border of the radio.
+    border: calc(var(--sbb-radio-button-size) / 2) solid var(--sbb-color-white-default);
+    box-shadow: 0 0 0 var(--sbb-radio-button-border) var(--sbb-color-smoke-default);
+    margin-inline-end: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-radio-button-border));
+    margin-inline-start: var(--sbb-radio-button-border);
+    margin-block-start: var(--sbb-radio-button-icon-align);
+    transition: border var(--sbb-animation-duration-4x) ease;
+
+    :host([data-group-disabled]) &,
+    :host([disabled]) & {
+      @include ifForcedColors {
+        border-color: GrayText;
+      }
+    }
+  }
+}
+
+// The checked style using the :checked pseudo class
+.sbb-radio-button__input:checked + .sbb-radio-button__label-slot::before {
+  border-width: #{px-to-rem-build(6)};
+}
