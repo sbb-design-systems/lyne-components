@@ -56,5 +56,16 @@ sbb-icon,
 }
 
 .sbb-toggle-option {
-  @include text-m--regular;
+  @include text-xs--regular;
+
+  display: flex;
+  padding-inline: var(--sbb-spacing-responsive-xxxs);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  border-radius: var(--sbb-border-radius-8x);
+}
+
+:host([checked]) {
+  .sbb-toggle-option {
+    background-color: white;
+  }
 }
