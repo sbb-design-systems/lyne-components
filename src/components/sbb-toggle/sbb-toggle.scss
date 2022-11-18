@@ -9,9 +9,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--sbb-color-cloud-default);
   width: max-content;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  border-radius: 3rem;
+  padding-block: var(--sbb-border-width-2x);
+  padding-inline: var(--sbb-border-width-2x);
+  background: var(--sbb-color-cloud-default);
+  border-radius: var(--sbb-border-radius-8x);
 }

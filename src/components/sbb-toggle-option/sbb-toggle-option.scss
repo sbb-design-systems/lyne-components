@@ -2,22 +2,21 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-:host {
-  --some-color-var: var(--color-black-default);
-}
-
-input[type='radio'] {
-  position: relative;
-  opacity: 0;
-  top: 0;
-  left: 0;
-  margin: 0;
-  right: 0;
-  bottom: 0;
-  cursor: inherit;
-  z-index: -1;
+:host input[type='radio'] {
+  display: none;
 }
 
 .sbb-toggle-option {
-  @include text-m--regular;
+  @include text-xs--regular;
+
+  display: flex;
+  padding-inline: var(--sbb-spacing-responsive-xxxs);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  border-radius: var(--sbb-border-radius-8x);
+}
+
+:host([checked]) {
+  .sbb-toggle-option {
+    background-color: white;
+  }
 }
