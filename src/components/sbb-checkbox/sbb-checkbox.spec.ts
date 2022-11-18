@@ -138,7 +138,7 @@ describe('sbb-checkbox', () => {
         <sbb-checkbox disabled="" icon-placement="end" size="s">
           <mock:shadow-root>
             <label class="sbb-checkbox" htmlfor="sbb-checkbox-5">
-              <input disabled id="sbb-checkbox-5" type="checkbox"/>
+              <input disabled aria-disabled="" id="sbb-checkbox-5" type="checkbox"/>
               <span class="sbb-checkbox__inner">
                 <span class="sbb-checkbox__aligner">
                   <span class="sbb-checkbox__selection">

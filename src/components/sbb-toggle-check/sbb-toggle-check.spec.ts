@@ -99,7 +99,7 @@ describe('sbb-toggle-check', () => {
           <sbb-toggle-check disabled>
             <mock:shadow-root>
               <label class="toggle-check toggle-check--after toggle-check--disabled" htmlfor="sbb-toggle-checkbox-4">
-                <input disabled="" id="sbb-toggle-checkbox-4" type="checkbox">
+                <input disabled="" aria-disabled="" id="sbb-toggle-checkbox-4" type="checkbox">
                  <span class="toggle-check__container">
                   <slot></slot>
                   <span class="toggle-check__slider">
@@ -128,7 +128,7 @@ describe('sbb-toggle-check', () => {
           <sbb-toggle-check checked disabled>
             <mock:shadow-root>
               <label class="toggle-check toggle-check--after toggle-check--checked toggle-check--disabled" htmlfor="sbb-toggle-checkbox-5">
-                <input checked="" type="checkbox" disabled id="sbb-toggle-checkbox-5"/>
+                <input checked="" type="checkbox" disabled aria-disabled="" id="sbb-toggle-checkbox-5"/>
                 <span class="toggle-check__container">
                   <slot></slot>
                   <span class="toggle-check__slider">
