@@ -191,7 +191,14 @@ export const sbbToggleFixedWidth = DefaultTemplate.bind({});
 sbbToggleFixedWidth.args = { ...defaultArgs, even: true };
 sbbToggleFixedWidth.argTypes = defaultArgTypes;
 sbbToggleFixedWidth.documentation = {
-  title: 'sbb-toggle disabled',
+  title: 'sbb-toggle fixed width',
+};
+
+export const sbbToggleWithIcons = CustomIconsTemplate.bind({});
+sbbToggleWithIcons.args = { ...defaultArgs, iconName: 'arrow-right-small' };
+sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName };
+sbbToggleWithIcons.documentation = {
+  title: 'sbb-toggle fixed width',
 };
 
 export default {
