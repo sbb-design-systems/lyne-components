@@ -15,7 +15,7 @@ import { InterfaceSbbToggleOption } from '../sbb-toggle-option/sbb-toggle-option
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
  */
 
 @Component({
