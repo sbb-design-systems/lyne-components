@@ -6,11 +6,17 @@ const disabled = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Toggle',
+  },
 };
 
 const even = {
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Toggle',
   },
 };
 
@@ -19,11 +25,17 @@ const size = {
     type: 'inline-radio',
     options: ['m', 's'],
   },
+  table: {
+    category: 'Toggle',
+  },
 };
 
 const value = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Toggle',
   },
 };
 
@@ -32,7 +44,7 @@ const iconName = {
     type: 'text',
   },
   table: {
-    category: 'Toggle Option attribute',
+    category: 'Toggle Option',
   },
 };
 
