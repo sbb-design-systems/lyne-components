@@ -2,6 +2,10 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+:host([disabled]) {
+  --sbb-toggle-option-text-color: var(--sbb-color-graphite-default);
+}
+
 .sbb-toggle {
   @include text-m--regular;
 
