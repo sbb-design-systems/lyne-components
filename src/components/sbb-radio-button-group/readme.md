@@ -35,7 +35,7 @@ The radio group can have different states:
 </sbb-radio-button-group>
 ```
 
-### Deselecting Radios​
+### Deselecting Radios
 
 In order to deselect a radio inside the group you can use the `allowEmptySelection` property on the parent radio group, which enables the radios to be deselected (by default, a selected cannot be deselected).
 

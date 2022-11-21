@@ -2,19 +2,17 @@
 
 :host {
   --sbb-checkbox-border-width: var(--sbb-border-width-1x);
-  --sbb-checkbox-width: var(--sbb-size-icon-ui-small);
-  --sbb-checkbox-height: var(--sbb-checkbox-width);
+  --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
   --sbb-checkbox-border-color: var(--sbb-color-smoke-default);
   --sbb-checkbox-selection-color: var(--sbb-color-red-default);
   --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: pointer;
-  --sbb-checkbox-border-radius: #{px-to-rem-build(4)};
-
-  display: inline-block;
 
   @include ifForcedColors {
     --sbb-checkbox-selection-color: CanvasText;
   }
+
+  display: inline-block;
 }
 
 :host([data-group-disabled]),
@@ -23,7 +21,7 @@
   --sbb-checkbox-border-color: var(--sbb-color-graphite-default);
   --sbb-checkbox-selection-color: var(--sbb-color-graphite-default);
   --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
-  --sbb-checkbox-cursor: not-allowed;
+  --sbb-checkbox-cursor: default;
 
   @include ifForcedColors {
     --sbb-checkbox-color: GrayText;
@@ -36,7 +34,7 @@
   @include text-s--regular;
 
   position: relative;
-  display: block;
+  display: flex;
   color: var(--sbb-checkbox-label-color);
   cursor: var(--sbb-checkbox-cursor);
 
@@ -63,18 +61,19 @@ input[type='checkbox'] {
 }
 
 .sbb-checkbox__selection {
+  display: block;
   position: relative;
-  min-width: var(--sbb-checkbox-width);
-  height: var(--sbb-checkbox-height);
-  border-radius: var(--sbb-checkbox-border-radius);
+  min-width: var(--sbb-checkbox-dimension);
+  height: var(--sbb-checkbox-dimension);
+  border-radius: var(--sbb-border-radius-2x);
   box-shadow: var(--sbb-checkbox-border-color) 0 0 0 var(--sbb-checkbox-border-width) inset;
   background-color: var(--sbb-color-white-default);
 }
 
 .sbb-checkbox__icon {
   display: inline-flex;
-  width: var(--sbb-checkbox-width);
-  height: var(--sbb-checkbox-height);
+  width: var(--sbb-checkbox-dimension);
+  height: var(--sbb-checkbox-dimension);
 
   svg {
     margin: auto;
@@ -90,8 +89,8 @@ input[type='checkbox'] {
   gap: var(--sbb-spacing-fixed-2x);
   color: var(--sbb-checkbox-label-color);
 
-  // fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
-  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-height));
+  // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
+  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
 
   :host([icon-placement='start']) & {
     flex-direction: row-reverse;
@@ -111,5 +110,5 @@ input[type='checkbox'] {
 input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
   @include focusOutline;
 
-  border-radius: #{px-to-rem-build(4)};
+  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
 }
