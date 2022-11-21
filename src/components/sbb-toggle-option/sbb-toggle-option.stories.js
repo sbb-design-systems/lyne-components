@@ -57,7 +57,7 @@ sbbToggleOption.documentation = {
 };
 
 export const sbbToggleOptionWithIcon = DefaultTemplate.bind({});
-sbbToggleOptionWithIcon.args = { ...defaultArgs, 'icon-name': 'arrow-left-small' };
+sbbToggleOptionWithIcon.args = { ...defaultArgs, 'icon-name': 'arrow-right-small' };
 sbbToggleOptionWithIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName };
 sbbToggleOptionWithIcon.documentation = {
   title: 'sbb-toggle-option with custom icon',
