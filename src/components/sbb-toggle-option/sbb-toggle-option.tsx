@@ -95,8 +95,9 @@ export class SbbToggleOption {
           value={this.value}
         />
         <span class="sbb-toggle-option">
-          {!this.iconName && <slot />}
-          {this.iconName && (
+          {!this.iconName ? (
+            <slot />
+          ) : (
             <slot name="icon">
               <sbb-icon name={this.iconName}></sbb-icon>
             </slot>
