@@ -58,14 +58,13 @@ sbb-icon,
 .sbb-toggle-option {
   @include text-xs--regular;
 
-  --sbb-toggle-option-text-color: var(--sbb-color-anthracite-default);
-
   display: flex;
   cursor: pointer;
-  padding-inline: var(--sbb-spacing-responsive-xxxs);
-  padding-block: var(--sbb-spacing-fixed-1x);
-  border-radius: var(--sbb-border-radius-8x);
+  padding-inline: var(--sbb-toggle-padding-inline);
+  padding-block: var(--sbb-toggle-padding-block);
+  border-radius: var(--sbb-border-radius-16x);
   color: var(--sbb-toggle-option-text-color);
+  justify-content: center;
 
   &::after {
     content: attr(data-text);
@@ -79,6 +78,6 @@ sbb-icon,
     @include text-xs--bold;
 
     background-color: white;
-    color: var(--sbb-color-charcoal-default);
+    color: var(--sbb-toggle-selected-option-text-color);
   }
 }
