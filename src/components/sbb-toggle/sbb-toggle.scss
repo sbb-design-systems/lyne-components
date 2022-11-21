@@ -2,8 +2,27 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
+:host {
+  --sbb-toggle-width: max-content;
+  --sbb-toggle-option-text-color: var(--sbb-color-anthracite-default);
+  --sbb-toggle-selected-option-text-color: var(--sbb-color-charcoal-default);
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
+}
+
+:host([even]) {
+  --sbb-toggle-width: 100%;
+  --sbb-toggle-option-flex-grow: 1;
+}
+
 :host([disabled]) {
   --sbb-toggle-option-text-color: var(--sbb-color-graphite-default);
+  --sbb-toggle-selected-option-text-color: var(--sbb-color-graphite-default);
+}
+
+:host([size='m']) {
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-s);
+  --sbb-toggle-padding-block: var(--sbb-spacing-fixed-3x);
 }
 
 .sbb-toggle {
@@ -13,11 +32,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: max-content;
+  width: var(--sbb-toggle-width);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   padding-block: var(--sbb-border-width-2x);
   padding-inline: var(--sbb-border-width-2x);
   background: var(--sbb-color-cloud-default);
-  border-radius: var(--sbb-border-radius-8x);
+  border-radius: var(--sbb-border-radius-16x);
 }
