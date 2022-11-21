@@ -96,12 +96,7 @@ export class SbbToggleOption {
         />
         <span class="sbb-toggle-option">
           {!this.iconName ? (
-            <div>
-              <slot />
-              <span>
-                <slot />
-              </span>
-            </div>
+            <slot />
           ) : (
             <slot name="icon">
               <sbb-icon name={this.iconName}></sbb-icon>
