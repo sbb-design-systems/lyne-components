@@ -27,6 +27,15 @@ const value = {
   },
 };
 
+const iconName = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Toggle Option attribute',
+  },
+};
+
 const defaultArgTypes = {
   disabled,
   even,
@@ -38,14 +47,23 @@ const defaultArgs = {
   disabled: false,
   even: false,
   size: 'm',
-  value: 'Option 1',
+  value: 'option-1',
 };
+
+const toggleOption = (disabled, iconName) => [
+  <sbb-toggle-option disabled={disabled} icon-name={iconName} value="option-1"></sbb-toggle-option>,
+  <sbb-toggle-option disabled={disabled} icon-name={iconName} value="option-2"></sbb-toggle-option>,
+];
 
 const DefaultTemplate = (args) => (
   <sbb-toggle {...args}>
-    <sbb-toggle-option value="Option 1">Option 1</sbb-toggle-option>
-    <sbb-toggle-option value="Option 2">Option 2</sbb-toggle-option>
+    <sbb-toggle-option value="option-1">Option 1</sbb-toggle-option>
+    <sbb-toggle-option value="option-2">Option 2</sbb-toggle-option>
   </sbb-toggle>
+);
+
+const CustomIconsTemplate = ({ disabled, iconName, ...args }) => (
+  <sbb-toggle {...args}>{toggleOption(disabled, iconName)}</sbb-toggle>
 );
 
 export const sbbToggle = DefaultTemplate.bind({});
@@ -66,7 +84,14 @@ export const sbbToggleFixedWidth = DefaultTemplate.bind({});
 sbbToggleFixedWidth.args = { ...defaultArgs, even: true };
 sbbToggleFixedWidth.argTypes = defaultArgTypes;
 sbbToggleFixedWidth.documentation = {
-  title: 'sbb-toggle disabled',
+  title: 'sbb-toggle fixed width',
+};
+
+export const sbbToggleWithIcons = CustomIconsTemplate.bind({});
+sbbToggleWithIcons.args = { ...defaultArgs, iconName: 'arrow-right-small' };
+sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName };
+sbbToggleWithIcons.documentation = {
+  title: 'sbb-toggle fixed width',
 };
 
 export default {
