@@ -180,6 +180,20 @@ DynamicWidthSizeS.args = {
   iconName: iconName.options[1],
 };
 
+export const sbbToggleDisabled = DefaultTemplate.bind({});
+sbbToggleDisabled.args = { ...defaultArgs, disabled: true };
+sbbToggleDisabled.argTypes = defaultArgTypes;
+sbbToggleDisabled.documentation = {
+  title: 'sbb-toggle disabled',
+};
+
+export const sbbToggleFixedWidth = DefaultTemplate.bind({});
+sbbToggleFixedWidth.args = { ...defaultArgs, even: true };
+sbbToggleFixedWidth.argTypes = defaultArgTypes;
+sbbToggleFixedWidth.documentation = {
+  title: 'sbb-toggle disabled',
+};
+
 export default {
   decorators: [
     (Story) => (
