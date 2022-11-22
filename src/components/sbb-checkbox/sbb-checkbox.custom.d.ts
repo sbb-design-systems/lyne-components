@@ -1,10 +1,4 @@
-export interface InterfaceSbbCheckbox extends HTMLElement {
-  checked: boolean;
-  disabled: boolean;
-  required: boolean;
-}
-
-export interface InterfaceCheckboxAttributes {
+export interface InterfaceSbbCheckboxAttributes {
   size: 'm' | 's';
   iconPlacement?: 'start' | 'end';
 }

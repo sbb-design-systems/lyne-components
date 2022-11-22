@@ -17,7 +17,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { InterfaceSbbRadioButtonGroup } from './sbb-radio-button-group.custom';
+import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
 
 let nextId = 0;
 
@@ -60,18 +60,18 @@ export class SbbRadioButtonGroup {
   /**
    * Size variant, either m or s.
    */
-  @Prop() public size: InterfaceSbbRadioButtonGroup['size'] = 'm';
+  @Prop() public size: InterfaceSbbRadioButtonGroupAttributes['size'] = 'm';
 
   /**
    * Overrides the behaviour of `orientation` property.
    */
   @Prop({ reflect: true })
-  public horizontalFrom?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+  public horizontalFrom?: InterfaceSbbRadioButtonGroupAttributes['horizontalFrom'];
 
   /**
    * Radio group's orientation, either horizontal or vertical.
    */
-  @Prop({ reflect: true }) public orientation: InterfaceSbbRadioButtonGroup['orientation'] =
+  @Prop({ reflect: true }) public orientation: InterfaceSbbRadioButtonGroupAttributes['orientation'] =
     'horizontal';
 
   /**
@@ -137,7 +137,7 @@ export class SbbRadioButtonGroup {
     composed: true,
     eventName: 'change',
   })
-  public didChange: EventEmitter<any>;
+  public didChange: EventEmitter;
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);

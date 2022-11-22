@@ -7,11 +7,10 @@ lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tel
 velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
 metus.`;
 
-const checkboxes = (size, checked, disabledSingle, iconName, iconPlacement, label) => [
+const checkboxes = (checked, disabledSingle, iconName, iconPlacement, label) => [
   <sbb-checkbox
     value="checkbox-1"
     checked={checked}
-    size={size}
     icon-name={iconName}
     icon-placement={iconPlacement}
   >
@@ -20,33 +19,23 @@ const checkboxes = (size, checked, disabledSingle, iconName, iconPlacement, labe
   <sbb-checkbox
     value="checkbox-2"
     disabled={disabledSingle}
-    size={size}
     icon-name={iconName}
     icon-placement={iconPlacement}
   >
     {label} 2
   </sbb-checkbox>,
-  <sbb-checkbox value="checkbox-3" size={size} icon-name={iconName} icon-placement={iconPlacement}>
+  <sbb-checkbox value="checkbox-3" icon-name={iconName} icon-placement={iconPlacement}>
     {label} 3
   </sbb-checkbox>,
 ];
 
-const DefaultTemplate = ({
-  size,
-  checked,
-  disabledSingle,
-  iconName,
-  iconPlacement,
-  label,
-  ...args
-}) => (
+const DefaultTemplate = ({ checked, disabledSingle, iconName, iconPlacement, label, ...args }) => (
   <sbb-checkbox-group {...args}>
-    {checkboxes(size, checked, disabledSingle, iconName, iconPlacement, label)}
+    {checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
   </sbb-checkbox-group>
 );
 
 const ErrorMessageTemplate = ({
-  size,
   checked,
   disabledSingle,
   iconName,
@@ -55,7 +44,7 @@ const ErrorMessageTemplate = ({
   ...args
 }) => (
   <sbb-checkbox-group {...args} id="sbb-checkbox-group">
-    {checkboxes(size, checked, disabledSingle, iconName, iconPlacement, label)}
+    {checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
     {args.required && <sbb-form-error slot="error">This is a required field.</sbb-form-error>}
   </sbb-checkbox-group>
 );
@@ -87,7 +76,6 @@ const parentCheck = (event) => {
 };
 
 const IndeterminateGroupTemplate = ({
-  size,
   disabledSingle,
   iconName,
   iconPlacement,
@@ -105,7 +93,6 @@ const IndeterminateGroupTemplate = ({
       checked="false"
       indeterminate="true"
       onChange={(event) => parentCheck(event)}
-      size={size}
       icon-name={iconName}
       icon-placement={iconPlacement}
     >
@@ -116,7 +103,6 @@ const IndeterminateGroupTemplate = ({
       value="checkbox-1"
       checked="true"
       onChange={(event) => childCheck(event)}
-      size={size}
       icon-name={iconName}
       icon-placement={iconPlacement}
       disabled={disabledSingle}
@@ -129,7 +115,6 @@ const IndeterminateGroupTemplate = ({
       value="checkbox-2"
       checked="false"
       onChange={(event) => childCheck(event)}
-      size={size}
       icon-name={iconName}
       icon-placement={iconPlacement}
       style="margin-inline-start: 2rem;"
@@ -183,7 +168,7 @@ const size = {
   },
   options: ['m', 's'],
   table: {
-    category: 'Checkbox',
+    category: 'Checkbox group',
   },
 };
 

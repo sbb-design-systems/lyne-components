@@ -11,7 +11,7 @@ import {
   AccessibilityProperties,
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
-import { InterfaceCheckboxAttributes } from './sbb-checkbox.custom';
+import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 
 let nextId = 0;
 
@@ -30,35 +30,16 @@ const checkboxObserverConfig: MutationObserverInit = {
   tag: 'sbb-checkbox',
 })
 export class SbbCheckbox implements AccessibilityProperties, ComponentInterface {
-  private _checkbox: HTMLInputElement;
-
-  /** MutationObserver on data attributes. */
-  private _checkboxAttributeObserver = new MutationObserver(
-    this._onCheckboxAttributesChange.bind(this)
-  );
-
-  /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
-  @State() private _disabledFromGroup = false;
-
-  /** Whether the component must be set required due required attribute on sbb-checkbox-group. */
-  @State() private _requiredFromGroup = false;
-
-  /** Size of the checkbox. */
-  @Prop({ reflect: true }) public size: InterfaceCheckboxAttributes['size'] = 's';
-
-  /** Whether the checkbox is checked. */
-  @Prop({ mutable: true, reflect: true }) public checked: boolean;
-
-  /** Value of checkbox. */
-  @Prop({ reflect: true }) public value?: string;
-
   /** Id of the internal input element - default id will be set automatically. */
   @Prop() public checkboxId = `sbb-checkbox-${++nextId}`;
 
-  /** The disabled prop for the disabled state. */
+  /** Value of checkbox. */
+  @Prop() public value?: string;
+
+  /** Whether the checkbox is disabled. */
   @Prop({ reflect: true }) public disabled = false;
 
-  /** The required prop for the required state. */
+  /** Whether the checkbox is required. */
   @Prop() public required = false;
 
   /** Whether the checkbox is indeterminate. */
@@ -71,7 +52,7 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   @Prop() public iconName?: string;
 
   /** The label position relative to the labelIcon. Defaults to end */
-  @Prop({ reflect: true }) public iconPlacement: InterfaceCheckboxAttributes['iconPlacement'] =
+  @Prop({ reflect: true }) public iconPlacement: InterfaceSbbCheckboxAttributes['iconPlacement'] =
     'end';
 
   /** The aria-label prop for the hidden input. */
@@ -83,7 +64,26 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  @Element() private _element!: HTMLElement;
+  /** Whether the checkbox is checked. */
+  @Prop({ mutable: true, reflect: true }) public checked: boolean;
+
+  /** Label size variant, either m or s. */
+  @Prop({ reflect: true }) public size: InterfaceSbbCheckboxAttributes['size'] = 'm';
+
+  /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
+  @State() private _disabledFromGroup = false;
+
+  /** Whether the component must be set required due required attribute on sbb-checkbox-group. */
+  @State() private _requiredFromGroup = false;
+
+  private _checkbox: HTMLInputElement;
+
+  /** MutationObserver on data attributes. */
+  private _checkboxAttributeObserver = new MutationObserver(
+    this._onCheckboxAttributesChange.bind(this)
+  );
+
+  @Element() private _element: HTMLElement;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');

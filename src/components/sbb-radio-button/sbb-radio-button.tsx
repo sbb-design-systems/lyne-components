@@ -12,7 +12,8 @@ import {
   State,
 } from '@stencil/core';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { InterfaceSbbRadioButton } from './sbb-radio-button.custom';
+import { InterfaceSbbRadioButtonAttributes } from './sbb-radio-button.custom';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 let nextId = 0;
 
@@ -24,7 +25,6 @@ const radioButtonObserverConfig: MutationObserverInit = {
 /**
  * @slot unnamed - Use this slot to provide the radio label.
  */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-radio-button.scss',
@@ -64,7 +64,7 @@ export class SbbRadioButton {
   /**
    * Label size variant, either m or s.
    */
-  @Prop({ reflect: true }) public size: InterfaceSbbRadioButton['size'] = 'm';
+  @Prop({ reflect: true }) public size: InterfaceSbbRadioButtonAttributes['size'] = 'm';
 
   /**
    * Whether the component must be set disabled due disabled attribute on sbb-radio-button-group.
@@ -84,7 +84,7 @@ export class SbbRadioButton {
     composed: true,
     eventName: 'sbb-radio-button_did-select',
   })
-  public didSelect: EventEmitter<any>;
+  public didSelect: EventEmitter;
 
   private _radioButtonLabelId = `sbb-radio-button-label-${++nextId}`;
   private _radioButtonAttributeObserver = new MutationObserver(
@@ -139,22 +139,16 @@ export class SbbRadioButton {
     this._radioButtonAttributeObserver.observe(this._element, radioButtonObserverConfig);
   }
 
-  // Observe changes on data attributes and set the appropriate values.
+  /** Observe changes on data attributes and set the appropriate values. */
   private _onRadioButtonAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = !!this._isValidAttribute('data-group-disabled');
+        this._disabledFromGroup = !!isValidAttribute(this._element, 'data-group-disabled');
       }
       if (mutation.attributeName === 'data-group-required') {
-        this._requiredFromGroup = !!this._isValidAttribute('data-group-required');
+        this._requiredFromGroup = !!isValidAttribute(this._element, 'data-group-required');
       }
     }
-  }
-
-  private _isValidAttribute(attribute: string): boolean {
-    return (
-      this._element.hasAttribute(attribute) && this._element.getAttribute(attribute) !== 'false'
-    );
   }
 
   public render(): JSX.Element {

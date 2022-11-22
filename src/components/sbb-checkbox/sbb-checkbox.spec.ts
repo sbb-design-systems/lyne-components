@@ -9,7 +9,7 @@ describe('sbb-checkbox', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-checkbox icon-placement="end" size="s">
+      <sbb-checkbox icon-placement="end" size="m">
         <mock:shadow-root>
           <label class="sbb-checkbox" htmlfor="sbb-checkbox-1">
             <input id="sbb-checkbox-1" type="checkbox"/>
@@ -73,7 +73,7 @@ describe('sbb-checkbox', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-checkbox checked="" icon-placement="end" size="s">
+        <sbb-checkbox checked="" icon-placement="end" size="m">
           <mock:shadow-root>
             <label class="sbb-checkbox" htmlfor="sbb-checkbox-3">
               <input checked="" id="sbb-checkbox-3" type="checkbox"/>
@@ -105,7 +105,7 @@ describe('sbb-checkbox', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-checkbox indeterminate="" icon-placement="end" size="s">
+        <sbb-checkbox indeterminate="" icon-placement="end" size="m">
           <mock:shadow-root>
             <label class="sbb-checkbox" htmlfor="sbb-checkbox-4">
               <input id="sbb-checkbox-4" type="checkbox">
@@ -135,7 +135,7 @@ describe('sbb-checkbox', () => {
         html: '<sbb-checkbox disabled>Label</sbb-checkox>',
       });
       expect(root).toEqualHtml(`
-        <sbb-checkbox disabled="" icon-placement="end" size="s">
+        <sbb-checkbox disabled="" icon-placement="end" size="m">
           <mock:shadow-root>
             <label class="sbb-checkbox" htmlfor="sbb-checkbox-5">
               <input disabled aria-disabled="" id="sbb-checkbox-5" type="checkbox"/>

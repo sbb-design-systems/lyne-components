@@ -55,14 +55,15 @@ Disabled `sbb-checkbox-group` with vertical orientation below `large` breakpoint
 | `horizontalFrom`  | `horizontal-from`   | Overrides the behaviour of `orientation` property.                             | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`                        |
 | `orientation`     | `orientation`       | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. | `"horizontal" \| "vertical"`                                               | `'horizontal'`                     |
 | `required`        | `required`          | Whether the checkbox group is required.                                        | `boolean`                                                                  | `false`                            |
+| `size`            | `size`              | Size variant, either m or s.                                                   | `"m" \| "s"`                                                               | `'m'`                              |
 
 
 ## Slots
 
-| Slot        | Description                                                              |
-| ----------- | ------------------------------------------------------------------------ |
-| `"error"`   | Slot use to render the <sbb-form-error> inside the <sbb-checkbox-group>. |
-| `"unnamed"` | Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.  |
+| Slot        | Description                                                               |
+| ----------- | ------------------------------------------------------------------------- |
+| `"error"`   | Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>. |
+| `"unnamed"` | Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.   |
 
 
 ----------------------------------------------

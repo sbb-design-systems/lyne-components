@@ -5,6 +5,7 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Prop,
   State,
   Watch,
@@ -12,15 +13,15 @@ import {
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
+  queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { InterfaceSbbCheckbox } from '../sbb-checkbox/sbb-checkbox.custom';
 import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
 
 let nextId = 0;
 
 /**
  * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
- * @slot error - Slot use to render the <sbb-form-error> inside the <sbb-checkbox-group>.
+ * @slot error - Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>.
  */
 
 @Component({
@@ -45,6 +46,11 @@ export class SbbCheckboxGroup implements ComponentInterface {
   @Prop() public required = false;
 
   /**
+   * Size variant, either m or s.
+   */
+  @Prop() public size: InterfaceSbbCheckboxGroupAttributes['size'] = 'm';
+
+  /**
    * Overrides the behaviour of `orientation` property.
    */
   @Prop({ reflect: true })
@@ -61,18 +67,52 @@ export class SbbCheckboxGroup implements ComponentInterface {
    */
   @State() private _namedSlots = createNamedSlotState('error');
 
-  @Element() private _checkboxGroupElement!: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
-  public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._checkboxGroupElement, this._namedSlots);
+  @Watch('disabled')
+  public updateDisabled(): void {
+    for (const checkbox of this._checkboxes) {
+      if (this.disabled) {
+        checkbox.dataset.groupDisabled = '';
+      } else {
+        delete checkbox.dataset.groupDisabled;
+      }
+    }
   }
 
   @Watch('required')
-  @Watch('disabled')
+  public updateRequired(): void {
+    for (const checkbox of this._checkboxes) {
+      if (this.required) {
+        checkbox.dataset.groupRequired = '';
+      } else {
+        delete checkbox.dataset.groupRequired;
+      }
+    }
+  }
+
+  @Watch('size')
+  public updateSize(): void {
+    for (const checkbox of this._checkboxes) {
+      checkbox.size = this.size;
+    }
+  }
+
+  public connectedCallback(): void {
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+  }
+
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  }
+
   private _updateCheckboxes(): void {
     const checkboxes = this._checkboxes;
 
     for (const checkbox of checkboxes) {
+      checkbox.size = this.size;
+
       if (this.disabled) {
         checkbox.dataset.groupDisabled = '';
       } else {
@@ -87,10 +127,8 @@ export class SbbCheckboxGroup implements ComponentInterface {
     }
   }
 
-  private get _checkboxes(): InterfaceSbbCheckbox[] {
-    return Array.from(
-      this._checkboxGroupElement.querySelectorAll('sbb-checkbox')
-    ) as InterfaceSbbCheckbox[];
+  private get _checkboxes(): HTMLSbbCheckboxElement[] {
+    return Array.from(this._element.querySelectorAll('sbb-checkbox')) as HTMLSbbCheckboxElement[];
   }
 
   public render(): JSX.Element {

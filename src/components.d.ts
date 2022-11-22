@@ -15,7 +15,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
-import { InterfaceCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
@@ -33,8 +33,8 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-import { InterfaceSbbRadioButton } from "./components/sbb-radio-button/sbb-radio-button.custom";
-import { InterfaceSbbRadioButtonGroup } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
+import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
@@ -503,7 +503,7 @@ export namespace Components {
          */
         "checked": boolean;
         /**
-          * The disabled prop for the disabled state.
+          * Whether the checkbox is disabled.
          */
         "disabled": boolean;
         /**
@@ -513,19 +513,19 @@ export namespace Components {
         /**
           * The label position relative to the labelIcon. Defaults to end
          */
-        "iconPlacement": InterfaceCheckboxAttributes['iconPlacement'];
+        "iconPlacement": InterfaceSbbCheckboxAttributes['iconPlacement'];
         /**
           * Whether the checkbox is indeterminate.
          */
         "indeterminate": boolean;
         /**
-          * The required prop for the required state.
+          * Whether the checkbox is required.
          */
         "required": boolean;
         /**
-          * Size of the checkbox.
+          * Label size variant, either m or s.
          */
-        "size": InterfaceCheckboxAttributes['size'];
+        "size": InterfaceSbbCheckboxAttributes['size'];
         /**
           * Value of checkbox.
          */
@@ -552,6 +552,10 @@ export namespace Components {
           * Whether the checkbox group is required.
          */
         "required": boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size": InterfaceSbbCheckboxGroupAttributes['size'];
     }
     interface SbbClock {
         /**
@@ -1178,7 +1182,7 @@ export namespace Components {
         /**
           * Label size variant, either m or s.
          */
-        "size": InterfaceSbbRadioButton['size'];
+        "size": InterfaceSbbRadioButtonAttributes['size'];
         /**
           * Value of radio button.
          */
@@ -1196,11 +1200,11 @@ export namespace Components {
         /**
           * Overrides the behaviour of `orientation` property.
          */
-        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroupAttributes['horizontalFrom'];
         /**
           * Radio group's orientation, either horizontal or vertical.
          */
-        "orientation": InterfaceSbbRadioButtonGroup['orientation'];
+        "orientation": InterfaceSbbRadioButtonGroupAttributes['orientation'];
         /**
           * Id of the radio group element.
          */
@@ -1212,7 +1216,7 @@ export namespace Components {
         /**
           * Size variant, either m or s.
          */
-        "size": InterfaceSbbRadioButtonGroup['size'];
+        "size": InterfaceSbbRadioButtonGroupAttributes['size'];
         /**
           * The value of the radio group.
          */
@@ -2716,7 +2720,7 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
-          * The disabled prop for the disabled state.
+          * Whether the checkbox is disabled.
          */
         "disabled"?: boolean;
         /**
@@ -2726,19 +2730,19 @@ declare namespace LocalJSX {
         /**
           * The label position relative to the labelIcon. Defaults to end
          */
-        "iconPlacement"?: InterfaceCheckboxAttributes['iconPlacement'];
+        "iconPlacement"?: InterfaceSbbCheckboxAttributes['iconPlacement'];
         /**
           * Whether the checkbox is indeterminate.
          */
         "indeterminate"?: boolean;
         /**
-          * The required prop for the required state.
+          * Whether the checkbox is required.
          */
         "required"?: boolean;
         /**
-          * Size of the checkbox.
+          * Label size variant, either m or s.
          */
-        "size"?: InterfaceCheckboxAttributes['size'];
+        "size"?: InterfaceSbbCheckboxAttributes['size'];
         /**
           * Value of checkbox.
          */
@@ -2765,6 +2769,10 @@ declare namespace LocalJSX {
           * Whether the checkbox group is required.
          */
         "required"?: boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbCheckboxGroupAttributes['size'];
     }
     interface SbbClock {
         /**
@@ -3410,7 +3418,7 @@ declare namespace LocalJSX {
         /**
           * Label size variant, either m or s.
          */
-        "size"?: InterfaceSbbRadioButton['size'];
+        "size"?: InterfaceSbbRadioButtonAttributes['size'];
         /**
           * Value of radio button.
          */
@@ -3428,7 +3436,7 @@ declare namespace LocalJSX {
         /**
           * Overrides the behaviour of `orientation` property.
          */
-        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroupAttributes['horizontalFrom'];
         /**
           * Emits whenever the radio group value changes.
          */
@@ -3436,7 +3444,7 @@ declare namespace LocalJSX {
         /**
           * Radio group's orientation, either horizontal or vertical.
          */
-        "orientation"?: InterfaceSbbRadioButtonGroup['orientation'];
+        "orientation"?: InterfaceSbbRadioButtonGroupAttributes['orientation'];
         /**
           * Id of the radio group element.
          */
@@ -3448,7 +3456,7 @@ declare namespace LocalJSX {
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbRadioButtonGroup['size'];
+        "size"?: InterfaceSbbRadioButtonGroupAttributes['size'];
         /**
           * The value of the radio group.
          */

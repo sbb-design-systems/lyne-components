@@ -34,9 +34,10 @@
   @include text-s--regular;
 
   position: relative;
-  display: flex;
+  display: block;
   color: var(--sbb-checkbox-label-color);
   cursor: var(--sbb-checkbox-cursor);
+  user-select: none;
 
   :host([size='m']) & {
     @include text-m--regular;
