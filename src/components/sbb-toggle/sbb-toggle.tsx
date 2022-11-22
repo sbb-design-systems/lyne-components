@@ -52,7 +52,7 @@ export class SbbToggle {
   /**
    * The value of the toggle.
    */
-  @Prop({ mutable: true, reflect: true }) public value?: any | null;
+  @Prop({ mutable: true, reflect: true }) public value: any | null;
 
   @Element() private _sbbToggle!: HTMLElement;
 

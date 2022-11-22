@@ -1675,7 +1675,7 @@ export namespace Components {
         /**
           * The value of the toggle.
          */
-        "value"?: any | null;
+        "value": any | null;
     }
     interface SbbToggleCheck {
         /**
