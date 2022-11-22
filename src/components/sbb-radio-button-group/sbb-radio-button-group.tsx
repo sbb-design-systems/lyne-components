@@ -71,8 +71,8 @@ export class SbbRadioButtonGroup {
   /**
    * Radio group's orientation, either horizontal or vertical.
    */
-  @Prop({ reflect: true }) public orientation: InterfaceSbbRadioButtonGroupAttributes['orientation'] =
-    'horizontal';
+  @Prop({ reflect: true })
+  public orientation: InterfaceSbbRadioButtonGroupAttributes['orientation'] = 'horizontal';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
