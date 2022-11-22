@@ -45,6 +45,7 @@
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  @include stretch('width');
 
   :host([size='m']) & {
     @include text-m--regular;
