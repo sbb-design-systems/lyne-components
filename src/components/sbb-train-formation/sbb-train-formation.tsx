@@ -27,9 +27,7 @@ export class SbbTrainFormation {
    */
   private _contentWidth: number;
 
-  private _contentResizeObserver = new ResizeObserver(
-    this._onResize.bind(this)
-  );
+  private _contentResizeObserver = new ResizeObserver(this._onResize.bind(this));
 
   public disconnectedCallback(): void {
     this._contentResizeObserver.disconnect();
@@ -41,9 +39,13 @@ export class SbbTrainFormation {
   }
 
   public componentDidLoad(): void {
-    this._formationDiv = this._element.shadowRoot.querySelectorAll('.sbb-train-formation')[0] as HTMLDivElement;
+    this._formationDiv = this._element.shadowRoot.querySelectorAll(
+      '.sbb-train-formation'
+    )[0] as HTMLDivElement;
     this._contentWidth = this._formationDiv.getBoundingClientRect().width;
-    this._contentResizeObserver.observe(this._element.shadowRoot.querySelector('.sbb-train-formation'));
+    this._contentResizeObserver.observe(
+      this._element.shadowRoot.querySelector('.sbb-train-formation')
+    );
     this._slottedTrains = this._getTrains();
     this._slottedTrains.forEach((train) => this._applyCssWidthVarToTrains(train));
   }
@@ -57,7 +59,7 @@ export class SbbTrainFormation {
     );
   }
 
-  private _onSlotChange():void {
+  private _onSlotChange(): void {
     this._slottedTrains = this._getTrains();
     this._slottedTrains.forEach((train) => this._applyCssWidthVarToTrains(train));
   }
@@ -73,7 +75,7 @@ export class SbbTrainFormation {
   public render(): JSX.Element {
     return (
       <div class="sbb-train-formation">
-        <slot onSlotchange={this._onSlotChange}/>
+        <slot onSlotchange={this._onSlotChange} />
       </div>
     );
   }

@@ -25,7 +25,6 @@ export class SbbTrain {
   /** Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.  */
   @Prop({ reflect: true }) public direction: InterfaceSbbTrainAttributes['direction'] = 'LEFT';
 
-
   public render(): JSX.Element {
     return (
       <div class="sbb-train">
@@ -33,21 +32,24 @@ export class SbbTrain {
           <slot />
         </div>
 
-        {(this.directionLabel && this.station) && (
+        {this.directionLabel && this.station && (
           <div class="sbb-train__direction">
             <h3>
-              <span class="sbb-train__direction-label">
-                {this.directionLabel}
-              </span>
+              <span class="sbb-train__direction-label">{this.directionLabel}</span>
               <span class="sbb-train__direction-station">{this.station}</span>
             </h3>
-              {(this.accessibilityLabel) && (
-                <p class="sbb-train__accessibility-label">{this.accessibilityLabel}</p>
-              )}
+            {this.accessibilityLabel && (
+              <p class="sbb-train__accessibility-label">{this.accessibilityLabel}</p>
+            )}
             <div class="sbb-train__direction-indicator">
               <div class="sbb-train__sticky-wrapper">
-                <sbb-icon name={this.direction === 'LEFT' ? ("chevron-small-left-small") : ("chevron-small-right-small")}>
-                </sbb-icon>
+                <sbb-icon
+                  name={
+                    this.direction === 'LEFT'
+                      ? 'chevron-small-left-small'
+                      : 'chevron-small-right-small'
+                  }
+                ></sbb-icon>
               </div>
             </div>
           </div>
