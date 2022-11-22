@@ -198,7 +198,7 @@ export const sbbToggleWithIcons = CustomIconsTemplate.bind({});
 sbbToggleWithIcons.args = { ...defaultArgs, iconName: 'arrow-right-small' };
 sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName };
 sbbToggleWithIcons.documentation = {
-  title: 'sbb-toggle fixed width',
+  title: 'sbb-toggle with custom',
 };
 
 export default {
