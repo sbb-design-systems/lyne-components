@@ -260,7 +260,7 @@ export const i18nNone: any = {
 };
 
 export const i18nOccupancy: any = {
-  none: {
+  unknown: {
     de: 'Keine Belegungsprognose verfügbar.',
     en: 'No occupancy forecast available.',
     fr: "Aucune prévision d'occupation disponible.",
@@ -355,11 +355,32 @@ export const i18nCloseAlert: any = {
   it: 'Chiudere il messaggio',
 };
 
+export const i18nCloseDialog: any = {
+  de: 'Modal schliessen',
+  en: 'Close modal',
+  fr: 'Fermer la modale',
+  it: 'Chiudere la modale',
+};
+
+export const i18nCloseTooltip: any = {
+  de: 'Tooltip schliessen',
+  en: 'Close tooltip',
+  fr: 'Fermer le tooltip',
+  it: 'Chiudere il tooltip',
+};
+
+export const i18nGoBack: any = {
+  de: 'Zurück',
+  en: 'Go back',
+  fr: 'Retourner',
+  it: 'Vai indietro',
+};
+
 export const i18nFindOutMore: any = {
   de: 'Mehr erfahren',
   en: 'Find out more',
   fr: 'En savoir plus',
-  it: 'Per saperne più',
+  it: 'Per saperne di più',
 };
 
 export const i18nToday: any = {

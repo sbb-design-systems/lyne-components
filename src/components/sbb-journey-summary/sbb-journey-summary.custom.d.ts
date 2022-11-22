@@ -5,7 +5,7 @@ import {
 
 declare interface SummaryConfig {
   legs: PTRideLeg[];
-  vias: string[];
+  vias?: string[];
   origin: string;
   destination: string;
   arrivalWalk: number;

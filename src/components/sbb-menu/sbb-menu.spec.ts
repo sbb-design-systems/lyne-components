@@ -8,7 +8,7 @@ describe('sbb-menu', () => {
     page = await newSpecPage({
       components: [SbbMenu],
       html: `
-        <sbb-button id="menu-trigger" label="Menu trigger"></sbb-button>
+        <sbb-button id="menu-trigger">Menu trigger</sbb-button>
         <sbb-menu trigger="menu-trigger">
           <sbb-link href="https://www.sbb.ch/en" variant="block">Profile</sbb-link>
           <sbb-menu-action icon="tick-small">View</sbb-menu-action>

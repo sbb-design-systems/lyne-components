@@ -1,0 +1,140 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-tooltip-position: absolute;
+  --sbb-tooltip-position-x: 0;
+  --sbb-tooltip-position-y: 0;
+  --sbb-tooltip-arrow-size: var(--sbb-spacing-fixed-4x);
+  --sbb-tooltip-arrow-position-x: 0;
+  --sbb-tooltip-max-width: calc(100vw - var(--sbb-spacing-fixed-8x));
+  --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
+  --sbb-tooltip-padding: var(--sbb-spacing-fixed-4x);
+  --sbb-tooltip-background: var(--sbb-color-white-default);
+  --sbb-tooltip-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-tooltip-animation-easing: ease-out;
+  --sbb-tooltip-transform: translateY(var(--sbb-spacing-fixed-2x));
+
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+:host([disable-animation]) {
+  --sbb-tooltip-animation-duration: 0s;
+}
+
+:host(.sbb-tooltip--above) {
+  --sbb-tooltip-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
+}
+
+// Tooltip arrow and arrow top cover
+.sbb-tooltip::after,
+.sbb-tooltip__content::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: var(--sbb-tooltip-arrow-size);
+  height: var(--sbb-tooltip-arrow-size);
+  left: var(--sbb-tooltip-arrow-position-x);
+  bottom: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
+  background-color: var(--sbb-tooltip-background);
+  border-radius: #{px-to-rem-build(4)} 0;
+  transform: rotate(45deg);
+}
+
+.sbb-tooltip {
+  @include shadow-level-5-hard;
+
+  position: var(--sbb-tooltip-position);
+  pointer-events: all;
+  top: var(--sbb-tooltip-position-y);
+  left: var(--sbb-tooltip-position-x);
+  right: unset;
+  bottom: unset;
+  border: none;
+  border-radius: var(--sbb-tooltip-border-radius);
+  padding: 0;
+  max-width: var(--sbb-tooltip-max-width);
+  width: max-content;
+  background-color: var(--sbb-tooltip-background);
+
+  &[open] {
+    animation: {
+      name: open;
+      duration: var(--sbb-tooltip-animation-duration);
+      timing-function: var(--sbb-tooltip-animation-easing);
+    }
+  }
+
+  // Tooltip arrow
+  &::after {
+    @include shadow-level-5-hard;
+
+    @include ifForcedColors {
+      outline: var(--sbb-border-width-1x) solid CanvasText;
+    }
+
+    z-index: -1;
+  }
+
+  :host(.sbb-tooltip--closing) & {
+    pointer-events: none;
+    animation-name: close;
+  }
+
+  :host(.sbb-tooltip--above) & {
+    &::after {
+      top: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
+    }
+  }
+
+  @include ifForcedColors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+}
+
+.sbb-tooltip__content {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-4x);
+  border-radius: var(--sbb-tooltip-border-radius);
+  padding: var(--sbb-tooltip-padding);
+  outline: none;
+  background-color: var(--sbb-tooltip-background);
+  overflow: hidden;
+
+  :host(.sbb-tooltip--above) & {
+    &::before {
+      top: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
+    }
+  }
+}
+
+@keyframes open {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    transform: var(--sbb-tooltip-transform);
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes close {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    transform: var(--sbb-tooltip-transform);
+  }
+}

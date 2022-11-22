@@ -8,14 +8,22 @@
   --sbb-menu-position-y: 0;
   --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-menu-animation-easing: ease;
+  --sbb-menu-transform: translateY(100%);
+  --sbb-menu-max-width: 100%;
+  --sbb-menu-min-width: 100%;
 
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-menu-min-height: #{px-to-rem-build(120)};
-  --sbb-menu-max-width: 100%;
-  --sbb-menu-min-width: 100%;
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
   --sbb-menu-backdrop-color: transparent;
+
+  @include mq($from: medium) {
+    --sbb-menu-position: absolute;
+    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
+    --sbb-menu-max-width: #{px-to-rem-build(320)};
+    --sbb-menu-min-width: #{px-to-rem-build(180)};
+  }
 
   position: fixed;
   left: 0;
@@ -38,17 +46,17 @@
   }
 }
 
-:host(.sbb-menu--presented),
-:host(.sbb-menu--presenting) {
-  &::before {
-    --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
+:host(.sbb-menu--opened),
+:host(.sbb-menu--opening) {
+  --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
 
+  @include mq($from: medium) {
+    --sbb-menu-backdrop-color: transparent;
+  }
+
+  &::before {
     visibility: visible;
     pointer-events: all;
-
-    @include mq($from: medium) {
-      --sbb-menu-backdrop-color: transparent;
-    }
   }
 }
 
@@ -57,7 +65,7 @@
 }
 
 // stylelint-disable plugin/stylelint-bem-namics
-::slotted(:not(sbb-menu-action)) {
+::slotted(:not(sbb-menu-action, sbb-divider)) {
   display: block;
   padding-inline: var(--sbb-spacing-fixed-5x);
 }
@@ -70,10 +78,10 @@
 }
 
 .sbb-menu {
-  --sbb-menu-transform: translateY(100%);
-
-  max-height: var(--sbb-menu-max-height);
-  min-height: var(--sbb-menu-min-height);
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
   max-width: var(--sbb-menu-max-width);
   min-width: var(--sbb-menu-min-width);
   text-align: start;
@@ -90,16 +98,19 @@
   overflow: hidden;
 
   &[open] {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
     animation: {
-      name: show;
+      name: open;
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
     }
   }
 
-  &.sbb-menu--dismissing {
+  :host(.sbb-menu--closing) & {
     pointer-events: none;
-    animation-name: hide;
+    animation-name: close;
   }
 
   @include ifForcedColors {
@@ -107,26 +118,29 @@
   }
 
   @include mq($from: medium) {
-    --sbb-menu-position: absolute;
-    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
-    --sbb-menu-max-width: #{px-to-rem-build(320)};
-    --sbb-menu-min-width: #{px-to-rem-build(180)};
-
-    top: var(--sbb-menu-position-y);
-    left: var(--sbb-menu-position-x);
+    top: 0;
+    left: 0;
     right: unset;
     bottom: unset;
+    max-height: fit-content;
     border-radius: var(--sbb-menu-border-radius);
+
+    &[open] {
+      top: var(--sbb-menu-position-y);
+      left: var(--sbb-menu-position-x);
+      max-height: var(--sbb-menu-max-height);
+      min-height: var(--sbb-menu-min-height);
+    }
   }
 }
 
 .sbb-menu__content {
   @include scrollbar-dark;
 
-  outline: none;
   max-height: var(--sbb-menu-max-height);
   padding-block: var(--sbb-spacing-fixed-1x);
   overflow: auto;
+  outline: none;
 
   // Margin bottom in mobile variant
   &::after {
@@ -136,7 +150,12 @@
   }
 
   @include mq($from: medium) {
-    min-height: var(--sbb-menu-min-height);
+    max-height: fit-content;
+
+    .sbb-menu[open] & {
+      max-height: var(--sbb-menu-max-height);
+      min-height: var(--sbb-menu-min-height);
+    }
 
     &::after {
       display: none;
@@ -144,10 +163,7 @@
   }
 }
 
-// It is necessary to use animations with keyframes instead of transitions in order not to alter
-// the default `display: block` of the modal otherwise it causes several problems,
-// especially for accessibility.
-@keyframes show {
+@keyframes open {
   from {
     visibility: hidden;
     opacity: 0;
@@ -161,7 +177,7 @@
   }
 }
 
-@keyframes hide {
+@keyframes close {
   from {
     visibility: visible;
     opacity: 1;

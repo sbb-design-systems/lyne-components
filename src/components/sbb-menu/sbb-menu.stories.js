@@ -3,17 +3,20 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
-
-// Function to emulate pausing between interactions
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('menu').shadowRoot.querySelector('dialog.sbb-menu')
+  );
+
+  await waitForStablePosition(() => canvas.getByTestId('menu-trigger'));
+
   const button = canvas.getByTestId('menu-trigger');
-  await sleep(500);
   await userEvent.click(button);
 };
 
@@ -44,16 +47,22 @@ const disabled = {
   },
 };
 
+const disableAnimation = {
+  control: { type: 'boolean' },
+};
+
 const defaultArgTypes = {
   'icon-name': iconName,
   amount,
   disabled,
+  'disable-animation': disableAnimation,
 };
 
 const defaultArgs = {
   'icon-name': 'link-small',
   amount: '123',
   disabled: false,
+  'disable-animation': isChromatic(),
 };
 
 const userNameStyle = {
@@ -76,7 +85,11 @@ const triggerButton = (id) => (
 
 const DefaultTemplate = (args) => [
   triggerButton('menu-trigger-1'),
-  <sbb-menu trigger="menu-trigger-1" disable-animation={isChromatic()}>
+  <sbb-menu
+    trigger="menu-trigger-1"
+    data-testid="menu"
+    disable-animation={args['disable-animation']}
+  >
     <sbb-menu-action icon-name={args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-action>
@@ -93,7 +106,11 @@ const DefaultTemplate = (args) => [
 
 const CustomContentTemplate = (args) => [
   triggerButton('menu-trigger-2'),
-  <sbb-menu trigger="menu-trigger-2" disable-animation={isChromatic()}>
+  <sbb-menu
+    trigger="menu-trigger-2"
+    data-testid="menu"
+    disable-animation={args['disable-animation']}
+  >
     <div style={userNameStyle}>Christina Müller</div>
     <span style={userInfoStyle}>UIS9057</span>
     <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
@@ -116,7 +133,11 @@ const CustomContentTemplate = (args) => [
 
 const LongContentTemplate = (args) => [
   triggerButton('menu-trigger-3'),
-  <sbb-menu trigger="menu-trigger-3" disable-animation={isChromatic()}>
+  <sbb-menu
+    trigger="menu-trigger-3"
+    data-testid="menu"
+    disable-animation={args['disable-animation']}
+  >
     <sbb-menu-action icon-name={args['icon-name']} disabled={args.disabled} amount={args.amount}>
       English
     </sbb-menu-action>
@@ -149,7 +170,11 @@ const LongContentTemplate = (args) => [
 
 const EllipsisTemplate = (args) => [
   triggerButton('menu-trigger-4'),
-  <sbb-menu trigger="menu-trigger-4" disable-animation={isChromatic()}>
+  <sbb-menu
+    trigger="menu-trigger-4"
+    data-testid="menu"
+    disable-animation={args['disable-animation']}
+  >
     <div style={userNameStyle}>Christina Müller</div>
     <span style={userInfoStyle}>UIS9057</span>
     <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
@@ -205,7 +230,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.willPresent, events.didPresent, events.didDismiss, events.willDismiss],
+      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
     },
     backgrounds: {
       disable: true,
@@ -215,7 +240,6 @@ export default {
       iframeHeight: '400px',
       extractComponentDescription: () => readme,
     },
-    chromatic: { delay: 3000 },
   },
   title: 'components/menu/sbb-menu',
 };

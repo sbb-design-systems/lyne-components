@@ -2,6 +2,101 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.3](https://github.com/lyne-design-system/lyne-components/compare/v0.14.2...v0.14.3) (2022-11-18)
+
+### Features
+
+- **sbb-radio-button-group:** introduce radio-button-group component ([#1431](https://github.com/lyne-design-system/lyne-components/issues/1431)) ([3296198](https://github.com/lyne-design-system/lyne-components/commit/32961986f0431763d8b5d029f3ad1d17b9e1bbfe))
+
+### [0.14.2](https://github.com/lyne-design-system/lyne-components/compare/v0.14.1...v0.14.2) (2022-11-17)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** handle occupancy error ([#1460](https://github.com/lyne-design-system/lyne-components/issues/1460)) ([2456430](https://github.com/lyne-design-system/lyne-components/commit/2456430df1f656eb5ade62d417ddb6125d12b3a0))
+
+### [0.14.1](https://github.com/lyne-design-system/lyne-components/compare/v0.14.0...v0.14.1) (2022-11-17)
+
+### Bug Fixes
+
+- set color in button-reset mixin to avoid iOS blue color ([#1459](https://github.com/lyne-design-system/lyne-components/issues/1459)) ([f868190](https://github.com/lyne-design-system/lyne-components/commit/f8681904c25d49b1efdbc1d9f9af1d26f8e8d993))
+
+## [0.14.0](https://github.com/lyne-design-system/lyne-components/compare/v0.13.2...v0.14.0) (2022-11-17)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-signet:** - sbb-logo no longer has different color variants
+
+* sbb-signet no longer white-on-black variant
+
+- **sbb-signet:** adapt to coding standards ([#1457](https://github.com/lyne-design-system/lyne-components/issues/1457)) ([d9ca1a4](https://github.com/lyne-design-system/lyne-components/commit/d9ca1a4b3499b9e9cc5dbf2f32986ba4078ddd9f))
+
+### [0.13.2](https://github.com/lyne-design-system/lyne-components/compare/v0.13.1...v0.13.2) (2022-11-17)
+
+### [0.13.1](https://github.com/lyne-design-system/lyne-components/compare/v0.13.0...v0.13.1) (2022-11-16)
+
+### Features
+
+- **sbb-slider:** component implementation ([#1426](https://github.com/lyne-design-system/lyne-components/issues/1426)) ([4ad9ef9](https://github.com/lyne-design-system/lyne-components/commit/4ad9ef9ef53e17548952fccc2df566928ee2eef4))
+
+## [0.13.0](https://github.com/lyne-design-system/lyne-components/compare/v0.12.19...v0.13.0) (2022-11-15)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-menu:** \*\*
+  Use `open` for opening overlays and `close` for closing overlays. The methods `present()` and `dismiss()` become `open()` and `close()`; the tooltip properties `showDelay` and `hideDelay` become `openDelay` and `closeDelay`.
+
+- **sbb-menu:** rename opening and closing methods ([#1456](https://github.com/lyne-design-system/lyne-components/issues/1456)) ([50e7120](https://github.com/lyne-design-system/lyne-components/commit/50e712047709cdd261be5daf760b23afd883a80c))
+
+### [0.12.19](https://github.com/lyne-design-system/lyne-components/compare/v0.12.18...v0.12.19) (2022-11-15)
+
+### Bug Fixes
+
+- **sbb-pearl-chain-vertical:** add width to columns ([#1455](https://github.com/lyne-design-system/lyne-components/issues/1455)) ([9943ba9](https://github.com/lyne-design-system/lyne-components/commit/9943ba9050847f2fd5f196a916b6f56ede6bb606))
+
+### [0.12.18](https://github.com/lyne-design-system/lyne-components/compare/v0.12.17...v0.12.18) (2022-11-14)
+
+### Features
+
+- **sbb-dialog:** add `sbb-dialog-close` attribute option to close the dialog ([#1454](https://github.com/lyne-design-system/lyne-components/issues/1454)) ([92200a5](https://github.com/lyne-design-system/lyne-components/commit/92200a500124659502541893a572c7735a40ce14))
+
+### [0.12.17](https://github.com/lyne-design-system/lyne-components/compare/v0.12.16...v0.12.17) (2022-11-11)
+
+### Features
+
+- **sbb-tooltip:** introduce sbb-tooltip component ([#1425](https://github.com/lyne-design-system/lyne-components/issues/1425)) ([ceadf7f](https://github.com/lyne-design-system/lyne-components/commit/ceadf7f8d63280765286c96de383f763e7681247))
+
+### [0.12.16](https://github.com/lyne-design-system/lyne-components/compare/v0.12.15...v0.12.16) (2022-11-09)
+
+### Features
+
+- **sbb-pearl-chain-vertical:** initial implementation ([#1366](https://github.com/lyne-design-system/lyne-components/issues/1366)) ([d36a40f](https://github.com/lyne-design-system/lyne-components/commit/d36a40fdb0ff2d8aedd349a116fbf71dc8b001e7))
+
+### [0.12.15](https://github.com/lyne-design-system/lyne-components/compare/v0.12.14...v0.12.15) (2022-11-08)
+
+### [0.12.14](https://github.com/lyne-design-system/lyne-components/compare/v0.12.13...v0.12.14) (2022-11-08)
+
+### Features
+
+- **sbb-dialog:** introduce sbb-dialog component ([#1413](https://github.com/lyne-design-system/lyne-components/issues/1413)) ([3cce10e](https://github.com/lyne-design-system/lyne-components/commit/3cce10ed35e49193057fce49af5a628a43af12d9))
+
+### [0.12.13](https://github.com/lyne-design-system/lyne-components/compare/v0.12.12...v0.12.13) (2022-11-07)
+
+### [0.12.12](https://github.com/lyne-design-system/lyne-components/compare/v0.12.11...v0.12.12) (2022-11-04)
+
+### [0.12.11](https://github.com/lyne-design-system/lyne-components/compare/v0.12.10...v0.12.11) (2022-11-03)
+
+### [0.12.10](https://github.com/lyne-design-system/lyne-components/compare/v0.12.9...v0.12.10) (2022-11-03)
+
+### Bug Fixes
+
+- wait for ready for storybook interactions ([#1443](https://github.com/lyne-design-system/lyne-components/issues/1443)) ([36c7979](https://github.com/lyne-design-system/lyne-components/commit/36c79790501ae807f5ac76b21f9772628f65f0a7))
+
+### [0.12.9](https://github.com/lyne-design-system/lyne-components/compare/v0.12.8...v0.12.9) (2022-11-03)
+
+### Bug Fixes
+
+- typescript error ([#1444](https://github.com/lyne-design-system/lyne-components/issues/1444)) ([46226fc](https://github.com/lyne-design-system/lyne-components/commit/46226fcb82e497c62183b627517ae16a8820e70b))
+
 ### [0.12.8](https://github.com/lyne-design-system/lyne-components/compare/v0.12.7...v0.12.8) (2022-11-01)
 
 ### [0.12.7](https://github.com/lyne-design-system/lyne-components/compare/v0.12.6...v0.12.7) (2022-11-01)

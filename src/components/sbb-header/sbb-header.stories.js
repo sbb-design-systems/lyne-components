@@ -2,11 +2,8 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
-
-// Function to emulate pausing between interactions
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 const HeaderBasicTemplate = ({ children, ...args }) => [
   <sbb-header {...args}>
@@ -53,7 +50,7 @@ const TemplateWithUserMenu = (args) => (
     >
       Christina Müller
     </sbb-header-action>
-    <sbb-menu trigger="user-menu-trigger" disable-animation={isChromatic()}>
+    <sbb-menu trigger="user-menu-trigger" disable-animation={isChromatic()} data-testid="user-menu">
       <sbb-menu-action icon-name="user-small" href="/">
         Account
       </sbb-menu-action>
@@ -70,8 +67,14 @@ const TemplateWithUserMenu = (args) => (
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('user-menu').shadowRoot.querySelector('dialog.sbb-menu')
+  );
+
+  await waitForStablePosition(() => canvas.getByTestId('user-menu-trigger'));
+
   const button = canvas.getByTestId('user-menu-trigger');
-  await sleep(1000);
   await userEvent.click(button);
 };
 
@@ -114,7 +117,6 @@ export default {
       iframeHeight: '250px',
       extractComponentDescription: () => readme,
     },
-    chromatic: { delay: 3000 },
   },
   title: 'components/header/sbb-header',
 };

@@ -1,0 +1,43 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+@mixin horizontal-orientation {
+  --sbb-radio-button-group-orientation: row;
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-6x);
+}
+
+$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+
+:host {
+  @include horizontal-orientation;
+}
+
+:host([orientation='vertical']) {
+  --sbb-radio-button-group-orientation: column;
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-3x);
+}
+
+@each $breakpoint in $breakpoints {
+  @include mq($from: #{$breakpoint}) {
+    // horizontal-from overrides orientation vertical
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+      @include horizontal-orientation;
+    }
+  }
+}
+
+.sbb-radio-group {
+  display: flex;
+  flex-direction: var(--sbb-radio-button-group-orientation);
+  gap: var(--sbb-radio-button-group-gap);
+  align-items: flex-start;
+  width: max-content;
+}
+
+.sbb-radio-group__error {
+  @include text-xxs--regular;
+
+  display: inline-block;
+  margin-block-start: var(--sbb-spacing-fixed-1x);
+}

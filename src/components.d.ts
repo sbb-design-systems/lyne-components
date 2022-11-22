@@ -30,6 +30,9 @@ import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
+import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
+import { InterfaceSbbRadioButton } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonGroup } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
@@ -488,6 +491,64 @@ export namespace Components {
          */
         "paused"?: boolean;
     }
+    interface SbbDialog {
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Closes the dialog element.
+         */
+        "close": (result?: any, target?: HTMLElement) => Promise<any>;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "dialogId": string;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
+          * Opens the dialog element.
+         */
+        "open": (event?: PointerEvent) => Promise<void>;
+        /**
+          * Whether a back button is displayed next to the title.
+         */
+        "titleBackButton": boolean;
+        /**
+          * Dialog title.
+         */
+        "titleContent": string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId": string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
+         */
+        "titleLevel": InterfaceTitleAttributes['level'];
+    }
     interface SbbDivider {
         /**
           * Negative coloring variant flag
@@ -865,27 +926,27 @@ export namespace Components {
     }
     interface SbbLogo {
         /**
-          * The Logo needs to have a certain protective room around it
+          * Variants of the logo.
+         */
+        "negative": boolean;
+        /**
+          * Visual protective room around logo.
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the logo can be used in these variants
-         */
-        "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbMenu {
+        /**
+          * Closes the menu.
+         */
+        "close": () => Promise<void>;
         /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
         /**
-          * Dismisses the menu.
-         */
-        "dismiss": () => Promise<void>;
-        /**
           * Opens the menu on trigger click.
          */
-        "present": () => Promise<void>;
+        "open": () => Promise<void>;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -1008,6 +1069,83 @@ export namespace Components {
          */
         "legs": InterfacePearlChainAttributes['legs'];
     }
+    interface SbbPearlChainVertical {
+    }
+    interface SbbPearlChainVerticalItem {
+        /**
+          * If true the position won't be animated.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * The pearlChainVerticalItemAttributes Prop for styling the dots and line.
+         */
+        "pearlChainVerticalItemAttributes": PearlChainVerticalItemAttributes;
+    }
+    interface SbbRadioButton {
+        /**
+          * Whether the radio can be deselected.
+         */
+        "allowEmptySelection": boolean;
+        /**
+          * Whether the radio button is checked.
+         */
+        "checked": boolean;
+        /**
+          * Whether the radio button is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "radioButtonId": string;
+        /**
+          * Whether the radio button is required.
+         */
+        "required": boolean;
+        "select": () => Promise<void>;
+        /**
+          * Label size variant, either m or s.
+         */
+        "size": InterfaceSbbRadioButton['size'];
+        /**
+          * Value of radio button.
+         */
+        "value": string;
+    }
+    interface SbbRadioButtonGroup {
+        /**
+          * Whether the radios can be deselected.
+         */
+        "allowEmptySelection": boolean;
+        /**
+          * Whether the radio group is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        /**
+          * Radio group's orientation, either horizontal or vertical.
+         */
+        "orientation": InterfaceSbbRadioButtonGroup['orientation'];
+        /**
+          * Id of the radio group element.
+         */
+        "radioButtonGroupId": string;
+        /**
+          * Whether the radio group is required.
+         */
+        "required": boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size": InterfaceSbbRadioButtonGroup['size'];
+        /**
+          * The value of the radio group.
+         */
+        "value"?: any | null;
+    }
     interface SbbSection {
         /**
           * Section appearance
@@ -1026,13 +1164,63 @@ export namespace Components {
     }
     interface SbbSignet {
         /**
-          * The Signet needs to have a certain protective room around it
+          * Visual protective room around signet.
          */
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
+    }
+    interface SbbSlider {
         /**
-          * According to the Corporate Design Guidelines the signet can be used in these variants
+          * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "variant"?: InterfaceSignetAttributes['variant'];
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Disabled state for the inner HTMLInputElement.
+         */
+        "disabled"?: boolean;
+        /**
+          * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
+         */
+        "endIcon"?: string;
+        /**
+          * The <form> element to associate the inner HTMLInputElement with.
+         */
+        "form"?: string;
+        /**
+          * Maximum acceptable value for the inner HTMLInputElement.
+         */
+        "max"?: string;
+        /**
+          * Minimum acceptable value for the inner HTMLInputElement.
+         */
+        "min"?: string;
+        /**
+          * Name of the inner HTMLInputElement.
+         */
+        "name"?: string;
+        /**
+          * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
+         */
+        "readonly"?: boolean;
+        /**
+          * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
+         */
+        "startIcon"?: string;
+        /**
+          * Value for the inner HTMLInputElement.
+         */
+        "value"?: string;
+        /**
+          * Numeric value for the inner HTMLInputElement.
+         */
+        "valueAsNumber"?: number;
     }
     interface SbbSlotComponent {
     }
@@ -1438,6 +1626,40 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbTooltip {
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel": string | undefined;
+        /**
+          * Closes the tooltip.
+         */
+        "close": (target?: HTMLElement) => Promise<void>;
+        /**
+          * Close the tooltip after a certain delay.
+         */
+        "closeDelay"?: number;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the tooltip should be triggered on hover.
+         */
+        "hoverTrigger"?: boolean;
+        /**
+          * Opens the tooltip on trigger click.
+         */
+        "open": () => Promise<void>;
+        /**
+          * Open the tooltip after a certain delay.
+         */
+        "openDelay"?: number;
+        /**
+          * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
     interface SbbTrain {
         /**
           * Accessibility label for additional information regarding the leaving direction of the train
@@ -1509,6 +1731,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbDialogCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbDialogElement;
+}
 export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbMenuElement;
@@ -1516,6 +1742,14 @@ export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
+}
+export interface SbbRadioButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbRadioButtonElement;
+}
+export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbRadioButtonGroupElement;
 }
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1528,6 +1762,10 @@ export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleCheckElement;
+}
+export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTooltipElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -1601,6 +1839,12 @@ declare global {
     var HTMLSbbClockElement: {
         prototype: HTMLSbbClockElement;
         new (): HTMLSbbClockElement;
+    };
+    interface HTMLSbbDialogElement extends Components.SbbDialog, HTMLStencilElement {
+    }
+    var HTMLSbbDialogElement: {
+        prototype: HTMLSbbDialogElement;
+        new (): HTMLSbbDialogElement;
     };
     interface HTMLSbbDividerElement extends Components.SbbDivider, HTMLStencilElement {
     }
@@ -1716,6 +1960,30 @@ declare global {
         prototype: HTMLSbbPearlChainTimeElement;
         new (): HTMLSbbPearlChainTimeElement;
     };
+    interface HTMLSbbPearlChainVerticalElement extends Components.SbbPearlChainVertical, HTMLStencilElement {
+    }
+    var HTMLSbbPearlChainVerticalElement: {
+        prototype: HTMLSbbPearlChainVerticalElement;
+        new (): HTMLSbbPearlChainVerticalElement;
+    };
+    interface HTMLSbbPearlChainVerticalItemElement extends Components.SbbPearlChainVerticalItem, HTMLStencilElement {
+    }
+    var HTMLSbbPearlChainVerticalItemElement: {
+        prototype: HTMLSbbPearlChainVerticalItemElement;
+        new (): HTMLSbbPearlChainVerticalItemElement;
+    };
+    interface HTMLSbbRadioButtonElement extends Components.SbbRadioButton, HTMLStencilElement {
+    }
+    var HTMLSbbRadioButtonElement: {
+        prototype: HTMLSbbRadioButtonElement;
+        new (): HTMLSbbRadioButtonElement;
+    };
+    interface HTMLSbbRadioButtonGroupElement extends Components.SbbRadioButtonGroup, HTMLStencilElement {
+    }
+    var HTMLSbbRadioButtonGroupElement: {
+        prototype: HTMLSbbRadioButtonGroupElement;
+        new (): HTMLSbbRadioButtonGroupElement;
+    };
     interface HTMLSbbSectionElement extends Components.SbbSection, HTMLStencilElement {
     }
     var HTMLSbbSectionElement: {
@@ -1733,6 +2001,12 @@ declare global {
     var HTMLSbbSignetElement: {
         prototype: HTMLSbbSignetElement;
         new (): HTMLSbbSignetElement;
+    };
+    interface HTMLSbbSliderElement extends Components.SbbSlider, HTMLStencilElement {
+    }
+    var HTMLSbbSliderElement: {
+        prototype: HTMLSbbSliderElement;
+        new (): HTMLSbbSliderElement;
     };
     interface HTMLSbbSlotComponentElement extends Components.SbbSlotComponent, HTMLStencilElement {
     }
@@ -1890,6 +2164,12 @@ declare global {
         prototype: HTMLSbbToggleCheckElement;
         new (): HTMLSbbToggleCheckElement;
     };
+    interface HTMLSbbTooltipElement extends Components.SbbTooltip, HTMLStencilElement {
+    }
+    var HTMLSbbTooltipElement: {
+        prototype: HTMLSbbTooltipElement;
+        new (): HTMLSbbTooltipElement;
+    };
     interface HTMLSbbTrainElement extends Components.SbbTrain, HTMLStencilElement {
     }
     var HTMLSbbTrainElement: {
@@ -1921,6 +2201,7 @@ declare global {
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-clock": HTMLSbbClockElement;
+        "sbb-dialog": HTMLSbbDialogElement;
         "sbb-divider": HTMLSbbDividerElement;
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
@@ -1940,9 +2221,14 @@ declare global {
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
+        "sbb-pearl-chain-vertical": HTMLSbbPearlChainVerticalElement;
+        "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
+        "sbb-radio-button": HTMLSbbRadioButtonElement;
+        "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
         "sbb-section": HTMLSbbSectionElement;
         "sbb-sector": HTMLSbbSectorElement;
         "sbb-signet": HTMLSbbSignetElement;
+        "sbb-slider": HTMLSbbSliderElement;
         "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
         "sbb-tab-amount": HTMLSbbTabAmountElement;
@@ -1969,6 +2255,7 @@ declare global {
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
         "sbb-toggle-check": HTMLSbbToggleCheckElement;
+        "sbb-tooltip": HTMLSbbTooltipElement;
         "sbb-train": HTMLSbbTrainElement;
         "sbb-train-formation": HTMLSbbTrainFormationElement;
         "sbb-wagon": HTMLSbbWagonElement;
@@ -2431,6 +2718,76 @@ declare namespace LocalJSX {
          */
         "paused"?: boolean;
     }
+    interface SbbDialog {
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "dialogId"?: string;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
+        /**
+          * Emits whenever the dialog is closed.
+         */
+        "onSbb-dialog_did-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        /**
+          * Emits whenever the dialog is opened.
+         */
+        "onSbb-dialog_did-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        /**
+          * Emits whenever the back button is clicked.
+         */
+        "onSbb-dialog_request-back-action"?: (event: SbbDialogCustomEvent<void>) => void;
+        /**
+          * Emits whenever the dialog begins the closing transition.
+         */
+        "onSbb-dialog_will-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        /**
+          * Emits whenever the dialog starts the opening transition.
+         */
+        "onSbb-dialog_will-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        /**
+          * Whether a back button is displayed next to the title.
+         */
+        "titleBackButton"?: boolean;
+        /**
+          * Dialog title.
+         */
+        "titleContent"?: string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "titleId"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
     interface SbbDivider {
         /**
           * Negative coloring variant flag
@@ -2808,13 +3165,13 @@ declare namespace LocalJSX {
     }
     interface SbbLogo {
         /**
-          * The Logo needs to have a certain protective room around it
+          * Variants of the logo.
+         */
+        "negative"?: boolean;
+        /**
+          * Visual protective room around logo.
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
-        /**
-          * According to the Corporate Design Guidelines the logo can be used in these variants
-         */
-        "variant"?: InterfaceLogoAttributes['variant'];
     }
     interface SbbMenu {
         /**
@@ -2822,21 +3179,21 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * Emits whenever the menu is dismissed.
+          * Emits whenever the menu is closed.
          */
-        "onSbb-menu_did-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_did-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu is presented.
+          * Emits whenever the menu is opened.
          */
-        "onSbb-menu_did-present"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_did-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu begins the closing transition.
          */
-        "onSbb-menu_will-dismiss"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_will-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu starts the presenting transition.
+          * Emits whenever the menu starts the opening transition.
          */
-        "onSbb-menu_will-present"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onSbb-menu_will-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -2955,6 +3312,90 @@ declare namespace LocalJSX {
          */
         "legs": InterfacePearlChainAttributes['legs'];
     }
+    interface SbbPearlChainVertical {
+    }
+    interface SbbPearlChainVerticalItem {
+        /**
+          * If true the position won't be animated.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * The pearlChainVerticalItemAttributes Prop for styling the dots and line.
+         */
+        "pearlChainVerticalItemAttributes"?: PearlChainVerticalItemAttributes;
+    }
+    interface SbbRadioButton {
+        /**
+          * Whether the radio can be deselected.
+         */
+        "allowEmptySelection"?: boolean;
+        /**
+          * Whether the radio button is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * Whether the radio button is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Emits whenever the radio group value changes.
+         */
+        "onSbb-radio-button_did-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "radioButtonId"?: string;
+        /**
+          * Whether the radio button is required.
+         */
+        "required"?: boolean;
+        /**
+          * Label size variant, either m or s.
+         */
+        "size"?: InterfaceSbbRadioButton['size'];
+        /**
+          * Value of radio button.
+         */
+        "value"?: string;
+    }
+    interface SbbRadioButtonGroup {
+        /**
+          * Whether the radios can be deselected.
+         */
+        "allowEmptySelection"?: boolean;
+        /**
+          * Whether the radio group is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        /**
+          * Emits whenever the radio group value changes.
+         */
+        "onChange"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
+        /**
+          * Radio group's orientation, either horizontal or vertical.
+         */
+        "orientation"?: InterfaceSbbRadioButtonGroup['orientation'];
+        /**
+          * Id of the radio group element.
+         */
+        "radioButtonGroupId"?: string;
+        /**
+          * Whether the radio group is required.
+         */
+        "required"?: boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbRadioButtonGroup['size'];
+        /**
+          * The value of the radio group.
+         */
+        "value"?: any | null;
+    }
     interface SbbSection {
         /**
           * Section appearance
@@ -2973,13 +3414,63 @@ declare namespace LocalJSX {
     }
     interface SbbSignet {
         /**
-          * The Signet needs to have a certain protective room around it
+          * Visual protective room around signet.
          */
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
+    }
+    interface SbbSlider {
         /**
-          * According to the Corporate Design Guidelines the signet can be used in these variants
+          * This will be forwarded as aria-describedby to the relevant nested element.
          */
-        "variant"?: InterfaceSignetAttributes['variant'];
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Disabled state for the inner HTMLInputElement.
+         */
+        "disabled"?: boolean;
+        /**
+          * Name of the icon at component's end, which will be forward to the nested `sbb-icon`.
+         */
+        "endIcon"?: string;
+        /**
+          * The <form> element to associate the inner HTMLInputElement with.
+         */
+        "form"?: string;
+        /**
+          * Maximum acceptable value for the inner HTMLInputElement.
+         */
+        "max"?: string;
+        /**
+          * Minimum acceptable value for the inner HTMLInputElement.
+         */
+        "min"?: string;
+        /**
+          * Name of the inner HTMLInputElement.
+         */
+        "name"?: string;
+        /**
+          * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
+         */
+        "readonly"?: boolean;
+        /**
+          * Name of the icon at component's start, which will be forward to the nested `sbb-icon`.
+         */
+        "startIcon"?: string;
+        /**
+          * Value for the inner HTMLInputElement.
+         */
+        "value"?: string;
+        /**
+          * Numeric value for the inner HTMLInputElement.
+         */
+        "valueAsNumber"?: number;
     }
     interface SbbSlotComponent {
     }
@@ -3382,6 +3873,48 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbTooltip {
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel"?: string | undefined;
+        /**
+          * Close the tooltip after a certain delay.
+         */
+        "closeDelay"?: number;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Whether the tooltip should be triggered on hover.
+         */
+        "hoverTrigger"?: boolean;
+        /**
+          * Emits whenever the tooltip is closed.
+         */
+        "onSbb-tooltip_did-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        /**
+          * Emits whenever the tooltip is opened.
+         */
+        "onSbb-tooltip_did-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        /**
+          * Emits whenever the tooltip begins the closing transition.
+         */
+        "onSbb-tooltip_will-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        /**
+          * Emits whenever the tooltip starts the opening transition.
+         */
+        "onSbb-tooltip_will-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        /**
+          * Open the tooltip after a certain delay.
+         */
+        "openDelay"?: number;
+        /**
+          * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
     interface SbbTrain {
         /**
           * Accessibility label for additional information regarding the leaving direction of the train
@@ -3457,6 +3990,7 @@ declare namespace LocalJSX {
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
         "sbb-clock": SbbClock;
+        "sbb-dialog": SbbDialog;
         "sbb-divider": SbbDivider;
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
@@ -3476,9 +4010,14 @@ declare namespace LocalJSX {
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
+        "sbb-pearl-chain-vertical": SbbPearlChainVertical;
+        "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
+        "sbb-radio-button": SbbRadioButton;
+        "sbb-radio-button-group": SbbRadioButtonGroup;
         "sbb-section": SbbSection;
         "sbb-sector": SbbSector;
         "sbb-signet": SbbSignet;
+        "sbb-slider": SbbSlider;
         "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
         "sbb-tab-amount": SbbTabAmount;
@@ -3505,6 +4044,7 @@ declare namespace LocalJSX {
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
         "sbb-toggle-check": SbbToggleCheck;
+        "sbb-tooltip": SbbTooltip;
         "sbb-train": SbbTrain;
         "sbb-train-formation": SbbTrainFormation;
         "sbb-wagon": SbbWagon;
@@ -3526,6 +4066,7 @@ declare module "@stencil/core" {
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
+            "sbb-dialog": LocalJSX.SbbDialog & JSXBase.HTMLAttributes<HTMLSbbDialogElement>;
             "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
@@ -3545,9 +4086,14 @@ declare module "@stencil/core" {
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
+            "sbb-pearl-chain-vertical": LocalJSX.SbbPearlChainVertical & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalElement>;
+            "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
+            "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
+            "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-sector": LocalJSX.SbbSector & JSXBase.HTMLAttributes<HTMLSbbSectorElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
+            "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
             "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
@@ -3574,6 +4120,7 @@ declare module "@stencil/core" {
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
+            "sbb-tooltip": LocalJSX.SbbTooltip & JSXBase.HTMLAttributes<HTMLSbbTooltipElement>;
             "sbb-train": LocalJSX.SbbTrain & JSXBase.HTMLAttributes<HTMLSbbTrainElement>;
             "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
             "sbb-wagon": LocalJSX.SbbWagon & JSXBase.HTMLAttributes<HTMLSbbWagonElement>;

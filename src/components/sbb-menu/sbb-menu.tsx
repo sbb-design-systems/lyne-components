@@ -15,10 +15,10 @@ import {
 } from '@stencil/core';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
+import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
-const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action):not([disabled]):not([tabindex="-1"]):not([static])`;
 
 /**
  * @slot unnamed - Use this slot to project any content inside the dialog.
@@ -41,39 +41,29 @@ export class SbbMenu implements ComponentInterface {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
-   * Whether the menu is presented.
+   * The state of the menu.
    */
-  @State() private _presented = false;
+  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
   /**
-   * Whether the menu is presenting.
-   */
-  @State() private _isPresenting = false;
-
-  /**
-   * Whether the menu is closing.
-   */
-  @State() private _isDismissing = false;
-
-  /**
-   * Emits whenever the menu starts the presenting transition.
+   * Emits whenever the menu starts the opening transition.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_will-present',
+    eventName: 'sbb-menu_will-open',
   })
-  public willPresent: EventEmitter<void>;
+  public willOpen: EventEmitter<void>;
 
   /**
-   * Emits whenever the menu is presented.
+   * Emits whenever the menu is opened.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_did-present',
+    eventName: 'sbb-menu_did-open',
   })
-  public didPresent: EventEmitter<void>;
+  public didOpen: EventEmitter<void>;
 
   /**
    * Emits whenever the menu begins the closing transition.
@@ -81,28 +71,27 @@ export class SbbMenu implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_will-dismiss',
+    eventName: 'sbb-menu_will-close',
   })
-  public willDismiss: EventEmitter<void>;
+  public willClose: EventEmitter<void>;
 
   /**
-   * Emits whenever the menu is dismissed.
+   * Emits whenever the menu is closed.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_did-dismiss',
+    eventName: 'sbb-menu_did-close',
   })
-  public didDismiss: EventEmitter<void>;
+  public didClose: EventEmitter<void>;
 
   private _dialog: HTMLDialogElement;
   private _triggerElement: HTMLElement;
   private _menuContentElement: HTMLElement;
-  private _firstFocusable: HTMLElement;
-  private _lastFocusable: HTMLElement;
   private _isPointerDownEventOnMenu: boolean;
   private _menuController: AbortController;
-  private _resizeController: AbortController;
+  private _windowEventsController: AbortController;
+  private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
 
   @Element() private _element!: HTMLElement;
@@ -111,29 +100,28 @@ export class SbbMenu implements ComponentInterface {
    * Opens the menu on trigger click.
    */
   @Method()
-  public async present(): Promise<void> {
-    if (this._isDismissing || !this._dialog) {
+  public async open(): Promise<void> {
+    if (this._state === 'closing' || !this._dialog) {
       return;
     }
 
-    this.willPresent.emit();
-    this._isPresenting = true;
+    this.willOpen.emit();
+    this._state = 'opening';
     this._setMenuPosition();
     this._dialog.show();
   }
 
   /**
-   * Dismisses the menu.
+   * Closes the menu.
    */
   @Method()
-  public async dismiss(): Promise<void> {
-    if (this._isPresenting) {
+  public async close(): Promise<void> {
+    if (this._state === 'opening') {
       return;
     }
 
-    this.willDismiss.emit();
-    this._isDismissing = true;
-    this._presented = false;
+    this.willClose.emit();
+    this._state = 'closing';
     this._openedByKeyboard = false;
   }
 
@@ -144,39 +132,19 @@ export class SbbMenu implements ComponentInterface {
   public onClick(event: Event): void {
     const target = event.target as HTMLElement | undefined;
     if (target?.tagName === 'SBB-MENU-ACTION') {
-      this.dismiss();
+      this.close();
     }
   }
 
-  // Dismisses the menu on "Esc" key pressed and traps focus within the menu.
-  @Listen('keydown')
-  public onKeydownEvent(event: KeyboardEvent): void {
-    if (!this._presented) {
+  // Closes the menu on "Esc" key pressed and traps focus within the menu.
+  private _onKeydownEvent(event: KeyboardEvent): void {
+    if (this._state !== 'opened') {
       return;
     }
 
     if (event.key === 'Escape') {
-      this.dismiss();
+      this.close();
       return;
-    }
-
-    // TODO: Evaluate or extract focus trap mechanism
-    if (event.key !== 'Tab') {
-      return;
-    }
-
-    if (event.shiftKey) {
-      // Shift + Tab
-      if (document.activeElement === this._firstFocusable) {
-        this._lastFocusable.focus();
-        event.preventDefault();
-      }
-    } else {
-      // Tab
-      if (document.activeElement === this._lastFocusable) {
-        this._firstFocusable.focus();
-        event.preventDefault();
-      }
     }
   }
 
@@ -188,7 +156,7 @@ export class SbbMenu implements ComponentInterface {
   ): void {
     if (newValue !== oldValue) {
       this._menuController?.abort();
-      this._resizeController?.abort();
+      this._windowEventsController?.abort();
       this._configure(this.trigger);
     }
   }
@@ -200,7 +168,8 @@ export class SbbMenu implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._menuController?.abort();
-    this._resizeController?.abort();
+    this._windowEventsController?.abort();
+    this._focusTrap.disconnect();
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -222,7 +191,7 @@ export class SbbMenu implements ComponentInterface {
     }
 
     this._menuController = new AbortController();
-    this._triggerElement.addEventListener('click', () => this.present(), {
+    this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._menuController.signal,
     });
     this._triggerElement.addEventListener(
@@ -235,29 +204,35 @@ export class SbbMenu implements ComponentInterface {
       { signal: this._menuController.signal }
     );
 
-    // Dismiss menu on backdrop click
+    // Close menu on backdrop click
     this._element.addEventListener('pointerdown', this._pointerDownListener, {
       signal: this._menuController.signal,
     });
-    this._element.addEventListener('pointerup', this._dismissOnBackdropClick, {
+    this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
       signal: this._menuController.signal,
     });
   }
 
-  // Resets position on window resize.
-  public onResizeWindowEvent(): void {
-    this._resizeController = new AbortController();
+  private _attachWindowEvents(): void {
+    this._windowEventsController = new AbortController();
+    document.addEventListener('scroll', () => this._setMenuPosition(), {
+      passive: true,
+      signal: this._windowEventsController.signal,
+    });
     window.addEventListener('resize', () => this._setMenuPosition(), {
       passive: true,
-      signal: this._resizeController.signal,
+      signal: this._windowEventsController.signal,
+    });
+    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
+      signal: this._windowEventsController.signal,
     });
   }
 
-  // Dismiss menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
-  private _dismissOnInteractiveElementClick(event: Event): void {
+  // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
+  private _closeOnInteractiveElementClick(event: Event): void {
     const target = event.target as HTMLElement;
     if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !target.hasAttribute('disabled')) {
-      this.dismiss();
+      this.close();
     }
   }
 
@@ -267,40 +242,37 @@ export class SbbMenu implements ComponentInterface {
   };
 
   // Close menu on backdrop click.
-  private _dismissOnBackdropClick = (event: PointerEvent): void => {
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._dialog, event)) {
-      this.dismiss();
+      this.close();
     }
   };
 
-  // Set menu position (x, y) to '0' once the menu is dismissed and the transition ended to prevent the
+  // Set menu position (x, y) to '0' once the menu is closed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the menu is open.
   private _onMenuAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'show') {
-      this._isPresenting = false;
-      this._presented = true;
-      this.didPresent.emit();
+    if (event.animationName === 'open') {
+      this._state = 'opened';
+      this.didOpen.emit();
       this._setDialogFocus();
-      this.onResizeWindowEvent();
-    } else if (event.animationName === 'hide') {
-      this._isDismissing = false;
-      this._presented = false;
+      this._focusTrap.trap(this._element);
+      this._attachWindowEvents();
+    } else if (event.animationName === 'close') {
+      this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
       this._dialog.close();
-      this.didDismiss.emit();
-      this._resizeController?.abort();
+      this.didClose.emit();
+      this._windowEventsController?.abort();
+      this._focusTrap.disconnect();
     }
   }
 
-  // Avoid possible double focus on some elements.
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const focusableElements = Array.from(this._element.querySelectorAll(IS_FOCUSABLE_QUERY));
-    this._firstFocusable = focusableElements[0] as HTMLElement;
-    this._lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
+    const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
 
     if (this._openedByKeyboard) {
-      this._firstFocusable.focus();
+      firstFocusable.focus();
     } else {
       // Focusing sbb-menu__content in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied
@@ -323,8 +295,8 @@ export class SbbMenu implements ComponentInterface {
       return;
     }
 
-    const menuPosition = getElementPosition(this._dialog, this._triggerElement, {
-      elementOffset: MENU_OFFSET,
+    const menuPosition = getElementPosition(this._menuContentElement, this._triggerElement, {
+      verticalOffset: MENU_OFFSET,
     });
 
     this._element.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
@@ -336,21 +308,19 @@ export class SbbMenu implements ComponentInterface {
     return (
       <Host
         class={{
-          'sbb-menu--presented': this._presented,
-          'sbb-menu--presenting': this._isPresenting,
+          'sbb-menu--opened': this._state === 'opened',
+          'sbb-menu--opening': this._state === 'opening',
+          'sbb-menu--closing': this._state === 'closing',
         }}
       >
         <dialog
           onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
           ref={(dialogRef) => (this._dialog = dialogRef)}
-          class={{
-            'sbb-menu': true,
-            'sbb-menu--dismissing': this._isDismissing,
-          }}
+          class="sbb-menu"
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
-            onClick={(event: Event) => this._dismissOnInteractiveElementClick(event)}
+            onClick={(event: Event) => this._closeOnInteractiveElementClick(event)}
             ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
             class="sbb-menu__content"
           >

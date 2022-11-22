@@ -94,7 +94,7 @@
 }
 // stylelint-enable plugin/stylelint-bem-namics
 
-button.sbb-link {
+button:where(.sbb-link) {
   @include buttonReset;
 }
 

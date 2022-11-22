@@ -23,9 +23,9 @@ let nextId = 0;
 
 /**
  * @slot label - Slot to render a label.
- * @slot prefix - Slot to render an icon at the left side of the input.
+ * @slot prefix - Slot to render an icon on the left side of the input.
  * @slot unnamed - Slot to render an input/select.
- * @slot suffix - Slot to render an icon at the right side of the input.
+ * @slot suffix - Slot to render an icon on the right side of the input.
  * @slot error - Slot to render an error.
  */
 @Component({
@@ -34,6 +34,9 @@ let nextId = 0;
   tag: 'sbb-form-field',
 })
 export class SbbFormField implements ComponentInterface {
+  // List of supported element selectors in unnamed slot
+  private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER'];
+
   /**
    * Whether to reserve space for an error message.
    * `none` does not reserve any space.
@@ -135,12 +138,8 @@ export class SbbFormField implements ComponentInterface {
   private _onSlotInputChange(event: Event): void {
     this._input = (event.target as HTMLSlotElement)
       .assignedElements()
-      .find(
-        (e): e is HTMLElement =>
-          e.tagName === 'INPUT' ||
-          e.tagName === 'SELECT' ||
-          e.classList.contains('sbb-form-field-element')
-      );
+      .find((e): e is HTMLElement => this._supportedInputElements.includes(e.tagName));
+
     if (this._input) {
       this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
       this._applyAriaDescribedby();
@@ -154,6 +153,8 @@ export class SbbFormField implements ComponentInterface {
       if (!this._input.id) {
         this._input.id = `sbb-form-field-input-${nextId++}`;
       }
+
+      this._element.dataset.inputType = this._input.tagName.toLowerCase();
     }
   }
 

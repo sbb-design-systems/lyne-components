@@ -1,8 +1,8 @@
 /**
  * Looks for the closest element matching the given selector starting from the given element.
- * Returns null, if none of the ancester match.
+ * Returns null, if none of the ancestor match.
  *
- * @param selector The selector to match ancester against.
+ * @param selector The selector to match ancestor against.
  * @param element The base element from which to start the search.
  * @returns The closest element matching the selector or null if none is found.
  */

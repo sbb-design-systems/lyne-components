@@ -79,6 +79,8 @@ sbb-button {
 ### Used by
 
  - [sbb-alert](../sbb-alert)
+ - [sbb-dialog](../sbb-dialog)
+ - [sbb-tooltip](../sbb-tooltip)
 
 ### Depends on
 
@@ -89,6 +91,8 @@ sbb-button {
 graph TD;
   sbb-button --> sbb-icon
   sbb-alert --> sbb-button
+  sbb-dialog --> sbb-button
+  sbb-tooltip --> sbb-button
   style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

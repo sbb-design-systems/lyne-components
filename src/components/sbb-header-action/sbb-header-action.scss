@@ -81,6 +81,8 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-icon-svg-stroke-color: currentcolor;
   --sbb-icon-svg-stroke-width: 0.5px;
 
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
   line-height: 0;
   color: var(--sbb-color-black-default);
 }

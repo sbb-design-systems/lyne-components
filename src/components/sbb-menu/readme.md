@@ -9,12 +9,12 @@ by evaluating the available space with the following priority: start/below, star
 
 ## Usage
 
-The menu component allows you to present a custom menu that allows you to perform actions relevant to the current task 
+The menu component allows you to open a custom menu that allows you to perform actions relevant to the current task 
 or to navigate within or outside the application by using the `sbb-menu-action` component along with it as shown below:
 
 ```html
 <!-- Trigger element -->
-<sbb-button id="menu-trigger" label="Menu trigger"></sbb-button>
+<sbb-button id="menu-trigger">Menu trigger</sbb-button>
 
 <!-- Menu component with menu actions -->
 <sbb-menu trigger="menu-trigger">
@@ -30,7 +30,7 @@ You can also provide custom content inside the `sbb-menu`:
 
 ```html
 <!-- Trigger element -->
-<sbb-button id="menu-trigger" label="Menu trigger"></sbb-button>
+<sbb-button id="menu-trigger">Menu trigger</sbb-button>
 
 <!-- Menu component with custom content and menu actions -->
 <sbb-menu trigger="menu-trigger">
@@ -65,19 +65,19 @@ As the menu opens, the focus will automatically be set to the first focusable it
 
 ## Events
 
-| Event                   | Description                                               | Type                |
-| ----------------------- | --------------------------------------------------------- | ------------------- |
-| `sbb-menu_did-dismiss`  | Emits whenever the menu is dismissed.                     | `CustomEvent<void>` |
-| `sbb-menu_did-present`  | Emits whenever the menu is presented.                     | `CustomEvent<void>` |
-| `sbb-menu_will-dismiss` | Emits whenever the menu begins the closing transition.    | `CustomEvent<void>` |
-| `sbb-menu_will-present` | Emits whenever the menu starts the presenting transition. | `CustomEvent<void>` |
+| Event                 | Description                                            | Type                |
+| --------------------- | ------------------------------------------------------ | ------------------- |
+| `sbb-menu_did-close`  | Emits whenever the menu is closed.                     | `CustomEvent<void>` |
+| `sbb-menu_did-open`   | Emits whenever the menu is opened.                     | `CustomEvent<void>` |
+| `sbb-menu_will-close` | Emits whenever the menu begins the closing transition. | `CustomEvent<void>` |
+| `sbb-menu_will-open`  | Emits whenever the menu starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Methods
 
-### `dismiss() => Promise<void>`
+### `close() => Promise<void>`
 
-Dismisses the menu.
+Closes the menu.
 
 #### Returns
 
@@ -85,7 +85,7 @@ Type: `Promise<void>`
 
 
 
-### `present() => Promise<void>`
+### `open() => Promise<void>`
 
 Opens the menu on trigger click.
 
