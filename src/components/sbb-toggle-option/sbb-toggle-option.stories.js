@@ -20,6 +20,12 @@ const iconName = {
   },
 };
 
+const label = {
+  control: {
+    type: 'text',
+  },
+};
+
 const size = {
   control: {
     type: 'inline-radio',
@@ -36,6 +42,7 @@ const value = {
 const defaultArgTypes = {
   checked,
   disabled,
+  label,
   size,
   value,
 };
@@ -43,6 +50,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   checked: false,
   disabled: false,
+  label: 'Option 1',
   size: 'm',
   value: 'Option 1',
 };
