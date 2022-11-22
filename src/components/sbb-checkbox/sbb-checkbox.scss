@@ -30,6 +30,12 @@
   }
 }
 
+.sbb-checkbox-wrapper {
+  display: flex;
+
+  @include zeroWidthSpace;
+}
+
 .sbb-checkbox {
   @include text-s--regular;
 
@@ -38,6 +44,7 @@
   color: var(--sbb-checkbox-label-color);
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 
   :host([size='m']) & {
     @include text-m--regular;
@@ -59,6 +66,12 @@ input[type='checkbox'] {
   display: flex;
   align-items: center;
   height: calc(1em * var(--sbb-typo-line-height-body-text));
+}
+
+.sbb-checkbox__label--icon {
+  :host([icon-placement='end']) & {
+    margin-left: auto;
+  }
 }
 
 .sbb-checkbox__selection {
@@ -101,10 +114,6 @@ input[type='checkbox'] {
   :host([icon-placement='end']) & {
     justify-content: flex-start;
     flex-grow: 1;
-
-    .sbb-checkbox__label--icon {
-      margin-left: auto;
-    }
   }
 }
 

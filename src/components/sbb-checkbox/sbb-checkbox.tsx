@@ -134,52 +134,54 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
 
   public render(): JSX.Element {
     return (
-      <label class="sbb-checkbox" htmlFor={this.checkboxId}>
-        <input
-          ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
-          type="checkbox"
-          id={this.checkboxId}
-          disabled={this.disabled || this._disabledFromGroup}
-          aria-disabled={this.disabled || this._disabledFromGroup}
-          required={this.required || this._requiredFromGroup}
-          checked={this.checked}
-          value={this.value}
-          {...getAccessibilityAttributeList(this)}
-          onChange={(event: Event): void => this.checkedChanged(event)}
-        />
-        <span class="sbb-checkbox__inner">
-          <span class="sbb-checkbox__aligner">
-            <span class="sbb-checkbox__selection">
-              <span class="sbb-checkbox__icon">
-                {(this.checked || this.indeterminate) && (
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                )}
+      <span class="sbb-checkbox-wrapper">
+        <label class="sbb-checkbox" htmlFor={this.checkboxId}>
+          <input
+            ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
+            type="checkbox"
+            id={this.checkboxId}
+            disabled={this.disabled || this._disabledFromGroup}
+            aria-disabled={this.disabled || this._disabledFromGroup}
+            required={this.required || this._requiredFromGroup}
+            checked={this.checked}
+            value={this.value}
+            {...getAccessibilityAttributeList(this)}
+            onChange={(event: Event): void => this.checkedChanged(event)}
+          />
+          <span class="sbb-checkbox__inner">
+            <span class="sbb-checkbox__aligner">
+              <span class="sbb-checkbox__selection">
+                <span class="sbb-checkbox__icon">
+                  {(this.checked || this.indeterminate) && (
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  )}
+                </span>
               </span>
             </span>
+            <span class="sbb-checkbox__label">
+              <slot />
+              {(this.iconName || this._namedSlots.icon) && (
+                <span class="sbb-checkbox__label--icon">
+                  <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+                </span>
+              )}
+            </span>
           </span>
-          <span class="sbb-checkbox__label">
-            <slot />
-            {(this.iconName || this._namedSlots.icon) && (
-              <span class="sbb-checkbox__label--icon">
-                <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-              </span>
-            )}
-          </span>
-        </span>
-      </label>
+        </label>
+      </span>
     );
   }
 }
