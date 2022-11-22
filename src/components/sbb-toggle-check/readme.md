@@ -4,7 +4,7 @@
 enhanced with the SBB Design.
 
 Consumers can listen to the native `change` event on the `sbb-toggle-check` component to intercept the input's change;
-the current state can be read from `event.target.checked`, while the value from `event.target.value`.
+the current state can be read from `event.target.checked` and the value from `event.target.value`.
 
 ```html
 <sbb-toggle-check
