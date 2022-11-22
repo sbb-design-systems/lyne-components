@@ -37,6 +37,25 @@
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-3x);
 }
 
+:host[selected-index='0']::after {
+  content: '';
+  background-color: var(--sbb-color-white-default);
+  border: var(--sbb-border-width-2x) solid var(--sbb-color-cloud-default);
+  border-radius: var(--sbb-border-radius-16x);
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: auto;
+  transition: all var(--sbb-animation-duration-6x) ease-in;
+}
+
+:host[selected-index='1']::after {
+  left: auto;
+  right: 0;
+}
+
 .sbb-toggle {
   @include text-m--regular;
 
