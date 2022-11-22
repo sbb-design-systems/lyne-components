@@ -39,6 +39,24 @@ const value = {
   },
 };
 
+const value1 = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Toggle Option',
+  },
+};
+
+const value2 = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Toggle Option',
+  },
+};
+
 const iconName = {
   control: {
     type: 'text',
@@ -53,6 +71,8 @@ const defaultArgTypes = {
   even,
   size,
   value,
+  value1,
+  value2,
 };
 
 const defaultArgs = {
@@ -60,19 +80,24 @@ const defaultArgs = {
   even: false,
   size: 'm',
   value: 'option-1',
+  value1: 'option-1',
+  value2: 'option-2',
 };
 
-const toggleOption = (disabled, iconName) => [
-  <sbb-toggle-option disabled={disabled} icon-name={iconName} value="option-1"></sbb-toggle-option>,
-  <sbb-toggle-option disabled={disabled} icon-name={iconName} value="option-2"></sbb-toggle-option>,
+const toggleOption = (args) => [
+  <sbb-toggle-option
+    disabled={args.disabled}
+    icon-name={args.iconName}
+    value={args.value1}
+  ></sbb-toggle-option>,
+  <sbb-toggle-option
+    disabled={args.disabled}
+    icon-name={args.iconName}
+    value={args.value2}
+  ></sbb-toggle-option>,
 ];
 
-const DefaultTemplate = (args) => (
-  <sbb-toggle {...args}>
-    <sbb-toggle-option value="option-1">Option 1</sbb-toggle-option>
-    <sbb-toggle-option value="option-2">Option 2</sbb-toggle-option>
-  </sbb-toggle>
-);
+const DefaultTemplate = (args) => <sbb-toggle {...args}>{toggleOption(args)}</sbb-toggle>;
 
 const CustomIconsTemplate = ({ disabled, iconName, ...args }) => (
   <sbb-toggle {...args}>{toggleOption(disabled, iconName)}</sbb-toggle>
@@ -103,7 +128,7 @@ export const sbbToggleWithIcons = CustomIconsTemplate.bind({});
 sbbToggleWithIcons.args = { ...defaultArgs, iconName: 'arrow-right-small' };
 sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName };
 sbbToggleWithIcons.documentation = {
-  title: 'sbb-toggle fixed width',
+  title: 'sbb-toggle with custom',
 };
 
 export default {
