@@ -3,9 +3,26 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  --sbb-train-formation-padding: var(--sbb-spacing-fixed-4x);
+  --sbb-train-formation-train-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-train-formation-white-background-color: var(--sbb-color-white-default);
 }
 
-.some-class {
-  color: var(--some-color-var);
+.sbb-train-formation {
+  margin-block-end: var(--sbb-train-formation-padding);
+  display: flex;
+  gap: var(--sbb-train-formation-train-gap);
+  overflow-x: auto;
+  position: relative;
+  background-color: var(--sbb-train-formation-white-background-color);
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    flex-basis: 100%;
+    flex-shrink: 0;
+    max-width: calc(var(--sbb-train-formation-padding) - var(--sbb-train-formation-train-gap));
+    background-color: var(--sbb-train-formation-white-background-color);
+  }
 }

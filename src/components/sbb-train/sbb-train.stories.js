@@ -3,14 +3,64 @@ import readme from './readme.md';
 
 const Template = (args) => <sbb-train {...args}></sbb-train>;
 
-export const story1 = Template.bind({});
-
-story1.args = {
-  'some-prop': 'opt1',
+const directionLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Direction indicator',
+  },
 };
 
-story1.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+const station = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Direction indicator',
+  },
+};
+
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Direction indicator',
+  },
+};
+
+const direction = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['LEFT', 'RIGHT'],
+  table: {
+    category: 'Direction indicator',
+  },
+};
+
+const defaultArgTypes = {
+  'direction-label': directionLabel,
+  'accessibility-label': accessibilityLabel,
+  station,
+  direction,
+};
+
+const defaultArgs = {
+  'direction-label': 'Direction of travel',
+  'accessibility-label':
+    'The top of the train is in Sector A. The train leaves the station in this direction.',
+  station: 'Bern',
+  direction: direction.options[0],
+};
+
+export const train = Template.bind({});
+train.argTypes = defaultArgTypes;
+train.args = defaultArgs;
+
+train.documentation = {
+  title: 'Train no slotted content',
 };
 
 export default {

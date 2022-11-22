@@ -3,9 +3,46 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  --sbb-sector-label-color: var(--sbb-color-metal-default);
+  --sbb-sector-label-padding: var(--sbb-spacing-fixed-1x);
+  --sbb-sector-label-margin: var(--sbb-spacing-fixed-2x);
+  --sbb-sector-label-background: var(--sbb-color-white-default);
+  --sbb-sector-line-color: var(--sbb-color-cement-default);
+  --sbb-sector-wagon-width: var(--sbb-train-formation-wagon-width);
+  --sbb-sector-wagon-gap: var(--sbb-spacing-fixed-1x);
 }
 
-.some-class {
-  color: var(--some-color-var);
+.sbb-sector {
+  flex: 0 0 auto;
+
+  // Maximal 3 wagons are allowed inside one sector, plus the gaps in between.
+  max-width: calc(var(--sbb-sector-wagon-width) * 3 + (2 * var(--sbb-sector-wagon-gap)));
+
+  h3 {
+    color: var(--sbb-sector-label-color);
+    text-align: center;
+    position: relative;
+    @include text-s--regular;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 50% 0;
+      height: 1px;
+      background-color: var(--sbb-sector-line-color);
+    }
+  }
+}
+
+.sbb-sector__label {
+  background-color: var(--sbb-sector-label-background);
+  position: sticky;
+  inset: auto 0;
+  padding: 0 var(--sbb-sector-label-padding);
+  margin: 0 var(--sbb-sector-label-margin);
+}
+
+.sbb-sector__wagons {
+  display: flex;
+  gap: var(--sbb-sector-wagon-gap);
 }

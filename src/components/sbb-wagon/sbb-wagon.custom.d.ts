@@ -1,3 +1,4 @@
 export interface InterfaceSbbWagonAttributes {
-  someInterface: 'opt1' | 'opt2';
+  type: 'locomotive' | 'blocked' | 'wagon';
+  occupancy: 'high' | 'medium' | 'low' | 'none';
 }

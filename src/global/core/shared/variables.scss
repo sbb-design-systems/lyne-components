@@ -188,6 +188,13 @@
 
   //////////////////////////////////////////////////////////////////////////////
   ///
+  /// SBB Train-formation
+  --sbb-train-formation-wagon-width: #{px-to-rem-build(80)};
+  --sbb-train-formation-wagon-height: #{px-to-rem-build(40)};
+  --sbb-train-formation-wagon-border-radius: #{px-to-rem-build(12)};
+
+  //////////////////////////////////////////////////////////////////////////////
+  ///
   /// Header
 
   --sbb-header-height: var(--sbb-spacing-fixed-14x);

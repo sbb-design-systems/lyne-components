@@ -3,9 +3,131 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  --sbb-train-sector-padding: var(--sbb-spacing-fixed-1x);
+  --sbb-train-direction-spacing: var(--sbb-spacing-fixed-4x);
+  --sbb-train-direction-label-padding: var(--sbb-spacing-fixed-1x);
+  --sbb-train-direction-station-padding: var(--sbb-spacing-fixed-3x);
+  --sbb-train-direction-line-width: var(--sbb-border-width-1x);
+  --sbb-train-direction-line-color: var(--sbb-color-cement-default);
+  --sbb-train-direction-label-color: var(--sbb-color-smoke-default);
+  --sbb-train-direction-label-background: var(--sbb-color-white-default);
+
+  // Static value from design specs
+  --sbb-train-direction-indicator-end-height: #{px-to-rem-build(12)};
+
+  // Evalutate offset for the arrow-icon because 50% offset will cause a cut off of
+  // the arrow-top on the overflowing edge
+  --sbb-train-direction-indicator-arrow-offset-right: #{px-to-rem-build(9)};
+  --sbb-train-direction-indicator-arrow-offset-left: calc(
+    var(--sbb-train-direction-indicator-arrow-offset-right) * -1
+  );
 }
 
-.some-class {
-  color: var(--some-color-var);
+.sbb-train {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+}
+
+.sbb-train__sectors {
+  display: flex;
+  gap: var(--sbb-train-sector-padding);
+}
+
+.sbb-train__direction {
+  padding-block-start: var(--sbb-train-direction-spacing);
+  margin-block-end: var(--sbb-train-direction-spacing);
+  display: flex;
+  position: relative;
+  margin-top: auto;
+  width: 100%;
+
+  h3 {
+    z-index: 1;
+    display: flex;
+    position: sticky;
+    inset: auto 0;
+    flex-direction: column;
+    width: 100%;
+    max-width: var(--sbb-train-direction-width);
+    margin: 0;
+    color: var(--sbb-train-direction-label-color);
+  }
+}
+
+.sbb-train__direction-indicator {
+  z-index: 0;
+  position: absolute;
+  top: calc(
+    ((var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text)) / 2) +
+      var(--sbb-train-direction-spacing)
+  );
+  left: 0;
+  right: 0;
+  height: var(--sbb-train-direction-line-width);
+  background-color: var(--sbb-train-direction-line-color);
+
+  sbb-icon {
+    color: var(--sbb-train-direction-line-color);
+  }
+}
+
+.sbb-train__sticky-wrapper {
+  position: sticky;
+  inset: auto 0;
+  width: 100%;
+  max-width: var(--sbb-train-direction-width);
+  height: var(--sbb-train-direction-line-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &::after {
+    content: '';
+    width: var(--sbb-train-direction-line-width);
+    height: var(--sbb-train-direction-indicator-end-height);
+    background-color: var(--sbb-train-direction-line-color);
+    display: block;
+  }
+}
+
+.sbb-train__direction-label,
+.sbb-train__direction-station {
+  margin: 0 auto;
+}
+
+.sbb-train__direction-label {
+  padding: 0 var(--sbb-train-direction-label-padding);
+  background-color: var(--sbb-train-direction-label-background);
+  @include text-s--regular;
+}
+
+.sbb-train__direction-station {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 0 var(--sbb-train-direction-station-padding);
+  @include text-xxs--regular;
+}
+
+.sbb-train__accessibility-label {
+  @include screenReaderOnly;
+}
+
+:host([direction='RIGHT']) {
+  .sbb-train__direction-indicator {
+    sbb-icon {
+      transform: translateX(var(--sbb-train-direction-indicator-arrow-offset-right));
+      order: 1;
+    }
+  }
+}
+
+:host([direction='LEFT']) {
+  .sbb-train__direction-indicator {
+    sbb-icon {
+      transform: translateX(var(--sbb-train-direction-indicator-arrow-offset-left));
+    }
+  }
 }

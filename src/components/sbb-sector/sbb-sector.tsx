@@ -1,5 +1,4 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
-import { InterfaceSbbSectorAttributes } from './sbb-sector.custom.d';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -11,15 +10,20 @@ import { InterfaceSbbSectorAttributes } from './sbb-sector.custom.d';
   tag: 'sbb-sector',
 })
 export class SbbSector {
-  /** Documentation for someProp */
-  @Prop()
-  public someProp?: InterfaceSbbSectorAttributes['someInterface'];
-
+  /** Label for the sector */
+  @Prop() public label!: string;
 
   public render(): JSX.Element {
+    if (!this.label) return;
+
     return (
-      <div class="some-class">
-        {this.someProp}
+      <div class="sbb-sector">
+        <h3>
+          <span class="sbb-sector__label">{this.label}</span>
+        </h3>
+        <div class="sbb-sector__wagons">
+          <slot />
+        </div>
       </div>
     );
   }

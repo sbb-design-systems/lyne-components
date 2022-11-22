@@ -3,13 +3,27 @@ import readme from './readme.md';
 
 const Template = (args) => <sbb-sector {...args}></sbb-sector>;
 
-export const story1 = Template.bind({});
-
-story1.args = {
-  'some-prop': 'opt1',
+const sectorLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Sector',
+  },
 };
 
-story1.documentation = {
+const defaultArgTypes = {
+  label: sectorLabel,
+};
+
+const defaultArgs = {
+  label: 'Sector A',
+};
+
+export const sector = Template.bind({});
+sector.argTypes = defaultArgTypes;
+sector.args = defaultArgs;
+sector.documentation = {
   title: 'Title which will be rendered on documentation platform',
 };
 

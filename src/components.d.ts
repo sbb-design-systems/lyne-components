@@ -31,7 +31,6 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
-import { InterfaceSbbSectorAttributes } from "./components/sbb-sector/sbb-sector.custom.d";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
@@ -47,7 +46,6 @@ import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
-import { InterfaceSbbTrainFormationAttributes } from "./components/sbb-train-formation/sbb-train-formation.custom.d";
 import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export namespace Components {
     interface SbbAccordion {
@@ -1022,9 +1020,9 @@ export namespace Components {
     }
     interface SbbSector {
         /**
-          * Documentation for someProp
+          * Label for the sector
          */
-        "someProp"?: InterfaceSbbSectorAttributes['someInterface'];
+        "label": string;
     }
     interface SbbSignet {
         /**
@@ -1442,21 +1440,65 @@ export namespace Components {
     }
     interface SbbTrain {
         /**
-          * Documentation for someProp
+          * Accessibility label for additional information regarding the leaving direction of the train
          */
-        "someProp"?: InterfaceSbbTrainAttributes['someInterface'];
+        "accessibilityLabel"?: string;
+        /**
+          * Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.
+         */
+        "direction": InterfaceSbbTrainAttributes['direction'];
+        /**
+          * General label for "driving direction"
+         */
+        "directionLabel": string;
+        /**
+          * Label for the destination station of the train
+         */
+        "station": string;
     }
     interface SbbTrainFormation {
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceSbbTrainFormationAttributes['someInterface'];
     }
     interface SbbWagon {
         /**
-          * Documentation for someProp
+          * Accessibility text for translations to add additional information to wagon
          */
-        "someProp"?: InterfaceSbbWagonAttributes['someInterface'];
+        "accessibilityAdditionalWagonText": string;
+        /**
+          * Accessibility text for translations to describe the class of a wagon
+         */
+        "accessibilityLabelClass": string;
+        /**
+          * Accessibility-text for translations as the list title for additional information icons on a wagon
+         */
+        "accessibilityLabelIconListTitle": string;
+        /**
+          * Accessibility text for translations to describe the occupation level of a wagon
+         */
+        "accessibilityLabelOccupation": string;
+        /**
+          * Accessibility text for translations to describe the wagon type
+         */
+        "accessibilityLabelWagon": string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "iconListTitleId": string;
+        /**
+          * Visible label for the wagon number. Not used by type locomotive or blocked.
+         */
+        "label"?: string;
+        /**
+          * Occupation icon of a wagon
+         */
+        "occupancy": InterfaceSbbWagonAttributes['occupancy'];
+        /**
+          * Wagon type
+         */
+        "type": InterfaceSbbWagonAttributes['type'];
+        /**
+          * Visible class label of a wagon
+         */
+        "wagonClass"?: '1' | '2';
     }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
@@ -2925,9 +2967,9 @@ declare namespace LocalJSX {
     }
     interface SbbSector {
         /**
-          * Documentation for someProp
+          * Label for the sector
          */
-        "someProp"?: InterfaceSbbSectorAttributes['someInterface'];
+        "label": string;
     }
     interface SbbSignet {
         /**
@@ -3342,21 +3384,65 @@ declare namespace LocalJSX {
     }
     interface SbbTrain {
         /**
-          * Documentation for someProp
+          * Accessibility label for additional information regarding the leaving direction of the train
          */
-        "someProp"?: InterfaceSbbTrainAttributes['someInterface'];
+        "accessibilityLabel"?: string;
+        /**
+          * Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.
+         */
+        "direction"?: InterfaceSbbTrainAttributes['direction'];
+        /**
+          * General label for "driving direction"
+         */
+        "directionLabel": string;
+        /**
+          * Label for the destination station of the train
+         */
+        "station": string;
     }
     interface SbbTrainFormation {
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceSbbTrainFormationAttributes['someInterface'];
     }
     interface SbbWagon {
         /**
-          * Documentation for someProp
+          * Accessibility text for translations to add additional information to wagon
          */
-        "someProp"?: InterfaceSbbWagonAttributes['someInterface'];
+        "accessibilityAdditionalWagonText"?: string;
+        /**
+          * Accessibility text for translations to describe the class of a wagon
+         */
+        "accessibilityLabelClass"?: string;
+        /**
+          * Accessibility-text for translations as the list title for additional information icons on a wagon
+         */
+        "accessibilityLabelIconListTitle"?: string;
+        /**
+          * Accessibility text for translations to describe the occupation level of a wagon
+         */
+        "accessibilityLabelOccupation"?: string;
+        /**
+          * Accessibility text for translations to describe the wagon type
+         */
+        "accessibilityLabelWagon"?: string;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "iconListTitleId"?: string;
+        /**
+          * Visible label for the wagon number. Not used by type locomotive or blocked.
+         */
+        "label"?: string;
+        /**
+          * Occupation icon of a wagon
+         */
+        "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
+        /**
+          * Wagon type
+         */
+        "type"?: InterfaceSbbWagonAttributes['type'];
+        /**
+          * Visible class label of a wagon
+         */
+        "wagonClass"?: '1' | '2';
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
