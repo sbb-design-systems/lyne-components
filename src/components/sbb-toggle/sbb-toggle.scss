@@ -8,6 +8,7 @@
   --sbb-toggle-selected-option-text-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-toggle-cursor: pointer;
 }
 
 :host([even]) {
@@ -18,6 +19,7 @@
 :host([disabled]) {
   --sbb-toggle-option-text-color: var(--sbb-color-graphite-default);
   --sbb-toggle-selected-option-text-color: var(--sbb-color-graphite-default);
+  --sbb-toggle-cursor: unset;
 }
 
 :host([size='m']) {
@@ -28,6 +30,7 @@
 .sbb-toggle {
   @include text-m--regular;
 
+  cursor: var(--sbb-toggle-cursor);
   position: relative;
   display: flex;
   justify-content: center;
