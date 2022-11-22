@@ -3,17 +3,15 @@
 @include host-component-properties;
 
 :host {
-  --sbb-toggle-width: max-content;
+  --sbb-toggle-width: 100%;
+  --sbb-toggle-option-flex-grow: 1;
   --sbb-toggle-option-text-color: var(--sbb-color-anthracite-default);
   --sbb-toggle-selected-option-text-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-toggle-cursor: pointer;
-}
 
-:host([even]) {
-  --sbb-toggle-width: 100%;
-  --sbb-toggle-option-flex-grow: 1;
+  position: relative;
 }
 
 :host([disabled]) {
@@ -25,6 +23,25 @@
 :host([size='m']) {
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-s);
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-3x);
+}
+
+:host[selected-index='0']::after {
+  content: '';
+  background-color: var(--sbb-color-white-default);
+  border: var(--sbb-border-width-2x) solid var(--sbb-color-cloud-default);
+  border-radius: var(--sbb-border-radius-16x);
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: auto;
+  transition: all var(--sbb-animation-duration-6x) ease-in;
+}
+
+:host[selected-index='1']::after {
+  left: auto;
+  right: 0;
 }
 
 .sbb-toggle {

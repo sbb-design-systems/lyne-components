@@ -4,6 +4,7 @@
 
 :host {
   flex-grow: var(--sbb-toggle-option-flex-grow);
+  z-index: 1;
 }
 
 :host input[type='radio'] {
@@ -25,13 +26,16 @@
     visibility: hidden;
     @include text-xs--bold;
   }
+
+  label {
+    cursor: inherit;
+  }
 }
 
 :host([checked]) {
   .sbb-toggle-option {
     @include text-xs--bold;
 
-    background-color: white;
     color: var(--sbb-toggle-selected-option-text-color);
   }
 }
