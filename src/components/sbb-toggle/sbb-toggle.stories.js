@@ -181,24 +181,29 @@ DynamicWidthSizeS.args = {
 };
 
 export const sbbToggleDisabled = DefaultTemplate.bind({});
-sbbToggleDisabled.args = { ...defaultArgs, disabled: true };
-sbbToggleDisabled.argTypes = defaultArgTypes;
+sbbToggleDisabled.args = { ...defaultArgs, disabled: true, value1: 'option-1', value2: 'option-2' };
+sbbToggleDisabled.argTypes = { ...defaultArgTypes, value1, value2 };
 sbbToggleDisabled.documentation = {
   title: 'sbb-toggle disabled',
 };
 
 export const sbbToggleFixedWidth = DefaultTemplate.bind({});
-sbbToggleFixedWidth.args = { ...defaultArgs, even: true };
-sbbToggleFixedWidth.argTypes = defaultArgTypes;
+sbbToggleFixedWidth.args = { ...defaultArgs, even: true, value1: 'option-1', value2: 'option-2' };
+sbbToggleFixedWidth.argTypes = { ...defaultArgTypes, value1, value2 };
 sbbToggleFixedWidth.documentation = {
   title: 'sbb-toggle fixed width',
 };
 
-export const sbbToggleWithIcons = CustomIconsTemplate.bind({});
-sbbToggleWithIcons.args = { ...defaultArgs, iconName: 'arrow-right-small' };
-sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName };
+export const sbbToggleWithIcons = DefaultTemplate.bind({});
+sbbToggleWithIcons.args = {
+  ...defaultArgs,
+  value1: 'option-1',
+  value2: 'option-2',
+  iconName: 'arrow-right-small',
+};
+sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName, value1, value2 };
 sbbToggleWithIcons.documentation = {
-  title: 'sbb-toggle with custom',
+  title: 'sbb-toggle with custom icon',
 };
 
 export default {
