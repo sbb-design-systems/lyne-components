@@ -1,7 +1,8 @@
 @include host-component-properties;
 
 :host {
-  --row-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-timetable-row-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-timetable-row-loading-height: #{px-to-rem-build(24)};
 }
 
 // override icons sizes
@@ -59,7 +60,7 @@ li {
 
   display: flex;
   flex-direction: column;
-  gap: var(--row-gap);
+  gap: var(--sbb-timetable-row-gap);
 }
 
 .sbb-timetable__row-header {
@@ -123,21 +124,26 @@ li {
 
 .sbb-loading__row,
 .sbb-loading__badge {
-  animation: skeleton-pulse 2s linear infinite alternate;
+  animation: skeleton-pulse 1800ms ease-out infinite;
 }
 
 .sbb-loading__row {
   width: 100%;
-  height: #{px-to-rem-build(24)};
+  height: var(--sbb-timetable-row-loading-height);
   border-radius: var(--sbb-border-radius-1x);
+
+  @include mq($from: medium) {
+    --sbb-timetable-row-loading-height: #{px-to-rem-build(27)};
+  }
 }
 
 .sbb-loading__row:first-of-type {
-  width: 75%;
+  width: 50%;
+  height: #{px-to-rem-build(20)};
+}
 
-  @include mq($from: medium) {
-    width: 100%;
-  }
+.sbb-loading__row:last-of-type {
+  height: #{px-to-rem-build(16)};
 }
 
 .sbb-loading__badge {
@@ -151,16 +157,24 @@ li {
   // Left to right expression
   right: calc(var(--sbb-spacing-fixed-3x) * -1);
   transform: skew(16deg, 0deg);
-  width: 15%;
+  width: #{px-to-rem-build(115)};
   height: #{px-to-rem-build(20)};
 }
 
 @keyframes skeleton-pulse {
   0% {
+    background: var(--sbb-color-cloud-default);
+  }
+
+  17% {
+    background: var(--sbb-color-cloud-default);
+  }
+
+  50% {
     background: var(--sbb-color-milk-default);
   }
 
-  100% {
-    background: var(--sbb-color-cloud-default);
+  67% {
+    background: var(--sbb-color-milk-default);
   }
 }

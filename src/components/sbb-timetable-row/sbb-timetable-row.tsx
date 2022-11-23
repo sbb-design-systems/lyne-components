@@ -53,7 +53,8 @@ export class SbbTimetableRow {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
-      <sbb-card class="sbb-loading">
+      <sbb-card         size='l'
+       class="sbb-loading">
         {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
@@ -88,7 +89,6 @@ export class SbbTimetableRow {
       departure,
       arrival,
       arrivalWalk,
-      tripStatus,
       occupancy,
       duration,
     } = this.trip?.summary || {};
@@ -96,7 +96,13 @@ export class SbbTimetableRow {
     const sortedNotices = notices?.length ? this._sortNoticePriority(notices) : null;
 
     return (
-      <sbb-card active={this.active} card-id={id} accessibility-label={this.accessibilityLabel}>
+      <sbb-card
+        size='l'
+        active={this.active}
+        card-id={id}
+        accessibility-label={this.accessibilityLabel}
+        onClick={this._clickHandler}
+      >
         {this.loadingPrice && <span slot="badge" class="sbb-loading__badge"></span>}
         {this.price && !this.loadingPrice && (
           <sbb-card-badge
@@ -130,13 +136,15 @@ export class SbbTimetableRow {
           ></sbb-pearl-chain-time>
 
           <div class="sbb-timetable__row-footer">
-            <span class={tripStatus?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
-              <span class="sbb-screenreaderonly">{i18nFromQuay.long[this._currentLanguage]}</span>
-              <span class="sbb-timetable__row--quay">
-                {i18nFromQuay.short[this._currentLanguage]}
+            {(departure?.quayRtName || departure?.quayAimedName) &&
+             <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
+                <span class="sbb-screenreaderonly">{i18nFromQuay.long[this._currentLanguage]}</span>
+                <span class="sbb-timetable__row--quay">
+                  {i18nFromQuay.short[this._currentLanguage]}
+                </span>
+                {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
               </span>
-              {departure?.quayRtName}
-            </span>
+            }
             {(occupancy?.firstClass || occupancy?.secondClass) && (
               <ul class="sbb-timetable__row-occupancy" role="list">
                 {occupancy?.firstClass && (
@@ -201,7 +209,7 @@ export class SbbTimetableRow {
             ) : (
               ''
             )}
-            <time>{durationToTime(duration)}</time>
+            {duration > 0 && <time>{durationToTime(duration)}</time>}
             {situations?.length > 0 ? (
               <span class="sbb-timetable__row-warning">
                 {situations?.map((situation, index) =>

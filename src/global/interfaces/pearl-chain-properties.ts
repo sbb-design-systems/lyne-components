@@ -5,6 +5,11 @@ export interface ScheduledStopPointDetail {
   quayChanged?: boolean | null;
   /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
   quayRtName?: string | null;
+  /**
+   * A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.).
+   * Planed quay.
+   */
+  quayAimedName?: string;
   /** planned arrival/departure time */
   time: string;
 }
