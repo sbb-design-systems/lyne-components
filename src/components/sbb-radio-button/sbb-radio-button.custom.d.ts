@@ -1,3 +1,3 @@
-export interface InterfaceSbbRadioButton {
+export interface InterfaceSbbRadioButtonAttributes {
   size: 'm' | 's';
 }

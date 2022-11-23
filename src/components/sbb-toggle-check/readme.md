@@ -1,6 +1,10 @@
+# sbb-toggle-check
 
 `<sbb-toggle-check>` provides the same functionality as a native `<input type="checkbox">`
 enhanced with the SBB Design.
+
+Consumers can listen to the native `change` event on the `sbb-toggle-check` component to intercept the input's change;
+the current state can be read from `event.target.checked` and the value from `event.target.value`.
 
 ```html
 <sbb-toggle-check
@@ -32,7 +36,7 @@ This internal checkbox receives focus and is automatically labelled by the text 
 Always provide an accessible label via `accessibility-label` or `accessibility-labelledby` for checkboxes without
 descriptive text content.
 
-Additionaly you can use `accessibility-describedby` (forwarded as [`aria-describedby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA1.html))
+Additionally, you can use `accessibility-describedby` (forwarded as [`aria-describedby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA1.html))
 to describe the element on which the attribute is set.
 
 ```html
@@ -44,26 +48,19 @@ to describe the element on which the attribute is set.
 
 ## Properties
 
-| Property                   | Attribute                   | Description                                                              | Type                  | Default                      |
-| -------------------------- | --------------------------- | ------------------------------------------------------------------------ | --------------------- | ---------------------------- |
-| `accessibilityDescribedby` | `accessibility-describedby` | The aria-describedby prop for the hidden input.                          | `string`              | `undefined`                  |
-| `accessibilityLabel`       | `accessibility-label`       | The aria-label prop for the hidden input.                                | `string`              | `undefined`                  |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | The aria-labelledby prop for the hidden input.                           | `string`              | `undefined`                  |
-| `checked`                  | `checked`                   | Whether the toggle-check is checked.                                     | `boolean`             | `false`                      |
-| `disabled` _(required)_    | `disabled`                  | The disabled prop for the disabled state.                                | `boolean`             | `undefined`                  |
-| `icon`                     | `icon`                      | The svg name for the true state - default -> 'tick-small'                | `string`              | `'tick-small'`               |
-| `inputId`                  | `input-id`                  | Id of the internal input element - default id will be set automatically. | `string`              | ``sbb-checkbox-${++nextId}`` |
-| `labelPosition`            | `label-position`            | The label position relative to the toggle. Defaults to 'after'           | `"after" \| "before"` | `'after'`                    |
-| `name`                     | `name`                      | Name of the toggle-check.                                                | `string`              | `undefined`                  |
-| `required`                 | `required`                  | The required prop for the required state.                                | `boolean`             | `undefined`                  |
-| `value`                    | `value`                     | Value of toggle-check.                                                   | `string`              | `undefined`                  |
-
-
-## Events
-
-| Event       | Description                               | Type               |
-| ----------- | ----------------------------------------- | ------------------ |
-| `sbbChange` | Emits whenever the selection has changed. | `CustomEvent<any>` |
+| Property                   | Attribute                   | Description                                                              | Type                  | Default                             |
+| -------------------------- | --------------------------- | ------------------------------------------------------------------------ | --------------------- | ----------------------------------- |
+| `accessibilityDescribedby` | `accessibility-describedby` | The aria-describedby prop for the hidden input.                          | `string`              | `undefined`                         |
+| `accessibilityLabel`       | `accessibility-label`       | The aria-label prop for the hidden input.                                | `string`              | `undefined`                         |
+| `accessibilityLabelledby`  | `accessibility-labelledby`  | The aria-labelledby prop for the hidden input.                           | `string`              | `undefined`                         |
+| `checked`                  | `checked`                   | Whether the toggle-check is checked.                                     | `boolean`             | `false`                             |
+| `disabled`                 | `disabled`                  | The disabled prop for the disabled state.                                | `boolean`             | `false`                             |
+| `icon`                     | `icon`                      | The svg name for the true state - default -> 'tick-small'                | `string`              | `'tick-small'`                      |
+| `inputId`                  | `input-id`                  | Id of the internal input element - default id will be set automatically. | `string`              | ``sbb-toggle-checkbox-${++nextId}`` |
+| `labelPosition`            | `label-position`            | The label position relative to the toggle. Defaults to 'after'           | `"after" \| "before"` | `'after'`                           |
+| `name`                     | `name`                      | Name of the toggle-check.                                                | `string`              | `undefined`                         |
+| `required`                 | `required`                  | The required prop for the required state.                                | `boolean`             | `false`                             |
+| `value`                    | `value`                     | Value of toggle-check.                                                   | `string`              | `undefined`                         |
 
 
 ## Dependencies

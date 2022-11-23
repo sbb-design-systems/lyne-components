@@ -10,6 +10,7 @@ import {
   Method,
   Prop,
 } from '@stencil/core';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
@@ -166,24 +167,20 @@ export class SbbTabGroup {
       const tab = mutation.target as InterfaceSbbTabGroupTab;
 
       if (mutation.attributeName === 'disabled') {
-        if (this._isValidTabAttribute(tab, 'disabled') && tab !== this._selectedTab) {
+        if (isValidAttribute(tab, 'disabled') && tab !== this._selectedTab) {
           tab.tabGroupActions.disable();
         } else if (tab.disabled) {
           tab.tabGroupActions.enable();
         }
       }
       if (mutation.attributeName === 'active') {
-        if (this._isValidTabAttribute(tab, 'active') && !tab.disabled) {
+        if (isValidAttribute(tab, 'active') && !tab.disabled) {
           tab.tabGroupActions.select();
         } else if (tab === this._selectedTab) {
           tab.setAttribute('active', '');
         }
       }
     }
-  }
-
-  private _isValidTabAttribute(tab: InterfaceSbbTabGroupTab, attribute: string): boolean {
-    return tab.hasAttribute(attribute) && tab.getAttribute(attribute) !== 'false';
   }
 
   private _onTabContentElementResize(entries): void {

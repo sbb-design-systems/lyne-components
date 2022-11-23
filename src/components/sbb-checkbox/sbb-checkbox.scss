@@ -1,0 +1,125 @@
+@include host-component-properties;
+
+:host {
+  --sbb-checkbox-border-width: var(--sbb-border-width-1x);
+  --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
+  --sbb-checkbox-border-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-selection-color: var(--sbb-color-red-default);
+  --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
+  --sbb-checkbox-cursor: pointer;
+
+  @include ifForcedColors {
+    --sbb-checkbox-selection-color: CanvasText;
+  }
+
+  display: inline-block;
+}
+
+:host([data-group-disabled]),
+:host([disabled]) {
+  --sbb-checkbox-color: var(--sbb-color-graphite-default);
+  --sbb-checkbox-border-color: var(--sbb-color-graphite-default);
+  --sbb-checkbox-selection-color: var(--sbb-color-graphite-default);
+  --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-cursor: default;
+
+  @include ifForcedColors {
+    --sbb-checkbox-color: GrayText;
+    --sbb-checkbox-label-color: GrayText;
+    --sbb-checkbox-selection-color: GrayText;
+  }
+}
+
+.sbb-checkbox-wrapper {
+  display: flex;
+
+  @include zeroWidthSpace;
+}
+
+.sbb-checkbox {
+  @include text-s--regular;
+
+  position: relative;
+  display: block;
+  color: var(--sbb-checkbox-label-color);
+  cursor: var(--sbb-checkbox-cursor);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  @include stretch('width');
+
+  :host([size='m']) & {
+    @include text-m--regular;
+  }
+}
+
+.sbb-checkbox__inner {
+  display: flex;
+  align-items: start;
+  gap: var(--sbb-spacing-fixed-2x);
+}
+
+input[type='checkbox'] {
+  @include invisibleContainerOverlay;
+}
+
+.sbb-checkbox__aligner,
+.sbb-checkbox__label--icon {
+  display: flex;
+  align-items: center;
+  height: calc(1em * var(--sbb-typo-line-height-body-text));
+}
+
+.sbb-checkbox__label--icon {
+  :host([icon-placement='end']) & {
+    margin-left: auto;
+  }
+}
+
+.sbb-checkbox__selection {
+  display: block;
+  position: relative;
+  min-width: var(--sbb-checkbox-dimension);
+  height: var(--sbb-checkbox-dimension);
+  border-radius: var(--sbb-border-radius-2x);
+  box-shadow: var(--sbb-checkbox-border-color) 0 0 0 var(--sbb-checkbox-border-width) inset;
+  background-color: var(--sbb-color-white-default);
+}
+
+.sbb-checkbox__icon {
+  display: inline-flex;
+  width: var(--sbb-checkbox-dimension);
+  height: var(--sbb-checkbox-dimension);
+
+  svg {
+    margin: auto;
+  }
+
+  path {
+    stroke: var(--sbb-checkbox-selection-color);
+  }
+}
+
+.sbb-checkbox__label {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-checkbox-label-color);
+
+  // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
+  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
+
+  :host([icon-placement='start']) & {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  :host([icon-placement='end']) & {
+    justify-content: flex-start;
+    flex-grow: 1;
+  }
+}
+
+input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
+  @include focusOutline;
+
+  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+}
