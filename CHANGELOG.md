@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.4](https://github.com/lyne-design-system/lyne-components/compare/v0.14.3...v0.14.4) (2022-11-23)
+
+### Features
+
+- **sbb-checkbox:** component implementation ([#1294](https://github.com/lyne-design-system/lyne-components/issues/1294)) ([3599d6e](https://github.com/lyne-design-system/lyne-components/commit/3599d6e0d208bd085d9656b34293f6152dc73b19))
+
 ### [0.14.3](https://github.com/lyne-design-system/lyne-components/compare/v0.14.2...v0.14.3) (2022-11-18)
 
 ### Features
