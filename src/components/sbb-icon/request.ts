@@ -2,7 +2,7 @@ import { validateContent } from './validate';
 
 const iconCdn = 'https://d1s1onrtynjaa8.cloudfront.net/';
 export const iconNamespaces = new Map<string, string>()
-  .set('sbb', `${iconCdn}icons/`)
+  .set('default', `${iconCdn}icons/`)
   .set('picto', `${iconCdn}pictograms/`);
 export const registeredIcons = new Map<string, string>();
 const requests = new Map<string, Promise<any>>();

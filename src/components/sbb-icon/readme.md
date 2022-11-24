@@ -2,7 +2,7 @@ The `sbb-icon` component provides a solid way of rendering registered and named 
 The component will dynamically load an SVG for each icon, avoiding multiple requests to the same icon. 
 The icon components are not tied to specific icon sets; you can register a new SVG icon or a custom namespace 
 and then provide the `sbb-icon` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`. 
-Note that if you do not provide a namespace, the default namespace "sbb" will be used 
+Note that if you do not provide a namespace, the default namespace will be used 
 pointing to the [SBB Icons CDN](https://lyne-icons.netlify.app/). 
 
 ## Usage
@@ -10,7 +10,7 @@ pointing to the [SBB Icons CDN](https://lyne-icons.netlify.app/).
 The example below shows how to render an icon named `app-icon-medium` that points to the default SBB Icons CDN:
 
 ```html
-<!-- Will use "sbb" as the default namespace -->
+<!-- Will use the default namespace -->
 <sbb-icon name="app-icon-medium"></sbb-icon>
 ```
 
