@@ -27,6 +27,7 @@
   @include text-xs--regular;
 
   display: flex;
+  padding-inline: var(--sbb-toggle-padding-inline);
   padding-block: var(--sbb-toggle-padding-block);
   border-radius: var(--sbb-border-radius-16x);
   color: var(--sbb-toggle-option-text-color);
