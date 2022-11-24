@@ -3,8 +3,10 @@
 @include host-component-properties;
 
 :host {
-  --sbb-toggle-width: 100%;
+  --sbb-toggle-width: max-content;
   --sbb-toggle-option-flex-grow: 1;
+  --sbb-toggle-option-flex-basis: auto;
+  --sbb-toggle-option-max-width: 100%;
   --sbb-toggle-option-text-color: var(--sbb-color-anthracite-default);
   --sbb-toggle-selected-option-text-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
@@ -12,6 +14,13 @@
   --sbb-toggle-cursor: pointer;
 
   position: relative;
+}
+
+:host([even]) {
+  --sbb-toggle-width: 100%;
+  --sbb-toggle-option-flex-grow: 0;
+  --sbb-toggle-option-flex-basis: 50%;
+  --sbb-toggle-option-max-width: 50%;
 }
 
 :host([disabled]) {
