@@ -49,7 +49,6 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
-import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
@@ -1667,7 +1666,7 @@ export namespace Components {
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbToggleAttributes['size'];
+        "size"?: InterfaceSbbToggleOption['size'];
         /**
           * The value of the toggle.
          */
@@ -1779,38 +1778,7 @@ export namespace Components {
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
-        interface SbbToggleOption {
-        /**
-          * Whether the toggle-option is checked.
-         */
-        "checked": boolean;
-        /**
-          * Whether the toggle option is disabled.
-         */
-        "disabled": boolean;
-        /**
-          * Name of the icon for `<sbb-icon>`.
-         */
-        "iconName"?: string;
-        /**
-          * Name of the toggle-option.
-         */
-        "name"?: string;
-        "select": () => Promise<void>;
-        /**
-          * Size variant, either m or s.
-         */
-        "size"?: InterfaceSbbToggleOption['size'];
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "toggleOptionId": string;
-        /**
-          * Value of toggle-option.
-         */
-        "value"?: string;
     }
-}
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1852,13 +1820,13 @@ export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
 }
-export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbToggleCheckElement;
-}
 export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleElement;
+}
+export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleCheckElement;
 }
 export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1867,10 +1835,6 @@ export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTooltipElement;
-}
-export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbToggleOptionElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -4027,7 +3991,7 @@ declare namespace LocalJSX {
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbToggleAttributes['size'];
+        "size"?: InterfaceSbbToggleOption['size'];
         /**
           * The value of the toggle.
          */
@@ -4154,40 +4118,6 @@ declare namespace LocalJSX {
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
-    }
-    interface SbbToggleOption {
-        /**
-          * Whether the toggle-option is checked.
-         */
-        "checked"?: boolean;
-        /**
-          * Whether the toggle option is disabled.
-         */
-        "disabled"?: boolean;
-        /**
-          * Name of the icon for `<sbb-icon>`.
-         */
-        "iconName"?: string;
-        /**
-          * Name of the toggle-option.
-         */
-        "name"?: string;
-        /**
-          * Emits whenever the toggle-option value changes.
-         */
-        "onSbb-toggle-option_did-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
-        /**
-          * Size variant, either m or s.
-         */
-        "size"?: InterfaceSbbToggleOption['size'];
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "toggleOptionId"?: string;
-        /**
-          * Value of toggle-option.
-         */
-        "value"?: string;
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;

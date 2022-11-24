@@ -79,3 +79,4 @@ export const SbbToggleCheck = /*@__PURE__*/createReactComponent<JSX.SbbToggleChe
 export const SbbToggleOption = /*@__PURE__*/createReactComponent<JSX.SbbToggleOption, HTMLSbbToggleOptionElement>('sbb-toggle-option');
 export const SbbTooltip = /*@__PURE__*/createReactComponent<JSX.SbbTooltip, HTMLSbbTooltipElement>('sbb-tooltip');
 export const SbbToggleOption = /*@__PURE__*/createReactComponent<JSX.SbbToggleOption, HTMLSbbToggleOptionElement>('sbb-toggle-option');
+export const SbbTooltip = /*@__PURE__*/createReactComponent<JSX.SbbTooltip, HTMLSbbTooltipElement>('sbb-tooltip');
