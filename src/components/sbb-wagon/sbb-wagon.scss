@@ -19,6 +19,11 @@
   --sbb-wagon-blocked-passage-icon-bar-width: #{px-to-rem-build(10)};
   --sbb-wagon-blocked-passage-icon-bar-height: #{px-to-rem-build(4)};
   --sbb-wagon-blocked-passage-icon-bar-border-radius: #{px-to-rem-build(1)};
+
+  @include ifForcedColors {
+    --sbb-wagon-blocked-background-color: CanvasText;
+    --sbb-wagon-blocked-bar-color: Canvas;
+  }
 }
 
 .sbb-wagon {

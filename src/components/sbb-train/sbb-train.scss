@@ -15,12 +15,16 @@
   // Static value from design specs
   --sbb-train-direction-indicator-end-height: #{px-to-rem-build(12)};
 
-  // Evalutate offset for the arrow-icon because 50% offset will cause a cut off of
+  // Evaluate offset for the arrow-icon because 50% offset will cause a cut off of
   // the arrow-top on the overflowing edge
   --sbb-train-direction-indicator-arrow-offset-right: #{px-to-rem-build(9)};
   --sbb-train-direction-indicator-arrow-offset-left: calc(
     var(--sbb-train-direction-indicator-arrow-offset-right) * -1
   );
+
+  @include ifForcedColors {
+    --sbb-train-direction-line-color: CanvasText;
+  }
 }
 
 .sbb-train {
@@ -109,10 +113,6 @@
   overflow: hidden;
   padding: 0 var(--sbb-train-direction-station-padding);
   @include text-xxs--regular;
-}
-
-.sbb-train__accessibility-label {
-  @include screenReaderOnly;
 }
 
 :host([direction='RIGHT']) {

@@ -25,6 +25,12 @@ export class SbbTrain {
   /** Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.  */
   @Prop({ reflect: true }) public direction: InterfaceSbbTrainAttributes['direction'] = 'LEFT';
 
+  private _getDirectionAriaLabel(): string {
+    let text = `${this.directionLabel} ${this.station}.`;
+    text = this.accessibilityLabel.length ? `${text} ${this.accessibilityLabel}.` : text;
+    return text;
+  }
+
   public render(): JSX.Element {
     return (
       <div class="sbb-train">
@@ -33,14 +39,11 @@ export class SbbTrain {
         </div>
 
         {this.directionLabel && this.station && (
-          <div class="sbb-train__direction">
-            <h3>
+          <div class="sbb-train__direction" aria-label={this._getDirectionAriaLabel()}>
+            <h3 aria-hidden="true">
               <span class="sbb-train__direction-label">{this.directionLabel}</span>
               <span class="sbb-train__direction-station">{this.station}</span>
             </h3>
-            {this.accessibilityLabel && (
-              <p class="sbb-train__accessibility-label">{this.accessibilityLabel}</p>
-            )}
             <div class="sbb-train__direction-indicator">
               <div class="sbb-train__sticky-wrapper">
                 <sbb-icon

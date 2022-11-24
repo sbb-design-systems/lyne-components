@@ -10,6 +10,10 @@
   --sbb-sector-line-color: var(--sbb-color-cement-default);
   --sbb-sector-wagon-width: var(--sbb-train-formation-wagon-width);
   --sbb-sector-wagon-gap: var(--sbb-spacing-fixed-1x);
+
+  @include ifForcedColors {
+    --sbb-sector-line-color: CanvasText;
+  }
 }
 
 .sbb-sector {
