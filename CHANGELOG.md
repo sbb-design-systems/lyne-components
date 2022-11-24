@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.14.5](https://github.com/lyne-design-system/lyne-components/compare/v0.14.4...v0.14.5) (2022-11-24)
+
+### Features
+
+- **sbb-icon:** add pictogram namespace ([#1463](https://github.com/lyne-design-system/lyne-components/issues/1463)) ([fcd2750](https://github.com/lyne-design-system/lyne-components/commit/fcd275003cf57ccb4b88e0faa616ccef5732470b))
+
 ### [0.14.4](https://github.com/lyne-design-system/lyne-components/compare/v0.14.3...v0.14.4) (2022-11-23)
 
 ### Features
