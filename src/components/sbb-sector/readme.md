@@ -18,9 +18,9 @@ A sbb-sector is a container element for the one to three sbb-wagon. It is used i
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                                                   |
+| ----------- | ------------------------------------------------------------- |
+| `"unnamed"` | Slot for the sbb-wagons. One to maximum 3 wagons are allowed. |
 
 
 ----------------------------------------------

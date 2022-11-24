@@ -23,9 +23,6 @@ const defaultArgs = {
 export const sector = Template.bind({});
 sector.argTypes = defaultArgTypes;
 sector.args = defaultArgs;
-sector.documentation = {
-  title: 'Title which will be rendered on documentation platform',
-};
 
 export default {
   decorators: [
@@ -35,11 +32,7 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
-    actions: {},
     backgrounds: {
       disable: true,
     },

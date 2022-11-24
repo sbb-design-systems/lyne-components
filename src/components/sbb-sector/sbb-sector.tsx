@@ -1,7 +1,7 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Slot for the sbb-wagons. One to maximum 3 wagons are allowed.
  */
 
 @Component({
@@ -14,12 +14,10 @@ export class SbbSector {
   @Prop() public label!: string;
 
   public render(): JSX.Element {
-    if (!this.label) return;
-
     return (
       <div class="sbb-sector">
-        <h3>
-          <span class="sbb-sector__label">{this.label}</span>
+        <h3 class="sbb-sector__label">
+          <span class="sbb-sector__sticky-wrapper">{this.label}</span>
         </h3>
         <div class="sbb-sector__wagons">
           <slot />
