@@ -1723,6 +1723,37 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbToggleOption {
+        /**
+          * Whether the toggle-option is checked.
+         */
+        "checked": boolean;
+        /**
+          * Whether the toggle option is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Name of the icon for `<sbb-icon>`.
+         */
+        "iconName"?: string;
+        /**
+          * Name of the toggle-option.
+         */
+        "name"?: string;
+        "select": () => Promise<void>;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbToggleOption['size'];
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "toggleOptionId": string;
+        /**
+          * Value of toggle-option.
+         */
+        "value"?: string;
+    }
     interface SbbTooltip {
         /**
           * This will be forwarded as aria-label to the close button element.
@@ -1756,38 +1787,7 @@ export namespace Components {
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
-        interface SbbToggleOption {
-        /**
-          * Whether the toggle-option is checked.
-         */
-        "checked": boolean;
-        /**
-          * Whether the toggle option is disabled.
-         */
-        "disabled": boolean;
-        /**
-          * Name of the icon for `<sbb-icon>`.
-         */
-        "iconName"?: string;
-        /**
-          * Name of the toggle-option.
-         */
-        "name"?: string;
-        "select": () => Promise<void>;
-        /**
-          * Size variant, either m or s.
-         */
-        "size"?: InterfaceSbbToggleOption['size'];
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "toggleOptionId": string;
-        /**
-          * Value of toggle-option.
-         */
-        "value"?: string;
     }
-}
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1837,13 +1837,13 @@ export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleElement;
 }
-export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbTooltipElement;
-}
 export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleOptionElement;
+}
+export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTooltipElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -4060,6 +4060,40 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbToggleOption {
+        /**
+          * Whether the toggle-option is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * Whether the toggle option is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Name of the icon for `<sbb-icon>`.
+         */
+        "iconName"?: string;
+        /**
+          * Name of the toggle-option.
+         */
+        "name"?: string;
+        /**
+          * Emits whenever the toggle-option value changes.
+         */
+        "onSbb-toggle-option_did-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbToggleOption['size'];
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "toggleOptionId"?: string;
+        /**
+          * Value of toggle-option.
+         */
+        "value"?: string;
+    }
     interface SbbTooltip {
         /**
           * This will be forwarded as aria-label to the close button element.
@@ -4101,40 +4135,6 @@ declare namespace LocalJSX {
           * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
-    }
-    interface SbbToggleOption {
-        /**
-          * Whether the toggle-option is checked.
-         */
-        "checked"?: boolean;
-        /**
-          * Whether the toggle option is disabled.
-         */
-        "disabled"?: boolean;
-        /**
-          * Name of the icon for `<sbb-icon>`.
-         */
-        "iconName"?: string;
-        /**
-          * Name of the toggle-option.
-         */
-        "name"?: string;
-        /**
-          * Emits whenever the toggle-option value changes.
-         */
-        "onSbb-toggle-option_did-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
-        /**
-          * Size variant, either m or s.
-         */
-        "size"?: InterfaceSbbToggleOption['size'];
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "toggleOptionId"?: string;
-        /**
-          * Value of toggle-option.
-         */
-        "value"?: string;
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
@@ -4205,6 +4205,8 @@ declare namespace LocalJSX {
         "sbb-title": SbbTitle;
         "sbb-toggle": SbbToggle;
         "sbb-toggle-check": SbbToggleCheck;
+        "sbb-toggle-option": SbbToggleOption;
+        "sbb-tooltip": SbbTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -4279,6 +4281,8 @@ declare module "@stencil/core" {
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
             "sbb-toggle": LocalJSX.SbbToggle & JSXBase.HTMLAttributes<HTMLSbbToggleElement>;
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
+            "sbb-toggle-option": LocalJSX.SbbToggleOption & JSXBase.HTMLAttributes<HTMLSbbToggleOptionElement>;
+            "sbb-tooltip": LocalJSX.SbbTooltip & JSXBase.HTMLAttributes<HTMLSbbTooltipElement>;
         }
     }
 }
