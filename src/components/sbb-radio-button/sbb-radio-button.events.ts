@@ -3,5 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didSelect: 'sbb-radio-button_did-select',
+  didSelect: 'did-select',
 };

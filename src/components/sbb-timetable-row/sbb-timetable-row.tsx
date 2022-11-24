@@ -47,9 +47,9 @@ export class SbbTimetableRow {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-timetable-row_click',
+    eventName: 'click',
   })
-  public sbbClick: EventEmitter<any>;
+  public click: EventEmitter<any>;
 
   @Element() private _element: HTMLElement;
 
@@ -85,7 +85,7 @@ export class SbbTimetableRow {
   }
 
   private _clickHandler = (): void => {
-    this.sbbClick.emit({
+    this.click.emit({
       bubbles: true,
     });
   };

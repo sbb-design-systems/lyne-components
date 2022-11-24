@@ -3,6 +3,6 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didDismissAlert: 'sbb-alert-group_did-dismiss-alert',
-  empty: 'sbb-alert-group_empty',
+  didDismissAlert: 'did-dismiss-alert',
+  empty: 'empty',
 };

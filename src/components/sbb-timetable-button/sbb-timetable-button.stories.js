@@ -2,7 +2,7 @@ import events from './sbb-timetable-button.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import cusHimSampleData from '../sbb-timetable-cus-him/sbb-timetable-cus-him.sample-data';
-import walkSampleData from '../sbb-timetable-transportation-walk//sbb-timetable-transportation-walk.sample-data';
+import walkSampleData from '../sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.sample-data';
 
 const Template = (args) => <sbb-timetable-button {...args}></sbb-timetable-button>;
 

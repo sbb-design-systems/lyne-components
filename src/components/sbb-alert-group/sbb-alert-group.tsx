@@ -46,20 +46,20 @@ export class SbbAlertGroup {
 
   /** Emits when an alert was removed from DOM. */
   @Event({
-    eventName: 'sbb-alert-group_did-dismiss-alert',
+    eventName: 'did-dismiss-alert',
   })
   public didDismissAlert: EventEmitter<HTMLSbbAlertElement>;
 
   /** Emits when `sbb-alert-group` becomes empty. */
   @Event({
-    eventName: 'sbb-alert-group_empty',
+    eventName: 'empty',
   })
   public empty: EventEmitter<void>;
 
   /**
    * @internal
    */
-  @Listen('sbb-alert_dismissal-requested')
+  @Listen('dismissal-requested')
   public removeAlert(event: Event): void {
     const target = event.target as HTMLSbbAlertElement;
     const hasFocusInsideAlertGroup = document.activeElement === target;

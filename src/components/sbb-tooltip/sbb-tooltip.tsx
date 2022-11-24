@@ -76,7 +76,7 @@ export class SbbTooltip implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-tooltip_will-open',
+    eventName: 'will-open',
   })
   public willOpen: EventEmitter<void>;
 
@@ -86,7 +86,7 @@ export class SbbTooltip implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-tooltip_did-open',
+    eventName: 'did-open',
   })
   public didOpen: EventEmitter<void>;
 
@@ -96,7 +96,7 @@ export class SbbTooltip implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-tooltip_will-close',
+    eventName: 'will-close',
   })
   public willClose: EventEmitter<{ closeTarget: HTMLElement }>;
 
@@ -106,7 +106,7 @@ export class SbbTooltip implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-tooltip_did-close',
+    eventName: 'did-close',
   })
   public didClose: EventEmitter<{ closeTarget: HTMLElement }>;
 

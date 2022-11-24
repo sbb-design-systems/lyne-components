@@ -88,19 +88,19 @@ export class SbbAlert implements LinkProperties, ComponentInterface {
 
   /** Emits when the fade in animation starts. */
   @Event({
-    eventName: 'sbb-alert_will-present',
+    eventName: 'will-present',
   })
   public willPresent: EventEmitter<void>;
 
   /** Emits when the fade in animation ends and the button is displayed. */
   @Event({
-    eventName: 'sbb-alert_did-present',
+    eventName: 'did-present',
   })
   public didPresent: EventEmitter<void>;
 
   /** Emits when dismissal of an alert was requested. */
   @Event({
-    eventName: 'sbb-alert_dismissal-requested',
+    eventName: 'dismissal-requested',
   })
   public dismissalRequested: EventEmitter<void>;
 
