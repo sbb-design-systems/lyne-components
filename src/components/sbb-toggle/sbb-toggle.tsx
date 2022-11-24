@@ -54,7 +54,7 @@ export class SbbToggle {
    */
   @Prop({ mutable: true, reflect: true }) public value: any | null;
 
-  @Element() private _sbbToggle!: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
@@ -90,13 +90,14 @@ export class SbbToggle {
       toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
       toggleOption.tabIndex = toggleOption.checked && !toggleOption.disabled ? 0 : -1;
     }
-
+    
+    this._element.dataset.checkedId = toggle.findIndex((toggleOption) => toggleOption.checked).toString();
     toggle.length && (toggle[0].tabIndex = value || toggle[0].disabled ? toggle[0].tabIndex : 0);
   }
 
   private get _toggleOptions(): InterfaceSbbToggleOption[] {
     return Array.from(
-      this._sbbToggle.querySelectorAll('sbb-toggle-option')
+      this._element.querySelectorAll('sbb-toggle-option')
     ) as InterfaceSbbToggleOption[];
   }
 
