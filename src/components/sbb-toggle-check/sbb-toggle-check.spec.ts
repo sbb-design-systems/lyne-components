@@ -13,9 +13,11 @@ describe('sbb-toggle-check', () => {
           <mock:shadow-root>
             <label class="toggle-check toggle-check--after" htmlfor="sbb-toggle-checkbox-1">
               <input id="sbb-toggle-checkbox-1" type="checkbox"/>
-              <span class="toggle-check__container">
-                <slot></slot>
-                <span class="toggle-check__slider">
+                <span class="toggle-check__container">
+                  <span class="toggle-check__label">
+                    <slot></slot>
+                  </span>
+                  <span class="toggle-check__slider">
                   <span class="toggle-check__circle">
                     <slot name="icon">
                       <sbb-icon name="tick-small"></sbb-icon>
@@ -41,9 +43,11 @@ describe('sbb-toggle-check', () => {
           <mock:shadow-root>
             <label class="toggle-check toggle-check--before" htmlfor="sbb-toggle-checkbox-2">
               <input id="sbb-toggle-checkbox-2" type="checkbox"/>
-              <span class="toggle-check__container">
-                <slot></slot>
-                <span class="toggle-check__slider">
+                <span class="toggle-check__container">
+                  <span class="toggle-check__label">
+                    <slot></slot>
+                  </span>
+                  <span class="toggle-check__slider">
                   <span class="toggle-check__circle">
                     <slot name="icon">
                       <sbb-icon name="tick-small"></sbb-icon>
@@ -72,7 +76,9 @@ describe('sbb-toggle-check', () => {
               <label class="toggle-check toggle-check--after toggle-check--checked" htmlfor="sbb-toggle-checkbox-3">
                 <input checked="" id="sbb-toggle-checkbox-3" type="checkbox"/>
                 <span class="toggle-check__container">
-                  <slot></slot>
+                  <span class="toggle-check__label">
+                    <slot></slot>
+                  </span>
                   <span class="toggle-check__slider">
                     <span class="toggle-check__circle">
                       <slot name="icon">
@@ -100,8 +106,10 @@ describe('sbb-toggle-check', () => {
             <mock:shadow-root>
               <label class="toggle-check toggle-check--after toggle-check--disabled" htmlfor="sbb-toggle-checkbox-4">
                 <input disabled="" aria-disabled="" id="sbb-toggle-checkbox-4" type="checkbox">
-                 <span class="toggle-check__container">
-                  <slot></slot>
+                  <span class="toggle-check__container">
+                  <span class="toggle-check__label">
+                    <slot></slot>
+                  </span>
                   <span class="toggle-check__slider">
                     <span class="toggle-check__circle">
                      <slot name="icon">
@@ -130,7 +138,9 @@ describe('sbb-toggle-check', () => {
               <label class="toggle-check toggle-check--after toggle-check--checked toggle-check--disabled" htmlfor="sbb-toggle-checkbox-5">
                 <input checked="" type="checkbox" disabled aria-disabled="" id="sbb-toggle-checkbox-5"/>
                 <span class="toggle-check__container">
-                  <slot></slot>
+                  <span class="toggle-check__label">
+                    <slot></slot>
+                  </span>
                   <span class="toggle-check__slider">
                     <span class="toggle-check__circle">
                       <slot name="icon">
