@@ -215,7 +215,7 @@ export class SbbCardProduct implements AccessibilityProperties {
         ...additionalCardAttributes,
         'aria-haspopup': this.ariaHaspopup,
         name: this.name,
-        onClick: this._buttonClick,
+        onClick: this._buttonClick.bind(this),
         type: this.type,
         value: this.value,
       };
