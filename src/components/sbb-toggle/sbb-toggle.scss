@@ -37,15 +37,6 @@
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-3x);
 }
 
-:host([data-checked-id='0'])::after {
-  left: 0;
-}
-
-:host([data-checked-id='1'])::after {
-  left: 100%;
-  transform: translateX(-100%);
-}
-
 .sbb-toggle {
   @include text-m--regular;
 

@@ -14,6 +14,7 @@
   // reserve horizontal space for bold variant when selected
   &::before {
     @include text-xs--bold;
+    @include ellipsis;
 
     content: attr(value);
     padding-inline: var(--sbb-toggle-padding-inline);
