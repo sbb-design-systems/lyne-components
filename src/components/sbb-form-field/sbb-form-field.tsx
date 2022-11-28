@@ -77,7 +77,7 @@ export class SbbFormField implements ComponentInterface {
   /**
    * It is used internally to get the `input` slot.
    */
-  private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
+  @State() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
