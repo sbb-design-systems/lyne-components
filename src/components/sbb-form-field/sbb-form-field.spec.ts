@@ -13,26 +13,26 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field class="form-field--error-space-none form-field--size-m" label="Fill input">
+      <sbb-form-field error-space="none" size="m" label="Fill input" class="sbb-form-field--empty-error">
         <mock:shadow-root>
-          <div class="form-field__space-wrapper">
-            <div class="form-field__wrapper">
+          <div class="sbb-form-field__space-wrapper">
+            <div class="sbb-form-field__wrapper">
                <slot name="prefix"></slot>
-              <div class="form-field__input-container">
-                <label class="form-field__label">
+              <div class="sbb-form-field__input-container">
+                <label class="sbb-form-field__label">
                   <slot name="label">
                     <span>
                       Fill input
                     </span>
                   </slot>
                 </label>
-                <div class="form-field__input">
+                <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="form-field__error form-field__error--empty">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -55,24 +55,24 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field class="form-field--error-space-none form-field--size-m">
+      <sbb-form-field error-space="none" size="m" class="sbb-form-field--empty-error">
         <mock:shadow-root>
-          <div class="form-field__space-wrapper">
-            <div class="form-field__wrapper">
+          <div class="sbb-form-field__space-wrapper">
+            <div class="sbb-form-field__wrapper">
                <slot name="prefix"></slot>
-              <div class="form-field__input-container">
-                <label class="form-field__label">
+              <div class="sbb-form-field__input-container">
+                <label class="sbb-form-field__label">
                   <slot name="label">
                     <span></span>
                   </slot>
                 </label>
-                <div class="form-field__input">
+                <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="form-field__error form-field__error--empty">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -95,26 +95,26 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field class="form-field--error-space-none form-field--size-m" label="Fill input">
+      <sbb-form-field error-space="none" size="m" label="Fill input" class="sbb-form-field--empty-error">
         <mock:shadow-root>
-          <div class="form-field__space-wrapper">
-            <div class="form-field__wrapper">
+          <div class="sbb-form-field__space-wrapper">
+            <div class="sbb-form-field__wrapper">
               <slot name="prefix"></slot>
-              <div class="form-field__input-container">
-                <label class="form-field__label">
+              <div class="sbb-form-field__input-container">
+                <label class="sbb-form-field__label">
                   <slot name="label">
                     <span>
                       Fill input
                     </span>
                   </slot>
                 </label>
-                <div class="form-field__input">
+                <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="form-field__error form-field__error--empty">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -137,26 +137,26 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field class="form-field--error-space-none form-field--size-m" label="Fill input">
+      <sbb-form-field error-space="none" size="m" label="Fill input" class="sbb-form-field--empty-error">
         <mock:shadow-root>
-          <div class="form-field__space-wrapper">
-            <div class="form-field__wrapper">
+          <div class="sbb-form-field__space-wrapper">
+            <div class="sbb-form-field__wrapper">
               <slot name="prefix"></slot>
-              <div class="form-field__input-container">
-                <label class="form-field__label">
+              <div class="sbb-form-field__input-container">
+                <label class="sbb-form-field__label">
                   <slot name="label">
                     <span>
                       Fill input
                     </span>
                   </slot>
                 </label>
-                <div class="form-field__input">
+                <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="form-field__error form-field__error--empty">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -183,19 +183,19 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field class="form-field--error-space-none form-field--size-m">
+      <sbb-form-field error-space="none" size="m" class="sbb-form-field--empty-error">
         <mock:shadow-root>
-          <div class="form-field__space-wrapper">
-            <div class="form-field__wrapper">
+          <div class="sbb-form-field__space-wrapper">
+            <div class="sbb-form-field__wrapper">
               <slot name="prefix"></slot>
-              <div class="form-field__input-container">
-                <div class="form-field__input">
+              <div class="sbb-form-field__input-container">
+                <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div class="form-field__error form-field__error--empty">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -213,7 +213,7 @@ describe('sbb-form-field', () => {
     const { root } = await newSpecPage({
       components: [SbbFormField],
       html: `
-        <sbb-form-field label="Select option:" optional="true" borderless="true" >
+        <sbb-form-field label="Select option:" optional="true" borderless="" >
           <select>
             <option>Value 1</option>
             <option>Value 2</option>
@@ -223,13 +223,13 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field class="form-field--error-space-none form-field--size-m form-field--borderless" label="Select option:" optional="true" borderless="true" >
+      <sbb-form-field error-space="none" size="m" label="Select option:" optional="true" borderless="" class="sbb-form-field--empty-error">
         <mock:shadow-root>
-          <div class="form-field__space-wrapper">
-            <div class="form-field__wrapper">
+          <div class="sbb-form-field__space-wrapper">
+            <div class="sbb-form-field__wrapper">
               <slot name="prefix"></slot>
-              <div class="form-field__input-container">
-                <label class="form-field__label">
+              <div class="sbb-form-field__input-container">
+                <label class="sbb-form-field__label">
                   <slot name="label">
                     <span>
                       Select option:
@@ -237,13 +237,13 @@ describe('sbb-form-field', () => {
                   </slot>
                   <span aria-hidden="true">&nbsp;(optional)</span>
                 </label>
-                <div class="form-field__input">
+                <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="form-field__error form-field__error--empty">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>

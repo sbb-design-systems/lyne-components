@@ -4,20 +4,22 @@
 @include host-component-properties;
 
 :host {
-  --form-field-background-color: var(--sbb-color-white-default);
-  --form-field-border-color: var(--sbb-color-smoke-default);
-  --form-field-border-radius: var(--sbb-border-radius-4x);
-  --form-field-height: var(--sbb-size-form-element-m-min-height);
-  --form-field-label-color: var(--sbb-color-metal-default);
-  --form-field-prefix-color: var(--sbb-color-metal-default);
-  --form-field-padding-inline: var(--sbb-spacing-fixed-3x);
-  --form-field-text-color: var(--sbb-color-charcoal-default);
-  --form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
-  --form-field-error-padding-block-start: var(--form-field-error-divider-width);
-  --form-field-gap: var(--sbb-spacing-fixed-2x);
-  --form-field-label-to-input-gap: calc(-1 * var(--sbb-spacing-fixed-1x));
-  --form-field-select-inline-padding-end: calc(var(--sbb-icon-svg-width) + var(--form-field-gap));
-  --form-field-overflow: hidden;
+  --sbb-form-field-background-color: var(--sbb-color-white-default);
+  --sbb-form-field-border-color: var(--sbb-color-smoke-default);
+  --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
+  --sbb-form-field-height: var(--sbb-size-form-element-m-min-height);
+  --sbb-form-field-label-color: var(--sbb-color-metal-default);
+  --sbb-form-field-prefix-color: var(--sbb-color-metal-default);
+  --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-form-field-text-color: var(--sbb-color-charcoal-default);
+  --sbb-form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
+  --sbb-form-field-error-padding-block-start: var(--sbb-form-field-error-divider-width);
+  --sbb-form-field-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-form-field-label-to-input-gap: calc(-1 * var(--sbb-spacing-fixed-1x));
+  --sbb-form-field-select-inline-padding-end: calc(
+    var(--sbb-icon-svg-width) + var(--sbb-form-field-gap)
+  );
+  --sbb-form-field-overflow: hidden;
 
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
@@ -28,86 +30,86 @@
   width: min(#{px-to-rem-build(300)}, 100%);
 }
 
-.form-field__error--empty {
-  --form-field-error-padding-block-start: 0;
+:host([size='l']) {
+  --sbb-form-field-border-radius: var(--sbb-border-radius-8x);
+  --sbb-form-field-height: var(--sbb-size-form-element-l-min-height);
+  --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
 }
 
-:host(:focus-within) {
-  --form-field-border-color: var(--sbb-color-charcoal-default);
-  --form-field-prefix-color: var(--sbb-color-charcoal-default);
-}
-
-:host(.form-field--size-l) {
-  --form-field-border-radius: var(--sbb-border-radius-8x);
-  --form-field-height: var(--sbb-size-form-element-l-min-height);
-  --form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
-}
-
-:host(.sbb-invalid) {
-  --form-field-border-color: var(--sbb-color-red125-default);
-  --form-field-text-color: var(--sbb-color-red125-default);
-
-  @include ifForcedColors {
-    --form-field-border-color: LinkText;
-    --form-field-text-color: LinkText;
-  }
-}
-
-:host(.form-field--readonly),
-:host(.form-field--disabled) {
-  --form-field-background-color: var(--sbb-color-milk-default);
-  --form-field-border-color: var(--sbb-color-graphite-default);
-}
-
-:host(.form-field--readonly) {
-  --form-field-label-color: var(--sbb-color-granite-default);
-  --form-field-prefix-color: var(--sbb-color-granite-default);
-}
-
-:host(.form-field--disabled) {
-  --form-field-label-color: var(--sbb-color-graphite-default);
-  --form-field-prefix-color: var(--sbb-color-graphite-default);
-  --form-field-text-color: var(--sbb-color-graphite-default);
-
-  @include ifForcedColors {
-    --form-field-label-color: GrayText;
-    --form-field-prefix-color: GrayText;
-    --form-field-text-color: GrayText;
-  }
-}
-
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-:host(:is(.form-field--borderless, [data-input-type='sbb-slider'])) {
-  --form-field-border-color: transparent;
-}
-
-:host([data-input-type='sbb-slider']) {
-  --form-field-overflow: visible;
-  --form-field-background-color: var(--sbb-color-white-default);
-}
-
-:host(.form-field--error-space-reserve) {
+:host([error-space='reserve']) {
   --form-field-error-min-height: calc(
     var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs)
   );
-  --form-field-error-padding-block-start-override: var(--form-field-error-divider-width);
+  --sbb-form-field-error-padding-block-start-override: var(--sbb-form-field-error-divider-width);
 }
 
-.form-field__space-wrapper {
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(:is([borderless], [data-input-type='sbb-slider'])) {
+  --sbb-form-field-border-color: transparent;
+}
+
+:host([data-input-type='sbb-slider']) {
+  --sbb-form-field-overflow: visible;
+  --sbb-form-field-background-color: var(--sbb-color-white-default);
+}
+
+:host(.sbb-form-field--readonly),
+:host(.sbb-form-field--disabled) {
+  --sbb-form-field-background-color: var(--sbb-color-milk-default);
+  --sbb-form-field-border-color: var(--sbb-color-graphite-default);
+}
+
+:host(.sbb-form-field--disabled) {
+  --sbb-form-field-label-color: var(--sbb-color-graphite-default);
+  --sbb-form-field-prefix-color: var(--sbb-color-graphite-default);
+  --sbb-form-field-text-color: var(--sbb-color-graphite-default);
+
+  @include ifForcedColors {
+    --sbb-form-field-label-color: GrayText;
+    --sbb-form-field-prefix-color: GrayText;
+    --sbb-form-field-text-color: GrayText;
+  }
+}
+
+:host(.sbb-form-field--readonly) {
+  --sbb-form-field-label-color: var(--sbb-color-granite-default);
+  --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
+}
+
+:host(:focus-within) {
+  --sbb-form-field-border-color: var(--sbb-color-charcoal-default);
+  --sbb-form-field-prefix-color: var(--sbb-color-charcoal-default);
+}
+
+:host(.sbb-invalid) {
+  --sbb-form-field-border-color: var(--sbb-color-red125-default);
+  --sbb-form-field-text-color: var(--sbb-color-red125-default);
+
+  @include ifForcedColors {
+    --sbb-form-field-border-color: LinkText;
+    --sbb-form-field-text-color: LinkText;
+  }
+}
+
+:host(.sbb-form-field--empty-error) {
+  --sbb-form-field-error-padding-block-start: 0;
+}
+
+.sbb-form-field__space-wrapper {
   display: flex;
   flex-direction: column;
   @include zeroWidthSpace;
 }
 
-.form-field__wrapper {
+.sbb-form-field__wrapper {
   display: flex;
   align-items: center;
-  gap: var(--form-field-gap);
-  padding-inline: calc(var(--form-field-padding-inline) - var(--sbb-border-width-1x));
-  border: var(--sbb-border-width-1x) solid var(--form-field-border-color);
-  border-radius: var(--form-field-border-radius);
-  height: var(--form-field-height);
-  background-color: var(--form-field-background-color);
+  gap: var(--sbb-form-field-gap);
+  padding-inline: calc(var(--sbb-form-field-padding-inline) - var(--sbb-border-width-1x));
+  border: var(--sbb-border-width-1x) solid var(--sbb-form-field-border-color);
+  border-radius: var(--sbb-form-field-border-radius);
+  height: var(--sbb-form-field-height);
+  background-color: var(--sbb-form-field-background-color);
 }
 
 // Ensure slotted inline elements are vertically centered
@@ -117,7 +119,7 @@
   display: flex;
 }
 
-.form-field__select-input-icon {
+.sbb-form-field__select-input-icon {
   @include absoluteCenterY;
 
   inset-inline-end: 0;
@@ -126,10 +128,10 @@
 }
 
 ::slotted(*[slot='prefix']) {
-  color: var(--form-field-prefix-color);
+  color: var(--sbb-form-field-prefix-color);
 }
 
-.form-field__input-container {
+.sbb-form-field__input-container {
   flex: 1 1 auto;
   position: relative;
 
@@ -138,20 +140,20 @@
 }
 
 // Label
-.form-field__label {
+.sbb-form-field__label {
   @include text-xs--regular;
 
   display: flex;
   max-width: 100%;
 
   // Moves label down and input up to meet positioning requirements
-  margin-block-end: var(--form-field-label-to-input-gap);
-  color: var(--form-field-label-color);
+  margin-block-end: var(--sbb-form-field-label-to-input-gap);
+  color: var(--sbb-form-field-label-color);
   user-select: none;
   pointer-events: none;
 
-  :host(.form-field--select) & {
-    padding-inline-end: var(--form-field-select-inline-padding-end);
+  :host([data-input-type='select']) & {
+    padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 }
 
@@ -162,20 +164,20 @@ slot[name='label'] > span {
 
 // Input
 /* stylelint-disable plugin/stylelint-bem-namics */
-.form-field__input ::slotted(:where(input, select)) {
+.sbb-form-field__input ::slotted(:where(input, select)) {
   @include text-m--regular;
   @include placeholder;
   @include ellipsis;
 
-  overflow: var(--form-field-overflow);
+  overflow: var(--sbb-form-field-overflow);
   -webkit-appearance: none;
   width: 100%;
   box-sizing: border-box;
   border: none;
   outline: none;
   padding: 0;
-  color: var(--form-field-text-color);
-  background-color: var(--form-field-background-color);
+  color: var(--sbb-form-field-text-color);
+  background-color: var(--sbb-form-field-background-color);
 
   // To be more specific than the styles in normalize.scss we need to use !important
   // TODO: Find a better solution
@@ -185,15 +187,15 @@ slot[name='label'] > span {
 }
 /* stylelint-enable plugin/stylelint-bem-namics */
 
-.form-field__input ::slotted(select) {
-  padding-inline-end: var(--form-field-select-inline-padding-end);
+.sbb-form-field__input ::slotted(select) {
+  padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
 }
 
-.form-field__error {
+.sbb-form-field__error {
   display: flex;
   min-height: var(--form-field-error-min-height);
   margin-block-start: var(
-    --form-field-error-padding-block-start-override,
-    var(--form-field-error-padding-block-start)
+    --sbb-form-field-error-padding-block-start-override,
+    var(--sbb-form-field-error-padding-block-start)
   );
 }

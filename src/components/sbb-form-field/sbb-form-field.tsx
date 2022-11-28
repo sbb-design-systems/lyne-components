@@ -42,7 +42,8 @@ export class SbbFormField implements ComponentInterface {
    * `none` does not reserve any space.
    * `reserve` does reserve one row for an error message.
    */
-  @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'none';
+  @Prop({ reflect: true }) public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] =
+    'none';
 
   /**
    * Label text for the input which is internally rendered as `<label>`.
@@ -57,12 +58,12 @@ export class SbbFormField implements ComponentInterface {
   /**
    * Size variant, either l or m.
    */
-  @Prop() public size?: InterfaceSbbFormFieldAttributes['size'] = 'm';
+  @Prop({ reflect: true }) public size?: InterfaceSbbFormFieldAttributes['size'] = 'm';
 
   /**
    * Whether to display the form field without a border.
    */
-  @Prop() public borderless = false;
+  @Prop({ reflect: true }) public borderless = false;
 
   /**
    * It is used internally to get the native `disabled` attribute from `<input>`.
@@ -178,23 +179,20 @@ export class SbbFormField implements ComponentInterface {
     return (
       <Host
         class={{
-          [`form-field--error-space-${this.errorSpace}`]: true,
-          [`form-field--size-${this.size}`]: true,
-          'form-field--borderless': this.borderless,
-          'form-field--disabled': this._disabled,
-          'form-field--readonly': this._readonly,
-          'form-field--select': this._input?.tagName === 'SELECT',
+          'sbb-form-field--disabled': this._disabled,
+          'sbb-form-field--readonly': this._readonly,
           'sbb-invalid': this._invalid,
+          'sbb-form-field--empty-error': !this._errorElements.length,
         }}
       >
-        <div class="form-field__space-wrapper">
+        <div class="sbb-form-field__space-wrapper">
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div onClick={(): void => this._input?.focus()} class="form-field__wrapper">
+          <div onClick={(): void => this._input?.focus()} class="sbb-form-field__wrapper">
             <slot name="prefix"></slot>
 
-            <div class="form-field__input-container">
+            <div class="sbb-form-field__input-container">
               {(this.label || this._namedSlots.label) && (
-                <label class="form-field__label" htmlFor={this._input?.id}>
+                <label class="sbb-form-field__label" htmlFor={this._input?.id}>
                   <slot name="label">
                     <span>{this.label}</span>
                   </slot>
@@ -203,13 +201,13 @@ export class SbbFormField implements ComponentInterface {
                   )}
                 </label>
               )}
-              <div class="form-field__input">
+              <div class="sbb-form-field__input">
                 <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
               </div>
               {this._input?.tagName === 'SELECT' && (
                 <sbb-icon
                   name="chevron-small-down-small"
-                  class="form-field__select-input-icon"
+                  class="sbb-form-field__select-input-icon"
                 ></sbb-icon>
               )}
             </div>
@@ -217,12 +215,7 @@ export class SbbFormField implements ComponentInterface {
             <slot name="suffix"></slot>
           </div>
 
-          <div
-            class={{
-              'form-field__error': true,
-              'form-field__error--empty': !this._errorElements.length,
-            }}
-          >
+          <div class="sbb-form-field__error">
             <slot
               name="error"
               onSlotchange={(event): void => this._onSlotErrorChange(event)}
