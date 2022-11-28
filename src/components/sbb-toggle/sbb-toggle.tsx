@@ -82,10 +82,10 @@ export class SbbToggle {
       `${this._options[0].clientWidth + this._options[1].clientWidth}px`
     );
 
-    this._element.style.setProperty('--sbb-toggle-option-left', `${checked?.offsetLeft + 2}px`);
+    this._element.style.setProperty('--sbb-toggle-option-left', `${checked?.offsetLeft - 2}px`);
     this._element.style.setProperty(
       '--sbb-toggle-option-right',
-      `${this._toggleElement.clientWidth - (checked?.offsetLeft + checked?.clientWidth) + 2}px`
+      `${this._toggleElement.clientWidth - (checked?.offsetLeft + checked?.clientWidth) - 2}px`
     );
   }
 
