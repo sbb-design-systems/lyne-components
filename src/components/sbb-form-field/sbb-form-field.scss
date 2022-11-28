@@ -43,16 +43,6 @@
   --sbb-form-field-error-padding-block-start-override: var(--sbb-form-field-error-divider-width);
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-:host(:is([borderless], [data-input-type='sbb-slider'])) {
-  --sbb-form-field-border-color: transparent;
-}
-
-:host([data-input-type='sbb-slider']) {
-  --sbb-form-field-overflow: visible;
-  --sbb-form-field-background-color: var(--sbb-color-white-default);
-}
-
 :host(.sbb-form-field--readonly),
 :host(.sbb-form-field--disabled) {
   --sbb-form-field-background-color: var(--sbb-color-milk-default);
@@ -93,6 +83,18 @@
 
 :host(.sbb-form-field--empty-error) {
   --sbb-form-field-error-padding-block-start: 0;
+}
+
+// Should be after other definitions to override border style
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(:is([borderless], [data-input-type='sbb-slider'])) {
+  --sbb-form-field-border-color: transparent;
+}
+
+// Should be after other definitions to override overflow and background
+:host([data-input-type='sbb-slider']) {
+  --sbb-form-field-overflow: visible;
+  --sbb-form-field-background-color: var(--sbb-color-white-default);
 }
 
 .sbb-form-field__space-wrapper {
