@@ -122,8 +122,6 @@ sbb-icon,
 
 :host([checked]) {
   .sbb-toggle-option {
-    @include text-xs--bold;
-
     color: var(--sbb-toggle-selected-option-text-color);
   }
 }
