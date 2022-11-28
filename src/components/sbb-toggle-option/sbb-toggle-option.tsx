@@ -1,14 +1,4 @@
-import {
-  Component,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Method,
-  Prop,
-} from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, JSX, Listen, Method, Prop } from '@stencil/core';
 import { InterfaceSbbToggleOption } from './sbb-toggle-option.custom';
 
 let nextId = 0;
