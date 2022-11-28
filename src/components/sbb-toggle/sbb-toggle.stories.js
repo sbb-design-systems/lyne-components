@@ -81,16 +81,12 @@ const defaultArgs = {
 };
 
 const toggleOption = (args) => [
-  <sbb-toggle-option
-    disabled={args.disabled}
-    icon-name={args.iconName}
-    value={args.value1}
-  ></sbb-toggle-option>,
-  <sbb-toggle-option
-    disabled={args.disabled}
-    icon-name={args.iconName}
-    value={args.value2}
-  ></sbb-toggle-option>,
+  <sbb-toggle-option disabled={args.disabled} icon-name={args.iconName} value={args.value1}>
+    option-1-option-1-option-1-option-1-option-1-option-1-option-1-option-1-
+  </sbb-toggle-option>,
+  <sbb-toggle-option disabled={args.disabled} icon-name={args.iconName} value={args.value2}>
+    option-2
+  </sbb-toggle-option>,
 ];
 
 const DefaultTemplate = (args) => <sbb-toggle {...args}>{toggleOption(args)}</sbb-toggle>;
