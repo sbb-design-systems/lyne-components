@@ -4,8 +4,6 @@
 
 :host {
   --sbb-navigation-position: fixed;
-  --sbb-navigation-position-x: 0;
-  --sbb-navigation-position-y: 0;
   --sbb-navigation-animation-duration: var(--sbb-animation-duration-3x);
   --sbb-navigation-animation-easing: ease;
   --sbb-navigation-padding-inline: var(--sbb-spacing-fixed-4x);
@@ -58,15 +56,13 @@
   }
 
   position: var(--sbb-navigation-position);
-  left: var(--sbb-navigation-position-x);
-  top: var(--sbb-navigation-position-y);
+  left: 0;
+  top: 0;
   z-index: 10;
 }
 
 :host(.sbb-navigation--opened),
 :host(.sbb-navigation--opening) {
-  --sbb-navigation-backdrop-color: transparent;
-
   @include mq($from: large) {
     --sbb-navigation-backdrop-color: var(--sbb-color-black-alpha-70);
 
@@ -82,8 +78,8 @@
   position: var(--sbb-navigation-position);
   visibility: hidden;
   opacity: 0;
-  left: var(--sbb-navigation-position-x);
-  top: var(--sbb-navigation-position-y);
+  left: 0;
+  top: 0;
   border: none;
   pointer-events: none;
   width: var(--sbb-navigation-width);
