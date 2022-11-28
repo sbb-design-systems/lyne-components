@@ -3,7 +3,6 @@
 @include host-component-properties;
 
 :host {
-  --sbb-toggle-width: max-content;
   --sbb-toggle-option-flex-grow: 1;
   --sbb-toggle-option-flex-basis: auto;
   --sbb-toggle-option-max-width: 100%;
@@ -13,30 +12,11 @@
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-toggle-cursor: pointer;
 
-  width: max-content;
+  width: 100%;
   position: relative;
-
-  &::after {
-    content: attr(value);
-    @include text-xs--bold;
-
-    color: transparent;
-    padding-inline: var(--sbb-toggle-padding-inline);
-    display: inline-block;
-    background-color: var(--sbb-color-white-default);
-    border: var(--sbb-border-width-2x) solid var(--sbb-color-cloud-default);
-    border-radius: var(--sbb-border-radius-16x);
-    position: absolute;
-    max-width: 200px;
-    width: max-content;
-    height: 100%;
-    top: 0;
-    transition: all var(--sbb-animation-duration-6x) ease-in;
-  }
 }
 
 :host([even]) {
-  --sbb-toggle-width: 100%;
   --sbb-toggle-option-flex-grow: 0;
   --sbb-toggle-option-flex-basis: 50%;
   --sbb-toggle-option-max-width: 50%;
@@ -59,28 +39,42 @@
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-3x);
 }
 
-:host([data-checked-id='0'])::after {
-  left: 0;
-}
-
-:host([data-checked-id='1'])::after {
-  left: 100%;
-  transform: translateX(-100%);
-}
-
 .sbb-toggle {
   @include text-m--regular;
 
   cursor: var(--sbb-toggle-cursor);
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: var(--sbb-toggle-width);
+  width: 100%;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  padding-block: var(--sbb-border-width-2x);
-  padding-inline: var(--sbb-border-width-2x);
-  background: var(--sbb-color-cloud-default);
-  border-radius: var(--sbb-border-radius-16x);
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    left: 0;
+    width: var(--sbb-toggle-width);
+    background: var(--sbb-color-cloud-default);
+    border-radius: var(--sbb-border-radius-16x);
+  }
+
+  &::after {
+    content: '';
+    @include text-xs--bold;
+
+    color: transparent;
+    padding-inline: var(--sbb-toggle-padding-inline);
+    display: inline-block;
+    background-color: var(--sbb-color-white-default);
+    border-radius: var(--sbb-border-radius-16x);
+    position: absolute;
+    max-width: 100%;
+    top: #{px-to-rem-build(2)};
+    bottom: #{px-to-rem-build(2)};
+    left: var(--sbb-toggle-option-left);
+    right: var(--sbb-toggle-option-right);
+    transition: all var(--sbb-animation-duration-6x) ease-in;
+  }
 }

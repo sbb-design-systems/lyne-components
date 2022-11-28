@@ -1,4 +1,14 @@
-import { Component, Event, EventEmitter, h, Host, JSX, Listen, Method, Prop } from '@stencil/core';
+import {
+  Component,
+  Event,
+  EventEmitter,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Method,
+  Prop,
+} from '@stencil/core';
 import { InterfaceSbbToggleOption } from './sbb-toggle-option.custom';
 
 let nextId = 0;
@@ -96,9 +106,11 @@ export class SbbToggleOption {
         />
         <span class="sbb-toggle-option">
           {!this.iconName ? (
-            <slot name="value">
-              <label>{this.value}</label>
-            </slot>
+            // TODO: fix label usage
+            // eslint-disable-next-line jsx-a11y/label-has-associated-control
+            <label>
+              <slot />
+            </label>
           ) : (
             <slot name="icon">
               <sbb-icon name={this.iconName}></sbb-icon>

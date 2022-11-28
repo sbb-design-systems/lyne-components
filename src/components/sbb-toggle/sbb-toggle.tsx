@@ -54,11 +54,49 @@ export class SbbToggle {
    */
   @Prop({ mutable: true, reflect: true }) public value: any | null;
 
+  private _toggleElement: HTMLElement;
+
+  private get _options(): InterfaceSbbToggleOption[] {
+    return Array.from(
+      this._element.querySelectorAll('sbb-toggle-option')
+    ) as InterfaceSbbToggleOption[];
+  }
+
+  private get _checked(): InterfaceSbbToggleOption {
+    return this._options.find((toggle) => toggle.checked);
+  }
+
   @Element() private _element!: HTMLElement;
+
+  @Listen('resize', { target: 'window', passive: true })
+  private _setCheckedPillPosition(): void {
+    const checked = this._checked;
+
+    if (!checked) {
+      return;
+    }
+
+    // Set checked pill position
+    this._element.style.setProperty(
+      '--sbb-toggle-width',
+      `${this._options[0].clientWidth + this._options[1].clientWidth}px`
+    );
+
+    this._element.style.setProperty('--sbb-toggle-option-left', `${checked?.offsetLeft + 2}px`);
+    this._element.style.setProperty(
+      '--sbb-toggle-option-right',
+      `${this._toggleElement.clientWidth - (checked?.offsetLeft + checked?.clientWidth) + 2}px`
+    );
+  }
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
-    this._updateToggle();
+    for (const toggleOption of this._options) {
+      toggleOption.checked = toggleOption.value === value;
+      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
+    }
+    this._setFocusableOption();
+    this._setCheckedPillPosition();
     this.didChange.emit({ value });
   }
 
@@ -72,40 +110,43 @@ export class SbbToggle {
   })
   public didChange: EventEmitter<any>;
 
-  public connectedCallback(): void {
-    this._updateToggle();
-  }
-
   @Listen('sbb-toggle-option_did-select', { passive: true })
   public onToggleOptionSelect(event: CustomEvent<Set<string>>): void {
     this.value = event.detail;
   }
 
-  private _updateToggle(): void {
-    const toggle = this._toggleOptions;
-    const value = this.value ?? toggle.find((toggleOption) => toggleOption.checked)?.value;
-
-    for (const toggleOption of toggle) {
-      toggleOption.checked = toggleOption.value === value;
-      toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
-      toggleOption.tabIndex = toggleOption.checked && !toggleOption.disabled ? 0 : -1;
-    }
-    
-    this._element.dataset.checkedId = toggle.findIndex((toggleOption) => toggleOption.checked).toString();
-    toggle.length && (toggle[0].tabIndex = value || toggle[0].disabled ? toggle[0].tabIndex : 0);
+  public componentDidLoad(): void {
+    this._setCheckedPillPosition();
   }
 
-  private get _toggleOptions(): InterfaceSbbToggleOption[] {
-    return Array.from(
-      this._element.querySelectorAll('sbb-toggle-option')
-    ) as InterfaceSbbToggleOption[];
+  private _updateToggle(): void {
+    const options = this._options;
+    const value = this.value ?? options.find((toggleOption) => toggleOption.checked)?.value;
+
+    for (const toggleOption of options) {
+      toggleOption.checked = toggleOption.value === value;
+      toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
+      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
+    }
+
+    this._setFocusableOption();
+  }
+
+  private _setFocusableOption(): void {
+    if (!this._checked) {
+      this._options[0].tabIndex = 0;
+    }
+  }
+
+  private _getOptionTabIndex(option: InterfaceSbbToggleOption): number {
+    return option.checked && !option.disabled && !this.disabled ? 0 : -1;
   }
 
   public render(): JSX.Element {
     return (
       <Host aria-label={this.name}>
-        <div class="sbb-toggle">
-          <slot />
+        <div class="sbb-toggle" ref={(toggle) => (this._toggleElement = toggle)}>
+          <slot onSlotchange={() => this._updateToggle()} />
         </div>
       </Host>
     );
