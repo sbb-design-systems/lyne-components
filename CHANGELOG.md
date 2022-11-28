@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.15.0](https://github.com/lyne-design-system/lyne-components/compare/v0.14.5...v0.15.0) (2022-11-28)
+
+### ⚠ BREAKING CHANGES
+
+- Event name prefixes are removed (e.g `sbb-alert-group_did-dismiss-alert` was renamed to `did-dismiss-alert`). If it is necessary to determine which element is the event origin, check the event context (e.g. event.target).
+
+### Features
+
+- remove event name prefixes ([#1466](https://github.com/lyne-design-system/lyne-components/issues/1466)) ([cdb5962](https://github.com/lyne-design-system/lyne-components/commit/cdb59620e07582e3c6887feaecca4f30bfbcaffa))
+
 ### [0.14.5](https://github.com/lyne-design-system/lyne-components/compare/v0.14.4...v0.14.5) (2022-11-24)
 
 ### Features
