@@ -25,7 +25,7 @@
 }
 
 .sbb-toggle-option {
-  @include text-xs--regular;
+  @include text-xs--bold;
 
   display: flex;
   padding-inline: var(--sbb-toggle-padding-inline);
@@ -43,8 +43,6 @@
 
 :host([checked]) {
   .sbb-toggle-option {
-    @include text-xs--bold;
-
     color: var(--sbb-toggle-selected-option-text-color);
   }
 }
