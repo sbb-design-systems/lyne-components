@@ -39,6 +39,7 @@ export const SbbLinkList = /*@__PURE__*/createReactComponent<JSX.SbbLinkList, HT
 export const SbbLogo = /*@__PURE__*/createReactComponent<JSX.SbbLogo, HTMLSbbLogoElement>('sbb-logo');
 export const SbbMenu = /*@__PURE__*/createReactComponent<JSX.SbbMenu, HTMLSbbMenuElement>('sbb-menu');
 export const SbbMenuAction = /*@__PURE__*/createReactComponent<JSX.SbbMenuAction, HTMLSbbMenuActionElement>('sbb-menu-action');
+export const SbbNavigation = /*@__PURE__*/createReactComponent<JSX.SbbNavigation, HTMLSbbNavigationElement>('sbb-navigation');
 export const SbbOverlay = /*@__PURE__*/createReactComponent<JSX.SbbOverlay, HTMLSbbOverlayElement>('sbb-overlay');
 export const SbbPearlChain = /*@__PURE__*/createReactComponent<JSX.SbbPearlChain, HTMLSbbPearlChainElement>('sbb-pearl-chain');
 export const SbbPearlChainTime = /*@__PURE__*/createReactComponent<JSX.SbbPearlChainTime, HTMLSbbPearlChainTimeElement>('sbb-pearl-chain-time');

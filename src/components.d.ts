@@ -943,6 +943,20 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbNavigation {
+        /**
+          * Closes the navigation.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Opens the navigation on trigger click.
+         */
+        "open": () => Promise<void>;
+        /**
+          * The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
     interface SbbOverlay {
         /**
           * Dismiss the overlay.
@@ -1584,6 +1598,10 @@ export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbMenuElement;
 }
+export interface SbbNavigationCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbNavigationElement;
+}
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
@@ -1798,6 +1816,12 @@ declare global {
     var HTMLSbbMenuActionElement: {
         prototype: HTMLSbbMenuActionElement;
         new (): HTMLSbbMenuActionElement;
+    };
+    interface HTMLSbbNavigationElement extends Components.SbbNavigation, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationElement: {
+        prototype: HTMLSbbNavigationElement;
+        new (): HTMLSbbNavigationElement;
     };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
@@ -2065,6 +2089,7 @@ declare global {
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-menu": HTMLSbbMenuElement;
         "sbb-menu-action": HTMLSbbMenuActionElement;
+        "sbb-navigation": HTMLSbbNavigationElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -3038,6 +3063,28 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbNavigation {
+        /**
+          * Emits whenever the navigation is closed.
+         */
+        "onSbb-navigation_did-close"?: (event: SbbNavigationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation is opened.
+         */
+        "onSbb-navigation_did-open"?: (event: SbbNavigationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation begins the closing transition.
+         */
+        "onSbb-navigation_will-close"?: (event: SbbNavigationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation starts the opening transition.
+         */
+        "onSbb-navigation_will-open"?: (event: SbbNavigationCustomEvent<void>) => void;
+        /**
+          * The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -3703,6 +3750,7 @@ declare namespace LocalJSX {
         "sbb-logo": SbbLogo;
         "sbb-menu": SbbMenu;
         "sbb-menu-action": SbbMenuAction;
+        "sbb-navigation": SbbNavigation;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -3779,6 +3827,7 @@ declare module "@stencil/core" {
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
+            "sbb-navigation": LocalJSX.SbbNavigation & JSXBase.HTMLAttributes<HTMLSbbNavigationElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;

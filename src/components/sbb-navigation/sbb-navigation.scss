@@ -1,0 +1,158 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-navigation-position: fixed;
+  --sbb-navigation-position-x: 0;
+  --sbb-navigation-position-y: 0;
+  --sbb-navigation-animation-duration: var(--sbb-animation-duration-3x);
+  --sbb-navigation-animation-easing: ease;
+  --sbb-navigation-transform: translateX(-100%);
+  --sbb-navigation-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
+
+  // 85vh is not an exact value but looks optimized for mobile view.
+  --sbb-navigation-height: 100vh;
+  --sbb-navigation-width: 100vw;
+  --sbb-navigation-backdrop-color: transparent;
+
+  @include mq($from: micro) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
+  }
+
+  @include mq($from: small) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
+  }
+
+  @include mq($from: medium) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-14x);
+  }
+
+  @include mq($from: large) {
+    --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-16x);
+    --sbb-navigation-position: absolute;
+    --sbb-navigation-transform: translateX(-100%);
+    --sbb-navigation-width: #{px-to-rem-build(320)};
+
+    // navigation backdrop (not visible on mobile)
+    &::before {
+      content: '';
+      visibility: hidden;
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      background-color: var(--sbb-navigation-backdrop-color);
+
+      transition: {
+        duration: var(--sbb-navigation-animation-duration);
+        timing-function: var(--sbb-navigation-animation-easing);
+        property: background-color, visibility;
+      }
+    }
+  }
+
+  @include mq($from: wide) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-18x);
+  }
+
+  @include mq($from: ultra) {
+    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-30x);
+    --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
+  }
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+:host(.sbb-navigation--opened),
+:host(.sbb-navigation--opening) {
+  --sbb-navigation-backdrop-color: transparent;
+
+  @include mq($from: large) {
+    --sbb-navigation-backdrop-color: var(--sbb-color-black-alpha-70);
+
+    &::before {
+      visibility: visible;
+      pointer-events: all;
+    }
+  }
+}
+
+.sbb-navigation {
+  display: block;
+  position: var(--sbb-navigation-position);
+  visibility: hidden;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  border: none;
+  pointer-events: none;
+  width: var(--sbb-navigation-width);
+  height: var(--sbb-navigation-height);
+  text-align: start;
+  color: var(--sbb-color-white-default);
+  background-color: var(--sbb-color-midnight-default);
+  padding-inline: var(--sbb-navigation-padding-inline);
+  padding-block-start: var(--sbb-navigation-padding-block-start);
+
+  &[open] {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+
+    animation: {
+      name: open;
+      duration: var(--sbb-navigation-animation-duration);
+      timing-function: var(--sbb-navigation-animation-easing);
+    }
+  }
+
+  :host(.sbb-navigation--closing) & {
+    pointer-events: none;
+    animation-name: close;
+  }
+
+  @include ifForcedColors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  @include mq($from: large) {
+    &[open] {
+      top: var(--sbb-navigation-position-y);
+      left: var(--sbb-navigation-position-x);
+      height: var(--sbb-navigation-height);
+    }
+  }
+}
+
+@keyframes open {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    transform: var(--sbb-navigation-transform);
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes close {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 1;
+    transform: var(--sbb-navigation-transform);
+  }
+}
