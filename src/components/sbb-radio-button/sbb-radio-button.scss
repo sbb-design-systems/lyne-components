@@ -4,7 +4,7 @@
 
 :host {
   --sbb-radio-button-label-color: var(--color-black-default);
-  --sbb-radio-button-checked-color: var(--sbb-color-white-default);
+  --sbb-radio-button-background-color: var(--sbb-color-white-default);
   --sbb-radio-button-border: var(--sbb-border-width-1x);
   --sbb-radio-button-size: calc(var(--sbb-spacing-fixed-6x) - var(--sbb-radio-button-border) * 2);
 
@@ -60,7 +60,7 @@
     flex-shrink: 0;
     width: var(--sbb-radio-button-size);
     height: var(--sbb-radio-button-size);
-    background: var(--sbb-radio-button-checked-color);
+    background: var(--sbb-radio-button-background-color);
     border-radius: 50%;
 
     // The border was used to generate the animation of the radio-button,
@@ -87,12 +87,12 @@
 
 // The checked style using the :checked pseudo class
 .sbb-radio-button__input:checked + .sbb-radio-button__label-slot::before {
-  --sbb-radio-button-checked-color: var(--sbb-color-red-default);
+  --sbb-radio-button-background-color: var(--sbb-color-red-default);
 
   border-width: #{px-to-rem-build(6)};
 
   :host([data-group-disabled]) &,
   :host([disabled]) & {
-    --sbb-radio-button-checked-color: var(--sbb-color-graphite-default);
+    --sbb-radio-button-background-color: var(--sbb-color-graphite-default);
   }
 }
