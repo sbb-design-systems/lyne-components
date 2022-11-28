@@ -81,11 +81,11 @@ Accessibility is mainly done by wrapping the alerts into the `sbb-alert-group`.
 
 ## Events
 
-| Event                           | Description                                                        | Type                |
-| ------------------------------- | ------------------------------------------------------------------ | ------------------- |
-| `sbb-alert_did-present`         | Emits when the fade in animation ends and the button is displayed. | `CustomEvent<void>` |
-| `sbb-alert_dismissal-requested` | Emits when dismissal of an alert was requested.                    | `CustomEvent<void>` |
-| `sbb-alert_will-present`        | Emits when the fade in animation starts.                           | `CustomEvent<void>` |
+| Event                 | Description                                                        | Type                |
+| --------------------- | ------------------------------------------------------------------ | ------------------- |
+| `did-present`         | Emits when the fade in animation ends and the button is displayed. | `CustomEvent<void>` |
+| `dismissal-requested` | Emits when dismissal of an alert was requested.                    | `CustomEvent<void>` |
+| `will-present`        | Emits when the fade in animation starts.                           | `CustomEvent<void>` |
 
 
 ## Methods

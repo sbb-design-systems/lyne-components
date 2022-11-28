@@ -82,12 +82,12 @@ As the tooltip opens, the focus will automatically be set to the first focusable
 
 ## Events
 
-| Event                    | Description                                               | Type                                         |
-| ------------------------ | --------------------------------------------------------- | -------------------------------------------- |
-| `sbb-tooltip_did-close`  | Emits whenever the tooltip is closed.                     | `CustomEvent<{ closeTarget: HTMLElement; }>` |
-| `sbb-tooltip_did-open`   | Emits whenever the tooltip is opened.                     | `CustomEvent<void>`                          |
-| `sbb-tooltip_will-close` | Emits whenever the tooltip begins the closing transition. | `CustomEvent<{ closeTarget: HTMLElement; }>` |
-| `sbb-tooltip_will-open`  | Emits whenever the tooltip starts the opening transition. | `CustomEvent<void>`                          |
+| Event        | Description                                               | Type                                         |
+| ------------ | --------------------------------------------------------- | -------------------------------------------- |
+| `did-close`  | Emits whenever the tooltip is closed.                     | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `did-open`   | Emits whenever the tooltip is opened.                     | `CustomEvent<void>`                          |
+| `will-close` | Emits whenever the tooltip begins the closing transition. | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `will-open`  | Emits whenever the tooltip starts the opening transition. | `CustomEvent<void>`                          |
 
 
 ## Methods

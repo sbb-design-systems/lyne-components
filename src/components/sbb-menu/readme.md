@@ -65,12 +65,12 @@ As the menu opens, the focus will automatically be set to the first focusable it
 
 ## Events
 
-| Event                 | Description                                            | Type                |
-| --------------------- | ------------------------------------------------------ | ------------------- |
-| `sbb-menu_did-close`  | Emits whenever the menu is closed.                     | `CustomEvent<void>` |
-| `sbb-menu_did-open`   | Emits whenever the menu is opened.                     | `CustomEvent<void>` |
-| `sbb-menu_will-close` | Emits whenever the menu begins the closing transition. | `CustomEvent<void>` |
-| `sbb-menu_will-open`  | Emits whenever the menu starts the opening transition. | `CustomEvent<void>` |
+| Event        | Description                                            | Type                |
+| ------------ | ------------------------------------------------------ | ------------------- |
+| `did-close`  | Emits whenever the menu is closed.                     | `CustomEvent<void>` |
+| `did-open`   | Emits whenever the menu is opened.                     | `CustomEvent<void>` |
+| `will-close` | Emits whenever the menu begins the closing transition. | `CustomEvent<void>` |
+| `will-open`  | Emits whenever the menu starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Methods

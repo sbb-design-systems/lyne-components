@@ -131,7 +131,7 @@ describe('sbb-timetable-row', () => {
       const element = page.root.shadowRoot.querySelector('sbb-card');
       const buttonSpy = jest.fn();
 
-      page.win.addEventListener('sbb-timetable-row_click', buttonSpy);
+      page.win.addEventListener('click', buttonSpy);
       element.click();
       await page.waitForChanges();
       expect(buttonSpy).toHaveBeenCalled();

@@ -51,7 +51,7 @@ export class SbbMenu implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_will-open',
+    eventName: 'will-open',
   })
   public willOpen: EventEmitter<void>;
 
@@ -61,7 +61,7 @@ export class SbbMenu implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_did-open',
+    eventName: 'did-open',
   })
   public didOpen: EventEmitter<void>;
 
@@ -71,7 +71,7 @@ export class SbbMenu implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_will-close',
+    eventName: 'will-close',
   })
   public willClose: EventEmitter<void>;
 
@@ -81,7 +81,7 @@ export class SbbMenu implements ComponentInterface {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-menu_did-close',
+    eventName: 'did-close',
   })
   public didClose: EventEmitter<void>;
 

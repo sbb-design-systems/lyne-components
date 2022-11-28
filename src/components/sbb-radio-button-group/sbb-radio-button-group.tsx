@@ -148,7 +148,7 @@ export class SbbRadioButtonGroup {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
-  @Listen('sbb-radio-button_did-select', { passive: true })
+  @Listen('did-select', { passive: true })
   public onRadioButtonSelect(event: CustomEvent<string>): void {
     this.value = event.detail;
   }

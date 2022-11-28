@@ -2338,15 +2338,15 @@ declare namespace LocalJSX {
         /**
           * Emits when the fade in animation ends and the button is displayed.
          */
-        "onSbb-alert_did-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onDid-present"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Emits when dismissal of an alert was requested.
          */
-        "onSbb-alert_dismissal-requested"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onDismissal-requested"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Emits when the fade in animation starts.
          */
-        "onSbb-alert_will-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onWill-present"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
@@ -2384,11 +2384,11 @@ declare namespace LocalJSX {
         /**
           * Emits when an alert was removed from DOM.
          */
-        "onSbb-alert-group_did-dismiss-alert"?: (event: SbbAlertGroupCustomEvent<HTMLSbbAlertElement>) => void;
+        "onDid-dismiss-alert"?: (event: SbbAlertGroupCustomEvent<HTMLSbbAlertElement>) => void;
         /**
           * Emits when `sbb-alert-group` becomes empty.
          */
-        "onSbb-alert-group_empty"?: (event: SbbAlertGroupCustomEvent<void>) => void;
+        "onEmpty"?: (event: SbbAlertGroupCustomEvent<void>) => void;
         /**
           * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
          */
@@ -2820,23 +2820,23 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the dialog is closed.
          */
-        "onSbb-dialog_did-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        "onDid-close"?: (event: SbbDialogCustomEvent<any>) => void;
         /**
           * Emits whenever the dialog is opened.
          */
-        "onSbb-dialog_did-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Emits whenever the back button is clicked.
          */
-        "onSbb-dialog_request-back-action"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onRequest-back-action"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Emits whenever the dialog begins the closing transition.
          */
-        "onSbb-dialog_will-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        "onWill-close"?: (event: SbbDialogCustomEvent<any>) => void;
         /**
           * Emits whenever the dialog starts the opening transition.
          */
-        "onSbb-dialog_will-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Whether a back button is displayed next to the title.
          */
@@ -3247,19 +3247,19 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the menu is closed.
          */
-        "onSbb-menu_did-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onDid-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu is opened.
          */
-        "onSbb-menu_did-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu begins the closing transition.
          */
-        "onSbb-menu_will-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onWill-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu starts the opening transition.
          */
-        "onSbb-menu_will-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -3406,7 +3406,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the radio group value changes.
          */
-        "onSbb-radio-button_did-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
+        "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -3590,7 +3590,7 @@ declare namespace LocalJSX {
         /**
           * Emits an event on selected tab change
          */
-        "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
+        "onDid-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
     }
     interface SbbTabTitle {
         /**
@@ -3790,7 +3790,7 @@ declare namespace LocalJSX {
         /**
           * This click event gets emitted when the user clicks on the component.
          */
-        "onSbb-timetable-row_click"?: (event: SbbTimetableRowCustomEvent<any>) => void;
+        "onClick"?: (event: SbbTimetableRowCustomEvent<any>) => void;
         /**
           * The price Prop, which consists of the data for the badge.
          */
@@ -3949,19 +3949,19 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the tooltip is closed.
          */
-        "onSbb-tooltip_did-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        "onDid-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
           * Emits whenever the tooltip is opened.
          */
-        "onSbb-tooltip_did-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
           * Emits whenever the tooltip begins the closing transition.
          */
-        "onSbb-tooltip_will-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        "onWill-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
           * Emits whenever the tooltip starts the opening transition.
          */
-        "onSbb-tooltip_will-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
           * Open the tooltip after a certain delay.
          */

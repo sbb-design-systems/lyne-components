@@ -1,6 +1,7 @@
 import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from './sbb-card-product.events';
 
 /* ************************************************* */
 /* Documentation platform container                  */
@@ -766,6 +767,9 @@ export default {
   parameters: {
     backgrounds: {
       disable: true,
+    },
+    actions: {
+      handles: [events.click],
     },
     docs: {
       extractComponentDescription: () => readme,
