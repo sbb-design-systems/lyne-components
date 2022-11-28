@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.1](https://github.com/lyne-design-system/lyne-components/compare/v0.15.0...v0.15.1) (2022-11-28)
+
+### Bug Fixes
+
+- **sbb-radio-button:** remove red dot on low resolution screens ([#1469](https://github.com/lyne-design-system/lyne-components/issues/1469)) ([8854dc0](https://github.com/lyne-design-system/lyne-components/commit/8854dc0c029de614ee12d5f5128d2ed31279eecc))
+
 ## [0.15.0](https://github.com/lyne-design-system/lyne-components/compare/v0.14.5...v0.15.0) (2022-11-28)
 
 ### ⚠ BREAKING CHANGES
