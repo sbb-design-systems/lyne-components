@@ -18,6 +18,7 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 let nextId = 0;
 
@@ -94,11 +95,7 @@ export class SbbRadioButtonGroup {
   @Watch('disabled')
   public updateDisabled(): void {
     for (const radio of this._radioButtons) {
-      if (this.disabled) {
-        radio.dataset.groupDisabled = '';
-      } else {
-        delete radio.dataset.groupDisabled;
-      }
+      toggleDatasetEntry(radio, 'groupDisabled', this.disabled);
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
     this._setFocusableRadio();
@@ -107,11 +104,7 @@ export class SbbRadioButtonGroup {
   @Watch('required')
   public updateRequired(): void {
     for (const radio of this._radioButtons) {
-      if (this.required) {
-        radio.dataset.groupRequired = '';
-      } else {
-        delete radio.dataset.groupRequired;
-      }
+      toggleDatasetEntry(radio, 'groupRequired', this.required);
     }
   }
 
@@ -161,17 +154,8 @@ export class SbbRadioButtonGroup {
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
 
-      if (this.disabled) {
-        radio.dataset.groupDisabled = '';
-      } else {
-        delete radio.dataset.groupDisabled;
-      }
-
-      if (this.required) {
-        radio.dataset.groupRequired = '';
-      } else {
-        delete radio.dataset.groupRequired;
-      }
+      toggleDatasetEntry(radio, 'groupDisabled', this.disabled);
+      toggleDatasetEntry(radio, 'groupRequired', this.required);
 
       radio.tabIndex = this._getRadioTabIndex(radio);
     }

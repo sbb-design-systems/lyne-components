@@ -16,6 +16,7 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 let nextId = 0;
 
@@ -72,22 +73,14 @@ export class SbbCheckboxGroup implements ComponentInterface {
   @Watch('disabled')
   public updateDisabled(): void {
     for (const checkbox of this._checkboxes) {
-      if (this.disabled) {
-        checkbox.dataset.groupDisabled = '';
-      } else {
-        delete checkbox.dataset.groupDisabled;
-      }
+      toggleDatasetEntry(checkbox, 'groupDisabled', this.disabled);
     }
   }
 
   @Watch('required')
   public updateRequired(): void {
     for (const checkbox of this._checkboxes) {
-      if (this.required) {
-        checkbox.dataset.groupRequired = '';
-      } else {
-        delete checkbox.dataset.groupRequired;
-      }
+      toggleDatasetEntry(checkbox, 'groupRequired', this.required);
     }
   }
 
@@ -112,18 +105,8 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
     for (const checkbox of checkboxes) {
       checkbox.size = this.size;
-
-      if (this.disabled) {
-        checkbox.dataset.groupDisabled = '';
-      } else {
-        delete checkbox.dataset.groupDisabled;
-      }
-
-      if (this.required) {
-        checkbox.dataset.groupRequired = '';
-      } else {
-        delete checkbox.dataset.groupRequired;
-      }
+      toggleDatasetEntry(checkbox, 'groupDisabled', this.disabled);
+      toggleDatasetEntry(checkbox, 'groupRequired', this.required);
     }
   }
 
