@@ -5,24 +5,18 @@ const text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam 
 
 const TextTemplate = () =>
   ['xxs', 'xs', 's', 'm', 'l', 'xl'].map((textSize) => [
-    <h3>Text size {textSize}</h3>,
+    <sbb-title level="3">Text size {textSize}</sbb-title>,
     <p class={`sbb-text-${textSize}`}>{text}</p>,
   ]);
 
 const TextBoldTemplate = () =>
   ['xxs', 'xs', 's', 'm', 'l', 'xl'].map((textSize) => [
-    <h3>Text size {textSize}</h3>,
+    <sbb-title level="3">Text size {textSize}</sbb-title>,
     <p class={`sbb-text-${textSize} sbb-text-bold`}>{text}</p>,
-  ]);
-
-const TitleTemplate = () =>
-  ['1', '2', '3', '4', '5', '6'].map((textSize) => [
-    <h3 class={`sbb-title-${textSize}`}>Title size {textSize}</h3>,
   ]);
 
 export const Text = TextTemplate.bind({});
 export const TextBold = TextBoldTemplate.bind({});
-export const Title = TitleTemplate.bind({});
 
 export default {
   decorators: [
