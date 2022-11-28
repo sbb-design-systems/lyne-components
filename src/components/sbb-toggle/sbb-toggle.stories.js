@@ -81,12 +81,8 @@ const defaultArgs = {
 };
 
 const toggleOption = (args) => [
-  <sbb-toggle-option disabled={args.disabled} icon-name={args.iconName} value={args.value1}>
-    option-1-option-1-option-1-option-1-option-1-option-1-option-1-option-1-
-  </sbb-toggle-option>,
-  <sbb-toggle-option disabled={args.disabled} icon-name={args.iconName} value={args.value2}>
-    option-2
-  </sbb-toggle-option>,
+  <sbb-toggle-option disabled={args.disabled} icon-name={args.iconName} value={args.value1} />,
+  <sbb-toggle-option disabled={args.disabled} icon-name={args.iconName} value={args.value2} />,
 ];
 
 const DefaultTemplate = (args) => <sbb-toggle {...args}>{toggleOption(args)}</sbb-toggle>;
@@ -95,6 +91,18 @@ export const sbbToggle = DefaultTemplate.bind({});
 sbbToggle.args = { ...defaultArgs, value1: 'option-1', value2: 'option-2' };
 sbbToggle.argTypes = { ...defaultArgTypes, value1, value2 };
 sbbToggle.documentation = {
+  title: 'sbb-toggle',
+};
+
+export const sbbToggleLongLabel = DefaultTemplate.bind({});
+sbbToggleLongLabel.args = {
+  ...defaultArgs,
+  value1: 'option-1',
+  value2:
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+};
+sbbToggleLongLabel.argTypes = { ...defaultArgTypes, value1, value2 };
+sbbToggleLongLabel.documentation = {
   title: 'sbb-toggle',
 };
 
