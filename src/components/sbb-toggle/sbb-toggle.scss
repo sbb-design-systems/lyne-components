@@ -8,6 +8,8 @@
   --sbb-toggle-option-max-width: 100%;
   --sbb-toggle-option-text-color: var(--sbb-color-anthracite-default);
   --sbb-toggle-selected-option-text-color: var(--sbb-color-charcoal-default);
+  --sbb-toggle-selected-option-background-color: var(--sbb-color-white-default);
+  --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke-default);
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-toggle-cursor: pointer;
@@ -31,6 +33,8 @@
 :host([disabled]) {
   --sbb-toggle-option-text-color: var(--sbb-color-graphite-default);
   --sbb-toggle-selected-option-text-color: var(--sbb-color-graphite-default);
+  --sbb-toggle-selected-option-background-color: var(--sbb-color-milk-default);
+  --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite-default);
   --sbb-toggle-cursor: unset;
 }
 
@@ -62,17 +66,18 @@
 
   &::after {
     content: '';
-    @include text-xs--bold;
-
     color: transparent;
     padding-inline: var(--sbb-toggle-padding-inline);
     display: inline-block;
-    background-color: var(--sbb-color-white-default);
+    background-color: var(--sbb-toggle-selected-option-background-color);
+    border: var(--sbb-border-width-1x) solid var(--sbb-toggle-selected-option-border-color);
     border-radius: var(--sbb-border-radius-16x);
     position: absolute;
     max-width: 100%;
-    top: #{px-to-rem-build(2)};
-    bottom: #{px-to-rem-build(2)};
+
+    // selected option exceeds toggle dimensions by 2x border width
+    top: calc(-2 * var(--sbb-border-width-1x));
+    bottom: calc(-2 * var(--sbb-border-width-1x));
     left: var(--sbb-toggle-option-left);
     right: var(--sbb-toggle-option-right);
     transition: all var(--sbb-animation-duration-6x) ease-in;
