@@ -6,11 +6,26 @@
 // is necessary so the changes get reflected in the global CSS (sbb-components.css)
 //
 // This is a known and unsolved stencil-sass bug: see
+// https://github.com/ionic-team/stencil/issues/2635
 // https://github.com/ionic-team/stencil-sass/issues/8
 // https://github.com/ionic-team/stencil-sass/issues/15
 //
 // *****************************************************************************
 
-// Lists all globally defined and inheritable properties. Each component inherits
-// those through the CSS cascade by default
-@import 'core/shared/inherited.scss';
+// Font face declaration
+@import 'font-face.scss';
+
+// Normalize (modern normalize) appearance
+@import 'normalize.scss';
+
+// Import mixins
+@import 'mixins.scss';
+
+// Import typography
+@import 'typography.scss';
+
+// Core variables, are always needed
+:root {
+  // Core variables for :root context
+  @include lyne-components-css-vars;
+}

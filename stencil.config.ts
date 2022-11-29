@@ -8,7 +8,7 @@ import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from
 import ts from 'typescript';
 
 export const config: Config = {
-  globalStyle: 'src/global/global.shared.scss',
+  globalStyle: 'src/global/styles/global.scss',
   namespace: 'lyne-components',
   sourceMap: true,
   outputTargets: [
@@ -45,11 +45,11 @@ export const config: Config = {
     inlineSvg(),
     sass({
       injectGlobalPaths: [
-        'src/global/core/components/utilities.scss',
-        'src/global/functions.scss',
-        'src/global/mediaqueries.scss',
-        'src/global/mixins.scss',
-        'src/global/core/shared/variables.scss',
+        'src/global/styles/component-utilities.scss',
+        'src/global/styles/functions.scss',
+        'src/global/styles/mediaqueries.scss',
+        'src/global/styles/mixins.scss',
+        'src/global/styles/variables.scss',
         'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--placeholder.scss',
       ],
     }),
