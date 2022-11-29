@@ -10,7 +10,7 @@ import {
   Prop,
   Watch,
 } from '@stencil/core';
-import { InterfaceSbbToggleOption } from '../sbb-toggle-option/sbb-toggle-option.custom';
+import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
 
 let nextId = 0;
 
@@ -30,14 +30,9 @@ export class SbbToggle {
   @Prop() public sbbToggleId = `sbb-toggle-${++nextId}`;
 
   /**
-   * Id of the toggle element - default name will be auto-generated.
-   */
-  @Prop() public name?: string = `${this.sbbToggleId}-name`;
-
-  /**
    * Whether the toggle is disabled.
    */
-  @Prop({ reflect: true }) public disabled = false;
+  @Prop() public disabled = false;
 
   /**
    * Set the width of the component.
@@ -47,26 +42,61 @@ export class SbbToggle {
   /**
    * Size variant, either m or s.
    */
-  @Prop() public size?: InterfaceSbbToggleOption['size'] = 'm';
+  @Prop() public size?: InterfaceSbbToggleAttributes['size'] = 'm';
 
   /**
    * The value of the toggle.
    */
   @Prop({ mutable: true, reflect: true }) public value: any | null;
 
+  @Element() private _element: HTMLElement;
+
   private _toggleElement: HTMLElement;
 
-  private get _options(): InterfaceSbbToggleOption[] {
-    return Array.from(
-      this._element.querySelectorAll('sbb-toggle-option')
-    ) as InterfaceSbbToggleOption[];
+  @Watch('value')
+  public valueChanged(value: any | undefined): void {
+    for (const toggleOption of this._options) {
+      toggleOption.checked = toggleOption.value === value;
+      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
+    }
+    this._setFocusableOption();
+    this._setCheckedPillPosition();
+    this.didChange.emit({ value });
   }
 
-  private get _checked(): InterfaceSbbToggleOption {
+  @Watch('disabled')
+  public updateDisabled(): void {
+    for (const toggleOption of this._options) {
+      toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
+      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
+    }
+    this._setFocusableOption();
+  }
+
+  /**
+   * Emits whenever the toggle value changes.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'sbb-toggle_did-change',
+  })
+  public didChange: EventEmitter<any>;
+
+  private get _options(): HTMLSbbToggleOptionElement[] {
+    return Array.from(
+      this._element.querySelectorAll('sbb-toggle-option')
+    ) as HTMLSbbToggleOptionElement[];
+  }
+
+  private get _checked(): HTMLSbbToggleOptionElement {
     return this._options.find((toggle) => toggle.checked);
   }
 
-  @Element() private _element!: HTMLElement;
+  @Listen('sbb-toggle-option_did-select', { passive: true })
+  public onToggleOptionSelect(event: CustomEvent<Set<string>>): void {
+    this.value = event.detail;
+  }
 
   @Listen('resize', { target: 'window', passive: true })
   private _setCheckedPillPosition(): void {
@@ -87,32 +117,6 @@ export class SbbToggle {
       '--sbb-toggle-option-right',
       `${this._toggleElement.clientWidth - (checked?.offsetLeft + checked?.clientWidth) - 2}px`
     );
-  }
-
-  @Watch('value')
-  public valueChanged(value: any | undefined): void {
-    for (const toggleOption of this._options) {
-      toggleOption.checked = toggleOption.value === value;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
-    }
-    this._setFocusableOption();
-    this._setCheckedPillPosition();
-    this.didChange.emit({ value });
-  }
-
-  /**
-   * Emits whenever the toggle value changes.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'sbb-toggle_did-change',
-  })
-  public didChange: EventEmitter<any>;
-
-  @Listen('sbb-toggle-option_did-select', { passive: true })
-  public onToggleOptionSelect(event: CustomEvent<Set<string>>): void {
-    this.value = event.detail;
   }
 
   public componentDidLoad(): void {
@@ -138,13 +142,13 @@ export class SbbToggle {
     }
   }
 
-  private _getOptionTabIndex(option: InterfaceSbbToggleOption): number {
+  private _getOptionTabIndex(option: HTMLSbbToggleOptionElement): number {
     return option.checked && !option.disabled && !this.disabled ? 0 : -1;
   }
 
   public render(): JSX.Element {
     return (
-      <Host aria-label={this.name}>
+      <Host>
         <div class="sbb-toggle" ref={(toggle) => (this._toggleElement = toggle)}>
           <slot onSlotchange={() => this._updateToggle()} />
         </div>
