@@ -1,4 +1,4 @@
-jest.mock('../../global/guid');
+jest.mock('./guid');
 
 import { SbbAccordionItem } from './sbb-accordion-item';
 import { newSpecPage } from '@stencil/core/testing';
