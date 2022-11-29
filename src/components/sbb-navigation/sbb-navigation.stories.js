@@ -52,5 +52,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/menu/sbb-navigation',
+  title: 'components/navigation/sbb-navigation',
 };
