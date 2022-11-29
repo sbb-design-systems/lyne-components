@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.4](https://github.com/lyne-design-system/lyne-components/compare/v0.15.3...v0.15.4) (2022-11-29)
+
+### Bug Fixes
+
+- remove Firefox focus outline rule from normalize ([#1471](https://github.com/lyne-design-system/lyne-components/issues/1471)) ([3b61a40](https://github.com/lyne-design-system/lyne-components/commit/3b61a40923463db12edfb87509c7e7f25ad3df5f))
+
+### Documentation
+
+- fix snippets in readme ([#1470](https://github.com/lyne-design-system/lyne-components/issues/1470)) ([0b62fc5](https://github.com/lyne-design-system/lyne-components/commit/0b62fc5c33b5cfa81aa1343f064653fedbf03601))
+
 ### [0.15.3](https://github.com/lyne-design-system/lyne-components/compare/v0.15.2...v0.15.3) (2022-11-29)
 
 ### Features
