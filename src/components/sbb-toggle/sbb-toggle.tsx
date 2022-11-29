@@ -54,7 +54,7 @@ export class SbbToggle {
   /**
    * Size variant, either m or s.
    */
-  @Prop() public size?: InterfaceSbbToggleOption['size'] = 'm';
+  @Prop() public size?: InterfaceSbbToggleAttributes['size'] = 'm';
 
   /**
    * The value of the toggle.

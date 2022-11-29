@@ -49,6 +49,7 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
+import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
@@ -1666,7 +1667,7 @@ export namespace Components {
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbToggleOption['size'];
+        "size"?: InterfaceSbbToggleAttributes['size'];
         /**
           * The value of the toggle.
          */
@@ -3991,7 +3992,7 @@ declare namespace LocalJSX {
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbToggleOption['size'];
+        "size"?: InterfaceSbbToggleAttributes['size'];
         /**
           * The value of the toggle.
          */
