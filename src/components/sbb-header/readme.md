@@ -13,6 +13,7 @@ A box-shadow appears under the component if the `shadow` variable is set to `tru
 consumers could provide their own logic to set this variable to `true` when the page scrolls down,
 and to `false` when the scroll is at page's top.
 To achieve this in Storybook, these lines have been added in the configuration file called `preview-head.html`:
+
 ```javascript
 <script>
   const headerScrollHandler = () => {

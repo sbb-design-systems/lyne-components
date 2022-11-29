@@ -14,6 +14,7 @@ The component can display one or more `<sbb-form-error>` components right below 
 ## Usage
 
 Basic usage:
+
 ```html
 <sbb-checkbox-group>
   <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
@@ -23,6 +24,7 @@ Basic usage:
 ```
 
 Required `sbb-checkbox-group` with error message:
+
 ```html
 <!-- All the child checkboxes will be marked as required-->
 <sbb-checkbox-group required>
@@ -34,6 +36,7 @@ Required `sbb-checkbox-group` with error message:
 ```
 
 Disabled `sbb-checkbox-group` with vertical orientation below `large` breakpoint and horizontal above:
+
 ```html
 <!-- All the child checkboxes will be disabled-->
 <sbb-checkbox-group disabled orientation="vertical" horizontal-from="large">

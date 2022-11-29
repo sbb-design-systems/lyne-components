@@ -23,6 +23,7 @@ Example props:  priceProp: {price:'12', text: 'CHF', isDiscount: true} <br>
                       },
                     },
                   ],
+                }
 
 ```html
 <sbb-timetable-row accessibility-label="label" disable-animation={false} loading-price={false} loading-trip={false} 
