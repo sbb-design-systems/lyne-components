@@ -8,7 +8,6 @@ import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from
 import ts from 'typescript';
 
 export const config: Config = {
-  globalScript: 'src/global/global.ts',
   globalStyle: 'src/global/global.shared.scss',
   namespace: 'lyne-components',
   sourceMap: true,
