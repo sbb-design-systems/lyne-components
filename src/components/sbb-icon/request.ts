@@ -1,8 +1,9 @@
 import { validateContent } from './validate';
 
-export const iconNamespaces = new Map<string, string>([
-  ['sbb', 'https://d1s1onrtynjaa8.cloudfront.net/icons/'],
-]);
+const iconCdn = 'https://d1s1onrtynjaa8.cloudfront.net/';
+export const iconNamespaces = new Map<string, string>()
+  .set('default', `${iconCdn}icons/`)
+  .set('picto', `${iconCdn}pictograms/`);
 export const registeredIcons = new Map<string, string>();
 const requests = new Map<string, Promise<any>>();
 

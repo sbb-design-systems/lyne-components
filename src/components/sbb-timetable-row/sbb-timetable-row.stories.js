@@ -176,7 +176,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.sbbClick],
+      handles: [events.click],
     },
     docs: {
       extractComponentDescription: () => readme,

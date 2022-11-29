@@ -120,7 +120,7 @@ export class SbbDialog implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_will-open',
+    eventName: 'will-open',
   })
   public willOpen: EventEmitter<void>;
 
@@ -130,7 +130,7 @@ export class SbbDialog implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_did-open',
+    eventName: 'did-open',
   })
   public didOpen: EventEmitter<void>;
 
@@ -140,7 +140,7 @@ export class SbbDialog implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_will-close',
+    eventName: 'will-close',
   })
   public willClose: EventEmitter<any>;
 
@@ -150,7 +150,7 @@ export class SbbDialog implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_did-close',
+    eventName: 'did-close',
   })
   public didClose: EventEmitter<any>;
 
@@ -160,7 +160,7 @@ export class SbbDialog implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-dialog_request-back-action',
+    eventName: 'request-back-action',
   })
   public backClick: EventEmitter<void>;
 

@@ -15,6 +15,8 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
+import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -31,8 +33,8 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-import { InterfaceSbbRadioButton } from "./components/sbb-radio-button/sbb-radio-button.custom";
-import { InterfaceSbbRadioButtonGroup } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
+import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
@@ -480,6 +482,82 @@ export namespace Components {
           * The value attribute to use for the button
          */
         "value"?: string;
+    }
+    interface SbbCheckbox {
+        /**
+          * The aria-describedby prop for the hidden input.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * The aria-label prop for the hidden input.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * The aria-labelledby prop for the hidden input.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "checkboxId": string;
+        /**
+          * Whether the checkbox is checked.
+         */
+        "checked": boolean;
+        /**
+          * Whether the checkbox is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+         */
+        "iconName"?: string;
+        /**
+          * The label position relative to the labelIcon. Defaults to end
+         */
+        "iconPlacement": InterfaceSbbCheckboxAttributes['iconPlacement'];
+        /**
+          * Whether the checkbox is indeterminate.
+         */
+        "indeterminate": boolean;
+        /**
+          * Whether the checkbox is required.
+         */
+        "required": boolean;
+        /**
+          * Label size variant, either m or s.
+         */
+        "size": InterfaceSbbCheckboxAttributes['size'];
+        /**
+          * Value of checkbox.
+         */
+        "value"?: string;
+    }
+    interface SbbCheckboxGroup {
+        /**
+          * Id of the checkbox group element.
+         */
+        "checkboxGroupId": string;
+        /**
+          * Whether the checkbox group is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
+        /**
+          * Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`.
+         */
+        "orientation": InterfaceSbbCheckboxGroupAttributes['orientation'];
+        /**
+          * Whether the checkbox group is required.
+         */
+        "required": boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size": InterfaceSbbCheckboxGroupAttributes['size'];
     }
     interface SbbClock {
         /**
@@ -1106,7 +1184,7 @@ export namespace Components {
         /**
           * Label size variant, either m or s.
          */
-        "size": InterfaceSbbRadioButton['size'];
+        "size": InterfaceSbbRadioButtonAttributes['size'];
         /**
           * Value of radio button.
          */
@@ -1124,11 +1202,11 @@ export namespace Components {
         /**
           * Overrides the behaviour of `orientation` property.
          */
-        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroupAttributes['horizontalFrom'];
         /**
           * Radio group's orientation, either horizontal or vertical.
          */
-        "orientation": InterfaceSbbRadioButtonGroup['orientation'];
+        "orientation": InterfaceSbbRadioButtonGroupAttributes['orientation'];
         /**
           * Id of the radio group element.
          */
@@ -1140,7 +1218,7 @@ export namespace Components {
         /**
           * Size variant, either m or s.
          */
-        "size": InterfaceSbbRadioButtonGroup['size'];
+        "size": InterfaceSbbRadioButtonGroupAttributes['size'];
         /**
           * The value of the radio group.
          */
@@ -1620,7 +1698,7 @@ export namespace Components {
         /**
           * The required prop for the required state.
          */
-        "required"?: boolean;
+        "required": boolean;
         /**
           * Value of toggle-check.
          */
@@ -1759,10 +1837,6 @@ export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTimetableRowElement;
 }
-export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbToggleCheckElement;
-}
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTooltipElement;
@@ -1833,6 +1907,18 @@ declare global {
     var HTMLSbbCardProductElement: {
         prototype: HTMLSbbCardProductElement;
         new (): HTMLSbbCardProductElement;
+    };
+    interface HTMLSbbCheckboxElement extends Components.SbbCheckbox, HTMLStencilElement {
+    }
+    var HTMLSbbCheckboxElement: {
+        prototype: HTMLSbbCheckboxElement;
+        new (): HTMLSbbCheckboxElement;
+    };
+    interface HTMLSbbCheckboxGroupElement extends Components.SbbCheckboxGroup, HTMLStencilElement {
+    }
+    var HTMLSbbCheckboxGroupElement: {
+        prototype: HTMLSbbCheckboxGroupElement;
+        new (): HTMLSbbCheckboxGroupElement;
     };
     interface HTMLSbbClockElement extends Components.SbbClock, HTMLStencilElement {
     }
@@ -2200,6 +2286,8 @@ declare global {
         "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-card-product": HTMLSbbCardProductElement;
+        "sbb-checkbox": HTMLSbbCheckboxElement;
+        "sbb-checkbox-group": HTMLSbbCheckboxGroupElement;
         "sbb-clock": HTMLSbbClockElement;
         "sbb-dialog": HTMLSbbDialogElement;
         "sbb-divider": HTMLSbbDividerElement;
@@ -2348,15 +2436,15 @@ declare namespace LocalJSX {
         /**
           * Emits when the fade in animation ends and the button is displayed.
          */
-        "onSbb-alert_did-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onDid-present"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Emits when dismissal of an alert was requested.
          */
-        "onSbb-alert_dismissal-requested"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onDismissal-requested"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Emits when the fade in animation starts.
          */
-        "onSbb-alert_will-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onWill-present"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
@@ -2394,11 +2482,11 @@ declare namespace LocalJSX {
         /**
           * Emits when an alert was removed from DOM.
          */
-        "onSbb-alert-group_did-dismiss-alert"?: (event: SbbAlertGroupCustomEvent<HTMLSbbAlertElement>) => void;
+        "onDid-dismiss-alert"?: (event: SbbAlertGroupCustomEvent<HTMLSbbAlertElement>) => void;
         /**
           * Emits when `sbb-alert-group` becomes empty.
          */
-        "onSbb-alert-group_empty"?: (event: SbbAlertGroupCustomEvent<void>) => void;
+        "onEmpty"?: (event: SbbAlertGroupCustomEvent<void>) => void;
         /**
           * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
          */
@@ -2708,6 +2796,82 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbCheckbox {
+        /**
+          * The aria-describedby prop for the hidden input.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * The aria-label prop for the hidden input.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * The aria-labelledby prop for the hidden input.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "checkboxId"?: string;
+        /**
+          * Whether the checkbox is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * Whether the checkbox is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+         */
+        "iconName"?: string;
+        /**
+          * The label position relative to the labelIcon. Defaults to end
+         */
+        "iconPlacement"?: InterfaceSbbCheckboxAttributes['iconPlacement'];
+        /**
+          * Whether the checkbox is indeterminate.
+         */
+        "indeterminate"?: boolean;
+        /**
+          * Whether the checkbox is required.
+         */
+        "required"?: boolean;
+        /**
+          * Label size variant, either m or s.
+         */
+        "size"?: InterfaceSbbCheckboxAttributes['size'];
+        /**
+          * Value of checkbox.
+         */
+        "value"?: string;
+    }
+    interface SbbCheckboxGroup {
+        /**
+          * Id of the checkbox group element.
+         */
+        "checkboxGroupId"?: string;
+        /**
+          * Whether the checkbox group is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Overrides the behaviour of `orientation` property.
+         */
+        "horizontalFrom"?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
+        /**
+          * Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`.
+         */
+        "orientation"?: InterfaceSbbCheckboxGroupAttributes['orientation'];
+        /**
+          * Whether the checkbox group is required.
+         */
+        "required"?: boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbCheckboxGroupAttributes['size'];
+    }
     interface SbbClock {
         /**
           * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
@@ -2754,23 +2918,23 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the dialog is closed.
          */
-        "onSbb-dialog_did-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        "onDid-close"?: (event: SbbDialogCustomEvent<any>) => void;
         /**
           * Emits whenever the dialog is opened.
          */
-        "onSbb-dialog_did-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Emits whenever the back button is clicked.
          */
-        "onSbb-dialog_request-back-action"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onRequest-back-action"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Emits whenever the dialog begins the closing transition.
          */
-        "onSbb-dialog_will-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        "onWill-close"?: (event: SbbDialogCustomEvent<any>) => void;
         /**
           * Emits whenever the dialog starts the opening transition.
          */
-        "onSbb-dialog_will-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Whether a back button is displayed next to the title.
          */
@@ -3181,19 +3345,19 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the menu is closed.
          */
-        "onSbb-menu_did-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onDid-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu is opened.
          */
-        "onSbb-menu_did-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu begins the closing transition.
          */
-        "onSbb-menu_will-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onWill-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu starts the opening transition.
          */
-        "onSbb-menu_will-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -3340,7 +3504,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the radio group value changes.
          */
-        "onSbb-radio-button_did-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
+        "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -3352,7 +3516,7 @@ declare namespace LocalJSX {
         /**
           * Label size variant, either m or s.
          */
-        "size"?: InterfaceSbbRadioButton['size'];
+        "size"?: InterfaceSbbRadioButtonAttributes['size'];
         /**
           * Value of radio button.
          */
@@ -3370,7 +3534,7 @@ declare namespace LocalJSX {
         /**
           * Overrides the behaviour of `orientation` property.
          */
-        "horizontalFrom"?: InterfaceSbbRadioButtonGroup['horizontalFrom'];
+        "horizontalFrom"?: InterfaceSbbRadioButtonGroupAttributes['horizontalFrom'];
         /**
           * Emits whenever the radio group value changes.
          */
@@ -3378,7 +3542,7 @@ declare namespace LocalJSX {
         /**
           * Radio group's orientation, either horizontal or vertical.
          */
-        "orientation"?: InterfaceSbbRadioButtonGroup['orientation'];
+        "orientation"?: InterfaceSbbRadioButtonGroupAttributes['orientation'];
         /**
           * Id of the radio group element.
          */
@@ -3390,7 +3554,7 @@ declare namespace LocalJSX {
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbRadioButtonGroup['size'];
+        "size"?: InterfaceSbbRadioButtonGroupAttributes['size'];
         /**
           * The value of the radio group.
          */
@@ -3530,7 +3694,7 @@ declare namespace LocalJSX {
         /**
           * Emits an event on selected tab change
          */
-        "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
+        "onDid-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
     }
     interface SbbTabTitle {
         /**
@@ -3730,7 +3894,7 @@ declare namespace LocalJSX {
         /**
           * This click event gets emitted when the user clicks on the component.
          */
-        "onSbb-timetable-row_click"?: (event: SbbTimetableRowCustomEvent<any>) => void;
+        "onClick"?: (event: SbbTimetableRowCustomEvent<any>) => void;
         /**
           * The price Prop, which consists of the data for the badge.
          */
@@ -3843,7 +4007,7 @@ declare namespace LocalJSX {
         /**
           * The disabled prop for the disabled state.
          */
-        "disabled": boolean;
+        "disabled"?: boolean;
         /**
           * The svg name for the true state - default -> 'tick-small'
          */
@@ -3860,10 +4024,6 @@ declare namespace LocalJSX {
           * Name of the toggle-check.
          */
         "name"?: string;
-        /**
-          * Emits whenever the selection has changed.
-         */
-        "onSbbChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
         /**
           * The required prop for the required state.
          */
@@ -3893,19 +4053,19 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the tooltip is closed.
          */
-        "onSbb-tooltip_did-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        "onDid-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
           * Emits whenever the tooltip is opened.
          */
-        "onSbb-tooltip_did-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
           * Emits whenever the tooltip begins the closing transition.
          */
-        "onSbb-tooltip_will-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        "onWill-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
           * Emits whenever the tooltip starts the opening transition.
          */
-        "onSbb-tooltip_will-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
           * Open the tooltip after a certain delay.
          */
@@ -3989,6 +4149,8 @@ declare namespace LocalJSX {
         "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
         "sbb-card-product": SbbCardProduct;
+        "sbb-checkbox": SbbCheckbox;
+        "sbb-checkbox-group": SbbCheckboxGroup;
         "sbb-clock": SbbClock;
         "sbb-dialog": SbbDialog;
         "sbb-divider": SbbDivider;
@@ -4065,6 +4227,8 @@ declare module "@stencil/core" {
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
+            "sbb-checkbox": LocalJSX.SbbCheckbox & JSXBase.HTMLAttributes<HTMLSbbCheckboxElement>;
+            "sbb-checkbox-group": LocalJSX.SbbCheckboxGroup & JSXBase.HTMLAttributes<HTMLSbbCheckboxGroupElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
             "sbb-dialog": LocalJSX.SbbDialog & JSXBase.HTMLAttributes<HTMLSbbDialogElement>;
             "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;

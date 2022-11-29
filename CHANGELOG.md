@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.2](https://github.com/lyne-design-system/lyne-components/compare/v0.15.1...v0.15.2) (2022-11-28)
+
+### [0.15.1](https://github.com/lyne-design-system/lyne-components/compare/v0.15.0...v0.15.1) (2022-11-28)
+
+### Bug Fixes
+
+- **sbb-radio-button:** remove red dot on low resolution screens ([#1469](https://github.com/lyne-design-system/lyne-components/issues/1469)) ([8854dc0](https://github.com/lyne-design-system/lyne-components/commit/8854dc0c029de614ee12d5f5128d2ed31279eecc))
+
+## [0.15.0](https://github.com/lyne-design-system/lyne-components/compare/v0.14.5...v0.15.0) (2022-11-28)
+
+### ⚠ BREAKING CHANGES
+
+- Event name prefixes are removed (e.g `sbb-alert-group_did-dismiss-alert` was renamed to `did-dismiss-alert`). If it is necessary to determine which element is the event origin, check the event context (e.g. event.target).
+
+### Features
+
+- remove event name prefixes ([#1466](https://github.com/lyne-design-system/lyne-components/issues/1466)) ([cdb5962](https://github.com/lyne-design-system/lyne-components/commit/cdb59620e07582e3c6887feaecca4f30bfbcaffa))
+
+### [0.14.5](https://github.com/lyne-design-system/lyne-components/compare/v0.14.4...v0.14.5) (2022-11-24)
+
+### Features
+
+- **sbb-icon:** add pictogram namespace ([#1463](https://github.com/lyne-design-system/lyne-components/issues/1463)) ([fcd2750](https://github.com/lyne-design-system/lyne-components/commit/fcd275003cf57ccb4b88e0faa616ccef5732470b))
+
+### [0.14.4](https://github.com/lyne-design-system/lyne-components/compare/v0.14.3...v0.14.4) (2022-11-23)
+
+### Features
+
+- **sbb-checkbox:** component implementation ([#1294](https://github.com/lyne-design-system/lyne-components/issues/1294)) ([3599d6e](https://github.com/lyne-design-system/lyne-components/commit/3599d6e0d208bd085d9656b34293f6152dc73b19))
+
 ### [0.14.3](https://github.com/lyne-design-system/lyne-components/compare/v0.14.2...v0.14.3) (2022-11-18)
 
 ### Features

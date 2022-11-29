@@ -9,21 +9,23 @@ const getBreakpointTokens = () =>
     (token) => token.path.includes('breakpoint') && token.attributes.item === 'min'
   );
 
+const ensureBounds = (breakpoint) => {
+  if (breakpoint > 1800) {
+    return 1800;
+  } else if (breakpoint < 320) {
+    return 320;
+  }
+
+  return breakpoint;
+};
+
 const getViewports = () => {
   /**
    * CHROMATIC RESTRICTIONS:
    * - min allowed value = 320
    * - max allowed value = 1800
    */
-  return getBreakpointTokens().map((breakpoint) => {
-    if (breakpoint.value > 1800) {
-      return 1800;
-    } else if (breakpoint.value < 320) {
-      return 320;
-    }
-
-    return breakpoint.value;
-  });
+  return getBreakpointTokens().map((breakpoint) => ensureBounds(breakpoint.value));
 };
 
 const getBreakpointNames = () => {
@@ -36,6 +38,18 @@ const getBreakpointNames = () => {
   return breakpointNames;
 };
 
+const getStorybookViewports = () =>
+  getBreakpointTokens().reduce((viewports, breakpoint) => {
+    viewports[breakpoint.attributes.type] = {
+      name: `Breakpoint ${breakpoint.attributes.type}`,
+      styles: {
+        width: `${ensureBounds(breakpoint.value)}px`,
+        height: '',
+      },
+    };
+    return viewports;
+  }, {});
+
 export const parameters = {
   // Set the viewports in Chromatic globally.
   chromatic: {
@@ -46,6 +60,7 @@ export const parameters = {
     breakpointNames: getBreakpointNames(),
     debounceTimeout: 10,
   },
+  viewport: { viewports: getStorybookViewports() },
   options: {
     storySort: {
       // Story section order.
@@ -55,6 +70,7 @@ export const parameters = {
         ['home', 'home personalized'],
         'components',
         ['*', 'form elements', 'timetable', 'cards', 'layout'],
+        'styles',
         'brand elements',
         '*',
         'internals',

@@ -117,10 +117,12 @@ sbbToggleCheckDefault.documentation = {
 
 export default {
   title: 'components/form elements/sbb-toggle-check',
-
   parameters: {
     backgrounds: {
       disable: true,
+    },
+    actions: {
+      handles: ['change'],
     },
     docs: {
       extractComponentDescription: () => readme,

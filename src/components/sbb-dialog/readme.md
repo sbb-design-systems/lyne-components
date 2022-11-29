@@ -30,12 +30,19 @@ In order to show a modal you need to call the `open(event?: PointerEvent)` metho
 </script>
 ```
 
-Note that it is necessary to pass the event object to the `open()` method to allow the dialog to detect whether it has been opened by click or keyboard, so that the focus can be better handled.
+Note that it is necessary to pass the event object to the `open()` method to allow the dialog to detect whether it has 
+been opened by click or keyboard, so that the focus can be better handled.
 
-To dismiss the dialog you need to get a reference to the `sbb-dialog` element and call the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and emit a close event with an optional result as a payload. You can also indicate that an element within the dialog content should close the dialog when clicked by marking it with the `sbb-dialog-close` attribute.
+To dismiss the dialog you need to get a reference to the `sbb-dialog` element and call 
+the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and emit a close event 
+with an optional result as a payload. You can also indicate that an element within the dialog content should close 
+the dialog when clicked by marking it with the `sbb-dialog-close` attribute.
 
 ### Usage notes
-The dialog title can be provided via the `titleContent` property and via slot `name="title"` (e.g. `<span slot="title">My dialog title</span>`). You can also set the property `titleBackButton` to display the back button in the title section (or content section, if title is omitted) which will emit the event `sbb-dialog_request-back-action` when clicked. 
+The dialog title can be provided via the `titleContent` property and via slot `name="title"` 
+(e.g. `<span slot="title">My dialog title</span>`). 
+You can also set the property `titleBackButton` to display the back button in the title section 
+(or content section, if title is omitted) which will emit the event `request-back-action` when clicked. 
 
 ```html
 // Title provided via property
@@ -52,10 +59,13 @@ The dialog title can be provided via the `titleContent` property and via slot `n
 </sbb-dialog>
 ```
 
-If the title is not provided, the dialog will be displayed in full-screen mode and the close button will be displayed in the content section along with the back button (if visible). Also note that if the title is not present, but the footer is provided, the footer will not be displayed.
+If the title is not provided, the dialog will be displayed in full-screen mode and the close button will be displayed 
+in the content section along with the back button (if visible). 
+Also note that if the title is not present, but the footer is provided, the footer will not be displayed.
 
 ## Accessibility
-The ARIA attributes `aria-labelledby` an `aria-describedby` can be set to improve accessibility. If `aria-labelledby` is empty, it will automatically be added with the `id` of the title element.
+The ARIA attributes `aria-labelledby` an `aria-describedby` can be set to improve accessibility. 
+If `aria-labelledby` is empty, it will automatically be added with the `id` of the title element.
 
 <!-- Auto Generated Below -->
 
@@ -80,13 +90,13 @@ The ARIA attributes `aria-labelledby` an `aria-describedby` can be set to improv
 
 ## Events
 
-| Event                            | Description                                              | Type                |
-| -------------------------------- | -------------------------------------------------------- | ------------------- |
-| `sbb-dialog_did-close`           | Emits whenever the dialog is closed.                     | `CustomEvent<any>`  |
-| `sbb-dialog_did-open`            | Emits whenever the dialog is opened.                     | `CustomEvent<void>` |
-| `sbb-dialog_request-back-action` | Emits whenever the back button is clicked.               | `CustomEvent<void>` |
-| `sbb-dialog_will-close`          | Emits whenever the dialog begins the closing transition. | `CustomEvent<any>`  |
-| `sbb-dialog_will-open`           | Emits whenever the dialog starts the opening transition. | `CustomEvent<void>` |
+| Event                 | Description                                              | Type                |
+| --------------------- | -------------------------------------------------------- | ------------------- |
+| `did-close`           | Emits whenever the dialog is closed.                     | `CustomEvent<any>`  |
+| `did-open`            | Emits whenever the dialog is opened.                     | `CustomEvent<void>` |
+| `request-back-action` | Emits whenever the back button is clicked.               | `CustomEvent<void>` |
+| `will-close`          | Emits whenever the dialog begins the closing transition. | `CustomEvent<any>`  |
+| `will-open`           | Emits whenever the dialog starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Methods

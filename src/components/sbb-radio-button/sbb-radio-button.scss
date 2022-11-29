@@ -4,9 +4,8 @@
 
 :host {
   --sbb-radio-button-label-color: var(--color-black-default);
-  --sbb-radio-button-checked-color: var(--sbb-color-red-default);
+  --sbb-radio-button-background-color: var(--sbb-color-white-default);
   --sbb-radio-button-border: var(--sbb-border-width-1x);
-  --sbb-radio-button-border-radius: var(--sbb-border-radius-8x);
   --sbb-radio-button-size: calc(var(--sbb-spacing-fixed-6x) - var(--sbb-radio-button-border) * 2);
 
   // Align radio button to the first row of the label based on the line-height so that it's vertically
@@ -25,7 +24,6 @@
 :host([data-group-disabled]),
 :host([disabled]) {
   --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
-  --sbb-radio-button-checked-color: var(--sbb-color-graphite-default);
 }
 
 .sbb-radio-button__input {
@@ -62,8 +60,8 @@
     flex-shrink: 0;
     width: var(--sbb-radio-button-size);
     height: var(--sbb-radio-button-size);
-    background: var(--sbb-radio-button-checked-color);
-    border-radius: var(--sbb-radio-button-border-radius);
+    background: var(--sbb-radio-button-background-color);
+    border-radius: 50%;
 
     // The border was used to generate the animation of the radio-button,
     // consequently the box-shadow was used as the actual border of the radio.
@@ -72,7 +70,11 @@
     margin-inline-end: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-radio-button-border));
     margin-inline-start: var(--sbb-radio-button-border);
     margin-block-start: var(--sbb-radio-button-icon-align);
-    transition: border var(--sbb-animation-duration-4x) ease;
+    transition: {
+      duration: var(--sbb-animation-duration-4x);
+      timing-function: ease;
+      property: background-color, border;
+    }
 
     :host([data-group-disabled]) &,
     :host([disabled]) & {
@@ -85,5 +87,12 @@
 
 // The checked style using the :checked pseudo class
 .sbb-radio-button__input:checked + .sbb-radio-button__label-slot::before {
+  --sbb-radio-button-background-color: var(--sbb-color-red-default);
+
   border-width: #{px-to-rem-build(6)};
+
+  :host([data-group-disabled]) &,
+  :host([disabled]) & {
+    --sbb-radio-button-background-color: var(--sbb-color-graphite-default);
+  }
 }
