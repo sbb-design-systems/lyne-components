@@ -5,15 +5,14 @@
 
 ## Properties
 
-| Property         | Attribute          | Description                                                              | Type         | Default                           |
-| ---------------- | ------------------ | ------------------------------------------------------------------------ | ------------ | --------------------------------- |
-| `checked`        | `checked`          | Whether the toggle-option is checked.                                    | `boolean`    | `false`                           |
-| `disabled`       | `disabled`         | Whether the toggle option is disabled.                                   | `boolean`    | `false`                           |
-| `iconName`       | `icon-name`        | Name of the icon for `<sbb-icon>`.                                       | `string`     | `undefined`                       |
-| `name`           | `name`             | Name of the toggle-option.                                               | `string`     | `undefined`                       |
-| `size`           | `size`             | Size variant, either m or s.                                             | `"m" \| "s"` | `'m'`                             |
-| `toggleOptionId` | `toggle-option-id` | Id of the internal input element - default id will be set automatically. | `string`     | ``sbb-toggle-option-${++nextId}`` |
-| `value`          | `value`            | Value of toggle-option.                                                  | `string`     | `undefined`                       |
+| Property         | Attribute          | Description                                                              | Type      | Default                           |
+| ---------------- | ------------------ | ------------------------------------------------------------------------ | --------- | --------------------------------- |
+| `checked`        | `checked`          | Whether the toggle-option is checked.                                    | `boolean` | `false`                           |
+| `disabled`       | `disabled`         | Whether the toggle option is disabled.                                   | `boolean` | `false`                           |
+| `iconName`       | `icon-name`        | Name of the icon for `<sbb-icon>`.                                       | `string`  | `undefined`                       |
+| `name`           | `name`             | Name of the toggle-option.                                               | `string`  | `undefined`                       |
+| `toggleOptionId` | `toggle-option-id` | Id of the internal input element - default id will be set automatically. | `string`  | ``sbb-toggle-option-${++nextId}`` |
+| `value`          | `value`            | Value of toggle-option.                                                  | `string`  | `undefined`                       |
 
 
 ## Events
