@@ -17,17 +17,3 @@ It also includes line-height, letter-spacing and font-family.
 ```html
 <p class="sbb-text-m">Text</p>
 ```
-
-# Titles
-
-Titles should mainly be used as the sbb-title component.
-Alternatively the styles are provided as sass mixins and css classes.
-
-| sass mixin | css class     |
-| ---------- | ------------- |
-| `title-1`  | `sbb-title-1` |
-| `title-2`  | `sbb-title-2` |
-| `title-3`  | `sbb-title-3` |
-| `title-4`  | `sbb-title-4` |
-| `title-5`  | `sbb-title-5` |
-| `title-6`  | `sbb-title-6` |
