@@ -2,9 +2,9 @@
 
 ## sbb-list
 
-| sass mixin | css class  |
+| css class  | sass mixin |
 | ---------- | ---------- |
-| `list`     | `sbb-list` |
+| `sbb-list` | `list`     |
 
 The list styling can be applied to any ordered or unordered list.
 Nesting lists is also supported without redefining the css class.
@@ -19,9 +19,9 @@ Nesting lists is also supported without redefining the css class.
 
 ## sbb-step-list
 
-| sass mixin  | css class       |
-| ----------- | --------------- |
-| `step-list` | `sbb-step-list` |
+| css class       | sass mixin  |
+| --------------- | ----------- |
+| `sbb-step-list` | `step-list` |
 
 The step list can only be used as ordered variant.
 To achieve a correct styling, it is important to also define the font-size
