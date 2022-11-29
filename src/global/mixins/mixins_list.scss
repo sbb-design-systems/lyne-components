@@ -12,7 +12,6 @@
 @mixin list {
   --sbb-list-vertical-gap: 0.75em;
   --sbb-list-padding-inline-start: 1.5em;
-  --sbb-list-disc-dimension: 0.3em;
 
   &,
   ul,
@@ -52,18 +51,20 @@
     > li {
       position: relative;
 
+      // Bullet point
       &::before {
-        content: '';
+        content: '\2022'; // •
         position: absolute;
-        display: block;
-        inset-block-start: calc(0.5em + 0.5 * var(--sbb-list-disc-dimension));
-        inset-inline-start: calc(
-          -1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5 * var(--sbb-list-disc-dimension))
-        );
-        height: var(--sbb-list-disc-dimension);
-        width: var(--sbb-list-disc-dimension);
-        background-color: currentcolor;
-        border-radius: 50%;
+        display: flex;
+        height: 1em;
+        width: 1em;
+        align-items: center;
+        justify-content: center;
+        inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-body-text) * 1em - 1em));
+        inset-inline-start: calc(-1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5em));
+
+        // Scale 1.3 to match Figma specs.
+        transform: scale(1.3);
       }
     }
   }
