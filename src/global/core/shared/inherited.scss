@@ -14,30 +14,6 @@ html {
   color: var(--sbb-font-default-color);
 }
 
-.sbb-title-1 {
-  @include title-1;
-}
-
-.sbb-title-2 {
-  @include title-2;
-}
-
-.sbb-title-3 {
-  @include title-3;
-}
-
-.sbb-title-4 {
-  @include title-4;
-}
-
-.sbb-title-5 {
-  @include title-5;
-}
-
-.sbb-title-6 {
-  @include title-6;
-}
-
 .sbb-text-xxs {
   @include text-xxs--regular;
 }
