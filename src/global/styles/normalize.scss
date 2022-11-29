@@ -12,7 +12,7 @@ Use a better box model (opinionated).
 @include box-sizing;
 
 /**
-1. Correct the line height in all browsers. ///// Commented out since we define own line-height in inherited.scss /////
+1. Correct the line height in all browsers. ///// Commented out since we define own line-height /////
 2. Prevent adjustments of font size after orientation changes in iOS.
 3. Use a more readable tab size (opinionated).
 */
@@ -32,7 +32,7 @@ Sections
 
 /**
 1. Remove the margin in all browsers.
-2. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) ///// Commented out since we define own default font-stack in inherited.scss /////
+2. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) ///// Commented out since we define own default font-stack /////
 */
 
 body {

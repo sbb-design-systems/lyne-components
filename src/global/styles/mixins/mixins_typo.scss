@@ -3,49 +3,52 @@
 // ----------------------------------------------------------------------------------------------------
 
 @mixin title {
+  --sbb-title-line-height: var(--sbb-typo-line-height-titles);
+
   margin: 0;
   font-family: var(--sbb-typo-type-face-sbb-bold);
   font-weight: normal;
-  line-height: var(--sbb-typo-line-height-titles);
+  line-height: var(--sbb-title-line-height);
   letter-spacing: var(--sbb-typo-letter-spacing-titles);
+  font-size: var(--sbb-title-font-size);
 }
 
 @mixin title-1 {
   @include title;
 
-  font-size: var(--sbb-font-size-title-1);
+  --sbb-title-font-size: var(--sbb-font-size-title-1);
 }
 
 @mixin title-2 {
   @include title;
 
-  font-size: var(--sbb-font-size-title-2);
+  --sbb-title-font-size: var(--sbb-font-size-title-2);
 }
 
 @mixin title-3 {
   @include title;
 
-  font-size: var(--sbb-font-size-title-3);
+  --sbb-title-font-size: var(--sbb-font-size-title-3);
 }
 
 @mixin title-4 {
   @include title;
 
-  font-size: var(--sbb-font-size-title-4);
+  --sbb-title-font-size: var(--sbb-font-size-title-4);
 }
 
 @mixin title-5 {
   @include title;
 
-  font-size: var(--sbb-font-size-title-5);
-  line-height: var(--sbb-typo-line-height-body-text);
+  --sbb-title-font-size: var(--sbb-font-size-title-5);
+  --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 }
 
 @mixin title-6 {
   @include title;
 
-  font-size: var(--sbb-font-size-title-6);
-  line-height: var(--sbb-typo-line-height-body-text);
+  --sbb-title-font-size: var(--sbb-font-size-title-6);
+  --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 }
 
 @mixin title--negative {
@@ -60,6 +63,7 @@
   font-weight: normal;
   line-height: var(--sbb-typo-line-height-body-text);
   letter-spacing: var(--sbb-typo-letter-spacing-body-text);
+  font-size: var(--sbb-text-font-size);
 }
 
 @mixin text--bold {
@@ -67,9 +71,8 @@
 }
 
 @mixin text-xl--regular {
+  --sbb-text-font-size: var(--sbb-font-size-text-xl);
   @include text;
-
-  font-size: var(--sbb-font-size-text-xl);
 }
 
 @mixin text-xl--bold {
@@ -78,9 +81,8 @@
 }
 
 @mixin text-l--regular {
+  --sbb-text-font-size: var(--sbb-font-size-text-l);
   @include text;
-
-  font-size: var(--sbb-font-size-text-l);
 }
 
 @mixin text-l--bold {
@@ -89,9 +91,8 @@
 }
 
 @mixin text-m--regular {
+  --sbb-text-font-size: var(--sbb-font-size-text-m);
   @include text;
-
-  font-size: var(--sbb-font-size-text-m);
 }
 
 @mixin text-m--bold {
@@ -100,9 +101,8 @@
 }
 
 @mixin text-s--regular {
+  --sbb-text-font-size: var(--sbb-font-size-text-s);
   @include text;
-
-  font-size: var(--sbb-font-size-text-s);
 }
 
 @mixin text-s--bold {
@@ -111,9 +111,8 @@
 }
 
 @mixin text-xs--regular {
+  --sbb-text-font-size: var(--sbb-font-size-text-xs);
   @include text;
-
-  font-size: var(--sbb-font-size-text-xs);
 }
 
 @mixin text-xs--bold {
@@ -122,9 +121,8 @@
 }
 
 @mixin text-xxs--regular {
+  --sbb-text-font-size: var(--sbb-font-size-text-xxs);
   @include text;
-
-  font-size: var(--sbb-font-size-text-xxs);
 }
 
 @mixin text-xxs--bold {

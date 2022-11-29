@@ -1,0 +1,46 @@
+html {
+  @include text;
+
+  color: var(--sbb-font-default-color);
+}
+
+// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
+::placeholder {
+  color: var(--sbb-color-metal-default);
+}
+
+.sbb-text-xxs {
+  @include text-xxs--regular;
+}
+
+.sbb-text-xs {
+  @include text-xs--regular;
+}
+
+.sbb-text-s {
+  @include text-s--regular;
+}
+
+.sbb-text-m {
+  @include text-m--regular;
+}
+
+.sbb-text-l {
+  @include text-l--regular;
+}
+
+.sbb-text-xl {
+  @include text-xl--regular;
+}
+
+.sbb-text-bold {
+  @include text--bold;
+}
+
+.sbb-list {
+  @include list;
+}
+
+.sbb-step-list {
+  @include step-list;
+}
