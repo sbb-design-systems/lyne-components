@@ -1158,7 +1158,7 @@ export namespace Components {
     }
     interface SbbSector {
         /**
-          * Label for the sector
+          * Label for the sector.
          */
         "label": string;
     }
@@ -1662,7 +1662,7 @@ export namespace Components {
     }
     interface SbbTrain {
         /**
-          * Accessibility label for additional information regarding the leaving direction of the train
+          * Accessibility label for additional information regarding the leaving direction of the train.
          */
         "accessibilityLabel"?: string;
         /**
@@ -1670,11 +1670,11 @@ export namespace Components {
          */
         "direction": InterfaceSbbTrainAttributes['direction'];
         /**
-          * General label for "driving direction"
+          * General label for "driving direction".
          */
         "directionLabel": string;
         /**
-          * Label for the destination station of the train
+          * Label for the destination station of the train.
          */
         "station": string;
     }
@@ -1682,23 +1682,23 @@ export namespace Components {
     }
     interface SbbWagon {
         /**
-          * Accessibility text for translations to add additional information to wagon
+          * Accessibility text for translations to add additional information to wagon.
          */
         "accessibilityAdditionalWagonText": string;
         /**
-          * Accessibility text for translations to describe the class of a wagon
+          * Accessibility text for translations to describe the class of a wagon.
          */
         "accessibilityLabelClass": string;
         /**
-          * Accessibility-text for translations as the list title for additional information icons on a wagon
+          * Accessibility-text for translations as the list title for additional information icons on a wagon.
          */
         "accessibilityLabelIconListTitle": string;
         /**
-          * Accessibility text for translations to describe the occupation level of a wagon
+          * Accessibility text for translations to describe the occupation level of a wagon.
          */
         "accessibilityLabelOccupation": string;
         /**
-          * Accessibility text for translations to describe the wagon type
+          * Accessibility text for translations to describe the wagon type.
          */
         "accessibilityLabelWagon": string;
         /**
@@ -1710,15 +1710,15 @@ export namespace Components {
          */
         "label"?: string;
         /**
-          * Occupation icon of a wagon
+          * Occupation icon of a wagon.
          */
         "occupancy": InterfaceSbbWagonAttributes['occupancy'];
         /**
-          * Wagon type
+          * Wagon type.
          */
         "type": InterfaceSbbWagonAttributes['type'];
         /**
-          * Visible class label of a wagon
+          * Visible class label of a wagon.
          */
         "wagonClass"?: '1' | '2';
     }
@@ -3408,7 +3408,7 @@ declare namespace LocalJSX {
     }
     interface SbbSector {
         /**
-          * Label for the sector
+          * Label for the sector.
          */
         "label": string;
     }
@@ -3917,7 +3917,7 @@ declare namespace LocalJSX {
     }
     interface SbbTrain {
         /**
-          * Accessibility label for additional information regarding the leaving direction of the train
+          * Accessibility label for additional information regarding the leaving direction of the train.
          */
         "accessibilityLabel"?: string;
         /**
@@ -3925,11 +3925,11 @@ declare namespace LocalJSX {
          */
         "direction"?: InterfaceSbbTrainAttributes['direction'];
         /**
-          * General label for "driving direction"
+          * General label for "driving direction".
          */
         "directionLabel": string;
         /**
-          * Label for the destination station of the train
+          * Label for the destination station of the train.
          */
         "station": string;
     }
@@ -3937,23 +3937,23 @@ declare namespace LocalJSX {
     }
     interface SbbWagon {
         /**
-          * Accessibility text for translations to add additional information to wagon
+          * Accessibility text for translations to add additional information to wagon.
          */
         "accessibilityAdditionalWagonText"?: string;
         /**
-          * Accessibility text for translations to describe the class of a wagon
+          * Accessibility text for translations to describe the class of a wagon.
          */
         "accessibilityLabelClass"?: string;
         /**
-          * Accessibility-text for translations as the list title for additional information icons on a wagon
+          * Accessibility-text for translations as the list title for additional information icons on a wagon.
          */
         "accessibilityLabelIconListTitle"?: string;
         /**
-          * Accessibility text for translations to describe the occupation level of a wagon
+          * Accessibility text for translations to describe the occupation level of a wagon.
          */
         "accessibilityLabelOccupation"?: string;
         /**
-          * Accessibility text for translations to describe the wagon type
+          * Accessibility text for translations to describe the wagon type.
          */
         "accessibilityLabelWagon"?: string;
         /**
@@ -3965,15 +3965,15 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * Occupation icon of a wagon
+          * Occupation icon of a wagon.
          */
         "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
         /**
-          * Wagon type
+          * Wagon type.
          */
         "type"?: InterfaceSbbWagonAttributes['type'];
         /**
-          * Visible class label of a wagon
+          * Visible class label of a wagon.
          */
         "wagonClass"?: '1' | '2';
     }

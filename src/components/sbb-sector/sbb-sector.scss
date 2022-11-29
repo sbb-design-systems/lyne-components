@@ -18,9 +18,6 @@
 
 .sbb-sector {
   flex: 0 0 auto;
-
-  // At maximum 3 wagons are allowed inside one sector, plus the gaps in between.
-  max-width: calc(var(--sbb-sector-wagon-width) * 3 + (2 * var(--sbb-sector-wagon-gap)));
 }
 
 .sbb-sector__label {

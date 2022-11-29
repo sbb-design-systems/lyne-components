@@ -17,9 +17,9 @@
 
   // Evaluate offset for the arrow-icon because 50% offset will cause a cut off of
   // the arrow-top on the overflowing edge
-  --sbb-train-direction-indicator-arrow-offset-right: #{px-to-rem-build(9)};
-  --sbb-train-direction-indicator-arrow-offset-left: calc(
-    var(--sbb-train-direction-indicator-arrow-offset-right) * -1
+  --sbb-train-direction-indicator-arrow-offset-end: #{px-to-rem-build(9)};
+  --sbb-train-direction-indicator-arrow-offset-start: calc(
+    var(--sbb-train-direction-indicator-arrow-offset-end) * -1
   );
 
   @include ifForcedColors {
@@ -40,40 +40,50 @@
 }
 
 .sbb-train__direction {
+  @include text-s--regular;
+
   padding-block-start: var(--sbb-train-direction-spacing);
   margin-block-end: var(--sbb-train-direction-spacing);
   display: flex;
   position: relative;
   margin-top: auto;
   width: 100%;
+}
 
-  h3 {
-    z-index: 1;
-    display: flex;
-    position: sticky;
-    inset: auto 0;
-    flex-direction: column;
-    width: 100%;
-    max-width: var(--sbb-train-direction-width);
-    margin: 0;
-    color: var(--sbb-train-direction-label-color);
-  }
+.sbb-train__direction-heading {
+  z-index: 1;
+  display: flex;
+  position: sticky;
+  inset: auto 0;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--sbb-train-direction-width);
+  margin: 0;
+  color: var(--sbb-train-direction-label-color);
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .sbb-train__direction-indicator {
   z-index: 0;
   position: absolute;
-  top: calc(
-    ((var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text)) / 2) +
-      var(--sbb-train-direction-spacing)
-  );
+  top: calc(((0.5em * var(--sbb-typo-line-height-body-text))) + var(--sbb-train-direction-spacing));
   left: 0;
   right: 0;
   height: var(--sbb-train-direction-line-width);
   background-color: var(--sbb-train-direction-line-color);
+}
 
-  sbb-icon {
-    color: var(--sbb-train-direction-line-color);
+.sbb-train__direction-arrow {
+  color: var(--sbb-train-direction-line-color);
+
+  :host([direction='right']) & {
+    transform: translateX(var(--sbb-train-direction-indicator-arrow-offset-end));
+    order: 1;
+  }
+
+  :host([direction='left']) & {
+    transform: translateX(var(--sbb-train-direction-indicator-arrow-offset-start));
   }
 }
 
@@ -87,6 +97,7 @@
   align-items: center;
   justify-content: space-between;
 
+  // Direction indicator end-shape
   &::after {
     content: '';
     width: var(--sbb-train-direction-line-width);
@@ -104,7 +115,6 @@
 .sbb-train__direction-label {
   padding: 0 var(--sbb-train-direction-label-padding);
   background-color: var(--sbb-train-direction-label-background);
-  @include text-s--regular;
 }
 
 .sbb-train__direction-station {
@@ -113,21 +123,4 @@
   overflow: hidden;
   padding: 0 var(--sbb-train-direction-station-padding);
   @include text-xxs--regular;
-}
-
-:host([direction='RIGHT']) {
-  .sbb-train__direction-indicator {
-    sbb-icon {
-      transform: translateX(var(--sbb-train-direction-indicator-arrow-offset-right));
-      order: 1;
-    }
-  }
-}
-
-:host([direction='LEFT']) {
-  .sbb-train__direction-indicator {
-    sbb-icon {
-      transform: translateX(var(--sbb-train-direction-indicator-arrow-offset-left));
-    }
-  }
 }

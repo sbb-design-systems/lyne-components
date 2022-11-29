@@ -29,25 +29,25 @@ into a list (ul>li) element and requires a title for the list as well as an aria
 
 ## Properties
 
-| Property                           | Attribute                             | Description                                                                                       | Type                                    | Default                              |
-| ---------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------- | ------------------------------------ |
-| `accessibilityAdditionalWagonText` | `accessibility-additional-wagon-text` | Accessibility text for translations to add additional information to wagon                        | `string`                                | `''`                                 |
-| `accessibilityLabelClass`          | `accessibility-label-class`           | Accessibility text for translations to describe the class of a wagon                              | `string`                                | `''`                                 |
-| `accessibilityLabelIconListTitle`  | `accessibility-label-icon-list-title` | Accessibility-text for translations as the list title for additional information icons on a wagon | `string`                                | `''`                                 |
-| `accessibilityLabelOccupation`     | `accessibility-label-occupation`      | Accessibility text for translations to describe the occupation level of a wagon                   | `string`                                | `''`                                 |
-| `accessibilityLabelWagon`          | `accessibility-label-wagon`           | Accessibility text for translations to describe the wagon type                                    | `string`                                | `''`                                 |
-| `iconListTitleId`                  | `icon-list-title-id`                  | This id will be forwarded to the relevant inner element.                                          | `string`                                | ``sbb-wagon-list-title-${++nextId}`` |
-| `label`                            | `label`                               | Visible label for the wagon number. Not used by type locomotive or blocked.                       | `string`                                | `undefined`                          |
-| `occupancy`                        | `occupancy`                           | Occupation icon of a wagon                                                                        | `"high" \| "low" \| "medium" \| "none"` | `'none'`                             |
-| `type`                             | `type`                                | Wagon type                                                                                        | `"blocked" \| "locomotive" \| "wagon"`  | `'wagon'`                            |
-| `wagonClass`                       | `wagon-class`                         | Visible class label of a wagon                                                                    | `"1" \| "2"`                            | `undefined`                          |
+| Property                           | Attribute                             | Description                                                                                        | Type                                    | Default                              |
+| ---------------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------- | ------------------------------------ |
+| `accessibilityAdditionalWagonText` | `accessibility-additional-wagon-text` | Accessibility text for translations to add additional information to wagon.                        | `string`                                | `''`                                 |
+| `accessibilityLabelClass`          | `accessibility-label-class`           | Accessibility text for translations to describe the class of a wagon.                              | `string`                                | `''`                                 |
+| `accessibilityLabelIconListTitle`  | `accessibility-label-icon-list-title` | Accessibility-text for translations as the list title for additional information icons on a wagon. | `string`                                | `''`                                 |
+| `accessibilityLabelOccupation`     | `accessibility-label-occupation`      | Accessibility text for translations to describe the occupation level of a wagon.                   | `string`                                | `''`                                 |
+| `accessibilityLabelWagon`          | `accessibility-label-wagon`           | Accessibility text for translations to describe the wagon type.                                    | `string`                                | `''`                                 |
+| `iconListTitleId`                  | `icon-list-title-id`                  | This id will be forwarded to the relevant inner element.                                           | `string`                                | ``sbb-wagon-list-title-${++nextId}`` |
+| `label`                            | `label`                               | Visible label for the wagon number. Not used by type locomotive or blocked.                        | `string`                                | `undefined`                          |
+| `occupancy`                        | `occupancy`                           | Occupation icon of a wagon.                                                                        | `"high" \| "low" \| "medium" \| "none"` | `'none'`                             |
+| `type`                             | `type`                                | Wagon type.                                                                                        | `"blocked" \| "locomotive" \| "wagon"`  | `'wagon'`                            |
+| `wagonClass`                       | `wagon-class`                         | Visible class label of a wagon.                                                                    | `"1" \| "2"`                            | `undefined`                          |
 
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                                                        |
+| ----------- | ------------------------------------------------------------------ |
+| `"unnamed"` | Used to slot one to x icons for meta information of the sbb-wagon. |
 
 
 ## Dependencies

@@ -7,7 +7,7 @@ const MountedFormationTemplate = (args) => (
     <sbb-train
       direction-label="Direction of travel"
       station="Bern"
-      direction="LEFT"
+      direction="left"
       accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction."
     >
       <sbb-sector label="Sector A">
@@ -157,7 +157,7 @@ const MountedFormationTemplate = (args) => (
     <sbb-train
       direction-label="Direction of travel"
       station="Luzern"
-      direction="LEFT"
+      direction="left"
       accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction."
     >
       <sbb-sector label="Sector E">
@@ -286,11 +286,7 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
-    actions: {},
     backgrounds: {
       disable: true,
     },

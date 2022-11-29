@@ -20,19 +20,19 @@ It should refer to the section where the locomotive is placed.
 
 ## Properties
 
-| Property                      | Attribute             | Description                                                                                 | Type                | Default     |
-| ----------------------------- | --------------------- | ------------------------------------------------------------------------------------------- | ------------------- | ----------- |
-| `accessibilityLabel`          | `accessibility-label` | Accessibility label for additional information regarding the leaving direction of the train | `string`            | `undefined` |
-| `direction`                   | `direction`           | Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.          | `"LEFT" \| "RIGHT"` | `'LEFT'`    |
-| `directionLabel` _(required)_ | `direction-label`     | General label for "driving direction"                                                       | `string`            | `undefined` |
-| `station` _(required)_        | `station`             | Label for the destination station of the train                                              | `string`            | `undefined` |
+| Property                      | Attribute             | Description                                                                                  | Type                | Default     |
+| ----------------------------- | --------------------- | -------------------------------------------------------------------------------------------- | ------------------- | ----------- |
+| `accessibilityLabel`          | `accessibility-label` | Accessibility label for additional information regarding the leaving direction of the train. | `string`            | `''`        |
+| `direction`                   | `direction`           | Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.           | `"left" \| "right"` | `'left'`    |
+| `directionLabel` _(required)_ | `direction-label`     | General label for "driving direction".                                                       | `string`            | `undefined` |
+| `station` _(required)_        | `station`             | Label for the destination station of the train.                                              | `string`            | `undefined` |
 
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                    |
+| ----------- | ------------------------------ |
+| `"unnamed"` | Used for slotting sbb-sectors. |
 
 
 ## Dependencies

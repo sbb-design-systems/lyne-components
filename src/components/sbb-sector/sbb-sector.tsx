@@ -10,7 +10,7 @@ import { Component, h, JSX, Prop } from '@stencil/core';
   tag: 'sbb-sector',
 })
 export class SbbSector {
-  /** Label for the sector */
+  /** Label for the sector. */
   @Prop() public label!: string;
 
   public render(): JSX.Element {

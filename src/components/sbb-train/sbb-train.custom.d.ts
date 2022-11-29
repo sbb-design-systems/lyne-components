@@ -1,3 +1,3 @@
 export interface InterfaceSbbTrainAttributes {
-  direction: 'LEFT' | 'RIGHT';
+  direction: 'left' | 'right';
 }

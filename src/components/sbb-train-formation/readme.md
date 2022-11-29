@@ -14,9 +14,9 @@ initialy and on resize.
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                   |
+| ----------- | ----------------------------- |
+| `"unnamed"` | Used for slotting sbb-trains. |
 
 
 ----------------------------------------------

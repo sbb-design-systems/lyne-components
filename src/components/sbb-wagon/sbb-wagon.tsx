@@ -1,11 +1,10 @@
 import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import { InterfaceSbbWagonAttributes } from './sbb-wagon.custom.d';
-// import { Components } from '../../components';
 
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Used to slot one to x icons for meta information of the sbb-wagon.
  */
 
 @Component({
@@ -14,40 +13,40 @@ let nextId = 0;
   tag: 'sbb-wagon',
 })
 export class SbbWagon {
-  /** Wagon type */
+  /** Wagon type. */
   @Prop({ reflect: true }) public type: InterfaceSbbWagonAttributes['type'] = 'wagon';
 
-  /** Occupation icon of a wagon */
+  /** Occupation icon of a wagon. */
   @Prop() public occupancy: InterfaceSbbWagonAttributes['occupancy'] = 'none';
 
-  /** Visible class label of a wagon */
+  /** Visible class label of a wagon. */
   @Prop() public wagonClass?: '1' | '2';
 
   /** Visible label for the wagon number. Not used by type locomotive or blocked. */
   @Prop() public label?: string;
 
-  /** Accessibility text for translations to describe the wagon type */
+  /** Accessibility text for translations to describe the wagon type. */
   @Prop() public accessibilityLabelWagon = '';
 
-  /** Accessibility text for translations to add additional information to wagon */
+  /** Accessibility text for translations to add additional information to wagon. */
   @Prop() public accessibilityAdditionalWagonText = '';
 
-  /** Accessibility text for translations to describe the occupation level of a wagon */
+  /** Accessibility text for translations to describe the occupation level of a wagon. */
   @Prop() public accessibilityLabelOccupation = '';
 
-  /** Accessibility text for translations to describe the class of a wagon */
+  /** Accessibility text for translations to describe the class of a wagon. */
   @Prop() public accessibilityLabelClass = '';
 
-  /** Accessibility-text for translations as the list title for additional information icons on a wagon */
+  /** Accessibility-text for translations as the list title for additional information icons on a wagon. */
   @Prop() public accessibilityLabelIconListTitle = '';
 
   /** This id will be forwarded to the relevant inner element. */
   @Prop() public iconListTitleId = `sbb-wagon-list-title-${++nextId}`;
 
-  /** Slotted Sbb-Icons */
+  /** Slotted Sbb-Icons. */
   @State() private _icons: HTMLSbbIconElement[];
 
-  /** Host element */
+  /** Host element. */
   @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
@@ -55,7 +54,7 @@ export class SbbWagon {
   }
 
   /**
-   * Create an array with only the sbb-icon children
+   * Create an array with only the sbb-icon children.
    */
   private _readSlottedIcons(): void {
     this._icons = Array.from(this._element.children).filter(
@@ -64,7 +63,7 @@ export class SbbWagon {
   }
 
   /**
-   * Create the accessibility text for the specific wagon types
+   * Create the accessibility text for the specific wagon types.
    */
   private _getAccessibilityText(): string {
     if (this.type === 'wagon') {
@@ -94,14 +93,14 @@ export class SbbWagon {
         </p>
 
         {this.type === 'wagon' ? (
-          <div class="sbb-wagon__comparment">
+          <div class="sbb-wagon__compartment">
             <sbb-icon name={occupancyIcon}></sbb-icon>
             <span class="sbb-wagon__class">
               <span aria-hidden="true">{this.wagonClass}</span>
             </span>
           </div>
         ) : (
-          <div class="sbb-wagon__comparment">
+          <div class="sbb-wagon__compartment">
             {this.type === 'locomotive' ? (
               <svg
                 aria-hidden="true"
@@ -117,7 +116,7 @@ export class SbbWagon {
                 />
               </svg>
             ) : (
-              <span></span>
+              <span class="sbb-wagon__blocked-icon"></span>
             )}
           </div>
         )}

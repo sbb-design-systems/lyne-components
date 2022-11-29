@@ -140,7 +140,7 @@ locomotive.argTypes = defaultArgTypes;
 locomotive.args = {
   ...defaultArgs,
   type: type.options[0],
-  'accessability-label-wagon': 'Locomotive',
+  'accessibility-label-wagon': 'Locomotive',
 };
 locomotive.documentation = {
   title: 'Locomotive example',
@@ -151,7 +151,7 @@ blocked.argTypes = defaultArgTypes;
 blocked.args = {
   ...defaultArgs,
   type: type.options[1],
-  'accessability-label-wagon': 'Passage blocked',
+  'accessibility-label-wagon': 'Passage blocked',
 };
 blocked.documentation = {
   title: 'Blocked wagon example',
@@ -165,11 +165,7 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
-    actions: {},
     backgrounds: {
       disable: true,
     },

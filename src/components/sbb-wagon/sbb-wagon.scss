@@ -31,16 +31,56 @@
   flex-direction: column;
   align-items: center;
   max-width: var(--sbb-wagon-width);
+
+  :host([type='wagon']) & {
+    width: var(--sbb-wagon-width);
+  }
+
+  :host([type='blocked']) & {
+    width: var(--sbb-wagon-blocked-passage-icon-dimensions);
+  }
 }
 
 .sbb-wagon__label {
+  @include text-s--regular;
+
   opacity: 0;
   margin: 0;
-  @include text-s--regular;
+
+  :host([type='wagon']) & {
+    opacity: 1;
+
+    span:not([aria-hidden]) {
+      @include screenReaderOnly;
+    }
+  }
+
+  :host([type='locomotive']) &,
+  :host([type='blocked']) & {
+    white-space: nowrap;
+    max-width: 100%;
+    pointer-events: none;
+  }
 }
 
-.sbb-wagon__comparment {
+.sbb-wagon__compartment {
   height: var(--sbb-wagon-height);
+
+  :host([type='wagon']) & {
+    width: 100%;
+    border-radius: var(--sbb-wagon-shape-border-radius);
+    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color);
+    padding: 0 var(--sbb-wagon-inner-padding);
+    display: flex;
+    align-items: center;
+  }
+
+  :host([type='blocked']) & {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
 }
 
 .sbb-wagon__class {
@@ -69,69 +109,22 @@
   }
 }
 
-:host([type='blocked']) {
-  .sbb-wagon {
-    width: var(--sbb-wagon-blocked-passage-icon-dimensions);
-  }
+.sbb-wagon__blocked-icon {
+  width: 100%;
+  height: var(--sbb-wagon-blocked-passage-icon-dimensions);
+  border-radius: 50%;
+  background-color: var(--sbb-wagon-blocked-background-color);
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
 
-  .sbb-wagon__comparment {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  // Blocked passage Icon
-  .sbb-wagon__comparment span {
-    width: 100%;
-    height: var(--sbb-wagon-blocked-passage-icon-dimensions);
-    border-radius: 50%;
-    background-color: var(--sbb-wagon-blocked-background-color);
-    position: relative;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-
-    &::before {
-      content: '';
-      width: var(--sbb-wagon-blocked-passage-icon-bar-width);
-      height: var(--sbb-wagon-blocked-passage-icon-bar-height);
-      border-radius: var(--sbb-wagon-blocked-passage-icon-bar-border-radius);
-      background-color: var(--sbb-wagon-blocked-bar-color);
-      margin: auto 0;
-    }
-  }
-}
-
-:host([type='wagon']) {
-  .sbb-wagon {
-    width: var(--sbb-wagon-width);
-  }
-
-  .sbb-wagon__label {
-    opacity: 1;
-
-    span:not([aria-hidden]) {
-      @include screenReaderOnly;
-    }
-  }
-
-  .sbb-wagon__comparment {
-    width: 100%;
-    border-radius: var(--sbb-wagon-shape-border-radius);
-    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color);
-    padding: 0 var(--sbb-wagon-inner-padding);
-    display: flex;
-    align-items: center;
-  }
-}
-
-// Prevent cursor and text selection on screenreader text on blocked passage and locomotive
-:host([type='locomotive']),
-:host([type='blocked']) {
-  .sbb-wagon__label {
-    white-space: nowrap;
-    max-width: 100%;
-    pointer-events: none;
+  &::before {
+    content: '';
+    width: var(--sbb-wagon-blocked-passage-icon-bar-width);
+    height: var(--sbb-wagon-blocked-passage-icon-bar-height);
+    border-radius: var(--sbb-wagon-blocked-passage-icon-bar-border-radius);
+    background-color: var(--sbb-wagon-blocked-bar-color);
+    margin: auto 0;
   }
 }

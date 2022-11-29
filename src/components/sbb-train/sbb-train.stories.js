@@ -34,7 +34,7 @@ const direction = {
   control: {
     type: 'inline-radio',
   },
-  options: ['LEFT', 'RIGHT'],
+  options: ['left', 'right'],
   table: {
     category: 'Direction indicator',
   },
@@ -59,10 +59,6 @@ export const train = Template.bind({});
 train.argTypes = defaultArgTypes;
 train.args = defaultArgs;
 
-train.documentation = {
-  title: 'Train no slotted content',
-};
-
 export default {
   decorators: [
     (Story) => (
@@ -71,11 +67,7 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
-    actions: {},
     backgrounds: {
       disable: true,
     },

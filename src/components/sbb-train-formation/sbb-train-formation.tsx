@@ -3,7 +3,7 @@ import { Component, Element, h, JSX } from '@stencil/core';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Used for slotting sbb-trains.
  */
 
 @Component({
@@ -39,13 +39,8 @@ export class SbbTrainFormation {
   }
 
   public componentDidLoad(): void {
-    this._formationDiv = this._element.shadowRoot.querySelectorAll(
-      '.sbb-train-formation'
-    )[0] as HTMLDivElement;
     this._contentWidth = this._formationDiv.getBoundingClientRect().width;
-    this._contentResizeObserver.observe(
-      this._element.shadowRoot.querySelector('.sbb-train-formation')
-    );
+    this._contentResizeObserver.observe(this._formationDiv);
     this._slottedTrains = this._getTrains();
     this._slottedTrains.forEach((train) => this._applyCssWidthVarToTrains(train));
   }
@@ -74,8 +69,13 @@ export class SbbTrainFormation {
 
   public render(): JSX.Element {
     return (
-      <div class="sbb-train-formation">
-        <slot onSlotchange={this._onSlotChange} />
+      <div
+        class="sbb-train-formation"
+        ref={(el): void => {
+          this._formationDiv = el;
+        }}
+      >
+        <slot onSlotchange={this._onSlotChange.bind(this)} />
       </div>
     );
   }
