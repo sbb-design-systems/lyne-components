@@ -957,6 +957,22 @@ export namespace Components {
          */
         "trigger": string | HTMLElement;
     }
+    interface SbbNavigationAction {
+        "label"?: string;
+        "size"?: 'l' | 'm' | 's';
+    }
+    interface SbbNavigationList {
+        "label"?: string;
+    }
+    interface SbbNavigationMarker {
+        /**
+          * Documentation for someProp
+         */
+        "size"?: 'l' | 's';
+    }
+    interface SbbNavigationSection {
+        "label"?: string;
+    }
     interface SbbOverlay {
         /**
           * Dismiss the overlay.
@@ -1823,6 +1839,30 @@ declare global {
         prototype: HTMLSbbNavigationElement;
         new (): HTMLSbbNavigationElement;
     };
+    interface HTMLSbbNavigationActionElement extends Components.SbbNavigationAction, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationActionElement: {
+        prototype: HTMLSbbNavigationActionElement;
+        new (): HTMLSbbNavigationActionElement;
+    };
+    interface HTMLSbbNavigationListElement extends Components.SbbNavigationList, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationListElement: {
+        prototype: HTMLSbbNavigationListElement;
+        new (): HTMLSbbNavigationListElement;
+    };
+    interface HTMLSbbNavigationMarkerElement extends Components.SbbNavigationMarker, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationMarkerElement: {
+        prototype: HTMLSbbNavigationMarkerElement;
+        new (): HTMLSbbNavigationMarkerElement;
+    };
+    interface HTMLSbbNavigationSectionElement extends Components.SbbNavigationSection, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationSectionElement: {
+        prototype: HTMLSbbNavigationSectionElement;
+        new (): HTMLSbbNavigationSectionElement;
+    };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
     var HTMLSbbOverlayElement: {
@@ -2090,6 +2130,10 @@ declare global {
         "sbb-menu": HTMLSbbMenuElement;
         "sbb-menu-action": HTMLSbbMenuActionElement;
         "sbb-navigation": HTMLSbbNavigationElement;
+        "sbb-navigation-action": HTMLSbbNavigationActionElement;
+        "sbb-navigation-list": HTMLSbbNavigationListElement;
+        "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
+        "sbb-navigation-section": HTMLSbbNavigationSectionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -3085,6 +3129,22 @@ declare namespace LocalJSX {
          */
         "trigger"?: string | HTMLElement;
     }
+    interface SbbNavigationAction {
+        "label"?: string;
+        "size"?: 'l' | 'm' | 's';
+    }
+    interface SbbNavigationList {
+        "label"?: string;
+    }
+    interface SbbNavigationMarker {
+        /**
+          * Documentation for someProp
+         */
+        "size"?: 'l' | 's';
+    }
+    interface SbbNavigationSection {
+        "label"?: string;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -3751,6 +3811,10 @@ declare namespace LocalJSX {
         "sbb-menu": SbbMenu;
         "sbb-menu-action": SbbMenuAction;
         "sbb-navigation": SbbNavigation;
+        "sbb-navigation-action": SbbNavigationAction;
+        "sbb-navigation-list": SbbNavigationList;
+        "sbb-navigation-marker": SbbNavigationMarker;
+        "sbb-navigation-section": SbbNavigationSection;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -3828,6 +3892,10 @@ declare module "@stencil/core" {
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
             "sbb-navigation": LocalJSX.SbbNavigation & JSXBase.HTMLAttributes<HTMLSbbNavigationElement>;
+            "sbb-navigation-action": LocalJSX.SbbNavigationAction & JSXBase.HTMLAttributes<HTMLSbbNavigationActionElement>;
+            "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;
+            "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
+            "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
