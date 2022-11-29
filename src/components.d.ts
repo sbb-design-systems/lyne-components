@@ -49,7 +49,7 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
-import { InterfaceSbbToggleOption } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export namespace Components {
     interface SbbAccordion {
@@ -1661,17 +1661,13 @@ export namespace Components {
          */
         "even": boolean;
         /**
-          * Id of the toggle element - default name will be auto-generated.
-         */
-        "name"?: string;
-        /**
           * Id of the toggle element.
          */
         "sbbToggleId": string;
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbToggleOption['size'];
+        "size"?: InterfaceSbbToggleAttributes['size'];
         /**
           * The value of the toggle.
          */
@@ -1741,10 +1737,6 @@ export namespace Components {
          */
         "name"?: string;
         "select": () => Promise<void>;
-        /**
-          * Size variant, either m or s.
-         */
-        "size"?: InterfaceSbbToggleOption['size'];
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -3990,10 +3982,6 @@ declare namespace LocalJSX {
          */
         "even"?: boolean;
         /**
-          * Id of the toggle element - default name will be auto-generated.
-         */
-        "name"?: string;
-        /**
           * Emits whenever the toggle value changes.
          */
         "onSbb-toggle_did-change"?: (event: SbbToggleCustomEvent<any>) => void;
@@ -4004,7 +3992,7 @@ declare namespace LocalJSX {
         /**
           * Size variant, either m or s.
          */
-        "size"?: InterfaceSbbToggleOption['size'];
+        "size"?: InterfaceSbbToggleAttributes['size'];
         /**
           * The value of the toggle.
          */
@@ -4081,10 +4069,6 @@ declare namespace LocalJSX {
           * Emits whenever the toggle-option value changes.
          */
         "onSbb-toggle-option_did-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
-        /**
-          * Size variant, either m or s.
-         */
-        "size"?: InterfaceSbbToggleOption['size'];
         /**
           * Id of the internal input element - default id will be set automatically.
          */

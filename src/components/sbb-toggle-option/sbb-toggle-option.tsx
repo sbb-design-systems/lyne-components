@@ -1,5 +1,4 @@
 import { Component, Event, EventEmitter, h, Host, JSX, Listen, Method, Prop } from '@stencil/core';
-import { InterfaceSbbToggleOption } from './sbb-toggle-option.custom';
 
 let nextId = 0;
 
@@ -38,11 +37,6 @@ export class SbbToggleOption {
    * Name of the toggle-option.
    */
   @Prop({ reflect: true }) public name?: string;
-
-  /**
-   * Size variant, either m or s.
-   */
-  @Prop() public size?: InterfaceSbbToggleOption['size'] = 'm';
 
   /**
    * Value of toggle-option.
@@ -96,7 +90,9 @@ export class SbbToggleOption {
         />
         <span class="sbb-toggle-option">
           {!this.iconName ? (
-            <label htmlFor={this.toggleOptionId}>{this.value}</label>
+            <label id={this.toggleOptionId} htmlFor={this.toggleOptionId}>
+              {this.value}
+            </label>
           ) : (
             <slot name="icon">
               <sbb-icon name={this.iconName}></sbb-icon>

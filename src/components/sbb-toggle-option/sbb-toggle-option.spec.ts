@@ -13,7 +13,7 @@ describe('sbb-toggle-option', () => {
           <mock:shadow-root>
             <input aria-hidden="true" id="sbb-toggle-option-1" tabindex="-1" type="radio">
             <span class="sbb-toggle-option">
-              <slot></slot>
+            <label htmlfor="sbb-toggle-option-1" id="sbb-toggle-option-1"></label>
             </span>
           </mock:shadow-root>
         </sbb-toggle-option>
