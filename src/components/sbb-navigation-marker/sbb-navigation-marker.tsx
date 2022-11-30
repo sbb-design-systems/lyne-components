@@ -10,7 +10,7 @@ import { Component, h, Host, JSX, Prop } from '@stencil/core';
   tag: 'sbb-navigation-marker',
 })
 export class SbbNavigationMarker {
-  /** Documentation for someProp */
+  /** Marker size variant */
   @Prop()
   public size?: 'l' | 's' = 'l';
 

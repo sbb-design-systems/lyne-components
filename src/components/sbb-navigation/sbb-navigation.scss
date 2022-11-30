@@ -27,7 +27,7 @@
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-padding-inline: var(--sbb-spacing-fixed-16x);
     --sbb-navigation-position: absolute;
-    --sbb-navigation-width: #{px-to-rem-build(320)};
+    --sbb-navigation-width: #{px-to-rem-build(496)};
 
     // navigation backdrop (not visible on mobile)
     &::before {
@@ -48,11 +48,13 @@
 
   @include mq($from: wide) {
     --sbb-navigation-padding-inline: var(--sbb-spacing-fixed-18x);
+    --sbb-navigation-width: #{px-to-rem-build(432)};
   }
 
   @include mq($from: ultra) {
     --sbb-navigation-padding-inline: var(--sbb-spacing-fixed-30x);
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
+    --sbb-navigation-width: #{px-to-rem-build(473)};
   }
 
   position: var(--sbb-navigation-position);

@@ -5,9 +5,9 @@
 
 ## Properties
 
-| Property | Attribute | Description                | Type         | Default |
-| -------- | --------- | -------------------------- | ------------ | ------- |
-| `size`   | `size`    | Documentation for someProp | `"l" \| "s"` | `'l'`   |
+| Property | Attribute | Description         | Type         | Default |
+| -------- | --------- | ------------------- | ------------ | ------- |
+| `size`   | `size`    | Marker size variant | `"l" \| "s"` | `'l'`   |
 
 
 ## Slots

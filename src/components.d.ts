@@ -958,15 +958,70 @@ export namespace Components {
         "trigger": string | HTMLElement;
     }
     interface SbbNavigationAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls": string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup": PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Whether the button is disabled. ???
+         */
+        "disabled": boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The href value you want to link to (if it is not present navigation action becomes a button).
+         */
+        "href": string | undefined;
         "label"?: string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Action size variant
+         */
         "size"?: 'l' | 'm' | 's';
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * The type attribute to use for the button.
+         */
+        "type": ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
+         */
+        "value"?: string;
     }
     interface SbbNavigationList {
         "label"?: string;
     }
     interface SbbNavigationMarker {
         /**
-          * Documentation for someProp
+          * Marker size variant
          */
         "size"?: 'l' | 's';
     }
@@ -3130,15 +3185,70 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLElement;
     }
     interface SbbNavigationAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls"?: string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup"?: PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Whether the button is disabled. ???
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The href value you want to link to (if it is not present navigation action becomes a button).
+         */
+        "href"?: string | undefined;
         "label"?: string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Action size variant
+         */
         "size"?: 'l' | 'm' | 's';
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * The type attribute to use for the button.
+         */
+        "type"?: ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
+         */
+        "value"?: string;
     }
     interface SbbNavigationList {
         "label"?: string;
     }
     interface SbbNavigationMarker {
         /**
-          * Documentation for someProp
+          * Marker size variant
          */
         "size"?: 'l' | 's';
     }

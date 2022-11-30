@@ -3,9 +3,60 @@
 @include host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  --sbb-navigation-action-l: var(--sbb-typo-scale-1-25x);
+  --sbb-navigation-action-m: var(--sbb-typo-scale-0-875x);
+  --sbb-navigation-action-s: var(sbb-typo-scale-0-75x);
+  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
+
+  @include mq($from: medium) {
+    --sbb-navigation-action-l: var(--sbb-typo-scale-1-5x);
+    --sbb-navigation-action-m: var(--sbb-typo-scale-default);
+  }
 }
 
-.some-class {
-  color: var(--some-color-var);
+:host(:focus-within) {
+  outline: none;
+}
+
+.sbb-navigation-action {
+  @include buttonReset;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.sbb-navigation-action__content {
+  @include text--bold;
+  @include ellipsis;
+
+  display: flex;
+  align-items: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  margin-inline-start: var(--sbb-navigation-margin-inline-start);
+  font-size: var(--sbb-navigation-action-l);
+
+  :host([size='s']) .sbb-navigation-action & {
+    font-size: var(--sbb-navigation-action-s);
+  }
+
+  :host([size='m']) .sbb-navigation-action & {
+    font-size: var(--sbb-navigation-action-m);
+  }
+
+  .sbb-navigation-action:focus-visible & {
+    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+    @include focusOutline;
+  }
+
+  @include hover-mq($hover: true) {
+    :host .sbb-navigation-action:hover & {
+      color: var(--sbb-color-storm-default);
+    }
+  }
 }

@@ -5,7 +5,7 @@ import events from './sbb-navigation.events.ts';
 
 const triggerButton = (id) => (
   <sbb-button data-testid="navigation-trigger" id={id} size="m">
-    Navigation trigger
+    Open navigation
   </sbb-button>
 );
 
@@ -23,7 +23,13 @@ const defaultArgs = {
 
 const DefaultTemplate = (args) => [
   triggerButton('trigger-button'),
-  <sbb-navigation {...args} id="navigation"></sbb-navigation>,
+  <sbb-navigation {...args} id="navigation">
+    <sbb-navigation-list {...args}>
+      <sbb-navigation-action>Label n1</sbb-navigation-action>
+      <sbb-navigation-action>Label n2</sbb-navigation-action>
+      <sbb-navigation-action>Label n3</sbb-navigation-action>
+    </sbb-navigation-list>
+  </sbb-navigation>,
 ];
 
 export const Default = DefaultTemplate.bind({});

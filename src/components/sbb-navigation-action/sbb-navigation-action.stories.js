@@ -1,12 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-navigation-action {...args}></sbb-navigation-action>;
+const Template = (args) => <sbb-navigation-action {...args}>Some text</sbb-navigation-action>;
 
 export const Default = Template.bind({});
 
 Default.args = {
-  'some-prop': 'opt1',
+  size: 's',
 };
 
 Default.documentation = {

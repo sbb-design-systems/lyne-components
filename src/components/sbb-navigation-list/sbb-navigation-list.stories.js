@@ -1,7 +1,13 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-navigation-list {...args}></sbb-navigation-list>;
+const Template = (args) => (
+  <sbb-navigation-list {...args}>
+    <sbb-navigation-action>Label n1</sbb-navigation-action>
+    <sbb-navigation-action>Label n2</sbb-navigation-action>
+    <sbb-navigation-action>Label n3</sbb-navigation-action>
+  </sbb-navigation-list>
+);
 
 export const Default = Template.bind({});
 

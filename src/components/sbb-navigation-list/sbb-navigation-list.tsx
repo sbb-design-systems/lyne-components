@@ -16,7 +16,7 @@ export class SbbNavigationList {
 
   public render(): JSX.Element {
     return (
-      <Host>
+      <Host class="sbb-navigation-list">
         <slot name="label" />
         <slot />
       </Host>
