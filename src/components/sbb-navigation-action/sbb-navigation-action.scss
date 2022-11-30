@@ -4,8 +4,6 @@
 
 :host {
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
-
-  display: flex;
 }
 
 :host(:focus-within) {
