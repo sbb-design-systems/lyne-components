@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-checkbox.events';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -229,7 +228,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.change],
+      handles: ['change'],
     },
     backgrounds: {
       disable: true,
