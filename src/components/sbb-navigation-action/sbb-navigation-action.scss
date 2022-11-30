@@ -38,6 +38,7 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   margin-inline-start: var(--sbb-navigation-margin-inline-start);
+  transition-duration: var(--sbb-animation-duration-3x);
   font-size: var(--sbb-navigation-action-l);
 
   :host([size='s']) .sbb-navigation-action & {
@@ -48,6 +49,11 @@
     font-size: var(--sbb-navigation-action-m);
   }
 
+  :host([active]) .sbb-navigation-action & {
+    transition-duration: var(--sbb-animation-duration-3x);
+    color: var(--sbb-color-storm-default);
+  }
+
   .sbb-navigation-action:focus-visible & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
@@ -56,6 +62,7 @@
 
   @include hover-mq($hover: true) {
     :host .sbb-navigation-action:hover & {
+      transition-duration: var(--sbb-animation-duration-3x);
       color: var(--sbb-color-storm-default);
     }
   }
