@@ -43,7 +43,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   checked: false,
   disabled: false,
-  'label-position': labelPosition[1],
+  'label-position': labelPosition.options[1],
   label: 'Title',
   name: 'toggle',
 };

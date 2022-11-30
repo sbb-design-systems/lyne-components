@@ -14,9 +14,7 @@ describe('sbb-toggle-check', () => {
             <label class="toggle-check toggle-check--after" htmlfor="sbb-toggle-checkbox-1">
               <input id="sbb-toggle-checkbox-1" type="checkbox"/>
                 <span class="toggle-check__container">
-                  <span class="toggle-check__label">
-                    <slot></slot>
-                  </span>
+                  <slot></slot>
                   <span class="toggle-check__slider">
                   <span class="toggle-check__circle">
                     <slot name="icon">
@@ -35,7 +33,9 @@ describe('sbb-toggle-check', () => {
     it('renders label before toggle', async () => {
       const { root } = await newSpecPage({
         components: [SbbToggleCheck],
-        html: '<sbb-toggle-check label-position="before"></sbb-toggle-check>',
+        html: `
+          <sbb-toggle-check label-position="before">Check it</sbb-toggle-check>
+        `,
       });
 
       expect(root).toEqualHtml(`
@@ -57,6 +57,7 @@ describe('sbb-toggle-check', () => {
               </span>
             </label>
           </mock:shadow-root>
+          Check it
         </sbb-toggle-check>
       `);
     });
@@ -76,9 +77,7 @@ describe('sbb-toggle-check', () => {
               <label class="toggle-check toggle-check--after toggle-check--checked" htmlfor="sbb-toggle-checkbox-3">
                 <input checked="" id="sbb-toggle-checkbox-3" type="checkbox"/>
                 <span class="toggle-check__container">
-                  <span class="toggle-check__label">
-                    <slot></slot>
-                  </span>
+                  <slot></slot>
                   <span class="toggle-check__slider">
                     <span class="toggle-check__circle">
                       <slot name="icon">
@@ -107,9 +106,7 @@ describe('sbb-toggle-check', () => {
               <label class="toggle-check toggle-check--after toggle-check--disabled" htmlfor="sbb-toggle-checkbox-4">
                 <input disabled="" aria-disabled="" id="sbb-toggle-checkbox-4" type="checkbox">
                   <span class="toggle-check__container">
-                  <span class="toggle-check__label">
-                    <slot></slot>
-                  </span>
+                  <slot></slot>
                   <span class="toggle-check__slider">
                     <span class="toggle-check__circle">
                      <slot name="icon">
@@ -138,9 +135,7 @@ describe('sbb-toggle-check', () => {
               <label class="toggle-check toggle-check--after toggle-check--checked toggle-check--disabled" htmlfor="sbb-toggle-checkbox-5">
                 <input checked="" type="checkbox" disabled aria-disabled="" id="sbb-toggle-checkbox-5"/>
                 <span class="toggle-check__container">
-                  <span class="toggle-check__label">
-                    <slot></slot>
-                  </span>
+                  <slot></slot>
                   <span class="toggle-check__slider">
                     <span class="toggle-check__circle">
                       <slot name="icon">

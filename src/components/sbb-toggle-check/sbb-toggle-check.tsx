@@ -1,4 +1,4 @@
-import { Component, Element, EventEmitter, Event, h, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, EventEmitter, Event, h, JSX, Prop, State } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
@@ -9,7 +9,7 @@ let nextId = 0;
   styleUrl: 'sbb-toggle-check.scss',
   tag: 'sbb-toggle-check',
 })
-export class SbbToggleCheck implements AccessibilityProperties {
+export class SbbToggleCheck implements ComponentInterface, AccessibilityProperties {
   private _checkbox: HTMLInputElement;
 
   /** Whether the toggle-check is checked. */
@@ -52,11 +52,25 @@ export class SbbToggleCheck implements AccessibilityProperties {
 
   @Element() private _element!: HTMLElement;
 
+  @State() private _hasLabelText = false;
+
   /** Method triggered on toggle change. */
   public checkedChanged(event: Event): void {
     this.checked = this._checkbox?.checked;
     forwardEventToHost(event, this._element);
     this.didChange.emit();
+  }
+
+  public connectedCallback(): void {
+    this._hasLabelText = Array.from(this._element.childNodes).some(
+      (n: ChildNode) => !(n as Element).slot && n.textContent
+    );
+  }
+
+  private _onLabelSlotChange(event: Event): void {
+    this._hasLabelText = (event.target as HTMLSlotElement)
+      .assignedNodes()
+      .some((n: Node) => !!n.textContent.trim());
   }
 
   public render(): JSX.Element {
@@ -86,9 +100,13 @@ export class SbbToggleCheck implements AccessibilityProperties {
           aria-labelledby={this.accessibilityLabelledby}
         />
         <span class="toggle-check__container">
-          <span class="toggle-check__label">
-            <slot />
-          </span>
+          {this._hasLabelText ? (
+            <span class="toggle-check__label">
+              <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
+            </span>
+          ) : (
+            <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
+          )}
           <span class="toggle-check__slider">
             <span class="toggle-check__circle">
               <slot name="icon">
