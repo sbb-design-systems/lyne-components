@@ -9,7 +9,7 @@ describe('sbb-navigation-list', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-navigation-list>
+        <sbb-navigation-list class="sbb-navigation-list">
           <mock:shadow-root>
             <slot name="label"></slot>
             <slot></slot>
