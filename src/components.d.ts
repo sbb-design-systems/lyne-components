@@ -945,6 +945,10 @@ export namespace Components {
     }
     interface SbbNavigation {
         /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel": string | undefined;
+        /**
           * Closes the navigation.
          */
         "close": () => Promise<void>;
@@ -3163,6 +3167,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface SbbNavigation {
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel"?: string | undefined;
         /**
           * Emits whenever the navigation is closed.
          */

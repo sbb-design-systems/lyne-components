@@ -5,9 +5,10 @@
 
 ## Properties
 
-| Property  | Attribute | Description                                                                                                | Type                    | Default     |
-| --------- | --------- | ---------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
-| `trigger` | `trigger` | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
+| Property                  | Attribute                   | Description                                                                                                | Type                    | Default     |
+| ------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                          | `string`                | `undefined` |
+| `trigger`                 | `trigger`                   | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
 
 
 ## Events
@@ -49,6 +50,20 @@ Type: `Promise<void>`
 | ----------- | ------------------------------------------------------ |
 | `"unnamed"` | Use this to project any content inside the navigation. |
 
+
+## Dependencies
+
+### Depends on
+
+- [sbb-button](../sbb-button)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-navigation --> sbb-button
+  sbb-button --> sbb-icon
+  style sbb-navigation fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

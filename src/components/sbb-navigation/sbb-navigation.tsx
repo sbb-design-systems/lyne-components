@@ -12,6 +12,8 @@ import {
   Watch,
 } from '@stencil/core';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
+import getDocumentLang from '../../global/helpers/get-document-lang';
+import { i18nCloseDialog } from '../../global/i18n';
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation.
@@ -28,6 +30,11 @@ export class SbbNavigation {
    * Accepts both a string (id of an element) or an HTML element.
    */
   @Prop() public trigger: string | HTMLElement;
+
+  /**
+   * This will be forwarded as aria-label to the close button element.
+   */
+  @Prop() public accessibilityCloseLabel: string | undefined;
 
   /**
    * The state of the navigation.
@@ -80,6 +87,7 @@ export class SbbNavigation {
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
+  private _currentLanguage = getDocumentLang();
 
   @Element() private _element: HTMLElement;
 
@@ -214,6 +222,18 @@ export class SbbNavigation {
   }
 
   public render(): JSX.Element {
+    const closeButton = (
+      <sbb-button
+        class="sbb-dialog__close"
+        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
+        variant="transparent"
+        negative={true}
+        size="m"
+        type="button"
+        onClick={() => this.close()}
+        icon-name="cross-small"
+      ></sbb-button>
+    );
     return (
       <Host
         class={{
@@ -227,6 +247,7 @@ export class SbbNavigation {
           ref={(dialogRef) => (this._dialog = dialogRef)}
           class="sbb-navigation"
         >
+          {closeButton}
           <div class="sbb-navigation__content">
             <slot />
           </div>
