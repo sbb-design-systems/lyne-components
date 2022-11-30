@@ -1763,13 +1763,17 @@ export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbRadioButtonGroupElement;
 }
+export interface SbbSliderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbSliderElement;
+}
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
 }
-export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
+export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLSbbTimetableRowElement;
+    target: HTMLSbbToggleCheckElement;
 }
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2739,7 +2743,10 @@ declare namespace LocalJSX {
           * Whether the checkbox is indeterminate.
          */
         "indeterminate"?: boolean;
-        "onChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
         /**
           * Whether the checkbox is required.
          */
@@ -3447,6 +3454,11 @@ declare namespace LocalJSX {
          */
         "onChange"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
         /**
+          * Emits whenever the radio group value changes.
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
+        /**
           * Radio group's orientation, either horizontal or vertical.
          */
         "orientation"?: InterfaceSbbRadioButtonGroupAttributes['orientation'];
@@ -3520,6 +3532,10 @@ declare namespace LocalJSX {
           * Name of the inner HTMLInputElement.
          */
         "name"?: string;
+        /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbSliderCustomEvent<any>) => void;
         /**
           * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
          */
@@ -3793,10 +3809,6 @@ declare namespace LocalJSX {
          */
         "loadingTrip"?: boolean;
         /**
-          * This click event gets emitted when the user clicks on the component.
-         */
-        "onClick"?: (event: SbbTimetableRowCustomEvent<any>) => void;
-        /**
           * The price Prop, which consists of the data for the badge.
          */
         "price"?: InterfaceTimetableRowAttributes['price'];
@@ -3925,6 +3937,10 @@ declare namespace LocalJSX {
           * Name of the toggle-check.
          */
         "name"?: string;
+        /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
         /**
           * The required prop for the required state.
          */

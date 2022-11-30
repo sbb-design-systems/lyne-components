@@ -110,10 +110,11 @@ export class SbbRadioButton {
     if (this.allowEmptySelection) {
       this.checked = !this.checked;
       value = this.checked ? value : undefined;
+      this.didSelect.emit(value);
     } else if (!this.checked) {
       this.checked = true;
+      this.didSelect.emit(value);
     }
-    this.didSelect.emit(value);
   }
 
   public connectedCallback(): void {

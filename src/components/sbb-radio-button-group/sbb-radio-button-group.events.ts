@@ -3,5 +3,6 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didChange: 'change',
+  change: 'change',
+  didChange: 'didChange',
 };

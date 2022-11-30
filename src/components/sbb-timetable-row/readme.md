@@ -51,13 +51,6 @@ This is helpful if you need a specific state of the component.
 | `trip`               | --                    | The trip Prop                                                                                     | `Trip`    | `undefined` |
 
 
-## Events
-
-| Event   | Description                                                          | Type               |
-| ------- | -------------------------------------------------------------------- | ------------------ |
-| `click` | This click event gets emitted when the user clicks on the component. | `CustomEvent<any>` |
-
-
 ## Dependencies
 
 ### Depends on

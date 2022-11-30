@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { InterfaceTimetableRowAttributes, Notice } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
@@ -43,14 +43,6 @@ export class SbbTimetableRow {
   /** When this prop is true the sbb-card will be in the active state. */
   @Prop() public active?: boolean;
 
-  /** This click event gets emitted when the user clicks on the component. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'click',
-  })
-  public click: EventEmitter<any>;
-
   @Element() private _element: HTMLElement;
 
   private _now(): number {
@@ -78,17 +70,8 @@ export class SbbTimetableRow {
    * @returns sorted Array with the type of Notice.
    */
   private _sortNoticePriority(items: Notice[]): Notice[] {
-    const sortedItems = items?.slice().sort((a, b) => {
-      return b.priority - a.priority;
-    });
-    return sortedItems;
+    return items?.slice().sort((a, b) => b.priority - a.priority);
   }
-
-  private _clickHandler = (): void => {
-    this.click.emit({
-      bubbles: true,
-    });
-  };
 
   public render(): JSX.Element {
     if (this.loadingTrip) {
@@ -113,12 +96,7 @@ export class SbbTimetableRow {
     const sortedNotices = notices?.length ? this._sortNoticePriority(notices) : null;
 
     return (
-      <sbb-card
-        active={this.active}
-        card-id={id}
-        accessibility-label={this.accessibilityLabel}
-        onClick={this._clickHandler}
-      >
+      <sbb-card active={this.active} card-id={id} accessibility-label={this.accessibilityLabel}>
         {this.loadingPrice && <span slot="badge" class="sbb-loading__badge"></span>}
         {this.price && !this.loadingPrice && (
           <sbb-card-badge
