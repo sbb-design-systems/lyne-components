@@ -36,8 +36,8 @@ export class SbbNavigationAction implements LinkButtonProperties {
   /** The type attribute to use for the button. */
   @Prop() public type: ButtonType | undefined;
 
-  /** Whether the button is disabled. ???*/
-  @Prop({ reflect: true }) public disabled = false;
+  /** Whether the action is active. */
+  @Prop({ reflect: true }) public active = false;
 
   /** The name attribute to use for the button. */
   @Prop() public name: string | undefined;

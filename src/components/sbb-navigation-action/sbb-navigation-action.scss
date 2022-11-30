@@ -4,6 +4,8 @@
 
 :host {
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
+
+  display: flex;
 }
 
 :host(:focus-within) {
@@ -29,7 +31,7 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   margin-inline-start: var(--sbb-navigation-margin-inline-start);
-  transition-duration: var(--sbb-animation-duration-3x);
+  transition: color var(--sbb-animation-duration-3x) ease;
 
   :host([size='m']) .sbb-navigation-action & {
     @include text-s--bold;
@@ -37,6 +39,8 @@
 
   :host([size='s']) .sbb-navigation-action & {
     @include text-xxs--bold;
+
+    --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
   }
 
   :host([active]) .sbb-navigation-action & {

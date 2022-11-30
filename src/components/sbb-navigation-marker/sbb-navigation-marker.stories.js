@@ -2,17 +2,34 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 
-const Template = (args) => <sbb-navigation-marker {...args}></sbb-navigation-marker>;
-
-export const Default = Template.bind({});
-
-Default.args = {
-  size: 'l',
+const size = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 's'],
 };
 
-Default.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+const defaultArgTypes = {
+  size,
 };
+
+const defaultArgs = {
+  size: size.options[0],
+};
+
+const DefaultTemplate = (args) => (
+  <sbb-navigation-marker {...args}>
+    <sbb-navigation-action id="nav1">Billette & Angebote</sbb-navigation-action>
+    <sbb-navigation-action id="nav2">Ferien & Freizeit</sbb-navigation-action>
+    <sbb-navigation-action id="nav3">Reiseinformationen</sbb-navigation-action>
+    <sbb-navigation-action id="nav4">Hilfe & Kontakt</sbb-navigation-action>
+  </sbb-navigation-marker>
+);
+
+export const Default = DefaultTemplate.bind({});
+Default.argTypes = defaultArgTypes;
+Default.args = { ...defaultArgs };
+Default.documentation = { title: 'Default Marker' };
 
 export default {
   decorators: [

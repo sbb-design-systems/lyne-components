@@ -983,9 +983,9 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * Whether the button is disabled. ???
+          * Whether the action is active.
          */
-        "disabled": boolean;
+        "active": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -3214,9 +3214,9 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * Whether the button is disabled. ???
+          * Whether the action is active.
          */
-        "disabled"?: boolean;
+        "active"?: boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */

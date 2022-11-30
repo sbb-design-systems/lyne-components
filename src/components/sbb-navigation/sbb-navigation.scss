@@ -108,28 +108,20 @@
 
 @keyframes open {
   from {
-    visibility: hidden;
-    opacity: 0;
     transform: translateX(-100%);
   }
 
   to {
-    visibility: visible;
-    opacity: 1;
     transform: translateX(0%);
   }
 }
 
 @keyframes close {
   from {
-    visibility: visible;
-    opacity: 1;
     transform: translateX(0%);
   }
 
   to {
-    visibility: hidden;
-    opacity: 0;
     transform: translateX(-100%);
   }
 }
