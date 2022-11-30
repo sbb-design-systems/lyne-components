@@ -8,11 +8,13 @@ from which the label is displayed.
 
 ## Usage
 Simple button
+
 ```html
 <sbb-menu-action>Button text</sbb-menu-action>
 ```
 
 Simple link
+
 ```html
 <sbb-menu-action href="#info">Link text</sbb-menu-action>
 ```

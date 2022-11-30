@@ -23,9 +23,6 @@ You can either use slots or props to render the `sbb-teaser-hero` component.
 </sbb-teaser-hero>
 ```
 
-
-
-
 <!-- Auto Generated Below -->
 
 

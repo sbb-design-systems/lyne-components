@@ -15,7 +15,6 @@ Example prop:
                 dotSize: 'small',
               }}
 
-
 ``` html
   <sbb-pearl-chain-vertical-item  pearlChainVerticalItemAttributes={args}>
     <div slot="right">content</div>

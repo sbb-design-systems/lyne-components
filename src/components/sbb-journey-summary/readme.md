@@ -4,7 +4,8 @@ The component has a unnamed slot where other elements can be added, i.e. buttons
 
 ## Usage
 The Example below shows how to render the component with a button in the slot. To be displayed correctly, the config prop has to include almost all probierties mentioned in the table below. It is important that the arrival and departure properties consist of an valid ISO 8601 date string. If this is not the case, the times and the date will not be displayed
-```
+
+```html
 <sbb-journey-summary config={config}><sbb-button /></sbb-journey-summary>
 ```
 <!-- Auto Generated Below -->

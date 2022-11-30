@@ -7,16 +7,19 @@ It's also possible to set the `<sbb-button>` manually into static state by apply
 
 ## Usage
 Simple button
+
 ```html
 <sbb-button>Button text</sbb-button>
 ```
 
 Button with icon
+
 ```html
 <sbb-button icon-name="info">Button text</sbb-button>
 ```
 
 Button with slotted icon
+
 ```html
 <sbb-button>
   <sbb-icon slot="icon" name="info"></sbb-icon>

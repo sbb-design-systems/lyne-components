@@ -19,16 +19,19 @@ The component can be used within a `<sbb-form-field>` component.
 
 ## Usage
 Simple slider with default range and icons:
+
 ```html
 <sbb-slider value="40" start-icon="circle-minus-small" end-icon="circle-plus-small"></sbb-slider>
 ```
 
 Slider with no icons and custom range:
+
 ```html
 <sbb-slider max="5" min="1" value="5"></sbb-slider>
 ```
 
 Slider inside a `<sbb-form-field>`:
+
 ```html
 <sbb-form-field label="Slider">
   <sbb-slider value="0"></sbb-slider>
