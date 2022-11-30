@@ -75,7 +75,7 @@ export class SbbTrainFormation {
           this._formationDiv = el;
         }}
       >
-        <slot onSlotchange={this._onSlotChange.bind(this)} />
+        <slot onSlotchange={() => this._onSlotChange()} />
       </div>
     );
   }

@@ -20,7 +20,7 @@ export class SbbTrain {
   /** Accessibility label for additional information regarding the leaving direction of the train. */
   @Prop() public accessibilityLabel? = '';
 
-  /** Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.  */
+  /** Controls the direction indicator to show the arrow left or right. Default is left.  */
   @Prop({ reflect: true }) public direction: InterfaceSbbTrainAttributes['direction'] = 'left';
 
   /**
