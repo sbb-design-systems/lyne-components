@@ -85,6 +85,13 @@ to describe the element on which the attribute is set.
 | `value`                    | `value`                     | Value of checkbox.                                                                                                                                  | `string`           | `undefined`                  |
 
 
+## Events
+
+| Event    | Description | Type               |
+| -------- | ----------- | ------------------ |
+| `change` |             | `CustomEvent<any>` |
+
+
 ## Slots
 
 | Slot        | Description                                    |

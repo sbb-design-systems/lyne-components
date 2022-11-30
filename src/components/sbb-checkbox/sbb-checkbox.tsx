@@ -1,5 +1,15 @@
-import { Component, Prop, h, JSX, Element, State, ComponentInterface, Listen } from '@stencil/core';
-import { forwardEventToHost } from '../../global/helpers/forward-event';
+import {
+  Component,
+  Prop,
+  h,
+  JSX,
+  Element,
+  State,
+  ComponentInterface,
+  Listen,
+  Event,
+  EventEmitter,
+} from '@stencil/core';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import {
@@ -12,6 +22,7 @@ import {
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
 import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
+import { forwardEventToHost } from '../../global/helpers/forward-event';
 
 let nextId = 0;
 
@@ -87,6 +98,8 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
+
+  @Event({ bubbles: true, cancelable: true }) public change: EventEmitter;
 
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {

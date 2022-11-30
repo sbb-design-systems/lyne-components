@@ -1739,6 +1739,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbCheckboxCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbCheckboxElement;
+}
 export interface SbbDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbDialogElement;
@@ -2735,6 +2739,7 @@ declare namespace LocalJSX {
           * Whether the checkbox is indeterminate.
          */
         "indeterminate"?: boolean;
+        "onChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
         /**
           * Whether the checkbox is required.
          */
