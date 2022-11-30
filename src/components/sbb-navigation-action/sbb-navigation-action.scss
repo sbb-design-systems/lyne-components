@@ -3,15 +3,7 @@
 @include host-component-properties;
 
 :host {
-  --sbb-navigation-action-l: var(--sbb-typo-scale-1-25x);
-  --sbb-navigation-action-m: var(--sbb-typo-scale-0-875x);
-  --sbb-navigation-action-s: var(sbb-typo-scale-0-75x);
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
-
-  @include mq($from: medium) {
-    --sbb-navigation-action-l: var(--sbb-typo-scale-1-5x);
-    --sbb-navigation-action-m: var(--sbb-typo-scale-default);
-  }
 }
 
 :host(:focus-within) {
@@ -30,8 +22,7 @@
 }
 
 .sbb-navigation-action__content {
-  @include text--bold;
-  @include ellipsis;
+  @include title-4;
 
   display: flex;
   align-items: center;
@@ -39,14 +30,13 @@
   -webkit-tap-highlight-color: transparent;
   margin-inline-start: var(--sbb-navigation-margin-inline-start);
   transition-duration: var(--sbb-animation-duration-3x);
-  font-size: var(--sbb-navigation-action-l);
-
-  :host([size='s']) .sbb-navigation-action & {
-    font-size: var(--sbb-navigation-action-s);
-  }
 
   :host([size='m']) .sbb-navigation-action & {
-    font-size: var(--sbb-navigation-action-m);
+    @include text-s--bold;
+  }
+
+  :host([size='s']) .sbb-navigation-action & {
+    @include text-xxs--bold;
   }
 
   :host([active]) .sbb-navigation-action & {
