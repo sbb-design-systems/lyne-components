@@ -1,11 +1,52 @@
 # sbb-train-formation
 The sbb-train-formation is the top container element for wrapping sbb-train´s. The sbb-train-formation has no properties.
 It applies the possible scrollable-width to every given sbb-train as css var (--sbb-train-direction-width) 
-initialy and on resize.
+initially and on resize.
 
 ```html
 <sbb-train-formation>
-<slot/>
+  <sbb-train
+    direction-label="Direction of travel"
+    station="Bern"
+    direction="left"
+    accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction."
+  >
+    <sbb-sector label="Sector A">
+      <sbb-wagon
+        type="locomotive"
+        accessibility-label-wagon="Locomotive"
+        accessibility-additional-wagon-text="Top of the train"
+      ></sbb-wagon>
+      <sbb-wagon type="blocked" accessibility-label-wagon="Passage blocked"></sbb-wagon>
+      <sbb-wagon
+        type="wagon"
+        accessibility-label-wagon="Train coach number"
+        label="38"
+        accessibility-label-occupation="Expected occupancy low"
+        occupancy="low"
+        accessibility-label-class="First class"
+        accessibility-label-icon-list-title="Additional wagon information"
+        wagon-class="1"
+      >
+        <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
+        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+        <sbb-icon
+          aria-hidden="false"
+          aria-label="Business zone in 1st class: Reservation possible"
+          name="sa-bz"
+        ></sbb-icon>
+      </sbb-wagon>
+    </sbb-sector>
+    ...
+  </sbb-train>
+  <sbb-train
+    direction-label="Direction of travel"
+    station="Luzern"
+    direction="left"
+    accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction."
+  >
+    ...
+  </sbb-train>
 </sbb-train-formation>
 ```
 
@@ -20,5 +61,3 @@ initialy and on resize.
 
 
 ----------------------------------------------
-
-

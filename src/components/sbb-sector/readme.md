@@ -2,10 +2,8 @@
 A sbb-sector is a container element for the one to three sbb-wagon. It is used inside the sbb-train element.
 
 ```html
-<!-- Emtpy/no content sector -->
-<sbb-sector label="Sector A">
-<slot/>
-</sbb-sector>
+<!-- Empty/no content sector -->
+<sbb-sector label="Sector A"></sbb-sector>
 
 <!-- Slotted/with content sector -->
 <sbb-sector label="Sector E">
@@ -45,5 +43,3 @@ A sbb-sector is a container element for the one to three sbb-wagon. It is used i
 
 
 ----------------------------------------------
-
-
