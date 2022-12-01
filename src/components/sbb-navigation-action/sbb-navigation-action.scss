@@ -52,6 +52,8 @@
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
     @include focusOutline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
   @include hover-mq($hover: true) {
