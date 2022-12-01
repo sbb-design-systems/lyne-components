@@ -133,7 +133,7 @@
 }
 
 .card-product__lead {
-  @include sbb.title-6(true);
+  @include sbb.title-6($exclude-spacing: true);
 }
 
 .card-product__category,
