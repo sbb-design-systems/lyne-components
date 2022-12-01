@@ -9,10 +9,11 @@ import {
   Method,
   Prop,
   State,
-  Watch,
+  Watch
 } from '@stencil/core';
-import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
+import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { isEventOnElement } from '../../global/helpers/position';
 import { i18nCloseDialog } from '../../global/i18n';
 
 /**
@@ -88,6 +89,7 @@ export class SbbNavigation {
   private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
   private _currentLanguage = getDocumentLang();
+  private _isPointerDownEventOnDialog: boolean;
 
   @Element() private _element: HTMLElement;
 
@@ -210,9 +212,29 @@ export class SbbNavigation {
     }
   }
 
+  // Check if the pointerdown event target is triggered on the dialog.
+  private _pointerDownListener = (event: PointerEvent): void => {
+    this._isPointerDownEventOnDialog = isEventOnElement(this._dialog, event);
+  };
+
+  // Close dialog on backdrop click.
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
+    if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._dialog, event)) {
+      this.close();
+    }
+  };
+
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+
+    // Close dialog on backdrop click
+    this._element.addEventListener('pointerdown', this._pointerDownListener, {
+      signal: this._navigationController.signal,
+    });
+    this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
+      signal: this._navigationController.signal,
+    });
   }
 
   public disconnectedCallback(): void {
